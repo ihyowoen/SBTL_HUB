@@ -123,7 +123,7 @@ function ChatBot({dark}){
     if(/(최신|뉴스|소식|현황|지금|오늘|어제|이번|최근|검색|찾아|가격|시세)/.test(t)){setMode("Brave 검색");const br=await searchBrave(t);if(br){setMsgs(p=>[...p,{role:"assistant",content:br,tier:"brave"}]);setLoading(false);return;}}
     setMode("AI 분석");const cl=await callClaude(nm);setMsgs(p=>[...p,{role:"assistant",content:cl||"응답 실패",tier:"claude"}]);setLoading(false);};
   const qQ=["테슬라 LFP 계약?","FEOC가 뭐야?","알루미늄 가격?","ESS 골드러시?","최신 배터리 뉴스"];
-  return (<div style={{display:"flex",flexDirection:"column",height:"calc(100vh - 140px)"}}>
+  return (<div style={{display:"flex",flexDirection:"column",height:"calc(100vh - 200px)"}}>
     <div style={{flex:1,overflowY:"auto",padding:"14px 14px 8px"}}>
       {msgs.length<=1&&<div style={{display:"flex",flexWrap:"wrap",gap:6,marginTop:8}}>{qQ.map(q=>(<button key={q} onClick={()=>setInput(q)} style={{background:bg,border:"1px solid "+brd,borderRadius:20,padding:"7px 12px",fontSize:12,color:tx,cursor:"pointer",fontFamily:"inherit"}}>{q}</button>))}</div>}
       {msgs.map((m,i)=>(<div key={i} style={{display:"flex",justifyContent:m.role==="user"?"flex-end":"flex-start",marginBottom:10}}>

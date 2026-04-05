@@ -25,6 +25,7 @@ const CATS = [
   { key: "webtoon", label: "TOON", icon: "🎨" },
   { key: "tracker", label: "TRCK", icon: "📊" },
   { key: "chatbot", label: "AI", icon: "🤖" },
+  { key: "translate", label: "번역", icon: "🌐" },
 ];
 
 const SC = { ACTIVE: "#F85149", UPCOMING: "#D29922", WATCH: "#388BFD", DONE: "#7D8590" };
@@ -482,6 +483,159 @@ function ChatBot({ kb, dark }) {
   );
 }
 
+const TRANSLATE_LANGS = [
+  { code: "ko", label: "한국어" },
+  { code: "en", label: "English" },
+  { code: "zh-CN", label: "中文" },
+  { code: "ja", label: "日本語" },
+  { code: "de", label: "Deutsch" },
+  { code: "fr", label: "Français" },
+  { code: "es", label: "Español" },
+];
+
+function Translator({ dark }) {
+  const t = T(dark);
+  const [sourceLang, setSourceLang] = useState("ko");
+  const [targetLang, setTargetLang] = useState("en");
+  const [sourceText, setSourceText] = useState("");
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const swap = () => {
+    setSourceLang(targetLang);
+    setTargetLang(sourceLang);
+    setSourceText(result);
+    setResult(sourceText);
+  };
+
+  const translate = async () => {
+    const txt = sourceText.trim();
+    if (!txt || loading) return;
+    setLoading(true);
+    setError("");
+    setResult("");
+    try {
+      const r = await fetch("/api/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: txt, sourceLang, targetLang }),
+      });
+      const d = await r.json();
+      if (r.ok && d.translatedText) {
+        setResult(d.translatedText);
+      } else {
+        setError(d.error || "번역 실패");
+      }
+    } catch {
+      setError("네트워크 오류가 발생했어요.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copyResult = () => {
+    if (!result) return;
+    navigator.clipboard.writeText(result).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }).catch(() => {});
+  };
+
+  const selectStyle = {
+    flex: 1,
+    padding: "8px 10px",
+    borderRadius: 10,
+    border: `1px solid ${t.brd}`,
+    background: t.card2,
+    color: t.tx,
+    fontSize: 13,
+    outline: "none",
+    fontFamily: "'Pretendard',sans-serif",
+    appearance: "none",
+    WebkitAppearance: "none",
+    cursor: "pointer",
+  };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", height: "calc(100vh - 190px)", padding: "14px 14px 0" }}>
+      {/* Language selectors */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+        <select value={sourceLang} onChange={(e) => setSourceLang(e.target.value)} style={selectStyle}>
+          {TRANSLATE_LANGS.map((l) => <option key={l.code} value={l.code}>{l.label}</option>)}
+        </select>
+        <button onClick={swap} style={{ background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`, borderRadius: 10, width: 38, height: 38, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16, color: t.cyan, flexShrink: 0 }} title="언어 바꾸기">⇄</button>
+        <select value={targetLang} onChange={(e) => setTargetLang(e.target.value)} style={selectStyle}>
+          {TRANSLATE_LANGS.map((l) => <option key={l.code} value={l.code}>{l.label}</option>)}
+        </select>
+      </div>
+
+      {/* Source text input */}
+      <div style={{ position: "relative", marginBottom: 10 }}>
+        <textarea
+          value={sourceText}
+          onChange={(e) => setSourceText(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter" && e.metaKey) translate(); }}
+          placeholder="번역할 텍스트를 입력하세요"
+          style={{
+            width: "100%", minHeight: 120, padding: "12px 14px", borderRadius: 12,
+            border: `1px solid ${t.brd}`, background: t.card2, color: t.tx,
+            fontSize: 14, lineHeight: 1.6, outline: "none", resize: "vertical",
+            fontFamily: "'Pretendard',sans-serif", boxSizing: "border-box",
+          }}
+        />
+        {sourceText && (
+          <button onClick={() => { setSourceText(""); setResult(""); }} style={{ position: "absolute", top: 8, right: 8, background: "transparent", border: "none", color: t.sub, cursor: "pointer", fontSize: 14, padding: 4 }} title="지우기">✕</button>
+        )}
+        <div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace", textAlign: "right" }}>
+          {sourceText.length} / 5000
+        </div>
+      </div>
+
+      {/* Translate button */}
+      <button onClick={translate} disabled={loading || !sourceText.trim()} style={{
+        padding: "12px", borderRadius: 12, border: "none",
+        background: loading || !sourceText.trim() ? (dark ? "#21293A" : "#E0E3EA") : t.cyan,
+        color: loading || !sourceText.trim() ? t.sub : "#000",
+        fontWeight: 800, cursor: loading || !sourceText.trim() ? "default" : "pointer",
+        fontSize: 14, fontFamily: "'Pretendard',sans-serif", marginBottom: 10,
+      }}>
+        {loading ? "번역 중..." : "번역하기"}
+      </button>
+
+      {/* Error message */}
+      {error && (
+        <div style={{ padding: "10px 14px", borderRadius: 10, background: "#F8514920", border: "1px solid #F85149", color: "#F85149", fontSize: 12, marginBottom: 10 }}>
+          {error}
+        </div>
+      )}
+
+      {/* Translation result */}
+      <div style={{
+        flex: 1, position: "relative", minHeight: 120, padding: "12px 14px",
+        borderRadius: 12, border: `1px solid ${t.brd}`,
+        background: dark ? "#151B26" : "#f8f9fc",
+        color: result ? t.tx : t.sub, fontSize: 14, lineHeight: 1.6,
+        fontFamily: "'Pretendard',sans-serif", overflowY: "auto",
+        whiteSpace: "pre-wrap", wordBreak: "keep-all",
+      }}>
+        {result || (loading ? "" : "번역 결과가 여기에 표시됩니다")}
+        {result && (
+          <button onClick={copyResult} style={{
+            position: "absolute", top: 8, right: 8,
+            background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`,
+            borderRadius: 8, padding: "4px 10px", fontSize: 11, color: copied ? "#3FB950" : t.cyan,
+            cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 600,
+          }}>
+            {copied ? "✓ 복사됨" : "복사"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function Tracker({ tracker, dark }) {
   const t = T(dark);
   const d = tracker;
@@ -667,12 +821,13 @@ export default function App() {
     return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: t.bg, color: t.sub }}>Loading...</div>;
   }
 
-  const headerTitle = { news: "날짜별 시그널 피드", tracker: "Policy Tracker", chatbot: "강차장의 배터리 상담소", webtoon: "웹툰 라이브러리" }[tab];
+  const headerTitle = { news: "날짜별 시그널 피드", tracker: "Policy Tracker", chatbot: "강차장의 배터리 상담소", webtoon: "웹툰 라이브러리", translate: "번역기" }[tab];
   const headerSub = {
     news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`,
     tracker: `Items ${tracker.meta.totalItems} · LAST CHECKED ${fmtDate(tracker.meta.lastUpdated)}`,
     chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크",
     webtoon: `${WEBTOON_COLLECTIONS.length} SERIES`,
+    translate: "한국어 · 영어 · 중국어 · 일본어 등 다국어 번역",
   }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
 
   return (
@@ -701,6 +856,7 @@ export default function App() {
       {tab === "chatbot" && <ChatBot kb={kb} dark={dark} />}
       {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} dark={dark} /></div>}
       {tab === "webtoon" && <WebtoonLibrary dark={dark} />}
+      {tab === "translate" && <Translator dark={dark} />}
 
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", padding: "6px 0 8px" }}>
         {CATS.map((cat) => {

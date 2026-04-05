@@ -176,6 +176,7 @@ function detectDate(txt) {
 function searchCards(cards, query, limit = 5) {
   const ws = query.toLowerCase().replace(/[?!.,]/g, " ").split(/\s+/).filter((w) => w.length >= 2);
   if (!ws.length) return [];
+  const now = Date.now();
   return cards
     .map((c) => {
       let score = 0;
@@ -191,10 +192,25 @@ function searchCards(cards, query, limit = 5) {
       }
       if (c.s === "t") score += 3;
       if (c.s === "h") score += 2;
+      // Freshness bonus: recent cards get a small boost
+      if (c.d) {
+        const ds = String(c.d).replace(/\./g, "-");
+        const cardMs = new Date(ds).getTime();
+        if (!isNaN(cardMs)) {
+          const days = (now - cardMs) / 86400000;
+          if (days <= 7) score += 3;
+          else if (days <= 30) score += 1;
+        }
+      }
       return { ...c, _score: score };
     })
     .filter((c) => c._score > 0)
-    .sort((a, b) => b._score - a._score)
+    .sort((a, b) => {
+      const diff = b._score - a._score;
+      if (diff !== 0) return diff;
+      // Tie-break: most recent date first
+      return String(b.d || "").localeCompare(String(a.d || ""));
+    })
     .slice(0, limit);
 }
 
@@ -268,6 +284,40 @@ async function fetchBraveResults(query) {
       results: []
     };
   }
+}
+
+function parseOrdinal(str) {
+  const s = str.replace(/\s+/g, "");
+  if (s === "첫번째" || s === "1번") return 0;
+  if (s === "두번째" || s === "2번") return 1;
+  if (s === "세번째" || s === "3번") return 2;
+  if (s === "네번째" || s === "4번") return 3;
+  return 0;
+}
+
+function resolveFollowUp(txt, ctx) {
+  if (!ctx) return null;
+  const l = txt.toLowerCase();
+
+  const ordinalMatch = l.match(/(첫\s*번째|두\s*번째|세\s*번째|네\s*번째|1번|2번|3번|4번)/);
+  if (ordinalMatch) {
+    const idx = parseOrdinal(ordinalMatch[1]);
+    const pool = ctx.lastLinks?.length ? ctx.lastLinks : ctx.lastCards;
+    if (pool && pool[idx]) return { type: "selected", item: pool[idx] };
+  }
+
+  if (/(그\s*기사|방금|직전|저\s*카드|그\s*카드|아까\s*그)/.test(l)) {
+    if (ctx.selected) return { type: "selected", item: ctx.selected };
+    const pool = ctx.lastLinks?.length ? ctx.lastLinks : ctx.lastCards;
+    if (pool?.length === 1) return { type: "selected", item: pool[0] };
+    if (pool?.length) return { type: "list", items: pool };
+  }
+
+  if (/(더\s*찾|더\s*보여|관련.*더)/.test(l)) {
+    return { type: "expand", context: ctx };
+  }
+
+  return null;
 }
 
 function detectRegion(txt) {
@@ -496,7 +546,7 @@ function ChatBot({ kb, tracker, dark }) {
   const [loading, setLoading] = useState(false);
   const endRef = useRef(null);
   const depthRef = useRef(0);
-  const lastCtxRef = useRef({ qType: null, region: null, date: null, cards: [], links: [], query: "" });
+  const lastCtxRef = useRef({ qType: null, region: null, date: null, cards: [], links: [], query: "", selected: null, lastCards: [], lastLinks: [] });
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -560,6 +610,58 @@ function ChatBot({ kb, tracker, dark }) {
     setInput("");
     setMsgs((prev) => [...prev, { role: "user", content: txt }]);
 
+    // Follow-up resolution: check if the message refers to a previous card/link
+    const followUp = resolveFollowUp(txt, lastCtxRef.current);
+    if (followUp) {
+      depthRef.current += 1;
+      if (followUp.type === "selected") {
+        const item = followUp.item;
+        const isLink = !!item.url && !item.T;
+        const title = item.title || item.T || "";
+        const desc = item.subtitle || item.sub || item.description || "";
+        const gist = item.gist || item.g || "";
+        const content = `📌 선택된 항목:\n${title}${desc ? "\n" + desc : ""}${gist ? "\n\n💡 " + gist : ""}${item.url ? "\n\n→ " + item.url : ""}`;
+        updateCtx({ selected: item });
+        setMsgs((prev) => [...prev, {
+          role: "assistant",
+          content,
+          ...(item.url ? { braveLinks: [{ title, description: desc, url: item.url }] } : {}),
+          suggestions: [{ label: "왜 중요한지 설명해줘" }, { label: "관련 카드 더 보여줘" }, { label: "요약해서 다시 정리" }],
+        }]);
+        setLoading(false);
+        return;
+      }
+      if (followUp.type === "list") {
+        const items = followUp.items;
+        const lines = items.map((it, i) => `${i + 1}. ${it.title || it.T || ""}`).join("\n");
+        setMsgs((prev) => [...prev, {
+          role: "assistant",
+          content: `어떤 항목을 말하는 거야?\n\n${lines}`,
+          suggestions: items.slice(0, 4).map((it, i) => ({ label: `${i + 1}번째` })),
+        }]);
+        setLoading(false);
+        return;
+      }
+      if (followUp.type === "expand") {
+        const ctx = followUp.context;
+        const expandQuery = ctx.query || txt;
+        const expandRegion = ctx.region;
+        const more = searchCards(kb.cards, expandQuery, 5);
+        if (more.length) {
+          updateCtx({ lastCards: more });
+          setMsgs((prev) => [...prev, {
+            role: "assistant",
+            content: `"${expandQuery}" 관련 카드를 더 찾았어.`,
+            cards: more.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
+            sourceBadge: "internal",
+            suggestions: [{ label: "외부 기사 링크 검색" }, { label: "요약해서 다시 정리" }],
+          }]);
+          setLoading(false);
+          return;
+        }
+      }
+    }
+
     const qType = classifyQuestion(txt);
     const region = detectRegion(txt) || (/(방금|이전|직전|아까)/.test(txt) ? lastCtxRef.current.region : null);
     const targetDate = detectDate(txt);
@@ -581,19 +683,23 @@ function ChatBot({ kb, tracker, dark }) {
 
       // Handle Brave API errors
       if (braveResponse.error) {
+        // Log error details for debugging
+        console.warn("[Brave] API error:", braveResponse.errorType, "|", braveResponse.errorMessage, "| status:", braveResponse.statusCode);
+
         const errorMessages = {
-          'UNAUTHORIZED': '⚠️ 외부 검색 API 인증 오류가 발생했어.\n내부 카드에서 관련 내용을 찾아볼게.',
-          'FORBIDDEN': '⚠️ 외부 검색 접근 권한이 없어.\n내부 카드로 대체할게.',
-          'RATE_LIMIT': '⚠️ 외부 검색 요청 한도를 초과했어.\n잠시 후 다시 시도하거나, 내부 카드를 확인해봐.',
-          'SERVER_ERROR': '⚠️ 외부 검색 서버에 일시적인 문제가 있어.\n내부 카드로 대체할게.',
-          'NETWORK_ERROR': '⚠️ 외부 검색 서비스에 연결할 수 없어.\n내부 카드를 확인해봐.',
+          UNAUTHORIZED: "⚠️ 외부 검색 API 인증에 문제가 있어. 관리자에게 확인이 필요해. 내부 카드로 대체할게.",
+          FORBIDDEN: "⚠️ 외부 검색 API 인증에 문제가 있어. 관리자에게 확인이 필요해. 내부 카드로 대체할게.",
+          RATE_LIMIT: "⚠️ 외부 검색 요청이 많아서 잠시 제한됐어. 잠시 후 다시 시도하거나 내부 카드를 확인해봐.",
+          SERVER_ERROR: "⚠️ 외부 검색 서버에 일시적인 문제가 있어. 내부 카드로 대체할게.",
+          NETWORK_ERROR: "⚠️ 외부 검색 서비스에 연결할 수 없어. 네트워크를 확인하거나 내부 카드를 확인해봐.",
         };
 
-        const errorMsg = errorMessages[braveResponse.errorType] || '⚠️ 외부 검색 중 문제가 발생했어.\n내부 카드로 대체할게.';
+        const errorMsg = errorMessages[braveResponse.errorType] || "⚠️ 외부 검색 중 문제가 발생했어. 내부 카드로 대체할게.";
 
         // Fallback to internal cards with error context
         const cards = latestCards(kb.cards, 3, region, targetDate);
         if (cards.length) {
+          updateCtx({ lastCards: cards });
           setMsgs((prev) => [...prev, {
             role: "assistant",
             content: `${errorMsg}\n\n관련 내부 카드를 찾았어.`,
@@ -616,9 +722,10 @@ function ChatBot({ kb, tracker, dark }) {
       if (braveResponse.noResults) {
         const cards = latestCards(kb.cards, 3, region, targetDate);
         if (cards.length) {
+          updateCtx({ lastCards: cards });
           setMsgs((prev) => [...prev, {
             role: "assistant",
-            content: "외부 기사를 찾지 못했어.\n대신 관련 내부 카드를 찾았어.",
+            content: "해당 주제의 외부 기사를 찾지 못했어. 검색어를 바꿔보거나 내부 카드를 확인해봐.",
             cards: cards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
             sourceBadge: "internal",
             suggestions: [{ label: "검색어 바꿔보기" }, { label: "관련 카드 더 보여줘" }],
@@ -626,7 +733,7 @@ function ChatBot({ kb, tracker, dark }) {
         } else {
           setMsgs((prev) => [...prev, {
             role: "assistant",
-            content: "외부 기사를 찾지 못했어.\n검색어를 바꿔보거나, 다른 주제를 물어봐.",
+            content: "해당 주제의 외부 기사를 찾지 못했어. 검색어를 바꿔보거나 내부 카드를 확인해봐.",
             suggestions: [{ label: "오늘 핵심 카드" }, { label: "최근 시그널 TOP" }],
           }]);
         }
@@ -637,7 +744,7 @@ function ChatBot({ kb, tracker, dark }) {
       // Success: display external results
       if (braveResponse.results.length) {
         const lines = braveResponse.results.map((r, i) => `${i + 1}. ${r.title}\n   ${r.description?.slice(0, 80) || ""}`).join("\n\n");
-        updateCtx({ qType: "news", links: braveResponse.results });
+        updateCtx({ qType: "news", links: braveResponse.results, lastLinks: braveResponse.results, selected: braveResponse.results[0] });
         setMsgs((prev) => [...prev, {
           role: "assistant",
           content: `외부 기사 검색 결과야.\n\n${lines}`,
@@ -677,6 +784,7 @@ function ChatBot({ kb, tracker, dark }) {
       const effectiveDate = targetDate || todayStr;
       const cards = latestCards(kb.cards, 3, region, effectiveDate);
       if (cards.length) {
+        updateCtx({ lastCards: cards, selected: cards[0] });
         setMsgs((prev) => [...prev, buildCardMessage(cards, "news", effectiveDate)]);
         setLoading(false);
         return;
@@ -692,20 +800,35 @@ function ChatBot({ kb, tracker, dark }) {
         .sort((a, b) => String(a.dt || "").localeCompare(String(b.dt || "")))
         .slice(0, 5);
 
-      // Enhanced: Extract relevant REGION_POLICY data
+      // Keyword-based region inference when detectRegion didn't match
+      const inferRegionFromKeywords = (t) => {
+        const l = t.toLowerCase();
+        if (/(feoc|ira|section\s*301|45x|북미|north\s*america)/.test(l)) return "US";
+        if (/(battery\s*regulation|battery\s*passport|cbam|crm\s*act|northvolt)/.test(l)) return "EU";
+        if (/(ess\s*안전|용량시장|k-배터리|전고체|리튬황|한전)/.test(l)) return "KR";
+        if (/(catl|byd|흑연\s*수출|과잉설비|lfp\s*가격)/.test(l)) return "CN";
+        if (/(gx|meti|축전|계통유연|전력정책.*일본)/.test(l)) return "JP";
+        return null;
+      };
+
+      const effectiveRegion = region || inferRegionFromKeywords(txt);
+
+      // Extract relevant REGION_POLICY data
       let policyOverview = "";
       let whyImportant = "";
       let watchpoints = [];
 
-      if (region) {
+      if (effectiveRegion) {
         const regionMap = { US: "NA", KR: "KR", CN: "CN", EU: "EU", JP: "JP" };
-        const policyKey = regionMap[region];
+        const policyKey = regionMap[effectiveRegion];
         const policyData = REGION_POLICY[policyKey];
 
         if (policyData) {
-          // Build policy overview from top policies
+          const regionLabel = { US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[effectiveRegion] || effectiveRegion;
+
+          // Build policy overview from top policies (2~4개)
           if (policyData.policies && policyData.policies.length > 0) {
-            policyOverview = `\n\n📋 ${policyData.title} 개요:\n`;
+            policyOverview = `📋 ${regionLabel} 정책 개요\n`;
             policyData.policies.slice(0, 3).forEach((p) => {
               policyOverview += `• ${p.name}: ${p.desc}\n`;
             });
@@ -713,7 +836,7 @@ function ChatBot({ kb, tracker, dark }) {
 
           // Add why important
           if (policyData.why) {
-            whyImportant = `\n⚡ 왜 중요한지:\n${policyData.why}`;
+            whyImportant = `\n⚡ 왜 중요한지\n${policyData.why}`;
           }
 
           // Add watchpoints
@@ -725,35 +848,64 @@ function ChatBot({ kb, tracker, dark }) {
 
       let content = "";
 
-      // Schedule section
-      if (upcoming.length) {
-        content = "다가오는 정책 일정을 정리했어.\n\n";
-        upcoming.forEach((item) => {
-          const rName = TRACKER_REGION[item.r]?.name || item.r || "";
-          content += `📅 ${fmtDate(item.dt)} — ${item.t} (${rName})\n`;
+      // If region detected: structured response (overview + why + watchpoints first, schedule after)
+      if (effectiveRegion && policyOverview) {
+        content = policyOverview;
+        if (whyImportant) content += whyImportant;
+        if (watchpoints.length > 0) {
+          content += `\n\n👁️ 주요 관전 포인트\n`;
+          watchpoints.forEach((w) => { content += `• ${w}\n`; });
+        }
+        // Add relevant upcoming schedule items for this region
+        const regionTrackerKey = { US: "NA", KR: "KR", CN: "CN", EU: "EU", JP: "JP" }[effectiveRegion];
+        const regionUpcoming = upcoming.filter((i) => i.r === regionTrackerKey || i.r === effectiveRegion);
+        if (regionUpcoming.length) {
+          content += `\n📅 다가오는 일정\n`;
+          regionUpcoming.slice(0, 3).forEach((item) => {
+            content += `• ${fmtDate(item.dt)} — ${item.t}\n`;
+          });
+        }
+      } else if (!effectiveRegion) {
+        // No region detected: show brief overview of all regions + region quick-select buttons
+        content = "어떤 지역 정책이 궁금해? 아래에서 선택해줘.\n\n";
+        const regionKeys = [{ key: "NA", label: "미국 🇺🇸" }, { key: "EU", label: "유럽 🇪🇺" }, { key: "KR", label: "한국 🇰🇷" }, { key: "CN", label: "중국 🇨🇳" }, { key: "JP", label: "일본 🇯🇵" }];
+        regionKeys.forEach(({ key, label }) => {
+          const pd = REGION_POLICY[key];
+          if (pd) content += `${label}: ${pd.why || pd.policies?.[0]?.desc || ""}\n`;
         });
-        if (region) content += `\n${({ US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[region] || "")} 관련 일정을 중심으로 정리했어.`;
-      }
 
-      // Add policy overview and why important
-      if (policyOverview) content += policyOverview;
-      if (whyImportant) content += whyImportant;
-
-      // Add watchpoints
-      if (watchpoints.length > 0) {
-        content += `\n\n👁️ 주요 관전 포인트:\n`;
-        watchpoints.forEach((w) => {
-          content += `• ${w}\n`;
-        });
+        depthRef.current += 1;
+        updateCtx({ qType: "policy", region: null });
+        setMsgs((prev) => [...prev, {
+          role: "assistant",
+          content,
+          suggestions: [
+            { label: "미국 정책 설명해줘" },
+            { label: "EU 정책 설명해줘" },
+            { label: "한국 정책 설명해줘" },
+            { label: "중국 정책 설명해줘" },
+          ],
+        }]);
+        setLoading(false);
+        return;
+      } else {
+        // Schedule section as fallback when no structured policy data
+        if (upcoming.length) {
+          content = "다가오는 정책 일정을 정리했어.\n\n";
+          upcoming.forEach((item) => {
+            const rName = TRACKER_REGION[item.r]?.name || item.r || "";
+            content += `📅 ${fmtDate(item.dt)} — ${item.t} (${rName})\n`;
+          });
+        }
       }
 
       if (policyCards.length) {
         if (!content) content = "관련 정책 카드를 찾았어.\n";
         depthRef.current += 1;
-        updateCtx({ qType: "policy", cards: policyCards, region });
+        updateCtx({ qType: "policy", cards: policyCards, region: effectiveRegion, lastCards: policyCards });
         setMsgs((prev) => [...prev, {
           role: "assistant",
-          content,
+          content: content + "\n\n📰 관련 카드",
           cards: policyCards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
           suggestions: makeSuggestions("policy"),
         }]);
@@ -762,7 +914,7 @@ function ChatBot({ kb, tracker, dark }) {
       }
       if (content) {
         depthRef.current += 1;
-        updateCtx({ qType: "policy", region });
+        updateCtx({ qType: "policy", region: effectiveRegion });
         setMsgs((prev) => [...prev, { role: "assistant", content, suggestions: makeSuggestions("policy") }]);
         setLoading(false);
         return;
@@ -773,6 +925,7 @@ function ChatBot({ kb, tracker, dark }) {
     if (qType === "summary") {
       const cardHits = searchCards(kb.cards, txt, 3);
       if (cardHits.length) {
+        updateCtx({ lastCards: cardHits, selected: cardHits[0] });
         setMsgs((prev) => [...prev, buildCardMessage(cardHits, "summary", targetDate)]);
         setLoading(false);
         return;
@@ -783,6 +936,7 @@ function ChatBot({ kb, tracker, dark }) {
     if (qType === "compare") {
       const cardHits = searchCards(kb.cards, txt, 4);
       if (cardHits.length) {
+        updateCtx({ lastCards: cardHits, selected: cardHits[0] });
         setMsgs((prev) => [...prev, buildCardMessage(cardHits, "compare", targetDate)]);
         setLoading(false);
         return;
@@ -792,6 +946,7 @@ function ChatBot({ kb, tracker, dark }) {
     // General card search
     const cardHits = searchCards(kb.cards, txt, 4);
     if (cardHits.length) {
+      updateCtx({ lastCards: cardHits, selected: cardHits[0] });
       setMsgs((prev) => [...prev, buildCardMessage(cardHits, qType, targetDate)]);
       setLoading(false);
       return;

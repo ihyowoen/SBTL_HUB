@@ -176,6 +176,7 @@ function detectDate(txt) {
 function searchCards(cards, query, limit = 5) {
   const ws = query.toLowerCase().replace(/[?!.,]/g, " ").split(/\s+/).filter((w) => w.length >= 2);
   if (!ws.length) return [];
+  const now = Date.now();
   return cards
     .map((c) => {
       let score = 0;
@@ -191,13 +192,23 @@ function searchCards(cards, query, limit = 5) {
       }
       if (c.s === "t") score += 3;
       if (c.s === "h") score += 2;
+      // Freshness bonus: recent cards get a small boost
+      if (c.d) {
+        const ds = String(c.d).replace(/\./g, "-");
+        const cardMs = new Date(ds).getTime();
+        if (!isNaN(cardMs)) {
+          const days = (now - cardMs) / 86400000;
+          if (days <= 7) score += 3;
+          else if (days <= 30) score += 1;
+        }
+      }
       return { ...c, _score: score };
     })
     .filter((c) => c._score > 0)
     .sort((a, b) => {
-      // Primary sort by score
-      if (b._score !== a._score) return b._score - a._score;
-      // Tie-break by recency (date descending)
+      const diff = b._score - a._score;
+      if (diff !== 0) return diff;
+      // Tie-break: most recent date first
       return String(b.d || "").localeCompare(String(a.d || ""));
     })
     .slice(0, limit);

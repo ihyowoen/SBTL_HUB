@@ -452,7 +452,7 @@ function ChatBot({ kb, tracker, dark }) {
       if (foreignCards.length) {
         const depth = depthRef.current;
         depthRef.current += 1;
-        const gistLines = foreignCards.map((c) => `• ${c.T}\n  → ${c.g || c.sub || ""}`).join("\n\n");
+        const gistLines = foreignCards.map((c) => c.g ? `• ${c.T}\n  → ${c.g}` : `• ${c.T}`).join("\n\n");
         setMsgs((prev) => [...prev, {
           role: "assistant",
           content: `최근 해외 기사의 한국어 분석이야.\n\n${gistLines}`,
@@ -610,7 +610,7 @@ function ChatBot({ kb, tracker, dark }) {
                     {card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}
                   </>);
                   return card.url
-                    ? <a key={j} href={card.url} target="_blank" rel="noopener noreferrer" style={cardStyle}>{cardContent}</a>
+                    ? <a key={j} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} style={cardStyle}>{cardContent}</a>
                     : <div key={j} style={cardStyle}>{cardContent}</div>;
                 })}
                 {m.links?.map((link, j) => (

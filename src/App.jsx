@@ -217,8 +217,12 @@ function followUps(type, depth = 1, ctx = null) {
   if (depth <= 1) {
     if (type === "news") {
       const base = ["요약해서 다시 정리", "관련 카드 더 보여줘"];
-      if (regionLabel) base.push(`${regionLabel} 뉴스만`);
-      else base.push("한국 뉴스만", "미국 뉴스만");
+      // Suggest other regions, not the current one
+      if (!regionLabel) base.push("한국 뉴스만", "미국 뉴스만");
+      else {
+        if (ctx?.region !== "US") base.push("미국 뉴스만");
+        if (ctx?.region !== "KR") base.push("한국 뉴스만");
+      }
       return base;
     }
     if (type === "policy") return ["다가오는 일정만", "한국/EU 비교", "실무 영향만 요약", "관련 카드 더 보여줘"];
@@ -429,7 +433,7 @@ function ChatBot({ kb, tracker, dark }) {
     } else if (textType === "compare") {
       const diffs = cards.slice(0, 3).map((c, i) => `${i + 1}. ${c.T}`).join("\n");
       content = `비교 관련 카드야.\n\n${diffs}`;
-      if (cards.length >= 2) content += `\n\n한 줄 결론: ${cards[0].T}과 ${cards[1].T}은 접근 방식이 다르지만 배터리 밸류체인에서 공통 이슈를 공유해.`;
+      if (cards.length >= 2) content += `\n\n한 줄 결론: 위 카드들은 관점이 다르지만 배터리·ESS 밸류체인에서 연결되는 이슈야. 카드를 눌러서 자세히 확인해봐.`;
     } else if (textType === "policy") {
       content = `관련 정책 카드를 정리했어.`;
     } else {
@@ -486,7 +490,7 @@ function ChatBot({ kb, tracker, dark }) {
       if (foreignCards.length) {
         depthRef.current += 1;
         const gistLines = foreignCards.map((c) => c.g ? `• ${c.T}\n  → ${c.g}` : `• ${c.T}`).join("\n\n");
-        updateCtx({ qType: "news", cards: foreignCards });
+        updateCtx({ qType, cards: foreignCards });
         setMsgs((prev) => [...prev, {
           role: "assistant",
           content: `최근 해외 기사의 한국어 분석이야.\n\n${gistLines}`,

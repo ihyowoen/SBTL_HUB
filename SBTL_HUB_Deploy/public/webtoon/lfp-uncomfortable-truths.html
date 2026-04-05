@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LFP의 불편한 진실 — SBTL Webtoon Series</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020;--card:#131a2d;--card2:#19233d;--text:#eef3ff;--sub:#99a7c2;--line:#273454;--red:#f85149;--amber:#d29922;--blue:#58a6ff;
+    }
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#07111f 0%, #0b1020 55%, #0c1325 100%);color:var(--text);font-family:"Inter","Noto Sans KR",sans-serif}
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:880px;margin:0 auto;padding:24px 16px 60px}
+    .hero{padding:28px;border:1px solid var(--line);border-radius:28px;background:radial-gradient(circle at top right, rgba(248,81,73,.18), transparent 30%), linear-gradient(135deg,#12192d 0%, #192441 100%);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(248,81,73,.14);color:#ffd9d7;font-size:12px;font-weight:800;letter-spacing:.08em}
+    h1{font-size:40px;line-height:1.15;margin:14px 0 10px;font-weight:900;letter-spacing:-0.03em}
+    .sub{max-width:680px;color:var(--sub);font-size:16px;line-height:1.7}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .chip{padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);font-size:12px;color:#c8d6f4;font-weight:700}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+    .step{padding:14px;border-radius:18px;border:1px solid var(--line);background:rgba(7,17,31,.55)}
+    .step .num{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--sub)}
+    .step .tag{margin-top:8px;font-size:12px;font-weight:900}
+    .step .title{margin-top:8px;font-size:14px;line-height:1.45;font-weight:800}
+    .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    .btn{padding:12px 16px;border-radius:14px;font-size:13px;font-weight:900;border:1px solid var(--line);background:#11192c}
+    .btn.primary{background:var(--red);border-color:transparent;color:#fff}
+    .section-title{margin:28px 0 12px;font-size:13px;font-weight:900;letter-spacing:.14em;color:var(--sub)}
+    .card{background:linear-gradient(180deg,#131a2d 0%, #10182b 100%);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+    .card-top{height:4px}
+    .card-body{padding:18px}
+    .kicker{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+    .pill{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:900;background:rgba(255,255,255,.06)}
+    .date{font-size:11px;color:var(--sub);font-weight:700}
+    .card h3{margin:0 0 8px;font-size:22px;line-height:1.3;font-weight:900}
+    .card p{margin:0;color:var(--sub);font-size:14px;line-height:1.7}
+    .card-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .smallbtn{padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:12px;font-weight:800;color:var(--text)}
+    .footer-note{margin-top:28px;padding:18px;border:1px dashed var(--line);border-radius:18px;color:var(--sub);font-size:13px;line-height:1.7;background:rgba(255,255,255,.02)}
+    @media (max-width:700px){
+      h1{font-size:31px}
+      .grid{grid-template-columns:1fr}
+      .card h3{font-size:18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">📁 FLAGSHIP SERIES</div>
+      <h1>LFP의 불편한 진실</h1>
+      <div class="sub">LFP를 둘러싼 대표적인 착각, 안전에 대한 오해, 그리고 끝날 때 비용이 누구에게 돌아가는지까지. 시리즈 단위로 한 번에 볼 수 있게 정리한 SBTL 웹툰 허브.</div>
+      <div class="chips">
+        <div class="chip">NOW LIVE</div>
+        <div class="chip">EP.1 → EP.2 → BONUS.1</div>
+        <div class="chip">SBTL Webtoon Series</div>
+      </div>
+      <div class="grid">
+        <div class="step"><div class="num">STEP 01</div><div class="tag" style="color:var(--red)">START</div><div class="title">LFP의 두 가지 착각</div></div>
+        <div class="step"><div class="num">STEP 02</div><div class="tag" style="color:var(--amber)">PART 2</div><div class="title">덜 타 보인다고, 덜 위험한 건 아니다</div></div>
+        <div class="step"><div class="num">STEP 03</div><div class="tag" style="color:var(--blue)">BONUS</div><div class="title">누가 진짜 돈을 내나?</div></div>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="/webtoon/lfp-two-misconceptions-ep1.html" target="_blank" rel="noopener noreferrer">EP.1부터 시작 ↗</a>
+        <a class="btn" href="/" rel="noopener noreferrer">허브로 돌아가기</a>
+      </div>
+    </section>
+
+    <div class="section-title">READING ORDER</div>
+
+    <article class="card">
+      <div class="card-top" style="background:linear-gradient(90deg,var(--red), rgba(248,81,73,.35))"></div>
+      <div class="card-body">
+        <div class="kicker"><span class="pill">EP.01</span><span class="pill">START</span><span class="date">2026.04.05</span></div>
+        <h3>LFP의 두 가지 착각</h3>
+        <p>“좋은 배터리냐”와 “너무 쉽게 이해해도 되느냐”는 다른 질문이다. 시리즈의 출발점이 되는 오프닝 에피소드.</p>
+        <div class="card-actions">
+          <a class="smallbtn" href="/webtoon/lfp-two-misconceptions-ep1.html" target="_blank" rel="noopener noreferrer">에피소드 열기 ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="margin-top:12px;">
+      <div class="card-top" style="background:linear-gradient(90deg,var(--amber), rgba(210,153,34,.35))"></div>
+      <div class="card-body">
+        <div class="kicker"><span class="pill">EP.02</span><span class="pill">PART 2</span><span class="date">2026.04.05</span></div>
+        <h3>덜 타 보인다고, 덜 위험한 건 아니다</h3>
+        <p>보이는 화염과 보이지 않는 off-gas 위험은 같은 말이 아니다. 안전을 어떻게 봐야 하는지 프레임을 다시 잡는 두 번째 편.</p>
+        <div class="card-actions">
+          <a class="smallbtn" href="/webtoon/lfp-two-misconceptions-ep2.html" target="_blank" rel="noopener noreferrer">에피소드 열기 ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="margin-top:12px;">
+      <div class="card-top" style="background:linear-gradient(90deg,var(--blue), rgba(88,166,255,.35))"></div>
+      <div class="card-body">
+        <div class="kicker"><span class="pill">BONUS.01</span><span class="pill">BONUS</span><span class="date">2026.04.05</span></div>
+        <h3>누가 진짜 돈을 내나?</h3>
+        <p>끝날 때 비용은 존재한다. 문제는 그 비용이 “없다”가 아니라 “누가 보이지 않게 떠안느냐”다. 본편 다음 클릭으로 자연스럽게 이어지는 보너스 편.</p>
+        <div class="card-actions">
+          <a class="smallbtn" href="/webtoon/who-pays-bonus1.html" target="_blank" rel="noopener noreferrer">에피소드 열기 ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <div class="footer-note">
+      지금 구조는 낱개 에피소드를 흩뿌리는 대신, <strong>시리즈 폴더 1개</strong> 아래에 완성본을 쌓는 방식이다. 다음에 EP.3, Bonus 2, Bonus 3이 들어와도 이 페이지에 그대로 추가하면 된다.
+    </div>
+  </div>
+</body>
+</html>

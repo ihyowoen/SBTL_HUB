@@ -31,7 +31,13 @@ const SL={ACTIVE:"ACTIVE",UPCOMING:"UPCOMING",WATCH:"WATCH",DONE:"DONE"};
 const sigC={t:"#F85149",h:"#D29922",m:"#388BFD"};
 const sigL={t:"TOP",h:"HIGH",m:"MID"};
 const regFlag={US:"🇺🇸",KR:"🇰🇷",EU:"🇪🇺",CN:"🇨🇳",JP:"🇯🇵",GL:"🌐","US/KR":"🇺🇸"};
-const fmtDate=(date)=>{if(!date)return"-";const s=String(date).replace(/\./g,"-");const parts=s.split("-");if(parts.length>=3){const[yy,mm,dd]=parts;return `${yy}.${mm}.${dd}`;}return String(date);};
+const fmtDate = (date) => {
+  if (!date) return "-";
+  const s = String(date).trim();
+  const m = s.match(/^(\d{4})[.-](\d{2})[.-](\d{2})/);
+  if (m) return `${m[1]}.${m[2]}.${m[3]}`;
+  return s;
+};
 const pct=(num,total)=>`${Math.max(0,Math.min(100,((Number(num)||0)/Math.max(1,Number(total)||0))*100))}%`;
 
 const T=(dk=true)=>dk?{

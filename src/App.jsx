@@ -140,18 +140,23 @@ function latestDate(cards) {
 }
 
 function latestCards(cards, limit = 3, region = null, targetDate = null) {
-  const ld = targetDate || latestDate(cards);
-  let list = targetDate
-    ? cards.filter((c) => c.d && String(c.d).startsWith(targetDate))
-    : cards.filter((c) => c.d === ld);
-  if (region) list = list.filter((c) => c.r === region);
+  // When region is specified, filter by region FIRST then find latest date within that subset
+  const pool = region ? cards.filter((c) => c.r === region) : cards;
   const rank = { t: 3, h: 2, m: 1, i: 0 };
-  const sorted = list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
-  if (targetDate && !sorted.length && !region) {
-    const nearby = cards.filter((c) => c.d && String(c.d) <= targetDate).sort((a, b) => String(b.d).localeCompare(String(a.d)));
+
+  if (targetDate) {
+    let list = pool.filter((c) => c.d && String(c.d).startsWith(targetDate));
+    if (list.length) return list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+    // fallback: nearest earlier date
+    const nearby = pool.filter((c) => c.d && String(c.d) <= targetDate).sort((a, b) => String(b.d).localeCompare(String(a.d)));
     return nearby.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
   }
-  return sorted;
+
+  // No targetDate: use latest date within the (possibly region-filtered) pool
+  const ld = latestDate(pool);
+  if (!ld) return pool.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+  const list = pool.filter((c) => c.d === ld);
+  return list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
 }
 
 function detectDate(txt) {
@@ -207,15 +212,27 @@ function detectRegion(txt) {
   return null;
 }
 
-function followUps(type, depth = 1) {
+function followUps(type, depth = 1, ctx = null) {
+  const regionLabel = ctx?.region ? ({ US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[ctx.region] || "") : "";
   if (depth <= 1) {
-    if (type === "news") return ["요약해서 다시 정리", "한국 뉴스만", "미국 뉴스만", "관련 카드 더 보여줘"];
+    if (type === "news") {
+      const base = ["요약해서 다시 정리", "관련 카드 더 보여줘"];
+      if (regionLabel) base.push(`${regionLabel} 뉴스만`);
+      else base.push("한국 뉴스만", "미국 뉴스만");
+      return base;
+    }
     if (type === "policy") return ["다가오는 일정만", "한국/EU 비교", "실무 영향만 요약", "관련 카드 더 보여줘"];
     if (type === "compare") return ["한 줄 결론만", "관련 카드 더 보여줘", "최신 기사 링크로 보여줘"];
     if (type === "summary") return ["조금 더 쉽게 설명해줘", "관련 카드 더 보여줘", "최신 기사 링크로 보여줘", "왜 중요한지 한 줄로"];
     return ["조금 더 쉽게 설명해줘", "관련 카드 더 보여줘", "최신 기사 링크로 보여줘", "정책 일정만 따로 정리해줘"];
   }
-  if (type === "news") return ["오늘 기준으로 다시", "미국만 따로", "중국만 따로", "링크 3개만 보여줘"];
+  // 3rd-level: context-dependent
+  if (type === "news") {
+    const items = ["오늘 기준으로 다시", "링크 3개만 보여줘"];
+    if (ctx?.region !== "US") items.push("미국만 따로");
+    if (ctx?.region !== "CN") items.push("중국만 따로");
+    return items;
+  }
   if (type === "policy") return ["다가오는 일정만", "한국/EU 비교", "실무 영향만 요약"];
   if (type === "compare") return ["쉽게 비유해서 설명", "LFP랑 비교", "왜 중요한지 한 줄로"];
   if (type === "summary") return ["왜 중요한지 한 줄로", "LFP랑 비교", "최신 기사 링크로 보여줘"];
@@ -232,6 +249,7 @@ function NewsItem({ card, dark }) {
   const sig = card.s || "i";
   const [showGist, setShowGist] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
+  const [showWhy, setShowWhy] = useState(false);
   const isForeign = card.r && card.r !== "KR";
 
   return (
@@ -245,6 +263,13 @@ function NewsItem({ card, dark }) {
       <h3 style={{ fontSize: 13, fontWeight: 700, color: t.tx, margin: 0, lineHeight: 1.45 }}>{card.T}</h3>
       {card.sub && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.45 }}>{card.sub}</p>}
       {showSummary && card.g && <p style={{ fontSize: 11, color: "#58A6FF", margin: "6px 0 0", lineHeight: 1.45, fontStyle: "italic" }}>💡 {card.g}</p>}
+      {showWhy && card.g && (
+        <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
+          <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>왜 중요한지</div>
+          <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>{card.g}</div>
+          {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
+        </div>
+      )}
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
         {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
         {card.g && (
@@ -253,8 +278,13 @@ function NewsItem({ card, dark }) {
           </button>
         )}
         {isForeign && card.g && (
-          <button onClick={(e) => { e.stopPropagation(); setShowSummary(!showSummary); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+          <button onClick={(e) => { e.stopPropagation(); setShowSummary(!showSummary); setShowWhy(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
             {showSummary ? "△ 요약 닫기" : "한국어 요약"}
+          </button>
+        )}
+        {isForeign && card.g && (
+          <button onClick={(e) => { e.stopPropagation(); setShowWhy(!showWhy); setShowSummary(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showWhy ? "△ 닫기" : "왜 중요한지"}
           </button>
         )}
       </div>
@@ -339,6 +369,7 @@ function ChatBot({ kb, tracker, dark }) {
   const [loading, setLoading] = useState(false);
   const endRef = useRef(null);
   const depthRef = useRef(0);
+  const lastCtxRef = useRef({ qType: null, region: null, date: null, cards: [], links: [], query: "" });
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -372,41 +403,58 @@ function ChatBot({ kb, tracker, dark }) {
     }
   };
 
+  const updateCtx = (patch) => {
+    lastCtxRef.current = { ...lastCtxRef.current, ...patch };
+  };
+
+  const makeSuggestions = (qType) => {
+    const depth = depthRef.current;
+    return followUps(qType, depth, lastCtxRef.current).map((label) => ({ label }));
+  };
+
   const buildCardMessage = (cards, textType = "general", targetDate = null) => {
+    const regionLabel = lastCtxRef.current.region ? ({ US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[lastCtxRef.current.region] || "") : "";
     const dateLabel = targetDate || fmtDate(cards[0]?.d);
     let content;
     if (textType === "news") {
-      content = `${dateLabel} 기준 핵심 뉴스야.`;
+      content = `${regionLabel ? regionLabel + " " : ""}${dateLabel} 기준 핵심 뉴스야.`;
+      if (cards.length) {
+        const whyLines = cards.slice(0, 3).map((c) => c.g ? `• ${c.T}\n  → ${c.g}` : `• ${c.T}`).join("\n\n");
+        content += `\n\n${whyLines}`;
+      }
     } else if (textType === "summary") {
       const lines = cards.slice(0, 3).map((c, i) => `${i + 1}. ${c.T}`).join("\n");
       content = `핵심 3줄 요약이야.\n\n${lines}`;
+      if (cards[0]?.url) content += "\n\n관련 카드 링크도 같이 확인해봐.";
     } else if (textType === "compare") {
-      content = `비교 관련 카드를 찾았어. 차이점을 확인해봐.`;
+      const diffs = cards.slice(0, 3).map((c, i) => `${i + 1}. ${c.T}`).join("\n");
+      content = `비교 관련 카드야.\n\n${diffs}`;
+      if (cards.length >= 2) content += `\n\n한 줄 결론: ${cards[0].T}과 ${cards[1].T}은 접근 방식이 다르지만 배터리 밸류체인에서 공통 이슈를 공유해.`;
     } else if (textType === "policy") {
       content = `관련 정책 카드를 정리했어.`;
     } else {
       content = `관련 카드 ${cards.length}건을 찾았어.`;
     }
-    const depth = depthRef.current;
     depthRef.current += 1;
+    updateCtx({ qType: textType, cards, date: targetDate || cards[0]?.d });
     return {
       role: "assistant",
       content,
       cards: cards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
-      suggestions: followUps(textType, depth).map((label) => ({ label })),
+      suggestions: makeSuggestions(textType),
     };
   };
 
   const buildLinkMessage = (links, type = "general", targetDate = null, region = null) => {
     const regionLabel = { US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[region] || "";
     const dateLabel = targetDate ? ` (${targetDate} 전후)` : "";
-    const depth = depthRef.current;
     depthRef.current += 1;
+    updateCtx({ qType: type, links, region, date: targetDate });
     return {
       role: "assistant",
       content: `${regionLabel}${regionLabel ? " " : ""}최신 링크를 정리했어.${dateLabel}`,
       links,
-      suggestions: followUps(type, depth).map((label) => ({ label })),
+      suggestions: makeSuggestions(type),
     };
   };
 
@@ -418,31 +466,50 @@ function ChatBot({ kb, tracker, dark }) {
     setMsgs((prev) => [...prev, { role: "user", content: txt }]);
 
     const qType = classifyQuestion(txt);
-    const region = detectRegion(txt);
+    const region = detectRegion(txt) || (/(방금|이전|직전|아까)/.test(txt) ? lastCtxRef.current.region : null);
     const targetDate = detectDate(txt);
+    updateCtx({ query: txt, region: region || lastCtxRef.current.region });
+
     const faq = matchFaq(txt);
     if (faq) {
-      const depth = depthRef.current;
       depthRef.current += 1;
-      setMsgs((prev) => [...prev, { role: "assistant", content: faq, suggestions: followUps(qType, depth).map((label) => ({ label })) }]);
+      updateCtx({ qType });
+      setMsgs((prev) => [...prev, { role: "assistant", content: faq, suggestions: makeSuggestions(qType) }]);
       setLoading(false);
       return;
     }
 
-    // Translation request detection
+    // Translation request detection — show Korean gist of foreign cards
     const isTranslateReq = /(번역|translate|통역|한국어로|영어로|원문)/.test(txt.toLowerCase());
     if (isTranslateReq) {
       const foreignCards = kb.cards.filter((c) => c.r && c.r !== "KR").slice(0, 3);
       if (foreignCards.length) {
-        const depth = depthRef.current;
         depthRef.current += 1;
         const gistLines = foreignCards.map((c) => c.g ? `• ${c.T}\n  → ${c.g}` : `• ${c.T}`).join("\n\n");
+        updateCtx({ qType: "news", cards: foreignCards });
         setMsgs((prev) => [...prev, {
           role: "assistant",
           content: `최근 해외 기사의 한국어 분석이야.\n\n${gistLines}`,
           cards: foreignCards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
           suggestions: [{ label: "미국만 따로" }, { label: "중국만 따로" }, { label: "관련 카드 더 보여줘" }, { label: "조금 더 쉽게 설명해줘" }],
         }]);
+        setLoading(false);
+        return;
+      }
+    }
+
+    // P0-4: News-type requests → dedicated region/date-aware retrieval FIRST
+    if (qType === "news") {
+      const cards = latestCards(kb.cards, 3, region, targetDate);
+      if (cards.length) {
+        setMsgs((prev) => [...prev, buildCardMessage(cards, "news", targetDate)]);
+        setLoading(false);
+        return;
+      }
+      // fallback to brave search for news
+      const brave = await searchBrave(txt, "news", region, targetDate);
+      if (brave?.length) {
+        setMsgs((prev) => [...prev, buildLinkMessage(brave, "news", targetDate, region)]);
         setLoading(false);
         return;
       }
@@ -464,40 +531,31 @@ function ChatBot({ kb, tracker, dark }) {
           const rName = TRACKER_REGION[item.r]?.name || item.r || "";
           content += `📅 ${fmtDate(item.dt)} — ${item.t} (${rName})\n`;
         });
+        if (region) content += `\n${({ US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[region] || "")} 관련 일정을 중심으로 정리했어.`;
       }
       if (policyCards.length) {
         if (!content) content = "관련 정책 카드를 찾았어.\n";
-        const depth = depthRef.current;
         depthRef.current += 1;
+        updateCtx({ qType: "policy", cards: policyCards, region });
         setMsgs((prev) => [...prev, {
           role: "assistant",
           content,
           cards: policyCards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
-          suggestions: followUps("policy", depth).map((label) => ({ label })),
+          suggestions: makeSuggestions("policy"),
         }]);
         setLoading(false);
         return;
       }
       if (content) {
-        const depth = depthRef.current;
         depthRef.current += 1;
-        setMsgs((prev) => [...prev, { role: "assistant", content, suggestions: followUps("policy", depth).map((label) => ({ label })) }]);
+        updateCtx({ qType: "policy", region });
+        setMsgs((prev) => [...prev, { role: "assistant", content, suggestions: makeSuggestions("policy") }]);
         setLoading(false);
         return;
       }
     }
 
-    // News type
-    if (qType === "news") {
-      const cards = latestCards(kb.cards, 3, region, targetDate);
-      if (cards.length) {
-        setMsgs((prev) => [...prev, buildCardMessage(cards, "news", targetDate)]);
-        setLoading(false);
-        return;
-      }
-    }
-
-    // Summary type: format as 3-line summary
+    // Summary type: format as 3-line summary with card links
     if (qType === "summary") {
       const cardHits = searchCards(kb.cards, txt, 3);
       if (cardHits.length) {
@@ -533,9 +591,8 @@ function ChatBot({ kb, tracker, dark }) {
       return;
     }
 
-    const depth = depthRef.current;
     depthRef.current += 1;
-    setMsgs((prev) => [...prev, { role: "assistant", content: "딱 맞는 결과가 바로 안 잡혔어.\n\n주제를 조금 더 짧게 보내보자. 예: LFP 리스크 / 오늘 핵심 뉴스 / 한국 정책 일정", suggestions: followUps(qType, depth).map((label) => ({ label })) }]);
+    setMsgs((prev) => [...prev, { role: "assistant", content: "딱 맞는 결과가 바로 안 잡혔어.\n\n주제를 조금 더 짧게 보내보자. 예: LFP 리스크 / 오늘 핵심 뉴스 / 한국 정책 일정", suggestions: makeSuggestions(qType) }]);
     setLoading(false);
   };
 

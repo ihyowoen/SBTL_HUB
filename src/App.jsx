@@ -304,10 +304,17 @@ function NewsItem({ card, dark }) {
         <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
           <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>📰 한국어 요약</div>
           <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>
+            {/* Article-style summary: T + sub + gist front */}
             {card.T && <div style={{ fontWeight: 700, marginBottom: 4 }}>{card.T}</div>}
             {card.sub && <div style={{ marginBottom: 4 }}>{card.sub}</div>}
-            {card.g && card.g.includes("—") && <div style={{ fontSize: 10, color: t.sub, marginTop: 2, fontStyle: "italic" }}>💡 {card.g.split("—")[0].trim()}</div>}
-            {card.g && !card.g.includes("—") && <div style={{ fontSize: 10, color: t.sub, marginTop: 2, fontStyle: "italic" }}>💡 {card.g.slice(0, Math.ceil(card.g.length * 0.6))}</div>}
+            {card.g && (
+              <div style={{ fontSize: 10, color: t.sub, marginTop: 4, lineHeight: 1.55 }}>
+                {card.g.includes("—")
+                  ? <><strong>핵심:</strong> {card.g.split("—")[0].trim()}</>
+                  : <><strong>배경:</strong> {card.g.slice(0, Math.floor(card.g.length * 0.6)).trim()}...</>
+                }
+              </div>
+            )}
           </div>
           {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
         </div>
@@ -315,7 +322,13 @@ function NewsItem({ card, dark }) {
       {showWhy && card.g && (
         <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(209,153,34,0.06)" : "rgba(209,153,34,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(209,153,34,0.15)" : "rgba(209,153,34,0.1)"}` }}>
           <div style={{ fontSize: 9, fontWeight: 800, color: "#D29922", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 왜 중요한지</div>
-          <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>{card.g.includes("—") ? card.g.split("—").slice(1).join("—").trim() : card.g.slice(Math.ceil(card.g.length * 0.4))}</div>
+          {/* Strategic relevance: gist back part only */}
+          <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>
+            {card.g.includes("—")
+              ? card.g.split("—").slice(1).join("—").trim()
+              : card.g.slice(Math.floor(card.g.length * 0.6)).trim()
+            }
+          </div>
           {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
         </div>
       )}

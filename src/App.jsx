@@ -41,6 +41,12 @@ const TRACKER_REGION = {
   GL: { flag: "🌐", name: "글로벌" },
 };
 
+/* KST (UTC+9) 기준 현재 시각 */
+const kstNow = () => {
+  const utc = new Date();
+  return new Date(utc.getTime() + 9 * 60 * 60 * 1000 - utc.getTimezoneOffset() * 60 * 1000);
+};
+
 const fmtDate = (date) => {
   if (!date) return "-";
   const s = String(date).trim();
@@ -466,7 +472,7 @@ function Home({ kb, tracker, onNav, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
   const picks = latestCards(kb.cards, 3);
-  const today = new Date();
+  const today = kstNow();
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
   const todayStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, "0")}.${String(today.getDate()).padStart(2, "0")} (${dayNames[today.getDay()]})`;
   return (
@@ -768,7 +774,8 @@ function ChatBot({ kb, tracker, dark }) {
 
     // News-type requests → internal cards (latestCards with proper date ordering)
     if (qType === "news") {
-      const todayStr = fmtDate(new Date().toISOString().slice(0, 10));
+      const kd = kstNow();
+      const todayStr = `${kd.getFullYear()}.${String(kd.getMonth() + 1).padStart(2, "0")}.${String(kd.getDate()).padStart(2, "0")}`;
       const effectiveDate = targetDate || todayStr;
       const cards = latestCards(kb.cards, 3, region, effectiveDate);
       if (cards.length) {

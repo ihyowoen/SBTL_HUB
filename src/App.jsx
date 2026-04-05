@@ -194,7 +194,12 @@ function searchCards(cards, query, limit = 5) {
       return { ...c, _score: score };
     })
     .filter((c) => c._score > 0)
-    .sort((a, b) => b._score - a._score)
+    .sort((a, b) => {
+      // Primary sort by score
+      if (b._score !== a._score) return b._score - a._score;
+      // Tie-break by recency (date descending)
+      return String(b.d || "").localeCompare(String(a.d || ""));
+    })
     .slice(0, limit);
 }
 
@@ -223,16 +228,32 @@ async function fetchBraveResults(query) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: `${query} ${BRAVE_SEARCH_SUFFIX}` }),
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      // Differentiate error types from API response
+      if (res.status === 500 && data.error === 'Brave API key not configured') {
+        return { error: 'auth-config', message: 'Brave API 키가 설정되지 않았어. 관리자에게 문의해줘.' };
+      }
+      if (res.status === 429) {
+        return { error: 'rate-limit', message: 'Brave 검색 한도 초과. 잠시 후 다시 시도해줘.' };
+      }
+      if (res.status >= 500) {
+        return { error: 'provider-error', message: 'Brave 서비스에 일시적 문제가 있어. 내부 카드로 검색할게.' };
+      }
+      return { error: 'no-result', message: '외부 기사를 찾지 못했어. 검색어를 바꿔보거나, 내부 카드에서 찾아볼게.' };
+    }
     const data = await res.json();
     const results = data?.web?.results || [];
+    if (!results.length) {
+      return { error: 'no-result', message: '외부 기사를 찾지 못했어. 검색어를 바꿔보거나, 내부 카드에서 찾아볼게.' };
+    }
     return results.slice(0, 4).map((r) => ({
       title: r.title || "",
       description: r.description || "",
       url: r.url || "",
     }));
-  } catch {
-    return [];
+  } catch (err) {
+    return { error: 'network-error', message: '네트워크 오류로 외부 검색 실패. 내부 카드로 검색할게.' };
   }
 }
 
@@ -509,10 +530,89 @@ function ChatBot({ kb, tracker, dark }) {
       return;
     }
 
+    // Object-level follow-up resolution: references to specific cards/links
+    const objRefMatch = txt.match(/(첫\s*번째|두\s*번째|세\s*번째|마지막|직전|방금\s*그)\s*(링크|기사|카드|외부\s*기사)/);
+    if (objRefMatch) {
+      const ctx = lastCtxRef.current;
+      let targetObj = null;
+      const refType = objRefMatch[1].trim();
+      const objType = objRefMatch[2].trim();
+
+      // Resolve which object the user is referring to
+      if (objType.includes("링크") || objType.includes("외부")) {
+        // External links from Brave search
+        if (ctx.links && ctx.links.length) {
+          if (refType.includes("첫")) targetObj = ctx.links[0];
+          else if (refType.includes("두")) targetObj = ctx.links[1];
+          else if (refType.includes("세")) targetObj = ctx.links[2];
+          else if (refType.includes("마지막")) targetObj = ctx.links[ctx.links.length - 1];
+          else if (refType.includes("방금") || refType.includes("직전")) targetObj = ctx.links[0];
+        }
+      } else {
+        // Internal cards
+        if (ctx.cards && ctx.cards.length) {
+          if (refType.includes("첫")) targetObj = ctx.cards[0];
+          else if (refType.includes("두")) targetObj = ctx.cards[1];
+          else if (refType.includes("세")) targetObj = ctx.cards[2];
+          else if (refType.includes("마지막")) targetObj = ctx.cards[ctx.cards.length - 1];
+          else if (refType.includes("방금") || refType.includes("직전")) targetObj = ctx.cards[0];
+        }
+      }
+
+      if (targetObj) {
+        depthRef.current += 1;
+        const isLink = !!(targetObj.url && !targetObj.signal);
+        const content = isLink
+          ? `**${targetObj.title}**\n\n${targetObj.description || ""}\n\n🔗 [원문 보기](${targetObj.url})`
+          : `**${targetObj.title}**\n${targetObj.subtitle || ""}\n\n${targetObj.gist || ""}`;
+        setMsgs((prev) => [...prev, {
+          role: "assistant",
+          content,
+          cards: isLink ? [] : [targetObj],
+          braveLinks: isLink ? [targetObj] : [],
+          suggestions: [{ label: "관련 카드 더 보여줘" }, { label: "조금 더 쉽게 설명해줘" }, { label: "왜 중요한지 한 줄로" }],
+        }]);
+        setLoading(false);
+        return;
+      } else {
+        depthRef.current += 1;
+        setMsgs((prev) => [...prev, {
+          role: "assistant",
+          content: "이전에 보여준 항목이 없거나 찾을 수 없어. 구체적으로 질문해줘.",
+          suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }],
+        }]);
+        setLoading(false);
+        return;
+      }
+    }
+
     // Brave external article search: triggered by specific keywords
     if (isBraveQuery(txt)) {
       const braveResults = await fetchBraveResults(txt);
       depthRef.current += 1;
+
+      // Check if result is an error object
+      if (braveResults.error) {
+        const cards = latestCards(kb.cards, 3, region, targetDate);
+        if (cards.length) {
+          setMsgs((prev) => [...prev, {
+            role: "assistant",
+            content: `${braveResults.message}\n\n대신 내부 카드를 찾았어.`,
+            cards: cards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
+            suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }],
+          }]);
+        } else {
+          setMsgs((prev) => [...prev, {
+            role: "assistant",
+            content: braveResults.message,
+            suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }]
+          }]);
+        }
+        setLoading(false);
+        return;
+      }
+
+      // Success case: array of results
       if (braveResults.length) {
         const lines = braveResults.map((r, i) => `${i + 1}. ${r.title}\n   ${r.description?.slice(0, 80) || ""}`).join("\n\n");
         updateCtx({ qType: "news", links: braveResults });
@@ -523,14 +623,6 @@ function ChatBot({ kb, tracker, dark }) {
           braveLinks: braveResults,
           suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }, { label: "요약해서 다시 정리" }],
         }]);
-      } else {
-        // Brave failed or no results → fallback to internal cards
-        const cards = latestCards(kb.cards, 3, region, targetDate);
-        if (cards.length) {
-          setMsgs((prev) => [...prev, buildCardMessage(cards, "news", targetDate)]);
-        } else {
-          setMsgs((prev) => [...prev, { role: "assistant", content: "외부 기사를 찾지 못했어. 검색어를 바꿔보거나, 내부 카드에서 찾아볼게.", suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }] }]);
-        }
       }
       setLoading(false);
       return;
@@ -569,7 +661,7 @@ function ChatBot({ kb, tracker, dark }) {
       }
     }
 
-    // Policy type: use tracker data + cards
+    // Policy type: use tracker data + cards with enhanced structure
     if (qType === "policy") {
       const policyCards = searchCards(kb.cards, txt, 3);
       const trackerItems = tracker?.items || [];
@@ -579,16 +671,42 @@ function ChatBot({ kb, tracker, dark }) {
         .slice(0, 5);
 
       let content = "";
-      if (upcoming.length) {
-        content = "다가오는 정책 일정을 정리했어.\n\n";
-        upcoming.forEach((item) => {
-          const rName = TRACKER_REGION[item.r]?.name || item.r || "";
-          content += `📅 ${fmtDate(item.dt)} — ${item.t} (${rName})\n`;
-        });
-        if (region) content += `\n${({ US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[region] || "")} 관련 일정을 중심으로 정리했어.`;
+
+      // Policy response structure: overview + why + watchpoints + schedule + cards
+      if (upcoming.length || policyCards.length) {
+        // Overview section
+        content = "**정책 인텔리전스 브리핑**\n\n";
+
+        if (upcoming.length) {
+          content += "📅 **다가오는 주요 일정**\n";
+          upcoming.forEach((item) => {
+            const rName = TRACKER_REGION[item.r]?.name || item.r || "";
+            content += `• ${fmtDate(item.dt)} — ${item.t} (${rName})\n`;
+          });
+          content += "\n";
+        }
+
+        // Why it matters section
+        if (policyCards.length) {
+          content += "⚡ **왜 중요한지**\n";
+          const whyMatters = policyCards[0]?.g
+            ? (policyCards[0].g.includes("—")
+              ? policyCards[0].g.split("—").slice(1).join("—").trim()
+              : policyCards[0].g.slice(Math.floor(policyCards[0].g.length * 0.6)).trim())
+            : "정책 변화는 기업 전략, 공급망 재편, 투자 흐름에 직접 영향을 줘.";
+          content += whyMatters + "\n\n";
+
+          // Watchpoints
+          content += "🔍 **주요 모니터링 포인트**\n";
+          content += "• 시행 일정과 유예 기간 확인\n";
+          content += "• 실무 가이드라인 업데이트 추적\n";
+          content += "• 지역별 규제 차이 파악\n\n";
+        }
+
+        if (region) content += `※ ${({ US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[region] || "")} 중심 정보\n`;
       }
+
       if (policyCards.length) {
-        if (!content) content = "관련 정책 카드를 찾았어.\n";
         depthRef.current += 1;
         updateCtx({ qType: "policy", cards: policyCards, region });
         setMsgs((prev) => [...prev, {

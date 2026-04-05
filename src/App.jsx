@@ -41,6 +41,16 @@ const TRACKER_REGION = {
   GL: { flag: "🌐", name: "글로벌" },
 };
 
+/* KST (UTC+9) 기준 현재 시각 */
+const kstNow = () => {
+  const now = new Date();
+  return new Date(now.getTime() + (now.getTimezoneOffset() + 540) * 60000);
+};
+const kstToday = () => {
+  const d = kstNow();
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+};
+
 const fmtDate = (date) => {
   if (!date) return "-";
   const s = String(date).trim();
@@ -466,9 +476,9 @@ function Home({ kb, tracker, onNav, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
   const picks = latestCards(kb.cards, 3);
-  const today = new Date();
+  const today = kstNow();
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
-  const todayStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, "0")}.${String(today.getDate()).padStart(2, "0")} (${dayNames[today.getDay()]})`;
+  const todayStr = `${kstToday()} (${dayNames[today.getDay()]})`;
   return (
     <div style={{ padding: "0 14px 120px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#1F2840" : "#EEF3FF"})`, borderRadius: 18, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}`, boxShadow: t.sh }}>
@@ -768,12 +778,11 @@ function ChatBot({ kb, tracker, dark }) {
 
     // News-type requests → internal cards (latestCards with proper date ordering)
     if (qType === "news") {
-      const todayStr = fmtDate(new Date().toISOString().slice(0, 10));
-      const effectiveDate = targetDate || todayStr;
+      const effectiveDate = targetDate || kstToday();
       const cards = latestCards(kb.cards, 3, region, effectiveDate);
       if (cards.length) {
         updateCtx({ lastCards: cards, selected: cards[0] });
-        setMsgs((prev) => [...prev, buildCardMessage(cards, "news", effectiveDate)]);
+        setMsgs((prev) => [...prev, buildCardMessage(cards, "news", targetDate)]);
         setLoading(false);
         return;
       }

@@ -334,19 +334,19 @@ function NewsItem({ card, dark }) {
       )}
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
         {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
-        {card.g && (
-          <button onClick={(e) => { e.stopPropagation(); setShowGist(!showGist); }} aria-label={showGist ? "Close gist analysis" : "Show gist analysis"} style={{ fontSize: 9, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showGist ? "△ 닫기" : "▽ 핵심 분석"}
-          </button>
-        )}
         {isForeign && (card.T || card.sub) && (
-          <button onClick={(e) => { e.stopPropagation(); setShowSummary(!showSummary); setShowWhy(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+          <button onClick={(e) => { e.stopPropagation(); setShowSummary(!showSummary); setShowWhy(false); setShowGist(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
             {showSummary ? "△ 요약 닫기" : "한국어 요약"}
           </button>
         )}
-        {isForeign && card.g && (
-          <button onClick={(e) => { e.stopPropagation(); setShowWhy(!showWhy); setShowSummary(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+        {card.g && (
+          <button onClick={(e) => { e.stopPropagation(); setShowWhy(!showWhy); setShowSummary(false); setShowGist(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
             {showWhy ? "△ 닫기" : "왜 중요한지"}
+          </button>
+        )}
+        {card.g && (
+          <button onClick={(e) => { e.stopPropagation(); setShowGist(!showGist); setShowWhy(false); setShowSummary(false); }} aria-label={showGist ? "Close AI analysis" : "Show AI analysis"} style={{ fontSize: 9, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showGist ? "△ 닫기" : "AI 해설"}
           </button>
         )}
       </div>

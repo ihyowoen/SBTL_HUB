@@ -25,7 +25,6 @@ const CATS = [
   { key: "webtoon", label: "TOON", icon: "🎨" },
   { key: "tracker", label: "TRCK", icon: "📊" },
   { key: "chatbot", label: "AI", icon: "🤖" },
-  { key: "translate", label: "번역", icon: "🌐" },
 ];
 
 const SC = { ACTIVE: "#F85149", UPCOMING: "#D29922", WATCH: "#388BFD", DONE: "#7D8590" };
@@ -208,11 +207,19 @@ function detectRegion(txt) {
   return null;
 }
 
-function followUps(type) {
-  if (type === "news") return ["요약해서 다시 정리", "카드에서도 찾아봐", "한국 뉴스만", "미국 뉴스만"];
+function followUps(type, depth = 1) {
+  if (depth <= 1) {
+    if (type === "news") return ["요약해서 다시 정리", "한국 뉴스만", "미국 뉴스만", "관련 카드 더 보여줘"];
+    if (type === "policy") return ["다가오는 일정만", "한국/EU 비교", "실무 영향만 요약", "관련 카드 더 보여줘"];
+    if (type === "compare") return ["한 줄 결론만", "관련 카드 더 보여줘", "최신 기사 링크로 보여줘"];
+    if (type === "summary") return ["조금 더 쉽게 설명해줘", "관련 카드 더 보여줘", "최신 기사 링크로 보여줘", "왜 중요한지 한 줄로"];
+    return ["조금 더 쉽게 설명해줘", "관련 카드 더 보여줘", "최신 기사 링크로 보여줘", "정책 일정만 따로 정리해줘"];
+  }
+  if (type === "news") return ["오늘 기준으로 다시", "미국만 따로", "중국만 따로", "링크 3개만 보여줘"];
   if (type === "policy") return ["다가오는 일정만", "한국/EU 비교", "실무 영향만 요약"];
-  if (type === "compare") return ["한 줄 결론만", "관련 카드 더 보여줘", "최신 기사 링크로 보여줘"];
-  return ["조금 더 쉽게 설명해줘", "관련 카드 더 보여줘", "최신 기사 링크로 보여줘", "정책 일정만 따로 정리해줘"];
+  if (type === "compare") return ["쉽게 비유해서 설명", "LFP랑 비교", "왜 중요한지 한 줄로"];
+  if (type === "summary") return ["왜 중요한지 한 줄로", "LFP랑 비교", "최신 기사 링크로 보여줘"];
+  return ["쉽게 비유해서 설명", "LFP랑 비교", "왜 중요한지 한 줄로", "정책 일정만 따로 정리해줘"];
 }
 
 function SmallPill({ label, dark }) {
@@ -223,16 +230,61 @@ function SmallPill({ label, dark }) {
 function NewsItem({ card, dark }) {
   const t = T(dark);
   const sig = card.s || "i";
+  const [showGist, setShowGist] = useState(false);
+  const [translated, setTranslated] = useState(null);
+  const [translating, setTranslating] = useState(false);
+  const isForeign = card.r && card.r !== "KR";
+
+  const translateCard = async (e) => {
+    e.stopPropagation();
+    if (translating || translated) return;
+    setTranslating(true);
+    try {
+      const text = card.sub ? `${card.T}. ${card.sub}` : card.T;
+      const regionLangMap = { US: "en", EU: "en", CN: "zh", JP: "ja" };
+      const sourceLang = regionLangMap[card.r] || "en";
+      const r = await fetch("/api/translate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, sourceLang, targetLang: "ko" }) });
+      const d = await r.json();
+      if (r.ok && d.translatedText) setTranslated(d.translatedText);
+    } catch { /* ignore */ }
+    setTranslating(false);
+  };
+
   return (
     <div onClick={() => card.url && window.open(card.url, "_blank")} style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", borderLeft: `3px solid ${SIG_C[sig]}`, border: `1px solid ${t.brd}`, cursor: card.url ? "pointer" : "default" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 5 }}>
         <span style={{ fontSize: 8, fontWeight: 800, color: SIG_C[sig], background: `${SIG_C[sig]}20`, padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>{SIG_L[sig]}</span>
         <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{REG_FLAG[card.r] || "🌐"} {shortDate(card.d)}</span>
+        {isForeign && <span style={{ fontSize: 8, fontWeight: 700, color: "#58A6FF", background: "rgba(88,166,255,0.12)", padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>해외</span>}
         {card.src && <span style={{ fontSize: 8, color: t.sub, marginLeft: "auto", fontFamily: "'JetBrains Mono',monospace" }}>{card.src}</span>}
       </div>
       <h3 style={{ fontSize: 13, fontWeight: 700, color: t.tx, margin: 0, lineHeight: 1.45 }}>{card.T}</h3>
       {card.sub && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.45 }}>{card.sub}</p>}
-      {card.url && <div style={{ marginTop: 6, fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</div>}
+      {translated && <p style={{ fontSize: 11, color: "#58A6FF", margin: "6px 0 0", lineHeight: 1.45, fontStyle: "italic" }}>🌐 {translated}</p>}
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
+        {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
+        {card.g && (
+          <button onClick={(e) => { e.stopPropagation(); setShowGist(!showGist); }} aria-label={showGist ? "Close gist analysis" : "Show gist analysis"} style={{ fontSize: 9, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showGist ? "△ 닫기" : "▽ 핵심 분석"}
+          </button>
+        )}
+        {isForeign && !translated && (
+          <button onClick={translateCard} disabled={translating} aria-label="Translate card content" style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: translating ? "default" : "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {translating ? "번역 중..." : "🌐 번역"}
+          </button>
+        )}
+      </div>
+      {showGist && card.g && (
+        <div style={{ marginTop: 8, padding: "10px 12px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
+          {isForeign && <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>🌐 해외 기사 분석</div>}
+          <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>{card.g}</div>
+          <div style={{ display: "flex", gap: 8, marginTop: 8, fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexWrap: "wrap" }}>
+            {card.src && <span>출처: {card.src}</span>}
+            {card.d && <span>날짜: {fmtDate(card.d)}</span>}
+            <span style={{ fontSize: 8, fontStyle: "italic" }}>※ 번역/요약 기반 분석</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -296,12 +348,13 @@ function Home({ kb, tracker, onNav, dark }) {
   );
 }
 
-function ChatBot({ kb, dark }) {
+function ChatBot({ kb, tracker, dark }) {
   const t = T(dark);
   const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const endRef = useRef(null);
+  const depthRef = useRef(0);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -337,22 +390,39 @@ function ChatBot({ kb, dark }) {
 
   const buildCardMessage = (cards, textType = "general", targetDate = null) => {
     const dateLabel = targetDate || fmtDate(cards[0]?.d);
+    let content;
+    if (textType === "news") {
+      content = `${dateLabel} 기준 핵심 뉴스야.`;
+    } else if (textType === "summary") {
+      const lines = cards.slice(0, 3).map((c, i) => `${i + 1}. ${c.T}`).join("\n");
+      content = `핵심 3줄 요약이야.\n\n${lines}`;
+    } else if (textType === "compare") {
+      content = `비교 관련 카드를 찾았어. 차이점을 확인해봐.`;
+    } else if (textType === "policy") {
+      content = `관련 정책 카드를 정리했어.`;
+    } else {
+      content = `관련 카드 ${cards.length}건을 찾았어.`;
+    }
+    const depth = depthRef.current;
+    depthRef.current += 1;
     return {
       role: "assistant",
-      content: textType === "news" ? `${dateLabel} 기준 핵심 뉴스야.` : `관련 카드 ${cards.length}건을 찾았어.`,
-      cards: cards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src })),
-      suggestions: followUps(textType).map((label) => ({ label })),
+      content,
+      cards: cards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
+      suggestions: followUps(textType, depth).map((label) => ({ label })),
     };
   };
 
   const buildLinkMessage = (links, type = "general", targetDate = null, region = null) => {
     const regionLabel = { US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[region] || "";
     const dateLabel = targetDate ? ` (${targetDate} 전후)` : "";
+    const depth = depthRef.current;
+    depthRef.current += 1;
     return {
       role: "assistant",
       content: `${regionLabel}${regionLabel ? " " : ""}최신 링크를 정리했어.${dateLabel}`,
       links,
-      suggestions: followUps(type).map((label) => ({ label })),
+      suggestions: followUps(type, depth).map((label) => ({ label })),
     };
   };
 
@@ -368,11 +438,72 @@ function ChatBot({ kb, dark }) {
     const targetDate = detectDate(txt);
     const faq = matchFaq(txt);
     if (faq) {
-      setMsgs((prev) => [...prev, { role: "assistant", content: faq, suggestions: followUps(qType).map((label) => ({ label })) }]);
+      const depth = depthRef.current;
+      depthRef.current += 1;
+      setMsgs((prev) => [...prev, { role: "assistant", content: faq, suggestions: followUps(qType, depth).map((label) => ({ label })) }]);
       setLoading(false);
       return;
     }
 
+    // Translation request detection
+    const isTranslateReq = /(번역|translate|통역|한국어로|영어로|원문)/.test(txt.toLowerCase());
+    if (isTranslateReq) {
+      const foreignCards = kb.cards.filter((c) => c.r && c.r !== "KR").slice(0, 3);
+      if (foreignCards.length) {
+        const depth = depthRef.current;
+        depthRef.current += 1;
+        const gistLines = foreignCards.map((c) => `• ${c.T}\n  → ${c.g || c.sub || ""}`).join("\n\n");
+        setMsgs((prev) => [...prev, {
+          role: "assistant",
+          content: `최근 해외 기사의 한국어 분석이야.\n\n${gistLines}`,
+          cards: foreignCards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
+          suggestions: [{ label: "미국만 따로" }, { label: "중국만 따로" }, { label: "관련 카드 더 보여줘" }, { label: "조금 더 쉽게 설명해줘" }],
+        }]);
+        setLoading(false);
+        return;
+      }
+    }
+
+    // Policy type: use tracker data + cards
+    if (qType === "policy") {
+      const policyCards = searchCards(kb.cards, txt, 3);
+      const trackerItems = tracker?.items || [];
+      const upcoming = trackerItems
+        .filter((i) => i.s === "UPCOMING")
+        .sort((a, b) => String(a.dt || "").localeCompare(String(b.dt || "")))
+        .slice(0, 5);
+
+      let content = "";
+      if (upcoming.length) {
+        content = "다가오는 정책 일정을 정리했어.\n\n";
+        upcoming.forEach((item) => {
+          const rName = TRACKER_REGION[item.r]?.name || item.r || "";
+          content += `📅 ${fmtDate(item.dt)} — ${item.t} (${rName})\n`;
+        });
+      }
+      if (policyCards.length) {
+        if (!content) content = "관련 정책 카드를 찾았어.\n";
+        const depth = depthRef.current;
+        depthRef.current += 1;
+        setMsgs((prev) => [...prev, {
+          role: "assistant",
+          content,
+          cards: policyCards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
+          suggestions: followUps("policy", depth).map((label) => ({ label })),
+        }]);
+        setLoading(false);
+        return;
+      }
+      if (content) {
+        const depth = depthRef.current;
+        depthRef.current += 1;
+        setMsgs((prev) => [...prev, { role: "assistant", content, suggestions: followUps("policy", depth).map((label) => ({ label })) }]);
+        setLoading(false);
+        return;
+      }
+    }
+
+    // News type
     if (qType === "news") {
       const cards = latestCards(kb.cards, 3, region, targetDate);
       if (cards.length) {
@@ -382,6 +513,27 @@ function ChatBot({ kb, dark }) {
       }
     }
 
+    // Summary type: format as 3-line summary
+    if (qType === "summary") {
+      const cardHits = searchCards(kb.cards, txt, 3);
+      if (cardHits.length) {
+        setMsgs((prev) => [...prev, buildCardMessage(cardHits, "summary", targetDate)]);
+        setLoading(false);
+        return;
+      }
+    }
+
+    // Compare type: search and format comparison
+    if (qType === "compare") {
+      const cardHits = searchCards(kb.cards, txt, 4);
+      if (cardHits.length) {
+        setMsgs((prev) => [...prev, buildCardMessage(cardHits, "compare", targetDate)]);
+        setLoading(false);
+        return;
+      }
+    }
+
+    // General card search
     const cardHits = searchCards(kb.cards, txt, 4);
     if (cardHits.length) {
       setMsgs((prev) => [...prev, buildCardMessage(cardHits, qType, targetDate)]);
@@ -389,6 +541,7 @@ function ChatBot({ kb, dark }) {
       return;
     }
 
+    // External search via Brave
     const brave = await searchBrave(txt, qType, region, targetDate);
     if (brave?.length) {
       setMsgs((prev) => [...prev, buildLinkMessage(brave, qType, targetDate, region)]);
@@ -396,7 +549,9 @@ function ChatBot({ kb, dark }) {
       return;
     }
 
-    setMsgs((prev) => [...prev, { role: "assistant", content: "딱 맞는 결과가 바로 안 잡혔어.\n\n주제를 조금 더 짧게 보내보자. 예: LFP 리스크 / 오늘 핵심 뉴스 / 한국 정책 일정", suggestions: followUps(qType).map((label) => ({ label })) }]);
+    const depth = depthRef.current;
+    depthRef.current += 1;
+    setMsgs((prev) => [...prev, { role: "assistant", content: "딱 맞는 결과가 바로 안 잡혔어.\n\n주제를 조금 더 짧게 보내보자. 예: LFP 리스크 / 오늘 핵심 뉴스 / 한국 정책 일정", suggestions: followUps(qType, depth).map((label) => ({ label })) }]);
     setLoading(false);
   };
 
@@ -416,6 +571,13 @@ function ChatBot({ kb, dark }) {
       "한국/EU 비교": "한국과 EU 정책을 비교해줘",
       "실무 영향만 요약": "실무 영향만 요약해줘",
       "한 줄 결론만": "한 줄 결론만 말해줘",
+      "오늘 기준으로 다시": "오늘 기준 뉴스 3개",
+      "미국만 따로": "미국 뉴스 3개",
+      "중국만 따로": "중국 뉴스 3개",
+      "링크 3개만 보여줘": "최신 기사 링크 3개 보여줘",
+      "쉽게 비유해서 설명": "방금 주제를 쉽게 비유해서 설명해줘",
+      "LFP랑 비교": "방금 주제를 LFP와 비교해줘",
+      "왜 중요한지 한 줄로": "방금 주제가 왜 중요한지 한 줄로 설명해줘",
     };
     const next = map[label] || label;
     void sendWithText(next);
@@ -438,14 +600,19 @@ function ChatBot({ kb, dark }) {
               {m.role === "assistant" && <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, marginRight: 7, flexShrink: 0, marginTop: 2, border: "2px solid #2a1a40" }} />}
               <div style={{ maxWidth: "88%" }}>
                 <div style={{ padding: "11px 14px", fontSize: 13, lineHeight: 1.6, whiteSpace: "pre-wrap", wordBreak: "keep-all", borderRadius: m.role === "user" ? "18px 18px 6px 18px" : "18px 18px 18px 6px", background: m.role === "user" ? "#4C8DFF" : (dark ? "#1A2333" : "#FFFFFF"), color: m.role === "user" ? "#fff" : t.tx, border: m.role === "user" ? "none" : `1px solid ${t.brd}`, fontFamily: "'Pretendard', sans-serif" }}>{m.content}</div>
-                {m.cards?.map((card, j) => (
-                  <div key={j} onClick={() => card.url && window.open(card.url, "_blank")} style={{ background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}` }}>
+                {m.cards?.map((card, j) => {
+                  const cardStyle = { display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}`, textDecoration: "none" };
+                  const cardContent = (<>
                     <div style={{ fontSize: 12, fontWeight: 700, color: t.tx }}>{SIG_L[card.signal] || "INFO"} {card.title}</div>
                     {card.subtitle && <div style={{ fontSize: 11, color: t.sub, marginTop: 3 }}>{card.subtitle}</div>}
+                    {card.gist && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, lineHeight: 1.5, opacity: 0.85 }}>💡 {card.gist}</div>}
                     <div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(card.date)} · {card.region} · {card.source || "source"}</div>
-                    {card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4 }}>→ 원문 보기</div>}
-                  </div>
-                ))}
+                    {card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}
+                  </>);
+                  return card.url
+                    ? <a key={j} href={card.url} target="_blank" rel="noopener noreferrer" style={cardStyle}>{cardContent}</a>
+                    : <div key={j} style={cardStyle}>{cardContent}</div>;
+                })}
                 {m.links?.map((link, j) => (
                   <a key={j} href={link.url} target="_blank" rel="noopener noreferrer" style={{ display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: "10px 12px", marginTop: 6, textDecoration: "none", border: `1px solid ${t.brd}` }}>
                     <div style={{ fontSize: 12, fontWeight: 700, color: t.cyan }}>{link.title}</div>
@@ -478,162 +645,6 @@ function ChatBot({ kb, dark }) {
           <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && void sendWithText(input)} placeholder="궁금한 주제를 입력해줘" style={{ flex: 1, padding: "10px 12px", borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }} />
           <button onClick={() => void sendWithText(input)} disabled={loading || !input.trim()} style={{ padding: "10px 16px", borderRadius: 10, border: "none", background: t.cyan, color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 13, fontFamily: "'Pretendard',sans-serif" }}>→</button>
         </div>
-      </div>
-    </div>
-  );
-}
-
-const TRANSLATE_LANGS = [
-  { code: "ko", label: "한국어" },
-  { code: "en", label: "English" },
-  { code: "zh-CN", label: "中文" },
-  { code: "ja", label: "日本語" },
-  { code: "de", label: "Deutsch" },
-  { code: "fr", label: "Français" },
-  { code: "es", label: "Español" },
-];
-
-function Translator({ dark }) {
-  const t = T(dark);
-  const [sourceLang, setSourceLang] = useState("ko");
-  const [targetLang, setTargetLang] = useState("en");
-  const [sourceText, setSourceText] = useState("");
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [copied, setCopied] = useState(false);
-
-  const swap = () => {
-    setSourceLang(targetLang);
-    setTargetLang(sourceLang);
-    setSourceText(result);
-    setResult(sourceText);
-  };
-
-  const translate = async () => {
-    const txt = sourceText.trim();
-    if (!txt || loading) return;
-    setLoading(true);
-    setError("");
-    setResult("");
-    try {
-      const r = await fetch("/api/translate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: txt, sourceLang, targetLang }),
-      });
-      const d = await r.json();
-      if (r.ok && d.translatedText) {
-        setResult(d.translatedText);
-      } else {
-        setError(d.error || "번역 실패");
-      }
-    } catch (err) {
-      console.error("Translation error:", err);
-      setError("네트워크 오류가 발생했어요.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const copyResult = () => {
-    if (!result) return;
-    navigator.clipboard.writeText(result).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    }).catch(() => {
-      setError("클립보드 복사에 실패했어요.");
-    });
-  };
-
-  const selectStyle = {
-    flex: 1,
-    padding: "8px 10px",
-    borderRadius: 10,
-    border: `1px solid ${t.brd}`,
-    background: t.card2,
-    color: t.tx,
-    fontSize: 13,
-    outline: "none",
-    fontFamily: "'Pretendard',sans-serif",
-    appearance: "none",
-    WebkitAppearance: "none",
-    cursor: "pointer",
-  };
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column", height: "calc(100vh - 190px)", padding: "14px 14px 0" }}>
-      {/* Language selectors */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-        <select value={sourceLang} onChange={(e) => setSourceLang(e.target.value)} style={selectStyle}>
-          {TRANSLATE_LANGS.map((l) => <option key={l.code} value={l.code}>{l.label}</option>)}
-        </select>
-        <button onClick={swap} style={{ background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`, borderRadius: 10, width: 38, height: 38, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16, color: t.cyan, flexShrink: 0 }} title="언어 바꾸기">⇄</button>
-        <select value={targetLang} onChange={(e) => setTargetLang(e.target.value)} style={selectStyle}>
-          {TRANSLATE_LANGS.map((l) => <option key={l.code} value={l.code}>{l.label}</option>)}
-        </select>
-      </div>
-
-      {/* Source text input */}
-      <div style={{ position: "relative", marginBottom: 10 }}>
-        <textarea
-          value={sourceText}
-          onChange={(e) => setSourceText(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter" && e.metaKey) translate(); }}
-          placeholder="번역할 텍스트를 입력하세요"
-          style={{
-            width: "100%", minHeight: 120, padding: "12px 14px", borderRadius: 12,
-            border: `1px solid ${t.brd}`, background: t.card2, color: t.tx,
-            fontSize: 14, lineHeight: 1.6, outline: "none", resize: "vertical",
-            fontFamily: "'Pretendard',sans-serif", boxSizing: "border-box",
-          }}
-        />
-        {sourceText && (
-          <button onClick={() => { setSourceText(""); setResult(""); }} style={{ position: "absolute", top: 8, right: 8, background: "transparent", border: "none", color: t.sub, cursor: "pointer", fontSize: 14, padding: 4 }} title="지우기">✕</button>
-        )}
-        <div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace", textAlign: "right" }}>
-          {sourceText.length} / 5000
-        </div>
-      </div>
-
-      {/* Translate button */}
-      <button onClick={translate} disabled={loading || !sourceText.trim()} style={{
-        padding: "12px", borderRadius: 12, border: "none",
-        background: loading || !sourceText.trim() ? (dark ? "#21293A" : "#E0E3EA") : t.cyan,
-        color: loading || !sourceText.trim() ? t.sub : "#000",
-        fontWeight: 800, cursor: loading || !sourceText.trim() ? "default" : "pointer",
-        fontSize: 14, fontFamily: "'Pretendard',sans-serif", marginBottom: 10,
-      }}>
-        {loading ? "번역 중..." : "번역하기"}
-      </button>
-
-      {/* Error message */}
-      {error && (
-        <div style={{ padding: "10px 14px", borderRadius: 10, background: "#F8514920", border: "1px solid #F85149", color: "#F85149", fontSize: 12, marginBottom: 10 }}>
-          {error}
-        </div>
-      )}
-
-      {/* Translation result */}
-      <div style={{
-        flex: 1, position: "relative", minHeight: 120, padding: "12px 14px",
-        borderRadius: 12, border: `1px solid ${t.brd}`,
-        background: dark ? "#151B26" : "#f8f9fc",
-        color: result ? t.tx : t.sub, fontSize: 14, lineHeight: 1.6,
-        fontFamily: "'Pretendard',sans-serif", overflowY: "auto",
-        whiteSpace: "pre-wrap", wordBreak: "keep-all",
-      }}>
-        {result || (loading ? "" : "번역 결과가 여기에 표시됩니다")}
-        {result && (
-          <button onClick={copyResult} style={{
-            position: "absolute", top: 8, right: 8,
-            background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`,
-            borderRadius: 8, padding: "4px 10px", fontSize: 11, color: copied ? "#3FB950" : t.cyan,
-            cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 600,
-          }}>
-            {copied ? "✓ 복사됨" : "복사"}
-          </button>
-        )}
       </div>
     </div>
   );
@@ -824,13 +835,12 @@ export default function App() {
     return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: t.bg, color: t.sub }}>Loading...</div>;
   }
 
-  const headerTitle = { news: "날짜별 시그널 피드", tracker: "Policy Tracker", chatbot: "강차장의 배터리 상담소", webtoon: "웹툰 라이브러리", translate: "번역기" }[tab];
+  const headerTitle = { news: "날짜별 시그널 피드", tracker: "Policy Tracker", chatbot: "강차장의 배터리 상담소", webtoon: "웹툰 라이브러리" }[tab];
   const headerSub = {
     news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`,
     tracker: `Items ${tracker.meta.totalItems} · LAST CHECKED ${fmtDate(tracker.meta.lastUpdated)}`,
     chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크",
     webtoon: `${WEBTOON_COLLECTIONS.length} SERIES`,
-    translate: "한국어 · 영어 · 중국어 · 일본어 등 다국어 번역",
   }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
 
   return (
@@ -856,10 +866,9 @@ export default function App() {
 
       {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} dark={dark} /></div>}
       {tab === "news" && <NewsDesk kb={kb} dark={dark} />}
-      {tab === "chatbot" && <ChatBot kb={kb} dark={dark} />}
+      {tab === "chatbot" && <ChatBot kb={kb} tracker={tracker} dark={dark} />}
       {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} dark={dark} /></div>}
       {tab === "webtoon" && <WebtoonLibrary dark={dark} />}
-      {tab === "translate" && <Translator dark={dark} />}
 
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", padding: "6px 0 8px" }}>
         {CATS.map((cat) => {

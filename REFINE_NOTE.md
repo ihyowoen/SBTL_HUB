@@ -1,1 +1,0 @@
-This file was added by ChatGPT to verify write access.

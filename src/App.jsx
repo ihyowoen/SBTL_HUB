@@ -334,7 +334,9 @@ function NewsItem({ card, dark }) {
       </div>
       <h3 style={{ fontSize: 13, fontWeight: 700, color: t.tx, margin: 0, lineHeight: 1.45 }}>{card.T}</h3>
       {card.sub && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.45 }}>{card.sub}</p>}
-      {showSummary && (
+
+      {/* On-demand analysis panels - only shown when clicked */}
+      {showSummary && isForeign && (
         <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
           <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>📰 한국어 요약</div>
           <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>
@@ -353,7 +355,7 @@ function NewsItem({ card, dark }) {
           {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
         </div>
       )}
-      {showWhy && card.g && (
+      {showWhy && isForeign && card.g && (
         <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(209,153,34,0.06)" : "rgba(209,153,34,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(209,153,34,0.15)" : "rgba(209,153,34,0.1)"}` }}>
           <div style={{ fontSize: 9, fontWeight: 800, color: "#D29922", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 왜 중요한지</div>
           {/* Strategic relevance: gist back part only */}
@@ -366,35 +368,37 @@ function NewsItem({ card, dark }) {
           {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
         </div>
       )}
-      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
-        {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
-        {card.g && (
-          <button onClick={(e) => { e.stopPropagation(); setShowGist(!showGist); }} aria-label={showGist ? "Close gist analysis" : "Show gist analysis"} style={{ fontSize: 9, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showGist ? "△ 닫기" : "▽ 핵심 분석"}
-          </button>
-        )}
-        {isForeign && (card.T || card.sub) && (
-          <button onClick={(e) => { e.stopPropagation(); setShowSummary(!showSummary); setShowWhy(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showSummary ? "△ 요약 닫기" : "한국어 요약"}
-          </button>
-        )}
-        {isForeign && card.g && (
-          <button onClick={(e) => { e.stopPropagation(); setShowWhy(!showWhy); setShowSummary(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showWhy ? "△ 닫기" : "왜 중요한지"}
-          </button>
-        )}
-      </div>
       {showGist && card.g && (
         <div style={{ marginTop: 8, padding: "10px 12px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
-          {isForeign && <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>🌐 해외 기사 분석</div>}
+          <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>{isForeign ? "🌐 AI 해설" : "🔍 핵심 분석"}</div>
           <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>{card.g}</div>
           <div style={{ display: "flex", gap: 8, marginTop: 8, fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexWrap: "wrap" }}>
             {card.src && <span>출처: {card.src}</span>}
             {card.d && <span>날짜: {fmtDate(card.d)}</span>}
-            <span style={{ fontSize: 8, fontStyle: "italic" }}>※ 번역/요약 기반 분석</span>
+            {isForeign && <span style={{ fontSize: 8, fontStyle: "italic" }}>※ 번역/요약 기반 분석</span>}
           </div>
         </div>
       )}
+
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
+        {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
+        {/* On-demand analysis buttons - click to reveal */}
+        {isForeign && (card.T || card.sub) && (
+          <button onClick={(e) => { e.stopPropagation(); setShowSummary(!showSummary); setShowWhy(false); setShowGist(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showSummary ? "△ 요약 닫기" : "한국어 요약"}
+          </button>
+        )}
+        {isForeign && card.g && (
+          <button onClick={(e) => { e.stopPropagation(); setShowWhy(!showWhy); setShowSummary(false); setShowGist(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showWhy ? "△ 닫기" : "왜 중요한지"}
+          </button>
+        )}
+        {card.g && (
+          <button onClick={(e) => { e.stopPropagation(); setShowGist(!showGist); setShowSummary(false); setShowWhy(false); }} aria-label={showGist ? "Close analysis" : "Show analysis"} style={{ fontSize: 9, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showGist ? "△ 닫기" : isForeign ? "AI 해설" : "▽ 핵심 분석"}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

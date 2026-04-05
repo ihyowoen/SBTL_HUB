@@ -528,7 +528,8 @@ function Translator({ dark }) {
       } else {
         setError(d.error || "번역 실패");
       }
-    } catch {
+    } catch (err) {
+      console.error("Translation error:", err);
       setError("네트워크 오류가 발생했어요.");
     } finally {
       setLoading(false);
@@ -540,7 +541,9 @@ function Translator({ dark }) {
     navigator.clipboard.writeText(result).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    }).catch(() => {});
+    }).catch(() => {
+      setError("클립보드 복사에 실패했어요.");
+    });
   };
 
   const selectStyle = {

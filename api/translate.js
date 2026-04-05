@@ -14,12 +14,17 @@ export default async function handler(req, res) {
 
   try {
     const { text, sourceLang, targetLang } = req.body;
-    if (!text || !targetLang) {
+    if (!text || !String(text).trim() || !targetLang) {
       return res.status(400).json({ error: 'text and targetLang are required' });
     }
 
+    const trimmedText = String(text).trim();
+    if (trimmedText.length > 5000) {
+      return res.status(400).json({ error: 'Text exceeds maximum length of 5000 characters' });
+    }
+
     const langPair = `${sourceLang || 'auto'}|${targetLang}`;
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(langPair)}`;
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(trimmedText)}&langpair=${encodeURIComponent(langPair)}`;
 
     const response = await fetch(url, {
       headers: { 'Accept': 'application/json' },

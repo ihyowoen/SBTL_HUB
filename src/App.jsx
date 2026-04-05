@@ -466,6 +466,9 @@ function Home({ kb, tracker, onNav, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
   const picks = latestCards(kb.cards, 3);
+  const today = new Date();
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+  const todayStr = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, "0")}.${String(today.getDate()).padStart(2, "0")} (${dayNames[today.getDay()]})`;
   return (
     <div style={{ padding: "0 14px 120px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#1F2840" : "#EEF3FF"})`, borderRadius: 18, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}`, boxShadow: t.sh }}>
@@ -476,7 +479,8 @@ function Home({ kb, tracker, onNav, dark }) {
               <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>BATTERY · ESS · EV</span>
             </div>
             <div style={{ fontSize: 24, fontWeight: 900, color: t.tx, lineHeight: 1.2 }}>SBTL Strategic Intelligence Brief</div>
-            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.65, marginTop: 8 }}>배터리·ESS·EV 밸류체인을 중심으로 정책, 공급망, 기술, 기업 이슈를 선별해 정리하는 인텔리전스 허브입니다.</div>
+            <div style={{ fontSize: 11, color: t.cyan, fontFamily: "'JetBrains Mono',monospace", marginTop: 8 }}>📅 {todayStr}</div>
+            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.65, marginTop: 6 }}>배터리·ESS·EV 밸류체인을 중심으로 정책, 공급망, 기술, 기업 이슈를 선별해 정리하는 인텔리전스 허브입니다.</div>
           </div>
           <div style={{ width: 56, height: 56, borderRadius: 16, background: dark ? "rgba(88,166,255,0.12)" : "rgba(88,166,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28 }}>🔋</div>
         </div>

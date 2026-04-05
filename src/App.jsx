@@ -198,9 +198,13 @@ function searchCards(cards, query, limit = 5) {
     .slice(0, limit);
 }
 
+// Keywords that trigger Brave external article search instead of internal cards
+const BRAVE_KEYWORDS = /(실시간|외부|원문|링크|기사\s*검색|brave|외부\s*기사|최신\s*기사|검색해|찾아줘.*기사|뉴스\s*링크|외부\s*링크)/;
+const BRAVE_SEARCH_SUFFIX = "battery ESS EV";
+
 function isBraveQuery(txt) {
   const l = txt.toLowerCase();
-  return /(실시간|외부|원문|링크|기사\s*검색|brave|외부\s*기사|최신\s*기사|검색해|찾아줘.*기사|뉴스\s*링크|외부\s*링크)/.test(l);
+  return BRAVE_KEYWORDS.test(l);
 }
 
 function classifyQuestion(txt) {
@@ -217,7 +221,7 @@ async function fetchBraveResults(query) {
     const res = await fetch("/api/brave", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: `${query} battery ESS EV` }),
+      body: JSON.stringify({ query: `${query} ${BRAVE_SEARCH_SUFFIX}` }),
     });
     if (!res.ok) return [];
     const data = await res.json();
@@ -302,7 +306,8 @@ function NewsItem({ card, dark }) {
           <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>
             {card.T && <div style={{ fontWeight: 700, marginBottom: 4 }}>{card.T}</div>}
             {card.sub && <div style={{ marginBottom: 4 }}>{card.sub}</div>}
-            {card.g && <div style={{ fontSize: 10, color: t.sub, marginTop: 2, fontStyle: "italic" }}>💡 {card.g.split("—")[0].trim()}</div>}
+            {card.g && card.g.includes("—") && <div style={{ fontSize: 10, color: t.sub, marginTop: 2, fontStyle: "italic" }}>💡 {card.g.split("—")[0].trim()}</div>}
+            {card.g && !card.g.includes("—") && <div style={{ fontSize: 10, color: t.sub, marginTop: 2, fontStyle: "italic" }}>💡 {card.g.slice(0, Math.ceil(card.g.length * 0.6))}</div>}
           </div>
           {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
         </div>
@@ -310,7 +315,7 @@ function NewsItem({ card, dark }) {
       {showWhy && card.g && (
         <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(209,153,34,0.06)" : "rgba(209,153,34,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(209,153,34,0.15)" : "rgba(209,153,34,0.1)"}` }}>
           <div style={{ fontSize: 9, fontWeight: 800, color: "#D29922", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 왜 중요한지</div>
-          <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>{card.g.includes("—") ? card.g.split("—").slice(1).join("—").trim() : card.g}</div>
+          <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>{card.g.includes("—") ? card.g.split("—").slice(1).join("—").trim() : card.g.slice(Math.ceil(card.g.length * 0.4))}</div>
           {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
         </div>
       )}
@@ -519,6 +524,7 @@ function ChatBot({ kb, tracker, dark }) {
     }
 
     // Translation request detection — show Korean gist of foreign cards
+    // Note: '원문' is handled by isBraveQuery above for external search, not translation
     const isTranslateReq = /(번역|translate|통역|한국어로|영어로)/.test(txt.toLowerCase());
     if (isTranslateReq) {
       const foreignCards = kb.cards.filter((c) => c.r && c.r !== "KR").slice(0, 3);
@@ -540,7 +546,7 @@ function ChatBot({ kb, tracker, dark }) {
 
     // News-type requests → internal cards (latestCards with proper date ordering)
     if (qType === "news") {
-      const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, ".");
+      const todayStr = fmtDate(new Date().toISOString().slice(0, 10));
       const effectiveDate = targetDate || todayStr;
       const cards = latestCards(kb.cards, 3, region, effectiveDate);
       if (cards.length) {

@@ -239,52 +239,35 @@ async function fetchBraveResults(query) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: `${query} ${BRAVE_SEARCH_SUFFIX}` }),
     });
-
-    // Enhanced error handling: distinguish between no-result and error
     if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      const errorType = errorData.error || 'UNKNOWN_ERROR';
-      const errorMessage = errorData.message || 'Search failed';
-
-      return {
-        error: true,
-        errorType,
-        errorMessage,
-        statusCode: res.status,
-        results: []
-      };
+      const data = await res.json().catch(() => ({}));
+      // Differentiate error types from API response
+      if (res.status === 500 && data.error === 'Brave API key not configured') {
+        return { error: 'auth-config', message: 'Brave API 키가 설정되지 않았어. 관리자에게 문의해줘.' };
+      }
+      if (res.status === 429) {
+        return { error: 'rate-limit', message: 'Brave 검색 한도 초과. 잠시 후 다시 시도해줘.' };
+      }
+      if (res.status >= 500) {
+        return { error: 'provider-error', message: 'Brave 서비스에 일시적 문제가 있어. 내부 카드로 검색할게.' };
+      }
+      return { error: 'no-result', message: '외부 기사를 찾지 못했어. 검색어를 바꿔보거나, 내부 카드에서 찾아볼게.' };
     }
-
     const data = await res.json();
     const results = data?.web?.results || [];
-
-    // No results found (successful API call but empty results)
-    if (results.length === 0) {
-      return {
-        error: false,
-        noResults: true,
-        results: []
-      };
+    if (!results.length) {
+      return { error: 'no-result', message: '외부 기사를 찾지 못했어. 검색어를 바꿔보거나, 내부 카드에서 찾아볼게.' };
     }
-
-    return {
-      error: false,
-      noResults: false,
-      results: results.slice(0, 4).map((r) => ({
-        title: r.title || "",
-        description: r.description || "",
-        url: r.url || "",
-      }))
-    };
+    return results.slice(0, 4).map((r) => ({
+      title: r.title || "",
+      description: r.description || "",
+      url: r.url || "",
+    }));
   } catch (err) {
-    return {
-      error: true,
-      errorType: 'NETWORK_ERROR',
-      errorMessage: 'Failed to connect to search service',
-      results: []
-    };
+    return { error: 'network-error', message: '네트워크 오류로 외부 검색 실패. 내부 카드로 검색할게.' };
   }
 }
+
 
 function parseOrdinal(str) {
   const s = str.replace(/\s+/g, "");

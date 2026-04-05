@@ -31,43 +31,9 @@ export default async function handler(req, res) {
       },
     });
 
-    // Enhanced error handling: check response status
-    if (!response.ok) {
-      const statusCode = response.status;
-      let errorType = 'UNKNOWN_ERROR';
-      let errorMessage = 'Unknown error occurred';
-
-      if (statusCode === 401) {
-        errorType = 'UNAUTHORIZED';
-        errorMessage = 'API key is invalid or expired';
-      } else if (statusCode === 403) {
-        errorType = 'FORBIDDEN';
-        errorMessage = 'Access forbidden - check API key permissions';
-      } else if (statusCode === 429) {
-        errorType = 'RATE_LIMIT';
-        errorMessage = 'Rate limit exceeded - too many requests';
-      } else if (statusCode >= 500) {
-        errorType = 'SERVER_ERROR';
-        errorMessage = 'Brave API server error';
-      } else if (statusCode >= 400) {
-        errorType = 'CLIENT_ERROR';
-        errorMessage = 'Bad request to Brave API';
-      }
-
-      return res.status(statusCode).json({
-        error: errorType,
-        message: errorMessage,
-        statusCode
-      });
-    }
-
     const data = await response.json();
     return res.status(200).json(data);
   } catch (error) {
-    return res.status(500).json({
-      error: 'NETWORK_ERROR',
-      message: error.message,
-      details: 'Failed to connect to Brave API'
-    });
+    return res.status(500).json({ error: 'Search failed', message: error.message });
   }
 }

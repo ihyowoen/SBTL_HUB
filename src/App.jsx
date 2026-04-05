@@ -426,7 +426,7 @@ function NewsItem({ card, dark }) {
           {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
         </div>
       )}
-      {showWhy && isForeign && card.g && (
+      {showWhy && card.g && (
         <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(209,153,34,0.06)" : "rgba(209,153,34,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(209,153,34,0.15)" : "rgba(209,153,34,0.1)"}` }}>
           <div style={{ fontSize: 9, fontWeight: 800, color: "#D29922", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 왜 중요한지</div>
           {loadingAnalysis && !whyContent ? (
@@ -465,7 +465,7 @@ function NewsItem({ card, dark }) {
             {showSummary ? "△ 요약 닫기" : "한국어 요약"}
           </button>
         )}
-        {isForeign && card.g && (
+        {card.g && (
           <button onClick={(e) => { e.stopPropagation(); if (!showWhy && !whyContent) fetchAnalysis('why'); setShowWhy(!showWhy); setShowSummary(false); setShowGist(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
             {showWhy ? "△ 닫기" : "왜 중요한지"}
           </button>

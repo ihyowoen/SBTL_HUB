@@ -244,7 +244,17 @@ function Home({onNav,kb,tracker,dark}) {
 /* ChatBot *//* ChatBot */
 function ChatBot({kb,dark}){const t=T(dark);
   const fmtCards=(cards)=>{if(!cards.length)return null;let r="";cards.forEach((c,i)=>{r+=`${sigL[c.s]} ${c.T}\n`;if(c.sub)r+=`${c.sub}\n`;if(c.url)r+=`🔗 ${c.url}\n`;if(i<cards.length-1)r+="\n---\n\n";});return r;};
-  const[msgs,setMsgs]=useState([{role:"assistant",content:`안녕하세요! 강차장입니다. 🔋\n\n무엇이든 물어보세요:\n💡 FAQ (${kb.faqCount}건) → 📚 카드 DB (${kb.cardCount}건) → 🔍 실시간 검색`,tier:null}]);
+  const [msgs, setMsgs] = useState([
+  {
+    role: "assistant",
+    content:
+      `안녕, 강차장이야. 🔋\n\n` +
+      `궁금한 주제를 편하게 보내줘.\n` +
+      `핵심부터 짧게 정리해주고,\n` +
+      `관련 카드나 최근 이슈도 같이 찾아줄게.`,
+    tier: null
+  }
+]);
   const[input,setInput]=useState("");const[loading,setLoading]=useState(false);const[mode,setMode]=useState("");
   const endRef=useRef(null);useEffect(()=>{endRef.current?.scrollIntoView({behavior:"smooth"});},[msgs]);
   const tierL={faq:"💡 FAQ",cards:`📚 CARD_DB (${kb.cardCount})`,brave:"🔍 BRAVE",info:"💬 SYS"};
@@ -427,7 +437,7 @@ export default function App(){
       </div>
       <div style={{marginTop:10}}>
         {tab!=="all"&&<h1 style={{color:"#E6EDF3",fontSize:18,fontWeight:800,margin:0}}>{{news:"날짜별 뉴스 피드",tracker:"Policy Tracker",chatbot:"강차장의 배터리 상담소",webtoon:"LFP 웹툰 시리즈"}[tab]}</h1>}
-        <p style={{color:"#7D8590",fontSize:10,margin:"2px 0 0",fontFamily:"'JetBrains Mono',monospace"}}>{{news:`Cards ${kb.cardCount} · updated ${fmtDate(latestCardDateForUi)} · live feed`,tracker:`5 regions · ${tracker.meta.totalItems} items · updated ${fmtDate(tracker.meta.lastUpdated)}`,chatbot:`FAQ ${kb.faqCount} · Cards ${kb.cardCount} · Brave`,webtoon:`EP.1 · EP.2 now live`}[tab]||"Battery · ESS · EV Intelligence"}</p>
+        <p style={{color:"#7D8590",fontSize:10,margin:"2px 0 0",fontFamily:"'JetBrains Mono',monospace"}}>{{news:`Cards ${kb.cardCount} · updated ${fmtDate(latestCardDateForUi)} · live feed`,tracker:`5 regions · ${tracker.meta.totalItems} items · updated ${fmtDate(tracker.meta.lastUpdated)}`,chatbot:`배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크`,webtoon:`EP.1 · EP.2 now live`}[tab]||"Battery · ESS · EV Intelligence"}</p>
       </div>
     </div>
     {/* Content */}

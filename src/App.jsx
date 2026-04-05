@@ -265,7 +265,16 @@ function ChatBot({kb,dark}){const t=T(dark);
     setMode(`CARD_DB(${kb.cardCount})`);const cr=searchCards(kb.cards,txt);const ca=fmtCards(cr);if(ca){setMsgs(p=>[...p,{role:"assistant",content:ca,tier:"cards"}]);setLoading(false);return;}
     if(/(최신|뉴스|소식|현황|지금|오늘|어제|이번|최근|검색|찾아|가격|시세)/.test(txt)){setMode("BRAVE_SEARCH");const br=await searchBrave(txt);if(br){setMsgs(p=>[...p,{role:"assistant",content:br,tier:"brave"}]);setLoading(false);return;}}
     setMsgs(p=>[...p,{role:"assistant",content:"음... 이건 제가 아직 모르는 내용이네요 😅\n\n이렇게 검색해보세요:\n• FEOC, LFP, 전고체, ESS 등 키워드\n• '최신 배터리 뉴스' → Brave 검색\n• 정책 → 트래커 탭에서 확인!",tier:"info"}]);setLoading(false);};
-  const qQ=["테슬라 LFP?","FEOC?","알루미늄?","ESS 골드러시?","전고체?"];
+  const qQ = [
+  "오늘 핵심 뉴스 3개",
+  "LFP 리스크 한 번에",
+  "한국 정책 일정 뭐 있어?",
+  "미국 FEOC 쉽게 설명해줘",
+  "이번주 ESS 시그널 요약",
+  "전고체 어디까지 왔어?",
+  "중국 가격 흐름 체크",
+  "먼저 봐야 할 카드 추천"
+];
   return(<div style={{display:"flex",flexDirection:"column",height:"calc(100vh - 190px)"}}>
     <div style={{flex:1,overflowY:"auto",padding:"12px 14px 8px"}}>
       {msgs.length<=1&&<div style={{display:"flex",flexWrap:"wrap",gap:5,marginTop:6}}>{qQ.map(q=>(<button key={q} onClick={()=>setInput(q)} style={{background:t.card2,border:`1px solid ${t.brd}`,borderRadius:4,padding:"6px 12px",fontSize:11,color:t.cyan,cursor:"pointer",fontFamily:"'JetBrains Mono',monospace"}}>{q}</button>))}</div>}

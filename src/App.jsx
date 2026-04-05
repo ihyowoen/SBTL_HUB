@@ -36,7 +36,7 @@ const regFlag={US:"🇺🇸",KR:"🇰🇷",EU:"🇪🇺",CN:"🇨🇳",JP:"🇯�
 const fmtDate = (date) => {
   if (!date) return "-";
   const s = String(date).trim();
-  const m = s.match(/^(4}{4})[.-](B2})[.-](\d{2})/);
+  const m = s.match(/^(\d{4})[.-](\d{2})[.-](\d{2})/);
   if (m) return `${m[1]}.${m[2]}.${m[3]}`;
   return s;
 };
@@ -370,7 +370,7 @@ function ChatBot({kb,dark}){
             ))}
           </div>
         )}
-        {msgs.map((m,i)=>{
+        {msgs.map((m,i)=>(
           <div key={i} style={{display:"flex",justifyContent:m.role==="user"?"flex-end":"flex-start",marginBottom:10}}>
           {m.role==="assistant"&&<img src="/data/kang.png" alt="강차장" style={{width:28,height:28,borderRadius:14,marginRight:7,flexShrink:0,marginTop:2,border:"2px solid #2a1a40"}}/>}
           <div style={{maxWidth:"88%"}}>
@@ -390,7 +390,7 @@ function ChatBot({kb,dark}){
             </div>
           </div>
         </div>
-        )}
+        ))}
         {loading&&(
           <div style={{display:"flex",gap:7,marginBottom:10}}>
             <img src="/data/kang.png" alt="강차장" style={{width:28,height:28,borderRadius:14,flexShrink:0,border:"2px solid #2a1a40"}}/>
@@ -606,7 +606,7 @@ function WebtoonHero({collection,dark}){
             {collection.items.map((item,idx)=>(
               <div key={item.id} style={{background:dark?"rgba(10,14,20,0.65)":"rgba(255,255,255,0.88)",border:`1px solid ${t.brd}`,borderRadius:12,padding:"10px 9px"}}>
                 <div style={{fontSize:8,color:t.sub,fontFamily:"'JetBrains Mono',monospace",marginBottom:4}}>EP.0{idx+1}</div>
-                <div style={{fontSize:11,fontWeight:700,color:t.tx,lineHeight:1.3}}>{item.title.replace(/^EP\.\d+\s*/,"”).slice(0,20)}</div>
+                <div style={{fontSize:11,fontWeight:700,color:t.tx,lineHeight:1.3}}>{item.title.replace(/^EP\.\d+\s*/,"").slice(0,20)}</div>
               </div>
             ))}
           </div>
@@ -637,7 +637,7 @@ function WebtoonLibrary({dark}){
         </div>
         <p style={{fontSize:12,color:t.sub,lineHeight:1.6,margin:0}}>공개된 웹툰을 시리즈 단위로 정리한 아카이브입니다. 같은 주제의 회차를 한곳에서 순서대로 확인할 수 있습니다.</p>
       </div>
-      {WEBTOON_COLLECTIONS.map((collection,idx)=><CollectionFolder key={collection.id} collection={collection} dark={dark} defaultOpen={idx===0}/>)})
+      {WEBTOON_COLLECTIONS.map((collection,idx)=><CollectionFolder key={collection.id} collection={collection} dark={dark} defaultOpen={idx===0}/>)}
     </div>
   );
 }

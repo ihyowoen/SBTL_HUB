@@ -231,24 +231,8 @@ function NewsItem({ card, dark }) {
   const t = T(dark);
   const sig = card.s || "i";
   const [showGist, setShowGist] = useState(false);
-  const [translated, setTranslated] = useState(null);
-  const [translating, setTranslating] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
   const isForeign = card.r && card.r !== "KR";
-
-  const translateCard = async (e) => {
-    e.stopPropagation();
-    if (translating || translated) return;
-    setTranslating(true);
-    try {
-      const text = card.sub ? `${card.T}. ${card.sub}` : card.T;
-      const regionLangMap = { US: "en", EU: "en", CN: "zh-CN", JP: "ja" };
-      const targetLang = regionLangMap[card.r] || "en";
-      const r = await fetch("/api/translate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, sourceLang: "ko", targetLang }) });
-      const d = await r.json();
-      if (r.ok && d.translatedText) setTranslated(d.translatedText);
-    } catch { /* ignore */ }
-    setTranslating(false);
-  };
 
   return (
     <div onClick={() => card.url && window.open(card.url, "_blank")} style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", borderLeft: `3px solid ${SIG_C[sig]}`, border: `1px solid ${t.brd}`, cursor: card.url ? "pointer" : "default" }}>
@@ -260,7 +244,7 @@ function NewsItem({ card, dark }) {
       </div>
       <h3 style={{ fontSize: 13, fontWeight: 700, color: t.tx, margin: 0, lineHeight: 1.45 }}>{card.T}</h3>
       {card.sub && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.45 }}>{card.sub}</p>}
-      {translated && <p style={{ fontSize: 11, color: "#58A6FF", margin: "6px 0 0", lineHeight: 1.45, fontStyle: "italic" }}>🌐 {translated}</p>}
+      {showSummary && card.g && <p style={{ fontSize: 11, color: "#58A6FF", margin: "6px 0 0", lineHeight: 1.45, fontStyle: "italic" }}>💡 {card.g}</p>}
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
         {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
         {card.g && (
@@ -268,9 +252,9 @@ function NewsItem({ card, dark }) {
             {showGist ? "△ 닫기" : "▽ 핵심 분석"}
           </button>
         )}
-        {isForeign && !translated && (
-          <button onClick={translateCard} disabled={translating} aria-label="Translate card content" style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: translating ? "default" : "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {translating ? "번역 중..." : "🌐 번역"}
+        {isForeign && card.g && !showSummary && (
+          <button onClick={(e) => { e.stopPropagation(); setShowSummary(true); }} aria-label="Show Korean summary" style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            한국어 요약
           </button>
         )}
       </div>

@@ -252,9 +252,9 @@ function NewsItem({ card, dark }) {
             {showGist ? "△ 닫기" : "▽ 핵심 분석"}
           </button>
         )}
-        {isForeign && card.g && !showSummary && (
-          <button onClick={(e) => { e.stopPropagation(); setShowSummary(true); }} aria-label="Show Korean summary" style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            한국어 요약
+        {isForeign && card.g && (
+          <button onClick={(e) => { e.stopPropagation(); setShowSummary(!showSummary); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showSummary ? "△ 요약 닫기" : "한국어 요약"}
           </button>
         )}
       </div>

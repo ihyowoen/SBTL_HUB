@@ -61,7 +61,7 @@ const T = (dark = true) => dark
   : { bg: "#F4F6FA", card: "#FFFFFF", card2: "#F8F9FC", tx: "#1A1A2A", sub: "#6B7280", brd: "#E0E3EA", cyan: "#2D5A8E", sh: "0 2px 10px rgba(0,0,0,0.06)" };
 
 const quickPrimary = [
-  "오늘 핵심 뉴스 3개",
+  "오늘 뉴스 3개",
   "LFP 리스크 한 번에",
   "한국 정책 일정 뭐 있어?",
   "미국 FEOC 쉽게 설명해줘",
@@ -174,10 +174,10 @@ function searchCards(cards, query, limit = 5) {
 
 function classifyQuestion(txt) {
   const l = txt.toLowerCase();
-  if (/(요약|정리|핵심|브리핑|한 줄|한줄)/.test(l)) return "summary";
-  if (/(비교|차이|vs|대비|어떤 게|뭐가 더)/.test(l)) return "compare";
-  if (/(일정|정책|규제|시행|법안|언제|예정|스케줄)/.test(l)) return "policy";
   if (/(최신|뉴스|소식|현황|지금|오늘|최근|이번)/.test(l)) return "news";
+  if (/(일정|정책|규제|시행|법안|언제|예정|스케줄)/.test(l)) return "policy";
+  if (/(비교|차이|vs|대비|어떤 게|뭐가 더)/.test(l)) return "compare";
+  if (/(요약|정리|핵심|브리핑|한 줄|한줄)/.test(l)) return "summary";
   return "general";
 }
 
@@ -369,14 +369,16 @@ function ChatBot({ kb, dark }) {
 
   const runSuggestion = (label) => {
     const map = {
+      "오늘 핵심 뉴스 3개": "오늘 뉴스 3개",
+      "오늘 뉴스 3개": "오늘 뉴스 3개",
       "요약해서 다시 정리": "방금 답변을 3줄로 다시 요약해줘",
       "카드에서도 찾아봐": "방금 주제와 관련된 카드도 같이 찾아줘",
       "조금 더 쉽게 설명해줘": "방금 답변을 더 쉽게 설명해줘",
       "관련 카드 더 보여줘": "방금 주제와 관련된 카드 더 보여줘",
       "최신 기사 링크로 보여줘": "방금 주제 기준 최신 기사 링크 3개 보여줘",
       "정책 일정만 따로 정리해줘": "방금 주제와 관련된 정책 일정만 따로 정리해줘",
-      "한국 뉴스만": "오늘 한국 핵심 뉴스 3개",
-      "미국 뉴스만": "오늘 미국 핵심 뉴스 3개",
+      "한국 뉴스만": "오늘 한국 뉴스 3개",
+      "미국 뉴스만": "오늘 미국 뉴스 3개",
       "다가오는 일정만": "다가오는 정책 일정만 정리해줘",
       "한국/EU 비교": "한국과 EU 정책을 비교해줘",
       "실무 영향만 요약": "실무 영향만 요약해줘",

@@ -18,9 +18,9 @@ const WEBTOON_COLLECTIONS = [
     hook:"좋은 배터리일 수 있다. 그런데 너무 쉽게 보면 핵심을 놓친다.",
     description:"EP.01부터 Bonus.01까지, LFP 안전성 인식과 비용 구조를 단계적으로 따라가는 시리즈입니다.",
     items:[
-      {id:101,title:"EP.01 LFP의 두 가지 착각",subtitle:"좋은 배터리일 수 있다. 그런데 너무 쉽게 보면 핵심을 놓친다.",date:"2026.04.05",isNew:true,color:"#F85149",likes:0},
-      {id:102,title:"EP.02 덜 타 보인다고, 덜 위험한 건 아니다",subtitle:"보이는 화재 위험과 보이지 않는 off-gas 위험은 같은 말이 아니다.",date:"2026.04.05",isNew:true,color:"#F85149",likes:0},
-      {id:103,title:"BONUS.01 누가 진짜 돈을 내나?",subtitle:"끝날 때 비용은 존재한다. 그 돈을 누가 떠안는지 묻는 보너스 에피소드.",date:"2026.04.05",isNew:true,color:"#F85149",likes:0},
+      {id:101,title:"EP.01 LFP의 두 가지 착각",subtitle:"좋은 배터리일 수 있다. 그런데 너무 쉽게 보면 핵심을 놓친다.",date:"2026.04.05",isNew:true,color:"#F85149",likes:0,url:"/webtoon/lfp-two-misconceptions-ep1.html"},
+      {id:102,title:"EP.02 덜 타 보인다고, 덜 위험한 건 아니다",subtitle:"보이는 화재 위험과 보이지 않는 off-gas 위험은 같은 말이 아니다.",date:"2026.04.05",isNew:true,color:"#F85149",likes:0,url:"/webtoon/lfp-two-misconceptions-ep2.html"},
+      {id:103,title:"BONUS.01 누가 진짜 돈을 내나?",subtitle:"끝날 때 비용은 존재한다. 그 돈을 누가 떠안는지 묻는 보너스 에피소드.",date:"2026.04.05",isNew:true,color:"#F85149",likes:0,url:"/webtoon/who-pays-bonus1.html"},
     ]
   }
 ];
@@ -283,16 +283,30 @@ function Home({onNav,kb,tracker,dark}) {
 /* ChatBot */
 function ChatBot({kb,dark}){
   const t=T(dark);
-  const fmtCards=(cards)=>{
+  const classifyQuestion=(txt)=>{
+    const l=txt.toLowerCase();
+    if(/(요약|정리|핵심|브리핑|한 줄|한줄)/.test(l))return"summary";
+    if(/(비교|차이|vs|대|대비|어떤 게)/.test(l))return"compare";
+    if(/(일정|정책|규제|시행|법안|언제|예정|스케줄)/.test(l))return"policy";
+    if(/(최신|뉴스|소식|현황|지금|오늘|어제|이번|최근|검색|찾아|가격|시세)/.test(l))return"news";
+    return"general";
+  };
+  const getFollowUp=(tier,questionType)=>{
+    if(tier==="faq")return["관련 카드도 보여줘","더 자세히 설명해줘","비슷한 주제 뭐 있어?"];
+    if(tier==="cards"){
+      if(questionType==="summary")return["다른 지역도 보여줘","이 주제 최신 뉴스","비교 분석해줘"];
+      if(questionType==="compare")return["어느 쪽이 유리해?","관련 정책 일정은?","투자 관점에서 정리해줘"];
+      return["이 주제 더 깊이","최신 뉴스 검색","관련 FAQ 있어?"];
+    }
+    if(tier==="brave")return["카드에서도 찾아봐","요약해서 다시 정리","비슷한 최신 이슈 더"];
+    return["오늘 핵심 뉴스","LFP 리스크 요약","정책 일정 확인"];
+  };
+  const fmtCardResult=(cards)=>{
     if(!cards.length)return null;
-    let r="";
-    cards.forEach((c,i)=>{
-      r+=`${sigL[c.s]} ${c.T}\n`;
-      if(c.sub)r+=`${c.sub}\n`;
-      if(c.url)r+=`🔗 ${c.url}\n`;
-      if(i<cards.length-1)r+="\n";
-    });
-    return r.trim();
+    return{
+      content:`🔍 관련 카드 ${cards.length}건을 찾았어.`,
+      cards:cards.map(c=>({title:c.T,subtitle:c.sub,signal:c.s,url:c.url,region:c.r,date:c.d})),
+    };
   };
   const [msgs, setMsgs] = useState([
     {
@@ -315,7 +329,12 @@ function ChatBot({kb,dark}){
     try{
       const r=await fetch("/api/brave",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:q+" battery ESS 2026"})});
       const d=await r.json();
-      return d.answer||null;
+      const results=(d.web?.results||[]).slice(0,3);
+      if(!results.length)return null;
+      return{
+        content:`🌐 최신 검색 결과야.`,
+        links:results.map(item=>({title:item.title,description:item.description,url:item.url})),
+      };
     }catch{return null;}
   };
   const send=async()=>{
@@ -325,19 +344,25 @@ function ChatBot({kb,dark}){
     const nm=[...msgs,{role:"user",content:txt}];
     setMsgs(nm);
     setLoading(true);
+    const qType=classifyQuestion(txt);
     setMode("FAQ_SCAN");
     const fa=matchFaq(txt);
-    if(fa){setMsgs(p=>[...p,{role:"assistant",content:fa,tier:"faq"}]);setLoading(false);return;}
-    setMode(`CARD_DB(${kb.cardCount})`);
-    const cr=searchCards(kb.cards,txt);
-    const ca=fmtCards(cr);
-    if(ca){setMsgs(p=>[...p,{role:"assistant",content:ca,tier:"cards"}]);setLoading(false);return;}
-    if(/(최신|뉴스|소식|현황|지금|오늘|어제|이번|최근|검색|찾아|가격|시세)/.test(txt)){
+    if(fa){setMsgs(p=>[...p,{role:"assistant",content:fa,tier:"faq",followUp:getFollowUp("faq",qType)}]);setLoading(false);return;}
+    if(qType==="news"){
       setMode("BRAVE_SEARCH");
       const br=await searchBrave(txt);
-      if(br){setMsgs(p=>[...p,{role:"assistant",content:br,tier:"brave"}]);setLoading(false);return;}
+      if(br){setMsgs(p=>[...p,{role:"assistant",content:br.content,links:br.links,tier:"brave",followUp:getFollowUp("brave",qType)}]);setLoading(false);return;}
     }
-    setMsgs(p=>[...p,{role:"assistant",content:"음... 이건 제가 아직 모르는 내용이네요 😅\n\n이렇게 검색해보세요:\n• FEOC, LFP, 전고체, ESS 등 키워드\n• '최근 동향', '정책 현황' 같은 문구",tier:"info"}]);
+    setMode(`CARD_DB(${kb.cardCount})`);
+    const cr=searchCards(kb.cards,txt);
+    const result=fmtCardResult(cr);
+    if(result){setMsgs(p=>[...p,{role:"assistant",content:result.content,cards:result.cards,tier:"cards",followUp:getFollowUp("cards",qType)}]);setLoading(false);return;}
+    if(qType!=="news"){
+      setMode("BRAVE_SEARCH");
+      const br=await searchBrave(txt);
+      if(br){setMsgs(p=>[...p,{role:"assistant",content:br.content,links:br.links,tier:"brave",followUp:getFollowUp("brave",qType)}]);setLoading(false);return;}
+    }
+    setMsgs(p=>[...p,{role:"assistant",content:"음... 이건 제가 아직 모르는 내용이네요 😅\n\n이렇게 검색해보세요:\n• FEOC, LFP, 전고체, ESS 등 키워드\n• '최근 동향', '정책 현황' 같은 문구",tier:"info",followUp:getFollowUp("info",qType)}]);
     setLoading(false);
   };
   const qQ = [
@@ -371,7 +396,8 @@ function ChatBot({kb,dark}){
           </div>
         )}
         {msgs.map((m,i)=>(
-          <div key={i} style={{display:"flex",justifyContent:m.role==="user"?"flex-end":"flex-start",marginBottom:10}}>
+          <div key={i} style={{display:"flex",flexDirection:"column",alignItems:m.role==="user"?"flex-end":"flex-start",marginBottom:10}}>
+          <div style={{display:"flex",justifyContent:m.role==="user"?"flex-end":"flex-start",width:"100%"}}>
           {m.role==="assistant"&&<img src="/data/kang.png" alt="강차장" style={{width:28,height:28,borderRadius:14,marginRight:7,flexShrink:0,marginTop:2,border:"2px solid #2a1a40"}}/>}
           <div style={{maxWidth:"88%"}}>
             <div style={{
@@ -388,7 +414,38 @@ function ChatBot({kb,dark}){
             }}>
               {m.content}
             </div>
+            {m.cards&&m.cards.map((card,j)=>(
+              <div key={j} onClick={()=>card.url&&window.open(card.url,"_blank")}
+                style={{background:dark?"#151B26":"#f8f9fc",borderRadius:10,padding:"10px 12px",
+                        marginTop:6,cursor:card.url?"pointer":"default",border:`1px solid ${t.brd}`}}>
+                <div style={{fontSize:12,fontWeight:700,color:t.tx}}>{sigL[card.signal]} {card.title}</div>
+                {card.subtitle&&<div style={{fontSize:11,color:t.sub,marginTop:3}}>{card.subtitle}</div>}
+                {card.url&&<div style={{fontSize:10,color:t.cyan,marginTop:4}}>→ 원문 보기</div>}
+              </div>
+            ))}
+            {m.links&&m.links.map((link,j)=>(
+              <a key={j} href={link.url} target="_blank" rel="noopener noreferrer"
+                style={{display:"block",background:dark?"#151B26":"#f8f9fc",borderRadius:10,
+                        padding:"10px 12px",marginTop:6,textDecoration:"none",border:`1px solid ${t.brd}`}}>
+                <div style={{fontSize:12,fontWeight:700,color:t.cyan}}>{link.title}</div>
+                <div style={{fontSize:11,color:t.sub,marginTop:3,lineHeight:1.4}}>{link.description}</div>
+                <div style={{fontSize:10,color:t.sub,marginTop:4,fontFamily:"'JetBrains Mono',monospace"}}>{link.url}</div>
+              </a>
+            ))}
           </div>
+          </div>
+          {m.role==="assistant"&&m.followUp&&m.followUp.length>0&&(
+            <div style={{display:"flex",gap:6,flexWrap:"wrap",marginTop:8,marginBottom:4,paddingLeft:35}}>
+              {m.followUp.map(q=>(
+                <button key={q} onClick={()=>setInput(q)}
+                  style={{background:dark?"#1A2333":"#fff",border:`1px solid ${t.brd}`,borderRadius:999,
+                          padding:"6px 12px",fontSize:11,color:t.cyan,cursor:"pointer",
+                          fontFamily:"'Pretendard',sans-serif",fontWeight:600}}>
+                  {q}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         ))}
         {loading&&(

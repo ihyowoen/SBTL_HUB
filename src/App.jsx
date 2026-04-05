@@ -62,7 +62,7 @@ const T = (dark = true) => dark
 
 const quickPrimary = [
   "오늘 핵심 카드",
-  "최신 카드 더 보여줘",
+  "오늘의 시그널 TOP",
   "LFP 리스크 한 번에",
   "한국 정책 일정 뭐 있어?",
   "미국 FEOC 쉽게 설명해줘",
@@ -556,7 +556,7 @@ function ChatBot({ kb, tracker, dark }) {
   const runSuggestion = (label) => {
     const map = {
       "오늘 핵심 카드": "오늘 뉴스 3개",
-      "최신 카드 더 보여줘": "최신 카드 더 보여줘",
+      "오늘의 시그널 TOP": "오늘 TOP 시그널 카드 보여줘",
       "오늘 핵심 뉴스 3개": "오늘 뉴스 3개",
       "오늘 뉴스 3개": "오늘 뉴스 3개",
       "요약해서 다시 정리": "방금 답변을 3줄로 다시 요약해줘",

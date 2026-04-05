@@ -241,9 +241,9 @@ function NewsItem({ card, dark }) {
     setTranslating(true);
     try {
       const text = card.sub ? `${card.T}. ${card.sub}` : card.T;
-      const regionLangMap = { US: "en", EU: "en", CN: "zh", JP: "ja" };
-      const sourceLang = regionLangMap[card.r] || "en";
-      const r = await fetch("/api/translate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, sourceLang, targetLang: "ko" }) });
+      const regionLangMap = { US: "en", EU: "en", CN: "zh-CN", JP: "ja" };
+      const targetLang = regionLangMap[card.r] || "en";
+      const r = await fetch("/api/translate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, sourceLang: "ko", targetLang }) });
       const d = await r.json();
       if (r.ok && d.translatedText) setTranslated(d.translatedText);
     } catch { /* ignore */ }

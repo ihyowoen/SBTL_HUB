@@ -139,12 +139,28 @@ function latestDate(cards) {
   return [...cards.map((c) => c?.d).filter(Boolean)].sort((a, b) => String(b).localeCompare(String(a)))[0] || null;
 }
 
-function latestCards(cards, limit = 3, region = null) {
-  const ld = latestDate(cards);
-  let list = cards.filter((c) => c.d === ld);
+function latestCards(cards, limit = 3, region = null, targetDate = null) {
+  const ld = targetDate || latestDate(cards);
+  let list = targetDate
+    ? cards.filter((c) => c.d && String(c.d).startsWith(targetDate))
+    : cards.filter((c) => c.d === ld);
   if (region) list = list.filter((c) => c.r === region);
   const rank = { t: 3, h: 2, m: 1, i: 0 };
-  return list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+  const sorted = list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+  if (targetDate && !sorted.length && !region) {
+    const nearby = cards.filter((c) => c.d && String(c.d) <= targetDate).sort((a, b) => String(b.d).localeCompare(String(a.d)));
+    return nearby.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+  }
+  return sorted;
+}
+
+function detectDate(txt) {
+  const m = txt.match(/(\d{4})[년.\-\/]?\s*(\d{1,2})[월.\-\/]?\s*(\d{1,2})/);
+  if (m) {
+    const y = m[1], mo = m[2].padStart(2, "0"), d = m[3].padStart(2, "0");
+    return `${y}.${mo}.${d}`;
+  }
+  return null;
 }
 
 function searchCards(cards, query, limit = 5) {
@@ -298,9 +314,17 @@ function ChatBot({ kb, dark }) {
     return null;
   };
 
-  const searchBrave = async (q) => {
+  const searchBrave = async (q, qType = "general", region = null, targetDate = null) => {
     try {
-      const r = await fetch("/api/brave", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: `${q} battery ESS 2026` }) });
+      const regionKeyword = { US: "US America", KR: "Korea", CN: "China", EU: "Europe", JP: "Japan" }[region] || "";
+      let searchQuery;
+      if (qType === "news" && region) {
+        const datePart = targetDate ? targetDate.replace(/\./g, "-") : "2026";
+        searchQuery = `${regionKeyword} battery ESS EV news ${datePart}`;
+      } else {
+        searchQuery = `${q} battery ESS 2026`;
+      }
+      const r = await fetch("/api/brave", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: searchQuery }) });
       const d = await r.json();
       const results = (d.web?.results || []).slice(0, 3);
       if (!results.length) return null;
@@ -310,19 +334,26 @@ function ChatBot({ kb, dark }) {
     }
   };
 
-  const buildCardMessage = (cards, textType = "general") => ({
-    role: "assistant",
-    content: textType === "news" ? `${fmtDate(cards[0]?.d)} 기준 핵심 뉴스야.` : `관련 카드 ${cards.length}건을 찾았어.`,
-    cards: cards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src })),
-    suggestions: followUps(textType).map((label) => ({ label })),
-  });
+  const buildCardMessage = (cards, textType = "general", targetDate = null) => {
+    const dateLabel = targetDate || fmtDate(cards[0]?.d);
+    return {
+      role: "assistant",
+      content: textType === "news" ? `${dateLabel} 기준 핵심 뉴스야.` : `관련 카드 ${cards.length}건을 찾았어.`,
+      cards: cards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src })),
+      suggestions: followUps(textType).map((label) => ({ label })),
+    };
+  };
 
-  const buildLinkMessage = (links, type = "general") => ({
-    role: "assistant",
-    content: "최신 링크를 정리했어.",
-    links,
-    suggestions: followUps(type).map((label) => ({ label })),
-  });
+  const buildLinkMessage = (links, type = "general", targetDate = null, region = null) => {
+    const regionLabel = { US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[region] || "";
+    const dateLabel = targetDate ? ` (${targetDate} 전후)` : "";
+    return {
+      role: "assistant",
+      content: `${regionLabel}${regionLabel ? " " : ""}최신 링크를 정리했어.${dateLabel}`,
+      links,
+      suggestions: followUps(type).map((label) => ({ label })),
+    };
+  };
 
   const sendWithText = async (rawText) => {
     const txt = String(rawText || "").trim();
@@ -333,6 +364,7 @@ function ChatBot({ kb, dark }) {
 
     const qType = classifyQuestion(txt);
     const region = detectRegion(txt);
+    const targetDate = detectDate(txt);
     const faq = matchFaq(txt);
     if (faq) {
       setMsgs((prev) => [...prev, { role: "assistant", content: faq, suggestions: followUps(qType).map((label) => ({ label })) }]);
@@ -341,9 +373,9 @@ function ChatBot({ kb, dark }) {
     }
 
     if (qType === "news") {
-      const cards = latestCards(kb.cards, 3, region);
+      const cards = latestCards(kb.cards, 3, region, targetDate);
       if (cards.length) {
-        setMsgs((prev) => [...prev, buildCardMessage(cards, "news")]);
+        setMsgs((prev) => [...prev, buildCardMessage(cards, "news", targetDate)]);
         setLoading(false);
         return;
       }
@@ -351,14 +383,14 @@ function ChatBot({ kb, dark }) {
 
     const cardHits = searchCards(kb.cards, txt, 4);
     if (cardHits.length) {
-      setMsgs((prev) => [...prev, buildCardMessage(cardHits, qType)]);
+      setMsgs((prev) => [...prev, buildCardMessage(cardHits, qType, targetDate)]);
       setLoading(false);
       return;
     }
 
-    const brave = await searchBrave(txt);
+    const brave = await searchBrave(txt, qType, region, targetDate);
     if (brave?.length) {
-      setMsgs((prev) => [...prev, buildLinkMessage(brave, qType)]);
+      setMsgs((prev) => [...prev, buildLinkMessage(brave, qType, targetDate, region)]);
       setLoading(false);
       return;
     }

@@ -778,12 +778,11 @@ function ChatBot({ kb, tracker, dark }) {
 
     // News-type requests → internal cards (latestCards with proper date ordering)
     if (qType === "news") {
-      const todayStr = kstToday();
-      const effectiveDate = targetDate || todayStr;
+      const effectiveDate = targetDate || fmtDate(new Date().toISOString().slice(0, 10));
       const cards = latestCards(kb.cards, 3, region, effectiveDate);
       if (cards.length) {
         updateCtx({ lastCards: cards, selected: cards[0] });
-        setMsgs((prev) => [...prev, buildCardMessage(cards, "news", effectiveDate)]);
+        setMsgs((prev) => [...prev, buildCardMessage(cards, "news", targetDate)]);
         setLoading(false);
         return;
       }

@@ -63,7 +63,7 @@ const T = (dark = true) => dark
 const quickPrimary = [
   "오늘 핵심 카드",
   "오늘의 시그널 TOP",
-  "LFP 리스크 한 번에",
+  "외부 기사 링크 검색",
   "한국 정책 일정 뭐 있어?",
   "미국 FEOC 쉽게 설명해줘",
   "이번주 ESS 시그널 요약",
@@ -147,9 +147,14 @@ function latestCards(cards, limit = 3, region = null, targetDate = null) {
   if (targetDate) {
     let list = pool.filter((c) => c.d && String(c.d).startsWith(targetDate));
     if (list.length) return list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
-    // fallback: nearest earlier date
-    const nearby = pool.filter((c) => c.d && String(c.d) <= targetDate).sort((a, b) => String(b.d).localeCompare(String(a.d)));
-    return nearby.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+    // fallback: nearest earlier date — find the single closest date first
+    const nearbyDates = [...new Set(pool.filter((c) => c.d && String(c.d) <= targetDate).map((c) => c.d))].sort((a, b) => String(b).localeCompare(String(a)));
+    if (nearbyDates.length) {
+      const closestDate = nearbyDates[0];
+      const closestCards = pool.filter((c) => c.d === closestDate);
+      return closestCards.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+    }
+    return pool.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
   }
 
   // No targetDate: use latest date within the (possibly region-filtered) pool
@@ -193,6 +198,15 @@ function searchCards(cards, query, limit = 5) {
     .slice(0, limit);
 }
 
+// Keywords that trigger Brave external article search instead of internal cards
+const BRAVE_KEYWORDS = /(실시간|외부|원문|링크|기사\s*검색|brave|외부\s*기사|최신\s*기사|검색해|찾아줘.*기사|뉴스\s*링크|외부\s*링크)/;
+const BRAVE_SEARCH_SUFFIX = "battery ESS EV";
+
+function isBraveQuery(txt) {
+  const l = txt.toLowerCase();
+  return BRAVE_KEYWORDS.test(l);
+}
+
 function classifyQuestion(txt) {
   const l = txt.toLowerCase();
   if (/(최신|뉴스|소식|현황|지금|오늘|최근|이번)/.test(l)) return "news";
@@ -200,6 +214,26 @@ function classifyQuestion(txt) {
   if (/(비교|차이|vs|대비|어떤 게|뭐가 더)/.test(l)) return "compare";
   if (/(요약|정리|핵심|브리핑|한 줄|한줄)/.test(l)) return "summary";
   return "general";
+}
+
+async function fetchBraveResults(query) {
+  try {
+    const res = await fetch("/api/brave", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: `${query} ${BRAVE_SEARCH_SUFFIX}` }),
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    const results = data?.web?.results || [];
+    return results.slice(0, 4).map((r) => ({
+      title: r.title || "",
+      description: r.description || "",
+      url: r.url || "",
+    }));
+  } catch {
+    return [];
+  }
 }
 
 function detectRegion(txt) {
@@ -216,7 +250,7 @@ function followUps(type, depth = 1, ctx = null) {
   const regionLabel = ctx?.region ? ({ US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[ctx.region] || "") : "";
   if (depth <= 1) {
     if (type === "news") {
-      const base = ["요약해서 다시 정리", "관련 카드 더 보여줘"];
+      const base = ["요약해서 다시 정리", "관련 카드 더 보여줘", "외부 기사 링크 검색"];
       // Suggest other regions, not the current one
       if (!regionLabel) base.push("한국 뉴스만", "미국 뉴스만");
       else {
@@ -266,11 +300,22 @@ function NewsItem({ card, dark }) {
       </div>
       <h3 style={{ fontSize: 13, fontWeight: 700, color: t.tx, margin: 0, lineHeight: 1.45 }}>{card.T}</h3>
       {card.sub && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.45 }}>{card.sub}</p>}
-      {showSummary && card.g && <p style={{ fontSize: 11, color: "#58A6FF", margin: "6px 0 0", lineHeight: 1.45, fontStyle: "italic" }}>💡 {card.g}</p>}
-      {showWhy && card.g && (
+      {showSummary && (
         <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
-          <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>왜 중요한지</div>
-          <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>{card.g}</div>
+          <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>📰 한국어 요약</div>
+          <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>
+            {card.T && <div style={{ fontWeight: 700, marginBottom: 4 }}>{card.T}</div>}
+            {card.sub && <div style={{ marginBottom: 4 }}>{card.sub}</div>}
+            {card.g && card.g.includes("—") && <div style={{ fontSize: 10, color: t.sub, marginTop: 2, fontStyle: "italic" }}>💡 {card.g.split("—")[0].trim()}</div>}
+            {card.g && !card.g.includes("—") && <div style={{ fontSize: 10, color: t.sub, marginTop: 2, fontStyle: "italic" }}>💡 {card.g.slice(0, Math.ceil(card.g.length * 0.6))}</div>}
+          </div>
+          {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
+        </div>
+      )}
+      {showWhy && card.g && (
+        <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(209,153,34,0.06)" : "rgba(209,153,34,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(209,153,34,0.15)" : "rgba(209,153,34,0.1)"}` }}>
+          <div style={{ fontSize: 9, fontWeight: 800, color: "#D29922", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 왜 중요한지</div>
+          <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>{card.g.includes("—") ? card.g.split("—").slice(1).join("—").trim() : card.g.slice(Math.ceil(card.g.length * 0.4))}</div>
           {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
         </div>
       )}
@@ -281,7 +326,7 @@ function NewsItem({ card, dark }) {
             {showGist ? "△ 닫기" : "▽ 핵심 분석"}
           </button>
         )}
-        {isForeign && card.g && (
+        {isForeign && (card.T || card.sub) && (
           <button onClick={(e) => { e.stopPropagation(); setShowSummary(!showSummary); setShowWhy(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
             {showSummary ? "△ 요약 닫기" : "한국어 요약"}
           </button>
@@ -430,7 +475,7 @@ function ChatBot({ kb, tracker, dark }) {
     };
   };
 
-  const sendWithText = (rawText) => {
+  const sendWithText = async (rawText) => {
     const txt = String(rawText || "").trim();
     if (!txt || loading) return;
     setLoading(true);
@@ -451,8 +496,36 @@ function ChatBot({ kb, tracker, dark }) {
       return;
     }
 
+    // Brave external article search: triggered by specific keywords
+    if (isBraveQuery(txt)) {
+      const braveResults = await fetchBraveResults(txt);
+      depthRef.current += 1;
+      if (braveResults.length) {
+        const lines = braveResults.map((r, i) => `${i + 1}. ${r.title}\n   ${r.description?.slice(0, 80) || ""}`).join("\n\n");
+        updateCtx({ qType: "news", links: braveResults });
+        setMsgs((prev) => [...prev, {
+          role: "assistant",
+          content: `외부 기사 검색 결과야.\n\n${lines}`,
+          sourceBadge: "external",
+          braveLinks: braveResults,
+          suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }, { label: "요약해서 다시 정리" }],
+        }]);
+      } else {
+        // Brave failed or no results → fallback to internal cards
+        const cards = latestCards(kb.cards, 3, region, targetDate);
+        if (cards.length) {
+          setMsgs((prev) => [...prev, buildCardMessage(cards, "news", targetDate)]);
+        } else {
+          setMsgs((prev) => [...prev, { role: "assistant", content: "외부 기사를 찾지 못했어. 검색어를 바꿔보거나, 내부 카드에서 찾아볼게.", suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }] }]);
+        }
+      }
+      setLoading(false);
+      return;
+    }
+
     // Translation request detection — show Korean gist of foreign cards
-    const isTranslateReq = /(번역|translate|통역|한국어로|영어로|원문)/.test(txt.toLowerCase());
+    // Note: '원문' is handled by isBraveQuery above for external search, not translation
+    const isTranslateReq = /(번역|translate|통역|한국어로|영어로)/.test(txt.toLowerCase());
     if (isTranslateReq) {
       const foreignCards = kb.cards.filter((c) => c.r && c.r !== "KR").slice(0, 3);
       if (foreignCards.length) {
@@ -462,6 +535,7 @@ function ChatBot({ kb, tracker, dark }) {
         setMsgs((prev) => [...prev, {
           role: "assistant",
           content: `최근 해외 기사의 한국어 분석이야.\n\n${gistLines}`,
+          sourceBadge: "internal",
           cards: foreignCards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
           suggestions: [{ label: "미국만 따로" }, { label: "중국만 따로" }, { label: "관련 카드 더 보여줘" }, { label: "조금 더 쉽게 설명해줘" }],
         }]);
@@ -470,11 +544,13 @@ function ChatBot({ kb, tracker, dark }) {
       }
     }
 
-    // News-type requests → internal cards only
+    // News-type requests → internal cards (latestCards with proper date ordering)
     if (qType === "news") {
-      const cards = latestCards(kb.cards, 3, region, targetDate);
+      const todayStr = fmtDate(new Date().toISOString().slice(0, 10));
+      const effectiveDate = targetDate || todayStr;
+      const cards = latestCards(kb.cards, 3, region, effectiveDate);
       if (cards.length) {
-        setMsgs((prev) => [...prev, buildCardMessage(cards, "news", targetDate)]);
+        setMsgs((prev) => [...prev, buildCardMessage(cards, "news", effectiveDate)]);
         setLoading(false);
         return;
       }
@@ -557,6 +633,7 @@ function ChatBot({ kb, tracker, dark }) {
     const map = {
       "오늘 핵심 카드": "오늘 뉴스 3개",
       "오늘의 시그널 TOP": "오늘 TOP 시그널 카드 보여줘",
+      "외부 기사 링크 검색": "실시간 배터리 ESS 기사 검색해줘",
       "오늘 핵심 뉴스 3개": "오늘 뉴스 3개",
       "오늘 뉴스 3개": "오늘 뉴스 3개",
       "요약해서 다시 정리": "방금 답변을 3줄로 다시 요약해줘",
@@ -598,13 +675,25 @@ function ChatBot({ kb, tracker, dark }) {
               {m.role === "assistant" && <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, marginRight: 7, flexShrink: 0, marginTop: 2, border: "2px solid #2a1a40" }} />}
               <div style={{ maxWidth: "88%" }}>
                 <div style={{ padding: "11px 14px", fontSize: 13, lineHeight: 1.6, whiteSpace: "pre-wrap", wordBreak: "keep-all", borderRadius: m.role === "user" ? "18px 18px 6px 18px" : "18px 18px 18px 6px", background: m.role === "user" ? "#4C8DFF" : (dark ? "#1A2333" : "#FFFFFF"), color: m.role === "user" ? "#fff" : t.tx, border: m.role === "user" ? "none" : `1px solid ${t.brd}`, fontFamily: "'Pretendard', sans-serif" }}>
-                  {m.sourceBadge && (
+                  {m.sourceBadge === "internal" && (
                     <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#58A6FF", background: dark ? "rgba(88,166,255,0.14)" : "rgba(45,90,142,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
                       📋 내부 카드 기반
                     </span>
                   )}
+                  {m.sourceBadge === "external" && (
+                    <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#D29922", background: dark ? "rgba(210,153,34,0.14)" : "rgba(210,153,34,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
+                      🔗 외부 기사 링크
+                    </span>
+                  )}
                   {m.sourceBadge ? <div>{m.content}</div> : m.content}
                 </div>
+                {m.braveLinks?.map((link, j) => (
+                  <a key={`brave-${j}`} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Open external article: ${link.title}`} style={{ display: "block", background: dark ? "#1A1E2A" : "#FFFBF0", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: "pointer", border: `1px solid ${dark ? "rgba(210,153,34,0.25)" : "rgba(210,153,34,0.2)"}`, textDecoration: "none" }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.4 }}>{link.title}</div>
+                    {link.description && <div style={{ fontSize: 11, color: t.sub, marginTop: 3, lineHeight: 1.45 }}>{link.description.slice(0, 120)}{link.description.length > 120 ? "..." : ""}</div>}
+                    <div style={{ fontSize: 10, color: "#D29922", marginTop: 4, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>🔗 외부 기사 ↗</div>
+                  </a>
+                ))}
                 {m.cards?.map((card, j) => {
                   const cardStyle = { display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}`, textDecoration: "none" };
                   const cardContent = (<>
@@ -648,10 +737,90 @@ function ChatBot({ kb, tracker, dark }) {
   );
 }
 
+const REGION_POLICY = {
+  NA: {
+    title: "미국 정책",
+    flag: "🇺🇸",
+    policies: [
+      { name: "IRA / FEOC", desc: "IRA §45X·§48E 제조·투자 세액공제 — FEOC 규정으로 중국산 배터리·소재 사용 시 크레딧 박탈. MACR 55% 기준(2026) 적용 중." },
+      { name: "관세 (Section 301)", desc: "대중국 배터리셀 관세 54~58%. BOS 부품에도 §232 관세 50% 별도 → 실질 80%+ 차단벽." },
+      { name: "제조 인센티브", desc: "45X 첨단제조 크레딧으로 미국 내 셀·모듈·광물 가공 공장 유치. 2030년 MACR 85% 목표." },
+      { name: "ESS / 전력", desc: "ITC(§48E) standalone ESS 30~50% + 커뮤니티 보너스. FERC Order 2222로 분산자원 시장참여 확대." },
+    ],
+    why: "미국 에너지 전환 정책은 K-배터리에 기회이자 리스크 — FEOC 준수 여부가 시장 접근 자체를 결정한다.",
+    watchpoints: ["Treasury proposed regulation Q2 발표 여부", "Section 301 관세 8월 만료·연장 결정", "45X MACR 2027 기준 60% 전환 대비"],
+  },
+  EU: {
+    title: "유럽 정책",
+    flag: "🇪🇺",
+    policies: [
+      { name: "Battery Regulation", desc: "2027년부터 배터리 여권(Battery Passport) 의무화. 탄소발자국 등급 공개, 재활용률 의무 부과." },
+      { name: "CBAM", desc: "탄소국경조정메커니즘 — 수입품에 EU 탄소가격 부과. 배터리 소재·철강·알루미늄 대상." },
+      { name: "CRM Act", desc: "핵심원자재법 — 리튬·코발트·니켈 등 전략광물 EU 내 가공 40%, 재활용 25% 목표." },
+      { name: "보조금", desc: "IPCEI 배터리 프로젝트 + 각국 개별 보조금. Northvolt 사태 이후 보조금 심사 강화 추세." },
+    ],
+    why: "EU는 규제 중심 접근 — 규정 준수 비용이 시장 진입 장벽이 되므로 조기 대응이 핵심이다.",
+    watchpoints: ["Battery Passport 파일럿 일정", "CBAM 전환기 종료(2026.12) 이후 본 부과 시작", "CRM Act 광물 목록 업데이트"],
+  },
+  CN: {
+    title: "중국 정책",
+    flag: "🇨🇳",
+    policies: [
+      { name: "산업정책", desc: "국가 차원 배터리 산업 육성. CATL·BYD 등 대형사 보조금·세제 혜택. 내수 EV 보급 세계 1위 유지." },
+      { name: "공급망 통제", desc: "흑연·리튬·희토류 수출 통제 강화. 가공 단계 독점적 지위를 지렛대로 활용." },
+      { name: "가격 경쟁", desc: "LFP 셀 가격 $50/kWh 이하 진입. 과잉설비 기반 저가 공세로 글로벌 시장 점유율 확대." },
+      { name: "수출 전략", desc: "BESS 수출 급증 — 미국 관세 우회 위해 모로코·헝가리 등 제3국 가공기지 확대." },
+    ],
+    why: "중국은 가격과 공급망을 동시에 장악 — 비중국 플레이어의 생존 전략 수립에 가장 큰 변수다.",
+    watchpoints: ["흑연 수출허가제 실제 운용 강도", "LFP 과잉설비 조정 신호", "제3국 우회 수출 규모 추이"],
+  },
+  KR: {
+    title: "한국 정책",
+    flag: "🇰🇷",
+    policies: [
+      { name: "ESS 정책", desc: "산업부 ESS 안전기준 개정 + 대규모 ESS 실증사업. 화재 안전 인증 강화." },
+      { name: "입찰 / 조달", desc: "한전 ESS 용량시장 입찰. 재생에너지 연계 ESS 의무화 확대." },
+      { name: "실증 / R&D", desc: "전고체·리튬황 차세대 배터리 국가 R&D. K-배터리 2030 로드맵 추진." },
+      { name: "규제 방향", desc: "EU Battery Regulation 대응 — 배터리 여권 국내 도입 검토. 재활용 의무 강화 로드맵." },
+    ],
+    why: "K-배터리의 본거지 — 내수 ESS 시장 성장과 수출 규제 대응을 동시에 준비해야 한다.",
+    watchpoints: ["ESS 안전기준 개정안 시행 시점", "용량시장 ESS 입찰 결과", "배터리 여권 국내 적용 로드맵 발표"],
+  },
+  JP: {
+    title: "일본 정책",
+    flag: "🇯🇵",
+    policies: [
+      { name: "GX (Green Transformation)", desc: "GX 추진법 기반 20조엔 투자. 배터리·수소·원자력 포함한 에너지 전환 가속." },
+      { name: "배터리 지원", desc: "METI 대규모 축전시스템 보조금 (보조율 33~66%). 도쿄도 별도 20억엔 지원." },
+      { name: "전력정책", desc: "재생에너지 주력전원화 + 계통유연성 확보. ESS를 조정력 수단으로 본격 활용." },
+    ],
+    why: "일본은 에너지 안보 관점에서 ESS를 전략자산화 — 보조금 규모가 시장 형성 속도를 결정한다.",
+    watchpoints: ["METI 축전 보조금 2차 공모 시기", "GX 채권 발행·집행 진도", "계통용 ESS 접속 규칙 개정"],
+  },
+  GL: {
+    title: "글로벌 공통",
+    flag: "🌐",
+    policies: [
+      { name: "공급망 재편", desc: "미·중 디커플링 가속. 중간재 가공 거점이 동남아·중동·아프리카로 분산." },
+      { name: "광물 확보 경쟁", desc: "리튬·니켈·코발트·흑연 확보전. 자원국 수출 규제 확대 추세." },
+    ],
+    why: "글로벌 밸류체인 재편은 모든 지역 정책의 배경이 된다 — 공급망 지도가 바뀌고 있다.",
+    watchpoints: ["인도네시아 니켈 수출 정책 변화", "칠레·아르헨티나 리튬 국유화 동향"],
+  },
+};
+
 function Tracker({ tracker, dark }) {
   const t = T(dark);
   const d = tracker;
   const updatedLabel = fmtDate(d.meta.lastUpdated);
+  const [expandedRegion, setExpandedRegion] = useState(null);
+
+  const toggleRegion = (code) => {
+    setExpandedRegion((prev) => (prev === code ? null : code));
+  };
+
+  const policyData = REGION_POLICY[expandedRegion] || null;
+
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: t.card2, borderRadius: 10, padding: 14, border: `1px solid ${t.brd}` }}>
@@ -673,17 +842,47 @@ function Tracker({ tracker, dark }) {
       </div>
 
       <div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>REGIONS</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>REGIONS — 클릭하면 정책 설명</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
-          {d.regions.map((r) => (
-            <div key={r.code} style={{ background: t.card2, borderRadius: 8, padding: "10px 12px", border: `1px solid ${t.brd}` }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><span style={{ fontSize: 14 }}>{r.flag}</span><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{r.ACTIVE} ACTIVE</span></div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginTop: 4 }}>{r.name}</div>
-              <div style={{ marginTop: 6, height: 3, borderRadius: 2, background: t.brd }}><div style={{ height: "100%", borderRadius: 2, background: SC.ACTIVE, width: pct(r.ACTIVE, r.total) }} /></div>
-            </div>
-          ))}
+          {d.regions.map((r) => {
+            const isExpanded = expandedRegion === r.code;
+            return (
+              <div key={r.code} onClick={() => toggleRegion(r.code)} style={{ background: isExpanded ? (dark ? "#1A2333" : "#EEF3FF") : t.card2, borderRadius: 8, padding: "10px 12px", border: `1px solid ${isExpanded ? t.cyan : t.brd}`, cursor: "pointer", transition: "border 0.2s" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><span style={{ fontSize: 14 }}>{r.flag}</span><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{r.ACTIVE} ACTIVE</span></div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginTop: 4 }}>{r.name}</div>
+                <div style={{ marginTop: 6, height: 3, borderRadius: 2, background: t.brd }}><div style={{ height: "100%", borderRadius: 2, background: SC.ACTIVE, width: pct(r.ACTIVE, r.total) }} /></div>
+                <div style={{ fontSize: 9, color: isExpanded ? t.cyan : t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace", textAlign: "center" }}>{isExpanded ? "△ 접기" : "▽ 정책 보기"}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
+
+      {policyData && (
+        <div style={{ background: t.card2, borderRadius: 12, padding: "14px 16px", border: `1px solid ${t.cyan}`, animation: "fadeIn 0.2s ease" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+            <span style={{ fontSize: 18 }}>{policyData.flag}</span>
+            <span style={{ fontSize: 14, fontWeight: 900, color: t.tx }}>{policyData.title}</span>
+            <button onClick={() => setExpandedRegion(null)} style={{ marginLeft: "auto", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", fontSize: 9, color: t.sub, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>닫기</button>
+          </div>
+          {policyData.policies.map((p, i) => (
+            <div key={i} style={{ marginBottom: 10, padding: "8px 10px", background: dark ? "rgba(88,166,255,0.04)" : "rgba(88,166,255,0.02)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.08)" : "rgba(88,166,255,0.06)"}` }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: t.cyan, marginBottom: 3, fontFamily: "'JetBrains Mono',monospace" }}>{p.name}</div>
+              <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.55 }}>{p.desc}</div>
+            </div>
+          ))}
+          <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(210,153,34,0.06)" : "rgba(210,153,34,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(210,153,34,0.12)" : "rgba(210,153,34,0.08)"}` }}>
+            <div style={{ fontSize: 10, fontWeight: 800, color: "#D29922", marginBottom: 3, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 왜 중요한지</div>
+            <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.55 }}>{policyData.why}</div>
+          </div>
+          <div style={{ marginTop: 8 }}>
+            <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>👁 WATCHPOINTS</div>
+            {policyData.watchpoints.map((wp, i) => (
+              <div key={i} style={{ fontSize: 11, color: t.tx, lineHeight: 1.55, paddingLeft: 8, borderLeft: `2px solid ${t.cyan}`, marginBottom: 4 }}>{wp}</div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>KEY DATES</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div>

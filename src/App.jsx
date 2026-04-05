@@ -424,7 +424,7 @@ function NewsItem({ card, dark }) {
       )}
       {showGist && card.g && (
         <div style={{ marginTop: 8, padding: "10px 12px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
-          <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>{isForeign ? "🌐 AI 해설" : "🔍 핵심 분석"}</div>
+          <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>🔍 AI 해설</div>
           {loadingAnalysis && !analysisContent ? (
             <div style={{ fontSize: 10, color: t.sub, fontStyle: "italic" }}>분석 생성 중...</div>
           ) : (
@@ -432,10 +432,8 @@ function NewsItem({ card, dark }) {
               {analysisContent}
             </div>
           )}
-          <div style={{ display: "flex", gap: 8, marginTop: 8, fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexWrap: "wrap" }}>
-            {card.src && <span>출처: {card.src}</span>}
-            {card.d && <span>날짜: {fmtDate(card.d)}</span>}
-            {isForeign && <span style={{ fontSize: 8, fontStyle: "italic" }}>※ AI 분석 기반</span>}
+          <div style={{ fontSize: 8, color: t.sub, marginTop: 8, fontFamily: "'JetBrains Mono',monospace", opacity: 0.5 }}>
+            ※ AI 분석 기반
           </div>
         </div>
       )}
@@ -455,7 +453,7 @@ function NewsItem({ card, dark }) {
         )}
         {card.g && (
           <button onClick={(e) => { e.stopPropagation(); if (!showGist && !analysisContent) fetchAnalysis('analysis'); setShowGist(!showGist); setShowSummary(false); setShowWhy(false); }} aria-label={showGist ? "Close analysis" : "Show analysis"} style={{ fontSize: 9, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showGist ? "△ 닫기" : isForeign ? "AI 해설" : "▽ 핵심 분석"}
+            {showGist ? "△ 닫기" : "AI 해설"}
           </button>
         )}
       </div>
@@ -527,6 +525,7 @@ function ChatBot({ kb, tracker, dark }) {
   const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [searchMode, setSearchMode] = useState("internal"); // "internal" or "external"
   const endRef = useRef(null);
   const depthRef = useRef(0);
   const lastCtxRef = useRef({ qType: null, region: null, date: null, cards: [], links: [], query: "", selected: null, lastCards: [], lastLinks: [] });
@@ -659,8 +658,8 @@ function ChatBot({ kb, tracker, dark }) {
       return;
     }
 
-    // Brave external article search: triggered by specific keywords
-    if (isBraveQuery(txt)) {
+    // Brave external article search: triggered by external mode or specific keywords
+    if (searchMode === "external" || isBraveQuery(txt)) {
       const braveResponse = await fetchBraveResults(txt);
       depthRef.current += 1;
 
@@ -941,10 +940,16 @@ function ChatBot({ kb, tracker, dark }) {
   };
 
   const runSuggestion = (label) => {
+    // Handle mode switching for external search
+    if (label === "외부 기사 링크 검색") {
+      setSearchMode("external");
+      setInput("배터리 ESS 기사");
+      return;
+    }
+
     const map = {
       "오늘 핵심 카드": "오늘 뉴스 3개",
       "오늘의 시그널 TOP": "오늘 TOP 시그널 카드 보여줘",
-      "외부 기사 링크 검색": "실시간 배터리 ESS 기사 검색해줘",
       "오늘 핵심 뉴스 3개": "오늘 뉴스 3개",
       "오늘 뉴스 3개": "오늘 뉴스 3개",
       "요약해서 다시 정리": "방금 답변을 3줄로 다시 요약해줘",
@@ -1039,8 +1044,47 @@ function ChatBot({ kb, tracker, dark }) {
         <div ref={endRef} />
       </div>
       <div style={{ padding: "8px 12px 14px", background: "#0A0E14", borderTop: `1px solid ${t.brd}` }}>
+        {/* Search mode switcher */}
+        <div style={{ display: "flex", gap: 6, marginBottom: 8, padding: "4px", background: dark ? "#161B26" : "#FFFFFF", borderRadius: 10, border: `1px solid ${t.brd}` }}>
+          <button
+            onClick={() => setSearchMode("internal")}
+            style={{
+              flex: 1,
+              padding: "6px 10px",
+              borderRadius: 7,
+              border: "none",
+              background: searchMode === "internal" ? t.cyan : "transparent",
+              color: searchMode === "internal" ? "#000" : t.sub,
+              fontSize: 11,
+              fontWeight: 700,
+              cursor: "pointer",
+              fontFamily: "'JetBrains Mono',monospace",
+              transition: "all 0.2s"
+            }}
+          >
+            📋 내부 카드
+          </button>
+          <button
+            onClick={() => setSearchMode("external")}
+            style={{
+              flex: 1,
+              padding: "6px 10px",
+              borderRadius: 7,
+              border: "none",
+              background: searchMode === "external" ? "#D29922" : "transparent",
+              color: searchMode === "external" ? "#000" : t.sub,
+              fontSize: 11,
+              fontWeight: 700,
+              cursor: "pointer",
+              fontFamily: "'JetBrains Mono',monospace",
+              transition: "all 0.2s"
+            }}
+          >
+            🔗 외부 기사
+          </button>
+        </div>
         <div style={{ display: "flex", gap: 6 }}>
-          <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && void sendWithText(input)} placeholder="궁금한 주제를 입력해줘" style={{ flex: 1, padding: "10px 12px", borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }} />
+          <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && void sendWithText(input)} placeholder={searchMode === "external" ? "외부 기사 검색어를 입력해줘" : "궁금한 주제를 입력해줘"} style={{ flex: 1, padding: "10px 12px", borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }} />
           <button onClick={() => void sendWithText(input)} disabled={loading || !input.trim()} style={{ padding: "10px 16px", borderRadius: 10, border: "none", background: t.cyan, color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 13, fontFamily: "'Pretendard',sans-serif" }}>→</button>
         </div>
       </div>

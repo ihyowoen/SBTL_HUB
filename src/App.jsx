@@ -223,16 +223,50 @@ async function fetchBraveResults(query) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: `${query} ${BRAVE_SEARCH_SUFFIX}` }),
     });
-    if (!res.ok) return [];
+
+    // Enhanced error handling: distinguish between no-result and error
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      const errorType = errorData.error || 'UNKNOWN_ERROR';
+      const errorMessage = errorData.message || 'Search failed';
+
+      return {
+        error: true,
+        errorType,
+        errorMessage,
+        statusCode: res.status,
+        results: []
+      };
+    }
+
     const data = await res.json();
     const results = data?.web?.results || [];
-    return results.slice(0, 4).map((r) => ({
-      title: r.title || "",
-      description: r.description || "",
-      url: r.url || "",
-    }));
-  } catch {
-    return [];
+
+    // No results found (successful API call but empty results)
+    if (results.length === 0) {
+      return {
+        error: false,
+        noResults: true,
+        results: []
+      };
+    }
+
+    return {
+      error: false,
+      noResults: false,
+      results: results.slice(0, 4).map((r) => ({
+        title: r.title || "",
+        description: r.description || "",
+        url: r.url || "",
+      }))
+    };
+  } catch (err) {
+    return {
+      error: true,
+      errorType: 'NETWORK_ERROR',
+      errorMessage: 'Failed to connect to search service',
+      results: []
+    };
   }
 }
 
@@ -300,7 +334,9 @@ function NewsItem({ card, dark }) {
       </div>
       <h3 style={{ fontSize: 13, fontWeight: 700, color: t.tx, margin: 0, lineHeight: 1.45 }}>{card.T}</h3>
       {card.sub && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.45 }}>{card.sub}</p>}
-      {showSummary && (
+
+      {/* On-demand analysis panels - only shown when clicked */}
+      {showSummary && isForeign && (
         <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
           <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>📰 한국어 요약</div>
           <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>
@@ -319,7 +355,7 @@ function NewsItem({ card, dark }) {
           {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
         </div>
       )}
-      {showWhy && card.g && (
+      {showWhy && isForeign && card.g && (
         <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(209,153,34,0.06)" : "rgba(209,153,34,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(209,153,34,0.15)" : "rgba(209,153,34,0.1)"}` }}>
           <div style={{ fontSize: 9, fontWeight: 800, color: "#D29922", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 왜 중요한지</div>
           {/* Strategic relevance: gist back part only */}
@@ -332,35 +368,37 @@ function NewsItem({ card, dark }) {
           {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
         </div>
       )}
-      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
-        {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
-        {card.g && (
-          <button onClick={(e) => { e.stopPropagation(); setShowGist(!showGist); }} aria-label={showGist ? "Close gist analysis" : "Show gist analysis"} style={{ fontSize: 9, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showGist ? "△ 닫기" : "▽ 핵심 분석"}
-          </button>
-        )}
-        {isForeign && (card.T || card.sub) && (
-          <button onClick={(e) => { e.stopPropagation(); setShowSummary(!showSummary); setShowWhy(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showSummary ? "△ 요약 닫기" : "한국어 요약"}
-          </button>
-        )}
-        {isForeign && card.g && (
-          <button onClick={(e) => { e.stopPropagation(); setShowWhy(!showWhy); setShowSummary(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showWhy ? "△ 닫기" : "왜 중요한지"}
-          </button>
-        )}
-      </div>
       {showGist && card.g && (
         <div style={{ marginTop: 8, padding: "10px 12px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
-          {isForeign && <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>🌐 해외 기사 분석</div>}
+          <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>{isForeign ? "🌐 AI 해설" : "🔍 핵심 분석"}</div>
           <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6 }}>{card.g}</div>
           <div style={{ display: "flex", gap: 8, marginTop: 8, fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexWrap: "wrap" }}>
             {card.src && <span>출처: {card.src}</span>}
             {card.d && <span>날짜: {fmtDate(card.d)}</span>}
-            <span style={{ fontSize: 8, fontStyle: "italic" }}>※ 번역/요약 기반 분석</span>
+            {isForeign && <span style={{ fontSize: 8, fontStyle: "italic" }}>※ 번역/요약 기반 분석</span>}
           </div>
         </div>
       )}
+
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
+        {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
+        {/* On-demand analysis buttons - click to reveal */}
+        {isForeign && (card.T || card.sub) && (
+          <button onClick={(e) => { e.stopPropagation(); setShowSummary(!showSummary); setShowWhy(false); setShowGist(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showSummary ? "△ 요약 닫기" : "한국어 요약"}
+          </button>
+        )}
+        {isForeign && card.g && (
+          <button onClick={(e) => { e.stopPropagation(); setShowWhy(!showWhy); setShowSummary(false); setShowGist(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showWhy ? "△ 닫기" : "왜 중요한지"}
+          </button>
+        )}
+        {card.g && (
+          <button onClick={(e) => { e.stopPropagation(); setShowGist(!showGist); setShowSummary(false); setShowWhy(false); }} aria-label={showGist ? "Close analysis" : "Show analysis"} style={{ fontSize: 9, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showGist ? "△ 닫기" : isForeign ? "AI 해설" : "▽ 핵심 분석"}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
@@ -511,26 +549,75 @@ function ChatBot({ kb, tracker, dark }) {
 
     // Brave external article search: triggered by specific keywords
     if (isBraveQuery(txt)) {
-      const braveResults = await fetchBraveResults(txt);
+      const braveResponse = await fetchBraveResults(txt);
       depthRef.current += 1;
-      if (braveResults.length) {
-        const lines = braveResults.map((r, i) => `${i + 1}. ${r.title}\n   ${r.description?.slice(0, 80) || ""}`).join("\n\n");
-        updateCtx({ qType: "news", links: braveResults });
+
+      // Handle Brave API errors
+      if (braveResponse.error) {
+        const errorMessages = {
+          'UNAUTHORIZED': '⚠️ 외부 검색 API 인증 오류가 발생했어.\n내부 카드에서 관련 내용을 찾아볼게.',
+          'FORBIDDEN': '⚠️ 외부 검색 접근 권한이 없어.\n내부 카드로 대체할게.',
+          'RATE_LIMIT': '⚠️ 외부 검색 요청 한도를 초과했어.\n잠시 후 다시 시도하거나, 내부 카드를 확인해봐.',
+          'SERVER_ERROR': '⚠️ 외부 검색 서버에 일시적인 문제가 있어.\n내부 카드로 대체할게.',
+          'NETWORK_ERROR': '⚠️ 외부 검색 서비스에 연결할 수 없어.\n내부 카드를 확인해봐.',
+        };
+
+        const errorMsg = errorMessages[braveResponse.errorType] || '⚠️ 외부 검색 중 문제가 발생했어.\n내부 카드로 대체할게.';
+
+        // Fallback to internal cards with error context
+        const cards = latestCards(kb.cards, 3, region, targetDate);
+        if (cards.length) {
+          setMsgs((prev) => [...prev, {
+            role: "assistant",
+            content: `${errorMsg}\n\n관련 내부 카드를 찾았어.`,
+            cards: cards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
+            sourceBadge: "internal",
+            suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }],
+          }]);
+        } else {
+          setMsgs((prev) => [...prev, {
+            role: "assistant",
+            content: errorMsg,
+            suggestions: [{ label: "오늘 핵심 카드" }, { label: "최근 시그널 TOP" }],
+          }]);
+        }
+        setLoading(false);
+        return;
+      }
+
+      // Handle no results (successful API call but empty results)
+      if (braveResponse.noResults) {
+        const cards = latestCards(kb.cards, 3, region, targetDate);
+        if (cards.length) {
+          setMsgs((prev) => [...prev, {
+            role: "assistant",
+            content: "외부 기사를 찾지 못했어.\n대신 관련 내부 카드를 찾았어.",
+            cards: cards.map((c) => ({ title: c.T, subtitle: c.sub, signal: c.s, url: c.url, region: c.r, date: c.d, source: c.src, gist: c.g })),
+            sourceBadge: "internal",
+            suggestions: [{ label: "검색어 바꿔보기" }, { label: "관련 카드 더 보여줘" }],
+          }]);
+        } else {
+          setMsgs((prev) => [...prev, {
+            role: "assistant",
+            content: "외부 기사를 찾지 못했어.\n검색어를 바꿔보거나, 다른 주제를 물어봐.",
+            suggestions: [{ label: "오늘 핵심 카드" }, { label: "최근 시그널 TOP" }],
+          }]);
+        }
+        setLoading(false);
+        return;
+      }
+
+      // Success: display external results
+      if (braveResponse.results.length) {
+        const lines = braveResponse.results.map((r, i) => `${i + 1}. ${r.title}\n   ${r.description?.slice(0, 80) || ""}`).join("\n\n");
+        updateCtx({ qType: "news", links: braveResponse.results });
         setMsgs((prev) => [...prev, {
           role: "assistant",
           content: `외부 기사 검색 결과야.\n\n${lines}`,
           sourceBadge: "external",
-          braveLinks: braveResults,
+          braveLinks: braveResponse.results,
           suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }, { label: "요약해서 다시 정리" }],
         }]);
-      } else {
-        // Brave failed or no results → fallback to internal cards
-        const cards = latestCards(kb.cards, 3, region, targetDate);
-        if (cards.length) {
-          setMsgs((prev) => [...prev, buildCardMessage(cards, "news", targetDate)]);
-        } else {
-          setMsgs((prev) => [...prev, { role: "assistant", content: "외부 기사를 찾지 못했어. 검색어를 바꿔보거나, 내부 카드에서 찾아볼게.", suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }] }]);
-        }
       }
       setLoading(false);
       return;
@@ -569,7 +656,7 @@ function ChatBot({ kb, tracker, dark }) {
       }
     }
 
-    // Policy type: use tracker data + cards
+    // Policy type: use tracker data + cards + REGION_POLICY intelligence
     if (qType === "policy") {
       const policyCards = searchCards(kb.cards, txt, 3);
       const trackerItems = tracker?.items || [];
@@ -578,7 +665,40 @@ function ChatBot({ kb, tracker, dark }) {
         .sort((a, b) => String(a.dt || "").localeCompare(String(b.dt || "")))
         .slice(0, 5);
 
+      // Enhanced: Extract relevant REGION_POLICY data
+      let policyOverview = "";
+      let whyImportant = "";
+      let watchpoints = [];
+
+      if (region) {
+        const regionMap = { US: "NA", KR: "KR", CN: "CN", EU: "EU", JP: "JP" };
+        const policyKey = regionMap[region];
+        const policyData = REGION_POLICY[policyKey];
+
+        if (policyData) {
+          // Build policy overview from top policies
+          if (policyData.policies && policyData.policies.length > 0) {
+            policyOverview = `\n\n📋 ${policyData.title} 개요:\n`;
+            policyData.policies.slice(0, 3).forEach((p) => {
+              policyOverview += `• ${p.name}: ${p.desc}\n`;
+            });
+          }
+
+          // Add why important
+          if (policyData.why) {
+            whyImportant = `\n⚡ 왜 중요한지:\n${policyData.why}`;
+          }
+
+          // Add watchpoints
+          if (policyData.watchpoints && policyData.watchpoints.length > 0) {
+            watchpoints = policyData.watchpoints;
+          }
+        }
+      }
+
       let content = "";
+
+      // Schedule section
       if (upcoming.length) {
         content = "다가오는 정책 일정을 정리했어.\n\n";
         upcoming.forEach((item) => {
@@ -587,6 +707,19 @@ function ChatBot({ kb, tracker, dark }) {
         });
         if (region) content += `\n${({ US: "미국", KR: "한국", CN: "중국", EU: "유럽", JP: "일본" }[region] || "")} 관련 일정을 중심으로 정리했어.`;
       }
+
+      // Add policy overview and why important
+      if (policyOverview) content += policyOverview;
+      if (whyImportant) content += whyImportant;
+
+      // Add watchpoints
+      if (watchpoints.length > 0) {
+        content += `\n\n👁️ 주요 관전 포인트:\n`;
+        watchpoints.forEach((w) => {
+          content += `• ${w}\n`;
+        });
+      }
+
       if (policyCards.length) {
         if (!content) content = "관련 정책 카드를 찾았어.\n";
         depthRef.current += 1;

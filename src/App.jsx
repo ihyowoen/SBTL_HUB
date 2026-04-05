@@ -63,7 +63,7 @@ const T = (dark = true) => dark
 const quickPrimary = [
   "오늘 핵심 카드",
   "오늘의 시그널 TOP",
-  "외부 기사 링크 검색",
+  "외부 기사로 전환 →",
   "한국 정책 일정 뭐 있어?",
   "미국 FEOC 쉽게 설명해줘",
   "이번주 ESS 시그널 요약",
@@ -423,20 +423,19 @@ function NewsItem({ card, dark }) {
         </div>
       )}
       {showGist && card.g && (
-        <div style={{ marginTop: 8, padding: "10px 12px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
-          <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>{isForeign ? "🌐 AI 해설" : "🔍 핵심 분석"}</div>
+        <div style={{ marginTop: 8, padding: "10px 12px", background: dark ? "rgba(168,85,247,0.07)" : "rgba(168,85,247,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(168,85,247,0.2)" : "rgba(168,85,247,0.12)"}`, borderLeft: "3px solid #A855F7" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
+            <span style={{ fontSize: 9, fontWeight: 800, color: "#A855F7", fontFamily: "'JetBrains Mono',monospace" }}>🤖 AI 해설</span>
+            <span style={{ fontSize: 8, color: dark ? "rgba(168,85,247,0.6)" : "rgba(168,85,247,0.5)", fontStyle: "italic", fontFamily: "'JetBrains Mono',monospace" }}>※ AI 해석 기반 분석</span>
+          </div>
           {loadingAnalysis && !analysisContent ? (
-            <div style={{ fontSize: 10, color: t.sub, fontStyle: "italic" }}>분석 생성 중...</div>
+            <div style={{ fontSize: 10, color: t.sub, fontStyle: "italic" }}>AI 해설 생성 중...</div>
           ) : (
-            <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
+            <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.7, whiteSpace: "pre-wrap" }}>
               {analysisContent}
             </div>
           )}
-          <div style={{ display: "flex", gap: 8, marginTop: 8, fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexWrap: "wrap" }}>
-            {card.src && <span>출처: {card.src}</span>}
-            {card.d && <span>날짜: {fmtDate(card.d)}</span>}
-            {isForeign && <span style={{ fontSize: 8, fontStyle: "italic" }}>※ AI 분석 기반</span>}
-          </div>
+          {(card.src || card.d) && <div style={{ marginTop: 6, fontSize: 8, color: t.sub, opacity: 0.6, fontFamily: "'JetBrains Mono',monospace" }}>{card.src}{card.d ? ` · ${fmtDate(card.d)}` : ""}</div>}
         </div>
       )}
 
@@ -454,8 +453,8 @@ function NewsItem({ card, dark }) {
           </button>
         )}
         {card.g && (
-          <button onClick={(e) => { e.stopPropagation(); if (!showGist && !analysisContent) fetchAnalysis('analysis'); setShowGist(!showGist); setShowSummary(false); setShowWhy(false); }} aria-label={showGist ? "Close analysis" : "Show analysis"} style={{ fontSize: 9, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showGist ? "△ 닫기" : isForeign ? "AI 해설" : "▽ 핵심 분석"}
+          <button onClick={(e) => { e.stopPropagation(); if (!showGist && !analysisContent) fetchAnalysis('analysis'); setShowGist(!showGist); setShowSummary(false); setShowWhy(false); }} aria-label={showGist ? "Close analysis" : "Show analysis"} style={{ fontSize: 9, color: "#A855F7", background: "transparent", border: `1px solid ${dark ? "rgba(168,85,247,0.3)" : "rgba(168,85,247,0.2)"}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showGist ? "△ 닫기" : "🤖 AI 해설"}
           </button>
         )}
       </div>
@@ -527,6 +526,8 @@ function ChatBot({ kb, tracker, dark }) {
   const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [searchMode, setSearchMode] = useState("internal"); // "internal" | "external"
+  const [extQuery, setExtQuery] = useState("");
   const endRef = useRef(null);
   const depthRef = useRef(0);
   const lastCtxRef = useRef({ qType: null, region: null, date: null, cards: [], links: [], query: "", selected: null, lastCards: [], lastLinks: [] });
@@ -941,6 +942,8 @@ function ChatBot({ kb, tracker, dark }) {
   };
 
   const runSuggestion = (label) => {
+    if (label === "외부 기사로 전환 →") { setSearchMode("external"); return; }
+    if (label === "내부 카드로 검색") { setSearchMode("internal"); return; }
     const map = {
       "오늘 핵심 카드": "오늘 뉴스 3개",
       "오늘의 시그널 TOP": "오늘 TOP 시그널 카드 보여줘",
@@ -967,6 +970,43 @@ function ChatBot({ kb, tracker, dark }) {
     };
     const next = map[label] || label;
     void sendWithText(next);
+  };
+
+  const sendExternal = async (rawText) => {
+    const txt = String(rawText || "").trim();
+    if (!txt || loading) return;
+    setLoading(true);
+    setExtQuery("");
+    setMsgs((prev) => [...prev, { role: "user", content: `🔗 외부 검색: ${txt}` }]);
+    const braveResponse = await fetchBraveResults(txt);
+    depthRef.current += 1;
+    if (braveResponse.error) {
+      const errorMessages = {
+        UNAUTHORIZED: "⚠️ 외부 검색 API 인증에 문제가 있어. 관리자에게 확인이 필요해.",
+        FORBIDDEN: "⚠️ 외부 검색 API 인증에 문제가 있어. 관리자에게 확인이 필요해.",
+        RATE_LIMIT: "⚠️ 외부 검색 요청이 많아서 잠시 제한됐어. 잠시 후 다시 시도해봐.",
+        SERVER_ERROR: "⚠️ 외부 검색 서버에 일시적인 문제가 있어.",
+        NETWORK_ERROR: "⚠️ 외부 검색 서비스에 연결할 수 없어.",
+      };
+      setMsgs((prev) => [...prev, { role: "assistant", content: errorMessages[braveResponse.errorType] || "⚠️ 외부 검색 중 문제가 발생했어.", suggestions: [{ label: "내부 카드로 검색" }] }]);
+      setLoading(false);
+      return;
+    }
+    if (braveResponse.noResults || !braveResponse.results?.length) {
+      setMsgs((prev) => [...prev, { role: "assistant", content: "해당 주제의 외부 기사를 찾지 못했어. 검색어를 바꿔보거나 내부 카드를 확인해봐.", suggestions: [{ label: "내부 카드로 검색" }] }]);
+      setLoading(false);
+      return;
+    }
+    const lines = braveResponse.results.map((r, i) => `${i + 1}. ${r.title}\n   ${r.description?.slice(0, 80) || ""}`).join("\n\n");
+    updateCtx({ qType: "news", links: braveResponse.results, lastLinks: braveResponse.results, selected: braveResponse.results[0] });
+    setMsgs((prev) => [...prev, {
+      role: "assistant",
+      content: `외부 기사 검색 결과야.\n\n${lines}`,
+      sourceBadge: "external",
+      braveLinks: braveResponse.results,
+      suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }, { label: "요약해서 다시 정리" }],
+    }]);
+    setLoading(false);
   };
 
   return (
@@ -1039,8 +1079,21 @@ function ChatBot({ kb, tracker, dark }) {
         <div ref={endRef} />
       </div>
       <div style={{ padding: "8px 12px 14px", background: "#0A0E14", borderTop: `1px solid ${t.brd}` }}>
+        {/* Mode segmented control */}
+        <div style={{ display: "flex", gap: 0, marginBottom: 8, background: dark ? "#151B26" : "#f0f0f5", borderRadius: 8, padding: 2 }}>
+          <button onClick={() => setSearchMode("internal")} style={{ flex: 1, padding: "6px 0", borderRadius: 6, border: "none", background: searchMode === "internal" ? (dark ? "#1A2333" : "#fff") : "transparent", color: searchMode === "internal" ? "#58A6FF" : t.sub, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", boxShadow: searchMode === "internal" ? "0 1px 3px rgba(0,0,0,0.15)" : "none", transition: "all 0.15s" }}>📋 내부 카드</button>
+          <button onClick={() => setSearchMode("external")} style={{ flex: 1, padding: "6px 0", borderRadius: 6, border: "none", background: searchMode === "external" ? (dark ? "#1A2333" : "#fff") : "transparent", color: searchMode === "external" ? "#D29922" : t.sub, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", boxShadow: searchMode === "external" ? "0 1px 3px rgba(0,0,0,0.15)" : "none", transition: "all 0.15s" }}>🔗 외부 기사</button>
+        </div>
+        {/* External search dedicated row */}
+        {searchMode === "external" && (
+          <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
+            <input type="text" value={extQuery} onChange={(e) => setExtQuery(e.target.value)} onKeyDown={(e) => e.key === "Enter" && void sendExternal(extQuery)} placeholder="외부 기사 검색어 입력 (예: LFP 화재 리스크)" style={{ flex: 1, padding: "8px 10px", borderRadius: 8, border: `1px solid ${dark ? "rgba(210,153,34,0.3)" : "rgba(210,153,34,0.2)"}`, background: dark ? "#1A1E2A" : "#FFFBF0", color: t.tx, fontSize: 12, outline: "none", fontFamily: "'Pretendard',sans-serif" }} />
+            <button onClick={() => void sendExternal(extQuery)} disabled={loading || !extQuery.trim()} style={{ padding: "8px 12px", borderRadius: 8, border: "none", background: "#D29922", color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 12, fontFamily: "'Pretendard',sans-serif" }}>🔍</button>
+          </div>
+        )}
+        {/* Main chat input */}
         <div style={{ display: "flex", gap: 6 }}>
-          <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && void sendWithText(input)} placeholder="궁금한 주제를 입력해줘" style={{ flex: 1, padding: "10px 12px", borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }} />
+          <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && void sendWithText(input)} placeholder={searchMode === "internal" ? "궁금한 주제를 입력해줘" : "AI에게 질문하기"} style={{ flex: 1, padding: "10px 12px", borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }} />
           <button onClick={() => void sendWithText(input)} disabled={loading || !input.trim()} style={{ padding: "10px 16px", borderRadius: 10, border: "none", background: t.cyan, color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 13, fontFamily: "'Pretendard',sans-serif" }}>→</button>
         </div>
       </div>

@@ -81,36 +81,82 @@ const quickPrimary = [
   "중국 가격 흐름 체크",
 ];
 
-function useKnowledgeBase() {
+const buildFetchUrl = (path, requestKey = 0) => {
+  if (!requestKey) return path;
+  const sep = path.includes("?") ? "&" : "?";
+  return `${path}${sep}_ts=${requestKey}`;
+};
+
+async function fetchJsonFile(path, requestKey = 0, hardRefresh = false) {
+  const response = await fetch(buildFetchUrl(path, requestKey), {
+    cache: hardRefresh ? "reload" : "no-cache",
+    headers: hardRefresh
+      ? { "Cache-Control": "no-cache, no-store, max-age=0", Pragma: "no-cache" }
+      : { "Cache-Control": "no-cache" },
+  });
+  if (!response.ok) throw new Error(`Failed to fetch ${path}`);
+  return response.json();
+}
+
+async function clearBrowserCaches() {
+  if (!("caches" in window)) return;
+  const cacheKeys = await window.caches.keys();
+  await Promise.all(cacheKeys.map((key) => window.caches.delete(key)));
+}
+
+function useKnowledgeBase(refreshKey = 0, hardRefresh = false) {
   const [cards, setCards] = useState([]);
   const [faq, setFaq] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let ignore = false;
+    setLoading(true);
+
     Promise.all([
-      fetch("/data/cards.json").then((r) => r.json()).then((d) => d.cards || d).catch(() => []),
-      fetch("/data/faq.json").then((r) => r.json()).catch(() => []),
-    ]).then(([c, f]) => {
-      setCards(Array.isArray(c) ? c : []);
-      setFaq(Array.isArray(f) ? f : []);
-      setLoading(false);
-    });
-  }, []);
+      fetchJsonFile("/data/cards.json", refreshKey, hardRefresh).then((d) => d.cards || d).catch(() => []),
+      fetchJsonFile("/data/faq.json", refreshKey, hardRefresh).catch(() => []),
+    ])
+      .then(([c, f]) => {
+        if (ignore) return;
+        setCards(Array.isArray(c) ? c : []);
+        setFaq(Array.isArray(f) ? f : []);
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false);
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [refreshKey, hardRefresh]);
 
   return { cards, faq, loading, cardCount: cards.length, faqCount: faq.length };
 }
 
-function useTrackerData() {
+function useTrackerData(refreshKey = 0, hardRefresh = false) {
   const [raw, setRaw] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/data/tracker_data.json")
-      .then((r) => r.json())
-      .then(setRaw)
-      .catch(() => setRaw(null))
-      .finally(() => setLoading(false));
-  }, []);
+    let ignore = false;
+    setLoading(true);
+
+    fetchJsonFile("/data/tracker_data.json", refreshKey, hardRefresh)
+      .then((data) => {
+        if (!ignore) setRaw(data);
+      })
+      .catch(() => {
+        if (!ignore) setRaw(null);
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false);
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, [refreshKey, hardRefresh]);
 
   const tracker = useMemo(() => {
     const fallback = { meta: { lastUpdated: "-", totalItems: 0 }, summary: { ACTIVE: 0, UPCOMING: 0, WATCH: 0, DONE: 0 }, regions: [], upcoming: [], items: [] };
@@ -878,10 +924,44 @@ function NewsDesk({ kb, dark }) {
 export default function App() {
   const [tab, setTab] = useState("all");
   const [dark, setDark] = useState(true);
-  const kb = useKnowledgeBase();
-  const { tracker, loading: trackerLoading } = useTrackerData();
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [hardRefresh, setHardRefresh] = useState(false);
+  const [refreshPending, setRefreshPending] = useState(false);
+  const [refreshLabel, setRefreshLabel] = useState("");
+  const kb = useKnowledgeBase(refreshKey, hardRefresh);
+  const { tracker, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
   const t = T(dark);
   const lastCardDate = latestDate(kb.cards) || "-";
+
+  useEffect(() => {
+    if (!refreshPending || kb.loading || trackerLoading) return;
+
+    setRefreshLabel(hardRefresh ? "강력 새로고침 완료" : "새로고침 완료");
+    setRefreshPending(false);
+    if (hardRefresh) setHardRefresh(false);
+
+    const timer = window.setTimeout(() => setRefreshLabel(""), 2200);
+    return () => window.clearTimeout(timer);
+  }, [refreshPending, kb.loading, trackerLoading, hardRefresh]);
+
+  const triggerRefresh = async (mode = "soft") => {
+    if (kb.loading || trackerLoading || refreshPending) return;
+
+    const nextHard = mode === "hard";
+    setRefreshLabel(nextHard ? "강력 새로고침 중..." : "새로고침 중...");
+
+    if (nextHard) {
+      try {
+        await clearBrowserCaches();
+      } catch (error) {
+        console.error("Cache clear error:", error);
+      }
+    }
+
+    setHardRefresh(nextHard);
+    setRefreshPending(true);
+    setRefreshKey(Date.now());
+  };
 
   if (kb.loading || trackerLoading) {
     return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: t.bg, color: t.sub }}>Loading...</div>;
@@ -907,12 +987,61 @@ export default function App() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ fontSize: 10, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace" }}>{kb.cardCount}</span>
+            <button
+              onClick={() => void triggerRefresh("soft")}
+              disabled={kb.loading || trackerLoading || refreshPending}
+              title="최신 데이터 다시 불러오기"
+              aria-label="Refresh latest data"
+              style={{
+                background: "#21293A",
+                border: "none",
+                borderRadius: 8,
+                minWidth: 32,
+                height: 32,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: kb.loading || trackerLoading || refreshPending ? "not-allowed" : "pointer",
+                fontSize: 14,
+                color: "#E6EDF3",
+                opacity: kb.loading || trackerLoading || refreshPending ? 0.45 : 1,
+              }}
+            >
+              ↻
+            </button>
+            <button
+              onClick={() => void triggerRefresh("hard")}
+              disabled={kb.loading || trackerLoading || refreshPending}
+              title="캐시까지 무시하고 강하게 다시 불러오기"
+              aria-label="Hard refresh latest data"
+              style={{
+                background: "#21293A",
+                border: "1px solid rgba(248,81,73,0.35)",
+                borderRadius: 8,
+                minWidth: 32,
+                height: 32,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: kb.loading || trackerLoading || refreshPending ? "not-allowed" : "pointer",
+                fontSize: 14,
+                color: "#F85149",
+                opacity: kb.loading || trackerLoading || refreshPending ? 0.45 : 1,
+              }}
+            >
+              ⚡
+            </button>
             <button onClick={() => setDark(!dark)} style={{ background: "#21293A", border: "none", borderRadius: 8, width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16 }}>{dark ? "☀️" : "🌙"}</button>
           </div>
         </div>
         <div style={{ marginTop: 10 }}>
           {tab !== "all" && <h1 style={{ color: "#E6EDF3", fontSize: 18, fontWeight: 800, margin: 0 }}>{headerTitle}</h1>}
           <p style={{ color: "#7D8590", fontSize: 10, margin: "2px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>{headerSub}</p>
+          {refreshLabel && (
+            <p style={{ color: refreshLabel.includes("강력") ? "#F85149" : "#58A6FF", fontSize: 10, margin: "6px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>
+              {refreshLabel}
+            </p>
+          )}
         </div>
       </div>
 

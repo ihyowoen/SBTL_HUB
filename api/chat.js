@@ -7,6 +7,54 @@ import { decideFallback } from "../lib/chat/fallback.js";
 import { composeResponse } from "../lib/chat/compose.js";
 
 const BRAVE_SEARCH_SUFFIX = "battery ESS EV";
+const BRAVE_FETCH_CANDIDATE_LIMIT = 8;
+const TRUSTED_DOMAINS = [
+  "bloomberg.com",
+  "reuters.com",
+  "ft.com",
+  "wsj.com",
+  "nikkei.com",
+  "iea.org",
+  "energy-storage.news",
+  "pv-magazine.com",
+  "koreaherald.com",
+  "yna.co.kr",
+  "korea.kr",
+  "thelec.kr",
+  "electrive.com",
+];
+
+function hostFromUrl(url = "") {
+  try {
+    return new URL(url).hostname.toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
+function normalizeText(v = "") {
+  return String(v || "").toLowerCase();
+}
+
+function rankExternalLinks(query, links = []) {
+  const tokens = normalizeText(query).replace(/[?!.,:;()\[\]{}]/g, " ").split(/\s+/).filter((w) => w.length >= 2);
+  return links
+    .map((item) => {
+      const host = hostFromUrl(item.url);
+      const trusted = TRUSTED_DOMAINS.some((d) => host === d || host.endsWith(`.${d}`));
+      const text = `${normalizeText(item.title)} ${normalizeText(item.description)}`;
+      const tokenHits = tokens.reduce((acc, t) => (text.includes(t) ? acc + 1 : acc), 0);
+      const relevance = tokens.length ? tokenHits / tokens.length : 0;
+      const trustBoost = trusted ? 0.35 : 0;
+      const shortHostPenalty = host.length < 4 ? -0.2 : 0;
+      const score = relevance + trustBoost + shortHostPenalty;
+      return { ...item, _score: score, _relevance: relevance, _trusted: trusted };
+    })
+    .filter((item) => item._score >= 0.2)
+    .sort((a, b) => b._score - a._score)
+    .slice(0, 4)
+    .map(({ _score, _relevance, _trusted, ...rest }) => rest);
+}
 
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -59,7 +107,7 @@ async function fetchBraveResults(query) {
     const data = await response.json();
     const results = data?.web?.results || [];
     return {
-      results: results.slice(0, 4).map((r) => ({
+      results: results.slice(0, BRAVE_FETCH_CANDIDATE_LIMIT).map((r) => ({
         title: r.title || "",
         description: r.description || "",
         url: r.url || "",
@@ -99,7 +147,7 @@ export default async function handler(req, res) {
     let externalLinks = [];
     if (fallback.sourceMode !== "internal") {
       const ext = await fetchBraveResults(message);
-      externalLinks = (ext?.results || []).map(toLinkView);
+      externalLinks = rankExternalLinks(message, (ext?.results || []).map(toLinkView));
     }
 
     const finalSourceMode = stabilizeSourceMode(fallback.sourceMode, retrieval, externalLinks);
@@ -112,6 +160,8 @@ export default async function handler(req, res) {
       debug: {
         fallback_triggered: fallback.fallbackTriggered,
         confidence_bucket: confidenceRes.bucket,
+        fallback_reason: fallback.reason,
+        external_link_count: externalLinks.length,
       },
       scope,
       externalLinks,

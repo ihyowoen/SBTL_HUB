@@ -368,7 +368,7 @@ function ChatBot({ dark }) {
   const toUiMessage = (data) => ({
     role: "assistant",
     content: data?.answer || "응답을 생성하지 못했어.",
-    sourceBadge: data?.source_mode === "external" ? "external" : data?.source_mode === "hybrid" ? "external" : "internal",
+    sourceBadge: ({ external: "external", hybrid: "hybrid", internal: "internal" }[data?.source_mode] || "internal"),
     cards: Array.isArray(data?.cards) ? data.cards : [],
     braveLinks: Array.isArray(data?.external_links) ? data.external_links : [],
     suggestions: Array.isArray(data?.suggestions) ? data.suggestions : [],
@@ -377,9 +377,10 @@ function ChatBot({ dark }) {
   const updateContextFromResponse = (data) => {
     const cards = Array.isArray(data?.cards) ? data.cards : [];
     const links = Array.isArray(data?.external_links) ? data.external_links : [];
+    const nextSelected = cards[0]?.url || links[0]?.url || null;
     chatCtxRef.current = {
       last_answer_type: data?.answer_type || chatCtxRef.current.last_answer_type,
-      selected_item_id: cards[0]?.url || links[0]?.url || chatCtxRef.current.selected_item_id,
+      selected_item_id: nextSelected,
       last_result_ids: [...cards.map((c) => c.url || c.title).filter(Boolean), ...links.map((l) => l.url || l.title).filter(Boolean)].slice(0, 8),
       region: cards[0]?.region || chatCtxRef.current.region,
       date: cards[0]?.date || chatCtxRef.current.date,
@@ -484,10 +485,10 @@ function ChatBot({ dark }) {
       "쉽게 비유해서 설명": "방금 주제를 쉽게 비유해서 설명해줘",
       "LFP랑 비교": "방금 주제를 LFP와 비교해줘",
       "왜 중요한지 한 줄로": "방금 주제가 왜 중요한지 한 줄로 설명해줘",
-      "내부 카드로 검색": "관련 카드 더 보여줘",
     };
     const next = map[label] || label;
-    if (searchMode === "external" || /외부|링크|기사\s*검색|실시간/.test(label)) {
+    const isExternalLabel = label === "외부 기사 링크 검색" || label.includes("외부 검색");
+    if (searchMode === "external" || isExternalLabel) {
       void sendExternal(next);
       return;
     }
@@ -519,6 +520,11 @@ function ChatBot({ dark }) {
                   {m.sourceBadge === "external" && (
                     <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#D29922", background: dark ? "rgba(210,153,34,0.14)" : "rgba(210,153,34,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
                       🔗 외부 기사 링크
+                    </span>
+                  )}
+                  {m.sourceBadge === "hybrid" && (
+                    <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#A855F7", background: dark ? "rgba(168,85,247,0.14)" : "rgba(168,85,247,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
+                      🔀 내부+외부 근거
                     </span>
                   )}
                   {m.sourceBadge ? <div>{m.content}</div> : m.content}

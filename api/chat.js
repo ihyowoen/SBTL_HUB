@@ -31,6 +31,14 @@ function stableError(res, status, message, debug = {}) {
   });
 }
 
+function stabilizeSourceMode(sourceMode, retrieval, externalLinks) {
+  const hasInternal = !!retrieval?.faq || (retrieval?.cards || []).length > 0;
+  const hasExternal = (externalLinks || []).length > 0;
+  if (sourceMode === "external" && !hasExternal) return hasInternal ? "internal" : "external";
+  if (sourceMode === "hybrid" && !hasExternal) return hasInternal ? "internal" : "external";
+  return sourceMode;
+}
+
 async function fetchBraveResults(query) {
   const BRAVE_KEY = process.env.BRAVE_KEY || process.env.VITE_BRAVE_KEY;
   if (!BRAVE_KEY) return { error: "auth-config" };
@@ -92,16 +100,15 @@ export default async function handler(req, res) {
     if (fallback.sourceMode !== "internal") {
       const ext = await fetchBraveResults(message);
       externalLinks = (ext?.results || []).map(toLinkView);
-      if (!externalLinks.length && fallback.sourceMode === "external") {
-        fallback.sourceMode = "hybrid";
-      }
     }
 
+    const finalSourceMode = stabilizeSourceMode(fallback.sourceMode, retrieval, externalLinks);
     const response = composeResponse({
       intent,
       retrieval,
-      sourceMode: fallback.sourceMode,
-      confidence: Number(confidenceRes.score.toFixed(2)),
+      sourceMode: finalSourceMode,
+      confidence: Math.round(confidenceRes.score * 100) / 100,
+      lowConfidence: confidenceRes.bucket === "low",
       debug: {
         fallback_triggered: fallback.fallbackTriggered,
         confidence_bucket: confidenceRes.bucket,
@@ -109,12 +116,6 @@ export default async function handler(req, res) {
       scope,
       externalLinks,
     });
-
-    if (confidenceRes.bucket === "low" && response.source_mode === "internal") {
-      response.answer = "내부 근거가 충분하지 않아. 외부 기사 링크도 함께 확인해줘.";
-      response.source_mode = externalLinks.length ? "hybrid" : "internal";
-      response.external_links = externalLinks;
-    }
 
     return res.status(200).json(response);
   } catch (error) {

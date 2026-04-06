@@ -92,7 +92,7 @@ async function fetchBraveResults(query) {
   if (!BRAVE_KEY) return { error: "auth-config" };
 
   try {
-    const url = `https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(`${query} ${BRAVE_SEARCH_SUFFIX}`)}&count=4`;
+    const url = `https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(`${query} ${BRAVE_SEARCH_SUFFIX}`)}&count=${BRAVE_FETCH_CANDIDATE_LIMIT}`;
     const response = await fetch(url, {
       headers: {
         Accept: "application/json",

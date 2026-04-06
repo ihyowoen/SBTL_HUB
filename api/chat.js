@@ -92,7 +92,8 @@ async function fetchBraveResults(query) {
   if (!BRAVE_KEY) return { error: "auth-config" };
 
   try {
-    const url = `https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(`${query} ${BRAVE_SEARCH_SUFFIX}`)}&count=${BRAVE_FETCH_CANDIDATE_LIMIT}`;
+    const queryWithSuffix = [String(query || "").trim(), BRAVE_SEARCH_SUFFIX].filter(Boolean).join(" ");
+    const url = `https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(queryWithSuffix)}&count=${BRAVE_FETCH_CANDIDATE_LIMIT}`;
     const response = await fetch(url, {
       headers: {
         Accept: "application/json",
@@ -107,7 +108,7 @@ async function fetchBraveResults(query) {
     const data = await response.json();
     const results = data?.web?.results || [];
     return {
-      results: results.slice(0, BRAVE_FETCH_CANDIDATE_LIMIT).map((r) => ({
+      results: results.map((r) => ({
         title: r.title || "",
         description: r.description || "",
         url: r.url || "",

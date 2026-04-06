@@ -155,16 +155,10 @@ function latestCards(cards, limit = 3, region = null, targetDate = null) {
   const rank = { t: 3, h: 2, m: 1, i: 0 };
 
   if (targetDate) {
-    let list = pool.filter((c) => c.d && String(c.d).startsWith(targetDate));
-    if (list.length) return list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
-    // fallback: nearest earlier date — find the single closest date first
-    const nearbyDates = [...new Set(pool.filter((c) => c.d && String(c.d) <= targetDate).map((c) => c.d))].sort((a, b) => String(b).localeCompare(String(a)));
-    if (nearbyDates.length) {
-      const closestDate = nearbyDates[0];
-      const closestCards = pool.filter((c) => c.d === closestDate);
-      return closestCards.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
-    }
-    return pool.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+    const target = fmtDate(targetDate);
+    const list = pool.filter((c) => c.d && fmtDate(c.d) === target);
+    if (!list.length) return [];
+    return list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
   }
 
   // No targetDate: use latest date within the (possibly region-filtered) pool
@@ -475,7 +469,7 @@ function NewsItem({ card, dark }) {
 function Home({ kb, tracker, onNav, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
-  const picks = latestCards(kb.cards, 3);
+  const picks = latestCards(kb.cards, 3, null, kstToday());
   const today = kstNow();
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
   const todayStr = `${kstToday()} (${dayNames[today.getDay()]})`;
@@ -529,7 +523,9 @@ function Home({ kb, tracker, onNav, dark }) {
           </div>
           <button onClick={() => onNav("news")} style={{ border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, borderRadius: 8, padding: "7px 10px", fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>OPEN NEWS</button>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{picks.map((card, i) => <NewsItem key={`${card.T}-${i}`} card={card} dark={dark} />)}</div>
+        {picks.length
+          ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{picks.map((card, i) => <NewsItem key={`${card.T}-${i}`} card={card} dark={dark} />)}</div>
+          : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}
       </div>
     </div>
   );
@@ -1366,7 +1362,7 @@ function NewsDesk({ kb, dark }) {
   }
   const visible = cards.slice(0, showCount);
   const dates = [...new Set(visible.map((c) => c.d))];
-  const highlights = latestCards(kb.cards, 4);
+  const highlights = latestCards(kb.cards, 4, null, kstToday());
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}>
@@ -1376,7 +1372,9 @@ function NewsDesk({ kb, dark }) {
       <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}>
         <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div>
         <h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>오늘의 핵심 카드</h3>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => <NewsItem key={`${card.T}-${i}`} card={card} dark={dark} />)}</div>
+        {highlights.length
+          ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => <NewsItem key={`${card.T}-${i}`} card={card} dark={dark} />)}</div>
+          : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}
       </div>
       <div>
         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="🔍 카드 검색..." style={{ width: "100%", padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />

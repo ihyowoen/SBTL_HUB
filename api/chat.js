@@ -123,6 +123,21 @@ async function fetchBraveResults(query) {
   }
 }
 
+async function callAnalysisAPI(card, mode) {
+  try {
+    const response = await fetch(`${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'}/api/analysis`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ card, mode }),
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data?.result || null;
+  } catch {
+    return null;
+  }
+}
+
 export default async function handler(req, res) {
   setCors(res);
 
@@ -145,6 +160,36 @@ export default async function handler(req, res) {
     const data = await loadKnowledge();
     const intent = classifyIntent(message, context);
     const scope = extractScope(message, context);
+
+    // Handle analysis-type intents
+    if (intent === "analysis_why" || intent === "analysis_summary" || intent === "analysis_deep") {
+      const topCard = context?.last_cards?.[0];
+      if (!topCard) {
+        return stableError(res, 400, "분석할 카드가 없어. 먼저 뉴스나 정책을 검색해줘.", { error_code: "NO_CARD_FOR_ANALYSIS" });
+      }
+      const analysisMode = intent === "analysis_why" ? "why" : intent === "analysis_summary" ? "summary" : "analysis";
+      const analysisResult = await callAnalysisAPI(topCard, analysisMode);
+
+      if (!analysisResult) {
+        return stableError(res, 500, "분석을 생성하지 못했어. 다시 시도해줘.", { error_code: "ANALYSIS_FAILED" });
+      }
+
+      return res.status(200).json({
+        answer: analysisResult,
+        answer_type: intent,
+        source_mode: "internal",
+        confidence: 1.0,
+        cards: [topCard],
+        external_links: [],
+        suggestions: [{ label: "관련 카드 더 보여줘" }, { label: "다른 뉴스 검색" }],
+        debug: {
+          fallback_triggered: false,
+          confidence_bucket: "high",
+          analysis_mode: analysisMode,
+        },
+      });
+    }
+
     const retrieval = retrieveInternal({ message, intent, scope, data });
     const confidenceRes = scoreConfidence({ intent, retrieval, scope, context });
     const fallback = decideFallback({ scope, confidence: confidenceRes, retrieval });

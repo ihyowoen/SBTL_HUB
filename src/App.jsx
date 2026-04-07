@@ -1092,7 +1092,7 @@ function NewsDesk({ kb, dark }) {
             </div>
           )}
         </div>
-        {cards.length === 0 && (search || selectedDate || filter !== "all") && (
+        {cards.length === 0 && (search || filter !== "all") && (
           <div style={{
             padding: "16px",
             borderRadius: 10,

@@ -196,6 +196,38 @@ function latestDate(cards) {
   return [...cards.map((c) => c?.d).filter(Boolean)].sort((a, b) => String(b).localeCompare(String(a)))[0] || null;
 }
 
+function normalizeDateInput(value) {
+  if (!value) return "";
+  return String(value).trim().replace(/-/g, ".");
+}
+
+function toInputDate(value) {
+  const f = fmtDate(value);
+  if (!f || f === "-") return "";
+  return f.replace(/\./g, "-");
+}
+
+function getRecentDates(cards, limit = 10) {
+  return [...new Set(cards.map((c) => fmtDate(c?.d)).filter(Boolean).filter((d) => d !== "-"))]
+    .sort((a, b) => String(b).localeCompare(String(a)))
+    .slice(0, limit);
+}
+
+function countCardsByDate(cards, date) {
+  const target = fmtDate(date);
+  return cards.filter((c) => fmtDate(c?.d) === target).length;
+}
+
+function countSignalsByDate(cards, date, signal) {
+  const target = fmtDate(date);
+  return cards.filter((c) => fmtDate(c?.d) === target && c?.s === signal).length;
+}
+
+function countRegionsByDate(cards, date) {
+  const target = fmtDate(date);
+  return new Set(cards.filter((c) => fmtDate(c?.d) === target).map((c) => c?.r).filter(Boolean)).size;
+}
+
 function latestCards(cards, limit = 3, region = null, targetDate = null) {
   // When region is specified, filter by region FIRST then find latest date within that subset
   const pool = region ? cards.filter((c) => c.r === region) : cards;
@@ -876,13 +908,21 @@ function WebtoonLibrary({ dark }) {
   );
 }
 
-function NewsDesk({ kb, dark }) {
+function NewsDesk({ kb, selectedDate, onSelectDate, dark }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
   const [showCount, setShowCount] = useState(60);
+  const dateInputRef = useRef(null);
+  const recentDates = getRecentDates(kb.cards, 12);
   const regions = ["all", "top", "high", "KR", "US", "CN", "EU", "JP"];
+
   let cards = filter === "all" ? kb.cards : filter === "top" ? kb.cards.filter((c) => c.s === "t") : filter === "high" ? kb.cards.filter((c) => c.s === "h") : kb.cards.filter((c) => c.r === filter);
+
+  if (selectedDate) {
+    cards = cards.filter((c) => fmtDate(c.d) === fmtDate(selectedDate));
+  }
+
   if (search) {
     const sw = search.toLowerCase();
     cards = cards.filter((c) => String(c.T || "").toLowerCase().includes(sw) || String(c.sub || "").toLowerCase().includes(sw) || String(c.g || "").toLowerCase().includes(sw));
@@ -902,6 +942,72 @@ function NewsDesk({ kb, dark }) {
         {highlights.length
           ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => <NewsItem key={`${card.T}-${i}`} card={card} dark={dark} />)}</div>
           : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}
+      </div>
+      <div style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}` }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, marginBottom: 10 }}>
+          <div>
+            <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>DATE FINDER</div>
+            <div style={{ fontSize: 16, fontWeight: 900, color: t.tx }}>
+              {selectedDate ? `${fmtDate(selectedDate)} 카드` : "전체 날짜 보기"}
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: 6 }}>
+            <button
+              onClick={() => onSelectDate(kstToday())}
+              style={{ border: `1px solid ${t.brd}`, background: "transparent", color: t.tx, borderRadius: 8, padding: "7px 10px", fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}
+            >
+              오늘
+            </button>
+            <button
+              onClick={() => dateInputRef.current?.showPicker ? dateInputRef.current.showPicker() : dateInputRef.current?.click()}
+              style={{ border: `1px solid ${t.brd}`, background: "transparent", color: t.tx, borderRadius: 8, padding: "7px 10px", fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}
+            >
+              📅 날짜 선택
+            </button>
+            {selectedDate && (
+              <button
+                onClick={() => onSelectDate("")}
+                style={{ border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, borderRadius: 8, padding: "7px 10px", fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}
+              >
+                전체
+              </button>
+            )}
+          </div>
+        </div>
+
+        <input
+          ref={dateInputRef}
+          type="date"
+          value={toInputDate(selectedDate)}
+          onChange={(e) => onSelectDate(normalizeDateInput(e.target.value))}
+          style={{ position: "absolute", opacity: 0, pointerEvents: "none", width: 0, height: 0 }}
+        />
+
+        <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 4 }}>
+          {recentDates.map((date) => {
+            const active = fmtDate(selectedDate || "") === fmtDate(date);
+            return (
+              <button
+                key={date}
+                onClick={() => onSelectDate(date)}
+                style={{
+                  background: active ? t.cyan : t.card,
+                  color: active ? "#000" : t.tx,
+                  border: `1px solid ${active ? "transparent" : t.brd}`,
+                  borderRadius: 999,
+                  padding: "7px 11px",
+                  fontSize: 10,
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                  fontFamily: "'JetBrains Mono',monospace",
+                }}
+              >
+                {shortDate(date)} · {countCardsByDate(kb.cards, date)}
+              </button>
+            );
+          })}
+        </div>
       </div>
       <div>
         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="🔍 카드 검색..." style={{ width: "100%", padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />
@@ -925,6 +1031,7 @@ function NewsDesk({ kb, dark }) {
 export default function App() {
   const [tab, setTab] = useState("all");
   const [dark, setDark] = useState(true);
+  const [selectedNewsDate, setSelectedNewsDate] = useState("");
   const [refreshKey, setRefreshKey] = useState(0);
   const [hardRefresh, setHardRefresh] = useState(false);
   const [refreshPending, setRefreshPending] = useState(false);
@@ -1047,7 +1154,7 @@ export default function App() {
       </div>
 
       {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} dark={dark} /></div>}
-      {tab === "news" && <NewsDesk kb={kb} dark={dark} />}
+      {tab === "news" && <NewsDesk kb={kb} selectedDate={selectedNewsDate} onSelectDate={setSelectedNewsDate} dark={dark} />}
       {tab === "chatbot" && <ChatBot dark={dark} />}
       {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} dark={dark} /></div>}
       {tab === "webtoon" && <WebtoonLibrary dark={dark} />}

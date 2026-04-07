@@ -1,4 +1,120 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, Component } from "react";
+
+// Error Boundary Component
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Error caught by boundary:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      const { dark } = this.props;
+      const t = T(dark);
+
+      return (
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "100vh",
+          background: t.bg,
+          padding: "20px",
+          fontFamily: "'Pretendard',-apple-system,sans-serif"
+        }}>
+          <div style={{
+            maxWidth: 480,
+            width: "100%",
+            background: t.card,
+            borderRadius: 16,
+            padding: "32px 24px",
+            border: `1px solid ${t.brd}`,
+            textAlign: "center"
+          }}>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>⚠️</div>
+            <h1 style={{ fontSize: 20, fontWeight: 800, color: t.tx, margin: "0 0 8px" }}>
+              앗, 문제가 발생했습니다
+            </h1>
+            <p style={{ fontSize: 13, color: t.sub, lineHeight: 1.6, margin: "0 0 24px" }}>
+              예기치 않은 오류가 발생했습니다. 페이지를 새로고침하거나 홈으로 돌아가주세요.
+            </p>
+            <div style={{ display: "flex", gap: 8, justifyContent: "center" }}>
+              <button
+                onClick={() => window.location.reload()}
+                style={{
+                  flex: 1,
+                  maxWidth: 200,
+                  padding: "12px 20px",
+                  borderRadius: 10,
+                  border: "none",
+                  background: t.cyan,
+                  color: "#000",
+                  fontSize: 13,
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  fontFamily: "'Pretendard',sans-serif"
+                }}
+              >
+                새로고침
+              </button>
+              <button
+                onClick={() => {
+                  this.setState({ hasError: false, error: null });
+                  window.location.href = "/";
+                }}
+                style={{
+                  flex: 1,
+                  maxWidth: 200,
+                  padding: "12px 20px",
+                  borderRadius: 10,
+                  border: `1px solid ${t.brd}`,
+                  background: "transparent",
+                  color: t.tx,
+                  fontSize: 13,
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  fontFamily: "'Pretendard',sans-serif"
+                }}
+              >
+                홈으로
+              </button>
+            </div>
+            {this.state.error && (
+              <details style={{ marginTop: 20, textAlign: "left" }}>
+                <summary style={{ fontSize: 11, color: t.sub, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>
+                  오류 세부정보
+                </summary>
+                <pre style={{
+                  fontSize: 10,
+                  color: t.sub,
+                  background: t.bg,
+                  padding: 12,
+                  borderRadius: 8,
+                  overflow: "auto",
+                  marginTop: 8,
+                  fontFamily: "'JetBrains Mono',monospace"
+                }}>
+                  {this.state.error.toString()}
+                </pre>
+              </details>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 const WEBTOON_COLLECTIONS = [
   {
@@ -1029,7 +1145,59 @@ function NewsDesk({ kb, selectedDate, onSelectDate, dark }) {
         </div>
       </div>
       <div>
-        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="🔍 카드 검색..." style={{ width: "100%", padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="🔍 카드 검색..."
+            aria-label="Search cards by title, description, or content"
+            style={{
+              flex: 1,
+              padding: "10px 14px",
+              borderRadius: 10,
+              border: `1px solid ${t.brd}`,
+              fontSize: 12,
+              outline: "none",
+              fontFamily: "inherit",
+              background: t.card2,
+              color: t.tx,
+              boxSizing: "border-box"
+            }}
+          />
+          {(search || selectedDate || filter !== "all") && (
+            <div style={{
+              padding: "8px 12px",
+              borderRadius: 8,
+              background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card,
+              border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`,
+              fontSize: 11,
+              fontWeight: 800,
+              color: cards.length === 0 ? "#F85149" : t.cyan,
+              fontFamily: "'JetBrains Mono',monospace",
+              whiteSpace: "nowrap"
+            }}>
+              {cards.length}개 결과
+            </div>
+          )}
+        </div>
+        {cards.length === 0 && (search || selectedDate || filter !== "all") && (
+          <div style={{
+            padding: "16px",
+            borderRadius: 10,
+            background: t.card,
+            border: `1px solid ${t.brd}`,
+            textAlign: "center"
+          }}>
+            <div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>
+              검색 결과가 없습니다
+            </div>
+            <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>
+              다른 검색어나 필터를 시도해보세요
+            </div>
+          </div>
+        )}
       </div>
       <div style={{ position: "relative" }}>
         <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>
@@ -1050,7 +1218,7 @@ function NewsDesk({ kb, selectedDate, onSelectDate, dark }) {
   );
 }
 
-export default function App() {
+function AppContent() {
   const [tab, setTab] = useState("all");
   const [dark, setDark] = useState(true);
   const [selectedNewsDate, setSelectedNewsDate] = useState("");
@@ -1107,7 +1275,13 @@ export default function App() {
 
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", background: t.bg, minHeight: "100vh", fontFamily: "'Pretendard',-apple-system,sans-serif", position: "relative" }}>
-      <style dangerouslySetInnerHTML={{ __html: `@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');body{margin:0;background:${t.bg}}*{box-sizing:border-box}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #58A6FF;outline-offset:2px}` }} />
+      <style dangerouslySetInnerHTML={{ __html: `@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');body{margin:0;background:${t.bg}}*{box-sizing:border-box}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #58A6FF;outline-offset:2px}.skip-link{position:absolute;left:-9999px;z-index:999;padding:12px 20px;background:#58A6FF;color:#000;text-decoration:none;font-weight:800;border-radius:8px;font-size:14px}.skip-link:focus{left:50%;transform:translateX(-50%);top:10px}` }} />
+
+      {/* Skip to main content link */}
+      <a href="#main-content" className="skip-link">
+        메인 콘텐츠로 이동
+      </a>
+
       <div style={{ background: "#161B26", padding: "14px 16px 16px", position: "relative", borderBottom: `1px solid #21293A` }}>
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg,#58A6FF,#BC8CFF,#58A6FF)" }} />
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -1175,7 +1349,7 @@ export default function App() {
         </div>
       </div>
 
-      <main role="main" aria-label="SBTL 콘텐츠 허브">
+      <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} dark={dark} /></div>}
         {tab === "news" && <NewsDesk kb={kb} selectedDate={selectedNewsDate} onSelectDate={setSelectedNewsDate} dark={dark} />}
         {tab === "chatbot" && <ChatBot dark={dark} />}
@@ -1196,5 +1370,16 @@ export default function App() {
         })}
       </div>
     </div>
+  );
+}
+
+// Export App wrapped in Error Boundary
+export default function App() {
+  const [dark, setDark] = useState(true);
+
+  return (
+    <ErrorBoundary dark={dark}>
+      <AppContent />
+    </ErrorBoundary>
   );
 }

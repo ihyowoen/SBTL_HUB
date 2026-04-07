@@ -653,15 +653,28 @@ function ChatBot({ dark }) {
           <button onClick={() => setSearchMode("internal")} style={{ flex: 1, padding: "6px 0", borderRadius: 6, border: "none", background: searchMode === "internal" ? (dark ? "#1A2333" : "#fff") : "transparent", color: searchMode === "internal" ? "#58A6FF" : t.sub, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", boxShadow: searchMode === "internal" ? "0 1px 3px rgba(0,0,0,0.15)" : "none", transition: "all 0.15s" }}>📋 내부 카드</button>
           <button onClick={() => setSearchMode("external")} style={{ flex: 1, padding: "6px 0", borderRadius: 6, border: "none", background: searchMode === "external" ? (dark ? "#1A2333" : "#fff") : "transparent", color: searchMode === "external" ? "#D29922" : t.sub, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", boxShadow: searchMode === "external" ? "0 1px 3px rgba(0,0,0,0.15)" : "none", transition: "all 0.15s" }}>🔗 외부 기사</button>
         </div>
-        {searchMode === "external" && (
-          <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
-            <input type="text" value={extQuery} onChange={(e) => setExtQuery(e.target.value)} onKeyDown={(e) => e.key === "Enter" && void sendExternal(extQuery)} placeholder="외부 기사 검색어 입력 (예: LFP 화재 리스크)" style={{ flex: 1, padding: "8px 10px", borderRadius: 8, border: `1px solid ${dark ? "rgba(210,153,34,0.3)" : "rgba(210,153,34,0.2)"}`, background: dark ? "#1A1E2A" : "#FFFBF0", color: t.tx, fontSize: 12, outline: "none", fontFamily: "'Pretendard',sans-serif" }} />
-            <button onClick={() => void sendExternal(extQuery)} disabled={loading || !extQuery.trim()} style={{ padding: "12px 16px", minHeight: "44px", minWidth: "44px", borderRadius: 8, border: "none", background: "#D29922", color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 12, fontFamily: "'Pretendard',sans-serif" }}>🔍</button>
-          </div>
-        )}
         <div style={{ display: "flex", gap: 6 }}>
-          <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && void sendWithText(input)} placeholder={searchMode === "internal" ? "궁금한 주제를 입력해줘" : "AI에게 질문하기"} style={{ flex: 1, padding: "10px 12px", borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }} />
-          <button onClick={() => void sendWithText(input)} disabled={loading || !input.trim()} style={{ padding: "12px 18px", minHeight: "44px", minWidth: "44px", borderRadius: 10, border: "none", background: t.cyan, color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 13, fontFamily: "'Pretendard',sans-serif" }}>→</button>
+          <input
+            type="text"
+            value={searchMode === "external" ? extQuery : input}
+            onChange={(e) => searchMode === "external" ? setExtQuery(e.target.value) : setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                searchMode === "external" ? void sendExternal(extQuery) : void sendWithText(input);
+              }
+            }}
+            placeholder={searchMode === "internal" ? "궁금한 주제를 입력해줘" : "외부 기사 검색어 입력 (예: LFP 화재 리스크)"}
+            aria-label={searchMode === "internal" ? "Ask AI assistant" : "Search external articles"}
+            style={{ flex: 1, padding: "12px 14px", minHeight: "44px", borderRadius: 10, border: `1px solid ${searchMode === "external" ? (dark ? "rgba(210,153,34,0.3)" : "rgba(210,153,34,0.2)") : t.brd}`, background: searchMode === "external" ? (dark ? "#1A1E2A" : "#FFFBF0") : t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }}
+          />
+          <button
+            onClick={() => searchMode === "external" ? void sendExternal(extQuery) : void sendWithText(input)}
+            disabled={loading || (searchMode === "external" ? !extQuery.trim() : !input.trim())}
+            aria-label={searchMode === "external" ? "Search external articles" : "Send message"}
+            style={{ padding: "12px 18px", minHeight: "44px", minWidth: "44px", borderRadius: 10, border: "none", background: searchMode === "external" ? "#D29922" : t.cyan, color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 13, fontFamily: "'Pretendard',sans-serif" }}
+          >
+            {searchMode === "external" ? "🔍" : "→"}
+          </button>
         </div>
       </div>
     </div>
@@ -1094,7 +1107,7 @@ export default function App() {
 
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", background: t.bg, minHeight: "100vh", fontFamily: "'Pretendard',-apple-system,sans-serif", position: "relative" }}>
-      <style dangerouslySetInnerHTML={{ __html: `@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');body{margin:0;background:${t.bg}}*{box-sizing:border-box}` }} />
+      <style dangerouslySetInnerHTML={{ __html: `@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');body{margin:0;background:${t.bg}}*{box-sizing:border-box}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #58A6FF;outline-offset:2px}` }} />
       <div style={{ background: "#161B26", padding: "14px 16px 16px", position: "relative", borderBottom: `1px solid #21293A` }}>
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg,#58A6FF,#BC8CFF,#58A6FF)" }} />
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>

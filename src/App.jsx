@@ -1,4 +1,120 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, Component } from "react";
+
+// Error Boundary Component
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Error caught by boundary:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      const { dark } = this.props;
+      const t = T(dark);
+
+      return (
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "100vh",
+          background: t.bg,
+          padding: "20px",
+          fontFamily: "'Pretendard',-apple-system,sans-serif"
+        }}>
+          <div style={{
+            maxWidth: 480,
+            width: "100%",
+            background: t.card,
+            borderRadius: 16,
+            padding: "32px 24px",
+            border: `1px solid ${t.brd}`,
+            textAlign: "center"
+          }}>
+            <div style={{ fontSize: 48, marginBottom: 16 }}>⚠️</div>
+            <h1 style={{ fontSize: 20, fontWeight: 800, color: t.tx, margin: "0 0 8px" }}>
+              앗, 문제가 발생했습니다
+            </h1>
+            <p style={{ fontSize: 13, color: t.sub, lineHeight: 1.6, margin: "0 0 24px" }}>
+              예기치 않은 오류가 발생했습니다. 페이지를 새로고침하거나 홈으로 돌아가주세요.
+            </p>
+            <div style={{ display: "flex", gap: 8, justifyContent: "center" }}>
+              <button
+                onClick={() => window.location.reload()}
+                style={{
+                  flex: 1,
+                  maxWidth: 200,
+                  padding: "12px 20px",
+                  borderRadius: 10,
+                  border: "none",
+                  background: t.cyan,
+                  color: "#000",
+                  fontSize: 13,
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  fontFamily: "'Pretendard',sans-serif"
+                }}
+              >
+                새로고침
+              </button>
+              <button
+                onClick={() => {
+                  this.setState({ hasError: false, error: null });
+                  window.location.href = "/";
+                }}
+                style={{
+                  flex: 1,
+                  maxWidth: 200,
+                  padding: "12px 20px",
+                  borderRadius: 10,
+                  border: `1px solid ${t.brd}`,
+                  background: "transparent",
+                  color: t.tx,
+                  fontSize: 13,
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  fontFamily: "'Pretendard',sans-serif"
+                }}
+              >
+                홈으로
+              </button>
+            </div>
+            {this.state.error && (
+              <details style={{ marginTop: 20, textAlign: "left" }}>
+                <summary style={{ fontSize: 11, color: t.sub, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>
+                  오류 세부정보
+                </summary>
+                <pre style={{
+                  fontSize: 10,
+                  color: t.sub,
+                  background: t.bg,
+                  padding: 12,
+                  borderRadius: 8,
+                  overflow: "auto",
+                  marginTop: 8,
+                  fontFamily: "'JetBrains Mono',monospace"
+                }}>
+                  {this.state.error.toString()}
+                </pre>
+              </details>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 const WEBTOON_COLLECTIONS = [
   {
@@ -68,8 +184,8 @@ const shortDate = (date) => {
 const pct = (num, total) => `${Math.max(0, Math.min(100, ((Number(num) || 0) / Math.max(1, Number(total) || 0)) * 100))}%`;
 
 const T = (dark = true) => dark
-  ? { bg: "#0D1117", card: "#161B26", card2: "#1C2333", tx: "#E6EDF3", sub: "#7D8590", brd: "#21293A", cyan: "#58A6FF", sh: "0 2px 8px rgba(0,0,0,0.4)" }
-  : { bg: "#F4F6FA", card: "#FFFFFF", card2: "#F8F9FC", tx: "#1A1A2A", sub: "#6B7280", brd: "#E0E3EA", cyan: "#2D5A8E", sh: "0 2px 10px rgba(0,0,0,0.06)" };
+  ? { bg: "#0D1117", card: "#161B26", card2: "#1C2333", tx: "#E6EDF3", sub: "#9198A1", brd: "#21293A", cyan: "#58A6FF", sh: "0 2px 8px rgba(0,0,0,0.4)" }
+  : { bg: "#F4F6FA", card: "#FFFFFF", card2: "#F8F9FC", tx: "#1A1A2A", sub: "#57606A", brd: "#E0E3EA", cyan: "#0969DA", sh: "0 2px 10px rgba(0,0,0,0.06)" };
 
 const quickPrimary = [
   "오늘 핵심 카드",
@@ -260,7 +376,7 @@ function NewsItem({ card, dark }) {
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 5 }}>
         <span style={{ fontSize: 8, fontWeight: 800, color: SIG_C[sig], background: `${SIG_C[sig]}20`, padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>{SIG_L[sig]}</span>
         <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{REG_FLAG[card.r] || "🌐"} {shortDate(card.d)}</span>
-        {isForeign && <span style={{ fontSize: 8, fontWeight: 700, color: "#58A6FF", background: "rgba(88,166,255,0.12)", padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>해외</span>}
+        {isForeign && <span style={{ fontSize: 8, fontWeight: 700, color: "#58A6FF", background: "rgba(88,166,255,0.22)", padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>해외</span>}
         {card.src && <span style={{ fontSize: 8, color: t.sub, marginLeft: "auto", fontFamily: "'JetBrains Mono',monospace" }}>{card.src}</span>}
       </div>
       <h3 style={{ fontSize: 13, fontWeight: 700, color: t.tx, margin: 0, lineHeight: 1.45 }}>{card.T}</h3>
@@ -314,17 +430,17 @@ function NewsItem({ card, dark }) {
         {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
         {/* On-demand analysis buttons - click to reveal */}
         {isForeign && (card.T || card.sub) && (
-          <button onClick={(e) => { e.stopPropagation(); if (!showSummary && !summaryContent) fetchAnalysis('summary'); setShowSummary(!showSummary); setShowWhy(false); setShowGist(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+          <button onClick={(e) => { e.stopPropagation(); if (!showSummary && !summaryContent) fetchAnalysis('summary'); setShowSummary(!showSummary); setShowWhy(false); setShowGist(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: "44px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
             {showSummary ? "△ 요약 닫기" : "한국어 요약"}
           </button>
         )}
         {card.g && (
-          <button onClick={(e) => { e.stopPropagation(); if (!showWhy && !whyContent) fetchAnalysis('why'); setShowWhy(!showWhy); setShowSummary(false); setShowGist(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+          <button onClick={(e) => { e.stopPropagation(); if (!showWhy && !whyContent) fetchAnalysis('why'); setShowWhy(!showWhy); setShowSummary(false); setShowGist(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: "44px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
             {showWhy ? "△ 닫기" : "왜 중요한지"}
           </button>
         )}
         {card.g && (
-          <button onClick={(e) => { e.stopPropagation(); if (!showGist && !analysisContent) fetchAnalysis('analysis'); setShowGist(!showGist); setShowSummary(false); setShowWhy(false); }} aria-label={showGist ? "Close analysis" : "Show analysis"} style={{ fontSize: 9, color: "#A855F7", background: "transparent", border: `1px solid ${dark ? "rgba(168,85,247,0.3)" : "rgba(168,85,247,0.2)"}`, borderRadius: 999, padding: "2px 8px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+          <button onClick={(e) => { e.stopPropagation(); if (!showGist && !analysisContent) fetchAnalysis('analysis'); setShowGist(!showGist); setShowSummary(false); setShowWhy(false); }} aria-label={showGist ? "Close analysis" : "Show analysis"} style={{ fontSize: 9, color: "#A855F7", background: "transparent", border: `1px solid ${dark ? "rgba(168,85,247,0.3)" : "rgba(168,85,247,0.2)"}`, borderRadius: 999, padding: "8px 12px", minHeight: "44px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
             {showGist ? "△ 닫기" : "🤖 AI 해설"}
           </button>
         )}
@@ -388,7 +504,7 @@ function Home({ kb, tracker, onNav, dark }) {
             <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div>
             <div style={{ fontSize: 16, fontWeight: 900, color: t.tx }}>오늘의 핵심 카드</div>
           </div>
-          <button onClick={() => onNav("news")} style={{ border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, borderRadius: 8, padding: "7px 10px", fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>OPEN NEWS</button>
+          <button onClick={() => onNav("news")} style={{ border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, borderRadius: 8, padding: "12px 14px", minHeight: "44px", fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>OPEN NEWS</button>
         </div>
         {picks.length
           ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{picks.map((card, i) => <NewsItem key={`${card.T}-${i}`} card={card} dark={dark} />)}</div>
@@ -544,17 +660,17 @@ function ChatBot({ dark }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "calc(100vh - 190px)" }}>
-      <div style={{ flex: 1, overflowY: "auto", padding: "12px 14px 8px" }}>
+      <div role="log" aria-live="polite" aria-atomic="false" aria-label="대화 내역" style={{ flex: 1, overflowY: "auto", padding: "12px 14px 8px" }}>
         {msgs.length <= 1 && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 6, marginBottom: 12 }}>
             {quickPrimary.map((q) => (
-              <button key={q} onClick={() => runSuggestion(q)} style={{ background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "8px 12px", fontSize: 12, color: t.tx, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600, textAlign: "left" }}>{q}</button>
+              <button key={q} onClick={() => runSuggestion(q)} style={{ background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "12px 16px", minHeight: "44px", fontSize: 12, color: t.tx, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600, textAlign: "left" }}>{q}</button>
             ))}
           </div>
         )}
 
         {msgs.map((m, i) => (
-          <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: m.role === "user" ? "flex-end" : "flex-start", marginBottom: 10 }}>
+          <div key={i} role="article" aria-label={m.role === "user" ? "내 질문" : "AI 답변"} style={{ display: "flex", flexDirection: "column", alignItems: m.role === "user" ? "flex-end" : "flex-start", marginBottom: 10 }}>
             <div style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", width: "100%" }}>
               {m.role === "assistant" && <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, marginRight: 7, flexShrink: 0, marginTop: 2, border: "2px solid #2a1a40" }} />}
               <div style={{ maxWidth: "88%" }}>
@@ -601,7 +717,7 @@ function ChatBot({ dark }) {
             {m.role === "assistant" && m.suggestions?.length > 0 && (
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8, marginBottom: 4, paddingLeft: 35 }}>
                 {m.suggestions.map((s) => (
-                  <button key={s.label} onClick={() => runSuggestion(s.label)} style={{ background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "6px 12px", fontSize: 11, color: t.cyan, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600 }}>{s.label}</button>
+                  <button key={s.label} onClick={() => runSuggestion(s.label)} style={{ background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "10px 16px", minHeight: "44px", fontSize: 11, color: t.cyan, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600 }}>{s.label}</button>
                 ))}
               </div>
             )}
@@ -609,7 +725,7 @@ function ChatBot({ dark }) {
         ))}
 
         {loading && (
-          <div style={{ display: "flex", gap: 7, marginBottom: 10 }}>
+          <div role="status" aria-live="polite" aria-atomic="true" style={{ display: "flex", gap: 7, marginBottom: 10 }}>
             <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, flexShrink: 0, border: "2px solid #2a1a40" }} />
             <div style={{ padding: "10px 14px", borderRadius: "18px 18px 18px 6px", background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, fontSize: 12, color: t.sub }}>찾아보는 중...</div>
           </div>
@@ -621,15 +737,28 @@ function ChatBot({ dark }) {
           <button onClick={() => setSearchMode("internal")} style={{ flex: 1, padding: "6px 0", borderRadius: 6, border: "none", background: searchMode === "internal" ? (dark ? "#1A2333" : "#fff") : "transparent", color: searchMode === "internal" ? "#58A6FF" : t.sub, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", boxShadow: searchMode === "internal" ? "0 1px 3px rgba(0,0,0,0.15)" : "none", transition: "all 0.15s" }}>📋 내부 카드</button>
           <button onClick={() => setSearchMode("external")} style={{ flex: 1, padding: "6px 0", borderRadius: 6, border: "none", background: searchMode === "external" ? (dark ? "#1A2333" : "#fff") : "transparent", color: searchMode === "external" ? "#D29922" : t.sub, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", boxShadow: searchMode === "external" ? "0 1px 3px rgba(0,0,0,0.15)" : "none", transition: "all 0.15s" }}>🔗 외부 기사</button>
         </div>
-        {searchMode === "external" && (
-          <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
-            <input type="text" value={extQuery} onChange={(e) => setExtQuery(e.target.value)} onKeyDown={(e) => e.key === "Enter" && void sendExternal(extQuery)} placeholder="외부 기사 검색어 입력 (예: LFP 화재 리스크)" style={{ flex: 1, padding: "8px 10px", borderRadius: 8, border: `1px solid ${dark ? "rgba(210,153,34,0.3)" : "rgba(210,153,34,0.2)"}`, background: dark ? "#1A1E2A" : "#FFFBF0", color: t.tx, fontSize: 12, outline: "none", fontFamily: "'Pretendard',sans-serif" }} />
-            <button onClick={() => void sendExternal(extQuery)} disabled={loading || !extQuery.trim()} style={{ padding: "8px 12px", borderRadius: 8, border: "none", background: "#D29922", color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 12, fontFamily: "'Pretendard',sans-serif" }}>🔍</button>
-          </div>
-        )}
         <div style={{ display: "flex", gap: 6 }}>
-          <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && void sendWithText(input)} placeholder={searchMode === "internal" ? "궁금한 주제를 입력해줘" : "AI에게 질문하기"} style={{ flex: 1, padding: "10px 12px", borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }} />
-          <button onClick={() => void sendWithText(input)} disabled={loading || !input.trim()} style={{ padding: "10px 16px", borderRadius: 10, border: "none", background: t.cyan, color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 13, fontFamily: "'Pretendard',sans-serif" }}>→</button>
+          <input
+            type="text"
+            value={searchMode === "external" ? extQuery : input}
+            onChange={(e) => searchMode === "external" ? setExtQuery(e.target.value) : setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                searchMode === "external" ? void sendExternal(extQuery) : void sendWithText(input);
+              }
+            }}
+            placeholder={searchMode === "internal" ? "궁금한 주제를 입력해줘" : "외부 기사 검색어 입력 (예: LFP 화재 리스크)"}
+            aria-label={searchMode === "internal" ? "Ask AI assistant" : "Search external articles"}
+            style={{ flex: 1, padding: "12px 14px", minHeight: "44px", borderRadius: 10, border: `1px solid ${searchMode === "external" ? (dark ? "rgba(210,153,34,0.3)" : "rgba(210,153,34,0.2)") : t.brd}`, background: searchMode === "external" ? (dark ? "#1A1E2A" : "#FFFBF0") : t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }}
+          />
+          <button
+            onClick={() => searchMode === "external" ? void sendExternal(extQuery) : void sendWithText(input)}
+            disabled={loading || (searchMode === "external" ? !extQuery.trim() : !input.trim())}
+            aria-label={searchMode === "external" ? "Search external articles" : "Send message"}
+            style={{ padding: "12px 18px", minHeight: "44px", minWidth: "44px", borderRadius: 10, border: "none", background: searchMode === "external" ? "#D29922" : t.cyan, color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 13, fontFamily: "'Pretendard',sans-serif" }}
+          >
+            {searchMode === "external" ? "🔍" : "→"}
+          </button>
         </div>
       </div>
     </div>
@@ -882,7 +1011,9 @@ function NewsDesk({ kb, dark }) {
   const [search, setSearch] = useState("");
   const [showCount, setShowCount] = useState(60);
   const regions = ["all", "top", "high", "KR", "US", "CN", "EU", "JP"];
+
   let cards = filter === "all" ? kb.cards : filter === "top" ? kb.cards.filter((c) => c.s === "t") : filter === "high" ? kb.cards.filter((c) => c.s === "h") : kb.cards.filter((c) => c.r === filter);
+
   if (search) {
     const sw = search.toLowerCase();
     cards = cards.filter((c) => String(c.T || "").toLowerCase().includes(sw) || String(c.sub || "").toLowerCase().includes(sw) || String(c.g || "").toLowerCase().includes(sw));
@@ -904,13 +1035,68 @@ function NewsDesk({ kb, dark }) {
           : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}
       </div>
       <div>
-        <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="🔍 카드 검색..." style={{ width: "100%", padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="🔍 카드 검색..."
+            aria-label="Search cards by title, description, or content"
+            style={{
+              flex: 1,
+              padding: "10px 14px",
+              borderRadius: 10,
+              border: `1px solid ${t.brd}`,
+              fontSize: 12,
+              outline: "none",
+              fontFamily: "inherit",
+              background: t.card2,
+              color: t.tx,
+              boxSizing: "border-box"
+            }}
+          />
+          {(search || filter !== "all") && (
+            <div style={{
+              padding: "8px 12px",
+              borderRadius: 8,
+              background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card,
+              border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`,
+              fontSize: 11,
+              fontWeight: 800,
+              color: cards.length === 0 ? "#F85149" : t.cyan,
+              fontFamily: "'JetBrains Mono',monospace",
+              whiteSpace: "nowrap"
+            }}>
+              {cards.length}개 결과
+            </div>
+          )}
+        </div>
+        {cards.length === 0 && (search || filter !== "all") && (
+          <div style={{
+            padding: "16px",
+            borderRadius: 10,
+            background: t.card,
+            border: `1px solid ${t.brd}`,
+            textAlign: "center"
+          }}>
+            <div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>
+              검색 결과가 없습니다
+            </div>
+            <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>
+              다른 검색어나 필터를 시도해보세요
+            </div>
+          </div>
+        )}
       </div>
-      <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4 }}>
-        {regions.map((r) => {
-          const label = r === "all" ? `ALL ${kb.cardCount}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : r;
-          return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "6px 10px", fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>;
-        })}
+      <div style={{ position: "relative" }}>
+        <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>
+          {regions.map((r) => {
+            const label = r === "all" ? `ALL ${kb.cardCount}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : r;
+            return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "10px 14px", minHeight: "44px", fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>;
+          })}
+        </div>
+        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "32px", background: `linear-gradient(to left, ${t.bg}, transparent)`, pointerEvents: "none" }} />
       </div>
       {dates.map((date) => (
         <div key={date}>
@@ -922,7 +1108,7 @@ function NewsDesk({ kb, dark }) {
   );
 }
 
-export default function App() {
+function AppContent() {
   const [tab, setTab] = useState("all");
   const [dark, setDark] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
@@ -978,7 +1164,13 @@ export default function App() {
 
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", background: t.bg, minHeight: "100vh", fontFamily: "'Pretendard',-apple-system,sans-serif", position: "relative" }}>
-      <style dangerouslySetInnerHTML={{ __html: `@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');body{margin:0;background:${t.bg}}*{box-sizing:border-box}` }} />
+      <style dangerouslySetInnerHTML={{ __html: `@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');body{margin:0;background:${t.bg}}*{box-sizing:border-box}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #58A6FF;outline-offset:2px}.skip-link{position:absolute;left:-9999px;z-index:999;padding:12px 20px;background:#58A6FF;color:#000;text-decoration:none;font-weight:800;border-radius:8px;font-size:14px}.skip-link:focus{left:50%;transform:translateX(-50%);top:10px}` }} />
+
+      {/* Skip to main content link */}
+      <a href="#main-content" className="skip-link">
+        메인 콘텐츠로 이동
+      </a>
+
       <div style={{ background: "#161B26", padding: "14px 16px 16px", position: "relative", borderBottom: `1px solid #21293A` }}>
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg,#58A6FF,#BC8CFF,#58A6FF)" }} />
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -997,8 +1189,8 @@ export default function App() {
                 background: "#21293A",
                 border: "none",
                 borderRadius: 8,
-                minWidth: 32,
-                height: 32,
+                minWidth: 44,
+                minHeight: 44,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1019,8 +1211,8 @@ export default function App() {
                 background: "#21293A",
                 border: "1px solid rgba(248,81,73,0.35)",
                 borderRadius: 8,
-                minWidth: 32,
-                height: 32,
+                minWidth: 44,
+                minHeight: 44,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -1032,7 +1224,7 @@ export default function App() {
             >
               ⚡
             </button>
-            <button onClick={() => setDark(!dark)} style={{ background: "#21293A", border: "none", borderRadius: 8, width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16 }}>{dark ? "☀️" : "🌙"}</button>
+            <button onClick={() => setDark(!dark)} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} style={{ background: "#21293A", border: "none", borderRadius: 8, minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16 }}>{dark ? "☀️" : "🌙"}</button>
           </div>
         </div>
         <div style={{ marginTop: 10 }}>
@@ -1046,24 +1238,37 @@ export default function App() {
         </div>
       </div>
 
-      {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} dark={dark} /></div>}
-      {tab === "news" && <NewsDesk kb={kb} dark={dark} />}
-      {tab === "chatbot" && <ChatBot dark={dark} />}
-      {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} dark={dark} /></div>}
-      {tab === "webtoon" && <WebtoonLibrary dark={dark} />}
+      <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
+        {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} dark={dark} /></div>}
+        {tab === "news" && <NewsDesk kb={kb} dark={dark} />}
+        {tab === "chatbot" && <ChatBot dark={dark} />}
+        {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} dark={dark} /></div>}
+        {tab === "webtoon" && <WebtoonLibrary dark={dark} />}
+      </main>
 
-      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", padding: "6px 0 8px" }}>
+      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">
         {CATS.map((cat) => {
           const active = tab === cat.key;
           return (
-            <button key={cat.key} onClick={() => setTab(cat.key)} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, padding: "4px 0", cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>
+            <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={`Navigate to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: "56px", cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>
               {active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}
-              <span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }}>{cat.icon}</span>
+              <span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span>
               <span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span>
             </button>
           );
         })}
       </div>
     </div>
+  );
+}
+
+// Export App wrapped in Error Boundary
+export default function App() {
+  const [dark, setDark] = useState(true);
+
+  return (
+    <ErrorBoundary dark={dark}>
+      <AppContent />
+    </ErrorBoundary>
   );
 }

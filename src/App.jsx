@@ -312,27 +312,6 @@ function latestDate(cards) {
   return [...cards.map((c) => c?.d).filter(Boolean)].sort((a, b) => String(b).localeCompare(String(a)))[0] || null;
 }
 
-function normalizeDateInput(value) {
-  if (!value) return "";
-  return String(value).trim().replace(/-/g, ".");
-}
-
-function toInputDate(value) {
-  const f = fmtDate(value);
-  if (!f || f === "-") return "";
-  return f.replace(/\./g, "-");
-}
-
-function countSignalsByDate(cards, date, signal) {
-  const target = fmtDate(date);
-  return cards.filter((c) => fmtDate(c?.d) === target && c?.s === signal).length;
-}
-
-function countRegionsByDate(cards, date) {
-  const target = fmtDate(date);
-  return new Set(cards.filter((c) => fmtDate(c?.d) === target).map((c) => c?.r).filter(Boolean)).size;
-}
-
 function latestCards(cards, limit = 3, region = null, targetDate = null) {
   // When region is specified, filter by region FIRST then find latest date within that subset
   const pool = region ? cards.filter((c) => c.r === region) : cards;

@@ -44,7 +44,8 @@ const TRACKER_REGION = {
 /* KST (UTC+9) 기준 현재 시각 */
 const kstNow = () => {
   const now = new Date();
-  return new Date(now.getTime() + (now.getTimezoneOffset() + 540) * 60000);
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  return new Date(utc + (9 * 60 * 60 * 1000));
 };
 const kstToday = () => {
   const d = kstNow();

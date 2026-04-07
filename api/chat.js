@@ -89,7 +89,7 @@ function stabilizeSourceMode(sourceMode, retrieval, externalLinks) {
 
 async function fetchBraveResults(query) {
   const BRAVE_KEY = process.env.BRAVE_KEY || process.env.VITE_BRAVE_KEY;
-  if (!BRAVE_KEY) return { error: "auth-config" };
+  if (!BRAVE_KEY) return { error: "auth-config", status: 0 };
 
   try {
     const queryWithSuffix = [String(query || "").trim(), BRAVE_SEARCH_SUFFIX].filter(Boolean).join(" ");
@@ -102,7 +102,11 @@ async function fetchBraveResults(query) {
     });
 
     if (!response.ok) {
-      return { error: "provider-error" };
+      const status = response.status;
+      if (status === 401 || status === 403) return { error: "auth-error", status };
+      if (status === 429) return { error: "rate-limit", status };
+      if (status >= 500) return { error: "server-error", status };
+      return { error: "provider-error", status };
     }
 
     const data = await response.json();
@@ -114,8 +118,8 @@ async function fetchBraveResults(query) {
         url: r.url || "",
       })),
     };
-  } catch {
-    return { error: "network-error" };
+  } catch (err) {
+    return { error: "network-error", status: 0, detail: err?.message };
   }
 }
 
@@ -146,8 +150,12 @@ export default async function handler(req, res) {
     const fallback = decideFallback({ scope, confidence: confidenceRes, retrieval });
 
     let externalLinks = [];
+    let braveError = null;
     if (fallback.sourceMode !== "internal") {
       const ext = await fetchBraveResults(message);
+      if (ext.error) {
+        braveError = { type: ext.error, status: ext.status, detail: ext.detail };
+      }
       externalLinks = rankExternalLinks(message, (ext?.results || []).map(toLinkView));
     }
 
@@ -163,6 +171,7 @@ export default async function handler(req, res) {
         confidence_bucket: confidenceRes.bucket,
         fallback_reason: fallback.reason,
         external_link_count: externalLinks.length,
+        brave_error: braveError,
       },
       scope,
       externalLinks,

@@ -25,7 +25,6 @@ const TRUSTED_DOMAINS = [
   "electrive.com",
 ];
 
-// LLM 합성을 사용할 intent 목록 — 정책은 REGION_POLICY 템플릿이 이미 정교하므로 제외
 const LLM_ENABLED_INTENTS = new Set(["news", "summary", "compare", "follow_up", "general"]);
 
 function hostFromUrl(url = "") {
@@ -161,7 +160,6 @@ export default async function handler(req, res) {
       return stableError(res, 400, "질문을 먼저 입력해줘.", { error_code: "MESSAGE_REQUIRED" });
     }
 
-    // [D1-DIAG] loadKnowledge 소스/길이 진단
     const _t0 = Date.now();
     const data = await loadKnowledge();
     const _t1 = Date.now();
@@ -179,7 +177,6 @@ export default async function handler(req, res) {
     const intent = classifyIntent(message, context);
     const scope = extractScope(message, context);
 
-    // Analysis 전용 intent는 /api/analysis로 위임
     if (intent === "analysis_why" || intent === "analysis_summary" || intent === "analysis_deep") {
       const topCard = context?.last_cards?.[0];
       if (!topCard) {
@@ -225,7 +222,6 @@ export default async function handler(req, res) {
 
     const finalSourceMode = stabilizeSourceMode(fallback.sourceMode, retrieval, externalLinks);
 
-    // ─── LLM 합성 시도 (news/summary/compare/follow_up/general) ───
     let llmText = null;
     let llmMeta = null;
     const shouldTryLLM =
@@ -265,9 +261,7 @@ export default async function handler(req, res) {
       externalLinks,
     });
 
-    // ─── FAQ 답변은 존댓말 원문이라 반말로 리라이트 ───
-    // faq.json 40개 entry가 전부 "~합니다/~습니다" 존댓말.
-    // 전체 리라이트 대신 런타임에 LLM으로 톤만 변환. 실패 시 원문 유지.
+    // FAQ 답변은 존댓말 원문 → 반말로 리라이트
     if (retrieval?.mode === "faq" && response.answer) {
       const rw = await rewriteToCasual(response.answer);
       if (rw.text) {
@@ -279,40 +273,42 @@ export default async function handler(req, res) {
       console.log(`[chat-faq-rewrite] used=${!!rw.text && !rw.skipped} skipped=${!!rw.skipped} err=${rw.error || "-"}`);
     }
 
-    // LLM 성공 시 answer를 LLM 텍스트로 override하되,
-    // 카드 리스트/external_links/suggestions 등 UI 요소는 템플릿 그대로 유지.
+    // Policy 답변도 REGION_POLICY.why 필드가 문어체(~한다/이다) → 반말로 리라이트
+    // 템플릿 자체는 compose.js에서 이미 연결어 반말화 했지만 why 본문은 원문 유지라 변환 필요.
+    if (intent === "policy" && response.answer) {
+      const rw = await rewriteToCasual(response.answer);
+      if (rw.text) {
+        response.answer = rw.text;
+        response.debug = { ...response.debug, policy_tone_rewrite: { used: !rw.skipped, skipped: !!rw.skipped, latency_ms: rw.latencyMs } };
+      }
+      console.log(`[chat-policy-rewrite] used=${!!rw.text && !rw.skipped} skipped=${!!rw.skipped} err=${rw.error || "-"}`);
+    }
+
+    // LLM 성공 시 answer를 LLM 텍스트로 override. 근거 카드 블록은 헤더 없이 이어 붙임.
     if (llmText) {
       const templateCardBlock = extractCardBlock(response.answer);
       response.answer = templateCardBlock
-        ? `${llmText}\n\n📌 근거 카드\n${templateCardBlock}`
+        ? `${llmText}\n\n근거 카드\n${templateCardBlock}`
         : llmText;
     }
 
     return res.status(200).json(response);
   } catch (error) {
-    return stableError(res, 500, "채팅 응답 생성 중 오류가 발생했어.", {
+    return stableError(res, 500, "채팅 응답 생성 중 오류가 났어.", {
       error_code: "CHAT_ORCHESTRATION_ERROR",
       detail: error?.message || "unknown",
     });
   }
 }
 
-// 템플릿 answer에서 '• ...' 로 시작하는 카드 목록 부분만 추출.
+// 템플릿 answer에서 카드 라인 블록만 추출 (이모지/불릿 없는 신규 포맷 대응)
+// compose.js composeCards news 분기: "제목 (YYYY.MM.DD)\n  gist" 형태
 function extractCardBlock(answer = "") {
   const lines = String(answer).split(/\n/);
-  const bulletLines = [];
-  let started = false;
-  for (const ln of lines) {
-    const isBullet = /^(?:•|\d+\.)\s/.test(ln);
-    const isBulletCont = /^\s{2,}→\s/.test(ln);
-    if (isBullet || isBulletCont) {
-      bulletLines.push(ln);
-      started = true;
-    } else if (started && ln.trim() === "") {
-      bulletLines.push(ln);
-    } else if (started) {
-      break;
-    }
-  }
-  return bulletLines.join("\n").trim() || null;
+  // 첫 헤더 문장 이후부터 카드 라인들 추출
+  // 헤더는 "~뉴스야." 또는 "~보여줄게." 같은 단일 문장 후 빈 줄, 그 다음부터가 카드 블록.
+  const firstBlank = lines.findIndex((ln, i) => i > 0 && ln.trim() === "");
+  if (firstBlank < 0) return null;
+  const cardLines = lines.slice(firstBlank + 1).join("\n").trim();
+  return cardLines || null;
 }

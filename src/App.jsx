@@ -838,17 +838,162 @@ const REGION_POLICY = {
   },
 };
 
+function TrackerItemCard({ item, dark, expanded, onToggle }) {
+  const t = T(dark);
+  const flag = TRACKER_REGION[item.r]?.flag || "🌐";
+  const regionName = TRACKER_REGION[item.r]?.name || item.r;
+  const statusColor = SC[item.s] || t.tx;
+  const statusLabel = SL[item.s] || item.s;
+  const sources = Array.isArray(item.src) ? item.src : [];
+  const hasDetail = item.detail && String(item.detail).trim().length > 0;
+
+  return (
+    <div style={{
+      background: t.card2,
+      borderRadius: 10,
+      border: `1px solid ${t.brd}`,
+      borderLeft: `3px solid ${statusColor}`,
+      padding: "12px 14px",
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap", marginBottom: 6 }}>
+        <span style={{ fontSize: 9, fontWeight: 800, color: statusColor, background: `${statusColor}22`, padding: "2px 7px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>{statusLabel}</span>
+        {item.id && <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>{item.id}</span>}
+        <span style={{ fontSize: 12 }}>{flag}</span>
+        <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{regionName}</span>
+        {item.dt && <span style={{ fontSize: 9, color: t.sub, marginLeft: "auto", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>{fmtDate(item.dt)}</span>}
+      </div>
+
+      <h3 style={{ fontSize: 13, fontWeight: 800, color: t.tx, margin: "0 0 6px", lineHeight: 1.4 }}>{item.t}</h3>
+
+      {item.d && <p style={{ fontSize: 11, color: t.sub, margin: "0 0 8px", lineHeight: 1.6 }}>{item.d}</p>}
+
+      {item.tip && (
+        <div style={{
+          background: dark ? "rgba(210,153,34,0.07)" : "rgba(210,153,34,0.05)",
+          borderLeft: "2px solid #D29922",
+          padding: "6px 10px",
+          borderRadius: "0 6px 6px 0",
+          marginBottom: 8,
+        }}>
+          <span style={{ fontSize: 10, color: "#D29922", fontWeight: 800, fontFamily: "'JetBrains Mono',monospace" }}>💡 </span>
+          <span style={{ fontSize: 11, color: t.tx, lineHeight: 1.5 }}>{item.tip}</span>
+        </div>
+      )}
+
+      {sources.length > 0 && (
+        <div style={{ marginBottom: 8, display: "flex", flexWrap: "wrap", gap: 4 }}>
+          {sources.map((s, i) => {
+            const label = s.n || s.label || s.name || `source ${i + 1}`;
+            const url = s.u || s.url || s.href;
+            if (!url) return null;
+            return (
+              <a key={i} href={url} target="_blank" rel="noopener noreferrer" style={{
+                fontSize: 10,
+                color: t.cyan,
+                padding: "4px 9px",
+                borderRadius: 999,
+                background: dark ? "rgba(88,166,255,0.10)" : "rgba(88,166,255,0.06)",
+                textDecoration: "none",
+                fontFamily: "'JetBrains Mono',monospace",
+                fontWeight: 700,
+                border: `1px solid ${dark ? "rgba(88,166,255,0.2)" : "rgba(88,166,255,0.15)"}`,
+              }}>📎 {label} ↗</a>
+            );
+          })}
+        </div>
+      )}
+
+      {hasDetail && (
+        <>
+          <button onClick={onToggle} style={{
+            fontSize: 10,
+            color: t.cyan,
+            background: "transparent",
+            border: `1px solid ${t.brd}`,
+            borderRadius: 6,
+            cursor: "pointer",
+            fontFamily: "'JetBrains Mono',monospace",
+            padding: "6px 10px",
+            fontWeight: 700,
+          }}>{expanded ? "△ 자세히 접기" : "▽ 자세히 보기"}</button>
+          {expanded && (
+            <div style={{
+              marginTop: 8,
+              padding: "10px 12px",
+              background: dark ? "rgba(88,166,255,0.05)" : "rgba(88,166,255,0.03)",
+              borderRadius: 8,
+              border: `1px solid ${dark ? "rgba(88,166,255,0.12)" : "rgba(88,166,255,0.08)"}`,
+              fontSize: 11,
+              color: t.tx,
+              lineHeight: 1.7,
+              whiteSpace: "pre-line",
+            }}>{item.detail}</div>
+          )}
+        </>
+      )}
+
+      {(item.lastChecked || item.checkNote) && (
+        <div style={{
+          fontSize: 9,
+          color: t.sub,
+          marginTop: 10,
+          paddingTop: 7,
+          borderTop: `1px solid ${t.brd}`,
+          fontFamily: "'JetBrains Mono',monospace",
+          lineHeight: 1.5,
+        }}>
+          🔍 {item.lastChecked ? `last checked: ${fmtDate(item.lastChecked)}` : "check note"}
+          {item.checkNote && <span> — {item.checkNote}</span>}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Tracker({ tracker, dark }) {
   const t = T(dark);
   const d = tracker;
   const updatedLabel = fmtDate(d.meta.lastUpdated);
   const [expandedRegion, setExpandedRegion] = useState(null);
+  const [expandedItemId, setExpandedItemId] = useState(null);
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [regionFilter, setRegionFilter] = useState("all");
+  const [search, setSearch] = useState("");
 
   const toggleRegion = (code) => {
     setExpandedRegion((prev) => (prev === code ? null : code));
   };
 
   const policyData = REGION_POLICY[expandedRegion] || null;
+
+  // ITEMS filtering + sorting
+  const statusRank = { ACTIVE: 0, UPCOMING: 1, WATCH: 2, DONE: 3 };
+  const filteredItems = useMemo(() => {
+    const sw = search.trim().toLowerCase();
+    return (d.items || [])
+      .filter((it) => {
+        if (statusFilter !== "all" && it.s !== statusFilter) return false;
+        if (regionFilter !== "all" && it.r !== regionFilter) return false;
+        if (sw) {
+          const hay = [it.id, it.t, it.d, it.tip, it.detail].filter(Boolean).join(" ").toLowerCase();
+          if (!hay.includes(sw)) return false;
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        const sa = statusRank[a.s] ?? 9;
+        const sb = statusRank[b.s] ?? 9;
+        if (sa !== sb) return sa - sb;
+        // UPCOMING: ascending by date; others: descending
+        const da = String(a.dt || "");
+        const db = String(b.dt || "");
+        if (a.s === "UPCOMING") return da.localeCompare(db);
+        return db.localeCompare(da);
+      });
+  }, [d.items, statusFilter, regionFilter, search]);
+
+  const regionFilterOptions = ["all", ...Object.keys(TRACKER_REGION).filter((code) => (d.items || []).some((it) => it.r === code))];
+  const statusFilterOptions = ["all", "ACTIVE", "UPCOMING", "WATCH", "DONE"];
 
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
@@ -871,7 +1016,7 @@ function Tracker({ tracker, dark }) {
       </div>
 
       <div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>REGIONS — 클릭하면 정책 설명</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>REGIONS — 클릭하면 권역 개요</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
           {d.regions.map((r) => {
             const isExpanded = expandedRegion === r.code;
@@ -880,7 +1025,7 @@ function Tracker({ tracker, dark }) {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><span style={{ fontSize: 14 }}>{r.flag}</span><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{r.ACTIVE} ACTIVE</span></div>
                 <div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginTop: 4 }}>{r.name}</div>
                 <div style={{ marginTop: 6, height: 3, borderRadius: 2, background: t.brd }}><div style={{ height: "100%", borderRadius: 2, background: SC.ACTIVE, width: pct(r.ACTIVE, r.total) }} /></div>
-                <div style={{ fontSize: 9, color: isExpanded ? t.cyan : t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace", textAlign: "center" }}>{isExpanded ? "△ 접기" : "▽ 정책 보기"}</div>
+                <div style={{ fontSize: 9, color: isExpanded ? t.cyan : t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace", textAlign: "center" }}>{isExpanded ? "△ 접기" : "▽ 개요 보기"}</div>
               </div>
             );
           })}
@@ -910,14 +1055,118 @@ function Tracker({ tracker, dark }) {
               <div key={i} style={{ fontSize: 11, color: t.tx, lineHeight: 1.55, paddingLeft: 8, borderLeft: `2px solid ${t.cyan}`, marginBottom: 4 }}>{wp}</div>
             ))}
           </div>
+          <div style={{ marginTop: 10, fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", fontStyle: "italic" }}>※ 위 내용은 권역 개요이며, 개별 정책 항목은 아래 POLICY ITEMS에서 확인하세요.</div>
         </div>
       )}
+
+      {/* POLICY ITEMS — 개별 정책 카드 전체 렌더링 */}
+      <div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+          <span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>POLICY ITEMS — {filteredItems.length} / {d.items.length}</span>
+          <div style={{ flex: 1, height: 1, background: t.brd }} />
+        </div>
+
+        {/* 검색 */}
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="🔍 정책 검색 (제목·설명·ID)..."
+          aria-label="Search policy items"
+          style={{
+            width: "100%",
+            padding: "10px 14px",
+            borderRadius: 10,
+            border: `1px solid ${t.brd}`,
+            fontSize: 12,
+            outline: "none",
+            fontFamily: "inherit",
+            background: t.card2,
+            color: t.tx,
+            boxSizing: "border-box",
+            marginBottom: 8,
+          }}
+        />
+
+        {/* 상태 필터 */}
+        <div style={{ position: "relative", marginBottom: 6 }}>
+          <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>
+            {statusFilterOptions.map((s) => {
+              const active = statusFilter === s;
+              const label = s === "all" ? `ALL ${d.items.length}` : `${SL[s] || s} ${d.summary[s] || 0}`;
+              const color = s === "all" ? t.cyan : (SC[s] || t.cyan);
+              return (
+                <button key={s} onClick={() => setStatusFilter(s)} style={{
+                  background: active ? color : t.card2,
+                  color: active ? "#000" : t.sub,
+                  border: `1px solid ${active ? "transparent" : t.brd}`,
+                  borderRadius: 999,
+                  padding: "8px 12px",
+                  minHeight: "36px",
+                  fontSize: 10,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                  fontFamily: "'JetBrains Mono',monospace",
+                }}>{label}</button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 권역 필터 */}
+        <div style={{ position: "relative", marginBottom: 10 }}>
+          <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>
+            {regionFilterOptions.map((r) => {
+              const active = regionFilter === r;
+              const label = r === "all" ? "ALL REGIONS" : `${TRACKER_REGION[r]?.flag || "🌐"} ${TRACKER_REGION[r]?.name || r}`;
+              return (
+                <button key={r} onClick={() => setRegionFilter(r)} style={{
+                  background: active ? t.cyan : t.card2,
+                  color: active ? "#000" : t.sub,
+                  border: `1px solid ${active ? "transparent" : t.brd}`,
+                  borderRadius: 999,
+                  padding: "8px 12px",
+                  minHeight: "36px",
+                  fontSize: 10,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                  fontFamily: "'JetBrains Mono',monospace",
+                }}>{label}</button>
+              );
+            })}
+          </div>
+        </div>
+
+        {filteredItems.length === 0 ? (
+          <div style={{ padding: "20px", borderRadius: 10, background: t.card2, border: `1px solid ${t.brd}`, textAlign: "center" }}>
+            <div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div>
+            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}>조건에 맞는 정책이 없습니다.</div>
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {filteredItems.map((item) => (
+              <TrackerItemCard
+                key={item.id || `${item.r}-${item.t}`}
+                item={item}
+                dark={dark}
+                expanded={expandedItemId === (item.id || `${item.r}-${item.t}`)}
+                onToggle={() => {
+                  const key = item.id || `${item.r}-${item.t}`;
+                  setExpandedItemId((prev) => (prev === key ? null : key));
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
 
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>KEY DATES</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div>
         <div style={{ background: t.card2, borderRadius: 8, padding: "4px 0", border: `1px solid ${t.brd}` }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px 6px", borderBottom: `1px solid ${t.brd}` }}>
-            <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>WATCHLIST</span>
+            <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>WATCHLIST — UPCOMING TOP 8</span>
             <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>LAST CHECKED {updatedLabel}</span>
           </div>
           {d.upcoming.map((ev, i) => (

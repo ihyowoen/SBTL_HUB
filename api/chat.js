@@ -5,7 +5,7 @@ import { retrieveInternal } from "../lib/chat/retrieval.js";
 import { scoreConfidence } from "../lib/chat/confidence.js";
 import { decideFallback } from "../lib/chat/fallback.js";
 import { composeResponse } from "../lib/chat/compose.js";
-import { synthesizeChatAnswer } from "../lib/chat/llm.js";
+import { synthesizeChatAnswer, rewriteToCasual } from "../lib/chat/llm.js";
 
 const BRAVE_SEARCH_SUFFIX = "battery ESS EV";
 const BRAVE_FETCH_CANDIDATE_LIMIT = 8;
@@ -226,8 +226,6 @@ export default async function handler(req, res) {
     const finalSourceMode = stabilizeSourceMode(fallback.sourceMode, retrieval, externalLinks);
 
     // ─── LLM 합성 시도 (news/summary/compare/follow_up/general) ───
-    // retrieval.mode가 'faq'면 FAQ 답변이 우선이라 스킵.
-    // 카드가 있고, intent가 LLM 대상이면 Groq 호출.
     let llmText = null;
     let llmMeta = null;
     const shouldTryLLM =
@@ -267,11 +265,23 @@ export default async function handler(req, res) {
       externalLinks,
     });
 
+    // ─── FAQ 답변은 존댓말 원문이라 반말로 리라이트 ───
+    // faq.json 40개 entry가 전부 "~합니다/~습니다" 존댓말.
+    // 전체 리라이트 대신 런타임에 LLM으로 톤만 변환. 실패 시 원문 유지.
+    if (retrieval?.mode === "faq" && response.answer) {
+      const rw = await rewriteToCasual(response.answer);
+      if (rw.text) {
+        response.answer = rw.text;
+        response.debug = { ...response.debug, faq_tone_rewrite: { used: !rw.skipped, skipped: !!rw.skipped, latency_ms: rw.latencyMs } };
+      } else {
+        response.debug = { ...response.debug, faq_tone_rewrite: { used: false, error: rw.error, latency_ms: rw.latencyMs } };
+      }
+      console.log(`[chat-faq-rewrite] used=${!!rw.text && !rw.skipped} skipped=${!!rw.skipped} err=${rw.error || "-"}`);
+    }
+
     // LLM 성공 시 answer를 LLM 텍스트로 override하되,
     // 카드 리스트/external_links/suggestions 등 UI 요소는 템플릿 그대로 유지.
     if (llmText) {
-      // 템플릿이 만든 카드 블록('• 제목 [날짜]\n  → gist')을 LLM 답변 뒤에 병기해서
-      // 사용자가 근거 카드를 한눈에 볼 수 있게 함.
       const templateCardBlock = extractCardBlock(response.answer);
       response.answer = templateCardBlock
         ? `${llmText}\n\n📌 근거 카드\n${templateCardBlock}`
@@ -288,7 +298,6 @@ export default async function handler(req, res) {
 }
 
 // 템플릿 answer에서 '• ...' 로 시작하는 카드 목록 부분만 추출.
-// compose.js composeCards의 news/summary/compare 분기 출력을 파싱.
 function extractCardBlock(answer = "") {
   const lines = String(answer).split(/\n/);
   const bulletLines = [];

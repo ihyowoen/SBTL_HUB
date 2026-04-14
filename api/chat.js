@@ -5,6 +5,7 @@ import { retrieveInternal } from "../lib/chat/retrieval.js";
 import { scoreConfidence } from "../lib/chat/confidence.js";
 import { decideFallback } from "../lib/chat/fallback.js";
 import { composeResponse } from "../lib/chat/compose.js";
+import { synthesizeChatAnswer } from "../lib/chat/llm.js";
 
 const BRAVE_SEARCH_SUFFIX = "battery ESS EV";
 const BRAVE_FETCH_CANDIDATE_LIMIT = 8;
@@ -23,6 +24,9 @@ const TRUSTED_DOMAINS = [
   "thelec.kr",
   "electrive.com",
 ];
+
+// LLM 합성을 사용할 intent 목록 — 정책은 REGION_POLICY 템플릿이 이미 정교하므로 제외
+const LLM_ENABLED_INTENTS = new Set(["news", "summary", "compare", "follow_up", "general"]);
 
 function hostFromUrl(url = "") {
   try {
@@ -157,10 +161,7 @@ export default async function handler(req, res) {
       return stableError(res, 400, "질문을 먼저 입력해줘.", { error_code: "MESSAGE_REQUIRED" });
     }
 
-    // [D1-DIAG] 진단 로그 — Vercel serverless에서 loadKnowledge()가 public/data/*.json을
-    // 실제로 읽는지 확인. cwd + 각 데이터셋 length를 Function Logs에 남기고, 응답 debug에도 포함.
-    // 가설: process.cwd()가 /var/task이고 public/은 CDN으로 분리되어 카드=0이 될 가능성.
-    // 이 블록은 원인 확정 후 제거 예정 (audit FIX_PROPOSAL D1).
+    // [D1-DIAG] loadKnowledge 소스/길이 진단
     const _t0 = Date.now();
     const data = await loadKnowledge();
     const _t1 = Date.now();
@@ -171,13 +172,14 @@ export default async function handler(req, res) {
       tracker_len: Array.isArray(data?.tracker?.items) ? data.tracker.items.length : -1,
       load_ms: _t1 - _t0,
       vercel_url: process.env.VERCEL_URL || null,
+      sources: data?._sources || null,
     };
     console.log(`[chat-diag-D1] ${JSON.stringify(_diag)}`);
 
     const intent = classifyIntent(message, context);
     const scope = extractScope(message, context);
 
-    // Handle analysis-type intents
+    // Analysis 전용 intent는 /api/analysis로 위임
     if (intent === "analysis_why" || intent === "analysis_summary" || intent === "analysis_deep") {
       const topCard = context?.last_cards?.[0];
       if (!topCard) {
@@ -222,6 +224,30 @@ export default async function handler(req, res) {
     }
 
     const finalSourceMode = stabilizeSourceMode(fallback.sourceMode, retrieval, externalLinks);
+
+    // ─── LLM 합성 시도 (news/summary/compare/follow_up/general) ───
+    // retrieval.mode가 'faq'면 FAQ 답변이 우선이라 스킵.
+    // 카드가 있고, intent가 LLM 대상이면 Groq 호출.
+    let llmText = null;
+    let llmMeta = null;
+    const shouldTryLLM =
+      retrieval?.mode === "cards" &&
+      LLM_ENABLED_INTENTS.has(intent) &&
+      (retrieval?.cards || []).length > 0;
+
+    if (shouldTryLLM) {
+      const llmRes = await synthesizeChatAnswer({
+        message,
+        intent,
+        cards: retrieval.cards,
+        newsMeta: retrieval.news_meta || null,
+        scope,
+      });
+      llmText = llmRes.text;
+      llmMeta = { used: !!llmRes.text, error: llmRes.error, latency_ms: llmRes.latencyMs };
+      console.log(`[chat-llm] intent=${intent} used=${!!llmRes.text} latency=${llmRes.latencyMs}ms err=${llmRes.error || "-"}`);
+    }
+
     const response = composeResponse({
       intent,
       retrieval,
@@ -234,11 +260,23 @@ export default async function handler(req, res) {
         fallback_reason: fallback.reason,
         external_link_count: externalLinks.length,
         brave_error: braveError,
+        llm: llmMeta,
         diag: _diag,
       },
       scope,
       externalLinks,
     });
+
+    // LLM 성공 시 answer를 LLM 텍스트로 override하되,
+    // 카드 리스트/external_links/suggestions 등 UI 요소는 템플릿 그대로 유지.
+    if (llmText) {
+      // 템플릿이 만든 카드 블록('• 제목 [날짜]\n  → gist')을 LLM 답변 뒤에 병기해서
+      // 사용자가 근거 카드를 한눈에 볼 수 있게 함.
+      const templateCardBlock = extractCardBlock(response.answer);
+      response.answer = templateCardBlock
+        ? `${llmText}\n\n📌 근거 카드\n${templateCardBlock}`
+        : llmText;
+    }
 
     return res.status(200).json(response);
   } catch (error) {
@@ -247,4 +285,25 @@ export default async function handler(req, res) {
       detail: error?.message || "unknown",
     });
   }
+}
+
+// 템플릿 answer에서 '• ...' 로 시작하는 카드 목록 부분만 추출.
+// compose.js composeCards의 news/summary/compare 분기 출력을 파싱.
+function extractCardBlock(answer = "") {
+  const lines = String(answer).split(/\n/);
+  const bulletLines = [];
+  let started = false;
+  for (const ln of lines) {
+    const isBullet = /^(?:•|\d+\.)\s/.test(ln);
+    const isBulletCont = /^\s{2,}→\s/.test(ln);
+    if (isBullet || isBulletCont) {
+      bulletLines.push(ln);
+      started = true;
+    } else if (started && ln.trim() === "") {
+      bulletLines.push(ln);
+    } else if (started) {
+      break;
+    }
+  }
+  return bulletLines.join("\n").trim() || null;
 }

@@ -157,7 +157,23 @@ export default async function handler(req, res) {
       return stableError(res, 400, "질문을 먼저 입력해줘.", { error_code: "MESSAGE_REQUIRED" });
     }
 
+    // [D1-DIAG] 진단 로그 — Vercel serverless에서 loadKnowledge()가 public/data/*.json을
+    // 실제로 읽는지 확인. cwd + 각 데이터셋 length를 Function Logs에 남기고, 응답 debug에도 포함.
+    // 가설: process.cwd()가 /var/task이고 public/은 CDN으로 분리되어 카드=0이 될 가능성.
+    // 이 블록은 원인 확정 후 제거 예정 (audit FIX_PROPOSAL D1).
+    const _t0 = Date.now();
     const data = await loadKnowledge();
+    const _t1 = Date.now();
+    const _diag = {
+      cwd: process.cwd(),
+      cards_len: Array.isArray(data?.cards) ? data.cards.length : -1,
+      faq_len: Array.isArray(data?.faq) ? data.faq.length : -1,
+      tracker_len: Array.isArray(data?.tracker?.items) ? data.tracker.items.length : -1,
+      load_ms: _t1 - _t0,
+      vercel_url: process.env.VERCEL_URL || null,
+    };
+    console.log(`[chat-diag-D1] ${JSON.stringify(_diag)}`);
+
     const intent = classifyIntent(message, context);
     const scope = extractScope(message, context);
 
@@ -165,13 +181,13 @@ export default async function handler(req, res) {
     if (intent === "analysis_why" || intent === "analysis_summary" || intent === "analysis_deep") {
       const topCard = context?.last_cards?.[0];
       if (!topCard) {
-        return stableError(res, 400, "분석할 카드가 없어. 먼저 뉴스나 정책을 검색해줘.", { error_code: "NO_CARD_FOR_ANALYSIS" });
+        return stableError(res, 400, "분석할 카드가 없어. 먼저 뉴스나 정책을 검색해줘.", { error_code: "NO_CARD_FOR_ANALYSIS", diag: _diag });
       }
       const analysisMode = intent === "analysis_why" ? "why" : intent === "analysis_summary" ? "summary" : "analysis";
       const analysisResult = await callAnalysisAPI(topCard, analysisMode);
 
       if (!analysisResult) {
-        return stableError(res, 500, "분석을 생성하지 못했어. 다시 시도해줘.", { error_code: "ANALYSIS_FAILED" });
+        return stableError(res, 500, "분석을 생성하지 못했어. 다시 시도해줘.", { error_code: "ANALYSIS_FAILED", diag: _diag });
       }
 
       return res.status(200).json({
@@ -186,6 +202,7 @@ export default async function handler(req, res) {
           fallback_triggered: false,
           confidence_bucket: "high",
           analysis_mode: analysisMode,
+          diag: _diag,
         },
       });
     }
@@ -217,6 +234,7 @@ export default async function handler(req, res) {
         fallback_reason: fallback.reason,
         external_link_count: externalLinks.length,
         brave_error: braveError,
+        diag: _diag,
       },
       scope,
       externalLinks,

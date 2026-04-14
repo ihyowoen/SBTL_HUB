@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastUpdated": "2026-04-14T15:00:00+09:00",
-    "totalItems": 50,
+    "lastUpdated": "2026-04-14T17:30:00+09:00",
+    "totalItems": 59,
     "version": "1.0"
   },
   "sources": {
@@ -142,8 +142,12 @@
           "url": "https://www.korea.kr/"
         },
         {
-          "name": "MOTIR 산업부 (영문)",
-          "url": "https://english.motir.go.kr/"
+          "name": "MOTIR 산업통상자원부 (영문, 개편 후)",
+          "url": "https://english.motie.go.kr/"
+        },
+        {
+          "name": "MCEE 기후에너지환경부 (신설, 2025~)",
+          "url": "https://www.mcee.go.kr/"
         },
         {
           "name": "국가법령정보센터",
@@ -271,7 +275,7 @@
       "tip": "MACR 계산 시 폴리실리콘은 제외되지만 흑연·전해질 첨가제는 포함 — 소재별로 대상 여부가 다름",
       "detail": "• 퍼블릭 코멘트 마감: 2026.03.30\n• IRS 요청 코멘트 주요 주제:\n  ① MACR substantiation/documentation 요건\n  ② \"beginning of construction\" anti-circumvention 규칙\n  ③ anti-abuse provisions 필요 여부\n• ⚠️ \"beginning of construction on or before Dec 31, 2025\"를 anti-circumvention 맥락에서 언급 → 2025년 safe harbour 소급 검증 가능성\n• 코멘트 후 proposed regulation 발표 → 발표 후 60일간 기존 Notice 2026-15 계속 사용 가능\n• BESS 산업 특이점: 에너지 저장은 태양광·풍력보다 MACR 기준이 더 엄격(55% vs 40%)\n• 배터리 셀이 BESS 총 직접비용의 52% → 셀 소싱 결정이 MACR 통과 여부를 좌우",
       "lastChecked": "2026-04-14",
-      "checkNote": "코멘트 마감(3.30) 2주 경과. Treasury proposed regulation 미발표. Q2 formal rulemaking 개시 대기. SEIA/Benchmark 전망: 미국 ESS 시장 2026년 +21% 성장. Anza Q1: FEOC 리스크 명확화로 가격 8.6%↓(11월比), 20.9%↓(5월比). Trump 관세로 ESS 비용 56~69%↑ 우려"
+      "checkNote": "코멘트 마감(3.30) 2주 경과. Treasury proposed regulation 미발표 상태 유지. Capstone 전망: Q2 2026 formal rulemaking 개시. 법정 기한 2026.12.31까지 Safe Harbor 테이블 발표 필요 (NA-009 참조)"
     },
     {
       "id": "NA-003",
@@ -565,7 +569,7 @@
       "tip": "첫 공모 대상은 기가팩토리급 — 연산 10GWh↑ 시설 우선. 소규모 셀 업체는 2차 공모 대기",
       "detail": "• 첫 공모 대상: 연산 10GWh↑ 기가팩토리급 시설 (EEA 설립 필수)\n• 지원 규모: 건당 최대 €500M, 적격 비용의 최대 60%\n• 대출 조건:\n  - 최대 8년 만기\n  - 무이자 (실질 보조금 효과 연 3~5%)\n  - 상환 개시: ramp-up 완료 또는 서명 후 36개월 중 빠른 시점\n  - 5년간 균등 상환\n  - senior lender 대비 후순위\n• 10% 페널티: 12개월 내 EEA 외 생산 이전 시 부과\n• 지급: 마일스톤 기반 분할 지급\n• 적격 비용: 설비투자(CAPEX) + 자재·에너지·계약 공사. OPEX·배당·상환 등 제외\n• 심사 기준: 재무 성숙도 + 기술 성숙도 + EU 산업 회복력 기여도(공급망 안보·CRM·IP·인력·후방산업)\n• 적격 기업 후보: PowerCo(Salzgitter 생산 개시), ACC(Douvrin), Verkor 등\n• 비EU 기업(AESC, ProLogium) 제외 가능성 — Séjourné \"Buy European\" 정책 연동",
       "lastChecked": "2026-04-14",
-      "checkNote": "Q2 진입 2주 경과. Call for Proposals **여전히 미공개**. Séjourné vs Hoekstra 부처 간 갈등 지속. 업계 불만 누적. PowerCo·ACC 등 유럽 후보 기업 대기 상태. 2028-2034 다년 예산 새 funding logic 검토 중"
+      "checkNote": "Q2 진입 2주 경과. Call for Proposals 여전히 미공개. Séjourné(산업) vs Hoekstra(기후) 부처 간 조건 협의 지속. 2028-2034 MFF 새 funding logic 검토 중. 2026 연내 발효 목표 유지"
     },
     {
       "id": "EU-007",
@@ -887,9 +891,9 @@
         }
       ],
       "tip": "AMPC는 생산량 비례(1kWh당 5)이므로 ESS 대형 프로젝트일수록 수혜 극대화. 3사 합산 연간 1조+",
-      "detail": "• AMPC 구조: 1kWh당 최대 45 (셀 35 + 모듈 10)\n• 3사 AMPC 누적 수령액: ~6조 원 (2023-2025)\n• PFE 연도별 비중: 2026년 40% → 2027년 50% → 2030년 85%\n\n• ⭐ K-배터리의 구조적 우위 (2026.04 기준 업데이트):\n  - 미국 내 FEOC-compliant ESS 셀 용량의 80%+ 점유\n  - 현재 가동: LG Energy Solution 미시간, AESC 테네시\n  - 2026 전환 예정: SK Battery America(조지아 Commerce), Samsung SDI(인디애나 Kokomo), Ford(EV→ESS 스왑)\n  - 2026.10 SK On 조지아 LFP ESS 양산 개시. Q3 준비 완료\n\n• SK On 수주 트랙 (2026.04 확인):\n  - Flatiron Energy 1GWh 공급계약 체결\n  - 2030년까지 6.2GWh 우선권 확보\n  - 연 7.2GWh 공급 예정 (4년간)\n  - 분리막: WCP가 공급(4.9 계약), 기존 Samsung SDI용 공급사\n\n• Tesla-LG 4.3B 배터리 공장 계약(2026.3.19)\n\n• Anza 79개 ESS 제품 FEOC risk 분석: 40% low, 9% medium, 51% high/highest → Korea 공급사 중심 low-risk 제품이 미국 프리미엄 시장 선점\n\n• 구조적 배경: OBBBA가 EV 크레딧 제거·ESS 크레딧 유지. EV 수요 감소 + 라인 가동률 70~80% → ESS 전환이 합리적\n  \"EV battery plants → stationary battery suppliers\"",
+      "detail": "• AMPC 구조: 1kWh당 최대 $45 (셀 $35 + 모듈 $10)\n• 3사 AMPC 누적 수령액: ~6조 원 (2023-2025)\n• PFE 연도별 비중: 2026년 40% → 2027년 50% → 2030년 85%\n• FEOC/PFE 공급망 재편 완료: 중국산 핵심광물·부품 의존도 40% 미만으로 축소\n• 2026.03.19 KBIA 공식 발표 — 3사 모두 2026년 기준 충족 확인\n• 정책 의미: OBBBA FEOC 시행(2026.01)에도 45X AMPC 크레딧 수혜 자격 유지 확보",
       "lastChecked": "2026-04-14",
-      "checkNote": "⭐ EV→ESS 피벗 구체화: SK On 조지아(Commerce) 10월 LFP ESS 양산 개시 예정. 라인 전환 중, Q3 준비 완료 목표. Flatiron Energy와 1GWh 공급계약 + 2030년까지 6.2GWh 우선권 확보. Samsung SDI 인디애나(Kokomo) 2026년 ESS 생산 전환. Ford도 합류. WCP는 SK On ESS용 분리막 공급계약 체결(4.9). K-배터리 \"EV 불황→ESS 대응\" 완전 구조 전환"
+      "checkNote": "DONE 상태 유지. 3사 PFE 40% 충족 완료 확인. 향후 2027년 50%·2030년 85%로 강화 예정 — 지속 모니터링 필요"
     },
     {
       "id": "KR-002",
@@ -973,7 +977,7 @@
       "tip": "통합법에 재생원료 인증제도 포함 예정. 폐배터리에서 회수한 유가금속을 신품 배터리에 사용 시 인증 부여",
       "detail": "• 통합법 정식명칭(가칭): 사용후 배터리 산업 육성 및 공급망 안정화에 관한 법률\n• 핵심 내용: ①재생원료 인증제도 ②사용목표제(재생원료 사용 의무) ③디지털 관리체계\n• 현행법 문제: 폐기물관리법 적용 → 재사용 배터리도 \"폐기물\" 허가 필요한 역설\n• 2027년 재생원료 인증 본격 시행 예정 — 2025년 세부방안 마련 + 시범운영\n• ⚠️ 2차 개정 확인 (2026.02.27 개정 → 2027.07.01 시행):\n  - 사용후배터리 정의 명확화\n  - 성능평가 기준 법제화\n  - 사업자등록 의무\n  - 안전검사 체계 구축\n  - 이력관리 시스템 도입\n  → 통합법 제정 전 기존 법령 개정으로 선제 대응하는 구조",
       "lastChecked": "2026-04-14",
-      "checkNote": "⚠️ 2차 개정(2026.02.27→2027.07.01 시행) 확인. 통합법 국회 제출 미완료. InterBattery 2026(3.11-13) 본격 ESS+리사이클 주제 부각 — 법 제정 압력 상승. DPK Bill 2210540 + PPP Bill 진행 중"
+      "checkNote": "⚠️ 2차 개정(2026.02.27 개정 → 2027.07.01 시행) + 통합법 법사위 수정 가결(2026.03.30) 확인 — KR-009 참조"
     },
     {
       "id": "KR-006",
@@ -1040,13 +1044,17 @@
     {
       "id": "KR-009",
       "r": "KR",
-      "s": "WATCH",
-      "t": "사용후 배터리 통합법 국회 제출",
-      "d": "가칭 \"사용후 배터리 산업 육성 및 공급망 안정화에 관한 법률\". 2024.07 경제관계장관회의 발표 → 2025.05 순환이용 대책 후속 → 법안 초안 작성 중(기재부·환경부·산업부·국토부 공동). 국회 제출 시점 미정.",
-      "dt": "법안 초안 작성 중 (2026 연내 제출 목표)",
+      "s": "UPCOMING",
+      "t": "사용후 배터리 통합법 본회의 통과",
+      "d": "「사용후 배터리의 관리 및 산업육성에 관한 법률안」 2026.03.30 국회 법제사법위원회 수정 가결. 본회의 통과 임박. 폐기물 규제에서 산업 자원 규제로 패러다임 전환. 재생원료 함유율 목표제(시행 후 2년 내), 재정부 소속 사용후 배터리 정책위원회 설치, 전주기 이력관리 시스템.",
+      "dt": "본회의 통과 임박 (2026 Q2 예상)",
       "src": [
         {
-          "n": "정책브리핑 (순환이용 활성화, 2025.05.14)",
+          "n": "대륜법률사무소 (법사위 통과 분석)",
+          "u": "https://www.daeryunlaw.com/trend/11883"
+        },
+        {
+          "n": "정책브리핑 (순환이용 활성화)",
           "u": "https://www.korea.kr/news/policyNewsView.do?newsId=156689142"
         },
         {
@@ -1054,10 +1062,10 @@
           "u": "https://www.kimchang.com/ko/insights/detail.kc?sch_section=4&idx=30348"
         }
       ],
-      "tip": "통합법 없이는 현행법상 폐배터리가 폐기물관리법 적용 — 재사용 시에도 폐기물 허가 필요. 재생원료 인증제도·사용목표제 포함 예정",
-      "detail": "• 통합법 없는 현재: 폐배터리 재사용 시에도 폐기물 처리 허가 필요 → 사업화 장벽\n• 통합법 포함 예정 사항: 재생원료 인증제, 재활용 의무비율, 디지털 추적 관리\n• LFP 배터리 탑재 전기차 EPR(생산자책임재활용) 대상 편입 검토 중 — 중국산 LFP EV 규제 효과\n• 포항 배터리 자원순환 클러스터: 2025 하반기 준공 → 기술개발~사업화 컨설팅 원스톱 지원",
+      "tip": "🚨 법사위 통과로 본회의 통과 사실상 확정. 폐기물관리법 적용 배제 → 사용후 배터리 산업화 법적 기반 구축",
+      "detail": "• 2026.03.30 국회 법제사법위원회 수정 가결 — 본회의 통과 임박\n• 적용 대상: 전기자동차·하이브리드·수소차 배터리, ESS 배터리, 산업용 배터리\n• 핵심 제도:\n  - 폐기물 → 산업 자원 법적 전환\n  - 재정부 소속 사용후 배터리 정책위원회 설치 (정책 조정·거래·등록·안전·이력)\n  - 재생원료 함유율 목표제 (법 시행 후 2년 내 시행) ← EU 배터리규정 대응 직결\n  - 전주기 이력관리 시스템\n  - 재제조·재활용 등록제\n• 하위법령 의존 구조: 등록 기준·성능평가·함유율 목표·시스템 운영 등 대통령령·고시 위임\n• 타 법률과의 정합성: 자동차관리법·폐기물관리법·조세특례제한법과 충돌·조정 필요\n• EU 배터리규정과 직접 연동: 재생원료 인증·공급망·실사 체계",
       "lastChecked": "2026-04-14",
-      "checkNote": "4개 부처 공동 법안 초안 작성 중. 국회 제출 뉴스 없음"
+      "checkNote": "🚨 2026.03.30 법사위 수정 가결 확인. 본회의 통과 대기 상태"
     },
     {
       "id": "JP-001",
@@ -1141,7 +1149,7 @@
       "tip": "⚠️ 기존 보도의 \"63%↓(¥7.21)\"는 METI 초기 제안(2025.10). EPRX 공식 결정(2026.2.5)에서 ¥15.00으로 완화됨. 시장 반발이 반영된 결과",
       "detail": "• 가격상한 인하 (EPRX 2026.2.5 공식 결정):\n  - 복합·Primary·Secondary-1: ¥19.51→¥15.00 (약 23%↓)\n  - Secondary-2·Tertiary-1: ¥7.21 유지 (변경 없음)\n  - Tertiary-2: 상한 없음 유지\n• ⚠️ 주의: 다수 영문 보도가 METI 초기 제안(2025.10)의 \"¥7.21(63%↓)\"를 그대로 인용 중. EPRX 공식 결정은 ¥15.00으로 완화됨\n• FY2024 평균 결제가: composite ¥15.70 → 상한 ¥15.00이면 수익 영향 제한적(약 4%↓)\n  (¥7.21이었다면 54%↓ — 큰 차이)\n• 시장 구조개편 (4월~):\n  ① 일일(day-ahead) 조달 전환 (기존 주간)\n  ② 30분 단위 시장\n  ③ 저압 자원(가정용 배터리, EV) 참여 허용\n  ④ JEPX 거래 시스템 API 기반 전환\n• LTDA 3차 라운드 진행 중. 3차부터 단일국 셀 30% 상한\n• BESS 접속 신청 170.8GW(2025말) — 실운영의 약 300배",
       "lastChecked": "2026-04-14",
-      "checkNote": "✅ 4.01 시행 2주 경과. 시장 안정화 진행 중. Neoen(Brookfield) 일본 첫 대형 BESS 프로젝트 100MW/400MWh 공식 발표(4.06, KEPCO 파트너십, 2028 가동 목표). 국제 자본 유입 신호 확인"
+      "checkNote": "✅ 4.01 EPRX 공식 시행 2주 경과. 가격상한 ¥15.00 적용 중. 일일(day-ahead) 조달·저압 자원 참여·30분 단위 시장 구조개편 동시 시행. METI System Review WG 2차 리뷰 일정 미발표"
     },
     {
       "id": "JP-005",
@@ -1340,6 +1348,224 @@
       "detail": "• 배터리 수출 VAT 환급률 변경:\n  - ~2026.03.31: 9% (기존)\n  - 2026.04.01~12.31: 6% (인하)\n  - 2027.01.01~: 0% (완전 폐지)\n• PV 제품: 4.01부터 즉시 폐지 (배터리보다 가혹)\n• 소비세(consumption tax)는 변경 없음 — 기존 환급 유지\n• 배경: \"反内卷\" 캠페인 — 파괴적 가격경쟁 시정\n  - 배터리·PV·음식배달 등 4개 분야 동시 타겟\n  - 수출 환급 축소로 dumping 우려 완화 → EU 반보조금 조사 대응\n• K-배터리 영향:\n  - 중국산 배터리 FOB 가격 3~6% 상승 → 한국산과 가격차 축소\n  - 다만 중국 기업이 내수 전환 시 국내 공급과잉 → 내수가 추가 하락 가능\n  - EU 시장에서 중국산 LFP 가격 경쟁력 약화 → 한국 3사 유리\n• 관세 일정: 수출일 기준(통관 신고서 날짜) 적용",
       "lastChecked": "2026-04-14",
       "checkNote": "4.01 시행 확인. 재정부·국세총국 공동 공고(2026.01.09). Q1에 선적 러시 발생(환급률 인하 전 수출 가속). 4월 이후 수출 물량 변동 모니터링 필요"
+    },
+    {
+      "id": "KR-010",
+      "r": "KR",
+      "s": "UPCOMING",
+      "t": "ICAO 항공기 내 파워뱅크 규제 시행 (한국 제안 → 글로벌 표준)",
+      "d": "한국 국토교통부가 ICAO에 제안한 파워뱅크(보조배터리) 항공 수송 규제가 ICAO Doc 9284(Technical Instructions) 공식 가이드라인으로 채택(2026.03.27). 2026.04.20부터 ICAO 전 회원국 적용 개시. 세계 최초 글로벌 표준.",
+      "dt": "2026.04.20",
+      "src": [
+        {
+          "n": "Korea Times (ICAO 채택 보도)",
+          "u": "https://www.koreatimes.co.kr/business/companies/20260408/koreas-in-flight-battery-rules-set-global-standard"
+        },
+        {
+          "n": "ICAO (Dangerous Goods Panel)",
+          "u": "https://www.icao.int/safety/DangerousGoods/Pages/default.aspx"
+        },
+        {
+          "n": "국토교통부",
+          "u": "https://www.molit.go.kr/"
+        }
+      ],
+      "tip": "한국 정부가 ICAO에 3차 제안(2025.04 DGP → 2025.07 APAC → 2025.09 Assembly)한 규정이 채택된 첫 사례 — 규제 외교 성과",
+      "detail": "• 채택 경과:\n  - 2025.04: ICAO Dangerous Goods Panel Meeting 제안\n  - 2025.07: ICAO Asia-Pacific Conference of DG of Civil Aviation 제안\n  - 2025.09: ICAO Assembly 제안\n  - 2026.03.27: ICAO Doc 9284 공식 가이드라인 승인\n  - 2026.04.20: 전 회원국 시행\n• 배경: 한국 국내선 파워뱅크 발화 사고(2025.01 에어부산 사고) 계기\n• 핵심 규정: 기내 반입 제한·화물 수하물 금지·개별 포장 등 (세부사항 Doc 9284 확인 필요)\n• 영향: 국제선·화물 운송 모두 적용 → 한국 배터리 소재·셀 수출 물류에도 영향\n• 산업 시사점: SBTL 등 배터리 소재 기업의 국제 물류 SOP 업데이트 필요",
+      "lastChecked": "2026-04-14",
+      "checkNote": "🆕 2026.04.20 시행 임박 (6일 뒤). ICAO Doc 9284 공식 승인 완료"
+    },
+    {
+      "id": "CN-011",
+      "r": "CN",
+      "s": "ACTIVE",
+      "t": "MIIT 소형 리튬배터리 리사이클 통지 (전기자전거 등)",
+      "d": "MIIT + 전국공급마케팅협동조합연맹 공동 통지(2026.04.03): 전기자전거·전동공구용 리튬이온 배터리 회수 인프라 확대·디지털 모니터링 도입. CN-005(EV 배터리)와 별개, 소형 배터리 대상. EV 배터리 정책 구조를 소형 배터리로 확장.",
+      "dt": "2026.04.03~",
+      "src": [
+        {
+          "n": "CarNewsChina (MIIT 통지 분석)",
+          "u": "https://carnewschina.com/2026/04/05/china-issues-new-policy-to-standardise-lithium-battery-recycling-extending-ev-lifecycle-oversight/"
+        },
+        {
+          "n": "MIIT 공업정보화부",
+          "u": "https://www.miit.gov.cn/"
+        }
+      ],
+      "tip": "EV 배터리 국가 추적 플랫폼(CN-005)과 구조적으로 유사 — 소형 배터리에도 생산자책임(EPR) 확대 적용 중. 전기자전거 화재 빈발 대응 성격",
+      "detail": "• 2026.04.03 MIIT + 전국공급마케팅협동조합연맹 공동 통지\n• 대상: 전기자전거·전동공구·소형 가전용 리튬이온 배터리 (EV 배터리는 CN-005로 별도)\n• 핵심 조치:\n  - 회수 인프라 확대: 제조사·리사이클러 협력 네트워크 구축\n  - 디지털 모니터링 시스템 도입\n  - 대형 리사이클러 육성\n  - 임시 보관·수거 거점 확대\n• 배경: 중국 내 전기자전거 약 3.5억 대 → 연간 퇴역 배터리 급증\n• 정책 구조: EV 배터리(CN-005) 규제와 병렬 → 리튬배터리 전 분야로 확산\n• SBTL 영향: 중국산 소형 배터리 리사이클 규제 강화 → 재생원료 공급 안정화 가능성",
+      "lastChecked": "2026-04-14",
+      "checkNote": "🆕 2026.04.03 공동 통지 발표 확인. 세부 시행 가이드라인 후속 발표 대기"
+    },
+    {
+      "id": "CN-012",
+      "r": "CN",
+      "s": "UPCOMING",
+      "t": "전고체 배터리 국가표준 GB/T 제정 (Part 1 용어·분류)",
+      "d": "\"전고체 전기자동차용 배터리 Part 1: 용어와 분류\" GB/T 표준 초안 완료(2025.12). 코멘트 마감(2026.02.28) 완료 → 2026.04 최종 심사 → 2026.07 공식 발표 예정. CATARC 주관. 세계 최초 전고체 공식 용어 표준.",
+      "dt": "2026.07 예정 (2026.04 심사)",
+      "src": [
+        {
+          "n": "CarNewsChina (CATARC 공식 확인)",
+          "u": "https://carnewschina.com/2026/02/11/china-to-release-solid-state-battery-standard-in-july-2026/"
+        },
+        {
+          "n": "Electrek (표준 분석)",
+          "u": "https://electrek.co/2026/02/11/solid-state-ev-battery-standard-china-2026/"
+        },
+        {
+          "n": "CATARC",
+          "u": "https://www.catarc.org.cn/"
+        }
+      ],
+      "tip": "전고체·반고체·액체-고체 하이브리드 용어를 CATARC 기준으로 정의 → 중국 시장 진출 시 이 정의 기준 준수 필요. 한국·일본 독자 정의와 충돌 가능성",
+      "detail": "• 표준 구조 (GB/T 전고체 시리즈):\n  - Part 1: 용어와 분류 (2026.07 발표 예정)\n  - Part 2 이후: 전해질·안전·성능 등 (향후 순차 발표)\n• 분류 체계:\n  - 액체(liquid): 기존 리튬이온\n  - 하이브리드(hybrid): 고체-액체 혼합\n  - 반고체(semi-solid): 10% 이하 액체\n  - 고체(solid-liquid): 고체·액체 병용\n  - 전고체(all-solid-state): 100% 고체\n• 분류 기준:\n  - 전해질 유형: 황화물·산화물·복합·폴리머·할로겐\n  - 전도 이온: 리튬 또는 나트륨\n  - 고에너지 vs 고출력\n• 2026.02 CATARC 검증 테스트 → 2026.04 심사 → 2026.07 발표\n• 정책 의미: 중국이 글로벌 전고체 용어 표준 주도 시도. 삼성SDI·Toyota·Idemitsu가 독자 정의 사용 중 — 중국 표준과 충돌 시 시장 진입 장벽",
+      "lastChecked": "2026-04-14",
+      "checkNote": "🆕 초안 완료(2025.12), 코멘트 마감(2026.02.28) 종료, 현재 2026.04 심사 단계. 2026.07 공식 발표 예정"
+    },
+    {
+      "id": "NA-010",
+      "r": "NA",
+      "s": "ACTIVE",
+      "t": "CA SB283 Clean Energy Safety Act 시행",
+      "d": "California BESS 안전 강화법 SB283(Laird) 2025.10.06 서명 → 2026.01.01 전 주 시행. 지역 10MWh↑·주정부 200MWh↑ 프로젝트에 소방당국 사전협의 의무(신청 30일 전), 가동 전 소방 검사 의무, State Fire Marshal 차기 건물코드 개정 방향 설정. Moss Landing 화재 후속 조치.",
+      "dt": "2026.01.01~",
+      "src": [
+        {
+          "n": "Sen. Laird (SB283 서명 발표)",
+          "u": "https://sd17.senate.ca.gov/news/governor-newsom-signs-legislation-enhance-battery-storage-safety"
+        },
+        {
+          "n": "Energy Law Blog (분석)",
+          "u": "https://www.energylawinfo.com/2025/11/california-battery-energy-storage-systems-legislation-update-safety-requirements-and-ab-205-opt-in-procedures-amended/"
+        }
+      ],
+      "tip": "CA는 2026 건물코드 개정 시 BESS를 비가연성 건물·옥외 설치로 제한하는 방향 검토 중 — 향후 기존 설치된 BESS도 영향 가능",
+      "detail": "• 적용 기준:\n  - 지역 소방 심사: 10MWh↑\n  - 주정부 CEC Opt-In 경로: 200MWh↑\n• 핵심 의무:\n  ① 신청 30일 전 지역 소방당국과 안전·비상·완화 계획 협의 미팅\n  ② 건설 후 가동 전 소방 검사 (신청자 비용 부담)\n  ③ State Fire Marshal이 2026.07.01 이후 첫 건물코드 개정 시 BESS 위치 제한 제안 (비가연성 건물·옥외 국한 가능성)\n• 배경: Moss Landing BESS 화재(2025.01) → Senator Laird 발의 → 2025.10 서명\n• NFPA 855 표준 채택(State Fire Marshal, 2026.01.01 시행)과 병렬\n• 적용 범위: 주 전역(charter cities 포함)\n• 한국 기업 영향: 미국 CA 진출 BESS 프로젝트 인허가 기간 연장·비용 증가",
+      "lastChecked": "2026-04-14",
+      "checkNote": "🆕 2026.01.01 시행 확인. State Fire Marshal 건물코드 개정안 2026.07 이후 개정 예정 — 추가 제한 모니터링"
+    },
+    {
+      "id": "NA-011",
+      "r": "NA",
+      "s": "ACTIVE",
+      "t": "CA SB1215 배터리 내장 제품 EPR + 포인트 오브 세일 수수료 시행",
+      "d": "2022년 제정 SB1215가 2026.01.01 시행. Electronic Waste Recycling Act(2003) 확장 — 배터리 내장 제품(분리 어려운 배터리)에 판매시점 수수료 1.5%(최대 per item) 부과, CalRecycle이 재활용 프로그램 재정 확보. 2026.04.01 재활용업체 환급 청구 개시. 2026.08.01 수수료 조정 가능.",
+      "dt": "2026.01.01~ 시행, 2026.04.01 환급 개시",
+      "src": [
+        {
+          "n": "Sales Tax Institute (SB1215 분석)",
+          "u": "https://www.salestaxinstitute.com/resources/california-battery-recycling-law-effective-2026"
+        },
+        {
+          "n": "BD Law (EPR 분석)",
+          "u": "https://www.bdlaw.com/publications/california-passes-two-new-laws-to-overhaul-states-battery-extended-producer-responsibility-program-and-broadly-expand-states-e-waste-program/"
+        },
+        {
+          "n": "CalRecycle",
+          "u": "https://calrecycle.ca.gov/"
+        }
+      ],
+      "tip": "배터리 내장(embedded) 제품 = 일반 공구로 배터리 분리 불가 제품 (전동칫솔·무선이어폰·스마트워치 등). CA가 미국 첫 EPR 선례",
+      "detail": "• 적용 대상: 배터리 내장 제품 (일반 공구로 분리 불가)\n  예: 특정 장난감, 전동칫솔, 무선이어폰, 스마트워치\n  제외: 의료기기, ESS, 전자담배, 영상표시장치\n• 수수료 체계:\n  - 판매시점 1.5% (최대 /item)\n  - 2026.08.01부터 CalRecycle 연간 조정 가능\n• 일정:\n  - 2026.01.01: 시행 + 제조사 브랜드·배터리 화학 정보 표기 의무\n  - 2026.04.01: 승인된 재활용업체 수수료 환급 청구 개시\n  - 2027.07.01: 신규 보고 요구사항 시행\n• 등록 의무: 소매업체는 CDTFA 등록 필수\n• 미국 첫 EPR 선례 — 타 주(NY·WA 등) 유사 입법 검토 중\n• EU 배터리규정 EPR과 유사 구조 — 글로벌 EPR 확산 신호",
+      "lastChecked": "2026-04-14",
+      "checkNote": "🆕 2026.01.01 시행 + 4.01 CalRecycle 환급 청구 개시 2주 경과 확인"
+    },
+    {
+      "id": "CN-013",
+      "r": "CN",
+      "s": "ACTIVE",
+      "t": "NDRC-NEA 그리드-사이드 독립 BESS 용량 가격 메커니즘 시행",
+      "d": "NDRC-NEA 공동 통지 (NDRC Price [2026] No.114, 2026.01.30): 전국 최초 그리드-사이드 독립 新型 에너지 저장 발전소에 용량 가격 메커니즘 공식 도입. 석탄 화력 용량 가격 벤치마크 → 피크 조절 능력 비율로 환산 (최대 1). 독립 BESS 프로젝트 수익 구조 근본적 개선.",
+      "dt": "2026.01.30~",
+      "src": [
+        {
+          "n": "CNESA (정책 분석)",
+          "u": "http://en.cnesa.org/latest-news"
+        },
+        {
+          "n": "BigGo Finance (NDRC Price [2026] No.114)",
+          "u": "https://finance.biggo.com/news/zfkAHJwBE5UokKawPPch"
+        },
+        {
+          "n": "NDRC 공식",
+          "u": "https://www.ndrc.gov.cn/"
+        }
+      ],
+      "tip": "중국 BESS 업계의 \"보장 기본 수익\" 확보 — 기존 전력시장 재정거래에만 의존하던 수익 구조를 안정화. 해외 BESS 경제성 판단 기준에도 영향",
+      "detail": "• 정책 문서: NDRC Price [2026] No.114 (2026.01.30)\n• 대상: 그리드-사이드 독립 新型 에너지 저장 발전소\n  - 단독 운영 시스템 안전 기여 프로젝트\n  - 재생에너지 프로젝트 부속 저장(\"paired storage\") 제외\n• 가격 산정 구조:\n  ① 지역 석탄 화력 용량 가격을 벤치마크\n  ② 피크 조절 능력 비율로 환산 (conversion rate = 전력 지속 방전 시간 / 연간 최대 순부하 피크 지속 시간, 최대 1)\n  ③ 전력시장 발전 상황·시스템 수요 고려\n• 집행 구조: 지방 정부 세부 규칙 제정 (프로젝트 목록 관리)\n• 정책 효과:\n  - 기존: 전력시장 재정거래 수익에만 의존 → 불안정\n  - 신규: 용량 가격 보장 + 시장 수익 → 투자 가시성 확보\n• 장기저장(LDES) 유도 효과: 피크 조절 능력 우대 → 6시간+ BESS 경쟁력\n• 2025-2030 중국 신형 저장 370GW 목표 달성 핵심 수단\n• 한국 배터리 소재·셀 3사 영향: 중국 내수 BESS 수요 가속 → 중국 공급과잉 심화 우려 + K-배터리 글로벌 점유율 방어 압력",
+      "lastChecked": "2026-04-14",
+      "checkNote": "🆕 2026.01.30 NDRC-NEA 공동 통지 시행 확인. 성(省)별 세부 이행 규칙 제정 진행 중"
+    },
+    {
+      "id": "CN-014",
+      "r": "CN",
+      "s": "ACTIVE",
+      "t": "15차 5개년 규획(十五五, 2026-2030) 정식 채택",
+      "d": "전인대 2026.03 정식 채택. 탄소집약도 17% 감축(2026-2030) + 신형 에너지 저장(新型储能)을 국가 전략 신흥 기둥 산업 공식 편입. 2030년 누적 신형 저장 370GW+ 목표(14.5 기준 1.5배↑). 배터리·전기차·수소·재생에너지 지속 지원.",
+      "dt": "2026.03 채택, 2026-2030 집행",
+      "src": [
+        {
+          "n": "Carbon Brief (十五五 분석)",
+          "u": "https://www.carbonbrief.org/qa-what-does-chinas-15th-five-year-plan-mean-for-climate-change/"
+        },
+        {
+          "n": "pv magazine (十五五 에너지 분석)",
+          "u": "https://www.pv-magazine.com/2026/03/18/china-five-year-plan-deepens-shift-toward-renewables-system-focus/"
+        },
+        {
+          "n": "Green Finance & Development Center",
+          "u": "https://greenfdc.org/chinas-15th-five-year-plan-2026-2030-a-comprehensive-analysis-for-chinas-green-transition-in-climate-emissions-energy-industry-metals-and-finance/"
+        }
+      ],
+      "tip": "⚠️ 탄소집약도 17% 감축은 14.5의 18%보다 낮음 — 명목 후퇴이나 계산 기준 확대(산업 배출 포함)로 실질 완화. 절대 배출 상한 여전히 미설정",
+      "detail": "• 전인대 2026.03 정식 채택 (초안은 2025.10 공개)\n• 핵심 기후·에너지 목표:\n  - 탄소집약도: 17% 감축 (GDP 단위당, 2026-2030)\n    ※ 14.5의 18% 목표보다 후퇴. 계산 기준 확대(산업 배출 포함)로 실질 완화\n  - 비화석 에너지: 1차 에너지 25% (2030)\n  - 풍력·태양광: 1,200GW (2030)\n  - 해상풍력: 100GW (2030)\n  - 원자력: 110GW (2030)\n• 배터리·ESS 전략적 지위:\n  - 신형 에너지 저장 = 국가 전략 신흥 기둥 산업 공식 편입\n  - 2030년 누적 신형 저장 370GW+ (14.5 기준 1.5배↑)\n  - 평균 저장 시간: 2026 이후 급증 → 2030년 3.47시간 (LDES 전환)\n• 부문별 세부 규획 5개 후속 발표 예정 (NEA 주관):\n  - 새로운 에너지 시스템\n  - 전력\n  - 재생에너지\n  - 탄소 배출\n  - 환경 보호\n• CN-007 WATCH 항목(배터리·NEV 전용 규획)의 상위 프레임워크 확정\n• 한국 배터리 영향: 중국 LDES 전환으로 6시간+ BESS 수요 급증 → 한국 ESS 경쟁 심화",
+      "lastChecked": "2026-04-14",
+      "checkNote": "🆕 2026.03 전인대 정식 채택 확인. NEA 부문별 세부 규획 순차 발표 대기 (CN-007과 연동)"
+    },
+    {
+      "id": "EU-014",
+      "r": "EU",
+      "s": "UPCOMING",
+      "t": "배터리 라벨링 조화 사양 Implementing Regulation",
+      "d": "EC Draft Implementing Regulation — 배터리규정(2023/1542) Art.13(10) 라벨링 조화 사양 공개 협의 중. 탄소발자국 라벨 포맷·디자인 확정 중 (흑백 허용). 피드백 마감 2026.01.26 완료. 채택 후 18개월 → 시행. EU-009(2026.08 EV 탄소발자국 등급) 세부 구현 규정.",
+      "dt": "2026 상반기 채택 예상",
+      "src": [
+        {
+          "n": "PRODlaw (Draft IR 분석)",
+          "u": "https://prodlaw.eu/2026/01/eu-battery-regulation-what-is-the-carbon-footprint-declaration-and-when-does-it-become-mandatory/"
+        },
+        {
+          "n": "EC (Draft Implementing Regulation 원문)",
+          "u": "https://commission.europa.eu/"
+        }
+      ],
+      "tip": "라벨 포맷 확정 전까지 EU 탄소발자국 라벨링(EU-009) 의무 실시는 유예 — Implementing Regulation 채택일이 실질 시행 시계 결정",
+      "detail": "• 근거: 배터리규정(EU 2023/1542) Art.13(10)\n• Draft Implementing Regulation 공개 협의:\n  - 피드백 마감: 2026.01.26 완료\n  - EC 채택: 2026 상반기 예상\n• 라벨 조화 사양 내용:\n  - 탄소발자국 라벨 포맷·디자인\n  - 흑백 인쇄·각인 표시 허용\n  - 일반 배터리 정보(Part A of Annex VI)\n• 관련 의무 시행일 구조 (\"18개월 후\" 규칙):\n  - EV 배터리 탄소발자국 등급(EU-009): 2026.08 또는 IR 채택 + 18개월\n  - 산업용 배터리 탄소발자국: 2026.02.18 또는 IR 채택 + 18개월\n  - 일반 라벨링: 2026.08 또는 IR 채택 + 18개월\n• 실질 시행 시계: IR 채택이 지연될수록 라벨링 의무 시행도 지연\n• 한국 기업 대응: 라벨 디자인 사전 시뮬레이션 필요",
+      "lastChecked": "2026-04-14",
+      "checkNote": "🆕 피드백 마감(2026.01.26) 완료. EC 채택 대기 상태 — Q2 채택 예상"
+    },
+    {
+      "id": "EU-015",
+      "r": "EU",
+      "s": "UPCOMING",
+      "t": "EU 배터리 Due Diligence 의무 1년 연기 (2026.08 → 2027.08)",
+      "d": "EC omnibus 간소화 패키지(2025.05.21): 배터리 공급망 실사 의무 시행일을 2026.08→2027.08로 1년 연기 제안. 연매출 €1.5억 미만 기업은 면제(SMC 카테고리 신설). 라벨링·EPR·폐기물 관리 의무는 영향 없음.",
+      "dt": "2027.08 (연기 제안, 원래 2026.08)",
+      "src": [
+        {
+          "n": "Latham & Watkins (EC Proposals)",
+          "u": "https://www.lw.com/en/insights/european-commission-unveils-two-proposals-impacting-the-eu-batteries-regulation"
+        },
+        {
+          "n": "EUR-Lex (Regulation 2023/1542)",
+          "u": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R1542"
+        }
+      ],
+      "tip": "연기 사유: 회원국 절반만 notifying authority 지정 완료. 제3자 검증기관(notified body) 부족. 실사 가이드라인도 2026.07.26으로 연기",
+      "detail": "• EC 제안(2025.05.21): Due Diligence 시행일 2026.08.18→2027.08.18 (1년 연기)\n• 실사 가이드라인: CSDDD와 연동하여 2026.07.26 발표 예정\n• SMC(Small Mid-Cap) 면제: 연매출 €1.5억 미만 기업은 실사 의무 면제\n• 보고 주기: 연간→3년 1회로 완화\n• 영향 없는 의무: 라벨링, EPR, 폐기물 관리, 탄소발자국 신고 → 이들은 원래 일정대로\n• EP·Council 승인 필요 — 입법 과정 중이므로 최종 확정 전까지 모니터링\n• 한국 기업 영향: 실사 부담 완화되나 라벨링·탄소발자국은 원래 일정 준수 필요",
+      "lastChecked": "2026-04-14",
+      "checkNote": "🆕 EC omnibus 간소화 제안(2025.05.21) 확인. EP·Council 심의 중. 실사 가이드라인 2026.07.26 발표 대기"
     }
   ]
 }

@@ -25,6 +25,7 @@ import { retrieve } from "../lib/chat/retrieve/index.js";
 import { synthesize } from "../lib/chat/synthesize.js";
 import { respond, respondClarification } from "../lib/chat/respond.js";
 import { synthesizeCardAnalysis } from "../lib/chat/llm.js";
+import { generateWhyImportant, generateDeepAnalysis, generateKoreanSummary } from "../lib/chat/curated.js";
 
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -63,14 +64,44 @@ async function handleAnalyzeCard({ parsed, resolved, synthesis, context, debugBa
     });
   }
 
-  // Groq 직접 호출 (llm.js의 synthesizeCardAnalysis 재사용) — /api/analysis HTTP 왕복 회피
-  const result = await synthesizeCardAnalysis(card, mode);
-  const answer = result?.text || null;
+  // why / analysis 모드는 큐레이터가 작성한 card.g를 그대로 사용 (LLM 재해석 금지).
+  // summary 모드만 해외 원문 번역이 필요해 Groq을 통과시킨다.
+  let answer = null;
+  let synthMeta = { path: "analyze_card_curated", mode, source: "curated" };
+  let usedLlm = false;
+
+  if (mode === "summary") {
+    const result = await synthesizeCardAnalysis(card, mode);
+    if (result?.text) {
+      answer = result.text;
+      usedLlm = true;
+      synthMeta = {
+        path: "analyze_card_groq_summary",
+        mode,
+        source: "ai",
+        llm: { used: true, latency_ms: result.latencyMs },
+      };
+    } else {
+      // LLM 실패 시 curated summary로 fallback
+      answer = generateKoreanSummary(card);
+      synthMeta = {
+        path: "analyze_card_summary_fallback",
+        mode,
+        source: "fallback",
+        llm: { used: false, error: result?.error || "unknown" },
+      };
+    }
+  } else if (mode === "analysis") {
+    answer = generateDeepAnalysis(card);
+  } else {
+    // default: why
+    answer = generateWhyImportant(card);
+  }
 
   const fakeSynthesis = {
     answer: answer || "분석을 생성하지 못했어. 다시 시도해줘.",
-    used_llm: !!answer,
-    meta: { llm: { used: !!answer, error: result?.error, latency_ms: result?.latencyMs, mode }, path: "analyze_card_groq" },
+    used_llm: usedLlm,
+    meta: synthMeta,
   };
 
   // retrieval 모양 맞추기 — target card 1장

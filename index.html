@@ -8,7 +8,14 @@
     <meta name="theme-color" content="#0d0d0d" />
     <title>SBTL 콘텐츠 허브</title>
     <link rel="manifest" href="/manifest.json" />
-    <style>body{margin:0;background:#0d0d0d;}</style>
+    <style>
+      /* U2: 기본 dark 배경 유지 + light 모드 system preference 존중.
+         앱이 마운트되기 전에 깜빡임을 방지 (앱 내부 테마 토글은 별도 관리). */
+      body { margin: 0; background: #0d0d0d; }
+      @media (prefers-color-scheme: light) {
+        body { background: #F5F7FA; }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

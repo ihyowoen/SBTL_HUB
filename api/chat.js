@@ -1,63 +1,30 @@
-import { loadKnowledge, toLinkView } from "../lib/chat/common.js";
-import { classifyIntent } from "../lib/chat/intent.js";
-import { extractScope } from "../lib/chat/scope.js";
-import { retrieveInternal } from "../lib/chat/retrieval.js";
-import { scoreConfidence } from "../lib/chat/confidence.js";
-import { decideFallback } from "../lib/chat/fallback.js";
-import { composeResponse } from "../lib/chat/compose.js";
-import { synthesizeChatAnswer, rewriteToCasual } from "../lib/chat/llm.js";
+// ============================================================================
+// POST /api/chat — Phase 2 5-layer orchestrator
+// ============================================================================
+// 재작성: 2026-04-15
+//
+// Pipeline:
+//   Layer 1: parseRequest    → { action, topic, scope, rawMessage }
+//   Layer 2: resolveContext  → { ok, clarification?, resolved }
+//   Layer 3: retrieve        → { source, cards, faq?, policy?, news_meta? }
+//   Layer 4: synthesize      → { answer, used_llm, meta, delegate? }
+//   Layer 5: respond         → ChatResponse
+//
+// 특수 경로:
+// - action=analyze_card → Layer 4에서 delegate marker → /api/analysis 위임
+// - Layer 2 clarification → Layer 3/4 skip, respondClarification
+//
+// 해결 결함:
+// - D11 (follow_up 오남용) · D12 (answer_type 마스킹) · D13 (중복 rewrite) · S1 (VITE_BRAVE_KEY fallback)
+// ============================================================================
 
-const BRAVE_SEARCH_SUFFIX = "battery ESS EV";
-const BRAVE_FETCH_CANDIDATE_LIMIT = 8;
-const TRUSTED_DOMAINS = [
-  "bloomberg.com",
-  "reuters.com",
-  "ft.com",
-  "wsj.com",
-  "nikkei.com",
-  "iea.org",
-  "energy-storage.news",
-  "pv-magazine.com",
-  "koreaherald.com",
-  "yna.co.kr",
-  "korea.kr",
-  "thelec.kr",
-  "electrive.com",
-];
-
-const LLM_ENABLED_INTENTS = new Set(["news", "summary", "compare", "follow_up", "general"]);
-
-function hostFromUrl(url = "") {
-  try {
-    return new URL(url).hostname.toLowerCase();
-  } catch {
-    return "";
-  }
-}
-
-function normalizeText(v = "") {
-  return String(v || "").toLowerCase();
-}
-
-function rankExternalLinks(query, links = []) {
-  const tokens = normalizeText(query).replace(/[?!.,:;()\[\]{}]/g, " ").split(/\s+/).filter((w) => w.length >= 2);
-  return links
-    .map((item) => {
-      const host = hostFromUrl(item.url);
-      const trusted = TRUSTED_DOMAINS.some((d) => host === d || host.endsWith(`.${d}`));
-      const text = `${normalizeText(item.title)} ${normalizeText(item.description)}`;
-      const tokenHits = tokens.reduce((acc, t) => (text.includes(t) ? acc + 1 : acc), 0);
-      const relevance = tokens.length ? tokenHits / tokens.length : 0;
-      const trustBoost = trusted ? 0.35 : 0;
-      const shortHostPenalty = host.length < 4 ? -0.2 : 0;
-      const score = relevance + trustBoost + shortHostPenalty;
-      return { ...item, _score: score, _relevance: relevance, _trusted: trusted };
-    })
-    .filter((item) => item._score >= 0.2)
-    .sort((a, b) => b._score - a._score)
-    .slice(0, 4)
-    .map(({ _score, _relevance, _trusted, ...rest }) => rest);
-}
+import { loadKnowledge } from "../lib/chat/common.js";
+import { parseRequest } from "../lib/chat/parseRequest.js";
+import { resolveContext } from "../lib/chat/resolveContext.js";
+import { retrieve } from "../lib/chat/retrieve/index.js";
+import { synthesize } from "../lib/chat/synthesize.js";
+import { respond, respondClarification } from "../lib/chat/respond.js";
+import { synthesizeCardAnalysis } from "../lib/chat/llm.js";
 
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -68,86 +35,65 @@ function setCors(res) {
 function stableError(res, status, message, debug = {}) {
   return res.status(status).json({
     answer: message,
-    answer_type: "general",
+    answer_type: "error",
     source_mode: "internal",
     confidence: 0,
     cards: [],
     external_links: [],
-    suggestions: [{ label: "오늘 핵심 카드" }, { label: "최근 시그널 TOP" }],
-    debug: {
-      fallback_triggered: false,
-      confidence_bucket: "low",
-      ...debug,
-    },
+    suggestions: [
+      { label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" },
+      { label: "최근 시그널 TOP", hint_action: "new_query", hint_topic: "news" },
+    ],
+    next_context: { last_turn: null, root_turn: null },
+    debug: { confidence_bucket: "error", ...debug },
   });
 }
 
-function stabilizeSourceMode(sourceMode, retrieval, externalLinks) {
-  const hasInternal = !!retrieval?.faq || (retrieval?.cards || []).length > 0;
-  const hasExternal = (externalLinks || []).length > 0;
-  if (sourceMode === "external" && !hasExternal) return hasInternal ? "internal" : "external";
-  if (sourceMode === "hybrid" && !hasExternal) return hasInternal ? "internal" : "external";
-  return sourceMode;
-}
+// analyze_card 전용 처리 — /api/analysis에 위임
+async function handleAnalyzeCard({ parsed, resolved, synthesis, context, debugBase }) {
+  const card = synthesis?.delegate?.card || resolved?.target_card;
+  const mode = synthesis?.delegate?.mode || "why";
 
-async function fetchBraveResults(query) {
-  const BRAVE_KEY = process.env.BRAVE_KEY || process.env.VITE_BRAVE_KEY;
-  if (!BRAVE_KEY) return { error: "auth-config", status: 0 };
-
-  try {
-    const queryWithSuffix = [String(query || "").trim(), BRAVE_SEARCH_SUFFIX].filter(Boolean).join(" ");
-    const url = `https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(queryWithSuffix)}&count=${BRAVE_FETCH_CANDIDATE_LIMIT}`;
-    const response = await fetch(url, {
-      headers: {
-        Accept: "application/json",
-        "X-Subscription-Token": BRAVE_KEY,
-      },
+  if (!card) {
+    return respondClarification({
+      parsed,
+      resolved: { ...resolved, clarification: "분석할 카드를 찾지 못했어. 먼저 뉴스를 검색해줘." },
+      context,
+      debug: debugBase,
     });
-
-    if (!response.ok) {
-      const status = response.status;
-      if (status === 401 || status === 403) return { error: "auth-error", status };
-      if (status === 429) return { error: "rate-limit", status };
-      if (status >= 500) return { error: "server-error", status };
-      return { error: "provider-error", status };
-    }
-
-    const data = await response.json();
-    const results = data?.web?.results || [];
-    return {
-      results: results.map((r) => ({
-        title: r.title || "",
-        description: r.description || "",
-        url: r.url || "",
-      })),
-    };
-  } catch (err) {
-    return { error: "network-error", status: 0, detail: err?.message };
   }
-}
 
-async function callAnalysisAPI(card, mode) {
-  try {
-    const response = await fetch(`${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'}/api/analysis`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ card, mode }),
-    });
-    if (!response.ok) return null;
-    const data = await response.json();
-    return data?.result || null;
-  } catch {
-    return null;
-  }
+  // Groq 직접 호출 (llm.js의 synthesizeCardAnalysis 재사용) — /api/analysis HTTP 왕복 회피
+  const result = await synthesizeCardAnalysis(card, mode);
+  const answer = result?.text || null;
+
+  const fakeSynthesis = {
+    answer: answer || "분석을 생성하지 못했어. 다시 시도해줘.",
+    used_llm: !!answer,
+    meta: { llm: { used: !!answer, error: result?.error, latency_ms: result?.latencyMs, mode }, path: "analyze_card_groq" },
+  };
+
+  // retrieval 모양 맞추기 — target card 1장
+  const fakeRetrieval = {
+    source: "analyze_card",
+    cards: [card],
+    _reasons: ["analyze_card_single"],
+  };
+
+  return respond({
+    parsed,
+    resolved,
+    retrieval: fakeRetrieval,
+    synthesis: fakeSynthesis,
+    context,
+    debug: debugBase,
+  });
 }
 
 export default async function handler(req, res) {
   setCors(res);
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
+  if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") {
     return stableError(res, 405, "Method not allowed", { error_code: "METHOD_NOT_ALLOWED" });
   }
@@ -155,15 +101,17 @@ export default async function handler(req, res) {
   try {
     const message = String(req.body?.message || "").trim();
     const context = req.body?.context || {};
+    const hint = req.body?.hint || {};
 
     if (!message) {
       return stableError(res, 400, "질문을 먼저 입력해줘.", { error_code: "MESSAGE_REQUIRED" });
     }
 
+    // ─── Load knowledge ─────────────────────────────────────────────────
     const _t0 = Date.now();
     const data = await loadKnowledge();
     const _t1 = Date.now();
-    const _diag = {
+    const diag = {
       cwd: process.cwd(),
       cards_len: Array.isArray(data?.cards) ? data.cards.length : -1,
       faq_len: Array.isArray(data?.faq) ? data.faq.length : -1,
@@ -172,143 +120,63 @@ export default async function handler(req, res) {
       vercel_url: process.env.VERCEL_URL || null,
       sources: data?._sources || null,
     };
-    console.log(`[chat-diag-D1] ${JSON.stringify(_diag)}`);
+    console.log(`[chat-diag-D1] ${JSON.stringify(diag)}`);
 
-    const intent = classifyIntent(message, context);
-    const scope = extractScope(message, context);
+    // ─── Layer 1: parseRequest ──────────────────────────────────────────
+    const parsed = parseRequest({ message, context, hint, data });
+    console.log(`[chat-parse] action=${parsed.action} topic=${parsed.topic} region=${parsed.scope?.region || "-"} date=${parsed.scope?.date || "-"}`);
 
-    if (intent === "analysis_why" || intent === "analysis_summary" || intent === "analysis_deep") {
-      const topCard = context?.last_cards?.[0];
-      if (!topCard) {
-        return stableError(res, 400, "분석할 카드가 없어. 먼저 뉴스나 정책을 검색해줘.", { error_code: "NO_CARD_FOR_ANALYSIS", diag: _diag });
-      }
-      const analysisMode = intent === "analysis_why" ? "why" : intent === "analysis_summary" ? "summary" : "analysis";
-      const analysisResult = await callAnalysisAPI(topCard, analysisMode);
+    // ─── Layer 2: resolveContext ────────────────────────────────────────
+    const resolvedCtx = resolveContext({ parsed, context });
+    const debugBase = { diag, pipeline_version: "phase2-5layer" };
 
-      if (!analysisResult) {
-        return stableError(res, 500, "분석을 생성하지 못했어. 다시 시도해줘.", { error_code: "ANALYSIS_FAILED", diag: _diag });
-      }
-
-      return res.status(200).json({
-        answer: analysisResult,
-        answer_type: intent,
-        source_mode: "internal",
-        confidence: 1.0,
-        cards: [topCard],
-        external_links: [],
-        suggestions: [{ label: "관련 카드 더 보여줘" }, { label: "다른 뉴스 검색" }],
-        debug: {
-          fallback_triggered: false,
-          confidence_bucket: "high",
-          analysis_mode: analysisMode,
-          diag: _diag,
-        },
-      });
+    if (!resolvedCtx.ok) {
+      console.log(`[chat-clarify] ${resolvedCtx._reasons?.join(",")}`);
+      return res.status(200).json(
+        respondClarification({ parsed, resolved: resolvedCtx, context, debug: debugBase })
+      );
     }
 
-    const retrieval = retrieveInternal({ message, intent, scope, data });
-    const confidenceRes = scoreConfidence({ intent, retrieval, scope, context });
-    const fallback = decideFallback({ scope, confidence: confidenceRes, retrieval });
+    // ─── Layer 3: retrieve ──────────────────────────────────────────────
+    const retrieval = retrieve({ parsed, resolved: resolvedCtx.resolved, data });
+    console.log(`[chat-retrieve] source=${retrieval.source} cards=${(retrieval.cards || []).length}`);
 
-    let externalLinks = [];
-    let braveError = null;
-    if (fallback.sourceMode !== "internal") {
-      const ext = await fetchBraveResults(message);
-      if (ext.error) {
-        braveError = { type: ext.error, status: ext.status, detail: ext.detail };
-      }
-      externalLinks = rankExternalLinks(message, (ext?.results || []).map(toLinkView));
-    }
-
-    const finalSourceMode = stabilizeSourceMode(fallback.sourceMode, retrieval, externalLinks);
-
-    let llmText = null;
-    let llmMeta = null;
-    const shouldTryLLM =
-      retrieval?.mode === "cards" &&
-      LLM_ENABLED_INTENTS.has(intent) &&
-      (retrieval?.cards || []).length > 0;
-
-    if (shouldTryLLM) {
-      const llmRes = await synthesizeChatAnswer({
-        message,
-        intent,
-        cards: retrieval.cards,
-        newsMeta: retrieval.news_meta || null,
-        scope,
-      });
-      llmText = llmRes.text;
-      llmMeta = { used: !!llmRes.text, error: llmRes.error, latency_ms: llmRes.latencyMs };
-      console.log(`[chat-llm] intent=${intent} used=${!!llmRes.text} latency=${llmRes.latencyMs}ms err=${llmRes.error || "-"}`);
-    }
-
-    const response = composeResponse({
-      intent,
+    // ─── Layer 4: synthesize ────────────────────────────────────────────
+    const synthesis = await synthesize({
+      parsed,
+      resolved: resolvedCtx.resolved,
       retrieval,
-      sourceMode: finalSourceMode,
-      confidence: Math.round(confidenceRes.score * 100) / 100,
-      lowConfidence: confidenceRes.bucket === "low",
-      debug: {
-        fallback_triggered: fallback.fallbackTriggered,
-        confidence_bucket: confidenceRes.bucket,
-        fallback_reason: fallback.reason,
-        external_link_count: externalLinks.length,
-        brave_error: braveError,
-        llm: llmMeta,
-        diag: _diag,
-      },
-      scope,
-      externalLinks,
     });
+    console.log(`[chat-synth] path=${synthesis?.meta?.path} used_llm=${synthesis?.used_llm} delegate=${synthesis?.delegate?.to || "-"}`);
 
-    // FAQ 답변은 존댓말 원문 → 반말로 리라이트
-    if (retrieval?.mode === "faq" && response.answer) {
-      const rw = await rewriteToCasual(response.answer);
-      if (rw.text) {
-        response.answer = rw.text;
-        response.debug = { ...response.debug, faq_tone_rewrite: { used: !rw.skipped, skipped: !!rw.skipped, latency_ms: rw.latencyMs } };
-      } else {
-        response.debug = { ...response.debug, faq_tone_rewrite: { used: false, error: rw.error, latency_ms: rw.latencyMs } };
-      }
-      console.log(`[chat-faq-rewrite] used=${!!rw.text && !rw.skipped} skipped=${!!rw.skipped} err=${rw.error || "-"}`);
+    // ─── Layer 5: respond ───────────────────────────────────────────────
+    // analyze_card 위임 경로
+    if (synthesis?.delegate?.to === "analysis_api" || parsed.action === "analyze_card") {
+      const resp = await handleAnalyzeCard({
+        parsed,
+        resolved: resolvedCtx.resolved,
+        synthesis,
+        context,
+        debugBase,
+      });
+      return res.status(200).json(resp);
     }
 
-    // Policy 답변도 REGION_POLICY.why 필드가 문어체(~한다/이다) → 반말로 리라이트
-    // 템플릿 자체는 compose.js에서 이미 연결어 반말화 했지만 why 본문은 원문 유지라 변환 필요.
-    if (intent === "policy" && response.answer) {
-      const rw = await rewriteToCasual(response.answer);
-      if (rw.text) {
-        response.answer = rw.text;
-        response.debug = { ...response.debug, policy_tone_rewrite: { used: !rw.skipped, skipped: !!rw.skipped, latency_ms: rw.latencyMs } };
-      }
-      console.log(`[chat-policy-rewrite] used=${!!rw.text && !rw.skipped} skipped=${!!rw.skipped} err=${rw.error || "-"}`);
-    }
-
-    // LLM 성공 시 answer를 LLM 텍스트로 override. 근거 카드 블록은 헤더 없이 이어 붙임.
-    if (llmText) {
-      const templateCardBlock = extractCardBlock(response.answer);
-      response.answer = templateCardBlock
-        ? `${llmText}\n\n근거 카드\n${templateCardBlock}`
-        : llmText;
-    }
+    const response = respond({
+      parsed,
+      resolved: resolvedCtx.resolved,
+      retrieval,
+      synthesis,
+      context,
+      debug: debugBase,
+    });
 
     return res.status(200).json(response);
   } catch (error) {
+    console.error("[chat-orchestration-error]", error?.message, error?.stack);
     return stableError(res, 500, "채팅 응답 생성 중 오류가 났어.", {
       error_code: "CHAT_ORCHESTRATION_ERROR",
       detail: error?.message || "unknown",
     });
   }
-}
-
-// 템플릿 answer에서 카드 라인 블록만 추출 (이모지/불릿 없는 신규 포맷 대응)
-// compose.js composeCards news 분기: "제목 (YYYY.MM.DD)\n  gist" 형태
-function extractCardBlock(answer = "") {
-  const lines = String(answer).split(/\n/);
-  // 첫 헤더 문장 이후부터 카드 라인들 추출
-  // 헤더는 "~뉴스야." 또는 "~보여줄게." 같은 단일 문장 후 빈 줄, 그 다음부터가 카드 블록.
-  const firstBlank = lines.findIndex((ln, i) => i > 0 && ln.trim() === "");
-  if (firstBlank < 0) return null;
-  const cardLines = lines.slice(firstBlank + 1).join("\n").trim();
-  return cardLines || null;
 }

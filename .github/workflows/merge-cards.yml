@@ -1,0 +1,80 @@
+name: Auto Merge Cards
+
+on:
+  push:
+    branches:
+      - 'cards/**'
+    paths:
+      - 'docs/card_payloads/*.json'
+
+permissions:
+  contents: write
+
+jobs:
+  merge-cards:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Find new payload file
+        id: find-payload
+        run: |
+          PAYLOAD=$(git diff --name-only HEAD~1 HEAD -- 'docs/card_payloads/*.json' | head -1)
+          if [ -z "$PAYLOAD" ]; then
+            echo "No new payload found, skipping."
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "payload=$PAYLOAD" >> $GITHUB_OUTPUT
+          echo "skip=false" >> $GITHUB_OUTPUT
+          echo "📦 Found payload: $PAYLOAD"
+
+      - name: Merge cards
+        if: steps.find-payload.outputs.skip == 'false'
+        run: |
+          PAYLOAD="${{ steps.find-payload.outputs.payload }}"
+          TODAY=$(date +%Y.%m.%d)
+
+          echo "📊 Before merge:"
+          python3 -c "import json; d=json.load(open('public/data/cards.json')); print(f'  total={d[\"total\"]}, updated={d[\"updated\"]}')"
+          BEFORE=$(python3 -c "import json; d=json.load(open('public/data/cards.json')); print(d['total'])")
+
+          echo ""
+          echo "🔀 Running merge_cards.py..."
+          python3 merge_cards.py "$PAYLOAD"
+
+          echo ""
+          echo "📅 Patching updated date to $TODAY..."
+          python3 -c "
+          import json
+          with open('public/data/cards.json','r') as f: d=json.load(f)
+          d['updated']='$TODAY'
+          with open('public/data/cards.json','w') as f: json.dump(d,f,ensure_ascii=False)
+          print(f'  total={d[\"total\"]}, updated={d[\"updated\"]}')
+          "
+
+          AFTER=$(python3 -c "import json; d=json.load(open('public/data/cards.json')); print(d['total'])")
+          ADDED=$((AFTER - BEFORE))
+          echo ""
+          echo "✅ Result: ${BEFORE} → ${AFTER} (+${ADDED} cards)"
+
+      - name: Commit merged cards.json
+        if: steps.find-payload.outputs.skip == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/cards.json
+          BEFORE=$(git show HEAD:public/data/cards.json | python3 -c "import json,sys; print(json.load(sys.stdin)['total'])")
+          AFTER=$(python3 -c "import json; print(json.load(open('public/data/cards.json'))['total'])")
+          ADDED=$((AFTER - BEFORE))
+          git commit -m "cards: auto-merge +${ADDED} cards (${BEFORE}→${AFTER})"
+          git push

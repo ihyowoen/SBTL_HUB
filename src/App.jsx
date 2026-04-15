@@ -522,7 +522,9 @@ function ChatBot({ dark }) {
   const [searchMode, setSearchMode] = useState("internal");
   const [extQuery, setExtQuery] = useState("");
   const endRef = useRef(null);
-  const chatCtxRef = useRef({ last_answer_type: null, selected_item_id: null, last_result_ids: [], region: null, date: null });
+  // ChatContext Protocol (Phase 2): last_turn/root_turn은 /api/chat 응답의
+  // next_context를 그대로 echo 백한다. selected_item_id는 카드 클릭으로 갱신.
+  const chatCtxRef = useRef({ last_turn: null, root_turn: null, selected_item_id: null, region: null, date: null });
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -538,23 +540,28 @@ function ChatBot({ dark }) {
   });
 
   const updateContextFromResponse = (data) => {
-    const cards = Array.isArray(data?.cards) ? data.cards : [];
-    const links = Array.isArray(data?.external_links) ? data.external_links : [];
-    const nextSelected = cards[0]?.url || links[0]?.url || null;
+    const nc = data?.next_context || {};
     chatCtxRef.current = {
-      last_answer_type: data?.answer_type || chatCtxRef.current.last_answer_type,
-      selected_item_id: nextSelected,
-      last_result_ids: [...cards.map((c) => c.url || c.title).filter(Boolean), ...links.map((l) => l.url || l.title).filter(Boolean)].slice(0, 8),
-      region: cards[0]?.region || chatCtxRef.current.region,
-      date: cards[0]?.date || chatCtxRef.current.date,
+      last_turn: nc.last_turn || null,
+      root_turn: nc.root_turn || chatCtxRef.current.root_turn || null,
+      // 새 턴이 들어오면 selected 리셋 — 사용자가 새 카드를 고를 기회를 준다.
+      selected_item_id: null,
+      region: nc.last_turn?.scope?.region || chatCtxRef.current.region,
+      date: nc.last_turn?.scope?.date || chatCtxRef.current.date,
     };
   };
 
-  const sendToChatApi = async (txt, mode = "internal") => {
+  const sendToChatApi = async (txt, mode = "internal", hint = null) => {
     const body = {
       message: mode === "external" ? `${txt} 외부 기사 링크 중심으로 찾아줘` : txt,
       context: chatCtxRef.current,
     };
+    if (hint && (hint.hint_action || hint.hint_topic)) {
+      body.hint = {
+        action: hint.hint_action || undefined,
+        topic: hint.hint_topic || undefined,
+      };
+    }
 
     const res = await fetch("/api/chat", {
       method: "POST",
@@ -571,14 +578,18 @@ function ChatBot({ dark }) {
         confidence: 0,
         cards: [],
         external_links: [],
-        suggestions: [{ label: "오늘 핵심 카드" }, { label: "최근 시그널 TOP" }],
+        suggestions: [
+          { label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" },
+          { label: "최근 시그널 TOP", hint_action: "new_query", hint_topic: "news" },
+        ],
+        next_context: { last_turn: null, root_turn: chatCtxRef.current.root_turn || null },
       };
     }
 
     return res.json();
   };
 
-  const sendWithText = async (rawText) => {
+  const sendWithText = async (rawText, hint = null) => {
     const txt = String(rawText || "").trim();
     if (!txt || loading) return;
 
@@ -587,21 +598,24 @@ function ChatBot({ dark }) {
     setMsgs((prev) => [...prev, { role: "user", content: txt }]);
 
     try {
-      const data = await sendToChatApi(txt, "internal");
+      const data = await sendToChatApi(txt, "internal", hint);
       updateContextFromResponse(data);
       setMsgs((prev) => [...prev, toUiMessage(data)]);
     } catch {
       setMsgs((prev) => [...prev, {
         role: "assistant",
         content: "채팅 응답 중 네트워크 오류가 발생했어.",
-        suggestions: [{ label: "오늘 핵심 카드" }, { label: "관련 카드 더 보여줘" }],
+        suggestions: [
+          { label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" },
+          { label: "관련 카드 더 보여줘", hint_action: "follow_up" },
+        ],
       }]);
     } finally {
       setLoading(false);
     }
   };
 
-  const sendExternal = async (rawText) => {
+  const sendExternal = async (rawText, hint = null) => {
     const txt = String(rawText || "").trim();
     if (!txt || loading) return;
 
@@ -610,21 +624,31 @@ function ChatBot({ dark }) {
     setMsgs((prev) => [...prev, { role: "user", content: `🔗 외부 검색: ${txt}` }]);
 
     try {
-      const data = await sendToChatApi(txt, "external");
+      const data = await sendToChatApi(txt, "external", hint);
       updateContextFromResponse(data);
       setMsgs((prev) => [...prev, toUiMessage(data)]);
     } catch {
       setMsgs((prev) => [...prev, {
         role: "assistant",
         content: "외부 검색 응답 중 네트워크 오류가 발생했어.",
-        suggestions: [{ label: "내부 카드로 검색" }],
+        suggestions: [{ label: "내부 카드로 검색", hint_action: "new_query" }],
       }]);
     } finally {
       setLoading(false);
     }
   };
 
-  const runSuggestion = (label) => {
+  // 카드 클릭 — selected_item_id 세팅 (D3 해결). URL 열기는 <a>의 기본 동작 유지.
+  const markCardSelected = (card) => {
+    const id = card?.url || card?.title || null;
+    if (!id) return;
+    chatCtxRef.current = { ...chatCtxRef.current, selected_item_id: id };
+  };
+
+  const runSuggestion = (suggestion) => {
+    // suggestion은 문자열 (초기 quickPrimary) 또는 객체 ({ label, hint_action, hint_topic }).
+    const label = typeof suggestion === "string" ? suggestion : (suggestion?.label || "");
+    const hint = typeof suggestion === "object" ? suggestion : null;
     const map = {
       "오늘 핵심 카드": "오늘 뉴스 3개",
       "오늘의 시그널 TOP": "오늘 TOP 시그널 카드 보여줘",
@@ -652,10 +676,10 @@ function ChatBot({ dark }) {
     const next = map[label] || label;
     const isExternalLabel = label === "외부 기사 링크 검색" || label.includes("외부 검색");
     if (searchMode === "external" || isExternalLabel) {
-      void sendExternal(next);
+      void sendExternal(next, hint);
       return;
     }
-    void sendWithText(next);
+    void sendWithText(next, hint);
   };
 
   return (
@@ -709,15 +733,15 @@ function ChatBot({ dark }) {
                     {card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}
                   </>);
                   return card.url
-                    ? <a key={j} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} style={cardStyle}>{cardContent}</a>
-                    : <div key={j} style={cardStyle}>{cardContent}</div>;
+                    ? <a key={j} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} onClick={() => markCardSelected(card)} style={cardStyle}>{cardContent}</a>
+                    : <div key={j} style={cardStyle} onClick={() => markCardSelected(card)}>{cardContent}</div>;
                 })}
               </div>
             </div>
             {m.role === "assistant" && m.suggestions?.length > 0 && (
               <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8, marginBottom: 4, paddingLeft: 35 }}>
                 {m.suggestions.map((s) => (
-                  <button key={s.label} onClick={() => runSuggestion(s.label)} style={{ background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "10px 16px", minHeight: "44px", fontSize: 11, color: t.cyan, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600 }}>{s.label}</button>
+                  <button key={s.label} onClick={() => runSuggestion(s)} style={{ background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "10px 16px", minHeight: "44px", fontSize: 11, color: t.cyan, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600 }}>{s.label}</button>
                 ))}
               </div>
             )}
@@ -1265,7 +1289,14 @@ function NewsDesk({ kb, dark }) {
 
   if (search) {
     const sw = search.toLowerCase();
-    cards = cards.filter((c) => String(c.T || "").toLowerCase().includes(sw) || String(c.sub || "").toLowerCase().includes(sw) || String(c.g || "").toLowerCase().includes(sw));
+    cards = cards.filter((c) => {
+      if (String(c.T || "").toLowerCase().includes(sw)) return true;
+      if (String(c.sub || "").toLowerCase().includes(sw)) return true;
+      if (String(c.g || "").toLowerCase().includes(sw)) return true;
+      // A3/F5: keyword 배열(c.k)도 검색 대상 — FAQ/시그널 키워드 hit 보장.
+      if (Array.isArray(c.k) && c.k.some((k) => String(k).toLowerCase().includes(sw))) return true;
+      return false;
+    });
   }
   const visible = cards.slice(0, showCount);
   const dates = [...new Set(visible.map((c) => c.d))];

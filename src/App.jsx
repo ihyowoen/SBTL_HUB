@@ -234,7 +234,6 @@ function toCompatCard(card) {
   };
 }
 
-
 async function fetchJsonFile(path, requestKey = 0, hardRefresh = false) {
   const response = await fetch(buildFetchUrl(path, requestKey), {
     cache: hardRefresh ? "reload" : "no-cache",
@@ -344,7 +343,6 @@ function latestDate(cards) {
 }
 
 function latestCards(cards, limit = 3, region = null, targetDate = null) {
-  // When region is specified, filter by region FIRST then find latest date within that subset
   const pool = region ? cards.filter((c) => c.r === region) : cards;
   const rank = { t: 3, h: 2, m: 1, i: 0 };
 
@@ -355,11 +353,20 @@ function latestCards(cards, limit = 3, region = null, targetDate = null) {
     return list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
   }
 
-  // No targetDate: use latest date within the (possibly region-filtered) pool
   const ld = latestDate(pool);
   if (!ld) return pool.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
   const list = pool.filter((c) => c.d === ld);
   return list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+}
+
+function parseCardConsultSeed(prompt = "") {
+  const raw = String(prompt || "").trim();
+  if (!raw.startsWith("[카드상담]")) return null;
+  const lines = raw.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  const title = lines.find((line) => line.startsWith("카드 제목:"))?.replace(/^카드 제목:\s*/, "") || "";
+  const url = lines.find((line) => line.startsWith("카드 URL:"))?.replace(/^카드 URL:\s*/, "") || "";
+  const ask = lines.find((line) => !line.startsWith("[카드상담]") && !line.startsWith("카드 제목:") && !line.startsWith("카드 URL:")) || "이 카드 기준으로만 설명해줘.";
+  return { title, url, ask };
 }
 
 function SmallPill({ label, dark }) {
@@ -367,152 +374,56 @@ function SmallPill({ label, dark }) {
   return <span style={{ fontSize: 9, fontWeight: 800, color: t.cyan, background: dark ? "rgba(88,166,255,0.14)" : "rgba(45,90,142,0.10)", padding: "4px 8px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>{label}</span>;
 }
 
-function NewsItem({ card, dark }) {
-  const t = T(dark);
-  const sig = card.s || "i";
-  const [showGist, setShowGist] = useState(false);
-  const [showSummary, setShowSummary] = useState(false);
-  const [showWhy, setShowWhy] = useState(false);
-  const [summaryContent, setSummaryContent] = useState("");
-  const [whyContent, setWhyContent] = useState("");
-  const [analysisContent, setAnalysisContent] = useState("");
-  const [loadingAnalysis, setLoadingAnalysis] = useState(false);
-  const isForeign = card.r && card.r !== "KR";
-
-  const fetchAnalysis = async (mode) => {
-    setLoadingAnalysis(true);
-    try {
-      const res = await fetch("/api/analysis", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ card, mode }),
-      });
-      const data = await res.json();
-      if (mode === "why") setWhyContent(data.result);
-      else if (mode === "summary") setSummaryContent(data.result);
-      else if (mode === "analysis") setAnalysisContent(data.result);
-    } catch (err) {
-      console.error("Analysis fetch error:", err);
-      // Fallback to existing field data
-      if (mode === "why") setWhyContent(card.g || card.sub || "");
-      else if (mode === "summary") setSummaryContent(card.T + "\n\n" + (card.sub || ""));
-      else if (mode === "analysis") setAnalysisContent(card.g || "");
-    } finally {
-      setLoadingAnalysis(false);
-    }
-  };
-
-  return (
-    <div onClick={() => card.url && window.open(card.url, "_blank")} style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", borderLeft: `3px solid ${SIG_C[sig]}`, border: `1px solid ${t.brd}`, cursor: card.url ? "pointer" : "default" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 5 }}>
-        <span style={{ fontSize: 8, fontWeight: 800, color: SIG_C[sig], background: `${SIG_C[sig]}20`, padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>{SIG_L[sig]}</span>
-        <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{REG_FLAG[card.r] || "🌐"} {shortDate(card.d)}</span>
-        {isForeign && <span style={{ fontSize: 8, fontWeight: 700, color: "#58A6FF", background: "rgba(88,166,255,0.22)", padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>해외</span>}
-        {card.src && <span style={{ fontSize: 8, color: t.sub, marginLeft: "auto", fontFamily: "'JetBrains Mono',monospace" }}>{card.src}</span>}
-      </div>
-      <h3 style={{ fontSize: 13, fontWeight: 700, color: t.tx, margin: 0, lineHeight: 1.45 }}>{card.T}</h3>
-      {card.sub && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.45 }}>{card.sub}</p>}
-
-      {/* On-demand analysis panels - only shown when clicked */}
-      {showSummary && isForeign && (
-        <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
-          <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>📰 한국어 요약</div>
-          {loadingAnalysis && !summaryContent ? (
-            <div style={{ fontSize: 10, color: t.sub, fontStyle: "italic" }}>분석 생성 중...</div>
-          ) : (
-            <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
-              {summaryContent}
-            </div>
-          )}
-          {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
-        </div>
-      )}
-      {showWhy && card.g && (
-        <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(209,153,34,0.06)" : "rgba(209,153,34,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(209,153,34,0.15)" : "rgba(209,153,34,0.1)"}` }}>
-          <div style={{ fontSize: 9, fontWeight: 800, color: "#D29922", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 왜 중요한지</div>
-          {loadingAnalysis && !whyContent ? (
-            <div style={{ fontSize: 10, color: t.sub, fontStyle: "italic" }}>분석 생성 중...</div>
-          ) : (
-            <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
-              {whyContent}
-            </div>
-          )}
-          {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
-        </div>
-      )}
-      {showGist && card.g && (
-        <div style={{ marginTop: 8, padding: "10px 12px", background: dark ? "rgba(168,85,247,0.07)" : "rgba(168,85,247,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(168,85,247,0.2)" : "rgba(168,85,247,0.12)"}`, borderLeft: "3px solid #A855F7" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-            <span style={{ fontSize: 9, fontWeight: 800, color: "#A855F7", fontFamily: "'JetBrains Mono',monospace" }}>🤖 AI 해설</span>
-            <span style={{ fontSize: 8, color: dark ? "rgba(168,85,247,0.6)" : "rgba(168,85,247,0.5)", fontStyle: "italic", fontFamily: "'JetBrains Mono',monospace" }}>※ AI 해석 기반 분석</span>
-          </div>
-          {loadingAnalysis && !analysisContent ? (
-            <div style={{ fontSize: 10, color: t.sub, fontStyle: "italic" }}>AI 해설 생성 중...</div>
-          ) : (
-            <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.7, whiteSpace: "pre-wrap" }}>
-              {analysisContent}
-            </div>
-          )}
-          {(card.src || card.d) && <div style={{ marginTop: 6, fontSize: 8, color: t.sub, opacity: 0.6, fontFamily: "'JetBrains Mono',monospace" }}>{card.src}{card.d ? ` · ${fmtDate(card.d)}` : ""}</div>}
-        </div>
-      )}
-
-      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
-        {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
-        {/* On-demand analysis buttons - click to reveal */}
-        {isForeign && (card.T || card.sub) && (
-          <button onClick={(e) => { e.stopPropagation(); if (!showSummary && !summaryContent) fetchAnalysis('summary'); setShowSummary(!showSummary); setShowWhy(false); setShowGist(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: "44px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showSummary ? "△ 요약 닫기" : "한국어 요약"}
-          </button>
-        )}
-        {card.g && (
-          <button onClick={(e) => { e.stopPropagation(); if (!showWhy && !whyContent) fetchAnalysis('why'); setShowWhy(!showWhy); setShowSummary(false); setShowGist(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: "44px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showWhy ? "△ 닫기" : "왜 중요한지"}
-          </button>
-        )}
-        {card.g && (
-          <button onClick={(e) => { e.stopPropagation(); if (!showGist && !analysisContent) fetchAnalysis('analysis'); setShowGist(!showGist); setShowSummary(false); setShowWhy(false); }} aria-label={showGist ? "Close analysis" : "Show analysis"} style={{ fontSize: 9, color: "#A855F7", background: "transparent", border: `1px solid ${dark ? "rgba(168,85,247,0.3)" : "rgba(168,85,247,0.2)"}`, borderRadius: 999, padding: "8px 12px", minHeight: "44px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
-            {showGist ? "△ 닫기" : "🤖 AI 해설"}
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
-
 function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
-  const picks = latestCards(kb.cards, 3, null, kstToday());
+  const latestPool = latestCards(kb.cards, 4);
+  const leadCard = latestPool[0] || null;
+  const followCards = latestPool.slice(1);
+  const latestFeedDate = latestDate(kb.cards);
   const today = kstNow();
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
   const todayStr = `${kstToday()} (${dayNames[today.getDay()]})`;
+  const pulseTitle = leadCard?.T || "오늘 시장에서 꼭 봐야 할 카드가 올라와 있어";
+  const pulseSub = leadCard?.sub || "첫 카드부터 읽고, 필요한 지점은 강차장 상담소로 바로 이어가면 돼.";
+  const quickActions = [
+    { label: "오늘 흐름 3줄 요약", prompt: "오늘 핵심 흐름을 3줄로만 정리해줘" },
+    { label: "오늘 TOP 시그널", prompt: "오늘 가장 중요한 TOP 시그널만 바로 설명해줘" },
+    { label: "실무 체크포인트", prompt: "오늘 뉴스 기준으로 실무 체크포인트만 짧게 정리해줘" },
+  ];
+
   return (
     <div style={{ padding: "0 14px 120px", display: "flex", flexDirection: "column", gap: 12 }}>
-      <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#1F2840" : "#EEF3FF"})`, borderRadius: 18, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}`, boxShadow: t.sh }}>
+      <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#1F2840" : "#EEF3FF"})`, borderRadius: 20, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}`, boxShadow: t.sh }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 10 }}>
-              <SmallPill label="SBTL HUB" dark={dark} />
+              <SmallPill label="SBTL STORY FEED" dark={dark} />
               <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>BATTERY · ESS · EV</span>
             </div>
-            <div style={{ fontSize: 24, fontWeight: 900, color: t.tx, lineHeight: 1.2 }}>SBTL Strategic Intelligence Brief</div>
-            <div style={{ fontSize: 11, color: t.cyan, fontFamily: "'JetBrains Mono',monospace", marginTop: 8 }}>📅 {todayStr}</div>
-            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.65, marginTop: 6 }}>배터리·ESS·EV 밸류체인을 중심으로 정책, 공급망, 기술, 기업 이슈를 선별해 정리하는 인텔리전스 허브입니다.</div>
+            <div style={{ fontSize: 24, fontWeight: 900, color: t.tx, lineHeight: 1.2 }}>오늘의 흐름부터 먼저 읽자</div>
+            <div style={{ fontSize: 11, color: t.cyan, fontFamily: "'JetBrains Mono',monospace", marginTop: 8 }}>📅 {todayStr} · FEED {fmtDate(latestFeedDate)}</div>
+            <div style={{ marginTop: 12, background: dark ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.88)", border: `1px solid ${t.brd}`, borderRadius: 14, padding: "12px 13px" }}>
+              <div style={{ fontSize: 10, color: "#D29922", fontWeight: 900, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>TODAY'S SIGNAL</div>
+              <div style={{ fontSize: 16, fontWeight: 900, color: t.tx, lineHeight: 1.4 }}>{pulseTitle}</div>
+              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6, marginTop: 6 }}>{pulseSub}</div>
+            </div>
           </div>
           <div style={{ width: 56, height: 56, borderRadius: 16, background: dark ? "rgba(88,166,255,0.12)" : "rgba(88,166,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28 }}>🔋</div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginTop: 14 }}>
-          {[{ label: "CARDS", value: kb.cardCount }, { label: "FAQ", value: kb.faqCount }, { label: "REGIONS", value: 5 }, { label: "TRACKER", value: tracker.meta.totalItems }].map((item) => (
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, marginTop: 14 }}>
+          {[{ label: "CARDS", value: kb.cardCount }, { label: "TRACKER", value: tracker.meta.totalItems }, { label: "LATEST", value: latestFeedDate ? shortDate(latestFeedDate) : "-" }].map((item) => (
             <div key={item.label} style={{ background: dark ? "rgba(10,14,20,0.55)" : "rgba(255,255,255,0.88)", border: `1px solid ${t.brd}`, borderRadius: 12, padding: "10px 8px", textAlign: "center" }}>
-              <div style={{ fontSize: 16, fontWeight: 900, color: t.tx, fontFamily: "'JetBrains Mono',monospace" }}>{item.value}</div>
+              <div style={{ fontSize: 15, fontWeight: 900, color: t.tx, fontFamily: "'JetBrains Mono',monospace" }}>{item.value}</div>
               <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginTop: 4 }}>{item.label}</div>
             </div>
           ))}
         </div>
+
         <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
-          <button onClick={() => onNav("news")} style={{ flex: 1, border: "none", borderRadius: 10, padding: "10px 12px", background: t.cyan, color: "#000", fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>NEWS FEED →</button>
-          <button onClick={() => onNav("tracker")} style={{ flex: 1, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "10px 12px", background: "transparent", color: t.tx, fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>TRACKER →</button>
+          <button onClick={() => onNav("news")} style={{ flex: 1, border: "none", borderRadius: 10, padding: "12px 12px", background: t.cyan, color: "#000", fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>NEWS FEED →</button>
+          <button onClick={() => onAskChatbot("오늘 핵심 흐름을 3줄로 정리해줘")} style={{ flex: 1, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "12px 12px", background: "transparent", color: t.tx, fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>강차장 요약 →</button>
         </div>
       </div>
 
@@ -524,31 +435,35 @@ function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
         </div>
         <div onClick={() => onNav("chatbot")} style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
           <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>AI DESK</div>
-          <div style={{ fontSize: 18, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>강차장의 배터리 상담소</div>
-          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.55, marginTop: 8 }}>질문하면 핵심 요약, 관련 카드, 최신 링크를 이어서 보여줍니다.</div>
+          <div style={{ fontSize: 18, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>강차장의 배터리상담소</div>
+          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.55, marginTop: 8 }}>읽다가 막히는 카드가 생기면 바로 이어서 묻는 구조로 쓸 수 있어.</div>
         </div>
       </div>
 
-      <div style={{ background: t.card2, borderRadius: 14, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
+      <div style={{ background: t.card2, borderRadius: 16, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, marginBottom: 10 }}>
           <div>
-            <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div>
-            <div style={{ fontSize: 16, fontWeight: 900, color: t.tx }}>오늘의 핵심 카드</div>
+            <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>LEAD STORY</div>
+            <div style={{ fontSize: 18, fontWeight: 900, color: t.tx }}>오늘 먼저 봐야 할 카드</div>
           </div>
           <button onClick={() => onNav("news")} style={{ border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, borderRadius: 8, padding: "12px 14px", minHeight: "44px", fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>OPEN NEWS</button>
         </div>
-        {picks.length
-          ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {picks.map((card, i) => (
-                <StoryNewsItem
-                  key={`${card.id || card.T || card.title}-${i}`}
-                  card={card}
-                  dark={dark}
-                  onAskChatbot={onAskChatbot}
-                />
-              ))}
-            </div>
-          : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}
+        {leadCard ? <StoryNewsItem card={leadCard} dark={dark} onAskChatbot={onAskChatbot} /> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>아직 메인으로 띄울 카드가 없습니다.</div>}
+      </div>
+
+      <div style={{ background: t.card2, borderRadius: 16, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
+        <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>FOLLOW THE FLOW</div>
+        <div style={{ fontSize: 18, fontWeight: 900, color: t.tx, marginBottom: 10 }}>이어서 보면 좋은 흐름</div>
+        {followCards.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{followCards.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onAskChatbot={onAskChatbot} />)}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>후속 흐름 카드를 더 쌓는 중이야.</div>}
+      </div>
+
+      <div style={{ background: t.card2, borderRadius: 14, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
+        <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 8 }}>ASK KANG</div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {quickActions.map((item) => (
+            <button key={item.label} onClick={() => onAskChatbot(item.prompt)} style={{ border: `1px solid ${t.brd}`, background: dark ? "rgba(255,255,255,0.03)" : "#fff", color: t.tx, borderRadius: 999, padding: "11px 14px", minHeight: "44px", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>{item.label}</button>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -562,8 +477,7 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
   const [searchMode, setSearchMode] = useState("internal");
   const [extQuery, setExtQuery] = useState("");
   const endRef = useRef(null);
-  // ChatContext Protocol (Phase 2): last_turn/root_turn은 /api/chat 응답의
-  // next_context를 그대로 echo 백한다. selected_item_id는 카드 클릭으로 갱신.
+  const consultSeed = useMemo(() => parseCardConsultSeed(initialPrompt), [initialPrompt]);
   const chatCtxRef = useRef({ last_turn: null, root_turn: null, selected_item_id: null, region: null, date: null });
 
   useEffect(() => {
@@ -584,7 +498,6 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
     chatCtxRef.current = {
       last_turn: nc.last_turn || null,
       root_turn: nc.root_turn || chatCtxRef.current.root_turn || null,
-      // 새 턴이 들어오면 selected 리셋 — 사용자가 새 카드를 고를 기회를 준다.
       selected_item_id: null,
       region: nc.last_turn?.scope?.region || chatCtxRef.current.region,
       date: nc.last_turn?.scope?.date || chatCtxRef.current.date,
@@ -683,7 +596,6 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
     }
   };
 
-  // 카드 클릭 — selected_item_id 세팅 (D3 해결). URL 열기는 <a>의 기본 동작 유지.
   const markCardSelected = (card) => {
     const id = card?.url || card?.title || null;
     if (!id) return;
@@ -691,7 +603,6 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
   };
 
   const runSuggestion = (suggestion) => {
-    // suggestion은 문자열 (초기 quickPrimary) 또는 객체 ({ label, hint_action, hint_topic }).
     const label = typeof suggestion === "string" ? suggestion : (suggestion?.label || "");
     const hint = typeof suggestion === "object" ? suggestion : null;
     const map = {
@@ -729,7 +640,19 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "calc(100vh - 190px)" }}>
-      <div role="log" aria-live="polite" aria-atomic="false" aria-label="대화 내역" style={{ flex: 1, overflowY: "auto", padding: "12px 14px 8px" }}>
+      {consultSeed && (
+        <div style={{ padding: "12px 14px 0" }}>
+          <div style={{ background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, borderRadius: 14, padding: "12px 13px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginBottom: 6 }}>
+              <div style={{ fontSize: 10, color: t.cyan, fontWeight: 900, fontFamily: "'JetBrains Mono',monospace" }}>CARD CONTEXT</div>
+              {consultSeed.url ? <a href={consultSeed.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 10, color: t.cyan, textDecoration: "none", fontFamily: "'JetBrains Mono',monospace" }}>원문 보기 ↗</a> : null}
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 900, color: t.tx, lineHeight: 1.45 }}>{consultSeed.title || "방금 선택한 카드 기준 상담 중"}</div>
+            <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.55, marginTop: 6 }}>{consultSeed.ask}</div>
+          </div>
+        </div>
+      )}
+      <div role="log" aria-live="polite" aria-atomic="false" aria-label="대화 내역" style={{ flex: 1, overflowY: "auto", padding: consultSeed ? "12px 14px 8px" : "12px 14px 8px" }}>
         {msgs.length <= 1 && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 6, marginBottom: 12 }}>
             {quickPrimary.map((q) => (
@@ -833,7 +756,6 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
     </div>
   );
 }
-
 
 const REGION_POLICY = {
   NA: {
@@ -1035,7 +957,6 @@ function Tracker({ tracker, dark }) {
 
   const policyData = REGION_POLICY[expandedRegion] || null;
 
-  // ITEMS filtering + sorting
   const statusRank = { ACTIVE: 0, UPCOMING: 1, WATCH: 2, DONE: 3 };
   const filteredItems = useMemo(() => {
     const sw = search.trim().toLowerCase();
@@ -1053,7 +974,6 @@ function Tracker({ tracker, dark }) {
         const sa = statusRank[a.s] ?? 9;
         const sb = statusRank[b.s] ?? 9;
         if (sa !== sb) return sa - sb;
-        // UPCOMING: ascending by date; others: descending
         const da = String(a.dt || "");
         const db = String(b.dt || "");
         if (a.s === "UPCOMING") return da.localeCompare(db);
@@ -1128,86 +1048,38 @@ function Tracker({ tracker, dark }) {
         </div>
       )}
 
-      {/* POLICY ITEMS — 개별 정책 카드 전체 렌더링 */}
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
           <span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>POLICY ITEMS — {filteredItems.length} / {d.items.length}</span>
           <div style={{ flex: 1, height: 1, background: t.brd }} />
         </div>
-
-        {/* 검색 */}
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="🔍 정책 검색 (제목·설명·ID)..."
           aria-label="Search policy items"
-          style={{
-            width: "100%",
-            padding: "10px 14px",
-            borderRadius: 10,
-            border: `1px solid ${t.brd}`,
-            fontSize: 12,
-            outline: "none",
-            fontFamily: "inherit",
-            background: t.card2,
-            color: t.tx,
-            boxSizing: "border-box",
-            marginBottom: 8,
-          }}
+          style={{ width: "100%", padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box", marginBottom: 8 }}
         />
-
-        {/* 상태 필터 */}
         <div style={{ position: "relative", marginBottom: 6 }}>
           <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>
             {statusFilterOptions.map((s) => {
               const active = statusFilter === s;
               const label = s === "all" ? `ALL ${d.items.length}` : `${SL[s] || s} ${d.summary[s] || 0}`;
               const color = s === "all" ? t.cyan : (SC[s] || t.cyan);
-              return (
-                <button key={s} onClick={() => setStatusFilter(s)} style={{
-                  background: active ? color : t.card2,
-                  color: active ? "#000" : t.sub,
-                  border: `1px solid ${active ? "transparent" : t.brd}`,
-                  borderRadius: 999,
-                  padding: "8px 12px",
-                  minHeight: "36px",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  fontFamily: "'JetBrains Mono',monospace",
-                }}>{label}</button>
-              );
+              return <button key={s} onClick={() => setStatusFilter(s)} style={{ background: active ? color : t.card2, color: active ? "#000" : t.sub, border: `1px solid ${active ? "transparent" : t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: "36px", fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>;
             })}
           </div>
         </div>
-
-        {/* 권역 필터 */}
         <div style={{ position: "relative", marginBottom: 10 }}>
           <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>
             {regionFilterOptions.map((r) => {
               const active = regionFilter === r;
               const label = r === "all" ? "ALL REGIONS" : `${TRACKER_REGION[r]?.flag || "🌐"} ${TRACKER_REGION[r]?.name || r}`;
-              return (
-                <button key={r} onClick={() => setRegionFilter(r)} style={{
-                  background: active ? t.cyan : t.card2,
-                  color: active ? "#000" : t.sub,
-                  border: `1px solid ${active ? "transparent" : t.brd}`,
-                  borderRadius: 999,
-                  padding: "8px 12px",
-                  minHeight: "36px",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  fontFamily: "'JetBrains Mono',monospace",
-                }}>{label}</button>
-              );
+              return <button key={r} onClick={() => setRegionFilter(r)} style={{ background: active ? t.cyan : t.card2, color: active ? "#000" : t.sub, border: `1px solid ${active ? "transparent" : t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: "36px", fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>;
             })}
           </div>
         </div>
-
         {filteredItems.length === 0 ? (
           <div style={{ padding: "20px", borderRadius: 10, background: t.card2, border: `1px solid ${t.brd}`, textAlign: "center" }}>
             <div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div>
@@ -1216,16 +1088,7 @@ function Tracker({ tracker, dark }) {
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {filteredItems.map((item) => (
-              <TrackerItemCard
-                key={item.id || `${item.r}-${item.t}`}
-                item={item}
-                dark={dark}
-                expanded={expandedItemId === (item.id || `${item.r}-${item.t}`)}
-                onToggle={() => {
-                  const key = item.id || `${item.r}-${item.t}`;
-                  setExpandedItemId((prev) => (prev === key ? null : key));
-                }}
-              />
+              <TrackerItemCard key={item.id || `${item.r}-${item.t}`} item={item} dark={dark} expanded={expandedItemId === (item.id || `${item.r}-${item.t}`)} onToggle={() => { const key = item.id || `${item.r}-${item.t}`; setExpandedItemId((prev) => (prev === key ? null : key)); }} />
             ))}
           </div>
         )}
@@ -1338,7 +1201,6 @@ function NewsDesk({ kb, onAskChatbot, dark }) {
       if (String(c.T || "").toLowerCase().includes(sw)) return true;
       if (String(c.sub || "").toLowerCase().includes(sw)) return true;
       if (String(c.g || "").toLowerCase().includes(sw)) return true;
-      // A3/F5: keyword 배열(c.k)도 검색 대상 — FAQ/시그널 키워드 hit 보장.
       if (Array.isArray(c.k) && c.k.some((k) => String(k).toLowerCase().includes(sw))) return true;
       return false;
     });
@@ -1348,8 +1210,8 @@ function NewsDesk({ kb, onAskChatbot, dark }) {
   cards = [...cards].sort((a, b) => {
     const da = String(a.d || "");
     const db = String(b.d || "");
-    if (db !== da) return db.localeCompare(da);   // 최신 날짜 먼저
-    return (rank[b.s] || 0) - (rank[a.s] || 0);   // 같은 날짜면 TOP/HIGH 우선
+    if (db !== da) return db.localeCompare(da);
+    return (rank[b.s] || 0) - (rank[a.s] || 0);
   });
 
   const visible = cards.slice(0, showCount);
@@ -1364,73 +1226,14 @@ function NewsDesk({ kb, onAskChatbot, dark }) {
       <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}>
         <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div>
         <h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>오늘의 핵심 카드</h3>
-        {highlights.length
-          ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {highlights.map((card, i) => (
-                <StoryNewsItem
-                  key={`${card.id || card.T || card.title}-${i}`}
-                  card={card}
-                  dark={dark}
-                  onAskChatbot={onAskChatbot}
-                />
-              ))}
-            </div>
-          : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}
+        {highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onAskChatbot={onAskChatbot} />)}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}
       </div>
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="🔍 카드 검색..."
-            aria-label="Search cards by title, description, or content"
-            style={{
-              flex: 1,
-              padding: "10px 14px",
-              borderRadius: 10,
-              border: `1px solid ${t.brd}`,
-              fontSize: 12,
-              outline: "none",
-              fontFamily: "inherit",
-              background: t.card2,
-              color: t.tx,
-              boxSizing: "border-box"
-            }}
-          />
-          {(search || filter !== "all") && (
-            <div style={{
-              padding: "8px 12px",
-              borderRadius: 8,
-              background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card,
-              border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`,
-              fontSize: 11,
-              fontWeight: 800,
-              color: cards.length === 0 ? "#F85149" : t.cyan,
-              fontFamily: "'JetBrains Mono',monospace",
-              whiteSpace: "nowrap"
-            }}>
-              {cards.length}개 결과
-            </div>
-          )}
+          <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="🔍 카드 검색..." aria-label="Search cards by title, description, or content" style={{ flex: 1, padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />
+          {(search || filter !== "all") && <div style={{ padding: "8px 12px", borderRadius: 8, background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card, border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`, fontSize: 11, fontWeight: 800, color: cards.length === 0 ? "#F85149" : t.cyan, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{cards.length}개 결과</div>}
         </div>
-        {cards.length === 0 && (search || filter !== "all") && (
-          <div style={{
-            padding: "16px",
-            borderRadius: 10,
-            background: t.card,
-            border: `1px solid ${t.brd}`,
-            textAlign: "center"
-          }}>
-            <div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>
-              검색 결과가 없습니다
-            </div>
-            <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>
-              다른 검색어나 필터를 시도해보세요
-            </div>
-          </div>
-        )}
+        {cards.length === 0 && (search || filter !== "all") && <div style={{ padding: "16px", borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>검색 결과가 없습니다</div><div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>다른 검색어나 필터를 시도해보세요</div></div>}
       </div>
       <div style={{ position: "relative" }}>
         <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>
@@ -1444,16 +1247,7 @@ function NewsDesk({ kb, onAskChatbot, dark }) {
       {dates.map((date) => (
         <div key={date}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {visible.filter((c) => c.d === date).map((card, i) => (
-              <StoryNewsItem
-                key={`${card.id || date}-${i}`}
-                card={card}
-                dark={dark}
-                onAskChatbot={onAskChatbot}
-              />
-            ))}
-          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => c.d === date).map((card, i) => <StoryNewsItem key={`${card.id || date}-${i}`} card={card} dark={dark} onAskChatbot={onAskChatbot} />)}</div>
         </div>
       ))}
     </div>
@@ -1524,12 +1318,7 @@ function AppContent() {
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", background: t.bg, minHeight: "100vh", fontFamily: "'Pretendard',-apple-system,sans-serif", position: "relative" }}>
       <style dangerouslySetInnerHTML={{ __html: `@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');body{margin:0;background:${t.bg}}*{box-sizing:border-box}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #58A6FF;outline-offset:2px}.skip-link{position:absolute;left:-9999px;z-index:999;padding:12px 20px;background:#58A6FF;color:#000;text-decoration:none;font-weight:800;border-radius:8px;font-size:14px}.skip-link:focus{left:50%;transform:translateX(-50%);top:10px}` }} />
-
-      {/* Skip to main content link */}
-      <a href="#main-content" className="skip-link">
-        메인 콘텐츠로 이동
-      </a>
-
+      <a href="#main-content" className="skip-link">메인 콘텐츠로 이동</a>
       <div style={{ background: "#161B26", padding: "14px 16px 16px", position: "relative", borderBottom: `1px solid #21293A` }}>
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg,#58A6FF,#BC8CFF,#58A6FF)" }} />
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -1539,61 +1328,15 @@ function AppContent() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ fontSize: 10, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace" }}>{kb.cardCount}</span>
-            <button
-              onClick={() => void triggerRefresh("soft")}
-              disabled={kb.loading || trackerLoading || refreshPending}
-              title="최신 데이터 다시 불러오기"
-              aria-label="Refresh latest data"
-              style={{
-                background: "#21293A",
-                border: "none",
-                borderRadius: 8,
-                minWidth: 44,
-                minHeight: 44,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: kb.loading || trackerLoading || refreshPending ? "not-allowed" : "pointer",
-                fontSize: 14,
-                color: "#E6EDF3",
-                opacity: kb.loading || trackerLoading || refreshPending ? 0.45 : 1,
-              }}
-            >
-              ↻
-            </button>
-            <button
-              onClick={() => void triggerRefresh("hard")}
-              disabled={kb.loading || trackerLoading || refreshPending}
-              title="캐시까지 무시하고 강하게 다시 불러오기"
-              aria-label="Hard refresh latest data"
-              style={{
-                background: "#21293A",
-                border: "1px solid rgba(248,81,73,0.35)",
-                borderRadius: 8,
-                minWidth: 44,
-                minHeight: 44,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: kb.loading || trackerLoading || refreshPending ? "not-allowed" : "pointer",
-                fontSize: 14,
-                color: "#F85149",
-                opacity: kb.loading || trackerLoading || refreshPending ? 0.45 : 1,
-              }}
-            >
-              ⚡
-            </button>
+            <button onClick={() => void triggerRefresh("soft")} disabled={kb.loading || trackerLoading || refreshPending} title="최신 데이터 다시 불러오기" aria-label="Refresh latest data" style={{ background: "#21293A", border: "none", borderRadius: 8, minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: kb.loading || trackerLoading || refreshPending ? "not-allowed" : "pointer", fontSize: 14, color: "#E6EDF3", opacity: kb.loading || trackerLoading || refreshPending ? 0.45 : 1 }}>↻</button>
+            <button onClick={() => void triggerRefresh("hard")} disabled={kb.loading || trackerLoading || refreshPending} title="캐시까지 무시하고 강하게 다시 불러오기" aria-label="Hard refresh latest data" style={{ background: "#21293A", border: "1px solid rgba(248,81,73,0.35)", borderRadius: 8, minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: kb.loading || trackerLoading || refreshPending ? "not-allowed" : "pointer", fontSize: 14, color: "#F85149", opacity: kb.loading || trackerLoading || refreshPending ? 0.45 : 1 }}>⚡</button>
             <button onClick={() => setDark(!dark)} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} style={{ background: "#21293A", border: "none", borderRadius: 8, minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16 }}>{dark ? "☀️" : "🌙"}</button>
           </div>
         </div>
         <div style={{ marginTop: 10 }}>
           {tab !== "all" && <h1 style={{ color: "#E6EDF3", fontSize: 18, fontWeight: 800, margin: 0 }}>{headerTitle}</h1>}
           <p style={{ color: "#7D8590", fontSize: 10, margin: "2px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>{headerSub}</p>
-          {refreshLabel && (
-            <p style={{ color: refreshLabel.includes("강력") ? "#F85149" : "#58A6FF", fontSize: 10, margin: "6px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>
-              {refreshLabel}
-            </p>
-          )}
+          {refreshLabel && <p style={{ color: refreshLabel.includes("강력") ? "#F85149" : "#58A6FF", fontSize: 10, margin: "6px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>{refreshLabel}</p>}
         </div>
       </div>
 
@@ -1621,7 +1364,6 @@ function AppContent() {
   );
 }
 
-// Export App wrapped in Error Boundary
 export default function App() {
   const [dark, setDark] = useState(true);
 

@@ -1323,7 +1323,7 @@ function WebtoonLibrary({ dark }) {
   );
 }
 
-function NewsDesk({ kb, dark }) {
+function NewsDesk({ kb, onAskChatbot, dark }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -1343,6 +1343,15 @@ function NewsDesk({ kb, dark }) {
       return false;
     });
   }
+
+  const rank = { t: 3, h: 2, m: 1, i: 0 };
+  cards = [...cards].sort((a, b) => {
+    const da = String(a.d || "");
+    const db = String(b.d || "");
+    if (db !== da) return db.localeCompare(da);   // 최신 날짜 먼저
+    return (rank[b.s] || 0) - (rank[a.s] || 0);   // 같은 날짜면 TOP/HIGH 우선
+  });
+
   const visible = cards.slice(0, showCount);
   const dates = [...new Set(visible.map((c) => c.d))];
   const highlights = latestCards(kb.cards, 4, null, kstToday());
@@ -1356,7 +1365,16 @@ function NewsDesk({ kb, dark }) {
         <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div>
         <h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>오늘의 핵심 카드</h3>
         {highlights.length
-          ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => <NewsItem key={`${card.T}-${i}`} card={card} dark={dark} />)}</div>
+          ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {highlights.map((card, i) => (
+                <StoryNewsItem
+                  key={`${card.id || card.T || card.title}-${i}`}
+                  card={card}
+                  dark={dark}
+                  onAskChatbot={onAskChatbot}
+                />
+              ))}
+            </div>
           : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}
       </div>
       <div>
@@ -1426,7 +1444,16 @@ function NewsDesk({ kb, dark }) {
       {dates.map((date) => (
         <div key={date}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => c.d === date).map((card, i) => <NewsItem key={`${date}-${i}`} card={card} dark={dark} />)}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {visible.filter((c) => c.d === date).map((card, i) => (
+              <StoryNewsItem
+                key={`${card.id || date}-${i}`}
+                card={card}
+                dark={dark}
+                onAskChatbot={onAskChatbot}
+              />
+            ))}
+          </div>
         </div>
       ))}
     </div>
@@ -1572,7 +1599,7 @@ function AppContent() {
 
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onAskChatbot={handleAskChatbot} dark={dark} /></div>}
-        {tab === "news" && <NewsDesk kb={kb} dark={dark} />}
+        {tab === "news" && <NewsDesk kb={kb} onAskChatbot={handleAskChatbot} dark={dark} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialPrompt={chatSeed.text} initialPromptNonce={chatSeed.nonce} />}
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} />}

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
+import StoryNewsItem from "./story/StoryNewsItem";
 
 // Error Boundary Component
 class ErrorBoundary extends Component {
@@ -204,6 +205,36 @@ const buildFetchUrl = (path, requestKey = 0) => {
   return `${path}${sep}_ts=${requestKey}`;
 };
 
+const LEGACY_SIGNAL = { top: "t", high: "h", mid: "m", info: "i", t: "t", h: "h", m: "m", i: "i" };
+
+function toCompatCard(card) {
+  if (!card || typeof card !== "object") return card;
+  const signal = card.signal || card.s || "i";
+  const source = card.source || card.src || "";
+  const primaryUrl = Array.isArray(card.urls) ? card.urls[0] : (card.url || "");
+  const implicationText = Array.isArray(card.implication)
+    ? card.implication.filter(Boolean).join("\n\n")
+    : String(card.implication || "");
+  const gateText = String(card.gate || "");
+  return {
+    ...card,
+    T: card.T || card.title || "",
+    sub: card.sub || "",
+    s: card.s || LEGACY_SIGNAL[signal] || "i",
+    signal: card.signal || signal,
+    r: card.r || card.region || "GL",
+    region: card.region || card.r || "GL",
+    d: card.d || card.date || "",
+    date: card.date || card.d || "",
+    src: card.src || source,
+    source,
+    url: card.url || primaryUrl,
+    urls: Array.isArray(card.urls) ? card.urls : (primaryUrl ? [primaryUrl] : []),
+    g: card.g || gateText || implicationText || card.sub || "",
+  };
+}
+
+
 async function fetchJsonFile(path, requestKey = 0, hardRefresh = false) {
   const response = await fetch(buildFetchUrl(path, requestKey), {
     cache: hardRefresh ? "reload" : "no-cache",
@@ -236,7 +267,7 @@ function useKnowledgeBase(refreshKey = 0, hardRefresh = false) {
     ])
       .then(([c, f]) => {
         if (ignore) return;
-        setCards(Array.isArray(c) ? c : []);
+        setCards(Array.isArray(c) ? c.map(toCompatCard) : []);
         setFaq(Array.isArray(f) ? f : []);
       })
       .finally(() => {
@@ -449,7 +480,7 @@ function NewsItem({ card, dark }) {
   );
 }
 
-function Home({ kb, tracker, onNav, dark }) {
+function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
   const picks = latestCards(kb.cards, 3, null, kstToday());
@@ -507,14 +538,23 @@ function Home({ kb, tracker, onNav, dark }) {
           <button onClick={() => onNav("news")} style={{ border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, borderRadius: 8, padding: "12px 14px", minHeight: "44px", fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>OPEN NEWS</button>
         </div>
         {picks.length
-          ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{picks.map((card, i) => <NewsItem key={`${card.T}-${i}`} card={card} dark={dark} />)}</div>
+          ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {picks.map((card, i) => (
+                <StoryNewsItem
+                  key={`${card.id || card.T || card.title}-${i}`}
+                  card={card}
+                  dark={dark}
+                  onAskChatbot={onAskChatbot}
+                />
+              ))}
+            </div>
           : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}
       </div>
     </div>
   );
 }
 
-function ChatBot({ dark }) {
+function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
   const t = T(dark);
   const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
   const [input, setInput] = useState("");
@@ -614,6 +654,11 @@ function ChatBot({ dark }) {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!initialPrompt || !initialPromptNonce) return;
+    void sendWithText(initialPrompt);
+  }, [initialPrompt, initialPromptNonce]);
 
   const sendExternal = async (rawText, hint = null) => {
     const txt = String(rawText || "").trim();
@@ -1395,6 +1440,7 @@ function AppContent() {
   const [hardRefresh, setHardRefresh] = useState(false);
   const [refreshPending, setRefreshPending] = useState(false);
   const [refreshLabel, setRefreshLabel] = useState("");
+  const [chatSeed, setChatSeed] = useState({ text: "", nonce: 0 });
   const kb = useKnowledgeBase(refreshKey, hardRefresh);
   const { tracker, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
   const t = T(dark);
@@ -1428,6 +1474,12 @@ function AppContent() {
     setHardRefresh(nextHard);
     setRefreshPending(true);
     setRefreshKey(Date.now());
+  };
+
+  const handleAskChatbot = (prompt) => {
+    if (!prompt) return;
+    setChatSeed({ text: prompt, nonce: Date.now() });
+    setTab("chatbot");
   };
 
   if (kb.loading || trackerLoading) {
@@ -1519,9 +1571,9 @@ function AppContent() {
       </div>
 
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
-        {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} dark={dark} /></div>}
+        {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onAskChatbot={handleAskChatbot} dark={dark} /></div>}
         {tab === "news" && <NewsDesk kb={kb} dark={dark} />}
-        {tab === "chatbot" && <ChatBot dark={dark} />}
+        {tab === "chatbot" && <ChatBot dark={dark} initialPrompt={chatSeed.text} initialPromptNonce={chatSeed.nonce} />}
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} />}
       </main>

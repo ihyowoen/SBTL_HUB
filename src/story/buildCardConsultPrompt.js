@@ -2,17 +2,13 @@ import { normalizeCard } from './normalizeCard';
 
 export function buildCardConsultPrompt(card) {
   const c = normalizeCard(card);
-  const parts = [
-    '[카드 상담 요청]',
-    `제목: ${c.title || '-'}`,
-    `무슨 일이야: ${c.fact || '-'}`,
-    `그래서 어떻게 돼: ${c.gate || '-'}`,
-    `강차장 코멘트: ${c.implicationText || '-'}`,
+
+  const lines = [
+    '[카드상담]',
+    '이 카드 기준으로만 설명해줘. 무슨 일인지, 왜 중요한지, 다음 체크포인트 2개만 말해줘.',
+    `카드 제목: ${c.title || '-'}`,
   ];
 
-  if (c.primaryUrl) parts.push(`원문: ${c.primaryUrl}`);
-  parts.push('');
-  parts.push('이 카드의 핵심, 실무 영향, 다음 체크포인트를 강차장 톤으로 설명해줘.');
-
-  return parts.join('\n');
+  if (c.primaryUrl) lines.push(`카드 URL: ${c.primaryUrl}`);
+  return lines.join('\n');
 }

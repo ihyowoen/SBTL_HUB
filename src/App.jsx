@@ -1343,6 +1343,15 @@ function NewsDesk({ kb, onAskChatbot, dark }) {
       return false;
     });
   }
+
+  const rank = { t: 3, h: 2, m: 1, i: 0 };
+  cards = [...cards].sort((a, b) => {
+    const da = String(a.d || "");
+    const db = String(b.d || "");
+    if (db !== da) return db.localeCompare(da);   // 최신 날짜 먼저
+    return (rank[b.s] || 0) - (rank[a.s] || 0);   // 같은 날짜면 TOP/HIGH 우선
+  });
+
   const visible = cards.slice(0, showCount);
   const dates = [...new Set(visible.map((c) => c.d))];
   const highlights = latestCards(kb.cards, 4, null, kstToday());

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastUpdated": "2026-04-15T14:00:00+09:00",
+    "lastUpdated": "2026-04-16T20:00:00+09:00",
     "totalItems": 61,
     "version": "1.0"
   },
@@ -387,35 +387,35 @@
       "id": "NA-008",
       "r": "NA",
       "s": "UPCOMING",
-      "t": "Section 301 관세 exclusion 연장 여부 결정",
-      "d": "178개 품목 exclusion 2026.11.10까지 연장. 미중 관세 휴전 후속 조치. 배터리·EV·반도체·태양광·핵심광물 포함. 만료 후 연장·수정 가능.",
-      "dt": "2026.11.10",
+      "t": "트럼프-시진핑 관세 휴전 연계 Section 301 exclusion 178개 품목 연장 (~2026.11.10)",
+      "d": "2025.11.01 트럼프-시진핑 관세 휴전 합의 후속 조치. USTR이 178개 품목 exclusion을 2025.11.29 만료에서 2026.11.10(정확히는 2026.11.09 11:59 PM EDT)까지 연장. 중국측 상응 조치: 중국 exclusion 프로세스를 2026.12.31까지 연장 (미국산 구매 촉진). Federal Register Notice 2025-21671 공식 게재 (2025.12.01).",
+      "dt": "~2026.11.10 (다음 연장/종료 결정 대기)",
       "src": [
         {
-          "n": "USTR (Section 301 Final Modification)",
-          "u": "https://ustr.gov/sites/default/files/Section%20301%20Modifications%20Determination%20FRN%20(Sept%2012%202024)%20(FINAL).pdf"
+          "n": "USTR Federal Register Notice 2025-21671",
+          "u": "https://www.federalregister.gov/documents/2025/12/01/2025-21671/notice-of-product-exclusion-extensions-chinas-acts-policies-and-practices-related-to-technology"
         },
         {
-          "n": "White & Case (Tariff Analysis)",
-          "u": "https://www.whitecase.com/insight-alert/united-states-finalizes-section-301-tariff-increases-imports-china"
+          "n": "USTR Press Release",
+          "u": "https://ustr.gov/about/policy-offices/press-office/press-releases/2025/november/ustr-extends-exclusions-china-section-301-tariffs-related-forced-technology-transfer-investigation"
         },
         {
-          "n": "Supply Chain Dive (Exclusion Extension)",
-          "u": "https://www.supplychaindive.com/news/ustr-section-301-tariff-exclusions-extension/749816/"
+          "n": "USTR FRN PDF (원문)",
+          "u": "https://ustr.gov/sites/default/files/files/Press/Releases/2025/Extending%20Exclusions%20to%20Nov%202026%20-%20Final%20FRN%20for%20Posting.pdf"
         }
       ],
-      "tip": "Section 301 배터리 관세는 만료 개념 아님 — USTR 4년 리뷰(2024.09 최종)로 확정된 영구 수정. exclusion만 갱신 대상",
-      "detail": "• Section 301 배터리 관세 최종 구조 (2024.09.13 USTR 확정):\n  - EV 리튬이온 배터리: 7.5%→25% (2024.09.27~)\n  - 비EV 리튬이온 배터리: 7.5%→25% (2026.01.01~)\n  - 천연흑연: 0%→25% (2026.01.01~)\n  - 영구자석: 0%→25% (2026.01.01~)\n• reciprocal tariff 34%(2025.08~)와 합산 시 EV 배터리 실질 약 59%\n• 흑연 반덤핑 추가: 예비 102.72% — 합산 시 중국산 흑연 150%+ 가능\n• exclusion은 제조장비(Ch.84-85) 대상이며 배터리 셀·모듈은 exclusion 대상 아님\n• USTR 4년 리뷰는 영구 수정이므로 \"만료\"가 아닌 \"조정\" 모니터링이 맞음",
-      "lastChecked": "2026-04-15",
-      "checkNote": "2026.03 기준 178개 exclusion Nov 10, 2026까지 재연장 확인. 기본 Section 301 세율(배터리 25%, EV 100%) 자체는 변동 없음"
+      "tip": "BESS·EV·배터리·태양광·핵심광물·반도체 관련 178개 품목이 Section 301 관세 면제. 기본 관세율(배터리 25%, EV 100% 등) 자체는 변동 없음 — exclusion만 연장. 2026.11 전 다음 라운드 협상·결정 주시",
+      "detail": "• 배경: 2025.09.16 USTR 공개의견 요청 → 147개 품목이 연장 지지 의견 수렴 → 트럼프-시진핑 합의로 연장 확정\n• 법적 근거: Section 307(a)(1), Trade Act 1974 (19 U.SC. 2411-2418)\n• HTSUS 적용 코드: 9903.88.69, 9903.88.70 (U.S. notes 20(vvv)(i)~(iv), 20(www))\n• 유효 기간: 2025.11.30 00:01 AM EST ~ 2026.11.09 11:59 PM EDT\n• 중국 상응 조치: 자국 exclusion 프로세스 2026.12.31까지 연장\n• 해운·해사·조선 관련 Section 301 조치(9903.91.12~16)도 2026.11.10까지 1년 유예\n• 주의: Section 301 기본 관세(배터리 25%, EV 100%, 흑연 25% 등)는 계속 적용. Exclusion은 특정 HTSUS 코드 품목만 면제",
+      "lastChecked": "2026-04-16",
+      "checkNote": "2025.12.01 Federal Register 공식 게재 확인. FRN 정확한 만료시한은 '2026.11.09 11:59 PM EDT' (press release·secondary sources는 'until November 10, 2026'로 표현). 연장 여부 모니터링: 다음 만료 2026.11 전 협상·결정 주시"
     },
     {
       "id": "NA-009",
       "r": "NA",
       "s": "UPCOMING",
       "t": "Treasury FEOC Safe Harbor 테이블 정식 발표",
-      "d": "법정 기한 2026.12.31. IRS 비용 배분 테이블 확정 — MACR 계산 표준화.",
-      "dt": "~2026.12.31 법정",
+      "d": "OBBBA §7701(a)(52)(D)(iii)(I) 규정상 Treasury/IRS는 PFE-specific Safe Harbor 테이블을 2026.12.31까지 공표해야 함. 현재 Notice 2026-15 interim guidance로 Notice 2025-08 domestic content 테이블을 대체 사용 중. Forthcoming proposed regulations 시점 미정.",
+      "dt": "~2026.12.31 (법정 기한)",
       "src": [
         {
           "n": "IRS (§7701(a)(52))",
@@ -428,8 +428,8 @@
       ],
       "tip": "Safe Harbor 테이블이 나오기 전에는 기존 domestic content 테이블(Notice 2025-08)을 MACR에도 사용 가능",
       "detail": "• 법정 기한 2026.12.31이나 Treasury가 조기 발표할 수도 있음\n• 테이블 발표 후 60일 이내에 기존 domestic content 테이블 사용 불가\n• 테이블에 포함되지 않는 부품(커스텀 인클로저 등)은 실제 직접 비용으로 계산\n• 제조사는 연간 평균 비용으로 MACR 산출 가능 — 분기별 변동 완화 효과",
-      "lastChecked": "2026-04-15",
-      "checkNote": "Safe Harbor 테이블 법정 기한 2026.12.31. proposed regulations 시기 미정. 현재 2025-08 domestic content 테이블로 대용 가능"
+      "lastChecked": "2026-04-16",
+      "checkNote": "법정 기한 2026.12.31. Notice 2026-15 공개의견 수렴 3/30 마감 완료. 후속 proposed regulations 발표 시점 미정 — FY2026 Q2~Q4 발표 가능성"
     },
     {
       "id": "EU-001",
@@ -1132,24 +1132,28 @@
     {
       "id": "JP-004",
       "r": "JP",
-      "s": "ACTIVE",
-      "t": "METI 밸런싱 시장 가격상한 개정 + 구조개편 시행",
-      "d": "METI 밸런싱 시장 프리미엄 상품(Primary·Secondary-1·composite) 가격상한 ¥19.51→¥7.21/ΔkW·30min 인하 제안 (63% 감소). Secondary-2·Tertiary-1과 동일화. 시장 참여자 반대 의견 있어 최종 시행 여부 모니터링 필요.",
-      "dt": "2026.04~",
+      "s": "UPCOMING",
+      "t": "METI 밸런싱 시장 프리미엄 상품 가격상한 ¥7.21 인하 제안 (FY2026 시행 예정)",
+      "d": "Primary·Secondary-1·composite 상한 ¥19.51→¥7.21/ΔkW·30min 제안 (2025.10 System Review WG). 약 63% 인하. Secondary-2·Tertiary-1과 동일화. 시장 참여자 반대로 FY2026(2026.04~) 실제 시행 여부·유예 조치 미확정.",
+      "dt": "2026.04~ (FY2026 시행 예정)",
       "src": [
         {
-          "n": "METI (System Review WG)",
-          "u": "https://www.meti.go.jp/shingikai/enecho/denryoku_gas/denryoku_gas/seido_kento/"
+          "n": "Greenberg Traurig (법률 분석)",
+          "u": "https://www.gtlaw.com/en/insights/2026/1/meti-proposes-price-cap-reductions-in-japans-balancing-market-implications-for-battery-energy-storage-systems"
         },
         {
-          "n": "Greenberg Traurig",
-          "u": "https://www.gtlaw.com/en/insights/2026/1/meti-proposes-price-cap-reductions-in-japans-balancing-market-implications-for-battery-energy-storage-systems"
+          "n": "Shulman Advisory (업계 분석)",
+          "u": "https://shulman-advisory.com/meti-moves-to-reshape-japans-balancing-market-with-new-price-cap-limits/"
+        },
+        {
+          "n": "Volue (시장 기술)",
+          "u": "https://www.volue.com/news/japan-market-changes-2026"
         }
       ],
-      "tip": "BESS 프로젝트 수익성에 직접 영향. 고속응답 밸런싱 차익 의존 프로젝트 경제성 재평가 필요. LTDA 정책 전환과 연계 — METI가 장기·대용량 쪽으로 우선순위 이동 신호",
-      "detail": "• 가격상한 인하 (EPRX 2026.2.5 공식 결정):\n  - 복합·Primary·Secondary-1: ¥19.51→¥15.00 (약 23%↓)\n  - Secondary-2·Tertiary-1: ¥7.21 유지 (변경 없음)\n  - Tertiary-2: 상한 없음 유지\n• ⚠️ 주의: 다수 영문 보도가 METI 초기 제안(2025.10)의 \"¥7.21(63%↓)\"를 그대로 인용 중. EPRX 공식 결정은 ¥15.00으로 완화됨\n• FY2024 평균 결제가: composite ¥15.70 → 상한 ¥15.00이면 수익 영향 제한적(약 4%↓)\n  (¥7.21이었다면 54%↓ — 큰 차이)\n• 시장 구조개편 (4월~):\n  ① 일일(day-ahead) 조달 전환 (기존 주간)\n  ② 30분 단위 시장\n  ③ 저압 자원(가정용 배터리, EV) 참여 허용\n  ④ JEPX 거래 시스템 API 기반 전환\n• LTDA 3차 라운드 진행 중. 3차부터 단일국 셀 30% 상한\n• BESS 접속 신청 170.8GW(2025말) — 실운영의 약 300배",
-      "lastChecked": "2026-04-15",
-      "checkNote": "2025.10·12 System Review WG에서 시장 참여자 반대. 2026.04 시행 여부 또는 유예 결정 모니터링 중. 이전 세션에서 ¥15.00으로 기재했으나 실제 제안은 ¥19.51→¥7.21"
+      "tip": "BESS arbitrage 의존 프로젝트 경제성 재평가 필요. FY2024 BESS composite 평균 정산가 ¥15.70 vs 전체 평균 ¥5.77 — BESS가 상한선에 몰려 있었음. 시행되면 수익성 큰 타격",
+      "detail": "• 배경: FY2024 BESS 자산의 composite 평균 정산가 ¥15.70/ΔkW·30min (전체 평균 ¥5.77), scarcity peak는 ¥19.51 상한 도달\n• FY2024 mid-year 조달량 축소 후 BESS 평균 ¥10.84까지 하락했으나 여전히 제안된 ¥7.21 초과\n• METI 의도: 상한에 몰린 입찰로 인한 과도한 조달비용 방지\n• 업계 우려 (2025.10·12 WG): 프로젝트 파이낸싱 난항, spot 시장·한계비용이 ¥7.21 초과 시 시장 참여 위축, withholding 유인 발생 가능성\n• 동반 변경: FY2026.04부터 상품 I·II-①·III-①이 day-ahead 조달로 전환 (기존 week-ahead)\n• 정책 함의: LTDA 2025-26 가이드라인 변경과 함께 METI/OCCTO의 우선순위가 fast-response BESS에서 long-duration·long-term capacity로 이동하는 신호\n• 투자 시사점: 낮은 C-rate(0.25C~0.5C) 장주기 BESS로 선호 이동, fast-response·고C-rate 시스템은 혁신 모멘텀 둔화",
+      "lastChecked": "2026-04-16",
+      "checkNote": "2025.10·12 METI System Review WG 제안 단계. 시장 참여자 반대로 2026.04 시행 또는 유예 결정 미확정. FY2026 시작(2026.04.01) 이후 공식 시행 확인 뉴스 없음 (2026.04.16 기준). 정기 모니터링 필요"
     },
     {
       "id": "JP-005",
@@ -1571,45 +1575,77 @@
       "id": "CN-015",
       "r": "CN",
       "s": "ACTIVE",
-      "t": "4부처 합동 배터리 산업 '반내권(反内卷)' 종합 거버넌스",
-      "d": "MIIT·NDRC·SAMR·NEA 4개 부처 합동 심포지엄(2026.01.07). 16개 주요 배터리 기업 참석. 저가 덤핑·맹목적 증설·제품 동질화에 대한 시장질서 정비 방침. 용량 규제·표준 설정·품질 감독·가격 법집행·독점금지·지식재산권 보호·기술진보 촉진 등 종합 수단 동원.",
-      "dt": "2026.01.07",
+      "t": "중국 '반내권(反内卷)' 거버넌스 — 2025.H2~2026 배터리 산업 4부처 연합 규제 시리즈",
+      "d": "工信部·国家发改委·市场监管总局·国家能源局 4부처 연합 동력·저장 배터리 산업 座谈会 시리즈. 저가 경쟁·맹목적 증설·품질 문제 규제 방침. 2025.11.28 → 2026.01.07 → 2026.04.09 세 차례 소집(40일 간격으로 재개). 李乐成 工信部 部长·辛国斌 副部长 주재.",
+      "dt": "2026.01.07 (1차) / 2026.04.09 (최근 3차)",
       "src": [
         {
-          "n": "Basengreen",
-          "u": "https://www.basenpower.com/china-battery-regulators-price-war-capacity-crackdown-2026/"
+          "n": "新浪财经 (工信微报 공식 보도)",
+          "u": "https://finance.sina.com.cn/roll/2026-01-08/doc-inhfqcaz1507453.shtml?froms=ggmp"
         },
         {
-          "n": "Gasgoo",
-          "u": "https://autonews.gasgoo.com/articles/ev/battery-industry-entering-the-first-year-of-anti-involution-2021581149871022080"
+          "n": "每经网 (매일경제신문)",
+          "u": "https://www.nbd.com.cn/articles/2026-01-08/4212885.html"
+        },
+        {
+          "n": "证券时报 (11.28 1차)",
+          "u": "https://www.stcn.com/article/detail/3517109.html"
+        },
+        {
+          "n": "新浪财经 (4.9 3차)",
+          "u": "https://finance.sina.com.cn/wm/2026-04-13/doc-inhuixxe4808848.shtml"
+        },
+        {
+          "n": "新京报 (참석 기업인 실명)",
+          "u": "https://m.bjnews.com.cn/detail/1767965501129060.html"
         }
       ],
-      "tip": "SBTL 관점: 중국 LFP 저가 공세의 구조적 제동 신호. 과잉설비 조정·가격 정상화가 실현되면 글로벌 셀 가격 바닥 형성에 영향",
-      "detail": "• 참석 기업: 16개 주요 동력·저장 배터리 기업 (구체 리스트 미공개)\n• 핵심 메시지: '반내권(anti-involution)'이 기업 생존 전략에서 정부 정책 지침으로 격상\n• 후속 조치: 수출 부가세 환급률 인하(CN-010), 품질 표준 강화 등 연계\n• 배경: 2025년 LFP 과잉설비 압력 완화 시작, 선두 기업 마진 반등. 2026년을 '반내권 원년'으로 규정\n• 영향: 셀 가격 추가 하락 제한, 후발 업체 퇴출 가속, 기술·품질 중심 경쟁 유도",
-      "lastChecked": "2026-04-15",
-      "checkNote": "2026.01.07 심포지엄 개최 확인. 구체 규제 조치(시행령 등)는 아직 미발표. 방향성 선언 + 후속 조치 연계 구조"
+      "tip": "SBTL 관점: 단순 심포지엄이 아닌 **반복·에스컬레이팅 거버넌스 시리즈**. 매 40일~3개월 주기로 재소집·조치 강화. 1월 7일 4대 방침 → 4월 9일 공급사 결제일 단축 등 구체조치 추가. 중국 LFP 저가 공세 구조적 제동 신호 — 부가세 환급 인하(CN-010)와 함께 연계 패키지",
+      "detail": "## 거버넌스 타임라인\n• **2025.07**: 정치국 회의 — \"내권식 경쟁 종합 정비\" 기조 확립\n• **2025.08.19**: MIIT+5부처 PV 부문 座谈会 (선례)\n• **2025.09**: 반내권 이니셔티브 런칭 — 150개사 endorsement\n• **2025.11.28**: 工信部 단독 1차 — **李乐成 部长** 주재, \"당중앙 중시\" 메시지\n• **2025.12.26**: SAMR 허페이에서 PV 산업 compliance guidance\n• **2026.01.07**: 4부처 연합 2차 — **辛国斌 副部长** 주재, 16개사(13 배터리사+3 시스템통합사) 참석\n• **2026.01.14**: MIIT·NDRC·SAMR 3부처 NEV 부문 座谈会 — 17개 완성차 기업\n• **2026.04.09**: 4부처 연합 3차 — 16개사 재소집, **공급사 결제일 압축**·가격경쟁 규제·IP 침해 단속 구체조치\n\n## 1.7 座谈会 참석자 (13개 배터리·소재사 + 3개 시스템통합사)\n**배터리사**: CATL(宁德时代), BYD(比亚迪), CALB(中创新航), Gotion(国轩高科), EVE Energy(亿纬锂能), Sunwoda(欣旺达), HiTHIUM(海辰储能), REPT Battero, SVOLT, Great Power, Zhenli, Jiyao Tongxing, Cornex\n**소재사**: Tinci Materials(天赐材料, 전해액), ENJIE(恩捷股份, 분리막), Easpring(容百科技, NMC 양극), BTR(贝特瑞, 음극)\n**시스템통합사** (4.9 추가): CRRC Zhuzhou(中车株洲所), HyperStrong(海博思创), Trina Storage(天合储能)\n**참석 경영진 확인**: 王传福(BYD 董事长), 李平(CATL 副董事长), 刘金成(EVE 董事长), 王明旺(欣旺达 创始人), 刘静瑜(CALB 董事长), 王鹏程(HiTHIUM 总经理)\n\n## 4대 규제 방침 (1.7 결정)\n1. **市场监管 강화**: 가격 법집행 검사·생산 일관성·품질 감독·IP 침해 단속\n2. **产能 관리**: 생산능력 모니터링·등급 조기경보·거시조정으로 과잉설비 방지\n3. **行业自律**: 협회 역할 강화, 과학적 설비 배치 유도\n4. **区域协同**: 중앙-지방 연동 강화, 중복투자 엄격통제\n\n## 3차(4.9) 추가 구체조치\n• 공급사 **账期(결제일)** 압축 — 후방 공급사 대금 지급 조기화 의무\n• 지역 투자유치 규범화 (지방정부 보조금 경쟁 억제)\n• 실험실 데이터로 양산 성능 과장 광고 단속\n• 부정행위 negative list 구축\n\n## 시장 반응\n• 2026.04.10 A주 배터리 섹터 집체 상승 (国轩·欣旺达·亿纬锂能 涨停, 저장 ETF +4%)\n• CITIC 증권: \"2026년 리튬 배터리 공급-수요 구조 개선\" 전망\n• Goldman은 감산 전망했으나 CATL은 오히려 가이던스 상향\n• LFP는 2026년 손실 탈피 전망 (SMM)\n\n## 상호 연동 정책\n• **CN-010** (부가세 환급 인하): 반내권의 재무적 수단\n• **CN-001·004·005** (탄소발자국·회수·종합이용): 품질·순환 규범의 연장선\n• **CN-014** (十五五 규획): \"高质量发展\" 프레임의 제도화",
+      "lastChecked": "2026-04-16",
+      "checkNote": "MIIT 공식 '工信微报' 보도 확인(Sina 전재). 참석 기업 실명 신경보 확인. 2026.04.09 3차 회의 시점 확인 — 시리즈가 계속 에스컬레이션 중. 다음 회의 시점·구체 시행령 발표 모니터링 필요. 업계 종합 전망: LFP 가격 바닥권 통과 + 공급사 결제 관행 개선 가속"
     },
     {
       "id": "JP-010",
       "r": "JP",
       "s": "ACTIVE",
-      "t": "METI CEV 보조금 공급망 안보 연동 개편 (2026.04.01 시행)",
-      "d": "CEV(클린 에너지 차량) 보조금 평가 기준에 경제안보추진법 기반 배터리 안정 공급 항목 추가. 200점 만점 중 공급망 안보 비중 대폭 확대. BYD 전 모델 보조금 ¥35만~45만→¥15만 삭감. Toyota bZ4X는 ¥130만 유지.",
-      "dt": "2026.04.01~",
+      "t": "METI CEV 보조금 공급망 안보·경제안보 평가 기준 개편 (2026.01 1차·2026.04 2차·2027.01 본격 적용)",
+      "d": "CEV(클린에너지 차량) 보조금 평가 기준을 단계적 개편: (1) 2025.12.18 발표 → 2026.01.01 EV 상한 ¥90만→¥130만 인상(미일 관세 합의 연계), (2) 2026.03.27 발표 → 2026.04.01 평가 기준 개정(200점 만점 중 공급망 안정성·사이버보안에 100점 배정), (3) 2027.01부터 대폭 감액 본격 적용. 도요타 bZ4X ¥130만(상한) 유지 vs BYD 각 차종 ¥15만으로 감액 방향 — 격차 최대 ¥115만.",
+      "dt": "2026.01.01 (1차 시행) / 2026.04.01 (기준 개정) / 2027.01 (감액 본격)",
       "src": [
         {
-          "n": "lounges.site (분석)",
-          "u": "https://lounges.site/en/2026/04/02/cev-subsidy-loyalty-test-japan-2026/"
+          "n": "METI 공식 PDF (CEV補助金 보조상한액 재검토)",
+          "u": "https://www.meti.go.jp/policy/mono_info_service/mono/automobile/cev/R6H_CEV_jyougen.pdf"
         },
         {
-          "n": "Global Auto Insight",
-          "u": "https://www.globalautoinsight.com/read_news.php?id=238"
+          "n": "METI R8년도 GX支援対策費 (CEV 보조금 근거)",
+          "u": "https://www.meti.go.jp/main/yosangaisan/fy2026/pr/gx.html"
+        },
+        {
+          "n": "次世代自動車振興センター(NeV) 집행 주체",
+          "u": "https://www.cev-pc.or.jp/"
+        },
+        {
+          "n": "日本経済新聞 (BYD ¥15만 감액, 2027.01 이후 적용 명시)",
+          "u": "https://www.nikkei.com/article/DGXZQOUC274W00X20C26A3000000/"
+        },
+        {
+          "n": "Nikkei (판매 격차 보도, 2026.04)",
+          "u": "https://www.nikkei.com/article/DGXZQOUC035I90T00C26A4000000/"
+        },
+        {
+          "n": "BestCar (4.1 시행 영향)",
+          "u": "https://bestcarweb.jp/news/entame/1482938"
+        },
+        {
+          "n": "TEPCO EV DAYS (제도 해설)",
+          "u": "https://evdays.tepco.co.jp/entry/2021/05/06/000009"
         }
       ],
-      "tip": "사실상 중국산 배터리 탑재 EV에 대한 비관세 장벽. 일본판 FEOC — 보조금 차등을 통한 공급망 안보 실현. 미일 관세 합의와 연계",
-      "detail": "• 2026.01 1차 개편: EV 보조금 상한 ¥90만→¥130만 인상, FCV ¥255만→¥150만 인하\n• 2026.04 2차 개편: 평가 기준에 배터리 안정 공급(경제안보추진법) + 미일 희토류 확보 프레임워크 반영\n• 결과: BYD ¥15만 vs Toyota ¥130만 (격차 ¥115만)\n• Tesla: FSD 미사용에도 최대 보조금 근접 — 미국 제조 공급망 인정\n• USTR이 2025년 CEV 보조금을 '비관세 장벽'으로 지적한 것이 개편 배경\n• 그린스틸 채택 제조사 추가 인센티브 (2026.04~)",
-      "lastChecked": "2026-04-15",
-      "checkNote": "2026.04.01 시행 확인. BYD 일본 대표 '중국 메이커라서 그런 거면 그렇다고 말하라' 발언(닛케이 보도)"
+      "tip": "SBTL 관점: **일본판 FEOC 유사 메커니즘**. 보조금 차등을 통한 공급망 안보 실현 — 배터리 제조국·공급망 지역성이 보조금 결정 변수로 제도화. 2026.04 기준 개정 → 2027.01 본격 적용의 단계적 phase-in 구조이므로 BYD 등 중국계는 2026년 내 판매 전략 재편 불가피. 도요타·닛산·스바루·테슬라는 최대치 유지.",
+      "detail": "## 개편 3단계 타임라인\n**1단계 (2025.12.18 발표, 2026.01.01 시행)** — 미일 관세 합의 후속\n• EV 보조금 상한 ¥90만 → **¥130만** (+¥40만)\n• PHEV ¥85만 (증액)\n• FCV ¥255만 → ¥150만 (−¥105만, FCV 편파 해소)\n• 경차 EV ¥58만 (유지)\n\n**2단계 (2026.03.27 발표, 2026.04.01 시행)** — 평가 기준 개정\n• **200점 만점** 유지, 내부 배점 재조정\n• 신규 100점 배정: **공급망 안정성 + 사이버보안**\n  - 주요 부품·소재 공급 안정성 (경제안보추진법 특정중요물자 기반)\n  - 공급망 가시성, 미일 중요광물 확보 프레임워크 연계\n• 차량 성능 점수 감축 (\"기종 간 주행거리 수렴\")\n• 추가: 그린 강재 가산조치(최대 ¥3-5만)\n\n**3단계 (2027.01 본격 적용)** — 닛케이 확인\n• 대폭 감액은 2027.01 이후 본격 적용\n• FY2026(2026.04-2027.03) 전환기간 중 단계적 반영\n\n## 차종별 보조금 영향\n**상한 ¥130만 (최대)**: 도요타 bZ4X, 닛산 리프, 스바루 솔테라\n**¥129만**: 닛산 아리아 (리프 포함)\n**¥127만**: 스즈키 eビターラ, **Tesla Model 3·Y** (미국제조 공급망 인정)\n**¥56.2만**: 현대 INSTER (소형 카테고리)\n**BYD (중국계, 감액 대상)**:\n  - 2025 이전: ¥65-75만\n  - 2026.01~: ¥35-45만\n  - 2026.04~: ¥15만 수준까지 하락 (BYD 劉学亮 社長 \"승부가 안 된다\" 발언)\n**Volvo**: ¥36-46만 (중국 Geely 소유 영향)\n\n## 정책 배경\n• 2025년 USTR이 CEV 보조금을 **\"일본 제조사에 가장 유리한 비관세 장벽\"** 지적\n• 미일 관세 합의 — 차종 간 보조금 격차 해소 요구\n• 日米 중요광물 확보 프레임워크 — 공급망 안보 가시화 요구\n• **경제안보추진법 특정중요물자** 지정: 축전지(배터리)가 공급확보계획 인증 대상 (JP-002와 직접 연동)\n\n## 평가 기준 구조 (200점 만점)\n• **공급망 안정성·사이버보안: 100점** (2026.04 신설)\n  - 주요 부품·소재 공급 안정성\n  - 사이버보안 대응\n• 차량 성능·환경 가치: 약 80점\n• GX 가치 (그린 강재 등): 약 20점 + 가산조치\n\n## 시사점\n• 미국 FEOC와 달리 일본은 **보조금 차등** 방식 — 판매 자체 제한은 아님\n• 그러나 실질적 효과: BYD 판매 2025 vs 2026 시장 점유율 변화 주시\n• Tesla 유리한 이유: 미국 제조 + 미일 관세 합의 수혜\n• BYD 대응: 일본 현지 생산 시설 구축 없이는 고득점 어려움",
+      "lastChecked": "2026-04-16",
+      "checkNote": "METI 공식 PDF + Nikkei(tier-1) 모두 확인. 단계적 phase-in 구조 확인: 2026.04 기준 개정 → 2027.01 본격 적용. BYD ¥15만은 2026.04~ 적용으로 secondary 보도하나, 닛케이는 2027.01 본격 감액 명시 — 2026년은 전환기. 2026.H2 NeV 공식 차종별 보조금 리스트 재검토 필요"
     }
   ]
 }

@@ -6,11 +6,13 @@ This document locks the durable default input mode for future card-generation ru
 It is not a one-off PR instruction.
 It is an operating rule for recurring editorial workflow.
 
-This document should be read together with:
-- `docs/CARD_WORKFLOW_VFINAL.md`
+This document locks **input discipline only**.
+It does not redefine card field semantics or final production schema.
+Those are governed by:
+- `docs/PROMPT_ABC_DEFAULT_MODE.md`
+- `docs/WORKFLOW.md`
 - `docs/OPERATIONS.md`
-- `docs/CARD_WORKFLOW_VFINAL_ADDENDUM_20260407.md`
-- `docs/OPERATIONS_CARD_EXECUTION_ADDENDUM_20260407.md`
+- `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md`
 
 ---
 
@@ -126,6 +128,7 @@ It preserves it.
 - tightens / validates / formats
 - must not silently discard
 - must not silently merge
+- final production output is **full schema only**
 
 ---
 
@@ -160,16 +163,4 @@ Operating Mode: triage_output + rescue + dropped default mode
 - discard/merge allowed only in Prompt A
 - Prompt B must write every passed spec
 - Prompt C must review every card draft and must not silently discard
-```
-
----
-
-## 10. Final Principle
-
-Keep the original A/B/C design as the governing workflow.
-Only the durable default input set is being locked here.
-
-That durable default input set is:
-- `triage_output`
-- `rescue`
-- `dropped`
+- Prompt C final production output = full schema only

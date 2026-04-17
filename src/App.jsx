@@ -374,6 +374,200 @@ function SmallPill({ label, dark }) {
   return <span style={{ fontSize: 9, fontWeight: 800, color: t.cyan, background: dark ? "rgba(88,166,255,0.14)" : "rgba(45,90,142,0.10)", padding: "4px 8px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>{label}</span>;
 }
 
+<<<<<<< HEAD
+function NewsItem({ card, dark }) {
+  const t = T(dark);
+  const sig = card.s || "i";
+  const [showGist, setShowGist] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
+  const [showWhy, setShowWhy] = useState(false);
+  const [summaryContent, setSummaryContent] = useState("");
+  const [whyContent, setWhyContent] = useState("");
+  const [analysisContent, setAnalysisContent] = useState("");
+  const [loadingAnalysis, setLoadingAnalysis] = useState(false);
+  const isForeign = card.r && card.r !== "KR";
+
+  const fetchAnalysis = async (mode) => {
+    setLoadingAnalysis(true);
+    try {
+      const res = await fetch("/api/analysis", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ card, mode }),
+      });
+      const data = await res.json();
+      if (mode === "why") setWhyContent(data.result);
+      else if (mode === "summary") setSummaryContent(data.result);
+      else if (mode === "analysis") setAnalysisContent(data.result);
+    } catch (err) {
+      console.error("Analysis fetch error:", err);
+      // Fallback to existing field data
+      if (mode === "why") setWhyContent(card.g || card.sub || "");
+      else if (mode === "summary") setSummaryContent(card.T + "\n\n" + (card.sub || ""));
+      else if (mode === "analysis") setAnalysisContent(card.g || "");
+    } finally {
+      setLoadingAnalysis(false);
+    }
+  };
+
+  return (
+    <div onClick={() => card.url && window.open(card.url, "_blank")} style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", borderLeft: `3px solid ${SIG_C[sig]}`, border: `1px solid ${t.brd}`, cursor: card.url ? "pointer" : "default" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 5 }}>
+        <span style={{ fontSize: 8, fontWeight: 800, color: SIG_C[sig], background: `${SIG_C[sig]}20`, padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>{SIG_L[sig]}</span>
+        <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{REG_FLAG[card.r] || "🌐"} {shortDate(card.d)}</span>
+        {isForeign && <span style={{ fontSize: 8, fontWeight: 700, color: "#58A6FF", background: "rgba(88,166,255,0.22)", padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>해외</span>}
+        {card.src && <span style={{ fontSize: 8, color: t.sub, marginLeft: "auto", fontFamily: "'JetBrains Mono',monospace" }}>{card.src}</span>}
+      </div>
+      <h3 style={{ fontSize: 13, fontWeight: 700, color: t.tx, margin: 0, lineHeight: 1.45 }}>{card.T}</h3>
+      {card.sub && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.45 }}>{card.sub}</p>}
+
+      {/* On-demand analysis panels - only shown when clicked */}
+      {showSummary && isForeign && (
+        <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(88,166,255,0.06)" : "rgba(88,166,255,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.15)" : "rgba(88,166,255,0.1)"}` }}>
+          <div style={{ fontSize: 9, fontWeight: 800, color: "#58A6FF", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>📰 한국어 요약</div>
+          {loadingAnalysis && !summaryContent ? (
+            <div style={{ fontSize: 10, color: t.sub, fontStyle: "italic" }}>분석 생성 중...</div>
+          ) : (
+            <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
+              {summaryContent}
+            </div>
+          )}
+          {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
+        </div>
+      )}
+      {showWhy && card.g && (
+        <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(209,153,34,0.06)" : "rgba(209,153,34,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(209,153,34,0.15)" : "rgba(209,153,34,0.1)"}` }}>
+          <div style={{ fontSize: 9, fontWeight: 800, color: "#D29922", marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 왜 중요한지</div>
+          {loadingAnalysis && !whyContent ? (
+            <div style={{ fontSize: 10, color: t.sub, fontStyle: "italic" }}>분석 생성 중...</div>
+          ) : (
+            <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
+              {whyContent}
+            </div>
+          )}
+          {card.src && <div style={{ fontSize: 9, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>출처: {card.src} · {fmtDate(card.d)}</div>}
+        </div>
+      )}
+      {showGist && card.g && (
+        <div style={{ marginTop: 8, padding: "10px 12px", background: dark ? "rgba(168,85,247,0.07)" : "rgba(168,85,247,0.04)", borderRadius: 8, border: `1px solid ${dark ? "rgba(168,85,247,0.2)" : "rgba(168,85,247,0.12)"}`, borderLeft: "3px solid #A855F7" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
+            <span style={{ fontSize: 9, fontWeight: 800, color: "#A855F7", fontFamily: "'JetBrains Mono',monospace" }}>🤖 AI 해설</span>
+            <span style={{ fontSize: 8, color: dark ? "rgba(168,85,247,0.6)" : "rgba(168,85,247,0.5)", fontStyle: "italic", fontFamily: "'JetBrains Mono',monospace" }}>※ AI 해석 기반 분석</span>
+          </div>
+          {loadingAnalysis && !analysisContent ? (
+            <div style={{ fontSize: 10, color: t.sub, fontStyle: "italic" }}>AI 해설 생성 중...</div>
+          ) : (
+            <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.7, whiteSpace: "pre-wrap" }}>
+              {analysisContent}
+            </div>
+          )}
+          {(card.src || card.d) && <div style={{ marginTop: 6, fontSize: 8, color: t.sub, opacity: 0.6, fontFamily: "'JetBrains Mono',monospace" }}>{card.src}{card.d ? ` · ${fmtDate(card.d)}` : ""}</div>}
+        </div>
+      )}
+
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, flexWrap: "wrap" }}>
+        {card.url && <span style={{ fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>open source ↗</span>}
+        {/* On-demand analysis buttons - click to reveal */}
+        {isForeign && (card.T || card.sub) && (
+          <button onClick={(e) => { e.stopPropagation(); if (!showSummary && !summaryContent) fetchAnalysis('summary'); setShowSummary(!showSummary); setShowWhy(false); setShowGist(false); }} aria-label={showSummary ? "Hide Korean summary" : "Show Korean summary"} style={{ fontSize: 9, color: "#58A6FF", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: "44px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showSummary ? "△ 요약 닫기" : "한국어 요약"}
+          </button>
+        )}
+        {card.g && (
+          <button onClick={(e) => { e.stopPropagation(); if (!showWhy && !whyContent) fetchAnalysis('why'); setShowWhy(!showWhy); setShowSummary(false); setShowGist(false); }} aria-label={showWhy ? "Hide importance" : "Show why important"} style={{ fontSize: 9, color: "#D29922", background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: "44px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showWhy ? "△ 닫기" : "왜 중요한지"}
+          </button>
+        )}
+        {card.g && (
+          <button onClick={(e) => { e.stopPropagation(); if (!showGist && !analysisContent) fetchAnalysis('analysis'); setShowGist(!showGist); setShowSummary(false); setShowWhy(false); }} aria-label={showGist ? "Close analysis" : "Show analysis"} style={{ fontSize: 9, color: "#A855F7", background: "transparent", border: `1px solid ${dark ? "rgba(168,85,247,0.3)" : "rgba(168,85,247,0.2)"}`, borderRadius: 999, padding: "8px 12px", minHeight: "44px", cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>
+            {showGist ? "△ 닫기" : "🤖 AI 해설"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const AUTO_IMAGES = {
+  POLICY: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=1200&q=80',
+  FINANCE: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
+  FACTORY: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80',
+  AUTO: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1200&q=80',
+  BATTERY: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1200&q=80',
+  TECH: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+  DEFAULT: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
+};
+
+function pickHomeCover(card) {
+  const text = [card?.T, card?.title, card?.sub, card?.g, card?.gate, card?.source, card?.src]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  if (/(ira|feoc|crma|보조금|관세|규제|법안|정부|정책|세액공제)/.test(text)) return AUTO_IMAGES.POLICY;
+  if (/(실적|영업이익|매출|주가|투자|적자|흑자|m&a|상장)/.test(text)) return AUTO_IMAGES.FINANCE;
+  if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율)/.test(text)) return AUTO_IMAGES.FACTORY;
+  if (/(테슬라|전기차|ev|완성차|현대차|기아|포드|gm|bmw|폭스바겐)/.test(text)) return AUTO_IMAGES.AUTO;
+  if (/(배터리|lfp|전고체|리튬|니켈|코발트|흑연|양극재|음극재|분리막|전해액|ess|bess|catl|byd|엔솔|sdi)/.test(text)) return AUTO_IMAGES.BATTERY;
+  if (/(기술|r&d|특허|연구|차세대|효율|혁신|개발|테스트|파일럿)/.test(text)) return AUTO_IMAGES.TECH;
+  return AUTO_IMAGES.DEFAULT;
+}
+
+function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
+  const t = T(dark);
+  const featured = WEBTOON_COLLECTIONS[0];
+  const picks = latestCards(kb.cards, 4, null, kstToday());
+  const today = kstNow();
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+  const todayStr = `${kstToday()} (${dayNames[today.getDay()]})`;
+  const lead = picks[0] || null;
+  const rest = picks.slice(1, 4);
+
+  return (
+    <div style={{ padding: "0 14px 120px", display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#1F2840" : "#EEF3FF"})`, borderRadius: 18, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}`, boxShadow: t.sh }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
+          <SmallPill label="TODAY" dark={dark} />
+          <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{todayStr}</span>
+        </div>
+        <div style={{ fontSize: 24, fontWeight: 900, color: t.tx, lineHeight: 1.2 }}>오늘의 뉴스</div>
+        <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.65, marginTop: 8 }}>
+          오늘 봐야 할 흐름만 먼저 읽고, 필요하면 뉴스 피드나 강차장 상담으로 이어집니다.
+        </div>
+      </div>
+
+      {lead ? (
+        <StoryNewsItem
+          card={lead}
+          dark={dark}
+          onAskChatbot={onAskChatbot}
+          coverImage={pickHomeCover(lead)}
+          featured
+        />
+      ) : (
+        <div style={{ background: t.card2, borderRadius: 14, padding: "16px", border: `1px solid ${t.brd}`, fontSize: 12, color: t.sub, lineHeight: 1.6 }}>
+          오늘 기준 등록된 뉴스카드가 아직 없습니다.
+        </div>
+      )}
+
+      {rest.length > 0 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {rest.map((card, i) => (
+            <StoryNewsItem
+              key={`${card.id || card.T || card.title}-${i}`}
+              card={card}
+              dark={dark}
+              onAskChatbot={onAskChatbot}
+              coverImage={i === 0 ? pickHomeCover(card) : ""}
+            />
+          ))}
+        </div>
+      )}
+
+      <div style={{ display: "flex", gap: 8 }}>
+        <button onClick={() => onNav("news")} style={{ flex: 1, border: "none", borderRadius: 10, padding: "12px 14px", minHeight: "44px", background: t.cyan, color: "#000", fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>NEWS FEED →</button>
+        <button onClick={() => onNav("tracker")} style={{ flex: 1, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "12px 14px", minHeight: "44px", background: "transparent", color: t.tx, fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>TRACKER →</button>
+=======
 function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
@@ -425,21 +619,34 @@ function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
           <button onClick={() => onNav("news")} style={{ flex: 1, border: "none", borderRadius: 10, padding: "12px 12px", background: t.cyan, color: "#000", fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>NEWS FEED →</button>
           <button onClick={() => onAskChatbot("오늘 핵심 흐름을 3줄로 정리해줘")} style={{ flex: 1, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "12px 12px", background: "transparent", color: t.tx, fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>강차장 요약 →</button>
         </div>
+>>>>>>> origin/main
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
         <div onClick={() => onNav("webtoon")} style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
-          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>FEATURED SERIES</div>
-          <div style={{ fontSize: 18, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>{featured.title}</div>
-          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.55, marginTop: 8 }}>{featured.subtitle}</div>
+          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>TOON</div>
+          <div style={{ fontSize: 15, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>웹툰</div>
+          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.5, marginTop: 8 }}>{featured.title}</div>
         </div>
+
         <div onClick={() => onNav("chatbot")} style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
           <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>AI DESK</div>
+<<<<<<< HEAD
+          <div style={{ fontSize: 15, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>상담소</div>
+          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.5, marginTop: 8 }}>카드 기준으로 바로 대화</div>
+=======
           <div style={{ fontSize: 18, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>강차장의 배터리상담소</div>
           <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.55, marginTop: 8 }}>읽다가 막히는 카드가 생기면 바로 이어서 묻는 구조로 쓸 수 있어.</div>
+>>>>>>> origin/main
         </div>
-      </div>
 
+<<<<<<< HEAD
+        <div onClick={() => onNav("tracker")} style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
+          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>TRACKER</div>
+          <div style={{ fontSize: 15, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>정책</div>
+          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.5, marginTop: 8 }}>{tracker.meta.totalItems} items</div>
+        </div>
+=======
       <div style={{ background: t.card2, borderRadius: 16, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, marginBottom: 10 }}>
           <div>
@@ -464,6 +671,7 @@ function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
             <button key={item.label} onClick={() => onAskChatbot(item.prompt)} style={{ border: `1px solid ${t.brd}`, background: dark ? "rgba(255,255,255,0.03)" : "#fff", color: t.tx, borderRadius: 999, padding: "11px 14px", minHeight: "44px", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>{item.label}</button>
           ))}
         </div>
+>>>>>>> origin/main
       </div>
     </div>
   );

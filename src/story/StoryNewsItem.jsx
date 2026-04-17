@@ -39,6 +39,7 @@ function fmtDate(date) {
   return s;
 }
 
+<<<<<<< HEAD
 function uniqueLines(...values) {
   const seen = new Set();
   const out = [];
@@ -73,6 +74,33 @@ function MetaPill({ children, dark }) {
 }
 
 export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '', featured = false }) {
+=======
+function previewText(text, fallback) {
+  const value = String(text || '').trim();
+  if (!value) return fallback;
+  return value;
+}
+
+function StoryLine({ label, text, color, dark }) {
+  const t = theme(dark);
+  return (
+    <div style={{
+      background: t.soft,
+      border: `1px solid ${t.brd}`,
+      borderRadius: 14,
+      padding: '12px 13px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 5,
+    }}>
+      <div style={{ fontSize: 10, fontWeight: 900, color, fontFamily: "'JetBrains Mono',monospace" }}>{label}</div>
+      <div style={{ fontSize: 12, color: t.tx, lineHeight: 1.6 }}>{text}</div>
+    </div>
+  );
+}
+
+export default function StoryNewsItem({ card, dark, onAskChatbot }) {
+>>>>>>> origin/main
   const t = theme(dark);
   const c = useMemo(() => normalizeCard(card), [card]);
   const [activeMode, setActiveMode] = useState(null);
@@ -81,6 +109,7 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
   const sig = SIG_COLORS[c.signal] || SIG_COLORS.info;
   const sigLabel = SIG_LABELS[c.signal] || 'INFO';
   const regionFlag = REGION_FLAGS[c.region] || '🌐';
+<<<<<<< HEAD
   const hasCover = Boolean(coverImage);
   const lines = activeMode ? makeBriefLines(c, activeMode) : [];
 
@@ -168,11 +197,54 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
                 <button onClick={() => onAskChatbot(buildCardConsultPrompt(card))} style={{ borderRadius: 999, border: `1px solid ${t.brd}`, background: dark ? 'rgba(255,255,255,0.03)' : '#fff', color: t.tx, padding: '11px 14px', minHeight: '42px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}>이 카드로 계속 물어보기</button>
               </div>
             ) : null}
+=======
+  const panelBody = panel === 'fact' ? c.fact : panel === 'gate' ? c.gate : panel === 'implication' ? c.implicationText : '';
+  const factPreview = previewText(c.fact, '핵심 사실은 카드 내용을 열어서 확인해봐야 해.');
+  const gatePreview = previewText(c.gate, '이 카드의 의미는 상담소에서 더 바로 이어서 볼 수 있어.');
+  const implicationPreview = previewText(c.implicationText, '강차장 코멘트는 버튼을 눌러 확장해서 보는 구조야.');
+
+  return (
+    <div style={{ background: t.card2, borderRadius: 22, border: `1px solid ${t.brd}`, overflow: 'hidden', boxShadow: t.shadow }}>
+      <div style={{ height: 5, background: sig }} />
+      <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+            <span style={{ fontSize: 10, fontWeight: 900, color: '#fff', background: sig, padding: '5px 9px', borderRadius: 999 }}>{sigLabel}</span>
+            <span style={{ fontSize: 10, color: t.sub, border: `1px solid ${t.brd}`, background: dark ? 'rgba(255,255,255,0.02)' : '#fff', padding: '5px 9px', borderRadius: 999 }}>{regionFlag} {c.region}</span>
+            <span style={{ fontSize: 10, color: t.sub, border: `1px solid ${t.brd}`, background: dark ? 'rgba(255,255,255,0.02)' : '#fff', padding: '5px 9px', borderRadius: 999 }}>{fmtDate(c.date)}</span>
+          </div>
+          {c.source ? <span style={{ fontSize: 10, color: t.sub, textAlign: 'right', lineHeight: 1.4 }}>{c.source}</span> : null}
+        </div>
+
+        <div>
+          <h3 style={{ margin: 0, color: t.tx, fontSize: 19, lineHeight: 1.34, fontWeight: 900 }}>{c.title || '제목 없음'}</h3>
+          {c.sub ? <p style={{ margin: '8px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.6 }}>{c.sub}</p> : null}
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 8 }}>
+          <StoryLine label="무슨 일" text={factPreview} color="#58A6FF" dark={dark} />
+          <StoryLine label="왜 중요" text={gatePreview} color="#D29922" dark={dark} />
+        </div>
+
+        <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 2 }}>
+          <button onClick={() => setPanel(panel === 'fact' ? null : 'fact')} style={{ borderRadius: 999, border: '1px solid #58A6FF55', background: panel === 'fact' ? '#58A6FF' : 'transparent', color: panel === 'fact' ? '#000' : '#58A6FF', padding: '9px 13px', minHeight: '40px', fontSize: 11, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>무슨 일 자세히</button>
+          <button onClick={() => setPanel(panel === 'gate' ? null : 'gate')} style={{ borderRadius: 999, border: '1px solid #D2992255', background: panel === 'gate' ? '#D29922' : 'transparent', color: panel === 'gate' ? '#000' : '#D29922', padding: '9px 13px', minHeight: '40px', fontSize: 11, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>왜 중요한지</button>
+          <button onClick={() => setPanel(panel === 'implication' ? null : 'implication')} style={{ borderRadius: 999, border: '1px solid #A855F755', background: panel === 'implication' ? '#A855F7' : 'transparent', color: panel === 'implication' ? '#000' : '#A855F7', padding: '9px 13px', minHeight: '40px', fontSize: 11, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>강차장 해석</button>
+        </div>
+
+        {panel ? (
+          <div style={{ background: t.card, borderRadius: 18, border: `1px solid ${t.brd}`, padding: 15, fontSize: 13, color: t.tx, lineHeight: 1.75, whiteSpace: 'pre-wrap', wordBreak: 'keep-all' }}>
+            {panelBody || implicationPreview}
+>>>>>>> origin/main
           </div>
         ) : null}
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {c.primaryUrl ? <button onClick={() => window.open(c.primaryUrl, '_blank', 'noopener,noreferrer')} style={{ borderRadius: 12, border: `1px solid ${t.brd}`, background: 'transparent', color: t.tx, padding: '12px 14px', minHeight: '44px', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>원문 보기 ↗</button> : null}
+<<<<<<< HEAD
+=======
+          {onAskChatbot ? <button onClick={() => onAskChatbot(buildCardConsultPrompt(card))} style={{ borderRadius: 12, border: 'none', background: t.cyan, color: '#000', padding: '12px 14px', minHeight: '44px', fontSize: 12, fontWeight: 900, cursor: 'pointer', flex: 1 }}>이 카드 이어서 강차장에게 묻기</button> : null}
+>>>>>>> origin/main
         </div>
       </div>
     </div>

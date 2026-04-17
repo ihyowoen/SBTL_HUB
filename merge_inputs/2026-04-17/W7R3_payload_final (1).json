@@ -119,7 +119,168 @@
       ],
       "related": [],
       "fact_sources": [
-        {"claim": "2030년 4,000MW + 2045년 16,000MW SDES", "source": "dailyenergyinsider", "quote": "authorizes a state-level energy storage capacity target of 4,000 MW by 2030 and 16,000 MW by 2045"}
+        {"claim": "2030년 4,000MW + 2045년 16,000MW SDES", "source": "dailyenergyinsider", "quote": "authorizes a state-level energy storage capacity target of 4,000 MW by 2030 and sets a nation-leading goal of 16,000 MW of short-duration energy storage capacity by 2045"},
+        {"claim": "총 20.78GW", "source": "Energy-Storage.news 2026-04-16", "quote": "total of 20.78GW of energy storage capacity"},
+        {"claim": "Appalachian 780MW SDES + 520MW LDES", "source": "Energy-Storage.news", "quote": "Appalachian Power will add 780MW of short-duration energy storage capacity by 2040 and 520MW of long-duration energy storage (LDES) capacity by 2045"},
+        {"claim": "서명일 4/13, 발효 7/1", "source": "dailyenergyinsider", "quote": "Virginia Gov. Abigail Spanberger on April 13 signed several measures... which becomes effective on July 1"},
+        {"claim": "발의 Sullivan·Bagby 2026-01", "source": "Energy-Storage.news", "quote": "HB895, introduced by Richard C. 'Rip' Sullivan, Jr, in January... SB448 was introduced at the same time as HB895, by Virginia State Senator Lamont Bagby"},
+        {"claim": "HB1467 VPP 파일럿 2027-07-01", "source": "cleantechnica 2026-04-14", "quote": "HB1467 directs the Appalachian Power Company to create a virtual power plant pilot program by July 1, 2027"},
+        {"claim": "NJ·IL 유사 사례", "source": "pandwsolar 2026-04", "quote": "New Jersey Gov. Mikie Sherrill also signed a series of bills in favor of renewable energy earlier this year, as did Illinois Gov. J.B. Pritzker"},
+        {"claim": "데이터센터 세금 면제 연 $10억+ 논의", "source": "Virginia Mercury 2026-04-09", "quote": "debate ending a data center tax exemption that could net the state over $1 billion annually"}
+      ]
+    },
+
+    {
+      "id": "2026-04-16_CN_06",
+      "region": "CN",
+      "date": "2026-04-16",
+      "cat": "Battery",
+      "sub_cat": "PHEV 대형 셀 양산",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "SVOLT '세계 최대' 80kWh PHEV 팩 양산 개시 — CTP 모듈러로 D급 PHEV 순전기 400km+ 구조 안착, pouch 경계 이동",
+      "sub": "常州 공장 4/16 양산 라인 투입, 1월 Battery Day 발표 일정대로. Stellantis·현대·MINI·Geely·Caterpillar 등 기존 고객망",
+      "gate": "이 이벤트의 중심은 '80kWh 세계 최대'가 아니라 'PHEV 셀이 EREV·BEV와 용량에서 겹치기 시작한 첫 규모 양산 사례'라는 점이다. 그동안 삼원계 pouch가 주 대상이었던 대용량 PHEV 셀 시장이 prismatic·블레이드 기반 CTP로 넘어가는지가 K-3사 pouch 전략에 직접 영향 축.",
+      "fact": "Gasgoo·CnEVPost 4/16 보도에 따르면 SVOLT(蜂巢能源)가 常州(창저우) 공장에서 'Fortress 2.0' PHEV 배터리 팩 양산 라인을 가동했다. 팩 정격 용량은 80kWh(1/3C 기준)이며 이전 세대 59kWh 대비 35.6% 증가, 체적 효율·시스템 에너지밀도 각 6% 증가다. 6C 급속충전 지원(10~80% 10분), D급 PHEV 장착 시 순전기 주행 400km+가 목표 성능. 구조는 CTP(cell-to-pack) 모듈러스(module-less) 설계로 60~80kWh 범위에서 플랫폼 간 확장 가능하도록 했다. 첫 탑재 모델은 베이징 모터쇼에서 debut 예정. 기업 측 1/13 제6회 Battery Day 발표(CnEVPost)에 따르면 SVOLT는 2026년 출하 목표를 61GWh(2025년 대비 50% 증가)로 제시했고, Yang Hongxin 회장은 '2025년 4분기 첫 분기 흑자 달성, 2026년 연간 흑자 목표' 입장. SVOLT는 2018년 2월 GWM(長城汽車) 배터리 사업부에서 분사됐으며, 중국 동력전지 설치량 점유율은 2026년 3월 기준 1.84%. 공개 고객사는 Stellantis·현대·MINI·Geely·Caterpillar·Spotlight Automotive. 반고체 라인업도 같은 자리에서 공개 — (1) 1세대 high-nickel 270Wh/kg 소규모 양산 중·유럽 브랜드 탑재(MINI 추정), (2) 2세대 high-nickel 342Wh/kg 개발 완료·eVTOL 탑재 시험, (3) mid-nickel 245Wh/kg 2026-10 양산 예정.",
+      "implication": [
+        "PHEV 대형화 트렌드에서 중국 공급사가 80kWh급 CTP prismatic 팩을 먼저 규모 양산한 점은, K pouch 셀의 PHEV 영역 경계가 이동하는지가 관찰 축이다. 같은 날 Leapmotor D19(CATL 80.3kWh EREV)도 공식 출시된 점을 함께 보면, D급 대형 차량 셀 공급 경쟁이 2Q26부터 집중 발생할 여지. K-3사가 현대차·기아 PHEV 로드맵에서 pouch 대용량을 유지할지 prismatic/CTP 라인 병행할지가 IR 관찰 포인트다.",
+        "SVOLT 공개 고객망에 Stellantis(삼성SDI·LG엔솔 동시 공급사)와 현대(LG엔솔 주력)가 포함돼 있다. Fortress 2.0이 Stellantis 신규 PHEV 플랫폼 또는 현대 PHEV 신차 로드맵에 수주 지명된 범위가 어디까지인지가 경쟁 강도를 결정하는 변수. 회사 측 '수주 지명 확보' 공개 발언이 향후 Stellantis·현대 IR·공시에서 확인되는지 체크가 필요하다.",
+        "SVOLT 반고체(270Wh/kg·342Wh/kg)가 유럽 브랜드·eVTOL에 이미 소규모 공급 중인 상태에서 mid-nickel 245Wh/kg가 2026-10 양산 단계로 넘어가면, 恩力动力 안후이 반고체 2GWh 라인과 더해 중국 반고체 양산이 2H 2026부터 유럽 OEM 공급으로 넘어가는 흐름이 확인되는지가 K-3사 수주 영업 축에 직접 영향. Q3 2026 유럽 OEM PO 흐름이 관찰 포인트."
+      ],
+      "urls": [
+        "https://autonews.gasgoo.com/articles/ev/svolt-starts-mass-production-of-large-capacity-phev-battery-fortress-20-first-model-to-debut-at-beijing-auto-show-2044744335055044609",
+        "https://cnevpost.com/2026/04/16/svolt-begins-mass-production-80-kwh-phev-battery/",
+        "https://cnevpost.com/2026/01/13/svolt-unveils-80-kwh-phev-battery-pack/",
+        "https://autonews.gasgoo.com/articles/ev/battery-capacity-surges-to-80-kwh-is-the-high-capacity-phev-era-here-2011384659554701313"
+      ],
+      "related": ["2026-04-16_CN_05"],
+      "fact_sources": [
+        {"claim": "Changzhou 양산 개시", "source": "gasgoo 2026-04-16", "quote": "SVOLT began mass production of the 'Fortress 2.0' at its Changzhou plant"},
+        {"claim": "80kWh, 59kWh 대비 35.6% 증가, 6% 체적·에너지 밀도 증가", "source": "cnevpost 2026-04-16", "quote": "The 80-kWh battery... represents a 35.6% increase from the previous generation's 59-kWh system... achieving a 6% increase in both overall volumetric utilization and energy density"},
+        {"claim": "6C 10-80% 10분, D급 순전기 400km+", "source": "cnevpost 2026-01-13", "quote": "peak charging rates of up to 6C, enabling a 10%-80% charge within 10 minutes... D-class plug-in hybrid models equipped with the battery are expected to have an all-electric range exceeding 400 kilometers"},
+        {"claim": "CTP 모듈러 60-80kWh 범위", "source": "gasgoo 시장 전망", "quote": "By using module-less CTP (cell-to-pack) technology... modular architecture that flexibly spans 60-80 kWh"},
+        {"claim": "2026 61GWh 출하 목표, 50% 증가", "source": "cnevpost 2026-01-13", "quote": "targets 61 GWh of battery shipments in 2026, representing a 50% increase from 2025"},
+        {"claim": "GWM 2018-02 분사", "source": "cnevpost 2026-01-13", "quote": "spun off from GWM in February 2018"},
+        {"claim": "Q4 2025 첫 분기 흑자", "source": "cnevpost 2026-01-13", "quote": "Svolt achieved its first quarterly profit in the fourth quarter 2025 and aims to reach full-year profitability in 2026"},
+        {"claim": "고객사 Stellantis·현대·MINI·Geely·Caterpillar", "source": "evlithium SVOLT Global", "quote": "secured mass-production agreements with major industry players, including Stellantis, Hyundai, Caterpillar, and Spotlight Automotive... deep ties with Stellantis, MINI and Geely"},
+        {"claim": "반고체 270/342/245 Wh/kg 로드맵, 유럽 브랜드 탑재", "source": "cnevpost 2026-01-13", "quote": "first-generation high-nickel semi-solid-state battery has achieved small-scale production. With an energy density of 270 Wh/kg, it has been installed in a model from a European passenger vehicle brand... second-generation... 342 Wh/kg... mid-nickel semi-solid battery... mass production in October 2026. Featuring an energy density of 245 Wh/kg"},
+        {"claim": "2026-03 중국 점유율 1.84%", "source": "cnevpost 2026-04-16", "quote": "accounted for a 1.84% share of China's overall power battery installations in March"}
+      ]
+    },
+
+    {
+      "id": "2026-04-16_GL_01",
+      "region": "GL",
+      "date": "2026-04-16",
+      "cat": "ESS",
+      "sub_cat": "호주 BESS 파이프라인",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "호주 BESS 러시 하루 2건 — Alinta 1GWh SA 착공(CATL 194 modules) + Neoen 3.2GWh NSW 연방 환경평가 접수",
+      "sub": "Reeves Plains Stage 1 250MW/1000MWh 공사 개시(목표 가동 2028). Bondo는 1.2GW 풍력 + 2×400MW BESS 하이브리드",
+      "gate": "이번 두 건이 같은 날 터진 것은 우연이 아니라 호주 NEM 구조가 '개별 프로젝트 뉴스'에서 '주간 파이프라인 집계'로 이동한 증상이다. Alinta는 공사 개시 단계, Neoen은 환경평가 단계 — 양쪽 모두 중국계 자본(CATL 셀·Brookfield 소유)이 파이프라인의 주요 배후라는 점이 K-ESS 호주 진출 관점의 첫 관찰 축이다.",
+      "fact": "Energy-Storage.news·Alinta Energy 공식 발표(4/16)에 따르면 Alinta Energy는 남호주 Reeves Plains Stage 1 BESS 주공사를 개시했으며, 규모는 250MW/1,000MWh 4시간 저장(Adelaide 북쪽 약 60km). 배터리는 CATL 194 modules, 인버터는 Power Electronics 89기. 주계약자 GenusPlus Group(계약 A$105M / 약 US$68.6M, 275kV 스위치야드·ElectraNet 연결 포함). FID는 2025-07에 이뤄졌으며 상업운전 예정 2028, 설계 수명 20년. Reeves Plains Energy Hub 전체 계획은 Stage 2 추가해 최종 500MW/2,000MWh + 인접 Siemens SGT5-2000E 기반 300MW OCGT 가스복합 발전소 통합 구조. 총 프로젝트 투자 A$450M+. 소유주는 홍콩 Chow Tai Fook Enterprises 계열 Alinta Energy. 현 남호주 최대 BESS는 Neoen Blyth 238.5MW/477MWh(2025-06 commissioning). 같은 날 Energy-Storage.news·Energy Magazine 보도에 따르면 Neoen Australia는 NSW Bondo 프로젝트를 호주 연방 EPBC Act 평가로 공식 접수했다. 구성은 최대 164기 풍력 터빈(총 약 1.2GW) + 2×400MW/1,600MWh BESS = 총 3,200MWh, 4시간 저장. 부지는 Bondo/Wee Jasper/Billapaloola/Red Hill pine plantation(Tumut 북동 15km, Canberra 서 50km), 총 41,923ha 중 실제 교란 1,591ha. 터빈 hub 200m·팁 300m 설계. 공사 예정 2028~2029 개시·소요 4~6년, 운영 연 30년. Transgrid HumeLink 500kV 송전선 연결 옵션. 공공 의견 수렴 4/30까지. Neoen은 2024년 Brookfield Asset Management에 US$6.7B 인수되었으며, 호주 2024년 BESS 매출이 YoY 66% 증가(Collie 2.2GWh + Western Downs 주도)했다.",
+      "implication": [
+        "Alinta Stage 1 1GWh에 CATL이 194 modules 공급하는 구조는 호주 대형 BESS 시장에서 중국 셀이 사실상 기본값이 되어가는 흐름을 보여준다. K-3사 LFP 호주 수주는 CATL·BYD 대비 가격·리드타임·레퍼런스에서 어떤 차별화 요소를 만드는지가 관찰 축. 특히 Neoen의 기존 프로젝트(Collie·Hornsdale 등)는 Tesla Megapack·UGL 구조물이 주축이었고, 이번 Bondo가 공사 단계 진입 시점(2028~)에 셀 선정 구도가 열리는지가 한 축의 기회로 관찰된다.",
+        "호주 NEM이 2026-27부터 남호주 reliability gap을 예측(AEMC)한 상황에서 Alinta·Neoen뿐 아니라 Palmer(Collie)·Origin(Eraring)·BW ESS 등이 연이어 대형 프로젝트를 공표하는 패턴이다. 주 정부 입장에서 '공사 착공 타임라인'이 가속되는지 여부가 2026-27 reliability 목표 충족의 실제 변수로 작동할지는 Stage 2 FID 시기가 관찰 포인트.",
+        "Neoen이 Brookfield 편입 후 공개한 Bondo의 풍력+BESS 하이브리드 공식 설계(400MW×2 BESS)는 유럽 IPP의 호주 시장 표준 구조 제시로 관찰된다. K-ESS 3사가 '셀 공급자'를 넘어 EPC·BMS·EMS 스택까지 번들링할 기회 창구가 생기는지가 Q2~Q4 2026 관찰 축."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/alinta-energy-starts-construction-on-1000mwh-stage-1-of-south-australias-reeves-plains-battery/",
+        "https://www.energy-storage.news/neoen-australia-submits-3-2gwh-bondo-wind-plus-storage-project-to-the-epbc-act/",
+        "https://www.alintaenergy.com.au/about-us/news-hub/reeves-plains-green-light",
+        "https://reneweconomy.com.au/work-begins-on-south-australias-biggest-battery-next-to-proposed-gas-plant/",
+        "https://www.energymagazine.com.au/neoen-synergy-seek-federal-nod-for-landmark-wind-farms"
+      ],
+      "related": ["2026-04-16_GL_02"],
+      "fact_sources": [
+        {"claim": "Alinta Stage 1 250MW/1000MWh 4-hour", "source": "Energy-Storage.news 2026-04-16", "quote": "The 250MW/1,000MWh battery storage project... one of the largest energy storage facilities in South Australia when operational in 2028"},
+        {"claim": "CATL 194 modules 공급", "source": "ReneWeconomy 2025-06-30", "quote": "The 194 battery modules will be supplied by Chinese giant CATL"},
+        {"claim": "GenusPlus A$105M 계약", "source": "pv-magazine-australia", "quote": "The $105 million (USD 68.6 million) contract also includes construction of a 275 kV Switchyard"},
+        {"claim": "Stage 2 최종 500MW/2000MWh + 300MW OCGT", "source": "nsenergybusiness", "quote": "500MW/2,000MWh capacity... 300MW open-cycle gas turbine (OCGT) power station"},
+        {"claim": "Alinta Chow Tai Fook 소유", "source": "pv-magazine-australia", "quote": "Alinta, owned by Hong Kong-headquartered Chow Tai Fook Enterprises"},
+        {"claim": "Bondo 1.2GW + 2×400MW/1600MWh = 3200MWh", "source": "Energy-Storage.news 2026-04-16", "quote": "up to 164 wind turbine generators with a combined generating capacity of around 1.2GW, paired with two 400MW battery energy storage systems (BESS), each of 4-hour duration for a total of 1,600MWh"},
+        {"claim": "Brookfield $6.7B Neoen 인수", "source": "Energy-Storage.news Blyth", "quote": "currently the target of a US$6.7 billion takeover deal by Canadian asset manager Brookfield"},
+        {"claim": "공사 2028-29 개시, 4-6년 소요", "source": "reneweconomy", "quote": "hopes to begin construction in 2028 or 2029... construction is expected to take approximately 4 to 6 years"},
+        {"claim": "Neoen 2024 BESS revenue +66% YoY", "source": "Energy-Storage.news Collie", "quote": "Australia-based energy storage assets drove a 66% year-on-year increase in storage revenue in 2024"},
+        {"claim": "Bondo 공공 의견 수렴 4/30", "source": "Energy Magazine 2026-04", "quote": "Public comment for the Bondo wind farm is open until April 30"}
+      ]
+    },
+
+    {
+      "id": "2026-04-16_GL_02",
+      "region": "GL",
+      "date": "2026-04-16",
+      "cat": "PowerGrid",
+      "sub_cat": "AI DC PPA BESS 내재화",
+      "signal": "high",
+      "source_tier": 1,
+      "title": "Amazon AU, 미국 외 첫 '태양광+BESS 하이브리드' PPA 9건 일괄 체결 — 430MW로 호주 총 990MW, AI DC 전력조달의 구조 전환",
+      "sub": "OX2·X-ELIO·Anza·TagEnergy·European Energy 개발사 포트폴리오. 9건 중 8건 co-located BESS, AU$2.8B 누적",
+      "gate": "이 카드의 핵심은 '430MW 규모'가 아니라 '하이퍼스케일러가 BESS를 선택 옵션에서 기본 포함으로 전환한 전환점'이다. 이번이 Amazon의 미국 외 첫 solar-plus-storage PPA로, 호주가 'inverted baseload' 규제 프레임의 전 세계 테스트베드 역할을 맡고 있다.",
+      "fact": "Energy-Storage.news·PV-Tech·Amazon Australia 공식 발표(4/16)에 따르면 Amazon은 NSW·VIC 지역에서 총 430MW 신규 PPA 9건을 체결했다. 포트폴리오는 1건 풍력 + 3건 utility-scale 태양광+BESS 하이브리드 + 4건 분산형 태양광+BESS + 1건 기존 Mokoan 태양광 발전소 BESS 추가로 구성, 9건 중 8건이 co-located BESS 포함. 이번이 Amazon의 미국 외 첫 태양광+BESS PPA 사례다. 세부(Renew Economy 보도): Golden Plains 2 Wind(VIC, TagEnergy, 201MW 단독), Muswellbrook(NSW, OX2, 94.5MW PV + 70MW BESS), Forest Glen(NSW, X-ELIO, 72MW PV + 72MW BESS), Laceby(VIC, Anza Power, 48MW PV + 48MW BESS), 분산형 4건(Anza Power, 각 3.4~3.8MW, 총 14.4MW), Mokoan Solar Farm BESS 추가(European Energy). 이번 체결로 Amazon 호주 누적 PPA는 20개 프로젝트/990MW, 2020~2025 누적 투자 AU$2.8B+. 2026년 단일 연도 최대이며 올해 호주 최대 corporate 전력 구매자로 Renew Economy가 집계. Amazon의 The Climate Pledge 2040 net-zero 목표와 연동, AU$20B 호주 DC 확장 계획의 전력 인프라 축. 배경 규제: AEMC는 DC·AI 설비 같은 대형 상시 부하를 'inverted baseloads'로 분류하고 2026-03 draft access standards를 발표, 30MW·100MW 임계별 차등 요구사항 제시. IEA는 2030년 전 세계 DC 전력수요가 연 945TWh를 넘어 현재 대비 2배 이상으로 확대될 것으로 전망.",
+      "implication": [
+        "호주 AEMC가 DC를 'inverted baseload'로 별도 분류한 건 AI 시대 전력 체계 재설계의 법적 선례가 될 수 있다. 미국 Virginia 20.78GW mandate(4/13)가 주 단위 ESS 의무화라면 호주 AEMC는 DC 측 의무화로 접근 — K-3사가 전 세계 AI DC 전력 인프라에 셀을 공급하는 경로가 'state mandate vs hyperscaler self-procure' 두 모델 간 어디로 기울지가 관찰 축이다.",
+        "이번 9건이 8건 BESS 포함인 구조는 하이퍼스케일러가 BESS를 '옵션'에서 '기본 포함'으로 전환한 전환점으로 관찰된다. 개발사 OX2·X-ELIO·Anza 같은 중견 개발사가 hyperscaler 직접 PPA 창구로 들어서는 흐름이라, K-ESS가 이런 mid-tier 개발사와의 셀 공급 계약 경로를 구조화할 여지. 특히 분산형 4건(3.4~3.8MW)은 distributed EPC 규모로 K 소규모 통합 솔루션의 타겟 영역.",
+        "Amazon의 호주 AU$20B DC 확장 전제와 연동, 향후 12~24개월 내 마이크로소프트·구글·Meta의 유사 호주 BESS PPA 포트폴리오 공표 여부가 호주가 AI DC BESS 글로벌 템플릿 지역으로 정착하는 판단 축. K 네이버·KT·삼성 DC 계획에서 BESS 내재 비중을 처음부터 구조에 넣을지 여부가 2Q26~4Q26 IR 관찰 포인트."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/amazon-australia-puts-battery-storage-centre-stage-as-it-inks-nine-ppas-for-data-centre-expansion/",
+        "https://www.pv-tech.org/amazon-signs-first-solar-plus-storage-ppas-in-australia-to-power-ai-expansion/",
+        "https://reneweconomy.com.au/batteries-included-amazon-makes-record-haul-of-hybrid-renewable-ppas-to-power-australian-ai-push/",
+        "https://utilitymagazine.com.au/amazon-australia-signs-nine-new-renewable-energy-deals/"
+      ],
+      "related": ["2026-04-16_GL_01", "2026-04-13_US_03"],
+      "fact_sources": [
+        {"claim": "9건 중 8건 BESS 포함", "source": "Energy-Storage.news", "quote": "nine new renewable energy power purchase agreements... eight of which include co-located battery energy storage systems (BESS)"},
+        {"claim": "미국 외 첫 solar-plus-storage PPA", "source": "PV-Tech", "quote": "first solar-plus-storage PPAs Amazon has signed in Australia and the first outside the US"},
+        {"claim": "OX2 Muswellbrook 94.5+70, X-ELIO Forest Glen 72+72, Anza Laceby 48+48", "source": "Renew Economy", "quote": "94.5 MW of PV and 70 MW of battery capacity from OX2's Muswellbrook project... 72 MW each of PV and battery from X-ELIO's Forest Glen project... 48 MW each from Anza Power's Laceby project"},
+        {"claim": "분산 4건 각 3.4~3.8MW 총 14.4MW", "source": "Renew Economy", "quote": "14.4 MW of firmed renewables is contracted across four distributed solar-BESS hybrids... PPAs sized between 3.4 MW and 3.8 MW"},
+        {"claim": "Golden Plains 2 Wind 201MW", "source": "Renew Economy", "quote": "just over 201 MW from Australia's largest operational wind"},
+        {"claim": "호주 누적 20건 990MW AU$2.8B", "source": "ESG News + iTWire", "quote": "20 renewable energy projects... 990MW... AU$2.8 billion in renewable energy projects in Australia"},
+        {"claim": "AU$20B DC 확장 연동", "source": "ESG News", "quote": "AU$20 billion data centre expansion tied to AI growth"},
+        {"claim": "Amazon 2040 net-zero Climate Pledge", "source": "PV-Tech", "quote": "reaching net zero carbon across its operations by 2040 under The Climate Pledge"},
+        {"claim": "AEMC inverted baseload 2026-03 draft 30/100MW 임계", "source": "Energy-Storage.news", "quote": "AEMC has begun developing regulatory frameworks to accommodate what it terms 'inverted baseloads'... draft access standards released in March 2026 proposing different requirements based on facility size thresholds at 30MW and 100MW"},
+        {"claim": "IEA 2030 DC 945TWh 전망", "source": "Energy-Storage.news", "quote": "International Energy Agency (IEA) projects that global electricity demand from data centres will more than double by 2030 to exceed 945TWh annually"}
+      ]
+    },
+
+    {
+      "id": "2026-04-16_GL_03",
+      "region": "GL",
+      "date": "2026-04-16",
+      "cat": "Materials",
+      "sub_cat": "북미 리튬 정제",
+      "signal": "high",
+      "source_tier": 1,
+      "title": "Mangrove Lithium Delta 상업 라인 가동 — 북미 첫 전해 리튬 정제소, FSP 20,000t/년(EV 50만대 분) 캐나다 동부 건설 추진",
+      "sub": "NRCan 4/16 공식 + $21.9M CMRDD 정식 확정. 1월에 이미 CGF $65M + BMW i Ventures·Breakthrough 포함 US$85M 구조화 자금 마무리",
+      "gate": "이 카드의 핵심은 '정부 지원 금액'이 아니라 '북미 첫 상업 규모 전해(electrochemical) 리튬 정제소가 실제로 가동'됐다는 점이다. K-양극재 업체가 사용하는 수산화리튬의 원료 조달 다변화(중국 의존 감축)에 실체 있는 옵션이 생긴 첫 사례다.",
+      "fact": "Natural Resources Canada 4/16 공식 발표(CNW 배포)에 따르면 Jill McKnight 장관은 BC Delta에서 Mangrove Lithium 북미 첫 상업 전해 리튬 정제소 ribbon cutting을 공식 집행했다. Delta 설비는 연간 1,000톤 battery-grade lithium hydroxide(EV 약 25,000대 분, 캐나다 시장 5~10%) 생산 capacity. 같은 자리에서 CMRDD(Critical Minerals Research Development and Demonstration) 프로그램 $21.9M 컨디셔널 지원이 정식 확정됐다. 이 지원은 3/3 PDAC 2026 컨벤션에서 Tim Hodgson NRCan 장관이 22개 프로젝트 $165.2M(캐나다 프로젝트 총 $434M 규모 unlock)의 일부로 사전 공표한 것. 회사 전사 자본 흐름(2026-01 발표): Canada Growth Fund(CGF) US$65M 주도 US$85M 구조화 파이낸싱 + 공동 마무리된 C$9M CTM ITC-backed 대출(National Bank of Canada 인수). 공동 투자자는 BMW i Ventures · Breakthrough Energy Ventures(Bill Gates 설립). Mangrove 누적 조달 US$150M+. CGF는 캐나다 정부가 2023 Budget으로 설립한 C$15B 준독립 투자체이며 PSP Investments가 자산운용. 회사: Mangrove Water Technologies Ltd(브랜드 Mangrove Lithium). CEO Saad Dara가 2017년 UBC 박사 과정에서 전기화학 리튬 정제 기술 개발. 차세대 Full-Scale Plant(FSP)는 연간 20,000톤(EV 약 500,000대 분), 캐나다 동부(Ontario·Quebec 리튬 광산 인접)에 건설 추진, 초기 엔지니어링·부지 선정 진행 중. 맥락: 캐나다 총 리튬 자원 6.5M톤, 세계 7위 생산국. 현재 활성 리튬 프로젝트는 Manitoba·Quebec 2건. 전 세계 리튬 수요의 87%가 배터리·EV·그리드 스토리지 연관.",
+      "implication": [
+        "수산화리튬은 하이니켈 삼원계 양극재 생산의 필수 원료이며 K-양극재(포스코퓨처엠·에코프로·엘앤에프 등)가 현재 주로 중국 정제 물량에 의존하는 구조다. Mangrove의 20,000t/년 FSP가 2028~2029 가동되면 USMCA 원산지 기준 충족 원료 조달의 구조적 옵션이 생기는 구간에 진입할 여지. K-양극재 업체의 북미 증설 투자가 캐나다 리튬 조달 전제로 재구성될지가 관찰 축.",
+        "BMW i Ventures 공동 투자는 유럽 OEM도 북미 리튬 정제 기술에 직접 지분 참여하는 첫 사례 중 하나로, 유럽 CRMA(Critical Raw Materials Act) 대응에서 북미 경로가 또 하나의 공급망 축으로 열리는지 여부가 Q3 2026 이후 관찰 포인트. K-3사가 유럽 현지 공급망 구축 시 캐나다 정제·EU 양극재·한국 셀 3단 구조가 가능해지는 옵션이 생성된다.",
+        "전해(electrochemical) 정제 방식은 기존 황산리튬(sulfate) 경로와 다른 sodium-sulfate 부산물 제거 프로세스로, K-소부장의 장비·정제 기술 영역에 신규 경쟁·협력 양 축이 열릴 여지. Dara CEO가 공개한 FSP 타임라인과 K 업체의 기술 평가 움직임이 향후 12~18개월 관찰 축."
+      ],
+      "urls": [
+        "https://www.canada.ca/en/natural-resources-canada/news/2026/04/government-of-canada-supports-mangrove-lithiums-next-step-in-building-a-made-in-canada-battery-supply-chain.html",
+        "https://www.miningstockeducation.com/2026/04/government-of-canada-supports-mangrove-lithiums-next-step-in-building-a-made-in-canada-battery-supply-chain/",
+        "https://www.canada.ca/en/department-finance/news/2026/01/government-welcomes-canada-growth-fund-investment-in-canadian-cleantech-company-mangrove-lithium.html",
+        "https://www.theglobeandmail.com/business/article-ottawa-invests-us65-million-in-bc-based-mangrove-lithium-in-critical/",
+        "https://www.newswire.ca/news-releases/canada-growth-fund-leads-us-85-million-financing-in-bc-based-mangrove-lithium-alongside-existing-investors-897664626.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {"claim": "Delta 1,000톤/년 EV 25,000대", "source": "Canada.ca Finance 2026-01", "quote": "Delta commercial facility produces 1,000 tonnes of battery-grade lithium hydroxide per annum, equating to enough lithium for approximately 25,000 electric vehicles"},
+        {"claim": "FSP 20,000톤/년 EV 500,000대, 동부 캐나다", "source": "Canada.ca Finance", "quote": "20,000 tonnes of lithium hydroxide per year, equating to enough battery-grade lithium for approximately 500,000 EVs per year"},
+        {"claim": "CMRDD $21.9M 컨디셔널 승인", "source": "miningstockeducation 2026-04", "quote": "conditionally approved investment of up to $21.9 million through the Critical Minerals Research Development and Demonstration (CMRDD) program"},
+        {"claim": "PDAC 3/3 발표 $165.2M / 22 프로젝트 / $434M unlock", "source": "miningstockeducation", "quote": "over $165.2 million for 22 Canadian projects... to unlock over $434 million in Canadian project capital"},
+        {"claim": "CGF US$65M 주도 US$85M 구조화", "source": "newswire CNW 2026-01-15", "quote": "CGF will invest up to US$65 million in Mangrove with additional funding expected... up to US$85 million structured financing"},
+        {"claim": "C$9M CTM ITC 대출 NBC 인수", "source": "newswire CNW", "quote": "closed concurrently with a C$9 million Clean Technology Manufacturing Investment Tax Credit-backed loan... underwritten by National Bank of Canada"},
+        {"claim": "BMW i Ventures + Breakthrough Energy Ventures Gates", "source": "Globe and Mail", "quote": "existing investors, including Breakthrough Energy Ventures, which was founded by Bill Gates, and BMW i Ventures"},
+        {"claim": "Dara 2017 UBC 박사 과정 기술 기반 공동창립", "source": "Globe and Mail", "quote": "Mr. Dara co-founded Mangrove Lithium in 2017 using technology developed in work for his PhD from the University of British Columbia"},
+        {"claim": "전기화학 방식 저탄소·저폐기물", "source": "Canada.ca Finance", "quote": "electrochemical lithium refining technology... lower carbon intensity and reduced waste compared to conventional refining methods"},
+        {"claim": "캐나다 리튬 6.5M톤 세계 7위, 87% 배터리 연관", "source": "miningstockeducation", "quote": "Canada's total lithium resources are estimated to be 6.5 million tonnes, and we are currently the world's seventh-largest producer... 87 percent of which is tied to batteries, EVs and grid storage"}
       ]
     },
 
@@ -131,9 +292,9 @@
       "sub_cat": "리테일러 자체 DC 충전망",
       "signal": "high",
       "source_tier": 2,
-      "title": "Walmart 자체 DC 충전망 2개월 50% 확대 — 31개 사이트·200+ 스톨, 400kW Alpitronic·ABB 구조 고착",
-      "sub": "미 충전 구조가 Tesla–EA–IONNA–Walmart 4축 고정 단계에 근접. 앱 결제 독점과 분산형 표준 사이트 모델이 특징",
-      "gate": "이 카드의 핵심은 Walmart가 충전기를 더 깔았다는 사실이 아니라, 미국 리테일러가 자체 DC fast charging 네트워크를 빠른 속도로 internal buildout하는 구조가 확인됐다는 점이다. 2025년 11월 10개에서 2026년 4월 31개 사이트로 늘어난 흐름은 '리테일러 자체망'이 Tesla·EA·IONNA에 이어 미국 네 번째 축을 굳히는지가 현재 관찰 구간이다.",
+      "title": "Walmart in-house DC 충전망 급속 확장 — 31 스테이션/200+ 스톨, 9개 주 가동 + 100개 coming soon. 400kW Alpitronic·ABB, NACS+CCS1 이중포트",
+      "sub": "2025-04 첫 가동 → 2025-11 10개 → 2026-02 20개 → 2026-04 31개. 2030년 '수천 매장' 목표",
+      "gate": "이 카드의 핵심은 'Walmart가 충전 네트워크를 만든다'가 아니라 '미국 충전 시장이 5,200 Walmart 매장 수준의 리테일 접점을 하드웨어로 빨아들이는 구조 전환 중'이라는 점이다. 리테일러 자체망이 IONNA(OEM 연합)·Tesla·Electrify America에 이어 미국 네 번째 축을 굳히는지가 현재 관찰 구간이다.",
       "fact": "Charged EVs 4/16 보도(DOE AFDC 데이터 인용) 및 EV Charging Stations 집계에 따르면 Walmart 자체 DC 충전망은 2026-04-06 기준 31 스테이션 / 112 dispensers(총 stall 200+)로 확장됐으며 2개월 간 약 50% 증가(2025-11 10개 → 2026-02 20개 → 2026-04 31개). 현재 가동 주는 9개(Texas 15, Arizona 6, Florida 3, Oklahoma 2, Alabama·Arkansas·Georgia·New Jersey·South Carolina 각 1). 하드웨어는 400kW DC fast charger로 제조사는 Alpitronic HYC400 · ABB A400만 사용, 스톨당 NACS + CCS1 이중 포트. 사이트당 평균 스톨 7.2개(이전 8.1~8.6에서 하락). 결제는 Walmart 앱 독점(신용카드 터미널 없음). Walmart 공식 계획은 2023년 발표한 '2030년까지 수천 매장 설치' 목표. 첫 파일럿 2025-04 가동(Texas 2개·Arkansas 1개). 현재 공식 'coming soon' 리스트는 19개 주에 약 100개 수준으로 확장됐으며, permit filings 기준 200개 이상 추가, 전체 identified sites 315개. 평균 요금 $0.48/kWh(범위 $0.40~$0.57). Walmart 전체 매장 5,200+(Walmart + Sam's Club), 미국인 90%가 10마일 이내 거주. 참고 산업 규모: 2026-04-01 기준 미국 전체 DC fast charging 포트 71,398개. 네트워크 1위 Tesla Supercharger 36,877 스톨(51.6% 점유). IONNA Q1 2026에 1,000 스톨 돌파하며 9위 진입.",
       "implication": [
         "미 충전 시장 구조가 Tesla(51.6%)–EA(기존 주유소 모델)–IONNA(OEM 연합)–Walmart/리테일 자체망 4축 고정 단계에 근접한다. K CPO(채비·SK시그넷)의 미국 진출 시 파트너 포지션 선택지가 이 4축 중 어디에 붙을지가 관찰 축. 특히 Alpitronic·ABB의 400kW 독점 공급 구조가 Walmart 네트워크를 통해 확대되는 점은 K 충전기 제조사(LS E-Link·시그넷EV 등)의 직접 진입 경로에 제약 요소로 관찰된다.",
@@ -149,7 +310,16 @@
       ],
       "related": ["2026-04-15_US_02", "2026-04-16_KR_02"],
       "fact_sources": [
-        {"claim": "31 스테이션 / 112 dispensers", "source": "Charged EVs 2026-04-16", "quote": "Walmart now has 31 DC fast charging stations with a total of 112 individual dispensers"}
+        {"claim": "31 스테이션 / 112 dispensers", "source": "Charged EVs 2026-04-16", "quote": "Walmart now has 31 DC fast charging stations with a total of 112 individual dispensers"},
+        {"claim": "200+ 스톨", "source": "EV Charging Stations 랭킹", "quote": "Walmart's DC fast-charging network recently expanded to over 200 stalls"},
+        {"claim": "2개월 50% 증가 10→20→31", "source": "EV Charging Stations growth", "quote": "up from 20 as of February 10, 2026, and 10 in early November 2025"},
+        {"claim": "400kW Alpitronic HYC400·ABB A400, NACS+CCS1", "source": "EV Charging Stations growth", "quote": "Walmart installs 400-kW DC fast-chargers (Alpitronic HYC400 or ABB A400), each with two ports (one NACS and one CCS1 for maximum compatibility)"},
+        {"claim": "2030년 수천 매장 목표", "source": "Charged EVs 2026-04-16", "quote": "planned to install fast chargers at 'thousands of its locations by 2030'"},
+        {"claim": "9개 주 분포 Texas 15 등", "source": "InsideEVs", "quote": "Texas has the most Walmart EV charging stations—15. Arizona has six, Florida has three, and Oklahoma has two"},
+        {"claim": "사이트당 평균 7.2 스톨", "source": "EV Charging Stations growth", "quote": "The average is 7.2 per site. That's interesting, as in the previous months it was between 8.1 and 8.6"},
+        {"claim": "Walmart 5,200+ 매장, 미국인 90% 10마일 이내", "source": "Charged EVs 2025-04", "quote": "more than 5,200 Walmart and Sam's Club stores in the US... 90% of Americans live within 10 miles"},
+        {"claim": "미 전체 71,398 포트, Tesla 36,877, IONNA 1,000+", "source": "EV Charging Stations April ranking", "quote": "71,398 public DC fast-charging ports... Tesla Supercharging network remains the largest, with 36,877 stalls... Ionna exceeded 1,000 stalls"},
+        {"claim": "평균 요금 $0.48/kWh", "source": "EV Charging Stations growth", "quote": "the average price of charging at Walmart is $0.48/kWh"}
       ]
     },
 
@@ -177,7 +347,15 @@
       ],
       "related": ["2026-04-16_GL_01"],
       "fact_sources": [
-        {"claim": "3월 522.9MW/985.9MWh, 독일 월간 최고치", "source": "PV Magazine 2026-04-16", "quote": "battery storage systems with a total capacity of 522.9 MW and 985.9 MWh were added... this is the highest monthly increase in battery storage capacity in Germany to date"}
+        {"claim": "3월 522.9MW/985.9MWh, 독일 월간 최고치", "source": "PV Magazine 2026-04-16", "quote": "battery storage systems with a total capacity of 522.9 MW and 985.9 MWh were added... this is the highest monthly increase in battery storage capacity in Germany to date"},
+        {"claim": "주거 20.43→20.75, 상업 1.39→1.42, 대형 4.46→5.06 GWh", "source": "PV Magazine", "quote": "cumulative installed capacity of residential storage systems increased from 20.43 to 20.75 GWh... Commercial storage systems saw an increase from 1.39 to 1.42 GWh, and large-scale storage systems from 4.46 to 5.06 GWh"},
+        {"claim": "누적 27.23GWh / 17.90GW, 240만대, 3월 주거 45,000 + 대형 30+", "source": "PV Magazine", "quote": "installed capacity across all segments thus reached 27.23 GWh... 17.90 GW... more than 2.4 million battery storage systems had been registered... approximately 45,000 were added in March alone... At least 30 new large-scale storage systems"},
+        {"claim": "BNetzA 2037 41GW 목표", "source": "Mobility House 2026 분석", "quote": "BNetzA expects total installed capacity to grow to around 41 GW by 2037"},
+        {"claim": "Fraunhofer ISE 2030 100-170 GWh", "source": "Mobility House", "quote": "Fraunhofer ISE estimates a storage demand of 100 to 170 GWh by 2030"},
+        {"claim": "2025 negative price 575시간 vs 2024 459시간", "source": "Mobility House", "quote": "In 2025, Germany recorded almost 575 hours of negative electricity prices... significantly more than the previous record in 2024 (459 hours)"},
+        {"claim": "Aurora 독일 유럽 1위 BESS 시장", "source": "Mobility House", "quote": "Germany has now become Europe's most attractive market for BESS, ahead of the UK and Italy, says Aurora Energy Research"},
+        {"claim": "대형 1MWh+ 누적 3.5GWh 구조적 부족", "source": "Energy-Storage.news 2026-02", "quote": "total installed large-scale storage volume of just 3.5GWh remains far below what is required for Germany's energy transition"},
+        {"claim": "BNetzA 그리드비 프레임 2026-05 초안", "source": "Energy-Storage.news 2026-02", "quote": "Federal Network Agency (BNetzA) expected to publish a draft decision in May 2026"}
       ]
     },
 

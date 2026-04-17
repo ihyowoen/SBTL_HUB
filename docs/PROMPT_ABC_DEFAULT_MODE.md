@@ -342,4 +342,20 @@ Prompt B draft **전수** red-team 후 production-ready payload 확정.
 
 ### ALWAYS
 
-- 모
+- 모든 kept_cluster에 disposition 기록 (passed / reinforcement / discard + reason)
+- Layer 1-2 baseline audit 자동 수행
+- `_needs_review` 자동 플래그 (단독 소스·익명·초기 단계)
+- `related` 필드 채움 (Layer 4 기반)
+- signal 소문자
+- ID = `YYYY-MM-DD_REGION_NN`
+- Region 판례 A-E 적용
+- 대표 출처·대표 date 일관
+- 본문 fact에 "~에 따르면" 출처 attribution
+
+---
+
+## 9. 최종 원칙
+
+**A 단계는 선별·분류, B 단계는 작성, C 단계는 검증.**
+**Baseline은 인덱싱만, 본문은 재출력 금지.**
+**ID는 편집이 아니라 정체성이다.**

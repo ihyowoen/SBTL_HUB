@@ -1,18 +1,19 @@
-# PROMPT ABC — Default Mode (v3)
+# PROMPT ABC — Default Mode (v4)
 
 ## 0. 이 문서의 역할
 
-SBTL_HUB 주간 run의 재사용 prompt 템플릿. Stage A (Card Spec Builder) · Stage B (Insight Writer) · Stage C (Red-team Reviewer) 세 단계 + Enhanced Red-team Deep-dive Audit 프로토콜을 잠근다.
+SBTL_HUB 주간 run의 재사용 prompt 템플릿. Stage A · Stage B · Stage C + Enhanced Red-team Deep-dive Audit + Fact Discipline Verification.
 
-v3 변경점:
-- **Signal Rubric** — 3축 스코어링(§5.1)
-- **Source Priority Tier Map** — 구체 매체명(§5.2)
-- **Category mapping rule** — `FUTURE_CARD_STANDARD` §3 연동
+v4 변경점 (정확성 사고 대응):
+- **Prompt B에 web_fetch 의무화** — fact 작성 전 원문 fetch
+- **fact_sources 필드 의무화** — 모든 숫자·인용의 원문 트레이스 필수
+- **Prompt C에 fact verification 레이어 추가** — 출처 미검증 카드 배제
 
 이 문서는 다음과 같이 읽는다:
+- **최상위 철칙:** `docs/FACT_DISCIPLINE.md` — 정확성 절대 기준 (충돌 시 이 문서보다 우선)
 - `docs/WORKFLOW.md` — 파이프라인 전체 흐름
 - `docs/OPERATIONS.md` — 실무 운영 매뉴얼
-- `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md` — 스키마·Region 판례·Category taxonomy·related 필드 정책
+- `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md` — 스키마·Region 판례·Category taxonomy·fact_sources·related 필드
 - `docs/CARD_ID_STANDARD.md` — `YYYY-MM-DD_REGION_NN` 포맷
 - `docs/TRIAGE_INPUT_MODE_DEFAULT.md` — 입력 모드
 
@@ -29,240 +30,163 @@ Operating Mode: **triage_output + rescue + dropped default mode**
 - cards baseline = GitHub `main` `public/data/cards.json`
 - helper payloads = working artifacts, not baseline
 - discard / merge allowed only in Prompt A
-- Prompt B must write every passed spec
-- Prompt C must review every card draft and must not silently discard
+- Prompt B must write every passed spec **with web_fetch-verified fact**
+- Prompt C must review every card draft, must not silently discard, **and must verify fact_sources**
 - final production schema = full schema only (see `FUTURE_CARD_STANDARD_FULL_SCHEMA.md`)
+- **`fact_sources` 없는 카드는 payload 포함 불가**
 
 ---
 
 ## 2. Region Label Rule
 
-`docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md` §2 + 엣지케이스 판례 A~E를 따른다. 요약:
-- 매체 국적·기업 국적이 아니라 **사건의 직접 무대**
-- 정책 검토·발화 → 발화지
-- 해외 상장 → 기업 본국
-- 유럽 개별국 → EU
-- 애매하면 GL
+`docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md` §2 + 엣지케이스 판례 A~E를 따른다.
 
 ---
 
 ## 3. Baseline Audit Protocol — Enhanced Red-team Deep-dive
 
-**핵심 원칙:** baseline 240+장은 **인덱싱만** 하고 **본문 재출력 금지**. 감사 결과는 `id` 참조와 score만 기록한다.
+**핵심 원칙:** baseline 240+장은 **인덱싱만** 하고 **본문 재출력 금지**.
 
-### Layer 1 — URL 일치 (결정적)
-- 신규 cluster `primary_url` + `urls` ∩ baseline URL 집합
-- hit → 자동 `duplicate_of_existing_main_card`
+### Layer 1 — URL 일치
+- 신규 cluster URL ∩ baseline URL 집합 → 자동 `duplicate_of_existing_main_card`
 
-### Layer 2 — Entity overlap (반결정적)
-- key_entities 벡터: 회사명, 프로젝트명, 인물명, 숫자 앵커, 지역 앵커
+### Layer 2 — Entity overlap
 - 3+ 공유 → dup 후보
-- 2 공유 + 같은 cat + ±3일 → follow-up event
+- 2 공유 + 같은 cat + ±3일 → follow-up
 - 2 공유 + 다른 cat → related 후보
 
-### Layer 3 — 서사 축 검사 (심층)
-1. 반복 / 진전 / 반전 판정 — 진전·반전만 신규 카드 가치
-2. 이 카드 없이 baseline X장으로 같은 결론 나오는가 — yes면 discard
-3. 3개월 뒤에도 유의미한가 — no면 signal 하향
-4. 기존 카드를 update / correction / supersede 하는가 — yes면 `supersedes` 후보
+### Layer 3 — 서사 축 검사
+1. 반복 / 진전 / 반전 판정
+2. baseline X장으로 같은 결론 가능한가
+3. 3개월 뒤에도 유의미한가
+4. supersedes 후보인가
 
 ### Layer 4 — 후속성 체인 (양방향)
-- 신규 → 기존 선행: 신규 카드 `related`에 기록
-- 기존 → 신규 선행: `related_inverse_report.json`에 기록. baseline 파일 직접 수정 금지
-- 3단 이상 체인 → **narrative cluster** 태그
+- 신규 → 기존: `related`
+- 기존 → 신규: `related_inverse_report.json` 기록. baseline 직접 수정 금지
 
 ### Layer 5 — 편집 red-team
-1. Source Tier 판정 (§5.2 참조) → Tier 3 단독은 `_needs_review=true` 자동
-2. 익명 소식통·초기 단계 보도 → `_needs_review=true` 자동
-3. Signal Rubric 적용 (§5.1 참조)
-4. Framing 체크 — gate에 편집 각도가 드러나는가. 뉴스 사실의 재요약으로 끝나면 fail
-5. 숫자 앵커 존재 — 정량 수치가 있으면 가점. 단 정책·규제·블랙리스트 등 본질이 정성적인 사건은 예외
+1. Source Tier 판정 → Tier 3 단독 `_needs_review=true`
+2. 익명·초기 단계 → `_needs_review=true`
+3. Signal Rubric 적용
+4. Framing 체크
+5. 숫자 앵커 존재 (정성적 예외)
 
 ### Layer 6 — Zero-omission 증적
-- 모든 `kept_cluster`: `passed | existing_reinforcement | discard` + reason code
-- 모든 `dropped` (수천 건): STRONG+DROP 전수 검사, 나머지는 reason 분포 sampling (최소 10% + 모든 non-time_out_of_window)
-- 결과는 `W7Rx_prompt_a_audit.json`에 per-cluster 기록
+- 모든 `kept_cluster`: `passed | existing_reinforcement | discard` + reason
+- 모든 `dropped`: STRONG+DROP 전수 검사
 
 ---
 
 ## 4. Prompt A — Card Spec Builder
 
-### System / Role
-Card Spec Builder. 상류 편집-운영 계층. triage → deterministic spec 변환.
-
-### Primary Mission
-- `kept_clusters[]` 전수 처리
-- rescue·dropped salvage
-- 명백한 noise discard
-- 진짜 same-event만 merge
-- category / sub_cat / signal / region / strategic lens 배정
-- 대표 source·대표 date 선택
-- Layer 1-2 baseline audit
-- `passed_specs` 산출
-
-### Authority
-
-**허용:** discard / dedup / merge / cat & signal & region 배정 / salvage / existing reinforcement 표시 / spec 생성
-
-**금지:** 최종 카피 작성 / hallucination / 증거 너머 추론 / kept_cluster silent loss / helper payload를 baseline으로 취급
-
-### Non-Negotiable Rules
-
-1. **Full Coverage** — kept_cluster 전수 disposition, silent loss 금지
-2. **Relevance Filtering** — 명백한 noise만 discard (generic 제품 페이지, 사실 앵커 없는 opinion, EV/Battery/ESS/Energy/AI/Robotics/Materials 무관 일반 뉴스 등)
-3. **Same-Event Merge Rule** — 동일 기업·이벤트·시기·팩트·무모순·명확성 증가 전 조건 충족 시에만. 불확실하면 분리 유지
-4. **Representative Source Rule** — §5.2 Tier 우선
-5. **Representative Date Rule** — 대표 출처의 날짜
-6. **Main Baseline Rule** — Layer 1-2 audit 필수
-7. **Region Rule** — FUTURE_CARD_STANDARD 엣지케이스 판례 적용
-8. **Category Rule** — FUTURE_CARD_STANDARD §3 12개 taxonomy 내에서만 `cat` 배정. `sub_cat`은 한국어 freestyle
-9. **No Inflation** — §5.1 Signal Rubric 준수. 근거 없이 signal 상향 금지
-
-### Spec Construction Fields
-- `spec_id`, `source_cluster_ids`, `source_origin`, `merge_status`
-- `region`, `representative_date`, `representative_source`, `source_tier`
-- `category` (primary, taxonomy 내), `sub_cat` (freestyle)
-- `signal`, `signal_rubric` (3축 점수), `strategic_lens`
-- `primary_url`, `urls`
-- `title_raw`, `summary_hint`, `context_text`
-- `event_anchor`, `why_now`, `market_relevance`
-- `source_priority_notes`, `merge_reason`, `discard_reason`
-- `needs_review`, `review_reason`
-- `baseline_audit` (Layer 1-2 결과)
-
-### Output Contract
-`passed_specs` / `existing_card_reinforcement` / `rescue_decisions` / `dropped_salvage_decisions` / `discard_summary` / Valid JSON only
+동일 (v3). 단, 각 passed_spec의 `primary_url` 필드는 Stage B에서 fetch 대상이 되므로 **fetchable URL**만 허용 (paywall, login-required, 404 발견 시 대체 URL 검색).
 
 ---
 
-## 5. Shared Rubrics — Signal & Source
+## 5. Shared Rubrics — Signal & Source (동일 v3)
 
-### 5.1 Signal Rubric (3축 스코어링)
-
-각 카드의 signal은 다음 3축 점수의 합산으로 판정한다.
-
-**축 A — 정량 규모 (0~2)**
-- 0: 정량 수치 없음 (정성적 announcement, 파일럿, 검토)
-- 1: 소규모 수치 (투자 $100M 미만, 캐파 100MW 미만, 점유율 변화 5%p 미만)
-- 2: 대규모 수치 (투자 $1B+, 캐파 1GW+, 분기 실적 ±30%+, 시총 순위 변화 등)
-
-**축 B — 재가역성 (0~2)**
-- 0: 되돌릴 수 있는 단계 (검토·제안·협상 중·계획 발표)
-- 1: 공식화됨 (승인·서명·공시·지분인수 확정)
-- 2: 이미 집행 (공장 착공·상업운전·법 발효·관세 발동·제품 출하)
-
-**축 C — 파급 범위 (0~2)**
-- 0: 개별 기업 이슈
-- 1: 섹터 내 다수 기업 영향 (동종 업계 공통 이슈)
-- 2: 산업 구조·벨류체인 전반 변화 (cross-sector, 국가 정책, 표준 변화)
-
-**총점 0~6에 따른 signal 매핑:**
-- 5~6 → `top`
-- 3~4 → `high`
-- 1~2 → `mid`
-- 0 → discard 또는 reinforcement
-
-**예외 조항:**
-- 정책·규제·블랙리스트·수출통제·합병 등 본질이 정성적인 사건은 축 A=1 하한 인정 (정량 미달이어도 top 가능)
-- 단독 소스·익명 보도는 총점 무관 `top` 금지, 최대 `high`
-
-**필수 기록:** 각 spec에 `signal_rubric: {A: N, B: N, C: N, total: N, exception: "..."}` 저장
-
-### 5.2 Source Priority Tier Map
-
-**Tier 1 — Primary (단독 인용으로 확정 가능)**
-- 국제: Reuters, Bloomberg, FT, WSJ, Nikkei, AP
-- 국내 메이저: 연합뉴스, 매일경제, 한국경제, 서울경제, 조선비즈, 중앙일보, 동아일보 경제면
-- 1차 공시·IR: DART, SEC EDGAR, 기업 공식 뉴스룸, 정부·규제기관 공식 릴리스
-
-**Tier 2 — Secondary (교차 검증 또는 복수 출처 시 확정)**
-- 국내 산업 전문: 전자신문, 전기신문, 에너지경제, 이투뉴스, 투데이에너지, 더일렉, 이데일리, 뉴시스, 뉴스1, 아주경제, 파이낸셜뉴스
-- 중국 배터리·에너지 전문: 北极星储能网(bjx), OFweek Li-Battery, CBEA 电池观察, 高工锂电, 鑫椤锂电
-- 일본: Response.jp, Monoist, EE Times Japan, 日経産業新聞
-- 글로벌 산업 전문: Energy-Storage.news, PV Magazine, Charged EVs, Electrek, Clean Energy Wire, S&P Global Commodity Insights
-- 중국 일반 경제: 财新(Caixin), 21世纪经济报道, 证券时报
-
-**Tier 3 — Cautious (단독 시 `_needs_review=true` 자동)**
-- 더구루, 임팩트온, 프레스나인, 헬로티(hellot), 배터리뉴스, 일렉포(elec4), BusinessKorea
-- 산업 블로그·재인용 전문 매체
-
-**Tier 0 — Avoid (supporting만, 대표 출처로 금지)**
-- MarketBeat, SeekingAlpha, 주가·증권 전용 aggregator
-- 노출·SEO 중심 매체, 복붙 재게시 사이트
-
-**Tier 판정 규칙:**
-- 한 사건에 복수 출처가 있으면 **가장 높은 Tier** 를 대표 출처로 선택
-- Tier 3 단독 → `_needs_review=true` 자동 + `review_reason: "Tier 3 단독 출처"`
-- 의심스러운 매체는 Tier 0로 간주
-- 이 리스트는 living document. 매체별 tier 재평가는 분기별
+§5.1 Signal Rubric (3축), §5.2 Source Priority Tier Map.
 
 ---
 
-## 6. Prompt B — Insight Writer
+## 6. Prompt B — Insight Writer (v4 강화)
 
 ### Mission
-Prompt A passed_specs **전수**를 full-schema 카드 draft로 작성.
+Prompt A passed_specs **전수**를 full-schema 카드 draft로 작성. **모든 fact는 web_fetch 결과에만 근거.**
 
-### Schema (FUTURE_CARD_STANDARD §1 참조)
-`id / region / date / cat / sub_cat / signal / title / sub / gate / fact / implication / urls / related`
+### 6.1 작성 절차 (strict sequence)
 
-### ID 할당
-- 포맷: `CARD_ID_STANDARD.md` 준수 (`YYYY-MM-DD_REGION_NN`)
-- (date, region) 그룹 내 NN 순서: signal `top→high→mid`, 동 signal 내 편집자 중요도
-- 재사용 금지
+1. **각 spec에 대해 `primary_url` web_fetch 수행**
+   - 실패 시: 동일 이벤트의 다른 URL (다른 매체) fetch 시도
+   - 복수 매체 merged spec이면 **대표 URL + 검증용 보조 URL 최소 1개** fetch
+   - 모두 실패 → 카드 생성 중단, `unverified_specs` 리스트에 기록
 
-### 본문 텍스트 위생 (hard rule)
-1. 다른 카드 ID를 `title / sub / gate / fact / implication`에 하드코딩 금지
-   - 나쁜 예: "`W6N_04`(陈景河 영입)에 이어..."
-   - 좋은 예: "4/7 陈景河 영입에 이어..."
-2. 카드 관계는 `related` 배열로만 표현
-3. signal은 소문자
-4. date는 `YYYY-MM-DD`
-5. `cat`은 FUTURE_CARD_STANDARD §3 taxonomy 내 값만
+2. **fetch 결과에서 정보 추출**
+   - 숫자 (금액·용량·일자·비율)
+   - 고유명사 (기업·인물·프로젝트·상세명)
+   - 직접 인용
+   - 원문이 명시한 비교·맥락
 
-### 필드별 제약
-- `gate`: ≥40자. 뉴스 사실의 재요약이 아니라 편집자의 판단 각도
-- `fact`: ≥50자, "~에 따르면" 출처 attribution 필수, 숫자·날짜·주체 명시
-- `implication`: ≥2개, 각 ≥20자, 각 항목 독립적으로 읽혀야 함
-- `urls`: 대표 출처가 첫 번째
-- `related`: Layer 4 결과 반영
+3. **`fact_sources` 구축**
+   - 각 `claim` (숫자 단위, 인용 단위)에 대해:
+     - `source_url` (fetch한 URL)
+     - `source_quote` (원문에서 복사한 30자 내외 직접 인용)
+     - `fetched_at` (ISO 8601)
+   - 원칙: **fact에 들어갈 모든 숫자·고유명사·인용은 반드시 `fact_sources` 항목 1개 이상에 연결**
 
-### 금지
+4. **fact 필드 작성**
+   - §6.2 규칙 준수. 원문에 없는 정보 추가 금지
+
+5. **implication 필드 작성**
+   - §6.3 규칙 준수. 단정형 금지, 관찰형만
+   - implication에 수치가 등장하면 그 수치도 `fact_sources` 연결
+
+### 6.2 fact 필드 제약
+
+- ≥0자 (고정·인위적 최소 삭제), ≤400자 (가독성)
+- "X에 따르면" attribution 필수
+- 숫자·날짜·주체 명시 (단, 원문에 있는 것만)
+- **원문에 없는 비교·해석·업계 진단·전망 금지**
+- 환산 수치는 원문 환산 또는 환율 기준 명시 (`FACT_DISCIPLINE` §5 참조)
+
+### 6.3 implication 필드 제약
+
+- ≥2개 항목, 각 ≥20자
+- **단정형 문장 금지** (`FACT_DISCIPLINE` §4.1)
+  - 금지: "X가 나온다", "X한다", "X 가능성이 증가"
+- **관찰형 어휘 사용** (`FACT_DISCIPLINE` §4.2)
+  - 허용: "X할 여지", "X인지 확인 필요", "X가 관찰 포인트"
+- implication에 등장하는 세부 수치와 주체가 fact에 있어야 함 (implication은 fact의 문맥 확장, 새 fact 생성 불가)
+
+### 6.4 본문 텍스트 위생 (hard rule)
+
+1. 다른 카드 ID 하드코딩 금지. `related` 배열로만
+2. signal 소문자, date `YYYY-MM-DD`, `cat`은 taxonomy 내
+
+### 6.5 금지
 - passed spec silent 누락
+- fetch 없이 fact 작성 — **이것이 이번 v4 핵심 금지**
 - Prompt A가 정한 cat/signal/date 임의 변경
-- 새로운 merge·discard
 - baseline 본문 재출력
 
-### Output
-`W7Rx_prompt_b_output.json` — draft 카드 N장. Valid JSON only.
+### 6.6 Output
+- `W7Rx_prompt_b_output.json` — draft 카드 N장 (fact_sources 포함)
+- `W7Rx_unverified_specs.json` — fetch 실패로 카드화 불가했던 spec 목록 (사유 + 대체 URL 제안)
 
 ---
 
-## 7. Prompt C — Red-team Reviewer
+## 7. Prompt C — Red-team Reviewer (v4 강화)
 
 ### Mission
-Prompt B draft **전수** red-team 후 production-ready payload 확정.
+Prompt B draft **전수** red-team + **fact 검증** 후 production-ready payload 확정.
 
-### 금지
+### 7.1 금지
 - silent discard
-- signal·region·date·category 임의 변경 (변경 필요 시 `_needs_review=true` 플래그 + 사유 기록)
-- 본문 대량 rewrite (편집 위생 수준의 국소 수정만 허용)
+- signal·region·date·category 임의 변경
+- 본문 대량 rewrite
 
-### 적용 절차
-1. **스키마 컴플라이언스 자동 검사** — §6 필드 제약 + FUTURE_CARD_STANDARD §3 cat taxonomy 검증
-2. **Layer 3 서사축 검사** 전수 적용
-3. **Layer 5 편집 red-team** 전수 적용
-   - Source Tier 판정
-   - Signal Rubric 재계산 및 비교
-   - 정당성 재검
-   - Framing 점검
-4. **본문 하드링크 ID 잔여 제거** (정규식: `W[67][NR]\d*_\d+`, `W7Rx_B\d+`)
-5. **related 필드 최종 확정** (Layer 4 inverse report 크로스체크)
-6. `W7Rx_redteam_report.md`에 Layer 3·5 판단 로그 기록
+### 7.2 적용 절차
 
-### Output
-- `W7Rx_payload.json` — 최종 카드 N장 (related + `_needs_review` 플래그 포함)
-- `W7Rx_redteam_report.md` — Layer 3·5 판단 로그
+1. **스키마 컴플라이언스 자동 검사**
+2. **Fact Discipline 검증** (NEW v4)
+   - 모든 `fact_sources` 항목의 `source_url`이 `urls` 배열에 존재
+   - 모든 `source_quote`가 30자 이내 직접 인용 형태
+   - fact 내 모든 숫자·고유명사·인용·날짜가 `fact_sources`의 `source_quote`에서 검색됨
+   - implication 내 모든 수치·고유명사도 `fact_sources` 연결
+   - fact에 "업계·시장·분석가·전문가" 모호 주체 없음
+   - fact에 환산 수치 있다면 환율 기준 명시
+   - **위 항목 한 줄이라도 fail → payload에서 제거 (silent discard 아니라 명시 제거)**
+3. **Layer 3 서사축 검사** 전수 적용
+4. **Layer 5 편집 red-team** 전수 적용
+5. **본문 하드링크 ID 잔여 제거**
+6. **related 필드 최종 확정**
+7. `W7Rx_redteam_report.md`에 기록 — 제거된 카드의 ID·사유·제거 항목 명시
+
+### 7.3 Output
+- `W7Rx_payload.json` — 최종 카드 N장 (fact_sources + related + `_needs_review` 포함)
+- `W7Rx_redteam_report.md` — Layer 3·5 + Fact Discipline 검증 로그
+- `W7Rx_rejected_cards.json` — Fact Discipline 검증에 fail해서 제외된 카드 목록 (사유가 기예)
 
 ---
 
@@ -270,39 +194,52 @@ Prompt B draft **전수** red-team 후 production-ready payload 확정.
 
 | 파일 | 역할 | baseline 본문 포함? |
 |---|---|---|
-| `W7Rx_payload.json` | 신규 N장 최종 (배포용) | ❌ |
-| `W7Rx_prompt_a_output.json` | spec 단계 (감사) | ❌ |
-| `W7Rx_prompt_a_audit.json` | cluster zero-omission 증적 | ❌ |
-| `W7Rx_prompt_b_output.json` | draft 단계 스냅샷 | ❌ |
-| `baseline_match_audit.json` | Layer 1-2 매칭 매트릭스 (id + score만) | ❌ |
-| `related_inverse_report.json` | baseline 역참조 제안 (id only) | ❌ |
-| `W7Rx_redteam_report.md` | Layer 3·5 판단 로그 | ❌ |
-
-**cards.json 통합본은 발행하지 않는다.** 병합은 Claire 로컬에서 `merge_cards.py`.
+| `W7Rx_payload.json` | 신규 N장 최종 (fact_sources 포함) | ❌ |
+| `W7Rx_prompt_a_output.json` | spec 단계 | ❌ |
+| `W7Rx_prompt_a_audit.json` | cluster zero-omission | ❌ |
+| `W7Rx_prompt_b_output.json` | draft 스냅샷 | ❌ |
+| `W7Rx_unverified_specs.json` | fetch 실패 spec (NEW v4) | ❌ |
+| `baseline_match_audit.json` | Layer 1-2 매칭 | ❌ |
+| `related_inverse_report.json` | 역참조 제안 | ❌ |
+| `W7Rx_redteam_report.md` | Layer 3·5 + Fact 검증 로그 | ❌ |
+| `W7Rx_rejected_cards.json` | Fact 검증 fail 카드 (NEW v4) | ❌ |
 
 ---
 
 ## 9. Never / Always 체크리스트
 
 ### NEVER
-- baseline 본문 재출력 (id 참조만)
-- `W7Rx_B01` 같은 파이프라인 단계 표식을 production ID에 포함
+- baseline 본문 재출력
+- 파이프라인 단계 표식을 production ID에 포함
 - 본문에 다른 카드 ID 하드코딩
-- 단독 소스(Tier 3) 또는 익명 보도를 `top`으로 마감
+- 단독 소스(Tier 3) 또는 익명 보도를 `top`으로
 - 매체 국적으로 region 배정
-- `cat`을 taxonomy 밖 값으로 배정
+- `cat`을 taxonomy 밖 값으로
+- **기억·추론·상식으로 fact 필드 메우기** — v4 핵심
+- **출처 fetch 없는 숫자·인용·비교 기재** — v4 핵심
+- **`fact_sources` 없는 카드를 payload에 포함** — v4 핵심
 - kept_cluster silent loss
-- cards.json 통합본을 payload 대신 발행
+- cards.json 통합본 발행
 
 ### ALWAYS
 - 모든 kept_cluster에 disposition 기록
 - Layer 1-2 baseline audit 자동 수행
-- Signal Rubric 3축 점수 기록 (`signal_rubric`)
-- Source Tier 기록 (`source_tier`)
-- `_needs_review` 자동 플래그 (Tier 3 단독·익명·초기 단계)
-- `related` 필드 채움 (Layer 4 기반)
-- signal 소문자
-- ID = `YYYY-MM-DD_REGION_NN`
-- `cat` ∈ FUTURE_CARD_STANDARD §3 taxonomy
-- Region 판례 A-E 적용
-- 본문 fact에 "~에 따르면" 출처 attribution
+- **Prompt B 시 passed_spec 전수 primary_url web_fetch** — v4 핵심
+- **fact·implication 내 숫자·인용·고유명사·일자는 `fact_sources`에 1:1 대응** — v4 핵심
+- **환산 수치는 환율 원문 또는 기준 날짜 명시** — v4 핵심
+- Signal Rubric 3축 점수 기록
+- Source Tier 기록
+- `_needs_review` 자동 플래그
+- `related` 필드 채움
+- signal 소문자, ID = `YYYY-MM-DD_REGION_NN`
+- `cat` ∈ taxonomy
+- Region 판례 A-E
+- fact에 "~에 따르면" attribution
+
+---
+
+## 10. 최종 원칙
+
+**A 단계는 선별·분류, B 단계는 원문 검증 계적 작성, C 단계는 인용 검증·이중 red-team.**
+**Baseline은 인덱싱만, 인용은 원문만.**
+**정확성은 taste가 아니라 방화벽이다.**

@@ -177,4 +177,4 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
       </div>
     </div>
   );
-}\n
+}

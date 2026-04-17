@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "description": "Production-ready accepted cards after revision and Prompt C re-QC",
+    "accepted_count": 4,
+    "source_draft_file": "prompt_b_revised_top4_accepted_20260417.json",
+    "source_qc_file": "prompt_c_qc_top4_post_revision_accepted.json",
+    "accepted_ids": [
+      "2026-04-10_US_01",
+      "2026-04-10_GL_01",
+      "2026-04-15_CN_04",
+      "2026-04-15_EU_03"
+    ]
+  },
+  "cards": [
+    {
+      "id": "2026-04-10_US_01",
+      "region": "US",
+      "date": "2026-04-10",
+      "cat": "Charging",
+      "sub_cat": "주정부 NEVI 구축",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "Ohio, NEVI 64개 신규 EV 충전 사이트 선정 — ODOT 5,100만달러 배정, 최소 4포트·포트당 150kW",
+      "sub": "2027년 초 공사 시작, 2027년 말 개통 목표. 주 단위 charging rollout이 계획 단계에서 실행 단계로 이동",
+      "gate": "이 카드의 핵심은 '충전기 확대'가 아니라 미국 charging 인프라가 연방 보조금 담론을 넘어 주정부 집행 숫자와 공사 일정이 잠긴 execution 단계로 이동했다는 점이다. ODOT가 64개 입지·51백만달러·150kW 최소 사양을 함께 제시한 것은 state-level buildout이 실체를 갖추기 시작했다는 신호다.",
+      "fact": "Spectrum News 1 및 지역 보도에 따르면 Ohio Department of Transportation(ODOT)은 2026-04-10 National Electric Vehicle Infrastructure(NEVI) 프로그램을 통해 64개 신규 EV 충전 사이트를 선정하고 약 5,100만달러를 배정한다고 밝혔다. 각 사이트는 최소 4개 충전 포트와 포트당 150kW 출력을 갖추고, 이용자가 화장실·음식 등 기본 편의시설에 접근할 수 있어야 한다. 공사는 2027년 초 시작될 예정이며 개통 목표 시점은 2027년 말이다. 민간 개발사 측 매칭 자금은 2,600만달러를 초과하는 것으로 보도됐다.",
+      "implication": [
+        "미 charging 시장의 핵심이 '누가 더 많은 충전기를 발표하느냐'에서 '주정부가 어느 속도로 corridor buildout을 실제 집행하느냐'로 옮겨가고 있다. K-CPO·충전기 업체 입장에서는 주별 NEVI execution 체계를 따로 추적해야 할 구간이다.",
+        "최소 150kW·4포트 표준이 반복되면 미국 중부·러스트벨트 charging 수요는 고밀도 flagship hub보다 분산형 표준 사이트 설계 쪽으로 기울 수 있다. 북미 대응 제품 포트폴리오를 이 표준 사양에 맞춰야 하는지가 관찰 포인트다."
+      ],
+      "urls": [
+        "https://spectrumnews1.com/oh/columbus/news/2026/04/10/odot-selects-64-new-sites-for-ev-charging-stations",
+        "https://www.aol.com/news/ohio-awards-51-million-64-110000153.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "ODOT 64개 신규 사이트, 5,100만달러 배정",
+          "source": "Spectrum News 1 2026-04-10",
+          "quote": "ODOT said it will award $51 million to developers... 64 new sites"
+        },
+        {
+          "claim": "최소 4포트·포트당 150kW",
+          "source": "Spectrum News 1 2026-04-10",
+          "quote": "at least four charging ports with 150 kW of power for each port"
+        },
+        {
+          "claim": "2027년 초 공사, 2027년 말 개통",
+          "source": "Spectrum News 1 2026-04-10",
+          "quote": "Construction is set to begin early next year, and the sites are expected to open by the end of 2027"
+        },
+        {
+          "claim": "민간 매칭 2,600만달러 초과",
+          "source": "AOL/WCMH 2026-04-12",
+          "quote": "matched with more than $26 million from private developers"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-10_GL_01",
+      "region": "GL",
+      "date": "2026-04-10",
+      "cat": "Policy",
+      "sub_cat": "국가 ESS 통합 규칙",
+      "signal": "high",
+      "source_tier": 1,
+      "title": "Colombia, Decreto 0393 제정 — ESS를 SIN·ZNI 전력체계에 통합, 보상·운영 규칙 프레임 개시",
+      "sub": "주파수 조정·전압 제어·black start·혼잡 완화까지 허용. ESS가 개별 프로젝트에서 국가 전력시장 자산으로 격상",
+      "gate": "이 카드의 핵심은 단순히 '콜롬비아가 배터리를 허용했다'가 아니라 ESS가 국가 전력체계 안에서 다중 서비스 자산으로 제도화됐다는 점이다. 이는 신흥국 ESS 시장이 실증·개별 조달 단계를 넘어 계통 규칙과 보상 체계의 문제로 이동하고 있음을 보여준다.",
+      "fact": "Colombia 정부는 2026-04-10 Decreto 0393를 제정했고, Minenergía와 대통령실은 4월 14일 이 규정이 Sistemas de Almacenamiento de Energía(SAE)를 Sistema Interconectado Nacional(SIN)과 Zonas No Interconectadas(ZNI)에 통합하기 위한 공공정책 가이드라인이라고 발표했다. 정부 설명에 따르면 이 규정은 ESS의 도입·사용·보상을 허용하고, 주파수 조정, 전압 제어, 백업 전원(black start), 수요관리, 계통 혼잡 완화 등 다중 서비스를 열어준다. 구체적 운영·보상 규칙은 CREG와의 후속 규정으로 이어질 예정이다.",
+      "implication": [
+        "중남미 ESS 시장이 '프로젝트 뉴스'가 아니라 '국가 계통 규칙' 단계로 이동했다는 점에서 의미가 크다. 향후 LatAm utility-scale ESS를 볼 때 개별 입찰보다 먼저 제도 프레임이 잠겼는지부터 봐야 한다.",
+        "비연계 지역(ZNI)까지 포괄한 점은 단순 도시형 계통 보완이 아니라 접근성·신뢰도 개선까지 포함한 정책 설계다. 배지 체계상 직접 무대가 콜롬비아이므로 region은 GL로 두는 것이 맞다."
+      ],
+      "urls": [
+        "https://www.minenergia.gov.co/es/sala-de-prensa/noticias-index/gobierno-habilita-el-almacenamiento-de-energia-y-da-un-paso-clave-para-garantizar-la-seguridad-electrica-del-pais/",
+        "https://www.presidencia.gov.co/prensa/Paginas/Con-decreto-sobre-almacenamiento-de-energia-Gobierno-garantiza-seguridad-electrica-del-pais-260414.aspx"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "Decreto 0393 del 10 de abril de 2026",
+          "source": "Minenergía 2026-04-14",
+          "quote": "El Gobierno nacional expidió el Decreto 0393, del 10 de abril de 2026"
+        },
+        {
+          "claim": "SIN 및 ZNI 통합 규칙",
+          "source": "Minenergía 2026-04-14",
+          "quote": "integración de los Sistemas de Almacenamiento de Energía (SAE) en el Sistema Interconectado Nacional (SIN) y en las Zonas No Interconectadas (ZNI)"
+        },
+        {
+          "claim": "도입·사용·보상 허용",
+          "source": "Presidencia 2026-04-14",
+          "quote": "habilita la incorporación, uso y remuneración de los sistemas de almacenamiento"
+        },
+        {
+          "claim": "주파수·전압·black start·수요관리·혼잡 완화",
+          "source": "Presidencia 2026-04-14",
+          "quote": "regulación de frecuencia, control de tensión, respaldo al sistema (black start), la gestión de la demanda y la reducción de congestiones en la red"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-15_CN_04",
+      "region": "CN",
+      "date": "2026-04-15",
+      "cat": "Materials",
+      "sub_cat": "LFP 대규모 증설",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "Ronbay, 약 42.98억위안 LFP 증설 — 52만톤 전구체 + 34만톤 양극재",
+      "sub": "완공 후 연 34만톤 LFP 양극재 체제. 중국 소재 플레이어의 대규모 LFP CAPEX가 확인된 구간",
+      "gate": "이 카드의 핵심은 '중국 업체가 또 공장을 짓는다'가 아니라, 중국 소재 플레이어의 대규모 LFP 증설이 구체 CAPEX와 생산능력 숫자로 확인됐다는 점이다. 이는 중국 배터리 소재 경쟁의 중심축에서 LFP 물량 대응의 비중이 커지고 있음을 보여준다.",
+      "fact": "증권시보와 인민재경 보도에 따르면 Ronbay Technology는 2026-04-15 약 42.98억위안을 투자해 연 52만톤 습식 LFP 전구체 프로젝트와 연 34만톤 화법 LFP 양극재 프로젝트를 건설한다고 공시했다. 전구체 습식 프로젝트는 화법 양극재 프로젝트의 전단 공정이며, 두 프로젝트 완공 후 회사의 LFP 양극재 생산능력은 연 34만톤으로 제시됐다. 세부적으로 전구체 프로젝트 투자액은 약 20.07억위안, 양극재 프로젝트는 약 22.91억위안으로 보도됐다.",
+      "implication": [
+        "중국 소재 업계에서 LFP가 점유율 상승을 넘어 대규모 CAPEX 대상이 되는 흐름이 확인된다. K-양극재 업체는 중국과의 경쟁을 삼원계 기술력만이 아니라 LFP 공급능력 격차까지 함께 봐야 하는 구간이다.",
+        "전구체와 양극재를 한 번에 묶은 증설은 고객 주문 대응용 execution 성격이 강하다. 중국 내 대형 고객 주문이 upstream 소재 증설을 얼마나 빠르게 끌어당기는지가 2026년 소재 경쟁의 관찰 포인트다."
+      ],
+      "urls": [
+        "https://www.stcn.com/article/detail/3752195.html",
+        "https://www.stcn.com/article/detail/3752882.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "총 투자 약 42.98억위안",
+          "source": "STCN 2026-04-15",
+          "quote": "拟投资共计约42.98亿元"
+        },
+        {
+          "claim": "52万吨 습식 전구체 + 34万吨 화법 양극재",
+          "source": "STCN 2026-04-15",
+          "quote": "分别新建年产52万吨湿法磷酸铁锂前驱体产能及34万吨火法磷酸铁锂正极材料产能"
+        },
+        {
+          "claim": "완공 후 연 34만톤 LFP 양극재 능력",
+          "source": "STCN 2026-04-15",
+          "quote": "两个项目建成后，公司将拥有年产34万吨磷酸铁锂正极产能"
+        },
+        {
+          "claim": "전구체 20.07억·양극재 22.91억위안",
+          "source": "STCN 2026-04-15",
+          "quote": "预计投资约20.07亿元... 预计投资约22.91亿元"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-15_EU_03",
+      "region": "EU",
+      "date": "2026-04-15",
+      "cat": "Manufacturing",
+      "sub_cat": "EU 현지 BESS 제조",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "Hithium, 스페인 Navarra에 약 4억유로 BESS 공장 추진 — 2027 가동 목표, EU 첫 거점",
+      "sub": "700개 이상 직접 일자리 전망. 중국 ESS 업체의 유럽 공급이 수입에서 현지 제조로 이동하는 시험대",
+      "gate": "이 카드의 핵심은 '중국 기업의 유럽 진출'이 아니라 ESS 공급망 경쟁이 유럽 현지 제조 단계로 이동하고 있다는 점이다. Hithium의 Navarra 투자는 셀·시스템 수입 모델만으로는 EU 시장을 공략하기 어렵다는 판단이 현지 생산 거점으로 구체화된 사례다.",
+      "fact": "Navarra 정부의 2026-03 발표와 Cadena SER의 2026-04-15 보도에 따르면 Hithium은 스페인 Navarra에 정지형 배터리 에너지저장시스템(BESS) 공장을 추진 중이며, 투자 규모는 약 4억유로 수준으로 제시됐다. Cadena SER는 확정 서명 단계에서 4억유로를 넘는 투자와 700개 이상의 직접 일자리, 2027년 생산 개시 전망을 전했고, Navarra 정부는 앞선 3월 발표에서 이 프로젝트가 셀 제조와 BESS 조립을 포함하는 구조라고 설명했다. 이 공장은 Hithium의 유럽연합 첫 제조 거점으로 소개됐다.",
+      "implication": [
+        "유럽 ESS 시장이 '중국산 장비 수입'만으로 굴러가던 단계에서 '중국 업체의 EU 현지화' 경쟁으로 이동하고 있다. K-ESS 업체는 유럽에서 공급망 프리미엄을 지키려면 현지 조립·현지 인증·현지 파트너 구조를 더 적극적으로 고민해야 한다.",
+        "이 사건의 직접 무대는 중국이 아니라 스페인 Navarra이므로 region은 EU가 맞다. 이 region correction을 놓치면 카드 해석이 '중국 증설'로 왜곡될 수 있다."
+      ],
+      "urls": [
+        "https://cadenaser.com/navarra/2026/04/15/hithium-se-compromete-con-navarra-se-firma-su-inversion-de-400-millones-de-euros-radio-pamplona/",
+        "https://www.navarra.es/es/-/nota-prensa/el-gobierno-foral-planteara-formulas-de-colaboracion-publico-privadas-para-la-inversion-de-hithium-en-navarra"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "Navarra 투자 4억유로 규모",
+          "source": "Navarra government 2026-03-10",
+          "quote": "Se destinará un total de 400 millones de euros"
+        },
+        {
+          "claim": "700개 이상 일자리",
+          "source": "Navarra government 2026-03-10",
+          "quote": "se crearán más de 700 puestos de trabajo"
+        },
+        {
+          "claim": "BESS 기가팩토리, 셀 제조와 BESS 조립 포함",
+          "source": "Navarra government 2026-03-10",
+          "quote": "una gigafábrica de sistemas de almacenamiento de energía en baterías estacionarias (BESS), que incluye tanto la fabricación de celdas como el ensamblaje de BESS"
+        },
+        {
+          "claim": "2027 가동 목표·EU 첫 거점",
+          "source": "Cadena SER 2026-04-15",
+          "quote": "prevista para entrar en funcionamiento en 2027, será la primera de Hithium en la Unión Europea"
+        }
+      ]
+    }
+  ]
+}

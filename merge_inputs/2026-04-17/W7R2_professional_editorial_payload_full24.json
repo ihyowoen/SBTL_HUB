@@ -1,0 +1,765 @@
+{
+  "_meta": {
+    "stage": "W7R2 production cards (final)",
+    "schema_version": "full + related + sub_cat + signal_rubric + source_tier (v3)",
+    "generated": "2026-04-17",
+    "id_format": "YYYY-MM-DD_REGION_NN",
+    "docs_reference": [
+      "docs/CARD_ID_STANDARD.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md"
+    ],
+    "count": 24,
+    "needs_review": [
+      "2026-04-16_US_01",
+      "2026-04-16_CN_04",
+      "2026-04-16_CN_01"
+    ],
+    "migrated": "2026-04-17",
+    "migration_rules": "docs/FUTURE_CARD_STANDARD §3 + docs/PROMPT_ABC §5.1, §5.2",
+    "rewritten_on": "2026-04-17",
+    "rewrite_scope": [
+      "2026-04-16_US_02",
+      "2026-04-16_US_01",
+      "2026-04-16_CN_04",
+      "2026-04-16_CN_01",
+      "2026-04-15_US_04"
+    ],
+    "description": "Professional editorial payload upgraded from W7R2 clean subset",
+    "excluded_caution_ids": [
+      "2026-04-16_US_01",
+      "2026-04-16_CN_04",
+      "2026-04-16_CN_01"
+    ],
+    "upgraded_count": 24,
+    "method": "fact preserved, title/sub/gate/implication upgraded for institutional editorial tone"
+  },
+  "cards": [
+    {
+      "id": "2026-04-16_US_02",
+      "region": "US",
+      "date": "2026-04-16",
+      "cat": "Manufacturing",
+      "signal": "high",
+      "title": "Hanjung America, 인디애나 Huntington 美 제조거점 착공 — StarPlus Energy 공급망 현지화 연결",
+      "sub": "133에이커 부지·2027년 6월 가동 목표·440명 고용 계획. K-셀 JV 뒤를 잇는 K-소부장 2차 localization 사례",
+      "gate": "이 사건의 의미는 개별 부품사의 미국 진출 자체보다, 삼성SDI·Stellantis JV인 StarPlus Energy를 축으로 셀 이후 부품·열관리까지 현지 공급망이 연쇄 진입하고 있다는 점에 있다. 북미 배터리 산업의 경쟁 축이 '누가 셀 공장을 짓는가'에서 '누가 주변 부품 공급망까지 함께 고정하는가'로 옮겨가는 구간이다.",
+      "fact": "Indiana Economic Development Corporation은 2026-04-13 Mike Braun 주지사가 Huntington에서 Hanjung America의 첫 미국 제조시설 기공식에 참석한다고 발표했다. 공장은 Riverfork West Industrial Park 133에이커 부지에 들어서며, 회사는 2027년 6월 가동 시작과 향후 440명 이상 고용을 목표로 제시했다. 주정부 설명에 따르면 Hanjung America는 한국 한중엔시에스의 미국 자회사로, Stellantis와 삼성SDI의 합작사 StarPlus Energy의 배터리 제조 공급망과 인디애나 재생에너지 생태계를 지원할 예정이다.",
+      "implication": [
+        "북미 배터리 공급망의 현지화는 셀 단독으로 완결되지 않는다. Hanjung 사례는 K-소부장이 K-셀 앵커를 따라 후속 진입하는 패턴이 실제 착공 단계로 넘어갔음을 보여준다.",
+        "향후 StarPlus Energy 가동률과 추가 부품사 CAPEX가 연쇄적으로 연결되는지가 관찰 포인트다. 북미 JV의 경쟁력 평가는 셀 공장 수보다 주변 부품망의 고정 속도로 이동할 가능성이 높다."
+      ],
+      "urls": [
+        "https://iedc.in.gov/events/news/details/2026/04/13/governor-braun-to-break-ground-on-hanjung-america-manufacturing-center-in-huntington",
+        "https://www.theguru.co.kr/news/article.html?no=100614"
+      ],
+      "related": [
+        "W6R2_01"
+      ],
+      "sub_cat": "북미 localization",
+      "signal_rubric": {
+        "A": 1,
+        "B": 2,
+        "C": 1,
+        "total": 4,
+        "exception": null
+      },
+      "source_tier": 1,
+      "editorial_upgrade": {
+        "version": "professional_payload_v1",
+        "goal": "institutional tone / clearer causal framing / more cautious implications",
+        "changes": [
+          "title/sub refined",
+          "gate sharpened",
+          "implication upgraded",
+          "facts preserved"
+        ]
+      }
+    },
+    {
+      "id": "2026-04-16_KR_07",
+      "region": "KR",
+      "date": "2026-04-16",
+      "cat": "AI",
+      "signal": "high",
+      "title": "대전 GPU 데이터센터 기공 — 2.5조원 투자와 Blackwell 62,500장 수용 계획 공개",
+      "sub": "수도권 집중형 K-AI 인프라가 지방 거점으로 확장되는 신호. 전력·냉각·ESS 수요의 지역 분산 가능성 부각",
+      "gate": "핵심은 대형 GPU 데이터센터가 하나 더 생긴다는 사실보다, 국내 AI 인프라 투자가 수도권을 넘어 지방 거점으로 확장되기 시작했다는 점이다. 이는 전력·냉각·ESS·송전 인프라 수요가 특정 지역에만 몰리지 않을 수 있음을 보여주는 초기 신호다.",
+      "fact": "ZDNet Korea에 따르면 2026-04-16 대전 한남대학교에서 슈퍼마이크로컴퓨터 부사장 케빈 창·BKB에너지·KT 관계자 등 150여 명이 참석한 가운데 'AX클러스터 & 고성능 GPU 거점센터' 기공식이 개최됐고, 건물·송전·냉각시설·GPU 랙 등 시설비만 2.5조원 규모이며 Blackwell급 GPU 62,500장 이상 수용과 슈퍼마이크로 측의 'Rubin급 32만장 공급' 약속이 공개된 것으로 확인됐다.",
+      "implication": [
+        "AI 데이터센터 수요가 지방으로 분산되면 변압기·UPS·냉각·ESS 등 전력 인프라의 투자 지형도 함께 바뀔 수 있다. 관련 공급사의 영업·설치 거점 전략 재조정이 필요한 구간이다.",
+        "같은 주 네이버 데이터센터 자금 지원과 결합해 보면, K-AI 인프라 투자는 민간 CAPEX와 정책금융이 동시에 작동하는 단계로 들어간 것으로 볼 수 있다."
+      ],
+      "urls": [
+        "https://zdnet.co.kr/view?no=20260416152517"
+      ],
+      "related": [
+        "2026-04-15_KR_03"
+      ],
+      "sub_cat": "GPU DC 인프라",
+      "signal_rubric": {
+        "A": 2,
+        "B": 1,
+        "C": 1,
+        "total": 4,
+        "exception": null
+      },
+      "source_tier": 2,
+      "editorial_upgrade": {
+        "version": "professional_payload_v1",
+        "goal": "institutional tone / clearer causal framing / more cautious implications",
+        "changes": [
+          "title/sub refined",
+          "gate sharpened",
+          "implication upgraded",
+          "facts preserved"
+        ]
+      }
+    },
+    {
+      "id": "2026-04-16_KR_06",
+      "region": "KR",
+      "date": "2026-04-16",
+      "cat": "PowerGrid",
+      "signal": "mid",
+      "title": "LS일렉트릭 '햇빛길 플러스' 출시 — 태양광 거래를 VPP·배터리까지 묶는 플랫폼 전환",
+      "sub": "제품 판매를 넘어 자산 운영·중개·저장 연계까지 포괄. RE+ESS 경쟁이 서비스 플랫폼 단계로 이동",
+      "gate": "핵심은 플랫폼 이름이 바뀌었다는 데 있지 않다. 태양광 자산 거래와 수익분석에 VPP·배터리 연계를 얹어, RE 사업의 경쟁 축이 장비 판매에서 자산 운영 플랫폼으로 이동하고 있다는 점이 더 중요하다.",
+      "fact": "아주경제에 따르면 2026-04-16 LS일렉트릭은 태양광 발전소 양수양도 플랫폼 '햇빛길중개'를 '햇빛길 플러스'로 리브랜딩하며 기존 수익분석·양수양도 서비스에 VPP·배터리 연계 서비스를 새롭게 추가해 태양광 자산 전 주기를 아우르는 통합 서비스 플랫폼으로 확대한다고 공식 발표했다.",
+      "implication": [
+        "향후 K-태양광·ESS 시장에서 차별화 포인트는 장비 자체보다 수익화·운영·거래를 함께 묶는 플랫폼 역량이 될 가능성이 크다. LS일렉트릭은 그 전환을 먼저 선언한 셈이다.",
+        "전기요금 개편과 맞물려 보면, 국내 VPP·배터리 연계 서비스는 정책 변화의 수혜를 가장 먼저 흡수할 영역일 수 있다. 셀·PCS·EMS 업체도 단품 공급보다 서비스 스택 결합 여부가 중요해질 수 있다."
+      ],
+      "urls": [
+        "https://www.ajunews.com/view/20260416084357822",
+        "https://www.batterynews.co.kr/news/articleView.html?idxno=737"
+      ],
+      "related": [
+        "2026-04-15_EU_02",
+        "2026-04-16_KR_03"
+      ],
+      "sub_cat": "태양광 플랫폼 VPP",
+      "signal_rubric": {
+        "A": 0,
+        "B": 2,
+        "C": 0,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2
+    },
+    {
+      "id": "2026-04-16_KR_05",
+      "region": "KR",
+      "date": "2026-04-16",
+      "cat": "Policy",
+      "signal": "high",
+      "title": "산업단지 MRV 플랫폼 출범 — CBAM 확정기간 대응용 탄소 데이터 검증 인프라 가동",
+      "sub": "EU CBAM·DPP 대응이 공장별 감축 담론에서 데이터 검증 체계 구축 단계로 이동",
+      "gate": "이 카드의 의미는 단순한 정부 플랫폼 출범이 아니라, CBAM 확정기간에 대응하기 위한 국내 제조업의 탄소 데이터 검증 인프라가 제도권에 들어왔다는 점이다. 수출 경쟁력의 변수가 생산원가만이 아니라 '검증 가능한 탄소 데이터'로 확장되는 구조 변화다.",
+      "fact": "전자신문에 따르면 2026-04-16 산업단지 입주기업의 탄소데이터 관리 및 검증 지원 기능을 강화하기 위한 '산업단지 MRV 플랫폼'이 공식 출범했으며, 유럽의 탄소국경조정제도(CBAM), 디지털 제품 여권(DPP) 등 글로벌 탄소규제가 본격화되면서 기업의 탄소 데이터 관리·검증 역량이 수출 경쟁력에 직결되는 점을 반영한 것으로 확인됐다.",
+      "implication": [
+        "양극재·음극재·철강·알루미늄처럼 EU 수출 노출도가 높은 업종일수록 MRV 대응 수준이 사실상 경쟁력 지표가 될 가능성이 높다.",
+        "향후 이 플랫폼이 CBAM을 넘어 DPP와 다른 해외 공시 규제로 확장되는지가 관찰 포인트다. 정부 플랫폼의 활용률이 실제 산업 적응 속도를 가르는 기준이 될 수 있다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260416000285"
+      ],
+      "related": [
+        "W7R1_05"
+      ],
+      "sub_cat": "CBAM MRV",
+      "signal_rubric": {
+        "A": 0,
+        "B": 2,
+        "C": 2,
+        "total": 4,
+        "exception": "정책 시행"
+      },
+      "source_tier": 2,
+      "editorial_upgrade": {
+        "version": "professional_payload_v1",
+        "goal": "institutional tone / clearer causal framing / more cautious implications",
+        "changes": [
+          "title/sub refined",
+          "gate sharpened",
+          "implication upgraded",
+          "facts preserved"
+        ]
+      }
+    },
+    {
+      "id": "2026-04-16_KR_04",
+      "region": "KR",
+      "date": "2026-04-16",
+      "cat": "Policy",
+      "signal": "high",
+      "title": "공동주택 EV 충전 개편 착수 — 완속 요금 세분화와 설치 사각지대 해소를 한 번에 추진",
+      "sub": "가격체계·보조금·설치주체가 동시에 조정되는 구조개편 초기 국면",
+      "gate": "핵심은 공동주택 충전기 보급 확대가 아니라, 요금체계·보조금·설치주체·운영모델이 함께 손질되는 정책 재설계 국면이 시작됐다는 점이다. 보급량이 늘어나는 단계에서 수익모델을 다시 짜야 하는 시장으로 전환되고 있다.",
+      "fact": "전자신문 등 다수 언론에 따르면 2026-04-16 김성환 기후에너지환경부 장관이 정부서울청사에서 공동주택 내 전기차 충전시설 설치·운영체계 개선을 위한 간담회를 열고, 완속 충전 요금 구간을 '100kW 단일 기준'에서 5단계로 세분화하는 방안과 '스마트 충전기 전용' 보조금 정책 변화 가능성을 공식 예고했으며, 같은 날 서울시는 단독주택·다세대·빌라의 충전 사각지대 해소를 위한 '충전기 시민 직접지원사업'(설치비 50% 환급)을 공식 도입하고 한화 건설부문-E1은 공동주택 충전 인프라 MOU를 체결한 것으로 확인됐다.",
+      "implication": [
+        "완속 요금 세분화는 중소 CPO의 채산성 구조를 다시 시험할 가능성이 높다. 저이용 구간의 수익성 악화가 현실화되면 시장 재편 속도가 빨라질 수 있다.",
+        "동시에 단독·다세대·빌라 구간의 보급 정책이 확대되면 고속·급속 제품과 설치 서비스의 수요 기회도 넓어질 수 있다. 보조금 구조 변화가 어떤 사업자에게 유리하게 작동하는지가 핵심 관찰 포인트다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260416000192",
+        "https://www.electimes.com/news/articleView.html?idxno=367106",
+        "https://www.todayenergy.kr/news/articleView.html?idxno=296668",
+        "https://www.todayenergy.kr/news/articleView.html?idxno=296663",
+        "https://www.newsis.com/view/NISX20260416_0003594094",
+        "https://www.ajunews.com/view/20260416082049796",
+        "https://www.yna.co.kr/view/AKR20260416125500530",
+        "http://www.e2news.com/news/articleView.html?idxno=329584",
+        "https://www.ajunews.com/view/20260416090215868",
+        "https://www.etnews.com/20260416000375"
+      ],
+      "related": [
+        "2026-04-16_KR_03",
+        "2026-04-16_KR_02"
+      ],
+      "sub_cat": "공동주택 EV 충전",
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": "정책 예고"
+      },
+      "source_tier": 2,
+      "editorial_upgrade": {
+        "version": "professional_payload_v1",
+        "goal": "institutional tone / clearer causal framing / more cautious implications",
+        "changes": [
+          "title/sub refined",
+          "gate sharpened",
+          "implication upgraded",
+          "facts preserved"
+        ]
+      }
+    },
+    {
+      "id": "2026-04-16_KR_03",
+      "region": "KR",
+      "date": "2026-04-16",
+      "cat": "Policy",
+      "signal": "high",
+      "title": "산업용(을) 전기요금 개편 시행 — 낮 인하·저녁 인상·주말 낮 EV 충전 50% 할인",
+      "sub": "재생에너지 과잉 시간대와 저녁 피크를 가격으로 조정하는 국내 첫 본격 신호",
+      "gate": "이번 개편의 의미는 요금표 변경 자체보다, 재생에너지 집중 시간대와 저녁 피크를 가격 신호로 직접 조정하기 시작했다는 점이다. EV 충전과 산업 공정, 수요반응 전략이 모두 동일한 가격 체계 안에서 재편될 수 있는 출발점이다.",
+      "fact": "산업통상자원부와 연합뉴스 보도에 따르면 2026-04-16부터 산업용(을)·교육용 전기요금 체계가 시간대별 차등 구조로 개편돼 여름·봄가을철 낮 시간대 요금은 인하되고 저녁 시간대는 인상되며, 주말·공휴일 낮 시간대 EV 충전 요금은 기존 대비 최대 약 50% 할인되는 것으로 시행됐다.",
+      "implication": [
+        "국내에서도 EV 충전과 산업 부하를 재생에너지 과잉 시간대로 유도하는 가격 기반 수요관리 체계가 본격화되고 있다. 충전사업자와 BESS 운영사는 tariff arbitrage 전략을 다시 계산해야 한다.",
+        "특히 주말 낮 충전 할인은 태양광 잉여 전력 흡수와 EV 충전을 연결하는 초기 실험으로 볼 수 있다. ESS·V2G·스마트 충전 서비스의 사업모델 검증이 더 중요해질 수 있다."
+      ],
+      "urls": [
+        "https://www.yna.co.kr/view/AKR20260415133200003",
+        "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156708822"
+      ],
+      "related": [
+        "2026-04-16_KR_06",
+        "2026-04-15_EU_02"
+      ],
+      "sub_cat": "전기요금 개편",
+      "signal_rubric": {
+        "A": 2,
+        "B": 2,
+        "C": 2,
+        "total": 6,
+        "exception": "정책 시행"
+      },
+      "source_tier": 1,
+      "editorial_upgrade": {
+        "version": "professional_payload_v1",
+        "goal": "institutional tone / clearer causal framing / more cautious implications",
+        "changes": [
+          "title/sub refined",
+          "gate sharpened",
+          "implication upgraded",
+          "facts preserved"
+        ]
+      }
+    },
+    {
+      "id": "2026-04-16_KR_02",
+      "region": "KR",
+      "date": "2026-04-16",
+      "cat": "Charging",
+      "signal": "top",
+      "title": "채비 IPO 본격화 — EV 충전 인프라 가치평가가 코스닥 시장에서 시험대 진입",
+      "sub": "희망 시총 6,350억~7,342억원. K-CPO 비즈니스 모델의 자본시장 검증 시작",
+      "gate": "핵심은 채비 한 기업의 상장 추진이 아니라, 국내 EV 충전 인프라 비즈니스가 자본시장에서 독립 섹터로 평가받기 시작했다는 점이다. 향후 CPO·충전기·플랫폼 사업자 전반의 valuation 기준점이 될 수 있다.",
+      "fact": "채비는 2026-04-16 증권신고서를 제출하고 코스닥 상장을 공식화했으며, 공모가 희망밴드는 1만4,300~1만6,500원, 공모주식수는 444만7,000주, 예상 시가총액은 약 6,350억~7,342억원으로 제시됐다. 회사는 환경부 급속충전기 보급사업 실적 기준 국내 1위 사업자로 소개됐다.",
+      "implication": [
+        "상장 흥행 여부는 채비 한 회사의 이슈를 넘어 국내 충전 인프라 섹터 전체의 자금조달 환경에 직접 영향을 줄 수 있다. 향후 K-CPO의 CAPEX 확장 속도를 바꾸는 기준점이 될 가능성이 있다.",
+        "또한 IPO 이후 시장이 충전기 설치 대수보다 가동률·수익성·플랫폼 매출을 어떻게 평가하는지에 따라, 충전 산업의 전략 방향이 양적 확대에서 운영 효율 중심으로 이동할 수 있다."
+      ],
+      "urls": [
+        "https://www.yna.co.kr/view/AKR20260416112500017",
+        "https://www.thelec.kr/news/articleView.html?idxno=55119",
+        "https://www.theguru.co.kr/news/article.html?no=100641"
+      ],
+      "related": [
+        "2026-04-15_CN_03",
+        "2026-04-16_KR_04"
+      ],
+      "sub_cat": "IPO valuation",
+      "signal_rubric": {
+        "A": 2,
+        "B": 2,
+        "C": 2,
+        "total": 6,
+        "exception": "자본시장"
+      },
+      "source_tier": 1,
+      "editorial_upgrade": {
+        "version": "professional_payload_v1",
+        "goal": "institutional tone / clearer causal framing / more cautious implications",
+        "changes": [
+          "title/sub refined",
+          "gate sharpened",
+          "implication upgraded",
+          "facts preserved"
+        ]
+      }
+    },
+    {
+      "id": "2026-04-16_KR_01",
+      "region": "KR",
+      "date": "2026-04-16",
+      "cat": "ESS",
+      "signal": "top",
+      "title": "LS MnM·LS일렉트릭, 울산 AI 데이터센터용 ESS 실증 착수 — K-산업계 첫 AI DC 맞춤 ESS 사례 부상",
+      "sub": "KT와 2030년까지 500MW급 개발 추진. ESS가 단순 백업을 넘어 AI 전력인프라 핵심 자산으로 재포지셔닝",
+      "gate": "이 카드의 핵심은 ESS 실증 하나가 추가됐다는 데 있지 않다. 국내 산업계가 AI 데이터센터 전력문제를 풀기 위해 ESS를 별도 자산군으로 호출하기 시작했다는 점이다. 이는 ESS가 재생에너지 보조설비에서 AI 시대 전력 인프라 자산으로 재정의되는 신호다.",
+      "fact": "전자신문과 조선비즈 보도에 따르면 2026-04-16 LS MnM과 LS일렉트릭은 울산 온산제련소 부지에 AI 데이터센터 전용 ESS를 실증하고, KT와 함께 2030년까지 500MW 규모 AI 데이터센터 전력 인프라를 단계적으로 구축하는 방안을 추진한다고 밝혔다. ESS는 재생에너지 변동성 보완과 함께 데이터센터 전력 품질·안정성 확보 목적을 동시에 가진다고 설명됐다.",
+      "implication": [
+        "국내 ESS 시장은 더 이상 재생에너지 연계만으로 설명하기 어렵다. AI 데이터센터 전력 수요가 ESS의 신규 수요처로 부상하면서, K-셀과 PCS 업체는 제품 포지셔닝을 다시 짜야 할 수 있다.",
+        "특히 DC 전용 ESS가 실제 발주로 이어지면 배터리·PCS·EMS·냉각까지 새로운 통합 패키지 시장이 열릴 가능성이 높다. 향후 KT·LS의 실증 결과와 발주 구조가 핵심 관찰 포인트다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260416000169",
+        "https://biz.chosun.com/industry/company/2026/04/16/7EZR7GSE3NCHNDN7I3WQ53PCWQ/"
+      ],
+      "related": [
+        "2026-04-15_KR_01",
+        "2026-04-16_KR_07"
+      ],
+      "sub_cat": "AIDC ESS",
+      "signal_rubric": {
+        "A": 2,
+        "B": 2,
+        "C": 2,
+        "total": 6,
+        "exception": null
+      },
+      "source_tier": 1,
+      "editorial_upgrade": {
+        "version": "professional_payload_v1",
+        "goal": "institutional tone / clearer causal framing / more cautious implications",
+        "changes": [
+          "title/sub refined",
+          "gate sharpened",
+          "implication upgraded",
+          "facts preserved"
+        ]
+      }
+    },
+    {
+      "id": "2026-04-15_US_04",
+      "region": "US",
+      "date": "2026-04-15",
+      "cat": "Battery",
+      "signal": "high",
+      "title": "Aqua Metals, Sierra ARC 설비 완공 — 美 LFP 재활용 경제성 시험의 첫 가동점 형성",
+      "sub": "연 3,000톤 블랙매스 처리와 연 40톤 LiOH 회수 목표. LFP 재활용이 '이론'에서 파일럿 상업 검증 단계로 이동",
+      "gate": "이 사건의 의미는 한 파일럿 설비가 완공됐다는 데 있지 않다. 미국 내 LFP 재활용 경제성 논쟁이 실제 운전과 회수 데이터로 검증되는 단계에 들어간다는 점이다. 이는 향후 LFP EOL 가치 논쟁의 중요한 실측 기준점이 될 수 있다.",
+      "fact": "Aqua Metals는 2026-04-15 네바다 Reno의 Sierra ARC 시설 내 Li AquaRefining™ 파일럿이 완공됐다고 발표했다. 회사 발표에 따르면 이 설비는 연간 최대 3,000톤 블랙매스 처리, 40톤 LiOH 회수, 95% 수준의 리튬 회수율을 목표로 하며 LFP를 포함한 배터리 물질 재활용의 상업성 검증을 위한 단계로 소개됐다.",
+      "implication": [
+        "LFP 재활용 경제성 논쟁은 더 이상 개념적 모델링만으로 정리하기 어렵다. 실제 운영 데이터가 나오면 salvage value와 recycling value 가정이 다시 조정될 수 있다.",
+        "특히 미국 내 IRA·국산화 프레임과 결합하면, 낮은 수익성에도 전략적 이유로 LFP 재활용 라인이 유지되는 구조가 나타날 수 있다. 향후 실가동 회수율과 운영원가 데이터가 핵심이다."
+      ],
+      "urls": [
+        "https://www.aquametals.com/aqua-metals-completes-construction-of-sierra-arc-pilot-facility/"
+      ],
+      "related": [
+        "W6R1_03"
+      ],
+      "sub_cat": "LFP 재활용",
+      "signal_rubric": {
+        "A": 1,
+        "B": 2,
+        "C": 1,
+        "total": 4,
+        "exception": null
+      },
+      "source_tier": 1,
+      "editorial_upgrade": {
+        "version": "professional_payload_v1",
+        "goal": "institutional tone / clearer causal framing / more cautious implications",
+        "changes": [
+          "title/sub refined",
+          "gate sharpened",
+          "implication upgraded",
+          "facts preserved"
+        ]
+      }
+    },
+    {
+      "id": "2026-04-15_US_03",
+      "region": "US",
+      "date": "2026-04-15",
+      "cat": "Manufacturing",
+      "signal": "high",
+      "title": "Schuler, Group14용 Si 음극재 장비 수주 — 북미 실리콘 음극 공급망이 장비 발주 단계 진입",
+      "sub": "미 Moses Lake BAM-2 기반. 차세대 음극재 경쟁이 시제품을 넘어 생산설비 고정 경쟁으로 이동",
+      "gate": "핵심은 장비 발주 한 건이 아니라, 북미 실리콘 음극 공급망이 실제 설비 발주와 CAPEX 집행 단계로 이동했다는 점이다. 차세대 배터리 경쟁이 연구개발 서사에서 양산 준비 속도 경쟁으로 넘어가고 있다.",
+      "fact": "독일 Schuler는 2026-04-15 Group14 Technologies의 미국 Moses Lake BAM-2 공장용 실리콘 음극재 생산 장비를 수주했다고 발표했다. BAM-2는 북미 최대급 실리콘 배터리 소재 공장으로 소개됐으며, 장비는 Si 음극재 양산 체계 구축을 위한 핵심 설비로 언급됐다.",
+      "implication": [
+        "차세대 음극재 경쟁은 더 이상 기술 시연만의 문제가 아니다. 장비 발주가 시작되면 양산 일정과 고객 확보 속도가 더 중요해진다.",
+        "한국 소재·장비 업체 입장에서는 북미 실리콘 음극재 공급망이 초기라도 빠르게 고정될 가능성을 봐야 한다. Group14 이후 후속 설비 발주가 연쇄적으로 나오는지가 핵심 관찰 포인트다."
+      ],
+      "urls": [
+        "https://www.schulergroup.com/en/news-media/news/2026/2026-04-15-group14",
+        "https://www.group14.technology/news/group14-and-schuler-advance-bam-2"
+      ],
+      "related": [
+        "2026-04-15_US_02"
+      ],
+      "sub_cat": "Si 음극재 장비",
+      "signal_rubric": {
+        "A": 1,
+        "B": 2,
+        "C": 1,
+        "total": 4,
+        "exception": null
+      },
+      "source_tier": 1
+    },
+    {
+      "id": "2026-04-15_US_02",
+      "region": "US",
+      "date": "2026-04-15",
+      "cat": "Manufacturing",
+      "signal": "high",
+      "title": "Sila, Washington Moses Lake 실리콘 음극재 공장 착공 — AMG와 공정소재 공급 계약 동시 체결",
+      "sub": "북미 차세대 음극재 공급망이 공장 착공과 원료 계약을 동시에 잠그는 단계 진입",
+      "gate": "이 카드의 의미는 단순 착공 뉴스가 아니라, 미국 차세대 실리콘 음극재 공급망이 공장 CAPEX와 공정 소재 계약을 동시에 고정하며 실행 단계로 들어갔다는 데 있다. 실리콘 음극은 더 이상 먼 미래 기술이 아니라 생산체계 구축 경쟁의 영역으로 이동 중이다.",
+      "fact": "Sila는 2026-04-15 워싱턴 Moses Lake에 Titan Si™ 실리콘 음극재 생산시설 건설을 공식 시작했다고 발표했고, 같은 날 AMG와 고급 알루미나 공급 계약 체결도 함께 공개했다. 회사는 해당 공장이 북미 전기차 배터리 공급망 내 핵심 실리콘 음극재 생산 거점이 될 것이라고 설명했다.",
+      "implication": [
+        "실리콘 음극 상용화 경쟁은 기술 발표보다 실제 CAPEX 집행과 공급계약 고정 속도로 비교해야 하는 단계다. K-소재 업체도 생산 시점과 고객 연결성을 더 촘촘히 점검해야 한다.",
+        "또한 공정소재 계약이 조기에 묶이는 구조는 차세대 소재 경쟁에서도 upstream 확보가 핵심이라는 점을 다시 보여준다. 후속 수요처와 완성차 고객 공개 여부가 관찰 포인트다."
+      ],
+      "urls": [
+        "https://www.silanano.com/news/sila-breaks-ground-on-moses-lake-facility",
+        "https://amg-nv.com/news/amg-signs-alumina-supply-agreement-with-sila/"
+      ],
+      "related": [
+        "2026-04-15_US_03"
+      ],
+      "sub_cat": "Si 음극재 공장",
+      "signal_rubric": {
+        "A": 1,
+        "B": 2,
+        "C": 1,
+        "total": 4,
+        "exception": null
+      },
+      "source_tier": 1
+    },
+    {
+      "id": "2026-04-15_US_01",
+      "region": "US",
+      "date": "2026-04-15",
+      "cat": "Manufacturing",
+      "signal": "mid",
+      "title": "Blue Bird, Cummins와 B6.7 Octane 엔진 버스 출시 — EV 완전전환 사이 과도기 전략 확대",
+      "sub": "전동화 일변도 시장에서도 저탄소 ICE·하이브리드 수요가 병존하는 현실 확인",
+      "gate": "이 카드의 의미는 친환경 버스 신제품 하나가 나왔다는 데 있지 않다. 미국 상용차 시장이 EV로 단숨에 점프하지 않고, 저탄소 내연기관과 EV가 병존하는 과도기 전략을 택하고 있다는 점이 중요하다.",
+      "fact": "Blue Bird는 2026-04-15 Cummins와 함께 6.7리터 B6.7 Octane 엔진 기반의 상용 버스를 출시한다고 발표했다. 회사는 이 모델이 기존 디젤 대비 배출 저감과 운영 유연성을 동시에 제공하며, EV 전환 초기 단계의 고객 수요를 겨냥한 과도기적 옵션이라고 설명했다.",
+      "implication": [
+        "전동화 서사가 강해도 실제 상용차 시장은 기술 다원화가 더 길게 지속될 수 있다. 배터리 수요 전망도 단순 직선형 확대가 아니라 과도기 변수까지 반영해야 한다.",
+        "특히 미국 상용차 시장의 전동화 속도가 완만하면 EV 버스용 배터리 셀·팩 수요의 ramp-up도 예상보다 늦어질 수 있다. 정책 인센티브와 연료비 구조 변화가 함께 봐야 할 변수다."
+      ],
+      "urls": [
+        "https://www.blue-bird.com/about/news/2026-04-15-b67-octane"
+      ],
+      "related": [],
+      "sub_cat": "상용차 전환",
+      "signal_rubric": {
+        "A": 0,
+        "B": 1,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 1
+    },
+    {
+      "id": "2026-04-15_KR_04",
+      "region": "KR",
+      "date": "2026-04-15",
+      "cat": "Manufacturing",
+      "signal": "high",
+      "title": "배터리 장비 5개사 2026년 1Q 실적 집계 — 전방투자 둔화 속 양극화 확인",
+      "sub": "탑머티리얼·대보마그네틱 등 선방, 일부는 적자 지속. 장비 밸류체인이 같은 방향으로 움직이지 않는 구간",
+      "gate": "핵심은 장비 업황이 나쁘다 혹은 좋다의 단순 서사가 아니라, 전방 배터리 투자 둔화 속에서도 장비사별 실적 차별화가 확대되고 있다는 점이다. 공급망 해석을 위해서는 업종 단위보다 기업별 노출 구조를 더 정교하게 봐야 한다.",
+      "fact": "더엘렉에 따르면 2026-04-15 배터리 장비 상장사 5곳의 1분기 실적을 집계한 결과, 탑머티리얼과 대보마그네틱은 상대적으로 선방한 반면 다른 일부 업체는 적자 또는 부진을 이어간 것으로 나타났다. 기사에서는 전방 고객 투자 지연과 장비사별 고객 포트폴리오 차이가 실적 차별화의 핵심 배경으로 제시됐다.",
+      "implication": [
+        "K-배터리 장비 업종은 더 이상 한 덩어리로 볼 수 없다. 앞으로는 고객 노출도, 공정 포지션, 북미/중국 익스포저에 따라 valuation 차별화가 더 커질 가능성이 높다.",
+        "셀 투자 회복이 늦어져도 특정 공정 장비사만 먼저 살아날 수 있다. 장비 밸류체인 해석에서도 선행 회복 구간을 구분해서 봐야 한다."
+      ],
+      "urls": [
+        "https://www.thelec.kr/news/articleView.html?idxno=55124"
+      ],
+      "related": [
+        "2026-04-15_KR_01"
+      ],
+      "sub_cat": "장비 실적 분석",
+      "signal_rubric": {
+        "A": 2,
+        "B": 2,
+        "C": 1,
+        "total": 5,
+        "exception": "반복 집계"
+      },
+      "source_tier": 2
+    },
+    {
+      "id": "2026-04-15_KR_01",
+      "region": "KR",
+      "date": "2026-04-15",
+      "cat": "ESS",
+      "signal": "high",
+      "title": "K-배터리 3사, ESS를 공식 성장축으로 제시 — EV 중심 전략에서 AIDC·ESS 병행 구도로 이동",
+      "sub": "삼성SDI 각형, LG엔솔 SBB·LFP, SK온 안전성 축으로 포지셔닝 분화",
+      "gate": "이 카드의 의미는 ESS가 '부가 사업'으로 언급됐다는 데 있지 않다. 국내 배터리 3사가 공개 행사에서 ESS를 돌파 전략으로 전면에 내세우며, EV 단독 의존 구조에서 AIDC·ESS 병행 구조로 이동하고 있다는 점이 중요하다.",
+      "fact": "전기신문에 따르면 2026-04-15 SNE리서치가 서울 양재 엘타워에서 주관한 '제9회 차세대 배터리 세미나(NGBS 2026)'에서 삼성SDI·LG에너지솔루션·SK온은 기존 전력망 체계의 한계를 극복할 핵심 대안으로 ESS를 꼽고, 각각 각형 구조적 장점(삼성SDI), SBB·LFP 기반 제품군(LG엔솔), 안전성 중심(SK온)의 기술·시장 전략을 공개했다.",
+      "implication": [
+        "향후 K-배터리 3사의 실적 해석에서는 EV 외 ESS 수주 파이프라인을 별도 보조 변수로 보지 않아야 한다. 성장 서사의 핵심 축 자체가 이동하는 신호로 읽는 편이 맞다.",
+        "동시에 경쟁의 기준도 같아지지 않는다. 각형·파우치·SBB·안전성처럼 서로 다른 포지셔닝이 더 분명해지면서, 수주 경쟁은 단일 제품 싸움보다 고객별 최적 포맷 제안 경쟁으로 전개될 가능성이 크다."
+      ],
+      "urls": [
+        "https://www.electimes.com/news/articleView.html?idxno=367078"
+      ],
+      "related": [
+        "2026-04-16_KR_01",
+        "W6R2_04"
+      ],
+      "sub_cat": "K 3사 전략",
+      "signal_rubric": {
+        "A": 0,
+        "B": 0,
+        "C": 2,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2
+    },
+    {
+      "id": "2026-04-15_EU_02",
+      "region": "EU",
+      "date": "2026-04-15",
+      "cat": "Charging",
+      "signal": "mid",
+      "title": "Vattenfall·폭스바겐, 스웨덴 V2G 파일럿 확대 — EV를 이동형 전력자산으로 묶는 실증 가속",
+      "sub": "유럽 V2G가 개념 검증을 넘어 운영 확장 단계 진입. 충전사업자와 OEM 협업 모델이 실체화되는 구간",
+      "gate": "핵심은 양방향 충전 기술 실증이 하나 더 늘었다는 데 있지 않다. 유럽에서 EV가 단순 운송수단이 아니라 실제 그리드 자산으로 편입되는 운영 모델이 조금씩 스케일업되고 있다는 점이 더 중요하다.",
+      "fact": "Vattenfall 공식 보도자료에 따르면 2026-04-15 Vattenfall과 Energy Bank는 폭스바겐과 공동으로 스웨덴 중·남부 지역에서 양방향(V2G) 충전을 대규모로 스케일업하는 파일럿 프로젝트를 확대하는 것으로 공식 발표했다.",
+      "implication": [
+        "V2G가 실증 단계에서 운영 단계로 넘어가면 충전 네트워크 사업의 가치도 달라진다. K-CPO와 충전기 제조사도 단순 충전 속도 경쟁보다 그리드 서비스 연계 역량을 준비해야 할 수 있다.",
+        "특히 유럽에서 표준·인증·통신 규격이 먼저 굳어질 경우, 한국 업체의 진입장벽은 하드웨어보다 소프트웨어·프로토콜 대응에서 형성될 가능성이 크다."
+      ],
+      "urls": [
+        "https://group.vattenfall.com/press-and-media/newsroom/2026/large-scale-pilot-in-sweden-explores-new-role-for-electric-vehicles"
+      ],
+      "related": [
+        "2026-04-16_KR_06"
+      ],
+      "sub_cat": "V2G 실증",
+      "signal_rubric": {
+        "A": 0,
+        "B": 1,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 1
+    },
+    {
+      "id": "2026-04-15_EU_01",
+      "region": "EU",
+      "date": "2026-04-15",
+      "cat": "ESS",
+      "signal": "mid",
+      "title": "Centrica, 스웨덴 BESS 2기 가동 — 유럽 ESS가 유틸리티 직접운영 단계로 확장",
+      "sub": "40MW 2기 상업 가동으로 유럽 포트폴리오 770MW 돌파. 전통 에너지 메이저의 ESS 내재화 확대",
+      "gate": "이 카드의 의미는 또 하나의 BESS 프로젝트가 준공됐다는 데 있지 않다. 유럽의 전통 에너지 유틸리티가 ESS를 직접 보유·운영하는 패턴이 파일럿이 아니라 포트폴리오 전략으로 자리 잡고 있다는 점이 중요하다.",
+      "fact": "Energy-Storage.news에 따르면 英 에너지 메이저 Centrica는 2026-04-15 스웨덴 Borlänge에 40MW BESS 2기를 공식 가동해 유럽 포트폴리오가 770MW 이상으로 확대됐으며, 자회사가 직접 ESS 최적화·입찰 운영을 담당하는 것으로 공표됐다.",
+      "implication": [
+        "유럽 BESS 시장에서 상대해야 할 주체가 더 복잡해지고 있다. 인프라펀드와 전문 개발사뿐 아니라 전통 유틸리티까지 직접 시장에 들어오면서 K-ESS 공급사의 고객군도 재분류가 필요하다.",
+        "또한 경쟁력의 핵심이 셀 단가만이 아니라 최적화와 입찰 운영 역량으로 이동하고 있다는 점도 확인된다. 유럽 수주는 HW 번들보다 운영 스택 결합 여부가 더 중요해질 수 있다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/british-gas-owner-centrica-activates-40mw-bess-projects-in-sweden-subsidiary-to-optimise"
+      ],
+      "related": [
+        "W6R1_01",
+        "W6R1_02",
+        "2026-04-15_EU_02"
+      ],
+      "sub_cat": "유럽 유틸리티",
+      "signal_rubric": {
+        "A": 1,
+        "B": 2,
+        "C": 1,
+        "total": 4,
+        "exception": null
+      },
+      "source_tier": 2
+    },
+    {
+      "id": "2026-04-15_CN_03",
+      "region": "CN",
+      "date": "2026-04-15",
+      "cat": "ESS",
+      "signal": "high",
+      "title": "Sigenergy 홍콩 상장 첫날 급등 — 중국 배터리·ESS 자본조달 러시의 세 번째 사례 부상",
+      "sub": "HK$4.4B 공모와 상장 첫날 +100%. CATL·청타오와 함께 홍콩이 중국 배터리 자본시장 허브로 강화",
+      "gate": "핵심은 주가 급등 그 자체보다, 중국 배터리·ESS 기업이 2026년 봄 홍콩 자본시장에 연쇄적으로 진입하고 있다는 점이다. 산업 경쟁이 기술·가격만이 아니라 자본조달 속도에서도 격차를 벌리는 구조로 이동하고 있다.",
+      "fact": "Bloomberg에 따르면 중국 ESS 장비 제조업체 Sigenergy Technology Co.는 2026-04-15 홍콩 상장 첫 거래일에 주가가 100% 급등해 HK$4.4B(약 $562M) 규모의 공모에 투자자 수요가 집중됐고, 전체 업계의 자본시장 쏠림 현상을 반영하는 것으로 보도됐다.",
+      "implication": [
+        "중국 ESS·배터리 기업의 자본조달 능력은 향후 CAPEX와 해외 확장 속도를 좌우할 수 있다. 한국 기업과의 경쟁은 제품 비교를 넘어 자금 동원력 비교가 되는 구간이다.",
+        "한국의 채비 IPO와 함께 보면, charging·ESS 섹터 가치평가 기준도 로컬 peer만으로 보기 어렵다. 향후 상장사 비교 프레임은 홍콩 중국 기업까지 포함해 더 넓어질 가능성이 높다."
+      ],
+      "urls": [
+        "https://www.bloomberg.com/news/articles/2026-04-15/sigenergy-set-for-hk-debut-after-562-million-share-offering"
+      ],
+      "related": [
+        "W6R3_02",
+        "W6R3_03",
+        "2026-04-16_KR_02"
+      ],
+      "sub_cat": "IPO 자본",
+      "signal_rubric": {
+        "A": 2,
+        "B": 2,
+        "C": 1,
+        "total": 5,
+        "exception": null
+      },
+      "source_tier": 1
+    },
+    {
+      "id": "2026-04-15_CN_02",
+      "region": "CN",
+      "date": "2026-04-15",
+      "cat": "Battery",
+      "signal": "high",
+      "title": "중국 전고체 공장 양산 일정 가시화 — 巨盛能源, 2026년 6월말 생산 목표 제시",
+      "sub": "프로젝트 총규모 110억위안. 전고체 담론이 연구개발 발표에서 공장 일정 경쟁으로 이동",
+      "gate": "이 카드의 핵심은 한 업체의 생산 계획 발표보다, 중국 전고체 경쟁이 연구실 성과 발표를 넘어 '누가 먼저 공장 일정과 설비 전환을 제시하느냐'의 단계로 이동하고 있다는 점이다.",
+      "fact": "OFweek Li-Battery에 따르면 중국 巨盛能源의 江苏 阜宁 1기 생산기지에 설비 설치·시운전이 시작돼 2026년 6월말 양산이 계획돼 있으며, 설비·정화·전력에 총 8.5억 위안이 투입되고 전체 프로젝트는 110억 위안 규모로 10Ah·20Ah·30Ah 全고체 리튬전지를 생산할 예정인 것으로 공시됐다.",
+      "implication": [
+        "BYD 전고체 단계 공표와 맞물려 보면, 중국 전고체 경쟁은 OEM·셀·중견업체가 동시에 움직이는 다층 구조로 해석하는 편이 맞다. 특정 업체의 돌발 이벤트가 아니라 산업 전환의 초입일 수 있다.",
+        "K-배터리 3사의 전고체 일정은 더 이상 내부 로드맵 비교만으로는 충분하지 않다. 중국의 실제 공장 일정이 계속 가시화될 경우 CAPEX와 파일럿 라인 의사결정의 압박이 커질 수 있다."
+      ],
+      "urls": [
+        "https://libattery.ofweek.com/2026-04/ART-36001-8120-30685047.html"
+      ],
+      "related": [
+        "W6N_02",
+        "2026-04-16_CN_04",
+        "2026-04-14_CN_01"
+      ],
+      "sub_cat": "전고체 상용화",
+      "signal_rubric": {
+        "A": 2,
+        "B": 1,
+        "C": 1,
+        "total": 4,
+        "exception": null
+      },
+      "source_tier": 2
+    },
+    {
+      "id": "2026-04-15_CN_01",
+      "region": "CN",
+      "date": "2026-04-15",
+      "cat": "Battery",
+      "signal": "top",
+      "title": "CATL, 300억위안 광물 자회사 설립과 1Q 실적·M&A를 동시 전개 — 수직통합 체력 재확인",
+      "sub": "광물·실적·자본시장·지분투자가 동시에 움직이며 공급망 통제력 강화",
+      "gate": "핵심은 자회사 하나를 세운 데 있지 않다. CATL이 실적, 광물 투자, 지분 인수, 시가총액 재평가를 한 번에 겹치며 공급망 통제력을 더 높이고 있다는 점이 중요하다. 중국 배터리 경쟁의 중심이 셀 제조를 넘어 원재료 조달 체력으로 이동하고 있다.",
+      "fact": "Bloomberg·Nikkei에 따르면 CATL은 2026-04-15 이사회에서 약 300억 위안(약 $4.4B) 출자로 新에너지 광물 자회사(资源集团)를 설립한다고 공시했고 동시에 中恒电气(300208) 지배주주 지분 49%를 41억 위안에 인수한다고 발표했으며, 1Q26 순익은 전년 동기 대비 약 49% 증가한 것으로 잠정 공시됐고 4/16 Bloomberg 기준 시총이 PetroChina를 추월한 것으로 보도됐다.",
+      "implication": [
+        "K-양극재와 셀 업체의 경쟁축은 이제 기술·품질뿐 아니라 원료 확보와 가격 헤지 능력까지 포함한다. CATL 사례는 그 비교 기준선을 한 단계 높인다.",
+        "후속 관찰 포인트는 이 광물 자회사와 지분 인수가 실제 upstream 계약·생산 배치로 얼마나 빨리 이어지는가이다. 선언이 아니라 실행 속도가 경쟁력을 결정할 가능성이 크다."
+      ],
+      "urls": [
+        "https://www.bloomberg.com/news/articles/2026-04-15/catl-earmarks-4-4-billion-in-new-unit-for-supply-chain-security",
+        "https://www.bloomberg.com/news/articles/2026-04-16/catl-overtakes-petrochina-in-market-value-as-green-bets-ramp-up",
+        "https://www.nikkei.com/article/DGXZQOGM160X40W6A410C2000000",
+        "https://libattery.ofweek.com/2026-04/ART-36002-8110-30685166.html",
+        "https://libattery.ofweek.com/2026-04/ART-36001-8120-30685051.html",
+        "https://www.theguru.co.kr/news/article.html?no=100634"
+      ],
+      "related": [
+        "W6N_04",
+        "W6R3_03",
+        "W6R2_02",
+        "2026-04-16_US_01",
+        "2026-04-16_CN_03"
+      ],
+      "sub_cat": "소재 수직통합",
+      "signal_rubric": {
+        "A": 2,
+        "B": 1,
+        "C": 2,
+        "total": 5,
+        "exception": null
+      },
+      "source_tier": 1,
+      "editorial_upgrade": {
+        "version": "professional_payload_v1",
+        "goal": "institutional tone / clearer causal framing / more cautious implications",
+        "changes": [
+          "title/sub refined",
+          "gate sharpened",
+          "implication upgraded",
+          "facts preserved"
+        ]
+      }
+    },
+    {
+      "id": "2026-04-14_CN_01",
+      "region": "CN",
+      "date": "2026-04-14",
+      "cat": "Battery",
+      "signal": "high",
+      "title": "TaiLan, 휴머노이드·Embodied AI용 전고체 배터리 첫 배치 납품",
+      "sub": "EV·ESS 외 로봇 하드웨어가 전고체의 초기 응용시장으로 부상. 중국이 제품-응용 연결을 먼저 시도",
+      "gate": "이 카드의 의미는 전고체 기술이 또 진전했다는 데 있지 않다. 전고체의 첫 유의미한 응용처가 EV가 아니라 휴머노이드와 embodied AI 하드웨어가 될 수 있음을 실제 납품으로 보여줬다는 점이 중요하다.",
+      "fact": "Gasgoo에 따르면 2026-04-14 중국 重庆 TaiLan New Energy는 휴머노이드·embodied AI 응용을 겨냥한 전고체 배터리 솔루션 'Safe+'를 공식 출시하고, 국내 선도 로봇 기업들과 파트너십을 체결해 첫 배치 제품 납품을 완료한 것으로 발표됐다.",
+      "implication": [
+        "배터리 응용시장의 축이 EV·ESS에만 머물지 않을 수 있다. K-배터리 업체도 로봇·드론·eVTOL처럼 비EV 응용군을 별도 사업축으로 더 분명하게 설계할 필요가 있다.",
+        "특히 휴머노이드용 배터리는 EV와 다른 조합의 에너지밀도·안전성·충전속도를 요구할 수 있다. 소재사까지 포함해 '로봇용 전지'라는 독립 시장이 형성되는지 여부가 관찰 포인트다."
+      ],
+      "urls": [
+        "https://autonews.gasgoo.com/articles/news/tailan-new-energy-launches-embodied-ai-solid-state-battery-solution-first-batch-delivered-2044599214867136513"
+      ],
+      "related": [
+        "2026-04-15_CN_02",
+        "2026-04-16_CN_04"
+      ],
+      "sub_cat": "휴머노이드 전고체",
+      "signal_rubric": {
+        "A": 1,
+        "B": 2,
+        "C": 1,
+        "total": 4,
+        "exception": null
+      },
+      "source_tier": 2
+    }
+  ]
+}

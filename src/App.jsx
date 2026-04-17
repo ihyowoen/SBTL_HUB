@@ -480,75 +480,105 @@ function NewsItem({ card, dark }) {
   );
 }
 
+const AUTO_IMAGES = {
+  POLICY: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=1200&q=80',
+  FINANCE: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
+  FACTORY: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80',
+  AUTO: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1200&q=80',
+  BATTERY: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1200&q=80',
+  TECH: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+  DEFAULT: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
+};
+
+function pickHomeCover(card) {
+  const text = [card?.T, card?.title, card?.sub, card?.g, card?.gate, card?.source, card?.src]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  if (/(ira|feoc|crma|보조금|관세|규제|법안|정부|정책|세액공제)/.test(text)) return AUTO_IMAGES.POLICY;
+  if (/(실적|영업이익|매출|주가|투자|적자|흑자|m&a|상장)/.test(text)) return AUTO_IMAGES.FINANCE;
+  if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율)/.test(text)) return AUTO_IMAGES.FACTORY;
+  if (/(테슬라|전기차|ev|완성차|현대차|기아|포드|gm|bmw|폭스바겐)/.test(text)) return AUTO_IMAGES.AUTO;
+  if (/(배터리|lfp|전고체|리튬|니켈|코발트|흑연|양극재|음극재|분리막|전해액|ess|bess|catl|byd|엔솔|sdi)/.test(text)) return AUTO_IMAGES.BATTERY;
+  if (/(기술|r&d|특허|연구|차세대|효율|혁신|개발|테스트|파일럿)/.test(text)) return AUTO_IMAGES.TECH;
+  return AUTO_IMAGES.DEFAULT;
+}
+
 function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
-  const picks = latestCards(kb.cards, 3, null, kstToday());
+  const picks = latestCards(kb.cards, 4, null, kstToday());
   const today = kstNow();
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
   const todayStr = `${kstToday()} (${dayNames[today.getDay()]})`;
+  const lead = picks[0] || null;
+  const rest = picks.slice(1, 4);
+
   return (
     <div style={{ padding: "0 14px 120px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#1F2840" : "#EEF3FF"})`, borderRadius: 18, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}`, boxShadow: t.sh }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
-          <div style={{ flex: 1 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 10 }}>
-              <SmallPill label="SBTL HUB" dark={dark} />
-              <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>BATTERY · ESS · EV</span>
-            </div>
-            <div style={{ fontSize: 24, fontWeight: 900, color: t.tx, lineHeight: 1.2 }}>SBTL Strategic Intelligence Brief</div>
-            <div style={{ fontSize: 11, color: t.cyan, fontFamily: "'JetBrains Mono',monospace", marginTop: 8 }}>📅 {todayStr}</div>
-            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.65, marginTop: 6 }}>배터리·ESS·EV 밸류체인을 중심으로 정책, 공급망, 기술, 기업 이슈를 선별해 정리하는 인텔리전스 허브입니다.</div>
-          </div>
-          <div style={{ width: 56, height: 56, borderRadius: 16, background: dark ? "rgba(88,166,255,0.12)" : "rgba(88,166,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28 }}>🔋</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
+          <SmallPill label="TODAY" dark={dark} />
+          <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{todayStr}</span>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginTop: 14 }}>
-          {[{ label: "CARDS", value: kb.cardCount }, { label: "FAQ", value: kb.faqCount }, { label: "REGIONS", value: 5 }, { label: "TRACKER", value: tracker.meta.totalItems }].map((item) => (
-            <div key={item.label} style={{ background: dark ? "rgba(10,14,20,0.55)" : "rgba(255,255,255,0.88)", border: `1px solid ${t.brd}`, borderRadius: 12, padding: "10px 8px", textAlign: "center" }}>
-              <div style={{ fontSize: 16, fontWeight: 900, color: t.tx, fontFamily: "'JetBrains Mono',monospace" }}>{item.value}</div>
-              <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginTop: 4 }}>{item.label}</div>
-            </div>
+        <div style={{ fontSize: 24, fontWeight: 900, color: t.tx, lineHeight: 1.2 }}>오늘의 뉴스</div>
+        <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.65, marginTop: 8 }}>
+          오늘 봐야 할 흐름만 먼저 읽고, 필요하면 뉴스 피드나 강차장 상담으로 이어집니다.
+        </div>
+      </div>
+
+      {lead ? (
+        <StoryNewsItem
+          card={lead}
+          dark={dark}
+          onAskChatbot={onAskChatbot}
+          coverImage={pickHomeCover(lead)}
+          featured
+        />
+      ) : (
+        <div style={{ background: t.card2, borderRadius: 14, padding: "16px", border: `1px solid ${t.brd}`, fontSize: 12, color: t.sub, lineHeight: 1.6 }}>
+          오늘 기준 등록된 뉴스카드가 아직 없습니다.
+        </div>
+      )}
+
+      {rest.length > 0 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {rest.map((card, i) => (
+            <StoryNewsItem
+              key={`${card.id || card.T || card.title}-${i}`}
+              card={card}
+              dark={dark}
+              onAskChatbot={onAskChatbot}
+              coverImage={i === 0 ? pickHomeCover(card) : ""}
+            />
           ))}
         </div>
-        <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
-          <button onClick={() => onNav("news")} style={{ flex: 1, border: "none", borderRadius: 10, padding: "10px 12px", background: t.cyan, color: "#000", fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>NEWS FEED →</button>
-          <button onClick={() => onNav("tracker")} style={{ flex: 1, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "10px 12px", background: "transparent", color: t.tx, fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>TRACKER →</button>
-        </div>
+      )}
+
+      <div style={{ display: "flex", gap: 8 }}>
+        <button onClick={() => onNav("news")} style={{ flex: 1, border: "none", borderRadius: 10, padding: "12px 14px", minHeight: "44px", background: t.cyan, color: "#000", fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>NEWS FEED →</button>
+        <button onClick={() => onNav("tracker")} style={{ flex: 1, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "12px 14px", minHeight: "44px", background: "transparent", color: t.tx, fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>TRACKER →</button>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
         <div onClick={() => onNav("webtoon")} style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
-          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>FEATURED SERIES</div>
-          <div style={{ fontSize: 18, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>{featured.title}</div>
-          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.55, marginTop: 8 }}>{featured.subtitle}</div>
+          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>TOON</div>
+          <div style={{ fontSize: 15, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>웹툰</div>
+          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.5, marginTop: 8 }}>{featured.title}</div>
         </div>
+
         <div onClick={() => onNav("chatbot")} style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
           <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>AI DESK</div>
-          <div style={{ fontSize: 18, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>강차장의 배터리 상담소</div>
-          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.55, marginTop: 8 }}>질문하면 핵심 요약, 관련 카드, 최신 링크를 이어서 보여줍니다.</div>
+          <div style={{ fontSize: 15, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>상담소</div>
+          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.5, marginTop: 8 }}>카드 기준으로 바로 대화</div>
         </div>
-      </div>
 
-      <div style={{ background: t.card2, borderRadius: 14, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, marginBottom: 10 }}>
-          <div>
-            <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div>
-            <div style={{ fontSize: 16, fontWeight: 900, color: t.tx }}>오늘의 핵심 카드</div>
-          </div>
-          <button onClick={() => onNav("news")} style={{ border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, borderRadius: 8, padding: "12px 14px", minHeight: "44px", fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>OPEN NEWS</button>
+        <div onClick={() => onNav("tracker")} style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
+          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>TRACKER</div>
+          <div style={{ fontSize: 15, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>정책</div>
+          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.5, marginTop: 8 }}>{tracker.meta.totalItems} items</div>
         </div>
-        {picks.length
-          ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {picks.map((card, i) => (
-                <StoryNewsItem
-                  key={`${card.id || card.T || card.title}-${i}`}
-                  card={card}
-                  dark={dark}
-                  onAskChatbot={onAskChatbot}
-                />
-              ))}
-            </div>
-          : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}
       </div>
     </div>
   );

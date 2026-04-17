@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "run_id": "W7R3",
+    "generated_at": "2026-04-17T07:00:00+09:00",
+    "card_count": 10,
+    "framework_version": "v4-fact-discipline",
+    "discarded": [
+      {
+        "id_candidate": "2026-04-16_US_05",
+        "topic": "Maine DC 입지 금지 법안",
+        "reason": "Tier 3 단독 소스(press9), 원문 교차검증 불가, FACT_DISCIPLINE 원칙에 따라 탈락"
+      }
+    ],
+    "reclassified_reinforcement": [
+      {
+        "id_candidate": "2026-04-16_KR_08",
+        "topic": "공동주택 재생열 35% 의무화",
+        "absorbed_into": "2026-04-16_KR_04",
+        "reason": "공동주택 에너지정책 묶음으로 자연 통합 — 단일 서사 축"
+      }
+    ],
+    "date_correction": [
+      {
+        "id_before": "2026-04-16_US_03",
+        "id_after": "2026-04-13_US_03",
+        "reason": "서명 이벤트는 4/13, 4/16은 news 발행일"
+      }
+    ]
+  },
+  "cards": [
+    {
+      "id": "2026-04-16_EU_01",
+      "region": "EU",
+      "date": "2026-04-16",
+      "cat": "Charging",
+      "sub_cat": "V2G 상용화",
+      "signal": "high",
+      "source_tier": 1,
+      "title": "VW, Q4 2026 독일에서 V2G 상용 서비스 출시 — ID.3/ID.4/ID.5/ID.7 대상, 6월 사전등록",
+      "sub": "PowerCo→Salzgitter 20MW/40MWh PowerCenter→EPEX Spot→소비자 V2G의 4단 체인 안착. MEB + ID.Software 3.5+ 77kWh",
+      "gate": "VW V2G의 진짜 의미는 'OEM이 전기차 배터리를 유럽 도매전력시장 EPEX Spot에 직접 연결하는 첫 end-to-end 수직 구조를 만들었다'는 점이다. 지금까지 V2G는 파일럿·학술 사례 중심이었는데, PowerCo가 자체 셀을 만들고 Salzgitter 공장 부지에 20MW/40MWh BESS를 2023년부터 운영하며 EPEX Spot 거래 경험을 축적한 뒤 이를 소비자 차량으로 확장하는 경로가 확립된 것이다. K 3사 셀의 V2G 대응 여부가 독일·EU OEM 수주 경쟁에서 실질 변수로 들어오는 구간이 됐다.",
+      "fact": "VW 공식 보도자료 및 electrive/Reuters 4/16 보도에 따르면 Volkswagen은 자회사 Elli와 함께 2026년 4분기 독일에서 bidirectional charging 상용 서비스를 출시한다. 대상 차량은 ID.3·ID.4·ID.5·ID.7(MEB 플랫폼 + ID.Software 3.5+ 탑재 + 77kWh 배터리) 모델이다. 사전등록은 6월 개시 예정. 필수 하드웨어는 VW CUBOS 11kW wallbox. VW는 이 서비스를 PowerCo 자체 제조 셀 → Salzgitter PowerCenter(20MW/40MWh BESS, 2023년부터 운영) → EPEX Spot 도매전력시장 거래 이력 → 소비자 차량 V2G 확장이라는 4단 체인으로 구조화했다. VW는 MEB 플랫폼 기준 유럽 770,000개 충전 포인트에 연결 가능한 네트워크와 28개 EU 시장 커버리지를 이미 보유하고 있으며, Elli 운영. VW 발표는 '아침 저가 전력 충전 → 저녁 피크 시 그리드 공급'의 수익 구조를 사용자에 설명하되 구체적 수익 금액은 제시하지 않았다.",
+      "implication": [
+        "VW V2G의 상용화는 '셀 → 스테이셔너리 BESS → 도매시장 거래 → 차량 V2G 확장'의 4단 수직 구조가 검증된 첫 OEM 사례다. K-3사(LG엔솔·삼성SDI·SK온)가 EU OEM 수주 경쟁에서 V2G 대응 셀 스펙(cycle life·BMS·통신 프로토콜 ISO 15118-20 호환)을 어느 수준까지 확보했는지가 관찰 축. VW처럼 자체 셀 체인 보유한 OEM과 셀 외주 OEM(BMW·Stellantis·현대 등)이 V2G 시장 진입 경로에서 갈라지는 구간이 된다.",
+        "PowerCo가 Salzgitter PowerCenter를 2023년부터 운영하며 EPEX Spot 거래 이력을 쌓은 흐름은, 'OEM이 도매전력시장 거래자가 된다'는 구조적 전환의 선례다. 현대차·기아가 한국·미국·유럽 V2G 인프라 로드맵을 어떻게 구조화할지, 특히 자체 시험 BESS 운영 단계를 거치는지 여부가 Q2~Q4 2026 IR 관찰 포인트.",
+        "Elli의 770,000개 충전 포인트/28개 시장 네트워크가 V2G 서비스의 풀 커버리지 확장에 실제로 활용되는지가 다음 단계 관찰 축. 한국 CPO(채비·SK시그넷)와 OEM(현대차) 간 V2G 협력 구조가 Elli 모델을 따라 '통합 네트워크 기반 상용 서비스'로 확립될지, 아니면 개별 파일럿 중심으로 머물지가 차이를 만든다."
+      ],
+      "urls": [
+        "https://www.volkswagen-newsroom.com/en/press-releases/bidirectional-charging-in-volkswagen-models-19558",
+        "https://www.electrive.com/2026/04/16/volkswagen-to-launch-bidirectional-charging-for-id-3-id-4-id-5-and-id-7-in-q4/"
+      ],
+      "related": ["2026-04-15_EU_02"],
+      "fact_sources": [
+        {"claim": "Q4 2026 독일 상용 서비스 출시, 사전등록 6월", "source": "VW newsroom 2026-04-16", "quote": "Bidirectional charging with Volkswagen ID models to be available in Germany from the fourth quarter of 2026... Pre-registration will start in June 2026"},
+        {"claim": "대상 차량 ID.3/ID.4/ID.5/ID.7, MEB + ID.Software 3.5+ + 77kWh", "source": "electrive 2026-04-16", "quote": "applies to the ID.3, ID.4, ID.5 and ID.7 models with the MEB platform, ID.Software 3.5 or higher and a 77 kWh battery"},
+        {"claim": "CUBOS 11kW wallbox 필수", "source": "VW newsroom", "quote": "Elli's CUBOS wallbox with 11 kW AC output"},
+        {"claim": "Salzgitter PowerCenter 20MW/40MWh 2023년부터 EPEX 거래", "source": "VW newsroom", "quote": "PowerCo operates the PowerCenter at Salzgitter with a capacity of 20 megawatts and a storage capacity of 40 megawatt hours... trading at EPEX Spot since 2023"},
+        {"claim": "Elli 770,000 충전 포인트, 28 EU 시장", "source": "electrive", "quote": "Elli offers access to around 770,000 charging points in 28 European markets"}
+      ]
+    },
+
+    {
+      "id": "2026-04-16_CN_05",
+      "region": "CN",
+      "date": "2026-04-16",
+      "cat": "Battery",
+      "sub_cat": "반고체 양산",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "중국 반고체 양산이 GWh급으로 진입 — 恩力动力 안후이 2GWh 기지 투산, 전고체 규모화는 2027~2030으로 수렴",
+      "sub": "'전고체 상용화'가 아니라 '반고체 2GWh 양산 단계'. 恩力动力 회장 공식 입장 '전고체 2027~28 소규모, 2030 拐点'",
+      "gate": "이번 투산으로 확증된 건 '중국 전고체가 곧 상용화'가 아니라 '아직 반고체가 GWh급 양산 단계에 진입 중'이라는 점이다. K 3사의 전고체 양산 타임라인과 실제 비교해야 할 상대는 '중국의 전고체'가 아니라 '중국의 반고체 GWh급 라인'이며, 에너지밀도 300-400Wh/kg 영역에서 이미 가격·안정성 경쟁이 시작됐다.",
+      "fact": "배터리 전문지 CBEA 4/16 보도에 따르면 恩力动力(Enli Power)이 안후이 기지 2GWh 선진 제조기지를 공식 투산했다고 밝혔다. CBEA 2025년 12월 취재에 따르면 恩力动力은 '半固态→准固态→全固态' 3단계 발전 경로를 공식 전략으로 운영 중이며, 현재 양산 제품은 에너지밀도 300-400Wh/kg 반고체 전지다. 준고체(400-520Wh/kg, 리튬메탈)는 무인기·eVTOL·로봇·고급 전기이륜에 배치 적용 중이며, 전고체는 남경 기지 100MWh 中试(파일럿) 라인에서 2026년 소규모 생산 목표로 개발 중인 단계다. 같은 인터뷰에서 戴翔 董事長은 업계 공통 전망을 '2027-2028년 전고체 소규모 응용, 2030년 전후 규모화 拐点'으로 제시했다. 북경 대흥 기지(0.3GWh)는 무인기·로봇용으로 전담 운영되며 누적 출하 셀이 200만 개를 넘었다.",
+      "implication": [
+        "지금까지 매체에서 '중국 전고체 상용화 개시'로 혼용돼온 이벤트 중 상당수가 실체는 반고체 GWh급 양산이다. K-3사 전고체 타임라인을 비교할 때 대상이 '중국의 전고체'가 아니라 '중국의 반고체 2GWh급 라인'이 되는지 여부가 관찰 포인트. 특히 300-400Wh/kg 반고체가 K 3사 주력 삼원계 대비 어디까지 가격 차이를 좁혔는지가 Q2 이후 수주 경쟁 축이다.",
+        "恩力动力의 반고체 주력 시장은 무인기·eVTOL·로봇·고급 전기이륜이며, 신에너지차·ESS 본격 진입은 회사 측 공개 자료에서 '2027-2030 점진 침투'로 명시된 상태다. K 3사 전고체 양산 로드맵과 타임라인이 겹치는 구간에 진입할 여지가 있어, IR 공시에서 확인이 필요한 비교 축이 형성된 것으로 관찰된다.",
+        "SVOLT(같은 날 80kWh PHEV 팩 양산 개시) 등이 반고체 high-nickel 셀을 유럽 OEM에 소규모 공급 중인 흐름과 맞물리면, K 3사의 반고체 R&D 포지셔닝이 '전고체까지 건너뛰기' 전략인지 '중간 단계 반고체 병행' 전략인지가 Q2 IR에서 관찰할 축이 된다."
+      ],
+      "urls": [
+        "http://www.cbea.com/djgc/202604/963162.html",
+        "http://www.cbea.com/djgc/202512/592937.html",
+        "https://libattery.ofweek.com/2025-01/ART-36000-8110-30654945.html"
+      ],
+      "related": ["2026-04-16_CN_06", "2026-04-15_CN_02", "2026-04-16_CN_04", "2026-04-14_CN_01"],
+      "fact_sources": [
+        {"claim": "안후이 2GWh 투산", "source": "cbea 2025-12", "quote": "其安徽基地(一期2GWh)基本建成，将于近期投产"},
+        {"claim": "3단계 발전 경로", "source": "cbea 2025-12", "quote": "'半固态-准固态-全固态'的阶梯式发展路径"},
+        {"claim": "300-400Wh/kg 반고체 양산", "source": "cbea 2025-12", "quote": "公司已实现能量密度达300-400Wh/kg的半固态电池量产"},
+        {"claim": "전고체 2027-28 소규모, 2030 拐点", "source": "cbea 2025-12", "quote": "预计2027年-2028年进入小规模应用阶段，2030年前后有望迎来规模化应用的'拐点'"},
+        {"claim": "남경 100MWh 전고체 파일럿 2026", "source": "cbea 2025-12", "quote": "南京基地则布局了100MWh全固态电池中试线，计划于2026年实现小规模"},
+        {"claim": "대흥 GWh 로봇·무인기용, 누적 200만 셀", "source": "cbea 2025-12", "quote": "GWh)专注无人机与机器人用电池制造，目前累计出货电芯已超200万颗"},
+        {"claim": "준고체 400-520Wh/kg 리튬메탈", "source": "cbea 2025-12", "quote": "成功研发出400-520Wh/kg的锂金属准固态电池产品"}
+      ]
+    },
+
+    {
+      "id": "2026-04-13_US_03",
+      "region": "US",
+      "date": "2026-04-13",
+      "cat": "Policy",
+      "sub_cat": "州 ESS 의무화",
+      "signal": "top",
+      "source_tier": 1,
+      "title": "Virginia, '국내 최대' 주 단위 ESS mandate 서명 — 2030년 4GW + 2045년 16GW, PJM 데이터센터 부하가 직접 배경",
+      "sub": "Spanberger 주지사 4/13 서명, 7/1 발효. Dominion·Appalachian Power가 SCC에 조달 의무. NJ·IL 사례와 함께 주별 릴레이 구간",
+      "gate": "'20.78GW'라는 총계보다 더 의미있는 건 PJM 그리드 주가 데이터센터 부하를 ESS 의무화로 해소하려는 첫 대규모 입법이라는 점이다. New Jersey·Illinois가 올해 같은 방향으로 움직이고 있어, 주별 mandate 릴레이가 연방 IRA 변동성에 대한 실질적 헤지 구조로 정착되는지가 향후 12개월 관찰 축이다.",
+      "fact": "Virginia 주지사실 공식 4/15 발표 및 Daily Energy Insider·Energy-Storage.news 4/14~16 보도에 따르면, Abigail Spanberger 주지사는 4/13 HB895/SB448 법안에 서명해 Dominion Energy Virginia와 Appalachian Power가 State Corporation Commission에 신청·건설·취득·조달할 에너지 저장 용량 목표를 증액하고 기간을 연장했다. 법안 내용은 2030년까지 4,000MW 저장, 2045년까지 16,000MW 단주기(SDES) 저장 목표를 주 단위로 규정하며, Energy-Storage.news는 장주기 저장(LDES) 포함 총 용량을 20.78GW로 집계했다. Appalachian Power 별도 의무는 2040년까지 780MW 단주기 + 2045년까지 520MW LDES로 추가 분할됐다. 법안은 2026-07-01 발효. 발의는 Del. Richard C. 'Rip' Sullivan, Jr.(HB895, 2026-01)과 Sen. Lamont Bagby(SB448)가 담당. Spanberger는 2024년 11월 당선된 초선 주지사이며, 에너지 비용 감축이 캠페인 공약이었다. 같은 날 서명된 에너지 법안 묶음에는 HB1467(Appalachian Power VPP 파일럿 2027-07-01 착수 의무), HB284/SB371(25MW+ 고부하 고객 대상 자발적 수요 유연성 프로그램), HB807/SB254(Dominion 공유 태양광 525MW 확장), HB397/SB802(RGGI 재가입) 등이 포함됐다. 주 예산 협상에서 데이터센터 세금 면제 종료 논의(연 $10억+ 예상)가 병행 중이라고 Virginia Mercury가 4/9 보도.",
+      "implication": [
+        "PJM 지역(버지니아·뉴저지·펜실베이니아·오하이오·메릴랜드 등)이 데이터센터 부하를 공통 과제로 다루는 중이며, Virginia가 주 단위 대형 mandate를 집행한 첫 대형 케이스다. 다음 12개월 내 PJM 타 주(메릴랜드·오하이오)로 유사 입법이 확산되는지가 주별 합산 ESS 수요 구조의 관찰 포인트.",
+        "Dominion Energy Virginia·Appalachian Power는 조달을 공개 입찰·PPA 구조로 진행할 가능성이 커, LG엔솔·삼성SDI·SK온의 미국 현지 생산(스파르탄버그·커머스·블루리지 등) 물량이 주 mandate 직접 납품 대상이 될 여지가 있다. 특히 LDES 카테고리(Appalachian 520MW 별도 지정)가 단주기 LFP와 분리된 신규 카테고리로 열린 점은 흐름 혼합 장주기 셀·플로우전지 공급사에 별도 수주 창구가 생기는지 관찰 축.",
+        "New Jersey(Sherrill 주지사)·Illinois(Pritzker 주지사)의 올해 유사 서명 사례와 더해 주별 mandate 릴레이가 확인되는 흐름이다. 연방 IRA 변동성이 계속 제기되는 상황에서 주별 mandate 총합이 연방 정책 리스크에 대한 실질적 헤지로 작동하는지가 Q2~Q4 2026 관찰 축. 특히 데이터센터 세금 면제 종료 논의 결과가 동 주 전력 수요 조달 구조의 장기 신호를 결정할 수 있다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/virginia-governor-abigail-spanberger-signs-legislation-mandating-20-78gw-of-energy-storage/",
+        "https://dailyenergyinsider.com/news/51882-virginia-gov-spanberger-signs-clean-energy-bills/",
+        "https://www.governor.virginia.gov/newsroom/news-releases/2026/april-releases/name-1116470-en.html",
+        "https://seia.org/news/statement-spanberger-delivers-on-energy-affordability/",
+        "https://cleantechnica.com/2026/04/14/governor-spanberger-delivers-on-energy-affordability-blazing-a-path-for-state-leaders-nationwide/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {"claim": "2030년 4,000MW + 2045년 16,000MW SDES", "source": "dailyenergyinsider", "quote": "authorizes a state-level energy storage capacity target of 4,000 MW by 2030 and 16,000 MW by 2045"}
+      ]
+    },
+
+    {
+      "id": "2026-04-16_US_04",
+      "region": "US",
+      "date": "2026-04-16",
+      "cat": "Charging",
+      "sub_cat": "리테일러 자체 DC 충전망",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "Walmart 자체 DC 충전망 2개월 50% 확대 — 31개 사이트·200+ 스톨, 400kW Alpitronic·ABB 구조 고착",
+      "sub": "미 충전 구조가 Tesla–EA–IONNA–Walmart 4축 고정 단계에 근접. 앱 결제 독점과 분산형 표준 사이트 모델이 특징",
+      "gate": "이 카드의 핵심은 Walmart가 충전기를 더 깔았다는 사실이 아니라, 미국 리테일러가 자체 DC fast charging 네트워크를 빠른 속도로 internal buildout하는 구조가 확인됐다는 점이다. 2025년 11월 10개에서 2026년 4월 31개 사이트로 늘어난 흐름은 '리테일러 자체망'이 Tesla·EA·IONNA에 이어 미국 네 번째 축을 굳히는지가 현재 관찰 구간이다.",
+      "fact": "Charged EVs 4/16 보도(DOE AFDC 데이터 인용) 및 EV Charging Stations 집계에 따르면 Walmart 자체 DC 충전망은 2026-04-06 기준 31 스테이션 / 112 dispensers(총 stall 200+)로 확장됐으며 2개월 간 약 50% 증가(2025-11 10개 → 2026-02 20개 → 2026-04 31개). 현재 가동 주는 9개(Texas 15, Arizona 6, Florida 3, Oklahoma 2, Alabama·Arkansas·Georgia·New Jersey·South Carolina 각 1). 하드웨어는 400kW DC fast charger로 제조사는 Alpitronic HYC400 · ABB A400만 사용, 스톨당 NACS + CCS1 이중 포트. 사이트당 평균 스톨 7.2개(이전 8.1~8.6에서 하락). 결제는 Walmart 앱 독점(신용카드 터미널 없음). Walmart 공식 계획은 2023년 발표한 '2030년까지 수천 매장 설치' 목표. 첫 파일럿 2025-04 가동(Texas 2개·Arkansas 1개). 현재 공식 'coming soon' 리스트는 19개 주에 약 100개 수준으로 확장됐으며, permit filings 기준 200개 이상 추가, 전체 identified sites 315개. 평균 요금 $0.48/kWh(범위 $0.40~$0.57). Walmart 전체 매장 5,200+(Walmart + Sam's Club), 미국인 90%가 10마일 이내 거주. 참고 산업 규모: 2026-04-01 기준 미국 전체 DC fast charging 포트 71,398개. 네트워크 1위 Tesla Supercharger 36,877 스톨(51.6% 점유). IONNA Q1 2026에 1,000 스톨 돌파하며 9위 진입.",
+      "implication": [
+        "미 충전 시장 구조가 Tesla(51.6%)–EA(기존 주유소 모델)–IONNA(OEM 연합)–Walmart/리테일 자체망 4축 고정 단계에 근접한다. K CPO(채비·SK시그넷)의 미국 진출 시 파트너 포지션 선택지가 이 4축 중 어디에 붙을지가 관찰 축. 특히 Alpitronic·ABB의 400kW 독점 공급 구조가 Walmart 네트워크를 통해 확대되는 점은 K 충전기 제조사(LS E-Link·시그넷EV 등)의 직접 진입 경로에 제약 요소로 관찰된다.",
+        "Walmart가 스톨 평균을 7.2로 낮춘 점(이전 8.1~8.6)은 rapid rollout을 위한 사이트당 투자 최소화 신호일 여지. 이 패턴이 '리테일 4축 모델의 표준 사이트 설계'로 굳으면 K 충전기 제조사가 '고밀도 hub' 보다 '분산 저용량' 사양으로 북미 PO 대응을 조정해야 하는지가 R&D·영업 관찰 축.",
+        "결제 축에서 Walmart 앱 독점(신용카드 터미널 없음)은 California AB 2061(접근성 법) 등과 충돌 소지 있어, 규제 대응 과정에서 표준 결제 인터페이스가 강제될지가 Q2~Q4 2026 관찰 포인트. K CPO가 미국 진출 시 리테일 파트너형 vs standalone 결제 모델 중 어느 쪽을 택할지 선택의 기준점이 된다."
+      ],
+      "urls": [
+        "https://chargedevs.com/newswire/walmart-is-rolling-out-its-in-house-dc-fast-charging-network-at-a-rapid-pace/",
+        "https://evchargingstations.com/chargingnews/walmart-charging-growth/",
+        "https://insideevs.com/news/792338/walmart-ev-charging-development/",
+        "https://evchargingstations.com/chargingnews/largest-dc-fast-charging-april-2026/",
+        "https://chargedevs.com/newswire/walmart-to-own-and-operate-ev-charging-stations-at-thousands-of-locations-by-2030/"
+      ],
+      "related": ["2026-04-15_US_02", "2026-04-16_KR_02"],
+      "fact_sources": [
+        {"claim": "31 스테이션 / 112 dispensers", "source": "Charged EVs 2026-04-16", "quote": "Walmart now has 31 DC fast charging stations with a total of 112 individual dispensers"}
+      ]
+    },
+
+    {
+      "id": "2026-04-16_EU_02",
+      "region": "EU",
+      "date": "2026-04-16",
+      "cat": "ESS",
+      "sub_cat": "독일 BESS 신규 가동",
+      "signal": "high",
+      "source_tier": 1,
+      "title": "독일, 월 신규 BESS 용량 첫 1GWh 근접 — 3월 522.9MW/985.9MWh 추가, 주거 45,000대·대형 30+ 병행. 2037년 41GW 목표 추적",
+      "sub": "Energy-Charts·RWTH Battery Charts 기준 누적 27.23GWh/17.90GW. Aurora '독일=유럽 1위 BESS 시장', BNetzA 그리드비 프레임 5월 초안 예정",
+      "gate": "이 카드의 핵심은 '1GWh 돌파'라는 월간 기록이 아니라 '독일이 유럽 BESS 시장에서 단독 선두로 굳는 단계에 진입했다'는 구조 전환이다. 주거·상업·대형 3 세그먼트가 동시에 성장하는 구조가 다른 유럽 시장(UK·이탈리아 등)과의 격차를 확대하고 있으며, BNetzA가 2026-05 그리드비 프레임 초안을 발표하면 대형 BESS 투자 의사결정이 본격화되는 시점이 된다.",
+      "fact": "PV Magazine International 4/16 보도(Energy-Charts 및 RWTH Aachen University Battery Charts 인용)에 따르면 독일은 2026년 3월 신규 BESS 용량 522.9MW/985.9MWh를 추가했으며, 데이터 레지스터 등록 지연을 감안하면 1GWh를 넘을 것으로 전망된다. 독일 월간 최고치. 세그먼트별 누적 변화는 주거 20.43→20.75GWh, 상업 1.39→1.42GWh, 대형 4.46→5.06GWh. 누적 등록 시스템 240만 대 초과, 3월 주거 45,000대 신규 등록, 대형 30개 이상 신규 등록으로 대형 총 489개. 전체 세그먼트 누적 27.23GWh / 총 전력 17.90GW. 규제 맥락: BNetzA는 2026-05 그리드비(grid fee) 프레임 초안을 공개할 예정이고, 2037년 독일 누적 BESS 목표는 41GW로 설정(2년 전 전망 대비 약 2배). 업계 조사 Fraunhofer ISE는 2030년 저장 수요를 100~170GWh로 추정. Montel 분석은 2024년 독일 negative price 시간이 575시간(2025년 기준)으로 2024년의 459시간보다 증가했다고 집계. Aurora Energy Research는 독일을 UK·이탈리아보다 앞선 유럽 1위 BESS 시장으로 평가. Energy-Storage.news는 대형 BESS(1MWh+) 누적이 여전히 3.5GWh 수준으로, '24GWh 전체 누적 22% YoY 증가' 대비 구조적 비중이 낮음을 지적했다.",
+      "implication": [
+        "독일 월간 1GWh 근접은 '유럽 BESS 시장의 표준 규모' 기준점이 독일 단독으로 이동 중임을 의미한다. K-3사(특히 LG엔솔 LFP·삼성SDI SBB·SK온 LFP)의 유럽 BESS 수주 영업에서 독일 직접 진출 vs UK·이탈리아 경유 여부가 포트폴리오 결정에 직접 영향. 특히 대형(1MWh+)이 아직 누적 3.5GWh로 비중이 낮은 점은 mid-scale에서 대형으로 확장되는 전환점이 2026~2027에 올 수 있음을 시사.",
+        "주거 세그먼트가 20.75GWh로 압도적 비중인 구조는 독일 가정용 PV+배터리 생태계(Sonnen·E3/DC·BYD 등)가 Tier 1 공급망을 이미 장악한 상태임을 보여준다. K 가정용 배터리(LG엔솔 RESU 계열 등)의 독일 진입은 가격·설치 파트너십 구조에서 중국 공급사와 경쟁해야 하므로, Q2~Q4 2026 수주 실적이 관찰 포인트.",
+        "BNetzA 5월 그리드비 프레임 초안이 대형 BESS의 회수 구조를 확정하는 순간이다. 이 초안 방향성(colocation vs standalone, 그리드비 정률 vs 정액)이 K-ESS의 독일 프로젝트 셀 공급 영업 경로를 결정. 2026-02 ESN 해설(König)이 지적한 '규제 공백이 투자 신호를 약화하는 리스크'가 해소되는지가 Q3 2026 수주 공시로 확인된다."
+      ],
+      "urls": [
+        "https://www.pv-magazine.com/2026/04/16/germany-adds-record-1-gwh-of-battery-storage-in-march/",
+        "https://mobilityhouse-energy.com/int_en/knowledge-center/article/bess-in-germany-market-overview-2026",
+        "https://www.energy-storage.news/moment-of-truth-the-2026-regulatory-agenda-for-large-battery-storage-in-germany/"
+      ],
+      "related": ["2026-04-16_GL_01"],
+      "fact_sources": [
+        {"claim": "3월 522.9MW/985.9MWh, 독일 월간 최고치", "source": "PV Magazine 2026-04-16", "quote": "battery storage systems with a total capacity of 522.9 MW and 985.9 MWh were added... this is the highest monthly increase in battery storage capacity in Germany to date"}
+      ]
+    },
+
+    {
+      "id": "2026-04-16_KR_09",
+      "region": "KR",
+      "date": "2026-04-16",
+      "cat": "Industry",
+      "sub_cat": "R&D 협력",
+      "signal": "mid",
+      "source_tier": 2,
+      "title": "한국배터리산업협회-독일 Fraunhofer, 배터리 R&D MOU 체결",
+      "sub": "기술·표준·인력 3축 협력",
+      "gate": "이 카드는 단독 뉴스로는 mid 등급이지만, Mangrove Lithium(GL_03, BMW i Ventures 공동투자)과 Amazon AU 호주 BESS 흐름과 같은 맥락에서 'K-배터리의 EU·북미 연결 구조'가 강화되는 시점에 한국·독일 R&D 축이 공식화됐다는 점이 관찰 축이다.",
+      "fact": "배터리산업협회 4/16 발표에 따르면 한국배터리산업협회(배협)와 독일 Fraunhofer 연구소 간 배터리 R&D 협력 MOU가 체결됐다. 협력 범위는 기술(전고체·차세대 셀)·표준·인력 교류 3축으로 공표됐다. 구체 프로젝트·예산·타임라인은 후속 발표 예정. (이 카드는 공개 정보가 제한적이라 brief 카드로 처리됨 — 추가 정보 확인 후 full 카드 재생성 가능성 유지)",
+      "implication": [
+        "Fraunhofer는 독일·EU 전고체 R&D의 핵심 기관으로, K 3사의 전고체 양산 로드맵 검증 레퍼런스 축 중 하나다. 이번 MOU가 실질 공동 R&D 프로젝트·공동 표준 기고로 이어지는지가 Q2~Q4 2026 관찰 포인트."
+      ],
+      "urls": [],
+      "related": ["2026-04-16_GL_03"],
+      "fact_sources": [
+        {"claim": "배협-Fraunhofer MOU 4/16 체결", "source": "협회 발표 (원문 URL 미확인, 후속 검증 필요)", "quote": "브리프 카드 — 세부 팩트 소스 보강 필요"}
+      ]
+    }
+  ]
+}

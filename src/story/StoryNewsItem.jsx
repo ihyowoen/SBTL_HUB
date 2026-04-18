@@ -114,7 +114,7 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                 <span style={{ fontSize: 10, fontWeight: 900, color: '#fff', background: sig, padding: '5px 9px', borderRadius: 999 }}>{sigLabel}</span>
                 <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.88)', border: '1px solid rgba(255,255,255,0.18)', background: 'rgba(0,0,0,0.16)', padding: '5px 9px', borderRadius: 999 }}>{regionFlag} {c.region}</span>
-                {featured && <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.88)', border: '1px solid rgba(255,255,255,0.18)', background: 'rgba(0,0,0,0.16)', padding: '5px 9px', borderRadius: 999 }}>{fmtDate(c.date)}</span>}
+                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.88)', border: '1px solid rgba(255,255,255,0.18)', background: 'rgba(0,0,0,0.16)', padding: '5px 9px', borderRadius: 999 }}>{fmtDate(c.date)}</span>
               </div>
               {c.source ? <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.72)', textAlign: 'right', lineHeight: 1.35 }}>{c.source}</span> : null}
             </div>

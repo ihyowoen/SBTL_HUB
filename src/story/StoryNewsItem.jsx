@@ -100,8 +100,8 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
   const hasCover = Boolean(coverImage);
   const lines = activeMode ? makeBriefLines(c, activeMode) : [];
 
-  // Layout mode: 'lead' (cover + featured) | 'listicle' (cover, not featured) | 'plain' (no cover)
-  const layout = hasCover && featured ? 'lead' : hasCover ? 'listicle' : 'plain';
+  // Layout mode: 'lead' (cover + featured) | 'plain' (no cover, or cover without featured)
+  const layout = hasCover && featured ? 'lead' : 'plain';
 
   useEffect(() => () => {
     if (timerRef.current) window.clearTimeout(timerRef.current);
@@ -122,7 +122,7 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
   };
 
   // Footer padding differs per layout
-  const footerPadding = layout === 'lead' ? '12px 16px 16px' : layout === 'listicle' ? '0 14px 14px' : '0 16px 16px';
+  const footerPadding = layout === 'lead' ? '12px 16px 16px' : '0 16px 16px';
 
   return (
     <div style={{ background: t.card2, borderRadius: 16, border: `1px solid ${t.brd}`, overflow: 'hidden', boxShadow: t.shadow }}>
@@ -146,36 +146,6 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
             {c.sub ? <p style={{ margin: '8px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.6 }}>{c.sub}</p> : null}
           </div>
         </>
-      ) : layout === 'listicle' ? (
-        <div style={{ padding: 14, display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-              <SigPill sig={sig} label={sigLabel} />
-              <MetaPill dark={dark}>{regionFlag} {c.region}</MetaPill>
-              <MetaPill dark={dark}>{fmtDate(c.date)}</MetaPill>
-            </div>
-            <h3 style={{
-              margin: '4px 0 0',
-              color: t.tx,
-              fontSize: 14,
-              lineHeight: 1.4,
-              fontWeight: 800,
-              display: '-webkit-box',
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
-            }}>{c.title || '제목 없음'}</h3>
-            {c.source ? <span style={{ fontSize: 10, color: t.sub, lineHeight: 1.4, marginTop: 2 }}>{c.source}</span> : null}
-          </div>
-          <div style={{
-            width: 96,
-            height: 96,
-            flexShrink: 0,
-            borderRadius: 10,
-            background: `url(${coverImage}) center/cover no-repeat`,
-            border: `1px solid ${t.brd}`,
-          }} />
-        </div>
       ) : (
         <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>

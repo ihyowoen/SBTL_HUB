@@ -343,7 +343,7 @@ function latestDate(cards) {
   return [...cards.map((c) => c?.d).filter(Boolean)].sort((a, b) => String(b).localeCompare(String(a)))[0] || null;
 }
 
-function latestCards(cards, limit = 3, region = null, targetDate = null) {
+function latestCards(cards, limit = 3, region = null, targetDate = null, fallbackToLatest = false) {
   // When region is specified, filter by region FIRST then find latest date within that subset
   const pool = region ? cards.filter((c) => c.r === region) : cards;
   const rank = { t: 3, h: 2, m: 1, i: 0 };
@@ -351,11 +351,12 @@ function latestCards(cards, limit = 3, region = null, targetDate = null) {
   if (targetDate) {
     const target = fmtDate(targetDate);
     const list = pool.filter((c) => c.d && fmtDate(c.d) === target);
-    if (!list.length) return [];
-    return list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+    if (list.length) return list.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
+    if (!fallbackToLatest) return [];
+    // fall through to latest-date logic when no same-day cards exist
   }
 
-  // No targetDate: use latest date within the (possibly region-filtered) pool
+  // No targetDate (or fallback): use latest date within the (possibly region-filtered) pool
   const ld = latestDate(pool);
   if (!ld) return pool.sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, limit);
   const list = pool.filter((c) => c.d === ld);
@@ -508,21 +509,28 @@ function pickHomeCover(card) {
 function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
-  const picks = latestCards(kb.cards, 4, null, kstToday());
+  const todayPicks = latestCards(kb.cards, 4, null, kstToday());
+  const picks = todayPicks.length ? todayPicks : latestCards(kb.cards, 4, null, null);
+  const isFromToday = todayPicks.length > 0;
   const today = kstNow();
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
   const todayStr = `${kstToday()} (${dayNames[today.getDay()]})`;
   const lead = picks[0] || null;
   const rest = picks.slice(1, 4);
+  const leadDateLabel = lead?.d ? fmtDate(lead.d) : "-";
 
   return (
     <div style={{ padding: "0 14px 120px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#1F2840" : "#EEF3FF"})`, borderRadius: 18, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}`, boxShadow: t.sh }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
-          <SmallPill label="TODAY" dark={dark} />
-          <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{todayStr}</span>
+          <SmallPill label={isFromToday ? "TODAY" : "LATEST"} dark={dark} />
+          <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>
+            {isFromToday ? todayStr : `최근 업데이트 ${leadDateLabel}`}
+          </span>
         </div>
-        <div style={{ fontSize: 24, fontWeight: 900, color: t.tx, lineHeight: 1.2 }}>오늘의 뉴스</div>
+        <div style={{ fontSize: 24, fontWeight: 900, color: t.tx, lineHeight: 1.2 }}>
+          {isFromToday ? "오늘의 뉴스" : "최근 뉴스"}
+        </div>
         <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.65, marginTop: 8 }}>
           오늘 봐야 할 흐름만 먼저 읽고, 필요하면 뉴스 피드나 강차장 상담으로 이어집니다.
         </div>
@@ -1384,7 +1392,9 @@ function NewsDesk({ kb, onAskChatbot, dark }) {
 
   const visible = cards.slice(0, showCount);
   const dates = [...new Set(visible.map((c) => c.d))];
-  const highlights = latestCards(kb.cards, 4, null, kstToday());
+  const todayHighlights = latestCards(kb.cards, 4, null, kstToday());
+  const highlights = todayHighlights.length ? todayHighlights : latestCards(kb.cards, 4, null, null);
+  const highlightsIsToday = todayHighlights.length > 0;
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}>
@@ -1393,7 +1403,9 @@ function NewsDesk({ kb, onAskChatbot, dark }) {
       </div>
       <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}>
         <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div>
-        <h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>오늘의 핵심 카드</h3>
+        <h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>
+          {highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}
+        </h3>
         {highlights.length
           ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {highlights.map((card, i) => (

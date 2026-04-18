@@ -72,6 +72,22 @@ function MetaPill({ children, dark }) {
   );
 }
 
+function SigPill({ sig, label }) {
+  return (
+    <span style={{ fontSize: 10, fontWeight: 900, color: '#fff', background: sig, padding: '5px 9px', borderRadius: 999 }}>
+      {label}
+    </span>
+  );
+}
+
+function OverlayPill({ children }) {
+  return (
+    <span style={{ fontSize: 10, color: '#fff', background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)', padding: '5px 9px', borderRadius: 999 }}>
+      {children}
+    </span>
+  );
+}
+
 export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '', featured = false }) {
   const t = theme(dark);
   const c = useMemo(() => normalizeCard(card), [card]);
@@ -83,6 +99,9 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
   const regionFlag = REGION_FLAGS[c.region] || '🌐';
   const hasCover = Boolean(coverImage);
   const lines = activeMode ? makeBriefLines(c, activeMode) : [];
+
+  // Layout mode: 'lead' (cover + featured) | 'listicle' (cover, not featured) | 'plain' (no cover)
+  const layout = hasCover && featured ? 'lead' : hasCover ? 'listicle' : 'plain';
 
   useEffect(() => () => {
     if (timerRef.current) window.clearTimeout(timerRef.current);
@@ -102,51 +121,88 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
     }, THINK_MS);
   };
 
+  // Footer padding differs per layout
+  const footerPadding = layout === 'lead' ? '12px 16px 16px' : layout === 'listicle' ? '0 14px 14px' : '0 16px 16px';
+
   return (
-    <div style={{ background: t.card2, borderRadius: hasCover ? 24 : 22, border: `1px solid ${t.brd}`, overflow: 'hidden', boxShadow: t.shadow }}>
-      <div style={{ height: 5, background: sig }} />
+    <div style={{ background: t.card2, borderRadius: 16, border: `1px solid ${t.brd}`, overflow: 'hidden', boxShadow: t.shadow }}>
+      <div style={{ height: 4, background: sig }} />
 
-      {hasCover ? (
-        <div style={{ position: 'relative', minHeight: featured ? 228 : 176, background: `url(${coverImage}) center/cover no-repeat` }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.78) 100%)' }} />
-          <div style={{ position: 'relative', zIndex: 1, minHeight: featured ? 228 : 176, padding: featured ? 18 : 16, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+      {layout === 'lead' ? (
+        <>
+          <div style={{ position: 'relative', height: 140, background: `url(${coverImage}) center/cover no-repeat` }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.28) 100%)' }} />
+            <div style={{ position: 'absolute', top: 12, left: 12, right: 12, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                <span style={{ fontSize: 10, fontWeight: 900, color: '#fff', background: sig, padding: '5px 9px', borderRadius: 999 }}>{sigLabel}</span>
-                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.88)', border: '1px solid rgba(255,255,255,0.18)', background: 'rgba(0,0,0,0.16)', padding: '5px 9px', borderRadius: 999 }}>{regionFlag} {c.region}</span>
-                {featured && <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.88)', border: '1px solid rgba(255,255,255,0.18)', background: 'rgba(0,0,0,0.16)', padding: '5px 9px', borderRadius: 999 }}>{fmtDate(c.date)}</span>}
+                <SigPill sig={sig} label={sigLabel} />
+                <OverlayPill>{regionFlag} {c.region}</OverlayPill>
+                <OverlayPill>{fmtDate(c.date)}</OverlayPill>
               </div>
-              {c.source ? <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.72)', textAlign: 'right', lineHeight: 1.35 }}>{c.source}</span> : null}
-            </div>
-
-            <div>
-              <h3 style={{ margin: 0, color: '#fff', fontSize: featured ? 23 : 19, lineHeight: 1.28, fontWeight: 900, textShadow: '0 2px 10px rgba(0,0,0,0.25)' }}>{c.title || '제목 없음'}</h3>
-              {c.sub ? <p style={{ margin: '8px 0 0', color: 'rgba(255,255,255,0.80)', fontSize: 12, lineHeight: 1.58 }}>{c.sub}</p> : null}
+              {c.source ? <OverlayPill>{c.source}</OverlayPill> : null}
             </div>
           </div>
+          <div style={{ padding: '14px 16px 4px' }}>
+            <h3 style={{ margin: 0, color: t.tx, fontSize: 18, lineHeight: 1.36, fontWeight: 900 }}>{c.title || '제목 없음'}</h3>
+            {c.sub ? <p style={{ margin: '8px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.6 }}>{c.sub}</p> : null}
+          </div>
+        </>
+      ) : layout === 'listicle' ? (
+        <div style={{ padding: 14, display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+              <SigPill sig={sig} label={sigLabel} />
+              <MetaPill dark={dark}>{regionFlag} {c.region}</MetaPill>
+              <MetaPill dark={dark}>{fmtDate(c.date)}</MetaPill>
+            </div>
+            <h3 style={{
+              margin: '4px 0 0',
+              color: t.tx,
+              fontSize: 14,
+              lineHeight: 1.4,
+              fontWeight: 800,
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            }}>{c.title || '제목 없음'}</h3>
+            {c.source ? <span style={{ fontSize: 10, color: t.sub, lineHeight: 1.4, marginTop: 2 }}>{c.source}</span> : null}
+          </div>
+          <div style={{
+            width: 96,
+            height: 96,
+            flexShrink: 0,
+            borderRadius: 10,
+            background: `url(${coverImage}) center/cover no-repeat`,
+            border: `1px solid ${t.brd}`,
+          }} />
         </div>
       ) : (
         <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-              <span style={{ fontSize: 10, fontWeight: 900, color: '#fff', background: sig, padding: '5px 9px', borderRadius: 999 }}>{sigLabel}</span>
+              <SigPill sig={sig} label={sigLabel} />
               <MetaPill dark={dark}>{regionFlag} {c.region}</MetaPill>
               <MetaPill dark={dark}>{fmtDate(c.date)}</MetaPill>
             </div>
             {c.source ? <span style={{ fontSize: 10, color: t.sub, textAlign: 'right', lineHeight: 1.4 }}>{c.source}</span> : null}
           </div>
-
           <div>
-            <h3 style={{ margin: 0, color: t.tx, fontSize: 19, lineHeight: 1.34, fontWeight: 900 }}>{c.title || '제목 없음'}</h3>
+            <h3 style={{ margin: 0, color: t.tx, fontSize: 18, lineHeight: 1.36, fontWeight: 900 }}>{c.title || '제목 없음'}</h3>
             {c.sub ? <p style={{ margin: '8px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.6 }}>{c.sub}</p> : null}
           </div>
         </div>
       )}
 
-      <div style={{ padding: hasCover ? '14px 16px 16px' : '0 16px 16px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 2 }}>
-          <button onClick={() => openBrief('summary')} style={{ borderRadius: 999, border: '1px solid #58A6FF55', background: activeMode === 'summary' ? '#58A6FF' : 'transparent', color: activeMode === 'summary' ? '#000' : '#58A6FF', padding: '9px 13px', minHeight: '40px', fontSize: 11, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>핵심만 보면</button>
-          <button onClick={() => openBrief('insight')} style={{ borderRadius: 999, border: '1px solid #A855F755', background: activeMode === 'insight' ? '#A855F7' : 'transparent', color: activeMode === 'insight' ? '#000' : '#A855F7', padding: '9px 13px', minHeight: '40px', fontSize: 11, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>강차장 콕 짚기</button>
+      <div style={{ padding: footerPadding, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+          <button onClick={() => openBrief('summary')} style={{ borderRadius: 999, border: '1px solid #58A6FF55', background: activeMode === 'summary' ? '#58A6FF' : 'transparent', color: activeMode === 'summary' ? '#000' : '#58A6FF', padding: '8px 12px', minHeight: '36px', fontSize: 11, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>핵심만 보면</button>
+          <button onClick={() => openBrief('insight')} style={{ borderRadius: 999, border: '1px solid #A855F755', background: activeMode === 'insight' ? '#A855F7' : 'transparent', color: activeMode === 'insight' ? '#000' : '#A855F7', padding: '8px 12px', minHeight: '36px', fontSize: 11, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>강차장 콕 짚기</button>
+          {c.primaryUrl ? (
+            <button
+              onClick={() => window.open(c.primaryUrl, '_blank', 'noopener,noreferrer')}
+              style={{ marginLeft: 'auto', borderRadius: 999, border: `1px solid ${t.brd}`, background: 'transparent', color: t.sub, padding: '8px 12px', minHeight: '36px', fontSize: 11, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
+            >원문 ↗</button>
+          ) : null}
         </div>
 
         {(thinkingMode || activeMode) ? (
@@ -165,15 +221,11 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
 
             {!thinkingMode && activeMode && onAskChatbot ? (
               <div style={{ paddingLeft: 36 }}>
-                <button onClick={() => onAskChatbot(buildCardConsultPrompt(card))} style={{ borderRadius: 999, border: `1px solid ${t.brd}`, background: dark ? 'rgba(255,255,255,0.03)' : '#fff', color: t.tx, padding: '11px 14px', minHeight: '42px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}>이 카드로 계속 물어보기</button>
+                <button onClick={() => onAskChatbot(buildCardConsultPrompt(card))} style={{ borderRadius: 999, border: `1px solid ${t.brd}`, background: dark ? 'rgba(255,255,255,0.03)' : '#fff', color: t.tx, padding: '10px 13px', minHeight: '38px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}>이 카드로 계속 물어보기</button>
               </div>
             ) : null}
           </div>
         ) : null}
-
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {c.primaryUrl ? <button onClick={() => window.open(c.primaryUrl, '_blank', 'noopener,noreferrer')} style={{ borderRadius: 12, border: `1px solid ${t.brd}`, background: 'transparent', color: t.tx, padding: '12px 14px', minHeight: '44px', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>원문 보기 ↗</button> : null}
-        </div>
       </div>
     </div>
   );

@@ -558,7 +558,7 @@ function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
               card={card}
               dark={dark}
               onAskChatbot={onAskChatbot}
-              coverImage={i === 0 ? pickHomeCover(card) : ""}
+              coverImage={pickHomeCover(card)}
             />
           ))}
         </div>

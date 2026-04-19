@@ -1,0 +1,831 @@
+{
+  "updated": "2026-04-19",
+  "total": 18,
+  "schema": "full",
+  "source_files": [
+    "web_verified_production_drafts_20260418.json (12 drafted cards)",
+    "salvage_final_6_cards_20260418.json (6 salvaged final cards)"
+  ],
+  "cards": [
+    {
+      "id": "2026-04-17_CN_01",
+      "region": "CN",
+      "date": "2026-04-17",
+      "cat": "Battery",
+      "sub_cat": "열폭주 차단 소재",
+      "signal": "mid",
+      "source_tier": 2,
+      "title": "중국 1300℃급 배터리 '방화벽' 공개 — 열폭주 차단 소재가 안전 규제 강화 국면과 맞물린다",
+      "sub": "난징공대 연구진이 1300℃까지 견디는 실리카 에어로젤 절연 시트를 제시했다. 2.3mm 시트로 1000℃ 5분 노출 시 반대면 100℃ 이하 유지 성능을 제시했다.",
+      "gate": "이번 이벤트의 핵심은 '신소재 1건'이 아니라, 중국 EV 배터리 안전 규제 강화와 맞물려 열폭주 확산을 늦추는 패시브 안전소재의 채택 문턱이 올라갈 수 있다는 점이다. 셀 화학 경쟁만으로는 설명되지 않는 안전 아키텍처 경쟁이 확대되면, 소재·팩 설계·규제 대응을 묶은 종합 경쟁력이 더 중요해진다.",
+      "fact": "CarNewsChina가 4월 17일 인용한 Science and Technology Daily 보도에 따르면 난징공대 연구진은 1300℃ 내열 성능을 갖춘 실리카 에어로젤 기반 배터리 절연 시트를 개발했다. 보도에 따르면 두께 2.3mm 시트를 1000℃ 환경에 5분간 노출했을 때 반대면 온도를 100℃ 이하로 유지했고, 열 차단은 최대 2시간 지속됐다. 해당 소재는 CATL, BYD, Sungrow, Xiaomi 배터리 시스템에 이미 사용되고 있다고 소개됐다. 한편 로이터는 중국이 2026년 7월부터 EV·PHEV 배터리 화재·폭발 리스크 저감을 위한 더 엄격한 안전 기준을 시행한다고 전했다.",
+      "implication": [
+        "배터리 안전 경쟁의 무게중심이 셀 화학에서 팩 단위 열 차단 구조와 규제 적합성으로 이동할 가능성이 있다. 소재 단가 상승이 있더라도 규제 대응 비용과 리콜 리스크를 낮추는 방향이면 채택 여지가 커질 수 있다.",
+        "LFP 비중이 높아지는 중국 시장에서도 안전 격차를 줄이는 핵심은 화학계열만이 아니라 절연·방열·열확산 차단 설계라는 점이 다시 부각된다. K-배터리도 셀 성능뿐 아니라 안전 부품 체인 경쟁력을 함께 점검해야 한다.",
+        "2026년 7월 중국 신규 기준 시행 전후로 완성차와 ESS 업체가 열전파 차단 소재를 어떻게 표준화하는지가 관찰 포인트다."
+      ],
+      "urls": [
+        "https://carnewschina.com/2026/04/17/1300c-battery-firewall-unveiled-as-china-accelerates-ev-safety-push-report-says/",
+        "https://www.reuters.com/business/autos-transportation/china-tighten-ev-battery-rules-reduce-fire-and-explosion-risks-2025-04-15/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "1300℃ 내열 실리카 에어로젤 절연 시트",
+          "source": "CarNewsChina / 2026-04-17",
+          "quote": "A research team from Nanjing Tech University has developed a lithium battery insulation material capable of withstanding temperatures up to 1300°C."
+        },
+        {
+          "claim": "2.3mm 시트의 1000℃ 5분 테스트",
+          "source": "CarNewsChina / 2026-04-17",
+          "quote": "In testing, a 2.3 mm sheet exposed to 1000°C for five minutes kept the opposite side below 100°C."
+        },
+        {
+          "claim": "열 차단 최대 2시간",
+          "source": "CarNewsChina / 2026-04-17",
+          "quote": "The material can maintain thermal isolation for up to two hours."
+        },
+        {
+          "claim": "중국의 강화된 배터리 안전 기준은 2026년 7월 시행",
+          "source": "Reuters / 2025-04-15",
+          "quote": "China will implement stricter safety regulations for electric vehicle (EV) and plug-in hybrid batteries starting July 2026 to reduce the risk of fires and explosions."
+        }
+      ]
+    },
+    {
+      "id": "2026-04-17_CN_02",
+      "region": "CN",
+      "date": "2026-04-17",
+      "cat": "ESS",
+      "sub_cat": "독립형 계통형 저장소",
+      "signal": "mid",
+      "source_tier": 2,
+      "title": "산시 린펀 200MW/400MWh 독립형 ESS 전면 가동 — 지역 전력망 조정자산이 실운전 단계로 진입",
+      "sub": "220kV 儒安储能电站가 4월 14일 전용량 계통 연계를 마치고 정식 가동에 들어갔다. 총 80개 프리패브 LFP 저장 유닛을 사용한다.",
+      "gate": "중국 ESS 뉴스의 핵심은 발표 건수가 아니라, 대형 독립형 저장소가 실제로 계통 조정 자산으로 투입되는 속도다. 200MW/400MWh급 프로젝트가 실운전 단계로 들어가면 지역 전력망에서 태양광·풍력 변동성 흡수와 피크 조정의 실증 데이터가 쌓이기 시작한다.",
+      "fact": "중국 에너지 매체 보도에 따르면 산시성 린펀 경제개발구에 위치한 220kV 儒安储能电站는 4월 14일 새벽 전용량 계통 연계 테스트를 마치고 정식 투입됐다. 총 설비 규모는 200MW/400MWh이며, 총투자액은 약 4억위안으로 제시됐다. 프로젝트는 80개의 프리패브형 저장 유닛으로 구성되며, LFP 배터리 기술을 채택했다. 저장 전력은 35kV 집전선을 거쳐 신설 220kV 승압소를 통해 飞虹 220kV 변전소에 연결된다.",
+      "implication": [
+        "중국 ESS 경쟁은 수주 발표보다 실제 계통 투입과 운전 데이터 축적 단계로 이동하고 있다. 독립형 프로젝트가 빠르게 누적되면 PCS·EMS·셀 열관리까지 실증 레퍼런스 격차가 커질 수 있다.",
+        "200MW/400MWh는 2시간형 표준 구간으로, 단순 설치량보다도 조정력 수익성·계통기여도·운영 안정성 데이터가 다음 프로젝트 확산을 좌우할 가능성이 있다.",
+        "K-배터리 관점에선 중국 내 대형 ESS 실운전 레퍼런스가 계속 늘어날수록 '가격+납기+운영경험' 결합 경쟁이 더 강해질 수 있다."
+      ],
+      "urls": [
+        "https://mcn.solarbe.com/news/20260415/50021615.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "4월 14일 전용량 계통 연계 및 정식 가동",
+          "source": "碳索储能网 / 2026-04-15",
+          "quote": "4月14日凌晨4点...顺利完成全容量并网测试，正式投入运行。"
+        },
+        {
+          "claim": "총 규모 200MW/400MWh",
+          "source": "碳索储能网 / 2026-04-15",
+          "quote": "电站总装机规模为200兆瓦/400兆瓦时。"
+        },
+        {
+          "claim": "총투자 약 4억위안",
+          "source": "碳索储能网 / 2026-04-15",
+          "quote": "总投资约4亿元。"
+        },
+        {
+          "claim": "80개 프리패브 LFP 저장 유닛",
+          "source": "碳索储能网 / 2026-04-15",
+          "quote": "采用高安全性磷酸铁锂电池技术，由80个预制舱式储能单元组成。"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-17_CN_04",
+      "region": "CN",
+      "date": "2026-04-17",
+      "cat": "Materials",
+      "sub_cat": "LFP 일체화 투자",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "당승과기, 云天化와 44.93억위안 LFP 일체화 프로젝트 착수 — 지분 인수로 윈난 체인 진입",
+      "sub": "1.45억위안으로 友天科技 51%, 聚能新材 49%를 취득한 뒤 15만톤/년 LFP와 20만톤/년 인산철 전구체 프로젝트를 공동 추진하는 구조다.",
+      "gate": "이번 이벤트의 본질은 삼원계 정극재 강자가 LFP를 단순 언급하는 수준이 아니라, 지분 인수와 전구체·양극재 CAPEX를 한 묶음으로 연결해 인산계 공급망 안으로 들어갔다는 점이다. 중국 내 LFP 경쟁은 여전히 셀 단계만이 아니라 원재료-전구체-양극재 일체화 구조에서 원가 우위를 굳히는 방향으로 전개되고 있다.",
+      "fact": "4월 16일 공개된 공시 요약 보도에 따르면 당승과기는 1.45억위안을 투입해 友山科技가 보유한 友天科技 51% 지분과 聚能新材 49% 지분을 취득할 예정이다. 거래 완료 후 회사는 云天化와 함께 15만톤/년 LFP 생산선과 20만톤/년 고성능 인산철 배터리 소재 전구체 프로젝트를 포함한 일체화 프로젝트를 추진한다. 두 프로젝트 총투자액은 약 44.93억위안으로 제시됐고, 이번 거래는 반독점 심사 결정을 남겨두고 있다.",
+      "implication": [
+        "중국 LFP 체인 재편은 끝난 국면이 아니라, 대형 소재기업이 인수와 CAPEX를 묶어 공급망 재배치를 이어가는 국면으로 보는 편이 맞다.",
+        "삼원계 중심 업체까지 LFP 밸류체인에 직접 진입하면, 한국 업체가 마주하는 경쟁 축은 셀 가격만이 아니라 중국 내 소재 체인의 통합 원가 구조가 된다.",
+        "Q2 이후 중국 양극재·전구체 기업의 투자 공시를 보면 LFP 비중 확대가 일시 조정인지 장기 전략 전환인지 더 선명해질 가능성이 있다."
+      ],
+      "urls": [
+        "https://www.nbd.com.cn/articles/2026-04-16/4342901.html",
+        "https://finance.sina.com.cn/roll/2026-04-16/doc-inhuszrw2745719.shtml"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "1.45억위안 지분 인수",
+          "source": "每日经济新闻 / 2026-04-17",
+          "quote": "拟以自有或自筹资金1.45亿元购买...友天科技51%股权及聚能新材49%股权。"
+        },
+        {
+          "claim": "15만톤/년 LFP + 20만톤/년 전구체 프로젝트",
+          "source": "每日经济新闻 / 2026-04-17",
+          "quote": "共同投资建设磷酸铁锂一体化项目，包括15万吨/年磷酸铁锂生产线及20万吨/年高性能磷酸铁电池新材料前驱体项目。"
+        },
+        {
+          "claim": "총투자 44.93억위안",
+          "source": "Sina Finance / 2026-04-16",
+          "quote": "两项目总投资合计约44.93亿元。"
+        },
+        {
+          "claim": "반독점 심사 필요",
+          "source": "每日经济新闻 / 2026-04-17",
+          "quote": "尚需取得反垄断执法机构审查决定。"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-17_US_01",
+      "region": "US",
+      "date": "2026-04-17",
+      "cat": "ESS",
+      "sub_cat": "가정용 VPP·소프트웨어 수익화",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "미국 가정용 ESS 투자 논리, '용량'에서 '제어권'으로 이동 — VPP·집합제어가 밸류에이션 축으로 부상",
+      "sub": "pv magazine USA는 투자자들이 배터리 설치량보다 소프트웨어·집합제어·시장참여 수익의 지속성을 더 중시하기 시작했다고 전했다.",
+      "gate": "가정용 배터리 시장의 다음 경쟁은 박스 판매량이 아니라, 누가 배터리 군집을 묶어 전력시장에 참여시키고 반복 수익을 창출하느냐에 있다. 하드웨어 제조사 중심 사고로는 설명되지 않는 플랫폼 프리미엄이 붙기 시작하면, ESS 기업 가치평가 기준 자체가 바뀔 수 있다.",
+      "fact": "pv magazine USA는 4월 17일 ESS News 기사를 인용해 미국 투자자들이 가정용 저장장치 평가에서 설치량보다 장기 수익 흐름을 더 주시하고 있다고 보도했다. Piva Capital의 Mark Gudiksen은 하드웨어 전용 업체보다 지능형 소프트웨어까지 가진 플랫폼형 업체의 가치가 더 복리적으로 커진다고 설명했다. 기사에 따르면 VPP, aggregation, wholesale market participation이 핵심 수익화 축으로 떠오르고 있으며, Base Power의 텍사스 사례처럼 하드웨어보다 조정 가능한 배터리 군집 운영이 투자 포인트가 되고 있다.",
+      "implication": [
+        "미국 가정용 ESS의 경쟁 기준이 kWh 판매에서 dispatchable fleet 운영 능력으로 이동하면, 소프트웨어·EMS·유틸리티 연동 역량을 가진 사업자의 프리미엄이 커질 수 있다.",
+        "K-배터리 입장에서는 셀 공급만으로는 가치 사슬 상단을 방어하기 어려워지고, VPP 운영 파트너·플랫폼 사업자와의 결합 방식이 중요해질 수 있다.",
+        "정책·시장 제도가 더 열릴수록 가정용 ESS는 소비재가 아니라 분산형 발전·조정 자산으로 재평가될 가능성이 있다."
+      ],
+      "urls": [
+        "https://pv-magazine-usa.com/2026/04/17/control-not-capacity-could-be-the-next-driver-of-u-s-residential-storage-investment/",
+        "https://www.reuters.com/business/energy/automakers-expand-us-battery-storage-supply-china-still-key--reeii-2026-04-13/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "투자자 평가축이 설치량에서 장기 수익으로 이동",
+          "source": "pv magazine USA / 2026-04-17",
+          "quote": "The number of batteries installed... may no longer be the most important metric for investors evaluating residential storage projects."
+        },
+        {
+          "claim": "VPP·aggregation·market participation 중시",
+          "source": "pv magazine USA / 2026-04-17",
+          "quote": "long-term revenue streams provided by market participation, virtual power plants (VPP) and aggregation are taking center stage."
+        },
+        {
+          "claim": "플랫폼형 사업자의 복리형 가치",
+          "source": "pv magazine USA / 2026-04-17",
+          "quote": "A pure-play hardware vendor’s value is limited to the value of the box, while a platform’s value compounds with every connected device."
+        },
+        {
+          "claim": "미국 ESS 설치 확대",
+          "source": "Reuters / 2026-04-13",
+          "quote": "In 2025, U.S. battery storage installations grew by 30% to 58 GWh, with an expected 60 GWh to be added in 2026."
+        }
+      ]
+    },
+    {
+      "id": "2026-04-17_GL_02",
+      "region": "GL",
+      "date": "2026-04-17",
+      "cat": "Materials",
+      "sub_cat": "희토류 지분 확대",
+      "signal": "high",
+      "source_tier": 1,
+      "title": "Critical Metals, Greenland Tanbreez 지분 92.5% 확보 — 서방 중희토류 체인 재편 기대 자극",
+      "sub": "그린란드 정부가 Tanbreez 잔여 50.5% 이전을 승인하면서 Critical Metals는 92.5% 지분을 확보했다. European Lithium은 7.5%를 유지한다.",
+      "gate": "이번 이벤트의 포인트는 광산 탐사주 주가 급등이 아니라, 중국 바깥 중희토류 공급망을 만들겠다는 서방 자본의 상징 자산이 소유권 구조를 거의 마무리했다는 점이다. 실제 공급까지는 아직 갈 길이 멀지만, 소재 안보 프레임에서는 프로젝트 통제권 확보 자체가 다음 단계 자금조달과 오프테이크 협상의 출발점이 된다.",
+      "fact": "Critical Metals는 4월 17일 그린란드 정부가 Tanbreez Mining Greenland A/S의 잔여 50.5% 지분 이전을 승인했다고 발표했다. 이로써 회사의 총 지분율은 92.5%로 올라가고, European Lithium은 7.5%를 유지한다. 회사는 Tanbreez를 세계 최대급 중희토류 매장지 중 하나로 설명했으며, Barron's는 이번 승인 후 Critical Metals 주가가 37% 급등했다고 전했다. Barron's에 따르면 150톤 벌크 샘플을 활용한 파일럿 플랜트 프로그램은 5월 시작 예정이다.",
+      "implication": [
+        "희토류 안보 이슈가 커질수록 광산 프로젝트의 경제성보다도 '누가 통제권을 쥐었는가'가 먼저 시장에 가격화될 가능성이 있다.",
+        "배터리·모터·방산 소재 체인 관점에서 Tanbreez 같은 비중국권 자산은 실제 생산 이전에도 오프테이크와 정책금융 논의의 중심에 설 수 있다.",
+        "다만 이번 카드는 생산 개시가 아니라 지분 구조 고도화 단계에 관한 것이다. 파일럿 결과와 자금조달이 뒤따르지 않으면 공급망 효과는 장기 과제로 남을 수 있다."
+      ],
+      "urls": [
+        "https://www.criticalmetalscorp.com/greenland-government-approves-transfer-of-final-50-5-of-tanbreez-taking-critical-metals-corp-to-92-5-ownership/",
+        "https://www.barrons.com/articles/critical-minerals-rare-earth-stock-e5b992c9",
+        "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-04-17-2026/card/investors-in-this-stock-are-still-bullish-on-greenland-sIYrHXWNhpksbOoCLhPo"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "그린란드 정부 승인으로 지분 92.5% 확보",
+          "source": "Critical Metals Corp / 2026-04-17",
+          "quote": "Government of Greenland has approved the transfer of the remaining 50.5% interest... bringing total CRML ownership to 92.5%."
+        },
+        {
+          "claim": "European Lithium 7.5% 유지",
+          "source": "Critical Metals Corp / 2026-04-17",
+          "quote": "European Lithium Ltd (EUR) retains a 7.5% interest in Tanbreez."
+        },
+        {
+          "claim": "주가 37% 급등",
+          "source": "Barron's / 2026-04-18",
+          "quote": "Critical Metals' stock surged by 37% to $12.68 on Friday."
+        },
+        {
+          "claim": "5월 150톤 벌크 샘플 파일럿",
+          "source": "Barron's / 2026-04-18",
+          "quote": "A pilot plant program is set to begin in May with a 150-metric-ton bulk sample."
+        }
+      ]
+    },
+    {
+      "id": "2026-04-17_US_07",
+      "region": "US",
+      "date": "2026-04-17",
+      "cat": "ESS",
+      "sub_cat": "배터리 재사용",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "Rivian·Redwood, 일리노이 공장에 10MWh 2차사용 ESS 구축 — 자동차 제조사가 팩 재사용을 공장 전력으로 연결",
+      "sub": "100개 이상 Rivian 사용 후 배터리팩을 Redwood가 정지형 시스템으로 전환한다. 미국 자동차 제조사 기준 최대 규모 재사용 ESS로 제시된다.",
+      "gate": "이벤트의 핵심은 '재활용'이 아니라, EV 팩의 사용후 자산 가치를 공장 전력 비용 절감과 계통 스트레스 완화에 직접 연결했다는 점이다. 완성차-재활용-ESS가 하나의 운영 모델로 묶이면, 배터리의 잔존가치 평가와 공급망 내 수익 회수 방식이 달라질 수 있다.",
+      "fact": "Rivian과 Redwood Materials는 4월 중순 일리노이주 Normal 공장에 10MWh 규모의 2차사용 배터리 저장시스템을 배치한다고 발표했다. Charged EVs와 Autoweek 보도에 따르면 시스템은 100개 이상 Rivian 배터리팩을 활용하며, Redwood의 Pack Manager 기술로 관리된다. 양사는 이 설비를 통해 피크 시간대 전력 구매를 줄이고 지역 전력망 부담을 완화할 수 있다고 설명했다. 보도들은 이 설비를 미국 자동차 제조사 기준 최대 규모의 재사용 배터리 저장시스템으로 소개했다.",
+      "implication": [
+        "완성차 업체가 사용후 배터리를 재활용 업체에 넘긴 뒤 다시 공장 내 전력 자산으로 쓰는 구조가 자리 잡으면, 배터리 잔존가치의 현금화 모델이 구체화될 수 있다.",
+        "ESS 시장에서는 신규 셀 판매뿐 아니라 2차사용 팩 기반 산업용 저장 수요가 별도 세그먼트로 커질 가능성이 있다.",
+        "K-배터리도 재사용·재활용 밸류체인을 단순 ESG 영역이 아니라 공장 운영비·전력조달·잔존가치 회수 모델 관점에서 다시 볼 필요가 있다."
+      ],
+      "urls": [
+        "https://chargedevs.com/newswire/rivian-and-redwood-deploy-10-mwh-of-second-life-battery-storage-at-illinois-factory/",
+        "https://www.autoweek.com/news/a71030126/rivian-recycles-batteries-to-power-its-factory/",
+        "https://battery-tech.net/battery-markets-news/rivian-redwood-to-deploy-10-mwh-second-life-battery-storage/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "10MWh 시스템 및 100개 이상 배터리팩",
+          "source": "Charged EVs / 2026-04-17",
+          "quote": "deploying 10 megawatt-hours of second-life battery storage... The system uses more than 100 retired Rivian battery packs."
+        },
+        {
+          "claim": "피크 수요 시간대 전력 사용 최적화",
+          "source": "Charged EVs / 2026-04-17",
+          "quote": "The stored energy dispatches on-site during peak demand periods."
+        },
+        {
+          "claim": "미국 자동차 제조사 기준 최대 재사용 ESS",
+          "source": "Autoweek / 2026-04-16",
+          "quote": "marking the largest such energy storage system for a U.S. auto manufacturer."
+        },
+        {
+          "claim": "Redwood Pack Manager 적용",
+          "source": "Charged EVs / 2026-04-17",
+          "quote": "managed by the company’s Redwood Pack Manager technology."
+        }
+      ]
+    },
+    {
+      "id": "2026-04-17_GL_09",
+      "region": "GL",
+      "date": "2026-04-17",
+      "cat": "ESS",
+      "sub_cat": "IPO·자금조달",
+      "signal": "high",
+      "source_tier": 1,
+      "title": "Sigenergy, HKEX 상장으로 HK$4.4bn 조달 — 분산형 저장장치 강자에 자본시장 프리미엄 집중",
+      "sub": "Sigenergy는 홍콩증권거래소 상장으로 약 HK$4.4bn을 조달했다. 상장 첫날 종가는 공모가 대비 103.4% 급등했다.",
+      "gate": "이번 상장의 포인트는 단순한 IPO 흥행이 아니라, 자본시장이 분산형 ESS와 AI-연계 에너지관리 기업에 높은 성장 프리미엄을 부여하고 있다는 점이다. 자금조달 여력이 커지면 제품 포트폴리오, 해외 A/S, 생산 확장 속도에서 경쟁사 대비 격차가 벌어질 수 있다.",
+      "fact": "Energy-Storage.news와 Reuters에 따르면 Sigenergy는 4월 16일 홍콩증권거래소에 상장해 HK$4.4bn을 조달했다. 공모가는 주당 HK$324.20이었고, 오버얼롯이 전부 행사되면 총 조달액은 HK$5.06bn까지 늘어날 수 있다. Reuters는 상장 첫날 종가가 659.50홍콩달러로 공모가 대비 103.4% 상승했다고 전했다. Linklaters는 이번 거래를 AI 최적화 5-in-1 에너지저장 솔루션 업체의 IPO라고 설명했다.",
+      "implication": [
+        "상장 이후 조달 자금이 실제로 생산능력·해외 서비스망·상업용 ESS 확장으로 연결되면, 분산형 저장장치 시장의 가격·브랜드 경쟁은 더 치열해질 수 있다.",
+        "AI·인버터·배터리·EMS를 묶은 통합 솔루션 사업자에 자본시장이 프리미엄을 붙이기 시작하면, 순수 셀 공급 기업은 가치평가 측면에서 상대적으로 불리해질 수 있다.",
+        "K-배터리도 분산형 ESS에서 단순 부품 공급을 넘는 통합 패키지 전략이 필요한지 점검할 필요가 있다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/sigenergy-lists-on-hong-kong-stock-exchange-raises-hk4-4-billion/?nocache=1",
+        "https://www.reuters.com/world/asia-pacific/chinas-sigenergy-set-surge-79-hong-kong-debut-after-562-million-ipo-2026-04-16/",
+        "https://www.linklaters.com/about-us/news-and-deals/deals/2026/april/linklaters-advises-on-sigenergy-s-hk$4-4bn-hkex-ipo"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "HK$4.4bn 조달",
+          "source": "Energy-Storage.news / 2026-04-17",
+          "quote": "The company raised over HK$4.4 billion (US$562 million)."
+        },
+        {
+          "claim": "공모가 HK$324.20",
+          "source": "Energy-Storage.news / 2026-04-17",
+          "quote": "the IPO price set at HK$324.20 per share."
+        },
+        {
+          "claim": "첫날 종가 +103.4%",
+          "source": "Reuters / 2026-04-16",
+          "quote": "ended 103.4% higher in its Hong Kong market debut."
+        },
+        {
+          "claim": "AI 최적화 5-in-1 ESS 솔루션 제공업체",
+          "source": "Linklaters / 2026-04-16",
+          "quote": "the first IPO of an AI-optimised, five-in-one energy storage system solution provider"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-17_AU_11",
+      "region": "GL",
+      "date": "2026-04-17",
+      "cat": "ESS",
+      "sub_cat": "풍력+태양광+배터리 하이브리드",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "Synergy, WA 1GW 풍력·500MW 태양광·500MW BESS 복합 프로젝트 환경심사 착수",
+      "sub": "서호주 국영 에너지기업 Synergy가 Tathra Wind Farm을 EPBC Act에 제출했다. 500MW 배터리는 최대 3개 설비로 분산 배치된다.",
+      "gate": "이번 프로젝트의 의미는 단일 BESS 규모보다도, 서호주 국영 유틸리티가 대형 풍력·태양광·배터리를 하나의 하이브리드 자산으로 묶는 개발 방식이 메인스트림이 되고 있다는 점이다. 전력망 연계와 환경심사 단계에서부터 배터리가 발전자산의 기본 구성요소로 들어가고 있다.",
+      "fact": "Energy-Storage.news에 따르면 Synergy는 서호주 Mid West 지역의 Tathra Wind Farm을 호주 연방 환경보호법(EPBC Act) 심사 대상으로 제출했다. 계획안에는 최대 1,000MW 풍력, 500MW 태양광, 500MW 배터리 저장장치가 포함된다. 개발 구역은 약 15,847헥타르이며, 배터리는 최대 3개 시설로 분산 배치될 예정이다. 프로젝트는 기존 330kV 송전선에 직접 연결되도록 설계됐고, 약 10km의 신규 330kV 송전 설비가 추가로 필요하다.",
+      "implication": [
+        "대형 재생에너지 프로젝트에서 배터리는 별도 옵션이 아니라 초기 개발단계부터 함께 설계되는 기본 자산으로 자리 잡고 있다.",
+        "유틸리티 주도 하이브리드 프로젝트가 늘수록 셀 공급 외에 PCS·EMS·계통연계 역량을 묶은 공급 제안이 중요해질 수 있다.",
+        "호주 시장은 대규모 저장소 실증 레퍼런스가 빠르게 축적되는 곳이어서, 한국 기업에도 중장기 수주·파트너십 관찰 시장으로 의미가 크다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/synergy-submits-1gw-tathra-wind-farm-with-500mw-bess-to-australias-epbc-act/?nocache=1"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "1,000MW 풍력 + 500MW 태양광 + 500MW BESS",
+          "source": "Energy-Storage.news / 2026-04-17",
+          "quote": "featuring up to 1,000MW of wind generation capacity, 500MW of solar, and a 500MW battery energy storage system (BESS)."
+        },
+        {
+          "claim": "EPBC Act 제출",
+          "source": "Energy-Storage.news / 2026-04-17",
+          "quote": "has been submitted to the Environment Protection and Biodiversity Conservation (EPBC) Act."
+        },
+        {
+          "claim": "개발 구역 15,847헥타르",
+          "source": "Energy-Storage.news / 2026-04-17",
+          "quote": "would occupy a 15,847-hectare development envelope."
+        },
+        {
+          "claim": "배터리 최대 3개 시설 분산 배치",
+          "source": "Energy-Storage.news / 2026-04-17",
+          "quote": "the battery storage would be distributed across up to three separate facilities."
+        }
+      ]
+    },
+    {
+      "id": "2026-04-15_CN_09",
+      "region": "CN",
+      "date": "2026-04-15",
+      "cat": "Materials",
+      "sub_cat": "광물 자원 플랫폼",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "CATL, 자본금 300억위안 '时代资源集团' 설립 — 상류 광물 통합 플랫폼을 별도 축으로 분리",
+      "sub": "CATL은 광물 자산을 통합하고 해외 우량 광물 프로젝트를 확대하기 위해 100% 자회사 형태의 자원 플랫폼을 세운다.",
+      "gate": "이 카드의 핵심은 '신규 자회사 1개'가 아니라, CATL이 상류 광물 조달을 보조 기능이 아니라 별도 플랫폼으로 체계화했다는 점이다. 공급망 안정성이 가격경쟁력과 직결되는 구간에서, 광물 확보를 독립 조직으로 분리한 것은 upstream 통제를 더 공격적으로 가져가겠다는 신호에 가깝다.",
+      "fact": "4월 15일 공개된 CATL 공시 요약 보도에 따르면 회사는 전액 출자 자회사 '时代资源集团(厦门)' 설립을 결정했다. 자본금은 300억위안이며, 현금과 보유 지분을 결합해 출자한다. 새 플랫폼은 신에너지 광물 분야의 전문 투자·운영·관리 플랫폼으로 위치 지워졌고, 기존 광업 자산을 통합하면서 국내외 우량 광물 프로젝트를 확대해 원재료 공급 안전성과 산업체인 일체화 경쟁우위를 강화하는 것이 목적이라고 밝혔다.",
+      "implication": [
+        "배터리 셀 메이커가 광물 확보를 별도 플랫폼으로 떼어내면, 상류 자원 통제는 일회성 투자보다 지속적 포트폴리오 운영 체계로 전환된다.",
+        "K-배터리 입장에서는 중국 선두 업체와의 경쟁이 셀·팩이 아니라 원재료 조달·투자 플랫폼 설계까지 넓어질 수 있다.",
+        "향후 시대자원그룹이 실제로 어떤 광물 프로젝트를 인수·출자하는지가 CATL의 중장기 원가 방어력과 공급망 안전성의 핵심 관찰 포인트가 된다."
+      ],
+      "urls": [
+        "https://finance.sina.com.cn/roll/2026-04-15/doc-inhuqwst8258818.shtml",
+        "https://www.stcn.com/article/detail/3752381.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "자본금 300억위안 전액출자 자회사 설립",
+          "source": "每日经济新闻 / 2026-04-15",
+          "quote": "拟定注册资本300亿元，由公司通过货币及股权方式出资。"
+        },
+        {
+          "claim": "광물 투자·운영 플랫폼",
+          "source": "证券时报 / 2026-04-15",
+          "quote": "时代资源集团将定位为公司新能源矿产领域的专业投资运营与管理平台。"
+        },
+        {
+          "claim": "국내외 우량 광물 프로젝트 확대",
+          "source": "证券时报 / 2026-04-15",
+          "quote": "积极拓展海内外优质矿产资源项目，保障主营业务原材料供应与产业链安全。"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-17_CN_16",
+      "region": "CN",
+      "date": "2026-04-17",
+      "cat": "Battery",
+      "sub_cat": "전고체 A샘플",
+      "signal": "mid",
+      "source_tier": 2,
+      "title": "巨湾技研, 전고체 A샘플 셀 하선 — 복합 전해질 경로의 양산 전환 가능성 검증 단계 진입",
+      "sub": "회사는 전고체 A样 셀 하선을 통해 복합 전해질 경로의 산업화 가능성을 검증했다고 밝혔다. 남사 생산기지 기반으로 GWh급 전환 안정성을 강조했다.",
+      "gate": "이번 이벤트는 '전고체 상용화 완료'가 아니라, 복합 전해질 기반 전고체가 A샘플 하선과 공정 전환 검증 단계에 들어갔다는 신호다. 중국 전고체 서사는 여전히 양산 선언보다 A샘플·중시선·수율 확보 단계가 더 중요하다.",
+      "fact": "证券时报과 관련 업계 보도에 따르면 巨湾技研은 자사 전고체 배터리 A样 셀 하선을 발표했다. 회사는 이번 하선이 복합 전해질 기술 경로의 산업화 가능성을 검증한 것이라고 설명했다. 보도에 따르면 남사 생산기지를 기반으로 중시에서 양산까지의 공정 전환을 빠르게 연결할 수 있으며, 수율과 일관성은 차규급 수준에 도달했다고 밝혔다. 일부 업계 보도는 해당 셀이 2~3C 안정 고속충전과 높은 에너지밀도를 지향한다고 소개했다.",
+      "implication": [
+        "전고체 경쟁의 현실적 관찰 포인트는 '양산 개시'가 아니라 A샘플→중시→GWh 전환 과정에서 수율과 일관성이 실제로 유지되는지 여부다.",
+        "중국 업체가 복합 전해질 경로를 통해 차량급 공정 안정성을 먼저 확보하면, 전고체의 초기 상용화는 특정 화학계열보다 생산성 중심으로 전개될 수 있다.",
+        "K-배터리 관점에서는 전고체 일정 자체보다도 중시선 규모, 고객 검증, 공정 수율 공개 여부를 더 중점적으로 비교할 필요가 있다."
+      ],
+      "urls": [
+        "https://www.stcn.com/article/detail/3743783.html",
+        "https://finance.sina.com.cn/7x24/2026-04-13/doc-inhuihzh2482452.shtml",
+        "https://k.sina.com.cn/article_5953466437_162dab0450670aecvi.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "전고체 A样 셀 하선",
+          "source": "证券时报 / 2026-04-13",
+          "quote": "巨湾技研自主研发的全固态电池A样电芯成功下线。"
+        },
+        {
+          "claim": "복합 전해질 경로의 산업화 가능성 검증",
+          "source": "证券时报 / 2026-04-13",
+          "quote": "验证了复合电解质路线从实验室到产业化的可行性。"
+        },
+        {
+          "claim": "차규급 수율·일관성과 GWh 전환 보장",
+          "source": "证券时报 / 2026-04-13",
+          "quote": "良品率、一致性达到车规级标准，为GWh级量产提供稳定保障。"
+        },
+        {
+          "claim": "2~3C 안정 고속충전 및 고에너지밀도 지향",
+          "source": "Sina汽车 / 2026-04-14",
+          "quote": "单体能量密度达260~500Wh/kg...能够实现2~3C稳定快充。"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-18_CN_01",
+      "region": "CN",
+      "date": "2026-04-18",
+      "cat": "Battery",
+      "sub_cat": "초급속충전 LFP",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "Sunwoda, 15C LFP 팩 공개 — 98.8kWh급에서 5~95% 9분 충전 제시",
+      "sub": "베이징 기술행사에서 844.8V·98.8kWh급 'Xingchi Supercharge Battery 2.0'을 공개했다. 동시에 나트륨이온과 AI 통합 배터리 로드맵도 제시했다.",
+      "gate": "핵심은 '초급속충전 시연 1회'가 아니라, LFP에서도 고전압·고C-rate 조합으로 충전 경험을 끌어올리며 나트륨이온·AI 통합까지 한 번에 묶은 로드맵을 제시했다는 점이다. 중국 배터리 경쟁이 단일 화학계열 우위보다 '충전 속도 + 시스템 통합 + 보조 기술' 패키지 경쟁으로 이동하고 있다.",
+      "fact": "CarNewsChina는 Sunwoda가 4월 16일 베이징 기술행사에서 'Xingchi Supercharge Battery 2.0'을 공개했다고 보도했다. 해당 LFP 팩은 15C 충전을 지원하며 5%에서 95%까지 9분, 5%에서 75%까지 5.5분 충전을 제시했다. 현장 데모 팩은 264개의 각형 셀로 구성됐고, 용량은 98.8kWh, 시스템 전압은 844.8V로 소개됐다. 같은 행사에서 Sunwoda는 나트륨이온과 AI 통합 배터리 시스템 로드맵도 함께 발표했다.",
+      "implication": [
+        "LFP는 저가형 화학계열이라는 기존 인식을 넘어, 초급속충전 경험까지 끌어올리는 방향으로 경쟁이 재정의될 수 있다.",
+        "고속충전 경쟁이 삼원계 전유물이 아니라면, 셀 화학 우위보다 충전 프로토콜·열관리·팩 아키텍처 통합이 더 중요한 차별점이 될 수 있다.",
+        "나트륨이온과 AI 배터리 로드맵을 동시에 제시한 것은 중국 업체들이 차세대 기술을 단일 베팅이 아니라 포트폴리오 방식으로 전개하고 있음을 보여준다."
+      ],
+      "urls": [
+        "https://carnewschina.com/2026/04/18/9-minute-full-recharge-sunwoda-unveils-15c-lfp-pack-with-1800-a-as-sodium-battery-strategy-unfolds/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "15C 충전 및 5~95% 9분",
+          "source": "CarNewsChina / 2026-04-18",
+          "quote": "The battery supports peak charging rates of 15C, enabling a 5% to 95% state-of-charge (SOC) recharge in 9 minutes."
+        },
+        {
+          "claim": "5~75% 5.5분",
+          "source": "CarNewsChina / 2026-04-18",
+          "quote": "or 5% to 75% in 5.5 minutes."
+        },
+        {
+          "claim": "264개 각형셀, 98.8kWh, 844.8V",
+          "source": "CarNewsChina / 2026-04-18",
+          "quote": "The pack demonstrated at the event consists of 264 prismatic cells, delivering over 98.8 kWh capacity at 844.8 V."
+        },
+        {
+          "claim": "나트륨이온 및 AI 통합 로드맵 제시",
+          "source": "CarNewsChina / 2026-04-18",
+          "quote": "highlighting a new generation of ultra-fast-charging batteries capable of 15C charging alongside sodium-ion and AI-integrated battery systems"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-18_KR_21",
+      "region": "KR",
+      "date": "2026-04-18",
+      "cat": "Charging",
+      "sub_cat": "공동주택 천장형 충전",
+      "signal": "mid",
+      "source_tier": 2,
+      "title": "한화건설·E1, 포레나에 천장형 EV 충전 도입 — 1기로 최대 3대 동시 충전 구조",
+      "sub": "한화의 'EV에어스테이션'을 E1 운영 서비스와 결합해 올해 하반기부터 포레나 단지에 순차 적용한다. 화재 감지 센서·카메라·PLC 통신을 포함한다.",
+      "gate": "아파트 EV 충전의 병목은 충전기 대수만이 아니라 공간 제약과 안전 이슈다. 천장형 구조와 전력분배를 결합한 방식이 실제 단지 표준으로 자리 잡으면, 공동주택 충전 인프라의 설계 기준이 바뀔 수 있다.",
+      "fact": "세계일보와 아시아경제 보도에 따르면 한화 건설부문은 4월 15일 E1과 공동주택 EV 충전 인프라 경쟁력 제고를 위한 업무협약을 체결했다. 한화는 천장형 충전 시스템 'EV에어스테이션'의 공급과 기술 지원을 맡고, E1은 충전 서비스 운영과 관리를 담당한다. 이 시스템은 천장에서 커넥터가 내려오는 구조를 채택했고, 하나의 충전기로 최대 3대 차량을 동시에 충전할 수 있도록 설계됐다. 보도에 따르면 화재 감지 센서, 카메라, 차량·충전기 간 PLC 통신 기능이 적용되며, 올해 하반기부터 한화 포레나 단지에 순차 적용될 예정이다.",
+      "implication": [
+        "공동주택 EV 충전은 급속충전 성능보다 공간 효율·안전·운영 편의성이 실제 도입 속도를 좌우할 수 있다.",
+        "한화-E1 사례처럼 건설사와 에너지 운영사가 역할을 분담하는 모델이 확산되면, 충전 하드웨어 자체보다 서비스 운영 역량이 차별화 포인트가 될 수 있다.",
+        "한국 충전 인프라 시장에서도 '몇 기 설치'보다 아파트 환경에 맞는 구조 설계와 화재 대응 기능이 중요한 경쟁축으로 떠오를 가능성이 있다."
+      ],
+      "urls": [
+        "https://www.segye.com/newsView/20260416527791?OutUrl=google",
+        "https://www.asiae.co.kr/article/2026031108350633388"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "한화-E1 MOU 체결",
+          "source": "세계일보 / 2026-04-16",
+          "quote": "지난 15일 E1과 ‘공동주택 전기차 충전 인프라 경쟁력 제고’를 위한 업무협약(MOU)을 체결했다."
+        },
+        {
+          "claim": "천장형 EV에어스테이션 + E1 운영 역할 분담",
+          "source": "세계일보 / 2026-04-16",
+          "quote": "한화 건설부문은 천장형 전기차 충전시스템 ‘EV에어스테이션’ 공급과 기술 지원을 맡고, E1은 충전 서비스 운영과 관리를 담당한다."
+        },
+        {
+          "claim": "1기로 최대 3대 동시 충전",
+          "source": "세계일보 / 2026-04-16",
+          "quote": "하나의 충전기로 최대 3대 차량을 동시에 충전할 수 있고"
+        },
+        {
+          "claim": "화재 감지 센서·카메라·PLC 및 포레나 적용",
+          "source": "세계일보 / 2026-04-16",
+          "quote": "화재 감지 센서와 카메라, 차량과 충전기 간 정보를 주고받는 통신 기능(PLC)... 올해 하반기부터 ‘한화 포레나’ 단지에 순차적으로 적용"
+        }
+      ]
+    },
+    {
+      "id": "2026-02-23_GL_01",
+      "region": "GL",
+      "date": "2026-02-23",
+      "cat": "ESS",
+      "sub_cat": "대형 태양광+배터리 하이브리드 COD",
+      "signal": "high",
+      "source_tier": 1,
+      "title": "Scatec, 이집트 Obelisk 1단계 COD — 561MW 태양광+100MW/200MWh BESS 실가동",
+      "sub": "총 1.1GW 프로젝트 중 배터리 전량이 1단계와 함께 상업운전에 들어갔다. 2025년 6월 USD 479.1m 프로젝트 파이낸싱을 닫았고, 2단계 564MW 태양광은 2026년 여름 COD 예정이다.",
+      "gate": "이번 이벤트의 핵심은 'MENA 대형 재생 프로젝트 1건'이 아니라, 배터리를 후속 옵션이 아니라 초기 상업운전 구조에 직접 결합한 대규모 하이브리드 모델이 실제 COD까지 도달했다는 점이다. sovereign-backed PPA와 개발금융 기반 비소구 조달이 결합된 구조는 향후 대형 태양광+ESS 프로젝트의 금융·개발 표준이 어디로 가는지를 보여준다.",
+      "fact": "Scatec는 2026년 2월 23일 이집트 Obelisk 프로젝트 1단계의 상업운전개시(COD)를 공식 발표했다. 회사 발표에 따르면 1단계는 561MW 태양광과 프로젝트 전체 100MW/200MWh 배터리저장시스템을 포함하며, 2단계 564MW 태양광은 2026년 여름 COD 예정이다. 앞서 Scatec는 2025년 6월 15일 이 프로젝트의 financial close를 공시했으며, 비소구 프로젝트 파이낸싱은 EBRD·AfDB·BII가 제공한 USD 479.1m로 총 예상 CAPEX USD 590m의 약 80%에 해당한다. 전력은 sovereign guarantee가 붙은 Egyptian Electricity Transmission Company와의 25년 USD 표시 PPA에 따라 판매된다.",
+      "implication": [
+        "대형 태양광 프로젝트에서 BESS가 '향후 증설 옵션'이 아니라 초기 COD 구조로 편입되는 흐름이 강화될 수 있다. MENA·아프리카 전력망에서도 간헐성 대응을 위한 저장장치의 기본 탑재 기대치가 높아질 수 있다.",
+        "이번 건은 금융종결→착공→부분 COD까지 이어지는 일정이 비교적 빠르게 연결됐다는 점에서 개발금융기관이 하이브리드 재생에너지에 부여하는 bankability 기준을 보여준다. 향후 유사 프로젝트의 조달 구조 비교 기준으로 활용될 가능성이 높다.",
+        "2단계 564MW가 예정대로 여름에 COD되면, Obelisk는 아프리카 최대급 태양광+배터리 하이브리드 사례로 자리 잡을 수 있다. 지역별 utility-scale ESS 채택 속도를 가늠하는 벤치마크가 될 가능성이 있다."
+      ],
+      "urls": [
+        "https://www.scatec.com/en/cod-reached-for-first-phase-of-the-obelisk-project-in-egypt/",
+        "https://www.scatec.com/en/scatec-reaches-financial-close-for-the-1-1gw-solar-100mw-200mwh-bess-obelisk-project/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "Obelisk 1단계 COD 달성",
+          "source": "Scatec / 2026-02-23",
+          "quote": "successfully reached Commercial Operations Date (COD) for the first phase"
+        },
+        {
+          "claim": "1단계 561MW 태양광 + 100MW/200MWh BESS",
+          "source": "Scatec / 2026-02-23",
+          "quote": "first phase comprises 561 MW of solar capacity and the total 100 MW/200 MWh battery"
+        },
+        {
+          "claim": "financial close USD 479.1m",
+          "source": "Scatec / 2025-06-15",
+          "quote": "non-recourse project financing comprises USD 479.1 million"
+        },
+        {
+          "claim": "총 CAPEX USD 590m의 약 80%",
+          "source": "Scatec / 2025-06-15",
+          "quote": "corresponds to approximately 80% of total estimated capex of USD 590 million"
+        },
+        {
+          "claim": "25년 USD 표시 PPA와 sovereign guarantee",
+          "source": "Scatec / 2025-06-15",
+          "quote": "USD-denominated 25-year Power Purchase Agreement ... backed by a sovereign guarantee"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-16_GL_03",
+      "region": "GL",
+      "date": "2026-04-16",
+      "cat": "Materials",
+      "sub_cat": "리튬 정련 상업가동",
+      "signal": "high",
+      "source_tier": 1,
+      "title": "Mangrove Lithium, 북미 첫 상업용 전기화학 리튬 정련 설비 개소 — 연 2.5만대 EV분 배터리급 리튬 생산",
+      "sub": "캐나다 정부가 Delta, BC 시설 리본커팅을 공식 확인했다. 연 1,000톤 수산화리튬 생산능력과 2026년 1월 US$85m 구조화 금융 패키지가 맞물린다.",
+      "gate": "이번 이벤트의 핵심은 '리튬 스타트업 1곳의 개소'가 아니라, 북미 배터리 공급망의 약한 고리였던 정련(midstream conversion) 구간에 실제 상업설비가 들어섰다는 점이다. 자원 보유와 광산 개발만으로는 배터리 공급망이 완결되지 않는 상황에서, 정련의 내재화는 북미 현지화 논리에서 가장 실질적인 병목 해소로 연결된다.",
+      "fact": "캐나다 천연자원부는 2026년 4월 16일 Mangrove Lithium의 Delta, British Columbia 시설 리본커팅을 계기로 이 설비를 북미 최초의 상업용 전기화학 리튬 정련 시설이라고 밝혔다. 정부 발표에 따르면 이 시설은 연간 약 25,000대 전기차에 공급 가능한 배터리급 리튬을 생산하며, 2026년 1월 공개된 캐나다 재무부 자료에서는 해당 Delta 상업시설의 생산능력을 연 1,000톤 배터리급 수산화리튬으로 제시했다. 같은 1월 자료에 따르면 Mangrove Lithium은 BMW i Ventures, Breakthrough Energy Ventures와 함께 총 US$85m 구조화 금융 패키지를 확보했고, 캐나다 성장기금(CGF)도 투자에 참여했다. 또한 4월 16일 정부 발표는 CMRDD 프로그램을 통한 최대 C$21.9m의 조건부 지원 사실도 재확인했다.",
+      "implication": [
+        "북미 배터리 공급망에서 광산-정련-소재-셀로 이어지는 체인 중 가장 취약했던 정련 구간이 실제 상업운전 단계로 들어서고 있다는 점이 중요하다. 광산 개발 뉴스보다 정련능력 상업화가 공급망 자립성에는 더 직접적인 의미를 갖는다.",
+        "Delta 상업시설이 1,000톤/년 규모에 그치더라도, 이는 '대형 증설 숫자'보다 공정 상업성 검증의 의미가 크다. 이후 동부 캐나다 2만톤급 후속 프로젝트가 실제로 이어지는지가 북미 리튬 내재화의 다음 관찰 포인트다.",
+        "정련 공정이 전기화학 기반이라는 점은 탄소집약도·폐기물·원가 구조 측면에서 기존 정련 방식과 다른 경쟁축을 만들 수 있다. 북미 공급망 정책이 단순 자원 확보에서 가공기술 확보로 이동하는지 지켜볼 필요가 있다."
+      ],
+      "urls": [
+        "https://www.canada.ca/en/natural-resources-canada/news/2026/04/government-of-canada-supports-mangrove-lithiums-next-step-in-building-a-made-in-canada-battery-supply-chain.html",
+        "https://www.canada.ca/en/department-finance/news/2026/01/government-welcomes-canada-growth-fund-investment-in-canadian-cleantech-company-mangrove-lithium.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "북미 첫 상업용 전기화학 리튬 정련 시설",
+          "source": "Natural Resources Canada / 2026-04-16",
+          "quote": "North America’s first commercial electrochemical lithium refining facility"
+        },
+        {
+          "claim": "연 2.5만대 EV분 배터리급 리튬 생산",
+          "source": "Natural Resources Canada / 2026-04-16",
+          "quote": "produce enough battery-grade lithium for approximately 25,000 electric vehicles per year"
+        },
+        {
+          "claim": "Delta 시설 연 1,000톤 수산화리튬",
+          "source": "Department of Finance Canada / 2026-01-15",
+          "quote": "Delta commercial facility produces 1,000 tonnes of battery-grade lithium hydroxide per annum"
+        },
+        {
+          "claim": "US$85m 구조화 금융 패키지",
+          "source": "Department of Finance Canada / 2026-01-15",
+          "quote": "as part of a US$85 million structured financing package"
+        },
+        {
+          "claim": "최대 C$21.9m 조건부 지원",
+          "source": "Natural Resources Canada / 2026-04-16",
+          "quote": "conditionally approved investment of up to $21.9 million"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-16_CN_05",
+      "region": "CN",
+      "date": "2026-04-16",
+      "cat": "Materials",
+      "sub_cat": "분리막 기업 H주 상장备案",
+      "signal": "mid",
+      "source_tier": 1,
+      "title": "星源材质, H주 상장备案 확보 — 최대 1.72억주 발행 가능, 홍콩 상장 절차 다음 단계 진입",
+      "sub": "중국 증감회 국제협력사备案通知书가 발급됐다. 다만 SFC·HKEX 승인 등 후속 절차가 남아 있어 자금조달 확정 단계는 아니다.",
+      "gate": "이번 이벤트의 핵심은 '홍콩 상장 완료'가 아니라, 분리막 기업이 홍콩 상장을 위한 중국 측备案 단계를 통과해 offshore 자본조달 옵션을 구체화했다는 점이다. 소재업체의 자금조달 창구 다변화는 단순 재무 이벤트를 넘어, 향후 글로벌 생산거점·고객 대응 능력과도 연결될 수 있다.",
+      "fact": "중국 증권감독관리위원회는 2026년 4월 9일자로 深圳市星源材质科技股份有限公司에 대한 境外发行上市备案通知书를 발급했다. 증감회 공개 문서에 따르면 회사는 최대 171,952,000주의境外上市普通股를 발행해 홍콩연합거래소에 상장할 수 있다. 증감회는 본备案通知书 발급일로부터 12개월 내 미완료 시 자료를 갱신해야 하며, 상장 완료 전 중대사항 보고와 완료 후 15영업일 내 결과 보고 의무도 명시했다. 회사 측 4월 16일 공시 요약 보도에 따르면 이번 발행 및 상장은 여전히 홍콩 증권선물감독위원회와 홍콩거래소 등의 승인·核准·备案 절차를 남겨두고 있다.",
+      "implication": [
+        "분리막 기업의 홍콩 자본시장 접근은 단순 밸류에이션 이벤트보다 해외 CAPEX와 고객 대응을 위한 자금조달 유연성 측면에서 의미가 있다. 다만 지금 단계는 상장 완료가 아니라 중국 측备案 확보에 불과하다는 점을 구분해야 한다.",
+        "중국 배터리 소재체인에서는 생산능력 자체보다 자금조달 창구 다변화가 글로벌 증설 속도를 좌우할 수 있다. separator·양극재·전해액 업체들의 H-share 또는 offshore financing 움직임이 이어지는지 볼 필요가 있다.",
+        "이번 카드는 '대형 고객 보유' 같은 서사를 붙이기보다, 허가 단계와 남은 승인 절차를 정확히 구분하는 것이 중요하다. 상장 완료 시점과 실제 조달 규모는 후속 공시에서 다시 확인해야 한다."
+      ],
+      "urls": [
+        "https://www.csrc.gov.cn/csrc/c105984/c7626846/content.shtml",
+        "https://finance.sina.com.cn/jjxw/2026-04-16/doc-inhusraa2889073.shtml",
+        "https://finance.sina.com.cn/jjxw/2026-02-02/doc-inhkkkns8240638.shtml"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "최대 171,952,000주 H주 발행 가능",
+          "source": "CSRC / 2026-04-09",
+          "quote": "拟发行不超过171,952,000股境外上市普通股并在香港联合交易所上市"
+        },
+        {
+          "claim": "12개월 내 미완료 시 자료 갱신",
+          "source": "CSRC / 2026-04-09",
+          "quote": "自本备案通知书出具之日起12个月内未完成境外发行上市"
+        },
+        {
+          "claim": "상장 전 중대사항 보고 의무",
+          "source": "CSRC / 2026-04-09",
+          "quote": "如发生重大事项，应...报告"
+        },
+        {
+          "claim": "홍콩 측 승인 절차 잔여",
+          "source": "星源材质公告 요약 / 2026-04-16",
+          "quote": "尚需取得香港证券及期货事务监察委员会和香港联交所...批准"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-17_CN_06",
+      "region": "CN",
+      "date": "2026-04-17",
+      "cat": "ESS",
+      "sub_cat": "공장 사용자측 ESS 전면 투운",
+      "signal": "high",
+      "source_tier": 1,
+      "title": "川投能源, 四川时代 35MW/70MWh 1기 전면 투운 — 60MW/120MWh 공장형 ESS의 실운전 시작",
+      "sub": "宜宾 삼강신구 배터리 생산기지 내 사용자측 저장 프로젝트다. 총투자 약 1.15억위안, 1기 35MW/70MWh가 시험운전을 마치고 full-load 상태로 전환됐다.",
+      "gate": "이번 이벤트의 핵심은 '저장 프로젝트 착공'이 아니라, 배터리 제조기지 내부의 사용자측 ESS가 실제 full-load 운전 단계로 들어갔다는 점이다. 제조업 현장형 ESS가 단순 전기요금 절감 설비를 넘어, 공장 운영·가상발전소·AI 제어까지 결합한 운영자산으로 넘어가는 흐름을 보여준다.",
+      "fact": "川投能源는 2026년 4월 17일, 四川时代60MW/120MWh工商业用户侧储能示范项目 1기(35MW/70MWh)가 시험운전을 마치고 각 저장설비가 전면 full-load 운전 상태로 전환됐다고 밝혔다. 회사 발표에 따르면 이 프로젝트는 宜宾市三江新区의 四川时代动力电池生产基地에 위치하며, 川投能源 계열 攀新能源가 투자·개발했고 총투자액은 약 1.15억위안이다. 회사는 3월 6일 첫 포인트인 YB1 15MW/30MWh가 최초 병망 시험운전에 들어갔다고 밝힌 바 있으며, 이후 1기 전 구간 시험운전 완료로 이어졌다. 4월 17일 발표는 이 프로젝트가 LFP 셀 통합方案을 채택했고 AI 대모델 능력과 가상발전소 플랫폼을 접목했다고 설명했다.",
+      "implication": [
+        "공장형 사용자측 ESS가 10MWh 이하 소규모 피크절감 설비를 넘어 수십 MW급으로 커지면서, 배터리 제조사와 전력운영사의 결합 모델이 본격화될 수 있다. 제조기지 내부 ESS는 향후 전력거래·수요반응·VPP 실증의 핵심 관찰 포인트다.",
+        "이 프로젝트는 배터리 생산기지와 ESS를 한 몸처럼 묶는 구조라는 점에서 셀 제조사의 내부 전력비용 최적화와 외부 grid service 확장 가능성을 동시에 보여준다. 중국 내 공업단지형 ESS 확대 여부를 볼 필요가 있다.",
+        "AI 대모델·VPP 연계를 전면에 내세웠다는 점은 향후 저장 프로젝트 경쟁이 단순 설비규모보다 제어 알고리즘과 운영 소프트웨어 쪽으로 이동할 수 있음을 시사한다."
+      ],
+      "urls": [
+        "https://mchuneng.in-en.com/html/chunengy-53801.shtml",
+        "https://www.ctny.com.cn/news/subsidiary/3219.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "1기 35MW/70MWh 전면 투운",
+          "source": "川投能源 / 2026-04-17",
+          "quote": "一期工程（35MW/70MWh）顺利完成试运行...正式实现全容量投运"
+        },
+        {
+          "claim": "위치와 총투자 약 1.15억위안",
+          "source": "川投能源 / 2026-04-17",
+          "quote": "位于宜宾市三江新区...总投资约1.15亿元"
+        },
+        {
+          "claim": "YB1 15MW/30MWh 첫 포인트 시험운전",
+          "source": "川投能源 / 2026-03-06",
+          "quote": "YB1厂区储能场站（装机容量15MW/30MWh）...正式进入试运行阶段"
+        },
+        {
+          "claim": "AI 대모델과 VPP 연계",
+          "source": "川投能源 / 2026-04-17",
+          "quote": "创新接入AI大模型能力与虚拟电厂平台"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-15_CN_10",
+      "region": "CN",
+      "date": "2026-04-15",
+      "cat": "Materials",
+      "sub_cat": "LFP 전구체·정극재 증설",
+      "signal": "high",
+      "source_tier": 2,
+      "title": "容百科技, 42.98억위안 LFP 증설 — 52만톤 전구체·34만톤 정극재로 플랫폼 다변화 가속",
+      "sub": "六枝 습식 전구체와 毕节 화법 정극재를 분리 추진하는 구조다. 삼원 강자가 LFP 체인을 별도 규모화한다는 점이 핵심이다.",
+      "gate": "이번 이벤트의 핵심은 단순 증설 1건이 아니라, 삼원계 강자로 인식돼 온 容百科技가 LFP 전구체와 정극재를 모두 포함한 별도 체인을 대규모로 구축하며 플랫폼형 소재업체로의 전환을 가속하고 있다는 점이다. 중국 소재업체의 전략축이 '삼원 vs LFP' 이분법에서 벗어나 두 체계를 동시에 갖추는 방향으로 이동하고 있다는 신호로 읽힌다.",
+      "fact": "4월 15일 공개된 공시 재인용 보도들에 따르면 容百科技는 총 42.98억위안을 투자해 LFP 전구체 및 정극재 생산능력을 구축할 계획이다. 六枝 습식 프로젝트는 연 52만톤 LFP 전구체를 목표로 하며 예상 투자액은 20.07억위안이고, 毕节 화법 프로젝트는 연 34만톤 LFP 정극재를 목표로 하며 예상 투자액은 22.91억위안이다. 보도에 따르면 회사는 贵州新仁新能源의 기존 공장·공용설비와 毕节高新区 원 力帆 부지의 기존 공장을 활용하며, 전구체 습식 프로젝트는 화법 정극재 프로젝트의 전치공정으로 설명됐다. 두 프로젝트 완공 후 회사는 연 34만톤 LFP 정극재 생산능력을 보유하게 된다.",
+      "implication": [
+        "삼원 중심 소재업체가 LFP 체인을 별도 대규모로 구축하는 흐름은, 중국 소재 경쟁이 특정 화학계열 한 축에만 머물지 않고 복수 체계 플랫폼화로 이동하고 있음을 보여준다. K-소재사도 단일 기술축만으로 방어 가능한지 점검이 필요하다.",
+        "이번 건은 셀 업체의 LFP 확장보다 upstream 소재업체의 선행 증설이라는 점이 더 중요하다. LFP 셀 가격 경쟁력은 결국 전구체·정극재의 조달 안정성과 규모의 경제에서 다시 결정될 가능성이 높다.",
+        "기존 공장과 부지를 활용하는 방식은 신규 greenfield보다 투자 회수 속도를 높일 수 있다. 중국 소재업체들이 유휴자산 재활용과 지역정부 인프라를 결합해 CAPEX 효율을 높이는지도 관찰 포인트다."
+      ],
+      "urls": [
+        "https://www.nbd.com.cn/articles/2026-04-15/4341039.html",
+        "https://www.stcn.com/article/detail/3752195.html",
+        "https://finance.sina.com.cn/stock/bxjj/2026-04-15/doc-inhuqskv8383212.shtml"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "총투자 42.98억위안",
+          "source": "每日经济新闻 / 2026-04-15",
+          "quote": "拟投资共计约42.98亿元建设磷酸铁锂前驱体及正极材料产能"
+        },
+        {
+          "claim": "52만톤 전구체와 34만톤 정극재",
+          "source": "证券时报 / 2026-04-15",
+          "quote": "新建年产52万吨湿法磷酸铁锂前驱体产能及34万吨火法磷酸铁锂正极材料产能"
+        },
+        {
+          "claim": "六枝 20.07억·毕节 22.91억위안",
+          "source": "格隆汇/新浪 / 2026-04-15",
+          "quote": "六枝湿法项目预计投资约20.07亿元...毕节火法项目预计投资约22.91亿元"
+        },
+        {
+          "claim": "전구체 습식은 화법 정극재의 전치공정",
+          "source": "每日经济新闻 / 2026-04-15",
+          "quote": "前驱体湿法项目是磷酸铁锂火法项目的前置工序"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-16_CN_11",
+      "region": "CN",
+      "date": "2026-04-16",
+      "cat": "ESS",
+      "sub_cat": "독립형 저장 프로젝트 투입 임박",
+      "signal": "mid",
+      "source_tier": 2,
+      "title": "산둥 沂源 鲁村苏帕 200MW/400MWh 독립형 ESS 투입 임박 — 6억위안급 지역 조정자산 마무리 단계",
+      "sub": "80개 5MW/10.03MWh LFP 저장 유닛을 갖춘 프로젝트로, 2025년 EPC 발주 이후 2026년 가동 직전 단계로 진입했다.",
+      "gate": "이번 이벤트의 핵심은 또 하나의 저장 프로젝트 발표가 아니라, 산둥 지역 독립형 저장자산이 공고·발주 단계를 지나 실제 투입 직전 단계에 도달했다는 점이다. 중국 지방 전력망에서 독립형 ESS가 계획 숫자에서 실운전 자산으로 전환되는 흐름을 보여주는 사례로 볼 수 있다.",
+      "fact": "4월 16일 공개된 저장산업 매체 보도에 따르면, 山东省淄博市沂源县鲁村苏帕 200MW/400MWh 독립형 저장 프로젝트가 정식 투입을 앞둔 마무리 단계에 진입했다. 보도에 따르면 총투자액은 6억위안이며, 山东苏帕建筑工程有限公司가 투자주체이고, 2025년 EPC 발주 이후 东方旭能（山东）科技发展有限公司가 공사를 주도했다. 프로젝트는 LFP 배터리 저장기술을 채택해 80개의 5MW/10.03MWh 저장유닛, PCS 승압 일체기, EMS 등을 구축하며, 가동 후 400MWh 조정능력을 제공할 예정이다. 한편 2024년도 산둥 신형저장 입고 프로젝트 목록에는 이 프로젝트가 20만kW급 독립저장으로 포함돼 있어, 지방 저장계획과 실제 건설이 연결된 사례로 확인된다.",
+      "implication": [
+        "중국 독립형 ESS 시장에서 중요한 건 승인 용량이 아니라 실제 투입 전환 속도다. 이번 건처럼 지방 입고 목록→EPC 발주→투입 임박까지 이어지는 프로젝트가 늘면 독립형 저장의 실체가 더 빠르게 커질 수 있다.",
+        "프로젝트 구조가 전형적인 LFP 컨테이너형 저장유닛 조합이라는 점은, 중국 지방 저장시장에서 표준화된 설비 조합과 빠른 시공·투입이 경쟁력으로 작동하고 있음을 보여준다.",
+        "산둥은 이미 전력시장·신에너지 연계 측면에서 저장 수요가 높은 지역 중 하나다. 향후 실제 상업운전 후 수익모델이 peak-shaving 중심인지, ancillary service·capacity payment까지 확장되는지 확인이 필요하다."
+      ],
+      "urls": [
+        "https://www.kesolar.com/headline/293310.html",
+        "https://mcn.solarbe.com/news/20260416/50021948.html",
+        "https://www.ne21.com/news/show-216498.html",
+        "https://www.pvmeng.com/2024/09/05/30899/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "총투자 6억위안, 투입 임박",
+          "source": "KE科日光伏网 / 2026-04-16",
+          "quote": "总投资6亿元...已进入收尾阶段，即将正式投运"
+        },
+        {
+          "claim": "80개 5MW/10.03MWh LFP 유닛",
+          "source": "碳索储能网 / 2026-04-16",
+          "quote": "新建80套5MW/10.03MWh储能单元"
+        },
+        {
+          "claim": "EPC 주도는 东方旭能",
+          "source": "世纪新能源网 / 2025-07-28",
+          "quote": "项目中标人为东方旭能（山东）科技发展有限公司"
+        },
+        {
+          "claim": "산둥 2024 입고 프로젝트 포함",
+          "source": "PVMeng / 2024-09-05",
+          "quote": "沂源鲁村苏帕200MW/400MWh独立储能项目"
+        }
+      ]
+    }
+  ]
+}

@@ -8,7 +8,10 @@ import { normalizeCard } from './normalizeCard';
 //   - 버튼 wording: "이 카드로 계속 물어보기" → "📋 상담카드 제출"
 //   - 버튼 상시 노출: 브리프(핵심만/콕짚기) 펴지 않아도 footer에 항상 있음
 //   - callback: onAskChatbot(promptString) → onSubmitConsultation(rawCard)
-//   - consultationHint prop 추가: { count, latestDate } → "↘ 3번 상담 · 최근 4/19" 표시
+// ----------------------------------------------------------------------------
+// 2026-04-20: 상담 횟수 hint 제거 (per-browser localStorage 카운터라
+// 다수 사용자 환경에선 의미 없고 혼란 유발. consultationHint prop은
+// 호환성 위해 시그니처에 유지하되 렌더링 안 함.)
 // ============================================================================
 
 const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
@@ -46,14 +49,6 @@ function fmtDate(date) {
   const m = s.match(/^(\d{4})[.-](\d{2})[.-](\d{2})/);
   if (m) return `${m[1]}.${m[2]}.${m[3]}`;
   return s;
-}
-
-// B안 footer용 — ISO datetime을 "M/D" 포맷으로 축약
-function shortMD(iso) {
-  if (!iso) return '';
-  const d = new Date(iso);
-  if (isNaN(d.getTime())) return '';
-  return `${d.getMonth() + 1}/${d.getDate()}`;
 }
 
 function uniqueLines(...values) {
@@ -111,6 +106,8 @@ export default function StoryNewsItem({
   onSubmitConsultation,
   coverImage = '',
   featured = false,
+  // consultationHint prop은 호환성 유지 — 더 이상 렌더링 안 함.
+  // eslint-disable-next-line no-unused-vars
   consultationHint = null,
 }) {
   const t = theme(dark);
@@ -239,29 +236,7 @@ export default function StoryNewsItem({
           </div>
         ) : null}
 
-        {/* B안 footer — 상담 이력 있을 때만 */}
-        {consultationHint && consultationHint.count > 0 && (
-          <div
-            style={{
-              marginTop: 2,
-              paddingTop: 8,
-              borderTop: `1px dashed ${t.brd}`,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              fontSize: 10,
-              color: t.sub,
-              fontFamily: "'JetBrains Mono', monospace",
-              fontWeight: 700,
-            }}
-          >
-            <span aria-hidden="true">↘</span>
-            <span>
-              {consultationHint.count}번 상담
-              {consultationHint.latestDate ? ` · 최근 ${shortMD(consultationHint.latestDate)}` : ''}
-            </span>
-          </div>
-        )}
+        {/* 2026-04-20: 상담 횟수 hint footer 제거됨 (per-browser 카운터라 다수 사용자 환경에선 의미 없음) */}
       </div>
     </div>
   );

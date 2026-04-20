@@ -1,0 +1,55 @@
+--- src/App.jsx (before)
++++ src/App.jsx (after)
+@@ -667,4 +667,23 @@
+   // 현재 active consultation — 후속 유저 메시지는 이 consultation followup으로 처리
+   const currentConsultRef = useRef(null);
++  // 세션 hook agenda — opener가 선언한 hook을 유저가 탭할 때까지 유지
++  const sessionHooksRef = useRef([]);          // [{label, hint_action, hint_topic}]
++  const usedTopicsRef = useRef(new Set());     // Set<string> (hint_topic)
++
++  // 미사용 opener hook + 서버 hook dedupe 병합 (label 기준)
++  const composeSessionSuggestions = (serverSugs = []) => {
++    const carried = sessionHooksRef.current.filter(
++      (h) => h && h.hint_topic && !usedTopicsRef.current.has(h.hint_topic)
++    );
++    const seen = new Set();
++    const out = [];
++    for (const s of [...carried, ...(serverSugs || [])]) {
++      if (s?.label && !seen.has(s.label)) {
++        out.push(s);
++        seen.add(s.label);
++      }
++    }
++    return out;
++  };
+ 
+   const isLoading = loadingMode !== "none";
+@@ -769,4 +788,8 @@
+       await ceremonyWait(t0);
+       updateContextFromResponse(data);
++      // 세션 agenda 초기화: opener가 선언한 hook을 sessionHooksRef에 저장
++      const openerSuggestions = Array.isArray(data?.suggestions) ? data.suggestions : [];
++      sessionHooksRef.current = openerSuggestions.filter((s) => s && s.hint_topic);
++      usedTopicsRef.current = new Set();
+       const uiMsg = toUiMessage(data);
+       setMsgs((prev) => [...prev, uiMsg]);
+@@ -807,5 +830,8 @@
+       await ceremonyWait(t0);
+       updateContextFromResponse(data);
+-      setMsgs((prev) => [...prev, toUiMessage(data)]);
++      // followup: 세션 agenda (미사용 opener hook) + 서버 hook 병합
++      const uiMsg = toUiMessage(data);
++      uiMsg.suggestions = composeSessionSuggestions(data?.suggestions);
++      setMsgs((prev) => [...prev, uiMsg]);
+       if (consult.id) appendMessage(consult.id, { role: "assistant", content: data?.answer || "" });
+     } catch {
+@@ -897,4 +923,9 @@
+     const label = typeof suggestion === "string" ? suggestion : (suggestion?.label || "");
+     const hint = typeof suggestion === "object" ? suggestion : null;
++    // 세션 agenda 탭 추적 — consultation 세션일 때만 의미 있음
++    const tappedTopic = hint?.hint_topic;
++    if (tappedTopic && currentConsultRef.current) {
++      usedTopicsRef.current.add(tappedTopic);
++    }
+     const map = {
+       "오늘 핵심 카드": "오늘 뉴스 3개",

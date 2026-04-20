@@ -64,6 +64,10 @@ function stableError(res, status, message, debug = {}) {
 // + req.body.is_opener      (bool)
 // + req.body.message        (후속 답변 시 유저 질문, opener는 빈 문자열 허용)
 // + req.body.ticket_id      (client가 관리, debug에만 echo)
+//
+// 출력: 기존 ChatResponse 모양 유지 (answer, cards, suggestions, next_context, ...)
+//       단, cards는 받은 카드 하나로 구성된 UI card (뉴스 탭에서 넘어온 것이라 중복 노출 주의 —
+//       client는 msgs에 렌더 시 중복 방지 가능; 여기선 안전하게 return)
 
 function leanCardToUiCard(leanCard) {
   if (!leanCard) return null;
@@ -71,6 +75,7 @@ function leanCardToUiCard(leanCard) {
     title: leanCard.title || "",
     subtitle: leanCard.sub || "",
     gist: leanCard.gate || "",
+    // SIG_L에서 인식 가능한 signal short-code 유지
     signal: (leanCard.signal || "i").toString().slice(0, 1).toLowerCase(),
     date: leanCard.date || "",
     region: leanCard.region || "GL",
@@ -80,6 +85,7 @@ function leanCardToUiCard(leanCard) {
 }
 
 // In-character error fallback — LLM 완전 실패 시 강차장 voice로 전달.
+// 유저 경험에서 "Error 500" 덤프 되지 않도록.
 const IN_CHARACTER_ERRORS = [
   "강차장 잠시 자리 비웠어. 잠깐 뒤에 다시 제출해줘.",
   "접수 꼬였네. 새로고침하고 한 번만 다시 보내줘.",
@@ -93,6 +99,7 @@ function pickInCharacterError() {
 async function handleConsultation({ consultation, isOpener, userMessage, ticketId, debugBase }) {
   const uiCard = leanCardToUiCard(consultation?.card);
 
+  // cardContext validation
   if (!consultation || !consultation.card || !consultation.card.title) {
     return {
       answer: "상담 카드 정보가 깨져 있어. 카드에서 다시 한번 눌러줘.",
@@ -109,6 +116,7 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
     };
   }
 
+  // LLM 호출
   const llmResult = await synthesizeCardConsult({
     cardContext: consultation,
     isOpener: !!isOpener,
@@ -127,10 +135,12 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
     scope,
     answer_text: answerText,
     cards: uiCard ? [uiCard] : [],
+    // 상담 맥락 추적 — 후속 턴에서 ChatContext 흐름에 활용
     consultation_ticket_id: ticketId || null,
     consultation_card_id: consultation.card.id || null,
   };
 
+  // Suggestions — Phase 1은 hardcoded (Phase 2에서 related 카드 연동)
   const suggestions = isOpener
     ? [
         { label: "조금 더 쉽게 설명해줘", hint_action: "rephrase" },
@@ -147,6 +157,8 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
     answer_type: "news",
     source_mode: "internal",
     confidence: llmResult?.text ? 0.86 : 0.35,
+    // UI cards는 client가 이미 접수증에서 카드 메타 보여주므로 중복 주지 않음.
+    // 단 후속 턴에서 다른 관련 카드 인용이 필요해지면 Phase 2에서 확장.
     cards: [],
     external_links: [],
     suggestions,
@@ -174,6 +186,8 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
 // ============================================================================
 // Legacy "[카드상담]" prefix handoff (backward-compat, deprecated)
 // ============================================================================
+// 이전 flow는 StoryNewsItem이 prompt string을 user message로 post 했었음.
+// 새 flow는 body.consultation object로 옴. 옛 path는 에러 대신 guidance 반환.
 
 function parseCardConsultRequest(message) {
   const raw = String(message || "").trim();
@@ -182,7 +196,7 @@ function parseCardConsultRequest(message) {
 }
 
 // ============================================================================
-// analyze_card 전용 처리 — /api/analysis에 위임 (기존 유지)
+// analyze_card 전용 처리 — /api/analysis에 위임 (기존 유지, dead code이나 경로는 보존)
 // ============================================================================
 async function handleAnalyzeCard({ parsed, resolved, synthesis, context, debugBase }) {
   const card = synthesis?.delegate?.card || resolved?.target_card;
@@ -241,6 +255,7 @@ export default async function handler(req, res) {
     const isOpener = !!req.body?.is_opener;
     const ticketId = req.body?.ticket_id || null;
 
+    // message OR consultation 필수 (opener는 message 빈 문자열 허용)
     if (!message && !consultation) {
       return stableError(res, 400, "질문을 먼저 입력해줘.", { error_code: "MESSAGE_REQUIRED" });
     }

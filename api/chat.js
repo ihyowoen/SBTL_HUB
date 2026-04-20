@@ -1,7 +1,7 @@
 // ============================================================================
 // POST /api/chat — Phase 2 5-layer orchestrator
 // ============================================================================
-// 업데이트: 2026-04-19 — 배터리 상담소 재설계 Phase 1.
+// 업데이트: 2026-04-20 — Coverage Contract v2.1 integration.
 //
 // Pipeline:
 //   Layer 1: parseRequest    → { action, topic, scope, rawMessage }
@@ -11,10 +11,9 @@
 //   Layer 5: respond         → ChatResponse
 //
 // 특수 경로:
-// - body.consultation 있으면  → 배터리 상담소 경로 (NEW, 2026-04-19)
+// - body.consultation 있으면  → 배터리 상담소 경로 (Coverage Contract)
 // - action=analyze_card      → Layer 4에서 delegate marker → /api/analysis 위임
 // - Layer 2 clarification    → Layer 3/4 skip, respondClarification
-// - [카드상담] prefix (legacy) → consultation 경로로 흡수 (backward-compat 유지)
 // ============================================================================
 
 import { loadKnowledge } from "../lib/chat/common.js";
@@ -49,7 +48,7 @@ function stableError(res, status, message, debug = {}) {
 }
 
 // ============================================================================
-// 배터리 상담소 경로 (2026-04-19 신설)
+// 배터리 상담소 경로 (2026-04-20 — Coverage Contract v2.1)
 // ============================================================================
 //
 // 입력: req.body.consultation = buildCardConsultContext output
@@ -65,9 +64,12 @@ function stableError(res, status, message, debug = {}) {
 // + req.body.message        (후속 답변 시 유저 질문, opener는 빈 문자열 허용)
 // + req.body.ticket_id      (client가 관리, debug에만 echo)
 //
-// 출력: 기존 ChatResponse 모양 유지 (answer, cards, suggestions, next_context, ...)
-//       단, cards는 받은 카드 하나로 구성된 UI card (뉴스 탭에서 넘어온 것이라 중복 노출 주의 —
-//       client는 msgs에 렌더 시 중복 방지 가능; 여기선 안전하게 return)
+// Coverage Contract:
+// - opener 시: LLM이 {opener, remaining_points[]} JSON 반환
+//   → remaining_points를 UI suggestions로 매핑 (다음 턴 hook label)
+//   → 실패 시 hardcoded fallback
+// - followup 시: plain text 답변, hardcoded suggestion 2개
+// ============================================================================
 
 function leanCardToUiCard(leanCard) {
   if (!leanCard) return null;
@@ -75,7 +77,6 @@ function leanCardToUiCard(leanCard) {
     title: leanCard.title || "",
     subtitle: leanCard.sub || "",
     gist: leanCard.gate || "",
-    // SIG_L에서 인식 가능한 signal short-code 유지
     signal: (leanCard.signal || "i").toString().slice(0, 1).toLowerCase(),
     date: leanCard.date || "",
     region: leanCard.region || "GL",
@@ -85,7 +86,6 @@ function leanCardToUiCard(leanCard) {
 }
 
 // In-character error fallback — LLM 완전 실패 시 강차장 voice로 전달.
-// 유저 경험에서 "Error 500" 덤프 되지 않도록.
 const IN_CHARACTER_ERRORS = [
   "강차장 잠시 자리 비웠어. 잠깐 뒤에 다시 제출해줘.",
   "접수 꼬였네. 새로고침하고 한 번만 다시 보내줘.",
@@ -94,6 +94,37 @@ const IN_CHARACTER_ERRORS = [
 
 function pickInCharacterError() {
   return IN_CHARACTER_ERRORS[Math.floor(Math.random() * IN_CHARACTER_ERRORS.length)];
+}
+
+// Hardcoded hook bank — LLM의 remaining_points 실패 시 fallback
+// opener 실패 시 3개, followup은 항상 2개
+const FALLBACK_OPENER_HOOKS = [
+  { label: "조금 더 쉽게 설명해줘", hint_action: "rephrase" },
+  { label: "왜 중요한지 한 줄로", hint_action: "new_query" },
+  { label: "관련 카드 더 보여줘", hint_action: "follow_up" },
+];
+
+const FALLBACK_FOLLOWUP_HOOKS = [
+  { label: "조금 더 쉽게 설명해줘", hint_action: "rephrase" },
+  { label: "관련 카드 더 보여줘", hint_action: "follow_up" },
+];
+
+/**
+ * LLM이 선언한 remaining_points를 UI suggestion 구조로 매핑.
+ * label은 그대로 쓰고, hint_action을 "follow_up"으로 설정.
+ * hint_topic은 그대로 echo (추후 Stage 2에서 turn_number와 함께 exclude 로직에 활용).
+ */
+function mapRemainingPointsToSuggestions(remainingPoints) {
+  if (!Array.isArray(remainingPoints)) return null;
+  const mapped = remainingPoints
+    .slice(0, 3)
+    .filter((p) => p && typeof p.label === "string" && p.label.trim())
+    .map((p) => ({
+      label: String(p.label).trim(),
+      hint_action: "follow_up",
+      hint_topic: String(p.topic || "").trim() || undefined,
+    }));
+  return mapped.length ? mapped : null;
 }
 
 async function handleConsultation({ consultation, isOpener, userMessage, ticketId, debugBase }) {
@@ -116,7 +147,7 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
     };
   }
 
-  // LLM 호출
+  // LLM 호출 — opener: JSON output, followup: plain text
   const llmResult = await synthesizeCardConsult({
     cardContext: consultation,
     isOpener: !!isOpener,
@@ -124,6 +155,29 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
   });
 
   const answerText = llmResult?.text || pickInCharacterError();
+
+  // ─── Suggestions 결정 ────────────────────────────────────────────────
+  // 1) opener + LLM이 remaining_points 성공 선언 → 그걸 hook으로
+  // 2) opener + LLM 실패 or remaining_points 없음 → hardcoded opener fallback
+  // 3) followup → hardcoded followup fallback (Stage 2에서 LLM 생성으로 교체 예정)
+  let suggestions;
+  let suggestionSource;
+  if (isOpener && llmResult?.text) {
+    const llmHooks = mapRemainingPointsToSuggestions(llmResult.remainingPoints);
+    if (llmHooks && llmHooks.length > 0) {
+      suggestions = llmHooks;
+      suggestionSource = "llm_remaining_points";
+    } else {
+      suggestions = FALLBACK_OPENER_HOOKS;
+      suggestionSource = "fallback_opener";
+    }
+  } else if (isOpener) {
+    suggestions = FALLBACK_OPENER_HOOKS;
+    suggestionSource = "fallback_opener_no_llm";
+  } else {
+    suggestions = FALLBACK_FOLLOWUP_HOOKS;
+    suggestionSource = "fallback_followup";
+  }
 
   const scope = {
     region: uiCard?.region || null,
@@ -135,30 +189,15 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
     scope,
     answer_text: answerText,
     cards: uiCard ? [uiCard] : [],
-    // 상담 맥락 추적 — 후속 턴에서 ChatContext 흐름에 활용
     consultation_ticket_id: ticketId || null,
     consultation_card_id: consultation.card.id || null,
   };
-
-  // Suggestions — Phase 1은 hardcoded (Phase 2에서 related 카드 연동)
-  const suggestions = isOpener
-    ? [
-        { label: "조금 더 쉽게 설명해줘", hint_action: "rephrase" },
-        { label: "왜 중요한지 한 줄로", hint_action: "new_query" },
-        { label: "관련 카드 더 보여줘", hint_action: "follow_up" },
-      ]
-    : [
-        { label: "조금 더 쉽게 설명해줘", hint_action: "rephrase" },
-        { label: "관련 카드 더 보여줘", hint_action: "follow_up" },
-      ];
 
   return {
     answer: answerText,
     answer_type: "news",
     source_mode: "internal",
     confidence: llmResult?.text ? 0.86 : 0.35,
-    // UI cards는 client가 이미 접수증에서 카드 메타 보여주므로 중복 주지 않음.
-    // 단 후속 턴에서 다른 관련 카드 인용이 필요해지면 Phase 2에서 확장.
     cards: [],
     external_links: [],
     suggestions,
@@ -178,7 +217,10 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
         used: !!llmResult?.text,
         error: llmResult?.error || null,
         latency_ms: llmResult?.latencyMs || 0,
+        structured: llmResult?.structured ?? null,
       },
+      suggestion_source: suggestionSource,
+      remaining_points_count: Array.isArray(llmResult?.remainingPoints) ? llmResult.remainingPoints.length : 0,
     },
   };
 }
@@ -186,8 +228,6 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
 // ============================================================================
 // Legacy "[카드상담]" prefix handoff (backward-compat, deprecated)
 // ============================================================================
-// 이전 flow는 StoryNewsItem이 prompt string을 user message로 post 했었음.
-// 새 flow는 body.consultation object로 옴. 옛 path는 에러 대신 guidance 반환.
 
 function parseCardConsultRequest(message) {
   const raw = String(message || "").trim();
@@ -196,7 +236,7 @@ function parseCardConsultRequest(message) {
 }
 
 // ============================================================================
-// analyze_card 전용 처리 — /api/analysis에 위임 (기존 유지, dead code이나 경로는 보존)
+// analyze_card 전용 처리 — /api/analysis에 위임 (dead code이나 경로는 보존)
 // ============================================================================
 async function handleAnalyzeCard({ parsed, resolved, synthesis, context, debugBase }) {
   const card = synthesis?.delegate?.card || resolved?.target_card;
@@ -255,7 +295,6 @@ export default async function handler(req, res) {
     const isOpener = !!req.body?.is_opener;
     const ticketId = req.body?.ticket_id || null;
 
-    // message OR consultation 필수 (opener는 message 빈 문자열 허용)
     if (!message && !consultation) {
       return stableError(res, 400, "질문을 먼저 입력해줘.", { error_code: "MESSAGE_REQUIRED" });
     }
@@ -277,7 +316,7 @@ export default async function handler(req, res) {
 
     const debugBase = { diag, pipeline_version: "phase2-5layer" };
 
-    // ─── NEW: 배터리 상담소 경로 ────────────────────────────────────────
+    // ─── 배터리 상담소 경로 (Coverage Contract) ─────────────────────────
     if (consultation) {
       console.log(`[chat-consultation] ticket=${ticketId} is_opener=${isOpener} card_id=${consultation?.card?.id} cat=${consultation?.opener_category}`);
       const resp = await handleConsultation({
@@ -287,6 +326,7 @@ export default async function handler(req, res) {
         ticketId,
         debugBase,
       });
+      console.log(`[chat-consultation-out] structured=${resp.debug?.llm?.structured} suggestion_source=${resp.debug?.suggestion_source} hooks=${resp.suggestions?.length || 0}`);
       return res.status(200).json(resp);
     }
 

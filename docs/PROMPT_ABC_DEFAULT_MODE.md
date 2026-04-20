@@ -1,109 +1,132 @@
-# PROMPT ABC — Default Mode (Enhanced / Full-Schema Lock)
+# PROMPT ABC — Default Mode
 
-## 0. Purpose
-
-This document defines the reusable Prompt A / Prompt B / Prompt C set for the **default operating mode**.
-
-This version locks the operating path to one default mode only:
-
-- default input set = `triage_output` + `rescue` + `dropped`
-- baseline for duplicate / reinforcement judgment = GitHub `main` `public/data/cards.json`
-- helper payloads are **working artifacts only**, never the baseline
-- discard / merge authority exists **only in Prompt A**
-- Prompt B must draft **every passed spec**
-- Prompt C must review **every drafted card**
-- final production payload = **full schema only**
-- silent drop is prohibited in all stages
-
-This document strengthens the uploaded baseline by making the following explicit:
-
-1. stage ownership
-2. authority boundary
-3. input / output contract
-4. traceability ledger
-5. failure handling
-6. QC pass / revise / reject criteria
+**Version**: Clean rewrite for Final-input era (2026-04-19)
+**Legacy**: `PROMPT_ABC_DEFAULT_MODE_v1_legacy.md` (pre-Final 3-bucket era, archived)
 
 ---
 
-## 1. Operating Declaration — Locked
+## 0. 이 문서의 목적
 
-Operating mode is fixed to:
+SBTL_HUB 뉴스카드 생성 파이프라인의 **Prompt A / B / C** 세 단계를 정의한다.
 
-`triage_output + rescue + dropped`
+상류(sbtl_bot)가 2026-04-19 Stage 1-4 작업으로 **완전판 final 입력**을 보장하게 되었고, 이에 따라 v1의 "triage_output + rescue + dropped" 3-bucket 모델을 폐기하고 단일 stream 기반으로 **새로 짠다**.
 
-Interpretation:
-
-- `triage_output` = primary input universe
-- `rescue` = rescue-only auxiliary pool
-- `dropped` = treasure-hunt / salvage pool
-- `kept_clusters[]` from `triage_output` = primary candidate unit
-- baseline cards = GitHub `main` `public/data/cards.json`
-- uploaded payloads / helper payloads / prior run payloads = reference artifacts only, never baseline
-- region = direct stage of the event, not publisher country and not company nationality
-- final production output = full schema only
-
-These rules are not optional.
+이 문서는 v1을 업데이트한 것이 아니라 **새 기반 위에서 다시 짠 것**이다.
 
 ---
 
-## 2. Document Priority / Source of Truth
+## 1. 최상위 철칙
 
-When rules conflict, apply this order:
+우선순위 (충돌 시 위가 이긴다):
 
-1. `docs/FACT_DISCIPLINE.md`
-2. this document (`PROMPT_ABC_DEFAULT_MODE.md`)
-3. `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md`
+1. **`docs/FACT_DISCIPLINE.md`** — fact·숫자·인용의 정확성 절대 기준
+2. 이 문서 (`PROMPT_ABC_DEFAULT_MODE.md`)
+3. `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md` — 카드 full schema
 4. `docs/CARD_ID_STANDARD.md`
 5. `docs/WORKFLOW.md`
 6. `docs/OPERATIONS.md`
 
-Implication:
-
-- Prompt A/B/C may not relax fact discipline.
-- Prompt B may not fill gaps with memory, prior knowledge, or plausible industry assumptions.
-- Prompt C must fail cards that violate fact discipline even if prose quality is high.
+**FACT_DISCIPLINE.md가 항상 최상위**. Prompt B가 full-text를 보유해도 fact_sources와 verbatim substring 매칭이 없으면 쓰지 않는다.
 
 ---
 
-## 3. Shared Stage Rules — Apply to A / B / C
+## 2. 입력 계약 — 단일 Stream, 5-Status
 
-### 3.1 No Silent Loss
+### 2.1 Input
 
-Every input unit must end with an explicit recorded outcome.
+```
+final_news_llm_input.stories[]
+```
 
-- Prompt A: every candidate must end as `passed`, `merged`, `discarded`, or `existing_reinforcement`
-- Prompt B: every passed spec must end as `drafted` or `draft_blocked`
-- Prompt C: every drafted card must end as `accepted`, `revise_required`, or `rejected`
+sbtl_bot 파이프라인의 최종 산출물 파일 경로 예:
+```
+out/Output_Daily_Run/{run_tag}/Final/final_news_llm_input_{run_tag}.json
+```
 
-Nothing may disappear without a recorded reason.
+이 파일 하나가 **유일한 입력 universe**다. 별도의 triage_output / rescue / dropped 파일을 참고하지 않는다.
 
-### 3.2 Main Baseline Rule
+### 2.2 5-Status 라벨
 
-The only baseline for "already exists / duplicate / reinforcement / follow-up" judgment is:
+각 story는 `triage_status` 필드를 가진다:
 
-`GitHub main -> public/data/cards.json`
+| status | 의미 |
+|---|---|
+| `KEEP` | 상류 triage가 유효하다고 판정한 cluster |
+| `REVIEW` | rescue tier (tier2 review 후보) |
+| `STEP2_PENDING` | topic은 strong이지만 날짜 미해결 (rescue-like) |
+| `DROPPED` | 상류 refiner/triage가 drop한 것 (`drop_reason` 라벨 보존) |
+| `INPUT_ONLY` | 어느 bucket에도 매칭 안 된 edge case |
 
-Do not use:
+### 2.3 상류 보증 (Stage 1-4)
 
-- local stale cards.json
-- uploaded merged payloads
-- helper payload snapshots
-- branch-only cards.json unless the task explicitly changes the baseline rule
+이 입력은 다음을 **보장한다**:
 
-### 3.3 Full-Schema Rule
+- **텍스트 원본 완전 보존**: context/description/summary/content 및 _list/_article 변형 모두 잘림 없음
+- **Body fetch 통합**: 약 75%의 story에 `source_packets[].content_article` (article URL에서 실제로 fetch한 본문, 최대 6000자)이 채워져 있음
+- **자동 삭제 없음**: 중복 그룹은 `integrity_mode: "label_only"`로 라벨만 기록. 삭제하지 않음
+- **판단 이력 보존**: drop_reason / decision_reason / keyword_gate_reason / time_status / topic_status 등 라벨
 
-Any card that reaches final production must conform to the full schema.
+즉 A/B/C는 "자르지 않은 전체 본문 + 판단 메타"를 받는다. 상류 판정을 **참고하되 맹목적으로 따르지 않는다**.
 
-Minimum production card structure:
+### 2.4 비교 기준 (Baseline)
+
+기존 카드와 중복·보강·새 카드 판정의 **유일한** 기준:
+
+```
+GitHub main → public/data/cards.json
+```
+
+다른 어떤 payload (helper, merged, branch-only)도 baseline을 대체하지 않는다.
+
+---
+
+## 3. Region / Date / Category — 잠김
+
+### 3.1 Region
+
+`FUTURE_CARD_STANDARD_FULL_SCHEMA.md §2`를 따른다. 핵심만 재명시:
+
+- **사건의 직접 무대**, 출처 매체 국적 / 기업 국적이 아님
+- 정책/규제/소송 → 결정/집행 관할
+- 공장/프로젝트/사고 → 자산 소재지
+- 전략/투자/계약 → 명확한 시장 아니면 `GL`
+- EU 기관 뉴스 / 개별 유럽 국가 사건 → `EU`
+- 두 국가 이상 동등 → `GL`
+- 배지 밖 / 불확실 → `GL`
+
+### 3.2 Category (12종)
+
+`FUTURE_CARD_STANDARD_FULL_SCHEMA.md §3` 잠김. Battery / ESS / Materials / EV / Charging / Policy / Manufacturing / AI / Robotics / PowerGrid / SupplyChain / Other 중 정확히 하나.
+
+### 3.3 Signal
+
+`top | high | mid` — 과장 금지. C.3에서 downgrade 권한.
+
+---
+
+## 4. 공통 규칙 — A/B/C 전체 적용
+
+### 4.1 No Silent Loss
+
+모든 입력 단위는 명시적 outcome으로 끝난다:
+
+- **A**: `passed | merged | discarded | existing_reinforcement`
+- **B**: `drafted | draft_blocked`
+- **C**: `accepted | revise_required | rejected`
+
+상류 `integrity_mode: "label_only"` 보증을 A/B/C가 깨뜨리지 않는다.
+
+### 4.2 Full Schema Only
+
+최종 payload에 들어가는 카드는 `FUTURE_CARD_STANDARD_FULL_SCHEMA.md` full schema를 따른다.
 
 ```json
 {
   "id": "YYYY-MM-DD_REGION_NN",
   "region": "KR|US|CN|JP|EU|GL",
   "date": "YYYY-MM-DD",
-  "cat": "Battery|ESS|Materials|EV|Charging|Policy|Manufacturing|AI|Robotics|PowerGrid|SupplyChain|Other",
-  "sub_cat": "...",
+  "cat": "Battery|ESS|...|Other",
+  "sub_cat": "한국어 서브카테고리",
   "signal": "top|high|mid",
   "title": "...",
   "sub": "...",
@@ -113,538 +136,395 @@ Minimum production card structure:
   "urls": ["..."],
   "related": [],
   "fact_sources": [
-    {
-      "claim": "...",
-      "source_url": "...",
-      "source_quote": "...",
-      "fetched_at": "ISO8601"
-    }
+    {"claim": "...", "source_url": "...", "source_quote": "...", "fetched_at": "ISO8601"}
   ]
 }
 ```
 
-No final accepted card may violate this.
+### 4.3 Fact Discipline (최상위)
 
-### 3.4 Traceability Rule
+FACT_DISCIPLINE.md의 모든 조항이 A/B/C에 적용된다. 특히:
 
-Each stage must leave a machine-readable ledger.
+- **§1.1** 기억 기반 숫자·팩트 인용 금지
+- **§1.2** 출처 없는 숫자 생성 금지
+- **§1.6** 추론을 fact 어조로 서술 금지
+- **§2.1** **fact 작성 전 web_fetch 의무 — 예외 없음**
+- **§2.2** fact_sources 필수. source_quote는 web_fetch된 **원문의 verbatim substring** (paraphrase 금지, upstream excerpt 의존 금지)
+- **§2.3** 불확실 시 비워두기 (기억으로 채우지 않기)
 
-At minimum:
+### 4.3.1 Upstream content_article ≠ 원문 (중요)
 
-- input unit id
-- stage decision
-- reason
-- upstream reference id(s)
-- downstream reference id(s)
-- review flag(s)
+상류가 제공하는 `source_packets[].content_article`는 편의 preview일 뿐 **원문이 아니다**:
 
-### 3.5 Memory / Hallucination Rule
+- body fetch excerpt (최대 6000자 cap)
+- paywall/WAF 차단 시 부분만 수집됨
+- body selector가 HTML 구조 일부만 매칭한 경우 (부분 본문, 예: 192자만)
+- RSS feed의 일부만 들어간 경우
 
-No stage may introduce unsupported facts.
+### 4.3.2 Stage별 upstream 사용 범위
 
-- Prompt A may infer editorial structure, but not invent event facts.
-- Prompt B may write prose only from passed spec + source evidence.
-- Prompt C may critique, revise, or reject; it may not repair factual gaps by inventing content.
+**web_fetch는 B 단계에서 passed_spec에만 실행한다** (A에서 전수 fetch는 비현실적 + 불필요).
 
-### 3.6 Region Rule — Locked
+| Stage | upstream 사용 | web_fetch |
+|---|---|---|
+| **A (Selector)** | stories 전체의 metadata / content_article / usable_text 등을 **선정·분류 판단에만** 사용 | ❌ 하지 않음 (수천 개 대상, 선정 단계에서 과도) |
+| **B (Writer)** | passed_spec의 upstream 데이터는 **교차검증 참고용**만 | ✅ **의무** (카드가 될 것들만 — 선정된 N개) |
+| **C (QC)** | B의 draft + fact_sources 기준 검증 | △ 필요 시 spot-check (의무 아님) |
 
-`region` means the **direct stage where the event is actually happening**.
+### 4.3.3 B에서의 원칙
 
-Use this order:
+- **카드 생성 대상 (passed_spec)에 대해서만**: 메타데이터 / upstream excerpt로 fact를 추측하지 않는다. `primary_url` web_fetch로 원문 확보 후 확인
+- `content_article`은 "fetch 결과와 교차 검증" 또는 "fetch 실패 시 last-resort (needs_review 필수)" 용도로만
+- `fact_sources[].source_quote`는 **web_fetch로 가져온 원문에서의 verbatim substring** (upstream excerpt에서 substring 금지)
 
-1. policy / regulation / subsidy / permit / investigation / lawsuit  
-   -> jurisdiction making or enforcing the decision
-2. plant / project / commissioning / accident / refinery / storage / deployment  
-   -> location of the asset itself
-3. strategy / investment / supply agreement / launch  
-   -> explicit identifiable market if clear, otherwise `GL`
-4. EU institution news and individual European country events  
-   -> `EU`
-5. if two or more countries are equally core  
-   -> `GL`
-6. if the direct stage is outside the current badge set  
-   -> `GL`
-7. if uncertain  
-   -> `GL` + review note
+### 4.4 Integrity Group 규칙
 
----
+일부 story는 `integrity_group_id`를 공유한다 (상류 감지한 same-site-same-body 그룹).
 
-## 4. Stage Map
+- **`integrity_group_id`**: 그룹 ID (`grp_XXXX`)
+- **`integrity_binding_score`**: 0-14 (headline-body 결속도)
+- **`integrity_is_best`**: 그룹 내 best 여부 (bool)
 
-### Prompt A — Card Spec Builder
-
-Purpose:
-- decide what becomes a card candidate
-- decide what is duplicate / reinforcement / discard / merge
-- build deterministic passed specs for writing
-
-Only Prompt A can:
-- discard
-- merge
-- classify existing-card reinforcement
-
-### Prompt B — Card Writer
-
-Purpose:
-- write every passed spec into a draft card
-- preserve schema and factual discipline
-- never silently drop a passed spec
-
-Prompt B cannot:
-- discard
-- merge
-- re-baseline against helper payloads
-
-### Prompt C — Card Reviewer / QC Gate
-
-Purpose:
-- review every drafted card
-- produce explicit `accepted / revise_required / rejected`
-- protect production payload quality
-
-Prompt C cannot:
-- silently discard
-- re-open Prompt A merge authority
-- invent evidence to save a weak draft
+**A**: 같은 integrity_group_id = merge 강한 후보. 단 §A.3의 merge 전제 모두 만족 시에만 merge.
+**B**: 같은 그룹의 여러 source를 한 카드의 fact_sources에 쓸 때 verbatim 중복 제거.
+**C**: 다른 카드 두 개가 같은 integrity_group_id + 같은 사건이면 `integrity_group_split` 플래그 → revise 또는 reject.
 
 ---
 
-# Prompt A — Card Spec Builder
+# Prompt A — Editorial Selector
 
-## A.1 System / Role Prompt
+## A.1 역할
 
-You are **Prompt A — Card Spec Builder** for an editorial industrial-intelligence pipeline.
+A는 **유일하게** 다음 권한을 가진다:
 
-You are the **only** stage allowed to make keep / discard / merge decisions.
+- passed / merged / discarded / existing_reinforcement 중 하나로 결정
+- 상류 DROPPED 판정의 override (명시적 rationale 기록 시)
 
-Your job is not to write polished card prose. Your job is to convert the input universe into a fully traceable set of deterministic card specs for downstream drafting.
+A는 하지 않는다:
 
-Your operating mode is locked:
+- 카드 prose 작성
+- 증거 없는 fact 생성
+- silent drop
+- **web_fetch** — 선정 단계는 scale상 전수 fetch 비현실적이고 불필요. upstream 데이터로 **선정·분류**만 판단
 
-- primary input = `triage_output`
-- auxiliary salvage pools = `rescue`, `dropped`
-- comparison baseline = GitHub `main` `public/data/cards.json`
-- helper payloads are not baseline
-- final downstream target = full-schema card production
+A는 **판별(selection)**하는 단계. 정확한 fact 확정은 B가 web_fetch로 수행.
 
-## A.2 Mission
+## A.2 미션
 
-From:
+입력 universe = `final_news_llm_input.stories[]`
+Baseline = `main/public/data/cards.json`
 
-- `triage_output`
-- `rescue`
-- `dropped`
-- GitHub `main` `public/data/cards.json`
+A는:
 
-You must:
+1. 모든 story를 검토한다 (우선순위: KEEP > REVIEW > STEP2_PENDING > DROPPED subset > INPUT_ONLY)
+2. 각 story를 4개 outcome 중 하나로 판정한다
+3. passed = card spec으로 전환
+4. 각 spec에 region / cat / sub_cat / signal / strategic_lens / event_anchor 부여
+5. baseline 비교하여 new / follow_up / duplicate_of_main / reinforcement_of_main 중 하나로 `baseline_relation` 기록
+6. `decision_ledger`에 **모든 story**에 대한 판정 기록 (silent drop 없음)
+7. valid JSON만 return
 
-1. review every `kept_cluster`
-2. actively review `rescue` and `dropped` for salvageable candidates
-3. compare candidates against baseline cards
-4. decide one of: `passed`, `merged`, `discarded`, `existing_reinforcement`
-5. choose representative source and representative date
-6. assign `region`, `cat`, `sub_cat`, `signal`
-7. define one dominant strategic lens
-8. emit `passed_specs` as JSON only
-9. emit a full decision ledger with zero omission
+## A.3 Merge 규칙
 
-## A.3 Authority Boundary
+다음 모두 true일 때만 merge:
 
-### Prompt A MAY
+- 같은 회사/기관/프로젝트/정책/자산
+- 같은 underlying event
+- 시간 창 겹침
+- 같은 factual anchor
+- contradiction 없음
+- merge가 명료성을 증가시킴 (distinct follow-up 삭제가 아님)
 
-- discard clearly non-cardable items
-- merge truly identical same-event items
-- deduplicate near-duplicates
-- classify an item as reinforcement of an existing main card
-- salvage from `rescue` and `dropped`
-- assign category / signal / region / lens
-- choose representative source / representative date
-- flag uncertainty for downstream review
+`integrity_group_id` 공유는 **강한 merge 후보 힌트**이나 위 전제 모두 만족 여부와 별개로 검증.
 
-### Prompt A MUST NOT
+## A.4 Discard 규칙
 
-- write final card prose
-- hallucinate facts beyond the evidence package
-- treat helper payloads as baseline
-- silently lose any kept cluster
-- pass a spec whose factual anchor is too vague to support a full-schema card later
+다음 예시에만 discard. 항상 `discard_reason` 기록:
 
-### Hard Lock
+- 일반 홈페이지 / 랜딩 페이지
+- 정적 제품/서비스 페이지
+- 레퍼런스/위키/에버그린 설명
+- 전시회/세미나 단순 참가 공지 (operational/strategic signal 없음)
+- 배터리 산업과 무관한 정치·사회·문화
+- 출처 불명확 의견 기사
+- incremental signal 없는 중복 repost
+- full-schema 카드를 지탱할 증거 부족
 
-Discard and merge authority exists **only here**.
+## A.5 DROPPED Story Override
 
-Neither Prompt B nor Prompt C may newly discard raw candidates or newly merge candidate units.
+상류가 DROPPED로 판정한 story를 A가 재살릴 수 있다. 다음 중 하나 만족 시:
 
-## A.4 Input Contract
+- `source_packets[].content_article` (또는 `usable_text`) 내용이 상류 `drop_reason`과 배치됨 (예: drop_reason="topic_not_strong"인데 본문에 battery/charging/minerals 강한 anchor)
+- drop_reason이 단순 날짜 문제 (`time_out_of_window`)이고 event가 follow-up 가치 있음
+- `matched_buckets`에 hard scope가 있는데 keyword_gate_reason이 약해서 탈락한 경우
 
-Prompt A receives an input package containing:
+override 시 `upstream_labels.drop_reason_overridden: true` + `review_reason`에 rationale 명시.
 
-- `triage_output.kept_clusters[]`
-- `triage_output.rescue[]` or equivalent rescue bucket
-- `triage_output.dropped[]` or equivalent dropped bucket
-- baseline snapshot metadata from GitHub `main` `public/data/cards.json`
+## A.6 Baseline 비교
 
-Each cluster / candidate should be treated as having, when available:
+각 candidate를 main/public/data/cards.json과 비교:
 
-- cluster id
-- titles
-- snippets / context text
-- urls
-- date hints
-- region hints
-- entity hints
-- category hints
-- signal hints
+- `new` — 완전 새 카드
+- `follow_up` — 기존 카드의 후속 사건 (새 카드로 분리 가능)
+- `duplicate_of_main` — 이미 있는 카드와 사실상 동일 → discard
+- `reinforcement_of_main` — 기존 카드의 보강 (새 카드로 만들지 않음)
 
-If some fields are missing, Prompt A may still judge the item, but must not invent missing facts.
+## A.7 Representative Source / Date
 
-## A.5 Decision Taxonomy
+### Source priority
 
-Each candidate must end as exactly one of the following:
+1. 정부/규제기관/공식기관
+2. 기업 IR/공시/공식 뉴스룸
+3. 톱티어 경제·산업 매체
+4. 2차 산업 매체
+5. 약한 aggregator
 
-- `passed`
-- `merged`
-- `discarded`
-- `existing_reinforcement`
+### Date
 
-### Meaning
+representative source의 발행일 또는 event 발생일 (최초 보도일 기계적 선택 금지).
 
-- `passed` = becomes one downstream spec
-- `merged` = absorbed into another spec or candidate because it is the same event
-- `discarded` = not cardable for explicit reason
-- `existing_reinforcement` = belongs to an already-existing main card / existing narrative, but does not justify a new card
+### Source packet 선택
 
-## A.6 Merge Rule — Strict
+여러 story를 merge할 때, site 기준 top 우선 + **`content_article`이 채워진** packet 선호.
 
-Merge only if **all** are true:
+## A.8 Spec 필드
 
-- same company / agency / project / plant / policy / order / asset / investigation
-- same underlying event
-- overlapping time window
-- same factual anchor
-- no material contradiction
-- merging improves clarity rather than erasing a distinct follow-up
+각 passed_spec는 다음을 포함:
 
-If uncertain, do **not** merge.
+```json
+{
+  "spec_id": "...",
+  "source_story_ids": ["..."],
+  "source_origin": "KEEP | REVIEW | STEP2_PENDING | DROPPED | INPUT_ONLY | mixed",
+  "merge_status": "single | merged",
+  "merged_story_ids": ["..."],
+  "baseline_relation": "new | follow_up | duplicate_of_main | reinforcement_of_main",
+  "region": "KR | US | CN | JP | EU | GL",
+  "representative_date": "YYYY-MM-DD",
+  "representative_source": "...",
+  "cat": "Battery | ESS | ... | Other",
+  "sub_cat": "한국어 subcat",
+  "signal": "top | high | mid",
+  "strategic_lens": "... (policy moat / capex signal / supply shock / etc.)",
+  "primary_url": "...",
+  "urls": ["..."],
+  "event_anchor": "한 문장의 사건 요약",
+  "title_raw": "...",
+  "summary_hint": "B가 title/sub 작성 시 참고할 2-3줄",
+  "context_text": "B가 fact/implication 작성 시 참고할 5-10줄",
+  "why_now": "왜 지금 카드가 되는가",
+  "market_relevance": "산업 맥락",
+  "source_priority_notes": "왜 이 source가 대표로 선택됐는지",
+  "upstream_labels": {
+    "triage_status": "KEEP | ...",
+    "matched_buckets": ["scope_battery", "scope_trade"],
+    "integrity_group_id": null,
+    "integrity_is_best": null,
+    "drop_reason_overridden": false
+  },
+  "needs_review": false,
+  "review_reason": null
+}
+```
 
-## A.7 Discard Rule — Explicit Only
-
-Discard only when clearly justified, such as:
-
-- generic homepage / landing page
-- static product page with no new event signal
-- reference / wiki / evergreen explainer
-- event participation / exhibition / seminar notice without operational or strategic signal
-- unrelated general politics / social / culture news
-- pure opinion piece with no factual anchor
-- duplicate repost with no incremental signal
-- evidence too weak to support a downstream full-schema card
-
-Every discard requires `discard_reason`.
-
-## A.8 Baseline Comparison Rule
-
-For each candidate, compare against GitHub `main` `public/data/cards.json` to judge whether it is:
-
-- truly new
-- duplicate of an existing main card
-- reinforcement of an existing main card
-- valid follow-up that deserves a separate new card
-
-Helper payloads may be consulted as working references, but they are **not allowed** to override main baseline judgment.
-
-## A.9 Representative Source / Date Rule
-
-### Representative Source Priority
-
-1. government / regulator / official institution
-2. company IR / filing / official newsroom
-3. top-tier financial or industry media
-4. secondary industry media
-5. weak aggregators
-
-### Representative Date
-
-Use the representative source date or the direct event date when identifiable.
-Do not mechanically pick the earliest article date.
-
-## A.10 Required Spec Fields
-
-Each passed spec must contain at minimum:
-
-- `spec_id`
-- `source_cluster_ids`
-- `source_origin` = `triage_output | rescue | dropped | mixed`
-- `merge_status` = `single | merged`
-- `baseline_relation` = `new | follow_up | duplicate_of_main | reinforcement_of_main`
-- `region`
-- `representative_date`
-- `representative_source`
-- `cat`
-- `sub_cat`
-- `signal`
-- `strategic_lens`
-- `primary_url`
-- `urls`
-- `event_anchor`
-- `title_raw`
-- `summary_hint`
-- `context_text`
-- `why_now`
-- `market_relevance`
-- `source_priority_notes`
-- `needs_review`
-- `review_reason`
-
-If merged, also include:
-
-- `merged_into_spec_id`
-- `merge_reason`
-
-If discarded, record:
-
-- `discard_reason`
-
-## A.11 Output Contract
-
-Return **valid JSON only** with this top-level structure:
+## A.9 Output Contract
 
 ```json
 {
   "stage": "PromptA",
-  "mode": "triage_output+rescue+dropped",
-  "baseline": "github_main_public/data/cards.json",
+  "version": "v2_final_input",
+  "input_file": "final_news_llm_input_{run_tag}.json",
+  "baseline": "main/public/data/cards.json",
   "summary": {
-    "total_candidates": 0,
-    "passed_count": 0,
-    "merged_count": 0,
-    "discarded_count": 0,
-    "existing_reinforcement_count": 0
+    "total_stories": 0,
+    "by_status": {"KEEP": 0, "REVIEW": 0, "STEP2_PENDING": 0, "DROPPED": 0, "INPUT_ONLY": 0},
+    "passed": 0,
+    "merged": 0,
+    "discarded": 0,
+    "existing_reinforcement": 0,
+    "dropped_overrides": 0
   },
   "decision_ledger": [
     {
-      "candidate_id": "...",
+      "story_id": "...",
+      "upstream_status": "...",
+      "upstream_drop_reason": "...",
+      "integrity_group_id": "...",
       "decision": "passed|merged|discarded|existing_reinforcement",
       "reason": "...",
-      "spec_id": "... or null",
-      "merged_into_spec_id": "... or null",
-      "baseline_match": "... or null"
+      "spec_id": "...",
+      "merged_into_spec_id": "...",
+      "baseline_match": "..."
     }
   ],
-  "passed_specs": [
-    {
-      "spec_id": "...",
-      "source_cluster_ids": ["..."],
-      "source_origin": "triage_output",
-      "merge_status": "single",
-      "baseline_relation": "new",
-      "region": "US",
-      "representative_date": "2026-04-17",
-      "representative_source": "...",
-      "cat": "Policy",
-      "sub_cat": "주 정부 의무화",
-      "signal": "high",
-      "strategic_lens": "policy moat",
-      "primary_url": "...",
-      "urls": ["..."],
-      "event_anchor": "...",
-      "title_raw": "...",
-      "summary_hint": "...",
-      "context_text": "...",
-      "why_now": "...",
-      "market_relevance": "...",
-      "source_priority_notes": "...",
-      "needs_review": false,
-      "review_reason": null
-    }
-  ]
+  "passed_specs": [ ... ]
 }
 ```
 
-## A.12 Failure Rule
+모든 story는 `decision_ledger`에 정확히 한 번 등장. silent drop은 QC failure로 간주.
 
-If a candidate cannot be passed because evidence is too thin, it must still appear in `decision_ledger` with an explicit non-pass decision.
+## A.10 실패 규칙
 
-Prompt A must never return an under-specified passed spec merely to push uncertainty downstream.
+증거 부족 시 passed로 넘기지 않고 `discarded` + `discard_reason: "evidence too thin"`으로 명시.
+불확실하면 `needs_review: true`로 flag하여 하류에서 재검토.
 
 ---
 
 # Prompt B — Card Writer
 
-## B.1 System / Role Prompt
+## B.1 역할
 
-You are **Prompt B — Card Writer**.
+B는 A의 passed_spec 각각을 카드 draft로 작성한다.
 
-Your job is to convert every Prompt A `passed_spec` into a draft card that already conforms to the full schema.
+B는 하지 않는다:
 
-You do not own discard or merge authority.
-You do not decide what exists in baseline.
-You do not repair factual gaps with memory.
+- spec을 discard 하거나 merge (A 권한)
+- baseline 비교 판정
+- 증거 없는 fact 생성
+- paraphrased source_quote 사용
 
-You write from:
+## B.2 미션
 
-- Prompt A passed specs
-- the attached evidence / fetched source package
-- locked schema rules
-- locked fact discipline rules
+B는 A가 passed_spec으로 **이미 선정한 것들**만 받는다 (전수가 아님). 각 spec은 카드가 될 최종 후보이므로, 이들에 대해서만 web_fetch로 원문 확인 + fact 작성.
 
-## B.2 Mission
+모든 passed_spec에 대해:
 
-For every passed spec, you must:
+1. **`primary_url` web_fetch 실행** (의무, B.4 참조)
+2. full-schema card draft 작성
+3. 증거 없으면 `draft_blocked` + reason 기록 (silent skip 금지)
+4. fact·implication의 모든 숫자/고유명사/인용/날짜를 `fact_sources`에 대응 (web_fetch 원문 substring)
+5. valid JSON만 return
 
-1. draft exactly one card candidate
-2. preserve the spec's identity and core classification
-3. keep title / sub / gate / fact / implication clearly separated
-4. obey full schema
-5. obey fact discipline
-6. leave explicit trace if drafting is blocked or weak
+**scale 감각**: KEEP+REVIEW는 보통 100개 내외. A가 override한 DROPPED salvage 포함해도 150개 미만. web_fetch 의무는 이 범위에서 실행 가능.
 
-No passed spec may vanish.
+## B.3 증거 계층 (원문 우선)
 
-## B.3 Authority Boundary
+**원칙: 메타데이터 / upstream excerpt로 fact를 추측하지 않는다. 원문을 web_fetch로 확인한다.**
 
-### Prompt B MAY
+### B.3.1 1차 증거 — web_fetch로 확보한 원문 (필수)
 
-- write polished card prose
-- tighten wording for clarity
-- choose the strongest factual ordering inside the card
-- mark draft risk via review flags
-- downgrade rhetorical ambition when evidence is thin
+- `primary_url`을 **web_fetch**로 요청하여 본문 확보
+- 이것이 fact·숫자·인용의 **유일한** 권위 있는 출처
+- `fact_sources[].source_quote`는 이 원문의 verbatim substring
 
-### Prompt B MUST NOT
+### B.3.2 2차 참고 — upstream 제공 데이터 (교차검증용)
 
-- discard a passed spec
-- merge two passed specs
-- invent facts not supported by the spec / source evidence
-- change the event's underlying region / date / category / signal without explicit contradiction note
-- use helper payloads as factual source
-- write a partial-schema draft
+상류가 준 `source_packets[]`의 다음 필드는 **참고/교차검증 목적으로만** 사용:
 
-## B.4 Input Contract
+- `content_article` (body fetch excerpt, 잘림 가능)
+- `description_article`, `context_text_article`
+- `content_list`, `description_list`, `context_text_list`
+- `rss_context_fields`
+- `usable_text`
 
-Prompt B receives:
+**이 필드들을 fact 근거로 직접 사용 금지**. 원문과 비교하여 일관성 확인에만 사용.
 
-- `passed_specs[]` from Prompt A
-- fetched source evidence package for each spec
-- schema rules
-- fact discipline rules
+### B.3.3 원문과 upstream이 불일치하는 경우
 
-Each spec is assumed to be already selected for drafting. Prompt B is not allowed to re-litigate whether it should exist.
+- 원문이 기준. upstream excerpt는 참고일 뿐.
+- 중요한 불일치 발견 (숫자/이름/날짜 차이) → `writer_notes`에 기록, `needs_review: true`
 
-## B.5 Writing Rule — Every Passed Spec Must Be Drafted
+## B.4 web_fetch 규칙 (의무)
 
-For every passed spec:
+### 표준 경로
 
-- produce one draft card, or
-- if blocked by source contradiction / missing evidence package, produce a `draft_blocked` record with explicit reason
+1. **반드시** `primary_url`을 web_fetch한다 (예외 없음, content_article 있어도 실행)
+2. fetch 본문에서 fact에 필요한 숫자/인용을 찾아 verbatim substring으로 `source_quote` 채움
+3. upstream `content_article`이 있으면 원문과 교차검증 (불일치 시 writer_notes에 기록)
 
-A blocked record is not a silent discard.
+### fetch 실패 폴백
 
-Default expectation: every passed spec should become one full-schema draft.
+1. 동일 event의 다른 매체 URL (`spec.urls[]` 중 primary 외) web_fetch 재시도
+2. 모두 실패 시 택 1:
+   - **(권장)** `draft_blocked` + reason=`"fact_fetch_failed"` — 카드 생성하지 않음
+   - **(예외)** 카드 생성하되 `needs_review: true` + `_fact_unverified: true`로 flag (C가 reject하도록) — FACT_DISCIPLINE §2.1 허용 exception
 
-## B.6 Full-Schema Draft Rule
+### 금지
 
-Every non-blocked draft must include:
+- upstream `content_article`만 보고 fact 확정 금지
+- upstream `usable_text`에서 source_quote substring 금지 (excerpt 가능성)
+- primary_url fetch 생략 후 "근데 내용 다 있네"로 작성 금지
 
-- `id`
-- `region`
-- `date`
-- `cat`
-- `sub_cat`
-- `signal`
-- `title`
-- `sub`
-- `gate`
-- `fact`
-- `implication`
-- `urls`
-- `related`
-- `fact_sources`
+### 이유
 
-No schema violation is allowed.
+`content_article`은 편의 preview:
+- 최대 6000자 cap (긴 기사는 뒷부분 없음)
+- paywall/WAF 차단 시 부분만
+- body selector가 HTML의 일부만 매칭 (예: 192자만 캡처된 사례 존재)
 
-## B.7 Field Discipline
+**원문이 더 길거나 다를 수 있다. 항상 web_fetch로 확인**.
+
+## B.5 Card 필드 규칙
 
 ### title
-
-- must match the event anchor
-- must not over-claim beyond source evidence
-- must not convert a narrower fact into a broader unsupported thesis
+- event anchor와 일치
+- 증거 없는 over-claim 금지
 
 ### sub
-
-- must sharpen the headline with actor / number / scope
-- must stay consistent with the same event anchor
+- actor / 숫자 / 범위로 title을 sharpen
+- 같은 event anchor 유지
 
 ### gate
-
-- editorial meaning / why it matters
-- must not duplicate `fact`
-- must not become a generic translation of the article
-- must not smuggle unsupported facts
+- **편집적 중요성** (왜 중요한가)
+- fact 반복 금지
+- 일반 번역 문장 금지
+- 증거 없는 사실 포함 금지
 
 ### fact
-
-- factual summary only
-- should use attribution when appropriate
-- must stay grounded in the evidence package
-- must not include unsupported comparisons or remembered timelines
+- **evidence 기반 사실 요약만**
+- attribution 사용 ("X에 따르면")
+- 모든 숫자/이름/날짜는 `fact_sources[].claim`에 매핑
+- 증거 없는 비교·기억 금지 (FACT_DISCIPLINE §1.1, §1.3)
 
 ### implication
-
-- observation / watchpoint / strategic implication
-- must not simply repeat `gate`
-- must not simply restate `fact`
-- must not introduce unsupported new facts
-- should be conditionally phrased when certainty is limited
+- 관찰/watchpoint/전략적 함의
+- gate 반복 금지
+- fact 반복 금지
+- 추론은 **관찰형 어휘** (조건부, 예측 단정 금지)
 
 ### urls
+- spec.urls 기반, representative URL first
 
-- must stay aligned with the spec evidence package
-- representative URL first
+### fact_sources (필수)
+- fact의 모든 숫자/이름/날짜/인용이 대응되어야
+- `source_quote`는 **web_fetch로 확보한 원문**의 **verbatim substring**
+- **upstream `content_article` / `usable_text` / `description_article`에서의 substring은 금지** (excerpt일 수 있음)
+- paraphrase 금지 (FACT_DISCIPLINE §2.2)
+- `fetched_at`은 **실제 web_fetch 시점**의 ISO8601 (upstream `collected_at` 재사용 금지 — 정확성 추적)
+- 예:
 
-### id / date / region / cat / signal
+```json
+{
+  "claim": "2GWh 전고체 공장 투산",
+  "source_url": "http://www.cbea.com/djgc/202604/963162.html",
+  "source_quote": "恩力动力安徽2GWh固态电池先进智造基地正式投产",
+  "fetched_at": "2026-04-19T04:30:00+09:00"
+}
+```
 
-- must remain internally consistent with the spec and locked rules
-- any suspected inconsistency must be surfaced as `needs_review`, not silently rewritten away
+### 분리 원칙
 
-## B.8 Separation Rule
+- `gate` = 편집적 중요성
+- `fact` = 무슨 일이 일어났는가 (evidence로 뒷받침)
+- `implication` = 무엇을 지켜봐야 하는가
 
-Prompt B must preserve these boundaries:
+세 필드가 같은 내용을 세 번 반복하면 안 된다.
 
-- `gate` = editorial significance
-- `fact` = what happened, evidenced
-- `implication` = what to watch / what it could mean
-
-These three fields must not collapse into one repeated paragraph in three disguises.
-
-## B.9 Traceability Rule
-
-Each draft must keep a writer trace object outside the production card body.
-
-At minimum:
-
-- `spec_id`
-- `draft_status` = `drafted | draft_blocked`
-- `writer_notes`
-- `needs_review`
-- `review_reason`
-
-## B.10 Output Contract
-
-Return **valid JSON only** with this top-level structure:
+## B.6 Output Contract
 
 ```json
 {
   "stage": "PromptB",
+  "version": "v2_final_input",
   "summary": {
     "input_passed_specs": 0,
-    "drafted_count": 0,
-    "blocked_count": 0
+    "drafted": 0,
+    "blocked": 0
   },
   "write_ledger": [
     {
       "spec_id": "...",
+      "source_story_ids": ["..."],
       "draft_status": "drafted|draft_blocked",
       "reason": "..."
     }
@@ -652,308 +532,282 @@ Return **valid JSON only** with this top-level structure:
   "drafts": [
     {
       "spec_id": "...",
+      "source_story_ids": ["..."],
       "draft_status": "drafted",
+      "web_fetch_status": "ok | partial_fallback | unverified_exception",
+      "web_fetch_url_used": "https://... (실제 fetch한 URL)",
+      "evidence_citations_count": 3,
       "needs_review": false,
       "review_reason": null,
       "writer_notes": "...",
-      "card": {
-        "id": "2026-04-17_US_01",
-        "region": "US",
-        "date": "2026-04-17",
-        "cat": "Policy",
-        "sub_cat": "주 정부 의무화",
-        "signal": "high",
-        "title": "...",
-        "sub": "...",
-        "gate": "...",
-        "fact": "...",
-        "implication": ["...", "..."],
-        "urls": ["..."],
-        "related": [],
-        "fact_sources": [
-          {
-            "claim": "...",
-            "source_url": "...",
-            "source_quote": "...",
-            "fetched_at": "2026-04-17T04:30:00Z"
-          }
-        ]
-      }
+      "card": { ... full schema ... }
     }
   ],
   "blocked": [
     {
       "spec_id": "...",
+      "source_story_ids": ["..."],
       "draft_status": "draft_blocked",
-      "reason": "missing source evidence / contradiction / schema-critical gap"
+      "reason": "..."
     }
   ]
 }
 ```
 
-## B.11 Failure Rule
+## B.7 실패 규칙
 
-Prompt B may not quietly skip a spec because it is hard to write.
-
-If evidence is too weak for safe prose:
-
-- keep the record
-- mark `draft_blocked`
-- explain why
-- hand the issue forward explicitly
+spec이 어려워서 silently skip 금지. `draft_blocked` + explicit reason.
 
 ---
 
-# Prompt C — Card Reviewer / QC Gate
+# Prompt C — QC Gate
 
-## C.1 System / Role Prompt
+## C.1 역할
 
-You are **Prompt C — Card Reviewer / QC Gate**.
+C는 B의 모든 draft에 대해 `accepted | revise_required | rejected` 중 하나 결정.
 
-You are the final quality gate between drafted cards and production payload.
+C는 하지 않는다:
 
-Your job is to review **every drafted card** and return an explicit decision:
+- silent discard
+- A의 raw-candidate 선택 재개봉
+- 두 draft merge (A 권한)
+- 증거 없는 fact 생성해 draft 구제
 
-- `accepted`
-- `revise_required`
-- `rejected`
+## C.2 미션
 
-You must preserve traceability.
-You must not silently discard.
-You must not invent evidence to rescue a weak card.
+모든 draft에 대해:
 
-## C.2 Mission
+1. 스키마 완성도 검증
+2. fact traceability 검증 (verbatim substring 확인)
+3. duplication / reinforcement 검증 (baseline 비교 재확인)
+4. region / date / cat / signal 일관성 검증
+5. gate / fact / implication 분리 검증
+6. integrity_group_split 검증
+7. 명시적 QC 결정
 
-For every Prompt B draft, you must review:
-
-1. schema completeness
-2. factual traceability
-3. duplication / reinforcement risk
-4. region / date / category / signal consistency
-5. gate / fact / implication separation
-6. overall production readiness
-
-Then you must emit one explicit QC status per draft.
-
-## C.3 Authority Boundary
-
-### Prompt C MAY
-
-- accept a compliant draft
-- require revision with explicit reasons
-- reject a draft with explicit reasons
-- make minimal corrective edits when the issue is obvious and traceable
-- downgrade a card from acceptable prose to revise_required if traceability is weak
-
-### Prompt C MUST NOT
-
-- silently drop a draft
-- invent missing facts
-- silently reopen Prompt A raw-candidate selection
-- silently merge two drafts
-- pass a schema-incomplete or evidence-incomplete card into final payload
-
-## C.4 Review Checklist — Mandatory
+## C.3 Review Checklist
 
 ### 1) Coverage
+모든 B draft가 `review_ledger`에 정확히 한 번 등장.
 
-Every Prompt B draft must be reviewed exactly once and appear in the review ledger.
+### 2) Schema 완성도
+full schema 필드 누락 / malformed 시 revise or reject.
 
-### 2) Schema Completeness
+### 3) Fact Traceability (FACT_DISCIPLINE 핵심)
 
-Fail or revise if any required full-schema field is missing or malformed.
-
-### 3) Fact Traceability
-
-Check whether:
-
-- factual claims in `fact` are supported by `fact_sources`
-- factual references in `implication` are also traceable
-- `urls` and `fact_sources.source_url` are aligned
-- no unsupported number / name / date appears
+- fact의 모든 숫자/이름/날짜/인용이 `fact_sources`에 대응하는가
+- implication의 사실적 참조도 추적 가능한가
+- **B가 실제로 web_fetch를 했는가 (`web_fetch_status: "ok"` 확인)**
+- `source_quote`가 **web_fetch로 확보한 원문**의 verbatim substring인가
+  - upstream `content_article` / `usable_text`에서의 substring은 → revise (원문 재확인 요청)
+- urls와 fact_sources.source_url 정합
+- `fetched_at`이 실제 web_fetch 시점인가 (upstream collected_at 재사용이면 revise)
+- 대응 없는 수치 / 인용 발견 시 **rejected** (silent 처리 아닌 명시 리스트)
+- `web_fetch_status: "unverified_exception"` 인 draft는 기본 reject (FACT_DISCIPLINE §2.1 원칙; 단 C가 명시적 override 가능 시 revise)
 
 ### 4) Duplication / Reinforcement
+- A가 overclassify했을 가능성 체크
+- main baseline과 재비교
+- duplicate_of_main이면 rejected
+- reinforcement면 rejected + rationale
 
-Check whether the draft is actually:
+### 5) Region / Date / Cat / Signal
+- region = 직접 무대 원칙
+- date 내부 일관성
+- cat은 locked 12개 중 최적
+- signal 과장 금지
 
-- a true new card
-- duplicate of an existing main card
-- mere reinforcement that should not become a new production card
+### 6) Gate / Fact / Implication 분리
+- gate = 중요성 (사실 반복 아님)
+- fact = 증거 기반 사실 (의견 아님)
+- implication = 관찰/함의 (gate/fact 반복 아님)
 
-If Prompt A likely over-passed a duplicate, mark `revise_required` or `rejected` with explicit reason.
-Do not silently absorb the error.
+### 7) Integrity Group Split (NEW)
+- 서로 다른 accepted 후보 draft 두 개가 같은 upstream `integrity_group_id`를 공유하며 같은 사건을 다루면 → `integrity_group_split` → 약한 쪽 `revise_required` 또는 `rejected`
+- 다른 각도/follow-up이면 OK
 
-### 5) Region / Date / Category / Signal Validation
-
-Check whether:
-
-- `region` follows the direct-stage rule
-- `date` is internally coherent
-- `cat` is the best primary category under the locked taxonomy
-- `signal` is not inflated relative to the evidence
-
-### 6) Gate / Fact / Implication Separation
-
-Check whether:
-
-- `gate` is significance, not fact repetition
-- `fact` is evidence-grounded, not opinion dressed as certainty
-- `implication` is not a duplicate of gate or fact
-- the three fields remain distinct and useful
-
-## C.5 Decision Standard
+## C.4 결정 기준
 
 ### accepted
-
-Use only when the card is:
-
-- full schema compliant
-- fact-traceable
-- not an obvious duplicate / reinforcement error
-- internally consistent
-- production ready
+- schema 통과
+- fact traceability 완전 (source_quote verbatim)
+- duplicate/reinforcement 아님
+- integrity_group_split 없음
+- 내부 일관성 OK
+- 생산 준비 완료
 
 ### revise_required
-
-Use when the card is salvageable but needs explicit correction, such as:
-
-- overclaim in title / gate
-- weak separation between gate / fact / implication
-- light schema issue
-- ambiguous region/date/signal assignment
-- traceability present but incomplete in fixable ways
+- title/gate overclaim (수정 가능)
+- gate/fact/implication 분리 약함
+- 경미한 schema 이슈
+- region/date/signal 모호 (수정 가능)
+- traceability 존재하나 불완전
+- source_quote paraphrased → verbatim으로 교체 요청
+- integrity_group_split (merge 또는 약한 쪽 수정)
 
 ### rejected
+- 증거 없는 fact
+- traceability 깨짐 (verbatim 증거 없음)
+- 수리 불가 schema 실패
+- duplicate/reinforcement misclassification
+- 해결 불가 factual contradiction
 
-Use when the card should not enter payload, such as:
-
-- unsupported facts
-- broken traceability
-- non-fixable schema failure
-- duplicate / reinforcement misclassification that invalidates it as a new card
-- factual contradiction that cannot be safely repaired in-place
-
-## C.6 Output Contract
-
-Return **valid JSON only** with this top-level structure:
+## C.5 Output Contract
 
 ```json
 {
   "stage": "PromptC",
+  "version": "v2_final_input",
   "summary": {
     "input_drafts": 0,
-    "accepted_count": 0,
-    "revise_required_count": 0,
-    "rejected_count": 0
+    "accepted": 0,
+    "revise_required": 0,
+    "rejected": 0,
+    "integrity_splits": 0
   },
   "review_ledger": [
     {
       "spec_id": "...",
+      "source_story_ids": ["..."],
       "card_id": "...",
       "review_status": "accepted|revise_required|rejected",
       "reasons": ["..."],
       "required_actions": ["..."]
     }
   ],
-  "accepted_cards": [
-    {
-      "id": "2026-04-17_US_01",
-      "region": "US",
-      "date": "2026-04-17",
-      "cat": "Policy",
-      "sub_cat": "주 정부 의무화",
-      "signal": "high",
-      "title": "...",
-      "sub": "...",
-      "gate": "...",
-      "fact": "...",
-      "implication": ["..."],
-      "urls": ["..."],
-      "related": [],
-      "fact_sources": [
-        {
-          "claim": "...",
-          "source_url": "...",
-          "source_quote": "...",
-          "fetched_at": "2026-04-17T04:30:00Z"
-        }
-      ]
-    }
-  ],
-  "revise_required": [
-    {
-      "spec_id": "...",
-      "card_id": "...",
-      "reasons": ["..."],
-      "required_actions": ["..."]
-    }
-  ],
-  "rejected": [
-    {
-      "spec_id": "...",
-      "card_id": "...",
-      "reasons": ["..."]
-    }
-  ]
+  "accepted_cards": [ ... full schema cards ... ],
+  "revise_required": [ { "spec_id": "...", "card_id": "...", "reasons": [...], "required_actions": [...] } ],
+  "rejected": [ { "spec_id": "...", "card_id": "...", "reasons": [...] } ]
 }
 ```
 
-## C.7 Final Payload Rule
+## C.6 Final Payload Rule
 
-Only `accepted_cards` may become final production output.
-That output must be **full schema only**.
+**`accepted_cards`만 production payload에 들어간다.**
+`revise_required` / `rejected`는 감사(audit) 산출물로 남는다. main/public/data/cards.json에는 절대 들어가지 않는다.
 
-`revise_required` and `rejected` are audit products, not production payload.
+## C.7 Silent Discard 금지
 
-## C.8 Silent Discard Prohibition
+draft가 통과 못 하면:
+- `review_ledger`에 반드시 기록
+- `revise_required` 또는 `rejected` list 중 한 쪽에 반드시 등장
 
-If a draft does not pass, it must appear in:
-
-- `review_ledger`, and
-- either `revise_required` or `rejected`
-
-A missing draft entry is itself a QC failure.
+미등장 = QC 실패.
 
 ---
 
-## 5. Minimal Cross-Stage Invariants
+## 5. 교차 stage Invariants
 
-These must remain true across A → B → C:
+A → B → C를 관통하여 true여야 함:
 
-1. `spec_id` is preserved end-to-end
-2. every Prompt A `passed_spec` appears in Prompt B output
-3. every Prompt B draft appears in Prompt C output
-4. no stage silently changes the baseline rule
-5. no stage silently changes the region rule
-6. no stage silently changes the schema rule
-7. no stage silently drops a unit
-
----
-
-## 6. What This Version Strengthens vs. the Uploaded Baseline
-
-This enhanced version keeps the uploaded operating mode lock intact, but hardens the weak points:
-
-- Prompt A / B / C now have explicit ownership instead of uneven density
-- discard / merge authority is clearly locked to Prompt A only
-- Prompt B now has a formal no-silent-drop write contract
-- Prompt C now has an explicit `accepted / revise_required / rejected` QC contract
-- full-schema compliance is enforced at draft and final stages
-- baseline rule is hardened against helper-payload confusion
-- traceability ledgers are mandatory at every stage
-- region/date/category/signal review is formalized
-- duplicate vs reinforcement ambiguity is reviewable rather than implicit
+1. `spec_id` 보존 end-to-end
+2. `source_story_ids`가 A→B→C 전파 (final_news_llm_input의 story_id까지 추적 가능)
+3. A의 모든 passed_spec이 B에 등장
+4. B의 모든 draft가 C에 등장
+5. baseline rule / region rule / schema rule을 silent하게 변경하지 않음
+6. 입력 story 어느 것도 silent drop되지 않음
+7. upstream labels (drop_reason, integrity_group_id, matched_buckets) 참고하되 맹목적 신뢰 금지
 
 ---
 
-## 7. Final Principle
+## 6. 실전 사용 예 (Python + Anthropic SDK)
 
-The operating mode is locked.
-The role boundaries are locked.
-The schema is locked.
-What improves is not the mode itself, but the **clarity, traceability, and QC strength** of A / B / C.
+```python
+import anthropic, json
+from pathlib import Path
 
-**Default mode remains:**
-- `triage_output + rescue + dropped`
-- `main public/data/cards.json baseline`
-- `full schema only`
+client = anthropic.Anthropic()
+RUN_TAG = "20260419_194023"
+
+# 1. Load input
+data = json.load(open(
+    f"../sbtl_bot/current/out/Output_Daily_Run/{RUN_TAG}/Final/final_news_llm_input_{RUN_TAG}.json"
+))
+baseline = json.load(open("public/data/cards.json"))
+
+stories = data["stories"]
+
+# 2. Prompt A
+a_doc = Path("docs/PROMPT_ABC_DEFAULT_MODE.md").read_text()
+a_response = client.messages.create(
+    model="claude-opus-4-7",
+    max_tokens=64000,
+    thinking={"type": "adaptive"},
+    output_config={"effort": "max"},
+    cache_control={"type": "ephemeral"},
+    system=[{"type": "text", "text": a_doc, "cache_control": {"type": "ephemeral"}}],
+    messages=[{"role": "user", "content": f"""Run Prompt A.
+
+## Input stories
+{json.dumps(stories, ensure_ascii=False, indent=2)}
+
+## Baseline (main/public/data/cards.json)
+{json.dumps(baseline, ensure_ascii=False, indent=2)}
+
+Return valid JSON only as specified in A.9 Output Contract."""}]
+)
+a_result = json.loads(a_response.content[0].text)
+
+# 3. Prompt B — evidence package per spec
+def build_evidence(spec, all_stories):
+    ids = spec["source_story_ids"]
+    return [s for s in all_stories if s["story_id"] in ids]
+
+b_response = client.messages.create(
+    model="claude-opus-4-7",
+    max_tokens=64000,
+    thinking={"type": "adaptive"},
+    output_config={"effort": "high"},
+    system=[{"type": "text", "text": a_doc}],
+    messages=[{"role": "user", "content": f"""Run Prompt B.
+
+## passed_specs
+{json.dumps(a_result['passed_specs'], ensure_ascii=False, indent=2)}
+
+## evidence_by_spec
+{json.dumps({s['spec_id']: build_evidence(s, stories) for s in a_result['passed_specs']}, ensure_ascii=False, indent=2)}
+
+Return valid JSON only as specified in B.6 Output Contract."""}]
+)
+b_result = json.loads(b_response.content[0].text)
+
+# 4. Prompt C
+c_response = client.messages.create(
+    model="claude-opus-4-7",
+    max_tokens=64000,
+    thinking={"type": "adaptive"},
+    output_config={"effort": "max"},
+    system=[{"type": "text", "text": a_doc}],
+    messages=[{"role": "user", "content": f"""Run Prompt C.
+
+## drafts
+{json.dumps(b_result['drafts'], ensure_ascii=False, indent=2)}
+
+## baseline
+{json.dumps(baseline, ensure_ascii=False, indent=2)}
+
+Return valid JSON only as specified in C.5 Output Contract."""}]
+)
+c_result = json.loads(c_response.content[0].text)
+
+# 5. Final payload
+final_cards = c_result["accepted_cards"]
+# → merge_cards.py 로 public/data/cards.json 에 병합
+```
+
+## 7. 최종 원칙
+
+- 입력은 하나: `final_news_llm_input.stories[]`
+- 보증은 상류: no truncation / body fetch excerpt 제공 / no auto-delete
+- 판단은 각 stage:
+  - **A (Selector)** — upstream 데이터로 **선정만**, web_fetch 안 함 (scale)
+  - **B (Writer, 선정된 것만)** — passed_spec 각각을 **web_fetch로 원문 확인 후** 카드 작성
+  - **C (QC)** — draft 검증, 필요 시 spot-check
+- 증거는 verbatim: source_quote는 **B의 web_fetch 원문**의 substring (upstream excerpt에서 substring 금지)
+- baseline은 main: public/data/cards.json만
+- 출력은 full schema: accepted_cards만 production
+
+**뉴스는 정확성이 생명이다.**
+**A는 upstream으로 선정하지만, B에서 선정된 카드 각각은 원문을 web_fetch로 직접 확인한다.**
+**메타데이터 / excerpt로 추측하지 않는다.**
+**기억으로 채우지 않는다. 빈 칸은 빈 칸으로 두는 것이 가장 안전하다.**

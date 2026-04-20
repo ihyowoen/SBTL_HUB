@@ -167,6 +167,9 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
         latency_ms: llmResult?.latencyMs || 0,
         structured: llmResult?.structured ?? null,
         provider: llmResult?.provider || "unknown",
+        status: llmResult?.status || null,
+        detail: llmResult?.detail ? String(llmResult.detail).slice(0, 400) : null,
+        finish_reason: llmResult?.finishReason || null,
       },
       env_probe: {
         has_gemini_key: !!process.env.GEMINI_API_KEY,
@@ -268,7 +271,7 @@ export default async function handler(req, res) {
         ticketId,
         debugBase,
       });
-      console.log(`[chat-consultation-out] provider=${resp.debug?.llm?.provider} error=${resp.debug?.llm?.error} structured=${resp.debug?.llm?.structured} suggestion_source=${resp.debug?.suggestion_source} hooks=${resp.suggestions?.length || 0}`);
+      console.log(`[chat-consultation-out] provider=${resp.debug?.llm?.provider} error=${resp.debug?.llm?.error} status=${resp.debug?.llm?.status} detail=${(resp.debug?.llm?.detail || '').slice(0,200)} suggestion_source=${resp.debug?.suggestion_source}`);
       return res.status(200).json(resp);
     }
 

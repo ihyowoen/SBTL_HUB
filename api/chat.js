@@ -1,20 +1,6 @@
 // ============================================================================
 // POST /api/chat — Phase 2 5-layer orchestrator
 // ============================================================================
-// 업데이트: 2026-04-20 — Coverage Contract v2.1 integration.
-//
-// Pipeline:
-//   Layer 1: parseRequest    → { action, topic, scope, rawMessage }
-//   Layer 2: resolveContext  → { ok, clarification?, resolved }
-//   Layer 3: retrieve        → { source, cards, faq?, policy?, news_meta? }
-//   Layer 4: synthesize      → { answer, used_llm, meta, delegate? }
-//   Layer 5: respond         → ChatResponse
-//
-// 특수 경로:
-// - body.consultation 있으면  → 배터리 상담소 경로 (Coverage Contract)
-// - action=analyze_card      → Layer 4에서 delegate marker → /api/analysis 위임
-// - Layer 2 clarification    → Layer 3/4 skip, respondClarification
-// ============================================================================
 
 import { loadKnowledge } from "../lib/chat/common.js";
 import { parseRequest } from "../lib/chat/parseRequest.js";
@@ -47,30 +33,6 @@ function stableError(res, status, message, debug = {}) {
   });
 }
 
-// ============================================================================
-// 배터리 상담소 경로 (2026-04-20 — Coverage Contract v2.1)
-// ============================================================================
-//
-// 입력: req.body.consultation = buildCardConsultContext output
-//       {
-//         card: leanCard,
-//         related_cards: [leanRelated],
-//         opener_category: "kbattery",
-//         few_shot_examples: [{id, text}],
-//         data_fence: {enabled: true},
-//         schema_version: 1
-//       }
-// + req.body.is_opener      (bool)
-// + req.body.message        (후속 답변 시 유저 질문, opener는 빈 문자열 허용)
-// + req.body.ticket_id      (client가 관리, debug에만 echo)
-//
-// Coverage Contract:
-// - opener 시: LLM이 {opener, remaining_points[]} JSON 반환
-//   → remaining_points를 UI suggestions로 매핑 (다음 턴 hook label)
-//   → 실패 시 hardcoded fallback
-// - followup 시: plain text 답변, hardcoded suggestion 2개
-// ============================================================================
-
 function leanCardToUiCard(leanCard) {
   if (!leanCard) return null;
   return {
@@ -85,7 +47,6 @@ function leanCardToUiCard(leanCard) {
   };
 }
 
-// In-character error fallback — LLM 완전 실패 시 강차장 voice로 전달.
 const IN_CHARACTER_ERRORS = [
   "강차장 잠시 자리 비웠어. 잠깐 뒤에 다시 제출해줘.",
   "접수 꼬였네. 새로고침하고 한 번만 다시 보내줘.",
@@ -96,8 +57,6 @@ function pickInCharacterError() {
   return IN_CHARACTER_ERRORS[Math.floor(Math.random() * IN_CHARACTER_ERRORS.length)];
 }
 
-// Hardcoded hook bank — LLM의 remaining_points 실패 시 fallback
-// opener 실패 시 3개, followup은 항상 2개
 const FALLBACK_OPENER_HOOKS = [
   { label: "조금 더 쉽게 설명해줘", hint_action: "rephrase" },
   { label: "왜 중요한지 한 줄로", hint_action: "new_query" },
@@ -109,11 +68,6 @@ const FALLBACK_FOLLOWUP_HOOKS = [
   { label: "관련 카드 더 보여줘", hint_action: "follow_up" },
 ];
 
-/**
- * LLM이 선언한 remaining_points를 UI suggestion 구조로 매핑.
- * label은 그대로 쓰고, hint_action을 "follow_up"으로 설정.
- * hint_topic은 그대로 echo (추후 Stage 2에서 turn_number와 함께 exclude 로직에 활용).
- */
 function mapRemainingPointsToSuggestions(remainingPoints) {
   if (!Array.isArray(remainingPoints)) return null;
   const mapped = remainingPoints
@@ -130,7 +84,6 @@ function mapRemainingPointsToSuggestions(remainingPoints) {
 async function handleConsultation({ consultation, isOpener, userMessage, ticketId, debugBase }) {
   const uiCard = leanCardToUiCard(consultation?.card);
 
-  // cardContext validation
   if (!consultation || !consultation.card || !consultation.card.title) {
     return {
       answer: "상담 카드 정보가 깨져 있어. 카드에서 다시 한번 눌러줘.",
@@ -147,7 +100,6 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
     };
   }
 
-  // LLM 호출 — opener: JSON output, followup: plain text
   const llmResult = await synthesizeCardConsult({
     cardContext: consultation,
     isOpener: !!isOpener,
@@ -156,10 +108,6 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
 
   const answerText = llmResult?.text || pickInCharacterError();
 
-  // ─── Suggestions 결정 ────────────────────────────────────────────────
-  // 1) opener + LLM이 remaining_points 성공 선언 → 그걸 hook으로
-  // 2) opener + LLM 실패 or remaining_points 없음 → hardcoded opener fallback
-  // 3) followup → hardcoded followup fallback (Stage 2에서 LLM 생성으로 교체 예정)
   let suggestions;
   let suggestionSource;
   if (isOpener && llmResult?.text) {
@@ -218,6 +166,11 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
         error: llmResult?.error || null,
         latency_ms: llmResult?.latencyMs || 0,
         structured: llmResult?.structured ?? null,
+        provider: llmResult?.provider || "unknown",
+      },
+      env_probe: {
+        has_gemini_key: !!process.env.GEMINI_API_KEY,
+        has_groq_key: !!process.env.GROQ_API_KEY,
       },
       suggestion_source: suggestionSource,
       remaining_points_count: Array.isArray(llmResult?.remainingPoints) ? llmResult.remainingPoints.length : 0,
@@ -225,19 +178,12 @@ async function handleConsultation({ consultation, isOpener, userMessage, ticketI
   };
 }
 
-// ============================================================================
-// Legacy "[카드상담]" prefix handoff (backward-compat, deprecated)
-// ============================================================================
-
 function parseCardConsultRequest(message) {
   const raw = String(message || "").trim();
   if (!raw.startsWith("[카드상담]")) return null;
   return { legacy: true };
 }
 
-// ============================================================================
-// analyze_card 전용 처리 — /api/analysis에 위임 (dead code이나 경로는 보존)
-// ============================================================================
 async function handleAnalyzeCard({ parsed, resolved, synthesis, context, debugBase }) {
   const card = synthesis?.delegate?.card || resolved?.target_card;
   const mode = synthesis?.delegate?.mode || "why";
@@ -276,9 +222,6 @@ async function handleAnalyzeCard({ parsed, resolved, synthesis, context, debugBa
   });
 }
 
-// ============================================================================
-// Main handler
-// ============================================================================
 export default async function handler(req, res) {
   setCors(res);
 
@@ -299,7 +242,6 @@ export default async function handler(req, res) {
       return stableError(res, 400, "질문을 먼저 입력해줘.", { error_code: "MESSAGE_REQUIRED" });
     }
 
-    // ─── Load knowledge ─────────────────────────────────────────────────
     const _t0 = Date.now();
     const data = await loadKnowledge();
     const _t1 = Date.now();
@@ -313,10 +255,10 @@ export default async function handler(req, res) {
       sources: data?._sources || null,
     };
     console.log(`[chat-diag-D1] ${JSON.stringify(diag)}`);
+    console.log(`[chat-env-probe] gemini=${!!process.env.GEMINI_API_KEY} groq=${!!process.env.GROQ_API_KEY}`);
 
     const debugBase = { diag, pipeline_version: "phase2-5layer" };
 
-    // ─── 배터리 상담소 경로 (Coverage Contract) ─────────────────────────
     if (consultation) {
       console.log(`[chat-consultation] ticket=${ticketId} is_opener=${isOpener} card_id=${consultation?.card?.id} cat=${consultation?.opener_category}`);
       const resp = await handleConsultation({
@@ -326,11 +268,10 @@ export default async function handler(req, res) {
         ticketId,
         debugBase,
       });
-      console.log(`[chat-consultation-out] structured=${resp.debug?.llm?.structured} suggestion_source=${resp.debug?.suggestion_source} hooks=${resp.suggestions?.length || 0}`);
+      console.log(`[chat-consultation-out] provider=${resp.debug?.llm?.provider} error=${resp.debug?.llm?.error} structured=${resp.debug?.llm?.structured} suggestion_source=${resp.debug?.suggestion_source} hooks=${resp.suggestions?.length || 0}`);
       return res.status(200).json(resp);
     }
 
-    // ─── Legacy "[카드상담]" prefix — 상담소 경로로 유도 ────────────────
     const legacy = parseCardConsultRequest(message);
     if (legacy) {
       return res.status(200).json({
@@ -348,11 +289,9 @@ export default async function handler(req, res) {
       });
     }
 
-    // ─── Layer 1: parseRequest ──────────────────────────────────────────
     const parsed = parseRequest({ message, context, hint, data });
     console.log(`[chat-parse] action=${parsed.action} topic=${parsed.topic} region=${parsed.scope?.region || "-"} date=${parsed.scope?.date || "-"}`);
 
-    // ─── Layer 2: resolveContext ────────────────────────────────────────
     const resolvedCtx = resolveContext({ parsed, context });
 
     if (!resolvedCtx.ok) {
@@ -362,11 +301,9 @@ export default async function handler(req, res) {
       );
     }
 
-    // ─── Layer 3: retrieve ──────────────────────────────────────────────
     const retrieval = retrieve({ parsed, resolved: resolvedCtx.resolved, data });
     console.log(`[chat-retrieve] source=${retrieval.source} cards=${(retrieval.cards || []).length}`);
 
-    // ─── Layer 4: synthesize ────────────────────────────────────────────
     const synthesis = await synthesize({
       parsed,
       resolved: resolvedCtx.resolved,
@@ -374,7 +311,6 @@ export default async function handler(req, res) {
     });
     console.log(`[chat-synth] path=${synthesis?.meta?.path} used_llm=${synthesis?.used_llm} delegate=${synthesis?.delegate?.to || "-"}`);
 
-    // ─── Layer 5: respond ───────────────────────────────────────────────
     if (synthesis?.delegate?.to === "analysis_api" || parsed.action === "analyze_card") {
       const resp = await handleAnalyzeCard({
         parsed,

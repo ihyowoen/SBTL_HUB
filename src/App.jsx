@@ -1,5 +1,13 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
 import StoryNewsItem from "./story/StoryNewsItem";
+import { buildCardConsultContext } from "./story/buildCardConsultContext";
+import { getCardId } from "./story/normalizeCard";
+import {
+  createConsultation,
+  appendMessage,
+  getAllCardConsultationSummaries,
+  getRecentOpenerIds,
+} from "./consultation/consultationStorage";
 
 // Error Boundary Component
 class ErrorBoundary extends Component {
@@ -506,7 +514,7 @@ function pickHomeCover(card) {
   return AUTO_IMAGES.DEFAULT;
 }
 
-function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
+function Home({ kb, tracker, onNav, onSubmitConsultation, consultSummaries = {}, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
   const todayPicks = latestCards(kb.cards, 4, null, kstToday());
@@ -540,7 +548,8 @@ function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
         <StoryNewsItem
           card={lead}
           dark={dark}
-          onAskChatbot={onAskChatbot}
+          onSubmitConsultation={onSubmitConsultation}
+          consultationHint={consultSummaries[getCardId(lead)] || null}
           coverImage={pickHomeCover(lead)}
           featured
         />
@@ -557,7 +566,8 @@ function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
               key={`${card.id || card.T || card.title}-${i}`}
               card={card}
               dark={dark}
-              onAskChatbot={onAskChatbot}
+              onSubmitConsultation={onSubmitConsultation}
+              consultationHint={consultSummaries[getCardId(card)] || null}
               coverImage=""
             />
           ))}
@@ -592,21 +602,76 @@ function Home({ kb, tracker, onNav, onAskChatbot, dark }) {
   );
 }
 
-function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
+// 배터리 상담소 — 접수증 A안 (미니카드 + 받음 stamp)
+function ReceiptBubble({ meta, openedAt, dark }) {
+  const t = T(dark);
+  const d = openedAt ? new Date(openedAt) : null;
+  const dateLabel = d && !isNaN(d.getTime()) ? `${d.getMonth() + 1}/${d.getDate()}` : "";
+  const metaParts = [];
+  if (meta?.region) metaParts.push(meta.region);
+  const sigShort = (meta?.signal || "i").toString().slice(0, 1).toLowerCase();
+  metaParts.push((SIG_L[sigShort] || "INFO"));
+  if (meta?.date) metaParts.push(fmtDate(meta.date));
+  const metaLine = metaParts.join(" · ");
+
+  return (
+    <div
+      role="note"
+      aria-label="상담 접수증"
+      style={{
+        margin: "10px auto",
+        maxWidth: "92%",
+        padding: "10px 14px",
+        background: dark ? "rgba(88,166,255,0.07)" : "rgba(88,166,255,0.05)",
+        border: `1px dashed ${t.cyan}`,
+        borderRadius: 10,
+      }}
+    >
+      <div style={{
+        fontSize: 10, color: t.cyan, fontWeight: 800, marginBottom: 6,
+        fontFamily: "'JetBrains Mono',monospace",
+        display: "flex", alignItems: "center", gap: 6,
+      }}>
+        <span aria-hidden="true">📥</span>
+        <span>받음{dateLabel ? ` · ${dateLabel}` : ""}</span>
+      </div>
+      <div style={{
+        fontSize: 13, color: t.tx, fontWeight: 700, lineHeight: 1.4, marginBottom: 4,
+        fontFamily: "'Pretendard',sans-serif",
+      }}>
+        {meta?.title || "(제목 없음)"}
+      </div>
+      {metaLine && (
+        <div style={{
+          fontSize: 9, color: t.sub, fontWeight: 700,
+          fontFamily: "'JetBrains Mono',monospace",
+        }}>
+          {metaLine}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0 }) {
   const t = T(dark);
   const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  // loadingMode: 'none' | 'typing_normal' | 'typing_consult'
+  const [loadingMode, setLoadingMode] = useState("none");
   const [searchMode, setSearchMode] = useState("internal");
   const [extQuery, setExtQuery] = useState("");
   const endRef = useRef(null);
-  // ChatContext Protocol (Phase 2): last_turn/root_turn은 /api/chat 응답의
-  // next_context를 그대로 echo 백한다. selected_item_id는 카드 클릭으로 갱신.
+  // ChatContext Protocol (Phase 2)
   const chatCtxRef = useRef({ last_turn: null, root_turn: null, selected_item_id: null, region: null, date: null });
+  // 현재 active consultation — 후속 유저 메시지는 이 consultation followup으로 처리
+  const currentConsultRef = useRef(null);
+
+  const isLoading = loadingMode !== "none";
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [msgs, loading]);
+  }, [msgs, loadingMode]);
 
   const toUiMessage = (data) => ({
     role: "assistant",
@@ -622,11 +687,43 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
     chatCtxRef.current = {
       last_turn: nc.last_turn || null,
       root_turn: nc.root_turn || chatCtxRef.current.root_turn || null,
-      // 새 턴이 들어오면 selected 리셋 — 사용자가 새 카드를 고를 기회를 준다.
       selected_item_id: null,
       region: nc.last_turn?.scope?.region || chatCtxRef.current.region,
       date: nc.last_turn?.scope?.date || chatCtxRef.current.date,
     };
+  };
+
+  // typing ceremony — min 500ms 보장, max 2s cap
+  const ceremonyWait = async (t0, minMs = 500, maxMs = 2000) => {
+    const elapsed = Date.now() - t0;
+    if (elapsed >= maxMs) return;
+    const wait = Math.max(0, minMs - elapsed);
+    if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+  };
+
+  // ─── 일반 chat POST ──────────────────────────────────────────────────
+  const postChat = async (body) => {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      return {
+        answer: err?.answer || "요청 처리 중 오류가 발생했어.",
+        answer_type: "general",
+        source_mode: "internal",
+        confidence: 0,
+        cards: [],
+        external_links: [],
+        suggestions: [
+          { label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" },
+        ],
+        next_context: { last_turn: null, root_turn: chatCtxRef.current.root_turn || null },
+      };
+    }
+    return res.json();
   };
 
   const sendToChatApi = async (txt, mode = "internal", hint = null) => {
@@ -640,41 +737,104 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
         topic: hint.hint_topic || undefined,
       };
     }
-
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      return {
-        answer: err?.answer || "요청 처리 중 오류가 발생했어.",
-        answer_type: "general",
-        source_mode: "internal",
-        confidence: 0,
-        cards: [],
-        external_links: [],
-        suggestions: [
-          { label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" },
-          { label: "최근 시그널 TOP", hint_action: "new_query", hint_topic: "news" },
-        ],
-        next_context: { last_turn: null, root_turn: chatCtxRef.current.root_turn || null },
-      };
-    }
-
-    return res.json();
+    return postChat(body);
   };
 
+  // ─── Consultation opener (initialConsultation seed 진입 시) ──────────
+  const startConsultation = async (init) => {
+    if (!init?.cardContext?.card) return;
+    currentConsultRef.current = {
+      id: init.consultationId,
+      cardContext: init.cardContext,
+    };
+
+    // 1) 접수증 push (유저 풍선 아님)
+    const receiptMsg = {
+      role: "receipt",
+      card_meta: init.card_meta,
+      opened_at: init.opened_at,
+    };
+    setMsgs((prev) => [...prev, receiptMsg]);
+
+    // 2) opener LLM 호출 + typing ceremony
+    setLoadingMode("typing_consult");
+    const t0 = Date.now();
+    try {
+      const data = await postChat({
+        consultation: init.cardContext,
+        is_opener: true,
+        ticket_id: init.consultationId,
+        context: chatCtxRef.current,
+      });
+      await ceremonyWait(t0);
+      updateContextFromResponse(data);
+      const uiMsg = toUiMessage(data);
+      setMsgs((prev) => [...prev, uiMsg]);
+
+      if (init.consultationId) {
+        appendMessage(init.consultationId, {
+          role: "assistant",
+          content: data?.answer || "",
+          opener: true,
+        });
+      }
+    } catch {
+      setMsgs((prev) => [...prev, {
+        role: "assistant",
+        content: "강차장 잠시 자리 비웠어. 잠깐 뒤에 다시 제출해줘.",
+        suggestions: [{ label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" }],
+      }]);
+    } finally {
+      setLoadingMode("none");
+    }
+  };
+
+  // ─── Consultation followup (유저 메시지 after opener) ────────────────
+  const sendConsultFollowup = async (txt, consult) => {
+    setMsgs((prev) => [...prev, { role: "user", content: txt }]);
+    if (consult.id) appendMessage(consult.id, { role: "user", content: txt });
+
+    setLoadingMode("typing_consult");
+    const t0 = Date.now();
+    try {
+      const data = await postChat({
+        message: txt,
+        consultation: consult.cardContext,
+        is_opener: false,
+        ticket_id: consult.id,
+        context: chatCtxRef.current,
+      });
+      await ceremonyWait(t0);
+      updateContextFromResponse(data);
+      setMsgs((prev) => [...prev, toUiMessage(data)]);
+      if (consult.id) appendMessage(consult.id, { role: "assistant", content: data?.answer || "" });
+    } catch {
+      setMsgs((prev) => [...prev, {
+        role: "assistant",
+        content: "강차장 잠시 자리 비웠어. 잠깐 뒤에 다시.",
+      }]);
+    } finally {
+      setLoadingMode("none");
+    }
+  };
+
+  // ─── 일반 chat (기존 로직 유지, loadingMode만 전환) ──────────────────
   const sendWithText = async (rawText, hint = null) => {
     const txt = String(rawText || "").trim();
-    if (!txt || loading) return;
+    if (!txt || isLoading) return;
 
-    setLoading(true);
     setInput("");
-    setMsgs((prev) => [...prev, { role: "user", content: txt }]);
 
+    // 현재 active consultation이 있으면 followup 경로로
+    const consult = currentConsultRef.current;
+    if (consult) {
+      await sendConsultFollowup(txt, consult);
+      return;
+    }
+
+    // 일반 chat
+    setMsgs((prev) => [...prev, { role: "user", content: txt }]);
+    setLoadingMode("typing_normal");
     try {
       const data = await sendToChatApi(txt, "internal", hint);
       updateContextFromResponse(data);
@@ -689,20 +849,26 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
         ],
       }]);
     } finally {
-      setLoading(false);
+      setLoadingMode("none");
     }
   };
 
+  // consultation seed 변경 감지 → opener 시작
+  // StrictMode double-invoke 방어: 같은 nonce 재실행 금지
+  const consultedNonceRef = useRef(0);
   useEffect(() => {
-    if (!initialPrompt || !initialPromptNonce) return;
-    void sendWithText(initialPrompt);
-  }, [initialPrompt, initialPromptNonce]);
+    if (!initialConsultation || !initialConsultationNonce) return;
+    if (consultedNonceRef.current === initialConsultationNonce) return;
+    consultedNonceRef.current = initialConsultationNonce;
+    void startConsultation(initialConsultation);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialConsultation, initialConsultationNonce]);
 
   const sendExternal = async (rawText, hint = null) => {
     const txt = String(rawText || "").trim();
-    if (!txt || loading) return;
+    if (!txt || isLoading) return;
 
-    setLoading(true);
+    setLoadingMode("typing_normal");
     setExtQuery("");
     setMsgs((prev) => [...prev, { role: "user", content: `🔗 외부 검색: ${txt}` }]);
 
@@ -717,11 +883,10 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
         suggestions: [{ label: "내부 카드로 검색", hint_action: "new_query" }],
       }]);
     } finally {
-      setLoading(false);
+      setLoadingMode("none");
     }
   };
 
-  // 카드 클릭 — selected_item_id 세팅 (D3 해결). URL 열기는 <a>의 기본 동작 유지.
   const markCardSelected = (card) => {
     const id = card?.url || card?.title || null;
     if (!id) return;
@@ -729,7 +894,6 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
   };
 
   const runSuggestion = (suggestion) => {
-    // suggestion은 문자열 (초기 quickPrimary) 또는 객체 ({ label, hint_action, hint_topic }).
     const label = typeof suggestion === "string" ? suggestion : (suggestion?.label || "");
     const hint = typeof suggestion === "object" ? suggestion : null;
     const map = {
@@ -776,65 +940,73 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
           </div>
         )}
 
-        {msgs.map((m, i) => (
-          <div key={i} role="article" aria-label={m.role === "user" ? "내 질문" : "AI 답변"} style={{ display: "flex", flexDirection: "column", alignItems: m.role === "user" ? "flex-end" : "flex-start", marginBottom: 10 }}>
-            <div style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", width: "100%" }}>
-              {m.role === "assistant" && <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, marginRight: 7, flexShrink: 0, marginTop: 2, border: "2px solid #2a1a40" }} />}
-              <div style={{ maxWidth: "88%" }}>
-                <div style={{ padding: "11px 14px", fontSize: 13, lineHeight: 1.6, whiteSpace: "pre-wrap", wordBreak: "keep-all", borderRadius: m.role === "user" ? "18px 18px 6px 18px" : "18px 18px 18px 6px", background: m.role === "user" ? "#4C8DFF" : (dark ? "#1A2333" : "#FFFFFF"), color: m.role === "user" ? "#fff" : t.tx, border: m.role === "user" ? "none" : `1px solid ${t.brd}`, fontFamily: "'Pretendard', sans-serif" }}>
-                  {m.sourceBadge === "internal" && (
-                    <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#58A6FF", background: dark ? "rgba(88,166,255,0.14)" : "rgba(45,90,142,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
-                      📋 내부 카드 기반
-                    </span>
-                  )}
-                  {m.sourceBadge === "external" && (
-                    <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#D29922", background: dark ? "rgba(210,153,34,0.14)" : "rgba(210,153,34,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
-                      🔗 외부 기사 링크
-                    </span>
-                  )}
-                  {m.sourceBadge === "hybrid" && (
-                    <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#A855F7", background: dark ? "rgba(168,85,247,0.14)" : "rgba(168,85,247,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
-                      🔀 내부+외부 근거
-                    </span>
-                  )}
-                  {m.sourceBadge ? <div>{m.content}</div> : m.content}
+        {msgs.map((m, i) => {
+          // 접수증 (receipt) 렌더 — user/assistant 풍선 아님
+          if (m.role === "receipt") {
+            return <ReceiptBubble key={`receipt-${i}`} meta={m.card_meta} openedAt={m.opened_at} dark={dark} />;
+          }
+          return (
+            <div key={i} role="article" aria-label={m.role === "user" ? "내 질문" : "AI 답변"} style={{ display: "flex", flexDirection: "column", alignItems: m.role === "user" ? "flex-end" : "flex-start", marginBottom: 10 }}>
+              <div style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", width: "100%" }}>
+                {m.role === "assistant" && <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, marginRight: 7, flexShrink: 0, marginTop: 2, border: "2px solid #2a1a40" }} />}
+                <div style={{ maxWidth: "88%" }}>
+                  <div style={{ padding: "11px 14px", fontSize: 13, lineHeight: 1.6, whiteSpace: "pre-wrap", wordBreak: "keep-all", borderRadius: m.role === "user" ? "18px 18px 6px 18px" : "18px 18px 18px 6px", background: m.role === "user" ? "#4C8DFF" : (dark ? "#1A2333" : "#FFFFFF"), color: m.role === "user" ? "#fff" : t.tx, border: m.role === "user" ? "none" : `1px solid ${t.brd}`, fontFamily: "'Pretendard', sans-serif" }}>
+                    {m.sourceBadge === "internal" && (
+                      <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#58A6FF", background: dark ? "rgba(88,166,255,0.14)" : "rgba(45,90,142,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
+                        📋 내부 카드 기반
+                      </span>
+                    )}
+                    {m.sourceBadge === "external" && (
+                      <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#D29922", background: dark ? "rgba(210,153,34,0.14)" : "rgba(210,153,34,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
+                        🔗 외부 기사 링크
+                      </span>
+                    )}
+                    {m.sourceBadge === "hybrid" && (
+                      <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#A855F7", background: dark ? "rgba(168,85,247,0.14)" : "rgba(168,85,247,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
+                        🔀 내부+외부 근거
+                      </span>
+                    )}
+                    {m.sourceBadge ? <div>{m.content}</div> : m.content}
+                  </div>
+                  {m.braveLinks?.map((link, j) => (
+                    <a key={`brave-${j}`} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Open external article: ${link.title}`} style={{ display: "block", background: dark ? "#1A1E2A" : "#FFFBF0", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: "pointer", border: `1px solid ${dark ? "rgba(210,153,34,0.25)" : "rgba(210,153,34,0.2)"}`, textDecoration: "none" }}>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.4 }}>{link.title}</div>
+                      {link.description && <div style={{ fontSize: 11, color: t.sub, marginTop: 3, lineHeight: 1.45 }}>{link.description.slice(0, 120)}{link.description.length > 120 ? "..." : ""}</div>}
+                      <div style={{ fontSize: 10, color: "#D29922", marginTop: 4, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>🔗 외부 기사 ↗</div>
+                    </a>
+                  ))}
+                  {m.cards?.map((card, j) => {
+                    const cardStyle = { display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}`, textDecoration: "none" };
+                    const cardContent = (<>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: t.tx }}>{SIG_L[card.signal] || "INFO"} {card.title}</div>
+                      {card.subtitle && <div style={{ fontSize: 11, color: t.sub, marginTop: 3 }}>{card.subtitle}</div>}
+                      {card.gist && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, lineHeight: 1.5, opacity: 0.85 }}>💡 {card.gist}</div>}
+                      <div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(card.date)} · {card.region} · {card.source || "source"}</div>
+                      {card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}
+                    </>);
+                    return card.url
+                      ? <a key={j} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} onClick={() => markCardSelected(card)} style={cardStyle}>{cardContent}</a>
+                      : <div key={j} style={cardStyle} onClick={() => markCardSelected(card)}>{cardContent}</div>;
+                  })}
                 </div>
-                {m.braveLinks?.map((link, j) => (
-                  <a key={`brave-${j}`} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Open external article: ${link.title}`} style={{ display: "block", background: dark ? "#1A1E2A" : "#FFFBF0", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: "pointer", border: `1px solid ${dark ? "rgba(210,153,34,0.25)" : "rgba(210,153,34,0.2)"}`, textDecoration: "none" }}>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.4 }}>{link.title}</div>
-                    {link.description && <div style={{ fontSize: 11, color: t.sub, marginTop: 3, lineHeight: 1.45 }}>{link.description.slice(0, 120)}{link.description.length > 120 ? "..." : ""}</div>}
-                    <div style={{ fontSize: 10, color: "#D29922", marginTop: 4, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>🔗 외부 기사 ↗</div>
-                  </a>
-                ))}
-                {m.cards?.map((card, j) => {
-                  const cardStyle = { display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}`, textDecoration: "none" };
-                  const cardContent = (<>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: t.tx }}>{SIG_L[card.signal] || "INFO"} {card.title}</div>
-                    {card.subtitle && <div style={{ fontSize: 11, color: t.sub, marginTop: 3 }}>{card.subtitle}</div>}
-                    {card.gist && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, lineHeight: 1.5, opacity: 0.85 }}>💡 {card.gist}</div>}
-                    <div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(card.date)} · {card.region} · {card.source || "source"}</div>
-                    {card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}
-                  </>);
-                  return card.url
-                    ? <a key={j} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} onClick={() => markCardSelected(card)} style={cardStyle}>{cardContent}</a>
-                    : <div key={j} style={cardStyle} onClick={() => markCardSelected(card)}>{cardContent}</div>;
-                })}
               </div>
+              {m.role === "assistant" && m.suggestions?.length > 0 && (
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8, marginBottom: 4, paddingLeft: 35 }}>
+                  {m.suggestions.map((s) => (
+                    <button key={s.label} onClick={() => runSuggestion(s)} style={{ background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "10px 16px", minHeight: "44px", fontSize: 11, color: t.cyan, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600 }}>{s.label}</button>
+                  ))}
+                </div>
+              )}
             </div>
-            {m.role === "assistant" && m.suggestions?.length > 0 && (
-              <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8, marginBottom: 4, paddingLeft: 35 }}>
-                {m.suggestions.map((s) => (
-                  <button key={s.label} onClick={() => runSuggestion(s)} style={{ background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "10px 16px", minHeight: "44px", fontSize: 11, color: t.cyan, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600 }}>{s.label}</button>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+          );
+        })}
 
-        {loading && (
+        {isLoading && (
           <div role="status" aria-live="polite" aria-atomic="true" style={{ display: "flex", gap: 7, marginBottom: 10 }}>
             <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, flexShrink: 0, border: "2px solid #2a1a40" }} />
-            <div style={{ padding: "10px 14px", borderRadius: "18px 18px 18px 6px", background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, fontSize: 12, color: t.sub }}>찾아보는 중...</div>
+            <div style={{ padding: "10px 14px", borderRadius: "18px 18px 18px 6px", background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, fontSize: 12, color: t.sub }}>
+              {loadingMode === "typing_consult" ? "검토 중..." : "찾아보는 중..."}
+            </div>
           </div>
         )}
         <div ref={endRef} />
@@ -860,7 +1032,7 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
           />
           <button
             onClick={() => searchMode === "external" ? void sendExternal(extQuery) : void sendWithText(input)}
-            disabled={loading || (searchMode === "external" ? !extQuery.trim() : !input.trim())}
+            disabled={isLoading || (searchMode === "external" ? !extQuery.trim() : !input.trim())}
             aria-label={searchMode === "external" ? "Search external articles" : "Send message"}
             style={{ padding: "12px 18px", minHeight: "44px", minWidth: "44px", borderRadius: 10, border: "none", background: searchMode === "external" ? "#D29922" : t.cyan, color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 13, fontFamily: "'Pretendard',sans-serif" }}
           >
@@ -872,78 +1044,6 @@ function ChatBot({ dark, initialPrompt = "", initialPromptNonce = 0 }) {
   );
 }
 
-
-const REGION_POLICY = {
-  NA: {
-    title: "미국 정책",
-    flag: "🇺🇸",
-    policies: [
-      { name: "IRA / FEOC", desc: "IRA §45X·§48E 제조·투자 세액공제 — FEOC 규정으로 중국산 배터리·소재 사용 시 크레딧 박탈. MACR 55% 기준(2026) 적용 중." },
-      { name: "관세 (Section 301)", desc: "대중국 배터리셀 관세 54~58%. BOS 부품에도 §232 관세 50% 별도 → 실질 80%+ 차단벽." },
-      { name: "제조 인센티브", desc: "45X 첨단제조 크레딧으로 미국 내 셀·모듈·광물 가공 공장 유치. 2030년 MACR 85% 목표." },
-      { name: "ESS / 전력", desc: "ITC(§48E) standalone ESS 30~50% + 커뮤니티 보너스. FERC Order 2222로 분산자원 시장참여 확대." },
-    ],
-    why: "미국 에너지 전환 정책은 K-배터리에 기회이자 리스크 — FEOC 준수 여부가 시장 접근 자체를 결정한다.",
-    watchpoints: ["Treasury proposed regulation Q2 발표 여부", "Section 301 관세 8월 만료·연장 결정", "45X MACR 2027 기준 60% 전환 대비"],
-  },
-  EU: {
-    title: "유럽 정책",
-    flag: "🇪🇺",
-    policies: [
-      { name: "Battery Regulation", desc: "2027년부터 배터리 여권(Battery Passport) 의무화. 탄소발자국 등급 공개, 재활용률 의무 부과." },
-      { name: "CBAM", desc: "탄소국경조정메커니즘 — 수입품에 EU 탄소가격 부과. 배터리 소재·철강·알루미늄 대상." },
-      { name: "CRM Act", desc: "핵심원자재법 — 리튬·코발트·니켈 등 전략광물 EU 내 가공 40%, 재활용 25% 목표." },
-      { name: "보조금", desc: "IPCEI 배터리 프로젝트 + 각국 개별 보조금. Northvolt 사태 이후 보조금 심사 강화 추세." },
-    ],
-    why: "EU는 규제 중심 접근 — 규정 준수 비용이 시장 진입 장벽이 되므로 조기 대응이 핵심이다.",
-    watchpoints: ["Battery Passport 파일럿 일정", "CBAM 전환기 종료(2026.12) 이후 본 부과 시작", "CRM Act 광물 목록 업데이트"],
-  },
-  CN: {
-    title: "중국 정책",
-    flag: "🇨🇳",
-    policies: [
-      { name: "산업정책", desc: "국가 차원 배터리 산업 육성. CATL·BYD 등 대형사 보조금·세제 혜택. 내수 EV 보급 세계 1위 유지." },
-      { name: "공급망 통제", desc: "흑연·리튬·희토류 수출 통제 강화. 가공 단계 독점적 지위를 지렛대로 활용." },
-      { name: "가격 경쟁", desc: "LFP 셀 가격 $50/kWh 이하 진입. 과잉설비 기반 저가 공세로 글로벌 시장 점유율 확대." },
-      { name: "수출 전략", desc: "BESS 수출 급증 — 미국 관세 우회 위해 모로코·헝가리 등 제3국 가공기지 확대." },
-    ],
-    why: "중국은 가격과 공급망을 동시에 장악 — 비중국 플레이어의 생존 전략 수립에 가장 큰 변수다.",
-    watchpoints: ["흑연 수출허가제 실제 운용 강도", "LFP 과잉설비 조정 신호", "제3국 우회 수출 규모 추이"],
-  },
-  KR: {
-    title: "한국 정책",
-    flag: "🇰🇷",
-    policies: [
-      { name: "ESS 정책", desc: "산업부 ESS 안전기준 개정 + 대규모 ESS 실증사업. 화재 안전 인증 강화." },
-      { name: "입찰 / 조달", desc: "한전 ESS 용량시장 입찰. 재생에너지 연계 ESS 의무화 확대." },
-      { name: "실증 / R&D", desc: "전고체·리튬황 차세대 배터리 국가 R&D. K-배터리 2030 로드맵 추진." },
-      { name: "규제 방향", desc: "EU Battery Regulation 대응 — 배터리 여권 국내 도입 검토. 재활용 의무 강화 로드맵." },
-    ],
-    why: "K-배터리의 본거지 — 내수 ESS 시장 성장과 수출 규제 대응을 동시에 준비해야 한다.",
-    watchpoints: ["ESS 안전기준 개정안 시행 시점", "용량시장 ESS 입찰 결과", "배터리 여권 국내 적용 로드맵 발표"],
-  },
-  JP: {
-    title: "일본 정책",
-    flag: "🇯🇵",
-    policies: [
-      { name: "GX (Green Transformation)", desc: "GX 추진법 기반 20조엔 투자. 배터리·수소·원자력 포함한 에너지 전환 가속." },
-      { name: "배터리 지원", desc: "METI 대규모 축전시스템 보조금 (보조율 33~66%). 도쿄도 별도 20억엔 지원." },
-      { name: "전력정책", desc: "재생에너지 주력전원화 + 계통유연성 확보. ESS를 조정력 수단으로 본격 활용." },
-    ],
-    why: "일본은 에너지 안보 관점에서 ESS를 전략자산화 — 보조금 규모가 시장 형성 속도를 결정한다.",
-    watchpoints: ["METI 축전 보조금 2차 공모 시기", "GX 채권 발행·집행 진도", "계통용 ESS 접속 규칙 개정"],
-  },
-  GL: {
-    title: "글로벌 공통",
-    flag: "🌐",
-    policies: [
-      { name: "공급망 재편", desc: "미·중 디커플링 가속. 중간재 가공 거점이 동남아·중동·아프리카로 분산." },
-      { name: "광물 확보 경쟁", desc: "리튬·니켈·코발트·흑연 확보전. 자원국 수출 규제 확대 추세." },
-    ],
-    why: "글로벌 밸류체인 재편은 모든 지역 정책의 배경이 된다 — 공급망 지도가 바뀌고 있다.",
-    watchpoints: ["인도네시아 니켈 수출 정책 변화", "칠레·아르헨티나 리튬 국유화 동향"],
-  },
-};
 
 function TrackerItemCard({ item, dark, expanded, onToggle }) {
   const t = T(dark);
@@ -1361,7 +1461,7 @@ function WebtoonLibrary({ dark }) {
   );
 }
 
-function NewsDesk({ kb, onAskChatbot, dark }) {
+function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -1413,7 +1513,8 @@ function NewsDesk({ kb, onAskChatbot, dark }) {
                   key={`${card.id || card.T || card.title}-${i}`}
                   card={card}
                   dark={dark}
-                  onAskChatbot={onAskChatbot}
+                  onSubmitConsultation={onSubmitConsultation}
+                  consultationHint={consultSummaries[getCardId(card)] || null}
                 />
               ))}
             </div>
@@ -1492,7 +1593,8 @@ function NewsDesk({ kb, onAskChatbot, dark }) {
                 key={`${card.id || date}-${i}`}
                 card={card}
                 dark={dark}
-                onAskChatbot={onAskChatbot}
+                onSubmitConsultation={onSubmitConsultation}
+                consultationHint={consultSummaries[getCardId(card)] || null}
               />
             ))}
           </div>
@@ -1509,7 +1611,10 @@ function AppContent() {
   const [hardRefresh, setHardRefresh] = useState(false);
   const [refreshPending, setRefreshPending] = useState(false);
   const [refreshLabel, setRefreshLabel] = useState("");
-  const [chatSeed, setChatSeed] = useState({ text: "", nonce: 0 });
+  const [consultationSeed, setConsultationSeed] = useState({ data: null, nonce: 0 });
+  const [consultSummaries, setConsultSummaries] = useState(() =>
+    typeof window !== "undefined" ? getAllCardConsultationSummaries() : {}
+  );
   const kb = useKnowledgeBase(refreshKey, hardRefresh);
   const { tracker, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
   const t = T(dark);
@@ -1545,9 +1650,41 @@ function AppContent() {
     setRefreshKey(Date.now());
   };
 
-  const handleAskChatbot = (prompt) => {
-    if (!prompt) return;
-    setChatSeed({ text: prompt, nonce: Date.now() });
+  const handleSubmitConsultation = (card) => {
+    if (!card) return;
+
+    // 1) build context on client (cards.json + recent openers for few-shot 배제)
+    const recentOpenerIds = getRecentOpenerIds(5);
+    const cardContext = buildCardConsultContext({
+      card,
+      allCards: kb.cards,
+      recentOpenerIds,
+    });
+    if (!cardContext) return;
+
+    // 2) create consultation record in localStorage
+    const created = createConsultation({
+      card,
+      openerCategory: cardContext.opener_category,
+      openerIdUsed: null,
+    });
+    if (!created) return;
+
+    // 3) seed ChatBot (nonce로 재트리거)
+    setConsultationSeed({
+      data: {
+        consultationId: created.id,
+        cardContext,
+        card_meta: created.card_meta,
+        opened_at: created.opened_at,
+      },
+      nonce: Date.now(),
+    });
+
+    // 4) B안 footer 즉시 반영
+    setConsultSummaries(getAllCardConsultationSummaries());
+
+    // 5) chatbot tab 전환
     setTab("chatbot");
   };
 
@@ -1640,9 +1777,9 @@ function AppContent() {
       </div>
 
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
-        {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onAskChatbot={handleAskChatbot} dark={dark} /></div>}
-        {tab === "news" && <NewsDesk kb={kb} onAskChatbot={handleAskChatbot} dark={dark} />}
-        {tab === "chatbot" && <ChatBot dark={dark} initialPrompt={chatSeed.text} initialPromptNonce={chatSeed.nonce} />}
+        {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
+        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} />}
+        {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} />}
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} />}
       </main>

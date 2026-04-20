@@ -55,7 +55,7 @@ function emptyStore() {
   };
 }
 
-// ─── load (with validation + auto-recovery) ─────────────────────────────
+// ─── load (with validation + auto-recovery) ───────────────────────
 function load() {
   if (typeof window === "undefined" || !window.localStorage) return emptyStore();
   try {
@@ -97,7 +97,7 @@ function load() {
   }
 }
 
-// ─── save (with quota handling) ─────────────────────────────────────────
+// ─── save (with quota handling) ──────────────────────────────────
 function save(store) {
   if (typeof window === "undefined" || !window.localStorage) return false;
   try {
@@ -141,7 +141,7 @@ function save(store) {
   }
 }
 
-// ─── public API ─────────────────────────────────────────────────────────
+// ─── public API ──────────────────────────────────────────────
 
 /**
  * 현재 store 반환 (read-only use).

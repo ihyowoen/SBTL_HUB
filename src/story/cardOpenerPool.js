@@ -11,24 +11,24 @@
 //   4. LLM 실패 시 fallback opener 하나 반환 (pickFallbackOpener)
 //
 // Pool의 역할 = LLM voice anchor (출력 자체가 아니라 few-shot 교사).
-// Pool이 그대로 UI에 노출되는 건 LLM 호출 실패 시의 graceful fallback 뿐.
+// Pool이 그대로 UI에 노출되는 건 LLM 호출 실패 시의 graceful fallback 뽐.
 //
 // 재설계 원칙 (Claire 2026-04-19 확정):
 //   - 반말, 끊어 읽힘
-//   - 2~3문장 + 미끼 hint 한 줄로 끝
-//   - "X가 아니라 Y" 대립 구조 금지 (Claire 극혐)
+//   - 2~3문장 + 미끼 hint 한 줄로 끓
+//   - "X가 아니라 Y" 대립 구조 금지 (Claire 극협)
 //   - AI 공식 템플릿 금지 ("이 카드는…", "이 이슈는…")
-//   - 미끼 = 질문 아님. 여지 ("여기서 걸리는 건 —", "해석이 두 갈래 나뉠 건데 —")
+//   - 미끼 = 질문 아님. 여지 ("여기서 걸리는 건 —", "해석이 두 갈래 나뉘질 건데 —")
 // ============================================================================
 
-// ─── Entity patterns ───────────────────────────────────────────────────────
+// ─── Entity patterns ──────────────────────────────────────────────────
 // 텍스트 기반 회사 매칭 regex. classifyCard + weighted retrieve 공용.
 // 필요 시 Phase 1.5에서 확장 (현재 MVP는 배터리 셀/소재 Top-N + 주요 OEM).
 export const ENTITY_PATTERNS = {
   LG:        /LG에너지솔루션|LG엔솔|LGES|LG\s*Energy\s*Solution/i,
   SAMSUNG:   /삼성SDI|Samsung\s*SDI/i,
   SK:        /SK온|SK\s*On|SK이노베이션|SK\s*Innovation/i,
-  CATL:      /CATL|寧德時代|닝더|닝데시다이/i,
+  CATL:      /CATL|寮德時代|닝더|닝데시다이/i,
   BYD:       /BYD|比亞迪|비야디/i,
   POSCO_FM:  /포스코퓨처엠|POSCO\s*Future\s*M/i,
   ECOPRO:    /에코프로|EcoPro/i,
@@ -63,7 +63,7 @@ function getCardText(card) {
   return parts.filter(Boolean).join(' ');
 }
 
-// ─── extractEntities ───────────────────────────────────────────────────────
+// ─── extractEntities ─────────────────────────────────────────────────
 export function extractEntities(card) {
   const text = getCardText(card);
   const hits = new Set();
@@ -74,7 +74,7 @@ export function extractEntities(card) {
   return hits;
 }
 
-// ─── classifyCard ──────────────────────────────────────────────────────────
+// ─── classifyCard ───────────────────────────────────────────────────────
 // 우선순위 높은 카테고리부터 매칭. 매칭 결과에 따라 opener pool + task 지시가 달라짐.
 export function classifyCard(card) {
   if (!card) return 'default';
@@ -107,14 +107,14 @@ export function classifyCard(card) {
   }
 
   // 6. 기술
-  if (cat === 'tech' || /전고체|나트륨|실리콘\s*음극|양산|파일럿|TRL|리튬\s*황|solid-?state|sodium-?ion/i.test(text)) {
+  if (cat === 'tech' || /전고체|나트륨|실리콘\s*음극|양산|파일럿|TRL|리튀\s*황|solid-?state|sodium-?ion/i.test(text)) {
     return 'tech';
   }
 
   return 'default';
 }
 
-// ─── OPENER_POOLS ──────────────────────────────────────────────────────────
+// ─── OPENER_POOLS ─────────────────────────────────────────────────────
 // 각 카테고리 2-3개. LLM few-shot 교사용.
 // Voice: 반말, 끊어 읽힘, 미끼로 끝남, 카드 요약 반복 없음, "X가 아니라 Y" 없음.
 // ※ Claire voice 교정 예정 (Phase 1 리뷰 단계).
@@ -131,7 +131,7 @@ export const OPENER_POOLS = {
   ],
   policy_other: [
     { id: 'po-01', text: '지역 바뀌면 해석 축도 바뀌어. 이 나라 내 정책 사이클이랑 같이 봐야 해.' },
-    { id: 'po-02', text: '이 지역 정책은 원래 예고가 먼저 떨어지는 곳이야. 뒤에 뭐가 붙을지가 관건인데 —' },
+    { id: 'po-02', text: '이 지역 정책은 원래 예고가 먼저 떨어지는 곣이야. 뒤에 뭐가 붙을지가 관건인데 —' },
   ],
   catl_cn: [
     { id: 'catl-01', text: 'CATL 또 CATL. 이번 각도가 좀 달라 — 직전 파트너십 건이랑 같은 결로 봐야 해.' },
@@ -139,7 +139,7 @@ export const OPENER_POOLS = {
     { id: 'catl-03', text: 'BYD·CATL 이중 체제가 동시에 움직일 땐 뒤에 정부 의중 있어. 어느 라인이냐가 중요해.' },
   ],
   kbattery: [
-    { id: 'kb-01', text: '우리 쪽 플레이어야. 해석이 두 갈래 나뉠 건데 — 재무냐 포트폴리오냐야.' },
+    { id: 'kb-01', text: '우리 쪽 플레이어야. 해석이 두 갈래 나뉘질 건데 — 재무냐 포트폴리오냐야.' },
     { id: 'kb-02', text: '이 숫자, 분기 단위로 읽으면 답 달라져. 직전 공시랑 비교하면 —' },
     { id: 'kb-03', text: 'K-3사 동향은 고객사 OEM 로드맵이랑 묶어 봐야 해. 여기서 걸리는 건 —' },
   ],
@@ -150,7 +150,7 @@ export const OPENER_POOLS = {
   ],
   ma_jv: [
     { id: 'mj-01', text: 'JV 결별은 보통 정치 냄새 먼저인데, 여긴 경제 논리가 더 세 보여.' },
-    { id: 'mj-02', text: '숫자 뒤에 회계 의도 있어. 뭘 털려는 건지가 포인트인데 —' },
+    { id: 'mj-02', text: '숫자 뒤에 회계 의도 있어. 뭐을 털려는 건지가 포인트인데 —' },
     { id: 'mj-03', text: '매각가 자체가 시그널이야. 이 수준이면 급한 쪽이 누구냐가 바로 보여.' },
   ],
   ess: [
@@ -165,7 +165,7 @@ export const OPENER_POOLS = {
   ],
 };
 
-// ─── pickFewShotExamples ───────────────────────────────────────────────────
+// ─── pickFewShotExamples ────────────────────────────────────────────────
 // 해당 category pool에서 N개 샘플 반환.
 // recentUsedIds에 있는 opener는 배제. 만약 배제 결과 0개면 recent 무시하고 전체 사용.
 export function pickFewShotExamples(category, recentUsedIds = [], count = 3) {
@@ -179,7 +179,7 @@ export function pickFewShotExamples(category, recentUsedIds = [], count = 3) {
   return shuffled.slice(0, Math.min(count, shuffled.length));
 }
 
-// ─── pickFallbackOpener ────────────────────────────────────────────────────
+// ─── pickFallbackOpener ─────────────────────────────────────────────────
 // LLM 호출 실패 시 graceful fallback용 단일 opener.
 // LLM 성공 시에는 이 함수 결과는 UI에 절대 노출되지 않음.
 export function pickFallbackOpener(category, recentUsedIds = []) {

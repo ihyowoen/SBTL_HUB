@@ -653,6 +653,274 @@ function ReceiptBubble({ meta, openedAt, dark }) {
   );
 }
 
+// ============================================================================
+// 배터리 상담소 — 3-stage v2 bubble 컴포넌트들 (Step 2-A)
+// ============================================================================
+
+// 1차 — Scout (정찰병): 사실 확인
+function ScoutBubble({ stageOutput, dark }) {
+  const t = T(dark);
+  const { summary, facts = [], unknowns = [] } = stageOutput || {};
+
+  return (
+    <div style={{
+      margin: "8px 0",
+      padding: "14px 16px",
+      background: dark ? "#1A2333" : "#FFFFFF",
+      border: `1px solid ${t.brd}`,
+      borderRadius: "18px 18px 18px 6px",
+      borderLeft: `3px solid #58A6FF`,
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
+        <span style={{
+          fontSize: 10, fontWeight: 800, color: "#58A6FF",
+          background: dark ? "rgba(88,166,255,0.14)" : "rgba(45,90,142,0.10)",
+          padding: "3px 8px", borderRadius: 999,
+          fontFamily: "'JetBrains Mono',monospace",
+        }}>
+          📋 1차 · 사실 확인
+        </span>
+      </div>
+
+      {summary && (
+        <div style={{
+          fontSize: 13, lineHeight: 1.6, color: t.tx, marginBottom: 12,
+          fontFamily: "'Pretendard',sans-serif",
+        }}>
+          {summary}
+        </div>
+      )}
+
+      {facts.length > 0 && (
+        <div style={{ marginBottom: unknowns.length > 0 ? 12 : 0 }}>
+          <div style={{
+            fontSize: 9, color: t.sub, fontWeight: 700, marginBottom: 6,
+            fontFamily: "'JetBrains Mono',monospace",
+          }}>
+            FACTS · {facts.length}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            {facts.map((f) => (
+              <div key={f.id} style={{
+                padding: "8px 10px",
+                background: dark ? "rgba(88,166,255,0.05)" : "rgba(88,166,255,0.03)",
+                borderRadius: 8,
+                border: `1px solid ${dark ? "rgba(88,166,255,0.12)" : "rgba(88,166,255,0.08)"}`,
+              }}>
+                <div style={{
+                  display: "flex", alignItems: "center", gap: 6, marginBottom: 3,
+                  flexWrap: "wrap",
+                }}>
+                  <span style={{
+                    fontSize: 9, fontWeight: 800, color: "#58A6FF",
+                    fontFamily: "'JetBrains Mono',monospace",
+                  }}>
+                    {f.id}
+                  </span>
+                  <span style={{
+                    fontSize: 9, color: t.sub,
+                    fontFamily: "'JetBrains Mono',monospace",
+                  }}>
+                    {f.subject}
+                    {f.time ? ` · ${f.time}` : ""}
+                    {f.place ? ` · ${f.place}` : ""}
+                  </span>
+                </div>
+                <div style={{ fontSize: 12, color: t.tx, lineHeight: 1.5 }}>
+                  {f.raw}
+                </div>
+                {f.value && (
+                  <div style={{
+                    fontSize: 10, color: t.cyan, marginTop: 3, fontWeight: 700,
+                    fontFamily: "'JetBrains Mono',monospace",
+                  }}>
+                    {f.value}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {unknowns.length > 0 && (
+        <div style={{
+          padding: "8px 10px",
+          background: dark ? "rgba(125,133,144,0.06)" : "rgba(125,133,144,0.04)",
+          borderRadius: 8,
+          borderLeft: `2px solid ${t.sub}`,
+        }}>
+          <div style={{
+            fontSize: 9, color: t.sub, fontWeight: 700, marginBottom: 4,
+            fontFamily: "'JetBrains Mono',monospace",
+          }}>
+            아직 모르는 것
+          </div>
+          {unknowns.map((u, i) => (
+            <div key={i} style={{
+              fontSize: 11, color: t.sub, lineHeight: 1.5, marginTop: 2,
+            }}>
+              · {u}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// 2차 — Analyst (분석가): 한 각도 해석
+function AnalystBubble({ stageOutput, dark }) {
+  const t = T(dark);
+  const { angle, interpretation, key_tension } = stageOutput || {};
+
+  // fact id (f1, f2 ...) 자동 하이라이트
+  const renderInterpretation = (text) => {
+    if (!text) return null;
+    const parts = text.split(/(\bf\d+\b)/g);
+    return parts.map((part, i) =>
+      /^f\d+$/.test(part)
+        ? <span key={i} style={{
+            color: "#58A6FF", fontWeight: 800,
+            fontFamily: "'JetBrains Mono',monospace",
+            background: dark ? "rgba(88,166,255,0.12)" : "rgba(45,90,142,0.08)",
+            padding: "1px 5px", borderRadius: 4,
+          }}>{part}</span>
+        : <span key={i}>{part}</span>
+    );
+  };
+
+  return (
+    <div style={{
+      margin: "8px 0",
+      padding: "14px 16px",
+      background: dark ? "#1A2333" : "#FFFFFF",
+      border: `1px solid ${t.brd}`,
+      borderRadius: "18px 18px 18px 6px",
+      borderLeft: `3px solid #D29922`,
+    }}>
+      <div style={{
+        display: "flex", alignItems: "center", gap: 6, marginBottom: 8,
+        flexWrap: "wrap",
+      }}>
+        <span style={{
+          fontSize: 10, fontWeight: 800, color: "#D29922",
+          background: dark ? "rgba(210,153,34,0.14)" : "rgba(210,153,34,0.10)",
+          padding: "3px 8px", borderRadius: 999,
+          fontFamily: "'JetBrains Mono',monospace",
+        }}>
+          🔍 2차 · 핵심 각도
+        </span>
+        {angle && (
+          <span style={{
+            fontSize: 10, fontWeight: 700, color: t.tx,
+            background: dark ? "rgba(210,153,34,0.08)" : "rgba(210,153,34,0.06)",
+            padding: "3px 8px", borderRadius: 999,
+            fontFamily: "'JetBrains Mono',monospace",
+            border: `1px solid ${dark ? "rgba(210,153,34,0.2)" : "rgba(210,153,34,0.15)"}`,
+          }}>
+            {angle}
+          </span>
+        )}
+      </div>
+
+      {interpretation && (
+        <div style={{
+          fontSize: 13, lineHeight: 1.65, color: t.tx, marginBottom: 12,
+          fontFamily: "'Pretendard',sans-serif",
+        }}>
+          {renderInterpretation(interpretation)}
+        </div>
+      )}
+
+      {key_tension && (
+        <div style={{
+          padding: "10px 12px",
+          background: dark ? "rgba(210,153,34,0.07)" : "rgba(210,153,34,0.05)",
+          borderRadius: 8,
+          borderLeft: `2px solid #D29922`,
+        }}>
+          <div style={{
+            fontSize: 9, color: "#D29922", fontWeight: 800, marginBottom: 4,
+            fontFamily: "'JetBrains Mono',monospace",
+          }}>
+            ⚡ 핵심 쟁점
+          </div>
+          <div style={{
+            fontSize: 12, color: t.tx, lineHeight: 1.5, fontWeight: 600,
+          }}>
+            {key_tension}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Wrapper: avatar + bubble + suggestions row
+function StageWrapper({ m, dark, runSuggestion, BubbleComponent, errorFallback }) {
+  const t = T(dark);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", marginBottom: 10 }}>
+      <div style={{ display: "flex", justifyContent: "flex-start", width: "100%" }}>
+        <img src="/data/kang.png" alt="강차장" style={{
+          width: 28, height: 28, borderRadius: 14, marginRight: 7,
+          flexShrink: 0, marginTop: 2, border: "2px solid #2a1a40",
+        }} />
+        <div style={{ maxWidth: "88%" }}>
+          {m.stage_output
+            ? <BubbleComponent stageOutput={m.stage_output} dark={dark} />
+            : (
+              <div style={{
+                padding: "11px 14px", fontSize: 13, color: t.sub,
+                background: dark ? "#1A2333" : "#FFFFFF",
+                border: `1px solid ${t.brd}`,
+                borderRadius: "18px 18px 18px 6px",
+              }}>
+                {errorFallback || "응답 생성에 문제가 있었어. 다시 시도해줘."}
+                {m.stage_error && (
+                  <div style={{
+                    fontSize: 9, color: t.sub, marginTop: 6,
+                    fontFamily: "'JetBrains Mono',monospace", opacity: 0.6,
+                  }}>
+                    [{m.stage_error}]
+                  </div>
+                )}
+              </div>
+            )
+          }
+        </div>
+      </div>
+      {m.suggestions?.length > 0 && (
+        <div style={{
+          display: "flex", gap: 6, flexWrap: "wrap",
+          marginTop: 8, marginBottom: 4, paddingLeft: 35,
+        }}>
+          {m.suggestions.map((s) => {
+            const isAdvance = s.hint_action === "advance_stage";
+            return (
+              <button key={s.label} onClick={() => runSuggestion(s)} style={{
+                background: isAdvance ? t.cyan : (dark ? "#1A2333" : "#fff"),
+                color: isAdvance ? "#000" : t.cyan,
+                border: isAdvance ? "none" : `1px solid ${t.brd}`,
+                borderRadius: 999,
+                padding: isAdvance ? "12px 20px" : "10px 16px",
+                minHeight: "44px",
+                fontSize: isAdvance ? 12 : 11,
+                fontWeight: isAdvance ? 800 : 600,
+                cursor: "pointer",
+                fontFamily: "'Pretendard',sans-serif",
+              }}>
+                {isAdvance ? `${s.label} →` : s.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0 }) {
   const t = T(dark);
   const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
@@ -665,12 +933,14 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   // ChatContext Protocol (Phase 2)
   const chatCtxRef = useRef({ last_turn: null, root_turn: null, selected_item_id: null, region: null, date: null });
   // 현재 active consultation — 후속 유저 메시지는 이 consultation followup으로 처리
+  // v2 형태: { id, cardContext, stage1_output, stage2_output, current_stage }
+  // current_stage: 0=시작 전, 1/2/3=완료한 stage
   const currentConsultRef = useRef(null);
-  // 세션 hook agenda — opener가 선언한 hook을 유저가 탭할 때까지 유지
+  // 세션 hook agenda — opener가 선언한 hook을 유저가 탭할 때까지 유지 (legacy v1)
   const sessionHooksRef = useRef([]);          // [{label, hint_action, hint_topic}]
   const usedTopicsRef = useRef(new Set());     // Set<string> (hint_topic)
 
-  // 미사용 opener hook + 서버 hook dedupe 병합 (label 기준)
+  // 미사용 opener hook + 서버 hook dedupe 병합 (label 기준) — legacy v1 only
   const composeSessionSuggestions = (serverSugs = []) => {
     const carried = sessionHooksRef.current.filter(
       (h) => h && h.hint_topic && !usedTopicsRef.current.has(h.hint_topic)
@@ -759,60 +1029,135 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     return postChat(body);
   };
 
-  // ─── Consultation opener (initialConsultation seed 진입 시) ──────────
+  // ─── Consultation v2 — Stage 1 (Scout) opener ─────────────────────────
   const startConsultation = async (init) => {
     if (!init?.cardContext?.card) return;
     currentConsultRef.current = {
       id: init.consultationId,
       cardContext: init.cardContext,
+      stage1_output: null,
+      stage2_output: null,
+      current_stage: 0,
     };
 
-    // 1) 접수증 push (유저 풍선 아님)
-    const receiptMsg = {
+    // 1) 접수증 push
+    setMsgs((prev) => [...prev, {
       role: "receipt",
       card_meta: init.card_meta,
       opened_at: init.opened_at,
-    };
-    setMsgs((prev) => [...prev, receiptMsg]);
+    }]);
 
-    // 2) opener LLM 호출 + typing ceremony
+    // 2) Stage 1 (Scout) 호출
     setLoadingMode("typing_consult");
     const t0 = Date.now();
     try {
       const data = await postChat({
-        consultation: init.cardContext,
-        is_opener: true,
+        consultation: {
+          ...init.cardContext,
+          stage: 1,
+        },
         ticket_id: init.consultationId,
         context: chatCtxRef.current,
       });
       await ceremonyWait(t0);
       updateContextFromResponse(data);
-      // 세션 agenda 초기화: opener가 선언한 hook을 sessionHooksRef에 저장
-      const openerSuggestions = Array.isArray(data?.suggestions) ? data.suggestions : [];
-      sessionHooksRef.current = openerSuggestions.filter((s) => s && s.hint_topic);
-      usedTopicsRef.current = new Set();
-      const uiMsg = toUiMessage(data);
-      setMsgs((prev) => [...prev, uiMsg]);
+
+      if (data?.stage_output) {
+        currentConsultRef.current.stage1_output = data.stage_output;
+        currentConsultRef.current.current_stage = 1;
+      }
+
+      setMsgs((prev) => [...prev, {
+        role: "scout",
+        stage_output: data?.stage_output || null,
+        suggestions: Array.isArray(data?.suggestions) ? data.suggestions : [],
+        stage_error: data?.debug?.stage_error || null,
+      }]);
 
       if (init.consultationId) {
         appendMessage(init.consultationId, {
           role: "assistant",
           content: data?.answer || "",
-          opener: true,
+          stage: 1,
         });
       }
     } catch {
       setMsgs((prev) => [...prev, {
         role: "assistant",
         content: "강차장 잠시 자리 비웠어. 잠깐 뒤에 다시 제출해줘.",
-        suggestions: [{ label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" }],
+        suggestions: [],
       }]);
     } finally {
       setLoadingMode("none");
     }
   };
 
-  // ─── Consultation followup (유저 메시지 after opener) ────────────────
+  // ─── Consultation v2 — Stage advance (2 or 3) ────────────────────────
+  const advanceConsultationStage = async (toStage) => {
+    const consult = currentConsultRef.current;
+    if (!consult) return;
+    if (toStage !== 2 && toStage !== 3) return;
+    if (toStage === 2 && !consult.stage1_output) return;
+    if (toStage === 3 && (!consult.stage1_output || !consult.stage2_output)) return;
+
+    // Step 2-A 한정: stage 3 미구현 안내 (Step 2-B에서 RedTeam 추가)
+    if (toStage === 3) {
+      setMsgs((prev) => [...prev, {
+        role: "assistant",
+        content: "3차 (빨간펜) 모드는 다음 업데이트에서 열려. 지금은 1·2차까지 가능해.",
+        suggestions: [],
+      }]);
+      return;
+    }
+
+    setLoadingMode("typing_consult");
+    const t0 = Date.now();
+    try {
+      const data = await postChat({
+        consultation: {
+          ...consult.cardContext,
+          stage: toStage,
+          prev_stage1: consult.stage1_output,
+          prev_stage2: toStage === 3 ? consult.stage2_output : undefined,
+        },
+        ticket_id: consult.id,
+        context: chatCtxRef.current,
+      });
+      await ceremonyWait(t0);
+      updateContextFromResponse(data);
+
+      if (data?.stage_output && toStage === 2) {
+        currentConsultRef.current.stage2_output = data.stage_output;
+        currentConsultRef.current.current_stage = 2;
+      }
+
+      const role = toStage === 2 ? "analyst" : "redteam";
+      setMsgs((prev) => [...prev, {
+        role,
+        stage_output: data?.stage_output || null,
+        suggestions: Array.isArray(data?.suggestions) ? data.suggestions : [],
+        stage_error: data?.debug?.stage_error || null,
+      }]);
+
+      if (consult.id) {
+        appendMessage(consult.id, {
+          role: "assistant",
+          content: data?.answer || "",
+          stage: toStage,
+        });
+      }
+    } catch {
+      setMsgs((prev) => [...prev, {
+        role: "assistant",
+        content: "강차장 잠시 자리 비웠어. 잠깐 뒤에 다시.",
+        suggestions: [],
+      }]);
+    } finally {
+      setLoadingMode("none");
+    }
+  };
+
+  // ─── Consultation legacy v1 followup (사용 안 됨, Step 4에서 제거) ───
   const sendConsultFollowup = async (txt, consult) => {
     setMsgs((prev) => [...prev, { role: "user", content: txt }]);
     if (consult.id) appendMessage(consult.id, { role: "user", content: txt });
@@ -829,7 +1174,6 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
       });
       await ceremonyWait(t0);
       updateContextFromResponse(data);
-      // followup: 세션 agenda (미사용 opener hook) + 서버 hook 병합
       const uiMsg = toUiMessage(data);
       uiMsg.suggestions = composeSessionSuggestions(data?.suggestions);
       setMsgs((prev) => [...prev, uiMsg]);
@@ -844,16 +1188,19 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     }
   };
 
-  // ─── 일반 chat (기존 로직 유지, loadingMode만 전환) ──────────────────
+  // ─── 일반 chat (loadingMode만 전환) ─────────────────────────────────
   const sendWithText = async (rawText, hint = null) => {
     const txt = String(rawText || "").trim();
     if (!txt || isLoading) return;
 
     setInput("");
 
-    // 현재 active consultation이 있으면 followup 경로로
+    // v2 consultation 진행 중: 텍스트 입력은 consultation 모드 종료 → 일반 chat fallback
     const consult = currentConsultRef.current;
-    if (consult) {
+    if (consult && consult.current_stage > 0) {
+      currentConsultRef.current = null;
+    } else if (consult) {
+      // legacy v1 (current_stage 없음): 기존 followup 흐름 (사실상 안 탐 — v2 진입 시 항상 stage>0)
       await sendConsultFollowup(txt, consult);
       return;
     }
@@ -922,9 +1269,16 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   const runSuggestion = (suggestion) => {
     const label = typeof suggestion === "string" ? suggestion : (suggestion?.label || "");
     const hint = typeof suggestion === "object" ? suggestion : null;
-    // 세션 agenda 탭 추적 — consultation 세션일 때만 의미 있음
+
+    // ★ v2: advance_stage hint
+    if (hint?.hint_action === "advance_stage" && hint?.hint_stage) {
+      void advanceConsultationStage(hint.hint_stage);
+      return;
+    }
+
+    // 세션 agenda 탭 추적 — legacy v1 consultation일 때만 의미 있음
     const tappedTopic = hint?.hint_topic;
-    if (tappedTopic && currentConsultRef.current) {
+    if (tappedTopic && currentConsultRef.current && !currentConsultRef.current.current_stage) {
       usedTopicsRef.current.add(tappedTopic);
     }
     const map = {
@@ -960,6 +1314,10 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     void sendWithText(next, hint);
   };
 
+  // input placeholder 동적 — consultation v2 진행 중이면 안내 변경
+  const consult = currentConsultRef.current;
+  const consultActive = !!consult && consult.current_stage > 0;
+
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "calc(100vh - 190px)" }}>
       <div role="log" aria-live="polite" aria-atomic="false" aria-label="대화 내역" style={{ flex: 1, overflowY: "auto", padding: "12px 14px 8px" }}>
@@ -976,6 +1334,14 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
           if (m.role === "receipt") {
             return <ReceiptBubble key={`receipt-${i}`} meta={m.card_meta} openedAt={m.opened_at} dark={dark} />;
           }
+          // v2 stage bubbles
+          if (m.role === "scout") {
+            return <StageWrapper key={`scout-${i}`} m={m} dark={dark} runSuggestion={runSuggestion} BubbleComponent={ScoutBubble} errorFallback="1차 접수 중에 문제가 있었어. 다시 시도해줘." />;
+          }
+          if (m.role === "analyst") {
+            return <StageWrapper key={`analyst-${i}`} m={m} dark={dark} runSuggestion={runSuggestion} BubbleComponent={AnalystBubble} errorFallback="2차 분석 중에 문제가 있었어. 다시 시도해줘." />;
+          }
+          // m.role === "redteam" — Step 2-B에서 RedTeamBubble 추가 예정
           return (
             <div key={i} role="article" aria-label={m.role === "user" ? "내 질문" : "AI 답변"} style={{ display: "flex", flexDirection: "column", alignItems: m.role === "user" ? "flex-end" : "flex-start", marginBottom: 10 }}>
               <div style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", width: "100%" }}>
@@ -1057,7 +1423,13 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
                 searchMode === "external" ? void sendExternal(extQuery) : void sendWithText(input);
               }
             }}
-            placeholder={searchMode === "internal" ? "궁금한 주제를 입력해줘" : "외부 기사 검색어 입력 (예: LFP 화재 리스크)"}
+            placeholder={
+              searchMode === "external"
+                ? "외부 기사 검색어 입력 (예: LFP 화재 리스크)"
+                : consultActive
+                  ? "다음 단계 버튼 → 또는 자유롭게 질문해"
+                  : "궁금한 주제를 입력해줘"
+            }
             aria-label={searchMode === "internal" ? "Ask AI assistant" : "Search external articles"}
             style={{ flex: 1, padding: "12px 14px", minHeight: "44px", borderRadius: 10, border: `1px solid ${searchMode === "external" ? (dark ? "rgba(210,153,34,0.3)" : "rgba(210,153,34,0.2)") : t.brd}`, background: searchMode === "external" ? (dark ? "#1A1E2A" : "#FFFBF0") : t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }}
           />

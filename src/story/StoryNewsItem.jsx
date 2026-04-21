@@ -1,6 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeCard } from './normalizeCard';
-import { buildCardConsultPrompt } from './buildCardConsultPrompt';
+
+// ============================================================================
+// 배터리 상담소 재설계 Phase 1 (2026-04-19)
+// ----------------------------------------------------------------------------
+// 변경점:
+//   - 버튼 wording: "이 카드로 계속 물어보기" → "📋 상담카드 제출"
+//   - 버튼 상시 노출: 브리프(핵심만/콕짚기) 펴지 않아도 footer에 항상 있음
+//   - callback: onAskChatbot(promptString) → onSubmitConsultation(rawCard)
+// ----------------------------------------------------------------------------
+// 2026-04-20: 상담 횟수 hint 제거 (per-browser localStorage 카운터라
+// 다수 사용자 환경에선 의미 없고 혼란 유발. consultationHint prop은
+// 호환성 위해 시그니처에 유지하되 렌더링 안 함.)
+// ============================================================================
 
 const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
 const SIG_LABELS = { top: 'TOP', high: 'HIGH', mid: 'MID', info: 'INFO', t: 'TOP', h: 'HIGH', m: 'MID', i: 'INFO' };
@@ -88,7 +100,16 @@ function OverlayPill({ children }) {
   );
 }
 
-export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '', featured = false }) {
+export default function StoryNewsItem({
+  card,
+  dark,
+  onSubmitConsultation,
+  coverImage = '',
+  featured = false,
+  // consultationHint prop은 호환성 유지 — 더 이상 렌더링 안 함.
+  // eslint-disable-next-line no-unused-vars
+  consultationHint = null,
+}) {
   const t = theme(dark);
   const c = useMemo(() => normalizeCard(card), [card]);
   const [activeMode, setActiveMode] = useState(null);
@@ -100,7 +121,6 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
   const hasCover = Boolean(coverImage);
   const lines = activeMode ? makeBriefLines(c, activeMode) : [];
 
-  // Layout mode: 'lead' (cover + featured) | 'plain' (no cover, or cover without featured)
   const layout = hasCover && featured ? 'lead' : 'plain';
 
   useEffect(() => () => {
@@ -121,7 +141,12 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
     }, THINK_MS);
   };
 
-  // Footer padding differs per layout
+  const handleSubmit = () => {
+    if (typeof onSubmitConsultation === 'function') {
+      onSubmitConsultation(card);
+    }
+  };
+
   const footerPadding = layout === 'lead' ? '12px 16px 16px' : '0 16px 16px';
 
   return (
@@ -164,17 +189,37 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
       )}
 
       <div style={{ padding: footerPadding, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {/* Action row — 항상 노출 (상시 3개 버튼 + 조건부 원문/상담카드) */}
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
           <button onClick={() => openBrief('summary')} style={{ borderRadius: 999, border: '1px solid #58A6FF55', background: activeMode === 'summary' ? '#58A6FF' : 'transparent', color: activeMode === 'summary' ? '#000' : '#58A6FF', padding: '8px 12px', minHeight: '36px', fontSize: 11, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>핵심만 보면</button>
           <button onClick={() => openBrief('insight')} style={{ borderRadius: 999, border: '1px solid #A855F755', background: activeMode === 'insight' ? '#A855F7' : 'transparent', color: activeMode === 'insight' ? '#000' : '#A855F7', padding: '8px 12px', minHeight: '36px', fontSize: 11, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap' }}>강차장 콕 짚기</button>
           {c.primaryUrl ? (
             <button
               onClick={() => window.open(c.primaryUrl, '_blank', 'noopener,noreferrer')}
-              style={{ marginLeft: 'auto', borderRadius: 999, border: `1px solid ${t.brd}`, background: 'transparent', color: t.sub, padding: '8px 12px', minHeight: '36px', fontSize: 11, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
+              style={{ borderRadius: 999, border: `1px solid ${t.brd}`, background: 'transparent', color: t.sub, padding: '8px 12px', minHeight: '36px', fontSize: 11, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}
             >원문 ↗</button>
           ) : null}
+          {/* 상담카드 제출 — 상시 노출, 우측 정렬 */}
+          <button
+            onClick={handleSubmit}
+            aria-label="이 카드를 배터리 상담소에 제출"
+            style={{
+              marginLeft: 'auto',
+              borderRadius: 999,
+              border: `1px solid ${t.cyan}`,
+              background: t.cyan,
+              color: '#000',
+              padding: '8px 14px',
+              minHeight: '36px',
+              fontSize: 11,
+              fontWeight: 900,
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+            }}
+          >📋 상담카드 제출</button>
         </div>
 
+        {/* Brief panel — 핵심만/콕짚기 펼쳤을 때만 */}
         {(thinkingMode || activeMode) ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {thinkingMode ? (
@@ -188,14 +233,10 @@ export default function StoryNewsItem({ card, dark, onAskChatbot, coverImage = '
                 <div style={{ maxWidth: '86%', background: t.card, borderRadius: '18px 18px 18px 6px', border: `1px solid ${t.brd}`, padding: '11px 14px', color: t.tx, fontSize: 13, lineHeight: 1.68, wordBreak: 'keep-all' }}>{line}</div>
               </div>
             ))}
-
-            {!thinkingMode && activeMode && onAskChatbot ? (
-              <div style={{ paddingLeft: 36 }}>
-                <button onClick={() => onAskChatbot(buildCardConsultPrompt(card))} style={{ borderRadius: 999, border: `1px solid ${t.brd}`, background: dark ? 'rgba(255,255,255,0.03)' : '#fff', color: t.tx, padding: '10px 13px', minHeight: '38px', fontSize: 11, fontWeight: 800, cursor: 'pointer' }}>이 카드로 계속 물어보기</button>
-              </div>
-            ) : null}
           </div>
         ) : null}
+
+        {/* 2026-04-20: 상담 횟수 hint footer 제거됨 (per-browser 카운터라 다수 사용자 환경에선 의미 없음) */}
       </div>
     </div>
   );

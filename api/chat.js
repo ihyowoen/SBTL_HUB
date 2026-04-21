@@ -1,23 +1,6 @@
 // ============================================================================
 // POST /api/chat — Phase 2 5-layer orchestrator
 // ============================================================================
-// 재작성: 2026-04-15
-//
-// Pipeline:
-//   Layer 1: parseRequest    → { action, topic, scope, rawMessage }
-//   Layer 2: resolveContext  → { ok, clarification?, resolved }
-//   Layer 3: retrieve        → { source, cards, faq?, policy?, news_meta? }
-//   Layer 4: synthesize      → { answer, used_llm, meta, delegate? }
-//   Layer 5: respond         → ChatResponse
-//
-// 특수 경로:
-// - action=analyze_card → Layer 4에서 delegate marker → /api/analysis 위임
-// - Layer 2 clarification → Layer 3/4 skip, respondClarification
-// - [카드상담] handoff → 단일 카드 LLM 상담 경로
-//
-// 해결 결함:
-// - D11 (follow_up 오남용) · D12 (answer_type 마스킹) · D13 (중복 rewrite) · S1 (VITE_BRAVE_KEY fallback)
-// ============================================================================
 
 import { loadKnowledge } from "../lib/chat/common.js";
 import { parseRequest } from "../lib/chat/parseRequest.js";
@@ -26,6 +9,7 @@ import { retrieve } from "../lib/chat/retrieve/index.js";
 import { synthesize } from "../lib/chat/synthesize.js";
 import { respond, respondClarification } from "../lib/chat/respond.js";
 import { synthesizeCardAnalysis, synthesizeCardConsult } from "../lib/chat/llm.js";
+import { synthesizeScout, synthesizeAnalyst, synthesizeRedTeam } from "../lib/chat/consultation.js";
 
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -50,112 +34,306 @@ function stableError(res, status, message, debug = {}) {
   });
 }
 
-function parseCardConsultRequest(message) {
-  const raw = String(message || "").trim();
-  if (!raw.startsWith("[카드상담]")) return null;
-
-  const lines = raw.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
-  const ask = lines.find((line) => !line.startsWith("[카드상담]") && !line.startsWith("카드 제목:") && !line.startsWith("카드 URL:")) || "이 카드 기준으로만 설명해줘.";
-  const title = lines.find((line) => line.startsWith("카드 제목:"))?.replace(/^카드 제목:\s*/, "") || "";
-  const url = lines.find((line) => line.startsWith("카드 URL:"))?.replace(/^카드 URL:\s*/, "") || "";
-
-  return { ask, title, url };
-}
-
-function getCardPrimaryUrl(card) {
-  if (!card || typeof card !== "object") return "";
-  if (card.url) return String(card.url);
-  if (Array.isArray(card.urls) && card.urls[0]) return String(card.urls[0]);
-  return "";
-}
-
-function findCardForConsult(consult, cards = []) {
-  const targetUrl = String(consult?.url || "").trim();
-  const targetTitle = String(consult?.title || "").trim().toLowerCase();
-
-  if (targetUrl) {
-    const byUrl = cards.find((card) => getCardPrimaryUrl(card) === targetUrl);
-    if (byUrl) return { card: byUrl, matchedBy: "url" };
-  }
-
-  if (targetTitle) {
-    const byTitle = cards.find((card) => {
-      const title = String(card?.T || card?.title || "").trim().toLowerCase();
-      return title && title === targetTitle;
-    });
-    if (byTitle) return { card: byTitle, matchedBy: "title" };
-  }
-
-  return { card: null, matchedBy: null };
-}
-
-function buildUiCard(card) {
+function leanCardToUiCard(leanCard) {
+  if (!leanCard) return null;
   return {
-    title: card?.T || card?.title || "",
-    subtitle: card?.sub || "",
-    gist: card?.g || "",
-    signal: card?.s || card?.signal || "i",
-    date: card?.d || card?.date || "",
-    region: card?.r || card?.region || "GL",
-    source: card?.src || card?.source || "",
-    url: getCardPrimaryUrl(card),
+    title: leanCard.title || "",
+    subtitle: leanCard.sub || "",
+    gist: leanCard.gate || "",
+    signal: (leanCard.signal || "i").toString().slice(0, 1).toLowerCase(),
+    date: leanCard.date || "",
+    region: leanCard.region || "GL",
+    source: leanCard.source || "",
+    url: leanCard.primary_url || "",
   };
 }
 
-function fallbackCardConsultAnswer(card) {
-  const title = card?.T || card?.title || "이 카드";
-  const fact = card?.sub || "카드에 적힌 사실 중심으로 보면 돼.";
-  const gate = card?.g || "카드 기준으로는 추가 의미 해석은 제한적이야.";
-  return `${title} 얘기야. ${fact} 왜 중요한지는 ${gate} 다음 체크포인트는 원문이랑 후속 공시나 기사 업데이트가 붙는지 보는 거야.`;
+const IN_CHARACTER_ERRORS = [
+  "강차장 잠시 자리 비웠어. 잠깐 뒤에 다시 제출해줘.",
+  "접수 꼬였네. 새로고침하고 한 번만 다시 보내줘.",
+  "지금 다른 상담 중이야. 1분만.",
+];
+
+function pickInCharacterError() {
+  return IN_CHARACTER_ERRORS[Math.floor(Math.random() * IN_CHARACTER_ERRORS.length)];
 }
 
-function buildCardConsultResponse({ card, answer, llmResult, consult, debugBase }) {
-  const uiCard = buildUiCard(card);
-  const answerText = answer || fallbackCardConsultAnswer(card);
+const FALLBACK_OPENER_HOOKS = [
+  { label: "조금 더 쉽게 설명해줘", hint_action: "rephrase" },
+  { label: "왜 중요한지 한 줄로", hint_action: "new_query" },
+  { label: "관련 카드 더 보여줘", hint_action: "follow_up" },
+];
+
+const FALLBACK_FOLLOWUP_HOOKS = [
+  { label: "조금 더 쉽게 설명해줘", hint_action: "rephrase" },
+  { label: "관련 카드 더 보여줘", hint_action: "follow_up" },
+];
+
+function mapRemainingPointsToSuggestions(remainingPoints) {
+  if (!Array.isArray(remainingPoints)) return null;
+  const mapped = remainingPoints
+    .slice(0, 3)
+    .filter((p) => p && typeof p.label === "string" && p.label.trim())
+    .map((p) => ({
+      label: String(p.label).trim(),
+      hint_action: "follow_up",
+      hint_topic: String(p.topic || "").trim() || undefined,
+    }));
+  return mapped.length ? mapped : null;
+}
+
+// ============================================================================
+// 3-stage consultation v2 — Scout / Analyst / RedTeam
+// ============================================================================
+
+function makeStageErrorResponse({ stage, ticketId, debugBase, stageError, message }) {
+  return {
+    answer: message,
+    answer_type: "consultation_stage",
+    source_mode: "internal",
+    confidence: 0.1,
+    cards: [],
+    external_links: [],
+    suggestions: [],
+    next_context: { last_turn: null, root_turn: null },
+    stage,
+    stage_output: null,
+    next_stage_label: null,
+    debug: {
+      ...debugBase,
+      consultation_v2: true,
+      stage,
+      ticket_id: ticketId || null,
+      stage_error: stageError,
+    },
+  };
+}
+
+async function handleConsultationV2({ consultation, ticketId, debugBase }) {
+  const { stage, card, related_cards, prev_stage1, prev_stage2 } = consultation;
+
+  if (!card || !card.title) {
+    return makeStageErrorResponse({
+      stage,
+      ticketId,
+      debugBase,
+      stageError: "invalid-card-context",
+      message: "상담 카드 정보가 깨져 있어. 카드에서 다시 한번 눌러줘.",
+    });
+  }
+
+  const cardContext = { card, related_cards: related_cards || [] };
+  const uiCard = leanCardToUiCard(card);
+
+  let result;
+  let answerLine;
+  let nextStageLabel;
+
+  if (stage === 1) {
+    result = await synthesizeScout({ cardContext });
+    answerLine = result?.stageOutput?.summary;
+    nextStageLabel = "강차장 더 깊이 물어보기";
+  } else if (stage === 2) {
+    if (!prev_stage1) {
+      return makeStageErrorResponse({
+        stage, ticketId, debugBase,
+        stageError: "no-prev-stage1",
+        message: "1차 결과가 없어서 2차 진행 못 해. 새로고침 해서 1차부터 다시 가줘.",
+      });
+    }
+    result = await synthesizeAnalyst({ cardContext, prevStage1: prev_stage1 });
+    answerLine = result?.stageOutput?.interpretation;
+    nextStageLabel = "최종 판단 받기";
+  } else if (stage === 3) {
+    if (!prev_stage1 || !prev_stage2) {
+      return makeStageErrorResponse({
+        stage, ticketId, debugBase,
+        stageError: "no-prev-stage",
+        message: "1차나 2차 결과가 없어서 3차 진행 못 해. 새로고침 해서 1차부터 다시 가줘.",
+      });
+    }
+    result = await synthesizeRedTeam({
+      cardContext,
+      prevStage1: prev_stage1,
+      prevStage2: prev_stage2,
+    });
+    answerLine = result?.stageOutput?.counter_scenario;
+    nextStageLabel = null;
+  } else {
+    return makeStageErrorResponse({
+      stage, ticketId, debugBase,
+      stageError: `invalid-stage-${stage}`,
+      message: "알 수 없는 단계야. 1~3 중 하나여야 돼.",
+    });
+  }
+
+  const stageOk = !!result?.stageOutput;
+
+  const suggestions = (stageOk && nextStageLabel)
+    ? [{ label: nextStageLabel, hint_action: "advance_stage", hint_stage: stage + 1 }]
+    : [];
+
+  const lastTurn = {
+    topic: "consultation_stage",
+    answer_text: answerLine || null,
+    cards: uiCard ? [uiCard] : [],
+    consultation_ticket_id: ticketId || null,
+    consultation_card_id: card.id || null,
+    consultation_stage: stage,
+  };
+
+  console.log(
+    `[chat-consultation-v2-out] stage=${stage} stage_ok=${stageOk} ` +
+    `provider=${result?.provider || "-"} error=${result?.error || "-"} ` +
+    `latency=${result?.latencyMs || 0}ms next=${nextStageLabel || "none"}`
+  );
+
+  return {
+    answer: stageOk ? answerLine : pickInCharacterError(),
+    answer_type: "consultation_stage",
+    source_mode: "internal",
+    confidence: stageOk ? 0.86 : 0.35,
+    cards: [],
+    external_links: [],
+    suggestions,
+    next_context: { last_turn: lastTurn, root_turn: lastTurn },
+    stage,
+    stage_output: result?.stageOutput || null,
+    next_stage_label: nextStageLabel,
+    debug: {
+      ...debugBase,
+      consultation_v2: true,
+      stage,
+      ticket_id: ticketId || null,
+      card_id: card.id || null,
+      stage_error: result?.error || null,
+      llm: {
+        used: stageOk,
+        error: result?.error || null,
+        latency_ms: result?.latencyMs || 0,
+        provider: result?.provider || "unknown",
+        fallback_from: result?.fallback_from || null,
+      },
+      env_probe: {
+        has_gemini_key: !!process.env.GEMINI_API_KEY,
+        has_groq_key: !!process.env.GROQ_API_KEY,
+      },
+    },
+  };
+}
+
+async function handleConsultation({ consultation, isOpener, userMessage, ticketId, debugBase }) {
+  // V2 분기: stage 값 있으면 새 3-stage 경로로
+  if (consultation?.stage) {
+    return handleConsultationV2({ consultation, ticketId, debugBase });
+  }
+
+  // ===== 이하 legacy 경로 (synthesizeCardConsult), Step 4에서 제거 =====
+  const uiCard = leanCardToUiCard(consultation?.card);
+
+  if (!consultation || !consultation.card || !consultation.card.title) {
+    return {
+      answer: "상담 카드 정보가 깨져 있어. 카드에서 다시 한번 눌러줘.",
+      answer_type: "news",
+      source_mode: "internal",
+      confidence: 0.1,
+      cards: [],
+      external_links: [],
+      suggestions: [
+        { label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" },
+      ],
+      next_context: { last_turn: null, root_turn: null },
+      debug: { ...debugBase, consultation: true, consult_error: "invalid-context", ticket_id: ticketId || null },
+    };
+  }
+
+  const llmResult = await synthesizeCardConsult({
+    cardContext: consultation,
+    isOpener: !!isOpener,
+    userMessage: userMessage || "",
+  });
+
+  const answerText = llmResult?.text || pickInCharacterError();
+
+  let suggestions;
+  let suggestionSource;
+  if (isOpener && llmResult?.text) {
+    const llmHooks = mapRemainingPointsToSuggestions(llmResult.remainingPoints);
+    if (llmHooks && llmHooks.length > 0) {
+      suggestions = llmHooks;
+      suggestionSource = "llm_remaining_points";
+    } else {
+      suggestions = FALLBACK_OPENER_HOOKS;
+      suggestionSource = "fallback_opener";
+    }
+  } else if (isOpener) {
+    suggestions = FALLBACK_OPENER_HOOKS;
+    suggestionSource = "fallback_opener_no_llm";
+  } else {
+    suggestions = FALLBACK_FOLLOWUP_HOOKS;
+    suggestionSource = "fallback_followup";
+  }
+
   const scope = {
-    region: uiCard.region || null,
-    date: uiCard.date || null,
+    region: uiCard?.region || null,
+    date: uiCard?.date || null,
   };
+
   const nextTurn = {
     topic: "news",
     scope,
     answer_text: answerText,
-    cards: [uiCard],
+    cards: uiCard ? [uiCard] : [],
+    consultation_ticket_id: ticketId || null,
+    consultation_card_id: consultation.card.id || null,
   };
 
   return {
     answer: answerText,
     answer_type: "news",
     source_mode: "internal",
-    confidence: llmResult?.text ? 0.86 : 0.55,
-    cards: [uiCard],
+    confidence: llmResult?.text ? 0.86 : 0.35,
+    cards: [],
     external_links: [],
-    suggestions: [
-      { label: "이 카드 쉽게 다시 설명해줘", hint_action: "rephrase" },
-      { label: "왜 중요한지 한 줄로", hint_action: "new_query" },
-      { label: "관련 카드 더 보여줘", hint_action: "follow_up" },
-    ],
+    suggestions,
     next_context: {
       last_turn: nextTurn,
       root_turn: nextTurn,
     },
     debug: {
       ...debugBase,
-      card_consult: true,
-      consult_lookup: {
-        title: consult?.title || null,
-        url: consult?.url || null,
-      },
+      consultation: true,
+      ticket_id: ticketId || null,
+      card_id: consultation.card.id || null,
+      is_opener: !!isOpener,
+      opener_category: consultation.opener_category || null,
+      related_cards_count: Array.isArray(consultation.related_cards) ? consultation.related_cards.length : 0,
       llm: {
         used: !!llmResult?.text,
         error: llmResult?.error || null,
         latency_ms: llmResult?.latencyMs || 0,
+        structured: llmResult?.structured ?? null,
+        provider: llmResult?.provider || "unknown",
+        status: llmResult?.status || null,
+        detail: llmResult?.detail ? String(llmResult.detail).slice(0, 400) : null,
+        finish_reason: llmResult?.finishReason || null,
       },
+      env_probe: {
+        has_gemini_key: !!process.env.GEMINI_API_KEY,
+        has_groq_key: !!process.env.GROQ_API_KEY,
+      },
+      suggestion_source: suggestionSource,
+      remaining_points_count: Array.isArray(llmResult?.remainingPoints) ? llmResult.remainingPoints.length : 0,
     },
   };
 }
 
-// analyze_card 전용 처리 — /api/analysis에 위임
+function parseCardConsultRequest(message) {
+  const raw = String(message || "").trim();
+  if (!raw.startsWith("[카드상담]")) return null;
+  return { legacy: true };
+}
+
 async function handleAnalyzeCard({ parsed, resolved, synthesis, context, debugBase }) {
   const card = synthesis?.delegate?.card || resolved?.target_card;
   const mode = synthesis?.delegate?.mode || "why";
@@ -169,7 +347,6 @@ async function handleAnalyzeCard({ parsed, resolved, synthesis, context, debugBa
     });
   }
 
-  // Groq 직접 호출 (llm.js의 synthesizeCardAnalysis 재사용) — /api/analysis HTTP 왕복 회피
   const result = await synthesizeCardAnalysis(card, mode);
   const answer = result?.text || null;
 
@@ -179,7 +356,6 @@ async function handleAnalyzeCard({ parsed, resolved, synthesis, context, debugBa
     meta: { llm: { used: !!answer, error: result?.error, latency_ms: result?.latencyMs, mode }, path: "analyze_card_groq" },
   };
 
-  // retrieval 모양 맞추기 — target card 1장
   const fakeRetrieval = {
     source: "analyze_card",
     cards: [card],
@@ -208,12 +384,14 @@ export default async function handler(req, res) {
     const message = String(req.body?.message || "").trim();
     const context = req.body?.context || {};
     const hint = req.body?.hint || {};
+    const consultation = req.body?.consultation || null;
+    const isOpener = !!req.body?.is_opener;
+    const ticketId = req.body?.ticket_id || null;
 
-    if (!message) {
+    if (!message && !consultation) {
       return stableError(res, 400, "질문을 먼저 입력해줘.", { error_code: "MESSAGE_REQUIRED" });
     }
 
-    // ─── Load knowledge ─────────────────────────────────────────────────
     const _t0 = Date.now();
     const data = await loadKnowledge();
     const _t1 = Date.now();
@@ -227,52 +405,43 @@ export default async function handler(req, res) {
       sources: data?._sources || null,
     };
     console.log(`[chat-diag-D1] ${JSON.stringify(diag)}`);
+    console.log(`[chat-env-probe] gemini=${!!process.env.GEMINI_API_KEY} groq=${!!process.env.GROQ_API_KEY}`);
 
     const debugBase = { diag, pipeline_version: "phase2-5layer" };
 
-    // ─── Dedicated card consult handoff ────────────────────────────────
-    const consult = parseCardConsultRequest(message);
-    if (consult) {
-      const { card, matchedBy } = findCardForConsult(consult, data?.cards || []);
-      if (!card) {
-        return res.status(200).json({
-          answer: "상담할 카드를 다시 찾지 못했어. 카드에서 다시 한번 눌러줘.",
-          answer_type: "news",
-          source_mode: "internal",
-          confidence: 0.2,
-          cards: [],
-          external_links: [],
-          suggestions: [
-            { label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" },
-            { label: "최근 시그널 TOP", hint_action: "new_query", hint_topic: "news" },
-          ],
-          next_context: { last_turn: null, root_turn: null },
-          debug: {
-            ...debugBase,
-            card_consult: true,
-            consult_lookup_failed: true,
-            consult_lookup: consult,
-          },
-        });
-      }
-
-      const llmResult = await synthesizeCardConsult({ card, userAsk: consult.ask });
-      return res.status(200).json(
-        buildCardConsultResponse({
-          card,
-          answer: llmResult?.text,
-          llmResult,
-          consult: { ...consult, matchedBy },
-          debugBase,
-        })
-      );
+    if (consultation) {
+      console.log(`[chat-consultation] ticket=${ticketId} is_opener=${isOpener} stage=${consultation?.stage || '-'} card_id=${consultation?.card?.id} cat=${consultation?.opener_category}`);
+      const resp = await handleConsultation({
+        consultation,
+        isOpener,
+        userMessage: message,
+        ticketId,
+        debugBase,
+      });
+      console.log(`[chat-consultation-out] provider=${resp.debug?.llm?.provider} error=${resp.debug?.llm?.error} status=${resp.debug?.llm?.status} detail=${(resp.debug?.llm?.detail || '').slice(0,200)} suggestion_source=${resp.debug?.suggestion_source}`);
+      return res.status(200).json(resp);
     }
 
-    // ─── Layer 1: parseRequest ──────────────────────────────────────────
+    const legacy = parseCardConsultRequest(message);
+    if (legacy) {
+      return res.status(200).json({
+        answer: "상담소 경로가 갱신됐어. 뉴스 카드에서 '상담카드 제출' 버튼으로 다시 보내줘.",
+        answer_type: "news",
+        source_mode: "internal",
+        confidence: 0.3,
+        cards: [],
+        external_links: [],
+        suggestions: [
+          { label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" },
+        ],
+        next_context: { last_turn: null, root_turn: null },
+        debug: { ...debugBase, legacy_card_consult: true },
+      });
+    }
+
     const parsed = parseRequest({ message, context, hint, data });
     console.log(`[chat-parse] action=${parsed.action} topic=${parsed.topic} region=${parsed.scope?.region || "-"} date=${parsed.scope?.date || "-"}`);
 
-    // ─── Layer 2: resolveContext ────────────────────────────────────────
     const resolvedCtx = resolveContext({ parsed, context });
 
     if (!resolvedCtx.ok) {
@@ -282,11 +451,9 @@ export default async function handler(req, res) {
       );
     }
 
-    // ─── Layer 3: retrieve ──────────────────────────────────────────────
     const retrieval = retrieve({ parsed, resolved: resolvedCtx.resolved, data });
     console.log(`[chat-retrieve] source=${retrieval.source} cards=${(retrieval.cards || []).length}`);
 
-    // ─── Layer 4: synthesize ────────────────────────────────────────────
     const synthesis = await synthesize({
       parsed,
       resolved: resolvedCtx.resolved,
@@ -294,8 +461,6 @@ export default async function handler(req, res) {
     });
     console.log(`[chat-synth] path=${synthesis?.meta?.path} used_llm=${synthesis?.used_llm} delegate=${synthesis?.delegate?.to || "-"}`);
 
-    // ─── Layer 5: respond ───────────────────────────────────────────────
-    // analyze_card 위임 경로
     if (synthesis?.delegate?.to === "analysis_api" || parsed.action === "analyze_card") {
       const resp = await handleAnalyzeCard({
         parsed,

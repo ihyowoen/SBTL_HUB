@@ -654,7 +654,7 @@ function ReceiptBubble({ meta, openedAt, dark }) {
 }
 
 // ============================================================================
-// 배터리 상담소 — 3-stage v2 bubble 컴포넌트들 (Step 2-A)
+// 배터리 상담소 — 3-stage v2 bubble 컴포넌트들 (Step 2-A + 2-B)
 // ============================================================================
 
 // 1차 — Scout (정찰병): 사실 확인
@@ -851,6 +851,163 @@ function AnalystBubble({ stageOutput, dark }) {
           }}>
             {key_tension}
           </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// 3차 — RedTeam (빨간펜): 자기 검증
+function RedTeamBubble({ stageOutput, dark }) {
+  const t = T(dark);
+  const {
+    premature_interpretations = [],
+    unverified_premises = [],
+    counter_scenario,
+    next_checkpoints = [],
+  } = stageOutput || {};
+
+  // fact id (f1, f2 ...) 자동 하이라이트 — counter_scenario 안에서 사용
+  const renderWithFactIds = (text) => {
+    if (!text) return null;
+    const parts = text.split(/(\bf\d+\b)/g);
+    return parts.map((part, i) =>
+      /^f\d+$/.test(part)
+        ? <span key={i} style={{
+            color: "#58A6FF", fontWeight: 800,
+            fontFamily: "'JetBrains Mono',monospace",
+            background: dark ? "rgba(88,166,255,0.12)" : "rgba(45,90,142,0.08)",
+            padding: "1px 5px", borderRadius: 4,
+          }}>{part}</span>
+        : <span key={i}>{part}</span>
+    );
+  };
+
+  return (
+    <div style={{
+      margin: "8px 0",
+      padding: "14px 16px",
+      background: dark ? "#1A2333" : "#FFFFFF",
+      border: `1px solid ${t.brd}`,
+      borderRadius: "18px 18px 18px 6px",
+      borderLeft: `3px solid #F85149`,
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
+        <span style={{
+          fontSize: 10, fontWeight: 800, color: "#F85149",
+          background: dark ? "rgba(248,81,73,0.14)" : "rgba(248,81,73,0.10)",
+          padding: "3px 8px", borderRadius: 999,
+          fontFamily: "'JetBrains Mono',monospace",
+        }}>
+          🧪 3차 · 빨간펜
+        </span>
+      </div>
+
+      {/* (a) 성급한 해석 — red */}
+      {premature_interpretations.length > 0 && (
+        <div style={{
+          marginBottom: 10,
+          padding: "10px 12px",
+          background: dark ? "rgba(248,81,73,0.06)" : "rgba(248,81,73,0.04)",
+          borderRadius: 8,
+          borderLeft: `2px solid #F85149`,
+        }}>
+          <div style={{
+            fontSize: 9, color: "#F85149", fontWeight: 800, marginBottom: 5,
+            fontFamily: "'JetBrains Mono',monospace",
+          }}>
+            성급한 해석
+          </div>
+          {premature_interpretations.map((p, i) => (
+            <div key={i} style={{
+              fontSize: 12, color: t.tx, lineHeight: 1.6, marginTop: i > 0 ? 6 : 0,
+              display: "flex", gap: 6, alignItems: "flex-start",
+            }}>
+              <span style={{ color: "#F85149", flexShrink: 0, marginTop: 1 }}>·</span>
+              <span>{p}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* (b) 확인 안 된 전제 — amber */}
+      {unverified_premises.length > 0 && (
+        <div style={{
+          marginBottom: 10,
+          padding: "10px 12px",
+          background: dark ? "rgba(210,153,34,0.06)" : "rgba(210,153,34,0.04)",
+          borderRadius: 8,
+          borderLeft: `2px solid #D29922`,
+        }}>
+          <div style={{
+            fontSize: 9, color: "#D29922", fontWeight: 800, marginBottom: 5,
+            fontFamily: "'JetBrains Mono',monospace",
+          }}>
+            확인 안 된 전제
+          </div>
+          {unverified_premises.map((p, i) => (
+            <div key={i} style={{
+              fontSize: 12, color: t.tx, lineHeight: 1.6, marginTop: i > 0 ? 6 : 0,
+              display: "flex", gap: 6, alignItems: "flex-start",
+            }}>
+              <span style={{ color: "#D29922", flexShrink: 0, marginTop: 1 }}>·</span>
+              <span>{p}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* (c) 반대 시나리오 — cyan + fact id 하이라이트 (주 본문) */}
+      {counter_scenario && (
+        <div style={{
+          marginBottom: 10,
+          padding: "10px 12px",
+          background: dark ? "rgba(88,166,255,0.05)" : "rgba(88,166,255,0.03)",
+          borderRadius: 8,
+          borderLeft: `2px solid #58A6FF`,
+        }}>
+          <div style={{
+            fontSize: 9, color: "#58A6FF", fontWeight: 800, marginBottom: 5,
+            fontFamily: "'JetBrains Mono',monospace",
+          }}>
+            반대 시나리오
+          </div>
+          <div style={{
+            fontSize: 12, color: t.tx, lineHeight: 1.65,
+            fontFamily: "'Pretendard',sans-serif",
+          }}>
+            {renderWithFactIds(counter_scenario)}
+          </div>
+        </div>
+      )}
+
+      {/* (d) 다음 체크포인트 — neutral, numbered */}
+      {next_checkpoints.length > 0 && (
+        <div style={{
+          padding: "10px 12px",
+          background: dark ? "rgba(125,133,144,0.07)" : "rgba(125,133,144,0.04)",
+          borderRadius: 8,
+        }}>
+          <div style={{
+            fontSize: 9, color: t.sub, fontWeight: 800, marginBottom: 6,
+            fontFamily: "'JetBrains Mono',monospace",
+          }}>
+            ✅ 다음 체크포인트
+          </div>
+          {next_checkpoints.map((cp, i) => (
+            <div key={i} style={{
+              fontSize: 12, color: t.tx, lineHeight: 1.55, marginTop: i > 0 ? 6 : 0,
+              display: "flex", gap: 8, alignItems: "flex-start",
+            }}>
+              <span style={{
+                color: t.sub, fontFamily: "'JetBrains Mono',monospace",
+                fontWeight: 800, flexShrink: 0, marginTop: 1, minWidth: 16,
+              }}>
+                {i + 1}.
+              </span>
+              <span>{cp}</span>
+            </div>
+          ))}
         </div>
       )}
     </div>
@@ -1100,16 +1257,6 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     if (toStage === 2 && !consult.stage1_output) return;
     if (toStage === 3 && (!consult.stage1_output || !consult.stage2_output)) return;
 
-    // Step 2-A 한정: stage 3 미구현 안내 (Step 2-B에서 RedTeam 추가)
-    if (toStage === 3) {
-      setMsgs((prev) => [...prev, {
-        role: "assistant",
-        content: "3차 (빨간펜) 모드는 다음 업데이트에서 열려. 지금은 1·2차까지 가능해.",
-        suggestions: [],
-      }]);
-      return;
-    }
-
     setLoadingMode("typing_consult");
     const t0 = Date.now();
     try {
@@ -1129,6 +1276,8 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
       if (data?.stage_output && toStage === 2) {
         currentConsultRef.current.stage2_output = data.stage_output;
         currentConsultRef.current.current_stage = 2;
+      } else if (data?.stage_output && toStage === 3) {
+        currentConsultRef.current.current_stage = 3;
       }
 
       const role = toStage === 2 ? "analyst" : "redteam";
@@ -1341,7 +1490,9 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
           if (m.role === "analyst") {
             return <StageWrapper key={`analyst-${i}`} m={m} dark={dark} runSuggestion={runSuggestion} BubbleComponent={AnalystBubble} errorFallback="2차 분석 중에 문제가 있었어. 다시 시도해줘." />;
           }
-          // m.role === "redteam" — Step 2-B에서 RedTeamBubble 추가 예정
+          if (m.role === "redteam") {
+            return <StageWrapper key={`redteam-${i}`} m={m} dark={dark} runSuggestion={runSuggestion} BubbleComponent={RedTeamBubble} errorFallback="3차 검증 중에 문제가 있었어. 다시 시도해줘." />;
+          }
           return (
             <div key={i} role="article" aria-label={m.role === "user" ? "내 질문" : "AI 답변"} style={{ display: "flex", flexDirection: "column", alignItems: m.role === "user" ? "flex-end" : "flex-start", marginBottom: 10 }}>
               <div style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", width: "100%" }}>

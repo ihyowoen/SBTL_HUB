@@ -9,6 +9,7 @@ import { retrieve } from "../lib/chat/retrieve/index.js";
 import { synthesize } from "../lib/chat/synthesize.js";
 import { respond, respondClarification } from "../lib/chat/respond.js";
 import { synthesizeCardAnalysis, synthesizeCardConsult } from "../lib/chat/llm.js";
+import { synthesizeScout, synthesizeAnalyst, synthesizeRedTeam } from "../lib/chat/consultation.js";
 
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -81,7 +82,153 @@ function mapRemainingPointsToSuggestions(remainingPoints) {
   return mapped.length ? mapped : null;
 }
 
+// ============================================================================
+// 3-stage consultation v2 — Scout / Analyst / RedTeam
+// ============================================================================
+
+function makeStageErrorResponse({ stage, ticketId, debugBase, stageError, message }) {
+  return {
+    answer: message,
+    answer_type: "consultation_stage",
+    source_mode: "internal",
+    confidence: 0.1,
+    cards: [],
+    external_links: [],
+    suggestions: [],
+    next_context: { last_turn: null, root_turn: null },
+    stage,
+    stage_output: null,
+    next_stage_label: null,
+    debug: {
+      ...debugBase,
+      consultation_v2: true,
+      stage,
+      ticket_id: ticketId || null,
+      stage_error: stageError,
+    },
+  };
+}
+
+async function handleConsultationV2({ consultation, ticketId, debugBase }) {
+  const { stage, card, related_cards, prev_stage1, prev_stage2 } = consultation;
+
+  if (!card || !card.title) {
+    return makeStageErrorResponse({
+      stage,
+      ticketId,
+      debugBase,
+      stageError: "invalid-card-context",
+      message: "상담 카드 정보가 깨져 있어. 카드에서 다시 한번 눌러줘.",
+    });
+  }
+
+  const cardContext = { card, related_cards: related_cards || [] };
+  const uiCard = leanCardToUiCard(card);
+
+  let result;
+  let answerLine;
+  let nextStageLabel;
+
+  if (stage === 1) {
+    result = await synthesizeScout({ cardContext });
+    answerLine = result?.stageOutput?.summary;
+    nextStageLabel = "강차장 더 깊이 물어보기";
+  } else if (stage === 2) {
+    if (!prev_stage1) {
+      return makeStageErrorResponse({
+        stage, ticketId, debugBase,
+        stageError: "no-prev-stage1",
+        message: "1차 결과가 없어서 2차 진행 못 해. 새로고침 해서 1차부터 다시 가줘.",
+      });
+    }
+    result = await synthesizeAnalyst({ cardContext, prevStage1: prev_stage1 });
+    answerLine = result?.stageOutput?.interpretation;
+    nextStageLabel = "최종 판단 받기";
+  } else if (stage === 3) {
+    if (!prev_stage1 || !prev_stage2) {
+      return makeStageErrorResponse({
+        stage, ticketId, debugBase,
+        stageError: "no-prev-stage",
+        message: "1차나 2차 결과가 없어서 3차 진행 못 해. 새로고침 해서 1차부터 다시 가줘.",
+      });
+    }
+    result = await synthesizeRedTeam({
+      cardContext,
+      prevStage1: prev_stage1,
+      prevStage2: prev_stage2,
+    });
+    answerLine = result?.stageOutput?.counter_scenario;
+    nextStageLabel = null;
+  } else {
+    return makeStageErrorResponse({
+      stage, ticketId, debugBase,
+      stageError: `invalid-stage-${stage}`,
+      message: "알 수 없는 단계야. 1~3 중 하나여야 돼.",
+    });
+  }
+
+  const stageOk = !!result?.stageOutput;
+
+  const suggestions = (stageOk && nextStageLabel)
+    ? [{ label: nextStageLabel, hint_action: "advance_stage", hint_stage: stage + 1 }]
+    : [];
+
+  const lastTurn = {
+    topic: "consultation_stage",
+    answer_text: answerLine || null,
+    cards: uiCard ? [uiCard] : [],
+    consultation_ticket_id: ticketId || null,
+    consultation_card_id: card.id || null,
+    consultation_stage: stage,
+  };
+
+  console.log(
+    `[chat-consultation-v2-out] stage=${stage} stage_ok=${stageOk} ` +
+    `provider=${result?.provider || "-"} error=${result?.error || "-"} ` +
+    `latency=${result?.latencyMs || 0}ms next=${nextStageLabel || "none"}`
+  );
+
+  return {
+    answer: stageOk ? answerLine : pickInCharacterError(),
+    answer_type: "consultation_stage",
+    source_mode: "internal",
+    confidence: stageOk ? 0.86 : 0.35,
+    cards: [],
+    external_links: [],
+    suggestions,
+    next_context: { last_turn: lastTurn, root_turn: lastTurn },
+    stage,
+    stage_output: result?.stageOutput || null,
+    next_stage_label: nextStageLabel,
+    debug: {
+      ...debugBase,
+      consultation_v2: true,
+      stage,
+      ticket_id: ticketId || null,
+      card_id: card.id || null,
+      stage_error: result?.error || null,
+      llm: {
+        used: stageOk,
+        error: result?.error || null,
+        latency_ms: result?.latencyMs || 0,
+        provider: result?.provider || "unknown",
+        fallback_from: result?.fallback_from || null,
+      },
+      env_probe: {
+        has_gemini_key: !!process.env.GEMINI_API_KEY,
+        has_groq_key: !!process.env.GROQ_API_KEY,
+      },
+    },
+  };
+}
+
 async function handleConsultation({ consultation, isOpener, userMessage, ticketId, debugBase }) {
+  // V2 분기: stage 값 있으면 새 3-stage 경로로
+  if (consultation?.stage) {
+    return handleConsultationV2({ consultation, ticketId, debugBase });
+  }
+
+  // ===== 이하 legacy 경로 (synthesizeCardConsult), Step 4에서 제거 =====
   const uiCard = leanCardToUiCard(consultation?.card);
 
   if (!consultation || !consultation.card || !consultation.card.title) {
@@ -263,7 +410,7 @@ export default async function handler(req, res) {
     const debugBase = { diag, pipeline_version: "phase2-5layer" };
 
     if (consultation) {
-      console.log(`[chat-consultation] ticket=${ticketId} is_opener=${isOpener} card_id=${consultation?.card?.id} cat=${consultation?.opener_category}`);
+      console.log(`[chat-consultation] ticket=${ticketId} is_opener=${isOpener} stage=${consultation?.stage || '-'} card_id=${consultation?.card?.id} cat=${consultation?.opener_category}`);
       const resp = await handleConsultation({
         consultation,
         isOpener,

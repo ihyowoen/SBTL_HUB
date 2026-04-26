@@ -20,26 +20,28 @@ const REGION_FLAGS = { US: '🇺🇸', KR: '🇰🇷', EU: '🇪🇺', CN: '🇨
 const THINK_MS = 700;
 
 function theme(dark = true) {
+  // Aligned with App.jsx T() — Cell (dark) / Lamination (light).
+  // Hairlines, voltaic / vermilion accents, no shadows.
   return dark
     ? {
-        card: '#161B26',
-        card2: '#1C2333',
-        tx: '#E6EDF3',
-        sub: '#9198A1',
-        brd: '#21293A',
-        cyan: '#58A6FF',
-        soft: 'rgba(255,255,255,0.03)',
-        shadow: '0 10px 28px rgba(0,0,0,0.28)',
+        card: '#11151A',
+        card2: '#0E1217',
+        tx: '#E8EAEC',
+        sub: '#6E7480',
+        brd: '#1F242A',
+        cyan: '#00E0B8',          // voltaic
+        soft: 'rgba(0,224,184,0.05)',
+        shadow: 'none',
       }
     : {
-        card: '#FFFFFF',
-        card2: '#F8F9FC',
-        tx: '#1A1A2A',
-        sub: '#57606A',
-        brd: '#E0E3EA',
-        cyan: '#0969DA',
-        soft: 'rgba(9,105,218,0.03)',
-        shadow: '0 8px 20px rgba(0,0,0,0.08)',
+        card: '#F7F2E8',
+        card2: '#EDE7DC',
+        tx: '#1A1916',
+        sub: '#6E6A60',
+        brd: '#1A1916',
+        cyan: '#B5341A',          // vermilion
+        soft: 'rgba(181,52,26,0.05)',
+        shadow: 'none',
       };
 }
 

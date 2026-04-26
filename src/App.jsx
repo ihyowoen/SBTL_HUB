@@ -270,21 +270,26 @@ const pct = (num, total) => `${Math.max(0, Math.min(100, ((Number(num) || 0) / M
 // Same architecture both modes; opposite skins. Hairlines, no rounded chrome,
 // no emoji — typographic marks only. `cyan` key kept as alias for `accent` so
 // existing call-sites still resolve.
+//
+// Dark refinement (2026-04-26 v2): widened surface deltas so the three layers
+// actually read as layers. Borders raised so hairlines are visible against
+// card. Sub-text lifted for editorial italic legibility.
 const T = (dark = true) => dark
   ? {
-      bg: "#0B0E11",          // void
-      card: "#11151A",        // cell
-      card2: "#0E1217",       // cell deep
-      tx: "#E8EAEC",          // ink
-      sub: "#6E7480",         // quiet
-      brd: "#1F242A",         // hairline
-      brdSoft: "#171B20",     // softer hairline
+      bg: "#08090C",          // void — deeper, lets cards pop
+      card: "#141A22",        // cell — visibly warmer/lifted from bg
+      card2: "#0E141B",       // cell deep — sits between bg and card
+      tx: "#EAECEE",          // ink
+      sub: "#7A8090",          // quiet — lifted for italic murmur legibility
+      brd: "#2A323D",         // hairline — actually visible against card
+      brdSoft: "#1C2128",     // softer hairline for tab dividers etc
       cyan: "#00E0B8",        // alias for accent (back-compat)
       accent: "#00E0B8",      // voltaic
-      accentSoft: "rgba(0,224,184,0.08)",
-      accentLine: "rgba(0,224,184,0.22)",
-      paper: "#11151A",       // receipt surface
-      sh: "none",             // no shadows in dark — hairlines only
+      accentSoft: "rgba(0,224,184,0.10)",
+      accentLine: "rgba(0,224,184,0.28)",
+      accentGlow: "0 0 12px rgba(0,224,184,0.35)",  // for hero accent moments
+      paper: "#141A22",       // receipt surface
+      sh: "none",             // no shadows in dark — hairlines + glow only
     }
   : {
       bg: "#F1ECE3",          // paper
@@ -298,6 +303,7 @@ const T = (dark = true) => dark
       accent: "#B5341A",      // vermilion
       accentSoft: "rgba(181,52,26,0.07)",
       accentLine: "rgba(181,52,26,0.20)",
+      accentGlow: "none",     // light mode = no glow, ink does the work
       paper: "#F7F2E8",
       sh: "none",
     };
@@ -2528,7 +2534,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
 
 function AppContent() {
   const [tab, setTab] = useState("all");
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);  // default: Lamination (light)
   const [refreshKey, setRefreshKey] = useState(0);
   const [hardRefresh, setHardRefresh] = useState(false);
   const [refreshPending, setRefreshPending] = useState(false);
@@ -2817,7 +2823,7 @@ function AppContent() {
 
 // Export App wrapped in Error Boundary
 export default function App() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);  // default: Lamination (light)
 
   return (
     <ErrorBoundary dark={dark}>

@@ -1,8 +1,457 @@
 {
-  "updated": "2026-04-24",
-  "total": 359,
+  "updated": "2026-04-26",
+  "total": 380,
   "schema": "full",
   "cards": [
+    {
+      "id": "2026-04-26_CN_01",
+      "region": "CN",
+      "date": "2026-04-26",
+      "cat": "SupplyChain",
+      "sub_cat": "수출통제·일본",
+      "signal": "top",
+      "title": "중국(中) 상무부 희토류 수출허가 강화…일본(日) GDP 1년 -0.43% 시나리오 표면화",
+      "sub": "노무라: 희토류 3개월 중단 시 일본 실질 GDP 영향 -0.11% / 노무라: 3개월 중단 시 일본 손실액 6600억JPY / 노무라: 1년 중단 시 일본 실질 GDP 영향 -0.43% | 주체: 중국(中) 상무부 · KOTRA · 노무라종합연구소",
+      "gate": "수출 금지가 아닌 '허가 깐깐하게'만으로도 노무라·다이와는 일본 GDP -0.43%~-1.3% 시나리오를 띄움.",
+      "fact": "더구루(2026.4.26)는 중국 상무부가 '전략물자 및 기술 수출허가 관리목록' 개정을 통해 일본행 희토류 자석·중간재 통제를 엄격히 적용하고 있다고 KOTRA·현지 업계 인용으로 보도했다. 군사 전용 가능성이 있는 품목은 사실상 수출 금지에 준하는 조치. 일본 EV 모터의 핵심 부품인 네오디뮴(Nd)·디스프로슘(Dy) 등 영구자석 소재 수입량이 전년비 급감, 닛산 등 완성차의 부품 조달 지연·생산라인 가동 중단 위기가 거론되고 있다. 갈륨·게르마늄 등도 함께 통제. 노무라종합연구소는 \"3개월 중단 시 6,600억엔(약 6조1,000억원)·실질 GDP -0.11%, 1년 중단 시 2조6,000억엔(약 24조1,000억원)·실질 GDP -0.43%\" 시나리오를 제시. 다이와종합연구소는 \"희토류만으로 -1.3%(약 7조엔/65조원), 코발트·리튬 등까지 포함 시 -3.2%(약 18조엔/167조원)\"까지 봄.",
+      "implication": [
+        "이번 조치의 핵심은 '금수'가 아니라 '허가 절차의 까다로움'이라는 점이 관전 포인트.",
+        "현실적으로 일본의 SDV·하이브리드 핵심부품(영구자석 모터)의 정확한 가용성이 라이선스 발급 속도에 직접 묶이는 구조이며, 정량적으로는 일본 거시경제 0.4~1.3% 가량의 충격이 시나리오로 잡힘.",
+        "SBTL 직접 공급망에는 희토류가 없지만, 한국 전지 3사 고객(LGES·삼성SDI·SK온)의 셀 케이스 도금·전극 코팅 라인이 갈륨·게르마늄·희토류 영구자석 모터를 다수 사용하는 EV·ESS 완성품 공급망과 연결되어 있음."
+      ],
+      "urls": [
+        "https://www.theguru.co.kr/news/article.html?no=101012"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "중국(中) 상무부 '전략물자 및 기술 수출허가 관리목록' 개정",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101012",
+          "source_quote": "26일 코트라 및 현지 업계에 따르면, 중국 상무부는 최근 '전략물자 및 기술 수출허가 관리목록' 개정을 통해 일본으로 수출되는 희토류 자석과 중간재 통제를 엄격히 적용",
+          "fetched_at": "2026-04-26T20:05:00+09:00"
+        },
+        {
+          "claim": "네오디뮴·디스프로슘 일본 수입량 급감, 닛산 등 생산라인 가동 중단 위기",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101012",
+          "source_quote": "전기차(EV) 모터의 핵심 부품인 네오디뮴(Nd)과 디스프로슘(Dy) 등 고성능 영구자석 소재의 일본 내 수입량이 전년 대비 급감",
+          "fetched_at": "2026-04-26T20:05:00+09:00"
+        },
+        {
+          "claim": "갈륨·게르마늄 등 희귀금속 수출 제한",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101012",
+          "source_quote": "갈륨과 게르마늄 등 희귀 금속 수출을 제한",
+          "fetched_at": "2026-04-26T20:05:00+09:00"
+        },
+        {
+          "claim": "노무라: 1년 중단 시 GDP -0.43% (24조1,000억원)",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101012",
+          "source_quote": "중국산 희토류 공급이 3개월 중단될 시 일본 경제의 손실 규모는 6600억엔(약 6조1000억원)으로 실질 국내총생산(GDP)을 0.11% 떨어뜨리고, 1년 중단되면 경제적 손실이 약 2조6000억엔(약 24조1000억원)이며 실질 GDP는 0.43% 하락",
+          "fetched_at": "2026-04-26T20:05:00+09:00"
+        },
+        {
+          "claim": "다이와: 희토류 -1.3% / 코발트·리튬까지 -3.2% 시나리오",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101012",
+          "source_quote": "중국이 희토류 수출제한 시 실질 GDP는 1.3%(약 7조엔, 한화 약 65조원) 하락하고 코발트, 리튬 등 희귀금속까지 수입을 중단할 경우 3.2%(약 18조 엔, 한화 약 167조원)까지 하락",
+          "fetched_at": "2026-04-26T20:05:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-26_CN_02",
+      "region": "CN",
+      "date": "2026-04-26",
+      "cat": "Charging",
+      "sub_cat": "초고속충전·인프라",
+      "signal": "high",
+      "title": "화웨이, 1,500kW 메가와트 충전 풀스택 솔루션 베이징 모터쇼 공개…태양광·ESS 통합형 강조",
+      "sub": "화웨이 메가와트 충전기 최대 출력 1500kW / 화웨이 메가와트 충전기 최대 전류 2400A / 15분에 충전 가능한 배터리 용량 300kWh | 주체: 화웨이 디지털에너지(Huawei Digital Power) · BYD · CATL",
+      "gate": "BYD가 차량 측 1.5MW를 끌어내는 동안 화웨이는 인프라 측에서 215kWh ESS+1,500kW 충전기를 패키지로 공급한다는 그림.",
+      "fact": "2026 베이징 모터쇼(4/24 개막)에서 화웨이 디지털에너지가 1,500kW 메가와트 충전 시스템을 풀스택 솔루션으로 재포지셔닝했다. 시스템은 최대 1,500kW 출력·2,400A 전류로 약 300kWh 배터리를 약 15분에 충전. 라인업은 자연 냉각 400A·액냉 800A·1,000A 이상의 고출력 단말과 1,000kW·1,440kW 충전 장비를 포함. 1,500kW 시스템은 충전건·케이블·전력전자 모두 액냉 방식이며 215kWh DC ESS 모듈을 포함해 그리드 부하가 약한 지역에서도 빠른 배치가 가능. BYD Flash Charging 2.0이 차량 측에서 최대 1,500kW를 끌어내는 점·CATL Shenxing이 6분 충전을 노리는 점과 대비되어, 화웨이는 인프라 확장성·다차종 호환성·그리드 버퍼링에 우선순위. 한편 China EV DataTracker 기준 1Q 2026 중국(中) EV 배터리 설치량은 124.8GWh로 YoY -4.2%, LFP 99.1GWh(79.4%)·NMC 25.8GWh(20.7%) 점유.",
+      "implication": [
+        "1.5MW 메가와트 충전이 더 이상 시연용이 아니라 '솔라+ESS+충전' 통합 인프라로 재포지셔닝됐다는 점이 관전 포인트.",
+        "인프라 측 사업자가 EV 셀 사양과 무관하게 모든 EV에 일관된 충전 경험을 제공할 수 있는 구조가 되어, 차량 측 셀 사양이 아니더라도 충전 인프라가 EV 채택 속도를 끌어올릴 가능성을 상향.",
+        "BYD-CATL의 차량 측 메가와트 셀 경쟁이 격화되고 있어 LFP 셀의 고에너지밀도+초고속충전 동시 달성을 위한 셀 케이스 두께 최적화 압박이 SBTL 알루미늄 파우치필름 사양에도 반영될 가능성."
+      ],
+      "urls": [
+        "https://carnewschina.com/2026/04/26/huawei-expands-1500-kw-charging-lineup-with-solar-storage-integration-at-beijing-auto-show-amid-ev-fast-charging-war/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "1500kW 메가와트 충전 시스템 사양",
+          "source_url": "https://carnewschina.com/2026/04/26/huawei-expands-1500-kw-charging-lineup-with-solar-storage-integration-at-beijing-auto-show-amid-ev-fast-charging-war/",
+          "source_quote": "Huawei's 1,500 kW megawatt charging system was first introduced in 2025 as a high-power solution for heavy-duty, high-utilisation electrification scenarios. The system supports up to 1,500 kW of peak output and 2,400 A of current, enabling a ~300 kWh battery charge in around 15 minutes under defined operating conditions",
+          "fetched_at": "2026-04-26T21:30:00+09:00"
+        },
+        {
+          "claim": "풀스택 라인업 (400A~1,000A 단말, 1000~1440kW)",
+          "source_url": "https://carnewschina.com/2026/04/26/huawei-expands-1500-kw-charging-lineup-with-solar-storage-integration-at-beijing-auto-show-amid-ev-fast-charging-war/",
+          "source_quote": "At the 2026 Beijing Auto Show, Huawei Digital Energy positioned its charging system as a full-stack solution rather than a standalone product, highlighting compatibility with China's \"2015+\" charging standards and a broader terminal portfolio that includes natural-cooled 400A systems, liquid-cooled 800A units, and higher-power configurations above 1,000A, alongside charging equipment rated up to 1,000 kW and 1,440 kW",
+          "fetched_at": "2026-04-26T21:30:00+09:00"
+        },
+        {
+          "claim": "215kWh DC ESS + 액냉 + 그리드 약한 지역 배치",
+          "source_url": "https://carnewschina.com/2026/04/26/huawei-expands-1500-kw-charging-lineup-with-solar-storage-integration-at-beijing-auto-show-amid-ev-fast-charging-war/",
+          "source_quote": "The 1,500 kW charging system continues to rely on liquid cooling across charging guns, cables, and power electronics. A 215 kWh DC energy storage module delivers high power output even under constrained grid input conditions",
+          "fetched_at": "2026-04-26T21:30:00+09:00"
+        },
+        {
+          "claim": "1Q 2026 중국(中) 배터리 설치량 124.8GWh / LFP 79.4% / NMC 20.7%",
+          "source_url": "https://carnewschina.com/2026/04/26/huawei-expands-1500-kw-charging-lineup-with-solar-storage-integration-at-beijing-auto-show-amid-ev-fast-charging-war/",
+          "source_quote": "China's EV battery installations reached 124.8 GWh in Q1 2026, down 4.2% year-on-year. LFP accounted for 99.1 GWh (79.4% share), while ternary NMC accounted for 25.8 GWh (20.7% share)",
+          "fetched_at": "2026-04-26T21:30:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-26_KR_01",
+      "region": "KR",
+      "date": "2026-04-26",
+      "cat": "Battery",
+      "sub_cat": "전고체·소재금융",
+      "signal": "top",
+      "title": "이수스페셜티케미컬 울산 온산 황화리튬 1천억 증설…국민성장펀드 초저리대출 1호로 확정",
+      "sub": "국민성장펀드가 울산 황화리튬 증설에 지원하는 장기 저리대출 1000억KRW / 이수스페셜티케미컬 황화리튬 기존 CAPA 40톤 / 2026년 확장 후 CAPA 150톤 | 주체: 금융위원회 · 이수스페셜티케미컬 · 삼성전자",
+      "gate": "전고체 양산을 향한 첫 산업금융 트리거가 평택 P5와 같은 1호 트랙에 들어왔다는 사실.",
+      "fact": "금융위원회는 2026년 2월 26일 국민성장펀드 기금운용심의회에서 '울산 차세대 이차전지 소재공장 구축사업'을 첨단전략산업기금 저리대출 안건으로 의결했다. 사업 대상은 울산광역시 울주군 온산읍에 이수스페셜티케미컬이 건설하는 황화리튬(Li2S) 생산공장으로, 황화리튬은 황화물계 고체전해질의 핵심 원료. 정부는 1천억원 규모 장기 저리대출을 지원, 회사는 2029년까지 대규모 투자를 통해 울산 온산 공장을 데모플랜트→상업화 플랜트로 확장하는 작업을 2025년 9월 착수한 상태이며 2026년 중 기존 40톤→150톤으로 CAPA를 확대할 예정. 본 사업은 신안우이 해상풍력(1차)에 이은 국민성장펀드 메가프로젝트 2호 트랙(삼성전자 평택 P5와 동일 의결)으로, 4월 26일 아시아경제 등은 이를 \"전고체 양산 전초기지\" 르포로 다시 조명.",
+      "implication": [
+        "전고체 배터리 출시 시점이 2027~2030년으로 흩어져 있는 가운데, 한국 정부가 셀 단계가 아닌 '핵심 소재(황화리튬)' 단계에 1차 산업금융을 배정한 점이 관전 포인트.",
+        "일본 이데미츠고산-토요타 라인이 황화리튬 공장을 2026년 6월까지 세우는 일정과 비교하면 일정상 한국이 빠르지 않으나, 신안우이 해상풍력→평택 P5(반도체)→온산(전고체) 순으로 연결되는 1차 메가프로젝트 라인업에 들어왔다는 점에서 정책 우선순위 신호로 읽힘.",
+        "황화물계 전고체는 액체전해질이 없어 SBTL의 알루미늄 파우치필름과 셀 폼팩터가 직결되지 않을 가능성이 큼."
+      ],
+      "urls": [
+        "https://fsc.go.kr/no010101/86341",
+        "https://zdnet.co.kr/view/?no=20260308191356",
+        "https://www.mt.co.kr/finance/2026/02/25/2026022509014319470"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "의결 사업 — 울산 울주군 온산읍 이수스페셜티케미컬 황화리튬 공장",
+          "source_url": "https://fsc.go.kr/no010101/86341",
+          "source_quote": "오늘 기금운용심의회에서 의결된 울산 차세대 이차전지 소재공장 사업은 울산광역시 울주군 온산읍에 이수스페셜티케미컬의 황화리튬(LiS) 생산공장을 구축하는 사업이다",
+          "fetched_at": "2026-04-26T20:15:00+09:00"
+        },
+        {
+          "claim": "황화리튬 = 전고체 핵심소재",
+          "source_url": "https://fsc.go.kr/no010101/86341",
+          "source_quote": "황화리튬은 차세대 이차전지인 전고체 배터리의 핵심소재이다",
+          "fetched_at": "2026-04-26T20:15:00+09:00"
+        },
+        {
+          "claim": "2025.9 데모→상업화 플랜트 전환 착수, 2029년까지 대규모 투자",
+          "source_url": "https://zdnet.co.kr/view/?no=20260308191356",
+          "source_quote": "이수스페셜티케미컬은 황화리튬 생산능력(CAPA) 확대를 위해 2029년까지 대규모 투자를 계획하고 있다",
+          "fetched_at": "2026-04-26T20:15:00+09:00"
+        },
+        {
+          "claim": "2025.9 데모→상업화 플랜트 착수",
+          "source_url": "https://zdnet.co.kr/view/?no=20260308191356",
+          "source_quote": "울산 온산 공장을 데모 플랜트 규모를 넘어 상업화 플랜트로 확장하는 작업에 지난해 9월 착수",
+          "fetched_at": "2026-04-26T20:15:00+09:00"
+        },
+        {
+          "claim": "올해 40→150톤 CAPA 확대",
+          "source_url": "https://zdnet.co.kr/view/?no=20260308191356",
+          "source_quote": "올해는 기존 40톤에서 150톤까지 CAPA 확대가 예정",
+          "fetched_at": "2026-04-26T20:15:00+09:00"
+        },
+        {
+          "claim": "국민성장펀드 1천억원 장기 저리대출",
+          "source_url": "https://zdnet.co.kr/view/?no=20260308191356",
+          "source_quote": "정부도 최근 전략 산업을 지원하는 '국민성장펀드'를 통해 이 증설에 1천억원 규모 장기 저리 대출을 지원키로 했다",
+          "fetched_at": "2026-04-26T20:15:00+09:00"
+        },
+        {
+          "claim": "국민성장펀드 150조 / 초저리대출 1호",
+          "source_url": "https://www.mt.co.kr/finance/2026/02/25/2026022509014319470",
+          "source_quote": "150조원 규모의 국민성장펀드의 초저리대출 지원 1호로 삼성전자와 울산 전고체 배터리 소재 공장이 선정",
+          "fetched_at": "2026-04-26T20:15:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-25_CN_01",
+      "region": "CN",
+      "date": "2026-04-25",
+      "cat": "EV",
+      "sub_cat": "EV·엔트리 LiDAR",
+      "signal": "mid",
+      "title": "BYD Seagull(돌핀 미니) 베이징서 LiDAR·505km로 업그레이드 — 엔트리급에 \"God's Eye B\" ADAS",
+      "sub": "기존 CLTC 주행거리 405km / 신형 CLTC 주행거리 505km / 신형 모터 최고 출력 60kW | 주체: BYD · BYD Seagull/Dolphin Mini/Surf · Geely Xingyuan(경쟁모델)",
+      "gate": "엔트리 EV에 LiDAR·도로주행 보조 시스템이 옵션으로 들어오는 \"하향 이전\" 분기점.",
+      "fact": "2026 BYD Seagull(해외명 Dolphin Mini/Surf)는 2026 베이징 모터쇼에서 405km→505km(CLTC) 주행거리 확장과 LiDAR 옵션을 추가. LiDAR 탑재 시 BYD의 \"God's Eye B\" 운전자 보조 시스템이 활성화. 모터 최고 출력은 60kW(80hp)로 강화. 디자인은 대체로 동일 유지하며 Seagull은 작년 4월 월 34,005대로 정점, 6월 30,708대 후 3만대 라인 회복 못함. 지리 Xingyuan 등 후발 경쟁자(Arcfox T1, Leapmotor A10) 등장으로 시장 압박 강화.",
+      "implication": [
+        "엔트리 EV(중국 기준 ~$10K 클래스)에 LiDAR 기반 ADAS가 옵션으로 들어왔다는 점이 관전 포인트.",
+        "\"가성비 EV의 자율주행 평준화\" 단계 진입 신호.",
+        "엔트리급 EV의 LFP 셀이 K-셀 3사 사업 영역에서 다소 거리."
+      ],
+      "urls": [
+        "https://carnewschina.com/2026/04/25/2026-byd-seagull-dolphin-mini-debuts-at-beijing-auto-show-with-lidar-and-more-range/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "2026 BYD Seagull 베이징 데뷔 + LiDAR + 505km",
+          "source_url": "https://carnewschina.com/2026/04/25/2026-byd-seagull-dolphin-mini-debuts-at-beijing-auto-show-with-lidar-and-more-range/",
+          "source_quote": "The 2026 BYD Seagull (known as the Dolphin Mini or Dolphin Surf in overseas markets) made its debut at the 2026 Beijing Auto Show",
+          "fetched_at": "2026-04-26T20:52:00+09:00"
+        },
+        {
+          "claim": "405→505km, LiDAR 옵션",
+          "source_url": "https://carnewschina.com/2026/04/25/2026-byd-seagull-dolphin-mini-debuts-at-beijing-auto-show-with-lidar-and-more-range/",
+          "source_quote": "a maximum range increase from 405km to 505km under CLTC standards, and the availability of an optional LiDAR system",
+          "fetched_at": "2026-04-26T20:52:00+09:00"
+        },
+        {
+          "claim": "God's Eye B 운전자 보조",
+          "source_url": "https://carnewschina.com/2026/04/25/2026-byd-seagull-dolphin-mini-debuts-at-beijing-auto-show-with-lidar-and-more-range/",
+          "source_quote": "The LiDAR-equipped variant will feature BYD's \"God's Eye B\" driver assistance system",
+          "fetched_at": "2026-04-26T20:52:00+09:00"
+        },
+        {
+          "claim": "60kW 모터 + 505km",
+          "source_url": "https://carnewschina.com/2026/04/25/2026-byd-seagull-dolphin-mini-debuts-at-beijing-auto-show-with-lidar-and-more-range/",
+          "source_quote": "the new motor's maximum power has been increased to 60kW (80hp), while the high-spec model's CLTC range has been upgraded from 405km to 505km",
+          "fetched_at": "2026-04-26T20:52:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-25_GL_01",
+      "region": "GL",
+      "date": "2026-04-25",
+      "cat": "Policy",
+      "sub_cat": "희토류·M&A 정지",
+      "signal": "high",
+      "title": "브라질 Rede Sustentabilidade, USA Rare Earth의 28억 달러 Serra Verde 인수 \"국가안보 사유\"로 대법원 정지 청구",
+      "sub": "USA Rare Earth의 Serra Verde 인수 제안가 (현금+주식) 2.8십억USD / Serra Verde 향후 생산 중 \"중·희토류\" 비중 (약 1/3) 33% | 주체: Rede Sustentabilidade(브라질 좌파 정당) · Serra Verde Group · USA Rare Earth Inc.",
+      "gate": "미국(美) 비-중국(中) 희토류 공급망 확보의 \"브라질 카드\"가 현지 정치 리스크에 직접 부딪힌 시점.",
+      "fact": "블룸버그(2026.4.25)에 따르면, 브라질 좌파 정당 Rede Sustentabilidade는 같은 날 미국 USA Rare Earth Inc.의 브라질 광산회사 Serra Verde Group 인수를 \"국가안보 사유\"로 대법원에 정지 청구했다. USA Rare Earth는 28억 달러(현금+주식)를 Serra Verde에 제시한 상태로, 성사 시 희토류 산업 사상 최대급 거래. 정당 측 청구서는 \"전략 광물 자원 채굴에 관해 브라질 헌법이 요구하는 국익 보호 조항이 현행 법률에 충분히 반영되어 있지 않다\"고 주장하며, \"전략 광물 자산에 대한 경제적 통제권을 직간접 이전할 수 있는 거래는 어떠한 형태로도 진행되어선 안 된다\"고 명시. Serra Verde는 향후 생산의 약 1/3을 \"중·희토류(heavy rare earth elements)\" 카테고리에서 확보할 것으로 기대 — 이 영역은 현재 중국(中)이 사실상 독점.",
+      "implication": [
+        "이번 청구가 가처분으로 받아들여지면 미국(美) 비-중국(中) 희토류 공급망 다변화 전략의 한 축이 단기 차질을 받을 가능성.",
+        "동시에 \"중·희토류\"의 비-중국(中) 공급원이 매우 제한적이라는 거시 컨텍스트에서, Serra Verde의 1/3 비중은 글로벌 시장에서 의미 있는 양임.",
+        "희토류는 SBTL 직접 공급망에 없음."
+      ],
+      "urls": [
+        "https://www.mining.com/web/brazil-party-asks-court-to-halt-rare-earths-miners-sale",
+        "https://www.bloomberg.com/news/articles/2026-04-25/brazil-party-asks-court-to-halt-rare-earths-miner-s-sale",
+        "https://www.bloomberg.com/news/articles/2026-04-23/serra-verde-to-boost-output-of-scarce-rare-earths-amid-us-deal"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "Rede Sustentabilidade가 4/25 대법원에 매각 정지 청구 (국가안보)",
+          "source_url": "https://www.bloomberg.com/news/articles/2026-04-25/brazil-party-asks-court-to-halt-rare-earths-miner-s-sale",
+          "source_quote": "Left-wing Brazilian political party Rede Sustentabilidade asked the country's Supreme Court to suspend the sale of mining company Serra Verde Group to USA Rare Earth Inc on national security grounds",
+          "fetched_at": "2026-04-26T21:42:00+09:00"
+        },
+        {
+          "claim": "브라질 헌법상 국익 보호 충분치 않음 주장",
+          "source_url": "https://www.bloomberg.com/news/articles/2026-04-25/brazil-party-asks-court-to-halt-rare-earths-miner-s-sale",
+          "source_quote": "the party argued that Brazilian legislation doesn't provide sufficient safeguards for the national interest as required by the Constitution in the exploitation of strategic mineral resources",
+          "fetched_at": "2026-04-26T21:42:00+09:00"
+        },
+        {
+          "claim": "전략 광물 자산 경제 통제권 이전 거래 금지 요구",
+          "source_url": "https://www.bloomberg.com/news/articles/2026-04-25/brazil-party-asks-court-to-halt-rare-earths-miner-s-sale",
+          "source_quote": "no transaction should be carried out that could directly or indirectly transfer significant economic control over the country's strategic mineral assets",
+          "fetched_at": "2026-04-26T21:42:00+09:00"
+        },
+        {
+          "claim": "USA Rare Earth $2.8B 현금+주식 제안 + 희토류 사상 최대급",
+          "source_url": "https://www.mining.com/web/brazil-party-asks-court-to-halt-rare-earths-miners-sale",
+          "source_quote": "USA Rare Earth offered $2.8 billion in cash and stock for Serra Verde, which would mark one of the largest transactions in the rare earths industry to date",
+          "fetched_at": "2026-04-26T21:42:00+09:00"
+        },
+        {
+          "claim": "Serra Verde 생산 1/3이 중·희토류 (中 독점 영역)",
+          "source_url": "https://www.bloomberg.com/news/articles/2026-04-23/serra-verde-to-boost-output-of-scarce-rare-earths-amid-us-deal",
+          "source_quote": "Brazil's Serra Verde Group — the target of a $2.8 billion acquisition by USA Rare Earth Inc. — expects about one-third of its future production to come from heavy rare earth elements, a category currently dominated by China",
+          "fetched_at": "2026-04-26T21:42:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-25_JP_01",
+      "region": "JP",
+      "date": "2026-04-25",
+      "cat": "Manufacturing",
+      "sub_cat": "전력반도체·재편",
+      "signal": "high",
+      "title": "덴소, 1조3천억엔 ROHM 인수 제안 철회…ROHM·도시바·미쓰비시 3사 통합으로 일본 전력반도체 재편",
+      "sub": "덴소의 ROHM 인수 제안 가격 1.3조JPY / 한화 환산 인수 제안가 12조KRW / 덴소 보유 ROHM 지분 5% | 주체: 덴소(DENSO) · ROHM(롬) · 아즈마(ROHM 사장)",
+      "gate": "ROHM이 도요타-덴소 진영을 거부하고 도시바·미쓰비시와의 수평 연합을 택한 분기점.",
+      "fact": "닛케이는 2026년 4월 25일 도요타그룹 대형 부품사 덴소가 일본 전력반도체 업체 ROHM에 대한 인수 제안을 철회할 예정이라고 보도했다. 덴소는 ROHM 지분 약 5% 보유 상태에서 2026년 2월 1조3,000억엔(약 12조원) 규모의 주식공개매수(TOB)를 제안했으나 ROHM 측의 동의를 얻지 못함. ROHM 사장 아즈마는 \"덴소에 종속되면 고객들이 공급 중단을 우려해 ROHM을 1순위 공급처로 쓰기 어려워진다\"고 발언. ROHM은 별개로 3월부터 도시바·미쓰비시전기와 전력반도체 사업 통합 협의를 시작. 2024년 매출 기준 세계 점유율은 ROHM 2.5%(12위), 도시바 2.6%(10위), 미쓰비시전기 4.6%(4위)로 3사 통합 시 9.7%로 인피니언(17.4%)에 이어 세계 2위. 강점 영역은 ROHM의 SiC 차량용, 도시바의 저·중전압, 미쓰비시의 고전압 산업·인프라용으로 인피니언식 멀티-제품 종합 체제 구축이 가능.",
+      "implication": [
+        "도요타그룹의 '반도체 수직통합' 전략과 ROHM의 '경영 독립성·복수 OEM 공급' 전략이 정면 충돌한 결과로, 일본 전력반도체 산업이 '수직통합'이 아닌 '수평 연합'으로 정렬되는 분기점.",
+        "다만 일본디스플레이(JDI)의 만성 적자 사례가 보여주듯 다자 통합은 거버넌스 리스크가 크다는 우려도 존재.",
+        "전력반도체 업체 자체는 SBTL 직접 공급망과 거리."
+      ],
+      "urls": [
+        "https://v.daum.net/v/20260426065415753",
+        "https://biz.heraldcorp.com/article/10725466",
+        "https://www.ebn.co.kr/news/articleView.html?idxno=1706640",
+        "https://www.ajunews.com/view/20260419120001708"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "덴소의 ROHM 인수 제안 철회",
+          "source_url": "https://v.daum.net/v/20260426065415753",
+          "source_quote": "일본 도요타그룹 계열 세계 2위 차량 부품사 덴소가 전력반도체 업체 롬에 대한 인수 제안을 철회할 것으로 알려졌다",
+          "fetched_at": "2026-04-26T20:30:00+09:00"
+        },
+        {
+          "claim": "1조3천억엔 인수 제안 + 5% 지분 + 2월 TOB",
+          "source_url": "https://biz.heraldcorp.com/article/10725466",
+          "source_quote": "인수 가격으로 1조3000억엔(약 12조원)을 제시",
+          "fetched_at": "2026-04-26T20:30:00+09:00"
+        },
+        {
+          "claim": "5% 지분 보유 + 2월 TOB",
+          "source_url": "https://biz.heraldcorp.com/article/10725466",
+          "source_quote": "현재 롬 지분 약 5%를 보유한 덴소는 앞서 지난 2월 주식공개매수(TOB) 방식으로 주식을 전량 취득하겠다는 내용의 인수 제안",
+          "fetched_at": "2026-04-26T20:30:00+09:00"
+        },
+        {
+          "claim": "3월부터 도시바·미쓰비시 통합 협의 시작",
+          "source_url": "https://v.daum.net/v/20260426065415753",
+          "source_quote": "롬은 덴소의 인수 제안과 별개로 3월부터 도시바, 미쓰비시전기와 전력반도체 사업 통합을 위한 협의를 시작",
+          "fetched_at": "2026-04-26T20:30:00+09:00"
+        },
+        {
+          "claim": "3사 통합 시 9.7% 세계 2위 (인피니언 17.4%)",
+          "source_url": "https://v.daum.net/v/20260426065415753",
+          "source_quote": "2024년 매출 기준 롬의 세계 전력반도체 시장 점유율은 2.5%로 12위였다. 미쓰비시전기가 4.6%로 4위, 도시바는 2.6%로 10위다. 3사가 통합하면 9.7%로 독일 인피니언(17.4%)에 이어 세계 2위에 오른다",
+          "fetched_at": "2026-04-26T20:30:00+09:00"
+        },
+        {
+          "claim": "3사 강점 영역 (SiC 차량용/저중전압/고전압)",
+          "source_url": "https://www.ajunews.com/view/20260419120001708",
+          "source_quote": "롬의 SiC 차량용, 도시바의 저·중전압, 미쓰비시전기의 고전압 산업·인프라용 반도체를 결합하면 인피니언처럼 복수 제품을 묶어 판매하는 종합 체제를 갖출 수 있다",
+          "fetched_at": "2026-04-26T20:30:00+09:00"
+        },
+        {
+          "claim": "ROHM 사장 아즈마 발언",
+          "source_url": "https://www.ajunews.com/view/20260419120001708",
+          "source_quote": "롬의 아즈마 사장은 \"덴소에 종속되면 고객들이 공급 중단을 우려해 롬을 1순위 공급처로 쓰기 어려워진다\"고 언급",
+          "fetched_at": "2026-04-26T20:30:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-25_JP_02",
+      "region": "JP",
+      "date": "2026-04-25",
+      "cat": "EV",
+      "sub_cat": "OEM·EV 전략후퇴",
+      "signal": "high",
+      "title": "혼다, 자율주행 도입 1년 연기(2027→2028)…EV 전략 후퇴로 일부 모델 취소",
+      "sub": "새 자율주행 도입 시점 (1년 연기) 2028년 / 기존 자율주행 도입 시점 2027년 / 온타리오 EV 공장 추가 연기 2년 | 주체: 혼다(Honda Motor) · Asahi Kasei · Helm.ai",
+      "gate": "혼다의 EV 전략 전반 축소가 자율주행 일정에까지 영향을 미친 시점.",
+      "fact": "닛케이 아시아(2026년 4월 25일)는 혼다가 AI 기반 자율주행의 차량 적용을 1년 연기해 2028년으로 미룬다고 보도했다. 혼다의 EV 전략 후퇴 — Honda 0 Saloon·0 SUV·Acura RSX 3종 모델 취소(2026년 3월 발표) — 가 자율주행 일정 지연의 배경. 혼다는 작년 5월 캐나다 온타리오 EV 공장 가동 시점을 기존 일정에서 2년 추가 연기한 바 있고, 이에 연동해 Asahi Kasei가 캐나다 배터리 소재 공장 가동 시점을 2029년 이후로 미룸. 혼다의 다음 신규 모델은 2027년 새 CR-V로 알려짐.",
+      "implication": [
+        "글로벌 자동차 OEM 중 일본 브랜드(혼다·닛산·미쓰비시)의 EV 후퇴가 가장 가시적이며, 자율주행 일정까지 직간접 영향을 받는 단계로 진입했다는 점이 관전 포인트.",
+        "혼다는 자체 EV 0 시리즈에 Helm.ai와의 자율주행 협력으로 Level 3을 추진해왔으나 이번 연기는 양산 일정 자체를 흔들.",
+        "혼다의 EV 전략 후퇴는 LGES·삼성SDI·SK온의 일본 OEM향 셀 공급 일정에 영향, 결과적으로 SBTL의 일본 OEM향 알루미늄 파우치필름 수요에도 영향."
+      ],
+      "urls": [
+        "https://asia.nikkei.com/business/automobiles/honda-postpones-self-driving-goal-to-2028-as-ev-retreat-takes-toll",
+        "https://finance.yahoo.com/sectors/technology/articles/asahi-kasei-postpones-canada-battery-110847078.html",
+        "https://www.foxbusiness.com/markets/honda-cancels-3-planned-ev-models-us",
+        "https://www.wardsauto.com/news/honda-cancels-0-series-evs-ohio/814632/",
+        "https://www.carscoops.com/2026/04/honda-ev-cancellation-product-gap/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "AI 자율주행 1년 연기 → 2028년 + EV 모델 취소",
+          "source_url": "https://asia.nikkei.com/business/automobiles/honda-postpones-self-driving-goal-to-2028-as-ev-retreat-takes-toll",
+          "source_quote": "Honda Motor will delay implementing artificial intelligence-powered autonomous driving in its vehicles by one year to 2028, as its pull back from an electric vehicle strategy resulted in planned models being canceled",
+          "fetched_at": "2026-04-26T21:05:00+09:00"
+        },
+        {
+          "claim": "온타리오 EV 공장 2년 추가 연기 (5월 발표)",
+          "source_url": "https://finance.yahoo.com/sectors/technology/articles/asahi-kasei-postpones-canada-battery-110847078.html",
+          "source_quote": "In May last year, Honda said it would put back the start of operations at its proposed Ontario EV plant by two years, moving the schedule out from 2028",
+          "fetched_at": "2026-04-26T21:05:00+09:00"
+        },
+        {
+          "claim": "Asahi Kasei 캐나다 공장 → 2029 이후",
+          "source_url": "https://finance.yahoo.com/sectors/technology/articles/asahi-kasei-postpones-canada-battery-110847078.html",
+          "source_quote": "Asahi Kasei will push back the start-up of its Canada battery materials plant to 2029 or later after Honda Motor deferred its Ontario EV plans",
+          "fetched_at": "2026-04-26T21:05:00+09:00"
+        },
+        {
+          "claim": "Honda 0 Saloon·0 SUV·Acura RSX 3종 EV 모델 취소",
+          "source_url": "https://www.foxbusiness.com/markets/honda-cancels-3-planned-ev-models-us",
+          "source_quote": "Honda canceling the Saloon along with the Honda 0 SUV and the Acura RSX",
+          "fetched_at": "2026-04-26T22:25:00+09:00"
+        },
+        {
+          "claim": "Honda 0 시리즈 3종 EV 취소 + 4번째 모델(Afeela) 보류",
+          "source_url": "https://www.wardsauto.com/news/honda-cancels-0-series-evs-ohio/814632/",
+          "source_quote": "Honda confirmed the cancellation of three electric-vehicle products, a fourth one hangs in the balance",
+          "fetched_at": "2026-04-26T22:25:00+09:00"
+        },
+        {
+          "claim": "혼다 다음 신규 모델은 2027년 새 CR-V",
+          "source_url": "https://www.carscoops.com/2026/04/honda-ev-cancellation-product-gap/",
+          "source_quote": "Its first fresh vehicle will be a redesigned CR-V due in 2027, Nikkei Asia reports",
+          "fetched_at": "2026-04-26T22:25:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-25_US_01",
+      "region": "US",
+      "date": "2026-04-25",
+      "cat": "Charging",
+      "sub_cat": "가정용ESS·법안",
+      "signal": "high",
+      "title": "캘리포니아 SB 913 \"가정용 배터리=발전소\" 법안 4/7 에너지위 통과 후 Appropriations 회부",
+      "sub": "캘리포니아 상원 SB 913 913법안번호 / PG&E-Tesla 협약 인센티브 상한 4500USD / 사이버트럭 1대당 그리드 기여 용량 (참고) 123kWh | 주체: California State Senate · SB 913 · PG&E",
+      "gate": "주택 배터리에 발전소 지위를 부여하면 V2G·VPP 사업의 회수 규칙이 통째로 바뀌는 시점.",
+      "fact": "캘리포니아 상원이 발의한 SB 913 법안은 가정용 백업 배터리를 \"정당한 발전소(legitimate power plants)\"로 인정하고, 유틸리티·그리드 운영자가 가정용 배터리에 정식으로 보상을 지급할 수 있도록 한다. 2026년 4월 7일 상원 에너지위원회 표결 후 수정 → 세출위원회(Appropriations)에 재회부된 상태로, 향후 표결 일정은 미정. 이와 별개로 PG&E와 Tesla는 4월 20일 캘리포니아 V2X 파일럿 프로그램에서 사이버트럭이 그리드에 전력을 판매할 수 있도록 하는 협약을 체결, 장비·설치비 명목으로 최대 $4,500까지 인센티브 지급. Tesla 사이버트럭은 주거용 V2G에서 미국(美) 최초로 AC 기반 차량으로 등록.",
+      "implication": [
+        "VPP·V2G 기술이 '존재한다'에서 '제도적으로 발전소로 인정된다'로 넘어가는 분기점.",
+        "다만 SB 913은 아직 위원회 단계로 본회의 통과 및 주지사 서명까지 다수 단계가 남아 있어 시행 시점은 미정.",
+        "주거용 ESS 시장이 \"전력회사가 인정하는 자산\"으로 격상되면 LGES RESU/엔파스/테슬라 파워월 등 가정용 ESS 셀 수요가 증가."
+      ],
+      "urls": [
+        "https://electrek.co/2026/04/25/new-bill-in-california-senate-could-turn-your-home-battery-into-a-moneymaker/",
+        "https://news.tesevo.com/california-senate-bill-913-transforming-home-batteries-into-energy-income/",
+        "https://electrek.co/2026/04/20/pge-tesla-cybertruck-first-ac-vehicle-to-grid-california/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "SB 913 4/7 에너지위 표결 후 Appropriations 회부",
+          "source_url": "https://electrek.co/2026/04/25/new-bill-in-california-senate-could-turn-your-home-battery-into-a-moneymaker/",
+          "source_quote": "SB 913 was amended and re-referred to the Senate Committee on Appropriations after its April 7, 2026 Energy Committee vote",
+          "fetched_at": "2026-04-26T20:55:00+09:00"
+        },
+        {
+          "claim": "가정용 배터리를 정당한 발전소로 인정",
+          "source_url": "https://news.tesevo.com/california-senate-bill-913-transforming-home-batteries-into-energy-income/",
+          "source_quote": "the California Senate has introduced Bill 913, which proposes to treat home backup batteries as legitimate power plants",
+          "fetched_at": "2026-04-26T20:55:00+09:00"
+        },
+        {
+          "claim": "PG&E-Tesla 협약 + $4,500 인센티브",
+          "source_url": "https://electrek.co/2026/04/25/new-bill-in-california-senate-could-turn-your-home-battery-into-a-moneymaker/",
+          "source_quote": "PG&E and Tesla have already announced an agreement that allows Cybertruck owners to sell power back to California's grid through that utility's residential Vehicle-to-Everything (V2X) pilot program",
+          "fetched_at": "2026-04-26T20:55:00+09:00"
+        },
+        {
+          "claim": "$4,500 인센티브 한도",
+          "source_url": "https://electrek.co/2026/04/25/new-bill-in-california-senate-could-turn-your-home-battery-into-a-moneymaker/",
+          "source_quote": "The approval comes with up to $4,500 in incentives toward equipment and installation costs",
+          "fetched_at": "2026-04-26T20:55:00+09:00"
+        }
+      ]
+    },
     {
       "id": "2026-04-24_CN_01",
       "region": "CN",
@@ -48,6 +497,181 @@
           "source_url": "https://news.smm.cn/news/103872455",
           "source_quote": "截至目前，远景已在中国、日本、美国、英国、法国及西班牙布局14大电池超级工厂，累计交付储能电芯超100GWh，参与储能项目超400个",
           "fetched_at": "2026-04-24T22:15:29+0900"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-24_CN_02",
+      "region": "CN",
+      "date": "2026-04-24",
+      "cat": "EV",
+      "sub_cat": "EV·플래시충전",
+      "signal": "high",
+      "title": "BYD 신형 Atto 3(元 PLUS) 베이징 데뷔 — 5분 플래시 충전 + 630km(CLTC)",
+      "sub": "엔트리 LFP 배터리 용량 57.545kWh / 상위 LFP 배터리 용량 68.547kWh / 엔트리 CLTC 주행거리 540km | 주체: BYD · FinDreams Battery (BYD 자회사) · Cleantechnica",
+      "gate": "BYD가 1.5MW 메가와트 충전·5분 플래시 충전 기술을 글로벌 베스트셀러 라인업의 \"엔트리\"에 적용한 시점.",
+      "fact": "BYD는 2026년 4월 24일 베이징 모터쇼에서 3세대 Yuan Plus(해외명 Atto 3)를 공개했다. 두 가지 LFP 배터리 옵션 — 57.545kWh(540km CLTC, 200kW/268hp 모터)와 68.547kWh(630km CLTC, 240kW/322hp 모터). 모두 5분 안에 10%→70% 충전 가능한 \"플래시 충전\" 지원. -30°C(-22°F) 환경에서도 추가 3분만으로 동일 충전 달성 가능. 신차는 기존 모델 대비 길이 +210mm, 너비 +20mm, 높이 +60mm, 휠베이스 +50mm. Cleantechnica 자료 기준 Atto 3는 2025년 글로벌 EV 13위(22만3,906대 판매). BYD가 내세우는 충전 시스템은 1,500kW 메가와트 충전 인프라로 차량 측에서도 1.5MW까지 받을 수 있게 됨.",
+      "implication": [
+        "BYD 본거지 중국(中)에서 글로벌 베스트셀러를 5분 충전+1.5MW 인프라로 격상한 점이 관전 포인트.",
+        "Atto 3는 BYD의 글로벌 진출 핵심 모델이라 본 업그레이드는 유럽·동남아·호주·중남미 시장에서 곧바로 비교 기준이 될 가능성.",
+        "BYD Atto 3 3세대는 LFP 각형 셀 기반이라 SBTL 알루미늄 파우치필름 직접 공급 동선과는 거리."
+      ],
+      "urls": [
+        "https://electrek.co/2026/04/24/byd-upgrades-top-selling-evs-5-min-flash-charging/",
+        "https://carnewschina.com/2026/04/20/the-new-gen-byd-atto-3-to-debut-at-the-beijing-auto-show-2026-with-flash-charging/",
+        "https://www.autoevolution.com/news/byd-to-launch-refreshed-atto-3-with-flash-charging-at-the-beijing-auto-show-2026-268883.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "3세대 Yuan Plus(Atto 3) 4/24 베이징 데뷔 + 플래시 충전",
+          "source_url": "https://electrek.co/2026/04/24/byd-upgrades-top-selling-evs-5-min-flash-charging/",
+          "source_quote": "BYD unveiled the third-generation Yuan Plus at the Beijing Auto Show on April 24, featuring its new flash charging technology",
+          "fetched_at": "2026-04-26T20:50:00+09:00"
+        },
+        {
+          "claim": "57.545/68.547 kWh, 540/630 km CLTC",
+          "source_url": "https://electrek.co/2026/04/24/byd-upgrades-top-selling-evs-5-min-flash-charging/",
+          "source_quote": "The electric crossover SUV will be available with two new battery packs: 57.545 kWh or 68.547 kWh, rated with CLTC driving ranges of 540 km (335 miles) and 630 km (391 miles), respectively",
+          "fetched_at": "2026-04-26T20:50:00+09:00"
+        },
+        {
+          "claim": "5분 10%→70% 플래시 충전",
+          "source_url": "https://carnewschina.com/2026/04/20/the-new-gen-byd-atto-3-to-debut-at-the-beijing-auto-show-2026-with-flash-charging/",
+          "source_quote": "The new BYD Atto 3 will support the flash charging technology that allows charging from 10% to 70% in 5 minutes",
+          "fetched_at": "2026-04-26T20:50:00+09:00"
+        },
+        {
+          "claim": "-30°C 추가 3분, 70→97% 추가 4분",
+          "source_url": "https://www.autoevolution.com/news/byd-to-launch-refreshed-atto-3-with-flash-charging-at-the-beijing-auto-show-2026-268883.html",
+          "source_quote": "It needs another 4 minutes to reach 97%. Even better, BYD claims it needs only 3 more minutes for the same feat at -30 degrees Celsius (-22 F)",
+          "fetched_at": "2026-04-26T20:50:00+09:00"
+        },
+        {
+          "claim": "2025 글로벌 13위, 22만3,906대",
+          "source_url": "https://electrek.co/2026/04/24/byd-upgrades-top-selling-evs-5-min-flash-charging/",
+          "source_quote": "the BYD Yuan Plus (Atto 3) was the 13th-best-selling EV globally in 2025, with 223,906 units sold",
+          "fetched_at": "2026-04-26T20:50:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-24_CN_03",
+      "region": "CN",
+      "date": "2026-04-24",
+      "cat": "EV",
+      "sub_cat": "EV·플래그십",
+      "signal": "high",
+      "title": "BYD Great Tang EV 베이징서 사전판매 개시 — 24시간만에 3만대+ 예약, 950km·3.9초·$36K부터",
+      "sub": "단일 모터 사전판매 시작가 250000CNY / 이중 모터 AWD 사전판매 가격 상한 320000CNY / 단일 모터 시작가 USD 환산 36200USD | 주체: BYD · Dynasty Network · BYD Great Tang EV",
+      "gate": "BYD Dynasty Network 첫 D-class 플래그십 SUV가 \"가성비\"로 D 세그먼트에 들어왔다.",
+      "fact": "BYD는 2026년 4월 24일 베이징 모터쇼에서 Great Tang EV 사전판매를 시작했다. Dynasty Network 시리즈 최초의 D-class 플래그십 SUV로 2세대 블레이드 배터리·1,000V 고전압 아키텍처를 탑재. 단일 모터·이중 모터 AWD 구성을 제공하며 사전판매가는 25만~32만 위안($36,200~$46,400). 시판 시점은 2026년 상반기. 발표 24시간 내에 사전 주문 30,000건 이상을 기록. 주행거리 950km, 0-100km/h 3.9초, 플래시 충전 지원.",
+      "implication": [
+        "BYD가 D-class 플래그십 SUV에 \"950km·3.9초·플래시 충전·$36K\"를 동시에 묶었다는 점이 관전 포인트.",
+        "Tesla Model X·Audi Q8 e-tron·Mercedes EQE SUV 등 글로벌 동급 EV 대비 가격은 절반·주행거리는 +94%·가속은 동급.",
+        "Great Tang EV는 LFP 2세대 Blade Battery 기반으로 SBTL 알루미늄 파우치필름 직접 공급 동선과는 거리."
+      ],
+      "urls": [
+        "https://carnewschina.com/2026/04/24/byd-great-tang-ev-pre-sales-open-950-km-range-flash-charging-0-100-in-3-9s-from-36200-usd/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "4/24 사전판매 + 베이징 모터쇼",
+          "source_url": "https://carnewschina.com/2026/04/24/byd-great-tang-ev-pre-sales-open-950-km-range-flash-charging-0-100-in-3-9s-from-36200-usd/",
+          "source_quote": "On April 24, BYD opened pre-sales of its Great Tang EV at the Beijing Auto Show",
+          "fetched_at": "2026-04-26T20:51:00+09:00"
+        },
+        {
+          "claim": "D-class 플래그십 + 2세대 Blade + 1000V",
+          "source_url": "https://carnewschina.com/2026/04/24/byd-great-tang-ev-pre-sales-open-950-km-range-flash-charging-0-100-in-3-9s-from-36200-usd/",
+          "source_quote": "The Great Tang EV marks the first D-class flagship SUV under the Dynasty Network series, featuring the second-generation blade battery and a 1000V high-voltage architecture",
+          "fetched_at": "2026-04-26T20:51:00+09:00"
+        },
+        {
+          "claim": "가격 25만~32만 위안 / $36,200~$46,400",
+          "source_url": "https://carnewschina.com/2026/04/24/byd-great-tang-ev-pre-sales-open-950-km-range-flash-charging-0-100-in-3-9s-from-36200-usd/",
+          "source_quote": "pre-sale prices ranging from 250,000 to 320,000 yuan (36,200-46,400 USD)",
+          "fetched_at": "2026-04-26T20:51:00+09:00"
+        },
+        {
+          "claim": "24시간 3만대+ 예약",
+          "source_url": "https://carnewschina.com/2026/04/24/byd-great-tang-ev-pre-sales-open-950-km-range-flash-charging-0-100-in-3-9s-from-36200-usd/",
+          "source_quote": "BYD Great Tang logs over 30,000 pre-orders in 24 hours, priced from 36,460 USD",
+          "fetched_at": "2026-04-26T20:51:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-24_CN_04",
+      "region": "CN",
+      "date": "2026-04-24",
+      "cat": "EV",
+      "sub_cat": "EV·가격경쟁",
+      "signal": "high",
+      "title": "닛케이 \"중국(中) EV 평균가 14% 하락\" — BYD, 저가(廉价) 모델에 신형 블레이드 배터리 탑재로 가격 전쟁 가속",
+      "sub": "중국(中) EV 평균가 하락률 (닛케이) -14% / 위안 플러스(元PLUS) 2026년형 주행거리 630km / 신형 PHV (海豹08·海獅08) EV 모드 주행거리 400km | 주체: 닛케이/니혼게이자이신문(日本経済新聞) · BYD(比亜迪) · 위안 플러스(元PLUS)",
+      "gate": "BYD가 신형 블레이드 배터리를 저가(廉价) 모델에 그대로 이식하면서 \"가격×사양\" 동반 전쟁이 격화.",
+      "fact": "닛케이는 2026년 4월 24일 베이징 발 보도에서 중국(中) EV 평균가가 14% 하락했다고 전하며, BYD가 24일 베이징 모터쇼에서 SUV EV \"위안 플러스(元PLUS)\" 2026년형을 처음 공개했다고 보도. 신차에는 3월에 자체 발표한 신형 블레이드 배터리가 탑재되어 주행거리 630km(2025년형 대비 향상). 같은 날 BYD는 신형 PHV 2종(海豹08 세단·海獅08 SUV)도 발표 — EV 모드만으로 400km 주행 가능, 약 9분에 만충 가능한 급속 충전 기능. 기존 BYD PHV의 EV 모드 100~300km 대비 큰 폭 확장. 중동 정세 악화로 원자재 가격이 상승하는 가운데 \"박리다매(薄利多賣)\" 구도가 더 강해지는 형태.",
+      "implication": [
+        "중국(中) EV 평균가 14% 하락은 단순 가격 인하가 아니라 \"신형 배터리·고사양\\을 저가(廉价) 모델까지 끌어내리는 형태의 가격 전쟁\"이라는 점이 관전 포인트.",
+        "BYD가 PHV에까지 신형 블레이드 배터리를 이식한 것은 EV 모드 주행거리에서 PHV가 EV에 근접하게 만드는 결정으로, 글로벌 PHV 시장 사양 베이스라인을 끌어올림.",
+        "중국(中) EV 가격이 14% 하락하면 글로벌 시장에서 K-EV(현대·기아) 가격 경쟁력이 약화되어 K-셀 3사의 NCM 파우치 셀 단가에 하방 압박이 가속."
+      ],
+      "urls": [
+        "https://www.nikkei.com/article/DGXZQOGM23CZ60T20C26A4000000/",
+        "https://www.nikkei.com/article/DGKKZO95898170V20C26A4EA2000/",
+        "https://www.nikkei.com/article/DGXZQOUC24CH60U6A420C2000000/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "중국(中) EV 평균가 14% 하락 + BYD 저가(廉价) 모델에 고성능 전지",
+          "source_url": "https://www.nikkei.com/article/DGXZQOGM23CZ60T20C26A4000000/",
+          "source_quote": "中国EVの競争苛烈、平均価格14%下落 BYDは廉価モデルに高性能電池",
+          "fetched_at": "2026-04-26T21:48:00+09:00"
+        },
+        {
+          "claim": "BYD 위안 플러스(元PLUS) 2026형 4/24 첫 공개",
+          "source_url": "https://www.nikkei.com/article/DGXZQOGM23CZ60T20C26A4000000/",
+          "source_quote": "BYDは24日に開幕した北京国際自動車ショーで、多目的スポーツ車（SUV）のEV「元PLUS」の2026年モデルを初披露した",
+          "fetched_at": "2026-04-26T21:48:00+09:00"
+        },
+        {
+          "claim": "3월 발표 신형 블레이드 배터리 탑재",
+          "source_url": "https://www.nikkei.com/article/DGXZQOGM23CZ60T20C26A4000000/",
+          "source_quote": "3月に発表した自社開発の「刀片電池（ブレードバッテリー）」を採用",
+          "fetched_at": "2026-04-26T21:48:00+09:00"
+        },
+        {
+          "claim": "가격 경쟁 격화 + BYD가 고성능(高性能) 배터리를 더 싼 가격대 EV에 탑재",
+          "source_url": "https://www.nikkei.com/article/DGKKZO95898170V20C26A4EA2000/",
+          "source_quote": "中国の電気自動車（EV）で価格競争が激化している。比亜迪（BYD）は高性能な電池をより安い価格帯のEVに搭載する",
+          "fetched_at": "2026-04-26T21:48:00+09:00"
+        },
+        {
+          "claim": "중동 정세 악화 → 원자재 가격 상승 → 박리다매(薄利多賣) 구도 강화",
+          "source_url": "https://www.nikkei.com/article/DGKKZO95898170V20C26A4EA2000/",
+          "source_quote": "中東情勢の悪化で原材料が高騰しており、薄利多売の構図が一層強まる",
+          "fetched_at": "2026-04-26T21:48:00+09:00"
+        },
+        {
+          "claim": "위안 플러스(元PLUS) 신형 주행거리 630km",
+          "source_url": "https://www.nikkei.com/article/DGKKZO95898170V20C26A4EA2000/",
+          "source_quote": "3月に発表した新型電池を採用し、航続距離は630キロメートルと25年モデル...",
+          "fetched_at": "2026-04-26T21:48:00+09:00"
+        },
+        {
+          "claim": "PHV 하이바오 08(海豹08)·하이스 08(海獅08) EV 모드 400km / 9분 만충",
+          "source_url": "https://www.nikkei.com/article/DGXZQOUC24CH60U6A420C2000000/",
+          "source_quote": "BYDのPHVはEVモードでの走行距離が100〜300キロほどが中心だったが、刷新した電池を使った海豹08と海獅08では400キロまで伸びる。満充電状態まで約9分で充電できる急速充電機能も備える",
+          "fetched_at": "2026-04-26T21:48:00+09:00"
+        },
+        {
+          "claim": "PHV에 신형 블레이드 배터리 탑재는 처음",
+          "source_url": "https://www.nikkei.com/article/DGXZQOUC24CH60U6A420C2000000/",
+          "source_quote": "BYDは3月上旬に自社開発の「刀片電池（ブレードバッテリー）」を刷新しており、この電池を搭載する。EVには搭載済みだが、PHVに載せるのは初めて",
+          "fetched_at": "2026-04-26T21:48:00+09:00"
         }
       ]
     },
@@ -143,6 +767,72 @@
       ]
     },
     {
+      "id": "2026-04-24_GL_02",
+      "region": "GL",
+      "date": "2026-04-24",
+      "cat": "ESS",
+      "sub_cat": "ESS·국가 발주",
+      "signal": "top",
+      "title": "사우디 SPPC, 3GW/12GWh BESS 사전자격심사 개시…2030년 48GWh 누적 목표",
+      "sub": "이번 트랜치 총 출력 3GW / 이번 트랜치 총 용량 12GWh / 프로젝트 수 6개 | 주체: Saudi Power Procurement Company(SPPC) · Principal Buyer · Saudi Electricity Company(SEC)",
+      "gate": "사우디가 2030년 48GWh 누적까지 가는 길의 다음 12GWh 트랜치를 본격 발주한 시점.",
+      "fact": "사우디 전력 조달 회사(SPPC)는 2026년 4월 24일 'Principal Buyer' 자회사를 통해 6개 BESS 프로젝트(각 500MW/2,000MWh, 합계 3GW/12GWh) 사전자격심사를 시작한다고 발표했다. 각 프로젝트는 SPV가 100% 지분을 보유한 build-own-operate(BOO) 방식이며 SPV는 Principal Buyer와 장기 Storage Services Agreement를 체결. 6개 프로젝트는 Samha BESS(Qassim), Al-Leeth BESS(Makkah), Al-Henakiyah BESS(Madinah), Khulis BESS(Makkah), Sadawi BESS(Eastern), Ashyrah BESS(Makkah)로 구성. 자격 신청 마감은 2026년 5월 5일 14:00. 사우디 NREP는 2030년까지 50% 청정에너지 믹스를 목표로, 현재 약 50GWh 규모의 대형 BESS가 발주·건설·입찰 중이며 2030년까지 누적 48GWh가 목표. 1차 BOO 입찰(2GW/8GWh) 결과는 아직 미발표.",
+      "implication": [
+        "사우디가 단일 트랜치를 '8GWh→12GWh'로 50% 확장한 점이 관전 포인트.",
+        "Bisha 500MW/2GWh BESS(BYD 셀, 1단상 기준 세계 최대 운영중)에 이어 두 번째 BOO 트랜치 일정이 빨라지는 양상.",
+        "사우디 12GWh BESS 트랜치는 LFP 각형/팩 시장이라 SBTL 알루미늄 파우치필름 직접 공급 동선과는 거리가 있음."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/saudi-arabia-begins-qualifying-bidders-for-3gw-12gwh-battery-storage-rfp/",
+        "https://www.pandwsolar.com/saudi-arabia-launches-qualification-process-for-12-gwh-of-battery-storage-projects/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "6개 프로젝트 × 500MW/2000MWh = 3GW/12GWh",
+          "source_url": "https://www.energy-storage.news/saudi-arabia-begins-qualifying-bidders-for-3gw-12gwh-battery-storage-rfp/",
+          "source_quote": "Via its 'Principal Buyer' subsidiary, the Company is seeking companies to hold 100% equity in SPVs to develop and operate a total of six battery energy storage system (BESS) projects of 500MW/2,000MWh each, totalling 3GW/12GWh",
+          "fetched_at": "2026-04-26T20:59:00+09:00"
+        },
+        {
+          "claim": "SPV - Principal Buyer 장기 Storage Services Agreement",
+          "source_url": "https://www.energy-storage.news/saudi-arabia-begins-qualifying-bidders-for-3gw-12gwh-battery-storage-rfp/",
+          "source_quote": "Each SPV will enter into a Storage Services Agreement with Principal Buyer for its long-term offtake",
+          "fetched_at": "2026-04-26T20:59:00+09:00"
+        },
+        {
+          "claim": "6개 프로젝트 입지 + 5/5 마감",
+          "source_url": "https://www.pandwsolar.com/saudi-arabia-launches-qualification-process-for-12-gwh-of-battery-storage-projects/",
+          "source_quote": "The latest tender includes six projects: Samha BESS in Qassim province; Al-Leeth BESS in Makkah province; Al-Henakiyah BESS in Madinah province; Khulis BESS in Makkah province; Sadawi BESS in the Eastern Province; and, Ashyrah BESS in Makkah province",
+          "fetched_at": "2026-04-26T20:59:00+09:00"
+        },
+        {
+          "claim": "5/5/2026 14:00 자격 신청 마감",
+          "source_url": "https://www.pandwsolar.com/saudi-arabia-launches-qualification-process-for-12-gwh-of-battery-storage-projects/",
+          "source_quote": "The deadline for submission of statements of qualification is May 5, 2026, at 14:00",
+          "fetched_at": "2026-04-26T20:59:00+09:00"
+        },
+        {
+          "claim": "2030년 48GWh 누적 목표",
+          "source_url": "https://www.pandwsolar.com/saudi-arabia-launches-qualification-process-for-12-gwh-of-battery-storage-projects/",
+          "source_quote": "targeting 48 GWh of battery energy storage capacity by 2030",
+          "fetched_at": "2026-04-26T20:59:00+09:00"
+        },
+        {
+          "claim": "현재 약 50GWh 발주·건설·입찰",
+          "source_url": "https://www.energy-storage.news/saudi-arabia-begins-qualifying-bidders-for-3gw-12gwh-battery-storage-rfp/",
+          "source_quote": "there is now almost 50GWh of large-scale BESS capacity being procured, built or tendered for in the country",
+          "fetched_at": "2026-04-26T20:59:00+09:00"
+        },
+        {
+          "claim": "NREP 2030 50% 청정에너지",
+          "source_url": "https://www.energy-storage.news/saudi-arabia-begins-qualifying-bidders-for-3gw-12gwh-battery-storage-rfp/",
+          "source_quote": "Saudi Arabia's National Renewable Energy Program (NREP) aims to reach a clean energy mix of 50% by 2030",
+          "fetched_at": "2026-04-26T20:59:00+09:00"
+        }
+      ]
+    },
+    {
       "id": "2026-04-24_JP_01",
       "region": "JP",
       "date": "2026-04-24",
@@ -181,6 +871,79 @@
           "source_url": "https://www.bloomberg.com/news/articles/2026-04-23/softbank-prepares-to-manufacture-batteries-for-ai-data-centers",
           "source_quote": "After SoftBank executives mulled different purposes for the plant in Sakai city, including robotics manufacturing, they decided to pursue energy",
           "fetched_at": "2026-04-24T22:15:29+0900"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-24_JP_02",
+      "region": "JP",
+      "date": "2026-04-24",
+      "cat": "Materials",
+      "sub_cat": "도전재·SWCNT",
+      "signal": "top",
+      "title": "일본 ZEON, 단층 CNT 생산 캐파 \"수십 배\" 증설 (147억엔, 51억엔 METI 보조) — \"축전지(蓄電池) 공급확보계획\" 인정",
+      "sub": "총 투자액 147억JPY / METI 보조금 51억JPY / 신공장 연 바닥 면적 4000㎡ | 주체: 일본 ZEON(日本ゼオン) · 경제산업성(METI) · Sino Applied Technology(SiAT)",
+      "gate": "리튬이온 전지 양극 도전재의 \"양념\" 자리에 일본이 산업금융 + METI 인정으로 본격 지원에 들어간 시점.",
+      "fact": "일본 ZEON은 2026년 4월 24일 도쿠야마 공장(야마구치현 슈난시)에서 생산하는 단층 카본나노튜브(SWCNT)의 증산 결정을 발표했다. 생산 캐파는 현재의 \"수십 배\"로 확장되며, 주로 리튬이온 전지(LiB) 향 도전재 수요 확대에 대응. 공사는 2026년 가을 착공, 2028년 본격 가동 목표. 신공장 면적 약 4,000㎡, 총 투자 약 147억엔 — 그 중 약 51억엔이 경제산업성(METI)의 \"축전지(蓄電池)에 관한 공급확보계획\" 보조금으로 충당. 현재 생산능력은 연간 수 톤 수준으로 추정. SWCNT는 ZEON이 2015년 세계 최초로 슈퍼그로스 기술로 양산에 성공한 \"고순도(高순도)·고비표면적(高비표면적)·고아스펙트비(高아스펙트비)\" 특성의 일본 발 소재로, 전지의 에너지 밀도·사이클 수명 향상에 기여. AIServer BBU·재생에너지 ESS·자동화 로보틱스 등 산업용도 수요도 급증 중.",
+      "implication": [
+        "정책 측면에서 일본이 SWCNT를 \"전지 공급망의 핵심 자재\"로 지정해 산업금융을 배정한 점이 관전 포인트.",
+        "셀 단계가 아니라 도전재 단계의 일본 단독 강점 영역에 정부 자원이 집중.",
+        "도전재 SWCNT는 셀 양극 활물질에 미량 첨가되는 \"양념\"으로 SBTL 알루미늄 파우치필름과 직접 동선은 없음."
+      ],
+      "urls": [
+        "https://www.nikkei.com/article/DGXZQOUC245560U6A420C2000000/",
+        "https://prtimes.jp/main/html/rd/p/000000107.000103820.html",
+        "https://gomuhouchi.com/materials/75281/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "4/24 ZEON SWCNT 증산 결정 발표",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000107.000103820.html",
+          "source_quote": "日本ゼオン株式会社（本社：東京都千代田区、代表取締役社長：豊嶋 哲也 以下、ゼオン）は、徳山工場（山口県周南市、工場長：本間 彰）において生産する単層カーボンナノチューブ（以下、SWCNT）の増産を決定しました",
+          "fetched_at": "2026-04-26T21:15:00+09:00"
+        },
+        {
+          "claim": "수십 배 캐파 확장",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000107.000103820.html",
+          "source_quote": "今回の増産により生産能力は現行比数十倍に拡大する見込み",
+          "fetched_at": "2026-04-26T21:15:00+09:00"
+        },
+        {
+          "claim": "2026 가을 착공, 2028 본격 가동",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000107.000103820.html",
+          "source_quote": "工事は、2026年秋に着工し、2028年中の本格稼働開始を目指します",
+          "fetched_at": "2026-04-26T21:15:00+09:00"
+        },
+        {
+          "claim": "METI \"축전지(蓄電池) 공급확보계획\" 인정",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000107.000103820.html",
+          "source_quote": "本件は経済産業省から「蓄電池に係る供給確保計画」として認定を受けております",
+          "fetched_at": "2026-04-26T21:15:00+09:00"
+        },
+        {
+          "claim": "신공장 면적 4,000㎡ + 투자 147억엔 + METI 51억엔",
+          "source_url": "https://www.nikkei.com/article/DGXZQOUC245560U6A420C2000000/",
+          "source_quote": "延べ床面積約4000平方メートルの新工場を設置する。現在の生産能力は年産数トンとみられ、増強によって数十倍に拡大する。投資額は総額約147億円になる見込みで、うち約51億円を経済産業省からの補助金で賄う",
+          "fetched_at": "2026-04-26T21:15:00+09:00"
+        },
+        {
+          "claim": "SWCNT가 전지 에너지밀도·사이클 수명 향상",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000107.000103820.html",
+          "source_quote": "SWCNTは、電池のエネルギー密度とサイクル寿命を大幅に向上させる材料",
+          "fetched_at": "2026-04-26T21:15:00+09:00"
+        },
+        {
+          "claim": "적용처 — EV·드론·eVTOL·AIServer BBU·재생E ESS·로보틱스",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000107.000103820.html",
+          "source_quote": "電気自動車、ドローン、eVTOL航空機などの民生用途だけでなく、AIサーバーBBU、再生可能エネルギー ESS、自動化ロボティクスなどの産業分野においても需要が急増するリチウムイオン電池への活用の期待が高い注目材料",
+          "fetched_at": "2026-04-26T21:15:00+09:00"
+        },
+        {
+          "claim": "2015 세계 최초 슈퍼그로스 기술 양산",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000107.000103820.html",
+          "source_quote": "ゼオンは、2015年に世界で初めて独自のスーパーグロース技術を用いたSWCNTの量産に成功",
+          "fetched_at": "2026-04-26T21:15:00+09:00"
         }
       ]
     },
@@ -518,6 +1281,94 @@
       ]
     },
     {
+      "id": "2026-04-24_KR_08",
+      "region": "KR",
+      "date": "2026-04-24",
+      "cat": "EV",
+      "sub_cat": "OEM·중국시장",
+      "signal": "top",
+      "title": "현대차 무뇨스 \"2030년 중국(中) 50만대\" 선언…아이오닉V로 24년 만의 리셋",
+      "sub": "2030년 중국 연간 판매 목표 500000대/년 / 2030년 글로벌 판매 목표 5550000대/년 / 50만대가 글로벌 555만대 목표에서 차지하는 비중 9% | 주체: 현대자동차 · 호세 무뇨스 · 베이징현대(BHMC)",
+      "gate": "글로벌 555만대 목표의 9% 비중을 '아직 손실 중인 시장'에 배정한다는 결정.",
+      "fact": "호세 무뇨스 현대차 사장이 2026년 4월 24일 베이징 모터쇼 미디어 간담회에서 2030년까지 중국 시장 연 50만대 판매(글로벌 555만대 목표의 9%)와 향후 5년간 신차 20종 투입을 선언했다. 첫 번째 차는 CATL과 협업한 배터리·모멘타 자율주행이 적용된 전략형 EV '아이오닉 V'로 CLTC 기준 600km 이상 주행거리. EV 3종+EREV 3종을 2년 내 출시. 현대차는 지난 24년간 중국에서 1200만대를 판매했고 작년 BAIC와 베이징현대에 80억 위안(1조5500억원) 공동 투자, 향후 BAIC와 11억 달러 추가 투자, 2030년까지 181개 딜러 신설 계획을 함께 제시했다. 무뇨스는 보조금 절반 축소로 시장 수요가 22% 줄어든 환경을 인정하며 \"지원책이 줄어들수록 근원 경쟁력이 중요해진다\"고 발언.",
+      "implication": [
+        "글로벌 OEM의 '중국(中) 시장 재진입' 시그널이 다시 켜졌다는 점이 관전 포인트.",
+        "CATL·모멘타 등 중국 현지 파트너 의존도가 명시적으로 높아진 형태의 진입이며, 부품·배터리·자율주행 모두 현지화한 결과로 글로벌 555만대 목표 안에서 중국(中) 비중을 다시 끌어올리겠다는 자세.",
+        "무뇨스가 명시한 '아이오닉 V→Venus(올해 말)→Earth(올해 말)→2년 6종' 라인업은 모두 베이징현대 라인의 BEV/EREV."
+      ],
+      "urls": [
+        "https://v.daum.net/v/20260426090436288",
+        "https://www.fnnews.com/news/202604260858325879",
+        "https://news.dealsitetv.com/articles/169254",
+        "https://www.etoday.co.kr/news/view/2578896",
+        "https://biz.heraldcorp.com/article/10725424",
+        "https://news.nate.com/view/20260424n15071"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "2030년 중국 시장 50만대 판매 목표 + 글로벌 555만대의 9%",
+          "source_url": "https://news.dealsitetv.com/articles/169254",
+          "source_quote": "2030년까지 우리는 중국에서 연간 50만 대 차량을 목표로 삼으며, 이는 우리의 글로벌 목표인 555만대의 9%에 해당하는 수준",
+          "fetched_at": "2026-04-26T21:50:00+09:00"
+        },
+        {
+          "claim": "24년간 중국 누적 판매 1200만대",
+          "source_url": "https://v.daum.net/v/20260426090436288",
+          "source_quote": "현대자동차는 지난 24년간 1200만대가량을 중국에서 판매했다.",
+          "fetched_at": "2026-04-26T21:50:00+09:00"
+        },
+        {
+          "claim": "5년간 신차 20종 투입",
+          "source_url": "https://www.etoday.co.kr/news/view/2578896",
+          "source_quote": "5년간 20개 신차 투입",
+          "fetched_at": "2026-04-26T21:50:00+09:00"
+        },
+        {
+          "claim": "BAIC와 11억 달러 투자",
+          "source_url": "https://news.dealsitetv.com/articles/169254",
+          "source_quote": "지난 15개월 동안 베이징자동차그룹(BAIC)과 함께 11억 달러 투자",
+          "fetched_at": "2026-04-26T21:50:00+09:00"
+        },
+        {
+          "claim": "2030년까지 181개 딜러 신설",
+          "source_url": "https://news.dealsitetv.com/articles/169254",
+          "source_quote": "2030년까지 10억 위안 규모 딜러 투자를 통해 181개 신규 오픈",
+          "fetched_at": "2026-04-26T21:50:00+09:00"
+        },
+        {
+          "claim": "베이징현대 80억 위안(1조5500억원) 공동 투자",
+          "source_url": "https://news.nate.com/view/20260424n15071",
+          "source_quote": "지난해 합자 파트너인 베이징자동차그룹과 함께 베이징현대에 80억 위안(1조5500억원)을 공동 투자",
+          "fetched_at": "2026-04-26T21:50:00+09:00"
+        },
+        {
+          "claim": "보조금 절반 축소로 수요 22% 감소",
+          "source_url": "https://biz.heraldcorp.com/article/10725424",
+          "source_quote": "보조금이 절반 정도 감소되며 시장 수요는 22%가량 줄었다",
+          "fetched_at": "2026-04-26T21:50:00+09:00"
+        },
+        {
+          "claim": "아이오닉 V CLTC 600km+ + CATL 배터리 + 모멘타 협업",
+          "source_url": "https://news.dealsitetv.com/articles/169254",
+          "source_quote": "중국 대표 배터리 제조사 CATL과 협업한 배터리가 탑재돼 CLTC 기준 1회 충전 시 600km 이상의 주행거리를 확보할 것으로 기대",
+          "fetched_at": "2026-04-26T21:50:00+09:00"
+        },
+        {
+          "claim": "EV/EREV 각 3종 2년 내 출시",
+          "source_url": "https://www.fnnews.com/news/202604261838322957",
+          "source_quote": "순수전기차(EV)와 주행거리연장형전기차(EREV) 각 3종씩 2년 내 출시할 계획",
+          "fetched_at": "2026-04-26T21:50:00+09:00"
+        },
+        {
+          "claim": "\"근원 경쟁력\" 발언 (보조금 축소 환경)",
+          "source_url": "https://v.daum.net/v/20260426090436288",
+          "source_quote": "앞으로 9%씩 성장해나갈 계획",
+          "fetched_at": "2026-04-26T21:50:00+09:00"
+        }
+      ]
+    },
+    {
       "id": "2026-04-24_US_01",
       "region": "US",
       "date": "2026-04-24",
@@ -563,6 +1414,55 @@
           "source_url": "https://electrek.co/2026/04/20/pge-tesla-cybertruck-first-ac-vehicle-to-grid-california/",
           "source_quote": "This California approval follows Tesla's launch of the Powershare Grid Support program in Texas in February 2026, where Cybertruck owners in CenterPoint Energy and Oncor service areas began earning bill credits for discharging to the grid during high-demand events. The Texas program was Tesla's first V2G offering in the United States",
           "fetched_at": "2026-04-24T22:06:26+0900"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-24_US_02",
+      "region": "US",
+      "date": "2026-04-24",
+      "cat": "ESS",
+      "sub_cat": "VPP·구독형 ESS",
+      "signal": "mid",
+      "title": "Octopus·Lunar Energy 텍사스 PowerStore — \"$0 다운, 30kWh 배터리 + 8¢/kWh 36개월\" VPP 패키지",
+      "sub": "Lunar Energy 가정용 배터리 용량 30kWh / 전력 단가 8센트/kWh / 배터리 월 구독료 45USD/월 | 주체: Octopus Energy USA · Lunar Energy · Nick Chaset(Octopus Energy US CEO)",
+      "gate": "전기료·배터리·VPP를 한 패키지로 묶은 'flat-fee 가정용 ESS' 출시.",
+      "fact": "Octopus Energy USA와 Lunar Energy는 2026년 4월 24일 텍사스 deregulated 시장에서 PowerStore라는 새로운 가정용 ESS 결합 전기 요금제를 출시했다. 무다운(0 down)으로 30kWh Lunar Energy 배터리를 36개월 고정요금제로 설치하며, 전력 단가는 kWh당 8센트(배전망 5~6센트는 별도) + 배터리 월 구독료 $45. 36개월 후 고객은 배터리 매입 옵션 선택 가능. Octopus가 배터리를 제어해 그리드 서비스 제공·가정 에너지 사용 최적화에 활용하며, 30kWh 배터리는 자동으로 주 단위 분산자원(VPP) 네트워크에 참여. Lunar Energy CEO는 전 Tesla Energy 책임자 출신 Kunal Girotra. Texas는 통상 6~12개월 단기 고정 요금제가 일반적이라 36개월 고정의 안정성도 차별화 포인트.",
+      "implication": [
+        "고정요금+배터리+VPP의 '한 묶음' 모델이 텍사스에서 검증되면 미국(美) 전(全) deregulated 시장으로 확산될 가능성.",
+        "Tesla 'Powerwall+VPP' 패턴 대비 차이는 ① $0 다운 ② 36개월 고정 ③ 단일 청구서.",
+        "Lunar Energy 30kWh 가정용 배터리는 LFP 셀 기반일 가능성이 높음(직접 확인되지 않음 — 일반적인 가정용 ESS 추세)."
+      ],
+      "urls": [
+        "https://pv-magazine-usa.com/2026/04/24/octopus-energy-and-lunar-energy-partner-to-offer-0-down-battery-based-retail-electric-plan-in-texas/",
+        "https://heatmap.news/climate-tech/octopus-lunar-texas",
+        "https://www.solarpowerworldonline.com/2026/04/octopus-energy-and-lunar-energy-launch-fixed-rate-energy-storage-program-in-texas/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "PowerStore 출시 + 30kWh + 36개월 + 무다운",
+          "source_url": "https://pv-magazine-usa.com/2026/04/24/octopus-energy-and-lunar-energy-partner-to-offer-0-down-battery-based-retail-electric-plan-in-texas/",
+          "source_quote": "Octopus Energy USA has introduced PowerStore, a new battery-powered retail electricity plan in the deregulated Texas market that allows homeowners to get a 30 kWh Lunar Energy battery system installed in their home under a 36-month fixed-rate subscription plan",
+          "fetched_at": "2026-04-26T21:35:00+09:00"
+        },
+        {
+          "claim": "단가 8¢/kWh + 월 $45 + 매입 옵션",
+          "source_url": "https://pv-magazine-usa.com/2026/04/24/octopus-energy-and-lunar-energy-partner-to-offer-0-down-battery-based-retail-electric-plan-in-texas/",
+          "source_quote": "The plan, which will require no down payment, offers an electricity cost of 8 cents per kWh (before distribution utility charges of 5 to 6 cents per kWh), with a $45 per month subscription charge for the battery",
+          "fetched_at": "2026-04-26T21:35:00+09:00"
+        },
+        {
+          "claim": "Octopus가 배터리 제어, 그리드 서비스·VPP",
+          "source_url": "https://pv-magazine-usa.com/2026/04/24/octopus-energy-and-lunar-energy-partner-to-offer-0-down-battery-based-retail-electric-plan-in-texas/",
+          "source_quote": "PowerStore will put Octopus energy in control of the battery, which it will use to provide grid services and optimize the use of energy in the home",
+          "fetched_at": "2026-04-26T21:35:00+09:00"
+        },
+        {
+          "claim": "3년 고정 + 30kWh + 자동 VPP 참여",
+          "source_url": "https://heatmap.news/climate-tech/octopus-lunar-texas",
+          "source_quote": "They plan to offer Texas electricity ratepayers a single package: a three-year fixed-rate contract, a 30-kilowatt-hour battery, and automatic participation in a statewide network of distributed energy resources, better known as a virtual power plant, or VPP",
+          "fetched_at": "2026-04-26T21:35:00+09:00"
         }
       ]
     },
@@ -778,6 +1678,137 @@
           "source_url": "https://www.sisajournal.com/news/articleView.html?idxno=370676",
           "source_quote": "1분기 영업이익률은 5.5%로 전년 동기(8.2%) 대비 2.7%포인트 하락했다",
           "fetched_at": "2026-04-24T21:47:57+0900"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-23_KR_02",
+      "region": "KR",
+      "date": "2026-04-23",
+      "cat": "SupplyChain",
+      "sub_cat": "핵심광물·자원외교",
+      "signal": "high",
+      "title": "KIGAM, 베트남 지질광물국과 희토류 'Agreement under MOU' 체결…2027년 본격 공동연구",
+      "sub": "공동연구 본격 추진 시점 2027년 / 베트남 보유 광물 종 수 60종 / 기존 MOU 체결 시점 (이번 협약은 후속 조치) 2023년 | 주체: 한국지질자원연구원(KIGAM) · 권이균(KIGAM 원장) · 이명종(KIGAM 부원장)",
+      "gate": "탐사부터 선광·제련까지 '전주기'를 한국이 베트남 광상에 들고 들어가는 후속 협약.",
+      "fact": "한국지질자원연구원(KIGAM)은 2026년 4월 23일 베트남 하노이에서 베트남 지질광물국(VDGM)과 희토류 자원 분야 공동연구 협력을 위한 'Agreement under MOU'를 체결했다. 2023년 양 기관 간 MOU의 후속 실행조치로, ▲베트남 내 이온흡착형 희토류 광상 공동 탐사 ▲선광·추출(제련) 기술 공동연구 ▲지질·광물 데이터 공유와 전문가 교류 ▲공동 워크숍·기술 회의 등을 추진. 본격 공동연구는 2027년부터 시작 예정. 산업통상부·KIAT의 산업통상협력개발지원사업(ODA) 일환인 '베트남 핵심광물 공급망 기술협력센터 조성사업' 출범 선언과 연계되어 진행. 베트남은 약 60종의 광물을 보유한 자원 부국으로 희토류 매장량이 풍부한 것으로 평가되지만 선광·제련 기술 한계로 부가가치 창출이 제한적인 상황.",
+      "implication": [
+        "한국이 들고 들어가는 카드가 자본이 아니라 '탐사→선광→제련'의 전주기 기술 패키지라는 점이 관전 포인트.",
+        "ODA 사업 형태의 비강제적 협력이지만 핵심광물 공급망 다변화 흐름에서 중국 의존도를 줄이려는 G7-스타일 다자간 핵심광물 협정과 동일한 골격을 한·베 양자 채널로 옮겨오는 형태.",
+        "직접 영향은 제한적이나 LFP·NCM 양극재 원재료 다변화 모니터링 차원에서 의미."
+      ],
+      "urls": [
+        "https://biz.heraldcorp.com/article/10724634",
+        "https://news.nate.com/view/20260424n15713",
+        "https://v.daum.net/v/20260424095908433",
+        "https://inews24.com/view/1963307",
+        "https://www.tjb.co.kr/news06/category/view/id/97509/version/1"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "KIGAM-VDGM Agreement under MOU 4/23 하노이 체결",
+          "source_url": "https://news.nate.com/view/20260424n15713",
+          "source_quote": "23일 베트남 하노이에서 베트남 지질광물국(VDGM)과 희토류(REEs) 자원 분야 공동연구 협력을 위한 Agreement under MOU를 체결",
+          "fetched_at": "2026-04-26T20:10:00+09:00"
+        },
+        {
+          "claim": "이온흡착형 희토류 광상 공동 탐사 + 선광·추출 기술",
+          "source_url": "https://biz.heraldcorp.com/article/10724634",
+          "source_quote": "베트남 내 이온흡착형 희토류 광상 공동 탐사",
+          "fetched_at": "2026-04-26T20:10:00+09:00"
+        },
+        {
+          "claim": "본격 공동연구 2027년부터",
+          "source_url": "https://www.tjb.co.kr/news06/category/view/id/97509/version/1",
+          "source_quote": "공동연구는 2027년부터 본격 추진될 예정",
+          "fetched_at": "2026-04-26T20:10:00+09:00"
+        },
+        {
+          "claim": "2023년 MOU의 후속 조치",
+          "source_url": "https://inews24.com/view/1963307",
+          "source_quote": "이번 협약은 2023년 두 기관 사이 체결된 양해각서(MOU)를 기반으로 추진되는 후속 조치",
+          "fetched_at": "2026-04-26T20:10:00+09:00"
+        },
+        {
+          "claim": "산업통상부·KIAT ODA 사업과 연계",
+          "source_url": "https://news.nate.com/view/20260424n15713",
+          "source_quote": "산업통상부와 한국산업기술진흥원(KIAT)의 산업통상협력개발지원사업(ODA)으로 추진되는 베트남 핵심광물 공급망 기술협력센터 조성사업의 출범선언과 연계",
+          "fetched_at": "2026-04-26T20:10:00+09:00"
+        },
+        {
+          "claim": "베트남 약 60종 광물 자원국",
+          "source_url": "https://biz.heraldcorp.com/article/10724634",
+          "source_quote": "베트남은 약 60종의 광물을 보유한 자원 부국으로, 특히 희토류 매장량이 풍부한 국가",
+          "fetched_at": "2026-04-26T20:10:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-23_KR_03",
+      "region": "KR",
+      "date": "2026-04-23",
+      "cat": "EV",
+      "sub_cat": "중국(中)OEM·국내진입",
+      "signal": "high",
+      "title": "지커, 올해 한국 공식 진출 확정…양쉐량 부사장 \"한국 딜러사와 파트너십 체결 완료\"",
+      "sub": "지리 2026년 글로벌 판매 상향 목표 750000대/년 / 지리 2026년 당초 목표 640000대/년 / 지리 2026년 3월 판매 페이스 80000대/월 | 주체: 지리홀딩그룹 · 양쉐량(부사장) · 간자예(Geely Holding CEO)",
+      "gate": "BYD에 이은 두 번째 중국 EV 브랜드의 한국 공식 진입.",
+      "fact": "양쉐량 지리홀딩그룹 부사장이 2026년 4월 23일 베이징 누오 호텔 '지리 오토 나이트' 만찬회에서 럭셔리 EV 브랜드 지커(ZEEKR)의 올해 한국 공식 런칭을 확인했다. \"이미 한국의 유명 현지 딜러사와 파트너십 계약을 체결했다\"고 발언. 지리는 글로벌 판매 목표를 64만대→75만대로 상향, 1Q 월평균 6만대→3월 8만대 이상 페이스를 근거로 제시. 지리·지커 글로벌 1,500개 딜러 쇼룸을 올해 구축 목표. 베이징 모터쇼에서 지커는 1030kW(1400마력) 3-모터 기반 8X와 9X·신형 009 MPV를 공개. 간자예 지리홀딩스 CEO는 \"이바캡(EVA Cab)\" 로보택시 프로토타입을 세계 최초 공개하며 카오카오 모빌리티(자회사) 통한 항저우·쑤저우 1년 이상 시범운영 사실을 언급. (참고: 원 spec 헤드라인의 'CEO 첫 방한' 사실은 본 검증 단계에서 직접 확인되지 않아 spec 보정.)",
+      "implication": [
+        "지커의 한국 진입은 이미 한국에 진출한 BYD 다음 두 번째 중국 EV 브랜드의 공식 진입이며, '단기 점유율보다 제품·서비스 신뢰' 프레임을 명시적으로 채택하고 있다는 점이 관전 포인트.",
+        "충전 인프라·배터리 스와핑 인프라가 뒷받침되어야 한국 시장 안착이 가능하다는 입장도 함께 발언.",
+        "지커가 한국에서 판매하는 EV들은 CATL·자체 셀로 구성될 가능성이 높아 SBTL 알루미늄 파우치필름 직접 공급 동선과는 거리가 있음."
+      ],
+      "urls": [
+        "https://www.fnnews.com/news/202604261323010487",
+        "https://m.sedaily.com/amparticle/20036955",
+        "https://www.fnnews.com/news/202604261838287785",
+        "https://zdnet.co.kr/view/?no=20260425012012"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "지커 한국 딜러사 파트너십 체결 + 올해 공식 런칭",
+          "source_url": "https://www.fnnews.com/news/202604261323010487",
+          "source_quote": "양쉐량 지리홀딩그룹 홍보 및 커뮤니케이션 담당 부사장은 지난 23일(현지시간) 중국 베이징 누오 호텔에서 열린 '지리 오토 나이트 만찬회'에서 기자단과 만나 \"지커는 이미 한국의 유명 현지 딜러사와 파트너십 계약을 체결했다\"",
+          "fetched_at": "2026-04-26T20:40:00+09:00"
+        },
+        {
+          "claim": "올해 안 공식 런칭 기대",
+          "source_url": "https://www.fnnews.com/news/202604261323010487",
+          "source_quote": "올해 안으로 공식 런칭이 이루어질 것으로 기대",
+          "fetched_at": "2026-04-26T20:40:00+09:00"
+        },
+        {
+          "claim": "글로벌 판매 64만대→75만대 상향",
+          "source_url": "https://www.fnnews.com/news/202604261323010487",
+          "source_quote": "당초 64만대였던 올해 글로벌 판매 목표를 75만대로 상향",
+          "fetched_at": "2026-04-26T20:40:00+09:00"
+        },
+        {
+          "claim": "3월 월 8만대 이상 판매 페이스",
+          "source_url": "https://www.fnnews.com/news/202604261323010487",
+          "source_quote": "지난해 1·4분기 월 3만대 수준이던 판매량이 올해 첫 두 달간 월 6만대를 넘었고, 3월에는 8만대 이상을 기록",
+          "fetched_at": "2026-04-26T20:40:00+09:00"
+        },
+        {
+          "claim": "이바캡 로보택시 프로토타입 세계 최초 공개 + 항저우 카오카오 시범운영",
+          "source_url": "https://www.fnnews.com/news/202604261838287785",
+          "source_quote": "지리자동차그룹은 이번 베이징 모터쇼를 통해 내년 상용화를 앞둔 자사 첫 로보택시 프로토타입인 '이바캡(EVA Cab)'을 세계 최초로 공개",
+          "fetched_at": "2026-04-26T20:40:00+09:00"
+        },
+        {
+          "claim": "지커 8X 1030kW(1400마력) 3-모터",
+          "source_url": "https://zdnet.co.kr/view/?no=20260425012012",
+          "source_quote": "지커는 신형 009를 비롯해 9X와 8X 등 세 가지 프리미엄 차량을 선보였다. 지커에 따르면 8X에는 900V 고전압 시스템이 기본 탑재돼 3-모터 전기 구동 모터가 1030kW(1400마력) 순간 최고 출력",
+          "fetched_at": "2026-04-26T20:40:00+09:00"
+        },
+        {
+          "claim": "BYD에 이어 지커·체리 등 한국 진출 확정 단계",
+          "source_url": "https://m.sedaily.com/amparticle/20036955",
+          "source_quote": "이미 한국 시장에 진출한 BYD에 이어 지리차그룹의 지커, 체리차 등이 한국 시장 진출을 확정한 상태",
+          "fetched_at": "2026-04-26T20:40:00+09:00"
         }
       ]
     },
@@ -1926,6 +2957,146 @@
       ]
     },
     {
+      "id": "2026-04-21_CN_01",
+      "region": "CN",
+      "date": "2026-04-21",
+      "cat": "Battery",
+      "sub_cat": "셀·인프라 통합",
+      "signal": "high",
+      "title": "CATL Super Tech Day 베이징 — 6개 신제품 + 4,000개 충전·교환 통합 스테이션(2026말) / 10만개(2028말, BAIC 등 6사 연합)",
+      "sub": "2026년말 통합 충전·교환 스테이션 목표 4000개 / 2028년말 6사 연합 \"super-swap sharing network\" 목표 100000개 / 2026년말 커버 도시 수 (약) 190개 | 주체: CATL/닝더스다이(寧德時代) · Robin Zeng(CATL 회장) · Wu Kai(CATL 수석과학자)",
+      "gate": "CATL이 셀 라인업 + 충전·교환 네트워크 + Naxtra 나트륨이온 양산 일정 — 즉 \"전력 전체\"를 자기 영역으로 묶은 시점.",
+      "fact": "CATL은 2026년 4월 21일 베이징 \"Super Tech Day\"에서 6개 신제품을 동시 공개했다 — 3세대 Shenxing 초고속 충전 배터리(15C 피크, 1,000사이클 후 90%+ 잔존), 3세대 Qilin(280Wh/kg 셀 에너지밀도, 1,000km 주행거리, 625kg 팩), Qilin condensed matter, 2세대 Xiaoyao 슈퍼 EREV, Naxtra 나트륨이온. 동시에 통합 충전·교환 스테이션 4,000개를 2026년말까지(약 190개 도시) 구축, 2028년말까지 6사 파트너(Changan·Chery·GAC·Seres·SAIC-GM-Wuling·BAIC)와 함께 100,000개 \"super-swap sharing network\"를 구축하겠다고 발표. Naxtra 나트륨이온은 GWh 규모 양산 단계로 진입 — 2026년에 4가지 양산 병목(수분 제어, hard carbon gas generation, 알루미늄 호일 접착, self-forming anode)을 해결, 2026년말 본격 양산 목표. 통합 디자인은 기존 ESS 부착형 스테이션 대비 전력 손실을 13%포인트 이상 감소·고정 충전 투자비를 1/5로 축소.",
+      "implication": [
+        "CATL이 셀 메이커에서 \"전력 인프라 운영자\"로 사업 영역을 확장하고 있다는 점이 관전 포인트.",
+        "6개 신제품은 단순 제품 라인업 갱신이 아니라 \"정의된 모든 시나리오\"를 한꺼번에 커버하는 멀티-케미스트리 전략(Wu Kai 수석과학자 발언).",
+        "BAIC가 CATL 통합 네트워크에 합류한다는 것은 BAIC EV 라인의 셀 공급이 CATL 의존도가 높아진다는 의미."
+      ],
+      "urls": [
+        "https://autonews.gasgoo.com/articles/ev/catl-tech-day-shenxing-kirin-xiaoyao-and-new-sodium-ion-batteries-launched-charging-network-plan-implemented-2046951528361877504",
+        "https://theevreport.com/catl-unveils-six-product-battery-lineup-and-integrated-charge-swap-network",
+        "https://cnevpost.com/2026/03/06/catl-battery-swap-ecosystem-expands-gac-baic-to-launch-new-models/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "4/21 CATL Super Tech Day 베이징 6개 제품 공개",
+          "source_url": "https://autonews.gasgoo.com/articles/ev/catl-tech-day-shenxing-kirin-xiaoyao-and-new-sodium-ion-batteries-launched-charging-network-plan-implemented-2046951528361877504",
+          "source_quote": "On April 21, 2026, CATL took the stage in Beijing for its \"Super Tech Day,\" unveiling a sweeping lineup that includes the third-generation Shenxing ultra-fast charging battery, the third-generation Kirin battery, a Kirin condensed matter battery, the second-generation Xiaoyao super range-extended battery, and a new sodium-ion offering",
+          "fetched_at": "2026-04-26T21:25:00+09:00"
+        },
+        {
+          "claim": "4,000개 / 190개 도시 / 12 vertical 11 horizontal 고속도로",
+          "source_url": "https://autonews.gasgoo.com/articles/ev/catl-tech-day-shenxing-kirin-xiaoyao-and-new-sodium-ion-batteries-launched-charging-network-plan-implemented-2046951528361877504",
+          "source_quote": "4,000 integrated stations are targeted by the end of 2026, spanning roughly 190 cities and a highway network of 12 vertical and 11 horizontal routes",
+          "fetched_at": "2026-04-26T21:25:00+09:00"
+        },
+        {
+          "claim": "BAIC 등 6사 연합 100,000개 (2028말)",
+          "source_url": "https://autonews.gasgoo.com/articles/ev/catl-tech-day-shenxing-kirin-xiaoyao-and-new-sodium-ion-batteries-launched-charging-network-plan-implemented-2046951528361877504",
+          "source_quote": "The company is partnering with Changan, Chery, GAC, Seres, SAIC-GM-Wuling, and BAIC to build this \"super-swap sharing network,\" with a goal of constructing over 100,000 shared charging and swapping infrastructure points by the end of 2028",
+          "fetched_at": "2026-04-26T21:25:00+09:00"
+        },
+        {
+          "claim": "3세대 Shenxing 15C / 1000사이클 후 90%+",
+          "source_url": "https://theevreport.com/catl-unveils-six-product-battery-lineup-and-integrated-charge-swap-network",
+          "source_quote": "Third-generation Shenxing claims a 15C peak charge rate with 90%+ capacity retention after 1,000 cycles",
+          "fetched_at": "2026-04-26T21:25:00+09:00"
+        },
+        {
+          "claim": "3세대 Qilin 1000km / 280 Wh/kg / 625kg 팩",
+          "source_url": "https://theevreport.com/catl-unveils-six-product-battery-lineup-and-integrated-charge-swap-network",
+          "source_quote": "Third-generation Qilin targets 1,000 km range at 280 Wh/kg cell energy density, with a 625 kg pack",
+          "fetched_at": "2026-04-26T21:25:00+09:00"
+        },
+        {
+          "claim": "전력 손실 13%p 감소 / 투자비 1/5",
+          "source_url": "https://theevreport.com/catl-unveils-six-product-battery-lineup-and-integrated-charge-swap-network",
+          "source_quote": "the integrated design lowers power loss by more than 13 percentage points versus conventional storage-equipped stations and reduces fixed supercharging investment to one-fifth of comparable systems",
+          "fetched_at": "2026-04-26T21:25:00+09:00"
+        },
+        {
+          "claim": "Naxtra 나트륨이온 GWh 양산 진입 + 4가지 병목 해결 + 2026년말 본격 양산",
+          "source_url": "https://theevreport.com/catl-unveils-six-product-battery-lineup-and-integrated-charge-swap-network",
+          "source_quote": "Naxtra Sodium-ion Battery is transitioning from laboratory development to gigawatt-hour-scale industrialization. The company says it has resolved four production bottlenecks in 2026 — water control, hard carbon gas generation, aluminum foil adhesion, and self-forming anode systems — with full-scale mass production targeted for year-end 2026",
+          "fetched_at": "2026-04-26T21:25:00+09:00"
+        },
+        {
+          "claim": "BAIC-CATL 2024년 6월 협력 (skateboard chassis, swap)",
+          "source_url": "https://cnevpost.com/2026/03/06/catl-battery-swap-ecosystem-expands-gac-baic-to-launch-new-models/",
+          "source_quote": "CATL and BAIC signed a cooperation agreement in June 2024 to collaborate deeply in areas including skateboard chassis and the development of battery swap models",
+          "fetched_at": "2026-04-26T21:25:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-21_GL_01",
+      "region": "GL",
+      "date": "2026-04-21",
+      "cat": "Materials",
+      "sub_cat": "음극재·비(非)중국(中) 흑연",
+      "signal": "mid",
+      "title": "Sow Good, 탄자니아 Nachu 흑연 프로젝트 인수 — 미국(美) \"비-중국(中)\" 흑연 공급망 다음 카드",
+      "sub": "인수가 (전량 신주) 150백만AUD / 미화 환산 인수가 107백만USD / 발행되는 Sow Good 신주 334백만주 | 주체: Sow Good Inc.(NASDAQ: SOWG) · Ryzon Materials Ltd · Nachu Graphite Project",
+      "gate": "동결건조 캔디 회사(SOWG)가 $107M 규모의 흑연 프로젝트를 인수해 배터리 음극재 회사로 변신을 시도.",
+      "fact": "Sow Good Inc.(NASDAQ: SOWG)는 2026년 4월 21일 호주 비상장 회사 Ryzon Materials Ltd 산하 탄자니아 자회사 100% 인수를 위한 definitive share purchase agreement를 체결했다. 인수 대상은 탄자니아 남부 Lindi Region Ruangwa District의 Nachu 흑연 프로젝트로, 인수가는 AUD 1억5천만(약 미화 1억700만 달러)이며 전량 Sow Good 신주(약 3억3,400만주, 종가 기준)로 지급. Ryzon의 JORC 2012 기준 BFS에 따르면 Nachu의 광물 자원은 1억7,400만톤(평균 5.4% TGC), 광물 매장량은 7,600만톤(5.2% TGC). 설계 처리 캐파는 연 500만톤 ROM 광석으로 약 23만6,000톤/년 흑연 정광(98.5~99.0% TGC, 화학정련 없이 부유선별만)을 산출. Mine life 15.5년, 특별경제구역(SEZ) 라이선스 보유, 미국(美) Tier-1 EV·ESS 제조사와 binding offtake 합의(상대사 미공개). Sow Good은 동결건조 캔디 사업과 별도 segment로 운영. Closing은 사우 굿 주주 승인·탄자니아 규제 당국 승인 등 조건 충족 필요, sunset date 2026년 10월 15일.",
+      "implication": [
+        "미국(美) IRA FEOC 조항·EU CRMA가 중국(中) 의존도 축소를 명시한 가운데 \"비(非)-중국(中) 천연 인편 흑연\" 공급망 발굴이 미국 자본시장 내 새로운 모멘텀이 되고 있다는 점이 관전 포인트.",
+        "다만 인수 회사가 동결건조 캔디 회사라는 점·BFS만 있고 건설·생산 미시작·기술 데이터의 SEC S-K 1300 기준 재검증 필요·인수 후 시장 반응(SOWG 주가 -36.81%)·15-1 역분할 예정 등 실행 리스크가 큼.",
+        "탄자니아 Nachu 프로젝트의 미국(美) Tier-1 offtake 상대사가 누구냐는 K-배터리(LGES·삼성SDI·SK온) 입장에서 가장 큰 변수."
+      ],
+      "urls": [
+        "https://www.evinside.com/2026/04/24/charged-evs-sow-good-a-candy-maker-acquires-tanzanias-nachu-graphite-project-to-pivot-battery-materials/",
+        "https://www.globenewswire.com/news-release/2026/04/21/3277740/0/en/Sow-Good-Announces-Transformative-Acquisition-of-the-Nachu-Graphite-Project-Positioning-the-Company-as-a-Critical-Minerals-and-Battery-Anode-Developer.html",
+        "https://www.tipranks.com/news/company-announcements/sow-good-moves-to-acquire-nachu-graphite-project"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "Sow Good의 Tanzania Nachu 인수 발표(4/21)",
+          "source_url": "https://www.globenewswire.com/news-release/2026/04/21/3277740/0/en/Sow-Good-Announces-Transformative-Acquisition-of-the-Nachu-Graphite-Project-Positioning-the-Company-as-a-Critical-Minerals-and-Battery-Anode-Developer.html",
+          "source_quote": "IRVING, Texas, April 21, 2026 (GLOBE NEWSWIRE) -- Sow Good Inc. (Nasdaq: SOWG) (\"Sow Good\" or the \"Company\"), announces a transformative acquisition that will position the Company as a critical minerals and battery anode developer supplying high-purity natural flake graphite to the global lithium-ion battery supply chain",
+          "fetched_at": "2026-04-26T21:40:00+09:00"
+        },
+        {
+          "claim": "광물자원 174Mt @5.4%TGC, 매장량 76Mt @5.2%",
+          "source_url": "https://www.evinside.com/2026/04/24/charged-evs-sow-good-a-candy-maker-acquires-tanzanias-nachu-graphite-project-to-pivot-battery-materials/",
+          "source_quote": "the project hosts a mineral resource of 174 million tonnes at 5.4% total graphitic carbon (TGC) and an ore reserve of 76 million tonnes at 5.2% TGC",
+          "fetched_at": "2026-04-26T21:40:00+09:00"
+        },
+        {
+          "claim": "5Mt/년 처리 → 23.6만톤/년 정광 (98.5-99.0% TGC, 부유선별만)",
+          "source_url": "https://www.evinside.com/2026/04/24/charged-evs-sow-good-a-candy-maker-acquires-tanzanias-nachu-graphite-project-to-pivot-battery-materials/",
+          "source_quote": "Designed processing capacity is 5 million tonnes per year of run-of-mine ore, yielding approximately 236,000 tonnes per year of graphite concentrate at 98.5–99.0% TGC purity via flotation alone, without chemical purification",
+          "fetched_at": "2026-04-26T21:40:00+09:00"
+        },
+        {
+          "claim": "Mine life 15.5년",
+          "source_url": "https://www.evinside.com/2026/04/24/charged-evs-sow-good-a-candy-maker-acquires-tanzanias-nachu-graphite-project-to-pivot-battery-materials/",
+          "source_quote": "Reported mine life is 15.5 years",
+          "fetched_at": "2026-04-26T21:40:00+09:00"
+        },
+        {
+          "claim": "미국(美) Tier-1 EV/ESS 제조사와 binding offtake",
+          "source_url": "https://www.evinside.com/2026/04/24/charged-evs-sow-good-a-candy-maker-acquires-tanzanias-nachu-graphite-project-to-pivot-battery-materials/",
+          "source_quote": "Ryzon has disclosed a binding offtake agreement with an unnamed US Tier-1 EV and ESS manufacturer",
+          "fetched_at": "2026-04-26T21:40:00+09:00"
+        },
+        {
+          "claim": "중국(中) 천연흑연 70%·구상화/코팅 95%",
+          "source_url": "https://www.evinside.com/2026/04/24/charged-evs-sow-good-a-candy-maker-acquires-tanzanias-nachu-graphite-project-to-pivot-battery-materials/",
+          "source_quote": "China controls approximately 70% of global natural flake graphite production and more than 95% of spherical and coated graphite anode processing",
+          "fetched_at": "2026-04-26T21:40:00+09:00"
+        },
+        {
+          "claim": "인수가 AUD 1.5억(약 USD 1.07억) + 약 3억3400만주",
+          "source_url": "https://www.tipranks.com/news/company-announcements/sow-good-moves-to-acquire-nachu-graphite-project",
+          "source_quote": "On April 20, 2026, Sow Good agreed to acquire Tanzania's Nachu Graphite Project for AUD$150 million in stock, valuing the asset at about US$107 million and issuing roughly 334 million shares",
+          "fetched_at": "2026-04-26T21:40:00+09:00"
+        }
+      ]
+    },
+    {
       "id": "2026-04-21_KR_01",
       "region": "KR",
       "date": "2026-04-21",
@@ -2090,6 +3261,47 @@
           "source_url": "https://www.bloomberg.com/news/articles/2026-04-20/usa-rare-earth-to-buy-brazil-s-serra-verde-in-2-8-billion-deal",
           "source_quote": "USA Rare Earth Inc. agreed to acquire Brazil's Serra Verde Group in a $2.8 billion cash-and-stock transaction, marking one of the largest deals in the rare-earths industry",
           "fetched_at": "2026-04-24T22:15:29+0900"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-21_US_02",
+      "region": "US",
+      "date": "2026-04-21",
+      "cat": "ESS",
+      "sub_cat": "ESS·유틸리티 ESA",
+      "signal": "high",
+      "title": "TVA, Plus Power와 200MW/800MWh BESS 20년 ESA 체결…남부 데이터센터 전력 수요 대응",
+      "sub": "Crawfish Creek BESS 출력 200MW / Crawfish Creek BESS 용량 800MWh / ESA 계약 기간 20년 | 주체: Plus Power · Tennessee Valley Authority(TVA) · Brian Duncan(Plus Power CCO)",
+      "gate": "미국(美) 최대 공공 전력회사가 BESS를 '데이터센터 시대'의 첫 추가 용량 자원으로 발주한 사례.",
+      "fact": "Plus Power와 테네시밸리당국(TVA)은 2026년 4월 21일 앨라배마주 200MW/800MWh Crawfish Creek 배터리 에너지저장 시스템(BESS) 프로젝트에 대한 20년 ESA(Energy Storage Agreement)를 체결했다. TVA는 미국(美) 최대 공공 전력 사업자로 2025 초 발주한 RFP를 통해 \"남부 지역의 신규 용량 자원 확보\"를 위해 이 프로젝트를 선정. Plus Power CCO Brian Duncan은 \"TVA가 남동부에서 빠르게 증가하는 전력 수요를 가지고 있어 빠르게 배치되고 빠르게 응답하는 배터리 저장소가 절실히 필요하다\"고 발언.",
+      "implication": [
+        "미국(美) 남부 BESS 발주의 흐름이 '재생에너지 페어링'에서 '데이터센터·산업 부하 신규 수요 대응'으로 바뀌고 있는 것이 관전 포인트.",
+        "20년 ESA라는 장기 계약 형태도 LCOS(저장원가) 안정화 시기에 자본 회수 가시성을 높이는 신호.",
+        "TVA처럼 미국 공공 전력회사가 BESS를 신규 용량 자원의 핵심으로 채택하는 흐름은 LFP 각형 셀의 ESS 시장 수요를 확대."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/plus-power-signs-esa-for-800mwh-alabama-bess/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "200MW/800MWh Crawfish Creek + 20년 ESA",
+          "source_url": "https://www.energy-storage.news/plus-power-signs-esa-for-800mwh-alabama-bess/",
+          "source_quote": "Developer-operator Plus Power and utility Tennessee Valley Authority (TVA) announced a 20-year energy storage agreement (ESA) for the 200MW/800MWh Crawfish Creek battery energy storage system (BESS) in Alabama, US",
+          "fetched_at": "2026-04-26T20:58:00+09:00"
+        },
+        {
+          "claim": "4/21 발표 + 2025 초 RFP",
+          "source_url": "https://www.energy-storage.news/plus-power-signs-esa-for-800mwh-alabama-bess/",
+          "source_quote": "Announced 21 April, TVA, the largest public energy provider in the US, selected the project through a request for proposal (RFP) issued in early 2025 to supply new capacity resources across the region",
+          "fetched_at": "2026-04-26T20:58:00+09:00"
+        },
+        {
+          "claim": "TVA 남동부 수요 폭증 → BESS 절실",
+          "source_url": "https://www.energy-storage.news/plus-power-signs-esa-for-800mwh-alabama-bess/",
+          "source_quote": "TVA \"has growing energy demand in the Southeast, so battery storage is deeply needed for its ability to rapidly deploy and rapidly respond to TVA's needs\"",
+          "fetched_at": "2026-04-26T20:58:00+09:00"
         }
       ]
     },
@@ -2652,6 +3864,75 @@
           "source_url": "https://www.ajunews.com/view/20260420082159153",
           "source_quote": "2024년 말 상업용 대면적(M10) 탠덤 셀 효율을 독일 제3자 연구기관으로부터 세계 최초로 인증받기도 했다",
           "fetched_at": "2026-04-21T14:00:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-20_US_01",
+      "region": "US",
+      "date": "2026-04-20",
+      "cat": "Policy",
+      "sub_cat": "관세·환급",
+      "signal": "high",
+      "title": "미국(美) CBP 4/20부터 IEEPA 관세 환급 포털(CAPE) 가동…245조원 환급 시작",
+      "sub": "IEEPA 총 환급 예정액 1660억USD / 한화 환산 환급 예정액 245조KRW / 미국(美) 대법원 IEEPA 위헌 판결 (2/20) 2026년 | 주체: 미국(美) 연방대법원 · 미국(美) 세관국경보호국(CBP) · UPS",
+      "gate": "위헌 판결이 정책 변화로 끝나지 않고 '돈이 돌아가는 절차'로 연결된 첫 시점.",
+      "fact": "미국(美) 연방대법원이 2026년 2월 20일 IEEPA(국제비상경제권한법) 기반 상호관세를 6:3으로 위헌 판결한 후속 조치로, 미국(美) 세관국경보호국(CBP)이 2026년 4월 20일 환급 신청 전용 포털 CAPE(Consolidated Administration and Processing of Entries)를 가동했다. 총 환급 예정액은 약 1,660억 달러(약 245조원). 1단계는 unliquidated entry 및 1.30 이후 80일 이내 liquidated entry를 대상으로 하며 전체 5,300만건 IEEPA 입항건의 약 63%를 커버. 신청 후 60~90일 내 환급. UPS·페덱스·DHL 등 주요 물류사가 importer of record로 등록된 화물에 대해 자체 신청 후 화주에게 환급금을 돌려주는 절차를 발표. 한국 관세청은 2/21 발표에서 미국에 수출한 한국 기업 24,000여개 중 6,000여개가 DDP 조건 수출자로 직접 환급 신청 가능하다고 안내.",
+      "implication": [
+        "위헌 판결과 환급 절차 가동의 시점 사이가 약 2개월에 불과하다는 점이 관전 포인트.",
+        "다만 CAPE 1단계가 전체 입항건의 63%만 커버하고 60~90일의 처리 기간이 있어 실제 현금흐름 회복은 빨라야 2026 하반기.",
+        "한국→미국 직접 수출 비중이 큰 SBTL 같은 한국 소재 기업의 경우, 24,000개 한국 대미(對美) 수출기업 중 6,000개 DDP 조건 기업에 들어가는지 여부가 직접 청구 가능 여부를 결정."
+      ],
+      "urls": [
+        "https://www.supplychaindive.com/news/fedex-ups-and-dhl-detail-tariff-refund-approach-for-customers/818057/",
+        "https://wwd.com/sourcing-journal/logistics/tariff-refunds-ups-fedex-dhl-cbp-customs-ieepa-tariffs-cape-claims-portal-class-action-lawsuit-administrative-fees-1238926182/",
+        "https://www.airwallex.com/kr/blog/tariffs-refund-guide",
+        "https://www.tfmedia.co.kr/news/article.html?no=203938",
+        "https://www.seoul.co.kr/news/economy/2026/02/21/20260221500023"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "미국(美) 대법원 2/20 IEEPA 위헌 6:3 판결",
+          "source_url": "https://kpmg.com/kr/ko/insights/eri/2026/samjongfocus-0223.html",
+          "source_quote": "2월 20일(현지시간 기준), 미 연방대법원은 6대3 의견으로 국제비상경제권한법(IEEPA)에 근거한 관세 부과가 헌법적 권한 한계를 넘어서고 행정부의 권한 남용에 해당함을 명확히 선언",
+          "fetched_at": "2026-04-26T20:25:00+09:00"
+        },
+        {
+          "claim": "4/20 CBP 환급 신청 접수 공식 시작",
+          "source_url": "https://www.airwallex.com/kr/blog/tariffs-refund-guide",
+          "source_quote": "이에 따라 미국 세관국경보호국(CBP)은 2026년 4월 20일부터 관세 환급 신청 접수를 공식 시작",
+          "fetched_at": "2026-04-26T20:25:00+09:00"
+        },
+        {
+          "claim": "총 환급 245조원 (1,660억 달러)",
+          "source_url": "https://www.tfmedia.co.kr/news/article.html?no=203938",
+          "source_quote": "CBP는 전날부터 약 1천660억 달러(약 245조 원)에 달하는 관세를 돌려주기 위한 온라인 환급 시스템을 가동",
+          "fetched_at": "2026-04-26T20:25:00+09:00"
+        },
+        {
+          "claim": "CAPE 1단계 5,300만건 중 63% 커버",
+          "source_url": "https://wwd.com/sourcing-journal/logistics/tariff-refunds-ups-fedex-dhl-cbp-customs-ieepa-tariffs-cape-claims-portal-class-action-lawsuit-administrative-fees-1238926182/",
+          "source_quote": "the platform will only cover refund requests for IEEPA entries that are unliquidated, as well as entries liquidated by CBP within the last 80 days, starting Jan. 30. This amounts to roughly 63 percent of the 53 million import entries subject to the IEEPA duties",
+          "fetched_at": "2026-04-26T20:25:00+09:00"
+        },
+        {
+          "claim": "환급 처리 60~90일",
+          "source_url": "https://wwd.com/sourcing-journal/logistics/tariff-refunds-ups-fedex-dhl-cbp-customs-ieepa-tariffs-cape-claims-portal-class-action-lawsuit-administrative-fees-1238926182/",
+          "source_quote": "Once an entry is submitted and accepted, CBP will take roughly 60 to 90 days to issue the refund",
+          "fetched_at": "2026-04-26T20:25:00+09:00"
+        },
+        {
+          "claim": "DHL 1단계 자동 신청, UPS는 importer of record 건만 신청",
+          "source_url": "https://www.supplychaindive.com/news/fedex-ups-and-dhl-detail-tariff-refund-approach-for-customers/818057/",
+          "source_quote": "DHL Express said it will automatically file refund claims for eligible entries covered by the first phase of the CBP's refund system rollout",
+          "fetched_at": "2026-04-26T20:25:00+09:00"
+        },
+        {
+          "claim": "한국 24,000개 대미(對美) 기업 중 6,000개 DDP",
+          "source_url": "https://www.seoul.co.kr/news/economy/2026/02/21/20260221500023",
+          "source_quote": "관세부과 대상 물품을 미국에 수출한 2만 4000여개 기업 중 6000여개 기업이 DDP 조건으로 수출",
+          "fetched_at": "2026-04-26T20:25:00+09:00"
         }
       ]
     },

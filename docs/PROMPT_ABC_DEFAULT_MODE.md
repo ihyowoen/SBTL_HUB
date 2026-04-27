@@ -705,7 +705,7 @@ full schema 필드 누락 / malformed 시 revise or reject.
 ### 6) Gate / Fact / Implication 분리
 - gate = 중요성 (사실 반복 아님)
 - fact = 증거 기반 사실 (의견 아님)
-- implication = 관찰/함의 (gate/fact 반복 아움)
+- implication = 관찰/함의 (gate/fact 반복 아님)
 
 ### 7) Integrity Group Split
 - 서로 다른 accepted 후보 draft 두 개가 같은 upstream `integrity_group_id`를 공유하며 같은 사건을 다루면 → `integrity_group_split` → 약한 쪽 `revise_required` 또는 `rejected`

@@ -19,7 +19,7 @@ This document contains:
 4. Evidence Package Preparation — procedure for fetching and extracting before drafting
 5. Daily Run Cycle — frequency requirement
 6. Framing Rule — source-direction lock
-7. Date Rule — event day vs publication day
+7. Date Rule — event day vs publication day, **and staleness threshold**
 8. Framing Self-Verification — three-question checklist used by Prompt B
 9. Framing Verification Checklist — review items used by Prompt C
 
@@ -159,6 +159,7 @@ The following always trigger a `discarded` decision in Prompt A, with a specific
 - routine personnel appointment without strategic restructuring context
 - unverified rumor with no named primary source
 - evidence too weak to support a downstream full-schema card
+- **stale republication** — the underlying event happened more than 30 days before `representative_date` and no fresh follow-up event has occurred (see §7.3 Staleness Threshold)
 
 ### 3.4 Impact Weighting
 
@@ -284,6 +285,67 @@ The `date` field of a card is the **event day**, not the publication day of the 
 
 If the source does not specify the event day clearly, use the earliest date explicitly stated as the event trigger. If still unclear, use the publication day and set `needs_review: true`.
 
+### 7.3 Staleness Threshold
+
+The pipeline produces **fresh news**. When a story's underlying event happened far before the current run, the story is a *stale republication* and must not become a card unless a fresh follow-up event has occurred.
+
+#### 7.3.1 Definitions
+
+- **`event_date`** — the day the underlying event actually happened (announcement day, signing day, plant start day, paper publication day, etc.). Determined from the source's own dating language ("16일 발표", "지난 8월 11일", "April 16, 2025") or from a clear primary-source release page.
+- **`publication_date`** — the day the source we are reading was published (the article's own date stamp).
+- **`run_date`** — the calendar day the current pipeline run was triggered.
+- **`staleness_gap_days`** — `run_date − event_date` in days.
+
+#### 7.3.2 Threshold Bands
+
+| `staleness_gap_days` | Treatment |
+|---|---|
+| `≤ 7` | **Fresh** — no staleness concern. Normal flow. |
+| `8 – 30` | **Stale-warm** — `needs_review: true`. The card must articulate why this republication adds **new** signal (new market reaction, new domestic regulatory follow-up, new commercial step downstream of the original event). If no such justification exists, downgrade to `discarded` at A or `rejected` at C. |
+| `> 30` | **Stale** — default treatment is `discarded` at A (or `rejected` at C). Override allowed only if a **distinct fresh follow-up event** is documented (e.g., the original announcement happened 90 days ago but the plant just broke ground today; the plant groundbreaking is the fresh event, the original announcement is context). The card must then be framed around the **fresh follow-up event**, with the original announcement appearing only as background. The override must be recorded with `staleness_override: true` and a one-line justification in `discard_reason` / `rejection_reason` slot or in the spec's `review_reason`. |
+
+#### 7.3.3 Detection Heuristics
+
+A story is suspicious for staleness when **any** of the following hold:
+
+- The article's own date (`publication_date`) is within the run window, but the body uses retrospective phrasing: "지난 X월", "last August", "in April 2025", "1년 전", "8개월 전" referring to the headline event.
+- A primary-source page (company IR, government release) clearly carries an older date and the article we are reading is the only "new" surface — no new contractual milestone, no new regulator action, no new spec disclosure has occurred between the primary release and now.
+- Multiple foreign-language outlets have already covered the same event weeks or months earlier, and the current article is a domestic-language re-write.
+
+When any heuristic triggers, A must record `staleness_suspected: true` in the spec and either discard or carry `needs_review: true`.
+
+#### 7.3.4 Stage Responsibilities
+
+- **A (Selector)**: identifies staleness candidates from upstream metadata + body retrospective phrasing. Default-discards `>30` day cases unless a fresh follow-up is identifiable in the same body. Records `staleness_gap_days`, `event_date`, and `publication_date` on every spec where a gap is suspected.
+- **B (Writer)**: when fetching `primary_url`, confirms the event date from the original page. If the gap is larger than what A recorded, escalates to `needs_review: true` and notes the discrepancy in `writer_notes`.
+- **C (QC)**: cross-checks `event_date` against `representative_date`. If a `>30`-day gap exists without a `staleness_override` justification, rejects with `rejection_reason: "stale republication"`. If the gap is `8–30` days, validates that the card's `gate` or `fact` clearly articulates the fresh-signal justification; otherwise revises down or rejects.
+
+#### 7.3.5 Recording Format
+
+Every spec where staleness was considered carries:
+
+```json
+"staleness": {
+  "event_date": "2025-04-16",
+  "publication_date": "2026-04-27",
+  "staleness_gap_days": 376,
+  "fresh_followup": null,
+  "staleness_override": false,
+  "decision": "discarded"
+}
+```
+
+When the override is invoked, `fresh_followup` carries a one-line description of the fresh event and `staleness_override` is `true`.
+
+### 7.4 Real-World Examples (drawn from W8 cycle)
+
+| Case | `event_date` | `publication_date` | gap | Decision |
+|---|---|---|---|---|
+| JX金属 \"폐EV LiB Li 90% 회수\" — JX金属 official 2025-04-16, 한국 매체 재보도 2026-04-27 | 2025-04-16 | 2026-04-27 | 376 d | **rejected** (stale, no fresh follow-up; the 敦賀 plant 2026 하반기 가동은 미래 이벤트, 본 기사는 그 가동 자체를 보도하지 않음) |
+| KERI 전고체 \"중간층 (Li2ZnSb)\" — KERI 2025-08-11 발표, electimes 재보도 2026-04-27 | 2025-08-11 | 2026-04-27 | 259 d | **rejected** (stale, no fresh follow-up; 매체 단순 재보도) |
+| 旭化成 + 中国電力 BESS 운영 SW MOU — 발표 2026-04-23, 한국 매체 보도 2026-04-27 | 2026-04-23 | 2026-04-27 | 4 d | **fresh** (no staleness concern) |
+| 대명에너지 고흥나로 BESS 273억 O&M — 공시 2026-04-24, sentv 보도 2026-04-27 | 2026-04-24 | 2026-04-27 | 3 d | **fresh** (no staleness concern) |
+
 ---
 
 ## 8. Framing Self-Verification (Prompt B)
@@ -307,11 +369,14 @@ During review, Prompt C applies a dedicated framing pass alongside schema, trace
 - the card does not reframe a semi-solid-state event as solid-state, a pilot as commercial, an MOU as a signed deal, a press release as industry consensus, or similar direction reversals
 - the card avoids the prohibited stylistic templates from §6.3
 - no company roadmap year or specific timeline claim appears in the card without direct support in the evidence package
+- **the card's `event_date` is within the staleness threshold** (§7.3) — otherwise reject with `rejection_reason: "stale republication"`
 
 ### 9.1 Decision Outcomes
 
 - Minor framing drift that can be rewritten without changing facts → `revise_required`
 - Framing-direction reversal relative to source → `rejected`
 - Memory-based claim that cannot be anchored in the evidence package → `rejected`
+- **Staleness gap > 30 days without `staleness_override` justification → `rejected`**
+- **Staleness gap 8–30 days without articulated fresh-signal justification in `gate` / `fact` → `revise_required` or `rejected`**
 
-Framing reversal, even without a single-number error, is grounds for rejection. Prose quality does not substitute for framing integrity.
+Framing reversal, even without a single-number error, is grounds for rejection. Prose quality does not substitute for framing integrity. Stale republication, even when factually correct, is not fresh signal and does not earn a card.

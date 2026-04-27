@@ -265,9 +265,48 @@ const shortDate = (date) => {
 
 const pct = (num, total) => `${Math.max(0, Math.min(100, ((Number(num) || 0) / Math.max(1, Number(total) || 0)) * 100))}%`;
 
+// Design system — Cell (dark) × Lamination (light) — refactor 2026-04-26
+// dark = Cell: void + voltaic cyan-green; light = Lamination: paper + vermilion.
+// Same architecture both modes; opposite skins. Hairlines, no rounded chrome,
+// no emoji — typographic marks only. `cyan` key kept as alias for `accent` so
+// existing call-sites still resolve.
+//
+// Dark refinement (2026-04-26 v2): widened surface deltas so the three layers
+// actually read as layers. Borders raised so hairlines are visible against
+// card. Sub-text lifted for editorial italic legibility.
 const T = (dark = true) => dark
-  ? { bg: "#0D1117", card: "#161B26", card2: "#1C2333", tx: "#E6EDF3", sub: "#9198A1", brd: "#21293A", cyan: "#58A6FF", sh: "0 2px 8px rgba(0,0,0,0.4)" }
-  : { bg: "#F4F6FA", card: "#FFFFFF", card2: "#F8F9FC", tx: "#1A1A2A", sub: "#57606A", brd: "#E0E3EA", cyan: "#0969DA", sh: "0 2px 10px rgba(0,0,0,0.06)" };
+  ? {
+      bg: "#08090C",          // void — deeper, lets cards pop
+      card: "#141A22",        // cell — visibly warmer/lifted from bg
+      card2: "#0E141B",       // cell deep — sits between bg and card
+      tx: "#EAECEE",          // ink
+      sub: "#7A8090",          // quiet — lifted for italic murmur legibility
+      brd: "#2A323D",         // hairline — actually visible against card
+      brdSoft: "#1C2128",     // softer hairline for tab dividers etc
+      cyan: "#00E0B8",        // alias for accent (back-compat)
+      accent: "#00E0B8",      // voltaic
+      accentSoft: "rgba(0,224,184,0.10)",
+      accentLine: "rgba(0,224,184,0.28)",
+      accentGlow: "0 0 12px rgba(0,224,184,0.35)",  // for hero accent moments
+      paper: "#141A22",       // receipt surface
+      sh: "none",             // no shadows in dark — hairlines + glow only
+    }
+  : {
+      bg: "#F1ECE3",          // paper
+      card: "#F7F2E8",        // paper warm
+      card2: "#EDE7DC",       // paper warmer
+      tx: "#1A1916",          // graphite
+      sub: "#6E6A60",         // aluminum
+      brd: "#1A1916",         // ink line
+      brdSoft: "#D7D0C2",     // soft line
+      cyan: "#B5341A",        // alias for accent (back-compat)
+      accent: "#B5341A",      // vermilion
+      accentSoft: "rgba(181,52,26,0.07)",
+      accentLine: "rgba(181,52,26,0.20)",
+      accentGlow: "none",     // light mode = no glow, ink does the work
+      paper: "#F7F2E8",
+      sh: "none",
+    };
 
 const quickPrimary = [
   "오늘 핵심 카드",
@@ -687,6 +726,8 @@ function ReceiptBubble({ meta, openedAt, dark }) {
   if (meta?.date) metaParts.push(fmtDate(meta.date));
   const metaLine = metaParts.join(" · ");
 
+  // Receipt — kept ("귀여워서") but stripped of emoji & dashed cyan.
+  // Now: hairline frame, paper surface, vermilion/voltaic accent only on the corner stamp.
   return (
     <div
       role="note"
@@ -694,30 +735,50 @@ function ReceiptBubble({ meta, openedAt, dark }) {
       style={{
         margin: "10px auto",
         maxWidth: "92%",
-        padding: "10px 14px",
-        background: dark ? "rgba(88,166,255,0.07)" : "rgba(88,166,255,0.05)",
-        border: `1px dashed ${t.cyan}`,
-        borderRadius: 10,
+        padding: "12px 14px 12px 16px",
+        background: t.card2,
+        border: `0.5px solid ${t.brd}`,
+        borderLeft: `2px solid ${t.accent}`,
+        borderRadius: 2,
+        position: "relative",
       }}
     >
+      {/* Top row — 받음 label + date, typographic only */}
       <div style={{
-        fontSize: 10, color: t.cyan, fontWeight: 800, marginBottom: 6,
-        fontFamily: "'JetBrains Mono',monospace",
-        display: "flex", alignItems: "center", gap: 6,
+        display: "flex", alignItems: "baseline", justifyContent: "space-between",
+        marginBottom: 6,
       }}>
-        <span aria-hidden="true">📥</span>
-        <span>받음{dateLabel ? ` · ${dateLabel}` : ""}</span>
+        <div style={{
+          fontSize: 9, color: t.accent, fontWeight: 700,
+          fontFamily: "'JetBrains Mono',monospace",
+          letterSpacing: "0.2em", textTransform: "uppercase",
+        }}>
+          受 · 받음{dateLabel ? ` · ${dateLabel}` : ""}
+        </div>
+        <div style={{
+          fontSize: 8.5, color: t.sub, fontWeight: 500,
+          fontFamily: "'JetBrains Mono',monospace",
+          letterSpacing: "0.15em",
+        }}>
+          ticket № {d ? d.getTime().toString().slice(-6) : "------"}
+        </div>
       </div>
+      {/* Title — Pretendard, weight slightly lighter for restraint */}
       <div style={{
-        fontSize: 13, color: t.tx, fontWeight: 700, lineHeight: 1.4, marginBottom: 4,
+        fontSize: 13, color: t.tx, fontWeight: 600, lineHeight: 1.45, marginBottom: 5,
         fontFamily: "'Pretendard',sans-serif",
+        letterSpacing: "-0.005em",
       }}>
         {meta?.title || "(제목 없음)"}
       </div>
+      {/* Meta line */}
       {metaLine && (
         <div style={{
-          fontSize: 9, color: t.sub, fontWeight: 700,
+          fontSize: 9, color: t.sub, fontWeight: 500,
           fontFamily: "'JetBrains Mono',monospace",
+          letterSpacing: "0.08em",
+          paddingTop: 6,
+          borderTop: `0.5px solid ${t.brdSoft || t.brd}`,
         }}>
           {metaLine}
         </div>
@@ -739,19 +800,37 @@ function ScoutBubble({ stageOutput, dark }) {
     <div style={{
       margin: "8px 0",
       padding: "14px 16px",
-      background: dark ? "#1A2333" : "#FFFFFF",
-      border: `1px solid ${t.brd}`,
-      borderRadius: "18px 18px 18px 6px",
-      borderLeft: `3px solid #58A6FF`,
+      background: t.card,
+      border: `0.5px solid ${t.brd}`,
+      borderLeft: `2px solid ${t.accent}`,
+      borderRadius: 2,
     }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
+      {/* Stage header — § 01 · Scout · W electrode + italic murmur */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
         <span style={{
-          fontSize: 10, fontWeight: 800, color: "#58A6FF",
-          background: dark ? "rgba(88,166,255,0.14)" : "rgba(45,90,142,0.10)",
-          padding: "3px 8px", borderRadius: 999,
           fontFamily: "'JetBrains Mono',monospace",
+          fontSize: 10, fontWeight: 700, color: t.tx,
+          letterSpacing: "0.18em", textTransform: "uppercase",
         }}>
-          📋 1차 · 사실 확인
+          § 01 · Scout
+        </span>
+        {/* Electrode glyph — W (working) */}
+        <span style={{
+          fontFamily: "'JetBrains Mono',monospace",
+          fontSize: 9, fontWeight: 700, color: t.accent,
+          width: 18, height: 18, borderRadius: "50%",
+          border: `0.5px solid ${t.accent}`,
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+        }}>
+          W
+        </span>
+        <span style={{
+          marginLeft: "auto",
+          fontFamily: "'Instrument Serif','IBM Plex Serif',serif",
+          fontStyle: "italic",
+          fontSize: 11, color: t.sub,
+        }}>
+          working — 사실 확인
         </span>
       </div>
 
@@ -769,6 +848,7 @@ function ScoutBubble({ stageOutput, dark }) {
           <div style={{
             fontSize: 9, color: t.sub, fontWeight: 700, marginBottom: 6,
             fontFamily: "'JetBrains Mono',monospace",
+            letterSpacing: "0.18em",
           }}>
             FACTS · {facts.length}
           </div>
@@ -776,23 +856,25 @@ function ScoutBubble({ stageOutput, dark }) {
             {facts.map((f) => (
               <div key={f.id} style={{
                 padding: "8px 10px",
-                background: dark ? "rgba(88,166,255,0.05)" : "rgba(88,166,255,0.03)",
-                borderRadius: 8,
-                border: `1px solid ${dark ? "rgba(88,166,255,0.12)" : "rgba(88,166,255,0.08)"}`,
+                background: t.accentSoft,
+                borderRadius: 2,
+                borderLeft: `1px solid ${t.accent}`,
               }}>
                 <div style={{
                   display: "flex", alignItems: "center", gap: 6, marginBottom: 3,
                   flexWrap: "wrap",
                 }}>
                   <span style={{
-                    fontSize: 9, fontWeight: 800, color: "#58A6FF",
+                    fontSize: 9, fontWeight: 700, color: t.accent,
                     fontFamily: "'JetBrains Mono',monospace",
+                    letterSpacing: "0.1em",
                   }}>
                     {f.id}
                   </span>
                   <span style={{
                     fontSize: 9, color: t.sub,
                     fontFamily: "'JetBrains Mono',monospace",
+                    letterSpacing: "0.05em",
                   }}>
                     {f.subject}
                     {f.time ? ` · ${f.time}` : ""}
@@ -804,7 +886,7 @@ function ScoutBubble({ stageOutput, dark }) {
                 </div>
                 {f.value && (
                   <div style={{
-                    fontSize: 10, color: t.cyan, marginTop: 3, fontWeight: 700,
+                    fontSize: 10, color: t.accent, marginTop: 3, fontWeight: 700,
                     fontFamily: "'JetBrains Mono',monospace",
                   }}>
                     {f.value}
@@ -820,12 +902,13 @@ function ScoutBubble({ stageOutput, dark }) {
         <div style={{
           padding: "8px 10px",
           background: dark ? "rgba(125,133,144,0.06)" : "rgba(125,133,144,0.04)",
-          borderRadius: 8,
-          borderLeft: `2px solid ${t.sub}`,
+          borderRadius: 2,
+          borderLeft: `1px solid ${t.sub}`,
         }}>
           <div style={{
             fontSize: 9, color: t.sub, fontWeight: 700, marginBottom: 4,
             fontFamily: "'JetBrains Mono',monospace",
+            letterSpacing: "0.15em", textTransform: "uppercase",
           }}>
             아직 모르는 것
           </div>
@@ -854,10 +937,11 @@ function AnalystBubble({ stageOutput, dark }) {
     return parts.map((part, i) =>
       /^f\d+$/.test(part)
         ? <span key={i} style={{
-            color: "#58A6FF", fontWeight: 800,
+            color: t.accent, fontWeight: 700,
             fontFamily: "'JetBrains Mono',monospace",
-            background: dark ? "rgba(88,166,255,0.12)" : "rgba(45,90,142,0.08)",
-            padding: "1px 5px", borderRadius: 4,
+            background: t.accentSoft,
+            padding: "1px 5px", borderRadius: 2,
+            letterSpacing: "0.05em",
           }}>{part}</span>
         : <span key={i}>{part}</span>
     );
@@ -867,35 +951,57 @@ function AnalystBubble({ stageOutput, dark }) {
     <div style={{
       margin: "8px 0",
       padding: "14px 16px",
-      background: dark ? "#1A2333" : "#FFFFFF",
-      border: `1px solid ${t.brd}`,
-      borderRadius: "18px 18px 18px 6px",
-      borderLeft: `3px solid #D29922`,
+      background: t.card,
+      border: `0.5px solid ${t.brd}`,
+      borderLeft: `2px solid ${t.accent}`,
+      borderRadius: 2,
     }}>
+      {/* Stage header — § 02 · Analyst · C electrode + italic murmur */}
       <div style={{
-        display: "flex", alignItems: "center", gap: 6, marginBottom: 8,
+        display: "flex", alignItems: "center", gap: 8, marginBottom: 10,
         flexWrap: "wrap",
       }}>
         <span style={{
-          fontSize: 10, fontWeight: 800, color: "#D29922",
-          background: dark ? "rgba(210,153,34,0.14)" : "rgba(210,153,34,0.10)",
-          padding: "3px 8px", borderRadius: 999,
           fontFamily: "'JetBrains Mono',monospace",
+          fontSize: 10, fontWeight: 700, color: t.tx,
+          letterSpacing: "0.18em", textTransform: "uppercase",
         }}>
-          🔍 2차 · 핵심 각도
+          § 02 · Analyst
         </span>
-        {angle && (
-          <span style={{
-            fontSize: 10, fontWeight: 700, color: t.tx,
-            background: dark ? "rgba(210,153,34,0.08)" : "rgba(210,153,34,0.06)",
-            padding: "3px 8px", borderRadius: 999,
-            fontFamily: "'JetBrains Mono',monospace",
-            border: `1px solid ${dark ? "rgba(210,153,34,0.2)" : "rgba(210,153,34,0.15)"}`,
-          }}>
-            {angle}
-          </span>
-        )}
+        {/* Electrode glyph — C (counter) */}
+        <span style={{
+          fontFamily: "'JetBrains Mono',monospace",
+          fontSize: 9, fontWeight: 700, color: t.accent,
+          width: 18, height: 18, borderRadius: "50%",
+          border: `0.5px solid ${t.accent}`,
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+        }}>
+          C
+        </span>
+        <span style={{
+          marginLeft: "auto",
+          fontFamily: "'Instrument Serif','IBM Plex Serif',serif",
+          fontStyle: "italic",
+          fontSize: 11, color: t.sub,
+        }}>
+          counter — 한 각도
+        </span>
       </div>
+
+      {angle && (
+        <div style={{
+          marginBottom: 10,
+          fontSize: 10, fontWeight: 600, color: t.tx,
+          fontFamily: "'JetBrains Mono',monospace",
+          letterSpacing: "0.05em",
+          padding: "5px 8px",
+          border: `0.5px solid ${t.brd}`,
+          borderRadius: 2,
+          display: "inline-block",
+        }}>
+          {angle}
+        </div>
+      )}
 
       {interpretation && (
         <div style={{
@@ -909,15 +1015,16 @@ function AnalystBubble({ stageOutput, dark }) {
       {key_tension && (
         <div style={{
           padding: "10px 12px",
-          background: dark ? "rgba(210,153,34,0.07)" : "rgba(210,153,34,0.05)",
-          borderRadius: 8,
-          borderLeft: `2px solid #D29922`,
+          background: t.accentSoft,
+          borderRadius: 2,
+          borderLeft: `1px solid ${t.accent}`,
         }}>
           <div style={{
-            fontSize: 9, color: "#D29922", fontWeight: 800, marginBottom: 4,
+            fontSize: 9, color: t.accent, fontWeight: 700, marginBottom: 4,
             fontFamily: "'JetBrains Mono',monospace",
+            letterSpacing: "0.18em", textTransform: "uppercase",
           }}>
-            ⚡ 핵심 쟁점
+            핵심 쟁점
           </div>
           <div style={{
             fontSize: 12, color: t.tx, lineHeight: 1.5, fontWeight: 600,
@@ -940,6 +1047,12 @@ function RedTeamBubble({ stageOutput, dark }) {
     next_checkpoints = [],
   } = stageOutput || {};
 
+  // Inside RedTeam, the "premature interpretations" sub-block uses red as
+  // semantic ink (the editor's red pen). We keep one warning red for that
+  // single role, and route everything else through the mode accent.
+  const RED_INK = dark ? "#FF6B5B" : "#B5341A";   // visible on void; vermilion in light
+  const AMBER_INK = dark ? "#E2A93A" : "#9A6810"; // amber for unverified — used as ink only
+
   // fact id (f1, f2 ...) 자동 하이라이트 — counter_scenario 안에서 사용
   const renderWithFactIds = (text) => {
     if (!text) return null;
@@ -947,10 +1060,11 @@ function RedTeamBubble({ stageOutput, dark }) {
     return parts.map((part, i) =>
       /^f\d+$/.test(part)
         ? <span key={i} style={{
-            color: "#58A6FF", fontWeight: 800,
+            color: t.accent, fontWeight: 700,
             fontFamily: "'JetBrains Mono',monospace",
-            background: dark ? "rgba(88,166,255,0.12)" : "rgba(45,90,142,0.08)",
-            padding: "1px 5px", borderRadius: 4,
+            background: t.accentSoft,
+            padding: "1px 5px", borderRadius: 2,
+            letterSpacing: "0.05em",
           }}>{part}</span>
         : <span key={i}>{part}</span>
     );
@@ -960,34 +1074,53 @@ function RedTeamBubble({ stageOutput, dark }) {
     <div style={{
       margin: "8px 0",
       padding: "14px 16px",
-      background: dark ? "#1A2333" : "#FFFFFF",
-      border: `1px solid ${t.brd}`,
-      borderRadius: "18px 18px 18px 6px",
-      borderLeft: `3px solid #F85149`,
+      background: t.card,
+      border: `0.5px solid ${t.brd}`,
+      borderLeft: `2px solid ${t.accent}`,
+      borderRadius: 2,
     }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}>
+      {/* Stage header — § 03 · RedPen · R electrode + italic murmur */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
         <span style={{
-          fontSize: 10, fontWeight: 800, color: "#F85149",
-          background: dark ? "rgba(248,81,73,0.14)" : "rgba(248,81,73,0.10)",
-          padding: "3px 8px", borderRadius: 999,
           fontFamily: "'JetBrains Mono',monospace",
+          fontSize: 10, fontWeight: 700, color: t.tx,
+          letterSpacing: "0.18em", textTransform: "uppercase",
         }}>
-          🧪 3차 · 빨간펜
+          § 03 · RedPen
+        </span>
+        {/* Electrode glyph — R (reference) */}
+        <span style={{
+          fontFamily: "'JetBrains Mono',monospace",
+          fontSize: 9, fontWeight: 700, color: t.accent,
+          width: 18, height: 18, borderRadius: "50%",
+          border: `0.5px solid ${t.accent}`,
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+        }}>
+          R
+        </span>
+        <span style={{
+          marginLeft: "auto",
+          fontFamily: "'Instrument Serif','IBM Plex Serif',serif",
+          fontStyle: "italic",
+          fontSize: 11, color: t.sub,
+        }}>
+          reference — 자기 검증
         </span>
       </div>
 
-      {/* (a) 성급한 해석 — red */}
+      {/* (a) 성급한 해석 — semantic red ink (the editor's red pen mark) */}
       {premature_interpretations.length > 0 && (
         <div style={{
           marginBottom: 10,
           padding: "10px 12px",
-          background: dark ? "rgba(248,81,73,0.06)" : "rgba(248,81,73,0.04)",
-          borderRadius: 8,
-          borderLeft: `2px solid #F85149`,
+          background: dark ? "rgba(255,107,91,0.05)" : "rgba(181,52,26,0.04)",
+          borderRadius: 2,
+          borderLeft: `1px solid ${RED_INK}`,
         }}>
           <div style={{
-            fontSize: 9, color: "#F85149", fontWeight: 800, marginBottom: 5,
+            fontSize: 9, color: RED_INK, fontWeight: 700, marginBottom: 5,
             fontFamily: "'JetBrains Mono',monospace",
+            letterSpacing: "0.18em", textTransform: "uppercase",
           }}>
             성급한 해석
           </div>
@@ -996,25 +1129,26 @@ function RedTeamBubble({ stageOutput, dark }) {
               fontSize: 12, color: t.tx, lineHeight: 1.6, marginTop: i > 0 ? 6 : 0,
               display: "flex", gap: 6, alignItems: "flex-start",
             }}>
-              <span style={{ color: "#F85149", flexShrink: 0, marginTop: 1 }}>·</span>
+              <span style={{ color: RED_INK, flexShrink: 0, marginTop: 1 }}>·</span>
               <span>{p}</span>
             </div>
           ))}
         </div>
       )}
 
-      {/* (b) 확인 안 된 전제 — amber */}
+      {/* (b) 확인 안 된 전제 — amber ink */}
       {unverified_premises.length > 0 && (
         <div style={{
           marginBottom: 10,
           padding: "10px 12px",
-          background: dark ? "rgba(210,153,34,0.06)" : "rgba(210,153,34,0.04)",
-          borderRadius: 8,
-          borderLeft: `2px solid #D29922`,
+          background: dark ? "rgba(226,169,58,0.05)" : "rgba(154,104,16,0.04)",
+          borderRadius: 2,
+          borderLeft: `1px solid ${AMBER_INK}`,
         }}>
           <div style={{
-            fontSize: 9, color: "#D29922", fontWeight: 800, marginBottom: 5,
+            fontSize: 9, color: AMBER_INK, fontWeight: 700, marginBottom: 5,
             fontFamily: "'JetBrains Mono',monospace",
+            letterSpacing: "0.18em", textTransform: "uppercase",
           }}>
             확인 안 된 전제
           </div>
@@ -1023,25 +1157,26 @@ function RedTeamBubble({ stageOutput, dark }) {
               fontSize: 12, color: t.tx, lineHeight: 1.6, marginTop: i > 0 ? 6 : 0,
               display: "flex", gap: 6, alignItems: "flex-start",
             }}>
-              <span style={{ color: "#D29922", flexShrink: 0, marginTop: 1 }}>·</span>
+              <span style={{ color: AMBER_INK, flexShrink: 0, marginTop: 1 }}>·</span>
               <span>{p}</span>
             </div>
           ))}
         </div>
       )}
 
-      {/* (c) 반대 시나리오 — cyan + fact id 하이라이트 (주 본문) */}
+      {/* (c) 반대 시나리오 — accent + fact id 하이라이트 (주 본문) */}
       {counter_scenario && (
         <div style={{
           marginBottom: 10,
           padding: "10px 12px",
-          background: dark ? "rgba(88,166,255,0.05)" : "rgba(88,166,255,0.03)",
-          borderRadius: 8,
-          borderLeft: `2px solid #58A6FF`,
+          background: t.accentSoft,
+          borderRadius: 2,
+          borderLeft: `1px solid ${t.accent}`,
         }}>
           <div style={{
-            fontSize: 9, color: "#58A6FF", fontWeight: 800, marginBottom: 5,
+            fontSize: 9, color: t.accent, fontWeight: 700, marginBottom: 5,
             fontFamily: "'JetBrains Mono',monospace",
+            letterSpacing: "0.18em", textTransform: "uppercase",
           }}>
             반대 시나리오
           </div>
@@ -1054,18 +1189,20 @@ function RedTeamBubble({ stageOutput, dark }) {
         </div>
       )}
 
-      {/* (d) 다음 체크포인트 — neutral, numbered */}
+      {/* (d) 다음 체크포인트 — neutral, numbered, no emoji */}
       {next_checkpoints.length > 0 && (
         <div style={{
           padding: "10px 12px",
           background: dark ? "rgba(125,133,144,0.07)" : "rgba(125,133,144,0.04)",
-          borderRadius: 8,
+          borderRadius: 2,
+          borderLeft: `1px solid ${t.sub}`,
         }}>
           <div style={{
-            fontSize: 9, color: t.sub, fontWeight: 800, marginBottom: 6,
+            fontSize: 9, color: t.sub, fontWeight: 700, marginBottom: 6,
             fontFamily: "'JetBrains Mono',monospace",
+            letterSpacing: "0.18em", textTransform: "uppercase",
           }}>
-            ✅ 다음 체크포인트
+            다음 체크포인트
           </div>
           {next_checkpoints.map((cp, i) => (
             <div key={i} style={{
@@ -1074,9 +1211,10 @@ function RedTeamBubble({ stageOutput, dark }) {
             }}>
               <span style={{
                 color: t.sub, fontFamily: "'JetBrains Mono',monospace",
-                fontWeight: 800, flexShrink: 0, marginTop: 1, minWidth: 16,
+                fontWeight: 700, flexShrink: 0, marginTop: 1, minWidth: 16,
+                letterSpacing: "0.05em",
               }}>
-                {i + 1}.
+                {String(i + 1).padStart(2, "0")}.
               </span>
               <span>{cp}</span>
             </div>
@@ -1095,7 +1233,8 @@ function StageWrapper({ m, dark, runSuggestion, BubbleComponent, errorFallback }
       <div style={{ display: "flex", justifyContent: "flex-start", width: "100%" }}>
         <img src="/data/kang.png" alt="강차장" style={{
           width: 28, height: 28, borderRadius: 14, marginRight: 7,
-          flexShrink: 0, marginTop: 2, border: "2px solid #2a1a40",
+          flexShrink: 0, marginTop: 2,
+          border: `0.5px solid ${t.brd}`,
         }} />
         <div style={{ maxWidth: "88%" }}>
           {m.stage_output
@@ -1103,15 +1242,17 @@ function StageWrapper({ m, dark, runSuggestion, BubbleComponent, errorFallback }
             : (
               <div style={{
                 padding: "11px 14px", fontSize: 13, color: t.sub,
-                background: dark ? "#1A2333" : "#FFFFFF",
-                border: `1px solid ${t.brd}`,
-                borderRadius: "18px 18px 18px 6px",
+                background: t.card,
+                border: `0.5px solid ${t.brd}`,
+                borderLeft: `2px solid ${t.accent}`,
+                borderRadius: 2,
               }}>
                 {errorFallback || "응답 생성에 문제가 있었어. 다시 시도해줘."}
                 {m.stage_error && (
                   <div style={{
                     fontSize: 9, color: t.sub, marginTop: 6,
-                    fontFamily: "'JetBrains Mono',monospace", opacity: 0.6,
+                    fontFamily: "'JetBrains Mono',monospace", opacity: 0.7,
+                    letterSpacing: "0.05em",
                   }}>
                     [{m.stage_error}]
                   </div>
@@ -1130,16 +1271,21 @@ function StageWrapper({ m, dark, runSuggestion, BubbleComponent, errorFallback }
             const isAdvance = s.hint_action === "advance_stage";
             return (
               <button key={s.label} onClick={() => runSuggestion(s)} style={{
-                background: isAdvance ? t.cyan : (dark ? "#1A2333" : "#fff"),
-                color: isAdvance ? "#000" : t.cyan,
-                border: isAdvance ? "none" : `1px solid ${t.brd}`,
-                borderRadius: 999,
-                padding: isAdvance ? "12px 20px" : "10px 16px",
+                background: isAdvance ? t.accent : "transparent",
+                color: isAdvance ? (dark ? "#0B0E11" : "#F1ECE3") : t.accent,
+                border: isAdvance ? `0.5px solid ${t.accent}` : `0.5px solid ${t.brd}`,
+                borderRadius: 2,
+                padding: isAdvance ? "11px 18px" : "10px 14px",
                 minHeight: "44px",
-                fontSize: isAdvance ? 12 : 11,
-                fontWeight: isAdvance ? 800 : 600,
+                fontSize: isAdvance ? 11.5 : 11,
+                fontWeight: isAdvance ? 700 : 600,
                 cursor: "pointer",
-                fontFamily: "'Pretendard',sans-serif",
+                fontFamily: isAdvance
+                  ? "'JetBrains Mono',monospace"
+                  : "'Pretendard',sans-serif",
+                letterSpacing: isAdvance ? "0.1em" : "normal",
+                textTransform: isAdvance ? "uppercase" : "none",
+                boxShadow: isAdvance && dark ? `0 0 0 1px ${t.accentLine}` : "none",
               }}>
                 {isAdvance ? `${s.label} →` : s.label}
               </button>
@@ -1153,7 +1299,7 @@ function StageWrapper({ m, dark, runSuggestion, BubbleComponent, errorFallback }
 
 function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0 }) {
   const t = T(dark);
-  const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
+  const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야.\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
   const [input, setInput] = useState("");
   // loadingMode: 'none' | 'typing_normal' | 'typing_consult'
   const [loadingMode, setLoadingMode] = useState("none");
@@ -1546,7 +1692,20 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
         {msgs.length <= 1 && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 6, marginBottom: 12 }}>
             {quickPrimary.map((q) => (
-              <button key={q} onClick={() => runSuggestion(q)} style={{ background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "12px 16px", minHeight: "44px", fontSize: 12, color: t.tx, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600, textAlign: "left" }}>{q}</button>
+              <button key={q} onClick={() => runSuggestion(q)} style={{
+                background: t.card,
+                border: `0.5px solid ${t.brd}`,
+                borderRadius: 2,
+                padding: "12px 14px",
+                minHeight: "44px",
+                fontSize: 12,
+                color: t.tx,
+                cursor: "pointer",
+                fontFamily: "'Pretendard',sans-serif",
+                fontWeight: 500,
+                textAlign: "left",
+                lineHeight: 1.4,
+              }}>{q}</button>
             ))}
           </div>
         )}
@@ -1569,41 +1728,116 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
           return (
             <div key={i} role="article" aria-label={m.role === "user" ? "내 질문" : "AI 답변"} style={{ display: "flex", flexDirection: "column", alignItems: m.role === "user" ? "flex-end" : "flex-start", marginBottom: 10 }}>
               <div style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start", width: "100%" }}>
-                {m.role === "assistant" && <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, marginRight: 7, flexShrink: 0, marginTop: 2, border: "2px solid #2a1a40" }} />}
+                {m.role === "assistant" && <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, marginRight: 7, flexShrink: 0, marginTop: 2, border: `0.5px solid ${t.brd}` }} />}
                 <div style={{ maxWidth: "88%" }}>
-                  <div style={{ padding: "11px 14px", fontSize: 13, lineHeight: 1.6, whiteSpace: "pre-wrap", wordBreak: "keep-all", borderRadius: m.role === "user" ? "18px 18px 6px 18px" : "18px 18px 18px 6px", background: m.role === "user" ? "#4C8DFF" : (dark ? "#1A2333" : "#FFFFFF"), color: m.role === "user" ? "#fff" : t.tx, border: m.role === "user" ? "none" : `1px solid ${t.brd}`, fontFamily: "'Pretendard', sans-serif" }}>
+                  <div style={{
+                    padding: "11px 14px", fontSize: 13, lineHeight: 1.6,
+                    whiteSpace: "pre-wrap", wordBreak: "keep-all",
+                    borderRadius: 2,
+                    background: m.role === "user" ? t.accent : t.card,
+                    color: m.role === "user" ? (dark ? "#0B0E11" : "#F1ECE3") : t.tx,
+                    border: m.role === "user" ? "none" : `0.5px solid ${t.brd}`,
+                    borderLeft: m.role === "user" ? "none" : `1px solid ${t.brdSoft || t.brd}`,
+                    fontFamily: "'Pretendard', sans-serif",
+                  }}>
                     {m.sourceBadge === "internal" && (
-                      <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#58A6FF", background: dark ? "rgba(88,166,255,0.14)" : "rgba(45,90,142,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
-                        📋 내부 카드 기반
+                      <span style={{
+                        display: "inline-block", fontSize: 9, fontWeight: 700, color: t.accent,
+                        background: t.accentSoft,
+                        padding: "3px 8px", borderRadius: 2, marginBottom: 8,
+                        fontFamily: "'JetBrains Mono',monospace",
+                        letterSpacing: "0.18em", textTransform: "uppercase",
+                      }}>
+                        내부 카드 기반
                       </span>
                     )}
                     {m.sourceBadge === "external" && (
-                      <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#D29922", background: dark ? "rgba(210,153,34,0.14)" : "rgba(210,153,34,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
-                        🔗 외부 기사 링크
+                      <span style={{
+                        display: "inline-block", fontSize: 9, fontWeight: 700,
+                        color: dark ? "#E2A93A" : "#9A6810",
+                        background: dark ? "rgba(226,169,58,0.10)" : "rgba(154,104,16,0.07)",
+                        padding: "3px 8px", borderRadius: 2, marginBottom: 8,
+                        fontFamily: "'JetBrains Mono',monospace",
+                        letterSpacing: "0.18em", textTransform: "uppercase",
+                      }}>
+                        외부 기사 ↗
                       </span>
                     )}
                     {m.sourceBadge === "hybrid" && (
-                      <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#A855F7", background: dark ? "rgba(168,85,247,0.14)" : "rgba(168,85,247,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>
-                        🔀 내부+외부 근거
+                      <span style={{
+                        display: "inline-block", fontSize: 9, fontWeight: 700, color: t.tx,
+                        background: "transparent",
+                        padding: "3px 8px", borderRadius: 2, marginBottom: 8,
+                        fontFamily: "'JetBrains Mono',monospace",
+                        letterSpacing: "0.18em", textTransform: "uppercase",
+                        border: `0.5px solid ${t.brd}`,
+                      }}>
+                        내부 + 외부
                       </span>
                     )}
                     {m.sourceBadge ? <div>{m.content}</div> : m.content}
                   </div>
                   {m.braveLinks?.map((link, j) => (
-                    <a key={`brave-${j}`} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Open external article: ${link.title}`} style={{ display: "block", background: dark ? "#1A1E2A" : "#FFFBF0", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: "pointer", border: `1px solid ${dark ? "rgba(210,153,34,0.25)" : "rgba(210,153,34,0.2)"}`, textDecoration: "none" }}>
+                    <a key={`brave-${j}`} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Open external article: ${link.title}`} style={{
+                      display: "block",
+                      background: t.card2,
+                      borderRadius: 2,
+                      padding: "10px 12px", marginTop: 6,
+                      cursor: "pointer",
+                      border: `0.5px solid ${t.brd}`,
+                      borderLeft: `1px solid ${dark ? "#E2A93A" : "#9A6810"}`,
+                      textDecoration: "none",
+                    }}>
                       <div style={{ fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.4 }}>{link.title}</div>
                       {link.description && <div style={{ fontSize: 11, color: t.sub, marginTop: 3, lineHeight: 1.45 }}>{link.description.slice(0, 120)}{link.description.length > 120 ? "..." : ""}</div>}
-                      <div style={{ fontSize: 10, color: "#D29922", marginTop: 4, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>🔗 외부 기사 ↗</div>
+                      <div style={{
+                        fontSize: 9, color: dark ? "#E2A93A" : "#9A6810", marginTop: 6, fontWeight: 700,
+                        fontFamily: "'JetBrains Mono',monospace",
+                        letterSpacing: "0.15em", textTransform: "uppercase",
+                      }}>외부 기사 ↗</div>
                     </a>
                   ))}
                   {m.cards?.map((card, j) => {
-                    const cardStyle = { display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}`, textDecoration: "none" };
+                    const cardStyle = {
+                      display: "block",
+                      background: t.card2,
+                      borderRadius: 2,
+                      padding: "10px 12px", marginTop: 6,
+                      cursor: card.url ? "pointer" : "default",
+                      border: `0.5px solid ${t.brd}`,
+                      borderLeft: `1px solid ${t.accent}`,
+                      textDecoration: "none",
+                    };
                     const cardContent = (<>
-                      <div style={{ fontSize: 12, fontWeight: 700, color: t.tx }}>{SIG_L[card.signal] || "INFO"} {card.title}</div>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: t.tx }}>
+                        <span style={{
+                          fontFamily: "'JetBrains Mono',monospace",
+                          fontSize: 9, color: t.accent, fontWeight: 700,
+                          letterSpacing: "0.18em", marginRight: 6,
+                        }}>{SIG_L[card.signal] || "INFO"}</span>
+                        {card.title}
+                      </div>
                       {card.subtitle && <div style={{ fontSize: 11, color: t.sub, marginTop: 3 }}>{card.subtitle}</div>}
-                      {card.gist && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, lineHeight: 1.5, opacity: 0.85 }}>💡 {card.gist}</div>}
-                      <div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(card.date)} · {card.region} · {card.source || "source"}</div>
-                      {card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}
+                      {card.gist && (
+                        <div style={{
+                          fontSize: 11, color: t.tx, marginTop: 6, lineHeight: 1.5,
+                          fontFamily: "'Instrument Serif','IBM Plex Serif',serif",
+                          fontStyle: "italic",
+                          opacity: 0.85,
+                        }}>— {card.gist}</div>
+                      )}
+                      <div style={{
+                        fontSize: 9, color: t.sub, marginTop: 6,
+                        fontFamily: "'JetBrains Mono',monospace",
+                        letterSpacing: "0.05em",
+                      }}>{fmtDate(card.date)} · {card.region} · {card.source || "source"}</div>
+                      {card.url && (
+                        <div style={{
+                          fontSize: 9, color: t.accent, marginTop: 4, fontWeight: 700,
+                          fontFamily: "'JetBrains Mono',monospace",
+                          letterSpacing: "0.15em",
+                        }}>원문 ↗</div>
+                      )}
                     </>);
                     return card.url
                       ? <a key={j} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} onClick={() => markCardSelected(card)} style={cardStyle}>{cardContent}</a>
@@ -1624,18 +1858,60 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
 
         {isLoading && (
           <div role="status" aria-live="polite" aria-atomic="true" style={{ display: "flex", gap: 7, marginBottom: 10 }}>
-            <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, flexShrink: 0, border: "2px solid #2a1a40" }} />
-            <div style={{ padding: "10px 14px", borderRadius: "18px 18px 18px 6px", background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, fontSize: 12, color: t.sub }}>
-              {loadingMode === "typing_consult" ? "검토 중..." : "찾아보는 중..."}
+            <img src="/data/kang.png" alt="강차장" style={{ width: 28, height: 28, borderRadius: 14, flexShrink: 0, border: `0.5px solid ${t.brd}` }} />
+            <div style={{
+              padding: "10px 14px",
+              borderRadius: 2,
+              background: t.card,
+              border: `0.5px solid ${t.brd}`,
+              borderLeft: `2px solid ${t.accent}`,
+              fontSize: 12, color: t.sub,
+              fontFamily: "'Instrument Serif','IBM Plex Serif',serif",
+              fontStyle: "italic",
+            }}>
+              {loadingMode === "typing_consult" ? "검토 중…" : "찾아보는 중…"}
             </div>
           </div>
         )}
         <div ref={endRef} />
       </div>
-      <div style={{ padding: "8px 12px 14px", background: "#0A0E14", borderTop: `1px solid ${t.brd}` }}>
-        <div style={{ display: "flex", gap: 0, marginBottom: 8, background: dark ? "#151B26" : "#f0f0f5", borderRadius: 8, padding: 2 }}>
-          <button onClick={() => setSearchMode("internal")} style={{ flex: 1, padding: "6px 0", borderRadius: 6, border: "none", background: searchMode === "internal" ? (dark ? "#1A2333" : "#fff") : "transparent", color: searchMode === "internal" ? "#58A6FF" : t.sub, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", boxShadow: searchMode === "internal" ? "0 1px 3px rgba(0,0,0,0.15)" : "none", transition: "all 0.15s" }}>📋 내부 카드</button>
-          <button onClick={() => setSearchMode("external")} style={{ flex: 1, padding: "6px 0", borderRadius: 6, border: "none", background: searchMode === "external" ? (dark ? "#1A2333" : "#fff") : "transparent", color: searchMode === "external" ? "#D29922" : t.sub, fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", boxShadow: searchMode === "external" ? "0 1px 3px rgba(0,0,0,0.15)" : "none", transition: "all 0.15s" }}>🔗 외부 기사</button>
+      <div style={{ padding: "8px 12px 14px", background: t.card2, borderTop: `0.5px solid ${t.brd}` }}>
+        {/* Internal / External mode toggle — typographic, no emoji,
+            single accent for the active mode. External tinted with subtle amber.
+            2px radius, hairline borders. */}
+        <div style={{
+          display: "flex", gap: 0, marginBottom: 8,
+          background: t.bg,
+          borderRadius: 2,
+          padding: 1,
+          border: `0.5px solid ${t.brd}`,
+        }}>
+          <button onClick={() => setSearchMode("internal")} style={{
+            flex: 1, padding: "8px 0",
+            borderRadius: 1,
+            border: "none",
+            background: searchMode === "internal" ? t.card : "transparent",
+            color: searchMode === "internal" ? t.accent : t.sub,
+            fontSize: 10.5, fontWeight: 700,
+            cursor: "pointer",
+            fontFamily: "'JetBrains Mono',monospace",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            transition: "all 0.15s",
+          }}>내부 카드</button>
+          <button onClick={() => setSearchMode("external")} style={{
+            flex: 1, padding: "8px 0",
+            borderRadius: 1,
+            border: "none",
+            background: searchMode === "external" ? t.card : "transparent",
+            color: searchMode === "external" ? (dark ? "#E2A93A" : "#9A6810") : t.sub,
+            fontSize: 10.5, fontWeight: 700,
+            cursor: "pointer",
+            fontFamily: "'JetBrains Mono',monospace",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            transition: "all 0.15s",
+          }}>외부 기사 ↗</button>
         </div>
         <div style={{ display: "flex", gap: 6 }}>
           <input
@@ -1649,21 +1925,46 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
             }}
             placeholder={
               searchMode === "external"
-                ? "외부 기사 검색어 입력 (예: LFP 화재 리스크)"
+                ? "외부 기사 검색어 (예: LFP 화재 리스크)"
                 : consultActive
                   ? "다음 단계 버튼 → 또는 자유롭게 질문해"
                   : "궁금한 주제를 입력해줘"
             }
             aria-label={searchMode === "internal" ? "Ask AI assistant" : "Search external articles"}
-            style={{ flex: 1, padding: "12px 14px", minHeight: "44px", borderRadius: 10, border: `1px solid ${searchMode === "external" ? (dark ? "rgba(210,153,34,0.3)" : "rgba(210,153,34,0.2)") : t.brd}`, background: searchMode === "external" ? (dark ? "#1A1E2A" : "#FFFBF0") : t.card2, color: t.tx, fontSize: 13, outline: "none", fontFamily: "'Pretendard',sans-serif" }}
+            style={{
+              flex: 1,
+              padding: "12px 14px",
+              minHeight: "44px",
+              borderRadius: 2,
+              border: `0.5px solid ${searchMode === "external" ? (dark ? "rgba(226,169,58,0.35)" : "rgba(154,104,16,0.35)") : t.brd}`,
+              background: t.card,
+              color: t.tx,
+              fontSize: 13,
+              outline: "none",
+              fontFamily: "'Pretendard',sans-serif",
+            }}
           />
           <button
             onClick={() => searchMode === "external" ? void sendExternal(extQuery) : void sendWithText(input)}
             disabled={isLoading || (searchMode === "external" ? !extQuery.trim() : !input.trim())}
             aria-label={searchMode === "external" ? "Search external articles" : "Send message"}
-            style={{ padding: "12px 18px", minHeight: "44px", minWidth: "44px", borderRadius: 10, border: "none", background: searchMode === "external" ? "#D29922" : t.cyan, color: "#000", fontWeight: 800, cursor: "pointer", fontSize: 13, fontFamily: "'Pretendard',sans-serif" }}
+            style={{
+              padding: "12px 18px",
+              minHeight: "44px",
+              minWidth: "48px",
+              borderRadius: 2,
+              border: `0.5px solid ${searchMode === "external" ? (dark ? "#E2A93A" : "#9A6810") : t.accent}`,
+              background: searchMode === "external" ? (dark ? "#E2A93A" : "#9A6810") : t.accent,
+              color: dark ? "#0B0E11" : "#F1ECE3",
+              fontWeight: 700,
+              cursor: "pointer",
+              fontSize: 13,
+              fontFamily: "'JetBrains Mono',monospace",
+              letterSpacing: "0.05em",
+              boxShadow: dark ? `0 0 0 1px ${t.accentLine}` : "none",
+            }}
           >
-            {searchMode === "external" ? "🔍" : "→"}
+            →
           </button>
         </div>
       </div>
@@ -2233,7 +2534,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
 
 function AppContent() {
   const [tab, setTab] = useState("all");
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);  // default: Lamination (light)
   const [refreshKey, setRefreshKey] = useState(0);
   const [hardRefresh, setHardRefresh] = useState(false);
   const [refreshPending, setRefreshPending] = useState(false);
@@ -2329,75 +2630,109 @@ function AppContent() {
 
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", background: t.bg, minHeight: "100vh", fontFamily: "'Pretendard',-apple-system,sans-serif", position: "relative" }}>
-      <style dangerouslySetInnerHTML={{ __html: `@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');body{margin:0;background:${t.bg}}*{box-sizing:border-box}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #58A6FF;outline-offset:2px}.skip-link{position:absolute;left:-9999px;z-index:999;padding:12px 20px;background:#58A6FF;color:#000;text-decoration:none;font-weight:800;border-radius:8px;font-size:14px}.skip-link:focus{left:50%;transform:translateX(-50%);top:10px}` }} />
+      <style dangerouslySetInnerHTML={{ __html: `@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400&display=swap');body{margin:0;background:${t.bg}}*{box-sizing:border-box}button:focus-visible,a:focus-visible,input:focus-visible{outline:1.5px solid ${t.accent};outline-offset:2px}.skip-link{position:absolute;left:-9999px;z-index:999;padding:12px 20px;background:${t.accent};color:${dark ? "#0B0E11" : "#F1ECE3"};text-decoration:none;font-weight:700;border-radius:2px;font-size:14px;font-family:'JetBrains Mono',monospace;letter-spacing:0.05em}.skip-link:focus{left:50%;transform:translateX(-50%);top:10px}` }} />
 
       {/* Skip to main content link */}
       <a href="#main-content" className="skip-link">
         메인 콘텐츠로 이동
       </a>
 
-      <div style={{ background: "#161B26", padding: "14px 16px 16px", position: "relative", borderBottom: `1px solid #21293A` }}>
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(90deg,#58A6FF,#BC8CFF,#58A6FF)" }} />
+      <div style={{ background: t.card, padding: "14px 16px 16px", position: "relative", borderBottom: `0.5px solid ${t.brd}` }}>
+        {/* Single voltaic hairline accent at top edge — replaces purple/blue gradient */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 1, background: t.accent }} />
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <img src="/data/logo_light.png" alt="SBTL" style={{ height: 32, objectFit: "contain" }} onError={(e) => { e.currentTarget.style.display = "none"; }} />
-            <div style={{ display: "flex", alignItems: "center", gap: 4, background: "#0B2A0B", borderRadius: 4, padding: "2px 7px" }}><div style={{ width: 5, height: 5, borderRadius: 3, background: "#3FB950" }} /><span style={{ fontSize: 9, color: "#3FB950", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>LIVE</span></div>
+            <img src="/data/logo_light.png" alt="SBTL" style={{ height: 28, objectFit: "contain" }} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+            {/* LIVE — typographic, no green pill chip */}
+            <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+              <div style={{ width: 6, height: 6, borderRadius: 3, background: t.accent, boxShadow: dark ? `0 0 6px ${t.accent}` : "none" }} />
+              <span style={{ fontSize: 9, color: t.accent, fontFamily: "'JetBrains Mono',monospace", fontWeight: 700, letterSpacing: "0.18em" }}>LIVE</span>
+              <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", letterSpacing: "0.05em", marginLeft: 2 }}>· {kb.cardCount}</span>
+            </div>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontSize: 10, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace" }}>{kb.cardCount}</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            {/* Refresh — typographic ↻ instead of emoji, hairline border, square 2px */}
             <button
               onClick={() => void triggerRefresh("soft")}
               disabled={kb.loading || trackerLoading || refreshPending}
               title="최신 데이터 다시 불러오기"
               aria-label="Refresh latest data"
               style={{
-                background: "#21293A",
-                border: "none",
-                borderRadius: 8,
+                background: "transparent",
+                border: `0.5px solid ${t.brd}`,
+                borderRadius: 2,
                 minWidth: 44,
                 minHeight: 44,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: kb.loading || trackerLoading || refreshPending ? "not-allowed" : "pointer",
-                fontSize: 14,
-                color: "#E6EDF3",
-                opacity: kb.loading || trackerLoading || refreshPending ? 0.45 : 1,
+                fontSize: 15,
+                color: t.tx,
+                fontFamily: "'JetBrains Mono',monospace",
+                opacity: kb.loading || trackerLoading || refreshPending ? 0.4 : 1,
               }}
             >
               ↻
             </button>
+            {/* Hard refresh — accent-tinted hairline */}
             <button
               onClick={() => void triggerRefresh("hard")}
               disabled={kb.loading || trackerLoading || refreshPending}
               title="캐시까지 무시하고 강하게 다시 불러오기"
               aria-label="Hard refresh latest data"
               style={{
-                background: "#21293A",
-                border: "1px solid rgba(248,81,73,0.35)",
-                borderRadius: 8,
+                background: "transparent",
+                border: `0.5px solid ${t.accentLine}`,
+                borderRadius: 2,
                 minWidth: 44,
                 minHeight: 44,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: kb.loading || trackerLoading || refreshPending ? "not-allowed" : "pointer",
-                fontSize: 14,
-                color: "#F85149",
-                opacity: kb.loading || trackerLoading || refreshPending ? 0.45 : 1,
+                fontSize: 11,
+                color: t.accent,
+                fontFamily: "'JetBrains Mono',monospace",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                opacity: kb.loading || trackerLoading || refreshPending ? 0.4 : 1,
               }}
             >
-              ⚡
+              ↻↻
             </button>
-            <button onClick={() => setDark(!dark)} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} style={{ background: "#21293A", border: "none", borderRadius: 8, minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", fontSize: 16 }}>{dark ? "☀️" : "🌙"}</button>
+            {/* Theme toggle — typographic, no emoji */}
+            <button
+              onClick={() => setDark(!dark)}
+              aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+              title={dark ? "Light mode" : "Dark mode"}
+              style={{
+                background: "transparent",
+                border: `0.5px solid ${t.brd}`,
+                borderRadius: 2,
+                minWidth: 44,
+                minHeight: 44,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                fontSize: 13,
+                color: t.tx,
+                fontFamily: "'Instrument Serif','IBM Plex Serif',serif",
+                fontStyle: "italic",
+                letterSpacing: "0.05em",
+              }}
+            >
+              {dark ? "lit" : "drk"}
+            </button>
           </div>
         </div>
-        <div style={{ marginTop: 10 }}>
-          {tab !== "all" && <h1 style={{ color: "#E6EDF3", fontSize: 18, fontWeight: 800, margin: 0 }}>{headerTitle}</h1>}
-          <p style={{ color: "#7D8590", fontSize: 10, margin: "2px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>{headerSub}</p>
+        <div style={{ marginTop: 12 }}>
+          {tab !== "all" && <h1 style={{ color: t.tx, fontSize: 20, fontWeight: 300, margin: 0, letterSpacing: "-0.02em" }}>{headerTitle}</h1>}
+          <p style={{ color: t.sub, fontSize: 10, margin: tab !== "all" ? "4px 0 0" : "2px 0 0", fontFamily: "'JetBrains Mono',monospace", letterSpacing: "0.05em" }}>{headerSub}</p>
           {refreshLabel && (
-            <p style={{ color: refreshLabel.includes("강력") ? "#F85149" : "#58A6FF", fontSize: 10, margin: "6px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>
-              {refreshLabel}
+            <p style={{ color: refreshLabel.includes("강력") ? t.accent : t.sub, fontSize: 10, margin: "6px 0 0", fontFamily: "'JetBrains Mono',monospace", fontStyle: "italic" }}>
+              — {refreshLabel}
             </p>
           )}
         </div>
@@ -2411,14 +2746,73 @@ function AppContent() {
         {tab === "webtoon" && <WebtoonLibrary dark={dark} />}
       </main>
 
-      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">
-        {CATS.map((cat) => {
+      {/* Bottom tab bar — italic serif single-character glyph + mono caps label.
+          Active state: 1px voltaic line at the top edge (with subtle glow in dark mode). */}
+      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: t.card, borderTop: `0.5px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">
+        {CATS.map((cat, idx) => {
           const active = tab === cat.key;
+          // Lamination-discipline glyphs — single CJK character that maps to the tab's meaning.
+          // Italic serif so the row reads as a colophon, not a toolbar.
+          const glyphMap = { all: "家", news: "日", webtoon: "畵", tracker: "綠", chatbot: "問" };
+          const glyph = glyphMap[cat.key] || "·";
+          const isLast = idx === CATS.length - 1;
           return (
-            <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={`Navigate to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: "56px", cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>
-              {active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}
-              <span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span>
-              <span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span>
+            <button
+              key={cat.key}
+              onClick={() => setTab(cat.key)}
+              aria-label={`Navigate to ${cat.label}`}
+              aria-current={active ? "page" : undefined}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 3,
+                padding: "10px 0 12px",
+                minHeight: "56px",
+                cursor: "pointer",
+                border: "none",
+                borderRight: isLast ? "none" : `0.5px solid ${t.brdSoft || t.brd}`,
+                background: "transparent",
+                flex: 1,
+                position: "relative",
+              }}
+            >
+              {/* Active indicator — top edge voltaic line with glow in dark */}
+              {active && (
+                <div style={{
+                  position: "absolute",
+                  top: 0,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: 24,
+                  height: 2,
+                  background: t.accent,
+                  boxShadow: dark ? `0 0 8px ${t.accent}` : "none",
+                }} />
+              )}
+              <span
+                aria-hidden="true"
+                style={{
+                  fontFamily: "'Instrument Serif','IBM Plex Serif',serif",
+                  fontStyle: "italic",
+                  fontSize: 16,
+                  lineHeight: 1,
+                  color: active ? t.accent : t.sub,
+                  fontWeight: 400,
+                }}
+              >
+                {glyph}
+              </span>
+              <span style={{
+                fontSize: 9,
+                fontWeight: active ? 700 : 500,
+                color: active ? t.accent : t.sub,
+                fontFamily: "'JetBrains Mono',monospace",
+                letterSpacing: "0.18em",
+              }}>
+                {cat.label}
+              </span>
             </button>
           );
         })}
@@ -2429,7 +2823,7 @@ function AppContent() {
 
 // Export App wrapped in Error Boundary
 export default function App() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);  // default: Lamination (light)
 
   return (
     <ErrorBoundary dark={dark}>

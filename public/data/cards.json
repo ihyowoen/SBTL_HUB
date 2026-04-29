@@ -1,8 +1,1341 @@
 {
   "updated": "2026-04-28",
-  "total": 424,
+  "total": 467,
   "schema": "full",
   "cards": [
+    {
+      "id": "2026-04-28_CN_01",
+      "region": "CN",
+      "date": "2026-04-28",
+      "cat": "Battery",
+      "sub_cat": "홍콩 자본 확충",
+      "signal": "high",
+      "title": "CATL, 홍콩 50억$ 유상증자 추진 — '올해 홍콩 증시 최대 규모', 공모가 종가 대비 -3.5~-7% 할인",
+      "sub": "주당 HK$628.2~651.8 / 최대 7.4조원 / Bloomberg 4-28 단독 → 더구루 인용. 자본 우위 추가 강화로 K-3사와의 capacity·기술 격차 확대 신호",
+      "gate": "CATL이 홍콩 증시에서 다시 한번 거대한 자본을 끌어올린다. Bloomberg가 4월 28일 단독으로 보도한 공모가 HK$628.2~651.8(주당)은 월요일 종가 대비 -3.5~-7% 할인이며, 조달액은 최대 50억 달러(약 7.4조원). 이는 올해 홍콩 증시 최대 규모로, CATL의 양산 capacity 추가 + AI 인프라 투자 두 축을 모두 받쳐줄 자본이다.",
+      "fact": "더구루(블룸버그 인용, 4-28): \"세계 1위 배터리 제조업체인 중국 닝더스다이가 최대 7조4000억원 규모 자본 확충을 추진한다.\" \"28일 미국 블룸버그 통신에 따르면 CATL은 홍콩 증시에서 주당 628.2~651.8홍콩달러의 공모가로 유상증자를 실시할 예정이다.\" \"이는 월요일 종가 대비 3.5~7% 할인된 가격이다. 조달액은 최대 50억 달러(약 [7조4000억원])\". 주의: Bloomberg 원본 fetch 권장 — 본 카드는 더구루 인용에 기반.",
+      "implication": [
+        "4-21 CATL Super Tech Day(baseline 2026-04-21_CN_01: 6개 신제품 + 4,000개 충전·교환 통합 station 2026말, 10만 개 2028말) + 4-25 BAIC framework(baseline 2026-04-25_CN_01) + 4-27 HyperStrong 60GWh sodium(baseline 2026-04-27_CN_01) 사이클 위에 자본 추가 → 2026-2028 capa 확장 sustained.",
+        "'올해 홍콩 증시 최대 규모'는 K 셀 OEM (LG엔솔 KOSPI, 삼성SDI KOSPI, SK on 비상장)의 동시 자본 모집 부재와 대비. 자본 격차가 capacity·R&D·M&A 격차로 누적되는 사이클.",
+        "동일한 4-28 흐름에서 Sungrow도 HKEX IPO 재제출(SPEC_SUNGROW_HK_IPO_REFILE), Sunwoda도 IPO 재신청(baseline 2026-04-23_CN_01) — 중국 배터리·ESS OEM 홍콩 자본 모집 동시 가속.",
+        "Bloomberg 원본·CATL 공시 fetch 후 정확한 발행 주식 수, 최종 공모가 결정 일정, 사용처(facility expansion vs working capital vs M&A), Cornerstone investor 명단을 보강 필요. 카드 fact는 더구루 인용으로만 안전하게 유지."
+      ],
+      "urls": [
+        "https://www.theguru.co.kr/news/article.html?no=101118"
+      ],
+      "related": [
+        "2026-04-21_CN_01",
+        "2026-04-25_CN_01",
+        "2026-04-27_CN_01",
+        "2026-04-23_CN_01"
+      ],
+      "fact_sources": [
+        {
+          "claim": "Bloomberg 4-28 보도: 홍콩 증시 공모가 HK$628.2~651.8/주 유상증자 예정",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101118",
+          "source_quote": "28일 미국 블룸버그 통신에 따르면 CATL은 홍콩 증시에서 주당 628.2~651.8홍콩달러의 공모가로 유상증자를 실시할 예정이다.",
+          "fetched_at": "2026-04-28T10:00:14+09:00"
+        },
+        {
+          "claim": "월요일 종가 대비 -3.5~-7% 할인; 조달액 최대 50억$",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101118",
+          "source_quote": "이는 월요일 종가 대비 3.5~7% 할인된 가격이다. 조달액은 최대 50억 달러(약",
+          "fetched_at": "2026-04-28T10:00:14+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C13"
+      ],
+      "merge_status": "single",
+      "representative_source": "더구루 (Bloomberg 인용)",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 2,
+        "B": 0,
+        "C": 1,
+        "total": 3,
+        "exception": null
+      },
+      "source_tier": 1,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "Bloomberg 원본 fetch 필수 (현재 더구루 인용만 cite)"
+    },
+    {
+      "id": "2026-04-28_CN_02",
+      "region": "CN",
+      "date": "2026-04-28",
+      "cat": "Policy",
+      "sub_cat": "폐배터리 회수 단속",
+      "signal": "high",
+      "title": "중국 5부처 공동 '폐 동력셀 회수 이용 공동 법집행 특별 행동' 시작 — 중국 공업정보화부 주도, NEV 폐배터리 시장 정상화 행정 강화",
+      "sub": "4-27 중국 공업정보화부 등 5부문 공동 / NEV 폐 동력셀 회수 이용 주요 문제 집중 단속 / 한국 4-24 사용후 배터리법 통과와 같은 흐름의 중국 정책 강화",
+      "gate": "중국이 폐 동력셀 회수 시장에 대한 공동 법집행를 공식 시작했다. 중국 공업정보화부 등 5부문이 4월 27일 공동 한 통지는 'NEV 폐 동력셀 회수 이용'에서 주요 문제를 집중 하는 '특별 행동'이다. 한국이 4-24 본회의에서 사용후 배터리법(baseline 2026-04-24_KR_02)을 통과시킨 다음 날, 중국이 같은 사이클의 폐배터리 시장 행정 강화로 응답한 모양새다.",
+      "fact": "중국에너지망(4-28): \"4월28일본，중국 공업정보화부5개 부처4월27일본공동발표통지，폐동력 배터리회수·이용공동법집행특별 단속.\" \"특별 단속능폐동력 배터리회수·이용주요，법과 규정에 따라처분위법.\" 주의: 본문이 매우 짧음 — 5부처 명단·실행 ·처벌 강도·구체적 행정 조치는 5부처 정식 공시 fetch 후 보강 필요.",
+      "implication": [
+        "한국 4-24 사용후 배터리 산업 육성·공급망 안정화 법(baseline 2026-04-24_KR_02) + 중국 4-27 공동 법집행 특별 행동 = 한·중 동시 폐배터리 정책 강화 사이클. 한국이 산업 육성 측면, 중국이 단속 측면으로 다른 도구로 같은 시장을 정비.",
+        "baseline 2026-04-27_CN_08 (둥관 칭시진 16개 LiB 단속) + baseline 2026-04-21_KR_02 (배터리솔루션즈×BYD코리아 LFP 폐배터리 재활용) 흐름과 누적되어 '폐배터리 시장 정상화' 카테고리.",
+        "중국 NEV 폐 동력셀 회수 이용 시장은 그동안 비공식 회수·폐기 처리 비중이 컸음. 5부문 공동 법집행이 본격화되면 정식 회수 채널 비중 상승 → 중국 음극재·재활용 OEM 매출 사이클에 영향.",
+        "B에서 5부문 정식 공시(MIIT/생태환경부/공안부/시장감독관리총국 등) fetch + 실행 기간 명시 시 fact 보강. '특별 행동'의 실행 기간이 단기(3~6개월)인지 상시인지에 따라 강도 차이 큼."
+      ],
+      "urls": [
+        "https://www.china5e.com/news/news-1203108-1.html"
+      ],
+      "related": [
+        "2026-04-24_KR_02",
+        "2026-04-27_CN_08",
+        "2026-04-21_KR_02"
+      ],
+      "fact_sources": [
+        {
+          "claim": "중국 공업정보화부 등 5부처, 4-27 '규범 폐 동력셀 회수 이용 공동 법집행 특별 행동' 통지 공동",
+          "source_url": "https://www.china5e.com/news/news-1203108-1.html",
+          "source_quote": "4月28日讯，工业和信息化部等五部门4月27日联合印发通知，开展规范废旧动力电池回收利用联合执法专项行动。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "NEV 폐 동력셀 회수의 주요 문제 집중, 위법 행위 처분",
+          "source_url": "https://www.china5e.com/news/news-1203108-1.html",
+          "source_quote": "专项行动将聚焦新能源汽车废旧动力电池回收利用面临的突出问题，依法依规查处一批违法行为。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-28_C10"
+      ],
+      "merge_status": "single",
+      "representative_source": "中国能源网",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 1,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 2,
+        "B": 1,
+        "C": 0,
+        "total": 3,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "5부문 명단·实施期限·처벌 강도 fact 보강 필요 (정식 공시 fetch 권장)"
+    },
+    {
+      "id": "2026-04-28_CN_03",
+      "region": "CN",
+      "date": "2026-04-28",
+      "cat": "PowerGrid",
+      "sub_cat": "태양광 효율 세계기록",
+      "signal": "high",
+      "title": "LONGi HIBC 셀 28.13% + 모듈 26.4% 동시 세계 기록 — Trina 28.00% (4-27) 다음 날 중국 단접합 실리콘 효율 28%+ 경쟁 가속",
+      "sub": "개발 Hybrid Interdigitated-Back-Contact Cell, ISFH 권위 인증 / 셀·모듈 두 분야 동시 세계 기록 갱신 / Trina (baseline 2026-04-27_GL_04 28.00%) 발표 1일 후",
+      "gate": "중국 단접합 실리콘 셀 효율 경쟁이 한 주 사이에 28% 임계를 두 번 넘었다. 4-27 Trina THBC 28.00% 발표(baseline 2026-04-27_GL_04) 단 1일 후, LONGi가 개발한 HIBC(Hybrid Interdigitated-Back-Contact) 셀이 ISFH 인증 28.13%로 새 기록을 세웠다. 모듈도 26.4%로 동시 갱신. 4-27 Nankai HJT silver-free 25.2%(baseline 2026-04-27_GL_05) + 4-21 도쿄대 olive-perovskite 30.2%(baseline 2026-04-27_JP_05)와 함께 '2026-04 마지막 주'가 글로벌 셀 효율 4건 동시 갱신 주간이 됐다.",
+      "fact": "중국에너지망(4-28): \"일본，LONGi항목기술：，LONGi자체 개발하이브리드백컨택트태양전지HIBC（Hybrid Interdigitated-Back-Contact Cell），능（ISFH）공인 인증.\" 제목/lead: \"28.13%，26.4%！LONGi결정질 실리콘모듈효율세계기록.\" 주의: 본문이 짧음 — 모듈 효율 26.4%의 구체 size·셀 매수, 양산 일정·가격 fact는 LONGi 공시 또는 ISFH 인증서 fetch 후 보강 필요.",
+      "implication": [
+        "baseline 2026-04-27_GL_04 (Trina THBC 28.00%) + 본 카드 LONGi HIBC 28.13% — 중국 셀 효율 1주 내 두 회사 동시 28%+ = 단접합 실리콘 셀의 '이론 한계 32%' 도달까지 남은 폭이 빠르게 줄고 있음. K 페로브스카이트(2026-04-20_KR_59 한화큐셀) 상용화 일정과 직접 경쟁.",
+        "'자체 개발 HIBC + ISFH 인증' 조합은 LONGi의 R&D·인증 우위. 중국 PV 효율 경쟁이 BC(Back Contact) 아키텍처로 수렴하는 흐름. K 셀 OEM은 BC 양산 라인 부재 → 페로브스카이트 tandem(한화큐셀 2029) or 모듈 스펙 차별화로 응전 필요.",
+        "4-27 GL_03 — 효율 신기록 + 수출 폭증의 동시 발생 = 중국 PV 산업의 '기술+물량 양면 압박'. 글로벌 PV 모듈 마진 추가 압박.",
+        "B에서 ISFH 인증서 fetch + LONGi 공시 확인 필요 — HIBC vs THBC vs HJT 효율 차이의 실제 양산 의미(원가, 세이프 마진, 인증 면적, BOS 영향) fact 보강."
+      ],
+      "urls": [
+        "https://www.china5e.com/news/news-1203111-1.html"
+      ],
+      "related": [
+        "2026-04-27_GL_04",
+        "2026-04-27_GL_05",
+        "2026-04-27_GL_03",
+        "2026-04-27_JP_05",
+        "2026-04-20_KR_59"
+      ],
+      "fact_sources": [
+        {
+          "claim": "LONGi 4-28 발표: 개발 HIBC (Hybrid Interdigitated-Back-Contact Cell), ISFH 권위 인증",
+          "source_url": "https://www.china5e.com/news/news-1203111-1.html",
+          "source_quote": "近日，隆基绿能宣布两项重磅技术突破：其一，由隆基绿能自主研发的杂化背接触太阳电池HIBC（Hybrid Interdigitated-Back-Contact Cell），经德国哈梅林太阳能研究所（ISFH）权威认证",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "셀 효율 28.13%, 모듈 효율 26.4% — 결정질 실리콘 셀·모듈 동시 세계 기록 갱신",
+          "source_url": "https://www.china5e.com/news/news-1203111-1.html",
+          "source_quote": "28.13%，26.4%！隆基绿能再度刷新晶硅电池和组件效率世界纪录",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-28_C02"
+      ],
+      "merge_status": "single",
+      "representative_source": "中国能源网",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 2,
+        "B": 0,
+        "C": 1,
+        "total": 3,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_CN_04",
+      "region": "CN",
+      "date": "2026-04-28",
+      "cat": "ESS",
+      "sub_cat": "성별 독립 ESS 누적",
+      "signal": "mid",
+      "title": "산시성 독립 ESS 25 누적 — 총 capa 315.98 kW (3GW+) 돌파, 4-14 린펀 루안 200MW/400MWh 추가",
+      "sub": "4-14 린펀 루안 220kV ESS 5개월 조기 가동 → 산시 25 / 누적 capa 3.16GW / 중국 성별 ESS 누적 임계",
+      "gate": "산시성 정식 운영 중인 독립 ESS가 25, 누적 capa 3GW(315.98萬 kW)를 넘었다. 4-14 린펀 220kV 루안 200MW/400MWh가 5개월 조기 가동된 결과. 4-27 baseline CN_07(간쑤 1Q 1316MW), SPEC_CN_INTERPROV_ESS_RULE 정책과 함께 \"중국 성별 ESS 양산 임계\" 사이클.",
+      "fact": "중국에너지망(4-28): \"4월14일본，산시린펀2201,000루안20만1,000/40만 kWhESS스테이션전5월，，산시성운영ESS스테이션25，총용량300만1,000，315.98만1,000.\" 주의: gap=14일(4-14 사건 vs 4-28 보도) → stale_warm. \"25 + 3.16GW 누적\"이 fresh aggregate signal.",
+      "implication": [
+        "baseline 2026-04-27_CN_07(간쑤 1Q 1316MW), SPEC_CN_INTERPROV_ESS_RULE 정책 흐름과 누적되어 \"중국 성별 독립 ESS 1GW대 → 3GW대\" 임계 도달.",
+        "K 셀 OEM 중국 ESS 시장 진입 부재 - 중국 자국 OEM (CATL HyperStrong, REPT, EVE, BYD, Sungrow) 대량 공급 시장.",
+        "'5개월 조기 가동' = EPC·인허가 사이클 가속. 중국 ESS 인프라 양산이 정책+자본+시장과 동기화."
+      ],
+      "urls": [
+        "https://www.china5e.com/news/news-1203113-1.html"
+      ],
+      "related": [
+        "2026-04-27_CN_07",
+        "2026-04-27_CN_03"
+      ],
+      "fact_sources": [
+        {
+          "claim": "산시 4-14: 린펀 220kV 루안 200MW/400MWh 5개월 조기 가동, 산시성 누적 25, 총 capa 315.98 kW",
+          "source_url": "https://www.china5e.com/news/news-1203113-1.html",
+          "source_quote": "4月28日讯，4月14日，山西临汾220千伏儒安20万千瓦/40万千瓦时独立储能电站提前5个月建成投运，至此，山西省正式运营的独立储能电站达到25座，总容量突破300万千瓦，达到315.98万千瓦。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-28_C07"
+      ],
+      "merge_status": "single",
+      "representative_source": "中国能源网",
+      "staleness": {
+        "event_date": "2026-04-14",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 14,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "stale_warm"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "gap=14d stale_warm — fresh follow-up signal 검토 필요"
+    },
+    {
+      "id": "2026-04-28_CN_05",
+      "region": "CN",
+      "date": "2026-04-28",
+      "cat": "Battery",
+      "sub_cat": "HKEX 재상장",
+      "signal": "mid",
+      "title": "Sungrow HKEX IPO 재제출 — 2025-10 만료 후 4-24 재신청, 시총 RMB277.4억, A+H 구조",
+      "sub": "4-24 HKEX 재제출 / CICC sponsor / 첫 신청 자동 만료 후 / RMB330B → RMB277.4B / 약 $126.7M 모집 시도 / A+H 구조",
+      "gate": "Sungrow가 6개월 자동 만료된 HKEX 신청을 4-24 재제출. CICC sponsor. 첫 신청 시점 RMB330B → 4-24 RMB277.4B 시총 하락. SPEC_CATL_HK_5BN(50억$ 유증)과 함께 \"중국 ESS·배터리 1위 홍콩 자본 동시 확장\" 사이클.",
+      "fact": "Energy-Storage News(4-28): \"PV inverter manufacturer and energy storage system integrator Sungrow has re-filed its listing application to the Hong Kong Stock Exchange (HKEX)\"; \"filed its application on 24 April, with China International Capital Corporation Limited (CICC) acting as the sponsor\". 첫 신청·만료: \"submitted an application for a secondary listing on the HKEX Main Board on 5 October 2025\"; \"expired automatically on 5 April 2026\". 시총: \"At the time of the original filing, Sungrow’s market cap was around RMB330 billion (US$47 billion), with the company reportedly seeking to raise around US$126.7 million\"; \"As of 24 April 2026, the company’s total market capitalisation stood at approximately RMB277.4 billion\". 구조: \"will establish an 'A+H' share structure once it goes public on HKEX\".",
+      "implication": [
+        "SPEC_CATL_HK_5BN($50억) + SUNGROW($126.7M 시도) + baseline 2026-04-23_CN_01(Sunwoda HK 재신청) — 중국 ESS·배터리 1위 동시 홍콩 자본 모집.",
+        "Sungrow 글로벌 PV inverter+ESS integrator 1위. 자본 우위 확대 → K ESS OEM 자본 격차 가속.",
+        "시총 -16% 하락 시점에도 재제출 = \"capacity 우위+글로벌 진입\" 베팅."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/sungrow-re-files-submission-for-hong-kong-stock-exchange-ipo"
+      ],
+      "related": [
+        "2026-04-23_CN_01"
+      ],
+      "fact_sources": [
+        {
+          "claim": "Sungrow 4-24 HKEX 재제출, CICC sponsor — 2025-10-05 첫 신청 6개월 자동 만료",
+          "source_url": "https://www.energy-storage.news/sungrow-re-files-submission-for-hong-kong-stock-exchange-ipo",
+          "source_quote": "PV inverter manufacturer and energy storage system integrator Sungrow has re-filed its listing application to the Hong Kong Stock Exchange (HKEX). According to HKEX documents, Sungrow filed its application on 24 April, with with China International Capital Corporation Limited (CICC) acting as the sponsor.",
+          "fetched_at": "2026-04-28T03:21:05+00:00"
+        },
+        {
+          "claim": "2025-10-05 첫 신청 → 6개월 만료 (4-5) → 4-24 재제출. 첫 신청 시 RMB330B(US$47B) 시총·약 $126.7M 모집",
+          "source_url": "https://www.energy-storage.news/sungrow-re-files-submission-for-hong-kong-stock-exchange-ipo",
+          "source_quote": "Sungrow had previously submitted an application for a secondary listing on the HKEX Main Board on 5 October 2025, after announcing its intent to float the IPO in August of that year. That application expired automatically on 5 April 2026, after its six-month validity period lapsed. At the time of the original filing, Sungrow’s market cap was around RMB330 billion (US$47 billion), with the company reportedly seeking to raise around US$126.7 million through the IPO.",
+          "fetched_at": "2026-04-28T03:21:05+00:00"
+        },
+        {
+          "claim": "4-24 시점 시총 RMB277.4억; A주 ChiNext Shenzhen 2011- → A+H 구조 목표",
+          "source_url": "https://www.energy-storage.news/sungrow-re-files-submission-for-hong-kong-stock-exchange-ipo",
+          "source_quote": "The company’s A-Shares have been listed on the ChiNext Board of the Shenzhen Stock Exchange since November 2011. The company will establish an “A+H” share structure once it goes public on HKEX. As of 24 April 2026, the company’s total market capitalisation stood at approximately RMB277.4 billion.",
+          "fetched_at": "2026-04-28T03:21:05+00:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "GL_2026-04-28_C07"
+      ],
+      "merge_status": "single",
+      "representative_source": "Energy-Storage News",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_GL_01",
+      "region": "GL",
+      "date": "2026-04-28",
+      "cat": "PowerGrid",
+      "sub_cat": "호주 microgrid",
+      "signal": "mid",
+      "title": "ARENA, NT First Nations 주도 microgrid 2건에 AU$11M(US$7.91M) — 호주 분산 에너지 '커뮤니티 주도' 모델",
+      "sub": "4-28 ARENA / Borroloola+Ltyentye Apurte / 솔라 PV+BESS DER / 호주 정책 다양성",
+      "gate": "ARENA가 4-28 NT의 First Nations 주도 microgrid 2건(Borroloola·Ltyentye Apurte)에 AU$11M(US$7.91M)을 지원. 솔라 PV+BESS DER로 grid 닿지 않거나 불안정한 원거리 \"커뮤니티 주도\" 모델. baseline 2026-04-22 GL_01(Enphase × Evergen VPP), 4-20 KR_51-53 호주 ESS 흐름.",
+      "fact": "Energy-Storage News(4-28): \"The Australian Renewable Energy Agency (ARENA) is supporting two First Nations-led microgrid projects in the Northern Territory (NT) with AU$11 million (US$7.91 million) in funding\". 프로젝트: \"located in Borroloola and Ltyentye Apurte\"; \"distributed energy resources (DERs) such as solar PV and battery storage systems\".",
+      "implication": [
+        "호주 \"커뮤니티 주도 microgrid\" 첫 본격 케이스. EV·ESS 시장에 분산 에너지 정책 다양성 확장.",
+        "baseline 4-20 KR_51-53(호주 ESS), SPEC_GENUSPLUS_KOOLUNGA(호주 SA 800MWh BESS) 흐름과 함께 호주 ESS·재생E 호황 사이클.",
+        "K 셀 OEM 호주 ESS 진입 가능성 baseline."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/arena-invests-au11-million-in-first-nations-led-microgrids-in-australias-northern-territory"
+      ],
+      "related": [
+        "2026-04-22_GL_01",
+        "2026-04-20_KR_51",
+        "2026-04-20_KR_52",
+        "2026-04-20_KR_53"
+      ],
+      "fact_sources": [
+        {
+          "claim": "ARENA AU$11M (US$7.91M) 지원, NT 2개 First Nations 주도 microgrid (Borroloola·Ltyentye Apurte)",
+          "source_url": "https://www.energy-storage.news/arena-invests-au11-million-in-first-nations-led-microgrids-in-australias-northern-territory",
+          "source_quote": "The Australian Renewable Energy Agency (ARENA) is supporting two First Nations-led microgrid projects in the Northern Territory (NT) with AU$11 million (US$7.91 million) in funding. The funding aims to help remote communities design, develop and lead their own local energy solutions to improve power reliability, affordability and energy security.",
+          "fetched_at": "2026-04-28T01:22:03+00:00"
+        },
+        {
+          "claim": "위치: Borroloola(NT Gulf) + Ltyentye Apurte / DER로 솔라+BESS 활용",
+          "source_url": "https://www.energy-storage.news/arena-invests-au11-million-in-first-nations-led-microgrids-in-australias-northern-territory",
+          "source_quote": "The projects, located in Borroloola and Ltyentye Apurte, are expected to demonstrate how distributed energy resources (DERs) such as solar PV and battery storage systems can deliver cleaner, more reliable electricity in parts of regional and remote Australia where the main grid does not reach or is currently unreliable.",
+          "fetched_at": "2026-04-28T01:22:03+00:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "GL_2026-04-28_C01"
+      ],
+      "merge_status": "single",
+      "representative_source": "Energy-Storage News",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "total": 1,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_GL_02",
+      "region": "GL",
+      "date": "2026-04-28",
+      "cat": "ESS",
+      "sub_cat": "호주 BESS EPC",
+      "signal": "mid",
+      "title": "GenusPlus, 호주 SA 200MW/800MWh Koolunga BESS AU$110M EPCC 계약 — 2027-09 완공",
+      "sub": "4-28 / 200MW/800MWh / Equis Development 소유 / SA Mid North / 275kV Brinkworth+NEM 연결",
+      "gate": "GenusPlus가 200MW/800MWh Koolunga BESS EPCC turnkey 계약(AU$110M)을 따냄. SA Mid North 지역, Equis Development 소유, 1.2km 고전압 케이블로 275kV Brinkworth 변전소·NEM 연결, 2027-09 완공.",
+      "fact": "Energy-Storage News(4-28): \"Australian infrastructure contractor GenusPlus Group has been awarded an AU$110 million (US$78.5 million) engineering, procurement, construction and commissioning contract for the 200MW/800MWh Koolunga battery energy storage system\"; \"owned by Asia-Pacific infrastructure investor Equis Development\"; \"completion targeted for September 2027\". 위치: \"approximately 6km southeast of the small town of Koolunga in the Mid North region of South Australia\"; \"1.2km of high-voltage cable linking to the 275kV Brinkworth Substation\".",
+      "implication": [
+        "호주 SA 200MW/800MWh = 4시간 duration. SPEC_ARENA_FIRST_NATIONS + baseline 2026-04-20_KR_51-53 흐름에 추가.",
+        "Equis Development = APAC 인프라 펀드. \"개발사→EPC→셀 OEM\" 분업; K 셀 OEM 진입 가능성.",
+        "2027-09 완공 = 호주 BESS 양산 사이클이 2026-2027 동시 가동기 진입."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/genusplus-wins-contract-to-deliver-800mwh-battery-storage-system-in-south-australia"
+      ],
+      "related": [
+        "2026-04-20_KR_51",
+        "2026-04-20_KR_52",
+        "2026-04-20_KR_53"
+      ],
+      "fact_sources": [
+        {
+          "claim": "GenusPlus, 200MW/800MWh Koolunga BESS (SA) AU$110M(US$78.5M) EPCC 계약 — Equis Development 소유, 2027-09 완공",
+          "source_url": "https://www.energy-storage.news/genusplus-wins-contract-to-deliver-800mwh-battery-storage-system-in-south-australia",
+          "source_quote": "Australian infrastructure contractor GenusPlus Group has been awarded an AU$110 million (US$78.5 million) engineering, procurement, construction and commissioning contract for the 200MW/800MWh Koolunga battery energy storage system (BESS) in South Australia. The turnkey contract covers Balance of Plant works and battery installation for the project, which is owned by Asia-Pacific infrastructure investor Equis Development. Works are scheduled to commence shortly, with completion targeted for September 2027.",
+          "fetched_at": "2026-04-28T01:46:16+00:00"
+        },
+        {
+          "claim": "위치: SA Mid North; 1.2km 고전압 케이블로 275kV Brinkworth 변전소+NEM 연결",
+          "source_url": "https://www.energy-storage.news/genusplus-wins-contract-to-deliver-800mwh-battery-storage-system-in-south-australia",
+          "source_quote": "The Koolunga BESS will be located approximately 6km southeast of the small town of Koolunga in the Mid North region of South Australia, an area of the state known for several different industries, including wine production, copper mining and agriculture. The battery storage system will connect to the state’s electricity grid and the wider National Electricity Market (NEM) via approximately 1.2km of high-voltage cable linking to the 275kV Brinkworth Substation.",
+          "fetched_at": "2026-04-28T01:46:16+00:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "GL_2026-04-28_C04"
+      ],
+      "merge_status": "single",
+      "representative_source": "Energy-Storage News",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 0,
+        "total": 1,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_JP_01",
+      "region": "JP",
+      "date": "2026-04-28",
+      "cat": "ESS",
+      "sub_cat": "일본 BESS aggregator",
+      "signal": "mid",
+      "title": "DigitalGrid 계통용축전지 100MW — 일본 BESS aggregator 시장 성숙 신호",
+      "sub": "4-28 / 100MW 돌파 / KIND 일본 BESS와 동기 / K 자본+일본 시장 동시 가시화",
+      "gate": "DigitalGrid 4-28 계통용축전지 100MW 돌파 발표. SPEC_KIND_JP_BESS(KIND 일본 BESS), 4-23 JP_01·4-27 JP_04(BESS SW), 4-22 GL_03(REPT 5GWh 일본) 흐름과 함께 일본 BESS 시장 성숙 사이클.",
+      "fact": "PR TIMES 축전지(4-28): \"계통용축전지のが100MWを\". 주의: 본문이 매우 짧음 — 누적 capa 추세, 고객사 명단, PR TIMES 원본 fetch 후 보강 필요.",
+      "implication": [
+        "SPEC_KIND_JP_BESS + DigitalGrid 100MW + 4-23 JP_01 BESS SW + 4-22 GL_03 REPT 일본 5GWh = 일본 BESS의 \"자본+인프라+SW+셀\" 4축 동시 가시화.",
+        "BESS aggregator 100MW = 일본 용량시·동시조정 시장에서 거래 단위가 충분한 사업자 등장. K BESS aggregator 진입 가능성."
+      ],
+      "urls": [
+        "https://prtimes.jp/main/html/rd/p/000000031.000045726.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DigitalGrid 4-28 — 계통용축전지 100MW",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000031.000045726.html",
+          "source_quote": "系統用蓄電池の取扱量が100MWを突破",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "JP_2026-04-28_C05"
+      ],
+      "merge_status": "single",
+      "representative_source": "PR TIMES 蓄電池",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 0,
+        "B": 0,
+        "C": 1,
+        "total": 1,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "본문 매우 짧음 — PR TIMES 원본 fetch 필요"
+    },
+    {
+      "id": "2026-04-28_JP_02",
+      "region": "JP",
+      "date": "2026-04-28",
+      "cat": "EV",
+      "sub_cat": "버스 EMS",
+      "signal": "mid",
+      "title": "バス, eMotion Fleet 자체 EMS 도입 — 상용 EV 운용 'one-stop' 모델 5월 본격",
+      "sub": "4-28 / eMotion Fleet 자체 EMS / 도입 / 5월 본격 가동",
+      "gate": "eMotion Fleet이 자체 개발 EMS를 バス에 도입, 5월 본격 가동. \"상용 EV one-stop\" (도입+충전+운용 SW 통합) 모델. SPEC_HMC_H2BUS(K 수소버스 5년 400대)와 다른 axis의 일본 BEV 버스 모델.",
+      "fact": "Response.jp(4-28): \"상용EV・のワンストップサービスをがけるeMotion Fleetは、（以下「長崎バス」）がするバスに자체のエネルギーマネジメントシステム（EMS）をし、5월より본をすると\".",
+      "implication": [
+        "일본 commercial EV·버스 EMS 통합 모델. K 현대차 수소버스(SPEC_HMC_H2BUS)는 \"수소+버스+인프라+금융\" 4축, 일본은 \"BEV 버스+EMS one-stop\".",
+        "도입 차량 수, 배터리 capa, EMS 기능(피크 셰이빙·V2G·동적 전기료) fact는 본 카드에 없음 - 원본 + eMotion Fleet 보도 fetch 후 보강.",
+        "K EMS 사업자(LS일렉트릭, 한전KDN 등) 일본 commercial EV·EMS 시장 진입 가능성 baseline."
+      ],
+      "urls": [
+        "https://response.jp/article/2026/04/28/410672.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "eMotion Fleet バス에 자체 EMS 도입, 5월 본격 가동",
+          "source_url": "https://response.jp/article/2026/04/28/410672.html",
+          "source_quote": "商用EV導入・運用のワンストップサービスを手がけるeMotion Fleetは、長崎自動車（以下「長崎バス」）が運行するバスに自社開発のエネルギーマネジメントシステム（EMS）を導入し、5月より本格稼働を開始すると発表した。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "JP_2026-04-28_C06"
+      ],
+      "merge_status": "single",
+      "representative_source": "Response.jp",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 0,
+        "B": 0,
+        "C": 1,
+        "total": 1,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_KR_01",
+      "region": "KR",
+      "date": "2026-04-28",
+      "cat": "EV",
+      "sub_cat": "배터리 구독 실증",
+      "signal": "high",
+      "title": "현대차그룹 '배터리 구독' 첫 실증 — 수도권 법인택시 아이오닉 5 5대 대상, 차체-배터리 소유권 분리 등록 규제 특례 적용",
+      "sub": "현대차+현대캐피탈; 상반기 법인택시 5대 → 하반기 일반 고객 확장; 2025-11 국토부 규제샌드박스 승인 후 첫 가동",
+      "gate": "한국 EV 캐즘 대응의 새로운 모델 — 차량과 배터리를 분리 등록하고 배터리만 '구독'한다. 현대차그룹이 4월 28일 발표한 첫 실증은 수도권 법인택시 아이오닉 5 5대로 시작해 하반기 일반 고객으로 확장하는 단계 설계다. 자동차관리법은 여태 배터리를 EV에서 분리 등록하지 않았기에 이번 실증의 출발점은 202025년 11월 국토부 모빌리티 규제샌드박스의 '분리 등록' 특례 승인이다.",
+      "fact": "현대차그룹은 4월 28일 \"현대자동차와 현대캐피탈이 올해 상반기 중 보증기간이 만료된 법인택시를 대상으로 전기차 배터리 구독 서비스 실증사업을 추진한다\"고 밝혔다(아주경제). 아주경제 보도: \"이번 사업은 지난해 11월 국토교통부의 모빌리티 규제샌드박스 심의를 통해 승인된 '전기차 차체-배터리 소유권 분리 등록' 규제 특례를 기반으로 추진된다.\" 실증 범위·운영방식: \"수도권 법인택시 아이오닉 5 5대를 대상으로 배터리 구독형 서비스를 운영\"하며, \"실증에 참여하는 법인택시는 구독 기간 동안 현대캐피탈에 월 구독료를 납부하며, 배터리 교체가 필요할 경우 사용 중인 배터리를 현대캐피탈에 반납하고 현대캐피탈 소유의 배터리를 제공받는다.\" 확장 계획: \"올해 하반기 중에 일반 고객을 대상으로 차체-배터리 소유권 분리 등록을 기반으로 전기차 판매 및 배터리 구독 서비스를 제공하는 실증사업도 추진할 계획.\"",
+      "implication": [
+        "EV 캐즘의 핵심 비용 부담(배터리 교체비·감가)을 OEM-금융사-차량 사용자로 분리하는 첫 시도. 결과가 나오면 한국형 IRA·보조금 개편 논의에서 '배터리 분리 등록'이 표준 옵션으로 격상될 가능성.",
+        "CATL의 초콜릿 swap (baseline 2026-04-25_CN_01) 또는 중국 모델과 다른 '소유권 분리' 접근. 결과적으로 차량 OEM과 배터리 OEM 사이의 모듈/팩 표준화 협업이 더 강하게 요구된다.",
+        "법인택시는 일일 주행거리가 길어 배터리 열화·교체 사이클이 빠르게 가시화. 월 구독료, 배터리 잔존가치, 보증 만료 후 잔여 수명 데이터가 빠르게 축적되어 일반 고객 모델 가격 책정의 핵심 근거가 된다.",
+        "현대캐피탈이 배터리 자산을 보유하는 구조는 캐피탈사가 '배터리 자산 풀'을 운용하는 새로운 비즈니스 라인을 의미. LFP 폐배터리 재활용(baseline 2026-04-21_KR_02)과 연결되면 잔존가치·재활용 사이클이 통합된 자산 모델로 확장 가능."
+      ],
+      "urls": [
+        "https://www.ajunews.com/view/20260428085521810",
+        "https://www.dailian.co.kr/news/view/1638702/%EC%A0%84%EA%B8%B0%EC%B0%A8-%EB%B0%B0%ED%84%B0%EB%A6%AC-%E2%80%98%EA%B5%AC%EB%8F%85%E2%80%99-%ED%95%98%EB%8A%94-%EC%8B%9C%EB%8C%80-%EC%98%A8-2026",
+        "https://www.mt.co.kr/industry/2026/04/28/2026042811031797435",
+        "https://www.newsis.com/view/NISX20260428_0003609169",
+        "https://www.sentv.co.kr/article/view/sentv202604280032"
+      ],
+      "related": [
+        "2026-04-25_CN_01",
+        "2026-04-21_CN_01",
+        "2026-04-21_KR_02",
+        "2026-04-24_KR_06"
+      ],
+      "fact_sources": [
+        {
+          "claim": "현대차그룹 4-28 발표 — 현대차+현대캐피탈, 올 상반기 보증기간 만료 법인택시 대상 배터리 구독 실증",
+          "source_url": "https://www.ajunews.com/view/20260428085521810",
+          "source_quote": "현대차그룹은 28일 현대자동차와 현대캐피탈이 올해 상반기 중 보증기간이 만료된 법인택시를 대상으로 전기차 배터리 구독 서비스 실증사업을 추진한다고 밝혔다.",
+          "fetched_at": "2026-04-28T09:05:29+09:00"
+        },
+        {
+          "claim": "202025년 11월 국토부 모빌리티 규제샌드박스 '전기차 차체-배터리 소유권 분리 등록' 특례",
+          "source_url": "https://www.ajunews.com/view/20260428085521810",
+          "source_quote": "이번 사업은 지난해 11월 국토교통부의 모빌리티 규제샌드박스 심의를 통해 승인된 '전기차 차체-배터리 소유권 분리 등록' 규제 특례를 기반으로 추진된다.",
+          "fetched_at": "2026-04-28T09:05:29+09:00"
+        },
+        {
+          "claim": "실증 대상: 수도권 법인택시 아이오닉 5 5대",
+          "source_url": "https://www.ajunews.com/view/20260428085521810",
+          "source_quote": "이에 현대차는 수도권 법인택시 아이오닉 5 5대를 대상으로 배터리 구독형 서비스를 운영해 배터리 소유권 분리 구조가 실제 운행 환경에서 전기차 운행 비용과 차량 활용 기간에 미치는 영향을 점검할 계획이다.",
+          "fetched_at": "2026-04-28T09:05:29+09:00"
+        },
+        {
+          "claim": "월 구독료 → 현대캐피탈; 교체 시 반납 + 현대캐피탈 소유 배터리 제공",
+          "source_url": "https://www.ajunews.com/view/20260428085521810",
+          "source_quote": "실증에 참여하는 법인택시는 구독 기간 동안 현대캐피탈에 월 구독료를 납부하며, 배터리 교체가 필요할 경우 사용 중인 배터리를 현대캐피탈에 반납하고 현대캐피탈 소유의 배터리를 제공받는다.",
+          "fetched_at": "2026-04-28T09:05:29+09:00"
+        },
+        {
+          "claim": "하반기 일반 고객 대상 차체-배터리 분리 등록 + 구독 실증 추진 계획",
+          "source_url": "https://www.ajunews.com/view/20260428085521810",
+          "source_quote": "한편 현대차그룹은 이번 실증사업과 더불어 올해 하반기 중에 일반 고객을 대상으로 차체-배터리 소유권 분리 등록을 기반으로 전기차 판매 및 배터리 구독 서비스를 제공하는 실증사업도 추진할 계획이다.",
+          "fetched_at": "2026-04-28T09:05:29+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C01",
+        "KR_2026-04-28_C89",
+        "KR_2026-04-28_C90",
+        "KR_2026-04-28_C113",
+        "KR_2026-04-28_C114"
+      ],
+      "merge_status": "merged",
+      "representative_source": "아주경제",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 1,
+        "C": 1,
+        "total": 3,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_KR_02",
+      "region": "KR",
+      "date": "2026-04-28",
+      "cat": "Battery",
+      "sub_cat": "1Q 실적 + AI 데이터센터 ESS",
+      "signal": "high",
+      "title": "삼성SDI 1Q26 적자 64% 축소·순이익 흑전 — '미국 ESS·고부가 원통형'으로 K-배터리 회복 사이클의 첫 분기 검증",
+      "sub": "매출 3.58조 +12.6%·영업손실 1,556억 -64.2%·순이익 561억 흑전; 미국 ESS capa 2~3년 물량 선확보; 헝가리 LFP 전환·하반기 가동률 70%+; 인터배터리 2026 전고체 샘플 첫 공개",
+      "gate": "'턴어라운드 원년'을 외쳤던 삼성SDI가 1분기 결과로 그 출발선을 그었다. 매출 3.58조로 YoY +12.6%, 영업손실은 64.2% 줄어 1,556억까지 압축됐고, 당기순이익은 561억으로 흑자 전환했다. 회복의 두 축은 명확하다 — 미국 현지 ESS 양산이 가져온 AMPC 수혜와 고부가 원통형(BBU·전동공구·탭리스) 판매. 컨퍼콜에서는 \"미국 ESS capa 2~3년 물량 상당 부분 선확보\", \"AI DC향 ESS 수요 2025 9GWh→2030 40GWh+, 연평균 +30%+\"가 같이 나왔다. 헝가리 공장은 LFP 전환·공법 개조를 거쳐 하반기 가동률 70%+ 회복이 가이던스다. 인터배터리 2026에서 피지컬 AI용 파우치형 전고체 샘플을 최초 공개했고 메르세데스-벤츠 다년 계약으로 독일 3대 프리미엄 OEM을 모두 확보했다.",
+      "fact": "삼성SDI 1Q26 (28일 발표): \"매출 3조5764억원, 영업손실 1556억원\"; \"전년 동기 대비 매출은 12.6% 증가했고, 영업손실은 2785억원 줄며 적자 폭이 64.2% 축소\"; \"당기순이익은 561억원으로 흑자 전환\"(전자신문). 부문별: \"배터리 사업은 매출 3조 3,544억원, 영업손실 1,766억원으로 집계됐고, 전자재료 사업은 매출 2,220억원, 영업이익 210억원\"(프레스나인). 배터리 부문 매출 YoY +12.5%, 영업손실 -61.0%. 수익성 개선 동력: \"ESS용 배터리의 미국 현지 생산 및 판매 확대에 힘입어 AMPC(첨단제조생산세액공제) 수혜금이 늘었고, 고부가 원통형 배터리의 판매 호조 등으로 수익성이 대폭 개선됐다\"(프레스나인). AI 데이터센터 ESS 수요 가이던스(컨퍼콜, 디지털데일리): \"데이터센터에 활용되는 ESS 수요는 202025년 9기가와트시에서 202030년에 40기가와트시 이상으로 추산되며 연평균 30%이상의 빠른 성장을 보일 것으로 전망\"; \"미국 ESS 생산능력에 2~3년 물량을 상당 부분 확보\"(이투데이). 탭리스 원통형 비중: \"지난해 3~4%에서 올해 20% 넘게 확대될 것\" (이투데이). 헝가리: \"일부 라인은 리튬인산철(LFP) 전환과 최신 공법 개조를 진행할 예정으로, 이에 따른 생산능력 효율화 효과를 반영하면 하반기 가동률이 70% 이상으로 개선될 것\". 1Q 사업 성과 (프레스나인): \"전기차용 배터리 사업은 메르세데스-벤츠와 다년 공급 계약을 체결하며 독일의 3대 프리미엄 완성차 브랜드를 모두 고객사로 확보\"; \"인터배터리 2026'에서 피지컬 AI용으로 개발 중인 파우치형 전고체 배터리 샘플을 최초로 공개\". 추가 cross-ref (서울경제TV): \"지난달 16일, 삼성SDI는 미국의 메이저 에너지 전문업체와 1조5000억 원 규모의 ESS용 배터리 공급 계약을 체결\". 삼성디스플레이 지분 매각(컨퍼콜, 디지털데일리): \"사외이사들로만 구성된 특별위원회를 통해 매각과 관련해서 회사의 성장 전략뿐만이 아니라 주주 이익 보호 관점에서도 여러 가지 측면에서 검토\"; \"연내에 마무리하는 것을 목표로 추진\".",
+      "implication": [
+        "K-배터리 3사 1Q26 사이클의 첫 분기 신호. ESS-AMPC 모델이 EV 캐즘에서 K-셀 수익성을 견인하는 메커니즘을 분기 단위로 검증 — 이 카드의 가장 큰 함의는 SKC(2026-04-27_KR_04 동박 +390%)·엘앤에프(2026-04-21_KR_01 1.6조 LFP 양극재) 등 K 소재 사이클과의 동기화다.",
+        "미국 ESS capa 2~3년 물량 선확보 + AI DC ESS 연평균 30%+ 가이던스가 사실이라면 삼성SDI 미국 라인은 \"양산 cycle ↔ 셀 LFP 전환 ↔ AMPC 수혜\"의 안정적 매출 베이스를 가진다. baseline 2026-04-15_KR_01 'K-배터리 3사 ESS 공식 성장축' 후속 검증.",
+        "헝가리 라인 LFP 전환·공법 개조 + 하반기 가동률 70%+ 가이던스는 EU 시장에서의 캐즘 대응. 메르세데스-벤츠 다년 계약 + 독일 3대 프리미엄 모두 고객사 확보는 EV 가격 압박이 큰 중국저가형 시장 대신 프리미엄 영역 보호 전략으로 대응.",
+        "인터배터리 2026 '피지컬 AI용 파우치형 전고체 샘플 첫 공개'는 baseline 2026-04-27_KR_01 (KERI 나노 주석 중간층) + 2026-04-27_KR_02 (LG엔솔 2029 건식 LFP) 등 K 차세대 셀 R&D 흐름과 함께 '2027-2029 K-3사 차세대 셀 양산 임계점' 설정. 단, 양산 일정·고객사·셀 폼팩터 fact는 아직 미확정."
+      ],
+      "urls": [
+        "https://dealsite.co.kr/articles/160927/068021",
+        "https://www.etoday.co.kr/news/view/2579866",
+        "https://www.batterynews.co.kr/news/articleView.html?idxno=745",
+        "https://news.dealsitetv.com/articles/169405",
+        "https://www.thelec.kr/news/articleView.html?idxno=55734",
+        "http://www.press9.kr/news/articleView.html?idxno=75695",
+        "https://www.sentv.co.kr/article/view/sentv202604280052",
+        "https://www.etnews.com/20260428000063",
+        "https://zdnet.co.kr/view?no=20260428112500",
+        "https://www.electimes.com/news/articleView.html?idxno=367469",
+        "https://www.bloomberg.com/news/articles/2026-04-28/samsung-sdi-posts-smaller-than-expected-loss-sending-shares-up",
+        "https://www.ajunews.com/view/20260428085339805",
+        "https://www.ddaily.co.kr/page/view/2026042811213000490"
+      ],
+      "related": [
+        "2026-04-27_KR_04",
+        "2026-04-27_KR_02",
+        "2026-04-27_KR_01",
+        "2026-04-21_KR_01",
+        "2026-04-20_KR_57",
+        "2026-04-15_KR_01",
+        "2026-04-24_KR_05"
+      ],
+      "fact_sources": [
+        {
+          "claim": "1Q26 매출 3조5,764억(YoY +12.6%), 영업손실 1,556억(YoY 적자 -64.2%·-2,785억), 당기순이익 561억 흑자전환",
+          "source_url": "https://www.etnews.com/20260428000063",
+          "source_quote": "삼성SDI는 올해 1분기 매출 3조5764억원, 영업손실 1556억원을 기록했다고 28일 밝혔다. 전년 동기 대비 매출은 12.6% 증가했고, 영업손실은 2785억원 줄며 적자 폭이 64.2% 축소됐다. 당기순이익은 561억원으로 흑자 전환했다.",
+          "fetched_at": "2026-04-28T09:39:46+09:00"
+        },
+        {
+          "claim": "배터리: 매출 3.35조·영업손실 1,766억; 전자재료: 매출 2,220억·영업이익 210억",
+          "source_url": "http://www.press9.kr/news/articleView.html?idxno=75695",
+          "source_quote": "부문별로 보면 배터리 사업은 매출 3조 3,544억원, 영업손실 1,766억원으로 집계됐고, 전자재료 사업은 매출 2,220억원, 영업이익 210억원을 각각 기록했다.",
+          "fetched_at": "2026-04-28T09:40:36+09:00"
+        },
+        {
+          "claim": "배터리 부문 매출 +12.5% YoY, 영업손실 -61% YoY (ESS·UPS·BBU·전동공구 회복)",
+          "source_url": "http://www.press9.kr/news/articleView.html?idxno=75695",
+          "source_quote": "배터리 부문의 경우 전력용 ESS(에너지저장장치), UPS(무정전 전원장치), BBU(배터리백업 유닛), 전동공구 등 전방시장 수요가 회복하며 작년 같은 기간보다 매출이 12.5% 증가했고 영업손실은 61.0%나 줄었다.",
+          "fetched_at": "2026-04-28T09:40:36+09:00"
+        },
+        {
+          "claim": "미국 ESS 현지 생산 확대 → AMPC 수혜 증가 + 고부가 원통형 판매 호조 → 수익성 개선",
+          "source_url": "http://www.press9.kr/news/articleView.html?idxno=75695",
+          "source_quote": "특히 ESS용 배터리의 미국 현지 생산 및 판매 확대에 힘입어 AMPC(첨단제조생산세액공제) 수혜금이 늘었고, 고부가 원통형 배터리의 판매 호조 등으로 수익성이 대폭 개선됐다.",
+          "fetched_at": "2026-04-28T09:40:36+09:00"
+        },
+        {
+          "claim": "컨퍼런스콜: 미국 AI 데이터센터 ESS 수요 2025 9GWh → 2030 40GWh+, 연평균 +30%+",
+          "source_url": "https://www.ddaily.co.kr/page/view/2026042811213000490",
+          "source_quote": "\"데이터센터에 활용되는 ESS 수요는 2025년 9기가와트시에서 2030년에 40기가와트시 이상으로 추산되며 연평균 30%이상의 빠른 성장을 보일 것으로 전망하고 있다\"",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "미국 ESS capa 2~3년 물량 상당 부분 선확보",
+          "source_url": "https://www.etoday.co.kr/news/view/2579866",
+          "source_quote": "미국 ESS 생산능력에 2~3년 물량을 상당 부분 확보해 향후 안정적인 실적 성장이 기대된다",
+          "fetched_at": "2026-04-28T13:53:00+09:00"
+        },
+        {
+          "claim": "탭리스 원통형 셀 판매 비중 202025년 3~4% → 202026년 20%+ 전망",
+          "source_url": "https://www.etoday.co.kr/news/view/2579866",
+          "source_quote": "탭리스(Tabless) 배터리 판매 비중이 지난해 3~4%에서 올해 20% 넘게 확대될 것으로 내다봤다.",
+          "fetched_at": "2026-04-28T13:53:00+09:00"
+        },
+        {
+          "claim": "헝가리 공장 — 일부 라인 LFP 전환·공법 개조, 하반기 가동률 70%+ 회복 전망",
+          "source_url": "https://www.etoday.co.kr/news/view/2579866",
+          "source_quote": "\"헝가리 공장의 판매 확대뿐 아니라 일부 라인은 리튬인산철(LFP) 전환과 최신 공법 개조를 진행할 예정으로, 이에 따른 생산능력 효율화 효과를 반영하면 하반기 가동률이 70% 이상으로 개선될 것\"",
+          "fetched_at": "2026-04-28T13:53:00+09:00"
+        },
+        {
+          "claim": "1Q 성과: 메르세데스-벤츠 다년 공급 계약 (독일 3대 프리미엄 모두 고객사) + HEV용 탭리스 원통형 수주",
+          "source_url": "http://www.press9.kr/news/articleView.html?idxno=75695",
+          "source_quote": "전기차용 배터리 사업은 메르세데스-벤츠와 다년 공급 계약을 체결하며 독일의 3대 프리미엄 완성차 브랜드를 모두 고객사로 확보했으며, 하이브리드 전기차용 탭리스 원통형 배터리 프로젝트도 수주하는 등 고객과 제품 포트폴리오를 다각화했다.",
+          "fetched_at": "2026-04-28T09:40:36+09:00"
+        },
+        {
+          "claim": "인터배터리 2026 — 피지컬 AI용 파우치형 전고체 샘플 첫 공개 + 리튬메탈 안전성 솔루션",
+          "source_url": "http://www.press9.kr/news/articleView.html?idxno=75695",
+          "source_quote": "또한 '인터배터리 2026'에서 피지컬 AI용으로 개발 중인 파우치형 전고체 배터리 샘플을 최초로 공개했으며, 차세대 리튬메탈 배터리의 수명과 안전성 개선을 위한 솔루션을 도출하는 등 미래 기술 경쟁력을 강화했다.",
+          "fetched_at": "2026-04-28T09:40:36+09:00"
+        },
+        {
+          "claim": "지난달(3월) 16일 미국 메이저 에너지 전문업체와 1.5조원 규모 ESS 배터리 공급 계약 체결 (cross-ref)",
+          "source_url": "https://www.sentv.co.kr/article/view/sentv202604280052",
+          "source_quote": "앞서 지난달 16일, 삼성SDI는 미국의 메이저 에너지 전문업체와 1조5000억 원 규모의 ESS용 배터리 공급 계약을 체결한 바 있다.",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "삼성디스플레이 지분 매각 — 사외이사 특별위원회 검토 중국, 연내 마무리 목표",
+          "source_url": "https://www.ddaily.co.kr/page/view/2026042811213000490",
+          "source_quote": "\"사외이사들로만 구성된 특별위원회를 통해 매각과 관련해서 회사의 성장 전략뿐만이 아니라 주주 이익 보호 관점에서도 여러 가지 측면에서 검토를 진행하고 있다\"며 \"아직 매각 일정을 비롯해서 구체적인 사항이 다 결정되지는 않았지만 연내에 마무리하는 것을 목표로 추진해 나가고 있다\"",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C04",
+        "KR_2026-04-28_C34",
+        "KR_2026-04-28_C63",
+        "KR_2026-04-28_C64",
+        "KR_2026-04-28_C65",
+        "KR_2026-04-28_C66",
+        "KR_2026-04-28_C67",
+        "KR_2026-04-28_C68",
+        "KR_2026-04-28_C69",
+        "KR_2026-04-28_C70",
+        "GL_2026-04-28_C06",
+        "https://www.ajunews.com/view/20260428085339805",
+        "https://www.ddaily.co.kr/page/view/2026042811213000490"
+      ],
+      "merge_status": "merged",
+      "representative_source": "Bloomberg + 한국 매체 11곳",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 2,
+        "B": 0,
+        "C": 1,
+        "total": 3,
+        "exception": null
+      },
+      "source_tier": 1,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_KR_03",
+      "region": "KR",
+      "date": "2026-04-28",
+      "cat": "Materials",
+      "sub_cat": "NCC 가동률 / 나프타 정책",
+      "signal": "mid",
+      "title": "대한유화 NCC 가동률 62%→72% 선제 상향 — 정부 '나프타 수급 안정화 지원사업' (수입단가 상승분 최대 50% 보조) 첫 응답",
+      "sub": "온산공장 NCC 가동률 +10%p / 정부 나프타 보조 정책 발표 후 첫 가동률 확장 / 이란 전쟁발 나프타 가격 변수가 K 석화·배터리 소재 원료 사이클로 이어지는 분기점",
+      "gate": "정부의 '202026년 나프타 수급 안정화 지원사업'이 발표된 직후 대한유화가 NCC 가동률을 62%→72%로 선제 상향했다. 보조금 모델은 수입단가 상승분의 최대 50%를 정부가 부담하는 방식이며, 이번 발표는 그 첫 응답이다. 나프타는 석화 기초 원료이자 전해액·바인더·분리막 등 배터리 소재의 한 갈래 원료이므로 NCC 가동률 회복은 K 배터리 소재 산업에도 그늘 없이 영향을 준다.",
+      "fact": "아주경제(4-28): \"대한유화가 28일 정부의 공급망 안정화 정책에 발맞춰 나프타분해시설(NCC) 가동률을 기존 62%에서 72%까지 선제적으로 상향 조정한다고 밝혔다.\" 에너지신문: \"정부는 '202026년 나프타 수급 안정화 지원사업'을 통해 나프타 수입단가 상승분의 최대 50%를 보조하는 방식으로, 석유화학제품 생산에 필수적인 원료인 나프타\" 공급을 지원하는 구조.",
+      "implication": [
+        "나프타 = 석화 olefin 기초원료 + 전해액 carbonate, 분리막 PE/PP, 바인더 PVdF 일부 원료 사이클의 시작점. NCC 가동률 회복(=정부 보조 50%)은 K 배터리 소재 원가 변동성 감소 효과.",
+        "이란 전쟁(baseline 2026-04-22 후 흐름) → 나프타·니켈 가격 급등 (cross-ref SPEC_NICKEL_2Y_HIGH 4-27 LME 니켈 2년 최고) → 정부 보조 → 대한유화 첫 응답. 정부 보조의 '규모(예산)'과 '기간(언제까지)' fact는 본 카드에 없음, B에서 산업통상부 공시 보강 필요.",
+        "4-19 김정관 산업장관 대한유화 방문 후 약 9일 만의 NCC 가동률 상향. 다른 NCC 사업자(LG화학·롯데케미칼·여천NCC·SK지오센트릭)도 같은 사이클 진입 가능성 — 차주 동일 발표 추적 필요.",
+        "baseline 4-20 KR_50 (엔켐 북미 전해액 이중축) + 본 카드 SPEC_ENCHEM_EU(4-27 엔켐 유럽) 흐름과 동일한 'K 전해액 글로벌 capa' 흐름 위에서 원료(나프타)→첨가제(LiFSI)→완제품(엔켐 카보네이트) 사이클 동기화."
+      ],
+      "urls": [
+        "https://www.ajunews.com/view/20260428091430875",
+        "https://www.energy-news.co.kr/news/articleView.html?idxno=225001",
+        "https://www.newsis.com/view/NISX20260428_0003609276"
+      ],
+      "related": [
+        "2026-04-20_KR_50"
+      ],
+      "fact_sources": [
+        {
+          "claim": "대한유화 4-28 발표 — NCC 가동률 62% → 72% 선제 상향",
+          "source_url": "https://www.ajunews.com/view/20260428091430875",
+          "source_quote": "대한유화가 28일 정부의 공급망 안정화 정책에 발맞춰 나프타분해시설(NCC) 가동률을 기존 62%에서 72%까지 선제적으로 상향 조정한다고 밝혔다.",
+          "fetched_at": "2026-04-28T09:22:39+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C49",
+        "KR_2026-04-28_C50",
+        "KR_2026-04-28_C51"
+      ],
+      "merge_status": "merged",
+      "representative_source": "아주경제",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 1,
+        "C": 0,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_KR_04",
+      "region": "KR",
+      "date": "2026-04-28",
+      "cat": "Materials",
+      "sub_cat": "특화단지 공모",
+      "signal": "mid",
+      "title": "전남도, '이차전지용 화학산업 소부장 특화단지' 공모 신청 — 여수국가산단 + 율촌·세풍 연계 클러스터 구조 제안",
+      "sub": "산업통상부 소부장 특화단지 공모 신청 / 여수국가산단 중심 + 율촌·세풍 연계 / 이차전지용 고기능 화학소재 (전해액·첨가제·바인더 등) 공급망 자급화 목표",
+      "gate": "전남도가 4월 28일 산업통상부 '소부장 산업 특화단지' 지정 공모에 신청서를 제출했다. 여수국가산단을 중심에 두고 율촌·세풍을 연계하는 클러스터 구조로, 목표는 이차전지용 고기능 화학소재 (전해액 carbonate, 첨가제 LiFSI, 바인더 PVdF 등)의 국내 공급망 자급화. 결과는 향후 산업통상부 발표 예정.",
+      "fact": "전자신문(4-28): \"전남도가 글로벌 공급망 재편과 첨단산업 경쟁 심화에 대응하기 위해 여수국가산단을 중심으로 한 '이차전지용 화학산업 소재·부품·장비(소부장) 특화단지' 조성에 본격 나섰다고 28일 밝혔다.\" \"도는 산업통상부 '소부장 산업 특화단지' 지정 공모에 신청서를 최근 제출했다.\" 딜사이트TV: 클러스터 구조 \"여수국가산단 중심 율촌·세풍 연계…소부장 특화단지 공모 신청.\" \"전라남도가 여수국가산단을 중심으로 이차전지용 고기능 화학소재 공급망 구축을 위한 특화단지 조성에 나섰다.\"",
+      "implication": [
+        "baseline 2026-04-24_KR_07 '국가자원안보 특별법 개정안 (핵심광물 정의에 화합물 포함)' + 2026-04-24_KR_02 '사용후 배터리 산업 육성·공급망 안정화 법' + 본 카드 = 'K 배터리 소재 자급률 정책' 누적. 현 분기 정책 기조의 일관성 확인.",
+        "여수국가산단은 LG화학·GS칼텍스·롯데케미칼 등 대형 석화 OEM 다수 위치. '이차전지용 화학산업 소부장' 클러스터 = 석화 인프라 + 배터리 소재 다운스트림 결합. 전해액(엔켐) + 첨가제(천보) + 바인더 + 분리막 후공정 자급 시나리오.",
+        "'2.6조 공급망 구축' 표현(딜사이트TV 헤드라인)은 본문에 명시되지 않은 추정치. 정부 공모 결과 발표 후 fact 보강 필요. 공모 결과·예산·기간은 산업통상부 발표 후 다음 카드에서 추적.",
+        "cross-ref SPEC_DAEHAN_NCC (4-28 NCC 가동률 정부 보조) + SPEC_ENCHEM_EU (4-27 엔켐 유럽 13만톤+7만톤) — 같은 분기에 '원료(나프타)→완제품(전해액)→집적 클러스터(전남)' 동시 정책·산업 이벤트."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260428000022",
+        "https://news.dealsitetv.com/articles/169387",
+        "http://www.e2news.com/news/articleView.html?idxno=329933"
+      ],
+      "related": [
+        "2026-04-24_KR_02",
+        "2026-04-24_KR_07",
+        "2026-04-20_KR_50"
+      ],
+      "fact_sources": [
+        {
+          "claim": "전남도 4-28 발표 — 여수국가산단 중심 '이차전지용 화학산업 소부장 특화단지' 조성 본격화",
+          "source_url": "https://www.etnews.com/20260428000022",
+          "source_quote": "전남도가 글로벌 공급망 재편과 첨단산업 경쟁 심화에 대응하기 위해 여수국가산단을 중심으로 한 '이차전지용 화학산업 소재·부품·장비(소부장) 특화단지' 조성에 본격 나섰다고 28일 밝혔다.",
+          "fetched_at": "2026-04-28T08:42:58+09:00"
+        },
+        {
+          "claim": "산업통상부 '소부장 산업 특화단지' 공모에 신청서 제출",
+          "source_url": "https://www.etnews.com/20260428000022",
+          "source_quote": "도는 산업통상부 '소부장 산업 특화단지' 지정 공모에 신청서를 최근 제출했다.",
+          "fetched_at": "2026-04-28T08:42:58+09:00"
+        },
+        {
+          "claim": "여수국가산단 중심 + 율촌·세풍 연계 (전라남도 산업단지 클러스터 구조)",
+          "source_url": "https://news.dealsitetv.com/articles/169387",
+          "source_quote": "여수국가산단 중심 율촌·세풍 연계…소부장 특화단지 공모 신청",
+          "fetched_at": "2026-04-28T10:40:46"
+        },
+        {
+          "claim": "이차전지용 고기능 화학소재 공급망 구축 목표",
+          "source_url": "https://news.dealsitetv.com/articles/169387",
+          "source_quote": "전라남도가 여수국가산단을 중심으로 이차전지용 고기능 화학소재 공급망 구축을 위한 특화단지 조성에 나섰다.",
+          "fetched_at": "2026-04-28T10:40:46"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C91",
+        "KR_2026-04-28_C92",
+        "KR_2026-04-28_C93"
+      ],
+      "merge_status": "merged",
+      "representative_source": "전자신문",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 1,
+        "C": 0,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_KR_05",
+      "region": "KR",
+      "date": "2026-04-28",
+      "cat": "ESS",
+      "sub_cat": "ESS 진단 AI R&D",
+      "signal": "mid",
+      "title": "KETI × 영국 WMG, '분산 연합학습 기반 ESS 수명 예측' AI 원천기술 확보 — 데이터 프라이버시·정밀도 동시 노린 K-영 R&D",
+      "sub": "KETI(한국전자기술연구원) 4-28 발표 / 영국 워릭대 WMG와 국제 공동연구 / 분산 연합학습 = 데이터를 중앙 서버 아닌 단말에서 학습",
+      "gate": "KETI가 영국 워릭대 WMG와 함께 ESS 수명을 정밀 진단하는 AI 원천기술을 확보했다. 적용된 '분산 연합학습 기반 수명 예측 프레임워크'는 데이터를 중앙 서버 대신 개별 단말에서 학습시키는 방식 — 데이터 프라이버시와 정밀도를 동시에 잡는 BMS·EMS 차세대 접근.",
+      "fact": "전자신문(4-28): \"한국전자기술연구원(KETI)이 영국 워릭대 워윅 제조 그룹(WMG)과 국제공동연구를 통해 에너지저장시스템(ESS) 수명을 정밀하게 진단할 수 있는 인공지능(AI) 원천기술을 확보했다고 28일 밝혔다.\" \"기술은 '분산 연합학습 기반 수명 예측 프레임워크'를 적용했다.\" 주의: 단일 source 단독 보도. 정밀도 수치, 검증 셀 종류·수, 공개 논문, 라이선스 형태 fact 보강 필요.",
+      "implication": [
+        "4-23 baseline JP_01 (아사히카세이 + 주고쿠전력 BESS 운용 SW MOU) 흐름과 함께 'ESS BMS·EMS AI' 분야의 K-영 차원 기여. 데이터 프라이버시(연합학습) 핵심은 다수 OEM·CPO가 데이터를 공유 없이 협업하는 새 모델.",
+        "ESS 잔존수명 정밀 진단은 폐배터리 시장(baseline 2026-04-21_KR_02 + 2026-04-24_KR_02 + SPEC_CN_5MINISTRIES_BATTERY_RECYCLE) 가치평가의 핵심 인풋. 잔존가치 모델이 표준화되면 사용후 배터리 거래·재활용 사이클 가속.",
+        "B에서 KETI 보도자료 + WMG 영문 공시 + 발표된 논문(SCI / arXiv) fetch 시 정량 fact (정밀도 향상 정도, 검증 셀 capa, 사용 데이터셋) 보강."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260428000207"
+      ],
+      "related": [
+        "2026-04-23_JP_01",
+        "2026-04-21_KR_02",
+        "2026-04-24_KR_02"
+      ],
+      "fact_sources": [
+        {
+          "claim": "KETI 4-28 발표 — 영국 워릭대 WMG와 국제공동연구로 ESS 수명 진단 AI 원천기술 확보",
+          "source_url": "https://www.etnews.com/20260428000207",
+          "source_quote": "한국전자기술연구원(KETI)이 영국 워릭대 워윅 제조 그룹(WMG)과 국제공동연구를 통해 에너지저장시스템(ESS) 수명을 정밀하게 진단할 수 있는 인공지능(AI) 원천기술을 확보했다고 28일 밝혔다.",
+          "fetched_at": "2026-04-28T12:59:17+09:00"
+        },
+        {
+          "claim": "적용 기술: '분산 연합학습 기반 수명 예측 프레임워크'",
+          "source_url": "https://www.etnews.com/20260428000207",
+          "source_quote": "기술은 '분산 연합학습 기반 수명 예측 프레임워크'를 적용했다.",
+          "fetched_at": "2026-04-28T12:59:17+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C16"
+      ],
+      "merge_status": "single",
+      "representative_source": "전자신문",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 0,
+        "B": 0,
+        "C": 1,
+        "total": 1,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "단일 source — 정밀도 수치, 셀 spec, 공개 논문 fact 보강 권장"
+    },
+    {
+      "id": "2026-04-28_KR_06",
+      "region": "KR",
+      "date": "2026-04-28",
+      "cat": "SupplyChain",
+      "sub_cat": "핵심광물 공급망 외교",
+      "signal": "mid",
+      "title": "수은, 미국·베트남 등 11개국 외교사절 초청 'Critical Minerals Roundtable' — 정책금융 통한 핵심광물 공급망 협력 다자화",
+      "sub": "한국수출입은행 4-28 본점 개최 / 미국·베트남 등 11개국 주한 외교사절 / 정책금융 측면의 핵심광물 외교 / 4-24 베트남 국빈 + 4-23 KIGAM 베트남 + 4-27 해외자원산업협회 한-베 포럼 사이클",
+      "gate": "한국수출입은행이 4-28 여의도 본점에서 미국·베트남 등 11개국 주한 외교사절을 초청해 'Critical Minerals Roundtable'을 개최했다. 4-24 베트남 국빈(baseline 2026-04-24_KR_01)·4-23 KIGAM 베트남 희토류 협정(baseline 2026-04-23_KR_02)·4-27 해외자원산업협회 한-베 포럼(baseline 2026-04-27_KR_09) 사이클 위에 정책금융 측면의 협력 다자화가 더해진 모양새.",
+      "fact": "아시아경제(4-28): \"한국수출입은행이 핵심광물 공급망 협력 강화를 위한 다자간 논의의 장을 마련했다.\" \"한국수출입은행은 서울 여의도 본점에서 미국·베트남 등 11개국 주한 외국 대사관 관계자들을 초청해 '글로벌 핵심광물 공급망 라운드테이블(Critical Minerals Roundtable)'을\" 개최.",
+      "implication": [
+        "한국 핵심광물 외교의 현 분기 '4가지 채널' 누적: ① 정상 외교(이재명 베트남 국빈) ② 연구원 협정(KIGAM-베트남) ③ 협회 포럼(해외자원산업협회 한-베) ④ 정책금융(수은 RT). 각 층위가 서로 연결되어 협력 모델 다층화.",
+        "baseline 4-21 US_01 (USA Rare Earth Brazil $2.8B) + 4-27 GL_01 (DoD Lynas $96M) + 4-25 GL_01 (Brazil Serra Verde 정지청구) + SPEC_DRC_MINERAL_GUARD 등 미국·서구 광물 자본 공세 사이클에서, 한국은 '다자 외교+정책금융' 차별화로 응전.",
+        "11개국 명단·구체 협력 내용·수은 정책금융 한도·MOU 체결 여부 등 fact는 본 카드에 없음. 수은 보도자료 / 외교부 공시 fetch로 보강 필요."
+      ],
+      "urls": [
+        "https://www.asiae.co.kr/article/2026042813485173131"
+      ],
+      "related": [
+        "2026-04-24_KR_01",
+        "2026-04-23_KR_02",
+        "2026-04-27_KR_09",
+        "2026-04-21_US_01",
+        "2026-04-27_GL_01",
+        "2026-04-24_KR_07"
+      ],
+      "fact_sources": [
+        {
+          "claim": "한국수출입은행 4-28 — 핵심광물 공급망 협력 강화 다자 논의 장 마련",
+          "source_url": "https://www.asiae.co.kr/article/2026042813485173131",
+          "source_quote": "한국수출입은행이 핵심광물 공급망 협력 강화를 위한 다자간 논의의 장을 마련했다.",
+          "fetched_at": "2026-04-28T13:48:51+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C74"
+      ],
+      "merge_status": "single",
+      "representative_source": "아시아경제",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "total": 1,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_KR_07",
+      "region": "KR",
+      "date": "2026-04-28",
+      "cat": "Materials",
+      "sub_cat": "로봇 권선 — EV에서 다각화",
+      "signal": "mid",
+      "title": "LS에코첨단소재, 글로벌 로봇 부품업체에 로봇용 권선 첫 수주 — EV 중심 포트폴리오의 로봇 다각화 첫 사례",
+      "sub": "LS에코첨단소재(대표 홍영호) 4-28 발표 / 첫 로봇용 권선(구리선) 수주 / EV→로봇 다각화 / K 부품사의 휴머노이드/embodied AI 시장 진입",
+      "gate": "LS에코첨단소재가 글로벌 로봇 부품업체에 로봇용 권선(구리선)을 첫 수주했다. 회사가 '로봇 부품 시장에 본격 진입하는 첫 사례'로, 기존 EV 중심 포트폴리오에서 로봇으로의 다각화 첫 신호. 휴머노이드/embodied AI 흐름이 K 부품사의 모터·액추에이터 권선 사이드로 확장되는 출발점이다.",
+      "fact": "투데이에너지(4-28): \"LS에코첨단소재(대표 홍영호)가 글로벌 로봇 부품업체로부터 로봇용 권선(구리선) 수주를 확정하며 전기차 중심의 사업 포트폴리오를 로봇 분야로 확대했다고 28일 밝혔다.\" \"이번 계약은 회사가 로봇 부품 시장에 본격 진입하는 첫 사례로 평가된다\".",
+      "implication": [
+        "권선(magnet wire)은 EV 모터·휴머노이드 액추에이터·산업 모터의 핵심 부품. EV 모터 권선 시장에서 LS에코첨단소재가 입지 → 같은 기술 베이스로 로봇 액추에이터 권선 진입은 자연스러운 확장.",
+        "계약 상대 글로벌 로봇 부품업체·계약 규모·수주 시점·납기·연간 수량 등 정량 fact는 본 카드에 없음 — 향후 분기 IR 또는 후속 보도에서 보강 필요.",
+        "K 부품사 EV→로봇 다각화 흐름은 baseline 4-22 KR_03 (KAI E2X AAV ESS) 등 항공·로봇 신산업으로 확산되는 K 소부장 다각화 사이클 위에 위치."
+      ],
+      "urls": [
+        "https://www.todayenergy.kr/news/articleView.html?idxno=297166",
+        "https://www.ajunews.com/view/20260428095122963"
+      ],
+      "related": [
+        "2026-04-22_KR_03"
+      ],
+      "fact_sources": [
+        {
+          "claim": "LS에코첨단소재 4-28 — 글로벌 로봇 부품업체로부터 로봇용 권선(구리선) 수주, EV 중심에서 로봇 다각화",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=297166",
+          "source_quote": "LS에코첨단소재(대표 홍영호)가 글로벌 로봇 부품업체로부터 로봇용 권선(구리선) 수주를 확정하며 전기차 중심의 사업 포트폴리오를 로봇 분야로 확대했다고 28일 밝혔다.",
+          "fetched_at": "2026-04-28T11:55:26+09:00"
+        },
+        {
+          "claim": "회사의 로봇 부품 시장 본격 진입 첫 사례",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=297166",
+          "source_quote": "이번 계약은 회사가 로봇 부품 시장에 본격 진입하는 첫 사례로 평가된다",
+          "fetched_at": "2026-04-28T11:55:26+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C23",
+        "https://www.ajunews.com/view/20260428095122963"
+      ],
+      "merge_status": "merged",
+      "representative_source": "투데이에너지",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 0,
+        "B": 0,
+        "C": 1,
+        "total": 1,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_KR_08",
+      "region": "KR",
+      "date": "2026-04-28",
+      "cat": "Materials",
+      "sub_cat": "전지박 1Q26",
+      "signal": "mid",
+      "title": "솔루스첨단소재 1Q26 매출 1,926억 QoQ +13.6% — 전지박 +47% QoQ, 2분기 북미 ESS로 '1Q 대비 약 2배' 출하",
+      "sub": "영업손실 220억 / 전지박 매출 610억 +47% QoQ / 고객사 12곳 확대 / 2Q 북미 ESS 출하 약 2배",
+      "gate": "SKC가 같은 분기 ESS향 동박 +390% YoY(baseline 2026-04-27_KR_04)였다면, 솔루스는 전지박 부문 매출 +47% QoQ로 분명한 회복 곡선. 2분기 가이던스: \"북미 ESS → 전지박 공급량 1Q 대비 약 2배\".",
+      "fact": "솔루스첨단소재(아이뉴스24, 4-28): \"올해 1분기 영업손실 220억원으로 적자를 지속\"; \"매출은 전 분기 대비 13.6% 늘어난 1926억원\". 부문별: \"전지박 부문 매출은 전 분기 대비 47% 증가한 610억원\"; \"전기차 수요 회복에 따라 글로벌 완성차 업체(OEM)와 배터리사에 대한 공급이 정상화\". 가이던스: \"올해 고객사 수를 최대 12곳까지 확대\"; \"북미 ESS 수요가 빠르게 증가함에 따라 전지박 공급량은 1분기 대비 약 2배 수준으로 확대될 것으로 예상\".",
+      "implication": [
+        "동박(SKC +390% ESS YoY)+전지박(솔루스 +47% QoQ, 2Q 약 2배) — K 박소재가 \"북미 ESS\"를 공통 견인축으로 동기화.",
+        "OLED -17.1% 부문이 약세인 반면 전지박이 그룹 흑자 견인의 단일 키.",
+        "\"신규 4곳 중 3곳 본격화+12곳 확대\"는 LFP·NCM·EV·ESS 모든 segment에 분산 공급 다변화."
+      ],
+      "urls": [
+        "https://www.etoday.co.kr/news/view/2579889",
+        "https://zdnet.co.kr/view?no=20260428130429"
+      ],
+      "related": [
+        "2026-04-27_KR_04",
+        "2026-04-15_KR_01"
+      ],
+      "fact_sources": [
+        {
+          "claim": "1Q26 영업손실 220억(적자 지속), 매출 1,926억(QoQ +13.6%)",
+          "source_url": "https://www.etoday.co.kr/news/view/2579889",
+          "source_quote": "솔루스첨단소재는 올해 1분기 영업손실 220억원으로 적자를 지속했다고 28일 밝혔다. 같은 기간 매출은 전 분기 대비 13.6% 늘어난 1926억원을 기록했다.",
+          "fetched_at": "2026-04-28T13:28:00+09:00"
+        },
+        {
+          "claim": "전지박 부문 매출 610억(QoQ +47%); EV OEM·배터리사 공급 정상화",
+          "source_url": "https://www.etoday.co.kr/news/view/2579889",
+          "source_quote": "전지박 부문 매출은 전 분기 대비 47% 증가한 610억원을 기록했다. 전기차 수요 회복에 따라 글로벌 완성차 업체(OEM)와 배터리사에 대한 공급이 정상화하고 있다는 설명이다.",
+          "fetched_at": "2026-04-28T13:28:00+09:00"
+        },
+        {
+          "claim": "2026 고객사 12곳까지 확대",
+          "source_url": "https://www.etoday.co.kr/news/view/2579889",
+          "source_quote": "올해 고객사 수를 최대 12곳까지 확대하고 고부가가치 제품 비중을 확대해 수익성을 끌어올릴 방침이다.",
+          "fetched_at": "2026-04-28T13:28:00+09:00"
+        },
+        {
+          "claim": "2Q 북미 ESS → 전지박 공급량 1Q 대비 약 2배",
+          "source_url": "https://www.etoday.co.kr/news/view/2579889",
+          "source_quote": "특히 북미 ESS 수요가 빠르게 증가함에 따라 전지박 공급량은 1분기 대비 약 2배 수준으로 확대될 것으로 예상된다.",
+          "fetched_at": "2026-04-28T13:28:00+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C72",
+        "https://zdnet.co.kr/view?no=20260428130429"
+      ],
+      "merge_status": "merged",
+      "representative_source": "아이뉴스24",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 0,
+        "total": 1,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_KR_09",
+      "region": "KR",
+      "date": "2026-04-28",
+      "cat": "Policy",
+      "sub_cat": "무역·관세",
+      "signal": "mid",
+      "title": "현대차·닛산·토요타, 미국에 'USMCA 합의 안 되면 저가 모델 철수' 경고 — WSJ 4-27 보도",
+      "sub": "WSJ 4-27 / 트럼프 행정부 경제 참모에 우려 전달 / 비미국산 부품 25% 관세 / USMCA 검토 협정 폐기 시나리오 / K-OEM 미국 사업 압박 가시화",
+      "gate": "미국 시장의 저가 신차 공급에서 핵심이던 외국계 OEM이 트럼프 행정부에 'USMCA 미유지 또는 미흡한 협정 시 미국 저가 모델 철수'를 경고. WSJ 4-27 보도. 2기 행정부 \"비미국산 부품 비중 25% 관세\"의 직접 결과.",
+      "fact": "WSJ 인용 4-27(아주경제): \"현대차 등 외국계 완성차 업체들이 미국 시장에서 저가 모델을 철수할 수 있다고 트럼프 행정부에 경고\"; \"USMCA가 유지되지 않거나, 새 협정에서 북미산 자동차·부품 관세 부담이 충분히 낮아지지 않을 경우\". 경고 주체: \"닛산, 현대차, 토요타 등 외국계 완성차 업체들이 이 같은 우려를 트럼프 행정부 경제 참모들에게 전달\". 관세: \"2기 행정부 들어 기존 무관세 대상 차량에도 비미국산 부품 비중에 해당하는 부분에 25% 관세\".",
+      "implication": [
+        "baseline 2026-04-23_KR_01 (현대차 1Q 관세 8,600억) + 4-22_US_08 (Hyundai-LGES 조지아 ICE 단속) + 4-24_KR_06 (IONIQ V CATL) 흐름 위에 USMCA 변수 가시화.",
+        "K 셀 OEM 미국 셀 공급량은 OEM 미국 판매량과 직접 연동. 단, AMPC는 셀에 직접 - 셀 단의 영향은 OEM 단보다 완충.",
+        "cross-ref SPEC_BYD_SEAL08_BLADE2 - 미국 '중·고가 EV' 경쟁이 격화될 때 K 저가 부재 가속.",
+        "WSJ fetch + 다른 매체 cross-ref 권장."
+      ],
+      "urls": [
+        "https://www.ajunews.com/view/20260428111711189"
+      ],
+      "related": [
+        "2026-04-23_KR_01",
+        "2026-04-22_US_08",
+        "2026-04-24_KR_06"
+      ],
+      "fact_sources": [
+        {
+          "claim": "외국계 OEM 트럼프 행정부에 경고: USMCA 미유지 시 미국 저가 모델 철수",
+          "source_url": "https://www.ajunews.com/view/20260428111711189",
+          "source_quote": "현대차 등 외국계 완성차 업체들이 미국 시장에서 저가 모델을 철수할 수 있다고 트럼프 행정부에 경고했다. 미국·멕시코·캐나다 협정(USMCA)이 유지되지 않거나, 새 협정에서 북미산 자동차·부품 관세 부담이 충분히 낮아지지 않을 경우 미국에서 저가 모델을 팔기 어려워질 수 있다는 것이다.",
+          "fetched_at": "2026-04-28T11:20:51+09:00"
+        },
+        {
+          "claim": "WSJ 4-27 보도: 닛산·현대차·토요타가 트럼프 경제 참모들에 우려 전달",
+          "source_url": "https://www.ajunews.com/view/20260428111711189",
+          "source_quote": "월스트리트저널(WSJ)은 27일(현지시간) 사안을 아는 관계자들을 인용해 닛산, 현대차, 토요타 등 외국계 완성차 업체들이 이 같은 우려를 트럼프 행정부 경제 참모들에게 전달했다고 보도했다.",
+          "fetched_at": "2026-04-28T11:20:51+09:00"
+        },
+        {
+          "claim": "2기 트럼프: 무관세 차량에도 비미국산 부품 비중에 25% 관세",
+          "source_url": "https://www.ajunews.com/view/20260428111711189",
+          "source_quote": "그러나 2기 행정부 들어 기존 무관세 대상 차량에도 비미국산 부품 비중에 해당하는 부분에 25% 관세를 부과했다.",
+          "fetched_at": "2026-04-28T11:20:51+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "REVIEW_1"
+      ],
+      "merge_status": "single",
+      "representative_source": "아주경제 (WSJ 인용)",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 1,
+        "C": 0,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "REVIEW status — WSJ 원문 fetch + 다른 매체 cross-ref 권장"
+    },
+    {
+      "id": "2026-04-28_US_01",
+      "region": "US",
+      "date": "2026-04-28",
+      "cat": "Charging",
+      "sub_cat": "미국 급속충전 성숙",
+      "signal": "mid",
+      "title": "미국 EV 급속충전 시장 1Q26 '균형 성장' — 신규 3,300기에도 이용률 15.6% 유지, 250kW+ 표준화, Tesla 신규 점유율 26%",
+      "sub": "Paren 분석 / 가동률 90~95% / 신규 3,300기 흡수 / $0.53/kWh / Tesla 신규 26% / 250kW+ 표준 / 채비·LG전자 등 진입 시점",
+      "gate": "미국 EV 급속충전이 확장 국면에서도 '안정성' 유지하며 성숙 단계 진입(Paren 1Q26 분석). 가동률 90~95%, 평균 이용률 15.6%, 가격 $0.53/kWh — 신규 3,300기를 추가했음에도 이용률 안정. Tesla 신규 점유율 26%로 하락, 중소·중견 사업자 다변화. 경쟁 요소가 \"속도 → 가동률·운영 효율\"로 이동, 250kW+ 고출력 표준화.",
+      "fact": "투데이에너지(4-28, Paren 인용): \"전기차 충전 데이터 플랫폼 파렌(Paren)에 따르면 202026년 1분기 기준 충전기 신뢰성, 이용률, 가격 등 주요 지표가 전반적으로 큰 변동 없이 유지\". 주요 지표: \"충전기 가동률은 90~95% 수준\"; \"평균 이용률은 15.6%로 직전 분기 대비 소폭 하락\"; \"약 3,300기의 신규 급속충전 포트가 추가됐음에도 이용률 변화는 제한적\". 구조 변화: \"테슬라(Tesla)는 여전히 최대 사업자지만 신규 충전기 점유율은 26%로 낮아졌고, 중소·중견 사업자 비중은 확대\"; \"250kW 이상 고출력 충전기가 빠르게 확산되며 사실상 표준\"; \"가격은 kWh당 약 0.53달러 수준에서 안정세\".",
+      "implication": [
+        "미국 DCFC가 \"속도 → 운영 효율\" 경쟁으로 이동. 250kW+ 표준 → K 고출력 라인업(채비·LG전자·시그넷) 진입 우위.",
+        "Tesla 신규 26% 하락 = 비-Tesla CPO 점유율 상승 사이클. K CPO 미국 진입 사이클과 동기.",
+        "$0.53/kWh + 가동률 90~95% = CPO 단가 마진 안정. EV 충전 \"보조금 → 운영 효율\" 비즈니스 모델 전환 시작."
+      ],
+      "urls": [
+        "https://www.todayenergy.kr/news/articleView.html?idxno=297162"
+      ],
+      "related": [
+        "2026-04-22_US_06",
+        "2026-04-25_US_01",
+        "2026-04-27_KR_06"
+      ],
+      "fact_sources": [
+        {
+          "claim": "미국 EV 급속충전 1Q26 — Paren: 신뢰성/이용률/가격 안정",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=297162",
+          "source_quote": "전기차 충전 데이터 플랫폼 파렌(Paren)에 따르면 2026년 1분기 기준 충전기 신뢰성, 이용률, 가격 등 주요 지표가 전반적으로 큰 변동 없이 유지됐다.",
+          "fetched_at": "2026-04-28T11:50:09+09:00"
+        },
+        {
+          "claim": "1Q26: 가동률 90~95%, 평균 이용률 15.6%, 신규 약 3,300기",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=297162",
+          "source_quote": "충전기 가동률은 90~95% 수준으로 전년 대비 개선됐고, 평균 이용률은 15.6%로 직전 분기 대비 소폭 하락했지만 계절적 요인에 따른 영향으로 분석된다. 같은 기간 약 3,300기의 신규 급속충전 포트가 추가됐음에도 이용률 변화는 제한적이었다.",
+          "fetched_at": "2026-04-28T11:50:09+09:00"
+        },
+        {
+          "claim": "테슬라 신규 점유율 26%, 중소·중견 사업자 비중 확대",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=297162",
+          "source_quote": "테슬라(Tesla)는 여전히 최대 사업자지만 신규 충전기 점유율은 26%로 낮아졌고, 중소·중견 사업자 비중은 확대되며 경쟁 구도가 다변화되는 양상이다.",
+          "fetched_at": "2026-04-28T11:50:09+09:00"
+        },
+        {
+          "claim": "250kW+ 표준화, 가격 $0.53/kWh 안정",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=297162",
+          "source_quote": "250kW 이상 고출력 충전기가 빠르게 확산되며 사실상 표준으로 자리잡고 있다. 이에 따라 경쟁 요소도 단순 속도에서 가동률과 운영 효율성으로 이동하는 모습이다. 가격은 kWh당 약 0.53달러 수준에서 안정세를 유지했다.",
+          "fetched_at": "2026-04-28T11:50:09+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C59"
+      ],
+      "merge_status": "single",
+      "representative_source": "투데이에너지 (Paren 인용)",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 0,
+        "B": 0,
+        "C": 1,
+        "total": 1,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
     {
       "id": "2026-04-27_CN_01",
       "region": "CN",
@@ -532,6 +1865,715 @@
       ]
     },
     {
+      "id": "2026-04-27_CN_12",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Battery",
+      "sub_cat": "BYD Seal 08 신차",
+      "signal": "high",
+      "title": "BYD Seal 08 베이징 모터쇼 데뷔 — 2세대 Blade Battery + 메가와트 충전, CLTC 1,000km+, 5분 400km, -30°C 12분",
+      "sub": "4-26~27 베이징 / 풀세단 / Blade Battery 2.0(LFP, 800V) / 메가와트급 플래시 / 5분 400km / 10→70% 5분 / -30°C 20→97% 12분",
+      "gate": "BYD가 베이징 모터쇼에서 Seal 08 공개, 2세대 Blade Battery + 메가와트 플래시 충전을 풀사이즈 세단에 첫 결합. CLTC 1,000km+ (1세대 대비 약 2배), 5분 400km, 10→70% 5분, -30°C 20→97% 12분. 800V LFP. baseline 4-24 CN_03(BYD Tang EV 950km), 4-24 CN_04(BYD 평균가 -14%), 4-26 CN_02(Huawei 1.5MW)와 함께 중국 EV의 \"고급 풀세단 + 1,000km/5분 충전\" 임계 도달.",
+      "fact": "Electrek(4-27): \"BYD unveiled the Seal 08, its new flagship electric sedan, at the Beijing Auto Show this weekend. The vehicle packs BYD’s second-generation Blade Battery targeting over 1,000 km of CLTC range and megawatt-level flash charging that adds 400 km of range in five minutes\". 첫 결합: \"It marks the first time the Blade Battery 2.0 and flash charging combination land in a full-size sedan\". 플랫폼·화학: \"The Seal 08 is built on an 800-volt high-voltage platform and equipped with BYD’s second-generation Blade Battery, which uses lithium iron phosphate (LFP) chemistry\"; \"over 1,000 km of range under CLTC conditions — roughly double what the first-generation Blade Battery delivered\". 저온: \"In cold weather down to -30°C, a 20% to 97% charge takes 12 minutes\".",
+      "implication": [
+        "LFP+1,000km+메가와트+풀세단 = K LG엔솔 2029 건식 LFP(baseline 2026-04-27_KR_02), 엘앤에프 LFP 양극재 1.6조(baseline 2026-04-21_KR_01) 양산 임계가 BYD에 비해 늦은 사이클 재확인.",
+        "베이징 모터쇼 1주에 SPEC_GOTION_CHERY_T9L (HEV LFP 180Wh/kg 2,000km), baseline 2026-04-25_CN_01 (BAIC×CATL framework)와 함께 중국 EV \"LFP+고전압+풀세단+swap\" 4축 동시 데뷔.",
+        "baseline 2026-04-26_CN_02(Huawei 1.5MW) + BYD 메가와트 = 중국 OEM \"메가와트 충전\" 차량+인프라 양 사이드 동시 본격화.",
+        "BYD 자체 발표 기준(CLTC) — EPA·WLTP 검증, 양산 시작일, 가격 fact는 본 카드에 일부만 포함."
+      ],
+      "urls": [
+        "https://autonews.gasgoo.com/articles/news/byd-sea-lion-08-targets-the-300000-yuan-market-2048634193192497152",
+        "https://electrek.co/2026/04/27/byd-seal-08-blade-battery-2-1000km-range-beijing-auto-show"
+      ],
+      "related": [
+        "2026-04-26_CN_02",
+        "2026-04-25_CN_01",
+        "2026-04-24_CN_03",
+        "2026-04-27_KR_02"
+      ],
+      "fact_sources": [
+        {
+          "claim": "BYD Seal 08 베이징 모터쇼 데뷔 — 2세대 Blade Battery + 메가와트 플래시 충전, CLTC 1,000km+, 5분 400km",
+          "source_url": "https://electrek.co/2026/04/27/byd-seal-08-blade-battery-2-1000km-range-beijing-auto-show",
+          "source_quote": "BYD unveiled the Seal 08, its new flagship electric sedan, at the Beijing Auto Show this weekend. The vehicle packs BYD’s second-generation Blade Battery targeting over 1,000 km of CLTC range and megawatt-level flash charging that adds 400 km of range in five minutes.",
+          "fetched_at": "2026-04-27T11:52:49+00:00"
+        },
+        {
+          "claim": "풀사이즈 세단 첫 Blade Battery 2.0 + 플래시 충전 결합",
+          "source_url": "https://electrek.co/2026/04/27/byd-seal-08-blade-battery-2-1000km-range-beijing-auto-show",
+          "source_quote": "It marks the first time the Blade Battery 2.0 and flash charging combination land in a full-size sedan, positioning it as a direct challenger to higher-end electric sedans.",
+          "fetched_at": "2026-04-27T11:52:49+00:00"
+        },
+        {
+          "claim": "800V 플랫폼; 2세대 Blade는 LFP; 1세대 대비 약 2배",
+          "source_url": "https://electrek.co/2026/04/27/byd-seal-08-blade-battery-2-1000km-range-beijing-auto-show",
+          "source_quote": "The Seal 08 is built on an 800-volt high-voltage platform and equipped with BYD’s second-generation Blade Battery, which uses lithium iron phosphate (LFP) chemistry. BYD first announced the Blade Battery 2.0 in early March , claiming over 1,000 km of range under CLTC conditions — roughly double what the first-generation Blade Battery delivered.",
+          "fetched_at": "2026-04-27T11:52:49+00:00"
+        },
+        {
+          "claim": "-30°C 콜드웨더 20→97% 12분",
+          "source_url": "https://electrek.co/2026/04/27/byd-seal-08-blade-battery-2-1000km-range-beijing-auto-show",
+          "source_quote": "In cold weather down to -30°C, a 20% to 97% charge takes 12 minutes.",
+          "fetched_at": "2026-04-27T11:52:49+00:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-27_C06",
+        "US_2026-04-27_C02"
+      ],
+      "merge_status": "merged",
+      "representative_source": "Electrek",
+      "staleness": {
+        "event_date": "2026-04-26",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 1,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 2,
+        "B": 0,
+        "C": 1,
+        "total": 3,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_CN_13",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Policy",
+      "sub_cat": "ESS 시장 진입",
+      "signal": "high",
+      "title": "중국 《성간 전력 현물거래 규칙》 정식 비준 — ESS 독립 시장 입주 공식화",
+      "sub": "4-27 비준 / ESS 성 시장 독립 진입 / 중국 ESS 비즈니스 모델 핵심 정책",
+      "gate": "중국 《성간 전력 현물거래 규칙》 4-27 정식 비준, ESS가 독립 시장 주체로 입주 가능(OFweek 储能网). SPEC_SHANXI_25_INDEPENDENT_ESS, baseline 2026-04-27_CN_07(간쑤 1Q 1316MW), 2026-04-27_CN_03(Huaneng Xiaowan)와 함께 \"중국 ESS 사이클 정책 핵심\" 첫 타이밍.",
+      "fact": "OFweek ESS(4-27): \"！ESS시！《성간 전력 현물거래 규칙》\". 주의: 본문이 매우 짧음(46자) — 정식 NEA·NDRC 공시 fetch 후 시행 시점·적용 대상 ESS 종류·시장 거래 규칙 fact 보강 필수.",
+      "implication": [
+        "중국 ESS 운영자 비즈니스 모델 변화의 핵심 정책. 그동안 ESS는 발전·소비 측 cap에 묶여 거래 제약 → 성 시장 독립 진입은 \"시장자로서의 ESS\" 공식화. 중국 ESS EPC·운영(CATL HyperStrong 등) 매출 회수 사이클 단축.",
+        "SPEC_CATL_HK_5BN(50억$ 자본) + SPEC_SUNGROW_HK_IPO_REFILE(HK 재상장) + 본 정책 = 중국 ESS \"자본+정책+시장\" 3축 동시 정렬 분기.",
+        "K 셀 OEM 중국 ESS 진입 압력 변화 — 시장 거래 규칙 명확화 시 K 셀 OEM의 중국 ESS EPC 진입 또는 K ESS aggregator 모델 비교 baseline.",
+        "본 카드 source 본문 짧아 \"비준 사실\"만 단정. 시행일·적용 capa·요금 산정 등 정식 NEA 공시 fetch 권장."
+      ],
+      "urls": [
+        "https://chuneng.ofweek.com/news/2026-04/ART-180220-8120-30686122.html"
+      ],
+      "related": [
+        "2026-04-27_CN_07",
+        "2026-04-27_CN_03"
+      ],
+      "fact_sources": [
+        {
+          "claim": "《성간 전력 현물거래 규칙》 정식 비준 — ESS 독립 시장 진입 공식화",
+          "source_url": "https://chuneng.ofweek.com/news/2026-04/ART-180220-8120-30686122.html",
+          "source_quote": "官宣！储能将独立入市！《省间电力现货交易规则》正式获批",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-27_C22"
+      ],
+      "merge_status": "single",
+      "representative_source": "OFweek 储能网",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 2,
+        "B": 1,
+        "C": 0,
+        "total": 3,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "본문 매우 짧음 — NEA/NDRC 정식 공시 fetch 필수"
+    },
+    {
+      "id": "2026-04-27_CN_14",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "AI",
+      "sub_cat": "AIDC + 배터리",
+      "signal": "high",
+      "title": "Softbank 일본 GWh급 배터리 라인 + CATL 41억위안 중국 인수 — 'AI ' 글로벌 ' 표본'",
+      "sub": "4-24 Softbank 대형 시 → 대형 배터리 라인(5년, 数GWh, 일본 최대급) / 4-8 CATL 중국 49% 41억위안 / IEA: DC 485→950TWh / 2026 글로벌 ESS +62% 438GWh / 중국 셀 Top 7 83.3%",
+      "gate": "AI 인프라 → 배터리 사업 재정의가 글로벌 ''으로 동시 가시화. Softbank가 4-24(Bloomberg) 대형 시 을 대형 배터리 라인(5년 内 数GWh, 일본 최대급)으로 전환한다고 알려졌고, 손정의 \"AI 핵심 동력=전력\" 판단. CATL은 4-8 중국 49% 약 41억위안 인수, AIDC \"\" VIP 입장권 확보. IEA(2025 485TWh→2030 950TWh), 2-8kW→20-50kW, 2026 글로벌 ESS +62% 438GWh와 동시 발생.",
+      "fact": "OFweek ESS(4-27, Bloomberg 인용): \"24일본，，，대형시대형 생산，계획년투산，생산능력GWh，일본국내대형생산능력\". CATL: \"월전（4月8日）， CATL 41억 위안중국49%\"; \"CATL''VIP\". 수요 정량: \"능（IEA），전중국전력사용202025년485TWh202030년950TWh\"; \"중국2-8kW20-50kW\". 시장 가이던스: \"202026년전ESS탑재438GWh，전년동기대비증가62%\"; \"202025년전ESS출하전기업전중국，83.3%시장\".",
+      "implication": [
+        "\"AI 인프라 → 배터리 재정의\"는 baseline 2026-04-22_US_01(Meta×Noon 1GW/100GWh) + 2026-04-23_US_02(Georgia Power 6,000MW DC RFP) + 2026-04-22_KR_01(네이버 GS풍력) + SPEC_SAMSDI_1Q26와 누적되어 본격 산업 패러다임 전환.",
+        "중국 ESS 셀 Top 7 = 83.3% + 80% capa = AIDC ESS = 중국 OEM 시장. K 셀 OEM은 \"미국 AIDC향 미국 현지 생산\"(SPEC_SAMSDI_1Q26 미국 ESS 2-3년 물량 선확보)으로 응전.",
+        "CATL 중국 = HVDC + PCS + 통합. K는 PCS·인버터(LS일렉트릭)+셀(LG엔솔/SDI/SK on) 통합 분리 → 통합 사업자 경쟁력 격차.",
+        "Softbank Stargate($500B+10GW) + CATL 중국 + Vertiv·Schneider·Eaton — AIDC \"전력 전자\" 3극 경쟁(BigTech, 중국 ESS, 미국 통합사). K 진입 포지션 정의 필요."
+      ],
+      "urls": [
+        "https://libattery.ofweek.com/2026-04/ART-36008-8500-30686091.html"
+      ],
+      "related": [
+        "2026-04-22_US_01",
+        "2026-04-23_US_02",
+        "2026-04-22_KR_01"
+      ],
+      "fact_sources": [
+        {
+          "claim": "Softbank 4-24 (Bloomberg) — 대형 시 → 대형 배터리 라인, 5년 GWh, 일본 최대급, 손정의 다음 달 5년 사업계획 발표",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36008-8500-30686091.html",
+          "source_quote": "当地时间24日，据彭博社等主要外媒报道，软银已着手准备，将位于大阪界市的部分工厂转换为大型 电池 生产线，计划五年内投产，产能达数GWh，将成为日本国内最大产能规模之一。软银首席执行宫川润一预计将在下月公布新的五年商业计划时正式宣布该计划。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "CATL 4-8 — 중국 49% 약 41억위안 인수, AIDC '' VIP 입장권",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36008-8500-30686091.html",
+          "source_quote": "半个多月前（4月8日）， 宁德时代 拟以约41亿元认购中恒电气控股股东的49%股权。交易完成后，中恒电气的实控人不变，但宁德时代拿下了“算电协同”领域的一张VIP入场券。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "IEA: 글로벌 DC 전력 2025 485TWh → 2030 950TWh",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36008-8500-30686091.html",
+          "source_quote": "国际能源署（IEA）的数据显示，全球数据中心用电量将从2025年的485TWh攀升至2030年的950TWh，翻了近一倍。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "AIDC: 2-8kW → 20-50kW",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36008-8500-30686091.html",
+          "source_quote": "与传统数据中心相比，在AIDC场景下，智算中心单机柜功耗已从传统的2-8kW攀升至20-50kW，负载波动大、供电连续性要求极高，推动 储能 从备电升级为支撑AI算力基础设施的刚需配置。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": ": 2026 글로벌 ESS 신규 438GWh (+62% YoY)",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36008-8500-30686091.html",
+          "source_quote": "国金证券此前研报预测，2026年全球储能新增装机将达438GWh，同比增长62%，增长动力由过去的单一新能源消纳，转变为“AI算力基建+能源转型刚需+电网阻塞”的三重驱动。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "2025 글로벌 ESS 셀 Top 7 모두 중국, 합 83.3% (SNE Research)",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36008-8500-30686091.html",
+          "source_quote": "SNE Research数据显示，2025年全球储能电池出货量排名前七位的企业全部来自中国，合计占据83.3%的市场份额。与此同时，从锂盐、关键 材料 到电芯、逆变器制造，全球超过80%的产能集中在中国。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-27_C37"
+      ],
+      "merge_status": "single",
+      "representative_source": "OFweek 储能网 (Bloomberg 인용)",
+      "staleness": {
+        "event_date": "2026-04-24",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 3,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 2,
+        "B": 1,
+        "C": 1,
+        "total": 4,
+        "exception": null
+      },
+      "source_tier": 1,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_CN_15",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Battery",
+      "sub_cat": "산업 EV 인프라",
+      "signal": "mid",
+      "title": "CATL × 중국 철강 Jianlong — 산업단지·제철소·광산 통합 '배터리+충전·교환' 공급, 전기 대형트럭 3,000+ 배치 목표",
+      "sub": "4-27 / CATL × Jianlong / 산업단지·제철소·광산·시설 통합 솔루션 / 전기 mining 트럭·대형트럭·선박·건설기계 / 3,000+ 대형트럭 배치 목표",
+      "gate": "CATL이 중국 철강 Jianlong과 산업단지·제철소·광산·시설 통합 \"배터리+충전·교환 솔루션\" 공급 협의. 전기 mining 트럭, 대형트럭, 선박, 건설기계 포함, 3,000+ 전기 대형트럭 배치 목표. SPEC_BYD_SEAL08_BLADE2(승용차)와 다른 axis로 \"산업 EV\" axis 본격화. 4-21 SPEC_CATL_HK_5BN(자본 확충)·4-25 baseline CN_01(BAIC swap 사이클)와 같은 분기.",
+      "fact": "Charged EVs(4-27): \"Chinese battery giant CATL has agreed to supply steel producer Jianlong with batteries and integrated charging and swapping solutions for its industrial parks, steel plants, mines and other facilities. The agreement covers Jianlong’s full range of equipment, including electric mining trucks, heavy trucks, ships and construction machinery\". \"The companies aim to deploy more than 3,000 electric heavy\".",
+      "implication": [
+        "중국 산업 EV(mining 트럭·重트럭·선박·건설기계) axis는 baseline 2026-04-23_CN_05(SDLG mining), 2026-04-21_CN_01(CATL Super Tech Day) 흐름 위 본격화. K 산업 EV(현대·HD현대·두산)는 부재.",
+        "CATL이 \"셀+충전·교환 솔루션\" 통합 공급 = SPEC_SOFTBANK_CATL_AIDC 기반 PCS·HVDC 통합 모델의 산업 EV 적용.",
+        "3,000+ 대형트럭 = 단일 deal로는 매우 큰 규모. K mining EV·산업 EV 부재 사이클에서 중국이 산업 EV 시장 선점."
+      ],
+      "urls": [
+        "https://chargedevs.com/newswire/catl-to-supply-chinese-steelmaker-with-batteries-and-charging-stations-for-electric-mining-trucks-and-machinery"
+      ],
+      "related": [
+        "2026-04-21_CN_01",
+        "2026-04-25_CN_01",
+        "2026-04-23_CN_05"
+      ],
+      "fact_sources": [
+        {
+          "claim": "CATL × 건륭(Jianlong, 중국 철강) — 산업단지/제철소/광산/시설 배터리·통합 충전·교환 솔루션 공급 협의; 전기 mining 트럭, 대형트럭, 선박, 건설기계 포함; 3,000+ 전기 대형트럭 배치 목표",
+          "source_url": "https://chargedevs.com/newswire/catl-to-supply-chinese-steelmaker-with-batteries-and-charging-stations-for-electric-mining-trucks-and-machinery",
+          "source_quote": "Chinese battery giant CATL has agreed to supply steel producer Jianlong with batteries and integrated charging and swapping solutions for its industrial parks, steel plants, mines and other facilities. The agreement covers Jianlong’s full range of equipment, including electric mining trucks, heavy trucks, ships and construction machinery. The companies aim to deploy more than 3,000 electric heavy",
+          "fetched_at": "2026-04-27T14:31:56+00:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "US_2026-04-27_C05"
+      ],
+      "merge_status": "single",
+      "representative_source": "Charged EVs",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_CN_16",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Materials",
+      "sub_cat": "양극재 1Q26",
+      "signal": "mid",
+      "title": "1Q26 매출 +137% YoY · 순익 +150% — 고니켈 NCM이 LGES·SK on·SDI 공급, 중국 양극재 회복 사이클 첫 분기",
+      "sub": "4-24 공시 / 1Q26 매출 45.25억위안 +137.19% / 귀모순익 2.77억위안 +150%+ / 비경상손익 제외 2.14억위안 +220% / 고/고니켈 NCM K 셀 OEM 공급 / 중국 양극재 회복 첫 분기",
+      "gate": "가 1Q26 매출 45.25억위안 +137.19% YoY, 귀모순익 +150%+, 비경상손익 제외 +220%로 폭증. 중국 리튬 양극재 상장사 중국 1Q26 1위. 고니켈·고니켈 NCM이 LGES·SK on·삼성SDI·Murata와 전략 협력 — 즉, K 셀 OEM 1Q26 회복(SPEC_SAMSDI_1Q26 +12.6%) 시 중국 양극재 OEM이 같이 회복하는 구조 확인.",
+      "fact": "CBEA (4-27): \"202026년4월24일본， 《2026 년》，공고：202026년매출45.25억 위안，전년동기대비대형137.19%;순이익2.77억 위안，150%;비경상손익 제외순이익2.2，2.14억 위안\". 사업: \"위안 직접，고、고위안、전、、효율능，LGES、SK on、SDI、Murata\".",
+      "implication": [
+        "K 셀 OEM (LGES·SK on·삼성SDI) 1Q26 회복(SPEC_SAMSDI_1Q26)이 중국 양극재 OEM의 매출 폭증과 동기화 — 글로벌 NCM 셀 사이클의 \"공급 사슬\" 회복 확인.",
+        "K 양극재 OEM(에코프로비엠·엘앤에프·포스코퓨처엠) 1Q26 실적과 비교 baseline. SPEC_NICKEL_2Y_HIGH 니켈 가격 상승 충격이 1Q에는 미반영, 2Q에 반영 시 K 양극재 마진 압박 동시 발생 가능.",
+        "고/고니켈 NCM의 \"국제 고객 비중 업계 선두\" → 중국 양극재 OEM의 K·일본 셀 OEM 의존도 고려. K 양극재의 자국 셀 OEM 의존도와 대비."
+      ],
+      "urls": [
+        "http://www.cbea.com/djgc/202604/173806.html"
+      ],
+      "related": [
+        "2026-04-21_KR_01",
+        "2026-04-27_KR_04"
+      ],
+      "fact_sources": [
+        {
+          "claim": "1Q26: 매출 45.25억위안 (+137.19% YoY), 귀모순익 2.77억위안 (+150%+), 비경상손익 제외 귀모순익 2.14억위안 (+220%)",
+          "source_url": "http://www.cbea.com/djgc/202604/173806.html",
+          "source_quote": "2026年4月24日， 当升科技 发布《2026 年第一季度报告》，公告显示：当升科技在2026年第一季度实现营收45.25亿元，同比大涨137.19%;归母净利润为2.77亿元，增幅超150%;扣非归母净利润更是暴增2.2倍，达到2.14亿元。在已经披露2026年第一季度财报的锂电正极材料上市公司中，其盈利能力大幅领先，独占鳌头。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "NCM 부문 — 고니켈·고니켈 NCM이 LGES·SK on·삼성SDI·Murata와 깊은 전략 협력",
+          "source_url": "http://www.cbea.com/djgc/202604/173806.html",
+          "source_quote": "三元材料业务 一直是当升科技业绩的重要基石，其高镍、超高镍三元材料的续航、安全、寿命、效率以及低温性能指标处于国际领先水平，与LGES、SK on、三星SDI、Murata等国际巨头建立深度战略合作关系，国际客户占比在行业居领先地位。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-27_C24"
+      ],
+      "merge_status": "single",
+      "representative_source": "CBEA 电池观察",
+      "staleness": {
+        "event_date": "2026-04-24",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 3,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 2,
+        "B": 0,
+        "C": 1,
+        "total": 3,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_CN_17",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Battery",
+      "sub_cat": "반고체 양산",
+      "signal": "mid",
+      "title": "중국 엔리파워(EnPower) 안후이 첫 2GWh 반고체 양산기지 가동 — 이륜 EV용 '판스' 시리즈 첫 출고, >275Wh/kg + >2,000사이클",
+      "sub": "4-16 안후이 첫 2GWh 반고체 / '판스' 시리즈 첫 출고 / 이륜 EV 대형 / >275Wh/kg, >2,000사이클, GB43854/GB/T 36672",
+      "gate": "중국 엔리파워이 4-16 안후이 에서 첫 2GWh 반고체(quasi-solid) 배터리 \" 기지\"를 가동. '판스' 시리즈 두 바퀴 EV 대형 첫 출고. 에너지밀도 >275Wh/kg, 사이클 >2,000회, GB43854·GB/T 36672 인증. baseline 2026-04-23_CN_03(EVE 龙泉三号·四号 全固态) + 4-21 baseline CN_01(CATL Super Tech Day) 흐름의 중국 \"/전 고체\" 양산 사이클.",
+      "fact": "OFweek Li-Battery(4-27): \"4월16일본，엔리파워안후이2GWh고체 기지투산안후이\". 첫 출고: \"기지생산'판스'고체\"; \"、고속대형\". спec: \"능（大于275Wh/kg）、（大于2000次）전능（通过GB43854、GB/T 36672）\". 주의: gap=11일(4-16 사건 vs 4-27 보도) → stale_warm. 본 카드의 fresh signal은 \"첫 양산 출고\" 사실 자체.",
+      "implication": [
+        "중국 \"/전 고체\" 양산 사이클의 첫 분기. EVE '' ·(baseline 2026-04-23_CN_03), CATL Super Tech Day, 본 카드 EnPower 안후이 2GWh = 중국 반고체/전고체 양산 본격화 위에 있음.",
+        "두 바퀴 EV용 반고체 = 안전·고밀도가 핵심인 이륜 시장 첫 본격 진입. ··고속 대형 = 두 바퀴 EV의 분류 (electric scooter)도 정련.",
+        "K 차세대 셀 R&D(SPEC_SAMSDI_1Q26 \"인터배터리 2026 피지컬 AI용 파우치형 전고체 샘플 첫 공개\", baseline 2026-04-27_KR_01 KERI 나노 주석)와 비교 — 중국은 양산이 시작, K는 샘플 단계의 시간 차이 재확인.",
+        "\">275Wh/kg + >2,000사이클\"은 NCM 셀과 비슷한 정도. 반고체 \"안전성 진보\"가 정량적으로 어떤 의미인지 (열폭주, 충돌 안전 등) fact 본 카드에 미포함."
+      ],
+      "urls": [
+        "https://libattery.ofweek.com/2026-04/ART-36001-8120-30686030.html"
+      ],
+      "related": [
+        "2026-04-23_CN_03",
+        "2026-04-21_CN_01",
+        "2026-04-27_KR_01"
+      ],
+      "fact_sources": [
+        {
+          "claim": "엔리파워(EnPower) 4-16 안후이 첫 2GWh 고체 기지 가동 — '판스' 시리즈 첫 출고; 이륜 EV 대형",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36001-8120-30686030.html",
+          "source_quote": "4月16日，恩力动力安徽首个2GWh固态 电池 先进智造基地投产仪式在安徽滁州凤阳隆重举行，标志着恩力动力在固态电池产业化道路上迈出了坚实一步。 投产仪式上，由恩清基地生产的“恩力磐石”系列固态电池产品同步首发。据了解，该系列精准聚焦于蓬勃发展的电动两轮车市场，涵盖越野电摩、换电电摩与高速电摩三大应用场景，立志成为能量密度、循环寿命、安全性能、快充等成为综合性能强劲的行业标杆。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "спec: 에너지밀도 >275Wh/kg, 사이클 >2,000회, GB43854/GB/T 36672 인증",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36001-8120-30686030.html",
+          "source_quote": "其能量密度（大于275Wh/kg）、循环寿命（大于2000次）及安全性能（通过GB43854、GB/T 36672）等核心指标上实现了综合性能的领先",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-27_C18"
+      ],
+      "merge_status": "single",
+      "representative_source": "OFweek Li-Battery",
+      "staleness": {
+        "event_date": "2026-04-16",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 12,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "stale_warm"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "gap=11d stale_warm — 4-16 첫 양산 출고가 fresh signal로 작용 가능 / 본문에 명시"
+    },
+    {
+      "id": "2026-04-27_CN_18",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Battery",
+      "sub_cat": "HEV LFP 셀",
+      "signal": "mid",
+      "title": "풍운T9L (HEV SUV) 글로벌 출시 — 궈쉬안하이테크 LFP 180Wh/kg 셀 공급, HEV +12.5% 에너지밀도",
+      "sub": "4-27 / Chery 풍운T9L SUV 글로벌 / 궈쉬안하이테크 핵심 셀 공급사 / LFP 180Wh/kg / HEV +12.5% / 200kN 극한 압력 / 5중 열안전",
+      "gate": "Chery 풍운T9L 가 글로벌 출시되며 궈쉬안하이테크(Gotion)가 핵심 배터리 공급사 자리. LFP 180Wh/kg 셀로 HEV 대비 +12.5% 에너지밀도. 200kN 극한 압력 + 정·측면 충돌 비폭발/비화재 + 5중 열안전. SPEC_BYD_SEAL08_BLADE2(BEV 풀세단)와 다른 axis로 \"중국 HEV LFP 셀\" 사이클 본격.",
+      "fact": "CBEA (4-27): \"일본전，미국대형SUV——T9L전시\"; \"년T9L，궈쉬안하이테크\". 안전: \"200kN，/\"; \"통합、、、、전\". 에너지밀도: \"기술，능고12.5%\"; \"180Wh/kg고셀，\".",
+      "implication": [
+        "중국 HEV LFP 사이클 본격. BEV는 SPEC_BYD_SEAL08_BLADE2 LFP 1,000km, HEV는 Chery T9L Gotion LFP 180Wh/kg — 중국 LFP 셀이 BEV+HEV 양 사이드에서 K NCM과 직접 경쟁.",
+        "baseline 2026-04-22_KR_05(엔켐 LFP 첨가제 양산), SPEC_ENCHEM_EU(엔켐 EU LFP 전해액)와 함께 K 전해액·소재가 LFP 시장 진입 사이클이 중국 LFP 셀 진입 사이클을 따라가는 구조.",
+        "Gotion HEV LFP \"180Wh/kg + HEV +12.5%\"는 K 셀 OEM(LG엔솔/SK on/SDI) HEV 셀 spec과 직접 비교 가능 — K HEV 셀은 NCM 중심, 중국은 LFP로 우위 시도."
+      ],
+      "urls": [
+        "http://www.cbea.com/djgc/202604/663977.html"
+      ],
+      "related": [
+        "2026-04-22_KR_05"
+      ],
+      "fact_sources": [
+        {
+          "claim": "Chery T9L SUV 글로벌 출시 — 궈쉬안하이테크(Gotion)가 풍운T9L 핵심 배터리 공급사",
+          "source_url": "http://www.cbea.com/djgc/202604/663977.html",
+          "source_quote": "日前，奇瑞风云智美大五座旗舰SUV——风云T9L正式全球上市。凭借越级空间、超长续航与全球五星安全标准，该车型迅速树立家用混动SUV市场新标杆。作为奇瑞十余年战略合作伙伴及风云T9L核心电池供应商，国轩高科依托专属混动电池解决方案，以硬核技术护航新车上市，中高端产品战略再获关键市场验证。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "спec: 200kN 극한 압력, 정·측면 충돌 비폭발/비화재, 5중 열안전; LFP 180Wh/kg",
+          "source_url": "http://www.cbea.com/djgc/202604/663977.html",
+          "source_quote": "电池包可承受200kN极限承压，正/侧面碰撞不起火不爆炸，国轩高科以超国标的严苛级标准，为风云T9L加护。同时，热安全层面，国轩高科集成隔热、散热、防爆、泄压、绝缘五重热安全防护，实现热失控零扩散。 深研铁锂技术，混动产品能量密度高于主流12.5%。 在能量密度上，国轩高科发挥磷酸铁锂电池技术优势，采用180Wh/kg高密度电芯，较主流混动车型提升",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-27_C20"
+      ],
+      "merge_status": "single",
+      "representative_source": "CBEA 电池观察",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_CN_19",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Battery",
+      "sub_cat": "C&I/가정 ESS 1Q26",
+      "signal": "mid",
+      "title": "능(Jackery 母) 1Q26 매출 9.43억위안 +32% — 'AI+광·축' SolarVault 3 + EHB 가정 백업 폭증",
+      "sub": "4-24 공시 / 2025 매출 41.42억위안 +14.87% / 1Q26 매출 9.43억위안 +32.06% / 환비 +8.10%p / SolarVault 3 'AI+' / EHB 가정 백업 빠른 출하",
+      "gate": "능(Jackery 母)이 4-24 공시: 2025 매출 41.42억위안 +14.87%, 1Q26 매출 9.43억위안 +32.06%, 환비 2025 4Q +8.10%p. SolarVault 3 \"AI+\" + EHB 가정용 핵심 백업이 해외 ESS 수요 호조에 폭증. 중국 가정·휴대 ESS OEM의 1Q26 회복 사이클 검증.",
+      "fact": "CBEA (4-27): \"4월24일본，능202025년202026년. 202025년전년， 능...매출41.42억 위안，전년동기대비증가14.87%;202026년 매출고， 매출9.43억 위안，전년동기대비증가32.06%，202025년8.10\". 동력: \"해외고、SolarVault 3'AI+'、EHB\".",
+      "implication": [
+        "중국 \"가정·휴대 ESS\" OEM 1Q26 회복 — Jackery·EcoFlow·BLUETTI 등 K 시장 매장 진열에 가까운 영향. 4-22 baseline GL_06(BLUETTI 영국 ESS 사업 분쟁 등) 흐름.",
+        "\"AI+\" 제품군 등장 = SolarVault 3 = 가정 PV+ESS+AI EMS 통합. baseline 2026-04-23_JP_01(아사히카세이+주고쿠전력 BESS SW), SPEC_KETI_ESS_AI(KETI×WMG)와 함께 \"가정 ESS BMS·EMS AI\" 사이클.",
+        "K 가정 ESS OEM (LG전자·삼성SDI·SK on)는 가정 ESS 시장에서 중국 OEM 대비 후발 — Jackery 1Q +32%는 중국 OEM 시장 점유 가속 신호."
+      ],
+      "urls": [
+        "http://www.cbea.com/djgc/202604/687484.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "능(Jackery 母会社) 4-24 — 2025 매출 41.42억위안 +14.87% / 1Q26 매출 9.43억위안 +32.06% / 환비 2025 4Q +8.10%p",
+          "source_url": "http://www.cbea.com/djgc/202604/687484.html",
+          "source_quote": "4月24日晚，华宝新能披露2025年年报以及2026年一季报。 2025年全年， 华宝新能持续深化全球M2C全价值链直销模式，品牌竞争力进一步增强， 实现营业收入41.42亿元，同比增长14.87%;2026年一季度 营收延续高增态势， 实现营业收入9.43亿元，同比增长32.06%，毛利率环比2025年四季度提升8.10个百分点， 销售费用率与管理费用率同比双双下降，运营效率持续改善。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "SolarVault 3 'AI+', EHB 가정용 백업 빠른 출하 — 해외 ESS 수요 호조",
+          "source_url": "http://www.cbea.com/djgc/202604/687484.html",
+          "source_quote": "在海外需求延续高景气、SolarVault 3等新一代“AI+光储”产品落地、EHB家庭核心备电快速放量等多重因素带动下，华宝新能成本压力有望逐步缓解，业绩修复路径正逐步清晰。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-27_C17"
+      ],
+      "merge_status": "single",
+      "representative_source": "CBEA 电池观察",
+      "staleness": {
+        "event_date": "2026-04-24",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 3,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_CN_20",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Battery",
+      "sub_cat": "셀 안전 플랫폼",
+      "signal": "mid",
+      "title": "화웨이 (Giant Whale) 배터리 플랫폼 — '15층 전' 셀-시스템-차량-클라우드 4단계, 전 모델 표준",
+      "sub": "4-27 / 화웨이 배터리 플랫폼 / 15층 전 / 셀 정위치 + 대형 액냉 / 전 모델 표준화 / NEV 셀 안전 '체계화' 모델",
+      "gate": "화웨이가 (Giant Whale) 배터리 플랫폼을 발표 — 셀-시스템-차량-클라우드 BMS 4단계의 15층 전. 셀 정위치, 대형 액냉. 전 모델 표준화. 중국 NEV 셀 안전 \"단점 기술 → 화\" 모델.",
+      "fact": "중국에너지망(4-27): \"셀、、시스템통합，BMS전，화전\". \"전，，전\". 핵심 1: \"셀\"; \"후능고\". 핵심 2: \"대형. 、효율\".",
+      "implication": [
+        "NEV 배터리 안전이 \"단점 패치\" → \"전체 시스템 수준 표준화\"로 이동. 화웨이는 셀 OEM이 아니지만 OEM 통합 platform 표준 제시 — Tesla, BYD와 다른 \"OEM이 아닌 platform\" axis.",
+        "5(아이토·타구·스튜어트 등 화웨이 联盟) 전 모델 표준화 = 가격대별 \"동일 안전 표준\" — 중국 NEV 시장의 안전 표준 차등 (BYD vs 저가 OEM)에 대한 차별화 시도.",
+        "K 셀 OEM(LG엔솔/SDI/SK on) 셀-시스템--클라우드 4단계 통합 BMS는 OEM이 주관 — 화웨이 모델은 platform 회사가 표준화. 통합 모델 차이 분석 필요."
+      ],
+      "urls": [
+        "https://www.china5e.com/news/news-1203074-1.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "화웨이 (Giant Whale) 배터리 플랫폼 — 셀-시스템-차량-클라우드 BMS 4단계 '15층 입체 안전 방호'; 전 모델 표준",
+          "source_url": "https://www.china5e.com/news/news-1203074-1.html",
+          "source_quote": "从电芯材料选型、电池包结构设计、整车系统集成，到云端BMS全天候监测，华为巨鲸电池平台构建了完整的十五层立体化安全防护体系。这不是堆料，而是从底层逻辑出发的全链路安全设计。每一层防护之间相互冗余、彼此校验，形成闭环。这套体系并非旗舰车型独享：五界全系标配，无论购买哪个价位段的车型，安全标准一致。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "1단계: 셀 정위치 (배터리 팩 底部 충돌 후 高压 拉弧 爆燃 위험 회피)",
+          "source_url": "https://www.china5e.com/news/news-1203074-1.html",
+          "source_quote": "第一，坚持电芯正置方案。行业里部分品牌为了降低底盘高度或提升空间利用率，采用电芯倒置。华为的选择很明确：电芯正置，彻底规避电池包底部磕碰后可能引发的高压拉弧爆燃风险。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "2단계: 대형 액냉 아키텍처",
+          "source_url": "https://www.china5e.com/news/news-1203074-1.html",
+          "source_quote": "第二，热电分离双大面液冷架构。传统电池包底部液冷方案散热面积有限、降温效率不足。华为巨鲸",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-27_C16"
+      ],
+      "merge_status": "single",
+      "representative_source": "中国能源网",
+      "staleness": {
+        "event_date": "2026-04-22",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 5,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_CN_21",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Battery",
+      "sub_cat": "셀 OEM 인수",
+      "signal": "mid",
+      "title": "장터전기, 1.01억위안으로 '파우치 셀 전 전' 아오유파워 76.39% 인수 — 중국 셀 OEM 통합·재편 사이클",
+      "sub": "4-23 장터전기 공시 / 2026-04-30 1.01억위안 지급 / 아오유파워 76.3929% 지분 / 파산 회생정리 후 / 파우치 셀 전 전 / 4-24 장터전기 상한가, 시총 232.4억위안",
+      "gate": "상장사 장터전기가 1.01억위안으로 파우치 셀 \"전 전\" 아오유파워 76.39% 인수. 파산 회생정리 후. 4-24 장터전기 상한가, 시총 232.4억위안. 중국 셀 OEM 통합·재편 사이클의 한 케이스. 4-27 baseline CN_05(BYD-China Coal swap) + SPEC_CATL_HK_5BN, SPEC_SUNGROW_HK_IPO_REFILE 등 \"중국 셀 OEM 자본 사이클\"의 다른 측면.",
+      "fact": "OFweek Li-Battery(4-27): \"4월23일본， 시기업장터전기（002176.SZ）공고，회사 202026년4 월30일본전1.01억 위안，아오유파워아오유파워76.3929%명의이전회사\"; \"아오유파워회사회사\". 시장: \"4월24일본， 기업장터전기상한가，종가13.62위안/，전총시가총액200억 위안，232.4억 위안\"; \"아오유파워국내파우치기업，동력 배터리탑재량전전\".",
+      "implication": [
+        "중국 셀 OEM 시장의 \"통합·재편\" 사이클. 1선 OEM(CATL·BYD)과 2-3선 OEM(EVE·CALB·HyperStrong)의 양극화 + 중소 OEM의 파산·인수가 동시 진행.",
+        "회사가 셀 OEM 인수 = \"수직 통합\" 사이클. baseline 2026-04-21_KR_01(엘앤에프 LFP 양극재) + SPEC_EASPRING_1Q26 중국 양극재 회복과 함께 \"중국 양극재→셀 OEM\" 통합 가능성.",
+        "'파우치 셀 전 전' 가 1.01억위안으로 인수된 것은 중국 셀 OEM 시장의 자본 가치 변화 — overcapacity와 약세 OEM의 자본 약화가 모두 작용."
+      ],
+      "urls": [
+        "https://libattery.ofweek.com/2026-04/ART-36008-8120-30686031.html"
+      ],
+      "related": [
+        "2026-04-21_KR_01"
+      ],
+      "fact_sources": [
+        {
+          "claim": "4-23 장터전기(002176.SZ) 발표 — 2026-04-30까지 1.01억위안 지급, 아오유파워 76.39% 지분 인수, 파산 회생정리 후",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36008-8120-30686031.html",
+          "source_quote": "4月23日晚， 锂电 材料 上市企业江特电机（002176.SZ）发布公告称，公司将于 2026年4 月30日前足额支付1.01亿元，遨优动力管理人协助将遨优动力76.3929%的股权过户至公司名下。 遨优动力债权人将以法定比例受偿，不能获得清偿的债权部分，遨优动力不再负有清偿义务。破产重整程序完成后，遨优动力将变更为公司控股子公司。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "4-24 장터전기 상한가, 시총 232.4억위안; 아오유파워 = 파우치 셀 \"전 전\"",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36008-8120-30686031.html",
+          "source_quote": "二级市场上，4月24日，即将收购 电池 制造企业的江特电机强势涨停，收盘报13.62元/股，当前总市值超过200亿元，为232.4亿元。 公告显示，遨优动力原系新能源 动力电池 制造企业，主营业务为锂离子动力电池、 储能 电池系统及相关模块的研发与生产。 遨优动力一度是国内软包电池领域的标杆企业，动力电池装机量曾跻身全国前三，拥有湖州、",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-27_C30"
+      ],
+      "merge_status": "single",
+      "representative_source": "OFweek Li-Battery",
+      "staleness": {
+        "event_date": "2026-04-23",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 4,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_CN_22",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Battery",
+      "sub_cat": "터키 셀 capa",
+      "signal": "mid",
+      "title": "후난 스마트, 터키 head ESS OEM과 10GWh '전 module pack' 라인 1.5억$ — 안카라 ESS·블레이드 셀 capa",
+      "sub": "4-23 / 스마트 + 터키 head ESS OEM / 10GWh 전 모듈 pack 라인 / 안카라 기지 / 1.5억$ (10억 위안) / 첫 라인 인도 완료",
+      "gate": "후난 스마트(LuoLiu) — 터키 head ESS OEM과 10GWh 전 모듈 pack 라인 1.5억$(10억 위안) 계약. 안카라 기지 건설. 여 라인 협의, 첫 라인 인도 완료. SPEC_EESC_EU_BATTERY_BOOST(EU EESC 보고서) 흐름과 함께 중국 ESS 장비·셀이 EU 인접 시장(터키)으로 확장.",
+      "fact": "OFweek Li-Battery(4-27, 长沙晚报 4-23 인용): \"일본전，후난스마트회사（简称'洛柳智能'） ESS 능기업10GWh전pack（含储能 电池 及 刀片电池 ）\"; \"공동전기술능ESS생산기지，총1.5미국위안（约合10亿위안人民币）\". 진척: \"전pack，，2\".",
+      "implication": [
+        "중국 셀 장비·셀 OEM의 \"EU 인접 시장 진입\" — 터키는 EU·중동·아프리카 진입의 hub로 NEV·ESS 모두 성장 시장. baseline 2026-04-22_GL_03(REPT 5GWh 일본) 흐름과 함께 중국 OEM 글로벌 capa 분산.",
+        "EESC EU Battery Booster(SPEC_EESC_EU_BATTERY_BOOST)와 같은 분기에 중국 OEM이 터키에 capa 진입 = EU의 \"역내 capa\" 정책이 늦으면 중국 OEM이 EU 인접 시장에서 우위 확보 시나리오.",
+        "K 셀 장비 OEM (피엔티·디아이 등) 글로벌 진입 사이클과 비교 — 중국 셀 장비 OEM이 \"전 모듈 pack 라인\" turnkey로 글로벌 진입."
+      ],
+      "urls": [
+        "https://libattery.ofweek.com/2026-04/ART-36005-8120-30686090.html",
+        "https://libattery.ofweek.com/2026-04/ART-36008-8120-30686178.html"
+      ],
+      "related": [
+        "2026-04-22_GL_03"
+      ],
+      "fact_sources": [
+        {
+          "claim": "후난 스마트(LuoLiu) — 터키 head ESS OEM과 10GWh 전 모듈 pack 라인 협의, 안카라 기지 건설, 1.5억$ (10억 위안)",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36005-8120-30686090.html",
+          "source_quote": "据长沙晚报4月23日消息，日前，湖南洛柳智能装备有限公司（简称“洛柳智能”）与土耳其一家头部 储能 能源企业签署10GWh全自动模组pack线（含储能 电池 及 刀片电池 ）合作协议。双方将在土耳其安卡拉共同建设具备全球顶尖技术水平的新能源储能电池生产基地，合同总金额达1.5亿美元（约合10亿元人民币）。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        },
+        {
+          "claim": "여 라인 협의, 첫 라인 인도 완료, 두 번째 라인 곧 인도",
+          "source_url": "https://libattery.ofweek.com/2026-04/ART-36005-8120-30686090.html",
+          "source_quote": "洛柳智能相关负责人表示，此次合作共涉及十余条全自动模组pack线，已完成第一条产线的交付，第二条产线也即将交付。",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "CN_2026-04-27_C01",
+        "CN_2026-04-28_C01"
+      ],
+      "merge_status": "merged",
+      "representative_source": "OFweek Li-Battery (长沙晚报 인용)",
+      "staleness": {
+        "event_date": "2026-04-23",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 4,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
       "id": "2026-04-27_EU_01",
       "region": "EU",
       "date": "2026-04-27",
@@ -580,6 +2622,60 @@
           "fetched_at": "2026-04-28T06:14:57+09:00"
         }
       ]
+    },
+    {
+      "id": "2026-04-27_EU_02",
+      "region": "EU",
+      "date": "2026-04-27",
+      "cat": "Policy",
+      "sub_cat": "EU 배터리 정책",
+      "signal": "mid",
+      "title": "EESC 'EU Battery Booster Strategy' 의견 채택 (3-31) — EU 배터리 가치 사슬 부스트 '더 강력하게' 호소",
+      "sub": "3-31 EESC Plenary / EU Commission Battery Booster Strategy 의견 / 유럽 배터리 가치 사슬 강화 / EU 셀 OEM의 \"중국 추격\" 정책 호소",
+      "gate": "EU EESC가 3-31 Plenary에서 EU Commission \"Battery Booster Strategy\"에 의견 채택. EU 배터리 가치 사슬 강화 미션 지지하면서 \"a real boost\" 즉 더 강력한 부스트 호소. SPEC_LUOLIU_TURKEY_10GWH와 같은 분기에 EU의 정책 신호 — \"중국 OEM이 EU 인접 시장 진입\" + \"EU 자체 가치 사슬은 부스트 부족\" 중첩.",
+      "fact": "EESC News(4-27, 3-31 발표): \"Battery production in Europe needs a real boost 31/03/2026 At the March Plenary, the European Economic and Social Committee (EESC) adopted an opinion on the European Commission's Battery Booster Strategy. While supporting the initiative's mission to strengthen the European battery value chain, the EESC calls\". 주의: 본문이 길지만 헤드라인+intro가 핵심. 정책 권고 detail (자본 한도, 일정, 수익 면제, IRA-style 보조) fact 보강 필요.",
+      "implication": [
+        "EU 자체 배터리 가치 사슬 강화 정책의 \"부족함\" 인정. 중국 OEM이 EU 인접 시장(터키, 모로코, 헝가리 등) 진입 사이클(SPEC_LUOLIU_TURKEY_10GWH, SPEC_ENCHEM_EU 헝가리 7만톤)과 동시에 EU의 자체 capa는 더디다는 신호.",
+        "K 셀 OEM (LG엔솔·SDI·SK on)의 EU 헝가리·폴란드 capa(SPEC_SAMSDI_1Q26 헝가리 LFP 전환)는 \"K 셀 OEM = EU 가치 사슬\"의 의미를 갖는 분기. EU가 \"자체 capa\" 부스트가 늦으면 K가 EU 시장의 핵심 OEM 자리 유지.",
+        "EESC = EU 자문 기구. \"a real boost\" 호소는 의무 정책이 아님 — Commission 정식 응답이 다음 분기 추적 대상."
+      ],
+      "urls": [
+        "https://www.eesc.europa.eu/en/news-media/news/battery-production-europe-needs-real-boost"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "EESC 3월 Plenary, EU Commission Battery Booster Strategy 의견 채택; \"유럽 배터리 가치 사슬\" 강화 미션 지지하면서 추가 부스트 호소",
+          "source_url": "https://www.eesc.europa.eu/en/news-media/news/battery-production-europe-needs-real-boost",
+          "source_quote": "Battery production in Europe needs a real boost 31/03/2026 At the March Plenary, the European Economic and Social Committee (EESC) adopted an opinion on the European Commission",
+          "fetched_at": "2026-04-27T06:34:11+00:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "EU_2026-04-27_C01"
+      ],
+      "merge_status": "single",
+      "representative_source": "EESC News",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 1,
+        "C": 0,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 1,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "REVIEW status — 정책 권고 detail (자본 한도, 일정, 수익 면제) fact 보강 권장"
     },
     {
       "id": "2026-04-27_GL_01",
@@ -971,6 +3067,298 @@
           "fetched_at": "2026-04-28T07:00:23+09:00"
         }
       ]
+    },
+    {
+      "id": "2026-04-27_GL_10",
+      "region": "GL",
+      "date": "2026-04-27",
+      "cat": "SupplyChain",
+      "sub_cat": "희토류 1년 회고",
+      "signal": "high",
+      "title": "CSIS '중국 희토류 1년' 보고서 — 미국 수십억$ 대응에도 'true resilience' 거리 평가",
+      "sub": "4-27 CSIS Energy / Gracelin Baskaran + Meredith Schwartz / 중국 2025 희토류 제한 1년 회고 / 미국 정책 평가",
+      "gate": "CSIS Energy 4-27 \"중국 2025 희토류 수출 제한 1년\" 회고. 중국 제한이 미국 안보 critical vulnerability를 노출, 미국는 수십억$ 자금조달+글로벌 파트너십으로 응답했지만 1년 후 \"true resilience\" 거리는 멀다 평가. baseline 4-27 GL_01(DoD Lynas $96M), 4-21 US_01(USA Rare Earth Brazil $2.8B), 4-27 KR_28(KIGAM 베트남)와 동시.",
+      "fact": "CSIS Energy 보고서(4-27, Gracelin Baskaran·Meredith Schwartz): \"China’s 2025 rare earth export restrictions exposed a critical U.S. national security vulnerability\"; \"Washington responded with billions in financing and global partnerships\"; \"One year on, we assess the response—and how far the United States still is from true resilience\". 주의: abstract만 인용 — 본문 detail (정량 데이터, 자금조달 분석, 정책 권고) fetch 권장.",
+      "implication": [
+        "중국 희토류 제한 1년이 지났음에도 미국·서구 \"true resilience\" 미도달 = K 핵심광물 정책(SPEC_KEXIM_MINERALS_RT, 4-24 KR_07 자원안보법, 4-23 KR_02 KIGAM 베트남)도 1년 안 자급화 어렵다는 평가 인사이트.",
+        "baseline 4-27 GL_01(DoD Lynas $96M) + 4-21 US_01(USA Rare Earth Brazil $2.8B) + 4-25 GL_01(Brazil Serra Verde) + SPEC_DRC_MINERAL_GUARD = 미국·서구 광물 자본 공세가 \"빠른 결과 없는 장기 전쟁\"임을 CSIS가 공식 인정.",
+        "CSIS \"true resilience\" 표현 — 정책 권고 본문 fetch 시 K \"다자 외교+정책금융\" 채널이 미국 \"자본+파트너십\"보다 효율적인지 평가 가능."
+      ],
+      "urls": [
+        "https://www.csis.org/analysis/rare-earth-export-restrictions-one-year-later"
+      ],
+      "related": [
+        "2026-04-27_GL_01",
+        "2026-04-21_US_01",
+        "2026-04-27_KR_09",
+        "2026-04-23_KR_02",
+        "2026-04-24_KR_07"
+      ],
+      "fact_sources": [
+        {
+          "claim": "CSIS Energy: 중국 2025 희토류 제한 → 미국 안보 취약 노출, 미국 수십억$ + 글로벌 파트너십 대응, 1년 후 'true resilience' 거리 평가",
+          "source_url": "https://www.csis.org/analysis/rare-earth-export-restrictions-one-year-later",
+          "source_quote": "Rare Earth Export Restrictions One Year Later China’s 2025 rare earth export restrictions exposed a critical U.S. national security vulnerability. Washington responded with billions in financing and global partnerships. One year on, we assess the response—and how far the United States still is from true resilience. Brief by Gracelin Baskaran and Meredith Schwartz — April 27, 2026",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "GL_2026-04-27_C21"
+      ],
+      "merge_status": "single",
+      "representative_source": "CSIS Energy",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 2,
+        "B": 1,
+        "C": 0,
+        "total": 3,
+        "exception": null
+      },
+      "source_tier": 1,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_GL_11",
+      "region": "GL",
+      "date": "2026-04-27",
+      "cat": "Materials",
+      "sub_cat": "니켈 가격",
+      "signal": "high",
+      "title": "LME 니켈 톤당 $19,155 — 2024-06 이후 최고, 인도네시아 감산 + 이란 전쟁발 황산 급등 '이중 충격'",
+      "sub": "4-27 LME 니켈 +2.8% / 2024-06 이후 최고 / 인도네시아 쿼터 축소 (글로벌 50%+) / 이란 전쟁 → 황산 급등 → MHP·구리 침출 차질",
+      "gate": "니켈 약 2년 만에 최고. 4-27 LME 톤당 19,155$, 장중 +2.8%. 두 충격 동시: ① 인도네시아(글로벌 50%+) 채굴 쿼터 축소 ② 이란 전쟁 → 황산 급등 → 배터리용 MHP·아프리카 구리 침출까지 연쇄 차질. 이란 전쟁 후 니켈 +7%, 구리 -0.8%, 주석 -2%로 NCM 셀 원료 핵심 니켈만 별도 폭등. K NCM·니켈 정련(고려아연 baseline 4-27 US_01) 사이클 직접 영향.",
+      "fact": "더구루(4-28, LME 4-27): \"27일(현지시간) 런던금속거래소(LME)에서 니켈 가격은 상승 흐름 속에 톤당 1만9155달러까지 올랐다. 장중 한때 2.8% 상승하며 2024년 6월 이후 최고치를 찍기도 했다\". 공급 차질: \"인도네시아가 가격 회복을 위해 채굴 쿼터를 축소\"; \"인도네시아는 세계 최대 니켈 생산국으로 글로벌 생산의 절반 이상\". 이란 효과: \"이란 전쟁 여파로 황산 가격이 급등하며 배터리용 니켈 가공과 MHP(혼합수산화물) 생산, 아프리카 구리 침출 공정까지 차질이 확산\"; \"황산은 니켈을 MHP로 가공하는 핵심 시약\". 비철 비교: \"이란 전쟁 이후 니켈은 약 7% 상승한 반면, 구리는 0.8% 하락하고 주석은 2% 떨어지는 등\".",
+      "implication": [
+        "NCM 셀 원가의 약 30~40%(니켈+황산)가 오르는 원자재 충격. K NCM 양극재(에코프로비엠·엘앤에프·포스코퓨처엠) 1Q26 실적 회복 후 2Q에 마진 압박 가능성.",
+        "\"이중 충격\" = 정상 사이클 회복(BMW·머스크 NCM 셀 수요)에 원료 인플레 상충. K 셀 OEM 고객 가격 인상 협상력 검증.",
+        "baseline 4-27 US_01(고려아연 FAST-41 미국 영구자석) + SPEC_KEXIM_MINERALS_RT 11개국 RT + SPEC_DRC_MINERAL_GUARD 흐름과 함께 니켈/희토류/리튬 모두 \"가격+공급망 정책\" 동시 변동. 자원안보법(4-24 KR_07) 실행 시급도 체감.",
+        "미·이란 협상 교착 단기 변동성 ↑. 본 카드 fact는 4-27 시점 +2.8% 단일 datapoint — 추세 추적은 차주 카드."
+      ],
+      "urls": [
+        "https://www.theguru.co.kr/news/article.html?no=101114"
+      ],
+      "related": [
+        "2026-04-27_US_01",
+        "2026-04-24_KR_07",
+        "2026-04-21_US_01"
+      ],
+      "fact_sources": [
+        {
+          "claim": "4-27 LME 니켈 톤당 19,155$, 2024-06 이후 최고; 장중 +2.8%; 이란 전쟁 이후 니켈 +7%, 구리 -0.8%, 주석 -2%",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101114",
+          "source_quote": "27일(현지시간) 런던금속거래소(LME)에서 니켈 가격은 상승 흐름 속에 톤당 1만9155달러까지 올랐다. 장중 한때 2.8% 상승하며 2024년 6월 이후 최고치를 찍기도 했다. 이란 전쟁 이후 니켈은 약 7% 상승한 반면, 구리는 0.8% 하락하고 주석은 2% 떨어지는 등 비철금속 시장은 혼조세를 나타냈다.",
+          "fetched_at": "2026-04-28T08:36:17+09:00"
+        },
+        {
+          "claim": "인도네시아 채굴 쿼터 축소 (글로벌 50%+)",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101114",
+          "source_quote": "가격 상승의 배경에는 공급 차질이 자리하고 있다. 인도네시아가 가격 회복을 위해 채굴 쿼터를 축소하면서 공급이 줄었다. 인도네시아는 세계 최대 니켈 생산국으로 글로벌 생산의 절반 이상을 차지한다.",
+          "fetched_at": "2026-04-28T08:36:17+09:00"
+        },
+        {
+          "claim": "이란 전쟁 → 황산 급등; 황산은 MHP 가공·아프리카 구리 침출 핵심 시약",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101114",
+          "source_quote": "여기에 이란 전쟁 여파로 황산 가격이 급등하며 배터리용 니켈 가공과 MHP(혼합수산화물) 생산, 아프리카 구리 침출 공정까지 차질이 확산되고 있다. 황산은 니켈을 MHP로 가공하는 핵심 시약으로, 공급 차질이 발생할 경우 생산 전반에 영향을 미친다.",
+          "fetched_at": "2026-04-28T08:36:17+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C87"
+      ],
+      "merge_status": "single",
+      "representative_source": "더구루 (LME 인용)",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 2,
+        "B": 0,
+        "C": 1,
+        "total": 3,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_GL_12",
+      "region": "GL",
+      "date": "2026-04-27",
+      "cat": "SupplyChain",
+      "sub_cat": "광산 경비대",
+      "signal": "mid",
+      "title": "민주콩고 '광산 경비대' 창설 — 미국·UAE 1억$ 지원, 2028까지 2만 명, M23 반군 동부 광산 방어",
+      "sub": "4-27 민주콩고 광산총국 / 미국+UAE 1억$(1500억원) / 2028까지 2만 명 / 6개월 집중 훈련 / 22개 광업 주 + 화물 보호 / M23 반군 동부 광산 방어",
+      "gate": "민주콩고가 미국·UAE 1억$(1500억원) 지원 받아 \"광산 경비대\" 창설. 2028까지 최대 2만 명, 6개월 집중 훈련, 22개 광업 주의 현장 + 전국 화물 보호. M23 반군 장악 동부 광산 주 방어 목적. baseline 4-27 GL_01(DoD Lynas $96M) + 4-21 US_01(USA Rare Earth Brazil $2.8B) + SPEC_KEXIM_MINERALS_RT(K 11개국 RT)와 함께 \"미국·서구 광물 자본+무력 사이클\" 가시화.",
+      "fact": "더구루(4-28, 민주콩고 광산총국 4-27 성명): \"민주콩고 광산총국은 27일(현지시간) 성명을 통해 '미국과 UAE의 지원을 받아 광산 경비대를 창설하기로 했다'고 밝혔다\". \"광산 경비대 창설에는 1억 달러(약 1500억원)의 자금이 투입되며, 오는 202028년까지 최대 2만 명으로 구성된다\". \"경비대원들은 6개월 간 집중 훈련을 받으며, 전국 22개 광업 주의 현장을 지키고 민주콩고 전역으로 운송되는 화물을 보호\".",
+      "implication": [
+        "미국·서구 광물 자본 공세가 \"자본\"+\"외교\"+\"무력\"의 3축으로 진화. baseline 4-21 US_01·4-27 GL_01·4-25 GL_01·SPEC_CSIS_REE_1YEAR + 본 카드 = 미국 광물 안보 사이클이 무력 보호로 확장.",
+        "K \"다자 외교+정책금융\" 채널(SPEC_KEXIM_MINERALS_RT 11개국 RT, baseline 4-23 KR_02 KIGAM 베트남)은 미국 \"자본+무력\" 채널과 다른 axis. K가 글로벌 광물 외교에서 어떻게 차별화 위치를 잡는지 분기 분석 baseline.",
+        "M23 반군 동부 광산 = 코발트·구리 핵심 산지. K 셀 OEM(NCM 코발트) 공급 안정성에 직접 영향."
+      ],
+      "urls": [
+        "https://www.theguru.co.kr/news/article.html?no=101120"
+      ],
+      "related": [
+        "2026-04-27_GL_01",
+        "2026-04-21_US_01",
+        "2026-04-27_KR_09",
+        "2026-04-23_KR_02"
+      ],
+      "fact_sources": [
+        {
+          "claim": "민주콩고 4-27 — 미국·UAE 지원 받아 광산 경비대 창설, 1억$ (1500억원), 2028까지 최대 2만 명, 6개월 집중 훈련, 22개 광업 주 현장·전국 화물 보호",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101120",
+          "source_quote": "민주콩고 광산총국은 27일(현지시간) 성명을 통해 “미국과 UAE의 지원을 받아 광산 경비대를 창설하기로 했다”고 밝혔다. 광산 경비대 창설에는 1억 달러(약 1500억원)의 자금이 투입되며, 오는 2028년까지 최대 2만 명으로 구성된다. 경비대원들은 6개월 간 집중 훈련을 받으며, 전국 22개 광업 주의 현장을 지키고 민주콩고 전역으로 운송되는 화물을 보호하는 임무를 맡는다.",
+          "fetched_at": "2026-04-28T09:55:15+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C60"
+      ],
+      "merge_status": "single",
+      "representative_source": "더구루 (민주콩고 광산총국 인용)",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 1,
+        "C": 0,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_GL_13",
+      "region": "GL",
+      "date": "2026-04-27",
+      "cat": "PowerGrid",
+      "sub_cat": "VIS perovskite",
+      "signal": "mid",
+      "title": "Oxford PV, Nissan UK SUITE 컨소시엄 합류 — 'perovskite-on-silicon tandem' 차량 통합 솔라 +20-30% 전력 시도",
+      "sub": "4-27 / Oxford PV + SUITE (Nissan Technical Centre UK 주도) / vehicle-integrated solar / perovskite-on-silicon tandem / 단위면적당 +20-30% power vs 기존 실리콘",
+      "gate": "Oxford PV가 Nissan Technical Centre UK 주도 SUITE (vehicle-integrated solar 컨소시엄)에 합류. perovskite-on-silicon tandem 기술이 차량 통합 응용에서 \"단위면적당 +20-30% power vs 기존 실리콘\" 가능. SPEC_LONGI_HIBC_2813(LONGi HIBC 28.13%) + 4-27 baseline GL_04(Trina THBC 28.00%) 등 \"단접합 28%+ vs 페로브스카이트 tandem\" 효율 경쟁 사이클의 차량 응용 axis.",
+      "fact": "PV Magazine(4-27): \"Oxford PV has joined SUITE, a vehicle‑integrated solar consortium led by Nissan Technical Centre UK, saying its tandem technology could materially increase the solar contribution to electric‑vehicle range\"; \"its perovskite‑on‑silicon tandem technology could deliver 20% to 30% more power per unit area than conventional silicon in vehicle‑integrated applications\".",
+      "implication": [
+        "차량 통합 솔라 (vehicle-integrated solar, VIS) 시장은 BEV 1회 충전 거리·grid 의존도 감소를 위한 차세대 트렌드. Oxford PV의 perovskite tandem이 \"실리콘 대비 +20-30%\"는 VIS 상용화의 임계 지점.",
+        "4-27 동일 분기에 SPEC_LONGI_HIBC_2813 + 4-27 baseline GL_04(Trina 28.00%) + 4-27 baseline JP_05(도쿄대 olive-perovskite 30.2%) — \"단접합 vs tandem\" 효율 경쟁이 같은 시점에 4건 갱신.",
+        "K 페로브스카이트(한화큐셀 baseline 2026-04-20_KR_59 페로브스카이트 tandem 2029 양산) 사이클과 비교. Nissan UK 컨소시엄은 K OEM(현대차)와 거리."
+      ],
+      "urls": [
+        "https://www.pv-magazine.com/2026/04/27/oxford-pv-says-tandem-solar-could-add-up-to-5-km-to-daily-ev-range"
+      ],
+      "related": [
+        "2026-04-20_KR_59"
+      ],
+      "fact_sources": [
+        {
+          "claim": "Oxford PV, Nissan UK 주도 SUITE (vehicle-integrated solar) 컨소시엄 합류 / perovskite-on-silicon tandem이 차량 통합 응용에서 단위면적당 +20-30% power 가능",
+          "source_url": "https://www.pv-magazine.com/2026/04/27/oxford-pv-says-tandem-solar-could-add-up-to-5-km-to-daily-ev-range",
+          "source_quote": "Oxford PV Oxford PV has joined SUITE, a vehicle‑integrated solar consortium led by Nissan Technical Centre UK, saying its tandem technology could materially increase the solar contribution to electric‑vehicle range. The company claims its perovskite‑on‑silicon tandem technology could deliver 20% to 30% more power per unit area than conventional silicon in vehicle‑integrated applications.",
+          "fetched_at": "2026-04-27T13:36:15+02:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "GL_2026-04-27_C18"
+      ],
+      "merge_status": "single",
+      "representative_source": "PV Magazine",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_JP_01",
+      "region": "JP",
+      "date": "2026-04-27",
+      "cat": "Materials",
+      "sub_cat": "LiFSI 첨가제",
+      "signal": "mid",
+      "title": "Nippon Shokubai 중국 LiFSI capa 5배 확장 — 일본 화학사가 'EV·ESS 셀 수명 첨가제' 중국 시장 베팅",
+      "sub": "4-27 닛케이 아시아 / Nippon Shokubai 중국 LiFSI capa 5배(quintuple) / EV·ESS 셀 수명 연장 첨가제 / 일본 화학사 중국 의존",
+      "gate": "Nippon Shokubai가 중국 LiFSI(리튬 비스 플루오로설포닐 이미드) 전해액 첨가제 capa를 5배 확장 계획. \"EV·ESS 셀 수명 연장 핵심 첨가제\". 일본 화학사가 중국 시장에 베팅하는 패턴 (Nikkei Asia 4-27). baseline 2026-04-22_KR_05(엔켐 LFP 첨가제 양산), SPEC_ENCHEM_EU(엔켐 EU 20만톤)와 함께 \"전해액·첨가제 글로벌 사이클\" 본격.",
+      "fact": "Nikkei Asia(4-27): \"Nippon Shokubai bets on rising demand for electrolyte for EV, storage cells Nippon Shokubai is ramping up production of the electrolyte LiFSI, left, which helps extend the life of EV batteries\". \"OSAKA -- Japanese chemical maker Nippon Shokubai plans to increase its Chinese production capacity for an electrolyte that helps extend the life of lithium-ion batteries used in electric vehicles and storage cells\". 주의: usable_text 짧음 — quintuple = 5배 정확한 수치, 중국 facility 위치, 투자 규모, 일정 fact는 본 카드에 미포함. Nikkei fetch 권장.",
+      "implication": [
+        "LiFSI는 LFP 셀 수명·고온 안전성 핵심 첨가제. SPEC_ENCHEM_EU(엔켐 EU LFP 전해액) + SPEC_DAEHAN_NCC(나프타 보조) 흐름과 함께 \"K·일본 첨가제 OEM 글로벌 capa 사이클\".",
+        "\"중국 capa\" 확장 = 일본 화학사도 중국 셀 OEM 의존도 인정. K 첨가제 OEM(엔켐·천보·솔브레인 등) 중국 capa 전략과 비교 — K는 \"한국+북미+유럽\" 분산, 일본은 \"중국 집중\" 차이.",
+        "B에서 Nikkei 본문 fetch 시 정확한 5배 의미(현재 capa, 투자액, 일정)·중국 facility 위치 fact 보강 필요."
+      ],
+      "urls": [
+        "https://asia.nikkei.com/business/automobiles/electric-vehicles/japan-chemical-maker-to-quintuple-china-output-for-key-battery-material2"
+      ],
+      "related": [
+        "2026-04-22_KR_05"
+      ],
+      "fact_sources": [
+        {
+          "claim": "Nippon Shokubai 4-27 — EV·ESS 셀용 LiFSI 전해액 중국 capa 5배(quintuple) 확장 계획",
+          "source_url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/japan-chemical-maker-to-quintuple-china-output-for-key-battery-material2",
+          "source_quote": "Nippon Shokubai bets on rising demand for electrolyte for EV, storage cells Nippon Shokubai is ramping up production of the electrolyte LiFSI, left, which helps extend the life of EV batteries. (Nippon Shokubai) OSAKA -- Japanese chemical maker Nippon Shokubai plans to increase its Chinese production capacity for an electrolyte that helps extend the life of lithium-ion batteries used in electric vehicles and storage cells.",
+          "fetched_at": "2026-04-27T21:00:45.000Z"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "GL_2026-04-27_C14"
+      ],
+      "merge_status": "single",
+      "representative_source": "Nikkei Asia",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 1,
+      "baseline_relation": "new"
     },
     {
       "id": "2026-04-27_JP_02",
@@ -1647,6 +4035,209 @@
       ]
     },
     {
+      "id": "2026-04-27_KR_10",
+      "region": "KR",
+      "date": "2026-04-27",
+      "cat": "Materials",
+      "sub_cat": "전해액 유럽",
+      "signal": "mid",
+      "title": "엔켐 유럽 전해액 '중저가 EV'로 전략 재편 — 폴란드 13만톤+헝가리 7만톤 capa, 유럽 약 10개 고객사 목표",
+      "sub": "4-27 / 미드니켈 + NCA/NCM/LFP/Si 병행 / Verkor + 르노 / 유럽 10개 목표 / 폴란드 13만톤 + 헝가리 7만톤 = 총 20만톤",
+      "gate": "엔켐이 4-27 유럽 전해액을 \"고성능 → 중저가 EV\"로 재편. NCA·NCM·LFP·Si 음극용 병행, 프랑스 Verkor 르노 프로젝트 + 폴란드·헝가리·이탈리아 협업, 유럽 약 10개 고객사 목표. 폴란드 브로츠와프 13만톤 + 헝가리 7만톤 = 총 20만톤.",
+      "fact": "전자신문(4-27): \"전해액 기업 엔켐이 유럽 전기차 시장 성장세에 맞춰 중저가 전기차용 전해액 전략을 강화하고 있다고 27일 밝혔다. 엔켐은 미드니켈 배터리용 전해액을 중심으로 고전압 안정성과 산화 분해 억제 성능을 확보하고, 관련 첨가제 개발을 완료\". 제품군: \"NCA, NCM, LFP, Si 음극용 전해액 등 다양한 제품군을 유럽 시장에서 병행 운영\". 고객·진척: \"프랑스 소재 배터리 기업 베르코 기가팩토리를 중심으로 르노 프로젝트 대응\"; \"유럽 전역에서 약 10개 고객사 확보를 목표\". Capa: \"유럽에서 총 20만톤 규모의 전해액 생산능력\"; \"폴란드 13만톤, 헝가리 7만톤\".",
+      "implication": [
+        "엔켐 글로벌 전해액의 유럽 축이 \"중저가 LFP·미드니켈\" 시장으로 재편 — 삼성SDI 헝가리 LFP 전환(SPEC_SAMSDI_1Q26)과 \"K 셀+소재의 EU 중저가 LFP 사이클\" 정렬.",
+        "baseline 4-20 KR_50(엔켐 북미) + 본 카드(유럽 20만톤) = 엔켐 \"북미+유럽+한국\" 글로벌 3축. SPEC_NIPPON_SHOKUBAI_LIFSI와 함께 \"전해액·첨가제 글로벌 capa 확장\" 분기.",
+        "Verkor·르노 = K 전해액사가 EU OEM 직접 거래선 확보 첫 본격. SPEC_DAEHAN_NCC + SPEC_JEONNAM_LIB_CLUSTER와 함께 \"K 전해액 글로벌 사이클\" 원료-소재-고객 3축 동기화."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260427000374"
+      ],
+      "related": [
+        "2026-04-20_KR_50",
+        "2026-04-22_KR_05"
+      ],
+      "fact_sources": [
+        {
+          "claim": "엔켐 4-27 — 유럽 EV 시장 성장에 맞춰 중저가 EV용 전해액 전략 강화 / 미드니켈 전해액 중심",
+          "source_url": "https://www.etnews.com/20260427000374",
+          "source_quote": "전해액 기업 엔켐이 유럽 전기차 시장 성장세에 맞춰 중저가 전기차용 전해액 전략을 강화하고 있다고 27일 밝혔다. 엔켐은 미드니켈 배터리용 전해액을 중심으로 고전압 안정성과 산화 분해 억제 성능을 확보하고, 관련 첨가제 개발을 완료하며 제품 경쟁력을 끌어올렸다.",
+          "fetched_at": "2026-04-27T15:34:29+09:00"
+        },
+        {
+          "claim": "NCA·NCM·LFP·Si 음극용 다양한 제품군 유럽 병행",
+          "source_url": "https://www.etnews.com/20260427000374",
+          "source_quote": "이와 함께 니켈코발트알루미늄(NCA), 니켈코발트망간(NCM), 리튬인산철(LFP), 실리콘(Si) 음극용 전해액 등 다양한 제품군을 유럽 시장에서 병행 운영한다.",
+          "fetched_at": "2026-04-27T15:34:29+09:00"
+        },
+        {
+          "claim": "프랑스 Verkor 르노 + 프랑스/폴란드/헝가리/이탈리아 / 유럽 약 10개 고객사 목표",
+          "source_url": "https://www.etnews.com/20260427000374",
+          "source_quote": "엔켐은 프랑스 소재 배터리 기업 베르코 기가팩토리를 중심으로 르노 프로젝트 대응에 나서고 있으며, 프랑스, 폴란드, 헝가리, 이탈리아 일부 고객사와도 협업을 추진하고 있다. 유럽 전역에서 약 10개 고객사 확보를 목표로 영업 활동을 확대하고 있다.",
+          "fetched_at": "2026-04-27T15:34:29+09:00"
+        },
+        {
+          "claim": "유럽 총 20만톤: 폴란드 13만톤 + 헝가리 7만톤",
+          "source_url": "https://www.etnews.com/20260427000374",
+          "source_quote": "엔켐은 유럽에서 총 20만톤 규모의 전해액 생산능력을 확보하고 있으며 폴란드 13만톤, 헝가리 7만톤의 생산 체제를 구축했다.",
+          "fetched_at": "2026-04-27T15:34:29+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-27_C20"
+      ],
+      "merge_status": "single",
+      "representative_source": "전자신문",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_KR_11",
+      "region": "KR",
+      "date": "2026-04-27",
+      "cat": "PowerGrid",
+      "sub_cat": "해상풍력 국산화",
+      "signal": "mid",
+      "title": "CIP 해송해상풍력 + 지멘스가메사 + 두산에너빌리티, 신안 1GW 해상풍력 '국산화' MOU",
+      "sub": "4-27 CIP 한국 / 해송해상풍력+SGRE+두산에너빌리티 / 전남 신안 1GW 해상풍력 / 단순 기술 제휴 넘어 국산화 모델",
+      "gate": "CIP 신안 해상풍력 법인 해송해상풍력이 4-27 지멘스가메사·두산에너빌리티와 \"국산화 확대\" MOU 체결. 해송1·3 프로젝트(전남 신안 1GW) 기술/상업/조달 전 분야. \"단순 기술 제휴 넘어 국내 환경 최적화 국산화 모델\".",
+      "fact": "이투뉴스(4-28): \"코펜하겐 인프라스트럭쳐 파트너스(CIP)의 신안 해상풍력 프로젝트 법인인 해송해상풍력발전이 27일 서울 종로구 CIP 한국법인 사무실에서 지멘스 가메사 리뉴어블 에너지, 두산에너빌리티와 국내 해상풍력 산업의 국산화 확대를 위한 업무협약(MOU)을 체결\". \"3사는 해송해상풍력1∙3 프로젝트(전남 신안 해역 1GW 규모 해상풍력 발전단지 조성)와 관련한 기술, 상업, 조달 등 전 분야에 걸쳐 전략적 협력\".",
+      "implication": [
+        "baseline 2026-04-22_KR_01(네이버 GS풍력+LG엔솔 ESS) + 4-25 JP_01(아키타 풍력) 동북아 해상풍력 사이클. 본 카드는 \"국산화 모델\" 첫 본격 — SGRE 라이선스/공급망에 두산이 들어가는 형태인지 차별화 모델인지 fact 보강 필요.",
+        "신안 1GW = K 해상풍력 단일 최대급. ESS 결합 가능성과 함께 \"풍력+ESS\" 통합 EPC 시장 진입.",
+        "B에서 SGRE·두산 발표문 fetch 시 국산화율, 부품 분담, 가동 일정 fact 보강 필요."
+      ],
+      "urls": [
+        "http://www.e2news.com/news/articleView.html?idxno=329920",
+        "https://www.energy-news.co.kr/news/articleView.html?idxno=225002",
+        "https://www.electimes.com/news/articleView.html?idxno=367467"
+      ],
+      "related": [
+        "2026-04-22_KR_01",
+        "2026-04-25_JP_01"
+      ],
+      "fact_sources": [
+        {
+          "claim": "CIP 신안 해상풍력 법인 해송해상풍력 4-27 SGRE+두산에너빌리티와 국산화 확대 MOU",
+          "source_url": "http://www.e2news.com/news/articleView.html?idxno=329920",
+          "source_quote": "[이투뉴스] 코펜하겐 인프라스트럭쳐 파트너스(CIP)의 신안 해상풍력 프로젝트 법인인 해송해상풍력발전이 27일 서울 종로구 CIP 한국법인 사무실에서 지멘스 가메사 리뉴어블 에너지, 두산에너빌리티와 국내 해상풍력 산업의 국산화 확대를 위한 업무협약(MOU)을 체결했다.이번 협약을 통해 3사는 해송해상풍력1∙3 프로젝트(전남 신안 해역 1GW 규모 해상풍력 발전단지 조성)와 관련한 기술, 상업, 조달 등 전 분야에 걸쳐 전략적 협력 방안을 공동으로 모색한다. 단순한 기술 제휴를 넘어 국내 환경에 최적화된 구체적인 국산화 모델을 제시함",
+          "fetched_at": "2026-04-28T14:18:06+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C14",
+        "KR_2026-04-28_C108",
+        "KR_2026-04-28_C109"
+      ],
+      "merge_status": "merged",
+      "representative_source": "이투뉴스",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_KR_12",
+      "region": "KR",
+      "date": "2026-04-27",
+      "cat": "EV",
+      "sub_cat": "수소버스 인프라",
+      "signal": "mid",
+      "title": "현대차 5년 400대 수소버스 보급 — 수도권 운수사+CNG→수소충전소 전환 '4자 MOU'",
+      "sub": "4-27 / 현대차+도원교통+삼환교통+세운산업+현대차증권 / 수도권 5년 400대 수소전기버스 / CNG → 수소충전소 전환 / 일렉시티 78.4kWh+180kW+751.2km",
+      "gate": "현대차가 4-27 수도권 운수업체와 \"5년 400대 수소전기버스\" MOU. 도원교통·삼환교통(운영) + 세운산업(충전, CNG→수소 전환) + 현대차증권(금융) + 현대차. 일렉시티 spec: 180kW 수소연료전지 + 180kW 모터, 78.4kWh 리튬이온, 1회 충전 최대 751.2km.",
+      "fact": "아주경제(4-28): \"현대차는 지난 27일 현대차 강남대로 사옥에 위치한 UX 스튜디오 서울에서 도원교통, 삼환교통, 세운산업, 현대차증권과 업무협약을 맺고 수도권 수소 시내버스 보급 가속화를 협업 추진\". 목표: \"수도권의 CNG 충전소를 수소충전소로 전환해 수소 시내버스 보급이 확대될 수 있는 기반을 조성하는 한편, 도원교통 및 삼환교통이 운영 중인 수도권 시내버스 노선에 5년 내 총 400대의 수소전기버스를 도입하는 것을 목표\". 차량: \"일렉시티 수소전기버스는 최고출력 180kW 수소연료전지 시스템, 최고출력 180kW, 최대 토크 4500N∙m의 모터, 78.4kWh의 고출력 리튬 이온 배터리를 탑재\".",
+      "implication": [
+        "한국 commercial EV 사이클 \"수소 axis\" 본격화. 4자 MOU(OEM+운수사+충전사+금융) = 수소버스 보급의 \"운영-충전-금융\" 통합 모델 첫 본격.",
+        "5년 400대 = 수도권 시내버스 약 1.5만 대의 약 2.7%. 단일 OEM 단일 도시권 5년 보급으로는 의미 있는 규모. CNG→수소 충전 인프라 전환 자체가 핵심 임계.",
+        "baseline 4-25_JP_02 혼다 EV 후퇴 + SPEC_NAGASAKI_BUS_EMOTION와 비교 — K는 \"수소+버스+인프라+금융\", 일본은 \"BEV+EMS\". 두 모델 분기.",
+        "78.4kWh 리튬이온은 K 셀 OEM 공급 가능 — 수소버스 셀 공급도 안정."
+      ],
+      "urls": [
+        "http://www.press9.kr/news/articleView.html?idxno=75689",
+        "https://www.ajunews.com/view/20260428093525929",
+        "https://www.mt.co.kr/industry/2026/04/28/2026042808581692011",
+        "https://www.ddaily.co.kr/page/view/2026042809511363067"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "현대차 4-27 강남대로 UX 스튜디오 — 도원교통·삼환교통·세운산업·현대차증권 4자 MOU; 5년 내 400대 수소전기버스",
+          "source_url": "https://www.ajunews.com/view/20260428093525929",
+          "source_quote": "현대차는 지난 27일 현대차 강남대로 사옥에 위치한 UX 스튜디오 서울에서 도원교통, 삼환교통, 세운산업, 현대차증권과 업무협약을 맺고 수도권 수소 시내버스 보급 가속화를 협업 추진하기로 했다고 28일 밝혔다.",
+          "fetched_at": "2026-04-28T10:14:04+09:00"
+        },
+        {
+          "claim": "CNG 충전소 → 수소충전소 전환 + 5년 400대",
+          "source_url": "https://www.ajunews.com/view/20260428093525929",
+          "source_quote": "업무협약은 수도권의 CNG 충전소를 수소충전소로 전환해 수소 시내버스 보급이 확대될 수 있는 기반을 조성하는 한편, 도원교통 및 삼환교통이 운영 중인 수도권 시내버스 노선에 5년 내 총 400대의 수소전기버스를 도입하는 것을 목표로 한다.",
+          "fetched_at": "2026-04-28T10:14:04+09:00"
+        },
+        {
+          "claim": "일렉시티 spec: 180kW 수소연료전지 + 180kW 모터, 78.4kWh 리튬이온, 1회 최대 751.2km",
+          "source_url": "https://www.ajunews.com/view/20260428093525929",
+          "source_quote": "일렉시티 수소전기버스는 최고출력 180kW 수소연료전지 시스템, 최고출력 180kW, 최대 토크 4500N∙m의 모터, 78.4kWh의 고출력 리튬 이온 배터리를 탑재했다.",
+          "fetched_at": "2026-04-28T10:14:04+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C110",
+        "KR_2026-04-28_C111",
+        "KR_2026-04-28_C112",
+        "https://www.ddaily.co.kr/page/view/2026042809511363067"
+      ],
+      "merge_status": "merged",
+      "representative_source": "아주경제",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
       "id": "2026-04-27_US_01",
       "region": "US",
       "date": "2026-04-27",
@@ -1808,6 +4399,186 @@
           "fetched_at": "2026-04-28T06:24:36+09:00"
         }
       ]
+    },
+    {
+      "id": "2026-04-27_US_04",
+      "region": "US",
+      "date": "2026-04-27",
+      "cat": "PowerGrid",
+      "sub_cat": "미국 청정 capa 전망",
+      "signal": "mid",
+      "title": "EIA: 미국 2026 청정 capa 86,370MW — utility-scale 태양·풍·BESS 80GW+ vs fossil/nuclear -5GW",
+      "sub": "4-27 EIA / 2027-02-28까지 utility 태양+풍+BESS 80GW+ / 재생E+small-scale+BESS 86,370MW / fossil+nuclear -5GW / 미국 청정 capa 정량 anchor",
+      "gate": "EIA 4-27: 미국 utility-scale 태양·풍·BESS 합 2027-02-28까지 80GW+ 신규, 합산 fossil+nuclear 약 -5GW. 재생E+small-scale+BESS 2026 신규 86,370MW. baseline 2026-04-23_US_02(Georgia Power 6,000MW DC RFP), 2026-04-22_US_05(Tenaska TVA 225MW), SPEC_SOFTBANK_CATL_AIDC와 함께 \"미국 청정 capa 사이클 정량 anchor\".",
+      "fact": "Electrek(4-27, EIA 인용): \"Utility-scale solar, wind, and battery storage will add more than 80 gigawatts (GW) of new generating capacity in the US by February 28, 2027, while total fossil fuel and nuclear power capacity will fall by almost 5 GW, according to data just released by the US Energy\". 청정 합산: \"Renewables (including small-scale solar) and battery storage will provide 86,370 MW of new clean capacity in 2026\".",
+      "implication": [
+        "미국 청정 capa 80GW+. K 배터리 OEM 미국 ESS AMPC 수혜(SPEC_SAMSDI_1Q26 미국 ESS 2-3년 물량 선확보)의 시장 baseline.",
+        "86,370MW 합산 = 중국 OFweek(SPEC_SOFTBANK_CATL_AIDC 인용)의 \" 글로벌 ESS 신규 438GWh\"의 미국 비중 추정 인풋.",
+        "fossil+nuclear -5GW = \"청정 capa fossil 대체\" EIA 공식. 트럼프 2기 IRA·AMPC 변수에도 2027 초까지 capa 양산 안정."
+      ],
+      "urls": [
+        "https://electrek.co/2026/04/27/eia-80-gw-of-new-solar-wind-storage-capacity-coming-in-2026"
+      ],
+      "related": [
+        "2026-04-23_US_02",
+        "2026-04-22_US_05",
+        "2026-04-22_US_01"
+      ],
+      "fact_sources": [
+        {
+          "claim": "EIA: 미국 utility 태양·풍·BESS 합 2027-02-28까지 80GW+ 신규, fossil/nuclear -5GW",
+          "source_url": "https://electrek.co/2026/04/27/eia-80-gw-of-new-solar-wind-storage-capacity-coming-in-2026",
+          "source_quote": "Utility-scale solar, wind, and battery storage will add more than 80 gigawatts (GW) of new generating capacity in the US by February 28, 2027, while total fossil fuel and nuclear power capacity will fall by almost 5 GW, according to data just released by the US Energy",
+          "fetched_at": "2026-04-27T20:50:16+00:00"
+        },
+        {
+          "claim": "재생E + small-scale + BESS 합 2026 86,370MW 청정 capa",
+          "source_url": "https://electrek.co/2026/04/27/eia-80-gw-of-new-solar-wind-storage-capacity-coming-in-2026",
+          "source_quote": "Renewables (including small-scale solar) and battery storage will provide 86,370 MW of new clean capacity in 2026, according to EIA data.",
+          "fetched_at": "2026-04-27T20:50:16+00:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "US_2026-04-27_C07"
+      ],
+      "merge_status": "single",
+      "representative_source": "Electrek (EIA 인용)",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 1,
+        "C": 0,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 1,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_US_05",
+      "region": "US",
+      "date": "2026-04-27",
+      "cat": "Charging",
+      "sub_cat": "NEVI 인프라",
+      "signal": "mid",
+      "title": "Oregon, NEVI로 24개 EV 급속 충전 사이트 + 약 126 ports — NEVI 사이클 주별 진척",
+      "sub": "4-27 / Oregon highway 24개 / 약 126 ports / NEVI 연방 / SPEC_US_DCFC_MATURITY 사이클 정렬",
+      "gate": "Oregon이 NEVI 연방 프로그램으로 highway 24 사이트 + 약 126 ports 추가. SPEC_US_DCFC_MATURITY + baseline 2026-04-22_US_06(ChargePoint 600kW), 4-25 US_01(CA SB913) 정책 사이클 위에 NEVI 사이트 마일스톤.",
+      "fact": "Electrek(4-27): \"Oregon is about to add 24 EV fast-charging sites with around 126 ports along major highways through the federal NEVI program\".",
+      "implication": [
+        "미국 NEVI 정책 주별 진척. SPEC_US_DCFC_MATURITY 1Q26 신규 3,300기 흐름 위에 추가.",
+        "K 충전기 OEM(채비, 시그넷, LG전자) 미국 NEVI 진입 — Oregon 250kW+ 표준화 시장이라 K 고출력 라인업 우위.",
+        "24 사이트/126 ports = 사이트당 5.25 ports = SPEC_US_DCFC_MATURITY \"한 사이트당 충전기 수 늘리는 방향\"과 동일."
+      ],
+      "urls": [
+        "https://electrek.co/2026/04/27/oregon-boosts-ev-road-trips-with-24-new-fast-charging-sites"
+      ],
+      "related": [
+        "2026-04-22_US_06",
+        "2026-04-25_US_01"
+      ],
+      "fact_sources": [
+        {
+          "claim": "Oregon NEVI 통해 24개 EV 급속 충전 사이트 + 약 126 ports 추가",
+          "source_url": "https://electrek.co/2026/04/27/oregon-boosts-ev-road-trips-with-24-new-fast-charging-sites",
+          "source_quote": "Oregon is about to add 24 EV fast-charging sites with around 126 ports along major highways through the federal NEVI program.",
+          "fetched_at": "2026-04-27T22:02:24+00:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "US_2026-04-27_C14"
+      ],
+      "merge_status": "single",
+      "representative_source": "Electrek",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "total": 1,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_US_06",
+      "region": "US",
+      "date": "2026-04-27",
+      "cat": "ESS",
+      "sub_cat": "LDES vs Li-ion",
+      "signal": "mid",
+      "title": "PV Magazine: 미국 LDES 시장 '격동' — Form Energy 세계 최대급 + ESS 현금난 + EOS 매출 미달, 리튬 $60/kWh가 4시간 시장 침투",
+      "sub": "4-27 PV Magazine USA / Form Energy 100h 배터리 / ESS 사실상 cash 없음 / EOS 매출 미달 / 글로벌 4h ESS ~$80/kWh, 일부 $60/kWh; Form 목표 $20/kWh",
+      "gate": "미국 LDES(중·장 duration ESS) 시장이 격동. Form Energy가 세계 최대급 배터리(Google × Xcel Energy 300MW/30GWh) 발표, ESS Inc는 사실상 cash 없음, EOS는 매출 미달. 100시간 vs 리튬 4시간 차이는 압도적이지만 Form $20/kWh 목표는 아직 실현 못한 상태에서, 리튬 ESS는 글로벌 평균 $80/kWh 미만으로 떨어졌고 일부는 $60/kWh 미만. 리튬이 \"4h 이상 비-리튬 tier\"의 LDES 시장을 침투.",
+      "fact": "PV Magazine USA(4-27): \"Form Energy launched what may be the world’s largest battery, ESS is functionally out of cash, and EOS is missing revenue. In short, the medium and long duration energy storage market is in flux, and it’s being casually hunted by competitive innovation and lithium ion\". 가격: \"The company’s 100 hour battery far out paces lithium battery’s single digit durations; however, Form Energy is still working to deliver on its $20kWh promise\"; \"the global average floats just below $80/kWh for four hour energy storage\"; \"batteries selling below $60/kWh\". 주의: REVIEW 카드 — 매체 1개 기준. 글로벌 평균 $80/kWh, $60/kWh fact는 BloombergNEF 인용. Form Energy×Google×Xcel 300MW/30GWh fact 보강 권장.",
+      "implication": [
+        "LDES \"비-리튬 우위\" 가정에 균열. Li-ion 가격 하락 + duration 확장(BYD Blade 1,000km 등)이 LDES 시장 자체 redefine. baseline 2026-04-22_US_01(Meta×Noon 1GW/100GWh) 흐름의 정량 reality check.",
+        "ESS Inc(매체에서 ESS = ESS Inc 회사명) \"functionally out of cash\" + EOS 매출 미달 = LDES 스타트업 자본난 신호. baseline 4-27 US_03(Form Energy×Google×Xcel) 활기와 대비.",
+        "K 셀 OEM(LG엔솔/SDI/SK on)은 LDES 비-리튬 시장에서 부재했고, 리튬 LDES capa 확장(LG엔솔 5GWh BYD swap 매도×SK on 4시간 ESS 등)으로 LDES 시장 침투 가능성. Form $20/kWh 미실현 상태에서 리튬 LDES 비교 우위."
+      ],
+      "urls": [
+        "https://pv-magazine-usa.com/2026/04/27/medium-duration-storage-endures-woes-while-forms-long-duration-grows-and-lithium-overflows"
+      ],
+      "related": [
+        "2026-04-22_US_01",
+        "2026-04-27_KR_02"
+      ],
+      "fact_sources": [
+        {
+          "claim": "PV Magazine USA: Form Energy 세계 최대급 배터리 발표 / ESS는 사실상 cash 없음 / EOS 매출 미달 — LDES 시장 격동 + 리튬 침투",
+          "source_url": "https://pv-magazine-usa.com/2026/04/27/medium-duration-storage-endures-woes-while-forms-long-duration-grows-and-lithium-overflows",
+          "source_quote": "Form Energy launched what may be the world’s largest battery, ESS is functionally out of cash, and EOS is missing revenue. In short, the medium and long duration energy storage market is in flux, and it’s being casually hunted by competitive innovation and lithium ion.",
+          "fetched_at": "2026-04-27T12:47:22+00:00"
+        },
+        {
+          "claim": "Form Energy 100시간 배터리 + $20/kWh 목표 / 글로벌 4시간 ESS 평균 ~$80/kWh 미만; 일부 $60/kWh 미만",
+          "source_url": "https://pv-magazine-usa.com/2026/04/27/medium-duration-storage-endures-woes-while-forms-long-duration-grows-and-lithium-overflows",
+          "source_quote": "The company’s 100 hour battery far out paces lithium battery’s single digit durations; however, Form Energy is still working to deliver on its $20kWh promise –a number which once felt impossibly far from lithium prices. Source – BloombergNEF Today, the global average floats just below $80/kWh for four hour energy storage – still a full 400% above Form Energy’s goals. However, lurking about are batteries selling below $60/kWh , with cheaper more advanced products coming !",
+          "fetched_at": "2026-04-27T12:47:22+00:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "US_2026-04-27_C11"
+      ],
+      "merge_status": "single",
+      "representative_source": "PV Magazine USA",
+      "staleness": {
+        "event_date": "2026-04-27",
+        "publication_date": "2026-04-27",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "REVIEW status — 단일 매체 기준, BloombergNEF 인용 가격 cross-ref 권장"
     },
     {
       "id": "2026-04-26_CN_01",
@@ -8539,6 +11310,71 @@
       ],
       "week": "W7",
       "related": []
+    },
+    {
+      "id": "2026-04-15_KR_02",
+      "region": "KR",
+      "date": "2026-04-15",
+      "cat": "ESS",
+      "sub_cat": "일본 BESS K 자본 투자",
+      "signal": "mid",
+      "title": "KIND, 4-15 '일본 고압 BESS 포트폴리오 건설·운영' 수익증권 투자 의결 — 4-28 보도, 일본 BESS 사이클의 K 자본 첫 본격",
+      "sub": "4-15 KIND 이사회 의결 / 4-28 보도 (gap=13d stale_warm) / 일본 고압 BESS 포트폴리오 건설·운영 / 수익증권 투자 / SPEC_DIGITALGRID_JP_100MW와 동기",
+      "gate": "KIND(한국해외인프라도시개발지원공사)가 4-15 이사회에서 \"일본 고압 BESS 포트폴리오 건설·운영 사업 수익증권 투자\"를 의결, 4-28 보도. SPEC_DIGITALGRID_JP_100MW, 4-23 baseline JP_01(아사히카세이+주고쿠전력 BESS SW), 4-27 baseline JP_04(BESS SW), 4-22 GL_03(REPT 5GWh 일본)와 함께 \"일본 BESS 사이클의 K 자본 첫 본격\".",
+      "fact": "더구루(4-28, KIND 4-15 이사회 의결): \"이사회는 지난 15일 회의를 열고 '일본 고압 BESS 포트폴리오 건설·운영 사업에 대한 수익증권 투자의 건'을 의결\". 동력: \"KIND는 BESS 시장 내 영향력 확대를 위해 이번 투자를 결정\"; \"일본은 탄소중립 정책에 따라 신재생에너지 비중을 높이고 있다. 이에 따라 전력 계통 안정화를 위한 BESS 수요가 급증\". 주의: gap=13일(4-15 의결 vs 4-28 보도) → stale_warm. 본 카드의 fresh signal은 \"4-28 KIND 발표 보도\" 자체. 투자 규모, 포트폴리오 capa, 운영사 명단 등 정량 fact는 본 카드에 미포함.",
+      "implication": [
+        "일본 BESS 사이클의 \"K 자본 첫 본격 진입\". 글로벌 ESS 시장이 셀+EPC 위주에서 \"국제 자본 + 현지 EPC\" 모델로 진화 — KIND는 K 자본의 첫 분기 사례.",
+        "baseline 2026-04-23_JP_01·2026-04-27_JP_04(BESS SW), 4-22 GL_03(REPT 5GWh 일본), SPEC_DIGITALGRID_JP_100MW와 함께 \"일본 BESS 자본+SW+셀\" 사이클이 4월 분기에 다층 본격화.",
+        "투자 규모, 포트폴리오 capa, 운영사 명단 등 fact 부재 — KIND 정식 공시·보도자료 fetch 후 보강 필요. \"고압\" BESS 의 의미(수전압 단계, 그리드 연결 spec)도 보강.",
+        "단일 매체(더구루) 인용 + KIND 공시. 다른 매체 cross-ref 시 fact 강화."
+      ],
+      "urls": [
+        "https://www.theguru.co.kr/news/article.html?no=101136"
+      ],
+      "related": [
+        "2026-04-23_JP_01",
+        "2026-04-27_JP_04",
+        "2026-04-22_GL_03"
+      ],
+      "fact_sources": [
+        {
+          "claim": "KIND 4-15 이사회 '일본 고압 BESS 포트폴리오 건설·운영 사업 수익증권 투자' 의결 — 4-28 보도",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101136",
+          "source_quote": "28일 KIND에 따르면, 이사회는 지난 15일 회의를 열고 ‘일본 고압 BESS 포트폴리오 건설·운영 사업에 대한 수익증권 투자의 건’을 의결했다.",
+          "fetched_at": "2026-04-28T10:58:46+09:00"
+        },
+        {
+          "claim": "KIND BESS 시장 영향력 확대 위해 투자 결정; 일본 탄소중립 + 신재생E 비중 ↑ → BESS 수요 급증",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101136",
+          "source_quote": "KIND는 BESS 시장 내 영향력 확대를 위해 이번 투자를 결정했다. BESS는 태양광과 풍력 등 신재생에너지 전력을 저장하고 필요할 때 이를 공급하는 설비다. 전력 수급의 유연성을 높여 전력망 안정화의 핵심 설비로 평가 받는다. 특히 일본은 탄소중립 정책에 따라 신재생에너지 비중을 높이고 있다. 이에 따라 전력 계통 안정화를 위한 BESS 수요가 급증하",
+          "fetched_at": "2026-04-28T10:58:46+09:00"
+        }
+      ],
+      "source_origin": "KEEP",
+      "source_story_ids": [
+        "KR_2026-04-28_C17"
+      ],
+      "merge_status": "single",
+      "representative_source": "더구루 (KIND 인용)",
+      "staleness": {
+        "event_date": "2026-04-15",
+        "publication_date": "2026-04-15",
+        "staleness_gap_days": null,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "stale_warm"
+      },
+      "signal_rubric": {
+        "A": 1,
+        "B": 0,
+        "C": 1,
+        "total": 2,
+        "exception": null
+      },
+      "source_tier": 2,
+      "baseline_relation": "new",
+      "needs_review": true,
+      "review_reason": "gap=13d stale_warm — 4-28 KIND 발표 자체가 fresh signal / 투자 규모·포트폴리오 capa fact 보강 필요"
     },
     {
       "id": "2026-04-15_KR_04",

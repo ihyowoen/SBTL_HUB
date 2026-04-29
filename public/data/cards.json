@@ -1,14 +1,213 @@
 {
   "updated": "2026-04-29",
-  "total": 467,
+  "total": 474,
   "schema": "full",
   "baseline_count": 424,
   "new_count": 43,
   "reinforcement_count": 2,
   "run_tag": "20260428_125452",
   "stage_c_qc": "PASS",
-  "readability_pass": "enhanced_red_team_pass",
+  "readability_pass": "merge_20260429_red_team_final_pass",
   "cards": [
+    {
+      "id": "2026-04-29_KR_01",
+      "region": "KR",
+      "date": "2026-04-29",
+      "cat": "SupplyChain",
+      "sub_cat": "호주공급망",
+      "signal": "mid",
+      "title": "주한호주상의 회장 인터뷰: \"호주 BESS 시장 90%+ 중국 독점, K-배터리 3사 기회\"",
+      "sub": "한경 4-29 김리안 기자 인터뷰 — 로스 그레고리 회장 발언, 핵심광물·CHPS·런던 의정서·블루수소 공동 의제. AmCham 채널 의견이며 호주 정부 공식 입장 아님",
+      "gate": "AmCham 채널이 K-배터리 3사를 호주 BESS 시장의 'China-alternative'로 명시적으로 호명한 인터뷰 사례. CN BESS 셀사의 글로벌 진출이 EU·미국 외 호주에서도 'security argument'로 견제되기 시작했음을 시사. 다만 본 발언은 주한호주상공회의소 회장 개인 인터뷰이며 호주 연방·주정부 공식 정책 변화는 별도 확인 필요.",
+      "fact": "한국경제 4-29자 김리안 기자 인터뷰 기사에 따르면 로스 그레고리 주한호주상공회의소 회장은 \"현재 호주 전력망을 지탱하는 배터리 에너지저장장치(BESS) 시장의 90% 이상을 중국 기업이 독점하고 있다\"고 밝혔다. 이어 \"호주 내에서는 '안보 측면에서 중국산 배터리에 대한 의존도를 낮춰야 한다'는 논의가 계속되고 있다\"고 발언했다. 그는 \"호주는 2030년 미국과 중국에 이어 세계 3위의 BESS 시장으로 부상할 것으로 예상되는 만큼 한국 배터리 3사에도 기회가 될 것\"이라고 내다봤다. 추가로 텅스텐(매장량 2위)·희토류(생산량 3위) 핵심광물 협력, SK E&S·고려아연의 호주 그린수소 프로젝트 + CHPS(청정수소발전의무화제도) 안정 운영 필요성, 블루수소 협력을 위한 런던 의정서 양자 협정(2년+ 지연)을 동시에 의제화했다.",
+      "implication": [
+        "K-배터리 3사의 호주 BESS 시장 진입 타임라인 점검 필요 — 미국 ESS 우선 배치 중인 상황에서 호주는 second priority market 후보로 부상",
+        "호주 핵심광물(텅스텐·희토류·안티모니) 미드스트림 투자 — 한국 정부의 K-배터리 3사 향 IRA·EU CRMA 대응책 일환으로 호주 투자 가속 촉발 요인 가능성",
+        "발언자가 정부 인사가 아닌 AmCham 회장 — 'SOS' 매체 framing은 과장 가능성. 호주 연방·주정부 공식 정책 변화는 별도 출처 확인 필요",
+        "CHPS·런던 의정서 협정 지연은 K 정부 행정 의제 — 차기 산업부·외교부 일정상 우선순위 관찰 포인트"
+      ],
+      "urls": [
+        "https://www.hankyung.com/article/202604281607i"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "호주 BESS 시장 90%+ 중국 독점",
+          "source_url": "https://www.hankyung.com/article/202604281607i",
+          "source_quote": "현재 호주 전력망을 지탱하는 배터리 에너지저장장치(BESS) 시장의 90% 이상을 중국 기업이 독점하고 있다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "호주 내 안보 차원 중국산 배터리 의존도 인하 논의",
+          "source_url": "https://www.hankyung.com/article/202604281607i",
+          "source_quote": "호주 내에서는 '안보 측면에서 중국산 배터리에 대한 의존도를 낮춰야 한다'는 논의가 계속되고 있다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "호주 2030년 세계 3위 BESS 시장 전망 — K-배터리 3사 기회",
+          "source_url": "https://www.hankyung.com/article/202604281607i",
+          "source_quote": "호주는 2030년 미국과 중국에 이어 세계 3위의 BESS 시장으로 부상할 것으로 예상되는 만큼 한국 배터리 3사에도 기회가 될 것",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-29_KR_02",
+      "region": "KR",
+      "date": "2026-04-29",
+      "cat": "Charging",
+      "sub_cat": "IPO",
+      "signal": "high",
+      "title": "채비 코스닥 상장 첫날 \"따블\", 국내 EV 충전 CPO 1호 상장사 등극",
+      "sub": "공모가 12,300원 → 시초가 15,250원 → 오전 9:37 28,050원(+128.05%), 청약 증거금 4.18조 — 6,000면 급속충전망 직접 운영 사업자",
+      "gate": "K EV 충전 인프라(CPO) 부문에서 첫 상장 사례 확보. EV 보급 둔화기에도 충전망 운영사 자체는 자본투입 부담이 낮은 + 누적 사용자 기반 비즈니스로 시장 평가 — '인프라 layer'에 별도 자본시장 가격 형성. 채비 가격 발견은 후속 CPO 상장 후보(GS차지비, SK일렉링크, 그리고 가람E&L 등) 밸류에이션의 기준점.",
+      "fact": "한국경제 4-29자 보도에 따르면 채비는 4월 29일 코스닥 상장 첫날 공모가(1만2300원) 대비 128.05% 오른 2만8050원에 거래되며 \"따블\"(공모가의 2배) 기록. 시초가는 1만5250원에 형성된 뒤 오름폭을 키웠다. 헤럴드경제는 \"채비는 앞서 지난 20~21일 진행된 일반 투자자 대상 공모 청약에서 약 4조1800억원의 증거금을 기록\"했다고 보도. 채비는 2016년 설립 \"국내 1위 전기자동차 급속충전 인프라 운영 사업자(CPO)로 업계 최초 1호 상장사 타이틀\"을 가지며, 회사는 \"약 6000면 규모의 급속충전망\"을 직접 소유·운영한다(한경). 정부 납품 + 운영 물량 포함 시 약 1만면 이상 급속 충전기 관리, 글로벌 기준 2위 운영 규모(이데일리). 지난해 매출 1017억원(한경 4-29 보도). 공모가는 희망 범위 하단(12,300~15,300원), 공모가 기준 시가총액 5,755억 원이었다.",
+      "implication": [
+        "EV 충전 CPO 부문의 자본시장 가격 형성 — 후속 상장 후보사의 밸류 기준점 확보. 국내 다른 CPO 사업자 상장 추진 시 본 사례가 직접 비교 대상으로 작동할 가능성",
+        "채비 공모자금 사용처는 '충전 인프라 고도화 + 글로벌 네트워크 확장' — 동남아·EU 진출 시 K 충전기 제조사(시그넷EV, 모던텍 등)와 패키지 진출 시너지 관찰 포인트",
+        "환매청구권(풋백옵션) 부여 + 이익미실현 특례 상장 — 3개월 내 공모가의 90% 보장 구조이므로 향후 3개월간 주가 변동성 크게 잡힐 것",
+        "채비 흑자 전환 타임라인은 미공시. 작년 매출 1017억 + 영업적자 — 충전기 제조 + CPO + 유지보수 통합 모델의 손익분기점이 핵심 펀더멘털 변수"
+      ],
+      "urls": [
+        "https://www.hankyung.com/article/2026042944066",
+        "https://biz.heraldcorp.com/article/10727364",
+        "https://www.hankyung.com/article/202604294517h",
+        "https://www.g-enews.com/article/Securities/2026/04/20260429093544995644093b5d4e_1"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "상장 첫날 공모가 대비 128.05% 상승 + 시초가 1만5250원",
+          "source_url": "https://www.hankyung.com/article/2026042944066",
+          "source_quote": "공모가(1만2300원) 대비 128.05% 오른 2만8050원에 거래되고 있다. 시초가는 1만5250원에 형성된 뒤 오름폭을 키우고 있다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "공모청약 증거금 4조1800억",
+          "source_url": "https://biz.heraldcorp.com/article/10727364",
+          "source_quote": "채비는 앞서 지난 20~21일 진행된 일반 투자자 대상 공모 청약에서 약 4조1800억원의 증거금을 기록",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "채비는 국내 1위 EV 급속충전 CPO + 업계 1호 상장사 + 6000면 규모 급속충전망 + 작년 매출 1017억",
+          "source_url": "https://www.hankyung.com/article/202604294517h",
+          "source_quote": "국내 1위 전기자동차 급속충전 인프라 운영 사업자(CPO)로 업계 최초 1호 상장사 타이틀을 거머쥐게 된다... 약 6000면 규모의 급속충전망을 직접 소유·운영하고 있는 점이 핵심 경쟁력이다. 지난해 매출은 1017억원을 달성했다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "공모가 12,300원(희망 밴드 하단), 시총 5,755억, 일반청약 경쟁률 302대 1, 청약 증거금 4조1,800억",
+          "source_url": "https://www.newsway.co.kr/news/view?ud=2026042511402970982",
+          "source_quote": "채비는 지난 23일부터 이틀간 진행한 일반청약에서 최종 경쟁률 약 302대 1을 기록했고, 청약 증거금은 약 4조1800억원을 모았다... 공모 물량을 당초 계획보다 10% 줄이고 공모가를 희망 범위 하단인 1만2300원으로 확정했다. 공모가 기준 상장 후 시가총액은 5755억원이 된다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-29_KR_03",
+      "region": "KR",
+      "date": "2026-04-29",
+      "cat": "Charging",
+      "sub_cat": "충전요금규제",
+      "signal": "high",
+      "title": "기후부 EV 공공충전요금 5단계 세분화 + 200kW+ 고출력 391.9원/kWh 신설",
+      "sub": "기존 100kW 미만/이상 2단계(324.4/347.2원) → 30kW 미만(294.3) ~ 200kW+(391.9) 5구간, 5월 19일까지 행정예고",
+      "gate": "초고속(200kW+) 충전 사용자에게 별도 가격 신호를 부여한 첫 정부 조치. 채비·SK시그넷·LG전자 등 CPO사의 P&L 직접 영향 — 30kW 미만 완속충전은 인하(324.4→294.3), 200kW+ 급속충전은 391.9원으로 신설(약 13% 상승). 채비의 IPO 직후(같은 날) 발표라는 timing은 충전 사업자 밸류에이션 reframing 촉발 요인.",
+      "fact": "기후에너지환경부는 29일 \"전기자동차 공공 충전시설의 충전요금 체계를 세분화하고 요금단가를 조정하는 개편(안)을 오는 5월 19일까지 행정예고한다\"고 밝혔다(뉴스핌). 이투데이 보도에 따르면 \"기존에는 100kW 미만 324.4원/kWh, 100kW 이상 347.2원/kWh의 충전요금이 각각 적용됐지만 앞으로는 △30kW 미만 294.3원 △30kW~50kW 미만 306.0원 △50kW~100kW 미만 324.4원 △100kW~200kW 미만 347.2원 △200kW 이상 391.9원 등 5개 구간으로 세분화된다.\" 봄(3~5월)·가을(9~10월) 주말·공휴일 11~14시 할인(최대 48.6원/kWh)은 신규 단가에 종전 할인폭 그대로 적용. 동시에 11월 시행 예정인 개정 대기환경보전법의 하위법령 일부 개정안을 4월 30일~6월 9일 입법예고. 핵심은 ▲충전요금 현장 표시 의무화(\"깜깜이 요금\" 개선) ▲무공해차 통합누리집(ev.or.kr) 정보 등록·실시간 제공 의무 ▲전담기구 지정 ▲관리기준 위반 시 200만 원 과태료.",
+      "implication": [
+        "200kW+ 초고속 충전 가격 신설(391.9원/kWh)은 e-tron GT, EV6 GT, IONIQ 6 등 800V 시스템 차량 사용자의 운영비 직접 상승 — 차종 구매 의사결정 변수에 충전 운영비 가중치 증가",
+        "30kW 미만 완속충전 인하(324.4→294.3, -9%)는 아파트·공동주택 충전기 사업의 마진 압박 — 보조금 의존도 더 높아지고, 사업자 진입장벽 상승 가능성",
+        "현장 요금 표시 + 실시간 정보 등록 의무화는 충전기 SW 인프라 표준화 촉발 요인 — 채비·SK시그넷 등 운영사의 SW 투자 차별화 변수",
+        "하반기 후속으로 \"계절·시간별 충전요금제\" 도입 검토 발표 — 재생에너지 발전량과 연동된 동적 요금제의 정책 경로 가시화"
+      ],
+      "urls": [
+        "https://www.etoday.co.kr/news/view/2580027",
+        "https://www.newspim.com/news/view/20260429000593",
+        "https://www.fnnews.com/news/202604291116411267"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "5단계 세분화 구간 + 신 단가 (30kW미만 294.3 ~ 200kW+ 391.9원/kWh)",
+          "source_url": "https://www.etoday.co.kr/news/view/2580027",
+          "source_quote": "기존에는 100kW 미만 324.4원/kWh, 100kW 이상 347.2원/kWh의 충전요금이 각각 적용됐지만 앞으로는 △30kW 미만 294.3원 △30kW~50kW 미만 306.0원 △50kW~100kW 미만 324.4원 △100kW~200kW 미만 347.2원 △200kW 이상 391.9원 등 5개 구간으로 세분화",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "기후부 4-29 행정예고 발표 (5월 19일까지)",
+          "source_url": "https://www.newspim.com/news/view/20260429000593",
+          "source_quote": "기후에너지환경부(장관 김성환)는 전기자동차 공공 충전시설의 충전요금 체계를 세분화하고 요금단가를 조정하는 개편(안)을 오는 5월 19일까지 행정예고한다고 29일 밝혔다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "대기환경보전법 하위법령 입법예고 4-30~6-9 + 충전요금 표지판 표시 의무화",
+          "source_url": "https://www.fnnews.com/news/202604291116411267",
+          "source_quote": "기후부는 이날 월 12일 시행 예정인 개정 '대기환경보전법'의 위임 사항을 담은 하위법령 개정안도 함께 입법예고했다. 입법예고 기간은 4월 30일부터 6월 9일까지다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-29_KR_04",
+      "region": "KR",
+      "date": "2026-04-29",
+      "cat": "Materials",
+      "sub_cat": "양극재",
+      "signal": "high",
+      "title": "에코프로비엠 1Q26 영업익 209억(YoY +822%), ESS용 양극재 매출 +140% 견인",
+      "sub": "매출 6054억(-3.9% YoY), 5월 헝가리 데브레첸 5.4만톤 공장 양산 시동 — EV 캐즘 속에서도 ESS·파워앱이 양극재사 손익 방어",
+      "gate": "EV 양극재 둔화의 한복판에서 'ESS 데이터센터 그리드 안정화' 수요가 양극재사 P&L에 의미 있는 완충 요인로 작동함을 첫 분기 단위로 입증. ESS용 매출 +140% YoY는 동사의 양극재 출하 mix 변화를 가시화. 헝가리 가동(5월) timing은 EU 25Q4~26Q1 EV 신차 cycle과 정합 — 공급 ramp-up 그래프가 EU 수요 회복 곡선과 어떻게 맞물리는지 다음 분기 관찰 포인트.",
+      "fact": "이뉴스투데이 보도에 따르면 \"에코프로비엠은 29일 2026년 1분기 연결 기준 매출 6054억원, 영업이익 209억원을 기록했다고 밝혔다. 매출은 전년 동기 대비 소폭 감소했으나 영업이익은 전년(23억원) 대비 크게 증가하며 수익성이 개선됐다.\" \"데이터센터 전력 안정화를 위한 ESS용 양극재 매출은 전년 대비 140% 증가\" 했고, 전동공구·전기자전거 등 \"파워 애플리케이션 수요 확대에 따라 관련 물량도 전년 대비 44% 증가\". CBC뉴스 공시 분석: 매출 6053.61억(전분기 4970.11억 대비 +21.8%, 전년동기 6297.89억 대비 -3.9%), 영업이익 209.42억(전분기 415.58억 대비 -49.6%, 전년동기 22.70억 대비 +822.6%), 당기순이익 121.62억(전년 -99.69억 대비 흑자전환). 회사는 \"2분기 헝가리 공장 양산을 기점으로 유럽 시장 공략을 본격화할 계획이다. 헝가리 데브레첸에 구축된 연 5만4000톤 규모 양극재 공장은 유럽 완성차 업체의 신규 수요 대응과 공급망 경쟁력 확보의 핵심 거점\" — 김장우 대표 \"AI 확산과 전기차 시장 회복세에 맞춰 고부가가치 양극재 공급을 지속 확대\" 발언(이뉴스투데이).",
+      "implication": [
+        "ESS 양극재 +140% YoY는 양극재사의 'EV-only' 단일 축 시대 종료 신호 — 포스코퓨처엠·LG화학·엘앤에프의 ESS mix 변화 비교 관찰 포인트",
+        "파워앱(전동공구·전자자전거) +44% YoY는 'AI 데이터센터 BBU/UPS' 셀 → 양극재 수요로 침투 시작 — 삼성SDI 1Q26 BBU 매출 증가와 정합",
+        "헝가리 데브레첸 5월 가동 → 2H26 EU 양산 차종과의 동기화 — 가동률·손실률은 차후 분기 핵심 KPI",
+        "전분기 영업익 415억 → 1Q 209억은 전분기 일회성 회계 이익 영향 — 진정한 영업력은 2H 헝가리 가동 안정화 이후 검증"
+      ],
+      "urls": [
+        "http://www.enewstoday.co.kr/news/articleView.html?idxno=2424576",
+        "https://www.ddaily.co.kr/page/view/2026042911244985729",
+        "https://www.cbci.co.kr/news/articleView.html?idxno=570946"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "1Q26 매출 6054억, 영업이익 209억(전년 23억 대비 큰 폭 증가)",
+          "source_url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2424576",
+          "source_quote": "에코프로비엠은 29일 2026년 1분기 연결 기준 매출 6054억원, 영업이익 209억원을 기록했다고 밝혔다. 매출은 전년 동기 대비 소폭 감소했으나 영업이익은 전년(23억원) 대비 크게 증가하며 수익성이 개선됐다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "ESS용 양극재 매출 YoY +140%",
+          "source_url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2424576",
+          "source_quote": "데이터센터 전력 안정화를 위한 ESS용 양극재 매출은 전년 대비 140% 증가",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "헝가리 데브레첸 5.4만톤 공장 5월 양산 + 유럽 시장 공략",
+          "source_url": "http://www.enewstoday.co.kr/news/articleView.html?idxno=2424576",
+          "source_quote": "2분기 헝가리 공장 양산을 기점으로 유럽 시장 공략을 본격화할 계획이다. 헝가리 데브레첸에 구축된 연 5만4000톤 규모 양극재 공장은 유럽 완성차 업체의 신규 수요 대응과 공급망 경쟁력 확보의 핵심 거점",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "전분기 영업이익 415.58억 대비 49.6% 감소(일회성 환입 소멸)",
+          "source_url": "https://www.cbci.co.kr/news/articleView.html?idxno=570946",
+          "source_quote": "영업이익은 209억4,200만원(20,942백만원)으로 전분기(415억5,800만원) 대비 49.6% 감소했다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "1Q26 매출 6,053.61억(전분기 4,970.11억 +21.8%, 전년 6,297.89억 -3.9%)",
+          "source_url": "https://www.cbci.co.kr/news/articleView.html?idxno=570946",
+          "source_quote": "에코프로비엠의 1분기 매출액은 6,053억6,100만원(605,361백만원)으로 전분기(4,970억1,100만원) 대비 21.8% 증가했지만, 전년 동기(6,297억8,900만원) 대비로는 3.9% 감소했다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "1Q26 영업이익 209.42억(전년 22.70억 대비 +822.6%)",
+          "source_url": "https://www.cbci.co.kr/news/articleView.html?idxno=570946",
+          "source_quote": "전년 동기(22억7,000만원)와 비교하면 822.6% 증가했다",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        }
+      ]
+    },
     {
       "id": "2026-04-28_CN_01",
       "region": "CN",
@@ -145,20 +344,21 @@
       "region": "CN",
       "date": "2026-04-28",
       "cat": "PowerGrid",
-      "sub_cat": "태양광 효율 세계기록",
+      "sub_cat": "태양광셀효율",
       "signal": "high",
-      "title": "LONGi HIBC 셀 28.13%·모듈 26.4% — 결정질 실리콘 효율 세계기록 동시 갱신",
-      "sub": "자체 개발 HIBC 셀, ISFH 인증 / 셀 효율 28.13%·모듈 효율 26.4% / Trina 28.00% 발표 직후 중국 PV 효율 경쟁 재점화",
-      "gate": "LONGi가 자체 개발한 HIBC(Hybrid Interdigitated-Back-Contact) 태양전지로 셀 효율 28.13%, 모듈 효율 26.4%를 발표했다. 중국에너지망 보도 기준 두 수치는 결정질 실리콘 셀과 모듈 효율 세계기록 갱신으로 제시됐다. Trina의 28.00% 발표 직후 LONGi가 다시 28%대를 넘어선 셈이라, 중국 PV 효율 경쟁이 BC(Back Contact) 계열 아키텍처 중심으로 더 빨라지고 있다.",
-      "fact": "중국에너지망은 LONGi가 두 가지 기술 돌파를 발표했으며, 그중 자체 개발한 HIBC 태양전지가 독일 하멜른 태양에너지연구소(ISFH)의 인증을 받았다고 보도했다. 보도 제목과 리드에는 셀 효율 28.13%, 모듈 효율 26.4%가 제시됐고, LONGi가 결정질 실리콘 셀과 모듈 효율 세계기록을 다시 갱신했다고 설명됐다. 모듈 사이즈, 셀 수, 양산 일정, 가격 조건 등은 LONGi 공시 또는 ISFH 인증서 확인이 필요하다.",
+      "title": "LONGi HIBC 셀 효율 28.13% 세계기록 갱신, 모듈 26.4% NREL 인증",
+      "sub": "ISFH 인증 — 1월 28.04% 자체 기록 +0.09pp 경신, Trina 28.0% THBC 발표 6시간 내 역전, 모듈 양산 효율 25%로 \"25%+ 시대\" 진입",
+      "gate": "단결정 실리콘 효율의 이론적 한계(약 29.4%)에 가까워지는 곡선의 끝부분에서 0.1pp 단위의 경쟁이 산업 표준 변화를 결정. LONGi의 HIBC(Hybrid Interdigitated Back-Contact) 노선이 BC 기술 매트릭스의 정점으로 굳혀지면서 TOPCon 양산 1위 진영(JinkoSolar, JA Solar)의 next-gen 로드맵이 BC 추격 vs HJT 분기점에 노출됨. 한국 태양광사(한화큐셀, 신성이엔지)의 차세대 셀 라인 의사결정 압박 가속.",
+      "fact": "PV-Magazine 4월 28일 보도에 따르면 \"Chinese module manufacturer Longi announced it achieved a higher efficiency of 28.13% with a hybrid interdigitated-back-contact (HIBC) solar cell. The result was independently confirmed by Germany's Institute for Solar Energy Research Hamelin (ISFH).\" \"Longi also said that HIBC-based modules with an efficiency of 26.4% were certified by the U.S. National Renewable Energy Laboratory (NREL).\" 같은 보도는 \"A few hours after Trina Solar revealed it achieved the world's highest efficiency for silicon solar cells with 28.0%-efficient device TOPCon-compatible hybrid back-contact solar cell (THBC)\" 라는 timing을 명시. China Daily는 \"surpassing the company's previous record of 28.04 percent set in January 2026\"을 추가했다. 양산 측면에서, 4월 25일 PRNewswire는 LONGi EcoLife 시리즈 모듈(LR7-54HJD-510M, HIBC 기반)이 TaiyangNews 4월 \"TOP SOLAR MODULES LISTING\"에서 양산 효율 25%로 1위 차지 — \"25%+ 시대\" 진입을 알렸다.",
       "implication": [
-        "Trina THBC 28.00%와 LONGi HIBC 28.13%가 이어지며 중국 PV 업체 두 곳이 단기간에 28%대 셀 효율을 제시했다. 효율 경쟁의 기준선이 빠르게 높아지고 있다.",
-        "단접합 실리콘 셀의 이론 한계에 접근할수록 한화큐셀 등 K 페로브스카이트·탠덤 상용화 일정과의 경쟁도 더 직접적이 된다.",
-        "자체 개발 HIBC와 ISFH 인증 조합은 LONGi의 R&D·인증 역량을 보여준다. K PV 업체는 BC 양산, 탠덤 전환, 모듈 스펙 차별화 중 어떤 대응축을 택할지 분명히 해야 한다.",
-        "효율 신기록과 중국 PV 수출 확대가 동시에 나오면 글로벌 모듈 가격과 마진 압박은 더 커질 수 있다.",
-        "추가 확인 포인트는 인증 면적, 모듈 구성, 양산 원가, BOS 절감 효과다. 실험실 효율과 양산 경제성은 별도로 봐야 한다."
+        "TOPCon 진영의 차세대 셀 로드맵 압박 — JinkoSolar, JA Solar의 BC vs TBC vs HJT 노선 결정 timing 가속화",
+        "한국 셀사(TOPCon 라인 양산 중인 한화큐셀 등)의 차세대 셀 투자 의사결정 압박 — BC vs HJT vs THBC 기술 노선 선택 timing 가속화",
+        "셀 효율 한계(이론치 29.4%) 근접으로 module-level 차별화(소면적 고출력 vs 대면적 표준)의 cost-perf trade-off가 차세대 경쟁의 핵심 axis로 이동",
+        "HIBC = HJT 패시베이션 + BC 셀 후면 구조 결합 — 한국 셀사의 라인 전환 시 HJT 투자 이력이 BC 전환 대비 고비용/저비용 양면 변수"
       ],
       "urls": [
+        "https://www.pv-magazine.com/2026/04/28/longi-announces-world-record-efficiency-of-28-13-for-silicon-solar-cell/",
+        "https://www.chinadaily.com.cn/a/202604/28/WS69f0485ba310d6866eb45f5c.html",
         "https://www.china5e.com/news/news-1203111-1.html"
       ],
       "related": [
@@ -170,41 +370,24 @@
       ],
       "fact_sources": [
         {
-          "claim": "LONGi는 자체 개발 HIBC 태양전지가 ISFH 인증을 받았다고 4월 28일 발표",
-          "source_url": "https://www.china5e.com/news/news-1203111-1.html",
-          "source_quote": "近日，隆基绿能宣布两项重磅技术突破：其一，由隆基绿能自主研发的杂化背接触太阳电池HIBC（Hybrid Interdigitated-Back-Contact Cell），经德国哈梅林太阳能研究所（ISFH）权威认证",
-          "fetched_at": "2026-04-28T14:18:06+09:00"
+          "claim": "LONGi HIBC 셀 효율 28.13% (ISFH 인증)",
+          "source_url": "https://www.pv-magazine.com/2026/04/28/longi-announces-world-record-efficiency-of-28-13-for-silicon-solar-cell/",
+          "source_quote": "Chinese module manufacturer Longi announced it achieved a higher efficiency of 28.13% with a hybrid interdigitated-back-contact (HIBC) solar cell. The result was independently confirmed by Germany's Institute for Solar Energy Research Hamelin (ISFH)",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
         },
         {
-          "claim": "셀 효율 28.13%, 모듈 효율 26.4%로 결정질 실리콘 셀·모듈 효율 세계기록 갱신",
-          "source_url": "https://www.china5e.com/news/news-1203111-1.html",
-          "source_quote": "28.13%，26.4%！隆基绿能再度刷新晶硅电池和组件效率世界纪录",
-          "fetched_at": "2026-04-28T14:18:06+09:00"
+          "claim": "HIBC 모듈 26.4% NREL 인증",
+          "source_url": "https://www.pv-magazine.com/2026/04/28/longi-announces-world-record-efficiency-of-28-13-for-silicon-solar-cell/",
+          "source_quote": "Longi also said that HIBC-based modules with an efficiency of 26.4% were certified by the U.S. National Renewable Energy Laboratory (NREL)",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "1월 28.04% 자체 기록 갱신",
+          "source_url": "https://www.chinadaily.com.cn/a/202604/28/WS69f0485ba310d6866eb45f5c.html",
+          "source_quote": "surpassing the company's previous record of 28.04 percent set in January 2026",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
         }
-      ],
-      "source_origin": "KEEP",
-      "source_story_ids": [
-        "CN_2026-04-28_C02"
-      ],
-      "merge_status": "single",
-      "representative_source": "중국에너지망",
-      "staleness": {
-        "event_date": "2026-04-28",
-        "publication_date": "2026-04-28",
-        "staleness_gap_days": 0,
-        "fresh_followup": null,
-        "staleness_override": false,
-        "decision": "fresh"
-      },
-      "signal_rubric": {
-        "A": 2,
-        "B": 0,
-        "C": 1,
-        "total": 3,
-        "exception": null
-      },
-      "source_tier": 2,
-      "baseline_relation": "new"
+      ]
     },
     {
       "id": "2026-04-28_CN_04",
@@ -328,6 +511,54 @@
       },
       "source_tier": 2,
       "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-28_CN_06",
+      "region": "CN",
+      "date": "2026-04-28",
+      "cat": "Battery",
+      "sub_cat": "초급속충전",
+      "signal": "high",
+      "title": "REPT BATTERO Wending® 플래시 충전(6분) + 솔리드-리퀴드 하이브리드 280-400Wh/kg 공개",
+      "sub": "베이징 모터쇼 4-25 발표 — 망간계 -40도 80%+ 용량/4000사이클, 350kWh 상용차 라미네이트, 2C 광산차 30분 충전·적재 +11.4%",
+      "gate": "REPT BATTERO가 CATL·BYD·EVE 다음의 'second-tier' 셀사 중에서도 'fast-charge + solid-liquid + commercial vehicle' 세 축 동시 공개로 차별화. 6분 10-80% 충전 + -40~+70도 동작은 K-배터리 3사의 4-5C 초급속 셀 라인의 spec 천장을 직접 위협. 망간계 -40도 80% 용량 + 4000사이클은 '저온 BESS·북부 전력망' 시나리오에서 LFP 단일 진영의 cost 우위를 약화시킬 수 있음.",
+      "fact": "Gasgoo 4월 28일 보도에 따르면 \"On April 25, 2026, at the 2026 Beijing International Auto Show, REPT BATTERO showcased its full-scenario power battery solutions for new energy vehicles (NEVs) and held four core technology conferences.\" Wending® Flash Charging Technology에 대해 \"Based on the Wending® 3.0 structure design, the technology shortens tab length by 50% to reduce internal resistance, enabling 10%-80% SOC charging in less than 6 minutes and stable operation from -40℃ to +70℃.\" 누적 출하: \"Wending® batteries have been installed in more than 350,000 new energy power vehicles with a total shipment of over 20 million units, maintaining a zero-safety-accident record.\" 솔리드-리퀴드 하이브리드는 \"manganese-based and high-nickel systems. The manganese-based battery, tailored for mainstream new energy passenger and plug-in hybrid vehicles, maintains over 80% capacity retention at -40℃ and has a cycle life of more than 4,000 times.\" 하이니켈은 \"achieves an energy density of 280-400Wh/kg.\" 상용차 부문에서는 \"350kWh laminated clusterless battery for new energy engineering vehicles\" + 광산차용 \"2C ultra-fast charging battery cuts single charging time to about 30 minutes, increasing transportation capacity by 11.4% and reducing procurement costs of new energy commercial vehicle fleets by 11%.\"",
+      "implication": [
+        "K-배터리 3사의 4-5C 초급속 셀 라인 대비 6분 < 10-80% 사양 — 이론치 비교 시 REPT BATTERO 우위. 단 양산 타임라인·셀 사이즈·실차 검증 미공개로 직접 비교 한계",
+        "망간계 -40도 80% 용량 + 4000사이클 = 한국·일본·캐나다·노르웨이 등 한랭 지역 BESS 시장에서 LFP 대비 spec 우위 잠재. K LFP 양극재 사업화(에코프로 LFP, LG화학 LFP) 노선의 spec 차별화 압박",
+        "광산차용 2C 30분 충전 + 적재량 +11.4% + 조달비 -11%는 글로벌 광산 EV truck 시장(호주·인니·칠레 등)의 unit economics 변화 촉발 요인 — 한국 E-truck 진영의 셀 공급선 다변화 검토 변수",
+        "솔리드-리퀴드 하이브리드 \"semi-solid\" framing — 진정한 전고체와의 차이는 분리막·전해질 잔류량. 한국 전고체 진영(삼성SDI, LG엔솔)은 'all-solid' 노선과의 경쟁이 아닌 'semi-solid' 시장 점유 경쟁에 노출"
+      ],
+      "urls": [
+        "https://autonews.gasgoo.com/articles/ev/rept-battero-unveils-flash-charging-battery-dual-solid-liquid-hybrid-chemistry-and-next-gen-commercial-vehicle-solutions-2048948121231499265"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "4월 25일 베이징 오토쇼 + 4건의 코어 기술 컨퍼런스 개최",
+          "source_url": "https://autonews.gasgoo.com/articles/ev/rept-battero-unveils-flash-charging-battery-dual-solid-liquid-hybrid-chemistry-and-next-gen-commercial-vehicle-solutions-2048948121231499265",
+          "source_quote": "On April 25, 2026, at the 2026 Beijing International Auto Show, REPT BATTERO showcased its full-scenario power battery solutions for new energy vehicles (NEVs) and held four core technology conferences",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "Wending® Flash Charging: 10-80% SOC < 6분 + -40도~+70도 동작",
+          "source_url": "https://autonews.gasgoo.com/articles/ev/rept-battero-unveils-flash-charging-battery-dual-solid-liquid-hybrid-chemistry-and-next-gen-commercial-vehicle-solutions-2048948121231499265",
+          "source_quote": "Based on the Wending® 3.0 structure design, the technology shortens tab length by 50% to reduce internal resistance, enabling 10%-80% SOC charging in less than 6 minutes and stable operation from -40℃ to +70℃",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "솔리드-리퀴드 하이브리드: 망간계 -40도 80%+ 4000사이클, 하이니켈 280-400Wh/kg",
+          "source_url": "https://autonews.gasgoo.com/articles/ev/rept-battero-unveils-flash-charging-battery-dual-solid-liquid-hybrid-chemistry-and-next-gen-commercial-vehicle-solutions-2048948121231499265",
+          "source_quote": "The manganese-based battery, tailored for mainstream new energy passenger and plug-in hybrid vehicles, maintains over 80% capacity retention at -40℃ and has a cycle life of more than 4,000 times. The high-nickel battery, designed for high-end long-range new energy flagship models, achieves an energy density of 280-400Wh/kg",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "광산차 2C 충전 30분 + 적재 +11.4% + 조달비 -11%",
+          "source_url": "https://autonews.gasgoo.com/articles/ev/rept-battero-unveils-flash-charging-battery-dual-solid-liquid-hybrid-chemistry-and-next-gen-commercial-vehicle-solutions-2048948121231499265",
+          "source_quote": "For new energy mining vehicles, its 2C ultra-fast charging battery cuts single charging time to about 30 minutes, increasing transportation capacity by 11.4% and reducing procurement costs of new energy commercial vehicle fleets by 11%",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        }
+      ]
     },
     {
       "id": "2026-04-28_GL_01",
@@ -1352,61 +1583,50 @@
       "region": "CN",
       "date": "2026-04-27",
       "cat": "ESS",
-      "sub_cat": "Na-ion ESS 양산 분기점",
+      "sub_cat": "나트륨이온배터리",
       "signal": "top",
-      "title": "CATL × HyperStrong 60GWh 나트륨이온 BESS 공급 계약 — '나트륨이온 양산화 분기점'",
-      "sub": "CATL 4월 27일 위챗 발표; 3년 60GWh, BESS 전용 첫 전략 파트너; 같은 폼팩터로 기존 리튬 라인 호환",
-      "gate": "글로벌 1위 셀메이커가 ESS 통합 1위와 사실상 sodium-ion BESS 표준 라인을 선언했다. K-3사·테슬라·BYD가 lithium-ion 위주로 ESS를 짠 사이, CATL은 별도 라인 깔지 않고 기존 리튬 폼팩터로 nat-ion을 흘려보낼 수 있다 — 이게 turning point 표현의 실체다.",
-      "fact": "CATL과 HyperStrong이 4월 27일 CATL 위챗 계정으로 'three-year, 60GWh sodium-ion battery order cooperation agreement'를 공식 발표했다. 이번 계약으로 HyperStrong은 'CATL's first strategic partner for sodium-ion in battery energy storage system (BESS) applications'가 됐다. CATL 측 표현으로는 'has overcome the challenges of the entire sodium-ion battery mass production chain and has the capability for large-scale delivery' — 구체적으로는 에너지밀도, 제조 시 발포 및 수분 제어 문제를 해결했다고 밝혔다. carnewschina 보도에 따르면 CATL의 ESS용 sodium-ion 셀은 'platform design with the same dimensions as lithium-ion batteries, making them compatible with existing supply chains'를 채택했다. Electrek은 이번 60GWh가 'equivalent to half of all energy storage batteries CATL delivered in 2025'에 해당한다고 보도했다. 양사는 2025년 11월에도 200GWh 10년 협약을 맺었으나 당시에는 lithium-ion으로 가정됐다 ('was assumed at the time to be lithium-ion'). SCMP에 따르면 Suzhou Hazardtex 임원 Davis Zhang은 이를 'DeepSeek moment for the global ESS battery industry'로 평가했다.",
+      "title": "CATL · HyperStrong, 3년 60GWh Na-ion ESS 계약 — 사상 최대 규모",
+      "sub": "CATL 3세대 Na-ion 배터리 2026년 말 양산 발표 6일 만에 체결, 기존 200GWh 리튬 계약과 합산 3년 260GWh+",
+      "gate": "Na-ion이 개념 검증 단계에서 상업 규모 단계로 넘어가는 분수령이다. 60GWh는 GGII가 예상한 2026년 글로벌 Na-ion 출하량 약 26.8GWh의 2배 이상이며, 단일 계약이 산업 전체 예상 물량을 압도하는 구도다. K-배터리 3사가 Na-ion 채널을 아직 본격 확보하지 못한 상황에서 CATL이 ESS용 Na-ion 표준을 선점할 가능성이 커졌다.",
+      "fact": "EnergyTrend에 따르면 4월 27일 HyperStrong과 CATL은 푸젠 닝더에서 ESS용 Na-ion 배터리 전략 협력 계약을 체결했고, 3년 60GWh 공급에 합의했다. 보도는 이를 현재 글로벌 최대 규모의 Na-ion 배터리 협력으로 설명했다. 양사는 2025년 11월 이미 2026~2035년 10년 전략 협력과 2026~2028년 200GWh 이상 리튬셀 채택 계약을 체결한 바 있어, 이번 60GWh를 합치면 3년 기준 260GWh를 넘는다. TMTPost는 GGII와 치디엔연구원 전망을 인용해 2026년 글로벌 Na-ion 배터리 출하량을 약 26.8GWh로 제시했고, 이번 계약의 연평균 공급분이 그 전망치의 70% 이상에 해당한다고 분석했다. EnergyTrend는 이번 계약이 CATL의 3세대 Na-ion 배터리 2026년 말 규모 양산 발표 6일 뒤 체결됐다는 점도 짚었다.",
       "implication": [
-        "K-3사 ESS 사업의 LFP 일변도 전략에 sodium-ion 라인 검토 압력. 폼팩터 호환 + 원자재 비용 격차 시나리오에서 별도 라인 투자 부담 없이 LFP→Na-ion 일부 전환 가능성을 어떻게 둘 것인가.",
-        "중국 외 시장 BESS 입찰에서 sodium-ion 옵션이 vendor차별 요소로 등장할 가능성. Peak Energy 720MWh 사례 외 글로벌 deployment는 아직 중국 제한.",
-        "CATL이 '발포·수분 제어' 양산 난제를 해결했다고 명시 — 후 셀메이커(K-3사 포함)가 동일 양산 능력 확보 필요한 항목 명세화.",
-        "60GWh가 CATL 2025 ESS 출하의 절반 — 단일 계약이 아니라 ESS 전체 제품믹스 재편 신호."
+        "K-배터리 3사는 ESS 부문에서 Na-ion 대응 채널 부재 시 CATL의 기술·원가·공급망 락인에 노출될 수 있다. LFP·LMFP 단일 노선 의존도를 재점검해야 한다.",
+        "Na-ion 양극재와 하드카본 음극 공급망이 활성화되면 한국 소재 기업에도 샘플·스펙 진입 기회가 생길 수 있다.",
+        "4시간 이상 장주기 ESS 입찰에서 Na-ion은 단순 가격보다 온도 안정성, 사이클 수명, 안전성을 차별화 포인트로 내세울 가능성이 있다.",
+        "다만 CATL Na-ion 양산능력은 아직 ramp-up 검증 전이다. 실제 생산 속도와 탄산리튬 가격 흐름이 Na-ion 보급 속도를 좌우한다."
       ],
       "urls": [
-        "https://www.energy-storage.news/a-turning-point-catl-and-hyperstrong-sign-60gwh-sodium-ion-agreement/",
-        "https://carnewschina.com/2026/04/27/catl-secures-worlds-largest-sodium-ion-battery-order-with-60-gwh-deal/",
-        "https://electrek.co/2026/04/27/catl-sodium-ion-battery-60gwh-energy-storage-deal/",
-        "https://www.scmp.com/business/china-business/article/3351601/chinas-catl-touts-landmark-order-deepseek-moment-sodium-ion-batteries"
+        "https://www.energytrend.cn/news/20260428-147326.html",
+        "https://chuneng.ofweek.com/news/2026-04/ART-180220-12003-30686187.html",
+        "https://www.tmtpost.com/7969262.html",
+        "https://www.pv-magazine.com/2026/04/28/longi-announces-world-record-efficiency-of-28-13-for-silicon-solar-cell/",
+        "https://www.seccw.com/Document/detail/id/44238.html"
       ],
       "related": [],
       "fact_sources": [
         {
-          "claim": "4월 27일 CATL 위챗 공식 발표, 3년 60GWh sodium-ion 협약",
-          "source_url": "https://www.energy-storage.news/a-turning-point-catl-and-hyperstrong-sign-60gwh-sodium-ion-agreement/",
-          "source_quote": "CATL announced the ‘three-year, 60GWh sodium-ion battery order cooperation agreement’ on its WeChat account today (27 April).",
-          "fetched_at": "2026-04-28T05:02:00+09:00"
+          "claim": "4월 27일 HyperStrong과 CATL이 3년 60GWh Na-ion 계약 체결 — 글로벌 최대 규모",
+          "source_url": "https://www.energytrend.cn/news/20260428-147326.html",
+          "source_quote": "4月27日，海博思创与宁德时代签署储能钠离子电池战略合作协议，双方达成3年60GWh钠离子电池合作。这是目前全球规模最大的钠离子电池合作",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
         },
         {
-          "claim": "HyperStrong이 CATL의 BESS sodium-ion 첫 전략 파트너",
-          "source_url": "https://www.energy-storage.news/a-turning-point-catl-and-hyperstrong-sign-60gwh-sodium-ion-agreement/",
-          "source_quote": "It makes HyperStrong CATL’s first strategic partner for sodium-ion in battery energy storage system (BESS) applications",
-          "fetched_at": "2026-04-28T05:02:00+09:00"
+          "claim": "2025년 11월 10년 전략 협력 및 200GWh 이상 리튬셀 계약 이력, 이번 60GWh 합산 시 3년 260GWh+",
+          "source_url": "https://www.energytrend.cn/news/20260428-147326.html",
+          "source_quote": "2025年11月，双方签署10年（2026-2035）战略合作，约定在2026-2028年前3年采购不低于200GWh锂电芯。叠加此次60GWh钠电签约，3年总锁定超260GWh",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
         },
         {
-          "claim": "CATL 측 양산 chain 모든 난제 극복 + 대량 인도 capability + 발포·수분 제어 + 에너지밀도 해결 공식 표현",
-          "source_url": "https://www.energy-storage.news/a-turning-point-catl-and-hyperstrong-sign-60gwh-sodium-ion-agreement/",
-          "source_quote": "CATL said that the agreement shows it ‘has overcome the challenges of the entire sodium-ion battery mass production chain and has the capability for large-scale delivery’. Specifically, it has solved the problems of energy density and process problems of foaming and moisture control during manufacturing.",
-          "fetched_at": "2026-04-28T05:02:00+09:00"
+          "claim": "이번 계약은 CATL의 3세대 Na-ion 배터리 2026년 말 양산 발표 6일 뒤 체결",
+          "source_url": "https://www.energytrend.cn/news/20260428-147326.html",
+          "source_quote": "此次签约距4月21日宁德时代宣布第三代钠新电池将于2026年底规模化量产仅6天",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
         },
         {
-          "claim": "2025년 11월 200GWh 10년 협약은 당시 lithium-ion으로 가정",
-          "source_url": "https://www.energy-storage.news/a-turning-point-catl-and-hyperstrong-sign-60gwh-sodium-ion-agreement/",
-          "source_quote": "announced a 200GWh, decade-long partnership in November last year, covering all battery types (but was assumed at the time to be lithium-ion)",
-          "fetched_at": "2026-04-28T05:02:00+09:00"
-        },
-        {
-          "claim": "기존 리튬이온 폼팩터 동일 — 기존 공급망 호환성",
-          "source_url": "https://carnewschina.com/2026/04/27/catl-secures-worlds-largest-sodium-ion-battery-order-with-60-gwh-deal/",
-          "source_quote": "platform design with the same dimensions as lithium-ion batteries, making them compatible with existing supply chains",
-          "fetched_at": "2026-04-28T05:02:00+09:00"
-        },
-        {
-          "claim": "60GWh = CATL 2025 ESS 출하의 절반 규모",
-          "source_url": "https://electrek.co/2026/04/27/catl-sodium-ion-battery-60gwh-energy-storage-deal/",
-          "source_quote": "The three-year agreement is equivalent to half of all energy storage batteries CATL delivered in 2025.",
-          "fetched_at": "2026-04-28T05:02:00+09:00"
+          "claim": "GGII·치디엔연구원 예측: 2026년 글로벌 Na-ion 출하량 약 26.8GWh, 이번 계약의 연평균 공급분이 전망치의 70%+",
+          "source_url": "https://www.tmtpost.com/7969262.html",
+          "source_quote": "按高工产业研究院（GGII）和起点研究院的预测，2026年全球钠电池出货量预计约26.8GWh。也就是说，仅这一份订单的年均供货量就相当于全球预测产能的七成以上",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
         }
       ]
     },
@@ -2584,6 +2804,62 @@
       },
       "source_tier": 2,
       "baseline_relation": "new"
+    },
+    {
+      "id": "2026-04-27_CN_23",
+      "region": "CN",
+      "date": "2026-04-27",
+      "cat": "Materials",
+      "sub_cat": "LFP양극재",
+      "signal": "high",
+      "title": "후난위넝 1Q26 순이익 13.56억위안(YoY +1337%) — 글로벌 LFP 양극재 1위 가격 회복",
+      "sub": "매출 149.65억위안(+121.31%) / EPS 1.78위안 — LFP 출하 증가와 탄산리튬 가격 상승이 판가 인상 촉발",
+      "gate": "2023년 탄산리튬 가격 급락기에 매출과 순이익이 크게 흔들렸던 LFP 양극재 1위 기업이 1년 만에 순이익 +1300%대 반등을 기록했다. 탄산리튬 가격 사이클이 양극재 기업 P&L에 직접적인 레버리지로 작동한다는 점이 분기 실적으로 확인됐다. 한국 LFP 신규 진입자는 가격 회복 국면에서 진입하지만, 2027~2028년 가격 정상화 시 원가 경쟁력 압박이 다시 커질 수 있다.",
+      "fact": "금융계 보도에 따르면 후난위넝은 2026년 1분기 매출 149.65억위안으로 전년동기대비 121.31% 증가했고, 지배주주순이익은 13.56억위안으로 1337.77% 증가했다. 회사는 실적 변동 사유로 LFP 양극재 판매량 증가와 탄산리튬 등 원재료 가격 상승에 따른 제품 판매가격 인상을 제시했다. 봉황재경은 기본 EPS 1.78위안을 보도했다. 과거 비교로는 2024년 매출 225.99억위안, 순이익 5.94억위안으로 크게 둔화된 뒤 2025년 전체 매출 346.25억위안, 순이익 12.77억위안으로 회복했다. 1Q26 단일 분기 순이익 13.56억위안은 이미 2025년 연간 순이익을 넘어선 수준이다.",
+      "implication": [
+        "1Q 단일 분기 순이익이 2025년 연간 순이익을 초과했다. 탄산리튬 가격과 판가 회복이 양극재 기업 실적에 분기 단위의 큰 변동성을 만든다.",
+        "한국 LFP 신규 진입자가 가격 사이클 정점 부근에 들어갈 경우, 2027~2028년 가격 정상화 때 원가 경쟁력 상실 리스크가 커질 수 있다.",
+        "후난위넝의 증설과 글로벌 1위 지위 강화는 한국 양극재 기업의 글로벌 LFP 진입장벽을 높인다.",
+        "고압축밀도 LFP 공급 부족이 이어질 경우, K-배터리 3사의 ESS용 LFP 공급선 다변화에서 스펙·단가 균형이 핵심 변수가 된다."
+      ],
+      "urls": [
+        "https://m.jrj.com.cn/madapter/stock/2026/04/27185356906179.shtml",
+        "https://finance.ifeng.com/c/8sfbT97Prtd",
+        "https://www.nbd.com.cn/articles/2026-04-27/4363831.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "후난위넝 1Q26 매출 149.65억위안(YoY +121.31%), 순이익 13.56억위안(YoY +1337.77%)",
+          "source_url": "https://m.jrj.com.cn/madapter/stock/2026/04/27185356906179.shtml",
+          "source_quote": "湖南裕能公告称，2026年第一季度实现营业收入149.65亿元，同比增长121.31%；归属于上市公司股东的净利润为13.56亿元，同比增长1337.77%",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "실적 개선 사유: LFP 양극재 판매량 증가와 탄산리튬 가격 상승에 따른 제품 판가 인상",
+          "source_url": "https://m.jrj.com.cn/madapter/stock/2026/04/27185356906179.shtml",
+          "source_quote": "业绩变动主要系本报告期磷酸盐正极材料销售数量较上年同期增长，同时碳酸锂等材料价格上涨带动产品销售价格提升，营业收入随之同比增长",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "기본 EPS 1.78위안",
+          "source_url": "https://finance.ifeng.com/c/8sfbT97Prtd",
+          "source_quote": "公司2026年一季度实现营业收入149.65亿元，同比增长121.31%；归母净利润13.56亿元，同比增长1337.77%。基本每股收益1.78元",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "2024년 매출 225.99억위안(YoY -45.36%), 순이익 5.94억위안(YoY -62.45%)",
+          "source_url": "https://cn.solarbe.com/news/20251101/50011625.html",
+          "source_quote": "2024年，湖南裕能2024年实现营业收入约为225.99亿元，同比下降45.36%；对应实现归属净利润约5.94亿元，同比下降62.45%",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "2025년 전체 매출 346.25억위안(+53.22%), 순이익 12.77억위안(+115.18%)",
+          "source_url": "https://finance.sina.com.cn/stock/aiassist/ggsp/2026-04-23/doc-inhvnnxe5438763.shtml",
+          "source_quote": "2025年1月-12月，湖南裕能实现营业收入346.25亿元，同比增长53.22%；归母净利润12.77亿元，同比增长115.18%",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        }
+      ]
     },
     {
       "id": "2026-04-27_EU_01",
@@ -5310,6 +5586,69 @@
           "source_url": "https://www.nikkei.com/article/DGXZQOUC24CH60U6A420C2000000/",
           "source_quote": "BYDは3月上旬に自社開発の「刀片電池（ブレードバッテリー）」を刷新しており、この電池を搭載する。EVには搭載済みだが、PHVに載せるのは初めて",
           "fetched_at": "2026-04-26T21:48:00+09:00"
+        }
+      ]
+    },
+    {
+      "id": "2026-04-24_CN_05",
+      "region": "CN",
+      "date": "2026-04-24",
+      "cat": "Battery",
+      "sub_cat": "분기실적",
+      "signal": "high",
+      "title": "EVE Energy 1Q26: 매출 206억위안(YoY +62%), ESS 출하 20.38GWh가 동력전지 추월",
+      "sub": "동력 14.34GWh(+41%) / ESS 20.38GWh(+61%) / 순이익 14.46억위안(+31%) — 12월~4월 신규 ESS 수주 90GWh 중 LFP 80GWh",
+      "gate": "글로벌 ESS 셀 시장 2위권인 EVE의 단일 분기 출하에서 ESS가 동력전지를 넘어섰다. EV 둔화와 ESS 성장이라는 산업 구조 변화가 출하와 손익에 동시에 반영된 분기다. 4월 발표된 110GWh 추가 확장과 최근 90GWh ESS 수주까지 감안하면, CATL·BYD 다음의 중국 1.5티어 셀 기업들이 ESS에 집중 베팅하는 흐름이 뚜렷하다.",
+      "fact": "신랑재경 보도에 따르면 EVE Energy의 2026년 1분기 매출은 206.80억위안으로 전년동기대비 61.61% 증가했다. 출하량은 동력전지 14.34GWh(+40.93%), ESS 전지 20.38GWh(+60.82%)로 ESS가 동력전지를 넘어섰다. 지배주주순이익은 14.46억위안으로 31.35% 증가했고, 비경상손익 제외 순이익은 11.15억위안으로 36.32% 증가했다. 2025년 12월부터 2026년 4월까지 누적 ESS 수주는 90GWh를 넘었으며, 이 중 대형 LFP 배터리 주문이 80GWh로 약 90%를 차지했다. EVE는 4월 8일 장쑤 치둥 50GWh와 푸젠 상항 60GWh 등 총 110GWh 추가 확장도 발표했다.",
+      "implication": [
+        "EVE의 ESS 출하가 동력전지를 넘어선 것은 글로벌 셀 기업의 제품 믹스 변화 신호다. LG에너지솔루션과 SK온도 ESS 비중 확대 압박을 더 크게 받을 수 있다.",
+        "최근 5개월 ESS 수주 90GWh 중 대형 LFP가 80GWh다. K-배터리 3사의 ESS 셀 믹스와 LFP 양산 타임라인을 다시 점검해야 한다.",
+        "공격적 증설은 성장성과 동시에 현금흐름 부담을 만든다. 230GWh급 확장 계획의 자금 조달 방식이 다음 관찰 포인트다.",
+        "중국 ESS 셀 가격이 한국 BESS 입찰의 직접 비교 기준점으로 작용할 가능성이 커졌다."
+      ],
+      "urls": [
+        "https://finance.sina.com.cn/stock/aigc/stockfs/2026-04-25/doc-inhvrtin4182544.shtml",
+        "https://finance.sina.com.cn/roll/2026-04-24/doc-inhvrhty3115429.shtml",
+        "https://finance.sina.com.cn/jjxw/2026-04-24/doc-inhvramu4377193.shtml",
+        "https://finance.sina.com.cn/wm/2026-04-21/doc-inhvheze6859890.shtml"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "EVE Energy 1Q26 매출 206.80억위안(YoY +61.61%)",
+          "source_url": "https://finance.sina.com.cn/stock/aigc/stockfs/2026-04-25/doc-inhvrtin4182544.shtml",
+          "source_quote": "2026年第一季度，亿纬锂能实现营业收入206.80亿元，较上年同期的127.96亿元同比增长61.61%",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "동력전지 14.34GWh(+40.93%), ESS 전지 20.38GWh(+60.82%) — ESS가 동력전지 추월",
+          "source_url": "https://finance.sina.com.cn/stock/aigc/stockfs/2026-04-25/doc-inhvrtin4182544.shtml",
+          "source_quote": "动力电池出货14.34GWh，同比增长40.93%；储能电池出货20.38GWh，同比增长60.82%",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "순이익 14.46억위안(+31.35%)",
+          "source_url": "https://finance.sina.com.cn/stock/aigc/stockfs/2026-04-25/doc-inhvrtin4182544.shtml",
+          "source_quote": "公司归属于上市公司股东的净利润为14.46亿元，同比增长31.35%",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "2025년 12월~2026년 4월 신규 ESS 수주 90GWh+, 대형 LFP 80GWh",
+          "source_url": "https://finance.sina.com.cn/jjxw/2026-04-24/doc-inhvramu4377193.shtml",
+          "source_quote": "2025年12月至2026年4月，公司累计斩获储能订单超90GWh，其中大方形铁锂电池订单达80GWh，占比近九成",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "4월 8일 장쑤 치둥+푸젠 상항 합계 110GWh 신규 투자 발표",
+          "source_url": "https://finance.sina.com.cn/wm/2026-04-21/doc-inhvheze6859890.shtml",
+          "source_quote": "4月8日，亿纬锂能（300014.SZ）宣布将在江苏启东和福建上杭新建合计110GWh的储能（动力）电池产能，总投资110亿元",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
+        },
+        {
+          "claim": "3월 28일 이후 누적 4건, 230GWh/230억위안 규모 증설 계획 발표",
+          "source_url": "https://finance.sina.com.cn/wm/2026-04-21/doc-inhvheze6859890.shtml",
+          "source_quote": "这已是其自3月28日以来披露的第四个大规模扩产计划，不到半个月就累计宣布规划新增产能230GWh，投资约230亿元",
+          "fetched_at": "2026-04-29T20:00:00+09:00"
         }
       ]
     },
@@ -16464,5 +16803,5 @@
       ]
     }
   ],
-  "cleanup_note": "Final enhanced red-team pass; source_quote preserved."
+  "cleanup_note": "Merged 20260429 incoming cards with ID-conflict handling, same-story dedupe, and final reader-facing red-team cleanup; source_quote preserved."
 }

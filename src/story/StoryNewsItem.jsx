@@ -14,7 +14,7 @@ import { normalizeCard } from './normalizeCard';
 // 호환성 위해 시그니처에 유지하되 렌더링 안 함.)
 // 2026-04-30: 뉴스 이미지 UX 보정
 //   - featured 카드는 magazine lead 유지
-//   - 일반 뉴스 카드는 compact side-thumbnail 구조로 전환
+//   - 일반 뉴스 카드는 compact magazine 구조: 상단 와이드 이미지 + 하단 본문
 //   - source.unsplash 동적 URL 제거, stable images.unsplash 풀 사용
 //   - 카드별 hash 기반 이미지 선택으로 다양화 + 재현성 확보
 // ============================================================================
@@ -276,7 +276,7 @@ export default function StoryNewsItem({
   const briefAccent = briefMode === 'summary' ? t.cyan : '#A855F7';
   const imageBg = {
     backgroundColor: dark ? '#111827' : '#EEF3FF',
-    backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.18)), url(${visualImage})`,
+    backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.24)), url(${visualImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -309,29 +309,29 @@ export default function StoryNewsItem({
           </div>
         </div>
       ) : (
-        <div style={{ padding: 16, display: 'flex', gap: 14, alignItems: 'stretch' }}>
-          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+        <>
+          <div style={{ position: 'relative', height: 136, ...imageBg }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.18) 48%, rgba(13,17,23,0.62) 100%)' }} />
+            <div style={{ position: 'absolute', top: 10, left: 12, right: 12, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                 <SigPill sig={sig} label={sigLabel} />
-                <MetaPill dark={dark}>{regionFlag} {c.region}</MetaPill>
-                {c.source || c.src ? <MetaPill dark={dark} maxWidth={92}>{c.source || c.src}</MetaPill> : null}
+                <OverlayPill>{regionFlag} {c.region}</OverlayPill>
+                <OverlayPill>{fmtDate(c.date)}</OverlayPill>
               </div>
-              <h3 style={{ margin: 0, color: t.tx, fontSize: 16, lineHeight: 1.4, fontWeight: 850, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                {c.title || c.T || '제목 없음'}
-              </h3>
-              {c.sub ? (
-                <p style={{ margin: '6px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.52, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                  {c.sub}
-                </p>
-              ) : null}
-            </div>
-            <div style={{ fontSize: 11, color: t.sub, marginTop: 10, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>
-              {fmtDate(c.date)}
+              {c.source || c.src ? <OverlayPill maxWidth={96}>{c.source || c.src}</OverlayPill> : null}
             </div>
           </div>
-          <div style={{ width: 96, minHeight: 104, flexShrink: 0, borderRadius: 12, border: `1px solid ${t.brd}`, overflow: 'hidden', ...imageBg }} aria-hidden="true" />
-        </div>
+          <div style={{ padding: '14px 16px 14px' }}>
+            <h3 style={{ margin: 0, color: t.tx, fontSize: 16, lineHeight: 1.42, fontWeight: 850, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              {c.title || c.T || '제목 없음'}
+            </h3>
+            {c.sub ? (
+              <p style={{ margin: '7px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.55, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                {c.sub}
+              </p>
+            ) : null}
+          </div>
+        </>
       )}
 
       <div style={{ padding: footerPadding, display: 'flex', flexDirection: 'column', gap: 12 }}>

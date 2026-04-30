@@ -12,16 +12,69 @@ import { normalizeCard } from './normalizeCard';
 // 2026-04-20: 상담 횟수 hint 제거 (per-browser localStorage 카운터라
 // 다수 사용자 환경에선 의미 없고 혼란 유발. consultationHint prop은
 // 호환성 위해 시그니처에 유지하되 렌더링 안 함.)
-// 2026-04-30: 일반 뉴스 카드 이미지 배치 개선
-//   - featured 카드는 기존 magazine lead 유지
-//   - 일반 뉴스 카드는 오른쪽 작은 썸네일 대신 상단 와이드 이미지 사용
-//   - 카드 텍스트 기반 이미지 seed를 적용해 반복감 완화
+// 2026-04-30: 뉴스 이미지 UX 보정
+//   - featured 카드는 magazine lead 유지
+//   - 일반 뉴스 카드는 compact side-thumbnail 구조로 전환
+//   - source.unsplash 동적 URL 제거, stable images.unsplash 풀 사용
+//   - 카드별 hash 기반 이미지 선택으로 다양화 + 재현성 확보
 // ============================================================================
 
 const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
 const SIG_LABELS = { top: 'TOP', high: 'HIGH', mid: 'MID', info: 'INFO', t: 'TOP', h: 'HIGH', m: 'MID', i: 'INFO' };
 const REG_FLAG = { US: '🇺🇸', KR: '🇰🇷', EU: '🇪🇺', CN: '🇨🇳', JP: '🇯🇵', GL: '🌐', NA: '🇺🇸', 'US/KR': '🇺🇸' };
 const THINK_MS = 700;
+
+const IMAGE_POOLS = {
+  POLICY: [
+    'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=600&q=80',
+  ],
+  FINANCE: [
+    'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1633156189777-41d13d474421?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
+  ],
+  FACTORY: [
+    'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80',
+  ],
+  AUTO: [
+    'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1617704548623-340376564e68?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=600&q=80',
+  ],
+  BATTERY: [
+    'https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1620800615556-91eecfc5108f?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1558444479-c86e4efe22ef?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1594818379496-da1e345b0dc3?auto=format&fit=crop&w=600&q=80',
+  ],
+  TECH: [
+    'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
+  ],
+  DEFAULT: [
+    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?auto=format&fit=crop&w=600&q=80',
+  ],
+};
 
 function theme(dark = true) {
   return dark
@@ -80,27 +133,27 @@ function hashSeed(value) {
   return Math.abs(hash);
 }
 
-function imageQueryFor(card) {
+function imageCategoryFor(card) {
   const text = [card?.id, card?.title, card?.T, card?.sub, card?.subtitle, card?.gate, card?.g, card?.source, card?.src]
     .filter(Boolean)
     .join(' ')
     .toLowerCase();
 
-  if (/(ira|feoc|crma|cbam|보조금|관세|규제|법안|정부|정책|세액공제|공시|입법|의회|재무부|산업부|환경부)/.test(text)) return 'policy,government,energy';
-  if (/(실적|영업이익|매출|주가|투자|적자|흑자|m&a|상장|ipo|margin|ebitda|funding|capex|재무|감가|손상|회계)/.test(text)) return 'finance,chart,business';
-  if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율|plant|factory|manufacturing|gigafactory|라인|준공)/.test(text)) return 'factory,manufacturing,industry';
-  if (/(테슬라|전기차|ev|완성차|현대차|기아|포드|gm|bmw|폭스바겐|toyota|honda|자동차|충전|charging)/.test(text)) return 'electric-car,charging,road';
-  if (/(배터리|lfp|전고체|리튬|니켈|코발트|흑연|양극재|음극재|분리막|전해액|ess|bess|catl|byd|엔솔|sdi|sk온|파우치|셀|모듈)/.test(text)) return 'battery,energy-storage,technology';
-  if (/(기술|r&d|특허|연구|차세대|효율|혁신|개발|테스트|파일럿|ai|software|data|semiconductor|반도체)/.test(text)) return 'technology,research,laboratory';
-  return 'energy,industry,technology';
+  if (/(ira|feoc|crma|cbam|보조금|관세|규제|법안|정부|정책|세액공제|공시|입법|의회|재무부|산업부|환경부|mou|협력)/.test(text)) return 'POLICY';
+  if (/(실적|영업이익|매출|주가|투자|적자|흑자|m&a|상장|ipo|margin|ebitda|funding|capex|재무|감가|손상|회계|계약|공급계약)/.test(text)) return 'FINANCE';
+  if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율|plant|factory|manufacturing|gigafactory|라인|준공|착공)/.test(text)) return 'FACTORY';
+  if (/(테슬라|전기차|ev|완성차|현대차|기아|포드|gm|bmw|폭스바겐|toyota|honda|자동차|충전|charging|dc 충전|46시리즈)/.test(text)) return 'AUTO';
+  if (/(배터리|lfp|전고체|리튬|니켈|코발트|흑연|양극재|음극재|분리막|전해액|ess|bess|catl|byd|엔솔|sdi|sk온|파우치|셀|모듈|희토류)/.test(text)) return 'BATTERY';
+  if (/(기술|r&d|특허|연구|차세대|효율|혁신|개발|테스트|파일럿|ai|software|data|semiconductor|반도체)/.test(text)) return 'TECH';
+  return 'DEFAULT';
 }
 
 function pickStoryCover(card, fallbackCover, featured) {
   if (featured && fallbackCover) return fallbackCover;
+  const category = imageCategoryFor(card);
+  const pool = IMAGE_POOLS[category] || IMAGE_POOLS.DEFAULT;
   const seed = [card?.id, card?.date, card?.d, card?.title, card?.T, card?.source, card?.region].filter(Boolean).join('|');
-  const sig = hashSeed(seed) % 997;
-  const query = imageQueryFor(card);
-  return `https://source.unsplash.com/900x420/?${query}&sig=${sig}`;
+  return pool[hashSeed(seed) % pool.length] || fallbackCover || IMAGE_POOLS.DEFAULT[0];
 }
 
 function makeBriefLines(card, mode) {
@@ -158,7 +211,7 @@ function OverlayPill({ children, maxWidth }) {
       fontSize: 10,
       fontWeight: 700,
       color: 'rgba(255,255,255,0.95)',
-      background: 'rgba(0,0,0,0.45)',
+      background: 'rgba(0,0,0,0.48)',
       backdropFilter: 'blur(8px)',
       padding: '4px 8px',
       borderRadius: 6,
@@ -221,13 +274,20 @@ export default function StoryNewsItem({
   const footerPadding = layout === 'lead' ? '12px 16px 16px' : '0 16px 16px';
   const briefMode = thinkingMode || activeMode;
   const briefAccent = briefMode === 'summary' ? t.cyan : '#A855F7';
+  const imageBg = {
+    backgroundColor: dark ? '#111827' : '#EEF3FF',
+    backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.18)), url(${visualImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  };
 
   return (
     <div style={{ background: t.card2, borderRadius: 16, border: `1px solid ${t.brd}`, overflow: 'hidden', boxShadow: t.shadow, marginBottom: 12 }}>
       <div style={{ height: 4, background: sig }} />
 
       {layout === 'lead' ? (
-        <div style={{ position: 'relative', height: 240, background: `url(${visualImage}) center/cover no-repeat` }}>
+        <div style={{ position: 'relative', height: 240, ...imageBg }}>
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.38) 42%, rgba(13,17,23,0.95) 100%)' }} />
           <div style={{ position: 'absolute', top: 12, left: 14, right: 14, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
@@ -249,30 +309,29 @@ export default function StoryNewsItem({
           </div>
         </div>
       ) : (
-        <>
-          <div style={{ position: 'relative', height: 132, background: `url(${visualImage}) center/cover no-repeat` }}>
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.48) 100%)' }} />
-            <div style={{ position: 'absolute', top: 10, left: 12, right: 12, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        <div style={{ padding: 16, display: 'flex', gap: 14, alignItems: 'stretch' }}>
+          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
                 <SigPill sig={sig} label={sigLabel} />
-                <OverlayPill>{regionFlag} {c.region}</OverlayPill>
-                <OverlayPill>{fmtDate(c.date)}</OverlayPill>
+                <MetaPill dark={dark}>{regionFlag} {c.region}</MetaPill>
+                {c.source || c.src ? <MetaPill dark={dark} maxWidth={92}>{c.source || c.src}</MetaPill> : null}
               </div>
-              {c.source || c.src ? <OverlayPill maxWidth={96}>{c.source || c.src}</OverlayPill> : null}
+              <h3 style={{ margin: 0, color: t.tx, fontSize: 16, lineHeight: 1.4, fontWeight: 850, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                {c.title || c.T || '제목 없음'}
+              </h3>
+              {c.sub ? (
+                <p style={{ margin: '6px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.52, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                  {c.sub}
+                </p>
+              ) : null}
+            </div>
+            <div style={{ fontSize: 11, color: t.sub, marginTop: 10, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>
+              {fmtDate(c.date)}
             </div>
           </div>
-
-          <div style={{ padding: '14px 16px 14px' }}>
-            <h3 style={{ margin: 0, color: t.tx, fontSize: 16, lineHeight: 1.42, fontWeight: 850, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-              {c.title || c.T || '제목 없음'}
-            </h3>
-            {c.sub ? (
-              <p style={{ margin: '7px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.55, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                {c.sub}
-              </p>
-            ) : null}
-          </div>
-        </>
+          <div style={{ width: 96, minHeight: 104, flexShrink: 0, borderRadius: 12, border: `1px solid ${t.brd}`, overflow: 'hidden', ...imageBg }} aria-hidden="true" />
+        </div>
       )}
 
       <div style={{ padding: footerPadding, display: 'flex', flexDirection: 'column', gap: 12 }}>

@@ -5,7 +5,7 @@ import { normalizeCard } from './normalizeCard';
 // 배터리 상담소 재설계 Phase 1 (2026-04-19)
 // ----------------------------------------------------------------------------
 // 변경점:
-//   - 버튼 wording: "이 카드로 계속 물어보기" → "📋 상담카드 제출"
+//   - 버튼 wording: "이 카드로 계속 물어보기" → "📋 상담 접수"
 //   - 버튼 상시 노출: 브리프(핵심만/콕짚기) 펴지 않아도 footer에 항상 있음
 //   - callback: onAskChatbot(promptString) → onSubmitConsultation(rawCard)
 // ----------------------------------------------------------------------------
@@ -24,13 +24,6 @@ const SIG_LABELS = { top: 'TOP', high: 'HIGH', mid: 'MID', info: 'INFO', t: 'TOP
 const REG_FLAG = { US: '🇺🇸', KR: '🇰🇷', EU: '🇪🇺', CN: '🇨🇳', JP: '🇯🇵', GL: '🌐', NA: '🇺🇸', 'US/KR': '🇺🇸' };
 const THINK_MS = 700;
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { normalizeCard } from './normalizeCard';
-
-const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
-const SIG_LABELS = { top: 'TOP', high: 'HIGH', mid: 'MID', info: 'INFO', t: 'TOP', h: 'HIGH', m: 'MID', i: 'INFO' };
-const REG_FLAG = { US: '🇺🇸', KR: '🇰🇷', EU: '🇪🇺', CN: '🇨🇳', JP: '🇯🇵', GL: '🌐', NA: '🇺🇸', 'US/KR': '🇺🇸' };
-const THINK_MS = 700;
 const IMAGE_POOLS = {
   POLICY: [
     'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80',
@@ -285,7 +278,7 @@ function makeBriefLines(card, mode) {
   if (mode === 'summary') {
     return summary.slice(0, 2).map((line, idx) => (idx === 0 ? line : `중요한 건 ${line}`));
   }
-  return insight.slice(0, 2).map((line, idx) => (idx === 0 ? `강차장 시선으로 보면 ${line}` : line));
+  return insight.slice(0, 2).map((line, idx) => (idx === 0 ? `강차장식으로 보면 ${line}` : line));
 }
 
 function MetaPill({ children, dark, maxWidth }) {
@@ -564,7 +557,7 @@ export default function StoryNewsItem({
               }}
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-              이슈 브리핑
+              요점만
             </button>
             <button 
               onClick={() => openBrief('insight')} 
@@ -589,7 +582,7 @@ export default function StoryNewsItem({
               }}
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="21 12 16.5 14.6 16.5 19.79"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-              강차장 인사이트
+              왜 중요?
             </button>
           </div>
 
@@ -616,7 +609,7 @@ export default function StoryNewsItem({
                   gap: 6
                 }}
               >
-                원문 ↗
+                원문 보기 ↗
               </button>
             )}
             <button
@@ -644,7 +637,7 @@ export default function StoryNewsItem({
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-              상담카드 제출
+              상담 접수
             </button>
           </div>
         </div>
@@ -691,5 +684,4 @@ export default function StoryNewsItem({
       `}} />
     </div>
   );
-}
 }

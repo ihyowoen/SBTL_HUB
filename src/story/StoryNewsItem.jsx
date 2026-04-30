@@ -25,18 +25,12 @@ const REG_FLAG = { US: '🇺🇸', KR: '🇰🇷', EU: '🇪🇺', CN: '🇨🇳
 const THINK_MS = 700;
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-// 빌드 에러 해결을 위해 확장자를 제거한 표준 경로로 유지합니다.
 import { normalizeCard } from './normalizeCard';
-
-// ============================================================================
-// 배터리 뉴스 카드 컴포넌트 - 이미지 풀 대폭 확장 (150장) 및 디자인 매거진 버전
-// ============================================================================
 
 const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
 const SIG_LABELS = { top: 'TOP', high: 'HIGH', mid: 'MID', info: 'INFO', t: 'TOP', h: 'HIGH', m: 'MID', i: 'INFO' };
 const REG_FLAG = { US: '🇺🇸', KR: '🇰🇷', EU: '🇪🇺', CN: '🇨🇳', JP: '🇯🇵', GL: '🌐', NA: '🇺🇸', 'US/KR': '🇺🇸' };
 const THINK_MS = 700;
-
 const IMAGE_POOLS = {
   POLICY: [
     'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80',
@@ -368,7 +362,6 @@ export default function StoryNewsItem({
   const [activeMode, setActiveMode] = useState(null);
   const [thinkingMode, setThinkingMode] = useState(null);
   const timerRef = useRef(null);
-
   const signalKey = String(c.signal || 'info').toLowerCase();
   const sig = SIG_COLORS[signalKey] || SIG_COLORS.info;
   const sigLabel = SIG_LABELS[signalKey] || 'INFO';
@@ -377,9 +370,7 @@ export default function StoryNewsItem({
   const sourceUrl = c.primaryUrl || card?.primaryUrl || card?.primary_url || card?.url || (Array.isArray(card?.urls) ? card.urls[0] : '') || '';
   const layout = featured ? 'lead' : 'plain';
   const lines = activeMode ? makeBriefLines(c, activeMode) : [];
-
   const imageCategory = useMemo(() => imageCategoryFor({ ...card, ...c }), [card, c]);
-
   const imagePool = useMemo(() => {
     const pool = IMAGE_POOLS[imageCategory] || IMAGE_POOLS.DEFAULT;
     const candidates = featured && coverImage ? [coverImage, ...pool] : pool;
@@ -543,14 +534,12 @@ export default function StoryNewsItem({
         </>
       )}
 
-      {/* 액션 버튼 그룹 - AI 데스크 스타일 개선 */}
       <div style={{ padding: footerPadding, display: 'flex', flexDirection: 'column', gap: 14 }}>
         
         {layout !== 'lead' && <div style={{ height: 1, background: t.brd, margin: '0 -20px 4px' }} />}
 
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
           
-          {/* 브리핑/인사이트 (내부 분석) */}
           <div style={{ display: 'flex', gap: 8, flex: '1 1 100%' }}>
             <button 
               onClick={() => openBrief('summary')} 
@@ -604,7 +593,6 @@ export default function StoryNewsItem({
             </button>
           </div>
 
-          {/* 원문/제출 (외부 액션) */}
           <div style={{ display: 'flex', gap: 10, flex: '1 1 100%', justifyContent: 'flex-end' }}>
             {sourceUrl && (
               <button
@@ -661,7 +649,6 @@ export default function StoryNewsItem({
           </div>
         </div>
 
-        {/* 강차장 분석 말풍선 데스크 디자인 */}
         {(thinkingMode || activeMode) && (
           <div style={{ 
             display: 'flex', 
@@ -676,7 +663,6 @@ export default function StoryNewsItem({
             position: 'relative',
             overflow: 'hidden'
           }}>
-            {/* 배경 액센트 글로우 */}
             <div style={{ position: 'absolute', top: -40, right: -40, width: 100, height: 100, background: briefAccent, filter: 'blur(60px)', opacity: 0.15, pointerEvents: 'none' }} />
 
             {thinkingMode ? (
@@ -705,4 +691,5 @@ export default function StoryNewsItem({
       `}} />
     </div>
   );
+}
 }

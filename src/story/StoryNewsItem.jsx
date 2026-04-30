@@ -460,77 +460,147 @@ export default function StoryNewsItem({
         </>
       )}
 
-      <div style={{ padding: footerPadding, display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {layout !== 'lead' && <div style={{ height: 1, background: t.brd, margin: '0 -16px' }} />}
+      {/* 액션 버튼 그룹 */}
+      <div style={{ padding: footerPadding, display: 'flex', flexDirection: 'column', gap: 14 }}>
+        
+        {layout !== 'lead' && <div style={{ height: 1, background: t.brd, margin: '0 -20px 4px' }} />}
 
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-          <div style={{ display: 'flex', gap: 6, flex: '1 1 100%' }}>
-            <button
-              type="button"
-              onClick={() => openBrief('summary')}
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+          
+          {/* 브리핑/인사이트 (내부 분석) */}
+          <div style={{ display: 'flex', gap: 8, flex: '1 1 100%' }}>
+            <button 
+              onClick={() => openBrief('summary')} 
               aria-pressed={activeMode === 'summary'}
-              style={{ flex: 1, borderRadius: 8, border: activeMode === 'summary' ? `1px solid ${t.cyan}` : `1px solid ${t.brd}`, background: activeMode === 'summary' ? (dark ? 'rgba(88,166,255,0.15)' : 'rgba(9,105,218,0.1)') : 'transparent', color: activeMode === 'summary' ? t.cyan : t.sub, padding: '8px 10px', minHeight: '36px', fontSize: 12, fontWeight: 800, cursor: 'pointer', transition: 'all 0.2s', whiteSpace: 'nowrap' }}
+              style={{ 
+                flex: 1, 
+                borderRadius: 12, 
+                border: activeMode === 'summary' ? `1.5px solid ${t.cyan}` : `1px solid ${t.brd}`, 
+                background: activeMode === 'summary' ? (dark ? 'rgba(88,166,255,0.18)' : 'rgba(9,105,218,0.08)') : (dark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)'), 
+                color: activeMode === 'summary' ? t.cyan : t.tx, 
+                padding: '10px 12px', 
+                minHeight: '42px', 
+                fontSize: 13, 
+                fontWeight: 800, 
+                cursor: 'pointer', 
+                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)', 
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 6
+              }}
             >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
               이슈 브리핑
             </button>
-            <button
-              type="button"
-              onClick={() => openBrief('insight')}
+            <button 
+              onClick={() => openBrief('insight')} 
               aria-pressed={activeMode === 'insight'}
-              style={{ flex: 1, borderRadius: 8, border: activeMode === 'insight' ? '1px solid #A855F7' : `1px solid ${t.brd}`, background: activeMode === 'insight' ? 'rgba(168,85,247,0.15)' : 'transparent', color: activeMode === 'insight' ? '#A855F7' : t.sub, padding: '8px 10px', minHeight: '36px', fontSize: 12, fontWeight: 800, cursor: 'pointer', transition: 'all 0.2s', whiteSpace: 'nowrap' }}
+              style={{ 
+                flex: 1, 
+                borderRadius: 12, 
+                border: activeMode === 'insight' ? '1.5px solid #A855F7' : `1px solid ${t.brd}`, 
+                background: activeMode === 'insight' ? 'rgba(168,85,247,0.18)' : (dark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)'), 
+                color: activeMode === 'insight' ? '#A855F7' : t.tx, 
+                padding: '10px 12px', 
+                minHeight: '42px', 
+                fontSize: 13, 
+                fontWeight: 800, 
+                cursor: 'pointer', 
+                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)', 
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 6
+              }}
             >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="21 12 16.5 14.6 16.5 19.79"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
               강차장 인사이트
             </button>
           </div>
 
-          <div style={{ display: 'flex', gap: 6, flex: '1 1 100%', justifyContent: 'flex-end' }}>
+          {/* 원문/제출 (외부 액션) */}
+          <div style={{ display: 'flex', gap: 8, flex: '1 1 100%', justifyContent: 'flex-end' }}>
             {sourceUrl && (
               <button
-                type="button"
                 onClick={() => window.open(sourceUrl, '_blank', 'noopener,noreferrer')}
-                style={{ flex: 1, borderRadius: 8, border: `1px solid ${t.brd}`, background: t.card, color: t.tx, padding: '8px 14px', minHeight: '36px', fontSize: 12, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }}
+                style={{ 
+                  flex: 1, 
+                  borderRadius: 12, 
+                  border: `1.5px solid ${t.brd}`, 
+                  background: t.card, 
+                  color: t.sub, 
+                  padding: '10px 16px', 
+                  minHeight: '44px', 
+                  fontSize: 13, 
+                  fontWeight: 800, 
+                  cursor: 'pointer', 
+                  whiteSpace: 'nowrap', 
+                  textAlign: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 4
+                }}
               >
                 원문 ↗
               </button>
             )}
             <button
-              type="button"
               onClick={handleSubmit}
               aria-label="이 카드를 배터리 상담소에 제출"
               style={{
-                flex: sourceUrl ? 1 : 'none',
+                flex: sourceUrl ? 1.8 : 'none',
                 width: sourceUrl ? 'auto' : '100%',
-                borderRadius: 8,
+                borderRadius: 12,
                 border: 'none',
                 background: t.cyan,
                 color: '#000',
-                padding: '8px 16px',
-                minHeight: '36px',
-                fontSize: 12,
+                padding: '10px 18px',
+                minHeight: '44px',
+                fontSize: 13,
                 fontWeight: 900,
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
-                boxShadow: `0 2px 8px ${dark ? 'rgba(88,166,255,0.3)' : 'rgba(9,105,218,0.3)'}`,
+                boxShadow: `0 4px 12px ${dark ? 'rgba(88,166,255,0.35)' : 'rgba(9,105,218,0.35)'}`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 6
               }}
             >
-              📋 상담카드 제출
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+              상담카드 제출
             </button>
           </div>
         </div>
 
+        {/* 강차장 말풍선 (Brief Panel) */}
         {(thinkingMode || activeMode) && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4, padding: 14, background: dark ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.03)', borderRadius: 12, border: `1px solid ${t.brd}` }}>
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: 12, 
+            marginTop: 6, 
+            padding: 16, 
+            background: dark ? 'rgba(0,0,0,0.25)' : 'rgba(0,0,0,0.04)', 
+            borderRadius: 16, 
+            border: `1.5px solid ${t.brd}`,
+            boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)'
+          }}>
             {thinkingMode ? (
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                <div style={{ flexShrink: 0, width: 32, height: 32, borderRadius: '50%', background: briefAccent, color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 900 }}>강</div>
-                <div style={{ flex: 1, background: t.card, borderRadius: '0 12px 12px 12px', border: `1px solid ${t.brd}`, padding: '12px 16px', color: t.sub, fontSize: 13, lineHeight: 1.6 }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
+                <div style={{ flexShrink: 0, width: 36, height: 36, borderRadius: '50%', background: briefAccent, color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 900 }}>강</div>
+                <div style={{ flex: 1, background: t.card, borderRadius: '0 16px 16px 16px', border: `1px solid ${t.brd}`, padding: '14px 18px', color: t.sub, fontSize: 14, lineHeight: 1.6, fontWeight: 500 }}>
                   정리 중...
                 </div>
               </div>
             ) : lines.map((line, idx) => (
-              <div key={`${activeMode}-${idx}`} style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                <div style={{ flexShrink: 0, width: 32, height: 32, borderRadius: '50%', background: briefAccent, color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 900, boxShadow: `0 2px 6px ${briefMode === 'summary' ? 'rgba(88,166,255,0.4)' : 'rgba(168,85,247,0.4)'}` }}>강</div>
-                <div style={{ flex: 1, background: t.card, borderRadius: '0 12px 12px 12px', border: `1px solid ${t.brd}`, padding: '12px 16px', color: t.tx, fontSize: 13, lineHeight: 1.65, wordBreak: 'keep-all', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+              <div key={`${activeMode}-${idx}`} style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
+                <div style={{ flexShrink: 0, width: 36, height: 36, borderRadius: '50%', background: briefAccent, color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 900, boxShadow: `0 3px 8px ${briefMode === 'summary' ? 'rgba(88,166,255,0.45)' : 'rgba(168,85,247,0.45)'}` }}>강</div>
+                <div style={{ flex: 1, background: t.card, borderRadius: '0 16px 16px 16px', border: `1px solid ${t.brd}`, padding: '14px 18px', color: t.tx, fontSize: 14, lineHeight: 1.7, wordBreak: 'keep-all', boxShadow: '0 3px 6px rgba(0,0,0,0.06)', fontWeight: 500 }}>
                   {line}
                 </div>
               </div>

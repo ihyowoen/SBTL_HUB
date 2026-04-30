@@ -15,9 +15,8 @@ import { normalizeCard } from './normalizeCard';
 // 2026-04-30: 뉴스 이미지 UX 보정
 //   - featured 카드는 magazine lead 유지
 //   - 일반 뉴스 카드는 compact magazine 구조: 상단 와이드 이미지 + 하단 본문
-//   - source.unsplash 동적 URL 제거, stable images.unsplash 풀 사용
-//   - 이미지 풀 10장 단위 확장 + RECYCLE/MINING/GRID 세분화
-//   - 카드별 hash 기반 이미지 선택으로 다양화 + 재현성 확보
+//   - CSS background-image 대신 <img> + onError fallback chain 사용
+//   - 이미지 실패/차단/지연 시 검정 패널 대신 branded gradient fallback 노출
 // ============================================================================
 
 const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
@@ -35,8 +34,6 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1447069387593-a5de0862481e?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1521790797524-b2497295b8a0?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1575517111478-7f6afd0973db?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1523293182030-d79043224701?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=600&q=80',
   ],
   FINANCE: [
     'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80',
@@ -46,9 +43,7 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1633156189777-41d13d474421?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1535320971260-19f223a3176d?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1526303328184-c7e6c0c53462?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1518186414747-d74c24729c43?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1611974717131-fda6f8e75294?auto=format&fit=crop&w=600&q=80',
   ],
   FACTORY: [
     'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80',
@@ -59,8 +54,6 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1542744095-2ad4870bf002?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1590486803833-ffc6f0861f36?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=600&q=80',
   ],
   AUTO: [
     'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=600&q=80',
@@ -69,8 +62,6 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1591836335805-4c0177757913?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1553265027-29066ca94c03?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&q=80',
   ],
@@ -82,9 +73,7 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1594818379496-da1e345b0dc3?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1548333341-97d216272bb0?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1490184588517-f42caacd8711?auto=format&fit=crop&w=600&q=80',
   ],
   TECH: [
     'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
@@ -95,8 +84,6 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1510511459019-5deeec7138db?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1532187863486-abf9d39d9992?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
   ],
   MINING: [
     'https://images.unsplash.com/photo-1578319439584-104c94d37305?auto=format&fit=crop&w=600&q=80',
@@ -106,9 +93,7 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1523992527425-4198441fd3a4?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1495556650867-99590cea3657?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=600&q=80',
   ],
   RECYCLE: [
     'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80',
@@ -119,8 +104,6 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1517404212738-1976fe78ce50?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1591193022657-3932782fe24b?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1542601906970-30f95e5944b1?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1532187863486-abf9d39d9992?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1503596476-1c12a8ba09a9?auto=format&fit=crop&w=600&q=80',
   ],
   GRID: [
     'https://images.unsplash.com/photo-1466611653911-95281773ad90?auto=format&fit=crop&w=600&q=80',
@@ -131,8 +114,6 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1413882353051-789643878b4b?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1558444479-c86e4efe22ef?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=600&q=80',
   ],
   DEFAULT: [
     'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
@@ -142,9 +123,7 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1510511459019-5deeec7138db?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
   ],
 };
 
@@ -221,14 +200,6 @@ function imageCategoryFor(card) {
   if (/(배터리|lfp|전고체|양극재|음극재|분리막|전해액|셀|니켈|코발트|흑연|catl|byd|엔솔|sdi|sk온|파우치|모듈)/.test(text)) return 'BATTERY';
   if (/(기술|r&d|특허|연구|개발|혁신|차세대|파일럿|테스트|ai|software|data|semiconductor|반도체)/.test(text)) return 'TECH';
   return 'DEFAULT';
-}
-
-function pickStoryCover(card, fallbackCover, featured) {
-  if (featured && fallbackCover) return fallbackCover;
-  const category = imageCategoryFor(card);
-  const pool = IMAGE_POOLS[category] || IMAGE_POOLS.DEFAULT;
-  const seed = [card?.id, card?.date, card?.d, card?.title, card?.T, card?.source, card?.region, category].filter(Boolean).join('|');
-  return pool[hashSeed(seed) % pool.length] || fallbackCover || IMAGE_POOLS.DEFAULT[0];
 }
 
 function makeBriefLines(card, mode) {
@@ -314,13 +285,43 @@ export default function StoryNewsItem({
   const [activeMode, setActiveMode] = useState(null);
   const [thinkingMode, setThinkingMode] = useState(null);
   const timerRef = useRef(null);
-  const sig = SIG_COLORS[c.signal] || SIG_COLORS.info;
-  const sigLabel = SIG_LABELS[c.signal] || 'INFO';
+
+  const signalKey = String(c.signal || 'info').toLowerCase();
+  const sig = SIG_COLORS[signalKey] || SIG_COLORS.info;
+  const sigLabel = SIG_LABELS[signalKey] || 'INFO';
   const regionFlag = REG_FLAG[c.region] || '🌐';
+  const sourceText = c.source || card?.src || card?.source || '';
   const sourceUrl = c.primaryUrl || card?.primaryUrl || card?.primary_url || card?.url || (Array.isArray(card?.urls) ? card.urls[0] : '') || '';
-  const visualImage = pickStoryCover({ ...card, ...c }, coverImage, featured);
   const layout = featured ? 'lead' : 'plain';
   const lines = activeMode ? makeBriefLines(c, activeMode) : [];
+
+  const imageCategory = useMemo(() => imageCategoryFor({ ...card, ...c }), [card, c]);
+
+  const imagePool = useMemo(() => {
+    const pool = IMAGE_POOLS[imageCategory] || IMAGE_POOLS.DEFAULT;
+    const candidates = featured && coverImage ? [coverImage, ...pool] : pool;
+    return Array.from(new Set(candidates.filter(Boolean)));
+  }, [imageCategory, featured, coverImage]);
+
+  const imageStartIndex = useMemo(() => {
+    const seed = [card?.id, c.date, c.title, c.source, imageCategory]
+      .filter(Boolean)
+      .join('|');
+    return imagePool.length ? hashSeed(seed) % imagePool.length : 0;
+  }, [card?.id, c.date, c.title, c.source, imageCategory, imagePool]);
+
+  const [imageOffset, setImageOffset] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    setImageOffset(0);
+    setImageLoaded(false);
+  }, [imageStartIndex, imageCategory]);
+
+  const hasImageCandidate = imagePool.length > 0 && imageOffset < imagePool.length;
+  const imageSrc = hasImageCandidate
+    ? imagePool[(imageStartIndex + imageOffset) % imagePool.length]
+    : null;
 
   useEffect(() => () => {
     if (timerRef.current) window.clearTimeout(timerRef.current);
@@ -349,20 +350,67 @@ export default function StoryNewsItem({
   const footerPadding = layout === 'lead' ? '12px 16px 16px' : '0 16px 16px';
   const briefMode = thinkingMode || activeMode;
   const briefAccent = briefMode === 'summary' ? t.cyan : '#A855F7';
-  const imageBg = {
-    backgroundColor: dark ? '#111827' : '#EEF3FF',
-    backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.24)), url(${visualImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-  };
+
+  const renderVisualImage = (height) => (
+    <div
+      style={{
+        position: 'relative',
+        height,
+        overflow: 'hidden',
+        background: `radial-gradient(circle at 15% 20%, ${sig}44, transparent 34%), linear-gradient(135deg, #172033, #1C2333 55%, #24314A)`,
+      }}
+    >
+      {imageSrc ? (
+        <img
+          key={imageSrc}
+          src={imageSrc}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          onLoad={() => setImageLoaded(true)}
+          onError={() => {
+            setImageLoaded(false);
+            setImageOffset((prev) => Math.min(prev + 1, imagePool.length));
+          }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            opacity: imageLoaded ? 1 : 0,
+            transition: 'opacity 180ms ease',
+          }}
+        />
+      ) : (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'rgba(255,255,255,0.72)',
+            fontSize: 11,
+            fontWeight: 900,
+            letterSpacing: '0.08em',
+            fontFamily: "'JetBrains Mono',monospace",
+          }}
+        >
+          {imageCategory} SIGNAL
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div style={{ background: t.card2, borderRadius: 16, border: `1px solid ${t.brd}`, overflow: 'hidden', boxShadow: t.shadow, marginBottom: 12 }}>
       <div style={{ height: 4, background: sig }} />
 
       {layout === 'lead' ? (
-        <div style={{ position: 'relative', height: 240, ...imageBg }}>
+        <div style={{ position: 'relative' }}>
+          {renderVisualImage(240)}
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.38) 42%, rgba(13,17,23,0.95) 100%)' }} />
           <div style={{ position: 'absolute', top: 12, left: 14, right: 14, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
@@ -370,11 +418,11 @@ export default function StoryNewsItem({
               <OverlayPill>{regionFlag} {c.region}</OverlayPill>
               <OverlayPill>{fmtDate(c.date)}</OverlayPill>
             </div>
-            {c.source || c.src ? <OverlayPill maxWidth={100}>{c.source || c.src}</OverlayPill> : null}
+            {sourceText ? <OverlayPill maxWidth={100}>{sourceText}</OverlayPill> : null}
           </div>
           <div style={{ position: 'absolute', bottom: 16, left: 16, right: 16 }}>
             <h3 style={{ margin: 0, color: '#fff', fontSize: 20, lineHeight: 1.35, fontWeight: 900, textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
-              {c.title || c.T || '제목 없음'}
+              {c.title || card?.T || '제목 없음'}
             </h3>
             {c.sub ? (
               <p style={{ margin: '8px 0 0', color: 'rgba(255,255,255,0.86)', fontSize: 13, lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
@@ -385,23 +433,26 @@ export default function StoryNewsItem({
         </div>
       ) : (
         <>
-          <div style={{ position: 'relative', height: 136, ...imageBg }}>
+          <div style={{ position: 'relative' }}>
+            {renderVisualImage(136)}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.18) 48%, rgba(13,17,23,0.62) 100%)' }} />
             <div style={{ position: 'absolute', top: 10, left: 12, right: 12, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                 <SigPill sig={sig} label={sigLabel} />
                 <OverlayPill>{regionFlag} {c.region}</OverlayPill>
-                <OverlayPill>{fmtDate(c.date)}</OverlayPill>
               </div>
-              {c.source || c.src ? <OverlayPill maxWidth={96}>{c.source || c.src}</OverlayPill> : null}
+              {sourceText ? <OverlayPill maxWidth={100}>{sourceText}</OverlayPill> : null}
+            </div>
+            <div style={{ position: 'absolute', bottom: 10, left: 12 }}>
+              <OverlayPill>{fmtDate(c.date)}</OverlayPill>
             </div>
           </div>
-          <div style={{ padding: '14px 16px 14px' }}>
-            <h3 style={{ margin: 0, color: t.tx, fontSize: 16, lineHeight: 1.42, fontWeight: 850, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-              {c.title || c.T || '제목 없음'}
+          <div style={{ padding: 16 }}>
+            <h3 style={{ margin: 0, color: t.tx, fontSize: 16, lineHeight: 1.4, fontWeight: 800, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              {c.title || card?.T || '제목 없음'}
             </h3>
             {c.sub ? (
-              <p style={{ margin: '7px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.55, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              <p style={{ margin: '6px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                 {c.sub}
               </p>
             ) : null}
@@ -414,21 +465,54 @@ export default function StoryNewsItem({
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
           <div style={{ display: 'flex', gap: 6, flex: '1 1 100%' }}>
-            <button onClick={() => openBrief('summary')} aria-pressed={activeMode === 'summary'} style={{ flex: 1, borderRadius: 8, border: activeMode === 'summary' ? `1px solid ${t.cyan}` : `1px solid ${t.brd}`, background: activeMode === 'summary' ? (dark ? 'rgba(88,166,255,0.15)' : 'rgba(9,105,218,0.1)') : 'transparent', color: activeMode === 'summary' ? t.cyan : t.sub, padding: '8px 10px', minHeight: '36px', fontSize: 12, fontWeight: 800, cursor: 'pointer', transition: 'all 0.2s', whiteSpace: 'nowrap' }}>
+            <button
+              type="button"
+              onClick={() => openBrief('summary')}
+              aria-pressed={activeMode === 'summary'}
+              style={{ flex: 1, borderRadius: 8, border: activeMode === 'summary' ? `1px solid ${t.cyan}` : `1px solid ${t.brd}`, background: activeMode === 'summary' ? (dark ? 'rgba(88,166,255,0.15)' : 'rgba(9,105,218,0.1)') : 'transparent', color: activeMode === 'summary' ? t.cyan : t.sub, padding: '8px 10px', minHeight: '36px', fontSize: 12, fontWeight: 800, cursor: 'pointer', transition: 'all 0.2s', whiteSpace: 'nowrap' }}
+            >
               이슈 브리핑
             </button>
-            <button onClick={() => openBrief('insight')} aria-pressed={activeMode === 'insight'} style={{ flex: 1, borderRadius: 8, border: activeMode === 'insight' ? '1px solid #A855F7' : `1px solid ${t.brd}`, background: activeMode === 'insight' ? 'rgba(168,85,247,0.15)' : 'transparent', color: activeMode === 'insight' ? '#A855F7' : t.sub, padding: '8px 10px', minHeight: '36px', fontSize: 12, fontWeight: 800, cursor: 'pointer', transition: 'all 0.2s', whiteSpace: 'nowrap' }}>
+            <button
+              type="button"
+              onClick={() => openBrief('insight')}
+              aria-pressed={activeMode === 'insight'}
+              style={{ flex: 1, borderRadius: 8, border: activeMode === 'insight' ? '1px solid #A855F7' : `1px solid ${t.brd}`, background: activeMode === 'insight' ? 'rgba(168,85,247,0.15)' : 'transparent', color: activeMode === 'insight' ? '#A855F7' : t.sub, padding: '8px 10px', minHeight: '36px', fontSize: 12, fontWeight: 800, cursor: 'pointer', transition: 'all 0.2s', whiteSpace: 'nowrap' }}
+            >
               강차장 인사이트
             </button>
           </div>
 
           <div style={{ display: 'flex', gap: 6, flex: '1 1 100%', justifyContent: 'flex-end' }}>
             {sourceUrl && (
-              <button onClick={() => window.open(sourceUrl, '_blank', 'noopener,noreferrer')} style={{ flex: 1, borderRadius: 8, border: `1px solid ${t.brd}`, background: t.card, color: t.tx, padding: '8px 14px', minHeight: '36px', fontSize: 12, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }}>
+              <button
+                type="button"
+                onClick={() => window.open(sourceUrl, '_blank', 'noopener,noreferrer')}
+                style={{ flex: 1, borderRadius: 8, border: `1px solid ${t.brd}`, background: t.card, color: t.tx, padding: '8px 14px', minHeight: '36px', fontSize: 12, fontWeight: 800, cursor: 'pointer', whiteSpace: 'nowrap', textAlign: 'center' }}
+              >
                 원문 ↗
               </button>
             )}
-            <button onClick={handleSubmit} aria-label="이 카드를 배터리 상담소에 제출" style={{ flex: sourceUrl ? 1 : 'none', width: sourceUrl ? 'auto' : '100%', borderRadius: 8, border: 'none', background: t.cyan, color: '#000', padding: '8px 16px', minHeight: '36px', fontSize: 12, fontWeight: 900, cursor: 'pointer', whiteSpace: 'nowrap', boxShadow: `0 2px 8px ${dark ? 'rgba(88,166,255,0.3)' : 'rgba(9,105,218,0.3)'}` }}>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              aria-label="이 카드를 배터리 상담소에 제출"
+              style={{
+                flex: sourceUrl ? 1 : 'none',
+                width: sourceUrl ? 'auto' : '100%',
+                borderRadius: 8,
+                border: 'none',
+                background: t.cyan,
+                color: '#000',
+                padding: '8px 16px',
+                minHeight: '36px',
+                fontSize: 12,
+                fontWeight: 900,
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                boxShadow: `0 2px 8px ${dark ? 'rgba(88,166,255,0.3)' : 'rgba(9,105,218,0.3)'}`,
+              }}
+            >
               📋 상담카드 제출
             </button>
           </div>

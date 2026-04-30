@@ -16,6 +16,7 @@ import { normalizeCard } from './normalizeCard';
 //   - featured 카드는 magazine lead 유지
 //   - 일반 뉴스 카드는 compact magazine 구조: 상단 와이드 이미지 + 하단 본문
 //   - source.unsplash 동적 URL 제거, stable images.unsplash 풀 사용
+//   - 이미지 풀 10장 단위 확장 + RECYCLE/MINING/GRID 세분화
 //   - 카드별 hash 기반 이미지 선택으로 다양화 + 재현성 확보
 // ============================================================================
 
@@ -28,16 +29,26 @@ const IMAGE_POOLS = {
   POLICY: [
     'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1447069387593-a5de0862481e?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1521790797524-b2497295b8a0?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1575517111478-7f6afd0973db?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1523293182030-d79043224701?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=600&q=80',
   ],
   FINANCE: [
     'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1633156189777-41d13d474421?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1633156189777-41d13d474421?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1535320971260-19f223a3176d?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1526303328184-c7e6c0c53462?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1518186414747-d74c24729c43?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1611974717131-fda6f8e75294?auto=format&fit=crop&w=600&q=80',
   ],
   FACTORY: [
     'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80',
@@ -45,6 +56,11 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1542744095-2ad4870bf002?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1590486803833-ffc6f0861f36?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=600&q=80',
   ],
   AUTO: [
     'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=600&q=80',
@@ -52,6 +68,11 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1617704548623-340376564e68?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1591836335805-4c0177757913?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1553265027-29066ca94c03?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&q=80',
   ],
   BATTERY: [
     'https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=600&q=80',
@@ -59,6 +80,11 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1558444479-c86e4efe22ef?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1594818379496-da1e345b0dc3?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1548333341-97d216272bb0?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1490184588517-f42caacd8711?auto=format&fit=crop&w=600&q=80',
   ],
   TECH: [
     'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
@@ -66,6 +92,47 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1510511459019-5deeec7138db?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1532187863486-abf9d39d9992?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
+  ],
+  MINING: [
+    'https://images.unsplash.com/photo-1578319439584-104c94d37305?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1502120963564-941551aa2900?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1523992527425-4198441fd3a4?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1495556650867-99590cea3657?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=600&q=80',
+  ],
+  RECYCLE: [
+    'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1604187351574-c7550fd415ca?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1533038590840-1cde6b66b721?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1516992654410-9309d4587e94?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1517404212738-1976fe78ce50?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1591193022657-3932782fe24b?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1542601906970-30f95e5944b1?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1532187863486-abf9d39d9992?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1503596476-1c12a8ba09a9?auto=format&fit=crop&w=600&q=80',
+  ],
+  GRID: [
+    'https://images.unsplash.com/photo-1466611653911-95281773ad90?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1509391366360-fe19a7865821?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1548613053-2200ec27732a?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1413882353051-789643878b4b?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1558444479-c86e4efe22ef?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=600&q=80',
   ],
   DEFAULT: [
     'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
@@ -73,6 +140,11 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1510511459019-5deeec7138db?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
   ],
 };
 
@@ -86,7 +158,7 @@ function theme(dark = true) {
         brd: '#21293A',
         cyan: '#58A6FF',
         soft: 'rgba(255,255,255,0.03)',
-        shadow: '0 4px 16px rgba(0,0,0,0.2)',
+        shadow: '0 4px 20px rgba(0,0,0,0.3)',
       }
     : {
         card: '#FFFFFF',
@@ -96,7 +168,7 @@ function theme(dark = true) {
         brd: '#E0E3EA',
         cyan: '#0969DA',
         soft: 'rgba(9,105,218,0.03)',
-        shadow: '0 4px 16px rgba(0,0,0,0.06)',
+        shadow: '0 4px 16px rgba(0,0,0,0.08)',
       };
 }
 
@@ -134,17 +206,20 @@ function hashSeed(value) {
 }
 
 function imageCategoryFor(card) {
-  const text = [card?.id, card?.title, card?.T, card?.sub, card?.subtitle, card?.gate, card?.g, card?.source, card?.src]
+  const text = [card?.id, card?.title, card?.T, card?.sub, card?.subtitle, card?.gate, card?.g, card?.source, card?.src, card?.region, card?.r]
     .filter(Boolean)
     .join(' ')
     .toLowerCase();
 
-  if (/(ira|feoc|crma|cbam|보조금|관세|규제|법안|정부|정책|세액공제|공시|입법|의회|재무부|산업부|환경부|mou|협력)/.test(text)) return 'POLICY';
-  if (/(실적|영업이익|매출|주가|투자|적자|흑자|m&a|상장|ipo|margin|ebitda|funding|capex|재무|감가|손상|회계|계약|공급계약)/.test(text)) return 'FINANCE';
-  if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율|plant|factory|manufacturing|gigafactory|라인|준공|착공)/.test(text)) return 'FACTORY';
-  if (/(테슬라|전기차|ev|완성차|현대차|기아|포드|gm|bmw|폭스바겐|toyota|honda|자동차|충전|charging|dc 충전|46시리즈)/.test(text)) return 'AUTO';
-  if (/(배터리|lfp|전고체|리튬|니켈|코발트|흑연|양극재|음극재|분리막|전해액|ess|bess|catl|byd|엔솔|sdi|sk온|파우치|셀|모듈|희토류)/.test(text)) return 'BATTERY';
-  if (/(기술|r&d|특허|연구|차세대|효율|혁신|개발|테스트|파일럿|ai|software|data|semiconductor|반도체)/.test(text)) return 'TECH';
+  if (/(재활용|리사이클|폐배터리|회수|재사용|재제조|순환|recycl|second life|reuse|black mass|블랙매스)/.test(text)) return 'RECYCLE';
+  if (/(광산|광물|리튬|니켈|코발트|흑연|망간|채굴|제련|원자재|자원|희토류|rare earth|mineral|mining|graphite|lithium|nickel|cobalt)/.test(text)) return 'MINING';
+  if (/(계통|전력망|재생에너지|태양광|풍력|변전소|ess|bess|grid|신재생|전력|유틸리티|송전|배전|storage|renewable|solar|wind)/.test(text)) return 'GRID';
+  if (/(ira|feoc|crma|cbam|보조금|관세|규제|정부|정책|법안|재무부|백악관|세액공제|공시|입법|의회|산업부|환경부|mou|협력|tariff|subsidy|regulation|policy)/.test(text)) return 'POLICY';
+  if (/(실적|이익|영업이익|매출|주가|투자|m&a|상장|자금|조달|금융|적자|흑자|ipo|margin|ebitda|funding|capex|재무|감가|손상|회계|계약|공급계약)/.test(text)) return 'FINANCE';
+  if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율|라인|plant|factory|manufacturing|gigafactory|준공|착공|라인)/.test(text)) return 'FACTORY';
+  if (/(테슬라|전기차|ev|완성차|현대차|기아|bmw|자동차|주행|포드|gm|폭스바겐|toyota|honda|충전|charging|dc 충전|46시리즈)/.test(text)) return 'AUTO';
+  if (/(배터리|lfp|전고체|양극재|음극재|분리막|전해액|셀|니켈|코발트|흑연|catl|byd|엔솔|sdi|sk온|파우치|모듈)/.test(text)) return 'BATTERY';
+  if (/(기술|r&d|특허|연구|개발|혁신|차세대|파일럿|테스트|ai|software|data|semiconductor|반도체)/.test(text)) return 'TECH';
   return 'DEFAULT';
 }
 
@@ -152,7 +227,7 @@ function pickStoryCover(card, fallbackCover, featured) {
   if (featured && fallbackCover) return fallbackCover;
   const category = imageCategoryFor(card);
   const pool = IMAGE_POOLS[category] || IMAGE_POOLS.DEFAULT;
-  const seed = [card?.id, card?.date, card?.d, card?.title, card?.T, card?.source, card?.region].filter(Boolean).join('|');
+  const seed = [card?.id, card?.date, card?.d, card?.title, card?.T, card?.source, card?.region, category].filter(Boolean).join('|');
   return pool[hashSeed(seed) % pool.length] || fallbackCover || IMAGE_POOLS.DEFAULT[0];
 }
 

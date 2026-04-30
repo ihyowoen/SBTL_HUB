@@ -37,7 +37,6 @@ const SIG_LABELS = { top: 'TOP', high: 'HIGH', mid: 'MID', info: 'INFO', t: 'TOP
 const REG_FLAG = { US: '🇺🇸', KR: '🇰🇷', EU: '🇪🇺', CN: '🇨🇳', JP: '🇯🇵', GL: '🌐', NA: '🇺🇸', 'US/KR': '🇺🇸' };
 const THINK_MS = 700;
 
-// 카테고리별 15장씩 총 150장의 방대한 이미지 풀
 const IMAGE_POOLS = {
   POLICY: [
     'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80',

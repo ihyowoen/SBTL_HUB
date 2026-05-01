@@ -8,6 +8,13 @@
     <meta name="theme-color" content="#0d0d0d" />
     <title>SBTL 콘텐츠 허브</title>
     <link rel="manifest" href="/manifest.json" />
+
+    <!-- 성능: 이미지·폰트 도메인 사전 연결 (lead 이미지 첫 페인트 ~100ms 단축) -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+
     <style>
       /* U2: 기본 dark 배경 유지 + light 모드 system preference 존중.
          앱이 마운트되기 전에 깜빡임을 방지 (앱 내부 테마 토글은 별도 관리). */

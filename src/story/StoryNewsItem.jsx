@@ -17,6 +17,12 @@ import { normalizeCard } from './normalizeCard';
 //   - 일반 뉴스 카드는 compact magazine 구조: 상단 와이드 이미지 + 하단 본문
 //   - CSS background-image 대신 <img> + onError fallback chain 사용
 //   - 이미지 실패/차단/지연 시 검정 패널 대신 branded gradient fallback 노출
+// 2026-05-01: 트래커 신규 항목 카테고리 매처 보강 (NA-012~016, EU-016, CN-016/017, JP-011)
+//   - AVIATION 카테고리 신규 추가 (KR-010 ICAO + JP-011 MLIT + CN-016 파워뱅크 cluster)
+//   - POLICY: USMCA, Section 232/301/122, IEEPA 추가
+//   - MINING: critical minerals, 핵심광물, price floor, plurilateral 추가
+//   - BATTERY: 파워뱅크, power bank, 보조배터리 추가
+//   - RECYCLE: removability, 분리·교체, Article 11 추가
 // ============================================================================
 
 const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
@@ -178,6 +184,23 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1509391366360-fe19a7865821?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=600&q=80'
   ],
+  AVIATION: [
+    'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1583773937330-aae4a9bdadbf?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1413882353051-789643878b4b?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1509391366360-fe19a7865821?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1483366759022-7ad7d4ca8b4d?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1508919892451-468ac2751711?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1554034483-04fac7c3efaa?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1466611653911-95281773ad90?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?auto=format&fit=crop&w=600&q=80'
+  ],
   DEFAULT: [
     'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=600&q=80',
@@ -260,10 +283,12 @@ function imageCategoryFor(card) {
     .join(' ')
     .toLowerCase();
 
-  if (/(재활용|리사이클|폐배터리|회수|재사용|재제조|순환|recycl|second life|reuse|black mass|블랙매스)/.test(text)) return 'RECYCLE';
-  if (/(광산|광물|리튬|니켈|코발트|흑연|망간|채굴|제련|원자재|자원|희토류|rare earth|mineral|mining|graphite|lithium|nickel|cobalt)/.test(text)) return 'MINING';
+  // AVIATION을 가장 먼저 — 항공·파워뱅크 키워드가 다른 카테고리에 빼앗기지 않게
+  if (/(항공|기내|공항|영공|항공편|국토교통|파워뱅크|보조배터리|이동\s*보조\s*배터리|airline|airport|flight|aircraft|aviation|cabin|in.?flight|power.?bank|icao|mlit)/.test(text)) return 'AVIATION';
+  if (/(재활용|리사이클|폐배터리|회수|재사용|재제조|순환|분리.교체|removability|article\s*11|recycl|second\s*life|reuse|black\s*mass|블랙매스)/.test(text)) return 'RECYCLE';
+  if (/(광산|광물|리튬|니켈|코발트|흑연|망간|채굴|제련|원자재|자원|희토류|핵심광물|critical\s*minerals|price\s*floor|가격하한|plurilateral|rare\s*earth|mineral|mining|graphite|lithium|nickel|cobalt)/.test(text)) return 'MINING';
   if (/(계통|전력망|재생에너지|태양광|풍력|변전소|ess|bess|grid|신재생|전력|유틸리티|송전|배전|storage|renewable|solar|wind)/.test(text)) return 'GRID';
-  if (/(ira|feoc|crma|cbam|보조금|관세|규제|정부|정책|법안|재무부|백악관|세액공제|공시|입법|의회|산업부|환경부|mou|협력|tariff|subsidy|regulation|policy)/.test(text)) return 'POLICY';
+  if (/(ira|feoc|crma|cbam|usmca|section\s*232|section\s*301|section\s*122|ieepa|보조금|관세|규제|정부|정책|법안|재무부|백악관|세액공제|공시|입법|의회|산업부|환경부|mou|협력|tariff|subsidy|regulation|policy)/.test(text)) return 'POLICY';
   if (/(실적|이익|영업이익|매출|주가|투자|m&a|상장|자금|조달|금융|적자|흑자|ipo|margin|ebitda|funding|capex|재무|감가|손상|회계|계약|공급계약)/.test(text)) return 'FINANCE';
   if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율|라인|plant|factory|manufacturing|gigafactory|준공|착공|라인)/.test(text)) return 'FACTORY';
   if (/(테슬라|전기차|ev|완성차|현대차|기아|bmw|자동차|주행|포드|gm|폭스바겐|toyota|honda|충전|charging|dc 충전|46시리즈)/.test(text)) return 'AUTO';

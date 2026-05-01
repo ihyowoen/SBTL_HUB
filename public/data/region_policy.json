@@ -1,0 +1,107 @@
+{
+  "_meta": {
+    "purpose": "권역별 정책 hero 데이터 — App.jsx 트래커 모달 + lib/chat/common.js 챗봇 응답 공용 source of truth",
+    "lastUpdated": "2026-05-01T23:30:00+09:00",
+    "appliedTo": ["App.jsx Tracker hero modal", "lib/chat/common.js REGION_POLICY (fallback)"]
+  },
+  "NA": {
+    "flag": "🇺🇸",
+    "title": "미국 정책",
+    "policies": [
+      { "name": "IRA / FEOC", "desc": "IRA §45X·§48E 제조·투자 세액공제 — FEOC 규정으로 중국산 배터리·소재 사용 시 크레딧 박탈. MACR 기준이 핵심입니다." },
+      { "name": "관세 / Section 301", "desc": "Section 301 기본축에 Section 232 광물·트럭 derivative가 추가됐고, IEEPA 관세는 2026.02 SCOTUS 위헌 판결로 후퇴했습니다. 다층 관세·우회 수출 리스크가 시장 접근성을 좌우합니다." },
+      { "name": "제조 인센티브", "desc": "45X 첨단제조 크레딧은 미국 내 셀·모듈·광물 가공 투자의 핵심 유인입니다. U.S.-Japan·U.S.-Mexico Critical Minerals Action Plan으로 핵심광물 plurilateral 가격하한 시도가 더해졌습니다." },
+      { "name": "ESS / 전력", "desc": "standalone ESS 세액공제와 분산자원 시장참여 확대가 수요를 견인합니다." }
+    ],
+    "why": "미국은 보조금과 규제가 동시에 작동합니다. FEOC 준수 여부가 시장 접근 자체를 결정합니다.",
+    "watchpoints": [
+      "FEOC 세부 해석 업데이트",
+      "Section 232 광물·트럭 derivative 진행",
+      "USMCA 6년 검토 결정 (2026.07.01)",
+      "Critical Minerals plurilateral price floor 운용",
+      "45X/MACR 적용 기준 변화"
+    ]
+  },
+  "EU": {
+    "flag": "🇪🇺",
+    "title": "유럽 정책",
+    "policies": [
+      { "name": "Battery Regulation", "desc": "배터리 여권, 탄소발자국, 재활용률 의무가 단계적으로 강화됩니다. Article 11 분리·교체 의무 면제 위임행위가 2026.04 의견수렴 단계에 진입했습니다." },
+      { "name": "CBAM", "desc": "탄소국경조정은 소재·부품 단가와 공급망 선택에 영향을 줄 수 있습니다. 2026.12 전환기 종료 후 본 부과가 예정돼 있습니다." },
+      { "name": "CRM Act", "desc": "핵심원자재의 역내 조달·가공·재활용 목표가 공급망 재편 압력으로 작동합니다." },
+      { "name": "보조금", "desc": "IPCEI와 각국 보조금은 유지되지만, 재정·심사 강도가 변수입니다." }
+    ],
+    "why": "EU는 규제 중심 시장입니다. 인증·탄소·추적성 대응이 진입장벽이 됩니다.",
+    "watchpoints": [
+      "Article 11 분리·교체 면제 위임행위 의견수렴",
+      "Battery Passport 파일럿",
+      "CBAM 본격 부과 (2026.12 이후)",
+      "CRM Act 세부 이행"
+    ]
+  },
+  "CN": {
+    "flag": "🇨🇳",
+    "title": "중국 정책",
+    "policies": [
+      { "name": "산업정책", "desc": "대형 배터리 기업 중심의 규모·가격 경쟁력이 이어지고 있습니다. GB 47372-2026 파워뱅크 강제표준(2027.04 시행), GB 36980.1-2025 BEV 에너지소비 한도 등 안전·효율 표준이 강화됐습니다." },
+      { "name": "공급망 통제", "desc": "흑연·리튬·희토류 등 핵심 소재의 수출통제와 허가제가 변수입니다." },
+      { "name": "가격 경쟁", "desc": "LFP·BESS 가격 하락은 글로벌 프로젝트 경제성을 바꾸는 동시에 비중국 업체의 마진을 압박합니다." },
+      { "name": "수출 전략", "desc": "관세·FEOC 회피를 위한 제3국 가공·조립 거점 확대가 감시 포인트입니다." }
+    ],
+    "why": "중국은 가격과 공급망을 동시에 움직입니다. 비중국 공급망 전략의 기준점입니다.",
+    "watchpoints": [
+      "흑연 수출허가 운용",
+      "GB 47372 파워뱅크 표준 시행 (2027.04)",
+      "LFP 과잉설비 조정",
+      "제3국 우회 수출"
+    ]
+  },
+  "KR": {
+    "flag": "🇰🇷",
+    "title": "한국 정책",
+    "policies": [
+      { "name": "ESS 안전", "desc": "화재 안전 인증, 설치 기준, 사후관리 기준이 강화되는 흐름입니다." },
+      { "name": "입찰 / 조달", "desc": "전력계통·재생에너지 연계 ESS 입찰과 조달 조건이 시장을 형성합니다." },
+      { "name": "실증 / R&D", "desc": "전고체·리튬황 등 차세대 배터리 R&D와 사업화 일정이 중요합니다." },
+      { "name": "규제 대응", "desc": "EU Battery Regulation·미국 FEOC 대응을 위한 추적성·원산지 관리가 핵심입니다. ICAO 기내 보조배터리 규정 적용이 추가 변수입니다." }
+    ],
+    "why": "한국은 K-배터리 본거지입니다. 수출 규제 대응과 내수 ESS 시장 형성이 동시에 중요합니다.",
+    "watchpoints": [
+      "ESS 안전기준 개정",
+      "용량시장/조달 결과",
+      "EV 정보공개 입법예고 후속",
+      "배터리 여권 국내 적용"
+    ]
+  },
+  "JP": {
+    "flag": "🇯🇵",
+    "title": "일본 정책",
+    "policies": [
+      { "name": "GX", "desc": "GX 투자와 에너지 안보 관점에서 배터리·ESS 지원이 이어집니다." },
+      { "name": "배터리 지원", "desc": "METI 보조금과 지자체 지원이 ESS 시장 형성 속도를 결정합니다." },
+      { "name": "전력정책", "desc": "재생에너지 확대와 계통 유연성 확보에서 ESS 활용이 커집니다." }
+    ],
+    "why": "일본은 에너지 안보와 계통 안정성 관점에서 ESS를 전략자산화하고 있습니다.",
+    "watchpoints": [
+      "METI 보조금 공모",
+      "GX 집행 진도",
+      "MLIT 기내 보조배터리 규정 (2026.04 시행)",
+      "계통용 ESS 규칙"
+    ]
+  },
+  "GL": {
+    "flag": "🌐",
+    "title": "글로벌 공통",
+    "policies": [
+      { "name": "공급망 재편", "desc": "미·중 디커플링으로 중간재 가공 거점이 분산되고 있습니다." },
+      { "name": "광물 확보", "desc": "리튬·니켈·코발트·흑연 확보전과 자원국 규제가 확대되고 있습니다. U.S.-Japan·U.S.-Mexico Critical Minerals 협정으로 plurilateral 가격하한 시도가 등장했습니다." }
+    ],
+    "why": "글로벌 밸류체인 재편은 모든 권역 정책의 배경입니다.",
+    "watchpoints": [
+      "자원국 수출 정책",
+      "광물 가격 변동",
+      "Critical Minerals plurilateral 운용",
+      "USTR 강제노동 60국 공청회 후속"
+    ]
+  }
+}

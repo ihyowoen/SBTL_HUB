@@ -23,6 +23,11 @@ import { normalizeCard } from './normalizeCard';
 //   - MINING: critical minerals, 핵심광물, price floor, plurilateral 추가
 //   - BATTERY: 파워뱅크, power bank, 보조배터리 추가
 //   - RECYCLE: removability, 분리·교체, Article 11 추가
+// 2026-05-01b: 이미지 중복 회피 고도화
+//   - Layer 1: 풀 내 중복 4개 제거 (RECYCLE -1, GRID -3) → 158 unique 슬롯
+//   - Layer 2: assignCardCoverImages export — 같은 페이지 카드 간 unique 보장
+//   - 카테고리 풀 부족 시 DEFAULT 풀로 fallback, 그래도 부족하면 hash collision 허용
+//   - 부모 컴포넌트(Home/NewsDesk)에서 cards.map 전에 한 번 호출해서 cover prop 전달
 // ============================================================================
 
 const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
@@ -162,7 +167,6 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1532187863486-abf9d39d9992?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1503596476-1c12a8ba09a9?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1495461199391-8c39ab674295?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1503669698509-c9c922ed283f?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1528190336454-13cd56b45b5a?auto=format&fit=crop&w=600&q=80'
@@ -179,10 +183,7 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1464306208223-e0b4495a5553?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1490333341-97d216272bb0?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1413882353051-789643878b4b?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1509391366360-fe19a7865821?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=600&q=80'
+    'https://images.unsplash.com/photo-1490333341-97d216272bb0?auto=format&fit=crop&w=600&q=80'
   ],
   AVIATION: [
     'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80',
@@ -295,6 +296,65 @@ function imageCategoryFor(card) {
   if (/(배터리|lfp|전고체|양극재|음극재|분리막|전해액|셀|니켈|코발트|흑연|catl|byd|엔솔|sdi|sk온|파우치|모듈)/.test(text)) return 'BATTERY';
   if (/(기술|r&d|특허|연구|개발|혁신|차세대|파일럿|테스트|ai|software|data|semiconductor|반도체)/.test(text)) return 'TECH';
   return 'DEFAULT';
+}
+
+/**
+ * 카드 리스트에 unique cover image를 배정.
+ *
+ * 보장사항:
+ *   1. 같은 페이지(같은 cards 배열)에서 같은 이미지가 두 번 나오지 않음 — 풀 크기 충분 시
+ *   2. 카드 식별자(id/title/date) 기반 hash로 시작점 결정 — 같은 카드는 안정적으로 같은 이미지
+ *   3. 카테고리 풀이 다 사용되면 DEFAULT 풀로 fallback, 그래도 부족하면 hash 기반 (collision 허용)
+ *
+ * @param {Array} cards - normalize 안 한 raw card 객체 리스트
+ * @param {Object} [options]
+ * @param {Iterable<string>} [options.alreadyUsed] - 외부에서 이미 사용된 이미지 (sticky 카드 등)
+ * @returns {Array<string>} cards와 같은 길이의 cover image URL 리스트 (1:1 대응)
+ */
+export function assignCardCoverImages(cards, options = {}) {
+  if (!Array.isArray(cards) || cards.length === 0) return [];
+  const used = new Set(options.alreadyUsed || []);
+  const result = new Array(cards.length);
+
+  cards.forEach((card, idx) => {
+    const category = imageCategoryFor(card);
+    const pool = IMAGE_POOLS[category] || IMAGE_POOLS.DEFAULT;
+    const seedParts = [
+      card?.id,
+      card?.d || card?.date,
+      card?.T || card?.title,
+      card?.src || card?.source,
+      category,
+    ].filter(Boolean);
+    const seed = seedParts.length ? seedParts.join('|') : `card-${idx}`;
+    const startIdx = pool.length ? hashSeed(seed) % pool.length : 0;
+
+    // 1. 카테고리 풀에서 unique 시도
+    for (let i = 0; i < pool.length; i += 1) {
+      const candidate = pool[(startIdx + i) % pool.length];
+      if (!used.has(candidate)) {
+        used.add(candidate);
+        result[idx] = candidate;
+        return;
+      }
+    }
+
+    // 2. DEFAULT 풀로 fallback
+    const fallback = IMAGE_POOLS.DEFAULT;
+    for (let i = 0; i < fallback.length; i += 1) {
+      const candidate = fallback[(startIdx + i) % fallback.length];
+      if (!used.has(candidate)) {
+        used.add(candidate);
+        result[idx] = candidate;
+        return;
+      }
+    }
+
+    // 3. 마지막 폴백: hash 기반 (collision 허용)
+    result[idx] = pool[startIdx] || fallback[startIdx % fallback.length];
+  });
+
+  return result;
 }
 
 function makeBriefLines(card, mode) {

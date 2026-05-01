@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { normalizeCard } from './normalizeCard';
 
 // ============================================================================
@@ -28,6 +28,9 @@ import { normalizeCard } from './normalizeCard';
 //   - Layer 2: assignCardCoverImages export — 같은 페이지 카드 간 unique 보장
 //   - 카테고리 풀 부족 시 DEFAULT 풀로 fallback, 그래도 부족하면 hash collision 허용
 //   - 부모 컴포넌트(Home/NewsDesk)에서 cards.map 전에 한 번 호출해서 cover prop 전달
+// 2026-05-01c: 컴포넌트·접근성 고도화
+//   - React.memo wrap — NewsDesk 60개 카드 re-render 비용 차단
+//   - <img alt> 의미 있는 텍스트로 변경 (스크린리더 + SEO)
 // ============================================================================
 
 const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
@@ -426,7 +429,7 @@ function OverlayPill({ children, maxWidth }) {
   );
 }
 
-export default function StoryNewsItem({
+function StoryNewsItem({
   card,
   dark,
   onSubmitConsultation,
@@ -516,7 +519,7 @@ export default function StoryNewsItem({
         <img
           key={imageSrc}
           src={imageSrc}
-          alt=""
+          alt={`${(c.title || card?.T || imageCategory).slice(0, 60)} 관련 이미지`}
           loading="lazy"
           decoding="async"
           onLoad={() => setImageLoaded(true)}
@@ -770,3 +773,10 @@ export default function StoryNewsItem({
     </div>
   );
 }
+
+/**
+ * memo wrap — NewsDesk에서 60개 카드가 한 번에 렌더링될 때
+ * 부모 re-render 시 불필요한 자식 re-render 방지.
+ * props가 같으면 (특히 card·coverImage·dark) skip.
+ */
+export default memo(StoryNewsItem);

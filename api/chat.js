@@ -186,6 +186,7 @@ async function handleConsultationV2({ consultation, ticketId, debugBase }) {
     `[chat-consultation-v2-out] stage=${stage} stage_ok=${stageOk} ` +
     `provider=${result?.provider || "-"} error=${result?.error || "-"} ` +
     `latency=${result?.latencyMs || 0}ms ` +
+    `finish_reason=${result?.finishReason || "-"} ` +
     `fallback_used=${!!result?.fallback_used} fallback_reason=${result?.fallback_reason || "-"} ` +
     `fallback_from=${result?.fallback_from || "-"} next=${nextStageLabel || "none"}`
   );
@@ -214,6 +215,7 @@ async function handleConsultationV2({ consultation, ticketId, debugBase }) {
         error: result?.error || null,
         latency_ms: result?.latencyMs || 0,
         provider: result?.provider || "unknown",
+        finish_reason: result?.finishReason || null,
         fallback_from: result?.fallback_from || null,
         fallback_used: result?.fallback_used || false,
         fallback_reason: result?.fallback_reason || null,

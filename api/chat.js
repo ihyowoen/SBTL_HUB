@@ -185,7 +185,9 @@ async function handleConsultationV2({ consultation, ticketId, debugBase }) {
   console.log(
     `[chat-consultation-v2-out] stage=${stage} stage_ok=${stageOk} ` +
     `provider=${result?.provider || "-"} error=${result?.error || "-"} ` +
-    `latency=${result?.latencyMs || 0}ms next=${nextStageLabel || "none"}`
+    `latency=${result?.latencyMs || 0}ms ` +
+    `fallback_used=${!!result?.fallback_used} fallback_reason=${result?.fallback_reason || "-"} ` +
+    `fallback_from=${result?.fallback_from || "-"} next=${nextStageLabel || "none"}`
   );
 
   return {
@@ -213,6 +215,8 @@ async function handleConsultationV2({ consultation, ticketId, debugBase }) {
         latency_ms: result?.latencyMs || 0,
         provider: result?.provider || "unknown",
         fallback_from: result?.fallback_from || null,
+        fallback_used: result?.fallback_used || false,
+        fallback_reason: result?.fallback_reason || null,
       },
       env_probe: {
         has_gemini_key: !!process.env.GEMINI_API_KEY,

@@ -31,6 +31,11 @@ import { normalizeCard } from './normalizeCard';
 // 2026-05-01c: 컴포넌트·접근성 고도화
 //   - React.memo wrap — NewsDesk 60개 카드 re-render 비용 차단
 //   - <img alt> 의미 있는 텍스트로 변경 (스크린리더 + SEO)
+// 2026-05-02: dedup prop 보존 fix
+//   - 일반 카드(featured=false)에서도 coverImage prop을 항상 우선 사용
+//   - 기존: `featured && coverImage`만 풀 prefix → 일반 카드는 prop 무시하고 hash 재선택
+//   - 부모(Home/NewsDesk)의 assignCardCoverImages unique 배정이 자식까지 전달되지 않던 버그
+//   - 수정: imagePool/imageStartIndex 둘 다 coverImage 있으면 0번 위치에 prop 사진 사용
 // ============================================================================
 
 const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
@@ -454,16 +459,21 @@ function StoryNewsItem({
   const imageCategory = useMemo(() => imageCategoryFor({ ...card, ...c }), [card, c]);
   const imagePool = useMemo(() => {
     const pool = IMAGE_POOLS[imageCategory] || IMAGE_POOLS.DEFAULT;
-    const candidates = featured && coverImage ? [coverImage, ...pool] : pool;
+    // coverImage prop이 있으면 항상 첫 후보로 사용 (featured 무관) —
+    // 부모 컴포넌트의 assignCardCoverImages dedup 결과가 자식까지 그대로 전달되도록.
+    const candidates = coverImage ? [coverImage, ...pool] : pool;
     return Array.from(new Set(candidates.filter(Boolean)));
-  }, [imageCategory, featured, coverImage]);
+  }, [imageCategory, coverImage]);
 
   const imageStartIndex = useMemo(() => {
+    // coverImage prop이 있으면 항상 첫번째(index 0)부터 — 부모가 unique 배정한 사진을 보존.
+    // prop이 없을 때만 hash 기반 fallback (단독 사용/풀 fallback 시).
+    if (coverImage) return 0;
     const seed = [card?.id, c.date, c.title, c.source, imageCategory]
       .filter(Boolean)
       .join('|');
     return imagePool.length ? hashSeed(seed) % imagePool.length : 0;
-  }, [card?.id, c.date, c.title, c.source, imageCategory, imagePool]);
+  }, [coverImage, card?.id, c.date, c.title, c.source, imageCategory, imagePool]);
 
   const [imageOffset, setImageOffset] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);

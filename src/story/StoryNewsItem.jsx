@@ -319,7 +319,7 @@ function imageCategoryFor(card) {
   if (/(항공|기내|공항|영공|항공편|국토교통|파워뱅크|보조배터리|이동\s*보조\s*배터리|airline|airport|flight|aircraft|aviation|cabin|in.?flight|power.?bank|icao|mlit)/.test(text)) return 'AVIATION';
   if (/(재활용|리사이클|폐배터리|회수|재사용|재제조|순환|분리.교체|removability|article\s*11|recycl|second\s*life|reuse|black\s*mass|블랙매스)/.test(text)) return 'RECYCLE';
   if (/(광산|광물|리튬|니켈|코발트|흑연|망간|채굴|제련|원자재|자원|희토류|핵심광물|critical\s*minerals|price\s*floor|가격하한|plurilateral|rare\s*earth|mineral|mining|graphite|lithium|nickel|cobalt)/.test(text)) return 'MINING';
-  if (/(계통|전력망|재생에너지|태양광|풍력|변전소|ess|bess|grid|신재생|전력|유틸리티|송전|배전|storage|renewable|solar|wind)/.test(text)) return 'GRID';
+  if (/(계통|전력망|재생에너지|태양광|풍력|변전소|ESS|BESS|grid|신재생|전력|유틸리티|송전|배전|storage|renewable|solar|wind)/.test(text)) return 'GRID';
   if (/(ira|feoc|crma|cbam|usmca|section\s*232|section\s*301|section\s*122|ieepa|보조금|관세|규제|정부|정책|법안|재무부|백악관|세액공제|공시|입법|의회|산업부|환경부|mou|협력|tariff|subsidy|regulation|policy)/.test(text)) return 'POLICY';
   if (/(실적|이익|영업이익|매출|주가|투자|m&a|상장|자금|조달|금융|적자|흑자|ipo|margin|ebitda|funding|capex|재무|감가|손상|회계|계약|공급계약)/.test(text)) return 'FINANCE';
   if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율|라인|plant|factory|manufacturing|gigafactory|준공|착공|라인)/.test(text)) return 'FACTORY';

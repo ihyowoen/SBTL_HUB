@@ -470,6 +470,7 @@ function StoryNewsItem({
   const c = useMemo(() => normalizeCard(card), [card]);
   const [activeMode, setActiveMode] = useState(null);
   const [thinkingMode, setThinkingMode] = useState(null);
+  const [showSources, setShowSources] = useState(false);
   const timerRef = useRef(null);
   const signalKey = String(c.signal || 'info').toLowerCase();
   const sig = SIG_COLORS[signalKey] || SIG_COLORS.info;
@@ -477,6 +478,12 @@ function StoryNewsItem({
   const regionFlag = REG_FLAG[c.region] || '🌐';
   const sourceText = c.source || card?.src || card?.source || '';
   const sourceUrl = c.primaryUrl || card?.primaryUrl || card?.primary_url || card?.url || (Array.isArray(card?.urls) ? card.urls[0] : '') || '';
+  const factSources = useMemo(() => {
+    const list = Array.isArray(card?.fact_sources) ? card.fact_sources : [];
+    // 형식 검증 — claim + source_url + source_quote 모두 있는 항목만
+    return list.filter(s => s && typeof s === 'object' && s.source_url && (s.claim || s.source_quote));
+  }, [card?.fact_sources]);
+  const hasSources = factSources.length > 0;
   const layout = featured ? 'lead' : 'plain';
   const lines = activeMode ? makeBriefLines(c, activeMode) : [];
   const imageCategory = useMemo(() => imageCategoryFor({ ...card, ...c }), [card, c]);
@@ -764,6 +771,137 @@ function StoryNewsItem({
             </button>
           </div>
         </div>
+
+        {hasSources && (
+          <button
+            type="button"
+            onClick={() => setShowSources((prev) => !prev)}
+            aria-expanded={showSources}
+            style={{
+              alignSelf: 'flex-start',
+              background: 'transparent',
+              border: 'none',
+              padding: '4px 0',
+              color: t.sub,
+              fontSize: 11,
+              fontWeight: 700,
+              cursor: 'pointer',
+              fontFamily: "'JetBrains Mono',monospace",
+              display: 'flex',
+              alignItems: 'center',
+              gap: 5,
+              letterSpacing: '0.02em',
+            }}
+          >
+            <span style={{ fontSize: 12 }}>{showSources ? '▾' : '▸'}</span>
+            <span>📰 다중 출처 {factSources.length}건</span>
+          </button>
+        )}
+
+        {hasSources && showSources && (
+          <div style={{
+            marginTop: 4,
+            padding: '14px 16px',
+            background: dark ? 'rgba(88,166,255,0.04)' : 'rgba(9,105,218,0.025)',
+            borderRadius: 12,
+            border: `1px solid ${dark ? 'rgba(88,166,255,0.12)' : 'rgba(9,105,218,0.10)'}`,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12,
+          }}>
+            <div style={{
+              fontSize: 10,
+              color: t.sub,
+              fontFamily: "'JetBrains Mono',monospace",
+              letterSpacing: '0.04em',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+            }}>
+              카드 fact를 받친 원문 인용 — 직접 확인용
+            </div>
+            {factSources.map((src, i) => {
+              const host = (() => {
+                try { return new URL(src.source_url).hostname.replace(/^www\./, ''); }
+                catch { return src.source_url; }
+              })();
+              return (
+                <div key={i} style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 6,
+                  paddingBottom: i < factSources.length - 1 ? 12 : 0,
+                  borderBottom: i < factSources.length - 1 ? `1px solid ${dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}` : 'none',
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    flexWrap: 'wrap',
+                  }}>
+                    <span style={{
+                      fontSize: 9,
+                      fontWeight: 800,
+                      color: t.cyan,
+                      background: dark ? 'rgba(88,166,255,0.14)' : 'rgba(45,90,142,0.10)',
+                      padding: '2px 7px',
+                      borderRadius: 999,
+                      fontFamily: "'JetBrains Mono',monospace",
+                    }}>
+                      {host}
+                    </span>
+                    {src.fetched_at ? (
+                      <span style={{
+                        fontSize: 9,
+                        color: t.sub,
+                        fontFamily: "'JetBrains Mono',monospace",
+                      }}>
+                        {String(src.fetched_at).slice(0, 10)}
+                      </span>
+                    ) : null}
+                  </div>
+                  {src.claim ? (
+                    <div style={{
+                      fontSize: 12,
+                      color: t.tx,
+                      lineHeight: 1.55,
+                      fontWeight: 600,
+                    }}>
+                      {src.claim}
+                    </div>
+                  ) : null}
+                  {src.source_quote ? (
+                    <div style={{
+                      fontSize: 11,
+                      color: t.sub,
+                      lineHeight: 1.7,
+                      paddingLeft: 10,
+                      borderLeft: `2px solid ${dark ? 'rgba(88,166,255,0.25)' : 'rgba(9,105,218,0.20)'}`,
+                      fontStyle: 'italic',
+                      wordBreak: 'keep-all',
+                    }}>
+                      “{src.source_quote}”
+                    </div>
+                  ) : null}
+                  <a
+                    href={src.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: 10,
+                      color: t.cyan,
+                      textDecoration: 'none',
+                      fontFamily: "'JetBrains Mono',monospace",
+                      alignSelf: 'flex-start',
+                      letterSpacing: '0.02em',
+                    }}
+                  >
+                    원문 ↗
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         {(thinkingMode || activeMode) && (
           <div style={{ 

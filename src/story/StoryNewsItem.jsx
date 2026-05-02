@@ -45,6 +45,16 @@ import { normalizeCard } from './normalizeCard';
 //     · 기존: ad-blocker 차단 → 자식이 풀 안 다음 사진 점프 → cross-pool 중복 사진과 collision
 //     · 현재: 차단된 사진은 gradient placeholder로 자연 fallback, 부모 dedup 100% 보존
 //   - 사용자별 ad-blocker 환경 차이가 자연스럽게 수용됨 (각자 환경에서 일관됨)
+// 2026-05-02c: ORB 차단 5개 사진 → 신규 5개로 1:1 swap (165 슬롯 유지)
+//   - DevTools에서 net::ERR_BLOCKED_BY_ORB 확인된 사진들 (Chrome 보안 기능, ad-blocker 아님)
+//   - Unsplash 측 응답: HTTP 403 + Content-Type: text/plain → Chrome ORB가 image 응답 아니라고 판단
+//   - swap (1:1 위치 매칭, 풀 사이즈 변경 없음):
+//     · FACTORY#12: photo-1581092583537 → photo-1513828583688
+//     · MINING#3:   photo-1502120963564 → photo-1605371924599
+//     · GRID#3:     photo-1513689408657 → photo-1511556532299
+//     · GRID#11:    photo-1509390234032 → photo-1501612046469
+//     · GRID#12:    photo-1593010729792 → photo-1534398079543
+//   - audit: 165장, cross-pool 중복 0, ID 중복 0, 차단 5개 모두 제거
 // ============================================================================
 
 const SIG_COLORS = { top: '#F85149', high: '#D29922', mid: '#388BFD', info: '#7D8590', t: '#F85149', h: '#D29922', m: '#388BFD', i: '#7D8590' };
@@ -100,7 +110,7 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1604871000636-074fa5117945?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1563906661-2825633802ce?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1581092583537-20d51b3b4f62?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1531206715517-5ca0ba15525a?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8?auto=format&fit=crop&w=600&q=80'
   ],
@@ -159,7 +169,7 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1578319439584-104c94d37305?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1502120963564-941551aa2900?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1605371924599-2d0365da26f5?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1523992527425-4198441fd3a4?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80',
@@ -193,7 +203,7 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1466096115517-bceecbfb6fde?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1513689408657-3f3f5080ea1d?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1464306208223-e0b4495a5553?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1490333341-97d216272bb0?auto=format&fit=crop&w=600&q=80',
@@ -201,8 +211,8 @@ const IMAGE_POOLS = {
     'https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1554418651-70309daf9ade?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1509390234032-15b5e7d4d4fa?auto=format&fit=crop&w=600&q=80',
-    'https://images.unsplash.com/photo-1593010729792-7ef54cc89674?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1501612046469-8d76b1009193?auto=format&fit=crop&w=600&q=80',
+    'https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1528657063073-4ea21213032d?auto=format&fit=crop&w=600&q=80',
     'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=600&q=80'
   ],

@@ -92,6 +92,12 @@ const TRACKER_REGION = {
   GL: { flag: "🌐", name: "글로벌" },
 };
 
+// ============================================================================
+// REGION_POLICY (deprecated path — fallback only)
+// ----------------------------------------------------------------------------
+// Source of truth는 public/data/region_policy.json. useTrackerData에서 fetch.
+// 이 객체는 fetch 실패 시 fallback 안전망으로만 유지 (다음 sweep에서 제거 예정).
+// ============================================================================
 const REGION_POLICY = {
   NA: {
     flag: "🇺🇸",
@@ -309,15 +315,20 @@ function useKnowledgeBase(refreshKey = 0, hardRefresh = false) {
 
 function useTrackerData(refreshKey = 0, hardRefresh = false) {
   const [raw, setRaw] = useState(null);
+  const [policyRaw, setPolicyRaw] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let ignore = false;
     setLoading(true);
-    fetchJsonFile("/data/tracker_data.json", refreshKey, hardRefresh)
-      .then((data) => { if (!ignore) setRaw(data); })
-      .catch(() => { if (!ignore) setRaw(null); })
-      .finally(() => { if (!ignore) setLoading(false); });
+    Promise.all([
+      fetchJsonFile("/data/tracker_data.json", refreshKey, hardRefresh).catch(() => null),
+      fetchJsonFile("/data/region_policy.json", refreshKey, hardRefresh).catch(() => null),
+    ]).then(([trackerData, policyData]) => {
+      if (ignore) return;
+      setRaw(trackerData);
+      setPolicyRaw(policyData);
+    }).finally(() => { if (!ignore) setLoading(false); });
     return () => { ignore = true; };
   }, [refreshKey, hardRefresh]);
 
@@ -339,7 +350,14 @@ function useTrackerData(refreshKey = 0, hardRefresh = false) {
     return { meta: { lastUpdated: raw.meta?.lastUpdated || "-", totalItems: Number(raw.meta?.totalItems ?? items.length) || items.length }, summary, regions, upcoming, items };
   }, [raw]);
 
-  return { tracker, loading };
+  // region_policy.json fetch 결과 — _meta 키 분리, 실패 시 null (Tracker에서 hardcoded REGION_POLICY로 fallback)
+  const regionPolicy = useMemo(() => {
+    if (!policyRaw || typeof policyRaw !== "object") return null;
+    const { _meta, ...rest } = policyRaw;
+    return rest;
+  }, [policyRaw]);
+
+  return { tracker, regionPolicy, loading };
 }
 
 function latestDate(cards) {
@@ -849,7 +867,7 @@ function TrackerItemCard({ item, dark, expanded, onToggle }) {
   );
 }
 
-function Tracker({ tracker, dark }) {
+function Tracker({ tracker, regionPolicy, dark }) {
   const t = T(dark);
   const d = tracker;
   const updatedLabel = fmtDate(d.meta.lastUpdated);
@@ -858,7 +876,9 @@ function Tracker({ tracker, dark }) {
   const [statusFilter, setStatusFilter] = useState("all");
   const [regionFilter, setRegionFilter] = useState("all");
   const [search, setSearch] = useState("");
-  const policyData = REGION_POLICY[expandedRegion] || null;
+  // 외부 region_policy.json 우선, 실패 시 hardcoded REGION_POLICY로 fallback (안전망)
+  const policySource = regionPolicy || REGION_POLICY;
+  const policyData = policySource[expandedRegion] || null;
   const statusRank = { ACTIVE: 0, UPCOMING: 1, WATCH: 2, DONE: 3 };
   const filteredItems = useMemo(() => {
     const sw = search.trim().toLowerCase();
@@ -983,7 +1003,7 @@ function AppContent() {
   const [consultationSeed, setConsultationSeed] = useState({ data: null, nonce: 0 });
   const [consultSummaries, setConsultSummaries] = useState(() => typeof window !== "undefined" ? getAllCardConsultationSummaries() : {});
   const kb = useKnowledgeBase(refreshKey, hardRefresh);
-  const { tracker, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
+  const { tracker, regionPolicy, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
   const t = T(dark);
   const lastCardDate = latestDate(kb.cards) || "-";
 
@@ -1041,7 +1061,7 @@ function AppContent() {
         {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} />}
-        {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} dark={dark} /></div>}
+        {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} />}
       </main>
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">

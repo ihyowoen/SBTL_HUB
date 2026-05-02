@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
-import StoryNewsItem, { assignCardCoverImages } from "./story/StoryNewsItem";
+import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
 import {
@@ -92,12 +92,6 @@ const TRACKER_REGION = {
   GL: { flag: "🌐", name: "글로벌" },
 };
 
-// ============================================================================
-// REGION_POLICY (deprecated path — fallback only)
-// ----------------------------------------------------------------------------
-// Source of truth는 public/data/region_policy.json. useTrackerData에서 fetch.
-// 이 객체는 fetch 실패 시 fallback 안전망으로만 유지 (다음 sweep에서 제거 예정).
-// ============================================================================
 const REGION_POLICY = {
   NA: {
     flag: "🇺🇸",
@@ -315,20 +309,15 @@ function useKnowledgeBase(refreshKey = 0, hardRefresh = false) {
 
 function useTrackerData(refreshKey = 0, hardRefresh = false) {
   const [raw, setRaw] = useState(null);
-  const [policyRaw, setPolicyRaw] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let ignore = false;
     setLoading(true);
-    Promise.all([
-      fetchJsonFile("/data/tracker_data.json", refreshKey, hardRefresh).catch(() => null),
-      fetchJsonFile("/data/region_policy.json", refreshKey, hardRefresh).catch(() => null),
-    ]).then(([trackerData, policyData]) => {
-      if (ignore) return;
-      setRaw(trackerData);
-      setPolicyRaw(policyData);
-    }).finally(() => { if (!ignore) setLoading(false); });
+    fetchJsonFile("/data/tracker_data.json", refreshKey, hardRefresh)
+      .then((data) => { if (!ignore) setRaw(data); })
+      .catch(() => { if (!ignore) setRaw(null); })
+      .finally(() => { if (!ignore) setLoading(false); });
     return () => { ignore = true; };
   }, [refreshKey, hardRefresh]);
 
@@ -350,14 +339,7 @@ function useTrackerData(refreshKey = 0, hardRefresh = false) {
     return { meta: { lastUpdated: raw.meta?.lastUpdated || "-", totalItems: Number(raw.meta?.totalItems ?? items.length) || items.length }, summary, regions, upcoming, items };
   }, [raw]);
 
-  // region_policy.json fetch 결과 — _meta 키 분리, 실패 시 null (Tracker에서 hardcoded REGION_POLICY로 fallback)
-  const regionPolicy = useMemo(() => {
-    if (!policyRaw || typeof policyRaw !== "object") return null;
-    const { _meta, ...rest } = policyRaw;
-    return rest;
-  }, [policyRaw]);
-
-  return { tracker, regionPolicy, loading };
+  return { tracker, loading };
 }
 
 function latestDate(cards) {
@@ -423,7 +405,6 @@ function Home({ kb, tracker, onNav, onSubmitConsultation, consultSummaries = {},
   const todayStr = `${kstToday()} (${dayNames[today.getDay()]})`;
   const lead = picks[0] || null;
   const rest = picks.slice(1, 4);
-  const pickCovers = useMemo(() => assignCardCoverImages(picks), [picks]);
   const leadDateLabel = lead?.d || lead?.date ? fmtDate(lead.d || lead.date) : "-";
 
   return (
@@ -438,14 +419,15 @@ function Home({ kb, tracker, onNav, onSubmitConsultation, consultSummaries = {},
       </div>
 
       {lead ? (
-        <StoryNewsItem card={lead} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(lead)] || null} coverImage={pickCovers[0]} featured />
+        <StoryNewsItem card={lead} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(lead)] || null} coverImage={pickHomeCover(lead)} featured />
       ) : (
         <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}`, fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>
       )}
 
       {rest.length > 0 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {rest.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={pickCovers[i + 1]} />)}        </div>
+          {rest.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={pickHomeCover(card)} />)}
+        </div>
       )}
 
       <div style={{ display: "flex", gap: 8 }}>
@@ -530,7 +512,7 @@ function AnalystBubble({ stageOutput, dark }) {
   return (
     <div style={{ margin: "8px 0", padding: "14px 16px", background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, borderRadius: "18px 18px 18px 6px", borderLeft: "3px solid #D29922" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8, flexWrap: "wrap" }}><span style={{ fontSize: 10, fontWeight: 800, color: "#D29922", background: dark ? "rgba(210,153,34,0.14)" : "rgba(210,153,34,0.10)", padding: "3px 8px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>🔍 2차 · 핵심 각도</span>{angle && <span style={{ fontSize: 10, fontWeight: 700, color: t.tx, background: dark ? "rgba(210,153,34,0.08)" : "rgba(210,153,34,0.06)", padding: "3px 8px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace", border: `1px solid ${dark ? "rgba(210,153,34,0.2)" : "rgba(210,153,34,0.15)"}` }}>{angle}</span>}</div>
-      {interpretation && <div style={{ fontSize: 13, lineHeight: 1.65, color: t.tx, marginBottom: 12, fontFamily: "'Pretendard',sans-serif" }}><FactIdText text={interpretation} dark={dark} /></div>}
+      {interpretation && <div style={{ fontSize: 13, lineHeight: 1.65, color: t.tx, marginBottom: 12, fontFamily: "'Pretendard',sans-serif" }}>{interpretation}</div>}
       {key_tension && <div style={{ padding: "10px 12px", background: dark ? "rgba(210,153,34,0.07)" : "rgba(210,153,34,0.05)", borderRadius: 8, borderLeft: "2px solid #D29922" }}><div style={{ fontSize: 9, color: "#D29922", fontWeight: 800, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 핵심 쟁점</div><div style={{ fontSize: 12, color: t.tx, lineHeight: 1.5, fontWeight: 600 }}>{key_tension}</div></div>}
     </div>
   );
@@ -538,14 +520,11 @@ function AnalystBubble({ stageOutput, dark }) {
 
 function RedTeamBubble({ stageOutput, dark }) {
   const t = T(dark);
-  const { premature_interpretations = [], unverified_premises = [], counter_scenario, next_checkpoints = [] } = stageOutput || {};
-  const section = (label, items, color) => items.length > 0 && <div style={{ marginBottom: 10, padding: "10px 12px", background: dark ? `${color}10` : `${color}08`, borderRadius: 8, borderLeft: `2px solid ${color}` }}><div style={{ fontSize: 9, color, fontWeight: 800, marginBottom: 5, fontFamily: "'JetBrains Mono',monospace" }}>{label}</div>{items.map((p, i) => <div key={i} style={{ fontSize: 12, color: t.tx, lineHeight: 1.6, marginTop: i > 0 ? 6 : 0, display: "flex", gap: 6, alignItems: "flex-start" }}><span style={{ color, flexShrink: 0, marginTop: 1 }}>·</span><span>{p}</span></div>)}</div>;
+  const { caveat, next_checkpoints = [] } = stageOutput || {};
   return (
     <div style={{ margin: "8px 0", padding: "14px 16px", background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, borderRadius: "18px 18px 18px 6px", borderLeft: "3px solid #F85149" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}><span style={{ fontSize: 10, fontWeight: 800, color: "#F85149", background: dark ? "rgba(248,81,73,0.14)" : "rgba(248,81,73,0.10)", padding: "3px 8px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>🧪 3차 · 빨간펜</span></div>
-      {section("성급한 해석", premature_interpretations, "#F85149")}
-      {section("확인 안 된 전제", unverified_premises, "#D29922")}
-      {counter_scenario && <div style={{ marginBottom: 10, padding: "10px 12px", background: dark ? "rgba(88,166,255,0.05)" : "rgba(88,166,255,0.03)", borderRadius: 8, borderLeft: "2px solid #58A6FF" }}><div style={{ fontSize: 9, color: "#58A6FF", fontWeight: 800, marginBottom: 5, fontFamily: "'JetBrains Mono',monospace" }}>반대 시나리오</div><div style={{ fontSize: 12, color: t.tx, lineHeight: 1.65, fontFamily: "'Pretendard',sans-serif" }}><FactIdText text={counter_scenario} dark={dark} /></div></div>}
+      {caveat && <div style={{ marginBottom: 12, padding: "12px 14px", background: dark ? "rgba(248,81,73,0.06)" : "rgba(248,81,73,0.04)", borderRadius: 8, borderLeft: "2px solid #F85149" }}><div style={{ fontSize: 13, color: t.tx, lineHeight: 1.7, fontFamily: "'Pretendard',sans-serif" }}>{caveat}</div></div>}
       {next_checkpoints.length > 0 && <div style={{ padding: "10px 12px", background: dark ? "rgba(125,133,144,0.07)" : "rgba(125,133,144,0.04)", borderRadius: 8 }}><div style={{ fontSize: 9, color: t.sub, fontWeight: 800, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>✅ 다음 체크포인트</div>{next_checkpoints.map((cp, i) => <div key={i} style={{ fontSize: 12, color: t.tx, lineHeight: 1.55, marginTop: i > 0 ? 6 : 0, display: "flex", gap: 8, alignItems: "flex-start" }}><span style={{ color: t.sub, fontFamily: "'JetBrains Mono',monospace", fontWeight: 800, flexShrink: 0, marginTop: 1, minWidth: 16 }}>{i + 1}.</span><span>{cp}</span></div>)}</div>}
     </div>
   );
@@ -867,7 +846,7 @@ function TrackerItemCard({ item, dark, expanded, onToggle }) {
   );
 }
 
-function Tracker({ tracker, regionPolicy, dark }) {
+function Tracker({ tracker, dark }) {
   const t = T(dark);
   const d = tracker;
   const updatedLabel = fmtDate(d.meta.lastUpdated);
@@ -876,9 +855,7 @@ function Tracker({ tracker, regionPolicy, dark }) {
   const [statusFilter, setStatusFilter] = useState("all");
   const [regionFilter, setRegionFilter] = useState("all");
   const [search, setSearch] = useState("");
-  // 외부 region_policy.json 우선, 실패 시 hardcoded REGION_POLICY로 fallback (안전망)
-  const policySource = regionPolicy || REGION_POLICY;
-  const policyData = policySource[expandedRegion] || null;
+  const policyData = REGION_POLICY[expandedRegion] || null;
   const statusRank = { ACTIVE: 0, UPCOMING: 1, WATCH: 2, DONE: 3 };
   const filteredItems = useMemo(() => {
     const sw = search.trim().toLowerCase();
@@ -980,15 +957,15 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
   const todayHighlights = latestCards(kb.cards, 4, null, kstToday());
   const highlights = todayHighlights.length ? todayHighlights : latestCards(kb.cards, 4, null, null);
   const highlightsIsToday = todayHighlights.length > 0;
-  const highlightCovers = useMemo(() => assignCardCoverImages(highlights), [highlights]);
-  const visibleCovers = useMemo(() => assignCardCoverImages(visible), [visible]);
+
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>날짜별 시그널 피드</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.6 }}>최신 카드부터 날짜 기준으로 정렬했습니다. 같은 날짜 안에서는 중요도가 높은 이슈를 먼저 보여줍니다.</p></div>
-      <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={highlightCovers[i]} />)}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>
+      <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={pickHomeCover(card)} />)}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>
       <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><input type="text" value={search} onChange={(e) => { setSearch(e.target.value); setShowCount(60); }} placeholder="🔍 카드 검색..." aria-label="Search cards by title, description, or content" style={{ flex: 1, padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />{(search || filter !== "all") && <div style={{ padding: "8px 12px", borderRadius: 8, background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card, border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`, fontSize: 11, fontWeight: 800, color: cards.length === 0 ? "#F85149" : t.cyan, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{cards.length}개 결과</div>}</div>{cards.length === 0 && (search || filter !== "all") && <div style={{ padding: 16, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>검색 결과가 없습니다</div><div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>다른 검색어나 필터를 시도해보세요</div></div>}</div>
       <div style={{ position: "relative" }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regions.map((r) => { const label = r === "all" ? `ALL ${kb.cardCount}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : `${REG_FLAG[r] || ""} ${r}`; return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "10px 14px", minHeight: 44, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div><div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 32, background: `linear-gradient(to left, ${t.bg}, transparent)`, pointerEvents: "none" }} /></div>
-      {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => { const visibleIdx = visible.indexOf(card); return <StoryNewsItem key={`${card.id || date}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={visibleCovers[visibleIdx]} />; })}</div></div>)}      {visible.length < cards.length && <button onClick={() => setShowCount((prev) => prev + 60)} style={{ width: "100%", padding: 12, marginTop: 16, borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontWeight: 700, cursor: "pointer" }}>더 보기 ({Math.min(showCount, cards.length)} / {cards.length})</button>}
+      {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => <StoryNewsItem key={`${card.id || date}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={pickHomeCover(card)} />)}</div></div>)}
+      {visible.length < cards.length && <button onClick={() => setShowCount((prev) => prev + 60)} style={{ width: "100%", padding: 12, marginTop: 16, borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontWeight: 700, cursor: "pointer" }}>더 보기 ({Math.min(showCount, cards.length)} / {cards.length})</button>}
     </div>
   );
 }
@@ -1003,7 +980,7 @@ function AppContent() {
   const [consultationSeed, setConsultationSeed] = useState({ data: null, nonce: 0 });
   const [consultSummaries, setConsultSummaries] = useState(() => typeof window !== "undefined" ? getAllCardConsultationSummaries() : {});
   const kb = useKnowledgeBase(refreshKey, hardRefresh);
-  const { tracker, regionPolicy, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
+  const { tracker, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
   const t = T(dark);
   const lastCardDate = latestDate(kb.cards) || "-";
 
@@ -1061,7 +1038,7 @@ function AppContent() {
         {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} />}
-        {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
+        {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} />}
       </main>
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">

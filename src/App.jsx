@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
-import StoryNewsItem, { assignCardCoverImages } from "./story/StoryNewsItem";
+import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
 import {
@@ -92,12 +92,6 @@ const TRACKER_REGION = {
   GL: { flag: "🌐", name: "글로벌" },
 };
 
-// ============================================================================
-// REGION_POLICY (deprecated path — fallback only)
-// ----------------------------------------------------------------------------
-// Source of truth는 public/data/region_policy.json. useTrackerData에서 fetch.
-// 이 객체는 fetch 실패 시 fallback 안전망으로만 유지 (다음 sweep에서 제거 예정).
-// ============================================================================
 const REGION_POLICY = {
   NA: {
     flag: "🇺🇸",
@@ -321,6 +315,9 @@ function useTrackerData(refreshKey = 0, hardRefresh = false) {
   useEffect(() => {
     let ignore = false;
     setLoading(true);
+    // tracker_data + region_policy 병렬 fetch.
+    // region_policy는 운영 중 데이터 업데이트 경로 (Copilot review #98 #1 지적).
+    // fetch 실패해도 tracker는 계속 동작해야 하므로 catch는 null로.
     Promise.all([
       fetchJsonFile("/data/tracker_data.json", refreshKey, hardRefresh).catch(() => null),
       fetchJsonFile("/data/region_policy.json", refreshKey, hardRefresh).catch(() => null),
@@ -350,11 +347,25 @@ function useTrackerData(refreshKey = 0, hardRefresh = false) {
     return { meta: { lastUpdated: raw.meta?.lastUpdated || "-", totalItems: Number(raw.meta?.totalItems ?? items.length) || items.length }, summary, regions, upcoming, items };
   }, [raw]);
 
-  // region_policy.json fetch 결과 — _meta 키 분리, 실패 시 null (Tracker에서 hardcoded REGION_POLICY로 fallback)
+  // regionPolicy: JSON 우선, 실패 시 하드코드 REGION_POLICY fallback.
+  // JSON 형식: { _meta: {...}, NA: {...}, EU: {...}, CN: {...}, KR: {...}, JP: {...}, GL: {...} }
+  // _meta만 있고 region 키 없는 경우는 invalid로 봐서 fallback. 일부 region만 있어도
+  // 그 region만 JSON, 빠진 region은 하드코드 fallback (region별 fallback).
   const regionPolicy = useMemo(() => {
-    if (!policyRaw || typeof policyRaw !== "object") return null;
-    const { _meta, ...rest } = policyRaw;
-    return rest;
+    if (!policyRaw || typeof policyRaw !== 'object') return REGION_POLICY;
+    // _meta 제외하고 region 데이터가 하나라도 있는지
+    const regionKeys = Object.keys(policyRaw).filter(k => !k.startsWith('_'));
+    if (regionKeys.length === 0) return REGION_POLICY;
+    // region별 fallback merge — JSON에 있으면 JSON, 없으면 하드코드
+    const merged = { ...REGION_POLICY };
+    for (const key of regionKeys) {
+      const entry = policyRaw[key];
+      // 최소 schema 검증 — policies 배열 + watchpoints 배열 있어야 valid
+      if (entry && Array.isArray(entry.policies) && Array.isArray(entry.watchpoints)) {
+        merged[key] = entry;
+      }
+    }
+    return merged;
   }, [policyRaw]);
 
   return { tracker, regionPolicy, loading };
@@ -412,6 +423,73 @@ function pickHomeCover(card) {
   return pool[Math.abs(hash) % pool.length];
 }
 
+// 카드 list 단위로 unique 커버 이미지 배정.
+// pickHomeCover만 쓰면 카테고리당 3장 풀이라 같은 페이지에 20+장 카드면 중복 대량 발생
+// (Copilot review #98 #2). list 안에서 round-robin으로 한 풀에서 나눠 쓰고,
+// 풀 소진되면 다른 카테고리 풀로 넘김 → 같은 화면에서 인접 중복 최소화.
+//
+// 반환: { [cardKey]: imageUrl } — getCardId(card) 또는 fallback key 사용.
+function assignHomeCovers(cards) {
+  const result = {};
+  if (!Array.isArray(cards) || cards.length === 0) return result;
+
+  // 카테고리 분류기 (pickHomeCover와 동일 로직)
+  const categorize = (card) => {
+    const text = [card?.T, card?.title, card?.sub, card?.subtitle, card?.g, card?.gate, card?.source, card?.src].filter(Boolean).join(" ").toLowerCase();
+    if (/(ira|feoc|crma|보조금|관세|규제|법안|정부|정책|세액공제)/.test(text)) return "POLICY";
+    if (/(실적|영업이익|매출|주가|투자|적자|흑자|m&a|상장)/.test(text)) return "FINANCE";
+    if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율)/.test(text)) return "FACTORY";
+    if (/(테슬라|전기차|ev|완성차|현대차|기아|포드|gm|bmw|폭스바겐)/.test(text)) return "AUTO";
+    if (/(배터리|lfp|전고체|리튬|니켈|코발트|흑연|양극재|음극재|분리막|전해액|ess|bess|catl|byd|엔솔|sdi)/.test(text)) return "BATTERY";
+    if (/(기술|r&d|특허|연구|차세대|효율|혁신|개발|테스트|파일럿)/.test(text)) return "TECH";
+    return "DEFAULT";
+  };
+
+  const cardKey = (card, idx) => String(card?.id || card?.T || card?.title || `idx_${idx}`);
+
+  // 카테고리별 사용 인덱스 카운터 — 한 카테고리 내에서 round-robin
+  const usage = {};
+  // 마지막에 배정된 이미지 기록 — 인접 카드 중복 강제 회피
+  let lastImage = null;
+
+  cards.forEach((card, idx) => {
+    const cat = categorize(card);
+    const pool = AUTO_IMAGES[cat] || AUTO_IMAGES.DEFAULT;
+
+    // 1차: 카테고리 풀에서 round-robin
+    const startIdx = usage[cat] || 0;
+    let chosen = null;
+    for (let i = 0; i < pool.length; i += 1) {
+      const candidate = pool[(startIdx + i) % pool.length];
+      if (candidate !== lastImage) {
+        chosen = candidate;
+        usage[cat] = (startIdx + i + 1) % pool.length;
+        break;
+      }
+    }
+    // 풀이 1장이거나 모두 lastImage인 케이스 — 다른 카테고리 풀에서 차용
+    if (!chosen) {
+      const altCats = Object.keys(AUTO_IMAGES).filter((c) => c !== cat);
+      for (const altCat of altCats) {
+        const altPool = AUTO_IMAGES[altCat];
+        const candidate = altPool[(usage[altCat] || 0) % altPool.length];
+        if (candidate !== lastImage) {
+          chosen = candidate;
+          usage[altCat] = ((usage[altCat] || 0) + 1) % altPool.length;
+          break;
+        }
+      }
+    }
+    // 최후 — 어쨌든 풀 첫 항목
+    if (!chosen) chosen = pool[0];
+
+    result[cardKey(card, idx)] = chosen;
+    lastImage = chosen;
+  });
+
+  return result;
+}
+
 function Home({ kb, tracker, onNav, onSubmitConsultation, consultSummaries = {}, dark }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
@@ -423,8 +501,10 @@ function Home({ kb, tracker, onNav, onSubmitConsultation, consultSummaries = {},
   const todayStr = `${kstToday()} (${dayNames[today.getDay()]})`;
   const lead = picks[0] || null;
   const rest = picks.slice(1, 4);
-  const pickCovers = useMemo(() => assignCardCoverImages(picks), [picks]);
   const leadDateLabel = lead?.d || lead?.date ? fmtDate(lead.d || lead.date) : "-";
+  // 화면 내 unique 커버 배정 (Copilot review #98 #2)
+  const coverMap = useMemo(() => assignHomeCovers(picks), [picks]);
+  const coverFor = (card, idx) => coverMap[String(card?.id || card?.T || card?.title || `idx_${idx}`)] || pickHomeCover(card);
 
   return (
     <div style={{ padding: "0 14px 120px", display: "flex", flexDirection: "column", gap: 12 }}>
@@ -438,14 +518,15 @@ function Home({ kb, tracker, onNav, onSubmitConsultation, consultSummaries = {},
       </div>
 
       {lead ? (
-        <StoryNewsItem card={lead} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(lead)] || null} coverImage={pickCovers[0]} featured />
+        <StoryNewsItem card={lead} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(lead)] || null} coverImage={coverFor(lead, 0)} featured />
       ) : (
         <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}`, fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>
       )}
 
       {rest.length > 0 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {rest.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={pickCovers[i + 1]} />)}        </div>
+          {rest.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i + 1)} />)}
+        </div>
       )}
 
       <div style={{ display: "flex", gap: 8 }}>
@@ -530,7 +611,7 @@ function AnalystBubble({ stageOutput, dark }) {
   return (
     <div style={{ margin: "8px 0", padding: "14px 16px", background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, borderRadius: "18px 18px 18px 6px", borderLeft: "3px solid #D29922" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8, flexWrap: "wrap" }}><span style={{ fontSize: 10, fontWeight: 800, color: "#D29922", background: dark ? "rgba(210,153,34,0.14)" : "rgba(210,153,34,0.10)", padding: "3px 8px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>🔍 2차 · 핵심 각도</span>{angle && <span style={{ fontSize: 10, fontWeight: 700, color: t.tx, background: dark ? "rgba(210,153,34,0.08)" : "rgba(210,153,34,0.06)", padding: "3px 8px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace", border: `1px solid ${dark ? "rgba(210,153,34,0.2)" : "rgba(210,153,34,0.15)"}` }}>{angle}</span>}</div>
-      {interpretation && <div style={{ fontSize: 13, lineHeight: 1.65, color: t.tx, marginBottom: 12, fontFamily: "'Pretendard',sans-serif" }}><FactIdText text={interpretation} dark={dark} /></div>}
+      {interpretation && <div style={{ fontSize: 13, lineHeight: 1.65, color: t.tx, marginBottom: 12, fontFamily: "'Pretendard',sans-serif" }}>{interpretation}</div>}
       {key_tension && <div style={{ padding: "10px 12px", background: dark ? "rgba(210,153,34,0.07)" : "rgba(210,153,34,0.05)", borderRadius: 8, borderLeft: "2px solid #D29922" }}><div style={{ fontSize: 9, color: "#D29922", fontWeight: 800, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>⚡ 핵심 쟁점</div><div style={{ fontSize: 12, color: t.tx, lineHeight: 1.5, fontWeight: 600 }}>{key_tension}</div></div>}
     </div>
   );
@@ -538,14 +619,11 @@ function AnalystBubble({ stageOutput, dark }) {
 
 function RedTeamBubble({ stageOutput, dark }) {
   const t = T(dark);
-  const { premature_interpretations = [], unverified_premises = [], counter_scenario, next_checkpoints = [] } = stageOutput || {};
-  const section = (label, items, color) => items.length > 0 && <div style={{ marginBottom: 10, padding: "10px 12px", background: dark ? `${color}10` : `${color}08`, borderRadius: 8, borderLeft: `2px solid ${color}` }}><div style={{ fontSize: 9, color, fontWeight: 800, marginBottom: 5, fontFamily: "'JetBrains Mono',monospace" }}>{label}</div>{items.map((p, i) => <div key={i} style={{ fontSize: 12, color: t.tx, lineHeight: 1.6, marginTop: i > 0 ? 6 : 0, display: "flex", gap: 6, alignItems: "flex-start" }}><span style={{ color, flexShrink: 0, marginTop: 1 }}>·</span><span>{p}</span></div>)}</div>;
+  const { caveat, next_checkpoints = [] } = stageOutput || {};
   return (
     <div style={{ margin: "8px 0", padding: "14px 16px", background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, borderRadius: "18px 18px 18px 6px", borderLeft: "3px solid #F85149" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 10 }}><span style={{ fontSize: 10, fontWeight: 800, color: "#F85149", background: dark ? "rgba(248,81,73,0.14)" : "rgba(248,81,73,0.10)", padding: "3px 8px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>🧪 3차 · 빨간펜</span></div>
-      {section("성급한 해석", premature_interpretations, "#F85149")}
-      {section("확인 안 된 전제", unverified_premises, "#D29922")}
-      {counter_scenario && <div style={{ marginBottom: 10, padding: "10px 12px", background: dark ? "rgba(88,166,255,0.05)" : "rgba(88,166,255,0.03)", borderRadius: 8, borderLeft: "2px solid #58A6FF" }}><div style={{ fontSize: 9, color: "#58A6FF", fontWeight: 800, marginBottom: 5, fontFamily: "'JetBrains Mono',monospace" }}>반대 시나리오</div><div style={{ fontSize: 12, color: t.tx, lineHeight: 1.65, fontFamily: "'Pretendard',sans-serif" }}><FactIdText text={counter_scenario} dark={dark} /></div></div>}
+      {caveat && <div style={{ marginBottom: 12, padding: "12px 14px", background: dark ? "rgba(248,81,73,0.06)" : "rgba(248,81,73,0.04)", borderRadius: 8, borderLeft: "2px solid #F85149" }}><div style={{ fontSize: 13, color: t.tx, lineHeight: 1.7, fontFamily: "'Pretendard',sans-serif" }}>{caveat}</div></div>}
       {next_checkpoints.length > 0 && <div style={{ padding: "10px 12px", background: dark ? "rgba(125,133,144,0.07)" : "rgba(125,133,144,0.04)", borderRadius: 8 }}><div style={{ fontSize: 9, color: t.sub, fontWeight: 800, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>✅ 다음 체크포인트</div>{next_checkpoints.map((cp, i) => <div key={i} style={{ fontSize: 12, color: t.tx, lineHeight: 1.55, marginTop: i > 0 ? 6 : 0, display: "flex", gap: 8, alignItems: "flex-start" }}><span style={{ color: t.sub, fontFamily: "'JetBrains Mono',monospace", fontWeight: 800, flexShrink: 0, marginTop: 1, minWidth: 16 }}>{i + 1}.</span><span>{cp}</span></div>)}</div>}
     </div>
   );
@@ -876,7 +954,9 @@ function Tracker({ tracker, regionPolicy, dark }) {
   const [statusFilter, setStatusFilter] = useState("all");
   const [regionFilter, setRegionFilter] = useState("all");
   const [search, setSearch] = useState("");
-  // 외부 region_policy.json 우선, 실패 시 hardcoded REGION_POLICY로 fallback (안전망)
+  // regionPolicy: useTrackerData가 region_policy.json을 우선 fetch하고
+  // 실패 시 하드코드 REGION_POLICY로 fallback (Copilot review #98 #1).
+  // prop이 없는 호출부도 안전하게 — 마지막 fallback.
   const policySource = regionPolicy || REGION_POLICY;
   const policyData = policySource[expandedRegion] || null;
   const statusRank = { ACTIVE: 0, UPCOMING: 1, WATCH: 2, DONE: 3 };
@@ -980,15 +1060,18 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
   const todayHighlights = latestCards(kb.cards, 4, null, kstToday());
   const highlights = todayHighlights.length ? todayHighlights : latestCards(kb.cards, 4, null, null);
   const highlightsIsToday = todayHighlights.length > 0;
-  const highlightCovers = useMemo(() => assignCardCoverImages(highlights), [highlights]);
-  const visibleCovers = useMemo(() => assignCardCoverImages(visible), [visible]);
+  // 화면 내 unique 커버 배정 — highlights와 visible 합쳐서 한 번에 (Copilot review #98 #2)
+  const coverMap = useMemo(() => assignHomeCovers([...highlights, ...visible]), [highlights, visible]);
+  const coverFor = (card, idx) => coverMap[String(card?.id || card?.T || card?.title || `idx_${idx}`)] || pickHomeCover(card);
+
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>날짜별 시그널 피드</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.6 }}>최신 카드부터 날짜 기준으로 정렬했습니다. 같은 날짜 안에서는 중요도가 높은 이슈를 먼저 보여줍니다.</p></div>
-      <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={highlightCovers[i]} />)}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>
+      <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} />)}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>
       <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><input type="text" value={search} onChange={(e) => { setSearch(e.target.value); setShowCount(60); }} placeholder="🔍 카드 검색..." aria-label="Search cards by title, description, or content" style={{ flex: 1, padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />{(search || filter !== "all") && <div style={{ padding: "8px 12px", borderRadius: 8, background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card, border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`, fontSize: 11, fontWeight: 800, color: cards.length === 0 ? "#F85149" : t.cyan, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{cards.length}개 결과</div>}</div>{cards.length === 0 && (search || filter !== "all") && <div style={{ padding: 16, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>검색 결과가 없습니다</div><div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>다른 검색어나 필터를 시도해보세요</div></div>}</div>
       <div style={{ position: "relative" }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regions.map((r) => { const label = r === "all" ? `ALL ${kb.cardCount}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : `${REG_FLAG[r] || ""} ${r}`; return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "10px 14px", minHeight: 44, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div><div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 32, background: `linear-gradient(to left, ${t.bg}, transparent)`, pointerEvents: "none" }} /></div>
-      {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => { const visibleIdx = visible.indexOf(card); return <StoryNewsItem key={`${card.id || date}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={visibleCovers[visibleIdx]} />; })}</div></div>)}      {visible.length < cards.length && <button onClick={() => setShowCount((prev) => prev + 60)} style={{ width: "100%", padding: 12, marginTop: 16, borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontWeight: 700, cursor: "pointer" }}>더 보기 ({Math.min(showCount, cards.length)} / {cards.length})</button>}
+      {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => <StoryNewsItem key={`${card.id || date}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} />)}</div></div>)}
+      {visible.length < cards.length && <button onClick={() => setShowCount((prev) => prev + 60)} style={{ width: "100%", padding: 12, marginTop: 16, borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontWeight: 700, cursor: "pointer" }}>더 보기 ({Math.min(showCount, cards.length)} / {cards.length})</button>}
     </div>
   );
 }

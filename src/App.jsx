@@ -1172,7 +1172,7 @@ function AppContent() {
     setRefreshPending(true);
     setRefreshKey(Date.now());
   };
-
+https://github.com/ihyowoen/SBTL_HUB/blob/ihyowoen-patch-11/src/App.jsx
   const handleSubmitConsultation = (card) => {
     if (!card) return;
     const recentOpenerIds = getRecentOpenerIds(5);

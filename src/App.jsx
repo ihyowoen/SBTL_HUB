@@ -72,7 +72,7 @@ const WEBTOON_COLLECTIONS = [
 const CATS = [
   { key: "all", label: "HOME", icon: "🔋" },
   { key: "news", label: "NEWS", icon: "📰" },
-  { key: "webtoon", label: "TOON", icon: "🎨" },
+  { key: "webtoon", label: "LEARN", icon: "🎓" },
   { key: "tracker", label: "TRCK", icon: "📊" },
   { key: "chatbot", label: "AI", icon: "🤖" },
 ];
@@ -1017,10 +1017,72 @@ function CollectionFolder({ collection, dark, defaultOpen = false }) {
   return <div style={{ background: t.card2, borderRadius: 16, border: `1px solid ${t.brd}`, overflow: "hidden" }}><div style={{ height: 4, background: `linear-gradient(90deg,${collection.color},${collection.color}66)` }} /><div style={{ padding: 16 }}><div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}><div style={{ flex: 1 }}><div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 6 }}><SmallPill label={collection.badge} dark={dark} /><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{collection.items.length} EPISODES</span></div><h3 style={{ fontSize: 20, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.28 }}>{collection.title}</h3><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.58 }}>{collection.subtitle}</p><p style={{ fontSize: 11, color: t.sub, opacity: 0.95, margin: "8px 0 0", lineHeight: 1.55 }}>{collection.description}</p></div><button onClick={() => setOpen((v) => !v)} style={{ border: "none", background: "transparent", color: t.sub, cursor: "pointer", fontSize: 18, paddingTop: 6 }}>{open ? "▾" : "▸"}</button></div><div style={{ display: "flex", gap: 8, marginTop: 14 }}><SeriesActionButton label="시리즈 소개 보기 ↗" onClick={() => window.open(collection.landingUrl, "_blank")} primary dark={dark} /><SeriesActionButton label="EP.1 시작 ↗" onClick={() => window.open(collection.items[0].url, "_blank")} dark={dark} /></div></div>{open && <div style={{ padding: "0 16px 16px", display: "flex", flexDirection: "column", gap: 10 }}>{collection.items.map((item) => <EpisodeCard key={item.id} item={item} dark={dark} />)}</div>}</div>;
 }
 
-function WebtoonLibrary({ dark }) {
+function WebtoonLibrary({ dark, faq = [] }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
-  return <div style={{ padding: "10px 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}><div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#232D47" : "#EEF3FF"})`, borderRadius: 16, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}` }}><div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}><SmallPill label="FEATURED SERIES" dark={dark} /><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{featured.status}</span></div><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>{featured.title}</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.62 }}>{featured.hook}</p></div><div style={{ background: t.card2, borderRadius: 12, padding: "14px 16px", border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>WEBTOON LIBRARY</div><h2 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: 0 }}>웹툰 라이브러리</h2><p style={{ fontSize: 12, color: t.sub, lineHeight: 1.6, margin: "8px 0 0" }}>공개된 웹툰을 시리즈 단위로 정리한 아카이브입니다. 같은 주제의 회차를 한곳에서 순서대로 확인할 수 있습니다.</p></div>{WEBTOON_COLLECTIONS.map((collection, idx) => <CollectionFolder key={collection.id} collection={collection} dark={dark} defaultOpen={idx === 0} />)}</div>;
+
+  // PHASE A: FAQ flat read-only list — sort by k[0], truncate body to ~100 Korean chars.
+  // No id/category/review_status yet (Phase B). No badges, no deeplinks, no detail modal.
+  const sortedFaq = useMemo(
+    () => [...(Array.isArray(faq) ? faq : [])].sort((a, b) =>
+      String(a?.k?.[0] || "").localeCompare(String(b?.k?.[0] || ""), "ko")
+    ),
+    [faq]
+  );
+
+  const truncateKo = (text, max = 100) => {
+    const s = String(text || "").trim();
+    if (s.length <= max) return s;
+    return s.slice(0, max).replace(/\s+\S*$/, "") + "…";
+  };
+
+  return (
+    <div style={{ padding: "10px 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#232D47" : "#EEF3FF"})`, borderRadius: 16, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}` }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
+          <SmallPill label="FEATURED SERIES" dark={dark} />
+          <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{featured.status}</span>
+        </div>
+        <h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>{featured.title}</h2>
+        <p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.62 }}>{featured.hook}</p>
+      </div>
+      <div style={{ background: t.card2, borderRadius: 12, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
+        <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>WEBTOON LIBRARY</div>
+        <h2 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: 0 }}>웹툰 라이브러리</h2>
+        <p style={{ fontSize: 12, color: t.sub, lineHeight: 1.6, margin: "8px 0 0" }}>공개된 웹툰을 시리즈 단위로 정리한 아카이브입니다. 같은 주제의 회차를 한곳에서 순서대로 확인할 수 있습니다.</p>
+      </div>
+      {WEBTOON_COLLECTIONS.map((collection, idx) => <CollectionFolder key={collection.id} collection={collection} dark={dark} defaultOpen={idx === 0} />)}
+
+      {/* PHASE A — FAQ flat list (read-only, no badges/deeplinks/modal) */}
+      <div style={{ marginTop: 4 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+          <span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>
+            FAQ — 용어·개념 사전 {sortedFaq.length > 0 ? `· ${sortedFaq.length}` : ""}
+          </span>
+          <div style={{ flex: 1, height: 1, background: t.brd }} />
+        </div>
+        {sortedFaq.length === 0 ? (
+          <div style={{ background: t.card2, borderRadius: 12, padding: 20, border: `1px solid ${t.brd}`, textAlign: "center" }}>
+            <div style={{ fontSize: 24, marginBottom: 8 }}>📖</div>
+            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>FAQ 항목을 불러오는 중이거나 등록된 항목이 없습니다.</div>
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {sortedFaq.map((entry, i) => (
+              <div key={`faq-${i}-${entry?.k?.[0] || i}`} style={{ background: t.card2, borderRadius: 10, padding: "12px 14px", border: `1px solid ${t.brd}` }}>
+                <div style={{ fontSize: 13, fontWeight: 800, color: t.tx, lineHeight: 1.4, marginBottom: 6 }}>
+                  {entry?.k?.[0] || "(제목 없음)"}
+                </div>
+                <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.65 }}>
+                  {truncateKo(entry?.a, 100)}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
@@ -1125,8 +1187,8 @@ function AppContent() {
 
   if (kb.loading || trackerLoading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: t.bg, color: t.sub }}>Loading...</div>;
 
-  const headerTitle = { news: "날짜별 시그널 피드", tracker: "Policy Tracker", chatbot: "강차장의 배터리 상담소", webtoon: "웹툰 라이브러리" }[tab];
-  const headerSub = { news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`, tracker: `Items ${tracker.meta.totalItems} · LAST CHECKED ${fmtDate(tracker.meta.lastUpdated)}`, chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크", webtoon: `${WEBTOON_COLLECTIONS.length} SERIES` }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
+  const headerTitle = { news: "날짜별 시그널 피드", tracker: "Policy Tracker", chatbot: "강차장의 배터리 상담소", webtoon: "배터리교실" }[tab];
+  const headerSub = { news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`, tracker: `Items ${tracker.meta.totalItems} · LAST CHECKED ${fmtDate(tracker.meta.lastUpdated)}`, chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크", webtoon: `52항목 · ${WEBTOON_COLLECTIONS.length}시리즈 · 검증 진행 중` }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
 
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", background: t.bg, minHeight: "100vh", fontFamily: "'Pretendard',-apple-system,sans-serif", position: "relative" }}>
@@ -1145,7 +1207,7 @@ function AppContent() {
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} />}
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
-        {tab === "webtoon" && <WebtoonLibrary dark={dark} />}
+        {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} />}
       </main>
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">
         {CATS.map((cat) => { const active = tab === cat.key; return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={`Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: 56, cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>{active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}<span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span><span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span></button>; })}

@@ -1172,7 +1172,7 @@ function AppContent() {
     setRefreshPending(true);
     setRefreshKey(Date.now());
   };
-https://github.com/ihyowoen/SBTL_HUB/blob/ihyowoen-patch-11/src/App.jsx
+
   const handleSubmitConsultation = (card) => {
     if (!card) return;
     const recentOpenerIds = getRecentOpenerIds(5);
@@ -1188,7 +1188,7 @@ https://github.com/ihyowoen/SBTL_HUB/blob/ihyowoen-patch-11/src/App.jsx
   if (kb.loading || trackerLoading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: t.bg, color: t.sub }}>Loading...</div>;
 
   const headerTitle = { news: "날짜별 시그널 피드", tracker: "Policy Tracker", chatbot: "강차장의 배터리 상담소", webtoon: "배터리교실" }[tab];
-  const headerSub = { news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`, tracker: `Items ${tracker.meta.totalItems} · LAST CHECKED ${fmtDate(tracker.meta.lastUpdated)}`, chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크", webtoon: `52항목 · ${WEBTOON_COLLECTIONS.length}시리즈 · 검증 진행 중` }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
+  const headerSub = { news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`, tracker: `Items ${tracker.meta.totalItems} · LAST CHECKED ${fmtDate(tracker.meta.lastUpdated)}`, chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크", webtoon: `${kb.faqCount}/52항목 준비 중 · ${WEBTOON_COLLECTIONS.length}시리즈 · 검증 진행 중` }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
 
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", background: t.bg, minHeight: "100vh", fontFamily: "'Pretendard',-apple-system,sans-serif", position: "relative" }}>

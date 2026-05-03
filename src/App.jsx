@@ -286,14 +286,22 @@ async function clearBrowserCaches() {
 function useKnowledgeBase(refreshKey = 0, hardRefresh = false) {
   const [cards, setCards] = useState([]);
   const [faq, setFaq] = useState([]);
+  const [faqError, setFaqError] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let ignore = false;
     setLoading(true);
+    setFaqError(false);
+    // FAQ fetch는 cards와 분리해서 추적 — 실패 시 faqError true (PR #100 post-merge cleanup).
+    // ignore check로 unmount 후 setState 방지.
+    const faqPromise = fetchJsonFile("/data/faq.json", refreshKey, hardRefresh).catch(() => {
+      if (!ignore) setFaqError(true);
+      return [];
+    });
     Promise.all([
       fetchJsonFile("/data/cards.json", refreshKey, hardRefresh).then((d) => d.cards || d).catch(() => []),
-      fetchJsonFile("/data/faq.json", refreshKey, hardRefresh).catch(() => []),
+      faqPromise,
     ]).then(([c, f]) => {
       if (ignore) return;
       setCards(Array.isArray(c) ? c.map(toCompatCard) : []);
@@ -304,7 +312,7 @@ function useKnowledgeBase(refreshKey = 0, hardRefresh = false) {
     return () => { ignore = true; };
   }, [refreshKey, hardRefresh]);
 
-  return { cards, faq, loading, cardCount: cards.length, faqCount: faq.length };
+  return { cards, faq, faqError, loading, cardCount: cards.length, faqCount: faq.length };
 }
 
 function useTrackerData(refreshKey = 0, hardRefresh = false) {
@@ -1017,7 +1025,7 @@ function CollectionFolder({ collection, dark, defaultOpen = false }) {
   return <div style={{ background: t.card2, borderRadius: 16, border: `1px solid ${t.brd}`, overflow: "hidden" }}><div style={{ height: 4, background: `linear-gradient(90deg,${collection.color},${collection.color}66)` }} /><div style={{ padding: 16 }}><div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}><div style={{ flex: 1 }}><div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 6 }}><SmallPill label={collection.badge} dark={dark} /><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{collection.items.length} EPISODES</span></div><h3 style={{ fontSize: 20, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.28 }}>{collection.title}</h3><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.58 }}>{collection.subtitle}</p><p style={{ fontSize: 11, color: t.sub, opacity: 0.95, margin: "8px 0 0", lineHeight: 1.55 }}>{collection.description}</p></div><button onClick={() => setOpen((v) => !v)} style={{ border: "none", background: "transparent", color: t.sub, cursor: "pointer", fontSize: 18, paddingTop: 6 }}>{open ? "▾" : "▸"}</button></div><div style={{ display: "flex", gap: 8, marginTop: 14 }}><SeriesActionButton label="시리즈 소개 보기 ↗" onClick={() => window.open(collection.landingUrl, "_blank")} primary dark={dark} /><SeriesActionButton label="EP.1 시작 ↗" onClick={() => window.open(collection.items[0].url, "_blank")} dark={dark} /></div></div>{open && <div style={{ padding: "0 16px 16px", display: "flex", flexDirection: "column", gap: 10 }}>{collection.items.map((item) => <EpisodeCard key={item.id} item={item} dark={dark} />)}</div>}</div>;
 }
 
-function WebtoonLibrary({ dark, faq = [] }) {
+function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
 
@@ -1063,8 +1071,10 @@ function WebtoonLibrary({ dark, faq = [] }) {
         </div>
         {sortedFaq.length === 0 ? (
           <div style={{ background: t.card2, borderRadius: 12, padding: 20, border: `1px solid ${t.brd}`, textAlign: "center" }}>
-            <div style={{ fontSize: 24, marginBottom: 8 }}>📖</div>
-            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>FAQ 항목을 불러오는 중이거나 등록된 항목이 없습니다.</div>
+            <div style={{ fontSize: 24, marginBottom: 8 }}>{faqError ? "⚠️" : "📖"}</div>
+            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>
+              {faqError ? "FAQ 데이터를 불러오지 못했습니다." : "FAQ 항목을 불러오는 중이거나 등록된 항목이 없습니다."}
+            </div>
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -1207,7 +1217,7 @@ function AppContent() {
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} />}
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
-        {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} />}
+        {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} />}
       </main>
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">
         {CATS.map((cat) => { const active = tab === cat.key; return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={`Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: 56, cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>{active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}<span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span><span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span></button>; })}

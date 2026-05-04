@@ -1029,26 +1029,20 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
 
-  // Phase B1.1: per-FAQ expand/collapse state. Default collapsed.
+  // Phase B2: 5 sub-tab structure for LEARN. Default BASIC.
+  const [learnSubTab, setLearnSubTab] = useState("basic");
+  const [glossarySearch, setGlossarySearch] = useState("");
+  const [glossaryCategoryFilter, setGlossaryCategoryFilter] = useState("all");
+
+  // Phase B1.1: per-FAQ expand/collapse keyed by entry.id. Survives sub-tab switch and sort/filter changes.
   const [expandedFaqKeys, setExpandedFaqKeys] = useState(() => new Set());
 
-  // Phase B1.1: FAQ flat list with expand/collapse.
-  // id/category are available after Phase B1. No review_status, badges, deeplinks, detail modal, search, or sub-tabs yet.
-  const sortedFaq = useMemo(
-    () => [...(Array.isArray(faq) ? faq : [])].sort((a, b) =>
-      String(a?.k?.[0] || "").localeCompare(String(b?.k?.[0] || ""), "ko")
-    ),
-    [faq]
-  );
-
   const FAQ_PREVIEW_LIMIT = 100;
-
   const truncateKo = (text, max = FAQ_PREVIEW_LIMIT) => {
     const s = String(text || "").trim();
     if (s.length <= max) return s;
     return s.slice(0, max).replace(/\s+\S*$/, "") + "…";
   };
-
   const toggleFaqExpand = (key) => {
     setExpandedFaqKeys((prev) => {
       const next = new Set(prev);
@@ -1058,83 +1052,397 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
     });
   };
 
-  return (
-    <div style={{ padding: "10px 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
-      <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#232D47" : "#EEF3FF"})`, borderRadius: 16, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}` }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
-          <SmallPill label="FEATURED SERIES" dark={dark} />
-          <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{featured.status}</span>
-        </div>
-        <h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>{featured.title}</h2>
-        <p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.62 }}>{featured.hook}</p>
-      </div>
-      <div style={{ background: t.card2, borderRadius: 12, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
-        <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>WEBTOON LIBRARY</div>
-        <h2 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: 0 }}>웹툰 라이브러리</h2>
-        <p style={{ fontSize: 12, color: t.sub, lineHeight: 1.6, margin: "8px 0 0" }}>공개된 웹툰을 시리즈 단위로 정리한 아카이브입니다. 같은 주제의 회차를 한곳에서 순서대로 확인할 수 있습니다.</p>
-      </div>
-      {WEBTOON_COLLECTIONS.map((collection, idx) => <CollectionFolder key={collection.id} collection={collection} dark={dark} defaultOpen={idx === 0} />)}
+  // Phase B2: search normalization — lowercase + zero-width chars + hyphen/underscore + whitespace removed.
+  // "삼성 sdi" === "samsung_sdi" === "samsung-sdi" === "삼성SDI" 모두 같은 검색 키.
+  const normalizeSearchText = (text) => String(text || "")
+    .toLowerCase()
+    .replace(/[\u200B-\u200D\uFEFF]/g, "")
+    .replace(/[-_]/g, "")
+    .replace(/\s+/g, "");
 
-      {/* PHASE A — FAQ flat list (read-only, no badges/deeplinks/modal) */}
-      <div style={{ marginTop: 4 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-          <span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>
-            FAQ · 개념 사전 {sortedFaq.length > 0 ? `· ${sortedFaq.length}` : ""}
-          </span>
-          <div style={{ flex: 1, height: 1, background: t.brd }} />
+  const faqList = useMemo(() => Array.isArray(faq) ? faq : [], [faq]);
+  const sortFaqByK = (list) => [...list].sort((a, b) =>
+    String(a?.k?.[0] || "").localeCompare(String(b?.k?.[0] || ""), "ko")
+  );
+
+  // Phase B2: faq grouping by category (faq.json schema v2.0).
+  const POLICY_REGIONS = [
+    { key: "us_policy", flag: "🇺🇸", name: "미국" },
+    { key: "eu_policy", flag: "🇪🇺", name: "유럽" },
+    { key: "cn_policy", flag: "🇨🇳", name: "중국" },
+    { key: "kr_policy", flag: "🇰🇷", name: "한국" },
+    { key: "jp_policy", flag: "🇯🇵", name: "일본" },
+  ];
+
+  const basicEntries = useMemo(
+    () => sortFaqByK(faqList.filter((e) => e?.category === "tech")),
+    [faqList]
+  );
+  const companyEntries = useMemo(
+    () => sortFaqByK(faqList.filter((e) => e?.category === "company")),
+    [faqList]
+  );
+  const industryEntries = useMemo(
+    () => sortFaqByK(faqList.filter((e) => e?.category === "industry")),
+    [faqList]
+  );
+  const policyByRegion = useMemo(() => {
+    const out = {};
+    for (const region of POLICY_REGIONS) {
+      out[region.key] = sortFaqByK(faqList.filter((e) => e?.category === region.key));
+    }
+    return out;
+  }, [faqList]);
+  const policyTotalCount = useMemo(
+    () => POLICY_REGIONS.reduce((sum, r) => sum + (policyByRegion[r.key]?.length || 0), 0),
+    [policyByRegion]
+  );
+
+  // GLOSSARY: 전체 entries with optional search + category filter.
+  const glossaryCategoriesPresent = useMemo(() => {
+    const seen = new Set();
+    for (const e of faqList) if (e?.category) seen.add(e.category);
+    return Array.from(seen);
+  }, [faqList]);
+  const glossaryFiltered = useMemo(() => {
+    const norm = normalizeSearchText(glossarySearch);
+    let list = faqList;
+    if (glossaryCategoryFilter !== "all") {
+      list = list.filter((e) => e?.category === glossaryCategoryFilter);
+    }
+    if (norm) {
+      list = list.filter((e) => {
+        const haystack = [
+          e?.id || "",
+          ...(Array.isArray(e?.k) ? e.k : []),
+          e?.a || "",
+        ].map(normalizeSearchText).join(" ");
+        return haystack.includes(norm);
+      });
+    }
+    return sortFaqByK(list);
+  }, [faqList, glossarySearch, glossaryCategoryFilter]);
+
+  // Shared FAQ card renderer (used by 4 sub-tabs).
+  const renderFaqCard = (entry, i) => {
+    const key = entry?.id || `faq-${i}-${entry?.k?.[0] || i}`;
+    const fullText = String(entry?.a || "").trim();
+    const isLong = fullText.length > FAQ_PREVIEW_LIMIT;
+    const isExpanded = expandedFaqKeys.has(key);
+    const displayText = isLong && !isExpanded ? truncateKo(fullText) : fullText;
+    return (
+      <div key={key} style={{ background: t.card2, borderRadius: 10, padding: "12px 14px", border: `1px solid ${t.brd}` }}>
+        <div style={{ fontSize: 13, fontWeight: 800, color: t.tx, lineHeight: 1.4, marginBottom: 6 }}>
+          {entry?.k?.[0] || "(제목 없음)"}
         </div>
-        {sortedFaq.length === 0 ? (
-          <div style={{ background: t.card2, borderRadius: 12, padding: 20, border: `1px solid ${t.brd}`, textAlign: "center" }}>
-            <div style={{ fontSize: 24, marginBottom: 8 }}>{faqError ? "⚠️" : "📖"}</div>
-            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>
-              {faqError ? "FAQ 데이터를 불러오지 못했습니다." : "FAQ 항목을 불러오는 중이거나 등록된 항목이 없습니다."}
-            </div>
-          </div>
-        ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {sortedFaq.map((entry, i) => {
-              const key = entry?.id || `faq-${i}-${entry?.k?.[0] || i}`;
-              const fullText = String(entry?.a || "").trim();
-              const isLong = fullText.length > FAQ_PREVIEW_LIMIT;
-              const isExpanded = expandedFaqKeys.has(key);
-              const displayText = isLong && !isExpanded ? truncateKo(fullText) : fullText;
+        <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.65, whiteSpace: "pre-wrap", wordBreak: "keep-all" }}>
+          {displayText}
+        </div>
+        {isLong && (
+          <button
+            type="button"
+            onClick={() => toggleFaqExpand(key)}
+            aria-expanded={isExpanded}
+            aria-label={isExpanded ? "전체 답변 접기" : "전체 답변 보기"}
+            style={{
+              marginTop: 8,
+              fontSize: 10,
+              color: t.cyan,
+              background: "transparent",
+              border: `1px solid ${t.brd}`,
+              borderRadius: 6,
+              cursor: "pointer",
+              fontFamily: "'JetBrains Mono',monospace",
+              padding: "6px 10px",
+              fontWeight: 700,
+              minHeight: 32
+            }}
+          >
+            {isExpanded ? "△ 접기" : "▽ 펼쳐보기"}
+          </button>
+        )}
+      </div>
+    );
+  };
+
+  const subTabs = [
+    { key: "basic", label: "BASIC", count: basicEntries.length },
+    { key: "policy", label: "POLICY", count: policyTotalCount },
+    { key: "companies", label: "COMPANIES", count: companyEntries.length + industryEntries.length },
+    { key: "series", label: "SERIES", count: WEBTOON_COLLECTIONS.length },
+    { key: "glossary", label: "GLOSSARY", count: faqList.length },
+  ];
+
+  // Hard error state — FAQ fetch 실패 + 데이터 0건. Series sub-tab은 여전히 작동해야 하므로 series만 active일 때는 통과.
+  if (faqError && faqList.length === 0 && learnSubTab !== "series") {
+    return (
+      <div style={{ padding: "10px 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ position: "relative" }}>
+          <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>
+            {subTabs.map((st) => {
+              const active = learnSubTab === st.key;
               return (
-                <div key={key} style={{ background: t.card2, borderRadius: 10, padding: "12px 14px", border: `1px solid ${t.brd}` }}>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: t.tx, lineHeight: 1.4, marginBottom: 6 }}>
-                    {entry?.k?.[0] || "(제목 없음)"}
-                  </div>
-                  <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.65, whiteSpace: "pre-wrap", wordBreak: "keep-all" }}>
-                    {displayText}
-                  </div>
-                  {isLong && (
-                    <button
-                      type="button"
-                      onClick={() => toggleFaqExpand(key)}
-                      aria-expanded={isExpanded}
-                      aria-label={isExpanded ? "전체 답변 접기" : "전체 답변 보기"}
-                      style={{
-                        marginTop: 8,
-                        fontSize: 10,
-                        color: t.cyan,
-                        background: "transparent",
-                        border: `1px solid ${t.brd}`,
-                        borderRadius: 6,
-                        cursor: "pointer",
-                        fontFamily: "'JetBrains Mono',monospace",
-                        padding: "6px 10px",
-                        fontWeight: 700,
-                        minHeight: 32
-                      }}
-                    >
-                      {isExpanded ? "△ 접기" : "▽ 펼쳐보기"}
-                    </button>
-                  )}
-                </div>
+                <button
+                  key={st.key}
+                  type="button"
+                  onClick={() => setLearnSubTab(st.key)}
+                  aria-current={active ? "page" : undefined}
+                  style={{
+                    background: active ? t.cyan : t.card2,
+                    color: active ? "#000" : t.sub,
+                    border: `1px solid ${active ? "transparent" : t.brd}`,
+                    borderRadius: 999,
+                    padding: "10px 14px",
+                    minHeight: 40,
+                    fontSize: 11,
+                    fontWeight: 800,
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                    fontFamily: "'JetBrains Mono',monospace"
+                  }}
+                >
+                  {st.label} {st.count}
+                </button>
               );
             })}
           </div>
-        )}
+        </div>
+        <div style={{ background: t.card2, borderRadius: 12, padding: 20, border: `1px solid ${t.brd}`, textAlign: "center" }}>
+          <div style={{ fontSize: 24, marginBottom: 8 }}>⚠️</div>
+          <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>FAQ 데이터를 불러오지 못했습니다.</div>
+        </div>
       </div>
+    );
+  }
+
+  return (
+    <div style={{ padding: "10px 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
+      {/* Phase B2: 5 sub-tab navigation */}
+      <div style={{ position: "relative" }}>
+        <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>
+          {subTabs.map((st) => {
+            const active = learnSubTab === st.key;
+            return (
+              <button
+                key={st.key}
+                type="button"
+                onClick={() => setLearnSubTab(st.key)}
+                aria-current={active ? "page" : undefined}
+                style={{
+                  background: active ? t.cyan : t.card2,
+                  color: active ? "#000" : t.sub,
+                  border: `1px solid ${active ? "transparent" : t.brd}`,
+                  borderRadius: 999,
+                  padding: "10px 14px",
+                  minHeight: 40,
+                  fontSize: 11,
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                  fontFamily: "'JetBrains Mono',monospace"
+                }}
+              >
+                {st.label} {st.count}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* BASIC — tech entries */}
+      {learnSubTab === "basic" && (
+        <>
+          <div style={{ background: t.card2, borderRadius: 12, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
+            <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>BASIC · 입문</div>
+            <h2 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: 0 }}>배터리 기본 개념</h2>
+            <p style={{ fontSize: 12, color: t.sub, lineHeight: 1.6, margin: "8px 0 0" }}>
+              배터리·ESS를 이해하는 데 필요한 기본 용어와 개념을 모았습니다. 셀·모듈·팩 구조부터 양극재·음극재 같은 핵심 소재까지.
+            </p>
+          </div>
+          {basicEntries.length === 0 ? (
+            <div style={{ background: t.card2, borderRadius: 12, padding: 20, border: `1px solid ${t.brd}`, textAlign: "center" }}>
+              <div style={{ fontSize: 24, marginBottom: 8 }}>📖</div>
+              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>등록된 항목이 없습니다.</div>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {basicEntries.map((entry, i) => renderFaqCard(entry, i))}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* POLICY — region grouped */}
+      {learnSubTab === "policy" && (
+        <>
+          <div style={{ background: t.card2, borderRadius: 12, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
+            <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>POLICY · 정책</div>
+            <h2 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: 0 }}>권역별 배터리 정책</h2>
+            <p style={{ fontSize: 12, color: t.sub, lineHeight: 1.6, margin: "8px 0 0" }}>
+              미국·유럽·중국·한국·일본의 핵심 배터리 정책을 권역별로 정리했습니다. 정책 일정과 시그널은 TRCK 탭에서 확인하세요.
+            </p>
+          </div>
+          {POLICY_REGIONS.map((region) => {
+            const items = policyByRegion[region.key] || [];
+            if (items.length === 0) return null;
+            return (
+              <div key={region.key}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                  <span style={{ fontSize: 14 }}>{region.flag}</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: t.tx, fontFamily: "'JetBrains Mono',monospace" }}>
+                    {region.name} · {items.length}
+                  </span>
+                  <div style={{ flex: 1, height: 1, background: t.brd }} />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {items.map((entry, i) => renderFaqCard(entry, i))}
+                </div>
+              </div>
+            );
+          })}
+        </>
+      )}
+
+      {/* COMPANIES — company + industry (industry visually labeled as 시장·경쟁 구도) */}
+      {learnSubTab === "companies" && (
+        <>
+          <div style={{ background: t.card2, borderRadius: 12, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
+            <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>COMPANIES · 기업</div>
+            <h2 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: 0 }}>주요 기업·시장 구도</h2>
+            <p style={{ fontSize: 12, color: t.sub, lineHeight: 1.6, margin: "8px 0 0" }}>
+              한국·중국·미국·일본의 배터리 셀 메이커, ESS 인테그레이터, 파우치 필름 경쟁사를 정리했습니다.
+            </p>
+          </div>
+          {companyEntries.length > 0 && (
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                <span style={{ fontSize: 12, fontWeight: 800, color: t.tx, fontFamily: "'JetBrains Mono',monospace" }}>
+                  기업 · {companyEntries.length}
+                </span>
+                <div style={{ flex: 1, height: 1, background: t.brd }} />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {companyEntries.map((entry, i) => renderFaqCard(entry, i))}
+              </div>
+            </div>
+          )}
+          {industryEntries.length > 0 && (
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                <span style={{ fontSize: 12, fontWeight: 800, color: "#D29922", fontFamily: "'JetBrains Mono',monospace" }}>
+                  시장·경쟁 구도 · {industryEntries.length}
+                </span>
+                <div style={{ flex: 1, height: 1, background: t.brd }} />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {industryEntries.map((entry, i) => renderFaqCard(entry, i))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* SERIES — webtoon collections (기존 hero + library label + folders) */}
+      {learnSubTab === "series" && (
+        <>
+          <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#232D47" : "#EEF3FF"})`, borderRadius: 16, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
+              <SmallPill label="FEATURED SERIES" dark={dark} />
+              <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{featured.status}</span>
+            </div>
+            <h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>{featured.title}</h2>
+            <p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.62 }}>{featured.hook}</p>
+          </div>
+          <div style={{ background: t.card2, borderRadius: 12, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
+            <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>WEBTOON LIBRARY</div>
+            <h2 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: 0 }}>웹툰 라이브러리</h2>
+            <p style={{ fontSize: 12, color: t.sub, lineHeight: 1.6, margin: "8px 0 0" }}>공개된 웹툰을 시리즈 단위로 정리한 아카이브입니다. 같은 주제의 회차를 한곳에서 순서대로 확인할 수 있습니다.</p>
+          </div>
+          {WEBTOON_COLLECTIONS.map((collection, idx) => (
+            <CollectionFolder key={collection.id} collection={collection} dark={dark} defaultOpen={idx === 0} />
+          ))}
+        </>
+      )}
+
+      {/* GLOSSARY — full searchable list with category filter */}
+      {learnSubTab === "glossary" && (
+        <>
+          <div style={{ background: t.card2, borderRadius: 12, padding: "14px 16px", border: `1px solid ${t.brd}` }}>
+            <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>GLOSSARY · 사전</div>
+            <h2 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: 0 }}>전체 용어 사전</h2>
+            <p style={{ fontSize: 12, color: t.sub, lineHeight: 1.6, margin: "8px 0 0" }}>
+              {faqList.length}개 항목 전체에서 검색하고 카테고리별로 필터할 수 있습니다.
+            </p>
+          </div>
+          <input
+            type="text"
+            value={glossarySearch}
+            onChange={(e) => setGlossarySearch(e.target.value)}
+            placeholder="🔍 용어·내용 검색..."
+            aria-label="Search FAQ glossary"
+            style={{
+              width: "100%",
+              padding: "10px 14px",
+              borderRadius: 10,
+              border: `1px solid ${t.brd}`,
+              fontSize: 12,
+              outline: "none",
+              fontFamily: "inherit",
+              background: t.card2,
+              color: t.tx,
+              boxSizing: "border-box"
+            }}
+          />
+          <div style={{ position: "relative" }}>
+            <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>
+              {[{ key: "all", label: `ALL ${faqList.length}` }, ...glossaryCategoriesPresent.map((c) => ({
+                key: c,
+                label: `${c.toUpperCase().replace(/_/g, " ")} ${faqList.filter((e) => e?.category === c).length}`,
+              }))].map((opt) => {
+                const active = glossaryCategoryFilter === opt.key;
+                return (
+                  <button
+                    key={opt.key}
+                    type="button"
+                    onClick={() => setGlossaryCategoryFilter(opt.key)}
+                    style={{
+                      background: active ? t.cyan : t.card2,
+                      color: active ? "#000" : t.sub,
+                      border: `1px solid ${active ? "transparent" : t.brd}`,
+                      borderRadius: 999,
+                      padding: "8px 12px",
+                      minHeight: 36,
+                      fontSize: 10,
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      whiteSpace: "nowrap",
+                      fontFamily: "'JetBrains Mono',monospace"
+                    }}
+                  >
+                    {opt.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>
+              {glossaryFiltered.length} / {faqList.length}
+            </span>
+            <div style={{ flex: 1, height: 1, background: t.brd }} />
+          </div>
+          {glossaryFiltered.length === 0 ? (
+            <div style={{ background: t.card2, borderRadius: 12, padding: 20, border: `1px solid ${t.brd}`, textAlign: "center" }}>
+              <div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div>
+              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>조건에 맞는 항목이 없습니다.</div>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {glossaryFiltered.map((entry, i) => renderFaqCard(entry, i))}
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

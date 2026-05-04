@@ -314,6 +314,9 @@ FINAL WEB QC RULES
 
 If web search is available, perform a targeted final QC web check before producing the final files.
 
+This final web QC does **not** replace Prompt B's mandatory `web_fetch` requirement under `docs/FACT_DISCIPLINE.md`.
+Prompt B remains responsible for source verification before fact writing; this stage only performs post-acceptance verification, conflict detection, duplicate detection, and source-strength checks.
+
 The purpose of web search at this stage is:
 - verification
 - conflict detection

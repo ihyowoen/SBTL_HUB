@@ -1,30 +1,33 @@
-# Post-Acceptance Content Enrichment & Final QC
+# Post-Acceptance Content Enrichment & Evidence QC
 
 ## 0. Role of this document
 
-This document defines the reusable **post-acceptance enrichment and final QC** layer for SBTL_HUB news-card runs.
+This document defines the reusable **post-acceptance finalization process** for SBTL_HUB news-card runs.
 
-Use this document **only after `docs/PROMPT_ABC_DEFAULT_MODE.md` or the current approved A/B/C framework has already produced Prompt C accepted cards**.
+Use this document only after `docs/PROMPT_ABC_DEFAULT_MODE.md` or the current approved A/B/C framework has already produced Prompt C accepted cards.
 
-This document is not a replacement for Prompt A/B/C.
-It is a downstream finalization layer that turns accepted cards into production-safe, source-locked, publish-ready data.
+This document is not a replacement for Prompt A/B/C. It is the downstream process that turns Prompt C accepted cards into production-safe, source-locked, evidence-complete, publish-ready data.
 
-Key distinction:
+Hard distinction:
 
 ```text
 Prompt C accepted != publish-ready
-Prompt C accepted = fact-safe candidate only
+Prompt C accepted = accepted_fact_safe candidate only
 ```
 
-A card is not publish-ready until it has passed merge safety, source coverage, content depth, language/terminology, and final QC gates under this document.
+Even after duplicate/event checks, a card is still not publish-ready until evidence completeness, content depth, language/terminology, final QC, and baseline sync gates pass.
+
+Harder distinction proven by the 2026-05-04 dry run:
+
+```text
+accepted_fact_safe != addable_merge_safe != evidence_complete != publish_ready
+```
 
 ---
 
 ## 1. Governance hierarchy
 
-When rules conflict, apply the current project hierarchy from `docs/PROMPT_ABC_DEFAULT_MODE.md`.
-
-Priority:
+When rules conflict, apply this hierarchy:
 
 1. `docs/FACT_DISCIPLINE.md`
 2. `docs/PROMPT_ABC_DEFAULT_MODE.md`
@@ -35,63 +38,61 @@ Priority:
 7. `docs/OPERATIONS.md`
 8. This document
 
-Important inheritance:
+`FACT_DISCIPLINE.md` remains the top source of truth for facts, numbers, quotes, and evidence discipline.
 
-- `FACT_DISCIPLINE.md` remains the top source-of-truth for facts, numbers, quotes, and evidence discipline.
-- Prompt A/B/C remains the authority for selection, drafting, source verification, revise/reject decisions, and C-stage fact-safe acceptance.
-- This document governs only the **post-acceptance visible-field enrichment, source-lock preservation, merge packaging, final QC, and publish-ready decision**.
+This document governs only the post-acceptance layer:
 
-If this document conflicts with Prompt A/B/C or Fact Discipline, do **not** follow this document. Report the conflict in the QC report.
+- merge-safety validation
+- evidence completeness validation
+- source/claim coverage validation
+- visible-field content depth enrichment
+- language and terminology polish
+- final file naming and QC report decision
+
+If this document conflicts with Fact Discipline, follow Fact Discipline and report the conflict in QC.
 
 ---
 
-## 2. Position in the latest workflow
-
-The current Prompt A/B/C default mode is the **Final-input era** workflow.
-
-Input universe for A/B/C:
-
-```text
-final_news_llm_input.stories[]
-```
+## 2. Position in the workflow
 
 Prompt A/B/C handles:
 
 ```text
-Prompt A = Editorial Selector / spec builder
-Prompt B = Card Writer with mandatory source verification
-Prompt C = Enhanced Red Team + Cross-Functional Validator + Formatter
+Prompt A = Editorial selector / spec builder
+Prompt B = Card writer with mandatory source verification
+Prompt C = Enhanced red-team validator / formatter
 ```
 
-This document starts **after Prompt C**.
+This document starts only after Prompt C.
 
 ```text
 Prompt A/B/C
-= selection, drafting, source verification, red-team validation, accepted/revise/reject decision
+→ accepted_fact_safe / revise_required / rejected
 
-Post-Acceptance Content Enrichment & Final QC
-= accepted payload merge-safety check, source-lock/source-coverage review, visible-field depth pass, language polish, final web QC, baseline merge, QC report, publish-ready decision
+Post-acceptance process
+→ addable_merge_safe
+→ evidence_complete
+→ content_enriched
+→ language_terminology_polished
+→ publish_ready
 ```
 
-This means:
-
-- A/B/C decides **what survives**.
-- Prompt C produces `accepted_fact_safe` cards.
-- This document separates `accepted_fact_safe` from `addable_merge_safe`, `source_enriched`, `content_enriched`, and `publish_ready`.
-- This document must not silently reopen Prompt A or Prompt C decisions unless the user explicitly asks for a new A/B/C pass.
+This document must not silently reopen Prompt A/B/C decisions unless the user explicitly asks for a new A/B/C pass.
 
 ---
 
 ## 3. Required state ladder
 
-Do not collapse the following states.
+Do not collapse these states.
 
 ```text
 accepted_fact_safe
   ↓
 addable_merge_safe
   ↓
-source_enriched or source_coverage_reviewed
+evidence_complete
+  ↓
+source_claim_covered
   ↓
 content_enriched
   ↓
@@ -100,634 +101,155 @@ language_terminology_polished
 publish_ready
 ```
 
-Definitions:
-
 | State | Meaning | Not enough for |
 |---|---|---|
 | `accepted_fact_safe` | Prompt C accepted the card as fact-safe | GitHub merge / publication |
-| `addable_merge_safe` | baseline duplicate ID/URL/event checks passed, or exclusions documented | publication without content/source QC |
-| `source_enriched` | source layer was strengthened with approved same-event evidence | publication without content QC |
-| `source_coverage_reviewed` | no safe new source was added, but source coverage was reviewed and single-source reasons were documented | publication without content QC |
-| `content_enriched` | visible fields were rewritten to SBTL_HUB publish-quality depth | publication without final QC |
-| `language_terminology_polished` | foreign visible text, unit/name drift, and banned phrases were removed | publication without final QC |
-| `publish_ready` | all final gates passed and QC report supports the decision | final GitHub candidate |
+| `addable_merge_safe` | baseline duplicate ID/URL/event checks passed | publication |
+| `evidence_complete` | source_quote and fact_sources pass evidence hard gates | publication without content/language QC |
+| `source_claim_covered` | visible claims are mapped to source claims | publication without final polish |
+| `content_enriched` | visible fields are rewritten to SBTL_HUB depth | publication without language/final QC |
+| `language_terminology_polished` | terminology, units, foreign text, and banned phrases pass | publication without final report |
+| `publish_ready` | all gates pass and QC report supports final PASS | final GitHub candidate |
 
 Hard rule:
 
 ```text
-Do not call a file “final GitHub candidate” unless publish_ready=true.
+Do not call a file final, PR candidate, GitHub-ready, or publish-ready unless publish_ready=true is supported by QC.
 ```
 
 ---
 
-## 4. What this stage must not do
-
-This stage must not:
-
-- select new candidates from `final_news_llm_input.stories[]`
-- rescue dropped/rejected items
-- discard accepted cards silently
-- merge accepted cards silently without QC evidence
-- rewrite source fields except when the user explicitly authorizes a separate source-augmentation pass
-- change schema shape
-- create new cards from scratch
-- treat web search as a silent enrichment source
-- bypass Prompt A/B/C or Fact Discipline
-- convert `accepted_fact_safe` into `publish_ready` without source, duplicate, content, language, and final QC gates
-
-If a serious issue is discovered during this stage, the correct action is:
-
-1. narrow the visible wording if the issue is a wording/source-lock problem;
-2. mark the card as `needs_return_to_prompt_c` or `needs_source_augmentation` in the QC report if it cannot be fixed within this stage;
-3. document whether the card was excluded from `addable_merge_safe` or kept with an exception.
-
----
-
-## 5. Inputs
+## 4. Inputs
 
 This stage expects:
 
 1. `ACCEPTED_CARDS_PAYLOAD`
-   - cards already accepted by Prompt C or the current approved final validator
-   - these are `accepted_fact_safe`, not automatically publish-ready
-   - not raw `KEEP`, `REVIEW`, `DROPPED`, `STEP2_PENDING`, `INPUT_ONLY`, collector, refined, or triage-only data
+   - Prompt C accepted cards only
+   - these are `accepted_fact_safe`, not publish-ready
 
 2. `BASELINE_CARDS_JSON`
-   - current GitHub `main` `public/data/cards.json`
-   - this is the only canonical baseline unless the user explicitly authorizes another baseline
+   - current GitHub `main` `public/data/cards.json`, unless the user explicitly authorizes another baseline
 
 3. `BASELINE_SOURCE_DECLARATION`
-   - one of:
-     - `github_main`
-     - `local_final_candidate`
-     - `user_uploaded_baseline`
-   - if the baseline is not `github_main`, the final response and QC report must state that the output is based on a local/user-provided candidate and must still be synced against GitHub main before PR/merge
+   - `github_main`
+   - `local_final_candidate`
+   - `user_uploaded_baseline`
 
 4. `RUN_METADATA`, if provided
    - `run_tag`
    - `run_date`
-   - `expected_new_card_count`
-   - `expected_baseline_count`
-   - `expected_final_count`
+   - expected counts
 
-If `BASELINE_CARDS_JSON` is not from GitHub `main`, do not pretend it is canonical. Continue only if the user explicitly authorizes the local/user baseline, and mark the final output as requiring GitHub main sync before PR/merge.
-
-If only `final_news_llm_input.stories[]` is provided, this document is not the starting point. Run Prompt A/B/C first.
-
-If only raw `triage_output`, `rescue`, or `dropped` files are provided, do not use this post-acceptance prompt as the first step. Resolve the active input mode under `docs/PROMPT_ABC_DEFAULT_MODE.md` and project governance first.
+If the baseline is not GitHub main, the QC report and final response must state that GitHub main sync is still required before PR/merge.
 
 ---
 
-## 6. Upstream requirements this document expects from A/B/C
+## 5. What this stage must not do
 
-This document is downstream, but the final QC must verify that upstream outputs carried enough auditability.
+This stage must not:
 
-### Prompt A should provide discard/merge taxonomy
+- select new candidates from `final_news_llm_input.stories[]`
+- rescue dropped/rejected items without explicit user instruction
+- merge accepted cards without QC evidence
+- treat web search as silent content enrichment
+- add unsupported claims from memory or outside context
+- rewrite source fields unless a separate source-augmentation pass is explicitly authorized
+- force expected final count when duplicate or evidence holds reduce additions
+- preserve `publish_ready=true` through later QC gates without revalidation
 
-For every non-passed unit from `KEEP`, `REVIEW`, and `STEP2_PENDING`, Prompt A should preserve a ledger outcome and reason code.
-
-Recommended reason codes:
-
-```text
-baseline_duplicate
-existing_reinforcement
-stale_republication
-low_signal
-non_scope
-source_weak
-event_too_small
-already_covered_by_broader_card
-integrity_group_duplicate
-manual_review_required
-```
-
-### Dropped treasure hunt marker
-
-The source file may be recommended for `dropped_review_treasure_hunt`. Prompt A should state whether a dropped treasure hunt was performed.
-
-Recommended QC object:
-
-```json
-"dropped_treasure_hunt": {
-  "performed": true,
-  "sample_size": 50,
-  "rescued": 0,
-  "notes": "..."
-}
-```
-
-This post-acceptance document must not run dropped treasure hunt itself, but the QC report should flag if a run appears to have skipped it when the user expected it.
-
-### Prompt B should provide source coverage
-
-Prompt B should not use web/source checks only as hidden reasoning. If a source supported acceptance, it should either appear in `fact_sources` or be documented as not included.
-
-Recommended source coverage object:
-
-```json
-"source_coverage": {
-  "unique_source_count": 2,
-  "primary_source_type": "official | filing | government | media | industry | other",
-  "secondary_source_type": "official | filing | government | media | industry | none | other",
-  "single_source_reason": null,
-  "not_included_sources": [
-    {
-      "url": "...",
-      "reason": "repost | snippet_only | paywall_headline | background_only | duplicate_source | user_not_authorized"
-    }
-  ]
-}
-```
+If serious evidence issues are found, mark the card as `addable_hold_source_gap`, `needs_source_augmentation`, or `needs_return_to_prompt_c`.
 
 ---
 
-## 7. Absolute scope control
+## 6. Stage A/B/C audit expectations
 
-Rewrite ONLY the following reader-facing visible fields:
+These checks are downstream verification requirements. They do not replace Prompt A/B/C.
 
-- `title`
-- `sub`
-- `gate`
-- `fact`
-- `implication`
+### 6.1 KEEP is not an editorial pass
 
-Preserve all other fields exactly as they are unless the user explicitly instructs otherwise.
+`KEEP` is an upstream recommendation, not a final editorial pass.
 
-Do not modify:
+Prompt A must re-run lane-sanity inside KEEP before producing strict `passed_spec`.
 
-- `id`
-- `region`
-- `date`
-- `cat`
-- `sub_cat`
-- `signal`
-- `signal_rubric`
-- `source_tier`
-- `source_quote`
-- `fact_sources`
-- `url`
-- `urls`
-- `source_urls`
-- `primary_url`
-- `created_at`
-- `updated_at`
-- `run_tag`
-- `related`
-- `tags`
-- any other metadata, source, ranking, or app-runtime fields
+Downgrade to `needs_review` or `rejected` when an item is:
 
-Exception:
+- consumer/lifestyle news
+- real estate or model-house news
+- weather or local life information
+- generic education/culture/publicity
+- generic finance/insurance/ETF without battery/materials/ESS/grid/supply-chain relevance
+- general politics/diplomacy without direct industrial relevance
+- weakly connected to SBTL_HUB lanes
 
-- If the user explicitly authorizes a separate **source-augmentation pass**, source fields may be updated, but this must be a separately named operation and must include a source-change diff in the QC report.
-- Without that authorization, do not clean, rewrite, delete, or silently supplement `fact_sources` or `source_quote`.
+Prompt A output should distinguish:
 
-Do not normalize the schema.
-Do not rename keys.
-Do not change ID formats.
-Do not change URL formats except for duplicate-check canonicalization performed only inside the QC report.
-Do not change array fields into strings or string fields into arrays unless the existing schema for that field already requires it.
+- `legacy_keep`
+- `strict_passed_spec`
+- `needs_review`
+- `rejected`
+- `existing_reinforcement`
 
-Preserve the original data type and schema shape of each visible field:
+### 6.2 Stage B fetch coverage is not final evidence coverage
 
-- If `implication` is an array, keep it as an array.
-- If `implication` is a string, keep it as a string unless the user explicitly asks to convert it.
-- If `fact` is a string, keep it as a string.
-- If any visible field is missing, create it only if the surrounding schema clearly supports that field; otherwise flag it in QC before changing structure.
+Stage B may classify source availability/fetch quality, but this is not final evidence coverage.
 
----
+Use separate concepts:
 
-## 8. Source-lock and claim coverage rules
+| Stage | Preferred field | Meaning |
+|---|---|---|
+| Stage B | `fetch_coverage` or `source_availability` | Whether the source/article appears available enough for Prompt C review |
+| Final post-acceptance QC | `evidence_coverage` | Whether final claims are backed by non-headline `source_quote` and valid `fact_sources` |
 
-### 8.1 Allowed evidence universe for visible rewriting
+A Stage B value such as `source_coverage=strong` cannot become final `evidence_coverage=strong` unless final card-level evidence independently passes this document.
 
-The allowed evidence universe for rewriting visible fields is limited to:
+### 6.3 needs_review is not rejection
 
-- `source_quote`
-- `fact_sources`
-- source fields already present in the accepted card
+Track review pools separately:
 
-Do not use memory or outside knowledge to expand claims.
-Do not use web search to add new facts into visible fields unless the user explicitly authorizes a separate source-augmentation pass.
+| Pool | Meaning |
+|---|---|
+| Stage A `needs_review` | lane-sanity review pool; do not auto-fetch unless user opens review run |
+| Stage B `needs_review=true` | source/duplicate/lane issue review pool; eligible for later rescue/evidence run |
+| Stage C `maybe` | manual review or roundup pool |
+| Stage C `dropped` | rejected unless user explicitly reopens |
 
-### 8.2 Fact Discipline inheritance
+If a run defers review pools, the report must state:
 
-This stage does not weaken Fact Discipline.
+- deferred intentionally
+- not included in current accepted/addable count
+- eligible or not eligible for later review
 
-In particular:
+### 6.4 Stage C card-value gate
 
-- no unsupported numbers
-- no unsupported causal claims
-- no unsupported projections
-- no unsupported company intention
-- no unsupported benefit or demand claims
-- no paraphrased quote masquerading as source_quote
-- no fact claim that cannot be traced to source_quote or fact_sources
+Strong source availability does not guarantee card value.
 
-If the accepted payload itself appears to violate Fact Discipline, do not silently fix by inventing evidence. Narrow visible wording where possible and flag the issue in QC.
+Prompt C must separately evaluate:
 
-### 8.3 No stage inflation
+1. strategic relevance
+2. SBTL_HUB lane fit
+3. decision usefulness
+4. duplicate cluster role
+5. source strength
 
-Do not convert a weaker stage into a stronger stage.
-
-Examples:
-
-- plan → confirmed execution is forbidden
-- proposal → final rule is forbidden
-- under review → approved is forbidden
-- MOU → binding contract is forbidden
-- announcement → commercial operation is forbidden
-- construction start → confirmed battery/material demand is forbidden
-- company guidance → verified market outcome is forbidden
-- analyst interpretation → company intention is forbidden
-
-### 8.4 Fact vs interpretation separation
-
-- `fact` must contain only verifiable source-backed information.
-- `gate` and `implication` may interpret, but only one step beyond verified facts.
-- Every major visible-field claim must be traceable to at least one `source_quote` or `fact_sources` entry.
-- If a claim cannot be traced, remove it or narrow it.
-
-### 8.5 Claim coverage map
-
-The QC report should include a claim coverage summary for each new card, especially where source support is thin.
-
-Recommended shape:
-
-```json
-"claim_coverage": [
-  {
-    "card_id": "...",
-    "claim": "The concrete visible-field claim being checked",
-    "covered_by": ["source_1", "source_2"],
-    "coverage_strength": "strong | adequate | weak | missing",
-    "action": "kept | narrowed | flagged | excluded"
-  }
-]
-```
-
-### 8.6 Weak source handling
-
-Do not rely on the following as the sole basis for a core claim:
-
-- search snippet
-- paywalled headline only
-- copied press-release repost without independent detail
-- vague secondary summary
-- article title without body support
-- social media text unless it is the primary source for the event
-
-Headline-only evidence is not sufficient for:
-
-- numbers
-- causality
-- forecasts
-- commercial impact
-- policy effect
-- company intention
-- market share
-- demand impact
-
-If source support is weak, write more narrowly and conservatively.
-If sources conflict, use the more conservative version and flag the issue in the QC report.
+A candidate with strong source availability may still be `dropped` or `support_source_only` if it is not worth an independent SBTL_HUB card.
 
 ---
 
-## 9. Evidence role classification
+## 7. Merge safety and full baseline revalidation
 
-When source evidence is reviewed or augmented, classify each source role.
+### 7.1 Merge safety checks
 
-Allowed evidence roles:
-
-```text
-primary_event_evidence
-secondary_event_evidence
-background_context
-not_used
-```
-
-Rules:
-
-- At least one `primary_event_evidence` or strong `secondary_event_evidence` should support the core event.
-- `background_context` can support framing only. It cannot rescue a weak card by itself.
-- Paywall-title, snippet-only, or repost-only items cannot be counted as independent evidence for a core claim.
-- If a card remains single-source, the QC report must include `single_source_reason`.
-
-Hard rule:
-
-```text
-Do not promote a revise_required card to accepted/publish-ready using background_context only.
-```
-
----
-
-## 10. Final web QC rules
-
-If web search is available, perform a targeted final QC web check before producing the final files.
-
-This final web QC does **not** replace Prompt B's mandatory `web_fetch` requirement under `docs/FACT_DISCIPLINE.md`.
-Prompt B remains responsible for source verification before fact writing; this stage only performs post-acceptance verification, conflict detection, duplicate detection, and source-strength checks.
-
-The purpose of web search at this stage is:
-
-- verification
-- conflict detection
-- duplicate detection
-- source accessibility/source-strength checking
-
-The purpose of web search is **not** content enrichment.
-
-Use web search only for:
-
-- confirming that source URLs match the event described in the card
-- checking whether actor, date, number, project name, location, and stage are consistent with public source evidence
-- detecting duplicate events between `ACCEPTED_CARDS_PAYLOAD` and `BASELINE_CARDS_JSON`
-- identifying whether a source is only a search snippet, paywalled headline, repost, or weak secondary summary
-- detecting conflicts between `source_quote`, `fact_sources`, and publicly available source text
-- checking whether a breaking-news item has a fuller follow-up article that changes the event stage
-- checking whether the same event already appears in baseline under a different title, URL, or follow-up article
-
-Do not use web search to:
-
-- add new numbers to visible fields
-- add new forecasts
-- add new causal claims
-- add company intentions
-- add policy effects
-- add market impact claims
-- strengthen implications beyond the existing fact_sources
-- silently replace or override fact_sources
-- rewrite a card around a newly discovered external article without user approval
-- bypass Prompt B's source verification or Prompt C's acceptance decision
-
-If web search finds useful new evidence:
-
-- do not insert that evidence into visible fields automatically
-- flag it in the QC report
-- state whether the source should be added to `fact_sources` in a future source-augmentation pass
-- only use it in visible fields if the user explicitly authorizes source augmentation
-
-If web search contradicts `source_quote` or `fact_sources`:
-
-- narrow the visible field wording
-- avoid the disputed claim
-- flag the contradiction in QC
-- do not decide the conflict silently
-- do not strengthen the claim using whichever source seems more convenient
-
-If web search is unavailable:
-
-- proceed with `source_quote` and `fact_sources` only
-- state in the QC report that external web QC was not performed
-
----
-
-## 11. Visible field writing rules
-
-Write visible fields in polished Korean unless the user explicitly requests another language.
-Use an executive briefing tone suitable for C-level readers, strategy teams, and institutional investors.
-Avoid casual, promotional, blog-style, machine-translated, or hype-driven phrasing.
-
-### 11.1 title
-
-Goal:
-The reader should understand who did what, at what scale if available, and why the item matters strategically.
-
-Rules:
-
-- Include at least two of the following: actor, action, number/scale, strategic meaning.
-- Avoid sensational language.
-- Avoid direct translation tone from the original article title.
-- Do not expose raw Chinese or Japanese titles.
-- Do not use internal workflow terms.
-- If writing in Korean, prefer roughly 45–75 Korean characters.
-- If no number is source-backed, do not force one.
-- Do not overfit the title to SBTL unless the source-backed connection is direct.
-
-### 11.2 sub
-
-Goal:
-One sentence that explains what happened, the scale if available, and why the item deserves attention.
-
-Rules:
-
-- Exactly one sentence.
-- Include event + scale/number if available + strategic angle.
-- Do not write a generic summary.
-- Do not use empty phrases such as “needs attention,” “important issue,” or “worth monitoring.”
-- If the source has no number, describe the qualitative shift.
-- Do not introduce a new claim that is absent from fact.
-
-### 11.3 gate
-
-Goal:
-Explain why the item matters in 2–3 sentences.
-
-Rules:
-
-- 2–3 sentences.
-- No generic industry commentary.
-- Use only the angle directly connected to the card: materials, ESS, grid, supply chain, policy, EV/battery demand, raw materials/pricing, safety/certification/regulation, manufacturing capacity, trade/localization.
-- Do not force an SBTL angle.
-- Do not mention SBTL unless the connection is direct, relevant, and source-supported.
-- If mentioning SBTL, avoid benefit claims. Use watch point / relevance / exposure / possible connection language instead.
-- Explain the decision point created by the news, not merely that it is important.
-
-### 11.4 fact
-
-Goal:
-Reconstruct only verifiable facts in 2–3 sentences.
-
-Rules:
-
-- Minimum 2 sentences.
-- Prefer 3 sentences when the source supports enough detail.
-- Include actor, region, date/period, business or policy scope, and scale when available.
-- Do not copy long article wording.
-- Do not add unsupported numbers.
-- Clearly distinguish current stage: announced, proposed, under review, MOU signed, approved, contract signed, construction started, operation started, earnings reported, final rule issued.
-- Do not include interpretation that belongs in gate or implication.
-
-### 11.5 implication
-
-Goal:
-Provide at least 2 implications, preferably 3.
-
-Rules:
-
-- Preserve the existing field type and schema shape.
-- Minimum 2 implication items.
-- Prefer 3 items with distinct roles:
-  1. market / demand structure
-  2. supply chain / materials / technology / grid impact
-  3. next checkpoint or risk
-- Concrete checkpoint language is allowed.
-- Generic checkpoint language is banned.
-
-Bad implication examples:
-
-```text
-주목 필요
-확인 필요
-모니터링 필요
-수혜가 예상된다
-시장 확대가 기대된다
-```
-
-Good implication shape:
-
-```text
-- Market/demand: what changed in demand structure or buyer behavior
-- Supply/technology/grid: what specific part of the value chain is affected
-- Checkpoint/risk: what next milestone, filing, contract, operation start, capacity ramp, or policy text would confirm the signal
-```
-
----
-
-## 12. Banned phrases in visible fields
-
-The following phrases, including close equivalents and case-insensitive variants, must not appear in `title`, `sub`, `gate`, `fact`, or `implication`.
-
-English:
-
-- input text basis
-- based on input text
-- Stage C
-- needs re-verification
-- needs reinforcement
-- producer
-- reviewer
-- cardization
-- this card
-- source verification needed
-- fetch
-- upstream
-- fallback
-- draft
-- pending
-- rescue
-- hard block
-- soft block
-- passed card
-- review card
-- operator
-- prompt
-- LLM
-- original snippet
-- article snippet basis
-- needs confirmation
-- needs monitoring
-- needs attention
-- expected to benefit
-- market expansion expected
-- game changer
-
-Korean:
-
-- 입력 원문 기준
-- Stage C
-- 재검증 필요
-- 보강 필요
-- 제작자
-- 검수자
-- 카드화
-- 본 카드
-- 출처 확인 필요
-- 통과 카드
-- 검토 카드
-- 작업자
-- 프롬프트
-- 원문 스니펫
-- 기사 스니펫 기준
-- 확인 필요
-- 모니터링 필요
-- 주목 필요
-- 수혜 예상
-- 시장 확대 기대
-- 게임체인저
-
-The QC report may mention these phrases when explaining test results.
-Reader-facing visible fields may not contain them.
-
----
-
-## 13. Language, names, and units
-
-Do not treat foreign-language cleanup as only a Han/Kana character scan. It is also a terminology consistency pass.
-
-Rules:
-
-- Do not expose raw Chinese or Japanese article titles in visible fields.
-- Do not leave Chinese Han characters or Japanese Kana in visible fields unless unavoidable as part of an official legal name; if used, explain in QC.
-- Use commonly accepted Korean names for companies and institutions.
-- English names may be added once in parentheses only when necessary.
-- Do not repeat bilingual names multiple times in the same card.
-
-Preferred unit style:
-
-- GWh
-- MWh
-- MW
-- kWh
-- 억원
-- 조원
-- 만톤
-- %
-- 달러
-- 유로
-- 위안
-- 엔
-
-Banned/normalize:
-
-- `MW-hours` → `MWh`
-- `megawatt-hours` → `MWh`
-- `gigawatt-hours` → `GWh`
-- `RMB` without explanation → `위안` if source meaning is clear
-- awkward untranslated source units
-
-Recommended terminology dictionary:
-
-```text
-anode → 음극재
-cathode → 양극재
-separator → 분리막
-lithium hydroxide → 수산화리튬
-lithium carbonate → 탄산리튬
-rare earth → 희토류
-critical minerals → 핵심광물
-battery energy storage system → BESS or 배터리 에너지저장장치
-MW-hours → MWh
-```
-
-Do not convert currencies unless the source itself provides the converted value or the user explicitly instructs you to convert using a stated FX rate.
-
----
-
-## 14. Merge safety and duplicate event rules
-
-### 14.1 Accepted payload internal check
-
-Check for:
+Check accepted payload internally and against baseline for:
 
 - duplicate IDs
 - duplicate URLs
 - duplicate canonical URLs
-- duplicate events
-- same actor + same date + same project
+- duplicate event fingerprints
+- same actor + same asset/policy + same event type + same date
 - breaking-news / follow-up / full-report duplicates
+- cards that should be `existing_reinforcement` or `withheld_reinforcement`
 
-### 14.2 Baseline vs accepted payload check
-
-Check for:
-
-- same URL
-- same canonical URL
-- same event
-- same actor + same date + same project
-- duplicate breaking-news/full-report coverage
-- accepted cards that are merely rewritten versions of existing baseline cards
-
-### 14.3 Event fingerprint
+### 7.2 Event fingerprint
 
 URL matching is not enough. Use event fingerprints.
 
@@ -743,271 +265,506 @@ Recommended fingerprint:
 }
 ```
 
+If actor + asset/policy + event_type + event_date are effectively the same, treat it as a duplicate event even when URLs and titles differ.
+
+### 7.3 Full baseline revalidation is merge-safety only
+
+Full baseline revalidation may decide only:
+
+- `addable_merge_safe`
+- `duplicate_hold`
+- `existing_reinforcement`
+- `withheld_reinforcement`
+- `baseline_conflict`
+
+It must not assign or preserve `publish_ready=true`.
+
+After full baseline revalidation, every surviving addable card must be reset to:
+
+```json
+"publish_ready": false
+```
+
+Surviving addable cards may become `publish_ready=true` only after evidence completeness QC passes.
+
 Hard rule:
 
 ```text
-If actor + asset_or_policy + event_type + event_date are effectively the same, treat it as a duplicate event even when URLs and titles differ.
+Full baseline revalidation decides addable/hold only.
+It does not decide publish-ready.
 ```
-
-If a Prompt C accepted card duplicates a baseline event, do not add it as a new card. Mark it as `withheld_reinforcement` or `existing_reinforcement` and document the reason.
-
-### 14.4 Canonical URL check
-
-For duplicate-check purposes only, canonicalize URLs by:
-
-- lowercasing scheme/host
-- removing clear tracking parameters
-- removing trailing slash
-- treating http/https versions of the same host/path as potential duplicates
-
-Preserve original URLs in actual data.
-
-### 14.5 Merge behavior
-
-- Use `BASELINE_CARDS_JSON` as the base.
-- Merge enriched accepted cards into the baseline only after `addable_merge_safe=true`.
-- Do not modify existing baseline cards unless explicitly instructed.
-- Maintain latest-first sorting.
-- Do not force expected_final_count if duplicates or exclusions are found.
-
-Sorting rule:
-
-1. date descending
-2. if available, published_date / created_at / updated_at descending within the same date
-3. preserve existing baseline relative order where dates are identical and no better timestamp exists
-4. place accepted cards naturally within their date group
-
-If a card has missing or invalid date, do not invent a date. Keep the original value and flag it in QC.
 
 ---
 
-## 15. Final publish gates
+## 8. Evidence completeness QC
 
-A file is `publish_ready` only if all six gates pass.
+Every surviving addable card must pass evidence completeness QC before it can become publish-ready.
+
+### 8.1 Hard-fail conditions
+
+A card fails evidence completeness if any of the following is true:
+
+- `source_quote` is missing
+- `source_quote` is headline-only
+- `source_quote` is RSS-only
+- `source_quote` is snippet-only
+- `source_quote` is listing-card text only
+- `source_quote` is exact title text
+- `source_quote` is a near-title paraphrase without body-level support
+- `source_quote_status` is missing, unknown, `headline_only`, `snippet_only`, `not_generated`, or `not_generated_no_direct_quote_extraction`
+- `fact_sources` is URL-only
+- `claim` is copied from the headline
+- `claim` is a label rather than a concrete factual claim
+- visible-field numeric claims lack source support
+- single-source justification relies on headline-only evidence
+
+No override is allowed for headline-only evidence.
+
+### 8.2 Publish-ready fact_sources schema
+
+For any card marked `publish_ready=true`, each core `fact_sources` entry must include:
+
+```json
+{
+  "source_name": "...",
+  "source_url": "...",
+  "claim": "concrete factual claim supported by this source",
+  "source_quote": "body-level or official/primary quote, not a headline",
+  "evidence_role": "primary_event_evidence | secondary_event_evidence | background_context",
+  "supports": ["title", "sub", "fact", "implication"],
+  "checked_at": "...",
+  "fetch_method": "..."
+}
+```
+
+`fetched_at` may be used instead of `checked_at` if that is the existing schema.
+
+Invalid for publish-ready:
+
+- URL-only source
+- title-only `source_quote`
+- headline copied into `claim`
+- missing `evidence_role`
+- missing `supports`
+- `source_quote_status = not_generated_no_direct_quote_extraction`
+
+### 8.3 Evidence roles
+
+Allowed roles:
+
+```text
+primary_event_evidence
+secondary_event_evidence
+background_context
+not_used
+```
+
+Rules:
+
+- At least one `primary_event_evidence` or strong `secondary_event_evidence` must support the core event.
+- `background_context` can support framing only.
+- `background_context` cannot rescue a weak event claim by itself.
+- Paywall-title, snippet-only, headline-only, repost-only items cannot be counted as independent core evidence.
+
+### 8.4 Single-source exception
+
+Single-source cards can be publish-ready only if the single source is:
+
+- official filing
+- government release
+- company official release
+- regulatory document
+- primary dataset/statistics page
+- article body with direct source text sufficient for all core visible claims
+
+Single-source cards cannot be publish-ready if the only evidence is:
+
+- RSS headline
+- search snippet
+- paywall headline only
+- listing page title
+- repost without body details
+- `source_quote` not extracted
+- headline-only article card
+
+`single_source_reason` is not a waiver. It must explain why the single source itself is body-level or official primary evidence sufficient for the visible claims.
+
+---
+
+## 9. Source-lock and claim coverage
+
+### 9.1 Allowed evidence universe
+
+Visible-field rewriting may use only:
+
+- `source_quote`
+- `fact_sources`
+- source fields already present in the accepted card
+- newly added sources only if the user explicitly authorized a source-augmentation pass
+
+Do not use memory or outside knowledge to expand claims.
+
+### 9.2 Claim coverage map
+
+All publish-ready cards require claim coverage.
+
+For small addable batches, produce a card-level claim coverage map for every publish-ready candidate.
+
+For large batches, at minimum map:
+
+- title core claim
+- sub core claim
+- fact core claims
+- every numeric claim
+- any causal or stage claim
+
+Recommended shape:
+
+```json
+"claim_coverage": [
+  {
+    "card_id": "...",
+    "claim": "The concrete visible-field claim being checked",
+    "covered_by": ["source_1", "source_2"],
+    "coverage_strength": "strong | adequate | weak | missing",
+    "action": "kept | narrowed | flagged | excluded"
+  }
+]
+```
+
+### 9.3 Fact vs interpretation separation
+
+- `fact` must contain only verifiable source-backed information.
+- `gate` and `implication` may interpret only one step beyond verified facts.
+- Every major visible-field claim must trace to at least one source claim.
+- If a claim cannot be traced, remove it or narrow it.
+
+---
+
+## 10. Source augmentation and web QC
+
+Final web QC is for:
+
+- verification
+- conflict detection
+- duplicate detection
+- source-strength checking
+- source accessibility checking
+
+Final web QC is not silent content enrichment.
+
+Do not use web search to add new facts, numbers, forecasts, causal claims, company intentions, policy effects, or market impact claims unless the user explicitly authorizes a separate source-augmentation pass.
+
+If useful new evidence is found:
+
+- flag it in QC
+- state whether it should be added in a source-augmentation pass
+- do not silently insert it into visible fields
+
+If source augmentation is explicitly authorized:
+
+- update `fact_sources` with required evidence schema
+- include a source-change diff in the QC report
+- rerun evidence completeness QC after augmentation
+
+---
+
+## 11. Visible field writing rules
+
+Rewrite only reader-facing visible fields unless explicitly instructed otherwise:
+
+- `title`
+- `sub`
+- `gate`
+- `fact`
+- `implication`
+
+Preserve all other fields unless a separate source-augmentation or schema-fix pass is explicitly authorized.
+
+### title
+
+- Include at least two of: actor, action, number/scale, strategic meaning.
+- Avoid sensational or translated-title tone.
+- Do not expose raw Chinese/Japanese titles.
+- Do not force a number if unsupported.
+
+### sub
+
+- Exactly one sentence.
+- Include event + scale/number if available + strategic angle.
+- Do not introduce claims absent from fact/source coverage.
+
+### gate
+
+- 2–3 sentences.
+- Explain why the item matters for the specific lane: materials, ESS, grid, supply chain, policy, EV/battery demand, raw materials/pricing, safety/certification/regulation, manufacturing capacity, trade/localization.
+- Do not force SBTL if relevance is weak.
+
+### fact
+
+- Minimum 2 sentences.
+- Prefer 3 sentences when source supports enough detail.
+- Include actor, region, period/date, business or policy scope, and scale when available.
+- Do not include interpretation that belongs in gate/implication.
+
+### implication
+
+- Minimum 2 items.
+- Prefer 3 distinct roles:
+  1. market / demand structure
+  2. supply chain / materials / technology / grid impact
+  3. next checkpoint or risk
+- Generic phrases such as “주목 필요”, “확인 필요”, “모니터링 필요”, “수혜 예상”, “시장 확대 기대” are banned.
+
+---
+
+## 12. Language, terminology, and banned phrases
+
+Do not treat foreign-language cleanup as only a Han/Kana scan. It is also terminology consistency.
+
+Rules:
+
+- No raw Chinese/Japanese article titles in visible fields.
+- Use commonly accepted Korean names for companies/institutions.
+- English names may be added once in parentheses only when necessary.
+- Do not repeat bilingual names.
+
+Preferred units:
+
+- GWh
+- MWh
+- MW
+- kWh
+- 억원
+- 조원
+- 만톤
+- %
+- 달러
+- 유로
+- 위안
+- 엔
+
+Normalize:
+
+```text
+MW-hours → MWh
+megawatt-hours → MWh
+gigawatt-hours → GWh
+anode → 음극재
+cathode → 양극재
+separator → 분리막
+lithium hydroxide → 수산화리튬
+lithium carbonate → 탄산리튬
+rare earth → 희토류
+critical minerals → 핵심광물
+```
+
+Banned visible-field phrases include close variants of:
+
+```text
+입력 원문 기준
+Stage C
+재검증 필요
+보강 필요
+제작자
+검수자
+카드화
+본 카드
+출처 확인 필요
+통과 카드
+검토 카드
+작업자
+프롬프트
+원문 스니펫
+기사 스니펫 기준
+확인 필요
+모니터링 필요
+주목 필요
+수혜 예상
+시장 확대 기대
+fetch
+upstream
+fallback
+prompt
+LLM
+expected to benefit
+market expansion expected
+game changer
+```
+
+The QC report may mention these phrases when explaining tests. Reader-facing visible fields may not contain them.
+
+---
+
+## 13. Final publish gates
+
+A card/file is publish-ready only if all gates pass.
 
 ### Gate 1 — Fact Safety
 
-- every core claim is supported by `fact_sources` or `source_quote`
-- source_quote does not contradict visible fields
+- every core claim is supported by source_quote or fact_sources
 - no unsupported number, causal claim, forecast, benefit claim, company intention, or policy effect
 
 ### Gate 2 — Merge Safety
 
-- accepted vs addable cards are separated
+- accepted vs addable separated
 - duplicate ID/URL/canonical URL/event checks pass
-- baseline duplicate events are excluded or documented
-- expected final count is treated as a check, not forced
+- baseline duplicate events excluded or documented
+- expected final count is not forced
 
-### Gate 3 — Source Layer
+### Gate 3 — Evidence Completeness
 
-- source coverage was reviewed
-- single-source cards have `single_source_reason`
-- background-only support is not used as event proof
-- claim coverage summary exists for weak or important cards
+- source_quote is body-level or official/primary evidence
+- no headline-only or snippet-only evidence
+- source_quote_status hard-fail values are zero
+- fact_sources are not URL-only
+- publish-ready schema is complete
+- single-source exceptions are valid
 
-### Gate 4 — Content Depth
+### Gate 4 — Claim Coverage
 
-- title/sub/gate/fact/implication are reader-facing strategic briefing fields, not raw summaries
+- title/sub/fact/numeric/stage claims are mapped to source claims
+- missing/weak claims are narrowed, held, or excluded
+
+### Gate 5 — Content Depth
+
+- title/sub/gate/fact/implication are reader-facing strategic briefing fields
 - fact has 2+ sentences
 - gate has 2–3 sentences
-- implication has 2+ items and role separation
+- implication has 2+ role-separated items
 
-### Gate 5 — Language & Tone
+### Gate 6 — Language & Tone
 
-- raw Chinese/Japanese visible residue is 0
+- raw Chinese/Japanese visible residue is zero
 - units and company names are consistent
 - SBTL is not forced where direct relevance is weak
-- promotional, hype, and workflow language is 0
+- promotional, hype, and workflow language is zero
 
-### Gate 6 — Publish Readiness
+### Gate 7 — Publish Readiness
 
 - latest-first sort passes
-- schema/type drift is 0
+- schema/type drift is zero
 - rejected/revise_required/non-accepted cards are not mixed in
 - QC report supports final PASS
-- GitHub main sync gate is still required before PR/merge if baseline was local or user-uploaded
+- GitHub main sync gate is confirmed or explicitly marked as still required
 
 ---
 
-## 16. QC requirements
+## 14. QC report requirements
 
-Before finalizing, produce a QC report with PASS/FAIL for each item.
+The QC report must be data-driven, not only checklist-driven.
 
-### A. Count checks
+Report counts for:
 
 - accepted input count
 - baseline input count
-- expected final count, if provided
-- actual final merged count
-- addable card count
-- withheld reinforcement count
-- rejected/revise_required/non-accepted mixed into output: must be 0
-- whether every accepted card was included or explicitly excluded with reason
+- addable_merge_safe count
+- duplicate_hold count
+- addable_hold_source_gap count
+- publish_ready count
+- expected vs actual final count
+- source_quote missing
+- source_quote headline-only
+- source_quote_status fail
+- URL-only fact_sources
+- claim copied from headline
+- missing evidence_role
+- missing supports
+- single-source cards
+- single-source headline-only cards
+- publish_ready true despite evidence fail
+- rejected/revise_required/non-accepted mixed into output
+- schema/type drift
+- latest-first sort result
+- baseline source declaration
+- GitHub main sync status
 
-### B. Preservation checks
-
-- fact_sources deleted: must be 0
-- source_quote deleted: must be 0
-- source URLs deleted: must be 0
-- non-visible fields changed: must be 0 unless explicitly authorized
-- ID changed without instruction: must be 0
-- URL changed without instruction: must be 0
-- schema/type drift: must be 0
-
-### C. Visible field checks
-
-- cards with fewer than 2 implications: must be 0
-- cards with fact shorter than 2 sentences: must be 0
-- cards with gate shorter than 2 sentences: must be 0
-- cards with sub longer than 1 sentence: must be 0
-- raw Chinese/Japanese remaining in visible fields: must be 0
-- banned workflow phrases remaining: must be 0
-- unsupported numbers added: must be 0
-- unsupported causal claims added: must be 0
-- unsupported forecast or benefit claims added: must be 0
-- promotional or hype language remaining: must be 0
-
-### D. Duplicate checks
-
-- duplicate IDs among accepted cards
-- duplicate URLs among accepted cards
-- duplicate canonical URLs among accepted cards
-- duplicate event fingerprints among accepted cards
-- duplicate events between baseline and accepted cards
-- withheld reinforcement list, if any
-
-### E. Sorting checks
-
-- latest-first sorting preserved
-- cards with missing or invalid date flagged
-- accepted cards do not break date order
-
-### F. Source-lock and source-coverage checks
-
-- every core visible-field claim is supported by source_quote or fact_sources
-- no paywall headline/snippet-only core claim
-- no contradiction with source_quote
-- fact and implication are clearly separated
-- no outside-source claim added without explicit permission
-- source coverage reviewed
-- single-source cards documented
-- background_context-only cards not promoted to publish-ready
-- claim coverage map included for weak or important cards
-
-### G. Web QC checks
-
-If web search was performed, report:
-
-- number of cards checked
-- source URL accessibility issues
-- source/date/stage conflicts
-- duplicate event risks
-- stronger follow-up articles
-- source-augmentation recommendations
-- useful new evidence not inserted due to source-lock rules
-
-If web search was not performed, report “External web QC was not performed” and why.
-
-### H. Baseline source and GitHub sync checks
-
-Report:
-
-- baseline source: `github_main`, `local_final_candidate`, or `user_uploaded_baseline`
-- whether GitHub main was confirmed after file generation
-- if not confirmed, state that a GitHub main sync gate is required before PR/merge
-
-### I. Change summary
-
-Include:
-
-- number of cards enriched
-- fields rewritten
-- fields preserved
-- cards narrowed due to weak source support
-- cards flagged for source conflict or duplicate risk
-- cards requiring source augmentation or return to Prompt C
+If any hard-fail count is non-zero, final QC cannot be PASS.
 
 ---
 
-## 17. Output files
+## 15. Required final decision states
 
-Produce:
+After merge-safety and evidence QC, every surviving candidate must be assigned exactly one state:
 
-1. `accepted_cards_content_enriched_{RUN_TAG}.json`
-   - content-enriched accepted payload
-   - visible fields only rewritten
-   - fact_sources and source_quote preserved unless a separately authorized source-augmentation pass is active
-   - original schema shape preserved
-   - valid JSON
+| State | Meaning |
+|---|---|
+| `publish_ready` | merge-safety and evidence completeness both pass |
+| `addable_hold_source_gap` | duplicate-safe but evidence incomplete |
+| `duplicate_hold` | same URL/event/fingerprint already exists in baseline |
+| `support_source_only` | useful only as supporting evidence for another card |
+| `review_pool_deferred` | intentionally deferred for later review |
+| `rejected` | not suitable for this run |
 
-2. `cards_merged_content_enriched_{RUN_TAG}.json`
-   - `BASELINE_CARDS_JSON` + enriched addable accepted cards
-   - adjusted only for documented duplicate exclusions if needed
-   - latest-first sorting
-   - existing baseline cards unchanged unless explicitly instructed
-   - app-runtime compatible structure
-   - valid JSON
-
-3. `qc_report_content_enriched_{RUN_TAG}.md`
-   - task summary
-   - input/output counts
-   - accepted vs addable vs withheld reinforcement counts
-   - baseline source declaration
-   - changed-field scope
-   - source preservation check
-   - source coverage / claim coverage check
-   - duplicate ID/URL/event fingerprint check
-   - banned phrase check
-   - foreign-language residue check
-   - implication/fact/gate/sub minimum requirement check
-   - latest-first sorting check
-   - source-lock check
-   - web QC check
-   - GitHub sync gate status
-   - schema/type drift check
-   - exception/risk card list
-   - final PASS/FAIL decision
+Do not mix states.
+Do not treat `addable_hold_source_gap` as publish-ready.
 
 ---
 
-## 18. Final response format
+## 16. Output naming rules
+
+Do not use these labels in filenames, inventory, or final response unless merge safety and evidence completeness both pass:
+
+- `FINAL`
+- `PR_CANDIDATE`
+- `publish_ready`
+- `GitHub-ready`
+
+If only duplicate/event QC passed, use one of:
+
+- `DUPLICATE_SAFE_ONLY`
+- `MERGE_SAFE_PENDING_EVIDENCE`
+- `EVIDENCE_QC_HOLD`
+
+Preferred output set after evidence revalidation:
+
+```text
+evidence_revalidated_addable_payload_{run_tag}_{N}.json
+final_cards_{run_tag}_EVIDENCE_REVALIDATED_{final_count}.json
+evidence_qc_report_{run_tag}.md
+superseded_and_review_pool_manifest_{run_tag}.json
+```
+
+Every superseded or HOLD file must include a reason code:
+
+```text
+evidence_qc_failed
+headline_only_source_quote
+claim_coverage_missing
+baseline_duplicate_revalidated
+merge_safe_pending_evidence
+replaced_by_evidence_revalidated_version
+```
+
+---
+
+## 17. Final response format
 
 In the final response, report only:
 
-1. links to the three generated files
+1. links to generated files
 2. accepted input count
-3. addable card count
-4. withheld reinforcement count, if any
-5. baseline count
-6. final merged count
-7. baseline source declaration
-8. QC final decision
-9. whether the output is `publish_ready`
-10. exceptions, if any
+3. addable_merge_safe count
+4. publish_ready count
+5. addable_hold_source_gap count
+6. duplicate_hold count
+7. baseline count
+8. final merged count
+9. baseline source declaration
+10. QC final decision
+11. exceptions, if any
 
-Do not include rewritten cards inline unless the user explicitly asks.
-Do not include long explanations.
 Do not claim completion unless the QC report supports it.
-Do not call a file GitHub-ready if the GitHub main sync gate has not been performed.
+Do not call a file GitHub-ready if GitHub main sync has not been performed.
 
 ---
 
-## 19. Operating note
+## 18. Final locked rule
 
-This document is reusable across runs.
+```text
+Full baseline revalidation decides addable/hold only.
+It must reset publish_ready=false for all surviving addable cards.
+Publish-ready may be assigned only after surviving addable cards pass evidence completeness QC.
+```
 
-Do not hard-code run-specific counts such as “18 cards” or “631 final cards” into this prompt. Use runtime variables:
-
-- `ACCEPTED_CARDS_PAYLOAD`
-- `BASELINE_CARDS_JSON`
-- `BASELINE_SOURCE_DECLARATION`
-- `RUN_METADATA`
-- `expected_new_card_count`
-- `expected_baseline_count`
-- `expected_final_count`
-
----
-
-## 20. Final rule
-
-**Prompt A/B/C decides what is accepted. This document prevents accepted cards from being mistaken for publish-ready cards. Only cards that pass merge safety, source coverage, content depth, language polish, final QC, and baseline sync checks may be called publish-ready.**
+If this rule blocks all addable cards, the correct final output is zero publish-ready additions, not a forced final-count match.

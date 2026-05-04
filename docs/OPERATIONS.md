@@ -15,9 +15,11 @@
 ### Rule 3. merge 전에 반드시 백업
 ### Rule 4. merge는 production 확인이 끝나야 종료
 ### Rule 5. 신규 카드 payload는 full schema 기준이다
-### Rule 6. Prompt C accepted payload는 병합 전 post-acceptance enrichment / final QC를 거친다
+### Rule 6. Prompt C accepted payload는 병합 전 post-acceptance enrichment / evidence QC를 거친다
 ### Rule 7. Prompt C accepted는 publish-ready가 아니다
 ### Rule 8. expected final count는 강제 숫자가 아니다
+### Rule 9. addable_merge_safe는 publish-ready가 아니다
+### Rule 10. full baseline revalidation 이후 surviving addable은 evidence completeness QC 전까지 publish_ready=false다
 
 필수 필드:
 - `id`
@@ -51,63 +53,86 @@
 
 ### B. Stage A — 후보 선별
 
+- [ ] `KEEP`을 자동 통과로 처리하지 않았는가?
+- [ ] KEEP 내부에도 lane-sanity gate를 적용했는가?
 - [ ] `KEEP / REVIEW / STEP2_PENDING` 전체 outcome ledger 작성
-- [ ] passed / discarded / merged / existing_reinforcement 분리
+- [ ] legacy_keep / strict_passed_spec / needs_review / rejected / existing_reinforcement 분리
 - [ ] discarded 항목은 reason code 기록
 - [ ] baseline URL·canonical URL·event fingerprint 중복 확인
 - [ ] dropped treasure hunt가 필요한 run이면 Stage A에서 샘플 점검 기록
 
-### C. Stage B — draft + evidence
+### C. Stage B — draft + source availability
 
-- [ ] passed spec만 draft 작성
+- [ ] strict passed_spec만 draft 작성
 - [ ] source verification 수행
-- [ ] `fact_sources`에 핵심 claim 근거 연결
-- [ ] source coverage 기록
+- [ ] Stage B coverage는 `fetch_coverage` 또는 `source_availability`로 기록했는가?
+- [ ] Stage B의 strong coverage를 final evidence coverage로 복사하지 않았는가?
+- [ ] `fact_sources`에 핵심 claim 근거 후보 연결
 - [ ] single-source card는 reason 기록
 - [ ] snippet/paywall/title-only/repost는 core claim 근거로 사용하지 않음
+- [ ] Stage B `needs_review=true`는 review_pool로 별도 관리
 
 ### D. Stage C — fact-safe acceptance
 
-- [ ] accepted / revise_required / rejected 분리
+- [ ] accepted / revise_required / rejected / maybe / support_source_only 분리
 - [ ] `accepted`는 `accepted_fact_safe`일 뿐 publish-ready가 아님을 명시
-- [ ] revise_required는 B revise → C revise loop로 처리
+- [ ] source availability가 strong이어도 card-value gate를 별도로 봤는가?
+- [ ] strategic relevance / SBTL_HUB lane fit / decision usefulness / duplicate cluster role 확인
+- [ ] revise_required는 B revise → C revise loop로 처리하거나 deferred_review_pool로 명시
 - [ ] rejected / revise_required / non-accepted 혼입 금지
 
-### E. Merge safety
+### E. Merge safety / full baseline revalidation
 
 - [ ] accepted와 addable 분리
 - [ ] 신규 내부 중복 ID/URL/canonical URL/event fingerprint 확인
 - [ ] baseline과 중복 사건이면 addable 제외 후 withheld/existing reinforcement로 기록
 - [ ] expected final count는 강제하지 않음
+- [ ] full baseline revalidation은 addable/hold만 판단했는가?
+- [ ] full baseline revalidation 이후 surviving addable의 `publish_ready`를 false로 reset했는가?
+- [ ] full baseline revalidation 결과를 evidence QC 결과로 오해하지 않았는가?
 
-### F. Source / content / language finalization
+### F. Evidence completeness / source-claim coverage
 
-- [ ] source enrichment가 필요하면 별도 pass로 수행하고 변경 근거 기록
+- [ ] surviving addable 전부 evidence completeness QC 재실행
+- [ ] source_quote가 제목/스니펫/RSS headline/listing-title이 아닌 본문 또는 공식자료 직접 근거인가?
+- [ ] `source_quote_status = not_generated_no_direct_quote_extraction`인 카드는 publish_ready=false 처리했는가?
+- [ ] fact_sources가 URL-only가 아닌가?
+- [ ] claim이 기사 제목이 아니라 구체 사실문인가?
+- [ ] fact_sources에 source_name/source_url/claim/source_quote/evidence_role/supports/checked_at 또는 fetched_at/fetch_method가 있는가?
+- [ ] single-source card의 source가 official/primary 또는 body-level evidence인가?
+- [ ] title/sub/fact/numeric/stage claim coverage map을 작성했는가?
+
+### G. Content / language finalization
+
 - [ ] content depth enrichment는 visible fields만 재작성
-- [ ] `fact_sources`, `source_quote`, source URLs, metadata 보존
+- [ ] source augmentation을 한 경우 source-change diff 기록
 - [ ] implication 2개 이상, fact 2문장 이상, gate 2문장 이상, sub 1문장 유지
 - [ ] 외국어 원문 visible 잔존 0개
 - [ ] 금지 문구 0개
 - [ ] 단위·회사명·용어 일관성 확인
+- [ ] unsupported number / causal claim / benefit claim / company intention 0개
 
-### G. Publish-ready final QC
+### H. Publish-ready final QC
 
 - [ ] Gate 1 Fact Safety PASS
 - [ ] Gate 2 Merge Safety PASS
-- [ ] Gate 3 Source Layer PASS
-- [ ] Gate 4 Content Depth PASS
-- [ ] Gate 5 Language & Tone PASS
-- [ ] Gate 6 Publish Readiness PASS
-- [ ] QC report 생성
-- [ ] `publish_ready=true`는 위 6개 gate가 모두 PASS일 때만 사용
+- [ ] Gate 3 Evidence Completeness PASS
+- [ ] Gate 4 Claim Coverage PASS
+- [ ] Gate 5 Content Depth PASS
+- [ ] Gate 6 Language & Tone PASS
+- [ ] Gate 7 Publish Readiness PASS
+- [ ] QC report가 실제 JSON 필드 기준 hard-fail count를 계산했는가?
+- [ ] hard-fail count가 1개라도 있으면 final PASS를 막았는가?
+- [ ] `publish_ready=true`는 위 gate가 모두 PASS일 때만 사용
 
-### H. GitHub 반영 전
+### I. GitHub 반영 전
 
 - [ ] main sync
 - [ ] current `public/data/cards.json` count 확인
 - [ ] final candidate baseline count와 비교
 - [ ] main에 추가 변경이 있으면 재병합 판단
 - [ ] PR diff가 의도한 파일만 포함하는지 확인
+- [ ] 파일명에 FINAL / PR_CANDIDATE / GitHub-ready를 쓰기 전 evidence QC까지 통과했는가?
 - [ ] Vercel production 확인 전까지 완료로 보지 않음
 
 ---
@@ -136,8 +161,6 @@ Baseline은 원칙적으로:
 
 ## 4. 표준 병합 절차
 
-### Accepted Payload 후처리 운영
-
 Prompt C 또는 동등한 final validator 결과 accepted payload가 확정되면, baseline `cards.json`에 병합하기 전에 반드시 다음 문서를 적용한다.
 
 - `docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md`
@@ -151,7 +174,9 @@ accepted_fact_safe
   ↓
 addable_merge_safe
   ↓
-source_enriched or source_coverage_reviewed
+evidence_complete
+  ↓
+source_claim_covered
   ↓
 content_enriched
   ↓
@@ -162,35 +187,24 @@ publish_ready
 
 필수 산출물:
 
-1. content-enriched accepted payload
-2. baseline에 병합한 final cards.json
-3. QC report
+1. evidence-revalidated addable payload
+2. evidence-revalidated final cards.json
+3. evidence QC report
+4. superseded/review-pool manifest
 
 완료 기준:
 
-- visible fields(`title`, `sub`, `gate`, `fact`, `implication`)만 재작성
-- `fact_sources` / `source_quote` 보존
-- source URL 및 metadata 보존
 - accepted와 addable 분리
-- withheld reinforcement / existing reinforcement 사유 기록
-- 신규 accepted 내부 ID/URL/사건 중복 없음
-- baseline과 사건 중복 없음 또는 QC report에 명시
-- event fingerprint 확인
-- source coverage 검토
-- single-source card 사유 기록
-- claim coverage map 작성 또는 중요/취약 카드에 대해 요약 기록
-- 금지 문구 0개
-- 중국어·일본어 원문 visible field 잔존 0개
-- 용어/단위 일관성 확인
-- implication 2개 미만 카드 0개
-- fact 2문장 미만 카드 0개
-- gate 2문장 미만 카드 0개
-- sub 1문장 초과 카드 0개
-- unsupported number / causal claim / benefit claim / company intention 0개
-- schema/type drift 0개
+- full baseline revalidation은 addable/hold만 판단
+- surviving addable은 evidence QC 전 publish_ready=false
+- source_quote는 제목/스니펫이 아닌 본문 또는 공식자료 직접 근거
+- fact_sources는 URL-only 금지
+- claim coverage map 작성
+- visible fields는 source-locked 범위에서만 재작성
+- 외국어/용어/단위/금지문구 QC 통과
 - rejected / revise_required / non-accepted 혼입 0개
+- schema/type drift 0개
 - latest-first 정렬 유지
-- web QC는 검증·충돌탐지·중복탐지용으로만 수행
 - baseline source declaration 기록
 - GitHub main sync gate 상태 기록
 
@@ -202,23 +216,27 @@ publish_ready
 
 1. 현재 baseline count
 2. accepted input count
-3. addable count
-4. withheld reinforcement count
-5. expected final count와 actual final count의 차이
-6. 차이가 있으면 중복/제외 사유
-7. 중복 ID / URL / canonical URL
-8. event fingerprint 중복
-9. latest-first 정렬
-10. JSON 유효성
+3. addable_merge_safe count
+4. duplicate_hold count
+5. addable_hold_source_gap count
+6. publish_ready count
+7. expected final count와 actual final count의 차이
+8. 차이가 있으면 중복/증거부족/제외 사유
+9. 중복 ID / URL / canonical URL
+10. event fingerprint 중복
+11. evidence hard-fail count
+12. latest-first 정렬
+13. JSON 유효성
 
 Expected final count가 다르다고 강제로 카드를 추가하지 않는다.
-중복 사건이면 final count가 줄어드는 것이 맞다.
+중복 사건이거나 evidence fail이면 final count가 줄어드는 것이 맞다.
 
 ---
 
 ## 6. 병합 도구 운영상 주의점
 
 - 병합 도구가 단순 URL 또는 title-prefix dedupe만 수행하는 경우, 별도의 event fingerprint QC를 반드시 수행한다.
+- full baseline revalidation 이후 surviving addable은 evidence QC 전까지 publish_ready=false다.
 - 기존 baseline 카드는 사용자가 명시하지 않는 한 수정하지 않는다.
 - helper payload / prior run / branch payload는 canonical baseline이 아니다.
 - source enrichment 또는 content depth enrichment 후에는 다시 final cards.json을 생성한다.
@@ -228,17 +246,18 @@ Expected final count가 다르다고 강제로 카드를 추가하지 않는다.
 
 ## 7. 실수 방지 규칙
 
-추가 실수 방지 규칙:
-
 - post-acceptance enrichment 단계에서 rejected / revise_required / non-accepted 항목을 임의로 되살리지 않는다.
 - web search로 새 사실을 찾더라도 사용자 승인 없이 visible fields나 `fact_sources`에 조용히 추가하지 않는다.
-- expected final count는 강제 숫자가 아니다. 중복/제외 사유가 있으면 QC report에 사유와 실제 count를 남긴다.
+- expected final count는 강제 숫자가 아니다.
 - 기존 baseline 카드는 사용자가 명시하지 않는 한 수정하지 않는다.
 - Prompt A/B/C의 acceptance 판단을 post-acceptance 단계에서 조용히 뒤집지 않는다.
 - background_context source만으로 revise_required 카드를 accepted/publish_ready로 올리지 않는다.
 - source count를 KPI로 삼지 않는다. claim coverage를 KPI로 삼는다.
 - Prompt C accepted를 “GitHub에 넣을 최종 후보”라고 부르지 않는다.
-- `publish_ready=true`는 6개 final gates가 모두 PASS일 때만 쓴다.
+- addable_merge_safe를 publish_ready로 부르지 않는다.
+- `source_quote_status = not_generated_no_direct_quote_extraction`이면 publish_ready=false다.
+- headline-only single-source card는 publish_ready가 될 수 없다.
+- `publish_ready=true`는 모든 final gates가 PASS일 때만 쓴다.
 
 ---
 
@@ -256,9 +275,13 @@ Expected final count가 다르다고 강제로 카드를 추가하지 않는다.
 - `urls`
 - `fact_sources`
 
-Post-acceptance enrichment 이후 추가 확인 항목:
+Post-acceptance 이후 추가 확인 항목:
 - `fact_sources` 보존 여부
 - `source_quote` 보존 여부
+- source_quote_status hard fail 여부
+- headline-only source_quote 여부
+- URL-only fact_sources 여부
+- missing evidence_role / supports 여부
 - visible field 외 변경 여부
 - schema/type drift 여부
 - banned workflow phrase 잔존 여부
@@ -266,9 +289,8 @@ Post-acceptance enrichment 이후 추가 확인 항목:
 - 용어/단위 일관성 여부
 - baseline과 신규 accepted 간 중복 사건 여부
 - event fingerprint 중복 여부
-- accepted vs addable 분리 여부
-- source coverage / single-source reason 여부
-- claim coverage map 또는 요약 여부
+- accepted vs addable vs publish_ready 분리 여부
+- claim coverage map 여부
 - latest-first 정렬 여부
 - final web QC 수행 여부 및 예외 사유
 - baseline source declaration
@@ -312,7 +334,7 @@ GitHub 반영 전 반드시 수행한다.
 2. 현재 `public/data/cards.json` count 확인
 3. 최종 후보 파일의 baseline count와 비교
 4. main에 추가 변경이 있으면 final candidate를 그대로 덮지 말고 재병합 판단
-5. PR diff가 `public/data/cards.json` 또는 의도된 docs/data 파일만 포함하는지 확인
+5. PR diff가 의도한 파일만 포함하는지 확인
 6. Vercel production 확인 전까지 작업 완료로 보지 않음
 
 ---
@@ -321,6 +343,6 @@ GitHub 반영 전 반드시 수행한다.
 
 **SBTL_HUB는 자동 수집 앱이 아니라 편집된 intelligence 앱이다.**
 
-**Prompt C accepted payload는 바로 merge하지 않고, post-acceptance enrichment / final QC를 거쳐 production-safe 데이터로 잠근 뒤 병합한다.**
+**Prompt C accepted payload는 바로 merge하지 않고, post-acceptance evidence QC를 거쳐 production-safe 데이터로 잠근 뒤 병합한다.**
 
-**Publish-ready는 accepted가 아니라, merge safety + source coverage + content depth + language polish + final QC + GitHub sync gate를 통과한 상태다.**
+**Publish-ready는 accepted도 아니고 addable도 아니다. Publish-ready는 merge safety + evidence completeness + claim coverage + content depth + language polish + final QC + GitHub sync gate를 통과한 상태다.**

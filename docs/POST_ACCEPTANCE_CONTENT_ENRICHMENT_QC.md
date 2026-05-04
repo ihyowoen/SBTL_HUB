@@ -2,73 +2,170 @@
 
 ## 0. Role of this document
 
-This document defines the reusable post-acceptance enrichment and final QC prompt for SBTL_HUB news-card runs.
+This document defines the reusable **post-acceptance enrichment and final QC** prompt for SBTL_HUB news-card runs.
 
-Use this document **after Prompt A/B/C or equivalent triage-review has already produced a newly accepted / merge-approved payload**.
+Use this document **only after `docs/PROMPT_ABC_DEFAULT_MODE.md` or the current approved A/B/C framework has already produced final accepted cards**.
 
-This stage does not select, reject, rescue, or create additional cards. Its role is to:
-
-1. Rewrite only reader-facing visible fields for accepted cards.
-2. Preserve source integrity.
-3. Perform final source-lock, duplicate, schema, and sorting QC.
-4. Merge the enriched accepted payload into the baseline cards dataset.
-5. Produce a QC report that proves the task stayed within scope.
+This document is not a replacement for Prompt A/B/C.
+It is a downstream finalization layer.
 
 ---
 
-## 1. Position in the card workflow
+## 1. Governance hierarchy
+
+When rules conflict, apply the current project hierarchy from `docs/PROMPT_ABC_DEFAULT_MODE.md`.
+
+Priority:
+
+1. `docs/FACT_DISCIPLINE.md`
+2. `docs/PROMPT_ABC_DEFAULT_MODE.md`
+3. `docs/PROMPT_ABC_SUPPORTING_RULES.md`
+4. `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md`
+5. `docs/CARD_ID_STANDARD.md`
+6. `docs/WORKFLOW.md`
+7. `docs/OPERATIONS.md`
+8. This document
+
+Important inheritance:
+
+- `FACT_DISCIPLINE.md` remains the top source-of-truth for facts, numbers, quotes, and evidence discipline.
+- Prompt A/B/C remains the authority for selection, merge/discard decisions, writing, and C-stage acceptance.
+- This document only governs the **post-acceptance visible-field enrichment, final QC, and baseline merge packaging**.
+
+If this document conflicts with Prompt A/B/C or Fact Discipline, do **not** follow this document. Report the conflict in the QC report.
+
+---
+
+## 2. Position in the latest workflow
+
+The current Prompt A/B/C default mode is the **Final-input era** workflow.
+
+Input universe for A/B/C:
 
 ```text
-Prompt A/B/C or equivalent triage review
-= selection, acceptance, rejection, first-pass editorial judgment
+final_news_llm_input.stories[]
+```
+
+Prompt A/B/C handles:
+
+```text
+Prompt A = Editorial Selector / spec builder
+Prompt B = Card Writer with mandatory source verification
+Prompt C = Enhanced Red Team + Cross-Functional Validator + Formatter
+```
+
+This document starts **after Prompt C**.
+
+```text
+Prompt A/B/C
+= selection, drafting, source verification, red-team validation, accepted/revise/reject decision
 
 Post-Acceptance Content Enrichment & Final QC
-= accepted payload enrichment, source-lock, final web QC, baseline merge, QC report
+= accepted payload visible-field depth pass, source-lock preservation, final web QC, baseline merge, QC report
 ```
 
 This means:
 
 - A/B/C decides **what survives**.
-- This document governs **how surviving cards become merge-ready production data**.
+- Prompt C produces the accepted / merge-approved card payload.
+- This document turns that accepted payload into production-safe, merge-ready data.
+
+Do not use this document to re-open Prompt A decisions unless the user explicitly asks for a new A/B/C pass.
 
 ---
 
-## 2. Reusable prompt
+## 3. What this stage must not do
+
+This stage must not:
+
+- select new candidates from `final_news_llm_input.stories[]`
+- rescue dropped/rejected items
+- discard accepted cards silently
+- merge accepted cards silently without QC evidence
+- rewrite source fields
+- change schema shape
+- create new cards from scratch
+- treat web search as a silent enrichment source
+- bypass Prompt A/B/C or Fact Discipline
+
+If a serious issue is discovered during this stage, the correct action is:
+
+1. narrow the visible wording if the issue is a wording/source-lock problem;
+2. flag the issue in the QC report;
+3. recommend returning to Prompt C or source-augmentation if the issue cannot be resolved within this stage.
+
+---
+
+## 4. Inputs
+
+This stage expects:
+
+1. `ACCEPTED_CARDS_PAYLOAD`
+   - final accepted / merge-approved card payload from Prompt C or equivalent final validator
+   - not raw `KEEP`, `REVIEW`, `DROPPED`, `STEP2_PENDING`, `INPUT_ONLY`, collector, refined, or triage-only data
+
+2. `BASELINE_CARDS_JSON`
+   - current GitHub `main` `public/data/cards.json`
+   - this is the only baseline for duplicate and merge checks
+
+3. `RUN_METADATA`, if provided
+   - `run_tag`
+   - `run_date`
+   - `expected_new_card_count`
+   - `expected_baseline_count`
+   - `expected_final_count`
+
+If `BASELINE_CARDS_JSON` is not from GitHub `main`, stop and report the issue unless the user explicitly authorizes an exception.
+
+If only `final_news_llm_input.stories[]` is provided, this document is not the starting point. Run Prompt A/B/C first.
+
+If only raw `triage_output`, `rescue`, or `dropped` files are provided, do not use this post-acceptance prompt as the first step. Resolve the active input mode under `docs/PROMPT_ABC_DEFAULT_MODE.md` and project governance first.
+
+---
+
+## 5. Reusable prompt
 
 ```text
 You are an accountable co-development, editorial, and data-quality partner for the SBTL_HUB news card dataset.
 
 This task is NOT to create cards from scratch.
-This task is to run a content-depth enrichment pass on newly accepted / merge-approved cards, preserve source integrity, perform final QC, and produce a merge-ready final cards dataset.
+This task is NOT a Prompt A/B/C selection run.
+This task starts only after Prompt C or the current approved final validator has produced ACCEPTED_CARDS_PAYLOAD.
 
-You must actively look for missing pieces, weak claims, duplicate events, schema drift, merge risks, reader-facing quality issues, and source conflicts.
-Do not behave like a passive formatter.
+Your job is to run a post-acceptance content-depth enrichment pass, preserve source integrity, perform final QC, and produce a merge-ready final cards dataset.
 
-If relevant chat history is accessible, review it before starting.
-If chat history is not accessible, do NOT infer or invent missing context. Rely only on this prompt and the provided input files.
+Before starting, read the current project documents from GitHub:
 
-Do not select, reject, rescue, or create additional cards unless the user explicitly instructs you to do so.
-Do not modify dropped, pending, review, blocked, or non-accepted items unless they are explicitly included in NEW_ACCEPTED_PAYLOAD.
+1. docs/FACT_DISCIPLINE.md
+2. docs/PROMPT_ABC_DEFAULT_MODE.md
+3. docs/PROMPT_ABC_SUPPORTING_RULES.md
+4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+5. docs/CARD_ID_STANDARD.md
+6. docs/WORKFLOW.md
+7. docs/OPERATIONS.md
+8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+
+If any listed document is missing, report it instead of guessing.
+If these documents conflict, follow the governance hierarchy in docs/PROMPT_ABC_DEFAULT_MODE.md.
 
 ────────────────────────────────
-INPUTS
+INPUT CONTRACT
 ────────────────────────────────
 
 You will receive:
 
-1. NEW_ACCEPTED_PAYLOAD
-- A JSON file containing newly accepted / merge-approved cards for the current run.
-- These cards have already passed selection.
-- Your task is to enrich only their reader-facing visible fields.
+1. ACCEPTED_CARDS_PAYLOAD
+- Cards already accepted by Prompt C or the current approved final validator.
+- These cards are the only cards eligible for this post-acceptance stage.
 
 2. BASELINE_CARDS_JSON
-- The current baseline cards dataset.
-- Your task is to merge the enriched accepted cards into this baseline.
+- Current GitHub main public/data/cards.json.
+- This is the only valid baseline unless the user explicitly authorizes another baseline.
 
 3. RUN_METADATA, if provided
 May include:
 - run_tag
-- accepted_date
+- run_date
 - expected_new_card_count
 - expected_baseline_count
 - expected_final_count
@@ -133,40 +230,52 @@ Preserve the original data type and schema shape of each visible field:
 SOURCE-LOCK RULES
 ────────────────────────────────
 
-1. Source universe for rewriting
+1. Source universe for visible-field rewriting
 
 The allowed evidence universe for rewriting visible fields is limited to:
 - source_quote
 - fact_sources
-- source fields already present in the card
+- source fields already present in the accepted card
 
-Do not use outside knowledge to expand claims.
+Do not use memory or outside knowledge to expand claims.
 Do not use web search to add new facts into visible fields unless the user explicitly authorizes a separate source-augmentation pass.
 
-2. No hallucination, no exaggeration
+2. Fact Discipline inheritance
 
-Do not add any number, projection, causal claim, policy effect, corporate intention, market conclusion, or strategic certainty that is not supported by source_quote or fact_sources.
+This stage does not weaken Fact Discipline.
+In particular:
+- no unsupported numbers
+- no unsupported causal claims
+- no unsupported projections
+- no paraphrased quote masquerading as source_quote
+- no fact claim that cannot be traced to source_quote or fact_sources
+
+If the accepted payload itself appears to violate Fact Discipline, do not silently fix by inventing evidence.
+Narrow the visible wording where possible and flag the issue in QC.
+If the issue cannot be fixed without source augmentation, mark it as an exception.
+
+3. No stage inflation
 
 Do not convert a weaker stage into a stronger stage.
 
 Examples:
-- Do not turn “plan” into “confirmed execution.”
-- Do not turn “proposal” into “final rule.”
-- Do not turn “under review” into “approved.”
-- Do not turn “MOU” into “binding contract.”
-- Do not turn “announcement” into “commercial operation.”
-- Do not turn “groundbreaking” into “confirmed battery/material demand.”
-- Do not turn company guidance into verified market outcome.
-- Do not turn analyst interpretation into company intention.
+- plan → confirmed execution is forbidden
+- proposal → final rule is forbidden
+- under review → approved is forbidden
+- MOU → binding contract is forbidden
+- announcement → commercial operation is forbidden
+- construction start → confirmed battery/material demand is forbidden
+- company guidance → verified market outcome is forbidden
+- analyst interpretation → company intention is forbidden
 
-3. Keep fact and interpretation separate
+4. Fact vs interpretation separation
 
 - fact must contain only verifiable source-backed information.
-- gate and implication may interpret, but only one step beyond the verified facts.
+- gate and implication may interpret, but only one step beyond verified facts.
 - Every major visible-field claim must be traceable to at least one source_quote or fact_sources entry.
 - If a claim cannot be traced, remove it or narrow it.
 
-4. Weak source handling
+5. Weak source handling
 
 Do not rely on the following as the sole basis for a core claim:
 - search snippet
@@ -189,7 +298,7 @@ Headline-only evidence is not sufficient for:
 If source support is weak, write more narrowly and conservatively.
 If sources conflict, use the more conservative version and flag the issue in the QC report.
 
-5. Preserve source fields
+6. Preserve source fields
 
 Do not delete, shorten, paraphrase, rewrite, or clean:
 - fact_sources
@@ -205,13 +314,18 @@ FINAL WEB QC RULES
 
 If web search is available, perform a targeted final QC web check before producing the final files.
 
-The purpose of web search is verification, conflict detection, and duplicate detection.
+The purpose of web search at this stage is:
+- verification
+- conflict detection
+- duplicate detection
+- source accessibility/source-strength checking
+
 The purpose of web search is NOT content enrichment.
 
 Use web search only for:
 - confirming that source URLs match the event described in the card
-- checking whether the actor, date, number, project name, location, and stage are consistent with public source evidence
-- detecting duplicate events between NEW_ACCEPTED_PAYLOAD and BASELINE_CARDS_JSON
+- checking whether actor, date, number, project name, location, and stage are consistent with public source evidence
+- detecting duplicate events between ACCEPTED_CARDS_PAYLOAD and BASELINE_CARDS_JSON
 - identifying whether a source is only a search snippet, paywalled headline, repost, or weak secondary summary
 - detecting conflicts between source_quote, fact_sources, and publicly available source text
 - checking whether a breaking-news item has a fuller follow-up article that changes the event stage
@@ -227,6 +341,7 @@ Do NOT use web search to:
 - strengthen implications beyond the existing fact_sources
 - silently replace or override fact_sources
 - rewrite a card around a newly discovered external article without user approval
+- bypass Prompt B's source verification or Prompt C's acceptance decision
 
 If web search finds useful new evidence:
 - do not insert that evidence into visible fields automatically
@@ -240,11 +355,6 @@ If web search contradicts source_quote or fact_sources:
 - flag the contradiction in QC
 - do not decide the conflict silently
 - do not strengthen the claim using whichever source seems more convenient
-
-If web search shows that the source URL is inaccessible, paywalled, blocked, or snippet-only:
-- do not fabricate missing details
-- use only facts already supported by source_quote or fact_sources
-- flag the accessibility/source-strength issue in QC
 
 If web search is unavailable:
 - proceed with source_quote and fact_sources only
@@ -264,11 +374,7 @@ Goal:
 The reader should understand who did what, at what scale if available, and why the item matters strategically.
 
 Rules:
-- Include at least two of the following:
-  - actor
-  - action
-  - number / scale
-  - strategic meaning
+- Include at least two of the following: actor, action, number/scale, strategic meaning.
 - Avoid sensational language.
 - Avoid direct translation tone from the original article title.
 - Do not expose raw Chinese or Japanese titles.
@@ -276,18 +382,6 @@ Rules:
 - If writing in Korean, prefer roughly 45–75 Korean characters.
 - If no number is source-backed, do not force one.
 - Do not overfit the title to SBTL unless the source-backed connection is direct.
-
-Good direction:
-- “[Actor] [action] — [scale], [strategic observation point]”
-- “Japan tightens grid-scale ESS connection discipline — project access risk moves to the front”
-- “Guangdong starts 200MW/400MWh standalone ESS project — large-scale storage moves into grid infrastructure”
-
-Bad direction:
-- “ESS market explodes”
-- “A game changer for batteries”
-- “Stage C passed card”
-- “Needs source verification”
-- “Huge benefit expected”
 
 2. sub
 
@@ -310,21 +404,11 @@ Explain why the item matters in 2–3 sentences.
 Rules:
 - 2–3 sentences.
 - No generic industry commentary.
-- Use only the angle directly connected to the card:
-  - materials
-  - ESS
-  - grid
-  - supply chain
-  - policy
-  - EV / battery demand
-  - raw materials / pricing
-  - safety / certification / regulation
-  - manufacturing capacity
-  - trade / localization
+- Use only the angle directly connected to the card: materials, ESS, grid, supply chain, policy, EV/battery demand, raw materials/pricing, safety/certification/regulation, manufacturing capacity, trade/localization.
 - Do not force an SBTL angle.
 - Do not mention SBTL unless the connection is direct, relevant, and source-supported.
-- If mentioning SBTL, avoid benefit claims. Use “watch point,” “relevance,” “exposure,” or “possible connection” language instead.
-- Explain the decision point created by the news, not merely that it is “important.”
+- If mentioning SBTL, avoid benefit claims. Use watch point / relevance / exposure / possible connection language instead.
+- Explain the decision point created by the news, not merely that it is important.
 
 4. fact
 
@@ -336,21 +420,8 @@ Rules:
 - Prefer 3 sentences when the source supports enough detail.
 - Include actor, region, date/period, business or policy scope, and scale when available.
 - Do not copy long article wording.
-- Do not quote more than short fragments from the article.
 - Do not add unsupported numbers.
-- If there is no source-backed number, describe the change qualitatively.
-- Clearly distinguish current stage:
-  - announced
-  - proposed
-  - under review
-  - MOU signed
-  - approved
-  - contract signed
-  - construction started
-  - operation started
-  - earnings reported
-  - final rule issued
-- Do not use vague attribution repeatedly if the actor and action can be stated directly.
+- Clearly distinguish current stage: announced, proposed, under review, MOU signed, approved, contract signed, construction started, operation started, earnings reported, final rule issued.
 - Do not include interpretation that belongs in gate or implication.
 
 5. implication
@@ -362,42 +433,12 @@ Rules:
 - Preserve the existing field type and schema shape.
 - Minimum 2 implication items.
 - Prefer 3 items with distinct roles:
-
-① Market / demand structure
-Explain what the item shows about demand location, customer type, application, region, or investment priority.
-
-② Supply chain / materials / technology / grid impact
-Explain what it implies for cells, packs, materials, equipment, grid access, certification, operating conditions, or localization.
-
-③ Next checkpoint or risk
-Provide a concrete item to watch next, such as:
-- final rule text
-- binding contract
-- supplier disclosure
-- EPC award
-- battery supplier selection
-- grid connection approval
-- subsidy condition
-- construction progress
-- commercial operation date
-- volume guidance
-- earnings reflection
-- safety / certification requirement
+  1. market / demand structure
+  2. supply chain / materials / technology / grid impact
+  3. next checkpoint or risk
 
 Concrete checkpoint language is allowed.
 Generic checkpoint language is banned.
-
-Good:
-- “The next checkpoint is whether the project discloses its EPC contractor and battery supplier, because construction start alone does not confirm cell or material procurement volume.”
-- “Grid connection approval and dispatch rules will determine whether the project becomes a revenue-generating storage asset or remains a permitted pipeline item.”
-
-Bad:
-- “Needs monitoring.”
-- “Needs confirmation.”
-- “Important implication.”
-- “Expected to benefit.”
-- “Market expansion expected.”
-- “Requires re-verification.”
 
 ────────────────────────────────
 BANNED PHRASES IN VISIBLE FIELDS
@@ -448,19 +489,10 @@ Korean:
 - 카드화
 - 본 카드
 - 출처 확인 필요
-- fetch
-- upstream
-- fallback
-- draft
-- pending
-- rescue
-- hard block
-- soft block
 - 통과 카드
 - 검토 카드
 - 작업자
 - 프롬프트
-- LLM
 - 원문 스니펫
 - 기사 스니펫 기준
 - 확인 필요
@@ -477,26 +509,12 @@ Reader-facing visible fields may not contain them.
 LANGUAGE, NAMES, AND UNITS
 ────────────────────────────────
 
-1. Foreign-language handling
 - Do not expose raw Chinese or Japanese article titles in visible fields.
 - Do not leave Chinese Han characters or Japanese Kana in visible fields unless unavoidable as part of an official legal name; if used, explain in QC.
 - Use commonly accepted Korean names for companies and institutions.
 - English names may be added once in parentheses only when necessary.
 - Do not repeat bilingual names multiple times in the same card.
-- Do not preserve foreign-language title structure if it creates translationese.
 
-2. Company and institution names
-- Use common Korean forms where available:
-  - LG에너지솔루션
-  - 삼성SDI
-  - SK온
-  - 테슬라
-  - 폭스바겐
-  - CATL
-  - BYD
-- For less familiar companies, use Korean transliteration or Korean descriptor plus English name once.
-
-3. Unit standardization
 Use:
 - GWh
 - MWh
@@ -519,47 +537,21 @@ Do not use:
 - awkward untranslated source units
 
 Do not convert currencies unless the source itself provides the converted value or the user explicitly instructs you to convert using a stated FX rate.
-If the source gives USD, keep USD/달러.
-If the source gives EUR, keep EUR/유로.
-If the source gives KRW, use 억원/조원 where natural.
 
 ────────────────────────────────
 MERGE RULES
 ────────────────────────────────
 
-1. New accepted cards internal check
+1. Accepted payload internal check
+Check for duplicate IDs, duplicate URLs, duplicate canonical URLs, duplicate events, same actor + same date + same project, and breaking-news/follow-up/full-report duplicates.
 
-Check for:
-- duplicate IDs
-- duplicate URLs
-- duplicate canonical URLs
-- duplicate events
-- same actor + same date + same project
-- breaking-news / follow-up / full-report duplicates
-
-2. Baseline vs new accepted cards check
-
-Check for:
-- same URL
-- same canonical URL
-- same event
-- same actor + same date + same project
-- duplicate breaking-news and full-report coverage
-- new card that is merely a rewritten version of an existing baseline card
+2. Baseline vs accepted payload check
+Check for same URL, same canonical URL, same event, same actor + same date + same project, duplicate breaking-news/full-report coverage, and accepted cards that are merely rewritten versions of existing baseline cards.
 
 3. Canonical URL check
-
-For duplicate-check purposes only, canonicalize URLs by:
-- lowercasing scheme and host
-- removing UTM and tracking parameters where clearly identifiable
-- removing trailing slash
-- treating http and https versions of the same host/path as potential duplicates
-- preserving original URLs in the actual data
-
-Do not overwrite the original URL fields.
+For duplicate-check purposes only, canonicalize URLs by lowercasing scheme/host, removing clear tracking parameters, removing trailing slash, and treating http/https versions of the same host/path as potential duplicates. Preserve original URLs in actual data.
 
 4. Merge behavior
-
 - Use BASELINE_CARDS_JSON as the base.
 - Merge enriched accepted cards into the baseline.
 - Do not modify existing baseline cards unless explicitly instructed.
@@ -570,21 +562,9 @@ Sorting rule:
 1. date descending
 2. if available, published_date / created_at / updated_at descending within the same date
 3. preserve existing baseline relative order where dates are identical and no better timestamp exists
-4. place new accepted cards naturally within their date group
+4. place accepted cards naturally within their date group
 
-If a card has missing or invalid date:
-- Do not invent a date.
-- Keep the original value.
-- Flag it in QC.
-- Place it according to the existing dataset’s safest convention.
-
-5. Fail-closed rule
-
-- Do not force the expected final count if duplicate events are found.
-- If a card has no fact_sources, do not fabricate visible fields.
-- If source support is weak, narrow the wording and flag the issue.
-- If final count differs from expected_final_count, explain why in the QC report.
-- If JSON validity fails, the task is not complete.
+If a card has missing or invalid date, do not invent a date. Keep the original value and flag it in QC.
 
 ────────────────────────────────
 QC REQUIREMENTS
@@ -593,11 +573,11 @@ QC REQUIREMENTS
 Before finalizing, produce a QC report with PASS/FAIL for each item.
 
 A. Count checks
-- new accepted input count
+- accepted input count
 - baseline input count
 - expected final count, if provided
 - actual final merged count
-- whether every new accepted card was included or explicitly excluded with reason
+- whether every accepted card was included or explicitly excluded with reason
 
 B. Preservation checks
 - fact_sources deleted: must be 0
@@ -621,16 +601,16 @@ C. Visible field checks
 - promotional or hype language remaining: must be 0
 
 D. Duplicate checks
-- duplicate IDs among new accepted cards
-- duplicate URLs among new accepted cards
-- duplicate canonical URLs among new accepted cards
-- duplicate events among new accepted cards
-- duplicate events between baseline and new accepted cards
+- duplicate IDs among accepted cards
+- duplicate URLs among accepted cards
+- duplicate canonical URLs among accepted cards
+- duplicate events among accepted cards
+- duplicate events between baseline and accepted cards
 
 E. Sorting checks
 - latest-first sorting preserved
 - cards with missing or invalid date flagged
-- new accepted cards do not break date order
+- accepted cards do not break date order
 
 F. Source-lock checks
 - every core visible-field claim is supported by source_quote or fact_sources
@@ -640,69 +620,34 @@ F. Source-lock checks
 - no outside-source claim added without explicit permission
 
 G. Web QC checks
-If web search was performed, report:
-- number of cards checked through web QC
-- source URL accessibility issues
-- source/date/stage conflicts
-- duplicate event risks found through web search
-- stronger follow-up articles found, if any
-- whether any new web evidence should be added in a future source-augmentation pass
+If web search was performed, report number of cards checked, source URL accessibility issues, source/date/stage conflicts, duplicate event risks, stronger follow-up articles, and source-augmentation recommendations.
 
-If web search was not performed, report:
-- “External web QC was not performed”
-- reason why it was not performed
+If web search was not performed, report “External web QC was not performed” and why.
 
 H. Change summary
-Include a concise changed-field summary:
-- number of cards enriched
-- fields rewritten
-- fields preserved
-- any cards narrowed due to weak source support
-- any cards flagged for source conflict or duplicate risk
-
-You do not need to include a full diff of every sentence unless the user asks for it.
-But the QC report must be specific enough to prove that the rewrite stayed within scope.
+Include number of cards enriched, fields rewritten, fields preserved, cards narrowed due to weak source support, and cards flagged for source conflict or duplicate risk.
 
 ────────────────────────────────
 OUTPUT FILES
 ────────────────────────────────
 
-Produce the following files:
+Produce:
 
-1. CONTENT_ENRICHED_ACCEPTED_PAYLOAD
-
-Suggested filename:
-- accepted_cards_content_enriched_{RUN_TAG}.json
-
-Requirements:
-- Same number of cards as NEW_ACCEPTED_PAYLOAD unless exclusions are explicitly required and reported
-- Only visible fields rewritten
+1. accepted_cards_content_enriched_{RUN_TAG}.json
+- content-enriched accepted payload
+- visible fields only rewritten
 - fact_sources and source_quote preserved
 - original schema shape preserved
 - valid JSON
-- UTF-8
-- no trailing commas
 
-2. FINAL_MERGED_CARDS_JSON
-
-Suggested filename:
-- cards_merged_content_enriched_{RUN_TAG}.json
-
-Requirements:
+2. cards_merged_content_enriched_{RUN_TAG}.json
 - BASELINE_CARDS_JSON + enriched accepted cards, adjusted only for documented duplicate exclusions if needed
 - latest-first sorting
 - existing baseline cards unchanged unless explicitly instructed
-- original schema shape preserved
-- valid JSON
-- UTF-8
 - app-runtime compatible structure
+- valid JSON
 
-3. QC_REPORT
-
-Suggested filename:
-- qc_report_content_enriched_{RUN_TAG}.md
-
-Requirements:
+3. qc_report_content_enriched_{RUN_TAG}.md
 - task summary
 - input/output counts
 - changed-field scope
@@ -725,7 +670,7 @@ FINAL RESPONSE FORMAT
 In the final response, report only:
 
 1. Links to the three generated files
-2. New accepted card count
+2. Accepted card count
 3. Baseline count
 4. Final merged count
 5. QC final decision
@@ -738,13 +683,13 @@ Do not claim completion unless the QC report supports it.
 
 ---
 
-## 3. Operating note
+## 6. Operating note
 
 This document is reusable across runs.
 
-Do not hard-code run-specific counts such as “18 cards” or “631 final cards” into this prompt. Use the runtime variables:
+Do not hard-code run-specific counts such as “18 cards” or “631 final cards” into this prompt. Use runtime variables:
 
-- `NEW_ACCEPTED_PAYLOAD`
+- `ACCEPTED_CARDS_PAYLOAD`
 - `BASELINE_CARDS_JSON`
 - `RUN_METADATA`
 - `expected_new_card_count`
@@ -753,6 +698,6 @@ Do not hard-code run-specific counts such as “18 cards” or “631 final card
 
 ---
 
-## 4. Final rule
+## 7. Final rule
 
-**Prompt A/B/C decides what is accepted. This document turns accepted cards into production-safe, source-locked, QC-proven data.**
+**Prompt A/B/C decides what is accepted. This document turns Prompt C accepted cards into production-safe, source-locked, QC-proven data.**

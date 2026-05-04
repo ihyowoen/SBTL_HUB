@@ -43,6 +43,8 @@
 ### 금지 2) 오래된 로컬 cards.json을 최신 repo에 덮어쓰기
 ### 금지 3) “브랜치에 있으니 앱에도 있을 것”이라고 생각하기
 ### 금지 4) merge 결과만 보고 중복 없다고 믿기
+### 금지 5) accepted 이후 enrichment 단계에서 dropped/pending/rescue를 임의로 되살리기
+### 금지 6) web search를 독자-facing 문구 보강 근거로 조용히 사용하기
 
 ---
 
@@ -70,6 +72,19 @@ region은 기사 출처가 아니라 **사건의 직접 무대**로 붙인다.
 권장 포맷:
 - `id / region / date / cat / signal / title / sub / gate / fact / implication / urls`
 
+### STEP 5.5. Accepted Content Depth Enrichment / Final QC
+
+A/B/C 또는 동등한 triage-review 과정을 통해 accepted로 확정된 신규 카드 payload는 병합 전에 `docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md` 기준으로 content depth enrichment pass를 수행한다.
+
+이 단계의 목적은 신규 accepted 카드의 visible fields만 고도화하고, `fact_sources` / `source_quote`를 보존하며, baseline `cards.json`과의 중복·정렬·source-lock을 최종 검증하는 것이다.
+
+이 단계에서는 신규 카드를 추가 선별하거나 dropped/pending/rescue 항목을 임의로 되살리지 않는다. Web search는 enrichment 근거 추가용이 아니라 final QC 검증·충돌탐지·중복탐지용으로만 사용한다.
+
+필수 산출물:
+- content-enriched accepted payload
+- baseline에 병합한 final cards.json
+- QC report
+
 ### STEP 6. 최신 repo 기준 병합
 ### STEP 7. 검증
 ### STEP 8. Git 반영
@@ -80,3 +95,5 @@ region은 기사 출처가 아니라 **사건의 직접 무대**로 붙인다.
 ## 4. 최종 원칙
 
 **앞으로 생성되는 카드는 full schema 기준으로만 작성·검수·병합한다.**
+
+**Prompt A/B/C는 무엇을 accepted로 볼지 판단하고, `POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md`는 accepted 카드를 production-safe 데이터로 잠그는 후처리 단계다.**

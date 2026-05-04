@@ -1,10 +1,18 @@
 # TRIAGE Input Mode Default
 
+> **Status: Legacy / exception mode.**
+>
+> The current default card-generation workflow is governed by `docs/PROMPT_ABC_DEFAULT_MODE.md`, which uses `final_news_llm_input.stories[]` as the primary input universe for the Final-input era.
+>
+> Use this document only when the user explicitly invokes the legacy `triage_output + rescue + dropped` mode or when processing older runs that were produced before the Final-input era workflow.
+>
+> If this document conflicts with `docs/PROMPT_ABC_DEFAULT_MODE.md`, follow `docs/PROMPT_ABC_DEFAULT_MODE.md` and the higher-level governance hierarchy defined there.
+
 ## Purpose
 
-This document locks the durable default input mode for future card-generation runs.
+This document locks the legacy/exception input mode for older or explicitly requested card-generation runs.
 It is not a one-off PR instruction.
-It is an operating rule for recurring editorial workflow.
+It is an operating rule for recurring editorial workflow only when the legacy input mode is explicitly active.
 
 This document locks **input discipline only**.
 It does not redefine card field semantics or final production schema.
@@ -16,9 +24,9 @@ Those are governed by:
 
 ---
 
-## 1. Default Input Set
+## 1. Legacy Input Set
 
-The default input set for future runs is:
+When the legacy mode is explicitly invoked, the input set is:
 
 - `triage_output`
 - `rescue`
@@ -29,16 +37,16 @@ The default input set for future runs is:
 - `rescue` = rescue-only auxiliary input
 - `dropped` = treasure-hunt / salvage pool
 
-This is the standard operating set.
+This is not the current Final-input era default. It is the legacy/exception operating set.
 
 ---
 
 ## 2. Candidate Unit
 
-The primary candidate unit remains:
+In legacy mode, the primary candidate unit remains:
 - `kept_clusters[]` from `triage_output`
 
-This means the workflow still follows the original direct-input logic:
+This means the legacy workflow follows the original direct-input logic:
 - primary source = `triage_output`
 - primary candidate unit = `kept_cluster`
 
@@ -46,7 +54,7 @@ This means the workflow still follows the original direct-input logic:
 
 ---
 
-## 3. Why `dropped` Is Included by Default
+## 3. Why `dropped` Is Included in Legacy Mode
 
 `dropped` must not be treated as a dead bin.
 
@@ -58,13 +66,13 @@ It is a treasure-hunt / salvage pool used to recover:
 - weak-gate false negatives
 
 Operationally:
-- `dropped` is reviewed by default in every run
+- `dropped` is reviewed by default in legacy-mode runs
 - `dropped` is not an afterthought
 - `dropped` is a structured salvage pool
 
 ---
 
-## 4. Why `rescue` Is Included by Default
+## 4. Why `rescue` Is Included in Legacy Mode
 
 `rescue` is the structured auxiliary pool for candidates that should be reconsidered outside the primary `kept_clusters[]` flow.
 
@@ -77,7 +85,7 @@ Operationally:
 
 ## 5. Debugging-Only Exception Inputs
 
-The following inputs are not part of the default run set:
+The following inputs are not part of the legacy run set:
 
 - `collector`
 - `refined`
@@ -107,8 +115,8 @@ Current cards baseline is always:
 
 ## 7. A/B/C Structure Remains Unchanged
 
-This default input mode does **not** replace the original A/B/C architecture.
-It preserves it.
+This legacy input mode does **not** replace the current A/B/C architecture.
+It only describes how older `triage_output + rescue + dropped` inputs are interpreted when that mode is explicitly invoked.
 
 ### Prompt A = Card Spec Builder
 - processes every `kept_cluster`
@@ -139,7 +147,7 @@ Zero Omission is enforced at:
 - spec level
 - card level
 
-Meaning:
+Meaning in legacy mode:
 - Prompt A must process every `kept_cluster`
 - Prompt B must write every passed spec
 - Prompt C must review every card draft
@@ -151,8 +159,10 @@ No silent loss is allowed.
 ## 9. Short Operating Declaration
 
 ```text
-Operating Mode: triage_output + rescue + dropped default mode
+Operating Mode: legacy triage_output + rescue + dropped mode
 
+- current default is governed by docs/PROMPT_ABC_DEFAULT_MODE.md
+- use this mode only when explicitly invoked or processing older runs
 - triage_output = primary working input
 - rescue = rescue-only auxiliary input
 - dropped = treasure-hunt / salvage pool
@@ -164,3 +174,4 @@ Operating Mode: triage_output + rescue + dropped default mode
 - Prompt B must write every passed spec
 - Prompt C must review every card draft and must not silently discard
 - Prompt C final production output = full schema only
+```

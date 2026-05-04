@@ -15,7 +15,7 @@
 ### Rule 3. merge 전에 반드시 백업
 ### Rule 4. merge는 production 확인이 끝나야 종료
 ### Rule 5. 신규 카드 payload는 full schema 기준이다
-### Rule 6. accepted payload는 병합 전 post-acceptance enrichment / final QC를 거친다
+### Rule 6. Prompt C accepted payload는 병합 전 post-acceptance enrichment / final QC를 거친다
 
 필수 필드:
 - `id`
@@ -29,15 +29,29 @@
 - `fact`
 - `implication`
 - `urls`
+- `fact_sources`
 
 ---
 
 ## 2. 작업 전 준비
+
+현재 기본 A/B/C 입력 모드는 `docs/PROMPT_ABC_DEFAULT_MODE.md`를 따른다.
+
+기본 입력 universe:
+- `final_news_llm_input.stories[]`
+
+과거/예외 run의 `triage_output + rescue + dropped` 입력 모드는 `docs/TRIAGE_INPUT_MODE_DEFAULT.md` 또는 사용자의 명시 지시가 있을 때만 적용한다.
+
+Baseline은 항상:
+- GitHub `main` `public/data/cards.json`
+
+---
+
 ## 3. 표준 병합 절차
 
 ### Accepted Payload 후처리 운영
 
-A/B/C 또는 동등한 triage-review 결과 accepted payload가 확정되면, baseline `cards.json`에 병합하기 전에 반드시 다음 문서를 적용한다.
+Prompt C 또는 동등한 final validator 결과 accepted payload가 확정되면, baseline `cards.json`에 병합하기 전에 반드시 다음 문서를 적용한다.
 
 - `docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md`
 
@@ -73,10 +87,11 @@ A/B/C 또는 동등한 triage-review 결과 accepted payload가 확정되면, ba
 
 추가 실수 방지 규칙:
 
-- accepted enrichment 단계에서 dropped/pending/rescue 항목을 임의로 되살리지 않는다.
+- post-acceptance enrichment 단계에서 rejected / revise_required / non-accepted 항목을 임의로 되살리지 않는다.
 - web search로 새 사실을 찾더라도 사용자 승인 없이 visible fields나 `fact_sources`에 조용히 추가하지 않는다.
 - expected final count는 강제 숫자가 아니다. 중복/제외 사유가 있으면 QC report에 사유와 실제 count를 남긴다.
 - 기존 baseline 카드는 사용자가 명시하지 않는 한 수정하지 않는다.
+- Prompt A/B/C의 acceptance 판단을 post-acceptance 단계에서 조용히 뒤집지 않는다.
 
 ## 7. 실제 검증 항목
 
@@ -90,6 +105,7 @@ A/B/C 또는 동등한 triage-review 결과 accepted payload가 확정되면, ba
 - `fact`
 - `implication`
 - `urls`
+- `fact_sources`
 
 Post-acceptance enrichment 이후 추가 확인 항목:
 - `fact_sources` 보존 여부
@@ -108,4 +124,4 @@ Post-acceptance enrichment 이후 추가 확인 항목:
 
 **SBTL_HUB는 자동 수집 앱이 아니라 편집된 intelligence 앱이다.**
 
-**Accepted payload는 바로 merge하지 않고, post-acceptance enrichment / final QC를 거쳐 production-safe 데이터로 잠근 뒤 병합한다.**
+**Prompt C accepted payload는 바로 merge하지 않고, post-acceptance enrichment / final QC를 거쳐 production-safe 데이터로 잠근 뒤 병합한다.**

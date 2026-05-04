@@ -19,8 +19,12 @@
  * Exit code: 0 = pass, 1 = fail
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const FAQ_PATH = path.join(__dirname, '..', 'public', 'data', 'faq.json');
 const ALLOWED_CATEGORIES = new Set([
@@ -38,10 +42,10 @@ function emitAndExit() {
   if (jsonOut) {
     console.log(JSON.stringify({ ok: errors.length === 0, total, errors }, null, 2));
   } else if (errors.length === 0) {
-    console.log(`\u2713 FAQ validation pass \u2014 ${total} entries`);
+    console.log(`✓ FAQ validation pass — ${total} entries`);
   } else {
-    console.error(`\u2717 FAQ validation FAILED \u2014 ${errors.length} error(s)`);
-    errors.forEach((e) => console.error(`  \u00b7 ${e}`));
+    console.error(`✗ FAQ validation FAILED — ${errors.length} error(s)`);
+    errors.forEach((e) => console.error(`  · ${e}`));
   }
   process.exit(errors.length === 0 ? 0 : 1);
 }

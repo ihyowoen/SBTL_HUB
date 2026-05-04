@@ -1029,8 +1029,11 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   const t = T(dark);
   const featured = WEBTOON_COLLECTIONS[0];
 
-  // PHASE A: FAQ flat read-only list — sort by k[0], truncate body to ~100 Korean chars.
-  // No id/category/review_status yet (Phase B). No badges, no deeplinks, no detail modal.
+  // Phase B1.1: per-FAQ expand/collapse state. Default collapsed.
+  const [expandedFaqKeys, setExpandedFaqKeys] = useState(() => new Set());
+
+  // Phase B1.1: FAQ flat list with expand/collapse.
+  // id/category are available after Phase B1. No review_status, badges, deeplinks, detail modal, search, or sub-tabs yet.
   const sortedFaq = useMemo(
     () => [...(Array.isArray(faq) ? faq : [])].sort((a, b) =>
       String(a?.k?.[0] || "").localeCompare(String(b?.k?.[0] || ""), "ko")
@@ -1038,10 +1041,21 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
     [faq]
   );
 
-  const truncateKo = (text, max = 100) => {
+  const FAQ_PREVIEW_LIMIT = 100;
+
+  const truncateKo = (text, max = FAQ_PREVIEW_LIMIT) => {
     const s = String(text || "").trim();
     if (s.length <= max) return s;
     return s.slice(0, max).replace(/\s+\S*$/, "") + "…";
+  };
+
+  const toggleFaqExpand = (key) => {
+    setExpandedFaqKeys((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
   };
 
   return (
@@ -1065,7 +1079,7 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
       <div style={{ marginTop: 4 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
           <span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>
-            FAQ — 용어·개념 사전 {sortedFaq.length > 0 ? `· ${sortedFaq.length}` : ""}
+            FAQ · 개념 사전 {sortedFaq.length > 0 ? `· ${sortedFaq.length}` : ""}
           </span>
           <div style={{ flex: 1, height: 1, background: t.brd }} />
         </div>
@@ -1078,16 +1092,46 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {sortedFaq.map((entry, i) => (
-              <div key={`faq-${i}-${entry?.k?.[0] || i}`} style={{ background: t.card2, borderRadius: 10, padding: "12px 14px", border: `1px solid ${t.brd}` }}>
-                <div style={{ fontSize: 13, fontWeight: 800, color: t.tx, lineHeight: 1.4, marginBottom: 6 }}>
-                  {entry?.k?.[0] || "(제목 없음)"}
+            {sortedFaq.map((entry, i) => {
+              const key = entry?.id || `faq-${i}-${entry?.k?.[0] || i}`;
+              const fullText = String(entry?.a || "").trim();
+              const isLong = fullText.length > FAQ_PREVIEW_LIMIT;
+              const isExpanded = expandedFaqKeys.has(key);
+              const displayText = isLong && !isExpanded ? truncateKo(fullText) : fullText;
+              return (
+                <div key={key} style={{ background: t.card2, borderRadius: 10, padding: "12px 14px", border: `1px solid ${t.brd}` }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: t.tx, lineHeight: 1.4, marginBottom: 6 }}>
+                    {entry?.k?.[0] || "(제목 없음)"}
+                  </div>
+                  <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.65, whiteSpace: "pre-wrap", wordBreak: "keep-all" }}>
+                    {displayText}
+                  </div>
+                  {isLong && (
+                    <button
+                      type="button"
+                      onClick={() => toggleFaqExpand(key)}
+                      aria-expanded={isExpanded}
+                      aria-label={isExpanded ? "전체 답변 접기" : "전체 답변 보기"}
+                      style={{
+                        marginTop: 8,
+                        fontSize: 10,
+                        color: t.cyan,
+                        background: "transparent",
+                        border: `1px solid ${t.brd}`,
+                        borderRadius: 6,
+                        cursor: "pointer",
+                        fontFamily: "'JetBrains Mono',monospace",
+                        padding: "6px 10px",
+                        fontWeight: 700,
+                        minHeight: 32
+                      }}
+                    >
+                      {isExpanded ? "△ 접기" : "▽ 펼쳐보기"}
+                    </button>
+                  )}
                 </div>
-                <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.65 }}>
-                  {truncateKo(entry?.a, 100)}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

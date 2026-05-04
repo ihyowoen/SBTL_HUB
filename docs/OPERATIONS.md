@@ -35,7 +35,84 @@
 
 ---
 
-## 2. 작업 전 준비
+## 2. One-page run checklist
+
+이 체크리스트는 실무자가 매 run마다 가장 먼저 보는 실행용 요약이다.
+상세 판단은 `docs/PROMPT_ABC_DEFAULT_MODE.md`, `docs/FACT_DISCIPLINE.md`, `docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md`를 따른다.
+
+### A. 시작 전
+
+- [ ] 현재 작업 branch와 목적 확인
+- [ ] 규칙 문서 최신본 확인
+- [ ] latest `final_news_llm_input`의 `run_tag`, `generated_kst`, story count 확인
+- [ ] baseline source 선언: `github_main` / `local_final_candidate` / `user_uploaded_baseline`
+- [ ] baseline card count 확인
+- [ ] source metadata에 `dropped_review_treasure_hunt` 권장 여부 확인
+
+### B. Stage A — 후보 선별
+
+- [ ] `KEEP / REVIEW / STEP2_PENDING` 전체 outcome ledger 작성
+- [ ] passed / discarded / merged / existing_reinforcement 분리
+- [ ] discarded 항목은 reason code 기록
+- [ ] baseline URL·canonical URL·event fingerprint 중복 확인
+- [ ] dropped treasure hunt가 필요한 run이면 Stage A에서 샘플 점검 기록
+
+### C. Stage B — draft + evidence
+
+- [ ] passed spec만 draft 작성
+- [ ] source verification 수행
+- [ ] `fact_sources`에 핵심 claim 근거 연결
+- [ ] source coverage 기록
+- [ ] single-source card는 reason 기록
+- [ ] snippet/paywall/title-only/repost는 core claim 근거로 사용하지 않음
+
+### D. Stage C — fact-safe acceptance
+
+- [ ] accepted / revise_required / rejected 분리
+- [ ] `accepted`는 `accepted_fact_safe`일 뿐 publish-ready가 아님을 명시
+- [ ] revise_required는 B revise → C revise loop로 처리
+- [ ] rejected / revise_required / non-accepted 혼입 금지
+
+### E. Merge safety
+
+- [ ] accepted와 addable 분리
+- [ ] 신규 내부 중복 ID/URL/canonical URL/event fingerprint 확인
+- [ ] baseline과 중복 사건이면 addable 제외 후 withheld/existing reinforcement로 기록
+- [ ] expected final count는 강제하지 않음
+
+### F. Source / content / language finalization
+
+- [ ] source enrichment가 필요하면 별도 pass로 수행하고 변경 근거 기록
+- [ ] content depth enrichment는 visible fields만 재작성
+- [ ] `fact_sources`, `source_quote`, source URLs, metadata 보존
+- [ ] implication 2개 이상, fact 2문장 이상, gate 2문장 이상, sub 1문장 유지
+- [ ] 외국어 원문 visible 잔존 0개
+- [ ] 금지 문구 0개
+- [ ] 단위·회사명·용어 일관성 확인
+
+### G. Publish-ready final QC
+
+- [ ] Gate 1 Fact Safety PASS
+- [ ] Gate 2 Merge Safety PASS
+- [ ] Gate 3 Source Layer PASS
+- [ ] Gate 4 Content Depth PASS
+- [ ] Gate 5 Language & Tone PASS
+- [ ] Gate 6 Publish Readiness PASS
+- [ ] QC report 생성
+- [ ] `publish_ready=true`는 위 6개 gate가 모두 PASS일 때만 사용
+
+### H. GitHub 반영 전
+
+- [ ] main sync
+- [ ] current `public/data/cards.json` count 확인
+- [ ] final candidate baseline count와 비교
+- [ ] main에 추가 변경이 있으면 재병합 판단
+- [ ] PR diff가 의도한 파일만 포함하는지 확인
+- [ ] Vercel production 확인 전까지 완료로 보지 않음
+
+---
+
+## 3. 작업 전 준비
 
 현재 기본 A/B/C 입력 모드는 `docs/PROMPT_ABC_DEFAULT_MODE.md`를 따른다.
 
@@ -57,7 +134,7 @@ Baseline은 원칙적으로:
 
 ---
 
-## 3. 표준 병합 절차
+## 4. 표준 병합 절차
 
 ### Accepted Payload 후처리 운영
 
@@ -119,7 +196,7 @@ publish_ready
 
 ---
 
-## 4. 병합 전 체크 기준
+## 5. 병합 전 체크 기준
 
 병합 전 반드시 확인한다.
 
@@ -139,7 +216,7 @@ Expected final count가 다르다고 강제로 카드를 추가하지 않는다.
 
 ---
 
-## 5. 병합 도구 운영상 주의점
+## 6. 병합 도구 운영상 주의점
 
 - 병합 도구가 단순 URL 또는 title-prefix dedupe만 수행하는 경우, 별도의 event fingerprint QC를 반드시 수행한다.
 - 기존 baseline 카드는 사용자가 명시하지 않는 한 수정하지 않는다.
@@ -149,7 +226,7 @@ Expected final count가 다르다고 강제로 카드를 추가하지 않는다.
 
 ---
 
-## 6. 실수 방지 규칙
+## 7. 실수 방지 규칙
 
 추가 실수 방지 규칙:
 
@@ -165,7 +242,7 @@ Expected final count가 다르다고 강제로 카드를 추가하지 않는다.
 
 ---
 
-## 7. 실제 검증 항목
+## 8. 실제 검증 항목
 
 최소 확인 항목:
 - `title`
@@ -199,7 +276,7 @@ Post-acceptance enrichment 이후 추가 확인 항목:
 
 ---
 
-## 8. Dropped treasure hunt 운영
+## 9. Dropped treasure hunt 운영
 
 현재 Final-input era 기본 입력은 `final_news_llm_input.stories[]`이다.
 
@@ -227,7 +304,7 @@ QC report에는 다음을 남긴다.
 
 ---
 
-## 9. GitHub 반영 전 sync gate
+## 10. GitHub 반영 전 sync gate
 
 GitHub 반영 전 반드시 수행한다.
 
@@ -240,7 +317,7 @@ GitHub 반영 전 반드시 수행한다.
 
 ---
 
-## 10. 최종 한 줄 원칙
+## 11. 최종 한 줄 원칙
 
 **SBTL_HUB는 자동 수집 앱이 아니라 편집된 intelligence 앱이다.**
 

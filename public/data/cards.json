@@ -1,16 +1,477 @@
 {
-  "updated": "2026-05-04",
-  "total": 631,
+  "updated": "2026-05-06",
+  "total": 636,
   "schema": "full",
   "baseline_count": 631,
-  "new_count": 18,
-  "run_tag": "20260503_201151",
-  "merge_status": "baseline_631_replaced_with_content_depth_enriched_18",
-  "sort": "latest-first; date desc, signal desc, region order KR→US→CN→JP→EU→GL→other, id asc",
-  "source_baseline_file": "cards_merged_20260502_195648_final_613_content_depth_78_v7.json",
-  "source_accepted_file": "merge_ready_addable_cards_20260503_201151_18.json",
+  "new_count": 5,
+  "run_tag": "20260506_150633",
+  "merge_status": "local_source_validation_publish_ready_5_merged_with_uploaded_cards_baseline",
+  "sort": "latest-first; date desc; existing same-date order preserved; new cards assigned IDs by CARD_ID_STANDARD",
+  "source_baseline_file": "cards (16).json",
+  "source_accepted_file": "publish_ready_payload_PENDING_GITHUB_SYNC_20260506_150633_uploaded_cards_baseline_corrected_v2_schema_repair_metadata_repaired.json",
   "stage_c_qc_file": "stage_c_output_20260503_201151_r2.json",
   "cards": [
+    {
+      "id": "2026-05-06_KR_01",
+      "region": "KR",
+      "date": "2026-05-06",
+      "cat": "Charging",
+      "sub_cat": "AMM 충전표준",
+      "signal": "high",
+      "title": "KETI, AMM 충전통신 국제표준안 3건 승인 — 자율행동체·충전기 공용 규격 추진",
+      "sub": "2026-05-06 — KETI는 ISO/IEC JTC 1/SC 6 서울 플레너리에서 자율행동체 충전 관련 신규 국제표준안 3건이 7개국 찬성으로 승인됐다고 밝혔다.",
+      "gate": "이 사안의 핵심은 로봇 수요 전망이 아니라 자율행동체와 충전 인프라 사이의 충전 제어 통신 표준화다. 제조사별 충전 규격이 분산된 상태에서는 물류로봇·이동체·충전기 간 상호운용성이 병목이 될 수 있어, 국제표준안 승인과 ISO work item 등록은 충전 인프라 기술 기준 형성 신호로 볼 수 있다.",
+      "fact": "전자신문, 데일리안, 이투데이 보도에 따르면 KETI는 2026년 4월 서울에서 열린 ISO/IEC JTC 1/SC 6 플레너리 회의에서 자율행동체 충전 관련 국제표준안 3건이 최종 승인됐다고 5월 6일 밝혔다. 보도들은 미국, 중국, 일본, 네덜란드, 스페인, 오스트리아 등 7개 주요 참여국이 찬성했다고 전했다. ISO 공식 work item 페이지는 ISO/IEC AWI 25505가 ISO/IEC JTC 1/SC 6의 under development 프로젝트이며, Part 2와 Part 3도 2026년 4월 27일 신규 프로젝트로 승인·등록됐다고 표시한다.",
+      "implication": [
+        "자율행동체 충전 표준은 충전기 하드웨어보다 장비 간 상호운용성과 에너지 관리 소프트웨어의 기준을 먼저 만든다.",
+        "물류·스마트시티·제조 현장의 이동체가 늘수록 충전 순서, 전력 안정성, 다수 장비 제어가 운영 병목이 될 수 있다.",
+        "다음 체크포인트는 ISO/IEC AWI 25505 계열 work item의 CD/DIS 단계 진입 여부와 국내 기업의 시험·인증 적용 사례다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260506000108",
+        "https://m.dailian.co.kr/news/view/1641067/KETI-%EC%9E%90%EC%9C%A8%ED%96%89%EB%8F%99%EC%B2%B4-%EC%B6%A9%EC%A0%84-%ED%86%B5%EC%8B%A0-%EA%B5%AD%EC%A0%9C%ED%91%9C-2026",
+        "https://www.etoday.co.kr/news/view/2581780"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260506000108",
+          "claim": "ETNews reported KETI’s approval of three AMM charging-related NP items at ISO/IEC JTC 1 SC 6.",
+          "source_quote": "국제표준안(NP) 3건을 최종 승인",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "web_search_article_body_excerpt"
+        },
+        {
+          "source_name": "Dailian body article",
+          "source_url": "https://m.dailian.co.kr/news/view/1641067/KETI-%EC%9E%90%EC%9C%A8%ED%96%89%EB%8F%99%EC%B2%B4-%EC%B6%A9%EC%A0%84-%ED%86%B5%EC%8B%A0-%EA%B5%AD%EC%A0%9C%ED%91%9C-2026",
+          "claim": "Dailian reported 7-country support and common AMM-to-charger communication criteria.",
+          "source_quote": "7개국 찬성으로 승인",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "web_search_article_body_excerpt"
+        },
+        {
+          "source_name": "Etoday body article",
+          "source_url": "https://www.etoday.co.kr/news/view/2581780",
+          "claim": "Etoday reported that the standardization integrates different AMM-to-charger communication rules.",
+          "source_quote": "통신 규격을 통합하는 첫 사례",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "web_search_article_body_excerpt"
+        },
+        {
+          "source_name": "ISO official work item",
+          "source_url": "https://www.iso.org/standard/90572.html",
+          "claim": "ISO/IEC AWI 25505 is an approved work item for charging communication interface protocols for autonomous moving machines under ISO/IEC JTC 1/SC 6.",
+          "source_quote": "ISO/IEC AWI 25505 ... Charging communication interface protocols for autonomous moving machines ... Technical Committee: ISO/IEC JTC 1/SC 6",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-06T18:07:00+09:00",
+          "fetch_method": "source_augmentation_web_search_official_iso"
+        },
+        {
+          "source_name": "ISO official work item",
+          "source_url": "https://www.iso.org/standard/94418.html",
+          "claim": "ISO/IEC AWI 25505-2 is an approved work item for Part 2: Communication protocol, registered in the TC/SC work programme.",
+          "source_quote": "ISO/IEC AWI 25505-2 ... Part 2: Communication protocal ... 10.99 2026-04-27 New project approved ... 20.00 2026-04-27 New project registered",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T18:07:00+09:00",
+          "fetch_method": "source_augmentation_web_search_official_iso"
+        },
+        {
+          "source_name": "ISO official work item",
+          "source_url": "https://www.iso.org/standard/94419.html",
+          "claim": "ISO/IEC AWI 25505-3 is an approved work item for Part 3: Communication synchronization and operational protocols, registered in the TC/SC work programme.",
+          "source_quote": "ISO/IEC AWI 25505-3 ... Part 3: Communication synchronization and operational protocols ... 10.99 2026-04-27 New project approved ... 20.00 2026-04-27 New project registered",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T18:07:00+09:00",
+          "fetch_method": "source_augmentation_web_search_official_iso"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_local_validation",
+      "source_story_ids": [
+        "KR_2026-05-06_C13"
+      ],
+      "merge_status": "single",
+      "representative_source": "ETNews body article",
+      "baseline_relation": "new",
+      "staleness": {
+        "event_date": "2026-05-06",
+        "publication_date": "2026-05-06",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh_or_valid_follow_up"
+      }
+    },
+    {
+      "id": "2026-05-06_GL_01",
+      "region": "GL",
+      "date": "2026-05-06",
+      "cat": "Battery",
+      "sub_cat": "EV배터리 점유율",
+      "signal": "high",
+      "title": "SNE 1Q26 EV 배터리 244.6GWh — CATL 99.5GWh·LG엔솔 23.7GWh, K-3사 점유율 15.6%",
+      "sub": "2026-05-06 — SNE Research는 2026년 1~3월 글로벌 EV 배터리 사용량이 약 244.6GWh로 전년 대비 9.1% 증가했고, 한국 3사 합산 점유율은 15.6%로 2.1%p 하락했다고 밝혔다.",
+      "gate": "EV 배터리 사용량이 늘어도 한국 3사의 합산 점유율이 낮아진다면, 문제는 단순 수요 부진보다 고객·지역·화학체계 믹스에 가깝다. CATL이 99.5GWh로 1위를 유지하는 가운데 한국 셀·소재사에는 고부가 제품, ESS, 비중국 시장 고객 다변화의 중요성이 커질 수 있다.",
+      "fact": "SNE Research 공식 press release에 따르면 2026년 1~3월 세계 각국에 등록된 EV, PHEV, HEV 탑재 배터리 사용량은 약 244.6GWh로 전년 대비 9.1% 증가했다. 같은 발표는 LG에너지솔루션, SK On, 삼성SDI의 합산 시장점유율이 15.6%로 전년 대비 2.1%p 하락했다고 밝혔다. 회사별로 LG에너지솔루션은 23.7GWh로 전년 대비 6.6% 증가했고, SK On은 9.0GWh로 10.4% 감소, 삼성SDI는 5.3GWh로 27.7% 감소했다. CATL은 99.5GWh로 1위를 유지했다.",
+      "implication": [
+        "시장 전체 성장과 한국 3사 점유율 하락이 동시에 나타난 것은 지역별 EV 수요와 고객 포트폴리오 차이가 커졌다는 신호다.",
+        "1위 사업자와 한국 3사의 출하 규모 격차가 유지되면 셀·소재 공급망에도 가격, 인증, 고객 다변화 압력이 전이될 수 있다.",
+        "다음 체크포인트는 비중국 시장 점유율, ESS향 셀 출하, 북미 EV 판매 회복 여부다."
+      ],
+      "urls": [
+        "https://www.sneresearch.com/en/insight/release/132?s_cat=%7C&s_keyword=",
+        "https://www.etnews.com/20260506000254",
+        "https://www.sneresearch.com/en/insight/release_view/644/page/0",
+        "https://cnevpost.com/2026/05/06/global-ev-battery-market-share-jan-mar-2026/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "SNE Research official press release",
+          "source_url": "https://www.sneresearch.com/en/insight/release_view/644/page/0",
+          "claim": "SNE Research reported global Jan-Mar 2026 EV battery usage of approximately 244.6GWh.",
+          "source_quote": "approximately 244.6GWh",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:31:52+09:00",
+          "fetch_method": "source_augmentation_web_search_official_indexed_content"
+        },
+        {
+          "source_name": "SNE Research official press release",
+          "source_url": "https://www.sneresearch.com/en/insight/release_view/644/page/0",
+          "claim": "SNE Research reported 9.1% YoY growth in Jan-Mar 2026 global EV battery usage.",
+          "source_quote": "a 9.1% YoY growth",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:31:52+09:00",
+          "fetch_method": "source_augmentation_web_search_official_indexed_content"
+        },
+        {
+          "source_name": "SNE Research official press release",
+          "source_url": "https://www.sneresearch.com/en/insight/release_view/644/page/0",
+          "claim": "SNE Research reported the K-trio market share at 15.6%, down 2.1 percentage points YoY.",
+          "source_quote": "K-trio’s M/S recorded 15.6%, a 2.1%p YoY decline",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:31:52+09:00",
+          "fetch_method": "source_augmentation_web_search_official_indexed_content"
+        },
+        {
+          "source_name": "SNE Research official press release",
+          "source_url": "https://www.sneresearch.com/en/insight/release_view/644/page/0",
+          "claim": "SNE Research reported LG Energy Solution grew 6.6% YoY to 23.7GWh.",
+          "source_quote": "LG Energy Solution grew by 6.6% (23.7 GWh)",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:31:52+09:00",
+          "fetch_method": "source_augmentation_web_search_official_indexed_content"
+        },
+        {
+          "source_name": "SNE Research official press release",
+          "source_url": "https://www.sneresearch.com/en/insight/release_view/644/page/0",
+          "claim": "SNE Research reported SK On decreased 10.4% YoY to 9.0GWh and Samsung SDI decreased 27.7% YoY to 5.3GWh.",
+          "source_quote": "SK On and Samsung SDI saw decreases of 10.4% (9.0 GWh) and 27.7% (5.3 GWh), respectively",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:31:52+09:00",
+          "fetch_method": "source_augmentation_web_search_official_indexed_content"
+        },
+        {
+          "source_name": "CnEVPost using SNE Research data",
+          "source_url": "https://cnevpost.com/2026/05/06/global-ev-battery-market-share-jan-mar-2026/",
+          "claim": "A body/table source using SNE Research data reported CATL at 99.5GWh and LG Energy Solution at 23.7GWh for Jan-Mar 2026.",
+          "source_quote": "CATL | 40.7% | 99.5; LG Energy Solution | 9.7% | 23.7",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:31:52+09:00",
+          "fetch_method": "source_augmentation_web_search_body_result"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_local_validation",
+      "source_story_ids": [
+        "KR_2026-05-06_C75"
+      ],
+      "merge_status": "single",
+      "representative_source": "SNE Research official press release",
+      "baseline_relation": "new",
+      "staleness": {
+        "event_date": "2026-05-06",
+        "publication_date": "2026-05-06",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh_or_valid_follow_up"
+      }
+    },
+    {
+      "id": "2026-05-06_GL_02",
+      "region": "GL",
+      "date": "2026-05-06",
+      "cat": "EV",
+      "sub_cat": "혼다 EV 재검토",
+      "signal": "high",
+      "title": "Nikkei 보도: 혼다, 캐나다 EV 밸류체인 중단 협의 — 온타리오 150억 CAD 프로젝트 변수",
+      "sub": "2026-05-06 — ZDNet Korea는 Nikkei를 인용해 혼다가 온타리오 EV·배터리·양극재 공장 설립 중단과 캐나다 정부 협의에 착수했다고 보도했다.",
+      "gate": "Nikkei를 인용한 공개 보도 기준으로, 혼다의 온타리오 EV 밸류체인 프로젝트에는 투자 일정과 범위 재검토 가능성이 생겼다. 원 프로젝트 규모는 2024년 혼다 공식자료로, 전략 재평가 맥락은 2026년 혼다 공식자료로 분리해 봐야 한다.",
+      "fact": "ZDNet Korea는 2026년 5월 6일 Nikkei 보도를 인용해 혼다가 캐나다 온타리오주에 설립할 예정이던 전기차, 배터리, 양극재 공장 설립을 중단하고 캐나다 정부와 관련 논의에 착수했다고 전했다. 혼다는 2024년 4월 온타리오에 약 150억 캐나다달러를 투자해 EV 완성차 공장, 36GWh 배터리 공장, POSCO Future M 양극재·전구체 및 Asahi Kasei 분리막 협력까지 포함하는 EV 밸류체인을 구축하겠다고 발표한 바 있다. 혼다는 2026년 3월 전동화 전략 재평가 발표에서 미국 EV 시장 성장 둔화와 자원 배분 재검토, 하이브리드 강화 방향을 설명했다.",
+      "implication": [
+        "보도 내용이 공식 확인될 경우 북미 배터리 소재 현지화 프로젝트의 일정과 투자 우선순위가 재검토될 수 있다.",
+        "핵심 중단·협의 이벤트는 Nikkei를 인용한 공개 2차 보도이므로, 후속 확인 전에는 귀속형 표현을 유지하는 것이 안전하다.",
+        "다음 체크포인트는 혼다·캐나다 정부의 공식 확인, POSCO Future M·Asahi Kasei 관련 후속 공시, 프로젝트 범위 변경 여부다."
+      ],
+      "urls": [
+        "https://zdnet.co.kr/view?no=20260506105805",
+        "https://global.honda/en/newsroom/news/2024/c240425deng.html",
+        "https://global.honda/en/newsroom/news/2026/c260312eng.html"
+      ],
+      "related": [
+        "2026-04-25_JP_02"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "ZDNet Korea body article / Nikkei attribution",
+          "source_url": "https://zdnet.co.kr/view?no=20260506105805",
+          "claim": "ZDNet Korea, citing Nikkei, reported that Honda would stop the planned Ontario EV, battery and cathode facilities and begin related discussions with the Canadian government.",
+          "source_quote": "일본 매체 닛케이에 따르면 6일 혼다는 캐나다 온타리오주에 설립할 예정이던 전기차와 배터리, 양극재 공장 설립을 중단하고, 캐나다 정부와 관련 논의에 착수했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_input_article_hydrated_body_after_user_authorized_source_augmentation"
+        },
+        {
+          "source_name": "Honda official 2024 Ontario EV value-chain release",
+          "source_url": "https://global.honda/en/newsroom/news/2024/c240425deng.html",
+          "claim": "Honda announced the Ontario EV value-chain project scale in 2024.",
+          "source_quote": "approximate investment of CAD$15 billion",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        },
+        {
+          "source_name": "Honda official 2024 Ontario EV value-chain release",
+          "source_url": "https://global.honda/en/newsroom/news/2024/c240425deng.html",
+          "claim": "Honda stated planned EV and battery capacities for Ontario.",
+          "source_quote": "the EV plant will have a production capacity of 240,000 EVs per year and the EV battery plant will have a capacity of 36 GWh per year",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        },
+        {
+          "source_name": "Honda official 2026 electrification reassessment release",
+          "source_url": "https://global.honda/en/newsroom/news/2026/c260312eng.html",
+          "claim": "Honda cited US EV market slowdown and resource allocation reassessment.",
+          "source_quote": "Honda will reassess its resource allocations and further strengthen its hybrid models",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_local_validation",
+      "source_story_ids": [
+        "KR_2026-05-06_C95"
+      ],
+      "merge_status": "single",
+      "representative_source": "ZDNet Korea body article / Nikkei attribution",
+      "baseline_relation": "follow_up",
+      "staleness": {
+        "event_date": "2026-05-06",
+        "publication_date": "2026-05-06",
+        "staleness_gap_days": 0,
+        "fresh_followup": true,
+        "staleness_override": false,
+        "decision": "fresh_or_valid_follow_up"
+      }
+    },
+    {
+      "id": "2026-05-04_GL_01",
+      "region": "GL",
+      "date": "2026-05-04",
+      "cat": "Materials",
+      "sub_cat": "황산코발트 정제",
+      "signal": "high",
+      "title": "일렉트라, 캐나다 2,000만 CAD 확정계약 — 북미 배터리급 황산코발트 정제소 시운전 지원",
+      "sub": "2026-05-04 — Electra는 캐나다 정부와 Strategic Response Fund 기반의 2,000만 캐나다달러 투자계약을 체결하고, 테미스카밍 쇼어스 황산코발트 정제소 전환·확장을 추진한다.",
+      "gate": "황산코발트 정제는 배터리 광물 공급망에서 채굴 이후의 핵심 병목이다. 캐나다 정부의 확정 투자계약은 북미 내 배터리급 황산코발트 정제 역량을 정책금융으로 뒷받침하는 실행 신호다.",
+      "fact": "Electra는 2026년 5월 4일 캐나다 정부와 Strategic Response Fund 기반의 2,000만 캐나다달러 투자계약을 체결했다고 밝혔다. 캐나다 정부 발표는 해당 투자가 Electra의 9,940만 캐나다달러 규모 테미스카밍 쇼어스 정제소 전환·확장 프로젝트를 지원한다고 설명했다. 이 시설은 북미의 배터리급 황산코발트 정제 역량 확보를 목표로 하며, 캐나다 정부는 완전 가동 시 연간 전기차 최대 100만대분 황산코발트 공급 가능성을 제시했다.",
+      "implication": [
+        "북미 내 황산코발트 정제능력 확보는 배터리 소재 공급망의 해외 정제 의존도와 정제 병목을 낮추는 방향으로 해석된다.",
+        "공공자금이 붙은 정제 프로젝트는 광물 확보 이후의 정제·가공 내재화가 공급망 전략의 중심축임을 보여준다.",
+        "다음 체크포인트는 2027년 시운전 목표, 실제 생산능력 인증, 배터리 고객사와의 공급계약 업데이트다."
+      ],
+      "urls": [
+        "https://www.electrabmc.com/news-releases/news/electra-signs-definitive-20-million-investment-agreement-with-government-of-canada-to-advance-strategic-refinery",
+        "https://www.canada.ca/en/innovation-science-economic-development/news/2026/05/government-of-canada-announces-major-investment-with-electra-battery-materials-to-expand-its-refinery-in-temiskaming-shores-ontario.html",
+        "https://www.theguru.co.kr/news/article.html?no=101376"
+      ],
+      "related": [
+        "2026-05-01_US_04"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "Electra Battery Materials official release",
+          "source_url": "https://www.electrabmc.com/news-releases/news/electra-signs-definitive-20-million-investment-agreement-with-government-of-canada-to-advance-strategic-refinery",
+          "claim": "Electra executed a binding SRF investment agreement with the Government of Canada.",
+          "source_quote": "executed a binding investment agreement",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        },
+        {
+          "source_name": "Electra Battery Materials official release",
+          "source_url": "https://www.electrabmc.com/news-releases/news/electra-signs-definitive-20-million-investment-agreement-with-government-of-canada-to-advance-strategic-refinery",
+          "claim": "The federal funding amount is CAD 20 million.",
+          "source_quote": "total federal funding of $20 million",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        },
+        {
+          "source_name": "Innovation, Science and Economic Development Canada",
+          "source_url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/05/government-of-canada-announces-major-investment-with-electra-battery-materials-to-expand-its-refinery-in-temiskaming-shores-ontario.html",
+          "claim": "Canada linked the investment to Electra’s CAD 99.4 million refinery project.",
+          "source_quote": "$99.4 million project",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        },
+        {
+          "source_name": "Innovation, Science and Economic Development Canada",
+          "source_url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/05/government-of-canada-announces-major-investment-with-electra-battery-materials-to-expand-its-refinery-in-temiskaming-shores-ontario.html",
+          "claim": "Canada describes the facility as cobalt sulfate supply equivalent to up to one million EVs annually.",
+          "source_quote": "up to one million electric vehicles annually",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        },
+        {
+          "source_name": "Innovation, Science and Economic Development Canada",
+          "source_url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/05/government-of-canada-announces-major-investment-with-electra-battery-materials-to-expand-its-refinery-in-temiskaming-shores-ontario.html",
+          "claim": "Electra’s CEO linked government support to the stated target of commissioning in 2027.",
+          "source_quote": "toward our stated target of commissioning in 2027",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "implication"
+          ],
+          "fetched_at": "2026-05-06T17:52:00+09:00",
+          "fetch_method": "existing_cited_source_quote_mapping_cleanup"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_local_validation",
+      "source_story_ids": [
+        "KR_2026-05-06_C73"
+      ],
+      "merge_status": "single",
+      "representative_source": "Electra Battery Materials official release",
+      "baseline_relation": "follow_up",
+      "staleness": {
+        "event_date": "2026-05-04",
+        "publication_date": "2026-05-04",
+        "staleness_gap_days": 0,
+        "fresh_followup": true,
+        "staleness_override": false,
+        "decision": "fresh_or_valid_follow_up"
+      }
+    },
     {
       "id": "2026-05-03_KR_01",
       "region": "KR",
@@ -9756,6 +10217,103 @@
         "decision": "accepted",
         "reason": "r4 fallback evidence resolved with accessible official/credible source quote; visible fields reader-facing",
         "qc_passed": true
+      }
+    },
+    {
+      "id": "2026-04-28_GL_05",
+      "region": "GL",
+      "date": "2026-04-28",
+      "cat": "SupplyChain",
+      "sub_cat": "핵심광물 규제",
+      "signal": "high",
+      "title": "OECD 2026 핵심원자재 수출제한 — 한국 CRM 수입 노출 21.8%, 세계 평균 16% 상회",
+      "sub": "2026-04-28 — OECD는 2022~2024년 기준 한국 핵심원자재 수입 중 최소 하나의 수출제한에 노출된 비중이 21.8%라고 제시했다.",
+      "gate": "핵심원자재 리스크는 광물 매장량뿐 아니라 수출세, 허가, 금지 등 정책 장벽에서도 발생한다. 한국의 노출률이 세계 평균을 웃돈다는 점은 배터리·소재사의 조달 안정성, 재고정책, 장기계약 구조를 함께 점검해야 한다는 신호다.",
+      "fact": "OECD는 2026년 4월 28일 「OECD Inventory of Export Restrictions on Critical Raw Materials 2026」을 발간했다. 보고서는 핵심원자재 수출제한이 2009년 이후 5배 증가했고, 2022~2024년 기준 CRM 수입 중 최소 하나의 수출제한에 노출된 비중이 세계 평균 16%라고 밝혔다. 같은 항목에서 한국은 21.8%로 제시됐다. OECD는 코발트·망간은 글로벌 수출의 약 70%, 흑연은 47%, 희토류는 45%가 수출제한에 노출됐다고 설명했다.",
+      "implication": [
+        "한국 배터리·소재 밸류체인은 가격뿐 아니라 수출허가·금지·세금 등 정책 리스크를 원료 계약에 반영해야 한다.",
+        "코발트·망간·흑연·희토류 노출이 높다는 점은 양극재, 음극재, 전장부품 조달 리스크와 직접 연결된다.",
+        "다음 체크포인트는 한국 기업별 광종 노출, 장기 오프테이크의 원산지 조항, 재활용 원료 대체 가능성이다."
+      ],
+      "urls": [
+        "https://www.oecd.org/en/publications/oecd-inventory-of-export-restrictions-on-critical-raw-materials-2026_d5ca8f62-en/full-report.html",
+        "https://www.oecd.org/en/about/news/press-releases/2026/04/critical-raw-materials-face-rising-export-restrictions-increasing-risks-to-global-supply-chains.html",
+        "https://www.sedaily.com/article/20040713"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "OECD full report",
+          "source_url": "https://www.oecd.org/en/publications/oecd-inventory-of-export-restrictions-on-critical-raw-materials-2026_d5ca8f62-en/full-report.html",
+          "claim": "OECD reports that CRM export restrictions have increased fivefold since 2009.",
+          "source_quote": "Export restrictions on critical raw materials have increased fivefold since 2009.",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        },
+        {
+          "source_name": "OECD full report",
+          "source_url": "https://www.oecd.org/en/publications/oecd-inventory-of-export-restrictions-on-critical-raw-materials-2026_d5ca8f62-en/full-report.html",
+          "claim": "OECD reports global CRM import exposure of 16% for 2022-2024 and Korea exposure of 21.8%.",
+          "source_quote": "The share of CRM imports facing at least one restriction increased globally from 12.4% in the 2009‑2011 period to 16% in the 2022‑2024 period ... Korea (21.8%).",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        },
+        {
+          "source_name": "OECD full report",
+          "source_url": "https://www.oecd.org/en/publications/oecd-inventory-of-export-restrictions-on-critical-raw-materials-2026_d5ca8f62-en/full-report.html",
+          "claim": "OECD reports high exposure levels for cobalt, manganese, graphite and rare earth elements.",
+          "source_quote": "around 70% of global exports of cobalt and manganese ... graphite (47%), rare-earth elements (45%)",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        },
+        {
+          "source_name": "OECD press release",
+          "source_url": "https://www.oecd.org/en/about/news/press-releases/2026/04/critical-raw-materials-face-rising-export-restrictions-increasing-risks-to-global-supply-chains.html",
+          "claim": "OECD press release confirms roughly 70% cobalt and manganese export exposure and 16% CRM trade exposure.",
+          "source_quote": "Roughly 70% of global exports of cobalt and manganese were subject to at least one export restriction between 2022 and 2024. 16% of trade in critical raw materials monitored by the OECD faced at least one export restriction",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-06T17:13:48+09:00",
+          "fetch_method": "source_augmentation_web_open_or_search"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_local_validation",
+      "source_story_ids": [
+        "KR_2026-05-06_C18"
+      ],
+      "merge_status": "single",
+      "representative_source": "OECD full report",
+      "baseline_relation": "new",
+      "staleness": {
+        "event_date": "2026-04-28",
+        "publication_date": "2026-04-28",
+        "staleness_gap_days": 0,
+        "fresh_followup": null,
+        "staleness_override": false,
+        "decision": "fresh_or_valid_follow_up"
       }
     },
     {
@@ -25271,5 +25829,49 @@
     "source_payload": "merge_ready_accepted_cards_20260503_201151_18_v2.json",
     "rules": "strengthened user conditions applied",
     "qc_report": "content_depth_enrichment_qc_report_20260503_201151_18_v3.json"
+  },
+  "merge_qc_20260506_150633": {
+    "run_tag": "20260506_150633",
+    "generated_at_kst": "2026-05-06T18:41:44+09:00",
+    "baseline_file": "cards (16).json",
+    "publish_ready_file": "publish_ready_payload_PENDING_GITHUB_SYNC_20260506_150633_uploaded_cards_baseline_corrected_v2_schema_repair_metadata_repaired.json",
+    "baseline_count": 631,
+    "publish_ready_input_count": 5,
+    "addable_new_count": 5,
+    "merged_total": 636,
+    "assigned_ids": {
+      "SA-20260506-001": "2026-05-04_GL_01",
+      "SA-20260506-003": "2026-04-28_GL_05",
+      "SA-20260506-004": "2026-05-06_GL_02",
+      "SA-20260506-005": "2026-05-06_GL_01",
+      "SA-20260506-006": "2026-05-06_KR_01"
+    },
+    "duplicate_ids_in_merge": [],
+    "new_required_field_missing": [],
+    "new_vs_baseline_exact_url_duplicates": [],
+    "new_vs_baseline_title_prefix_duplicates": [],
+    "pipeline_status_keys_removed_from_new_cards": true,
+    "fact_source_schema_repair_notes_removed": true,
+    "github_main_sync_note": "Merged against uploaded local cards baseline, not live GitHub main fetch.",
+    "github_ready": false,
+    "pr_candidate_ready": false
+  },
+  "merge_ready_summary": {
+    "baseline_count_before_merge": 631,
+    "addable_count": 5,
+    "merged_total_after_merge": 636,
+    "full_replacement_file": true,
+    "replace_target": "public/data/cards.json",
+    "github_ready": false,
+    "github_ready_reason": "Merged against uploaded local baseline, not live GitHub main fetch."
+  },
+  "merge_qc_20260506_150633_v2": {
+    "status": "PASS_LOCAL_BASELINE_ONLY",
+    "baseline_count": 631,
+    "added_count": 5,
+    "merged_total": 636,
+    "duplicate_id_count": 0,
+    "duplicate_ids": [],
+    "new_card_required_field_gaps": []
   }
 }

@@ -1,16 +1,458 @@
 {
-  "updated": "2026-05-06",
-  "total": 636,
+  "updated": "2026-05-07",
+  "total": 662,
   "schema": "full",
-  "baseline_count": 631,
-  "new_count": 5,
-  "run_tag": "20260506_150633",
-  "merge_status": "local_source_validation_publish_ready_5_merged_with_uploaded_cards_baseline",
-  "sort": "latest-first; date desc; existing same-date order preserved; new cards assigned IDs by CARD_ID_STANDARD",
-  "source_baseline_file": "cards (16).json",
-  "source_accepted_file": "publish_ready_payload_PENDING_GITHUB_SYNC_20260506_150633_uploaded_cards_baseline_corrected_v2_schema_repair_metadata_repaired.json",
+  "baseline_count": 636,
+  "new_count": 26,
+  "run_tag": "20260507_083518_combined_26",
+  "merge_status": "local_validation_publish_ready_16_plus_rescue_10_merged_with_uploaded_github_main_equivalent_baseline",
+  "sort": "latest-first; date desc; existing same-date order preserved; new cards inserted after existing same-date baseline order; new cards assigned IDs by CARD_ID_STANDARD",
+  "source_baseline_file": "cards (5).json",
+  "source_accepted_file": "publish_ready_payload_PENDING_GITHUB_SYNC_20260507_083518_local_v3.json",
   "stage_c_qc_file": "stage_c_output_20260503_201151_r2.json",
   "cards": [
+    {
+      "id": "2026-05-07_KR_01",
+      "region": "KR",
+      "date": "2026-05-07",
+      "cat": "Materials",
+      "sub_cat": "니켈가격",
+      "signal": "high",
+      "title": "니켈 t당 1만9,295달러 — LFP 57% 확산 속 고니켈 양극재 원가 변수 부각",
+      "sub": "2026-05-07 — 파이낸셜뉴스는 한국자원정보서비스와 SNE Research 데이터를 근거로 니켈·MHP 가격 상승과 LFP 비중 확대를 함께 보도했다.",
+      "gate": "이 사안은 단순 원자재 가격 상승보다 고니켈 NCM 중심 포트폴리오의 원가 민감도가 커지는지에 대한 점검 이슈다. LFP 비중 확대와 니켈 중간재 가격 상승이 함께 나타나면 고니켈 양극재의 가격 경쟁력 논쟁이 다시 커질 수 있다.",
+      "fact": "파이낸셜뉴스는 2026년 5월 7일 한국자원정보서비스를 인용해 니켈 가격이 전날 t당 1만9,295달러로 2024년 6월 초 이후 가장 높은 수준을 기록했다고 보도했다. 같은 보도는 전기차 배터리용 니켈 중간재인 MHP 가격도 올해 들어 17% 이상 상승했다고 전했다. 또한 SNE Research 데이터를 인용해 2026년 1~2월 전 세계 전기차 양극재 적재량 29만7,000t 중 LFP가 17만t으로 약 57%를 차지했다고 설명했다.",
+      "implication": [
+        "고니켈 양극재는 에너지밀도 장점이 있지만 니켈·MHP 가격 변동에 노출되는 구조다.",
+        "LFP 확산과 니켈 가격 상승이 동시에 나타나면 완성차·셀 업체의 화학체계 믹스 조정 압력이 커질 수 있다.",
+        "다음 체크포인트는 KOMIS 니켈 가격 추이, MHP·황산 가격, SNE의 월별 양극재 적재량 데이터다."
+      ],
+      "urls": [
+        "https://www.fnnews.com/news/202605041242309430"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "파이낸셜뉴스 body article",
+          "source_url": "https://www.fnnews.com/news/202605041242309430",
+          "claim": "Financial News reported nickel at $19,295/t, the highest since early June 2024, citing KOMIS.",
+          "source_quote": "7일 한국광해공업공단 한국자원정보서비스에 따르면 니켈 가격은 전날 t당 1만9295달러로 2024년 6월 초 이후 가장 높은 수준을 기록했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "파이낸셜뉴스 body article",
+          "source_url": "https://www.fnnews.com/news/202605041242309430",
+          "claim": "The article reported MHP rose more than 17% this year.",
+          "source_quote": "전기차 배터리에 사용되는 니켈 중간재인 혼합수산화침전물(MHP) 가격도 올해 들어 17% 이상 상승했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "파이낸셜뉴스 body article",
+          "source_url": "https://www.fnnews.com/news/202605041242309430",
+          "claim": "The article reported SNE data showing Jan-Feb cathode loading and LFP share.",
+          "source_quote": "SNE리서치에 따르면 올해 1~2월 전 세계 전기차 양극재 적재량은 29만7000t으로, 삼원계(NCM)는 12만7000t(전년 대비 2.2%)에 그친 반면 LFP는 17만t(7.3%)으로 격차를 벌렸다. LFP 비중은 약 57%로 과반을 차지하고 있다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "KR_2026-05-07_C38"
+      ],
+      "source_spec_id": "SA-20260507_083518-010",
+      "merge_status": "single",
+      "representative_source": "파이낸셜뉴스 body article",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "fastmarketsnickelmarketnickelpriceandlfppenetrationcontextglobalmaterialsmarketkoreasourcecontextmarketdatarelease20260507nickel19295tandlfp57sharecitedinsource",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "draft_id": "DRAFT-B-RESCUE-001",
+      "source_spec_id": "RPTR-20260507_083518-001",
+      "source_story_ids": [
+        "TF_0117"
+      ],
+      "region": "GL",
+      "date": "2026-05-07",
+      "cat": "PowerGrid",
+      "sub_cat": "초고압 케이블",
+      "signal": "high",
+      "title": "LS에코에너지 400kV 초고압 케이블 PQ 착수 — LS-VINA, 2027년 하반기 양산 목표",
+      "sub": "2026-05-07 — 전기신문은 LS에코에너지 베트남 법인 LS-VINA가 400kV급 초고압 케이블 국제 인증과 PQ에 착수했다고 전했다.",
+      "gate": "초고압 케이블은 데이터센터, 재생에너지, 송전망 보강 프로젝트의 선행 병목이다. LS-VINA의 400kV PQ 착수는 한국 전력기자재 밸류체인이 베트남 생산거점을 통해 고전압 송전망 시장으로 확장하려는 실행 신호다.",
+      "fact": "전기신문에 따르면 LS에코에너지의 베트남 생산법인 LS-VINA는 400kV급 초고압 케이블 국제 인증과 PQ에 착수했다. 보도는 약 1년간 제품 성능 검증과 장기 운전 신뢰성 평가를 거쳐 2027년 하반기 양산에 들어갈 계획이라고 전했다. LS-VINA는 현재 230kV급까지 공급해 왔고, 이번 PQ는 글로벌 대형 송전망 프로젝트 수주를 위한 필수 요건으로 설명됐다.",
+      "implication": [
+        "전력망 투자 확대 국면에서는 초고압 케이블의 인증·PQ 통과 여부가 수주 가능성을 가르는 선행 지표가 된다.",
+        "베트남 생산거점 활용은 한국 계열 전력기자재 업체가 해외 제조 기반으로 송전망 공급망을 확장하는 사례다.",
+        "다음 체크포인트는 PQ 완료 시점, 400kV 양산 개시 여부, 미국·유럽 송전망 프로젝트 수주다."
+      ],
+      "urls": [
+        "https://www.electimes.com/news/articleView.html?idxno=367729"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367729",
+          "claim": "LS-VINA began international certification and PQ for 400kV extra-high-voltage cable.",
+          "source_quote": "LS-VINA가 400kV급 초고압 케이블 국제 인증 및 PQ(Prequalification)에 착수한다고 7일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367729",
+          "claim": "The company plans about one year of testing and aims for mass production in 2H 2027.",
+          "source_quote": "약 1년간 제품 성능 검증과 장기 운전 신뢰성 평가를 거쳐 내년 하반기 양산에 돌입할 계획이다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367729",
+          "claim": "PQ is described as a core precondition for large transmission-grid projects.",
+          "source_quote": "글로벌 대형 송전망 프로젝트 수주를 위한 필수 요건으로 꼽힌다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        }
+      ],
+      "source_availability": "current_source_body_or_rich_text_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_or_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported_pending_stage_c",
+      "single_source_reason": "Single current source body/rich-text package supports the core event; additional official/source-ladder augmentation may still improve Stage C or Evidence QC where noted.",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Region corrected from rescue audit KR to GL because direct production asset is LS-VINA in Vietnam and the target market is global/US, not a Korea-only event.",
+        "Stage B rescue draft only; not accepted_fact_safe, evidence_complete, source_claim_covered, publish_ready, merge-ready, or GitHub-ready."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "lineage_metadata_preserved": true,
+      "event_fingerprint_search_profile": {
+        "actor": "LS Eco Energy / LS-VINA",
+        "asset_or_policy": "400kV extra-high-voltage cable PQ",
+        "location": "Vietnam",
+        "event_type": "qualification_start",
+        "event_date": "2026-05-07"
+      },
+      "source_discovery_strategy": "rescue_candidate_strict_spec bounded recheck; exact URL + event duplicate reference against cards (5) and locked 16-card payload; current source input body/rich text used for quote candidates.",
+      "source_discovery_status": "source_input_body_or_rich_text_supported",
+      "source_discovery_ledger_refs": [
+        "RPTR-20260507_083518-001"
+      ],
+      "stage_c_rescue_validation": {
+        "validated_at": "2026-05-07T17:35:00+09:00",
+        "duplicate_check": {
+          "cards_5_baseline_exact_url_hits": [],
+          "locked_16_reference_exact_url_hits": [],
+          "event_duplicate_detected": false
+        },
+        "fact_source_schema_issues": [],
+        "source_direction_check": "pass",
+        "publish_ready": false,
+        "github_ready": false,
+        "merge_ready": false,
+        "decision": "accepted_fact_safe",
+        "source_strength_caveat": [
+          "single_source_body_level_evidence_adequate_for_stage_c_but_optional_official_corroboration_would_strengthen_0_5"
+        ]
+      },
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "rescue_baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (5).json",
+        "baseline_total": 636,
+        "do_not_duplicate_reference": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+        "checked_against_locked_16_reference": true,
+        "exact_url_collision_baseline_ids": [],
+        "exact_url_collision_locked_16_ref_ids": [],
+        "duplicate_urls_within_card": 0,
+        "checked_at": "2026-05-07T00:00:00Z",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "rescue_content_polish": {
+        "stage": "Prompt0.6RescueContentPolish",
+        "run_tag": "20260507_083518",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_applied": false,
+        "polished_at": "2026-05-07T17:35:00+09:00"
+      },
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS"
+      },
+      "url_dedupe_cleanup_applied": false,
+      "url_dedupe_cleanup_log": [],
+      "hard_fail_count": 0,
+      "final_qc_notes": "PASS after exact duplicate URL cleanup only; no visible fields/fact_sources/source_quote changes.",
+      "id": "2026-05-07_GL_01",
+      "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
+      "merge_status": "single",
+      "baseline_relation": "new"
+    },
+    {
+      "draft_id": "DRAFT-B-RESCUE-004-R1",
+      "source_spec_id": "RPTR-20260507_083518-004",
+      "source_story_ids": [
+        "KR_2026-05-07_C09",
+        "KR_2026-05-07_C05"
+      ],
+      "region": "KR",
+      "date": "2026-05-07",
+      "cat": "Battery",
+      "sub_cat": "고분자 고체전해질",
+      "signal": "mid",
+      "title": "DGIST 저온·난연성 고체전해질 개발 — 영하 20℃ 이하 이온전도 유지 보도",
+      "sub": "2026-05-07 — 전자신문은 DGIST·성균관대·경북대 공동연구팀이 저온 작동성과 난연성을 겨냥한 리튬금속전지용 고체전해질을 개발했다고 전했다.",
+      "gate": "이 건은 상업화가 아니라 배터리 안전성과 저온 성능을 겨냥한 전해질 연구 성과다. 현재 인용 근거로 확인되는 핵심은 PEGDME 기반 고분자 네트워크와 불소계 에터 결합, 영하 20℃ 이하 이온전도 유지, 화재 위험 저감 방향이다.",
+      "fact": "전자신문에 따르면 DGIST 김재현 책임연구원 연구팀은 성균관대, 경북대 연구진과 함께 리튬금속전지용 고분자 고체전해질 기술을 개발했다. 연구팀은 PEGDME 기반 고분자 네트워크에 불소계 에터를 결합했고, 개발 전해질은 영하 20℃ 이하에서도 동결 없이 높은 이온 전도도를 유지한 것으로 소개됐다. 보도는 이번 연구 결과가 국제학술지 Energy Storage Materials에 게재됐다고 전했다.",
+      "implication": [
+        "리튬금속전지의 덴드라이트와 화재 위험을 줄이려면 전해질의 계면 안정성과 난연성이 함께 검증돼야 한다.",
+        "저온 이온전도와 난연성 개선은 전고체·리튬금속전지 연구에서 안전성과 사용 환경을 넓히는 후보 변수다.",
+        "다음 체크포인트는 논문 원문 수치, 셀 조건, 장기 사이클 테스트 범위다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260507000018",
+        "https://www.asiae.co.kr/article/2026050709200194208"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260507000018",
+          "claim": "DGIST and university researchers developed a lithium-metal battery solid electrolyte technology.",
+          "source_quote": "저온에서도 안정적으로 작동하고, 화재 위험을 낮춘 리튬 금속 전지용 고체 전해질 기술을 개발했다고 7일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260507000018",
+          "claim": "The team used a PEGDME-based polymer network combined with fluorinated ether.",
+          "source_quote": "PEGDME 기반 고분자 네트워크에 불소계 에터(FE)를 결합한 새로운 고체 전해질을 개발했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260507000018",
+          "claim": "The electrolyte maintained high ionic conductivity below -20°C and the paper was published in Energy Storage Materials.",
+          "source_quote": "영하 20℃ 이하에서도 동결 없이 높은 이온 전도도를 유지했으며",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260507000018",
+          "claim": "The research result was published in Energy Storage Materials.",
+          "source_quote": "국제학술지 '에너지 스토리지 머티리얼즈(Energy Storage Materials)'에 게재됐다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        }
+      ],
+      "source_availability": "current_source_body_or_rich_text_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_or_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported_pending_stage_c",
+      "single_source_reason": "Single current source body/rich-text package supports the core event; additional official/source-ladder augmentation may still improve Stage C or Evidence QC where noted.",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Potential same-event support story KR_2026-05-07_C05 was not promoted; this draft uses only KR_2026-05-07_C09. Stage C should check if paper/source quote is required.",
+        "Stage B rescue draft only; not accepted_fact_safe, evidence_complete, source_claim_covered, publish_ready, merge-ready, or GitHub-ready."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "lineage_metadata_preserved": true,
+      "event_fingerprint_search_profile": {
+        "actor": "DGIST / Sungkyunkwan / Kyungpook National University",
+        "asset_or_policy": "low-temperature flame-retardant polymer solid electrolyte",
+        "location": "Korea",
+        "event_type": "research_publication",
+        "event_date": "2026-05-07"
+      },
+      "source_discovery_strategy": "rescue_candidate_strict_spec bounded recheck; exact URL + event duplicate reference against cards (5) and locked 16-card payload; current source input body/rich text used for quote candidates.",
+      "source_discovery_status": "source_input_body_or_rich_text_supported",
+      "source_discovery_ledger_refs": [
+        "RPTR-20260507_083518-004"
+      ],
+      "previous_draft_id": "DRAFT-B-RESCUE-004",
+      "revised_draft_id": "DRAFT-B-RESCUE-004-R1",
+      "revision_pass": "stage_b_rescue_revise_r1",
+      "revision_metadata": {
+        "revised_at": "2026-05-07T17:06:01+09:00",
+        "source_augmentation_authorized": false,
+        "source_augmentation_performed": false,
+        "changed_fields": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "unchanged_fields": [
+          "fact_sources",
+          "source_quote",
+          "urls",
+          "source_story_ids",
+          "event_anchor/source_spec_id"
+        ],
+        "prior_stage_c_reason_code": "visible_claim_coverage_gap",
+        "prior_stage_c_issue": "Title uses “고전압 안정성” and implication mentions “in-situ 공정 호환성,” but current mapped quotes only support low-temperature operation, flame-risk reduction, PEGDME/FE formulation, -20℃, and journal publication.",
+        "fix_strategy": "visible_claim_narrowing_only_existing_evidence",
+        "change_summary": [
+          "removed unsupported high-voltage stability from title/gate",
+          "removed unsupported in-situ process compatibility from implication",
+          "kept only currently mapped low-temperature/flame-risk/journal claims"
+        ],
+        "prior_stage_c_rescue_validation": {
+          "validated_at": "2026-05-07T17:35:00+09:00",
+          "duplicate_check": {
+            "cards_5_baseline_exact_url_hits": [],
+            "locked_16_reference_exact_url_hits": [],
+            "event_duplicate_detected": false
+          },
+          "fact_source_schema_issues": [],
+          "source_direction_check": "pass",
+          "publish_ready": false,
+          "github_ready": false,
+          "merge_ready": false,
+          "decision": "revise_required",
+          "reason_code": "visible_claim_coverage_gap",
+          "issue": "Title uses “고전압 안정성” and implication mentions “in-situ 공정 호환성,” but current mapped quotes only support low-temperature operation, flame-risk reduction, PEGDME/FE formulation, -20℃, and journal publication.",
+          "required_fix": "Revise visible fields to remove/soften unsupported high-voltage/in-situ claims or add existing quoted support if present in the cited article/paper. No new facts without controlled source augmentation."
+        },
+        "prior_revision_required": {
+          "reason_code": "visible_claim_coverage_gap",
+          "issue": "Title uses “고전압 안정성” and implication mentions “in-situ 공정 호환성,” but current mapped quotes only support low-temperature operation, flame-risk reduction, PEGDME/FE formulation, -20℃, and journal publication.",
+          "required_fix": "Revise visible fields to remove/soften unsupported high-voltage/in-situ claims or add existing quoted support if present in the cited article/paper. No new facts without controlled source augmentation."
+        }
+      },
+      "stage_b_rescue_revise_r1_only": true,
+      "accepted_fact_safe": false,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "addable_merge_safe": true,
+      "rescue_baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (5).json",
+        "baseline_total": 636,
+        "do_not_duplicate_reference": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+        "checked_against_locked_16_reference": true,
+        "exact_url_collision_baseline_ids": [],
+        "exact_url_collision_locked_16_ref_ids": [],
+        "duplicate_urls_within_card": 0,
+        "checked_at": "2026-05-07T00:00:00Z",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "rescue_content_polish": {
+        "stage": "Prompt0.6RescueContentPolish",
+        "run_tag": "20260507_083518",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_applied": true,
+        "polished_at": "2026-05-07T17:35:00+09:00"
+      },
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS"
+      },
+      "url_dedupe_cleanup_applied": false,
+      "url_dedupe_cleanup_log": [],
+      "hard_fail_count": 0,
+      "final_qc_notes": "PASS after exact duplicate URL cleanup only; no visible fields/fact_sources/source_quote changes.",
+      "id": "2026-05-07_KR_02",
+      "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
+      "merge_status": "single",
+      "baseline_relation": "new"
+    },
     {
       "id": "2026-05-06_KR_01",
       "region": "KR",
@@ -363,6 +805,1922 @@
       }
     },
     {
+      "id": "2026-05-06_US_01",
+      "region": "US",
+      "date": "2026-05-06",
+      "cat": "Materials",
+      "sub_cat": "전도성폴리머배터리",
+      "signal": "high",
+      "title": "PolyJoule, 3세대 전도성 폴리머 배터리 공개 — 3,600°F 자체소화 시험·1만회 이상 사이클 주장",
+      "sub": "2026-05-06 — Charged EVs는 PolyJoule이 대형 각형 셀 형태의 3세대 전도성 폴리머 배터리 화학을 공개했다고 보도했다.",
+      "gate": "이 건은 상업 배치가 아니라 배터리 안전성·화학체계 공개 단계로 봐야 한다. 리튬이온 화재 리스크가 설치 제약이 되는 실내·상업용 ESS 시장에서 비금속 전도성 폴리머 접근이 별도 안전 포지션을 만들 수 있는지가 핵심이다.",
+      "fact": "Charged EVs 보도에 따르면 PolyJoule은 독자 폴리머 양극과 액체염 전해질을 적용한 3세대 전도성 폴리머 배터리 화학을 대형 각형 셀로 공개했다. 보도는 회사가 약 3,600°F(1,982°C)의 프로판 토치로 내부 구성품을 직접 가열했고, 열과 가스가 발생했지만 불꽃 제거 후 셀이 꺼졌다고 설명했다. 또한 3세대 화학은 1세대 대비 에너지 밀도를 10배 개선하면서 1만회 이상 사이클을 유지한다고 전했다.",
+      "implication": [
+        "상업 공급계약이나 양산 개시가 아니라 기술 공개 단계이므로 claim 강도는 회사 주장과 보도 범위 안에서 제한해야 한다.",
+        "안전성 주장은 회사 시험·전문매체 보도 기반이므로 독립 인증 원문과 실제 설치 사례가 핵심 검증 포인트다.",
+        "다음 체크포인트는 UL 9540A 등 인증 원문, 실제 설치 고객, 대형 셀 생산능력 공개 여부다."
+      ],
+      "urls": [
+        "https://chargedevs.com/newswire/polyjoules-3rd-gen-conductive-polymer-battery-self-extinguishes-at-3600-f-and-delivers-10000-cycles"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Charged EVs body article",
+          "source_url": "https://chargedevs.com/newswire/polyjoules-3rd-gen-conductive-polymer-battery-self-extinguishes-at-3600-f-and-delivers-10000-cycles",
+          "claim": "PolyJoule released a third-generation conductive polymer battery chemistry in a large-format prismatic cell.",
+          "source_quote": "PolyJoule has released its third-generation conductive polymer battery chemistry, packaged in a new large-format prismatic cell",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "Charged EVs body article",
+          "source_url": "https://chargedevs.com/newswire/polyjoules-3rd-gen-conductive-polymer-battery-self-extinguishes-at-3600-f-and-delivers-10000-cycles",
+          "claim": "PolyJoule claimed the cell extinguished after blowtorch exposure once the flame was removed.",
+          "source_quote": "Heat and gas were generated during the test, but the cell extinguished the moment the flame was removed.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "same_cited_source_quote_mapping_repair_from_current_source_input"
+        },
+        {
+          "source_name": "Charged EVs body article",
+          "source_url": "https://chargedevs.com/newswire/polyjoules-3rd-gen-conductive-polymer-battery-self-extinguishes-at-3600-f-and-delivers-10000-cycles",
+          "claim": "PolyJoule claimed third-generation chemistry improved energy density while retaining cycle life.",
+          "source_quote": "Third-generation chemistry delivers a 10x energy density improvement over the company’s first generation while still achieving more than 10,000 cycles",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "US_2026-05-06_C13"
+      ],
+      "source_spec_id": "SA-20260507_083518-002",
+      "merge_status": "single",
+      "representative_source": "Charged EVs body article",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "polyjoulethirdgenerationconductivepolymerbatterylargeformatprismaticcellusglobalessmarketstechnologymilestone20260506selfextinguishingblowtorchtestat3600fand10000cyclesclaimed",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "id": "2026-05-06_US_02",
+      "region": "US",
+      "date": "2026-05-06",
+      "cat": "Charging",
+      "sub_cat": "MCS충전기",
+      "signal": "high",
+      "title": "Kempower, Mega Satellite Flex 공개 — CCS 560kW·MCS 1.2MW 병행 지원",
+      "sub": "2026-05-06 — Kempower는 대형 전기트럭과 기존 EV를 모두 겨냥한 Mega Satellite Flex를 공개하고 CCS 최대 560kW, MCS 최대 1.2MW 출력을 제시했다.",
+      "gate": "MCS 전환 초기에는 트럭 전용 초고출력 충전기만으로 가동률을 확보하기 어렵다. Kempower의 CCS/MCS 병행 설계는 기존 CCS 수요와 차세대 MCS 수요를 같은 인프라에서 흡수하려는 과도기 충전 전략으로 볼 수 있다.",
+      "fact": "Kempower 공식 발표에 따르면 회사는 2026년 5월 6일 Mega Satellite Flex를 고출력 충전 포트폴리오에 추가했다. 발표는 이 제품이 CCS와 MCS 커넥터를 모두 갖추고, CCS는 최대 560kW, MCS는 최대 1.2MW 충전을 제공한다고 설명했다. Kempower 제품 페이지는 해당 제품이 2026년 7월 유럽과 북미에서 판매 가능하다고 표시한다.",
+      "implication": [
+        "대형 전기트럭 충전 시장은 MCS 보급 전환기에 CCS 호환성이 가동률 변수로 남는다.",
+        "충전기 업체들은 단일 표준보다 혼합 플릿 운용을 전제로 제품 구성을 재설계하고 있다.",
+        "다음 체크포인트는 실제 고객 도입, 북미·유럽 판매 개시, MCS 인증·현장 운영 데이터다."
+      ],
+      "urls": [
+        "https://kempower.com/news/kempower-introduces-mega-satellite-flex-charger-to-support-the-transition-to-megawatt-charging/",
+        "https://kempower.com/solution/kempower-mega-satellite-flex/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Kempower official news",
+          "source_url": "https://kempower.com/news/kempower-introduces-mega-satellite-flex-charger-to-support-the-transition-to-megawatt-charging/",
+          "claim": "Kempower introduced the Mega Satellite Flex on 6 May 2026.",
+          "source_quote": "Kempower has this week introduced the latest addition to its portfolio of high-power charging solutions.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "Kempower official news",
+          "source_url": "https://kempower.com/news/kempower-introduces-mega-satellite-flex-charger-to-support-the-transition-to-megawatt-charging/",
+          "claim": "The product supports both CCS and MCS with stated power levels.",
+          "source_quote": "the CCS delivering up to 560 kW and the MCS delivering up to 1.2 megawatts",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "Kempower product page",
+          "source_url": "https://kempower.com/solution/kempower-mega-satellite-flex/",
+          "claim": "The product is available for sales in Europe and North America in July 2026.",
+          "source_quote": "Mega Satellite Flex is available for sales in Europe and North America in July 2026",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "US_2026-05-06_C09"
+      ],
+      "source_spec_id": "SA-20260507_083518-003",
+      "merge_status": "single",
+      "representative_source": "Kempower official news",
+      "baseline_relation": "follow_up",
+      "event_fingerprint_key": "kempowermegasatelliteflexdualccsmcschargerglobalheavydutychargingmarketproductlaunch20260506ccsupto560kwandmcsupto12mw",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "id": "2026-05-06_GL_03",
+      "region": "GL",
+      "date": "2026-05-06",
+      "cat": "ESS",
+      "sub_cat": "호주BESS방전",
+      "signal": "high",
+      "title": "Queensland BESS 월 100GWh 방전 돌파 — NEM 최초 주 단위 기록",
+      "sub": "2026-05-06 — Energy-Storage.news는 Queensland가 2026년 4월 NEM에서 월 100GWh 이상 BESS 방전을 기록한 첫 주가 됐다고 보도했다.",
+      "gate": "이 사안은 개별 프로젝트 뉴스가 아니라 계통 운영에서 배터리 저장장치의 역할이 수치로 드러난 사례다. Rystad Energy 데이터 기반 보도에서 재생발전 증가와 gas generation 감소가 함께 나타난 만큼, BESS가 피크 대응과 전력시장 구조에 미치는 영향을 확인할 필요가 있다.",
+      "fact": "Energy-Storage.news는 Queensland가 2026년 4월 Australia NEM에서 utility-scale BESS 월 방전량 100GWh를 넘긴 첫 주가 됐다고 보도했다. PV Tech도 Rystad Energy 데이터를 인용해 같은 달 호주 utility-scale solar PV와 wind 발전이 4.7TWh로 전년 3.8TWh 대비 24% 증가했다고 전했다. RenewEconomy는 같은 기간 NEM gas generation이 382GWh로 전년 745GWh 대비 49% 감소했다고 보도했다.",
+      "implication": [
+        "BESS가 계통에서 의미를 갖기 시작하는 지점은 설비 용량보다 실제 충방전량과 피크 대체 역할이다.",
+        "Queensland 사례는 재생발전 증가와 배터리 방전 확대가 gas generation 감소와 동시에 관찰되는 구간이다.",
+        "다음 체크포인트는 월별 방전량 지속성, intraday spread 변화, 신규 BESS commissioning 속도다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/australia-queensland-becomes-first-nem-state-to-discharge-over-100gwh-from-battery-storage-in-a-month/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Energy-Storage.news body article",
+          "source_url": "https://www.energy-storage.news/australia-queensland-becomes-first-nem-state-to-discharge-over-100gwh-from-battery-storage-in-a-month/",
+          "claim": "Queensland discharged over 100GWh from utility-scale BESS in April 2026.",
+          "source_quote": "Queensland has become the first state in Australia’s National Electricity Market (NEM) to discharge over 100GWh from utility-scale battery energy storage systems (BESS) in a single month.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "Energy-Storage.news body article",
+          "source_url": "https://www.energy-storage.news/australia-queensland-becomes-first-nem-state-to-discharge-over-100gwh-from-battery-storage-in-a-month/",
+          "claim": "NEM gas generation fell to 382GWh in April 2026, down 49% from April 2025.",
+          "source_quote": "NEM gas generation fall to 382GWh, down 49% from 745GWh in April 2025",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "Energy-Storage.news body article",
+          "source_url": "https://www.energy-storage.news/australia-queensland-becomes-first-nem-state-to-discharge-over-100gwh-from-battery-storage-in-a-month/",
+          "claim": "Rystad data showed 4.7TWh utility solar and wind generation in April 2026.",
+          "source_quote": "Australia’s utility-scale solar PV and wind assets generated a combined 4.7TWh in April 2026, up 24% from 3.8TWh in the same month last year, according to data from Rystad Energy.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "GL_2026-05-06_C06"
+      ],
+      "source_spec_id": "SA-20260507_083518-014",
+      "merge_status": "single",
+      "representative_source": "Energy-Storage.news body article",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "queenslandbessfleetnembatterydischargerecordqueenslandaustraliamarketdatarelease20260506monthlybessdischargeexceeded100gwhforfirsttimeinnem",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "id": "2026-05-06_GL_04",
+      "region": "GL",
+      "date": "2026-05-06",
+      "cat": "PowerGrid",
+      "sub_cat": "FirmRenewables",
+      "signal": "high",
+      "title": "IRENA 24/7 Renewables 보고서 — solar+storage firm cost 54~82달러/MWh 제시",
+      "sub": "2026-05-06 — IRENA는 solar/wind와 battery storage를 결합한 24/7 renewable power의 비용 경쟁력을 다룬 보고서를 발표했다.",
+      "gate": "이 사안은 재생에너지의 단순 LCOE가 아니라 저장장치까지 포함한 firm power 비용 비교다. 데이터센터와 AI 전력수요처럼 연속 공급이 필요한 수요처에서는 배터리 결합형 재생전원의 비용 범위가 투자 판단의 기준이 될 수 있다.",
+      "fact": "IRENA 공식 발표에 따르면 2026년 5월 6일 발표된 24/7 Renewables 보고서는 solar와 wind에 battery storage를 결합한 round-the-clock renewable power의 비용 경쟁력을 다뤘다. IRENA는 high-quality resource regions에서 solar plus storage의 firm costs가 MWh당 54~82달러라고 밝혔다. 또한 2010년 이후 battery storage costs가 93% 하락했다고 설명했다.",
+      "implication": [
+        "Firm renewables 비용 논의는 재생발전 단가보다 storage duration과 grid connection 제약까지 포함하는 방향으로 이동하고 있다.",
+        "배터리 저장장치 비용 하락은 AI·data center 전력 조달에서 재생+저장 조합의 비교 가능성을 높인다.",
+        "다음 체크포인트는 지역별 firm cost assumptions, 저장시간 가정, 실제 PPA 가격과의 차이다."
+      ],
+      "urls": [
+        "https://www.irena.org/News/pressreleases/2026/May/24-7-Renewables-Outcompete-Fossil-Fuels-on-Firm-Costs"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "IRENA official press release",
+          "source_url": "https://www.irena.org/News/pressreleases/2026/May/24-7-Renewables-Outcompete-Fossil-Fuels-on-Firm-Costs",
+          "claim": "IRENA released a report on 24/7 renewables costs.",
+          "source_quote": "New IRENA report confirms the cost-competitiveness of round-the-clock renewable power through hybrid solutions of solar and wind with battery storage.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "IRENA official press release",
+          "source_url": "https://www.irena.org/News/pressreleases/2026/May/24-7-Renewables-Outcompete-Fossil-Fuels-on-Firm-Costs",
+          "claim": "IRENA reported solar-plus-storage firm costs of $54-82/MWh in high-quality resource regions.",
+          "source_quote": "Firm levelised costs of electricity (‘firm costs’) for solar plus storage range from USD 54 to USD 82 per megawatt-hour (MWh)",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "IRENA official press release",
+          "source_url": "https://www.irena.org/News/pressreleases/2026/May/24-7-Renewables-Outcompete-Fossil-Fuels-on-Firm-Costs",
+          "claim": "IRENA said battery storage costs fell 93% since 2010.",
+          "source_quote": "Battery storage costs fell even more sharply, declining by 93%.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "GL_2026-05-06_C09"
+      ],
+      "source_spec_id": "SA-20260507_083518-015",
+      "merge_status": "single",
+      "representative_source": "IRENA official press release",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "irena247renewablesreportglobalrenewablesstoragemarketreportrelease20260506solarstoragefirmcostrangeof5482mwh",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "id": "2026-05-06_CN_01",
+      "region": "CN",
+      "date": "2026-05-06",
+      "cat": "Battery",
+      "sub_cat": "로봇용전고체",
+      "signal": "mid",
+      "title": "Gasgoo·중국 증권매체: Joyson–Enpower, 로봇용 전고체 배터리 JV 설립 보도",
+      "sub": "2026-05-06 — Gasgoo와 중국 증권·재경매체는 Joyson Electronics와 Enpower가 embodied intelligence용 solid-state battery JV를 설립했다고 보도했다.",
+      "gate": "이 사안은 로봇·embodied intelligence용 전원 솔루션이 자동차 전장사와 차세대 배터리 업체의 접점으로 등장했다는 보도 사례다. 다만 Joyson 공식 원문은 직접 확인되지 않았으므로, JV 공식자료·지분구조·양산 범위 확인 전에는 회사 간 실행 범위를 과확대하지 않는 것이 안전하다.",
+      "fact": "Gasgoo와 중국 증권·재경매체는 Joyson Electronics와 Enpower가 emerging intelligent agents를 위한 solid-state batteries에 초점을 둔 joint venture를 설립했다고 보도했다. Sina Finance/Caiwen은 Joyson 공식 WeChat을 인용해 신규 설립된 Ningbo Junen New Energy Co.가 embodied intelligence용 power solutions의 innovation, production, sales에 전념한다고 전했다. Gasgoo는 Enpower가 2026년 all-solid-state batteries의 small-batch production 달성을 목표로 하고 embodied intelligence를 첫 적용 분야로 겨냥한다고 보도했다.",
+      "implication": [
+        "로봇용 배터리는 EV용 대형 셀과 다른 안전성·경량화·고출력 요구를 가질 수 있다.",
+        "자동차 전장 기업의 로봇 전원 진입은 BMS·팩·데이터 서비스 결합 모델 확대 가능성을 보여주는 초기 신호로 볼 수 있다.",
+        "다음 체크포인트는 Joyson 공식 원문, JV 지분구조, 실제 샘플·양산 일정, 고객 검증이다."
+      ],
+      "urls": [
+        "https://autonews.gasgoo.com/articles/market-industry/joyson-electronics-establishes-solid-state-battery-joint-venture-targeting-embodied-intelligence-2051992264748965889"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Gasgoo body article",
+          "source_url": "https://autonews.gasgoo.com/articles/market-industry/joyson-electronics-establishes-solid-state-battery-joint-venture-targeting-embodied-intelligence-2051992264748965889",
+          "claim": "Joyson Electronics teamed with Enpower to launch a JV focused on solid-state batteries for intelligent agents.",
+          "source_quote": "Joyson Electronics has teamed up with Enpower to launch a joint venture focused on solid-state batteries for emerging intelligent agents.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "Gasgoo body article",
+          "source_url": "https://autonews.gasgoo.com/articles/market-industry/joyson-electronics-establishes-solid-state-battery-joint-venture-targeting-embodied-intelligence-2051992264748965889",
+          "claim": "The newly established JV is Ningbo Junen New Energy Co.",
+          "source_quote": "The newly established Ningbo Junen New Energy Co. is dedicated to the innovation, production, and sales of power solutions for embodied intelligence.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "Gasgoo body article",
+          "source_url": "https://autonews.gasgoo.com/articles/market-industry/joyson-electronics-establishes-solid-state-battery-joint-venture-targeting-embodied-intelligence-2051992264748965889",
+          "claim": "Enpower aims for small-batch production of all-solid-state batteries by 2026 with embodied intelligence as first application.",
+          "source_quote": "Enpower aims to achieve small-batch production of its all-solid-state batteries by 2026. Embodied intelligence is targeted as the first application.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "TF_0034"
+      ],
+      "source_spec_id": "SA-20260507_083518-025",
+      "merge_status": "single",
+      "representative_source": "Gasgoo body article",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "joysonelectronicsandenpowersolidstatebatteryjvforroboticschinapartnership20260506gasgooreportedjvsetupforrobotusesolidstatebatteries",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "draft_id": "DRAFT-B-RESCUE-002",
+      "source_spec_id": "RPTR-20260507_083518-002",
+      "source_story_ids": [
+        "KR_2026-05-07_C32"
+      ],
+      "region": "KR",
+      "date": "2026-05-06",
+      "cat": "Policy",
+      "sub_cat": "산업용 배터리 테스트베드",
+      "signal": "high",
+      "title": "경북 산업용 배터리 테스트베드 선정 — 국비 145억원·총 335억원 구미 실증거점",
+      "sub": "2026-05-06 — 전기신문은 경북도가 산업부 수요확대형 배터리 테스트베드 구축 공모에 선정돼 국비 145억원을 확보했다고 전했다.",
+      "gate": "이 사업은 EV용 배터리 중심 수요를 방산·로봇·조선·ESS 등 산업용 특화 배터리로 넓히는 정책 인프라 투자다. 시험·실증·인증 장비가 구축되면 다품종 산업용 셀·모듈·팩 수요를 검증하는 지역 기반이 될 수 있다.",
+      "fact": "전기신문에 따르면 경상북도는 산업통상자원부가 주관한 수요확대형 배터리 테스트베드 구축 공모사업에 최종 선정돼 국비 145억원을 확보했다. 사업은 2026년 5월부터 4년간 총사업비 335억원을 투입해 구미국가산업단지 확장단지 내에 추진된다. 주요 내용은 산업용 배터리 셀·모듈·팩 제조시설, 극한환경 실증시설, 시제품 제작 지원, 시험·평가 표준 개발, 인력 교육 등이다.",
+      "implication": [
+        "산업용 배터리 수요는 EV 캐즘과 별개로 방산·로봇·조선·ESS 영역에서 다른 성능 기준을 만들 수 있다.",
+        "지역 테스트베드는 소재·부품·팩 업체가 고객 인증 전 단계에서 실증 데이터를 축적하는 공통 인프라가 될 수 있다.",
+        "다음 체크포인트는 19종 장비 도입 범위, KTL 인증 지원 범위, 참여 기업과 시제품 실증 사례다."
+      ],
+      "urls": [
+        "https://www.electimes.com/news/articleView.html?idxno=367725"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367725",
+          "claim": "Gyeongbuk secured KRW 14.5 billion in national funding for the demand-expansion battery testbed project.",
+          "source_quote": "산업통상자원부가 주관한 ‘수요확대형 배터리 테스트베드 구축’ 공모사업에 최종 선정돼 국비 145억원을 확보했다고 6일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367725",
+          "claim": "The project budget is KRW 33.5 billion over four years from May 2026.",
+          "source_quote": "올해 5월부터 4년간 총사업비 335억원(국비 145억원·도비 57억원·시비 133억원)을 투입해 구미국가산업단지 확장단지 내에 추진된다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367725",
+          "claim": "The project includes battery cell/module/pack manufacturing, extreme-environment testing, prototype support, standards and training.",
+          "source_quote": "산업용 배터리 셀·모듈·팩 제조시설 구축 ▲고온·저온·충격 등 극한환경 실증시설 구축 ▲수요 다변화 대응 시제품 제작 지원 ▲맞춤형 시험·평가 표준 개발 ▲현장 인력 기술교육",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        }
+      ],
+      "source_availability": "current_source_body_or_rich_text_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_or_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported_pending_stage_c",
+      "single_source_reason": "Single current source body/rich-text package supports the core event; additional official/source-ladder augmentation may still improve Stage C or Evidence QC where noted.",
+      "needs_stage_c_attention": false,
+      "writer_notes": [
+        "Stage B rescue draft only; not accepted_fact_safe, evidence_complete, source_claim_covered, publish_ready, merge-ready, or GitHub-ready."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "lineage_metadata_preserved": true,
+      "event_fingerprint_search_profile": {
+        "actor": "Gyeongbuk Province",
+        "asset_or_policy": "demand-expansion battery testbed in Gumi",
+        "location": "Gumi, Korea",
+        "event_type": "government_project_selection",
+        "event_date": "2026-05-06"
+      },
+      "source_discovery_strategy": "rescue_candidate_strict_spec bounded recheck; exact URL + event duplicate reference against cards (5) and locked 16-card payload; current source input body/rich text used for quote candidates.",
+      "source_discovery_status": "source_input_body_or_rich_text_supported",
+      "source_discovery_ledger_refs": [
+        "RPTR-20260507_083518-002"
+      ],
+      "stage_c_rescue_validation": {
+        "validated_at": "2026-05-07T17:35:00+09:00",
+        "duplicate_check": {
+          "cards_5_baseline_exact_url_hits": [],
+          "locked_16_reference_exact_url_hits": [],
+          "event_duplicate_detected": false
+        },
+        "fact_source_schema_issues": [],
+        "source_direction_check": "pass",
+        "publish_ready": false,
+        "github_ready": false,
+        "merge_ready": false,
+        "decision": "accepted_fact_safe",
+        "source_strength_caveat": [
+          "policy_or_regulatory_single_source_official_source_recommended_before_0_5R_if_external_distribution_quality_required"
+        ]
+      },
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "rescue_baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (5).json",
+        "baseline_total": 636,
+        "do_not_duplicate_reference": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+        "checked_against_locked_16_reference": true,
+        "exact_url_collision_baseline_ids": [],
+        "exact_url_collision_locked_16_ref_ids": [],
+        "duplicate_urls_within_card": 1,
+        "checked_at": "2026-05-07T00:00:00Z",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "rescue_content_polish": {
+        "stage": "Prompt0.6RescueContentPolish",
+        "run_tag": "20260507_083518",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_applied": true,
+        "polished_at": "2026-05-07T17:35:00+09:00"
+      },
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS"
+      },
+      "url_dedupe_cleanup_applied": true,
+      "url_dedupe_cleanup_log": [
+        {
+          "field": "urls",
+          "action": "dedupe_exact_repeated_urls",
+          "before_count": 2,
+          "after_count": 1
+        }
+      ],
+      "hard_fail_count": 0,
+      "final_qc_notes": "PASS after exact duplicate URL cleanup only; no visible fields/fact_sources/source_quote changes.",
+      "id": "2026-05-06_KR_02",
+      "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
+      "merge_status": "single",
+      "baseline_relation": "new"
+    },
+    {
+      "draft_id": "DRAFT-B-RESCUE-006",
+      "source_spec_id": "RPTR-20260507_083518-006",
+      "source_story_ids": [
+        "KR_2026-05-06_C59"
+      ],
+      "region": "KR",
+      "date": "2026-05-06",
+      "cat": "Manufacturing",
+      "sub_cat": "초대형 HIP 장비",
+      "signal": "mid",
+      "title": "POMIA 대형 HIP 장비 설치 — 직경 930mm 베셀로 첨단소재 후공정 국산화",
+      "sub": "2026-05-06 — 전자신문은 일신오토클레이브가 포항소재산업진흥원 고기능금속기술센터에 대형 HIP 설치를 완료했다고 전했다.",
+      "gate": "HIP는 금속·세라믹 소재 내부 기공을 줄여 밀도와 내구성을 높이는 후공정 장비다. 배터리 단독 이슈는 아니지만 항공우주·반도체·이차전지 소재의 고신뢰성 공정 장비 국산화 흐름으로 볼 수 있다.",
+      "fact": "전자신문에 따르면 일신오토클레이브는 포항소재산업진흥원 고기능금속기술센터에 대형 열간등방압성형기 설치를 완료했다. 보도는 이번 장비가 직경 930mm, 길이 3240mm 규모 베셀과 직경 650mm, 길이 2000mm 작업 공간을 구현했다고 전했다. HIP는 고온·고압 환경에서 금속과 세라믹 소재 내부 미세기공을 제거해 밀도와 강도, 내구성을 높이는 후공정 장비로 설명됐다.",
+      "implication": [
+        "소재·부품 국산화는 셀 생산장비뿐 아니라 고신뢰성 소재 후공정 장비까지 확장되고 있다.",
+        "대형 HIP 구축은 배터리 소재보다 항공우주·반도체와 함께 묶어 봐야 하는 인접 제조 인프라 신호다.",
+        "다음 체크포인트는 POMIA 장비 활용 기업, 배터리 소재 적용 사례, 시험·시제품 지원 범위다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260506000283"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260506000283",
+          "claim": "Ilshin Autoclave completed installation of a large HIP at POMIA.",
+          "source_quote": "일신오토클레이브는 최근 POMIA 고기능금속기술센터에 대형 HIP 설치를 완료했다고 6일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260506000283",
+          "claim": "The HIP has a 930mm diameter, 3240mm vessel and 650mm by 2000mm workspace.",
+          "source_quote": "직경 930㎜, 길이 3240㎜ 규모 베셀과 직경 650㎜, 길이 2000㎜ 작업 공간을 구현했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260506000283",
+          "claim": "HIP removes microvoids in metal and ceramic materials under high temperature and pressure.",
+          "source_quote": "고온·고압 환경에서 금속과 세라믹 소재 내부의 미세 기공을 제거해 밀도를 높이고 강도와 내구성을 향상시키는 핵심 후공정 장비다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        }
+      ],
+      "source_availability": "current_source_body_or_rich_text_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_or_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported_pending_stage_c",
+      "single_source_reason": "Single current source body/rich-text package supports the core event; additional official/source-ladder augmentation may still improve Stage C or Evidence QC where noted.",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Battery relevance is adjacent, not core; Stage C may downgrade or support-only if SBTL_HUB lane value is too weak.",
+        "Stage B rescue draft only; not accepted_fact_safe, evidence_complete, source_claim_covered, publish_ready, merge-ready, or GitHub-ready."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "lineage_metadata_preserved": true,
+      "event_fingerprint_search_profile": {
+        "actor": "Ilshin Autoclave / POMIA",
+        "asset_or_policy": "large hot isostatic press installation",
+        "location": "Pohang, Korea",
+        "event_type": "equipment_installation",
+        "event_date": "2026-05-06"
+      },
+      "source_discovery_strategy": "rescue_candidate_strict_spec bounded recheck; exact URL + event duplicate reference against cards (5) and locked 16-card payload; current source input body/rich text used for quote candidates.",
+      "source_discovery_status": "source_input_body_or_rich_text_supported",
+      "source_discovery_ledger_refs": [
+        "RPTR-20260507_083518-006"
+      ],
+      "stage_c_rescue_validation": {
+        "validated_at": "2026-05-07T17:35:00+09:00",
+        "duplicate_check": {
+          "cards_5_baseline_exact_url_hits": [],
+          "locked_16_reference_exact_url_hits": [],
+          "event_duplicate_detected": false
+        },
+        "fact_source_schema_issues": [],
+        "source_direction_check": "pass",
+        "publish_ready": false,
+        "github_ready": false,
+        "merge_ready": false,
+        "decision": "accepted_fact_safe",
+        "source_strength_caveat": [
+          "single_source_body_level_evidence_adequate_for_stage_c_but_optional_official_corroboration_would_strengthen_0_5"
+        ]
+      },
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "rescue_baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (5).json",
+        "baseline_total": 636,
+        "do_not_duplicate_reference": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+        "checked_against_locked_16_reference": true,
+        "exact_url_collision_baseline_ids": [],
+        "exact_url_collision_locked_16_ref_ids": [],
+        "duplicate_urls_within_card": 1,
+        "checked_at": "2026-05-07T00:00:00Z",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "rescue_content_polish": {
+        "stage": "Prompt0.6RescueContentPolish",
+        "run_tag": "20260507_083518",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_applied": false,
+        "polished_at": "2026-05-07T17:35:00+09:00"
+      },
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS"
+      },
+      "url_dedupe_cleanup_applied": true,
+      "url_dedupe_cleanup_log": [
+        {
+          "field": "urls",
+          "action": "dedupe_exact_repeated_urls",
+          "before_count": 2,
+          "after_count": 1
+        }
+      ],
+      "hard_fail_count": 0,
+      "final_qc_notes": "PASS after exact duplicate URL cleanup only; no visible fields/fact_sources/source_quote changes.",
+      "id": "2026-05-06_KR_03",
+      "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
+      "merge_status": "single",
+      "baseline_relation": "new"
+    },
+    {
+      "draft_id": "DRAFT-B-RESCUE-005-R1",
+      "source_spec_id": "RPTR-20260507_083518-005",
+      "source_story_ids": [
+        "US_2026-05-06_C19"
+      ],
+      "region": "US",
+      "date": "2026-05-06",
+      "cat": "PowerGrid",
+      "sub_cat": "인버터 정책 리스크",
+      "signal": "high",
+      "title": "Intertek CEA 인버터 보고서: 미국 수요 2028년까지 6% CAGR — FEOC·사이버보안 부담 병행",
+      "sub": "2026-05-06 — pv magazine USA는 Intertek CEA 보고서를 인용해 미국 인버터 수요가 2028년까지 6% CAGR로 성장하되 FEOC·사이버보안·관세 부담이 남아 있다고 전했다.",
+      "gate": "인버터는 태양광과 ESS를 전력망에 연결하는 핵심 장비라 공급망 규제와 사이버보안 이슈가 조달 구조에 영향을 준다. 현재 근거 범위에서는 FEOC, 국내조달 요건, 사이버보안 의무, 관세 부담을 시장의 제약 요인으로 보는 선이 안전하다.",
+      "fact": "pv magazine USA는 Intertek CEA의 PV & ESS Inverter Report를 인용해 미국 인버터 수요가 2028년까지 6% CAGR로 성장할 것으로 전망된다고 보도했다. 같은 보도는 FEOC 규칙과 국내조달 요건, 사이버보안 의무가 인버터 시장의 규제 환경을 강화하고 있다고 설명했다. 또한 미국 인버터 관세가 최대 45%에 달했다고 전했다.",
+      "implication": [
+        "ESS 프로젝트에서 인버터는 셀과 별개로 원산지, 보안, 관세 리스크를 만드는 장비 계층이다.",
+        "데이터센터 전력 수요가 커질수록 인버터 공급망 현지화와 보안 검증이 프로젝트 일정의 병목이 될 수 있다.",
+        "다음 체크포인트는 FEOC 세부 해석, 미국 내 인버터 생산능력, 인버터 보안 기준의 적용 범위다."
+      ],
+      "urls": [
+        "https://pv-magazine-usa.com/2026/05/06/u-s-inverter-market-faces-policy-supply-headwinds-despite-safe-harbor-pipeline"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "pv magazine USA body article",
+          "source_url": "https://pv-magazine-usa.com/2026/05/06/u-s-inverter-market-faces-policy-supply-headwinds-despite-safe-harbor-pipeline",
+          "claim": "Intertek CEA report suggests U.S. inverter demand will grow at 6% CAGR through 2028.",
+          "source_quote": "U.S. inverter demand will grow at a 6% CAGR through 2028",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "pv magazine USA body article",
+          "source_url": "https://pv-magazine-usa.com/2026/05/06/u-s-inverter-market-faces-policy-supply-headwinds-despite-safe-harbor-pipeline",
+          "claim": "The report says FEOC rules and domestic-content requirements tighten the regulatory environment.",
+          "source_quote": "driven by \"Foreign Entity of Concern\" (FEOC) rules and cybersecurity mandates",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "pv magazine USA body article",
+          "source_url": "https://pv-magazine-usa.com/2026/05/06/u-s-inverter-market-faces-policy-supply-headwinds-despite-safe-harbor-pipeline",
+          "claim": "U.S. inverter tariffs reached up to 45%, but module and cell costs are currently a larger project-level factor.",
+          "source_quote": "U.S. tariffs on inverters have reached up to 45%",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        }
+      ],
+      "source_availability": "current_source_body_or_rich_text_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_or_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported_pending_stage_c",
+      "single_source_reason": "Single current source body/rich-text package supports the core event; additional official/source-ladder augmentation may still improve Stage C or Evidence QC where noted.",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Report source is a specialty press article citing Intertek CEA; Stage C should verify whether report-origin attribution is narrow enough.",
+        "Stage B rescue draft only; not accepted_fact_safe, evidence_complete, source_claim_covered, publish_ready, merge-ready, or GitHub-ready."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "lineage_metadata_preserved": true,
+      "event_fingerprint_search_profile": {
+        "actor": "Intertek CEA / U.S. inverter market",
+        "asset_or_policy": "PV & ESS inverter report",
+        "location": "United States",
+        "event_type": "market_report",
+        "event_date": "2026-05-06"
+      },
+      "source_discovery_strategy": "rescue_candidate_strict_spec bounded recheck; exact URL + event duplicate reference against cards (5) and locked 16-card payload; current source input body/rich text used for quote candidates.",
+      "source_discovery_status": "source_input_body_or_rich_text_supported",
+      "source_discovery_ledger_refs": [
+        "RPTR-20260507_083518-005"
+      ],
+      "previous_draft_id": "DRAFT-B-RESCUE-005",
+      "revised_draft_id": "DRAFT-B-RESCUE-005-R1",
+      "revision_pass": "stage_b_rescue_revise_r1",
+      "revision_metadata": {
+        "revised_at": "2026-05-07T17:06:01+09:00",
+        "source_augmentation_authorized": false,
+        "source_augmentation_performed": false,
+        "changed_fields": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "unchanged_fields": [
+          "fact_sources",
+          "source_quote",
+          "urls",
+          "source_story_ids",
+          "event_anchor/source_spec_id"
+        ],
+        "prior_stage_c_reason_code": "named_policy_claim_mapping_gap",
+        "prior_stage_c_issue": "The fact field names OBBBA and ties FEOC/cybersecurity/tariff framing to project-level impacts, but current source_quote mapping directly supports FEOC/cybersecurity and tariff only, not the OBBBA label or full causal phrasing.",
+        "fix_strategy": "visible_claim_narrowing_only_existing_evidence",
+        "change_summary": [
+          "removed unsupported OBBBA label",
+          "narrowed project-level causal phrasing",
+          "kept FEOC/domestic-content/cybersecurity/tariff claims within pv magazine USA quote scope"
+        ],
+        "prior_stage_c_rescue_validation": {
+          "validated_at": "2026-05-07T17:35:00+09:00",
+          "duplicate_check": {
+            "cards_5_baseline_exact_url_hits": [],
+            "locked_16_reference_exact_url_hits": [],
+            "event_duplicate_detected": false
+          },
+          "fact_source_schema_issues": [],
+          "source_direction_check": "pass",
+          "publish_ready": false,
+          "github_ready": false,
+          "merge_ready": false,
+          "decision": "revise_required",
+          "reason_code": "named_policy_claim_mapping_gap",
+          "issue": "The fact field names OBBBA and ties FEOC/cybersecurity/tariff framing to project-level impacts, but current source_quote mapping directly supports FEOC/cybersecurity and tariff only, not the OBBBA label or full causal phrasing.",
+          "required_fix": "Revise by removing the unsupported OBBBA naming and narrowing to “pv magazine USA/Intertek CEA report cited FEOC, domestic-content, cybersecurity and tariff headwinds,” or add official/report source in an authorized augmentation pass."
+        },
+        "prior_revision_required": {
+          "reason_code": "named_policy_claim_mapping_gap",
+          "issue": "The fact field names OBBBA and ties FEOC/cybersecurity/tariff framing to project-level impacts, but current source_quote mapping directly supports FEOC/cybersecurity and tariff only, not the OBBBA label or full causal phrasing.",
+          "required_fix": "Revise by removing the unsupported OBBBA naming and narrowing to “pv magazine USA/Intertek CEA report cited FEOC, domestic-content, cybersecurity and tariff headwinds,” or add official/report source in an authorized augmentation pass."
+        }
+      },
+      "stage_b_rescue_revise_r1_only": true,
+      "accepted_fact_safe": false,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "addable_merge_safe": true,
+      "rescue_baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (5).json",
+        "baseline_total": 636,
+        "do_not_duplicate_reference": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+        "checked_against_locked_16_reference": true,
+        "exact_url_collision_baseline_ids": [],
+        "exact_url_collision_locked_16_ref_ids": [],
+        "duplicate_urls_within_card": 1,
+        "checked_at": "2026-05-07T00:00:00Z",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "rescue_content_polish": {
+        "stage": "Prompt0.6RescueContentPolish",
+        "run_tag": "20260507_083518",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_applied": true,
+        "polished_at": "2026-05-07T17:35:00+09:00"
+      },
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS"
+      },
+      "url_dedupe_cleanup_applied": true,
+      "url_dedupe_cleanup_log": [
+        {
+          "field": "urls",
+          "action": "dedupe_exact_repeated_urls",
+          "before_count": 2,
+          "after_count": 1
+        }
+      ],
+      "hard_fail_count": 0,
+      "final_qc_notes": "PASS after exact duplicate URL cleanup only; no visible fields/fact_sources/source_quote changes.",
+      "id": "2026-05-06_US_03",
+      "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
+      "merge_status": "single",
+      "baseline_relation": "new"
+    },
+    {
+      "id": "2026-05-05_US_01",
+      "region": "US",
+      "date": "2026-05-05",
+      "cat": "Charging",
+      "sub_cat": "전기트럭충전",
+      "signal": "high",
+      "title": "Greenlane, 텍사스 I-45 전기트럭 충전망 추진 — Dallas·Houston 고출력 사이트 계획",
+      "sub": "2026-05-05 — Greenlane은 Dallas와 Houston을 잇는 I-45 화물축에 고출력 전기트럭 충전 사이트를 계획한다고 공식 발표했다.",
+      "gate": "이 사안은 승용 EV 충전 확대가 아니라 중대형 화물 전동화 인프라의 노선 단위 배치다. Dallas-Houston 축은 장거리 운행과 휴식시간 충전이 맞물리는 구간이어서 CCS·MCS 호환 충전망의 실사용성이 검증될 수 있다.",
+      "fact": "Greenlane 공식 발표에 따르면 회사는 2026년 5월 5일 Texas 진출을 발표하고 Dallas와 Houston을 잇는 I-45 corridor에 신규 고출력 사이트를 계획한다고 밝혔다. 발표는 해당 사이트들이 megawatt-charging infrastructure를 갖추고 현재 및 차세대 전기트럭을 지원한다고 설명했다.",
+      "implication": [
+        "전기트럭 충전은 개별 충전기보다 노선·허브 단위 배치가 운송사 채택 속도를 좌우할 수 있다.",
+        "CCS와 MCS를 병행 지원하는 인프라는 현 세대 차량과 차세대 차량 사이의 전환 비용을 낮추는 방향으로 관찰된다.",
+        "다음 체크포인트는 Dallas·Houston 사이트 착공, 이용 운송사 확대, 실제 충전 처리량이다."
+      ],
+      "urls": [
+        "https://www.drivegreenlane.com/news/greenlane-infrastructure-expands-electric-truck-charging-network-into-texas/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Greenlane official release",
+          "source_url": "https://www.drivegreenlane.com/news/greenlane-infrastructure-expands-electric-truck-charging-network-into-texas/",
+          "claim": "Greenlane announced Texas expansion on May 5, 2026.",
+          "source_quote": "Press release: May 05, 2026.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "Greenlane official release",
+          "source_url": "https://www.drivegreenlane.com/news/greenlane-infrastructure-expands-electric-truck-charging-network-into-texas/",
+          "claim": "Greenlane plans new Dallas and Houston sites on the I-45 corridor.",
+          "source_quote": "new high-power sites planned in Dallas and Houston along the I-45 corridor",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "Greenlane official release",
+          "source_url": "https://www.drivegreenlane.com/news/greenlane-infrastructure-expands-electric-truck-charging-network-into-texas/",
+          "claim": "The sites will feature megawatt-charging infrastructure for current and next-generation electric trucks.",
+          "source_quote": "New sites planned in Dallas and Houston will feature megawatt-charging infrastructure, supporting both current and next-generation electric trucks",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "US_2026-05-06_C07"
+      ],
+      "source_spec_id": "SA-20260507_083518-004",
+      "merge_status": "single",
+      "representative_source": "Greenlane official release",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "greenlaneinfrastructuredallashoustoni45electrictruckchargingcorridortexasusprojectapproval20260505newdallasandhoustonchargingsiteswith68pullthroughlanesandccsmcssupport",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "id": "2026-05-05_US_02",
+      "region": "US",
+      "date": "2026-05-05",
+      "cat": "Charging",
+      "sub_cat": "MW급충전",
+      "signal": "high",
+      "title": "ABB E-mobility, OM X-Series 공개 — 800kW~10MW+ 대형 충전 사이트 아키텍처",
+      "sub": "2026-05-05 — ABB E-mobility는 대형 충전 사이트용 OM X-Series를 공개하고 800kW에서 10MW 이상까지 확장 가능한 구조를 제시했다.",
+      "gate": "이 사안은 개별 충전기 출력 경쟁보다 대형 사이트의 전력 분배·열관리 아키텍처 변화에 가깝다. 물류허브와 차고지 충전이 커질수록 충전기 수량보다 전체 사이트의 효율과 연속 운전 안정성이 병목이 될 수 있다.",
+      "fact": "ABB E-mobility 공식 발표에 따르면 회사는 2026년 5월 5일 OM X-Series를 공개했다. 발표는 이 시스템이 800kW에서 10MW 이상까지 확장되고 100개 이상의 충전 포인트를 지원한다고 설명했다. ABB는 액체냉각 모듈이 연속 운전 조건에서 98% 초과 변환효율을 달성한다고 밝혔다.",
+      "implication": [
+        "MW급 충전 인프라는 단일 디스펜서보다 site architecture와 열관리 성능이 핵심 경쟁축으로 이동하고 있다.",
+        "대형 트럭·버스·물류 거점 충전은 전력변환 효율과 충전포인트 운영 수가 CAPEX 회수에 영향을 줄 수 있다.",
+        "다음 체크포인트는 실제 설치 사이트, 10MW급 운영 레퍼런스, 충전사업자의 운영 비용 데이터다."
+      ],
+      "urls": [
+        "https://e-mobility.abb.com/en/newsroom/news-article/abb-e-mobility-launches-om-x-series-megawatt-scale-continuous-duty-charging"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ABB E-mobility official release",
+          "source_url": "https://e-mobility.abb.com/en/newsroom/news-article/abb-e-mobility-launches-om-x-series-megawatt-scale-continuous-duty-charging",
+          "claim": "ABB E-mobility introduced the OM X-Series on May 5, 2026.",
+          "source_quote": "ABB E-mobility today introduced the OM X-Series",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "ABB E-mobility official release",
+          "source_url": "https://e-mobility.abb.com/en/newsroom/news-article/abb-e-mobility-launches-om-x-series-megawatt-scale-continuous-duty-charging",
+          "claim": "The system scales from 800kW to 10MW and beyond across more than 100 charge points.",
+          "source_quote": "scaling from 800 kW to 10 MW and beyond, across more than 100 charge points",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "ABB E-mobility official release",
+          "source_url": "https://e-mobility.abb.com/en/newsroom/news-article/abb-e-mobility-launches-om-x-series-megawatt-scale-continuous-duty-charging",
+          "claim": "ABB says the modules achieve more than 98% conversion efficiency as a continuous operating condition.",
+          "source_quote": "Those modules achieve more than 98% conversion efficiency as a continuous operating condition",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "US_2026-05-05_C12"
+      ],
+      "source_spec_id": "SA-20260507_083518-007",
+      "merge_status": "single",
+      "representative_source": "ABB E-mobility official release",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "abbemobilityomxseriesdistributedchargingsystemusglobalhighpowerchargingsitesproductlaunch20260505800kwto10mwsitearchitectureand100chargepoints",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "id": "2026-05-05_US_03",
+      "region": "US",
+      "date": "2026-05-05",
+      "cat": "EV",
+      "sub_cat": "전기트럭수주",
+      "signal": "high",
+      "title": "WattEV, Tesla Semi 370대 배치 계획 — 첫 50대 2026년 인도·2027년 말 전체 운용 목표",
+      "sub": "2026-05-05 — WattEV는 Tesla Semi Class 8 전기트럭 370대 award를 발표하고 첫 50대 인도와 전체 fleet 운용 일정을 제시했다.",
+      "gate": "이 사안은 Tesla Semi 제품 홍보보다 전기화물 운영사가 대량 차량 조달을 실제 fleet 운용 일정과 연결했다는 점이 핵심이다. 대형 전기트럭 채택은 차량 인도뿐 아니라 충전 인프라와 운송 서비스 모델이 함께 작동해야 검증된다.",
+      "fact": "WattEV 발표에 따르면 회사는 2026년 5월 5일 Tesla Semi Class 8 전기트럭 370대 award를 발표했다. 발표는 첫 50대 인도가 2026년에 시작되고 전체 fleet은 2027년 말까지 운영될 예정이라고 밝혔다. Teslarati는 해당 건이 약 1억달러 규모라고 보도했다.",
+      "implication": [
+        "전기트럭 시장에서는 차량 주문과 충전 인프라 구축이 분리되면 실제 운행 확대가 지연될 수 있다.",
+        "WattEV 사례는 대형 트럭 조달과 fleet 운영 모델을 함께 묶는 방식의 실험으로 볼 수 있다.",
+        "다음 체크포인트는 실제 인도 시작, fleet 운행 대수, 충전 네트워크 가동률이다."
+      ],
+      "urls": [
+        "https://www.globenewswire.com/news-release/2026/05/05/3288145/0/en/wattev-to-deploy-370-tesla-semis-launching-largest-electric-freight-network-connecting-northern-and-central-california.html",
+        "https://www.teslarati.com/tesla-massive-order-semi-370-units-100m/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "WattEV GlobeNewswire release",
+          "source_url": "https://www.globenewswire.com/news-release/2026/05/05/3288145/0/en/wattev-to-deploy-370-tesla-semis-launching-largest-electric-freight-network-connecting-northern-and-central-california.html",
+          "claim": "WattEV announced an award for 370 Tesla Semi Class 8 electric trucks.",
+          "source_quote": "WattEV, the nation’s leading provider of electric freight operations, today announced an award for 370 Tesla Semi Class 8 electric trucks",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_body_excerpt"
+        },
+        {
+          "source_name": "WattEV GlobeNewswire release",
+          "source_url": "https://www.globenewswire.com/news-release/2026/05/05/3288145/0/en/wattev-to-deploy-370-tesla-semis-launching-largest-electric-freight-network-connecting-northern-and-central-california.html",
+          "claim": "The first 50 units are scheduled for 2026 and full fleet by end-2027.",
+          "source_quote": "Delivery of the first 50 units is scheduled to start in 2026, with the full fleet operational by the end of 2027",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "Teslarati body article",
+          "source_url": "https://www.teslarati.com/tesla-massive-order-semi-370-units-100m/",
+          "claim": "Teslarati reported the deployment value at approximately $100 million.",
+          "source_quote": "Valued at approximately $100 million, this marks the state’s biggest single electric truck order to date",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "US_2026-05-05_C11"
+      ],
+      "source_spec_id": "SA-20260507_083518-009",
+      "merge_status": "single",
+      "representative_source": "WattEV GlobeNewswire release",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "wattevteslasemifleetawardusfreightmarketfinancingoraward20260505370teslasemiawardfirst50deliveriesin2026fullfleetbyend2027",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "id": "2026-05-05_GL_01",
+      "region": "GL",
+      "date": "2026-05-05",
+      "cat": "PowerGrid",
+      "sub_cat": "태양광연계BESS",
+      "signal": "high",
+      "title": "Longroad Sun Pond 상업운전 — Arizona 111MWdc 태양광·85MW/340MWh BESS",
+      "sub": "2026-05-05 — Longroad Energy는 Arizona Sun Pond 태양광+저장 프로젝트가 상업운전에 들어갔다고 발표했다.",
+      "gate": "이 사안은 BESS가 단독 저장장치가 아니라 태양광 PPA와 묶여 공급계약을 수행하는 구조라는 점이 중요하다. California CCA 수요와 Arizona 발전·저장 자산이 연결되면서 지역 간 재생에너지 조달 모델을 보여준다.",
+      "fact": "Longroad Energy 발표에 따르면 Sun Pond 프로젝트는 111MWdc 태양광과 85MWac/340MWh 배터리 저장장치로 구성되며 상업운전을 달성했다. 발표는 Ava Community Energy와 San José Clean Energy가 장기 PPA를 통해 이 프로젝트의 출력을 계약했다고 설명했다. 또한 프로젝트가 연간 약 3만5,000가구에 전력을 공급할 수 있다고 밝혔다.",
+      "implication": [
+        "태양광+저장 프로젝트는 전력 판매 계약과 함께 상업운전이 확인될 때 실제 공급 자산으로 의미가 커진다.",
+        "CCA 수요와 BESS 결합은 피크 시간대 공급 신뢰성을 보완하는 구조로 관찰된다.",
+        "다음 체크포인트는 실제 방전 프로파일, PPA 공급 성과, Sun Streams complex 후속 프로젝트다."
+      ],
+      "urls": [
+        "https://www.prnewswire.com/news-releases/longroad-energys-sun-pond-solar--storage-project-achieves-commercial-operations-302762010.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Longroad Energy PRNewswire release",
+          "source_url": "https://www.prnewswire.com/news-releases/longroad-energys-sun-pond-solar--storage-project-achieves-commercial-operations-302762010.html",
+          "claim": "Longroad announced Sun Pond achieved commercial operations.",
+          "source_quote": "Sun Pond, its 111 MWdc solar and 85 MWac / 340 MWh storage project, has achieved commercial operations",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_body_excerpt"
+        },
+        {
+          "source_name": "Longroad Energy PRNewswire release",
+          "source_url": "https://www.prnewswire.com/news-releases/longroad-energys-sun-pond-solar--storage-project-achieves-commercial-operations-302762010.html",
+          "claim": "The project has PPAs with Ava Community Energy and San José Clean Energy.",
+          "source_quote": "Ava Community Energy (Ava) and San José Clean Energy (SJCE) have contracted for the output of Sun Pond via long-term Power Purchase Agreements",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "Longroad Energy PRNewswire release",
+          "source_url": "https://www.prnewswire.com/news-releases/longroad-energys-sun-pond-solar--storage-project-achieves-commercial-operations-302762010.html",
+          "claim": "The project will power approximately 35,000 average American homes annually.",
+          "source_quote": "The project will generate enough electricity annually to power approximately 35,000 average American homes",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "GL_2026-05-06_C13"
+      ],
+      "source_spec_id": "SA-20260507_083518-012",
+      "merge_status": "single",
+      "representative_source": "Longroad Energy PRNewswire release",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "longroadenergysunpondsolarplusstorageprojectarizonausproductionstart20260505111mwdcsolarand85mw340mwhbatterystoragereachedcommercialoperation",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "id": "2026-05-05_GL_02",
+      "region": "GL",
+      "date": "2026-05-05",
+      "cat": "ESS",
+      "sub_cat": "세컨드라이프BESS",
+      "signal": "high",
+      "title": "Moment Energy, 4,000만달러 Series B — 북미 second-life BESS 플랫폼 확장",
+      "sub": "2026-05-05 — Moment Energy는 4,000만달러 Series B를 발표하고 누적 조달액이 1억달러를 넘었다고 밝혔다.",
+      "gate": "이 사안은 폐EV 배터리 재사용이 파일럿을 넘어 독립 전력 인프라 플랫폼으로 투자받는지의 검증 포인트다. 다만 실제 공급능력과 배터리 조달계약은 별도 확인이 필요하다.",
+      "fact": "Moment Energy 공식 발표에 따르면 회사는 2026년 5월 5일 4,000만달러 Series B funding round를 발표했다. 발표는 이번 라운드로 누적 조달액이 1억달러를 넘었다고 설명했고, Evok Innovations가 라운드를 주도했으며 Liberty Mutual Investments, W23 Global Fund, Acario 등이 참여했다고 밝혔다.",
+      "implication": [
+        "Second-life BESS는 원가와 공급망 측면에서 신규 셀 기반 ESS와 다른 포지션을 만들 수 있다.",
+        "투자 유치는 기술 가능성보다 상업 확장과 조달 안정성 검증으로 이어져야 의미가 커진다.",
+        "다음 체크포인트는 실제 시스템 출하량, 인증, EV 배터리 공급 파트너, 고객 사이트다."
+      ],
+      "urls": [
+        "https://www.momentenergy.com/news/series-b"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Moment Energy official release",
+          "source_url": "https://www.momentenergy.com/news/series-b",
+          "claim": "Moment Energy announced a $40M Series B on May 5, 2026.",
+          "source_quote": "May 5, 2026 — Moment Energy, the architect of the next generation of power infrastructure, today announced a $40 million Series B funding round",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "Moment Energy official release",
+          "source_url": "https://www.momentenergy.com/news/series-b",
+          "claim": "The round brings total capital raised to over $100M.",
+          "source_quote": "bringing its total capital raised to over $100 million",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "Moment Energy official release",
+          "source_url": "https://www.momentenergy.com/news/series-b",
+          "claim": "The round was led by Evok with several strategic participants.",
+          "source_quote": "The Series B round was led by Evok Innovations, with participation from Liberty Mutual Investments, W23 Global Fund, and Acario",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "GL_2026-05-06_C14"
+      ],
+      "source_spec_id": "SA-20260507_083518-013",
+      "merge_status": "single",
+      "representative_source": "Moment Energy official release",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "momentenergysecondlifebessseriesbfinancingnorthamericafinancing2026050540millionseriesbandexpansionofsecondlifebessplatform",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "id": "2026-05-05_GL_03",
+      "region": "GL",
+      "date": "2026-05-05",
+      "cat": "ESS",
+      "sub_cat": "NSWBESS",
+      "signal": "high",
+      "title": "NSW BESS 1,240MW 충전 기록 — 주 소비전력 11.9% 흡수",
+      "sub": "2026-05-05 — Energy-Storage.news와 RenewEconomy는 New South Wales BESS가 5월 2일 1,240MW 충전 출력과 주 소비전력 11.9% 흡수 기록을 세웠다고 보도했다.",
+      "gate": "이 사안은 배터리가 전력시장 가격차만 추종하는 보조자산을 넘어 낮 시간대 태양광 잉여를 흡수하는 계통 자산으로 작동하는지 보여주는 데이터다. 핵심 수치는 Energy-Storage.news와 RenewEconomy/Geoff Eldridge 분석 보도 기반이며, AEMO Q1 2026 자료는 NSW 배터리 확대의 배경 맥락을 보강한다.",
+      "fact": "Energy-Storage.news와 RenewEconomy는 NSW BESS가 2026년 5월 2일 1,240MW 충전 출력과 주 소비전력 11.9% 흡수라는 충전 기록을 세웠다고 보도했다. Energy-Storage.news는 Geoff Eldridge 분석을 인용해 이 수치가 전년 대비 충전 용량 72.5%, 소비전력 중 충전비중 68% 증가라고 설명했다. AEMO Q1 2026 자료는 New South Wales의 Orana BESS 415MW/1,660MWh commissioning과 평균 battery discharge 증가를 broader context로 제시한다.",
+      "implication": [
+        "BESS의 계통 기여는 설치 용량보다 특정 시간대 전력 흡수와 방전 패턴으로 확인된다.",
+        "NSW 기록은 solar window에서 배터리가 전력 수급 곡선을 바꾸는 사례로 볼 수 있다.",
+        "다음 체크포인트는 AEMO 원자료의 후속 월별 데이터, 가격 스프레드 지속성, 신규 commissioning 물량이다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/australia-nsw-battery-storage-systems-capture-11-9-of-state-consumption/",
+        "https://www.indexbox.io/blog/new-south-wales-battery-storage-sets-dual-charging-records-on-may-2-2026/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Energy-Storage.news body article",
+          "source_url": "https://www.energy-storage.news/australia-nsw-battery-storage-systems-capture-11-9-of-state-consumption/",
+          "claim": "NSW BESS set two charging records on 2 May.",
+          "source_quote": "New South Wales (NSW) battery energy storage systems (BESS) set two charging records on 2 May, reaching 1,240MW of charging power and capturing 11.9% of state consumption",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "Energy-Storage.news body article",
+          "source_url": "https://www.energy-storage.news/australia-nsw-battery-storage-systems-capture-11-9-of-state-consumption/",
+          "claim": "The records represented YoY increases versus 2025.",
+          "source_quote": "the records mark a 72.5% year-on-year increase in charging capacity and a 68% rise in the charge share of consumption compared to the same period in 2025",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "IndexBox / Energy-Storage.news derived body",
+          "source_url": "https://www.indexbox.io/blog/new-south-wales-battery-storage-sets-dual-charging-records-on-may-2-2026/",
+          "claim": "NSW batteries charged around 4.47GWh and discharged around 3.31GWh.",
+          "source_quote": "NSW battery storage systems charged around 4.47 gigawatt-hours at an average price of AU$15.80 per megawatt-hour and discharged around 3.31 gigawatt-hours",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "GL_2026-05-05_C02"
+      ],
+      "source_spec_id": "SA-20260507_083518-016",
+      "merge_status": "single",
+      "representative_source": "Energy-Storage.news body article",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "nswbessfleetstatebesschargingrecordnewsouthwalesaustraliamarketdatarelease20260505besschargingreached1240mwandabsorbed119ofstatepower",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "id": "2026-05-05_EU_01",
+      "region": "EU",
+      "date": "2026-05-05",
+      "cat": "PowerGrid",
+      "sub_cat": "EU태양광저장",
+      "signal": "high",
+      "title": "SolarPower Europe Solar+ 보고서 — EU 운영비 49% 절감·BESS 598GWh 시나리오",
+      "sub": "2026-05-05 — SolarPower Europe는 Rystad Energy 모델링 기반 Solar+ report에서 EU 전력시스템 운영비 절감과 battery storage 확대 시나리오를 제시했다.",
+      "gate": "이 사안은 EU solar deployment 논의가 단순 설치량에서 storage-backed flexibility로 이동하고 있음을 보여준다. Solar+ scenario는 가격 하락과 저장장치 확대를 같은 모델 안에서 다루므로, 배터리 저장장치의 정책·시장 내 역할을 확인하는 기준점이 될 수 있다.",
+      "fact": "SolarPower Europe 공식 발표에 따르면 회사는 2026년 5월 5일 Solar+ report를 발표했다. 발표는 Solar+ scenario에서 2030년까지 EU electricity system annual operating costs가 550억유로, 즉 49% 감소한다고 설명했다. 또한 EU battery storage capacity가 Base Case에서 116GW/267GWh, Solar+ scenario에서 171GW/598GWh에 도달한다고 밝혔다.",
+      "implication": [
+        "EU 전력시장에서는 태양광 확대만으로는 충분하지 않고 storage duration과 flexibility 전략이 함께 필요하다.",
+        "BESS 598GWh 시나리오는 배터리 저장장치를 전력시스템 비용 절감의 핵심 변수로 배치한다.",
+        "다음 체크포인트는 EU Battery Storage Action Plan, 실제 grid connection, 국가별 storage auction 설계다."
+      ],
+      "urls": [
+        "https://www.solarpowereurope.org/press-releases/new-report-solar-and-storage-would-slash-eu-power-system-operating-costs-in-half-by-2030"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "SolarPower Europe official press release",
+          "source_url": "https://www.solarpowereurope.org/press-releases/new-report-solar-and-storage-would-slash-eu-power-system-operating-costs-in-half-by-2030",
+          "claim": "SolarPower Europe presented the Solar+ report on 5 May 2026.",
+          "source_quote": "BRUSSELS, Belgium (5 May 2026): SolarPower Europe today presents its Solar + report",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "SolarPower Europe official press release",
+          "source_url": "https://www.solarpowereurope.org/press-releases/new-report-solar-and-storage-would-slash-eu-power-system-operating-costs-in-half-by-2030",
+          "claim": "Under the Solar+ scenario annual operating costs fall by €55bn / 49%.",
+          "source_quote": "under the more ambitious Solar+ scenario, electricity system annual operating costs fall by €55 billion (−49%) by 2030",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "SolarPower Europe official press release",
+          "source_url": "https://www.solarpowereurope.org/press-releases/new-report-solar-and-storage-would-slash-eu-power-system-operating-costs-in-half-by-2030",
+          "claim": "Solar+ scenario battery storage reaches 171GW/598GWh by 2030.",
+          "source_quote": "Total operating EU battery storage capacity reaches 116 GW / 267 GWh by 2030 in the Base Case, and 171 GW / 598 GWh in the Solar+ scenario.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "EU_2026-05-05_C04"
+      ],
+      "source_spec_id": "SA-20260507_083518-022",
+      "merge_status": "single",
+      "representative_source": "SolarPower Europe official press release",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "solarpowereuropesolarreportoneusolarplusstorageeconomicseureportrelease2026050549operatingcostreductionand598gwhbessscenario",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "draft_id": "DRAFT-B-RESCUE-007",
+      "source_spec_id": "RPTR-20260507_083518-008",
+      "source_story_ids": [
+        "TF_0039"
+      ],
+      "region": "EU",
+      "date": "2026-05-05",
+      "cat": "Charging",
+      "sub_cat": "충전 플랫폼 M&A",
+      "signal": "mid",
+      "title": "DKV Mobility, Optimile 완전 인수 — 충전카드 150만개·충전포인트 26만개 관리",
+      "sub": "2026-05-05 — electrive는 독일 DKV Mobility가 벨기에 e-mobility 플랫폼 Optimile을 완전 인수했다고 전했다.",
+      "gate": "충전 네트워크 경쟁은 충전기 설치뿐 아니라 결제, 로밍, 카드·토큰 운영 플랫폼의 통합으로 이동하고 있다. DKV의 Optimile 인수는 기업용 이동성·충전 결제 플랫폼이 규모와 운영 데이터를 함께 키우는 신호다.",
+      "fact": "electrive에 따르면 독일 DKV Mobility는 벨기에 e-mobility 플랫폼 Optimile을 완전 인수했다. 보도는 DKV Mobility가 총 약 150만개의 충전 카드와 토큰, 26만개 이상의 충전 포인트를 관리하게 됐다고 전했다.",
+      "implication": [
+        "충전 인프라 시장에서는 물리적 충전소뿐 아니라 로밍·결제·운영 데이터 통합이 경쟁력의 한 축이 된다.",
+        "기업용 플릿 전동화가 진행될수록 충전카드와 플랫폼 운영 규모가 고객 락인으로 작동할 수 있다.",
+        "다음 체크포인트는 Optimile 통합 후 지원 국가, CPO 제휴 확대, 기업 플릿 고객 증가 여부다."
+      ],
+      "urls": [
+        "https://www.electrive.com/2026/05/05/dkv-mobility-acquires-optimile"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "electrive body article",
+          "source_url": "https://www.electrive.com/2026/05/05/dkv-mobility-acquires-optimile",
+          "claim": "DKV Mobility fully acquired Belgian e-mobility platform provider Optimile.",
+          "source_quote": "German provider DKV Mobility has fully acquired Belgian e-mobility platform provider Optimile.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "electrive body article",
+          "source_url": "https://www.electrive.com/2026/05/05/dkv-mobility-acquires-optimile",
+          "claim": "After the acquisition, DKV Mobility manages around 1.5m charging cards/tokens and over 260,000 charging points.",
+          "source_quote": "DKV Mobility now manages around 1.5 million charging cards and tokens as well as over 260,000 charging points.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        }
+      ],
+      "source_availability": "current_source_body_or_rich_text_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_or_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported_pending_stage_c",
+      "single_source_reason": "Single current source body/rich-text package supports the core event; additional official/source-ladder augmentation may still improve Stage C or Evidence QC where noted.",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Source body is short but concrete. Stage C should decide whether independent SBTL_HUB card value is sufficient or support-only.",
+        "Stage B rescue draft only; not accepted_fact_safe, evidence_complete, source_claim_covered, publish_ready, merge-ready, or GitHub-ready."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "lineage_metadata_preserved": true,
+      "event_fingerprint_search_profile": {
+        "actor": "DKV Mobility",
+        "asset_or_policy": "Optimile acquisition",
+        "location": "EU",
+        "event_type": "acquisition",
+        "event_date": "2026-05-05"
+      },
+      "source_discovery_strategy": "rescue_candidate_strict_spec bounded recheck; exact URL + event duplicate reference against cards (5) and locked 16-card payload; current source input body/rich text used for quote candidates.",
+      "source_discovery_status": "source_input_body_or_rich_text_supported",
+      "source_discovery_ledger_refs": [
+        "RPTR-20260507_083518-008"
+      ],
+      "stage_c_rescue_validation": {
+        "validated_at": "2026-05-07T17:35:00+09:00",
+        "duplicate_check": {
+          "cards_5_baseline_exact_url_hits": [],
+          "locked_16_reference_exact_url_hits": [],
+          "event_duplicate_detected": false
+        },
+        "fact_source_schema_issues": [],
+        "source_direction_check": "pass",
+        "publish_ready": false,
+        "github_ready": false,
+        "merge_ready": false,
+        "decision": "accepted_fact_safe",
+        "source_strength_caveat": [
+          "single_source_body_level_evidence_adequate_for_stage_c_but_optional_official_corroboration_would_strengthen_0_5"
+        ]
+      },
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "rescue_baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (5).json",
+        "baseline_total": 636,
+        "do_not_duplicate_reference": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+        "checked_against_locked_16_reference": true,
+        "exact_url_collision_baseline_ids": [],
+        "exact_url_collision_locked_16_ref_ids": [],
+        "duplicate_urls_within_card": 1,
+        "checked_at": "2026-05-07T00:00:00Z",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "rescue_content_polish": {
+        "stage": "Prompt0.6RescueContentPolish",
+        "run_tag": "20260507_083518",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_applied": true,
+        "polished_at": "2026-05-07T17:35:00+09:00"
+      },
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS"
+      },
+      "url_dedupe_cleanup_applied": true,
+      "url_dedupe_cleanup_log": [
+        {
+          "field": "urls",
+          "action": "dedupe_exact_repeated_urls",
+          "before_count": 2,
+          "after_count": 1
+        }
+      ],
+      "hard_fail_count": 0,
+      "final_qc_notes": "PASS after exact duplicate URL cleanup only; no visible fields/fact_sources/source_quote changes.",
+      "id": "2026-05-05_EU_02",
+      "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
+      "merge_status": "single",
+      "baseline_relation": "new"
+    },
+    {
+      "draft_id": "DRAFT-B-RESCUE-008",
+      "source_spec_id": "RPTR-20260507_083518-009",
+      "source_story_ids": [
+        "US_2026-05-05_C06"
+      ],
+      "region": "US",
+      "date": "2026-05-05",
+      "cat": "Policy",
+      "sub_cat": "태양광·ESS 리베이트",
+      "signal": "mid",
+      "title": "Oregon DOE, 태양광·저장장치 리베이트 110만달러 재개 — 6월 15일 한시 접수",
+      "sub": "2026-05-05 — pv magazine USA는 Oregon DOE가 절감·취소 재원 110만달러로 태양광·저장장치 리베이트를 6월 15일 재개한다고 전했다.",
+      "gate": "주정부 리베이트는 소규모 태양광·저장장치 수요를 직접 움직이는 정책 신호다. 금액은 크지 않지만 주택용 저장장치와 저소득 서비스 기관 보조가 함께 들어가 있어 분산형 ESS 보급 경로를 보여준다.",
+      "fact": "pv magazine USA에 따르면 Oregon Department of Energy는 2026년 6월 15일 태양광·저장장치 리베이트 프로그램을 한시적으로 재개한다. 보도는 이번 재원이 기존 라운드의 행정 절감액과 취소 또는 미완료 리베이트 프로젝트에서 나온 110만달러라고 설명했다. 리베이트는 주택용 태양광 최대 5,000달러, 주택용 에너지저장장치 최대 2,500달러, 저소득층 서비스 제공기관 최대 3만달러까지 제공되는 것으로 보도됐다.",
+      "implication": [
+        "분산형 ESS 수요는 유틸리티 대형 프로젝트와 별개로 주정부 보조금 설계에 민감하게 반응한다.",
+        "저소득 서비스 기관 보조는 ESS가 회복력·재난대응 인프라로 배치될 수 있음을 보여준다.",
+        "다음 체크포인트는 6월 15일 재개 후 소진 속도, 저장장치 신청 비중, 추가 예산 편성 여부다."
+      ],
+      "urls": [
+        "https://pv-magazine-usa.com/2026/05/05/oregon-department-of-energy-announces-1-1-million-in-re-purposed-funding-for-solar-and-storage-rebates"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "pv magazine USA body article",
+          "source_url": "https://pv-magazine-usa.com/2026/05/05/oregon-department-of-energy-announces-1-1-million-in-re-purposed-funding-for-solar-and-storage-rebates",
+          "claim": "ODOE will temporarily reopen solar and storage rebates on June 15, 2026.",
+          "source_quote": "will temporarily reopen the state’s popular solar and storage rebate program on June 15, 2026",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "pv magazine USA body article",
+          "source_url": "https://pv-magazine-usa.com/2026/05/05/oregon-department-of-energy-announces-1-1-million-in-re-purposed-funding-for-solar-and-storage-rebates",
+          "claim": "The program is backed by $1.1m from administrative savings and canceled/incomplete projects.",
+          "source_quote": "$1.1 million the ODOE says comes from administrative savings and canceled or incomplete rebate projects from prior rounds",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "pv magazine USA body article",
+          "source_url": "https://pv-magazine-usa.com/2026/05/05/oregon-department-of-energy-announces-1-1-million-in-re-purposed-funding-for-solar-and-storage-rebates",
+          "claim": "Rebates include up to $5,000 for home solar, $2,500 for home energy storage and $30,000 for eligible low-income service providers.",
+          "source_quote": "up to $5,000 for home solar, $2,500 for home energy storage and $30,000 for eligible low-income service providers",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        }
+      ],
+      "source_availability": "current_source_body_or_rich_text_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_or_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported_pending_stage_c",
+      "single_source_reason": "Single current source body/rich-text package supports the core event; additional official/source-ladder augmentation may still improve Stage C or Evidence QC where noted.",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Official ODOE source was not added in this local pass; source is body-level specialty press with attributed agency details.",
+        "Stage B rescue draft only; not accepted_fact_safe, evidence_complete, source_claim_covered, publish_ready, merge-ready, or GitHub-ready."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "lineage_metadata_preserved": true,
+      "event_fingerprint_search_profile": {
+        "actor": "Oregon Department of Energy",
+        "asset_or_policy": "solar and storage rebate program $1.1m reopening",
+        "location": "Oregon, United States",
+        "event_type": "rebate_funding",
+        "event_date": "2026-05-05"
+      },
+      "source_discovery_strategy": "rescue_candidate_strict_spec bounded recheck; exact URL + event duplicate reference against cards (5) and locked 16-card payload; current source input body/rich text used for quote candidates.",
+      "source_discovery_status": "source_input_body_or_rich_text_supported",
+      "source_discovery_ledger_refs": [
+        "RPTR-20260507_083518-009"
+      ],
+      "stage_c_rescue_validation": {
+        "validated_at": "2026-05-07T17:35:00+09:00",
+        "duplicate_check": {
+          "cards_5_baseline_exact_url_hits": [],
+          "locked_16_reference_exact_url_hits": [],
+          "event_duplicate_detected": false
+        },
+        "fact_source_schema_issues": [],
+        "source_direction_check": "pass",
+        "publish_ready": false,
+        "github_ready": false,
+        "merge_ready": false,
+        "decision": "accepted_fact_safe",
+        "source_strength_caveat": [
+          "policy_or_regulatory_single_source_official_source_recommended_before_0_5R_if_external_distribution_quality_required"
+        ]
+      },
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "rescue_baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (5).json",
+        "baseline_total": 636,
+        "do_not_duplicate_reference": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+        "checked_against_locked_16_reference": true,
+        "exact_url_collision_baseline_ids": [],
+        "exact_url_collision_locked_16_ref_ids": [],
+        "duplicate_urls_within_card": 1,
+        "checked_at": "2026-05-07T00:00:00Z",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "rescue_content_polish": {
+        "stage": "Prompt0.6RescueContentPolish",
+        "run_tag": "20260507_083518",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_applied": true,
+        "polished_at": "2026-05-07T17:35:00+09:00"
+      },
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS"
+      },
+      "url_dedupe_cleanup_applied": true,
+      "url_dedupe_cleanup_log": [
+        {
+          "field": "urls",
+          "action": "dedupe_exact_repeated_urls",
+          "before_count": 2,
+          "after_count": 1
+        }
+      ],
+      "hard_fail_count": 0,
+      "final_qc_notes": "PASS after exact duplicate URL cleanup only; no visible fields/fact_sources/source_quote changes.",
+      "id": "2026-05-05_US_04",
+      "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
+      "merge_status": "single",
+      "baseline_relation": "new"
+    },
+    {
+      "draft_id": "DRAFT-B-RESCUE-009",
+      "source_spec_id": "RPTR-20260507_083518-011",
+      "source_story_ids": [
+        "TF_0038"
+      ],
+      "region": "EU",
+      "date": "2026-05-05",
+      "cat": "PowerGrid",
+      "sub_cat": "네덜란드 계통요금",
+      "signal": "mid",
+      "title": "네덜란드 ACM, 대형 발전사업자 계통요금 추진 — 태양광 포함·2032년 이후 가능성",
+      "sub": "2026-05-05 — pv magazine은 네덜란드 소비자시장청이 대형 전력 생산자에게 계통 비용을 부담시키는 요금제 도입을 추진 중이라고 전했다.",
+      "gate": "재생에너지 확대 이후 전력망 비용을 누가 부담할지가 유럽 전력시장 설계의 핵심 쟁점으로 올라오고 있다. 대형 태양광 발전사업자에게 계통요금이 부과되면 저장장치와 출력관리, 입찰 가격 구조에도 영향을 줄 수 있다.",
+      "fact": "pv magazine에 따르면 네덜란드 소비자시장청 ACM은 대형 전력 생산자가 전력망 비용 일부를 부담하도록 하는 계통요금 도입 계획을 추진하고 있다. 보도는 이 요금이 대규모 전력 생산자와 태양광 발전소를 포함하며, 도입 시점은 빨라도 2032년 1월 이전은 아니라고 전했다. ACM은 해당 요금이 전력망의 더 효율적인 활용에 기여할 것이라고 설명한 것으로 보도됐다.",
+      "implication": [
+        "계통비용 부과가 현실화되면 대형 태양광 프로젝트의 수익모델과 저장장치 결합 경제성이 바뀔 수 있다.",
+        "유럽 전력망 병목은 재생에너지 보급량뿐 아니라 시장요금·접속비 설계 문제로 이동하고 있다.",
+        "다음 체크포인트는 ACM의 최종 요율 설계, 적용 대상 규모, ESS 연계 프로젝트의 비용 회피 전략이다."
+      ],
+      "urls": [
+        "https://www.pv-magazine.com/2026/05/05/dutch-regulator-plans-feed-in-tariff-for-large-solar-producers"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "pv magazine body article",
+          "source_url": "https://www.pv-magazine.com/2026/05/05/dutch-regulator-plans-feed-in-tariff-for-large-solar-producers",
+          "claim": "The Netherlands ACM is progressing with plans for a grid fee for large electricity producers including solar plants.",
+          "source_quote": "The Netherlands Authority for Consumers and Markets is progressing with plans to introduce a grid fee that would see large-scale electricity producers, including solar power plants, contribute to the costs of the electricity grid.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "pv magazine body article",
+          "source_url": "https://www.pv-magazine.com/2026/05/05/dutch-regulator-plans-feed-in-tariff-for-large-solar-producers",
+          "claim": "The tariff is expected no earlier than January 2032.",
+          "source_quote": "Its introduction is expected no earlier than January 2032.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "pv magazine body article",
+          "source_url": "https://www.pv-magazine.com/2026/05/05/dutch-regulator-plans-feed-in-tariff-for-large-solar-producers",
+          "claim": "ACM says the tariff would contribute to more efficient grid utilization.",
+          "source_quote": "ACM says the tariff will “contribute to a more efficient utilization of the grid”",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        }
+      ],
+      "source_availability": "current_source_body_or_rich_text_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_or_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported_pending_stage_c",
+      "single_source_reason": "Single current source body/rich-text package supports the core event; additional official/source-ladder augmentation may still improve Stage C or Evidence QC where noted.",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "This is a regulatory-plan stage, not enacted policy; Stage C should keep wording as proposed/planned.",
+        "Stage B rescue draft only; not accepted_fact_safe, evidence_complete, source_claim_covered, publish_ready, merge-ready, or GitHub-ready."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "lineage_metadata_preserved": true,
+      "event_fingerprint_search_profile": {
+        "actor": "Netherlands ACM",
+        "asset_or_policy": "grid fee for large electricity producers",
+        "location": "Netherlands",
+        "event_type": "regulatory_market_design",
+        "event_date": "2026-05-05"
+      },
+      "source_discovery_strategy": "rescue_candidate_strict_spec bounded recheck; exact URL + event duplicate reference against cards (5) and locked 16-card payload; current source input body/rich text used for quote candidates.",
+      "source_discovery_status": "source_input_body_or_rich_text_supported",
+      "source_discovery_ledger_refs": [
+        "RPTR-20260507_083518-011"
+      ],
+      "stage_c_rescue_validation": {
+        "validated_at": "2026-05-07T17:35:00+09:00",
+        "duplicate_check": {
+          "cards_5_baseline_exact_url_hits": [],
+          "locked_16_reference_exact_url_hits": [],
+          "event_duplicate_detected": false
+        },
+        "fact_source_schema_issues": [],
+        "source_direction_check": "pass",
+        "publish_ready": false,
+        "github_ready": false,
+        "merge_ready": false,
+        "decision": "accepted_fact_safe",
+        "source_strength_caveat": [
+          "policy_or_regulatory_single_source_official_source_recommended_before_0_5R_if_external_distribution_quality_required"
+        ]
+      },
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "rescue_baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (5).json",
+        "baseline_total": 636,
+        "do_not_duplicate_reference": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+        "checked_against_locked_16_reference": true,
+        "exact_url_collision_baseline_ids": [],
+        "exact_url_collision_locked_16_ref_ids": [],
+        "duplicate_urls_within_card": 1,
+        "checked_at": "2026-05-07T00:00:00Z",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "rescue_content_polish": {
+        "stage": "Prompt0.6RescueContentPolish",
+        "run_tag": "20260507_083518",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_applied": true,
+        "polished_at": "2026-05-07T17:35:00+09:00"
+      },
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS"
+      },
+      "url_dedupe_cleanup_applied": true,
+      "url_dedupe_cleanup_log": [
+        {
+          "field": "urls",
+          "action": "dedupe_exact_repeated_urls",
+          "before_count": 2,
+          "after_count": 1
+        }
+      ],
+      "hard_fail_count": 0,
+      "final_qc_notes": "PASS after exact duplicate URL cleanup only; no visible fields/fact_sources/source_quote changes.",
+      "id": "2026-05-05_EU_03",
+      "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
+      "merge_status": "single",
+      "baseline_relation": "new"
+    },
+    {
       "id": "2026-05-04_GL_01",
       "region": "GL",
       "date": "2026-05-04",
@@ -471,6 +2829,283 @@
         "staleness_override": false,
         "decision": "fresh_or_valid_follow_up"
       }
+    },
+    {
+      "id": "2026-05-04_EU_01",
+      "region": "EU",
+      "date": "2026-05-04",
+      "cat": "ESS",
+      "sub_cat": "폴란드BESS최적화",
+      "signal": "high",
+      "title": "Axpo–R.Power 1.2GWh Poland BESS 최적화 계약 — minimum revenue floor 포함",
+      "sub": "2026-05-04 — Axpo는 R.Power와 Poland Dzięgielewo의 300MW/1,200MWh BESS 최적화 장기계약을 체결했다고 밝혔다.",
+      "gate": "이 사안은 유럽 BESS가 단순 EPC 개발을 넘어 수익 최적화와 minimum revenue floor 구조를 붙여 bankability를 보완하는 방향을 보여준다. Storage merchant revenue 변동성이 큰 시장에서는 floor·profit sharing 조건이 프로젝트 금융의 핵심 변수가 될 수 있다.",
+      "fact": "Axpo 공식 발표에 따르면 Axpo와 R.Power는 Poland의 300MW/1,200MWh BESS facility 1건을 최적화하는 장기계약을 체결했다. 발표는 계약이 상업운전 개시 시점부터 2038년 말까지 적용된다고 설명했다. 또한 계약 구조는 Axpo와 R.Power 간 profit-sharing mechanism에 minimum revenue guarantee floor를 결합한다고 밝혔다.",
+      "implication": [
+        "BESS 수익모델은 용량 확보보다 최적화 계약과 floor 구조를 통해 금융 가능성을 높이는 방향으로 진화하고 있다.",
+        "Poland BESS는 재생에너지 증가와 balancing market 참여를 연결하는 유럽 저장장치 투자 사례로 볼 수 있다.",
+        "다음 체크포인트는 COD 일정, floor 수준 공개 여부, ancillary service 수익 성과다."
+      ],
+      "urls": [
+        "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-r-power-sign-the-largest-optimisation-bess-deal-in-cent.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Axpo official release",
+          "source_url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-r-power-sign-the-largest-optimisation-bess-deal-in-cent.html",
+          "claim": "Axpo and R.Power signed a long-term optimisation agreement for a single 300MW/1,200MWh BESS in Poland.",
+          "source_quote": "Axpo and R.Power have signed a long-term agreement to optimise a single 300 MW/1,200 MWh BESS facility in Poland",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "Axpo official release",
+          "source_url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-r-power-sign-the-largest-optimisation-bess-deal-in-cent.html",
+          "claim": "The agreement runs from commercial operation until end-2038.",
+          "source_quote": "This agreement will begin at the start of commercial operation and run until the end of 2038.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "Axpo official release",
+          "source_url": "https://www.axpo.com/ch/en/newsroom/media-releases/2026/axpo-and-r-power-sign-the-largest-optimisation-bess-deal-in-cent.html",
+          "claim": "The agreement uses profit sharing plus a minimum revenue guarantee floor.",
+          "source_quote": "It is based on a profit-sharing mechanism between Axpo and R.Power, combined with a minimum revenue guarantee (floor)",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "EU_2026-05-05_C08"
+      ],
+      "source_spec_id": "SA-20260507_083518-021",
+      "merge_status": "single",
+      "representative_source": "Axpo official release",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "axpoandrpowerpolandbessoptimizationcontractpolandeucontract2026050412gwhbessoptimizationagreementwithrevenuefloor",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
+      "draft_id": "DRAFT-B-RESCUE-003-R1",
+      "source_spec_id": "RPTR-20260507_083518-003",
+      "source_story_ids": [
+        "KR_2026-05-07_C23"
+      ],
+      "region": "EU",
+      "date": "2026-05-04",
+      "cat": "Materials",
+      "sub_cat": "양극재 공장 안전",
+      "signal": "mid",
+      "title": "더구루 보도 기준: 에코프로비엠 헝가리 NCA 반제품 22.6kg 누출 — 해외 양극재 거점 안전관리 변수",
+      "sub": "2026-05-04 — 더구루는 헝가리 데브레첸 에코프로비엠 공장 NCA1 생산동에서 NCA 반제품 약 22.6kg이 유출됐다고 전했다.",
+      "gate": "양극재 해외 생산거점은 증설 속도뿐 아니라 안전관리와 현지 수용성까지 함께 검증된다. 이번 건은 더구루 보도와 보도 안의 회사 설명에 근거한 사고 기사이므로, 인명피해·외부 유해물질 누출 여부는 귀속형 표현을 유지하는 것이 안전하다.",
+      "fact": "더구루는 2026년 5월 4일 오후 11시40분께 헝가리 데브레첸 에코프로비엠 공장 NCA1 생산동에서 NCA 반제품 약 22.6kg이 유출됐다고 보도했다. 같은 보도는 에코프로비엠이 헝가리 현지 매체를 통해 인명피해와 외부 유해물질 누출은 없고 생산구역 일부만 영향을 받았다고 밝혔다고 전했다. 사고 원인과 복구 작업은 더구루가 인용한 회사 설명 범위로 한정해 봐야 한다.",
+      "implication": [
+        "해외 양극재 공장은 현지 정치·환경 이슈와 결합될 수 있어 사고 규모가 작아도 공식 커뮤니케이션이 중요하다.",
+        "하이니켈 양극재 생산거점의 안전·환경 관리 데이터는 고객 인증과 현지 수용성에 영향을 줄 수 있다.",
+        "다음 체크포인트는 헝가리 당국 발표, 에코프로비엠 공식 설명, 상업운전 일정 변동 여부다."
+      ],
+      "urls": [
+        "https://www.theguru.co.kr/news/article.html?no=101404"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "The Guru body article",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101404",
+          "claim": "The Guru reported an NCA semi-finished material leak of about 22.6kg at EcoPro BM’s Debrecen plant.",
+          "source_quote": "지난 4일 오후 11시40분께 데브레첸에 위치한 에코프로비엠 공장 내 NCA1 생산동에서 NCA 반제품 약 22.6㎏이 유출됐다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "The Guru body article",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101404",
+          "claim": "EcoPro BM said via Hungarian local media there were no casualties or external hazardous-material leakage, according to the report.",
+          "source_quote": "인명피해는 없으며 외부로의 유해물질 누출도 발생하지 않았다",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "The Guru body article",
+          "source_url": "https://www.theguru.co.kr/news/article.html?no=101404",
+          "claim": "EcoPro BM viewed a damaged pipe connection as the cause and began restoration work, according to the report.",
+          "source_quote": "사고 원인을 배관 연결부의 파손으로 보고 있으며 즉각 복구 작업에 돌입했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        }
+      ],
+      "source_availability": "current_source_body_or_rich_text_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_or_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported_pending_stage_c",
+      "single_source_reason": "Single current source body/rich-text package supports the core event; additional official/source-ladder augmentation may still improve Stage C or Evidence QC where noted.",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Single-source safety incident; Stage C should require conservative attribution and may require official/local-authority confirmation before acceptance.",
+        "Stage B rescue draft only; not accepted_fact_safe, evidence_complete, source_claim_covered, publish_ready, merge-ready, or GitHub-ready."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "lineage_metadata_preserved": true,
+      "event_fingerprint_search_profile": {
+        "actor": "EcoPro BM",
+        "asset_or_policy": "Debrecen Hungary NCA semi-finished material leak",
+        "location": "Debrecen, Hungary",
+        "event_type": "safety_incident",
+        "event_date": "2026-05-04"
+      },
+      "source_discovery_strategy": "rescue_candidate_strict_spec bounded recheck; exact URL + event duplicate reference against cards (5) and locked 16-card payload; current source input body/rich text used for quote candidates.",
+      "source_discovery_status": "source_input_body_or_rich_text_supported",
+      "source_discovery_ledger_refs": [
+        "RPTR-20260507_083518-003"
+      ],
+      "previous_draft_id": "DRAFT-B-RESCUE-003",
+      "revised_draft_id": "DRAFT-B-RESCUE-003-R1",
+      "revision_pass": "stage_b_rescue_revise_r1",
+      "revision_metadata": {
+        "revised_at": "2026-05-07T17:06:01+09:00",
+        "source_augmentation_authorized": false,
+        "source_augmentation_performed": false,
+        "changed_fields": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "unchanged_fields": [
+          "fact_sources",
+          "source_quote",
+          "urls",
+          "source_story_ids",
+          "event_anchor/source_spec_id"
+        ],
+        "prior_stage_c_reason_code": "single_source_safety_incident_needs_official_or_local_source",
+        "prior_stage_c_issue": "Sensitive safety/environment incident relies on one Korean secondary source citing Hungarian local/company comments. No-casualty / no external hazardous leakage / cause-restoration claims should not become fact-safe without official, local regulator, or original Hungarian-source confirmation.",
+        "fix_strategy": "visible_claim_narrowing_only_existing_evidence",
+        "change_summary": [
+          "removed definitive no-casualty claim from title",
+          "narrowed safety/no-leak/cause statements to The Guru/company-attributed reporting",
+          "kept core event anchor and existing fact_sources unchanged"
+        ],
+        "prior_stage_c_rescue_validation": {
+          "validated_at": "2026-05-07T17:35:00+09:00",
+          "duplicate_check": {
+            "cards_5_baseline_exact_url_hits": [],
+            "locked_16_reference_exact_url_hits": [],
+            "event_duplicate_detected": false
+          },
+          "fact_source_schema_issues": [],
+          "source_direction_check": "pass",
+          "publish_ready": false,
+          "github_ready": false,
+          "merge_ready": false,
+          "decision": "revise_required",
+          "reason_code": "single_source_safety_incident_needs_official_or_local_source",
+          "issue": "Sensitive safety/environment incident relies on one Korean secondary source citing Hungarian local/company comments. No-casualty / no external hazardous leakage / cause-restoration claims should not become fact-safe without official, local regulator, or original Hungarian-source confirmation.",
+          "required_fix": "Return to Stage B rescue revise/source augmentation: add EcoPro BM official statement, Hungarian authority/local original, or narrow visible fields to “The Guru reported…” without definitive safety closure."
+        },
+        "prior_revision_required": {
+          "reason_code": "single_source_safety_incident_needs_official_or_local_source",
+          "issue": "Sensitive safety/environment incident relies on one Korean secondary source citing Hungarian local/company comments. No-casualty / no external hazardous leakage / cause-restoration claims should not become fact-safe without official, local regulator, or original Hungarian-source confirmation.",
+          "required_fix": "Return to Stage B rescue revise/source augmentation: add EcoPro BM official statement, Hungarian authority/local original, or narrow visible fields to “The Guru reported…” without definitive safety closure."
+        }
+      },
+      "stage_b_rescue_revise_r1_only": true,
+      "accepted_fact_safe": false,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "addable_merge_safe": true,
+      "rescue_baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (5).json",
+        "baseline_total": 636,
+        "do_not_duplicate_reference": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+        "checked_against_locked_16_reference": true,
+        "exact_url_collision_baseline_ids": [],
+        "exact_url_collision_locked_16_ref_ids": [],
+        "duplicate_urls_within_card": 1,
+        "checked_at": "2026-05-07T00:00:00Z",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "rescue_content_polish": {
+        "stage": "Prompt0.6RescueContentPolish",
+        "run_tag": "20260507_083518",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_applied": true,
+        "polished_at": "2026-05-07T17:35:00+09:00"
+      },
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS"
+      },
+      "url_dedupe_cleanup_applied": true,
+      "url_dedupe_cleanup_log": [
+        {
+          "field": "urls",
+          "action": "dedupe_exact_repeated_urls",
+          "before_count": 2,
+          "after_count": 1
+        }
+      ],
+      "hard_fail_count": 0,
+      "final_qc_notes": "PASS after exact duplicate URL cleanup only; no visible fields/fact_sources/source_quote changes.",
+      "id": "2026-05-04_EU_02",
+      "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
+      "merge_status": "single",
+      "baseline_relation": "new"
     },
     {
       "id": "2026-05-03_KR_01",
@@ -1610,6 +4245,95 @@
       ]
     },
     {
+      "id": "2026-05-02_GL_03",
+      "region": "GL",
+      "date": "2026-05-02",
+      "cat": "Policy",
+      "sub_cat": "호주CIS",
+      "signal": "high",
+      "title": "호주 CIS Tenders 5·6 결과 — WA에 1.886GW 재생발전·3.683GWh BESS 승인",
+      "sub": "2026-05-02 — 호주 DCCEEW는 Capacity Investment Scheme Tenders 5·6 결과로 Western Australia 신규 재생전력·배터리 프로젝트 10건이 승인됐다고 밝혔다.",
+      "gate": "이 사안은 배터리 저장장치가 전력시장 보조설비가 아니라 정부 underwriting scheme의 독립 조달 대상이 됐다는 점이 중요하다. WA의 Wholesale Electricity Market에서 재생발전과 standalone storage가 함께 계약되면 노후 발전기 퇴출과 수요 증가 대응 구조가 바뀔 수 있다.",
+      "fact": "호주 DCCEEW 공식 발표에 따르면 Assistant Minister for Climate Change and Energy는 Capacity Investment Scheme Tenders 5 and 6 결과를 발표했다. 발표는 Western Australia에서 신규 renewable energy and battery projects 10건이 승인됐고, 1.886GW의 신규 재생전력 발전과 3.683GWh의 standalone battery storage를 제공한다고 설명했다.",
+      "implication": [
+        "정부 입찰 결과는 ESS 수요가 정책적으로 계약 가능한 자산군으로 편입되고 있음을 보여준다.",
+        "Standalone BESS가 조달 대상이 되면 셀·PCS·EPC 공급망의 프로젝트 파이프라인 가시성이 높아질 수 있다.",
+        "다음 체크포인트는 프로젝트별 financial close, 착공 일정, 배터리 공급사 공개다."
+      ],
+      "urls": [
+        "https://www.dcceew.gov.au/about/news/new-clean-energy-projects-approved-wa"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "DCCEEW official news",
+          "source_url": "https://www.dcceew.gov.au/about/news/new-clean-energy-projects-approved-wa",
+          "claim": "Australian government announced CIS Tenders 5 and 6 results for Western Australia.",
+          "source_quote": "The Assistant Minister for Climate Change and Energy has announced the results of Tenders 5 and 6 under the Capacity Investment Scheme (CIS).",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "DCCEEW official news",
+          "source_url": "https://www.dcceew.gov.au/about/news/new-clean-energy-projects-approved-wa",
+          "claim": "Ten WA projects were approved.",
+          "source_quote": "Ten new renewable energy and battery projects were approved for Western Australia",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "DCCEEW official news",
+          "source_url": "https://www.dcceew.gov.au/about/news/new-clean-energy-projects-approved-wa",
+          "claim": "The awards deliver 1.886GW new renewable generation and 3.683GWh standalone battery storage.",
+          "source_quote": "1.886 gigawatts (GW) of new renewable electricity generation",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "DCCEEW official news",
+          "source_url": "https://www.dcceew.gov.au/about/news/new-clean-energy-projects-approved-wa",
+          "claim": "The awards deliver 3.683GWh standalone battery storage.",
+          "source_quote": "3.683 gigawatt hours (GWh) of standalone battery storage",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_official_material"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "GL_2026-05-05_C01"
+      ],
+      "source_spec_id": "SA-20260507_083518-018",
+      "merge_status": "single",
+      "representative_source": "DCCEEW official news",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "australiangovernmentciscistenders5and6resultsforwarenewablesandbesswesternaustraliapolicyauctionaward202605021886gwrenewablegenerationand3683gwhbessapproved",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
+    },
+    {
       "id": "2026-05-01_KR_02",
       "region": "KR",
       "date": "2026-05-01",
@@ -2736,6 +5460,170 @@
           "fetch_method": "web_search_result"
         }
       ]
+    },
+    {
+      "draft_id": "DRAFT-B-RESCUE-010",
+      "source_spec_id": "RPTR-20260507_083518-012",
+      "source_story_ids": [
+        "TF_0046"
+      ],
+      "region": "GL",
+      "date": "2026-05-01",
+      "cat": "ESS",
+      "sub_cat": "BESS 셀 공급순위",
+      "signal": "high",
+      "title": "Benchmark, 2025년 BESS 셀 출하 600GWh 초과 평가 — 상위 10개사 90%·중국 집중",
+      "sub": "2026-05-01 — Benchmark Mineral Intelligence는 2025년 글로벌 BESS용 셀 출하가 600GWh를 넘었고 상위 10개 공급사가 90%를 차지했다고 평가했다.",
+      "gate": "ESS 셀 시장은 빠르게 커지고 있지만 공급 구조는 중국 업체 중심으로 집중돼 있다. BESS용 셀 출하가 EV와 별도 축으로 커질수록 비중국 셀·소재사는 원가, 안전, 인증 기준을 동시에 맞춰야 한다.",
+      "fact": "Benchmark Mineral Intelligence 글에 따르면 2025년 글로벌 BESS용 셀 출하는 600GWh를 넘었고, 2024년의 거의 두 배로 평가됐다. 같은 글은 2025년 상위 10개 BESS 셀 공급사가 전체 출하의 90%를 차지했으며 모두 중국에 본사를 둔 기업이라고 설명했다. 이 자료는 에너지저장용 셀과 시스템 통합업체 순위를 다룬 Benchmark 분석 글이다.",
+      "implication": [
+        "BESS 셀 수요가 600GWh를 넘는 규모로 커지면 ESS는 EV 둔화와 별개의 셀 수요축이 된다.",
+        "상위 공급사의 중국 집중도는 미국·유럽 프로젝트의 원산지, 보안, 조달 리스크와 직접 연결될 수 있다.",
+        "다음 체크포인트는 비중국 BESS 셀 증설 속도, ESS 프로젝트의 현지화 조건, 시스템 통합업체 점유율 변화다."
+      ],
+      "urls": [
+        "https://source.benchmarkminerals.com/article/the-top-energy-storage-cell-suppliers-and-system-integrators-in-2025"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Benchmark Mineral Intelligence article",
+          "source_url": "https://source.benchmarkminerals.com/article/the-top-energy-storage-cell-suppliers-and-system-integrators-in-2025",
+          "claim": "Benchmark assessed over 600GWh of global BESS cell shipments in 2025.",
+          "source_quote": "In 2025, over 600GWh of cells were shipped globally for battery energy stationary storage (BESS) applications",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "Benchmark Mineral Intelligence article",
+          "source_url": "https://source.benchmarkminerals.com/article/the-top-energy-storage-cell-suppliers-and-system-integrators-in-2025",
+          "claim": "Benchmark assessed 2025 BESS cell shipments as almost double 2024.",
+          "source_quote": "almost double that of 2024 as assessed by Benchmark Mineral Intelligence",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        },
+        {
+          "source_name": "Benchmark Mineral Intelligence article",
+          "source_url": "https://source.benchmarkminerals.com/article/the-top-energy-storage-cell-suppliers-and-system-integrators-in-2025",
+          "claim": "Top 10 BESS cell suppliers accounted for 90% and were all headquartered in China.",
+          "source_quote": "the top 10 BESS cell suppliers in 2025 accounted for 90% of cells shipped and all are headquartered in China",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T17:10:00+09:00",
+          "fetch_method": "current_source_input_article_body_or_rich_text_rescue_pass"
+        }
+      ],
+      "source_availability": "current_source_body_or_rich_text_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_or_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported_pending_stage_c",
+      "single_source_reason": "Single current source body/rich-text package supports the core event; additional official/source-ladder augmentation may still improve Stage C or Evidence QC where noted.",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Benchmark article includes repeated source-listing text; Stage C should ensure only body-level analysis text is used, not related-article listing fragments.",
+        "Stage B rescue draft only; not accepted_fact_safe, evidence_complete, source_claim_covered, publish_ready, merge-ready, or GitHub-ready."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "lineage_metadata_preserved": true,
+      "event_fingerprint_search_profile": {
+        "actor": "Benchmark Mineral Intelligence",
+        "asset_or_policy": "2025 BESS cell supplier and integrator report",
+        "location": "Global",
+        "event_type": "market_report",
+        "event_date": "2026-05-01"
+      },
+      "source_discovery_strategy": "rescue_candidate_strict_spec bounded recheck; exact URL + event duplicate reference against cards (5) and locked 16-card payload; current source input body/rich text used for quote candidates.",
+      "source_discovery_status": "source_input_body_or_rich_text_supported",
+      "source_discovery_ledger_refs": [
+        "RPTR-20260507_083518-012"
+      ],
+      "stage_c_rescue_validation": {
+        "validated_at": "2026-05-07T17:35:00+09:00",
+        "duplicate_check": {
+          "cards_5_baseline_exact_url_hits": [],
+          "locked_16_reference_exact_url_hits": [],
+          "event_duplicate_detected": false
+        },
+        "fact_source_schema_issues": [],
+        "source_direction_check": "pass",
+        "publish_ready": false,
+        "github_ready": false,
+        "merge_ready": false,
+        "decision": "accepted_fact_safe",
+        "source_strength_caveat": [
+          "benchmark_primary_article_supports_core_claims; report/datatable access would improve source strength but not required for stage_c"
+        ]
+      },
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "rescue_baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (5).json",
+        "baseline_total": 636,
+        "do_not_duplicate_reference": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+        "checked_against_locked_16_reference": true,
+        "exact_url_collision_baseline_ids": [],
+        "exact_url_collision_locked_16_ref_ids": [],
+        "duplicate_urls_within_card": 1,
+        "checked_at": "2026-05-07T00:00:00Z",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "rescue_content_polish": {
+        "stage": "Prompt0.6RescueContentPolish",
+        "run_tag": "20260507_083518",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_applied": false,
+        "polished_at": "2026-05-07T17:35:00+09:00"
+      },
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS"
+      },
+      "url_dedupe_cleanup_applied": true,
+      "url_dedupe_cleanup_log": [
+        {
+          "field": "urls",
+          "action": "dedupe_exact_repeated_urls",
+          "before_count": 2,
+          "after_count": 1
+        }
+      ],
+      "hard_fail_count": 0,
+      "final_qc_notes": "PASS after exact duplicate URL cleanup only; no visible fields/fact_sources/source_quote changes.",
+      "id": "2026-05-01_GL_09",
+      "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
+      "merge_status": "single",
+      "baseline_relation": "new"
     },
     {
       "id": "2026-04-30_KR_01",
@@ -4719,6 +7607,83 @@
           "source_name": "OFweek Li-Battery"
         }
       ]
+    },
+    {
+      "id": "2026-04-30_GL_09",
+      "region": "GL",
+      "date": "2026-04-30",
+      "cat": "ESS",
+      "sub_cat": "나트륨이온ESS",
+      "signal": "high",
+      "title": "ESS Tech–Alsym 8.5GWh LOI — sodium-ion BESS로 단·중시간 저장 포트폴리오 확대",
+      "sub": "2026-04-30 — Energy-Storage.news는 ESS Tech가 Alsym Energy와 8.5GWh sodium-ion cells/modules를 포트폴리오에 추가하는 LOI를 체결했다고 보도했다.",
+      "gate": "이 사안은 장주기 iron-flow 사업자가 리튬이 아닌 sodium-ion을 통해 짧은 duration 구간까지 포트폴리오를 넓히려는 움직임이다. 단, LOI 단계이므로 공급계약·구속력·인도 일정은 보수적으로 확인해야 한다.",
+      "fact": "Energy-Storage.news 보도에 따르면 ESS Tech는 Alsym Energy와 strategic partnership을 위한 letter of intent를 체결했다. 보도는 이 파트너십이 2026년 4월 30일 발표됐고, ESS Tech가 Alsym의 sodium-ion cells and modules 8.5GWh를 포트폴리오에 추가하는 내용이라고 설명했다. ESS News는 ESS Tech가 기존 8~24시간 iron-flow storage 제공을 보완해 short and medium-duration applications를 겨냥한다고 전했다.",
+      "implication": [
+        "Sodium-ion ESS는 리튬 기반 ESS가 지배해온 단·중시간 저장 시장에서 대체 화학체계 옵션으로 부상할 수 있다.",
+        "LOI 단계는 실제 납품과 bankability 검증 전 단계이므로 claim 강도를 낮춰야 한다.",
+        "다음 체크포인트는 definitive agreement, 셀 인도 일정, 프로젝트 고객, 인증·성능 데이터다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/ess-inc-partners-with-alsym-energy-for-8-5gwh-of-us-sodium-ion-bess-cells/",
+        "https://www.ess-news.com/2026/04/30/ess-tech-adds-8-5-gwh-of-us-made-sodium-ion-batteries-to-its-portfolio/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Energy-Storage.news body article",
+          "source_url": "https://www.energy-storage.news/ess-inc-partners-with-alsym-energy-for-8-5gwh-of-us-sodium-ion-bess-cells/",
+          "claim": "ESS Tech signed an LOI with Alsym Energy for a strategic partnership.",
+          "source_quote": "Iron flow battery company ESS Tech Inc has signed a letter of intent for a strategic partnership with US sodium-ion (Na-ion) battery startup Alsym Energy.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "Energy-Storage.news body article",
+          "source_url": "https://www.energy-storage.news/ess-inc-partners-with-alsym-energy-for-8-5gwh-of-us-sodium-ion-bess-cells/",
+          "claim": "The partnership will add 8.5GWh of Alsym sodium-ion cells and modules.",
+          "source_quote": "The partnership, announced 30 April, will see ESS Tech add 8.5GWh of Alsym’s Na-ion cells and modules to its portfolio.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        },
+        {
+          "source_name": "ESS News body article",
+          "source_url": "https://www.ess-news.com/2026/04/30/ess-tech-adds-8-5-gwh-of-us-made-sodium-ion-batteries-to-its-portfolio/",
+          "claim": "ESS Tech targets short- and medium-duration storage segments with non-lithium solutions.",
+          "source_quote": "ESS Tech is complementing its iron flow storage offering, which is engeeneered for the 8–24 hour long-duration segment, with sodium-ion battery products aimed at short and medium-duration applications.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T14:20:00+09:00",
+          "fetch_method": "web_search_crawled_body_excerpt"
+        }
+      ],
+      "source_origin": "stage_0_7_publish_ready_after_github_main_sync",
+      "source_story_ids": [
+        "GL_2026-05-05_C05"
+      ],
+      "source_spec_id": "SA-20260507_083518-017",
+      "merge_status": "single",
+      "representative_source": "Energy-Storage.news body article",
+      "baseline_relation": "new",
+      "event_fingerprint_key": "esstechandalsymenergy85gwhsodiumionbessloiglobalusstoragemarketpartnership20260430loifor85gwhsodiumionbatteriesforshortandmediumdurationstorage",
+      "final_qc_status": "publish_ready_github_main_sync_passed"
     },
     {
       "id": "2026-04-29_KR_02",
@@ -25873,5 +28838,156 @@
     "duplicate_id_count": 0,
     "duplicate_ids": [],
     "new_card_required_field_gaps": []
+  },
+  "merge_qc_20260507_083518_16": {
+    "baseline_file": "cards (5).json",
+    "baseline_cards_count": 636,
+    "incoming_publish_ready_count": 16,
+    "merged_total_count": 652,
+    "github_main_sync_status": "PASSED_USING_USER_UPLOADED_MAIN_BASELINE",
+    "id_collision_count": 0,
+    "exact_url_collision_count": 0,
+    "fuzzy_duplicate_collision_count": 0,
+    "publish_ready_cards_merged_count": 16,
+    "cards_withheld_count": 0,
+    "assigned_ids": [
+      {
+        "source_spec_id": "SA-20260507_083518-002",
+        "id": "2026-05-06_US_01",
+        "date": "2026-05-06",
+        "region": "US",
+        "title": "PolyJoule, 3세대 전도성 폴리머 배터리 공개 — 3,600°F 자체소화 시험·1만회 이상 사이클 주장"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-003",
+        "id": "2026-05-06_US_02",
+        "date": "2026-05-06",
+        "region": "US",
+        "title": "Kempower, Mega Satellite Flex 공개 — CCS 560kW·MCS 1.2MW 병행 지원"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-004",
+        "id": "2026-05-05_US_01",
+        "date": "2026-05-05",
+        "region": "US",
+        "title": "Greenlane, 텍사스 I-45 전기트럭 충전망 추진 — Dallas·Houston 고출력 사이트 계획"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-007",
+        "id": "2026-05-05_US_02",
+        "date": "2026-05-05",
+        "region": "US",
+        "title": "ABB E-mobility, OM X-Series 공개 — 800kW~10MW+ 대형 충전 사이트 아키텍처"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-009",
+        "id": "2026-05-05_US_03",
+        "date": "2026-05-05",
+        "region": "US",
+        "title": "WattEV, Tesla Semi 370대 배치 계획 — 첫 50대 2026년 인도·2027년 말 전체 운용 목표"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-010",
+        "id": "2026-05-07_KR_01",
+        "date": "2026-05-07",
+        "region": "KR",
+        "title": "니켈 t당 1만9,295달러 — LFP 57% 확산 속 고니켈 양극재 원가 변수 부각"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-012",
+        "id": "2026-05-05_GL_01",
+        "date": "2026-05-05",
+        "region": "GL",
+        "title": "Longroad Sun Pond 상업운전 — Arizona 111MWdc 태양광·85MW/340MWh BESS"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-013",
+        "id": "2026-05-05_GL_02",
+        "date": "2026-05-05",
+        "region": "GL",
+        "title": "Moment Energy, 4,000만달러 Series B — 북미 second-life BESS 플랫폼 확장"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-014",
+        "id": "2026-05-06_GL_03",
+        "date": "2026-05-06",
+        "region": "GL",
+        "title": "Queensland BESS 월 100GWh 방전 돌파 — NEM 최초 주 단위 기록"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-015",
+        "id": "2026-05-06_GL_04",
+        "date": "2026-05-06",
+        "region": "GL",
+        "title": "IRENA 24/7 Renewables 보고서 — solar+storage firm cost 54~82달러/MWh 제시"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-016",
+        "id": "2026-05-05_GL_03",
+        "date": "2026-05-05",
+        "region": "GL",
+        "title": "NSW BESS 1,240MW 충전 기록 — 주 소비전력 11.9% 흡수"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-017",
+        "id": "2026-04-30_GL_09",
+        "date": "2026-04-30",
+        "region": "GL",
+        "title": "ESS Tech–Alsym 8.5GWh LOI — sodium-ion BESS로 단·중시간 저장 포트폴리오 확대"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-018",
+        "id": "2026-05-02_GL_03",
+        "date": "2026-05-02",
+        "region": "GL",
+        "title": "호주 CIS Tenders 5·6 결과 — WA에 1.886GW 재생발전·3.683GWh BESS 승인"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-021",
+        "id": "2026-05-04_EU_01",
+        "date": "2026-05-04",
+        "region": "EU",
+        "title": "Axpo–R.Power 1.2GWh Poland BESS 최적화 계약 — minimum revenue floor 포함"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-022",
+        "id": "2026-05-05_EU_01",
+        "date": "2026-05-05",
+        "region": "EU",
+        "title": "SolarPower Europe Solar+ 보고서 — EU 운영비 49% 절감·BESS 598GWh 시나리오"
+      },
+      {
+        "source_spec_id": "SA-20260507_083518-025",
+        "id": "2026-05-06_CN_01",
+        "date": "2026-05-06",
+        "region": "CN",
+        "title": "Gasgoo·중국 증권매체: Joyson–Enpower, 로봇용 전고체 배터리 JV 설립 보도"
+      }
+    ],
+    "blocking_notes": [],
+    "non_blocking_notes": [
+      "Uploaded baseline contains legacy IDs not matching current YYYY-MM-DD_REGION_NN pattern; left untouched because they are pre-existing baseline records.",
+      "Incoming 16 cards had no production IDs; IDs assigned only during this 0.8 merge prep pass.",
+      "No exact URL collisions found against uploaded baseline urls/fact_sources.source_url.",
+      "No high-confidence fuzzy title/event duplicate found against uploaded baseline."
+    ]
+  },
+  "source_primary_16_file": "cards_merged_20260507_083518_16_GITHUB_SYNC_PASS.json",
+  "source_rescue_10_file": "rescue_publish_ready_payload_PENDING_GITHUB_SYNC_20260507_083518_local_v3.json",
+  "merge_qc_20260507_083518_26": {
+    "baseline_total_cards5": 636,
+    "primary_merge_ready_count": 16,
+    "rescue_publish_ready_count": 10,
+    "combined_new_count": 26,
+    "final_total": 662,
+    "id_collisions": 0,
+    "exact_url_collisions": 0,
+    "rescue_required_field_missing": 0,
+    "duplicate_url_within_rescue_cleaned": true,
+    "latest_first_date_sort": true,
+    "github_modified": false,
+    "production_docs_modified": false,
+    "needs_github_replace_all": true,
+    "canonicalization_note": "tracking params removed; identity query params retained"
   }
 }

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastUpdated": "2026-05-07T20:50:00+09:00",
-    "totalItems": 79,
+    "lastUpdated": "2026-05-08T22:30:00+09:00",
+    "totalItems": 82,
     "version": "1.0"
   },
   "sources": {
@@ -1210,46 +1210,66 @@
     {
       "id": "JP-007",
       "r": "JP",
-      "s": "WATCH",
-      "t": "장기탈탄소전원 오크션(LTDA) 2차 — BESS 할당",
-      "d": "20년 수익 보장 구조. BESS 할당량 확대 여부가 투자 결정에 직결.",
-      "dt": "FY2026",
+      "s": "ACTIVE",
+      "t": "장기탈탄소전원 오크션(LTDA) 3차 — 800MW + 6시간+ + 30% 단일국 셀 한도 (일본판 FEOC)",
+      "d": "2025.06 LTDA framework amendments 채택. 3차 라운드 (2025.10 등록 / 2026.01 입찰 / 5~6월 결과 발표 예상)부터 신규 룰 적용: ①BESS 한도 1.7GW→**800MW** (53% 감축) ②최소 방전 시간 3시간→**6시간**+ (LDES 전환) ③**30% 단일 외국 셀 제조국 한도** (일본판 FEOC 메커니즘). LDES + cost overrun 보상 메커니즘 신설(>300MW 프로젝트). 1차(2025) 1.1GW + 2차(2025.04 결과 발표) 1.4GW 낙찰. 3차 결과 발표 임박.",
+      "dt": "FY2026 (2026.01 입찰 / 5-6월 결과 발표 예상)",
       "src": [
         {
-          "n": "OCCTO (용량시장)",
+          "n": "OCCTO (용량시장 LTDA 결과)",
           "u": "https://www.occto.or.jp/en/"
         },
         {
-          "n": "ICLG",
-          "u": "https://iclg.com/practice-areas/renewable-energy-laws-and-regulations/japan"
+          "n": "IEEFA (Japan BESS market reality, 2026.03)",
+          "u": "https://ieefa.org/resources/japans-grid-scale-bess-market-turning-market-hype-reality"
+        },
+        {
+          "n": "Pilotech (LTDA 3차 신규 룰 분석)",
+          "u": "https://www.pilotech.ai/blogs/understanding-japan-s-bess-policies-market-size-and-opportunities-overview/"
+        },
+        {
+          "n": "Energy Storage News (2차 결과)",
+          "u": "https://www.energy-storage.news/japan-1-3gw-of-battery-storage-contract-awards-in-ltda-capacity-auction/"
         }
       ],
-      "tip": "LTDA 1차(2025)에서 BESS가 대거 낙찰. 2차부터 6시간+ 장기저장(LDES) 전용으로 전환 검토 중",
-      "detail": "• LTDA: 20년 수익 보장 + 연간 정액 용량 요금 → BESS 프로젝트 파이낸싱의 핵심 수단\n• 1차(2025): BESS 대거 낙찰. 2차부터 6시간+ LDES(장기저장) 전용으로 전환 검토\n• LDES 전용 전환 시 4시간 Li-ion BESS는 LTDA 접근 불가 → 밸런싱+도매 시장 의존\n• 양수발전(PHES) 27GW 기존 보유 — LDES 경쟁에서 신규 BESS의 포지셔닝이 관건",
-      "lastChecked": "2026-05-01",
-      "checkNote": "LTDA 2차 세부 가이드라인 미발표. LDES 전환 검토 중"
+      "tip": "SBTL 직접 영향: 30% 단일 외국 셀 제조국 한도는 일본판 FEOC. 한국 K-배터리 3사가 일본 BESS 시장에서 30% 한도 내에서만 셀 공급 가능. 다국 분산 공급망 구조 우대 — 한국 단일국에서 30% 초과 공급 시 LTDA 자격 박탈. CN-013(중국 용량 가격 메커니즘)과 함께 일본·중국 LDES 동시 가속.",
+      "detail": "## LTDA 3차 라운드 신규 룰 (2025.06 framework amendments)\n\n### 핵심 변경사항\n• **BESS 할당량**: 1.7GW → **800MW** (53% 감축)\n• **최소 방전 시간**: 3시간 → **6시간+** (LDES 의무화)\n• **30% 단일 외국 셀 제조국 한도** ← 일본판 FEOC\n• **LDES + 기존 thermal CCS 신규 포함**\n• **Cost overrun 보상 메커니즘** (>300MW 프로젝트)\n\n### 일정\n• 2025.10: 등록 시작\n• 2026.01: 입찰\n• 2026.05~06: 결과 발표 예상\n• 20년 고정 수익 보장\n\n### 1·2차 결과 (참고)\n• 1차 (2024.05 결과): 30개 BESS, 1.6GW\n• 2차 (2025.04.28 결과): 27개 BESS, 1.4GW (6시간+ 6개 + 3-6시간 21개)\n• 1차+2차: BESS oversubscription, 약 20% 입찰분만 낙찰\n\n### 정책 시그널\n• fast-response BESS → long-duration·long-term capacity 우선 전환\n• 양수발전(PHES) 27GW 기존 보유 — 신규 BESS LDES 포지셔닝 핵심\n\n### 3차 입찰 환경\n• BESS 비용 일본 vs 글로벌: 2.5-3배 (FY2024 ~¥68,000/kWh = ~$433/kWh)\n• 글로벌 BESS pack 가격 $192/kWh (2024) 대비 매우 높음\n• 그리드 접속 병목 지속 (170.8GW 신청 vs 0.62GW 연결)\n\n### 한국 영향\n• K-배터리 3사 일본향 BESS 셀 공급 시 30% 단일국 한도 적용\n• 6시간+ LDES 의무로 한국 LFP 셀 (장수명) 우위\n• fast-response BESS 시장 위축 → arbitrage 의존 모델 재평가\n• Eku Energy·HD Renewable Energy·Stonepeak·CHC 등이 주요 일본 진출 경쟁자",
+      "lastChecked": "2026-05-08",
+      "checkNote": "**2026.05.08 Run — 진정한 전역 sweep:**\n- LTDA 3차 신규 룰 (800MW + 6시간+ + 30% 단일국 셀 한도) 발견\n- 30% 단일 외국 셀 제조국 한도 = 일본판 FEOC 메커니즘\n- 2025.06 LTDA framework amendments에서 채택\n- 2025.10 등록 → 2026.01 입찰 → 5-6월 결과 발표 예상\n- WATCH → ACTIVE 전환 (3차 라운드 진행 중)\n- 1·2차 별도 항목 분리 X — 통합 갱신"
     },
     {
       "id": "JP-008",
       "r": "JP",
-      "s": "WATCH",
-      "t": "본격 ETS(배출권거래제) 전환",
-      "d": "본격 ETS 전환: FY2026부터 10만tCO2↑ 기업 의무 측정·보고. METI 가격 밴드 공개(2025.12): 바닥 ¥1,700 / 상한 ¥4,300 per tCO2. 실제 거래는 2027 가을 개시.",
-      "dt": "FY2026~",
+      "s": "ACTIVE",
+      "t": "GX-ETS Mandatory Phase 진입 (2026.04.01) + ¥1,700-¥4,300 가격 밴드",
+      "d": "**2026.04.01 GX-ETS mandatory phase 정식 진입.** 2025.05 GX Promotion Act 개정안 上院 통과 → 2026.04.01 시행. 연간 10만tCO2↑ 배출 기업 약 300-400개 의무. 가격 밴드 ¥1,700-¥4,300/tCO2. FY2026 = 측정·보고 (allocation 산정 기준). FY2027 = 첫 연간 할당 + 가을 거래 개시. FY2033 = power sector 경매 도입. 2025.12.19 floor/ceiling 가격 공식 발표.",
+      "dt": "2026.04.01 시행 (mandatory)",
       "src": [
         {
           "n": "METI (GX-ETS)",
           "u": "https://www.meti.go.jp/english/policy/energy_environment/global_warming/GX/"
         },
         {
-          "n": "ICLG",
-          "u": "https://iclg.com/practice-areas/renewable-energy-laws-and-regulations/japan"
+          "n": "ICAP Carbon Action (GX-ETS factsheet)",
+          "u": "https://icapcarbonaction.com/en/ets/japan-gx-ets"
+        },
+        {
+          "n": "IEEJ Chairman Message (ETS 설계)",
+          "u": "https://eneken.ieej.or.jp/en/chairmans-message/chairmans-message_202505.html"
+        },
+        {
+          "n": "MSCI (Earnings at risk 분석)",
+          "u": "https://www.msci.com/research-and-insights/blog-post/what-japans-gx-ets-launch-could-mean-for-corporate-earnings"
+        },
+        {
+          "n": "Carbon Pulse (Floor/Ceiling 발표)",
+          "u": "https://carbon-pulse.com/469821/"
         }
       ],
-      "tip": "GX-ETS는 처음엔 자발적 참여 → 2026~2027에 의무화 전환. 배터리 제조 에너지 소비가 탄소비용으로 전가",
-      "detail": "• GX-ETS 가격 밴드 (FY2026):\n - 바닥(floor): ¥1,700/tCO2 (~USD 11)\n - 상한(ceiling): ¥4,300/tCO2 (~USD 27)\n - FY2027부터 매년 물가상승률 + 3% 인상\n• 대상: 연간 10만tCO2↑ 배출 기업 약 300~400개 (총배출의 60%)\n - 주요 대상: Nippon Steel, Toyota, JERA, 전력회사 등\n• FY2026: 의무 측정·보고 (거래 아직 미시작)\n• FY2027 가을: 실제 배출권 거래 개시\n• 배터리 제조 영향: 셀 1kWh 생산에 50~70kWh 전력 소요\n - 일본 전력 탄소집약도 ~450gCO2/kWh × ¥4,300 상한 = kWh당 ~¥1.9 추가 비용\n - EU(~300g)·KR(~400g) 대비 높은 탄소집약도 → 탄소발자국 경쟁 불리\n• 상한 초과 시 상한가 지불로 의무 이행 가능 (안전장치)\n• CN(전국 ETS ¥90/tCO2)·KR(K-ETS ~₩12,000/tCO2) 대비 초기 가격 유사 수준",
-      "lastChecked": "2026-05-01",
-      "checkNote": "가격 밴드 공개(2025.12) 확인: ¥1,700~¥4,300/tCO2. 대상 300~400개 기업(Nippon Steel, Toyota, JERA 등). FY2027부터 매년 물가상승률+3% 인상. 일본 총배출량의 약 60% 커버"
+      "tip": "SBTL 영향: 일본 전력 탄소집약도 ~450gCO2/kWh × ¥4,300 상한 = kWh당 ~¥1.9 추가 비용. EU(~300g)·KR(~400g) 대비 일본산 셀 탄소발자국 불리 → EU-018 EV CF threshold 위임행위와 충돌. Toyota·Nippon Steel·JERA 등 300-400개 기업 직접 영향. SBTL 일본 거래선(파나소닉·Toyota Battery 등) 셀 비용 압력 → 한국산 셀 가격 경쟁력 상대적 개선.",
+      "detail": "## GX-ETS Mandatory Phase 진입 (2026.04.01)\n\n### 법적 근거\n• 2025.05 GX Promotion Act 개정안 上院 통과 (\"Amended GX Promotion Act\")\n• 2026.04.01 mandatory phase 정식 시행\n\n### 가격 밴드 (FY2026, 2025.12.19 공식 발표)\n• **바닥(floor)**: ¥1,700/tCO2 (~$11)\n• **상한(ceiling)**: ¥4,300/tCO2 (~$27)\n• FY2027부터 매년 물가상승률 + 3% 인상\n• 가격 트리거 메커니즘: bottom 밑 일정 일수 → reverse auction\n\n### 대상\n• 연간 10만tCO2↑ Scope 1 배출 기업 약 **300-400개** (총배출의 50-60%)\n• 700+ 자발적 GX-ETS 참여 기업 (FY2023-2025) 중 mandatory 전환\n• 주요 대상: Nippon Steel, Toyota, JERA, 전력회사 등\n\n### 단계별 일정\n• **FY2026 (2026.04~)**: 측정·보고 (계산 기간 = allocation 기준)\n• FY2027: 첫 연간 할당 (FY2026 + FY2027 2년치 통합)\n• FY2027 가을: 실제 배출권 거래 개시\n• FY2028: 화석연료 부과금 (GX Surcharge) 도입\n• FY2033: power sector 경매 도입 (high-emitting 기업)\n\n### 할당 방식\n• 대형 산업: 벤치마킹 방식\n• 기타: 그랜드파더링\n• 누적/이월: FY2027부터 검토 예정 (현재 무제한)\n• 빌리기(borrowing): 불허\n• Offset 한도: 10% (J-Credit + JCM credit, Article 6.2)\n\n### 시장 가격 메커니즘\n• 상한 초과 시: 상한가 + 1.1배 의무 이행\n• 하한 도달 시: reverse auction\n• 비연동: EU ETS·CN ETS 등과 미연동\n\n### 한국 영향\n• 일본 전력 탄소집약도 ~450gCO2/kWh\n• 셀 1kWh 생산: 50-70kWh 전력 → kWh당 22.5-31.5kgCO2\n• ¥4,300 상한 적용: kWh당 ~¥1.9 (~$0.012) 추가 비용\n• EU-018 EV CF max threshold (D-103) + EU-009 등급 라벨링과 시너지: 일본산 셀 탄소발자국 불리 → 한국·EU 셀 우위\n• Toyota·Panasonic·Honda 등 일본 OEM 배터리 비용 압력 → SBTL 한국산 파우치 필름 가격 경쟁력 상대적 개선\n\n### 비교 가격\n• EU ETS: ~€80/tCO2 (~$87)\n• KR K-ETS: ~₩12,000/tCO2 (~$9)\n• CN national ETS: ~¥90/tCO2 (~$13)\n• 일본 GX-ETS 초기: $11-$27 (KR/CN과 유사 수준)",
+      "lastChecked": "2026-05-08",
+      "checkNote": "**2026.05.08 Run — 진정한 전역 sweep:**\n- GX-ETS Mandatory Phase 2026.04.01 진입 확인 (ICAP + METI 공식)\n- 2025.05 GX Promotion Act 개정 上院 통과\n- 가격 밴드 ¥1,700-¥4,300 (2025.12.19 공식 발표)\n- WATCH → ACTIVE 전환\n- FY2026 = 측정·보고 / FY2027 = 첫 할당 + 거래 / FY2033 = 경매 도입\n- 700+ 자발적 참여 → 300-400개 mandatory 전환"
     },
     {
       "id": "JP-009",
@@ -2004,6 +2024,40 @@
       "checkNote": "\n\n**2026.05.07 Run — 보조 발견:**\n- NDAA Section 154: D-512 (2027.10.01)\n- 🆕 NDAA Section 805 + 1260H List 추가 발견:\n  - 직접 조달 금지: 2026.06.30 (D-54)\n  - 간접 조달 금지: 2027.06.30 (D-419)\n  - CATL/Gotion 등 1260H List 포함 여부 별도 검증 필요 — 포함 시 NA-019에 더 빠른 D-day 추가\n- 다음 사이클: Pentagon implementation rule 발표 + 1260H List 매핑"
     },
     {
+      "id": "NA-020",
+      "r": "NA",
+      "s": "UPCOMING",
+      "t": "NDAA Section 805 + 1260H List — DoD 1260H 직접 조달 금지 (2026.06.30 / D-53)",
+      "d": "FY24 NDAA Section 805 (Pub. L. 118-31, 2023.12.22 서명) — DoD가 1260H List 中 'Chinese Military Companies'와 직접 계약·조달 금지. **2026.06.30 직접 조달 금지** (entity prohibition, D-53), 2027.06.30 간접 조달 금지 (goods·services·technology, D-419). 1260H List 76 entities (2025.01 update, CATL 포함). NA-019 Section 154(2027.10 6사 specific battery)와 별개 트랙. FY26 NDAA(2025.12.18 Pub. L. 119-60) 추가: covered materials regime + advanced batteries phased restrictions (2027.01.01).",
+      "dt": "2026.06.30 직접 조달 금지 (D-53) / 2027.06.30 간접 조달 금지 (D-419)",
+      "src": [
+        {
+          "n": "Crowell & Moring (1260H List 분석)",
+          "u": "https://www.crowell.com/en/insights/client-alerts/new-year-updated-list-the-us-department-of-defense-updates-its-list-of-chinese-military-companies-with-ancillary-supply-chain-and-usg-contracting-impacts"
+        },
+        {
+          "n": "Arnold & Porter (FY24 NDAA Section 805 분석)",
+          "u": "https://www.arnoldporter.com/en/perspectives/advisories/2023/12/fy24-ndaa-navigating-expanded-restrictions"
+        },
+        {
+          "n": "National Defense Magazine (Congress 분석)",
+          "u": "https://www.nationaldefensemagazine.org/articles/2025/4/25/congress-increases-restrictions-on-chinese-military-companies"
+        },
+        {
+          "n": "Pillsbury Law (FY26 NDAA Sourcing Restrictions, 2026.02)",
+          "u": "https://www.pillsburylaw.com/en/news-and-insights/fy2026-ndaa-sourcing-restrictions-critical-minerals-advanced-batteries.html"
+        },
+        {
+          "n": "Government Contracts Navigator (1260H Compliance)",
+          "u": "https://governmentcontractsnavigator.com/2025/04/24/defense-contractors-restrictions-when-contracting-with-chinese-companies/"
+        }
+      ],
+      "tip": "SBTL 직접 영향: 1260H List 76 entities에 CATL 포함(2025.01.02 추가) — DoD 직접 조달 금지 D-53. 2027.06.30 간접 조달 금지 시 K-배터리 3사 미국 capacity가 'virtually the only alternative' (CSIS 4.27 분석). NA-019 Section 154와 multi-stack: 2026.06 Section 805 직접 + 2027.06 Section 805 간접 + 2027.10 Section 154 6사 specific. 한국 supply chain 광범위 수혜.",
+      "detail": "## 법적 근거\n• **FY24 NDAA Section 805** (Pub. L. 118-31, 2023.12.22 서명)\n• 10 U.S.C. § 4881 (codification)\n• Section 1260H of FY21 NDAA — Chinese Military Companies 'CMC' List 정의\n• FY25 NDAA Section 851 + Section 1346 (lobbying ban + reconsideration process)\n• **FY26 NDAA** (Pub. L. 119-60, 2025.12.18 서명) — covered materials regime 신규 critical minerals 추가, advanced batteries phased restrictions\n\n## 시행 일정 (FY24 NDAA Section 805)\n### 직접 조달 금지 (Entity Prohibition)\n• **시행: 2026.06.30 (D-53)**\n• DoD가 1260H List entity와 직접 계약·신규·갱신·연장 금지\n• 2026.06.30 이전 체결 계약은 grandfathered\n\n### 간접 조달 금지 (Goods/Services Prohibition)\n• **시행: 2027.06.30 (D-419)**\n• DoD가 1260H entity가 생산·개발한 goods/services를 포함하는 계약 금지\n• 2027.06.30 이전 contractor와의 계약 grandfathered\n\n### 예외 조항\n• Components 예외: 41 U.S.C. § 105 정의의 'item supplied to the Federal Government as part of an end item or of another component'\n• 통신 인프라 (backhaul/roaming/interconnection) 예외\n• Reconsideration 절차: 2025.01 update에서 신설 — entity가 1260H 지정에 이의제기 가능\n\n## 1260H List (2025.01 update 기준)\n• **총 76 entities** (Crowell & Moring 분석)\n  ※ 또 다른 분석은 134 entities — 카운팅 기준 다름\n• 산업 분포: 통신·항공우주·반도체·AI·**에너지(배터리)**·운송\n• **배터리 관련 1260H List entities (확인된 것)**:\n  - **CATL (Contemporary Amperex Technology)** — 2025.01.02 추가\n  - 추가 entity는 1260H List 원문 확인 필요 (Federal Register Notice)\n\n## FY26 NDAA 추가 조치 (2025.12.18 서명)\n• **DoD covered materials regime 확장**: 신규 critical minerals 추가\n• **Advanced batteries phased restrictions**:\n  - 2027.01.01: covered country (China/Russia/Iran/N.Korea)에서 mined/refined/separated/melted/produced 금지\n  - 2027.01.01: 또는 covered country에서 manufactured end item containing covered material 금지\n• Section 836: voluntary compliance public repository (2027.01.01 establish)\n• Waiver authority 2028.01.01 만료\n\n## 별도 트랙: NA-019 Section 154 (2027.10.01)\n• FY24 NDAA Section 154 별도 조항\n• **6 specific battery manufacturers** DoD 조달 금지 (2027.10.01):\n  - CATL, BYD, Envision Energy, EVE Energy, Gotion High Tech, Hithium Energy Storage\n• Section 805와 중복되지만 적용 범위 더 명확\n\n## SBTL·한국 영향\n### 직접 영향\n• 1260H List CATL 포함 → DoD 시장에서 CATL 셀 사용 美 contractor 2026.06.30 이후 직접 조달 차단\n• 2027.06.30 간접 조달 금지 시 prime contractor + sub-contractor 모두 1260H entity 노출 회피 의무\n\n### 간접 영향 (CSIS 4.27 분석)\n• Altana Analysis: 2024 美 DIB(Defense Industrial Base) 수입의 39%가 Tier 3↑에 China/Russia 노출, 267,338 imports에 1260H entity 노출\n• K-배터리 3사 (LGES/Samsung SDI/SK On): **'virtually the only alternative'**\n• 미국 현지 capacity 보유 → 즉시 공급 가능\n• 2053년 1 GWh/년 DoD 수요 전망 (~$680M/년 시장)\n• 2010-2022 12년간 $1.8B 투자, 7 GWh 조달\n\n### Multi-stack 효과\n• **2026.06.30**: NA-020 Section 805 직접 조달 금지 (D-53)\n• 2027.06.30: NA-020 Section 805 간접 조달 금지 (D-419)\n• 2027.10.01: NA-019 Section 154 6사 specific battery 금지 (D-512)\n• 2027.12.23: Section 5949 CXMT 반도체 금지 (FY23 NDAA)\n• 2027.01.01: FY26 NDAA covered materials/advanced batteries\n\n## 모니터링 포인트\n1. **2026.06.30 직접 조달 금지 시행** (D-53)\n2. Pentagon implementation rule 발표 (DFARS 갱신)\n3. 1260H List 추가 update (annual review per FY25 NDAA)\n4. CATL/Gotion 외 추가 K-배터리 경쟁자 1260H 추가 여부\n5. 한국 면제·우대 협상 (Section 232/Section 122와 연동)\n6. 실 시행 후 contractor 대체 공급사 선택 동향\n7. NA-012/NA-013/NA-018 critical minerals plurilateral과 시너지",
+      "lastChecked": "2026-05-08",
+      "checkNote": "**2026.05.08 Run — 진정한 전역 sweep:**\n- FY24 NDAA Section 805 (Pub. L. 118-31, 2023.12.22) 명확 확인\n- 직접 조달 금지: 2026.06.30 (D-53)\n- 간접 조달 금지: 2027.06.30 (D-419)\n- 1260H List 76 entities (2025.01 update, Crowell & Moring 확인)\n- CATL 포함 (2025.01.02 추가)\n- FY26 NDAA (Pub. L. 119-60, 2025.12.18) 추가 조치 — covered materials + advanced batteries (2027.01.01)\n- NA-019 Section 154 (2027.10.01)와 별개 트랙\n- Crowell & Moring + Arnold & Porter + Pillsbury Law + Government Contracts Navigator 모두 일관 확인"
+    },
+    {
       "id": "EU-017",
       "r": "EU",
       "s": "UPCOMING",
@@ -2046,6 +2100,32 @@
       "detail": "## 법적 근거\n- 규정: EU 배터리규정 (Regulation (EU) 2023/1542)\n- 조항: Article 7(3)\n- 위임행위 채택 기한: **2026.08.18** (D-103)\n\n## 시행 일정\n- 2025.02.18: EV 배터리 carbon footprint 신고 의무 (시행 중)\n- 2026.08.18: 위임행위 채택 기한 + EV 배터리 등급 라벨링 의무 (EU-009)\n- 2026.08.18 이후: 등급 분류 적용\n- **2027.07.01**: EV 배터리 maximum threshold 적용 시작 (위임행위 발효 시)\n- 산업용 배터리: 위임행위 2028.02.18까지 채택, 적용은 후속\n- LMT: 2030.02.18 / 산업용 외부저장: 2032.02.18\n\n## 핵심 메커니즘\n- 영향 평가(Impact Assessment) 기반으로 수치 결정\n- 한계치 초과 시 EU 시장 진입 차단\n- 등급 분류(EU-009)와 연계 — A등급은 한계치 자동 충족\n\n## 한국 영향\n- 한국 전력 탄소집약도 ~400gCO2/kWh (EU ~300g 대비 높음)\n- 셀 1kWh 생산 50-70kWh 전력 → 한국산 셀 carbon footprint 기본값 EU 대비 불리\n- LG에너지솔루션·삼성SDI·SK On EU 현지 공장은 EU 전력 mix 적용 — 한계치 충족 유리\n- 한국 본토 생산 EV 배터리 EU 수출 시 한계치 통과 어려울 가능성\n\n## 모니터링 포인트\n1. 위임행위 초안 공개 시점\n2. 영향 평가 보고서 발표\n3. 한계치 수치 (gCO2eq/kWh) 결정\n4. 2026.08.18 채택 여부 (지연 시 한계치 적용 시점도 자동 연기)\n5. EU-014 (라벨링 IR), EU-009 (등급) 채택 시점과의 동기화",
       "lastChecked": "2026-05-07",
       "checkNote": "**2026-05-07 Surface 발굴:** 법령 본문 (EU 배터리규정 Article 7(3)) 직접 확인. 추진계획 아닌 EU 법령 자체에 내장된 위임행위 채택 의무.\n\n**왜 별도 카드 분리:** EU-009(등급 라벨링)와 EU-014(라벨링 IR)는 정보 표시 의무. 본 항목은 한계치 초과 시 시장 진입 자체 차단 — 등급보다 더 강력한 차단 메커니즘.\n\n**진행 상태:**\n- 위임행위 초안 미공개 (2026.05 기준)\n- 영향 평가 진행 중으로 추정\n- 채택 기한 D-103 (2026.08.18)\n- 채택 후 2027.07.01부터 적용 시작\n\n**관련 항목:**\n- EU-001 산업용 배터리 carbon footprint 신고 (2026.02 시행)\n- EU-009 EV 배터리 등급 라벨링 (2026.08)\n- EU-014 라벨링 IR\n- EU-015 Due Diligence 연기"
+    },
+    {
+      "id": "EU-019",
+      "r": "EU",
+      "s": "UPCOMING",
+      "t": "EU 배터리규정 재생원료 회수율 산정 methodology 위임행위 (Article 8) — 2026.08.18 (D-103)",
+      "d": "EU 배터리규정 (2023/1542) Article 8: 재생원료(recycled content) 회수율 **산정 methodology 위임행위** 채택 의무 — **2026.08.18까지** (D-103, EU-018과 동일 기한). 2027 재생원료 회수율 의무(Co/Ni/Cu/Pb 90% / Li 50%) + 2031 상향(Co/Ni/Cu/Pb 95% / Li 80%)의 산정 방법론 결정. 한국 리사이클러(SungEel HiTech 등)·SBTL 양극재 재생원료 인증 직결.",
+      "dt": "법정 채택 기한: 2026.08.18 (D-103)",
+      "src": [
+        {
+          "n": "EUR-Lex Regulation 2023/1542 Article 8",
+          "u": "https://eur-lex.europa.eu/eli/reg/2023/1542/oj/eng"
+        },
+        {
+          "n": "EC Environment (Waste batteries methodology, 2025.07.04)",
+          "u": "https://environment.ec.europa.eu/news/new-rules-boost-recycling-efficiency-waste-batteries-2025-07-04_en"
+        },
+        {
+          "n": "BatteryPass — Delegated/Implementing Acts schedule",
+          "u": "https://thebatterypass.eu/wp-content/uploads/BatteryPass_Delegated-and-Implementing-Acts-following-Battery-Regulation.pdf"
+        }
+      ],
+      "tip": "SBTL 직접 영향: 한국 리사이클러(SungEel HiTech·Posco HY Clean Metal·LG Chem 자회사)가 회수한 Co/Ni/Cu/Pb/Li가 EU 인정 재생원료로 산정되려면 본 위임행위 methodology 충족 필요. K-배터리 양극재 재생원료 함량 인증 → 2030년 EU 배터리 신규 등록 시 의무 함량 (Co 12% / Pb 85% / Li 4% / Ni 4%) 충족 직결. 2025.07.24 발효된 측정 methodology(recycling efficiency)와 별개 — 본 위임행위는 recovered content 산정 별도 트랙.",
+      "detail": "## 법적 근거\n• 규정: EU 배터리규정 (Regulation (EU) 2023/1542)\n• 조항: **Article 8** (Recycled content in industrial, electric vehicle, LMT batteries)\n• 위임행위 채택 기한: **2026.08.18** (D-103, EU-018과 동일)\n\n## 시행 일정\n### 위임행위 채택\n• 2026.08.18: methodology 위임행위 채택 기한\n\n### 재생원료 회수율 산정 시작\n• **2027.01.01**: 산업용·EV·LMT 배터리 (>2kWh) 기술 문서에 회수 함량 정보 포함 의무\n  - 명시 대상: Co, Pb, Li, Ni\n  - 모델별·배치별·제조 공장별 정량 정보\n\n### 재생원료 의무 함량 (2030년부터)\n• **2030.01.01 신규 발효 시점**:\n  - Co: 12%\n  - Pb: 85%\n  - Li: 4%\n  - Ni: 4%\n\n### 재생원료 의무 함량 상향 (2035년)\n• **2035.01.01 적용**:\n  - Co: 20% (12%→20%)\n  - Pb: 85% (변동 없음)\n  - Li: 10% (4%→10%)\n  - Ni: 12% (4%→12%)\n\n## 별도 트랙: 재활용 효율 methodology (2025.07.24 발효 완료)\n• Annex XII recycling efficiency methodology — Commission Delegated Regulation\n• 2025.07.04 EC 발표 / 2025.07.24 발효\n• 재활용 효율 목표 (2025.12.31):\n  - Pb-acid: 75%\n  - Li-based: 65%\n  - NiCd: 80%\n  - 기타: 50%\n• 2030.12.31 상향: Pb-acid 80% / Li-based 70%\n• Material recovery 목표 (2027.12.31): Co/Cu/Pb/Ni 90% / Li 50%\n• Material recovery 상향 (2031.12.31): Co/Cu/Pb/Ni 95% / Li 80%\n• → 본 EU-019는 Article 8 'recycled content in new batteries' 산정 methodology로 별개\n\n## 핵심 메커니즘\n• Impact Assessment 기반 결정\n• 회수 함량 calculation 규칙 + verification methodology\n• Member States 보고 형식 통일\n• Battery Passport 데이터 입력 기준 (EU-011 연동)\n\n## SBTL·한국 영향\n### 직접 영향\n• 한국 리사이클러 (SungEel HiTech, Posco HY Clean Metal, LG Chem 자회사 LeapChem 등) 회수 Co/Ni/Cu/Pb/Li가 EU 인정 재생원료로 산정되려면 본 methodology 충족\n• EU 수출 K-배터리: 2030년부터 재생원료 의무 함량 충족 시 EU 시장 진입 가능\n• SBTL 양극재 재생원료 함량: methodology에 따라 인증 결정\n\n### 간접 영향\n• EU-013 black mass 비OECD 수출금지 (2026.11.09 mandatory)와 연동\n• KR-009 사용후 배터리 통합법 (2026.04.23 통과) 재생원료 인증제와 상호인정 협상 필요\n• Battery Passport (EU-011, 2027.02 mandatory) 데이터 입력 기준\n\n## 모니터링 포인트\n1. 위임행위 초안 공개 시점\n2. 영향 평가 보고서 발표\n3. Calculation 규칙 (system boundary, allocation method) 결정\n4. 2026.08.18 채택 여부 (지연 시 2030 의무 함량 적용 시점도 자동 연기)\n5. 한국 재생원료 인증제(KR-009/KR-011)와 상호인정 협상 진전\n6. 2027.01.01 산정 시작 전 SBTL 양극재 재생원료 함량 사전 시뮬레이션\n\n## 관련 항목\n• EU-001 산업용 배터리 carbon footprint 신고 (2026.02 시행)\n• EU-009 EV 배터리 등급 라벨링 (2026.08)\n• EU-010 Circular Economy Act\n• EU-011 Digital Battery Passport (2027.02)\n• EU-013 Black mass 비OECD 수출금지 (2026.11.09)\n• EU-018 EV CF Maximum Threshold (2026.08.18, 동일 기한)\n• KR-009 사용후 배터리 통합법 (2026.04.23 통과)\n• KR-011 환경부 배터리 순환이용 활성화 방안",
+      "lastChecked": "2026-05-08",
+      "checkNote": "**2026.05.08 Run — 진정한 전역 sweep:**\n- EU 배터리규정 Article 8 재생원료 함량 + Annex XII 회수율 methodology 별도 확인\n- Article 8 위임행위 채택 기한 2026.08.18 (EU-018과 동일)\n- 2025.07.24 발효된 Annex XII methodology(recycling efficiency)와 별개\n- 한국 리사이클러 인증 + KR-009 통합법 재생원료 인증제와 상호인정 직결\n- 위임행위 초안 미공개 (2026.05 기준)\n- D-103 (2026.08.18)"
     },
     {
       "id": "KR-013",
@@ -2114,6 +2194,48 @@
       "detail": "## 입법예고 86338 — 한국수출입은행법 시행령 일부개정령안\n\n### 공고 정보\n* **공고번호:** 재정경제부공고 제2026-128호\n* **공고일:** 2026.04.10\n* **접수기간:** 2026.04.10 ~ 2026.05.20 (**D-14**)\n* **소관:** 재정경제부 대외경제총괄과 (044-215-7612)\n* **법령 분야:** 통화·국채·금융\n* **URL:** https://opinion.lawmaking.go.kr/gcom/ogLmPp/86338\n\n### 개정 핵심 3개 조항\n\n#### ① 영 제16조의5 신설 — 직접투자 대출·보증 연계 의무 폐지\n* **현행:** 한국수출입은행이 직접투자 시 대출·보증 연계 의무\n* **개정:** 연계 의무 폐지\n* **대체 장치:** **'적정한 수익성 확보'** 통한 재무 건전성 유지\n* **의미:** 수은이 순수 직접투자 (지분투자) 단독 진행 가능\n\n#### ② 영 제17조의7 개정 — 벤처기업 직접투자 한도 예외\n* **개정:** 벤처기업 등 대상 직접투자는 투자 한도 예외 적용\n* **의미:** 일반 투자한도(자본금 일정 비율)에 묶이지 않고 벤처기업 대상 더 큰 직접투자 가능\n\n#### ③ 영 제16조의4 개정 — 간접투자 대상 확대 + 출자비율 한도 삭제\n* **개정 1:** 간접투자 대상을 **벤처캐피탈·신기술투자조합 등으로 확대**\n* **개정 2:** 출자비율 한도 삭제\n* **의미:** VC 펀드·신기술조합 LP 출자 자유화\n\n### 입법 취지\n\n> 한국수출입은행의 **투자 활성화 지원**\n\n대출·보증 중심에서 **직접·간접 지분투자** 활성화로 정책금융 모델 전환.\n\n---\n\n## 한국수출입은행법 (법률, 모법) — 핵심 개정 이력\n\n### 2024.03 개정 (현재 적용)\n* **법정 자본금 한도 15조 → 25조원** 확대\n* 2014년 이후 10년 동결 해제\n* 입법 취지: 방위산업·핵심광물·이차전지 등 초대형 수주 사업 수출 지원 여력 확보\n\n### 향후 추가 자본금 확대 가능성\n* FORGE 한국 의장국 + 한국 정책금융 plurilateral 광물 외교 적극 참여로 25조 한도도 조기 소진 가능\n* 차기 한도 확대안 입법부 발의 가능성 (모니터링 포인트)\n\n## 한국수출입은행법 시행령 (대통령령) — 위임사항 운영\n\n### 모법 위임 핵심 영역\n* 자본금 납입 절차·주식 발행 (모법 §4 위임)\n* 업무 범위·여신 한도 (모법 §18 위임)\n* **직접투자·간접투자 (영 §16의4·16의5·17의7 — 입법예고 86338 대상)**\n* 핵심광물·해외자원개발 융자 지원\n* 공급망 안정화기금 출연 운용\n\n### 핵심광물·공급망 관련 운영 (현행)\n* 해외자원개발 융자 예산: 390 → **675억원** (2026, +73%)\n* 융자 지원비율: 50% → **70%** 확대\n* 핵심광물 공공비축 지원\n* 공급망 안정화기금 차입자로서 수은 역할\n\n## SBTL 함의\n\n### 직접 영향\n* **K-배터리 분야 벤처기업** 수은 직접투자 자금 채널 신설:\n - 양극재·음극재·전해질 신소재 스타트업\n - 핵심광물 정제·재자원화 신생기업\n - 사용후 배터리 재활용 스타트업\n* **VC 펀드/신기술조합 간접지원** 확대:\n - K-배터리 supply chain 전문 VC 펀드 LP 출자\n - 출자비율 한도 삭제로 대형 펀드 단독 LP 가능\n\n### 간접 영향\n* 수은 정책금융 모델 전환 (대출·보증 → 투자 활성)\n* 한국 정책금융기관 4축(수은+무보+산업은행+광해광업공단) 중 수은의 투자 역할 강화\n* NA-018 FORGE + KR-013 공급망기본법 + KR-014 입법예고와 정합\n\n## 모니터링 포인트 (법령 자체)\n\n1. **2026.05.20 입법예고 마감** — 잔여 D-14\n2. 마감 후 절차: 규제심사 → 법제처 → 국무회의 → 시행령 공포\n3. 통과 시 영 16조의4·16조의5·17조의7 개정 조항 시행일 확인\n4. 한국수출입은행법 모법 추가 개정 (자본금 35조 확대안 발의?) 별도 모니터링\n5. KR-013 입법예고 86314 (공급망기본법 시행령)와 패키지 처리 여부 확인",
       "lastChecked": "2026-05-07",
       "checkNote": "**입법예고 본문 (재정경제부공고 제2026-128호, 2026.04.10):**\n- 영 16조의5 신설: 직접투자 대출·보증 연계 의무 폐지\n- 영 17조의7 개정: 벤처기업 직접투자 한도 예외\n- 영 16조의4 개정: 간접투자 대상 확대 + 출자비율 한도 삭제\n- 입법 취지: 한국수출입은행 투자 활성화 지원\n\n**모니터링:**\n- 2026.05.20 입법예고 마감 (D-14)\n- 후속 절차: 규제심사 → 법제처 → 국무회의 → 시행령 공포\n- KR-013 입법예고 86314 (공급망기본법 시행령) 본문 확보 필요\n\n**2026.05.07 Run:** 입법예고 마감 D-13 (2026.05.20). 변동 없음, 본문 정정 유지."
+    },
+    {
+      "id": "KR-015",
+      "r": "KR",
+      "s": "ACTIVE",
+      "t": "국가자원안보 특별법 + 자원안보협의회 + 핵심광물 재자원화 산업 특수분류 (산업부 소관)",
+      "d": "**「국가자원안보 특별법」** 2024.02.06 제정·공포 / **2025.02.07 시행**. 산업부 소관. KR-013(공급망기본법, 기재부)·KR-014(수은법, 기재부)와 별개 트랙. **시행령 제35947호** (2025.12.30 일부개정, 2026.01.02 시행). **2025.05.10 「국가자원안보 확보를 위한 고시」** 제정·시행. **2025.12.05 제1차 자원안보협의회** (김정관 산업부 장관 주재) → **2026.02.05 제3차 협의회**. 핵심공급기관 18개·핵심수요기관 20개 지정 + 제5차 석유비축계획(2026-2030) + 희토류 17종 핵심광물 지정 + **2026.01.08 핵심광물 재자원화 산업 특수분류 고시** (국가데이터처).",
+      "dt": "2025.02.07 시행 (모법) / 2026.01.02 시행령 일부개정 시행 / 진행 중",
+      "src": [
+        {
+          "n": "🚨 국가자원안보 특별법 (국가법령정보센터)",
+          "u": "https://law.go.kr/LSW//lsInfoP.do?lsiSeq=276475&chrClsCd=010202&urlMode=lsInfoP&efYd=20260102&ancYnChk=0"
+        },
+        {
+          "n": "🚨 국가자원안보 특별법 시행령 일부개정안 입법예고 (전략광물개발기금)",
+          "u": "https://opinion.lawmaking.go.kr/gcom/nsmLmSts/out/2211113/detailRP"
+        },
+        {
+          "n": "산업통상부 (제1차 자원안보협의회, 2025.12.05)",
+          "u": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171307/view"
+        },
+        {
+          "n": "정책브리핑 (희토류 17종 핵심광물 지정, 2026.02.05)",
+          "u": "https://www.korea.kr/news/policyNewsView.do?newsId=148959131"
+        },
+        {
+          "n": "에너지신문 (전략광물개발기금 추진, 2026.04.17)",
+          "u": "https://www.energy-news.co.kr/news/articleView.html?idxno=224708"
+        },
+        {
+          "n": "서울Pn (핵심광물 재자원화 산업 특수분류, 2026.01.08)",
+          "u": "https://go.seoul.co.kr/news/prnewsView.php?id=404500"
+        },
+        {
+          "n": "Getnews (자원안보 확보 고시 제정, 2025.05.10)",
+          "u": "https://www.getnews.co.kr/news/articleView.html?idxno=820114"
+        }
+      ],
+      "tip": "SBTL 직접 영향: 자원안보법 = 산업부 소관. KR-013(기재부 공급망기본법)·KR-014(기재부 수은법)와 별개 트랙. 핵심광물(리튬·니켈·코발트·희토류 17종 + 흑연) 산업 직접 적용. **K-배터리 3사가 핵심수요기관 20개 후보**. SBTL 양극재 원료 안정 공급 직결. 핵심광물 재자원화 산업 특수분류(2026.01.08 고시) → 「2026 핵심광물 재자원화 시설·장비 지원사업」 우선 선정 + EU 배터리규정 재생원료 인증(EU-019) 상호인정 기반.",
+      "detail": "## 법령 체계\n### 모법: 「국가자원안보 특별법」\n• **2024.02.06 제정·공포**\n• **2025.02.07 시행**\n• 산업통상자원부 소관\n• 핵심자원 7종 지정: 석유·천연가스·석탄·우라늄·수소·핵심광물·신재생에너지 설비 소재·부품\n\n### 시행령\n• **2024.07.31~09.09 입법예고** → 제정\n• **2025.02.07 시행**\n• **2025.12.30 일부개정 (제35947호)** → 2026.01.02 시행\n  - 자원안보전담기관 운영 조항 정비 (제6조)\n  - 비축계획 수립·변경 절차 보완\n  - 비상동원광산 지정 규정 확장\n\n### 시행규칙\n• 2024 입법예고 → 2025.02.07 제정·시행\n• **2025.10.01 개정** (영 제8조 등 — 위기대응 매뉴얼 작성·관리 절차)\n\n### 고시\n• **2025.05.10 「국가자원안보 확보를 위한 고시」 제정·시행**\n  - 자원안보전담기관 지정 (한국해외자원산업협회 총괄, 에너지경제연구원·석유공사·가스공사·한국수력원자력·광해광업공단·에너지공단)\n  - 4단계 위기경보 (관심·주의·경계·심각) 발령 기준\n  - 핵심자원 비축물량 확대\n  - 비상동원광산 지정 절차 신설\n\n## 자원안보협의회 운영\n### 제1차 자원안보협의회 (2025.12.05)\n• 정부서울청사, 김정관 산업부 장관 주재\n• 위원: 산업부(주재) + 기재·과기·외교·행안·기후·국토·중기부 + 국가데이터처 + 관세청·조달청 + 국가정보원 + 국가안보실\n• 의결 4개 안건:\n  ① 자원안보협의회 운영규정\n  ② 국가자원안보 강화 추진방안\n  ③ 핵심공급기관 18개·핵심수요기관 20개 지정안\n  ④ 제5차 석유비축계획 (2026-2030)\n\n### 제3차 자원안보협의회 (2026.02.05)\n• 김정관 장관 주재\n• 의결: **희토류 공급망 종합대책**\n• 희토류 17종 전체 핵심광물 지정\n• HSK 코드 신설/세분화로 수급분석 강화\n• 해외자원개발 융자 390 → **675억원** (+285억, +73%)\n• 융자 지원비율 50% → 70% 확대\n• 산업기술혁신펀드 내 **희토류 R&D펀드 신규 조성**\n• 김정관 장관 + 성림첨단산업(NdFeB 영구자석) 간담회\n\n## 핵심광물 재자원화 산업 특수분류 (2026.01.08 고시)\n• **2026.01.08 국가데이터처 고시** (산업부·한국광해광업공단 공동 개발)\n• 산업 인식 전환: \"폐기물 처리\" → \"핵심광물 제조\"\n• **2030년 10대 전략 핵심광물 수요의 20% 재자원화 목표**\n• **2026 신규사업 「핵심광물 재자원화 시설·장비 지원사업」**: 특수분류 포함 기업 우선 선정\n• 산단 입주 지원 + 폐기물 규제 완화 + 법·제도 정비\n• 현재 한국 재자원화 기업 ~200개 (대부분 폐배터리·폐촉매 중심)\n• 윤창현 산업부 자원산업정책국장: \"핵심광물 제조 산업으로 인정받는 첫걸음\"\n\n## 추가 입법 추진 (모니터링)\n### 「전략광물개발기금」 신설 추진 (2026.04.17 보도)\n• 모법 일부개정안 입법예고 진행 중\n• 신설 조항: 13조의2~5, 16조의2, 18조의2~5\n• 핵심 내용:\n  - 전략광물 비축목표·비축기간 법적 명문화\n  - 투자위험보증·손실지원 제도 도입\n  - 「전략광물개발기금」 설치·운용\n  - 해외자원개발 지원 제도 정비\n• 입법예고 본문 미확보 (opinion.lawmaking.go.kr robots 차단)\n\n## 공급망 3법 체계 비교\n| 항목 | 자원안보법 (KR-015) | 공급망기본법 (KR-013) | 소부장특별법 |\n|------|----|----|----|\n| 소관 | 산업통상자원부 | 기획재정부 | 산업통상자원부 |\n| 적용 대상 | 7종 핵심자원 (광물·에너지) | 경제안보품목·서비스 | 소재·부품·장비 |\n| 위원회 | 자원안보협의회 (산업부 장관 주재) | 공급망위원회 (기재부 장관 위원장) | - |\n| 기금 | 전략광물개발기금 (추진 중) | 공급망 안정화기금 | - |\n\n## 자원안보전담기관 (8개 지정)\n• 한국해외자원산업협회 (총괄)\n• 에너지경제연구원 (정책연구)\n• 한국석유공사 (석유)\n• 한국가스공사 (천연가스·수소)\n• 한국수력원자력 (우라늄)\n• 한국광해광업공단 (핵심광물·석탄)\n• 한국에너지공단 (재생에너지 설비 소재·부품)\n• 추가: 연간 10만톤↑ 석탄 수입사업자, 연간 100톤↑ 수소·암모니아 생산·판매·수출입 사업자\n\n## 정책 패키지\n### 2026년 예산 강화\n• 해외자원개발 융자 675억원 (+73%)\n• 융자 지원비율 70%\n• 핵심광물 공공비축 확대\n• 핵심광물 재자원화 시설·장비 지원사업 신설\n\n### 산업부 산업자원안보실 (2025.12 출범)\n• 1호 정책: 희토류 공급망 종합대책 (2026.02.05)\n• 단기 수급위기 관리 + 확보처 다각화 + 생산 내재화\n\n## SBTL·한국 영향\n### 직접 영향\n• K-배터리 3사 → 핵심수요기관 20개 후보\n• 양극재 원료 (리튬·니켈·코발트·희토류) 공급 안정성 직접\n• 핵심광물 재자원화 특수분류 → SBTL 양극재 재생원료 인증 인프라\n• 비상동원광산 지정 시 한국 광물 자급률 강화\n\n### 간접 영향\n• EU-019 재생원료 회수율 methodology 위임행위 (2026.08.18)와 상호인정 협상 기반\n• EU-018 EV CF Maximum Threshold (2026.08.18)와 한국 전력 탄소집약도 영향\n• NA-018 FORGE (한국 의장국 ~2026.06)와 핵심광물 plurilateral 협력 시너지\n• KR-013 공급망기본법 시행령 일부개정 (D-10) + KR-014 수은법 시행령 (D-12)와 패키지\n\n## 모니터링 포인트\n1. 「전략광물개발기금」 신설 입법예고 본문 공개 (산업부 / opinion.lawmaking.go.kr)\n2. 자원안보협의회 제2차/제4차 회의 의결 사항\n3. 자원안보전담기관 지정 추가 공고\n4. 핵심공급기관·핵심수요기관 매년 재검토 결과\n5. 비상동원광산 지정 진전\n6. 「2026 핵심광물 재자원화 시설·장비 지원사업」 1차 선정 결과\n7. EU-019/EU-018과 상호인정 협상\n8. KR-013/KR-014 입법예고 마감(5.18·5.20) 후 시행령 공포 시점\n\n## 관련 항목\n• KR-013 공급망기본법 시행령 일부개정 (기재부 소관)\n• KR-014 수은법 시행령 일부개정 (기재부 소관)\n• KR-009 사용후 배터리 통합법 (재정부 소관)\n• KR-011 환경부 배터리 순환이용 활성화 방안\n• EU-018 EV CF Maximum Threshold (D-103, 2026.08.18)\n• EU-019 재생원료 회수율 methodology (D-103, 2026.08.18)\n• NA-018 FORGE 한국 의장국 (~2026.06)",
+      "lastChecked": "2026-05-08",
+      "checkNote": "**2026.05.08 Run — 진정한 전역 sweep으로 surface:**\n- 모법 「국가자원안보 특별법」 2024.02.06 제정 / 2025.02.07 시행 확인 (국가법령정보센터)\n- 시행령 일부개정 제35947호 (2025.12.30 → 2026.01.02 시행) 확인\n- 시행규칙 2025.10.01 개정 확인\n- 고시 2025.05.10 「국가자원안보 확보를 위한 고시」 제정·시행 확인\n- 자원안보협의회 제1차 (2025.12.05, 김정관 장관) + 제3차 (2026.02.05) 확인\n- 핵심광물 재자원화 산업 특수분류 (2026.01.08 국가데이터처 고시) 확인\n- 「전략광물개발기금」 신설 추진 (2026.04.17 보도) — 법률 신설 조항 13조의2~5, 16조의2, 18조의2~5\n- KR-013(기재부)·KR-014(기재부)와 별개 산업부 소관 트랙 확인\n- 전역 sweep 결과 가장 강력한 신규 카드 후보\n- 향후 전략광물개발기금 입법예고 본문 + 제2차/제4차 협의회 의결 사항 모니터링"
     }
   ]
 }

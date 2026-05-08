@@ -1,13 +1,13 @@
 {
-  "updated": "2026-05-07",
-  "total": 662,
+  "updated": "2026-05-08",
+  "total": 669,
   "schema": "full",
-  "baseline_count": 636,
-  "new_count": 26,
-  "run_tag": "20260507_083518_combined_26",
-  "merge_status": "local_validation_publish_ready_16_plus_rescue_10_merged_with_uploaded_github_main_equivalent_baseline",
-  "sort": "latest-first; date desc; existing same-date order preserved; new cards inserted after existing same-date baseline order; new cards assigned IDs by CARD_ID_STANDARD",
-  "source_baseline_file": "cards (5).json",
+  "baseline_count": 662,
+  "new_count": 7,
+  "run_tag": "20260507_165621_local_v5_validation_baseline17_0_8",
+  "merge_status": "local_merge_prep_candidate_blocked_github_main_unreadable_no_pr_created",
+  "sort": "latest-first; existing same-date baseline order preserved; new cards inserted after existing same-date baseline order; IDs assigned by CARD_ID_STANDARD against user-uploaded baseline",
+  "source_baseline_file": "cards (17).json",
   "source_accepted_file": "publish_ready_payload_PENDING_GITHUB_SYNC_20260507_083518_local_v3.json",
   "stage_c_qc_file": "stage_c_output_20260503_201151_r2.json",
   "cards": [
@@ -452,6 +452,987 @@
       "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
       "merge_status": "single",
       "baseline_relation": "new"
+    },
+    {
+      "draft_id": "DRAFT-B-20260507-001",
+      "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-001",
+      "source_story_ids": [
+        "KR_2026-05-07_C69"
+      ],
+      "region": "EU",
+      "date": "2026-05-07",
+      "cat": "ESS",
+      "sub_cat": "오프그리드AI전력",
+      "signal": "high",
+      "title": "그리너지 LTO BESS, 英 오프그리드 AI 파일럿 공급망 진입 — 7MW·4MWh 프로젝트",
+      "sub": "2026-05-07 — 투데이에너지는 그리너지 LTO 셀 기반 BESS·UPS가 영국 소버린 AI 인프라 7MW 오프그리드 파일럿에 적용된다고 전했다.",
+      "gate": "AI 데이터센터 전력 병목은 GPU 확보만으로 해결되지 않는다. 현재 확인된 실행 단위는 스코틀랜드 7MW급 오프그리드 파일럿과 4MWh급 BESS 구축 추진이며, LTO 배터리가 고안전·고출력 전원 인프라 후보로 검증될 수 있는지가 관찰 포인트다.",
+      "fact": "투데이에너지는 2026년 5월 7일 그리너지가 영국 소버린 AI 인프라 프로젝트 공급망에 진입했다고 보도했다. 초기 사업은 스코틀랜드 7MW급 오프그리드 AI 데이터센터 파일럿이며, 약 7MW 전력 공급과 4MWh급 BESS 구축이 추진되는 구조로 설명됐다. 같은 보도는 Titanvolt가 AED 프로젝트의 독점 배터리 파트너로 선정됐고, 그리너지 LTO 셀 기반 BESS·UPS 시스템을 공급한다고 전했다. 영국 내 2.2GW AI 클라우드 인프라 확장은 후속 연계 가능성으로 언급됐다.",
+      "implication": [
+        "AI 데이터센터용 전력 인프라는 계통 접속, 재생에너지 변동성, 백업 전원 안정성을 함께 검증해야 하는 구조로 관찰된다.",
+        "LTO 기반 BESS는 출력·안전성·반복 충방전 내구성이 중요한 미션 크리티컬 전원 시장에서 후보군으로 부각될 수 있다.",
+        "다음 체크포인트는 실제 BESS 발주 규모, Titanvolt·AED 계약 조건, 2.2GW 확장 단계의 배터리 공급 범위다."
+      ],
+      "urls": [
+        "https://www.todayenergy.kr/news/articleView.html?idxno=297494",
+        "https://www.newswire.co.kr/newsRead.php?no=1033857"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "투데이에너지 body article",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=297494",
+          "claim": "Grinergy entered the supply chain for a UK Sovereign AI Infrastructure off-grid data center project.",
+          "source_quote": "국내 리튬티타네이트(LTO) 배터리 전문기업 그리너지(대표 방성용)는 영국 ‘소버린 AI 인프라(Sovereign AI Infrastructure)’ 프로젝트 공급망에 진입했다 7일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "투데이에너지 body article",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=297494",
+          "claim": "The pilot project is a 7MW off-grid AI data center in Scotland linked to a potential 2.2GW UK AI cloud infrastructure expansion.",
+          "source_quote": "초기 사업은 스코틀랜드 지역 7MW급 오프그리드 AI 데이터센터 파일럿 프로젝트로, 향후 영국 내 2.2GW 규모 AI 클라우드 인프라 확장과 연계될 가능성이 주목된다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "투데이에너지 body article",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=297494",
+          "claim": "Titanvolt was selected as the exclusive battery partner for AED’s off-grid AI data center project and will supply Grinergy LTO-cell-based BESS and UPS systems.",
+          "source_quote": "영국 에너지저장 솔루션 기업 Titanvolt는 AED(Argyll Energy Developments)의 오프그리드 AI 데이터센터 프로젝트 독점 배터리 파트너로 선정됐으며, 그리너지의 LTO 셀 기반 BESS(배터리에너지저장장치)·UPS 시스템을 공급한다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "뉴스와이어 / Grinergy release",
+          "source_url": "https://www.newswire.co.kr/newsRead.php?no=1033857",
+          "claim": "The release states Titanvolt will provide BESS and UPS systems using Grinergy LTO cells.",
+          "source_quote": "Titanvolt는 이번 프로젝트에서 그리너지의 LTO 셀 기술을 기반으로 BESS(Battery Energy Storage System) 및 UPS 시스템을 공급하게 된다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_body_result"
+        }
+      ],
+      "source_availability": "primary_article_hydrated_plus_press_release_body_available",
+      "fetch_coverage": "core_event_supported_by_current_source_body_and_alternate_body",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported",
+      "single_source_reason": "Core event is primarily supported by one hydrated specialty article; alternate issuer-distribution release provides corroborating body-level support but not independent official project documentation.",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Region corrected from Stage A KR to EU because the direct project site is the UK/Scotland, while Grinergy is the Korean supplier.",
+        "Stage C should preserve attribution because 2.2GW expansion is framed as linked/possible, not confirmed battery volume."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-07T21:08:31+09:00",
+        "decision": "accepted_fact_safe",
+        "source_direction_check": "PASS",
+        "fact_source_alignment": "PASS_WITH_CAVEAT",
+        "quote_quality_check": "PASS_WITH_CAVEAT_0_5_RECHECK_RECOMMENDED",
+        "visible_claim_coverage": "PASS_WITH_CAVEAT",
+        "fact_vs_implication_separation": "PASS",
+        "staleness_event_date_logic": "PASS",
+        "category_region_signal_check": "PASS",
+        "language_tone_check": "PASS",
+        "remaining_risks": [
+          "2.2GW expansion is linked/possible; keep as possibility only",
+          "single-company/source-strength caveat for downstream 0.5"
+        ],
+        "notes": "Region EU acceptable under Europe-region rule; no direct claim of confirmed 2.2GW BESS order."
+      },
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_polish": true,
+      "needs_final_qc": true,
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (17).json",
+        "baseline_total": 662,
+        "baseline_source_declaration": "user_uploaded_github_main_equivalent_baseline_for_local_validation; GitHub main sync still required before 0.8/merge",
+        "exact_url_collision_baseline_ids": [],
+        "title_similarity_hits_over_threshold": [],
+        "event_fingerprint_key": "80fa6b58217095f446a7",
+        "checked_at": "2026-05-07T18:05:00+09:00",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc": {
+        "fact_source_schema_status": "PASS",
+        "quote_quality_status": "PASS",
+        "claim_coverage_status": "PASS",
+        "source_strength_status": "clean_pass",
+        "source_strength_caveat": [],
+        "publish_ready": false
+      },
+      "source_strength_reviewed_0_5R": false,
+      "source_strength_caveat_retained": false,
+      "content_polish_metadata": {
+        "stage": "Prompt0.6ContentPolish",
+        "run_tag": "20260507_165621_local_v5_validation_baseline17_0_6",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_preserved": false,
+        "polished_at": "2026-05-07T21:00:00+09:00",
+        "source_lock_check": "PASS",
+        "claim_expansion_check": "PASS_NO_NEW_UNSUPPORTED_CLAIM"
+      },
+      "needs_github_merge_prep": true,
+      "needs_production_verification": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "github_ready_reason": "Baseline is user-uploaded GitHub-main-equivalent, not freshly confirmed GitHub main in this local dry run.",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PENDING_GITHUB_MAIN_SYNC_AND_0_8_ID_ASSIGNMENT",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_checked_at": "2026-05-08T09:19:33+09:00",
+      "production_id_pending_0_8_assignment": true,
+      "source_strength_caveat_final_qc_status": "not_applicable",
+      "id": "2026-05-07_EU_01",
+      "production_id_assigned_0_8": true,
+      "id_assignment_basis": "CARD_ID_STANDARD latest-next-number within user-uploaded GitHub-main-equivalent baseline",
+      "source_origin": "prompt_0_7_publish_ready_local_validation_pending_github_sync",
+      "merge_status": "local_merge_prep_pending_github_main_sync"
+    },
+    {
+      "draft_id": "DRAFT-B-20260507-006",
+      "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-006",
+      "source_story_ids": [
+        "TF_0064"
+      ],
+      "region": "GL",
+      "date": "2026-05-07",
+      "cat": "EV",
+      "sub_cat": "1Q26EV판매",
+      "signal": "high",
+      "title": "SNE 1Q26 글로벌 EV 411.4만대 — 중국 -18.2%·북미 -28.2%, 유럽 +26.7%",
+      "sub": "2026-05-07 — SNE Research는 2026년 1~3월 글로벌 EV 인도량이 411.4만대로 전년 대비 2.0% 감소했다고 밝혔다.",
+      "gate": "EV 배터리 사용량이 늘어난 것과 달리 완성차 인도량은 지역별로 다른 방향을 보이고 있다. 중국·북미 감소와 유럽 성장은 셀·소재 수요의 지역 믹스와 고객 포트폴리오를 다시 점검하게 만드는 데이터다.",
+      "fact": "SNE Research 공식 press-release index에 따르면 2026년 1~3월 글로벌 전기차 인도량은 411.4만대로 전년 대비 2.0% 감소했다. 같은 자료는 유럽이 26.7% 성장한 반면 중국과 북미는 각각 18.2%, 28.2% 감소했다고 설명했다. 전기신문은 SNE Research를 인용해 BYD가 58.4만대로 1위를 유지했지만 전년 대비 27.8% 감소했고 점유율이 19.3%에서 14.2%로 하락했다고 보도했다.",
+      "implication": [
+        "EV 수요는 총량보다 지역별 회복·둔화 방향이 더 중요한 변수로 관찰된다.",
+        "중국·북미 감소와 유럽 성장이 갈라지면 배터리 셀·소재사는 고객·지역 포트폴리오를 다르게 조정해야 할 수 있다.",
+        "다음 체크포인트는 SNE 원문 세부 테이블, 2분기 지역별 회복 여부, EV 판매와 배터리 사용량 사이의 괴리다."
+      ],
+      "urls": [
+        "https://www.sneresearch.com/en/insight/release/168?s_cat=%7C&s_keyword=",
+        "https://www.electimes.com/news/articleView.html?idxno=367730",
+        "https://zdnet.co.kr/view/?no=20260507094448"
+      ],
+      "related": [
+        "2026-05-06_GL_01"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "SNE Research official press-release index",
+          "source_url": "https://www.sneresearch.com/en/insight/release/168?s_cat=%7C&s_keyword=",
+          "claim": "SNE Research reported Jan-Mar 2026 global EV deliveries of 4.114 million units, down 2.0% YoY.",
+          "source_quote": "From Jan to Mar 2026, Global Electric Vehicle Deliveries Recorded 4.114 Mil Units, a 2.0% YoY Decline",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "SNE Research official press-release index",
+          "source_url": "https://www.sneresearch.com/en/insight/release/168?s_cat=%7C&s_keyword=",
+          "claim": "SNE Research reported Europe grew 26.7% while China and North America fell by double digits.",
+          "source_quote": "Europe maintains steady growth (26.7%), while both China and North America see a double-digit drop; -18.2% and -28.2%, respectively.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "전기신문 rss-rich article text",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367730",
+          "claim": "The Korean article reported BYD at 584,000 units, down 27.8%, with share falling from 19.3% to 14.2%.",
+          "source_quote": "중국 BYD가 58만4000대로 1위를 유지했으나 27.8% 급감하며 점유율이 19.3%에서 14.2%로 하락했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_rss_rich_primary_text"
+        },
+        {
+          "source_name": "ZDNet Korea body article",
+          "source_url": "https://zdnet.co.kr/view/?no=20260507094448",
+          "claim": "ZDNet cited SNE Research for global 4.114m EV deliveries and regional divergence.",
+          "source_quote": "올해 1월부터 3월까지 글로벌 전기차(순수전기차(BEV), 플러그인하이브리드차(PHEV)) 인도량은 총 411만4000대로 전년 동기 대비 2% 감소했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_body_result"
+        }
+      ],
+      "source_availability": "official_index_plus_rss_rich_and_body_level_secondary_available",
+      "fetch_coverage": "core_event_supported_by_official_sne_index_and_body_sources",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported",
+      "single_source_reason": "not_applicable_official_plus_secondary_sources",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "This is distinct from the baseline SNE battery-usage card; related is set to the existing 2026-05-06_GL_01 battery-usage card.",
+        "SNE official search result is index-level rather than a fully opened press-release body; Stage C may require opening the release_view page if available for quote quality."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-07T21:08:31+09:00",
+        "decision": "accepted_fact_safe",
+        "source_direction_check": "PASS",
+        "fact_source_alignment": "PASS_WITH_CAVEAT",
+        "quote_quality_check": "PASS_WITH_CAVEAT_0_5_RECHECK_RECOMMENDED",
+        "visible_claim_coverage": "PASS_WITH_CAVEAT",
+        "fact_vs_implication_separation": "PASS",
+        "staleness_event_date_logic": "PASS",
+        "category_region_signal_check": "PASS",
+        "language_tone_check": "PASS",
+        "remaining_risks": [
+          "SNE official index supports numbers; full release_view/body confirmation recommended before 0.5 evidence-complete label",
+          "Battery-usage baseline card is related but not duplicate because this event is EV deliveries, not battery usage"
+        ],
+        "notes": "Regional percentages and global delivery count are supported; title does not include unsupported BYD claim."
+      },
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_polish": true,
+      "needs_final_qc": true,
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (17).json",
+        "baseline_total": 662,
+        "baseline_source_declaration": "user_uploaded_github_main_equivalent_baseline_for_local_validation; GitHub main sync still required before 0.8/merge",
+        "exact_url_collision_baseline_ids": [],
+        "title_similarity_hits_over_threshold": [],
+        "event_fingerprint_key": "a5d0ec195fed1c1d4b76",
+        "checked_at": "2026-05-07T18:05:00+09:00",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc": {
+        "fact_source_schema_status": "PASS",
+        "quote_quality_status": "PASS",
+        "claim_coverage_status": "PASS",
+        "source_strength_status": "clean_pass",
+        "source_strength_caveat": [],
+        "publish_ready": false
+      },
+      "source_strength_reviewed_0_5R": false,
+      "source_strength_caveat_retained": false,
+      "content_polish_metadata": {
+        "stage": "Prompt0.6ContentPolish",
+        "run_tag": "20260507_165621_local_v5_validation_baseline17_0_6",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_preserved": false,
+        "polished_at": "2026-05-07T21:00:00+09:00",
+        "source_lock_check": "PASS",
+        "claim_expansion_check": "PASS_NO_NEW_UNSUPPORTED_CLAIM"
+      },
+      "needs_github_merge_prep": true,
+      "needs_production_verification": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "github_ready_reason": "Baseline is user-uploaded GitHub-main-equivalent, not freshly confirmed GitHub main in this local dry run.",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PENDING_GITHUB_MAIN_SYNC_AND_0_8_ID_ASSIGNMENT",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_checked_at": "2026-05-08T09:19:33+09:00",
+      "production_id_pending_0_8_assignment": true,
+      "source_strength_caveat_final_qc_status": "not_applicable",
+      "id": "2026-05-07_GL_02",
+      "production_id_assigned_0_8": true,
+      "id_assignment_basis": "CARD_ID_STANDARD latest-next-number within user-uploaded GitHub-main-equivalent baseline",
+      "source_origin": "prompt_0_7_publish_ready_local_validation_pending_github_sync",
+      "merge_status": "local_merge_prep_pending_github_main_sync"
+    },
+    {
+      "draft_id": "DRAFT-B-20260507-003",
+      "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-003",
+      "source_story_ids": [
+        "KR_2026-05-07_C114"
+      ],
+      "region": "KR",
+      "date": "2026-05-07",
+      "cat": "Charging",
+      "sub_cat": "테슬라충전개방",
+      "signal": "high",
+      "title": "워터, 고속도로 350kW 충전기 테슬라 개방 — 137기 운영·396기 확대 계획",
+      "sub": "2026-05-07 — 워터는 테슬라 정품 DC콤보 어댑터 사용 조건으로 고속도로 휴게소 350kW 초급속 충전기를 테슬라 차량에 개방한다고 밝혔다.",
+      "gate": "고속도로 충전 병목은 충전기 출력뿐 아니라 차종·커넥터 호환성과 운영 안정성에서 발생한다. 테슬라 이용자에게 350kW 충전 접근이 열리면 NACS·DC콤보 혼합 인프라의 활용도와 휴게소 충전 대기 변화가 함께 관찰될 수 있다.",
+      "fact": "에너지신문은 워터가 2026년 5월 7일부터 고속도로 휴게소 350kW급 초급속 충전기를 테슬라 차량에도 전면 개방한다고 보도했다. 테슬라 차주는 테슬라 정품 DC콤보 어댑터를 사용해 워터의 고속도로 초급속 충전 인프라를 이용할 수 있다. 보도는 워터가 전국 고속도로 휴게소에서 350kW 초급속 충전기 137기를 운영 중이며, 하반기 신규 개소 후 73개소·396기 규모로 확대될 예정이라고 설명했다.",
+      "implication": [
+        "고속도로 급속충전 시장은 설치 대수보다 호환성, 안전성 검증, 차종별 접근성이 실제 이용률을 좌우하는 구간으로 이동하고 있다.",
+        "테슬라 이용자의 고출력 충전 접근 확대는 휴게소 충전 대기와 사업자별 가동률을 함께 점검할 수 있는 지표가 될 수 있다.",
+        "다음 체크포인트는 테슬라 차량 충전 성공률, 피크 시간대 대기 변화, 73개소·396기 확대 일정의 실제 완료 여부다."
+      ],
+      "urls": [
+        "https://www.energy-news.co.kr/news/articleView.html?idxno=225195",
+        "https://www.mt.co.kr/industry/2026/05/07/2026050717543284353"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "에너지신문 body article",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=225195",
+          "claim": "Water opened 350kW highway ultra-fast chargers to Tesla vehicles from May 7.",
+          "source_quote": "전기차 급속 충전 네트워크 워터(Water)는 7일부터 고속도로 휴게소에 설치된 350kW급 초급속 충전기를 테슬라 차량에도 전면 개방한다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "에너지신문 body article",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=225195",
+          "claim": "Tesla drivers can use Water’s highway ultra-fast charging infrastructure with a genuine Tesla DC Combo adapter.",
+          "source_quote": "테슬라 차주는 테슬라 정품 DC콤보 어댑터(CCS 콤보 1 어댑터)를 사용해 워터의 고속도로 초급속 충전 인프라를 이용할 수 있게 된다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "에너지신문 body article",
+          "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=225195",
+          "claim": "Water operates 137 350kW highway rest-stop ultra-fast chargers and plans to expand to 73 sites and 396 chargers after new openings.",
+          "source_quote": "워터는 전국 고속도로 휴게소에서 350kW 초급속 충전기 137기를 운영해 국내 충전 사업자 가운데 가장 많은 규모를 보유하고 있다. ... 하반기 신규 개소가 완료되면 워터의 고속도로 휴게소 충전 인프라는 73개소‧396기 규모로 확대된다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "머니투데이 body article",
+          "source_url": "https://www.mt.co.kr/industry/2026/05/07/2026050717543284353",
+          "claim": "MoneyToday reported the same 137-unit and 73-site/396-charger expansion context.",
+          "source_quote": "워터는 전국 고속도로 휴게소에서 350㎾ 초급속 충전기 137기를 운영해 국내 충전 사업자 가운데 가장 많은 규모를 보유하고 있다. ... 하반기 신규 개소가 완료되면 워터의 고속도로 휴게소 충전 인프라는 73개소·396기 규모로 확대된다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_body_result"
+        }
+      ],
+      "source_availability": "primary_article_hydrated_plus_secondary_body_available",
+      "fetch_coverage": "core_event_supported_by_body_level_sources",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported",
+      "single_source_reason": "not_applicable_multiple_body_sources",
+      "needs_stage_c_attention": false,
+      "writer_notes": [
+        "The 137-unit / 73-site / 396-charger figures are source-attributed; Stage C should keep them tied to Water/Korean EV Association reporting, not as independently audited infrastructure counts."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-07T21:08:31+09:00",
+        "decision": "accepted_fact_safe",
+        "source_direction_check": "PASS",
+        "fact_source_alignment": "PASS",
+        "quote_quality_check": "PASS",
+        "visible_claim_coverage": "PASS",
+        "fact_vs_implication_separation": "PASS",
+        "staleness_event_date_logic": "PASS",
+        "category_region_signal_check": "PASS",
+        "language_tone_check": "PASS",
+        "remaining_risks": [
+          "137/396 charger counts should remain source-attributed"
+        ],
+        "notes": "Core claim and expansion figures supported by body-level sources."
+      },
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_polish": true,
+      "needs_final_qc": true,
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (17).json",
+        "baseline_total": 662,
+        "baseline_source_declaration": "user_uploaded_github_main_equivalent_baseline_for_local_validation; GitHub main sync still required before 0.8/merge",
+        "exact_url_collision_baseline_ids": [],
+        "title_similarity_hits_over_threshold": [],
+        "event_fingerprint_key": "20a69ca697724e59909c",
+        "checked_at": "2026-05-07T18:05:00+09:00",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc": {
+        "fact_source_schema_status": "PASS",
+        "quote_quality_status": "PASS",
+        "claim_coverage_status": "PASS",
+        "source_strength_status": "clean_pass",
+        "source_strength_caveat": [],
+        "publish_ready": false
+      },
+      "source_strength_reviewed_0_5R": false,
+      "source_strength_caveat_retained": false,
+      "content_polish_metadata": {
+        "stage": "Prompt0.6ContentPolish",
+        "run_tag": "20260507_165621_local_v5_validation_baseline17_0_6",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_preserved": false,
+        "polished_at": "2026-05-07T21:00:00+09:00",
+        "source_lock_check": "PASS",
+        "claim_expansion_check": "PASS_NO_NEW_UNSUPPORTED_CLAIM"
+      },
+      "needs_github_merge_prep": true,
+      "needs_production_verification": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "github_ready_reason": "Baseline is user-uploaded GitHub-main-equivalent, not freshly confirmed GitHub main in this local dry run.",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PENDING_GITHUB_MAIN_SYNC_AND_0_8_ID_ASSIGNMENT",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_checked_at": "2026-05-08T09:19:33+09:00",
+      "production_id_pending_0_8_assignment": true,
+      "source_strength_caveat_final_qc_status": "not_applicable",
+      "id": "2026-05-07_KR_03",
+      "production_id_assigned_0_8": true,
+      "id_assignment_basis": "CARD_ID_STANDARD latest-next-number within user-uploaded GitHub-main-equivalent baseline",
+      "source_origin": "prompt_0_7_publish_ready_local_validation_pending_github_sync",
+      "merge_status": "local_merge_prep_pending_github_main_sync"
+    },
+    {
+      "draft_id": "DRAFT-B-20260507-005",
+      "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-005",
+      "source_story_ids": [
+        "KR_2026-05-07_C16"
+      ],
+      "region": "US",
+      "date": "2026-05-07",
+      "cat": "PowerGrid",
+      "sub_cat": "초고압변압기수주",
+      "signal": "high",
+      "title": "HD현대일렉트릭, 美 1,730억원 765kV 설비 수주 보도 — SPP 송전망 프로젝트 연결",
+      "sub": "2026-05-07 — 전기신문 등은 HD현대일렉트릭이 미국 중부권 유틸리티와 765kV 초고압 변압기·리액터 공급계약을 체결했다고 전했다.",
+      "gate": "북미 전력망 증설은 변압기와 리액터 같은 초고압 장비 공급 병목과 직접 연결된다. 765kV급 송전망 프로젝트 수주는 한국 전력기기 업체의 북미 grid capex 노출도를 보여주는 실행 신호로 볼 수 있다.",
+      "fact": "전기신문과 한국경제매거진에 따르면 HD현대일렉트릭은 미국 시카고 IEEE PES T&D 2026 행사 현장에서 미국 중부권 대형 유틸리티와 1,730억원 규모 765kV 초고압 변압기 및 리액터 공급 계약을 체결했다. 보도는 이번 계약이 미국 중남부 송전망 구축 계획인 SPP 장기 송전 마스터 플랜의 765kV 백본 프로젝트와 연결된다고 설명했다. 블로터/Nate 보도는 계약기간이 2026년 5월 6일부터 2029년 8월 31일까지이며 판매·공급지역은 미국이라고 전했다.",
+      "implication": [
+        "북미 송전망 투자가 확대될수록 초고압 변압기와 리액터의 생산능력·납기가 프로젝트 병목으로 작용할 수 있다.",
+        "한국 전력기기 업체의 북미 수주는 데이터센터·재생에너지·송전망 보강 사이클과 함께 관찰할 필요가 있다.",
+        "다음 체크포인트는 공시 원문, 납품 일정, 765kV 프로젝트 후속 수주, 북미 생산·서비스 거점 확대 여부다."
+      ],
+      "urls": [
+        "https://www.electimes.com/news/articleView.html?idxno=367762",
+        "https://magazine.hankyung.com/business/article/202605071307b",
+        "https://news.nate.com/view/20260507n15280"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "전기신문 rss-rich article text",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367762",
+          "claim": "HD Hyundai Electric signed a KRW 173bn supply contract for 765kV ultra-high-voltage transformers and reactors with a major U.S. utility.",
+          "source_quote": "HD현대일렉트릭은 행사 현장에서 미국 중부 권역 대형 유틸리티 회사와 총 1730억 원 규모의 765kV 초고압 변압기 및 리액터 공급 계약을 체결했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_rss_rich_primary_text"
+        },
+        {
+          "source_name": "한국경제매거진 body article",
+          "source_url": "https://magazine.hankyung.com/business/article/202605071307b",
+          "claim": "Hankyung reported the same 173bn won, 765kV transformer/reactor supply contract at IEEE 2026.",
+          "source_quote": "HD현대일렉트릭은 미국 시카고에서 열린 ‘IEEE PES T&D 2026’ 전시회 현장에서 미국 중부 권역 유틸리티 업체와 총 1730억원 규모의 765kV 초고압 변압기 및 리액터 공급 계약을 체결했다고 7일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "블로터/Nate body article",
+          "source_url": "https://news.nate.com/view/20260507n15280",
+          "claim": "The contract period runs from May 6, 2026 to August 31, 2029 and amounts to 4.24% of prior-year consolidated revenue.",
+          "source_quote": "계약금액은 지난해 연결 기준 매출인 4조795억원 대비 4.24% 규모다. 계약기간은 2026년 5월6일부터 2029년 8월31일까지다. 판매·공급지역은 미국이다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "전기신문 rss-rich article text",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367762",
+          "claim": "The equipment is tied to SPP long-term transmission planning and 765kV backbone participation.",
+          "source_quote": "이번 계약을 통해 미국 중남부 송전망 구축 계획인 ‘SPP(Southwest Power Pool) 장기 송전 마스터 플랜’의 핵심 사업인 765kV 백본 프로젝트에 참여하게 됐다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_rss_rich_primary_text"
+        },
+        {
+          "source_name": "매일경제 body article",
+          "source_url": "https://www.mk.co.kr/news/business/12039153",
+          "claim": "MK reported HD Hyundai Electric signed a KRW 173bn 765kV transformer and reactor supply contract tied to the SPP 765kV backbone project.",
+          "source_quote": "HD현대일렉트릭이 미국서 1730억원 규모 초고압 전력설비 수주",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "checked_at": "2026-05-07T21:27:35+09:00",
+          "fetch_method": "0_5R_web_search_body_result",
+          "fetched_at": "2026-05-07T21:27:35+09:00"
+        },
+        {
+          "source_name": "ZDNet Korea body article",
+          "source_url": "https://zdnet.co.kr/view/?no=20260507151033",
+          "claim": "ZDNet reported HD Hyundai Electric joined IEEE PES T&D 2026 and signed the 765kV transformer/reactor supply contract.",
+          "source_quote": "美 전력망 올라탄 HD현대일렉트릭, 1730억원 초고압 설비 수주",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "checked_at": "2026-05-07T21:27:35+09:00",
+          "fetch_method": "0_5R_web_search_body_result",
+          "fetched_at": "2026-05-07T21:27:35+09:00"
+        }
+      ],
+      "source_availability": "primary_rss_rich_plus_body_level_secondary_sources_available",
+      "fetch_coverage": "core_event_supported_by_body_level_fallback_and_primary_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported",
+      "single_source_reason": "not_applicable_multiple_sources",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Stage A source region KR corrected to US because the direct contract/supply destination is the United States.",
+        "Primary source input was rss_rich, so body-level secondary corroboration was added to avoid Stage 0.5 RSS-only hard fail. Stage C should verify official disclosure if needed."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-07T21:08:31+09:00",
+        "decision": "accepted_fact_safe",
+        "source_direction_check": "PASS",
+        "fact_source_alignment": "PASS_WITH_CAVEAT",
+        "quote_quality_check": "PASS_WITH_CAVEAT_0_5_RECHECK_RECOMMENDED",
+        "visible_claim_coverage": "PASS_WITH_CAVEAT",
+        "fact_vs_implication_separation": "PASS",
+        "staleness_event_date_logic": "PASS",
+        "category_region_signal_check": "PASS",
+        "language_tone_check": "PASS",
+        "remaining_risks": [
+          "Primary input included rss-rich; body-level corroboration present, but official disclosure/filing should be preferred in 0.5 if accessible",
+          "SPP linkage should remain reported/contextual"
+        ],
+        "notes": "Visible fields use attributed/reporting language and do not overstate official confirmation."
+      },
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_polish": true,
+      "needs_final_qc": true,
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (17).json",
+        "baseline_total": 662,
+        "baseline_source_declaration": "user_uploaded_github_main_equivalent_baseline_for_local_validation; GitHub main sync still required before 0.8/merge",
+        "exact_url_collision_baseline_ids": [],
+        "title_similarity_hits_over_threshold": [],
+        "event_fingerprint_key": "f53daa7bb3d0d86dcbc2",
+        "checked_at": "2026-05-07T18:05:00+09:00",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc": {
+        "fact_source_schema_status": "PASS",
+        "quote_quality_status": "PASS",
+        "claim_coverage_status": "PASS",
+        "source_strength_status": "0_5R_reviewed_pass_with_caveat_retained",
+        "source_strength_caveat": [
+          "Contract amount and 765kV order are supported by body-level articles and a media-reported filing quote, but the original company disclosure/DART or company release should be checked before external publication."
+        ],
+        "publish_ready": false,
+        "source_strength_caveat_after_0_5R": "Original DART/KRX/company release URL was not directly found in this local dry run; however multiple body-level disclosure/company-attributed sources corroborate all core claims. Keep caveat visible in 0.6/0.7 unless official original is later attached.",
+        "source_strength_0_5R_reviewed_at": "2026-05-07T21:27:35+09:00",
+        "source_strength_0_5R_decision": "source_strength_review_pass_with_retained_original_disclosure_caveat"
+      },
+      "source_strength_reviewed_0_5R": true,
+      "source_strength_caveat_retained": true,
+      "source_strength_review_result": "source_strength_review_pass_with_retained_original_disclosure_caveat",
+      "content_polish_metadata": {
+        "stage": "Prompt0.6ContentPolish",
+        "run_tag": "20260507_165621_local_v5_validation_baseline17_0_6",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_preserved": true,
+        "polished_at": "2026-05-07T21:00:00+09:00",
+        "source_lock_check": "PASS",
+        "claim_expansion_check": "PASS_NO_NEW_UNSUPPORTED_CLAIM"
+      },
+      "needs_github_merge_prep": true,
+      "needs_production_verification": true,
+      "evidence_metadata_repair": {
+        "stage": "0.5R_evidence_metadata_repair_only",
+        "repair_scope": "fact_sources_fetched_at_metadata_only",
+        "visible_fields_changed": false,
+        "claim_changed": false,
+        "source_quote_changed": false,
+        "publish_ready_assigned": false,
+        "repaired_at": "2026-05-08T08:42:38+09:00",
+        "repaired_fact_source_indices": [
+          4,
+          5
+        ]
+      },
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "github_ready_reason": "Baseline is user-uploaded GitHub-main-equivalent, not freshly confirmed GitHub main in this local dry run.",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PENDING_GITHUB_MAIN_SYNC_AND_0_8_ID_ASSIGNMENT",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_checked_at": "2026-05-08T09:19:33+09:00",
+      "production_id_pending_0_8_assignment": true,
+      "source_strength_caveat_final_qc_status": "retained_not_blocking",
+      "id": "2026-05-07_US_01",
+      "production_id_assigned_0_8": true,
+      "id_assignment_basis": "CARD_ID_STANDARD latest-next-number within user-uploaded GitHub-main-equivalent baseline",
+      "source_origin": "prompt_0_7_publish_ready_local_validation_pending_github_sync",
+      "merge_status": "local_merge_prep_pending_github_main_sync"
+    },
+    {
+      "draft_id": "DRAFT-B-20260507-004",
+      "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-004",
+      "source_story_ids": [
+        "KR_2026-05-07_C95"
+      ],
+      "region": "KR",
+      "date": "2026-05-07",
+      "cat": "Charging",
+      "sub_cat": "시간대요금할인",
+      "signal": "mid",
+      "title": "서울시, 주말 낮 EV 충전요금 최대 약 15% 인하 — 공용 급속충전기 1,419기 대상",
+      "sub": "2026-05-07 — 서울시는 5월 9일부터 봄·가을 주말·공휴일 11~14시 전기차 공용 급속충전 요금 할인을 적용한다고 밝혔다.",
+      "gate": "충전요금 정책은 보급 확대뿐 아니라 전력 수요 시간대 분산을 유도하는 운영수단으로 쓰이고 있다. 낮 시간대 충전 할인이 확산되면 충전사업자는 가격, 이용시간, 피크 부하 관리까지 함께 설계해야 한다.",
+      "fact": "아시아경제와 연합뉴스에 따르면 서울시는 2026년 5월 9일부터 시가 직접 설치·운영 중인 전기차 충전기 요금을 인하한다. 할인은 봄철 3~5월과 가을철 9~10월 주말·공휴일 오전 11시부터 오후 2시까지 적용되며, 서울시·기후에너지환경부·한국전력공사 등이 설치한 공용 급속충전기 1,419기를 대상으로 한다. 서울시는 해당 시간대 충전 시 최대 약 15%의 충전비 절감 효과가 있다고 설명했다.",
+      "implication": [
+        "충전요금 할인은 전기차 이용자 비용 부담과 전력수요 분산을 동시에 겨냥한 정책 도구로 관찰된다.",
+        "시간대별 요금 설계가 확대되면 충전 인프라의 입지보다 운영 데이터와 가격 신호 설계가 중요해질 수 있다.",
+        "다음 체크포인트는 실제 적용 충전기 위치, 민간 보조사업자 참여 확대, 주말 낮 충전량 변화다."
+      ],
+      "urls": [
+        "https://www.asiae.co.kr/article/2026050709134141966",
+        "https://www.yna.co.kr/view/AKR20260507079800004"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "아시아경제 body article",
+          "source_url": "https://www.asiae.co.kr/article/2026050709134141966",
+          "claim": "Seoul will lower rates for directly installed/operated EV chargers from May 9.",
+          "source_quote": "서울시가 오는 9일부터 시에서 직접 설치·운영 중인 전기차 충전기 요금을 인하한다고 7일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "아시아경제 body article",
+          "source_url": "https://www.asiae.co.kr/article/2026050709134141966",
+          "claim": "The discount applies during spring/fall weekend and holiday daytime charging and can reach up to 15%.",
+          "source_quote": "봄과 가을철 주말 낮 시간대 충전 시 최대 15% 할인 혜택을 받을 수 있다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "아시아경제 body article",
+          "source_url": "https://www.asiae.co.kr/article/2026050709134141966",
+          "claim": "The policy applies to 1,419 public fast chargers installed by Seoul, the climate/energy ministry and KEPCO.",
+          "source_quote": "요금 할인은 서울시를 비롯한 기후에너지환경부, 한국전력공사 등이 설치한 공용 급속충전기 1419기를 대상으로 적용된다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "연합뉴스 body article",
+          "source_url": "https://www.yna.co.kr/view/AKR20260507079800004",
+          "claim": "Yonhap reported the same May 9 start and 1,419 charger coverage.",
+          "source_quote": "서울시는 오는 9일부터 시에서 직접 설치·운영 중인 충전기의 요금을 최대 15%가량 인하한다고 7일 밝혔다. ... 공용 급속충전기 1천419기를 대상으로 적용된다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_body_result"
+        }
+      ],
+      "source_availability": "primary_article_hydrated_plus_national_wire_body_available",
+      "fetch_coverage": "core_event_supported_by_body_level_sources",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported",
+      "single_source_reason": "not_applicable_multiple_body_sources",
+      "needs_stage_c_attention": false,
+      "writer_notes": [
+        "Announcement date is 2026-05-07, effective date is 2026-05-09; card date uses announcement event date and fact field names effective date."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-07T21:08:31+09:00",
+        "decision": "accepted_fact_safe",
+        "source_direction_check": "PASS",
+        "fact_source_alignment": "PASS",
+        "quote_quality_check": "PASS",
+        "visible_claim_coverage": "PASS",
+        "fact_vs_implication_separation": "PASS",
+        "staleness_event_date_logic": "PASS",
+        "category_region_signal_check": "PASS",
+        "language_tone_check": "PASS",
+        "remaining_risks": [
+          "Announcement date and effective date must remain separated"
+        ],
+        "notes": "Public fast-charger count and 15% discount supported by body-level sources."
+      },
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_polish": true,
+      "needs_final_qc": true,
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (17).json",
+        "baseline_total": 662,
+        "baseline_source_declaration": "user_uploaded_github_main_equivalent_baseline_for_local_validation; GitHub main sync still required before 0.8/merge",
+        "exact_url_collision_baseline_ids": [],
+        "title_similarity_hits_over_threshold": [],
+        "event_fingerprint_key": "c3b46339586841218bea",
+        "checked_at": "2026-05-07T18:05:00+09:00",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc": {
+        "fact_source_schema_status": "PASS",
+        "quote_quality_status": "PASS",
+        "claim_coverage_status": "PASS",
+        "source_strength_status": "clean_pass",
+        "source_strength_caveat": [],
+        "publish_ready": false
+      },
+      "source_strength_reviewed_0_5R": false,
+      "source_strength_caveat_retained": false,
+      "content_polish_metadata": {
+        "stage": "Prompt0.6ContentPolish",
+        "run_tag": "20260507_165621_local_v5_validation_baseline17_0_6",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_preserved": false,
+        "polished_at": "2026-05-07T21:00:00+09:00",
+        "source_lock_check": "PASS",
+        "claim_expansion_check": "PASS_NO_NEW_UNSUPPORTED_CLAIM"
+      },
+      "needs_github_merge_prep": true,
+      "needs_production_verification": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "github_ready_reason": "Baseline is user-uploaded GitHub-main-equivalent, not freshly confirmed GitHub main in this local dry run.",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PENDING_GITHUB_MAIN_SYNC_AND_0_8_ID_ASSIGNMENT",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_checked_at": "2026-05-08T09:19:33+09:00",
+      "production_id_pending_0_8_assignment": true,
+      "source_strength_caveat_final_qc_status": "not_applicable",
+      "id": "2026-05-07_KR_04",
+      "production_id_assigned_0_8": true,
+      "id_assignment_basis": "CARD_ID_STANDARD latest-next-number within user-uploaded GitHub-main-equivalent baseline",
+      "source_origin": "prompt_0_7_publish_ready_local_validation_pending_github_sync",
+      "merge_status": "local_merge_prep_pending_github_main_sync"
     },
     {
       "id": "2026-05-06_KR_01",
@@ -1711,6 +2692,448 @@
       "source_origin": "rescue_stage_0_7_publish_ready_local_validation",
       "merge_status": "single",
       "baseline_relation": "new"
+    },
+    {
+      "draft_id": "DRAFT-B-20260507-007",
+      "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-007",
+      "source_story_ids": [
+        "TF_0016"
+      ],
+      "region": "KR",
+      "date": "2026-05-06",
+      "cat": "PowerGrid",
+      "sub_cat": "변전소태양광",
+      "signal": "high",
+      "title": "한전, 500개 변전소에 95MW 태양광 구축 보도 — 2030년까지 유휴부지 에너지화",
+      "sub": "2026-05-06 — 복수 매체는 한국전력이 공공기관 K-RE100 이행을 위해 전국 변전소 여유부지 약 500개소에 총 95MW 태양광 설비를 구축한다고 전했다.",
+      "gate": "변전소 유휴부지를 태양광 발전 거점으로 전환하는 것은 전력망 자산을 단순 송·변전 설비에서 분산형 발전 인프라로 확장하는 사례다. 규모는 대형 발전소보다 작지만, 기존 전력 인프라 부지를 활용해 접속·부지 병목을 줄이는 방향으로 관찰된다.",
+      "fact": "이투뉴스와 이투데이에 따르면 한국전력은 2030년까지 전국 변전소 여유부지 약 500개소에 총 95MW 규모 태양광 발전설비를 구축한다. 한전은 공공기관 K-RE100 이행을 위해 송·변전 유휴자산 에너지화 프로젝트를 추진하며, 변전소 조성 과정에서 발생한 잔여지와 조경부지 등 설치 가능 부지를 발굴했다. 이투데이는 한전이 전담 TF를 구성하고 올해 1MW 시범사업에 착수한다고 보도했다.",
+      "implication": [
+        "기존 변전소 부지 활용은 신규 발전부지 확보와 계통 접속 문제를 일부 완화하는 방식으로 관찰된다.",
+        "공공기관 K-RE100 이행이 전력공기업 보유 자산의 재생에너지 전환 프로젝트로 연결되고 있다.",
+        "다음 체크포인트는 1MW 시범사업 결과, 2030년까지 연도별 설치 속도, ESS 병행 여부다."
+      ],
+      "urls": [
+        "http://www.e2news.com/news/articleView.html?idxno=330161",
+        "https://www.etoday.co.kr/news/view/2582032",
+        "https://www.etnews.com/20260506000023"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "이투뉴스 rss-rich article text",
+          "source_url": "http://www.e2news.com/news/articleView.html?idxno=330161",
+          "claim": "KEPCO will build 95MW solar facilities on idle land at around 500 substations by 2030.",
+          "source_quote": "한전(사장 김동철)이 전국 500여개 변전소 여유부지에 2030년까지 모두 95MW규모의 태양광 설비를 구축한다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_rss_rich_primary_text"
+        },
+        {
+          "source_name": "이투데이 body article",
+          "source_url": "https://www.etoday.co.kr/news/view/2582032",
+          "claim": "Etoday reported KEPCO’s plan for 95MW solar at 500 substations by 2030.",
+          "source_quote": "한전은 공공기관 K-RE100 이행을 본격화하기 위해 2030년까지 전국 변전소 여유부지 약 500개소에 총 95MW 규모의 태양광 발전설비를 구축한다고 6일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "전자신문 body article",
+          "source_url": "https://www.etnews.com/20260506000023",
+          "claim": "ETNews described the project as converting idle substation land into renewable energy production hubs.",
+          "source_quote": "한국전력은 6일 '송변전 유휴자산 에너지화' 프로젝트를 통해 2030년까지 전국 약 500개 변전소 부지에 태양광 설비를 단계적으로 구축한다고 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "이투데이 body article",
+          "source_url": "https://www.etoday.co.kr/news/view/2582032",
+          "claim": "KEPCO formed a dedicated TF and will start a 1MW pilot this year.",
+          "source_quote": "전담 TF 구성해 올해 1MW 시범사업 착수",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "서울신문 body article / KEPCO attribution",
+          "source_url": "https://www.seoul.co.kr/news/economy/2026/05/06/20260506500017",
+          "claim": "Seoul Shinmun reported KEPCO will build 95MW solar facilities across 500 substations by 2030.",
+          "source_quote": "한전, 전국 변전소 여유부지에 95MW 태양광 발전설비 구축",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "checked_at": "2026-05-07T21:27:35+09:00",
+          "fetch_method": "0_5R_web_search_body_result",
+          "fetched_at": "2026-05-07T21:27:35+09:00"
+        },
+        {
+          "source_name": "연합뉴스/파이낸셜뉴스 body article / KEPCO attribution",
+          "source_url": "https://www.fnnews.com/ampNews/202605060926126058",
+          "claim": "Yonhap/FN reported KEPCO's plan to use 500 substation sites for 95MW solar by 2030.",
+          "source_quote": "한전, 2030년까지 변전소 여유부지에 95㎿ 태양광 구축",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "title",
+            "fact",
+            "gate"
+          ],
+          "checked_at": "2026-05-07T21:27:35+09:00",
+          "fetch_method": "0_5R_web_search_body_result",
+          "fetched_at": "2026-05-07T21:27:35+09:00"
+        },
+        {
+          "source_name": "아시아경제 body article / KEPCO attribution",
+          "source_url": "https://www.asiae.co.kr/article/2026050610032976029",
+          "claim": "Asia Economy reported the project includes a 1MW pilot this year and expansion to 95MW by 2030.",
+          "source_quote": "한전, 전국 변전소 500곳에 태양광 구축…2030년까지 95MW 확대",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "checked_at": "2026-05-07T21:27:35+09:00",
+          "fetch_method": "0_5R_web_search_body_result",
+          "fetched_at": "2026-05-07T21:27:35+09:00"
+        }
+      ],
+      "source_availability": "primary_rss_rich_plus_body_level_secondary_sources_available",
+      "fetch_coverage": "core_event_supported_by_body_level_fallback_and_primary_rich_text",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported",
+      "single_source_reason": "not_applicable_multiple_sources",
+      "needs_stage_c_attention": true,
+      "writer_notes": [
+        "Primary source input was rss_rich; body-level Etoday/ETNews sources were added to avoid RSS-only weakness.",
+        "Matched bucket in source input was scope_battery, but actual lane is PowerGrid; category corrected accordingly."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-07T21:08:31+09:00",
+        "decision": "accepted_fact_safe",
+        "source_direction_check": "PASS",
+        "fact_source_alignment": "PASS_WITH_CAVEAT",
+        "quote_quality_check": "PASS_WITH_CAVEAT_0_5_RECHECK_RECOMMENDED",
+        "visible_claim_coverage": "PASS_WITH_CAVEAT",
+        "fact_vs_implication_separation": "PASS",
+        "staleness_event_date_logic": "PASS",
+        "category_region_signal_check": "PASS",
+        "language_tone_check": "PASS",
+        "remaining_risks": [
+          "Primary input included rss-rich; body-level Etoday/ETNews fallback supports the core event",
+          "ESS 병행 여부 is only a future checkpoint, not a fact claim"
+        ],
+        "notes": "95MW/500 substations/2030/1MW pilot supported by body-level sources."
+      },
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_polish": true,
+      "needs_final_qc": true,
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (17).json",
+        "baseline_total": 662,
+        "baseline_source_declaration": "user_uploaded_github_main_equivalent_baseline_for_local_validation; GitHub main sync still required before 0.8/merge",
+        "exact_url_collision_baseline_ids": [],
+        "title_similarity_hits_over_threshold": [],
+        "event_fingerprint_key": "cd8b98bec9947586123b",
+        "checked_at": "2026-05-07T18:05:00+09:00",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc": {
+        "fact_source_schema_status": "PASS",
+        "quote_quality_status": "PASS",
+        "claim_coverage_status": "PASS",
+        "source_strength_status": "0_5R_reviewed_pass_with_caveat_retained",
+        "source_strength_caveat": [
+          "KEPCO 500 substations/95MW plan is supported by multiple body-level articles, but an official KEPCO/agency release should be checked before external publication."
+        ],
+        "publish_ready": false,
+        "source_strength_caveat_after_0_5R": "KEPCO official homepage release URL was not directly found in this local dry run; however multiple major/wire body-level reports with KEPCO attribution and KEPCO-provided visuals corroborate all core claims. Keep caveat visible in 0.6/0.7 unless official URL is later attached.",
+        "source_strength_0_5R_reviewed_at": "2026-05-07T21:27:35+09:00",
+        "source_strength_0_5R_decision": "source_strength_review_pass_with_retained_official_url_caveat"
+      },
+      "source_strength_reviewed_0_5R": true,
+      "source_strength_caveat_retained": true,
+      "source_strength_review_result": "source_strength_review_pass_with_retained_official_url_caveat",
+      "content_polish_metadata": {
+        "stage": "Prompt0.6ContentPolish",
+        "run_tag": "20260507_165621_local_v5_validation_baseline17_0_6",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_preserved": true,
+        "polished_at": "2026-05-07T21:00:00+09:00",
+        "source_lock_check": "PASS",
+        "claim_expansion_check": "PASS_NO_NEW_UNSUPPORTED_CLAIM"
+      },
+      "needs_github_merge_prep": true,
+      "needs_production_verification": true,
+      "evidence_metadata_repair": {
+        "stage": "0.5R_evidence_metadata_repair_only",
+        "repair_scope": "fact_sources_fetched_at_metadata_only",
+        "visible_fields_changed": false,
+        "claim_changed": false,
+        "source_quote_changed": false,
+        "publish_ready_assigned": false,
+        "repaired_at": "2026-05-08T08:42:38+09:00",
+        "repaired_fact_source_indices": [
+          4,
+          5,
+          6
+        ]
+      },
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "github_ready_reason": "Baseline is user-uploaded GitHub-main-equivalent, not freshly confirmed GitHub main in this local dry run.",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PENDING_GITHUB_MAIN_SYNC_AND_0_8_ID_ASSIGNMENT",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_checked_at": "2026-05-08T09:19:33+09:00",
+      "production_id_pending_0_8_assignment": true,
+      "source_strength_caveat_final_qc_status": "retained_not_blocking",
+      "id": "2026-05-06_KR_04",
+      "production_id_assigned_0_8": true,
+      "id_assignment_basis": "CARD_ID_STANDARD latest-next-number within user-uploaded GitHub-main-equivalent baseline",
+      "source_origin": "prompt_0_7_publish_ready_local_validation_pending_github_sync",
+      "merge_status": "local_merge_prep_pending_github_main_sync"
+    },
+    {
+      "draft_id": "DRAFT-B-20260507-002",
+      "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-002",
+      "source_story_ids": [
+        "KR_2026-05-07_C134"
+      ],
+      "region": "KR",
+      "date": "2026-05-06",
+      "cat": "Materials",
+      "sub_cat": "ESG지수편입",
+      "signal": "mid",
+      "title": "포스코퓨처엠, DJBIC 월드 지수 편입 — 국내 배터리소재 업계 최초",
+      "sub": "2026-05-06 — 포스코퓨처엠은 S&P글로벌 지속가능성 평가 기반 DJBIC 최고 등급인 월드 지수에 편입됐다고 밝혔다.",
+      "gate": "이 사안은 생산능력 증설이 아니라 글로벌 투자자·고객이 보는 ESG 및 공급망 관리 지표의 변화다. 배터리소재 업체의 공급망 관리, 책임광물 사용, 안전보건 체계가 고객 인증과 투자자 평가에서 함께 점검되는 흐름을 보여준다.",
+      "fact": "전기신문과 포스코그룹 뉴스룸에 따르면 포스코퓨처엠은 국내 배터리소재 업계 최초로 DJBIC의 최고 등급인 월드 지수에 편입됐다. 전기신문은 DJBIC가 S&P글로벌이 기업의 재무성과와 환경·사회·지배구조를 평가해 발표하는 지속가능성 지수이며, 세계 시가총액 2,500대 기업 중 지속가능성 평가 상위 10%가 월드 지수에 편입된다고 설명했다. 보도는 포스코퓨처엠이 탄소배출량 감축, 공급망 관리, 안전보건경영 강화 등에서 우수한 평가를 받았다고 전했다.",
+      "implication": [
+        "배터리소재 기업의 경쟁력은 가격·CAPA뿐 아니라 책임광물, 공급망 관리, 안전보건 체계까지 포함해 평가되는 방향으로 관찰된다.",
+        "ESG 지수 편입은 직접 수주 신호는 아니지만 고객사와 투자자 커뮤니케이션에서 보조 신뢰지표가 될 수 있다.",
+        "다음 체크포인트는 S&P CSA 세부 점수, 공급망 관리 항목 개선 여부, 고객 RFQ에서 ESG 자료 요구 강도다."
+      ],
+      "urls": [
+        "https://www.electimes.com/news/articleView.html?idxno=367765",
+        "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0-%EA%B5%AD%EB%82%B4-%EB%B0%B0%ED%84%B0%EB%A6%AC%EC%86%8C%EC%9E%AC-%EC%97%85%EA%B3%84-%EC%B5%9C%EC%B4%88-djbic-%EC%9B%94%EB%93%9C/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367765",
+          "claim": "Posco Future M was included in the DJBIC World Index as the first domestic battery-materials company.",
+          "source_quote": "포스코퓨처엠이 국내 배터리소재 업계 최초로 'DJBIC(Dow Jones Best-in-Class 다우존스 최상위 기업 지수, 舊 DJSI)'의 최고 등급인 ‘월드 지수’에 편입됐다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367765",
+          "claim": "DJBIC World covers the top 10% in corporate sustainability among the world’s top 2,500 by market capitalization.",
+          "source_quote": "S&P글로벌은 세계 시가총액 2500대 기업 중 기업 지속가능성 평가 상위 10%는 '월드' ... 지수 등에 편입했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        },
+        {
+          "source_name": "포스코그룹 뉴스룸 official release",
+          "source_url": "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%93%A8%EC%B2%98%EC%97%A0-%EA%B5%AD%EB%82%B4-%EB%B0%B0%ED%84%B0%EB%A6%AC%EC%86%8C%EC%9E%AC-%EC%97%85%EA%B3%84-%EC%B5%9C%EC%B4%88-djbic-%EC%9B%94%EB%93%9C/",
+          "claim": "The Posco official release described the same DJBIC World Index inclusion.",
+          "source_quote": "포스코퓨처엠이 국내 배터리소재 업계 최초로 ‘DJBIC(Dow Jones Best-in-Class 다우존스 최상위 기업 지수, 舊 DJSI)’의 최고 등급인 ‘월드 지수’에 편입됐다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367765",
+          "claim": "The article said Posco Future M was evaluated positively on carbon reduction, supply-chain management and safety/health management.",
+          "source_quote": "탄소배출량 감축, 공급망 관리, 안전보건경영 강화 등을 체계적으로 실행하고 있는 점에서 우수한 평가를 받았다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-07T21:05:00+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+        }
+      ],
+      "source_availability": "primary_article_hydrated_plus_official_material_available",
+      "fetch_coverage": "core_event_supported_by_article_and_official_material",
+      "evidence_package_status": "evidence_package_prepared_core_event_supported",
+      "single_source_reason": "not_applicable_multiple_body_or_official_sources",
+      "needs_stage_c_attention": false,
+      "writer_notes": [
+        "Event date corrected to 2026-05-06 because official and major reports were published on May 6; Stage A source was a May 7 specialty article.",
+        "Signal set to mid because this is recognition/ESG index inclusion, not production, contract, policy funding or capacity execution."
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-07T21:08:31+09:00",
+        "decision": "accepted_fact_safe",
+        "source_direction_check": "PASS",
+        "fact_source_alignment": "PASS",
+        "quote_quality_check": "PASS",
+        "visible_claim_coverage": "PASS",
+        "fact_vs_implication_separation": "PASS",
+        "staleness_event_date_logic": "PASS",
+        "category_region_signal_check": "PASS",
+        "language_tone_check": "PASS",
+        "remaining_risks": [
+          "Not a production/contract event; signal mid is appropriate",
+          "ESG index inclusion should not be framed as direct revenue/customer win"
+        ],
+        "notes": "Official Posco newsroom and industry press support DJBIC claim."
+      },
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_polish": true,
+      "needs_final_qc": true,
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards (17).json",
+        "baseline_total": 662,
+        "baseline_source_declaration": "user_uploaded_github_main_equivalent_baseline_for_local_validation; GitHub main sync still required before 0.8/merge",
+        "exact_url_collision_baseline_ids": [],
+        "title_similarity_hits_over_threshold": [],
+        "event_fingerprint_key": "eeaf512ec03955b656c2",
+        "checked_at": "2026-05-07T18:05:00+09:00",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc": {
+        "fact_source_schema_status": "PASS",
+        "quote_quality_status": "PASS",
+        "claim_coverage_status": "PASS",
+        "source_strength_status": "clean_pass",
+        "source_strength_caveat": [],
+        "publish_ready": false
+      },
+      "source_strength_reviewed_0_5R": false,
+      "source_strength_caveat_retained": false,
+      "content_polish_metadata": {
+        "stage": "Prompt0.6ContentPolish",
+        "run_tag": "20260507_165621_local_v5_validation_baseline17_0_6",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "source_strength_caveat_preserved": false,
+        "polished_at": "2026-05-07T21:00:00+09:00",
+        "source_lock_check": "PASS",
+        "claim_expansion_check": "PASS_NO_NEW_UNSUPPORTED_CLAIM"
+      },
+      "needs_github_merge_prep": true,
+      "needs_production_verification": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "github_ready_reason": "Baseline is user-uploaded GitHub-main-equivalent, not freshly confirmed GitHub main in this local dry run.",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PENDING_GITHUB_MAIN_SYNC_AND_0_8_ID_ASSIGNMENT",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_checked_at": "2026-05-08T09:19:33+09:00",
+      "production_id_pending_0_8_assignment": true,
+      "source_strength_caveat_final_qc_status": "not_applicable",
+      "id": "2026-05-06_KR_05",
+      "production_id_assigned_0_8": true,
+      "id_assignment_basis": "CARD_ID_STANDARD latest-next-number within user-uploaded GitHub-main-equivalent baseline",
+      "source_origin": "prompt_0_7_publish_ready_local_validation_pending_github_sync",
+      "merge_status": "local_merge_prep_pending_github_main_sync"
     },
     {
       "id": "2026-05-05_US_01",
@@ -28989,5 +30412,96 @@
     "production_docs_modified": false,
     "needs_github_replace_all": true,
     "canonicalization_note": "tracking params removed; identity query params retained"
+  },
+  "source_publish_ready_payload": "publish_ready_payload_PENDING_GITHUB_SYNC_AFTER_0_5R_METADATA_REPAIR_20260507_165621_local_v5_validation_baseline17_0_7.json",
+  "github_main_sync_status": "BLOCKED_GITHUB_MAIN_CONTENT_UNREADABLE",
+  "github_main_fetch_summary": {
+    "repo": "ihyowoen/SBTL_HUB",
+    "path": "public/data/cards.json",
+    "ref": "main",
+    "connector_returned_content_empty": true,
+    "connector_sha": "6a4abcb2f792a72bb11d51dfeadd638b79b99600",
+    "action_taken": "No GitHub modification, no branch, no commit, no PR. Local candidate only."
+  },
+  "merge_prep_20260507_165621_local_v5": {
+    "stage": "github_merge_prep",
+    "prompt_id": "0.8",
+    "local_validation_dry_run": true,
+    "status": "LOCAL_CANDIDATE_PREPARED_BUT_BLOCKED_GITHUB_MAIN_SYNC_UNVERIFIABLE",
+    "baseline_file": "cards (17).json",
+    "baseline_count": 662,
+    "publish_ready_input_count": 7,
+    "merged_candidate_count": 669,
+    "duplicate_id_count": 0,
+    "duplicate_url_hits_involving_new_cards": [],
+    "id_assignments": [
+      {
+        "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-001",
+        "title": "그리너지 LTO BESS, 英 오프그리드 AI 파일럿 공급망 진입 — 7MW·4MWh 프로젝트",
+        "date": "2026-05-07",
+        "region": "EU",
+        "signal": "high",
+        "assigned_id": "2026-05-07_EU_01",
+        "previous_max_nn_in_baseline": 0
+      },
+      {
+        "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-007",
+        "title": "한전, 500개 변전소에 95MW 태양광 구축 보도 — 2030년까지 유휴부지 에너지화",
+        "date": "2026-05-06",
+        "region": "KR",
+        "signal": "high",
+        "assigned_id": "2026-05-06_KR_04",
+        "previous_max_nn_in_baseline": 3
+      },
+      {
+        "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-002",
+        "title": "포스코퓨처엠, DJBIC 월드 지수 편입 — 국내 배터리소재 업계 최초",
+        "date": "2026-05-06",
+        "region": "KR",
+        "signal": "mid",
+        "assigned_id": "2026-05-06_KR_05",
+        "previous_max_nn_in_baseline": 3
+      },
+      {
+        "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-003",
+        "title": "워터, 고속도로 350kW 충전기 테슬라 개방 — 137기 운영·396기 확대 계획",
+        "date": "2026-05-07",
+        "region": "KR",
+        "signal": "high",
+        "assigned_id": "2026-05-07_KR_03",
+        "previous_max_nn_in_baseline": 2
+      },
+      {
+        "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-004",
+        "title": "서울시, 주말 낮 EV 충전요금 최대 약 15% 인하 — 공용 급속충전기 1,419기 대상",
+        "date": "2026-05-07",
+        "region": "KR",
+        "signal": "mid",
+        "assigned_id": "2026-05-07_KR_04",
+        "previous_max_nn_in_baseline": 2
+      },
+      {
+        "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-006",
+        "title": "SNE 1Q26 글로벌 EV 411.4만대 — 중국 -18.2%·북미 -28.2%, 유럽 +26.7%",
+        "date": "2026-05-07",
+        "region": "GL",
+        "signal": "high",
+        "assigned_id": "2026-05-07_GL_02",
+        "previous_max_nn_in_baseline": 1
+      },
+      {
+        "source_spec_id": "SA-20260507_165621_local_v5_validation_baseline17-005",
+        "title": "HD현대일렉트릭, 美 1,730억원 765kV 설비 수주 보도 — SPP 송전망 프로젝트 연결",
+        "date": "2026-05-07",
+        "region": "US",
+        "signal": "high",
+        "assigned_id": "2026-05-07_US_01",
+        "previous_max_nn_in_baseline": 0
+      }
+    ],
+    "github_ready": false,
+    "pr_candidate_ready": false,
+    "github_write_performed": false,
+    "created_at": "2026-05-08T09:35:09+09:00"
   }
 }

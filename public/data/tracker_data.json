@@ -7,51 +7,83 @@
   "sources": {
     "NA": {
       "tier1": [
-        {
-          "name": "IRS — Credits & Deductions",
-          "url": "https://www.irs.gov/credits-deductions"
-        },
-        {
-          "name": "Federal Register",
-          "url": "https://www.federalregister.gov/"
-        },
-        {
-          "name": "Treasury.gov (Notices)",
-          "url": "https://home.treasury.gov/policy-issues/tax-policy"
-        },
-        {
-          "name": "DOE EERE",
-          "url": "https://www.energy.gov/eere"
-        },
-        {
-          "name": "Congress.gov (Bills)",
-          "url": "https://www.congress.gov/"
-        },
-        {
-          "name": "FERC",
-          "url": "https://www.ferc.gov/"
-        }
+        {"name": "IRS — Credits & Deductions", "url": "https://www.irs.gov/credits-deductions"},
+        {"name": "Federal Register", "url": "https://www.federalregister.gov/"},
+        {"name": "Treasury.gov (Notices)", "url": "https://home.treasury.gov/policy-issues/tax-policy"},
+        {"name": "DOE EERE", "url": "https://www.energy.gov/eere"},
+        {"name": "Congress.gov (Bills)", "url": "https://www.congress.gov/"},
+        {"name": "FERC", "url": "https://www.ferc.gov/"}
       ],
       "tier2": [
-        {
-          "name": "Energy Storage News",
-          "url": "https://www.energy-storage.news"
-        },
-        {
-          "name": "pv magazine USA",
-          "url": "https://pv-magazine-usa.com"
-        },
-        {
-          "name": "Utility Dive",
-          "url": "https://www.utilitydive.com/"
-        },
-        {
-          "name": "S&P Global",
-          "url": "https://www.spglobal.com/commodityinsights/"
-        }
+        {"name": "Energy Storage News", "url": "https://www.energy-storage.news"},
+        {"name": "pv magazine USA", "url": "https://pv-magazine-usa.com"},
+        {"name": "Utility Dive", "url": "https://www.utilitydive.com/"},
+        {"name": "S&P Global", "url": "https://www.spglobal.com/commodityinsights/"}
+      ]
+    },
+    "EU": {
+      "tier1": [
+        {"name": "EUR-Lex (법률/위임입법)", "url": "https://eur-lex.europa.eu/"},
+        {"name": "EU Council Press", "url": "https://www.consilium.europa.eu/en/press/"},
+        {"name": "EC News & Media", "url": "https://commission.europa.eu/news-and-media"},
+        {"name": "Innovation Fund", "url": "https://climate.ec.europa.eu/eu-action/eu-funding-climate-action/innovation-fund_en"},
+        {"name": "ECHA (화학물질청)", "url": "https://echa.europa.eu/"},
+        {"name": "EC Mobility & Transport", "url": "https://transport.ec.europa.eu/"}
+      ],
+      "tier2": [
+        {"name": "EBA250", "url": "https://www.eba250.com/"},
+        {"name": "electrive", "url": "https://www.electrive.com"},
+        {"name": "Energy Storage Europe Assoc.", "url": "https://energystorageeurope.eu/"}
+      ]
+    },
+    "CN": {
+      "tier1": [
+        {"name": "gov.cn (국무원, 영문)", "url": "https://english.www.gov.cn/"},
+        {"name": "MIIT 공업정보화부", "url": "https://www.miit.gov.cn/"},
+        {"name": "国家标准委 (표준위)", "url": "https://www.sac.gov.cn/"},
+        {"name": "全国人大 (전인대)", "url": "http://www.npc.gov.cn/"},
+        {"name": "MOF 재정부", "url": "http://www.mof.gov.cn/"}
+      ],
+      "tier2": [
+        {"name": "CarNewsChina", "url": "https://carnewschina.com/"},
+        {"name": "ChinaEVHome", "url": "https://chinaevhome.com/"},
+        {"name": "GlobalChinaEV", "url": "https://globalchinaev.com/"},
+        {"name": "DieselNet CN", "url": "https://dieselnet.com/standards/cn/"}
+      ]
+    },
+    "KR": {
+      "tier1": [
+        {"name": "정책브리핑 Korea.kr", "url": "https://www.korea.kr/"},
+        {"name": "MOTIR 산업통상자원부 (영문, 개편 후)", "url": "https://english.motie.go.kr/"},
+        {"name": "MCEE 기후에너지환경부 (신설, 2025~)", "url": "https://www.mcee.go.kr/"},
+        {"name": "국가법령정보센터", "url": "https://www.law.go.kr/"},
+        {"name": "기재부 MOEF", "url": "https://www.moef.go.kr/"},
+        {"name": "국회의안정보시스템", "url": "https://likms.assembly.go.kr/bill/"},
+        {"name": "Korea.net (영문)", "url": "https://www.korea.net/"}
+      ],
+      "tier2": [
+        {"name": "머니투데이", "url": "https://www.mt.co.kr/"},
+        {"name": "The Elec", "url": "https://www.thelec.net/"},
+        {"name": "이투데이", "url": "https://www.etoday.co.kr/"},
+        {"name": "InterBattery", "url": "https://interbattery.or.kr/"}
+      ]
+    },
+    "JP": {
+      "tier1": [
+        {"name": "METI 경제산업성 (영문)", "url": "https://www.meti.go.jp/english/"},
+        {"name": "METI 심의회·연구회", "url": "https://www.meti.go.jp/shingikai/"},
+        {"name": "e-Gov 법령검색", "url": "https://www.e-gov.go.jp/"},
+        {"name": "환경성 MOE", "url": "https://www.env.go.jp/en/"},
+        {"name": "OCCTO (전력광역기관)", "url": "https://www.occto.or.jp/en/"}
+      ],
+      "tier2": [
+        {"name": "Nikkei Asia", "url": "https://www.nikkei.com/english/"},
+        {"name": "Borderless Law (BESS)", "url": "https://www.borderless.law/en/"},
+        {"name": "ESS News", "url": "https://www.ess-news.com"},
+        {"name": "Eco-Business", "url": "https://www.eco-business.com"}
       ]
     }
   },
   "items": [],
-  "_BROKEN": "이 파일은 placeholder 잘못 push로 부서졌습니다. 즉시 복구 필요. 원본은 SHA 7d337fccaceccc85b56d63cfbc4e69d45fcccf57에 있음. 82개 항목 풀 데이터 복원해야 함."
+  "_RECOVERY_NOTICE": "이 파일은 2026-05-11 placeholder push 사고로 손상되어 일부만 복원된 상태입니다. 82개 items 풀 데이터는 commit 7d337fccaceccc85b56d63cfbc4e69d45fcccf57에서 복원해야 합니다. 다음 세션에서 git checkout으로 복원 후 5/11 업데이트 재적용 필요."
 }

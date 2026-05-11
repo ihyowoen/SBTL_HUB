@@ -1,16 +1,2796 @@
 {
-  "updated": "2026-05-08",
-  "total": 669,
+  "updated": "2026-05-11",
+  "total": 684,
   "schema": "full",
-  "baseline_count": 662,
-  "new_count": 7,
-  "run_tag": "20260507_165621_local_v5_validation_baseline17_0_8",
-  "merge_status": "local_merge_prep_candidate_blocked_github_main_unreadable_no_pr_created",
-  "sort": "latest-first; existing same-date baseline order preserved; new cards inserted after existing same-date baseline order; IDs assigned by CARD_ID_STANDARD against user-uploaded baseline",
-  "source_baseline_file": "cards (17).json",
-  "source_accepted_file": "publish_ready_payload_PENDING_GITHUB_SYNC_20260507_083518_local_v3.json",
-  "stage_c_qc_file": "stage_c_output_20260503_201151_r2.json",
+  "baseline_count": 669,
+  "new_count": 15,
+  "run_tag": "20260511_085145",
+  "merge_status": "local_validation_publish_ready_15_merged_with_local_main_equivalent_baseline_blocked_github_main_sync_unverifiable",
+  "sort": "latest-first; date desc; existing same-date order preserved; new cards inserted after existing same-date baseline order; new cards assigned IDs by CARD_ID_STANDARD",
+  "source_baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+  "source_accepted_file": "publish_ready_payload_PENDING_GITHUB_SYNC_20260511_085145_local_v6_validation_baseline669_0_7.json",
+  "stage_c_qc_file": "final_qc_results_20260511_085145_local_v6_validation_baseline669_0_7.json",
   "cards": [
+    {
+      "draft_id": "DRAFT-B-001",
+      "source_spec_id": "SA-V6-20260511_085145-001",
+      "source_story_ids": [
+        "US_2026-05-11_C02"
+      ],
+      "region": "EU",
+      "date": "2026-05-11",
+      "cat": "ESS",
+      "sub_cat": "헝가리ESS계통연계",
+      "signal": "mid",
+      "title": "JDEnergy, 헝가리 MVM 11MW/22MWh ESS 계통연계 지원 — 첫 해외 유틸리티 규모 프로젝트",
+      "sub": "2026-05-11 — JDEnergy는 헝가리 Sopronkövesd의 MVM 11MW/22MWh 유틸리티 ESS가 계통연계와 성능시험을 마쳤다고 밝혔다.",
+      "gate": "이 건은 중국 ESS 업체가 유럽 계통에서 실증 레퍼런스를 확보했다는 신호다. 규모는 대형은 아니지만, 현지 계통 요구조건과 성능시험 통과를 내세운 첫 해외 유틸리티 프로젝트라는 점에서 공급망·인증 관찰 가치가 있다.",
+      "fact": "JDEnergy 발표에 따르면 회사는 헝가리 MVM의 11MW/22MWh 유틸리티 규모 에너지저장 프로젝트의 계통연계를 지원했고, 시스템은 필요한 성능시험을 첫 시도에서 통과했다. 발표는 헝가리 에너지 장관이 행사에 참석해 중국-헝가리 에너지 협력 성과로 평가했다고 설명했다.",
+      "implication": [
+        "중국 ESS 업체의 유럽 진출은 가격 경쟁력보다 현지 계통 요구조건과 안정성 검증이 핵심 허들이다.",
+        "다음 체크포인트는 MVM 운영 데이터, 추가 수주 여부, 유럽 인증·서비스 체계다."
+      ],
+      "urls": [
+        "https://www.prnewswire.co.uk/news-releases/jdenergy-commissions-first-overseas-utility-scale-project-in-hungary-302767435.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "JDEnergy PRNewswire release",
+          "source_url": "https://www.prnewswire.co.uk/news-releases/jdenergy-commissions-first-overseas-utility-scale-project-in-hungary-302767435.html",
+          "claim": "Source supports: JDEnergy has supported the successful grid connection of MVM 11 MW/22 MWh utility-scale energy storage project in Hungary.",
+          "source_quote": "JDEnergy has supported the successful grid connection of MVM 11 MW/22 MWh utility-scale energy storage project in Hungary.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "JDEnergy PRNewswire release",
+          "source_url": "https://www.prnewswire.co.uk/news-releases/jdenergy-commissions-first-overseas-utility-scale-project-in-hungary-302767435.html",
+          "claim": "Source supports: The system passed all required performance tests on its first attempt.",
+          "source_quote": "The system passed all required performance tests on its first attempt.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "JDEnergy PRNewswire release",
+          "source_url": "https://www.prnewswire.co.uk/news-releases/jdenergy-commissions-first-overseas-utility-scale-project-in-hungary-302767435.html",
+          "claim": "Source supports: Csaba Lantos, Hungary's Minister of Energy, attended the ribbon-cutting ceremony",
+          "source_quote": "Csaba Lantos, Hungary's Minister of Energy, attended the ribbon-cutting ceremony",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "single_company_pr_distribution_source; official/customer corroboration from MVM or Hungarian authority would strengthen 0.5R"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.167,
+        "best_title_similarity_baseline_id": "2026-04-22_EU_02",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "single_company_pr_distribution_source; official/customer corroboration from MVM or Hungarian authority would strengthen 0.5R"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_retained_single_company_pr_caveat",
+        "official_or_primary_source_found": false,
+        "supplemental_source_found": false,
+        "supplemental_fact_sources_added_count": 0,
+        "source_strength_caveat_after_0_5R": [
+          "mvm_or_hungarian_authority_original_not_found_in_0_5R",
+          "retain_attribution_to_jdenergy_pr_distribution_for_core_event"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 2
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-11_EU_01",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-003",
+      "source_spec_id": "SA-V6-20260511_085145-043",
+      "source_story_ids": [
+        "KR_2026-05-11_C84"
+      ],
+      "region": "KR",
+      "date": "2026-05-11",
+      "cat": "SupplyChain",
+      "sub_cat": "전략소재공급망",
+      "signal": "mid",
+      "title": "세라믹기술원, 반도체·이차전지 전략소재 공급망 협의체 출범",
+      "sub": "2026-05-11 — 전자신문은 한국세라믹기술원이 국가첨단산업 전략소재의 국내 공급망 구축을 위한 협의체 발족 회의를 열었다고 전했다.",
+      "gate": "전략소재는 반도체와 이차전지의 성능·수급 리스크를 좌우한다. 협의체 출범은 직접 투자보다 약한 신호지만, 소재 공급망 리스크를 제도적으로 다루는 초기 조직화 움직임으로 볼 수 있다.",
+      "fact": "전자신문에 따르면 한국세라믹기술원은 4월 진주 본원에서 산·학·연 전문가가 참석한 가운데 국가첨단산업 전략소재의 국내 신 공급망 구축을 위한 협의체 발족 회의를 개최했다고 밝혔다. 보도는 자원 무기화 심화로 반도체와 이차전지 등 첨단산업의 소재 수급 불확실성이 커지고 있다고 설명했다.",
+      "implication": [
+        "국내 소재 공급망 논의는 배터리·반도체 공통 리스크 관리로 연결된다.",
+        "다음 체크포인트는 협의체 참여기관, 우선 전략소재 목록, 실제 공급망 안정화 사업 연계다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260511000036"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260511000036",
+          "claim": "Source supports: 한국세라믹기술원(원장 윤종석)은 지난 4월 진주 본원에서 산·학·연 전문가들이 참석한 가운데",
+          "source_quote": "한국세라믹기술원(원장 윤종석)은 지난 4월 진주 본원에서 산·학·연 전문가들이 참석한 가운데",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260511000036",
+          "claim": "Source supports: '국가첨단산업 전략소재의 국내 신 공급망 구축을 위한 협의체' 발족 회의를 개최했다고 11일 밝혔다.",
+          "source_quote": "'국가첨단산업 전략소재의 국내 신 공급망 구축을 위한 협의체' 발족 회의를 개최했다고 11일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260511000036",
+          "claim": "Source supports: 반도체, 이차전지를 비롯한 국내 주력 첨단산업의 소재 수급 불확실성이 가중",
+          "source_quote": "반도체, 이차전지를 비롯한 국내 주력 첨단산업의 소재 수급 불확실성이 가중",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "Newsis body article / KICET-provided announcement",
+          "source_url": "https://mobile.newsis.com/view_amp.html?ar_id=NISX20260511_0003623895",
+          "claim": "KICET launched a strategic materials new supply-chain council for advanced industries including semiconductors and secondary batteries.",
+          "source_quote": "한국세라믹기술원은 ... 국가첨단산업 전략소재의 국내 신 공급망 구축을 위한 회의를 열고 전략소재 신 공급망 협의체를 출범했다고 11일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_body_result"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "single media body for institute announcement; official KICET release should be checked in 0.5R"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.1,
+        "best_title_similarity_baseline_id": "2026-04-27_KR_09",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "single media body for institute announcement; official KICET release should be checked in 0.5R"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_supplemental_media_corrob_and_retained_official_url_caveat",
+        "official_or_primary_source_found": false,
+        "supplemental_source_found": true,
+        "supplemental_fact_sources_added_count": 1,
+        "source_strength_caveat_after_0_5R": [
+          "kicet_official_release_url_not_found_in_0_5R",
+          "newsis_kicet_provided_article_corroborates_event"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 2
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-11_KR_02",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-004",
+      "source_spec_id": "SA-V6-20260511_085145-045",
+      "source_story_ids": [
+        "KR_2026-05-11_C79"
+      ],
+      "region": "KR",
+      "date": "2026-05-11",
+      "cat": "Manufacturing",
+      "sub_cat": "배터리자동화",
+      "signal": "high",
+      "title": "코윈테크, 글로벌 배터리사에 300억원대 모바일 로봇 자동화시스템 공급",
+      "sub": "2026-05-11 — 뉴시스와 이데일리는 코윈테크가 글로벌 배터리 대형 기업과 300억원 중반대 모바일 로봇 기반 자동화시스템 공급계약을 체결했다고 보도했다.",
+      "gate": "배터리 공장 자동화는 셀 제조 CAPEX 효율과 생산 안정성을 좌우한다. 모바일 로봇·물류 자동화·관제 소프트웨어가 패키지로 공급되는 계약은 배터리 제조라인 자동화 수요가 장비 단품에서 통합 솔루션으로 이동하는 신호다.",
+      "fact": "뉴시스 보도에 따르면 코윈테크는 글로벌 배터리 대형 기업과 300억원 규모의 모바일 로봇 기반 자동화 시스템 공급계약을 체결했다. 회사 측은 계약금액이 공정별 계약을 합산한 총액이고 계약기간은 2027년 6월까지라고 설명했다. 이데일리는 코윈테크가 배터리 제조라인 전체 자동화를 위한 로봇, 물류 자동화 시스템, 관제 소프트웨어 등 공정 전반 통합 솔루션을 공급할 예정이라고 보도했다.",
+      "implication": [
+        "배터리 제조 자동화는 물류·검사·관제 소프트웨어 결합형으로 고도화되고 있다.",
+        "다음 체크포인트는 계약 상대 공개 여부, 후속 발주, 배터리 라인 양산 적용 범위다."
+      ],
+      "urls": [
+        "https://www.newsis.com/view/NISX20260511_0003623678",
+        "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=02200886645447936"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Newsis body article",
+          "source_url": "https://www.newsis.com/view/NISX20260511_0003623678",
+          "claim": "Source supports: 글로벌 배터리 대형 기업과 300억원 규모의 모바일 로봇 기반 자동화 시스템 공급계약을 체결했다고 11일 밝혔다.",
+          "source_quote": "글로벌 배터리 대형 기업과 300억원 규모의 모바일 로봇 기반 자동화 시스템 공급계약을 체결했다고 11일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "Newsis body article",
+          "source_url": "https://www.newsis.com/view/NISX20260511_0003623678",
+          "claim": "Source supports: 계약금액은 공정별 계약을 합산한 총 금액으로 계약기간은 내년 6월까지",
+          "source_quote": "계약금액은 공정별 계약을 합산한 총 금액으로 계약기간은 내년 6월까지",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "Edaily body article",
+          "source_url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=02200886645447936",
+          "claim": "Edaily reported Cowintech would supply robots, logistics automation and control software for a battery manufacturing line.",
+          "source_quote": "로봇과 물류 자동화 시스템, 관제 소프트웨어 등 공정 전반 통합 솔루션을 공급할 예정이다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "Edaily body article",
+          "source_url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=02200886645447936",
+          "claim": "Cowintech signed a mid-KRW 30 billion mobile robot automation system supply contract with a large global battery company, with the contract running to June 2027.",
+          "source_quote": "글로벌 배터리 대형 기업과 300억원 중반대 규모의 모바일 로봇 기반 자동화 시스템 공급계약을 체결했다 ... 계약기간은 2027년 6월까지",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_body_result"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "contract amount/customer anonymized; DART/company disclosure should be checked in 0.5R"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.105,
+        "best_title_similarity_baseline_id": "2026-04-28_KR_07",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "contract amount/customer anonymized; DART/company disclosure should be checked in 0.5R"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_supplemental_media_corrob_and_retained_disclosure_caveat",
+        "official_or_primary_source_found": false,
+        "supplemental_source_found": true,
+        "supplemental_fact_sources_added_count": 1,
+        "source_strength_caveat_after_0_5R": [
+          "dart_or_company_disclosure_not_found_in_0_5R",
+          "edaily_body_corroborates_contract_amount_and_period"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 2
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-11_KR_01",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-012",
+      "source_spec_id": "SA-V6-20260511_085145-091",
+      "source_story_ids": [
+        "TF_0050"
+      ],
+      "region": "GL",
+      "date": "2026-05-11",
+      "cat": "EV",
+      "sub_cat": "중국제외EV",
+      "signal": "high",
+      "title": "SNE: 중국 제외 글로벌 EV 인도 202.5만대 — 1Q26 전년 대비 23.1% 증가",
+      "sub": "2026-05-11 — SNE Research는 2026년 1~3월 중국 제외 글로벌 EV 인도량이 약 202만5,000대로 전년 대비 23.1% 증가했다고 밝혔다.",
+      "gate": "중국 제외 시장의 성장률은 한국 셀·소재 업체의 비중국 고객 회복 여부를 판단하는 선행지표다. 전체 중국 시장이 커도 비중국권 수요가 회복되면 북미·유럽 공급망 전략의 의미가 달라진다.",
+      "fact": "SNE Research 공식 press release index에 따르면 2026년 1~3월 중국 제외 글로벌 전기차(BEV+PHEV) 인도량은 약 202만5천대로, 전년 동기 164만6천대 대비 23.1% 증가했다. SNE는 유럽과 중국 제외 아시아가 상승세를 유지했고 북미는 두 자릿수 감소를 보였다고 설명했다.",
+      "implication": [
+        "중국 제외 EV 수요 회복은 한국 배터리 밸류체인의 고객·지역 믹스에 중요하다.",
+        "다음 체크포인트는 지역별 출하, 완성차별 점유율, 중국 제외 배터리 사용량 117.4GWh와의 연결이다."
+      ],
+      "urls": [
+        "https://www.sneresearch.com/en/insight/release/180?s_cat=%7C&s_keyword=",
+        "https://www.sneresearch.com/kr/insight/release_view/651/page/0"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "SNE Research official press release index",
+          "source_url": "https://www.sneresearch.com/en/insight/release/180?s_cat=%7C&s_keyword=",
+          "claim": "SNE index says Jan-Mar 2026 non-China global EV deliveries recorded 2.025 million units.",
+          "source_quote": "From Jan to Mar 2026, Non-China Global EV Deliveries Recorded 2.025 Mil Units",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_official_index"
+        },
+        {
+          "source_name": "SNE Research official press release index",
+          "source_url": "https://www.sneresearch.com/en/insight/release/180?s_cat=%7C&s_keyword=",
+          "claim": "SNE index says this represents 23.1% YoY growth.",
+          "source_quote": "a 23.1% YoY Growth",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_official_index"
+        },
+        {
+          "source_name": "SNE Research official press release index",
+          "source_url": "https://www.sneresearch.com/en/insight/release/180?s_cat=%7C&s_keyword=",
+          "claim": "SNE index says Europe and Asia excluding China rose while North America declined double digit.",
+          "source_quote": "Europe and Asia (excl. China) remained in an upward trend, while North America experienced a double-digit decline",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_official_index"
+        },
+        {
+          "source_name": "SNE Research official press release index",
+          "source_url": "https://www.sneresearch.com/en/insight/release/180?s_cat=%7C&s_keyword=",
+          "claim": "SNE official index reports Jan-Mar 2026 non-China global EV deliveries of 2.025 million units and 23.1% YoY growth.",
+          "source_quote": "From Jan to Mar 2026, Non-China Global EV Deliveries Recorded 2.025 Mil Units ... a 23.1% YoY Growth",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "supplemental_official_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_official_material"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "official index found but full release body not extracted; 0.5R should try release_view body quote"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.217,
+        "best_title_similarity_baseline_id": "2026-05-07_GL_02",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "official index found but full release body not extracted; 0.5R should try release_view body quote"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_official_sne_index_retained_full_body_caveat",
+        "official_or_primary_source_found": true,
+        "supplemental_source_found": true,
+        "supplemental_fact_sources_added_count": 1,
+        "source_strength_caveat_after_0_5R": [
+          "sne_official_index_found",
+          "release_view_full_body_not_found_in_0_5R"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 1
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-11_GL_01",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-002-R1",
+      "source_spec_id": "SA-V6-20260511_085145-012",
+      "source_story_ids": [
+        "KR_2026-05-11_C11"
+      ],
+      "region": "KR",
+      "date": "2026-05-11",
+      "cat": "Battery",
+      "sub_cat": "전고체계면",
+      "signal": "mid",
+      "title": "GIST·KETI·교토대, 수소 포함 착음이온의 전고체전지 계면 보호 원리 규명",
+      "sub": "2026-05-11 — 전자신문은 GIST·KETI·교토대 공동연구팀이 수소를 포함한 착음이온이 전고체전지 계면 보호층을 형성하는 원리를 규명했다고 보도했다.",
+      "gate": "상업화 뉴스가 아니라 전고체전지 계면 안정성 연구다. 전고체전지는 화재 위험을 낮출 수 있지만 계면 저항과 수명 문제가 병목이므로, 수소 포함 착음이온이 보호층 형성에 관여한다는 원리는 기술 방향성 측면에서 관찰 가치가 있다.",
+      "fact": "전자신문에 따르면 GIST 김상륜 교수와 KETI 조우석 박사 연구팀은 교토대와 함께 수소를 많이 포함한 특수 이온이 전고체전지 내부 전극과 전해질 사이에 안정적 보호층을 형성하는 원리를 규명했다. 보도는 이번 연구가 전고체전지의 안전성과 수명 문제 개선을 겨냥한다고 설명했다.",
+      "implication": [
+        "전고체전지 경쟁은 소재 자체뿐 아니라 전극-전해질 계면을 어떻게 안정화하느냐로 이동하고 있다.",
+        "다음 체크포인트는 논문 원문, 적용 전해질·전극 조건, 장기 사이클 데이터다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260511000017"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260511000017",
+          "claim": "Source supports: GIST·총장 임기철)은 김상륜 화학과 교수와 조우석 한국전자기술연구원(KETI) 박사 연구팀이 일본 교토대학교와의 공동연구",
+          "source_quote": "GIST·총장 임기철)은 김상륜 화학과 교수와 조우석 한국전자기술연구원(KETI) 박사 연구팀이 일본 교토대학교와의 공동연구",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260511000017",
+          "claim": "Source supports: 수소를 많이 포함한 특수 이온(착음이온)이 전고체전지 내부에서 전극과 전해질 사이를 안정적으로 보호하는 얇은 층을 형성하는 원리를 규명",
+          "source_quote": "수소를 많이 포함한 특수 이온(착음이온)이 전고체전지 내부에서 전극과 전해질 사이를 안정적으로 보호하는 얇은 층을 형성하는 원리를 규명",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260511000017",
+          "claim": "Source supports: 전고체전지는 안전성과 에너지 저장 성능을 동시에 높일 수 있는 유망 기술로 주목",
+          "source_quote": "전고체전지는 안전성과 에너지 저장 성능을 동시에 높일 수 있는 유망 기술로 주목",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        }
+      ],
+      "stage_b_only": false,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "research result currently supported by media body; paper/official university release should be checked in 0.5R if externally distributed"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "previous_draft_id": "DRAFT-B-002",
+      "revised_draft_id": "DRAFT-B-002-R1",
+      "revision_pass": "r1",
+      "stage_b_revise_only": true,
+      "revision_change_log": [
+        {
+          "previous_draft_id": "DRAFT-B-002",
+          "revised_draft_id": "DRAFT-B-002-R1",
+          "field": "title",
+          "before": "GIST·KETI·교토대, 수소 이온 기반 전고체전지 계면 보호 원리 규명",
+          "after": "GIST·KETI·교토대, 수소 포함 착음이온의 전고체전지 계면 보호 원리 규명",
+          "stage_c_issue_addressed": "Title says “수소 이온 기반 전고체전지”, which can read as a hydrogen-ion solid-state battery. The mapped evidence supports hydrogen-rich complex ions forming/stabilizing a protective interfacial layer inside a solid-state battery, not that the battery itself is hydrogen-ion-based.",
+          "source_lock_check": "PASS_existing_quote_supports_hydrogen_rich_complex_ion_interfacial_layer_not_hydrogen_ion_battery",
+          "introduced_new_claim": false
+        },
+        {
+          "previous_draft_id": "DRAFT-B-002",
+          "revised_draft_id": "DRAFT-B-002-R1",
+          "field": "sub_cat",
+          "before": "수소이온전고체",
+          "after": "전고체계면",
+          "stage_c_issue_addressed": "Removed misleading 수소이온전고체 shorthand from metadata/display-adjacent label.",
+          "source_lock_check": "PASS_narrowed_to_interface_topic_already_supported_by_source_quote",
+          "introduced_new_claim": false
+        },
+        {
+          "previous_draft_id": "DRAFT-B-002",
+          "revised_draft_id": "DRAFT-B-002-R1",
+          "field": "gate",
+          "before": "상업화 뉴스가 아니라 전고체전지 계면 안정성 연구다. 전고체전지는 화재 위험을 낮출 수 있지만 계면 저항과 수명 문제가 병목이므로, 계면 보호층 형성 원리는 기술 방향성 측면에서 관찰 가치가 있다.",
+          "after": "상업화 뉴스가 아니라 전고체전지 계면 안정성 연구다. 전고체전지는 화재 위험을 낮출 수 있지만 계면 저항과 수명 문제가 병목이므로, 수소 포함 착음이온이 보호층 형성에 관여한다는 원리는 기술 방향성 측면에서 관찰 가치가 있다.",
+          "stage_c_issue_addressed": "Aligned gate with source-supported 착음이온 계면 보호층 mechanism.",
+          "source_lock_check": "PASS_no_new_evidence_or_scope_added",
+          "introduced_new_claim": false
+        }
+      ],
+      "remaining_risks": [
+        "research result currently supported by media body; paper/official university release should be checked in 0.5R if externally distributed",
+        "Stage C revise validation still required before accepted_fact_safe pool assembly"
+      ],
+      "needs_stage_c_recheck": true,
+      "state": "publish_ready",
+      "stage_c_revise_only": true,
+      "prior_issue_resolved": true,
+      "new_unsupported_claim_introduced": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_revise_validation": {
+        "validated_at": "2026-05-11T14:32:00+09:00",
+        "prior_issue": "Title “수소 이온 기반 전고체전지” could imply a hydrogen-ion-based solid-state battery; evidence supports hydrogen-rich complex ions forming a protective interfacial layer.",
+        "prior_issue_resolved": true,
+        "revision_scope_valid": true,
+        "source_direction_check": "PASS_source_direction_unchanged_research_result_interface_mechanism",
+        "fact_source_alignment": "PASS_existing_quotes_support_revised_visible_fields",
+        "quote_quality": "PASS_existing_body_quotes_preserved",
+        "visible_claim_coverage": "PASS",
+        "new_unsupported_claim_introduced": false,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_carried_forward": [
+          "research result currently supported by media body; paper/official university release should be checked in 0.5R if externally distributed"
+        ]
+      },
+      "github_ready": false,
+      "merge_ready": false,
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.143,
+        "best_title_similarity_baseline_id": "2026-05-03_KR_10",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "research result currently supported by media body; paper/official university release should be checked in 0.5R if externally distributed"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_retained_research_official_caveat",
+        "official_or_primary_source_found": false,
+        "supplemental_source_found": false,
+        "supplemental_fact_sources_added_count": 0,
+        "source_strength_caveat_after_0_5R": [
+          "official_gist_keti_or_paper_page_for_current_item_not_found_in_0_5R",
+          "retain_etnews_attribution_for_research_result"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 0
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-11_KR_03",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-005",
+      "source_spec_id": "SA-V6-20260511_085145-053",
+      "source_story_ids": [
+        "KR_2026-05-10_C19"
+      ],
+      "region": "KR",
+      "date": "2026-05-10",
+      "cat": "SupplyChain",
+      "sub_cat": "중국수출상담",
+      "signal": "mid",
+      "title": "KOTRA, 선전 CIBF 연계 한중 이차전지 수출상담회 — 소재·부품·장비 13개사 참여",
+      "sub": "2026-05-10 — KOTRA는 중국 선전 CIBF 2026과 연계해 국내 이차전지 소재·부품·장비 기업의 중국 시장 상담을 지원한다.",
+      "gate": "중국 배터리 시장은 경쟁자이자 고객·공급망 접점이다. K-배터리 소재·부품·장비 기업 13개사가 중국 셀·ESS 기업과 상담하는 구조는 공급망 재진입과 고객 다변화의 관찰 포인트다.",
+      "fact": "전자신문에 따르면 KOTRA는 5월 13일부터 6월 19일까지 중국 선전에서 한중 이차전지 수출상담 및 화상상담회를 개최한다. 행사는 CIBF 2026과 연계됐고, 국내 배터리 소재·부품·장비 기업 13개사와 중국 배터리 관련 기업 20개사가 1대1 B2B 수출 상담을 진행하는 것으로 보도됐다.",
+      "implication": [
+        "전고체·ESS 수요를 겨냥한 중국 내 B2B 접점은 한국 소부장 기업의 해외 고객 다변화 신호다.",
+        "다음 체크포인트는 실제 상담 성과, 계약 전환 여부, 참여 기업별 제품군이다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260510000045",
+        "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01426806645447608"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260510000045",
+          "claim": "Source supports: 코트라는 13일부터 6월 19일까지 중국 선전에서 '한중 이차전지 수출상담 및 화상상담회'를 개최한다.",
+          "source_quote": "코트라는 13일부터 6월 19일까지 중국 선전에서 '한중 이차전지 수출상담 및 화상상담회'를 개최한다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260510000045",
+          "claim": "Source supports: 선전에서 열리는 '중국 국제 배터리 전시회(CIBF 2026)'와 연계했다.",
+          "source_quote": "선전에서 열리는 '중국 국제 배터리 전시회(CIBF 2026)'와 연계했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "Edaily body article",
+          "source_url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01426806645447608",
+          "claim": "KOTRA will connect 13 Korean battery material/component/equipment firms with 20 Chinese battery companies in 1:1 B2B export consultations.",
+          "source_quote": "K-배터리 소재·부품·장비 기업 13개사 해외 진출을 위해 중국 배터리 관련 기업 20개사와 일 대 일 B2B 수출 상담을 진행한다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "KOTRA official business notice",
+          "source_url": "https://www.kotra.or.kr/subList/20000020753/subhome/bizAply/selectBizMntInfoDetail.do?cpbizYn=N&dtlBizMntNo=26CN07I",
+          "claim": "KOTRA listed the CIBF 2026-linked Shenzhen Korea-China secondary battery partnering consultation event with dates, fields, and participation information.",
+          "source_quote": "(CIBF 2026 연계) 중국 선전 한중 이차전지 파트너링 상담회 ... 개최기간 2026-05-13 ~ 2026-06-19 ... 분야: 배터리 셀, ESS, 소재·설비, 리사이클링",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "supplemental_official_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_official_material"
+        },
+        {
+          "source_name": "KOTRA official PDF notice",
+          "source_url": "https://www.kotra.or.kr/upload/2026/03/18/BM202603180000090375_0.pdf",
+          "claim": "KOTRA Shenzhen trade office said it would hold a Korea-China secondary battery partnering consultation event linked to CIBF, covering battery cells, ESS, materials/equipment and recycling.",
+          "source_quote": "KOTRA 선전무역관은 CIBF 전시회와 연계하여 한중 이차전지 파트너링 상담회를 개최합니다 ... 분야: 배터리 셀, ESS, 소재·설비, 리사이클링 등",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "supplemental_official_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_official_pdf"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "KOTRA official release not found during Stage B; 0.5R official confirmation recommended"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.074,
+        "best_title_similarity_baseline_id": "2026-04-22_KR_02",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "KOTRA official release not found during Stage B; 0.5R official confirmation recommended"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_official_kotra_notice_found",
+        "official_or_primary_source_found": true,
+        "supplemental_source_found": true,
+        "supplemental_fact_sources_added_count": 2,
+        "source_strength_caveat_after_0_5R": [
+          "official_kotra_event_notice_and_pdf_found_in_0_5R"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 2
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-10_KR_02",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-006",
+      "source_spec_id": "SA-V6-20260511_085145-056",
+      "source_story_ids": [
+        "KR_2026-05-10_C07"
+      ],
+      "region": "KR",
+      "date": "2026-05-10",
+      "cat": "Materials",
+      "sub_cat": "LFP재활용",
+      "signal": "high",
+      "title": "UNIST, LFP 폐배터리 직접재생 전주기 플랫폼 추진 — 4년 60억원 사업비",
+      "sub": "2026-05-10 — 전기신문과 동아사이언스는 UNIST가 스타트업 4곳과 LFP 폐배터리 재활용 전주기 플랫폼 구축에 나선다고 보도했다.",
+      "gate": "LFP 확산은 회수·재활용 경제성 문제를 다시 부각시킨다. 사용후 배터리 분리·회수부터 재생 셀 제조·성능평가까지 묶는 플랫폼은 LFP 재활용의 상업화 가능성을 점검할 수 있는 실증 기반이다.",
+      "fact": "전기신문에 따르면 UNIST 해수자원화기술연구센터는 2026년 대학연구소·스타트업 공동 혁신 R&D 지원사업에 선정돼 4년간 총 60억원 규모 사업비를 확보했다. 보도는 UNIST가 스타트업 4곳과 함께 LFP 폐배터리의 분리·회수, 재생 셀 제조, 성능평가까지 이어지는 전주기 순환 플랫폼 구축에 나선다고 설명했다.",
+      "implication": [
+        "LFP 폐배터리는 금속 가치가 낮아 직접재생·공정비 절감이 재활용 경쟁력의 핵심이다.",
+        "다음 체크포인트는 참여 스타트업 역할, 재생 셀 성능, 파일럿 규모다."
+      ],
+      "urls": [
+        "https://www.electimes.com/news/articleView.html?idxno=367828",
+        "https://www.dongascience.com/en/news/77791"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367828",
+          "claim": "Source supports: UNIST가 스타트업 4곳과 함께 LFP(리튬인산철) 폐배터리 재활용 기술의 전주기 순환 플랫폼 구축에 나선다.",
+          "source_quote": "UNIST가 스타트업 4곳과 함께 LFP(리튬인산철) 폐배터리 재활용 기술의 전주기 순환 플랫폼 구축에 나선다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "전기신문 body article",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=367828",
+          "claim": "Source supports: ‘2026년 대학연구소·스타트업 공동 혁신 R&D 지원사업’에 선정돼 4년간 총 60억원 규모의 사업비를 확보",
+          "source_quote": "‘2026년 대학연구소·스타트업 공동 혁신 R&D 지원사업’에 선정돼 4년간 총 60억원 규모의 사업비를 확보",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "DongA Science English body article",
+          "source_url": "https://www.dongascience.com/en/news/77791",
+          "claim": "DongA Science reported UNIST will partner with four startups to commercialize direct recycling for spent LFP batteries.",
+          "source_quote": "partnering with four startups to commercialize direct recycling technology for spent Lithium Iron Phosphate (LFP) batteries",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "Yonhap body article / UNIST-provided information",
+          "source_url": "https://www.yna.co.kr/amp/view/AKR20260508073600057",
+          "claim": "UNIST said it would commercialize LFP battery direct regeneration technology with four startups and secured KRW 6 billion over four years.",
+          "source_quote": "UNIST은 스타트업 4곳과 함께 리튬인산철(LFP) 배터리 직접 재생 기술 사업화를 추진한다고 8일 밝혔다 ... 4년간 총 60억원 규모 사업비를 확보했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_body_result"
+        },
+        {
+          "source_name": "Newsis body article / UNIST-provided information",
+          "source_url": "https://www.newsis.com/view/NISX20260508_0003621315",
+          "claim": "Newsis reported UNIST’s full-cycle LFP direct-regeneration platform from separation/recovery to regenerated-cell manufacture and performance evaluation.",
+          "source_quote": "사용후 배터리의 분리·회수부터 재생 셀 제조, 성능평가까지 전 과정을 연계해 LFP 배터리 재활용 기술의 상용화를 추진한다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_body_result"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "official UNIST program release/source should be checked in 0.5R"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.105,
+        "best_title_similarity_baseline_id": "2026-04-30_CN_02",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "official UNIST program release/source should be checked in 0.5R"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_supplemental_institution_provided_media_corrob",
+        "official_or_primary_source_found": false,
+        "supplemental_source_found": true,
+        "supplemental_fact_sources_added_count": 2,
+        "source_strength_caveat_after_0_5R": [
+          "unist_official_webpage_not_found_in_0_5R",
+          "yonhap_newsis_corroborate_unist_provided_project_details"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 1
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-10_KR_01",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-007",
+      "source_spec_id": "SA-V6-20260511_085145-057",
+      "source_story_ids": [
+        "KR_2026-05-10_C04"
+      ],
+      "region": "KR",
+      "date": "2026-05-10",
+      "cat": "Battery",
+      "sub_cat": "리튬금속열화",
+      "signal": "mid",
+      "title": "KAIST, 리튬 금속 음극 열화 시작 순간 관찰 — ‘죽은 리튬’ 형성 메커니즘 규명",
+      "sub": "2026-05-10 — 전자신문과 서울경제 영문판은 KAIST 홍승범 교수팀이 리튬 금속 음극 열화 메커니즘을 나노 수준에서 관찰했다고 보도했다.",
+      "gate": "리튬 금속 음극은 차세대 고에너지 배터리의 핵심 후보지만, 불균일 석출과 dead lithium 형성이 수명·안전성 병목이다. 계면 열화의 시작점을 관찰한 연구는 상용화 이전의 원인 규명 단계로 봐야 한다.",
+      "fact": "전자신문에 따르면 KAIST 홍승범 신소재공학과 교수팀은 리튬 금속 음극 열화 메커니즘을 규명했다. 보도는 리튬 금속이 기존 배터리보다 에너지 밀도가 높지만, 충·방전을 반복하며 불규칙하게 쌓이거나 떨어져 나가 전기적으로 단절된 죽은 리튬이 형성되면 성능이 떨어진다고 설명했다.",
+      "implication": [
+        "리튬 금속 배터리 상용화는 에너지밀도보다 계면 안정성과 균일 석출 제어가 먼저 검증돼야 한다.",
+        "다음 체크포인트는 논문 원문, 관찰 조건, 수명 개선 소재 적용 여부다."
+      ],
+      "urls": [
+        "https://www.etnews.com/20260508000113",
+        "https://en.sedaily.com/technology/2026/05/10/kaist-uncovers-root-cause-of-next-generation-battery"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260508000113",
+          "claim": "Source supports: KAIST·총장 이광형)은 홍승범 신소재공학과 교수팀이 리튬 금속 음극 열화 메커니즘을 규명했다고 10일 밝혔다.",
+          "source_quote": "KAIST·총장 이광형)은 홍승범 신소재공학과 교수팀이 리튬 금속 음극 열화 메커니즘을 규명했다고 10일 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "ETNews body article",
+          "source_url": "https://www.etnews.com/20260508000113",
+          "claim": "Source supports: 리튬 금속은 기존 배터리보다 에너지 밀도가 월등히 높지만 충·방전을 반복할수록 성능이 급격히 떨어지는 문제",
+          "source_quote": "리튬 금속은 기존 배터리보다 에너지 밀도가 월등히 높지만 충·방전을 반복할수록 성능이 급격히 떨어지는 문제",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "Seoul Economic Daily English body article",
+          "source_url": "https://en.sedaily.com/technology/2026/05/10/kaist-uncovers-root-cause-of-next-generation-battery",
+          "claim": "Seoul Economic Daily reported KAIST observed degradation start at nanoscale and identified root cause.",
+          "source_quote": "directly observed at the nanoscale the moment when performance degradation begins in lithium metal batteries",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "ACS Energy Letters article page",
+          "source_url": "https://pubs.acs.org/doi/abs/10.1021/acsenergylett.6c00122",
+          "claim": "The cited KAIST lithium-metal-anode study is published as Spatially Selective Lithium Plating and Stripping in Lithium Metal Anodes in ACS Energy Letters.",
+          "source_quote": "Spatially Selective Lithium Plating and Stripping in Lithium Metal Anodes ... Published February 24, 2026 ... E-mail: seungbum@kaist.ac.kr",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "supplemental_primary_research_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_publisher_page"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "research-result article; KAIST official/paper source should be verified in 0.5R"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.087,
+        "best_title_similarity_baseline_id": "2026-05-03_KR_10",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "research-result article; KAIST official/paper source should be verified in 0.5R"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_primary_publisher_page_found",
+        "official_or_primary_source_found": true,
+        "supplemental_source_found": true,
+        "supplemental_fact_sources_added_count": 1,
+        "source_strength_caveat_after_0_5R": [
+          "acs_publisher_article_page_found",
+          "kaist_official_news_page_not_found_in_0_5R"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 1
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-10_KR_03",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-011",
+      "source_spec_id": "SA-V6-20260511_085145-080",
+      "source_story_ids": [
+        "CN_2026-05-10_C01"
+      ],
+      "region": "CN",
+      "date": "2026-05-10",
+      "cat": "Policy",
+      "sub_cat": "배터리락규제",
+      "signal": "high",
+      "title": "MIIT, OTA 배터리 용량 제한 민원 관련 NEV 8개사 소환 보도 — ‘배터리 락’ 규제 이슈 부상",
+      "sub": "2026-05-10 — Gasgoo와 중국 매체들은 MIIT가 OTA 업데이트를 통한 배터리 용량 제한 민원 증가와 관련해 8개 NEV 업체를 소환했다고 보도했다.",
+      "gate": "배터리 소프트웨어 업데이트가 주행거리·성능·소비자 권리에 직접 영향을 주면 규제 리스크가 된다. OTA battery locking 이슈는 BMS와 소프트웨어가 배터리 품질·보증의 일부로 평가되는 방향을 보여준다.",
+      "fact": "Gasgoo와 중국 매체 보도에 따르면 중국 MIIT는 OTA 업데이트로 배터리 용량을 몰래 제한했다는 NEV 소비자 민원이 급증하자 8개 업체를 소환해 조사에 착수했다. 보도는 소비자들이 업데이트 이후 주행가능거리 감소와 충전 성능 변화를 제기했다고 설명했다.",
+      "implication": [
+        "배터리 소프트웨어는 하드웨어 성능뿐 아니라 소비자 신뢰·규제 리스크의 영역으로 들어가고 있다.",
+        "다음 체크포인트는 MIIT 공식 조치, 리콜·소프트웨어 수정 명령, 관련 업체 명단 공개다."
+      ],
+      "urls": [
+        "https://autonews.gasgoo.com/articles/news/complaints-over-ota-battery-locking-surge-miit-summons-8-nev-makers-2053367976739364865"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Gasgoo body article",
+          "source_url": "https://autonews.gasgoo.com/articles/news/complaints-over-ota-battery-locking-surge-miit-summons-8-nev-makers-2053367976739364865",
+          "claim": "Source supports: Complaints regarding new energy vehicle (NEV) manufacturers secretly \"locking battery capacity\" via over-the-air (OTA) updates have surged.",
+          "source_quote": "Complaints regarding new energy vehicle (NEV) manufacturers secretly \"locking battery capacity\" via over-the-air (OTA) updates have surged.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "Gasgoo body article",
+          "source_url": "https://autonews.gasgoo.com/articles/news/complaints-over-ota-battery-locking-surge-miit-summons-8-nev-makers-2053367976739364865",
+          "claim": "Source supports: the Ministry of Industry and Information Technology (MIIT) has launched investigatio",
+          "source_quote": "the Ministry of Industry and Information Technology (MIIT) has launched investigatio",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "Gasgoo body article",
+          "source_url": "https://autonews.gasgoo.com/articles/news/complaints-over-ota-battery-locking-surge-miit-summons-8-nev-makers-2053367976739364865",
+          "claim": "Source supports: secretly \"locking battery capacity\" via over-the-air (OTA) updates",
+          "source_quote": "secretly \"locking battery capacity\" via over-the-air (OTA) updates",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "Sina Auto citing CCTV / market report",
+          "source_url": "https://k.sina.com.cn/article_5953189932_162d6782c067048bek.html?from=auto",
+          "claim": "Sina Auto reported that MIIT and SAMR launched regulatory action over OTA battery locking, including interviews with eight NEV companies.",
+          "source_quote": "据央视网报道 ... 工信部、市场监管总局已启动监管处置，8 家新能源车企被约谈，其中 3 家因违规被立案调查",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_body_result"
+        },
+        {
+          "source_name": "BusinessNews China body article",
+          "source_url": "https://www.businessnews.cn/2026/05/08/19152.html",
+          "claim": "BusinessNews reported March 2026 nationwide 12315 OTA battery-locking complaints exceeded 12,000, up 273% YoY.",
+          "source_quote": "2026年3月，全国12315平台关于车企OTA锁电的投诉超过1.2万件，同比上涨273%",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_body_result"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "regulatory action relies on Gasgoo article; MIIT official notice/source should be checked in 0.5R"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.095,
+        "best_title_similarity_baseline_id": "2026-04-30_KR_05",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "regulatory action relies on Gasgoo article; MIIT official notice/source should be checked in 0.5R"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_regulatory_media_corroboration_and_retained_official_notice_caveat",
+        "official_or_primary_source_found": false,
+        "supplemental_source_found": true,
+        "supplemental_fact_sources_added_count": 2,
+        "source_strength_caveat_after_0_5R": [
+          "miit_original_notice_not_found_in_0_5R",
+          "sina_and_businessnews_report_miit_samr_action_and_12315_complaints"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 3
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-10_CN_01",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-015",
+      "source_spec_id": "SA-V6-20260511_085145-103",
+      "source_story_ids": [
+        "TF_0004"
+      ],
+      "region": "CN",
+      "date": "2026-05-10",
+      "cat": "EV",
+      "sub_cat": "JV수출전환",
+      "signal": "mid",
+      "title": "Gasgoo: 중국 합작 완성차, 내수에서 수출기지로 전환 — JV bulk exports 확산",
+      "sub": "2026-05-10 — Gasgoo는 중국 내 합작 완성차 공장이 관세 환경 속에서 bulk exports를 시작하며 글로벌 공급거점으로 전환되고 있다고 보도했다.",
+      "gate": "중국 EV·자동차 공급망의 경쟁력은 독자 브랜드만이 아니라 중국 내 JV 생산기지의 수출 전환에서도 나타난다. 다만 특정 수치·전략 해석은 Gasgoo 분석 보도 범위 안에서 제한해야 한다.",
+      "fact": "Gasgoo는 미국과 유럽의 중국 전기차 관세 환경 속에서 중국 내 합작 완성차 업체들이 bulk exports를 시작하고 있다고 보도했다. 보도는 이 흐름이 저가 중국차 자체보다 글로벌 완성차 업체들의 중국 생산기지가 세계 시장을 흔드는 방식이라고 설명했다.",
+      "implication": [
+        "중국 내 JV 생산기지는 글로벌 OEM의 우회 수출·지역 공급망 전략과 연결될 수 있다.",
+        "다음 체크포인트는 실제 선적 대수, 수출 대상국, 관세 회피 논란과 현지 규제 반응이다."
+      ],
+      "urls": [
+        "https://autonews.gasgoo.com/articles/news/joint-venture-automakers-start-bulk-exports-2053361488096546817"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Gasgoo body article",
+          "source_url": "https://autonews.gasgoo.com/articles/news/joint-venture-automakers-start-bulk-exports-2053361488096546817",
+          "claim": "Source supports: As the U.S. and Europe impose tariffs on Chinese electric vehicles to keep out \"low-priced Chinese cars,\" a more intriguing phenomenon is taking shape.",
+          "source_quote": "As the U.S. and Europe impose tariffs on Chinese electric vehicles to keep out \"low-priced Chinese cars,\" a more intriguing phenomenon is taking shape.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "Gasgoo body article",
+          "source_url": "https://autonews.gasgoo.com/articles/news/joint-venture-automakers-start-bulk-exports-2053361488096546817",
+          "claim": "Source supports: Joint Venture Automakers Start Bulk Exports",
+          "source_quote": "Joint Venture Automakers Start Bulk Exports",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        },
+        {
+          "source_name": "Gasgoo body article",
+          "source_url": "https://autonews.gasgoo.com/articles/news/joint-venture-automakers-start-bulk-exports-2053361488096546817",
+          "claim": "Source supports: The force truly capable of disrupting the global auto landscape isn't coming from an",
+          "source_quote": "The force truly capable of disrupting the global auto landscape isn't coming from an",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "source_input_article_hydrated_or_web_open"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "analysis/body article with incomplete extracted body in source input; Stage B can draft but 0.5R should seek stronger event-specific support or narrow/hold"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [
+        "This draft is intentionally conservative because the available extracted body is analytical and may need stronger shipment-level evidence in 0.5/0.5R."
+      ],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.158,
+        "best_title_similarity_baseline_id": "2026-05-06_CN_01",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "analysis/body article with incomplete extracted body in source input; Stage B can draft but 0.5R should seek stronger event-specific support or narrow/hold"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_retained_analysis_article_caveat",
+        "official_or_primary_source_found": false,
+        "supplemental_source_found": false,
+        "supplemental_fact_sources_added_count": 0,
+        "source_strength_caveat_after_0_5R": [
+          "event_specific_official_shipment_source_not_found_in_0_5R",
+          "retain_gasgoo_attribution_and_do_not_expand_beyond_article"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 0
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-10_CN_02",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-010",
+      "source_spec_id": "SA-V6-20260511_085145-077",
+      "source_story_ids": [
+        "EU_2026-05-09_C01"
+      ],
+      "region": "EU",
+      "date": "2026-05-09",
+      "cat": "PowerGrid",
+      "sub_cat": "양수저장지원",
+      "signal": "high",
+      "title": "스페인, 양수저장 7개 프로젝트에 1억6,500만유로 지원 — 4.2GW/8GWh 이상",
+      "sub": "2026-05-09 — pv magazine과 스페인 정부 자료는 PRTR 배정안 중 1억6,500만유로가 Boralmac II 양수저장 프로젝트 7건에 배정됐다고 설명한다.",
+      "gate": "장주기 저장은 배터리와 다른 시간대의 전력 유연성을 담당한다. 스페인의 양수저장 지원은 재생에너지 확대 이후 장주기 저장·계통 유연성 확보를 정책자금으로 보완하는 사례다.",
+      "fact": "pv magazine에 따르면 스페인은 PRTR 배정안 6억7,000만유로 중 1억6,500만유로를 Boralmac II 프로그램의 가역식 양수저장 프로젝트 7건에 지원한다. 보도는 해당 프로젝트들이 갈리시아, 아스투리아스, 안달루시아, 엑스트레마두라, 카탈루냐 5개 지역에 분포하며, 4.2GW 이상과 8GWh 이상 저장용량을 대표한다고 설명했다.",
+      "implication": [
+        "BESS와 양수저장은 서로 다른 duration 포지션으로 전력시장 유연성을 구성한다.",
+        "다음 체크포인트는 최종 배정 확정, 프로젝트별 허가, COD 일정이다."
+      ],
+      "urls": [
+        "https://www.pv-magazine.com/2026/05/09/spain-supports-4-2-gw-8-gwh-of-pumped-hydro-storage-with-e165-million/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "pv magazine body article",
+          "source_url": "https://www.pv-magazine.com/2026/05/09/spain-supports-4-2-gw-8-gwh-of-pumped-hydro-storage-with-e165-million/",
+          "claim": "Spain will support seven pumped hydro projects with €165m under Boralmac II.",
+          "source_quote": "€165 million will support seven pumped hydro storage projects under the Boralmac II program",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "pv magazine body article",
+          "source_url": "https://www.pv-magazine.com/2026/05/09/spain-supports-4-2-gw-8-gwh-of-pumped-hydro-storage-with-e165-million/",
+          "claim": "The projects represent more than 4.2GW and over 8GWh across five regions.",
+          "source_quote": "adding more than 4.2 GW / 8 GWh of capacity across five regions",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "La Moncloa official press note",
+          "source_url": "https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/transicion-ecologica/paginas/2026/060526-ayudas-plan-de-recuperacion.aspx",
+          "claim": "Spain’s government announced provisional allocation of EUR 670 million PRTR funds including reversible pumped hydro storage.",
+          "source_quote": "Sara Aagesen anuncia la asignación de 670 millones del Plan de Recuperación ... centrales hidroeléctricas de bombeo",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "supplemental_official_event_evidence",
+          "supports": [
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_official_material"
+        },
+        {
+          "source_name": "IDAE BORALMAC II official resolution PDF",
+          "source_url": "https://sede.idae.gob.es/sites/default/files/documentos/2026/Almacenamiento/BORALMAC2/_419_resol_coad_boralmac_ampliacion.pdf",
+          "claim": "IDAE official resolution expanded the budget for the second BORALMAC reversible pumped-storage call.",
+          "source_quote": "se amplía la dotación presupuestaria de la segunda convocatoria de ayudas para proyectos innovadores de almacenamiento energético mediante bombeo reversible ... Programa BORALMAC II",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "supplemental_official_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_official_pdf"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "official Spanish/MITECO allocation source not found in Stage B; 0.5R recommended"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.1,
+        "best_title_similarity_baseline_id": "R12_01",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "official Spanish/MITECO allocation source not found in Stage B; 0.5R recommended"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_official_spanish_government_and_idae_sources_found",
+        "official_or_primary_source_found": true,
+        "supplemental_source_found": true,
+        "supplemental_fact_sources_added_count": 2,
+        "source_strength_caveat_after_0_5R": [
+          "official_la_moncloa_and_idae_boralmac_sources_found_in_0_5R"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 1
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-09_EU_01",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-013",
+      "source_spec_id": "SA-V6-20260511_085145-097",
+      "source_story_ids": [
+        "TF_0015"
+      ],
+      "region": "GL",
+      "date": "2026-05-09",
+      "cat": "PowerGrid",
+      "sub_cat": "칠레태양광BESS",
+      "signal": "high",
+      "title": "칠레 3월 태양광 발전 28.7% — 순간비중 75.1%, BESS 2.5GW 운전",
+      "sub": "2026-05-09 — pv magazine은 Generadoras de Chile 자료를 인용해 2026년 3월 칠레 태양광 발전비중과 BESS 확대 현황을 보도했다.",
+      "gate": "칠레는 태양광 비중이 높아질수록 curtailment와 저장장치 필요성이 동시에 커지는 시장이다. 태양광 28.7%·BESS 2.5GW 수치는 재생+저장 구조의 계통 병목을 보여준다.",
+      "fact": "pv magazine에 따르면 2026년 3월 칠레 SEN에서 태양광 발전은 2,141GWh로 월간 총 발전량의 28.7%를 차지했고, 3월 14일 정오에는 순간 태양광 비중이 75.1%에 도달했다. 보도는 칠레 BESS 운전 규모가 2,529MW/8,786MWh이고 건설 중인 BESS가 6,361MW/22,479MWh라고 설명했다. 3월 curtailment는 595.8GWh로 태양광·풍력 발전량의 20%에 해당했다.",
+      "implication": [
+        "높은 태양광 비중은 저장장치 없이는 curtailment 비용으로 이어진다.",
+        "다음 체크포인트는 BESS 상업운전 전환, 송전망 혼잡 완화, 야간 가격 스프레드다."
+      ],
+      "urls": [
+        "https://www.pv-magazine.com/2026/05/09/solar-pv-accounted-for-29-of-electricity-generation-in-chile-in-march-with-instantaneous-peaks-reaching-75/",
+        "https://www.pv-magazine-latam.com/2026/05/07/la-fotovoltaica-aporto-en-chile-el-29-de-la-generacion-electrica-en-marzo-y-alcanzo-un-peak-instantaneo-del-75/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "pv magazine body article",
+          "source_url": "https://www.pv-magazine.com/2026/05/09/solar-pv-accounted-for-29-of-electricity-generation-in-chile-in-march-with-instantaneous-peaks-reaching-75/",
+          "claim": "Chile solar PV generated 2,141 GWh in March 2026, 28.7% of monthly generation.",
+          "source_quote": "Solar photovoltaic energy generated 2,141 GWh in Chile’s National Electric System (SEN) in March 2026, equivalent to 28.7% of total monthly generation",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "pv magazine body article",
+          "source_url": "https://www.pv-magazine.com/2026/05/09/solar-pv-accounted-for-29-of-electricity-generation-in-chile-in-march-with-instantaneous-peaks-reaching-75/",
+          "claim": "Solar output reached 75.1% instantaneous peak on March 14 at noon.",
+          "source_quote": "solar output reached an instantaneous peak share of 75.1% on March 14 at noon",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "pv magazine body article",
+          "source_url": "https://www.pv-magazine.com/2026/05/09/solar-pv-accounted-for-29-of-electricity-generation-in-chile-in-march-with-instantaneous-peaks-reaching-75/",
+          "claim": "Chile had 2,529MW/8,786MWh storage in operation and 6,361MW/22,479MWh under construction.",
+          "source_quote": "Chile currently has 2,529 MW / 8,786 MWh in operation, 6,361 MW / 22,479 MWh under construction",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "pv magazine body article",
+          "source_url": "https://www.pv-magazine.com/2026/05/09/solar-pv-accounted-for-29-of-electricity-generation-in-chile-in-march-with-instantaneous-peaks-reaching-75/",
+          "claim": "March curtailment reached 595.8GWh or 20% of solar and wind generation.",
+          "source_quote": "In March, curtailment reached 595.8 GWh, or 20% of total solar and wind generation",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        },
+        {
+          "source_name": "pv magazine LatAm body article based on Generadoras de Chile bulletin",
+          "source_url": "https://www.pv-magazine-latam.com/2026/05/07/la-fotovoltaica-aporto-en-chile-el-29-de-la-generacion-electrica-en-marzo-y-alcanzo-un-peak-instantaneo-del-75/",
+          "claim": "pv magazine LatAm reported Generadoras de Chile bulletin figures for March 2026 solar generation share and instantaneous solar peak.",
+          "source_quote": "La energía solar fotovoltaica representó 2.141 GWh ... equivalente al 28,7 % ... participación solar instantánea alcanzó un máximo de 75,1 %",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_body_result"
+        },
+        {
+          "source_name": "Reporte Minero body article based on Generadoras de Chile",
+          "source_url": "https://www.reporteminero.cl/noticia/noticias/2026/05/generacion-renovable-chile-marzo-2026",
+          "claim": "Reporte Minero reported Chile’s March 2026 renewables mix and storage capacity figures, including operational storage above 2,500 MW.",
+          "source_quote": "generación solar aportó el 29% ... el país cuenta con 2.529 MW operativos de almacenamiento",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_body_result"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "Generadoras de Chile original bulletin not fetched; 0.5R recommended for official report"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.15,
+        "best_title_similarity_baseline_id": "R3_14",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "Generadoras de Chile original bulletin not fetched; 0.5R recommended for official report"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_latam_corrob_and_retained_generadoras_original_caveat",
+        "official_or_primary_source_found": false,
+        "supplemental_source_found": true,
+        "supplemental_fact_sources_added_count": 2,
+        "source_strength_caveat_after_0_5R": [
+          "generadoras_de_chile_original_bulletin_not_found_in_0_5R",
+          "pv_magazine_latam_and_reporte_minero_corroborate_key_numbers"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 1
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-09_GL_01",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-014",
+      "source_spec_id": "SA-V6-20260511_085145-100",
+      "source_story_ids": [
+        "TF_0012"
+      ],
+      "region": "EU",
+      "date": "2026-05-08",
+      "cat": "AI",
+      "sub_cat": "데이터센터전력",
+      "signal": "high",
+      "title": "ENTSO-E, 데이터센터 전력수요 리포트 — 유연성 없으면 재생에너지 통합 제약 가능성",
+      "sub": "2026-05-08 — ENTSO-E는 데이터센터와 전력시스템 상호작용을 다룬 보고서를 발표하고, grid planning·security·flexibility 대응 필요성을 제시했다.",
+      "gate": "AI 데이터센터는 단순 부하가 아니라 계통 안정성과 재생에너지 통합을 좌우하는 대형 전력 사용자다. 데이터센터를 유연성 자원으로 활용하지 못하면 계통 운영자가 재생에너지 수용을 제한할 수 있다는 점이 핵심이다.",
+      "fact": "ENTSO-E 공식 발표에 따르면 2026년 5월 8일 ‘Data centres and the power system’ 보고서를 발간했다. 발표는 AI와 디지털 서비스 확대로 데이터센터가 유럽 전력시스템에서 중요한 구성요소가 되고 있으며, 그 규모와 전력수요가 커질수록 전력시스템 운영에 영향을 준다고 설명했다. pv magazine은 ENTSO-E가 데이터센터 수요를 제대로 관리하지 못하면 유럽 TSO가 renewable energy penetration을 줄일 수 있다고 경고했다고 보도했다.",
+      "implication": [
+        "데이터센터 부하는 ESS·수요반응·자가발전·PPA 구조와 직접 연결된다.",
+        "다음 체크포인트는 EU Cloud and AI Development Act, connection code 개정, 데이터센터 유연성 시장 참여 규칙이다."
+      ],
+      "urls": [
+        "https://www.entsoe.eu/news/2026/05/08/from-energy-demand-to-grid-support-entso-e-explores-data-centres-dual-role/",
+        "https://www.pv-magazine.com/2026/05/09/entso-e-data-center-growth-europe-demand-side-flexibility-market-participation-policy-recommendations-grid-operators/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ENTSO-E official news",
+          "source_url": "https://www.entsoe.eu/news/2026/05/08/from-energy-demand-to-grid-support-entso-e-explores-data-centres-dual-role/",
+          "claim": "ENTSO-E published a report on data centres and the power system on 8 May 2026.",
+          "source_quote": "ENTSO-E publishes the report “Data centres and the power system: expected trends, challenges and opportunities”",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "ENTSO-E official news",
+          "source_url": "https://www.entsoe.eu/news/2026/05/08/from-energy-demand-to-grid-support-entso-e-explores-data-centres-dual-role/",
+          "claim": "ENTSO-E said AI/digital service growth makes data centres significant electricity users affecting power system operation.",
+          "source_quote": "As their scale and electricity demand expand, data centres are evolving into systemically relevant electricity users whose behaviour increasingly influences power system operation.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "pv magazine body article",
+          "source_url": "https://www.pv-magazine.com/2026/05/09/entso-e-data-center-growth-europe-demand-side-flexibility-market-participation-policy-recommendations-grid-operators/",
+          "claim": "pv magazine reported ENTSO-E warning TSOs may reduce renewable energy penetration if data centre demand is not managed.",
+          "source_quote": "Europe’s transmission system operators may be forced to reduce renewable energy penetration if growing data centre demand is not properly managed.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_body_result"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "clean",
+      "source_strength_caveat": [],
+      "needs_stage_c_attention": false,
+      "needs_0_5_source_strength_review": false,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": false,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.059,
+        "best_title_similarity_baseline_id": "2026-04-29_KR_11",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": false,
+      "source_strength_review_route": "clean_pass_to_0_6",
+      "source_strength_review_reason": [],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "clean_pass_from_0_5",
+        "allow_to_0_6": true
+      },
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": false,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": false,
+        "changed_field_count": 0
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "none",
+      "final_qc_notes": "Clean v6 final QC pass.",
+      "id": "2026-05-08_EU_01",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
+    {
+      "draft_id": "DRAFT-B-009",
+      "source_spec_id": "SA-V6-20260511_085145-070",
+      "source_story_ids": [
+        "GL_2026-05-09_C05"
+      ],
+      "region": "CN",
+      "date": "2026-05-08",
+      "cat": "ESS",
+      "sub_cat": "BESS화재시험",
+      "signal": "high",
+      "title": "Sunwoda 5MWh 액체냉각 ESS, 대형 화재시험 완료 — 12시간 연소에도 인접 유닛 전이 없음 주장",
+      "sub": "2026-05-08 — Sunwoda는 5MWh Liquid Cooling ESS에 대한 대형 화재시험을 완료했다고 발표했고, pv magazine과 ESS News가 이를 보도했다.",
+      "gate": "BESS 안전성은 셀 단위 인증을 넘어 프로젝트 단위 화재 전이 억제 검증으로 이동하고 있다. 다만 현재 근거는 회사 발표와 전문매체 보도 기반이므로 독립 시험성적서 원문과 인증기관 문서 확인이 다음 단계다.",
+      "fact": "Sunwoda press release에 따르면 회사는 5MWh Liquid Cooling ESS 5개 실물 시스템을 이용해 대형 화재시험을 수행했다. 시험은 ANSI/CAN/UL 9540A:2026 6th Edition과 CSA/ANSI C800:2025에 따라 수행됐고, CSA Group이 실시했으며 Atar Fire의 화재방호 엔지니어가 리뷰했다. 회사는 initiating unit에서 12시간 이상 열폭주와 연소가 발생했지만 화재가 인접 유닛으로 전파되지 않았다고 밝혔다.",
+      "implication": [
+        "ESS safety claim은 실제 시험조건과 third-party report 원문이 핵심이다.",
+        "다음 체크포인트는 CSA test report 원문, AHJ/보험사 수용성, 프로젝트 적용 사례다."
+      ],
+      "urls": [
+        "https://www.pv-magazine.com/press-releases/sunwoda-completes-large-scale-fire-test-for-5mwh-liquid-cooling-ess/",
+        "https://www.pv-magazine.com/2026/05/09/sunwoda-completes-large-scale-fire-test-for-5-mwh-liquid-cooling-ess"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Sunwoda press release via pv magazine",
+          "source_url": "https://www.pv-magazine.com/press-releases/sunwoda-completes-large-scale-fire-test-for-5mwh-liquid-cooling-ess/",
+          "claim": "Sunwoda completed a large-scale fire test on its 5MWh Liquid Cooling ESS.",
+          "source_quote": "Sunwoda has completed a large-scale fire test on its 5MWh Liquid Cooling ESS",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_press_release"
+        },
+        {
+          "source_name": "Sunwoda press release via pv magazine",
+          "source_url": "https://www.pv-magazine.com/press-releases/sunwoda-completes-large-scale-fire-test-for-5mwh-liquid-cooling-ess/",
+          "claim": "Test used five full-scale systems with 15 cm spacing and active fire suppression disabled.",
+          "source_quote": "five actual full-scale 5MWh Liquid Cooling ESS systems, including one initiating unit and four target units",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_press_release"
+        },
+        {
+          "source_name": "Sunwoda press release via pv magazine",
+          "source_url": "https://www.pv-magazine.com/press-releases/sunwoda-completes-large-scale-fire-test-for-5mwh-liquid-cooling-ess/",
+          "claim": "The company said no propagation occurred after over 12 hours of combustion.",
+          "source_quote": "sustained combustion for over 12 hours. The results showed that the fire remained contained within the initiating unit, with no propagation to adjacent units",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_press_release"
+        },
+        {
+          "source_name": "ESS News body article",
+          "source_url": "https://www.ess-news.com/2026/05/08/sunwoda-completes-large-scale-fire-test-for-its-5-mwh-liquid-cooling-ess/",
+          "claim": "ESS News reported Sunwoda’s 5MWh LSFT was conducted by CSA Group and reviewed by Atar Fire, under UL 9540A/CSA C800-related conditions.",
+          "source_quote": "the test was carried out in accordance with ANSI/CAN/UL 9540A:2026 Sixth Edition, and CSA/ANSI C800:2025 ... conducted by CSA Group and reviewed by Atar Fire",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supplemental_source_strength_evidence",
+          "supports": [
+            "title",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-05-11T15:40:00+09:00",
+          "checked_at": "2026-05-11T15:40:00+09:00",
+          "fetch_method": "0_5R_web_search_body_result"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "review_recommended",
+      "source_strength_caveat": [
+        "company press-release via media; independent CSA/Atar report should be checked in 0.5R for external distribution"
+      ],
+      "needs_stage_c_attention": true,
+      "needs_0_5_source_strength_review": true,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": true,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.087,
+        "best_title_similarity_baseline_id": "2026-04-30_CN_06",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": true,
+      "source_strength_review_route": "recommended_0_5R_source_strength_review",
+      "source_strength_review_reason": [
+        "company press-release via media; independent CSA/Atar report should be checked in 0.5R for external distribution"
+      ],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "pass_with_independent_observer_caveat_retained",
+        "official_or_primary_source_found": false,
+        "supplemental_source_found": true,
+        "supplemental_fact_sources_added_count": 1,
+        "source_strength_caveat_after_0_5R": [
+          "csa_or_atar_full_report_not_found_in_0_5R",
+          "ess_news_corroborates_csa_group_and_atar_review_language"
+        ],
+        "allow_to_0_6": true
+      },
+      "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
+      "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": true,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": true,
+        "changed_field_count": 2
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "retained_non_blocking",
+      "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
+      "id": "2026-05-08_CN_01",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
+    },
     {
       "id": "2026-05-07_KR_01",
       "region": "KR",
@@ -1433,6 +4213,173 @@
       "id_assignment_basis": "CARD_ID_STANDARD latest-next-number within user-uploaded GitHub-main-equivalent baseline",
       "source_origin": "prompt_0_7_publish_ready_local_validation_pending_github_sync",
       "merge_status": "local_merge_prep_pending_github_main_sync"
+    },
+    {
+      "draft_id": "DRAFT-B-008",
+      "source_spec_id": "SA-V6-20260511_085145-065",
+      "source_story_ids": [
+        "JP_2026-05-11_C01"
+      ],
+      "region": "JP",
+      "date": "2026-05-07",
+      "cat": "Manufacturing",
+      "sub_cat": "희토류자석장비",
+      "signal": "high",
+      "title": "ULVAC, 희토류 자석용 진공용해로 일본 생산체계 구축 — 연 12대·2026년 9월 가동 계획",
+      "sub": "2026-05-07 — ULVAC은 희토류 자석용 연속식 진공용해로 수요 증가에 대응해 일본 내 생산체계를 새로 구축한다고 공식 발표했다.",
+      "gate": "희토류 자석은 EV, 풍력, 데이터센터 등 전동화·전력화 산업의 핵심 부품이다. 중국 의존도가 높은 자석 제조 장비 공급망에서 일본 생산체계 구축은 장비 공급망 다변화 신호로 볼 수 있다.",
+      "fact": "ULVAC 공식 발표에 따르면 희토류 자석용 연속식 진공용해로 수주가 유럽·북미 자석 제조사를 중심으로 전년 대비 약 3배로 늘 전망이다. 회사는 중국 기존 생산거점에 더해 일본 생산체계를 구축해 이원 공급구조를 만들 계획이며, 일본 생산능력은 연 최대 12대, 가동은 2026년 9월 예정이라고 밝혔다.",
+      "implication": [
+        "자석 제조 장비의 지역 다변화는 희토류 공급망 리스크 관리와 연결된다.",
+        "다음 체크포인트는 실제 출하 시작, 유럽·북미 고객 수주, 자석 생산라인 턴키 지원 확대다."
+      ],
+      "urls": [
+        "https://www.ulvac.co.jp/en/news/20260507a/index.html",
+        "https://www.ulvac.co.jp/news/20260507a/index.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ULVAC official release",
+          "source_url": "https://www.ulvac.co.jp/en/news/20260507a/index.html",
+          "claim": "ULVAC expects continuous vacuum melting furnace orders for rare-earth magnets to approximately triple YoY.",
+          "source_quote": "orders for its continuous vacuum melting furnaces dedicated to rare-earth magnets will approximately triple year on year",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "ULVAC official release",
+          "source_url": "https://www.ulvac.co.jp/en/news/20260507a/index.html",
+          "claim": "ULVAC will add a Japan production site to the China facility to build a dual-site supply structure.",
+          "source_quote": "By adding a production site in Japan to its existing facility in China, ULVAC will build a dual-site supply structure",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_official_material"
+        },
+        {
+          "source_name": "ULVAC official release",
+          "source_url": "https://www.ulvac.co.jp/en/news/20260507a/index.html",
+          "claim": "Japan production capacity up to 12 units/year and start of operations planned September 2026.",
+          "source_quote": "Japan-Based Production Capacity | Up to 12 units per year; Start of Operations | September 2026 (planned)",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "fact"
+          ],
+          "fetched_at": "2026-05-11T13:47:54+09:00",
+          "checked_at": "2026-05-11T13:47:54+09:00",
+          "fetch_method": "web_search_official_material"
+        }
+      ],
+      "stage_b_only": true,
+      "publish_ready": true,
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "source_strength_status": "clean",
+      "source_strength_caveat": [],
+      "needs_stage_c_attention": false,
+      "needs_0_5_source_strength_review": false,
+      "writer_notes": [],
+      "state": "publish_ready",
+      "stage_c_only": true,
+      "github_ready": false,
+      "merge_ready": false,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "stage_c_validation": {
+        "validated_at": "2026-05-11T13:54:02.367400+09:00",
+        "source_direction_check": "pass",
+        "fact_source_alignment_check": "pass",
+        "quote_quality_check": "pass",
+        "fact_vs_implication_check": "pass",
+        "category_region_signal_check": "pass",
+        "staleness_check": "pass_or_forward_to_0_5",
+        "visible_claim_support_check": "pass",
+        "source_strength_caveat_forwarded_to_0_5R": false,
+        "publish_ready": false
+      },
+      "baseline_relation": "new",
+      "baseline_revalidation": {
+        "state": "addable_merge_safe",
+        "baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
+        "baseline_total": 669,
+        "checked_at": "2026-05-11T15:00:00+09:00",
+        "exact_url_collision_baseline_ids": [],
+        "best_title_similarity": 0.091,
+        "best_title_similarity_baseline_id": "R15_03",
+        "note": "Full baseline revalidation is merge-safety only; evidence/content/publish_ready gates remain pending."
+      },
+      "evidence_qc_status": "PASS_SOURCE_CLAIM_COVERED",
+      "source_claim_coverage_status": "PASS",
+      "evidence_completeness_status": "PASS",
+      "needs_content_polish": true,
+      "needs_final_qc": false,
+      "source_strength_review_required": false,
+      "source_strength_review_route": "clean_pass_to_0_6",
+      "source_strength_review_reason": [],
+      "needs_source_strength_review_0_5R": false,
+      "source_strength_review_0_5R": {
+        "source_strength_review_status": "clean_pass_from_0_5",
+        "allow_to_0_6": true
+      },
+      "source_strength_review_passed": true,
+      "previous_state": "content_enriched_and_language_polished",
+      "pr_candidate_ready": false,
+      "content_polish_status": "PASS",
+      "content_polish_visible_fields_only": true,
+      "fact_sources_preserved": true,
+      "source_quote_preserved": true,
+      "source_strength_caveat_preserved": false,
+      "content_polish_metadata": {
+        "stage": "0.6_content_enrichment_language_polish",
+        "run_tag": "20260511_085145",
+        "polished_at": "2026-05-11T16:07:26+09:00",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "publish_ready_remains_false": true,
+        "source_strength_caveat_preserved": false,
+        "changed_field_count": 0
+      },
+      "github_main_sync_required_later": true,
+      "production_id_pending_0_8_assignment": true,
+      "final_qc_status": "publish_ready_pending_github_main_sync",
+      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "publish_readiness": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+        "source_strength_caveat_handling": "PASS_RETAINED_OR_RESOLVED"
+      },
+      "final_qc_caveat_status": "none",
+      "final_qc_notes": "Clean v6 final QC pass.",
+      "id": "2026-05-07_JP_01",
+      "source_origin": "stage_0_7_publish_ready_local_validation_v6",
+      "merge_status": "single"
     },
     {
       "id": "2026-05-06_KR_01",
@@ -30503,5 +33450,23 @@
     "pr_candidate_ready": false,
     "github_write_performed": false,
     "created_at": "2026-05-08T09:35:09+09:00"
+  },
+  "merge_prep_20260511_085145_local_v6": {
+    "prepared_at_kst": "2026-05-11T16:14:41+09:00",
+    "local_validation_dry_run": true,
+    "github_modified": false,
+    "publish_ready_input_count": 15,
+    "assigned_new_count": 15,
+    "local_merged_candidate_count": 684,
+    "github_main_sync_status": "BLOCKED_GITHUB_MAIN_BODY_UNREADABLE_OR_EMPTY_CONTENT_RETURNED",
+    "github_main_fetch_summary": {
+      "content_empty": true,
+      "sha": "c09f03f36030fcffbd17aff3fd99913061e316a2"
+    },
+    "github_ready": false,
+    "pr_candidate_ready": false,
+    "duplicate_new_ids": [],
+    "duplicate_existing_ids": [],
+    "exact_url_collisions": []
   }
 }

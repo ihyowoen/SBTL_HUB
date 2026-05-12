@@ -5,7 +5,7 @@
   "baseline_count": 669,
   "new_count": 15,
   "run_tag": "20260511_085145",
-  "merge_status": "local_validation_publish_ready_15_merged_with_local_main_equivalent_baseline_blocked_github_main_sync_unverifiable",
+  "merge_status": "github_main_sync_passed_same_run_update_replace_15_pending_branch_or_pr_creation",
   "sort": "latest-first; date desc; existing same-date order preserved; new cards inserted after existing same-date baseline order; new cards assigned IDs by CARD_ID_STANDARD",
   "source_baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
   "source_accepted_file": "publish_ready_payload_PENDING_GITHUB_SYNC_20260511_085145_local_v6_validation_baseline669_0_7.json",
@@ -22,13 +22,13 @@
       "cat": "ESS",
       "sub_cat": "헝가리ESS계통연계",
       "signal": "mid",
-      "title": "JDEnergy, 헝가리 MVM 11MW/22MWh ESS 계통연계 지원 — 첫 해외 유틸리티 규모 프로젝트",
-      "sub": "2026-05-11 — JDEnergy는 헝가리 Sopronkövesd의 MVM 11MW/22MWh 유틸리티 ESS가 계통연계와 성능시험을 마쳤다고 밝혔다.",
-      "gate": "이 건은 중국 ESS 업체가 유럽 계통에서 실증 레퍼런스를 확보했다는 신호다. 규모는 대형은 아니지만, 현지 계통 요구조건과 성능시험 통과를 내세운 첫 해외 유틸리티 프로젝트라는 점에서 공급망·인증 관찰 가치가 있다.",
-      "fact": "JDEnergy 발표에 따르면 회사는 헝가리 MVM의 11MW/22MWh 유틸리티 규모 에너지저장 프로젝트의 계통연계를 지원했고, 시스템은 필요한 성능시험을 첫 시도에서 통과했다. 발표는 헝가리 에너지 장관이 행사에 참석해 중국-헝가리 에너지 협력 성과로 평가했다고 설명했다.",
+      "title": "JDEnergy, 헝가리 11MW/22MWh ESS 계통연계…중국 ESS 업체의 유럽 레퍼런스 확보",
+      "sub": "JDEnergy는 헝가리 MVM의 11MW/22MWh 유틸리티급 ESS 프로젝트 계통연계를 지원했고, 해당 시스템은 요구 성능시험을 첫 시도에 통과했다고 밝혔다.",
+      "gate": "중국 ESS 솔루션 업체가 유럽 전력시장에 실증 레퍼런스를 쌓는 사건이다. 유럽 ESS 시장은 화재안전, 계통연계, 성능시험 통과 이력이 공급자 신뢰의 핵심 자산이 된다.",
+      "fact": "JDEnergy는 헝가리 Sopronkövesd에서 MVM의 11MW/22MWh 유틸리티급 에너지저장 프로젝트 계통연계를 지원했다고 밝혔다. 회사 발표에 따르면 이 시스템은 요구된 성능시험을 첫 시도에 통과했다.",
       "implication": [
-        "중국 ESS 업체의 유럽 진출은 가격 경쟁력보다 현지 계통 요구조건과 안정성 검증이 핵심 허들이다.",
-        "다음 체크포인트는 MVM 운영 데이터, 추가 수주 여부, 유럽 인증·서비스 체계다."
+        "유럽 ESS 시장에서 초기 레퍼런스는 단순 납품보다 후속 입찰·파트너십의 신뢰 근거가 될 수 있다.",
+        "다만 현재 근거는 JDEnergy 발표 중심이므로 성능시험 범위와 발주·운영 주체 확인이 후속 관찰 포인트다."
       ],
       "urls": [
         "https://www.prnewswire.co.uk/news-releases/jdenergy-commissions-first-overseas-utility-scale-project-in-hungary-302767435.html"
@@ -129,7 +129,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -150,7 +150,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -170,8 +170,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -187,7 +187,23 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-11_EU_01",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_content_polish",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "remove_visible_workflow_meta_phrases_only",
+        "changed_fields": [
+          "gate",
+          "implication"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-003",
@@ -200,13 +216,13 @@
       "cat": "SupplyChain",
       "sub_cat": "전략소재공급망",
       "signal": "mid",
-      "title": "세라믹기술원, 반도체·이차전지 전략소재 공급망 협의체 출범",
-      "sub": "2026-05-11 — 전자신문은 한국세라믹기술원이 국가첨단산업 전략소재의 국내 공급망 구축을 위한 협의체 발족 회의를 열었다고 전했다.",
-      "gate": "전략소재는 반도체와 이차전지의 성능·수급 리스크를 좌우한다. 협의체 출범은 직접 투자보다 약한 신호지만, 소재 공급망 리스크를 제도적으로 다루는 초기 조직화 움직임으로 볼 수 있다.",
-      "fact": "전자신문에 따르면 한국세라믹기술원은 4월 진주 본원에서 산·학·연 전문가가 참석한 가운데 국가첨단산업 전략소재의 국내 신 공급망 구축을 위한 협의체 발족 회의를 개최했다고 밝혔다. 보도는 자원 무기화 심화로 반도체와 이차전지 등 첨단산업의 소재 수급 불확실성이 커지고 있다고 설명했다.",
+      "title": "세라믹기술원, 전략소재 공급망 협의체 출범…반도체·이차전지 소재 자립화 논의 채널 만든다",
+      "sub": "한국세라믹기술원은 반도체·이차전지 등 첨단산업 전략소재의 국내 신 공급망 구축을 위한 산학연 협의체를 발족했다고 밝혔다.",
+      "gate": "협의체 출범 자체보다 전략소재 공급망 문제를 연구기관 중심의 정책·R&D 논의 채널로 옮긴 점이 중요하다. 소재 수급 불확실성이 커지는 구간에서 산업계 현안이 R&D 예산과 정책 우선순위로 연결되는 통로가 될 수 있다.",
+      "fact": "한국세라믹기술원은 지난 4월 진주 본원에서 산·학·연 전문가들이 참석한 가운데 국가첨단산업 전략소재의 국내 신 공급망 구축을 위한 협의체 발족 회의를 열었다고 밝혔다. 기술원은 반도체·이차전지 등 국내 주력 첨단산업의 소재 수급 불확실성이 커지고 있으며, 협의체를 통해 현장 의견을 수렴하고 정책 수립의 기초 자료로 활용하겠다고 설명했다.",
       "implication": [
-        "국내 소재 공급망 논의는 배터리·반도체 공통 리스크 관리로 연결된다.",
-        "다음 체크포인트는 협의체 참여기관, 우선 전략소재 목록, 실제 공급망 안정화 사업 연계다."
+        "소재 공급망 대응은 단기 수입선 다변화뿐 아니라 국산화 과제, 재자원화 공정, 현장 수요 반영형 R&D 체계로 확대되고 있다.",
+        "이차전지 소재 기업에는 협의체·분과위원회·로드맵이 향후 정부 과제와 예산 배정의 선행 신호가 될 수 있다."
       ],
       "urls": [
         "https://www.etnews.com/20260511000036"
@@ -325,7 +341,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -346,7 +362,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -366,8 +382,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -383,7 +399,22 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-11_KR_02",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_content_polish",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "remove_visible_workflow_meta_phrases_only",
+        "changed_fields": [
+          "gate"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-004",
@@ -396,13 +427,13 @@
       "cat": "Manufacturing",
       "sub_cat": "배터리자동화",
       "signal": "high",
-      "title": "코윈테크, 글로벌 배터리사에 300억원대 모바일 로봇 자동화시스템 공급",
-      "sub": "2026-05-11 — 뉴시스와 이데일리는 코윈테크가 글로벌 배터리 대형 기업과 300억원 중반대 모바일 로봇 기반 자동화시스템 공급계약을 체결했다고 보도했다.",
-      "gate": "배터리 공장 자동화는 셀 제조 CAPEX 효율과 생산 안정성을 좌우한다. 모바일 로봇·물류 자동화·관제 소프트웨어가 패키지로 공급되는 계약은 배터리 제조라인 자동화 수요가 장비 단품에서 통합 솔루션으로 이동하는 신호다.",
-      "fact": "뉴시스 보도에 따르면 코윈테크는 글로벌 배터리 대형 기업과 300억원 규모의 모바일 로봇 기반 자동화 시스템 공급계약을 체결했다. 회사 측은 계약금액이 공정별 계약을 합산한 총액이고 계약기간은 2027년 6월까지라고 설명했다. 이데일리는 코윈테크가 배터리 제조라인 전체 자동화를 위한 로봇, 물류 자동화 시스템, 관제 소프트웨어 등 공정 전반 통합 솔루션을 공급할 예정이라고 보도했다.",
+      "title": "코윈테크, 배터리 제조라인 자동화 300억원대 수주…AMR에서 산업용 로봇까지 공급 범위 확대",
+      "sub": "코윈테크는 글로벌 배터리 대형 기업과 300억원 중반대 모바일 로봇 기반 자동화 시스템 공급계약을 체결했고, 계약 기간은 2027년 6월까지라고 밝혔다.",
+      "gate": "로봇 기업의 수주 뉴스라기보다 배터리 제조라인 자동화 범위가 물류에서 공정 통합으로 넓어지는 신호다. AMR, 다관절 로봇, 관제 소프트웨어가 함께 공급된다는 점이 제조 자동화 밸류체인 관점의 핵심이다.",
+      "fact": "코윈테크는 글로벌 배터리 대형 기업과 300억원 중반대 규모의 모바일 로봇 기반 자동화 시스템 공급계약을 체결했다고 밝혔다. 이번 계약에는 고객사 배터리 제조라인 전체 자동화를 위한 로봇, 물류 자동화 시스템, 관제 소프트웨어가 포함되며, 자율주행 모바일 로봇뿐 아니라 산업용 다관절 로봇도 공급 대상에 포함됐다.",
       "implication": [
-        "배터리 제조 자동화는 물류·검사·관제 소프트웨어 결합형으로 고도화되고 있다.",
-        "다음 체크포인트는 계약 상대 공개 여부, 후속 발주, 배터리 라인 양산 적용 범위다."
+        "배터리 공정 자동화 수요가 물류 로봇 단품에서 공정·물류·소프트웨어 통합 패키지로 이동하고 있음을 보여준다.",
+        "소부장 관점에서는 셀 제조 CAPEX뿐 아니라 자동화·검사·관제 레이어가 별도 성장축으로 분리되는지 추적할 필요가 있다."
       ],
       "urls": [
         "https://www.newsis.com/view/NISX20260511_0003623678",
@@ -521,7 +552,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -542,7 +573,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -562,8 +593,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -579,7 +610,22 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-11_KR_01",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_content_polish",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "remove_visible_workflow_meta_phrases_only",
+        "changed_fields": [
+          "gate"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-012",
@@ -592,13 +638,13 @@
       "cat": "EV",
       "sub_cat": "중국제외EV",
       "signal": "high",
-      "title": "SNE: 중국 제외 글로벌 EV 인도 202.5만대 — 1Q26 전년 대비 23.1% 증가",
-      "sub": "2026-05-11 — SNE Research는 2026년 1~3월 중국 제외 글로벌 EV 인도량이 약 202만5,000대로 전년 대비 23.1% 증가했다고 밝혔다.",
-      "gate": "중국 제외 시장의 성장률은 한국 셀·소재 업체의 비중국 고객 회복 여부를 판단하는 선행지표다. 전체 중국 시장이 커도 비중국권 수요가 회복되면 북미·유럽 공급망 전략의 의미가 달라진다.",
-      "fact": "SNE Research 공식 press release index에 따르면 2026년 1~3월 중국 제외 글로벌 전기차(BEV+PHEV) 인도량은 약 202만5천대로, 전년 동기 164만6천대 대비 23.1% 증가했다. SNE는 유럽과 중국 제외 아시아가 상승세를 유지했고 북미는 두 자릿수 감소를 보였다고 설명했다.",
+      "title": "SNE, 1분기 중국 제외 글로벌 EV 인도량 202만5000대…전년 대비 23.1% 증가",
+      "sub": "SNE Research는 2026년 1~3월 중국을 제외한 글로벌 전기차 인도량이 202만5000대로 전년 동기 대비 23.1% 증가했다고 밝혔다.",
+      "gate": "EV 판매 증가율보다 중국 밖 전기차 수요가 플러스 성장세를 유지하는지가 핵심이다. 중국 내 과잉경쟁과 별개로 북미·유럽·기타 지역 수요 흐름을 분리해 봐야 배터리 공급망 수요를 더 정확히 읽을 수 있다.",
+      "fact": "SNE Research는 2026년 1~3월 중국 제외 글로벌 전기차 인도량이 202만5000대를 기록했다고 밝혔다. 같은 자료에 따르면 전년 동기 대비 증가율은 23.1%이고, 유럽과 중국 제외 아시아는 상승세를 유지한 반면 북미는 두 자릿수 감소를 보였다.",
       "implication": [
-        "중국 제외 EV 수요 회복은 한국 배터리 밸류체인의 고객·지역 믹스에 중요하다.",
-        "다음 체크포인트는 지역별 출하, 완성차별 점유율, 중국 제외 배터리 사용량 117.4GWh와의 연결이다."
+        "중국을 제외한 EV 인도량 증가는 K-배터리 수요를 판단할 때 중국 내 가격경쟁과 별도로 봐야 할 핵심 지표다.",
+        "다음 체크포인트는 지역별 출하, 완성차별 점유율, 중국 제외 배터리 사용량과의 연결이다."
       ],
       "urls": [
         "https://www.sneresearch.com/en/insight/release/180?s_cat=%7C&s_keyword=",
@@ -717,7 +763,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -738,7 +784,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -758,8 +804,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -775,7 +821,24 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-11_GL_01",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_content_polish",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "remove_visible_workflow_meta_phrases_only",
+        "changed_fields": [
+          "gate",
+          "fact",
+          "implication"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-002-R1",
@@ -788,13 +851,13 @@
       "cat": "Battery",
       "sub_cat": "전고체계면",
       "signal": "mid",
-      "title": "GIST·KETI·교토대, 수소 포함 착음이온의 전고체전지 계면 보호 원리 규명",
-      "sub": "2026-05-11 — 전자신문은 GIST·KETI·교토대 공동연구팀이 수소를 포함한 착음이온이 전고체전지 계면 보호층을 형성하는 원리를 규명했다고 보도했다.",
-      "gate": "상업화 뉴스가 아니라 전고체전지 계면 안정성 연구다. 전고체전지는 화재 위험을 낮출 수 있지만 계면 저항과 수명 문제가 병목이므로, 수소 포함 착음이온이 보호층 형성에 관여한다는 원리는 기술 방향성 측면에서 관찰 가치가 있다.",
-      "fact": "전자신문에 따르면 GIST 김상륜 교수와 KETI 조우석 박사 연구팀은 교토대와 함께 수소를 많이 포함한 특수 이온이 전고체전지 내부 전극과 전해질 사이에 안정적 보호층을 형성하는 원리를 규명했다. 보도는 이번 연구가 전고체전지의 안전성과 수명 문제 개선을 겨냥한다고 설명했다.",
+      "title": "GIST·KETI·교토대, 전고체전지 계면 보호 원리 규명…수소 포함 착음이온이 보호층 형성",
+      "sub": "전자신문은 GIST·KETI·교토대 공동연구팀이 수소를 많이 포함한 착음이온이 전고체전지 내부 계면 보호층을 형성하는 원리를 규명했다고 보도했다.",
+      "gate": "전고체전지 상용화의 병목은 에너지밀도만이 아니라 전극과 전해질 사이의 계면 안정성이다. 수소를 많이 포함한 착음이온이 보호층 형성에 관여한다는 설명은 계면 반응 제어 연구의 방향성을 보여준다.",
+      "fact": "전자신문에 따르면 GIST 김상륜 교수와 KETI 조우석 박사 연구팀은 교토대와 함께 수소를 많이 포함한 특수 이온이 전고체전지 내부에서 전극과 전해질 사이를 안정적으로 보호하는 얇은 층을 형성하는 원리를 규명했다. 보도는 전고체전지가 안전성과 에너지 저장 성능을 동시에 높일 수 있는 유망 기술로 주목받고 있다고 설명했다.",
       "implication": [
-        "전고체전지 경쟁은 소재 자체뿐 아니라 전극-전해질 계면을 어떻게 안정화하느냐로 이동하고 있다.",
-        "다음 체크포인트는 논문 원문, 적용 전해질·전극 조건, 장기 사이클 데이터다."
+        "전고체전지 경쟁에서 소재 조성만큼 전극-전해질 계면 반응 제어가 중요한 연구 축으로 부상하고 있다.",
+        "아직 연구 단계의 성과이므로 양산 가능성으로 단정하기보다 계면 보호층 설계 후보로 추적하는 편이 안전하다."
       ],
       "urls": [
         "https://www.etnews.com/20260511000017"
@@ -942,7 +1005,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -963,7 +1026,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -983,8 +1046,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -1000,7 +1063,26 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-11_KR_03",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_evidence_qc",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "claim_narrowing_existing_evidence",
+        "changed_fields": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-005",
@@ -1013,13 +1095,13 @@
       "cat": "SupplyChain",
       "sub_cat": "중국수출상담",
       "signal": "mid",
-      "title": "KOTRA, 선전 CIBF 연계 한중 이차전지 수출상담회 — 소재·부품·장비 13개사 참여",
-      "sub": "2026-05-10 — KOTRA는 중국 선전 CIBF 2026과 연계해 국내 이차전지 소재·부품·장비 기업의 중국 시장 상담을 지원한다.",
-      "gate": "중국 배터리 시장은 경쟁자이자 고객·공급망 접점이다. K-배터리 소재·부품·장비 기업 13개사가 중국 셀·ESS 기업과 상담하는 구조는 공급망 재진입과 고객 다변화의 관찰 포인트다.",
-      "fact": "전자신문에 따르면 KOTRA는 5월 13일부터 6월 19일까지 중국 선전에서 한중 이차전지 수출상담 및 화상상담회를 개최한다. 행사는 CIBF 2026과 연계됐고, 국내 배터리 소재·부품·장비 기업 13개사와 중국 배터리 관련 기업 20개사가 1대1 B2B 수출 상담을 진행하는 것으로 보도됐다.",
+      "title": "KOTRA, 선전서 한중 이차전지 수출상담회…K-소부장 13개사와 중국 배터리 20개사 연결",
+      "sub": "KOTRA는 CIBF 2026과 연계해 5월 13일부터 6월 19일까지 선전에서 국내 배터리 소재·부품·장비 기업 13개사와 중국 배터리 기업 20개사의 1대1 상담을 진행한다고 밝혔다.",
+      "gate": "전시회 참석보다 중국 배터리 공급망에 한국 소부장 기업이 진입할 수 있는 접점이 어디서 만들어지는지가 중요하다. 선전·광둥권은 EV와 ESS 수요가 겹치는 지역이라, 소재·장비·리사이클 기업의 B2B 판로 확인이 필요하다.",
+      "fact": "KOTRA는 중국 선전에서 한중 이차전지 수출상담 및 화상상담회를 개최한다고 밝혔다. 이번 행사는 CIBF 2026과 연계되며, 국내 배터리 소재·부품·장비 기업 13개사와 중국 배터리 기업 20개사가 1대1 B2B 수출 상담을 진행한다.",
       "implication": [
-        "전고체·ESS 수요를 겨냥한 중국 내 B2B 접점은 한국 소부장 기업의 해외 고객 다변화 신호다.",
-        "다음 체크포인트는 실제 상담 성과, 계약 전환 여부, 참여 기업별 제품군이다."
+        "중국 배터리 시장을 단순 경쟁시장으로만 볼 것이 아니라, 차세대 배터리·ESS·리사이클 수요가 남아 있는 소부장 판로로도 봐야 한다.",
+        "상담회 성과는 계약 체결이 아니라 바이어 발굴 단계이므로, 후속 수주·공급계약 여부를 별도 이벤트로 추적해야 한다."
       ],
       "urls": [
         "https://www.etnews.com/20260510000045",
@@ -1152,7 +1234,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -1172,7 +1254,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -1192,8 +1274,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -1209,7 +1291,22 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-10_KR_02",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_content_polish",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "remove_visible_workflow_meta_phrases_only",
+        "changed_fields": [
+          "gate"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-006",
@@ -1222,13 +1319,13 @@
       "cat": "Materials",
       "sub_cat": "LFP재활용",
       "signal": "high",
-      "title": "UNIST, LFP 폐배터리 직접재생 전주기 플랫폼 추진 — 4년 60억원 사업비",
-      "sub": "2026-05-10 — 전기신문과 동아사이언스는 UNIST가 스타트업 4곳과 LFP 폐배터리 재활용 전주기 플랫폼 구축에 나선다고 보도했다.",
-      "gate": "LFP 확산은 회수·재활용 경제성 문제를 다시 부각시킨다. 사용후 배터리 분리·회수부터 재생 셀 제조·성능평가까지 묶는 플랫폼은 LFP 재활용의 상업화 가능성을 점검할 수 있는 실증 기반이다.",
-      "fact": "전기신문에 따르면 UNIST 해수자원화기술연구센터는 2026년 대학연구소·스타트업 공동 혁신 R&D 지원사업에 선정돼 4년간 총 60억원 규모 사업비를 확보했다. 보도는 UNIST가 스타트업 4곳과 함께 LFP 폐배터리의 분리·회수, 재생 셀 제조, 성능평가까지 이어지는 전주기 순환 플랫폼 구축에 나선다고 설명했다.",
+      "title": "UNIST, LFP 폐배터리 직접재생 플랫폼 착수…4년 60억원으로 분리·회수부터 재생 셀 평가까지 묶는다",
+      "sub": "UNIST는 스타트업 4곳과 LFP 폐배터리 직접재생 전주기 순환 플랫폼을 구축하고, 4년간 총 60억원 규모의 사업비를 확보했다고 밝혔다.",
+      "gate": "LFP 재활용 연구보다 LFP 폐배터리의 직접재생을 사업화 경로로 묶는 플랫폼 구축이 핵심이다. LFP 확산 이후 국내 시장의 병목은 회수량뿐 아니라 저가 화학계에 맞는 경제성 있는 재생 공정 확보다.",
+      "fact": "UNIST 해수자원화기술연구센터는 2026년 대학연구소·스타트업 공동 혁신 R&D 지원사업에 선정돼 4년간 총 60억원 규모의 사업비를 확보했다고 밝혔다. 과제는 LFP 배터리 직접재생 전주기 순환 플랫폼 구축이며, 사용후 배터리의 분리·회수, 재생 셀 제조, 성능평가를 연결하는 기술 체계를 마련하는 데 초점이 맞춰져 있다.",
       "implication": [
-        "LFP 폐배터리는 금속 가치가 낮아 직접재생·공정비 절감이 재활용 경쟁력의 핵심이다.",
-        "다음 체크포인트는 참여 스타트업 역할, 재생 셀 성능, 파일럿 규모다."
+        "LFP 폐배터리 확대 국면에서는 니켈·코발트 회수 중심 재활용과 다른 경제성 기준이 필요해진다.",
+        "직접재생 플랫폼이 성능평가와 수요기업 발굴까지 포함한다는 점은 기술 개발보다 사업화 검증 체계에 가까운 신호다."
       ],
       "urls": [
         "https://www.electimes.com/news/articleView.html?idxno=367828",
@@ -1363,7 +1460,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -1384,7 +1481,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -1404,8 +1501,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -1421,7 +1518,22 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-10_KR_01",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_content_polish",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "remove_visible_workflow_meta_phrases_only",
+        "changed_fields": [
+          "gate"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-007",
@@ -1434,13 +1546,13 @@
       "cat": "Battery",
       "sub_cat": "리튬금속열화",
       "signal": "mid",
-      "title": "KAIST, 리튬 금속 음극 열화 시작 순간 관찰 — ‘죽은 리튬’ 형성 메커니즘 규명",
-      "sub": "2026-05-10 — 전자신문과 서울경제 영문판은 KAIST 홍승범 교수팀이 리튬 금속 음극 열화 메커니즘을 나노 수준에서 관찰했다고 보도했다.",
-      "gate": "리튬 금속 음극은 차세대 고에너지 배터리의 핵심 후보지만, 불균일 석출과 dead lithium 형성이 수명·안전성 병목이다. 계면 열화의 시작점을 관찰한 연구는 상용화 이전의 원인 규명 단계로 봐야 한다.",
-      "fact": "전자신문에 따르면 KAIST 홍승범 신소재공학과 교수팀은 리튬 금속 음극 열화 메커니즘을 규명했다. 보도는 리튬 금속이 기존 배터리보다 에너지 밀도가 높지만, 충·방전을 반복하며 불규칙하게 쌓이거나 떨어져 나가 전기적으로 단절된 죽은 리튬이 형성되면 성능이 떨어진다고 설명했다.",
+      "title": "KAIST, 리튬 금속 음극 열화 메커니즘 규명 — 리튬 도금·박리 거동 나노 수준 관찰",
+      "sub": "전자신문과 서울경제 영문판은 KAIST 홍승범 교수팀이 리튬 금속 음극의 열화 시작과 도금·박리 거동을 나노 수준에서 관찰했다고 보도했다.",
+      "gate": "리튬 금속 음극은 차세대 고에너지 배터리의 핵심 후보지만, 충·방전 반복 과정에서 성능 저하가 발생한다. 리튬 도금·박리 거동과 계면 열화의 시작점을 관찰한 연구는 상용화 이전의 원인 규명 단계로 봐야 한다.",
+      "fact": "전자신문에 따르면 KAIST 홍승범 신소재공학과 교수팀은 리튬 금속 음극 열화 메커니즘을 규명했다. 보도는 리튬 금속이 기존 배터리보다 에너지 밀도가 높지만 충·방전을 반복할수록 성능이 급격히 떨어지는 문제가 있다고 설명했다. 서울경제 영문판은 연구팀이 성능 저하가 시작되는 순간을 나노 수준에서 직접 관찰했다고 보도했고, ACS Energy Letters 논문 페이지는 리튬 금속 음극의 선택적 도금·박리 연구로 게재됐음을 표시한다.",
       "implication": [
-        "리튬 금속 배터리 상용화는 에너지밀도보다 계면 안정성과 균일 석출 제어가 먼저 검증돼야 한다.",
-        "다음 체크포인트는 논문 원문, 관찰 조건, 수명 개선 소재 적용 여부다."
+        "리튬 금속 배터리 상용화는 에너지밀도보다 계면 안정성과 도금·박리 제어가 먼저 검증돼야 한다.",
+        "다음 체크포인트는 논문 원문 조건, 관찰 장비, 수명 개선 소재 적용 여부다."
       ],
       "urls": [
         "https://www.etnews.com/20260508000113",
@@ -1559,7 +1671,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -1580,7 +1692,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -1600,8 +1712,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -1617,7 +1729,26 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-10_KR_03",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_evidence_qc",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "claim_narrowing_existing_evidence",
+        "changed_fields": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-011",
@@ -1630,13 +1761,13 @@
       "cat": "Policy",
       "sub_cat": "배터리락규제",
       "signal": "high",
-      "title": "MIIT, OTA 배터리 용량 제한 민원 관련 NEV 8개사 소환 보도 — ‘배터리 락’ 규제 이슈 부상",
-      "sub": "2026-05-10 — Gasgoo와 중국 매체들은 MIIT가 OTA 업데이트를 통한 배터리 용량 제한 민원 증가와 관련해 8개 NEV 업체를 소환했다고 보도했다.",
-      "gate": "배터리 소프트웨어 업데이트가 주행거리·성능·소비자 권리에 직접 영향을 주면 규제 리스크가 된다. OTA battery locking 이슈는 BMS와 소프트웨어가 배터리 품질·보증의 일부로 평가되는 방향을 보여준다.",
-      "fact": "Gasgoo와 중국 매체 보도에 따르면 중국 MIIT는 OTA 업데이트로 배터리 용량을 몰래 제한했다는 NEV 소비자 민원이 급증하자 8개 업체를 소환해 조사에 착수했다. 보도는 소비자들이 업데이트 이후 주행가능거리 감소와 충전 성능 변화를 제기했다고 설명했다.",
+      "title": "중국 MIIT·SAMR, OTA 배터리 잠금 민원에 NEV 8개사 약담 보도",
+      "sub": "Gasgoo와 중국 매체들은 OTA 업데이트를 통한 배터리 용량 제한 민원 증가와 관련해 MIIT·SAMR이 NEV 업체 8곳을 약담했다고 보도했다.",
+      "gate": "배터리 성능을 소프트웨어로 제한하는 행위는 소비자 신뢰와 규제 리스크로 전환될 수 있다. OTA와 BMS 업데이트가 보편화될수록 배터리 안전관리와 소비자 고지 기준의 경계가 중요해진다.",
+      "fact": "Gasgoo는 NEV 제조사가 OTA 업데이트로 배터리 용량을 제한했다는 소비자 민원이 증가했고 MIIT가 조사에 착수했다고 보도했다. Sina Auto는 CCTV를 인용해 MIIT와 SAMR이 규제 처분 절차를 시작했고 8개 NEV 업체가 약담 대상이 됐다고 전했다. BusinessNews China는 2026년 3월 중국 12315 플랫폼의 OTA 배터리 잠금 관련 민원이 1만2000건을 넘었고 전년 대비 273% 증가했다고 보도했다.",
       "implication": [
-        "배터리 소프트웨어는 하드웨어 성능뿐 아니라 소비자 신뢰·규제 리스크의 영역으로 들어가고 있다.",
-        "다음 체크포인트는 MIIT 공식 조치, 리콜·소프트웨어 수정 명령, 관련 업체 명단 공개다."
+        "배터리 성능 저하 이슈는 셀 품질뿐 아니라 BMS 파라미터, OTA 권한, 사후 설명 책임까지 포함하는 규제 주제가 되고 있다.",
+        "완성차·배터리 공급망은 안전 목적의 소프트웨어 개입과 소비자 고지·동의 기준을 분리해 관리해야 할 가능성이 커졌다."
       ],
       "urls": [
         "https://autonews.gasgoo.com/articles/news/complaints-over-ota-battery-locking-surge-miit-summons-8-nev-makers-2053367976739364865"
@@ -1769,7 +1900,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -1790,7 +1921,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -1810,8 +1941,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -1827,7 +1958,26 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-10_CN_01",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_evidence_qc",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "claim_narrowing_existing_evidence",
+        "changed_fields": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-015",
@@ -1840,13 +1990,13 @@
       "cat": "EV",
       "sub_cat": "JV수출전환",
       "signal": "mid",
-      "title": "Gasgoo: 중국 합작 완성차, 내수에서 수출기지로 전환 — JV bulk exports 확산",
-      "sub": "2026-05-10 — Gasgoo는 중국 내 합작 완성차 공장이 관세 환경 속에서 bulk exports를 시작하며 글로벌 공급거점으로 전환되고 있다고 보도했다.",
-      "gate": "중국 EV·자동차 공급망의 경쟁력은 독자 브랜드만이 아니라 중국 내 JV 생산기지의 수출 전환에서도 나타난다. 다만 특정 수치·전략 해석은 Gasgoo 분석 보도 범위 안에서 제한해야 한다.",
-      "fact": "Gasgoo는 미국과 유럽의 중국 전기차 관세 환경 속에서 중국 내 합작 완성차 업체들이 bulk exports를 시작하고 있다고 보도했다. 보도는 이 흐름이 저가 중국차 자체보다 글로벌 완성차 업체들의 중국 생산기지가 세계 시장을 흔드는 방식이라고 설명했다.",
+      "title": "Gasgoo: 중국 합작 완성차, bulk exports 시작…중국 생산기지의 수출 역할 부각",
+      "sub": "Gasgoo는 미국·유럽의 중국 EV 관세 환경 속에서 중국 내 합작 완성차 업체들이 bulk exports를 시작하고 있다고 보도했다.",
+      "gate": "중국 로컬 브랜드의 수출 공세만이 아니라 다국적 OEM의 중국 생산능력 활용도 관찰해야 한다. 관세가 중국 브랜드를 막더라도 중국 내 생산·부품 생태계가 글로벌 OEM을 통해 해외 공급망에 연결될 수 있다.",
+      "fact": "Gasgoo는 미국과 유럽의 중국 전기차 관세 환경 속에서 중국 내 합작 완성차 업체들이 bulk exports를 시작하고 있다고 보도했다. 보도는 글로벌 자동차 판도를 흔들 수 있는 힘이 단순한 저가 중국차만이 아니라 중국 내 생산기지를 활용하는 구조에서 나올 수 있다고 분석했다.",
       "implication": [
-        "중국 내 JV 생산기지는 글로벌 OEM의 우회 수출·지역 공급망 전략과 연결될 수 있다.",
-        "다음 체크포인트는 실제 선적 대수, 수출 대상국, 관세 회피 논란과 현지 규제 반응이다."
+        "중국발 공급망 영향은 중국 브랜드의 해외 판매량만으로 측정하기 어렵다.",
+        "다국적 OEM의 중국 공장 활용이 늘면 배터리·부품 조달 기준도 중국 내 공급망 효율성과 해외 규제 환경을 함께 반영할 수 있다."
       ],
       "urls": [
         "https://autonews.gasgoo.com/articles/news/joint-venture-automakers-start-bulk-exports-2053361488096546817"
@@ -1950,7 +2100,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -1971,7 +2121,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -1991,8 +2141,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -2008,7 +2158,26 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-10_CN_02",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_evidence_qc",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "claim_narrowing_existing_evidence",
+        "changed_fields": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-010",
@@ -2021,13 +2190,13 @@
       "cat": "PowerGrid",
       "sub_cat": "양수저장지원",
       "signal": "high",
-      "title": "스페인, 양수저장 7개 프로젝트에 1억6,500만유로 지원 — 4.2GW/8GWh 이상",
-      "sub": "2026-05-09 — pv magazine과 스페인 정부 자료는 PRTR 배정안 중 1억6,500만유로가 Boralmac II 양수저장 프로젝트 7건에 배정됐다고 설명한다.",
-      "gate": "장주기 저장은 배터리와 다른 시간대의 전력 유연성을 담당한다. 스페인의 양수저장 지원은 재생에너지 확대 이후 장주기 저장·계통 유연성 확보를 정책자금으로 보완하는 사례다.",
-      "fact": "pv magazine에 따르면 스페인은 PRTR 배정안 6억7,000만유로 중 1억6,500만유로를 Boralmac II 프로그램의 가역식 양수저장 프로젝트 7건에 지원한다. 보도는 해당 프로젝트들이 갈리시아, 아스투리아스, 안달루시아, 엑스트레마두라, 카탈루냐 5개 지역에 분포하며, 4.2GW 이상과 8GWh 이상 저장용량을 대표한다고 설명했다.",
+      "title": "스페인, 양수발전 4.2GW/8GWh에 1억6500만유로 지원…장주기 저장장치 보강",
+      "sub": "스페인은 PRTR 예산 배분 중 Boralmac II 프로그램을 통해 5개 지역 7개 양수발전 프로젝트에 1억6500만유로를 지원하고 4.2GW/8GWh 이상 용량을 추가할 예정이다.",
+      "gate": "ESS를 리튬이온 배터리만으로 보지 말아야 한다는 정책 신호다. 재생에너지 비중이 높아질수록 국가는 단주기 배터리와 장주기 양수발전을 함께 조합해 계통 유연성을 설계한다.",
+      "fact": "PV Magazine Europe은 스페인이 회복·전환·회복력 계획(PRTR) 하에서 6억7000만유로 배분을 확정할 예정이라고 보도했다. 이 중 1억6500만유로는 Boralmac II 프로그램의 7개 양수발전 프로젝트에 배정되며, 5개 지역에서 4.2GW/8GWh 이상의 용량을 추가하는 내용이다.",
       "implication": [
-        "BESS와 양수저장은 서로 다른 duration 포지션으로 전력시장 유연성을 구성한다.",
-        "다음 체크포인트는 최종 배정 확정, 프로젝트별 허가, COD 일정이다."
+        "장주기 저장장치 지원은 리튬이온 BESS와 경쟁하기보다 계통 안정성의 다른 시간축을 보완하는 정책 수단이다.",
+        "배터리 업계는 국가별 저장장치 정책을 볼 때 보조금 규모뿐 아니라 양수·BESS·수요반응이 어떤 역할로 나뉘는지 함께 추적해야 한다."
       ],
       "urls": [
         "https://www.pv-magazine.com/2026/05/09/spain-supports-4-2-gw-8-gwh-of-pumped-hydro-storage-with-e165-million/"
@@ -2144,7 +2313,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -2164,7 +2333,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -2184,8 +2353,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -2201,7 +2370,22 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-09_EU_01",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_content_polish",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "remove_visible_workflow_meta_phrases_only",
+        "changed_fields": [
+          "gate"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-013",
@@ -2214,13 +2398,13 @@
       "cat": "PowerGrid",
       "sub_cat": "칠레태양광BESS",
       "signal": "high",
-      "title": "칠레 3월 태양광 발전 28.7% — 순간비중 75.1%, BESS 2.5GW 운전",
-      "sub": "2026-05-09 — pv magazine은 Generadoras de Chile 자료를 인용해 2026년 3월 칠레 태양광 발전비중과 BESS 확대 현황을 보도했다.",
-      "gate": "칠레는 태양광 비중이 높아질수록 curtailment와 저장장치 필요성이 동시에 커지는 시장이다. 태양광 28.7%·BESS 2.5GW 수치는 재생+저장 구조의 계통 병목을 보여준다.",
-      "fact": "pv magazine에 따르면 2026년 3월 칠레 SEN에서 태양광 발전은 2,141GWh로 월간 총 발전량의 28.7%를 차지했고, 3월 14일 정오에는 순간 태양광 비중이 75.1%에 도달했다. 보도는 칠레 BESS 운전 규모가 2,529MW/8,786MWh이고 건설 중인 BESS가 6,361MW/22,479MWh라고 설명했다. 3월 curtailment는 595.8GWh로 태양광·풍력 발전량의 20%에 해당했다.",
+      "title": "칠레 3월 태양광 발전비중 28.7%…BESS 2.5GW 운영·6.3GW 건설로 계통 혼잡 대응",
+      "sub": "Generadoras de Chile 자료를 인용한 PV Magazine 보도에 따르면, 2026년 3월 칠레 SEN에서 태양광은 월간 발전량의 28.7%를 차지했고 BESS는 2.5GW 이상 운영 중이다.",
+      "gate": "태양광 발전비중 자체보다 태양광 확대가 송전혼잡과 출력제어를 낳고, 그 대응으로 BESS 파이프라인이 커지는 구조가 핵심이다. 재생에너지 침투율이 높아질수록 저장장치 수요는 발전량보다 계통 제약에서 발생한다.",
+      "fact": "PV Magazine은 Generadoras de Chile 자료를 인용해 2026년 3월 칠레 국가전력시스템에서 태양광 발전량이 2141GWh로 월간 발전량의 28.7%를 차지했다고 보도했다. 같은 보도는 태양광 연계 BESS가 2.5GW 이상 운영 중이고 6.3GW가 추가 건설 중이라고 전했다.",
       "implication": [
-        "높은 태양광 비중은 저장장치 없이는 curtailment 비용으로 이어진다.",
-        "다음 체크포인트는 BESS 상업운전 전환, 송전망 혼잡 완화, 야간 가격 스프레드다."
+        "칠레 사례는 태양광 고침투 시장에서 ESS가 선택적 보조설비가 아니라 출력제어와 송전혼잡 완화 수단으로 이동하는 흐름을 보여준다.",
+        "BESS 수요를 전망할 때는 재생에너지 비중뿐 아니라 시간대별 피크, 계통 병목, 건설 중 저장장치 용량을 함께 봐야 한다."
       ],
       "urls": [
         "https://www.pv-magazine.com/2026/05/09/solar-pv-accounted-for-29-of-electricity-generation-in-chile-in-march-with-instantaneous-peaks-reaching-75/",
@@ -2368,7 +2552,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -2389,7 +2573,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -2409,8 +2593,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -2426,7 +2610,22 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-09_GL_01",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_content_polish",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "remove_visible_workflow_meta_phrases_only",
+        "changed_fields": [
+          "gate"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-014",
@@ -2439,13 +2638,13 @@
       "cat": "AI",
       "sub_cat": "데이터센터전력",
       "signal": "high",
-      "title": "ENTSO-E, 데이터센터 전력수요 리포트 — 유연성 없으면 재생에너지 통합 제약 가능성",
-      "sub": "2026-05-08 — ENTSO-E는 데이터센터와 전력시스템 상호작용을 다룬 보고서를 발표하고, grid planning·security·flexibility 대응 필요성을 제시했다.",
-      "gate": "AI 데이터센터는 단순 부하가 아니라 계통 안정성과 재생에너지 통합을 좌우하는 대형 전력 사용자다. 데이터센터를 유연성 자원으로 활용하지 못하면 계통 운영자가 재생에너지 수용을 제한할 수 있다는 점이 핵심이다.",
-      "fact": "ENTSO-E 공식 발표에 따르면 2026년 5월 8일 ‘Data centres and the power system’ 보고서를 발간했다. 발표는 AI와 디지털 서비스 확대로 데이터센터가 유럽 전력시스템에서 중요한 구성요소가 되고 있으며, 그 규모와 전력수요가 커질수록 전력시스템 운영에 영향을 준다고 설명했다. pv magazine은 ENTSO-E가 데이터센터 수요를 제대로 관리하지 못하면 유럽 TSO가 renewable energy penetration을 줄일 수 있다고 경고했다고 보도했다.",
+      "title": "ENTSO-E, 데이터센터 전력수요 경고…유연성 확보 없으면 재생에너지 수용 제약 가능",
+      "sub": "ENTSO-E는 5월 8일 보고서에서 데이터센터가 유럽 전력계통의 중요한 전력 사용자로 커지고 있으며, 계통 지원 역할과 유연성 확보가 필요하다고 밝혔다.",
+      "gate": "AI 전력수요 이슈는 발전량 증가뿐 아니라 계통 운영과 수요 유연성 문제로 이동하고 있다. 데이터센터가 유연성 자원으로 활용되려면 ESS, 수요반응, 전력시장 참여 규칙이 함께 설계돼야 한다.",
+      "fact": "ENTSO-E는 2026년 5월 8일 데이터센터와 전력시스템의 상호작용을 다룬 보고서를 발간했다. 공식 발표는 AI와 디지털 서비스 확대에 따라 데이터센터가 유럽 전력시스템에서 중요한 전력 사용자로 커지고 있으며, 그 규모와 전력수요가 전력시스템 운영에 영향을 준다고 설명했다. pv magazine은 ENTSO-E가 데이터센터 수요를 제대로 관리하지 못하면 유럽 송전계통 운영자가 재생에너지 수용을 줄여야 할 수 있다고 경고했다고 보도했다.",
       "implication": [
-        "데이터센터 부하는 ESS·수요반응·자가발전·PPA 구조와 직접 연결된다.",
-        "다음 체크포인트는 EU Cloud and AI Development Act, connection code 개정, 데이터센터 유연성 시장 참여 규칙이다."
+        "데이터센터 증설은 ESS 수요의 단순 증가 요인이 아니라 계통 유연성 요건과 결합될 때 실제 시장 기회로 전환된다.",
+        "AI 인프라 확산을 배터리 관점에서 보려면 전력수요 규모와 함께 접속 조건, 수요반응, 저장장치 연계 규칙을 추적해야 한다."
       ],
       "urls": [
         "https://www.entsoe.eu/news/2026/05/08/from-energy-demand-to-grid-support-entso-e-explores-data-centres-dual-role/",
@@ -2547,7 +2746,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": false,
       "source_strength_review_route": "clean_pass_to_0_6",
       "source_strength_review_reason": [],
@@ -2557,7 +2756,7 @@
         "allow_to_0_6": true
       },
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -2577,8 +2776,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -2594,7 +2793,26 @@
       "final_qc_notes": "Clean v6 final QC pass.",
       "id": "2026-05-08_EU_01",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_evidence_qc",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "claim_narrowing_existing_evidence",
+        "changed_fields": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ]
+      }
     },
     {
       "draft_id": "DRAFT-B-009",
@@ -2607,13 +2825,13 @@
       "cat": "ESS",
       "sub_cat": "BESS화재시험",
       "signal": "high",
-      "title": "Sunwoda 5MWh 액체냉각 ESS, 대형 화재시험 완료 — 12시간 연소에도 인접 유닛 전이 없음 주장",
-      "sub": "2026-05-08 — Sunwoda는 5MWh Liquid Cooling ESS에 대한 대형 화재시험을 완료했다고 발표했고, pv magazine과 ESS News가 이를 보도했다.",
-      "gate": "BESS 안전성은 셀 단위 인증을 넘어 프로젝트 단위 화재 전이 억제 검증으로 이동하고 있다. 다만 현재 근거는 회사 발표와 전문매체 보도 기반이므로 독립 시험성적서 원문과 인증기관 문서 확인이 다음 단계다.",
-      "fact": "Sunwoda press release에 따르면 회사는 5MWh Liquid Cooling ESS 5개 실물 시스템을 이용해 대형 화재시험을 수행했다. 시험은 ANSI/CAN/UL 9540A:2026 6th Edition과 CSA/ANSI C800:2025에 따라 수행됐고, CSA Group이 실시했으며 Atar Fire의 화재방호 엔지니어가 리뷰했다. 회사는 initiating unit에서 12시간 이상 열폭주와 연소가 발생했지만 화재가 인접 유닛으로 전파되지 않았다고 밝혔다.",
+      "title": "Sunwoda, 5MWh 액체냉각 ESS 대형화재시험 완료…UL 9540A 조건에서 인접 유닛 전이 억제 주장",
+      "sub": "PV Magazine은 Sunwoda가 5MWh 액체냉각 ESS를 대상으로 대형화재시험을 수행했고, 한 유닛의 열폭주가 인접 시스템으로 확산되지 않았다고 보도했다.",
+      "gate": "제품 홍보보다 ESS 공급사들이 대형화재시험 레퍼런스를 경쟁 자산으로 내세우기 시작했다는 신호다. 대형 ESS 시장에서는 에너지밀도보다 열폭주 전이 억제와 독립 시험 조건이 프로젝트 승인·보험·고객 심사의 핵심으로 이동하고 있다.",
+      "fact": "PV Magazine은 Sunwoda가 5MWh 액체냉각 ESS 제품을 대상으로 대형화재시험을 수행했다고 보도했다. 보도에 따르면 시험은 UL 9540A와 CSA C800 기준을 고려해 진행됐고, 한 유닛에서 열폭주와 12시간 이상 지속 연소가 발생했지만 인접 유닛으로 화재가 전파되지 않았다고 회사가 밝혔다.",
       "implication": [
-        "ESS safety claim은 실제 시험조건과 third-party report 원문이 핵심이다.",
-        "다음 체크포인트는 CSA test report 원문, AHJ/보험사 수용성, 프로젝트 적용 사례다."
+        "ESS 안전 경쟁은 단일 셀·모듈 인증을 넘어 실제 배치 조건에 가까운 시스템 단위 화재시험으로 이동하고 있다.",
+        "단, 회사 발표 기반 시험 결과는 시험기관, 배치 간격, 소방장치 비활성화 조건 등을 함께 봐야 하며 상용 프로젝트 안전성으로 곧장 일반화해서는 안 된다."
       ],
       "urls": [
         "https://www.pv-magazine.com/press-releases/sunwoda-completes-large-scale-fire-test-for-5mwh-liquid-cooling-ess/",
@@ -2731,7 +2949,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": true,
       "source_strength_review_route": "recommended_0_5R_source_strength_review",
       "source_strength_review_reason": [
@@ -2752,7 +2970,7 @@
       "source_strength_reviewed_at": "2026-05-11T15:40:00+09:00",
       "supplemental_fact_source_metadata_gap_count_after_0_5R": 0,
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -2772,8 +2990,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -2789,7 +3007,22 @@
       "final_qc_notes": "Clean v6 final QC pass; source-strength caveat retained for downstream visibility.",
       "id": "2026-05-08_CN_01",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_content_polish",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "remove_visible_workflow_meta_phrases_only",
+        "changed_fields": [
+          "gate"
+        ]
+      }
     },
     {
       "id": "2026-05-07_KR_01",
@@ -4225,13 +4458,13 @@
       "cat": "Manufacturing",
       "sub_cat": "희토류자석장비",
       "signal": "high",
-      "title": "ULVAC, 희토류 자석용 진공용해로 일본 생산체계 구축 — 연 12대·2026년 9월 가동 계획",
-      "sub": "2026-05-07 — ULVAC은 희토류 자석용 연속식 진공용해로 수요 증가에 대응해 일본 내 생산체계를 새로 구축한다고 공식 발표했다.",
-      "gate": "희토류 자석은 EV, 풍력, 데이터센터 등 전동화·전력화 산업의 핵심 부품이다. 중국 의존도가 높은 자석 제조 장비 공급망에서 일본 생산체계 구축은 장비 공급망 다변화 신호로 볼 수 있다.",
-      "fact": "ULVAC 공식 발표에 따르면 희토류 자석용 연속식 진공용해로 수주가 유럽·북미 자석 제조사를 중심으로 전년 대비 약 3배로 늘 전망이다. 회사는 중국 기존 생산거점에 더해 일본 생산체계를 구축해 이원 공급구조를 만들 계획이며, 일본 생산능력은 연 최대 12대, 가동은 2026년 9월 예정이라고 밝혔다.",
+      "title": "ULVAC, 희토류 자석용 진공용해로 일본 생산체계 구축…중국 단일 공급 의존도 낮춘다",
+      "sub": "유럽·미국 자석업체 중심 수주가 전기 대비 약 3배로 늘 것으로 보이자, ULVAC은 기존 중국 거점에 일본 생산거점을 더하는 이원 공급 체계를 제시했다.",
+      "gate": "단순 장비 수주가 아니라 희토류 자석 제조장비의 공급망 위치 변화로 읽어야 한다. EV, 풍력, 데이터센터 수요가 희토류 자석 수요를 밀어 올리는 구간에서 장비 공급체계의 지역 분산은 소재 공급망 안정성의 선행 지표가 된다.",
+      "fact": "ULVAC은 희토류 자석용 연속식 진공용해로 수주가 유럽·미국 자석업체를 중심으로 전기 대비 약 3배 확대될 전망이라고 밝혔다. 회사는 이에 대응해 기존 중국 거점에 더해 일본 내 생산체계를 새로 구축하고, 고객에게 복수의 공급 선택지를 제공하겠다는 방침을 제시했다.",
       "implication": [
-        "자석 제조 장비의 지역 다변화는 희토류 공급망 리스크 관리와 연결된다.",
-        "다음 체크포인트는 실제 출하 시작, 유럽·북미 고객 수주, 자석 생산라인 턴키 지원 확대다."
+        "희토류 자석 병목은 원료뿐 아니라 제조장비와 공정 인프라에서도 발생할 수 있어, 장비 공급망의 지역 분산은 배터리·전장 밸류체인의 리스크 지표로 봐야 한다.",
+        "일본 내 생산체계 구축은 중국 밖 조달 옵션을 원하는 유럽·미국 고객에게 장비 납기와 공급 안정성 측면의 대안으로 작동할 수 있다."
       ],
       "urls": [
         "https://www.ulvac.co.jp/en/news/20260507a/index.html",
@@ -4332,7 +4565,7 @@
       "source_claim_coverage_status": "PASS",
       "evidence_completeness_status": "PASS",
       "needs_content_polish": true,
-      "needs_final_qc": false,
+      "needs_final_qc": true,
       "source_strength_review_required": false,
       "source_strength_review_route": "clean_pass_to_0_6",
       "source_strength_review_reason": [],
@@ -4342,7 +4575,7 @@
         "allow_to_0_6": true
       },
       "source_strength_review_passed": true,
-      "previous_state": "content_enriched_and_language_polished",
+      "previous_state": "content_enriched_and_language_polished_after_0_7_return_remediation",
       "pr_candidate_ready": false,
       "content_polish_status": "PASS",
       "content_polish_visible_fields_only": true,
@@ -4362,8 +4595,8 @@
       },
       "github_main_sync_required_later": true,
       "production_id_pending_0_8_assignment": true,
-      "final_qc_status": "publish_ready_pending_github_main_sync",
-      "final_qc_validated_at": "2026-05-11T16:11:50+09:00",
+      "final_qc_status": "publish_ready_pending_github_main_sync_after_return_remediation",
+      "final_qc_validated_at": "2026-05-12T00:00:00+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -4379,7 +4612,22 @@
       "final_qc_notes": "Clean v6 final QC pass.",
       "id": "2026-05-07_JP_01",
       "source_origin": "stage_0_7_publish_ready_local_validation_v6",
-      "merge_status": "single"
+      "merge_status": "single",
+      "return_remediation_metadata": {
+        "stage": "return_remediation_after_prompt_0_7_failure",
+        "run_tag": "20260511_085145",
+        "remediated_at": "2026-05-12T00:00:00+09:00",
+        "original_return_bucket": "needs_return_to_content_polish",
+        "visible_fields_only": true,
+        "fact_sources_preserved": true,
+        "source_quote_preserved": true,
+        "urls_preserved": true,
+        "publish_ready_remains_false": true,
+        "remediation_mode": "remove_visible_workflow_meta_phrases_only",
+        "changed_fields": [
+          "gate"
+        ]
+      }
     },
     {
       "id": "2026-05-06_KR_01",
@@ -33361,7 +33609,16 @@
     "canonicalization_note": "tracking params removed; identity query params retained"
   },
   "source_publish_ready_payload": "publish_ready_payload_PENDING_GITHUB_SYNC_AFTER_0_5R_METADATA_REPAIR_20260507_165621_local_v5_validation_baseline17_0_7.json",
-  "github_main_sync_status": "BLOCKED_GITHUB_MAIN_CONTENT_UNREADABLE",
+  "github_main_sync_status": {
+    "status": "PASS_SHA_VERIFIED_MATERIALIZED_MAIN",
+    "github_connector_sha": "1a3499f8eb2710b655cf5db6ef4d30cbc06fbcdf",
+    "materialized_file": "cards (18).json",
+    "materialized_git_blob_sha": "1a3499f8eb2710b655cf5db6ef4d30cbc06fbcdf",
+    "sha_match": true,
+    "connector_content_direct_readable": false,
+    "content_materialization_method": "local_materialized_file_git_blob_sha_matched_to_github_main_sha",
+    "note": "Connector returned SHA but could not stream large file content; materialized file matches SHA exactly."
+  },
   "github_main_fetch_summary": {
     "repo": "ihyowoen/SBTL_HUB",
     "path": "public/data/cards.json",
@@ -33468,5 +33725,24 @@
     "duplicate_new_ids": [],
     "duplicate_existing_ids": [],
     "exact_url_collisions": []
+  },
+  "merge_prep_20260511_085145_after_return_remediation": {
+    "stage": "Prompt0.8GitHubMergePrep",
+    "run_tag": "20260511_085145",
+    "run_label": "2026-05-11 08:51 KST",
+    "status": "GITHUB_MERGE_PREP_PASS_REPLACE_EXISTING_SAME_RUN_15_PENDING_BRANCH_OR_PR_CREATION",
+    "candidate_publish_ready_count": 15,
+    "current_github_main_count": 684,
+    "candidate_ids_already_in_main_count": 15,
+    "same_run_replacements_count": 15,
+    "new_card_insertions_count": 0,
+    "final_count": 684,
+    "github_modified": false,
+    "pr_created": false,
+    "production_verified": false,
+    "source_final_qc_results": "final_qc_results_AFTER_RETURN_REMEDIATION_PENDING_GITHUB_SYNC_20260511_085145.json",
+    "source_publish_ready_payload": "publish_ready_payload_AFTER_RETURN_REMEDIATION_PENDING_GITHUB_SYNC_20260511_085145.json",
+    "checked_at": "2026-05-12T01:45:00+09:00",
+    "write_boundary": "No GitHub write/branch/PR creation tool available in this session; artifacts prepared only."
   }
 }

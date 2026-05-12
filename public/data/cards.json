@@ -1,16 +1,64 @@
 {
-  "updated": "2026-05-11",
-  "total": 684,
+  "updated": "2026-05-12",
+  "total": 707,
   "schema": "full",
-  "baseline_count": 669,
-  "new_count": 15,
-  "run_tag": "20260511_085145",
-  "merge_status": "github_main_sync_passed_same_run_update_replace_15_pending_branch_or_pr_creation",
-  "sort": "latest-first; date desc; existing same-date order preserved; new cards inserted after existing same-date baseline order; new cards assigned IDs by CARD_ID_STANDARD",
-  "source_baseline_file": "cards_merged_LOCAL_CANDIDATE_PENDING_GITHUB_MAIN_SYNC_20260507_165621_local_v5_validation_baseline17_0_8.json",
-  "source_accepted_file": "publish_ready_payload_PENDING_GITHUB_SYNC_20260511_085145_local_v6_validation_baseline669_0_7.json",
+  "baseline_count": 684,
+  "new_count": 23,
+  "run_tag": "20260512_dnp_v2_diversified_latest_first",
+  "merge_status": "local_candidate_latest_first_sorted_not_github_merged",
+  "sort": "latest-first; date desc; existing same-date baseline order preserved; new DNP cards inserted after existing same-date baseline order; new cards assigned IDs by CARD_ID_STANDARD/date-region sequence against uploaded baseline",
+  "source_baseline_file": "cards (20).json",
+  "source_accepted_file": "cards_payload_20260512_dnp_23cards_v2_diversified.json",
   "stage_c_qc_file": "final_qc_results_20260511_085145_local_v6_validation_baseline669_0_7.json",
   "cards": [
+    {
+      "id": "2026-05-12_JP_01",
+      "region": "JP",
+      "date": "2026-05-12",
+      "cat": "AI",
+      "sub_cat": "생성AI 보안",
+      "signal": "high",
+      "title": "DNP, Folta와 생성AI 보안 제휴 — Shadow AI를 기업 보안 과제로 전면화",
+      "sub": "DNP가 Folta에 출자하고 브라우저 기반 생성AI 이용 통제·감시 기술을 결합해 Shadow AI 대응 서비스를 공동 전개한다.",
+      "gate": "생성AI 도입의 병목은 모델 성능보다 정보유출 통제다 — DNP는 인쇄·BPO 보안 역량을 AI 거버넌스 시장으로 확장한다.",
+      "fact": "DNP·Folta 발표와 Microsoft Edge 보안 블로그에 따르면, DNP는 2026년 4월 24일 Folta에 출자해 자본업무제휴를 체결했고, Folta의 브라우저 기반 생성AI 이용 제어·감시 기술을 결합해 Shadow AI 대응 서비스를 공동 전개한다.",
+      "implication": [
+        "기업의 생성AI 활용이 확산될수록 미승인 AI 사용과 기밀정보 입력을 막는 보안 레이어 수요가 커진다.",
+        "DNP의 정보보안 사업은 카드·BPO 중심에서 AI 이용관리와 보안운영 서비스로 확장될 수 있다."
+      ],
+      "urls": [
+        "https://prtimes.jp/main/html/rd/p/000000998.000069194.html",
+        "https://prtimes.jp/main/html/rd/p/000000036.000139309.html",
+        "https://blogs.windows.com/msedgedev/2026/03/23/protect-your-enterprise-from-shadow-ai-and-more-announcements-at-rsac-2026/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP가 2026년 4월 24일 Folta에 출자하고 자본업무제휴를 체결했다.",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000998.000069194.html",
+          "source_quote": "2026年4月24日に株式会社Foltaに出資し、資本業務提携",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Folta는 브라우저 기반 생성AI 제어·감시 서비스를 2026년 4월 1일 제공하기 시작했다.",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000036.000139309.html",
+          "source_quote": "2026年4月1日より提供開始",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "기업 AI 보안에서 브라우저가 Shadow AI 통제 지점으로 부상하고 있다.",
+          "source_url": "https://blogs.windows.com/msedgedev/2026/03/23/protect-your-enterprise-from-shadow-ai-and-more-announcements-at-rsac-2026/",
+          "source_quote": "protect your enterprise from shadow AI",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-05-12_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-05-12_JP_01"
+      }
+    },
     {
       "draft_id": "DRAFT-B-001",
       "source_spec_id": "SA-V6-20260511_085145-001",
@@ -17912,6 +17960,61 @@
       }
     },
     {
+      "id": "2026-04-28_JP_04",
+      "region": "JP",
+      "date": "2026-04-28",
+      "cat": "Other",
+      "sub_cat": "건설 인프라",
+      "signal": "mid",
+      "title": "DNP Pattern Light, 국토교통성 NETIS 추천기술 선정 — 도로 공사 표식의 디지털화",
+      "sub": "DNP의 G-Scrite 기반 Pattern Light가 2026년도 NETIS 추천기술로 선정됐다.",
+      "gate": "건설 현장의 저효율 작업도 광학·표시 기술로 대체된다 — DNP 소재 기술이 인프라 안전·시공 DX로 확장되는 사례다.",
+      "fact": "DNP 발표와 제품 페이지·Response.jp 보도에 따르면, DNP의 Pattern Light G-Scrite 공법은 국토교통성 NETIS 추천기술에 선정됐고, 작업지시에 필요한 선·화살표 등을 장거리로 투사해 현장 공정을 줄이는 인프라 기술로 소개됐다.",
+      "implication": [
+        "도로 작업에서 테이프·스프레이·임시 표식 공정을 줄이고 야간·원거리 시인성을 높일 수 있다.",
+        "DNP의 광학 패턴 제어 기술은 자동차·디스플레이뿐 아니라 공공 인프라 안전 솔루션으로도 응용된다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20178180_1587.html",
+        "https://response.jp/article/2026/05/01/410834.html",
+        "https://www.dnp.co.jp/biz/products/detail/20172754_4986.html",
+        "https://digital-construction.jp/tool/3449"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "Pattern Light G-Scrite 공법은 국토교통성 NETIS 추천기술에 선정됐다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20178180_1587.html",
+          "source_quote": "「令和8年度推奨技術」に選定",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Response.jp는 이 기술이 약 100m 앞까지 선·화살표 등을 투사한다고 보도했다.",
+          "source_url": "https://response.jp/article/2026/05/01/410834.html",
+          "source_quote": "約100m先まで鮮明に投影",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "DNP 제품 페이지는 NETIS 등록번호 HK-240021-VE와 비용·공정 절감 효과를 제시한다.",
+          "source_url": "https://www.dnp.co.jp/biz/products/detail/20172754_4986.html",
+          "source_quote": "NETIS登録番号：HK-240021-VE",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Digital Construction은 Pattern Light를 건설현장용 ICT/NETIS 도구로 분류한다.",
+          "source_url": "https://digital-construction.jp/tool/3449",
+          "source_quote": "NETIS登録番号：HK-240021-VE",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-04-28_JP_01",
+        "baseline_existing_max_for_date_region": 3,
+        "assigned_id": "2026-04-28_JP_04"
+      }
+    },
+    {
       "id": "2026-04-27_CN_01",
       "region": "CN",
       "date": "2026-04-27",
@@ -23734,6 +23837,54 @@
       ]
     },
     {
+      "id": "2026-04-23_CN_04",
+      "region": "CN",
+      "date": "2026-04-23",
+      "cat": "EV",
+      "sub_cat": "자동차 내장재",
+      "signal": "high",
+      "title": "DNP, 디스플레이 대응 장식 필름 양산 — 차량 내장재가 스크린 인터페이스로 진화",
+      "sub": "DNP가 2026년 4월부터 자동차 내장용 디스플레이 대응 장식 필름을 양산하고 중국 시장에 우선 공급한다.",
+      "gate": "자동차 내장은 목재·패턴 장식재에서 디스플레이와 결합한 HMI 표면으로 바뀌고 있다 — DNP가 모빌리티 소재의 고부가 영역을 잡는다.",
+      "fact": "DNP 글로벌 발표와 PR 배포·Business Wire 전재 보도에 따르면, DNP는 자동차 디스플레이용 장식 필름의 양산을 2026년 4월 시작했고, 초기 공급지는 중국이며 향후 유럽·일본·미국·한국·인도 등으로 확대할 계획이다.",
+      "implication": [
+        "차량 실내가 생활공간·정보공간으로 바뀌면서 내장재는 단순 장식이 아니라 표시 품질과 HMI 경험을 좌우하는 부품이 된다.",
+        "중국 선공급은 전장 디스플레이 채택이 빠른 시장에서 양산 레퍼런스를 확보하려는 전략으로 볼 수 있다."
+      ],
+      "urls": [
+        "https://www.global.dnp/en/news/detail/2026/04/02/",
+        "https://prtimes.jp/main/html/rd/p/000000993.000069194.html",
+        "https://finance.yahoo.com/sectors/technology/articles/dnp-launches-mass-production-decorative-013900966.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 자동차 디스플레이용 장식 필름 양산을 2026년 4월 시작했다.",
+          "source_url": "https://www.global.dnp/en/news/detail/2026/04/02/",
+          "source_quote": "began mass production in April 2026",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "PR Times 배포본도 중국 선공급과 글로벌 확대 계획을 담고 있다.",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000993.000069194.html",
+          "source_quote": "中国市場から導入し、欧州・日本・米国・韓国・インドなど",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Yahoo Finance 전재 보도는 이 필름이 고급 디자인과 표시 시인성을 결합한다고 설명했다.",
+          "source_url": "https://finance.yahoo.com/sectors/technology/articles/dnp-launches-mass-production-decorative-013900966.html",
+          "source_quote": "combining premium design with high-visibility imaging",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-04-23_CN_01",
+        "baseline_existing_max_for_date_region": 3,
+        "assigned_id": "2026-04-23_CN_04"
+      }
+    },
+    {
       "id": "2026-04-22_KR_01",
       "region": "KR",
       "date": "2026-04-22",
@@ -27563,6 +27714,54 @@
       ]
     },
     {
+      "id": "2026-04-16_JP_01",
+      "region": "JP",
+      "date": "2026-04-16",
+      "cat": "Materials",
+      "sub_cat": "의료 포장소재",
+      "signal": "mid",
+      "title": "DNP, 모노머티리얼 의료용 멸균 포장재 개발 — 의료 포장도 재활용 규제 대응",
+      "sub": "DNP가 폴리에틸렌계 소재 90중량% 이상으로 구성한 의료기기용 모노머티리얼 멸균 포장재 샘플 제공을 시작했다.",
+      "gate": "의료 포장은 안전성이 우선이지만 규제는 재활용성을 요구한다 — 멸균·개봉 기능을 유지한 단일소재화가 핵심이다.",
+      "fact": "DNP 글로벌 발표와 CEFLEX 설계 가이드라인에 따르면, DNP는 폴리에틸렌 비중을 90wt% 이상으로 높인 모노머티리얼 의료용 멸균 포장 파우치를 개발했고, 플렉시블 포장 재활용성은 mono-PE·mono-PP 설계가 선호되는 구조다.",
+      "implication": [
+        "EU PPWR 등 포장재 재활용 규제가 의료기기 포장에도 영향을 주면서, 멸균성과 재활용성을 동시에 만족시키는 소재가 필요해진다.",
+        "의료 포장은 진입장벽이 높아 소재 검증을 통과하면 장기 고객 락인 가능성이 커진다."
+      ],
+      "urls": [
+        "https://www.global.dnp/en/news/detail/2026/04/011/",
+        "https://guidelines.ceflex.eu/guidelines/design-choices/",
+        "https://guidelines.ceflex.eu/guidelines/design-principles/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 90wt% 이상이 PE로 구성된 의료기기용 멸균 포장 파우치를 개발했다.",
+          "source_url": "https://www.global.dnp/en/news/detail/2026/04/011/",
+          "source_quote": "polyethylene content of more than 90 wt%",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "CEFLEX는 PE 포장에는 mono-PE 설계를 선호하는 선택지로 제시한다.",
+          "source_url": "https://guidelines.ceflex.eu/guidelines/design-choices/",
+          "source_quote": "Mono PE",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "CEFLEX 설계 원칙은 플렉시블 포장의 재활용 가능 설계를 강조한다.",
+          "source_url": "https://guidelines.ceflex.eu/guidelines/design-principles/",
+          "source_quote": "design for a circular economy",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-04-16_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-04-16_JP_01"
+      }
+    },
+    {
       "id": "2026-04-15_CN_01",
       "region": "CN",
       "date": "2026-04-15",
@@ -28476,6 +28675,61 @@
       ],
       "week": "W7",
       "related": []
+    },
+    {
+      "id": "2026-04-14_JP_01",
+      "region": "JP",
+      "date": "2026-04-14",
+      "cat": "Policy",
+      "sub_cat": "본인확인 규제",
+      "signal": "mid",
+      "title": "DNP, 범죄수익이전방지법 개정 대응 본인확인 앱 — IC칩 인증이 표준화된다",
+      "sub": "DNP가 2027년 4월 예정 법 개정에 맞춰 스마트폰 기반 IC칩 본인확인 앱을 2026년 8월 제공한다.",
+      "gate": "온라인 본인확인은 이미지 업로드에서 IC칩 기반 인증으로 이동한다 — 금융·부동산·귀금속 거래의 KYC 비용 구조가 바뀐다.",
+      "fact": "DNP 발표와 PR 배포·일본 언론 보도에 따르면, DNP는 범죄수익이전방지법 개정 대응용 스마트폰 본인확인 앱을 개발했고, 일본은 2027년 4월부터 온라인 계좌 개설 등에서 IC칩 기반 본인확인을 요구하는 방향으로 전환한다.",
+      "implication": [
+        "KYC 규제가 강화되면 금융기관뿐 아니라 부동산·귀금속·고가 거래 사업자의 디지털 본인확인 수요가 늘어난다.",
+        "DNP의 IC카드·정보보안 역량은 규제 대응 SaaS/앱 형태로 확장될 수 있다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20178070_1587.html",
+        "https://prtimes.jp/main/html/rd/p/000000990.000069194.html",
+        "https://www.japantimes.co.jp/news/2025/06/20/japan/crime-legal/personal-identification-ic-chip/",
+        "https://www.finbridge.jp/article/article-11923/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 IC칩 기반 온라인 본인확인 앱을 2026년 8월 제공할 계획이다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20178070_1587.html",
+          "source_quote": "2026年8月より提供を開始",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "PR Times 배포본은 2027년 4월 1일 예정 법 개정 대응 목적을 설명한다.",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000990.000069194.html",
+          "source_quote": "2027年4月1日に予定されている改正",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Japan Times/Jiji는 일본이 2027년 4월부터 IC칩 기반 본인확인을 요구한다고 보도했다.",
+          "source_url": "https://www.japantimes.co.jp/news/2025/06/20/japan/crime-legal/personal-identification-ic-chip/",
+          "source_quote": "requiring IC chip-based identity verification",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "FinBridge는 DNP 앱이 AML 법 개정 대응 서비스라고 정리했다.",
+          "source_url": "https://www.finbridge.jp/article/article-11923/",
+          "source_quote": "犯罪収益移転防止法改正に対応",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-04-14_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-04-14_JP_01"
+      }
     },
     {
       "id": "2026-04-13_US_03",
@@ -30814,6 +31068,102 @@
       "related": []
     },
     {
+      "id": "2026-03-23_GL_01",
+      "region": "GL",
+      "date": "2026-03-23",
+      "cat": "EV",
+      "sub_cat": "무선급전 R&D",
+      "signal": "high",
+      "title": "DNP, IIT Hyderabad에 해외 2호 R&D 거점 — EV 무선급전·의약 합성을 인도에서 개발",
+      "sub": "DNP가 IIT Hyderabad Technology Research Park에 연구거점을 열고 EV 무선급전과 의약원약 합성 루트 개발을 초기 테마로 잡았다.",
+      "gate": "인도 거점은 단순 영업망이 아니라 기술 현지화의 시험장이다 — 모빌리티와 의료를 동시에 겨냥한 중장기 옵션이다.",
+      "fact": "DNP 글로벌 발표와 JICA 발표·IIT Hyderabad Technology Research Park 설명에 따르면, DNP는 IIT Hyderabad 내에 해외 두 번째 R&D 거점을 세우고 EV 무선급전과 의약원약 합성 루트 개발을 핵심 연구 테마로 삼았다.",
+      "implication": [
+        "EV 인프라와 제약 제조는 인도 내수와 글로벌 남반구 시장 확장성을 동시에 가진 영역이다.",
+        "DNP는 네덜란드 CPO 거점에 이어 인도 거점을 통해 지역별 기술 파이프라인을 분산 구축하고 있다."
+      ],
+      "urls": [
+        "https://www.global.dnp/en/news/detail/2026/03/05/",
+        "https://www.jica.go.jp/english/overseas/india/information/press/2026/1580950_70871.html",
+        "https://trp.iith.ac.in/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 IIT Hyderabad에 해외 두 번째 R&D 거점을 설립한다고 발표했다.",
+          "source_url": "https://www.global.dnp/en/news/detail/2026/03/05/",
+          "source_quote": "second overseas R&D base at IIT Hyderabad",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "JICA는 2026년 4월 27일 DNP IIT Hyderabad 거점 개소식이 열렸다고 밝혔다.",
+          "source_url": "https://www.jica.go.jp/english/overseas/india/information/press/2026/1580950_70871.html",
+          "source_quote": "opening ceremony was held on April 27, 2026",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "IIT Hyderabad Technology Research Park는 산학협력을 위한 플랫폼으로 소개된다.",
+          "source_url": "https://trp.iith.ac.in/",
+          "source_quote": "Industry and Academia Collaboration",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-03-23_GL_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-03-23_GL_01"
+      }
+    },
+    {
+      "id": "2026-03-23_JP_01",
+      "region": "JP",
+      "date": "2026-03-23",
+      "cat": "AI",
+      "sub_cat": "기업 AI",
+      "signal": "high",
+      "title": "DNP, Oracle Autonomous AI Database 연계 솔루션 — 사내 문서를 업무 AI 데이터로 전환",
+      "sub": "DNP가 문서 구조화 AI와 Oracle Autonomous AI Database를 결합한 기업용 AI 챗봇·에이전트 솔루션을 시작했다.",
+      "gate": "기업 AI의 승부는 모델보다 데이터 연결이다 — DNP는 문서 구조화 기술을 Oracle DB와 결합해 업무 데이터 레이어로 진입한다.",
+      "fact": "DNP 발표와 Oracle Japan 발표에 따르면, DNP는 문서구조화 AI 서비스에 Oracle Autonomous AI Database를 연계해 사내 문서와 업무 데이터를 AI 챗봇·에이전트에 활용하는 솔루션을 강화한다.",
+      "implication": [
+        "기업의 비정형 문서가 구조화되면 AI 도입은 검색 보조를 넘어 업무 의사결정·자동화로 확장된다.",
+        "DNP는 인쇄·문서처리 기반 BPO 역량을 AI 데이터 인프라 사업으로 전환하려 한다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20178056_1587.html",
+        "https://www.oracle.com/jp/news/announcement/dai-nippon-printing-embraces-oracle-autonomous-ai-database-2026-03-23/",
+        "https://www.oracle.com/database/autonomous-database/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 Oracle Autonomous AI Database와 연계한 AI 솔루션을 발표했다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20178056_1587.html",
+          "source_quote": "Oracle Autonomous AI Databaseと連携",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Oracle Japan은 DNP가 생성AI 서비스 강화를 위해 Autonomous AI Database를 채택했다고 밝혔다.",
+          "source_url": "https://www.oracle.com/jp/news/announcement/dai-nippon-printing-embraces-oracle-autonomous-ai-database-2026-03-23/",
+          "source_quote": "Dai Nippon Printing embraces Oracle Autonomous AI Database",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Oracle은 Autonomous AI Database가 벡터 검색과 AI 기능을 제공한다고 설명한다.",
+          "source_url": "https://www.oracle.com/database/autonomous-database/",
+          "source_quote": "Autonomous AI Database",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-03-23_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-03-23_JP_01"
+      }
+    },
+    {
       "id": "R6_07",
       "region": "KR",
       "date": "2026-03-22",
@@ -31729,6 +32079,54 @@
       "related": []
     },
     {
+      "id": "2026-03-19_JP_01",
+      "region": "JP",
+      "date": "2026-03-19",
+      "cat": "Materials",
+      "sub_cat": "의료 포장소재",
+      "signal": "mid",
+      "title": "DNP Izumizaki, ISCC PLUS 인증 — Tyvek 기반 의료용 멸균 포장 확대",
+      "sub": "DNP가 Izumizaki 공장에서 ISCC PLUS 인증을 취득하고 DuPont Tyvek Renewable Attribution 원료를 활용한 의료용 멸균 포장을 전개한다.",
+      "gate": "의료 포장도 탄소·순환경제 인증이 구매 조건으로 들어온다 — DNP는 멸균 안정성과 환경 대응을 함께 제시한다.",
+      "fact": "DNP 글로벌 발표와 DuPont·Olympus 자료에 따르면, DNP는 Izumizaki 공장에서 ISCC PLUS 인증을 취득하고 Tyvek with Renewable Attribution을 활용한 의료기기 멸균 포장을 제공하며, Olympus는 2026년부터 100개 이상 일회용 의료기기 카테고리에 적용을 추진한다.",
+      "implication": [
+        "의료기기 포장재에서 지속가능 원료 인증은 글로벌 고객사의 조달 요건으로 중요해질 수 있다.",
+        "Olympus 적용 사례는 의료 포장 소재의 품질·인증 레퍼런스로 작동한다."
+      ],
+      "urls": [
+        "https://www.global.dnp/en/news/detail/2026/03/06/",
+        "https://www.dupont.com/packaging-materials-and-solutions/tyvek-with-renewable-attribution.html",
+        "https://www.olympus-global.com/news/2025/nr02905.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP Izumizaki 공장은 2026년 3월 ISCC PLUS 인증을 취득했다.",
+          "source_url": "https://www.global.dnp/en/news/detail/2026/03/06/",
+          "source_quote": "Izumizaki Plant Obtains ISCC PLUS Certification",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "DuPont은 Tyvek with Renewable Attribution이 ISCC PLUS 인증 mass balance 접근을 쓴다고 설명한다.",
+          "source_url": "https://www.dupont.com/packaging-materials-and-solutions/tyvek-with-renewable-attribution.html",
+          "source_quote": "ISCC PLUS certified",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Olympus는 2026년부터 100개 이상 일회용 의료기기 카테고리 포장에 Tyvek RA를 도입한다고 밝혔다.",
+          "source_url": "https://www.olympus-global.com/news/2025/nr02905.html",
+          "source_quote": "more than 100 categories of single-use medical devices",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-03-19_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-03-19_JP_01"
+      }
+    },
+    {
       "id": "KR03",
       "region": "KR",
       "date": "2026-03-18",
@@ -32322,6 +32720,47 @@
       "related": []
     },
     {
+      "id": "2026-03-18_JP_01",
+      "region": "JP",
+      "date": "2026-03-18",
+      "cat": "Other",
+      "sub_cat": "의료 사업개발",
+      "signal": "mid",
+      "title": "DNP, Medtec Japan 첫 출전 — 의료 포장·BCP 물류를 한 번에 제안",
+      "sub": "DNP가 Medtec Japan 2026에 처음 참가해 멸균 포장, 흡수성 포장, 친환경 포장, 의료 물류 아웃소싱을 전시한다.",
+      "gate": "DNP의 의료 전략은 포장 소재 단품이 아니라 제조사 대상 패키지형 제안이다 — 소재·물류·환경 대응을 묶는다.",
+      "fact": "DNP 발표와 Medtec Japan 2026 공식 출전사 목록에 따르면, DNP는 Medtec Japan 2026에 처음 출전해 의료기기·제약기업 대상 멸균 포장, BCP 물류, 환경 대응 패키징을 전시했다.",
+      "implication": [
+        "의료기기 고객은 포장 소재뿐 아니라 보관·출하·BCP 대응까지 통합 솔루션을 요구한다.",
+        "Medtec 출전은 DNP가 의료·헬스케어 사업을 B2B 영업 캠페인으로 전면화하는 신호다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20178034_1587.html?from=rss",
+        "https://www.medtecjapanreg.com/exh2026/exhibitor_list.cgi?lang=en"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 Medtec Japan 2026에 처음 출전한다고 발표했다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20178034_1587.html?from=rss",
+          "source_quote": "「Medtec Japan 2026」に初出展",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Medtec Japan 2026 공식 출전사 목록에는 Dai Nippon Printing Co., Ltd.와 부스 1014가 표시된다.",
+          "source_url": "https://www.medtecjapanreg.com/exh2026/exhibitor_list.cgi?lang=en",
+          "source_quote": "Dai Nippon Printing Co., Ltd.",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-03-18_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-03-18_JP_01"
+      }
+    },
+    {
       "id": "GL02_INT",
       "region": "US",
       "date": "2026-03-17",
@@ -32852,6 +33291,61 @@
       "related": []
     },
     {
+      "id": "2026-03-17_JP_01",
+      "region": "JP",
+      "date": "2026-03-17",
+      "cat": "Other",
+      "sub_cat": "포트폴리오 전환",
+      "signal": "top",
+      "title": "DNP, 2026~2028 중기계획 — 인쇄에서 반도체·모빌리티·보안 중심으로 재편",
+      "sub": "DNP가 2028년도 영업이익 1,300억 엔과 ROE 9.0%를 제시하며 집중사업 확대와 포트폴리오 전환을 핵심 전략으로 내세웠다.",
+      "gate": "이 카드는 개별 뉴스의 상위 프레임이다 — TGV, EUV, 자동차 필름, AI 보안, 의료 포장은 모두 DNP 포트폴리오 전환의 하위 축이다.",
+      "fact": "DNP IR 자료와 JapanIR·Yahoo Finance 전재 보도에 따르면, DNP는 2026–2028년 중기경영계획에서 2028년도 영업이익 1,300억 엔, ROE 9%를 목표로 제시하고 정보보안·이미징·모빌리티·반도체 등 집중사업군을 전면화했다.",
+      "implication": [
+        "DNP를 전통 인쇄회사로만 보면 반도체 후공정 소재, EUV 포토마스크, 자동차 HMI 소재, AI 보안 사업의 의미를 놓친다.",
+        "개별 신제품 뉴스는 단발 이벤트가 아니라 수익성·성장성 높은 사업으로 자본을 재배치하는 전략의 증거다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/ir/library/presentation/pdf/dnp_20260317pre.pdf",
+        "https://www.global.dnp/content/dam/dnp-global/pdf/en/ir/library/presentation/dnp_e_20260317pre.pdf",
+        "https://japanir.jp/en/company/company-7912/ir/7912-20260317-01_wp_business_update/",
+        "https://finance.yahoo.co.jp/news/detail/125552376a9f2ef21e8294395ed7b913fbc33a3a"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP의 2026–2028 중기경영계획은 2028년도 영업이익 1,300억 엔 목표를 제시한다.",
+          "source_url": "https://www.dnp.co.jp/ir/library/presentation/pdf/dnp_20260317pre.pdf",
+          "source_quote": "2028年度 営業利益 1,300億円",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "DNP 영문 IR 자료도 FY2028 ROE 9.0% 목표를 제시한다.",
+          "source_url": "https://www.global.dnp/content/dam/dnp-global/pdf/en/ir/library/presentation/dnp_e_20260317pre.pdf",
+          "source_quote": "FY2028 ROE 9.0%",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "JapanIR은 DNP의 2026–2028 중기경영계획과 FY2028 영업이익·ROE 목표를 요약했다.",
+          "source_url": "https://japanir.jp/en/company/company-7912/ir/7912-20260317-01_wp_business_update/",
+          "source_quote": "Operating income of 130 billion yen",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Yahoo Finance 전재 보도도 영업이익 1,300억 엔 목표를 보도했다.",
+          "source_url": "https://finance.yahoo.co.jp/news/detail/125552376a9f2ef21e8294395ed7b913fbc33a3a",
+          "source_quote": "営業利益は1300億円",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-03-17_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-03-17_JP_01"
+      }
+    },
+    {
       "id": "GL14",
       "region": "US",
       "date": "2026-03-16",
@@ -33150,6 +33644,164 @@
       "related": []
     },
     {
+      "id": "2026-03-16_JP_01",
+      "region": "JP",
+      "date": "2026-03-16",
+      "cat": "SupplyChain",
+      "sub_cat": "의약품 물류",
+      "signal": "mid",
+      "title": "DNP Logistics, OTC 의약품 EC·물류 BPO 진입 — 판매허가 기반 원스톱 체계",
+      "sub": "DNP Logistics가 Itabashi 센터에서 일반용의약품 판매업 허가를 취득하고 OTC 의약품 보관·세트·배송·판매를 원스톱 제공한다.",
+      "gate": "의약품 EC는 물류만으로는 부족하고 판매허가와 운영 품질이 필요하다 — DNP가 규제형 물류 BPO로 확장한다.",
+      "fact": "DNP 발표와 물류·EC 전문매체 보도에 따르면, DNP Logistics는 Itabashi 물류거점에서 일반용의약품 판매업 허가를 취득하고 OTC 의약품 통신판매·물류 BPO를 원스톱으로 제공하기 시작했다.",
+      "implication": [
+        "의약품 통신판매 확대는 규제 대응 물류와 판매 운영을 동시에 처리할 수 있는 BPO 수요를 만든다.",
+        "DNP의 포장·물류·BPO 사업이 의료·헬스케어 밸류체인 안으로 더 깊게 들어간다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20178018_1587.html?from=rss",
+        "https://prtimes.jp/main/html/rd/p/000000973.000069194.html",
+        "https://online.logi-biz.com/141275/",
+        "https://www.bci.co.jp/netkeizai/article/19247"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP Logistics는 일반용의약품 판매업 허가를 취득했다고 발표했다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20178018_1587.html?from=rss",
+          "source_quote": "一般用医薬品販売業許可を取得",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "PR Times 배포본은 OTC 의약품 EC·물류 BPO 제공을 설명한다.",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000973.000069194.html",
+          "source_quote": "医薬品EC・物流BPOサービス",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "LOGI-BIZ는 보관·세트 작업·배송·판매까지 원스톱 제공한다고 보도했다.",
+          "source_url": "https://online.logi-biz.com/141275/",
+          "source_quote": "ワンストップで提供",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "日本ネット経済新聞은 DNP Logistics의 통신판매 사업 개시를 전했다.",
+          "source_url": "https://www.bci.co.jp/netkeizai/article/19247",
+          "source_quote": "一般用医薬品の販売業許可を取得",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-03-16_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-03-16_JP_01"
+      }
+    },
+    {
+      "id": "2026-03-05_JP_01",
+      "region": "JP",
+      "date": "2026-03-05",
+      "cat": "Policy",
+      "sub_cat": "포장 CFP",
+      "signal": "mid",
+      "title": "DNP·TOPPAN 등, 플라스틱 포장 CFP 산정 룰 정비 — 포장재 탄소 데이터 표준화",
+      "sub": "DNP, ZACROS, Toyo Seikan, TOPPAN 등이 환경성 모델사업에서 플라스틱 용기포장 CFP 산정 룰과 해설서를 마련했다.",
+      "gate": "포장재 탄소발자국은 기업별 계산에서 산업 공통 룰로 이동한다 — 소재 선택과 고객 제안의 기준이 바뀐다.",
+      "fact": "DNP·TOPPAN·Toyo Seikan 발표와 환경성 자료에 따르면, 플라스틱 용기포장 CFP 산정 룰 정비는 환경성 모델사업의 일환으로 여러 포장 기업이 참여해 포장재 탄소발자국 산정의 공통 기반을 만드는 작업이다.",
+      "implication": [
+        "CFP 산정 룰이 정비되면 포장재 조달에서 가격·성능뿐 아니라 탄소 데이터 비교 가능성이 커진다.",
+        "DNP의 포장재 사업은 소재 개발뿐 아니라 탄소 산정·규제 대응 컨설팅과 연결될 수 있다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20177995_1587.html",
+        "https://www.holdings.toppan.com/ja/news/2026/newsrelease260305_1.html",
+        "https://www.toyo-seikan.co.jp/news/20260305_4018/",
+        "https://www.env.go.jp/earth/ondanka/supply_chain/gvc/cfp_calculation_02.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 플라스틱 용기포장 CFP 산정 룰 정비에 참여했다고 발표했다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20177995_1587.html",
+          "source_quote": "プラスチック容器包装のCFP算定ルール整備",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "TOPPAN도 같은 모델사업 참여와 산정 룰 정비를 발표했다.",
+          "source_url": "https://www.holdings.toppan.com/ja/news/2026/newsrelease260305_1.html",
+          "source_quote": "CFP算定ルール整備",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Toyo Seikan 역시 플라스틱 용기포장 CFP 산정 룰 정비 참여를 공표했다.",
+          "source_url": "https://www.toyo-seikan.co.jp/news/20260305_4018/",
+          "source_quote": "環境省モデル事業",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "환경성은 CFP 산정·표시 및 배출삭감 관련 모델사업 정보를 제공한다.",
+          "source_url": "https://www.env.go.jp/earth/ondanka/supply_chain/gvc/cfp_calculation_02.html",
+          "source_quote": "カーボンフットプリント",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-03-05_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-03-05_JP_01"
+      }
+    },
+    {
+      "id": "2026-02-27_JP_01",
+      "region": "JP",
+      "date": "2026-02-27",
+      "cat": "Manufacturing",
+      "sub_cat": "EUV 포토마스크",
+      "signal": "top",
+      "title": "DNP, Rapidus에 출자 — 2nm 이후 EUV 포토마스크 공급망에 올라탄다",
+      "sub": "DNP가 Rapidus에 출자하며 2nm 이후 첨단 로직 반도체 양산을 EUV 포토마스크로 지원한다.",
+      "gate": "TGV가 후공정 패키징 축이라면 Rapidus 출자는 전공정 EUV 포토마스크 축이다 — DNP의 반도체 포트폴리오가 양쪽으로 넓어진다.",
+      "fact": "DNP 글로벌 발표와 Nasdaq 전재 보도에 따르면, DNP는 Rapidus에 출자해 2nm 세대 이후 첨단 로직 반도체 양산 체제 구축을 지원하고, EUV 포토마스크 공급 역량을 통해 전공정 생태계에 참여한다.",
+      "implication": [
+        "Rapidus의 2nm 양산 생태계에는 장비뿐 아니라 포토마스크 같은 핵심 공정 인프라가 필요하다.",
+        "DNP는 전통 인쇄·미세가공 기술을 첨단 반도체 제조 인프라로 전환하는 플레이어가 된다."
+      ],
+      "urls": [
+        "https://www.global.dnp/en/news/detail/2026/02/0227_20177963/",
+        "https://www.nasdaq.com/press-release/dnp-invests-rapidus-support-establishment-mass-production-next-generation",
+        "https://www.global.dnp/ja/news/detail/2026/02/0227_20177963/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 Rapidus에 투자해 차세대 반도체 양산 체제 구축을 지원한다고 밝혔다.",
+          "source_url": "https://www.global.dnp/en/news/detail/2026/02/0227_20177963/",
+          "source_quote": "DNP Invests in Rapidus",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Nasdaq 전재 보도는 DNP의 Rapidus 투자와 2nm 이후 양산 지원을 보도했다.",
+          "source_url": "https://www.nasdaq.com/press-release/dnp-invests-rapidus-support-establishment-mass-production-next-generation",
+          "source_quote": "mass production of next-generation semiconductors",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "DNP 일본어 발표는 EUV 포토마스크와 Rapidus 양산 지원 맥락을 제시한다.",
+          "source_url": "https://www.global.dnp/ja/news/detail/2026/02/0227_20177963/",
+          "source_quote": "EUVフォトマスク",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-02-27_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-02-27_JP_01"
+      }
+    },
+    {
       "id": "2026-02-23_GL_01",
       "region": "GL",
       "date": "2026-02-23",
@@ -33202,6 +33854,535 @@
           "quote": "USD-denominated 25-year Power Purchase Agreement ... backed by a sovereign guarantee"
         }
       ]
+    },
+    {
+      "id": "2026-02-06_JP_01",
+      "region": "JP",
+      "date": "2026-02-06",
+      "cat": "Other",
+      "sub_cat": "결제 보안",
+      "signal": "mid",
+      "title": "DNP·JCB, 지문인증 IC카드 실증 — 카드 결제 보안이 생체인증으로 이동",
+      "sub": "JCB와 DNP가 지문인증 IC카드 상용화를 위한 PoC를 시작했다.",
+      "gate": "카드 보안은 비밀번호와 단말 인증을 넘어 카드 내부 생체인증으로 진화한다 — DNP의 IC카드 제조 역량이 다시 부각된다.",
+      "fact": "DNP·JCB 발표와 ITmedia·Mynavi 보도에 따르면, DNP와 JCB는 지문인증 IC카드의 상용화를 목표로 실증실험을 시작했으며, 카드 자체에서 지문 인증을 수행해 결제 보안을 높이는 구조를 시험한다.",
+      "implication": [
+        "생체인증 카드가 상용화되면 분실·도난 결제 리스크를 낮추면서 기존 결제 인프라 변경 부담을 줄일 수 있다.",
+        "DNP는 카드 제조·발급·개인화 역량을 차세대 결제 보안 레이어로 확장할 수 있다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20177859_1587.html",
+        "https://prtimes.jp/main/html/rd/p/000001331.000011361.html",
+        "https://www.itmedia.co.jp/news/articles/2602/06/news100.html",
+        "https://news.mynavi.jp/article/20260206-4087631/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP와 JCB는 지문인증 IC카드 실증실험을 시작했다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20177859_1587.html",
+          "source_quote": "指紋認証機能付きICカードの実証実験",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "JCB의 PR Times 배포본도 DNP와의 지문인증 IC카드 실증을 공표했다.",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000001331.000011361.html",
+          "source_quote": "指紋認証機能付きICカードの実証実験",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "ITmedia는 카드 내 인증으로 결제 보안을 높이는 실증이라고 보도했다.",
+          "source_url": "https://www.itmedia.co.jp/news/articles/2602/06/news100.html",
+          "source_quote": "指紋認証機能付きICカード",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Mynavi도 DNP와 JCB의 상용화 목표 실증을 전했다.",
+          "source_url": "https://news.mynavi.jp/article/20260206-4087631/",
+          "source_quote": "商用化を目指す",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-02-06_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-02-06_JP_01"
+      }
+    },
+    {
+      "id": "2026-02-04_GL_01",
+      "region": "GL",
+      "date": "2026-02-04",
+      "cat": "SupplyChain",
+      "sub_cat": "인도 거점",
+      "signal": "high",
+      "title": "DNP, 인도 현지법인 2개 설립 — 아시아·아프리카 확장의 전초기지",
+      "sub": "DNP가 New Delhi에 2개 법인을 설립하고 2026년 3월부터 인도 내 사업 활동을 시작한다.",
+      "gate": "인도는 단일 시장이 아니라 아시아·아프리카 확장 허브다 — DNP의 연구거점과 영업거점이 같은 방향을 향한다.",
+      "fact": "DNP 발표과 Printing Journal 보도·DNP Photo Europe 공지에 따르면, DNP는 New Delhi에 DNP CORPORATION INDIA PRIVATE LIMITED와 DNP IMAGINGCOMM INDIA PRIVATE LIMITED를 세우고 2026년 3월부터 인도 사업을 시작해 아시아·아프리카 확대 거점으로 삼는다.",
+      "implication": [
+        "IIT Hyderabad R&D 거점은 영업·마케팅 법인 설립과 함께 봐야 하는 현지화 전략이다.",
+        "자동차·반도체·의료·포장 등 DNP 성장영역은 인도 제조업 확대와 직접 연결된다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20177876_1587.html",
+        "https://www.global.dnp/news/detail/20177874_4126.html",
+        "https://www.pjl.co.jp/news/major/2026/02/19626.html",
+        "https://www.dnpphoto.eu/en/about-us/news/item/855-dnp-subsidiaries-india"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 인도 New Delhi에 두 현지 법인을 설립한다고 발표했다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20177876_1587.html",
+          "source_quote": "インドに2社の現地法人を設立",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "DNP 글로벌 발표는 두 법인이 2026년 3월 1일부터 사업을 시작한다고 밝혔다.",
+          "source_url": "https://www.global.dnp/news/detail/20177874_4126.html",
+          "source_quote": "business operations on March 1, 2026",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Printing Journal은 DNP의 인도 2법인 신설과 아시아·아프리카 사업 거점화를 보도했다.",
+          "source_url": "https://www.pjl.co.jp/news/major/2026/02/19626.html",
+          "source_quote": "インドに2法人新設",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "DNP Photo Europe도 사진 관련 인도 법인의 역할과 2026년 3월 사업 개시를 공지했다.",
+          "source_url": "https://www.dnpphoto.eu/en/about-us/news/item/855-dnp-subsidiaries-india",
+          "source_quote": "commence business operations on March 1, 2026",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-02-04_GL_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-02-04_GL_01"
+      }
+    },
+    {
+      "id": "2026-02-02_JP_01",
+      "region": "JP",
+      "date": "2026-02-02",
+      "cat": "EV",
+      "sub_cat": "스마트 글라스",
+      "signal": "mid",
+      "title": "DNP 전자 쉐이드, SHOEI 헬멧 적용 — 조광 필름이 모빌리티 인터페이스로 확장",
+      "sub": "DNP의 1초 이내 조광 전자 쉐이드가 SHOEI의 e:DRYLENS에 적용됐다.",
+      "gate": "조광 기술은 선루프와 창문만의 문제가 아니다 — 헬멧·차량 유리·EV 글라스까지 이동 경험을 바꾸는 소재가 된다.",
+      "fact": "DNP 발표와 SHOEI 제품 페이지·바이크 전문매체 보도에 따르면, DNP의 전자 쉐이드는 SHOEI 헬멧용 e:DRYLENS에 적용돼 1초 이내 조광, 저헤이즈, 저전압 구동을 특징으로 내세운다.",
+      "implication": [
+        "전자 쉐이드는 안전·시야·쾌적성을 동시에 다루는 모빌리티용 기능성 소재로 확장될 수 있다.",
+        "DNP는 헬멧 적용을 레퍼런스로 삼아 EV·자동차 유리용 샘플과 양산 기회를 노릴 수 있다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20177867_1587.html",
+        "https://www.shoei.com/products/parts/shield/edrylens.html",
+        "https://www.8190.jp/bikelifelab/news/bikenews/new-bike-parts/2025/12/shoei/e-drylens/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 전자 쉐이드가 SHOEI e:DRYLENS에 적용됐다고 발표했다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20177867_1587.html",
+          "source_quote": "SHOEIのヘルメット用シールド「e:DRYLENS」",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "SHOEI 제품 페이지는 e:DRYLENS를 헬멧용 전자 조광 실드로 소개한다.",
+          "source_url": "https://www.shoei.com/products/parts/shield/edrylens.html",
+          "source_quote": "e:DRYLENS",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Bike Life Lab은 SHOEI e:DRYLENS의 출시와 조광 기능을 보도했다.",
+          "source_url": "https://www.8190.jp/bikelifelab/news/bikenews/new-bike-parts/2025/12/shoei/e-drylens/",
+          "source_quote": "電子調光シールド",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-02-02_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-02-02_JP_01"
+      }
+    },
+    {
+      "id": "2026-01-16_US_01",
+      "region": "US",
+      "date": "2026-01-16",
+      "cat": "Materials",
+      "sub_cat": "CO2 유래 소재",
+      "signal": "mid",
+      "title": "DNP, 미국 RenewCO2에 출자 — CO2를 소재·연료 원료로 바꾸는 전극 기술 확보",
+      "sub": "DNP가 CO2와 물을 화학품·연료 원료로 전환하는 미국 RenewCO2에 출자하고 전극 개발·양산을 지원한다.",
+      "gate": "탄소중립 소재는 배출 저감에서 CO2 활용으로 이동한다 — DNP는 전극·소재 제조 역량을 기후소재 옵션으로 연결한다.",
+      "fact": "DNP 글로벌 발표와 RenewCO2·투자사·전문매체 자료에 따르면, DNP는 CO₂와 물을 원료로 화학품·연료 전환을 겨냥하는 미국 RenewCO2에 투자하고 환경비전 2050과 연계한 차세대 소재 개발 협력을 추진한다.",
+      "implication": [
+        "CO2 유래 MEG·SAF·개미산 등은 포장재와 연료 밸류체인 모두에 연결될 수 있는 장기 소재 옵션이다.",
+        "DNP의 환경비전은 포장재 재활용뿐 아니라 CO2 활용 소재 개발까지 확장된다."
+      ],
+      "urls": [
+        "https://www.global.dnp/en/news/detail/2026/01/0116_20177817/",
+        "https://www.renewco2.com/news-features",
+        "https://energytransitionventures.com/dnp-invests-in-renewco2/",
+        "https://sgforum.impress.co.jp/article/5751"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 미국 RenewCO2에 전략적 투자를 했다고 발표했다.",
+          "source_url": "https://www.global.dnp/en/news/detail/2026/01/0116_20177817/",
+          "source_quote": "DNP Invests in US-based RenewCO2",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "RenewCO2는 DNP의 전략적 투자와 협력을 자사 뉴스에서 언급했다.",
+          "source_url": "https://www.renewco2.com/news-features",
+          "source_quote": "DNP Strategic Investment",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Energy Transition Ventures도 DNP의 RenewCO2 투자를 공지했다.",
+          "source_url": "https://energytransitionventures.com/dnp-invests-in-renewco2/",
+          "source_quote": "DNP Invests in RenewCO2",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "SmartGrid Forum은 DNP가 CO₂ 유래 소재 개발을 겨냥한다고 보도했다.",
+          "source_url": "https://sgforum.impress.co.jp/article/5751",
+          "source_quote": "CO2由来の次世代素材",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2026-01-16_US_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2026-01-16_US_01"
+      }
+    },
+    {
+      "id": "2025-12-16_JP_01",
+      "region": "JP",
+      "date": "2025-12-16",
+      "cat": "Manufacturing",
+      "sub_cat": "반도체 패키징",
+      "signal": "top",
+      "title": "DNP, TGV 유리코어 기판 파일럿라인 — AI 패키징용 차세대 코어 소재",
+      "sub": "DNP가 Kuki 공장에 TGV 유리코어 기판 파일럿라인을 신설하고 2025년 12월부터 순차 가동한다.",
+      "gate": "AI·칩렛 패키징은 기판 평탄도와 미세배선 한계가 병목이다 — DNP는 유리코어로 후공정 소재 포지션을 잡는다.",
+      "fact": "DNP 글로벌 발표와 TrendForce·Printing Journal 보도에 따르면, DNP는 Kuki 공장에 TGV 유리코어 기판 파일럿라인을 신설해 2025년 12월 순차 가동, 2026년 초 샘플 제공, 2028년도 양산 체제를 목표로 한다.",
+      "implication": [
+        "TGV 유리코어는 FC-BGA와 칩렛 패키지에서 유기기판의 휨·평탄도 한계를 보완하는 차세대 후보 소재다.",
+        "단기 뉴스의 핵심은 매출보다 고객 인증, 샘플 평가, 수율 개선, 2028년도 양산 투자 로드맵이다."
+      ],
+      "urls": [
+        "https://www.global.dnp/en/news/detail/2025/12/1216_20177773/",
+        "https://www.trendforce.com/news/2025/12/22/news-dnp-accelerates-tgv-glass-substrate-push-with-late-2025-pilot-line-early-2026-sample-shipments/",
+        "https://www.pjl.co.jp/news/major/2025/12/19430.html",
+        "https://www.neg.co.jp/en/news/20250522-1.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 Kuki 공장에 TGV 유리코어 기판 파일럿라인을 설치했다.",
+          "source_url": "https://www.global.dnp/en/news/detail/2025/12/1216_20177773/",
+          "source_quote": "new TGV Glass Core Substrate Pilot Line",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "TrendForce는 DNP가 2025년 말 파일럿라인과 2026년 초 샘플 출하를 추진한다고 보도했다.",
+          "source_url": "https://www.trendforce.com/news/2025/12/22/news-dnp-accelerates-tgv-glass-substrate-push-with-late-2025-pilot-line-early-2026-sample-shipments/",
+          "source_quote": "late-2025 pilot line, early-2026 sample shipments",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Printing Journal도 Kuki 공장 파일럿라인과 2028년도 양산 목표를 보도했다.",
+          "source_url": "https://www.pjl.co.jp/news/major/2025/12/19430.html",
+          "source_quote": "2028年度の量産体制構築",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Nippon Electric Glass는 510×515mm급 TGV 유리코어 기판 샘플 제공을 발표해 유리기판 생태계 확장을 보여준다.",
+          "source_url": "https://www.neg.co.jp/en/news/20250522-1.html",
+          "source_quote": "510 mm x 515 mm",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2025-12-16_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2025-12-16_JP_01"
+      }
+    },
+    {
+      "id": "2025-12-09_JP_01",
+      "region": "JP",
+      "date": "2025-12-09",
+      "cat": "Manufacturing",
+      "sub_cat": "나노임프린트",
+      "signal": "top",
+      "title": "DNP, 10nm NIL 템플릿 개발 — 1.4nm 로직 세대까지 겨냥한 미세가공 카드",
+      "sub": "DNP가 10nm 회로선폭의 나노임프린트 리소그래피용 템플릿을 개발하고 1.4nm급 로직 반도체 대응을 제시했다.",
+      "gate": "EUV만이 미세화의 답은 아니다 — DNP는 NIL 템플릿으로 저전력·저비용 패터닝 대안을 반도체 제조 생태계에 제안한다.",
+      "fact": "DNP 발표와 IBS Electronics·Tom's Hardware 보도에 따르면, DNP는 10nm 회로선폭 구현을 겨냥한 나노임프린트 리소그래피용 템플릿을 개발했고, 1.4nm 세대 로직 반도체 대응과 2027년 양산 목표를 내세운다.",
+      "implication": [
+        "NIL은 EUV 대비 공정 전력과 비용을 낮출 수 있는 대안으로 논의되며, 템플릿 품질이 핵심 병목이다.",
+        "DNP의 미세패턴·원판 제조 역량은 포토마스크뿐 아니라 차세대 리소그래피 부품으로 확장된다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20177717_1587.html?from=rss",
+        "https://www.global.dnp/ko/news/detail/20177718_4126.html",
+        "https://www.ibselectronics.com/resources/news/dnp%E2%80%99s-10nm-nanoimprint-template-signals-a-new-path-beyond-euv-for-advanced-logic/",
+        "https://www.tomshardware.com/tech-industry/semiconductors/japans-dnp-targets-2027-mass-production-of-1-4nm-nanoimprint-templates"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 10nm 회로선폭 나노임프린트용 템플릿을 개발했다고 발표했다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20177717_1587.html?from=rss",
+          "source_quote": "10nmの回路線幅",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "DNP 글로벌 페이지는 1.4nm 세대 로직 반도체 대응을 언급한다.",
+          "source_url": "https://www.global.dnp/ko/news/detail/20177718_4126.html",
+          "source_quote": "1.4nm 세대 로직 반도체",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "IBS Electronics는 DNP 템플릿이 EUV 이후 대안 경로로 주목받는다고 분석했다.",
+          "source_url": "https://www.ibselectronics.com/resources/news/dnp%E2%80%99s-10nm-nanoimprint-template-signals-a-new-path-beyond-euv-for-advanced-logic/",
+          "source_quote": "new path beyond EUV",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Tom's Hardware는 DNP가 2027년 1.4nm NIL 템플릿 양산을 목표로 한다고 보도했다.",
+          "source_url": "https://www.tomshardware.com/tech-industry/semiconductors/japans-dnp-targets-2027-mass-production-of-1-4nm-nanoimprint-templates",
+          "source_quote": "targets 2027 mass production",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2025-12-09_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2025-12-09_JP_01"
+      }
+    },
+    {
+      "id": "2025-11-17_JP_01",
+      "region": "JP",
+      "date": "2025-11-17",
+      "cat": "EV",
+      "sub_cat": "자율주행 AI",
+      "signal": "high",
+      "title": "DNP, Turing과 완전자율주행 제휴 — 보안·가상공간 기술을 Level 5 AI로 연결",
+      "sub": "DNP가 Turing과 자본업무제휴를 맺고 Level 5 자율주행을 위한 데이터 학습·제품·서비스 개발을 추진한다.",
+      "gate": "자율주행 경쟁은 차량 AI만이 아니라 데이터 수집, 보안, 가상 검증 환경까지 포함한다 — DNP가 주변 인프라 역할을 노린다.",
+      "fact": "DNP 발표와 PR 배포·AMP 보도에 따르면, DNP는 Turing과 완전자율주행 AI 개발을 겨냥한 자본업무제휴를 맺고, 보안 정보처리와 가상공간 기술을 Level 5 자율주행 개발에 연결한다.",
+      "implication": [
+        "DNP의 보안 정보처리와 가상공간 기술은 자율주행 AI의 데이터 관리·시뮬레이션·HMI 영역에 적용될 수 있다.",
+        "Turing 제휴는 DNP 모빌리티 사업이 내장재·필름을 넘어 소프트웨어·AI 주변부로 확장되는 신호다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20177583_1587.html",
+        "https://prtimes.jp/main/html/rd/p/000000927.000069194.html",
+        "https://ampmedia.jp/2025/11/17/dnp-turing/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 Turing과 자본업무제휴를 체결했다고 발표했다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20177583_1587.html",
+          "source_quote": "Turing株式会社と資本業務提携",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "PR Times 배포본은 Level 5 완전자율주행 AI 개발을 협력 목표로 설명한다.",
+          "source_url": "https://prtimes.jp/main/html/rd/p/000000927.000069194.html",
+          "source_quote": "レベル5完全自動運転AI",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "AMP는 DNP와 Turing의 제휴가 완전자율주행 기술 개발을 겨냥한다고 보도했다.",
+          "source_url": "https://ampmedia.jp/2025/11/17/dnp-turing/",
+          "source_quote": "完全自動運転AI開発",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2025-11-17_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2025-11-17_JP_01"
+      }
+    },
+    {
+      "id": "2025-07-11_EU_01",
+      "region": "EU",
+      "date": "2025-07-11",
+      "cat": "AI",
+      "sub_cat": "광전융합",
+      "signal": "high",
+      "title": "DNP, Eindhoven에 해외 첫 R&D 거점 — Co-Packaged Optics로 AI 데이터센터 병목 겨냥",
+      "sub": "DNP가 네덜란드 High Tech Campus Eindhoven에 해외 첫 연구개발 거점을 열고 CPO·광전융합 기술을 개발한다.",
+      "gate": "AI 인프라 병목은 전력과 데이터 전송이다 — DNP는 CPO 연구로 데이터센터 하드웨어 소재·패키징 영역에 진입한다.",
+      "fact": "DNP 글로벌 발표와 TNO·Optics.org·Evertiq 보도에 따르면, DNP는 네덜란드 Eindhoven에 첫 해외 R&D 거점을 열고 Co-Packaged Optics와 광전융합 기술 개발을 유럽 연구 생태계와 연결한다.",
+      "implication": [
+        "CPO는 AI 데이터센터의 고속·저전력 데이터 전송 병목을 풀기 위한 핵심 하드웨어 테마다.",
+        "네덜란드 거점은 IIT Hyderabad 거점의 선행 사례로, DNP가 해외 R&D 네트워크를 본격화했음을 보여준다."
+      ],
+      "urls": [
+        "https://www.global.dnp/news/detail/20176969_4126.html",
+        "https://www.tno.nl/en/newsroom/2025/07/japanese-dnp-opens-dutch-hub/",
+        "https://optics.org/dcs/news/16/7/22",
+        "https://evertiq.com/design/2025-08-07-dnp-to-open-first-overseas-rd-centre-in-the-netherlands"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 Eindhoven에 첫 해외 R&D 거점을 설립한다고 발표했다.",
+          "source_url": "https://www.global.dnp/news/detail/20176969_4126.html",
+          "source_quote": "first overseas R&D base in Eindhoven",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "TNO는 DNP의 네덜란드 허브 개설과 협력 맥락을 소개했다.",
+          "source_url": "https://www.tno.nl/en/newsroom/2025/07/japanese-dnp-opens-dutch-hub/",
+          "source_quote": "Japanese DNP opens Dutch hub",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Optics.org는 DNP가 Co-Packaged Optics 연구개발을 위해 Eindhoven에 거점을 연다고 보도했다.",
+          "source_url": "https://optics.org/dcs/news/16/7/22",
+          "source_quote": "co-packaged optics",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Evertiq는 이 거점이 DNP의 첫 해외 R&D 센터라고 보도했다.",
+          "source_url": "https://evertiq.com/design/2025-08-07-dnp-to-open-first-overseas-rd-centre-in-the-netherlands",
+          "source_quote": "first overseas R&D centre",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2025-07-11_EU_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2025-07-11_EU_01"
+      }
+    },
+    {
+      "id": "2025-02-25_JP_01",
+      "region": "JP",
+      "date": "2025-02-25",
+      "cat": "Other",
+      "sub_cat": "수소 안전센서",
+      "signal": "mid",
+      "title": "DNP·요코하마국립대, RFID 수소검지 시스템 — 무전원 센서로 수소 누출 리스크 감지",
+      "sub": "DNP와 요코하마국립대가 수소검지막과 RFID를 결합한 전원 없는 수소 누출 감지 시스템을 개발했다.",
+      "gate": "수소 인프라는 생산보다 안전 감지가 병목이 될 수 있다 — 무전원 RFID 센서는 점화 리스크를 낮추는 현장형 해법이다.",
+      "fact": "DNP 글로벌 발표와 MONOist·Printing Journal 보도에 따르면, DNP와 Yokohama National University는 수소 누출 감지를 겨냥한 RFID 기반 검지 시스템을 개발해 수소 인프라 안전 모니터링용 센서 기술을 확장했다.",
+      "implication": [
+        "수소 스테이션·배관·플랜트가 늘어날수록 저전력·무전원·플렉시블 센서 수요가 커진다.",
+        "DNP의 RFID·필름 제조 역량은 에너지 인프라 안전 센서로도 확장된다."
+      ],
+      "urls": [
+        "https://www.global.dnp/news/detail/20177032_4126.html",
+        "https://monoist.itmedia.co.jp/mn/articles/2502/26/news066.html",
+        "https://www.pjl.co.jp/news/major/2025/02/18596.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP와 Yokohama National University는 RFID 기반 수소 검지 시스템을 개발했다.",
+          "source_url": "https://www.global.dnp/news/detail/20177032_4126.html",
+          "source_quote": "RFID Hydrogen Detection System",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "MONOist는 이 시스템이 수소 누출을 무선으로 검지하는 기술이라고 보도했다.",
+          "source_url": "https://monoist.itmedia.co.jp/mn/articles/2502/26/news066.html",
+          "source_quote": "水素漏れを無線で検知",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Printing Journal도 DNP와 Yokohama National University의 수소 검지 시스템 개발을 전했다.",
+          "source_url": "https://www.pjl.co.jp/news/major/2025/02/18596.html",
+          "source_quote": "水素検知システムを開発",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2025-02-25_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2025-02-25_JP_01"
+      }
+    },
+    {
+      "id": "2025-02-03_JP_01",
+      "region": "JP",
+      "date": "2025-02-03",
+      "cat": "Battery",
+      "sub_cat": "배터리 파우치",
+      "signal": "mid",
+      "title": "DNP, Resonac Packaging 인수 — 배터리 파우치와 고기능 포장재 역량 강화",
+      "sub": "DNP가 Resonac Packaging 주식 전량을 취득하고 회사명을 DNP High-Function Materials Hikone로 변경했다.",
+      "gate": "배터리 소재 경쟁은 셀 안쪽만이 아니다 — 파우치와 고기능 포장재도 EV 밸류체인의 핵심 부품이다.",
+      "fact": "DNP 발표와 Resonac 거래 보도·M&A 데이터·DNP 미국 증설 발표에 따르면, DNP는 Resonac Packaging을 인수해 배터리 파우치 사업을 강화했고, 기존 글로벌 배터리 파우치 상위 점유 기반 위에 생산·고객 접점을 넓혔다.",
+      "implication": [
+        "배터리 파우치는 전고체·파우치형 셀·차세대 패키징에서 안전성과 신뢰성을 좌우하는 외장 소재다.",
+        "인수는 DNP의 산업용 고기능재 사업을 배터리 밸류체인 쪽으로 강화하는 구조적 배경이다."
+      ],
+      "urls": [
+        "https://www.dnp.co.jp/news/detail/20176311_1587.html",
+        "https://ctiweb.co.jp/con/en/resonac-transfers-shares-in-its-subsidiary-handling-secondary-battery-packaging-materials-and-food-packaging-materials",
+        "https://www.nihon-ma.co.jp/news/20250203_7912-20/",
+        "https://www.global.dnp/en/news/detail/2023/11/1129_20170089/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "claim": "DNP는 Resonac Packaging 인수를 발표하며 배터리 파우치 사업 강화를 설명했다.",
+          "source_url": "https://www.dnp.co.jp/news/detail/20176311_1587.html",
+          "source_quote": "レゾナック・パッケージング株式会社の株式取得",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Converting Technical Institute는 Resonac이 해당 자회사 주식을 DNP에 양도했다고 보도했다.",
+          "source_url": "https://ctiweb.co.jp/con/en/resonac-transfers-shares-in-its-subsidiary-handling-secondary-battery-packaging-materials-and-food-packaging-materials",
+          "source_quote": "transfers shares in its subsidiary",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "Nihon M&A Center는 DNP의 Resonac Packaging 주식 취득 거래를 정리했다.",
+          "source_url": "https://www.nihon-ma.co.jp/news/20250203_7912-20/",
+          "source_quote": "株式を取得",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        },
+        {
+          "claim": "DNP는 2023년 미국 배터리 파우치 생산 사이트 발표에서 자사 배터리 파우치의 글로벌 점유 기반을 강조했다.",
+          "source_url": "https://www.global.dnp/en/news/detail/2023/11/1129_20170089/",
+          "source_quote": "top global share",
+          "fetched_at": "2026-05-12T00:00:00+09:00"
+        }
+      ],
+      "baseline_id_assignment": {
+        "basis": "cards (20).json baseline; date+region sequence continues after existing max sequence",
+        "previous_id": "2025-02-03_JP_01",
+        "baseline_existing_max_for_date_region": 0,
+        "assigned_id": "2025-02-03_JP_01"
+      }
     }
   ],
   "merge_qc": {
@@ -33756,5 +34937,28 @@
     "source_publish_ready_payload": "publish_ready_payload_AFTER_RETURN_REMEDIATION_PENDING_GITHUB_SYNC_20260511_085145.json",
     "checked_at": "2026-05-12T01:45:00+09:00",
     "write_boundary": "No GitHub write/branch/PR creation tool available in this session; artifacts prepared only."
+  },
+  "dnp_v2_merge_metadata": {
+    "added_count": 23,
+    "id_changes_count": 2,
+    "id_changes": [
+      {
+        "title": "DNP Pattern Light, 국토교통성 NETIS 추천기술 선정 — 도로 공사 표식의 디지털화",
+        "date": "2026-04-28",
+        "region": "JP",
+        "old_id": "2026-04-28_JP_01",
+        "new_id": "2026-04-28_JP_04",
+        "baseline_existing_max": 3
+      },
+      {
+        "title": "DNP, 디스플레이 대응 장식 필름 양산 — 차량 내장재가 스크린 인터페이스로 진화",
+        "date": "2026-04-23",
+        "region": "CN",
+        "old_id": "2026-04-23_CN_01",
+        "new_id": "2026-04-23_CN_04",
+        "baseline_existing_max": 3
+      }
+    ],
+    "claim_url_diversity_note": "DNP v2 diversified payload retained; URLs and fact_sources preserved during sorting/merge."
   }
 }

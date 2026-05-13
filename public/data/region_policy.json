@@ -1,7 +1,7 @@
 {
   "_meta": {
     "purpose": "권역별 정책 hero 데이터 — App.jsx 트래커 모달 + lib/chat/common.js 챗봇 응답 공용 source of truth",
-    "lastUpdated": "2026-05-03T16:30:00+09:00",
+    "lastUpdated": "2026-05-13T20:00:00+09:00",
     "appliedTo": ["App.jsx Tracker hero modal", "lib/chat/common.js REGION_POLICY (fallback)"]
   },
   "NA": {
@@ -9,35 +9,38 @@
     "title": "미국 정책",
     "policies": [
       { "name": "IRA / OBBBA (PFE)", "desc": "IRA §45X·§45Y·§48E 제조·투자 세액공제 — 2025.07.04 One Big Beautiful Bill Act(OBBBA) 발효로 FEOC가 PFE(Prohibited Foreign Entity)/MACR(Material Assistance Cost Ratio) 체제로 강화됐습니다. 2026.02.12 IRS Notice 2026-15 interim guidance가 발표됐고, Treasury safe harbor 테이블이 2026.12.31까지 확정될 예정입니다. 비중국 캐소드 공급망이 K-배터리 차별화 핵심입니다." },
-      { "name": "관세 / Section 301", "desc": "2026.02 SCOTUS IEEPA 위헌 판결 후 Section 122(10%, ~2026.07.24 만료)로 대체됐습니다. 2026.01.14 Critical Minerals Proclamation 11001 발표·180일 협상이 진행 중이며, 2026.04.02 Section 232 metals overhaul Proclamation(4.06 시행)로 알루미늄·강·구리 구조가 근본 변경돼 다층 관세가 형성됩니다." },
-      { "name": "제조 인센티브", "desc": "45X 첨단제조 크레딧은 미국 내 셀·모듈·광물 가공 투자의 핵심 유인입니다. U.S.-Japan(2026.03)·U.S.-Mexico Critical Minerals Action Plan으로 plurilateral 가격하한 시도가 더해졌습니다." },
-      { "name": "ESS / 전력", "desc": "standalone ESS 세액공제와 분산자원 시장참여 확대가 수요를 견인합니다." }
+      { "name": "관세 / Section 301", "desc": "2026.02 SCOTUS IEEPA 위헌 판결 후 Section 122(10%, ~2026.07.24 만료)로 대체됐으나, 2026.05.07 CIT 2-1 판결로 Section 122 위헌 + 영구 injunction(원고 한정)이 나왔습니다. Federal Circuit 항소·USTR Section 301 forced labor 60국·excess capacity 조사가 7.24 만료 전 대체관세 부과 트랙으로 진행 중입니다. 2026.01.14 Critical Minerals Proclamation 11001 + 180일 협상(~7.13), 2026.04.06 Section 232 metals overhaul(알루미늄·강·구리) 다층 관세 구조가 형성됩니다." },
+      { "name": "제조 인센티브", "desc": "45X 첨단제조 크레딧은 미국 내 셀·모듈·광물 가공 투자의 핵심 유인입니다. U.S.-Japan(2026.03)·U.S.-Mexico Critical Minerals Action Plan으로 plurilateral 가격하한 시도가 더해졌고, 한국이 FORGE 의장국(~2026.06)으로 plurilateral 설계에 참여합니다." },
+      { "name": "ESS / 전력 + 국방조달", "desc": "standalone ESS 세액공제와 분산자원 시장참여 확대가 수요를 견인합니다. NDAA Section 805 1260H List(CATL 포함) DoD 직접 조달 금지가 2026.06.30 시행되며, K-배터리 3사가 'virtually the only alternative'로 부상합니다(CSIS 4.27)." }
     ],
     "why": "미국은 보조금과 규제가 동시에 작동합니다. OBBBA 이후 PFE/MACR 준수 여부가 시장 접근 자체를 결정합니다.",
     "watchpoints": [
-      "Treasury safe harbor 테이블 확정 (2026.12.31)",
-      "Section 232 critical minerals 180일 협상 마감 (2026.07.13)",
-      "USMCA 6년 검토 결정 (2026.07.01) — clean extension 난항",
-      "Section 122 만료 (2026.07.24) 후속 조치",
-      "Critical Minerals plurilateral price floor 운용"
+      "NDAA Section 805 1260H DoD 직접 조달 금지 시행 (2026.06.30, D-48)",
+      "§30C EV 충전 인프라 세액공제 종료 (2026.06.30, D-48)",
+      "USMCA 6년 검토 결정 (2026.07.01, D-49) — clean extension 난항",
+      "풍·태양광 착공 기한 + BESS 면제 분기 (2026.07.04, D-52)",
+      "Section 232 critical minerals 180일 협상 마감 (2026.07.13, D-61)",
+      "Section 122 만료 + Federal Circuit 항소 진행 (2026.07.24, D-72)",
+      "Treasury safe harbor 테이블 확정 (2026.12.31)"
     ]
   },
   "EU": {
     "flag": "🇪🇺",
     "title": "유럽 정책",
     "policies": [
-      { "name": "Battery Regulation", "desc": "배터리 여권, 탄소발자국, 재활용률 의무가 단계적으로 강화됩니다. Article 11 분리·교체 의무 면제 위임행위가 2026.04.28 EU Commission 의견수렴에 진입했고, Black mass 비OECD 수출금지가 2026.11.09 mandatory로 적용됩니다." },
-      { "name": "산업·금융", "desc": "Industrial Accelerator Act(IAA, 2026.03 발표)는 2025.12 Auto Package 4 components(CO2 표준 review·€1.8B Battery Booster·Automotive Omnibus·Clean Corporate Vehicles Regulation)와 연동돼 Made-in-EU 배터리 요건을 패키지로 묶습니다. stakeholder feedback이 2026.05.08까지 진행 중이며, 정식 채택은 mid-late 2027 전망입니다." },
+      { "name": "Battery Regulation", "desc": "배터리 여권, 탄소발자국, 재활용률 의무가 단계적으로 강화됩니다. Article 11 분리·교체 의무 면제 위임행위가 2026.04.28 EU Commission 의견수렴에 진입(마감 2026.05.26)했고, EV CF maximum threshold + 재생원료 회수율 methodology 위임행위 채택 기한이 2026.08.18로 다가옵니다. Black mass 비OECD 수출금지는 2026.11.09 mandatory 적용됩니다." },
+      { "name": "산업·금융", "desc": "Industrial Accelerator Act(IAA, 2026.03 발표)는 2025.12 Auto Package 4 components(CO2 표준 review·€1.8B Battery Booster·Automotive Omnibus·Clean Corporate Vehicles Regulation)와 연동돼 Made-in-EU 배터리 요건을 패키지로 묶습니다. stakeholder feedback이 2026.05.08 종료됐고, EP rapporteur 임명·ITRE/IMCO/INTA Joint Committee 절차 진행 중이며, 정식 채택은 mid-late 2027 전망입니다." },
       { "name": "CRM Act / RESourceEU", "desc": "Council 입장 채택(2026.03.04). RESourceEU 후속으로 영구자석 폐기물·스크랩 수출제한이 Q2 2026에 시행 예정입니다." },
       { "name": "CBAM / IMERA", "desc": "탄소국경조정은 2026.01 정의 단계가 시작됐고(전환기 2025.12.31 종료), ETS 무료 할당이 2026~2034 단계적 폐지됩니다. 2025.12.17 CBAM 확장 제안(COM 2025/0419)으로 자동차 부품·가전·케이블 등 downstream 18종이 추가 검토됩니다. IMERA(역내시장비상복원력법)는 2026.05.29 발효로 위원회의 CRM 공동구매·정보요청 권한이 작동합니다." }
     ],
     "why": "EU는 규제 중심 시장입니다. 인증·탄소·추적성 대응이 진입장벽이 됩니다.",
     "watchpoints": [
-      "IMERA 발효 (2026.05.29)",
-      "IAA stakeholder feedback 마감 (2026.05.08)",
+      "WSR plastic 폐기물 prior notification 시작 (2026.05.21, D-8)",
+      "Article 11 면제 위임행위 consultation 마감 (2026.05.26, D-13)",
+      "IMERA 발효 (2026.05.29, D-16)",
       "Steel safeguard 만료 (2026.06.30) → 신 trade defense + CBAM downstream 확장 후속",
-      "Black mass 비OECD 수출금지 mandatory (2026.11.09)",
-      "Circular Economy Act 제안 (Q3 2026)"
+      "EV CF maximum threshold + 재생원료 회수율 methodology 위임행위 채택 기한 (2026.08.18, D-97)",
+      "Black mass 비OECD 수출금지 mandatory (2026.11.09, D-180)"
     ]
   },
   "CN": {
@@ -46,15 +49,15 @@
     "policies": [
       { "name": "안전·효율 표준", "desc": "GB 38031-2025 EV 배터리 안전 표준이 2026.07.01 신차 적용(2027.07.01 기존차)으로 \"불사·불폭발\"을 강제합니다. GB 47372-2026 파워뱅크 강제표준(2027.04 시행), GB 36980.1-2025 BEV 에너지소비 한도, 전고체 GB/T Part 1(2026.07 발표 예정) 등 표준 체계가 강화됩니다." },
       { "name": "공급망 통제", "desc": "희토류·5개 핵심광물 수출통제(2025.10 공고 55~58호 + 61호 일부)가 미중 부산 합의로 2025.11.07~2026.11.10 1년 일시 정지 상태이나, 공고 62호(기술 통제)·61호 一(三)(역외 통제)는 2025.10.09 즉시 시행되어 유효합니다. 흑연 허가제는 운용 중이며, 對일 양용물자 출하 강화(2026.01.06) 등 국별 지정 통제가 추가됐습니다." },
-      { "name": "반내권·가격 거버넌스", "desc": "工信部·NDRC·SAMR·NEA 4부처 연합 \"반내권\" 거버넌스가 2025.11→2026.01→2026.04 회의로 에스컬레이션 중입니다. 배터리 부가세 환급률은 2026.04.01 9%→6%로 인하됐고 2027.01 폐지 예정으로, K-배터리 EU 시장 가격경쟁력이 상대적으로 개선됩니다." },
+      { "name": "반내권·가격 거버넌스", "desc": "工信部·NDRC·SAMR·NEA 4부처 연합 \"반내권\" 거버넌스가 2025.11→2026.01→2026.04 회의로 에스컬레이션 중입니다. 배터리 부가세 환급률은 2026.04.01 9%→6%로 인하됐고 2027.01 폐지 예정으로, 1Q 抢出口 효과 후 2Q 정상화 시그널이 관측되며 K-배터리 EU 시장 가격경쟁력이 상대적으로 개선됩니다." },
       { "name": "수출·산업 전략", "desc": "관세·FEOC 회피를 위한 제3국 가공·조립 거점 확대가 감시 포인트입니다. 十五五 규획(2026-2030, 2026.03 양회 발표)에서 신형 배터리가 전략 육성 9대 분야에 명시됐고, 신형 에너지 저장 370GW·비화석 에너지 30%·풍태양광 3,600GW(2020년 6배) 목표가 배터리·ESS 수요를 견인합니다." }
     ],
     "why": "중국은 가격과 공급망을 동시에 움직입니다. 비중국 공급망 전략의 기준점입니다.",
     "watchpoints": [
-      "GB 38031-2025 EV 안전 표준 시행 (2026.07.01)",
-      "희토류 수출통제 일시정지 향배 (~2026.11.10) — 62호·61호 一(三) 즉시 시행분 운용",
-      "반내권 4부처 거버넌스 다음 회의 + 부가세 환급 6% 적용 영향",
+      "GB 38031-2025 EV 안전 표준 시행 (2026.07.01, D-49)",
       "전고체 GB/T Part 1 발표 (2026.07)",
+      "반내권 4부처 거버넌스 다음 회의 + 부가세 환급 6% 적용 영향",
+      "희토류 수출통제 일시정지 향배 (~2026.11.10, D-181) — 62호·61호 一(三) 즉시 시행분 운용",
       "제3국 우회 수출 모니터링"
     ]
   },
@@ -64,15 +67,16 @@
     "policies": [
       { "name": "EV 보조금 / 사업자 평가", "desc": "2026.01 EV 구매보조금 개편(국비 상한 580→680만원·전환지원금 100만원 신설)이 시행됐고, 화재안심보험이 2026.07부터 보조금 지급 요건으로 의무화됩니다. 2026.07.01 사업자 선정평가가 도입돼 정량 40점+정성 60점·80점 이상만 보조금 지급 대상이 되며, 산업기여도·국내 공급망·ESG 평가로 K-배터리 supply chain 우대 효과가 형성됩니다." },
       { "name": "사용후 배터리·순환", "desc": "사용후 배터리 산업 육성 및 공급망 안정화 법률이 2026.04.23 본회의를 통과해 시행령 단계로 이행 중입니다. 재생원료 인증제 시범운영(2026), 성능평가 의무화(2027), LFP 재활용 실증센터(2026 구축)가 EU 배터리규정과 연동됩니다." },
-      { "name": "글로벌 진출 + R&D", "desc": "K-배터리 3사 미국 LFP·ESS 진출이 본격화됐습니다(LGES Tesla LFP $4.3B, Samsung SDI 미국 LFP 첫 공급 ₩2조+, Ford BlueOval SK 해체). 차세대 배터리 R&D 2,800억원 투입(~2029), 2035 이차전지 산업기술 로드맵이 진행됩니다." },
-      { "name": "규제 대응", "desc": "EU Battery Regulation·미국 OBBBA(PFE/MACR) 대응을 위한 추적성·원산지 관리가 핵심입니다. 3사 PFE 40% 충족 완료(2026.03)로 AMPC 수혜 자격을 유지하고 있으며, EV 배터리 정보공개 입법예고가 2026.05.04 마감됩니다." }
+      { "name": "글로벌 진출 + R&D", "desc": "K-배터리 3사 미국 LFP·ESS 진출이 본격화됐습니다(LGES Tesla LFP $4.3B, Samsung SDI 미국 LFP 첫 공급 ₩2조+, Ford BlueOval SK 해체). 차세대 배터리 R&D 2,800억원 투입(~2029), 2035 이차전지 산업기술 로드맵이 진행됩니다. 한국이 FORGE 의장국(~2026.06)으로 plurilateral 가격 메커니즘 설계에 참여합니다." },
+      { "name": "규제 대응", "desc": "EU Battery Regulation·미국 OBBBA(PFE/MACR) 대응을 위한 추적성·원산지 관리가 핵심입니다. 3사 PFE 40% 충족 완료(2026.03)로 AMPC 수혜 자격을 유지하고 있으며, 공급망기본법 시행령 입법예고가 2026.05.18, 수은법 시행령 입법예고가 2026.05.20 마감됩니다." }
     ],
     "why": "한국은 K-배터리 본거지입니다. 수출 규제 대응과 내수 ESS·EV 시장 형성이 동시에 중요합니다.",
     "watchpoints": [
-      "EV 배터리 정보공개 입법예고 마감 (2026.05.04) → 시행령 공포",
+      "공급망기본법 시행령 입법예고 마감 (2026.05.18, D-5)",
+      "수은법 시행령 입법예고 마감 (2026.05.20, D-7)",
       "EV 사업자 선정평가 시행 (2026.07.01) → 수입 EV 보조금 차감 영향",
-      "사용후 배터리 통합법 시행령 (2026.04.23 본회의 통과)",
-      "K-배터리 3사 미국 LFP·ESS 진출 진행률",
+      "사용후 배터리 통합법 하위법령(시행령·고시) 제정",
+      "K-배터리 3사 미국 LFP·ESS 진출 진행률 + FORGE 의장 임기 종료(~2026.06)",
       "EU 배터리 여권·재생원료 인증 국내 적용"
     ]
   },
@@ -88,7 +92,7 @@
     "why": "일본은 에너지 안보와 계통 안정성 관점에서 ESS를 전략자산화하고 있습니다.",
     "watchpoints": [
       "CEV 보조금 평가 기준 1차 적용 (2026.04.01) → 2027.01 본격 감액",
-      "METI 밸런싱 price cap 인하 영향 (FY2026~)",
+      "METI 밸런싱 price cap 인하 영향 (FY2026~) + LTDA 3차 결과 발표(5~6월 예상)",
       "MLIT 기내 보조배터리 규정 시행 (2026.04.24)",
       "Toyota·Idemitsu 전고체 양산 일정 (2027~2028)",
       "GX-ETS 의무 측정 (FY2026) → 거래 (2027 가을)"
@@ -98,16 +102,16 @@
     "flag": "🌐",
     "title": "글로벌 공통",
     "policies": [
-      { "name": "공급망 재편", "desc": "미·중 디커플링으로 중간재 가공 거점이 분산되고 있습니다." },
-      { "name": "광물 확보", "desc": "리튬·니켈·코발트·흑연 확보전과 자원국 규제가 확대되고 있습니다. U.S.-Japan(2026.03)·U.S.-Mexico Critical Minerals Action Plan으로 plurilateral 가격하한 시도가 등장했고, 한국 등 like-minded 국가 확대가 예상됩니다." },
-      { "name": "통상·관세", "desc": "Section 232 광물·트럭 derivative, USMCA 6년 검토(2026.07.01), USTR 강제노동 60국·제조과잉 16국 공청회 등 통상 액션이 동시 진행됩니다." }
+      { "name": "공급망 재편", "desc": "미·중 디커플링으로 중간재 가공 거점이 분산되고 있습니다. NDAA Section 805 + 1260H List(CATL 포함) DoD 직접 조달 금지(2026.06.30)·간접 조달 금지(2027.06.30) 시행으로 미 국방 공급망에서 중국 배터리 entity 차단이 가속됩니다." },
+      { "name": "광물 확보", "desc": "리튬·니켈·코발트·흑연 확보전과 자원국 규제가 확대되고 있습니다. U.S.-Japan(2026.03)·U.S.-Mexico Critical Minerals Action Plan으로 plurilateral 가격하한 시도가 등장했고, FORGE(한국 의장국 ~2026.06) + 11개 신규 양자 합의로 like-minded 국가 네트워크가 확대됩니다." },
+      { "name": "통상·관세", "desc": "Section 122 위헌 판결(2026.05.07 CIT) 후 Section 232 광물·트럭·메탈 derivative + USTR Section 301 강제노동 60국·제조과잉 16국(공청회 5.5~5.8 종료) 등 대체관세 트랙이 동시 진행되며, USMCA 6년 검토(2026.07.01)와 함께 7월 만료 동시 시나리오가 부각됩니다." }
     ],
     "why": "글로벌 밸류체인 재편은 모든 권역 정책의 배경입니다.",
     "watchpoints": [
-      "Critical Minerals plurilateral 운용 + 한국 가입 검토",
-      "USTR 제조과잉 16국 공청회 (2026.05.05~08)",
+      "Critical Minerals plurilateral 운용 + 한국 FORGE 의장 임기(~2026.06)",
+      "USTR Section 301 강제노동 60국·제조과잉 16국 후속 관세 부과",
       "자원국 수출 정책 + 광물 가격 변동",
-      "USMCA·Section 232 동시 진행 영향",
+      "USMCA·Section 232·Section 122 동시 7월 만료/결정 시나리오",
       "EU·미국·일본 공급망 안보 메커니즘 정합성"
     ]
   }

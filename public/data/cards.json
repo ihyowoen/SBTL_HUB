@@ -1,9 +1,9 @@
 {
-  "updated": "2026-05-13T22:35:04.258595+09:00",
-  "total": 745,
+  "updated": "2026-05-14T09:00:55.328421+09:00",
+  "total": 744,
   "schema": "cards_v1",
   "baseline_count": 722,
-  "new_count": 23,
+  "new_count": 22,
   "run_tag": "20260513_083924",
   "merge_status": "local_ready_for_user_push",
   "sort": "date_desc",
@@ -18,9 +18,9 @@
     "sort_violations_top30": 0,
     "all_pass": true
   },
-  "merge_qc_scope": "23 new cards × 745 merged total",
+  "merge_qc_scope": "22 new cards × 744 merged total (post codex_followup_v3 duplicate removal)",
   "source_enrichment": "stage_b_drafts_with_patch_spirit_applied",
-  "accepted_content_enriched_count": 23,
+  "accepted_content_enriched_count": 22,
   "cards": [
     {
       "id": "2026-05-13_KR_02",
@@ -178,54 +178,6 @@
       "baseline_id_assignment": {
         "assigned_id": "2026-05-13_GL_01",
         "date_region_key": "2026-05-13_GL",
-        "assigned_at": "2026-05-13T15:46:11.463732+09:00",
-        "rationale": "sequence-correct within (date,region) group per CARD_ID_STANDARD §2"
-      }
-    },
-    {
-      "id": "2026-05-12_US_02",
-      "date": "2026-05-12",
-      "region": "US",
-      "cat": "ESS",
-      "sub_cat": "완성차BESS사업화",
-      "signal": "top",
-      "title": "Ford, 켄터키 BESS 자회사 \"Ford Energy\" 공식 출범…Megapack 직접 겨냥",
-      "sub": "BlueOval SK 결별 후 켄터키 글렌데일 EV 공장을 LFP DC block 양산 라인으로 전환, 2027년 출하",
-      "gate": "완성차의 BESS 사업화 — 미국 BESS 공급 구조에 신규 OEM 진입",
-      "fact": "Ford Motor 가 5월 11~12일 stationary energy storage 자회사 \"Ford Energy\" 를 공식 출범하고 첫 제품 \"DC block\" 사양을 공개했다. DC block 은 512 Ah LFP prismatic 셀 수백 개를 20피트 컨테이너에 집적해 5MWh 이상의 에너지를 담으며 설계수명 20년. 켄터키 글렌데일 공장(원 SK On 과의 BlueOval SK JV 자산을 Ford 가 인수)을 LFP 팩 조립 라인으로 전환한다. Ford 는 향후 2년간 약 $20억을 투자해 utility/data center/대형 산업·상업 고객 대상으로 ramp-up 하며 2027년부터 deliveries 시작. EV 시장 둔화·미연방 EV 세액공제 종료 후 \"higher-return opportunities\" 로 pivot 한 결과로, Ford 의 EV 부문 누적 $19.5B 손실을 BESS 사업으로 상쇄하려는 전략.",
-      "implication": [
-        "SK On-Ford BlueOval JV 종료 → 켄터키 capacity 가 LFP BESS 로 전환. SK On 의 미국 LFP 합작 전략(현대차/Stellantis 등) 재정렬 필요.",
-        "미국 utility BESS 시장에 Tesla Megapack-급 OEM 새로 진입 — 한국 BESS 인테그레이터(한화 큐셀스/LG ES Vehicle Solution 등) 와 직접 경쟁 구도 형성. 2027년 출하 시점 backlog 관찰 필요."
-      ],
-      "urls": [
-        "https://insideevs.com/news/795565/ford-energy-battery-energy-storage",
-        "https://www.pv-magazine.com/2026/05/12/ford-energy-announces-dc-block-utility-scale-bess-based-on-512-ah-lfp-cells",
-        "https://www.energy-storage.news/ford-officially-launches-us-stationary-energy-storage-subsidiary-deliveries-to-begin-in-2027"
-      ],
-      "related": [],
-      "fact_sources": [
-        {
-          "claim": "Ford Energy 공식 출범, 켄터키 글렌데일에서 LFP BESS 조립",
-          "source_url": "https://insideevs.com/news/795565/ford-energy-battery-energy-storage",
-          "source_quote": "Ford has officially entered the stationary energy storage industry. Ford Energy is a wholly owned subsidiary of Ford Motor Company. The new entity will build modular battery containers in Kentucky using prismatic LFP cells.",
-          "fetched_at": "2026-05-13T15:46:11.463732+09:00"
-        },
-        {
-          "claim": "$20억 2년간 투자, 2027년 deliveries 시작",
-          "source_url": "https://www.energy-storage.news/ford-officially-launches-us-stationary-energy-storage-subsidiary-deliveries-to-begin-in-2027",
-          "source_quote": "Ford intends to invest around US$2 billion to establish production... Ford Motor Company has officially launched its energy storage subsidiary",
-          "fetched_at": "2026-05-13T15:46:11.463732+09:00"
-        },
-        {
-          "claim": "DC block 512 Ah LFP prismatic, 20년 수명, 5MWh+",
-          "source_url": "https://insideevs.com/news/795565/ford-energy-battery-energy-storage",
-          "source_quote": "Ford Energy's LFP-powered DC block was designed to last 20 years and packs over 5 megawatt-hours of energy... fits hundreds of 512 amp-hours lithium iron phosphate (LFP) prismatic cells in a standardised 20-foot container",
-          "fetched_at": "2026-05-13T15:46:11.463732+09:00"
-        }
-      ],
-      "baseline_id_assignment": {
-        "assigned_id": "2026-05-12_US_02",
-        "date_region_key": "2026-05-12_US",
         "assigned_at": "2026-05-13T15:46:11.463732+09:00",
         "rationale": "sequence-correct within (date,region) group per CARD_ID_STANDARD §2"
       }
@@ -1112,7 +1064,10 @@
       "urls": [
         "https://www.sec.gov/Archives/edgar/data/0000037996/000003799625000238/exhibit99todecember15202.htm",
         "https://electrek.co/2026/05/11/ford-energy-launches-battery-storage-subsidiary-20gwh-bess",
-        "https://www.solarpowerworldonline.com/2026/05/ford-formally-launches-grid-scale-battery-business-ford-energy/"
+        "https://www.solarpowerworldonline.com/2026/05/ford-formally-launches-grid-scale-battery-business-ford-energy/",
+        "https://insideevs.com/news/795565/ford-energy-battery-energy-storage",
+        "https://www.pv-magazine.com/2026/05/12/ford-energy-announces-dc-block-utility-scale-bess-based-on-512-ah-lfp-cells",
+        "https://www.energy-storage.news/ford-officially-launches-us-stationary-energy-storage-subsidiary-deliveries-to-begin-in-2027"
       ],
       "related": [],
       "fact_sources": [
@@ -1161,6 +1116,27 @@
           ],
           "fetched_at": "2026-05-12T17:35:58.073141+09:00",
           "fetch_method": "web_search_anthropic"
+        },
+        {
+          "claim": "Ford Energy 공식 출범, 켄터키 글렌데일에서 LFP BESS 조립",
+          "source_url": "https://insideevs.com/news/795565/ford-energy-battery-energy-storage",
+          "source_quote": "Ford has officially entered the stationary energy storage industry. Ford Energy is a wholly owned subsidiary of Ford Motor Company. The new entity will build modular battery containers in Kentucky using prismatic LFP cells.",
+          "fetched_at": "2026-05-13T15:46:11.463732+09:00",
+          "codex_followup_v3_migrated_from": "2026-05-12_US_02 (removed as duplicate)"
+        },
+        {
+          "claim": "$20억 2년간 투자, 2027년 deliveries 시작",
+          "source_url": "https://www.energy-storage.news/ford-officially-launches-us-stationary-energy-storage-subsidiary-deliveries-to-begin-in-2027",
+          "source_quote": "Ford intends to invest around US$2 billion to establish production... Ford Motor Company has officially launched its energy storage subsidiary",
+          "fetched_at": "2026-05-13T15:46:11.463732+09:00",
+          "codex_followup_v3_migrated_from": "2026-05-12_US_02 (removed as duplicate)"
+        },
+        {
+          "claim": "DC block 512 Ah LFP prismatic, 20년 수명, 5MWh+",
+          "source_url": "https://insideevs.com/news/795565/ford-energy-battery-energy-storage",
+          "source_quote": "Ford Energy's LFP-powered DC block was designed to last 20 years and packs over 5 megawatt-hours of energy... fits hundreds of 512 amp-hours lithium iron phosphate (LFP) prismatic cells in a standardised 20-foot container",
+          "fetched_at": "2026-05-13T15:46:11.463732+09:00",
+          "codex_followup_v3_migrated_from": "2026-05-12_US_02 (removed as duplicate)"
         }
       ],
       "draft_id": "draft_20260512_134524_002",
@@ -1219,6 +1195,14 @@
         "sub_cat_after": "BESS자회사출범",
         "sub_cat_policy": "korean_compound_per_schema",
         "authorized_modification_scope": "signal_cat_sub_cat_id_metadata_only_no_visible_field_changes"
+      },
+      "codex_followup_v3_enrichment": {
+        "enriched_at": "2026-05-14T08:51:51.921170+09:00",
+        "migrated_from_duplicate_card": "2026-05-12_US_02",
+        "reason": "Codex P2 review on PR #123: same event covered by both cards. Duplicate removed; its sources/urls merged into baseline. Visible fields preserved.",
+        "fact_sources_added": 3,
+        "urls_added": 3,
+        "visible_fields_changed": false
       }
     },
     {
@@ -37238,7 +37222,44 @@
     "specs_processed": 28,
     "specs_consolidated": 5,
     "specs_blocked": 2,
-    "final_cards_published": 23,
-    "caveat_resolution_log": "2 cards (JP_01 SoftBank, GL_01 Meralco) routed through 0.5R + 0.6 supplemental caveat logging; 1 card (CN_03 XPeng) cleared after 0.5R review"
+    "final_cards_published": 22,
+    "caveat_resolution_log": "2 cards (JP_01 SoftBank, GL_01 Meralco) routed through 0.5R + 0.6 supplemental caveat logging; 1 card (CN_03 XPeng) cleared after 0.5R review",
+    "codex_followup_v3": {
+      "review_source": "chatgpt-codex-connector[bot] on PR #123 commit e5604df9d8",
+      "review_url": "https://github.com/ihyowoen/SBTL_HUB/blob/e5604df9d86816934452401fb64d2ee43af5e8c2/public/data/cards.json#L186",
+      "review_concern": "2026-05-12_US_02 duplicates event of baseline 2026-05-11_US_01: both cover Ford Energy launch, Kentucky/Glendale, DC Block, 2027 deliveries, ~$2B investment",
+      "resolution": "Variant B (enrich + remove): duplicate 2026-05-12_US_02 removed; its 3 fact_sources + 3 urls migrated into 2026-05-11_US_01. Visible fields of 2026-05-11_US_01 unchanged.",
+      "applied_at": "2026-05-14T08:51:51.921170+09:00",
+      "removed_card_id": "2026-05-12_US_02",
+      "enriched_card_id": "2026-05-11_US_01",
+      "fact_sources_migrated": 3,
+      "urls_migrated": 3,
+      "total_change": "745 → 744",
+      "gap_identified_in_pipeline": "Stage A baseline collision detection used URL/canonical/title matching only; event-fingerprint matching (date proximity + key entity + event type) absent. This duplicate slipped through because the new card cited different trade-press outlets (InsideEVs, PV Magazine, Energy-Storage.news) while baseline cited SEC 8-K + Electrek + Solar Power World — no URL/title overlap.",
+      "patch_recommendation_for_next_run": "Add P_007: Stage A event-fingerprint dedupe gate (date ± 3 days × primary entity set × event-type token match against baseline)",
+      "no_visible_field_changes": true,
+      "fact_sources_strictly_additive": true
+    },
+    "codex_followup_v4": {
+      "review_source": "chatgpt-codex-connector[bot] on PR #124 commit 39973cdaa9",
+      "review_concern": "Wrapper metadata stale after v3 duplicate removal: baseline_count + new_count ≠ total (722 + 23 ≠ 744). merge_qc_scope still claimed \"23 new × 745 merged\". final_cards_published still 23. UI/downstream checks consuming these fields would see contradictory counts.",
+      "resolution": "Metadata-only update; no cards array changes.",
+      "applied_at": "2026-05-14T09:00:55.328421+09:00",
+      "fields_updated": {
+        "new_count": "23 → 22",
+        "merge_qc_scope": "\"23 new cards × 745 merged total\" → \"22 new cards × 744 merged total (post codex_followup_v3 duplicate removal)\"",
+        "accepted_content_enriched_count": "23 → 22",
+        "merge_prep_20260513_083924_pipeline_clean.final_cards_published": "23 → 22",
+        "updated_timestamp": "refreshed to now"
+      },
+      "fields_preserved": {
+        "baseline_count": "722 (history of stage-A baseline; not changed by duplicate removal)",
+        "total": "744 (already correct from v3)",
+        "cards_array": "744 entries unchanged"
+      },
+      "math_consistency_after_fix": "722 baseline + 22 new = 744 total ✓",
+      "no_cards_array_changes": true,
+      "no_visible_field_changes": true
+    }
   }
 }

@@ -1,9 +1,9 @@
 {
-  "updated": "2026-05-14T16:53:47.030103+09:00",
-  "total": 770,
+  "updated": "2026-05-14T17:05:00.783043+09:00",
+  "total": 768,
   "schema": "cards_v1",
   "baseline_count": 744,
-  "new_count": 26,
+  "new_count": 24,
   "run_tag": "20260513_165421",
   "merge_status": "local_ready_for_user_push",
   "sort": "date_desc",
@@ -18,9 +18,9 @@
     "baseline_plus_new_equals_total": true,
     "all_pass": true
   },
-  "merge_qc_scope": "26 new cards × 770 merged total",
+  "merge_qc_scope": "24 new cards × 768 merged total (post codex_followup_v2 duplicate removal)",
   "source_enrichment": "stage_b_drafts_with_patch_spirit_p001_p002_p003_p007_p009_applied",
-  "accepted_content_enriched_count": 26,
+  "accepted_content_enriched_count": 24,
   "cards": [
     {
       "id": "2026-05-13_US_01",
@@ -926,47 +926,6 @@
         "sub_cat_after": "배터리소재AI",
         "sub_cat_policy": "korean_compound_per_schema",
         "authorized_modification_scope": "signal_cat_sub_cat_id_metadata_only_no_visible_field_changes"
-      }
-    },
-    {
-      "id": "2026-05-12_JP_02",
-      "date": "2026-05-12",
-      "region": "JP",
-      "cat": "Manufacturing",
-      "sub_cat": "아연할로겐데이터센터배터리",
-      "signal": "high",
-      "title": "소프트뱅크, 오사카에 아연-할로겐 셀 1GWh 양산 + AI 데이터센터 통합 신설",
-      "sub": "COSMOS LAB(韓)·DeltaX(韓) 와 협업, AX Factory(데이터센터)+GX Factory(차세대 셀) 동시 가동",
-      "gate": "일본 자체 BESS 셀 기술 + AI 데이터센터 통합 사이트",
-      "fact": "소프트뱅크 그룹의 이동통신 자회사 SoftBank Corp 가 일본 오사카 공장에서 아연-할로겐(zinc-halogen) 배터리 셀과 ESS 를 일본 시장 대상으로 양산하며 연간 1GWh 규모로 확장한다고 발표. 같은 사이트에 AI 데이터센터와 AI 하드웨어 plant 도 함께 설치. 두 개의 venture 신설: AX Factory (AI 데이터센터 운영·하드웨어 제조)·GX Factory (차세대 셀 제조). 셀 측 한국 COSMOS LAB 와 협업, AI 측 DeltaX 와 협업. COSMOS LAB 는 아연-할로겐 셀 양산 기술 보유, DeltaX 는 배터리 시스템 설계 협력.",
-      "implication": [
-        "일본 의 다음 세대 BESS 셀 기술 + AI 데이터센터 통합 인프라 시도 — 글로벌 BESS chemistry diversification 신호.",
-        "한국 스타트업(COSMOS LAB, DeltaX) 의 일본 양산 deal 진입 — 한국 셀 IP 의 라이센싱·기술이전 시장 확대 사례.",
-        "Li-ion 의존 BESS 시장에 비-리튬(Zn-halogen) chemistry 가 GWh-class 양산 진입 — 한국 LGES/SK on/삼성SDI 의 장기 chemistry 포트폴리오 압력."
-      ],
-      "urls": [
-        "https://www.pv-magazine.com/2026/05/12/softbank-to-make-next-gen-zinc-halogen-battery-cells-in-japan-for-ai-data-centers"
-      ],
-      "related": [],
-      "fact_sources": [
-        {
-          "claim": "SoftBank 일본 오사카 아연-할로겐 셀 1GWh 양산, AI 데이터센터 통합",
-          "source_url": "https://www.pv-magazine.com/2026/05/12/softbank-to-make-next-gen-zinc-halogen-battery-cells-in-japan-for-ai-data-centers",
-          "source_quote": "SoftBank Corp in Japan, will build zinc-halogen battery cells and storage systems for the Japanese market, and scale to 1 GWh per year. Manufacturing will take place of both batteries and solar panels at SoftBank's factory in Osaka, Japan, and the site will house both an AI data center and AI hardware plant.",
-          "fetched_at": "2026-05-14T11:31:31.260288+09:00"
-        },
-        {
-          "claim": "한국 COSMOS LAB 셀 협업 + DeltaX 시스템 협업",
-          "source_url": "https://www.pv-magazine.com/2026/05/12/softbank-to-make-next-gen-zinc-halogen-battery-cells-in-japan-for-ai-data-centers",
-          "source_quote": "it will partner with South Korea-based battery company Cosmos Lab and AI firm DeltaX Co. Cosmos Lab will work with SoftBank on what it called next-generation zinc-halogen battery cells, and work with DeltaX on the battery designs",
-          "fetched_at": "2026-05-14T11:31:31.260288+09:00"
-        }
-      ],
-      "baseline_id_assignment": {
-        "assigned_id": "2026-05-12_JP_02",
-        "date_region_key": "2026-05-12_JP",
-        "assigned_at": "2026-05-14T11:31:31.260288+09:00",
-        "rationale": "sequence-correct within (date,region) per CARD_ID_STANDARD §2"
       }
     },
     {
@@ -2819,7 +2778,8 @@
         "한국 COSMOS LAB/DeltaX 가 소프트뱅크 기가팩토리에 기술 파트너로 진입 — 한국 배터리 IP 의 일본 양산화 사례."
       ],
       "urls": [
-        "https://monoist.itmedia.co.jp/mn/articles/2605/13/news061.html"
+        "https://monoist.itmedia.co.jp/mn/articles/2605/13/news061.html",
+        "https://www.pv-magazine.com/2026/05/12/softbank-to-make-next-gen-zinc-halogen-battery-cells-in-japan-for-ai-data-centers"
       ],
       "related": [],
       "fact_sources": [
@@ -2834,6 +2794,12 @@
           "source_url": "https://monoist.itmedia.co.jp/mn/articles/2605/13/news061.html",
           "source_quote": "ソフトバンクは、電解液に真水を使用する亜鉛−ハロゲン電池の技術を有する韓国のCOSMOS LABと協業し、同電池の量産化に取り組む... 蓄電システムの開発／製造では韓国のDeltaXと協業する。",
           "fetched_at": "2026-05-13T15:46:11.463732+09:00"
+        },
+        {
+          "claim": "SoftBank Corp 일본 시장용 zinc-halogen 셀+ESS 양산, 연 1GWh 규모; 같은 사이트에 AI 데이터센터+AI 하드웨어 plant 통합 (AX Factory + GX Factory venture 2개 신설)",
+          "source_url": "https://www.pv-magazine.com/2026/05/12/softbank-to-make-next-gen-zinc-halogen-battery-cells-in-japan-for-ai-data-centers",
+          "source_quote": "SoftBank Corp in Japan, will build zinc-halogen battery cells and storage systems for the Japanese market, and scale to 1 GWh per year. Manufacturing will take place of both batteries and solar panels at SoftBank's factory in Osaka, Japan, and the site will house both an AI data center and AI hardware plant.",
+          "fetched_at": "2026-05-14T17:05:00.783043+09:00"
         }
       ],
       "baseline_id_assignment": {
@@ -2841,46 +2807,14 @@
         "date_region_key": "2026-05-11_JP",
         "assigned_at": "2026-05-13T15:46:11.463732+09:00",
         "rationale": "sequence-correct within (date,region) group per CARD_ID_STANDARD §2"
-      }
-    },
-    {
-      "id": "2026-05-11_GL_07",
-      "date": "2026-05-11",
-      "region": "GL",
-      "cat": "ESS",
-      "sub_cat": "글로벌BESS연간100GW",
-      "signal": "high",
-      "title": "BloombergNEF: 2025년 글로벌 BESS 신규 112GW/307GWh — 100GW era 진입",
-      "sub": "YoY +48%, 누적 2.9TW (양수 제외); 2026 158GW/459GWh 예상, 2036 누적 2867GW/10,514GWh",
-      "gate": "글로벌 BESS 시장 규모의 historic 변곡점 공식 데이터",
-      "fact": "BloombergNEF 의 1H 2026 Energy Storage Market Outlook 발표. 2025년 신규 ESS 설치 112GW/307GWh (2024 대비 YoY +48%), 누적 글로벌 capacity 2.9TW (양수 제외). 2026 전망 +41% YoY 점프해 158GW/459GWh. 10년 전망: 2036년까지 누적 2,867GW/10,514GWh (2025 대비 ~10x), 2036 연간 신규 306GW. 중국 2025 신규 54% 점유 — 다년 1위 유지.",
-      "implication": [
-        "글로벌 BESS 시장의 100GW era 공식 진입 — 한국 BESS 시스템 인테그레이터의 글로벌 backlog 확장 환경 형성.",
-        "중국 점유 54% 압도적 — 한국이 미국·유럽·동남아 비-중국 시장에서 진입 timing 결정적. 2036년 누적 10TWh 시장 규모는 한국 셀 메이커의 ESS 라인 capacity 확장 일정의 quantitative reference."
-      ],
-      "urls": [
-        "https://pv-magazine-usa.com/2026/05/11/bloombergnef-confirms-energy-storage-has-reached-the-100-gw-era"
-      ],
-      "related": [],
-      "fact_sources": [
-        {
-          "claim": "BloombergNEF: 2025 신규 112GW/307GWh, YoY +48%, 누적 2.9TW",
-          "source_url": "https://pv-magazine-usa.com/2026/05/11/bloombergnef-confirms-energy-storage-has-reached-the-100-gw-era",
-          "source_quote": "112 GW was installed in 2025... a full 48% increase, for the 112 GW figure and 307 GWh of batteries added worldwide... Global energy storage capacity, cumulatively, has reached 2.9 TW",
-          "fetched_at": "2026-05-14T11:31:31.260288+09:00"
-        },
-        {
-          "claim": "2026 158GW/459GWh, 2036 2867GW/10514GWh 누적 전망",
-          "source_url": "https://pv-magazine-usa.com/2026/05/11/bloombergnef-confirms-energy-storage-has-reached-the-100-gw-era",
-          "source_quote": "In 2026, expectations are for another massive increase, with a jump of 41% from 2025 to 158 GW / 459 GWh... by the end of 2036, cumulative capacity will have reached 2,867 GW / 10, 514 GW",
-          "fetched_at": "2026-05-14T11:31:31.260288+09:00"
-        }
-      ],
-      "baseline_id_assignment": {
-        "assigned_id": "2026-05-11_GL_07",
-        "date_region_key": "2026-05-11_GL",
-        "assigned_at": "2026-05-14T11:31:31.260288+09:00",
-        "rationale": "sequence-correct within (date,region) per CARD_ID_STANDARD §2"
+      },
+      "codex_followup_v2_enrichment": {
+        "enriched_at": "2026-05-14T17:05:00.783043+09:00",
+        "reason": "Codex P2 review on PR #125: 2026-05-12_JP_02 (new) duplicated this baseline card. Removed JP_02 and migrated its PV Magazine source + 1GWh / AI data center / AX+GX Factory venture details additively.",
+        "migrated_from_card_id": "2026-05-12_JP_02",
+        "visible_fields_preserved": true,
+        "fact_sources_added": 1,
+        "urls_added": 1
       }
     },
     {
@@ -3247,7 +3181,8 @@
       ],
       "urls": [
         "https://about.bnef.com/insights/clean-energy/energy-storage-enters-the-100-gigawatt-era-three-things-to-know/",
-        "https://www.ess-news.com/2026/05/11/bloombergnef-confirms-energy-storage-has-reached-the-100-gw-era/"
+        "https://www.ess-news.com/2026/05/11/bloombergnef-confirms-energy-storage-has-reached-the-100-gw-era/",
+        "https://pv-magazine-usa.com/2026/05/11/bloombergnef-confirms-energy-storage-has-reached-the-100-gw-era"
       ],
       "related": [],
       "fact_sources": [
@@ -3295,6 +3230,12 @@
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
           "fetch_method": "web_search_anthropic"
+        },
+        {
+          "claim": "BNEF 1H 2026 Outlook 10년 전망: 2036년까지 누적 2,867GW/10,514GWh (2025 대비 ~10x), 2036 연간 신규 306GW",
+          "source_url": "https://pv-magazine-usa.com/2026/05/11/bloombergnef-confirms-energy-storage-has-reached-the-100-gw-era",
+          "source_quote": "by the end of 2036, cumulative capacity will have reached 2,867 GW / 10, 514 GW, some 10 times the levels in 2025. In 2036, 306 GW will be installed annually.",
+          "fetched_at": "2026-05-14T17:05:00.783043+09:00"
         }
       ],
       "draft_id": "draft_20260512_134524_010",
@@ -3353,6 +3294,14 @@
         "sub_cat_after": "글로벌ESS시장",
         "sub_cat_policy": "korean_compound_per_schema",
         "authorized_modification_scope": "signal_cat_sub_cat_id_metadata_only_no_visible_field_changes"
+      },
+      "codex_followup_v2_enrichment": {
+        "enriched_at": "2026-05-14T17:05:00.783043+09:00",
+        "reason": "Codex P2 review on PR #125: 2026-05-11_GL_07 (new) duplicated this baseline card. Removed GL_07 and migrated its pv-magazine-usa source + 2036 10,514GWh / 306GW annual extended projection additively.",
+        "migrated_from_card_id": "2026-05-11_GL_07",
+        "visible_fields_preserved": true,
+        "fact_sources_added": 1,
+        "urls_added": 1
       }
     },
     {
@@ -38226,7 +38175,7 @@
     "specs_blocked_scope": 11,
     "specs_blocked_duplicate_p007_catch": 4,
     "silent_drops_audited": 21,
-    "final_cards_published": 26,
+    "final_cards_published": 24,
     "caveat_resolution_log": "6 cards (JP_02 SoftBank Osaka, CN_01 CATL Na-ion, CN_02 동남아 ESS projection, CN_06 清陶能源 projection, EU_01 EU IAA, GL_03 WA SWIS first-of-kind) routed through 0.5R + 0.6 supplemental caveat logging",
     "content_fixes_pre_push": [
       "FIX 1: CN_04 pivoted to ESS-focused (remove CABIA April overlap with CN_03)",
@@ -38243,6 +38192,30 @@
         "spec_008 California sodium-ion → duplicates 2026-05-12_US_01"
       ],
       "note": "P_007 Stage A weak matches (cross-language entity extraction limitation); Stage B human review caught them. Future P_010 patch candidate."
-    }
+    },
+    "codex_followup_log": [
+      {
+        "round": "v2",
+        "date": "2026-05-14T17:05:00.783043+09:00",
+        "codex_review_ids": [
+          "r3239956723",
+          "r3239956728"
+        ],
+        "severity": "P2",
+        "duplicates_removed": [
+          "2026-05-11_GL_07",
+          "2026-05-12_JP_02"
+        ],
+        "baseline_cards_enriched": [
+          "2026-05-11_JP_01",
+          "2026-05-11_GL_02"
+        ],
+        "enrichment_type": "additive_fact_sources_and_urls",
+        "visible_fields_changed": false,
+        "p_008_metadata_synced_in_same_commit": true,
+        "patch_007_cross_language_limitation_confirmed": true,
+        "future_patch_p_010_candidate": "Stage A event-fingerprint cross-language entity normalization (소프트뱅크↔SoftBank, BNEF↔BloombergNEF)"
+      }
+    ]
   }
 }

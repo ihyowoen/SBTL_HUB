@@ -1,9 +1,9 @@
 {
-  "updated": "2026-05-14T08:51:51.921170+09:00",
+  "updated": "2026-05-14T09:00:55.328421+09:00",
   "total": 744,
   "schema": "cards_v1",
   "baseline_count": 722,
-  "new_count": 23,
+  "new_count": 22,
   "run_tag": "20260513_083924",
   "merge_status": "local_ready_for_user_push",
   "sort": "date_desc",
@@ -18,9 +18,9 @@
     "sort_violations_top30": 0,
     "all_pass": true
   },
-  "merge_qc_scope": "23 new cards × 745 merged total",
+  "merge_qc_scope": "22 new cards × 744 merged total (post codex_followup_v3 duplicate removal)",
   "source_enrichment": "stage_b_drafts_with_patch_spirit_applied",
-  "accepted_content_enriched_count": 23,
+  "accepted_content_enriched_count": 22,
   "cards": [
     {
       "id": "2026-05-13_KR_02",
@@ -37222,7 +37222,7 @@
     "specs_processed": 28,
     "specs_consolidated": 5,
     "specs_blocked": 2,
-    "final_cards_published": 23,
+    "final_cards_published": 22,
     "caveat_resolution_log": "2 cards (JP_01 SoftBank, GL_01 Meralco) routed through 0.5R + 0.6 supplemental caveat logging; 1 card (CN_03 XPeng) cleared after 0.5R review",
     "codex_followup_v3": {
       "review_source": "chatgpt-codex-connector[bot] on PR #123 commit e5604df9d8",
@@ -37239,6 +37239,27 @@
       "patch_recommendation_for_next_run": "Add P_007: Stage A event-fingerprint dedupe gate (date ± 3 days × primary entity set × event-type token match against baseline)",
       "no_visible_field_changes": true,
       "fact_sources_strictly_additive": true
+    },
+    "codex_followup_v4": {
+      "review_source": "chatgpt-codex-connector[bot] on PR #124 commit 39973cdaa9",
+      "review_concern": "Wrapper metadata stale after v3 duplicate removal: baseline_count + new_count ≠ total (722 + 23 ≠ 744). merge_qc_scope still claimed \"23 new × 745 merged\". final_cards_published still 23. UI/downstream checks consuming these fields would see contradictory counts.",
+      "resolution": "Metadata-only update; no cards array changes.",
+      "applied_at": "2026-05-14T09:00:55.328421+09:00",
+      "fields_updated": {
+        "new_count": "23 → 22",
+        "merge_qc_scope": "\"23 new cards × 745 merged total\" → \"22 new cards × 744 merged total (post codex_followup_v3 duplicate removal)\"",
+        "accepted_content_enriched_count": "23 → 22",
+        "merge_prep_20260513_083924_pipeline_clean.final_cards_published": "23 → 22",
+        "updated_timestamp": "refreshed to now"
+      },
+      "fields_preserved": {
+        "baseline_count": "722 (history of stage-A baseline; not changed by duplicate removal)",
+        "total": "744 (already correct from v3)",
+        "cards_array": "744 entries unchanged"
+      },
+      "math_consistency_after_fix": "722 baseline + 22 new = 744 total ✓",
+      "no_cards_array_changes": true,
+      "no_visible_field_changes": true
     }
   }
 }

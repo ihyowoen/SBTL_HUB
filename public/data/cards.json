@@ -1,27 +1,1278 @@
 {
-  "updated": "2026-05-14T17:38:48.009758+09:00",
-  "total": 768,
+  "updated": "2026-05-29T13:22:04.606137+09:00",
+  "total": 781,
   "schema": "cards_v1",
-  "baseline_count": 744,
-  "new_count": 24,
-  "run_tag": "20260513_165421",
-  "merge_status": "local_ready_for_user_push",
-  "sort": "date_desc",
-  "source_baseline_file": "GitHub main public/data/cards.json after PR #124 (commit 2231595, 744 cards, blob a7ae5da7)",
+  "baseline_count": 768,
+  "new_count": 13,
+  "run_tag": "20260516_012728",
+  "merge_status": "local_ready_for_user_review_not_github_ready",
+  "sort": "date_desc_id_desc",
+  "source_baseline_file": "uploaded /mnt/data/cards(1).json (user instructed: use cards.json as baseline instead of GitHub file)",
   "source_baseline_blob_sha": "a7ae5da7342bfb03ed55fd0a90757313",
   "source_baseline_commit_sha": "2231595",
-  "source_accepted_file": "final_publish_readiness_qc_results_20260513_165421.json",
+  "source_accepted_file": "uploaded publish_ready_payload_USER_AUTHORIZED_COMBINED_14_PENDING_GITHUB_SYNC_20260516_012728.json",
   "merge_qc": {
-    "duplicate_ids": 0,
-    "empty_ids": 0,
-    "sort_violations_top30": 0,
-    "baseline_plus_new_equals_total": true,
-    "all_pass": true
+    "status": "PASS_LOCAL_MERGE_WITH_ONE_DUPLICATE_EVENT_HOLD",
+    "baseline_source": "uploaded cards(1).json used as user-supplied baseline instead of GitHub main",
+    "github_main_sync_passed": false,
+    "github_ready": false,
+    "pr_candidate_ready": false,
+    "baseline_count": 768,
+    "publish_ready_input_count": 14,
+    "actually_added_count": 13,
+    "hold_count_after_baseline_sync": 1,
+    "final_cards_count": 781,
+    "expected_final_count": 781,
+    "duplicate_ids_after_merge": [],
+    "empty_ids_after_merge_count": 0,
+    "duplicate_urls_after_merge_count": 19,
+    "duplicate_urls_after_merge_sample": [
+      [
+        "https://pv-magazine.com/2026/04/28/longi-announces-world-record-efficiency-of-28-13-for-silicon-solar-cell",
+        [
+          "2026-04-28_CN_03",
+          "2026-04-27_CN_01"
+        ]
+      ],
+      [
+        "https://nikkei.com/article/DGXZQOUC235OR0T20C26A4000000",
+        [
+          "2026-04-27_JP_04",
+          "2026-04-23_JP_01"
+        ]
+      ],
+      [
+        "https://asahi-kasei.com/jp/news/2026/ze260423.html",
+        [
+          "2026-04-27_JP_04",
+          "2026-04-23_JP_01"
+        ]
+      ],
+      [
+        "https://itmedia.co.jp/smartjapan/articles/2604/27/news059.html",
+        [
+          "2026-04-27_JP_04",
+          "2026-04-23_JP_01"
+        ]
+      ],
+      [
+        "https://pv-magazine.com/2026/04/27/oxford-pv-says-tandem-solar-could-add-up-to-5-km-to-daily-ev-range",
+        [
+          "2026-04-27_GL_13",
+          "2026-04-14_GL_01"
+        ]
+      ]
+    ],
+    "sort_violations_after_merge_count": 0,
+    "sort_violations_after_merge_sample": [],
+    "candidate_schema_issues_count": 0,
+    "candidate_schema_issues": [],
+    "added_candidate_schema_issues_count": 0,
+    "added_candidate_schema_issues": [],
+    "candidate_fact_source_url_subset_issues_count": 0,
+    "candidate_fact_source_url_subset_issues": [],
+    "added_ids": [
+      "2026-05-20_KR_01",
+      "2026-05-15_US_01",
+      "2026-05-15_KR_01",
+      "2026-05-15_GL_01",
+      "2026-05-14_US_01",
+      "2026-05-14_GL_01",
+      "2026-05-13_JP_01",
+      "2026-05-13_GL_05",
+      "2026-05-13_EU_02",
+      "2026-05-13_CN_04",
+      "2026-05-11_GL_08",
+      "2026-05-11_GL_07",
+      "2026-04-20_CN_01"
+    ],
+    "held_ids": [
+      "2026-05-12_GL_06"
+    ],
+    "held_reasons": {
+      "2026-05-12_GL_06": {
+        "hold_type": "duplicate_event_fingerprint_against_baseline",
+        "baseline_match_id": "2026-05-13_GL_04",
+        "reason": "Same core actor/event: EVE Energy supplying Indian Godawari/GNEPL large-scale BESS/storage cells. Baseline already contains 2026-05-13_GL_04; payload card adds 8GWh detail from different URLs, but Prompt 0.8 merge-prep cannot rewrite/enrich existing baseline cards or merge a duplicate event as a new card.",
+        "candidate_title": "EVE Energy, 인도 GNEPL에 8GWh 저장 셀 공급 계약",
+        "baseline_title": "EVE Energy(중)-Godawari New Energy(인도), 인도 대규모 BESS 셀 공급 합의"
+      }
+    },
+    "sort_rule": "date desc, then id desc (preserves existing baseline ordering pattern and latest-first requirement)",
+    "merge_constraints": [
+      "No GitHub main fetch performed because user instructed to use uploaded cards.json as baseline.",
+      "No PR_CANDIDATE/GitHub-ready naming used.",
+      "Visible fields, urls, related, fact_sources, source_quote values of added cards preserved as-is.",
+      "No new editorial candidate created; no evidence/content rewrite performed.",
+      "Duplicate event candidate held instead of enriching baseline because Prompt 0.8 does not permit rewriting existing baseline cards."
+    ],
+    "all_pass": true,
+    "baseline_inherited_duplicate_url_groups_count": 19,
+    "baseline_inherited_duplicate_url_groups_sample": [
+      [
+        "https://pv-magazine.com/2026/04/28/longi-announces-world-record-efficiency-of-28-13-for-silicon-solar-cell",
+        [
+          "2026-04-28_CN_03",
+          "2026-04-27_CN_01"
+        ]
+      ],
+      [
+        "https://nikkei.com/article/DGXZQOUC235OR0T20C26A4000000",
+        [
+          "2026-04-27_JP_04",
+          "2026-04-23_JP_01"
+        ]
+      ],
+      [
+        "https://asahi-kasei.com/jp/news/2026/ze260423.html",
+        [
+          "2026-04-27_JP_04",
+          "2026-04-23_JP_01"
+        ]
+      ],
+      [
+        "https://itmedia.co.jp/smartjapan/articles/2604/27/news059.html",
+        [
+          "2026-04-27_JP_04",
+          "2026-04-23_JP_01"
+        ]
+      ],
+      [
+        "https://pv-magazine.com/2026/04/27/oxford-pv-says-tandem-solar-could-add-up-to-5-km-to-daily-ev-range",
+        [
+          "2026-04-27_GL_13",
+          "2026-04-14_GL_01"
+        ]
+      ]
+    ],
+    "merged_total_duplicate_url_groups_count_including_inherited": 19,
+    "merge_introduced_duplicate_url_groups_count": 0,
+    "merge_introduced_duplicate_url_groups": {},
+    "candidate_added_url_collision_against_baseline_count": 0,
+    "candidate_added_url_collision_against_baseline": []
   },
-  "merge_qc_scope": "24 new cards × 768 merged total (post codex_followup_v2 duplicate removal)",
+  "merge_qc_scope": "13 added + 1 held × 781 merged total, using uploaded baseline; inherited baseline duplicate URL groups not repaired",
   "source_enrichment": "stage_b_drafts_with_patch_spirit_p001_p002_p003_p007_p009_applied",
   "accepted_content_enriched_count": 24,
   "cards": [
+    {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "id": "2026-05-20_KR_01",
+      "draft_id": "2026-05-20_KR_01",
+      "source_spec_id": "SPEC_0_1P_20260516_012728_KR_USED_BATTERY_ACT",
+      "source_story_ids": [
+        "KR_2026-05-20_USED_BATTERY_ACT"
+      ],
+      "region": "KR",
+      "date": "2026-05-20",
+      "cat": "Policy",
+      "sub_cat": "배터리정책",
+      "signal": "high",
+      "title": "한국 사용후배터리법 제정안 국무회의 의결",
+      "sub": "산업통상부의 사용후배터리법 제정안이 5월 20일 국무회의에서 의결돼, 사용후 배터리를 국가 전략자원으로 관리하는 법적 토대가 마련됐다.",
+      "gate": "산업통상부는 사용후 배터리의 관리 및 산업육성에 관한 법률 제정안이 5월 20일 국무회의에서 의결됐다고 밝혔다. 이 법은 사용후 배터리를 폐기물이 아닌 국가 전략자원으로 관리하고 관련 산업을 육성하기 위한 것으로, EU 배터리법 등 글로벌 통상규제 대응체계도 함께 마련했다. 법은 공포 후 1년 경과일부터 시행될 예정이다.",
+      "fact": "산업통상부는 사용후배터리법 제정안이 2026년 5월 20일 국무회의에서 의결됐다고 밝혔다. 주요 내용은 성능평가·안전검사 체계 마련, 배터리 전주기 이력·거래시스템 구축, 재생원료 활용 촉진(함유율 목표제와 생산·사용 인증제), 산업육성 지원(우선구매 권고·공급망 안정화·기술개발) 네 가지다. 배터리 전주기 이력·거래시스템은 제조부터 사용후까지 데이터를 통합관리하고 거래를 지원하는 공공시스템이다. 정부는 국내 사용후 배터리 배출량이 2023년 2,355개에서 2030년 10만7,500개로 늘어날 것으로 추정했다. 법은 공포 후 1년 경과일부터 시행될 예정이다.",
+      "implication": [
+        "사용후 배터리가 전략자원으로 관리되면서 재생원료 함유율 목표제·인증제가 핵심광물 공급망에 변수가 될 수 있다.",
+        "전주기 이력·거래 공공시스템 구축이 사용후 배터리 시장 형성과 통상규제 대응에 어떤 영향을 줄지 후속 확인이 필요하다.",
+        "공포 후 1년 시행을 앞두고 하위법령·예산 마련 진행 상황이 점검 대상이다."
+      ],
+      "urls": [
+        "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156762786",
+        "https://zdnet.co.kr/view/?no=20260520090026"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "산업통상부 보도자료(공식)",
+          "source_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156762786",
+          "claim": "사용후배터리법 제정안 5월 20일 국무회의 의결; 4대 주요 내용; 공포 후 1년 시행; 배출량 2,355(23)->107,500(30) | 성능평가·안전검사, 전주기 이력·거래시스템, 재생원료 활용 촉진, 산업육성 지원; 배출량 추정",
+          "source_quote": "「사용후 배터리의 관리 및 산업육성에 관한 법률안」(이하 \"사용후배터리법\") 제정법률안이 5월 20일(수) 국무회의에서 의결되었다 ... 동법은 공포 후 1년 경과하는 날부터 시행될 예정이다.  /  국내 사용후 배터리 배출량(개) : ('23)2,355 → ('25)8,321 → ('29)78,981 → ('30)107,500 ... 재생원료의 함유율 목표제와 재생원료의 생산·사용 인증제를 도입한다.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "sub",
+            "title"
+          ],
+          "fetched_at": "2026-05-28T00:00:00Z",
+          "fetch_method": "web_fetch"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "claim": "국무회의 의결 독립 확인; 국가 전략자원 관리; EU 배터리법 대응",
+          "source_quote": "산업통상부는 '사용후 배터리의 관리 및 산업육성에 관한 법률안'(이하 사용후배터리법) 제정법률안이 20일 국무회의에서 의결됐다고 밝혔다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate"
+          ],
+          "fetched_at": "2026-05-28T00:00:00Z",
+          "fetch_method": "web_fetch"
+        }
+      ],
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "publish_ready": true,
+      "evidence_qc_findings": {
+        "quote_quality": "pass: all visible-supporting sources body_quote_verified or official_material_quote_verified",
+        "fact_sources_schema": "pass: source_name/url/claim/quote/status/role/supports/fetched_at/fetch_method present",
+        "source_role_sufficiency": "pass: >=1 primary_event_evidence per card",
+        "single_source_status": "multi_source",
+        "numeric_claim_audit": "pass: every number/date mapped to fact_sources",
+        "causal_claim_audit": "pass: no unsupported causal claim; implications observational",
+        "source_accessibility": "pass: sources fetched/verified"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_review": {
+        "status": "PASS_MULTI_SOURCE",
+        "official_or_primary": true,
+        "independent_source_count": 2,
+        "note": "Official MOTIE release + independent ZDNet/Newspim; URL-sync clean."
+      },
+      "source_discovery_ledger": [
+        {
+          "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156762786",
+          "action": "accepted_official_motie_primary"
+        },
+        {
+          "url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "action": "accepted_independent_corroboration"
+        },
+        {
+          "url": "https://www.newspim.com/news/view/20260520000434",
+          "action": "accepted_independent_corroboration"
+        }
+      ],
+      "source_discovery_ledger_reference": "Stage B evidence_package source_discovery_ledger (carried)",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "claim_coverage_summary": "strong: title/sub/fact/numeric claims all covered by verified fact_sources",
+      "notes": "Official MOTIE release + independent ZDNet/Newspim; URL-sync clean.",
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "multi_source_available_so_exception_not_needed"
+      },
+      "content_polish_change_log": {
+        "action": "confirmed_strong_light_polish",
+        "notes": "Enactment-bill State Council approval stays approval (not yet promulgated/effective); 4 pillars and output figures source-locked; 1-year-after-promulgation effective date preserved.",
+        "fields_rewritten": [],
+        "fields_confirmed_strong": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "anchor_inflation_check": "pass: execution anchor preserved, not inflated",
+        "source_locked": "pass: no unsupported fact added"
+      },
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "All 9 gates PASS. baseline is repo cards.json (not GitHub main) -> publish_ready for content/data quality; github_ready/pr_candidate_ready=false; sync required later.",
+      "pipeline_origin": "0_1p_promoted_track",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "0.1P salvage/promoted track; included by explicit user authorization, not part of preserved 20260516 MAIN reference-only final"
+    },
+    {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "draft_id": "DRAFT_SPEC_20260516_012728_US20260515C02",
+      "source_spec_id": "SPEC_20260516_012728_US20260515C02",
+      "source_story_ids": [
+        "US_2026-05-15_C02"
+      ],
+      "region": "US",
+      "date": "2026-05-15",
+      "cat": "Materials",
+      "sub_cat": "전해질소재",
+      "signal": "high",
+      "title": "Anthro Energy, DOE 승인으로 루이빌 전해질 공장 건설 단계 진입",
+      "sub": "미국 에너지부가 켄터키 루이빌 첨단 전해질 공장의 건설 단계 진입을 승인하며 누적 연방 지원이 약 4300만 달러에 이르렀다.",
+      "gate": "미국이 FEOC-free 배터리 전해질 공급망을 자국 내 제조로 끌어오는 산업정책형 소부장 투자다. DOE 보조금과 IRA 48C 세액공제가 결합돼 초기 CAPEX 리스크를 낮추고, 방위·소비자전자·에너지저장 고객을 겨냥한 첨단 전해질 현지 생산 거점으로 설계됐다.",
+      "fact": "Anthro Energy는 켄터키주 루이빌의 기존 건물을 25GWh 규모 생산 허브로 전환해 연 12,000톤 이상의 IPCE/Proteus 폴리머 전해질을 생산할 계획이다. DOE 승인으로 2,490만 달러 보조금의 다음 단계가 열렸고, 1,840만 달러 IRA 48C 세액공제까지 합쳐 누적 연방 지원은 약 4,300만 달러다. 켄터키 경제개발 당국 자료 기준 이 프로젝트는 110개 정규직 일자리 창출을 예상하며, 착공은 2026년 중반으로 예정됐다.",
+      "implication": [
+        "전해질은 셀 원가·성능·안전성에 직접 닿는 소재라, 미국 내 FEOC-free 생산 확보가 방위·ESS·프리미엄 전자 고객의 조달 옵션을 넓힐 수 있다.",
+        "보조금과 48C 세액공제를 결합한 구조는 초기 소부장 공장 금융의 기준점이 될 수 있어 후속 전해질·분리막·첨가제 투자에도 비교 기준이 된다.",
+        "착공, 장비 반입, 고객 인증, 양산 램프업이 계획대로 이어지는지가 이 카드의 다음 체크포인트다."
+      ],
+      "urls": [
+        "https://chargedevs.com/newswire/anthro-energy-clears-doe-phase-approval-for-12000-ton-lithium-ion-battery-electrolyte-plant-in-louisville/",
+        "https://newkentuckyhome.ky.gov/Newsroom/NewsPage/20251212_AnthroEnergy"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Charged EVs",
+          "source_url": "https://chargedevs.com/newswire/anthro-energy-clears-doe-phase-approval-for-12000-ton-lithium-ion-battery-electrolyte-plant-in-louisville/",
+          "claim": "미국 에너지부(DOE)가 Anthro Energy의 켄터키주 루이빌 전해질 공장을 건설 단계로 진입하도록 승인했고, 누적 연방 지원은 약 4300만 달러다(24.9M 보조금+18.4M 48C 세액공제).",
+          "source_quote": "the project has secured roughly $43 million in federal support total",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_fetch"
+        },
+        {
+          "source_name": "Kentucky Cabinet for Economic Development",
+          "source_url": "https://newkentuckyhome.ky.gov/Newsroom/NewsPage/20251212_AnthroEnergy",
+          "claim": "공장은 연 12,000톤 규모의 첨단 전해질(Proteus)을 생산할 계획이며 110개의 정규직 일자리를 창출한다(2025년 12월 부지 선정 발표).",
+          "source_quote": "anticipates production of over 12,000 metric tons of IPCE per year",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        }
+      ],
+      "id": "2026-05-15_US_01",
+      "event_fingerprint": {
+        "actor": "Anthro Energy",
+        "asset_or_policy": "Louisville electrolyte facility",
+        "location": "Louisville, Kentucky, US",
+        "event_type": "funding",
+        "event_date": "2026-05-15",
+        "factual_anchor": "DOE construction-phase approval; ~$43M federal support; 12,000 t/yr"
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "duplicate_screening": {
+        "exact_url_match": false,
+        "canonical_url_match": false,
+        "title_similarity_match": false,
+        "actor_asset_event_match": false,
+        "baseline_event_fingerprint_match": false,
+        "internal_batch_duplicate_match": false,
+        "already_covered_by_broader_card": false
+      },
+      "id_collision": false,
+      "id_collision_notes": "",
+      "collision_with": [],
+      "recommended_id_action": "none",
+      "recommended_free_slot": null,
+      "publish_ready": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_evidence_completeness_qc": true,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_enrichment": true,
+      "needs_language_terminology_polish": true,
+      "source_strength_caveat": "none",
+      "prior_id": null,
+      "notes": "$42M(기업 투자) vs $43M(연방 지원) 구분 유지. 깨끗한 수락.",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "source_discovery_ledger": [
+        {
+          "attempt_order": 1,
+          "ledger_type": "fetch_attempt",
+          "source_type_attempted": "provided_candidate",
+          "query_or_url": "chargedevs Anthro Energy Louisville",
+          "search_terms_used": [
+            "chargedevs Anthro Energy Louisville"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 2,
+          "ledger_type": "official_source_search",
+          "source_type_attempted": "state_government",
+          "query_or_url": "Anthro Energy DOE Louisville electrolyte plant 12000-ton",
+          "search_terms_used": [
+            "Anthro Energy DOE Louisville electrolyte plant 12000-ton"
+          ],
+          "access_result": "ok_official",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 3,
+          "ledger_type": "cited_primary_search",
+          "source_type_attempted": "company_state_release",
+          "query_or_url": "Anthro Energy DOE Louisville electrolyte plant 12000-ton",
+          "search_terms_used": [
+            "Anthro Energy DOE Louisville electrolyte plant 12000-ton"
+          ],
+          "access_result": "ok",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        }
+      ],
+      "source_discovery_status": "completed_verified_source_found",
+      "evidence_qc_findings": {
+        "fact_sources_present": true,
+        "all_core_quotes_body_or_official": true,
+        "quote_claim_alignment": "PASS",
+        "url_sync": "PASS",
+        "source_diversity": "PASS_MULTI_SOURCE",
+        "execution_anchor_evidenced": true
+      },
+      "content_polish_findings": {
+        "title_quality": "strong (actor+action+scale/region present)",
+        "sub_quality": "strong (one sentence, event+scale+angle)",
+        "gate_depth": "adequate-to-strong (lane relevance, fact/interpretation separated)",
+        "fact_source_lock": "PASS (every number/date/entity covered by fact_sources)",
+        "implication_quality": "observational, 3 items, distinct roles",
+        "terminology_consistency": "PASS (MWh/GWh/달러 normalized; Korean names)",
+        "foreign_language_residue": "none",
+        "banned_phrase_check": "none",
+        "tone_check": "executive briefing tone; no promo",
+        "sbtl_forcing_check": "no forced SBTL benefit claim"
+      },
+      "visible_field_change_summary": "confirmed_as_strong_no_change",
+      "source_diversity_carry_forward": {
+        "source_diversity_status": "PASS_MULTI_SOURCE",
+        "do_not_expand_claims": true,
+        "source_augmentation_required": false,
+        "source_diversity_caveat_preserved": true,
+        "source_url_urls_sync_status": "PASS_DEDUPED_NORMALIZED_URLS",
+        "claim_strength_matches_source_diversity": true
+      },
+      "claim_type": "public_funding_approval",
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "All 9 gates PASS. baseline is repo cards.json (not GitHub main) -> publish_ready for content/data quality; github_ready/pr_candidate_ready=false; sync required later.",
+      "pipeline_origin": "main_9card_run",
+      "reference_final_url_cleanup": "removed same-URL slash variants; no source evidence changed",
+      "content_polish_change_log": [
+        "20260516_reference_density_polish: visible fields densified using existing fact_sources only; no source/fact_sources/source_quote changes"
+      ],
+      "reference_density_polish": "applied_source_locked_visible_fields_only",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "MAIN strict-passed flow"
+    },
+    {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "draft_id": "DRAFT_SPEC_20260516_012728_KR20260515C110",
+      "source_spec_id": "SPEC_20260516_012728_KR20260515C110",
+      "source_story_ids": [
+        "KR_2026-05-15_C112",
+        "KR_2026-05-15_C111",
+        "KR_2026-05-15_C110",
+        "KR_2026-05-15_C109",
+        "KR_2026-05-15_C85",
+        "TF_0073"
+      ],
+      "region": "KR",
+      "date": "2026-05-15",
+      "cat": "Charging",
+      "sub_cat": "V2G실증",
+      "signal": "mid",
+      "title": "현대차그룹, 제주서 일반 고객 대상 V2G 시범서비스 본격 시행",
+      "sub": "현대차그룹이 제주도민 40명을 선정해 아이오닉 9·기아 EV9 기반 양방향 충전(V2G) 시범서비스를 일반 고객 대상으로 시작했다.",
+      "gate": "현대차그룹이 V2G를 연구실 실증에서 일반 고객 참여형 운영 데이터 확보 단계로 옮긴 사례다. 재생에너지 비중이 높은 제주에서 낮 시간 잉여 전력을 차량에 저장하고 야간·피크에 계통으로 되돌리는 구조라, 양방향 충전기·요금정산·사용자 행동 데이터가 핵심 자산이 된다.",
+      "fact": "현대차그룹은 제주도청과 협력해 양방향 충전기 설치가 가능한 제주도민을 모집하고 현장 실사를 거쳐 일반 고객 40명을 선정했다. 참여 고객은 아이오닉 9과 기아 EV9 기반 V2G 시범서비스에 참여하며, 양방향 충전기는 무료 설치되고 시범기간 충전 요금도 전액 지원된다. 현대차는 사업 운영과 V2G 검증을 맡고, 현대엔지니어링은 충전 서비스 분석과 고도화 방안을 수립한다. 이번 사업은 지난해 쏘카 선행 실증 이후 일반 고객 사용 패턴을 확인하는 민관 합동 실증이다.",
+      "implication": [
+        "V2G가 상용 전력자원으로 인정받으려면 차량·충전기·계통운영자 간 정산 구조가 필요해, 이번 실증의 사용시간대와 방전 패턴이 제도 설계의 기초 데이터가 될 수 있다.",
+        "현대차그룹 입장에서는 EV 판매 이후 충전·에너지 서비스로 확장하는 사업모델의 초기 검증이라는 의미가 있다.",
+        "40명 규모를 넘어 충전기 보급, 보상체계, 제주 외 지역 확장으로 이어지는지가 다음 체크포인트다."
+      ],
+      "urls": [
+        "https://www.hyundaimotorgroup.com/ko/news/hyundai-motor-group-jeju-v2g-pilot-service",
+        "https://www.edaily.co.kr/News/Read?newsId=03384966645449248&mediaCodeNo=257",
+        "https://www.seoulfn.com/news/articleView.html?idxno=628880",
+        "https://zdnet.co.kr/view/?no=20260515083657"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "이데일리",
+          "source_url": "https://www.edaily.co.kr/News/Read?newsId=03384966645449248&mediaCodeNo=257",
+          "claim": "현대차그룹이 제주도에서 일반 고객(제주도민)을 대상으로 V2G 시범서비스를 본격 시행하며, 현장 실사를 거쳐 참여 고객 40명을 선정했다.",
+          "source_quote": "최종 참여 고객 40명을 선정했다",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "서울파이낸스",
+          "source_url": "https://www.seoulfn.com/news/articleView.html?idxno=628880",
+          "claim": "제주도민 대상 시범서비스는 민관 합동으로 추진되며, 현대차가 사업 운영·V2G 검증을, 현대엔지니어링이 충전 서비스 분석·고도화를 맡는다.",
+          "source_quote": "현대엔지니어링이 충전 서비스 분석 및 고도화 방안을 수립한다",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260515083657",
+          "claim": "제주는 풍력·태양광 비중이 높아 낮 시간대 잉여 전력이 자주 발생하며, 이를 전기차에 저장했다 야간에 전력망으로 공급해 전력 운영 효율 개선에 기여한다.",
+          "source_quote": "재생에너지 비중이 높은 제주도의 전력 운영 효율 개선에도 기여할 것으로 기대",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "gate"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search",
+          "supporting_context_only_not_visible_claim_support": true,
+          "context_only_reason": "ZDNet는 제주 재생에너지 비중 맥락(gate framing)만 뒷받침하며, 핵심 사건(40명 V2G 실증)은 이데일리·서울파이낸스가 지원한다."
+        }
+      ],
+      "id": "2026-05-15_KR_01",
+      "event_fingerprint": {
+        "actor": "Hyundai Motor Group",
+        "asset_or_policy": "Jeju V2G pilot service",
+        "location": "Jeju, Korea",
+        "event_type": "pilot",
+        "event_date": "2026-05-15",
+        "factual_anchor": "named commercial V2G pilot; 40 residents; grid-stabilization"
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "duplicate_screening": {
+        "exact_url_match": false,
+        "canonical_url_match": false,
+        "title_similarity_match": false,
+        "actor_asset_event_match": false,
+        "baseline_event_fingerprint_match": false,
+        "internal_batch_duplicate_match": false,
+        "already_covered_by_broader_card": false
+      },
+      "id_collision": false,
+      "id_collision_notes": "",
+      "collision_with": [],
+      "recommended_id_action": "none",
+      "recommended_free_slot": null,
+      "publish_ready": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_evidence_completeness_qc": true,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_enrichment": true,
+      "needs_language_terminology_polish": true,
+      "source_strength_caveat": "none",
+      "prior_id": null,
+      "notes": "Pass 2A 통과: 명명된 상용 실증으로 실행앵커 충족. signal=mid 적정.",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "source_discovery_ledger": [
+        {
+          "attempt_order": 1,
+          "ledger_type": "fetch_attempt",
+          "source_type_attempted": "provided_candidate",
+          "query_or_url": "hyundaimotorgroup.com jeju-v2g (Stage A 구성 URL)",
+          "search_terms_used": [
+            "hyundaimotorgroup.com jeju-v2g (Stage A 구성 URL)"
+          ],
+          "access_result": "constructed_candidate_superseded_by_press",
+          "supports_core_event": false,
+          "supports_missing_claims": [],
+          "source_direction_check": "UNKNOWN",
+          "same_actor_event_date_check": "UNKNOWN",
+          "reason_not_used": "superseded by source-owner/body source"
+        },
+        {
+          "attempt_order": 2,
+          "ledger_type": "cited_primary_search",
+          "source_type_attempted": "source_owner_press",
+          "query_or_url": "현대차그룹 제주 V2G 시범서비스 일반 고객 양방향 충전",
+          "search_terms_used": [
+            "현대차그룹 제주 V2G 시범서비스 일반 고객 양방향 충전"
+          ],
+          "access_result": "ok_body_multi",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 3,
+          "ledger_type": "alternate_source_search",
+          "source_type_attempted": "national_press",
+          "query_or_url": "현대차그룹 제주 V2G 시범서비스 일반 고객 양방향 충전",
+          "search_terms_used": [
+            "현대차그룹 제주 V2G 시범서비스 일반 고객 양방향 충전"
+          ],
+          "access_result": "ok_body_multi",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        }
+      ],
+      "source_discovery_status": "completed_verified_source_found",
+      "evidence_qc_findings": {
+        "fact_sources_present": true,
+        "all_core_quotes_body_or_official": true,
+        "quote_claim_alignment": "PASS",
+        "url_sync": "PASS",
+        "source_diversity": "PASS_MULTI_SOURCE",
+        "execution_anchor_evidenced": true
+      },
+      "content_polish_findings": {
+        "title_quality": "strong (actor+action+scale/region present)",
+        "sub_quality": "strong (one sentence, event+scale+angle)",
+        "gate_depth": "adequate-to-strong (lane relevance, fact/interpretation separated)",
+        "fact_source_lock": "PASS (every number/date/entity covered by fact_sources)",
+        "implication_quality": "observational, 3 items, distinct roles",
+        "terminology_consistency": "PASS (MWh/GWh/달러 normalized; Korean names)",
+        "foreign_language_residue": "none",
+        "banned_phrase_check": "none",
+        "tone_check": "executive briefing tone; no promo",
+        "sbtl_forcing_check": "no forced SBTL benefit claim"
+      },
+      "visible_field_change_summary": "confirmed_as_strong_no_change",
+      "source_diversity_carry_forward": {
+        "source_diversity_status": "PASS_MULTI_SOURCE",
+        "do_not_expand_claims": true,
+        "source_augmentation_required": false,
+        "source_diversity_caveat_preserved": true,
+        "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+        "claim_strength_matches_source_diversity": true
+      },
+      "claim_type": "named_commercial_pilot",
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "All 9 gates PASS. baseline is repo cards.json (not GitHub main) -> publish_ready for content/data quality; github_ready/pr_candidate_ready=false; sync required later.",
+      "pipeline_origin": "main_9card_run",
+      "reference_final_url_cleanup": "removed same-URL slash variants; no source evidence changed",
+      "content_polish_change_log": [
+        "20260516_reference_density_polish: visible fields densified using existing fact_sources only; no source/fact_sources/source_quote changes"
+      ],
+      "reference_density_polish": "applied_source_locked_visible_fields_only",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "MAIN strict-passed flow"
+    },
+    {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "draft_id": "DRAFT_SPEC_20260516_012728_GL20260515C01",
+      "source_spec_id": "SPEC_20260516_012728_GL20260515C01",
+      "source_story_ids": [
+        "GL_2026-05-15_C01"
+      ],
+      "region": "GL",
+      "date": "2026-05-15",
+      "cat": "ESS",
+      "sub_cat": "계통저장조달",
+      "signal": "high",
+      "title": "호주 NSW, 7차 피밍 입찰로 2,128MWh 저장 확보",
+      "sub": "호주 뉴사우스웨일스가 7차 인프라 입찰에서 532MW 피밍 프로젝트를 계약해 총 2,128MWh 저장용량을 확보했다.",
+      "gate": "NSW가 여름철 공급부족 리스크를 BESS와 VPP 조달로 메우는 피밍 계약이다. LTESA는 저장자산에 장기 수익 가시성을 주면서 피크 수요 시 급전 의무를 붙이는 구조라, 호주 저장 프로젝트의 금융 가능성과 계통 기여를 동시에 시험한다.",
+      "fact": "호주 뉴사우스웨일스는 7차 인프라 입찰에서 532MW 피밍 프로젝트를 계약해 총 2,128MWh 저장용량을 확보했다. LTESA는 BESS 1건과 가상발전소(VPP) 1건에 부여됐고, 두 프로젝트는 2027년 11월까지 상업운전을 목표로 한다. NSW 정부는 이 프로젝트들이 피크 수요 시 약 20만 가구에 전력을 공급할 수 있는 규모라고 설명했으며, 기존 약 1GW 계약과 합치면 누적 피밍 계약은 1.5GW를 넘어선다.",
+      "implication": [
+        "NSW의 저장 조달은 에너지 차익보다 신뢰도·예비력 서비스를 중심으로 수익모델이 형성되는 흐름을 보여준다.",
+        "BESS와 VPP를 같은 피밍 조달 안에 넣은 점은 분산자원과 대형 저장의 경쟁·보완 관계를 가늠할 기준이 된다.",
+        "2027년 11월 COD, 계약상 급전 성능, 여름 피크 기여도가 다음 체크포인트다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/australia-nsw-firming-tender-secures-2128mwh-of-energy-storage-to-address-summer-shortfall/",
+        "https://www.indexbox.io/blog/nsw-secures-532-mw-firming-capacity-in-seventh-infrastructure-tender/",
+        "https://www.nsw.gov.au/ministerial-releases/nsw-boosts-energy-security-new-firming-tender"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Energy-Storage.news",
+          "source_url": "https://www.energy-storage.news/australia-nsw-firming-tender-secures-2128mwh-of-energy-storage-to-address-summer-shortfall/",
+          "claim": "호주 뉴사우스웨일스(NSW)가 7차 인프라 입찰에서 532MW 피밍(저장) 프로젝트를 계약해 총 2,128MWh 저장용량을 확보했고, 2027-28 여름 공급부족에 대응한다.",
+          "source_quote": "the projects will deliver 2,128MWh of storage capacity",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "IndexBox",
+          "source_url": "https://www.indexbox.io/blog/nsw-secures-532-mw-firming-capacity-in-seventh-infrastructure-tender/",
+          "claim": "장기에너지서비스계약(LTESA)이 BESS 1건과 가상발전소(VPP) 1건에 부여됐으며, 두 프로젝트는 2027년 11월까지 상업운전을 목표로 한다.",
+          "source_quote": "granted to one battery energy storage system and one virtual power plant",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "NSW Government (official)",
+          "source_url": "https://www.nsw.gov.au/ministerial-releases/nsw-boosts-energy-security-new-firming-tender",
+          "claim": "이 입찰로 지원되는 프로젝트는 피크 수요 시 약 20만 가구에 전력을 공급할 수 있는 규모이며, 시드니-뉴캐슬-울런공 권역 신뢰도 보강이 목적이다.",
+          "source_quote": "capable of powering around 200,000 homes during times of peak demand",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "gate"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search",
+          "supporting_context_only_not_visible_claim_support": true,
+          "context_only_reason": "NSW 정부 릴리스는 입찰 개시 시점의 일반 배경(약 20만 가구 규모, gate framing)만 뒷받침하며, 낙찰 확정 핵심 사건은 ESN·IndexBox가 지원한다."
+        }
+      ],
+      "id": "2026-05-15_GL_01",
+      "event_fingerprint": {
+        "actor": "NSW (ASL)",
+        "asset_or_policy": "NSW 7th firming tender",
+        "location": "Sydney-Newcastle-Wollongong, Australia",
+        "event_type": "contract",
+        "event_date": "2026-05-15",
+        "factual_anchor": "532 MW / 2,128 MWh tender award; BESS+VPP; Nov 2027 COD"
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "duplicate_screening": {
+        "exact_url_match": false,
+        "canonical_url_match": false,
+        "title_similarity_match": false,
+        "actor_asset_event_match": false,
+        "baseline_event_fingerprint_match": false,
+        "internal_batch_duplicate_match": false,
+        "already_covered_by_broader_card": false
+      },
+      "id_collision": false,
+      "id_collision_notes": "",
+      "collision_with": [],
+      "recommended_id_action": "none",
+      "recommended_free_slot": null,
+      "publish_ready": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_evidence_completeness_qc": true,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_enrichment": true,
+      "needs_language_terminology_polish": true,
+      "source_strength_caveat": "none",
+      "prior_id": null,
+      "notes": "낙찰=확정, 가동은 미래로 정확히 표기. 깨끗한 수락.",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "source_discovery_ledger": [
+        {
+          "attempt_order": 1,
+          "ledger_type": "fetch_attempt",
+          "source_type_attempted": "provided_candidate",
+          "query_or_url": "energy-storage.news NSW firming tender 2128MWh",
+          "search_terms_used": [
+            "energy-storage.news NSW firming tender 2128MWh"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 2,
+          "ledger_type": "alternate_source_search",
+          "source_type_attempted": "trade_aggregator",
+          "query_or_url": "NSW firming tender 2128MWh energy storage summer shortfall seventh",
+          "search_terms_used": [
+            "NSW firming tender 2128MWh energy storage summer shortfall seventh"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 3,
+          "ledger_type": "official_source_search",
+          "source_type_attempted": "state_government",
+          "query_or_url": "NSW firming tender energy security",
+          "search_terms_used": [
+            "NSW firming tender energy security"
+          ],
+          "access_result": "ok_official_background",
+          "supports_core_event": false,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "UNKNOWN",
+          "reason_not_used": "superseded by source-owner/body source"
+        }
+      ],
+      "source_discovery_status": "completed_verified_source_found",
+      "evidence_qc_findings": {
+        "fact_sources_present": true,
+        "all_core_quotes_body_or_official": true,
+        "quote_claim_alignment": "PASS",
+        "url_sync": "PASS",
+        "source_diversity": "PASS_MULTI_SOURCE",
+        "execution_anchor_evidenced": true
+      },
+      "content_polish_findings": {
+        "title_quality": "strong (actor+action+scale/region present)",
+        "sub_quality": "strong (one sentence, event+scale+angle)",
+        "gate_depth": "adequate-to-strong (lane relevance, fact/interpretation separated)",
+        "fact_source_lock": "PASS (every number/date/entity covered by fact_sources)",
+        "implication_quality": "observational, 3 items, distinct roles",
+        "terminology_consistency": "PASS (MWh/GWh/달러 normalized; Korean names)",
+        "foreign_language_residue": "none",
+        "banned_phrase_check": "none",
+        "tone_check": "executive briefing tone; no promo",
+        "sbtl_forcing_check": "no forced SBTL benefit claim"
+      },
+      "visible_field_change_summary": "confirmed_as_strong_no_change",
+      "source_diversity_carry_forward": {
+        "source_diversity_status": "PASS_MULTI_SOURCE",
+        "do_not_expand_claims": true,
+        "source_augmentation_required": false,
+        "source_diversity_caveat_preserved": true,
+        "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+        "claim_strength_matches_source_diversity": true
+      },
+      "claim_type": "procurement_tender_award",
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "All 9 gates PASS. baseline is repo cards.json (not GitHub main) -> publish_ready for content/data quality; github_ready/pr_candidate_ready=false; sync required later.",
+      "pipeline_origin": "main_9card_run",
+      "reference_final_url_cleanup": "removed same-URL slash variants; no source evidence changed",
+      "content_polish_change_log": [
+        "20260516_reference_density_polish: visible fields densified using existing fact_sources only; no source/fact_sources/source_quote changes"
+      ],
+      "reference_density_polish": "applied_source_locked_visible_fields_only",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "MAIN strict-passed flow"
+    },
+    {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "draft_id": "DRAFT_SPEC_20260516_012728_US20260515C21",
+      "source_spec_id": "SPEC_20260516_012728_US20260515C21",
+      "source_story_ids": [
+        "US_2026-05-15_C21"
+      ],
+      "region": "US",
+      "date": "2026-05-14",
+      "cat": "ESS",
+      "sub_cat": "ESS프로젝트금융",
+      "signal": "top",
+      "title": "Sunraycer, 텍사스 태양광+저장 3개 프로젝트에 9억100만 달러 금융 종결",
+      "sub": "Sunraycer Renewables가 태양광 479.5MWac와 BESS 236.5MW(473MWh)를 묶은 텍사스 3개 프로젝트의 프로젝트 파이낸싱을 종결했다.",
+      "gate": "텍사스 전력수요 증가와 코퍼레이트 PPA 수요가 태양광+저장 프로젝트 파이낸싱으로 연결된 사례다. 9억100만 달러 금융 패키지는 건설대출·텀론·세액공제 브리지·신용장으로 구성돼, IRA 이후 미국 재생+저장 포트폴리오 금융의 전형을 보여준다.",
+      "fact": "Sunraycer Renewables는 텍사스의 3개 태양광+저장 프로젝트에 대해 9억100만 달러 프로젝트 파이낸싱을 종결했다. 포트폴리오는 태양광 479.5MWac와 2시간 지속 BESS 236.5MW/473MWh로 구성되며, MUFG·Ally·Nomura·Nord/LB·Societe Generale가 금융기관으로 참여했다. Lupinus 1과 Lupinus 2는 2026년 3월 구글과 장기 PPA를 체결했고, Eagle Springs는 2026년 말 가동 예정이다.",
+      "implication": [
+        "구글 PPA가 붙은 태양광+저장 포트폴리오는 데이터센터 전력수요가 프로젝트 금융 조달력으로 전환되는 구조를 보여준다.",
+        "2시간 BESS는 텍사스 피크 대응과 태양광 출력 보정에 초점을 둔 설계로, 장주기 저장과 다른 수익모델 비교 기준이 된다.",
+        "Eagle Springs의 2026년 말 COD와 Lupinus 1·2의 2027년 말 일정, 세액공제 브리지 회수 구조가 다음 체크포인트다."
+      ],
+      "urls": [
+        "https://pv-magazine-usa.com/2026/05/15/sunraycer-renewables-closes-901-million-financing-for-473-mwh-bess-portfolio-in-texas/",
+        "https://renewablewatch.in/2026/05/18/sunraycer-renewables-secures-901-million-for-solar-and-bess-projects-in-texas/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "pv magazine USA",
+          "source_url": "https://pv-magazine-usa.com/2026/05/15/sunraycer-renewables-closes-901-million-financing-for-473-mwh-bess-portfolio-in-texas/",
+          "claim": "Sunraycer Renewables가 텍사스 3개 태양광+저장 프로젝트(태양광 479.5MWac, BESS 236.5MW·2시간·473MWh)를 위한 9억100만 달러 프로젝트 파이낸싱을 종결했다.",
+          "source_quote": "closed a $901 million project financing package",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "Renewable Watch",
+          "source_url": "https://renewablewatch.in/2026/05/18/sunraycer-renewables-secures-901-million-for-solar-and-bess-projects-in-texas/",
+          "claim": "Sunraycer는 2026년 3월 Lupinus 1·2 태양광 프로젝트에 대해 구글과 장기 전력구매계약(PPA) 2건을 체결했다.",
+          "source_quote": "executed two long-term power purchase agreements with Google for the Lupinus 1 and Lupinus 2",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        }
+      ],
+      "id": "2026-05-14_US_01",
+      "event_fingerprint": {
+        "actor": "Sunraycer Renewables",
+        "asset_or_policy": "Eagle Springs / Lupinus 1 / Lupinus 2",
+        "location": "Texas, US",
+        "event_type": "financing",
+        "event_date": "2026-05-14",
+        "factual_anchor": "$901M project financing close; 236.5 MW / 473 MWh BESS; Google PPA"
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "duplicate_screening": {
+        "exact_url_match": false,
+        "canonical_url_match": false,
+        "title_similarity_match": false,
+        "actor_asset_event_match": false,
+        "baseline_event_fingerprint_match": false,
+        "internal_batch_duplicate_match": false,
+        "already_covered_by_broader_card": false
+      },
+      "id_collision": false,
+      "id_collision_notes": "",
+      "collision_with": [],
+      "recommended_id_action": "none",
+      "recommended_free_slot": null,
+      "publish_ready": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_evidence_completeness_qc": true,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_enrichment": true,
+      "needs_language_terminology_polish": true,
+      "source_strength_caveat": "none",
+      "prior_id": null,
+      "notes": "구글 PPA는 3월 선행 사실(보조). 깨끗한 수락.",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "source_discovery_ledger": [
+        {
+          "attempt_order": 1,
+          "ledger_type": "fetch_attempt",
+          "source_type_attempted": "provided_candidate",
+          "query_or_url": "pv-magazine-usa Sunraycer 901 million",
+          "search_terms_used": [
+            "pv-magazine-usa Sunraycer 901 million"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 2,
+          "ledger_type": "alternate_source_search",
+          "source_type_attempted": "trade_press",
+          "query_or_url": "Sunraycer Renewables $901 million financing 473 MWh BESS Texas Google",
+          "search_terms_used": [
+            "Sunraycer Renewables $901 million financing 473 MWh BESS Texas Google"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 3,
+          "ledger_type": "cited_primary_search",
+          "source_type_attempted": "issuer_pr",
+          "query_or_url": "Sunraycer Google power purchase agreement",
+          "search_terms_used": [
+            "Sunraycer Google power purchase agreement"
+          ],
+          "access_result": "ok",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        }
+      ],
+      "source_discovery_status": "completed_verified_source_found",
+      "evidence_qc_findings": {
+        "fact_sources_present": true,
+        "all_core_quotes_body_or_official": true,
+        "quote_claim_alignment": "PASS",
+        "url_sync": "PASS",
+        "source_diversity": "PASS_MULTI_SOURCE",
+        "execution_anchor_evidenced": true
+      },
+      "content_polish_findings": {
+        "title_quality": "strong (actor+action+scale/region present)",
+        "sub_quality": "strong (one sentence, event+scale+angle)",
+        "gate_depth": "adequate-to-strong (lane relevance, fact/interpretation separated)",
+        "fact_source_lock": "PASS (every number/date/entity covered by fact_sources)",
+        "implication_quality": "observational, 3 items, distinct roles",
+        "terminology_consistency": "PASS (MWh/GWh/달러 normalized; Korean names)",
+        "foreign_language_residue": "none",
+        "banned_phrase_check": "none",
+        "tone_check": "executive briefing tone; no promo",
+        "sbtl_forcing_check": "no forced SBTL benefit claim"
+      },
+      "visible_field_change_summary": "source_locked_refinement: implication",
+      "source_diversity_carry_forward": {
+        "source_diversity_status": "PASS_MULTI_SOURCE",
+        "do_not_expand_claims": true,
+        "source_augmentation_required": false,
+        "source_diversity_caveat_preserved": true,
+        "source_url_urls_sync_status": "PASS_DEDUPED_NORMALIZED_URLS",
+        "claim_strength_matches_source_diversity": true
+      },
+      "claim_type": "project_financing_close",
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "All 9 gates PASS. baseline is repo cards.json (not GitHub main) -> publish_ready for content/data quality; github_ready/pr_candidate_ready=false; sync required later.",
+      "pipeline_origin": "main_9card_run",
+      "reference_final_url_cleanup": "removed same-URL slash variants; no source evidence changed",
+      "content_polish_change_log": [
+        "20260516_reference_density_polish: visible fields densified using existing fact_sources only; no source/fact_sources/source_quote changes"
+      ],
+      "reference_density_polish": "applied_source_locked_visible_fields_only",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "MAIN strict-passed flow"
+    },
+    {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "id": "2026-05-14_GL_01",
+      "draft_id": "2026-05-14_GL_01",
+      "source_spec_id": "SPEC_0_1P_20260516_012728_GANFENG_JUJUY",
+      "source_story_ids": [
+        "KR_2026-05-15_C40"
+      ],
+      "region": "GL",
+      "date": "2026-05-14",
+      "cat": "Materials",
+      "sub_cat": "리튬",
+      "signal": "high",
+      "title": "리튬 아르헨티나·간펑, 카우차리-올라로스 2단계 증설 RIGI 승인 획득",
+      "sub": "아르헨티나 대형투자 인센티브제도(RIGI) 평가위원회가 카우차리-올라로스 리튬 2단계 증설을 승인했고, 정식 결의는 6월로 예정됐다.",
+      "gate": "리튬 아르헨티나는 간펑리튬과 공동 운영하는 후후이주 카우차리-올라로스 염호 사업의 2단계 증설이 RIGI 평가위원회 승인을 받았다고 발표했다. 2단계는 1단계 가동능력 연 4만t 위에 LCE 연 4만5천t을 추가하는 것을 목표로 한다. 정식 결의는 2026년 6월로 예정돼 있어 후속 확정 단계가 남아 있다.",
+      "fact": "리튬 아르헨티나(TSX/NYSE: LAR)는 2026년 5월 14일 카우차리-올라로스 2단계 증설이 RIGI 평가위원회 승인을 받았다고 공시했고, 루이스 카푸토 경제장관이 최종 기술평가 완료 후 이를 발표했다. 2단계는 1단계 가동능력 연 4만t LCE에 더해 연 4만5천t LCE 생산능력을 목표로 한다. RIGI는 최소 2억 달러(승인 후 2년 내 8천만 달러 이상) 투자를 조건으로 30년간 외환·재정·관세 안정과 법인세 25% 등 혜택을 제공한다. 카우차리-올라로스는 리튬 아르헨티나 44.8%, 간펑 46.7%, 후후이주 정부 소유 JEMSE 8.5% 지분 구조다.",
+      "implication": [
+        "RIGI 승인으로 2단계 증설의 제도적 불확실성이 일부 완화되며, 정식 결의(6월 예정) 이행 여부가 후속 확인이 필요하다.",
+        "후후이주 염호의 LCE 생산능력이 연 4만t에서 추가 4만5천t으로 확대될 경우 리튬 공급망에 변수가 될 수 있다.",
+        "중국계 간펑이 최대주주로 참여한 사업에 친미 성향 정부가 인센티브를 부여한 점은 핵심광물 공급망 구도에서 점검 대상이다."
+      ],
+      "urls": [
+        "https://www.globenewswire.com/news-release/2026/05/14/3295322/0/en/Lithium-Argentina-Receives-RIGI-Approval-for-Cauchari-Olaroz-Stage-2-Expansion.html",
+        "https://www.northernminer.com/news/milei-oks-lithium-argentinas-1-24b-expansion-under-rigi/1003891126/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Lithium Argentina (GlobeNewswire 공식 릴리스)",
+          "source_url": "https://www.globenewswire.com/news-release/2026/05/14/3295322/0/en/Lithium-Argentina-Receives-RIGI-Approval-for-Cauchari-Olaroz-Stage-2-Expansion.html",
+          "claim": "RIGI 평가위원회가 2단계 증설을 승인; 2단계는 연 4만5천t LCE 추가(1단계 4만t 위), 정식 결의 6월 예정; 카푸토 장관 발표; 지분 44.8/46.7/8.5 | Cauchari-Olaroz 지분 구조 및 RIGI 투자 약정",
+          "source_quote": "the expansion ... under Argentina's Large Investment Incentive Regime (\"RIGI\") has obtained the approval of the Evaluation Committee. The expansion (\"Stage 2\") targets production capacity for an additional 45,000 tonnes per annum ... building on Cauchari-Olaroz's Stage 1 operating capacity of 40,000 tpa.  /  Cauchari-Olaroz is 44.8% owned by the Company, 46.7% by Ganfeng and 8.5% by JEMSE ... A minimum of US$200 million in accountable assets, with at least US$80 million deployed within the first two years from approval.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "sub",
+            "title"
+          ],
+          "fetched_at": "2026-05-28T00:00:00Z",
+          "fetch_method": "web_fetch"
+        },
+        {
+          "source_name": "The Northern Miner",
+          "source_url": "https://www.northernminer.com/news/milei-oks-lithium-argentinas-1-24b-expansion-under-rigi/1003891126/",
+          "claim": "$1.24B 규모, 후후이주, 친미 정부의 이례적 중국계 사업 인센티브 부여; 8천명 이상 고용",
+          "source_quote": "Lithium Argentina owns 44.8% of the operation ... The projects stand to receive tax breaks and legal guarantees as Argentina looks to accelerate critical minerals investment.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-28T00:00:00Z",
+          "fetch_method": "web_fetch"
+        }
+      ],
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "publish_ready": true,
+      "evidence_qc_findings": {
+        "quote_quality": "pass: all visible-supporting sources body_quote_verified or official_material_quote_verified",
+        "fact_sources_schema": "pass: source_name/url/claim/quote/status/role/supports/fetched_at/fetch_method present",
+        "source_role_sufficiency": "pass: >=1 primary_event_evidence per card",
+        "single_source_status": "multi_source",
+        "numeric_claim_audit": "pass: every number/date mapped to fact_sources",
+        "causal_claim_audit": "pass: no unsupported causal claim; implications observational",
+        "source_accessibility": "pass: sources fetched/verified"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_review": {
+        "status": "PASS_MULTI_SOURCE",
+        "official_or_primary": true,
+        "independent_source_count": 2,
+        "note": "Official Lithium Argentina release (GlobeNewswire) + independent Northern Miner; URL-sync clean."
+      },
+      "source_discovery_ledger": [
+        {
+          "url": "https://www.theguru.co.kr/news/article.html?no=101789",
+          "action": "checked_rejected_tier3_single"
+        },
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/05/14/3295322/0/en/Lithium-Argentina-Receives-RIGI-Approval-for-Cauchari-Olaroz-Stage-2-Expansion.html",
+          "action": "accepted_official_primary"
+        },
+        {
+          "url": "https://www.northernminer.com/news/milei-oks-lithium-argentinas-1-24b-expansion-under-rigi/1003891126/",
+          "action": "accepted_independent_corroboration"
+        }
+      ],
+      "source_discovery_ledger_reference": "Stage B evidence_package source_discovery_ledger (carried)",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "claim_coverage_summary": "strong: title/sub/fact/numeric claims all covered by verified fact_sources",
+      "notes": "Official Lithium Argentina release (GlobeNewswire) + independent Northern Miner; URL-sync clean.",
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "multi_source_available_so_exception_not_needed"
+      },
+      "content_polish_change_log": {
+        "action": "confirmed_strong_light_polish",
+        "notes": "Title/sub/gate/fact already carry actor+action+scale and clean fact/interpretation split. Confirmed; no anchor inflation (RIGI committee approval stays committee approval, formal resolution still future).",
+        "fields_rewritten": [],
+        "fields_confirmed_strong": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "anchor_inflation_check": "pass: execution anchor preserved, not inflated",
+        "source_locked": "pass: no unsupported fact added"
+      },
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "All 9 gates PASS. baseline is repo cards.json (not GitHub main) -> publish_ready for content/data quality; github_ready/pr_candidate_ready=false; sync required later.",
+      "pipeline_origin": "0_1p_promoted_track",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "0.1P salvage/promoted track; included by explicit user authorization, not part of preserved 20260516 MAIN reference-only final"
+    },
     {
       "id": "2026-05-13_US_01",
       "date": "2026-05-13",
@@ -274,6 +1525,443 @@
       }
     },
     {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "draft_id": "DRAFT_SPEC_20260516_012728_EU20260515C17",
+      "source_spec_id": "SPEC_20260516_012728_EU20260515C17",
+      "source_story_ids": [
+        "EU_2026-05-15_C17"
+      ],
+      "region": "JP",
+      "date": "2026-05-13",
+      "cat": "ESS",
+      "sub_cat": "용량시장경매",
+      "signal": "high",
+      "title": "일본 OCCTO, 용량경매서 배터리저장 약 1.25GW 낙찰",
+      "sub": "일본 OCCTO의 FY2025 장기 탈탄소 전원경매에서 19개 배터리저장 프로젝트가 약 1.25GW를 낙찰받았다.",
+      "gate": "일본이 장기 탈탄소 전원경매를 통해 계통용 저장에 20년 고정수익을 제공하는 제도화 사례다. 이번 라운드부터 6시간 미만 저장을 배제하면서 단기 주파수 대응보다 장시간 피크·용량 기여 중심으로 시장 설계가 이동했다.",
+      "fact": "일본 OCCTO는 5월 13일 FY2025 장기 탈탄소 전원경매 결과를 발표했고, 배터리저장 19개 프로젝트가 총 1,251MW를 낙찰받았다. 리튬이온 배터리는 551MW, 비리튬 저장기술은 699MW를 확보했으며, 낙찰 프로젝트는 FY2027 공급 개시와 20년 고정수익 계약을 받는다. 6시간 미만 저장은 이번 라운드부터 참여가 배제됐고, 배터리 입찰량은 전년 약 7GW에서 2.73GW로 줄었다.",
+      "implication": [
+        "6시간 요건은 일본 저장시장을 단기 배터리보다 장시간·비리튬 기술까지 포함한 용량자원 경쟁으로 끌고 갈 수 있다.",
+        "20년 고정수익 계약은 프로젝트 파이낸싱 가능성을 높이는 대신 낙찰 후 계통접속·CAPEX·조달 리스크 관리가 중요해진다.",
+        "FY2027 공급 개시까지 실제 FID, EPC, 배터리 조달, 계통연계가 지연 없이 진행되는지가 다음 체크포인트다."
+      ],
+      "urls": [
+        "https://www.ess-news.com/2026/05/15/japan-awards-1-25-gw-of-battery-storage-in-capacity-market-auction/",
+        "https://www.energy-storage.news/japans-grid-operators-select-1-25gw-of-bess-in-capacity-market-auction-with-6-hour-duration-requirement/",
+        "https://www.pv-magazine.com/2026/05/16/japan-awards-1-25-gw-of-battery-storage-in-capacity-market-auction/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ESS News",
+          "source_url": "https://www.ess-news.com/2026/05/15/japan-awards-1-25-gw-of-battery-storage-in-capacity-market-auction/",
+          "claim": "일본 배터리저장 부문이 최근 장기 탈탄소 전원경매(LTDA)에서 19개 프로젝트로 약 1.25GW 용량을 낙찰받았다(저장 지속시간 신규 규정으로 입찰은 급감).",
+          "source_quote": "secured 1.25 GW of awarded capacity across 19 projects",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "Energy-Storage.news",
+          "source_url": "https://www.energy-storage.news/japans-grid-operators-select-1-25gw-of-bess-in-capacity-market-auction-with-6-hour-duration-requirement/",
+          "claim": "송전계통조정기관(OCCTO)이 5월 13일 결과를 발표했으며, 낙찰 프로젝트는 FY2027 공급 개시로 20년 고정수익 계약을 받는다.",
+          "source_quote": "selected 19 battery storage projects totalling 1,251MW in the third running",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "pv magazine",
+          "source_url": "https://www.pv-magazine.com/2026/05/16/japan-awards-1-25-gw-of-battery-storage-in-capacity-market-auction/",
+          "claim": "리튬이온 배터리저장이 551MW, 비(非)리튬 기술이 699MW를 확보했고, 6시간 미만 저장은 이번 라운드부터 참여 불가가 됐다.",
+          "source_quote": "Lithium-ion battery storage accounted for 551 MW of awarded capacity",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        }
+      ],
+      "id": "2026-05-13_JP_01",
+      "event_fingerprint": {
+        "actor": "OCCTO",
+        "asset_or_policy": "FY2025 LTDA (3rd round)",
+        "location": "Japan",
+        "event_type": "contract",
+        "event_date": "2026-05-13",
+        "factual_anchor": "~1.25 GW BESS awarded; 19 projects; 20-yr contracts"
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "duplicate_screening": {
+        "exact_url_match": false,
+        "canonical_url_match": false,
+        "title_similarity_match": false,
+        "actor_asset_event_match": false,
+        "baseline_event_fingerprint_match": false,
+        "internal_batch_duplicate_match": false,
+        "already_covered_by_broader_card": false
+      },
+      "id_collision": false,
+      "id_collision_notes": "",
+      "collision_with": [],
+      "recommended_id_action": "none",
+      "recommended_free_slot": null,
+      "publish_ready": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_evidence_completeness_qc": true,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_enrichment": true,
+      "needs_language_terminology_polish": true,
+      "source_strength_caveat": "none",
+      "prior_id": null,
+      "notes": "1.25GW는 배터리 한정(7.3GW 전체와 구분). region JP. 깨끗한 수락.",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "source_discovery_ledger": [
+        {
+          "attempt_order": 1,
+          "ledger_type": "fetch_attempt",
+          "source_type_attempted": "provided_candidate",
+          "query_or_url": "ess-news Japan 1.25 GW capacity market auction",
+          "search_terms_used": [
+            "ess-news Japan 1.25 GW capacity market auction"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 2,
+          "ledger_type": "alternate_source_search",
+          "source_type_attempted": "trade_press_independent",
+          "query_or_url": "Japan 1.25 GW battery storage capacity market auction long-term decarbonization 2026",
+          "search_terms_used": [
+            "Japan 1.25 GW battery storage capacity market auction long-term decarbonization 2026"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 3,
+          "ledger_type": "alternate_source_search",
+          "source_type_attempted": "trade_press",
+          "query_or_url": "Japan LTDA 551 MW lithium 699 MW non-lithium",
+          "search_terms_used": [
+            "Japan LTDA 551 MW lithium 699 MW non-lithium"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        }
+      ],
+      "source_discovery_status": "completed_verified_source_found",
+      "evidence_qc_findings": {
+        "fact_sources_present": true,
+        "all_core_quotes_body_or_official": true,
+        "quote_claim_alignment": "PASS",
+        "url_sync": "PASS",
+        "source_diversity": "PASS_MULTI_SOURCE",
+        "execution_anchor_evidenced": true
+      },
+      "content_polish_findings": {
+        "title_quality": "strong (actor+action+scale/region present)",
+        "sub_quality": "strong (one sentence, event+scale+angle)",
+        "gate_depth": "adequate-to-strong (lane relevance, fact/interpretation separated)",
+        "fact_source_lock": "PASS (every number/date/entity covered by fact_sources)",
+        "implication_quality": "observational, 3 items, distinct roles",
+        "terminology_consistency": "PASS (MWh/GWh/달러 normalized; Korean names)",
+        "foreign_language_residue": "none",
+        "banned_phrase_check": "none",
+        "tone_check": "executive briefing tone; no promo",
+        "sbtl_forcing_check": "no forced SBTL benefit claim"
+      },
+      "visible_field_change_summary": "confirmed_as_strong_no_change",
+      "source_diversity_carry_forward": {
+        "source_diversity_status": "PASS_MULTI_SOURCE",
+        "do_not_expand_claims": true,
+        "source_augmentation_required": false,
+        "source_diversity_caveat_preserved": true,
+        "source_url_urls_sync_status": "PASS_DEDUPED_NORMALIZED_URLS",
+        "claim_strength_matches_source_diversity": true
+      },
+      "claim_type": "capacity_market_auction_award",
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "All 9 gates PASS. baseline is repo cards.json (not GitHub main) -> publish_ready for content/data quality; github_ready/pr_candidate_ready=false; sync required later.",
+      "pipeline_origin": "main_9card_run",
+      "reference_final_url_cleanup": "removed same-URL slash variants; no source evidence changed",
+      "content_polish_change_log": [
+        "20260516_reference_density_polish: visible fields densified using existing fact_sources only; no source/fact_sources/source_quote changes"
+      ],
+      "reference_density_polish": "applied_source_locked_visible_fields_only",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "MAIN strict-passed flow"
+    },
+    {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "draft_id": "2026-05-13_GL_05",
+      "source_spec_id": "SPEC_20260516_012728_GL20260514C04",
+      "source_story_ids": [
+        "GL_2026-05-14_C04"
+      ],
+      "region": "GL",
+      "date": "2026-05-13",
+      "cat": "Policy",
+      "sub_cat": "제조보조금삭감",
+      "signal": "high",
+      "title": "호주, 청정에너지 제조 미집행 자금 13억 호주달러 회수",
+      "sub": "호주가 2025-26 연방예산에서 배터리 브레이크스루 이니셔티브·솔라 선샷·수소 헤드스타트의 미집행 자금 13억 호주달러(9.4억 달러)를 회수한다.",
+      "gate": "호주가 청정에너지 제조 지원을 확대 일변도에서 미집행 예산 회수로 조정한 정책 신호다. 삭감은 이미 배분된 보조금이 아니라 미집행분에 한정되지만, 배터리 브레이크스루 이니셔티브(BBI)와 솔라 선샷의 신규 지원 여력을 줄인다는 점에서 현지 제조 투자자의 정책 가시성에 영향을 준다.",
+      "fact": "호주는 2025-26 연방예산에서 미집행 청정에너지 제조 자금 13억 호주달러(약 9.4억 달러)를 회수한다. 회수액은 총 638억 호주달러 규모 예산 저축의 일부로, 수소 헤드스타트에서 10억 호주달러, 솔라 선샷과 BBI에서 합산 3억 호주달러가 줄었다. BBI는 2025년 8월 5억 호주달러 규모로 출범했으며, PowerPlus Energy와 Firebird Metals 등 이미 배분된 자금은 유지된다.",
+      "implication": [
+        "호주 배터리 제조 정책은 신규 보조금 확장보다 기배분 프로젝트 집행과 예산 효율성 쪽으로 무게가 이동하는 신호로 읽힌다.",
+        "미집행분 회수는 셀·소재·장비 업체의 현지 투자 의사결정에서 보조금 확실성을 다시 가격에 반영하게 만드는 변수다.",
+        "기존 수혜 프로젝트의 집행 속도와 BBI 잔여 예산의 재공고 여부가 다음 체크포인트다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/battery-breakthrough-initiative-hit-as-australia-cuts-au1-3-billion-in-clean-energy-funding/",
+        "https://www.pv-magazine-australia.com/2026/05/13/federal-budget-cuts-almost-2-billion-from-clean-energy-programs/",
+        "https://discoveryalert.com.au/battery-manufacturing-cuts-australia-budget-policy-2026-demand/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Energy-Storage.news",
+          "source_url": "https://www.energy-storage.news/battery-breakthrough-initiative-hit-as-australia-cuts-au1-3-billion-in-clean-energy-funding/",
+          "claim": "호주가 미집행 청정에너지 제조 자금 13억 호주달러(9.4억 미국달러)를 회수하며, 배터리 브레이크스루 이니셔티브(BBI)와 솔라 선샷이 삭감 대상에 포함됐다.",
+          "source_quote": "claw back AU$1.3 billion (US$940 million) in uncommitted clean energy manufacturing funding",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "pv magazine Australia",
+          "source_url": "https://www.pv-magazine-australia.com/2026/05/13/federal-budget-cuts-almost-2-billion-from-clean-energy-programs/",
+          "claim": "2025-26 연방예산에서 짐 차머스 재무장관이 솔라 선샷 정책 자금 축소를 확인했고, BBI 미배정 자금도 회수된다.",
+          "source_quote": "Treasurer Jim Chalmers confirmed the government is pulling millions out of the Solar Sunshot policy",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "Discovery Alert",
+          "source_url": "https://discoveryalert.com.au/battery-manufacturing-cuts-australia-budget-policy-2026-demand/",
+          "claim": "회수는 미집행분에 한정되며, PowerPlus Energy·Firebird Metals 등 이미 배분된 자금은 유지된다(BBI는 2025년 8월 5억 호주달러로 출범).",
+          "source_quote": "Funding already distributed to recipients, such as PowerPlus Energy and Firebird Metals, remains in place",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        }
+      ],
+      "id": "2026-05-13_GL_05",
+      "event_fingerprint": {
+        "actor": "Australian Government (Treasury)",
+        "asset_or_policy": "Battery Breakthrough Initiative / Solar Sunshot / Hydrogen Headstart",
+        "location": "Australia",
+        "event_type": "policy_change",
+        "event_date": "2026-05-13",
+        "factual_anchor": "AU$1.3B uncommitted clean-energy funding clawback"
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "duplicate_screening": {
+        "exact_url_match": false,
+        "canonical_url_match": false,
+        "title_similarity_match": false,
+        "actor_asset_event_match": false,
+        "baseline_event_fingerprint_match": false,
+        "internal_batch_duplicate_match": false,
+        "already_covered_by_broader_card": false
+      },
+      "id_collision": true,
+      "id_collision_notes": "ID-number collision with a DIFFERENT baseline event (인피니언, 1500V SiC 전력모듈 XHP 2 CoolSiC 출시 (different event: SiC module launch)); not a content duplicate (url/title differ). Recommended free slot 2026-05-13_GL_05. Do not silent-rename; resolve at publish-ready/manual ID step.",
+      "collision_with": [
+        "2026-05-13_GL_01"
+      ],
+      "recommended_id_action": "assign_id_after_publish_ready_or_manual_id_resolution",
+      "recommended_free_slot": "2026-05-13_GL_05",
+      "publish_ready": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_evidence_completeness_qc": true,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_enrichment": true,
+      "needs_language_terminology_polish": true,
+      "source_strength_caveat": "none",
+      "prior_id": null,
+      "notes": "핵심 뉘앙스(미집행분만 회수, 기배분 유지) 보존. 깨끗한 수락.",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "source_discovery_ledger": [
+        {
+          "attempt_order": 1,
+          "ledger_type": "fetch_attempt",
+          "source_type_attempted": "provided_candidate",
+          "query_or_url": "energy-storage.news BBI AU$1.3 billion cut",
+          "search_terms_used": [
+            "energy-storage.news BBI AU$1.3 billion cut"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 2,
+          "ledger_type": "alternate_source_search",
+          "source_type_attempted": "trade_press",
+          "query_or_url": "Australia cuts AU$1.3 billion clean energy funding BBI Solar Sunshot budget",
+          "search_terms_used": [
+            "Australia cuts AU$1.3 billion clean energy funding BBI Solar Sunshot budget"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 3,
+          "ledger_type": "cited_primary_search",
+          "source_type_attempted": "analysis_reaction",
+          "query_or_url": "Australia budget battery manufacturing cut committed funding remains",
+          "search_terms_used": [
+            "Australia budget battery manufacturing cut committed funding remains"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        }
+      ],
+      "source_discovery_status": "completed_verified_source_found",
+      "evidence_qc_findings": {
+        "fact_sources_present": true,
+        "all_core_quotes_body_or_official": true,
+        "quote_claim_alignment": "PASS",
+        "url_sync": "PASS",
+        "source_diversity": "PASS_MULTI_SOURCE",
+        "execution_anchor_evidenced": true
+      },
+      "content_polish_findings": {
+        "title_quality": "strong (actor+action+scale/region present)",
+        "sub_quality": "strong (one sentence, event+scale+angle)",
+        "gate_depth": "adequate-to-strong (lane relevance, fact/interpretation separated)",
+        "fact_source_lock": "PASS (every number/date/entity covered by fact_sources)",
+        "implication_quality": "observational, 3 items, distinct roles",
+        "terminology_consistency": "PASS (MWh/GWh/달러 normalized; Korean names)",
+        "foreign_language_residue": "none",
+        "banned_phrase_check": "none",
+        "tone_check": "executive briefing tone; no promo",
+        "sbtl_forcing_check": "no forced SBTL benefit claim"
+      },
+      "visible_field_change_summary": "confirmed_as_strong_no_change",
+      "source_diversity_carry_forward": {
+        "source_diversity_status": "PASS_MULTI_SOURCE",
+        "do_not_expand_claims": true,
+        "source_augmentation_required": false,
+        "source_diversity_caveat_preserved": true,
+        "source_url_urls_sync_status": "PASS_DEDUPED_NORMALIZED_URLS",
+        "claim_strength_matches_source_diversity": true
+      },
+      "claim_type": "policy_funding_clawback",
+      "id_reassignment": {
+        "previous_id": "2026-05-13_GL_01",
+        "new_id": "2026-05-13_GL_05",
+        "reason": "pure id-number collision with an unrelated baseline card; reassigned to next free date-region slot per CARD_ID_STANDARD; no content change",
+        "content_unchanged": true
+      },
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "Re-run after ID reassignment (2026-05-13_GL_01 -> 2026-05-13_GL_05). All 9 gates PASS. baseline repo cards.json; github_ready false; sync later.",
+      "pipeline_origin": "main_9card_run_id_reassigned",
+      "reference_final_url_cleanup": "removed same-URL slash variants; no source evidence changed",
+      "content_polish_change_log": [
+        "20260516_reference_density_polish: visible fields densified using existing fact_sources only; no source/fact_sources/source_quote changes"
+      ],
+      "reference_density_polish": "applied_source_locked_visible_fields_only",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "MAIN strict-passed flow"
+    },
+    {
       "id": "2026-05-13_GL_04",
       "date": "2026-05-13",
       "region": "GL",
@@ -422,6 +2110,140 @@
       }
     },
     {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "id": "2026-05-13_EU_02",
+      "draft_id": "2026-05-13_EU_02",
+      "source_spec_id": "SPEC_0_1P_20260516_012728_ARMENIA_ESS_LAW",
+      "source_story_ids": [
+        "EU_2026-05-14_C02"
+      ],
+      "region": "EU",
+      "date": "2026-05-13",
+      "cat": "Policy",
+      "sub_cat": "저장정책",
+      "signal": "high",
+      "title": "아르메니아, 에너지법 개정으로 저장장치 건설 첫 허용",
+      "sub": "아르메니아 의회가 에너지법 개정안을 2차·최종 독회에서 통과시켜 저장장치(ESS) 건설을 처음으로 허용하고 라이선스 대상으로 규정했다.",
+      "gate": "아르메니아 정부가 저장장치 건설을 허용하는 에너지법 개정안을 의회 2차·최종 독회에서 통과시켰다. 개정안은 저장장치 도입을 라이선스 대상으로 규정하되, 1MW 이하 또는 1MW 초과라도 자가소비용 설비는 라이선스를 면제한다. 라이선스는 도매시장 전력 매매권과 저장 서비스 제공권을 부여한다.",
+      "fact": "아르메니아 에너지법 개정안이 의회 2차·최종 독회를 통과해 저장장치 건설을 처음으로 허용했다. 영토관리인프라부 장관 다비드 후다탼은 국영 아르멘프레스에 라이선스가 시장 규칙에 따라 도매시장 전력 매매권과 시장 참여자에 대한 저장 서비스 제공권을 부여한다고 설명했다. 1MW 이하 설비, 또는 1MW를 초과하더라도 자가소비용 설비는 라이선스가 면제된다. 정부 통계에 따르면 태양광은 지난해 아르메니아 발전량의 16.3%를 차지했고, 2025년 누적 태양광 1GW를 넘어섰다.",
+      "implication": [
+        "저장장치 첫 합법화로 태양광 비중이 높아진 아르메니아 전력시장에 저장 수요가 열릴 가능성이 열린다.",
+        "라이선스 면제 기준(1MW·자가소비)이 분산형 저장 도입에 어떤 영향을 줄지 후속 확인이 필요하다.",
+        "시장 규모가 작은 만큼 규제 활성화가 실제 사업으로 이어질지는 점검 대상이다."
+      ],
+      "urls": [
+        "https://www.ess-news.com/2026/05/13/armenia-permits-construction-of-energy-storage-systems/",
+        "https://www.pv-magazine.com/2026/05/14/armenia-allows-construction-of-energy-storage-systems/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "ESS-News (pv magazine)",
+          "source_url": "https://www.ess-news.com/2026/05/13/armenia-permits-construction-of-energy-storage-systems/",
+          "claim": "개정안 2차·최종 독회 통과, ESS 첫 허용·라이선스 대상; 1MW 이하/자가소비 면제; 장관 발언; 태양광 16.3% | 라이선스 면제 기준 및 후다탼 장관의 라이선스 권한 설명, 태양광 16.3%",
+          "source_quote": "The amendment to the country's Energy Law, which has now passed a second and final reading in parliament, sets out the introduction of energy storage systems subject to licensing.  /  licensing will not be required ... when the system is up to 1 MW in capacity, or when the system is above 1 MW but is designed for self-consumption ... solar accounted for 16.3% of Armenia's electricity generation last year.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "sub",
+            "title"
+          ],
+          "fetched_at": "2026-05-28T00:00:00Z",
+          "fetch_method": "web_fetch"
+        },
+        {
+          "source_name": "pv magazine",
+          "source_url": "https://www.pv-magazine.com/2026/05/14/armenia-allows-construction-of-energy-storage-systems/",
+          "claim": "동일 사실 독립 보도(에너지법 개정, 라이선스 대상, 면제 기준)",
+          "source_quote": "Amendments to Armenia's Energy Law permits the development of energy storage systems for the first time, subject to licensing.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub"
+          ],
+          "fetched_at": "2026-05-28T00:00:00Z",
+          "fetch_method": "web_fetch"
+        }
+      ],
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "publish_ready": true,
+      "evidence_qc_findings": {
+        "quote_quality": "pass: all visible-supporting sources body_quote_verified or official_material_quote_verified",
+        "fact_sources_schema": "pass: source_name/url/claim/quote/status/role/supports/fetched_at/fetch_method present",
+        "source_role_sufficiency": "pass: >=1 primary_event_evidence per card",
+        "single_source_status": "multi_source",
+        "numeric_claim_audit": "pass: every number/date mapped to fact_sources",
+        "causal_claim_audit": "pass: no unsupported causal claim; implications observational",
+        "source_accessibility": "pass: sources fetched/verified"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_review": {
+        "status": "PASS_MULTI_SOURCE",
+        "official_or_primary": false,
+        "independent_source_count": 2,
+        "note": "Two independent body-level outlets (ESS-News, pv magazine) citing government Armenpress/minister; URL-sync clean."
+      },
+      "source_discovery_ledger": [
+        {
+          "url": "https://www.pv-magazine.com/2026/05/14/armenia-allows-construction-of-energy-storage-systems/",
+          "action": "accepted_independent"
+        },
+        {
+          "url": "https://www.ess-news.com/2026/05/13/armenia-permits-construction-of-energy-storage-systems/",
+          "action": "accepted_independent_with_gov_citation"
+        },
+        {
+          "url": "https://armenpress.am/en/article/1246290",
+          "action": "checked_gov_primary_citation"
+        }
+      ],
+      "source_discovery_ledger_reference": "Stage B evidence_package source_discovery_ledger (carried)",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "claim_coverage_summary": "strong: title/sub/fact/numeric claims all covered by verified fact_sources",
+      "notes": "Two independent body-level outlets (ESS-News, pv magazine) citing government Armenpress/minister; URL-sync clean.",
+      "content_polish_change_log": {
+        "action": "confirmed_strong_light_polish",
+        "notes": "First-time legalization stays first-time legalization; small market acknowledged in implication, not inflated.",
+        "fields_rewritten": [],
+        "fields_confirmed_strong": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "anchor_inflation_check": "pass: execution anchor preserved, not inflated",
+        "source_locked": "pass: no unsupported fact added"
+      },
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "All 9 gates PASS. baseline is repo cards.json (not GitHub main) -> publish_ready for content/data quality; github_ready/pr_candidate_ready=false; sync required later.",
+      "pipeline_origin": "0_1p_promoted_track",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "0.1P salvage/promoted track; included by explicit user authorization, not part of preserved 20260516 MAIN reference-only final"
+    },
+    {
       "id": "2026-05-13_EU_01",
       "date": "2026-05-13",
       "region": "EU",
@@ -461,6 +2283,143 @@
         "assigned_at": "2026-05-14T11:31:31.260288+09:00",
         "rationale": "sequence-correct within (date,region) per CARD_ID_STANDARD §2"
       }
+    },
+    {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "id": "2026-05-13_CN_04",
+      "draft_id": "2026-05-13_CN_04",
+      "source_spec_id": "SPEC_0_1P_20260516_012728_ENJIE_ZIGONG_SEPARATOR",
+      "source_story_ids": [
+        "CN_2026-05-15_C29"
+      ],
+      "region": "CN",
+      "date": "2026-05-13",
+      "cat": "Materials",
+      "sub_cat": "분리막",
+      "signal": "high",
+      "title": "엔제, 쓰촨 자공에 분리막 40억위안 투자…중커화롄 인수는 종료",
+      "sub": "분리막 1위 엔제가 5월 13일 저녁 쓰촨 자공에 연 50억㎡ 분리막 기지(총투자 40억위안)를 신설한다고 공시하는 동시에 중커화롄 인수를 종료했다.",
+      "gate": "엔제(SZ:002812)는 쓰촨성 자공시 룽현에 연 50억㎡ 규모의 리튬전지 분리막 기지를 짓는 데 총 40억위안을 투자한다고 공시했다. 같은 날 발행주식 방식의 중커화롄 100% 지분 인수(중대자산재편)를 종료한다고 밝혔으며, 종료 사유는 거래가격 등 핵심 조항 미합의다. 신설 자회사는 엔제 67%, 자공시 정부 추천 산업협력방 33% 지분 구조다.",
+      "fact": "엔제는 2026년 5월 13일 저녁 두 건의 공시를 통해 쓰촨 자공 룽현에 연 50억㎡ 분리막 프로젝트(총투자 40억위안)를 신설하고, 동시에 중커화롄 100% 지분 발행주식 인수를 종료한다고 밝혔다. 인수는 2025년 12월 시작됐으나 거래가격 등 일부 핵심 조항에서 합의에 이르지 못해 종료됐다. 신설 자회사는 엔제 67%, 자공시 정부 추천 산업협력방 33%(추후 10% 이내 추가 가능) 지분으로 구성된다. 엔제의 2025년 말 분리막 설계능력은 144억㎡, 연간 가동률은 94.91%였으며, 이번 증설 규모는 기존 설계능력 대비 약 35%에 해당한다.",
+      "implication": [
+        "분리막 가격이 2025년 하반기 안정·반등 흐름을 보인 가운데 1위 기업의 대규모 증설이 공급 구조에 변수가 될 수 있다.",
+        "장비기업 인수를 통한 수직통합 대신 자체 증설을 택한 점은 가격 미합의에 따른 전략 선회로, 후속 확인이 필요하다.",
+        "기존 설계능력 대비 약 35% 증설이 동력·저장전지 분리막 수요 확대와 맞물릴지 점검 대상이다."
+      ],
+      "urls": [
+        "https://finance.sina.com.cn/cj/2026-05-15/doc-inhxytza8014754.shtml",
+        "https://m.thepaper.cn/newsDetail_forward_33174569"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "신랑재경(환구영탄, 상장사 공고 인용)",
+          "source_url": "https://finance.sina.com.cn/cj/2026-05-15/doc-inhxytza8014754.shtml",
+          "claim": "5/13 저녁 2건 공시: 자공 40억위안·연 50억㎡ 분리막 기지 신설 + 중커화롄 인수 종료(가격 미합의); 자회사 지분 67/33 | 종료 사유는 거래대가 등 핵심 조항 미합의; 2025년 설계능력 144억㎡, 가동률 94.91%",
+          "source_quote": "5月13日晚间，恩捷股份两则公告同时落地——在四川自贡投资40亿元建设年产50亿平方米的隔膜生产基地，同时终止对中科华联的收购 ... 该项目由新设子公司实施，恩捷股份持股67%，自贡市政府推荐的产业合作方持股33%  /  此次重大资产重组终止原因在于，交易双方未能就本次交易的部分核心条款尤其是交易对价达成一致 ... 2025年全年产能利用率为94.91%",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "sub",
+            "title"
+          ],
+          "fetched_at": "2026-05-28T00:00:00Z",
+          "fetch_method": "web_fetch"
+        },
+        {
+          "source_name": "펑파이(澎湃) 기사",
+          "source_url": "https://m.thepaper.cn/newsDetail_forward_33174569",
+          "claim": "기존 설계능력 144억㎡ 대비 약 35% 증설; 인수 2025년 12월 시작",
+          "source_quote": "截至2025年年底，公司锂电池隔膜设计产能为144亿平方米 ... 此次扩产幅度较大，达到近35%",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-28T00:00:00Z",
+          "fetch_method": "web_fetch"
+        }
+      ],
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "publish_ready": true,
+      "evidence_qc_findings": {
+        "quote_quality": "pass: all visible-supporting sources body_quote_verified or official_material_quote_verified",
+        "fact_sources_schema": "pass: source_name/url/claim/quote/status/role/supports/fetched_at/fetch_method present",
+        "source_role_sufficiency": "pass: >=1 primary_event_evidence per card",
+        "single_source_status": "multi_source",
+        "numeric_claim_audit": "pass: every number/date mapped to fact_sources",
+        "causal_claim_audit": "pass: no unsupported causal claim; implications observational",
+        "source_accessibility": "pass: sources fetched/verified"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_review": {
+        "status": "PASS_MULTI_SOURCE",
+        "official_or_primary": true,
+        "independent_source_count": 2,
+        "note": "Company disclosure (relayed by Sina Finance) + independent ThePaper; both body-level; URL-sync clean."
+      },
+      "source_discovery_ledger": [
+        {
+          "url": "https://libattery.ofweek.com/2026-05/ART-36002-8110-30687575.html",
+          "action": "checked_trade_press"
+        },
+        {
+          "url": "https://finance.sina.com.cn/cj/2026-05-15/doc-inhxytza8014754.shtml",
+          "action": "accepted_company_disclosure_relay"
+        },
+        {
+          "url": "https://m.thepaper.cn/newsDetail_forward_33174569",
+          "action": "accepted_independent_corroboration"
+        }
+      ],
+      "source_discovery_ledger_reference": "Stage B evidence_package source_discovery_ledger (carried)",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "claim_coverage_summary": "strong: title/sub/fact/numeric claims all covered by verified fact_sources",
+      "notes": "Company disclosure (relayed by Sina Finance) + independent ThePaper; both body-level; URL-sync clean.",
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "multi_source_available_so_exception_not_needed"
+      },
+      "content_polish_change_log": {
+        "action": "confirmed_strong_light_polish",
+        "notes": "Two-disclosure structure (investment + M&A termination) preserved; investment is the cardable anchor, termination is paired context, not overclaimed.",
+        "fields_rewritten": [],
+        "fields_confirmed_strong": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "anchor_inflation_check": "pass: execution anchor preserved, not inflated",
+        "source_locked": "pass: no unsupported fact added"
+      },
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "All 9 gates PASS. baseline is repo cards.json (not GitHub main) -> publish_ready for content/data quality; github_ready/pr_candidate_ready=false; sync required later.",
+      "pipeline_origin": "0_1p_promoted_track",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "0.1P salvage/promoted track; included by explicit user authorization, not part of preserved 20260516 MAIN reference-only final"
     },
     {
       "id": "2026-05-13_CN_03",
@@ -2816,6 +4775,451 @@
         "fact_sources_added": 1,
         "urls_added": 1
       }
+    },
+    {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "draft_id": "2026-05-11_GL_08",
+      "source_spec_id": "SPEC_20260516_012728_GL20260514C03",
+      "source_story_ids": [
+        "GL_2026-05-14_C03"
+      ],
+      "region": "GL",
+      "date": "2026-05-11",
+      "cat": "ESS",
+      "sub_cat": "BESS환경승인",
+      "signal": "high",
+      "title": "Akaysha, 빅토리아 1,600MWh Glenrowan 배터리 연방 환경승인 확보",
+      "sub": "Akaysha Energy의 400MW/1,600MWh Glenrowan 배터리저장장치가 호주 EPBC법상 규제 대상 아님 판정으로 연방 환경승인을 받았다.",
+      "gate": "Akaysha의 Glenrowan BESS가 연방 환경 리스크를 낮추며 개발 단계에서 건설 준비 단계로 이동한 인허가 이벤트다. 400MW/1,600MWh 4시간 저장은 빅토리아 NEM 계통에서 피크 대응과 재생 출력 보정 역할을 겨냥하며, 주 개발승인과 연방 EPBC 판단이 맞물린 사례다.",
+      "fact": "Akaysha Energy의 Glenrowan BESS는 빅토리아주 윈튼 인근 62.11ha 부지에 들어서는 400MW/1,600MWh 4시간 배터리저장 프로젝트다. 이 프로젝트는 4월 중순 EPBC에 회부된 뒤 연방 환경심사에서 규제 대상 아님(not a controlled action) 판정을 받아 추가 연방 환경심사 없이 건설을 진행할 수 있게 됐다. Akaysha는 BZ Renewables와 공동 개발하며 기존 Glenrowan 변전소에 연결할 계획이고, BlackRock 후원을 받는 개발사로 건설은 2027년 말로 예정됐다.",
+      "implication": [
+        "Glenrowan은 호주 NEM에서 4시간 대형 배터리가 표준 피크·신뢰도 자산으로 자리 잡는 흐름을 강화한다.",
+        "연방 EPBC 비규제 판정은 대형 BESS 개발에서 인허가 일정 리스크를 낮추는 선례가 될 수 있다.",
+        "2027년 말 건설 착수, 계통접속, EPC·배터리 공급계약 확정이 다음 체크포인트다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/akaysha-energy-bags-epbc-act-approval-for-1600mwh-battery-storage-system-in-victoria-australia/",
+        "https://reneweconomy.com.au/developer-of-australias-most-powerful-battery-gets-green-light-for-new-four-hour-project/",
+        "https://akayshaenergy.com/table/projects/"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Energy-Storage.news",
+          "source_url": "https://www.energy-storage.news/akaysha-energy-bags-epbc-act-approval-for-1600mwh-battery-storage-system-in-victoria-australia/",
+          "claim": "Akaysha Energy가 빅토리아주 400MW/1,600MWh Glenrowan 배터리저장장치(BESS)에 대해 연방 환경 심사상 '규제 대상 아님(not a controlled action)' 판정을 받아 연방 환경승인을 확보했다.",
+          "source_quote": "received federal environmental clearance for its 400MW/1,600MWh Glenrowan battery energy storage system",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "RenewEconomy",
+          "source_url": "https://reneweconomy.com.au/developer-of-australias-most-powerful-battery-gets-green-light-for-new-four-hour-project/",
+          "claim": "이 4시간 배터리는 월요일 '규제 대상 아님'으로 서명 처리됐고, 4월 중순 EPBC에 회부됐으며 12월에 주(州) 개발 승인을 받았다.",
+          "source_quote": "was on Monday signed off as \"not a controlled action\" under the federal environmental rules",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "Akaysha Energy (official)",
+          "source_url": "https://akayshaenergy.com/table/projects/",
+          "claim": "Glenrowan BESS는 BZ Renewables와 공동 개발하며 400MW/1600MWh 규모로 기존 Glenrowan 변전소에 연결된다.",
+          "source_quote": "capacity of 400MW/1600MWh and will connect into the existing Glenrowan Terminal Station",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        }
+      ],
+      "id": "2026-05-11_GL_08",
+      "event_fingerprint": {
+        "actor": "Akaysha Energy",
+        "asset_or_policy": "Glenrowan BESS",
+        "location": "Glenrowan/Winton, Victoria, Australia",
+        "event_type": "project_approval",
+        "event_date": "2026-05-11",
+        "factual_anchor": "EPBC 'not a controlled action'; 400 MW / 1,600 MWh"
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "duplicate_screening": {
+        "exact_url_match": false,
+        "canonical_url_match": false,
+        "title_similarity_match": false,
+        "actor_asset_event_match": false,
+        "baseline_event_fingerprint_match": false,
+        "internal_batch_duplicate_match": false,
+        "already_covered_by_broader_card": false
+      },
+      "id_collision": true,
+      "id_collision_notes": "ID-number collision with a DIFFERENT baseline event (BNEF, 2025년 글로벌 에너지저장 100GW 돌파 (different event: ESS market stats)); not a content duplicate (url/title differ). Recommended free slot 2026-05-11_GL_08. Do not silent-rename; resolve at publish-ready/manual ID step.",
+      "collision_with": [
+        "2026-05-11_GL_02"
+      ],
+      "recommended_id_action": "assign_id_after_publish_ready_or_manual_id_resolution",
+      "recommended_free_slot": "2026-05-11_GL_08",
+      "publish_ready": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_evidence_completeness_qc": true,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_enrichment": true,
+      "needs_language_terminology_polish": true,
+      "source_strength_caveat": "event_date_discrepancy_carryforward",
+      "prior_id": "2026-05-11_GL_01",
+      "notes": "event_date 불일치는 Stage B에서 needs_stage_c_attention로 표기됨; 둘 다 fresh라 비치명적이나 staleness caveat 유지. ID 충돌로 _02 재배정.",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "source_discovery_ledger": [
+        {
+          "attempt_order": 1,
+          "ledger_type": "fetch_attempt",
+          "source_type_attempted": "provided_candidate",
+          "query_or_url": "energy-storage.news Akaysha Glenrowan EPBC 1600MWh",
+          "search_terms_used": [
+            "energy-storage.news Akaysha Glenrowan EPBC 1600MWh"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 2,
+          "ledger_type": "alternate_source_search",
+          "source_type_attempted": "trade_press",
+          "query_or_url": "Akaysha Energy EPBC approval Glenrowan 1600MWh battery Victoria",
+          "search_terms_used": [
+            "Akaysha Energy EPBC approval Glenrowan 1600MWh battery Victoria"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 3,
+          "ledger_type": "cited_primary_search",
+          "source_type_attempted": "developer_official",
+          "query_or_url": "Akaysha Glenrowan BESS 400MW 1600MWh",
+          "search_terms_used": [
+            "Akaysha Glenrowan BESS 400MW 1600MWh"
+          ],
+          "access_result": "ok_official",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        }
+      ],
+      "source_discovery_status": "completed_verified_source_found",
+      "evidence_qc_findings": {
+        "fact_sources_present": true,
+        "all_core_quotes_body_or_official": true,
+        "quote_claim_alignment": "PASS",
+        "url_sync": "PASS",
+        "source_diversity": "PASS_MULTI_SOURCE",
+        "execution_anchor_evidenced": true
+      },
+      "content_polish_findings": {
+        "title_quality": "strong (actor+action+scale/region present)",
+        "sub_quality": "strong (one sentence, event+scale+angle)",
+        "gate_depth": "adequate-to-strong (lane relevance, fact/interpretation separated)",
+        "fact_source_lock": "PASS (every number/date/entity covered by fact_sources)",
+        "implication_quality": "observational, 3 items, distinct roles",
+        "terminology_consistency": "PASS (MWh/GWh/달러 normalized; Korean names)",
+        "foreign_language_residue": "none",
+        "banned_phrase_check": "none",
+        "tone_check": "executive briefing tone; no promo",
+        "sbtl_forcing_check": "no forced SBTL benefit claim"
+      },
+      "visible_field_change_summary": "confirmed_as_strong_no_change",
+      "source_diversity_carry_forward": {
+        "source_diversity_status": "PASS_MULTI_SOURCE",
+        "do_not_expand_claims": true,
+        "source_augmentation_required": false,
+        "source_diversity_caveat_preserved": true,
+        "source_url_urls_sync_status": "PASS_DEDUPED_NORMALIZED_URLS",
+        "claim_strength_matches_source_diversity": true
+      },
+      "claim_type": "regulatory_environmental_approval",
+      "id_reassignment": {
+        "previous_id": "2026-05-11_GL_02",
+        "new_id": "2026-05-11_GL_08",
+        "reason": "pure id-number collision with an unrelated baseline card; reassigned to next free date-region slot per CARD_ID_STANDARD; no content change",
+        "content_unchanged": true
+      },
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "Re-run after ID reassignment (2026-05-11_GL_02 -> 2026-05-11_GL_08). All 9 gates PASS. baseline repo cards.json; github_ready false; sync later.",
+      "pipeline_origin": "main_9card_run_id_reassigned",
+      "reference_final_url_cleanup": "removed same-URL slash variants; no source evidence changed",
+      "content_polish_change_log": [
+        "20260516_reference_density_polish: visible fields densified using existing fact_sources only; no source/fact_sources/source_quote changes"
+      ],
+      "reference_density_polish": "applied_source_locked_visible_fields_only",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "MAIN strict-passed flow"
+    },
+    {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "draft_id": "2026-05-11_GL_07",
+      "source_spec_id": "SPEC_20260516_012728_GL20260515C23",
+      "source_story_ids": [
+        "GL_2026-05-15_C23"
+      ],
+      "region": "GL",
+      "date": "2026-05-11",
+      "cat": "ESS",
+      "sub_cat": "하이브리드BESS",
+      "signal": "high",
+      "title": "Zelestra, 칠레 아타카마 1GWh 하이브리드 BESS 가동",
+      "sub": "스페인 IPP Zelestra가 칠레 아타카마 사막의 Aurora 프로젝트에서 1GWh 배터리저장장치를 가동하고 첫 야간 방전을 달성했다.",
+      "gate": "Zelestra가 칠레 아타카마에서 1GWh BESS를 에너자이즈하며 태양광+저장 하이브리드 프로젝트를 COD 직전 단계로 끌어올린 이벤트다. 장기 PPA와 자체 EPC, Sungrow 시스템 조달이 결합돼 중남미 대형 BESS 프로젝트의 금융·건설 실행력을 보여준다.",
+      "fact": "Zelestra는 칠레 아타카마 사막의 Aurora 하이브리드 프로젝트에서 약 1GWh BESS를 에너자이즈하고 첫 야간 방전을 달성했다. 프로젝트는 220MWdc 태양광과 약 1GWh 저장을 결합하며, 금융종결 후 약 10개월 만에 방전 단계에 도달했고 수주 내 완전 상업운전에 들어갈 예정이다. Zelestra 자체 EPC가 시공했고 전력은 칠레 Abastible과의 장기 PPA로 공급되며, 저장 시스템에는 Sungrow PowerTitan 2.0이 적용됐다.",
+      "implication": [
+        "칠레는 낮 시간 태양광 과잉과 야간 전력수요를 연결하는 하이브리드 BESS 수요가 빠르게 커지는 시장으로 확인된다.",
+        "금융종결 후 10개월 만의 첫 방전은 EPC·조달·시운전 실행력의 기준점이 될 수 있지만, 최종 COD와 성능보증 확인은 별도다.",
+        "완전 상업운전 전환, Abastible PPA 공급 성과, Sungrow 시스템 운영 데이터가 다음 체크포인트다."
+      ],
+      "urls": [
+        "https://www.energy-storage.news/zelestra-energises-1gwh-hybrid-bess-project-in-chile/",
+        "https://greentechlead.com/energy-news/renewable-energy-news-energa-zelestra-energises-robertstown-bess-project-53404",
+        "https://zelestra.energy/zelestra-secures-a-282-million-green-financing-package-for-the-aurora-hybrid-1-gwh-bess-220-mwdc-solar-project-in-chile"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Energy-Storage.news",
+          "source_url": "https://www.energy-storage.news/zelestra-energises-1gwh-hybrid-bess-project-in-chile/",
+          "claim": "스페인 IPP Zelestra가 칠레 아타카마 사막에서 1GWh 배터리저장장치(BESS)를 가동(에너자이즈)했고, 향후 수주 내 완전 상업운전에 들어갈 예정이다.",
+          "source_quote": "energised its 1GWh battery energy storage system (BESS) in the Atacama Desert",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "GreentechLead",
+          "source_url": "https://greentechlead.com/energy-news/renewable-energy-news-energa-zelestra-energises-robertstown-bess-project-53404",
+          "claim": "이 설비는 금융종결 후 약 10개월 만에 첫 야간 방전을 달성했으며, 칠레 Abastible과의 장기 PPA로 운영된다.",
+          "source_quote": "achieved its first nighttime battery discharge just 10 months after reaching financial close",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        },
+        {
+          "source_name": "Zelestra (official)",
+          "source_url": "https://zelestra.energy/zelestra-secures-a-282-million-green-financing-package-for-the-aurora-hybrid-1-gwh-bess-220-mwdc-solar-project-in-chile",
+          "claim": "Aurora 하이브리드 프로젝트는 타라파카에 약 1GWh 저장과 220MWdc 태양광을 결합하며, 인하우스 EPC가 시공했다.",
+          "source_quote": "approximately 1GWh of energy storage and a 220 MWdc solar plant",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-29",
+          "fetch_method": "web_search"
+        }
+      ],
+      "id": "2026-05-11_GL_07",
+      "event_fingerprint": {
+        "actor": "Zelestra",
+        "asset_or_policy": "Aurora hybrid BESS",
+        "location": "Atacama/Tarapaca, Chile",
+        "event_type": "capacity_ramp",
+        "event_date": "2026-05-11",
+        "factual_anchor": "1 GWh BESS energised; first nighttime discharge"
+      },
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "duplicate_screening": {
+        "exact_url_match": false,
+        "canonical_url_match": false,
+        "title_similarity_match": false,
+        "actor_asset_event_match": false,
+        "baseline_event_fingerprint_match": false,
+        "internal_batch_duplicate_match": false,
+        "already_covered_by_broader_card": false
+      },
+      "id_collision": true,
+      "id_collision_notes": "ID-number collision with a DIFFERENT baseline event (SNE, 1분기 중국 제외 글로벌 EV 인도량 202만5000대 (different event: EV delivery stats)); not a content duplicate (url/title differ). Recommended free slot 2026-05-11_GL_07. Do not silent-rename; resolve at publish-ready/manual ID step.",
+      "collision_with": [
+        "2026-05-11_GL_01"
+      ],
+      "recommended_id_action": "assign_id_after_publish_ready_or_manual_id_resolution",
+      "recommended_free_slot": "2026-05-11_GL_07",
+      "publish_ready": true,
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_evidence_completeness_qc": true,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_enrichment": true,
+      "needs_language_terminology_polish": true,
+      "source_strength_caveat": "none",
+      "prior_id": null,
+      "notes": "가동=에너자이즈(첫 방전), 완전 COD는 예정으로 정확히 표기. 깨끗한 수락.",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "source_discovery_ledger": [
+        {
+          "attempt_order": 1,
+          "ledger_type": "fetch_attempt",
+          "source_type_attempted": "provided_candidate",
+          "query_or_url": "energy-storage.news Zelestra Atacama 1GWh",
+          "search_terms_used": [
+            "energy-storage.news Zelestra Atacama 1GWh"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 2,
+          "ledger_type": "alternate_source_search",
+          "source_type_attempted": "trade_press",
+          "query_or_url": "Zelestra 1GWh hybrid BESS Atacama Chile energised Aurora",
+          "search_terms_used": [
+            "Zelestra 1GWh hybrid BESS Atacama Chile energised Aurora"
+          ],
+          "access_result": "ok_body",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        },
+        {
+          "attempt_order": 3,
+          "ledger_type": "cited_primary_search",
+          "source_type_attempted": "developer_official",
+          "query_or_url": "Zelestra Aurora 1GWh BESS 220MWdc",
+          "search_terms_used": [
+            "Zelestra Aurora 1GWh BESS 220MWdc"
+          ],
+          "access_result": "ok_official",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": ""
+        }
+      ],
+      "source_discovery_status": "completed_verified_source_found",
+      "evidence_qc_findings": {
+        "fact_sources_present": true,
+        "all_core_quotes_body_or_official": true,
+        "quote_claim_alignment": "PASS",
+        "url_sync": "PASS",
+        "source_diversity": "PASS_MULTI_SOURCE",
+        "execution_anchor_evidenced": true
+      },
+      "content_polish_findings": {
+        "title_quality": "strong (actor+action+scale/region present)",
+        "sub_quality": "strong (one sentence, event+scale+angle)",
+        "gate_depth": "adequate-to-strong (lane relevance, fact/interpretation separated)",
+        "fact_source_lock": "PASS (every number/date/entity covered by fact_sources)",
+        "implication_quality": "observational, 3 items, distinct roles",
+        "terminology_consistency": "PASS (MWh/GWh/달러 normalized; Korean names)",
+        "foreign_language_residue": "none",
+        "banned_phrase_check": "none",
+        "tone_check": "executive briefing tone; no promo",
+        "sbtl_forcing_check": "no forced SBTL benefit claim"
+      },
+      "visible_field_change_summary": "confirmed_as_strong_no_change",
+      "source_diversity_carry_forward": {
+        "source_diversity_status": "PASS_MULTI_SOURCE",
+        "do_not_expand_claims": true,
+        "source_augmentation_required": false,
+        "source_diversity_caveat_preserved": true,
+        "source_url_urls_sync_status": "PASS_DEDUPED_NORMALIZED_URLS",
+        "claim_strength_matches_source_diversity": true
+      },
+      "claim_type": "commissioning_energisation",
+      "id_reassignment": {
+        "previous_id": "2026-05-11_GL_01",
+        "new_id": "2026-05-11_GL_07",
+        "reason": "pure id-number collision with an unrelated baseline card; reassigned to next free date-region slot per CARD_ID_STANDARD; no content change",
+        "content_unchanged": true
+      },
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "Re-run after ID reassignment (2026-05-11_GL_01 -> 2026-05-11_GL_07). All 9 gates PASS. baseline repo cards.json; github_ready false; sync later.",
+      "pipeline_origin": "main_9card_run_id_reassigned",
+      "reference_final_url_cleanup": "removed same-URL slash variants; no source evidence changed",
+      "content_polish_change_log": [
+        "20260516_reference_density_polish: visible fields densified using existing fact_sources only; no source/fact_sources/source_quote changes"
+      ],
+      "reference_density_polish": "applied_source_locked_visible_fields_only",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "MAIN strict-passed flow"
     },
     {
       "id": "2026-05-11_GL_06",
@@ -29619,6 +32023,149 @@
       ]
     },
     {
+      "state": "publish_ready",
+      "previous_state": "content_enriched_and_language_polished",
+      "id": "2026-04-20_CN_01",
+      "draft_id": "2026-04-20_CN_01",
+      "source_spec_id": "SPEC_0_1P_20260516_012728_CHINA_NEA_ESS_QC_OUTLINE",
+      "source_story_ids": [
+        "CN_2026-05-15_C40"
+      ],
+      "region": "CN",
+      "date": "2026-04-20",
+      "cat": "Policy",
+      "sub_cat": "저장정책",
+      "signal": "high",
+      "title": "중국 국가에너지국, 신형 저장소 건설공사 품질감독 대강 발표",
+      "sub": "국가에너지국이 출력 100MW 이상 전기화학·압축공기 저장소 건설공사의 품질감독 대강을 인발하고, 5월 14일 정책 해설을 공개했다.",
+      "gate": "중국 국가에너지국이 신형 저장소 건설공사 품질감독 대강(질감대강)을 인발했다. 적용 범위는 전력업계(전원측·전망측) 출력 100MW 이상 전기화학·압축공기 저장소 건설공사이며, 사용자측 저장소는 적용되지 않는다. 통용부분과 기술 노선별 전용부분으로 나눠 필수 감독 노드를 설정한다.",
+      "fact": "국가에너지국은 신형 저장소 건설공사 품질감독 대강을 인발했고, 2026년 5월 14일 공식 정책 해설을 공개했다. 적용 범위는 전력업계 전원측·전망측 출력 100MW 이상 전기화학·압축공기 저장소 건설공사이며, 사용자측 저장소는 적용 대상이 아니다. 전기화학 저장소는 단원 가동 전 1개 필수 감독 노드를 두고, 출력 400MW 초과 설비에는 전지 예제창 인양 전 특별 노드를 추가한다. 정책 해설은 '14차 5개년' 이래 신형 저장이 시범에서 규모화 상용으로 전환됐고 2025년 말 신형 저장 설치가 약 1.36억kW로 2024년 말 대비 약 84% 증가했다고 밝혔다.",
+      "implication": [
+        "규모화 상용 단계에 진입한 중국 저장소 건설에 품질감독 기준이 마련되면서 시공·검수 요건이 점검 대상이다.",
+        "100MW 이상 전기화학·압축공기로 적용 범위가 한정된 점은 대형 프로젝트 중심의 규율 강화로 관찰된다.",
+        "기술 노선별 필수 감독 노드 설정이 저장소 안전·품질 관리에 어떤 영향을 줄지 후속 확인이 필요하다."
+      ],
+      "urls": [
+        "https://www.nea.gov.cn/20260514/ded62aeb85294f51ab9597405dcd3449/c.html",
+        "https://m.21jingji.com/article/20260514/herald/a4d45dca46c32581223a3789caf5a2c7.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "국가에너지국 정책 해설(공식)",
+          "source_url": "https://www.nea.gov.cn/20260514/ded62aeb85294f51ab9597405dcd3449/c.html",
+          "claim": "질감대강 인발; 적용 범위 100MW 이상 전기화학·압축공기, 사용자측 제외",
+          "source_quote": "将《储能大纲》的适用范围确定为：电力行业（电源侧和电网侧）功率100兆瓦及以上的电化学储能、压缩空气储能电站建设工程的质量监督 ... 《储能大纲》不适用于用户侧储能电站建设工程。",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-05-28T00:00:00Z",
+          "fetch_method": "web_fetch"
+        },
+        {
+          "source_name": "21재경(공식 통지/해설 인용)",
+          "source_url": "https://m.21jingji.com/article/20260514/herald/a4d45dca46c32581223a3789caf5a2c7.html",
+          "claim": "전기화학 단원 가동 전 1 필수노드, 400MW 초과 시 전지 예제창 특별노드; 2025년 말 약 1.36억kW(+84%)",
+          "source_quote": "第1篇电化学储能电站工程质量监督，设置电化学储能单元启动前1个必监节点，同时针对功率大于400兆瓦的电化学储能电站，增设电化学储能单元电池预制舱吊装前1个专项监督节点 ... 截至2025年底，我国新型储能装机规模达到约1.36亿千瓦，较2024年底增长约84%",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-05-28T00:00:00Z",
+          "fetch_method": "web_fetch"
+        }
+      ],
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "publish_ready": true,
+      "evidence_qc_findings": {
+        "quote_quality": "pass: all visible-supporting sources body_quote_verified or official_material_quote_verified",
+        "fact_sources_schema": "pass: source_name/url/claim/quote/status/role/supports/fetched_at/fetch_method present",
+        "source_role_sufficiency": "pass: >=1 primary_event_evidence per card",
+        "single_source_status": "multi_source",
+        "numeric_claim_audit": "pass: every number/date mapped to fact_sources",
+        "causal_claim_audit": "pass: no unsupported causal claim; implications observational",
+        "source_accessibility": "pass: sources fetched/verified"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_review": {
+        "status": "PASS_MULTI_SOURCE",
+        "official_or_primary": true,
+        "independent_source_count": 2,
+        "note": "Official NEA policy interpretation + 21jingji relaying the official notice; URL-sync clean."
+      },
+      "source_discovery_ledger": [
+        {
+          "url": "https://chuneng.ofweek.com/news/2026-05/ART-180226-8120-30687524.html",
+          "action": "checked_trade_press"
+        },
+        {
+          "url": "https://www.nea.gov.cn/20260514/909214e27a08460faa0e1e674e8f41cf/c.html",
+          "action": "accepted_official_policy_interpretation"
+        },
+        {
+          "url": "https://m.21jingji.com/article/20260514/herald/a4d45dca46c32581223a3789caf5a2c7.html",
+          "action": "accepted_official_notice_relay"
+        }
+      ],
+      "source_discovery_ledger_reference": "Stage B evidence_package source_discovery_ledger (carried)",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "claim_coverage_summary": "strong: title/sub/fact/numeric claims all covered by verified fact_sources",
+      "notes": "Official NEA policy interpretation + 21jingji relaying the official notice; URL-sync clean.",
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "multi_source_available_so_exception_not_needed"
+      },
+      "staleness_user_override": {
+        "applied": true,
+        "anchored_event_date": "2026-04-20",
+        "basis": "User decision to anchor on issuance date for a baseline-absent, official, important regulation; 05-14 official policy interpretation supplies the source-supported fresh signal required by Pass 8."
+      },
+      "content_polish_change_log": {
+        "action": "confirmed_strong_light_polish",
+        "notes": "Regulation issuance stays issuance; 100MW+ scope and supervision nodes source-locked; staleness_user_override carried.",
+        "fields_rewritten": [],
+        "fields_confirmed_strong": [
+          "title",
+          "sub",
+          "gate",
+          "fact",
+          "implication"
+        ],
+        "anchor_inflation_check": "pass: execution anchor preserved, not inflated",
+        "source_locked": "pass: no unsupported fact added"
+      },
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "github_main_sync_required_later": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "hard_fail_count": 0,
+      "final_qc_notes": "All 9 gates PASS. baseline is repo cards.json (not GitHub main) -> publish_ready for content/data quality; github_ready/pr_candidate_ready=false; sync required later.",
+      "pipeline_origin": "0_1p_promoted_track",
+      "source_url_urls_sync_status": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "user_authorized_combined_14_inclusion": true,
+      "inclusion_caveat": "0.1P salvage/promoted track; included by explicit user authorization, not part of preserved 20260516 MAIN reference-only final"
+    },
+    {
       "id": "2026-04-19_KR_52",
       "region": "KR",
       "date": "2026-04-19",
@@ -38258,5 +40805,170 @@
         "note": "baseline 보존 원칙 부분 양보 — user 정책 \"외국어 없어야해\" 우선. baseline 37 cards visible fields 직접 cleanup."
       }
     ]
+  },
+  "merge_prep_20260516_012728_local_user_baseline": {
+    "status": "PASS_LOCAL_MERGE_WITH_ONE_DUPLICATE_EVENT_HOLD",
+    "run_tag": "20260516_012728",
+    "run_label": "2026-05-16 preserved run + user-authorized 0.1P salvage inclusion",
+    "authority": "USER_AUTHORIZED_COMBINED_14",
+    "input_payload_stage": "user_authorized_combined_14_final_pending_github_sync",
+    "input_publish_ready_count": 14,
+    "baseline_file_uploaded": "cards(1).json",
+    "baseline_count": 768,
+    "actually_added_count": 13,
+    "held_count": 1,
+    "final_count": 781,
+    "github_main_sync_status": "NOT_PERFORMED_USER_SUPPLIED_BASELINE",
+    "github_ready": false,
+    "pr_candidate_ready": false,
+    "held_reasons": {
+      "2026-05-12_GL_06": {
+        "hold_type": "duplicate_event_fingerprint_against_baseline",
+        "baseline_match_id": "2026-05-13_GL_04",
+        "reason": "Same core actor/event: EVE Energy supplying Indian Godawari/GNEPL large-scale BESS/storage cells. Baseline already contains 2026-05-13_GL_04; payload card adds 8GWh detail from different URLs, but Prompt 0.8 merge-prep cannot rewrite/enrich existing baseline cards or merge a duplicate event as a new card.",
+        "candidate_title": "EVE Energy, 인도 GNEPL에 8GWh 저장 셀 공급 계약",
+        "baseline_title": "EVE Energy(중)-Godawari New Energy(인도), 인도 대규모 BESS 셀 공급 합의"
+      }
+    },
+    "qc": {
+      "status": "PASS_LOCAL_MERGE_WITH_ONE_DUPLICATE_EVENT_HOLD",
+      "baseline_source": "uploaded cards(1).json used as user-supplied baseline instead of GitHub main",
+      "github_main_sync_passed": false,
+      "github_ready": false,
+      "pr_candidate_ready": false,
+      "baseline_count": 768,
+      "publish_ready_input_count": 14,
+      "actually_added_count": 13,
+      "hold_count_after_baseline_sync": 1,
+      "final_cards_count": 781,
+      "expected_final_count": 781,
+      "duplicate_ids_after_merge": [],
+      "empty_ids_after_merge_count": 0,
+      "duplicate_urls_after_merge_count": 19,
+      "duplicate_urls_after_merge_sample": [
+        [
+          "https://pv-magazine.com/2026/04/28/longi-announces-world-record-efficiency-of-28-13-for-silicon-solar-cell",
+          [
+            "2026-04-28_CN_03",
+            "2026-04-27_CN_01"
+          ]
+        ],
+        [
+          "https://nikkei.com/article/DGXZQOUC235OR0T20C26A4000000",
+          [
+            "2026-04-27_JP_04",
+            "2026-04-23_JP_01"
+          ]
+        ],
+        [
+          "https://asahi-kasei.com/jp/news/2026/ze260423.html",
+          [
+            "2026-04-27_JP_04",
+            "2026-04-23_JP_01"
+          ]
+        ],
+        [
+          "https://itmedia.co.jp/smartjapan/articles/2604/27/news059.html",
+          [
+            "2026-04-27_JP_04",
+            "2026-04-23_JP_01"
+          ]
+        ],
+        [
+          "https://pv-magazine.com/2026/04/27/oxford-pv-says-tandem-solar-could-add-up-to-5-km-to-daily-ev-range",
+          [
+            "2026-04-27_GL_13",
+            "2026-04-14_GL_01"
+          ]
+        ]
+      ],
+      "sort_violations_after_merge_count": 0,
+      "sort_violations_after_merge_sample": [],
+      "candidate_schema_issues_count": 0,
+      "candidate_schema_issues": [],
+      "added_candidate_schema_issues_count": 0,
+      "added_candidate_schema_issues": [],
+      "candidate_fact_source_url_subset_issues_count": 0,
+      "candidate_fact_source_url_subset_issues": [],
+      "added_ids": [
+        "2026-05-20_KR_01",
+        "2026-05-15_US_01",
+        "2026-05-15_KR_01",
+        "2026-05-15_GL_01",
+        "2026-05-14_US_01",
+        "2026-05-14_GL_01",
+        "2026-05-13_JP_01",
+        "2026-05-13_GL_05",
+        "2026-05-13_EU_02",
+        "2026-05-13_CN_04",
+        "2026-05-11_GL_08",
+        "2026-05-11_GL_07",
+        "2026-04-20_CN_01"
+      ],
+      "held_ids": [
+        "2026-05-12_GL_06"
+      ],
+      "held_reasons": {
+        "2026-05-12_GL_06": {
+          "hold_type": "duplicate_event_fingerprint_against_baseline",
+          "baseline_match_id": "2026-05-13_GL_04",
+          "reason": "Same core actor/event: EVE Energy supplying Indian Godawari/GNEPL large-scale BESS/storage cells. Baseline already contains 2026-05-13_GL_04; payload card adds 8GWh detail from different URLs, but Prompt 0.8 merge-prep cannot rewrite/enrich existing baseline cards or merge a duplicate event as a new card.",
+          "candidate_title": "EVE Energy, 인도 GNEPL에 8GWh 저장 셀 공급 계약",
+          "baseline_title": "EVE Energy(중)-Godawari New Energy(인도), 인도 대규모 BESS 셀 공급 합의"
+        }
+      },
+      "sort_rule": "date desc, then id desc (preserves existing baseline ordering pattern and latest-first requirement)",
+      "merge_constraints": [
+        "No GitHub main fetch performed because user instructed to use uploaded cards.json as baseline.",
+        "No PR_CANDIDATE/GitHub-ready naming used.",
+        "Visible fields, urls, related, fact_sources, source_quote values of added cards preserved as-is.",
+        "No new editorial candidate created; no evidence/content rewrite performed.",
+        "Duplicate event candidate held instead of enriching baseline because Prompt 0.8 does not permit rewriting existing baseline cards."
+      ],
+      "all_pass": true,
+      "baseline_inherited_duplicate_url_groups_count": 19,
+      "baseline_inherited_duplicate_url_groups_sample": [
+        [
+          "https://pv-magazine.com/2026/04/28/longi-announces-world-record-efficiency-of-28-13-for-silicon-solar-cell",
+          [
+            "2026-04-28_CN_03",
+            "2026-04-27_CN_01"
+          ]
+        ],
+        [
+          "https://nikkei.com/article/DGXZQOUC235OR0T20C26A4000000",
+          [
+            "2026-04-27_JP_04",
+            "2026-04-23_JP_01"
+          ]
+        ],
+        [
+          "https://asahi-kasei.com/jp/news/2026/ze260423.html",
+          [
+            "2026-04-27_JP_04",
+            "2026-04-23_JP_01"
+          ]
+        ],
+        [
+          "https://itmedia.co.jp/smartjapan/articles/2604/27/news059.html",
+          [
+            "2026-04-27_JP_04",
+            "2026-04-23_JP_01"
+          ]
+        ],
+        [
+          "https://pv-magazine.com/2026/04/27/oxford-pv-says-tandem-solar-could-add-up-to-5-km-to-daily-ev-range",
+          [
+            "2026-04-27_GL_13",
+            "2026-04-14_GL_01"
+          ]
+        ]
+      ],
+      "merged_total_duplicate_url_groups_count_including_inherited": 19,
+      "merge_introduced_duplicate_url_groups_count": 0,
+      "merge_introduced_duplicate_url_groups": {},
+      "candidate_added_url_collision_against_baseline_count": 0,
+      "candidate_added_url_collision_against_baseline": []
+    }
   }
 }

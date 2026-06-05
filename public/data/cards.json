@@ -2736,26 +2736,54 @@
         {
           "source_name": "뉴시스",
           "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
-          "claim": "뉴시스는 LG에너지솔루션과 삼성SDI가 R&D와 북미 ESS 투자를 확대하고, SK온은 비용 효율화와 포트폴리오 리밸런싱에 집중한다고 보도했다.",
-          "source_quote": "LG에너지솔루션과 삼성SDI는 연구개발(R&D) 투자와 북미 ESS(에너지저장장치) 시장 선점을 위한 금융 지원을 확대한 반면, SK온은 재무 부담 관리와 포트폴리오 리밸런싱을 통한 수익성 방어에 집중하는 모습이다.",
+          "claim": "뉴시스는 국내 배터리 3사가 EV 캐즘 속에서 투자 전략 차이를 보인다고 보도했다.",
+          "source_quote": "국내 배터리 3사가 전기차(EV) 캐즘(일시적 수요 정체)이라는 위기 속에서 미래 경쟁력 확보를 위한 투자 전략에서 차이를 보이고 있다.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
             "title",
             "sub",
-            "fact",
-            "gate"
+            "gate",
+            "fact"
           ],
-          "source_locator": "web.open turn527713view2 lines 106-108",
-          "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603",
-          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
-          "quote_patch_at": "2026-06-05T17:53:47+09:00"
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Newsis lines 106-107"
         },
         {
           "source_name": "뉴시스",
           "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
-          "claim": "뉴시스는 LG에너지솔루션이 북미 50GWh ESS 생산능력, 삼성SDI가 SBB 1.7·LFP 기반 SBB 2.0, SK온이 연 3GWh LFP ESS 캐파를 추진한다고 보도했다.",
+          "claim": "LG에너지솔루션과 삼성SDI는 R&D 투자와 북미 ESS 시장 선점을 위한 금융 지원을 확대하고, SK온은 재무 부담 관리와 포트폴리오 리밸런싱에 집중한다고 보도됐다.",
+          "source_quote": "LG에너지솔루션과 삼성SDI는 연구개발(R&D) 투자와 북미 ESS(에너지저장장치) 시장 선점을 위한 금융 지원을 확대한 반면, SK온은 재무 부담 관리와 포트폴리오 리밸런싱을 통한 수익성 방어에 집중하는 모습이다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "gate",
+            "fact"
+          ],
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Newsis line 107"
+        },
+        {
+          "source_name": "뉴시스",
+          "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
+          "claim": "LG에너지솔루션의 2026년 1분기 연구개발비는 3,403억 원으로 전년 동기 대비 10.7% 증가했다.",
+          "source_quote": "LG에너지솔루션의 올해 1분기 연구개발비는 3403억 원으로 전년 동기 대비 10.7% 증가했다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Newsis line 109"
+        },
+        {
+          "source_name": "뉴시스",
+          "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
+          "claim": "LG에너지솔루션은 북미에 50GWh 규모의 ESS 생산 능력을 갖출 계획이다.",
           "source_quote": "이를 위해 미시간 홀랜드 공장 외에도 랜싱 공장과 혼다 JV 라인 일부를 ESS용으로 전환해 북미에 50GWh 규모의 ESS 생산 능력을 갖출 계획이다.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
@@ -2763,29 +2791,71 @@
             "fact",
             "implication"
           ],
-          "source_locator": "web.open turn527713view2 lines 115-146",
-          "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603",
-          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
-          "quote_patch_at": "2026-06-05T17:53:47+09:00"
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Newsis line 117"
+        },
+        {
+          "source_name": "뉴시스",
+          "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
+          "claim": "삼성SDI는 R&D 증가 폭 21.8%를 기록했다.",
+          "source_quote": "삼성SDI는 배터리 3사 중 가장 높은 R&D 증가 폭(21.8%)을 기록하며 '기술 중심 경영'을 가속화하고 있다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact"
+          ],
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Newsis line 122"
+        },
+        {
+          "source_name": "뉴시스",
+          "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
+          "claim": "삼성SDI는 SBB 1.7과 LFP 기반 SBB 2.0을 통해 AI 데이터센터와 북미 전력망 시장을 겨냥하고 있다.",
+          "source_quote": "이를 위해 에너지 밀도를 높인 '삼성 배터리 박스(SBB) 1.7'과 리튬인산철(LFP) 기반의 'SBB 2.0' 등 고부가가치 제품군으로 인공지능(AI) 데이터센터와 북미 전력망 시장을 정조준하고 있다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Newsis line 129"
+        },
+        {
+          "source_name": "뉴시스",
+          "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
+          "claim": "SK온은 서산공장 일부 라인을 LFP로 전환해 연간 3GWh 규모의 ESS 캐파를 확보할 예정이다.",
+          "source_quote": "SK온은 서산공장 일부 라인을 LFP로 전환해 연간 3GWh 규모의 ESS 캐파를 확보하고, 내년 초부터 본격적인 양산에 돌입할 예정이다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Newsis line 140"
         },
         {
           "source_name": "뉴시스",
           "source_url": "https://www.newsis.com/view/NISX20260519_0003635203",
-          "claim": "뉴시스는 현대차·기아의 1분기 알루미늄 매입 가격이 전년 대비 21.5%, 구리가 29.2% 올랐다고 보도했다.",
+          "claim": "현대차·기아의 2026년 1분기 알루미늄 매입 가격은 전년 대비 21.5%, 구리는 29.2% 올랐다.",
           "source_quote": "현대차·기아가 올해 1분기 매입한 알루미늄의 가격은 t당 3199달러로 지난해 2632달러보다 21.5% 상승한 것으로 집계됐다. 구리는 t당 1만2844달러로 2025년 9945달러 대비 29.2% 뛰었으며, 철광석 가격은 t당 107달러로 지난해 평균 가격인 102달러보다 4.9% 올랐다.",
           "source_quote_status": "body_quote_verified",
-          "evidence_role": "primary_event_evidence",
+          "evidence_role": "secondary_event_evidence",
           "supports": [
             "sub",
             "fact",
             "implication"
           ],
-          "source_locator": "web.open turn872163view0 lines 106-115",
-          "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603",
-          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
-          "quote_patch_at": "2026-06-05T17:53:47+09:00"
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Newsis raw-material article"
         }
       ],
       "visible_source_policy": {
@@ -2793,7 +2863,14 @@
         "visible_source_count": 3,
         "rule": "Only fact-checked public source URLs are visible."
       },
-      "fact_lock_status": "verified_two_public_sources"
+      "fact_lock_status": "verified_two_public_sources",
+      "claim_coverage_summary": "strong: R&D growth, ESS capacity, SBB 1.7/2.0, SK On 3GWh LFP ESS capacity, and raw-material price figures are separately covered by exact contiguous source excerpts.",
+      "content_polish_change_log": {
+        "codex_r3361954223_fix": {
+          "action": "added exact source entries for visible numeric and named claims",
+          "patched_at": "2026-06-05T19:50:57+09:00"
+        }
+      }
     },
     {
       "id": "2026-05-19_KR_03",
@@ -3089,7 +3166,7 @@
           "source_name": "Reuters",
           "source_url": "https://www.reuters.com/business/energy/ford-unit-signs-five-year-energy-storage-deal-with-edf-2026-05-18/",
           "claim": "Ford Energy는 EDF에 최대 20GWh의 저장용량을 공급하는 5년 계약을 체결했다.",
-          "source_quote": "signed a five-year deal to supply up to 20 gigawatt-hours of storage capacity",
+          "source_quote": "Ford Motor's energy unit said on Monday it has signed a five-year deal to supply up to 20 gigawatt-hours of storage capacity to renewable power developer EDF.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -3098,24 +3175,39 @@
             "fact",
             "gate"
           ],
-          "source_locator": "web.open turn889480view3 lines 185-197",
-          "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Reuters line 185"
+        },
+        {
+          "source_name": "Reuters",
+          "source_url": "https://www.reuters.com/business/energy/ford-unit-signs-five-year-energy-storage-deal-with-edf-2026-05-18/",
+          "claim": "계약에 따라 EDF는 Ford Energy로부터 매년 최대 4GWh의 DC Block BESS를 구매할 수 있다.",
+          "source_quote": "Under the deal, EDF can procure up to 4 GWh of DC Block battery energy storage systems (BESS) annually from the carmaker's unit, Ford Energy.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Reuters line 186"
         },
         {
           "source_name": "Reuters",
           "source_url": "https://www.reuters.com/business/energy/ford-unit-signs-five-year-energy-storage-deal-with-edf-2026-05-18/",
           "claim": "Reuters는 AI 서비스 사용 증가로 전력 인프라가 압박을 받으면서 데이터센터가 backup power systems를 찾고 있다고 설명했다.",
-          "source_quote": "Data centers are increasingly turning to backup power systems",
+          "source_quote": "Data centers are increasingly turning to backup power systems as a surge in electricity demand - driven by soaring use of artificial intelligence services - strains the energy infrastructure in the United States.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
             "fact",
             "implication"
           ],
-          "source_locator": "web.open turn889480view3 lines 192-195",
-          "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "Reuters lines 192-193"
         },
         {
           "source_name": "pv magazine",
@@ -3123,15 +3215,15 @@
           "claim": "pv magazine은 GCL Technology가 LFP materials 기반 lithium-ion battery storage sector로 확장한다고 보도했다.",
           "source_quote": "expanding into lithium-ion battery storage based on LFP materials",
           "source_quote_status": "body_quote_verified",
-          "evidence_role": "primary_event_evidence",
+          "evidence_role": "secondary_event_evidence",
           "supports": [
             "sub",
             "fact",
             "implication"
           ],
-          "source_locator": "web.open turn448501view2 lines 178-218",
-          "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetched_at": "2026-06-05T19:50:57+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "pv magazine article"
         }
       ],
       "visible_source_policy": {
@@ -3139,7 +3231,14 @@
         "visible_source_count": 3,
         "rule": "Only fact-checked public source URLs are visible."
       },
-      "fact_lock_status": "verified_two_public_sources"
+      "fact_lock_status": "verified_two_public_sources",
+      "claim_coverage_summary": "strong: Ford-EDF 20GWh total, annual 4GWh/DC Block procurement, AI/data-center context, and GCL LFP storage expansion are separately covered.",
+      "content_polish_change_log": {
+        "codex_line_3069_fix": {
+          "action": "added exact Reuters source entry for annual 4GWh DC Block BESS procurement claim",
+          "patched_at": "2026-06-05T19:50:57+09:00"
+        }
+      }
     },
     {
       "id": "2026-05-18_KR_01",

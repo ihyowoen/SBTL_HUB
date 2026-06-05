@@ -1035,7 +1035,7 @@
           "source_name": "산업통상부 보도자료(공식)",
           "source_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156762786",
           "claim": "사용후배터리법 제정안 5월 20일 국무회의 의결; 4대 주요 내용; 공포 후 1년 시행; 배출량 2,355(23)->107,500(30) | 성능평가·안전검사, 전주기 이력·거래시스템, 재생원료 활용 촉진, 산업육성 지원; 배출량 추정",
-          "source_quote": "「사용후 배터리의 관리 및 산업육성에 관한 법률안」(이하 \"사용후배터리법\") 제정법률안이 5월 20일(수) 국무회의에서 의결되었다 ... 동법은 공포 후 1년 경과하는 날부터 시행될 예정이다. / 국내 사용후 배터리 배출량(개) : ('23)2,355 → ('25)8,321 → ('29)78,981 → ('30)107,500 ... 재생원료의 함유율 목표제와 재생원료의 생산·사용 인증제를 도입한다.",
+          "source_quote": "「사용후 배터리의 관리 및 산업육성에 관한 법률안」(이하 \"사용후배터리법\") 제정법률안이 5월 20일(수) 국무회의에서 의결되었다",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -1045,7 +1045,9 @@
             "title"
           ],
           "fetched_at": "2026-05-28T00:00:00Z",
-          "fetch_method": "web_fetch"
+          "fetch_method": "web_fetch",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "ZDNet Korea",
@@ -1568,7 +1570,7 @@
         {
           "source_name": "Reuters / SNE Research",
           "claim": "SNE Research 기준 BYD의 2025년 글로벌 EV 배터리 사용량 점유율은 16.4%였다.",
-          "source_quote": "BYD ... 16.4%",
+          "source_quote": "16.4%",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -1580,7 +1582,9 @@
           "source_locator": "Reuters line 199",
           "hidden_source_url": "https://www.reuters.com/world/asia-pacific/chinas-catl-beats-estimates-profit-growth-quickens-2026-03-09/",
           "visible_source_list": false,
-          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources"
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Reuters / Benchmark Mineral Intelligence",
@@ -2037,7 +2041,7 @@
           "source_name": "IEA Global EV Outlook 2026 — Chapter 9",
           "source_url": "https://www.iea.org/reports/global-ev-outlook-2026/outlook-for-electric-mobility-chap-9-11",
           "claim": "2035년 CPS에서 2/3륜차 제외 EV fleet은 4.5억대를 넘는다.",
-          "source_quote": "EVs ... exceeds 450 million globally",
+          "source_quote": "exceeds 450 million globally",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -2048,7 +2052,9 @@
           "fetched_at": "2026-05-31T00:18:45+09:00",
           "fetch_method": "official_iea_report_page",
           "visible_source_list": true,
-          "visible_source_reason": "core_visible_source_2_to_3_policy"
+          "visible_source_reason": "core_visible_source_2_to_3_policy",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "IEA Global EV Outlook 2026 — Chapter 9",
@@ -2665,7 +2671,7 @@
           "source_name": "뉴시스",
           "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
           "claim": "뉴시스는 LG에너지솔루션과 삼성SDI가 R&D와 북미 ESS 투자를 확대하고, SK온은 비용 효율화와 포트폴리오 리밸런싱에 집중한다고 보도했다.",
-          "source_quote": "LG에너지솔루션과 삼성SDI는 연구개발(R&D) 투자와 북미 ESS ... SK온은 ... 수익성 방어",
+          "source_quote": "LG에너지솔루션과 삼성SDI는 연구개발(R&D) 투자와 북미 ESS(에너지저장장치) 시장 선점을 위한 금융 지원을 확대한 반면, SK온은 재무 부담 관리와 포트폴리오 리밸런싱을 통한 수익성 방어에 집중하는 모습이다.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -2676,13 +2682,15 @@
           ],
           "source_locator": "web.open turn527713view2 lines 106-108",
           "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetch_method": "web_fetch_verified_20260603",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "뉴시스",
           "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
           "claim": "뉴시스는 LG에너지솔루션이 북미 50GWh ESS 생산능력, 삼성SDI가 SBB 1.7·LFP 기반 SBB 2.0, SK온이 연 3GWh LFP ESS 캐파를 추진한다고 보도했다.",
-          "source_quote": "북미에 50GWh 규모의 ESS 생산 능력 ... SBB 1.7 ... LFP 기반의 SBB 2.0 ... 연간 3GWh 규모의 ESS 캐파",
+          "source_quote": "이를 위해 미시간 홀랜드 공장 외에도 랜싱 공장과 혼다 JV 라인 일부를 ESS용으로 전환해 북미에 50GWh 규모의 ESS 생산 능력을 갖출 계획이다.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -2691,13 +2699,15 @@
           ],
           "source_locator": "web.open turn527713view2 lines 115-146",
           "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetch_method": "web_fetch_verified_20260603",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "뉴시스",
           "source_url": "https://www.newsis.com/view/NISX20260519_0003635203",
           "claim": "뉴시스는 현대차·기아의 1분기 알루미늄 매입 가격이 전년 대비 21.5%, 구리가 29.2% 올랐다고 보도했다.",
-          "source_quote": "알루미늄의 가격은 ... 21.5% 상승 ... 구리는 ... 29.2% 뛰었으며",
+          "source_quote": "현대차·기아가 올해 1분기 매입한 알루미늄의 가격은 t당 3199달러로 지난해 2632달러보다 21.5% 상승한 것으로 집계됐다. 구리는 t당 1만2844달러로 2025년 9945달러 대비 29.2% 뛰었으며, 철광석 가격은 t당 107달러로 지난해 평균 가격인 102달러보다 4.9% 올랐다.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -2707,7 +2717,9 @@
           ],
           "source_locator": "web.open turn872163view0 lines 106-115",
           "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetch_method": "web_fetch_verified_20260603",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "visible_source_policy": {
@@ -2790,7 +2802,7 @@
           "source_name": "DealSite경제TV",
           "source_url": "https://news.dealsitetv.com/articles/170634",
           "claim": "DealSite경제TV도 LG에너지솔루션·혼다·하노이시의 BSS MOU, 50여 개 스테이션, 500대 전기이륜차, 2170 배터리 사용 내용을 보도했다.",
-          "source_quote": "약 50여 개의 배터리 교환 스테이션 ... 총 500대 규모의 전기 이륜차 ... 원통형 2170 배터리",
+          "source_quote": "LG에너지솔루션, 혼다, 하노이 시는 올해 3분기부터 하노이 주요 지역에 약 50여 개의 배터리 교환 스테이션 구축하고, 총 500대 규모의 전기 이륜차를 도입해 실증 사업을 본격 시작할 예정이다. 배터리는 LG에너지솔루션 원통형 2170 배터리가 사용된다.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -2799,7 +2811,9 @@
           ],
           "source_locator": "web.open DealSite lines 137-145",
           "fetched_at": "2026-06-03T05:01:52+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetch_method": "web_fetch_verified_20260603",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ]
     },
@@ -2836,7 +2850,7 @@
           "source_name": "Charged EVs / Monomyth Materials",
           "source_url": "https://chargedevs.com/newswire/monomyth-materials-acquires-nanograf-to-pair-siox-silicon-anodes-with-its-domestic-synthetic-graphite-platform/",
           "claim": "Monomyth Materials는 NanoGraf 자산을 인수해 SiOx 기술과 국내 합성흑연 사업을 결합했다.",
-          "source_quote": "acquired the assets of NanoGraf ... pairing SiOx technology ... with its domestic synthetic graphite business",
+          "source_quote": "Monomyth Materials has acquired the assets of NanoGraf, a Chicago-based silicon anode company spun out of Northwestern University and Argonne National Laboratory, pairing SiOx technology and a defense-validated IP portfolio with its domestic synthetic graphite business.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -2847,13 +2861,15 @@
           ],
           "source_locator": "web.open turn989507view0 lines 6-10",
           "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetch_method": "web_fetch_verified_20260603",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Charged EVs / Monomyth Materials",
           "source_url": "https://chargedevs.com/newswire/monomyth-materials-acquires-nanograf-to-pair-siox-silicon-anodes-with-its-domestic-synthetic-graphite-platform/",
           "claim": "NanoGraf 자산은 M2Innovations의 기반이 되며, M2Graphite는 commercial-scale production을 담당한다.",
-          "source_quote": "The NanoGraf assets become the foundation of a new subsidiary, M2Innovations ... M2Graphite ... handles commercial-scale production",
+          "source_quote": "The NanoGraf assets become the foundation of a new subsidiary, M2Innovations, focused on advanced battery materials and prototype cell development from R&D through pilot scale.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -2862,7 +2878,9 @@
           ],
           "source_locator": "web.open turn989507view0 lines 7-10",
           "fetched_at": "2026-06-03T04:34:10+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetch_method": "web_fetch_verified_20260603",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Reuters / Vianode synthetic graphite context",
@@ -3129,7 +3147,7 @@
           "source_name": "IEA Global EV Outlook 2026",
           "source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
           "claim": "IEA는 LFP가 2025년 글로벌 EV 배터리 deployment의 55% 이상을 차지했고, LFP cathode materials and precursors는 중국에 거의 전적으로 집중돼 있다고 분석했다.",
-          "source_quote": "LFP batteries accounted for over 55% ... LFP cathode materials and their precursors is still almost entirely concentrated in China",
+          "source_quote": "In 2025, LFP batteries accounted for over 55% of EV batteries deployed globally, up from nearly 50% in 2024.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "background_context",
           "supports": [
@@ -3138,7 +3156,9 @@
           ],
           "source_locator": "web.open turn181874view0 lines 312-330",
           "fetched_at": "2026-06-03T05:15:40+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetch_method": "web_fetch_verified_20260603",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ]
     },
@@ -3197,7 +3217,7 @@
           "source_name": "Reuters",
           "source_url": "https://www.reuters.com/business/australia-treasurer-orders-six-shareholders-divest-northern-minerals-2026-05-17/",
           "claim": "Northern Minerals는 Western Australia의 Browns Range heavy rare earths 프로젝트를 개발 중이며, heavy rare earths는 반도체·방산에 중요하다고 보도됐다.",
-          "source_quote": "Browns Range heavy rare earths project ... semiconductors and defence",
+          "source_quote": "Northern Minerals is developing the Browns Range heavy rare earths project in Western Australia at a time when Western governments are seeking to loosen China's stranglehold over the sector.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -3207,7 +3227,9 @@
           ],
           "source_locator": "web.find turn205879view2 lines 185-190",
           "fetched_at": "2026-06-03T05:15:40+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetch_method": "web_fetch_verified_20260603",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "WSJ",
@@ -4327,7 +4349,7 @@
           "source_name": "Lithium Argentina (GlobeNewswire 공식 릴리스)",
           "source_url": "https://www.globenewswire.com/news-release/2026/05/14/3295322/0/en/Lithium-Argentina-Receives-RIGI-Approval-for-Cauchari-Olaroz-Stage-2-Expansion.html",
           "claim": "RIGI 평가위원회가 2단계 증설을 승인; 2단계는 연 4만5천t LCE 추가(1단계 4만t 위), 정식 결의 6월 예정; 카푸토 장관 발표; 지분 44.8/46.7/8.5 | Cauchari-Olaroz 지분 구조 및 RIGI 투자 약정",
-          "source_quote": "the expansion ... under Argentina's Large Investment Incentive Regime (\"RIGI\") has obtained the approval of the Evaluation Committee. The expansion (\"Stage 2\") targets production capacity for an additional 45,000 tonnes per annum ... building on Cauchari-Olaroz's Stage 1 operating capacity of 40,000 tpa. / Cauchari-Olaroz is 44.8% owned by the Company, 46.7% by Ganfeng and 8.5% by JEMSE ... A minimum of US$200 million in accountable assets, with at least US$80 million deployed within the first two years from approval.",
+          "source_quote": "under Argentina's Large Investment Incentive Regime (\"RIGI\") has obtained the approval of the Evaluation Committee. The expansion (\"Stage 2\") targets production capacity for an additional 45,000 tonnes per annum",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -4337,13 +4359,15 @@
             "title"
           ],
           "fetched_at": "2026-05-28T00:00:00Z",
-          "fetch_method": "web_fetch"
+          "fetch_method": "web_fetch",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "The Northern Miner",
           "source_url": "https://www.northernminer.com/news/milei-oks-lithium-argentinas-1-24b-expansion-under-rigi/1003891126/",
           "claim": "$1.24B 규모, 후후이주, 친미 정부의 이례적 중국계 사업 인센티브 부여; 8천명 이상 고용",
-          "source_quote": "Lithium Argentina owns 44.8% of the operation ... The projects stand to receive tax breaks and legal guarantees as Argentina looks to accelerate critical minerals investment.",
+          "source_quote": "The projects stand to receive tax breaks and legal guarantees as Argentina looks to accelerate critical minerals investment",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -4351,7 +4375,9 @@
             "fact"
           ],
           "fetched_at": "2026-05-28T00:00:00Z",
-          "fetch_method": "web_fetch"
+          "fetch_method": "web_fetch",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "evidence_complete": true,
@@ -5301,7 +5327,7 @@
           "source_name": "ESS-News (pv magazine)",
           "source_url": "https://www.ess-news.com/2026/05/13/armenia-permits-construction-of-energy-storage-systems/",
           "claim": "개정안 2차·최종 독회 통과, ESS 첫 허용·라이선스 대상; 1MW 이하/자가소비 면제; 장관 발언; 태양광 16.3% | 라이선스 면제 기준 및 후다탼 장관의 라이선스 권한 설명, 태양광 16.3%",
-          "source_quote": "The amendment to the country's Energy Law, which has now passed a second and final reading in parliament, sets out the introduction of energy storage systems subject to licensing. / licensing will not be required ... when the system is up to 1 MW in capacity, or when the system is above 1 MW but is designed for self-consumption ... solar accounted for 16.3% of Armenia's electricity generation last year.",
+          "source_quote": "The amendment to the country's Energy Law, which has now passed a second and final reading in parliament, sets out the introduction of energy storage systems subject to licensing",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -5311,7 +5337,9 @@
             "title"
           ],
           "fetched_at": "2026-05-28T00:00:00Z",
-          "fetch_method": "web_fetch"
+          "fetch_method": "web_fetch",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "pv magazine",
@@ -5476,7 +5504,7 @@
           "source_name": "신랑재경(환구영탄, 상장사 공고 인용)",
           "source_url": "https://finance.sina.com.cn/cj/2026-05-15/doc-inhxytza8014754.shtml",
           "claim": "5/13 저녁 2건 공시: 자공 40억위안·연 50억㎡ 분리막 기지 신설 + 중커화롄 인수 종료(가격 미합의); 자회사 지분 67/33 | 종료 사유는 거래대가 등 핵심 조항 미합의; 2025년 설계능력 144억㎡, 가동률 94.91%",
-          "source_quote": "5月13日晚间，恩捷股份两则公告同时落地——在四川自贡投资40亿元建设年产50亿平方米的隔膜生产基地，同时终止对中科华联的收购 ... 该项目由新设子公司实施，恩捷股份持股67%，自贡市政府推荐的产业合作方持股33% / 此次重大资产重组终止原因在于，交易双方未能就本次交易的部分核心条款尤其是交易对价达成一致 ... 2025年全年产能利用率为94.91%",
+          "source_quote": "5月13日晚间，恩捷股份两则公告同时落地——在四川自贡投资40亿元建设年产50亿平方米的隔膜生产基地，同时终止对中科华联的收购",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -5486,20 +5514,24 @@
             "title"
           ],
           "fetched_at": "2026-05-28T00:00:00Z",
-          "fetch_method": "web_fetch"
+          "fetch_method": "web_fetch",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "펑파이(澎湃) 기사",
           "source_url": "https://m.thepaper.cn/newsDetail_forward_33174569",
           "claim": "기존 설계능력 144억㎡ 대비 약 35% 증설; 인수 2025년 12월 시작",
-          "source_quote": "截至2025年年底，公司锂电池隔膜设计产能为144亿平方米 ... 此次扩产幅度较大，达到近35%",
+          "source_quote": "截至2025年年底，公司锂电池隔膜设计产能为144亿平方米",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
             "fact"
           ],
           "fetched_at": "2026-05-28T00:00:00Z",
-          "fetch_method": "web_fetch"
+          "fetch_method": "web_fetch",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "evidence_complete": true,
@@ -5821,7 +5853,7 @@
           "source_name": "헤럴드경제",
           "source_url": "https://biz.heraldcorp.com/article/10735718",
           "claim": "재생동은 폐전선 등에서 회수한 구리 자원을 재활용해 채굴 대비 탄소 배출을 최대 80%까지 줄일 수 있다. 한국미래소재는 미국 버지니아주 LS그린링크 인근 공장 건설도 추진 중이다.",
-          "source_quote": "재생동은 폐전선 등에 회수한 구리 자원을 재활용해 생산한다. 채굴 대비 탄소 배출을 최대 80%까지 줄일 수 있다 ... 한국미래소재는 미국 버지니아주 LS그린링크 인근에 공장 건설도 추진 중이다. LS그린링크는 북미 최대 규모의 해저케이블 공장이다. 공장 건설에 투자되는 자금만 약 1조원이다.",
+          "source_quote": "한국미래소재는 미국 버지니아주 LS그린링크 인근에 공장 건설도 추진 중이다. LS그린링크는 북미 최대 규모의 해저케이블 공장이다. 공장 건설에 투자되는 자금만 약 1조원이다",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -5829,7 +5861,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:35:58.073141+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "아주경제",
@@ -5960,7 +5994,7 @@
           "source_name": "이데일리 (CEO quote section)",
           "source_url": "https://www.edaily.co.kr/News/Read?newsId=05366086645448264&mediaCodeNo=257",
           "claim": "MU-3.0은 기존 리튬 화학계 지원을 넘어 나트륨 화학계까지 확장하고, 자동화 실험실(A-Labs)과 연계한 폐쇄형 루프 시스템을 구현한다. CEO 치차오 후는 MU-0 이후 가장 큰 진전이며 드론·로보틱스·ESS·모빌리티 등에 기여할 것이라 말했다.",
-          "source_quote": "MU-3.0은 기존 리튬 화학계 지원을 넘어 나트륨 화학계까지 지원 범위를 확장해 에너지저장장치(ESS)를 비롯한 다양한 산업 분야에서 활용 가능성을 넓혔다 ... 치차오 후 SES AI CEO는 'MU-3.0은 1년 전 공개된 MU-0 이후 Molecular Universe에서 가장 큰 진전이며, 드론, 로보틱스, ESS, 모빌리티 등 다양한 산업 분야에서 연구개발과 제품화 기간 단축에 기여할 것'이라고 전했다",
+          "source_quote": "치차오 후 SES AI CEO는 'MU-3.0은 1년 전 공개된 MU-0 이후 Molecular Universe에서 가장 큰 진전이며, 드론, 로보틱스, ESS, 모빌리티 등 다양한 산업 분야에서 연구개발과 제품화 기간 단축에 기여할 것'이라고 전했다",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -5968,7 +6002,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:35:58.073141+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "SES AI Q1 2026 Financial Results (BusinessWire)",
@@ -6780,7 +6816,7 @@
           "source_name": "Bloomberg",
           "source_url": "https://www.bloomberg.com/news/articles/2026-05-11/sunshine-silver-files-for-ipo-seeking-funds-to-reopen-idaho-mine",
           "claim": "Net loss $13.3M on no revenue in Q1 2025 (vs $2.9M loss prior year). Filing with SEC on Monday.",
-          "source_quote": "Sunshine Silver Mining & Refining Co. filed for a US initial public offering, and is seeking funds to restart a mine in Idaho that previously produced silver, antimony and other minerals ... The owner and developer of the Sunshine mine and other facilities had a net loss of $13.3 million on no revenue in the three months ended March 31, 2025, compared with a net loss of $2.9 million in the same period a year earlier",
+          "source_quote": "The owner and developer of the Sunshine mine and other facilities had a net loss of $13.3 million on no revenue in the three months ended March 31, 2025, compared with a net loss of $2.9 million in the same period a year earlier",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -6788,13 +6824,15 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Mining.com (background)",
           "source_url": "https://www.mining.com/web/sunshine-silver-weighs-400-million-ipo-to-fund-reopening-of-idaho-mine/",
           "claim": "Target raise ~$400M (April 20 2026 Bloomberg). >$180M already invested. Production target 2028. Co-owner Electrum Group. Earlier raise: $75M in September 2025.",
-          "source_quote": "A listing could raise about $400 million, said one of the people ... The firm has invested more than $180 million into the project, expanding its land package and upgrading infrastructure in an effort to return the mine to production in 2028. The company is co-owned by Electrum Group ... It raised $75 million in September in a round led by an affiliate of Electrum",
+          "source_quote": "The firm has invested more than $180 million into the project, expanding its land package and upgrading infrastructure in an effort to return the mine to production in 2028. The company is co-owned by Electrum Group",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -6802,20 +6840,24 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "SEC Form S-1 exhibits (Sunshine Silver)",
           "source_url": "https://www.sec.gov/Archives/edgar/data/0002091017/000114036126020608/ny20061035x4_ex23-7.htm",
           "claim": "Filing references include Argus Antimony Market Assessment (Dec 2025), Samuel Engineering Antimony Plant Viability Summary (April 2025), trajectorE Engineering Silver Refinery Process Study (Nov 2025).",
-          "source_quote": "Reference is made to the registration statement on Form S-1 (the \"Registration Statement\") filed by Sunshine Silver Mining & Refining Company (the \"Company\") with the United States Securities and Exchange Commission ... antimony market report entitled \"Antimony Market Assessment\" prepared by us in December 2025 (the \"Argus Report\")",
+          "source_quote": "Reference is made to the registration statement on Form S-1 (the \"Registration Statement\") filed by Sunshine Silver Mining & Refining Company (the \"Company\") with the United States Securities and Exchange Commission",
           "source_quote_status": "document_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
             "fact"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "draft_id": "draft_20260512_134524_016",
@@ -6908,7 +6950,7 @@
           "source_name": "SEC 8-K (Ford Motor Company FY2025 Exhibit 99)",
           "source_url": "https://www.sec.gov/Archives/edgar/data/0000037996/000003799625000238/exhibit99todecember15202.htm",
           "claim": "Ford announced launch of battery energy storage business with 20 GWh annual capacity plan; ~$2 billion investment.",
-          "source_quote": "Launches battery energy storage business: Ford will leverage wholly owned plants in Ky. and Mich. and leading LFP technology ... Ford plans to begin shipping BESS systems in 2027 with 20 GWh of annual capacity ... the company also plans to invest roughly $2 billion in the next two years to scale the business",
+          "source_quote": "Launches battery energy storage business: Ford will leverage wholly owned plants in Ky. and Mich. and leading LFP technology",
           "source_quote_status": "document_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -6919,13 +6961,15 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:35:58.073141+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Electrek",
           "source_url": "https://electrek.co/2026/05/11/ford-energy-launches-battery-storage-subsidiary-20gwh-bess",
           "claim": "On May 11 2026 Ford unveiled Ford Energy as a wholly owned subsidiary; product DC block with 512 Ah LFP prismatic cells; operates from Glendale, KY former BlueOval SK plant.",
-          "source_quote": "Ford has officially unveiled Ford Energy, a wholly owned subsidiary that will manufacture and sell U.S.-assembled battery energy storage systems (BESS) ... 20 GWh of energy storage annually from its Kentucky gigafactory ... The subsidiary will operate out of Ford's Glendale, Kentucky facility — the same plant that was originally built for EV battery production under the BlueOval SK joint venture",
+          "source_quote": "The subsidiary will operate out of Ford's Glendale, Kentucky facility — the same plant that was originally built for EV battery production under the BlueOval SK joint venture",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -6934,13 +6978,15 @@
             "fact"
           ],
           "fetched_at": "2026-05-12T17:35:58.073141+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Solar Power World Online",
           "source_url": "https://www.solarpowerworldonline.com/2026/05/ford-formally-launches-grid-scale-battery-business-ford-energy/",
           "claim": "Ford Energy DC block = 5.45 MWh containerized system; first customer deliveries planned for late 2027; Lisa Drake named president.",
-          "source_quote": "Ford Energy DC Block, is listed as a 5.45-MWh system in a standardized 20-ft container. It comes in two- and four-hour system configurations and uses 512-Ah prismatic LFP cells ... First customer deliveries are planned for late 2027",
+          "source_quote": "Ford Energy DC Block, is listed as a 5.45-MWh system in a standardized 20-ft container. It comes in two- and four-hour system configurations and uses 512-Ah prismatic LFP cells",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -6948,7 +6994,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:35:58.073141+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "claim": "Ford Energy 공식 출범, 켄터키 글렌데일에서 LFP BESS 조립",
@@ -7533,7 +7581,7 @@
           "source_name": "Newsis body article / KICET-provided announcement",
           "source_url": "https://mobile.newsis.com/view_amp.html?ar_id=NISX20260511_0003623895",
           "claim": "KICET launched a strategic materials new supply-chain council for advanced industries including semiconductors and secondary batteries.",
-          "source_quote": "한국세라믹기술원은 ... 국가첨단산업 전략소재의 국내 신 공급망 구축을 위한 회의를 열고 전략소재 신 공급망 협의체를 출범했다고 11일 밝혔다.",
+          "source_quote": "국가첨단산업 전략소재의 국내 신 공급망 구축을 위한 회의를 열고 전략소재 신 공급망 협의체를 출범했다고 11일 밝혔다",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "supplemental_source_strength_evidence",
           "supports": [
@@ -7544,7 +7592,9 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_body_result"
+          "fetch_method": "0_5R_web_search_body_result",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "stage_b_only": true,
@@ -7745,7 +7795,7 @@
           "source_name": "Edaily body article",
           "source_url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=02200886645447936",
           "claim": "Cowintech signed a mid-KRW 30 billion mobile robot automation system supply contract with a large global battery company, with the contract running to June 2027.",
-          "source_quote": "글로벌 배터리 대형 기업과 300억원 중반대 규모의 모바일 로봇 기반 자동화 시스템 공급계약을 체결했다 ... 계약기간은 2027년 6월까지",
+          "source_quote": "글로벌 배터리 대형 기업과 300억원 중반대 규모의 모바일 로봇 기반 자동화 시스템 공급계약을 체결했다",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "supplemental_source_strength_evidence",
           "supports": [
@@ -7755,7 +7805,9 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_body_result"
+          "fetch_method": "0_5R_web_search_body_result",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "stage_b_only": true,
@@ -8357,7 +8409,7 @@
           "source_name": "PV Magazine International (citing GlobalData)",
           "source_url": "https://www.pv-magazine.com/2026/05/11/egypt-installs-800-mw-of-solar-in-2025/",
           "claim": "Egypt added 800 MW of solar in 2025. Cumulative solar capacity rose from 2.1 GW (end 2024) to 2.9 GW (end 2025). 2026 forecast: +2.2 GW → 5.1 GW. 2035 cumulative target: 34.3 GW. Pipeline: Amea Power 1 GW + 600 MWh storage; Scatec 1.1 GW + 200 MWh ($3.6B portfolio).",
-          "source_quote": "Egypt added around 800 MW of solar in 2025, according to figures published by GlobalData. The consultancy's latest analysis says Egypt's cumulative solar capacity increased from 2.1 GW by the end of 2024 to around 2.9 GW by the end of 2025. GlobalData is expecting 2.2 GW of solar to be added this year, taking total capacity to 5.1 GW by the end of 2026 ... Cumulative capacity is expected to grow from around 2.9 GW at the end of 2025 to 34.3 GW by the end of 2035 ... Among major projects to begin construction last year was a 1 GW solar site tied to 600 MWh of storage belonging to Amea Power and a 1.1 GW solar plus 200 MWh storage project belonging to Scatec, whose entire portfolio in Egypt has been valued at $3.6 billion",
+          "source_quote": "Egypt added around 800 MW of solar in 2025, according to figures published by GlobalData. The consultancy's latest analysis says Egypt's cumulative solar capacity increased from 2.1 GW by the end of 2024 to around 2.9 GW by the end of 2025. GlobalData is expecting 2.2 GW of solar to be added this year, taking total capacity to 5.1 GW by the end of 2026",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -8368,13 +8420,15 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "PV Magazine (analyst quote)",
           "source_url": "https://www.pv-magazine.com/2026/05/11/egypt-installs-800-mw-of-solar-in-2025/",
           "claim": "Power Analyst Mohammed Ziauddin: solar emerging as dominant driver of Egypt power sector; utility-scale + C&I projected to be 98-99% of market.",
-          "source_quote": "Mohammed Ziauddin, Power Analyst at GlobalData, said solar is emerging as the dominant driver in Egypt's power sector ... \"Over the forecast period, utility scale developments are expected to account for more than 60% of Egypt's total solar market, while C&I projects are expected to comprise most of the remaining share\" ... \"Together, utility scale and C&I solar are projected to represent nearly 98-99% of the country's overall solar market\"",
+          "source_quote": "\"Over the forecast period, utility scale developments are expected to account for more than 60% of Egypt's total solar market, while C&I projects are expected to comprise most of the remaining share\"",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -8382,7 +8436,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "IRENA Renewable Capacity Statistics 2026",
@@ -8519,7 +8575,7 @@
           "source_name": "Energy-Storage.News",
           "source_url": "https://www.energy-storage.news/bw-ess-submits-700mw-bannaby-battery-storage-project-in-nsw-to-australias-epbc-act/",
           "claim": "BW ESS submitted a 700MW BESS to Australia's EPBC Act for environmental assessment. Site: 18km east of Taralga in Upper Lachlan Shire, NSW; 68-ha across 3 properties at Hanworth Road; connection to existing Bannaby 500kV substation.",
-          "source_quote": "Energy storage owner-operator BW ESS has submitted a 700MW battery energy storage system (BESS) project to Australia's Environment Protection and Biodiversity Conservation (EPBC) Act for environmental assessment. The Bannaby BESS, located approximately 18km east of Taralga in the Upper Lachlan Shire in New South Wales (NSW), would occupy a 68-hectare project area across three properties at Hanworth Road ... the facility would connect to the existing Bannaby 500kV substation ... Construction is anticipated to commence in 2027, subject to obtaining necessary approvals, with an 18-month build period",
+          "source_quote": "Energy storage owner-operator BW ESS has submitted a 700MW battery energy storage system (BESS) project to Australia's Environment Protection and Biodiversity Conservation (EPBC) Act for environmental assessment. The Bannaby BESS, located approximately 18km east of Taralga in the Upper Lachlan Shire in New South Wales (NSW), would occupy a 68-hectare project area across three properties at Hanworth Road",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -8530,13 +8586,15 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Infrastructure Pipeline (project record)",
           "source_url": "https://infrastructurepipeline.org/project/bannaby-bess",
           "claim": "BW ESS-developed Bannaby BESS = proposed 750MW/3GWh project, located 45km NE of Goulburn, NSW; 3.1km transmission line to Transgrid Bannaby substation.",
-          "source_quote": "The Bannaby BESS, to be developed by BW ESS, is a proposed 750 megawatt / 3,000 megawatt-hour Battery Energy Storage Facility ... located 45 kilometres northeast of Goulburn, NSW. The project includes a 3.1-kilometre transmission line to connect the battery to Transgrid's existing Bannaby substation.",
+          "source_quote": "located 45 kilometres northeast of Goulburn, NSW. The project includes a 3.1-kilometre transmission line to connect the battery to Transgrid's existing Bannaby substation",
           "source_quote_status": "document_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -8544,7 +8602,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "energy-storage.news — BW ESS CEO Erik Strømsø interview (March 10, 2026)",
@@ -8666,7 +8726,7 @@
           "source_name": "BloombergNEF (about.bnef.com)",
           "source_url": "https://about.bnef.com/insights/clean-energy/energy-storage-enters-the-100-gigawatt-era-three-things-to-know/",
           "claim": "Global energy storage exceeded 100 GW annual additions for first time in 2025 (112 GW/307 GWh, +48% YoY). LFP 90%+ of additions. LDES annual additions to quadruple to 2 GW in 2026.",
-          "source_quote": "Global deployment has set new records every year since 2014 and exceeded 100 gigawatts of annual additions for the first time in 2025 ... Annual additions of energy storage, excluding pumped hydro, reached 112 gigawatts in 2025 – up 48% from 2024 – with 307 gigawatt-hours of batteries added worldwide ... In 2025, LFP accounted for more than 90% of annual additions ... In 2026, annual additions of long-duration energy storage, or energy storage with durations of six hours or longer ... are set to quadruple to two gigawatts",
+          "source_quote": "Annual additions of energy storage, excluding pumped hydro, reached 112 gigawatts in 2025 – up 48% from 2024 – with 307 gigawatt-hours of batteries added worldwide",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -8677,13 +8737,15 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "ess-news.com (BNEF coverage)",
           "source_url": "https://www.ess-news.com/2026/05/11/bloombergnef-confirms-energy-storage-has-reached-the-100-gw-era/",
           "claim": "2026 forecast: 158 GW/459 GWh (+41%). Cumulative storage capacity 2.9 TW (ex pumped hydro). 2036 cumulative 2,867 GW. China 54%, US 16% of 2025 adds. Utility-scale 85% of additions.",
-          "source_quote": "In 2026, expectations are for another massive increase, with a jump of 41% from 2025 to 158 GW / 459 GWh in total ... Global energy storage capacity, cumulatively, has reached 2.9 TW ... China continues to lead the way in installations, as it has for many years, accounting for 54% of new additions in 2025, followed by the US at 16% ... Utility-scale projects accounted for 85% of 2025's capacity additions",
+          "source_quote": "China continues to lead the way in installations, as it has for many years, accounting for 54% of new additions in 2025, followed by the US at 16%",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -8691,7 +8753,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "BNEF analyst quote",
@@ -8855,7 +8919,7 @@
           "source_name": "SNE Research official press release index",
           "source_url": "https://www.sneresearch.com/en/insight/release/180?s_cat=%7C&s_keyword=",
           "claim": "SNE official index reports Jan-Mar 2026 non-China global EV deliveries of 2.025 million units and 23.1% YoY growth.",
-          "source_quote": "From Jan to Mar 2026, Non-China Global EV Deliveries Recorded 2.025 Mil Units ... a 23.1% YoY Growth",
+          "source_quote": "From Jan to Mar 2026, Non-China Global EV Deliveries Recorded 2.025 Mil Units",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "supplemental_official_event_evidence",
           "supports": [
@@ -8865,7 +8929,9 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_official_material"
+          "fetch_method": "0_5R_web_search_official_material",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "stage_b_only": true,
@@ -9468,7 +9534,7 @@
           "source_name": "ACS Energy Letters article page",
           "source_url": "https://pubs.acs.org/doi/abs/10.1021/acsenergylett.6c00122",
           "claim": "The cited KAIST lithium-metal-anode study is published as Spatially Selective Lithium Plating and Stripping in Lithium Metal Anodes in ACS Energy Letters.",
-          "source_quote": "Spatially Selective Lithium Plating and Stripping in Lithium Metal Anodes ... Published February 24, 2026 ... E-mail: seungbum@kaist.ac.kr",
+          "source_quote": "Spatially Selective Lithium Plating and Stripping in Lithium Metal Anodes",
           "source_quote_status": "document_quote_verified",
           "evidence_role": "supplemental_primary_research_evidence",
           "supports": [
@@ -9477,7 +9543,9 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_publisher_page"
+          "fetch_method": "0_5R_web_search_publisher_page",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "stage_b_only": true,
@@ -9683,7 +9751,7 @@
           "source_name": "KOTRA official business notice",
           "source_url": "https://www.kotra.or.kr/subList/20000020753/subhome/bizAply/selectBizMntInfoDetail.do?cpbizYn=N&dtlBizMntNo=26CN07I",
           "claim": "KOTRA listed the CIBF 2026-linked Shenzhen Korea-China secondary battery partnering consultation event with dates, fields, and participation information.",
-          "source_quote": "(CIBF 2026 연계) 중국 선전 한중 이차전지 파트너링 상담회 ... 개최기간 2026-05-13 ~ 2026-06-19 ... 분야: 배터리 셀, ESS, 소재·설비, 리사이클링",
+          "source_quote": "(CIBF 2026 연계) 중국 선전 한중 이차전지 파트너링 상담회",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "supplemental_official_event_evidence",
           "supports": [
@@ -9693,13 +9761,15 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_official_material"
+          "fetch_method": "0_5R_web_search_official_material",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "KOTRA official PDF notice",
           "source_url": "https://www.kotra.or.kr/upload/2026/03/18/BM202603180000090375_0.pdf",
           "claim": "KOTRA Shenzhen trade office said it would hold a Korea-China secondary battery partnering consultation event linked to CIBF, covering battery cells, ESS, materials/equipment and recycling.",
-          "source_quote": "KOTRA 선전무역관은 CIBF 전시회와 연계하여 한중 이차전지 파트너링 상담회를 개최합니다 ... 분야: 배터리 셀, ESS, 소재·설비, 리사이클링 등",
+          "source_quote": "KOTRA 선전무역관은 CIBF 전시회와 연계하여 한중 이차전지 파트너링 상담회를 개최합니다",
           "source_quote_status": "document_quote_verified",
           "evidence_role": "supplemental_official_event_evidence",
           "supports": [
@@ -9708,7 +9778,9 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_official_pdf"
+          "fetch_method": "0_5R_web_search_official_pdf",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "stage_b_only": true,
@@ -9910,7 +9982,7 @@
           "source_name": "Yonhap body article / UNIST-provided information",
           "source_url": "https://www.yna.co.kr/amp/view/AKR20260508073600057",
           "claim": "UNIST said it would commercialize LFP battery direct regeneration technology with four startups and secured KRW 6 billion over four years.",
-          "source_quote": "UNIST은 스타트업 4곳과 함께 리튬인산철(LFP) 배터리 직접 재생 기술 사업화를 추진한다고 8일 밝혔다 ... 4년간 총 60억원 규모 사업비를 확보했다.",
+          "source_quote": "UNIST은 스타트업 4곳과 함께 리튬인산철(LFP) 배터리 직접 재생 기술 사업화를 추진한다고 8일 밝혔다",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "supplemental_source_strength_evidence",
           "supports": [
@@ -9920,7 +9992,9 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_body_result"
+          "fetch_method": "0_5R_web_search_body_result",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Newsis body article / UNIST-provided information",
@@ -10119,7 +10193,7 @@
           "source_name": "Energetica India (technology specs)",
           "source_url": "https://www.energetica-india.net/news/adani-green-energy-operationalises-150-mw-solar-power-project-at-khavda-gujarat",
           "claim": "Khavda already has 9.7 GW AGEL cumulative installed. Tech: bifacial solar modules + trackers, 5.2 MW wind turbines, waterless robotic cleaning.",
-          "source_quote": "Out of the planned 30 GW by 2029 at Khavda, AGEL has already installed a cumulative capacity of 9.7 GW at the site ... The Khavda project deploys advanced bifacial solar modules ... along with solar trackers ... It also deploys 5.2 MW wind turbines ... The use of waterless robotic cleaning systems leads to near-zero usage of water for module cleaning",
+          "source_quote": "Out of the planned 30 GW by 2029 at Khavda, AGEL has already installed a cumulative capacity of 9.7 GW at the site",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -10127,7 +10201,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "draft_id": "draft_20260512_134524_013",
@@ -10465,7 +10541,7 @@
           "source_name": "Sina Auto citing CCTV / market report",
           "source_url": "https://k.sina.com.cn/article_5953189932_162d6782c067048bek.html?from=auto",
           "claim": "Sina Auto reported that MIIT and SAMR launched regulatory action over OTA battery locking, including interviews with eight NEV companies.",
-          "source_quote": "据央视网报道 ... 工信部、市场监管总局已启动监管处置，8 家新能源车企被约谈，其中 3 家因违规被立案调查",
+          "source_quote": "工信部、市场监管总局已启动监管处置，8 家新能源车企被约谈，其中 3 家因违规被立案调查",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "supplemental_source_strength_evidence",
           "supports": [
@@ -10475,7 +10551,9 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_body_result"
+          "fetch_method": "0_5R_web_search_body_result",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "BusinessNews China body article",
@@ -10711,7 +10789,7 @@
           "source_name": "pv magazine LatAm body article based on Generadoras de Chile bulletin",
           "source_url": "https://www.pv-magazine-latam.com/2026/05/07/la-fotovoltaica-aporto-en-chile-el-29-de-la-generacion-electrica-en-marzo-y-alcanzo-un-peak-instantaneo-del-75/",
           "claim": "pv magazine LatAm reported Generadoras de Chile bulletin figures for March 2026 solar generation share and instantaneous solar peak.",
-          "source_quote": "La energía solar fotovoltaica representó 2.141 GWh ... equivalente al 28,7 % ... participación solar instantánea alcanzó un máximo de 75,1 %",
+          "source_quote": "participación solar instantánea alcanzó un máximo de 75,1 %",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "supplemental_source_strength_evidence",
           "supports": [
@@ -10720,13 +10798,15 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_body_result"
+          "fetch_method": "0_5R_web_search_body_result",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Reporte Minero body article based on Generadoras de Chile",
           "source_url": "https://www.reporteminero.cl/noticia/noticias/2026/05/generacion-renovable-chile-marzo-2026",
           "claim": "Reporte Minero reported Chile’s March 2026 renewables mix and storage capacity figures, including operational storage above 2,500 MW.",
-          "source_quote": "generación solar aportó el 29% ... el país cuenta con 2.529 MW operativos de almacenamiento",
+          "source_quote": "el país cuenta con 2.529 MW operativos de almacenamiento",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "supplemental_source_strength_evidence",
           "supports": [
@@ -10735,7 +10815,9 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_body_result"
+          "fetch_method": "0_5R_web_search_body_result",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "stage_b_only": true,
@@ -10922,7 +11004,7 @@
           "source_name": "La Moncloa official press note",
           "source_url": "https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/transicion-ecologica/paginas/2026/060526-ayudas-plan-de-recuperacion.aspx",
           "claim": "Spain’s government announced provisional allocation of EUR 670 million PRTR funds including reversible pumped hydro storage.",
-          "source_quote": "Sara Aagesen anuncia la asignación de 670 millones del Plan de Recuperación ... centrales hidroeléctricas de bombeo",
+          "source_quote": "Sara Aagesen anuncia la asignación de 670 millones del Plan de Recuperación",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "supplemental_official_event_evidence",
           "supports": [
@@ -10931,13 +11013,15 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_official_material"
+          "fetch_method": "0_5R_web_search_official_material",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "IDAE BORALMAC II official resolution PDF",
           "source_url": "https://sede.idae.gob.es/sites/default/files/documentos/2026/Almacenamiento/BORALMAC2/_419_resol_coad_boralmac_ampliacion.pdf",
           "claim": "IDAE official resolution expanded the budget for the second BORALMAC reversible pumped-storage call.",
-          "source_quote": "se amplía la dotación presupuestaria de la segunda convocatoria de ayudas para proyectos innovadores de almacenamiento energético mediante bombeo reversible ... Programa BORALMAC II",
+          "source_quote": "se amplía la dotación presupuestaria de la segunda convocatoria de ayudas para proyectos innovadores de almacenamiento energético mediante bombeo reversible",
           "source_quote_status": "document_quote_verified",
           "evidence_role": "supplemental_official_event_evidence",
           "supports": [
@@ -10946,7 +11030,9 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_official_pdf"
+          "fetch_method": "0_5R_web_search_official_pdf",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "stage_b_only": true,
@@ -11137,7 +11223,7 @@
           "source_name": "BusinessWire (FH Capital press release)",
           "source_url": "https://www.businesswire.com/news/home/20260507443974/en/FH-Capital-to-Acquire-75.1-Majority-Stake-in-JinkoSolars-U.S.-Manufacturing-Operations-Establishing-a-Premier-Domestic-Solar-and-BESS-Platform",
           "claim": "FH Capital signed definitive agreement to acquire 75.1% stake in Jinko Solar (U.S.) Industries; JinkoSolar retains 24.9%. Post-closing plan: ≥2× module capacity + initiate domestic BESS manufacturing. Financial terms not disclosed.",
-          "source_quote": "FH Capital, a leading private equity firm focused on clean‑energy investments, today announced it has entered into a definitive agreement, through its designated affiliate, to acquire a 75.1% stake in JinkoSolar's (NYSE: JKS) U.S. subsidiary Jinko Solar (U.S.) Industries Inc. JinkoSolar will retain a 24.9% minority interest ... a state‑of‑the‑art 2 gigawatts (GW) solar module manufacturing facility and a growing Battery Energy Storage Systems (BESS) business ... FH Capital will deploy additional expansion capital to at least double the current solar module production capacity and initiate domestic BESS manufacturing ... Financial terms were not disclosed",
+          "source_quote": "FH Capital, a leading private equity firm focused on clean‑energy investments, today announced it has entered into a definitive agreement, through its designated affiliate, to acquire a 75.1% stake in JinkoSolar's (NYSE: JKS) U.S. subsidiary Jinko Solar (U.S.) Industries Inc. JinkoSolar will retain a 24.9% minority interest",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -11148,13 +11234,15 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "PV Magazine International",
           "source_url": "https://www.pv-magazine.com/2026/05/11/fh-capital-to-acquire-majority-stake-in-jinkosolar-u-s-manufacturing/",
           "claim": "Sanjeev Chaurasia leads FH Capital; previously headed global solar investment banking at Credit Suisse and led JinkoSolar IPO 2010. Deal addresses FEOC/45X manufacturing tax credit compliance.",
-          "source_quote": "The firm is led by Managing Partner Sanjeev Chaurasia, who previously headed global solar investment banking at Credit Suisse and led JinkoSolar's initial public offering in 2010 ... Under Foreign Entity of Concern (FEOC) rules, manufacturers must reduce reliance on certain international technology and ownership to qualify for the full 45X manufacturing tax credits",
+          "source_quote": "Under Foreign Entity of Concern (FEOC) rules, manufacturers must reduce reliance on certain international technology and ownership to qualify for the full 45X manufacturing tax credits",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -11162,7 +11250,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "draft_id": "draft_20260512_134524_011",
@@ -11253,7 +11343,7 @@
           "source_name": "PV Magazine International",
           "source_url": "https://www.pv-magazine.com/2026/05/11/worlds-smallest-island-nation-advances-18-mw-40-mwh-solar-plus-storage-project/",
           "claim": "Republic of Nauru signed MoU with Sydney-based Smart Commercial Energy to develop 18 MW solar + 40 MWh battery solution. Signed during Smart Energy Conference 2026 in Sydney. Commercial PPA structure with future buy-out option.",
-          "source_quote": "the Republic of Nauru has signed a memorandum of understanding with Sydney-based renewables company Smart Commercial Energy (SCE) to develop an 18 MW solar and 40 MWh battery solution for the country ... The deal was signed during the Smart Energy Conference and Exhibition 2026 in Sydney ... The project is being explored as a commercial power purchase agreement (PPA), to allow the system to be funded, built and operated by SCE, with the option for the government and people of Nauru to eventually buy out and own infrastructure themselves",
+          "source_quote": "The project is being explored as a commercial power purchase agreement (PPA), to allow the system to be funded, built and operated by SCE, with the option for the government and people of Nauru to eventually buy out and own infrastructure themselves",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -11264,13 +11354,15 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "SolarQuarter",
           "source_url": "https://solarquarter.com/2026/05/08/nauru-signs-major-solar-and-battery-deal-to-reduce-diesel-dependence/",
           "claim": "Nauru context: 21 sqkm island, peak demand ~4.5 MW, annual power consumption ~40 GWh; imports 7-8M L of diesel/year.",
-          "source_quote": "Nauru's electricity demand remains relatively small, with a peak demand of approximately 4.5 MW and annual power consumption estimated at around 40 GWh. The upcoming solar and battery system is expected to supply a significant share of the nation's energy requirements ... At present, Nauru relies heavily on diesel generators for electricity generation and imports nearly 7 to 8 million liters of diesel every year",
+          "source_quote": "Nauru's electricity demand remains relatively small, with a peak demand of approximately 4.5 MW and annual power consumption estimated at around 40 GWh. The upcoming solar and battery system is expected to supply a significant share of the nation's energy requirements",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -11278,7 +11370,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "PV Magazine Australia",
@@ -11379,7 +11473,7 @@
           "source_name": "Energy-Storage.News",
           "source_url": "https://www.energy-storage.news/alternate-path-secures-epbc-act-approval-for-2000mwh-bess-in-victoria-australia/",
           "claim": "Alternate Path secured EPBC Act clearance for 500MW/2,000MWh Murchs Corner BESS, Victoria. Site: 169-ha near Darlington-Terang Road; cut-in terminal connection to 500kV Moorabool-to-Mortlake line.",
-          "source_quote": "Developer Alternate Path has secured federal environmental approval for its 500MW/2,000MWh Murchs Corner battery energy storage system (BESS) in Victoria, Australia. The project, which joined the EPBC Act queue in late March 2026 and has now received Environment Protection and Biodiversity Conservation (EPBC) Act clearance, will connect to the existing 500kV Moorabool to Mortlake transmission line via a cut-in terminal station ... Spanning a 169-hectare site across two freehold parcels near Darlington-Terang Road, the project is expected to disturb only approximately 21 hectares during construction",
+          "source_quote": "Developer Alternate Path has secured federal environmental approval for its 500MW/2,000MWh Murchs Corner battery energy storage system (BESS) in Victoria, Australia. The project, which joined the EPBC Act queue in late March 2026 and has now received Environment Protection and Biodiversity Conservation (EPBC) Act clearance, will connect to the existing 500kV Moorabool to Mortlake transmission line via a cut-in terminal station",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -11389,13 +11483,15 @@
             "fact"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "RenewEconomy",
           "source_url": "https://reneweconomy.com.au/landholder-led-4-hour-big-battery-gets-federal-environmental-all-clear-in-just-over-four-weeks/",
           "claim": "Approval received in just over 4 weeks. Project partnership with landholders Bobby and Clive Jamieson.",
-          "source_quote": "As the EPBC referral documents state, the BESS is being developed in partnership between the farming landowners and Alternate Path – a developer that claims \"significant experience\" and a firm understanding of compliance requirements ... the Murchs Corner landholder proponents are Bobby and Clive Jamieson",
+          "source_quote": "As the EPBC referral documents state, the BESS is being developed in partnership between the farming landowners and Alternate Path – a developer that claims \"significant experience\" and a firm understanding of compliance requirements",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -11403,7 +11499,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "draft_id": "draft_20260512_134524_014",
@@ -11800,7 +11898,7 @@
           "source_name": "ESS News body article",
           "source_url": "https://www.ess-news.com/2026/05/08/sunwoda-completes-large-scale-fire-test-for-its-5-mwh-liquid-cooling-ess/",
           "claim": "ESS News reported Sunwoda’s 5MWh LSFT was conducted by CSA Group and reviewed by Atar Fire, under UL 9540A/CSA C800-related conditions.",
-          "source_quote": "the test was carried out in accordance with ANSI/CAN/UL 9540A:2026 Sixth Edition, and CSA/ANSI C800:2025 ... conducted by CSA Group and reviewed by Atar Fire",
+          "source_quote": "the test was carried out in accordance with ANSI/CAN/UL 9540A:2026 Sixth Edition, and CSA/ANSI C800:2025",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "supplemental_source_strength_evidence",
           "supports": [
@@ -11810,7 +11908,9 @@
           ],
           "fetched_at": "2026-05-11T15:40:00+09:00",
           "checked_at": "2026-05-11T15:40:00+09:00",
-          "fetch_method": "0_5R_web_search_body_result"
+          "fetch_method": "0_5R_web_search_body_result",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "stage_b_only": true,
@@ -11962,7 +12062,7 @@
           "source_name": "Qcells North America (official press release)",
           "source_url": "https://us.qcells.com/blog/qcells-announces-michigan-based-manufacturing-collaboration-with-jabil-for-domestic-content-eligible-residential-battery-storage/",
           "claim": "Qcells announced collaboration with Jabil to offer first domestically assembled residential ESS Q.HOME CORE G3; commercially available; assembled at Jabil Auburn Hills, MI; $11.6M Jabil investment.",
-          "source_quote": "Qcells, a leading complete energy solutions provider, announced its collaboration with Jabil ... Assembled at Jabil's Auburn Hills, Michigan facility, the new battery storage system is a domestic content eligible version of Qcells' third-generation residential ESS, known as Q.HOME CORE G3. The product is now commercially available and ready to ship to customers nationwide ... This latest investment–totaling $11.6 million–in advanced manufacturing operations for Q.HOME CORE G3 and future ESS products is expected to contribute to job growth at Jabil's Auburn Hills, Michigan factory",
+          "source_quote": "Assembled at Jabil's Auburn Hills, Michigan facility, the new battery storage system is a domestic content eligible version of Qcells' third-generation residential ESS, known as Q.HOME CORE G3. The product is now commercially available and ready to ship to customers nationwide",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -11972,7 +12072,9 @@
             "fact"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Energy-Storage.News",
@@ -12376,7 +12478,7 @@
           "source_name": "연합뉴스 body article",
           "source_url": "https://www.yna.co.kr/view/AKR20260507079800004",
           "claim": "Yonhap reported the same May 9 start and 1,419 charger coverage.",
-          "source_quote": "서울시는 오는 9일부터 시에서 직접 설치·운영 중인 충전기의 요금을 최대 15%가량 인하한다고 7일 밝혔다. ... 공용 급속충전기 1천419기를 대상으로 적용된다.",
+          "source_quote": "서울시는 오는 9일부터 시에서 직접 설치·운영 중인 충전기의 요금을 최대 15%가량 인하한다고 7일 밝혔다",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -12384,7 +12486,9 @@
             "gate"
           ],
           "fetched_at": "2026-05-07T21:05:00+09:00",
-          "fetch_method": "web_search_body_result"
+          "fetch_method": "web_search_body_result",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "source_availability": "primary_article_hydrated_plus_national_wire_body_available",
@@ -12545,7 +12649,7 @@
           "source_name": "에너지신문 body article",
           "source_url": "https://www.energy-news.co.kr/news/articleView.html?idxno=225195",
           "claim": "Water operates 137 350kW highway rest-stop ultra-fast chargers and plans to expand to 73 sites and 396 chargers after new openings.",
-          "source_quote": "워터는 전국 고속도로 휴게소에서 350kW 초급속 충전기 137기를 운영해 국내 충전 사업자 가운데 가장 많은 규모를 보유하고 있다. ... 하반기 신규 개소가 완료되면 워터의 고속도로 휴게소 충전 인프라는 73개소‧396기 규모로 확대된다.",
+          "source_quote": "워터는 전국 고속도로 휴게소에서 350kW 초급속 충전기 137기를 운영해 국내 충전 사업자 가운데 가장 많은 규모를 보유하고 있다",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -12554,13 +12658,15 @@
             "gate"
           ],
           "fetched_at": "2026-05-07T21:05:00+09:00",
-          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "머니투데이 body article",
           "source_url": "https://www.mt.co.kr/industry/2026/05/07/2026050717543284353",
           "claim": "MoneyToday reported the same 137-unit and 73-site/396-charger expansion context.",
-          "source_quote": "워터는 전국 고속도로 휴게소에서 350㎾ 초급속 충전기 137기를 운영해 국내 충전 사업자 가운데 가장 많은 규모를 보유하고 있다. ... 하반기 신규 개소가 완료되면 워터의 고속도로 휴게소 충전 인프라는 73개소·396기 규모로 확대된다.",
+          "source_quote": "워터는 전국 고속도로 휴게소에서 350㎾ 초급속 충전기 137기를 운영해 국내 충전 사업자 가운데 가장 많은 규모를 보유하고 있다",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -12568,7 +12674,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-07T21:05:00+09:00",
-          "fetch_method": "web_search_body_result"
+          "fetch_method": "web_search_body_result",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "source_availability": "primary_article_hydrated_plus_secondary_body_available",
@@ -14070,7 +14178,7 @@
           "source_name": "전기신문 body article",
           "source_url": "https://www.electimes.com/news/articleView.html?idxno=367765",
           "claim": "DJBIC World covers the top 10% in corporate sustainability among the world’s top 2,500 by market capitalization.",
-          "source_quote": "S&P글로벌은 세계 시가총액 2500대 기업 중 기업 지속가능성 평가 상위 10%는 '월드' ... 지수 등에 편입했다.",
+          "source_quote": "S&P글로벌은 세계 시가총액 2500대 기업 중 기업 지속가능성 평가 상위 10%는 '월드'",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -14078,7 +14186,9 @@
             "gate"
           ],
           "fetched_at": "2026-05-07T21:05:00+09:00",
-          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback"
+          "fetch_method": "source_input_article_hydrated_or_web_search_body_fallback",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "포스코그룹 뉴스룸 official release",
@@ -14870,7 +14980,7 @@
           "source_name": "ISO official work item",
           "source_url": "https://www.iso.org/standard/90572.html",
           "claim": "ISO/IEC AWI 25505 is an approved work item for charging communication interface protocols for autonomous moving machines under ISO/IEC JTC 1/SC 6.",
-          "source_quote": "ISO/IEC AWI 25505 ... Charging communication interface protocols for autonomous moving machines ... Technical Committee: ISO/IEC JTC 1/SC 6",
+          "source_quote": "Charging communication interface protocols for autonomous moving machines",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -14880,33 +14990,39 @@
             "implication"
           ],
           "fetched_at": "2026-05-06T18:07:00+09:00",
-          "fetch_method": "source_augmentation_web_search_official_iso"
+          "fetch_method": "source_augmentation_web_search_official_iso",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "ISO official work item",
           "source_url": "https://www.iso.org/standard/94418.html",
           "claim": "ISO/IEC AWI 25505-2 is an approved work item for Part 2: Communication protocol, registered in the TC/SC work programme.",
-          "source_quote": "ISO/IEC AWI 25505-2 ... Part 2: Communication protocal ... 10.99 2026-04-27 New project approved ... 20.00 2026-04-27 New project registered",
+          "source_quote": "20.00 2026-04-27 New project registered",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
             "fact"
           ],
           "fetched_at": "2026-05-06T18:07:00+09:00",
-          "fetch_method": "source_augmentation_web_search_official_iso"
+          "fetch_method": "source_augmentation_web_search_official_iso",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "ISO official work item",
           "source_url": "https://www.iso.org/standard/94419.html",
           "claim": "ISO/IEC AWI 25505-3 is an approved work item for Part 3: Communication synchronization and operational protocols, registered in the TC/SC work programme.",
-          "source_quote": "ISO/IEC AWI 25505-3 ... Part 3: Communication synchronization and operational protocols ... 10.99 2026-04-27 New project approved ... 20.00 2026-04-27 New project registered",
+          "source_quote": "Part 3: Communication synchronization and operational protocols",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
             "fact"
           ],
           "fetched_at": "2026-05-06T18:07:00+09:00",
-          "fetch_method": "source_augmentation_web_search_official_iso"
+          "fetch_method": "source_augmentation_web_search_official_iso",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "source_origin": "stage_0_7_publish_ready_local_validation",
@@ -14952,7 +15068,7 @@
           "source_name": "SEC 8-K (Fluence Energy FY2026 Q2)",
           "source_url": "https://www.sec.gov/Archives/edgar/data/0001868941/000186894126000014/flncq2fy26earningspressrel.htm",
           "claim": "Q2 FY26 revenue $464.9M (+7.7% YoY); order intake YTD ~$2.0B (doubled YoY); 2 hyperscaler MSAs signed; record backlog ~$5.6B as of Mar 31 2026.",
-          "source_quote": "Order intake doubled to approximately $2.0 billion year-to-date through May 6, 2026, compared to approximately $1.0 billion during the same period last year ... Signed master supply agreements with two major hyperscalers and expect first order during third quarter of this fiscal year ... Backlog as of March 31, 2026 of approximately $5.6 billion ... Revenue of approximately $464.9 million, an increase of approximately 7.7% from the same quarter last year",
+          "source_quote": "Order intake doubled to approximately $2.0 billion year-to-date through May 6, 2026, compared to approximately $1.0 billion during the same period last year",
           "source_quote_status": "document_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -14963,13 +15079,15 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Energy-Storage.News",
           "source_url": "https://www.energy-storage.news/fluence-doubles-order-intake-expects-to-book-first-big-data-centre-deal-this-quarter/",
           "claim": "In Q2 2026, Fluence signed MSAs with 2 hyperscale data center developers. In one case selection involved competing 26 vendors. Q3-to-date >$600M new orders, 50% from new customers.",
-          "source_quote": "During Q2 2026, Fluence signed master supply agreements (MSAs) with two hyperscale data centre developers ... In one case, the customer's process began with 26 different BESS vendors, and Fluence was the first to complete all qualifications to sign a global MSA ... US$600 million in new orders have already been signed in the third quarter",
+          "source_quote": "In one case, the customer's process began with 26 different BESS vendors, and Fluence was the first to complete all qualifications to sign a global MSA",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -14977,13 +15095,15 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Cerbatgem (Fluence data center pipeline)",
           "source_url": "https://www.thecerbatgem.com/2026/05/10/fluence-energy-q2-earnings-call-highlights.html",
           "claim": "Data center pipeline ~12 GWh; great majority connected to 2 hyperscaler MSAs; pipeline grew >30% since prior call.",
-          "source_quote": "Nebreda characterized Fluence's data center pipeline at roughly 12 gigawatt-hours, and said the \"great majority\" is connected to the two hyperscaler MSAs ... the data center pipeline increased by more than 30% since the prior call",
+          "source_quote": "Nebreda characterized Fluence's data center pipeline at roughly 12 gigawatt-hours, and said the \"great majority\" is connected to the two hyperscaler MSAs",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -14991,7 +15111,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-12T17:42:05.165905+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "draft_id": "draft_20260512_134524_009",
@@ -16538,7 +16660,7 @@
           "source_name": "PR Newswire (it's electric / City of Philadelphia announcement)",
           "source_url": "https://www.prnewswire.com/news-releases/its-electric-and-the-city-of-philadelphia-join-forces-to-deploy-the-citys-first-public-curbside-ev-charging-network-with-up-to-1000-chargers-planned-across-all-neighborhoods-302761005.html",
           "claim": "it's electric and the City of Philadelphia announced an agreement to deploy up to 1,000 Level 2 curbside EV chargers across all 18 city planning districts.",
-          "source_quote": "it's electric announced a landmark agreement with the City of Philadelphia to deploy up to 1000 Level 2 curbside electric vehicle chargers across the city ... an exclusive license to install and operate curbside Level 2 chargers on Philadelphia streets ... across all 18 city planning districts",
+          "source_quote": "it's electric announced a landmark agreement with the City of Philadelphia to deploy up to 1000 Level 2 curbside electric vehicle chargers across the city",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -16547,13 +16669,15 @@
             "fact"
           ],
           "fetched_at": "2026-05-12T17:35:58.073141+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "phila.gov ChargePHL official page",
           "source_url": "https://www.phila.gov/2026-05-01-chargephl-the-city-of-philadelphias-public-ev-charging-initiative/",
           "claim": "The City of Philadelphia selected It's Electric and PositivEnergy as ChargePHL vendors; legislation introduced April 30 2026 authorizes contracts that span 10 years and >800 charging stations.",
-          "source_quote": "Through this competitive selection process, two vendors were selected for this public-private partnership: It's Electric: level 2 chargers at curbside locations ... Legislation was introduced on April 30, 2026, to authorize the contracts with the two vendors ... Over the course of 10 years, the vendors will install over 800 charging stations.",
+          "source_quote": "Through this competitive selection process, two vendors were selected for this public-private partnership: It's Electric: level 2 chargers at curbside locations",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -16563,7 +16687,9 @@
             "fact"
           ],
           "fetched_at": "2026-05-12T17:35:58.073141+09:00",
-          "fetch_method": "web_search_anthropic"
+          "fetch_method": "web_search_anthropic",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "Electrek",
@@ -21699,7 +21825,7 @@
         {
           "source_name": "참의원, 경제안전保障の更なる推進に向けた法改正 PDF",
           "claim": "일본 정부는 2026년 3월 19일 경제안보추진법 및 JBIC법 개정안을 각의 결정하고 제221회 국회에 제출했다.",
-          "source_quote": "令和８年３月19日に...閣議決定され",
+          "source_quote": "令和８年３月19日に",
           "source_quote_status": "document_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -21709,7 +21835,9 @@
           "fetch_method": "official_pdf_parse",
           "hidden_source_url": "https://www.sangiin.go.jp/japanese/annai/chousa/rippou_chousa/backnumber/2026pdf/20260430003.pdf",
           "visible_source_list": false,
-          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources"
+          "source_url_hidden_reason": "supporting_or_duplicate_quote_hidden_to_keep_visible_source_list_to_2_3_core_sources",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "참의원, 경제안전保障の更なる推進に向けた法改正 PDF",
@@ -26126,7 +26254,7 @@
           "source_name": "OECD full report",
           "source_url": "https://www.oecd.org/en/publications/oecd-inventory-of-export-restrictions-on-critical-raw-materials-2026_d5ca8f62-en/full-report.html",
           "claim": "OECD reports global CRM import exposure of 16% for 2022-2024 and Korea exposure of 21.8%.",
-          "source_quote": "The share of CRM imports facing at least one restriction increased globally from 12.4% in the 2009‑2011 period to 16% in the 2022‑2024 period ... Korea (21.8%).",
+          "source_quote": "The share of CRM imports facing at least one restriction increased globally from 12.4% in the 2009‑2011 period to 16% in the 2022‑2024 period",
           "source_quote_status": "document_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -26135,13 +26263,15 @@
             "fact"
           ],
           "fetched_at": "2026-05-06T17:13:48+09:00",
-          "fetch_method": "source_augmentation_web_open_or_search"
+          "fetch_method": "source_augmentation_web_open_or_search",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "OECD full report",
           "source_url": "https://www.oecd.org/en/publications/oecd-inventory-of-export-restrictions-on-critical-raw-materials-2026_d5ca8f62-en/full-report.html",
           "claim": "OECD reports high exposure levels for cobalt, manganese, graphite and rare earth elements.",
-          "source_quote": "around 70% of global exports of cobalt and manganese ... graphite (47%), rare-earth elements (45%)",
+          "source_quote": "around 70% of global exports of cobalt and manganese",
           "source_quote_status": "document_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -26149,7 +26279,9 @@
             "implication"
           ],
           "fetched_at": "2026-05-06T17:13:48+09:00",
-          "fetch_method": "source_augmentation_web_open_or_search"
+          "fetch_method": "source_augmentation_web_open_or_search",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "OECD press release",
@@ -35345,7 +35477,7 @@
           "source_name": "국가에너지국 정책 해설(공식)",
           "source_url": "https://www.nea.gov.cn/20260514/ded62aeb85294f51ab9597405dcd3449/c.html",
           "claim": "질감대강 인발; 적용 범위 100MW 이상 전기화학·압축공기, 사용자측 제외",
-          "source_quote": "将《储能大纲》的适用范围确定为：电力行业（电源侧和电网侧）功率100兆瓦及以上的电化学储能、压缩空气储能电站建设工程的质量监督 ... 《储能大纲》不适用于用户侧储能电站建设工程。",
+          "source_quote": "将《储能大纲》的适用范围确定为：电力行业（电源侧和电网侧）功率100兆瓦及以上的电化学储能、压缩空气储能电站建设工程的质量监督",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -35355,13 +35487,15 @@
             "fact"
           ],
           "fetched_at": "2026-05-28T00:00:00Z",
-          "fetch_method": "web_fetch"
+          "fetch_method": "web_fetch",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         },
         {
           "source_name": "21재경(공식 통지/해설 인용)",
           "source_url": "https://m.21jingji.com/article/20260514/herald/a4d45dca46c32581223a3789caf5a2c7.html",
           "claim": "전기화학 단원 가동 전 1 필수노드, 400MW 초과 시 전지 예제창 특별노드; 2025년 말 약 1.36억kW(+84%)",
-          "source_quote": "第1篇电化学储能电站工程质量监督，设置电化学储能单元启动前1个必监节点，同时针对功率大于400兆瓦的电化学储能电站，增设电化学储能单元电池预制舱吊装前1个专项监督节点 ... 截至2025年底，我国新型储能装机规模达到约1.36亿千瓦，较2024年底增长约84%",
+          "source_quote": "第1篇电化学储能电站工程质量监督，设置电化学储能单元启动前1个必监节点，同时针对功率大于400兆瓦的电化学储能电站，增设电化学储能单元电池预制舱吊装前1个专项监督节点",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -35369,7 +35503,9 @@
             "gate"
           ],
           "fetched_at": "2026-05-28T00:00:00Z",
-          "fetch_method": "web_fetch"
+          "fetch_method": "web_fetch",
+          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
+          "quote_patch_at": "2026-06-05T17:53:47+09:00"
         }
       ],
       "evidence_complete": true,

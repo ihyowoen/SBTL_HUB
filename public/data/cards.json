@@ -1,6 +1,6 @@
 {
-  "updated": "2026-05-31T03:03:56+09:00",
-  "total": 794,
+  "updated": "2026-06-03T05:15:40+09:00",
+  "total": 802,
   "schema": "cards_v1",
   "sort": "date_desc",
   "cards": [
@@ -2631,6 +2631,600 @@
         "hidden_supporting_source_count": 8,
         "rule": "Expose up to three core public source URLs; duplicate/supporting quotes remain in fact_sources without source_url."
       }
+    },
+    {
+      "id": "2026-05-19_KR_02",
+      "region": "KR",
+      "date": "2026-05-19",
+      "cat": "Battery",
+      "sub_cat": "한국배터리3사·ESS·원가압박",
+      "signal": "high",
+      "title": "한국 배터리 3사, EV 캐즘 속 ESS·LFP·R&D로 갈라졌다",
+      "sub": "LG에너지솔루션과 삼성SDI는 R&D·ESS 투자 확대, SK온은 비용 효율화와 LFP·ESS 전환에 집중한다. 동시에 현대차그룹은 알루미늄·구리 가격 상승으로 전동화 원가 압박을 받고 있다.",
+      "gate": "배터리 시장의 핵심은 EV 판매량 둔화가 아니라 전략 재배치다. 배터리 3사는 ESS, LFP, 북미 생산, R&D, 비용 효율화로 갈라지고 있고, 완성차는 구리·알루미늄 같은 전동화 필수 소재 가격 상승을 흡수해야 한다.",
+      "fact": "뉴시스는 국내 배터리 3사가 EV 캐즘 속에서 서로 다른 전략을 취하고 있다고 보도했다. LG에너지솔루션은 올해 1분기 R&D 비용을 전년 동기 대비 10.7% 늘렸고 북미 ESS 생산능력 확보에 나섰으며, 삼성SDI는 R&D 증가율 21.8%, 전고체·ESS 제품 개발, SBB 1.7·LFP 기반 SBB 2.0 등을 추진했다. SK온은 R&D 비용을 줄이는 대신 서산공장 일부 라인을 LFP로 전환해 연 3GWh 규모 ESS 캐파를 확보하고 북미 ESS 생산 거점도 활용한다는 전략을 보였다. 같은 날 뉴시스는 현대차·기아가 올해 1분기 매입한 알루미늄 가격이 전년 대비 21.5%, 구리가 29.2% 올랐고, 구리와 알루미늄이 전동화 부품·전장·전력계통에 쓰이는 핵심 소재라고 보도했다.",
+      "implication": [
+        "EV 캐즘은 배터리 수요가 사라지는 현상이 아니라, ESS·LFP·북미 생산·가격경쟁으로 무게중심이 이동하는 신호다.",
+        "파우치필름·소재 기업은 완성차와 셀 업체가 동시에 요구하는 원가, 안전성, LFP/ESS 대응, 현지 공급망 논리를 준비해야 한다.",
+        "구리·알루미늄 가격 상승은 배터리 소재뿐 아니라 전동화 차종 전체의 원가 구조를 흔들기 때문에 소재 공급 안정성이 더 중요해진다."
+      ],
+      "urls": [
+        "https://www.newsis.com/view/NISX20260519_0003635617",
+        "https://www.newsis.com/view/NISX20260519_0003635203"
+      ],
+      "related": [
+        "2026-05-20_GL_02",
+        "2026-05-20_GL_06",
+        "2026-05-20_GL_08"
+      ],
+      "hub_track": "KOREA_BATTERY_STRATEGY_COST_PRESSURE",
+      "hub_role": "battery_major_strategy_and_oem_cost_anchor",
+      "hub_fit": "direct_context",
+      "fact_sources": [
+        {
+          "source_name": "뉴시스",
+          "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
+          "claim": "뉴시스는 LG에너지솔루션과 삼성SDI가 R&D와 북미 ESS 투자를 확대하고, SK온은 비용 효율화와 포트폴리오 리밸런싱에 집중한다고 보도했다.",
+          "source_quote": "LG에너지솔루션과 삼성SDI는 연구개발(R&D) 투자와 북미 ESS ... SK온은 ... 수익성 방어",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "source_locator": "web.open turn527713view2 lines 106-108",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "뉴시스",
+          "source_url": "https://www.newsis.com/view/NISX20260519_0003635617",
+          "claim": "뉴시스는 LG에너지솔루션이 북미 50GWh ESS 생산능력, 삼성SDI가 SBB 1.7·LFP 기반 SBB 2.0, SK온이 연 3GWh LFP ESS 캐파를 추진한다고 보도했다.",
+          "source_quote": "북미에 50GWh 규모의 ESS 생산 능력 ... SBB 1.7 ... LFP 기반의 SBB 2.0 ... 연간 3GWh 규모의 ESS 캐파",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.open turn527713view2 lines 115-146",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "뉴시스",
+          "source_url": "https://www.newsis.com/view/NISX20260519_0003635203",
+          "claim": "뉴시스는 현대차·기아의 1분기 알루미늄 매입 가격이 전년 대비 21.5%, 구리가 29.2% 올랐다고 보도했다.",
+          "source_quote": "알루미늄의 가격은 ... 21.5% 상승 ... 구리는 ... 29.2% 뛰었으며",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.open turn872163view0 lines 106-115",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        }
+      ],
+      "visible_source_policy": {
+        "mode": "verified_core_2_to_3_visible_sources",
+        "visible_source_count": 3,
+        "rule": "Only fact-checked public source URLs are visible."
+      },
+      "fact_lock_status": "verified_two_public_sources"
+    },
+    {
+      "id": "2026-05-19_KR_03",
+      "region": "KR",
+      "date": "2026-05-19",
+      "cat": "EV",
+      "sub_cat": "전기이륜차·배터리교환·동남아",
+      "signal": "high",
+      "title": "LG엔솔·하노이시·혼다, 전기이륜차 배터리 교환 생태계로 묶였다",
+      "sub": "LG에너지솔루션, 일본 혼다, 베트남 하노이시는 전기 이륜차용 공공 배터리 교환 스테이션 구축 협력을 위한 MOU를 체결했다. 하노이 주요 지역에 약 50개 BSS와 500대 전기 이륜차 실증이 추진된다.",
+      "gate": "이 사안의 의미는 전기이륜차가 단순 셀 판매가 아니라 배터리 교환 인프라, 표준화, 안전관리, 플랫폼 사업모델을 묶는 도시형 모빌리티 생태계라는 점이다. LG에너지솔루션은 셀 공급뿐 아니라 교환 시스템 운영·안전관리·수명관리 솔루션까지 맡으며 동남아 전기이륜차 시장에서 인프라 파트너로 들어간다.",
+      "fact": "LG에너지솔루션은 2026년 5월 19일 일본 혼다, 베트남 하노이시와 전기 이륜차용 공공 배터리 교환 스테이션 구축 협력을 위한 MOU를 체결했다고 밝혔다. 협력 범위에는 하노이 중심지 내 배터리 교환 스테이션 구축, 배터리 표준화 및 안전관리 시스템 개발, 전기 이륜차 플랫폼 사업모델 공동 개발이 포함된다. 3자는 2026년 3분기부터 하노이 주요 지역에 약 50개 배터리 교환 스테이션을 구축하고 총 500대 규모 전기 이륜차를 도입해 실증 사업을 시작할 계획이다. 배터리는 LG에너지솔루션 원통형 2170 배터리가 사용되며, LG에너지솔루션은 배터리 공급 외에도 안전관리 시스템 구축, 교환 시스템 운영, 운영 솔루션 지원, 배터리 생애주기 관리 체계 도입을 담당하기로 했다. DealSite경제TV도 같은 협약과 50여 개 스테이션, 500대 전기 이륜차 실증, 2170 배터리 사용 내용을 보도했다.",
+      "implication": [
+        "전기이륜차 시장은 셀 공급보다 배터리 표준화, 교환 인프라, 안전관리, 생애주기 운영 데이터가 결합된 플랫폼 경쟁으로 전개될 수 있다.",
+        "동남아 전기이륜차는 승용 EV보다 작은 시장처럼 보이지만, 고빈도 충방전·도심 사용·교환형 운영이라는 특성 때문에 배터리 안전성과 수명관리 요구가 크다.",
+        "SBTL 관점에서는 소형 모빌리티·LEV·이륜차 배터리 생태계도 장기적으로 파우치·원통형·소재 안정성 경쟁을 비교하는 확장 트랙으로 관리할 가치가 있다."
+      ],
+      "urls": [
+        "https://www.lgensol.com/kr/company/newsroom-detail?seq=8764",
+        "https://news.dealsitetv.com/articles/170634"
+      ],
+      "related": [
+        "2026-05-20_GL_05",
+        "2026-05-20_GL_02",
+        "2026-05-19_KR_02",
+        "2026-05-28_KR_01"
+      ],
+      "hub_track": "EMERGING_MARKET_BATTERY_SWAPPING",
+      "hub_role": "lges_hanoi_honda_bss_anchor",
+      "hub_fit": "direct_context",
+      "fact_lock_status": "verified_official_plus_secondary_source",
+      "visible_source_policy": {
+        "mode": "verified_core_2_to_3_visible_sources",
+        "visible_source_count": 2,
+        "rule": "Official company source plus secondary media source are visible."
+      },
+      "fact_sources": [
+        {
+          "source_name": "LG에너지솔루션 공식 뉴스룸",
+          "source_url": "https://www.lgensol.com/kr/company/newsroom-detail?seq=8764",
+          "claim": "LG에너지솔루션은 혼다, 하노이시와 전기 이륜차용 공공 배터리 교환 스테이션 구축 협력을 위한 MOU를 체결했다.",
+          "source_quote": "‘전기 이륜차용 공공 배터리 교환 스테이션(BSS, Battery Swapping Station) 구축 협력을 위한 업무협약(MOU)’을 체결",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "source_locator": "web.open LGES newsroom lines 351-364",
+          "fetched_at": "2026-06-03T05:01:52+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "LG에너지솔루션 공식 뉴스룸",
+          "source_url": "https://www.lgensol.com/kr/company/newsroom-detail?seq=8764",
+          "claim": "3자는 2026년 3분기부터 하노이 주요 지역에 약 50개 배터리 교환 스테이션과 500대 규모 전기 이륜차 실증을 추진한다.",
+          "source_quote": "올해 3분기부터 하노이 주요 지역에 약 50여 개의 배터리 교환 스테이션 구축하고, 총 500대 규모의 전기 이륜차를 도입",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.open LGES newsroom lines 367-371",
+          "fetched_at": "2026-06-03T05:01:52+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "DealSite경제TV",
+          "source_url": "https://news.dealsitetv.com/articles/170634",
+          "claim": "DealSite경제TV도 LG에너지솔루션·혼다·하노이시의 BSS MOU, 50여 개 스테이션, 500대 전기이륜차, 2170 배터리 사용 내용을 보도했다.",
+          "source_quote": "약 50여 개의 배터리 교환 스테이션 ... 총 500대 규모의 전기 이륜차 ... 원통형 2170 배터리",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.open DealSite lines 137-145",
+          "fetched_at": "2026-06-03T05:01:52+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-18_US_01",
+      "region": "US",
+      "date": "2026-05-18",
+      "cat": "Battery",
+      "sub_cat": "음극재·실리콘·흑연·미국공급망",
+      "signal": "high",
+      "title": "Monomyth, NanoGraf 인수 — SiOx 실리콘 음극과 미국 합성흑연 플랫폼을 묶었다",
+      "sub": "Monomyth Materials는 NanoGraf 자산 인수를 통해 SiOx 실리콘 음극 역량을 합성흑연 플랫폼에 결합했다. 미국 배터리 소재 공급망이 흑연 정제·음극재·실리콘 첨가재를 한 묶음으로 재편되는 신호다.",
+      "gate": "이 사안의 핵심은 단순 M&A가 아니라 음극재 공급망의 결합이다. 중국 의존도가 높은 흑연·음극재 영역에서 미국 내 합성흑연, SiOx 실리콘 음극, 고성능 배터리 소재를 묶으려는 움직임은 비중국 배터리 소재 내재화 흐름과 직접 연결된다.",
+      "fact": "Monomyth Materials는 Chicago 기반의 silicon-anode specialist인 NanoGraf 자산을 인수해 SiOx silicon anodes와 synthetic graphite 기반의 domestic battery material platform을 결합한다고 발표했다. 후보 원문은 이번 인수를 통해 국내 배터리 소재 생산을 진전시키고, SiOx 실리콘 음극과 합성흑연을 결합하는 구조라고 설명했다.",
+      "implication": [
+        "음극재 공급망은 흑연 단일 소재 문제가 아니라 실리콘 첨가재, 정제·가공, 고객 인증을 묶는 플랫폼 경쟁으로 이동하고 있다.",
+        "SBTL 관점에서는 파우치필름만이 아니라 비중국 배터리 소재 생태계 전체가 고객사의 원산지·공급 안정성 요구와 함께 재편되고 있음을 보여주는 배경 근거가 된다.",
+        "미국 내 음극재·흑연 플랫폼 결합은 향후 IRA·non-FEOC 공급망, 고객사 소재 다변화 논리와 함께 추적할 가치가 있다."
+      ],
+      "urls": [
+        "https://chargedevs.com/newswire/monomyth-materials-acquires-nanograf-to-pair-siox-silicon-anodes-with-its-domestic-synthetic-graphite-platform/",
+        "https://www.reuters.com/business/autos-transportation/gm-signs-supply-deal-vianode-synthetic-graphite-ev-batteries-2025-01-15/"
+      ],
+      "related": [
+        "2026-05-20_GL_08",
+        "2026-05-20_GL_02",
+        "2026-05-29_GL_02"
+      ],
+      "hub_track": "BATTERY_MATERIALS_NON_CHINA_SUPPLY_CHAIN",
+      "hub_role": "us_anode_graphite_silicon_platform_anchor",
+      "hub_fit": "direct_context",
+      "fact_sources": [
+        {
+          "source_name": "Charged EVs / Monomyth Materials",
+          "source_url": "https://chargedevs.com/newswire/monomyth-materials-acquires-nanograf-to-pair-siox-silicon-anodes-with-its-domestic-synthetic-graphite-platform/",
+          "claim": "Monomyth Materials는 NanoGraf 자산을 인수해 SiOx 기술과 국내 합성흑연 사업을 결합했다.",
+          "source_quote": "acquired the assets of NanoGraf ... pairing SiOx technology ... with its domestic synthetic graphite business",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "source_locator": "web.open turn989507view0 lines 6-10",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "Charged EVs / Monomyth Materials",
+          "source_url": "https://chargedevs.com/newswire/monomyth-materials-acquires-nanograf-to-pair-siox-silicon-anodes-with-its-domestic-synthetic-graphite-platform/",
+          "claim": "NanoGraf 자산은 M2Innovations의 기반이 되며, M2Graphite는 commercial-scale production을 담당한다.",
+          "source_quote": "The NanoGraf assets become the foundation of a new subsidiary, M2Innovations ... M2Graphite ... handles commercial-scale production",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.open turn989507view0 lines 7-10",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "Reuters / Vianode synthetic graphite context",
+          "source_url": "https://www.reuters.com/business/autos-transportation/gm-signs-supply-deal-vianode-synthetic-graphite-ev-batteries-2025-01-15/",
+          "claim": "Reuters는 EV 배터리용 흑연 공급망에서 중국 의존도가 높아 서방 완성차·정부가 대체 공급원을 구축하려 한다고 보도했다.",
+          "source_quote": "China controls 95% of the global supply of graphite",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "source_locator": "web.search turn884577news0",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        }
+      ],
+      "visible_source_policy": {
+        "mode": "verified_core_2_to_3_visible_sources",
+        "visible_source_count": 3,
+        "rule": "Only fact-checked public source URLs are visible."
+      },
+      "fact_lock_status": "verified_event_plus_context_source_diversity"
+    },
+    {
+      "id": "2026-05-18_CN_01",
+      "region": "CN",
+      "date": "2026-05-18",
+      "cat": "Battery",
+      "sub_cat": "LFP·해양배터리·상용응용",
+      "signal": "high",
+      "title": "BYD·Corvus, 해양용 LFP 배터리 협력 — LFP가 승용차 밖으로 확장됐다",
+      "sub": "BYD Energy Storage와 Corvus Energy는 해양 적용을 위한 LFP 배터리 시스템 개발·보급 협력에 나섰다. LFP 경쟁은 승용 EV 가격경쟁을 넘어 선박·상용·ESS 응용으로 확장되고 있다.",
+      "gate": "BYD-Corvus 협력의 의미는 LFP가 저가 승용차 배터리에 머물지 않는다는 점이다. 안전성, 수명, 비용이 중요한 해양·상용 시장에서 LFP 기반 시스템이 확산되면, 셀 화학과 폼팩터·패키징·소재 안정성 요구가 함께 바뀐다.",
+      "fact": "Battery-News 후보 원문은 BYD Energy Storage와 Norwegian Corvus Energy가 maritime applications용 LFP battery systems의 개발과 보급을 위해 협력한다고 설명했다. 원문은 양사가 lithium iron phosphate battery systems의 maritime application 확대를 목표로 파트너십을 맺었다고 정리했다.",
+      "implication": [
+        "LFP는 승용 EV 가격경쟁뿐 아니라 해양·상용·ESS처럼 안전성과 수명이 중요한 시장으로 확장되고 있다.",
+        "파우치필름과 배터리 소재 기업은 특정 차종보다 화학·안전·팩 설계가 요구하는 소재 성능 기준을 추적해야 한다.",
+        "중국계 LFP 공급망이 상용·해양 영역까지 넓어질 경우, 한국계 소재·셀 업체는 고안전·고신뢰 시장에서 차별 논리를 준비해야 한다."
+      ],
+      "urls": [
+        "https://corvusenergy.com/news/corvus-energy-and-byd-energy-storag-strengthen-partnership-with-strategic-cooperation-agreement-to-advance-next-generation-maritime-battery-technology",
+        "https://battery-news.de/en/2026/05/18/byd-and-corvus-energy-agree-to-cooperate-on-maritime-lfp-battery-systems/"
+      ],
+      "related": [
+        "2026-05-20_GL_02",
+        "2026-05-20_GL_03",
+        "2026-05-20_GL_08"
+      ],
+      "hub_track": "LFP_APPLICATION_EXPANSION",
+      "hub_role": "byd_corvus_maritime_lfp_anchor",
+      "hub_fit": "direct_context",
+      "fact_sources": [
+        {
+          "source_name": "Corvus Energy Press Release",
+          "source_url": "https://corvusenergy.com/news/corvus-energy-and-byd-energy-storag-strengthen-partnership-with-strategic-cooperation-agreement-to-advance-next-generation-maritime-battery-technology",
+          "claim": "Corvus Energy와 BYD Energy Storage는 2026년 5월 13일 strategic cooperation agreement를 체결했다.",
+          "source_quote": "signed a Strategic Cooperation Agreement (SCA)",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "source_locator": "web.click turn507714view0 lines 45-61",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "Corvus Energy Press Release",
+          "source_url": "https://corvusenergy.com/news/corvus-energy-and-byd-energy-storag-strengthen-partnership-with-strategic-cooperation-agreement-to-advance-next-generation-maritime-battery-technology",
+          "claim": "양사는 Corvus의 해양 시스템 통합 역량과 BYD의 셀 기술을 결합해 해양 환경에 최적화된 저비용·안전·신뢰 배터리 시스템을 개발하기로 했다.",
+          "source_quote": "combine Corvus’ deep expertise in marine system integration with BYD Energy Storage’s advanced cell technology",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.click turn507714view0 lines 64-70",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "Battery-News",
+          "source_url": "https://battery-news.de/en/2026/05/18/byd-and-corvus-energy-agree-to-cooperate-on-maritime-lfp-battery-systems/",
+          "claim": "Battery-News는 양사가 LFP battery systems의 maritime applications 개발·보급을 목표로 한다고 보도했다.",
+          "source_quote": "develop and promote the use of lithium iron phosphate (LFP) battery systems for maritime applications",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "source_locator": "web.open turn683242view0 lines 42-47",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        }
+      ],
+      "visible_source_policy": {
+        "mode": "verified_core_2_to_3_visible_sources",
+        "visible_source_count": 3,
+        "rule": "Only fact-checked public source URLs are visible."
+      },
+      "fact_lock_status": "verified_official_plus_secondary_source"
+    },
+    {
+      "id": "2026-05-18_GL_01",
+      "region": "GL",
+      "date": "2026-05-18",
+      "cat": "Grid",
+      "sub_cat": "BESS·제조전환·AI전력수요",
+      "signal": "high",
+      "title": "Ford와 GCL, BESS로 방향 전환 — 배터리 수요가 전력망으로 이동한다",
+      "sub": "Ford Energy는 EDF에 최대 20GWh 규모 BESS를 공급하는 5년 계약을 발표했고, GCL Technology는 LFP 기반 리튬이온 저장장치로 사업을 확장했다. EV 둔화 이후 배터리 인프라가 ESS·전력망 수요로 재배치되는 흐름이다.",
+      "gate": "BESS 뉴스의 핵심은 프로젝트 단건이 아니라 산업 전환이다. Ford는 EV 배터리 인프라를 ESS 사업으로 전환하고, GCL은 PV 중심 기업에서 LFP 기반 저장장치 플랫폼으로 확장한다. 배터리 수요가 차량만이 아니라 AI 데이터센터, 전력망, 재생에너지 안정화로 이동하고 있다.",
+      "fact": "Reuters는 Ford Energy가 EDF Power Solutions North America에 최대 20GWh의 BESS를 공급하는 5년 계약을 체결했고, EDF가 매년 최대 4GWh의 DC Block BESS를 구매할 수 있다고 보도했다. Reuters는 AI 서비스 확대로 전력 수요가 늘면서 데이터센터가 backup power systems를 필요로 하고, Ford가 EV 프로그램 write-down 이후 EV 배터리 인프라를 energy storage systems에 활용한다고 설명했다. 별도 후보 원문은 GCL Technology가 LFP materials 기반 lithium-ion battery storage로 확장하며 multi-product new energy platform을 추진한다고 정리했다.",
+      "implication": [
+        "EV 수요 둔화가 배터리 산업의 끝이 아니라 ESS·전력망·AI 데이터센터 수요로의 재배치를 만들고 있다.",
+        "LFP 기반 BESS가 확대되면 셀·팩·소재기업은 자동차 고객뿐 아니라 전력망, 데이터센터, 재생에너지 사업자까지 고객군을 넓혀야 한다.",
+        "SBTL 관점에서는 파우치필름 수요 논리를 EV 판매량에만 묶지 않고 ESS 안전성, 장수명, 열관리, 전력망 신뢰성까지 확장할 필요가 있다."
+      ],
+      "urls": [
+        "https://www.reuters.com/business/energy/ford-unit-signs-five-year-energy-storage-deal-with-edf-2026-05-18/",
+        "https://www.pv-magazine.com/2026/05/18/gcl-technology-expands-beyond-pv-with-new-energy-storage-business/"
+      ],
+      "related": [
+        "2026-05-20_GL_05",
+        "2026-05-20_GL_07",
+        "2026-05-20_GL_08"
+      ],
+      "hub_track": "BESS_MANUFACTURING_AND_GRID_DEMAND",
+      "hub_role": "ford_gcl_bess_industrial_pivot_anchor",
+      "hub_fit": "direct_context",
+      "fact_sources": [
+        {
+          "source_name": "Reuters",
+          "source_url": "https://www.reuters.com/business/energy/ford-unit-signs-five-year-energy-storage-deal-with-edf-2026-05-18/",
+          "claim": "Ford Energy는 EDF에 최대 20GWh의 저장용량을 공급하는 5년 계약을 체결했다.",
+          "source_quote": "signed a five-year deal to supply up to 20 gigawatt-hours of storage capacity",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "source_locator": "web.open turn889480view3 lines 185-197",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "Reuters",
+          "source_url": "https://www.reuters.com/business/energy/ford-unit-signs-five-year-energy-storage-deal-with-edf-2026-05-18/",
+          "claim": "Reuters는 AI 서비스 사용 증가로 전력 인프라가 압박을 받으면서 데이터센터가 backup power systems를 찾고 있다고 설명했다.",
+          "source_quote": "Data centers are increasingly turning to backup power systems",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.open turn889480view3 lines 192-195",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "pv magazine",
+          "source_url": "https://www.pv-magazine.com/2026/05/18/gcl-technology-expands-beyond-pv-with-new-energy-storage-business/",
+          "claim": "pv magazine은 GCL Technology가 LFP materials 기반 lithium-ion battery storage sector로 확장한다고 보도했다.",
+          "source_quote": "expanding into lithium-ion battery storage based on LFP materials",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.open turn448501view2 lines 178-218",
+          "fetched_at": "2026-06-03T04:34:10+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        }
+      ],
+      "visible_source_policy": {
+        "mode": "verified_core_2_to_3_visible_sources",
+        "visible_source_count": 3,
+        "rule": "Only fact-checked public source URLs are visible."
+      },
+      "fact_lock_status": "verified_two_public_sources"
+    },
+    {
+      "id": "2026-05-18_KR_01",
+      "region": "KR",
+      "date": "2026-05-18",
+      "cat": "Battery",
+      "sub_cat": "LFP양극재·탈중국·국내생산",
+      "signal": "top",
+      "title": "엘앤에프, 대구 LFP 양극재 공장 준공 — 국내 LFP 전구체 내재화까지 간다",
+      "sub": "엘앤에프는 대구 달성군 국가산단에 LFP 양극재 전담 자회사 엘앤에프플러스 공장을 완공하고, 2026년 3분기 말 연 3만 톤 양산과 2027년 상반기 연 6만 톤 체제를 추진한다.",
+      "gate": "이 사안은 단순 공장 준공이 아니라 한국 배터리 소재업계가 LFP와 FP 전구체 내재화로 중국 중심 공급망에 대응하는 흐름이다. 고밀도 3세대 LFP, ESS·보급형 EV 공급 논의, 전구체 기술 내재화가 한 번에 묶여 있어 SBTL Hub의 비중국 배터리 소재 공급망 축과 직접 연결된다.",
+      "fact": "디일렉은 엘앤에프가 대구 달성군 구지면 국가산업단지에 LFP 양극재 전담 자회사 엘앤에프플러스 공장을 완공했다고 보도했다. 엘앤에프는 2026년 3분기 말 연 3만 톤 규모로 LFP 양극재 양산을 시작하고, 2027년 상반기까지 연 6만 톤 체제를 갖출 계획이다. 원문은 엘앤에프플러스의 핵심을 고밀도 3세대 LFP 기술로 설명했고, 전력망용·AI 데이터센터용 ESS부터 보급형 전기차까지 공급을 논의하고 있다고 보도했다. 또한 중국 의존도가 높은 인산철(FP) 전구체 기술 내재화와 차세대 무전구체 공법 개발도 병행한다고 설명했다. IEA는 2025년 LFP가 글로벌 EV 배터리 deployment의 55% 이상을 차지했고, LFP cathode materials and precursors가 여전히 중국에 거의 전적으로 집중돼 있다고 분석한다.",
+      "implication": [
+        "엘앤에프의 LFP 공장 준공은 한국 소재 기업이 하이니켈 중심 포트폴리오에서 LFP·ESS·보급형 EV로 확장하는 구체적 사건이다.",
+        "중국 의존도가 높은 FP 전구체 내재화가 함께 언급됐다는 점은 단순 양극재 생산보다 공급망 안정성·원산지·정책금융 논리에 더 중요하다.",
+        "SBTL 관점에서는 LFP 확산이 파우치필름 수요를 약화시키는 단선적 변화가 아니라, ESS·보급형 EV·비중국 소재 공급망을 함께 재편하는 시장 변화로 읽어야 한다."
+      ],
+      "urls": [
+        "https://www.thelec.kr/news/articleView.html?idxno=56809",
+        "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries"
+      ],
+      "related": [
+        "2026-05-20_GL_02",
+        "2026-05-20_GL_08",
+        "2026-05-19_KR_02",
+        "2026-05-29_GL_02"
+      ],
+      "hub_track": "KOREA_LFP_CATHODE_NON_CHINA_SUPPLY_CHAIN",
+      "hub_role": "lf_lfp_cathode_domestic_production_anchor",
+      "hub_fit": "direct",
+      "fact_lock_status": "verified_primary_event_plus_iea_context_source_diversity",
+      "visible_source_policy": {
+        "mode": "verified_core_2_to_3_visible_sources",
+        "visible_source_count": 2,
+        "rule": "Event source plus independent IEA market/supply-chain context source are visible."
+      },
+      "fact_sources": [
+        {
+          "source_name": "디일렉",
+          "source_url": "https://www.thelec.kr/news/articleView.html?idxno=56809",
+          "claim": "엘앤에프는 대구 달성군 국가산단에 엘앤에프플러스 공장을 완공하고 2026년 3분기 말 LFP 양극재 양산에 들어간다.",
+          "source_quote": "3분기 말 3만톤 양산 시작 / 2027년 상반기 6만t 체제 구축",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "source_locator": "web.open turn951466view0 lines 51-78",
+          "fetched_at": "2026-06-03T05:15:40+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "디일렉",
+          "source_url": "https://www.thelec.kr/news/articleView.html?idxno=56809",
+          "claim": "엘앤에프는 중국 의존도가 높은 FP 전구체 기술 내재화와 무전구체 공법 개발도 병행하고 있다.",
+          "source_quote": "중국 의존도가 높은 인산철(FP) 전구체 기술 내재화",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.open turn951466view0 lines 78-82",
+          "fetched_at": "2026-06-03T05:15:40+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026",
+          "source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "claim": "IEA는 LFP가 2025년 글로벌 EV 배터리 deployment의 55% 이상을 차지했고, LFP cathode materials and precursors는 중국에 거의 전적으로 집중돼 있다고 분석했다.",
+          "source_quote": "LFP batteries accounted for over 55% ... LFP cathode materials and their precursors is still almost entirely concentrated in China",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "source_locator": "web.open turn181874view0 lines 312-330",
+          "fetched_at": "2026-06-03T05:15:40+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-18_GL_02",
+      "region": "GL",
+      "date": "2026-05-18",
+      "cat": "Minerals",
+      "sub_cat": "희토류·국가안보·투자심사",
+      "signal": "top",
+      "title": "호주, Northern Minerals 중국계 지분 매각 명령 — 희토류가 투자심사 안보 이슈가 됐다",
+      "sub": "호주 재무장관 Jim Chalmers는 Northern Minerals 지분을 보유한 중국계 이해관계 주주 6곳에 지분 매각 명령을 내렸다. 대상 기업은 Western Australia의 Browns Range heavy rare earths 프로젝트를 개발 중이다.",
+      "gate": "핵심은 희토류가 단순 광산 투자가 아니라 국가안보·투자심사·공급망 통제 이슈로 다뤄진다는 점이다. Western governments가 중국의 희토류 지배력을 낮추려는 가운데, 호주는 중국계 자본의 지배 가능성까지 통제하고 있다.",
+      "fact": "Reuters는 호주 재무장관 Jim Chalmers가 Northern Minerals 지분을 보유한 주주 6곳에 지분 매각 명령을 내렸다고 보도했다. Reuters는 이번 명령이 중국계 당사자들이 rare earths miner에 대한 통제권을 확보하려 했다는 우려에 따른 것이며, Northern Minerals가 Western Australia의 Browns Range heavy rare earths 프로젝트를 개발 중이라고 설명했다. Heavy rare earths는 반도체와 방산 등 산업에 중요하다고 보도됐다. WSJ도 호주 정부가 national-interest grounds를 이유로 Northern Minerals 주주들에게 지분 매각을 명령했다고 보도했다.",
+      "implication": [
+        "희토류 공급망은 광물 매장량보다 지분 구조, 투자심사, 지배권 통제가 더 중요한 안보 이슈로 이동하고 있다.",
+        "중국계 자본의 지배 가능성이 직접적인 매각 명령으로 이어졌다는 점은 핵심광물 공급망이 단순 시장 거래가 아니라 정책·안보 프레임에서 관리된다는 근거다.",
+        "SBTL Hub에서는 배터리 소재와 핵심광물 이슈를 단순 원재료 가격이 아니라 지분·소유권·우방국 공급망 통제 논리와 함께 연결할 수 있다."
+      ],
+      "urls": [
+        "https://www.reuters.com/business/australia-treasurer-orders-six-shareholders-divest-northern-minerals-2026-05-17/",
+        "https://www.wsj.com/business/australia-orders-chinese-investors-to-sell-northern-minerals-shares-5a6e7b99"
+      ],
+      "related": [
+        "2026-05-29_GL_02",
+        "2026-05-15_CN_01",
+        "2026-05-20_GL_08"
+      ],
+      "hub_track": "CRITICAL_MINERALS_INVESTMENT_SCREENING",
+      "hub_role": "australia_northern_minerals_divestment_anchor",
+      "hub_fit": "direct_context",
+      "fact_lock_status": "verified_reuters_plus_wsj_source_diversity",
+      "visible_source_policy": {
+        "mode": "verified_core_2_to_3_visible_sources",
+        "visible_source_count": 2,
+        "rule": "Two independent public sources are visible."
+      },
+      "fact_sources": [
+        {
+          "source_name": "Reuters",
+          "source_url": "https://www.reuters.com/business/australia-treasurer-orders-six-shareholders-divest-northern-minerals-2026-05-17/",
+          "claim": "호주 재무장관 Jim Chalmers는 Northern Minerals 주주 6곳에 지분 매각 명령을 내렸다.",
+          "source_quote": "Treasurer Jim Chalmers orders six shareholders to divest stakes",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "source_locator": "web.find turn205879view0 lines 179-186",
+          "fetched_at": "2026-06-03T05:15:40+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "Reuters",
+          "source_url": "https://www.reuters.com/business/australia-treasurer-orders-six-shareholders-divest-northern-minerals-2026-05-17/",
+          "claim": "Northern Minerals는 Western Australia의 Browns Range heavy rare earths 프로젝트를 개발 중이며, heavy rare earths는 반도체·방산에 중요하다고 보도됐다.",
+          "source_quote": "Browns Range heavy rare earths project ... semiconductors and defence",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.find turn205879view2 lines 185-190",
+          "fetched_at": "2026-06-03T05:15:40+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "WSJ",
+          "source_url": "https://www.wsj.com/business/australia-orders-chinese-investors-to-sell-northern-minerals-shares-5a6e7b99",
+          "claim": "WSJ도 호주 정부가 national-interest grounds를 이유로 Northern Minerals 주주들에게 지분 매각을 명령했다고 보도했다.",
+          "source_quote": "ordered several shareholders in rare-earths company Northern Minerals to sell some or all of their stakes",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.search turn900889news3",
+          "fetched_at": "2026-06-03T05:15:40+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        }
+      ]
     },
     {
       "state": "publish_ready",
@@ -35670,6 +36264,92 @@
           "claim": "배터리 최대 3개 시설 분산 배치",
           "source": "Energy-Storage.news / 2026-04-17",
           "quote": "the battery storage would be distributed across up to three separate facilities."
+        }
+      ]
+    },
+    {
+      "id": "2026-04-17_GL_01",
+      "region": "GL",
+      "date": "2026-04-17",
+      "cat": "SupplyChain",
+      "sub_cat": "PaxSilica·핵심광물·첨단제조·AI공급망",
+      "signal": "high",
+      "title": "미국·필리핀 Pax Silica 산업허브 — 핵심광물·AI·첨단제조 공급망을 한 곳에 묶는다",
+      "sub": "미국과 필리핀은 New Clark City 인근 4,000-acre 산업 허브 구축을 추진한다. Pax Silica는 핵심광물, 첨단제조, 컴퓨팅·데이터 인프라까지 포함한 기술 공급망 안보 구상으로 설명된다.",
+      "gate": "이 사안은 희토류·핵심광물만이 아니라 AI, 반도체, 첨단제조, 데이터 인프라가 같은 공급망 안보 프레임에 들어갔다는 점이 중요하다. 미국은 필리핀을 Pax Silica에 편입시키며 우방국 제조·자원·인프라 플랫폼을 만들려는 방향으로 움직이고 있다.",
+      "fact": "Reuters는 미국과 필리핀이 필리핀의 Pax Silica 가입 이후 4,000-acre 산업 허브를 구축할 계획이라고 보도했다. Reuters는 Pax Silica가 critical minerals, advanced manufacturing, computing and data infrastructure를 포함한 full technology supply chain을 보호하려는 프로그램이라고 설명했다. 이 허브는 Luzon Economic Corridor와 New Clark City에 연결되며, 미국·필리핀 양측은 critical minerals, semiconductors, electronics and other goods의 shared supply chains를 강화하겠다고 밝혔다. Reuters 후속 보도는 미국 경제 담당 차관 Jacob Helberg가 양국이 경제안보 구역의 장기 프레임워크에 대해 조만간 합의할 것으로 기대한다고 밝힌 내용을 전했다. WSJ도 4,000-acre high-tech manufacturing hub가 중국 의존도를 낮추려는 공급망 전략의 일부라고 보도했다.",
+      "implication": [
+        "핵심광물 공급망은 광산 개발만이 아니라 첨단제조·AI·데이터센터·반도체 인프라와 결합된 경제안보 플랫폼으로 설계되고 있다.",
+        "Pax Silica에 한국이 참여국으로 언급된 점은 한국 배터리·소재 기업에도 우방국 공급망, 원산지, 전략물자 협력 논리가 중요해질 수 있음을 보여준다.",
+        "SBTL 관점에서는 배터리 소재와 파우치필름의 전략성을 단순 산업재가 아니라 우방국 제조 플랫폼·공급망 안정성의 한 구성요소로 설명할 수 있다."
+      ],
+      "urls": [
+        "https://www.reuters.com/world/asia-pacific/philippines-us-build-industrial-hub-supply-chain-security-2026-04-17/",
+        "https://www.reuters.com/world/china/us-philippines-reach-deal-economic-security-zone-sooner-rather-than-later-us-2026-05-21/",
+        "https://www.wsj.com/world/asia/u-s-to-create-high-tech-manufacturing-zone-in-philippines-017c1668"
+      ],
+      "related": [
+        "2026-05-29_GL_02",
+        "2026-05-28_KR_01",
+        "2026-05-20_GL_08",
+        "2026-05-15_CN_01"
+      ],
+      "hub_track": "ALLIED_TECH_SUPPLY_CHAIN_PAX_SILICA",
+      "hub_role": "us_philippines_pax_silica_industrial_hub_anchor",
+      "hub_fit": "direct_context",
+      "fact_lock_status": "verified_reuters_plus_wsj_source_diversity",
+      "visible_source_policy": {
+        "mode": "verified_core_2_to_3_visible_sources",
+        "visible_source_count": 3,
+        "rule": "Reuters primary event, Reuters follow-up, and WSJ context are visible."
+      },
+      "fact_sources": [
+        {
+          "source_name": "Reuters",
+          "source_url": "https://www.reuters.com/world/asia-pacific/philippines-us-build-industrial-hub-supply-chain-security-2026-04-17/",
+          "claim": "Reuters는 미국과 필리핀이 4,000-acre 산업 허브를 구축하고, 필리핀이 Pax Silica에 가입했다고 보도했다.",
+          "source_quote": "build a 4,000-acre (1,620-hectare) industrial hub",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "source_locator": "web.find turn205879view3 lines 179-187",
+          "fetched_at": "2026-06-03T05:15:40+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "Reuters",
+          "source_url": "https://www.reuters.com/world/china/us-philippines-reach-deal-economic-security-zone-sooner-rather-than-later-us-2026-05-21/",
+          "claim": "Reuters 후속 보도는 Pax Silica가 critical minerals부터 computing and data infrastructure까지 기술 공급망 전체를 보호하려는 동맹이라고 설명했다.",
+          "source_quote": "safeguard the full technology supply chain, from critical minerals and advanced manufacturing to computing and data infrastructure",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_locator": "web.search turn388288news1",
+          "fetched_at": "2026-06-03T05:15:40+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
+        },
+        {
+          "source_name": "WSJ",
+          "source_url": "https://www.wsj.com/world/asia/u-s-to-create-high-tech-manufacturing-zone-in-philippines-017c1668",
+          "claim": "WSJ는 미국·필리핀 high-tech industrial hub가 critical minerals와 핵심 기술 부품의 중국 의존도를 낮추려는 공급망 전략이라고 보도했다.",
+          "source_quote": "lessen China's dominance over global supply chains",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "gate",
+            "implication"
+          ],
+          "source_locator": "web.search turn388288news2",
+          "fetched_at": "2026-06-03T05:15:40+09:00",
+          "fetch_method": "web_fetch_verified_20260603"
         }
       ]
     },

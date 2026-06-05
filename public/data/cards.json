@@ -1034,25 +1034,24 @@
         {
           "source_name": "산업통상부 보도자료(공식)",
           "source_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156762786",
-          "claim": "사용후배터리법 제정안 5월 20일 국무회의 의결; 4대 주요 내용; 공포 후 1년 시행; 배출량 2,355(23)->107,500(30) | 성능평가·안전검사, 전주기 이력·거래시스템, 재생원료 활용 촉진, 산업육성 지원; 배출량 추정",
+          "claim": "산업통상부 공식 보도자료는 사용후배터리법 제정법률안이 5월 20일 국무회의에서 의결됐다고 밝혔다.",
           "source_quote": "「사용후 배터리의 관리 및 산업육성에 관한 법률안」(이하 \"사용후배터리법\") 제정법률안이 5월 20일(수) 국무회의에서 의결되었다",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
-            "fact",
-            "gate",
+            "title",
             "sub",
-            "title"
+            "gate",
+            "fact"
           ],
-          "fetched_at": "2026-05-28T00:00:00Z",
-          "fetch_method": "web_fetch",
-          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
-          "quote_patch_at": "2026-06-05T17:53:47+09:00"
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "korea.kr official release; exact contiguous excerpt retained"
         },
         {
           "source_name": "ZDNet Korea",
           "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
-          "claim": "국무회의 의결 독립 확인; 국가 전략자원 관리; EU 배터리법 대응",
+          "claim": "ZDNet Korea는 사용후배터리법 제정안의 국무회의 의결과 국가 전략자원 관리 취지를 독립적으로 확인했다.",
           "source_quote": "산업통상부는 '사용후 배터리의 관리 및 산업육성에 관한 법률안'(이하 사용후배터리법) 제정법률안이 20일 국무회의에서 의결됐다고 밝혔다.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
@@ -1061,8 +1060,70 @@
             "sub",
             "gate"
           ],
-          "fetched_at": "2026-05-28T00:00:00Z",
-          "fetch_method": "web_fetch"
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "web.open turn550156view0 lines 65-66"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "claim": "ZDNet Korea는 정부가 국내 사용후 배터리 배출량을 2023년 2,355개에서 2030년 10만7,500개까지 증가할 것으로 보고 있다고 보도했다.",
+          "source_quote": "정부는 국내 사용후 배터리 배출량이 지난 2023년 2355개에서 2030년 10만7500개까지 증가할 것으로 보고 있다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "web.open turn550156view0 lines 66-66"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "claim": "ZDNet Korea는 법안의 주요 내용으로 성능평가·안전검사, 전주기 이력·거래시스템, 재생원료 활용 촉진, 산업육성 지원을 보도했다.",
+          "source_quote": "주요 내용으로는 ▲성능평가·안전검사 체계 마련 ▲배터리 전주기 이력·거래시스템 구축 ▲재생원료의 활용 촉진 ▲산업 육성을 위한 지원 등이 포함됐다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "web.open turn550156view0 lines 70-70"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "claim": "ZDNet Korea는 재생원료 함유율 목표제와 생산·사용 인증제 도입을 보도했다.",
+          "source_quote": "재생원료의 활용 촉진 관련, 재생원료의 함유율 목표제와 재생원료의 생산·사용 인증제를 도입한다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "web.open turn550156view0 lines 77-77"
+        },
+        {
+          "source_name": "ZDNet Korea",
+          "source_url": "https://zdnet.co.kr/view/?no=20260520090026",
+          "claim": "ZDNet Korea는 사용후배터리법이 공포 후 1년 경과일부터 시행될 예정이라고 보도했다.",
+          "source_quote": "사용후배터리법은 공포 후 1년 경과하는 날부터 시행될 예정이다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-05T18:10:59+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "web.open turn550156view0 lines 87-87"
         }
       ],
       "evidence_complete": true,
@@ -1102,7 +1163,7 @@
       ],
       "source_discovery_ledger_reference": "Stage B evidence_package source_discovery_ledger (carried)",
       "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
-      "claim_coverage_summary": "strong: title/sub/fact/numeric claims all covered by verified fact_sources",
+      "claim_coverage_summary": "strong: source claims are split so each verified quote supports its exact claim; no stitched or under-covered quote remains.",
       "notes": "Official MOTIE release + independent ZDNet/Newspim; URL-sync clean.",
       "single_source_exception": {
         "allowed": false,
@@ -1120,7 +1181,12 @@
           "implication"
         ],
         "anchor_inflation_check": "pass: execution anchor preserved, not inflated",
-        "source_locked": "pass: no unsupported fact added"
+        "source_locked": "pass: no unsupported fact added",
+        "codex_r3361598373_fix": {
+          "action": "split broad verified claim into separate source entries with exact contiguous excerpts",
+          "target_review_comment": "https://github.com/ihyowoen/SBTL_HUB/pull/129/changes/dee569d7218827463ef4f97fb0c5ef811b30ef07#r3361598373",
+          "patched_at": "2026-06-05T18:10:59+09:00"
+        }
       },
       "github_ready": false,
       "pr_candidate_ready": false,

@@ -3180,8 +3180,8 @@
         {
           "source_name": "디일렉",
           "source_url": "https://www.thelec.kr/news/articleView.html?idxno=56809",
-          "claim": "엘앤에프는 대구 달성군 국가산단에 엘앤에프플러스 공장을 완공하고 2026년 3분기 말 LFP 양극재 양산에 들어간다.",
-          "source_quote": "3분기 말 3만톤 양산 시작 / 2027년 상반기 6만t 체제 구축",
+          "claim": "엘앤에프는 대구 달성군 국가산업단지에 엘앤에프플러스 공장을 완공했고, 2026년 3분기 말 양산에 들어간다.",
+          "source_quote": "엘앤에프가 리튬인산철(LFP) 양극재 전담 자회사 엘앤에프플러스 공장을 준공하고 올 3분기 말 양산에 들어간다.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -3189,15 +3189,31 @@
             "sub",
             "fact"
           ],
-          "source_locator": "web.open turn951466view0 lines 51-78",
-          "fetched_at": "2026-06-03T05:15:40+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetched_at": "2026-06-05T18:58:13+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "TheElec body lines 73-75"
         },
         {
           "source_name": "디일렉",
           "source_url": "https://www.thelec.kr/news/articleView.html?idxno=56809",
-          "claim": "엘앤에프는 중국 의존도가 높은 FP 전구체 기술 내재화와 무전구체 공법 개발도 병행하고 있다.",
-          "source_quote": "중국 의존도가 높은 인산철(FP) 전구체 기술 내재화",
+          "claim": "엘앤에프는 2026년 3분기 말 연 3만 톤 규모로 LFP 양극재 양산을 시작하고, 2027년 상반기까지 연 6만 톤 체제를 갖출 계획이다.",
+          "source_quote": "엘앤에프는 3분기 말 연간 3만톤(t) 규모로 LFP 양극재 양산을 시작하고, 2027년 상반기까지 연간 6만t 체제를 갖출 계획이다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-06-05T18:58:13+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "TheElec body line 77"
+        },
+        {
+          "source_name": "디일렉",
+          "source_url": "https://www.thelec.kr/news/articleView.html?idxno=56809",
+          "claim": "엘앤에프플러스의 핵심은 고밀도 3세대 LFP 기술이며, ESS와 보급형 전기차 공급 논의가 진행되고 있다.",
+          "source_quote": "엘앤에프플러스의 핵심은 고밀도 3세대 LFP 기술이다. 일반 LFP 대비 에너지 밀도를 높인 제품이다. 전력망용·AI 데이터센터용 에너지저장장치(ESS)부터 보급형 전기차까지 공급을 논의하고 있다.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
@@ -3205,28 +3221,68 @@
             "fact",
             "implication"
           ],
-          "source_locator": "web.open turn951466view0 lines 78-82",
-          "fetched_at": "2026-06-03T05:15:40+09:00",
-          "fetch_method": "web_fetch_verified_20260603"
+          "fetched_at": "2026-06-05T18:58:13+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "TheElec body line 78"
+        },
+        {
+          "source_name": "디일렉",
+          "source_url": "https://www.thelec.kr/news/articleView.html?idxno=56809",
+          "claim": "엘앤에프는 중국 의존도가 높은 FP 전구체 기술 내재화와 무전구체 공법 개발을 병행하고 있다.",
+          "source_quote": "원재료 경쟁력도 강화하고 있다. 중국 의존도가 높은 인산철(FP) 전구체 기술 내재화를 추진하고, 차세대 무(無)전구체 공법 개발도 병행하고 있다.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-05T18:58:13+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "TheElec body line 80"
         },
         {
           "source_name": "IEA Global EV Outlook 2026",
           "source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
-          "claim": "IEA는 LFP가 2025년 글로벌 EV 배터리 deployment의 55% 이상을 차지했고, LFP cathode materials and precursors는 중국에 거의 전적으로 집중돼 있다고 분석했다.",
+          "claim": "IEA는 2025년 LFP 배터리가 글로벌 EV 배터리 deployment의 55% 이상을 차지했다고 분석했다.",
           "source_quote": "In 2025, LFP batteries accounted for over 55% of EV batteries deployed globally, up from nearly 50% in 2024.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "background_context",
           "supports": [
-            "gate",
+            "fact",
             "implication"
           ],
-          "source_locator": "web.open turn181874view0 lines 312-330",
-          "fetched_at": "2026-06-03T05:15:40+09:00",
-          "fetch_method": "web_fetch_verified_20260603",
-          "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
-          "quote_patch_at": "2026-06-05T17:53:47+09:00"
+          "fetched_at": "2026-06-05T18:58:13+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "IEA Electric vehicle batteries lines 312-314"
+        },
+        {
+          "source_name": "IEA Global EV Outlook 2026",
+          "source_url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries",
+          "claim": "IEA는 LFP cathode materials와 precursors 생산이 거의 전적으로 중국에 집중돼 있다고 분석했다.",
+          "source_quote": "Production of LFP cathode materials and their precursors is still almost entirely concentrated in China, which holds the associated manufacturing capacity and the technical expertise.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "fetched_at": "2026-06-05T18:58:13+09:00",
+          "fetch_method": "web_fetch_verified_20260605",
+          "source_locator": "IEA Electric vehicle batteries lines 328-330"
         }
-      ]
+      ],
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "visible_source_url_sync": "PASS_URLS_INCLUDE_ALL_FACT_SOURCE_URLS",
+      "claim_coverage_summary": "strong: L&F capacity/body evidence and IEA LFP share/supply-chain claims are split into exact contiguous excerpts.",
+      "content_polish_change_log": {
+        "codex_r3361848546_fix": {
+          "action": "replaced deck-line stitched quote and split IEA 55%/China-concentration claim into separate exact excerpts",
+          "target_review_comment": "https://github.com/ihyowoen/SBTL_HUB/pull/129#discussion_r3361848546",
+          "patched_at": "2026-06-05T18:58:13+09:00"
+        }
+      }
     },
     {
       "id": "2026-05-18_GL_02",

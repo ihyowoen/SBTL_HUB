@@ -1,9 +1,2775 @@
 {
- "updated": "2026-06-12T13:07:51+09:00",
- "total": 825,
+ "updated": "2026-06-13T19:00:05+09:00",
+ "total": 855,
  "schema": "cards_v1",
  "sort": "date_desc",
  "cards": [
+  {
+   "cat": "Materials",
+   "date": "2026-06-12",
+   "draft_id": "DRAFT16",
+   "event_fingerprint": {
+    "actor": "PKC; 공장서; 새만금",
+    "asset_or_policy": "전해질소재출하",
+    "location": "KR",
+    "event_type": "production_start",
+    "event_date": "2026-06-12",
+    "factual_anchor": [
+     "전해질소재출하"
+    ],
+    "source_url_cluster": [
+     "thelec.kr"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "화학소재 기업 PKC는 6월 12일 새만금 1공장에서 배터리 전해질 핵심 원재료인 삼염화인(PCl3) 상업생산을 시작하고 20톤을 출하했다고 밝혔다. 고객사는 이를 산화방지제 제조 공정 테스트에 활용할 예정이다. 삼염화인·오염화인은 배터리 전해질과 고기능성 산화방지제의 핵심 원재료로, 그동안 중국 등 해외 의존도가 높았다.",
+   "fact_sources": [
+    {
+     "source_name": "The Elec",
+     "source_url": "https://www.thelec.kr/news/articleView.html?idxno=58006",
+     "claim": "PKC, 새만금 1공장서 삼염화인 상업생산 시작·20톤 출하",
+     "source_quote": "화학소재 기업 PKC가 새만금 1공장에서 배터리 전해질 핵심 원재료인 삼염화인(PCl3) 상업 생산을 시작했다 ... 삼염화인 20톤(t)을 출하했다",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "그간 중국 등 해외 의존도가 높았던 전해질 핵심소재의 국내 양산 진입 사례다. 고객사가 산화방지제 제조 공정 테스트에 활용한다는 점에서 실수요 연결도 확인된다.",
+   "implication": [
+    "전해질 핵심소재의 국내 양산 진입이 공급망 국산화 흐름으로 관찰된다",
+    "중국 등 해외 의존 완화 효과가 배터리 소재 공급망 안정성 측면에서 점검 대상이다",
+    "고객사 테스트의 정식 채택·물량 확대 전환 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "KR",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+   "source_spec_id": "SPEC16",
+   "sub": "화학소재 기업 PKC가 새만금 1공장에서 배터리 전해질 핵심 원재료인 삼염화인 상업생산을 시작하고 20톤을 출하하며 국산화 기반을 마련했다.",
+   "sub_cat": "전해질소재출하",
+   "title": "PKC, 새만금 1공장서 배터리 전해질 핵심소재 삼염화인 상업생산…20톤 출하",
+   "urls": [
+    "https://www.thelec.kr/news/articleView.html?idxno=58006"
+   ],
+   "id": "2026-06-12_KR_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "Policy",
+   "date": "2026-06-12",
+   "draft_id": "P-DRAFT08",
+   "event_fingerprint": {
+    "actor": "FY; 일본; 환경성",
+    "asset_or_policy": "lib_recycling_program",
+    "location": "JP",
+    "event_type": "policy_change",
+    "event_date": "2026-06-12",
+    "factual_anchor": [
+     "lib_recycling_program"
+    ],
+    "source_url_cluster": [
+     "env.go.jp"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "일본 환경성은 2026년 6월 12일 'FY2026 리튬이온전지 등의 회수·처리체계 구축을 위한 실증사업' 공모를 공고했다. 최근 리튬이온전지 사용 제품 증가로 폐기 과정에서 수집운반차량·폐기물 처리시설의 화재사고 등이 발생하는 문제에 대응하려는 취지다. 현 단계는 공모(사업자 모집)로, 채택 사업·예산 규모는 향후 확정된다.",
+   "fact_sources": [
+    {
+     "source_name": "일본 환경성 (Ministry of the Environment)",
+     "source_url": "https://www.env.go.jp/press/press_04922.html",
+     "claim": "환경성, FY2026 리튬이온전지 회수·처리체계 구축 실증사업 공모 공고(2026-06-12)",
+     "source_quote": "令和８年度リチウムイオン電池等の回収・処理体制の構築等に向けた実証事業の公募について...2026年06月12日",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T10:00:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "일본 정부가 리튬이온전지 폐기 과정의 화재 등 문제에 대응해 회수·처리체계 구축을 실증사업으로 지원하는 정책이다. 모집(공모) 단계로 채택·예산은 확정 전이다.",
+   "implication": [
+    "일본의 리튬이온전지 폐기·회수 안전체계 구축 정책이 구체화되는 흐름으로 관찰된다",
+    "회수·처리 실증사업이 배터리 순환·안전 인프라 측면에서 점검 대상이다",
+    "공모 채택 사업자와 예산 규모가 다음 확인 지점으로 남는다"
+   ],
+   "region": "JP",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+   "source_spec_id": "R-SPEC03",
+   "sub": "일본 환경성이 2026년 6월 12일 리튬이온전지 등의 회수·처리체계 구축을 위한 FY2026 실증사업 공모를 공고했다(폐기 과정 화재사고 등 대응).",
+   "sub_cat": "lib_recycling_program",
+   "title": "일본 환경성, FY2026 리튬이온전지 회수·처리체계 구축 실증사업 공모 공고",
+   "urls": [
+    "https://www.env.go.jp/press/press_04922.html"
+   ],
+   "id": "2026-06-12_JP_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+    "track_origin": "rescue"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT03",
+   "event_fingerprint": {
+    "actor": "RWE; 시간; 호주",
+    "asset_or_policy": "장주기BESS",
+    "location": "GL",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "50mw",
+     "400mwh"
+    ],
+    "source_url_cluster": [
+     "energy-storage.news",
+     "ess-news.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "RWE Renewables Australia는 6월 11일 뉴사우스웨일스 남서부 발라날드 인근에서 50MW/400MWh의 Limondale 배터리저장(BESS)을 공식 가동했다. 144개 컨테이너형 테슬라 메가팩으로 구성돼 총 400MWh 이상, 8시간 넘게 방전이 가능하다. 메가팩은 테슬라의 캘리포니아 기가팩토리에서 사전 조립돼 인도됐으며, 단위당 약 3.9~4.3MWh를 제공한다.",
+   "fact_sources": [
+    {
+     "source_name": "Energy-Storage.news",
+     "source_url": "https://www.energy-storage.news/rwe-officially-opens-australias-first-8-hour-battery-storage-system",
+     "claim": "RWE 호주 첫 8시간 50MW/400MWh Limondale BESS 가동",
+     "source_quote": "RWE Renewables Australia has officially opened the 50MW/400MWh Limondale BESS near Balranald in south-west New South Wales",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_name": "ESS News",
+     "source_url": "https://www.ess-news.com/2026/06/11/rwe-opens-50-mw-400-mwh-long-duration-battery-in-australia",
+     "claim": "144개 테슬라 메가팩, 8시간 이상 방전",
+     "source_quote": "The system's 144 containerized, utility-scale lithium-ion, custom-configured Tesla Megapacks have a total storage capacity of at least 400 MWh, with the ability to provide energy for over eight hours",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "gate"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "재생에너지 비중이 높은 호주 계통에서 장주기(8시간) 저장 수요가 본격화되는 신호다. 테슬라 메가팩이 캘리포니아 기가팩토리에서 사전 조립돼 공급된 점도 확인된다.",
+   "implication": [
+    "호주 계통의 장주기 저장 전환 수요가 확대되는 흐름으로 관찰된다",
+    "테슬라 메가팩의 사전조립 공급 모델이 대형 저장 도입 속도 측면에서 점검 대상이다",
+    "후속 장주기 프로젝트 확산 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "GL",
+   "related": [],
+   "signal": "top",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC03",
+   "sub": "RWE가 뉴사우스웨일스 발라날드 인근에 144개 테슬라 메가팩 기반 50MW/400MWh BESS를 가동해 호주 첫 8시간 장주기 저장을 선보였다.",
+   "sub_cat": "장주기BESS",
+   "title": "RWE, 호주 첫 8시간 장주기 50MW/400MWh 배터리저장 'Limondale' 가동",
+   "urls": [
+    "https://www.energy-storage.news/rwe-officially-opens-australias-first-8-hour-battery-storage-system",
+    "https://www.ess-news.com/2026/06/11/rwe-opens-50-mw-400-mwh-long-duration-battery-in-australia"
+   ],
+   "id": "2026-06-11_GL_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "Battery",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT11",
+   "event_fingerprint": {
+    "actor": "LG; 에너지솔루션; 중국",
+    "asset_or_policy": "특허라이선스",
+    "location": "KR",
+    "event_type": "contract",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "특허라이선스"
+    ],
+    "source_url_cluster": [
+     "thelec.kr",
+     "businesskorea.co.kr",
+     "electimes.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "LG에너지솔루션은 6월 11일 특허 라이선싱 대리사 튤립 이노베이션과 중국 신왕다가 리튬이온 배터리 특허 라이선스 계약을 체결했다고 밝혔다. 튤립 이노베이션은 LG에너지솔루션과 파나소닉의 특허를 대리한다. 이번 계약으로 독일·중국·한국에서 진행 중이던 법적 분쟁이 모두 종결된다.",
+   "fact_sources": [
+    {
+     "source_name": "The Elec",
+     "source_url": "https://www.thelec.kr/news/articleView.html?idxno=58001",
+     "claim": "LG엔솔, 대리사 튤립 이노베이션-신왕다 특허 라이선스 계약 체결",
+     "source_quote": "LG에너지솔루션은 11일 특허 라이선싱 대리사 튤립 이노베이션과 신왕다가 리튬이온 배터리 특허 라이선스 계약을 체결했다고 밝혔다",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_name": "BusinessKorea",
+     "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=271184",
+     "claim": "튤립 이노베이션(LG·파나소닉 특허 대리)이 신왕다와 라이선스 체결",
+     "source_quote": "Tulip Innovation, a patent management company representing the patent licenses of LG Energy Solution and Panasonic, signed a patent licensing agreement with Sunwoda",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "gate"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "K배터리의 지식재산권 수익화와 분쟁 종결이 동시에 이뤄진 사례다. 튤립 이노베이션이 LG·파나소닉 특허를 대리하는 구조도 확인된다.",
+   "implication": [
+    "배터리 특허의 라이선스 수익화 흐름이 한·중 간에 확대되는 것으로 관찰된다",
+    "분쟁 종결이 양사 공급·생산 활동의 불확실성 해소 측면에서 점검 대상이다",
+    "라이선스 조건·로열티 규모 공개 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "KR",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC11",
+   "sub": "LG에너지솔루션이 특허 대리사 튤립 이노베이션을 통해 중국 신왕다와 리튬이온 배터리 특허 라이선스 계약을 체결하며 진행 중이던 다국적 분쟁을 마무리했다.",
+   "sub_cat": "특허라이선스",
+   "title": "LG에너지솔루션, 중국 신왕다와 특허 라이선스 계약…독·중·한 분쟁 종결",
+   "urls": [
+    "https://www.thelec.kr/news/articleView.html?idxno=58001",
+    "https://www.businesskorea.co.kr/news/articleView.html?idxno=271184",
+    "https://www.electimes.com/news/articleView.html?idxno=369018",
+    "https://www.ajunews.com/view/20260611202512287",
+    "https://www.etnews.com/20260611000431"
+   ],
+   "id": "2026-06-11_KR_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT21",
+   "event_fingerprint": {
+    "actor": "Creek; Cypress; 아칸소",
+    "asset_or_policy": "태양광저장조달",
+    "location": "US",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "1.63gw",
+     "1.9gwh"
+    ],
+    "source_url_cluster": [
+     "prnewswire.com",
+     "electrek.co",
+     "electrek.co"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "Cypress Creek Energy는 6월 11일 아칸소 미시시피카운티 Steel River Energy Center의 1·2단계 금융 클로징을 발표했다. 1·2단계는 합계 1.63GW 태양광과 1.9GWh 배터리저장으로, 35억달러는 Barclays·BNP파리바·산탄데르·웰스파고가 인수했다. 100% 미국산 철강과 First Solar 패널을 사용하며, 3단계까지 완공되는 2029년에는 2.45GW 태양광·2.9GWh 저장 규모가 된다.",
+   "fact_sources": [
+    {
+     "source_name": "Cypress Creek (PR Newswire)",
+     "source_url": "https://www.prnewswire.com/news-releases/cypress-creek-energy-secures-3-5-billion-to-advance-one-of-americas-largest-solar-and-storage-projects-302798148.html",
+     "claim": "Cypress Creek, Steel River P1+2 금융 클로징·1.63GW 태양광+1.9GWh 저장",
+     "source_quote": "Cypress Creek Energy today announced financial close on Phase 1 and Phase 2 of the Steel River Energy Center ... which will add 1.63 gigawatts (GW) of solar and 1.9 gigawatt-hours (GWh) of battery storage to the regional grid",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "Electrek",
+     "source_url": "https://electrek.co/2026/06/11/huge-arkansas-solar-storage-project-locks-in-3-5b-in-financing/",
+     "claim": "100% 미국산 철강·First Solar 패널, 3단계 2029년 2.45GW/2.9GWh",
+     "source_quote": "Steel River will use 100% US-made structural steel ... and domestically manufactured solar panels from First Solar ... expected to deliver 2.45 GW of solar and 2.9 GWh of battery storage by 2029",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "gate",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "web_search"
+    }
+   ],
+   "gate": "연방의 청정에너지 역풍 속에서도 대형 태양광·저장 프로젝트가 자본시장 자금을 확보한 사례다. 100% 미국산 철강과 First Solar 패널 사용은 현지 공급망 강화 측면에서 의미가 있다.",
+   "implication": [
+    "연방 역풍에도 대형 태양광·저장 프로젝트 파이낸싱이 성사되는 흐름으로 관찰된다",
+    "100% 미국산 철강·First Solar 패널 채택이 현지 공급망 강화 측면에서 점검 대상이다",
+    "3단계 확장과 가상 전력구매계약(VPPA) 상대방 공개가 다음 확인 지점으로 남는다"
+   ],
+   "region": "US",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC21",
+   "sub": "Cypress Creek Energy가 아칸소 미시시피카운티 Steel River 1·2단계에 35억달러 금융을 확정해 1.63GW 태양광과 1.9GWh 저장 건설에 들어간다.",
+   "sub_cat": "태양광저장조달",
+   "title": "Cypress Creek, 아칸소 'Steel River' 태양광·저장에 35억달러 금융 클로징",
+   "urls": [
+    "https://www.prnewswire.com/news-releases/cypress-creek-energy-secures-3-5-billion-to-advance-one-of-americas-largest-solar-and-storage-projects-302798148.html",
+    "https://electrek.co/2026/06/11/huge-arkansas-solar-storage-project-locks-in-3-5b-in-financing/"
+   ],
+   "id": "2026-06-11_US_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT02",
+   "event_fingerprint": {
+    "actor": "Sungrow; Sunotec; 불가리아",
+    "asset_or_policy": "BESS가동",
+    "location": "EU",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "150mw",
+     "600mwh"
+    ],
+    "source_url_cluster": [
+     "prnewswire.com",
+     "ess-news.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "Sungrow와 Sunotec은 6월 11일 발주처 Enery 소유의 150MW/600MWh 배터리저장(BESS)을 불가리아에 준공했다고 밝혔다. 이 설비는 계통 유연성 제고와 재생에너지 통합, 전력망 회복력 강화를 목적으로 한다. 2025년 Intersolar에서 발표된 양사의 광범위한 저장 협력의 첫 주요 이정표로, 향후 800MWh 규모까지 확대가 예정돼 있다.",
+   "fact_sources": [
+    {
+     "source_name": "Sungrow / Sunotec (PR Newswire)",
+     "source_url": "https://www.prnewswire.com/news-releases/sungrow-and-sunotec-commission-enerys-150-mw--600-mwh-battery-storage-project-in-bulgaria-302798797.html",
+     "claim": "Enery향 150MW/600MWh BESS 불가리아 상업가동",
+     "source_quote": "The 150 MW / 600 MWh facility will enhance grid flexibility, support the integration of renewable energy, and strengthen the resilience of Bulgaria's power system",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_name": "ESS News",
+     "source_url": "https://www.ess-news.com/2026/06/11/sungrow-and-sunotec-commission-600-mwh-bess-in-bulgaria-for-enery",
+     "claim": "Sungrow·Sunotec, Enery 소유 150MW/600MWh BESS 준공",
+     "source_quote": "Sungrow and Sunotec have commissioned a 150 MW/600 MWh battery energy storage system (BESS) in Bulgaria for project owner Enery",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "동유럽 계통의 재생에너지 통합과 안정성 강화를 겨냥한 대형 저장 도입 사례다. 2025년 Intersolar에서 발표된 양사 협력의 첫 주요 이정표로 확인된다.",
+   "implication": [
+    "동유럽 계통측 대형 저장 수요가 확대되는 흐름으로 관찰된다",
+    "Sungrow의 시스템 공급과 Sunotec의 시공 분담 구조가 유럽 저장 EPC 경쟁 구도에서 점검 대상이다",
+    "양사 협력의 후속 800MWh 확대 진행 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "EU",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC02",
+   "sub": "Sungrow와 Sunotec이 발주처 Enery를 위해 불가리아에 150MW/600MWh BESS를 준공해 계통 유연성과 재생에너지 수용을 강화한다.",
+   "sub_cat": "BESS가동",
+   "title": "Sungrow·Sunotec, 불가리아 150MW/600MWh 배터리저장 상업가동…Enery 소유",
+   "urls": [
+    "https://www.prnewswire.com/news-releases/sungrow-and-sunotec-commission-enerys-150-mw--600-mwh-battery-storage-project-in-bulgaria-302798797.html",
+    "https://www.ess-news.com/2026/06/11/sungrow-and-sunotec-commission-600-mwh-bess-in-bulgaria-for-enery"
+   ],
+   "id": "2026-06-11_EU_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT05",
+   "event_fingerprint": {
+    "actor": "Greenvolt; 최대; 헝가리",
+    "asset_or_policy": "BESS준공",
+    "location": "EU",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "99.8mw",
+     "288.6mwh"
+    ],
+    "source_url_cluster": [
+     "energy-storage.news",
+     "renews.biz"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "독립발전사업자 Greenvolt는 6월 11일 헝가리에 99.8MW/288.6MWh 배터리저장(BESS)을 상업운전에 투입했다고 밝혔다. 이는 헝가리 내 최대 규모 저장 자산이다. 동시에 이탈리아·프랑스·네덜란드·벨기에 등 다른 유럽 국가에서도 파이프라인과 프로젝트를 진척·조달했다.",
+   "fact_sources": [
+    {
+     "source_name": "Energy-Storage.news",
+     "source_url": "https://www.energy-storage.news/greenvolt-inaugurates-hungarys-largest-bess-pipelines-progressed-and-financed-elsewhere-in-eu",
+     "claim": "Greenvolt, 헝가리 최대 99.8MW/288.6MWh BESS 상업운전",
+     "source_quote": "IPP Greenvolt has put a 99.8MW/288.6MWh BESS into commercial operation in Hungary, the largest in the country",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_url": "https://www.thediplomat.ro/2026/06/11/greenvolt-inaugurates-hungarys-largest-battery-energy-storage-system/",
+     "source_owner": "The Diplomat Bucharest",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "source_quote": "inaugurated Hungary's largest battery energy storage system, 99.8 MW / 288.6 MWh",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://hungarytoday.hu/largest-energy-storage-facility-in-the-country-inaugurated/",
+     "source_owner": "Hungary Today (State Secretary András Tóth 인용)",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "source_quote": "Hungary's largest battery storage facility inaugurated near Buj",
+     "source_quote_status": "body_quote_verified"
+    }
+   ],
+   "gate": "중동부 유럽에서 계통측 저장이 국가 최대 규모로 도입되는 사례다. Greenvolt가 이탈리아·프랑스·네덜란드·벨기에 등에서 파이프라인을 진척시킨 점도 확인된다.",
+   "implication": [
+    "중동부 유럽의 계통측 저장 도입이 국가 단위로 확대되는 흐름으로 관찰된다",
+    "Greenvolt의 다국가 파이프라인 진척이 유럽 저장 개발 경쟁 측면에서 점검 대상이다",
+    "타 유럽국 프로젝트의 조달·착공 진행 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "EU",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC05",
+   "sub": "독립발전사업자 Greenvolt가 헝가리에 99.8MW/288.6MWh BESS를 상업운전에 투입해 자국 내 최대 규모 저장 자산을 가동했다.",
+   "sub_cat": "BESS준공",
+   "title": "Greenvolt, 헝가리 최대 99.8MW/288.6MWh 배터리저장 상업운전 개시",
+   "urls": [
+    "https://www.energy-storage.news/greenvolt-inaugurates-hungarys-largest-bess-pipelines-progressed-and-financed-elsewhere-in-eu",
+    "https://www.thediplomat.ro/2026/06/11/greenvolt-inaugurates-hungarys-largest-battery-energy-storage-system/",
+    "https://hungarytoday.hu/largest-energy-storage-facility-in-the-country-inaugurated/"
+   ],
+   "id": "2026-06-11_EU_02",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "Policy",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT06",
+   "event_fingerprint": {
+    "actor": "MW; 이탈리아; 환경에너지안보부",
+    "asset_or_policy": "저장승인",
+    "location": "EU",
+    "event_type": "policy_change",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "515mw",
+     "514.6mw"
+    ],
+    "source_url_cluster": [
+     "ess-news.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "이탈리아 환경에너지안보부는 6월 11일 합계 514.6MW 규모의 배터리저장(BESS) 5개 프로젝트를 인가했다고 밝혔다. 인가는 사업 착공의 선행 절차로, 개별 프로젝트의 입지·사업자·완공 일정은 후속 공개가 필요하다.",
+   "fact_sources": [
+    {
+     "source_name": "ESS News",
+     "source_url": "https://www.ess-news.com/2026/06/11/italy-approves-515-mw-of-battery-storage-projects",
+     "claim": "이탈리아 환경에너지안보부, 514.6MW 저장 5개 프로젝트 인가",
+     "source_quote": "Italy's Ministry of Environment and Energy Security has authorized five battery energy storage system projects with a combined capacity of 514.6 MW",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_url": "https://www.staffettaonline.com/articolo.aspx?id=405124",
+     "source_owner": "Staffetta Quotidiana (이탈리아 에너지 일간)",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "source_quote": "cinque decreti di autorizzazione...per complessivi 514,6 MW",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://www.mase.gov.it/tag-energia/autorizzazioni-uniche",
+     "source_owner": "MASE 공식 (autorizzazioni uniche 등록부)",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "gate",
+      "fact"
+     ],
+     "source_quote": "MASE single-authorization decrees registry (official .gov.it)",
+     "source_quote_status": "body_quote_verified"
+    }
+   ],
+   "gate": "남유럽 주요국이 대형 저장 프로젝트를 정부 차원에서 인가하는 정책 흐름을 보여준다. 인가는 착공·완공의 선행 단계로, 실제 건설 진척은 별도 확인이 필요하다.",
+   "implication": [
+    "남유럽의 정부 주도 대형 저장 인가가 이어지는 정책 흐름으로 관찰된다",
+    "인가에서 실제 착공·완공으로의 전환 속도가 유럽 저장 공급 측면에서 점검 대상이다",
+    "개별 프로젝트 사업자·금융조달 공개 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "EU",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC06",
+   "sub": "이탈리아 환경에너지안보부가 합계 514.6MW에 달하는 배터리저장 5개 프로젝트를 인가하며 계통측 저장 도입을 제도적으로 뒷받침했다.",
+   "sub_cat": "저장승인",
+   "title": "이탈리아 환경에너지안보부, 515MW 규모 배터리저장 5개 프로젝트 인가",
+   "urls": [
+    "https://www.ess-news.com/2026/06/11/italy-approves-515-mw-of-battery-storage-projects",
+    "https://www.staffettaonline.com/articolo.aspx?id=405124",
+    "https://www.mase.gov.it/tag-energia/autorizzazioni-uniche"
+   ],
+   "id": "2026-06-11_EU_03",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "Materials",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT12",
+   "event_fingerprint": {
+    "actor": "과기정통부; 기후부; 통신",
+    "asset_or_policy": "도시광산회수",
+    "location": "KR",
+    "event_type": "production_start",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "1800억원",
+     "1800억원"
+    ],
+    "source_url_cluster": [
+     "etnews.com",
+     "e2news.com",
+     "ajunews.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "과학기술정보통신부와 기후에너지환경부는 6월 11일 SK텔레콤·KT·LG유플러스, 한국방송통신전파진흥원(KCA), 한국환경공단과 폐통신장비 순환이용 체계 구축을 위한 업무협약(MOU)을 체결했다. 기지국·서버·중계기 등에서 매년 1만3600톤 규모가 발생하며, 여기에는 희토류·코발트·구리 등 1800억원 상당의 핵심광물이 포함된 것으로 평가된다.",
+   "fact_sources": [
+    {
+     "source_name": "전자신문",
+     "source_url": "https://www.etnews.com/20260611000338",
+     "claim": "과기정통부·기후부·통신3사·KCA·환경공단 폐통신장비 순환이용 MOU 체결",
+     "source_quote": "과학기술정보통신부와 기후에너지환경부는 11일 한국프레스센터에서 SK텔레콤·KT·LG유플러스, 한국방송통신전파진흥원(KCA), 한국환경공단과 함께 폐통신장비 순환이용 체계 구축을 위한 업무협약(MOU)을 체결했다고 밝혔다",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_name": "이투뉴스",
+     "source_url": "http://www.e2news.com/news/articleView.html?idxno=331301",
+     "claim": "연 1만3600톤 폐통신장비서 1800억원 핵심광물 회수 체계",
+     "source_quote": "정부가 매년 1만3600톤 규모로 발생하는 기지국·서버·중계기 등 폐통신장비에서 희토류와 코발트, 구리 등 1800억원 상당의 핵심광물을 회수하는 자원순환 체계 구축에 나섰다",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "gate"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "통신 인프라 폐장비를 핵심광물 공급원으로 전환하는 정부 주도 자원순환 정책이다. 해외 의존도가 높은 희토류·코발트의 국내 회수 기반 마련이라는 점에서 의미가 있다.",
+   "implication": [
+    "통신 폐장비의 핵심광물 회수가 정부 주도 도시광산 정책으로 확대되는 흐름으로 관찰된다",
+    "희토류·코발트의 해외 의존 완화 효과가 공급망 안정성 측면에서 점검 대상이다",
+    "협약의 실제 회수량·회수 단가 등 성과 지표가 다음 확인 지점으로 남는다"
+   ],
+   "region": "KR",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC12",
+   "sub": "과기정통부·기후에너지환경부가 통신 3사·KCA·환경공단과 함께 연 1만3600톤 폐통신장비에서 희토류·코발트·구리 등 핵심광물을 회수하는 순환이용 협약을 체결했다.",
+   "sub_cat": "도시광산회수",
+   "title": "과기정통부·기후부·통신3사, 폐통신장비 핵심광물 회수 협약…연 1800억원 규모",
+   "urls": [
+    "https://www.etnews.com/20260611000338",
+    "http://www.e2news.com/news/articleView.html?idxno=331301",
+    "https://www.ajunews.com/view/20260611101145074",
+    "https://www.etnews.com/20260611000254",
+    "https://www.todayenergy.kr/news/articleView.html?idxno=298929",
+    "https://www.msit.go.kr/bbs/view.do?sCode=user&bbsSeqNo=94&nttSeqNo=3187428"
+   ],
+   "id": "2026-06-11_KR_02",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "PowerGrid",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT17",
+   "event_fingerprint": {
+    "actor": "국산; 낙월해상풍력; 모노파일",
+    "asset_or_policy": "해상풍력시공",
+    "location": "KR",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "해상풍력시공"
+    ],
+    "source_url_cluster": [
+     "todayenergy.kr"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "낙월해상풍력은 6월 11일 해상풍력발전기 하부구조물인 모노파일 64기 시공을 완료했다고 밝혔으며, 설치는 6월 10일 마무리됐다. 적용된 모노파일은 직경 7.5m, 길이 약 70m, 중량 약 880톤 규모로 GS엔텍이 울산공장에서 제작·공급했다. 기존 재킷 방식 대신 모노파일 공법을 채택했고, 착저식 설치선박(WTIV) '한산1호' 등이 투입됐다.",
+   "fact_sources": [
+    {
+     "source_name": "투데이에너지",
+     "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=298937",
+     "claim": "낙월해상풍력, 하부구조물 모노파일 64기 시공 완료",
+     "source_quote": "낙월해상풍력이 해상풍력발전기 하부구조물인 모노파일(Monopile) 64기 시공을 완료했다고 11일 밝혔다",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "국내 기업이 해상풍력 하부구조물의 제작·운송·설치 전 과정에 참여한 사례다. 재킷 대신 모노파일 공법을 채택해 공기·비용 절감을 노린 점도 확인된다.",
+   "implication": [
+    "국산 모노파일 기반 해상풍력 공급망 역량 축적이 진행되는 흐름으로 관찰된다",
+    "GS엔텍의 대형 모노파일 제작 실적이 국내외 해상풍력 공급 확대 측면에서 점검 대상이다",
+    "후속 프로젝트 발주로 이어지는지가 다음 확인 지점으로 남는다"
+   ],
+   "region": "KR",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+   "source_spec_id": "SPEC17",
+   "sub": "낙월해상풍력이 해상풍력 하부구조물 모노파일 64기 시공을 완료했으며, 직경 7.5m·중량 880톤급 모노파일을 GS엔텍이 울산공장에서 제작·공급했다.",
+   "sub_cat": "해상풍력시공",
+   "title": "낙월해상풍력, 국산 모노파일 64기 시공 완료…GS엔텍 울산 제작",
+   "urls": [
+    "https://www.todayenergy.kr/news/articleView.html?idxno=298937"
+   ],
+   "id": "2026-06-11_KR_03",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-11",
+   "draft_id": "P-DRAFT09",
+   "event_fingerprint": {
+    "actor": "산단; 안성; 에이치에너지",
+    "asset_or_policy": "distributed_solar_storage",
+    "location": "KR",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "833kw",
+     "833.3kw"
+    ],
+    "source_url_cluster": [
+     "etnews.com",
+     "energy-news.co.kr"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "에이치에너지는 6월 11일 안성시와 제2산업단지 공영주차장 약 3478㎡ 유휴부지를 활용해 833.3kW 규모 태양광 발전설비와 ESS를 결합한 분산에너지 인프라를 구축하는 사업계약을 체결했다고 밝혔다. 이번 계약은 작년 11월 양측이 맺은 '산업단지 중심 분산에너지 특화기업 기반 조성' 업무협약(MOU)의 후속 사업이다.",
+   "fact_sources": [
+    {
+     "source_url": "https://www.kyongbuk.co.kr/news/articleView.html?idxno=4075243",
+     "source_owner": "경북일보",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "source_quote": "안성시와 분산에너지 사업 계약 체결...833.3kW 태양광과 ESS",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://www.hellot.net/news/article.html?no=113137",
+     "source_owner": "헬로티",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "gate"
+     ],
+     "source_quote": "833.3kW 태양광 발전설비와 ESS 결합...연간 RE100 약 1.09GWh",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://www.solartodaymag.com/news/articleView.html?idxno=20765",
+     "source_owner": "솔라투데이/인더스트리뉴스",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "sub",
+      "fact"
+     ],
+     "source_quote": "지난해 11월 MOU의 후속...미리내협동조합과 컨소시엄",
+     "source_quote_status": "body_quote_verified"
+    }
+   ],
+   "gate": "지역 유휴부지를 활용해 중소·중견 제조기업의 RE100 이행을 직접 지원하는 분산에너지 모델 사례다. 작년 MOU의 후속 사업계약으로 구체화된 점이 확인된다.",
+   "implication": [
+    "유휴부지 활용 분산에너지로 중소기업 RE100을 지원하는 모델이 등장하는 흐름으로 관찰된다",
+    "산업단지 분산에너지 사업계약이 RE100 이행 수단 측면에서 점검 대상이다",
+    "구축 완료·가동과 모델 확산 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "KR",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "P-SPEC09",
+   "sub": "에이치에너지가 안성시와 제2산업단지 공영주차장 유휴부지를 활용해 833.3kW 태양광+ESS 분산에너지 인프라를 구축하는 사업계약을 체결했다(작년 11월 MOU 후속).",
+   "sub_cat": "distributed_solar_storage",
+   "title": "에이치에너지, 안성 산단 유휴부지에 833kW 태양광+ESS 구축 계약",
+   "urls": [
+    "https://www.kyongbuk.co.kr/news/articleView.html?idxno=4075243",
+    "https://www.hellot.net/news/article.html?no=113137",
+    "https://www.solartodaymag.com/news/articleView.html?idxno=20765"
+   ],
+   "id": "2026-06-11_KR_04",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "nud_promoted"
+   }
+  },
+  {
+   "cat": "Charging",
+   "date": "2026-06-11",
+   "draft_id": "P-DRAFT05",
+   "event_fingerprint": {
+    "actor": "NEVI; 미시간; 자금",
+    "asset_or_policy": "ev_charging_funding",
+    "location": "US",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "ev_charging_funding"
+    ],
+    "source_url_cluster": [
+     "theenergyst.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "미시간주는 공공 EV 충전 인프라 확충을 위한 NEVI 자금 프로그램의 3차 라운드를 개시했다. 이전 조달 라운드로 이미 81개 충전소가 개발 중이며, 이번 라운드로 2029년까지 약 60개 급속충전소를 추가할 계획이다.",
+   "fact_sources": [
+    {
+     "source_name": "The Energyst",
+     "source_url": "https://theenergyst.com/michigan-nevi-third-round/",
+     "claim": "미시간 NEVI 3차 라운드 개시·2029년까지 약 60개소·기존 81개소",
+     "source_quote": "Michigan has opened the third round of its NEVI funding programme ... add around 60 fast-charging sites by 2029, building on 81 stations already under development through earlier procurement rounds",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T09:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "미국 주정부가 연방 NEVI 자금을 활용해 공공 급속충전망을 단계적으로 확충하는 사례다. 기존 81개소에 더한 추가 라운드라는 점에서 인프라 누적 확대가 확인된다.",
+   "implication": [
+    "미국 주정부 주도 공공 급속충전망 확충이 단계적으로 이어지는 흐름으로 관찰된다",
+    "NEVI 자금의 라운드별 집행이 충전 인프라 누적 속도 측면에서 점검 대상이다",
+    "3차 라운드 낙찰 사업자·실제 개소가 다음 확인 지점으로 남는다"
+   ],
+   "region": "US",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+   "source_spec_id": "P-SPEC05",
+   "sub": "미시간주가 공공 EV 충전 인프라 확충을 위한 NEVI 자금 프로그램 3차 라운드를 개시해 2029년까지 약 60개 급속충전소를 추가한다(기존 81개소 개발 중).",
+   "sub_cat": "ev_charging_funding",
+   "title": "미시간, NEVI 3차 자금 라운드 개시…2029년까지 급속충전소 약 60개소 추가",
+   "urls": [
+    "https://theenergyst.com/michigan-nevi-third-round/"
+   ],
+   "id": "2026-06-11_US_02",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+    "track_origin": "promotion"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT14",
+   "event_fingerprint": {
+    "actor": "간쑤; 바이인; 중국",
+    "asset_or_policy": "독립저장착공",
+    "location": "CN",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "200mw",
+     "800mwh"
+    ],
+    "source_url_cluster": [
+     "news.bjx.com.cn",
+     "china5e.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "중국 간쑤성 바이인시 바이인구 우촨에서 200MW/800MWh 규모 인산철리튬 전기화학 독립 저장발전소가 착공됐다. 총투자는 10.12억위안으로, 330kV 승압소를 신설해 우촨 330kV 집전소에 접속하며 2026년 12월 31일 계통 연계 가동을 목표로 한다. 중국에너지건설(간쑤)과 산시건공 제16건설이 공동 시공한다.",
+   "fact_sources": [
+    {
+     "source_name": "北极星储能网 (bjx, mirror)",
+     "source_url": "https://news.bjx.com.cn/html/20260611/1499576.shtml",
+     "claim": "간쑤 바이인 우촨 200MW/800MWh 독립저장 착공, 총투자 10.12억위안",
+     "source_quote": "甘肃省白银市白银区武川200MW/800WMh独立储能电站项目开工 ... 总投资10.12亿元 ... 项目计划在2026年12月31日实现并网投产",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "중국 서부의 풍·태양광 출력 변동 보완을 위한 독립 저장 착공 사례다. 중국에너지건설과 산시건공의 공동 시공 구조와 330kV 연계 계획도 확인된다.",
+   "implication": [
+    "중국 서부의 신에너지 소화용 독립 저장 착공이 이어지는 흐름으로 관찰된다",
+    "인산철리튬 독립 저장의 계통 조주파 역할이 중국 저장 수요 측면에서 점검 대상이다",
+    "2026년 말 계통 연계 목표 달성 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "CN",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+   "source_spec_id": "SPEC14",
+   "sub": "중국 간쑤성 바이인시 우촨에서 200MW/800MWh 규모 인산철리튬 독립 저장발전소가 착공됐으며 총투자는 10.12억위안이다.",
+   "sub_cat": "독립저장착공",
+   "title": "중국 간쑤 바이인 200MW/800MWh 독립 저장 착공…총투자 10.12억위안",
+   "urls": [
+    "https://news.bjx.com.cn/html/20260611/1499576.shtml",
+    "https://www.china5e.com/news/news-1204949-1.html"
+   ],
+   "id": "2026-06-11_CN_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "Materials",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT22",
+   "event_fingerprint": {
+    "actor": "LFP; 룽판테크; 인도네시아",
+    "asset_or_policy": "LFP증설",
+    "location": "CN",
+    "event_type": "production_start",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "12만톤",
+     "12만톤"
+    ],
+    "source_url_cluster": [
+     "libattery.ofweek.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "룽판테크는 인도네시아에 연 12만톤 규모 2·3세대 인산철리튬(LFP) 양극재 생산라인 투자를 밝혔다. 총투자는 약 1.6억달러(약 10.88억위안)로 올 7월 착공해 건설기간 12개월을 예상한다. 인도네시아 세 번째 투자로, 1기 3만톤은 2025년 초 투산했고 2기 9만톤은 현재 설비 설치·시운전 단계다.",
+   "fact_sources": [
+    {
+     "source_name": "OFweek Li-Battery",
+     "source_url": "https://libattery.ofweek.com/2026-06/ART-36002-8110-30690415.html",
+     "claim": "룽판 인도네시아 LFP 양극재 12만톤 투자 1.6억달러, 7월 착공·12개월",
+     "source_quote": "项目总投资金额约1.6亿美元，约合人民币10.88亿元，总规划建设年产12万吨二代及三代磷酸铁锂正极材料的生产线，预计今年7月开工，建设期12个月",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "중국 양극재 기업의 해외 LFP 생산기지 증설이 이어지는 흐름을 보여준다. 인도네시아를 거점으로 한 LFP 양극재의 해외 양산 확대라는 점에서 의미가 있다.",
+   "implication": [
+    "중국 양극재 기업의 해외 LFP 생산 확대가 이어지는 흐름으로 관찰된다",
+    "인도네시아 거점의 LFP 양극재 해외 양산이 글로벌 공급망 재편 측면에서 점검 대상이다",
+    "7월 착공·12개월 공기 준수와 가동률 안정화가 다음 확인 지점으로 남는다"
+   ],
+   "region": "CN",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+   "source_spec_id": "SPEC22",
+   "sub": "룽판테크가 인도네시아에 연 12만톤 규모 2·3세대 인산철리튬(LFP) 양극재 생산라인을 1.6억달러에 투자하며 올 7월 착공해 12개월 내 완공할 계획이다.",
+   "sub_cat": "LFP증설",
+   "title": "룽판테크, 인도네시아 LFP 양극재 12만톤 증설 투자…1.6억달러, 7월 착공",
+   "urls": [
+    "https://libattery.ofweek.com/2026-06/ART-36002-8110-30690415.html"
+   ],
+   "id": "2026-06-11_CN_02",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "PowerGrid",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT10",
+   "event_fingerprint": {
+    "actor": "Elgin; MW; 영국서",
+    "asset_or_policy": "태양광착공",
+    "location": "EU",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "112mw",
+     "112mw"
+    ],
+    "source_url_cluster": [
+     "theenergyst.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "수직통합 독립발전사업자 Elgin은 영국에서 처음으로 112MW 규모 태양광·저장 프로젝트 포트폴리오 착공에 들어갔다고 밝혔다. 3개 프로젝트로 구성되며 METLEN Energy & Metals와의 협약 범위에 포함된다. Elgin은 해당 자산을 장기 보유할 계획이다.",
+   "fact_sources": [
+    {
+     "source_name": "The Energyst",
+     "source_url": "https://theenergyst.com/elgin-breaks-ground-in-the-uk-for-the-first-time-with-112mw-solar-portfolio",
+     "claim": "Elgin, 영국 112MW 태양광·저장 포트폴리오 착공·METLEN 협약",
+     "source_quote": "Elgin ... has commenced construction on a 112MW portfolio of UK solar and storage projects that it will hold into long",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "유럽 사업자가 영국 태양광·저장 시장에 직접 자산 보유 방식으로 진입하는 사례다. 산업·에너지 기업 METLEN과의 협약 구조가 사업 안정성 측면에서 의미가 있다.",
+   "implication": [
+    "유럽 IPP의 영국 태양광·저장 직접 진입이 확대되는 흐름으로 관찰된다",
+    "산업기업과의 협약 기반 개발 구조가 영국 재생에너지 사업화 측면에서 점검 대상이다",
+    "착공 3개 프로젝트의 완공·계통 연계 진척이 다음 확인 지점으로 남는다"
+   ],
+   "region": "EU",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+   "source_spec_id": "SPEC10",
+   "sub": "수직통합 독립발전사업자 Elgin이 영국에서 처음으로 112MW 규모 태양광·저장 포트폴리오 착공에 나섰으며, 이는 METLEN Energy & Metals와의 협약에 따른 것이다.",
+   "sub_cat": "태양광착공",
+   "title": "Elgin, 영국서 첫 112MW 태양광·저장 포트폴리오 착공…METLEN과 협약",
+   "urls": [
+    "https://theenergyst.com/elgin-breaks-ground-in-the-uk-for-the-first-time-with-112mw-solar-portfolio"
+   ],
+   "id": "2026-06-11_EU_04",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT08",
+   "event_fingerprint": {
+    "actor": "Green; MSU; 아르헨",
+    "asset_or_policy": "저장채권조달",
+    "location": "GL",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "저장채권조달"
+    ],
+    "source_url_cluster": [
+     "ess-news.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "MSU Green Energy는 6월 11일 첫 국제 그린본드 발행을 통해 4억달러를 조달했다고 밝혔다. 조달 자금은 아르헨티나 내 재생에너지 및 배터리저장 프로젝트에 투입된다.",
+   "fact_sources": [
+    {
+     "source_name": "ESS News",
+     "source_url": "https://www.ess-news.com/2026/06/11/argentinas-msu-raises-400-million-green-bond-for-storage-projects",
+     "claim": "MSU Green Energy 첫 국제 그린본드 4억달러 조달, 저장 포함",
+     "source_quote": "MSU Green Energy has raised $400 million through its first international green bond issuance, securing financing for renewable energy and battery storage projects in Argentina",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "신흥시장 사업자가 국제 자본시장에서 저장 포함 재생에너지 자금을 조달하는 흐름을 보여준다. 첫 국제 발행이라는 점에서 조달 채널 다변화 의미가 있다.",
+   "implication": [
+    "신흥시장의 저장 포함 재생에너지 국제 자금조달이 확대되는 흐름으로 관찰된다",
+    "그린본드를 통한 저장 프로젝트 파이낸싱 구조가 조달비용 측면에서 점검 대상이다",
+    "조달 자금의 구체적 저장 프로젝트 배분·착공이 다음 확인 지점으로 남는다"
+   ],
+   "region": "GL",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+   "source_spec_id": "SPEC08",
+   "sub": "MSU Green Energy가 첫 국제 그린본드로 4억달러를 조달해 아르헨티나의 재생에너지·배터리저장 프로젝트 자금을 확보했다.",
+   "sub_cat": "저장채권조달",
+   "title": "아르헨 MSU Green Energy, 첫 국제 그린본드 4억달러 조달…저장 포함",
+   "urls": [
+    "https://www.ess-news.com/2026/06/11/argentinas-msu-raises-400-million-green-bond-for-storage-projects"
+   ],
+   "id": "2026-06-11_GL_02",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-11",
+   "draft_id": "DRAFT24",
+   "event_fingerprint": {
+    "actor": "Zirgu; 에스토니아; 저장",
+    "asset_or_policy": "저장프로젝트",
+    "location": "GL",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-11",
+    "factual_anchor": [
+     "100mw",
+     "200mwh"
+    ],
+    "source_url_cluster": [
+     "baltictimes.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "에스토니아 발가현 치르굴리나의 Zirgu BESS 1단계(100MW/200MWh) 배터리를 LG에너지솔루션이 폴란드 공장에서 공급하기로 계약했다. 1단계 투자는 약 3500만유로로 Swedbank가 자금을 대며, 2027년 1분기말 완공이 목표다. 인버터는 스페인 Power Electronics가 공급하고, 소유 구조는 100% 에스토니아 자본이다.",
+   "fact_sources": [
+    {
+     "source_name": "The Baltic Times",
+     "source_url": "https://www.baltictimes.com/tsirguliina_battery_energy_storage_plant_in_estonia_will_be_the_first_bess_with_key_components_produced_solely_in_europe",
+     "claim": "Zirgu BESS 1단계 배터리, LG에너지솔루션 공급계약·100MW/200MWh",
+     "source_quote": "Under the agreement, the batteries for the Zirgu BESS battery energy storage plant will be supplied by South Korean technology giant LG Energy Solution ... a 100 MW / 200 MWh battery energy storage plant will be built",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "발트 지역 대형 저장 프로젝트에 한국 배터리가 공급되는 사례다. 인버터는 스페인 Power Electronics가 맡아 유럽 내 핵심 부품 조달 구조가 형성된 점도 확인된다.",
+   "implication": [
+    "발트·동유럽 대형 저장에 한국 배터리 공급이 확대되는 흐름으로 관찰된다",
+    "LG에너지솔루션 폴란드 공장발 유럽 공급 구조가 역내 조달 경쟁 측면에서 점검 대상이다",
+    "1단계 완공과 최대 200MW/800MWh 확장 전환 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "EU",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+   "source_spec_id": "SPEC24",
+   "sub": "에스토니아 치르굴리나의 Zirgu BESS 1단계(100MW/200MWh) 배터리를 LG에너지솔루션이 폴란드 공장에서 공급하기로 계약했으며, 1단계 투자는 약 3500만유로다.",
+   "sub_cat": "저장프로젝트",
+   "title": "에스토니아 Zirgu 저장 1단계, LG에너지솔루션 배터리 공급계약…100MW/200MWh",
+   "urls": [
+    "https://www.baltictimes.com/tsirguliina_battery_energy_storage_plant_in_estonia_will_be_the_first_bess_with_key_components_produced_solely_in_europe"
+   ],
+   "id": "2026-06-11_EU_05",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-08",
+   "draft_id": "DRAFT04",
+   "event_fingerprint": {
+    "actor": "GWh; Grenergy; 칠레",
+    "asset_or_policy": "대형BESS준공",
+    "location": "GL",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-08",
+    "factual_anchor": [
+     "3.5gwh",
+     "3.5gwh"
+    ],
+    "source_url_cluster": [
+     "energy-storage.news",
+     "energymonitor.ai"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "Grenergy는 6월 8일 칠레 북부 마리아엘레나의 Oasis de Atacama 태양광·저장 복합단지에서 3.5GWh 규모 배터리저장(BESS) 'Elena' 준공 기념식을 열었다. 호세 안토니오 카스트 칠레 대통령이 준공식에 참석했다. 플랜트는 624개 컨테이너와 6240개 배터리로 구성된다.",
+   "fact_sources": [
+    {
+     "source_name": "Energy-Storage.news",
+     "source_url": "https://www.energy-storage.news/chiles-president-attends-inauguration-of-3-5gwh-bess-at-grenergys-oasis-de-atacama-solar-plus-storage-complex",
+     "claim": "칠레 대통령 참석하에 Grenergy 3.5GWh BESS 준공",
+     "source_quote": "The president of Chile, Jose Antonio Kast Rist, was in attendance as IPP Grenergy inaugurated a 3.5GWh battery energy storage system (BESS)",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_name": "Energy Monitor",
+     "source_url": "https://www.energymonitor.ai/news/grenergy-inaugurates-elena-battery",
+     "claim": "북부 마리아엘레나 Elena 플랜트, 가동 저장용량 3.5GWh",
+     "source_quote": "Grenergy has inaugurated the Elena battery plant in Maria Elena, northern Chile, which has a commissioned storage capacity of 3.5GWh",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    }
+   ],
+   "gate": "신흥시장에서 기가와트시급 저장이 태양광과 결합해 본격 도입되는 신호다. 정상급 인사 참석은 칠레의 재생에너지·저장 정책 우선순위를 보여준다.",
+   "implication": [
+    "남미 신흥시장의 GWh급 태양광 결합 저장 도입이 확대되는 흐름으로 관찰된다",
+    "사막지대 태양광의 출력 변동 보완 수요가 대형 저장 투자 측면에서 점검 대상이다",
+    "단지의 추가 단계·계통 연계 진척이 다음 확인 지점으로 남는다"
+   ],
+   "region": "GL",
+   "related": [],
+   "signal": "top",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC04",
+   "sub": "독립발전사업자 Grenergy가 칠레 북부 마리아엘레나의 Oasis de Atacama 태양광·저장 단지에 3.5GWh BESS를 준공했으며 호세 안토니오 카스트 대통령이 참석했다.",
+   "sub_cat": "대형BESS준공",
+   "title": "Grenergy, 칠레 3.5GWh 배터리저장 'Elena' 준공…대통령 참석한 신흥시장 최대급",
+   "urls": [
+    "https://www.energy-storage.news/chiles-president-attends-inauguration-of-3-5gwh-bess-at-grenergys-oasis-de-atacama-solar-plus-storage-complex",
+    "https://www.energymonitor.ai/news/grenergy-inaugurates-elena-battery"
+   ],
+   "id": "2026-06-08_GL_03",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "Manufacturing",
+   "date": "2026-06-10",
+   "draft_id": "DRAFT07",
+   "event_fingerprint": {
+    "actor": "GW; 미국; 한화큐셀",
+    "asset_or_policy": "태양전지양산",
+    "location": "US",
+    "event_type": "production_start",
+    "event_date": "2026-06-10",
+    "factual_anchor": [
+     "3.3gw",
+     "3.3gw"
+    ],
+    "source_url_cluster": [
+     "pv-tech.org"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "한화큐셀은 미국 3.3GW 규모 수직통합 시설에서 태양전지 셀 생산을 개시했다고 밝혔다. 같은 시설의 모듈 조립은 이미 풀가동에 도달했으며, 전체 밸류체인을 가동 중으로 2026년 3분기 풀생산 도달을 예상한다.",
+   "fact_sources": [
+    {
+     "source_name": "PV Tech",
+     "source_url": "https://www.pv-tech.org/qcells-begins-solar-cell-production-at-3-3gw-vertically-integrated-us-facility",
+     "claim": "한화큐셀 미국 3.3GW 시설서 셀 생산 개시·모듈 조립 풀가동",
+     "source_quote": "In addition to beginning cell production, the facility's module assembly has reached full capacity, according to the company",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_url": "https://us.qcells.com/blog/qcells-begins-solar-cell-manufacturing-at-americas-first-and-only-vertically-integrated-solar-factory-in-cartersville-georgia/",
+     "source_owner": "Qcells 공식 보도자료",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "gate",
+      "fact"
+     ],
+     "source_quote": "June 9, 2026...begun manufacturing solar cells at Cartersville, Georgia",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://www.pv-magazine.com/2026/06/10/qcells-begins-production-of-solar-cells-in-cartersville-georgia/",
+     "source_owner": "pv magazine",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact"
+     ],
+     "source_quote": "now manufacturing solar cells...full production by Q3 2026, 3.3 GW",
+     "source_quote_status": "body_quote_verified"
+    }
+   ],
+   "gate": "미국이 태양광 셀 단계의 국내 제조로 공급망을 끌어올리는 흐름을 보여준다. 셀-모듈 수직통합은 관세·현지조달 요건 대응 측면에서 의미가 있다.",
+   "implication": [
+    "미국의 태양광 셀 국내 제조 확대가 진행되는 흐름으로 관찰된다",
+    "셀-모듈 수직통합이 관세·현지조달 요건 대응 측면에서 점검 대상이다",
+    "3분기 풀생산 도달 여부와 수율 안정화가 다음 확인 지점으로 남는다"
+   ],
+   "region": "US",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC07",
+   "sub": "한화큐셀이 미국 3.3GW 수직통합 시설에서 태양전지 셀 생산을 시작하고 모듈 조립을 풀가동에 올리며 미국 내 셀-모듈 일관 생산에 진입했다.",
+   "sub_cat": "태양전지양산",
+   "title": "한화큐셀, 미국 3.3GW 수직통합 시설서 태양전지 셀 양산 개시",
+   "urls": [
+    "https://www.pv-tech.org/qcells-begins-solar-cell-production-at-3-3gw-vertically-integrated-us-facility",
+    "https://us.qcells.com/blog/qcells-begins-solar-cell-manufacturing-at-americas-first-and-only-vertically-integrated-solar-factory-in-cartersville-georgia/",
+    "https://www.pv-magazine.com/2026/06/10/qcells-begins-production-of-solar-cells-in-cartersville-georgia/"
+   ],
+   "id": "2026-06-10_US_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "PowerGrid",
+   "date": "2026-06-10",
+   "draft_id": "DRAFT18",
+   "event_fingerprint": {
+    "actor": "국화투자; 장쑤; 중국",
+    "asset_or_policy": "광수소저장",
+    "location": "CN",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-10",
+    "factual_anchor": [
+     "광수소저장"
+    ],
+    "source_url_cluster": [
+     "chuneng.ofweek.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "국가에너지그룹 국화투자는 6월 10일 관영 보도를 통해 장쑤성 루둥의 광·수소·저장 일체화 프로젝트를 전면 건설완료했다고 밝혔다. 태양광 총용량 40만kW에 220kV 육상 승압소, 시간당 1500표준㎥ 제수소 설비, 전기화학 저장을 함께 구축했다. 발전·저장·제수소가 연계 운영되는 통합 체계로 중국 최대 규모의 광·수소·저장 일체화 해상태양광 실증으로 소개됐다.",
+   "fact_sources": [
+    {
+     "source_name": "OFweek (央视新闻 인용)",
+     "source_url": "https://chuneng.ofweek.com/news/2026-06/ART-180200-8120-30690409.html",
+     "claim": "국화투자 장쑤 루둥 광·수소·저장 일체화 프로젝트 전면 건설완료",
+     "source_quote": "据央视新闻6月10日消息，国家能源集团国华投资江苏如东光氢储一体化项目已全面建成 ... 项目光伏总容量为40万千瓦 ... 每小时制氢1500标准立方米",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_url": "https://jsnews.jschina.com.cn/jsyw/202606/t20260610_s6a293d7fe4b07339959bb417.shtml",
+     "source_owner": "중국 江苏网 (交汇点)",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "source_quote": "국화투자 江苏 如东 광수소저장 全面建成, 全国规模最大",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://news.voc.com.cn/news/202606/32868560.html",
+     "source_owner": "중국 华声신문",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact"
+     ],
+     "source_quote": "我国规모最大光氢储一体化项目全面建成, 光伏40万千瓦",
+     "source_quote_status": "body_quote_verified"
+    }
+   ],
+   "gate": "발전·제수소·저장을 결합한 통합형 신에너지 실증이 대규모로 완성된 사례다. 청정에너지 생산-저장-전환을 잇는 모델이라는 점에서 의미가 있다.",
+   "implication": [
+    "발전-저장-제수소 통합형 신에너지 실증이 대형화되는 흐름으로 관찰된다",
+    "그린수소 결합 모델의 경제성·운영 효율이 통합 에너지 사업 측면에서 점검 대상이다",
+    "실증 단지의 상업 운영 성과·확대 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "CN",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC18",
+   "sub": "국가에너지그룹 국화투자가 장쑤 루둥에 태양광 40만kW와 수소·저장을 결합한 중국 최대 규모 광·수소·저장 일체화 해상태양광 프로젝트를 전면 건설완료했다.",
+   "sub_cat": "광수소저장",
+   "title": "중국 국화투자, 장쑤 루둥 광·수소·저장 일체화 해상태양광 전면 건설완료…40만kW",
+   "urls": [
+    "https://chuneng.ofweek.com/news/2026-06/ART-180200-8120-30690409.html",
+    "https://jsnews.jschina.com.cn/jsyw/202606/t20260610_s6a293d7fe4b07339959bb417.shtml",
+    "https://news.voc.com.cn/news/202606/32868560.html"
+   ],
+   "id": "2026-06-10_CN_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "Policy",
+   "date": "2026-06-10",
+   "draft_id": "P-DRAFT01",
+   "event_fingerprint": {
+    "actor": "EU; 배터리; 집행위",
+    "asset_or_policy": "battery_manufacturing_funding",
+    "location": "EU",
+    "event_type": "policy_change",
+    "event_date": "2026-06-10",
+    "factual_anchor": [
+     "15억유로",
+     "15억유로"
+    ],
+    "source_url_cluster": [
+     "climate.ec.europa.eu",
+     "mlex.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "유럽집행위는 6월 9~10일 혁신기금(EU 배출권거래제 수익 재원)을 통해 최대 15억유로 무이자대출을 제공하는 '배터리 부스터' 시설을 공식 설립했다. 대상은 유럽경제지역(EEA) 내 10GWh 이상 생산능력의 EV용 배터리 셀 프로젝트로, 프로젝트당 최대 5억유로다. 3분기 공모(약 6주)를 거쳐 연내 첫 선정·지급을 목표로 한다.",
+   "fact_sources": [
+    {
+     "source_name": "European Commission (climate.ec.europa.eu)",
+     "source_url": "https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en",
+     "claim": "EC, 배터리 부스터 시설 공식 설립·혁신기금서 최대 15억유로",
+     "source_quote": "the European Commission has formally established the new Battery Booster Facility ... Mobilising up to EUR 1.5 billion from EU Emissions Trading System (ETS) revenues in the Innovation Fund",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T09:30:00",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "MLex",
+     "source_url": "https://www.mlex.com/mlex/trade/articles/2487947",
+     "claim": "프로젝트당 최대 5억유로, EEA 내 10GWh+ 생산능력 대상",
+     "source_quote": "The program will provide up to EUR 500 million per project for facilities with at least 10 gigawatt-hour of production capacity in the European Economic Area",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "gate"
+     ],
+     "fetched_at": "2026-06-13T09:30:00",
+     "fetch_method": "web_search"
+    }
+   ],
+   "gate": "유럽이 역내 배터리 셀 제조 자립을 직접 보조 방식으로 끌어올리는 정책 전환이다. 보조금이 아닌 무이자대출 선택은 상업성 조기 달성과 민간투자 유인을 겨냥한다.",
+   "implication": [
+    "유럽의 배터리 셀 제조 자립을 위한 직접 자금지원이 본격화되는 흐름으로 관찰된다",
+    "무이자대출 구조가 역내 셀 제조사 투자결정·가동률 측면에서 점검 대상이다",
+    "3분기 공모 선정 기업과 실제 집행 규모가 다음 확인 지점으로 남는다"
+   ],
+   "region": "EU",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "P-SPEC01",
+   "sub": "유럽집행위가 EEA 내 10GWh 이상 EV 배터리 셀 생산을 지원하는 15억유로 무이자대출 시설(프로젝트당 최대 5억유로)을 공식 설립했다.",
+   "sub_cat": "battery_manufacturing_funding",
+   "title": "EU집행위, 배터리 셀 생산 지원 '배터리 부스터' 15억유로 무이자대출 시설 공식 출범",
+   "urls": [
+    "https://climate.ec.europa.eu/news-other-reads/news/new-battery-booster-set-inject-eu15-billion-european-battery-industry-2026-06-09_en",
+    "https://www.mlex.com/mlex/trade/articles/2487947"
+   ],
+   "id": "2026-06-10_EU_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "promotion"
+   }
+  },
+  {
+   "cat": "Charging",
+   "date": "2026-06-10",
+   "draft_id": "DRAFT13",
+   "event_fingerprint": {
+    "actor": "BYD; Flash; 충전",
+    "asset_or_policy": "급속충전확장",
+    "location": "GL",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-10",
+    "factual_anchor": [
+     "급속충전확장"
+    ],
+    "source_url_cluster": [
+     "electrek.co",
+     "insideevs.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "BYD는 5분대 초급속 'Flash' 충전을 유럽에 확대하는 동시에 캐나다 시장 진출을 추진한다. 캐나다는 1월 중국산 EV 관세를 쿼터제하에 100%에서 6.1%로 인하했고, BYD는 이후 토론토를 시작으로 20개 딜러십 설치를 확정했다. BYD는 영하 20도에서도 10%에서 70%까지 약 5분 충전이 가능하다고 주장한다.",
+   "fact_sources": [
+    {
+     "source_name": "Electrek",
+     "source_url": "https://electrek.co/2026/06/10/byd-flash-charging-canada-5-minute-ev-charging-network",
+     "claim": "캐나다 관세 100%->6.1% 인하, BYD 토론토 시작 20개 딜러십 확정",
+     "source_quote": "Canada slashed its tariff on Chinese EVs from 100% to 6.1% in January under a quota system, and BYD has since confirmed plans for 20 Canadian dealerships, starting in Toronto",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_url": "https://www.carscoops.com/2026/06/byd-canada-charging-network/",
+     "source_owner": "Carscoops",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact"
+     ],
+     "source_quote": "BYD laying groundwork for Flash Charging network in Canada",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://www.globalchinaev.com/post/byds-new-posting-in-canada-hints-at-megawatt-flash-charging-network-ambitions",
+     "source_owner": "GlobalChinaEV",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "source_quote": "megawatt flash charging network to Canada, a first for North America",
+     "source_quote_status": "body_quote_verified"
+    }
+   ],
+   "gate": "중국 EV·충전 기술의 북미·유럽 동시 확장 흐름을 보여준다. 한랭 환경 급속충전 성능은 EV 보급의 핵심 장벽 해소와 직결된다.",
+   "implication": [
+    "중국 EV·충전 기술의 유럽·북미 동시 확장이 진행되는 흐름으로 관찰된다",
+    "관세 정책 변화가 중국 OEM의 시장 진입 속도 측면에서 점검 대상이다",
+    "딜러십 확정의 실제 개소·충전망 구축 진척이 다음 확인 지점으로 남는다"
+   ],
+   "region": "GL",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC13",
+   "sub": "BYD가 5분대 초급속 'Flash' 충전을 유럽에 확대하는 한편, 관세 인하를 계기로 토론토를 시작으로 20개 딜러십을 확정하며 캐나다 시장에 진입한다.",
+   "sub_cat": "급속충전확장",
+   "title": "BYD, 5분 'Flash' 충전 유럽 확대 이어 캐나다 진출…토론토 시작 20개 딜러십",
+   "urls": [
+    "https://electrek.co/2026/06/10/byd-flash-charging-canada-5-minute-ev-charging-network",
+    "https://www.carscoops.com/2026/06/byd-canada-charging-network/",
+    "https://www.globalchinaev.com/post/byds-new-posting-in-canada-hints-at-megawatt-flash-charging-network-ambitions"
+   ],
+   "id": "2026-06-10_GL_02",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-10",
+   "draft_id": "P-DRAFT06",
+   "event_fingerprint": {
+    "actor": "CALB; Kitahama; 일본",
+    "asset_or_policy": "overseas_storage_order",
+    "location": "CN",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-10",
+    "factual_anchor": [
+     "220mwh",
+     "220mwh"
+    ],
+    "source_url_cluster": [
+     "energytrend.com",
+     "escn.com.cn"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "중국 CALB는 6월 10일 일본 Kitahama GRF와 220MWh 규모 저장시스템 구매계약을 정식 체결했다고 밝혔다. 양사는 일본 그리드측 저장, 신에너지 연계 저장, 데이터센터 전원 보장 등 핵심 영역에 집중해 일본 고급 저장시장을 공략한다. CALB는 앞서 3월에도 일본 저장 개발사와 380MWh 규모 계약을 체결한 바 있다.",
+   "fact_sources": [
+    {
+     "source_name": "EnergyTrend",
+     "source_url": "https://www.energytrend.com/news/20260611-51585.html",
+     "claim": "6월 10일 CALB, 일본 Kitahama GRF와 220MWh 저장시스템 구매계약 체결",
+     "source_quote": "On June 10, CALB announced that it had recently entered into a formal energy storage system procurement agreement with Kitahama GRF Co., Ltd. of Japan, covering a capacity of 220 MWh",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T10:00:00",
+     "fetch_method": "web_search"
+    }
+   ],
+   "gate": "중국 대형 배터리사가 일본 고급 저장시장에 직접 공급계약으로 진입하는 사례다. 그리드측·데이터센터 전원 등 핵심 영역을 겨냥한 점이 확인된다.",
+   "implication": [
+    "중국 배터리사의 일본 그리드·데이터센터 저장시장 진입이 이어지는 흐름으로 관찰된다",
+    "그리드측·데이터센터 전원용 저장 수요가 공급계약 측면에서 점검 대상이다",
+    "계약 이후 실제 납품·가동과 추가 일본 수주가 다음 확인 지점으로 남는다"
+   ],
+   "region": "CN",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+   "source_spec_id": "R-SPEC01",
+   "sub": "중국 CALB가 6월 10일 일본 Kitahama GRF와 220MWh 규모 저장시스템 구매계약을 체결하고 일본 그리드측·신에너지 연계·데이터센터 전원 시장을 겨냥했다.",
+   "sub_cat": "overseas_storage_order",
+   "title": "CALB, 일본 Kitahama GRF와 220MWh 저장시스템 구매계약 체결",
+   "urls": [
+    "https://www.energytrend.com/news/20260611-51585.html"
+   ],
+   "id": "2026-06-10_CN_02",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+    "track_origin": "rescue"
+   }
+  },
+  {
+   "cat": "Charging",
+   "date": "2026-06-10",
+   "draft_id": "DRAFT19",
+   "event_fingerprint": {
+    "actor": "Milence; 대형트럭; 덴마크",
+    "asset_or_policy": "HGV충전허브",
+    "location": "EU",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-10",
+    "factual_anchor": [
+     "400kw",
+     "400kw"
+    ],
+    "source_url_cluster": [
+     "electrive.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "Milence는 6월 10일 덴마크-독일 국경 파드보르에 덴마크 첫 대형트럭(HGV) 충전 허브를 개소했다. 초기에는 최대 400kW급 CCS 충전기 4기를 제공하며, 스칸디나비아와 중부유럽을 잇는 전기 화물 운송 거점 역할을 한다.",
+   "fact_sources": [
+    {
+     "source_name": "Electrive",
+     "source_url": "https://www.electrive.com/2026/06/10/milence-opens-first-hgv-charging-hub-in-denmark",
+     "claim": "Milence, 덴마크-독일 국경 파드보르에 4기 400kW CCS 충전 허브 개소",
+     "source_quote": "The new location in Padborg on the Danish-German border initially offers four CCS charging points with up to 400 kW and now provides a hub for electric freight transport between Scandinavia and Central Europe",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_url": "https://www.sustainabletruckvan.com/milence-opens-new-charging-hub-in-padborg-denmark/",
+     "source_owner": "Sustainable Truck&Van (Milence CEO 인용)",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "source_quote": "first charging hub in Denmark...four CCS chargers...up to 400 kW",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://www.mobilityenergy.com/en/news/2026/06/10/milence-opens-first-charging-hub-in-denmark-important-milestone/",
+     "source_owner": "MobilityEnergy",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact"
+     ],
+     "source_quote": "opened its first loading hub in Denmark on Wednesday",
+     "source_quote_status": "body_quote_verified"
+    }
+   ],
+   "gate": "유럽 상용 전기트럭 충전 인프라가 국경 물류 거점으로 확장되는 사례다. 스칸디나비아와 중부유럽을 잇는 화물 경로상 입지라는 점에서 의미가 있다.",
+   "implication": [
+    "유럽 상용 전기트럭 충전 인프라가 국경 물류 거점으로 확대되는 흐름으로 관찰된다",
+    "충전 허브 입지가 장거리 화물 전동화 속도 측면에서 점검 대상이다",
+    "허브의 충전기 증설·이용률 추이가 다음 확인 지점으로 남는다"
+   ],
+   "region": "EU",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC19",
+   "sub": "Milence가 덴마크-독일 국경 파드보르에 최대 400kW CCS 충전기 4기를 갖춘 덴마크 첫 대형트럭(HGV) 충전 허브를 열어 스칸디나비아-중부유럽 화물 운송을 연결한다.",
+   "sub_cat": "HGV충전허브",
+   "title": "Milence, 덴마크 첫 대형트럭 충전 허브 개소…파드보르 4기·400kW",
+   "urls": [
+    "https://www.electrive.com/2026/06/10/milence-opens-first-hgv-charging-hub-in-denmark",
+    "https://www.sustainabletruckvan.com/milence-opens-new-charging-hub-in-padborg-denmark/",
+    "https://www.mobilityenergy.com/en/news/2026/06/10/milence-opens-first-charging-hub-in-denmark-important-milestone/"
+   ],
+   "id": "2026-06-10_EU_02",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "Charging",
+   "date": "2026-06-10",
+   "draft_id": "P-DRAFT04",
+   "event_fingerprint": {
+    "actor": "Paua; 전기; 틸버리항",
+    "asset_or_policy": "ehgv_charging_hub",
+    "location": "EU",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-10",
+    "factual_anchor": [
+     "360kw",
+     "360kw"
+    ],
+    "source_url_cluster": [
+     "electrive.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "EV 결제 플랫폼 Paua는 Fleete가 틸버리항에 새로 구축한 전기 대형트럭(eHGV) 충전허브를 자사 네트워크에 통합했다. 허브는 전용 16베이와 최대 360kW 초급속 충전을 제공하며, 런던을 잇는 핵심 물류 관문에 입지한다.",
+   "fact_sources": [
+    {
+     "source_name": "Electrive",
+     "source_url": "https://www.electrive.com/2026/06/10/paua-tilbury-ehgv/",
+     "claim": "Paua, 틸버리항 Fleete eHGV 충전허브 통합·16베이·최대 360kW",
+     "source_quote": "Paua has integrated Fleete's new electric HGV charging hub at the Port of Tilbury into its network ... 16 dedicated HGV bays and ultra-rapid charging up to 360kW",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T09:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_url": "https://www.smmt.co.uk/paua-opens-tilbury-truck-charging-hub-for-uk-fleets/",
+     "source_owner": "SMMT (Paua CEO Niall Riddell 인용)",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "source_quote": "16 dedicated HGV charging bays with up to 360kW...5MW grid connection",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://www.fleetnews.co.uk/news/tilbury-hgv-charging-hub-added-to-paua-network",
+     "source_owner": "Fleet News",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact"
+     ],
+     "source_quote": "16 dedicated HGV charging bays...up to 360kW...24-hour access",
+     "source_quote_status": "body_quote_verified"
+    }
+   ],
+   "gate": "유럽 상용 전기트럭 충전 인프라가 핵심 항만 물류 거점으로 확장되는 사례다. 결제 플랫폼이 충전허브를 네트워크에 편입하는 방식으로 운영 접근성이 확대된 점도 확인된다.",
+   "implication": [
+    "유럽 상용 전기트럭 충전 인프라가 항만 물류 거점으로 확장되는 흐름으로 관찰된다",
+    "결제 플랫폼-충전허브 연계 모델이 충전망 접근성 측면에서 점검 대상이다",
+    "허브 이용률과 추가 베이·거점 확장이 다음 확인 지점으로 남는다"
+   ],
+   "region": "EU",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "P-SPEC04",
+   "sub": "EV 결제 플랫폼 Paua가 Fleete의 틸버리항 전기 대형트럭(eHGV) 충전허브(전용 16베이·최대 360kW 초급속)를 자사 네트워크에 통합해 런던 관문 물류에 충전 접근을 제공한다.",
+   "sub_cat": "ehgv_charging_hub",
+   "title": "Paua, 틸버리항 전기 대형트럭 충전허브 통합…16베이·최대 360kW",
+   "urls": [
+    "https://www.electrive.com/2026/06/10/paua-tilbury-ehgv/",
+    "https://www.smmt.co.uk/paua-opens-tilbury-truck-charging-hub-for-uk-fleets/",
+    "https://www.fleetnews.co.uk/news/tilbury-hgv-charging-hub-added-to-paua-network"
+   ],
+   "id": "2026-06-10_EU_03",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "promotion"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-10",
+   "draft_id": "P-DRAFT02",
+   "event_fingerprint": {
+    "actor": "Gamuda; 빅토리아; 호주",
+    "asset_or_policy": "solar_storage_acquisition",
+    "location": "GL",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-10",
+    "factual_anchor": [
+     "450mw",
+     "1.8gwh"
+    ],
+    "source_url_cluster": [
+     "pv-magazine-australia.com",
+     "energy-storage.news"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "말레이시아 Gamuda Berhad의 자회사 Gamuda Renewables는 6월 10일 빅토리아주 라트로브밸리의 450MW/1,800MWh(4시간) 태양광+저장 프로젝트 Hazelwood North 지분을 개발사 Manthos Investments로부터 인수했다고 밝혔다. 첫 빅토리아 자산이자 호주 전력시장(NEM) 세 번째 자산으로, 거래는 외국인투자심의위(FIRB) 승인을 전제로 한다. 착공 2028년·상업가동 2030년 목표(최종투자결정 전제)다.",
+   "fact_sources": [
+    {
+     "source_name": "pv magazine Australia",
+     "source_url": "https://www.pv-magazine-australia.com/2026/06/10/malaysian-giant-acquires-450-mw-solar-1-8-gwh-battery-approved-for-victoria/",
+     "claim": "Gamuda, Hazelwood North 450MW/1,800MWh 태양광+저장 지분 인수",
+     "source_quote": "Gamuda Renewables announced it has acquired an interest in the Hazelwood North solar farm and battery energy storage project ... 450 MW / 1,800 MWh battery energy storage system",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T09:30:00",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "Energy-Storage.news",
+     "source_url": "https://www.energy-storage.news/gamuda-renewables-acquires-interest-in-1-8gwh-solar-plus-storage-site-in-victoria-australia/",
+     "claim": "Manthos Investments로부터 인수, FIRB 승인 전제",
+     "source_quote": "secured an interest in the 1,800MWh Hazelwood North solar-plus-storage project from Latrobe Valley-based developer Manthos Investments ... subject to approval from the Foreign Investment Review Board",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "gate"
+     ],
+     "fetched_at": "2026-06-13T09:30:00",
+     "fetch_method": "web_search"
+    }
+   ],
+   "gate": "신흥 인프라 사업자가 호주 대형 태양광+저장 자산에 M&A로 진입하는 사례다. 폐탄광 부지의 잔여 계통 용량을 활용하고 데이터센터 병설을 검토하는 점도 확인된다.",
+   "implication": [
+    "호주 태양광+저장 자산의 M&A 거래가 활발해지는 흐름으로 관찰된다",
+    "폐탄광 부지 계통용량 활용·데이터센터 병설 모델이 사업성 측면에서 점검 대상이다",
+    "FIRB 승인과 최종투자결정 시점이 다음 확인 지점으로 남는다"
+   ],
+   "region": "GL",
+   "related": [],
+   "signal": "mid",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "P-SPEC02",
+   "sub": "말레이시아 Gamuda Renewables가 빅토리아주 450MW 태양광·4시간 1,800MWh 저장 프로젝트 Hazelwood North 지분을 인수하며 빅토리아 전력시장에 진입했다(FIRB 승인 대기).",
+   "sub_cat": "solar_storage_acquisition",
+   "title": "Gamuda, 호주 빅토리아 450MW/1.8GWh 태양광+저장 'Hazelwood North' 지분 인수",
+   "urls": [
+    "https://www.pv-magazine-australia.com/2026/06/10/malaysian-giant-acquires-450-mw-solar-1-8-gwh-battery-approved-for-victoria/",
+    "https://www.energy-storage.news/gamuda-renewables-acquires-interest-in-1-8gwh-solar-plus-storage-site-in-victoria-australia/"
+   ],
+   "id": "2026-06-10_GL_03",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "promotion"
+   }
+  },
+  {
+   "cat": "ESS",
+   "date": "2026-06-09",
+   "draft_id": "DRAFT01",
+   "event_fingerprint": {
+    "actor": "EDP; SRP; 애리조나",
+    "asset_or_policy": "대형BESS가동",
+    "location": "US",
+    "event_type": "plant_construction",
+    "event_date": "2026-06-09",
+    "factual_anchor": [
+     "200mw",
+     "800mwh"
+    ],
+    "source_url_cluster": [
+     "edp.com",
+     "bestmag.co.uk",
+     "pv-magazine-usa.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "EDP Renewables North America와 SRP는 6월 9일 애리조나 쿨리지(피널 카운티)에 200MW/800MWh 배터리저장(BESS) '플랫랜드'를 완공했다고 밝혔다. 4시간 방전 규모로 약 4만4500가구 전력 공급에 해당하며, EDP 그룹 글로벌 포트폴리오 중 최대 저장 자산이다. 테슬라가 미국에서 제조한 리튬이온 기술이 적용됐고 사업은 2024년 말 발표됐다.",
+   "fact_sources": [
+    {
+     "source_name": "EDP Renewables / SRP (official release)",
+     "source_url": "https://edp.com/en/media/edp-and-srp-celebrate-completion-800-mwh-flatland-energy-storage-united-states",
+     "claim": "EDPR·SRP가 애리조나 쿨리지에 200MW/800MWh Flatland BESS 완공",
+     "source_quote": "today celebrated the completion of Flatland Energy Storage, a 200 megawatt (MW) / 800 megawatt-hour (MWh) battery energy storage system (BESS) in Coolidge, Arizona",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "Best Magazine (pv coverage)",
+     "source_url": "https://www.bestmag.co.uk/edp-800mwh-arizona-bess-srp/",
+     "claim": "4시간 규모·EDP 그룹 최대·테슬라 미국 제조 기술",
+     "source_quote": "The four-hour-duration Flatland Energy Storage facility ... marking the largest battery project in the EDP Group's global portfolio ... uses US-manufactured Tesla lithium-ion battery technology",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "gate"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "web_search"
+    }
+   ],
+   "gate": "피크 수요 대응용 유틸리티급 저장이 미국에서 빠르게 확대되는 흐름을 보여준다. 테슬라의 미국산 리튬이온 기술이 적용돼 현지 제조 공급망과의 연계도 확인된다.",
+   "implication": [
+    "미국 유틸리티의 피크 대응용 대형 저장 도입이 이어지는 흐름으로 관찰된다",
+    "테슬라 미국산 리튬이온 기반과의 연계가 현지 제조 공급망 측면에서 점검 대상이다",
+    "후속 단계·추가 계약 여부가 다음 확인 지점으로 남는다"
+   ],
+   "region": "US",
+   "related": [],
+   "signal": "top",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC01",
+   "sub": "EDP Renewables와 애리조나 공익기업 SRP가 쿨리지에 4시간 규모 200MW/800MWh BESS를 완공해 EDP 그룹 글로벌 포트폴리오 최대 저장 자산을 가동했다.",
+   "sub_cat": "대형BESS가동",
+   "title": "EDP·SRP, 애리조나 200MW/800MWh '플랫랜드' 배터리저장 완공…EDP 그룹 최대 자산",
+   "urls": [
+    "https://edp.com/en/media/edp-and-srp-celebrate-completion-800-mwh-flatland-energy-storage-united-states",
+    "https://www.bestmag.co.uk/edp-800mwh-arizona-bess-srp/",
+    "https://pv-magazine-usa.com/2026/06/11/edpr-srp-commission-200-mw-800-mwh-flatland-battery-storage-project-in-arizona",
+    "https://www.ess-news.com/2026/06/11/flatland-800-mwh-bess-goes-online-in-arizona-as-waymo-launches-ev-reuse-deal"
+   ],
+   "id": "2026-06-09_US_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
+  {
+   "cat": "SupplyChain",
+   "date": "2026-06-09",
+   "draft_id": "DRAFT20",
+   "event_fingerprint": {
+    "actor": "국방부; 미국; 중국",
+    "asset_or_policy": "대중_저장무역제재",
+    "location": "US",
+    "event_type": "trade_action",
+    "event_date": "2026-06-09",
+    "factual_anchor": [
+     "대중_저장무역제재"
+    ],
+    "source_url_cluster": [
+     "pv-magazine.com",
+     "automotiveworld.com",
+     "pv-magazine-usa.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "미국 국방부는 6월 9일 스티븐 스타인버그 부장관 명의로 '중국 군사기업'(1260H) 목록을 갱신해 CATL·BYD·트리나솔라·EVE에너지·싼샤·화웨이·JA솔라 등을 포함시켰다. 국방부의 직접 계약 금지는 6월 30일부터, 제3자 경유 간접 조달 금지는 2027년부터 적용된다. 이 목록은 제재를 부과하거나 투자자 거래를 제한하거나 미국 내 상업활동을 막는 것은 아니다.",
+   "fact_sources": [
+    {
+     "source_name": "pv magazine",
+     "source_url": "https://www.pv-magazine.com/2026/06/10/us-government-restricts-trade-with-prominent-chinese-storage-companies/",
+     "claim": "DoD 6/9 1260H 목록 갱신, CATL·BYD·Trina·EVE·Three Gorges·Huawei 등 등재",
+     "source_quote": "The list, updated on June 9 by US Deputy Secretary of Defense Stephen A. Steinberg, includes well-known Chinese solar and energy storage companies such as CATL, Three Gorges, EVE Energy, Huawei, BYD, JA Solar, and Trina Solar",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "Automotive World",
+     "source_url": "https://www.automotiveworld.com/news/us-dod-adds-byd-nio-and-catl-to-chinese-army-blacklist/",
+     "claim": "직접계약 금지 6월말·간접 2027, 제재·투자제한·상업활동 금지는 아님",
+     "source_quote": "The DoD is prohibited from directly contracting with listed companies from later this month, and from purchasing their products or services via third parties from 2027. The list does not impose sanctions, restrict investor trading, or bar the companies from operating commercially in the US",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "gate",
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "web_search"
+    }
+   ],
+   "gate": "미국 정부의 대중 배터리·태양광 디커플링 압박이 제도화되는 흐름을 보여준다. 다만 이번 조치는 제재나 투자 제한이 아니라 국방부 조달 제한이라는 점을 구분할 필요가 있다.",
+   "implication": [
+    "미국 정부의 대중 배터리·태양광 조달 차단이 제도화되는 흐름으로 관찰된다",
+    "민간 거래가 아닌 국방부 조달 한정이라는 적용 범위가 실제 영향 측면에서 점검 대상이다",
+    "지정 기업의 이의신청·공급망 우회 대응이 다음 확인 지점으로 남는다"
+   ],
+   "region": "US",
+   "related": [],
+   "signal": "top",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC20",
+   "sub": "미국 국방부가 6월 9일 '중국 군사기업' 1260H 목록을 갱신해 CATL·BYD·Trina·EVE·Three Gorges·화웨이 등을 포함시켰으며, 국방부의 직접 계약이 6월 말부터 금지된다.",
+   "sub_cat": "대중_저장무역제재",
+   "title": "미국 국방부, '중국 군사기업' 1260H 목록 갱신…CATL·BYD·Trina 등 추가, 제재는 아냐",
+   "urls": [
+    "https://www.pv-magazine.com/2026/06/10/us-government-restricts-trade-with-prominent-chinese-storage-companies/",
+    "https://www.automotiveworld.com/news/us-dod-adds-byd-nio-and-catl-to-chinese-army-blacklist/",
+    "https://pv-magazine-usa.com/2026/06/10/u-s-government-restricts-trade-with-prominent-chinese-storage-companies"
+   ],
+   "id": "2026-06-09_US_02",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
+  },
   {
    "id": "2026-06-08_GL_01",
    "region": "GL",
@@ -338,6 +3104,108 @@
    "id_assignment_basis": "(date,region) 그룹 내 기존 카드 없음 — NN=01, CARD_ID_STANDARD signal 우선 규칙",
    "source_diversity_status": "PASS_MULTI_SOURCE",
    "source_strength_review_0_5R": "clean_pass_no_0_5R"
+  },
+  {
+   "cat": "Battery",
+   "date": "2026-06-05",
+   "draft_id": "P-DRAFT07",
+   "event_fingerprint": {
+    "actor": "SDI; VW; 삼성",
+    "asset_or_policy": "vw_unified_cell_supply",
+    "location": "KR",
+    "event_type": "contract",
+    "event_date": "2026-06-05",
+    "factual_anchor": [
+     "vw_unified_cell_supply"
+    ],
+    "source_url_cluster": [
+     "thelec.net",
+     "electrive.com"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "업계 매체 보도에 따르면 삼성SDI는 VW그룹 표준 '통일셀(Unified Cell)' 공급사로 합류해 PowerCo·궈쉬안(Gotion)에 이은 3번째 공급사가 된다. 헝가리 괴드 1공장의 상단단자 라인 2개를 측면단자 방식으로 개조 중이며(1개 라인 현지 설치, 1개 한국 준비), 양산은 2027년, 용량은 수만 GWh(double-digit GWh) 규모로 추정된다. VW는 아직 공식 확인하지 않았다.",
+   "fact_sources": [
+    {
+     "source_name": "The Elec",
+     "source_url": "https://www.thelec.net/news/articleView.html?idxno=11004",
+     "claim": "삼성SDI, VW 통일셀 공급사 합류 — PowerCo·Gotion 이은 3번째, 헝가리 2개 라인 개조",
+     "source_quote": "Samsung SDI is converting two production lines at its Hungary [plant]...expected to become the third supplier of the battery after China's Gotion High-Tech and Volkswagen battery subsidiary PowerCo",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T10:00:00",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "Electrive",
+     "source_url": "https://www.electrive.com/2026/06/04/samsung-sdi-reportedly-to-supply-battery-cells-to-volkswagen/",
+     "claim": "양산 2027년 추진·추정 용량 수만 GWh(double-digit), VW 미공식 확인",
+     "source_quote": "Series production is reportedly set to begin as early as 2027, with estimated production capacity in the double-digit gigawatt-hour (GWh) range",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "sub",
+      "fact",
+      "gate"
+     ],
+     "fetched_at": "2026-06-13T10:00:00",
+     "fetch_method": "web_search"
+    }
+   ],
+   "gate": "한국 배터리사가 VW 볼륨 브랜드향 표준셀 공급으로 유럽 입지를 프리미엄에서 대중차급으로 넓히는 사례다. 다만 VW 공식 확인 전 보도 단계이며 용량은 미확정 추정치다.",
+   "implication": [
+    "EU 역내 셀 조달 선호 속 한국 배터리사의 VW 볼륨 브랜드 공급 확대가 관찰된다",
+    "괴드 공장의 측면단자 라인 개조·양산 시점이 공급능력 측면에서 점검 대상이다",
+    "VW 공식 확인과 최종 용량·계약 규모가 다음 확인 지점으로 남는다"
+   ],
+   "region": "KR",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "R-SPEC02",
+   "sub": "삼성SDI가 VW 표준 '통일셀(Unified Cell)' 공급사로 합류해 헝가리 괴드 1공장 2개 라인을 개조 중이며 2027년 양산·추정 수만 GWh 규모로 전해졌다(VW 미공식 확인).",
+   "sub_cat": "vw_unified_cell_supply",
+   "title": "삼성SDI, VW '통일셀' 공급 보도…헝가리 괴드 3번째 공급사·2027년 양산 추진",
+   "urls": [
+    "https://www.thelec.net/news/articleView.html?idxno=11004",
+    "https://www.electrive.com/2026/06/04/samsung-sdi-reportedly-to-supply-battery-cells-to-volkswagen/"
+   ],
+   "id": "2026-06-05_KR_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "rescue"
+   }
   },
   {
    "id": "2026-06-05_GL_01",
@@ -773,6 +3641,115 @@
    "id_assignment_basis": "(date,region) 그룹 내 기존 카드 없음 — NN=01, CARD_ID_STANDARD signal 우선 규칙",
    "source_diversity_status": "PASS_MULTI_SOURCE",
    "source_strength_review_0_5R": "clean_pass_no_0_5R"
+  },
+  {
+   "cat": "Policy",
+   "date": "2026-06-02",
+   "draft_id": "DRAFT23",
+   "event_fingerprint": {
+    "actor": "관민협의회; 일본; 축전지",
+    "asset_or_policy": "축전지전략",
+    "location": "JP",
+    "event_type": "policy_change",
+    "event_date": "2026-06-02",
+    "factual_anchor": [
+     "150gwh"
+    ],
+    "source_url_cluster": [
+     "itmedia.co.jp"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "일본 축전지산업전략검토 관민협의회는 2026년 6월 새 '축전지·전원 산업전략'을 책정했다. 리튬이온전지(LIB) 세계시장은 2025년 23조엔에서 2035년 46조엔(약 2배), 2040년 55조엔으로 성장할 것으로 추산했다. 2022년 전략은 늦어도 2030년까지 축전지·소재 국내 제조기반 150GWh/년 확립을 목표로 제시한 바 있다.",
+   "fact_sources": [
+    {
+     "source_name": "ITmedia Smart Japan",
+     "source_url": "https://www.itmedia.co.jp/smartjapan/articles/2606/12/news019.html",
+     "claim": "일본 관민협의회, 새 '축전지·전원 산업전략' 책정·LIB 세계시장 2025년 23조엔->2035년 46조엔",
+     "source_quote": "「蓄電池産業戦略検討官民協議会」は新たな「蓄電池・電源産業戦略」を策定した ... リチウムイオン電池（LIB）の世界市場は、2025年の23兆円から、35年に46兆円（約2倍）",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_url": "https://www.meti.go.jp/press/2026/06/20260602001/20260602001.html",
+     "source_owner": "경제산업성(METI) 공식",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "gate",
+      "fact"
+     ],
+     "source_quote": "「蓄電池産業戦略」を「蓄電池・電源産業戦略」に改訂 (2026.6.2 공식)",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://www.nikkei.com/article/DGXZQOUA01ADD0R00C26A6000000/",
+     "source_owner": "日本経済新聞",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact"
+     ],
+     "source_quote": "蓄電池 売上高 2035年に3倍 約5兆円へ 경산성 戦略改定",
+     "source_quote_status": "body_quote_verified"
+    }
+   ],
+   "gate": "일본이 국가 차원에서 축전지 산업 경쟁력 회복 전략을 갱신한 사례다. 2022년 전략의 국내 제조기반 150GWh/년 목표를 잇는 후속 전략이라는 점에서 의미가 있다.",
+   "implication": [
+    "주요국의 국가 주도 축전지 산업전략 강화가 이어지는 흐름으로 관찰된다",
+    "일본의 국내 제조기반 150GWh/년 목표가 글로벌 배터리 공급망 경쟁 측면에서 점검 대상이다",
+    "전략의 구체 지원책·기업 투자 연계 진척이 다음 확인 지점으로 남는다"
+   ],
+   "region": "JP",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC23",
+   "sub": "일본 축전지산업전략검토 관민협의회가 2026년 6월 새 '축전지·전원 산업전략'을 책정했으며, LIB 세계시장을 2025년 23조엔에서 2035년 46조엔으로 전망했다.",
+   "sub_cat": "축전지전략",
+   "title": "일본 관민협의회, 새 '축전지·전원 산업전략' 책정…LIB 세계시장 2035년 46조엔 전망",
+   "urls": [
+    "https://www.itmedia.co.jp/smartjapan/articles/2606/12/news019.html",
+    "https://www.meti.go.jp/press/2026/06/20260602001/20260602001.html",
+    "https://www.nikkei.com/article/DGXZQOUA01ADD0R00C26A6000000/"
+   ],
+   "id": "2026-06-02_JP_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
   },
   {
    "id": "2026-05-30_GL_01",

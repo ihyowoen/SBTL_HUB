@@ -1,6 +1,6 @@
 {
  "updated": "2026-06-12T13:07:51+09:00",
- "total": 810,
+ "total": 825,
  "schema": "cards_v1",
  "sort": "date_desc",
  "cards": [
@@ -775,6 +775,58 @@
    "source_strength_review_0_5R": "clean_pass_no_0_5R"
   },
   {
+   "id": "2026-05-30_GL_01",
+   "region": "GL",
+   "date": "2026-05-30",
+   "cat": "ESS",
+   "sub_cat": "액화공기저장",
+   "signal": "mid",
+   "title": "로인텍, 영국 50MW/300MWh 액화공기 저장(LAES) 시스템 공급",
+   "sub": "Highview의 영국 최대 LAES 플랜트용 열시스템 설계·제작·공급을 맡았으며, 장비는 수 주 내 납품되고 2027년 상업운전 예정이다.",
+   "gate": "리튬이온 외 장주기 저장 기술의 상용 프로젝트에 핵심 부품을 공급하는 사례로, LAES 사업화 진전을 보여준다. 영국 최대 규모·6시간 지속이라는 점이 장주기 저장 수요의 근거다. 다만 로인텍의 역할은 열시스템 공급에 한정되며 플랜트는 건설 단계다.",
+   "fact": "바스크 엔지니어링 기업 로인텍은 Highview의 영국 LAES 플랜트(300MWh/50MW, 최대 6시간)용 열시스템 설계·제작·공급을 맡았고, 스페인 TSK와 협력했다. 장비는 수 주 내 납품되며 상업운전은 2027년, 설계수명은 50년을 넘는 것으로 제시됐다.",
+   "implication": [
+    "LAES 등 비리튬 장주기 저장의 상용 프로젝트가 부품 공급망을 형성하는 흐름이 관찰된다",
+    "영국 LDES 지원제도(cap and floor)와 300MWh·6시간 규격의 정합성이 변수가 될 수 있다",
+    "장비 납품 후 플랜트 건설·2027 상업운전 일정의 이행이 점검 대상이다"
+   ],
+   "urls": [
+    "https://www.lointek.com/en/uks-largest-liquid-air-long-term-energy-storage-plant-born-with-lointek-support/",
+    "https://www.pv-magazine.com/2026/05/30/lointek-suministra-un-sistema-de-almacenamiento-de-aire-liquido-de-50-mw-300-mwh-en-uk/"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "Lointek",
+     "source_url": "https://www.lointek.com/en/uks-largest-liquid-air-long-term-energy-storage-plant-born-with-lointek-support/",
+     "claim": "로인텍이 Highview의 영국 LAES 플랜트(300MWh/50MW, 6시간)용 열시스템 설계·제작·공급을 맡았으며 장비는 수 주 내 납품된다",
+     "source_quote": "The Highview plant will have a storage capacity of 300 MWh and a capacity of 50 MW, enabling it to supply energy for up to six hours; the equipment designed and manufactured by the company will be delivered in the coming weeks.",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "pv magazine",
+     "source_url": "https://www.pv-magazine.com/2026/05/30/lointek-suministra-un-sistema-de-almacenamiento-de-aire-liquido-de-50-mw-300-mwh-en-uk/",
+     "claim": "스페인 TSK와 협력한 영국 최대 LAES 시설로 상업운전은 2027년 예정이며 설계수명은 50년을 넘는다",
+     "source_quote": "The project, developed in partnership with Spanish engineering company TSK, is considered the largest facility of its kind in the UK; commercial operation is scheduled for 2027, with a design lifetime exceeding 50 years.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
    "id": "2026-05-29_GL_02",
    "region": "GL",
    "date": "2026-05-29",
@@ -1363,6 +1415,358 @@
    }
   },
   {
+   "id": "2026-05-29_KR_01",
+   "region": "KR",
+   "date": "2026-05-29",
+   "cat": "Charging",
+   "sub_cat": "충전기인증",
+   "signal": "mid",
+   "title": "롯데이노베이트 EVSIS, 업계 최초 지능정보 제품검증 취득…공공기관 우선구매 대상",
+   "sub": "급속충전기로 디지털포용법 기반 우선구매대상 지능정보 제품검증 1등급을 EV 충전 업계 최초로 취득해 공공조달 우선구매 자격을 확보했다.",
+   "gate": "제품 인증을 넘어 국가·공공기관 우선구매 자격이라는 조달 지위 변화를 동반한다는 점에서 의미가 있다. 배리어프리(접근성) 요건을 충족한 급속충전기라는 차별화가 공공 인프라 사업 수주의 근거가 된다. 다만 실제 매출 기여는 후속 공공사업 수주 규모에 달려 있다.",
+   "fact": "EVSIS는 5월 29일 과기정통부·NIA 주관 검증에서 업계 최초로 검증서를 취득했으며, 무인정보단말기 기준 최고 1등급(적합 40개 전원·효과성·효율성 100%)을 받았다. 고대비 화면·음성안내·촉각 키패드를 갖춘 급속충전기가 배리어프리 제품으로 인정돼 국가·공공기관 우선구매 대상이 됐고, 공공·지자체 충전 인프라 사업에 본격 공급할 계획이다.",
+   "implication": [
+    "우선구매 자격 확보로 공공 급속충전 인프라 사업에서의 수주 경쟁력이 강화될 가능성이 열린다",
+    "배리어프리 요건이 공공조달의 비가격 변별 기준으로 작동하는 흐름이 관찰된다",
+    "후속 공공사업 수주 규모가 인증의 실질 효과를 가늠하는 점검 대상이다"
+   ],
+   "urls": [
+    "https://biz.heraldcorp.com/article/10759644",
+    "https://www.kgnews.co.kr/news/article.html?no=897915"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "헤럴드경제",
+     "source_url": "https://biz.heraldcorp.com/article/10759644",
+     "claim": "롯데이노베이트 자회사 EVSIS가 급속충전기로 업계 최초 우선구매대상 지능정보 제품 검증(1등급)을 취득해 국가·공공기관 우선구매 대상이 됐다",
+     "source_quote": "EVSIS는 무인정보단말기 검증 기준에서 1등급을 획득했다고 밝혔다. 배리어프리 제품으로 확인돼 국가 및 공공기관의 우선구매 대상으로 자리 잡는다.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "경기신문",
+     "source_url": "https://www.kgnews.co.kr/news/article.html?no=897915",
+     "claim": "검증은 디지털포용법에 근거한 정부 제도로, EVSIS는 이를 계기로 공공 급속충전기 공급을 본격화할 계획이라고 5월 29일 밝혔다",
+     "source_quote": "EVSIS는 정부 주관 우선구매대상 지능정보 제품 검증에서 업계 최초로 검증서를 취득했다고 29일 밝혔다.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-29_GL_04",
+   "region": "GL",
+   "date": "2026-05-29",
+   "cat": "ESS",
+   "sub_cat": "태양광저장",
+   "signal": "high",
+   "title": "콘투어글로벌, 칠레 231MW 태양광+200MW/1.3GWh BESS 하이브리드 발전소 준공",
+   "sub": "타라파카 빅토르하라 하이브리드 플랜트를 준공해 일몰 후 6.5시간 공급이 가능하며, 칠레 가동용량은 850MW에 도달했다.",
+   "gate": "태양광을 야간 피크로 이전하는 'Sun at Night' 모델의 상업 실적이라는 점에서 장주기 저장의 사업화 사례로 해석된다. Copec EMOAC와의 15년 야간 PPA가 수익 가시성의 근거다. 다만 플랜트 상업운전 자체는 1분기로 소급되며, 이번은 BESS 가동·준공식이다.",
+   "fact": "콘투어글로벌은 231MW 태양광과 200MW/1.3GWh BESS를 결합한 빅토르하라 플랜트의 BESS 가동을 개시하고 준공식을 열었으며, 칠레 에너지장관 등이 참석했다. BESS는 일몰 후 최대 6.5시간 공급이 가능하고 Copec EMOAC와의 15년 야간 PPA에 기반하며, 키야구아와 합쳐 칠레 내 가동용량 850MW에 도달했다(자산은 2024년 말 Grenergy로부터 약 9.62억달러에 인수).",
+   "implication": [
+    "야간 PPA 기반 태양광+저장 모델이 신흥시장 계통저장의 수익 구조로 확산될 가능성이 열린다",
+    "6.5시간 장주기 BESS의 가동 실적이 단주기 대비 차별화 변수가 될 수 있다",
+    "준공식과 실제 상업운전(COD) 시점 간 정합성이 점검 대상이다"
+   ],
+   "urls": [
+    "https://www.powermag.com/contourglobal-brings-major-solar-plus-storage-project-online-in-chile/",
+    "https://www.pv-magazine.com/2026/05/30/inauguran-en-chile-una-planta-hibrida-con-231-mwp-solares-y-un-bess-de-200-mw-13-gwh/"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "pv magazine",
+     "source_url": "https://www.pv-magazine.com/2026/05/30/inauguran-en-chile-una-planta-hibrida-con-231-mwp-solares-y-un-bess-de-200-mw-13-gwh/",
+     "claim": "콘투어글로벌이 칠레 타라파카의 빅토르하라 하이브리드 발전소(231MW 태양광+200MW/1.3GWh BESS, 일몰 후 6.5시간)를 준공했다",
+     "source_quote": "ContourGlobal has commissioned the BESS at the Victor Jara hybrid power plant in Chile, combining a 231 MW solar PV plant with a 200 MW / 1.3 GWh storage system designed to provide up to 6.5 hours after sunset.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "POWER Magazine",
+     "source_url": "https://www.powermag.com/contourglobal-brings-major-solar-plus-storage-project-online-in-chile/",
+     "claim": "BESS는 Copec EMOAC와의 15년 야간 PPA에 기반하며, 빅토르하라·키야구아 준공으로 콘투어글로벌의 칠레 가동용량은 850MW에 도달했다",
+     "source_quote": "ContourGlobal said it has a power purchase agreement with Copec EMOAC; with the commissioning of the Victor Jara and Quillagua facilities it has reached 850 MW of operational capacity in Chile.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-29_GL_05",
+   "region": "GL",
+   "date": "2026-05-29",
+   "cat": "Policy",
+   "sub_cat": "용량시장",
+   "signal": "high",
+   "title": "EU 집행위, 스페인 90억유로 용량시장 승인",
+   "sub": "발전·저장·수요반응을 경쟁입찰로 보상하는 90억유로 용량메커니즘을 EU 보조금 규정에 따라 승인했으며, 2026년 5월부터 10년간 운영된다.",
+   "gate": "저장이 명시적으로 보상 대상에 포함된 대형 용량시장 승인으로, 스페인 저장·유연성 투자에 정책 신호를 준다. 경쟁입찰 기반·연 약 9억유로 예산이 투자 가시성의 근거다. 초기에는 스페인 내 자산에 한정되며 점진적으로 역내 확대를 약속했다.",
+   "fact": "EU 집행위는 5월 29일 스페인이 통지한 90억유로 용량메커니즘을 EU 보조금 규정에 따라 승인했으며, 발전·저장·수요반응이 희소 상황에서의 가용성을 약정하면 보상받는다. 메커니즘은 2026년 5월부터 10년간 연 약 9억유로 규모로 운영되고 레드엘렉트리카(REE)가 경쟁입찰로 운영한다.",
+   "implication": [
+    "저장을 포함한 용량보상이 스페인 BESS 투자 가시성을 높이는 정책 변수로 작동할 가능성이 열린다",
+    "9년·5년 등 입찰 유형과 계약기간 설계가 신규 저장 투자 유인의 점검 대상이다",
+    "스페인 한정에서 역내 회원국 확대로의 진전 여부가 관찰 대상이다"
+   ],
+   "urls": [
+    "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1163",
+    "https://www.pv-magazine.com/2026/05/30/la-comision-aprueba-el-mercado-de-capacidad-para-espana/"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "European Commission",
+     "source_url": "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1163",
+     "claim": "EU 집행위가 EU 보조금 규정에 따라 스페인의 90억유로 용량메커니즘을 승인했으며 발전·저장·수요반응을 보상한다",
+     "source_quote": "The European Commission has approved, under EU State aid rules, a €9 billion capacity mechanism for electricity supply for Spain; the measure will run for 10 years as of May 2026.",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "pv magazine",
+     "source_url": "https://www.pv-magazine.com/2026/05/30/la-comision-aprueba-el-mercado-de-capacidad-para-espana/",
+     "claim": "메커니즘은 2026~2036년 연 약 9억유로 규모로 운영되며 레드엘렉트리카(REE)가 경쟁입찰로 운영한다",
+     "source_quote": "The scheme will mobilise up to €9 billion over the 2026-2036 period, expected to run for ten years with an estimated annual budget of around €900 million.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-29_EU_01",
+   "region": "EU",
+   "date": "2026-05-29",
+   "cat": "Battery",
+   "sub_cat": "LFP합작",
+   "signal": "high",
+   "title": "Eni·FIB, 이탈리아 LFP 배터리 통합 공급망 공동개발 합의",
+   "sub": "Eni Industrial Evolution이 FIB 신설법인 지분 30%를 약 5,500만유로에 취득하며, 셀·모듈부터 정치형 BESS까지 유럽 내 통합 생산을 추진한다.",
+   "gate": "원자재에서 저장시스템까지 잇는 유럽 역내 수직통합 시도로, LFP 셀의 역내 생산 자립 흐름을 보여준다. 이탈리아 최대 기업 Eni의 참여가 자금·신뢰의 근거다. 다만 본 합의는 5월 16일 기본합의의 이행 단계이며 클로징은 진행 중이다.",
+   "fact": "Eni Industrial Evolution과 FIB(Seri Industrial)는 5월 29일 LFP 배터리 통합 공급망 공동개발에 합의했고, Eni가 FIB 신설법인 지분 30%(고정 5,500만유로)를 취득하고 FIB가 70%를 유지한다. 합작사 Eni Storage System은 테베롤라·브린디시 허브에 2027년 상반기 BESS 조립라인, 2029년 연 8GWh 셀·모듈 2호 기가팩토리를 완성할 계획이며 유럽 정치형 시장 10% 이상을 목표로 한다.",
+   "implication": [
+    "유럽 역내 LFP 셀 수직통합이 중국 의존 완화의 대체 경로로 작동할 가능성이 열린다",
+    "2027 조립라인·2029 8GWh 기가팩토리 등 단계별 일정 이행이 점검 대상이다",
+    "정치형 시장 10% 목표 대비 실제 가동·수주 진척이 변수가 될 수 있다"
+   ],
+   "urls": [
+    "https://www.ess-news.com/2026/05/29/eni-and-fib-reach-agreement-for-lfp-bess-supply-chain-in-italy/",
+    "https://www.webwire.com/ViewPressRel.asp?aId=355593"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "WebWire (Eni/Seri PR)",
+     "source_url": "https://www.webwire.com/ViewPressRel.asp?aId=355593",
+     "claim": "Eni Industrial Evolution과 FIB(Seri Industrial)가 이탈리아 LFP 배터리 통합 공급망 공동개발에 합의했으며, 5월 16일 기본합의의 이행으로 5일 내 클로징한다",
+     "source_quote": "Eni Industrial Evolution and FIB have reached an agreement for the joint development of an integrated industrial supply chain in the lithium iron phosphate battery sector; the closing will be completed within five days, in execution of the framework agreement of May 16, 2026.",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "Energy Storage (ess-news)",
+     "source_url": "https://www.ess-news.com/2026/05/29/eni-and-fib-reach-agreement-for-lfp-bess-supply-chain-in-italy/",
+     "claim": "Eni가 FIB 신설법인 지분 30%(고정 5,500만유로)를 취득하고 FIB가 70%를 유지하며, 유럽 정치형 배터리 시장 10% 이상을 목표로 한다",
+     "source_quote": "Eni Industrial Evolution is acquiring a 30% stake in a newly established company from FIB, of which FIB will retain a 70% stake; the consideration includes a fixed component of €55 million; the project targets over 10% of the European stationary battery market.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-29_EU_02",
+   "region": "EU",
+   "date": "2026-05-29",
+   "cat": "Charging",
+   "sub_cat": "V2G파일럿",
+   "signal": "mid",
+   "title": "독일 Enercity, VW 상용차와 EV 배터리 전력 전력시장 판매 파일럿 성공",
+   "sub": "양방향 충전 EV(ID.Buzz 12대, 0.1MW 거래)의 전력을 하노버 계통에 공급하고 전력거래소에서 거래해 수익을 낸 첫 B2B 사례다.",
+   "gate": "실제 B2B 차량 플릿이 가상저장 자원으로 전력시장에 참여해 수익을 낸 실증으로, V2G 수익모델의 가능성을 보여준다. 다만 0.1MW의 소규모 파일럿이며, 회사 스스로 사업모델이 아직 명확히 정립되지 않았다고 밝힌 점에 유의가 필요하다. 상업화로 단정하기 어렵다.",
+   "fact": "Enercity는 VW상용차와의 합동 파일럿에서 양방향 연결 EV(ID.Buzz 12대, 집계 0.132MW·거래 0.1MW)의 전력을 하노버 공공망에 공급하고 전력거래소에서 거래해 수익을 냈다. 회사는 이동형 저장의 계통요금·이중과세 등 규제 취급이 미해결이라며 독일 연방망청(BNetzA)의 검토를 거론했다.",
+   "implication": [
+    "차량 플릿의 전력시장 직접 참여라는 V2G 수익모델의 실증 가능성이 열린다",
+    "이동형 저장의 계통요금·이중과세 등 규제 정비가 사업화의 핵심 변수가 될 수 있다",
+    "0.1MW 파일럿 규모에서 상업 규모로의 확장 여부가 점검 대상이다"
+   ],
+   "urls": [
+    "https://www.electrive.com/2026/05/29/germany-enercity-successfully-sells-electricity-from-ev-batteries-on-the-power-market/"
+   ],
+   "related": [
+    "2026-05-28_EU_01"
+   ],
+   "fact_sources": [
+    {
+     "source_name": "electrive",
+     "source_url": "https://www.electrive.com/2026/05/29/germany-enercity-successfully-sells-electricity-from-ev-batteries-on-the-power-market/",
+     "claim": "독일 Enercity가 VW상용차와의 파일럿에서 양방향 연결 EV(ID.Buzz 12대, 집계 0.132MW·거래 0.1MW)의 전력을 하노버 계통에 공급하고 전력거래소에서 거래해 수익을 냈다",
+     "source_quote": "Enercity has supplied electricity from several bidirectionally connected electric vehicles into the public grid in Hanover and traded it on the electricity exchange; for the trial it deployed twelve VW ID. Buzz vehicles reaching an aggregation capacity of 0.132 MW, trading 0.1 MW, and the project generated revenue.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-29_GL_07",
+   "region": "GL",
+   "date": "2026-05-29",
+   "cat": "ESS",
+   "sub_cat": "장주기입찰",
+   "signal": "high",
+   "title": "호주 남호주 FERM 1차 입찰, 장주기 BESS 5.3GWh 낙찰…6개 프로젝트 선정",
+   "sub": "총 1,334MW/5,336MWh 규모 6개 장주기 BESS가 FERMA를 낙찰했으며, 주 저장능력을 1.1GW에서 2.5GW로 끌어올린다.",
+   "gate": "장주기·급전가능 용량을 장기계약으로 보장해 민간 투자를 끌어들이는 조달 사례로, 호주 LDES 본격화를 보여준다. 8시간 연속 방전 요건이 장주기 저장 수요의 근거다. 다만 프로젝트별 상업운전은 2028~2033년에 분산돼 있다.",
+   "fact": "AusServices(ASL)는 5월 29일 남호주 FERM 1차 입찰에서 6개 장주기 BESS(총 1,334MW/5,336MWh)가 FERMA를 낙찰했다고 발표했으며 Neoen·Iberdrola·Ampyr·Akaysha·ZEBRE가 포함됐다. 남호주 정부 성명에 따르면 이 조치로 주 배터리 저장능력이 1.1GW에서 2.5GW로 늘고, 낙찰 사업은 희소 상황에서 8시간 연속 방전을 보장해야 한다.",
+   "implication": [
+    "장기계약 기반 장주기 저장 조달이 민간 투자 유인의 모델로 확산될 가능성이 열린다",
+    "8시간 연속 방전 요건이 단주기 대비 장주기 기술 수요의 변수가 될 수 있다",
+    "프로젝트별 2028~2033 인도 일정의 이행이 점검 대상이다"
+   ],
+   "urls": [
+    "https://www.enerdata.net/publications/daily-energy-news/south-australia-supports-13-gw53-gwh-bess-capacity-first-ferm-tender.html",
+    "https://www.ess-news.com/2026/05/29/5-3-gwh-of-long-duration-capacity-bess-awarded-in-australias-ferm-tender-1/"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "Energy Storage (ess-news)",
+     "source_url": "https://www.ess-news.com/2026/05/29/5-3-gwh-of-long-duration-capacity-bess-awarded-in-australias-ferm-tender-1/",
+     "claim": "호주 남호주 FERM 1차 입찰에서 장주기 BESS 6개(총 1,334MW/5,336MWh)가 FERMA를 낙찰했으며 Neoen·Iberdrola·Ampyr·Akaysha·ZEBRE가 포함됐다",
+     "source_quote": "AusServices Ltd has announced six long duration BESS projects totalling 1,334 MW / 5,336 MWh have been awarded Firm Energy Reliability Mechanism Agreements in South Australia's FERM Tender Round 1.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "Enerdata",
+     "source_url": "https://www.enerdata.net/publications/daily-energy-news/south-australia-supports-13-gw53-gwh-bess-capacity-first-ferm-tender.html",
+     "claim": "남호주 정부 성명(5/29)에 따르면 이 조치로 주 배터리 저장능력이 1.1GW에서 2.5GW로 늘며 낙찰 사업은 8시간 연속 방전을 보장해야 한다",
+     "source_quote": "According to the government statement of 29/05/2026, the initiative will increase South Australia's battery storage capacity from 1.1GW to 2.5GW; successful developers must ensure capacity can be dispatched continuously for eight hours.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-29_GL_06",
+   "region": "GL",
+   "date": "2026-05-29",
+   "cat": "ESS",
+   "sub_cat": "BESS인수",
+   "signal": "high",
+   "title": "Nextpower, Prevalon 인수로 유틸리티급 BESS·AI 데이터센터 시장 진출",
+   "sub": "BESS 통합기업 Prevalon Energy를 최대 3.65억달러에 인수하는 확정계약을 체결해 태양광 사업을 저장·AI 전력으로 확장한다.",
+   "gate": "태양광 트래커 강자가 M&A로 유틸리티급 BESS·AI 데이터센터 전력 사업에 진입하는 사례로 해석된다. Prevalon의 배치 실적·AI 데이터센터 확정계약이 인수 근거다. 다만 거래는 반독점 등 종결조건을 남겨두고 있다.",
+   "fact": "Nextpower(Nasdaq:NXT)는 미쓰비시파워·EES 합작사인 Prevalon Energy를 최대 3.65억달러(현금+주식)에 인수하는 확정계약을 체결했다. Prevalon은 전세계 6GWh BESS 배치와 AI·하이퍼스케일 데이터센터용 1.3GW 확정 공급계약을 보유하며, 거래는 반독점 심사 등 통상 종결조건을 따른다(회사는 FY2027 가이던스를 상향).",
+   "implication": [
+    "태양광 기업의 저장·AI 데이터센터 전력 사업 확장이 시장구조 변화의 변수가 될 수 있다",
+    "Prevalon의 1.3GW AI 데이터센터 계약이 수요축 전환의 근거로 관찰된다",
+    "반독점 심사 등 거래 종결 조건의 충족 여부가 점검 대상이다"
+   ],
+   "urls": [
+    "https://investors.nextracker.com/news/news-details/2026/Nextpower-Announces-Entry-into-Battery-Energy-Storage-BESS-and-AI-Data-Center-Markets-with-Definitive-Agreement-to-Acquire-Prevalon-Energy-Increases-Fiscal-Year-2027-Outlook/default.aspx",
+    "https://www.pv-tech.org/nextpower-enters-utility-scale-bess-market-with-prevalon-acquisition/"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "Business Wire (Nextpower)",
+     "source_url": "https://investors.nextracker.com/news/news-details/2026/Nextpower-Announces-Entry-into-Battery-Energy-Storage-BESS-and-AI-Data-Center-Markets-with-Definitive-Agreement-to-Acquire-Prevalon-Energy-Increases-Fiscal-Year-2027-Outlook/default.aspx",
+     "claim": "Nextpower(Nasdaq:NXT)가 BESS 통합기업 Prevalon Energy를 최대 3.65억달러에 인수하는 확정계약을 체결해 유틸리티급 BESS·AI 데이터센터 시장에 진입한다",
+     "source_quote": "Nextpower has entered into a definitive agreement to acquire Prevalon Energy, a U.S.-headquartered joint venture between Mitsubishi Power Americas and EES, for total consideration of up to $365 million, comprising cash and stock.",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "PV Tech",
+     "source_url": "https://www.pv-tech.org/nextpower-enters-utility-scale-bess-market-with-prevalon-acquisition/",
+     "claim": "Prevalon은 전세계 6GWh BESS 배치와 AI·하이퍼스케일 데이터센터용 1.3GW 확정 공급계약을 보유하며, 거래는 반독점 심사 등 종결조건을 따른다",
+     "source_quote": "Prevalon has over 6 GWh of BESS systems deployed globally and 1.3 GW of firm supply contracts supporting AI and hyperscaler data center infrastructure; closing is subject to customary conditions including antitrust review.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
    "id": "2026-05-28_KR_01",
    "region": "KR",
    "date": "2026-05-28",
@@ -1874,6 +2278,268 @@
    "id_assignment_basis": "(date,region) 그룹 내 기존 카드 없음 — NN=01, CARD_ID_STANDARD signal 우선 규칙",
    "source_diversity_status": "PASS_MULTI_SOURCE",
    "source_strength_review_0_5R": "clean_after_review"
+  },
+  {
+   "id": "2026-05-28_EU_02",
+   "region": "EU",
+   "date": "2026-05-28",
+   "cat": "Materials",
+   "sub_cat": "실리콘음극재",
+   "signal": "mid",
+   "title": "혼다, 영국 배터리 소재 기업 Nexeon에 전략 투자",
+   "sub": "실리콘 음극재 기업 Nexeon에 혼다가 전략 투자자로 참여했으며, 차세대 EV 배터리 소재 내재화 행보다.",
+   "gate": "완성차가 실리콘 음극재 스타트업에 직접 투자한 사례로, 흑연 대비 에너지밀도·충전속도 개선 기술의 상용화 국면 진입을 보여준다. OEM의 소재 공급망 확보 의도가 읽힌다. 다만 투자액은 공개되지 않았다.",
+   "fact": "영국 Nexeon은 5월 28일 혼다(Honda Xcelerator Ventures)를 전략 투자자로 맞이했다고 발표했으며 투자액은 비공개다. Nexeon은 임페리얼칼리지 스핀오프로 이전까지 2억달러 이상을 조달했고, 2023년부터 한국 군산에 첫 대규모 음극재 양산공장을 건설 중이다.",
+   "implication": [
+    "완성차의 실리콘 음극재 직접 투자로 차세대 소재 내재화 경쟁이 가시화될 가능성이 열린다",
+    "군산 양산공장의 가동·실리콘 음극재 상용화 일정이 핵심 변수가 될 수 있다",
+    "투자 규모·지분 비공개로 전략적 의도의 구체성은 점검 대상으로 남는다"
+   ],
+   "urls": [
+    "https://www.electrive.com/2026/05/30/honda-invests-in-battery-materials-manufacturer-nexeon/",
+    "https://www.prnewswire.co.uk/news-releases/nexeon-welcomes-honda-as-a-strategic-investor-302781876.html"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "PRNewswire (Nexeon)",
+     "source_url": "https://www.prnewswire.co.uk/news-releases/nexeon-welcomes-honda-as-a-strategic-investor-302781876.html",
+     "claim": "영국 실리콘 음극재 기업 Nexeon이 5월 28일 혼다(Honda Xcelerator Ventures)를 전략 투자자로 맞이했다고 발표했다",
+     "source_quote": "Nexeon, a leader in silicon anode materials for the battery industry, is delighted to welcome a new investment from Honda Motor Co., Ltd. through its global open innovation program, Honda Xcelerator Ventures.",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "electrive",
+     "source_url": "https://www.electrive.com/2026/05/30/honda-invests-in-battery-materials-manufacturer-nexeon/",
+     "claim": "투자액은 비공개이며 Nexeon은 2023년부터 한국 군산에 첫 대규모 음극재 양산공장을 건설 중이고 이전까지 2억달러 이상을 조달했다",
+     "source_quote": "The exact amount Honda has invested has not been disclosed; the commercialisation refers to Nexeon's first large-scale production facility for anode materials, under construction since 2023 in the South Korean city of Gunsan.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-27_JP_01",
+   "region": "JP",
+   "date": "2026-05-27",
+   "cat": "ESS",
+   "sub_cat": "일본BESS인수",
+   "signal": "high",
+   "title": "에너지볼트, 일본 850MW BESS 포트폴리오 인수 완료",
+   "sub": "BayWa r.e.로부터 일본 850MW 개발 포트폴리오를 인수해 일본 내 직접 운영 플랫폼을 확보하며, 아시아 계통저장 자산을 확장한다.",
+   "gate": "단순 용량 확보를 넘어 현지 개발팀·인허가 역량까지 흡수한 시장 진입으로 평가된다. 3시간 지속시간 설계로 단주기 대비 MW당 수익성이 높다는 점이 자산 보유 전략의 근거다. 다만 선행 350MW의 실제 착공(NTP)·가동은 2027~2028년에 걸쳐 있다.",
+   "fact": "에너지볼트는 5월 27일 인수 완료를 발표했으며, 포트폴리오는 350MW 선행단계(2027 하반기 NTP·2028 중반 COD)와 500MW 초기단계로 구성된다. 회사는 이 거래로 글로벌 자가보유 자산이 1GW를 넘어섰고 연 1.8억달러 이상의 반복 EBITDA가 기대된다고 밝혔다.",
+   "implication": [
+    "일본의 낮은 금융비용·구조적 저장 수요가 자산 보유형 모델의 수익성 변수가 될 수 있다",
+    "선행 350MW의 NTP·COD 달성 여부가 EBITDA 실현의 점검 대상이다",
+    "글로벌 보유자산 1GW 돌파로 개발사에서 자산 운용사로의 전환 흐름이 관찰된다"
+   ],
+   "urls": [
+    "https://sustainabilityonline.net/news/energy-vault-completes-acquisition-of-850mw-bess-development-portfolio-in-japan/",
+    "https://www.businesswire.com/news/home/20260527219283/en/"
+   ],
+   "related": [
+    "W6R1_02"
+   ],
+   "fact_sources": [
+    {
+     "source_name": "Business Wire (Energy Vault)",
+     "source_url": "https://www.businesswire.com/news/home/20260527219283/en/",
+     "claim": "에너지볼트가 5월 27일 BayWa r.e.로부터 일본 850MW BESS 개발 포트폴리오 인수를 완료했다고 발표했다",
+     "source_quote": "Energy Vault Closes Acquisition of 850 MW Energy Storage Portfolio from BayWa r.e. AG, Establishing Immediate Operational Platform to Capture Growth in Japan.",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "Sustainability Online",
+     "source_url": "https://sustainabilityonline.net/news/energy-vault-completes-acquisition-of-850mw-bess-development-portfolio-in-japan/",
+     "claim": "포트폴리오는 350MW 선행단계(2027 하반기 NTP·2028 중반 COD)와 500MW 초기단계로 구성되며 연 1.8억달러 이상 EBITDA가 기대된다",
+     "source_quote": "The portfolio includes 350 MW of advanced-stage projects expected to be granted notice to proceed in the second half of next year, with commercial operations from mid-2028, plus some 500MW of early-stage developments.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-27_KR_02",
+   "region": "KR",
+   "date": "2026-05-27",
+   "cat": "ESS",
+   "sub_cat": "데이터센터ESS",
+   "signal": "high",
+   "title": "LG에너지솔루션, 미국 DTE에너지와 약 2.4조원 ESS 공급계약…오라클 AI 데이터센터 지원",
+   "sub": "총 6GWh·16억달러 규모 2년 공급계약으로, 미시간주 8개 전력망 사업(살린 타운십 오라클 AI 데이터센터 포함)에 현지생산 ESS가 투입된다.",
+   "gate": "EV 둔화 국면에서 AI 데이터센터 전력수요가 ESS 대형 수주로 직결되는 대표 사례로 평가된다. 미시간 현지생산 체계가 미국의 탈중국 조달 요구에 부합한다는 점이 수주 경쟁력의 근거다. 단 공급은 2년에 걸쳐 분할 인도된다.",
+   "fact": "LG에너지솔루션은 5월 27일(현지시간) DTE에너지와 총 6GWh·16억달러(약 2.4조원)·약 2년 ESS 배터리 공급계약을 체결했다고 밝혔다. 물량은 미시간주 8개 전력망 프로젝트에 투입되며 살린 타운십 오라클 AI 데이터센터 관련 사업을 포함하고, 지난해 6월 양산을 시작한 미시간 홀랜드 공장에서 생산된다.",
+   "implication": [
+    "AI 데이터센터 전력수요가 ESS의 구조적 수요축으로 부상하는 흐름이 관찰된다",
+    "미국 현지생산·탈중국 조달 요건이 셀 업체 수주 경쟁력의 핵심 변수가 될 수 있다",
+    "2년 분할 인도와 추가 전력망 프로젝트로의 확장 여부가 점검 대상이다"
+   ],
+   "urls": [
+    "https://www.insightkorea.co.kr/news/articleView.html?idxno=247158",
+    "https://www.mt.co.kr/stock/2026/05/28/2026052809261593281"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "머니투데이",
+     "source_url": "https://www.mt.co.kr/stock/2026/05/28/2026052809261593281",
+     "claim": "LG에너지솔루션이 미국 DTE에너지와 2년간 총 6GWh·16억달러(약 2.4조원) ESS 배터리 공급계약을 체결했다",
+     "source_quote": "LG에너지솔루션은 미국 DTE에너지와 2년간 총 6GWh, 16억달러 규모 ESS 배터리 공급 계약을 체결했다고 밝혔다.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "인사이트코리아",
+     "source_url": "https://www.insightkorea.co.kr/news/articleView.html?idxno=247158",
+     "claim": "계약 물량은 미시간주 8개 전력망 프로젝트(살린 타운십 오라클 AI 데이터센터 포함)에 투입되며 미시간 홀랜드 공장에서 생산된다",
+     "source_quote": "이번 계약 물량은 미시간주에서 추진되는 8개 전력망 구축 프로젝트에 투입된다. 이 가운데는 살린 타운십에 들어서는 오라클의 AI 데이터센터 관련 프로젝트도 포함됐다.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-27_EU_01",
+   "region": "EU",
+   "date": "2026-05-27",
+   "cat": "Policy",
+   "sub_cat": "계통요금",
+   "signal": "high",
+   "title": "독일 규제기관, 저장 계통요금 체계 예비안 공개…2029년 면제 유지·소급 배제",
+   "sub": "BNetzA가 AgNes 예비안에서 2029년 8월 이전 가동 BESS 면제를 확정하고 에너지 기반 요금 없이 MW당 연 4~7천유로 용량요금을 제시해 저장 투자신뢰를 회복했다.",
+   "gate": "면제 조기 종료·소급 적용 우려가 해소되며 저장 투자 불확실성이 걷힌 결정으로 평가된다. 에너지 기반 요금 부재·낮은 용량요금이 사업성 방어의 근거다. 다만 예비안 단계로 최종안은 연말로 예정돼 있다.",
+   "fact": "BNetzA는 5월 27일 계통요금 전면개편(AgNes) 예비안을 공개해, 2029년 8월 4일 이전 가동 BESS의 면제를 확정하고 소급 적용을 배제했으며 위원장 Klaus Müller가 이를 확인했다. 향후 저장은 에너지 기반 요금 없이 MW당 연 4~7천유로 용량요금을 부담하며(규정 발효 후 FID 적용), 업계는 이를 사실상 최선의 결과로 평가했다.",
+   "implication": [
+    "면제 유지·소급 배제로 독일 BESS 투자 신뢰가 회복되는 흐름이 관찰된다",
+    "용량요금 4~7천유로/MW 수준이 프로젝트 IRR에 미치는 영향이 변수가 될 수 있다",
+    "예비안에서 연말 최종안으로의 확정 여부가 점검 대상이다"
+   ],
+   "urls": [
+    "https://modoenergy.com/research/germany-grid-fees-agnes-netzentgelte-bess-batteries-bnetza-update-capacity-fees-may-2026",
+    "https://www.energy-storage.news/german-government-confirms-august-2029-grid-fee-exemption-date-for-storage-but-sets-2027-fid-deadline/"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "Energy-Storage.News",
+     "source_url": "https://www.energy-storage.news/german-government-confirms-august-2029-grid-fee-exemption-date-for-storage-but-sets-2027-fid-deadline/",
+     "claim": "독일 BNetzA가 2029년 8월 4일 이전 가동 BESS의 계통요금 면제를 확정하고 소급 적용은 배제했으며, BNetzA 위원장 Klaus Müller가 이를 확인했다",
+     "source_quote": "Germany's energy system regulator has confirmed that BESS projects coming online by 4 August 2029 will be exempt from charging and discharging grid fees; Bundesnetzagentur president Klaus Muller confirmed the news.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "Modo Energy",
+     "source_url": "https://modoenergy.com/research/germany-grid-fees-agnes-netzentgelte-bess-batteries-bnetza-update-capacity-fees-may-2026",
+     "claim": "BNetzA가 5월 27일 AgNes 예비안을 공개했으며 에너지 기반 요금 없이 MW당 연 4~7천유로 용량요금을 확정해 저장에 사실상 최선의 결과로 평가된다",
+     "source_quote": "On 27 May 2026 the regulator BNetzA published its preliminary views on the AgNes framework: a capacity fee of EUR 4-7k/MW/year with no energy-based component, representing a near-best-case outcome for battery energy storage.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-27_GL_01",
+   "region": "GL",
+   "date": "2026-05-27",
+   "cat": "Battery",
+   "sub_cat": "고체전지상장",
+   "signal": "high",
+   "title": "고체전지 ProLogium, 미국 나스닥 SPAC 최종합병 계약 체결…기업가치 약 38억달러",
+   "sub": "SPAC인 TDAC와 최종 합병계약을 체결해 나스닥(PRLG) 상장을 추진하며, 4세대 고체전지 증설과 프랑스 기가팩토리 자금을 확보한다.",
+   "gate": "고체전지 선두 기업이 SPAC 합병으로 상장·증설 자금을 조달하는 사례로, 차세대 배터리의 자본시장 접근을 보여준다. TDAC 신탁·PIPE가 자금 근거다. 다만 거래 종료는 양사 주주·규제 승인을 전제로 하반기로 예정돼 있다.",
+   "fact": "ProLogium은 5월 27일 SPAC TDAC와 최종 합병계약을 체결했으며 합병법인은 ProLogium Technology로 나스닥(PRLG)에 상장될 예정이고 기업가치는 약 38억달러(pre-money)다. 합병으로 최소 2.5억달러 신규자본(TDAC 신탁 약 1.725억달러+PIPE)을 확보해 4세대 고체전지 증설과 프랑스 됭케르크 기가팩토리 건설에 쓰며, 종료는 2026년 하반기로 예정됐다.",
+   "implication": [
+    "고체전지 기업의 SPAC 상장이 차세대 배터리 자본조달 경로로 부상할 가능성이 열린다",
+    "4세대 고체전지 증설·됭케르크 기가팩토리 진척이 상용화의 핵심 변수가 될 수 있다",
+    "주주·규제 승인 등 하반기 거래 종료 조건의 충족 여부가 점검 대상이다"
+   ],
+   "urls": [
+    "https://prologium.com/prologium-a-next-generation-solid-state-battery-developer-with-10-years-of-proven-commercialization-to-list-on-the-nasdaq-through-a-merger-with-translational-development-acquisition-corp/",
+    "https://www.electrive.com/2026/05/28/prologium-targets-spac-merger-to-fund-french-battery-plant/"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "ProLogium",
+     "source_url": "https://prologium.com/prologium-a-next-generation-solid-state-battery-developer-with-10-years-of-proven-commercialization-to-list-on-the-nasdaq-through-a-merger-with-translational-development-acquisition-corp/",
+     "claim": "고체전지 기업 ProLogium이 5월 27일 SPAC TDAC와 최종 합병계약을 체결해 나스닥(PRLG) 상장을 추진하며 기업가치는 약 38억달러(pre-money)다",
+     "source_quote": "ProLogium, a next-generation solid-state battery developer, will list on the Nasdaq through a merger with Translational Development Acquisition Corp.; the transaction values ProLogium at approximately $3.8 billion on a pre-money basis, expected to close in the second half of 2026.",
+     "source_quote_status": "official_material_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "electrive",
+     "source_url": "https://www.electrive.com/2026/05/28/prologium-targets-spac-merger-to-fund-french-battery-plant/",
+     "claim": "합병으로 최소 2.5억달러 신규자본(TDAC 신탁 약 1.725억달러+PIPE)을 확보해 4세대 고체전지 증설과 프랑스 됭케르크 기가팩토리 건설 자금에 쓴다",
+     "source_quote": "The merger is expected to provide ProLogium with at least $250 million in new capital, around $172.5 million from TDAC's trust assets, to scale 4th-generation solid-state batteries and advance the Dunkirk gigafactory.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
   },
   {
    "state": "publish_ready",
@@ -3830,6 +4496,60 @@
      "fetch_method": "web_fetch_verified_20260603",
      "quote_patch_note": "Replaced ellipsis-stitched verified quote with a contiguous source excerpt for PR #129 Codex review r3361511309.",
      "quote_patch_at": "2026-06-05T17:53:47+09:00"
+    }
+   ]
+  },
+  {
+   "id": "2026-05-19_US_01",
+   "region": "US",
+   "date": "2026-05-19",
+   "cat": "Materials",
+   "sub_cat": "흑연음극재",
+   "signal": "high",
+   "title": "그래파이트원, 오하이오에 연 1만톤 배터리 음극재 공장 부지 확보",
+   "sub": "코노트 부지에 활성음극재(AAM) 공장을 2027년 4분기 완공 목표로 추진하며, 미국 흑연 100% 수입의존 구조의 국산화 시도다.",
+   "gate": "알래스카 흑연 광산에서 오하이오 가공으로 이어지는 수직통합 공급망의 중간 고리를 확보한 단계로 해석된다. 호수·철도·기존 변전 인프라를 갖춘 부지를 택해 인허가·가동 리스크를 줄이려는 의도가 읽힌다. 다만 구속력 있는 오프테이크는 협의 단계에 머물러 있다.",
+   "fact": "회사는 레이크이리에 인접한 코노트 부지를 CN철도 자회사와의 사용계약으로 확보하고, 전력 문제로 종료한 워런 부지를 대체했다. 1단계는 연 1만톤(저장 4천·급속 3천·고밀도 3천)으로 2027년 4분기 완공, 2단계는 2028년 3분기 흑연화 2.5만톤 확장을 평가 중이며, EV 3사·배터리 3사에 최대 20kg 상용급 샘플을 보냈다.",
+   "implication": [
+    "북미 음극재 현지화로 중국 의존 공급망의 대체 경로가 마련될 가능성이 열린다",
+    "샘플 평가 중인 6개 고객과의 구속력 있는 오프테이크 전환 여부가 사업성의 핵심 변수가 될 수 있다",
+    "1단계 자금조달(Ex-Im 약정)과 2027 가동 일정의 이행이 점검 대상이다"
+   ],
+   "urls": [
+    "https://chargedevs.com/newswire/graphite-one-secures-ohio-site-for-10000-tonne-battery-anode-materials-facility/",
+    "https://www.batteriesinternational.com/news/graphite-one-secures-10000-tonne-battery-materials-site-in-ohio/"
+   ],
+   "related": [
+    "2026-05-29_GL_02"
+   ],
+   "fact_sources": [
+    {
+     "source_name": "Charged EVs",
+     "source_url": "https://chargedevs.com/newswire/graphite-one-secures-ohio-site-for-10000-tonne-battery-anode-materials-facility/",
+     "claim": "그래파이트원이 오하이오 코노트에 활성음극재(AAM) 공장 부지를 확보했고 1단계 연 1만톤(저장 4천·급속 3천·고밀도 3천)을 2027년 4분기 완공 목표로 한다",
+     "source_quote": "Graphite One has secured a site in Conneaut, Ohio for its Active Anode Materials facility; Phase One production is planned at 10,000 tonnes per year, aiming to complete construction in Q4 2027.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "Batteries International",
+     "source_url": "https://www.batteriesinternational.com/news/graphite-one-secures-10000-tonne-battery-materials-site-in-ohio/",
+     "claim": "2단계로 2028년 3분기 흑연화 능력 2.5만톤 확장을 평가 중이며, 미국은 현재 천연흑연 100% 수입의존 상태다",
+     "source_quote": "G1 will evaluate a second-phase expansion, with completion in the third quarter of 2028 and graphitisation capacity of 25,000 tonnes per year; the US is currently 100% import-dependent for natural graphite.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
     }
    ]
   },
@@ -16718,6 +17438,58 @@
    "baseline_relation": "new",
    "event_fingerprint_key": "joysonelectronicsandenpowersolidstatebatteryjvforroboticschinapartnership20260506gasgooreportedjvsetupforrobotusesolidstatebatteries",
    "final_qc_status": "publish_ready_github_main_sync_passed"
+  },
+  {
+   "id": "2026-05-06_US_04",
+   "region": "US",
+   "date": "2026-05-06",
+   "cat": "Policy",
+   "sub_cat": "저장인센티브",
+   "signal": "high",
+   "title": "코네티컷, 가정·공동체 태양광+저장 인센티브 2035년까지 연장 법안 의회 통과",
+   "sub": "주 상·하원을 통과한 HB 5340은 RRES 프로그램을 2035년까지 연장하고, 배터리 병설 태양광을 예산 상한에서 면제해 저장 수요를 직접 끌어올린다.",
+   "gate": "배터리와 결합한 태양광만 상한 예외를 받는 구조여서, 보조금 설계가 단순 태양광에서 저장 병설로 무게추를 옮기고 있음이 확인된다. 연방 주거용 세액공제(25D) 폐지로 주 단위 인센티브의 상대적 중요도가 커진 국면이다. 다만 발효는 주지사 서명을 남겨두고 있다.",
+   "fact": "법안은 5월 6일 회기 마감 직전 상원을 통과(하원은 그 주 초 통과)해 주지사 서명만 남았으며, RRES·공동체 태양광을 2035년 말까지 연장한다. 2028년부터 연 180MW·8,500만달러 예산 상한이 적용되지만, 배터리와 병설된 주거용 태양광은 규제당국(PURA)의 순편익 판정을 전제로 상한에서 면제된다.",
+   "implication": [
+    "저장 병설 설비에 인센티브가 집중되며 주거용 배터리 채택 유인이 강화될 가능성이 열린다",
+    "연방 세액공제 종료 이후 주 단위 저장 인센티브의 정책 레버리지가 커지는 흐름이 관찰된다",
+    "주지사 서명 시점과 PURA의 순편익 기준 확정이 시행 강도의 점검 대상이다"
+   ],
+   "urls": [
+    "https://ctmirror.org/2026/05/06/solar-incentives-ct-legislature/",
+    "https://electrek.co/2026/05/30/ct-keeps-home-solar-incentive-alive-through-2035-batteries-are-the-big-winners/"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "Electrek",
+     "source_url": "https://electrek.co/2026/05/30/ct-keeps-home-solar-incentive-alive-through-2035-batteries-are-the-big-winners/",
+     "claim": "코네티컷 HB 5340 법안이 주 상·하원을 통과해 주지사 서명만 남았고, RRES·공동체 태양광 인센티브를 2035년까지 연장한다",
+     "source_quote": "A new bill extending home and community solar incentive programs through 2035 has passed both houses of the Connecticut Senate, and just needs Governor Ned Lamont's signature.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    },
+    {
+     "source_name": "CT Mirror",
+     "source_url": "https://ctmirror.org/2026/05/06/solar-incentives-ct-legislature/",
+     "claim": "법안은 5월 6일 회기 마감 직전 상원을 통과했으며, 배터리 저장과 병설된 태양광 설비는 예산 상한에서 면제된다",
+     "source_quote": "The legislation, House Bill 5340, passed the Senate on a mostly party-line vote shortly before 8 p.m.; solar installations paired with battery storage would be exempt from the budget.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-13",
+     "fetch_method": "web_search"
+    }
+   ]
   },
   {
    "draft_id": "DRAFT-B-RESCUE-008",

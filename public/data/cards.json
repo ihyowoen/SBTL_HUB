@@ -5,115 +5,6 @@
  "sort": "date_desc",
  "cards": [
   {
-   "cat": "Policy",
-   "date": "2026-06-12",
-   "draft_id": "DRAFT23",
-   "event_fingerprint": {
-    "actor": "관민협의회; 일본; 축전지",
-    "asset_or_policy": "축전지전략",
-    "location": "JP",
-    "event_type": "policy_change",
-    "event_date": "2026-06-12",
-    "factual_anchor": [
-     "150gwh"
-    ],
-    "source_url_cluster": [
-     "itmedia.co.jp"
-    ]
-   },
-   "evidence_complete": true,
-   "fact": "일본 축전지산업전략검토 관민협의회는 2026년 6월 새 '축전지·전원 산업전략'을 책정했다. 리튬이온전지(LIB) 세계시장은 2025년 23조엔에서 2035년 46조엔(약 2배), 2040년 55조엔으로 성장할 것으로 추산했다. 2022년 전략은 늦어도 2030년까지 축전지·소재 국내 제조기반 150GWh/년 확립을 목표로 제시한 바 있다.",
-   "fact_sources": [
-    {
-     "source_name": "ITmedia Smart Japan",
-     "source_url": "https://www.itmedia.co.jp/smartjapan/articles/2606/12/news019.html",
-     "claim": "일본 관민협의회, 새 '축전지·전원 산업전략' 책정·LIB 세계시장 2025년 23조엔->2035년 46조엔",
-     "source_quote": "「蓄電池産業戦略検討官民協議会」は新たな「蓄電池・電源産業戦略」を策定した ... リチウムイオン電池（LIB）の世界市場は、2025年の23兆円から、35年に46兆円（約2倍）",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "title",
-      "sub",
-      "fact"
-     ],
-     "fetched_at": "2026-06-13T08:30:00",
-     "fetch_method": "input_hydrated_body"
-    },
-    {
-     "source_url": "https://www.meti.go.jp/press/2026/06/20260602001/20260602001.html",
-     "source_owner": "경제산업성(METI) 공식",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "title",
-      "gate",
-      "fact"
-     ],
-     "source_quote": "「蓄電池産業戦略」を「蓄電池・電源産業戦略」に改訂 (2026.6.2 공식)",
-     "source_quote_status": "body_quote_verified"
-    },
-    {
-     "source_url": "https://www.nikkei.com/article/DGXZQOUA01ADD0R00C26A6000000/",
-     "source_owner": "日本経済新聞",
-     "evidence_role": "secondary_event_evidence",
-     "supports": [
-      "fact"
-     ],
-     "source_quote": "蓄電池 売上高 2035年に3倍 約5兆円へ 경산성 戦略改定",
-     "source_quote_status": "body_quote_verified"
-    }
-   ],
-   "gate": "일본이 국가 차원에서 축전지 산업 경쟁력 회복 전략을 갱신한 사례다. 2022년 전략의 국내 제조기반 150GWh/년 목표를 잇는 후속 전략이라는 점에서 의미가 있다.",
-   "implication": [
-    "주요국의 국가 주도 축전지 산업전략 강화가 이어지는 흐름으로 관찰된다",
-    "일본의 국내 제조기반 150GWh/년 목표가 글로벌 배터리 공급망 경쟁 측면에서 점검 대상이다",
-    "전략의 구체 지원책·기업 투자 연계 진척이 다음 확인 지점으로 남는다"
-   ],
-   "region": "JP",
-   "related": [],
-   "signal": "high",
-   "source_claim_covered": true,
-   "source_diversity_status": "PASS_MULTI_SOURCE",
-   "source_spec_id": "SPEC23",
-   "sub": "일본 축전지산업전략검토 관민협의회가 2026년 6월 새 '축전지·전원 산업전략'을 책정했으며, LIB 세계시장을 2025년 23조엔에서 2035년 46조엔으로 전망했다.",
-   "sub_cat": "축전지전략",
-   "title": "일본 관민협의회, 새 '축전지·전원 산업전략' 책정…LIB 세계시장 2035년 46조엔 전망",
-   "urls": [
-    "https://www.itmedia.co.jp/smartjapan/articles/2606/12/news019.html",
-    "https://www.meti.go.jp/press/2026/06/20260602001/20260602001.html",
-    "https://www.nikkei.com/article/DGXZQOUA01ADD0R00C26A6000000/"
-   ],
-   "id": "2026-06-12_JP_01",
-   "previous_state": "publish_ready",
-   "state": "pr_candidate_ready",
-   "publish_ready": true,
-   "content_enriched": true,
-   "language_terminology_polished": true,
-   "github_ready": true,
-   "pr_candidate_ready": true,
-   "github_main_sync_required_later": false,
-   "production_id_assigned_0_8": true,
-   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
-   "baseline_relation": "new",
-   "final_qc_gates": {
-    "gate1_fact_safety": "PASS",
-    "gate2_merge_safety": "PASS",
-    "gate3_evidence_completeness": "PASS",
-    "gate4_claim_coverage": "PASS",
-    "gate5_content_depth": "PASS",
-    "gate6_language_tone": "PASS",
-    "gate7_schema_type": "PASS",
-    "gate8_sort_id_baseline_sync": "PASS",
-    "gate9_output_integrity": "PASS"
-   },
-   "hard_fail_count": 0,
-   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
-   "source_story_ids": [],
-   "source_strength_review_0_5R": {
-    "source_diversity_status": "PASS_MULTI_SOURCE",
-    "track_origin": "strict"
-   }
-  },
-  {
    "cat": "Materials",
    "date": "2026-06-12",
    "draft_id": "DRAFT16",
@@ -252,7 +143,7 @@
    "urls": [
     "https://www.env.go.jp/press/press_04922.html"
    ],
-   "id": "2026-06-12_JP_02",
+   "id": "2026-06-12_JP_01",
    "previous_state": "publish_ready",
    "state": "pr_candidate_ready",
    "publish_ready": true,
@@ -3750,6 +3641,115 @@
    "id_assignment_basis": "(date,region) 그룹 내 기존 카드 없음 — NN=01, CARD_ID_STANDARD signal 우선 규칙",
    "source_diversity_status": "PASS_MULTI_SOURCE",
    "source_strength_review_0_5R": "clean_pass_no_0_5R"
+  },
+  {
+   "cat": "Policy",
+   "date": "2026-06-02",
+   "draft_id": "DRAFT23",
+   "event_fingerprint": {
+    "actor": "관민협의회; 일본; 축전지",
+    "asset_or_policy": "축전지전략",
+    "location": "JP",
+    "event_type": "policy_change",
+    "event_date": "2026-06-02",
+    "factual_anchor": [
+     "150gwh"
+    ],
+    "source_url_cluster": [
+     "itmedia.co.jp"
+    ]
+   },
+   "evidence_complete": true,
+   "fact": "일본 축전지산업전략검토 관민협의회는 2026년 6월 새 '축전지·전원 산업전략'을 책정했다. 리튬이온전지(LIB) 세계시장은 2025년 23조엔에서 2035년 46조엔(약 2배), 2040년 55조엔으로 성장할 것으로 추산했다. 2022년 전략은 늦어도 2030년까지 축전지·소재 국내 제조기반 150GWh/년 확립을 목표로 제시한 바 있다.",
+   "fact_sources": [
+    {
+     "source_name": "ITmedia Smart Japan",
+     "source_url": "https://www.itmedia.co.jp/smartjapan/articles/2606/12/news019.html",
+     "claim": "일본 관민협의회, 새 '축전지·전원 산업전략' 책정·LIB 세계시장 2025년 23조엔->2035년 46조엔",
+     "source_quote": "「蓄電池産業戦略検討官民協議会」は新たな「蓄電池・電源産業戦略」を策定した ... リチウムイオン電池（LIB）の世界市場は、2025年の23兆円から、35年に46兆円（約2倍）",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-13T08:30:00",
+     "fetch_method": "input_hydrated_body"
+    },
+    {
+     "source_url": "https://www.meti.go.jp/press/2026/06/20260602001/20260602001.html",
+     "source_owner": "경제산업성(METI) 공식",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "gate",
+      "fact"
+     ],
+     "source_quote": "「蓄電池産業戦略」を「蓄電池・電源産業戦略」に改訂 (2026.6.2 공식)",
+     "source_quote_status": "body_quote_verified"
+    },
+    {
+     "source_url": "https://www.nikkei.com/article/DGXZQOUA01ADD0R00C26A6000000/",
+     "source_owner": "日本経済新聞",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact"
+     ],
+     "source_quote": "蓄電池 売上高 2035年に3倍 約5兆円へ 경산성 戦略改定",
+     "source_quote_status": "body_quote_verified"
+    }
+   ],
+   "gate": "일본이 국가 차원에서 축전지 산업 경쟁력 회복 전략을 갱신한 사례다. 2022년 전략의 국내 제조기반 150GWh/년 목표를 잇는 후속 전략이라는 점에서 의미가 있다.",
+   "implication": [
+    "주요국의 국가 주도 축전지 산업전략 강화가 이어지는 흐름으로 관찰된다",
+    "일본의 국내 제조기반 150GWh/년 목표가 글로벌 배터리 공급망 경쟁 측면에서 점검 대상이다",
+    "전략의 구체 지원책·기업 투자 연계 진척이 다음 확인 지점으로 남는다"
+   ],
+   "region": "JP",
+   "related": [],
+   "signal": "high",
+   "source_claim_covered": true,
+   "source_diversity_status": "PASS_MULTI_SOURCE",
+   "source_spec_id": "SPEC23",
+   "sub": "일본 축전지산업전략검토 관민협의회가 2026년 6월 새 '축전지·전원 산업전략'을 책정했으며, LIB 세계시장을 2025년 23조엔에서 2035년 46조엔으로 전망했다.",
+   "sub_cat": "축전지전략",
+   "title": "일본 관민협의회, 새 '축전지·전원 산업전략' 책정…LIB 세계시장 2035년 46조엔 전망",
+   "urls": [
+    "https://www.itmedia.co.jp/smartjapan/articles/2606/12/news019.html",
+    "https://www.meti.go.jp/press/2026/06/20260602001/20260602001.html",
+    "https://www.nikkei.com/article/DGXZQOUA01ADD0R00C26A6000000/"
+   ],
+   "id": "2026-06-02_JP_01",
+   "previous_state": "publish_ready",
+   "state": "pr_candidate_ready",
+   "publish_ready": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "github_ready": true,
+   "pr_candidate_ready": true,
+   "github_main_sync_required_later": false,
+   "production_id_assigned_0_8": true,
+   "id_assignment_basis": "YYYY-MM-DD_REGION_NN (CARD_ID_STANDARD); event date; NN by signal within (date,region); no main collision",
+   "baseline_relation": "new",
+   "final_qc_gates": {
+    "gate1_fact_safety": "PASS",
+    "gate2_merge_safety": "PASS",
+    "gate3_evidence_completeness": "PASS",
+    "gate4_claim_coverage": "PASS",
+    "gate5_content_depth": "PASS",
+    "gate6_language_tone": "PASS",
+    "gate7_schema_type": "PASS",
+    "gate8_sort_id_baseline_sync": "PASS",
+    "gate9_output_integrity": "PASS"
+   },
+   "hard_fail_count": 0,
+   "final_qc_notes": "9 publish gate PASS; execution-anchor non-inflated; baseline dedup new (query-preserved URL canon)",
+   "source_story_ids": [],
+   "source_strength_review_0_5R": {
+    "source_diversity_status": "PASS_MULTI_SOURCE",
+    "track_origin": "strict"
+   }
   },
   {
    "id": "2026-05-30_GL_01",

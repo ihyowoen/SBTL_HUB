@@ -107,196 +107,6 @@
    "_recovered_via": null
   },
   {
-   "id": "2026-06-22_CN_02",
-   "region": "CN",
-   "date": "2026-06-22",
-   "cat": "SupplyChain",
-   "sub_cat": "핵심광물수출통제",
-   "signal": "high",
-   "title": "중국, AI 데이터센터용 인듐 수출검사 강화…갈륨·게르마늄·흑연 이어 통제 확대 조짐",
-   "sub": "로이터에 따르면 중국 세관이 AI 데이터센터 핵심 원료인 인듐에 대해 최종사용자 정보 요구와 서류 심사 기간 연장 등으로 사실상 통제를 강화하고 있다.",
-   "gate": "공식 수출통제 품목이 아닌 인듐에 대해 세관 단계의 사실상 통제가 강화된 점에서 갈륨·게르마늄·흑연에 이은 자원 무기화의 연장선으로 관찰된다. 인듐이 AI 광학칩(InP) 전처리 원료라는 점에서 첨단기술 공급망에 미칠 파급을 확인할 필요가 있다.",
-   "fact": "로이터는 6월 21일(현지시각) 중국이 차세대 AI 데이터센터 핵심 원료로 꼽히는 희소금속 인듐에 대해 수출통제에 나설 조짐을 보이고 있다고 보도했다. 중국 세관 당국은 공식 수출통제 대상이 아닌 인듐에 대해 구매자에게 최종사용자 정보를 공개하도록 요구하거나 서류 심사 기간을 크게 연장하는 방식으로 통제를 강화하고 있으며, 이는 갈륨·게르마늄·흑연에 대한 앞선 통제에 뒤이은 것이다. 인듐은 아연 제련 부산물로 주로 디스플레이·솔더링에 쓰이지만 AI 데이터센터 광학 인터커넥트에 필수적인 광학칩 원료인 인화인듐(InP)의 전처리 원료이며, 중국은 전 세계 인듐 공급의 약 70%를 차지한다.",
-   "implication": [
-    "갈륨·게르마늄·흑연에 이은 인듐 통제 조짐이 핵심광물 공급망 리스크의 변수가 될 수 있다",
-    "중국이 인듐 공급의 약 70%를 점유해 AI 광학칩(InP) 전처리 원료 조달에 영향을 줄 가능성이 열린다",
-    "공식 통제가 아닌 세관 심사 강화 방식의 실제 적용 범위와 통제 공식화 여부가 후속 점검 대상이다"
-   ],
-   "urls": [
-    "https://www.businesskorea.co.kr/news/articleView.html?idxno=271747"
-   ],
-   "related": [],
-   "fact_sources": [
-    {
-     "source_name": "BusinessKorea",
-     "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=271747",
-     "claim": "로이터, 중국의 인듐 수출통제 개시 조짐 보도",
-     "source_quote": "Reuters reported on June 21 (local time) that China is showing signs of initiating export controls on the rare metal ‘indium’, which is considered a core raw material for next-generation artificial intelligence (AI) data centers.",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "title",
-      "sub",
-      "fact",
-      "gate"
-     ],
-     "fetched_at": "2026-06-22",
-     "fetch_method": "provided_usable_text_body",
-     "resolved_article_matches_quote": true,
-     "source_url_canonical_complete": true,
-     "source_url_prefix_promoted": false
-    },
-    {
-     "source_name": "BusinessKorea",
-     "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=271747",
-     "claim": "세관의 최종사용자 정보 요구·서류 심사 기간 연장",
-     "source_quote": "Chinese customs authorities have recently been strengthening controls on indium, which is not subject to official export controls, by requiring buyers to disclose end-user information or significantly extending the document review period.",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "sub",
-      "fact"
-     ],
-     "fetched_at": "2026-06-22",
-     "fetch_method": "provided_usable_text_body",
-     "resolved_article_matches_quote": true,
-     "source_url_canonical_complete": true,
-     "source_url_prefix_promoted": false
-    },
-    {
-     "source_name": "BusinessKorea",
-     "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=271747",
-     "claim": "갈륨·게르마늄·흑연 통제에 뒤이은 조치",
-     "source_quote": "Concerns are emerging that following gallium, germanium, and graphite, China’s weaponization of resources targeting the advanced tech supply chain could go into full swing.",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "title",
-      "gate",
-      "implication"
-     ],
-     "fetched_at": "2026-06-22",
-     "fetch_method": "provided_usable_text_body",
-     "resolved_article_matches_quote": true,
-     "source_url_canonical_complete": true,
-     "source_url_prefix_promoted": false
-    },
-    {
-     "source_name": "BusinessKorea",
-     "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=271747",
-     "claim": "인듐은 InP 광학칩 전처리 원료이며 중국이 공급 약 70% 점유",
-     "source_quote": "it is the pre-processing raw material for ‘indium phosphide (InP)’, which is the raw material for manufacturing advanced optical chips essential for AI data center optical interconnects. China monopolizes approximately 70% of the global supp",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "fact",
-      "implication"
-     ],
-     "fetched_at": "2026-06-22",
-     "fetch_method": "provided_usable_text_body",
-     "resolved_article_matches_quote": true,
-     "source_url_canonical_complete": true,
-     "source_url_prefix_promoted": false
-    }
-   ],
-   "publish_ready": true,
-   "evidence_complete": true,
-   "source_claim_covered": true,
-   "content_enriched": true,
-   "language_terminology_polished": true,
-   "state": "publish_ready",
-   "source_diversity_status": "SINGLE_SOURCE_EXCEPTION",
-   "draft_id": "DRAFT_2026-06-22_CN_02",
-   "_merge_source": "dryrun_20260622",
-   "_recovered_via": null
-  },
-  {
-   "id": "2026-06-22_CN_03",
-   "region": "CN",
-   "date": "2026-06-22",
-   "cat": "Battery",
-   "sub_cat": "나트륨이온전지착공",
-   "signal": "high",
-   "title": "중국 닝샤 옌츠, 나위안과기와 10GWh 나트륨이온전지 프로젝트 착공",
-   "sub": "6월 15일 닝샤 우중시 옌츠현에서 총투자 30.33억위안의 나위안과기(Nayuan Technology) 10GWh 나트륨이온전지 전산업체인 프로젝트가 착공했으며, 실질 지배주주는 국무원 국유자산감독관리위원회(SASAC)다.",
-   "gate": "국유기업(SASAC) 배경 자본이 나트륨이온 전산업체인에 진입한 착공(groundbreaking) 사례로, 투자액·다단계 용량이 명시된 실행 단계다. 중국 나트륨이온 공급망의 국유자본 주도 집적이 확인된다.",
-   "fact": "6월 15일 닝샤 우중시 옌츠현 가오사워 화공단지에서 나위안과기 10GWh 나트륨이온전지 프로젝트가 착공했다. 총투자는 30.33억위안이며, 1단계는 연산 6만톤 복합인산철나트륨(NFPP) 양극재 라인과 연산 3만톤 연탄기반 하드카본 음극재 라인을 건설하고, 2단계는 10GWh 셀 라인과 PACK 조립 라인으로 확장한다. 실질 지배주주는 국무원 국유자산감독관리위원회다.",
-   "implication": [
-    "국유자본 주도로 나트륨이온 전산업체인 집적이 닝샤에 형성되며 중국 내 나트륨이온 양산 경쟁이 가속되는 흐름이 관찰된다.",
-    "NFPP 양극재·하드카본 음극재의 대규모 현지 생산은 나트륨이온 소재 공급망 재편 변수가 될 수 있다.",
-    "1단계 EPC 입찰 이후 실제 양산 전환과 2단계 셀 라인 진척이 점검 대상이다."
-   ],
-   "urls": [
-    "https://libattery.ofweek.com/2026-06/ART-36008-8120-30691360.html"
-   ],
-   "related": [],
-   "fact_sources": [
-    {
-     "source_name": "OFweek Li-Battery",
-     "source_url": "https://libattery.ofweek.com/2026-06/ART-36008-8120-30691360.html",
-     "claim": "6월15일 옌츠현 나위안과기 10GWh 나트륨이온 프로젝트 착공, 총투자 30.33억위안",
-     "source_quote": "6月15日，宁夏吴忠市盐池县钠元科技10GWh钠离子电池生产项目在高沙窝化工园区开工建设...总投资达30.33亿元。",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "title",
-      "sub",
-      "gate",
-      "fact"
-     ]
-    },
-    {
-     "source_name": "OFweek Li-Battery",
-     "source_url": "https://libattery.ofweek.com/2026-06/ART-36008-8120-30691360.html",
-     "claim": "1단계 NFPP 6만톤+하드카본 3만톤, 2단계 10GWh 셀+PACK",
-     "source_quote": "一期工程...建设年产6万吨复合磷酸铁钠（NFPP）正极材料生产线，以及年产3万吨烟煤基硬碳负极材料生产线...二期...建设10GWh电芯生产线及PACK组装生产线。",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "fact",
-      "implication"
-     ]
-    },
-    {
-     "source_name": "OFweek Li-Battery",
-     "source_url": "https://libattery.ofweek.com/2026-06/ART-36008-8120-30691360.html",
-     "claim": "실질 지배주주 SASAC",
-     "source_quote": "实际控制人为国务院国有资产监督管理委员会。",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "sub",
-      "gate",
-      "fact"
-     ]
-    },
-    {
-     "source_name": "Sina Finance (新浪财经)",
-     "source_url": "https://finance.sina.com.cn/roll/2026-01-22/doc-inhiepsr4586793.shtml",
-     "claim": "독립 출처 신랑재경(Sina Finance)이 2026년 1월 보도에서 닝샤 옌츠현(盐池县)의 총투자 30.33억위안 규모 10GWh 나트륨이온전지 생산 프로젝트를 동일하게 확인한다(6월 착공의 사전 발표 단계).",
-     "source_quote": "润达绿投计划总投资30.33亿元，在盐池县布局10GWh钠离子电池生产项目",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "secondary_event_evidence",
-     "supports": [
-      "title",
-      "fact"
-     ],
-     "fetched_at": "2026-06-23",
-     "fetch_method": "web_fetch_0_5R_corroboration"
-    }
-   ],
-   "publish_ready": true,
-   "evidence_complete": true,
-   "source_claim_covered": true,
-   "content_enriched": true,
-   "language_terminology_polished": true,
-   "state": "publish_ready",
-   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
-   "draft_id": "2026-06-22_CN_01",
-   "_merge_source": "dryrun_20260622",
-   "_recovered_via": "0.5R"
-  },
-  {
    "id": "2026-06-22_CN_04",
    "region": "CN",
    "date": "2026-06-22",
@@ -329,7 +139,9 @@
       "sub",
       "gate",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "China5e",
@@ -341,7 +153,9 @@
      "supports": [
       "fact",
       "implication"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "锡林郭勒盟能源局 (内蒙古日报 재게재)",
@@ -519,7 +333,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-22T05:00:00Z",
-     "source_name": "GlobeNewswire"
+     "source_name": "GlobeNewswire",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "claim": "이번 주문은 탠덤 PV 제품의 글로벌 프리미엄 분산형 에너지 첫 상업 배치이자 중국 개발 탠덤 기술의 글로벌 시장 첫 진입",
@@ -530,7 +345,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-22T05:00:00Z",
-     "source_name": "GlobeNewswire"
+     "source_name": "GlobeNewswire",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "claim": "인도 모듈은 900W급 이상 탠덤 기술 기반이며 표준화된 산업 설계를 완료하고 주거용 PV 기준에 부합",
@@ -541,7 +357,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-22T05:00:00Z",
-     "source_name": "GlobeNewswire"
+     "source_name": "GlobeNewswire",
+     "fetch_method": "provided_usable_text_body"
     }
    ],
    "publish_ready": true,
@@ -585,7 +402,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-22T03:00:00Z",
-     "source_name": "헬로티"
+     "source_name": "헬로티",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "claim": "이번 물량은 올해 초 사실상 중단 이후 첫 재개분이며, 게르마늄 수출은 여전히 재개되지 않음",
@@ -596,7 +414,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-22T03:00:00Z",
-     "source_name": "헬로티"
+     "source_name": "헬로티",
+     "fetch_method": "provided_usable_text_body"
     }
    ],
    "publish_ready": true,
@@ -608,56 +427,6 @@
    "source_diversity_status": "SINGLE_SOURCE_EXCEPTION",
    "draft_id": "2026-06-22_GL_02",
    "_merge_source": "dryrun_20260622",
-   "_recovered_via": null
-  },
-  {
-   "id": "2026-06-22_GL_03",
-   "region": "GL",
-   "date": "2026-06-22",
-   "cat": "ESS",
-   "sub_cat": "계통배터리차익수익",
-   "signal": "high",
-   "title": "남호주 SA1, 하루 저녁 AU$20,300/MWh 가격상한 두 차례 도달…배터리 선단 약 AU$324,000 수익",
-   "sub": "6월 21일 저녁 남호주 SA1 지역이 NEM 가격상한을 두 차례 찍으며 추적 대상 계통배터리 15기 중 4기가 방전 참여해 선단 추정수익 약 AU$324,000를 기록했다.",
-   "gate": "남호주 SA1 거래지역이 2026년 6월 21일 저녁 호주 전력시장(NEM) 상한가인 AU$20,300/MWh에 두 차례 도달했다. 배터리 분석 플랫폼 NEMPulse는 해당 이벤트에서 선단 추정수익 약 AU$324,000를 집계했다. 일자·지역·정량 수치를 갖춘 계통배터리 운영 이벤트로, 머천트 저장의 차익거래 경제성을 보여주는 사례라는 점이 관찰된다.",
-   "fact": "남호주 SA1 거래지역은 2026년 6월 21일 저녁 NEM AU$20,300/MWh 가격상한에 두 차례 도달했다. NEMPulse의 Market Events 집계에 따르면 극단적 가격 구간은 19:35 AEST에 시작해 2시간 35분간 지속됐으며, 지역 기준가격은 정점 AU$20,300/MWh, 이벤트 평균은 AU$3,900/MWh였다. SA1 지역에서 추적되는 계통 규모 배터리 15기 중 4기가 시장에 적극 방전 참여했고 2기는 충전 중이었으며 나머지는 유휴 또는 정지 상태였다. NEMPulse는 독립적이고 개방형 데이터 기반 플랫폼이며, EnergyAustralia 선임 분석가 Franz David Schaefer가 19:35 알림과 이벤트 분석을 공유했다.",
-   "implication": [
-    "남호주 고변동 전력시장에서 계통배터리의 가격상한 구간 차익거래 수익 구조가 점검 대상이다.",
-    "추적 15기 중 4기만 방전 참여한 가용성·디스패치 편차가 머천트 저장 수익 변수로 남는다.",
-    "단일 이벤트 추정수익인 만큼 반복 빈도·연간 수익 환산은 후속 확인이 필요하다."
-   ],
-   "urls": [
-    "https://www.energy-storage.news/south-australia-hits-au20300-mwh-price-cap-twice-in-one-evening-as-battery-storage-fleet-captures-au324000"
-   ],
-   "related": [],
-   "fact_sources": [
-    {
-     "source_name": "Energy-Storage.news",
-     "source_url": "https://www.energy-storage.news/south-australia-hits-au20300-mwh-price-cap-twice-in-one-evening-as-battery-storage-fleet-captures-au324000",
-     "claim": "남호주 SA1이 6월 21일 저녁 AU$20,300/MWh 상한에 두 차례 도달, NEMPulse 집계 선단 추정수익 약 AU$324,000, 추적 배터리 15기 중 4기 방전·2기 충전.",
-     "source_quote": "South Australia's SA1 trading region reached the National Electricity Market (NEM) AU$20,300/MWh price cap twice during the evening of 21 June, with battery storage analytics platform NEMPulse recording an estimated AU$324,000 in fleet revenue across the event. According to NEMPulse's Market Events breakdown, the extreme pricing window began at 19:35 AEST. It lasted 2 hours and 35 minutes, with a peak regional reference price of AU$20,300/MWh and an average price across the event of AU$3,900/MWh. Of the 15 grid-scale batteries tracked in the SA1 region, four were actively dispatched into the market, two were charging, and the remainder were either idle or offline.",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "title",
-      "sub",
-      "gate",
-      "fact",
-      "implication"
-     ],
-     "fetched_at": "2026-06-22T00:45:32+00:00",
-     "fetch_method": "source_packet_usable_text"
-    }
-   ],
-   "publish_ready": true,
-   "evidence_complete": true,
-   "source_claim_covered": true,
-   "content_enriched": true,
-   "language_terminology_polished": true,
-   "state": "publish_ready",
-   "source_diversity_status": "SINGLE_SOURCE_EXCEPTION",
-   "draft_id": "2026-06-22_GL_01",
-   "_merge_source": "dryrun_20260622_finish8",
    "_recovered_via": null
   },
   {
@@ -742,7 +511,9 @@
       "title",
       "sub",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "OFweek Li-Battery (비야디 브라질 SVP 인용)",
@@ -755,7 +526,9 @@
       "gate",
       "fact",
       "implication"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "OFweek Li-Battery (비야디 브라질 SVP 인용)",
@@ -766,7 +539,9 @@
      "evidence_role": "secondary_event_evidence",
      "supports": [
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "CnEVPost",
@@ -1321,7 +1096,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-21T22:00:00Z",
-     "source_name": "Electrek"
+     "source_name": "Electrek",
+     "fetch_method": "provided_usable_text_body"
     }
    ],
    "publish_ready": true,
@@ -1333,6 +1109,160 @@
    "source_diversity_status": "SINGLE_SOURCE_EXCEPTION",
    "draft_id": "2026-06-21_CN_01",
    "_merge_source": "dryrun_20260622",
+   "_recovered_via": null
+  },
+  {
+   "id": "2026-06-21_CN_02",
+   "region": "CN",
+   "date": "2026-06-21",
+   "cat": "SupplyChain",
+   "sub_cat": "핵심광물수출통제",
+   "signal": "high",
+   "title": "중국, AI 데이터센터용 인듐 수출검사 강화…갈륨·게르마늄·흑연 이어 통제 확대 조짐",
+   "sub": "로이터에 따르면 중국 세관이 AI 데이터센터 핵심 원료인 인듐에 대해 최종사용자 정보 요구와 서류 심사 기간 연장 등으로 사실상 통제를 강화하고 있다.",
+   "gate": "공식 수출통제 품목이 아닌 인듐에 대해 세관 단계의 사실상 통제가 강화된 점에서 갈륨·게르마늄·흑연에 이은 자원 무기화의 연장선으로 관찰된다. 인듐이 AI 광학칩(InP) 전처리 원료라는 점에서 첨단기술 공급망에 미칠 파급을 확인할 필요가 있다.",
+   "fact": "로이터는 6월 21일(현지시각) 중국이 차세대 AI 데이터센터 핵심 원료로 꼽히는 희소금속 인듐에 대해 수출통제에 나설 조짐을 보이고 있다고 보도했다. 중국 세관 당국은 공식 수출통제 대상이 아닌 인듐에 대해 구매자에게 최종사용자 정보를 공개하도록 요구하거나 서류 심사 기간을 크게 연장하는 방식으로 통제를 강화하고 있으며, 이는 갈륨·게르마늄·흑연에 대한 앞선 통제에 뒤이은 것이다. 인듐은 아연 제련 부산물로 주로 디스플레이·솔더링에 쓰이지만 AI 데이터센터 광학 인터커넥트에 필수적인 광학칩 원료인 인화인듐(InP)의 전처리 원료이며, 중국은 전 세계 인듐 공급의 약 70%를 차지한다.",
+   "implication": [
+    "갈륨·게르마늄·흑연에 이은 인듐 통제 조짐이 핵심광물 공급망 리스크의 변수가 될 수 있다",
+    "중국이 인듐 공급의 약 70%를 점유해 AI 광학칩(InP) 전처리 원료 조달에 영향을 줄 가능성이 열린다",
+    "공식 통제가 아닌 세관 심사 강화 방식의 실제 적용 범위와 통제 공식화 여부가 후속 점검 대상이다"
+   ],
+   "urls": [
+    "https://www.businesskorea.co.kr/news/articleView.html?idxno=271747"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "BusinessKorea",
+     "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=271747",
+     "claim": "로이터, 중국의 인듐 수출통제 개시 조짐 보도",
+     "source_quote": "Reuters reported on June 21 (local time) that China is showing signs of initiating export controls on the rare metal ‘indium’, which is considered a core raw material for next-generation artificial intelligence (AI) data centers.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "fact",
+      "gate"
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body",
+     "resolved_article_matches_quote": true,
+     "source_url_canonical_complete": true,
+     "source_url_prefix_promoted": false
+    },
+    {
+     "source_name": "BusinessKorea",
+     "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=271747",
+     "claim": "세관의 최종사용자 정보 요구·서류 심사 기간 연장",
+     "source_quote": "Chinese customs authorities have recently been strengthening controls on indium, which is not subject to official export controls, by requiring buyers to disclose end-user information or significantly extending the document review period.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "sub",
+      "fact"
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body",
+     "resolved_article_matches_quote": true,
+     "source_url_canonical_complete": true,
+     "source_url_prefix_promoted": false
+    },
+    {
+     "source_name": "BusinessKorea",
+     "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=271747",
+     "claim": "갈륨·게르마늄·흑연 통제에 뒤이은 조치",
+     "source_quote": "Concerns are emerging that following gallium, germanium, and graphite, China’s weaponization of resources targeting the advanced tech supply chain could go into full swing.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "gate",
+      "implication"
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body",
+     "resolved_article_matches_quote": true,
+     "source_url_canonical_complete": true,
+     "source_url_prefix_promoted": false
+    },
+    {
+     "source_name": "BusinessKorea",
+     "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=271747",
+     "claim": "인듐은 InP 광학칩 전처리 원료이며 중국이 공급 약 70% 점유",
+     "source_quote": "it is the pre-processing raw material for ‘indium phosphide (InP)’, which is the raw material for manufacturing advanced optical chips essential for AI data center optical interconnects. China monopolizes approximately 70% of the global supp",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body",
+     "resolved_article_matches_quote": true,
+     "source_url_canonical_complete": true,
+     "source_url_prefix_promoted": false
+    }
+   ],
+   "publish_ready": true,
+   "evidence_complete": true,
+   "source_claim_covered": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "state": "publish_ready",
+   "source_diversity_status": "SINGLE_SOURCE_EXCEPTION",
+   "draft_id": "DRAFT_2026-06-22_CN_02",
+   "_merge_source": "dryrun_20260622",
+   "_recovered_via": null
+  },
+  {
+   "id": "2026-06-21_GL_01",
+   "region": "GL",
+   "date": "2026-06-21",
+   "cat": "ESS",
+   "sub_cat": "계통배터리차익수익",
+   "signal": "high",
+   "title": "남호주 SA1, 하루 저녁 AU$20,300/MWh 가격상한 두 차례 도달…배터리 선단 약 AU$324,000 수익",
+   "sub": "6월 21일 저녁 남호주 SA1 지역이 NEM 가격상한을 두 차례 찍으며 추적 대상 계통배터리 15기 중 4기가 방전 참여해 선단 추정수익 약 AU$324,000를 기록했다.",
+   "gate": "남호주 SA1 거래지역이 2026년 6월 21일 저녁 호주 전력시장(NEM) 상한가인 AU$20,300/MWh에 두 차례 도달했다. 배터리 분석 플랫폼 NEMPulse는 해당 이벤트에서 선단 추정수익 약 AU$324,000를 집계했다. 일자·지역·정량 수치를 갖춘 계통배터리 운영 이벤트로, 머천트 저장의 차익거래 경제성을 보여주는 사례라는 점이 관찰된다.",
+   "fact": "남호주 SA1 거래지역은 2026년 6월 21일 저녁 NEM AU$20,300/MWh 가격상한에 두 차례 도달했다. NEMPulse의 Market Events 집계에 따르면 극단적 가격 구간은 19:35 AEST에 시작해 2시간 35분간 지속됐으며, 지역 기준가격은 정점 AU$20,300/MWh, 이벤트 평균은 AU$3,900/MWh였다. SA1 지역에서 추적되는 계통 규모 배터리 15기 중 4기가 시장에 적극 방전 참여했고 2기는 충전 중이었으며 나머지는 유휴 또는 정지 상태였다. NEMPulse는 독립적이고 개방형 데이터 기반 플랫폼이며, EnergyAustralia 선임 분석가 Franz David Schaefer가 19:35 알림과 이벤트 분석을 공유했다.",
+   "implication": [
+    "남호주 고변동 전력시장에서 계통배터리의 가격상한 구간 차익거래 수익 구조가 점검 대상이다.",
+    "추적 15기 중 4기만 방전 참여한 가용성·디스패치 편차가 머천트 저장 수익 변수로 남는다.",
+    "단일 이벤트 추정수익인 만큼 반복 빈도·연간 수익 환산은 후속 확인이 필요하다."
+   ],
+   "urls": [
+    "https://www.energy-storage.news/south-australia-hits-au20300-mwh-price-cap-twice-in-one-evening-as-battery-storage-fleet-captures-au324000"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "Energy-Storage.news",
+     "source_url": "https://www.energy-storage.news/south-australia-hits-au20300-mwh-price-cap-twice-in-one-evening-as-battery-storage-fleet-captures-au324000",
+     "claim": "남호주 SA1이 6월 21일 저녁 AU$20,300/MWh 상한에 두 차례 도달, NEMPulse 집계 선단 추정수익 약 AU$324,000, 추적 배터리 15기 중 4기 방전·2기 충전.",
+     "source_quote": "South Australia's SA1 trading region reached the National Electricity Market (NEM) AU$20,300/MWh price cap twice during the evening of 21 June, with battery storage analytics platform NEMPulse recording an estimated AU$324,000 in fleet revenue across the event. According to NEMPulse's Market Events breakdown, the extreme pricing window began at 19:35 AEST. It lasted 2 hours and 35 minutes, with a peak regional reference price of AU$20,300/MWh and an average price across the event of AU$3,900/MWh. Of the 15 grid-scale batteries tracked in the SA1 region, four were actively dispatched into the market, two were charging, and the remainder were either idle or offline.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "gate",
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-22T00:45:32+00:00",
+     "fetch_method": "source_packet_usable_text"
+    }
+   ],
+   "publish_ready": true,
+   "evidence_complete": true,
+   "source_claim_covered": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "state": "publish_ready",
+   "source_diversity_status": "SINGLE_SOURCE_EXCEPTION",
+   "draft_id": "2026-06-22_GL_01",
+   "_merge_source": "dryrun_20260622_finish8",
    "_recovered_via": null
   },
   {
@@ -1491,7 +1421,9 @@
       "sub",
       "gate",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "Gasgoo/D1EV (Handelsblatt 인용)",
@@ -1504,7 +1436,9 @@
       "gate",
       "fact",
       "implication"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "Electrive",
@@ -1516,7 +1450,9 @@
      "supports": [
       "sub",
       "gate"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "CnEVPost",
@@ -1574,7 +1510,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-20T15:00:00Z",
-     "source_name": "InsideEVs"
+     "source_name": "InsideEVs",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "claim": "EX60·EX90 차주가 35,000개 이상 미국 급속충전기에서 Plug & Charge 가능; EX90은 이미 활성화, EX60은 미국 인도 시 적용",
@@ -1585,7 +1522,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-20T15:00:00Z",
-     "source_name": "InsideEVs"
+     "source_name": "InsideEVs",
+     "fetch_method": "provided_usable_text_body"
     }
    ],
    "publish_ready": true,
@@ -1629,7 +1567,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-19T16:00:00Z",
-     "source_name": "Charged EVs"
+     "source_name": "Charged EVs",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "claim": "공칭 용량 22Ah, 연속 방전 2,550W/kg·880A(40C), 사이클 수명 2,400사이클(5C/5C, 100% DoD, 80%), 연속 출력 60% 개선",
@@ -1640,7 +1579,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-19T16:00:00Z",
-     "source_name": "Charged EVs"
+     "source_name": "Charged EVs",
+     "fetch_method": "provided_usable_text_body"
     }
    ],
    "publish_ready": true,
@@ -1687,7 +1627,9 @@
       "sub",
       "gate",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "ESS News",
@@ -1698,7 +1640,9 @@
      "evidence_role": "primary_event_evidence",
      "supports": [
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "Staffetta Quotidiana",
@@ -1759,7 +1703,9 @@
       "sub",
       "gate",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "ESS News",
@@ -1771,7 +1717,9 @@
      "supports": [
       "fact",
       "gate"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "IPE Real Assets",
@@ -1832,7 +1780,9 @@
       "sub",
       "gate",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "The Energyst",
@@ -1844,7 +1794,9 @@
      "supports": [
       "fact",
       "gate"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "GreenFleet",
@@ -1905,7 +1857,9 @@
       "sub",
       "gate",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "Romania Insider",
@@ -2066,7 +2020,9 @@
       "sub",
       "gate",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "ESS News",
@@ -2078,7 +2034,9 @@
      "supports": [
       "fact",
       "implication"
-     ]
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "source_name": "Balkan Green Energy News",
@@ -2136,7 +2094,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-19T16:00:00Z",
-     "source_name": "Charged EVs"
+     "source_name": "Charged EVs",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "claim": "eView Connect는 2C 충전 CATL 3세대 액냉 배터리(50/67kWh) 탑재; Spark EV·화웨이와 MOU 체결, 태국 현지 생산 구축",
@@ -2147,7 +2106,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-19T16:00:00Z",
-     "source_name": "Charged EVs"
+     "source_name": "Charged EVs",
+     "fetch_method": "provided_usable_text_body"
     }
    ],
    "publish_ready": true,
@@ -2191,7 +2151,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-19T13:00:00Z",
-     "source_name": "Electrek"
+     "source_name": "Electrek",
+     "fetch_method": "provided_usable_text_body"
     }
    ],
    "publish_ready": true,
@@ -2235,7 +2196,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-19T16:00:00Z",
-     "source_name": "Electrek"
+     "source_name": "Electrek",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "claim": "MT1은 듀얼 800V/400V 분할 팩 구조로 400kW 지속 충전; 약 500대 첫 인도는 2026년 말 목표",
@@ -2246,7 +2208,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-19T16:00:00Z",
-     "source_name": "Electrek"
+     "source_name": "Electrek",
+     "fetch_method": "provided_usable_text_body"
     }
    ],
    "publish_ready": true,
@@ -2290,7 +2253,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-19T16:00:00Z",
-     "source_name": "Charged EVs"
+     "source_name": "Charged EVs",
+     "fetch_method": "provided_usable_text_body"
     },
     {
      "claim": "북미산 첫 인조흑연 AAM C-샘플이며, 자사 시험상 파나소닉 사양 충족하나 공식 검증은 향후 수개월 파나소닉 평가에 달림",
@@ -2301,7 +2265,8 @@
      "resolved_article_matches_quote": true,
      "source_url_canonical_complete": true,
      "fetched_at": "2026-06-19T16:00:00Z",
-     "source_name": "Charged EVs"
+     "source_name": "Charged EVs",
+     "fetch_method": "provided_usable_text_body"
     }
    ],
    "publish_ready": true,
@@ -4583,6 +4548,98 @@
    "draft_id": "D0618_11",
    "production_id_assigned_0_8": true,
    "id_assignment_basis": "date+region+signal(top>high>mid), baseline 빈 NN 슬롯 회피"
+  },
+  {
+   "id": "2026-06-15_CN_01",
+   "region": "CN",
+   "date": "2026-06-15",
+   "cat": "Battery",
+   "sub_cat": "나트륨이온전지착공",
+   "signal": "high",
+   "title": "중국 닝샤 옌츠, 나위안과기와 10GWh 나트륨이온전지 프로젝트 착공",
+   "sub": "6월 15일 닝샤 우중시 옌츠현에서 총투자 30.33억위안의 나위안과기(Nayuan Technology) 10GWh 나트륨이온전지 전산업체인 프로젝트가 착공했으며, 실질 지배주주는 국무원 국유자산감독관리위원회(SASAC)다.",
+   "gate": "국유기업(SASAC) 배경 자본이 나트륨이온 전산업체인에 진입한 착공(groundbreaking) 사례로, 투자액·다단계 용량이 명시된 실행 단계다. 중국 나트륨이온 공급망의 국유자본 주도 집적이 확인된다.",
+   "fact": "6월 15일 닝샤 우중시 옌츠현 가오사워 화공단지에서 나위안과기 10GWh 나트륨이온전지 프로젝트가 착공했다. 총투자는 30.33억위안이며, 1단계는 연산 6만톤 복합인산철나트륨(NFPP) 양극재 라인과 연산 3만톤 연탄기반 하드카본 음극재 라인을 건설하고, 2단계는 10GWh 셀 라인과 PACK 조립 라인으로 확장한다. 실질 지배주주는 국무원 국유자산감독관리위원회다.",
+   "implication": [
+    "국유자본 주도로 나트륨이온 전산업체인 집적이 닝샤에 형성되며 중국 내 나트륨이온 양산 경쟁이 가속되는 흐름이 관찰된다.",
+    "NFPP 양극재·하드카본 음극재의 대규모 현지 생산은 나트륨이온 소재 공급망 재편 변수가 될 수 있다.",
+    "1단계 EPC 입찰 이후 실제 양산 전환과 2단계 셀 라인 진척이 점검 대상이다."
+   ],
+   "urls": [
+    "https://libattery.ofweek.com/2026-06/ART-36008-8120-30691360.html"
+   ],
+   "related": [],
+   "fact_sources": [
+    {
+     "source_name": "OFweek Li-Battery",
+     "source_url": "https://libattery.ofweek.com/2026-06/ART-36008-8120-30691360.html",
+     "claim": "6월15일 옌츠현 나위안과기 10GWh 나트륨이온 프로젝트 착공, 총투자 30.33억위안",
+     "source_quote": "6月15日，宁夏吴忠市盐池县钠元科技10GWh钠离子电池生产项目在高沙窝化工园区开工建设...总投资达30.33亿元。",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "gate",
+      "fact"
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
+    },
+    {
+     "source_name": "OFweek Li-Battery",
+     "source_url": "https://libattery.ofweek.com/2026-06/ART-36008-8120-30691360.html",
+     "claim": "1단계 NFPP 6만톤+하드카본 3만톤, 2단계 10GWh 셀+PACK",
+     "source_quote": "一期工程...建设年产6万吨复合磷酸铁钠（NFPP）正极材料生产线，以及年产3万吨烟煤基硬碳负极材料生产线...二期...建设10GWh电芯生产线及PACK组装生产线。",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "fact",
+      "implication"
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
+    },
+    {
+     "source_name": "OFweek Li-Battery",
+     "source_url": "https://libattery.ofweek.com/2026-06/ART-36008-8120-30691360.html",
+     "claim": "실질 지배주주 SASAC",
+     "source_quote": "实际控制人为国务院国有资产监督管理委员会。",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "sub",
+      "gate",
+      "fact"
+     ],
+     "fetched_at": "2026-06-22",
+     "fetch_method": "provided_usable_text_body"
+    },
+    {
+     "source_name": "Sina Finance (新浪财经)",
+     "source_url": "https://finance.sina.com.cn/roll/2026-01-22/doc-inhiepsr4586793.shtml",
+     "claim": "독립 출처 신랑재경(Sina Finance)이 2026년 1월 보도에서 닝샤 옌츠현(盐池县)의 총투자 30.33억위안 규모 10GWh 나트륨이온전지 생산 프로젝트를 동일하게 확인한다(6월 착공의 사전 발표 단계).",
+     "source_quote": "润达绿投计划总投资30.33亿元，在盐池县布局10GWh钠离子电池生产项目",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "title",
+      "fact"
+     ],
+     "fetched_at": "2026-06-23",
+     "fetch_method": "web_fetch_0_5R_corroboration"
+    }
+   ],
+   "publish_ready": true,
+   "evidence_complete": true,
+   "source_claim_covered": true,
+   "content_enriched": true,
+   "language_terminology_polished": true,
+   "state": "publish_ready",
+   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
+   "draft_id": "2026-06-22_CN_01",
+   "_merge_source": "dryrun_20260622",
+   "_recovered_via": "0.5R"
   },
   {
    "cat": "Materials",

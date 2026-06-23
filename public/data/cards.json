@@ -271,14 +271,18 @@
      ]
     },
     {
-     "source_name": "2nd source (0.5R)",
+     "source_name": "Sina Finance (新浪财经)",
      "source_url": "https://finance.sina.com.cn/roll/2026-01-22/doc-inhiepsr4586793.shtml",
-     "source_quote": "(0.5R 교차확인)",
-     "source_quote_status": "corroborated_second_source_0_5R",
+     "claim": "독립 출처 신랑재경(Sina Finance)이 2026년 1월 보도에서 닝샤 옌츠현(盐池县)의 총투자 30.33억위안 규모 10GWh 나트륨이온전지 생산 프로젝트를 동일하게 확인한다(6월 착공의 사전 발표 단계).",
+     "source_quote": "润达绿投计划总投资30.33亿元，在盐池县布局10GWh钠离子电池生产项目",
+     "source_quote_status": "body_quote_verified",
      "evidence_role": "secondary_event_evidence",
      "supports": [
+      "title",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-23",
+     "fetch_method": "web_fetch_0_5R_corroboration"
     }
    ],
    "publish_ready": true,
@@ -287,7 +291,7 @@
    "content_enriched": true,
    "language_terminology_polished": true,
    "state": "publish_ready",
-   "source_diversity_status": "MULTI_SOURCE_AFTER_0_5R",
+   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
    "draft_id": "2026-06-22_CN_01",
    "_merge_source": "dryrun_20260622",
    "_recovered_via": "0.5R"
@@ -340,14 +344,18 @@
      ]
     },
     {
-     "source_name": "2nd source (0.5R)",
-     "source_url": "https://inews.nmgnews.com.cn/system/2026/05/10/030345352.shtml",
-     "source_quote": "(0.5R 교차확인)",
-     "source_quote_status": "corroborated_second_source_0_5R",
+     "source_name": "锡林郭勒盟能源局 (内蒙古日报 재게재)",
+     "source_url": "https://nyj.xlgl.gov.cn/nyj/xwdt/xyzx/2026052516115232688/index.html",
+     "claim": "독립 출처 내몽골 매체(内蒙古日报/내몽골신문망)가 2026년 5월 보도에서 알샤맹 하이산(海善)에너지저장 15GWh 프로젝트의 총투자 20억위안·계획부지 148무·연산 10GWh 저장전지+5GWh 저장시스템·예상 생산액 30억위안을 동일하게 확인한다.",
+     "source_quote": "该项目总投资20亿元，规划用地148亩，总建筑面积约9万平方米……打造年产10GWh储能电池及5GWh储能系统装备集成产能……项目建成投产后，预计产值可达30亿元",
+     "source_quote_status": "official_material_quote_verified",
      "evidence_role": "secondary_event_evidence",
      "supports": [
+      "title",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-23",
+     "fetch_method": "web_fetch_0_5R_corroboration"
     }
    ],
    "publish_ready": true,
@@ -356,7 +364,7 @@
    "content_enriched": true,
    "language_terminology_polished": true,
    "state": "publish_ready",
-   "source_diversity_status": "MULTI_SOURCE_AFTER_0_5R",
+   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
    "draft_id": "2026-06-22_CN_02",
    "_merge_source": "dryrun_20260622",
    "_recovered_via": "0.5R"
@@ -761,14 +769,18 @@
      ]
     },
     {
-     "source_name": "CnEVPost, 'BYD expands battery output in",
+     "source_name": "CnEVPost",
      "source_url": "https://cnevpost.com/2026/06/17/byd-expands-battery-output-brazil/",
-     "source_quote": "(0.5R 교차확인)",
-     "source_quote_status": "corroborated_second_source_0_5R",
+     "claim": "독립 출처 CnEVPost가 BYD의 카마사리(Camaçari) 주력 공장 55억헤알(약 10.8억달러) 배터리 증설 투자와 2027년 초 50% 현지화 목표를 동일하게 확인한다.",
+     "source_quote": "BYD plans to invest 5.5 billion reais ($1.08 billion) in its flagship plant in Camaçari, in Bahia state.",
+     "source_quote_status": "body_quote_verified",
      "evidence_role": "secondary_event_evidence",
      "supports": [
+      "title",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-23",
+     "fetch_method": "web_fetch_0_5R_corroboration"
     }
    ],
    "publish_ready": true,
@@ -777,7 +789,7 @@
    "content_enriched": true,
    "language_terminology_polished": true,
    "state": "publish_ready",
-   "source_diversity_status": "MULTI_SOURCE_AFTER_0_5R",
+   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
    "draft_id": "2026-06-22_GL_01",
    "_merge_source": "dryrun_20260622_finish8",
    "_recovered_via": "0.5R"
@@ -1509,12 +1521,16 @@
     {
      "source_name": "CnEVPost",
      "source_url": "https://cnevpost.com/2026/06/20/eu-readies-tariffs-chinese-phevs/",
-     "source_quote": "(0.5R 교차확인)",
-     "source_quote_status": "corroborated_second_source_0_5R",
+     "claim": "독립 영어권 출처 CnEVPost가 EU집행위의 중국산 PHEV 신규 반보조금 관세 추진과 타깃 브랜드(BYD·Chery·SAIC) 및 10% 기본관세 위 추가관세 구조를 동일하게 확인.",
+     "source_quote": "The European Union is preparing to impose tariffs on plug-in hybrid vehicles (PHEVs) imported from China in the coming weeks. The move aims to offset the market-distorting effects of Chinese subsidies, with the European Commission targeting additional countervailing duties on models from Chinese manufacturers such as BYD (HKEX: 1211), Chery (HKEX: 9973) and SAIC Motor (SSE: 600104). Under the current framework, manufacturer-specific duties are added on top of the standard 10% import tariff.",
+     "source_quote_status": "body_quote_verified",
      "evidence_role": "secondary_event_evidence",
      "supports": [
+      "title",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-23",
+     "fetch_method": "web_fetch_0_5R_corroboration"
     }
    ],
    "publish_ready": true,
@@ -1523,7 +1539,7 @@
    "content_enriched": true,
    "language_terminology_polished": true,
    "state": "publish_ready",
-   "source_diversity_status": "MULTI_SOURCE_AFTER_0_5R",
+   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
    "draft_id": "2026-06-19_EU_03",
    "_merge_source": "dryrun_20260622",
    "_recovered_via": "0.5R"
@@ -1685,14 +1701,18 @@
      ]
     },
     {
-     "source_name": "pv magazine Italia",
-     "source_url": "https://www.pv-magazine.it/2026/06/17/bess-il-mase-autorizza-298-mw/",
-     "source_quote": "(0.5R 교차확인)",
-     "source_quote_status": "corroborated_second_source_0_5R",
+     "source_name": "Staffetta Quotidiana",
+     "source_url": "https://www.staffettaonline.com/articolo.aspx?id=405296",
+     "claim": "독립 이탈리아 출처 Staffetta Quotidiana가 6월 16일자 명령 146·147호로 MASE가 산세베로 198MW(Energy Total Capital) 등 BESS 2건을 인허가한 동일 핵심 사건을 확인.",
+     "source_quote": "Con i decreti direttoriali 146 e 147 del 16 giugno, il ministero dell'Ambiente ha autorizzato la realizzazione di due progetti di accumulo elettrochimico.",
+     "source_quote_status": "body_quote_verified",
      "evidence_role": "secondary_event_evidence",
      "supports": [
+      "title",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-23",
+     "fetch_method": "web_fetch_0_5R_corroboration"
     }
    ],
    "publish_ready": true,
@@ -1701,7 +1721,7 @@
    "content_enriched": true,
    "language_terminology_polished": true,
    "state": "publish_ready",
-   "source_diversity_status": "MULTI_SOURCE_AFTER_0_5R",
+   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
    "draft_id": "2026-06-19_EU_02",
    "_merge_source": "dryrun_20260622",
    "_recovered_via": "0.5R"
@@ -1756,12 +1776,16 @@
     {
      "source_name": "IPE Real Assets",
      "source_url": "https://realassets.ipe.com/news/futureal-energy-partners-expands-into-the-baltic-energy-storage-market/10137298.article",
-     "source_quote": "(0.5R 교차확인)",
-     "source_quote_status": "corroborated_second_source_0_5R",
+     "claim": "독립 출처 IPE Real Assets가 퓨처리얼 에너지파트너스의 라트비아 리가권 45MW/120MWh BESS 2건(볼데라야·비수치엠스) 인수와 계통연계·건축허가 확보 및 2026년 7월 착공을 동일하게 확인.",
+     "source_quote": "The transaction comprises two standalone BESS sites in Riga with a combined capacity of 45MW/120MWh and will complement the company's expanding European renewable energy portfolio with current investments in Finland, Hungary and Poland, FEP said in a statement. The Baltic portfolio includes the Bolderaja and Bisuciems projects, which were developed from greenfield stage by Latvian renewable energy developer AG. The projects have already secured key development milestones, including grid connection agreements and building permits and construction is expected to begin in July 2026, FEP said.",
+     "source_quote_status": "body_quote_verified",
      "evidence_role": "secondary_event_evidence",
      "supports": [
+      "title",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-23",
+     "fetch_method": "web_fetch_0_5R_corroboration"
     }
    ],
    "publish_ready": true,
@@ -1770,7 +1794,7 @@
    "content_enriched": true,
    "language_terminology_polished": true,
    "state": "publish_ready",
-   "source_diversity_status": "MULTI_SOURCE_AFTER_0_5R",
+   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
    "draft_id": "2026-06-19_EU_04",
    "_merge_source": "dryrun_20260622",
    "_recovered_via": "0.5R"
@@ -1825,12 +1849,16 @@
     {
      "source_name": "GreenFleet",
      "source_url": "https://greenfleet.net/news/19062026/surrey-county-council-launches-cross-pavement-charging-scheme",
-     "source_quote": "(0.5R 교차확인)",
-     "source_quote_status": "corroborated_second_source_0_5R",
+     "claim": "독립 출처 GreenFleet가 서리주의회·커보차지의 보도 홈통 충전 프로그램이 2024년 시범 후 DfT 전기차 보도채널 보조금 승인으로 적격 주민 전체로 확대됐음을 동일하게 확인.",
+     "source_quote": "In partnership with Kerbo Charge, the cable gullies were initially trialled in 2024 and, following the successful application for funding from the Department for Transport Electric Vehicles Pavement Channel Grant, the process is now being offered to all eligible Surrey residents.",
+     "source_quote_status": "body_quote_verified",
      "evidence_role": "secondary_event_evidence",
      "supports": [
+      "title",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-23",
+     "fetch_method": "web_fetch_0_5R_corroboration"
     }
    ],
    "publish_ready": true,
@@ -1839,7 +1867,7 @@
    "content_enriched": true,
    "language_terminology_polished": true,
    "state": "publish_ready",
-   "source_diversity_status": "MULTI_SOURCE_AFTER_0_5R",
+   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
    "draft_id": "2026-06-19_EU_05",
    "_merge_source": "dryrun_20260622",
    "_recovered_via": "0.5R"
@@ -1882,12 +1910,16 @@
     {
      "source_name": "Romania Insider",
      "source_url": "https://www.romania-insider.com/ppc-dedeman-ev-charging-romania-june-2026",
-     "source_quote": "(0.5R 교차확인)",
-     "source_quote_status": "corroborated_second_source_0_5R",
+     "claim": "독립 출처 Romania Insider가 PPC블루와 데데만이 루마니아 전역 매장·물류센터에 600개 이상 충전 포인트를 설치하는 제휴를 체결했음을 동일하게 확인.",
+     "source_quote": "PPC blue and DIY market leader Dedeman signed a partnership to expand electric vehicle charging infrastructure across Romania, with plans to install more than 600 charging points at the retailer's stores and logistics centers nationwide.",
+     "source_quote_status": "body_quote_verified",
      "evidence_role": "secondary_event_evidence",
      "supports": [
+      "title",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-23",
+     "fetch_method": "web_fetch_0_5R_corroboration"
     }
    ],
    "publish_ready": true,
@@ -1896,7 +1928,7 @@
    "content_enriched": true,
    "language_terminology_polished": true,
    "state": "publish_ready",
-   "source_diversity_status": "MULTI_SOURCE_AFTER_0_5R",
+   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
    "draft_id": "2026-06-19_EU_06",
    "_merge_source": "dryrun_20260622",
    "_recovered_via": "0.5R"
@@ -2051,12 +2083,16 @@
     {
      "source_name": "Balkan Green Energy News",
      "source_url": "https://balkangreenenergynews.com/solarpro-installs-602-mwh-battery-system-in-bulgaria-setting-new-regional-record/",
-     "source_quote": "(0.5R 교차확인)",
-     "source_quote_status": "corroborated_second_source_0_5R",
+     "claim": "독립 출처 Balkan Green Energy News가 솔라프로·CATL의 부르가스 602MWh BESS 가동, 동유럽 최대 가동 설비, 불가리아 저장용량 10% 증가를 동일하게 확인.",
+     "source_quote": "Solarpro Technology, in collaboration with CATL, commissioning a 602 MWh battery energy storage system (BESS) in Burgas – the largest such facility in the country and Eastern Europe",
+     "source_quote_status": "body_quote_verified",
      "evidence_role": "secondary_event_evidence",
      "supports": [
+      "title",
       "fact"
-     ]
+     ],
+     "fetched_at": "2026-06-23",
+     "fetch_method": "web_fetch_0_5R_corroboration"
     }
    ],
    "publish_ready": true,
@@ -2065,7 +2101,7 @@
    "content_enriched": true,
    "language_terminology_polished": true,
    "state": "publish_ready",
-   "source_diversity_status": "MULTI_SOURCE_AFTER_0_5R",
+   "source_diversity_status": "MULTI_SOURCE_0_5R_VERIFIED",
    "draft_id": "2026-06-19_EU_01",
    "_merge_source": "dryrun_20260622_finish8",
    "_recovered_via": "0.5R"

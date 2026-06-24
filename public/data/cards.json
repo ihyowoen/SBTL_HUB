@@ -561,6 +561,19 @@
      ],
      "fetched_at": "2026-06-24",
      "fetch_method": "web_fetch_verified"
+    },
+    {
+     "source_name": "PR TIMES",
+     "source_url": "https://prtimes.jp/main/html/rd/p/000000004.000183271.html",
+     "claim": "SEETEL NEW ENERGY는 2017년 대만에서 설립된 축전지 관련 기업이며 2025년 대만증권거래소(증권코드 7740)에 상장했고, 2025년 일본법인 ENSO NEW ENERGY를 설립했다.",
+     "source_quote": "SEETEL NEW ENERGYは、2017年に台湾で設立された蓄電池関連企業です。2025年には台湾証券取引所（証券コード7740）への上場を果たしました。2025年には日本法人であるENSO NEW ENERGYを設立し、本格的な成長が期待される日本の蓄電池市場への参入を開始しました。",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "background_context",
+     "supports": [
+      "fact"
+     ],
+     "fetched_at": "2026-06-24",
+     "fetch_method": "web_fetch_verified"
     }
    ],
    "publish_ready": true,
@@ -1064,7 +1077,7 @@
    "title": "남호주 SA1, 하루 저녁 AU$20,300/MWh 가격상한 두 차례 도달…배터리 선단 약 AU$324,000 수익",
    "sub": "6월 21일 저녁 남호주 SA1 지역이 NEM 가격상한을 두 차례 찍으며 추적 대상 계통배터리 15기 중 4기가 방전 참여해 선단 추정수익 약 AU$324,000를 기록했다.",
    "gate": "남호주 SA1 거래지역이 2026년 6월 21일 저녁 호주 전력시장(NEM) 상한가인 AU$20,300/MWh에 두 차례 도달했다. 배터리 분석 플랫폼 NEMPulse는 해당 이벤트에서 선단 추정수익 약 AU$324,000를 집계했다. 일자·지역·정량 수치를 갖춘 계통배터리 운영 이벤트로, 머천트 저장의 차익거래 경제성을 보여주는 사례라는 점이 관찰된다.",
-   "fact": "남호주 SA1 거래지역은 2026년 6월 21일 저녁 NEM AU$20,300/MWh 가격상한에 두 차례 도달했다. NEMPulse의 Market Events 집계에 따르면 극단적 가격 구간은 19:35 AEST에 시작해 2시간 35분간 지속됐으며, 지역 기준가격은 정점 AU$20,300/MWh, 이벤트 평균은 AU$3,900/MWh였다. SA1 지역에서 추적되는 계통 규모 배터리 15기 중 4기가 시장에 적극 방전 참여했고 2기는 충전 중이었으며 나머지는 유휴 또는 정지 상태였다. NEMPulse는 독립적이고 개방형 데이터 기반 플랫폼이며, EnergyAustralia 선임 분석가 Franz David Schaefer가 19:35 알림과 이벤트 분석을 공유했다.",
+   "fact": "남호주 SA1 거래지역은 2026년 6월 21일 저녁 NEM AU$20,300/MWh 가격상한에 두 차례 도달했다. NEMPulse의 Market Events 집계에 따르면 극단적 가격 구간은 19:35 AEST에 시작해 2시간 35분간 지속됐으며, 지역 기준가격은 정점 AU$20,300/MWh, 이벤트 평균은 AU$3,900/MWh였다. SA1 지역에서 추적되는 계통 규모 배터리 15기 중 4기가 시장에 적극 방전 참여했고 2기는 충전 중이었으며 나머지는 유휴 또는 정지 상태였다. NEMPulse는 독립적이고 개방형 데이터 기반 플랫폼이며, EnergyAustralia 선임 분석 전문가(senior analytics specialist) Franz David Schaefer가 19:35 알림과 이벤트 분석을 공유했다.",
    "implication": [
     "남호주 고변동 전력시장에서 계통배터리의 가격상한 구간 차익거래 수익 구조가 점검 대상이다.",
     "추적 15기 중 4기만 방전 참여한 가용성·디스패치 편차가 머천트 저장 수익 변수로 남는다.",
@@ -1091,6 +1104,20 @@
      ],
      "fetched_at": "2026-06-22T00:45:32+00:00",
      "fetch_method": "source_packet_usable_text"
+    },
+    {
+     "source_name": "Energy-Storage.news",
+     "source_url": "https://www.energy-storage.news/south-australia-hits-au20300-mwh-price-cap-twice-in-one-evening-as-battery-storage-fleet-captures-au324000",
+     "claim": "NEMPulse는 NEM 내 모든 계통배터리의 디스패치·수익·입찰을 추적하는 독립·개방형 데이터 대시보드이며, EnergyAustralia 선임 분석 전문가 Franz David Schaefer가 LinkedIn에서 19:35 알림과 Market Events 분석을 공유했다.",
+     "source_quote": "NEMPulse is an independent, open-data dashboard that tracks the dispatch, revenue, and bidding behaviour of every grid-scale battery storage system in the NEM. Franz David Schaefer, senior analytics specialist at EnergyAustralia, flagged the event on LinkedIn, noting that NEMPulse subscribers received an alert at 19:35 and that the platform's Market Events page contained the full breakdown of battery responses and estimated revenue.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "secondary_event_evidence",
+     "supports": [
+      "fact",
+      "gate"
+     ],
+     "fetched_at": "2026-06-24",
+     "fetch_method": "web_fetch_verified"
     }
    ],
    "publish_ready": true,
@@ -1370,6 +1397,21 @@
      "fetch_method": "provided_usable_text_body",
      "supports": [
       "title",
+      "fact"
+     ]
+    },
+    {
+     "claim": "EX90 차주는 이미 Plug & Charge가 활성화돼 있고, EX60은 연내 미국 인도 시작 시점에 적용된다.",
+     "source_url": "https://insideevs.com/news/799188/volvo-ex60-ex90-ev-plug-and-charge",
+     "source_quote": "The feature is already live for EX90 owners, while EX60 drivers will get it when U.S. deliveries begin later this year.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "resolved_article_matches_quote": true,
+     "source_url_canonical_complete": true,
+     "fetched_at": "2026-06-24",
+     "source_name": "InsideEVs",
+     "fetch_method": "web_fetch_verified",
+     "supports": [
       "fact"
      ]
     }

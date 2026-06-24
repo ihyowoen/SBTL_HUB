@@ -538,18 +538,29 @@
      "source_name": "PR TIMES",
      "source_url": "https://prtimes.jp/main/html/rd/p/000000004.000183271.html",
      "claim": "대만 SEETEL이 EMS와 BMS+배터리모듈 양 부문에서 일본 JC-STAR★1 인증을 취득, 계통용 저장 분야 양 부문 대만기업 최초.",
-     "source_quote": "JC-STARは、独立行政法人情報処理推進機構（IPA）が策定・運用するセキュリティ評価制度であり、エネルギー分野においては、太陽光発電設備や蓄電池システムなどの分散型エネルギーリソースに対し、一定水準以上のサイバーセキュリティ対策を求めるものです。",
-     "source_quote_status": "official_material_quote_verified",
+     "source_quote": "SEETELは、「エネルギーマネジメントシステム（EMS）」および「バッテリーマネジメントシステム（BMS）＋蓄電池モジュール」の両分野でJC-STAR（★1）認証を取得しており、台湾企業として初めて、系統用蓄電システム分野においてEMSとBMS＋蓄電池モジュールの双方で認証を取得した企業となります。",
+     "source_quote_status": "body_quote_verified",
      "evidence_role": "primary_event_evidence",
      "supports": [
       "title",
       "sub",
-      "gate",
-      "fact",
-      "implication"
+      "fact"
      ],
-     "fetched_at": "2026-06-22T10:51:15+00:00",
-     "fetch_method": "source_packet_usable_text"
+     "fetched_at": "2026-06-24",
+     "fetch_method": "web_fetch_verified"
+    },
+    {
+     "source_name": "PR TIMES",
+     "source_url": "https://prtimes.jp/main/html/rd/p/000000004.000183271.html",
+     "claim": "JC-STAR는 일본 IPA가 책정·운용하는 보안 평가제도로 태양광·저장 등 분산형 에너지 자원에 일정 수준 이상의 사이버보안 대응을 요구한다.",
+     "source_quote": "JC-STARは、独立行政法人情報処理推進機構（IPA）が策定・運用するセキュリティ評価制度であり、エネルギー分野においては、太陽光発電設備や蓄電池システムなどの分散型エネルギーリソースに対し、一定水準以上のサイバーセキュリティ対策を求めるものです。",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "background_context",
+     "supports": [
+      "gate"
+     ],
+     "fetched_at": "2026-06-24",
+     "fetch_method": "web_fetch_verified"
     }
    ],
    "publish_ready": true,
@@ -1503,6 +1514,19 @@
      ],
      "fetched_at": "2026-06-23",
      "fetch_method": "web_fetch_0_5R_corroboration"
+    },
+    {
+     "source_name": "ESS News",
+     "source_url": "https://www.ess-news.com/2026/06/19/italy-approves-298-mw-of-battery-storage-projects",
+     "claim": "직전 주 MASE가 BESS 5건 합계 514.6MW를 추가 인허가했고(5월엔 5건 합계 310MW 인허가), 이번 298MW 인허가와의 비교 기준이 된다.",
+     "source_quote": "Last week, the ministry cleared five additional BESS projects totaling 514.6 MW, after approving another five battery storage systems with combined capacity of 310 MW in May.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "implication"
+     ],
+     "fetched_at": "2026-06-24",
+     "fetch_method": "web_fetch_verified"
     }
    ],
    "publish_ready": true,
@@ -1823,6 +1847,19 @@
      ],
      "fetched_at": "2026-06-19T07:30:00+00:00",
      "fetch_method": "source_packet_usable_text"
+    },
+    {
+     "source_name": "ESS News",
+     "source_url": "https://www.ess-news.com/2026/06/19/spain-plans-112-mwh-bess-as-part-of-solar-hydrogen-complex",
+     "claim": "태양광 설치용량 33MW·피크용량 41.96MWp이며 단축 추적식 양면(bifacial) 모듈을 사용한다.",
+     "source_quote": "The solar plant would have 33 MW of installed capacity and 41.96 MWp of peak capacity, using bifacial modules mounted on single-axis trackers.",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "fact"
+     ],
+     "fetched_at": "2026-06-24",
+     "fetch_method": "web_fetch_verified"
     }
    ],
    "publish_ready": true,

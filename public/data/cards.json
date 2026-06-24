@@ -2501,23 +2501,24 @@
    "_recovered_via": null
   },
   {
-   "id": "2026-06-19_US_03",
+   "id": "2026-06-18_US_03",
    "region": "US",
-   "date": "2026-06-19",
+   "date": "2026-06-18",
    "cat": "ESS",
    "sub_cat": "비리튬계BESS수주",
    "signal": "high",
    "title": "Eos, FPUSA로부터 2GWh 예약계약 기반 첫 구매주문 수령 (텍사스 Redbird BESS)",
    "sub": "미국 아연계 장주기 ESS 제조사 Eos가 FPUSA의 2GWh 용량예약계약 아래 첫 구매주문을 받아 텍사스 100MW/400MWh Redbird 프로젝트에 Z3 기술을 공급한다.",
    "gate": "Eos Energy가 Frontier Power USA Parent(FPUSA)와 맺은 2GWh 용량예약계약 하에서 첫 실제 구매주문을 확보했다. 이 주문은 ERCOT 시장을 겨냥한 텍사스 100MW/400MWh 규모 Redbird BESS에 투입되며, Eos의 미국 제조 아연계 장주기 저장 시스템이 적용된다. 예약계약을 실제 주문으로 전환한 사례로, 미국 내 비리튬 계통 저장 실행 사례라는 점이 관찰된다.",
-   "fact": "Eos Energy는 FPUSA의 2GWh 용량예약계약에 근거해 첫 구매주문을 수령했다고 2026년 6월 19일 발표됐다. 해당 주문은 텍사스에 건설되는 100MW/400MWh 규모 Redbird 배터리에너지저장시스템(BESS)을 지원하며, Eos의 Z3 아연계 기술이 사용된다. Redbird 프로젝트는 Bimergen Energy가 개발하고 이전에는 Bridgelink가 맡았으며 ERCOT 시장을 대상으로 한다. Eos는 미국에서 제조되는 장주기 아연계 저장 시스템을 공급하며, FPUSA와 계열사가 관련 자산을 확보한 것으로 전해진다.",
+   "fact": "Eos Energy는 FPUSA의 2GWh 용량예약계약에 근거해 첫 구매주문을 수령했다고 2026년 6월 18일 발표했다. 해당 주문은 텍사스에 건설되는 100MW/400MWh 규모 Redbird 배터리에너지저장시스템(BESS)을 지원하며, Eos의 Z3 아연계 기술이 사용된다. Redbird 프로젝트는 Bimergen Energy가 개발하고 이전에는 Bridgelink가 맡았으며 ERCOT 시장을 대상으로 한다. Eos는 미국에서 제조되는 장주기 아연계 저장 시스템을 공급하며, FPUSA와 계열사가 관련 자산을 확보한 것으로 전해진다.",
    "implication": [
     "미국 장주기 저장 수요에서 리튬 외 화학(아연계)이 실제 발주 단계로 진입했는지 점검 대상이다.",
     "2GWh 용량예약을 실제 구매주문으로 전환하는 후속 주문 흐름이 Eos 매출 가시성의 변수가 될 수 있다.",
     "ERCOT 시장향 Redbird의 건설·상업가동 일정과 추가 주문 전환율은 후속 확인이 필요하다."
    ],
    "urls": [
-    "https://www.energymonitor.ai/news/eos-receives-purchase-order-fpusa"
+    "https://www.energymonitor.ai/news/eos-receives-purchase-order-fpusa",
+    "https://www.globenewswire.com/news-release/2026/06/18/3314167/0/en/Eos-Energy-Enterprises-Announces-First-Purchase-Order-Under-Frontier-Power-USA-s-2-GWh-Capacity-Reservation-Agreement.html"
    ],
    "related": [],
    "fact_sources": [
@@ -2537,19 +2538,6 @@
      ],
      "fetched_at": "2026-06-19T09:40:00+00:00",
      "fetch_method": "source_packet_usable_text"
-    },
-    {
-     "source_name": "Energy Monitor",
-     "source_url": "https://www.energymonitor.ai/news/eos-receives-purchase-order-fpusa",
-     "claim": "기사 데이트라인이 2026년 6월 19일로 표기됨",
-     "source_quote": "Anwesha Pattanaik June 19, 2026",
-     "source_quote_status": "body_quote_verified",
-     "evidence_role": "primary_event_evidence",
-     "supports": [
-      "fact"
-     ],
-     "fetched_at": "2026-06-24",
-     "fetch_method": "web_fetch_verified"
     },
     {
      "source_name": "Energy Monitor",
@@ -2590,6 +2578,22 @@
      "source_quote_status": "body_quote_verified",
      "evidence_role": "primary_event_evidence",
      "supports": [
+      "fact"
+     ],
+     "fetched_at": "2026-06-24",
+     "fetch_method": "web_fetch_verified"
+    },
+    {
+     "source_name": "GlobeNewswire",
+     "source_url": "https://www.globenewswire.com/news-release/2026/06/18/3314167/0/en/Eos-Energy-Enterprises-Announces-First-Purchase-Order-Under-Frontier-Power-USA-s-2-GWh-Capacity-Reservation-Agreement.html",
+     "claim": "Eos Energy가 2026년 6월 18일 FPUSA의 2GWh 용량예약계약에 따른 첫 구매주문을 발표했다(미국 제조 아연계 장주기 저장).",
+     "source_quote": "PITTSBURGH, Pa., June 18, 2026 (GLOBE NEWSWIRE) -- Eos Energy Enterprises, Inc. (NASDAQ: EOSE) (\"Eos\" or the \"Company\"), America's leading innovator in designing, manufacturing, and providing zinc-based long-duration energy storage (LDES) systems sourced and manufactured in the United States, today announced the first purchase order under the 2 GWh capacity reservation agreement with Frontier Power USA Parent, LLC (FPUSA).",
+     "source_quote_status": "body_quote_verified",
+     "evidence_role": "primary_event_evidence",
+     "supports": [
+      "title",
+      "sub",
+      "gate",
       "fact"
      ],
      "fetched_at": "2026-06-24",

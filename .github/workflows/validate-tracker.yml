@@ -1,0 +1,29 @@
+name: validate-tracker
+
+# Gates any change to tracker data / region policy. Blocks merge on structural errors
+# (dup id, bad status/region, banned emoji, dangling canonicalId, broken JSON).
+# Migration WARNINGs (missing effectiveDate / instrumentType / accessedDate) do NOT block.
+
+on:
+  pull_request:
+    paths:
+      - "public/data/**"
+      - "scripts/validate.mjs"
+      - ".github/workflows/validate-tracker.yml"
+  push:
+    branches: [main]
+    paths:
+      - "public/data/**"
+      - "scripts/validate.mjs"
+  workflow_dispatch: {}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Validate tracker data
+        run: node scripts/validate.mjs

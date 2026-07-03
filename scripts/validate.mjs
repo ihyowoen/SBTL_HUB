@@ -14,6 +14,7 @@ const INSTRUMENT_TYPES = ["law", "decree", "notification", "standard"]; // scope
 const BANNED = ["🚨", "🆕", "🎉"];
 const ID_RE = /^[A-Z]{2}-\d{3}$/;
 const ISO_RE = /^\d{4}-\d{2}-\d{2}$/;
+const EFF_RE = /^\d{4}(-\d{2}(-\d{2})?)?$/; // effectiveDate: partial-ISO allowed (YYYY | YYYY-MM | YYYY-MM-DD)
 const BAKED_DDAY_RE = /\bD-\d+\b/; // staleness smell: hard-coded countdown in text
 
 const errors = [];
@@ -84,7 +85,7 @@ function validateTracker(path) {
 
     // ---- migration-aware WARNINGS (do not block) ----
     if (it.effectiveDate == null) W(`${id}: no effectiveDate (D-day should derive from ISO, not be baked)`);
-    else if (!ISO_RE.test(it.effectiveDate)) E(`${id}: effectiveDate '${it.effectiveDate}' not ISO YYYY-MM-DD`);
+    else if (!EFF_RE.test(it.effectiveDate)) E(`${id}: effectiveDate '${it.effectiveDate}' not partial-ISO (YYYY|YYYY-MM|YYYY-MM-DD)`);
     if (typeof it.dt === "string" && BAKED_DDAY_RE.test(it.dt)) W(`${id}: dt contains baked 'D-…' (staleness smell)`);
     if (it.instrumentType == null) W(`${id}: no instrumentType (scope enum: ${INSTRUMENT_TYPES.join("/")})`);
     else if (!INSTRUMENT_TYPES.includes(it.instrumentType)) E(`${id}: instrumentType '${it.instrumentType}' not in ${INSTRUMENT_TYPES.join("/")}`);

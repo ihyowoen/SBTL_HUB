@@ -1,23 +1,31 @@
 {
   "_meta": {
-    "lastUpdated": "2026-06-13T11:45:00+09:00",
-    "cycleNote": "6/13 cycle final — 5/31 baseline(90) + 4 신규(NA-022 Section 232 추가조정 + KR-017 사용후 배터리법 + JP-014 METI 蓄電池전략 + EU-021 RESourceEU 승격) = 94 items. NA(22)/EU(21)/CN(20)/KR(17)/JP(14). G7 Évian D-2~4 + USMCA Round 2 D-3~4 임박."
+    "lastUpdated": "2026-07-03T16:00:00+09:00",
+    "cycleNote": "6/25 cycle — 6/13 baseline(94) 위 글로벌 Enhanced Red Team 스윕. NA5·EU4·CN5·KR5·JP4 (CN/KR/JP 풀 뎁스 완주). 신규 2(CN-021 재생흑분 수입관리·JP-015 改正省エネ法 지붕태양광) → 96항목. JP-002 ASSB 인증일 정정. §6 구조결정(NA-023·CN-006/019 병합·KR/JP 3중복)은 미적용(이월). D-day 기준 2026-06-29 재계산(검증일·run-sig는 2026-06-25 유지). + 2026.06.29 추가검증: KR 사용후배터리법 공포5.26/시행2027.5.27 확정·법명정정, NA-020 직접조달 D-1·1260H 188개사, EU-018 최대치 ~2027.7 정정·EU-009/012 D-day 갱신, RESourceEU 자석수출 제안단계 명시. NA/EU 비검증분 D-day 산술 재계산(6/29). + 2026.06.29 enhanced 권역별: 신규 CN-022(폐배터리회수 令73号)·NA-024(AAM AD/CVD). enrichment NA-021·NA-001·NA-014·NA-018·JP-002·EU-020·CN-002. + KR 시행령 확정: KR-013 제36421호·KR-014 제36420호 2026.6.23공포/6.24시행. + EU-022(강제노동규정 2024/3015) 추가. + 2026.06.30: D-day 전체 6/30 재계산, NA-020 직접조달 6.30 발효(ACTIVE 전환), 헤드라인·watchpoint [6/30] 갱신. + 6/30 enhanced 권역별: NA 강제노동 findings·IEEPA 위헌, EU FLR/CBAM 정정, CN/KR/JP/GL 신규 없음. + 2026.07.01: D-day 7/1 재계산, GB38031(CN-006/019) 7.1 시행→ACTIVE, USMCA 검토 개시(NA-014)→ACTIVE, 헤드라인·watchpoint [7/1]. + 7/1 권역별 deep dive: NA-015(232 PCMDP 7.13)·EU-011(패스포트 8.18) 보강. KR 3 borderline surface(보급목표제·배터리 정보공개 6.3·Al 할당관세) 승인 대기. + 2026.07.02: D-day 7/2 재계산, 헤드라인·watchpoint [7/2]. 당일 시행 항목 없음(임박 7.4 SFE D-2·7.6 강제노동 의견 D-4·7.7 공청회 D-5). + 누락 audit: CN-023(稀土管理条例)·KR-021(국가첨단전략산업법) WATCH 추가. + 2026.07.03: D-day 7/3 재계산, 헤드라인·watchpoint [7/3]. 당일 시행 항목 없음(임박 7.4 SFE D-1·7.5 List1 창 마감 D-2·7.6 강제노동 의견 D-3·7.7 공청회 D-4). + 7/3 전권역 enhanced 스윕: CN-022·JP-002·NA-018 보강, 신규 enacted 없음, KR EV보조금 수행자선정(7.1) borderline 대기. + NA-025(outbound·COINS) 신규."
   },
   "NA": {
     "name": "북미 (US/CA/MX)",
-    "headline": "G7 Évian D-2~4 + USMCA Round 2 D-3~4 + Section 232 6.8 발효 + Section 122 CAFC 6.11 longer stay 인용 + Section 30C·45L 6.30 종료",
-    "summary": "NA 영역에 critical 시점 3건 동시 임박. ①**G7 Évian (6.15-17, D-2~4)** — France가 sweeping communiqué 폐기, 좁은 joint statements (critical minerals + migration + drug trafficking)으로 대체. Iran 전쟁이 의제 dominate. Trump 참석 확정. ②**USMCA Round 2 (6.16-17, D-3~4)** — Washington, agriculture + level playing field. US 요구: US-content threshold + 차량 melted-poured rule. ③**Section 232 June 1 Proclamation 6.8 발효 완료** — 95% → 85% threshold + Annex I-C 신설 + 25%→15% derivative + 85% US-content 시 10%. ④**2026.06.11 CAFC longer stay 인용** — Section 122 항소 종료까지 계속 징수. ⑤Section 30C/45L 6.30 종료 (D-17). ⑥Section 232 Critical Minerals 7.13 (D-30). ⑦USMCA 7.1 statutory decision (D-18) — 연장 확정적, 형식 미정. ⑧Section 301 multi-track determination 단계 (List 1 7.5, List 2 8.22).",
+    "headline": "Section 301 강제노동 findings(54국 12.5%[韓]·6국 10%)·공청회 7.7 + NDAA805 직접조달 발효(6.30) + USMCA Art.34.7 검토 개시(7.1)·연장 + IEEPA 2026.2 위헌→301 재구축 + G7 Évian + Outbound 통제 법제화(COINS Act·신규 규정 ~2027.3·NA-025)",
+    "summary": "NA 6/25: ①Section 301(NA-021) — 강제노동 60개 경제 6.2 결정+10/12.5% 추가관세 제안(한국 포함, 의견 7.6 D-11·공청회 7.7), 과잉생산 16개 경제(한국·배터리 명시) 결정 임박 7.24 목표 → K-배터리 직접 노출. ②Section 122(NA-003) CAFC stay 유지·비원고 징수 지속, 7.24(D-29) 만료, 301이 대체. ③USMCA(NA-014) R2(6.16-17 워싱턴) 종료, R3 7.20 멕시코시티, 7.1 평가 연장 전망(Greer). ④Section 232 핵심광물(NA-015) 협상보고 7.13 D-18. ⑤G7 Évian(NA-018) 핵심광물 비구속 연합·강제노동 툴킷. ※NA는 이번(6/29) 재스윕 대상 아님 — NA-020(직접조달 6.30 D-1·1260H 188개사)만 검증. 그 외 NA D-day는 6/29 산술 재계산(날짜 미재검증, 다음 NA 스윕 확인). + 6/29 enhanced: Section 301 2024 review 상향 2026.1.1 발효(非EV전지·천연흑연·영구자석 25%), 강제노동/과잉생산은 신규 301조사 2건(2026.3 착수·Q3 관세). AAM AD/CVD 부정 종결·35% 유지(NA-024 신규). FEOC Notice 2026-15(45X 배터리 60→85%·$45/kWh). USMCA 美-MX 핵심광물 marketplace. 中 흑연 등 수출제한 11.27 유예. + 6/30 enhanced: 강제노동 301 findings 확정(54국 12.5%·韓 포함, 6국 10%, 공청회 7.7), IEEPA 대법원 2026.2 위헌→301 재구축. Project Vault $10B.",
     "watchpoints": [
+      "[7/3] D-1 45X SFE 라이선스 effective-control 트리거(7.4) · D-2 Sec301 List1 4년리뷰 계속요청 창 마감(7.5) · D-3 강제노동 의견 마감(7.6) · D-4 강제노동 공청회(7.7) · D-10 Sec232 핵심광물 보고(7.13) · D-17 USMCA R3(7.20) · D-21 Sec122 만료·과잉생산(7.24) · D-50 List2 창 마감(8.22)",
+      {
+        "id": "NA-024",
+        "d_day": 0,
+        "date": "2026.02-03 종결",
+        "title": "AAM(흑연 음극재) AD/CVD 부정 종결·35% 유지",
+        "note": "상무부 ≥160% → ITC 산업피해 부정(2-1) → AD/CVD 미발효. Section301 25%+IEEPA 20/10% 약 35% 유지(IEEPA 대법원). 신규 301 2건 Q3 2026 관세 전망."
+      },
       {
         "id": "NA-018",
-        "d_day": 2,
+        "d_day": 0,
         "date": "2026.06.15-17",
         "title": "G7 Évian summit (D-2~4)",
         "note": "France communiqué 폐기, 좁은 joint statements (critical minerals). 영구사무국 IEA host 가능성. Trump 참석 확정. Iran 의제 dominate."
       },
       {
         "id": "NA-014",
-        "d_day": 3,
+        "d_day": 0,
         "date": "2026.06.16-17",
         "title": "USMCA Round 2 Washington (D-3~4)",
         "note": "agriculture + level playing field. US 요구: US-content + melted-poured rule."
@@ -31,70 +39,70 @@
       },
       {
         "id": "NA-006",
-        "d_day": 17,
+        "d_day": 0,
         "date": "2026.06.30",
         "title": "Section 30C EV charging credit 종료",
         "note": "OBBBA 후속. \\$100,000/설비 종료."
       },
       {
         "id": "NA-013",
-        "d_day": 17,
+        "d_day": 0,
         "date": "2026.06.30",
         "title": "Section 45L energy-efficient home 종료",
         "note": "OBBBA terminus."
       },
       {
         "id": "NA-020",
-        "d_day": 17,
+        "d_day": 0,
         "date": "2026.06.30",
         "title": "NDAA Section 805 직접 조달 금지",
-        "note": "CATL 직접 조달 + 1260H List entities 차단."
+        "note": "1260H 등재 기업(CATL 등) 직접조달 차단. 6.8자 리스트 188개사(134→188; Alibaba·BYD·NIO·Unitree 등). Section 851(로비스트) 동일 6.30."
       },
       {
         "id": "NA-014",
-        "d_day": 18,
+        "d_day": 0,
         "date": "2026.07.01",
         "title": "USMCA statutory joint review 시한",
         "note": "연장 확정적, 형식 미정. Article 34.7."
       },
       {
         "id": "NA-021",
-        "d_day": 22,
+        "d_day": 2,
         "date": "2026.07.05",
         "title": "Section 301 List 1 continuation 마감",
         "note": "2018.07.06 trade action, 818 HTSUS, \\$34B."
       },
       {
         "id": "NA-015",
-        "d_day": 30,
+        "d_day": 10,
         "date": "2026.07.13",
         "title": "Section 232 Critical Minerals 협상 마감",
         "note": "180일 statutory deadline. Proclamation 11001."
       },
       {
         "id": "NA-014",
-        "d_day": 37,
+        "d_day": 17,
         "date": "2026.07.20",
         "title": "USMCA Round 3 Mexico City",
         "note": "Round 1+2 후속."
       },
       {
         "id": "NA-003",
-        "d_day": 41,
+        "d_day": 21,
         "date": "2026.07.24",
         "title": "Section 122 150일 statutory maximum",
         "note": "CAFC 6.11 longer stay 인용 후 7.24 만료 시한."
       },
       {
         "id": "NA-021",
-        "d_day": 70,
+        "d_day": 50,
         "date": "2026.08.22",
         "title": "Section 301 List 2 continuation 마감",
         "note": "2018.08.23 trade action."
       },
       {
         "id": "NA-020",
-        "d_day": 382,
+        "d_day": 362,
         "date": "2027.06.30",
         "title": "NDAA Section 805 간접 조달 금지",
         "note": "subcontractor/supplier 단계 확대."
@@ -103,9 +111,17 @@
   },
   "EU": {
     "name": "유럽연합 (EU)",
-    "headline": "IMERA 시행 완료 (5.29) + CBAM definitive (1.1) + IAA proposal joint committee (3 rapporteur 중 2명 프랑스) + RESourceEU Q2 propose D-17",
-    "summary": "EU 영역 trail: ①EU-008 IMERA 5.29 발효 완료, 회원국 central liaison office 지정 단계. ②EU-020 CBAM definitive 1.1 시행 + 8 implementing acts + downstream extension 입법 진행. ③EU-002 IAA — 3.4 proposal + 5.8 stakeholder feedback 마감 + 5.21 EP Legislative Observatory + ITRE+IMCO+INTA Rule 59 joint committee + Q2 rapporteur 임명 (3명 중 2명 프랑스). 6월 EESC opinion. 채택 mid-late 2027. ④RESourceEU 영구자석 export 제한 Q2 2026 propose (D-17 이내) + €3B 12개월 mobilize. ⑤8.18 D-66 — EU 배터리 CF + 재생원료 회수율 + 일반 라벨 의무 동시. ⑥9월 black mass non-OECD hazardous (D-122). ⑦11.21 plastic waste non-OECD ban (D-161).",
+    "headline": "CBAM definitive(인증서판매 2027.2 연기) + 강제노동규정 가이드라인·위험DB 6.14 + 배터리 라벨링·패스포트 위임법 8.18 D-46 + 배터리 실사 가이드라인 7.26 D-23 + 강제노동규정 적용 2027.12.14(EU-022)",
+    "summary": "EU 6/29: ①CBAM(EU-020) 6.12 이사회 general approach — 다운스트림 ~180개 제품(알루미늄 함량, SBTL 잠재 노출) 확대+우회방지, 트릴로그 연내. ②RESourceEU(EU-021/007) 영구자석 스크랩 수출제한은 **Commission 제안 단계**(Q2 2026 발의 목표·~18개월 입법, enacted 아님) — '시행' 표현 조기. ③배터리 CF 성능등급 라벨링(EU-009) 2026.8.18(D-50). EV CF **최대치(EU-018)는 ~2027.7**(1 July 2027) — 기존 '2026.8.18'은 라벨링과 혼동, 정정. ④실사(EU-012) 2027.8.18 연기·가이드라인 2026.7.26(D-27). ⑤일반 배터리 라벨(EU-014) 2026.8.18·QR/패스포트 2027.2.18. ⑥IAA(EU-002) CoR ECON 7.6. 신규 0. ※EU 전면 재스윕은 다음 사이클 — 배터리-코어 항목(EU-009/012/018) 위주 검증. + 6/29 커버리지 감사: EU 강제노동규정(EU-022, Reg 2024/3015) 추가 — 강제노동 제품 EU 시장 전면 금지, 발효 2024.12.13·적용 2027.12.14(D-533), 가이드라인 2026.6.14 마감. 배터리 상류(흑연·리튬·코발트) 신장 우려=완제품 EU 차단 트리거(UFLPA·CSDDD와 다층). + 6/30 enhanced: FLR 가이드라인·위험DB 6.14(160건 접수)·회원국 벌칙 12.14, CBAM 인증서판매 2027.2 연기(보유 50%·첫반납 2027.9).",
     "watchpoints": [
+      "[7/3] D-3 IAA CoR ECON(7.6) · D-23 배터리 실사 가이드라인(7.26) · D-46 배터리 라벨·성능등급·패스포트 위임법(8.18) · EU-018 최대치 ~2027.7 · EU-022 강제노동 적용 2027.12.14 · CBAM 첫반납 2027.9",
+      {
+        "id": "EU-022",
+        "d_day": 529,
+        "date": "2027.12.14 적용",
+        "title": "EU 강제노동규정(2024/3015) 적용",
+        "note": "강제노동 제품 EU 출시·유통·수출 전면 금지(전품목·제품기반). 발효 2024.12.13, 적용 2027.12.14. 가이드라인·위험DB 2026.6.14(경과). 배터리 상류 소재 신장 우려=완제품 EU 금지 트리거."
+      },
       {
         "id": "EU-008",
         "d_day": 0,
@@ -115,35 +131,35 @@
       },
       {
         "id": "EU-021",
-        "d_day": 17,
+        "d_day": 0,
         "date": "2026.06.30",
         "title": "RESourceEU 영구자석 propose 임박",
-        "note": "Q2 2026 deadline. 20,000 t/year permanent magnet의 20% recycle 목표. €3B mobilize."
+        "note": "Commission 제안(enacted 아님), Q2 2026 발의 목표·~18개월 입법. 영구자석 스크랩 수출제한+CRMA 라벨링 개정. €3B mobilize."
       },
       {
         "id": "EU-002",
-        "d_day": 23,
+        "d_day": 3,
         "date": "2026.07.06",
         "title": "IAA CoR ECON Commission opinion vote",
         "note": "Industrial Accelerator Act 절차."
       },
       {
         "id": "EU-018",
-        "d_day": 66,
-        "date": "2026.08.18",
-        "title": "EV CF Maximum Threshold 위임행위 채택 의무",
-        "note": "Article 7(3) 기반."
+        "d_day": 367,
+        "date": "~2027.07 (1 July 2027 목표)",
+        "title": "EV CF Maximum Threshold 위임행위 (~2027.7)",
+        "note": "Art 7(3) 최대치. ~2027.7 채택·~2028 적용. ※2026.08.18은 라벨링(EU-009) 기한 — 혼동 정정."
       },
       {
         "id": "EU-019",
-        "d_day": 66,
+        "d_day": 46,
         "date": "2026.08.18",
         "title": "재생원료 회수율 methodology 위임행위 채택 의무",
         "note": "Article 8 기반."
       },
       {
         "id": "EU-014",
-        "d_day": 66,
+        "d_day": 46,
         "date": "2026.08.18",
         "title": "일반 배터리 정보 라벨 의무 시행",
         "note": "Article 13(10) — 제조사·용량·유해물질·화학조성."
@@ -157,21 +173,21 @@
       },
       {
         "id": "EU-017",
-        "d_day": 161,
+        "d_day": 141,
         "date": "2026.11.21",
         "title": "non-OECD 플라스틱 폐기물 ban 시행",
         "note": "B3011 prior notification 5.21 시행 후 단계."
       },
       {
         "id": "EU-016",
-        "d_day": 246,
+        "d_day": 230,
         "date": "2027.02.18",
         "title": "EU Battery Reg Article 11 본조항 시행",
         "note": "휴대용 배터리 분리·교체 의무."
       },
       {
         "id": "EU-020",
-        "d_day": 474,
+        "d_day": 454,
         "date": "2027.09.30",
         "title": "CBAM 첫 의무 surrender",
         "note": "2026 imports에 대한 첫 certificate surrender."
@@ -180,47 +196,55 @@
   },
   "CN": {
     "name": "중국 (CN)",
-    "headline": "GB 38031-2025 신차종 시행 (7.1, D-18) + 폐배터리 회수 잠행판법 4.1 시행 + 出口退税 4.1 시행 + 锂电池 出口管제 暂停 11.7 만료",
-    "summary": "CN 영역 trail: ①CN-019 GB 38031-2025 \"无起火 무폭발\" 동력 배터리 안전 표준 — **2026.07.01 신차종 의무 시행 D-18 임박**. CATL Qilin 단독 합격 (2025.05). K-배터리 재인증 의무. ②CN-020 폐 동력배터리 회수 잠행판법 + 国家 추적성 플랫폼 — 2026.04.01 정식 시행 완료. ③CN-018 出口退税 — 1단계 4.1 시행 (광伏 즉시 + 배터리 9→6%), 2단계 2027.01.01 (배터리 6→0%). ④CN-014 锂电池+人造흑연 公告 70号 1년 暂停 — 2026.11.07 만료. ⑤2026.01.06 商务部 公告 2026年 第1号 — 일본 對日 兩用物項 출口 강화 (별도 트랙 잠재). ⑥CN 신능원자동차 차량구매세 50% 감면 1.1부터 적용.",
+    "headline": "GB 38031 신차종 시행(7.1 발효·全面施行) + 폐배터리 회수 잠행办法 4.1 시행(令73号·CN-022) + 동력전지 탄소발자국 申报통지(2026.12.31/2027.1.1) + 재생흑분 수입관리(CN-021) + 锂电池 出口管制 11.10 暂停 + 稀土管理条例(国务院令785号·2024.10.1·CN-023 WATCH)",
+    "summary": "CN 6/25: ①GB 38031-2025(CN-006/019) 신차종 의무 시행 7.1(D-6) 임박, 기존 차종 2027.7.1. ②폐배터리 회수·종합이용 잠행판법(CN-005/020, 令73호) 4.1 시행·'史上最严', 数字身份证·추적 플랫폼(barrp.cn), 2026.4.27 5부처 联合执法专项行动, GB/T 45565-2025 一池一码(11.1). ③동력전지 탄소발자국(CN-002) 工信部 申报통지 — 試運行 ~2026.12.31·常态化 2027.1.1; 碳标识认证 첫 목록 17품목(锂电池 포함)·인증기관 26개. ④锂电池·인조흑연 出口管制(CN-014) ~11.10(D-138) 暂停, 6.22 美 10개사 통제명단(23호, 일반 무역조치). ⑤出口退税(CN-018) 4.1 1단계 시행중, 배터리 6→0% 2027.1.1. ⑥[신규] 재생흑분·재생강철 수입관리 公告(CN-021) 2025.8.1 시행 — 附表 기준 충족 시 고체폐기물 미간주·자유수입, 닝보40t·톈진47t 첫 수입. 신규 1. 구조이슈: CN-006·019 동일 GB 38031 병합 검토(이월). + 6/29 enhanced: 폐배터리 회수 잠행办法(CN-022, 六部门 令73号, 2025.12.31공포/2026.4.1시행) 신규 추가 — 车电一체·数字身份证·全国溯源. 碳足迹申报통지(CN-002) 2025.12.31 공포 검증.",
     "watchpoints": [
+      "[7/3] GB 38031 신차종 시행 발효(7.1 경과)·기존차종 2027.7.1(D-363) · D-130 锂电池 출口管制 暂停 만료(11.10) · D-181 동력전지 탄소발자국 申报 試運行 마감(12.31) · D-182 出口退税 배터리 6→0%(2027.1.1)",
       {
-        "id": "CN-020",
+        "id": "CN-022",
         "d_day": 0,
-        "date": "2026.04.01 시행 완료",
-        "title": "폐 동력배터리 회수 잠행판법 + 추적성 플랫폼",
-        "note": "車企+電池廠 회수 主體 책임, 디지털 추적성, 제25조 제3자 정비 시장 개방."
-      },
-      {
-        "id": "CN-018",
-        "d_day": 0,
-        "date": "2026.04.01 1단계 완료",
-        "title": "광伏 退税 즉시 + 배터리 9→6%",
-        "note": "锂电池 OPM ~3pp 즉시 하락."
+        "date": "2026.04.01 시행",
+        "title": "废旧动력电池回收 잠행办法(六部门 令73号) 시행",
+        "note": "车电一체·动력电池 数字身份证·全国溯源平台·'梯次利용' 폐지·罚款 1-3만元. 2025.12.31 공포. 2018 溯源규정 등 4건 폐지."
       },
       {
         "id": "CN-019",
-        "d_day": 18,
+        "d_day": 0,
         "date": "2026.07.01",
         "title": "GB 38031-2025 신차종 의무 시행",
         "note": "\"无起火 무폭발\" 강제화. CATL Qilin 단독 합격. K-배터리 재인증 의무."
       },
       {
+        "id": "CN-002",
+        "d_day": 181,
+        "date": "2026.12.31",
+        "title": "동력전지 탄소발자국 申报 試運行 마감",
+        "note": "工信部 申报통지. 기업당 ≥5팩·全化学체계. 2027.1.1~ 常态化."
+      },
+      {
         "id": "CN-014",
-        "d_day": 147,
-        "date": "2026.11.07",
+        "d_day": 130,
+        "date": "2026.11.10",
         "title": "锂电池+人造흑연 出口管제 暂停 만료",
-        "note": "公告 70号 1년 暂停, 만료 시 자동 복구 또는 재논의."
+        "note": "商务部 55~62호 1년 暂停, 만료 시 재개 가능."
+      },
+      {
+        "id": "CN-021",
+        "d_day": 0,
+        "date": "2025.08.01 시행 완료",
+        "title": "재생흑분·재생강철 수입관리 公告",
+        "note": "附表 기준 충족 시 고체폐기물 미간주·자유수입. 2020년 78호 폐지. K-재생원료 공급망 직결."
       },
       {
         "id": "CN-018",
-        "d_day": 202,
+        "d_day": 182,
         "date": "2027.01.01",
         "title": "CN 배터리 出口退税 전면 취소",
         "note": "6→0% 2단계."
       },
       {
         "id": "CN-019",
-        "d_day": 383,
+        "d_day": 363,
         "date": "2027.07.01",
         "title": "GB 38031-2025 기존 차종 전면 시행",
         "note": "12개월 transition 후 type approval 차종 재인증."
@@ -229,36 +253,44 @@
   },
   "KR": {
     "name": "한국 (KR)",
-    "headline": "사용후 배터리 산업 育成法 4.23 본회의 통과 + 공급망법·수은법 시행령 규제심사 + 자원안보법 budget 약점 + 자원안보협의회 진행",
-    "summary": "KR 영역 trail: ① **KR-017 사용후 배터리 산업 育成法 — 2026.04.23 국회 본회의 통과** (송재봉 의원 대표발의). 공포 + 시행령 (2026 하반기). ②KR-013 공급망법 시행령 + KR-014 수은법 시행령 5월 입법예고 마감, 규제심사 단계. ③KR-015 자원안보협의회 진행 + 전략광물개발기금 입법 추진. ④KR-016 산업부 희토류 공급망 종합대책 (2.5 발표) — 광해광업공단법 개정 연내 목표. ⑤K-배터리 1Q 2026 실적: LGES 매출 6.5조 영업손실 0.2조, 삼성SDI 매출 3.6조 영업손실 0.16조, SK On 매출 1.8조 영업손실 0.35조. 3사 모두 적자. 하반기 ESS 매출 반영 기대.",
+    "headline": "사용후 배터리법 공포 2026.5.26·시행 2027.5.27(D-328) 확정 + 공급망법(제36421호)·수은법(제36420호) 시행령 일부개정 6.24 시행 + 자원안보협의회 비축 180일·희토류 17종",
+    "summary": "KR 6/29: ①사용후 배터리법(KR-017) — 정식명 「사용후 배터리의 관리 및 산업육성에 관한 법률」, **공포 2026.5.26 / 시행 2027.5.27(D-332)** 확정(기존 '공포일 미확정' 해소). 재생원료 3제도 분화(생산인증 제21조·기후에너지환경부 / 사용·함유율인증 제22조·산업부 / 함유율목표제 제23조·기후에너지환경부), 전주기 통합이력·공공거래시스템, 정책위원회. status: UPCOMING(공포 2026.5.26 완료, 시행 2027.5.27 전). ②공급망안정화법 시행령(KR-013, 대통령령 제36421호)·수은법 시행령(KR-014, 제36420호) 일부개정 2026.6.23 공포/6.24 시행 — '공포 미확인' 해소. KR-013: 공급망 통계·조사체계 신설 등. KR-014: 수은 직접투자 연계의무 폐지 등. ③국가자원안보법(KR-015): 1차 자원안보협의회(2025.12.5) 비축 100→180일·희토류 17종·6품목 할당관세·핵심공급18/핵심수요20·시행령 35947호(1.2시행). ④희토류 종합대책(KR-016). 신규 0. 구조이슈: 동일법(KR-005·009·017) 3중복+상태불일치(DONE/ACTIVE) 통합 검토(이월).",
     "watchpoints": [
+      "[7/3] 사용후배터리법 공포 2026.5.26·시행 2027.5.27 확정(D-328) · status UPCOMING(시행 2027.5.27 전) · 공급망법·수은법 시행령 6.24 시행 확정 · 신규 KR-018(배터리 정보공개 6.3)·KR-019(Al 할당관세 2026)·KR-020(무공해차 보급목표제·WATCH) · KR-021 국가첨단전략산업법(이차전지 지정·WATCH) · §6 dedup canonical KR-017(←005/009)",
       {
         "id": "KR-017",
         "d_day": null,
         "date": "2026.04.23 본회의 통과",
         "title": "사용후 배터리 産業 育成法 국회 통과",
-        "note": "공포 + 시행령 (2026 하반기 예상). 통합이력관리시스템 + 재생원료 사용 의무화."
+        "note": "공포일 미확정(공포+1년 시행). 통합이력관리시스템 + 재생원료 사용 의무화."
       },
       {
         "id": "KR-013",
         "d_day": null,
         "date": "2026 하반기 (Q3~Q4)",
         "title": "공급망법 시행령 공포 예상",
-        "note": "규제심사 → 법제처 → 국무회의. KR-014와 패키지."
+        "note": "5.18 입법예고 마감 → 규제심사·법제처. 공포 미확인. KR-014와 패키지."
       },
       {
         "id": "KR-014",
         "d_day": null,
         "date": "2026 하반기 (Q3~Q4)",
         "title": "수은법 시행령 공포 예상",
-        "note": "수은 투자 활성화 지원."
+        "note": "5.20 입법예고 마감 → 규제심사·법제처. 공포 미확인. 수은 투자 활성화."
+      },
+      {
+        "id": "KR-015",
+        "d_day": 0,
+        "date": "2025.12.05 1차 협의회",
+        "title": "자원안보협의회 — 비축 180일·핵심공급/수요기관 지정",
+        "note": "핵심광물 비축 100→180일분, 희토류 17종 지정, 6품목 할당관세, 시행령 35947호(1.2 시행)."
       },
       {
         "id": "KR-015",
         "d_day": null,
         "date": "2026 하반기",
         "title": "전략광물개발기금 신설 입법",
-        "note": "광해광업공단법 개정 연내."
+        "note": "자원안보법 개정안 입법예고(본문 미확보)."
       },
       {
         "id": "KR-017",
@@ -271,15 +303,30 @@
   },
   "JP": {
     "name": "일본 (JP)",
-    "headline": "GX-ETS 4.1 義務化 시행 + METI 蓄電池・電源産業戦略 (6.02, 42件 누계 1.9兆엔, 150GWh/年 목표) + LTDA 3차 (BESS 1.25 GW)",
-    "summary": "JP 영역 trail: ①JP-013 GX-ETS 義務化 2026.04.01 시행 완료. ② **JP-014 METI 蓄電池産業戦略推進会議 6.02** — 신규 「蓄電池・電源産業戦略」 발표 + 第7弾 결과: 蓄電池 7건 + 部素材 27건 + 製造装置 8件 = 42件 누계, 사업총액 약 1兆 8,819億엔, 助成額 최대 약 6,682億엔. 2030년대 중반 150GWh/年 mother factory 달성 목표. ③JP-012 LTDA 3차 5.13/5.16 결과 발표 완료. ④JP-011 MLIT 항공 모바일배터리 가이드라인 4.24 시행.",
+    "headline": "GX-ETS 4.1 義務化·9.30 届出 D-89 + 改正資源法 4.1 全面施行(再生材計획 2027.6) + LTDA 第4回 600만kW 募集 + 改正省エネ法 지붕태양광 의무화(JP-015)",
+    "summary": "JP 6/25: ①GX-ETS(JP-008 캐노니컬, JP-006·013) 改正GX推進法 4.1 시행중, 대상 직접배출 ≥10만t(~300-400사), 초년도 특례 9.30(D-97) 届出+이행계획·배출枠 할당 2027년도, 가격 1,700~4,300엔. ②改正資源有効利用促進法(JP-005, 法律52호) 4.1 全面施行 — 再生材義務·環境配慮設計認定·指定再資源化製品 3품목 추가(電源装置/스마트폰/가열식담배), 再生材 利用計画 첫제출 2027.6. 別法 再資源化高度化法(2025.11). ③METI 蓄電池·電源産業戦略(JP-014) 6.2; 供給確保計画 認定(JP-002 정정 — Toyota 認定 2024.9·856억엔, 全固体 실용화 2027~2028, 申请 라운드 3.5~5.15). ④LTDA(JP-007/012) 3차 결과 5월(BESS 1.25GW·6시간·셀30%상한), 第4回 600만kW 募集(6.5). ⑤[신규] 改正省エネ法(JP-015) 特定事業者 屋根太陽光 設置目標 의무화(2026 定性/2027 定量). 신규 1. watch: 太陽光패널 리사이클 의무화 環境省 재검토. 구조이슈: GX-ETS 3중복(JP-006·008·013) 통합 검토(이월).",
     "watchpoints": [
+      "[7/3] D-89 GX-ETS 届出+이행계획 마감(9.30) · 再生材 利用計画 첫제출 2027.6(JP-005) · 太陽光패널 리사이클 의무화 環境省 재검토(watch) · §6 dedup canonical JP-008(←006/013)",
       {
-        "id": "JP-013",
+        "id": "JP-008",
+        "d_day": 89,
+        "date": "2026.09.30",
+        "title": "GX-ETS 届出+이행계획 제출 마감",
+        "note": "초년도 특례. 배출枠 할당은 2027년도. 가격 1,700~4,300엔."
+      },
+      {
+        "id": "JP-005",
         "d_day": 0,
-        "date": "2026.04.01 시행 완료",
-        "title": "GX-ETS 義務化 정식 시행",
-        "note": "연 10만톤 이상 기업 의무. 2027 거래시장 본격, 2028 化石燃料賦課金."
+        "date": "2026.04.01 全面施行",
+        "title": "改正資源有効利用促進法 全面施行",
+        "note": "再生材義務·環境配慮設計認定·指定再資源化製品 3품목 추가. 再生材 利用計画 첫제출 2027.6."
+      },
+      {
+        "id": "JP-015",
+        "d_day": 0,
+        "date": "2026년도 의무 개시",
+        "title": "改正省エネ法 屋根太陽光 設置目標 의무화",
+        "note": "特定事業者(연1,500kl↑·~1.2만사). 2026 定性목표/2027 定量보고, 위반 50만엔."
       },
       {
         "id": "JP-014",
@@ -293,18 +340,18 @@
         "d_day": null,
         "date": "2027~2028",
         "title": "LTDA 3차 채택 commercial operation",
-        "note": "20년 fixed capacity revenue."
+        "note": "20년 fixed capacity revenue. 第4回 600만kW 募集(2026.6.5)."
       }
     ]
   },
   "GL": {
     "name": "글로벌 (GL)",
-    "headline": "G7 Évian (6.15-17, D-2~4) + FORGE 한국 의장 종료 + Iran 전쟁 의제 dominate + 영구사무국 신설 + EU-US Critical Minerals MoU",
-    "summary": "GL 영역 6월 G7 Évian 집중. G7 정상회의 2026.06.15-17 Évian 프랑스 — France G7 의장국 + Macron 마지막 G7. ** France 최종 communiqué 폐기 → 좁은 joint statements (critical minerals + migration + drug trafficking) 대체**. ** Iran 전쟁 (US-Israel offensive on Iran, 2026.02 시작)이 의제 dominate**. Trump 참석 확정 (6/3). G7 영구사무국 신설 논의 (5/5 Reuters exclusive, IEA host 가능성). 4.24 EU-US Critical Minerals MoU + Action Plan 체결 (Šefčovič × Rubio). 5.5-6 G7 Trade Ministers Paris 메이팅 communiqué — economic coercion 우려. FORGE 한국 의장 임기 6월 종료. WTO 14차 각료회의 3.26-29 Yaoundé 종료.",
+    "headline": "G7 Évian 핵심광물 동맹(IEA 플랫폼·Li/Ni 비축·희토류 60% 목표) + 美-日·EU 법적구속 협정 제안 예정 + Project Vault $12B + 232 PCMDP 보고 7.13",
+    "summary": "GL 6/25: G7 Évian 정상회의 6.15-17 종료(9개 선언). 핵심광물 공급망 선언(6.17) — 비구속 'Critical Minerals Resilience and Production Alliance' 설립, 희토류·영구자석 G7+파트너 외 단일공급자 의존도 2030 <60%(가능한 빨리 50%) 목표, 'G7 강제노동 식별 기준 툴킷'(2026.6) 채택, 한국 파트너국 참여. 정치 선언이라 구속력 없음 — 신규 법령 아님(NA-018에 반영).",
     "watchpoints": [
       {
         "id": "NA-018-G7",
-        "d_day": 2,
+        "d_day": 0,
         "date": "2026.06.15-17",
         "title": "G7 Évian 정상회의 (D-2~4)",
         "note": "France communiqué 폐기, 좁은 joint statements (critical minerals). Trump 참석. Iran 의제 dominate. 영구사무국 IEA host 가능성."

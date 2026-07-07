@@ -1728,8 +1728,8 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       const firstRun = localStorage.getItem("sbtl_watch_seen") === null;
       const termsChanged = storedSig !== null && storedSig !== termsSig;
       const windowIds = () => kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean);
-      if (filter === "watch" || firstRun) {
-        // 워치 열람(또는 최초 기준선): 현재 매칭 전부를 확인 처리
+      if ((filter === "watch" && !profileTerm) || firstRun) {
+        // 워치 피드를 '실제로 화면에서 보고 있을 때'(프로필 서브뷰 제외) 또는 최초 기준선: 현재 매칭 전부를 확인 처리
         localStorage.setItem("sbtl_watch_seen", JSON.stringify(windowIds()));
         localStorage.setItem("sbtl_watch_seen_sig", termsSig);
         if (typeof onWatchSeen === "function") onWatchSeen(); // AppContent 배지 즉시 재계산
@@ -1741,7 +1741,8 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         const added = watchTerms.filter((x) => !prevLower.has(x.toLowerCase()));
         const seen = new Set(JSON.parse(localStorage.getItem("sbtl_watch_seen") || "[]"));
         if (added.length) {
-          kb.cards.filter((c) => cardMatchesWatch(c, added)).slice(0, WATCH_SEEN_WINDOW).forEach((c) => { const id = getCardId(c); if (id) seen.add(id); });
+          // 기존 용어와도 매칭되던 카드는 제외 — 겹치는 미확인 카드가 조용히 '확인됨' 되지 않도록
+          kb.cards.filter((c) => cardMatchesWatch(c, added) && !cardMatchesWatch(c, prevTerms)).slice(0, WATCH_SEEN_WINDOW).forEach((c) => { const id = getCardId(c); if (id) seen.add(id); });
         }
         const keep = new Set(windowIds()); // 제거된 용어의 잔여 id 정리 + 창 상한 유지
         localStorage.setItem("sbtl_watch_seen", JSON.stringify([...seen].filter((id) => keep.has(id))));
@@ -1749,7 +1750,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         if (typeof onWatchSeen === "function") onWatchSeen();
       }
     } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
-  }, [filter, watchTerms, kb.cards, onWatchSeen]);
+  }, [filter, profileTerm, watchTerms, kb.cards, onWatchSeen]);
 
   // ---- 흐름 브리프: 현재 필터 조합 = 범위 ----
   const scopeActive = Boolean(profileTerm) || filter !== "all" || dateRange > 0 || Boolean(search.trim());

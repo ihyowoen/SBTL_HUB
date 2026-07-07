@@ -268,6 +268,40 @@ function toCompatCard(card) {
   };
 }
 
+// ---- Release 1: 워치리스트 / 보고함 (localStorage, 서버 불필요) ----
+function useStoredList(storageKey) {
+  const [items, setItems] = useState(() => {
+    try {
+      const v = JSON.parse(localStorage.getItem(storageKey) || "[]");
+      return Array.isArray(v) ? v : [];
+    } catch { return []; }
+  });
+  const save = (next) => {
+    setItems(next);
+    try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch { /* storage full/blocked — state still works this session */ }
+  };
+  return [items, save];
+}
+
+function cardWatchHay(c) {
+  return [c.T, c.title, c.sub, c.subtitle, c.fact, c.g, c.gate]
+    .map((v) => String(v || "")).join(" ").toLowerCase();
+}
+
+function cardMatchesWatch(c, terms) {
+  if (!Array.isArray(terms) || terms.length === 0) return false;
+  const hay = cardWatchHay(c);
+  return terms.some((term) => hay.includes(String(term).toLowerCase()));
+}
+
+function cardDateWithinDays(c, days) {
+  if (!days) return true;
+  const d = String(c.d || c.date || "");
+  if (!d) return false;
+  const cutoff = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
+  return d >= cutoff;
+}
+
 async function fetchJsonFile(path, requestKey = 0, hardRefresh = false) {
   const response = await fetch(buildFetchUrl(path, requestKey), {
     cache: hardRefresh ? "reload" : "no-cache",
@@ -962,6 +996,14 @@ function Tracker({ tracker, regionPolicy, dark }) {
   const [statusFilter, setStatusFilter] = useState("all");
   const [regionFilter, setRegionFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const [bookmarks, setBookmarks] = useStoredList("sbtl_bookmarks");
+  const [copiedShelf, setCopiedShelf] = useState(false);
+  const copyShelf = () => {
+    const text = [`★ SBTL 보고함 (${bookmarks.length}건)`, ...bookmarks.map((b) => `- [${b.date}] ${b.title}${b.url ? `\n  ${b.url}` : ""}`)].join("\n");
+    const done = () => { setCopiedShelf(true); setTimeout(() => setCopiedShelf(false), 1600); };
+    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).then(done).catch(() => window.prompt("복사해서 사용하세요:", text));
+    else window.prompt("복사해서 사용하세요:", text);
+  };
   // regionPolicy: useTrackerData가 region_policy.json을 우선 fetch하고
   // 실패 시 하드코드 REGION_POLICY로 fallback (Copilot review #98 #1).
   // prop이 없는 호출부도 안전하게 — 마지막 fallback.
@@ -993,6 +1035,24 @@ function Tracker({ tracker, regionPolicy, dark }) {
 
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
+      {bookmarks.length > 0 && (
+        <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${t.brd}` }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+            <span style={{ fontSize: 12, fontWeight: 900, color: t.tx }}>★ 보고함 <span style={{ color: t.cyan }}>{bookmarks.length}</span></span>
+            <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>NEWS에서 ☆로 저장한 카드</span>
+            <button onClick={copyShelf} style={{ marginLeft: "auto", padding: "6px 10px", borderRadius: 8, border: `1px solid ${copiedShelf ? "transparent" : t.brd}`, background: copiedShelf ? t.cyan : "transparent", color: copiedShelf ? "#000" : t.cyan, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{copiedShelf ? "복사됨 ✓" : "목록 복사"}</button>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {bookmarks.map((b, i) => (
+              <div key={b.id || i} style={{ display: "flex", alignItems: "flex-start", gap: 8, padding: "8px 0", borderTop: i > 0 ? `1px solid ${t.brd}` : "none" }}>
+                <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexShrink: 0, marginTop: 2 }}>{fmtDate(b.date)}</span>
+                <span style={{ flex: 1, fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.45 }}>{b.title}{b.url && <a href={b.url} target="_blank" rel="noopener noreferrer" style={{ marginLeft: 6, fontSize: 10, color: t.cyan, textDecoration: "none", fontFamily: "'JetBrains Mono',monospace" }}>원문 ↗</a>}</span>
+                <button onClick={() => setBookmarks(bookmarks.filter((x) => x.id !== b.id))} aria-label="보고함에서 제거" style={{ border: "none", background: "transparent", color: t.sub, fontSize: 12, cursor: "pointer", padding: "2px 4px", flexShrink: 0 }}>✕</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <div style={{ background: t.card2, borderRadius: 10, padding: 14, border: `1px solid ${t.brd}` }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 10 }}><div><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>STATUS</div><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginTop: 4 }}>LAST CHECKED {updatedLabel}</div></div><span style={{ background: t.brd, borderRadius: 4, padding: "3px 10px", fontSize: 12, fontWeight: 800, color: t.tx, fontFamily: "'JetBrains Mono',monospace" }}>{d.meta.totalItems}</span></div>
         <div style={{ display: "flex", gap: 5 }}>{Object.entries(d.summary).map(([s, n]) => <div key={s} style={{ flex: 1, background: t.bg, borderRadius: 6, padding: "8px 6px", textAlign: "center" }}><div style={{ fontSize: 16, fontWeight: 900, color: SC[s] || t.tx }}>{n}</div><div style={{ fontSize: 8, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginTop: 2 }}>{SL[s] || s}</div></div>)}</div>
@@ -1452,14 +1512,25 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
   const [showCount, setShowCount] = useState(60);
-  const regions = ["all", "top", "high", "KR", "US", "NA", "CN", "EU", "JP", "GL"];
+  const [watchTerms, setWatchTerms] = useStoredList("sbtl_watch_terms");
+  const [bookmarks, setBookmarks] = useStoredList("sbtl_bookmarks");
+  const [watchInput, setWatchInput] = useState("");
+  const [dateRange, setDateRange] = useState(0); // 0=전체, 7, 30 (일)
+  const [brief, setBrief] = useState(null);
+  const [briefLoading, setBriefLoading] = useState(false);
+  const [copiedBrief, setCopiedBrief] = useState(false);
+  const [copiedCiteId, setCopiedCiteId] = useState(null);
+  const regions = ["all", "watch", "top", "high", "KR", "US", "NA", "CN", "EU", "JP", "GL"];
 
   let cards = filter === "all" ? kb.cards : kb.cards.filter((c) => {
     const s = String(c.s || c.signal || "i").toLowerCase();
+    if (filter === "watch") return cardMatchesWatch(c, watchTerms);
     if (filter === "top") return s === "t" || s === "top";
     if (filter === "high") return s === "h" || s === "high";
     return (c.r || c.region) === filter;
   });
+
+  if (dateRange) cards = cards.filter((c) => cardDateWithinDays(c, dateRange));
 
   if (search.trim()) {
     const sw = search.toLowerCase();
@@ -1488,13 +1559,147 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
   const coverMap = useMemo(() => assignHomeCovers([...highlights, ...visible]), [highlights, visible]);
   const coverFor = (card, idx) => coverMap[String(card?.id || card?.T || card?.title || `idx_${idx}`)] || pickHomeCover(card);
 
+  const isBookmarked = (card) => bookmarks.some((b) => b.id === getCardId(card));
+  const toggleBookmark = (card) => {
+    const id = getCardId(card);
+    if (bookmarks.some((b) => b.id === id)) {
+      setBookmarks(bookmarks.filter((b) => b.id !== id));
+    } else {
+      setBookmarks([{ id, title: card.title || card.T || "", date: card.date || card.d || "", url: card.url || card.primaryUrl || "", savedAt: kstToday() }, ...bookmarks].slice(0, 200));
+    }
+  };
+  // 카드 우상단 ☆ 오버레이 — StoryNewsItem 무수정 (key는 래퍼로 이동)
+  const withStar = (card, key, node) => {
+    const on = isBookmarked(card);
+    return (
+      <div key={key} style={{ position: "relative" }}>
+        {node}
+        <button
+          onClick={(e) => { e.stopPropagation(); toggleBookmark(card); }}
+          aria-label={on ? "보고함에서 제거" : "보고함에 저장"}
+          aria-pressed={on}
+          style={{ position: "absolute", top: 8, right: 8, zIndex: 2, width: 34, height: 34, borderRadius: 999, border: `1px solid ${on ? "transparent" : t.brd}`, background: on ? t.cyan : (dark ? "rgba(13,17,23,0.72)" : "rgba(255,255,255,0.85)"), color: on ? "#000" : t.sub, fontSize: 15, cursor: "pointer", lineHeight: 1 }}
+        >{on ? "★" : "☆"}</button>
+        <button
+          onClick={(e) => { e.stopPropagation(); copyCitation(card); }}
+          aria-label="출처 포함 인용 복사"
+          style={{ position: "absolute", top: 46, right: 8, zIndex: 2, width: 34, height: 34, borderRadius: 999, border: `1px solid ${copiedCiteId === getCardId(card) ? "transparent" : t.brd}`, background: copiedCiteId === getCardId(card) ? t.cyan : (dark ? "rgba(13,17,23,0.72)" : "rgba(255,255,255,0.85)"), color: copiedCiteId === getCardId(card) ? "#000" : t.sub, fontSize: 13, cursor: "pointer", lineHeight: 1 }}
+        >{copiedCiteId === getCardId(card) ? "✓" : "📋"}</button>
+      </div>
+    );
+  };
+
+  const writeClipboard = (text, done) => {
+    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).then(done).catch(() => window.prompt("복사해서 사용하세요:", text));
+    else window.prompt("복사해서 사용하세요:", text);
+  };
+
+  // 출처 각주 포함 인용 복사 — 보고서/카톡 붙여넣기용 플레인텍스트
+  const copyCitation = (card) => {
+    const srcs = Array.isArray(card.fact_sources) ? card.fact_sources.filter((s) => s && (s.source_quote || s.source_url)) : [];
+    const lines = [
+      `${card.title || card.T || ""} (${fmtDate(card.date || card.d)} · ${card.region || card.r || ""}${(card.source || card.src) ? ` · ${card.source || card.src}` : ""})`,
+      card.fact ? String(card.fact) : "",
+      srcs.length ? "근거:" : "",
+      ...srcs.slice(0, 4).map((s) => `- "${String(s.source_quote || "").slice(0, 300)}" — ${s.source_name || "출처"}${s.source_url ? ` ${s.source_url}` : ""}`),
+      card.implicationText ? `함의: ${card.implicationText}` : "",
+      (card.url || card.primaryUrl) ? `원문: ${card.url || card.primaryUrl}` : "",
+    ].filter(Boolean).join("\n");
+    const id = getCardId(card);
+    writeClipboard(lines, () => { setCopiedCiteId(id); setTimeout(() => setCopiedCiteId(null), 1500); });
+  };
+
+  // ---- 흐름 브리프: 현재 필터 조합 = 범위 ----
+  const scopeActive = filter !== "all" || dateRange > 0 || Boolean(search.trim());
+  const scopeLabel = [
+    filter === "watch" ? `내워치(${watchTerms.slice(0, 4).join(", ")}${watchTerms.length > 4 ? "…" : ""})` : (filter !== "all" ? filter.toUpperCase() : null),
+    dateRange ? `최근 ${dateRange}일` : null,
+    search.trim() ? `"${search.trim()}"` : null,
+  ].filter(Boolean).join(" × ") || "전체";
+  const briefCards = cards.slice(0, 40);
+  // 브리프는 생성 시점의 범위 지문(scopeKey)과 일치할 때만 렌더·복사 — 범위 변경 후 stale 서사에 새 라벨이 붙는 것 방지
+  const scopeKey = [filter, dateRange, search.trim().toLowerCase(), filter === "watch" ? watchTerms.join("·") : "", briefCards.length, briefCards.length ? getCardId(briefCards[0]) : "", briefCards.length ? getCardId(briefCards[briefCards.length - 1]) : ""].join("|");
+  const briefMatch = brief && brief.scopeKey === scopeKey ? brief : null;
+  const buildBrief = async () => {
+    setBriefLoading(true); setBrief(null);
+    try {
+      const payload = {
+        scopeLabel,
+        cards: briefCards.map((c) => ({
+          date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
+          fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
+          quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
+          quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
+        })),
+      };
+      const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      const j = await r.json();
+      if (!j?.ok) throw new Error(j?.error || "brief-failed");
+      setBrief({ ...j, scopeKey, scopeLabel, refs: briefCards.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })) });
+    } catch (e) {
+      setBrief({ ok: false, error: String(e?.message || e), scopeKey });
+    } finally { setBriefLoading(false); }
+  };
+  const copyBriefText = () => {
+    if (!briefMatch?.narrative) return;
+    const text = [
+      `[SBTL 흐름 브리프] ${briefMatch.scopeLabel || scopeLabel} — ${kstToday()}`,
+      "",
+      briefMatch.narrative,
+      ...(briefMatch.watch?.length ? ["", "지켜볼 것:", ...briefMatch.watch.map((w) => `- ${w}`)] : []),
+      "",
+      "출처 카드:",
+      ...(briefMatch.refs || []).map((r) => `[${r.n}] ${r.title} (${r.date})${r.url ? ` ${r.url}` : ""}`),
+    ].join("\n");
+    writeClipboard(text, () => { setCopiedBrief(true); setTimeout(() => setCopiedBrief(false), 1600); });
+  };
+
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>날짜별 시그널 피드</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.6 }}>최신 카드부터 날짜 기준으로 정렬했습니다. 같은 날짜 안에서는 중요도가 높은 이슈를 먼저 보여줍니다.</p></div>
-      <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} />)}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>
-      <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><input type="text" value={search} onChange={(e) => { setSearch(e.target.value); setShowCount(60); }} placeholder="🔍 카드 검색..." aria-label="Search cards by title, description, or content" style={{ flex: 1, padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />{(search || filter !== "all") && <div style={{ padding: "8px 12px", borderRadius: 8, background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card, border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`, fontSize: 11, fontWeight: 800, color: cards.length === 0 ? "#F85149" : t.cyan, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{cards.length}개 결과</div>}</div>{cards.length === 0 && (search || filter !== "all") && <div style={{ padding: 16, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>검색 결과가 없습니다</div><div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>다른 검색어나 필터를 시도해보세요</div></div>}</div>
-      <div style={{ position: "relative" }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regions.map((r) => { const label = r === "all" ? `ALL ${kb.cardCount}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : `${REG_FLAG[r] || ""} ${r}`; return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "10px 14px", minHeight: 44, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div><div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 32, background: `linear-gradient(to left, ${t.bg}, transparent)`, pointerEvents: "none" }} /></div>
-      {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => <StoryNewsItem key={`${card.id || date}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} />)}</div></div>)}
+      <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => withStar(card, `${card.id || card.T || card.title}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} />))}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>
+      <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><input type="text" value={search} onChange={(e) => { setSearch(e.target.value); setShowCount(60); }} placeholder="🔍 카드 검색..." aria-label="Search cards by title, description, or content" style={{ flex: 1, padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />{scopeActive && <div style={{ padding: "8px 12px", borderRadius: 8, background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card, border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`, fontSize: 11, fontWeight: 800, color: cards.length === 0 ? "#F85149" : t.cyan, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{cards.length}개 결과</div>}</div>{cards.length === 0 && scopeActive && <div style={{ padding: 16, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>검색 결과가 없습니다</div><div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>다른 검색어나 필터, 기간을 시도해보세요</div></div>}</div>
+      <div style={{ position: "relative" }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regions.map((r) => { const label = r === "all" ? `ALL ${kb.cardCount}` : r === "watch" ? `★ 내워치${watchTerms.length ? ` ${watchTerms.length}` : ""}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : `${REG_FLAG[r] || ""} ${r}`; return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "10px 14px", minHeight: 44, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div><div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 32, background: `linear-gradient(to left, ${t.bg}, transparent)`, pointerEvents: "none" }} /></div>
+      <div style={{ display: "flex", gap: 4 }}>{[{ v: 0, l: "전체 기간" }, { v: 7, l: "최근 7일" }, { v: 30, l: "최근 30일" }].map((opt) => <button key={opt.v} onClick={() => { setDateRange(opt.v); setShowCount(60); }} style={{ background: dateRange === opt.v ? t.cyan : t.card2, color: dateRange === opt.v ? "#000" : t.sub, border: `1px solid ${dateRange === opt.v ? "transparent" : t.brd}`, borderRadius: 999, padding: "7px 12px", fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{opt.l}</button>)}</div>
+      {filter === "watch" && (
+        <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${t.brd}` }}>
+          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 8 }}>★ 내 워치 — 기업·키워드를 등록하면 해당 카드만 모아 봅니다</div>
+          <div style={{ display: "flex", gap: 6, marginBottom: watchTerms.length ? 8 : 0 }}>
+            <input type="text" value={watchInput} onChange={(e) => setWatchInput(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { const v = watchInput.trim(); if (v && !watchTerms.some((x) => x.toLowerCase() === v.toLowerCase())) setWatchTerms([...watchTerms, v]); setWatchInput(""); } }} placeholder="예: CATL, 전고체, 리튬..." aria-label="워치 용어 추가" style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.bg, color: t.tx, boxSizing: "border-box" }} />
+            <button onClick={() => { const v = watchInput.trim(); if (v && !watchTerms.some((x) => x.toLowerCase() === v.toLowerCase())) setWatchTerms([...watchTerms, v]); setWatchInput(""); }} style={{ padding: "9px 14px", borderRadius: 8, border: "none", background: t.cyan, color: "#000", fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>추가</button>
+          </div>
+          {watchTerms.length > 0 && <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>{watchTerms.map((term) => <span key={term} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: t.bg, border: `1px solid ${t.brd}`, borderRadius: 999, padding: "5px 8px 5px 11px", fontSize: 11, fontWeight: 700, color: t.tx }}>{term}<button onClick={() => setWatchTerms(watchTerms.filter((x) => x !== term))} aria-label={`${term} 삭제`} style={{ border: "none", background: "transparent", color: t.sub, fontSize: 12, cursor: "pointer", padding: 0, lineHeight: 1 }}>✕</button></span>)}</div>}
+          {watchTerms.length === 0 && <div style={{ fontSize: 11, color: t.sub, marginTop: 8, lineHeight: 1.5 }}>아직 등록된 용어가 없습니다. 위에 기업명이나 키워드를 입력해 보세요.</div>}
+        </div>
+      )}
+      {scopeActive && cards.length >= 2 && (
+        <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${briefMatch?.narrative ? t.cyan : t.brd}` }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 12, fontWeight: 900, color: t.tx }}>📝 흐름 브리프</span>
+            <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{scopeLabel} · 카드 {briefCards.length}장{cards.length > 40 ? " (최신 40장)" : ""}</span>
+            {!briefMatch && <button onClick={buildBrief} disabled={briefLoading} style={{ marginLeft: "auto", padding: "7px 12px", borderRadius: 8, border: "none", background: briefLoading ? t.brd : t.cyan, color: "#000", fontSize: 10, fontWeight: 800, cursor: briefLoading ? "default" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{briefLoading ? "엮는 중..." : "이 조합으로 만들기"}</button>}
+            {briefMatch && <button onClick={() => setBrief(null)} style={{ marginLeft: "auto", padding: "6px 10px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>닫기</button>}
+          </div>
+          {briefMatch && briefMatch.ok === false && <div style={{ marginTop: 10, fontSize: 11, color: "#F85149", lineHeight: 1.5 }}>브리프 생성에 실패했습니다 ({briefMatch.error}). <button onClick={buildBrief} style={{ border: "none", background: "transparent", color: t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", padding: 0 }}>다시 시도</button></div>}
+          {briefMatch?.narrative && (
+            <div style={{ marginTop: 10 }}>
+              <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all" }}>{briefMatch.narrative}</div>
+              {briefMatch.watch?.length > 0 && (
+                <div style={{ marginTop: 10 }}>
+                  <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
+                  {briefMatch.watch.map((w, i) => <div key={i} style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.6, paddingLeft: 8, borderLeft: `2px solid ${t.brd}`, marginBottom: 4, wordBreak: "keep-all" }}>{w}</div>)}
+                </div>
+              )}
+              <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
+                <button onClick={copyBriefText} style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: `1px solid ${copiedBrief ? "transparent" : t.brd}`, background: copiedBrief ? t.cyan : "transparent", color: copiedBrief ? "#000" : t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{copiedBrief ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}</button>
+                <button onClick={buildBrief} disabled={briefLoading} style={{ padding: "9px 12px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{briefLoading ? "..." : "다시"}</button>
+              </div>
+              <div style={{ marginTop: 6, fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>문장 끝 [n]은 아래 피드의 카드 순번(최신순) 인용입니다 · 복사 시 출처 목록이 각주로 붙습니다</div>
+            </div>
+          )}
+        </div>
+      )}
+      {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => withStar(card, `${card.id || date}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} />))}</div></div>)}
       {visible.length < cards.length && <button onClick={() => setShowCount((prev) => prev + 60)} style={{ width: "100%", padding: 12, marginTop: 16, borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontWeight: 700, cursor: "pointer" }}>더 보기 ({Math.min(showCount, cards.length)} / {cards.length})</button>}
     </div>
   );

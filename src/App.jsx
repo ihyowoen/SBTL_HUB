@@ -1516,6 +1516,10 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
   const [bookmarks, setBookmarks] = useStoredList("sbtl_bookmarks");
   const [watchInput, setWatchInput] = useState("");
   const [dateRange, setDateRange] = useState(0); // 0=전체, 7, 30 (일)
+  const [brief, setBrief] = useState(null);
+  const [briefLoading, setBriefLoading] = useState(false);
+  const [copiedBrief, setCopiedBrief] = useState(false);
+  const [copiedCiteId, setCopiedCiteId] = useState(null);
   const regions = ["all", "watch", "top", "high", "KR", "US", "NA", "CN", "EU", "JP", "GL"];
 
   let cards = filter === "all" ? kb.cards : kb.cards.filter((c) => {
@@ -1576,8 +1580,75 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
           aria-pressed={on}
           style={{ position: "absolute", top: 8, right: 8, zIndex: 2, width: 34, height: 34, borderRadius: 999, border: `1px solid ${on ? "transparent" : t.brd}`, background: on ? t.cyan : (dark ? "rgba(13,17,23,0.72)" : "rgba(255,255,255,0.85)"), color: on ? "#000" : t.sub, fontSize: 15, cursor: "pointer", lineHeight: 1 }}
         >{on ? "★" : "☆"}</button>
+        <button
+          onClick={(e) => { e.stopPropagation(); copyCitation(card); }}
+          aria-label="출처 포함 인용 복사"
+          style={{ position: "absolute", top: 46, right: 8, zIndex: 2, width: 34, height: 34, borderRadius: 999, border: `1px solid ${copiedCiteId === getCardId(card) ? "transparent" : t.brd}`, background: copiedCiteId === getCardId(card) ? t.cyan : (dark ? "rgba(13,17,23,0.72)" : "rgba(255,255,255,0.85)"), color: copiedCiteId === getCardId(card) ? "#000" : t.sub, fontSize: 13, cursor: "pointer", lineHeight: 1 }}
+        >{copiedCiteId === getCardId(card) ? "✓" : "📋"}</button>
       </div>
     );
+  };
+
+  const writeClipboard = (text, done) => {
+    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).then(done).catch(() => window.prompt("복사해서 사용하세요:", text));
+    else window.prompt("복사해서 사용하세요:", text);
+  };
+
+  // 출처 각주 포함 인용 복사 — 보고서/카톡 붙여넣기용 플레인텍스트
+  const copyCitation = (card) => {
+    const srcs = Array.isArray(card.fact_sources) ? card.fact_sources.filter((s) => s && (s.source_quote || s.source_url)) : [];
+    const lines = [
+      `${card.title || card.T || ""} (${fmtDate(card.date || card.d)} · ${card.region || card.r || ""}${(card.source || card.src) ? ` · ${card.source || card.src}` : ""})`,
+      card.fact ? String(card.fact) : "",
+      srcs.length ? "근거:" : "",
+      ...srcs.slice(0, 4).map((s) => `- "${String(s.source_quote || "").slice(0, 300)}" — ${s.source_name || "출처"}${s.source_url ? ` ${s.source_url}` : ""}`),
+      card.implicationText ? `함의: ${card.implicationText}` : "",
+      (card.url || card.primaryUrl) ? `원문: ${card.url || card.primaryUrl}` : "",
+    ].filter(Boolean).join("\n");
+    const id = getCardId(card);
+    writeClipboard(lines, () => { setCopiedCiteId(id); setTimeout(() => setCopiedCiteId(null), 1500); });
+  };
+
+  // ---- 흐름 브리프: 현재 필터 조합 = 범위 ----
+  const scopeActive = filter !== "all" || dateRange > 0 || Boolean(search.trim());
+  const scopeLabel = [
+    filter === "watch" ? `내워치(${watchTerms.slice(0, 4).join(", ")}${watchTerms.length > 4 ? "…" : ""})` : (filter !== "all" ? filter.toUpperCase() : null),
+    dateRange ? `최근 ${dateRange}일` : null,
+    search.trim() ? `"${search.trim()}"` : null,
+  ].filter(Boolean).join(" × ") || "전체";
+  const briefCards = cards.slice(0, 40);
+  const buildBrief = async () => {
+    setBriefLoading(true); setBrief(null);
+    try {
+      const payload = {
+        scopeLabel,
+        cards: briefCards.map((c) => ({
+          date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
+          fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
+          quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
+          quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
+        })),
+      };
+      const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      const j = await r.json();
+      if (!j?.ok) throw new Error(j?.error || "brief-failed");
+      setBrief({ ...j, refs: briefCards.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })) });
+    } catch (e) {
+      setBrief({ ok: false, error: String(e?.message || e) });
+    } finally { setBriefLoading(false); }
+  };
+  const copyBriefText = () => {
+    if (!brief?.narrative) return;
+    const text = [
+      `[SBTL 흐름 브리프] ${scopeLabel} — ${kstToday()}`,
+      "",
+      brief.narrative,
+      ...(brief.watch?.length ? ["", "지켜볼 것:", ...brief.watch.map((w) => `- ${w}`)] : []),
+      "",
+      "출처 카드:",
+      ...(brief.refs || []).map((r) => `[${r.n}] ${r.title} (${r.date})${r.url ? ` ${r.url}` : ""}`),
+    ].join("\n");
+    writeClipboard(text, () => { setCopiedBrief(true); setTimeout(() => setCopiedBrief(false), 1600); });
   };
 
   return (
@@ -1596,6 +1667,33 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
           </div>
           {watchTerms.length > 0 && <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>{watchTerms.map((term) => <span key={term} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: t.bg, border: `1px solid ${t.brd}`, borderRadius: 999, padding: "5px 8px 5px 11px", fontSize: 11, fontWeight: 700, color: t.tx }}>{term}<button onClick={() => setWatchTerms(watchTerms.filter((x) => x !== term))} aria-label={`${term} 삭제`} style={{ border: "none", background: "transparent", color: t.sub, fontSize: 12, cursor: "pointer", padding: 0, lineHeight: 1 }}>✕</button></span>)}</div>}
           {watchTerms.length === 0 && <div style={{ fontSize: 11, color: t.sub, marginTop: 8, lineHeight: 1.5 }}>아직 등록된 용어가 없습니다. 위에 기업명이나 키워드를 입력해 보세요.</div>}
+        </div>
+      )}
+      {scopeActive && cards.length >= 2 && (
+        <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${brief?.narrative ? t.cyan : t.brd}` }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 12, fontWeight: 900, color: t.tx }}>📝 흐름 브리프</span>
+            <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{scopeLabel} · 카드 {briefCards.length}장{cards.length > 40 ? " (최신 40장)" : ""}</span>
+            {!brief && <button onClick={buildBrief} disabled={briefLoading} style={{ marginLeft: "auto", padding: "7px 12px", borderRadius: 8, border: "none", background: briefLoading ? t.brd : t.cyan, color: "#000", fontSize: 10, fontWeight: 800, cursor: briefLoading ? "default" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{briefLoading ? "엮는 중..." : "이 조합으로 만들기"}</button>}
+            {brief && <button onClick={() => setBrief(null)} style={{ marginLeft: "auto", padding: "6px 10px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>닫기</button>}
+          </div>
+          {brief && brief.ok === false && <div style={{ marginTop: 10, fontSize: 11, color: "#F85149", lineHeight: 1.5 }}>브리프 생성에 실패했습니다 ({brief.error}). <button onClick={buildBrief} style={{ border: "none", background: "transparent", color: t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", padding: 0 }}>다시 시도</button></div>}
+          {brief?.narrative && (
+            <div style={{ marginTop: 10 }}>
+              <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all" }}>{brief.narrative}</div>
+              {brief.watch?.length > 0 && (
+                <div style={{ marginTop: 10 }}>
+                  <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
+                  {brief.watch.map((w, i) => <div key={i} style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.6, paddingLeft: 8, borderLeft: `2px solid ${t.brd}`, marginBottom: 4, wordBreak: "keep-all" }}>{w}</div>)}
+                </div>
+              )}
+              <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
+                <button onClick={copyBriefText} style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: `1px solid ${copiedBrief ? "transparent" : t.brd}`, background: copiedBrief ? t.cyan : "transparent", color: copiedBrief ? "#000" : t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{copiedBrief ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}</button>
+                <button onClick={buildBrief} disabled={briefLoading} style={{ padding: "9px 12px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{briefLoading ? "..." : "다시"}</button>
+              </div>
+              <div style={{ marginTop: 6, fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>문장 끝 [n]은 아래 피드의 카드 순번(최신순) 인용입니다 · 복사 시 출처 목록이 각주로 붙습니다</div>
+            </div>
+          )}
         </div>
       )}
       {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => withStar(card, `${card.id || date}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} />))}</div></div>)}

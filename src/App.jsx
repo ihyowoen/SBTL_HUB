@@ -1723,15 +1723,30 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   useEffect(() => {
     if (!watchTerms.length || !kb.cards.length) return;
     try {
-      const termsSig = watchTerms.join("·");
+      const termsSig = JSON.stringify(watchTerms);
       const storedSig = localStorage.getItem("sbtl_watch_seen_sig");
       const firstRun = localStorage.getItem("sbtl_watch_seen") === null;
       const termsChanged = storedSig !== null && storedSig !== termsSig;
-      if (filter === "watch" || firstRun || termsChanged) {
-        const ids = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean);
-        localStorage.setItem("sbtl_watch_seen", JSON.stringify(ids));
+      const windowIds = () => kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean);
+      if (filter === "watch" || firstRun) {
+        // 워치 열람(또는 최초 기준선): 현재 매칭 전부를 확인 처리
+        localStorage.setItem("sbtl_watch_seen", JSON.stringify(windowIds()));
         localStorage.setItem("sbtl_watch_seen_sig", termsSig);
-        if (typeof onWatchSeen === "function") onWatchSeen(); // AppContent 배지 즉시 재계산 (같은 탭에 머물 때)
+        if (typeof onWatchSeen === "function") onWatchSeen(); // AppContent 배지 즉시 재계산
+      } else if (termsChanged) {
+        // 용어 변경(열람 아님): 새 용어의 기존 이력만 확인 처리로 편입 — 기존 용어의 미확인 카드는 보존
+        let prevTerms = [];
+        try { const p = JSON.parse(storedSig); prevTerms = Array.isArray(p) ? p : []; } catch { prevTerms = String(storedSig).split("·"); } // 구형 sig 호환
+        const prevLower = new Set(prevTerms.map((s) => String(s).toLowerCase()));
+        const added = watchTerms.filter((x) => !prevLower.has(x.toLowerCase()));
+        const seen = new Set(JSON.parse(localStorage.getItem("sbtl_watch_seen") || "[]"));
+        if (added.length) {
+          kb.cards.filter((c) => cardMatchesWatch(c, added)).slice(0, WATCH_SEEN_WINDOW).forEach((c) => { const id = getCardId(c); if (id) seen.add(id); });
+        }
+        const keep = new Set(windowIds()); // 제거된 용어의 잔여 id 정리 + 창 상한 유지
+        localStorage.setItem("sbtl_watch_seen", JSON.stringify([...seen].filter((id) => keep.has(id))));
+        localStorage.setItem("sbtl_watch_seen_sig", termsSig);
+        if (typeof onWatchSeen === "function") onWatchSeen();
       }
     } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
   }, [filter, watchTerms, kb.cards, onWatchSeen]);

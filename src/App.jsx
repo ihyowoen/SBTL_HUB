@@ -1721,8 +1721,18 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   // 데이터 갱신(kb.cards 변경)만으로는 갱신하지 않아야 신규 카드가 '새것'으로 남는다.
   // 용어 변경 감지는 ref가 아니라 저장된 시그니처와 비교 — 리마운트·세션을 넘어도 유실되지 않는다.
   useEffect(() => {
-    if (!watchTerms.length || !kb.cards.length) return;
     try {
+      if (!watchTerms.length) {
+        // 마지막 용어 제거: seen 상태를 정리하고 배지를 즉시 재계산 — 잔상·스테일 sig 방지.
+        // 이후 재등록은 최초 사용과 동일하게 전체 기준선부터 시작한다.
+        if (localStorage.getItem("sbtl_watch_seen") !== null || localStorage.getItem("sbtl_watch_seen_sig") !== null) {
+          localStorage.removeItem("sbtl_watch_seen");
+          localStorage.removeItem("sbtl_watch_seen_sig");
+          if (typeof onWatchSeen === "function") onWatchSeen();
+        }
+        return;
+      }
+      if (!kb.cards.length) return;
       const termsSig = JSON.stringify(watchTerms);
       const storedSig = localStorage.getItem("sbtl_watch_seen_sig");
       const firstRun = localStorage.getItem("sbtl_watch_seen") === null;

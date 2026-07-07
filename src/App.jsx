@@ -1774,7 +1774,9 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   const scopeKey = [profileTerm || "", filter, dateRange, search.trim().toLowerCase(), filter === "watch" && !profileTerm ? watchTerms.join("·") : "", briefCards.length, briefCards.length ? getCardId(briefCards[0]) : "", briefCards.length ? getCardId(briefCards[briefCards.length - 1]) : ""].join("|");
   const briefMatch = brief && brief.scopeKey === scopeKey ? brief : null;
   const briefLoading = briefLoadingKey === scopeKey; // 현재 범위의 요청일 때만 로딩으로 취급
+  const briefReqRef = useRef(0); // 최신 요청만 상태를 쓸 수 있다 — 늦게 도착한 이전 범위 응답이 새 브리프를 덮어쓰는 것 방지
   const buildBrief = async () => {
+    const reqId = ++briefReqRef.current;
     setBriefLoadingKey(scopeKey); setBrief(null);
     try {
       const payload = {
@@ -1788,11 +1790,13 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       };
       const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const j = await r.json();
+      if (reqId !== briefReqRef.current) return; // 그 사이 더 새 요청이 시작됨 — 이 응답은 폐기
       if (!j?.ok) throw new Error(j?.error || "brief-failed");
       setBrief({ ...j, scopeKey, scopeLabel, refs: briefCards.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })) });
     } catch (e) {
+      if (reqId !== briefReqRef.current) return;
       setBrief({ ok: false, error: String(e?.message || e), scopeKey });
-    } finally { setBriefLoadingKey(null); }
+    } finally { if (reqId === briefReqRef.current) setBriefLoadingKey(null); }
   };
   const copyBriefText = () => {
     if (!briefMatch?.narrative) return;

@@ -302,6 +302,57 @@ function cardDateWithinDays(c, days) {
   return d >= cutoff;
 }
 
+// ---- 용어 자동링크: faq.json 키워드를 카드 본문에서 탭 가능한 용어로 ----
+function escapeGlossaryRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+function buildGlossaryMatcher(faq) {
+  if (!Array.isArray(faq) || !faq.length) return null;
+  const entries = [];
+  faq.forEach((e) => {
+    if (!e || !e.a || !Array.isArray(e.k)) return;
+    e.k.forEach((kw) => {
+      const w = String(kw || "").trim();
+      if (w.length < 2) return;
+      entries.push({ kw: w, entry: e });
+    });
+  });
+  if (!entries.length) return null;
+  entries.sort((a, b) => b.kw.length - a.kw.length); // 긴 키워드 우선 매칭 (예: "리튬인산철" > "리튬")
+  const regex = new RegExp(entries.map((x) => escapeGlossaryRegex(x.kw)).join("|"), "gi");
+  const byLower = new Map();
+  entries.forEach((x) => { if (!byLower.has(x.kw.toLowerCase())) byLower.set(x.kw.toLowerCase(), x.entry); });
+  return { regex, byLower };
+}
+const GLOSSARY_WORDCHAR = /[A-Za-z0-9]/;
+function splitGlossaryText(text, matcher) {
+  const s = String(text || "");
+  if (!s || !matcher) return null;
+  const parts = [];
+  const seen = new Set();
+  let last = 0;
+  let m;
+  matcher.regex.lastIndex = 0;
+  while ((m = matcher.regex.exec(s)) !== null) {
+    const word = m[0];
+    const entry = matcher.byLower.get(word.toLowerCase());
+    if (!entry) continue;
+    // ASCII 용어는 단어 경계 수동 확인 ("PRESS" 안의 ESS 오매칭 방지)
+    const before = s[m.index - 1];
+    const after = s[m.index + word.length];
+    if (GLOSSARY_WORDCHAR.test(word[0]) && before && GLOSSARY_WORDCHAR.test(before)) continue;
+    if (GLOSSARY_WORDCHAR.test(word[word.length - 1]) && after && GLOSSARY_WORDCHAR.test(after)) continue;
+    if (seen.has(entry.id || entry.a)) continue; // 같은 용어는 텍스트당 첫 등장만 링크
+    seen.add(entry.id || entry.a);
+    if (m.index > last) parts.push({ str: s.slice(last, m.index) });
+    parts.push({ term: word, entry });
+    last = m.index + word.length;
+  }
+  if (!parts.some((p) => p.entry)) return null;
+  if (last < s.length) parts.push({ str: s.slice(last) });
+  return parts;
+}
+
 async function fetchJsonFile(path, requestKey = 0, hardRefresh = false) {
   const response = await fetch(buildFetchUrl(path, requestKey), {
     cache: hardRefresh ? "reload" : "no-cache",
@@ -1520,9 +1571,12 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
   const [briefLoading, setBriefLoading] = useState(false);
   const [copiedBrief, setCopiedBrief] = useState(false);
   const [copiedCiteId, setCopiedCiteId] = useState(null);
+  const [profileTerm, setProfileTerm] = useState(null); // 기업/키워드 프로필 서브뷰
+  const [glossaryPop, setGlossaryPop] = useState(null); // 용어 정의 바텀시트 (faq 엔트리)
   const regions = ["all", "watch", "top", "high", "KR", "US", "NA", "CN", "EU", "JP", "GL"];
 
-  let cards = filter === "all" ? kb.cards : kb.cards.filter((c) => {
+  // 프로필 모드에서는 해당 용어 매칭이 필터를 대체한다 (기간 칩·브리프는 그대로 적용)
+  let cards = profileTerm ? kb.cards.filter((c) => cardMatchesWatch(c, [profileTerm])) : filter === "all" ? kb.cards : kb.cards.filter((c) => {
     const s = String(c.s || c.signal || "i").toLowerCase();
     if (filter === "watch") return cardMatchesWatch(c, watchTerms);
     if (filter === "top") return s === "t" || s === "top";
@@ -1532,7 +1586,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
 
   if (dateRange) cards = cards.filter((c) => cardDateWithinDays(c, dateRange));
 
-  if (search.trim()) {
+  if (search.trim() && !profileTerm) {
     const sw = search.toLowerCase();
     cards = cards.filter((c) => {
       const fields = [c.T, c.title, c.sub, c.subtitle, c.g, c.gate, c.fact, c.src, c.source, c.implicationText, Array.isArray(c.implication) ? c.implication.join(" ") : c.implication, Array.isArray(c.urls) ? c.urls.join(" ") : c.url];
@@ -1609,16 +1663,67 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
     writeClipboard(lines, () => { setCopiedCiteId(id); setTimeout(() => setCopiedCiteId(null), 1500); });
   };
 
+  // ---- 기업/키워드 프로필: 기간 필터와 무관한 전체 활동 통계 ----
+  const profileStats = useMemo(() => {
+    if (!profileTerm) return null;
+    const all = kb.cards.filter((c) => cardMatchesWatch(c, [profileTerm]));
+    const ds = all.map((c) => String(c.d || c.date || "")).filter(Boolean).sort();
+    const regionCount = {};
+    let top = 0; let high = 0;
+    all.forEach((c) => {
+      const r = String(c.r || c.region || "GL");
+      regionCount[r] = (regionCount[r] || 0) + 1;
+      const s = String(c.s || c.signal || "").toLowerCase();
+      if (s === "t" || s === "top") top += 1;
+      else if (s === "h" || s === "high") high += 1;
+    });
+    return { total: all.length, first: ds[0] || "", last: ds[ds.length - 1] || "", regions: Object.entries(regionCount).sort((a, b) => b[1] - a[1]), top, high };
+  }, [profileTerm, kb.cards]);
+  const profileWatched = Boolean(profileTerm) && watchTerms.some((x) => x.toLowerCase() === String(profileTerm).toLowerCase());
+
+  // ---- 용어 자동링크 렌더러 — StoryNewsItem이 memo라 참조가 안정적이어야 함 (faq/테마 바뀔 때만 재생성) ----
+  const glossaryMatcher = useMemo(() => buildGlossaryMatcher(kb.faq), [kb.faq]);
+  const renderGlossary = useMemo(() => {
+    if (!glossaryMatcher) return null;
+    const linkColor = T(dark).cyan;
+    return (text) => {
+      const parts = splitGlossaryText(text, glossaryMatcher);
+      if (!parts) return text;
+      return parts.map((p, i) => p.entry
+        ? <button key={i} type="button" onClick={(e) => { e.stopPropagation(); setGlossaryPop({ ...p.entry, _term: p.term }); }} aria-label={`용어 설명: ${p.term}`} style={{ border: "none", background: "transparent", padding: 0, margin: 0, font: "inherit", color: "inherit", cursor: "pointer", borderBottom: `1px dotted ${linkColor}`, wordBreak: "keep-all" }}>{p.term}</button>
+        : <span key={i}>{p.str}</span>);
+    };
+  }, [glossaryMatcher, dark]);
+
+  // ---- 내워치 새 카드 감지용 seen 스냅샷 ----
+  // 워치 피드를 열람했거나 용어 목록이 바뀐 시점의 매칭 카드 id를 저장.
+  // 데이터 갱신(kb.cards 변경)만으로는 갱신하지 않아야 신규 카드가 '새것'으로 남는다 — ref로 용어 변경을 구분.
+  const watchSeenTermsRef = useRef(null);
+  useEffect(() => {
+    if (!kb.cards.length) return;
+    const termsSig = watchTerms.join("·");
+    const termsChanged = watchSeenTermsRef.current !== null && watchSeenTermsRef.current !== termsSig;
+    watchSeenTermsRef.current = termsSig;
+    if (!watchTerms.length) return;
+    try {
+      const firstRun = localStorage.getItem("sbtl_watch_seen") === null;
+      if (filter === "watch" || firstRun || termsChanged) {
+        const ids = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).map((c) => getCardId(c)).filter(Boolean);
+        localStorage.setItem("sbtl_watch_seen", JSON.stringify(ids.slice(0, 800)));
+      }
+    } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
+  }, [filter, watchTerms, kb.cards]);
+
   // ---- 흐름 브리프: 현재 필터 조합 = 범위 ----
-  const scopeActive = filter !== "all" || dateRange > 0 || Boolean(search.trim());
+  const scopeActive = Boolean(profileTerm) || filter !== "all" || dateRange > 0 || Boolean(search.trim());
   const scopeLabel = [
-    filter === "watch" ? `내워치(${watchTerms.slice(0, 4).join(", ")}${watchTerms.length > 4 ? "…" : ""})` : (filter !== "all" ? filter.toUpperCase() : null),
+    profileTerm ? `프로필(${profileTerm})` : (filter === "watch" ? `내워치(${watchTerms.slice(0, 4).join(", ")}${watchTerms.length > 4 ? "…" : ""})` : (filter !== "all" ? filter.toUpperCase() : null)),
     dateRange ? `최근 ${dateRange}일` : null,
-    search.trim() ? `"${search.trim()}"` : null,
+    search.trim() && !profileTerm ? `"${search.trim()}"` : null,
   ].filter(Boolean).join(" × ") || "전체";
   const briefCards = cards.slice(0, 40);
   // 브리프는 생성 시점의 범위 지문(scopeKey)과 일치할 때만 렌더·복사 — 범위 변경 후 stale 서사에 새 라벨이 붙는 것 방지
-  const scopeKey = [filter, dateRange, search.trim().toLowerCase(), filter === "watch" ? watchTerms.join("·") : "", briefCards.length, briefCards.length ? getCardId(briefCards[0]) : "", briefCards.length ? getCardId(briefCards[briefCards.length - 1]) : ""].join("|");
+  const scopeKey = [profileTerm || "", filter, dateRange, search.trim().toLowerCase(), filter === "watch" ? watchTerms.join("·") : "", briefCards.length, briefCards.length ? getCardId(briefCards[0]) : "", briefCards.length ? getCardId(briefCards[briefCards.length - 1]) : ""].join("|");
   const briefMatch = brief && brief.scopeKey === scopeKey ? brief : null;
   const buildBrief = async () => {
     setBriefLoading(true); setBrief(null);
@@ -1656,19 +1761,39 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
 
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
-      <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>날짜별 시그널 피드</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.6 }}>최신 카드부터 날짜 기준으로 정렬했습니다. 같은 날짜 안에서는 중요도가 높은 이슈를 먼저 보여줍니다.</p></div>
-      <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => withStar(card, `${card.id || card.T || card.title}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} />))}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>
-      <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><input type="text" value={search} onChange={(e) => { setSearch(e.target.value); setShowCount(60); }} placeholder="🔍 카드 검색..." aria-label="Search cards by title, description, or content" style={{ flex: 1, padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />{scopeActive && <div style={{ padding: "8px 12px", borderRadius: 8, background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card, border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`, fontSize: 11, fontWeight: 800, color: cards.length === 0 ? "#F85149" : t.cyan, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{cards.length}개 결과</div>}</div>{cards.length === 0 && scopeActive && <div style={{ padding: 16, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>검색 결과가 없습니다</div><div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>다른 검색어나 필터, 기간을 시도해보세요</div></div>}</div>
-      <div style={{ position: "relative" }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regions.map((r) => { const label = r === "all" ? `ALL ${kb.cardCount}` : r === "watch" ? `★ 내워치${watchTerms.length ? ` ${watchTerms.length}` : ""}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : `${REG_FLAG[r] || ""} ${r}`; return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "10px 14px", minHeight: 44, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div><div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 32, background: `linear-gradient(to left, ${t.bg}, transparent)`, pointerEvents: "none" }} /></div>
+      {profileTerm && (
+        <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.cyan}` }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <button onClick={() => setProfileTerm(null)} aria-label="프로필 닫기" style={{ border: `1px solid ${t.brd}`, background: "transparent", color: t.tx, borderRadius: 8, width: 32, height: 32, fontSize: 15, cursor: "pointer", lineHeight: 1, flexShrink: 0 }}>←</button>
+            <h2 style={{ fontSize: 19, fontWeight: 900, color: t.tx, margin: 0, flex: 1, lineHeight: 1.3, wordBreak: "keep-all" }}>🏢 {profileTerm}</h2>
+            <button onClick={() => { if (profileWatched) setWatchTerms(watchTerms.filter((x) => x.toLowerCase() !== String(profileTerm).toLowerCase())); else setWatchTerms([...watchTerms, profileTerm]); }} style={{ padding: "7px 11px", borderRadius: 999, border: `1px solid ${profileWatched ? "transparent" : t.brd}`, background: profileWatched ? t.cyan : "transparent", color: profileWatched ? "#000" : t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace", flexShrink: 0 }}>{profileWatched ? "★ 워치 중" : "☆ 워치 추가"}</button>
+          </div>
+          {profileStats && profileStats.total > 0 ? (
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 12, fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>
+              <span>카드 <b style={{ color: t.cyan }}>{profileStats.total}</b>장</span>
+              <span>TOP {profileStats.top} · HIGH {profileStats.high}</span>
+              <span>{fmtDate(profileStats.first)} ~ {fmtDate(profileStats.last)}</span>
+              <span>{profileStats.regions.slice(0, 3).map(([r, n]) => `${r} ${n}`).join(" · ")}</span>
+            </div>
+          ) : (
+            <div style={{ marginTop: 12, fontSize: 11, color: t.sub, lineHeight: 1.5 }}>이 용어와 매칭되는 카드가 아직 없습니다.</div>
+          )}
+          <div style={{ marginTop: 8, fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>아래 타임라인은 최신순 · 기간 칩과 📝 브리프가 이 프로필 범위에 적용됩니다</div>
+        </div>
+      )}
+      {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>날짜별 시그널 피드</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.6 }}>최신 카드부터 날짜 기준으로 정렬했습니다. 같은 날짜 안에서는 중요도가 높은 이슈를 먼저 보여줍니다.</p></div>}
+      {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => withStar(card, `${card.id || card.T || card.title}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} renderText={renderGlossary} />))}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>}
+      {!profileTerm && <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><input type="text" value={search} onChange={(e) => { setSearch(e.target.value); setShowCount(60); }} placeholder="🔍 카드 검색..." aria-label="Search cards by title, description, or content" style={{ flex: 1, padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />{scopeActive && <div style={{ padding: "8px 12px", borderRadius: 8, background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card, border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`, fontSize: 11, fontWeight: 800, color: cards.length === 0 ? "#F85149" : t.cyan, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{cards.length}개 결과</div>}</div>{cards.length === 0 && scopeActive && <div style={{ padding: 16, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>검색 결과가 없습니다</div><div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>다른 검색어나 필터, 기간을 시도해보세요</div></div>}</div>}
+      {!profileTerm && <div style={{ position: "relative" }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regions.map((r) => { const label = r === "all" ? `ALL ${kb.cardCount}` : r === "watch" ? `★ 내워치${watchTerms.length ? ` ${watchTerms.length}` : ""}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : `${REG_FLAG[r] || ""} ${r}`; return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "10px 14px", minHeight: 44, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div><div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 32, background: `linear-gradient(to left, ${t.bg}, transparent)`, pointerEvents: "none" }} /></div>}
       <div style={{ display: "flex", gap: 4 }}>{[{ v: 0, l: "전체 기간" }, { v: 7, l: "최근 7일" }, { v: 30, l: "최근 30일" }].map((opt) => <button key={opt.v} onClick={() => { setDateRange(opt.v); setShowCount(60); }} style={{ background: dateRange === opt.v ? t.cyan : t.card2, color: dateRange === opt.v ? "#000" : t.sub, border: `1px solid ${dateRange === opt.v ? "transparent" : t.brd}`, borderRadius: 999, padding: "7px 12px", fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{opt.l}</button>)}</div>
-      {filter === "watch" && (
+      {!profileTerm && filter === "watch" && (
         <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${t.brd}` }}>
-          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 8 }}>★ 내 워치 — 기업·키워드를 등록하면 해당 카드만 모아 봅니다</div>
+          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 8 }}>★ 내 워치 — 기업·키워드를 등록하면 해당 카드만 모아 봅니다 · 용어 옆 📊 = 프로필</div>
           <div style={{ display: "flex", gap: 6, marginBottom: watchTerms.length ? 8 : 0 }}>
             <input type="text" value={watchInput} onChange={(e) => setWatchInput(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { const v = watchInput.trim(); if (v && !watchTerms.some((x) => x.toLowerCase() === v.toLowerCase())) setWatchTerms([...watchTerms, v]); setWatchInput(""); } }} placeholder="예: CATL, 전고체, 리튬..." aria-label="워치 용어 추가" style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.bg, color: t.tx, boxSizing: "border-box" }} />
             <button onClick={() => { const v = watchInput.trim(); if (v && !watchTerms.some((x) => x.toLowerCase() === v.toLowerCase())) setWatchTerms([...watchTerms, v]); setWatchInput(""); }} style={{ padding: "9px 14px", borderRadius: 8, border: "none", background: t.cyan, color: "#000", fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>추가</button>
           </div>
-          {watchTerms.length > 0 && <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>{watchTerms.map((term) => <span key={term} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: t.bg, border: `1px solid ${t.brd}`, borderRadius: 999, padding: "5px 8px 5px 11px", fontSize: 11, fontWeight: 700, color: t.tx }}>{term}<button onClick={() => setWatchTerms(watchTerms.filter((x) => x !== term))} aria-label={`${term} 삭제`} style={{ border: "none", background: "transparent", color: t.sub, fontSize: 12, cursor: "pointer", padding: 0, lineHeight: 1 }}>✕</button></span>)}</div>}
+          {watchTerms.length > 0 && <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>{watchTerms.map((term) => <span key={term} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: t.bg, border: `1px solid ${t.brd}`, borderRadius: 999, padding: "5px 8px 5px 11px", fontSize: 11, fontWeight: 700, color: t.tx }}>{term}<button onClick={() => { setProfileTerm(term); setShowCount(60); }} aria-label={`${term} 프로필 보기`} style={{ border: "none", background: "transparent", color: t.cyan, fontSize: 12, cursor: "pointer", padding: 0, lineHeight: 1 }}>📊</button><button onClick={() => setWatchTerms(watchTerms.filter((x) => x !== term))} aria-label={`${term} 삭제`} style={{ border: "none", background: "transparent", color: t.sub, fontSize: 12, cursor: "pointer", padding: 0, lineHeight: 1 }}>✕</button></span>)}</div>}
           {watchTerms.length === 0 && <div style={{ fontSize: 11, color: t.sub, marginTop: 8, lineHeight: 1.5 }}>아직 등록된 용어가 없습니다. 위에 기업명이나 키워드를 입력해 보세요.</div>}
         </div>
       )}
@@ -1699,8 +1824,23 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
           )}
         </div>
       )}
-      {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => withStar(card, `${card.id || date}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} />))}</div></div>)}
+      {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => withStar(card, `${card.id || date}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} renderText={renderGlossary} />))}</div></div>)}
       {visible.length < cards.length && <button onClick={() => setShowCount((prev) => prev + 60)} style={{ width: "100%", padding: 12, marginTop: 16, borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontWeight: 700, cursor: "pointer" }}>더 보기 ({Math.min(showCount, cards.length)} / {cards.length})</button>}
+      {glossaryPop && (
+        <div onClick={() => setGlossaryPop(null)} role="dialog" aria-modal="true" aria-label="용어 설명" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.45)", zIndex: 60, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+          <div onClick={(e) => e.stopPropagation()} style={{ width: "100%", maxWidth: 480, maxHeight: "70vh", overflowY: "auto", background: t.card2, borderRadius: "16px 16px 0 0", padding: "18px 16px calc(20px + env(safe-area-inset-bottom, 0px))", border: `1px solid ${t.brd}`, boxSizing: "border-box" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+              <span style={{ fontSize: 15, fontWeight: 900, color: t.tx, flex: 1 }}>📖 {glossaryPop._term || (Array.isArray(glossaryPop.k) && glossaryPop.k[0]) || "용어"}</span>
+              {glossaryPop.category && <span style={{ fontSize: 8, fontWeight: 800, color: t.sub, border: `1px solid ${t.brd}`, borderRadius: 999, padding: "3px 8px", fontFamily: "'JetBrains Mono',monospace" }}>{glossaryPop.category}</span>}
+              <button onClick={() => setGlossaryPop(null)} aria-label="닫기" style={{ border: "none", background: "transparent", color: t.sub, fontSize: 16, cursor: "pointer", padding: 4, lineHeight: 1 }}>✕</button>
+            </div>
+            <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, wordBreak: "keep-all" }}>{glossaryPop.a}</div>
+            {(() => { const term = (Array.isArray(glossaryPop.k) && glossaryPop.k[0]) || ""; const watched = watchTerms.some((x) => x.toLowerCase() === term.toLowerCase()); return term ? (
+              <button onClick={() => { if (!watched) setWatchTerms([...watchTerms, term]); setGlossaryPop(null); }} style={{ marginTop: 14, width: "100%", padding: "10px 12px", borderRadius: 8, border: `1px solid ${watched ? "transparent" : t.brd}`, background: watched ? t.brd : "transparent", color: watched ? t.sub : t.cyan, fontSize: 11, fontWeight: 800, cursor: watched ? "default" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{watched ? "★ 이미 내워치에 있습니다" : "☆ 이 용어 내워치에 추가"}</button>
+            ) : null; })()}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1715,6 +1855,17 @@ function AppContent() {
   const [consultationSeed, setConsultationSeed] = useState({ data: null, nonce: 0 });
   const [consultSummaries, setConsultSummaries] = useState(() => typeof window !== "undefined" ? getAllCardConsultationSummaries() : {});
   const kb = useKnowledgeBase(refreshKey, hardRefresh);
+  // 내워치 새 카드 배지 — NewsDesk가 기록한 seen 스냅샷과 현재 카드를 비교 (탭 전환 시 재계산)
+  const watchNewCount = useMemo(() => {
+    try {
+      const seenRaw = localStorage.getItem("sbtl_watch_seen");
+      if (seenRaw === null) return 0; // 스냅샷 생기기 전(첫 사용)에는 배지 없음
+      const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+      if (!Array.isArray(terms) || !terms.length || !kb.cards.length) return 0;
+      const seen = new Set(JSON.parse(seenRaw));
+      return kb.cards.filter((c) => cardMatchesWatch(c, terms) && !seen.has(getCardId(c))).length;
+    } catch { return 0; }
+  }, [kb.cards, tab]); // eslint-disable-line react-hooks/exhaustive-deps
   const { tracker, regionPolicy, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
   const t = T(dark);
   const lastCardDate = latestDate(kb.cards) || "-";
@@ -1777,7 +1928,7 @@ function AppContent() {
         {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} />}
       </main>
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">
-        {CATS.map((cat) => { const active = tab === cat.key; return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={`Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: 56, cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>{active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}<span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span><span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span></button>; })}
+        {CATS.map((cat) => { const active = tab === cat.key; return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={`Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: 56, cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>{active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}<span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span><span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span>{cat.key === "news" && watchNewCount > 0 && <span aria-label={`내워치 새 카드 ${watchNewCount}건`} style={{ position: "absolute", top: 5, left: "50%", transform: "translateX(7px)", background: "#F85149", color: "#fff", borderRadius: 999, fontSize: 8, fontWeight: 800, padding: "2px 5px", lineHeight: 1, fontFamily: "'JetBrains Mono',monospace" }}>{watchNewCount > 99 ? "99+" : watchNewCount}</span>}</button>; })}
       </div>
     </div>
   );

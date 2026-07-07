@@ -548,31 +548,6 @@ function Home({ kb, tracker, onNav, onSubmitConsultation, consultSummaries = {},
   const coverMap = useMemo(() => assignHomeCovers(picks), [picks]);
   const coverFor = (card, idx) => coverMap[String(card?.id || card?.T || card?.title || `idx_${idx}`)] || pickHomeCover(card);
 
-  const isBookmarked = (card) => bookmarks.some((b) => b.id === getCardId(card));
-  const toggleBookmark = (card) => {
-    const id = getCardId(card);
-    if (bookmarks.some((b) => b.id === id)) {
-      setBookmarks(bookmarks.filter((b) => b.id !== id));
-    } else {
-      setBookmarks([{ id, title: card.title || card.T || "", date: card.date || card.d || "", url: card.url || card.primaryUrl || "", savedAt: kstToday() }, ...bookmarks].slice(0, 200));
-    }
-  };
-  // 카드 우상단 ☆ 오버레이 — StoryNewsItem 무수정 (key는 래퍼로 이동)
-  const withStar = (card, key, node) => {
-    const on = isBookmarked(card);
-    return (
-      <div key={key} style={{ position: "relative" }}>
-        {node}
-        <button
-          onClick={(e) => { e.stopPropagation(); toggleBookmark(card); }}
-          aria-label={on ? "보고함에서 제거" : "보고함에 저장"}
-          aria-pressed={on}
-          style={{ position: "absolute", top: 8, right: 8, zIndex: 2, width: 34, height: 34, borderRadius: 999, border: `1px solid ${on ? "transparent" : t.brd}`, background: on ? t.cyan : (dark ? "rgba(13,17,23,0.72)" : "rgba(255,255,255,0.85)"), color: on ? "#000" : t.sub, fontSize: 15, cursor: "pointer", lineHeight: 1 }}
-        >{on ? "★" : "☆"}</button>
-      </div>
-    );
-  };
-
   return (
     <div style={{ padding: "0 14px 120px", display: "flex", flexDirection: "column", gap: 12 }}>
       <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#1F2840" : "#EEF3FF"})`, borderRadius: 18, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}`, boxShadow: t.sh }}>
@@ -1579,6 +1554,31 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
   // 화면 내 unique 커버 배정 — highlights와 visible 합쳐서 한 번에 (Copilot review #98 #2)
   const coverMap = useMemo(() => assignHomeCovers([...highlights, ...visible]), [highlights, visible]);
   const coverFor = (card, idx) => coverMap[String(card?.id || card?.T || card?.title || `idx_${idx}`)] || pickHomeCover(card);
+
+  const isBookmarked = (card) => bookmarks.some((b) => b.id === getCardId(card));
+  const toggleBookmark = (card) => {
+    const id = getCardId(card);
+    if (bookmarks.some((b) => b.id === id)) {
+      setBookmarks(bookmarks.filter((b) => b.id !== id));
+    } else {
+      setBookmarks([{ id, title: card.title || card.T || "", date: card.date || card.d || "", url: card.url || card.primaryUrl || "", savedAt: kstToday() }, ...bookmarks].slice(0, 200));
+    }
+  };
+  // 카드 우상단 ☆ 오버레이 — StoryNewsItem 무수정 (key는 래퍼로 이동)
+  const withStar = (card, key, node) => {
+    const on = isBookmarked(card);
+    return (
+      <div key={key} style={{ position: "relative" }}>
+        {node}
+        <button
+          onClick={(e) => { e.stopPropagation(); toggleBookmark(card); }}
+          aria-label={on ? "보고함에서 제거" : "보고함에 저장"}
+          aria-pressed={on}
+          style={{ position: "absolute", top: 8, right: 8, zIndex: 2, width: 34, height: 34, borderRadius: 999, border: `1px solid ${on ? "transparent" : t.brd}`, background: on ? t.cyan : (dark ? "rgba(13,17,23,0.72)" : "rgba(255,255,255,0.85)"), color: on ? "#000" : t.sub, fontSize: 15, cursor: "pointer", lineHeight: 1 }}
+        >{on ? "★" : "☆"}</button>
+      </div>
+    );
+  };
 
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>

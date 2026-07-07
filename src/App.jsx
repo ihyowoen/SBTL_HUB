@@ -1569,7 +1569,7 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   );
 }
 
-function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
+function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -1731,9 +1731,10 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
         const ids = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean);
         localStorage.setItem("sbtl_watch_seen", JSON.stringify(ids));
         localStorage.setItem("sbtl_watch_seen_sig", termsSig);
+        if (typeof onWatchSeen === "function") onWatchSeen(); // AppContent 배지 즉시 재계산 (같은 탭에 머물 때)
       }
     } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
-  }, [filter, watchTerms, kb.cards]);
+  }, [filter, watchTerms, kb.cards, onWatchSeen]);
 
   // ---- 흐름 브리프: 현재 필터 조합 = 범위 ----
   const scopeActive = Boolean(profileTerm) || filter !== "all" || dateRange > 0 || Boolean(search.trim());
@@ -1884,7 +1885,10 @@ function AppContent() {
   const [consultationSeed, setConsultationSeed] = useState({ data: null, nonce: 0 });
   const [consultSummaries, setConsultSummaries] = useState(() => typeof window !== "undefined" ? getAllCardConsultationSummaries() : {});
   const kb = useKnowledgeBase(refreshKey, hardRefresh);
-  // 내워치 새 카드 배지 — NewsDesk가 기록한 seen 스냅샷과 현재 카드를 비교 (탭 전환 시 재계산)
+  // 내워치 새 카드 배지 — NewsDesk가 기록한 seen 스냅샷과 현재 카드를 비교.
+  // NewsDesk가 스냅샷을 쓸 때 onWatchSeen으로 버전을 올려 같은 탭에 머물러도 배지가 즉시 꺼진다.
+  const [watchSeenVersion, setWatchSeenVersion] = useState(0);
+  const bumpWatchSeen = useMemo(() => () => setWatchSeenVersion((v) => v + 1), []);
   const watchNewCount = useMemo(() => {
     try {
       const seenRaw = localStorage.getItem("sbtl_watch_seen");
@@ -1902,7 +1906,7 @@ function AppContent() {
       }
       return matches.filter((c) => !seen.has(getCardId(c))).length;
     } catch { return 0; }
-  }, [kb.cards, tab]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [kb.cards, tab, watchSeenVersion]); // eslint-disable-line react-hooks/exhaustive-deps
   const { tracker, regionPolicy, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
   const t = T(dark);
   const lastCardDate = latestDate(kb.cards) || "-";
@@ -1959,7 +1963,7 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
-        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} />}
+        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} />}
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} />}

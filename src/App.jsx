@@ -1617,6 +1617,9 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
     search.trim() ? `"${search.trim()}"` : null,
   ].filter(Boolean).join(" × ") || "전체";
   const briefCards = cards.slice(0, 40);
+  // 브리프는 생성 시점의 범위 지문(scopeKey)과 일치할 때만 렌더·복사 — 범위 변경 후 stale 서사에 새 라벨이 붙는 것 방지
+  const scopeKey = [filter, dateRange, search.trim().toLowerCase(), filter === "watch" ? watchTerms.join("·") : "", briefCards.length, briefCards.length ? getCardId(briefCards[0]) : "", briefCards.length ? getCardId(briefCards[briefCards.length - 1]) : ""].join("|");
+  const briefMatch = brief && brief.scopeKey === scopeKey ? brief : null;
   const buildBrief = async () => {
     setBriefLoading(true); setBrief(null);
     try {
@@ -1632,21 +1635,21 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
       const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const j = await r.json();
       if (!j?.ok) throw new Error(j?.error || "brief-failed");
-      setBrief({ ...j, refs: briefCards.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })) });
+      setBrief({ ...j, scopeKey, scopeLabel, refs: briefCards.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })) });
     } catch (e) {
-      setBrief({ ok: false, error: String(e?.message || e) });
+      setBrief({ ok: false, error: String(e?.message || e), scopeKey });
     } finally { setBriefLoading(false); }
   };
   const copyBriefText = () => {
-    if (!brief?.narrative) return;
+    if (!briefMatch?.narrative) return;
     const text = [
-      `[SBTL 흐름 브리프] ${scopeLabel} — ${kstToday()}`,
+      `[SBTL 흐름 브리프] ${briefMatch.scopeLabel || scopeLabel} — ${kstToday()}`,
       "",
-      brief.narrative,
-      ...(brief.watch?.length ? ["", "지켜볼 것:", ...brief.watch.map((w) => `- ${w}`)] : []),
+      briefMatch.narrative,
+      ...(briefMatch.watch?.length ? ["", "지켜볼 것:", ...briefMatch.watch.map((w) => `- ${w}`)] : []),
       "",
       "출처 카드:",
-      ...(brief.refs || []).map((r) => `[${r.n}] ${r.title} (${r.date})${r.url ? ` ${r.url}` : ""}`),
+      ...(briefMatch.refs || []).map((r) => `[${r.n}] ${r.title} (${r.date})${r.url ? ` ${r.url}` : ""}`),
     ].join("\n");
     writeClipboard(text, () => { setCopiedBrief(true); setTimeout(() => setCopiedBrief(false), 1600); });
   };
@@ -1670,21 +1673,21 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark }) {
         </div>
       )}
       {scopeActive && cards.length >= 2 && (
-        <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${brief?.narrative ? t.cyan : t.brd}` }}>
+        <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${briefMatch?.narrative ? t.cyan : t.brd}` }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
             <span style={{ fontSize: 12, fontWeight: 900, color: t.tx }}>📝 흐름 브리프</span>
             <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{scopeLabel} · 카드 {briefCards.length}장{cards.length > 40 ? " (최신 40장)" : ""}</span>
-            {!brief && <button onClick={buildBrief} disabled={briefLoading} style={{ marginLeft: "auto", padding: "7px 12px", borderRadius: 8, border: "none", background: briefLoading ? t.brd : t.cyan, color: "#000", fontSize: 10, fontWeight: 800, cursor: briefLoading ? "default" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{briefLoading ? "엮는 중..." : "이 조합으로 만들기"}</button>}
-            {brief && <button onClick={() => setBrief(null)} style={{ marginLeft: "auto", padding: "6px 10px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>닫기</button>}
+            {!briefMatch && <button onClick={buildBrief} disabled={briefLoading} style={{ marginLeft: "auto", padding: "7px 12px", borderRadius: 8, border: "none", background: briefLoading ? t.brd : t.cyan, color: "#000", fontSize: 10, fontWeight: 800, cursor: briefLoading ? "default" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{briefLoading ? "엮는 중..." : "이 조합으로 만들기"}</button>}
+            {briefMatch && <button onClick={() => setBrief(null)} style={{ marginLeft: "auto", padding: "6px 10px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>닫기</button>}
           </div>
-          {brief && brief.ok === false && <div style={{ marginTop: 10, fontSize: 11, color: "#F85149", lineHeight: 1.5 }}>브리프 생성에 실패했습니다 ({brief.error}). <button onClick={buildBrief} style={{ border: "none", background: "transparent", color: t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", padding: 0 }}>다시 시도</button></div>}
-          {brief?.narrative && (
+          {briefMatch && briefMatch.ok === false && <div style={{ marginTop: 10, fontSize: 11, color: "#F85149", lineHeight: 1.5 }}>브리프 생성에 실패했습니다 ({briefMatch.error}). <button onClick={buildBrief} style={{ border: "none", background: "transparent", color: t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", padding: 0 }}>다시 시도</button></div>}
+          {briefMatch?.narrative && (
             <div style={{ marginTop: 10 }}>
-              <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all" }}>{brief.narrative}</div>
-              {brief.watch?.length > 0 && (
+              <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all" }}>{briefMatch.narrative}</div>
+              {briefMatch.watch?.length > 0 && (
                 <div style={{ marginTop: 10 }}>
                   <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
-                  {brief.watch.map((w, i) => <div key={i} style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.6, paddingLeft: 8, borderLeft: `2px solid ${t.brd}`, marginBottom: 4, wordBreak: "keep-all" }}>{w}</div>)}
+                  {briefMatch.watch.map((w, i) => <div key={i} style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.6, paddingLeft: 8, borderLeft: `2px solid ${t.brd}`, marginBottom: 4, wordBreak: "keep-all" }}>{w}</div>)}
                 </div>
               )}
               <div style={{ display: "flex", gap: 6, marginTop: 10 }}>

@@ -1937,6 +1937,20 @@ function AppContent() {
       return matches.filter((c) => !seen.has(getCardId(c))).length;
     } catch { return 0; }
   }, [kb.cards, tab, watchSeenVersion]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 기존 사용자 기준선: 워치 용어만 있고 seen 스냅샷이 없으면 NEWS 탭(NewsDesk) 진입 전에도 한 번 생성 —
+  // 스냅샷 없이 데이터가 갱신되면 신규 카드가 first-run으로 묻혀 배지가 영영 안 뜨는 것 방지. NewsDesk와 동일한 창 시맨틱스.
+  useEffect(() => {
+    if (!kb.cards.length) return;
+    try {
+      if (localStorage.getItem("sbtl_watch_seen") !== null) return;
+      const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+      if (!Array.isArray(terms) || !terms.length) return;
+      const ids = kb.cards.filter((c) => cardMatchesWatch(c, terms)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean);
+      localStorage.setItem("sbtl_watch_seen", JSON.stringify(ids));
+      localStorage.setItem("sbtl_watch_seen_sig", JSON.stringify(terms));
+      bumpWatchSeen();
+    } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
+  }, [kb.cards, bumpWatchSeen]);
   const { tracker, regionPolicy, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
   const t = T(dark);
   const lastCardDate = latestDate(kb.cards) || "-";

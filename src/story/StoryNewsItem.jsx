@@ -463,6 +463,8 @@ function StoryNewsItem({
   onSubmitConsultation,
   coverImage = '',
   featured = false,
+  // 용어 자동링크 등 텍스트 장식 — 반드시 안정된(useMemo) 함수를 넘길 것 (memo 컴포넌트)
+  renderText = null,
   // eslint-disable-next-line no-unused-vars
   consultationHint = null,
 }) {
@@ -623,7 +625,7 @@ function StoryNewsItem({
             </h3>
             {c.sub ? (
               <p style={{ margin: '8px 0 0', color: 'rgba(255,255,255,0.86)', fontSize: 13, lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                {c.sub}
+                {renderText ? renderText(c.sub) : c.sub}
               </p>
             ) : null}
           </div>
@@ -650,7 +652,7 @@ function StoryNewsItem({
             </h3>
             {c.sub ? (
               <p style={{ margin: '6px 0 0', color: t.sub, fontSize: 12, lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                {c.sub}
+                {renderText ? renderText(c.sub) : c.sub}
               </p>
             ) : null}
           </div>
@@ -933,7 +935,7 @@ function StoryNewsItem({
               <div key={`${activeMode}-${idx}`} style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
                 <div style={{ flexShrink: 0, width: 40, height: 40, borderRadius: '50%', background: briefAccent, color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, fontWeight: 900, boxShadow: `0 4px 10px ${briefMode === 'summary' ? 'rgba(88,166,255,0.4)' : 'rgba(168,85,247,0.4)'}` }}>강</div>
                 <div style={{ flex: 1, background: t.card, borderRadius: '4px 18px 18px 18px', border: `1px solid ${t.brd}`, padding: '16px 20px', color: t.tx, fontSize: 15, lineHeight: 1.75, wordBreak: 'keep-all', boxShadow: '0 4px 8px rgba(0,0,0,0.06)', fontWeight: 500 }}>
-                  {line}
+                  {renderText ? renderText(line) : line}
                 </div>
               </div>
             ))}

@@ -54,15 +54,19 @@ STAGE_C_FORBIDDEN_TRUE_FLAGS = [
     'publish_ready',
     'github_merge_ready',
 ]
+ACCEPTED_STAGE_C_POOLS = {'accepted_fact_safe', 'accepted_fact_safe_with_warnings'}
+
 
 def load(path):
     with open(path, encoding='utf-8') as f: return json.load(f)
+
 
 def fail(msgs):
     print('RESULT: BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT')
     for m in msgs[:100]: print('-', m)
     if len(msgs)>100: print(f'... +{len(msgs)-100} more')
     return 1
+
 
 def item_key(item):
     if not isinstance(item, dict):
@@ -76,8 +80,10 @@ def item_key(item):
         return '|'.join(str(x) for x in grouped if x)
     return ''
 
+
 def missing_or_empty(item, field):
     return field not in item or item.get(field) in (None, '', [])
+
 
 def check_stage_a(data):
     specs = data.get('strict_passed_spec') or data.get('strict_passed_specs') or []
@@ -149,6 +155,7 @@ def check_stage_a(data):
         msgs.append('strict_passed_via_p_013_count must be 0; P_013 auto-promotion is deprecated')
     return fail(msgs) if msgs else (print('RESULT: PASS_STAGE_A_SCHEMA_CONTRACT'),0)[1]
 
+
 def check_stage_b(data):
     msgs=[]
     expected_values = {
@@ -170,6 +177,7 @@ def check_stage_b(data):
             msgs.append(f'top-level {f} must be {expected!r}, got {actual!r}')
     return fail(msgs) if msgs else (print('RESULT: PASS_STAGE_B_SCHEMA_CONTRACT'),0)[1]
 
+
 def check_stage_c(data):
     pools=[]
     for name in ['accepted_fact_safe','revise_required','rejected','support_source_only','deferred_review_pool','accepted_fact_safe_with_warnings']:
@@ -183,11 +191,11 @@ def check_stage_c(data):
         for field in C_ITEM_FIELDS:
             if missing_or_empty(item, field):
                 msgs.append(f'{pool} {cid or "unknown"}: missing {field}')
-        if item.get('strict_gate_acceptance_guard_applied') is not True:
-            msgs.append(f'{pool} {cid or "unknown"}: strict_gate_acceptance_guard_applied must be true')
-        if item.get('accepted_pool_lineage_status') != 'PASS':
-            msgs.append(f'{pool} {cid or "unknown"}: accepted_pool_lineage_status must be PASS')
-        if pool in ('accepted_fact_safe', 'accepted_fact_safe_with_warnings'):
+        if pool in ACCEPTED_STAGE_C_POOLS:
+            if item.get('strict_gate_acceptance_guard_applied') is not True:
+                msgs.append(f'{pool} {cid or "unknown"}: strict_gate_acceptance_guard_applied must be true')
+            if item.get('accepted_pool_lineage_status') != 'PASS':
+                msgs.append(f'{pool} {cid or "unknown"}: accepted_pool_lineage_status must be PASS')
             if item.get('state') != 'accepted_fact_safe':
                 msgs.append(f'{pool} {cid or "unknown"}: state must be accepted_fact_safe')
             if item.get('stage_c_only') is not True:
@@ -198,6 +206,7 @@ def check_stage_c(data):
                 if item.get('state') == flag:
                     msgs.append(f'{pool} {cid or "unknown"}: Stage C must not use downstream state {flag}')
     return fail(msgs) if msgs else (print('RESULT: PASS_STAGE_C_SCHEMA_CONTRACT'),0)[1]
+
 
 def main():
     if len(sys.argv)!=3:

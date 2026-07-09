@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-07-09T05:18:00+00:00",
+  "generated_at_utc": "2026-07-09T06:33:00+00:00",
   "version": "LLM_PROMPT_GITHUB_CANONICAL_V1",
-  "manifest_policy": "Git commit is the canonical integrity source. This manifest intentionally avoids self-referential per-file hashes so it does not drift after validator-only follow-up fixes.",
+  "manifest_policy": "Git commit is the canonical integrity source. This docs-only manifest intentionally avoids self-referential per-file hashes.",
   "scope": "First GitHub-canonical LLM prompt package v1 for SBTL_HUB.",
   "base_branch": "main",
   "head_branch": "ihyowoen-patch-38",
-  "file_count": 37,
+  "file_count": 33,
   "governance_doc_count": 9,
   "stage_prompt_count": 14,
-  "validation_script_count": 4,
+  "validation_script_count": 0,
   "runtime_code_change": false,
   "cards_json_change": false,
   "paths": {
@@ -50,18 +50,11 @@
       "docs/llm_prompts/v1/UPLOAD_INSTRUCTIONS.md",
       "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
       "docs/llm_prompts/v1/entity_alias_map.json"
-    ],
-    "validation_scripts": [
-      "validation_scripts/content_audit_check.py",
-      "validation_scripts/evidence_qc_v8_check.py",
-      "validation_scripts/stage_b_evidence_gate.py",
-      "validation_scripts/stage_lineage_contract_check.py"
     ]
   },
-  "codex_followup_fixes": [
-    "Stage B evidence gate key helper now recognizes source_spec_id.",
-    "Stage B draft_blocked validation now recognizes blocked_reason.",
-    "Stage C lineage validator now enforces spec_id, source_story_ids, stage_b_lineage, strict_gate_acceptance_guard_applied and accepted_pool_lineage_status.",
-    "Upload manifest no longer contains self-drifting per-file hashes."
-  ]
+  "validator_followup": {
+    "status": "excluded_from_this_pr",
+    "preserved_branch": "chore/prompt-validation-scripts-hardening-from-pr151",
+    "intended_followup_pr": "validation scripts with fixtures/tests"
+  }
 }

@@ -30,11 +30,17 @@ B_EXPECTED_VALUES = {
 B_SOURCE_DIVERSITY_FIELDS = [
     'stage_a_support_sources_attempted',
     'source_independence_ledger',
-    'source_unique_primary_count',
-    'source_unique_secondary_count',
+    'source_unique_url_count',
+    'source_unique_domain_count',
+    'source_independent_owner_count',
     'source_role_coverage',
     'source_synthesis_plan',
 ]
+B_SOURCE_DIVERSITY_INTEGER_FIELDS = {
+    'source_unique_url_count',
+    'source_unique_domain_count',
+    'source_independent_owner_count',
+}
 C_ITEM_FIELDS = [
     'id', 'spec_id', 'source_story_ids', 'stage_b_lineage',
     'strict_gate_acceptance_guard_applied', 'accepted_pool_lineage_status'
@@ -169,9 +175,9 @@ def check_stage_b(data):
         value = data.get(field)
         if field == 'stage_a_support_sources_attempted' and not isinstance(value, bool):
             messages.append(f'{field} must be boolean')
-        elif field in ('source_unique_primary_count', 'source_unique_secondary_count') and not isinstance(value, int):
+        elif field in B_SOURCE_DIVERSITY_INTEGER_FIELDS and not isinstance(value, int):
             messages.append(f'{field} must be integer')
-        elif field not in ('stage_a_support_sources_attempted', 'source_unique_primary_count', 'source_unique_secondary_count') and value in (None, '', [], {}):
+        elif field not in B_SOURCE_DIVERSITY_INTEGER_FIELDS | {'stage_a_support_sources_attempted'} and value in (None, '', [], {}):
             messages.append(f'{field} must be populated')
 
     return fail(messages) if messages else (print('RESULT: PASS_STAGE_B_SCHEMA_CONTRACT'), 0)[1]

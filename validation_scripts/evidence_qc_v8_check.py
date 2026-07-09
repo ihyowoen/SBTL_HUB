@@ -18,6 +18,7 @@ CORROBORATION_RE = re.compile(
 OFFICIAL_HINTS = ('.gov', '.go.kr', 'sec.gov', '/ir', 'ir.', 'investor', '.go.jp', 'europa.eu', '.go.uk')
 SOURCE_DIVERSITY_PASS = {'PASS_MULTI_SOURCE', 'PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION'}
 SOURCE_DIVERSITY_HOLD_FAIL = {'HOLD_NEEDS_SOURCE_AUGMENTATION', 'FAIL_SOURCE_DIVERSITY'}
+SOURCE_DIVERSITY_ALLOWED = SOURCE_DIVERSITY_PASS | SOURCE_DIVERSITY_HOLD_FAIL
 COMPLETE_BUCKETS = {
     'accepted',
     'accepted_fact_safe',
@@ -139,6 +140,8 @@ def main():
             or card.get('source_discovery_ledger_reference')
         )
 
+        if diversity_status not in SOURCE_DIVERSITY_ALLOWED:
+            flags['invalid_source_diversity_status'].append((cid, f'missing/invalid source_diversity_status={diversity_status}'))
         if bucket in COMPLETE_BUCKETS and diversity_status in SOURCE_DIVERSITY_HOLD_FAIL:
             flags['invalid_source_diversity_status'].append((cid, f'{diversity_status} may not appear in complete bucket {bucket}'))
         if diversity_status == 'PASS_MULTI_SOURCE' and independent_count < 2:
@@ -159,8 +162,6 @@ def main():
                 flags['invalid_source_diversity_status'].append((cid, 'single-source exception missing allowed=true/reason'))
             if diversity_status == 'PASS_SINGLE_SOURCE':
                 flags['invalid_source_diversity_status'].append((cid, 'PASS_SINGLE_SOURCE is not an allowed status'))
-            if diversity_status not in SOURCE_DIVERSITY_PASS | SOURCE_DIVERSITY_HOLD_FAIL:
-                flags['invalid_source_diversity_status'].append((cid, f'missing/invalid source_diversity_status={diversity_status}'))
             if not discovery_ledger:
                 flags['missing_source_discovery_ledger'].append((cid, 'single-source card lacks source_discovery_ledger/ref'))
 

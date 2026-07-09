@@ -23,15 +23,40 @@ Exit codes: 0 = PASS, 1 = BLOCKED, 2 = usage error.
 import json
 import sys
 
+CONTENT_OUTPUT_BUCKETS = (
+    'cards',
+    'draft_cards',
+    'payload',
+    'accepted',
+    'content_enriched_and_language_polished',
+    'content_enriched',
+    'language_terminology_polished',
+    'publish_ready_candidates',
+    'addable_hold_source_gap',
+    'needs_source_augmentation',
+    'deferred_review_pool',
+    'content_polish_rejected',
+)
+
 
 def load_cards(data):
     if isinstance(data, list):
         return data
     if isinstance(data, dict):
-        for k in ('cards', 'draft_cards', 'payload', 'accepted'):
+        out = []
+        seen = set()
+        for k in CONTENT_OUTPUT_BUCKETS:
             v = data.get(k)
             if isinstance(v, list):
-                return v
+                for row in v:
+                    if not isinstance(row, dict):
+                        continue
+                    marker = row.get('id') or row.get('card_id') or row.get('source_spec_id') or row.get('spec_id') or id(row)
+                    if marker in seen:
+                        continue
+                    seen.add(marker)
+                    out.append(row)
+        return out
     return []
 
 
@@ -67,8 +92,8 @@ def main():
     diversity_audited_ids = audit_ids(cdv)
     related_audited_ids = audit_ids(rca)
 
-    card_ids = [c.get('id') for c in cards
-                if isinstance(c, dict) and c.get('id')]
+    card_ids = [c.get('id') or c.get('card_id') for c in cards
+                if isinstance(c, dict) and (c.get('id') or c.get('card_id'))]
     not_diversity_audited = [cid for cid in card_ids if cid not in diversity_audited_ids]
     not_related_audited = [cid for cid in card_ids if cid not in related_audited_ids]
 

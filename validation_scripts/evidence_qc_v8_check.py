@@ -29,8 +29,10 @@ EVIDENCE_QC_BUCKETS = (
     'cards', 'draft_cards', 'qc_cards', 'payload', 'accepted',
     'accepted_fact_safe', 'accepted_fact_safe_with_warnings',
     'evidence_complete_and_source_claim_covered', 'addable_hold_source_gap',
-    'needs_source_augmentation', 'evidence_qc_rejected', 'source_claim_gap',
+    'addable_hold_claim_gap', 'needs_source_augmentation',
+    'evidence_qc_rejected', 'source_claim_gap',
     'single_source_exception_review', 'deferred_review_pool',
+    'review_pool_deferred',
 )
 
 

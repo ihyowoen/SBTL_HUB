@@ -24,6 +24,12 @@ SOURCE_DISCOVERY_LEDGER_KEYS = [
     'cited_primary_search_ledger',
     'alternate_source_search_ledger',
 ]
+ALLOWED_BLOCKED_SOURCE_DISCOVERY_STATUS = {
+    'completed_no_verified_source',
+    'incomplete',
+    'completed_verified_source_found',
+    'completed_verified_with_source_strength_caveat',
+}
 FORBIDDEN_STAGE_B_TRUE_FLAGS = [
     'accepted_fact_safe',
     'addable_merge_safe',
@@ -128,7 +134,7 @@ def blocked_ok(b):
         or b.get('draft_blocked_reason')
         or b.get('reason')
     )
-    status_ok = b.get('source_discovery_status') in ('completed_no_verified_source', 'incomplete', 'completed_verified_source_found')
+    status_ok = b.get('source_discovery_status') in ALLOWED_BLOCKED_SOURCE_DISCOVERY_STATUS
     return bool(rescue and ledgers and reason and status_ok), {'rescue':rescue,'ledger_count':len(ledgers),'reason':bool(reason),'source_discovery_status':b.get('source_discovery_status')}
 
 def forbidden_state_flags(row):
@@ -186,12 +192,14 @@ def main():
     emitted_count = len(cards) + len(blocked)
     expected_count = accounting_expected_count(data, strict)
     accounting_flag = data.get('stage_b_accounting_matches_strict_passed_spec_count')
-    if expected_count is not None and emitted_count != expected_count:
+    if expected_count is None:
+        problems.append('strict_passed_spec_count is required for Stage B accounting')
+    elif emitted_count != expected_count:
         problems.append(
             f'Stage B accounting mismatch: strict_passed_spec_count={expected_count}, '
             f'draft_cards + draft_blocked={emitted_count}'
         )
-    if expected_count is not None and accounting_flag is not True:
+    if accounting_flag is not True:
         problems.append('stage_b_accounting_matches_strict_passed_spec_count must be true')
 
     strict_keys={key(s) for s in strict}

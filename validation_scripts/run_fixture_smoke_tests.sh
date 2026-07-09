@@ -59,6 +59,19 @@ cat > "$TMPDIR/stage_b_fail_missing_accounting.json" <<'JSON'
 }
 JSON
 
+cat > "$TMPDIR/stage_b_fail_duplicate_output_key.json" <<'JSON'
+{
+  "strict_passed_spec_count": 2,
+  "stage_b_accounting_matches_strict_passed_spec_count": true,
+  "draft_cards": [
+    {"source_spec_id": "S_DUP", "evidence_package": {"source_discovery_status": "completed_verified_source_found", "source_discovery_ledger": [{"query": "q"}], "single_source_exception": {"allowed": true, "reason": "official"}, "sources": [{"source_url": "https://example.gov/news/a", "fetched": true, "source_quote": "quote", "source_quote_status": "body_quote_verified", "evidence_role": "primary_event_evidence"}] }},
+    {"source_spec_id": "S_DUP", "evidence_package": {"source_discovery_status": "completed_verified_source_found", "source_discovery_ledger": [{"query": "q"}], "single_source_exception": {"allowed": true, "reason": "official"}, "sources": [{"source_url": "https://example.gov/news/b", "fetched": true, "source_quote": "quote", "source_quote_status": "body_quote_verified", "evidence_role": "primary_event_evidence"}] }}
+  ],
+  "draft_blocked": [],
+  "draft_blocked_schema": []
+}
+JSON
+
 cat > "$TMPDIR/stage_b_schema_blocked_pass.json" <<'JSON'
 {
   "strict_passed_spec_count": 1,
@@ -156,6 +169,7 @@ JSON
 pass "stage_b evidence pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_pass.json"
 pass "stage_b schema-blocked accounting pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_schema_blocked_pass.json"
 fail "stage_b missing accounting fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_fail_missing_accounting.json"
+fail "stage_b duplicate output key fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_fail_duplicate_output_key.json"
 pass "stage_b lineage pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_pass.json"
 fail "stage_b lineage missing source-diversity fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_fail_missing_source_diversity.json"
 fail "stage_c missing lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_c "$TMPDIR/stage_c_fail_missing_lineage.json"

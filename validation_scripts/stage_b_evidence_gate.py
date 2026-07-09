@@ -48,7 +48,7 @@ def get(d,*keys,default=None):
     return default
 
 def key(x):
-    return get(x,'spec_id','id','story_id','key',default='<unknown>')
+    return get(x,'source_spec_id','spec_id','id','story_id','key',default='<unknown>')
 
 def listify(x):
     if isinstance(x,list): return x
@@ -104,7 +104,13 @@ def blocked_ok(b):
         v=b.get(k)
         if isinstance(v,list): ledgers += v
     rescue=b.get('rescue_attempted') is True or len(ledgers)>0
-    reason=b.get('final_hold_or_reject_reason') or b.get('blocked_source_reason') or b.get('draft_blocked_reason') or b.get('reason')
+    reason=(
+        b.get('final_hold_or_reject_reason')
+        or b.get('blocked_reason')
+        or b.get('blocked_source_reason')
+        or b.get('draft_blocked_reason')
+        or b.get('reason')
+    )
     status_ok = b.get('source_discovery_status') in ('completed_no_verified_source', 'incomplete', 'completed_verified_source_found')
     return bool(rescue and ledgers and reason and status_ok), {'rescue':rescue,'ledger_count':len(ledgers),'reason':bool(reason),'source_discovery_status':b.get('source_discovery_status')}
 

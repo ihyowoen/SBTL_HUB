@@ -1,923 +1,1529 @@
+<!-- REPLACE_ALL_CLEAN_VERSION: LLM_PROMPT_GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX -->
+<!-- Generated KST: 2026-07-08T21:33:49.790191+09:00 -->
+<!-- This file is a full clean replacement file. It is not a patch stub. -->
+
 # PROMPT ABC — Default Mode
 
-**Version**: Clean rewrite for Final-input era (2026-04-19)
-**Legacy**: `PROMPT_ABC_DEFAULT_MODE_v1_legacy.md` (pre-Final 3-bucket era, archived)
+**Version**: Replace-all structural default package (2026-05-06)
 
----
+## 0. Purpose
 
-## 0. 이 문서의 목적
+This document defines the default SBTL_HUB Prompt A/B/C workflow. It is the source-of-truth process doc for Stage A selection, Stage B evidence/drafting, Stage C validation, and the handoff to post-acceptance gates.
 
-SBTL_HUB 뉴스카드 생성 파이프라인의 **Prompt A / B / C** 세 단계를 정의한다.
+## 1. Governance hierarchy
 
-상류(sbtl_bot)가 2026-04-19 Stage 1-4 작업으로 **완전판 final 입력**을 보장하게 되었고, 이에 따라 v1의 "triage_output + rescue + dropped" 3-bucket 모델을 폐기하고 단일 stream 기반으로 **새로 짠다**.
+When rules conflict, apply this hierarchy:
 
-이 문서는 v1을 업데이트한 것이 아니라 **새 기반 위에서 다시 짠 것**이다.
-
----
-
-## 1. 최상위 철칙
-
-우선순위 (충돌 시 위가 이긴다):
-
-1. **`docs/FACT_DISCIPLINE.md`** — fact·숫자·인용의 정확성 절대 기준
-2. 이 문서 (`PROMPT_ABC_DEFAULT_MODE.md`)
-3. `docs/PROMPT_ABC_SUPPORTING_RULES.md` — 판단 기준 (Signal Rubric, Source Tier, Staleness Threshold §7.3, Framing §6, etc.)
-4. `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md` — 카드 full schema
+1. `docs/FACT_DISCIPLINE.md`
+2. `docs/PROMPT_ABC_DEFAULT_MODE.md`
+3. `docs/PROMPT_ABC_SUPPORTING_RULES.md`
+4. `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md`
 5. `docs/CARD_ID_STANDARD.md`
 6. `docs/WORKFLOW.md`
 7. `docs/OPERATIONS.md`
+8. `docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md`
 
-**FACT_DISCIPLINE.md가 항상 최상위**. Prompt B가 full-text를 보유해도 fact_sources와 verbatim substring 매칭이 없으면 쓰지 않는다.
+`FACT_DISCIPLINE.md` always wins for facts, numbers, quotes, and evidence discipline.
 
----
+## 2. Input contract
 
-## 2. 입력 계약 — 단일 Stream, 5-Status
+The default source universe is:
 
-### 2.1 Input
-
-```
+```text
 final_news_llm_input.stories[]
 ```
 
-sbtl_bot 파이프라인의 최종 산출물 파일 경로 예:
-```
-out/Output_Daily_Run/{run_tag}/Final/final_news_llm_input_{run_tag}.json
-```
+The default baseline is:
 
-이 파일 하나가 **유일한 입력 universe**다. 별도의 triage_output / rescue / dropped 파일을 참고하지 않는다.
-
-### 2.2 5-Status 라벨
-
-각 story는 `triage_status` 필드를 가진다:
-
-| status | 의미 |
-|---|---|
-| `KEEP` | 상류 triage가 유효하다고 판정한 cluster |
-| `REVIEW` | rescue tier (tier2 review 후보) |
-| `STEP2_PENDING` | topic은 strong이지만 날짜 미해결 (rescue-like) |
-| `DROPPED` | 상류 refiner/triage가 drop한 것 (`drop_reason` 라벨 보존) |
-| `INPUT_ONLY` | 어느 bucket에도 매칭 안 된 edge case |
-
-### 2.3 상류 보증 (Stage 1-4)
-
-이 입력은 다음을 **보장한다**:
-
-- **텍스트 원본 완전 보존**: context/description/summary/content 및 _list/_article 변형 모두 잘림 없음
-- **Body fetch 통합**: 약 75%의 story에 `source_packets[].content_article` (article URL에서 실제로 fetch한 본문, 최대 6000자)이 채워져 있음
-- **자동 삭제 없음**: 중복 그룹은 `integrity_mode: "label_only"`로 라벨만 기록. 삭제하지 않음
-- **판단 이력 보존**: drop_reason / decision_reason / keyword_gate_reason / time_status / topic_status 등 라벨
-
-즉 A/B/C는 "자르지 않은 전체 본문 + 판단 메타"를 받는다. 상류 판정을 **참고하되 맹목적으로 따르지 않는다**.
-
-### 2.4 비교 기준 (Baseline)
-
-기존 카드와 중복·보강·새 카드 판정의 **유일한** 기준:
-
-```
+```text
 GitHub main → public/data/cards.json
 ```
 
-다른 어떤 payload (helper, merged, branch-only)도 baseline을 대체하지 않는다.
+Do not substitute prior payloads, helper files, branch-only files, manually integrated ruleed outputs, or memory-based baselines unless the user explicitly declares an alternative as current-run authoritative input.
+
+## 3. Stage A — Editorial Selector
+
+Stage A is selector-only. It must not fetch article bodies, perform external web search, write card copy, generate source_quote, generate fact_sources, decide accepted_fact_safe, decide addable_merge_safe, decide evidence_complete, or decide publish_ready.
+
+Stage A may use only the current source input, active baseline, upstream metadata, triage labels, headlines, URLs, source packet metadata, previews, usable_text, and integrity labels for selection, lane-sanity, staleness pre-check, duplicate screening, and ledger creation.
+
+Stage A must produce explicit outcomes for every story; silent loss is forbidden.
+
+Stage A outputs:
+
+- `strict_passed_spec[]`
+- `candidate_review_pool[]`
+- `watchlist_context_pool[]`
+- `reject_or_support_only_pool[]`
+- `rejected[]`
+- `existing_reinforcement[]`
+- `support_source_only[]`
+- `decision_ledger[]`
+
+Legacy `review_pool[]` may exist only as an aggregate of the three partitioned pools.
+
+## 4. Stage B — Evidence package and draft writer
+
+Stage B may use only Stage A `strict_passed_spec[]` from the same valid run.
+
+Stage B must verify provided source-candidate, fallback, and official sources for each strict spec before drafting. `primary_url` is only a source candidate, not evidence by itself. If verified evidence cannot support the core event after bounded source discovery, the spec becomes `draft_blocked`.
+
+Stage B produces only:
+
+- `draft_card[]`
+- `draft_blocked[]`
+- `evidence_package[]`
+- `fetch_ledger[]`
+
+Stage B must not decide accepted_fact_safe, addable_merge_safe, evidence_complete, source_claim_covered, content_enriched, language_terminology_polished, publish_ready, PR readiness, or GitHub readiness.
+
+## 5. Stage C — Red-team validator
+
+Stage C may use only Stage B `draft_cards[]`, `evidence_packages[]`, `fetch_ledger[]`, writer notes, and Stage A strict metadata for those drafted cards.
+
+Stage C decides only:
+
+- `accepted_fact_safe`
+- `revise_required`
+- `rejected`
+- `support_source_only`
+- `deferred_review_pool`
+
+`accepted_fact_safe` is not addable, evidence_complete, content_enriched, publish_ready, PR-ready, or GitHub-ready.
+
+## 6. Revise loops
+
+Stage B revise uses only Stage C `revise_required[]`. It is not candidate selection and must not promote review_pool, rescue rejected cards, add new candidates, or perform source augmentation unless explicitly authorized.
+
+Stage C revise validates only Stage B revise `revised_draft_cards[]`.
+
+## 7. Post-acceptance handoff
+
+Only Stage C `accepted_fact_safe[]` and latest accepted revised versions may proceed to full baseline revalidation.
+
+Post-acceptance state ladder:
+
+```text
+accepted_fact_safe
+→ addable_merge_safe
+→ evidence_complete
+→ source_claim_covered
+→ content_enriched
+→ language_terminology_polished
+→ publish_ready
+```
+
+Do not collapse these states.
+
 
 ---
 
-## 3. Region / Date / Category — 잠김
+# Structural Default Run Contract — 2026-05-06
 
-### 3.1 Region
+This section is part of the replace-all structural default package. It exists to make the required 8 GitHub workflow docs consistent with the current run prompt files.
 
-`FUTURE_CARD_STANDARD_FULL_SCHEMA.md §2`를 따른다. 핵심만 재명시:
+## A. Source-prompt provenance
 
-- **사건의 직접 무대**, 출처 매체 국적 / 기업 국적이 아님
-- 정책/규제/소송 → 결정/집행 관할
-- 공장/프로젝트/사고 → 자산 소재지
-- 전략/투자/계약 → 명확한 시장 아니면 `GL`
-- EU 기관 뉴스 / 개별 유럽 국가 사건 → `EU`
-- 두 국가 이상 동등 → `GL`
-- 배지 밖 / 불확실 → `GL`
+Every Stage A output must record:
 
-### 3.2 Category (12종)
+- `source_prompt_file`
+- `source_prompt_sha256`
+- `source_prompt_version`
+- `source_prompt_authority`
+- `source_prompt_provenance_status`
 
-`FUTURE_CARD_STANDARD_FULL_SCHEMA.md §3` 잠김. Battery / ESS / Materials / EV / Charging / Policy / Manufacturing / AI / Robotics / PowerGrid / SupplyChain / Other 중 정확히 하나.
+The structural default version is:
 
-### 3.3 Signal
+```text
+structural_default_review_pool_partition_20260506
+```
 
-`top | high | mid` — 과장 금지. C.3에서 downgrade 권한.
+or a later compatible version.
 
-### 3.4 Date — Event Day, **and Staleness**
+## B. Stage A validity gate
 
-`date` 필드는 **event day** (사건 발생일). publication day가 아니다. 자세한 정의는 `PROMPT_ABC_SUPPORTING_RULES.md §7`.
+Stage A may recommend Stage B only if all are PASS:
 
-추가로, `event_date`와 `run_date` 사이의 gap이 일정 기준을 넘으면 **stale republication**으로 분류되어 카드가 되지 않는다 (Supporting Rules §7.3 Staleness Threshold). 이 검증은 A/B/C 모든 stage가 분담한다.
+- `source_prompt_provenance_status`
+- `stage_a_validity_status`
+- `artifact_consistency_status`
+- `csv_schema_status`
+- `review_pool_partition_status`
+- `review_pool_carry_forward_ledger_status`
+- `strict_pass_gate_metadata_status`
+- `baseline_duplicate_screen_status`
+- `summary.ledger_matches_story_count`
 
----
+If any value is missing or not PASS, Stage A must not recommend Stage B.
 
-## 4. 공통 규칙 — A/B/C 전체 적용
+## C. Review-pool partition default
 
-### 4.1 No Silent Loss
+`review_pool[]` must not be an undifferentiated operational bucket.
 
-모든 입력 단위는 명시적 outcome으로 끝난다:
+Every input story or candidate must be accounted for in the source-universe ledger.
 
-- **A**: `passed | merged | discarded | existing_reinforcement`
-- **B**: `drafted | draft_blocked`
-- **C**: `accepted | revise_required | rejected`
+A genuinely out-of-scope, duplicate, consumer-noise, local-noise, stale, source-broken, or non-SBTL item may be closed as rejected or support-only, but only with an item-specific reason code and ledger row.
 
-상류 `integrity_mode: "label_only"` 보증을 A/B/C가 깨뜨리지 않는다.
+Every non-strict candidate that is not item-specifically closed as rejected or support-only must enter exactly one of:
 
-### 4.2 Full Schema Only
+1. `candidate_review_pool[]`
+   - plausibly cardable after bounded source/date/duplicate clarification
+2. `watchlist_context_pool[]`
+   - useful for context/background but not a current-run card candidate
+3. `reject_or_support_only_pool[]`
+   - too weak for candidate review, but may be rejected or used only as support
 
-최종 payload에 들어가는 카드는 `FUTURE_CARD_STANDARD_FULL_SCHEMA.md` full schema를 따른다.
+The legacy aggregate `review_pool[]` may exist for compatibility, but each item must include:
+
+- `review_pool_partition`
+- `review_pool_partition_reason`
+- `promotion_precondition`
+- `bounded_review_question`
+- `recommended_next_action`
+
+Unpartitioned review_pool output is invalid. Missing rejected/support-only ledger rows are also invalid.
+
+## D. Strict-pass gate
+
+A story may enter `strict_passed_spec[]` only if all six conditions pass:
+
+1. SBTL_HUB lane fit
+2. concrete fresh execution anchor or accepted data/policy release anchor
+3. source direction compatibility
+4. freshness / staleness confidence
+5. baseline duplicate/follow-up risk acceptable
+6. independent card value and full-schema viability
+
+Each strict item must include:
+
+- `strict_pass_gate.status`
+- `strict_pass_gate.all_six_conditions_passed`
+- `strict_pass_gate.execution_anchor_type`
+- `strict_pass_gate.execution_anchor_strength`
+- `strict_pass_gate.format_risk_tags`
+- `strict_pass_gate.notes`
+
+## E. Format-risk handling
+
+Product/demo/PoC/component/interview/commentary/roundup/speech/personnel/partnership formats are not automatically rejected by format alone.
+
+They are blocked from strict-pass unless a concrete execution anchor is present.
+
+Allowed concrete execution anchors include:
+
+- signed contract
+- binding customer order
+- offtake
+- price floor or risk-sharing facility
+- commercial deployment
+- field installation
+- commissioning
+- production start
+- facility opening
+- certification or regulatory approval
+- regulatory decision/enforcement
+- public funding approval
+- binding procurement
+- measurable capacity addition
+- safety recall/regulatory action
+- named customer adoption
+- named deployment site with measurable pilot scale/duration/objective
+- factory/project construction, suspension, expansion, or final investment decision
+- official or reported data release when the card is clearly a data/policy/statistics event
+
+## F. CSV required schema
+
+Stage A decisions CSV must include at minimum:
+
+- `story_id`
+- `region`
+- `original_triage_status`
+- `status_detail`
+- `stage_a_bucket`
+- `ledger_decision`
+- `headline`
+- `reason`
+- `baseline_relation`
+- `duplicate_risk`
+- `staleness_decision`
+- `event_date`
+- `source_tier_estimate`
+- `source_access_risk`
+- `format_risk_tags`
+- `execution_anchor_type`
+- `execution_anchor_strength`
+- `strict_pass_gate_status`
+- `strict_pass_gate_reason`
+- `review_pool_partition`
+- `review_pool_partition_reason`
+- `promotion_precondition`
+- `bounded_review_question`
+- `recommended_next_action`
+
+If required columns are missing:
+
+```text
+csv_schema_status = FAIL
+stage_a_validity_status = FAIL
+status = BLOCKED_STAGE_A_CSV_SCHEMA_INCOMPLETE
+no Stage B recommendation
+```
+
+## G. Stage B blocker
+
+Stage B must block before fetch or draft if any Stage A gate is missing or not PASS:
+
+- `stage_a_validity_status`
+- `artifact_consistency_status`
+- `csv_schema_status`
+- `review_pool_partition_status`
+- `review_pool_carry_forward_ledger_status`
+- `strict_pass_gate_metadata_status`
+- `baseline_duplicate_screen_status`
+- `summary.ledger_matches_story_count`
+
+Blocked state:
+
+```text
+BLOCKED_STAGE_A_ARTIFACT_OR_PARTITION_INVALID
+```
+
+## H. Post-acceptance laundering prevention
+
+No later stage may promote any of the following unless an explicit, current-run authorized promotion/review loop has occurred:
+
+- Stage A `review_pool[]`
+- `candidate_review_pool[]`
+- `watchlist_context_pool[]`
+- `reject_or_support_only_pool[]`
+- `support_source_only[]`
+- `rejected[]`
+- Stage B `draft_blocked[]`
+- Stage C `deferred_review_pool[]`
+
+The normal ladder remains:
+
+```text
+accepted_fact_safe
+→ addable_merge_safe
+→ evidence_complete
+→ source_claim_covered
+→ content_enriched
+→ language_terminology_polished
+→ publish_ready
+```
+
+## Operational integrated rule — NO_UNVERIFIED_HOLD_OR_DELETE_RULE_20260507_V2
+
+This rule is mandatory for every stage that can move an item to hold, block, reject, delete, support-only, deferred, revise-blocked, draft_blocked, or production-hold because evidence looks weak, incomplete, suspicious, inaccessible, RSS-only, snippet-only, listing-only, claim-thin, format-risky, or uncertain.
+
+Uncertainty is not an outcome. Uncertainty is a verification trigger.
+
+Before any item is finalized as hold/block/reject/delete/support-only/deferred/draft_blocked for evidence, source, claim, access, quote, format, or uncertainty reasons, the output must prove a bounded rescue/verification pass was attempted or explicitly mark the field as not applicable under the stage-specific boundary below.
+
+Required rescue metadata for every such item:
+
+- `rescue_attempted: true`
+- `rescue_attempt_log[]`
+- `searched_source_types[]`
+- `official_source_checked: true|false|NOT_APPLICABLE_STAGE_A_NO_FETCH`
+- `official_source_check_reason`
+- `alternate_tier1_tier2_checked: true|false|NOT_APPLICABLE_STAGE_A_NO_FETCH`
+- `alternate_tier1_tier2_check_reason`
+- `same_event_source_direction_check: PASS|FAIL|NOT_APPLICABLE`
+- `same_actor_event_date_check: PASS|FAIL|NOT_APPLICABLE`
+- `blocked_source_reason`, one of:
+  - `not_found_after_search`
+  - `found_but_does_not_support_claim`
+  - `source_access_blocked`
+  - `source_is_rss_or_snippet_only`
+  - `claim_overreached_available_evidence`
+  - `duplicate_or_baseline_conflict`
+  - `out_of_scope_or_selection_defect`
+  - `manual_review_required_after_rescue`
+  - `not_applicable_stage_a_selector_only`
+- `final_hold_or_reject_reason`, one of:
+  - `not_found_after_search`
+  - `found_but_does_not_support_claim`
+  - `source_access_blocked`
+  - `source_is_rss_or_snippet_only`
+  - `claim_overreached_available_evidence`
+  - `duplicate_or_baseline_conflict`
+  - `out_of_scope_or_selection_defect`
+  - `manual_review_required_after_rescue`
+  - `not_applicable_stage_a_partitioned_review`
+
+`blocked_source_reason` explains the source/evidence/access failure mode. `final_hold_or_reject_reason` explains the final editorial/workflow conclusion. They must not be collapsed into one field.
+
+If any required rescue metadata is missing for a hold/block/reject/delete/support-only/deferred/draft_blocked item, the stage must stop and report:
+
+- `status: BLOCKED_RESCUE_METADATA_MISSING`
+- `missing_rescue_metadata_fields: [...]`
+- `affected_items: [...]`
+- `no next-stage recommendation`
+
+No stage may finalize hold/block/reject/delete solely because the assistant is uncertain.
+
+Allowed final outcomes after rescue:
+
+1. If a same-event official/body-level source supports the claim, keep or rescue the item within the stage's authorized state boundaries.
+2. If evidence supports only a narrower claim, narrow the claim or send to the appropriate revise/content-polish path.
+3. If evidence is not found after the bounded rescue pass, hold/block/reject with the rescue log attached.
+4. If the item fails lane-fit, duplicate, stale, or source-direction checks after verification, reject/hold with explicit reason.
+
+Stage A selector-only override:
+
+Stage A must not perform external web search, article-body fetch, source_quote generation, or fact_sources generation. For Stage A, rescue means partitioning and bounded-question capture, not searching.
+
+For Stage A non-strict outcomes, use:
+
+- `official_source_checked: NOT_APPLICABLE_STAGE_A_NO_FETCH`
+- `alternate_tier1_tier2_checked: NOT_APPLICABLE_STAGE_A_NO_FETCH`
+- `blocked_source_reason: not_applicable_stage_a_selector_only`
+- `final_hold_or_reject_reason: not_applicable_stage_a_partitioned_review` unless the item is rejected/support-only for a non-evidence reason.
+
+Stage A must instead record:
+
+- `review_pool_partition`
+- `review_pool_partition_reason`
+- `promotion_precondition`
+- `bounded_review_question`
+- `recommended_next_action`
+
+This rule must not be used to launder weak evidence into publish readiness. It prevents unverified early abandonment; it does not relax FACT_DISCIPLINE.
+
+## Operational integrated rule — MANDATORY_FETCH_LADDER_BEFORE_DRAFT_BLOCKED_20260507_V2
+
+Stage B must not convert a strict_passed_spec into `draft_blocked` merely because `primary_url` failed, was paywalled, JS-blocked, RSS-only, snippet-only, listing-only, or otherwise inaccessible.
+
+Before any fetch/search attempt, Stage B must build an `event_fingerprint_search_profile` for every strict_passed_spec.
+
+Required `event_fingerprint_search_profile` fields:
+
+- `actor`
+- `secondary_actors[]`
+- `event_type`
+- `project_or_asset_name`
+- `amount_or_capacity`
+- `location`
+- `event_date_or_window`
+- `source_owner_candidates[]`
+- `official_source_domains_to_check[]`
+- `cited_source_domains[]`
+- `same_event_search_terms[]`
+- `must_match_terms[]`
+- `must_not_substitute_terms[]`
+
+Stage B must also record:
+
+- `source_discovery_strategy`
+- `official_source_search_ledger[]`
+- `cited_primary_search_ledger[]`
+- `alternate_source_search_ledger[]`
+- `source_discovery_ledger[]`
+- `source_discovery_status: completed_verified_source_found|completed_no_verified_source|incomplete`
+
+Before `draft_blocked` is allowed for source/access/evidence reasons, Stage B must attempt this bounded fetch ladder and record it in `fetch_ledger[]`, `source_discovery_ledger[]`, and the blocked item:
+
+1. `primary_url`
+2. listed fallback URLs / `source_urls[]` / `source_packets[]`
+3. cited publication article body or accessible same article variant
+4. issuer, company, agency, regulator, exchange, court, utility, or project owner official release
+5. official filing / IR / report / consultation / tender page, if applicable
+6. open-access same-event Tier 1 / Tier 2 secondary body source
+7. reputable specialty press with body-level article, only if source direction and same-event checks pass
+
+For each discovery/search/fetch attempt, record:
+
+- `attempt_order`
+- `ledger_type: official_source_search|cited_primary_search|alternate_source_search|fetch_attempt`
+- `source_type_attempted`
+- `query_or_url`
+- `search_terms_used[]`
+- `access_result`
+- `supports_core_event: true|false`
+- `supports_missing_claims[]`
+- `source_direction_check: PASS|FAIL|UNKNOWN`
+- `same_actor_event_date_check: PASS|FAIL|UNKNOWN`
+- `reason_not_used`
+
+A same-event alternate source must match the same actor, event, date/timeframe, location/project, and quantitative claim direction. If it changes the core event anchor, it is not an alternate source; it is a different candidate and must not be substituted.
+
+Stage B may still draft-block after this ladder if no source supports the core event or if all usable sources fail FACT_DISCIPLINE. The block must include:
+
+- `rescue_attempted: true`
+- complete `rescue_attempt_log[]`
+- complete source discovery ledgers listed above
+- `source_discovery_status: completed_no_verified_source` or `incomplete` with reason
+- `blocked_source_reason`
+- `final_hold_or_reject_reason`
+
+If event fingerprint/source discovery fields are missing, Stage B must stop and report:
+
+- `status: BLOCKED_SOURCE_DISCOVERY_LEDGER_INCOMPLETE`
+- `missing_source_discovery_fields: [...]`
+- `no Stage C recommendation`
+
+## Operational integrated rule — LINEAGE_METADATA_REQUIRED_SCHEMA_20260507
+
+Lineage metadata is not optional.
+
+Every Stage A `strict_passed_spec[]` item must include:
+
+- `enhanced_selector_precision_version`
+- `selector_policy_version`
+- `strict_pass_gate.status`
+- `strict_pass_gate.all_six_conditions_passed`
+- `strict_gate_check`
+- `format_risk_tags`
+- `execution_anchor_type`
+- `execution_anchor_strength`
+- `baseline_relation`
+- `duplicate_risk`
+- `staleness_decision`
+- `source_access_risk`
+
+Every downstream stage must preserve these fields or explicitly mark them `not_applicable` with a reason.
+
+Stage B output must include:
+
+- `lineage_integrity_status: PASS|FAIL`
+- `stage_a_validity_guard_applied: true`
+- `strict_gate_metadata_preserved: true|false`
+- `execution_anchor_metadata_preserved: true|false`
+- `superseded_lineage_mixed: false`
+- `manual_integrated rule_mixed: false`
+- `previous_run_output_mixed: false`
+
+Stage C and Stage C revise outputs must include:
+
+- `strict_gate_acceptance_guard_applied: true`
+- `accepted_fact_safe_with_missing_strict_gate_count: 0`
+- `accepted_pool_lineage_status: PASS|FAIL`
+- `lineage_integrity_status: PASS|FAIL`
+- `strict_gate_metadata_preserved: true|false`
+- `execution_anchor_metadata_preserved: true|false`
+- `superseded_lineage_mixed: false`
+- `manual_integrated rule_mixed: false`
+- `previous_run_output_mixed: false`
+
+If any accepted_fact_safe item lacks Stage A strict gate metadata, Stage C must not mark it accepted_fact_safe. It must move the item to `deferred_review_pool`, `revise_required`, `support_source_only`, or `rejected` depending on severity and stage rules.
+
+## Operational integrated rule — SUPPLEMENTAL_PASS_ACCOUNTING_20260507
+
+If a supplemental pass is authorized after a hold-rescue or schema repair step, the supplemental output must not silently mix with already-passed items.
+
+Required fields:
+
+- `supplemental_pass: true`
+- `supplemental_pass_reason`
+- `supplemental_input_universe`
+- `supplemental_input_ids[]`
+- `previous_pass_reference_file`
+- `excluded_previous_pass_ids[]`
+- `combined_reference_payload_created: true|false`
+- `combined_reference_payload_status: reference_only|pending_next_gate|invalid`
+
+A combined payload may be produced only as a clearly named reference or pending-next-gate payload. It must preserve lineage and must not assign a later state by combining files.
+
+## Operational integrated rule — STAGE_B_EVENT_FINGERPRINT_SOURCE_DISCOVERY_SCHEMA_20260507_V2
+
+Stage B JSON output must include the source discovery artifacts needed to audit false draft_blocking.
+
+Top-level required fields:
+
+- `event_fingerprint_search_profile_count`
+- `source_discovery_status_summary`
+- `source_discovery_ledger[]`
+- `official_source_search_ledger[]`
+- `cited_primary_search_ledger[]`
+- `alternate_source_search_ledger[]`
+
+Each `evidence_package[]`, `draft_card[]`, and `draft_blocked[]` item must carry or reference:
+
+- `event_fingerprint_search_profile`
+- `source_discovery_strategy`
+- `source_discovery_status`
+- source discovery ledger references
+
+If these fields are missing, Stage B must report:
+
+- `status: BLOCKED_SOURCE_DISCOVERY_LEDGER_INCOMPLETE`
+- `no Stage C recommendation`
+
+## Operational integrated rule — NO_SILENT_DOWNSTREAM_ENRICHMENT_RULE_20260507_V3
+
+This rule limits and complements `NO_UNVERIFIED_HOLD_OR_DELETE_RULE_20260507`.
+
+The duty to attempt rescue does **not** authorize silent downstream enrichment.
+
+A later-stage source, source_quote, number, named entity, claim, or source-derived framing may not be directly inserted into the current card state unless the current prompt explicitly permits that modification or the item is routed to the appropriate controlled validation path.
+
+### Core distinction
+
+- `NO_UNVERIFIED_HOLD_OR_DELETE_RULE`: do not give up before bounded verification/rescue.
+- `NO_SILENT_DOWNSTREAM_ENRICHMENT_RULE`: do not quietly absorb later-discovered evidence or claims into a higher state.
+
+Both rules must be satisfied.
+
+### Later-discovered evidence rule
+
+Any evidence, source, quote, numeric claim, named-entity claim, date, capacity, contract term, price, funding amount, or source-derived framing discovered after the original stage must not be silently accepted into the current card state.
+
+It must enter the appropriate controlled pass:
+
+- Stage B revise r1/r2/r3, if it repairs a Stage C `revise_required` item and source augmentation is explicitly authorized when needed.
+- Stage C revise validation r1/r2/r3, before a revised item can become `accepted_fact_safe`.
+- Evidence QC rescue / 0.5R, if it repairs `source_gap`, `claim_gap`, RSS-only, snippet-only, or quote-status failures after 0.5.
+- Content polish supplemental, if visible fields change after evidence rescue.
+- Final QC, before `publish_ready`.
+
+Later-discovered evidence may be accepted only after all are true:
+
+1. source direction compatibility is confirmed,
+2. fact/source quote coverage is mapped,
+3. unsupported prior claims are narrowed or removed,
+4. lineage metadata is preserved,
+5. supplemental or revise-pass accounting is explicit,
+6. the item passes the next required validation gate.
+
+No later-discovered source or claim may be directly inserted into:
+
+- `accepted_fact_safe`
+- `addable_merge_safe`
+- `evidence_complete`
+- `source_claim_covered`
+- `content_enriched`
+- `language_terminology_polished`
+- `publish_ready`
+- final payload
+- PR candidate
+- GitHub-ready output
+
+without passing the required revalidation gate.
+
+### When the current stage is not authorized to modify evidence or visible claims
+
+If useful later evidence is discovered in a stage that is not authorized to modify `fact_sources`, `source_quote`, or visible claims, record it as metadata only:
+
+- `rescue_candidate_evidence[]`
+- `source_augmentation_needed: true`
+- `recommended_return_stage`
+- `reason_current_stage_cannot_absorb_evidence`
+
+Then stop state advancement for that item until the required validation pass is completed.
+
+### Required blocker
+
+If a stage attempts to use later-discovered evidence without the appropriate controlled validation path, stop and report:
+
+- `status: BLOCKED_SILENT_DOWNSTREAM_ENRICHMENT_ATTEMPT`
+- `invalid_evidence_or_claims: [...]`
+- `recommended_return_stage`
+- `no next-stage recommendation`
+
+### Mandatory output ledger for supplemental/revise paths
+
+Any revise, rescue, or supplemental pass that uses later-discovered evidence must include:
+
+- `later_discovered_evidence_used: true`
+- `later_discovered_evidence_ledger[]`
+- `source_discovery_or_rescue_pass_id`
+- `authorized_modification_scope`
+- `validation_gate_passed`
+- `lineage_metadata_preserved: true`
+
+### Final rule
+
+Do not confuse rescue with laundering.
+
+A valid rescue path proves the claim.  
+Silent downstream enrichment hides the claim.  
+The first is required when evidence may exist.  
+The second is prohibited.
+
+
+
+# V4 Addendum — Find, Verify, Integrate; Caveat Auto-0.5R; Review Pool/Treasure Review
+
+
+## Operational integrated rule — FIND_AND_INTEGRATE_WITH_VALIDATION_RULE_20260507_V4
+
+This rule clarifies the relationship between rescue, caveat handling, later-discovered evidence, and downstream state discipline.
+
+The workflow must not abandon a potentially valid card, claim, source, quote, number, source-owner confirmation, original-data source, review-pool item, or treasure candidate merely because the first source is weak, blocked, incomplete, RSS-only, snippet-only, paywalled, caveated, or initially hard to verify.
+
+The assistant must make a good-faith verification effort before hold/block/reject/delete/claim deletion.
+
+If valid evidence is found at any point in the run, the evidence must not be ignored.
+
+However, later-discovered evidence must not be silently inserted into a downstream state. It must be routed through the appropriate controlled validation path and integrated if it passes:
+
+- Stage B evidence package, if found during Stage B and within the original Stage A strict spec.
+- Stage B revise r1/r2/r3, if repairing a Stage C revise_required item.
+- Stage C revise validation, before accepted_fact_safe.
+- Prompt 0.5R evidence rescue or source-strength review, if found during or after Evidence QC.
+- Prompt 0.6 supplemental, if visible fields, fact_sources, urls, or source_quote fields change after rescue.
+- Prompt 0.7 Final QC, before publish_ready.
+- Prompt 0.8 merge prep only after publish_ready.
+
+If the evidence passes the appropriate validation gate, it should be incorporated into the card, evidence package, source-claim coverage map, or supplemental payload as applicable.
+
+If it fails, the failure must be recorded with:
+
+- rescue_attempted: true
+- rescue_attempt_log[]
+- searched_source_types[]
+- official_source_checked
+- alternate_tier1_tier2_checked
+- blocked_source_reason, if applicable
+- final_hold_or_reject_reason
+
+A later-discovered valid source must not be dropped merely because it was found after the initial stage.
+A downstream stage must not advance the card while material valid evidence remains unvalidated.
+
+If a stage is not authorized to absorb the later-discovered evidence, it must record:
+
+- rescue_candidate_evidence[]
+- source_augmentation_needed: true
+- recommended_return_stage
+- reason_current_stage_cannot_absorb_evidence
+- status: BLOCKED_SILENT_DOWNSTREAM_ENRICHMENT_ATTEMPT, if the item would otherwise advance with unvalidated evidence
+
+This rule supersedes any weaker interpretation of NO_SILENT_DOWNSTREAM_ENRICHMENT. The point is not to suppress later evidence. The point is to find valid evidence, validate it, and then integrate it through the correct state ladder.
+
+
+## Operational integrated rule — SOURCE_STRENGTH_CAVEAT_AUTO_0_5R_RULE_20260507_V4
+
+Prompt 0.5 must distinguish a clean evidence pass from a caveated evidence pass.
+
+A card may enter Prompt 0.6 directly only if it is:
+
+- evidence_complete_and_source_claim_covered,
+- source_claim_coverage_complete,
+- free of material source_strength_caveat,
+- free of official/source-owner/original-data caveat,
+- free of single-source or source-tier caveat that materially affects external-publication confidence.
+
+If Prompt 0.5 leaves any statement such as:
+
+- "official source would strengthen this"
+- "original data would be stronger"
+- "issuer/source-owner confirmation would improve confidence"
+- "single-source exception requested"
+- "Tier 2 source sufficient but not ideal"
+- "source-strength caveat remains"
+- "primary/original dataset would improve confidence"
+- "regulator/company/agency source should be checked if available"
+
+then the card is not a clean pass. It must be routed to:
+
+- recommended_0_5R_source_strength_review[]
+
+For external-publication, newsletter, or SBTL-facing outputs, recommended_0_5R_source_strength_review[] is treated as required unless the user explicitly waives it.
+
+Prompt 0.5 output must include:
+
+- source_strength_clean_pass[]
+- recommended_0_5R_source_strength_review[]
+- mandatory_0_5R_evidence_rescue[]
+- source_strength_caveat[]
+- source_strength_caveat_count
+- caveat_triggered_0_5R_count
+- caveat_waived_by_user: true/false
+- caveat_waiver_reason, if applicable
+
+If new evidence is found in 0.5R source-strength review, do not silently merge it into the existing pass state. It must pass:
+
+0.5R re-QC → 0.6 supplemental if visible fields, fact_sources, urls, or source_quote fields change → 0.7 Final QC.
+
+If no stronger evidence is found, record:
+
+- source_strength_review_attempted: true
+- source_strength_review_log[]
+- final_source_strength_decision: clean_after_review | caveat_retained_but_acceptable | hold_after_review | reject_after_review
+- final_hold_or_reject_reason, if held or rejected
+
+
+## Operational integrated rule — REVIEW_POOL_AND_TREASURE_MUST_BE_REVIEWED_RULE_20260507_V4
+
+Review pools and treasure candidates are not discard buckets.
+
+The workflow must not silently discard, forget, or bury:
+
+- review_pool[]
+- candidate_review_pool[]
+- watchlist_context_pool[]
+- reject_or_support_only_pool[]
+- support_source_only[]
+- DROPPED stories
+- TRIAGE_FILTERED stories
+- missed_treasure candidates
+- newsletter_expanded_added_treasure items
+- any user-specified watchlist or treasure universe
+
+These items are not automatically eligible for Stage B. They must not be auto-promoted.
+
+For `final_news_llm_input_newsletter_expanded_*.json`, the expanded portion means:
+
+```text
+newsletter_clean kept stories
++ selected TRIAGE_FILTERED treasure card leads
+```
+
+The added treasure leads are review-only recall candidates. `treasure_score`,
+`treasure_tier`, `newsletter_clean_reason: TRIAGE_FILTERED_TREASURE_CARD_LEAD`,
+`newsletter_clean_selection_role: TREASURE_CARD_LEAD`, `newsletter_clean_score`,
+`newsletter_anchor_matches`, `positive_signals`, and
+`newsletter_positive_signals` are not acceptance, evidence, strict-pass, or
+Stage-B-readiness signals.
+
+If an expanded treasure item is valid, it must first pass an explicit
+user-authorized review/promotion run and the same Stage A strict-pass gate as
+any other candidate. Otherwise it remains in candidate review, watchlist, reject,
+or support-only accounting.
+
+However, when a review_pool/treasure review is triggered by the source input, prompt, user instruction, or retrospective integrated rule, the workflow must explicitly account for them and review them through a bounded review path.
+
+For candidate_review_pool[] items, record:
+
+- bounded_review_question
+- promotion_precondition
+- recommended_review_method
+- evidence_or_duplicate_question
+- source_or_date_question, if applicable
+- final_review_pool_disposition
+
+Allowed final_review_pool_disposition values:
+
+- not_cardable_after_review
+- support_source_only_after_review
+- watchlist_only_after_review
+- duplicate_or_reinforcement_after_review
+- promote_to_strict_spec_after_review
+- needs_user_decision_after_review
+
+Disposition is not deletion. Every item that receives a `final_review_pool_disposition` must also appear in `review_pool_resolution_ledger[]` with:
+
+- `story_id` or `grouped_story_ids`
+- `upstream_status`
+- `original_review_pool_partition`
+- `final_review_pool_disposition`
+- `disposition_basis`
+- `reviewed_by_stage_or_pass`
+- `review_artifact_id`
+- `carry_forward_policy` = `closed_not_cardable` | `carry_forward_to_watchlist` | `support_source_only` | `candidate_for_authorized_promotion` | `needs_user_decision`
+- `next_action_condition`
+
+`not_cardable_after_review` is allowed only after a bounded item-specific review is recorded. It must not be used as a generic delete label.
+
+A genuinely hard-reject item may be closed, but closure requires at least one specific hard-reject basis such as `out_of_scope`, `consumer_noise`, `local_noise`, `duplicate_without_incremental_value`, `stale_without_fresh_angle`, `source_broken_unrecoverable`, `generic_keyword_only`, or `not_sbtl_lane`. Closure must preserve the item in the ledger with `carry_forward_policy: closed_not_cardable` and a non-empty `disposition_basis`.
+
+Hard-reject basis decision tests:
+
+- `out_of_scope`: close only when the article has no battery, EV, charging, energy-storage, grid-flexibility, critical-minerals, battery-materials, recycling, supply-chain, tariff, subsidy, industrial-policy, or SBTL-adjacent strategic content. If any concrete SBTL-adjacent actor, asset, policy, material, capacity, customer, facility, or transaction appears, do not use this basis.
+- `not_sbtl_lane`: close only when the subject is in an adjacent industry but the article gives no usable SBTL lane question. If a plausible question can be written about supply chain, localization, demand, cost, regulation, technology adoption, or competitive position, route to review/watchlist.
+- `consumer_noise`: close only when the story is primarily consumer lifestyle, retail price, infotainment, personal-use gadget, app UX, travel, entertainment, or ordinary car review content, with no industrial, infrastructure, sourcing, policy, fleet, manufacturing, battery, charging, or grid implication.
+- `local_noise`: close only when the story is a local incident, traffic notice, routine municipal update, crime/accident note, or local event with no named industrial actor, scalable deployment, policy signal, facility, procurement, recall, safety rule, or market implication.
+- `duplicate_without_incremental_value`: close only when the item is the same event as an existing strict/baseline/lead item and adds no new source owner, number, date, geography, customer, capacity, official confirmation, contradiction, or materially better source. If it adds any of those, route to support-only or existing reinforcement.
+- `stale_without_fresh_angle`: close only when the event is outside the run window and the article provides no fresh execution, regulatory, financial, customer, facility, data, or market-development angle. If freshness is uncertain, route to review with `source_or_date_question`.
+- `source_broken_unrecoverable`: close only when the source is inaccessible, non-article, paywalled-with-no-usable-snippet, malformed, or content-mismatched and no headline/snippet/RSS/source_packet evidence supports a bounded review question. If a source gap might be repaired downstream, route to review; Stage A must not fabricate missing evidence.
+- `generic_keyword_only`: close only when the item merely contains generic terms such as battery, energy, EV, lithium, charging, storage, AI, power, or supply chain without a concrete actor, event, asset, policy, metric, source-owner claim, or strategic question.
+
+Anti-overclosure rule: if two or more weak signals exist across actor, event, asset, policy, metric, geography, source quality, or SBTL lane relevance, do not hard-reject. Route to `candidate_review_pool[]` or `watchlist_context_pool[]` with the unresolved question.
+
+Hard-reject confidence must be `high`. If confidence is `low` or `medium`, the item is not closed; it is reviewed, watched, or support-only.
+
+
+`needs_user_decision_after_review` is open, not closed. It must carry forward until the user decides or a later authorized review resolves it.
+
+No stage may reduce, omit, or summarize away review_pool items unless the missing items are represented in `review_pool_resolution_ledger[]` or `review_pool_deferred[]`. If a prior review_pool universe exists but the current stage is not authorized to process it, the stage must report `review_pool_deferred_count` and preserve item IDs or an artifact reference. Missing ledger coverage is `BLOCKED_REVIEW_POOL_LEDGER_GAP`.
+
+For watchlist_context_pool[] items, record:
+
+- why_context_only
+- future_trigger_to_reopen
+- recommended_monitoring_action
+
+For reject_or_support_only_pool[] items, record:
+
+- reject_or_support_only_basis
+- whether_support_source_only
+- final_reason
+
+For DROPPED / TRIAGE_FILTERED / treasure candidates, if dropped_review_treasure_hunt or equivalent is triggered, Stage A or the authorized treasure review pass must record:
+
+- treasure_hunt_trigger_reason
+- treasure_sample_strategy
+- sampled_story_ids[]
+- non_sampled_story_ids[] with reason
+- treasure_review_result
+- treasure_candidate_review_pool[]
+- treasure_watchlist_context_pool[]
+- treasure_reject_or_support_only_pool[]
+- treasure_promotion_precondition
+- treasure_bounded_review_question
+- final_treasure_disposition
+
+No item from review_pool or treasure may be promoted directly to Stage B.
+
+Promotion requires an explicit user-authorized review_pool/treasure promotion run. If promoted, the item must become a new strict_passed_spec candidate, pass the same Stage A strict-pass gate, and then proceed through Stage B, Stage C, 0.4, 0.5, 0.6, and 0.7 like any other candidate.
+
+Authorized review_pool/treasure promotion protocol:
+
+- Input universe must be explicit: `candidate_review_pool[]`, `treasure_candidate_review_pool[]`, or named item IDs only.
+- The pass must start from the prior ledger rows; it must not reload the full final input and silently change the universe.
+- For each reviewed item, output exactly one disposition: `promote_to_strict_spec_after_review`, `watchlist_only_after_review`, `support_source_only_after_review`, `duplicate_or_reinforcement_after_review`, `not_cardable_after_review`, or `needs_user_decision_after_review`.
+- Promotion requires a fresh strict-pass gate object with all six Stage A conditions, not a reference to score, treasure tier, user interest, or prior review_pool membership.
+- Promoted items must be emitted as `rescue_candidate_strict_spec[]` or `promoted_strict_passed_spec[]` with `promotion_source_pool`, `promotion_review_artifact_id`, and `promotion_user_authorized: true`.
+- Non-promoted items must remain visible in `review_pool_resolution_ledger[]` with carry-forward or closure policy.
+- The promotion pass may recommend Stage B only for promoted strict specs. It must not recommend Stage B for the unresolved remainder.
+
+
+The guiding principle is:
+
+- Do not ignore review_pool or treasure.
+- Do not auto-promote review_pool or treasure.
+- Review them, account for them, and if valid, route them through the formal state ladder.
+
+
+## Stage A boundary — no-fetch handling for v4 rescue/review rules
+
+Stage A is selector-only. The v4 rescue and review rules do not authorize Stage A to perform external web search, article body fetch, source_quote generation, fact_sources generation, or card drafting.
+
+For Stage A only:
+
+- official_source_checked = NOT_APPLICABLE_STAGE_A_NO_FETCH
+- alternate_tier1_tier2_checked = NOT_APPLICABLE_STAGE_A_NO_FETCH
+- source_strength_review_log = NOT_APPLICABLE_STAGE_A_NO_FETCH
+
+Stage A satisfies v4 by partitioning and documenting bounded review paths, not by fetching.
+
+If a Stage A item looks promising but not strict-pass ready, Stage A must not reject it simply because verification is not yet complete. It must place it in the correct bounded pool with:
+
+- review_pool_partition
+- review_pool_partition_reason
+- promotion_precondition
+- bounded_review_question
+- recommended_next_action
+
+If dropped_review_treasure_hunt is triggered, Stage A must account for sampled and non-sampled treasure candidates as required by REVIEW_POOL_AND_TREASURE_MUST_BE_REVIEWED_RULE_20260507_V4.
+
+
+## Downstream boundary — v4 rescue/review rules do not authorize state laundering
+
+This downstream stage must preserve and validate prior rescue/review metadata. It must not use merge safety, content polish, final QC, GitHub merge prep, production verification, or remediation to launder unresolved evidence defects, unvalidated later-discovered evidence, unreviewed caveats, or unreviewed review_pool/treasure items.
+
+If this stage encounters material unvalidated evidence, unresolved source-strength caveat, missing rescue metadata, or an unreviewed review_pool/treasure promotion attempt, it must stop or route back to the appropriate earlier stage and report one of:
+
+- BLOCKED_RESCUE_METADATA_MISSING
+- BLOCKED_SILENT_DOWNSTREAM_ENRICHMENT_ATTEMPT
+- BLOCKED_SOURCE_STRENGTH_CAVEAT_REVIEW_REQUIRED
+- BLOCKED_REVIEW_POOL_OR_TREASURE_PROMOTION_UNAUTHORIZED
+
+No next-stage recommendation may be made for the affected item until the required validation path is completed.
+
+
+## Operational integrated rule — REVIEW_TREASURE_RESCUE_AUDIT_STATUS_GATE_20260507_V5
+
+This rule operationalizes the Review Pool + Treasure Rescue Audit requirement.
+
+Stage A review pools, TRIAGE_FILTERED items, DROPPED treasure candidates, newsletter-expanded treasure items, and any missed-treasure candidates must not be treated as exhausted unless a rescue audit is completed or explicitly deferred.
+
+### Trigger
+
+A Review Pool + Treasure Rescue Audit is required when any of the following are true:
+
+- `candidate_review_pool_count > 0`
+- `TRIAGE_FILTERED_count > 0`
+- `DROPPED_count > 0` and `dropped_review_treasure_hunt` is triggered
+- `missed_treasure` or `newsletter_expanded_added_treasure` items exist
+- the user asks to audit review pool, treasure, false holds, false rejects, or missed candidates
+
+### Required status fields
+
+Every Stage A output and every downstream stage that claims the current source universe is complete must carry:
+
+- `rescue_audit_required: true|false`
+- `rescue_audit_status: PASS|EXPLICITLY_DEFERRED|BLOCKED_RESCUE_AUDIT_MISSING|NOT_APPLICABLE`
+- `rescue_audit_trigger_reason[]`
+- `rescue_audit_input_universe_count`
+- `rescue_audit_completed_at`, if PASS
+- `rescue_audit_artifacts[]`, if PASS
+- `rescue_candidate_strict_spec_count`, if PASS
+- `rescue_audit_deferral_reason`, if EXPLICITLY_DEFERRED
+- `rescue_audit_recommended_next_action`
+
+If `rescue_audit_required=true` and `rescue_audit_status` is missing, stale, contradictory, or not PASS/EXPLICITLY_DEFERRED, the stage must stop with:
+
+- `status: BLOCKED_REVIEW_TREASURE_RESCUE_AUDIT_MISSING`
+- `no next-stage recommendation`
+- `blocked_reason: review_or_treasure_universe_not_audited`
+
+### Placement in workflow
+
+This audit does not promote items directly to Stage B.
+
+It produces one of:
+
+- `rescue_candidate_strict_spec[]`
+- `confirmed_review_hold[]`
+- `confirmed_support_only[]`
+- `confirmed_duplicate_or_existing_reinforcement[]`
+- `confirmed_rejected_after_review[]`
+
+A `rescue_candidate_strict_spec[]` item may enter Stage B only through an explicit user-authorized rescue/promotion pass. It must then follow Stage B, Stage C, 0.4, 0.5, 0.6, and 0.7 like any normal card candidate.
+
+### Deferral
+
+An operator may defer the audit only by recording:
+
+- `rescue_audit_status: EXPLICITLY_DEFERRED`
+- `rescue_audit_deferral_reason`
+- `deferred_item_count`
+- `deferred_item_ids[]` or documented sampling boundary
+- `next_required_action`
+- `sample_only_not_exhaustive`, if sampling was used
+- `source_universe_completion_status: PARTIAL_STRICT_SUBSET_ONLY`
+
+A deferred audit means the current merge/package may be valid for the processed strict-pass subset, but must not be described as source-universe-complete.
+
+Deferral is not closure. `EXPLICITLY_DEFERRED` must include a concrete return condition and owner-facing next action. It cannot be used when the user explicitly asked to review the pool/treasure universe now. If deferral is based on sampling, the output must state `sample_only_not_exhaustive: true` and must list the unsampled boundary. Deferred items remain open until a later authorized review resolves them or closes them with hard-reject/support-only ledger evidence.
+
+
+## Operational integrated rule — STAGE_A_FALSE_POSITIVE_RISK_EXAMPLES_20260507_V5
+
+Stage A must actively document how it prevented over-broad strict-pass selection.
+
+Every Stage A report and JSON output must include:
+
+- `lane_sanity_rejected_examples[]`
+- `strict_false_positive_risk_examples[]`
+- `strict_pass_borderline_examples[]`
+- `negative_filter_applied[]`
+- `negative_filter_routed_to_review_pool[]`
+
+### Negative filters
+
+The following patterns must not enter `strict_passed_spec[]` unless a concrete battery/grid/ESS/EV/materials execution anchor is present:
+
+- generic finance or insurance items without battery/grid/ESS/EV/material impact
+- general AI/data-center items without power, grid, battery, ESS, or energy-infrastructure execution
+- publicity/event participation without operational signal
+- broad corporate positioning without project, contract, capacity, policy, filing, or data release anchor
+- roundups where no single event can support a full-schema card
+- trend/explainer items without a fresh execution or data-release anchor
+
+Do not overcorrect by deleting all adjacent items. If a candidate has plausible relevance but lacks strict-pass certainty, route it to `candidate_review_pool[]` with:
+
+- `bounded_review_question`
+- `promotion_precondition`
+- `recommended_review_method`
+- `strict_false_positive_risk_reason`
+
+Stage A must not use this integrated rule to perform web search or article body fetch. Stage A remains selector-only.
+
+## CARD_CLAIM_DIVERSITY_AUDIT_RULE_20260507_V7
+
+This rule adds an editorial-quality gate after evidence safety has already been established. It must never override `FACT_DISCIPLINE.md`.
+
+The workflow must audit not only whether each card is fact-safe, but also whether each publish-ready card answers a distinct, source-supported strategic question.
+
+The goal is not artificial variety. The goal is to prevent a batch from collapsing into repetitive surface claims such as “Company A announced/supplied/launched/expanded Project B” when the underlying sources support a more useful, still source-locked strategic angle.
+
+### Required fields for Prompt 0.6 and Prompt 0.7
+
+For every card entering Prompt 0.6 Content Polish and Prompt 0.7 Final QC, produce `card_claim_diversity_audit[]` with one row per card. Each row must include:
+
+- `card_id` or provisional draft/addable ID
+- `source_spec_id`
+- `primary_claim_type`
+- `secondary_claim_type`
+- `event_anchor_type`
+- `strategic_question`
+- `why_this_card_is_not_redundant`
+- `similar_claim_cards_in_current_batch[]`
+- `claim_overlap_risk`: `low | medium | high`
+- `required_claim_repositioning`: `true | false`
+- `claim_repositioning_applied`: `true | false`
+- `claim_repositioning_source_safe`: `true | false | not_applicable`
+- `claim_overlap_accepted_reason`, required when overlap remains medium/high
+- `source_safe_repositioning_not_possible`: `true | false`
+
+Allowed `primary_claim_type` / `secondary_claim_type` values:
+
+- `capacity_execution`
+- `policy_shift`
+- `market_structure`
+- `pricing_or_cost_signal`
+- `demand_adoption`
+- `supply_chain_security`
+- `technology_validation`
+- `financing_or_capital_market`
+- `safety_or_reliability`
+- `company_strategy`
+- `trade_or_tariff`
+- `grid_integration`
+- `customer_qualification_or_reference`
+- `production_or_factory_execution`
+- `litigation_or_ip_risk`
+- `regulatory_compliance_or_certification`
+- `infrastructure_bottleneck`
+- `earnings_or_margin_signal`
+- `recycling_or_circularity`
+- `source_strength_or_data_release`
+- `other_source_locked_claim`
+
+### Hard warning rule
+
+If 3 or more cards in the same candidate batch share the same `primary_claim_type` and the same `event_anchor_type`, do not automatically reject them. Instead:
+
+1. Check whether each card can answer a distinct `strategic_question` using only already validated source evidence.
+2. If source evidence permits safe repositioning, Prompt 0.6 must reposition visible fields to clarify the distinct role of each card.
+3. If source evidence does not permit safe repositioning, preserve the narrower source-locked claim and record:
+   - `claim_overlap_accepted_reason`
+   - `source_safe_repositioning_not_possible: true`
+
+### Guardrail — no invented variety
+
+This audit must not override `FACT_DISCIPLINE.md`.
+
+Do not invent strategic variety. Do not add unsupported market-structure, causal, competitive, pricing, supply-chain, or SBTL-benefit claims. Do not use memory or outside context to diversify a card.
+
+If the source evidence only supports a narrow surface claim, keep the narrow claim and mark the overlap risk honestly. A boring but true card is better than a distinctive but unsupported card.
+
+### Output and blocker
+
+Prompt 0.6 must include `card_claim_diversity_audit[]` and `claim_diversity_summary` in its JSON output. Prompt 0.7 must validate them before assigning `publish_ready`.
+
+If `card_claim_diversity_audit[]` is missing, incomplete, or contradicts visible fields, report:
+
+- `status: BLOCKED_CARD_CLAIM_DIVERSITY_AUDIT_MISSING`
+- `no publish_ready assignment`
+- `recommended_return_stage: Prompt 0.6 Content Polish`
+
+If overlap risk is high and source-safe repositioning was possible but not applied, report:
+
+- `status: BLOCKED_CLAIM_OVERLAP_REQUIRES_REPOSITIONING`
+- `recommended_return_stage: Prompt 0.6 Content Polish`
+
+Prompt 1.1 retrospective must report claim-type distribution, over-clustered claim types, and any accepted overlap reasons.
+
+
+
+## Source Diversity & Corroboration QC Rule — 2026-05-07 v8
+
+Source diversity is not claim diversity.
+
+Claim diversity checks whether visible cards repeat the same editorial angle, wording pattern, implication structure, or strategic question.
+
+Source diversity checks whether each visible claim is supported by an adequate evidence structure:
+
+- source count
+- source independence
+- official / primary source presence
+- body-level quote quality
+- evidence_role distribution
+- source_url coverage in urls[]
+- single-source exception validity
+- whether background/context sources are being misused as core-event evidence
+
+Do not treat a claim-diverse card as source-diverse.
+Do not treat multi-source background context as core-event corroboration unless the source independently supports the visible core claim.
+
+A single-source card may pass only when the single source is official, primary, regulatory, filing, primary dataset/report, or body-level evidence sufficient for every core visible claim.
+
+If a card involves safety, environmental incidents, regulation, policy impact, subsidy/tariff claims, market share, rankings, first/largest claims, sensitive company risk, litigation/IP risk, high-signal strategic interpretation, or major market-structure claims, require either:
+
+1. official/primary source support, or
+2. at least two independent body-level sources that support the same core event/claim.
+
+If source diversity is insufficient:
+
+- do not mark publish_ready
+- route to needs_return_to_evidence_qc or needs_source_augmentation
+- or narrow visible fields so the claim strength matches the available evidence.
+
+Single-source exceptions must be explicit:
 
 ```json
-{
-  "id": "YYYY-MM-DD_REGION_NN",
-  "region": "KR|US|CN|JP|EU|GL",
-  "date": "YYYY-MM-DD",
-  "cat": "Battery|ESS|...|Other",
-  "sub_cat": "한국어 서브카테고리",
-  "signal": "top|high|mid",
-  "title": "...",
-  "sub": "...",
-  "gate": "...",
-  "fact": "...",
-  "implication": ["..."],
-  "urls": ["..."],
-  "related": [],
-  "fact_sources": [
-    {"claim": "...", "source_url": "...", "source_quote": "...", "fetched_at": "ISO8601"}
+"single_source_exception": {
+  "allowed": true,
+  "reason": "official primary release directly supports all core claims",
+  "limits": [
+    "No broad market-impact claim beyond source.",
+    "No unsupported causal claim.",
+    "No unsupported forecast."
   ]
 }
 ```
 
-### 4.3 Fact Discipline (최상위)
+Visible-source URL sync is a hard gate: every `fact_sources[].source_url` that supports a visible field must be present in the card `urls[]` unless explicitly marked as `supporting_context_only_not_visible_claim_support` with a reason.
 
-FACT_DISCIPLINE.md의 모든 조항이 A/B/C에 적용된다. 특히:
+## Source Diversity Source-Discovery Alignment — 2026-05-19 v9
 
-- **§1.1** 기억 기반 숫자·팩트 인용 금지
-- **§1.2** 출처 없는 숫자 생성 금지
-- **§1.6** 추론을 fact 어조로 서술 금지
-- **§2.1** **fact 작성 전 web_fetch 의무 — 예외 없음**
-- **§2.2** fact_sources 필수. source_quote는 web_fetch된 **원문의 verbatim substring** (paraphrase 금지, upstream excerpt 의존 금지)
-- **§2.3** 불확실 시 비워두기 (기억으로 채우지 않기)
+For Stage B and any later stage that performs source augmentation, source diversity requires a recorded same-event source-discovery effort, not just a count of URLs already attached to the card.
 
-### 4.3.1 Upstream content_article ≠ 원문 (중요)
+Required distinction:
 
-상류가 제공하는 `source_packets[].content_article`는 편의 preview일 뿐 **원문이 아니다**:
+- `fact_package` / `evidence_package` proves what was fetched and quoted.
+- `source_discovery_ledger[]` proves what was searched, checked, rejected, or accepted.
+- `source_claim_coverage_map[]` proves which fetched source supports each visible claim.
 
-- body fetch excerpt (최대 6000자 cap)
-- paywall/WAF 차단 시 부분만 수집됨
-- body selector가 HTML 구조 일부만 매칭한 경우 (부분 본문, 예: 192자만)
-- RSS feed의 일부만 들어간 경우
+A card must not be treated as source-diverse merely because it has multiple URLs if those URLs are syndications, reposts, snippets, landing pages, same-owner duplicates, or background-only sources.
 
-### 4.3.2 Stage별 upstream 사용 범위
+For every candidate that reaches Evidence QC, require one of these states:
 
-**web_fetch는 B 단계에서 passed_spec에만 실행한다** (A에서 전수 fetch는 비현실적 + 불필요).
+1. `source_diversity_status: PASS_MULTI_SOURCE` with at least two independent body-level sources supporting the same core event or claim.
+2. `source_diversity_status: PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION` with an explicit `single_source_exception` object and a completed `source_discovery_ledger[]`.
+3. `source_diversity_status: HOLD_NEEDS_SOURCE_AUGMENTATION` when the card is promising but corroboration/source-discovery is incomplete.
+4. `source_diversity_status: FAIL_SOURCE_DIVERSITY` when the visible claim cannot be supported without overclaiming.
 
-| Stage | upstream 사용 | web_fetch |
+`PASS_SINGLE_SOURCE` without official/primary basis is not allowed. informal single-source-acceptable phrasing is not enough; the exception must name why the source is official/primary/body-level sufficient, what claims are covered, what claims are excluded, and what source-discovery attempts failed to find corroboration.
+
+For sensitive or high-interpretation claims, including safety, environmental incidents, regulation, policy impact, subsidy/tariff, market share, ranking, first/largest, litigation/IP risk, sensitive company risk, high-signal strategic interpretation, or major market-structure claims, Evidence QC must require either official/primary support or two independent body-level sources. If neither exists, narrow the visible claim or hold for source augmentation.
+
+Web search must never create a new candidate silently. It may only verify or augment the same Stage A event anchor, and any newly discovered same-event source must be recorded in `source_discovery_ledger[]` and then mapped in `fact_sources[]` and `source_claim_coverage_map[]` before it supports visible text.
+
+Visible-source URL sync remains a hard gate: every `fact_sources[].source_url` supporting visible text must appear in `urls[]`. Background-only sources may be absent from `urls[]` only when marked `supporting_context_only_not_visible_claim_support` with a reason.
+
+# PROMPT_ABC_DEFAULT_MODE.md — Source Diversity source-diversity integrated rule
+
+    This integrated rule is authoritative for source-diversity, source-preservation, synthesis,
+    visible-source-date and same-source grouping rules. Earlier language that conflicts with this
+    integrated rule is superseded only to the extent of that conflict.
+
+    ## Source Diversity source-diversity — common definitions
+
+### 1. Diversity unit
+
+Source diversity is measured by **canonical source identity and editorial independence**, not by
+`fact_sources[]` row count.
+
+The following count as one source:
+
+- multiple claims or quotes from the same canonical article URL;
+- print/mobile/AMP/RSS mirrors of the same article;
+- the same press release copied by multiple syndication sites without independent reporting;
+- multiple pages controlled by the same editorial owner that merely repeat the same source text;
+- one article split into several `fact_sources[]` entries.
+
+Required calculations:
+
+```text
+source_evidence_entry_count = count(fact_sources[])
+source_unique_url_count = count(unique canonical article URLs)
+source_unique_domain_count = count(unique canonical domains after ownership/syndication review)
+source_independent_owner_count = count(editorially independent source owners)
+```
+
+`PASS_MULTI_SOURCE` or any equivalent status is prohibited when
+`source_independent_owner_count < 2`.
+
+### 2. Preferred evidence-role structure
+
+For each independently cardable event, target three complementary roles:
+
+1. `primary_event_evidence`
+   - official notice, regulator, filing, contracting party, project owner, research institution,
+     original dataset or source owner;
+2. `independent_event_confirmation`
+   - independent news agency, financial press, trade press or local reporting that confirms the
+     event and identifies omissions, conditions or execution status;
+3. `policy_market_context`
+   - policy, market, operational, comparable-project or system-impact evidence that materially
+     improves `gate` or `implication`.
+
+Two independent source owners are the minimum default. Three complementary roles are preferred.
+A source does not satisfy diversity merely by existing; it must make a distinct contribution.
+
+### 3. Source contribution requirement
+
+Every retained source must record:
+
+```json
+{
+  "source_role": "",
+  "source_contribution": "",
+  "source_origin_type": "",
+  "source_published_date": "YYYY-MM-DD",
+  "visible_quote_date": "YYYY-MM-DD"
+}
+```
+
+`source_contribution` must explain the unique information supplied by that source. Generic values
+such as `corroboration`, `additional source`, `supports card`, or `same event` are insufficient.
+
+### 4. Visible-field synthesis requirement
+
+When an additional source supplies material information, at least one of the following visible
+fields must be revised using source-locked wording:
+
+- `fact`
+- `gate`
+- `implication`
+
+The output must record:
+
+```json
+{
+  "source_synthesis_applied": true,
+  "source_synthesis_fields": ["fact", "gate", "implication"],
+  "source_synthesis_audit": [
+    {
+      "source_domain": "",
+      "source_role": "",
+      "unique_contribution": "",
+      "affected_visible_fields": []
+    }
+  ]
+}
+```
+
+A card that merely integrates URLs while its visible content still reflects only one article has not
+passed source-diversity synthesis.
+
+### 5. Publication date and audit timestamps
+
+The date shown beside a quote must be the article or official-material publication date:
+
+```text
+visible date = source_published_date
+```
+
+`fetched_at` and `checked_at` are audit timestamps only. They must be preserved but must never be
+used as the visible news date.
+
+### 6. Rescue-before-delete rule
+
+A weak, blocked or duplicate source must not be silently discarded when it contains unique useful
+information.
+
+Use this order:
+
+1. refetch or locate the source owner/original material;
+2. find an independent same-event source;
+3. narrow unsupported wording;
+4. move unique information into an existing card as reinforcement;
+5. place unresolved items in `needs_source_augmentation` or a controlled remediation queue;
+6. use hard rejection only when the item is false, irrelevant, irreparable, promotional noise or
+   lacks any defensible decision value.
+
+Duplicate-event articles are not separate cards, but their unique facts and quotes must follow the
+representative event as support-source candidates.
+
+### 7. Single-source exception
+
+A single-source exception is narrow and rare. It may pass only when all conditions are true:
+
+- the source is official, regulatory, a filing, original dataset, court decision, contracting-party
+  release, or original research institution;
+- bounded discovery was performed and no independent body-level source was available;
+- the card contains only claims supported by that source;
+- no broad causal, comparative, first/largest, market-impact or strategic implication is asserted
+  unless the source explicitly supports it;
+- the exception reason, search ledger and scope limitation are recorded;
+- downstream Evidence QC and Final QC separately approve the exception.
+
+A media article alone does not qualify merely because it is detailed.
+
+## Default-mode state requirement
+
+The state ladder now includes source-diversity synthesis as a mandatory property:
+
+```text
+accepted_fact_safe
+→ addable_merge_safe
+→ evidence_complete
+→ source_claim_covered
+→ source_diversity_validated
+→ source_synthesis_applied
+→ content_enriched
+→ language_terminology_polished
+→ publish_ready
+```
+
+These properties may be stored as fields rather than new named stages, but they may not be skipped.
+Stage B discovers and drafts; Stage C validates fact safety; Evidence QC validates source identity;
+Content Polish applies synthesis; Final QC assigns publish readiness.
+
+# Source Diversity / IB-grade + Codex Hardening Integrated rule
+
+Version: `GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX`  
+Generated KST: `2026-07-08T21:18:40.089502+09:00`
+
+This integrated section supersedes earlier conflicting language only to the extent of conflict.  
+It does **not** weaken Source Diversity source-diversity. It adds downstream hardening learned from PR #148 and the 20260706_130022 run.
+
+## 1. IB-grade editorial upgrade rule
+
+Cards should not be treated as publishable merely because they are fact-safe.
+
+Before `publish_ready=true`, the pipeline must classify each card into one of the following:
+
+| Tier | Meaning | Publish rule |
 |---|---|---|
-| **A (Selector)** | stories 전체의 metadata / content_article / usable_text 등을 **선정·분류 판단에만** 사용 | ❌ 하지 않음 (수천 개 대상, 선정 단계에서 과도) |
-| **B (Writer)** | passed_spec의 upstream 데이터는 **교차검증 참고용**만 | ✅ **의무** (카드가 될 것들만 — 선정된 N개) |
-| **C (QC)** | B의 draft + fact_sources 기준 검증 | △ 필요 시 spot-check (의무 아님) |
+| `A` / `A-` | IB-grade or near-IB anchor | May be used as lead/anchor signal |
+| `B+` | publishable supporting signal | May publish, but must not be described as top-tier anchor |
+| below `B+` | insufficient | Must remain deferred, remediation, or support-only |
 
-### 4.3.3 B에서의 원칙
+A `B+` card may be upgraded only through supported visible-field refinement:
 
-- **카드 생성 대상 (passed_spec)에 대해서만**: 메타데이터 / upstream excerpt로 fact를 추측하지 않는다. `primary_url` web_fetch로 원문 확보 후 확인
-- `content_article`은 "fetch 결과와 교차 검증" 또는 "fetch 실패 시 last-resort (needs_review 필수)" 용도로만
-- `fact_sources[].source_quote`는 **web_fetch로 가져온 원문에서의 verbatim substring** (upstream excerpt에서 substring 금지)
+- stronger strategic framing;
+- clearer `sub`;
+- sharper `gate`;
+- implication rewritten toward market / policy / supply-chain decision use;
+- no unsupported new numbers, contracts, capacity, pricing, or customer claims.
 
-### 4.4 Integrity Group 규칙
+Never upgrade a weak source into a strong source by language alone.
 
-일부 story는 `integrity_group_id`를 공유한다 (상류 감지한 same-site-same-body 그룹).
+## 2. Visible-field upgrade boundary
 
-- **`integrity_group_id`**: 그룹 ID (`grp_XXXX`)
-- **`integrity_binding_score`**: 0-14 (headline-body 결속도)
-- **`integrity_is_best`**: 그룹 내 best 여부 (bool)
+When improving title, sub, fact, gate, or implication:
 
-**A**: 같은 integrity_group_id = merge 강한 후보. 단 §A.3의 merge 전제 모두 만족 시에만 merge.
-**B**: 같은 그룹의 여러 source를 한 카드의 fact_sources에 쓸 때 verbatim 중복 제거.
-**C**: 다른 카드 두 개가 같은 integrity_group_id + 같은 사건이면 `integrity_group_split` 플래그 → revise 또는 reject.
+- preserve all source boundaries;
+- do not add a new factual claim unless it is directly supported by an existing `fact_sources[]` quote or an added source;
+- do not convert `prequalified` into `awarded`;
+- do not convert `pilot` into commercial performance;
+- do not convert product showcase into customer order, certification, delivery, or revenue;
+- do not convert policy award/achievement material into implementing notice unless the notice text is present;
+- do not convert “focus / plan / report says” into confirmed CAPEX, customer, chemistry, or production start.
 
----
+## 3. Single-source publish-ready waiver rule
 
-# Prompt A — Editorial Selector
+If a card has:
 
-## A.1 역할
-
-A는 **유일하게** 다음 권한을 가진다:
-
-- passed / merged / discarded / existing_reinforcement 중 하나로 결정
-- 상류 DROPPED 판정의 override (명시적 rationale 기록 시)
-
-A는 하지 않는다:
-
-- 카드 prose 작성
-- 증거 없는 fact 생성
-- silent drop
-- **web_fetch** — 선정 단계는 scale상 전수 fetch 비현실적이고 불필요. upstream 데이터로 **선정·분류**만 판단
-
-A는 **판별(selection)**하는 단계. 정확한 fact 확정은 B가 web_fetch로 수행.
-
-## A.2 미션
-
-입력 universe = `final_news_llm_input.stories[]`
-Baseline = `main/public/data/cards.json`
-
-A는:
-
-1. 모든 story를 검토한다 (우선순위: KEEP > REVIEW > STEP2_PENDING > DROPPED subset > INPUT_ONLY)
-2. 각 story를 4개 outcome 중 하나로 판정한다
-3. passed = card spec으로 전환
-4. 각 spec에 region / cat / sub_cat / signal / strategic_lens / event_anchor 부여
-5. baseline 비교하여 new / follow_up / duplicate_of_main / reinforcement_of_main 중 하나로 `baseline_relation` 기록
-6. **staleness pre-check** 적용 (A.5.1)
-7. `decision_ledger`에 **모든 story**에 대한 판정 기록 (silent drop 없음)
-8. valid JSON만 return
-
-## A.3 Merge 규칙
-
-다음 모두 true일 때만 merge:
-
-- 같은 회사/기관/프로젝트/정책/자산
-- 같은 underlying event
-- 시간 창 겹침
-- 같은 factual anchor
-- contradiction 없음
-- merge가 명료성을 증가시킴 (distinct follow-up 삭제가 아님)
-
-`integrity_group_id` 공유는 **강한 merge 후보 힌트**이나 위 전제 모두 만족 여부와 별개로 검증.
-
-## A.4 Discard 규칙
-
-다음 예시에만 discard. 항상 `discard_reason` 기록:
-
-- 일반 홈페이지 / 랜딩 페이지
-- 정적 제품/서비스 페이지
-- 레퍼런스/위키/에버그린 설명
-- 전시회/세미나 단순 참가 공지 (operational/strategic signal 없음)
-- 배터리 산업과 무관한 정치·사회·문화
-- 출처 불명확 의견 기사
-- incremental signal 없는 중복 repost
-- full-schema 카드를 지탱할 증거 부족
-- **stale republication** — 본 사건이 30일 이전에 발생했고 fresh follow-up event가 없음 (Supporting Rules §7.3 Staleness Threshold; A.5.1 절차 참조)
-
-## A.5 DROPPED Story Override
-
-상류가 DROPPED로 판정한 story를 A가 재살릴 수 있다. 다음 중 하나 만족 시:
-
-- `source_packets[].content_article` (또는 `usable_text`) 내용이 상류 `drop_reason`과 배치됨 (예: drop_reason="topic_not_strong"인데 본문에 battery/charging/minerals 강한 anchor)
-- drop_reason이 단순 날짜 문제 (`time_out_of_window`)이고 event가 follow-up 가치 있음
-- `matched_buckets`에 hard scope가 있는데 keyword_gate_reason이 약해서 탈락한 경우
-
-override 시 `upstream_labels.drop_reason_overridden: true` + `review_reason`에 rationale 명시.
-
-## A.5.1 Staleness Pre-check (NEW)
-
-A는 모든 candidate에 대해 **선정 직전** staleness 검증을 수행한다. 절차:
-
-### Step 1 — `event_date` 추출
-
-upstream 데이터(content_article, description, usable_text, source_packets 메타)에서 다음 단서로 event_date를 추정:
-
-- 본문 내 명시적 날짜 ("16일 발표", "지난 8월 11일", "April 16, 2025")
-- retrospective 표현 ("1년 전", "8개월 전", "지난 X월")
-- primary-source URL의 날짜 패턴 (jx-nmm.com/newsrelease/2025/20250416_01.html → 2025-04-16)
-- foreign-language outlet의 earlier coverage 감지
-
-추출 불가 시 `event_date: null` + `staleness_suspected: false`로 기록 (B에 위임).
-
-### Step 2 — Gap 계산
-
-```
-staleness_gap_days = run_date − event_date
+```text
+publish_ready = true
+source_independent_owner_count = 1
 ```
 
-### Step 3 — Threshold 적용 (Supporting Rules §7.3.2 참조)
+then it must satisfy one of the following:
 
-| Gap | A의 처리 |
-|---|---|
-| ≤ 7 일 | `staleness.decision: "fresh"` — 정상 흐름 |
-| 8–30 일 | `staleness.decision: "stale_warm"` + `needs_review: true`. spec의 `review_reason`에 "fresh signal 정당화 필요" 표시. 카드의 `gate`/`fact`가 fresh 요소(새 시장 반응 / 새 국내 후속 규제 / 새 상업적 step)를 articulate하지 못하면 B/C가 downgrade |
-| > 30 일 | `staleness.decision: "stale"` — **default discard**. 단 fresh follow-up event가 같은 본문에 documented된 경우만 override 가능 (`staleness_override: true` + 한 줄 justification 기록) |
+1. official / regulator / company primary source;
+2. reputable market data provider with bounded data claim;
+3. reputable trade or mainstream media with body-level evidence and bounded claims;
+4. explicit user-provided official body text.
 
-### Step 4 — 기록
-
-`staleness` 객체를 spec에 첨부 (A.8 참조).
-
-### A.5.1 적용 예시 (W8 cycle)
-
-- JX金属 \"폐EV LiB Li 90%\" — 본문에 \"4월 16일 발표\" 표현 + jx-nmm.com 2025-04-16 URL → event_date=2025-04-16, gap=376d → **discarded** (stale, no fresh follow-up; 敦賀 plant 가동은 미래 이벤트로 본 기사가 직접 보도하지 않음)
-- KERI 전고체 \"중간층 (Li2ZnSb)\" — 본문에 \"지난해 출범한 글로벌 TOP 전략 연구단\" + ilyo/heraldcorp 2025-08-11 URL → event_date=2025-08-11, gap=259d → **discarded** (stale, 매체 단순 재보도)
-- 旭化成 + 中国電力 BESS MOU — 본문에 \"4/23 발표\" + run_date=4/27 → gap=4d → **fresh**, 정상 passed_spec
-
-## A.6 Baseline 비교
-
-각 candidate를 main/public/data/cards.json과 비교:
-
-- `new` — 완전 새 카드
-- `follow_up` — 기존 카드의 후속 사건 (새 카드로 분리 가능)
-- `duplicate_of_main` — 이미 있는 카드와 사실상 동일 → discard
-- `reinforcement_of_main` — 기존 카드의 보강 (새 카드로 만들지 않음)
-
-## A.7 Representative Source / Date
-
-### Source priority
-
-1. 정부/규제기관/공식기관
-2. 기업 IR/공시/공식 뉴스룸
-3. 톱티어 경제·산업 매체
-4. 2차 산업 매체
-5. 약한 aggregator
-
-### Date
-
-representative source의 발행일 또는 event 발생일 (최초 보도일 기계적 선택 금지). **`representative_date`는 event_date에 정합** (Staleness Pre-check 통과 가정). 둘이 다르면 `staleness` 객체에 둘 다 기록.
-
-### Source packet 선택
-
-여러 story를 merge할 때, site 기준 top 우선 + **`content_article`이 채워진** packet 선호.
-
-## A.8 Spec 필드
-
-각 passed_spec는 다음을 포함:
+A valid waiver must include:
 
 ```json
-{
-  "spec_id": "...",
-  "source_story_ids": ["..."],
-  "source_origin": "KEEP | REVIEW | STEP2_PENDING | DROPPED | INPUT_ONLY | mixed",
-  "merge_status": "single | merged",
-  "merged_story_ids": ["..."],
-  "baseline_relation": "new | follow_up | duplicate_of_main | reinforcement_of_main",
-  "region": "KR | US | CN | JP | EU | GL",
-  "representative_date": "YYYY-MM-DD",
-  "representative_source": "...",
-  "cat": "Battery | ESS | ... | Other",
-  "sub_cat": "한국어 subcat",
-  "signal": "top | high | mid",
-  "strategic_lens": "... (policy moat / capex signal / supply shock / etc.)",
-  "primary_url": "...",
-  "urls": ["..."],
-  "event_anchor": "한 문장의 사건 요약",
-  "title_raw": "...",
-  "summary_hint": "B가 title/sub 작성 시 참고할 2-3줄",
-  "context_text": "B가 fact/implication 작성 시 참고할 5-10줄",
-  "why_now": "왜 지금 카드가 되는가",
-  "market_relevance": "산업 맥락",
-  "source_priority_notes": "왜 이 source가 대표로 선택됐는지",
-  "upstream_labels": {
-    "triage_status": "KEEP | ...",
-    "matched_buckets": ["scope_battery", "scope_trade"],
-    "integrity_group_id": null,
-    "integrity_is_best": null,
-    "drop_reason_overridden": false
-  },
-  "staleness": {
-    "event_date": "YYYY-MM-DD | null",
-    "publication_date": "YYYY-MM-DD | null",
-    "staleness_gap_days": 0,
-    "fresh_followup": null,
-    "staleness_override": false,
-    "decision": "fresh | stale_warm | stale | unknown"
-  },
-  "needs_review": false,
-  "review_reason": null
+"single_source_exception": {
+  "allowed": true,
+  "type": "...",
+  "reason": "...",
+  "mitigation": "..."
 }
 ```
 
-`staleness.decision` 값은 A.5.1 Step 3 결과를 그대로 반영. `unknown`은 event_date를 추출 불가했음을 의미하며 B가 web_fetch로 확정.
-
-## A.9 Output Contract
+Invalid patterns:
 
 ```json
-{
-  "stage": "PromptA",
-  "version": "v2_final_input",
-  "input_file": "final_news_llm_input_{run_tag}.json",
-  "baseline": "main/public/data/cards.json",
-  "summary": {
-    "total_stories": 0,
-    "by_status": {"KEEP": 0, "REVIEW": 0, "STEP2_PENDING": 0, "DROPPED": 0, "INPUT_ONLY": 0},
-    "passed": 0,
-    "merged": 0,
-    "discarded": 0,
-    "existing_reinforcement": 0,
-    "dropped_overrides": 0,
-    "stale_discarded": 0,
-    "stale_warm_passed": 0
-  },
-  "decision_ledger": [
-    {
-      "story_id": "...",
-      "upstream_status": "...",
-      "upstream_drop_reason": "...",
-      "integrity_group_id": "...",
-      "decision": "passed|merged|discarded|existing_reinforcement",
-      "reason": "...",
-      "spec_id": "...",
-      "merged_into_spec_id": "...",
-      "baseline_match": "...",
-      "staleness_decision": "fresh | stale_warm | stale | unknown"
-    }
-  ],
-  "passed_specs": [ ... ]
+"single_source_exception": {
+  "allowed": false,
+  "reason": "two or more source owners..."
 }
 ```
 
-모든 story는 `decision_ledger`에 정확히 한 번 등장. silent drop은 QC failure로 간주.
+on a publish-ready single-source card is a blocker.
 
-## A.10 실패 규칙
+Required blocker:
 
-증거 부족 시 passed로 넘기지 않고 `discarded` + `discard_reason: "evidence too thin"`으로 명시.
-불확실하면 `needs_review: true`로 flag하여 하류에서 재검토.
+```text
+status = BLOCKED_PUBLISH_READY_SINGLE_SOURCE_WITHOUT_VALID_WAIVER
+```
 
----
+## 4. Stale publish blocker removal rule
 
-# Prompt B — Card Writer
+No card may be both publish-ready and actively blocked.
 
-## B.1 역할
-
-B는 A의 passed_spec 각각을 카드 draft로 작성한다.
-
-B는 하지 않는다:
-
-- spec을 discard 하거나 merge (A 권한)
-- baseline 비교 판정
-- 증거 없는 fact 생성
-- paraphrased source_quote 사용
-
-## B.2 미션
-
-B는 A가 passed_spec으로 **이미 선정한 것들**만 받는다 (전수가 아님). 각 spec은 카드가 될 최종 후보이므로, 이들에 대해서만 web_fetch로 원문 확인 + fact 작성.
-
-모든 passed_spec에 대해:
-
-1. **`primary_url` web_fetch 실행** (의무, B.4 참조)
-2. **event_date 확정** (B.4.1 참조 — staleness 보정)
-3. full-schema card draft 작성
-4. 증거 없으면 `draft_blocked` + reason 기록 (silent skip 금지)
-5. fact·implication의 모든 숫자/고유명사/인용/날짜를 `fact_sources`에 대응 (web_fetch 원문 substring)
-6. valid JSON만 return
-
-**scale 감각**: KEEP+REVIEW는 보통 100개 내외. A가 override한 DROPPED salvage 포함해도 150개 미만. web_fetch 의무는 이 범위에서 실행 가능.
-
-## B.3 증거 계층 (원문 우선)
-
-**원칙: 메타데이터 / upstream excerpt로 fact를 추측하지 않는다. 원문을 web_fetch로 확인한다.**
-
-### B.3.1 1차 증거 — web_fetch로 확보한 원문 (필수)
-
-- `primary_url`을 **web_fetch**로 요청하여 본문 확보
-- 이것이 fact·숫자·인용의 **유일한** 권위 있는 출처
-- `fact_sources[].source_quote`는 이 원문의 verbatim substring
-
-### B.3.2 2차 참고 — upstream 제공 데이터 (교차검증용)
-
-상류가 준 `source_packets[]`의 다음 필드는 **참고/교차검증 목적으로만** 사용:
-
-- `content_article` (body fetch excerpt, 잘림 가능)
-- `description_article`, `context_text_article`
-- `content_list`, `description_list`, `context_text_list`
-- `rss_context_fields`
-- `usable_text`
-
-**이 필드들을 fact 근거로 직접 사용 금지**. 원문과 비교하여 일관성 확인에만 사용.
-
-### B.3.3 원문과 upstream이 불일치하는 경우
-
-- 원문이 기준. upstream excerpt는 참고일 뿐.
-- 중요한 불일치 발견 (숫자/이름/날짜 차이) → `writer_notes`에 기록, `needs_review: true`
-
-## B.4 web_fetch 규칙 (의무)
-
-### 표준 경로
-
-1. **반드시** `primary_url`을 web_fetch한다 (예외 없음, content_article 있어도 실행)
-2. fetch 본문에서 fact에 필요한 숫자/인용을 찾아 verbatim substring으로 `source_quote` 채움
-3. upstream `content_article`이 있으면 원문과 교차검증 (불일치 시 writer_notes에 기록)
-
-### fetch 실패 폴백
-
-1. 동일 event의 다른 매체 URL (`spec.urls[]` 중 primary 외) web_fetch 재시도
-2. 모두 실패 시 택 1:
-   - **(권장)** `draft_blocked` + reason=`"fact_fetch_failed"` — 카드 생성하지 않음
-   - **(예외)** 카드 생성하되 `needs_review: true` + `_fact_unverified: true`로 flag (C가 reject하도록) — FACT_DISCIPLINE §2.1 허용 exception
-
-### 금지
-
-- upstream `content_article`만 보고 fact 확정 금지
-- upstream `usable_text`에서 source_quote substring 금지 (excerpt 가능성)
-- primary_url fetch 생략 후 "근데 내용 다 있네"로 작성 금지
-
-### 이유
-
-`content_article`은 편의 preview:
-- 최대 6000자 cap (긴 기사는 뒷부분 없음)
-- paywall/WAF 차단 시 부분만
-- body selector가 HTML의 일부만 매칭 (예: 192자만 캡처된 사례 존재)
-
-**원문이 더 길거나 다를 수 있다. 항상 web_fetch로 확인**.
-
-## B.4.1 Event Date 확정 (NEW — Staleness 보정)
-
-B는 `primary_url` web_fetch와 동시에 **event_date를 원문에서 확정**한다. 절차:
-
-1. **본문에서 명시적 발생일 추출** — \"16일 발표\", \"On April 16, 2025\", \"지난 8월 11일\" 등 retrospective 표현 포함
-2. **primary-source page** (회사 IR / 정부 newsroom)의 published_date 메타데이터 확인 — 매체 article의 publication_date가 아닌 *원래 발표일*
-3. **A의 `staleness.event_date`와 비교**:
-   - 일치 → `web_fetch_event_date_confirmed: true`
-   - 다름 → `writer_notes`에 차이 기록 + `needs_review: true` + B에서 staleness 재계산
-4. **B 단계 재분류**:
-   - confirmed gap ≤ 7일 → 정상 draft
-   - confirmed gap 8–30일 → `needs_review: true` + draft의 `gate`/`fact`에 fresh-signal articulation 의무
-   - confirmed gap > 30일 → `draft_blocked` + reason=`"stale republication, A missed"` (A가 미감지한 case 차단)
-
-### B.4.1 적용 예시
-
-- A가 event_date=2026-04-23으로 기록한 旭化成 MOU → B가 web_fetch로 \"発表日は2026年4月23日\" 확인 → confirmed gap 4d → 정상 draft
-- A가 event_date=null (unknown)으로 넘긴 spec → B가 fetch 후 본문에서 \"発表は2025年4月16日\" 발견 → gap 376d 재계산 → `draft_blocked` (stale)
-
-## B.5 Card 필드 규칙
-
-### title
-- event anchor와 일치
-- 증거 없는 over-claim 금지
-
-### sub
-- actor / 숫자 / 범위로 title을 sharpen
-- 같은 event anchor 유지
-
-### gate
-- **편집적 중요성** (왜 중요한가)
-- fact 반복 금지
-- 일반 번역 문장 금지
-- 증거 없는 사실 포함 금지
-- **stale_warm 케이스에서는 fresh signal 정당화를 명시 의무** (예: "1년 전 발표가 한국 K-3사 PFAS 대응 정책 발의로 다시 살아났다"는 식의 fresh follow-up)
-
-### fact
-- **evidence 기반 사실 요약만**
-- attribution 사용 ("X에 따르면")
-- 모든 숫자/이름/날짜는 `fact_sources[].claim`에 매핑
-- 증거 없는 비교·기억 금지 (FACT_DISCIPLINE §1.1, §1.3)
-
-### implication
-- 관찰/watchpoint/전략적 함의
-- gate 반복 금지
-- fact 반복 금지
-- 추론은 **관찰형 어휘** (조건부, 예측 단정 금지)
-
-### urls
-- spec.urls 기반, representative URL first
-
-### fact_sources (필수)
-- fact의 모든 숫자/이름/날짜/인용이 대응되어야
-- `source_quote`는 **web_fetch로 확보한 원문**의 **verbatim substring**
-- **upstream `content_article` / `usable_text` / `description_article`에서의 substring은 금지** (excerpt일 수 있음)
-- paraphrase 금지 (FACT_DISCIPLINE §2.2)
-- `fetched_at`은 **실제 web_fetch 시점**의 ISO8601 (upstream `collected_at` 재사용 금지 — 정확성 추적)
-- 예:
+Invalid:
 
 ```json
 {
-  "claim": "2GWh 전고체 공장 투산",
-  "source_url": "http://www.cbea.com/djgc/202604/963162.html",
-  "source_quote": "恩力动力安徽2GWh固态电池先进智造基地正式投产",
-  "fetched_at": "2026-04-19T04:30:00+09:00"
+  "publish_ready": true,
+  "state": "publish_ready",
+  "do_not_publish_until": "..."
 }
 ```
 
-### 분리 원칙
+If the blocker has been satisfied, remove the active field entirely.
 
-- `gate` = 편집적 중요성
-- `fact` = 무슨 일이 일어났는가 (evidence로 뒷받침)
-- `implication` = 무엇을 지켜봐야 하는가
-
-세 필드가 같은 내용을 세 번 반복하면 안 된다.
-
-## B.6 Output Contract
+Permitted audit trail:
 
 ```json
-{
-  "stage": "PromptB",
-  "version": "v2_final_input",
-  "summary": {
-    "input_passed_specs": 0,
-    "drafted": 0,
-    "blocked": 0,
-    "stale_blocked_in_b": 0
-  },
-  "write_ledger": [
-    {
-      "spec_id": "...",
-      "source_story_ids": ["..."],
-      "draft_status": "drafted|draft_blocked",
-      "reason": "..."
-    }
-  ],
-  "drafts": [
-    {
-      "spec_id": "...",
-      "source_story_ids": ["..."],
-      "draft_status": "drafted",
-      "web_fetch_status": "ok | partial_fallback | unverified_exception",
-      "web_fetch_url_used": "https://... (실제 fetch한 URL)",
-      "web_fetch_event_date_confirmed": true,
-      "evidence_citations_count": 3,
-      "needs_review": false,
-      "review_reason": null,
-      "writer_notes": "...",
-      "card": { ... full schema ... }
-    }
-  ],
-  "blocked": [
-    {
-      "spec_id": "...",
-      "source_story_ids": ["..."],
-      "draft_status": "draft_blocked",
-      "reason": "..."
-    }
-  ]
+"prior_publish_blocker_removed": {
+  "field": "do_not_publish_until",
+  "old_value": "...",
+  "reason": "...",
+  "removed_at_kst": "..."
 }
 ```
 
-## B.7 실패 규칙
+Required blocker:
 
-spec이 어려워서 silently skip 금지. `draft_blocked` + explicit reason.
-
----
-
-# Prompt C — QC Gate
-
-## C.1 역할
-
-C는 B의 모든 draft에 대해 `accepted | revise_required | rejected` 중 하나 결정.
-
-C는 하지 않는다:
-
-- silent discard
-- A의 raw-candidate 선택 재개봉
-- 두 draft merge (A 권한)
-- 증거 없는 fact 생성해 draft 구제
-
-## C.2 미션
-
-모든 draft에 대해:
-
-1. 스키마 완성도 검증
-2. fact traceability 검증 (verbatim substring 확인)
-3. duplication / reinforcement 검증 (baseline 비교 재확인)
-4. region / date / cat / signal 일관성 검증
-5. gate / fact / implication 분리 검증
-6. integrity_group_split 검증
-7. **staleness 검증** (C.3 8번)
-8. 명시적 QC 결정
-
-## C.3 Review Checklist
-
-### 1) Coverage
-모든 B draft가 `review_ledger`에 정확히 한 번 등장.
-
-### 2) Schema 완성도
-full schema 필드 누락 / malformed 시 revise or reject.
-
-### 3) Fact Traceability (FACT_DISCIPLINE 핵심)
-
-- fact의 모든 숫자/이름/날짜/인용이 `fact_sources`에 대응하는가
-- implication의 사실적 참조도 추적 가능한가
-- **B가 실제로 web_fetch를 했는가 (`web_fetch_status: "ok"` 확인)**
-- `source_quote`가 **web_fetch로 확보한 원문**의 verbatim substring인가
-  - upstream `content_article` / `usable_text`에서의 substring은 → revise (원문 재확인 요청)
-- urls와 fact_sources.source_url 정합
-- `fetched_at`이 실제 web_fetch 시점인가 (upstream collected_at 재사용이면 revise)
-- 대응 없는 수치 / 인용 발견 시 **rejected** (silent 처리 아닌 명시 리스트)
-- `web_fetch_status: "unverified_exception"` 인 draft는 기본 reject (FACT_DISCIPLINE §2.1 원칙; 단 C가 명시적 override 가능 시 revise)
-
-### 4) Duplication / Reinforcement
-- A가 overclassify했을 가능성 체크
-- main baseline과 재비교
-- duplicate_of_main이면 rejected
-- reinforcement면 rejected + rationale
-
-### 5) Region / Date / Cat / Signal
-- region = 직접 무대 원칙
-- date 내부 일관성
-- cat은 locked 12개 중 최적
-- signal 과장 금지
-
-### 6) Gate / Fact / Implication 분리
-- gate = 중요성 (사실 반복 아님)
-- fact = 증거 기반 사실 (의견 아님)
-- implication = 관찰/함의 (gate/fact 반복 아님)
-
-### 7) Integrity Group Split
-- 서로 다른 accepted 후보 draft 두 개가 같은 upstream `integrity_group_id`를 공유하며 같은 사건을 다루면 → `integrity_group_split` → 약한 쪽 `revise_required` 또는 `rejected`
-- 다른 각도/follow-up이면 OK
-
-### 8) Staleness Verification (NEW)
-
-Supporting Rules §7.3을 적용한다:
-
-- spec의 `staleness.event_date`와 카드의 `date` 정합 확인
-- B의 `web_fetch_event_date_confirmed: true` 인지 확인 (false면 → revise: B가 event_date 확정 못 함)
-- `staleness_gap_days` 재검증:
-  - **gap > 30일** + `staleness_override: false` → **rejected** (`rejection_reason: "stale republication"`)
-  - **gap > 30일** + `staleness_override: true` → fresh follow-up event가 카드의 `gate`/`fact`에 명확히 articulate됐는지 확인. 없으면 reject
-  - **gap 8–30일** → 카드의 `gate` 또는 `fact`가 fresh signal (새 시장 반응 / 새 후속 규제 / 새 상업적 step)을 articulate하는지 확인. 없으면 → **revise_required** 또는 **rejected**
-  - **gap ≤ 7일** → 정상 통과
-- C가 자체적으로 의심하는 stale 패턴 (외국 매체 1년 묵은 발표를 한국 매체가 단순 재보도) 발견 시 spot-check web_fetch 권장. 확인되면 reject
-
-## C.4 결정 기준
-
-### accepted
-- schema 통과
-- fact traceability 완전 (source_quote verbatim)
-- duplicate/reinforcement 아님
-- integrity_group_split 없음
-- 내부 일관성 OK
-- **staleness gap ≤ 7일** (또는 8–30일 + 명확한 fresh signal articulation)
-- 생산 준비 완료
-
-### revise_required
-- title/gate overclaim (수정 가능)
-- gate/fact/implication 분리 약함
-- 경미한 schema 이슈
-- region/date/signal 모호 (수정 가능)
-- traceability 존재하나 불완전
-- source_quote paraphrased → verbatim으로 교체 요청
-- integrity_group_split (merge 또는 약한 쪽 수정)
-- **staleness gap 8–30일** + fresh signal articulation 약함 (gate/fact 재작성으로 살릴 수 있음)
-- **staleness gap > 30일** + `staleness_override: true`이지만 fresh follow-up framing이 카드에 약함 (재작성으로 살릴 수 있음)
-
-### rejected
-- 증거 없는 fact
-- traceability 깨짐 (verbatim 증거 없음)
-- 수리 불가 schema 실패
-- duplicate/reinforcement misclassification
-- 해결 불가 factual contradiction
-- **staleness gap > 30일** + `staleness_override: false` (= 기본 stale, fresh follow-up 없음)
-- **staleness gap 8–30일** + fresh signal articulation 부재 + 재작성 시도 후에도 살릴 수 없음
-
-## C.5 Output Contract
-
-```json
-{
-  "stage": "PromptC",
-  "version": "v2_final_input",
-  "summary": {
-    "input_drafts": 0,
-    "accepted": 0,
-    "revise_required": 0,
-    "rejected": 0,
-    "integrity_splits": 0,
-    "stale_rejected": 0
-  },
-  "review_ledger": [
-    {
-      "spec_id": "...",
-      "source_story_ids": ["..."],
-      "card_id": "...",
-      "review_status": "accepted|revise_required|rejected",
-      "reasons": ["..."],
-      "required_actions": ["..."],
-      "staleness_gap_days": 0,
-      "staleness_decision_at_c": "fresh | stale_warm | stale | unknown"
-    }
-  ],
-  "accepted_cards": [ ... full schema cards ... ],
-  "revise_required": [ { "spec_id": "...", "card_id": "...", "reasons": [...], "required_actions": [...] } ],
-  "rejected": [ { "spec_id": "...", "card_id": "...", "reasons": [...] } ]
-}
+```text
+status = BLOCKED_PUBLISH_READY_CARD_HAS_ACTIVE_DO_NOT_PUBLISH_UNTIL
 ```
 
-## C.6 Final Payload Rule
+## 5. Deferred/watchlist discipline
 
-**`accepted_cards`만 production payload에 들어간다.**
-`revise_required` / `rejected`는 감사(audit) 산출물로 남는다. main/public/data/cards.json에는 절대 들어가지 않는다.
+Do not delete high-value deferred cards simply because official/independent evidence is not yet available.
 
-## C.7 Silent Discard 금지
+Use:
 
-draft가 통과 못 하면:
-- `review_ledger`에 반드시 기록
-- `revise_required` 또는 `rejected` list 중 한 쪽에 반드시 등장
+- `deferred_watchlist_high_value`
+- `conditional_watchlist`
+- `support_only_pending`
+- `deprioritized_not_deleted`
 
-미등장 = QC 실패.
+A deferred card can be promoted only when the missing source-claim coverage is actually satisfied.
 
----
+## 6. PR / GitHub merge hardening
 
-## 5. 교차 stage Invariants
+Before PR or merge:
 
-A → B → C를 관통하여 true여야 함:
+- verify total count;
+- verify latest baseline;
+- verify `publish_ready` cards have no active blockers;
+- verify single-source publish cards have valid waiver;
+- verify no visible internal terms remain:
+  - `fetch`
+  - `stage`
+  - `quote mapping`
+  - `baseline` unless user-facing context explicitly requires it;
+- verify `source_independent_owner_count` is editorial-owner based, not `fact_sources[]` row count;
+- verify UI display groups same canonical URL once;
+- verify quote date is article/publication date, not fetch/check date.
 
-1. `spec_id` 보존 end-to-end
-2. `source_story_ids`가 A→B→C 전파 (final_news_llm_input의 story_id까지 추적 가능)
-3. A의 모든 passed_spec이 B에 등장
-4. B의 모든 draft가 C에 등장
-5. baseline rule / region rule / schema rule을 silent하게 변경하지 않음
-6. 입력 story 어느 것도 silent drop되지 않음
-7. upstream labels (drop_reason, integrity_group_id, matched_buckets) 참고하되 맹목적 신뢰 금지
-8. **`staleness` 객체는 A→B→C 전파**. B가 web_fetch로 보정한 event_date는 spec에 다시 반영되어 C가 검증. 단계마다 staleness_gap이 재계산될 수 있고, 가장 큰 값(가장 보수적)이 최종 결정 기준
+## 7. Codex response protocol
 
----
+If Codex flags metadata inconsistency:
 
-## 6. 실전 사용 예 (Python + Anthropic SDK)
+1. Determine whether the issue is a visible claim problem or metadata/QC state problem.
+2. Do not expand visible claims unless evidence requires it.
+3. Prefer minimal metadata fix if the card is already fact-safe.
+4. Add an audit record only if it is non-blocking.
+5. Re-run:
+   - JSON parse
+   - publish-ready blocker scan
+   - single-source waiver scan
+   - visible internal-term scan
+   - total count check
 
-```python
-import anthropic, json
-from pathlib import Path
+## 8. Required final statuses
 
-client = anthropic.Anthropic()
-RUN_TAG = "20260419_194023"
+A card may be merged only when:
 
-# 1. Load input
-data = json.load(open(
-    f"../sbtl_bot/current/out/Output_Daily_Run/{RUN_TAG}/Final/final_news_llm_input_{RUN_TAG}.json"
-))
-baseline = json.load(open("public/data/cards.json"))
-
-stories = data["stories"]
-
-# 2. Prompt A
-a_doc = Path("docs/PROMPT_ABC_DEFAULT_MODE.md").read_text()
-supporting_doc = Path("docs/PROMPT_ABC_SUPPORTING_RULES.md").read_text()
-a_response = client.messages.create(
-    model="claude-opus-4-7",
-    max_tokens=64000,
-    thinking={"type": "adaptive"},
-    output_config={"effort": "max"},
-    cache_control={"type": "ephemeral"},
-    system=[{"type": "text", "text": a_doc + "\n\n---\n\n" + supporting_doc, "cache_control": {"type": "ephemeral"}}],
-    messages=[{"role": "user", "content": f"""Run Prompt A.
-
-## Input stories
-{json.dumps(stories, ensure_ascii=False, indent=2)}
-
-## Baseline (main/public/data/cards.json)
-{json.dumps(baseline, ensure_ascii=False, indent=2)}
-
-Return valid JSON only as specified in A.9 Output Contract."""}]
-)
-a_result = json.loads(a_response.content[0].text)
-
-# 3. Prompt B — evidence package per spec
-def build_evidence(spec, all_stories):
-    ids = spec["source_story_ids"]
-    return [s for s in all_stories if s["story_id"] in ids]
-
-b_response = client.messages.create(
-    model="claude-opus-4-7",
-    max_tokens=64000,
-    thinking={"type": "adaptive"},
-    output_config={"effort": "high"},
-    system=[{"type": "text", "text": a_doc + "\n\n---\n\n" + supporting_doc}],
-    messages=[{"role": "user", "content": f"""Run Prompt B.
-
-## passed_specs
-{json.dumps(a_result['passed_specs'], ensure_ascii=False, indent=2)}
-
-## evidence_by_spec
-{json.dumps({s['spec_id']: build_evidence(s, stories) for s in a_result['passed_specs']}, ensure_ascii=False, indent=2)}
-
-Return valid JSON only as specified in B.6 Output Contract."""}]
-)
-b_result = json.loads(b_response.content[0].text)
-
-# 4. Prompt C
-c_response = client.messages.create(
-    model="claude-opus-4-7",
-    max_tokens=64000,
-    thinking={"type": "adaptive"},
-    output_config={"effort": "max"},
-    system=[{"type": "text", "text": a_doc + "\n\n---\n\n" + supporting_doc}],
-    messages=[{"role": "user", "content": f"""Run Prompt C.
-
-## drafts
-{json.dumps(b_result['drafts'], ensure_ascii=False, indent=2)}
-
-## baseline
-{json.dumps(baseline, ensure_ascii=False, indent=2)}
-
-Return valid JSON only as specified in C.5 Output Contract."""}]
-)
-c_result = json.loads(c_response.content[0].text)
-
-# 5. Final payload
-final_cards = c_result["accepted_cards"]
-# → merge_cards.py 로 public/data/cards.json 에 병합
+```text
+accepted_fact_safe = true
+addable_merge_safe = true
+evidence_complete = true
+source_claim_covered = true
+content_enriched = true
+language_terminology_polished = true
+publish_ready = true
+github_ready = true
 ```
 
-## 7. 최종 원칙
-
-- 입력은 하나: `final_news_llm_input.stories[]`
-- 보증은 상류: no truncation / body fetch excerpt 제공 / no auto-delete
-- 판단은 각 stage:
-  - **A (Selector)** — upstream 데이터로 **선정만** + **staleness pre-check** (A.5.1), web_fetch 안 함 (scale)
-  - **B (Writer, 선정된 것만)** — passed_spec 각각을 **web_fetch로 원문 확인** + **event_date 확정** 후 카드 작성
-  - **C (QC)** — draft 검증 + **staleness verification** (C.3 8번), 필요 시 spot-check
-- 증거는 verbatim: source_quote는 **B의 web_fetch 원문**의 substring (upstream excerpt에서 substring 금지)
-- baseline은 main: public/data/cards.json만
-- 출력은 full schema: accepted_cards만 production
-- **fresh news만 production**: stale republication (>30일)은 default discard, 8-30일은 fresh signal articulation 의무
-
-**뉴스는 정확성이 생명이다.**
-**A는 upstream으로 선정하지만, B에서 선정된 카드 각각은 원문을 web_fetch로 직접 확인한다.**
-**메타데이터 / excerpt로 추측하지 않는다.**
-**기억으로 채우지 않는다. 빈 칸은 빈 칸으로 두는 것이 가장 안전하다.**
-**1년 묵은 발표를 오늘 카드로 만들지 않는다.**
+Any waiver or exception must be explicit, bounded, and auditable.

@@ -2,114 +2,177 @@
 <!-- Generated KST: 2026-07-08T21:33:49.790191+09:00 -->
 <!-- This file is a full clean replacement file. It is not a patch stub. -->
 
-# Card ID Standard — Locked
+# SCHEMA_CONTRACT_STAGE_LINEAGE.md
 
-이 문서는 **앞으로 생성되는 모든 카드**의 ID 형식을 잠근다.
+Authoritative shared schema contract for SBTL_HUB stage lineage and artifact conformance.
 
-## 1. 표준 포맷
+This file is imported by reference by Stage A, Stage B, Stage C, Prompt 0.4, WORKFLOW, and OPERATIONS.
+
+## Purpose
+
+The pipeline must not discover required lineage omissions only at Prompt 0.4. Each named stage must verify its own output before recommending the next stage.
+
+If a stage artifact is missing required schema fields, the stage must stop with:
 
 ```text
-YYYY-MM-DD_REGION_NN
+BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT
 ```
 
-- `YYYY-MM-DD`: 뉴스 사건의 발생일, 기사 발행일 아님
-- `REGION`: 카드 region 값과 동일. `KR | US | CN | JP | EU | GL`
-- `NN`: 같은 (date, region) 조합 내 2자리 zero-padded 순번
+Prompt 0.4 lineage guard remains hard. Do not weaken it to tolerate fields that the upstream prompt could and should have emitted.
 
-예시:
+---
 
-- `2026-04-15_CN_01`
-- `2026-04-16_KR_03`
-- `2026-04-16_EU_01`
-- `2026-04-14_GL_02`
+## Stage A strict_passed_spec[] required lineage fields
 
-## 2. NN 할당 규칙
+Every `strict_passed_spec[]` item must include:
 
-같은 (date, region) 그룹 안에서:
-
-1. signal 우선순위: `top` → `high` → `mid`
-2. 동일 signal 안에서는 편집자의 중요도 판단
-3. 한 번 할당된 NN은 재사용 금지
-
-## 3. 금지 사항
-
-- 중간 파이프라인 단계 지표를 ID에 포함하지 않는다.
-- 주차 표식 단독 사용 금지.
-- 역사적 레거시 ID는 그대로 보존한다.
-
-## 4. 마이그레이션 정책
-
-- 기존 레거시 카드는 재명명하지 않는다.
-- 신규 카드만 본 표준을 적용한다.
-- 프론트엔드 정렬은 date 필드 기준이므로 혼재가 렌더링에 영향 없다.
-
-## 5. 동시성·충돌 방지
-
-현재는 수동 할당. 장기적으로 자동화 가능.
-
-## 6. related 필드와의 관계
-
-다른 카드와의 관계는 본문에 ID를 박제하지 않고 `related` 배열로 관리한다.
-
-```json
-{
-  "id": "2026-04-15_CN_01",
-  "related": ["2026-04-07_CN_04"]
-}
+```text
+spec_id
+source_story_ids
+strict_pass_gate
+strict_pass_gate.status
+strict_pass_gate.reason
+strict_pass_gate.all_six_conditions_passed
+enhanced_selector_precision_version
+selector_policy_version
+strict_gate_check
+format_risk_tags
+execution_anchor_type
+execution_anchor_strength
+baseline_relation
+duplicate_risk
+staleness_decision
+source_access_risk
+stage_a_evidence_status
+stage_b_evidence_package_required
+primary_url_semantics
 ```
 
-본문에서는 자연어로 간접 참조한다.
+`staleness_decision` is required as a top-level field. A nested explanatory
+object such as `staleness.decision` may be present, but it does not satisfy this
+contract by itself.
 
-## 7. 최종 원칙
+`stage_a_evidence_status` must be:
 
-**ID는 편집이 아니라 정체성이다. 한 번 잠기면 수정하지 않는다.**
+```text
+not_evidence_complete_no_fetch
+```
 
-<!-- INTEGRATED_RULE_BEGIN: VISIBLE_FIELD_KOREAN_ONLY_SCHEMA_RULE_20260514_v2 -->
-## 8. visible field 언어 정책 (P_012, 20260514_v2)
+`primary_url_semantics` must be:
 
-### 8.1 정책 요지
+```text
+provided_source_candidate_not_evidence
+```
 
-cards.json 의 다음 visible field 는 **한국어 + ASCII** 만 포함:
+## Stage A top-level review-pool contract fields
 
-- `title`
-- `sub`
-- `gate`
-- `fact`
-- `implication[]`
-- `sub_cat`
-- `fact_sources[].claim`
+Stage A output must include these top-level fields when any review/carry-forward
+pool exists:
 
-### 8.2 면제 필드
+```text
+review_pool_partition_summary
+review_pool_carry_forward_ledger_status
+review_pool_resolution_ledger
+```
 
-- `fact_sources[].source_quote` — 원문 인용 보존 (외국어 허용)
-- `urls[]` — ASCII URL only
+Do not expose these only in Markdown, CSV, `summary`, or nested `status_gates`.
+Downstream stages and validators may block when the top-level aliases are
+missing.
 
-### 8.3 외국어 처리 정책
+## Stage A hard-reject basis contract
 
-| 카테고리 | 표기 | 예 |
-|---|---|---|
-| 표준 약어 | English-only | CATL, BYD, BNEF, LFP, ESS, BESS |
-| 친숙 음역 회사 | Korean-only | 비야디, 샤오펑, 니오, 지커 |
-| 첫 등장 고유명사 | 한국어(English) 병기 | 톈치리튬(Tianqi), Hisai(하이보스창) |
-| 표준 약어 풀이 | English(한국어) | OEM(현대·기아), AMPC(첨단제조생산세액공제) |
-| Hanja prefix | 한국어 변환 | 美→미국, 中→중국 |
-| Hanja currency | 한국어 변환 | 元→위안 |
-| Hanja 지명 | Korean transliteration | 北京→베이징, 사카이市→사카이시 |
-| 일본어 (Hiragana/Katakana) | Korean transliteration | ソフトバンク→소프트뱅크 |
+`rejected[].hard_reject_basis` must be one of:
 
-### 8.4 enforcement layers
+```text
+out_of_scope
+not_sbtl_lane
+consumer_noise
+local_noise
+duplicate_without_incremental_value
+stale_without_fresh_angle
+source_broken_unrecoverable
+generic_keyword_only
+```
 
-- **Stage B (P_012 HARD RULE)**: draft_cards emit 시 visible field foreign-char free 강제
-- **0.7 Gate 11**: publish_ready 진입 전 backstop 검증
-- **0.8 wrapper build**: 외국어 잔존 시 build warning
+Risk/category labels such as `general_politics`, `politics`, `memorial`,
+`sports`, `low_signal`, or `not_interesting` are not valid
+`hard_reject_basis` values. Preserve them in detail/risk metadata if useful, but
+map the closure basis to one of the allowed basis values.
 
-### 8.5 baseline 정리 정책
+---
 
-- baseline 의 기존 외국어 잔존 카드는 retroactive 정리하지 않는 것이 원칙
-- 단 user instruction 또는 visible field overhaul 의 경우 일괄 정리 가능
-- retroactive 정리 시 codex_followup audit log 에 명시
+## Stage B required lineage fields
 
-# CARD_ID_STANDARD.md — Source Diversity source-diversity integrated rule
+Stage B output must include:
+
+```text
+lineage_integrity_status
+stage_a_validity_guard_applied
+strict_gate_metadata_preserved
+execution_anchor_metadata_preserved
+superseded_lineage_mixed
+manual_integrated rule_mixed
+previous_run_output_mixed
+```
+
+Stage B must run `stage_a_validity_guard` before drafting. If Stage A strict specs are missing required lineage fields, Stage B must stop before evidence discovery with:
+
+```text
+BLOCKED_STAGE_A_LINEAGE_NONCOMPLIANT
+```
+
+---
+
+## Stage C required lineage / id preservation
+
+Every Stage C item in `accepted_fact_safe[]`, `revise_required[]`, `rejected[]`, and related validation pools must preserve:
+
+```text
+id
+prior_id if changed
+id_change_reason if changed
+id_collision_recheck_required if changed
+spec_id
+source_story_ids
+stage_b_lineage
+strict_gate_acceptance_guard_applied
+accepted_pool_lineage_status
+```
+
+If Stage C intentionally changes or removes an `id`, it must record:
+
+```text
+prior_id
+new_id
+id_change_reason
+id_collision_recheck_required=true
+```
+
+---
+
+## Prompt 0.4 preflight
+
+Prompt 0.4 must verify:
+
+```text
+Stage A lineage fields complete
+Stage B lineage flags complete
+Stage C id preserved
+Stage C lineage preserved
+ID collision screening possible
+```
+
+If upstream required fields are missing, Prompt 0.4 must block. This is correct behavior.
+
+---
+
+## Provided-source/evidence distinction
+
+Provided URLs, `primary_url`, source hints, Stage A `usable_text`, and Stage A `context_text` are not evidence.
+
+They become evidence only after Stage B fetch/direct inspection, source_quote extraction, claim mapping, fetch_ledger recording, and evidence_package creation.
+
+# SCHEMA_CONTRACT_STAGE_LINEAGE.md — Source Diversity source-diversity integrated rule
 
     This integrated rule is authoritative for source-diversity, source-preservation, synthesis,
     visible-source-date and same-source grouping rules. Earlier language that conflicts with this
@@ -249,17 +312,50 @@ A single-source exception is narrow and rare. It may pass only when all conditio
 
 A media article alone does not qualify merely because it is detailed.
 
-## Event identity and source clusters
+## Source-diversity lineage contract
 
-Source diversity must not create duplicate card IDs for the same event.
+Required Stage A lineage:
 
-- one event fingerprint → one representative card;
-- same-event sources → evidence/reinforcement under that card;
-- a new independent source does not create a new card;
-- a true follow-up with a new execution anchor may receive a new date/ID;
-- existing-card reinforcement must preserve the existing card ID.
+```text
+same_event_source_cluster
+support_source_candidates
+source_domain_candidates
+source_diversity_path
+source_cluster_preserved
+```
 
-ID allocation occurs after event clustering and baseline duplicate review, never per article.
+Required Stage B lineage:
+
+```text
+stage_a_support_sources_attempted
+source_independence_ledger
+source_unique_url_count
+source_unique_domain_count
+source_independent_owner_count
+source_role_coverage
+source_synthesis_plan
+```
+
+Required Stage C and downstream lineage:
+
+```text
+source_diversity_status
+source_diversity_measure
+source_diversity_roles
+source_synthesis_applied
+source_synthesis_fields
+source_synthesis_audit
+single_source_exception
+source_published_date
+visible_quote_date
+```
+
+Every downstream stage must preserve these fields or explicitly mark them not applicable with a
+reason. Missing fields block state advancement with:
+
+```text
+BLOCKED_SOURCE_DIVERSITY_LINEAGE_MISSING
+```
 
 # Source Diversity / IB-grade + Codex Hardening Integrated rule
 

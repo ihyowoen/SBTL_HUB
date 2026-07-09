@@ -93,9 +93,10 @@ cat > "$TMPDIR/stage_b_lineage_pass.json" <<'JSON'
   "manual_integrated_rule_mixed": false,
   "previous_run_output_mixed": false,
   "stage_a_support_sources_attempted": true,
-  "source_independence_ledger": [{"host": "example.gov"}],
-  "source_unique_primary_count": 1,
-  "source_unique_secondary_count": 1,
+  "source_independence_ledger": [{"host": "example.gov", "owner": "Example Government"}],
+  "source_unique_url_count": 2,
+  "source_unique_domain_count": 2,
+  "source_independent_owner_count": 2,
   "source_role_coverage": {"primary_event_evidence": 1},
   "source_synthesis_plan": "Use primary source plus secondary corroboration."
 }

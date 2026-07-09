@@ -1,22 +1,18 @@
-<!-- REPLACE_ALL_CLEAN_VERSION: LLM_PROMPT_GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX -->
-<!-- Generated KST: 2026-07-08T21:33:49.790191+09:00 -->
-<!-- This file is a full clean replacement file. It is not a patch stub. -->
-
 # Card ID Standard — Locked
 
 이 문서는 **앞으로 생성되는 모든 카드**의 ID 형식을 잠근다.
 
 ## 1. 표준 포맷
 
-```text
+```
 YYYY-MM-DD_REGION_NN
 ```
 
-- `YYYY-MM-DD`: 뉴스 사건의 발생일, 기사 발행일 아님
-- `REGION`: 카드 region 값과 동일. `KR | US | CN | JP | EU | GL`
-- `NN`: 같은 (date, region) 조합 내 2자리 zero-padded 순번
+- `YYYY-MM-DD`: 카드가 가리키는 뉴스 사건의 **발생일** (기사 발행일 아님)
+- `REGION`: 카드의 region 값과 동일. `KR | US | CN | JP | EU | GL`
+- `NN`: 같은 (date, region) 조합 내 순번. **2자리 zero-padded (01, 02, ..., 99)**
 
-예시:
+예시
 
 - `2026-04-15_CN_01`
 - `2026-04-16_KR_03`
@@ -27,417 +23,49 @@ YYYY-MM-DD_REGION_NN
 
 같은 (date, region) 그룹 안에서:
 
-1. signal 우선순위: `top` → `high` → `mid`
+1. `signal` 우선순위: `top` → `high` → `mid`
 2. 동일 signal 안에서는 편집자의 중요도 판단
-3. 한 번 할당된 NN은 재사용 금지
+3. 한 번 할당된 NN은 **재사용 금지** (카드 삭제 시에도 번호 재할당 안 함)
 
 ## 3. 금지 사항
 
 - 중간 파이프라인 단계 지표를 ID에 포함하지 않는다.
-- 주차 표식 단독 사용 금지.
-- 역사적 레거시 ID는 그대로 보존한다.
+  - 예: `W7R2_B01` (B = Prompt B 단계 표식) → 금지
+  - ID는 production 최종본 기준으로만 본다.
+- 주차 표식 (W6, W7 등) 단독 사용 금지. 날짜 기반이 표준.
+- 역사적 카드 (`W6N_*`, `W6R*`, `W7R*`, `GL01_INT` 등)는 **그대로 보존**. 리네이밍하지 않는다. 앞으로 생성되는 카드만 새 표준.
 
 ## 4. 마이그레이션 정책
 
-- 기존 레거시 카드는 재명명하지 않는다.
-- 신규 카드만 본 표준을 적용한다.
-- 프론트엔드 정렬은 date 필드 기준이므로 혼재가 렌더링에 영향 없다.
+- **기존 240장 (2026-04-17 기준)**: 레거시 ID 유지. 재명명하지 않는다.
+- **신규 카드**: 본 표준 적용. 혼재 기간 동안 두 포맷이 공존한다.
+- 프론트엔드 정렬은 `date` 필드를 기준으로 하므로 ID 포맷 혼재가 렌더링에 영향 없다.
 
-## 5. 동시성·충돌 방지
+## 5. 동시성 · 충돌 방지 (추후 보강)
 
-현재는 수동 할당. 장기적으로 자동화 가능.
+현재는 수동 할당. 주간 run 단위로 편집자가 NN을 배정한다. 장기적으로 `assign_card_id.py` 스크립트(`processed_urls.txt` 같은 레벨의 carryover 파일 기반)로 자동화 계획.
 
-## 6. related 필드와의 관계
+## 6. `related` 필드와의 관계
 
 다른 카드와의 관계는 본문에 ID를 박제하지 않고 `related` 배열로 관리한다.
 
 ```json
 {
   "id": "2026-04-15_CN_01",
-  "related": ["2026-04-07_CN_04"]
+  ...
+  "related": ["2026-04-07_CN_04", "2026-04-14_CN_02"]
 }
 ```
 
-본문에서는 자연어로 간접 참조한다.
+본문 (fact / implication) 안에서 다른 카드를 지칭할 때는 자연어로 간접 참조한다.
+
+- 나쁜 예: "W6N_04(4/7 陈景河 영입)에 이어..."
+- 좋은 예: "4/7 紫金矿业 陈景河 영입에 이어..."
+
+관련 카드 탐색은 프론트엔드의 네비게이터 UI가 담당한다.
+
+---
 
 ## 7. 최종 원칙
 
 **ID는 편집이 아니라 정체성이다. 한 번 잠기면 수정하지 않는다.**
-
-<!-- INTEGRATED_RULE_BEGIN: VISIBLE_FIELD_KOREAN_ONLY_SCHEMA_RULE_20260514_v2 -->
-## 8. visible field 언어 정책 (P_012, 20260514_v2)
-
-### 8.1 정책 요지
-
-cards.json 의 다음 visible field 는 **한국어 + ASCII** 만 포함:
-
-- `title`
-- `sub`
-- `gate`
-- `fact`
-- `implication[]`
-- `sub_cat`
-- `fact_sources[].claim`
-
-### 8.2 면제 필드
-
-- `fact_sources[].source_quote` — 원문 인용 보존 (외국어 허용)
-- `urls[]` — ASCII URL only
-
-### 8.3 외국어 처리 정책
-
-| 카테고리 | 표기 | 예 |
-|---|---|---|
-| 표준 약어 | English-only | CATL, BYD, BNEF, LFP, ESS, BESS |
-| 친숙 음역 회사 | Korean-only | 비야디, 샤오펑, 니오, 지커 |
-| 첫 등장 고유명사 | 한국어(English) 병기 | 톈치리튬(Tianqi), Hisai(하이보스창) |
-| 표준 약어 풀이 | English(한국어) | OEM(현대·기아), AMPC(첨단제조생산세액공제) |
-| Hanja prefix | 한국어 변환 | 美→미국, 中→중국 |
-| Hanja currency | 한국어 변환 | 元→위안 |
-| Hanja 지명 | Korean transliteration | 北京→베이징, 사카이市→사카이시 |
-| 일본어 (Hiragana/Katakana) | Korean transliteration | ソフトバンク→소프트뱅크 |
-
-### 8.4 enforcement layers
-
-- **Stage B (P_012 HARD RULE)**: draft_cards emit 시 visible field foreign-char free 강제
-- **0.7 Gate 11**: publish_ready 진입 전 backstop 검증
-- **0.8 wrapper build**: 외국어 잔존 시 build warning
-
-### 8.5 baseline 정리 정책
-
-- baseline 의 기존 외국어 잔존 카드는 retroactive 정리하지 않는 것이 원칙
-- 단 user instruction 또는 visible field overhaul 의 경우 일괄 정리 가능
-- retroactive 정리 시 codex_followup audit log 에 명시
-
-# CARD_ID_STANDARD.md — Source Diversity source-diversity integrated rule
-
-    This integrated rule is authoritative for source-diversity, source-preservation, synthesis,
-    visible-source-date and same-source grouping rules. Earlier language that conflicts with this
-    integrated rule is superseded only to the extent of that conflict.
-
-    ## Source Diversity source-diversity — common definitions
-
-### 1. Diversity unit
-
-Source diversity is measured by **canonical source identity and editorial independence**, not by
-`fact_sources[]` row count.
-
-The following count as one source:
-
-- multiple claims or quotes from the same canonical article URL;
-- print/mobile/AMP/RSS mirrors of the same article;
-- the same press release copied by multiple syndication sites without independent reporting;
-- multiple pages controlled by the same editorial owner that merely repeat the same source text;
-- one article split into several `fact_sources[]` entries.
-
-Required calculations:
-
-```text
-source_evidence_entry_count = count(fact_sources[])
-source_unique_url_count = count(unique canonical article URLs)
-source_unique_domain_count = count(unique canonical domains after ownership/syndication review)
-source_independent_owner_count = count(editorially independent source owners)
-```
-
-`PASS_MULTI_SOURCE` or any equivalent status is prohibited when
-`source_independent_owner_count < 2`.
-
-### 2. Preferred evidence-role structure
-
-For each independently cardable event, target three complementary roles:
-
-1. `primary_event_evidence`
-   - official notice, regulator, filing, contracting party, project owner, research institution,
-     original dataset or source owner;
-2. `independent_event_confirmation`
-   - independent news agency, financial press, trade press or local reporting that confirms the
-     event and identifies omissions, conditions or execution status;
-3. `policy_market_context`
-   - policy, market, operational, comparable-project or system-impact evidence that materially
-     improves `gate` or `implication`.
-
-Two independent source owners are the minimum default. Three complementary roles are preferred.
-A source does not satisfy diversity merely by existing; it must make a distinct contribution.
-
-### 3. Source contribution requirement
-
-Every retained source must record:
-
-```json
-{
-  "source_role": "",
-  "source_contribution": "",
-  "source_origin_type": "",
-  "source_published_date": "YYYY-MM-DD",
-  "visible_quote_date": "YYYY-MM-DD"
-}
-```
-
-`source_contribution` must explain the unique information supplied by that source. Generic values
-such as `corroboration`, `additional source`, `supports card`, or `same event` are insufficient.
-
-### 4. Visible-field synthesis requirement
-
-When an additional source supplies material information, at least one of the following visible
-fields must be revised using source-locked wording:
-
-- `fact`
-- `gate`
-- `implication`
-
-The output must record:
-
-```json
-{
-  "source_synthesis_applied": true,
-  "source_synthesis_fields": ["fact", "gate", "implication"],
-  "source_synthesis_audit": [
-    {
-      "source_domain": "",
-      "source_role": "",
-      "unique_contribution": "",
-      "affected_visible_fields": []
-    }
-  ]
-}
-```
-
-A card that merely integrates URLs while its visible content still reflects only one article has not
-passed source-diversity synthesis.
-
-### 5. Publication date and audit timestamps
-
-The date shown beside a quote must be the article or official-material publication date:
-
-```text
-visible date = source_published_date
-```
-
-`fetched_at` and `checked_at` are audit timestamps only. They must be preserved but must never be
-used as the visible news date.
-
-### 6. Rescue-before-delete rule
-
-A weak, blocked or duplicate source must not be silently discarded when it contains unique useful
-information.
-
-Use this order:
-
-1. refetch or locate the source owner/original material;
-2. find an independent same-event source;
-3. narrow unsupported wording;
-4. move unique information into an existing card as reinforcement;
-5. place unresolved items in `needs_source_augmentation` or a controlled remediation queue;
-6. use hard rejection only when the item is false, irrelevant, irreparable, promotional noise or
-   lacks any defensible decision value.
-
-Duplicate-event articles are not separate cards, but their unique facts and quotes must follow the
-representative event as support-source candidates.
-
-### 7. Single-source exception
-
-A single-source exception is narrow and rare. It may pass only when all conditions are true:
-
-- the source is official, regulatory, a filing, original dataset, court decision, contracting-party
-  release, or original research institution;
-- bounded discovery was performed and no independent body-level source was available;
-- the card contains only claims supported by that source;
-- no broad causal, comparative, first/largest, market-impact or strategic implication is asserted
-  unless the source explicitly supports it;
-- the exception reason, search ledger and scope limitation are recorded;
-- downstream Evidence QC and Final QC separately approve the exception.
-
-A media article alone does not qualify merely because it is detailed.
-
-## Event identity and source clusters
-
-Source diversity must not create duplicate card IDs for the same event.
-
-- one event fingerprint → one representative card;
-- same-event sources → evidence/reinforcement under that card;
-- a new independent source does not create a new card;
-- a true follow-up with a new execution anchor may receive a new date/ID;
-- existing-card reinforcement must preserve the existing card ID.
-
-ID allocation occurs after event clustering and baseline duplicate review, never per article.
-
-# Source Diversity / IB-grade + Codex Hardening Integrated rule
-
-Version: `GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX`  
-Generated KST: `2026-07-08T21:18:40.089502+09:00`
-
-This integrated section supersedes earlier conflicting language only to the extent of conflict.  
-It does **not** weaken Source Diversity source-diversity. It adds downstream hardening learned from PR #148 and the 20260706_130022 run.
-
-## 1. IB-grade editorial upgrade rule
-
-Cards should not be treated as publishable merely because they are fact-safe.
-
-Before `publish_ready=true`, the pipeline must classify each card into one of the following:
-
-| Tier | Meaning | Publish rule |
-|---|---|---|
-| `A` / `A-` | IB-grade or near-IB anchor | May be used as lead/anchor signal |
-| `B+` | publishable supporting signal | May publish, but must not be described as top-tier anchor |
-| below `B+` | insufficient | Must remain deferred, remediation, or support-only |
-
-A `B+` card may be upgraded only through supported visible-field refinement:
-
-- stronger strategic framing;
-- clearer `sub`;
-- sharper `gate`;
-- implication rewritten toward market / policy / supply-chain decision use;
-- no unsupported new numbers, contracts, capacity, pricing, or customer claims.
-
-Never upgrade a weak source into a strong source by language alone.
-
-## 2. Visible-field upgrade boundary
-
-When improving title, sub, fact, gate, or implication:
-
-- preserve all source boundaries;
-- do not add a new factual claim unless it is directly supported by an existing `fact_sources[]` quote or an added source;
-- do not convert `prequalified` into `awarded`;
-- do not convert `pilot` into commercial performance;
-- do not convert product showcase into customer order, certification, delivery, or revenue;
-- do not convert policy award/achievement material into implementing notice unless the notice text is present;
-- do not convert “focus / plan / report says” into confirmed CAPEX, customer, chemistry, or production start.
-
-## 3. Single-source publish-ready waiver rule
-
-If a card has:
-
-```text
-publish_ready = true
-source_independent_owner_count = 1
-```
-
-then it must satisfy one of the following:
-
-1. official / regulator / company primary source;
-2. reputable market data provider with bounded data claim;
-3. reputable trade or mainstream media with body-level evidence and bounded claims;
-4. explicit user-provided official body text.
-
-A valid waiver must include:
-
-```json
-"single_source_exception": {
-  "allowed": true,
-  "type": "...",
-  "reason": "...",
-  "mitigation": "..."
-}
-```
-
-Invalid patterns:
-
-```json
-"single_source_exception": {
-  "allowed": false,
-  "reason": "two or more source owners..."
-}
-```
-
-on a publish-ready single-source card is a blocker.
-
-Required blocker:
-
-```text
-status = BLOCKED_PUBLISH_READY_SINGLE_SOURCE_WITHOUT_VALID_WAIVER
-```
-
-## 4. Stale publish blocker removal rule
-
-No card may be both publish-ready and actively blocked.
-
-Invalid:
-
-```json
-{
-  "publish_ready": true,
-  "state": "publish_ready",
-  "do_not_publish_until": "..."
-}
-```
-
-If the blocker has been satisfied, remove the active field entirely.
-
-Permitted audit trail:
-
-```json
-"prior_publish_blocker_removed": {
-  "field": "do_not_publish_until",
-  "old_value": "...",
-  "reason": "...",
-  "removed_at_kst": "..."
-}
-```
-
-Required blocker:
-
-```text
-status = BLOCKED_PUBLISH_READY_CARD_HAS_ACTIVE_DO_NOT_PUBLISH_UNTIL
-```
-
-## 5. Deferred/watchlist discipline
-
-Do not delete high-value deferred cards simply because official/independent evidence is not yet available.
-
-Use:
-
-- `deferred_watchlist_high_value`
-- `conditional_watchlist`
-- `support_only_pending`
-- `deprioritized_not_deleted`
-
-A deferred card can be promoted only when the missing source-claim coverage is actually satisfied.
-
-## 6. PR / GitHub merge hardening
-
-Before PR or merge:
-
-- verify total count;
-- verify latest baseline;
-- verify `publish_ready` cards have no active blockers;
-- verify single-source publish cards have valid waiver;
-- verify no visible internal terms remain:
-  - `fetch`
-  - `stage`
-  - `quote mapping`
-  - `baseline` unless user-facing context explicitly requires it;
-- verify `source_independent_owner_count` is editorial-owner based, not `fact_sources[]` row count;
-- verify UI display groups same canonical URL once;
-- verify quote date is article/publication date, not fetch/check date.
-
-## 7. Codex response protocol
-
-If Codex flags metadata inconsistency:
-
-1. Determine whether the issue is a visible claim problem or metadata/QC state problem.
-2. Do not expand visible claims unless evidence requires it.
-3. Prefer minimal metadata fix if the card is already fact-safe.
-4. Add an audit record only if it is non-blocking.
-5. Re-run:
-   - JSON parse
-   - publish-ready blocker scan
-   - single-source waiver scan
-   - visible internal-term scan
-   - total count check
-
-## 8. Required final statuses
-
-A card may be merged only when:
-
-```text
-accepted_fact_safe = true
-addable_merge_safe = true
-evidence_complete = true
-source_claim_covered = true
-content_enriched = true
-language_terminology_polished = true
-publish_ready = true
-github_ready = true
-```
-
-Any waiver or exception must be explicit, bounded, and auditable.

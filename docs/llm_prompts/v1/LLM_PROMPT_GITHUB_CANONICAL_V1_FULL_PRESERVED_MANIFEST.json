@@ -1,0 +1,487 @@
+{
+  "version": "LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_SOURCE_DIVERSITY_IB_CODEX",
+  "generated_at_kst": "2026-07-08T21:22:26.085068+09:00",
+  "source_inputs": [
+    "LLM_Prompt.zip",
+    "SBTL_PROMPT_PACKAGE_SOURCE_DIVERSITY_SOURCE_DIVERSITY_20260702(1).zip",
+    "SBTL_PROMPT_PACKAGE_GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX_20260708_211840_KST.zip"
+  ],
+  "stage_prompt_count": 14,
+  "governance_doc_count": 9,
+  "total_file_count": 42,
+  "source-diversity_apply_count": 23,
+  "GitHub canonical v1_apply_count": 23,
+  "missing_targets": [],
+  "apply_results": [
+    {
+      "version": "source-diversity",
+      "target_file": "01_PROMPT_0_1_Stage_A.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "02_PROMPT_0_2_Stage_B_r0.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "03_PROMPT_0_3_Stage_C_r0.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "04_PROMPT_0_2R_Stage_B_Revise.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "05_PROMPT_0_3R_Stage_C_Revise.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "06_PROMPT_0_4_Baseline_Revalidation.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "07_PROMPT_0_5_Evidence_QC.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "08_PROMPT_0_6_Content_Polish.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "09_PROMPT_0_7_Final_QC.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "11_PROMPT_0_9_Production_Verification.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "12_PROMPT_1_0_Remediation.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "13_PROMPT_1_1_Retrospective.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "14_PROMPT_0_1P_Review_Pool_Promotion.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "FACT_DISCIPLINE.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "PROMPT_ABC_DEFAULT_MODE.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "PROMPT_ABC_SUPPORTING_RULES.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "CARD_ID_STANDARD.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "WORKFLOW.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "OPERATIONS.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "action": "appended"
+    },
+    {
+      "version": "source-diversity",
+      "target_file": "SCHEMA_CONTRACT_STAGE_LINEAGE.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "01_PROMPT_0_1_Stage_A.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "02_PROMPT_0_2_Stage_B_r0.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "03_PROMPT_0_3_Stage_C_r0.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "04_PROMPT_0_2R_Stage_B_Revise.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "05_PROMPT_0_3R_Stage_C_Revise.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "06_PROMPT_0_4_Baseline_Revalidation.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "07_PROMPT_0_5_Evidence_QC.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "08_PROMPT_0_6_Content_Polish.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "09_PROMPT_0_7_Final_QC.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "11_PROMPT_0_9_Production_Verification.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "12_PROMPT_1_0_Remediation.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "13_PROMPT_1_1_Retrospective.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "14_PROMPT_0_1P_Review_Pool_Promotion.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "FACT_DISCIPLINE.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "PROMPT_ABC_DEFAULT_MODE.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "PROMPT_ABC_SUPPORTING_RULES.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "CARD_ID_STANDARD.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "WORKFLOW.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "OPERATIONS.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "action": "appended"
+    },
+    {
+      "version": "GitHub canonical v1",
+      "target_file": "SCHEMA_CONTRACT_STAGE_LINEAGE.md",
+      "action": "appended"
+    }
+  ],
+  "stage_prompt_files": [
+    "01_PROMPT_0_1_Stage_A.md",
+    "02_PROMPT_0_2_Stage_B_r0.md",
+    "03_PROMPT_0_3_Stage_C_r0.md",
+    "04_PROMPT_0_2R_Stage_B_Revise.md",
+    "05_PROMPT_0_3R_Stage_C_Revise.md",
+    "06_PROMPT_0_4_Baseline_Revalidation.md",
+    "07_PROMPT_0_5_Evidence_QC.md",
+    "08_PROMPT_0_6_Content_Polish.md",
+    "09_PROMPT_0_7_Final_QC.md",
+    "10_PROMPT_0_8_GitHub_Merge_Prep.md",
+    "11_PROMPT_0_9_Production_Verification.md",
+    "12_PROMPT_1_0_Remediation.md",
+    "13_PROMPT_1_1_Retrospective.md",
+    "14_PROMPT_0_1P_Review_Pool_Promotion.md"
+  ],
+  "governance_files": [
+    "FACT_DISCIPLINE.md",
+    "PROMPT_ABC_DEFAULT_MODE.md",
+    "PROMPT_ABC_SUPPORTING_RULES.md",
+    "FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+    "CARD_ID_STANDARD.md",
+    "WORKFLOW.md",
+    "OPERATIONS.md",
+    "POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+    "SCHEMA_CONTRACT_STAGE_LINEAGE.md"
+  ],
+  "files": [
+    {
+      "path": "01_PROMPT_0_1_Stage_A.md",
+      "size_bytes": 100998,
+      "sha256": "27a9a37770a823526d6e554ec04cbde9dca574fdcdb1e841775bc55aaafff218"
+    },
+    {
+      "path": "02_PROMPT_0_2_Stage_B_r0.md",
+      "size_bytes": 98635,
+      "sha256": "3796284bf175403070195597f063d4c9290a2be78383adc8491cc55d7ae895c9"
+    },
+    {
+      "path": "03_PROMPT_0_3_Stage_C_r0.md",
+      "size_bytes": 71130,
+      "sha256": "7aa347858a8d73b1518a6a7c3f389b49ff065ca729c7e2848dca7351817acbc7"
+    },
+    {
+      "path": "04_PROMPT_0_2R_Stage_B_Revise.md",
+      "size_bytes": 53958,
+      "sha256": "9c0badfdc9431a8c18026db352890d593ae47af20573a8ce4f9eaf68b296adf3"
+    },
+    {
+      "path": "05_PROMPT_0_3R_Stage_C_Revise.md",
+      "size_bytes": 50014,
+      "sha256": "2e5a485a5d4718769dd109991ee174fc3848a3a18b627d58c9acf4c5f3f7ce58"
+    },
+    {
+      "path": "06_PROMPT_0_4_Baseline_Revalidation.md",
+      "size_bytes": 69937,
+      "sha256": "97e4fee6d26b3bce662fd99f69a8e6571b1382dd07e94cecbc5779592f3f774a"
+    },
+    {
+      "path": "07_PROMPT_0_5_Evidence_QC.md",
+      "size_bytes": 101677,
+      "sha256": "829e2fabe3048c76635563a91a60a274d69a687b565324b419eaade340c3bc55"
+    },
+    {
+      "path": "08_PROMPT_0_6_Content_Polish.md",
+      "size_bytes": 97139,
+      "sha256": "6194849080c6005b6652006fcc7ecdcc145e8d7a0e5b582cb4a5e8415557fc69"
+    },
+    {
+      "path": "09_PROMPT_0_7_Final_QC.md",
+      "size_bytes": 90219,
+      "sha256": "3f5b0feaad8c72ede021e8a5e5412fc6bf2d63c576dae9ec52c32586a120561a"
+    },
+    {
+      "path": "10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "size_bytes": 79305,
+      "sha256": "f720bc01b8450197611e5fccfbcb4b87ac8c3697b652dd0d6c65b826d23b878f"
+    },
+    {
+      "path": "11_PROMPT_0_9_Production_Verification.md",
+      "size_bytes": 59875,
+      "sha256": "3c886be942e9ef0d415a7be343e33c1f313619500603a7e56a3d306d78e6d3a7"
+    },
+    {
+      "path": "12_PROMPT_1_0_Remediation.md",
+      "size_bytes": 54243,
+      "sha256": "9b36b15b816d9200ff002f7ae25b7ae7fd3127cbb13561a440b85d8ef876fffc"
+    },
+    {
+      "path": "13_PROMPT_1_1_Retrospective.md",
+      "size_bytes": 82775,
+      "sha256": "80f7b0fcf9b5f2329c269f398641277bf5346db66754340c19ef8dae1097443f"
+    },
+    {
+      "path": "14_PROMPT_0_1P_Review_Pool_Promotion.md",
+      "size_bytes": 16972,
+      "sha256": "addca2aad4ae9db95bf29ce7b7445b1a1044c37508d3291f76832e622288634b"
+    },
+    {
+      "path": "CARD_ID_STANDARD.md",
+      "size_bytes": 14348,
+      "sha256": "6ede94939c7baa9795793e6c43a298ebbedda10aa52c36c1a2543580356fedae"
+    },
+    {
+      "path": "FACT_DISCIPLINE.md",
+      "size_bytes": 20799,
+      "sha256": "0d1b1427ea285da06b90f817b70007a240fd65c46f2ab48478613a0a3565f5a6"
+    },
+    {
+      "path": "FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "size_bytes": 18922,
+      "sha256": "df2499573fbec96c191d8526187557401bfbfab234d79f8eae7071ae609babe6"
+    },
+    {
+      "path": "OPERATIONS.md",
+      "size_bytes": 75812,
+      "sha256": "be1034bd8af183da9aa6defd2852a495a20e4331d4fec955e5b2f6f368bff4cf"
+    },
+    {
+      "path": "POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "size_bytes": 62847,
+      "sha256": "76f10c6a376f3f12eb1b80cdb3cee2bfa3698842489f0ec2821b2989b5f8b572"
+    },
+    {
+      "path": "PROMPT_ABC_DEFAULT_MODE.md",
+      "size_bytes": 66636,
+      "sha256": "512f4f7a1d8d7765b5b3b20edd2765a7a6c464ca3e71c467c8b190300d98fdb4"
+    },
+    {
+      "path": "PROMPT_ABC_SUPPORTING_RULES.md",
+      "size_bytes": 62041,
+      "sha256": "8f5fa9b71af83025d18230a6ff6dace2823a5c9d0cab74372e8784d3b9687cca"
+    },
+    {
+      "path": "PROMPT_MANIFEST.md",
+      "size_bytes": 2903,
+      "sha256": "c461b821e11352c978f379a4a507beebcc63c45ed8063f59675eb230af995976"
+    },
+    {
+      "path": "README_LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED.md",
+      "size_bytes": 2597,
+      "sha256": "6ff91c18ddb8574aec2aef36a843d4b3459ac1188354ef139c9cbce7db15911c"
+    },
+    {
+      "path": "SCHEMA_CONTRACT_STAGE_LINEAGE.md",
+      "size_bytes": 15568,
+      "sha256": "b7bdb4ed865fb128e68e3bda0976c2bc07d47bca76ab025e50419fe60b2f0ee8"
+    },
+    {
+      "path": "SOURCE_ONLY_MANIFEST.json",
+      "size_bytes": 4873,
+      "sha256": "aa9c010b2e284fdde70399d888e331d72481029ecb6b053ea5c2dd6f727802f6"
+    },
+    {
+      "path": "WORKFLOW.md",
+      "size_bytes": 76891,
+      "sha256": "c6591b7b4d1127ac414022341a030e4560a2ef25d12bd1c52196c98f8edad3e9"
+    },
+    {
+      "path": "docs/SOURCE_DIVERSITY_SOURCE_DIVERSITY_MASTER_RULE.md",
+      "size_bytes": 5213,
+      "sha256": "569175afa77757506620d718253c79b092c5e84bb6f8d74529990113fb08d35c"
+    },
+    {
+      "path": "docs/GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX_MASTER_RULE.md",
+      "size_bytes": 1799,
+      "sha256": "532f8f9a0895d5e2c0ef680873e84fc4cfee8b3752de12f355e4e872dfa00bb0"
+    },
+    {
+      "path": "entity_alias_map.json",
+      "size_bytes": 26995,
+      "sha256": "fcac8ac153ca68e4f6c61dd4c05cf24f73fb1c24dd2ab140a184616e80b73074"
+    },
+    {
+      "path": "package_reference/README_SOURCE_DIVERSITY_SOURCE_DIVERSITY.md",
+      "size_bytes": 1653,
+      "sha256": "e04293863ab5a95cbd7a37d5f9aa40c76cba2a5eeb2a37068627d451a9443f4f"
+    },
+    {
+      "path": "package_reference/README_GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX.md",
+      "size_bytes": 1257,
+      "sha256": "579886b5f2129d754d68c259363549476a79f1d40b74afb1591907f74f87ae20"
+    },
+    {
+      "path": "package_reference/SOURCE_DIVERSITY_SOURCE_DIVERSITY_INTEGRATED_RULE_MANIFEST.json",
+      "size_bytes": 6817,
+      "sha256": "2813efdf544d810a791b9e4611239b41e4d512dac2c603f697eff9bafbf9e68c"
+    },
+    {
+      "path": "package_reference/SOURCE_DIVERSITY_GITHUB_CANONICAL_V1_IB_CODEX_INTEGRATED_RULE_MANIFEST.json",
+      "size_bytes": 6824,
+      "sha256": "b170f2802b50e7b90d48f07092e708d86f4c51a5af42e057ae44381b1b01c460"
+    },
+    {
+      "path": "scripts/apply_source_diversity_source-diversity.py",
+      "size_bytes": 2566,
+      "sha256": "59be8f66e0a8eac716fe6d28ceff0dd9f1acab57b17806fd56a42839f0739584"
+    },
+    {
+      "path": "scripts/apply_source_diversity_GitHub canonical v1_ib_codex.py",
+      "size_bytes": 2198,
+      "sha256": "58f46b3db823f1a67344754e3deb3b79eadca5abf7182c90cb8c0915bd02a150"
+    },
+    {
+      "path": "scripts/validate_cards_source_diversity_source-diversity.py",
+      "size_bytes": 2855,
+      "sha256": "c21220b3c7399c957760a793a4cbfa91821800f23f869957351c3ca7c71c1ba7"
+    },
+    {
+      "path": "scripts/validate_cards_GitHub canonical v1_ib_codex.py",
+      "size_bytes": 1860,
+      "sha256": "ba8fe5692b926f0e83259ac56f5290fc30df96a6610bc8ae3ea9998caae361e0"
+    },
+    {
+      "path": "scripts/validate_patched_prompt_package.py",
+      "size_bytes": 3153,
+      "sha256": "4a8682b0e7e93eba412b6fcd159e9014beb37e547931f42c8299045dce72e0db"
+    },
+    {
+      "path": "validation_scripts/content_audit_check.py",
+      "size_bytes": 3231,
+      "sha256": "ae1d599657527f1d8ebee10062a1b3447c28c76e40042d2779b400c15986a7b8"
+    },
+    {
+      "path": "validation_scripts/evidence_qc_v8_check.py",
+      "size_bytes": 8013,
+      "sha256": "e2a218597c87130f9c6b50682049dc32b52d14bbfeef706c2e8e6b4d32611d78"
+    },
+    {
+      "path": "validation_scripts/stage_b_evidence_gate.py",
+      "size_bytes": 8019,
+      "sha256": "ce1d81521fdf5b068bef9985535f54ce13a6291afc03b1b024d4a3b34886a85b"
+    },
+    {
+      "path": "validation_scripts/stage_lineage_contract_check.py",
+      "size_bytes": 8054,
+      "sha256": "70c49ed14c6afae858394a01814ffaa213f828f4d7c2a9b38df7e1222af8742b"
+    }
+  ],
+  "output_sha256": "577bffb4bf11eb13cfcbc148d35f809e9f04c262e9da8ccad851b1f3566b3b73"
+}

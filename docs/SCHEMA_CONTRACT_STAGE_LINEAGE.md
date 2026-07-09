@@ -111,7 +111,7 @@ stage_a_validity_guard_applied
 strict_gate_metadata_preserved
 execution_anchor_metadata_preserved
 superseded_lineage_mixed
-manual_integrated rule_mixed
+manual_integrated_rule_mixed
 previous_run_output_mixed
 ```
 

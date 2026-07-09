@@ -39,7 +39,7 @@ The default baseline is:
 GitHub main → public/data/cards.json
 ```
 
-Do not substitute prior payloads, helper files, branch-only files, manually integrated ruleed outputs, or memory-based baselines unless the user explicitly declares an alternative as current-run authoritative input.
+Do not substitute prior payloads, helper files, branch-only files, manually integrated outputs, or memory-based baselines unless the user explicitly declares an alternative as current-run authoritative input.
 
 ## 3. Stage A — Editorial Selector
 
@@ -70,9 +70,9 @@ Stage B must verify provided source-candidate, fallback, and official sources fo
 
 Stage B produces only:
 
-- `draft_card[]`
+- `draft_cards[]`
 - `draft_blocked[]`
-- `evidence_package[]`
+- `evidence_packages[]`
 - `fetch_ledger[]`
 
 Stage B must not decide accepted_fact_safe, addable_merge_safe, evidence_complete, source_claim_covered, content_enriched, language_terminology_polished, publish_ready, PR readiness, or GitHub readiness.
@@ -492,7 +492,7 @@ Stage B output must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 Stage C and Stage C revise outputs must include:
@@ -504,7 +504,7 @@ Stage C and Stage C revise outputs must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 If any accepted_fact_safe item lacks Stage A strict gate metadata, Stage C must not mark it accepted_fact_safe. It must move the item to `deferred_review_pool`, `revise_required`, `support_source_only`, or `rejected` depending on severity and stage rules.
@@ -539,7 +539,7 @@ Top-level required fields:
 - `cited_primary_search_ledger[]`
 - `alternate_source_search_ledger[]`
 
-Each `evidence_package[]`, `draft_card[]`, and `draft_blocked[]` item must carry or reference:
+Each `evidence_packages[]`, `draft_cards[]`, and `draft_blocked[]` item must carry or reference:
 
 - `event_fingerprint_search_profile`
 - `source_discovery_strategy`

@@ -45,6 +45,17 @@ C_ITEM_FIELDS = [
     'id', 'spec_id', 'source_story_ids', 'stage_b_lineage',
     'strict_gate_acceptance_guard_applied', 'accepted_pool_lineage_status'
 ]
+C_SOURCE_DIVERSITY_FIELDS = [
+    'source_diversity_status',
+    'source_diversity_measure',
+    'source_diversity_roles',
+    'source_synthesis_applied',
+    'source_synthesis_fields',
+    'source_synthesis_audit',
+    'single_source_exception',
+    'source_published_date',
+    'visible_quote_date',
+]
 REVIEW_POOLS = [
     'candidate_review_pool', 'watchlist_context_pool',
     'reject_or_support_only_pool', 'review_pool'
@@ -173,11 +184,12 @@ def check_stage_b(data):
             messages.append(f'top-level missing source-diversity lineage field {field}')
             continue
         value = data.get(field)
-        if field == 'stage_a_support_sources_attempted' and not isinstance(value, bool):
-            messages.append(f'{field} must be boolean')
+        if field == 'stage_a_support_sources_attempted':
+            if not isinstance(value, (list, bool)):
+                messages.append(f'{field} must be a support-attempt ledger array or boolean compatibility flag')
         elif field in B_SOURCE_DIVERSITY_INTEGER_FIELDS and not isinstance(value, int):
             messages.append(f'{field} must be integer')
-        elif field not in B_SOURCE_DIVERSITY_INTEGER_FIELDS | {'stage_a_support_sources_attempted'} and value in (None, '', [], {}):
+        elif field not in B_SOURCE_DIVERSITY_INTEGER_FIELDS and value in (None, '', [], {}):
             messages.append(f'{field} must be populated')
 
     return fail(messages) if messages else (print('RESULT: PASS_STAGE_B_SCHEMA_CONTRACT'), 0)[1]
@@ -196,6 +208,9 @@ def check_stage_c(data):
         for field in C_ITEM_FIELDS:
             if missing_or_empty(item, field):
                 messages.append(f'{pool} {card_id}: missing {field}')
+        for field in C_SOURCE_DIVERSITY_FIELDS:
+            if missing_or_empty(item, field):
+                messages.append(f'{pool} {card_id}: missing source-diversity lineage field {field}')
         if pool in ACCEPTED_STAGE_C_POOLS:
             if item.get('strict_gate_acceptance_guard_applied') is not True:
                 messages.append(f'{pool} {card_id}: strict_gate_acceptance_guard_applied must be true')

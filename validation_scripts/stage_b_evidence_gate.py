@@ -26,6 +26,13 @@ SOURCE_DISCOVERY_LEDGER_KEYS = {
     'cited_primary_search_ledger', 'alternate_source_search_ledger',
     'fetch_attempt_ledger', 'fetch_ledger', 'rescue_attempt_log'
 }
+SOURCE_DISCOVERY_LEDGER_REFERENCE_KEYS = {
+    'source_discovery_ledger_reference', 'source_discovery_ledger_ref',
+    'official_source_search_ledger_reference', 'official_source_search_ledger_ref',
+    'fetch_attempt_ledger_reference', 'fetch_attempt_ledger_ref',
+    'fetch_ledger_reference', 'fetch_ledger_ref',
+    'rescue_attempt_log_reference', 'rescue_attempt_log_ref'
+}
 ALLOWED_BLOCKED_SOURCE_DISCOVERY_STATUS = {
     'completed_no_verified_source',
     'incomplete',
@@ -98,6 +105,10 @@ def collect_ledgers(*scopes):
     return rows
 
 
+def has_ledger_reference(row):
+    return isinstance(row, dict) and any(bool(row.get(key)) for key in SOURCE_DISCOVERY_LEDGER_REFERENCE_KEYS)
+
+
 def source_list_from_evidence_package(evidence_package):
     sources = []
     for key in ('sources', 'fetched_sources', 'body_sources', 'fact_source_candidates', 'fact_sources'):
@@ -151,13 +162,15 @@ def evidence_ok(evidence_package, row=None, root=None):
     return not issues, issues
 
 
-def blocked_ok(row):
+def blocked_ok(row, root=None):
     ledgers = collect_ledgers(row)
+    if not ledgers and has_ledger_reference(row):
+        ledgers = collect_ledgers(root)
     reason = first_present(row, 'final_hold_or_reject_reason', 'blocked_reason', 'blocked_source_reason', 'draft_blocked_reason', 'reason')
     status = row.get('source_discovery_status')
-    rescue = row.get('rescue_attempted') is True or bool(ledgers)
+    rescue = row.get('rescue_attempted') is True or bool(ledgers) or has_ledger_reference(row)
     ok = bool(rescue and ledgers and reason and status in ALLOWED_BLOCKED_SOURCE_DISCOVERY_STATUS)
-    return ok, {'rescue': rescue, 'ledger_count': len(ledgers), 'reason': bool(reason), 'source_discovery_status': status}
+    return ok, {'rescue': rescue, 'ledger_count': len(ledgers), 'reason': bool(reason), 'source_discovery_status': status, 'ledger_reference': has_ledger_reference(row)}
 
 
 def schema_blocked_ok(row):
@@ -235,7 +248,7 @@ def main():
         flags = downstream_flags(row)
         if flags:
             problems.append(f'draft_blocked {key}: Stage B must not set downstream state flags {flags}')
-        ok, info = blocked_ok(row)
+        ok, info = blocked_ok(row, data)
         if not ok:
             problems.append(f'draft_blocked {key}: missing rescue/source-discovery ledger or final reason {info}')
 

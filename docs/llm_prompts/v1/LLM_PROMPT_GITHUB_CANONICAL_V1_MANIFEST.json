@@ -1,224 +1,65 @@
 {
   "version": "LLM_PROMPT_GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX",
-  "generated_at_kst": "2026-07-08T22:37:14.696674+09:00",
+  "generated_at_utc": "2026-07-09T05:34:00+00:00",
   "mode": "first_github_canonical_v1_replace_all_clean",
-  "source_working_package": "internal_working_package_before_github_canonical_v1",
+  "integrity_policy": "Git commit is the canonical integrity source. This manifest intentionally avoids stale per-file byte/hash assertions after follow-up validator fixes.",
   "stage_prompt_count": 14,
   "governance_doc_count": 9,
-  "total_file_count": 42,
-  "qc_issue_count": 0,
-  "qc_issues": [],
-  "files": [
-    {
-      "path": "01_PROMPT_0_1_Stage_A.md",
-      "size_bytes": 97864,
-      "sha256": "3e734606315798df6c53fe6d790ef7c1b4ac21ab0eee8fbdcd8750f81da066d2"
-    },
-    {
-      "path": "02_PROMPT_0_2_Stage_B_r0.md",
-      "size_bytes": 95534,
-      "sha256": "8467777e5787fd88350555234c6c1f96b0042e8cd81b7ee322ea70087b7070ae"
-    },
-    {
-      "path": "03_PROMPT_0_3_Stage_C_r0.md",
-      "size_bytes": 69614,
-      "sha256": "2d97b7392e5d0da50b08044c0492607b2eb013c43aec8182f35630d3bf3d42ae"
-    },
-    {
-      "path": "04_PROMPT_0_2R_Stage_B_Revise.md",
-      "size_bytes": 51741,
-      "sha256": "6ba1315c8aea0198eefc941e9c2338c59df7591aabbb0dd6bf252ff2fb2e881c"
-    },
-    {
-      "path": "05_PROMPT_0_3R_Stage_C_Revise.md",
-      "size_bytes": 48342,
-      "sha256": "dc542b6b50e1af69539577b9834afba8ac869e4140c57634c00448983f515dbe"
-    },
-    {
-      "path": "06_PROMPT_0_4_Baseline_Revalidation.md",
-      "size_bytes": 67765,
-      "sha256": "7b3f412fc042b76511a1ea521daba007020137487bb843c1152a9b6e1a8781d4"
-    },
-    {
-      "path": "07_PROMPT_0_5_Evidence_QC.md",
-      "size_bytes": 98969,
-      "sha256": "f98b25da5d336fafd60c0d38b53bdbff961f4a33b178a40ecdb1f91ddc6ddcfe"
-    },
-    {
-      "path": "08_PROMPT_0_6_Content_Polish.md",
-      "size_bytes": 94592,
-      "sha256": "da7f728db5ee09e7fa46348fd50906fcd2d5fa05386f041e9f42811903602d8b"
-    },
-    {
-      "path": "09_PROMPT_0_7_Final_QC.md",
-      "size_bytes": 87828,
-      "sha256": "08ecbf39ee10d3336e182212d4a065f551c5dea61eadd758629156455ad096fb"
-    },
-    {
-      "path": "10_PROMPT_0_8_GitHub_Merge_Prep.md",
-      "size_bytes": 76845,
-      "sha256": "e3f3f0f08a1b54d200bbcdd5287be8119ce06d5b3630219e51454c5f73e4b0ea"
-    },
-    {
-      "path": "11_PROMPT_0_9_Production_Verification.md",
-      "size_bytes": 58468,
-      "sha256": "dbb0cfb781678f0873596d278556fbefcac32429cc8a402e15fd813fd96db19b"
-    },
-    {
-      "path": "12_PROMPT_1_0_Remediation.md",
-      "size_bytes": 52735,
-      "sha256": "02df81ee8dc1413f775400c1fbff42198ca8942b9722c6e3e9564444c4dd7be3"
-    },
-    {
-      "path": "13_PROMPT_1_1_Retrospective.md",
-      "size_bytes": 79522,
-      "sha256": "defd4724189a1a9c3ecd9fc791711630eb6f180801e907e87f2d89639e6cbca3"
-    },
-    {
-      "path": "14_PROMPT_0_1P_Review_Pool_Promotion.md",
-      "size_bytes": 17069,
-      "sha256": "22bb65b0fc99190397f19eb80578c23255caf2d53a35f0ef7a1f50ca97941418"
-    },
-    {
-      "path": "CARD_ID_STANDARD.md",
-      "size_bytes": 14380,
-      "sha256": "0b29fe17aeef893be47522b77262594cd041fac75d651715b5ff7ac8a3e8b723"
-    },
-    {
-      "path": "FACT_DISCIPLINE.md",
-      "size_bytes": 20625,
-      "sha256": "3af8d0ecb82efab4e1841c1a06aa39e52bcb331937fc64f1e5d3868cc846e686"
-    },
-    {
-      "path": "FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
-      "size_bytes": 18873,
-      "sha256": "5497821c3260002d16687938acd211b4b31d46c8477eab85b00f392f5911c137"
-    },
-    {
-      "path": "LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
-      "size_bytes": 15218,
-      "sha256": "e551935298985235128af09b2e428bba25ca517dfe25ec61c1da66b59052cafa"
-    },
-    {
-      "path": "LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
-      "size_bytes": 8478,
-      "sha256": "f3eb743e5da96d4ea8f27f9740a4e85b53142c4256b1c1cd71d97c41eec757bd"
-    },
-    {
-      "path": "OPERATIONS.md",
-      "size_bytes": 72764,
-      "sha256": "a2cd9fb2b76105b69011658e9f1aef40d93e5cfff75754bc5aeb6765b7c92804"
-    },
-    {
-      "path": "POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
-      "size_bytes": 61057,
-      "sha256": "ffae1f9d98d781d1d3d833185991ed5697f388303d7f9ae29ce6538495f33e09"
-    },
-    {
-      "path": "PROMPT_ABC_DEFAULT_MODE.md",
-      "size_bytes": 64595,
-      "sha256": "a6d8c41f0c62b516be6001e6947047db75397af1691634544d955e08413ab75a"
-    },
-    {
-      "path": "PROMPT_ABC_SUPPORTING_RULES.md",
-      "size_bytes": 60392,
-      "sha256": "cfb4ba96fbd93177aef8cfef3ebe87b0d0d8af60bf302edb8c9d53a351bbed35"
-    },
-    {
-      "path": "PROMPT_MANIFEST.md",
-      "size_bytes": 2904,
-      "sha256": "a3ff3d636281b80eb2172345796b2f4b77ebcd911f95d99b5d0b84d3caba08be"
-    },
-    {
-      "path": "QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
-      "size_bytes": 766,
-      "sha256": "6e7e833c2ffe4c046cd4d20e1a4053ea9307e59e4167b094d4f8c12b5449976c"
-    },
-    {
-      "path": "QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED.md",
-      "size_bytes": 900,
-      "sha256": "790e12ee0bb80ccb046393e9c55c3924790013f452b07ce2dda9e3b63097a1e3"
-    },
-    {
-      "path": "README_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
-      "size_bytes": 1712,
-      "sha256": "df2be4c5d17586d8f2deaf72230397a6b84fc641779d3432ca1cc164aaf8df5c"
-    },
-    {
-      "path": "README_LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED.md",
-      "size_bytes": 2787,
-      "sha256": "b083d179481fc8037a8cb87cc870ad0c005efd35a326cb2523b4a15ce8ed5b9f"
-    },
-    {
-      "path": "SCHEMA_CONTRACT_STAGE_LINEAGE.md",
-      "size_bytes": 15670,
-      "sha256": "60000e25e75ed325f9a2593dd6906c661296cf1a1ad6f3bdfd5e7e5e0e8625a1"
-    },
-    {
-      "path": "SOURCE_ONLY_MANIFEST.json",
-      "size_bytes": 4873,
-      "sha256": "aa9c010b2e284fdde70399d888e331d72481029ecb6b053ea5c2dd6f727802f6"
-    },
-    {
-      "path": "WORKFLOW.md",
-      "size_bytes": 73904,
-      "sha256": "6aeb4d4008894fe59990328df12fbf3ad315021ed9b745627c2667b22f8e1cdd"
-    },
-    {
-      "path": "docs/SOURCE_DIVERSITY_V10_MASTER_RULE.md",
-      "size_bytes": 5150,
-      "sha256": "9bd34001384679922b86027602e1841571de1f67e0bea11c9653824461bac288"
-    },
-    {
-      "path": "docs/SOURCE_DIVERSITY_V1_IB_CODEX_20260708_MASTER_RULE.md",
-      "size_bytes": 1899,
-      "sha256": "ff479edf6b82a3d577d9b8fc10e7ef84e4e445222fad93de4d50c565b4319a93"
-    },
-    {
-      "path": "entity_alias_map.json",
-      "size_bytes": 26995,
-      "sha256": "fcac8ac153ca68e4f6c61dd4c05cf24f73fb1c24dd2ab140a184616e80b73074"
-    },
-    {
-      "path": "scripts/apply_source_diversity_v10.py",
-      "size_bytes": 2635,
-      "sha256": "3f3146c7df3a736d7ed04f0c55cdda7040a9cd0baad0e965be1fc3a5c929ca83"
-    },
-    {
-      "path": "scripts/validate_cards_source_diversity_v10.py",
-      "size_bytes": 2855,
-      "sha256": "c21220b3c7399c957760a793a4cbfa91821800f23f869957351c3ca7c71c1ba7"
-    },
-    {
-      "path": "scripts/validate_cards_v1_ib_codex.py",
-      "size_bytes": 1876,
-      "sha256": "52bc43f4a0683dd51e6a9a7949bb45099568d5813f62c2170a461df2373f653c"
-    },
-    {
-      "path": "scripts/validate_patched_prompt_package.py",
-      "size_bytes": 3186,
-      "sha256": "a5b985d196e67ef9feab47594df9d1b908a42d7c0ded5b4fbda999f4cf6b93de"
-    },
-    {
-      "path": "validation_scripts/content_audit_check.py",
-      "size_bytes": 3231,
-      "sha256": "ae1d599657527f1d8ebee10062a1b3447c28c76e40042d2779b400c15986a7b8"
-    },
-    {
-      "path": "validation_scripts/evidence_qc_v8_check.py",
-      "size_bytes": 8013,
-      "sha256": "e2a218597c87130f9c6b50682049dc32b52d14bbfeef706c2e8e6b4d32611d78"
-    },
-    {
-      "path": "validation_scripts/stage_b_evidence_gate.py",
-      "size_bytes": 8019,
-      "sha256": "ce1d81521fdf5b068bef9985535f54ce13a6291afc03b1b024d4a3b34886a85b"
-    },
-    {
-      "path": "validation_scripts/stage_lineage_contract_check.py",
-      "size_bytes": 8054,
-      "sha256": "70c49ed14c6afae858394a01814ffaa213f828f4d7c2a9b38df7e1222af8742b"
-    }
-  ],
-  "output_sha256": "24d37e843ce5d3e4ad3118dc804dde0e3f9f8a595f9226f5033072277dd9e517"
+  "validation_script_count": 4,
+  "changed_file_count": 37,
+  "runtime_code_change": false,
+  "cards_json_change": false,
+  "canonical_paths": {
+    "governance_docs": [
+      "docs/CARD_ID_STANDARD.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/PROMPT_ABC_SUPPORTING_RULES.md",
+      "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
+      "docs/WORKFLOW.md"
+    ],
+    "stage_prompts": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
+      "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
+      "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
+      "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
+      "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md",
+      "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+      "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
+      "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+      "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
+      "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
+      "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
+      "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md"
+    ],
+    "support_files": [
+      "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
+      "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
+      "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "docs/llm_prompts/v1/QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+      "docs/llm_prompts/v1/README_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+      "docs/llm_prompts/v1/SOURCE_DIVERSITY_V10_MASTER_RULE.md",
+      "docs/llm_prompts/v1/SOURCE_DIVERSITY_V1_IB_CODEX_20260708_MASTER_RULE.md",
+      "docs/llm_prompts/v1/UPLOAD_INSTRUCTIONS.md",
+      "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
+      "docs/llm_prompts/v1/entity_alias_map.json"
+    ],
+    "validation_scripts": [
+      "validation_scripts/content_audit_check.py",
+      "validation_scripts/evidence_qc_v8_check.py",
+      "validation_scripts/stage_b_evidence_gate.py",
+      "validation_scripts/stage_lineage_contract_check.py"
+    ]
+  },
+  "codex_followup_fixes": [
+    "Evidence QC loader includes Prompt 0.5 result buckets.",
+    "Content audit loader includes Prompt 0.6 content-polish output buckets.",
+    "Stage C lineage validator requires PASS only for accepted pools and allows non-accepted quarantine pools to carry non-PASS lineage status.",
+    "Canonical manifest no longer carries stale per-file hashes."
+  ]
 }

@@ -9,7 +9,8 @@ Checks that 0.6 Content Polish produced:
      same-cluster link CONSIDERED against batch + recent baseline?)
 
 0.7 Final QC uses this as a hard gate: publish_ready is BLOCKED if either audit
-is missing/empty, or if any card lacks a related_coverage_audit entry.
+is missing/empty, or if any card lacks a card_claim_diversity_audit entry or a
+related_coverage_audit entry.
 
 The related audit verifies that a link was CONSIDERED for each card - it does
 NOT require that a link was forced. related[] must hold only genuine links.
@@ -34,6 +35,17 @@ def load_cards(data):
     return []
 
 
+def audit_ids(rows):
+    ids = set()
+    if isinstance(rows, list):
+        for r in rows:
+            if isinstance(r, dict):
+                cid = r.get('card_id') or r.get('id')
+                if cid:
+                    ids.add(cid)
+    return ids
+
+
 def main():
     if len(sys.argv) < 2:
         print("usage: content_audit_check.py <content_output.json>")
@@ -52,17 +64,13 @@ def main():
     if not isinstance(rca, list) or len(rca) == 0:
         problems.append("related_coverage_audit[] missing or empty")
 
-    audited_ids = set()
-    if isinstance(rca, list):
-        for r in rca:
-            if isinstance(r, dict):
-                cid = r.get('card_id') or r.get('id')
-                if cid:
-                    audited_ids.add(cid)
+    diversity_audited_ids = audit_ids(cdv)
+    related_audited_ids = audit_ids(rca)
 
     card_ids = [c.get('id') for c in cards
                 if isinstance(c, dict) and c.get('id')]
-    not_audited = [cid for cid in card_ids if cid not in audited_ids]
+    not_diversity_audited = [cid for cid in card_ids if cid not in diversity_audited_ids]
+    not_related_audited = [cid for cid in card_ids if cid not in related_audited_ids]
 
     print("=== R3C_P06 content audit gate ===")
     print(f"cards                          : {len(cards)}")
@@ -71,13 +79,22 @@ def main():
     print("related_coverage_audit         : "
           f"{len(rca) if isinstance(rca, list) else 'MISSING'}")
 
-    if card_ids and not_audited:
-        print(f"cards w/o related audit entry  : {len(not_audited)}")
-        for cid in not_audited[:30]:
+    if card_ids and not_diversity_audited:
+        print(f"cards w/o diversity audit entry: {len(not_diversity_audited)}")
+        for cid in not_diversity_audited[:30]:
             print(f"    - {cid}")
-        if len(not_audited) > 30:
-            print(f"    ... (+{len(not_audited) - 30} more)")
-        problems.append(f"{len(not_audited)} card(s) absent from "
+        if len(not_diversity_audited) > 30:
+            print(f"    ... (+{len(not_diversity_audited) - 30} more)")
+        problems.append(f"{len(not_diversity_audited)} card(s) absent from "
+                        f"card_claim_diversity_audit[]")
+
+    if card_ids and not_related_audited:
+        print(f"cards w/o related audit entry  : {len(not_related_audited)}")
+        for cid in not_related_audited[:30]:
+            print(f"    - {cid}")
+        if len(not_related_audited) > 30:
+            print(f"    ... (+{len(not_related_audited) - 30} more)")
+        problems.append(f"{len(not_related_audited)} card(s) absent from "
                         f"related_coverage_audit[]")
     print()
 

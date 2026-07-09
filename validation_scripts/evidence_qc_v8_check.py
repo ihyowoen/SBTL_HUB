@@ -170,7 +170,7 @@ def main():
         needs = signal in HIGH_SIGNAL or bool(CORROBORATION_RE.search(text_blob))
         if needs:
             independent = len(independent_hosts)
-            has_official = any(is_official(u) for u in distinct_urls)
+            has_official = any(is_official(u) for u in set(visible_urls))
             if independent < 2 and not has_official:
                 flags['weak_corroboration'].append(
                     (cid, f"signal={signal or '?'}, {independent} independent visible-source host, "

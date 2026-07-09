@@ -22,7 +22,7 @@ This step starts only after production verification produced one of:
 
 Do not use this step if production verification passed.
 
-Do not continue from, trust, import, integrated rule, or reuse any previous remediation, rollback, redeploy, manually integrated ruleed output, or local-only diagnosis unless the user explicitly declares it as current-run authoritative input.
+Do not continue from, trust, import, integrated rule, or reuse any previous remediation, rollback, redeploy, manually integrated output, or local-only diagnosis unless the user explicitly declares it as current-run authoritative input.
 
 Use GitHub main, Vercel production, and the production verification report as the source of truth.
 
@@ -128,7 +128,7 @@ Required lineage fields, unless the previous step explicitly marks a field `not_
 - `strict_gate_metadata_preserved: true` or `not_applicable_after_non_card_stage`
 - `execution_anchor_metadata_preserved: true` or `not_applicable_after_non_card_stage`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 
@@ -704,7 +704,7 @@ Stage B output must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 Stage C and Stage C revise outputs must include:
@@ -716,7 +716,7 @@ Stage C and Stage C revise outputs must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 If any accepted_fact_safe item lacks Stage A strict gate metadata, Stage C must not mark it accepted_fact_safe. It must move the item to `deferred_review_pool`, `revise_required`, `support_source_only`, or `rejected` depending on severity and stage rules.

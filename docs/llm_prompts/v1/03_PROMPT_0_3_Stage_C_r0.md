@@ -1207,7 +1207,7 @@ Stage B output must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 Stage C and Stage C revise outputs must include:
@@ -1219,7 +1219,7 @@ Stage C and Stage C revise outputs must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 If any accepted_fact_safe item lacks Stage A strict gate metadata, Stage C must not mark it accepted_fact_safe. It must move the item to `deferred_review_pool`, `revise_required`, `support_source_only`, or `rejected` depending on severity and stage rules.

@@ -10,7 +10,7 @@ Use the current run’s content enrichment and language/terminology polish outpu
 
 This step starts after content enrichment and language/terminology polish.
 
-Do not continue from, trust, import, integrated rule, or reuse any previous final, PR candidate, GitHub-ready, publish-ready, or manually integrated ruleed outputs unless the user explicitly declares them as current-run authoritative inputs.
+Do not continue from, trust, import, integrated rule, or reuse any previous final, PR candidate, GitHub-ready, publish-ready, or manually integrated outputs unless the user explicitly declares them as current-run authoritative inputs.
 
 Use GitHub main as the workflow source of truth.
 
@@ -96,7 +96,7 @@ Required lineage fields, unless the previous step explicitly marks a field `not_
 - `strict_gate_metadata_preserved: true` or `not_applicable_after_non_card_stage`
 - `execution_anchor_metadata_preserved: true` or `not_applicable_after_non_card_stage`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 

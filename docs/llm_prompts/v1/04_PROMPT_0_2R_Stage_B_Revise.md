@@ -434,7 +434,7 @@ Stage B output must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 Stage C and Stage C revise outputs must include:
@@ -446,7 +446,7 @@ Stage C and Stage C revise outputs must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 If any accepted_fact_safe item lacks Stage A strict gate metadata, Stage C must not mark it accepted_fact_safe. It must move the item to `deferred_review_pool`, `revise_required`, `support_source_only`, or `rejected` depending on severity and stage rules.
@@ -864,7 +864,7 @@ The corrected diagnosis from run `20260516_012728` is that Stage A and Stage B f
 
 Stage A exit must fail if any `strict_passed_spec[]` item lacks required lineage fields from `SCHEMA_CONTRACT_STAGE_LINEAGE.md`, including `enhanced_selector_precision_version`, `selector_policy_version`, `strict_gate_check`, `staleness_decision`, `source_access_risk`, and `strict_pass_gate.all_six_conditions_passed`.
 
-Stage B preflight must run `stage_a_validity_guard` before drafting. Stage B output must include `lineage_integrity_status`, `stage_a_validity_guard_applied`, `strict_gate_metadata_preserved`, `execution_anchor_metadata_preserved`, `superseded_lineage_mixed`, `manual_integrated rule_mixed`, and `previous_run_output_mixed`.
+Stage B preflight must run `stage_a_validity_guard` before drafting. Stage B output must include `lineage_integrity_status`, `stage_a_validity_guard_applied`, `strict_gate_metadata_preserved`, `execution_anchor_metadata_preserved`, `superseded_lineage_mixed`, `manual_integrated_rule_mixed`, and `previous_run_output_mixed`.
 
 If required fields are missing, stop with `BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT` or `BLOCKED_STAGE_A_LINEAGE_NONCOMPLIANT`.
 

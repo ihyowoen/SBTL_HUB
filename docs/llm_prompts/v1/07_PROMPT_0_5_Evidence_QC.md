@@ -92,7 +92,7 @@ Required lineage fields, unless the previous step explicitly marks a field `not_
 - `strict_gate_metadata_preserved: true` or `not_applicable_after_non_card_stage`
 - `execution_anchor_metadata_preserved: true` or `not_applicable_after_non_card_stage`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 

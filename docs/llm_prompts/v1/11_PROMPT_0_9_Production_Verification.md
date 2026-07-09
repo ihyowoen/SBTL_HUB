@@ -10,7 +10,7 @@ This step starts only after the GitHub PR has been merged into main.
 
 Use the current run’s GitHub merge preparation output and the merged GitHub main state as the only verification universe for this step.
 
-Do not continue from, trust, import, integrated rule, or reuse any previous production verification, deployment check, manually integrated ruleed app state, preview result, or local-only output unless the user explicitly declares it as current-run authoritative input.
+Do not continue from, trust, import, integrated rule, or reuse any previous production verification, deployment check, manually integrated app state, preview result, or local-only output unless the user explicitly declares it as current-run authoritative input.
 
 Use GitHub main and Vercel production as the verification source of truth.
 
@@ -127,14 +127,14 @@ Required lineage fields, unless the previous step explicitly marks a field `not_
 - `strict_gate_metadata_preserved: true` or `not_applicable_after_non_card_stage`
 - `execution_anchor_metadata_preserved: true` or `not_applicable_after_non_card_stage`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 
 For Prompt 0.9 specifically, GitHub merge prep is the upstream production data source. It must prove that:
 - every verified card was actually included in the merged GitHub main data candidate
 - the merge prep output came from current-run publish_ready[] only
-- no post-QC hold, rejected, duplicate, review_pool, or manually integrated ruleed card was merged
+- no post-QC hold, rejected, duplicate, review_pool, or manually integrated card was merged
 - format-risk / execution-anchor metadata and required evidence/content flags remain present in main data for newly added cards
 
 If any required lineage field is missing, false, contradictory, stale, not from the same run, or inconsistent with the candidate payload, stop immediately and report:
@@ -929,7 +929,7 @@ Stage B output must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 Stage C and Stage C revise outputs must include:
@@ -941,7 +941,7 @@ Stage C and Stage C revise outputs must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 If any accepted_fact_safe item lacks Stage A strict gate metadata, Stage C must not mark it accepted_fact_safe. It must move the item to `deferred_review_pool`, `revise_required`, `support_source_only`, or `rejected` depending on severity and stage rules.

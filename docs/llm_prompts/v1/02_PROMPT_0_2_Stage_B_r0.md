@@ -154,7 +154,7 @@ Stage B must not use:
 - previous accepted payloads
 - previous addable payloads
 - previous post-QC outputs
-- prior manually integrated ruleed files
+- prior manually integrated files
 - any card or candidate not present in current Stage A strict_passed_spec[]
 
 If the user wants review_pool items promoted, that requires an explicit separate review/promotion run before Stage B.
@@ -1297,7 +1297,7 @@ Stage B output must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 Stage C and Stage C revise outputs must include:
@@ -1309,7 +1309,7 @@ Stage C and Stage C revise outputs must include:
 - `strict_gate_metadata_preserved: true|false`
 - `execution_anchor_metadata_preserved: true|false`
 - `superseded_lineage_mixed: false`
-- `manual_integrated rule_mixed: false`
+- `manual_integrated_rule_mixed: false`
 - `previous_run_output_mixed: false`
 
 If any accepted_fact_safe item lacks Stage A strict gate metadata, Stage C must not mark it accepted_fact_safe. It must move the item to `deferred_review_pool`, `revise_required`, `support_source_only`, or `rejected` depending on severity and stage rules.
@@ -1340,7 +1340,7 @@ Top-level required fields:
 - `cited_primary_search_ledger[]`
 - `alternate_source_search_ledger[]`
 
-Each `evidence_package[]`, `draft_card[]`, and `draft_blocked[]` item must carry or reference:
+Each `evidence_packages[]`, `draft_cards[]`, and `draft_blocked[]` item must carry or reference:
 
 - `event_fingerprint_search_profile`
 - `source_discovery_strategy`
@@ -1817,7 +1817,7 @@ Visible-source URL sync remains a hard gate: every `fact_sources[].source_url` s
 
 ## Stage B source diversity precheck
 
-For every `draft_card[]` and every `draft_blocked[]` item, Stage B must include a source diversity precheck object. This is not the final source-diversity decision; it is an early risk flag for 0.5.
+For every `draft_cards[]` and every `draft_blocked[]` item, Stage B must include a source diversity precheck object. This is not the final source-diversity decision; it is an early risk flag for 0.5.
 
 Required object:
 
@@ -2095,7 +2095,7 @@ The corrected diagnosis from run `20260516_012728` is that Stage A and Stage B f
 
 Stage A exit must fail if any `strict_passed_spec[]` item lacks required lineage fields from `SCHEMA_CONTRACT_STAGE_LINEAGE.md`, including `enhanced_selector_precision_version`, `selector_policy_version`, `strict_gate_check`, `staleness_decision`, `source_access_risk`, and `strict_pass_gate.all_six_conditions_passed`.
 
-Stage B preflight must run `stage_a_validity_guard` before drafting. Stage B output must include `lineage_integrity_status`, `stage_a_validity_guard_applied`, `strict_gate_metadata_preserved`, `execution_anchor_metadata_preserved`, `superseded_lineage_mixed`, `manual_integrated rule_mixed`, and `previous_run_output_mixed`.
+Stage B preflight must run `stage_a_validity_guard` before drafting. Stage B output must include `lineage_integrity_status`, `stage_a_validity_guard_applied`, `strict_gate_metadata_preserved`, `execution_anchor_metadata_preserved`, `superseded_lineage_mixed`, `manual_integrated_rule_mixed`, and `previous_run_output_mixed`.
 
 If required fields are missing, stop with `BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT` or `BLOCKED_STAGE_A_LINEAGE_NONCOMPLIANT`.
 

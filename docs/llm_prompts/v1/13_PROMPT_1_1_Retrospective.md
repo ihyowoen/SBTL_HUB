@@ -2,278 +2,189 @@
 <!-- Generated KST: 2026-07-08T21:33:49.790191+09:00 -->
 <!-- This file is a full clean replacement file. It is not a patch stub. -->
 
-# SBTL_HUB 운영 매뉴얼
+Prompt 1.1v — Reusable Default / Replace All / Run Retrospective & Post-Mortem
+
+Proceed to run retrospective and post-mortem only.
+
+Use the current run’s completed workflow outputs as the only analysis universe for this retrospective.
+
+This step starts after one of the following:
+
+- production verification passed
+- production verification failed and remediation decision was completed
+- the user explicitly stops the run and requests retrospective
+- the run is blocked and the user requests post-mortem
 
-## 0. 역할
+Do not use this step to continue the card-generation workflow.
+
+Do not create new cards.
+Do not revise cards.
+Do not fetch article bodies for new evidence.
+Do not perform source augmentation.
+Do not prepare PRs.
+Do not modify GitHub.
+Do not claim production completion.
 
-이 문서는 실무자가 매 run에서 무엇을 확인하고 무엇을 차단해야 하는지를 정의한다.
+Use GitHub main workflow docs as the process reference.
 
-신규 카드 기준은 full schema only다.
+Before starting, read the latest versions of all required workflow docs from GitHub main:
 
-## 1. 기본 규칙
+1. docs/FACT_DISCIPLINE.md
+2. docs/PROMPT_ABC_DEFAULT_MODE.md
+3. docs/PROMPT_ABC_SUPPORTING_RULES.md
+4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+5. docs/CARD_ID_STANDARD.md
+6. docs/WORKFLOW.md
+7. docs/OPERATIONS.md
+8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
-1. production 기준은 main이다.
-2. cards.json은 민감 파일이다.
-3. merge 전 백업과 main sync가 필요하다.
-4. merge는 production verification 전까지 완료가 아니다.
-5. Prompt C accepted는 publish-ready가 아니다.
-6. addable_merge_safe도 publish-ready가 아니다.
-7. full baseline revalidation 이후 surviving addable은 evidence QC 전 publish_ready=false다.
+Required-doc rule:
 
-## 2. One-page checklist
+All 8 documents above are mandatory.
 
-### 0. 매 stage 공통 게이트 (prompt-read) — HARD RULE
+If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
-> R3C_P02 integrated rule (run 20260516_012728 retrospective). 아래 stage 별 체크리스트(A~F)보다 먼저, 모든 stage 에 적용.
+- status: BLOCKED_REQUIRED_DOC_MISSING
+- missing_or_unreadable_docs: [...]
+- no retrospective performed
 
-- stage 실행 전 해당 `0N_PROMPT_*.md` 를 실제로 열어 읽었는가?
-- 그 프롬프트의 출력 schema 를 stage 출력에 복창했는가?
-- stage 출력에 `stage_prompt_file` + `stage_prompt_sha256` 를 기록했는가?
-- 하나라도 아니오 → 그 stage 무효. 기억 기반 실행은 run 전체 무효.
+Input files / references:
 
-### A. 시작 전
+- Run intake/preflight JSON: {{RUN_INTAKE_PREFLIGHT_JSON}}
+- Stage A JSON: {{STAGE_A_RESULTS_JSON}}
+- Stage B JSON: {{STAGE_B_DRAFTS_JSON}}
+- Stage C JSON: {{STAGE_C_RESULTS_JSON}}
+- Baseline revalidation JSON: {{BASELINE_REVALIDATION_JSON}}
+- Evidence QC JSON: {{EVIDENCE_QC_RESULTS_JSON}}
+- Content polish JSON: {{CONTENT_POLISH_RESULTS_JSON}}
+- Final QC JSON: {{FINAL_QC_RESULTS_JSON}}
+- GitHub merge prep JSON: {{GITHUB_MERGE_PREP_RESULTS_JSON}}
+- Production verification JSON: {{PRODUCTION_VERIFICATION_RESULTS_JSON}}
+- Remediation decision JSON: {{PRODUCTION_REMEDIATION_DECISION_JSON}}, if applicable
+- Run tag: {{RUN_TAG}}
+- Run label: {{RUN_LABEL_KST}}
+
+If some later-stage files do not exist because the run stopped earlier, do not infer them.
+
+Record missing later-stage files as:
+
+- not_reached
+- not_applicable
+- blocked_before_stage
+
+Role of this step:
+
+This step is a red-team retrospective.
+
+It must answer:
+
+1. Where did the run stop or degrade?
+2. Which stage produced the most holds/rejections?
+3. Which rules worked correctly?
+4. Which rules were ambiguous or caused friction?
+5. Were any workflow violations attempted or prevented?
+6. Did any prompt language create escape hatches?
+7. Did evidence failures come from source collection, Stage A selection, Stage B fetch, Stage C judgment, post-QC, or production?
+8. What should be patched before the next run?
+9. What should not be changed because the process worked as intended?
+10. Did Stage A review_pool partitioning work correctly?
+    - candidate_review_pool_count
+    - watchlist_context_pool_count
+    - reject_or_support_only_pool_count
+    - unpartitioned_review_pool_count
+    - false-positive candidate_review_pool examples
+    - false-negative rejected/support_source_only examples
+
+Governance hierarchy:
+
+When judging process correctness, apply this hierarchy:
+
+1. docs/FACT_DISCIPLINE.md
+2. docs/PROMPT_ABC_DEFAULT_MODE.md
+3. docs/PROMPT_ABC_SUPPORTING_RULES.md
+4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+5. docs/CARD_ID_STANDARD.md
+6. docs/WORKFLOW.md
+7. docs/OPERATIONS.md
+8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+
+Analysis scope:
+
+Analyze every reached stage:
+
+0.0 Run intake / preflight
+0.1 Stage A
+0.2 Stage B
+0.3 Stage C
+
+## Operational integrated rule — include revise-loop stages in retrospective scope
+
+When analyzing reached stages, include revise-loop stages when present:
+
+- 0.2R Stage B revise r1/r2/r3
+- 0.3R Stage C revise r1/r2/r3
+
+Do not treat revise loops as new candidate-generation stages.
+Analyze them as constrained repair/validation loops for Stage C revise_required cards only.
+
+0.4 Full baseline revalidation
+0.5 Evidence completeness / source-claim QC
+0.6 Content enrichment / language polish
+0.7 Final publish-readiness QC
+0.8 GitHub merge prep
+0.9 Production verification
+1.0 Remediation, if applicable
+
+Do not penalize a stage for not running if the run correctly stopped earlier.
+
+Retrospective dimensions:
+
+For each reached stage, evaluate:
+
+- input validity
+- required docs check
+- accounting completeness
+- correct candidate universe
+- correct state terminology
+- prohibited input leakage
+- prohibited output naming
+- evidence discipline
+- duplicate/event discipline
+- staleness handling
+- source/body quote handling
+- content/source-lock handling
+- language/terminology handling
+- GitHub/main sync handling
+- production verification handling
+- blocker handling
+- report quality
+- machine-readable output quality
+
+Core red-team questions:
+
+A. Required docs discipline
+
+- Were all 8 docs read from GitHub main?
+- Did any prompt use “if present” or similar optional language for mandatory docs?
+- Did any stage proceed despite missing docs?
+- Were branch/local/archive docs used incorrectly?
+
+B. Candidate universe discipline
+
+- Did Stage A use only source input and active baseline?
+- Did Stage B use only strict_passed_spec?
+- Did Stage C use only Stage B draft_cards?
+- Did baseline revalidation use only accepted_fact_safe?
+- Did evidence QC use only addable_merge_safe?
+- Did content polish use only evidence_complete_and_source_claim_covered?
+- Did final QC use only content_enriched_and_language_polished?
+- Did merge prep use only publish_ready?
+- Did production verification use only merged PR/main/production data?
+
+C. State ladder discipline
+
+Check whether the run preserved:
 
-- 현재 작업 목적 확인
-- 8개 required docs 최신본 확인
-- source input metadata 확인
-- baseline source declaration 확인
-- baseline count 확인
-
-### B. Stage A
-
-- KEEP 자동통과 금지
-- Stage A selector-only 준수
-- strict_passed_spec은 all-pass strict gate만 허용
-- review_pool은 반드시 3분할
-- JSON/MD/CSV artifact consistency 확인
-- CSV required schema 확인
-- baseline duplicate/event fingerprint pre-screen 확인
-
-### C. Stage B
-
-- only strict_passed_spec[]
-- source/evidence package before draft
-- weak evidence → draft_blocked
-- review_pool 자동 승격 금지
-
-### D. Stage C
-
-- accepted/revise/rejected/support/deferred 분리
-- accepted_fact_safe != publish_ready
-- selection defect를 revise로 덮지 않기
-
-### E. 0.4+
-
-- accepted pool 최신버전만 baseline revalidation
-- addable != evidence_complete
-- evidence hard fail 있으면 publish_ready 금지
-- content polish는 visible fields only
-- final QC hard fail 있으면 PASS 금지
-
-### F. GitHub / production
-
-- main sync
-- only intended files changed
-- production data endpoint 확인
-- UI/rendering smoke test
-
-## 3. Stage A structural blocker
-
-If Stage A lacks source prompt provenance, artifact consistency, CSV schema, review-pool partition, strict gate metadata, baseline duplicate screen, or ledger match, Stage B must not start.
-
-## 4. Expected count
-
-Expected final count is not a target. Evidence failure, duplicate, or weak signal may correctly reduce count.
-
-
----
-
-# Structural Default Run Contract — 2026-05-06
-
-This section is part of the replace-all structural default package. It exists to make the required 8 GitHub workflow docs consistent with the current run prompt files.
-
-## A. Source-prompt provenance
-
-Every Stage A output must record:
-
-- `source_prompt_file`
-- `source_prompt_sha256`
-- `source_prompt_version`
-- `source_prompt_authority`
-- `source_prompt_provenance_status`
-
-The structural default version is:
-
-```text
-structural_default_review_pool_partition_20260506
-```
-
-or a later compatible version.
-
-## B. Stage A validity gate
-
-Stage A may recommend Stage B only if all are PASS:
-
-- `source_prompt_provenance_status`
-- `stage_a_validity_status`
-- `artifact_consistency_status`
-- `csv_schema_status`
-- `review_pool_partition_status`
-- `review_pool_carry_forward_ledger_status`
-- `strict_pass_gate_metadata_status`
-- `baseline_duplicate_screen_status`
-- `summary.ledger_matches_story_count`
-
-If any value is missing or not PASS, Stage A must not recommend Stage B.
-
-## C. Review-pool partition default
-
-`review_pool[]` must not be an undifferentiated operational bucket.
-
-Every input story or candidate must be accounted for in the source-universe ledger.
-
-A genuinely out-of-scope, duplicate, consumer-noise, local-noise, stale, source-broken, or non-SBTL item may be closed as rejected or support-only, but only with an item-specific reason code and ledger row.
-
-Every non-strict candidate that is not item-specifically closed as rejected or support-only must enter exactly one of:
-
-1. `candidate_review_pool[]`
-   - plausibly cardable after bounded source/date/duplicate clarification
-2. `watchlist_context_pool[]`
-   - useful for context/background but not a current-run card candidate
-3. `reject_or_support_only_pool[]`
-   - too weak for candidate review, but may be rejected or used only as support
-
-The legacy aggregate `review_pool[]` may exist for compatibility, but each item must include:
-
-- `review_pool_partition`
-- `review_pool_partition_reason`
-- `promotion_precondition`
-- `bounded_review_question`
-- `recommended_next_action`
-
-Unpartitioned review_pool output is invalid. Missing rejected/support-only ledger rows are also invalid.
-
-## D. Strict-pass gate
-
-A story may enter `strict_passed_spec[]` only if all six conditions pass:
-
-1. SBTL_HUB lane fit
-2. concrete fresh execution anchor or accepted data/policy release anchor
-3. source direction compatibility
-4. freshness / staleness confidence
-5. baseline duplicate/follow-up risk acceptable
-6. independent card value and full-schema viability
-
-Each strict item must include:
-
-- `strict_pass_gate.status`
-- `strict_pass_gate.all_six_conditions_passed`
-- `strict_pass_gate.execution_anchor_type`
-- `strict_pass_gate.execution_anchor_strength`
-- `strict_pass_gate.format_risk_tags`
-- `strict_pass_gate.notes`
-
-## E. Format-risk handling
-
-Product/demo/PoC/component/interview/commentary/roundup/speech/personnel/partnership formats are not automatically rejected by format alone.
-
-They are blocked from strict-pass unless a concrete execution anchor is present.
-
-Allowed concrete execution anchors include:
-
-- signed contract
-- binding customer order
-- offtake
-- price floor or risk-sharing facility
-- commercial deployment
-- field installation
-- commissioning
-- production start
-- facility opening
-- certification or regulatory approval
-- regulatory decision/enforcement
-- public funding approval
-- binding procurement
-- measurable capacity addition
-- safety recall/regulatory action
-- named customer adoption
-- named deployment site with measurable pilot scale/duration/objective
-- factory/project construction, suspension, expansion, or final investment decision
-- official or reported data release when the card is clearly a data/policy/statistics event
-
-## F. CSV required schema
-
-Stage A decisions CSV must include at minimum:
-
-- `story_id`
-- `region`
-- `original_triage_status`
-- `status_detail`
-- `stage_a_bucket`
-- `ledger_decision`
-- `headline`
-- `reason`
-- `baseline_relation`
-- `duplicate_risk`
-- `staleness_decision`
-- `event_date`
-- `source_tier_estimate`
-- `source_access_risk`
-- `format_risk_tags`
-- `execution_anchor_type`
-- `execution_anchor_strength`
-- `strict_pass_gate_status`
-- `strict_pass_gate_reason`
-- `review_pool_partition`
-- `review_pool_partition_reason`
-- `promotion_precondition`
-- `bounded_review_question`
-- `recommended_next_action`
-
-If required columns are missing:
-
-```text
-csv_schema_status = FAIL
-stage_a_validity_status = FAIL
-status = BLOCKED_STAGE_A_CSV_SCHEMA_INCOMPLETE
-no Stage B recommendation
-```
-
-## G. Stage B blocker
-
-Stage B must block before fetch or draft if any Stage A gate is missing or not PASS:
-
-- `stage_a_validity_status`
-- `artifact_consistency_status`
-- `csv_schema_status`
-- `review_pool_partition_status`
-- `review_pool_carry_forward_ledger_status`
-- `strict_pass_gate_metadata_status`
-- `baseline_duplicate_screen_status`
-- `summary.ledger_matches_story_count`
-
-Blocked state:
-
-```text
-BLOCKED_STAGE_A_ARTIFACT_OR_PARTITION_INVALID
-```
-
-## H. Post-acceptance laundering prevention
-
-No later stage may promote any of the following unless an explicit, current-run authorized promotion/review loop has occurred:
-
-- Stage A `review_pool[]`
-- `candidate_review_pool[]`
-- `watchlist_context_pool[]`
-- `reject_or_support_only_pool[]`
-- `support_source_only[]`
-- `rejected[]`
-- Stage B `draft_blocked[]`
-- Stage C `deferred_review_pool[]`
-
-The normal ladder remains:
-
-```text
 accepted_fact_safe
 → addable_merge_safe
 → evidence_complete
@@ -281,7 +192,462 @@ accepted_fact_safe
 → content_enriched
 → language_terminology_polished
 → publish_ready
-```
+→ github_merge_ready
+→ production_verified
+
+Flag any collapsed states.
+
+D. Web search / fetch discipline
+
+- Was Stage A free of external web search and article body fetch?
+- Did Stage B fetch every strict_passed_spec before drafting?
+- Were weak specs draft_blocked rather than forced into cards?
+- Was Stage C web use limited to spot-check/QC?
+- Was post-acceptance web use limited to verification/conflict/duplicate/source checks?
+- Was any web search used as silent content enrichment?
+
+E. Evidence discipline
+
+- Were source_quote and fact_sources body-level or official-material?
+- Were headline-only, snippet-only, RSS-only, listing-only evidence blocked?
+- Were source_quote_status hard-fails correctly held?
+- Were URL-only fact_sources blocked?
+- Were evidence_role/supports/source_name required?
+- Did single-source cards have valid single_source_reason?
+- Were visible claims mapped to fact_sources?
+- Did hard-fail count block publish_ready?
+
+F. Duplicate/event discipline
+
+- Were duplicates checked by URL, canonical URL, title, actor, asset/policy, event type, date, event fingerprint?
+- Were baseline duplicates held?
+- Were follow-ups distinguished from reposts?
+- Was expected final count never forced?
+
+G. Content/language discipline
+
+- Were visible fields source-locked?
+- Were fact_sources/source_quote preserved?
+- Were foreign-language titles cleaned?
+- Were units and terminology normalized?
+- Were banned workflow/meta phrases removed?
+- Was SBTL benefit forced anywhere?
+
+H. GitHub / production discipline
+
+- Was GitHub main used as merge source of truth?
+- Was main drift revalidated?
+- Were only intended files changed?
+- Was production verification based on production app/data, not preview only?
+- Was production success claimed only after all gates passed?
+
+Failure pattern taxonomy:
+
+## Operational integrated rule — revise-loop failure pattern taxonomy
+
+Also classify revise-loop-specific issues:
+
+- revise_loop_overuse
+- revise_loop_limit_missing
+- revise_required_mixed_into_post_acceptance
+- accepted_pool_supersession_gap
+- source_augmentation_performed_without_authorization
+- revised_card_introduced_new_claim
+- revised_card_changed_core_event_anchor
+- revise_blocked_but_auto_promoted
+- revise_required_again_not_deferred_after_loop_limit
+
+
+Classify issues into:
+
+- prompt_escape_hatch
+- required_doc_gap
+- baseline_ambiguity
+- source_input_schema_gap
+- stage_a_overpass
+- stage_a_overfilter
+- stage_b_fetch_failure
+- stage_b_evidence_package_gap
+- stage_b_forced_draft
+- stage_c_overacceptance
+- stage_c_overrejection
+- baseline_duplicate_gap
+- evidence_quote_gap
+- claim_coverage_gap
+- single_source_gap
+- content_overreach
+- language_terminology_gap
+- final_qc_gate_gap
+- github_main_sync_gap
+- production_deployment_gap
+- runtime_rendering_gap
+- reporting_or_accounting_gap
+- tool_access_gap
+- no_issue_process_worked
+
+Recommendations taxonomy:
+
+Each recommendation must be classified as:
+
+1. prompt_integrated rule_required
+
+A prompt should be changed.
+
+2. docs_integrated rule_required
+
+GitHub workflow docs should be changed.
+
+3. source_collector_integrated rule_required
+
+The upstream collector or final_news_llm_input structure should be changed.
+
+4. validation_script_required
+
+A script/check should be added.
+
+5. manual_operator_check_required
+
+A human/operator checklist item is needed.
+
+6. no_change_recommended
+
+The process blocked correctly; do not weaken it.
+
+Integrated rule recommendation format:
+
+For each recommended integrated rule, include:
+
+- integrated rule_id
+- integrated rule_type
+- affected_prompt_or_doc
+- problem
+- evidence_from_run
+- proposed_change
+- expected_benefit
+- risk_if_not_changed
+- risk_of_overcorrecting
+- priority: P0 / P1 / P2 / P3
+- should_integrated rule_now: true/false
+
+Priority definitions:
+
+P0:
+- causes false publish_ready
+- causes evidence failure to pass
+- causes wrong baseline merge
+- causes production break
+- causes mandatory docs to be skipped
+
+P1:
+- causes significant hold/rework
+- creates ambiguity likely to recur
+- weakens evidence or state discipline
+
+P2:
+- improves efficiency or reporting quality
+- reduces manual checking burden
+
+P3:
+- polish / minor clarity improvement
+
+Do-not-change analysis:
+
+Also identify rules that were annoying but correct.
+
+For each, include:
+
+- rule
+- why_it_felt_strict
+- why_it_should_remain
+- example_from_run
+
+Output files:
+
+1. run_retrospective_{{RUN_TAG}}.json
+2. run_retrospective_report_{{RUN_TAG}}.md
+3. run_retrospective_integrated rule_recommendations_{{RUN_TAG}}.json
+4. run_retrospective_stage_metrics_{{RUN_TAG}}.csv
+
+JSON output requirements:
+
+The JSON must include:
+
+- stage: run_retrospective
+- run_tag
+- run_label
+- required_docs_check
+  - docs_expected
+  - docs_read_from_github_main
+  - docs_missing_or_unreadable
+  - status
+- run_completion_status
+  - last_reached_stage
+  - final_status
+  - production_verified
+  - stopped_reason
+- stage_metrics[]
+- issue_taxonomy_summary
+- prompt_escape_hatch_findings[]
+- process_violation_findings[]
+- evidence_failure_patterns[]
+- duplicate_failure_patterns[]
+- production_failure_patterns[]
+- integrated rule_recommendations[]
+- do_not_change_recommendations[]
+- final_retro_decision
+- recommended_next_action
+
+Each stage_metrics item must include:
+
+- stage_name
+- reached: true/false
+- input_count
+- output_counts
+- hold_count
+- reject_count
+- pass_count
+- accounting_pass
+- major_failure_reason
+- notes
+
+Each process_violation_finding must include:
+
+- finding_id
+- stage
+- violation_type
+- description
+- severity
+- evidence
+- prevented_by_process: true/false
+- recommendation
+
+Each evidence_failure_pattern must include:
+
+- pattern_id
+- affected_stage
+- count
+- examples
+- likely_root_cause
+- recommended_fix
+
+Each integrated rule_recommendation must follow the integrated rule recommendation format above.
+
+Report requirements:
+
+The Markdown report must include:
+
+1. Run summary
+
+   - run tag
+   - run label
+   - last reached stage
+   - final status
+   - production verified: yes/no
+   - stopped reason
+
+2. Required docs check
+
+   - list all 8 required docs
+   - read status
+   - blocker, if any
+
+3. Stage-by-stage metrics table
+
+   Include:
+   - input count
+   - pass count
+   - hold/reject/defer count
+   - accounting status
+   - main issue
+
+4. What worked
+
+   Include rules that correctly prevented bad output.
+
+5. What failed or created rework
+
+   Group by:
+   - input/source issues
+   - Stage A issues
+   - Stage B evidence issues
+   - Stage C judgment issues
+   - baseline duplicate issues
+   - evidence QC issues
+   - content/language issues
+   - final QC issues
+   - GitHub/production issues
+
+6. Evidence failure pattern analysis
+
+   Include:
+   - headline-only issues
+   - source_quote missing
+   - URL-only fact_sources
+   - claim coverage gaps
+   - single-source issues
+   - source accessibility issues
+
+7. Prompt/doc/source collector integrated rule recommendations
+
+   Include table:
+   - priority
+   - integrated rule type
+   - affected prompt/doc/system
+   - problem
+   - proposed change
+   - integrated rule now yes/no
+
+8. Do-not-change list
+
+   Include rules that should remain strict even if they reduced card count.
+
+9. Final retrospective decision
+
+   Choose one:
+
+   - PROCESS_HEALTHY_NO_INTEGRATED_RULE_REQUIRED
+   - INTEGRATED_RULE_RECOMMENDED_BEFORE_NEXT_RUN
+   - INTEGRATED_RULE_REQUIRED_BEFORE_NEXT_RUN
+   - SOURCE_COLLECTOR_FIX_REQUIRED
+   - WORKFLOW_DOC_UPDATE_REQUIRED
+   - MANUAL_INVESTIGATION_REQUIRED
+
+10. Explicit boundary statement
+
+   Include this exact statement:
+
+   “This retrospective analyzed the completed or stopped run only. It did not create new cards, revise card content, modify fact_sources, perform source augmentation, prepare a PR, or change GitHub.”
+
+11. Next-step statement
+
+   If no integrated rule required:
+
+   “The next run may start from Prompt 0.0 or Prompt 0.1.”
+
+   If integrated rule recommended:
+
+   “Apply the recommended prompt/doc/source-collector integrated rulees before the next run, then restart from Prompt 0.0.”
+
+
+
+## Next-call recommendation rule
+
+At the end of this step, recommend exactly one next call.
+
+The recommendation must be based only on the current step’s output counts and blockers.
+
+Do not proceed automatically.
+
+The user must explicitly authorize the next call.
+
+The recommendation must include:
+
+- recommended_next_call
+- recommended_prompt_id
+- recommended_input_universe
+- reason
+- blocked_items_summary
+- alternative_next_call, if applicable
+- do_not_proceed_to, if applicable
+
+When this step writes JSON and/or a report, emit the recommendation as a structured `next_call_recommendation` object in both outputs.
+
+## Operational integrated rule — retrospective next-call recommendation
+
+At the end of this step, produce a structured `next_call_recommendation` object in the JSON/report.
+
+The recommendation must be based only on the current step’s output counts and blockers.
+
+Do not proceed automatically.
+
+The user must explicitly authorize the next call.
+
+The recommendation must include:
+
+- recommended_next_call
+- recommended_prompt_id
+- recommended_input_universe
+- reason
+- blocked_items_summary
+- alternative_next_call, if applicable
+- do_not_proceed_to, if applicable
+
+
+Use this specific recommendation logic:
+
+1. If final_retro_decision = PROCESS_HEALTHY_NO_INTEGRATED_RULE_REQUIRED:
+   - recommended_next_call = "new run"
+   - recommended_prompt_id = "Prompt 0.0 or Prompt 0.1"
+
+2. If integrated rule is recommended or required:
+   - recommended_next_call = "apply prompt/doc/source-collector integrated rulees before the next run"
+   - recommended_prompt_id = "Prompt 0.0 after integrated rulees are applied"
+
+3. If manual investigation is required:
+   - recommended_next_call = "manual investigation"
+   - do_not_proceed_to = "new run until blockers are resolved"
+Stop after retrospective.
+
+Do not proceed to a new run, integrated rule, PR, or remediation unless the user explicitly instructs it.
+
+## V2 retrospective addendum — Stage A selector-forensic audit
+
+When reviewing a run affected by Stage A selection quality, the retrospective must audit:
+
+1. Whether `enhanced_selector_precision_version=20260505_v2` or later/equivalent was applied.
+2. Whether Stage A JSON, CSV, and Markdown were generated from the same result object.
+3. Whether `stage_a_validity_status` and `artifact_consistency_status` were PASS before Stage B started.
+4. Whether every strict_passed_spec had a complete all-pass `strict_gate_check`.
+5. Whether any product/demo/PoC/component/interview/commentary/personnel/consumer anecdote entered strict_passed_spec without a hard commercial/policy event.
+6. Whether stale-warm or unknown event_date items entered strict_passed_spec.
+7. Whether source-tier-3 or access-risk candidates entered strict_passed_spec without official/source-body alternatives.
+8. Whether baseline incremental-scope cases were correctly routed to existing_reinforcement or review_pool_follow_up_check.
+9. Whether user watchlist URLs were audited without auto-promotion.
+10. Whether timeline sovereignty was preserved without memory-based political or geopolitical corrections.
+
+The retrospective must output:
+
+- `stage_a_v2_compliance_status: PASS|FAIL|NOT_APPLIED`
+- `stage_a_v2_failure_table[]`
+- `rerun_required_before_stage_b: true|false`
+- `superseded_outputs[]`
+
+If V2 was not applied and selector precision or artifact consistency failed, recommend `Prompt 0.1 Stage A rerun`; do not recommend Stage B revise or post-acceptance continuation.
+
+
+
+## Structural default retrospective check — Stage A output completeness
+
+When Stage A was reached, retrospective must audit Stage A structural output validity, not only editorial outcomes.
+
+Check and report:
+
+- `stage_a_validity_status`
+- `artifact_consistency_status`
+- `csv_schema_status`
+- `review_pool_partition_status`
+- `review_pool_carry_forward_ledger_status`
+- `strict_pass_gate_metadata_status`
+- `baseline_duplicate_screen_status`
+- whether Stage A JSON/report/CSV counts match
+- whether Stage A CSV exposed all required partition/gate columns
+- whether `review_pool[]` was partitioned into:
+  - `candidate_review_pool[]`
+  - `watchlist_context_pool[]`
+  - `reject_or_support_only_pool[]`
+- whether any unpartitioned review_pool item existed
+- whether any Stage B recommendation was made despite structural failure
+
+Classify failures as:
+
+- stage_a_csv_schema_gap
+- stage_a_review_pool_unpartitioned
+- stage_a_next_call_gate_bypassed
+- stage_a_artifact_mismatch
+- strict_gate_metadata_missing
+- baseline_duplicate_screen_gap
+
+If any of these occurred, recommend structural prompt/default repair before another run.
 
 ## Operational integrated rule — NO_UNVERIFIED_HOLD_OR_DELETE_RULE_20260507_V2
 
@@ -472,6 +838,86 @@ If the underlying source evidence exists but metadata enum/schema is invalid, pe
 - per-card `final_hold_after_rescue: true|false`
 
 Only after this pass may a card remain on hold.
+
+## Operational integrated rule — REPAIR_BEFORE_DELETION_FOR_NUMERIC_AND_NAMED_CLAIMS_20260507_V2
+
+When Stage B revise, Stage C, Evidence QC, Content polish, or Final QC finds a numeric, named-entity, date, capacity, price, market-share, contract-duration, or project-scope claim that is weak or unmapped, it must first decide whether the claim can be repaired by:
+
+1. remapping the claim to an already-cited source quote,
+2. narrowing the visible-field wording to match the source,
+3. using an already-fetched official/body-level source from the same evidence package,
+4. performing explicitly authorized source augmentation when the current prompt/stage allows it.
+
+Deletion or over-narrowing is allowed only when:
+
+- source repair is impossible,
+- source augmentation is not authorized,
+- same-event/source-direction checks fail,
+- or the claim remains unsupported after rescue.
+
+Outputs must record `claim_repair_before_deletion_check` for every deleted or narrowed core claim, and if deletion/narrowing results in hold/reject/block, the item must also include `final_hold_or_reject_reason`.
+
+## Operational integrated rule — LINEAGE_METADATA_REQUIRED_SCHEMA_20260507
+
+Lineage metadata is not optional.
+
+Every Stage A `strict_passed_spec[]` item must include:
+
+- `enhanced_selector_precision_version`
+- `selector_policy_version`
+- `strict_pass_gate.status`
+- `strict_pass_gate.all_six_conditions_passed`
+- `strict_gate_check`
+- `format_risk_tags`
+- `execution_anchor_type`
+- `execution_anchor_strength`
+- `baseline_relation`
+- `duplicate_risk`
+- `staleness_decision`
+- `source_access_risk`
+
+Every downstream stage must preserve these fields or explicitly mark them `not_applicable` with a reason.
+
+Stage B output must include:
+
+- `lineage_integrity_status: PASS|FAIL`
+- `stage_a_validity_guard_applied: true`
+- `strict_gate_metadata_preserved: true|false`
+- `execution_anchor_metadata_preserved: true|false`
+- `superseded_lineage_mixed: false`
+- `manual_integrated_rule_mixed: false`
+- `previous_run_output_mixed: false`
+
+Stage C and Stage C revise outputs must include:
+
+- `strict_gate_acceptance_guard_applied: true`
+- `accepted_fact_safe_with_missing_strict_gate_count: 0`
+- `accepted_pool_lineage_status: PASS|FAIL`
+- `lineage_integrity_status: PASS|FAIL`
+- `strict_gate_metadata_preserved: true|false`
+- `execution_anchor_metadata_preserved: true|false`
+- `superseded_lineage_mixed: false`
+- `manual_integrated_rule_mixed: false`
+- `previous_run_output_mixed: false`
+
+If any accepted_fact_safe item lacks Stage A strict gate metadata, Stage C must not mark it accepted_fact_safe. It must move the item to `deferred_review_pool`, `revise_required`, `support_source_only`, or `rejected` depending on severity and stage rules.
+
+## Operational integrated rule — SUPPLEMENTAL_PASS_ACCOUNTING_20260507
+
+If a supplemental pass is authorized after a hold-rescue or schema repair step, the supplemental output must not silently mix with already-passed items.
+
+Required fields:
+
+- `supplemental_pass: true`
+- `supplemental_pass_reason`
+- `supplemental_input_universe`
+- `supplemental_input_ids[]`
+- `previous_pass_reference_file`
+- `excluded_previous_pass_ids[]`
+- `combined_reference_payload_created: true|false`
+- `combined_reference_payload_status: reference_only|pending_next_gate|invalid`
+
+A combined payload may be produced only as a clearly named reference or pending-next-gate payload. It must preserve lineage and must not assign a later state by combining files.
 
 ## Operational integrated rule — EXECUTION_TRANSPARENCY_AND_FILE_VERIFICATION_20260507
 
@@ -822,29 +1268,6 @@ The guiding principle is:
 - Review them, account for them, and if valid, route them through the formal state ladder.
 
 
-## Stage A boundary — no-fetch handling for v4 rescue/review rules
-
-Stage A is selector-only. The v4 rescue and review rules do not authorize Stage A to perform external web search, article body fetch, source_quote generation, fact_sources generation, or card drafting.
-
-For Stage A only:
-
-- official_source_checked = NOT_APPLICABLE_STAGE_A_NO_FETCH
-- alternate_tier1_tier2_checked = NOT_APPLICABLE_STAGE_A_NO_FETCH
-- source_strength_review_log = NOT_APPLICABLE_STAGE_A_NO_FETCH
-
-Stage A satisfies v4 by partitioning and documenting bounded review paths, not by fetching.
-
-If a Stage A item looks promising but not strict-pass ready, Stage A must not reject it simply because verification is not yet complete. It must place it in the correct bounded pool with:
-
-- review_pool_partition
-- review_pool_partition_reason
-- promotion_precondition
-- bounded_review_question
-- recommended_next_action
-
-If dropped_review_treasure_hunt is triggered, Stage A must account for sampled and non-sampled treasure candidates as required by REVIEW_POOL_AND_TREASURE_MUST_BE_REVIEWED_RULE_20260507_V4.
-
-
 ## Downstream boundary — v4 rescue/review rules do not authorize state laundering
 
 This downstream stage must preserve and validate prior rescue/review metadata. It must not use merge safety, content polish, final QC, GitHub merge prep, production verification, or remediation to launder unresolved evidence defects, unvalidated later-discovered evidence, unreviewed caveats, or unreviewed review_pool/treasure items.
@@ -857,6 +1280,18 @@ If this stage encounters material unvalidated evidence, unresolved source-streng
 - BLOCKED_REVIEW_POOL_OR_TREASURE_PROMOTION_UNAUTHORIZED
 
 No next-stage recommendation may be made for the affected item until the required validation path is completed.
+
+
+## Prompt 1.1 v4 retrospective checks
+
+The retrospective must explicitly evaluate whether the run:
+
+1. abandoned any source/claim/card before good-faith verification was completed,
+2. ignored any later-discovered valid evidence,
+3. silently absorbed later-discovered evidence into a downstream state,
+4. allowed any source-strength caveat to proceed to 0.6 without 0.5R review or explicit user waiver,
+5. silently discarded review_pool or treasure candidates without bounded review/accounting,
+6. attempted to auto-promote review_pool or treasure without an authorized promotion run.
 
 
 ## Operational integrated rule — REVIEW_TREASURE_RESCUE_AUDIT_STATUS_GATE_20260507_V5
@@ -986,228 +1421,6 @@ If fallback is accepted, the output status must remain local/sync-qualified, for
 
 This rule must not weaken the GitHub main sync gate. It only defines an auditable fallback when connector body access fails.
 
-
-## Operational integrated rule — PROMPT_0_6_EXACT_LINEAGE_AND_ANCHOR_GUARD_20260508_V6
-
-This v6 integrated rule closes the metadata contract defect found in the clean-v5 local validation run: Prompt 0.6 produced semantically valid content polish output, but Prompt 0.7 could not machine-verify the exact nested `lineage_and_anchor_guard` contract.
-
-Prompt 0.6 must now emit an exact machine-readable guard at both root level and payload-item level.
-
-Required root-level fields in the 0.6 JSON output:
-
-```json
-"lineage_and_anchor_guard": {
-  "status": "PASS",
-  "evidence_qc_lineage_passed": true,
-  "execution_anchor_qc_passed": true,
-  "source_strength_caveat_preserved": true,
-  "publish_ready_remains_false": true,
-  "content_polish_modified_visible_fields_only": true,
-  "fact_sources_unchanged_unless_authorized_supplemental": true,
-  "source_quote_unchanged_unless_authorized_supplemental": true,
-  "no_silent_downstream_enrichment": true,
-  "supplemental_pass_accounting_preserved": true
-}
-```
-
-Required payload-item fields for every `content_enriched_and_language_polished[]` item:
-
-```json
-"lineage_and_anchor_guard": {
-  "status": "PASS",
-  "source_spec_id": "...",
-  "evidence_qc_lineage_passed": true,
-  "execution_anchor_qc_passed": true,
-  "source_strength_caveat_preserved": true,
-  "publish_ready_remains_false": true,
-  "visible_field_change_log_ref": "...",
-  "fact_sources_change_status": "unchanged|authorized_supplemental_metadata_only|authorized_supplemental_source_added",
-  "source_quote_change_status": "unchanged|authorized_supplemental_quote_added",
-  "reason_if_any_source_field_changed": "...|not_applicable"
-}
-```
-
-If any required root or payload guard field is missing, false, contradictory, stale, or not from the same run, Prompt 0.6 must stop and report:
-
-```text
-status = BLOCKED_CONTENT_POLISH_LINEAGE_AND_ANCHOR_GUARD_MISSING
-no Final QC recommendation
-```
-
-Prompt 0.6 must not rely on prose statements like “lineage preserved” as a substitute for the exact guard object.
-Prompt 0.7 must treat absence of this exact guard as a hard preflight block.
-
-
-## Operational integrated rule — PROMPT_0_5R_SUPPLEMENTAL_FACT_SOURCE_METADATA_COMPLETE_20260508_V6
-
-This v6 integrated rule closes the clean-v5 defect where 0.5R supplemental fact_sources could be returned downstream without `fetched_at` / `checked_at` metadata.
-
-Every new, repaired, supplemental, strengthened, or metadata-repaired `fact_sources[]` entry introduced or touched by Prompt 0.5R must include all publish-forward fields before the item may return to 0.6, 0.6 supplemental, or 0.7.
-
-Required fields for every 0.5R new/supplemental/touched fact_source:
-
-```text
-source_name
-source_url
-claim
-source_quote
-source_quote_status
-evidence_role
-supports
-fetch_method
-fetched_at or checked_at
-```
-
-Allowed `source_quote_status` values for publish-forward 0.5R output remain:
-
-```text
-body_quote_verified
-official_material_quote_verified
-document_quote_verified
-```
-
-0.5R JSON output must include:
-
-```json
-"supplemental_fact_source_metadata_qc": {
-  "status": "PASS",
-  "supplemental_fact_source_count": 0,
-  "fact_source_required_metadata_gap_count": 0,
-  "fact_source_required_metadata_gap[]": [],
-  "all_supplemental_fact_sources_have_fetched_at_or_checked_at": true,
-  "all_supplemental_fact_sources_have_source_quote_status": true,
-  "all_supplemental_fact_sources_have_evidence_role_and_supports": true
-}
-```
-
-If any required metadata field is missing, Prompt 0.5R must stop and report:
-
-```text
-status = BLOCKED_0_5R_SUPPLEMENTAL_FACT_SOURCE_METADATA_INCOMPLETE
-fact_source_required_metadata_gap_count > 0
-no return to 0.6, 0.6 supplemental, or 0.7
-```
-
-A metadata-only repair is allowed only when it does not change visible fields, source_quote meaning, claim scope, or source direction. It must be explicitly marked:
-
-```text
-repair_type = metadata_only
-visible_fields_changed = false
-source_quote_text_changed = false
-claim_scope_changed = false
-```
-
-
-## Operational integrated rule — GITHUB_MAIN_LARGE_BASELINE_FALLBACK_LOCK_20260508_V6
-
-This v6 integrated rule clarifies the large-baseline fallback observed in clean-v5 validation: GitHub connector may return repository/SHA metadata while failing to expose the full `public/data/cards.json` body.
-
-If GitHub main `public/data/cards.json` body is unreadable, empty, truncated, inaccessible, or cannot be parsed, Prompt 0.8 must keep GitHub-ready states blocked.
-
-Allowed local fallback path:
-
-A local merge candidate may be prepared only if the user provides all of the following:
-
-```text
-1. A freshly downloaded cards.json explicitly labeled GitHub-main-equivalent baseline.
-2. The baseline card count.
-3. Latest cards commit SHA, GitHub file timestamp, or explicit user check timestamp.
-4. User statement that the uploaded file represents current GitHub main.
-5. Acknowledgment that github_ready and pr_candidate_ready remain false until independent GitHub main or production endpoint verification succeeds.
-```
-
-0.8 output status must distinguish:
-
-```text
-LOCAL_CANDIDATE_PREPARED_BUT_BLOCKED_GITHUB_MAIN_SYNC_UNVERIFIABLE
-GITHUB_MAIN_SYNC_CONFIRMED
-BLOCKED_GITHUB_MAIN_SYNC_UNREADABLE
-```
-
-If fallback is used, output must include:
-
-```json
-"github_main_unreadable_fallback": {
-  "used": true,
-  "uploaded_baseline_file": "...",
-  "uploaded_baseline_count": 0,
-  "user_declared_main_equivalent": true,
-  "commit_or_check_reference": "...",
-  "github_ready": false,
-  "pr_candidate_ready": false,
-  "manual_upload_or_independent_verification_required": true
-}
-```
-
-Prompt 0.8 must never label a local candidate as GitHub-ready, PR-ready, merge-ready-on-main, or production-ready when GitHub main body sync is unverified.
-
-
-## Operational integrated rule — STAGE_B_SOURCE_DISCOVERY_STATUS_AND_CAVEAT_ROUTING_20260508_V6
-
-This v6 integrated rule tightens Stage B event-fingerprint source discovery output so fallback/rss-rich cases are auditable and routed correctly to 0.5R when source strength remains caveated.
-
-Every Stage B strict spec must include a `source_discovery_status` and `source_strength_caveat_routing_decision`.
-
-Required per-spec fields:
-
-```json
-"event_fingerprint_search_profile": {
-  "actor": "...",
-  "event_type": "...",
-  "amount_or_capacity": "...|not_applicable",
-  "date_window": "...",
-  "source_owner_candidates": ["..."],
-  "same_event_disambiguators": ["..."]
-},
-"source_discovery_status": "completed_verified_source_found|completed_verified_with_source_strength_caveat|completed_no_verified_source|incomplete",
-"primary_source_status": "body_verified|official_verified|rss_rich_only|snippet_only|blocked|unreadable|not_applicable",
-"fallback_body_source_status": "body_verified|official_verified|not_found|not_attempted_with_reason",
-"official_source_attempt_status": "official_found|official_not_found|official_blocked|not_applicable_with_reason",
-"source_strength_caveat_routing_decision": "clean_no_0_5R_needed|route_to_0_5R_source_strength_review|draft_blocked|not_applicable",
-"source_discovery_ledger": []
-```
-
-Routing rule:
-
-- If body/official evidence is strong and no material caveat remains: `clean_no_0_5R_needed`.
-- If evidence supports drafting but relies on rss-rich fallback, single-source Tier 2, unofficial body corroboration, or missing official/original source: `route_to_0_5R_source_strength_review`.
-- If no verified same-event source supports the core event: `draft_blocked` with `final_hold_or_reject_reason`.
-
-Stage B must not resolve a source-strength caveat by silently inflating the claim. It must preserve the caveat into the draft/evidence package so 0.5 can route it to 0.5R.
-
-
-## Operational integrated rule — STAGE_A_FALSE_POSITIVE_QA_REGRESSION_EXAMPLES_20260508_V6
-
-This v6 integrated rule converts clean-v5 Stage A false-positive patterns into reusable QA regression examples.
-
-Stage A reports must include at least three `strict_false_positive_risk_examples[]` when any non-strict pools are non-empty. These examples should explain why superficially relevant items were not strict-passed.
-
-Required example categories when present in the source universe:
-
-```text
-generic_ai_platform_without_battery_grid_ess_execution_anchor
-consumer_or_component_product_publicity_without_deployment_anchor
-general_finance_insurance_macro_or_oil_lng_without_direct_battery_grid_ess_anchor
-local_event_or_expo_participation_without_operational_signal
-research_or_explainer_without_fresh_execution_anchor
-personnel_or_litigation_item_without strategic battery/ESS/material execution consequence
-```
-
-Each example must include:
-
-```json
-{
-  "story_id": "...",
-  "headline": "...",
-  "negative_filter_applied": "...",
-  "strict_false_positive_risk_reason": "...",
-  "routed_to": "candidate_review_pool|watchlist_context_pool|reject_or_support_only_pool|rejected|support_source_only",
-  "reopen_condition": "...|not_applicable"
-}
-```
-
-This integrated rule must not cause automatic rejection of adjacent AI/grid/robotics/power items. If an item is weak but plausibly relevant after bounded clarification, route it to `candidate_review_pool[]` with a promotion precondition rather than deleting it.
-
 ## CARD_CLAIM_DIVERSITY_AUDIT_RULE_20260507_V7
 
 This rule adds an editorial-quality gate after evidence safety has already been established. It must never override `FACT_DISCIPLINE.md`.
@@ -1294,6 +1507,21 @@ If overlap risk is high and source-safe repositioning was possible but not appli
 
 Prompt 1.1 retrospective must report claim-type distribution, over-clustered claim types, and any accepted overlap reasons.
 
+## Prompt 1.1 retrospective — claim diversity review
+
+If Prompt 0.6/0.7 reached claim diversity audit, retrospective must include:
+
+- `claim_type_distribution`
+- `over_clustered_claim_groups[]`
+- `high_overlap_cards[]`
+- `accepted_overlap_cards[]`
+- `claim_overlap_accepted_reasons[]`
+- examples where claim repositioning improved distinction
+- examples where source-safe repositioning was not possible
+- whether any unsupported strategic variety was attempted or prevented
+
+Do not penalize a batch merely because several cards share a claim type. Penalize only unsupported variety, unexamined overlap, or failure to articulate distinct strategic questions when the source evidence permitted it.
+
 
 
 ## Source Diversity & Corroboration QC Rule — 2026-05-07 v8
@@ -1372,6 +1600,35 @@ Web search must never create a new candidate silently. It may only verify or aug
 
 Visible-source URL sync remains a hard gate: every `fact_sources[].source_url` supporting visible text must appear in `urls[]`. Background-only sources may be absent from `urls[]` only when marked `supporting_context_only_not_visible_claim_support` with a reason.
 
+
+## Retrospective source diversity review
+
+Prompt 1.1 must review source diversity separately from claim diversity.
+
+Report:
+
+- source_diversity_summary
+- single_source_exception_count
+- hold_single_source_caveat_count
+- source_url_urls_sync_fail_count
+- high_signal_single_source_count
+- source_diversity_false_pass_examples
+- source_diversity_overcorrection_examples
+
+Do not treat claim diversity as evidence diversity.
+
+## FIX-005 — Stage A/B must emit required lineage metadata
+
+Prompt 0.4 lineage guard must remain hard. Do not soften it.
+
+The corrected diagnosis from run `20260516_012728` is that Stage A and Stage B failed to emit lineage fields that their own prompts already required. This is execution non-compliance, not a schema-version gap.
+
+Stage A exit must fail if any `strict_passed_spec[]` item lacks required lineage fields from `SCHEMA_CONTRACT_STAGE_LINEAGE.md`, including `enhanced_selector_precision_version`, `selector_policy_version`, `strict_gate_check`, `staleness_decision`, `source_access_risk`, and `strict_pass_gate.all_six_conditions_passed`.
+
+Stage B preflight must run `stage_a_validity_guard` before drafting. Stage B output must include `lineage_integrity_status`, `stage_a_validity_guard_applied`, `strict_gate_metadata_preserved`, `execution_anchor_metadata_preserved`, `superseded_lineage_mixed`, `manual_integrated_rule_mixed`, and `previous_run_output_mixed`.
+
+If required fields are missing, stop with `BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT` or `BLOCKED_STAGE_A_LINEAGE_NONCOMPLIANT`.
+
 ## FIX-007 — Shared schema contract and stage-exit conformance check
 
 All stages must reference `SCHEMA_CONTRACT_STAGE_LINEAGE.md`.
@@ -1384,7 +1641,7 @@ BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT
 
 Do not wait until Prompt 0.4 to discover Stage A/B lineage omissions.
 
-# OPERATIONS.md — Source Diversity source-diversity integrated rule
+# 13_PROMPT_1_1_Retrospective.md — Source Diversity source-diversity integrated rule
 
     This integrated rule is authoritative for source-diversity, source-preservation, synthesis,
     visible-source-date and same-source grouping rules. Earlier language that conflicts with this
@@ -1524,29 +1781,43 @@ A single-source exception is narrow and rare. It may pass only when all conditio
 
 A media article alone does not qualify merely because it is detailed.
 
-## Operator checklist
+## Retrospective source-diversity metrics
 
-Before advancing each batch, record:
-
-- cards with one independent owner;
-- cards with repeated rows from one URL;
-- cards using same-owner or syndicated sources;
-- cards whose Stage A support sources were not attempted;
-- cards whose additional sources did not change visible fields;
-- cards displaying fetch dates;
-- cards relying on a single-source exception.
-
-Operator acceptance threshold:
+Every retrospective must report:
 
 ```text
-false_multi_source_count = 0
-unapproved_single_domain_count = 0
-same_event_support_source_loss_count = 0
-visible_fetch_date_count = 0
+candidate_same_event_cluster_count
+support_sources_preserved_count
+support_sources_dropped_count
+cards_with_fact_source_rows_ge_2_but_one_independent_owner
+single_domain_rate_before_exception
+single_source_exception_count
+invalid_single_source_exception_count
+same_url_row_inflation_count
+syndication_inflation_count
+source_role_distribution
+source_contribution_utilization_rate
+cards_with_multi_source_but_no_visible_synthesis
+cards_using_fetch_date_as_visible_date
+duplicate_event_sources_reinforced_into_existing_cards
 ```
 
-Run the source-diversity validation script before Final QC and again on the serialized Replace All
-file.
+Required failure taxonomy additions:
+
+- stage_a_source_cluster_loss
+- stage_b_representative_source_collapse
+- false_multi_source_count
+- syndication_counted_as_independent
+- source_contribution_not_integrated
+- single_source_exception_overuse
+- visible_quote_fetch_date_leak
+- UI_same_source_repetition
+- duplicate_reinforcement_information_loss
+
+If any of these caused false `publish_ready`, the retrospective decision must be
+`INTEGRATED_RULE_REQUIRED_BEFORE_NEXT_RUN`.
+
+    Stop after retrospective.
 
 # Source Diversity / IB-grade + Codex Hardening Integrated rule
 
@@ -1728,8 +1999,3 @@ github_ready = true
 ```
 
 Any waiver or exception must be explicit, bounded, and auditable.
-
-
-## Operations/QC extra
-
-Codex comments must be translated into deterministic QC checks and not handled as ad-hoc prose.

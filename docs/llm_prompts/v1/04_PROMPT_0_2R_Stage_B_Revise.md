@@ -2,316 +2,312 @@
 <!-- Generated KST: 2026-07-08T21:33:49.790191+09:00 -->
 <!-- This file is a full clean replacement file. It is not a patch stub. -->
 
-# PROMPT ABC — Default Mode
+Prompt 0.2R — Reusable Default / Replace All / Stage B Revise Pass
+
+Proceed to Stage B revise pass only.
+
+Use the current run’s Stage C revise_required[] as the only input universe for this revise pass.
+
+This is not a new Stage B run.
+This is not candidate selection.
+This is not source augmentation unless explicitly authorized.
+This is a limited revision pass for cards that Stage C classified as revise_required.
+
+Input files:
 
-**Version**: Replace-all structural default package (2026-05-06)
+- Previous Stage B JSON: {{PREVIOUS_STAGE_B_JSON}}
+- Previous Stage C JSON: {{PREVIOUS_STAGE_C_JSON}}
+- Previous Stage C report: {{PREVIOUS_STAGE_C_REPORT_MD}}
+- Stage C claim coverage review: {{STAGE_C_CLAIM_COVERAGE_REVIEW_JSON}}
+- Source input: {{SOURCE_INPUT_FILE}}
+- Baseline cards: {{BASELINE_CARDS_SOURCE}}
+- Baseline source declaration: {{BASELINE_SOURCE_DECLARATION}}
+- Run tag: {{RUN_TAG}}
+- Run label: {{RUN_LABEL_KST}}
+- Revision pass: {{REVISION_PASS}} 
+  Example values: r1, r2, r3
 
-## 0. Purpose
+Before starting, read the latest versions of all required workflow docs from GitHub main:
 
-This document defines the default SBTL_HUB Prompt A/B/C workflow. It is the source-of-truth process doc for Stage A selection, Stage B evidence/drafting, Stage C validation, and the handoff to post-acceptance gates.
+1. docs/FACT_DISCIPLINE.md
+2. docs/PROMPT_ABC_DEFAULT_MODE.md
+3. docs/PROMPT_ABC_SUPPORTING_RULES.md
+4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+5. docs/CARD_ID_STANDARD.md
+6. docs/WORKFLOW.md
+7. docs/OPERATIONS.md
+8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
-## 1. Governance hierarchy
+Required-doc rule:
 
-When rules conflict, apply this hierarchy:
+All 8 documents above are mandatory.
 
-1. `docs/FACT_DISCIPLINE.md`
-2. `docs/PROMPT_ABC_DEFAULT_MODE.md`
-3. `docs/PROMPT_ABC_SUPPORTING_RULES.md`
-4. `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md`
-5. `docs/CARD_ID_STANDARD.md`
-6. `docs/WORKFLOW.md`
-7. `docs/OPERATIONS.md`
-8. `docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md`
+If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
-`FACT_DISCIPLINE.md` always wins for facts, numbers, quotes, and evidence discipline.
+- status: BLOCKED_REQUIRED_DOC_MISSING
+- missing_or_unreadable_docs: [...]
+- no Stage B revise work performed
 
-## 2. Input contract
+Candidate input rule:
 
-The default source universe is:
+Only previous Stage C revise_required[] may enter this Stage B revise pass.
 
-```text
-final_news_llm_input.stories[]
-```
+Do not include:
+- previous Stage C accepted_fact_safe
+- previous Stage C rejected
+- previous Stage C support_source_only
+- previous Stage C deferred_review_pool
+- Stage B draft_blocked
+- Stage A review_pool
+- Stage A rejected
+- Stage A existing_reinforcement
+- Stage A support_source_only
+- any new web-discovered candidate
+- any prior-run candidate
 
-The default baseline is:
+If any non-revise_required item is mixed in, exclude it and report mixed_input_excluded.
 
-```text
-GitHub main → public/data/cards.json
-```
+Role of this pass:
 
-Do not substitute prior payloads, helper files, branch-only files, manually integrated outputs, or memory-based baselines unless the user explicitly declares an alternative as current-run authoritative input.
+Stage B revise pass must fix only the specific issues identified by Stage C revise_required.
 
-## 3. Stage A — Editorial Selector
+Allowed fixes:
 
-Stage A is selector-only. It must not fetch article bodies, perform external web search, write card copy, generate source_quote, generate fact_sources, decide accepted_fact_safe, decide addable_merge_safe, decide evidence_complete, or decide publish_ready.
+- narrow title claim
+- narrow sub claim
+- narrow gate interpretation
+- narrow fact wording to match evidence
+- remove unsupported implication
+- split implication roles
+- correct category / sub_cat / signal if Stage C requested it
+- clean workflow/meta language
+- clean terminology/foreign-language residue
+- fix supports/evidence_role/source_name schema gaps if the underlying source evidence already exists
+- re-check original cited source if needed to confirm the already-cited quote
 
-Stage A may use only the current source input, active baseline, upstream metadata, triage labels, headlines, URLs, source packet metadata, previews, usable_text, and integrity labels for selection, lane-sanity, staleness pre-check, duplicate screening, and ledger creation.
+Not allowed unless explicitly authorized:
 
-Stage A must produce explicit outcomes for every story; silent loss is forbidden.
+- add a new card
+- promote review_pool
+- rescue rejected
+- fetch unrelated new sources
+- add new facts
+- expand scope beyond the original Stage A spec
+- change the core event anchor
+- convert weak evidence into stronger claim by writing around it
+- mark accepted_fact_safe
+- mark evidence_complete
+- mark publish_ready
 
-Stage A outputs:
+Source augmentation rule:
 
-- `strict_passed_spec[]`
-- `candidate_review_pool[]`
-- `watchlist_context_pool[]`
-- `reject_or_support_only_pool[]`
-- `rejected[]`
-- `existing_reinforcement[]`
-- `support_source_only[]`
-- `decision_ledger[]`
+Default: source augmentation is not authorized.
 
-Legacy `review_pool[]` may exist only as an aggregate of the three partitioned pools.
+If Stage C revise_required says source augmentation is needed, do not perform it automatically.
 
-## 4. Stage B — Evidence package and draft writer
+Instead mark:
+- revise_blocked_needs_source_augmentation
 
-Stage B may use only Stage A `strict_passed_spec[]` from the same valid run.
+Only perform source augmentation if the user explicitly says:
+“source augmentation authorized for B revise.”
 
-Stage B must verify provided source-candidate, fallback, and official sources for each strict spec before drafting. `primary_url` is only a source candidate, not evidence by itself. If verified evidence cannot support the core event after bounded source discovery, the spec becomes `draft_blocked`.
+When source augmentation is authorized, it must use the same bounded same-event source-discovery discipline as Stage B r0:
 
-Stage B produces only:
+- preserve the original Stage A event anchor
+- search only official/primary/cited/same-event Tier 1/Tier 2 sources
+- record `source_discovery_ledger[]`
+- update `fact_sources[]` only with fetched body-level or official-material support
+- update the claim coverage review for every changed visible claim
+- do not add a new candidate or broaden the event
+
+If augmentation cannot satisfy source diversity or the single-source exception, keep the item blocked as `revise_blocked_needs_source_augmentation` or `revise_blocked_evidence_gap`.
 
-- `draft_cards[]`
-- `draft_blocked[]`
-- `evidence_packages[]`
-- `fetch_ledger[]`
+Revision decision states:
 
-Stage B must not decide accepted_fact_safe, addable_merge_safe, evidence_complete, source_claim_covered, content_enriched, language_terminology_polished, publish_ready, PR readiness, or GitHub readiness.
+Every revise_required item must appear exactly once as:
 
-## 5. Stage C — Red-team validator
+1. revised_draft_card
+
+Use when the Stage C issue was fixed using existing evidence.
+
+2. revise_blocked_needs_source_augmentation
+
+Use when new source evidence is needed.
 
-Stage C may use only Stage B `draft_cards[]`, `evidence_packages[]`, `fetch_ledger[]`, writer notes, and Stage A strict metadata for those drafted cards.
+3. revise_blocked_evidence_gap
 
-Stage C decides only:
+Use when the issue cannot be fixed because source evidence is insufficient.
 
-- `accepted_fact_safe`
-- `revise_required`
-- `rejected`
-- `support_source_only`
-- `deferred_review_pool`
+4. revise_blocked_scope_change_required
 
-`accepted_fact_safe` is not addable, evidence_complete, content_enriched, publish_ready, PR-ready, or GitHub-ready.
+Use when fixing the card would require changing the core event/spec.
 
-## 6. Revise loops
+5. revise_blocked_manual_review
 
-Stage B revise uses only Stage C `revise_required[]`. It is not candidate selection and must not promote review_pool, rescue rejected cards, add new candidates, or perform source augmentation unless explicitly authorized.
+Use when manual judgment is needed.
 
-Stage C revise validates only Stage B revise `revised_draft_cards[]`.
+Accounting rule:
 
-## 7. Post-acceptance handoff
+Every previous Stage C revise_required item must appear exactly once in this Stage B revise output.
 
-Only Stage C `accepted_fact_safe[]` and latest accepted revised versions may proceed to full baseline revalidation.
+Output files:
 
-Post-acceptance state ladder:
+1. stage_b_revise_{{REVISION_PASS}}_results_{{RUN_TAG}}.json
+2. stage_b_revise_{{REVISION_PASS}}_report_{{RUN_TAG}}.md
+3. stage_b_revise_{{REVISION_PASS}}_decisions_{{RUN_TAG}}.csv
 
-```text
-accepted_fact_safe
-→ addable_merge_safe
-→ evidence_complete
-→ source_claim_covered
-→ content_enriched
-→ language_terminology_polished
-→ publish_ready
-```
+Do not use FINAL, PR_CANDIDATE, GitHub-ready, merge-ready, publish-ready, evidence_complete, or source_claim_covered in filenames.
 
-Do not collapse these states.
+JSON output must include:
 
+- stage: stage_b_revise
+- revision_pass
+- run_tag
+- run_label
+- input_previous_stage_b_file
+- input_previous_stage_c_file
+- revise_required_input_count
+- revised_draft_card_count
+- revise_blocked_needs_source_augmentation_count
+- revise_blocked_evidence_gap_count
+- revise_blocked_scope_change_required_count
+- revise_blocked_manual_review_count
+- outcome_total_count
+- accounting_matches_revise_required_input_count
+- revised_draft_cards[]
+- revise_blocked_needs_source_augmentation[]
+- revise_blocked_evidence_gap[]
+- revise_blocked_scope_change_required[]
+- revise_blocked_manual_review[]
+- revision_change_log[]
+- decision_ledger[]
 
----
+Each revised_draft_card must include:
 
-# Structural Default Run Contract — 2026-05-06
+- revision_pass
+- previous_draft_id
+- revised_draft_id
+- source_spec_id
+- source_story_ids
+- region
+- date
+- cat
+- sub_cat
+- signal
+- title
+- sub
+- gate
+- fact
+- implication
+- urls
+- related
+- fact_sources
+- stage_b_revise_only: true
+- publish_ready: false
+- revision_change_log
+- remaining_risks
+- needs_stage_c_recheck: true
 
-This section is part of the replace-all structural default package. It exists to make the required 8 GitHub workflow docs consistent with the current run prompt files.
+Each revision_change_log item must include:
 
-## A. Source-prompt provenance
+- previous_draft_id
+- revised_draft_id
+- field
+- before
+- after
+- stage_c_issue_addressed
+- source_lock_check
+- introduced_new_claim: true/false
+- notes
 
-Every Stage A output must record:
+Report must include:
 
-- `source_prompt_file`
-- `source_prompt_sha256`
-- `source_prompt_version`
-- `source_prompt_authority`
-- `source_prompt_provenance_status`
+1. Revision pass metadata
+2. Stage C revise_required input count
+3. Scope confirmation
+4. What was fixed
+5. What was blocked and why
+6. Source augmentation requests, if any
+7. Accounting check
+8. Boundary statement:
 
-The structural default version is:
+“Stage B revise pass fixed only Stage C revise_required items. It did not add new candidates, promote review_pool, rescue rejected cards, decide accepted_fact_safe, decide evidence_complete, or decide publish_ready.”
 
-```text
-structural_default_review_pool_partition_20260506
-```
 
-or a later compatible version.
 
-## B. Stage A validity gate
+## Next-call recommendation rule
 
-Stage A may recommend Stage B only if all are PASS:
+At the end of this step, recommend exactly one next call.
 
-- `source_prompt_provenance_status`
-- `stage_a_validity_status`
-- `artifact_consistency_status`
-- `csv_schema_status`
-- `review_pool_partition_status`
-- `review_pool_carry_forward_ledger_status`
-- `strict_pass_gate_metadata_status`
-- `baseline_duplicate_screen_status`
-- `summary.ledger_matches_story_count`
+The recommendation must be based only on the current step’s output counts and blockers.
 
-If any value is missing or not PASS, Stage A must not recommend Stage B.
-
-## C. Review-pool partition default
-
-`review_pool[]` must not be an undifferentiated operational bucket.
-
-Every input story or candidate must be accounted for in the source-universe ledger.
-
-A genuinely out-of-scope, duplicate, consumer-noise, local-noise, stale, source-broken, or non-SBTL item may be closed as rejected or support-only, but only with an item-specific reason code and ledger row.
-
-Every non-strict candidate that is not item-specifically closed as rejected or support-only must enter exactly one of:
-
-1. `candidate_review_pool[]`
-   - plausibly cardable after bounded source/date/duplicate clarification
-2. `watchlist_context_pool[]`
-   - useful for context/background but not a current-run card candidate
-3. `reject_or_support_only_pool[]`
-   - too weak for candidate review, but may be rejected or used only as support
-
-The legacy aggregate `review_pool[]` may exist for compatibility, but each item must include:
+Do not proceed automatically.
 
-- `review_pool_partition`
-- `review_pool_partition_reason`
-- `promotion_precondition`
-- `bounded_review_question`
-- `recommended_next_action`
-
-Unpartitioned review_pool output is invalid. Missing rejected/support-only ledger rows are also invalid.
-
-## D. Strict-pass gate
-
-A story may enter `strict_passed_spec[]` only if all six conditions pass:
-
-1. SBTL_HUB lane fit
-2. concrete fresh execution anchor or accepted data/policy release anchor
-3. source direction compatibility
-4. freshness / staleness confidence
-5. baseline duplicate/follow-up risk acceptable
-6. independent card value and full-schema viability
+The user must explicitly authorize the next call.
 
-Each strict item must include:
-
-- `strict_pass_gate.status`
-- `strict_pass_gate.all_six_conditions_passed`
-- `strict_pass_gate.execution_anchor_type`
-- `strict_pass_gate.execution_anchor_strength`
-- `strict_pass_gate.format_risk_tags`
-- `strict_pass_gate.notes`
-
-## E. Format-risk handling
-
-Product/demo/PoC/component/interview/commentary/roundup/speech/personnel/partnership formats are not automatically rejected by format alone.
-
-They are blocked from strict-pass unless a concrete execution anchor is present.
-
-Allowed concrete execution anchors include:
-
-- signed contract
-- binding customer order
-- offtake
-- price floor or risk-sharing facility
-- commercial deployment
-- field installation
-- commissioning
-- production start
-- facility opening
-- certification or regulatory approval
-- regulatory decision/enforcement
-- public funding approval
-- binding procurement
-- measurable capacity addition
-- safety recall/regulatory action
-- named customer adoption
-- named deployment site with measurable pilot scale/duration/objective
-- factory/project construction, suspension, expansion, or final investment decision
-- official or reported data release when the card is clearly a data/policy/statistics event
-
-## F. CSV required schema
-
-Stage A decisions CSV must include at minimum:
-
-- `story_id`
-- `region`
-- `original_triage_status`
-- `status_detail`
-- `stage_a_bucket`
-- `ledger_decision`
-- `headline`
-- `reason`
-- `baseline_relation`
-- `duplicate_risk`
-- `staleness_decision`
-- `event_date`
-- `source_tier_estimate`
-- `source_access_risk`
-- `format_risk_tags`
-- `execution_anchor_type`
-- `execution_anchor_strength`
-- `strict_pass_gate_status`
-- `strict_pass_gate_reason`
-- `review_pool_partition`
-- `review_pool_partition_reason`
-- `promotion_precondition`
-- `bounded_review_question`
-- `recommended_next_action`
-
-If required columns are missing:
-
-```text
-csv_schema_status = FAIL
-stage_a_validity_status = FAIL
-status = BLOCKED_STAGE_A_CSV_SCHEMA_INCOMPLETE
-no Stage B recommendation
-```
-
-## G. Stage B blocker
-
-Stage B must block before fetch or draft if any Stage A gate is missing or not PASS:
-
-- `stage_a_validity_status`
-- `artifact_consistency_status`
-- `csv_schema_status`
-- `review_pool_partition_status`
-- `review_pool_carry_forward_ledger_status`
-- `strict_pass_gate_metadata_status`
-- `baseline_duplicate_screen_status`
-- `summary.ledger_matches_story_count`
-
-Blocked state:
-
-```text
-BLOCKED_STAGE_A_ARTIFACT_OR_PARTITION_INVALID
-```
-
-## H. Post-acceptance laundering prevention
-
-No later stage may promote any of the following unless an explicit, current-run authorized promotion/review loop has occurred:
-
-- Stage A `review_pool[]`
-- `candidate_review_pool[]`
-- `watchlist_context_pool[]`
-- `reject_or_support_only_pool[]`
-- `support_source_only[]`
-- `rejected[]`
-- Stage B `draft_blocked[]`
-- Stage C `deferred_review_pool[]`
-
-The normal ladder remains:
-
-```text
-accepted_fact_safe
-→ addable_merge_safe
-→ evidence_complete
-→ source_claim_covered
-→ content_enriched
-→ language_terminology_polished
-→ publish_ready
-```
+The recommendation must include:
+
+- recommended_next_call
+- recommended_prompt_id
+- recommended_input_universe
+- reason
+- blocked_items_summary
+- alternative_next_call, if applicable
+- do_not_proceed_to, if applicable
+
+When this step writes JSON and/or a report, emit the recommendation as a structured `next_call_recommendation` object in both outputs.
+
+## Operational integrated rule — Stage B revise next-call recommendation
+
+At the end of this step, produce a structured `next_call_recommendation` object in the JSON/report.
+
+The recommendation must be based only on the current step’s output counts and blockers.
+
+Do not proceed automatically.
+
+The user must explicitly authorize the next call.
+
+The recommendation must include:
+
+- recommended_next_call
+- recommended_prompt_id
+- recommended_input_universe
+- reason
+- blocked_items_summary
+- alternative_next_call, if applicable
+- do_not_proceed_to, if applicable
+
+
+Use this specific recommendation logic:
+
+1. If revised_draft_card_count > 0:
+   - recommended_next_call = "Stage C revise {{REVISION_PASS}}"
+   - recommended_prompt_id = "Prompt 0.3R"
+   - recommended_input_universe = "Stage B revise revised_draft_cards[] only"
+
+2. If revised_draft_card_count = 0:
+   - recommended_next_call = "source augmentation, manual review, or stop"
+   - reason = "No revise_required items could be repaired with existing evidence."
+
+Do not proceed automatically to Stage C revise validation.
+Stop after Stage B revise pass.
+
+Do not proceed to Stage C revise validation until I explicitly say “Stage C revise”.
+
+## V2 override — revise pass cannot reopen selection
+
+A Stage B revise pass may fix only card-level defects that Prompt C marked as revise_required.
+
+If the prior Stage C issue is a Stage A selection defect — stale event, baseline duplicate, weak lane fit, product/demo/PoC/component without hard event, interview/commentary-only, political/timeline memory risk, or source-access weakness — the item must be moved to:
+
+- `revise_blocked_scope_change_required`, or
+- `revise_blocked_manual_review`
+
+It must not be rewritten into a stronger-looking card.
+
+Every revised_draft_card must preserve the original `strict_gate_check`, `selection_risk_flags`, and Stage A `spec_id`.
+
+If those fields are missing, block the revise item with `blocked_reason = "missing_stage_a_strict_gate_metadata"`.
 
 ## Operational integrated rule — NO_UNVERIFIED_HOLD_OR_DELETE_RULE_20260507_V2
 
@@ -392,77 +388,23 @@ Stage A must instead record:
 
 This rule must not be used to launder weak evidence into publish readiness. It prevents unverified early abandonment; it does not relax FACT_DISCIPLINE.
 
-## Operational integrated rule — MANDATORY_FETCH_LADDER_BEFORE_DRAFT_BLOCKED_20260507_V2
+## Operational integrated rule — REPAIR_BEFORE_DELETION_FOR_NUMERIC_AND_NAMED_CLAIMS_20260507_V2
 
-Stage B must not convert a strict_passed_spec into `draft_blocked` merely because `primary_url` failed, was paywalled, JS-blocked, RSS-only, snippet-only, listing-only, or otherwise inaccessible.
+When Stage B revise, Stage C, Evidence QC, Content polish, or Final QC finds a numeric, named-entity, date, capacity, price, market-share, contract-duration, or project-scope claim that is weak or unmapped, it must first decide whether the claim can be repaired by:
 
-Before any fetch/search attempt, Stage B must build an `event_fingerprint_search_profile` for every strict_passed_spec.
+1. remapping the claim to an already-cited source quote,
+2. narrowing the visible-field wording to match the source,
+3. using an already-fetched official/body-level source from the same evidence package,
+4. performing explicitly authorized source augmentation when the current prompt/stage allows it.
 
-Required `event_fingerprint_search_profile` fields:
+Deletion or over-narrowing is allowed only when:
 
-- `actor`
-- `secondary_actors[]`
-- `event_type`
-- `project_or_asset_name`
-- `amount_or_capacity`
-- `location`
-- `event_date_or_window`
-- `source_owner_candidates[]`
-- `official_source_domains_to_check[]`
-- `cited_source_domains[]`
-- `same_event_search_terms[]`
-- `must_match_terms[]`
-- `must_not_substitute_terms[]`
+- source repair is impossible,
+- source augmentation is not authorized,
+- same-event/source-direction checks fail,
+- or the claim remains unsupported after rescue.
 
-Stage B must also record:
-
-- `source_discovery_strategy`
-- `official_source_search_ledger[]`
-- `cited_primary_search_ledger[]`
-- `alternate_source_search_ledger[]`
-- `source_discovery_ledger[]`
-- `source_discovery_status: completed_verified_source_found|completed_no_verified_source|incomplete`
-
-Before `draft_blocked` is allowed for source/access/evidence reasons, Stage B must attempt this bounded fetch ladder and record it in `fetch_ledger[]`, `source_discovery_ledger[]`, and the blocked item:
-
-1. `primary_url`
-2. listed fallback URLs / `source_urls[]` / `source_packets[]`
-3. cited publication article body or accessible same article variant
-4. issuer, company, agency, regulator, exchange, court, utility, or project owner official release
-5. official filing / IR / report / consultation / tender page, if applicable
-6. open-access same-event Tier 1 / Tier 2 secondary body source
-7. reputable specialty press with body-level article, only if source direction and same-event checks pass
-
-For each discovery/search/fetch attempt, record:
-
-- `attempt_order`
-- `ledger_type: official_source_search|cited_primary_search|alternate_source_search|fetch_attempt`
-- `source_type_attempted`
-- `query_or_url`
-- `search_terms_used[]`
-- `access_result`
-- `supports_core_event: true|false`
-- `supports_missing_claims[]`
-- `source_direction_check: PASS|FAIL|UNKNOWN`
-- `same_actor_event_date_check: PASS|FAIL|UNKNOWN`
-- `reason_not_used`
-
-A same-event alternate source must match the same actor, event, date/timeframe, location/project, and quantitative claim direction. If it changes the core event anchor, it is not an alternate source; it is a different candidate and must not be substituted.
-
-Stage B may still draft-block after this ladder if no source supports the core event or if all usable sources fail FACT_DISCIPLINE. The block must include:
-
-- `rescue_attempted: true`
-- complete `rescue_attempt_log[]`
-- complete source discovery ledgers listed above
-- `source_discovery_status: completed_no_verified_source` or `incomplete` with reason
-- `blocked_source_reason`
-- `final_hold_or_reject_reason`
-
-If event fingerprint/source discovery fields are missing, Stage B must stop and report:
-
-- `status: BLOCKED_SOURCE_DISCOVERY_LEDGER_INCOMPLETE`
-- `missing_source_discovery_fields: [...]`
-- `no Stage C recommendation`
+Outputs must record `claim_repair_before_deletion_check` for every deleted or narrowed core claim, and if deletion/narrowing results in hold/reject/block, the item must also include `final_hold_or_reject_reason`.
 
 ## Operational integrated rule — LINEAGE_METADATA_REQUIRED_SCHEMA_20260507
 
@@ -509,47 +451,18 @@ Stage C and Stage C revise outputs must include:
 
 If any accepted_fact_safe item lacks Stage A strict gate metadata, Stage C must not mark it accepted_fact_safe. It must move the item to `deferred_review_pool`, `revise_required`, `support_source_only`, or `rejected` depending on severity and stage rules.
 
-## Operational integrated rule — SUPPLEMENTAL_PASS_ACCOUNTING_20260507
+## Operational integrated rule — EXECUTION_TRANSPARENCY_AND_FILE_VERIFICATION_20260507
 
-If a supplemental pass is authorized after a hold-rescue or schema repair step, the supplemental output must not silently mix with already-passed items.
+For local validation runs, every stage report must identify:
 
-Required fields:
+- input files actually opened,
+- input counts read from those files,
+- output files written,
+- post-write verification result,
+- count reconciliation after reopening outputs,
+- any step not performed.
 
-- `supplemental_pass: true`
-- `supplemental_pass_reason`
-- `supplemental_input_universe`
-- `supplemental_input_ids[]`
-- `previous_pass_reference_file`
-- `excluded_previous_pass_ids[]`
-- `combined_reference_payload_created: true|false`
-- `combined_reference_payload_status: reference_only|pending_next_gate|invalid`
-
-A combined payload may be produced only as a clearly named reference or pending-next-gate payload. It must preserve lineage and must not assign a later state by combining files.
-
-## Operational integrated rule — STAGE_B_EVENT_FINGERPRINT_SOURCE_DISCOVERY_SCHEMA_20260507_V2
-
-Stage B JSON output must include the source discovery artifacts needed to audit false draft_blocking.
-
-Top-level required fields:
-
-- `event_fingerprint_search_profile_count`
-- `source_discovery_status_summary`
-- `source_discovery_ledger[]`
-- `official_source_search_ledger[]`
-- `cited_primary_search_ledger[]`
-- `alternate_source_search_ledger[]`
-
-Each `evidence_packages[]`, `draft_cards[]`, and `draft_blocked[]` item must carry or reference:
-
-- `event_fingerprint_search_profile`
-- `source_discovery_strategy`
-- `source_discovery_status`
-- source discovery ledger references
-
-If these fields are missing, Stage B must report:
-
-- `status: BLOCKED_SOURCE_DISCOVERY_LEDGER_INCOMPLETE`
-- `no Stage C recommendation`
+If a file was not opened or a count was not verified, the assistant must not claim completion for that artifact.
 
 ## Operational integrated rule — NO_SILENT_DOWNSTREAM_ENRICHMENT_RULE_20260507_V3
 
@@ -887,307 +800,87 @@ The guiding principle is:
 - Review them, account for them, and if valid, route them through the formal state ladder.
 
 
-## Stage A boundary — no-fetch handling for v4 rescue/review rules
+## Prompt 0.2R v4 repair/integration rule
 
-Stage A is selector-only. The v4 rescue and review rules do not authorize Stage A to perform external web search, article body fetch, source_quote generation, fact_sources generation, or card drafting.
+If a later-discovered valid source can repair a Stage C revise_required issue and the user has authorized source augmentation for the revise pass, Stage B revise must incorporate it through revised_draft_cards[] with source-direction compatibility and quote mapping.
 
-For Stage A only:
+If source augmentation is not authorized, record it as rescue_candidate_evidence[] and route to revise_blocked_needs_source_augmentation rather than silently dropping it or silently absorbing it.
 
-- official_source_checked = NOT_APPLICABLE_STAGE_A_NO_FETCH
-- alternate_tier1_tier2_checked = NOT_APPLICABLE_STAGE_A_NO_FETCH
-- source_strength_review_log = NOT_APPLICABLE_STAGE_A_NO_FETCH
 
-Stage A satisfies v4 by partitioning and documenting bounded review paths, not by fetching.
+## Operational integrated rule — Stage B revise field-schema HARD RULES — 20260513
 
-If a Stage A item looks promising but not strict-pass ready, Stage A must not reject it simply because verification is not yet complete. It must place it in the correct bounded pool with:
+Stage B revise (r1/r2/r3) 도 동일한 field-schema HARD RULES 를 따른다. 자세한 내용은 `02_PROMPT_0_2_Stage_B_r0.md` 의 `STAGE_B_FIELD_SCHEMA_HARD_RULES_20260513` integrated rule 참조.
 
-- review_pool_partition
-- review_pool_partition_reason
-- promotion_precondition
-- bounded_review_question
-- recommended_next_action
+요약:
+- `signal` ∈ {top, high, mid}; Stage A signal_estimate verbatim copy
+- `cat` ∈ FUTURE_CARD_STANDARD §3 locked 12 only
+- `sub_cat` = Korean compound noun (8-15 chars)
+- `region` ∈ {KR, US, CN, JP, EU, GL}; event primary geography anchor
+- `id` = `YYYY-MM-DD_REGION_NN` per CARD_ID_STANDARD
+- 출력 직전 `stage_b_self_check` 수행; 위반 시 `draft_blocked_schema`
 
-If dropped_review_treasure_hunt is triggered, Stage A must account for sampled and non-sampled treasure candidates as required by REVIEW_POOL_AND_TREASURE_MUST_BE_REVIEWED_RULE_20260507_V4.
+Revise 단계에서 schema 위반된 r0 draft 를 정정할 때, 시각적 필드 (`title`/`sub`/`gate`/`fact`/`implication`) 와 `fact_sources` 는 보존하고 metadata 만 교정한다.
 
+## FIX-001 — PROVIDED_SOURCE_IS_NOT_EVIDENCE_RULE
 
-## Downstream boundary — v4 rescue/review rules do not authorize state laundering
+A provided URL, `primary_url`, triage URL, uploaded link, source hint, Stage A `usable_text`, or Stage A `context_text` is **not evidence by itself**.
 
-This downstream stage must preserve and validate prior rescue/review metadata. It must not use merge safety, content polish, final QC, GitHub merge prep, production verification, or remediation to launder unresolved evidence defects, unvalidated later-discovered evidence, unreviewed caveats, or unreviewed review_pool/treasure items.
+It is only an evidence candidate. It becomes evidence only after Stage B has fetched or directly inspected the source, recorded the resolved `source_url`, extracted body-level / official-material / document-level support, captured `source_quote`, mapped that quote to a specific claim, recorded fetch metadata, and included it in `evidence_package` and `fetch_ledger`.
 
-If this stage encounters material unvalidated evidence, unresolved source-strength caveat, missing rescue metadata, or an unreviewed review_pool/treasure promotion attempt, it must stop or route back to the appropriate earlier stage and report one of:
+A `fact_sources` entry built only from a provided URL without fetched/directly inspected evidence is invalid.
 
-- BLOCKED_RESCUE_METADATA_MISSING
-- BLOCKED_SILENT_DOWNSTREAM_ENRICHMENT_ATTEMPT
-- BLOCKED_SOURCE_STRENGTH_CAVEAT_REVIEW_REQUIRED
-- BLOCKED_REVIEW_POOL_OR_TREASURE_PROMOTION_UNAUTHORIZED
+## FIX-003 — PRIMARY_URL_TERM_COLLISION_RULE
 
-No next-stage recommendation may be made for the affected item until the required validation path is completed.
+In Stage A outputs, `primary_url` is not a primary source and not verified evidence.
 
+`primary_url` means only the provided/source-candidate URL selected as the representative starting point for Stage B source discovery. It must not be interpreted as Tier 1, official, primary evidence, or an evidence package.
 
-## Operational integrated rule — REVIEW_TREASURE_RESCUE_AUDIT_STATUS_GATE_20260507_V5
-
-This rule operationalizes the Review Pool + Treasure Rescue Audit requirement.
-
-Stage A review pools, TRIAGE_FILTERED items, DROPPED treasure candidates, newsletter-expanded treasure items, and any missed-treasure candidates must not be treated as exhausted unless a rescue audit is completed or explicitly deferred.
-
-### Trigger
-
-A Review Pool + Treasure Rescue Audit is required when any of the following are true:
-
-- `candidate_review_pool_count > 0`
-- `TRIAGE_FILTERED_count > 0`
-- `DROPPED_count > 0` and `dropped_review_treasure_hunt` is triggered
-- `missed_treasure` or `newsletter_expanded_added_treasure` items exist
-- the user asks to audit review pool, treasure, false holds, false rejects, or missed candidates
-
-### Required status fields
-
-Every Stage A output and every downstream stage that claims the current source universe is complete must carry:
-
-- `rescue_audit_required: true|false`
-- `rescue_audit_status: PASS|EXPLICITLY_DEFERRED|BLOCKED_RESCUE_AUDIT_MISSING|NOT_APPLICABLE`
-- `rescue_audit_trigger_reason[]`
-- `rescue_audit_input_universe_count`
-- `rescue_audit_completed_at`, if PASS
-- `rescue_audit_artifacts[]`, if PASS
-- `rescue_candidate_strict_spec_count`, if PASS
-- `rescue_audit_deferral_reason`, if EXPLICITLY_DEFERRED
-- `rescue_audit_recommended_next_action`
-
-If `rescue_audit_required=true` and `rescue_audit_status` is missing, stale, contradictory, or not PASS/EXPLICITLY_DEFERRED, the stage must stop with:
-
-- `status: BLOCKED_REVIEW_TREASURE_RESCUE_AUDIT_MISSING`
-- `no next-stage recommendation`
-- `blocked_reason: review_or_treasure_universe_not_audited`
-
-### Placement in workflow
-
-This audit does not promote items directly to Stage B.
-
-It produces one of:
-
-- `rescue_candidate_strict_spec[]`
-- `confirmed_review_hold[]`
-- `confirmed_support_only[]`
-- `confirmed_duplicate_or_existing_reinforcement[]`
-- `confirmed_rejected_after_review[]`
-
-A `rescue_candidate_strict_spec[]` item may enter Stage B only through an explicit user-authorized rescue/promotion pass. It must then follow Stage B, Stage C, 0.4, 0.5, 0.6, and 0.7 like any normal card candidate.
-
-### Deferral
-
-An operator may defer the audit only by recording:
-
-- `rescue_audit_status: EXPLICITLY_DEFERRED`
-- `rescue_audit_deferral_reason`
-- `deferred_item_count`
-- `deferred_item_ids[]` or documented sampling boundary
-- `next_required_action`
-- `sample_only_not_exhaustive`, if sampling was used
-- `source_universe_completion_status: PARTIAL_STRICT_SUBSET_ONLY`
-
-A deferred audit means the current merge/package may be valid for the processed strict-pass subset, but must not be described as source-universe-complete.
-
-Deferral is not closure. `EXPLICITLY_DEFERRED` must include a concrete return condition and owner-facing next action. It cannot be used when the user explicitly asked to review the pool/treasure universe now. If deferral is based on sampling, the output must state `sample_only_not_exhaustive: true` and must list the unsampled boundary. Deferred items remain open until a later authorized review resolves them or closes them with hard-reject/support-only ledger evidence.
-
-
-## Operational integrated rule — STAGE_A_FALSE_POSITIVE_RISK_EXAMPLES_20260507_V5
-
-Stage A must actively document how it prevented over-broad strict-pass selection.
-
-Every Stage A report and JSON output must include:
-
-- `lane_sanity_rejected_examples[]`
-- `strict_false_positive_risk_examples[]`
-- `strict_pass_borderline_examples[]`
-- `negative_filter_applied[]`
-- `negative_filter_routed_to_review_pool[]`
-
-### Negative filters
-
-The following patterns must not enter `strict_passed_spec[]` unless a concrete battery/grid/ESS/EV/materials execution anchor is present:
-
-- generic finance or insurance items without battery/grid/ESS/EV/material impact
-- general AI/data-center items without power, grid, battery, ESS, or energy-infrastructure execution
-- publicity/event participation without operational signal
-- broad corporate positioning without project, contract, capacity, policy, filing, or data release anchor
-- roundups where no single event can support a full-schema card
-- trend/explainer items without a fresh execution or data-release anchor
-
-Do not overcorrect by deleting all adjacent items. If a candidate has plausible relevance but lacks strict-pass certainty, route it to `candidate_review_pool[]` with:
-
-- `bounded_review_question`
-- `promotion_precondition`
-- `recommended_review_method`
-- `strict_false_positive_risk_reason`
-
-Stage A must not use this integrated rule to perform web search or article body fetch. Stage A remains selector-only.
-
-## CARD_CLAIM_DIVERSITY_AUDIT_RULE_20260507_V7
-
-This rule adds an editorial-quality gate after evidence safety has already been established. It must never override `FACT_DISCIPLINE.md`.
-
-The workflow must audit not only whether each card is fact-safe, but also whether each publish-ready card answers a distinct, source-supported strategic question.
-
-The goal is not artificial variety. The goal is to prevent a batch from collapsing into repetitive surface claims such as “Company A announced/supplied/launched/expanded Project B” when the underlying sources support a more useful, still source-locked strategic angle.
-
-### Required fields for Prompt 0.6 and Prompt 0.7
-
-For every card entering Prompt 0.6 Content Polish and Prompt 0.7 Final QC, produce `card_claim_diversity_audit[]` with one row per card. Each row must include:
-
-- `card_id` or provisional draft/addable ID
-- `source_spec_id`
-- `primary_claim_type`
-- `secondary_claim_type`
-- `event_anchor_type`
-- `strategic_question`
-- `why_this_card_is_not_redundant`
-- `similar_claim_cards_in_current_batch[]`
-- `claim_overlap_risk`: `low | medium | high`
-- `required_claim_repositioning`: `true | false`
-- `claim_repositioning_applied`: `true | false`
-- `claim_repositioning_source_safe`: `true | false | not_applicable`
-- `claim_overlap_accepted_reason`, required when overlap remains medium/high
-- `source_safe_repositioning_not_possible`: `true | false`
-
-Allowed `primary_claim_type` / `secondary_claim_type` values:
-
-- `capacity_execution`
-- `policy_shift`
-- `market_structure`
-- `pricing_or_cost_signal`
-- `demand_adoption`
-- `supply_chain_security`
-- `technology_validation`
-- `financing_or_capital_market`
-- `safety_or_reliability`
-- `company_strategy`
-- `trade_or_tariff`
-- `grid_integration`
-- `customer_qualification_or_reference`
-- `production_or_factory_execution`
-- `litigation_or_ip_risk`
-- `regulatory_compliance_or_certification`
-- `infrastructure_bottleneck`
-- `earnings_or_margin_signal`
-- `recycling_or_circularity`
-- `source_strength_or_data_release`
-- `other_source_locked_claim`
-
-### Hard warning rule
-
-If 3 or more cards in the same candidate batch share the same `primary_claim_type` and the same `event_anchor_type`, do not automatically reject them. Instead:
-
-1. Check whether each card can answer a distinct `strategic_question` using only already validated source evidence.
-2. If source evidence permits safe repositioning, Prompt 0.6 must reposition visible fields to clarify the distinct role of each card.
-3. If source evidence does not permit safe repositioning, preserve the narrower source-locked claim and record:
-   - `claim_overlap_accepted_reason`
-   - `source_safe_repositioning_not_possible: true`
-
-### Guardrail — no invented variety
-
-This audit must not override `FACT_DISCIPLINE.md`.
-
-Do not invent strategic variety. Do not add unsupported market-structure, causal, competitive, pricing, supply-chain, or SBTL-benefit claims. Do not use memory or outside context to diversify a card.
-
-If the source evidence only supports a narrow surface claim, keep the narrow claim and mark the overlap risk honestly. A boring but true card is better than a distinctive but unsupported card.
-
-### Output and blocker
-
-Prompt 0.6 must include `card_claim_diversity_audit[]` and `claim_diversity_summary` in its JSON output. Prompt 0.7 must validate them before assigning `publish_ready`.
-
-If `card_claim_diversity_audit[]` is missing, incomplete, or contradicts visible fields, report:
-
-- `status: BLOCKED_CARD_CLAIM_DIVERSITY_AUDIT_MISSING`
-- `no publish_ready assignment`
-- `recommended_return_stage: Prompt 0.6 Content Polish`
-
-If overlap risk is high and source-safe repositioning was possible but not applied, report:
-
-- `status: BLOCKED_CLAIM_OVERLAP_REQUIRES_REPOSITIONING`
-- `recommended_return_stage: Prompt 0.6 Content Polish`
-
-Prompt 1.1 retrospective must report claim-type distribution, over-clustered claim types, and any accepted overlap reasons.
-
-
-
-## Source Diversity & Corroboration QC Rule — 2026-05-07 v8
-
-Source diversity is not claim diversity.
-
-Claim diversity checks whether visible cards repeat the same editorial angle, wording pattern, implication structure, or strategic question.
-
-Source diversity checks whether each visible claim is supported by an adequate evidence structure:
-
-- source count
-- source independence
-- official / primary source presence
-- body-level quote quality
-- evidence_role distribution
-- source_url coverage in urls[]
-- single-source exception validity
-- whether background/context sources are being misused as core-event evidence
-
-Do not treat a claim-diverse card as source-diverse.
-Do not treat multi-source background context as core-event corroboration unless the source independently supports the visible core claim.
-
-A single-source card may pass only when the single source is official, primary, regulatory, filing, primary dataset/report, or body-level evidence sufficient for every core visible claim.
-
-If a card involves safety, environmental incidents, regulation, policy impact, subsidy/tariff claims, market share, rankings, first/largest claims, sensitive company risk, litigation/IP risk, high-signal strategic interpretation, or major market-structure claims, require either:
-
-1. official/primary source support, or
-2. at least two independent body-level sources that support the same core event/claim.
-
-If source diversity is insufficient:
-
-- do not mark publish_ready
-- route to needs_return_to_evidence_qc or needs_source_augmentation
-- or narrow visible fields so the claim strength matches the available evidence.
-
-Single-source exceptions must be explicit:
+Preferred schema annotation for every `strict_passed_spec[]` item:
 
 ```json
-"single_source_exception": {
-  "allowed": true,
-  "reason": "official primary release directly supports all core claims",
-  "limits": [
-    "No broad market-impact claim beyond source.",
-    "No unsupported causal claim.",
-    "No unsupported forecast."
-  ]
+{
+  "provided_source_candidate_url": "...",
+  "primary_url_semantics": "provided_source_candidate_not_evidence",
+  "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+  "stage_b_evidence_package_required": true
 }
 ```
 
-Visible-source URL sync is a hard gate: every `fact_sources[].source_url` that supports a visible field must be present in the card `urls[]` unless explicitly marked as `supporting_context_only_not_visible_claim_support` with a reason.
+Replace any wording equivalent to “fetch primary_url and prepare an evidence package” with: Stage B must build a valid `evidence_package` before drafting; `primary_url` is only one provided source candidate and must be independently verified or replaced via the source-discovery ladder.
 
-## Source Diversity Source-Discovery Alignment — 2026-05-19 v9
+## FIX-004 — Evidence gate must distinguish `draft_card` and `draft_blocked`
 
-For Stage B and any later stage that performs source augmentation, source diversity requires a recorded same-event source-discovery effort, not just a count of URLs already attached to the card.
+For `draft_card`, a valid evidence package is mandatory: at least one fetched body-level, official-material, or document-level core event source with `source_quote` and claim mapping.
 
-Required distinction:
+For `draft_blocked`, a valid evidence package is not required, because the correct outcome may be that no valid evidence exists. Instead, `draft_blocked` must include rescue/source-discovery accounting: `rescue_attempted=true`, source/fetch/discovery ledger entries, `blocked_source_reason`, and `final_hold_or_reject_reason`.
 
-- `fact_package` / `evidence_package` proves what was fetched and quoted.
-- `source_discovery_ledger[]` proves what was searched, checked, rejected, or accepted.
-- `source_claim_coverage_map[]` proves which fetched source supports each visible claim.
+A legitimate `draft_blocked` with populated rescue ledger must pass the evidence gate. A `draft_blocked` with no rescue/fetch ledger must block.
 
-A card must not be treated as source-diverse merely because it has multiple URLs if those URLs are syndications, reposts, snippets, landing pages, same-owner duplicates, or background-only sources.
+## FIX-005 — Stage A/B must emit required lineage metadata
 
-For every candidate that reaches Evidence QC, require one of these states:
+Prompt 0.4 lineage guard must remain hard. Do not soften it.
 
-1. `source_diversity_status: PASS_MULTI_SOURCE` with at least two independent body-level sources supporting the same core event or claim.
-2. `source_diversity_status: PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION` with an explicit `single_source_exception` object and a completed `source_discovery_ledger[]`.
-3. `source_diversity_status: HOLD_NEEDS_SOURCE_AUGMENTATION` when the card is promising but corroboration/source-discovery is incomplete.
-4. `source_diversity_status: FAIL_SOURCE_DIVERSITY` when the visible claim cannot be supported without overclaiming.
+The corrected diagnosis from run `20260516_012728` is that Stage A and Stage B failed to emit lineage fields that their own prompts already required. This is execution non-compliance, not a schema-version gap.
 
-`PASS_SINGLE_SOURCE` without official/primary basis is not allowed. informal single-source-acceptable phrasing is not enough; the exception must name why the source is official/primary/body-level sufficient, what claims are covered, what claims are excluded, and what source-discovery attempts failed to find corroboration.
+Stage A exit must fail if any `strict_passed_spec[]` item lacks required lineage fields from `SCHEMA_CONTRACT_STAGE_LINEAGE.md`, including `enhanced_selector_precision_version`, `selector_policy_version`, `strict_gate_check`, `staleness_decision`, `source_access_risk`, and `strict_pass_gate.all_six_conditions_passed`.
 
-For sensitive or high-interpretation claims, including safety, environmental incidents, regulation, policy impact, subsidy/tariff, market share, ranking, first/largest, litigation/IP risk, sensitive company risk, high-signal strategic interpretation, or major market-structure claims, Evidence QC must require either official/primary support or two independent body-level sources. If neither exists, narrow the visible claim or hold for source augmentation.
+Stage B preflight must run `stage_a_validity_guard` before drafting. Stage B output must include `lineage_integrity_status`, `stage_a_validity_guard_applied`, `strict_gate_metadata_preserved`, `execution_anchor_metadata_preserved`, `superseded_lineage_mixed`, `manual_integrated_rule_mixed`, and `previous_run_output_mixed`.
 
-Web search must never create a new candidate silently. It may only verify or augment the same Stage A event anchor, and any newly discovered same-event source must be recorded in `source_discovery_ledger[]` and then mapped in `fact_sources[]` and `source_claim_coverage_map[]` before it supports visible text.
+If required fields are missing, stop with `BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT` or `BLOCKED_STAGE_A_LINEAGE_NONCOMPLIANT`.
 
-Visible-source URL sync remains a hard gate: every `fact_sources[].source_url` supporting visible text must appear in `urls[]`. Background-only sources may be absent from `urls[]` only when marked `supporting_context_only_not_visible_claim_support` with a reason.
+## FIX-007 — Shared schema contract and stage-exit conformance check
 
-# PROMPT_ABC_DEFAULT_MODE.md — Source Diversity source-diversity integrated rule
+All stages must reference `SCHEMA_CONTRACT_STAGE_LINEAGE.md`.
+
+Each named stage must run or explicitly satisfy a stage-exit artifact conformance check before recommending the next stage. Missing required fields must stop the stage with:
+
+```text
+BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT
+```
+
+Do not wait until Prompt 0.4 to discover Stage A/B lineage omissions.
+
+# 04_PROMPT_0_2R_Stage_B_Revise.md — Source Diversity source-diversity integrated rule
 
     This integrated rule is authoritative for source-diversity, source-preservation, synthesis,
     visible-source-date and same-source grouping rules. Earlier language that conflicts with this
@@ -1327,25 +1020,41 @@ A single-source exception is narrow and rare. It may pass only when all conditio
 
 A media article alone does not qualify merely because it is detailed.
 
-## Default-mode state requirement
+## Stage B Revise source-diversity repair scope
 
-The state ladder now includes source-diversity synthesis as a mandatory property:
+When Stage C identifies a source-diversity defect, this revise pass may, only with the authorized
+source-augmentation scope:
 
-```text
-accepted_fact_safe
-→ addable_merge_safe
-→ evidence_complete
-→ source_claim_covered
-→ source_diversity_validated
-→ source_synthesis_applied
-→ content_enriched
-→ language_terminology_polished
-→ publish_ready
+- recover omitted current-run support sources;
+- fetch an official/source-owner source;
+- add an independent same-event source;
+- replace syndicated copies with an independent source;
+- repair `source_role`, `source_contribution`, publication date and synthesis metadata;
+- revise `fact`, `gate` or `implication` only to integrate newly validated evidence.
+
+Required revise ledger:
+
+```json
+{
+  "source_diversity_repair": {
+    "prior_unique_domain_count": 0,
+    "post_repair_unique_domain_count": 0,
+    "omitted_upstream_sources_restored": [],
+    "new_sources_added": [],
+    "syndicated_sources_not_counted": [],
+    "visible_fields_changed": [],
+    "new_claims_introduced": [],
+    "core_event_anchor_unchanged": true
+  }
+}
 ```
 
-These properties may be stored as fields rather than new named stages, but they may not be skipped.
-Stage B discovers and drafts; Stage C validates fact safety; Evidence QC validates source identity;
-Content Polish applies synthesis; Final QC assigns publish readiness.
+If augmentation is not authorized, do not delete the item. Route it to
+`revise_blocked_needs_source_augmentation`.
+
+A revise pass must not add unrelated context merely to reach a numeric source target.
+
+    Stop after Stage B revise. Do not skip Stage C revise validation.
 
 # Source Diversity / IB-grade + Codex Hardening Integrated rule
 
@@ -1527,3 +1236,8 @@ github_ready = true
 ```
 
 Any waiver or exception must be explicit, bounded, and auditable.
+
+
+## Stage B extra
+
+Stage B must not draft from source-lite evidence. It must separate official, independent, contextual, and copied/syndicated evidence.

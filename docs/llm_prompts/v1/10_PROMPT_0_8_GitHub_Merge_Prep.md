@@ -2,73 +2,241 @@
 <!-- Generated KST: 2026-07-08T21:33:49.790191+09:00 -->
 <!-- This file is a full clean replacement file. It is not a patch stub. -->
 
-# SBTL_HUB 운영 워크플로
+Prompt 0.8v — Reusable Default / Replace All / GitHub Merge Preparation & PR Candidate
 
-## 0. 목적
+Proceed to GitHub merge preparation and PR candidate creation only.
 
-이 문서는 SBTL_HUB 카드 생성부터 production verification까지의 표준 운영 흐름을 잠근다.
+Use the current run’s final publish-readiness QC output as the only candidate input universe for this step.
 
-핵심 원칙:
+This step starts after final publish-readiness QC.
 
-1. 생산 파이프라인과 편집 판단을 분리한다.
-2. raw/final input을 바로 merge하지 않는다.
-3. cards.json은 최신 main 기준에서만 수정한다.
-4. 배포 확인은 main + production 기준으로 본다.
-5. 신규 카드는 full schema only.
-6. Prompt C accepted는 publish-ready가 아니다.
+Do not continue from, trust, import, integrated rule, or reuse any previous merge file, PR candidate, GitHub-ready file, branch payload, manually integrated cards.json, or production file unless the user explicitly declares it as current-run authoritative input.
 
-## 1. 시스템 이해
+Use GitHub main as the merge source of truth.
 
-- 표시층: `public/data/cards.json`, `public/data/faq.json`, `public/data/tracker_data.json`
-- 편집층: final input, A/B/C outputs, accepted/revise/rejected states
-- 병합층: addable/publish-ready payload only
-- Git/배포층: GitHub main, Vercel production
+Before starting, read the latest versions of all required workflow docs from GitHub main:
 
-## 2. 금지
+1. docs/FACT_DISCIPLINE.md
+2. docs/PROMPT_ABC_DEFAULT_MODE.md
+3. docs/PROMPT_ABC_SUPPORTING_RULES.md
+4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+5. docs/CARD_ID_STANDARD.md
+6. docs/WORKFLOW.md
+7. docs/OPERATIONS.md
+8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
-- raw final input 직접 merge
-- 오래된 cards.json 덮어쓰기
-- branch preview만 보고 완료 판단
-- expected count를 맞추기 위해 중복/weak card 강제 추가
-- rejected/revise/review_pool을 post-acceptance에서 조용히 되살리기
-- Prompt C accepted를 publish-ready로 부르기
+Required-doc rule:
 
-## 3. 표준 흐름
+All 8 documents above are mandatory.
 
-0.0 Run intake / preflight
-0.1 Stage A selector
-0.2 Stage B evidence package + draft
-0.3 Stage C fact-safe validation
-0.2R/0.3R revise loops, if authorized
-0.4 full baseline revalidation
-0.5 evidence completeness/source-claim QC
-0.6 content polish/language terminology
-0.7 final publish-readiness QC
-0.8 GitHub merge prep
-0.9 production verification
-1.0 remediation, if needed
-1.1 retrospective
+If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
-## 3A. Per-stage prompt-read gate — HARD RULE
+- status: BLOCKED_REQUIRED_DOC_MISSING
+- missing_or_unreadable_docs: [...]
+- no GitHub merge preparation performed
 
-> R3C_P02 integrated rule (run 20260516_012728 retrospective). 모든 stage 에 무조건 적용.
+Do not infer replacement rules from memory.
+Do not use archived docs.
+Do not use branch-only docs.
+Do not use local snippets unless the user explicitly provides them as current-run authoritative docs.
 
-각 stage N 을 실행하기 **전에**:
+Input files:
 
-1. 해당 stage 의 프롬프트 파일 `0N_PROMPT_*.md` 를 **실제로 열어서 읽는다.**
-2. 그 프롬프트가 요구하는 **출력 schema 를 stage 출력에 복창**한다 (요구 필드 목록 명시).
-3. stage 출력에 `stage_prompt_file` 와 `stage_prompt_sha256` 를 기록한다.
+- Final QC JSON: {{FINAL_QC_RESULTS_JSON}}
+- Publish-ready payload: {{PUBLISH_READY_PAYLOAD_JSON}}
+- Final QC report: {{FINAL_PUBLISH_READINESS_QC_REPORT_MD}}
+- Final hold manifest: {{FINAL_HOLD_MANIFEST_JSON}}
+- Current GitHub main baseline: public/data/cards.json
+- Run tag: {{RUN_TAG}}
+- Run label: {{RUN_LABEL_KST}}
+- Target repo: ihyowoen/SBTL_HUB
+- Target branch base: main
+- Target data path: public/data/cards.json
 
-검증:
-- stage 출력이 프롬프트가 요구한 필드를 포함하지 않으면 그 stage 는 **무효**다.
-- 프롬프트 파일을 읽지 않고 이전 run 기억으로 실행한 stage 는 run 전체를 무효화한다.
+Required input rule:
 
-근거: run 20260516_012728 1차 시도는 01_/02_/03_ 프롬프트를 읽지 않고
-이전 run 기억으로 실행 → 모든 하류 결함의 단일 상류 원인 (PV_008).
+This step requires a valid final QC output from the same run.
 
-## 4. State ladder
+The final QC JSON must include:
 
-```text
+- required_docs_check
+- run_tag
+- run_label
+- publish_ready[]
+- final_qc_hold[]
+- final_qc_rejected[]
+- needs_return_to_evidence_qc[]
+- needs_return_to_content_polish[]
+- needs_github_main_sync[]
+- review_pool_deferred[]
+- final_qc_accounting_matches_input_count
+- final_gate_summary
+- hard_fail_summary
+
+If Final QC JSON is missing, invalid, incomplete, not from the same run, or has accounting mismatch, stop and report:
+
+- status: BLOCKED_FINAL_QC_INVALID
+- reason: [...]
+- no GitHub merge preparation performed
+
+
+## Upstream lineage integrity gate
+
+This prompt is downstream of selector, evidence, content, and/or production gates. It must not repair or launder an invalid upstream lineage.
+
+Before doing any work, validate that the current-run final QC output carries a lineage integrity statement from the immediately previous step.
+
+Required lineage fields, unless the previous step explicitly marks a field `not_applicable` with reason:
+
+- `run_tag` matches this run
+- `lineage_integrity_status: PASS`
+- `stage_a_validity_status: PASS` or `not_applicable_after_validated_baseline_revalidation`
+- `artifact_consistency_status: PASS` or `not_applicable_after_validated_baseline_revalidation`
+- `accepted_pool_lineage_status: PASS` or `not_applicable_before_stage_c_pool`
+- `strict_gate_metadata_preserved: true` or `not_applicable_after_non_card_stage`
+- `execution_anchor_metadata_preserved: true` or `not_applicable_after_non_card_stage`
+- `superseded_lineage_mixed: false`
+- `manual_integrated_rule_mixed: false`
+- `previous_run_output_mixed: false`
+
+
+For Prompt 0.8 specifically, final QC is the only upstream step allowed to assign publish_ready=true. It must prove that:
+- every input card is state=publish_ready
+- GitHub-ready or PR_CANDIDATE naming is used only if GitHub main sync passed
+- format-risk / execution-anchor metadata was preserved or explicitly marked not_applicable
+- no publish_ready card depends on a failed strict-pass gate, missing execution anchor, or superseded lineage
+
+If any required lineage field is missing, false, contradictory, stale, not from the same run, or inconsistent with the candidate payload, stop immediately and report:
+
+- status: BLOCKED_UPSTREAM_LINEAGE_INVALID
+- reason: [...]
+- invalid_or_missing_lineage_fields: [...]
+- no GitHub merge preparation performed
+
+Do not infer lineage validity from memory.
+Do not continue just because candidate counts look correct.
+Do not use this prompt to fix Stage A/B/C selection defects or post-QC evidence defects.
+
+Candidate input rule:
+
+Only final QC publish_ready[] may enter GitHub merge preparation.
+
+Do not include:
+
+- final_qc_hold
+- final_qc_rejected
+- needs_return_to_evidence_qc
+- needs_return_to_content_polish
+- needs_github_main_sync unless the issue is resolved by this step’s main sync
+- review_pool_deferred
+- content_hold_claim_narrowing_needed
+- content_hold_language_issue
+- content_hold_schema_issue
+- addable_hold_source_gap
+- addable_hold_claim_gap
+- needs_source_augmentation
+- evidence_qc_rejected
+- duplicate_hold
+- existing_reinforcement
+- withheld_reinforcement
+- baseline_conflict
+- revise_required
+- rejected
+- support_source_only
+- deferred_review_pool
+- Stage B draft_blocked
+- Stage A review_pool
+- previous final files
+- previous PR candidates
+- previous publish-ready payloads
+
+If any non-publish_ready item is mixed into the candidate input, exclude it and report it as mixed_input_excluded.
+
+
+Upstream lineage integrity rule — Stage A V2 selector safety:
+
+This step must verify that every upstream workflow output belongs to the same current run lineage and that the Stage A V2 selector gates were valid.
+
+Required lineage fields to confirm, directly or through carried-forward metadata:
+
+- stage_a_validity_status: PASS
+- artifact_consistency_gate.status: PASS
+- Stage A selector marker is present and accepted. Accepted markers include `enhanced_selector_precision_version: 20260505_safe_execution_anchor` or later/equivalent, or legacy `selector_policy_version: stage_a_high_precision_execution_anchor_v2` or later.
+- strict_pass_gate or strict_gate_check exists for every candidate that originated from strict_passed_spec[]
+- execution_anchor_type / execution_anchor_strength is present for every format-risk candidate
+- watchlist_audit, if a user watchlist was provided, accounts for every watchlist item without auto-promotion
+
+If these fields are missing, inconsistent, stale, or indicate failure, do not silently continue. Stop this step and report:
+
+- status: BLOCKED_INVALID_UPSTREAM_LINEAGE
+- invalid_or_missing_lineage_fields: [...]
+- no downstream state advancement performed
+
+Do not repair Stage A/B/C selection defects in this step. Return the run to the earliest defective stage instead.
+
+
+GitHub merge-prep lineage guard:
+
+Before preparing any PR candidate or merged cards file, verify that final QC publish_ready[] includes lineage proof for:
+
+- Stage A V2 selector PASS
+- Stage A artifact consistency PASS
+- Stage B source verification performed
+- Stage C accepted_fact_safe only, not publish_ready
+- baseline revalidation passed
+- evidence completeness and source-claim coverage passed
+- content/language polish passed
+- final QC publish_ready=true assigned only after all gates
+
+If lineage proof is missing for any publish_ready card, exclude it from merge prep and report publish_ready_lineage_hold. Do not merge it into public/data/cards.json.
+
+Governance hierarchy:
+
+When rules conflict, apply this hierarchy:
+
+1. docs/FACT_DISCIPLINE.md
+2. docs/PROMPT_ABC_DEFAULT_MODE.md
+3. docs/PROMPT_ABC_SUPPORTING_RULES.md
+4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+5. docs/CARD_ID_STANDARD.md
+6. docs/WORKFLOW.md
+7. docs/OPERATIONS.md
+8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+
+FACT_DISCIPLINE.md always wins for facts, numbers, quotes, and evidence discipline.
+
+Role of this step:
+
+This step prepares a GitHub-safe PR candidate by merging publish_ready cards into the current GitHub main baseline.
+
+This step may decide:
+
+- github_main_sync_passed
+- github_merge_ready
+- pr_candidate_ready
+- merge_prep_hold
+- needs_revalidation_against_updated_main
+- id_assignment_required
+- id_collision_hold
+- duplicate_hold_after_main_sync
+- schema_runtime_hold
+
+This step must not:
+
+- create new editorial candidates
+- rescue held/rejected cards
+- change source facts
+- add new sources
+- rewrite visible fields
+- perform content enrichment
+- perform evidence QC
+- force expected final count
+- bypass GitHub main
+- merge into an old baseline
+- call a file PR_CANDIDATE unless GitHub main sync and final gates pass
+
+State ladder reminder:
+
 accepted_fact_safe
 → addable_merge_safe
 → evidence_complete
@@ -77,320 +245,807 @@ accepted_fact_safe
 → language_terminology_polished
 → publish_ready
 → github_merge_ready
-→ production_verified
+→ PR candidate
+→ production verified
+
+This step may move publish_ready cards to github_merge_ready / pr_candidate_ready only after GitHub main sync gate passes.
+
+GitHub main sync gate:
+
+Before preparing any PR candidate:
+
+1. Fetch latest GitHub main.
+2. Read current main public/data/cards.json.
+3. Confirm current main baseline count.
+4. Compare current main baseline with the baseline used in prior steps.
+5. Re-run duplicate ID / URL / canonical URL / event fingerprint checks against current main.
+6. Re-run latest-first sort check.
+7. Re-run schema/runtime check on the merged candidate.
+8. Confirm no main drift invalidates the publish_ready candidates.
+
+If current GitHub main differs materially from the baseline used in final QC:
+
+- do not merge blindly
+- re-run main-sync duplicate/event/ID checks
+- if conflict exists, hold affected cards
+- if conflict is material and cannot be resolved in this step, stop and report:
+  - status: BLOCKED_MAIN_DRIFT_REVALIDATION_REQUIRED
+  - affected_cards: [...]
+  - no PR candidate created
+
+Allowed GitHub actions in this step:
+
+Only after all gates pass:
+
+- create a new branch from latest main
+- update public/data/cards.json
+- commit only intended files
+- open a PR
+
+If the user did not explicitly ask to open a PR in this step, prepare files and report ready-to-PR status without opening PR.
+
+If this prompt is being run in an environment with GitHub write access and the user’s instruction includes PR creation, then create the branch and PR.
+
+Branch naming rule:
+
+Use a deterministic branch name:
+
+- data/add-publish-ready-cards-{{RUN_TAG}}
+
+If branch already exists:
+
+- do not overwrite blindly
+- use:
+  - data/add-publish-ready-cards-{{RUN_TAG}}-r2
+  - data/add-publish-ready-cards-{{RUN_TAG}}-r3
+
+Commit message rule:
+
+Use:
+
+- data: add publish-ready cards for {{RUN_TAG}}
+
+PR title rule:
+
+Use:
+
+- data: add publish-ready SBTL_HUB cards for {{RUN_TAG}}
+
+PR body must include:
+
+- run_tag
+- run_label
+- baseline source
+- main baseline count before merge
+- publish_ready input count
+- actually added count
+- hold count after main sync
+- final cards count
+- files changed
+- QC report summary
+- confirmation that only publish_ready cards were used
+- confirmation that rejected/hold/review items were excluded
+- confirmation that evidence_complete/source_claim_covered/content_enriched/language_polished/publish_ready all passed
+- confirmation that GitHub main sync gate passed
+- confirmation that production verification is still required after merge
+
+Candidate merge rules:
+
+Use only publish_ready[] items.
+
+For each publish_ready card:
+
+- preserve visible fields from final QC
+- preserve fact_sources
+- preserve urls
+- preserve related
+- preserve evidence flags
+- preserve publish_ready=true
+- preserve final_qc_gates
+- do not rewrite title/sub/gate/fact/implication
+- do not alter source_quote
+- do not add new claims
+
+Allowed modifications:
+
+- assign or normalize production id according to CARD_ID_STANDARD, only if required
+- add merge metadata fields only if compatible with current schema
+- remove temporary draft-only fields if they are not part of production schema and would break runtime
+- ensure arrays/types are valid
+- sort latest-first
+
+Production schema rule:
+
+The merged card must remain full schema compatible.
+
+Required card fields:
+
+- id
+- region
+- date
+- cat
+- sub_cat
+- signal
+- title
+- sub
+- gate
+- fact
+- implication
+- urls
+- related
+- fact_sources
+
+Allowed extra metadata fields only if they do not break frontend/runtime and are already tolerated by current cards.json schema.
+
+If extra Stage fields create schema/runtime drift, remove or move them to QC report, not production cards.json.
+
+ID assignment rule:
+
+Use docs/CARD_ID_STANDARD.md.
+
+ID format:
+
+- YYYY-MM-DD_REGION_NN
+
+Rules:
+
+- date = event date, not publication date
+- REGION = card region
+- NN = 2-digit zero-padded sequence within date+region
+- do not reuse existing NN
+- do not rename historical legacy IDs
+- do not silently change IDs after assignment
+- if ID collision occurs, stop or assign next available NN only if the event date/region are confirmed and no collision remains
+
+If production ID is missing:
+
+- assign ID after checking current main date+region group
+- record assigned_id
+- record id_assignment_reason
+
+If production ID exists:
+
+- verify it does not collide with current main
+- verify date/region match ID format unless legacy exception applies
+- if collision exists, hold the card as id_collision_hold unless safe reassignment is explicitly allowed by CARD_ID_STANDARD and recorded
+
+Duplicate/event check after main sync:
+
+For every candidate, check against current main:
+
+- exact ID duplicate
+- exact URL duplicate
+- canonical URL duplicate
+- normalized title duplicate
+- actor + asset/policy + event_type + event_date duplicate
+- event fingerprint duplicate
+- already covered by broader card
+- translated repost
+- follow-up not distinct
+
+If duplicate found:
+
+- do not merge that card
+- move to duplicate_hold_after_main_sync
+- record matched main card ID and reason
+
+If uncertain:
+
+- move to needs_revalidation_against_updated_main
+- do not merge that card
+
+Sort rule:
+
+Final merged cards.json must be sorted latest-first.
+
+Sort keys:
+
+1. date descending
+2. signal priority: top → high → mid
+3. region order: KR → US → CN → JP → EU → GL → other
+4. id ascending
+
+If the existing production sort uses a repo-specific helper or documented sort, follow the repo’s current standard if it conflicts with the above.
+
+Do not change existing baseline card content except for deterministic full-file sort if necessary.
+
+File-change discipline:
+
+Default allowed file change:
+
+- public/data/cards.json
+
+Do not modify:
+
+- src/*
+- docs/*
+- package files
+- scripts/*
+- public/data/faq.json
+- public/data/tracker_data.json
+- other data files
+
+unless the user explicitly requests it.
+
+If any unexpected file is changed, stop and report:
+
+- status: BLOCKED_UNEXPECTED_FILE_DIFF
+- unexpected_files: [...]
+
+Validation checks:
+
+Before PR candidate is created, run or simulate the following checks:
+
+1. JSON parse valid
+2. cards array exists
+3. final count = current_main_count + actually_added_count
+4. no duplicate IDs
+5. no duplicate URLs
+6. no duplicate canonical URLs when canonicalization is possible
+7. no duplicate event fingerprints among new and baseline
+8. all new cards are publish_ready=true
+9. all new cards have evidence_complete=true
+10. all new cards have source_claim_covered=true
+11. all new cards have content_enriched=true
+12. all new cards have language_terminology_polished=true
+13. all new cards have fact_sources
+14. no URL-only fact_sources
+15. no source_quote hard-fail status
+16. no rejected/hold/review cards mixed in
+17. full schema fields present
+18. implication is array with 2+ items
+19. urls is array
+20. related is array
+21. latest-first sort passes
+22. changed files are expected only
+23. GitHub main sync gate passes
+
+If any hard validation fails, do not create PR candidate.
+
+Output state definitions:
+
+1. github_merge_ready
+
+Use when:
+
+- publish_ready input card passed current main sync
+- no duplicate/ID/schema/runtime issue remains
+- card can be merged into public/data/cards.json
+- production verification still pending
+
+2. pr_candidate_ready
+
+Use when:
+
+- github_merge_ready cards exist
+- merged cards.json candidate is valid
+- expected changed files are clean
+- GitHub branch/commit/PR is ready or created
+- no blocking validation issue remains
+
+3. duplicate_hold_after_main_sync
+
+Use when:
+
+- card was publish_ready but current main already contains same event/URL/fingerprint
+- do not merge
+
+4. id_collision_hold
+
+Use when:
+
+- card ID collides with current main or internal batch
+- ID cannot be safely assigned/resolved in this step
+
+5. needs_revalidation_against_updated_main
+
+Use when:
+
+- GitHub main changed materially
+- duplicate/follow-up relation is uncertain
+- baseline drift affects addability
+- card must return to baseline revalidation
+
+6. schema_runtime_hold
+
+Use when:
+
+- card data would break production schema/runtime
+- required fields/types are invalid
+- temporary fields cannot be safely normalized
+
+7. merge_prep_hold
+
+Use when:
+
+- issue is fixable but not safe to merge now
+- no PR candidate should be created for that item
+
+Accounting rule:
+
+Every final QC publish_ready item must appear exactly once in one of:
+
+- github_merge_ready
+- duplicate_hold_after_main_sync
+- id_collision_hold
+- needs_revalidation_against_updated_main
+- schema_runtime_hold
+- merge_prep_hold
+
+No silent skip is allowed.
+
+Report:
+
+- publish_ready_input_count
+- github_merge_ready_count
+- duplicate_hold_after_main_sync_count
+- id_collision_hold_count
+- needs_revalidation_against_updated_main_count
+- schema_runtime_hold_count
+- merge_prep_hold_count
+- outcome_total_count
+- merge_prep_accounting_matches_input_count
+- actually_added_count
+- current_main_count_before
+- final_cards_count_after
+
+If accounting does not match, stop and report:
+
+- status: BLOCKED_MERGE_PREP_ACCOUNTING_MISMATCH
+
+Output files:
+
+If PR candidate is ready:
+
+1. github_merge_prep_results_{{RUN_TAG}}.json
+2. github_merge_prep_report_{{RUN_TAG}}.md
+3. github_merge_prep_decisions_{{RUN_TAG}}.csv
+4. pr_candidate_payload_{{RUN_TAG}}.json
+5. cards_json_candidate_{{RUN_TAG}}.json
+6. merge_prep_hold_manifest_{{RUN_TAG}}.json
+
+If PR candidate is not ready:
+
+1. github_merge_prep_results_{{RUN_TAG}}.json
+2. github_merge_prep_report_{{RUN_TAG}}.md
+3. github_merge_prep_decisions_{{RUN_TAG}}.csv
+4. merge_prep_hold_manifest_{{RUN_TAG}}.json
+5. github_sync_or_revalidation_required_manifest_{{RUN_TAG}}.json
+
+Do not use production-verified naming in this step.
+
+Do not say production is complete.
+
+JSON output requirements:
+
+The main JSON must include:
+
+- stage
+- run_tag
+- run_label
+- repo
+- base_branch
+- target_branch
+- target_data_path
+- final_qc_input_file
+- publish_ready_payload_file
+- current_main_cards_source
+- current_main_count_before
+- publish_ready_input_count
+- github_merge_ready_count
+- duplicate_hold_after_main_sync_count
+- id_collision_hold_count
+- needs_revalidation_against_updated_main_count
+- schema_runtime_hold_count
+- merge_prep_hold_count
+- outcome_total_count
+- merge_prep_accounting_matches_input_count
+- actually_added_count
+- final_cards_count_after
+- github_main_sync_gate
+  - status
+  - main_sha_before
+  - baseline_count_matched
+  - drift_detected
+  - drift_resolution
+- required_docs_check
+  - docs_expected
+  - docs_read_from_github_main
+  - docs_missing_or_unreadable
+  - status
+- validation_summary
+- changed_files
+- branch_info
+- pr_info
+- github_merge_ready[]
+- duplicate_hold_after_main_sync[]
+- id_collision_hold[]
+- needs_revalidation_against_updated_main[]
+- schema_runtime_hold[]
+- merge_prep_hold[]
+- mixed_input_excluded[]
+- decision_ledger[]
+
+Each github_merge_ready item must include:
+
+- state: github_merge_ready
+- previous_state: publish_ready
+- original_draft_id
+- source_spec_id
+- assigned_or_verified_id
+- id_assignment_reason
+- region
+- date
+- cat
+- sub_cat
+- signal
+- title
+- urls
+- event_fingerprint
+- duplicate_check
+- schema_runtime_check
+- sort_check
+- publish_ready: true
+- github_ready: true
+- pr_candidate_ready: true/false
+- production_verified: false
+- notes
+
+Each duplicate_hold_after_main_sync item must include:
+
+- state: duplicate_hold_after_main_sync
+- previous_state: publish_ready
+- original_draft_id
+- source_spec_id
+- duplicate_reason
+- matched_main_card_id
+- matched_main_card_title
+- matched_main_card_url
+- event_fingerprint
+- recommended_next_action
+
+Each id_collision_hold item must include:
+
+- state: id_collision_hold
+- previous_state: publish_ready
+- original_draft_id
+- source_spec_id
+- attempted_id
+- collision_with
+- safe_next_available_id, if determinable
+- recommended_next_action
+
+Each needs_revalidation_against_updated_main item must include:
+
+- state: needs_revalidation_against_updated_main
+- previous_state: publish_ready
+- original_draft_id
+- source_spec_id
+- reason
+- affected_baseline_cards
+- required_revalidation
+- recommended_next_action
+
+Each schema_runtime_hold item must include:
+
+- state: schema_runtime_hold
+- previous_state: publish_ready
+- original_draft_id
+- source_spec_id
+- schema_issue
+- affected_fields
+- required_fix
+- recommended_next_action
+
+Each merge_prep_hold item must include:
+
+- state: merge_prep_hold
+- previous_state: publish_ready
+- original_draft_id
+- source_spec_id
+- hold_reason
+- affected_fields
+- recommended_next_action
+
+Each decision_ledger row must include:
+
+- original_draft_id
+- source_spec_id
+- prior_state
+- merge_prep_outcome
+- assigned_or_verified_id
+- duplicate_status
+- id_status
+- schema_status
+- github_main_sync_status
+- merged_into_candidate
+- reason
+- notes
+
+Validation summary must include:
+
+- json_valid
+- cards_array_valid
+- current_main_count_before
+- publish_ready_input_count
+- actually_added_count
+- final_cards_count_after
+- final_count_formula_pass
+- duplicate_id_count
+- duplicate_url_count
+- duplicate_canonical_url_count
+- duplicate_event_fingerprint_count
+- schema_missing_required_fields_count
+- schema_type_drift_count
+- non_publish_ready_mixed_count
+- evidence_flags_valid_count
+- source_hard_fail_count
+- latest_first_sort_pass
+- unexpected_file_diff_count
+- github_main_sync_pass
+
+Report requirements:
+
+The Markdown report must include:
+
+1. Run metadata
+
+   - final QC input file
+   - publish-ready payload file
+   - repo
+   - base branch
+   - target branch
+   - target data path
+   - run tag
+   - run label
+
+2. Required docs check
+
+   - list all 8 required docs
+   - confirm each was read from GitHub main
+   - if any doc was not read, this step must not proceed
+
+3. GitHub main sync gate
+
+   - current main SHA
+   - current main cards count
+   - prior baseline count used in final QC
+   - drift detected: yes/no
+   - drift handling result
+   - sync gate pass/fail
+
+4. Candidate input summary
+
+   - publish_ready input count
+   - mixed input excluded count
+   - only publish_ready cards used: yes/no
+   - held/rejected/review cards excluded: yes/no
+
+5. Merge-prep summary table
+
+   - publish_ready input count
+   - github_merge_ready count
+   - duplicate_hold_after_main_sync count
+   - id_collision_hold count
+   - needs_revalidation_against_updated_main count
+   - schema_runtime_hold count
+   - merge_prep_hold count
+   - outcome total count
+   - accounting match: yes/no
+   - actually added count
+   - current main count before
+   - final cards count after
+
+6. github_merge_ready manifest
+
+   For each ready item:
+   - assigned/verified ID
+   - source_spec_id
+   - short event anchor
+   - region / cat / signal
+   - duplicate check result
+   - schema/runtime result
+   - publish_ready status
+   - production_verified=false
+
+7. Hold manifest
+
+   Include:
+   - duplicate_hold_after_main_sync
+   - id_collision_hold
+   - needs_revalidation_against_updated_main
+   - schema_runtime_hold
+   - merge_prep_hold
+
+   For each:
+   - source_spec_id
+   - reason
+   - matched main card, if any
+   - required fix
+   - recommended next action
+
+8. Validation summary
+
+   Include:
+   - JSON validity
+   - count formula
+   - duplicate ID/URL/canonical/event result
+   - schema/type drift result
+   - latest-first sort result
+   - source hard-fail result
+   - unexpected file diff result
+   - changed files list
+
+9. Branch / PR result
+
+   If PR created:
+   - branch name
+   - commit SHA
+   - PR number
+   - PR URL
+   - files changed
+
+   If PR not created:
+   - reason
+   - ready-to-PR status
+   - next required action
+
+10. Explicit boundary statement
+
+   Include this exact statement:
+
+   “GitHub merge preparation used only final QC publish_ready cards and the latest GitHub main public/data/cards.json. It did not add new candidates, rescue held/rejected cards, rewrite visible fields, change fact_sources, or force expected final count. Production verification is still required after merge.”
+
+11. Next-step statement
+
+   If PR was created:
+
+   “The next step is PR review, merge, and production verification.”
+
+   If PR candidate is ready but PR was not created:
+
+   “The next step is to create a PR from the prepared candidate, then run production verification after merge.”
+
+   If PR candidate is blocked:
+
+   “No PR candidate should be created until the listed holds are resolved.”
+
+## Operational integrated rule — GitHub merge prep upstream-lineage guard
+
+GitHub merge preparation must not merge cards whose final QC publish_ready status was produced from invalid or incomplete upstream lineage.
+
+Before preparing a PR candidate, verify that Final QC JSON includes:
+
+- `final_qc_status = PASS`;
+- `upstream_lineage_publish_gate_status = PASS`, or equivalent;
+- `publish_ready_true_despite_lineage_fail_count = 0`;
+- `final_qc_hold_selection_lineage_gap[]` and `final_qc_hold_execution_anchor_gap[]` were excluded from `publish_ready[]`;
+- every `publish_ready[]` card has a traceable chain from Stage A strict gate through Stage B, Stage C, 0.4, 0.5, 0.6, and 0.7.
+
+If Final QC lacks lineage gate proof or contains any publish_ready item with lineage/execution-anchor gaps, stop and report:
+
+```json
+{
+  "status": "BLOCKED_FINAL_QC_LINEAGE_INVALID",
+  "no_github_merge_prep_performed": true,
+  "recommended_next_call": "return to final QC or rerun upstream lineage"
+}
 ```
 
-Do not collapse these states.
+Do not use GitHub merge prep to remove, rewrite, or silently repair these cards. Exclude or block only.
 
-## 4A. Named-stage discipline — HARD RULE
+## Next-call recommendation rule
 
-> R3C_P05 integrated rule (run 20260516_012728 retrospective).
+At the end of this step, recommend exactly one next call.
 
-- ladder 의 각 state transition 은 **해당 named stage 프롬프트가 생성**해야 한다.
-- ad-hoc / 이름 바꾼 / 병합한 pass 가 named stage 를 대체할 수 없다.
-- red-team·deep-dive 리뷰는 stage **내부의 추가 검사**이지, stage 자체의 대체가 아니다.
-- 어떤 named stage 도 건너뛰거나 다른 pass 로 갈음할 수 없다. 건너뛴 stage 가 있으면
-  그 state 는 생성되지 않은 것이고 하류는 진행 불가다.
+The recommendation must be based only on the current step’s output counts and blockers.
 
-근거: run 20260516_012728 1차 시도는 Stage C 를 이름 없는 pass 로 대체 →
-`accepted_fact_safe` state 가 생성된 적 없음 (PV_004).
+Do not proceed automatically.
 
-## 5. Stage A default
+The user must explicitly authorize the next call.
 
-Stage A must produce partitioned review pools and output-schema-complete artifacts as required by `docs/PROMPT_ABC_DEFAULT_MODE.md` and `docs/run_prompts/01_PROMPT_0.1_Stage_A.md`.
+The recommendation must include:
 
-## 6. Stage B default
+- recommended_next_call
+- recommended_prompt_id
+- recommended_input_universe
+- reason
+- blocked_items_summary
+- alternative_next_call, if applicable
+- do_not_proceed_to, if applicable
 
-Stage B uses only Stage A `strict_passed_spec[]` from a valid Stage A artifact set.
+When this step writes JSON and/or a report, emit the recommendation as a structured `next_call_recommendation` object in both outputs.
 
-## 7. Stage C default
+## Operational integrated rule — GitHub merge prep next-call recommendation
 
-Stage C uses only Stage B `draft_cards[]` and evidence packages.
+At the end of this step, produce a structured `next_call_recommendation` object in the JSON/report.
 
-## 8. Post-acceptance default
+The recommendation must be based only on the current step’s output counts and blockers.
 
-0.4+ stages may use only the precise upstream state allowed by their prompt. Review pools, support-only, rejected, draft-blocked, and deferred items are excluded unless a separate authorized review loop is performed.
+Do not proceed automatically.
 
-## 9. GitHub / production
+The user must explicitly authorize the next call.
 
-GitHub main sync and production verification are mandatory before claiming completion.
+The recommendation must include:
 
+- recommended_next_call
+- recommended_prompt_id
+- recommended_input_universe
+- reason
+- blocked_items_summary
+- alternative_next_call, if applicable
+- do_not_proceed_to, if applicable
+
+
+Use this specific recommendation logic:
+
+1. If PR was created:
+   - recommended_next_call = "PR review, merge, then production verification"
+   - recommended_prompt_id = "Prompt 0.9 after PR is merged"
+
+2. If PR candidate is ready but PR was not created:
+   - recommended_next_call = "create PR from prepared candidate, then production verification after merge"
+
+3. If PR candidate is blocked:
+   - recommended_next_call = "resolve merge prep holds"
+   - do_not_proceed_to = "production verification"
+
+Do not proceed automatically to production verification.
+Stop after GitHub merge preparation.
+
+Do not proceed to production verification until the PR is merged and I explicitly say “production verification”.
 
 ---
 
-# Structural Default Run Contract — 2026-05-06
+## Execution-anchor and selector-lineage safety overlay — 2026-05-05
 
-This section is part of the replace-all structural default package. It exists to make the required 8 GitHub workflow docs consistent with the current run prompt files.
+This overlay is downstream of the Stage A safe-selector integrated rule. It prevents post-acceptance steps from laundering a weak or superseded Stage A/B/C lineage into publish-ready or production status.
 
-## A. Source-prompt provenance
+Terminology lock:
 
-Every Stage A output must record:
+- Do not use or enforce a format-based hard-exclude rule.
+- Product, demo, PoC, component, interview, commentary, roundup, speech, or personnel formats are not automatically rejected by format alone.
+- They are subject to a strict-pass presumption block: without a concrete fresh execution anchor, they must not have entered `strict_passed_spec[]`; if they did, the downstream step must hold, reject, or return the item to the appropriate prior stage rather than polishing it forward.
+- Concrete execution anchors include signed contract, binding customer order, offtake, commercial deployment, field installation, commissioning, production start, facility opening, certification, regulatory decision, public funding approval, binding procurement, measurable capacity addition, safety recall/regulatory action, or named customer adoption.
 
-- `source_prompt_file`
-- `source_prompt_sha256`
-- `source_prompt_version`
-- `source_prompt_authority`
-- `source_prompt_provenance_status`
+### Required upstream lineage gate for GitHub Merge Prep
 
-The structural default version is:
+Before preparing any PR candidate, verify that `FINAL_QC_RESULTS_JSON` includes:
 
-```text
-structural_default_review_pool_partition_20260506
-```
+- `selector_lineage_final_gate.upstream_lineage_passed: true`
+- `selector_lineage_final_gate.artifact_consistency_passed: true`
+- `selector_lineage_final_gate.superseded_lineage_detected: false`
+- `final_qc_accounting_matches_input_count: true`
+- `publish_ready[]` only from current-run validated lineage
 
-or a later compatible version.
-
-## B. Stage A validity gate
-
-Stage A may recommend Stage B only if all are PASS:
-
-- `source_prompt_provenance_status`
-- `stage_a_validity_status`
-- `artifact_consistency_status`
-- `csv_schema_status`
-- `review_pool_partition_status`
-- `review_pool_carry_forward_ledger_status`
-- `strict_pass_gate_metadata_status`
-- `baseline_duplicate_screen_status`
-- `summary.ledger_matches_story_count`
-
-If any value is missing or not PASS, Stage A must not recommend Stage B.
-
-## C. Review-pool partition default
-
-`review_pool[]` must not be an undifferentiated operational bucket.
-
-Every input story or candidate must be accounted for in the source-universe ledger.
-
-A genuinely out-of-scope, duplicate, consumer-noise, local-noise, stale, source-broken, or non-SBTL item may be closed as rejected or support-only, but only with an item-specific reason code and ledger row.
-
-Every non-strict candidate that is not item-specifically closed as rejected or support-only must enter exactly one of:
-
-1. `candidate_review_pool[]`
-   - plausibly cardable after bounded source/date/duplicate clarification
-2. `watchlist_context_pool[]`
-   - useful for context/background but not a current-run card candidate
-3. `reject_or_support_only_pool[]`
-   - too weak for candidate review, but may be rejected or used only as support
-
-The legacy aggregate `review_pool[]` may exist for compatibility, but each item must include:
-
-- `review_pool_partition`
-- `review_pool_partition_reason`
-- `promotion_precondition`
-- `bounded_review_question`
-- `recommended_next_action`
-
-Unpartitioned review_pool output is invalid. Missing rejected/support-only ledger rows are also invalid.
-
-## D. Strict-pass gate
-
-A story may enter `strict_passed_spec[]` only if all six conditions pass:
-
-1. SBTL_HUB lane fit
-2. concrete fresh execution anchor or accepted data/policy release anchor
-3. source direction compatibility
-4. freshness / staleness confidence
-5. baseline duplicate/follow-up risk acceptable
-6. independent card value and full-schema viability
-
-Each strict item must include:
-
-- `strict_pass_gate.status`
-- `strict_pass_gate.all_six_conditions_passed`
-- `strict_pass_gate.execution_anchor_type`
-- `strict_pass_gate.execution_anchor_strength`
-- `strict_pass_gate.format_risk_tags`
-- `strict_pass_gate.notes`
-
-## E. Format-risk handling
-
-Product/demo/PoC/component/interview/commentary/roundup/speech/personnel/partnership formats are not automatically rejected by format alone.
-
-They are blocked from strict-pass unless a concrete execution anchor is present.
-
-Allowed concrete execution anchors include:
-
-- signed contract
-- binding customer order
-- offtake
-- price floor or risk-sharing facility
-- commercial deployment
-- field installation
-- commissioning
-- production start
-- facility opening
-- certification or regulatory approval
-- regulatory decision/enforcement
-- public funding approval
-- binding procurement
-- measurable capacity addition
-- safety recall/regulatory action
-- named customer adoption
-- named deployment site with measurable pilot scale/duration/objective
-- factory/project construction, suspension, expansion, or final investment decision
-- official or reported data release when the card is clearly a data/policy/statistics event
-
-## F. CSV required schema
-
-Stage A decisions CSV must include at minimum:
-
-- `story_id`
-- `region`
-- `original_triage_status`
-- `status_detail`
-- `stage_a_bucket`
-- `ledger_decision`
-- `headline`
-- `reason`
-- `baseline_relation`
-- `duplicate_risk`
-- `staleness_decision`
-- `event_date`
-- `source_tier_estimate`
-- `source_access_risk`
-- `format_risk_tags`
-- `execution_anchor_type`
-- `execution_anchor_strength`
-- `strict_pass_gate_status`
-- `strict_pass_gate_reason`
-- `review_pool_partition`
-- `review_pool_partition_reason`
-- `promotion_precondition`
-- `bounded_review_question`
-- `recommended_next_action`
-
-If required columns are missing:
+If missing or failed, stop and report:
 
 ```text
-csv_schema_status = FAIL
-stage_a_validity_status = FAIL
-status = BLOCKED_STAGE_A_CSV_SCHEMA_INCOMPLETE
-no Stage B recommendation
+status: BLOCKED_FINAL_QC_LINEAGE_INVALID
+reason: [...]
+no GitHub merge preparation performed
 ```
 
-## G. Stage B blocker
+### Merge-prep no-laundering rule
 
-Stage B must block before fetch or draft if any Stage A gate is missing or not PASS:
+GitHub Merge Prep must not convert content publish-ready into GitHub-ready if any upstream selector/evidence/content lineage is missing, superseded, or unverifiable.
 
-- `stage_a_validity_status`
-- `artifact_consistency_status`
-- `csv_schema_status`
-- `review_pool_partition_status`
-- `review_pool_carry_forward_ledger_status`
-- `strict_pass_gate_metadata_status`
-- `baseline_duplicate_screen_status`
-- `summary.ledger_matches_story_count`
+If a `publish_ready` item lacks the lineage/anchor fields introduced by the safe-selector integrated rule, treat it as `merge_prep_hold`, not `github_merge_ready`, unless the user explicitly declares that the run predates the safe-selector integrated rule and authorizes manual review.
 
-Blocked state:
+### Output requirement
 
-```text
-BLOCKED_STAGE_A_ARTIFACT_OR_PARTITION_INVALID
+Add to GitHub Merge Prep JSON:
+
+```json
+"lineage_merge_gate": {
+  "final_qc_lineage_passed": true,
+  "publish_ready_lineage_checked_count": 0,
+  "publish_ready_lineage_hold_count": 0,
+  "github_ready_allowed": true
+}
 ```
 
-## H. Post-acceptance laundering prevention
-
-No later stage may promote any of the following unless an explicit, current-run authorized promotion/review loop has occurred:
-
-- Stage A `review_pool[]`
-- `candidate_review_pool[]`
-- `watchlist_context_pool[]`
-- `reject_or_support_only_pool[]`
-- `support_source_only[]`
-- `rejected[]`
-- Stage B `draft_blocked[]`
-- Stage C `deferred_review_pool[]`
-
-The normal ladder remains:
-
-```text
-accepted_fact_safe
-→ addable_merge_safe
-→ evidence_complete
-→ source_claim_covered
-→ content_enriched
-→ language_terminology_polished
-→ publish_ready
-```
-
-## Operational integrated rule — NO_UNVERIFIED_HOLD_OR_DELETE_RULE_20260507_V2
-
-This rule is mandatory for every stage that can move an item to hold, block, reject, delete, support-only, deferred, revise-blocked, draft_blocked, or production-hold because evidence looks weak, incomplete, suspicious, inaccessible, RSS-only, snippet-only, listing-only, claim-thin, format-risky, or uncertain.
-
-Uncertainty is not an outcome. Uncertainty is a verification trigger.
-
-Before any item is finalized as hold/block/reject/delete/support-only/deferred/draft_blocked for evidence, source, claim, access, quote, format, or uncertainty reasons, the output must prove a bounded rescue/verification pass was attempted or explicitly mark the field as not applicable under the stage-specific boundary below.
-
-Required rescue metadata for every such item:
-
-- `rescue_attempted: true`
-- `rescue_attempt_log[]`
-- `searched_source_types[]`
-- `official_source_checked: true|false|NOT_APPLICABLE_STAGE_A_NO_FETCH`
-- `official_source_check_reason`
-- `alternate_tier1_tier2_checked: true|false|NOT_APPLICABLE_STAGE_A_NO_FETCH`
-- `alternate_tier1_tier2_check_reason`
-- `same_event_source_direction_check: PASS|FAIL|NOT_APPLICABLE`
-- `same_actor_event_date_check: PASS|FAIL|NOT_APPLICABLE`
-- `blocked_source_reason`, one of:
-  - `not_found_after_search`
-  - `found_but_does_not_support_claim`
-  - `source_access_blocked`
-  - `source_is_rss_or_snippet_only`
-  - `claim_overreached_available_evidence`
-  - `duplicate_or_baseline_conflict`
-  - `out_of_scope_or_selection_defect`
-  - `manual_review_required_after_rescue`
-  - `not_applicable_stage_a_selector_only`
-- `final_hold_or_reject_reason`, one of:
-  - `not_found_after_search`
-  - `found_but_does_not_support_claim`
-  - `source_access_blocked`
-  - `source_is_rss_or_snippet_only`
-  - `claim_overreached_available_evidence`
-  - `duplicate_or_baseline_conflict`
-  - `out_of_scope_or_selection_defect`
-  - `manual_review_required_after_rescue`
-  - `not_applicable_stage_a_partitioned_review`
-
-`blocked_source_reason` explains the source/evidence/access failure mode. `final_hold_or_reject_reason` explains the final editorial/workflow conclusion. They must not be collapsed into one field.
-
-If any required rescue metadata is missing for a hold/block/reject/delete/support-only/deferred/draft_blocked item, the stage must stop and report:
-
-- `status: BLOCKED_RESCUE_METADATA_MISSING`
-- `missing_rescue_metadata_fields: [...]`
-- `affected_items: [...]`
-- `no next-stage recommendation`
-
-No stage may finalize hold/block/reject/delete solely because the assistant is uncertain.
-
-Allowed final outcomes after rescue:
-
-1. If a same-event official/body-level source supports the claim, keep or rescue the item within the stage's authorized state boundaries.
-2. If evidence supports only a narrower claim, narrow the claim or send to the appropriate revise/content-polish path.
-3. If evidence is not found after the bounded rescue pass, hold/block/reject with the rescue log attached.
-4. If the item fails lane-fit, duplicate, stale, or source-direction checks after verification, reject/hold with explicit reason.
-
-Stage A selector-only override:
-
-Stage A must not perform external web search, article-body fetch, source_quote generation, or fact_sources generation. For Stage A, rescue means partitioning and bounded-question capture, not searching.
-
-For Stage A non-strict outcomes, use:
-
-- `official_source_checked: NOT_APPLICABLE_STAGE_A_NO_FETCH`
-- `alternate_tier1_tier2_checked: NOT_APPLICABLE_STAGE_A_NO_FETCH`
-- `blocked_source_reason: not_applicable_stage_a_selector_only`
-- `final_hold_or_reject_reason: not_applicable_stage_a_partitioned_review` unless the item is rejected/support-only for a non-evidence reason.
-
-Stage A must instead record:
-
-- `review_pool_partition`
-- `review_pool_partition_reason`
-- `promotion_precondition`
-- `bounded_review_question`
-- `recommended_next_action`
-
-This rule must not be used to launder weak evidence into publish readiness. It prevents unverified early abandonment; it does not relax FACT_DISCIPLINE.
+Final override: if `lineage_merge_gate.github_ready_allowed != true`, do not emit PR_CANDIDATE or GitHub-ready filenames.
 
 ## Operational integrated rule — LINEAGE_METADATA_REQUIRED_SCHEMA_20260507
 
@@ -437,96 +1092,78 @@ Stage C and Stage C revise outputs must include:
 
 If any accepted_fact_safe item lacks Stage A strict gate metadata, Stage C must not mark it accepted_fact_safe. It must move the item to `deferred_review_pool`, `revise_required`, `support_source_only`, or `rejected` depending on severity and stage rules.
 
-## Operational integrated rule — NO_SILENT_DOWNSTREAM_ENRICHMENT_RULE_20260507_V3
+## Operational integrated rule — SUPPLEMENTAL_PASS_ACCOUNTING_20260507
 
-This rule limits and complements `NO_UNVERIFIED_HOLD_OR_DELETE_RULE_20260507`.
+If a supplemental pass is authorized after a hold-rescue or schema repair step, the supplemental output must not silently mix with already-passed items.
 
-The duty to attempt rescue does **not** authorize silent downstream enrichment.
+Required fields:
 
-A later-stage source, source_quote, number, named entity, claim, or source-derived framing may not be directly inserted into the current card state unless the current prompt explicitly permits that modification or the item is routed to the appropriate controlled validation path.
+- `supplemental_pass: true`
+- `supplemental_pass_reason`
+- `supplemental_input_universe`
+- `supplemental_input_ids[]`
+- `previous_pass_reference_file`
+- `excluded_previous_pass_ids[]`
+- `combined_reference_payload_created: true|false`
+- `combined_reference_payload_status: reference_only|pending_next_gate|invalid`
 
-### Core distinction
+A combined payload may be produced only as a clearly named reference or pending-next-gate payload. It must preserve lineage and must not assign a later state by combining files.
 
-- `NO_UNVERIFIED_HOLD_OR_DELETE_RULE`: do not give up before bounded verification/rescue.
-- `NO_SILENT_DOWNSTREAM_ENRICHMENT_RULE`: do not quietly absorb later-discovered evidence or claims into a higher state.
+## Operational integrated rule — EXECUTION_TRANSPARENCY_AND_FILE_VERIFICATION_20260507
 
-Both rules must be satisfied.
+For local validation runs, every stage report must identify:
 
-### Later-discovered evidence rule
+- input files actually opened,
+- input counts read from those files,
+- output files written,
+- post-write verification result,
+- count reconciliation after reopening outputs,
+- any step not performed.
 
-Any evidence, source, quote, numeric claim, named-entity claim, date, capacity, contract term, price, funding amount, or source-derived framing discovered after the original stage must not be silently accepted into the current card state.
+If a file was not opened or a count was not verified, the assistant must not claim completion for that artifact.
 
-It must enter the appropriate controlled pass:
+## Operational integrated rule — NO_UNVERIFIED_HOLD_OR_DELETE_BOUNDARY_FOR_DOWNSTREAM_STAGES_20260507_V2
 
-- Stage B revise r1/r2/r3, if it repairs a Stage C `revise_required` item and source augmentation is explicitly authorized when needed.
-- Stage C revise validation r1/r2/r3, before a revised item can become `accepted_fact_safe`.
-- Evidence QC rescue / 0.5R, if it repairs `source_gap`, `claim_gap`, RSS-only, snippet-only, or quote-status failures after 0.5.
-- Content polish supplemental, if visible fields change after evidence rescue.
-- Final QC, before `publish_ready`.
+This stage is not a general evidence-rescue stage unless its prompt explicitly authorizes source augmentation or remediation.
 
-Later-discovered evidence may be accepted only after all are true:
+The NO_UNVERIFIED_HOLD_OR_DELETE rule applies here only within this stage's own authority:
 
-1. source direction compatibility is confirmed,
-2. fact/source quote coverage is mapped,
-3. unsupported prior claims are narrowed or removed,
-4. lineage metadata is preserved,
-5. supplemental or revise-pass accounting is explicit,
-6. the item passes the next required validation gate.
+- 0.4: duplicate, baseline relation, conflict, and accepted-pool lineage verification.
+- 0.8: GitHub main sync, merge-prep integrity, PR-candidate naming, and publish-ready lineage preservation.
+- 0.9: deployed production data verification only.
+- 1.0: production issue classification, rollback/redeploy/data-fix recommendation only.
 
-No later-discovered source or claim may be directly inserted into:
+This stage must preserve prior rescue metadata and must not use hold states to launder unresolved evidence defects. If an evidence/source/claim defect is discovered here, return to the earliest valid upstream stage instead of repairing it silently.
 
-- `accepted_fact_safe`
-- `addable_merge_safe`
-- `evidence_complete`
-- `source_claim_covered`
-- `content_enriched`
-- `language_terminology_polished`
-- `publish_ready`
-- final payload
-- PR candidate
-- GitHub-ready output
+If this stage issues a hold/block/reject/rollback/deploy-hold inside its own authority, it must record:
 
-without passing the required revalidation gate.
+- `rescue_attempted` or `not_applicable_for_this_stage` with reason
+- `blocked_source_reason` when source/evidence related
+- `final_hold_or_reject_reason`
+- upstream stage to return to, if applicable
 
-### When the current stage is not authorized to modify evidence or visible claims
+## Operational integrated rule — NO_SILENT_DOWNSTREAM_ENRICHMENT_BOUNDARY_FOR_NON_EVIDENCE_STAGES_20260507_V3
 
-If useful later evidence is discovered in a stage that is not authorized to modify `fact_sources`, `source_quote`, or visible claims, record it as metadata only:
+This stage must preserve prior rescue and lineage metadata, but it must not perform silent evidence enrichment.
+
+This stage may not add, rewrite, or absorb later-discovered source evidence, source_quote, numeric claims, named-entity claims, or source-derived framing to fix upstream evidence defects.
+
+If a new evidence issue or useful later source is discovered here, record it only as:
 
 - `rescue_candidate_evidence[]`
 - `source_augmentation_needed: true`
 - `recommended_return_stage`
 - `reason_current_stage_cannot_absorb_evidence`
 
-Then stop state advancement for that item until the required validation pass is completed.
+Then stop advancement for the affected item unless the current prompt explicitly authorizes that exact modification.
 
-### Required blocker
-
-If a stage attempts to use later-discovered evidence without the appropriate controlled validation path, stop and report:
+If this stage attempts to use later-discovered evidence to advance an item, stop and report:
 
 - `status: BLOCKED_SILENT_DOWNSTREAM_ENRICHMENT_ATTEMPT`
-- `invalid_evidence_or_claims: [...]`
 - `recommended_return_stage`
 - `no next-stage recommendation`
 
-### Mandatory output ledger for supplemental/revise paths
-
-Any revise, rescue, or supplemental pass that uses later-discovered evidence must include:
-
-- `later_discovered_evidence_used: true`
-- `later_discovered_evidence_ledger[]`
-- `source_discovery_or_rescue_pass_id`
-- `authorized_modification_scope`
-- `validation_gate_passed`
-- `lineage_metadata_preserved: true`
-
-### Final rule
-
-Do not confuse rescue with laundering.
-
-A valid rescue path proves the claim.  
-Silent downstream enrichment hides the claim.  
-The first is required when evidence may exist.  
-The second is prohibited.
+This boundary prevents unresolved evidence defects from being laundered through baseline revalidation, merge prep, production verification, or remediation.
 
 
 
@@ -773,29 +1410,6 @@ The guiding principle is:
 - Review them, account for them, and if valid, route them through the formal state ladder.
 
 
-## Stage A boundary — no-fetch handling for v4 rescue/review rules
-
-Stage A is selector-only. The v4 rescue and review rules do not authorize Stage A to perform external web search, article body fetch, source_quote generation, fact_sources generation, or card drafting.
-
-For Stage A only:
-
-- official_source_checked = NOT_APPLICABLE_STAGE_A_NO_FETCH
-- alternate_tier1_tier2_checked = NOT_APPLICABLE_STAGE_A_NO_FETCH
-- source_strength_review_log = NOT_APPLICABLE_STAGE_A_NO_FETCH
-
-Stage A satisfies v4 by partitioning and documenting bounded review paths, not by fetching.
-
-If a Stage A item looks promising but not strict-pass ready, Stage A must not reject it simply because verification is not yet complete. It must place it in the correct bounded pool with:
-
-- review_pool_partition
-- review_pool_partition_reason
-- promotion_precondition
-- bounded_review_question
-- recommended_next_action
-
-If dropped_review_treasure_hunt is triggered, Stage A must account for sampled and non-sampled treasure candidates as required by REVIEW_POOL_AND_TREASURE_MUST_BE_REVIEWED_RULE_20260507_V4.
-
-
 ## Downstream boundary — v4 rescue/review rules do not authorize state laundering
 
 This downstream stage must preserve and validate prior rescue/review metadata. It must not use merge safety, content polish, final QC, GitHub merge prep, production verification, or remediation to launder unresolved evidence defects, unvalidated later-discovered evidence, unreviewed caveats, or unreviewed review_pool/treasure items.
@@ -877,39 +1491,6 @@ A deferred audit means the current merge/package may be valid for the processed 
 Deferral is not closure. `EXPLICITLY_DEFERRED` must include a concrete return condition and owner-facing next action. It cannot be used when the user explicitly asked to review the pool/treasure universe now. If deferral is based on sampling, the output must state `sample_only_not_exhaustive: true` and must list the unsampled boundary. Deferred items remain open until a later authorized review resolves them or closes them with hard-reject/support-only ledger evidence.
 
 
-## Operational integrated rule — STAGE_A_FALSE_POSITIVE_RISK_EXAMPLES_20260507_V5
-
-Stage A must actively document how it prevented over-broad strict-pass selection.
-
-Every Stage A report and JSON output must include:
-
-- `lane_sanity_rejected_examples[]`
-- `strict_false_positive_risk_examples[]`
-- `strict_pass_borderline_examples[]`
-- `negative_filter_applied[]`
-- `negative_filter_routed_to_review_pool[]`
-
-### Negative filters
-
-The following patterns must not enter `strict_passed_spec[]` unless a concrete battery/grid/ESS/EV/materials execution anchor is present:
-
-- generic finance or insurance items without battery/grid/ESS/EV/material impact
-- general AI/data-center items without power, grid, battery, ESS, or energy-infrastructure execution
-- publicity/event participation without operational signal
-- broad corporate positioning without project, contract, capacity, policy, filing, or data release anchor
-- roundups where no single event can support a full-schema card
-- trend/explainer items without a fresh execution or data-release anchor
-
-Do not overcorrect by deleting all adjacent items. If a candidate has plausible relevance but lacks strict-pass certainty, route it to `candidate_review_pool[]` with:
-
-- `bounded_review_question`
-- `promotion_precondition`
-- `recommended_review_method`
-- `strict_false_positive_risk_reason`
-
-Stage A must not use this integrated rule to perform web search or article body fetch. Stage A remains selector-only.
-
-
 ## Operational integrated rule — GITHUB_MAIN_UNREADABLE_FALLBACK_RULE_20260507_V5
 
 Prompt 0.8 must normally use GitHub main `public/data/cards.json` as the merge source of truth.
@@ -936,117 +1517,6 @@ If fallback is accepted, the output status must remain local/sync-qualified, for
 - `LOCAL_MERGE_PREP_READY_REQUIRES_GITHUB_MAIN_SYNC_CONFIRMATION`
 
 This rule must not weaken the GitHub main sync gate. It only defines an auditable fallback when connector body access fails.
-
-
-## Operational integrated rule — PROMPT_0_6_EXACT_LINEAGE_AND_ANCHOR_GUARD_20260508_V6
-
-This v6 integrated rule closes the metadata contract defect found in the clean-v5 local validation run: Prompt 0.6 produced semantically valid content polish output, but Prompt 0.7 could not machine-verify the exact nested `lineage_and_anchor_guard` contract.
-
-Prompt 0.6 must now emit an exact machine-readable guard at both root level and payload-item level.
-
-Required root-level fields in the 0.6 JSON output:
-
-```json
-"lineage_and_anchor_guard": {
-  "status": "PASS",
-  "evidence_qc_lineage_passed": true,
-  "execution_anchor_qc_passed": true,
-  "source_strength_caveat_preserved": true,
-  "publish_ready_remains_false": true,
-  "content_polish_modified_visible_fields_only": true,
-  "fact_sources_unchanged_unless_authorized_supplemental": true,
-  "source_quote_unchanged_unless_authorized_supplemental": true,
-  "no_silent_downstream_enrichment": true,
-  "supplemental_pass_accounting_preserved": true
-}
-```
-
-Required payload-item fields for every `content_enriched_and_language_polished[]` item:
-
-```json
-"lineage_and_anchor_guard": {
-  "status": "PASS",
-  "source_spec_id": "...",
-  "evidence_qc_lineage_passed": true,
-  "execution_anchor_qc_passed": true,
-  "source_strength_caveat_preserved": true,
-  "publish_ready_remains_false": true,
-  "visible_field_change_log_ref": "...",
-  "fact_sources_change_status": "unchanged|authorized_supplemental_metadata_only|authorized_supplemental_source_added",
-  "source_quote_change_status": "unchanged|authorized_supplemental_quote_added",
-  "reason_if_any_source_field_changed": "...|not_applicable"
-}
-```
-
-If any required root or payload guard field is missing, false, contradictory, stale, or not from the same run, Prompt 0.6 must stop and report:
-
-```text
-status = BLOCKED_CONTENT_POLISH_LINEAGE_AND_ANCHOR_GUARD_MISSING
-no Final QC recommendation
-```
-
-Prompt 0.6 must not rely on prose statements like “lineage preserved” as a substitute for the exact guard object.
-Prompt 0.7 must treat absence of this exact guard as a hard preflight block.
-
-
-## Operational integrated rule — PROMPT_0_5R_SUPPLEMENTAL_FACT_SOURCE_METADATA_COMPLETE_20260508_V6
-
-This v6 integrated rule closes the clean-v5 defect where 0.5R supplemental fact_sources could be returned downstream without `fetched_at` / `checked_at` metadata.
-
-Every new, repaired, supplemental, strengthened, or metadata-repaired `fact_sources[]` entry introduced or touched by Prompt 0.5R must include all publish-forward fields before the item may return to 0.6, 0.6 supplemental, or 0.7.
-
-Required fields for every 0.5R new/supplemental/touched fact_source:
-
-```text
-source_name
-source_url
-claim
-source_quote
-source_quote_status
-evidence_role
-supports
-fetch_method
-fetched_at or checked_at
-```
-
-Allowed `source_quote_status` values for publish-forward 0.5R output remain:
-
-```text
-body_quote_verified
-official_material_quote_verified
-document_quote_verified
-```
-
-0.5R JSON output must include:
-
-```json
-"supplemental_fact_source_metadata_qc": {
-  "status": "PASS",
-  "supplemental_fact_source_count": 0,
-  "fact_source_required_metadata_gap_count": 0,
-  "fact_source_required_metadata_gap[]": [],
-  "all_supplemental_fact_sources_have_fetched_at_or_checked_at": true,
-  "all_supplemental_fact_sources_have_source_quote_status": true,
-  "all_supplemental_fact_sources_have_evidence_role_and_supports": true
-}
-```
-
-If any required metadata field is missing, Prompt 0.5R must stop and report:
-
-```text
-status = BLOCKED_0_5R_SUPPLEMENTAL_FACT_SOURCE_METADATA_INCOMPLETE
-fact_source_required_metadata_gap_count > 0
-no return to 0.6, 0.6 supplemental, or 0.7
-```
-
-A metadata-only repair is allowed only when it does not change visible fields, source_quote meaning, claim scope, or source direction. It must be explicitly marked:
-
-```text
-repair_type = metadata_only
-visible_fields_changed = false
-source_quote_text_changed = false
-claim_scope_changed = false
-```
 
 
 ## Operational integrated rule — GITHUB_MAIN_LARGE_BASELINE_FALLBACK_LOCK_20260508_V6
@@ -1091,160 +1561,6 @@ If fallback is used, output must include:
 ```
 
 Prompt 0.8 must never label a local candidate as GitHub-ready, PR-ready, merge-ready-on-main, or production-ready when GitHub main body sync is unverified.
-
-
-## Operational integrated rule — STAGE_B_SOURCE_DISCOVERY_STATUS_AND_CAVEAT_ROUTING_20260508_V6
-
-This v6 integrated rule tightens Stage B event-fingerprint source discovery output so fallback/rss-rich cases are auditable and routed correctly to 0.5R when source strength remains caveated.
-
-Every Stage B strict spec must include a `source_discovery_status` and `source_strength_caveat_routing_decision`.
-
-Required per-spec fields:
-
-```json
-"event_fingerprint_search_profile": {
-  "actor": "...",
-  "event_type": "...",
-  "amount_or_capacity": "...|not_applicable",
-  "date_window": "...",
-  "source_owner_candidates": ["..."],
-  "same_event_disambiguators": ["..."]
-},
-"source_discovery_status": "completed_verified_source_found|completed_verified_with_source_strength_caveat|completed_no_verified_source|incomplete",
-"primary_source_status": "body_verified|official_verified|rss_rich_only|snippet_only|blocked|unreadable|not_applicable",
-"fallback_body_source_status": "body_verified|official_verified|not_found|not_attempted_with_reason",
-"official_source_attempt_status": "official_found|official_not_found|official_blocked|not_applicable_with_reason",
-"source_strength_caveat_routing_decision": "clean_no_0_5R_needed|route_to_0_5R_source_strength_review|draft_blocked|not_applicable",
-"source_discovery_ledger": []
-```
-
-Routing rule:
-
-- If body/official evidence is strong and no material caveat remains: `clean_no_0_5R_needed`.
-- If evidence supports drafting but relies on rss-rich fallback, single-source Tier 2, unofficial body corroboration, or missing official/original source: `route_to_0_5R_source_strength_review`.
-- If no verified same-event source supports the core event: `draft_blocked` with `final_hold_or_reject_reason`.
-
-Stage B must not resolve a source-strength caveat by silently inflating the claim. It must preserve the caveat into the draft/evidence package so 0.5 can route it to 0.5R.
-
-
-## Operational integrated rule — STAGE_A_FALSE_POSITIVE_QA_REGRESSION_EXAMPLES_20260508_V6
-
-This v6 integrated rule converts clean-v5 Stage A false-positive patterns into reusable QA regression examples.
-
-Stage A reports must include at least three `strict_false_positive_risk_examples[]` when any non-strict pools are non-empty. These examples should explain why superficially relevant items were not strict-passed.
-
-Required example categories when present in the source universe:
-
-```text
-generic_ai_platform_without_battery_grid_ess_execution_anchor
-consumer_or_component_product_publicity_without_deployment_anchor
-general_finance_insurance_macro_or_oil_lng_without_direct_battery_grid_ess_anchor
-local_event_or_expo_participation_without_operational_signal
-research_or_explainer_without_fresh_execution_anchor
-personnel_or_litigation_item_without strategic battery/ESS/material execution consequence
-```
-
-Each example must include:
-
-```json
-{
-  "story_id": "...",
-  "headline": "...",
-  "negative_filter_applied": "...",
-  "strict_false_positive_risk_reason": "...",
-  "routed_to": "candidate_review_pool|watchlist_context_pool|reject_or_support_only_pool|rejected|support_source_only",
-  "reopen_condition": "...|not_applicable"
-}
-```
-
-This integrated rule must not cause automatic rejection of adjacent AI/grid/robotics/power items. If an item is weak but plausibly relevant after bounded clarification, route it to `candidate_review_pool[]` with a promotion precondition rather than deleting it.
-
-## CARD_CLAIM_DIVERSITY_AUDIT_RULE_20260507_V7
-
-This rule adds an editorial-quality gate after evidence safety has already been established. It must never override `FACT_DISCIPLINE.md`.
-
-The workflow must audit not only whether each card is fact-safe, but also whether each publish-ready card answers a distinct, source-supported strategic question.
-
-The goal is not artificial variety. The goal is to prevent a batch from collapsing into repetitive surface claims such as “Company A announced/supplied/launched/expanded Project B” when the underlying sources support a more useful, still source-locked strategic angle.
-
-### Required fields for Prompt 0.6 and Prompt 0.7
-
-For every card entering Prompt 0.6 Content Polish and Prompt 0.7 Final QC, produce `card_claim_diversity_audit[]` with one row per card. Each row must include:
-
-- `card_id` or provisional draft/addable ID
-- `source_spec_id`
-- `primary_claim_type`
-- `secondary_claim_type`
-- `event_anchor_type`
-- `strategic_question`
-- `why_this_card_is_not_redundant`
-- `similar_claim_cards_in_current_batch[]`
-- `claim_overlap_risk`: `low | medium | high`
-- `required_claim_repositioning`: `true | false`
-- `claim_repositioning_applied`: `true | false`
-- `claim_repositioning_source_safe`: `true | false | not_applicable`
-- `claim_overlap_accepted_reason`, required when overlap remains medium/high
-- `source_safe_repositioning_not_possible`: `true | false`
-
-Allowed `primary_claim_type` / `secondary_claim_type` values:
-
-- `capacity_execution`
-- `policy_shift`
-- `market_structure`
-- `pricing_or_cost_signal`
-- `demand_adoption`
-- `supply_chain_security`
-- `technology_validation`
-- `financing_or_capital_market`
-- `safety_or_reliability`
-- `company_strategy`
-- `trade_or_tariff`
-- `grid_integration`
-- `customer_qualification_or_reference`
-- `production_or_factory_execution`
-- `litigation_or_ip_risk`
-- `regulatory_compliance_or_certification`
-- `infrastructure_bottleneck`
-- `earnings_or_margin_signal`
-- `recycling_or_circularity`
-- `source_strength_or_data_release`
-- `other_source_locked_claim`
-
-### Hard warning rule
-
-If 3 or more cards in the same candidate batch share the same `primary_claim_type` and the same `event_anchor_type`, do not automatically reject them. Instead:
-
-1. Check whether each card can answer a distinct `strategic_question` using only already validated source evidence.
-2. If source evidence permits safe repositioning, Prompt 0.6 must reposition visible fields to clarify the distinct role of each card.
-3. If source evidence does not permit safe repositioning, preserve the narrower source-locked claim and record:
-   - `claim_overlap_accepted_reason`
-   - `source_safe_repositioning_not_possible: true`
-
-### Guardrail — no invented variety
-
-This audit must not override `FACT_DISCIPLINE.md`.
-
-Do not invent strategic variety. Do not add unsupported market-structure, causal, competitive, pricing, supply-chain, or SBTL-benefit claims. Do not use memory or outside context to diversify a card.
-
-If the source evidence only supports a narrow surface claim, keep the narrow claim and mark the overlap risk honestly. A boring but true card is better than a distinctive but unsupported card.
-
-### Output and blocker
-
-Prompt 0.6 must include `card_claim_diversity_audit[]` and `claim_diversity_summary` in its JSON output. Prompt 0.7 must validate them before assigning `publish_ready`.
-
-If `card_claim_diversity_audit[]` is missing, incomplete, or contradicts visible fields, report:
-
-- `status: BLOCKED_CARD_CLAIM_DIVERSITY_AUDIT_MISSING`
-- `no publish_ready assignment`
-- `recommended_return_stage: Prompt 0.6 Content Polish`
-
-If overlap risk is high and source-safe repositioning was possible but not applied, report:
-
-- `status: BLOCKED_CLAIM_OVERLAP_REQUIRES_REPOSITIONING`
-- `recommended_return_stage: Prompt 0.6 Content Polish`
-
-Prompt 1.1 retrospective must report claim-type distribution, over-clustered claim types, and any accepted overlap reasons.
-
 
 
 ## Source Diversity & Corroboration QC Rule — 2026-05-07 v8
@@ -1324,73 +1640,90 @@ Web search must never create a new candidate silently. It may only verify or aug
 Visible-source URL sync remains a hard gate: every `fact_sources[].source_url` supporting visible text must appear in `urls[]`. Background-only sources may be absent from `urls[]` only when marked `supporting_context_only_not_visible_claim_support` with a reason.
 
 
-# Baseline & Push Integrity Rule — 20260513
+## Prompt 0.8 source diversity preservation check
 
-이번 운영 패치는 두 가지 실패 모드를 차단한다:
+GitHub merge prep must verify that every `publish_ready[]` card carries final source diversity status from 0.7.
 
-1. **Baseline drift on session resume** — compacted summary 의 baseline 수치를 actual GitHub main 상태와 비교 없이 신뢰하는 케이스
-2. **cards.json push corruption** — 의도치 않은 file overwrite/truncate 가 검증 없이 production 으로 흘러가는 케이스
+Required preservation fields per incoming card:
 
-## A. Session Resume Baseline Validation — HARD RULE
+- `source_diversity_status`
+- `source_diversity_gate_status`
+- `source_url_urls_sync_status`
+- `single_source_exception`, if applicable
 
-매 새 turn 시작 시 / compacted resume 직후 / 가설 기반 분석 직전에 다음을 수행한다:
+If any publish_ready card lacks these fields, report:
 
-1. GitHub MCP `get_file_contents` 로 `public/data/cards.json` 의 현재 metadata 확인 (size, blob SHA)
-2. 다음 두 수치를 비교:
-   - 컨텍스트 / compacted summary 에 기록된 `baseline_count` 또는 `cards in main`
-   - actual GitHub main 의 cards.json 실제 카드 수 (size 와 blob SHA 로 추정 가능; 정확 카운트는 file 직접 parse)
-3. 차이가 의미있는 수준 (예: > 10% 또는 절대값 > 50) 이면 **STOP** — user 에게 baseline 재확인 요청; downstream 단계 (0.4 / 0.5 / 0.7) 진행 금지
-4. compacted summary 의 수치는 "기록" 으로 받되 "현재 상태" 로 자동 신뢰하지 않는다
+- `status = BLOCKED_SOURCE_DIVERSITY_METADATA_MISSING`
+- no GitHub-ready or PR-candidate labeling
 
-근거: run 20260512_134524 retrospective. compacted summary 가 "main = 23 cards" 로 기록했으나 실제 main 은 707 cards 였음. 가설 기반으로 0.4/0.5 단계 진행하다가 발견.
+0.8 must not fix source diversity. Return to 0.7/0.5 as appropriate.
 
-## B. cards.json Push Integrity — HARD RULE
 
-`public/data/cards.json` 을 commit/push 하기 전에 다음 routine 을 **모두** 수행한다:
+## Operational integrated rule — Wrapper metadata sync HARD RULE — 20260514
+
+Run 20260513_083924 retrospective 에서 발견된 gap: codex_followup_v3 fix 가 cards array (745→744) 와 top-level total 은 업데이트했지만 wrapper 의 보조 metadata 4개 필드가 stale 상태로 남음 (new_count: 23, merge_qc_scope: '23 new × 745 merged', accepted_content_enriched_count: 23, final_cards_published: 23). 수학 일관성 깨짐 (722 + 23 != 744). Codex P2 review (PR #124) 가 catch.
+
+### HARD RULE — wrapper metadata sync
+
+0.8 초기 merge prep, 그리고 모든 codex_followup fix-up 시점에 cards array 가 변경되면 wrapper 의 모든 derived count 필드를 동기화한다:
+
+**필수 동기화 필드** (cards array 변경 시):
+- `total`: `len(cards)`
+- `new_count`: 신규 카드 수 (initial drafted; post-fixup: 변경 반영)
+- `accepted_content_enriched_count`: `new_count` 와 동일
+- `merge_qc_scope`: `"{new_count} new cards × {total} merged total"` 형식 재생성
+- `updated`: 현재 timestamp
+
+**보존 필드** (history):
+- `baseline_count`: stage A 시점 baseline (변경 안 함)
+
+**Nested wrapper 점검**:
+- `merge_prep_{run_tag}_*.final_cards_published`: `new_count` 와 동일
+- recursive 검사: `*_count`, `*_scope`, `*_published` 필드 모두
+
+### Pre-push integrity check (확장)
+
+`docs/WORKFLOW.md` 의 기존 push routine 에 다음 assertion 추가:
 
 ```bash
-# 1. JSON 정합성 + cards 배열 수 = total
 python3 -c "
-import json, os
-p='public/data/cards.json'
-d=json.load(open(p))
-assert len(d['cards'])==d['total'], f\"mismatch: cards={len(d['cards'])} total={d['total']}\"
-assert d['total']>=700, f\"suspicious low total: {d['total']}\"
-sz=os.path.getsize(p)
-assert sz>1_000_000, f\"file too small: {sz} bytes (expected > 1 MB)\"
-print(f'PASS — total={d[\"total\"]} cards, size={sz:,} bytes')
+import json
+d = json.load(open('public/data/cards.json'))
+
+# 기존 check (P_004)
+assert len(d['cards']) == d['total']
+assert d['total'] >= 700
+
+# P_008 신규 check
+assert d['baseline_count'] + d['new_count'] == d['total'], \
+    f'math mismatch: {d["baseline_count"]} + {d["new_count"]} != {d["total"]}'
+
+# nested check
+for k in d:
+    if k.startswith('merge_prep_') and isinstance(d[k], dict):
+        if 'final_cards_published' in d[k]:
+            assert d[k]['final_cards_published'] == d['new_count'], \
+                f'nested final_cards_published mismatch in {k}'
+
+print(f'PASS — math consistent: {d["baseline_count"]} + {d["new_count"]} = {d["total"]}')
 "
-
-# 2. 위 명령이 PASS 되었을 때만 git add/commit/push 진행
 ```
 
-Push 완료 후 **60초 이내**에 GitHub MCP `get_file_contents` 로 새 commit SHA 의 cards.json metadata 확인:
+위 명령이 통과한 경우에만 git add/commit/push 진행. 실패 시 STOP + sync fix.
 
-- size 가 push 직전 로컬 size 와 일치하는지 (±10% 이내; CRLF/LF 변환 고려)
-- 의도한 cards 수 변화량이 반영됐는지 (예: +15 cards 추가했으면 size 도 그에 맞게 증가)
+### 적용 범위
 
-불일치 시 즉시 user 에게 보고하고 revert 또는 follow-up 결정.
+- 0.8 초기 merge prep
+- codex_followup v1/v2/v3/v4 등 모든 fix-up round
+- 사용자 로컬 push 직전
+- GitHub MCP 를 통한 직접 commit 시점
 
-근거: run 20260512_134524 codex_followup_v2 push 과정에서 cards.json 이 한 차례 27,659 bytes (cards 배열 0개) 로 truncate 되어 PR head 에 commit 됨. 다음 iteration 의 size audit 으로 발견 후 복구.
+### 예방 효과
 
-## C. 적용 범위
+- Codex P2 stale-metadata review round (이번 run 의 v4 같은 케이스) 제거
+- UI/downstream consumer 가 보는 카운트 일관성 보장
 
-- 본 rule 은 Prompt 0.4 / 0.5 / 0.7 / 0.8 / 0.9 의 시작 step (required-doc check 직후) 와 0.8 / 0.9 의 push 단계에 자동 적용된다.
-- 위반 시 해당 stage 의 boundary_statement 에 "baseline_validation_skipped" 또는 "push_integrity_skipped" 를 명시 기록한다.
-
-## FIX-007 — Shared schema contract and stage-exit conformance check
-
-All stages must reference `SCHEMA_CONTRACT_STAGE_LINEAGE.md`.
-
-Each named stage must run or explicitly satisfy a stage-exit artifact conformance check before recommending the next stage. Missing required fields must stop the stage with:
-
-```text
-BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT
-```
-
-Do not wait until Prompt 0.4 to discover Stage A/B lineage omissions.
-
-# WORKFLOW.md — Source Diversity source-diversity integrated rule
+# 10_PROMPT_0_8_GitHub_Merge_Prep.md — Source Diversity source-diversity integrated rule
 
     This integrated rule is authoritative for source-diversity, source-preservation, synthesis,
     visible-source-date and same-source grouping rules. Earlier language that conflicts with this
@@ -1530,24 +1863,36 @@ A single-source exception is narrow and rare. It may pass only when all conditio
 
 A media article alone does not qualify merely because it is detailed.
 
-## Workflow integration
+## GitHub merge-prep preservation gate
 
-Mandatory flow:
+Before preparing the replacement file or PR, verify that serialization preserves:
+
+- all `fact_sources[]` rows;
+- canonical source URLs;
+- source roles and unique contributions;
+- source publication dates and audit timestamps;
+- source diversity counts and status;
+- source synthesis audit;
+- validated exception metadata.
+
+Recalculate the recent-batch diversity metrics after merge. Any card that falls below its Final QC
+state because metadata was lost must be held.
+
+The merge package must also include the UI integrated rule or confirmed existing UI implementation that:
+
+- groups repeated claims by canonical URL;
+- displays `출처 N곳 · 근거 M개`;
+- displays article publication date;
+- keeps fetch/check timestamps non-visible.
+
+Block with:
 
 ```text
-Stage A: preserve same-event source cluster and diversity path
-Stage B: bounded multi-source discovery + evidence package + synthesis draft
-Stage C: recompute independence + fact-safe decision
-0.4: preserve duplicate-event reinforcement
-0.5: hard source-identity/diversity/claim-coverage QC
-0.6: visible-field synthesis and density preservation
-0.7: final source-diversity publish gate
-0.8: metadata/UI merge readiness
-0.9: production source-grouping/date rendering verification
+BLOCKED_MERGE_SOURCE_DIVERSITY_METADATA_LOSS
+BLOCKED_MERGE_UI_SOURCE_GROUPING_NOT_READY
 ```
 
-No later stage may repair an earlier-stage source loss silently. Return to the earliest defective
-named stage.
+    Stop after merge preparation. Do not merge or write GitHub without explicit authorization.
 
 # Source Diversity / IB-grade + Codex Hardening Integrated rule
 
@@ -1729,3 +2074,8 @@ github_ready = true
 ```
 
 Any waiver or exception must be explicit, bounded, and auditable.
+
+
+## PR/Production extra
+
+Before merge, re-run metadata blocker scans against the exact PR head, not only local candidate files.

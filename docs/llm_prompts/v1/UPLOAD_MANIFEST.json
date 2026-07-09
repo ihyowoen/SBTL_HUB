@@ -1,0 +1,60 @@
+{
+  "generated_at_utc": "2026-07-09T06:33:00+00:00",
+  "version": "LLM_PROMPT_GITHUB_CANONICAL_V1",
+  "manifest_policy": "Git commit is the canonical integrity source. This docs-only manifest intentionally avoids self-referential per-file hashes.",
+  "scope": "First GitHub-canonical LLM prompt package v1 for SBTL_HUB.",
+  "base_branch": "main",
+  "head_branch": "ihyowoen-patch-38",
+  "file_count": 33,
+  "governance_doc_count": 9,
+  "stage_prompt_count": 14,
+  "validation_script_count": 0,
+  "runtime_code_change": false,
+  "cards_json_change": false,
+  "paths": {
+    "governance_docs": [
+      "docs/CARD_ID_STANDARD.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/PROMPT_ABC_SUPPORTING_RULES.md",
+      "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
+      "docs/WORKFLOW.md"
+    ],
+    "stage_prompts": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
+      "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
+      "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
+      "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
+      "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md",
+      "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+      "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
+      "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+      "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
+      "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
+      "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
+      "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md"
+    ],
+    "package_docs": [
+      "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
+      "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
+      "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "docs/llm_prompts/v1/QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+      "docs/llm_prompts/v1/README_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+      "docs/llm_prompts/v1/SOURCE_DIVERSITY_V10_MASTER_RULE.md",
+      "docs/llm_prompts/v1/SOURCE_DIVERSITY_V1_IB_CODEX_20260708_MASTER_RULE.md",
+      "docs/llm_prompts/v1/UPLOAD_INSTRUCTIONS.md",
+      "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
+      "docs/llm_prompts/v1/entity_alias_map.json"
+    ]
+  },
+  "validator_followup": {
+    "status": "excluded_from_this_pr",
+    "preserved_branch": "chore/prompt-validation-scripts-hardening-from-pr151",
+    "intended_followup_pr": "validation scripts with fixtures/tests"
+  }
+}

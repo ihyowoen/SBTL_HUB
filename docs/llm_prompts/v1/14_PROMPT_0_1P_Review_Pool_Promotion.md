@@ -2,114 +2,195 @@
 <!-- Generated KST: 2026-07-08T21:33:49.790191+09:00 -->
 <!-- This file is a full clean replacement file. It is not a patch stub. -->
 
-# Card ID Standard — Locked
+# Prompt 0.1P — Authorized Review Pool / Treasure Promotion
 
-이 문서는 **앞으로 생성되는 모든 카드**의 ID 형식을 잠근다.
+## Purpose
 
-## 1. 표준 포맷
+This is an optional, user-authorized pass that runs after a valid Stage A output
+and before Stage B.
+
+It exists to review selected `candidate_review_pool[]`,
+`treasure_candidate_review_pool[]`, or explicitly named review-pool items without
+mixing them into the normal Stage B queue.
+
+This prompt must not be used to rescue items silently. The current run may
+continue through Stage B on the existing `strict_passed_spec[]` while this pass
+produces a separate promotion artifact.
+
+## Required Inputs
+
+1. A schema-valid Stage A output from the same run.
+2. The exact input universe for this pass:
+   - `candidate_review_pool[]` only, or
+   - `treasure_candidate_review_pool[]` only, or
+   - a named list of `story_id` / `grouped_story_ids`.
+3. Current baseline cards file or an explicit baseline declaration.
+4. User authorization text naming this as a review-pool / treasure promotion
+   pass.
+
+If the input universe is not explicit, stop with:
 
 ```text
-YYYY-MM-DD_REGION_NN
+BLOCKED_PROMOTION_UNIVERSE_NOT_EXPLICIT
 ```
 
-- `YYYY-MM-DD`: 뉴스 사건의 발생일, 기사 발행일 아님
-- `REGION`: 카드 region 값과 동일. `KR | US | CN | JP | EU | GL`
-- `NN`: 같은 (date, region) 조합 내 2자리 zero-padded 순번
+## Hard Boundaries
 
-예시:
+- Do not process Stage A `strict_passed_spec[]`; those belong to Stage B.
+- Do not process the whole Stage A universe unless the user explicitly named it.
+- Do not promote because an item is interesting, high-scoring, TREASURE_A, or in
+  `newsletter_expanded`.
+- Do not use `primary_url` as evidence by itself.
+- Do not write cards.
+- Do not mark items accepted, evidence_complete, source_claim_covered,
+  content_enriched, publish_ready, addable, PR-ready, or GitHub-ready.
+- Do not erase non-promoted items; every reviewed item must remain visible in the
+  promotion ledger.
 
-- `2026-04-15_CN_01`
-- `2026-04-16_KR_03`
-- `2026-04-16_EU_01`
-- `2026-04-14_GL_02`
+## Review Standard
 
-## 2. NN 할당 규칙
+For each reviewed item, perform bounded same-event source discovery before any
+promotion decision.
 
-같은 (date, region) 그룹 안에서:
+Required source discovery:
 
-1. signal 우선순위: `top` → `high` → `mid`
-2. 동일 signal 안에서는 편집자의 중요도 판단
-3. 한 번 할당된 NN은 재사용 금지
+1. Inspect the provided source candidate.
+2. Search for source-owner / official confirmation where plausible.
+3. Search for at least one independent corroborating source where plausible.
+4. Check current baseline for exact URL duplicate and same-event duplicate.
+5. Check whether the event is fresh enough or has a fresh hook.
+6. Decide whether the item can satisfy the same six Stage A strict-pass
+   conditions as an ordinary strict candidate.
 
-## 3. 금지 사항
-
-- 중간 파이프라인 단계 지표를 ID에 포함하지 않는다.
-- 주차 표식 단독 사용 금지.
-- 역사적 레거시 ID는 그대로 보존한다.
-
-## 4. 마이그레이션 정책
-
-- 기존 레거시 카드는 재명명하지 않는다.
-- 신규 카드만 본 표준을 적용한다.
-- 프론트엔드 정렬은 date 필드 기준이므로 혼재가 렌더링에 영향 없다.
-
-## 5. 동시성·충돌 방지
-
-현재는 수동 할당. 장기적으로 자동화 가능.
-
-## 6. related 필드와의 관계
-
-다른 카드와의 관계는 본문에 ID를 박제하지 않고 `related` 배열로 관리한다.
+Single-source promotion is exception-only and requires:
 
 ```json
 {
-  "id": "2026-04-15_CN_01",
-  "related": ["2026-04-07_CN_04"]
+  "single_source_exception": true,
+  "single_source_exception_reason": "...",
+  "source_owner_or_primary_source": true,
+  "why_second_source_not_reasonably_available": "..."
 }
 ```
 
-본문에서는 자연어로 간접 참조한다.
+## Promotion Gate
 
-## 7. 최종 원칙
+Promotion requires a fresh strict-pass gate object. A promoted item must satisfy:
 
-**ID는 편집이 아니라 정체성이다. 한 번 잠기면 수정하지 않는다.**
+1. Direct SBTL lane relevance.
+2. Concrete execution / policy / funding / capacity / order / facility /
+   regulatory / market-data anchor.
+3. Fresh event date or fresh implementation hook.
+4. No unresolved same-event baseline duplicate.
+5. Evidence path sufficient for Stage B source package construction.
+6. No unresolved source-quality, date, metric, or scope defect that would make
+   the draft misleading.
 
-<!-- INTEGRATED_RULE_BEGIN: VISIBLE_FIELD_KOREAN_ONLY_SCHEMA_RULE_20260514_v2 -->
-## 8. visible field 언어 정책 (P_012, 20260514_v2)
+If any condition fails, do not promote. Route the item to one of:
 
-### 8.1 정책 요지
+- `not_cardable_after_review`
+- `support_source_only_after_review`
+- `watchlist_only_after_review`
+- `duplicate_or_reinforcement_after_review`
+- `needs_user_decision_after_review`
 
-cards.json 의 다음 visible field 는 **한국어 + ASCII** 만 포함:
+## Output Schema
 
-- `title`
-- `sub`
-- `gate`
-- `fact`
-- `implication[]`
-- `sub_cat`
-- `fact_sources[].claim`
+Return one JSON object with:
 
-### 8.2 면제 필드
+```json
+{
+  "stage": "0.1P_review_pool_promotion",
+  "run_tag": "",
+  "stage_prompt_file": "14_PROMPT_0_1P_Review_Pool_Promotion.md",
+  "stage_prompt_sha256": "",
+  "user_authorized": true,
+  "input_universe_description": "",
+  "input_item_count": 0,
+  "baseline_file": "",
+  "source_discovery_attestation": "bounded_same_event_source_discovery_performed",
+  "promoted_strict_passed_spec": [],
+  "rescue_candidate_strict_spec": [],
+  "not_promoted": [],
+  "review_pool_resolution_ledger": [],
+  "promotion_summary": {
+    "reviewed_count": 0,
+    "promoted_count": 0,
+    "not_promoted_count": 0,
+    "needs_user_decision_count": 0,
+    "single_source_exception_count": 0
+  },
+  "next_call_recommendation": ""
+}
+```
 
-- `fact_sources[].source_quote` — 원문 인용 보존 (외국어 허용)
-- `urls[]` — ASCII URL only
+Each `promoted_strict_passed_spec[]` item must include:
 
-### 8.3 외국어 처리 정책
+```json
+{
+  "story_id": "",
+  "provisional_spec_id": "",
+  "promotion_source_pool": "",
+  "promotion_user_authorized": true,
+  "promotion_review_artifact_id": "",
+  "promotion_reason": "",
+  "strict_pass_gate": {
+    "lane_relevance": "pass",
+    "execution_anchor": "pass",
+    "freshness": "pass",
+    "baseline_duplicate": "pass",
+    "evidence_path": "pass",
+    "scope_quality": "pass"
+  },
+  "staleness_decision": "",
+  "source_discovery_ledger": [],
+  "baseline_duplicate_check": {},
+  "stage_b_ready": true,
+  "stage_b_instruction": "send only promoted strict specs to Prompt 0.2"
+}
+```
 
-| 카테고리 | 표기 | 예 |
-|---|---|---|
-| 표준 약어 | English-only | CATL, BYD, BNEF, LFP, ESS, BESS |
-| 친숙 음역 회사 | Korean-only | 비야디, 샤오펑, 니오, 지커 |
-| 첫 등장 고유명사 | 한국어(English) 병기 | 톈치리튬(Tianqi), Hisai(하이보스창) |
-| 표준 약어 풀이 | English(한국어) | OEM(현대·기아), AMPC(첨단제조생산세액공제) |
-| Hanja prefix | 한국어 변환 | 美→미국, 中→중국 |
-| Hanja currency | 한국어 변환 | 元→위안 |
-| Hanja 지명 | Korean transliteration | 北京→베이징, 사카이市→사카이시 |
-| 일본어 (Hiragana/Katakana) | Korean transliteration | ソフトバンク→소프트뱅크 |
+Each `not_promoted[]` item must include:
 
-### 8.4 enforcement layers
+```json
+{
+  "story_id": "",
+  "original_review_pool_partition": "",
+  "final_review_pool_disposition": "",
+  "disposition_basis": "",
+  "blocking_question": "",
+  "next_action_condition": "",
+  "carry_forward_policy": ""
+}
+```
 
-- **Stage B (P_012 HARD RULE)**: draft_cards emit 시 visible field foreign-char free 강제
-- **0.7 Gate 11**: publish_ready 진입 전 backstop 검증
-- **0.8 wrapper build**: 외국어 잔존 시 build warning
+Every reviewed item must also appear in `review_pool_resolution_ledger[]` with:
 
-### 8.5 baseline 정리 정책
+```json
+{
+  "story_id": "",
+  "upstream_status": "",
+  "original_review_pool_partition": "",
+  "final_review_pool_disposition": "",
+  "disposition_basis": "",
+  "reviewed_by_stage_or_pass": "0.1P_review_pool_promotion",
+  "review_artifact_id": "",
+  "carry_forward_policy": "",
+  "next_action_condition": ""
+}
+```
 
-- baseline 의 기존 외국어 잔존 카드는 retroactive 정리하지 않는 것이 원칙
-- 단 user instruction 또는 visible field overhaul 의 경우 일괄 정리 가능
-- retroactive 정리 시 codex_followup audit log 에 명시
+## Next Call Rule
 
-# CARD_ID_STANDARD.md — Source Diversity source-diversity integrated rule
+If `promoted_count > 0`, the next call may be Stage B Prompt 0.2 on
+`promoted_strict_passed_spec[]` only.
+
+If `promoted_count = 0`, do not call Stage B for this promotion pass.
+
+The existing main run is unaffected unless the user explicitly decides to integrate
+promoted specs to a later Stage B batch.
+
+# 14_PROMPT_0_1P_Review_Pool_Promotion.md — Source Diversity source-diversity integrated rule
 
     This integrated rule is authoritative for source-diversity, source-preservation, synthesis,
     visible-source-date and same-source grouping rules. Earlier language that conflicts with this
@@ -249,17 +330,31 @@ A single-source exception is narrow and rare. It may pass only when all conditio
 
 A media article alone does not qualify merely because it is detailed.
 
-## Event identity and source clusters
+## Review-pool promotion — source-diversity path requirement
 
-Source diversity must not create duplicate card IDs for the same event.
+Promotion requires a fresh source-cluster and diversity-path review.
 
-- one event fingerprint → one representative card;
-- same-event sources → evidence/reinforcement under that card;
-- a new independent source does not create a new card;
-- a true follow-up with a new execution anchor may receive a new date/ID;
-- existing-card reinforcement must preserve the existing card ID.
+Each promoted spec must include:
 
-ID allocation occurs after event clustering and baseline duplicate review, never per article.
+```json
+{
+  "same_event_source_cluster": [],
+  "support_source_candidates": [],
+  "source_domain_candidates": [],
+  "source_diversity_path": {
+    "status": "viable",
+    "probable_independent_owner_count": 0,
+    "official_or_source_owner_candidate_present": false,
+    "independent_confirmation_candidate_present": false
+  }
+}
+```
+
+A strategically valuable item with an uncertain but plausible source path belongs in a controlled
+source-augmentation queue, not silent rejection. Promotion itself does not prove source diversity;
+Stage B must still perform bounded discovery and synthesis.
+
+    Stop after review-pool promotion.
 
 # Source Diversity / IB-grade + Codex Hardening Integrated rule
 

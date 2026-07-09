@@ -138,12 +138,11 @@ def evidence_ok(evidence_package, row=None, root=None):
             continue
         quote_status = source.get('source_quote_status') or source.get('quote_status')
         has_quote = bool(source.get('source_quote') or source.get('quote'))
-        core_role = source.get('evidence_role') == 'primary_event_evidence'
-        if has_fetch_metadata(source) and has_quote and (quote_status in OK_QUOTE_STATUS or core_role):
+        if has_fetch_metadata(source) and has_quote and quote_status in OK_QUOTE_STATUS:
             good_urls.add(url)
 
     if not good_urls:
-        issues.append('no fetched body/official/document-level core source with quote')
+        issues.append('no fetched body/official/document-level core source with verified quote')
     if len(good_urls) <= 1:
         exception = evidence_package.get('single_source_exception') or (row or {}).get('single_source_exception')
         if not isinstance(exception, dict) or exception.get('allowed') is not True or not exception.get('reason'):

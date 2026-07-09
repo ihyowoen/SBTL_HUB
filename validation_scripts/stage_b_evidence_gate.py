@@ -85,10 +85,13 @@ def evidence_ok(ep, row=None, root=None):
     for s in srcs:
         if not isinstance(s,dict): continue
         u=s.get('source_url') or s.get('url')
+        if is_landing_page(u):
+            issues.append(f'landing-page source_url is not allowed: {u!r}')
+            continue
         fetched=bool(s.get('fetched') or s.get('fetched_at') or s.get('checked_at') or s.get('body') or s.get('body_text') or s.get('source_quote'))
         quote_status=s.get('source_quote_status') or s.get('quote_status')
         quote=bool(s.get('source_quote') or s.get('quote'))
-        if fetched and quote and (quote_status in OK_QUOTE_STATUS or s.get('evidence_role')=='primary_event_evidence') and not is_landing_page(u):
+        if fetched and quote and (quote_status in OK_QUOTE_STATUS or s.get('evidence_role')=='primary_event_evidence'):
             good += 1
             good_urls.add(u)
     if good < 1: issues.append('no fetched body/official/document-level core source with quote')

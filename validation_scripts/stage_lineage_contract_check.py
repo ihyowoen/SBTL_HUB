@@ -19,7 +19,7 @@ A_FIELDS = [
 B_FIELDS = [
     'lineage_integrity_status','stage_a_validity_guard_applied',
     'strict_gate_metadata_preserved','execution_anchor_metadata_preserved',
-    'superseded_lineage_mixed','manual_patch_mixed','previous_run_output_mixed'
+    'superseded_lineage_mixed','manual_integrated_rule_mixed','previous_run_output_mixed'
 ]
 REVIEW_POOLS = [
     'candidate_review_pool',
@@ -140,11 +140,23 @@ def check_stage_a(data):
 
 def check_stage_b(data):
     msgs=[]
+    expected_values = {
+        'lineage_integrity_status': 'PASS',
+        'stage_a_validity_guard_applied': True,
+        'strict_gate_metadata_preserved': True,
+        'execution_anchor_metadata_preserved': True,
+        'superseded_lineage_mixed': False,
+        'manual_integrated_rule_mixed': False,
+        'previous_run_output_mixed': False,
+    }
     for f in B_FIELDS:
-        if f not in data or data.get(f) in (None,''):
+        if f not in data:
             msgs.append(f'top-level missing {f}')
-    if not data.get('stage_a_validity_guard_applied'):
-        msgs.append('stage_a_validity_guard_applied is not true')
+            continue
+        actual = data.get(f)
+        expected = expected_values.get(f)
+        if actual != expected:
+            msgs.append(f'top-level {f} must be {expected!r}, got {actual!r}')
     return fail(msgs) if msgs else (print('RESULT: PASS_STAGE_B_SCHEMA_CONTRACT'),0)[1]
 
 def check_stage_c(data):

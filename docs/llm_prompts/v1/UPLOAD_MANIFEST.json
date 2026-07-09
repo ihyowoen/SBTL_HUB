@@ -1,13 +1,11 @@
 {
-  "generated_at_kst": "2026-07-09T12:32:54.659212+09:00",
-  "version": "LLM_PROMPT_GITHUB_CANONICAL_V1_FINAL_REPO_READY_CLEAN",
-  "source_zip": "LLM_PROMPT_GITHUB_CANONICAL_V1_FINAL_REPO_READY_20260709_122013_KST.zip",
-  "file_count": 37,
+  "generated_at_utc": "2026-07-09T04:59:30.962118+00:00",
+  "version": "LLM_PROMPT_GITHUB_CANONICAL_V1",
+  "note": "UPLOAD_MANIFEST.json is excluded from its own file hash list to avoid self-reference drift.",
+  "file_count_excluding_manifest": 36,
   "governance_doc_count": 9,
   "stage_prompt_count": 14,
   "validation_script_count": 4,
-  "qc_issue_count": 0,
-  "qc_issues": [],
   "files": [
     {
       "path": "docs/CARD_ID_STANDARD.md",
@@ -36,8 +34,8 @@
     },
     {
       "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
-      "size_bytes": 64595,
-      "sha256": "a6d8c41f0c62b516be6001e6947047db75397af1691634544d955e08413ab75a"
+      "size_bytes": 64592,
+      "sha256": "37c429f1a5fe1755e05fadd5d4b2c93c94085a137ca122846619182e9ad92a26"
     },
     {
       "path": "docs/PROMPT_ABC_SUPPORTING_RULES.md",
@@ -47,77 +45,77 @@
     {
       "path": "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
       "size_bytes": 15670,
-      "sha256": "60000e25e75ed325f9a2593dd6906c661296cf1a1ad6f3bdfd5e7e5e0e8625a1"
+      "sha256": "ddb67e50cae7e913b0184d6548ae4842a108213642c4e7aaaa0ab24ac0c19308"
     },
     {
       "path": "docs/WORKFLOW.md",
       "size_bytes": 73904,
-      "sha256": "6aeb4d4008894fe59990328df12fbf3ad315021ed9b745627c2667b22f8e1cdd"
+      "sha256": "bc4dd5c1918b438b2f78abd7573a3ff375e9b747d9bf1fb3c209901227b3950d"
     },
     {
       "path": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
-      "size_bytes": 97864,
-      "sha256": "3e734606315798df6c53fe6d790ef7c1b4ac21ab0eee8fbdcd8750f81da066d2"
+      "size_bytes": 97857,
+      "sha256": "0480668f17239c70abcd87580b91787c07b3ec8793ff66132e4567417feadae0"
     },
     {
       "path": "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
-      "size_bytes": 95534,
-      "sha256": "8467777e5787fd88350555234c6c1f96b0042e8cd81b7ee322ea70087b7070ae"
+      "size_bytes": 95530,
+      "sha256": "c00d89805ef4d86fe45c4493ba43f4b09f442a976f316a0fa46a0348f830bf66"
     },
     {
       "path": "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
       "size_bytes": 69614,
-      "sha256": "2d97b7392e5d0da50b08044c0492607b2eb013c43aec8182f35630d3bf3d42ae"
+      "sha256": "c6121258c253eb827de6382c229679ff8e49b865cb55af47fd70a95d56780539"
     },
     {
       "path": "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
       "size_bytes": 51741,
-      "sha256": "6ba1315c8aea0198eefc941e9c2338c59df7591aabbb0dd6bf252ff2fb2e881c"
+      "sha256": "e59ae4899f61ec7d155ba98c98e0acc06390eecf2574324ecceafacb663566d5"
     },
     {
       "path": "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
       "size_bytes": 48342,
-      "sha256": "dc542b6b50e1af69539577b9834afba8ac869e4140c57634c00448983f515dbe"
+      "sha256": "8d6be3b367779d793a3f8343deac6acaf12aa9bef378b4aca7cb189d3e8ea606"
     },
     {
       "path": "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md",
       "size_bytes": 67765,
-      "sha256": "7b3f412fc042b76511a1ea521daba007020137487bb843c1152a9b6e1a8781d4"
+      "sha256": "015b7959b7689ace7833e9ad2cff4496ffa926fc24feb7eda87fa35b0d27aa0f"
     },
     {
       "path": "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
       "size_bytes": 98969,
-      "sha256": "f98b25da5d336fafd60c0d38b53bdbff961f4a33b178a40ecdb1f91ddc6ddcfe"
+      "sha256": "a09eb3679bef93950616efffde9e7f3b780099a2851cca853f82640768f983db"
     },
     {
       "path": "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
       "size_bytes": 94592,
-      "sha256": "da7f728db5ee09e7fa46348fd50906fcd2d5fa05386f041e9f42811903602d8b"
+      "sha256": "c98d09dc3e8362c13b7dda91bb887f82a5ceec9ac71bb7459c1865a41265c6db"
     },
     {
       "path": "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
-      "size_bytes": 87828,
-      "sha256": "08ecbf39ee10d3336e182212d4a065f551c5dea61eadd758629156455ad096fb"
+      "size_bytes": 87821,
+      "sha256": "f7054f8931b12c6cc53711f3531389795798612b23fdf9ce707e09180cc1eeb7"
     },
     {
       "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
-      "size_bytes": 76845,
-      "sha256": "e3f3f0f08a1b54d200bbcdd5287be8119ce06d5b3630219e51454c5f73e4b0ea"
+      "size_bytes": 76838,
+      "sha256": "81a9e2eda036d96374689e76bce48c73c936f93266c1fecf52d9b87bca314c53"
     },
     {
       "path": "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
-      "size_bytes": 58468,
-      "sha256": "dbb0cfb781678f0873596d278556fbefcac32429cc8a402e15fd813fd96db19b"
+      "size_bytes": 58454,
+      "sha256": "f18e4683f8f5d257862dc9057185ead9484a63a0363f453b03e3760156e1383f"
     },
     {
       "path": "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
-      "size_bytes": 52735,
-      "sha256": "02df81ee8dc1413f775400c1fbff42198ca8942b9722c6e3e9564444c4dd7be3"
+      "size_bytes": 52728,
+      "sha256": "028b34f13014575b04f8c48f06f5b2b7068352feb67c5bce9a8b24f5952895ef"
     },
     {
       "path": "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
-      "size_bytes": 79522,
-      "sha256": "defd4724189a1a9c3ecd9fc791711630eb6f180801e907e87f2d89639e6cbca3"
+      "size_bytes": 79512,
+      "sha256": "500604c3c7e392de04d5015b57c59582c1fb8cb6b26ba3a4121d0522806ea1bf"
     },
     {
       "path": "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md",
@@ -141,8 +139,8 @@
     },
     {
       "path": "docs/llm_prompts/v1/QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
-      "size_bytes": 298,
-      "sha256": "68bd3ec6084081c2d3a86b44f7d407bf7f7ef543d1d156a6f3edc0d9d7bfa578"
+      "size_bytes": 338,
+      "sha256": "92be1571d8201953bb312ce3a27ccfa2e07d32133aa16ae0e09508070fad2ade"
     },
     {
       "path": "docs/llm_prompts/v1/README_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
@@ -165,11 +163,6 @@
       "sha256": "10c7e3f53a2484056ecc39bc2b418b21e525f6b77ed0b4b35e36404e4401c67b"
     },
     {
-      "path": "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
-      "size_bytes": 12264,
-      "sha256": "2ac87fa2b25cc9c3383868c770a081462b8b35652c8336d340551791e2a6b01e"
-    },
-    {
       "path": "docs/llm_prompts/v1/entity_alias_map.json",
       "size_bytes": 26995,
       "sha256": "fcac8ac153ca68e4f6c61dd4c05cf24f73fb1c24dd2ab140a184616e80b73074"
@@ -181,8 +174,8 @@
     },
     {
       "path": "validation_scripts/evidence_qc_v8_check.py",
-      "size_bytes": 8013,
-      "sha256": "e2a218597c87130f9c6b50682049dc32b52d14bbfeef706c2e8e6b4d32611d78"
+      "size_bytes": 8017,
+      "sha256": "740d1767e468d0b03beeb65521d6cda64b399208f7c55bdf06c87cde0edeabf7"
     },
     {
       "path": "validation_scripts/stage_b_evidence_gate.py",
@@ -191,9 +184,8 @@
     },
     {
       "path": "validation_scripts/stage_lineage_contract_check.py",
-      "size_bytes": 8054,
-      "sha256": "70c49ed14c6afae858394a01814ffaa213f828f4d7c2a9b38df7e1222af8742b"
+      "size_bytes": 8474,
+      "sha256": "b11d45649ea15695de07d01b0d76eac591406e8e6ccfb9591c4e4b8632d37abc"
     }
-  ],
-  "output_sha256": "59bfcf4bf9dabb7e9e4983b7c0465153e29a849120f27fe55ae700283b2bd71c"
+  ]
 }

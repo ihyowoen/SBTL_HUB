@@ -13,8 +13,11 @@ CONTENT_OUTPUT_BUCKETS = (
     'cards', 'draft_cards', 'payload', 'accepted',
     'content_enriched_and_language_polished', 'content_enriched',
     'language_terminology_polished', 'publish_ready_candidates',
-    'addable_hold_source_gap', 'needs_source_augmentation',
-    'deferred_review_pool', 'content_polish_rejected',
+    'content_hold_claim_narrowing_needed', 'content_hold_language_issue',
+    'content_hold_schema_issue', 'needs_return_to_evidence_qc',
+    'review_pool_deferred', 'addable_hold_source_gap',
+    'needs_source_augmentation', 'deferred_review_pool',
+    'content_polish_rejected',
 )
 
 

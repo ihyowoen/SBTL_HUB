@@ -51,6 +51,26 @@ cat > "$TMPDIR/stage_b_pass.json" <<'JSON'
 }
 JSON
 
+cat > "$TMPDIR/stage_b_blocked_reference_pass.json" <<'JSON'
+{
+  "strict_passed_spec_count": 1,
+  "stage_b_accounting_matches_strict_passed_spec_count": true,
+  "draft_cards": [],
+  "draft_blocked": [
+    {
+      "source_spec_id": "S_BLOCK_REF",
+      "source_discovery_status": "completed_no_verified_source",
+      "source_discovery_ledger_reference": "top_level_source_discovery_ledger",
+      "final_hold_or_reject_reason": "No body-level verified source found after documented search."
+    }
+  ],
+  "draft_blocked_schema": [],
+  "source_discovery_ledger": [
+    {"query": "official source search", "result": "no verified source found"}
+  ]
+}
+JSON
+
 cat > "$TMPDIR/stage_b_fail_missing_accounting.json" <<'JSON'
 {
   "draft_cards": [],
@@ -130,6 +150,25 @@ cat > "$TMPDIR/stage_c_fail_missing_lineage.json" <<'JSON'
 {
   "accepted_fact_safe": [
     {"id": "C1", "state": "accepted_fact_safe", "stage_c_only": true}
+  ]
+}
+JSON
+
+cat > "$TMPDIR/evidence_qc_primary_exception_pass.json" <<'JSON'
+{
+  "evidence_complete_and_source_claim_covered": [
+    {
+      "id": "C_PRIMARY",
+      "title": "Safety announcement from primary company source",
+      "signal": "high",
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "urls": ["https://company.example.com/news/safety-announcement"],
+      "source_discovery_ledger": [{"query": "independent corroboration", "result": "none found"}],
+      "single_source_exception": {"allowed": true, "reason": "Company announcement is the primary source for its own release; visible claims are limited to the announcement."},
+      "fact_sources": [
+        {"source_url": "https://company.example.com/news/safety-announcement", "evidence_role": "primary_event_evidence", "source_type": "company_primary_announcement"}
+      ]
+    }
   ]
 }
 JSON
@@ -222,6 +261,7 @@ cat > "$TMPDIR/content_audit_fail_omitted_bucket.json" <<'JSON'
 JSON
 
 pass "stage_b evidence pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_pass.json"
+pass "stage_b blocked ledger reference pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_blocked_reference_pass.json"
 pass "stage_b schema-blocked accounting pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_schema_blocked_pass.json"
 fail "stage_b missing accounting fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_fail_missing_accounting.json"
 fail "stage_b unverified primary evidence fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_fail_unverified_primary_evidence.json"
@@ -229,6 +269,7 @@ fail "stage_b duplicate output key fail" python3 "$ROOT/validation_scripts/stage
 pass "stage_b lineage pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_pass.json"
 fail "stage_b lineage missing source-diversity fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_fail_missing_source_diversity.json"
 fail "stage_c missing lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_c "$TMPDIR/stage_c_fail_missing_lineage.json"
+pass "Evidence QC primary-source exception pass" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_primary_exception_pass.json"
 fail "evidence complete bucket cannot hold HOLD status" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_complete_bucket_hold.json"
 fail "single-source PASS_MULTI_SOURCE fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_pass_multi_single.json"
 fail "multi-source bogus source_diversity_status fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_bogus_multi_status.json"

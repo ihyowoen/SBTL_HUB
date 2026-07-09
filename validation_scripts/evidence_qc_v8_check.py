@@ -43,6 +43,22 @@ SOURCE_DIVERSITY_HOLD_FAIL = {
     'HOLD_NEEDS_SOURCE_AUGMENTATION',
     'FAIL_SOURCE_DIVERSITY',
 }
+EVIDENCE_QC_BUCKETS = (
+    'cards',
+    'draft_cards',
+    'qc_cards',
+    'payload',
+    'accepted',
+    'accepted_fact_safe',
+    'accepted_fact_safe_with_warnings',
+    'evidence_complete_and_source_claim_covered',
+    'addable_hold_source_gap',
+    'needs_source_augmentation',
+    'evidence_qc_rejected',
+    'source_claim_gap',
+    'single_source_exception_review',
+    'deferred_review_pool',
+)
 
 
 def is_landing_page(url):
@@ -94,10 +110,20 @@ def load_cards(data):
     if isinstance(data, list):
         return data
     if isinstance(data, dict):
-        for k in ('cards', 'draft_cards', 'qc_cards', 'payload', 'accepted'):
+        out = []
+        seen = set()
+        for k in EVIDENCE_QC_BUCKETS:
             v = data.get(k)
             if isinstance(v, list):
-                return v
+                for row in v:
+                    if not isinstance(row, dict):
+                        continue
+                    marker = row.get('id') or row.get('card_id') or row.get('source_spec_id') or row.get('spec_id') or id(row)
+                    if marker in seen:
+                        continue
+                    seen.add(marker)
+                    out.append(row)
+        return out
     return []
 
 
@@ -122,7 +148,7 @@ def main():
     for c in cards:
         if not isinstance(c, dict):
             continue
-        cid = c.get('id', '<no-id>')
+        cid = c.get('id') or c.get('card_id') or c.get('source_spec_id') or c.get('spec_id') or '<no-id>'
         fs = c.get('fact_sources', []) or []
         urls = c.get('urls', []) or []
         signal = str(c.get('signal', '')).lower()

@@ -21,6 +21,14 @@ B_FIELDS = [
     'strict_gate_metadata_preserved','execution_anchor_metadata_preserved',
     'superseded_lineage_mixed','manual_integrated_rule_mixed','previous_run_output_mixed'
 ]
+C_ITEM_FIELDS = [
+    'id',
+    'spec_id',
+    'source_story_ids',
+    'stage_b_lineage',
+    'strict_gate_acceptance_guard_applied',
+    'accepted_pool_lineage_status',
+]
 REVIEW_POOLS = [
     'candidate_review_pool',
     'watchlist_context_pool',
@@ -67,6 +75,9 @@ def item_key(item):
     if isinstance(grouped, list) and grouped:
         return '|'.join(str(x) for x in grouped if x)
     return ''
+
+def missing_or_empty(item, field):
+    return field not in item or item.get(field) in (None, '', [])
 
 def check_stage_a(data):
     specs = data.get('strict_passed_spec') or data.get('strict_passed_specs') or []
@@ -161,7 +172,7 @@ def check_stage_b(data):
 
 def check_stage_c(data):
     pools=[]
-    for name in ['accepted_fact_safe','revise_required','rejected','accepted_fact_safe_with_warnings']:
+    for name in ['accepted_fact_safe','revise_required','rejected','support_source_only','deferred_review_pool','accepted_fact_safe_with_warnings']:
         v=data.get(name)
         if isinstance(v, list): pools += [(name,x) for x in v]
     msgs=[]
@@ -169,6 +180,13 @@ def check_stage_c(data):
         cid=item.get('id')
         if not cid:
             msgs.append(f'{pool}: item missing id for spec/story {item.get("spec_id") or item.get("source_story_ids")}')
+        for field in C_ITEM_FIELDS:
+            if missing_or_empty(item, field):
+                msgs.append(f'{pool} {cid or "unknown"}: missing {field}')
+        if item.get('strict_gate_acceptance_guard_applied') is not True:
+            msgs.append(f'{pool} {cid or "unknown"}: strict_gate_acceptance_guard_applied must be true')
+        if item.get('accepted_pool_lineage_status') != 'PASS':
+            msgs.append(f'{pool} {cid or "unknown"}: accepted_pool_lineage_status must be PASS')
         if pool in ('accepted_fact_safe', 'accepted_fact_safe_with_warnings'):
             if item.get('state') != 'accepted_fact_safe':
                 msgs.append(f'{pool} {cid or "unknown"}: state must be accepted_fact_safe')

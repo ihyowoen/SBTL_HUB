@@ -59,6 +59,18 @@ cat > "$TMPDIR/stage_b_fail_missing_accounting.json" <<'JSON'
 }
 JSON
 
+cat > "$TMPDIR/stage_b_fail_unverified_primary_evidence.json" <<'JSON'
+{
+  "strict_passed_spec_count": 1,
+  "stage_b_accounting_matches_strict_passed_spec_count": true,
+  "draft_cards": [
+    {"source_spec_id": "S_UNVERIFIED", "evidence_package": {"source_discovery_status": "completed_verified_source_found", "source_discovery_ledger": [{"query": "q"}], "single_source_exception": {"allowed": true, "reason": "official"}, "sources": [{"source_url": "https://example.gov/news/unverified", "fetched": true, "source_quote": "quote", "source_quote_status": "fetch_failed", "evidence_role": "primary_event_evidence"}] }}
+  ],
+  "draft_blocked": [],
+  "draft_blocked_schema": []
+}
+JSON
+
 cat > "$TMPDIR/stage_b_fail_duplicate_output_key.json" <<'JSON'
 {
   "strict_passed_spec_count": 2,
@@ -92,7 +104,7 @@ cat > "$TMPDIR/stage_b_lineage_pass.json" <<'JSON'
   "superseded_lineage_mixed": false,
   "manual_integrated_rule_mixed": false,
   "previous_run_output_mixed": false,
-  "stage_a_support_sources_attempted": true,
+  "stage_a_support_sources_attempted": [{"source_url": "https://support.example.com/a", "result": "checked"}],
   "source_independence_ledger": [{"host": "example.gov", "owner": "Example Government"}],
   "source_unique_url_count": 2,
   "source_unique_domain_count": 2,
@@ -156,6 +168,23 @@ cat > "$TMPDIR/evidence_qc_fail_pass_multi_single.json" <<'JSON'
 }
 JSON
 
+cat > "$TMPDIR/evidence_qc_fail_bogus_multi_status.json" <<'JSON'
+{
+  "evidence_complete_and_source_claim_covered": [
+    {
+      "id": "C3",
+      "source_diversity_status": "BOGUS",
+      "urls": ["https://news1.example.com/a", "https://news2.example.com/b"],
+      "source_discovery_ledger": [{"query": "q"}],
+      "fact_sources": [
+        {"source_url": "https://news1.example.com/a", "evidence_role": "primary_event_evidence"},
+        {"source_url": "https://news2.example.com/b", "evidence_role": "secondary_event_evidence"}
+      ]
+    }
+  ]
+}
+JSON
+
 cat > "$TMPDIR/content_audit_fail_missing_coverage.json" <<'JSON'
 {
   "content_enriched_and_language_polished": [
@@ -170,12 +199,14 @@ JSON
 pass "stage_b evidence pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_pass.json"
 pass "stage_b schema-blocked accounting pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_schema_blocked_pass.json"
 fail "stage_b missing accounting fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_fail_missing_accounting.json"
+fail "stage_b unverified primary evidence fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_fail_unverified_primary_evidence.json"
 fail "stage_b duplicate output key fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_fail_duplicate_output_key.json"
 pass "stage_b lineage pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_pass.json"
 fail "stage_b lineage missing source-diversity fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_fail_missing_source_diversity.json"
 fail "stage_c missing lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_c "$TMPDIR/stage_c_fail_missing_lineage.json"
 fail "evidence complete bucket cannot hold HOLD status" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_complete_bucket_hold.json"
 fail "single-source PASS_MULTI_SOURCE fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_pass_multi_single.json"
+fail "multi-source bogus source_diversity_status fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_bogus_multi_status.json"
 fail "content audit missing per-card coverage fail" python3 "$ROOT/validation_scripts/content_audit_check.py" "$TMPDIR/content_audit_fail_missing_coverage.json"
 
 echo "All validation script smoke tests behaved as expected."

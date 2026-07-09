@@ -43,6 +43,12 @@ SOURCE_DIVERSITY_HOLD_FAIL = {
     'HOLD_NEEDS_SOURCE_AUGMENTATION',
     'FAIL_SOURCE_DIVERSITY',
 }
+COMPLETE_BUCKETS = {
+    'accepted',
+    'accepted_fact_safe',
+    'accepted_fact_safe_with_warnings',
+    'evidence_complete_and_source_claim_covered',
+}
 EVIDENCE_QC_BUCKETS = (
     'cards',
     'draft_cards',
@@ -106,23 +112,29 @@ def supports_visible_claim(source):
     return False
 
 
+def row_marker(row):
+    return row.get('id') or row.get('card_id') or row.get('source_spec_id') or row.get('spec_id') or id(row)
+
+
 def load_cards(data):
     if isinstance(data, list):
         return data
     if isinstance(data, dict):
         out = []
         seen = set()
-        for k in EVIDENCE_QC_BUCKETS:
-            v = data.get(k)
+        for bucket in EVIDENCE_QC_BUCKETS:
+            v = data.get(bucket)
             if isinstance(v, list):
                 for row in v:
                     if not isinstance(row, dict):
                         continue
-                    marker = row.get('id') or row.get('card_id') or row.get('source_spec_id') or row.get('spec_id') or id(row)
+                    marker = row_marker(row)
                     if marker in seen:
                         continue
                     seen.add(marker)
-                    out.append(row)
+                    loaded = dict(row)
+                    loaded['__qc_bucket'] = bucket
+                    out.append(loaded)
         return out
     return []
 
@@ -149,6 +161,7 @@ def main():
         if not isinstance(c, dict):
             continue
         cid = c.get('id') or c.get('card_id') or c.get('source_spec_id') or c.get('spec_id') or '<no-id>'
+        bucket = c.get('__qc_bucket')
         fs = c.get('fact_sources', []) or []
         urls = c.get('urls', []) or []
         signal = str(c.get('signal', '')).lower()
@@ -158,8 +171,17 @@ def main():
         visible_fs = [s for s in fs if supports_visible_claim(s)]
         visible_urls = [s.get('source_url') for s in visible_fs if s.get('source_url')]
         independent_hosts = {host_key(u) for u in visible_urls if host_key(u)}
+        visible_source_count = len(set(visible_urls))
+        independent = len(independent_hosts)
         diversity_status = c.get('source_diversity_status')
         discovery_ledger = c.get('source_discovery_ledger') or c.get('source_discovery_ledger_ref') or c.get('source_discovery_ledger_reference')
+
+        if bucket in COMPLETE_BUCKETS and diversity_status in SOURCE_DIVERSITY_HOLD_FAIL:
+            flags['invalid_source_diversity_status'].append(
+                (cid, f'{diversity_status} may not appear in complete bucket {bucket}'))
+        if diversity_status == 'PASS_MULTI_SOURCE' and independent < 2:
+            flags['invalid_source_diversity_status'].append(
+                (cid, f'PASS_MULTI_SOURCE requires >=2 independent visible-source hosts, got {independent}'))
 
         # (a) landing-page URLs
         for u in fs_urls:
@@ -172,10 +194,10 @@ def main():
                 (cid, f"{len(fs)} entries / {len(distinct_urls)} distinct urls"))
 
         # (c) single_source_exception required for 1-source cards
-        if len(set(visible_urls)) <= 1 and not c.get('single_source_exception'):
+        if visible_source_count <= 1 and not c.get('single_source_exception'):
             flags['missing_single_source_exception'].append(
-                (cid, f"{len(set(visible_urls))} distinct visible-claim source"))
-        if len(set(visible_urls)) <= 1:
+                (cid, f"{visible_source_count} distinct visible-claim source"))
+        if visible_source_count <= 1:
             exc = c.get('single_source_exception')
             if not isinstance(exc, dict) or exc.get('allowed') is not True or not exc.get('reason'):
                 flags['invalid_source_diversity_status'].append(
@@ -195,7 +217,6 @@ def main():
                              for k in ('title', 'sub', 'gate', 'fact'))
         needs = signal in HIGH_SIGNAL or bool(CORROBORATION_RE.search(text_blob))
         if needs:
-            independent = len(independent_hosts)
             has_official = any(is_official(u) for u in set(visible_urls))
             if independent < 2 and not has_official:
                 flags['weak_corroboration'].append(

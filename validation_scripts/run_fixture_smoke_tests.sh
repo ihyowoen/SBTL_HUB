@@ -185,6 +185,21 @@ cat > "$TMPDIR/evidence_qc_fail_bogus_multi_status.json" <<'JSON'
 }
 JSON
 
+cat > "$TMPDIR/evidence_qc_fail_omitted_bucket.json" <<'JSON'
+{
+  "addable_hold_claim_gap": [
+    {
+      "id": "C4",
+      "source_diversity_status": "BOGUS",
+      "urls": ["https://news.example.com/claim-gap"],
+      "fact_sources": [
+        {"source_url": "https://news.example.com/claim-gap", "evidence_role": "primary_event_evidence"}
+      ]
+    }
+  ]
+}
+JSON
+
 cat > "$TMPDIR/content_audit_fail_missing_coverage.json" <<'JSON'
 {
   "content_enriched_and_language_polished": [
@@ -193,6 +208,16 @@ cat > "$TMPDIR/content_audit_fail_missing_coverage.json" <<'JSON'
   ],
   "card_claim_diversity_audit": [{"card_id": "C1"}],
   "related_coverage_audit": [{"card_id": "C1"}, {"card_id": "C2"}]
+}
+JSON
+
+cat > "$TMPDIR/content_audit_fail_omitted_bucket.json" <<'JSON'
+{
+  "content_hold_language_issue": [
+    {"id": "C_HOLD"}
+  ],
+  "card_claim_diversity_audit": [{"card_id": "OTHER"}],
+  "related_coverage_audit": [{"card_id": "OTHER"}]
 }
 JSON
 
@@ -207,6 +232,8 @@ fail "stage_c missing lineage fail" python3 "$ROOT/validation_scripts/stage_line
 fail "evidence complete bucket cannot hold HOLD status" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_complete_bucket_hold.json"
 fail "single-source PASS_MULTI_SOURCE fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_pass_multi_single.json"
 fail "multi-source bogus source_diversity_status fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_bogus_multi_status.json"
+fail "Evidence QC omitted bucket coverage fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_omitted_bucket.json"
 fail "content audit missing per-card coverage fail" python3 "$ROOT/validation_scripts/content_audit_check.py" "$TMPDIR/content_audit_fail_missing_coverage.json"
+fail "Content audit omitted bucket coverage fail" python3 "$ROOT/validation_scripts/content_audit_check.py" "$TMPDIR/content_audit_fail_omitted_bucket.json"
 
 echo "All validation script smoke tests behaved as expected."

@@ -34,6 +34,15 @@ FORBIDDEN_STAGE_B_TRUE_FLAGS = [
     'publish_ready',
     'github_merge_ready',
 ]
+FETCH_METADATA_KEYS = [
+    'fetched',
+    'fetched_at',
+    'checked_at',
+    'body',
+    'body_text',
+    'document_text',
+    'official_material_text',
+]
 
 def is_landing_page(url):
     if not url or not isinstance(url, str): return True
@@ -54,6 +63,11 @@ def listify(x):
     if isinstance(x,list): return x
     if isinstance(x,dict): return list(x.values())
     return []
+
+def has_fetch_metadata(source):
+    if not isinstance(source, dict):
+        return False
+    return any(bool(source.get(k)) for k in FETCH_METADATA_KEYS)
 
 def evidence_ok(ep, row=None, root=None):
     if not isinstance(ep,dict): return False, ['missing evidence_package']
@@ -88,7 +102,7 @@ def evidence_ok(ep, row=None, root=None):
         if is_landing_page(u):
             issues.append(f'landing-page source_url is not allowed: {u!r}')
             continue
-        fetched=bool(s.get('fetched') or s.get('fetched_at') or s.get('checked_at') or s.get('body') or s.get('body_text') or s.get('source_quote'))
+        fetched=has_fetch_metadata(s)
         quote_status=s.get('source_quote_status') or s.get('quote_status')
         quote=bool(s.get('source_quote') or s.get('quote'))
         if fetched and quote and (quote_status in OK_QUOTE_STATUS or s.get('evidence_role')=='primary_event_evidence'):
@@ -128,6 +142,14 @@ def forbidden_state_flags(row):
             found.append('state=' + field)
     return found
 
+def accounting_expected_count(data, strict):
+    count = get(data, 'strict_passed_spec_count', 'strict_passed_specs_count', default=None)
+    if isinstance(count, int):
+        return count
+    if isinstance(strict, list) and strict:
+        return len(strict)
+    return None
+
 def main():
     if len(sys.argv)<2:
         print('usage: stage_b_evidence_gate.py <stage_b_output.json>'); return 2
@@ -160,11 +182,25 @@ def main():
             problems.append(f'draft_blocked {bk}: stage_a_strict_pass_gate_missing true is invalid in v13')
         ok,info=blocked_ok(b)
         if not ok: problems.append(f'draft_blocked {bk}: missing rescue/source-discovery ledger or final reason {info}')
+
+    emitted_count = len(cards) + len(blocked)
+    expected_count = accounting_expected_count(data, strict)
+    accounting_flag = data.get('stage_b_accounting_matches_strict_passed_spec_count')
+    if expected_count is not None and emitted_count != expected_count:
+        problems.append(
+            f'Stage B accounting mismatch: strict_passed_spec_count={expected_count}, '
+            f'draft_cards + draft_blocked={emitted_count}'
+        )
+    if expected_count is not None and accounting_flag is not True:
+        problems.append('stage_b_accounting_matches_strict_passed_spec_count must be true')
+
     strict_keys={key(s) for s in strict}
     missing=strict_keys - card_keys - blocked_keys
     if missing: problems.append('strict specs silently missing from draft_cards/draft_blocked: '+', '.join(sorted(missing)))
     print('=== Stage B evidence gate FIX-004 ===')
     print(f'strict_passed_spec : {len(strict)}')
+    if expected_count is not None:
+        print(f'strict_passed_spec_count : {expected_count}')
     print(f'draft_cards        : {len(cards)}')
     print(f'draft_blocked      : {len(blocked)}')
     print(f'problems           : {len(problems)}')

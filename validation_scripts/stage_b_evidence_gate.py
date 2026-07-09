@@ -6,11 +6,13 @@ Validates the evidence-before-draft rule and Stage B accounting:
 - every draft card must have a valid evidence package;
 - every strict-passed spec must be accounted for by draft_cards, draft_blocked,
   or draft_blocked_schema;
+- duplicate output rows for the same strict spec are blocked;
 - Stage B must not silently promote downstream states such as publish_ready.
 """
 import json
 import re
 import sys
+from collections import Counter
 from urllib.parse import urlparse
 
 LANDING_RE = re.compile(r'^/?$|^/(index|home|main)\.?\w*/?$', re.I)
@@ -61,6 +63,11 @@ def first_present(obj, *keys, default=None):
 
 def item_key(obj):
     return first_present(obj, 'source_spec_id', 'spec_id', 'id', 'story_id', 'key', default='<unknown>')
+
+
+def known_output_key(obj):
+    key = item_key(obj)
+    return key if key and key != '<unknown>' else None
 
 
 def is_landing_page(url):
@@ -171,6 +178,17 @@ def downstream_flags(row):
     return found
 
 
+def duplicate_output_keys(*buckets):
+    keys = []
+    for bucket in buckets:
+        for row in bucket:
+            key = known_output_key(row)
+            if key:
+                keys.append(key)
+    counts = Counter(keys)
+    return sorted(key for key, count in counts.items() if count > 1)
+
+
 def main():
     if len(sys.argv) != 2:
         print('usage: stage_b_evidence_gate.py <stage_b_output.json>')
@@ -194,6 +212,10 @@ def main():
     card_keys = set()
     blocked_keys = set()
     schema_blocked_keys = set()
+
+    duplicates = duplicate_output_keys(draft_cards, draft_blocked, draft_blocked_schema)
+    if duplicates:
+        problems.append('duplicate Stage B output rows for spec id(s): ' + ', '.join(duplicates))
 
     for card in draft_cards:
         key = item_key(card)

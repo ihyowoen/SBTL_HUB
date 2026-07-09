@@ -1,191 +1,67 @@
 {
-  "generated_at_utc": "2026-07-09T04:59:30.962118+00:00",
+  "generated_at_utc": "2026-07-09T05:18:00+00:00",
   "version": "LLM_PROMPT_GITHUB_CANONICAL_V1",
-  "note": "UPLOAD_MANIFEST.json is excluded from its own file hash list to avoid self-reference drift.",
-  "file_count_excluding_manifest": 36,
+  "manifest_policy": "Git commit is the canonical integrity source. This manifest intentionally avoids self-referential per-file hashes so it does not drift after validator-only follow-up fixes.",
+  "scope": "First GitHub-canonical LLM prompt package v1 for SBTL_HUB.",
+  "base_branch": "main",
+  "head_branch": "ihyowoen-patch-38",
+  "file_count": 37,
   "governance_doc_count": 9,
   "stage_prompt_count": 14,
   "validation_script_count": 4,
-  "files": [
-    {
-      "path": "docs/CARD_ID_STANDARD.md",
-      "size_bytes": 14380,
-      "sha256": "0b29fe17aeef893be47522b77262594cd041fac75d651715b5ff7ac8a3e8b723"
-    },
-    {
-      "path": "docs/FACT_DISCIPLINE.md",
-      "size_bytes": 20625,
-      "sha256": "3af8d0ecb82efab4e1841c1a06aa39e52bcb331937fc64f1e5d3868cc846e686"
-    },
-    {
-      "path": "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
-      "size_bytes": 18873,
-      "sha256": "5497821c3260002d16687938acd211b4b31d46c8477eab85b00f392f5911c137"
-    },
-    {
-      "path": "docs/OPERATIONS.md",
-      "size_bytes": 72764,
-      "sha256": "a2cd9fb2b76105b69011658e9f1aef40d93e5cfff75754bc5aeb6765b7c92804"
-    },
-    {
-      "path": "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
-      "size_bytes": 61057,
-      "sha256": "ffae1f9d98d781d1d3d833185991ed5697f388303d7f9ae29ce6538495f33e09"
-    },
-    {
-      "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
-      "size_bytes": 64592,
-      "sha256": "37c429f1a5fe1755e05fadd5d4b2c93c94085a137ca122846619182e9ad92a26"
-    },
-    {
-      "path": "docs/PROMPT_ABC_SUPPORTING_RULES.md",
-      "size_bytes": 60392,
-      "sha256": "cfb4ba96fbd93177aef8cfef3ebe87b0d0d8af60bf302edb8c9d53a351bbed35"
-    },
-    {
-      "path": "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
-      "size_bytes": 15670,
-      "sha256": "ddb67e50cae7e913b0184d6548ae4842a108213642c4e7aaaa0ab24ac0c19308"
-    },
-    {
-      "path": "docs/WORKFLOW.md",
-      "size_bytes": 73904,
-      "sha256": "bc4dd5c1918b438b2f78abd7573a3ff375e9b747d9bf1fb3c209901227b3950d"
-    },
-    {
-      "path": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
-      "size_bytes": 97857,
-      "sha256": "0480668f17239c70abcd87580b91787c07b3ec8793ff66132e4567417feadae0"
-    },
-    {
-      "path": "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
-      "size_bytes": 95530,
-      "sha256": "c00d89805ef4d86fe45c4493ba43f4b09f442a976f316a0fa46a0348f830bf66"
-    },
-    {
-      "path": "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
-      "size_bytes": 69614,
-      "sha256": "c6121258c253eb827de6382c229679ff8e49b865cb55af47fd70a95d56780539"
-    },
-    {
-      "path": "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
-      "size_bytes": 51741,
-      "sha256": "e59ae4899f61ec7d155ba98c98e0acc06390eecf2574324ecceafacb663566d5"
-    },
-    {
-      "path": "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
-      "size_bytes": 48342,
-      "sha256": "8d6be3b367779d793a3f8343deac6acaf12aa9bef378b4aca7cb189d3e8ea606"
-    },
-    {
-      "path": "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md",
-      "size_bytes": 67765,
-      "sha256": "015b7959b7689ace7833e9ad2cff4496ffa926fc24feb7eda87fa35b0d27aa0f"
-    },
-    {
-      "path": "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
-      "size_bytes": 98969,
-      "sha256": "a09eb3679bef93950616efffde9e7f3b780099a2851cca853f82640768f983db"
-    },
-    {
-      "path": "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
-      "size_bytes": 94592,
-      "sha256": "c98d09dc3e8362c13b7dda91bb887f82a5ceec9ac71bb7459c1865a41265c6db"
-    },
-    {
-      "path": "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
-      "size_bytes": 87821,
-      "sha256": "f7054f8931b12c6cc53711f3531389795798612b23fdf9ce707e09180cc1eeb7"
-    },
-    {
-      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
-      "size_bytes": 76838,
-      "sha256": "81a9e2eda036d96374689e76bce48c73c936f93266c1fecf52d9b87bca314c53"
-    },
-    {
-      "path": "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
-      "size_bytes": 58454,
-      "sha256": "f18e4683f8f5d257862dc9057185ead9484a63a0363f453b03e3760156e1383f"
-    },
-    {
-      "path": "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
-      "size_bytes": 52728,
-      "sha256": "028b34f13014575b04f8c48f06f5b2b7068352feb67c5bce9a8b24f5952895ef"
-    },
-    {
-      "path": "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
-      "size_bytes": 79512,
-      "sha256": "500604c3c7e392de04d5015b57c59582c1fb8cb6b26ba3a4121d0522806ea1bf"
-    },
-    {
-      "path": "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md",
-      "size_bytes": 17069,
-      "sha256": "22bb65b0fc99190397f19eb80578c23255caf2d53a35f0ef7a1f50ca97941418"
-    },
-    {
-      "path": "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
-      "size_bytes": 15218,
-      "sha256": "e551935298985235128af09b2e428bba25ca517dfe25ec61c1da66b59052cafa"
-    },
-    {
-      "path": "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
-      "size_bytes": 7862,
-      "sha256": "ff5f43028453ce6f17f4ae0c207b1169b3cf49e4c5b143aaf5c44fae9ffac240"
-    },
-    {
-      "path": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
-      "size_bytes": 2904,
-      "sha256": "a3ff3d636281b80eb2172345796b2f4b77ebcd911f95d99b5d0b84d3caba08be"
-    },
-    {
-      "path": "docs/llm_prompts/v1/QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
-      "size_bytes": 338,
-      "sha256": "92be1571d8201953bb312ce3a27ccfa2e07d32133aa16ae0e09508070fad2ade"
-    },
-    {
-      "path": "docs/llm_prompts/v1/README_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
-      "size_bytes": 781,
-      "sha256": "e02917a3bd66c1a58ceb2a0e87aae2ed724b1628af87aaf093b8ee04b2aa5eba"
-    },
-    {
-      "path": "docs/llm_prompts/v1/SOURCE_DIVERSITY_V10_MASTER_RULE.md",
-      "size_bytes": 5150,
-      "sha256": "9bd34001384679922b86027602e1841571de1f67e0bea11c9653824461bac288"
-    },
-    {
-      "path": "docs/llm_prompts/v1/SOURCE_DIVERSITY_V1_IB_CODEX_20260708_MASTER_RULE.md",
-      "size_bytes": 1899,
-      "sha256": "ff479edf6b82a3d577d9b8fc10e7ef84e4e445222fad93de4d50c565b4319a93"
-    },
-    {
-      "path": "docs/llm_prompts/v1/UPLOAD_INSTRUCTIONS.md",
-      "size_bytes": 927,
-      "sha256": "10c7e3f53a2484056ecc39bc2b418b21e525f6b77ed0b4b35e36404e4401c67b"
-    },
-    {
-      "path": "docs/llm_prompts/v1/entity_alias_map.json",
-      "size_bytes": 26995,
-      "sha256": "fcac8ac153ca68e4f6c61dd4c05cf24f73fb1c24dd2ab140a184616e80b73074"
-    },
-    {
-      "path": "validation_scripts/content_audit_check.py",
-      "size_bytes": 3231,
-      "sha256": "ae1d599657527f1d8ebee10062a1b3447c28c76e40042d2779b400c15986a7b8"
-    },
-    {
-      "path": "validation_scripts/evidence_qc_v8_check.py",
-      "size_bytes": 8017,
-      "sha256": "740d1767e468d0b03beeb65521d6cda64b399208f7c55bdf06c87cde0edeabf7"
-    },
-    {
-      "path": "validation_scripts/stage_b_evidence_gate.py",
-      "size_bytes": 8019,
-      "sha256": "ce1d81521fdf5b068bef9985535f54ce13a6291afc03b1b024d4a3b34886a85b"
-    },
-    {
-      "path": "validation_scripts/stage_lineage_contract_check.py",
-      "size_bytes": 8474,
-      "sha256": "b11d45649ea15695de07d01b0d76eac591406e8e6ccfb9591c4e4b8632d37abc"
-    }
+  "runtime_code_change": false,
+  "cards_json_change": false,
+  "paths": {
+    "governance_docs": [
+      "docs/CARD_ID_STANDARD.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/PROMPT_ABC_SUPPORTING_RULES.md",
+      "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
+      "docs/WORKFLOW.md"
+    ],
+    "stage_prompts": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
+      "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
+      "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
+      "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
+      "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md",
+      "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+      "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
+      "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+      "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
+      "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
+      "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
+      "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md"
+    ],
+    "package_docs": [
+      "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
+      "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
+      "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "docs/llm_prompts/v1/QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+      "docs/llm_prompts/v1/README_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+      "docs/llm_prompts/v1/SOURCE_DIVERSITY_V10_MASTER_RULE.md",
+      "docs/llm_prompts/v1/SOURCE_DIVERSITY_V1_IB_CODEX_20260708_MASTER_RULE.md",
+      "docs/llm_prompts/v1/UPLOAD_INSTRUCTIONS.md",
+      "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
+      "docs/llm_prompts/v1/entity_alias_map.json"
+    ],
+    "validation_scripts": [
+      "validation_scripts/content_audit_check.py",
+      "validation_scripts/evidence_qc_v8_check.py",
+      "validation_scripts/stage_b_evidence_gate.py",
+      "validation_scripts/stage_lineage_contract_check.py"
+    ]
+  },
+  "codex_followup_fixes": [
+    "Stage B evidence gate key helper now recognizes source_spec_id.",
+    "Stage B draft_blocked validation now recognizes blocked_reason.",
+    "Stage C lineage validator now enforces spec_id, source_story_ids, stage_b_lineage, strict_gate_acceptance_guard_applied and accepted_pool_lineage_status.",
+    "Upload manifest no longer contains self-drifting per-file hashes."
   ]
 }

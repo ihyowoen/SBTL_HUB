@@ -64,6 +64,31 @@ def is_official(url):
     return any(hint in host or hint in text for hint in OFFICIAL_HINTS)
 
 
+def source_has_primary_or_official_metadata(source):
+    if not isinstance(source, dict):
+        return False
+    role = source.get('evidence_role')
+    if role in ('primary_event_evidence', 'official_material_evidence', 'official_source', 'primary_source'):
+        return True
+    if source.get('is_official') is True or source.get('official_source') is True or source.get('is_primary_source') is True:
+        return True
+    source_type = str(source.get('source_type') or source.get('source_kind') or '').lower()
+    return 'official' in source_type or 'primary' in source_type
+
+
+def has_explicit_single_source_exception(card):
+    exception = card.get('single_source_exception')
+    return isinstance(exception, dict) and exception.get('allowed') is True and bool(exception.get('reason'))
+
+
+def has_primary_or_official_single_source_support(card, visible_sources):
+    return (
+        card.get('source_diversity_status') == 'PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION'
+        and has_explicit_single_source_exception(card)
+        and any(source_has_primary_or_official_metadata(source) for source in visible_sources)
+    )
+
+
 def supports_visible_claim(source):
     if not isinstance(source, dict):
         return False
@@ -171,8 +196,9 @@ def main():
         needs_corroboration = signal in HIGH_SIGNAL or bool(CORROBORATION_RE.search(text_blob))
         if needs_corroboration:
             has_official_visible_source = any(is_official(url) for url in set(visible_urls))
-            if independent_count < 2 and not has_official_visible_source:
-                flags['weak_corroboration'].append((cid, f'signal={signal or "?"}, {independent_count} independent visible-source host, no official'))
+            has_primary_exception = has_primary_or_official_single_source_support(card, visible_sources)
+            if independent_count < 2 and not has_official_visible_source and not has_primary_exception:
+                flags['weak_corroboration'].append((cid, f'signal={signal or "?"}, {independent_count} independent visible-source host, no official/primary exception'))
 
         url_set = set(urls)
         for url in visible_urls:

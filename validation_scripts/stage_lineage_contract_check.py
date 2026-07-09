@@ -104,8 +104,6 @@ def check_stage_a(data):
             msgs.append(f'{sid}: invalid stage_a_evidence_status={s.get("stage_a_evidence_status")}')
         if s.get('primary_url_semantics') not in (None,'provided_source_candidate_not_evidence'):
             msgs.append(f'{sid}: invalid primary_url_semantics={s.get("primary_url_semantics")}')
-    if 'review_pool_partition_summary' not in data:
-        msgs.append('top-level missing review_pool_partition_summary')
 
     review_items = []
     for pool in REVIEW_POOLS:
@@ -114,6 +112,8 @@ def check_stage_a(data):
             review_items.extend((pool, row) for row in rows if isinstance(row, dict))
 
     if review_items:
+        if 'review_pool_partition_summary' not in data:
+            msgs.append('top-level missing review_pool_partition_summary when review pools exist')
         if data.get('review_pool_carry_forward_ledger_status') != 'PASS':
             msgs.append('top-level review_pool_carry_forward_ledger_status must be PASS when review pools exist')
         ledger = data.get('review_pool_resolution_ledger')

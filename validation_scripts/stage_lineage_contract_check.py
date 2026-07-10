@@ -21,7 +21,7 @@ STAGE_A_SOURCE_DIVERSITY_REQUIRED = [
     'same_event_source_cluster', 'support_source_candidates',
     'source_domain_candidates', 'source_diversity_path', 'source_cluster_preserved',
 ]
-STAGE_A_PRESENCE_ONLY = {'format_risk_tags'} | set(STAGE_A_SOURCE_DIVERSITY_REQUIRED)
+STAGE_A_PRESENCE_ONLY = {'format_risk_tags', 'support_source_candidates', 'source_domain_candidates'}
 STAGE_A_GATE_REQUIRED = ['status', 'reason', 'all_six_conditions_passed']
 STAGE_A_ALLOWED_STAGE_EVIDENCE_STATUS = {'not_evidence_complete_no_fetch'}
 STAGE_A_ALLOWED_PRIMARY_URL_SEMANTICS = {'provided_source_candidate_not_evidence'}
@@ -122,16 +122,34 @@ def stage_a_specs(data):
     return as_list(data.get('strict_passed_spec') or data.get('strict_passed_specs') or [])
 
 
+def validate_stage_a_source_diversity(spec, spec_id, messages):
+    for field in STAGE_A_SOURCE_DIVERSITY_REQUIRED:
+        if field in STAGE_A_PRESENCE_ONLY:
+            if missing_presence(spec, field):
+                messages.append(f'{spec_id}: missing source-diversity lineage field {field}')
+        elif missing_nonempty(spec, field):
+            messages.append(f'{spec_id}: missing source-diversity lineage field {field}')
+
+    path = spec.get('source_diversity_path')
+    if not isinstance(path, dict) or not path.get('status'):
+        messages.append(f'{spec_id}: source_diversity_path.status is required')
+
+    if spec.get('source_cluster_preserved') is not True:
+        messages.append(f'{spec_id}: source_cluster_preserved must be true for strict_passed_spec')
+
+
 def validate_stage_a_spec(spec, index, messages):
     spec_id = spec.get('spec_id', f'idx_{index}') if isinstance(spec, dict) else f'idx_{index}'
     if not isinstance(spec, dict):
         messages.append(f'{spec_id}: spec row is not object')
         return
 
-    for field in STAGE_A_REQUIRED + STAGE_A_SOURCE_DIVERSITY_REQUIRED:
+    for field in STAGE_A_REQUIRED:
         missing = missing_presence(spec, field) if field in STAGE_A_PRESENCE_ONLY else missing_nonempty(spec, field)
         if missing:
             messages.append(f'{spec_id}: missing {field}')
+
+    validate_stage_a_source_diversity(spec, spec_id, messages)
 
     gate = spec.get('strict_pass_gate')
     if not isinstance(gate, dict):
@@ -240,11 +258,11 @@ def check_stage_b(data):
             messages.append(f'top-level {field} must be {expected!r}, got {data.get(field)!r}')
 
     packages = evidence_packages(data)
-    if packages:
+    if has_any_source_diversity_field(data):
+        validate_stage_b_source_diversity(data, 'top-level', messages)
+    elif packages:
         for index, package in enumerate(packages):
             validate_stage_b_source_diversity(package, f'evidence_package[{item_key(package) or index}]', messages)
-    elif has_any_source_diversity_field(data):
-        validate_stage_b_source_diversity(data, 'top-level', messages)
     else:
         for field in STAGE_B_SOURCE_DIVERSITY_REQUIRED:
             messages.append(f'top-level/evidence_packages missing source-diversity lineage field {field}')

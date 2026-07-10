@@ -67,6 +67,10 @@ def known_key(obj):
     return key if key and key != '<unknown>' else None
 
 
+def is_plain_int(value):
+    return isinstance(value, int) and not isinstance(value, bool)
+
+
 def is_landing_page(url):
     if not isinstance(url, str) or not url:
         return True
@@ -236,10 +240,12 @@ def main():
         if not ok:
             problems.append(f'draft_blocked_schema {key}: missing schema-block reason {info}')
 
-    expected_count = data.get('strict_passed_spec_count') if isinstance(data.get('strict_passed_spec_count'), int) else data.get('strict_passed_specs_count')
+    expected_count = data.get('strict_passed_spec_count')
+    if expected_count is None:
+        expected_count = data.get('strict_passed_specs_count')
     emitted_count = len(draft_cards) + len(draft_blocked) + len(draft_blocked_schema)
-    if not isinstance(expected_count, int):
-        problems.append('strict_passed_spec_count is required for Stage B accounting')
+    if not is_plain_int(expected_count):
+        problems.append('strict_passed_spec_count must be a JSON integer, not boolean/string/null')
     elif emitted_count != expected_count:
         problems.append(f'Stage B accounting mismatch: strict_passed_spec_count={expected_count}, emitted={emitted_count}')
     if data.get('stage_b_accounting_matches_strict_passed_spec_count') is not True:

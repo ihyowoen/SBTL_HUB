@@ -2,8 +2,9 @@
 """Prompt 0.5 Evidence QC mechanical checker.
 
 Checks source-diversity status, bucket semantics, landing-page/fake diversity,
-owner-level independence, and required discovery ledgers. This script flags only;
-it does not mutate artifacts or fabricate sources.
+owner-level independence, official/primary single-source exceptions, and required
+discovery ledgers. This script flags only; it does not mutate artifacts or
+fabricate sources.
 """
 import json
 import re
@@ -118,7 +119,7 @@ def source_has_primary_or_official_metadata(source):
     if source.get('is_official') is True or source.get('official_source') is True or source.get('is_primary_source') is True:
         return True
     source_type = str(source.get('source_type') or source.get('source_kind') or '').lower()
-    return 'official' in source_type or 'primary' in source_type
+    return 'official' in source_type or 'primary' in source_type or 'filing' in source_type or 'regulatory' in source_type
 
 
 def has_passing_single_source_exception(card):
@@ -191,10 +192,10 @@ def main():
         source_urls = [src.get('source_url') for src in fact_sources if isinstance(src, dict) and src.get('source_url')]
         visible_sources = [src for src in fact_sources if supports_visible_claim(src)]
         visible_urls = [src.get('source_url') for src in visible_sources if src.get('source_url')]
-        visible_url_count = len(set(visible_urls))
         independent_hosts = {host_key(url) for url in visible_urls if host_key(url)}
         owner_count = independent_owner_count(card, independent_hosts)
         discovery_ledger = card.get('source_discovery_ledger') or card.get('source_discovery_ledger_ref') or card.get('source_discovery_ledger_reference')
+        primary_or_official_source = any(source_has_primary_or_official_metadata(source) for source in visible_sources)
 
         if status not in ALLOWED_STATUSES:
             flags['invalid_source_diversity_status'].append((cid, f'missing/invalid source_diversity_status={status}'))
@@ -202,8 +203,11 @@ def main():
             flags['invalid_source_diversity_status'].append((cid, f'{status} may not appear in complete bucket {bucket}'))
         if status == 'PASS_MULTI_SOURCE' and owner_count < 2:
             flags['invalid_source_diversity_status'].append((cid, f'PASS_MULTI_SOURCE requires >=2 independent source owners, got {owner_count}'))
-        if status == 'PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION' and not has_passing_single_source_exception(card):
-            flags['invalid_source_diversity_status'].append((cid, 'single-source pass exception missing allowed=true/reason'))
+        if status == 'PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION':
+            if not has_passing_single_source_exception(card):
+                flags['invalid_source_diversity_status'].append((cid, 'single-source pass exception missing allowed=true/reason'))
+            elif not primary_or_official_source:
+                flags['invalid_source_diversity_status'].append((cid, 'single-source pass exception requires official/primary visible source metadata'))
         if status == 'PASS_SINGLE_SOURCE':
             flags['invalid_source_diversity_status'].append((cid, 'PASS_SINGLE_SOURCE is not an allowed status'))
 

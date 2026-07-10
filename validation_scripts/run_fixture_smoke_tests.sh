@@ -39,7 +39,12 @@ cat > "$TMPDIR/stage_a_empty_format_tags_pass.json" <<'JSON'
       "source_access_risk": "low",
       "stage_a_evidence_status": "not_evidence_complete_no_fetch",
       "stage_b_evidence_package_required": true,
-      "primary_url_semantics": "provided_source_candidate_not_evidence"
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [],
+      "support_source_candidates": [],
+      "source_domain_candidates": ["example.gov"],
+      "source_diversity_path": "single official source candidate preserved for Stage B discovery",
+      "source_cluster_preserved": true
     }
   ]
 }
@@ -52,6 +57,36 @@ cat > "$TMPDIR/stage_a_fail_nonpass_gate.json" <<'JSON'
       "spec_id": "A_FAIL",
       "source_story_ids": ["S1"],
       "strict_pass_gate": {"status": "blocked_to_review_pool", "reason": "not strict pass", "all_six_conditions_passed": false},
+      "enhanced_selector_precision_version": "v1",
+      "selector_policy_version": "v1",
+      "strict_gate_check": "PASS",
+      "format_risk_tags": [],
+      "execution_anchor_type": "regulatory_decision",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "staleness_decision": "fresh",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [],
+      "support_source_candidates": [],
+      "source_domain_candidates": ["example.gov"],
+      "source_diversity_path": "single official source candidate preserved for Stage B discovery",
+      "source_cluster_preserved": true
+    }
+  ]
+}
+JSON
+
+cat > "$TMPDIR/stage_a_fail_missing_source_diversity.json" <<'JSON'
+{
+  "strict_passed_specs": [
+    {
+      "spec_id": "A_MISSING_SD",
+      "source_story_ids": ["S1"],
+      "strict_pass_gate": {"status": "pass", "reason": "six conditions met", "all_six_conditions_passed": true},
       "enhanced_selector_precision_version": "v1",
       "selector_policy_version": "v1",
       "strict_gate_check": "PASS",
@@ -187,6 +222,22 @@ cat > "$TMPDIR/evidence_qc_primary_exception_pass.json" <<'JSON'
 }
 JSON
 
+cat > "$TMPDIR/evidence_qc_media_single_exception_fail.json" <<'JSON'
+{
+  "evidence_complete_and_source_claim_covered": [
+    {
+      "id": "EQ_MEDIA_ONLY",
+      "title": "Ordinary media article with claimed exception",
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "urls": ["https://media.example.com/article"],
+      "source_discovery_ledger": [{"query": "corroboration", "result": "none"}],
+      "single_source_exception": {"allowed": true, "reason": "media article is detailed"},
+      "fact_sources": [{"source_url": "https://media.example.com/article", "evidence_role": "secondary_event_evidence", "source_type": "media_article"}]
+    }
+  ]
+}
+JSON
+
 cat > "$TMPDIR/evidence_qc_hold_single_pass.json" <<'JSON'
 {
   "needs_source_augmentation": [
@@ -243,6 +294,7 @@ JSON
 
 pass "Stage A empty format_risk_tags pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_a "$TMPDIR/stage_a_empty_format_tags_pass.json"
 fail "Stage A non-pass strict gate fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_a "$TMPDIR/stage_a_fail_nonpass_gate.json"
+fail "Stage A missing source-diversity lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_a "$TMPDIR/stage_a_fail_missing_source_diversity.json"
 pass "Stage B evidence pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_evidence_pass.json"
 pass "Stage B blocked ledger reference pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_blocked_reference_pass.json"
 fail "Stage B unverified primary evidence fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_unverified_primary_fail.json"
@@ -251,6 +303,7 @@ pass "Stage B package lineage pass" python3 "$ROOT/validation_scripts/stage_line
 fail "Stage B missing source-diversity lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_missing_fail.json"
 fail "Stage C missing source-diversity lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_c "$TMPDIR/stage_c_missing_lineage_fail.json"
 pass "Evidence QC primary-source exception pass" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_primary_exception_pass.json"
+fail "Evidence QC media-only single-source exception fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_media_single_exception_fail.json"
 pass "Evidence QC held one-source caveat pass" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_hold_single_pass.json"
 fail "Evidence QC same-owner multi-source fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_same_owner_fail.json"
 fail "Evidence QC addable_merge_safe input bucket fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_addable_merge_safe_fail.json"

@@ -26,6 +26,7 @@ COMPLETE_BUCKETS = {
     'evidence_complete_and_source_claim_covered',
 }
 EVIDENCE_QC_BUCKETS = (
+    'addable_merge_safe',
     'cards', 'draft_cards', 'qc_cards', 'payload', 'accepted',
     'accepted_fact_safe', 'accepted_fact_safe_with_warnings',
     'evidence_complete_and_source_claim_covered', 'addable_hold_source_gap',

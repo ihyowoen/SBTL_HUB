@@ -446,7 +446,17 @@ export default async function handler(req, res) {
     }
 
     const parsed = parseRequest({ message, context, hint, data });
-    console.log(`[chat-parse] action=${parsed.action} topic=${parsed.topic} region=${parsed.scope?.region || "-"} date=${parsed.scope?.date || "-"}`);
+
+    // 개인화: 클라이언트가 context.watch_terms(내워치)를 보내면, '내 워치/관심' 언급 질의에서
+    // 리트리벌 엔티티 후보로 편입하고 LLM 합성에도 목록을 전달한다.
+    const watchTerms = Array.isArray(context?.watch_terms)
+      ? context.watch_terms.slice(0, 12).map((x) => String(x || "").trim()).filter(Boolean)
+      : [];
+    if (watchTerms.length && /내\s*워치|워치|관심\s*(기업|종목|목록|용어|키워드)/.test(message)) {
+      parsed.scope.entity_candidates = [...(parsed.scope.entity_candidates || []), ...watchTerms];
+      parsed._reasons.push(`watch_terms_boost:${watchTerms.length}`);
+    }
+    console.log(`[chat-parse] action=${parsed.action} topic=${parsed.topic} region=${parsed.scope?.region || "-"} date=${parsed.scope?.date || "-"} watch=${watchTerms.length}`);
 
     const resolvedCtx = resolveContext({ parsed, context });
 
@@ -464,6 +474,7 @@ export default async function handler(req, res) {
       parsed,
       resolved: resolvedCtx.resolved,
       retrieval,
+      personal: { watch_terms: watchTerms },
     });
     console.log(`[chat-synth] path=${synthesis?.meta?.path} used_llm=${synthesis?.used_llm} delegate=${synthesis?.delegate?.to || "-"}`);
 

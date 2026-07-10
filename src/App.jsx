@@ -364,6 +364,23 @@ function splitGlossaryText(text, matcher) {
   return parts;
 }
 
+// ---- 상담소 답변의 [n] 인용을 탭 가능한 배지로 (해당 근거 카드로 점프) ----
+function renderChatCitations(text, cardCount, onCite) {
+  const s = String(text || "");
+  if (!cardCount || !/\[\d/.test(s)) return s;
+  const pieces = s.split(/(\[\d+(?:\s*,\s*\d+)*\])/g);
+  if (pieces.length === 1) return s;
+  return pieces.map((p, i) => {
+    const m = p.match(/^\[(\d+(?:\s*,\s*\d+)*)\]$/);
+    if (!m) return p;
+    const nums = m[1].split(/\s*,\s*/).map(Number).filter((n) => n >= 1 && n <= cardCount);
+    if (!nums.length) return p;
+    return (
+      <button key={`cite-${i}`} type="button" onClick={() => onCite(nums[0])} aria-label={`근거 카드 ${m[1]}번 보기`} style={{ border: "none", background: "rgba(88,166,255,0.15)", color: "#58A6FF", borderRadius: 6, padding: "0 4px", margin: "0 1px", font: "inherit", fontSize: "0.85em", fontWeight: 800, cursor: "pointer", lineHeight: 1.4, verticalAlign: "baseline" }}>[{m[1]}]</button>
+    );
+  });
+}
+
 async function fetchJsonFile(path, requestKey = 0, hardRefresh = false) {
   const response = await fetch(buildFetchUrl(path, requestKey), {
     cache: hardRefresh ? "reload" : "no-cache",
@@ -811,8 +828,16 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     return res.json();
   };
 
+  const readWatchTermsSafe = () => {
+    try {
+      const t = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+      return Array.isArray(t) ? t.slice(0, 12) : [];
+    } catch { return []; }
+  };
+
   const sendToChatApi = async (txt, mode = "internal", hint = null) => {
-    const body = { message: mode === "external" ? `${txt} 외부 기사 링크 중심으로 찾아줘` : txt, context: chatCtxRef.current };
+    // watch_terms: '내 워치 기준으로 정리해줘' 같은 개인화 질의를 서버가 처리할 수 있게 동봉
+    const body = { message: mode === "external" ? `${txt} 외부 기사 링크 중심으로 찾아줘` : txt, context: { ...chatCtxRef.current, watch_terms: readWatchTermsSafe() } };
     if (hint && (hint.hint_action || hint.hint_topic)) body.hint = { action: hint.hint_action || undefined, topic: hint.hint_topic || undefined };
     return postChat(body);
   };
@@ -997,13 +1022,13 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
                     {m.sourceBadge === "internal" && <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#58A6FF", background: dark ? "rgba(88,166,255,0.14)" : "rgba(45,90,142,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>📋 내부 카드 기반</span>}
                     {m.sourceBadge === "external" && <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#D29922", background: dark ? "rgba(210,153,34,0.14)" : "rgba(210,153,34,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>🔗 외부 기사 링크</span>}
                     {m.sourceBadge === "hybrid" && <span style={{ display: "inline-block", fontSize: 10, fontWeight: 800, color: "#A855F7", background: dark ? "rgba(168,85,247,0.14)" : "rgba(168,85,247,0.10)", padding: "3px 8px", borderRadius: 999, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>🔀 내부+외부 근거</span>}
-                    {m.sourceBadge ? <div>{m.content}</div> : m.content}
+                    {m.sourceBadge ? <div>{renderChatCitations(m.content, m.cards?.length || 0, (n) => { const el = document.getElementById(`chat-card-${i}-${n}`); if (el) { el.scrollIntoView({ behavior: "smooth", block: "center" }); el.style.boxShadow = "0 0 0 2px #58A6FF"; setTimeout(() => { el.style.boxShadow = "none"; }, 1400); } })}</div> : m.content}
                   </div>
                   {m.braveLinks?.map((link, j) => <a key={`brave-${j}`} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Open external article: ${link.title}`} style={{ display: "block", background: dark ? "#1A1E2A" : "#FFFBF0", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: "pointer", border: `1px solid ${dark ? "rgba(210,153,34,0.25)" : "rgba(210,153,34,0.2)"}`, textDecoration: "none" }}><div style={{ fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.4 }}>{link.title}</div>{link.description && <div style={{ fontSize: 11, color: t.sub, marginTop: 3, lineHeight: 1.45 }}>{link.description.slice(0, 120)}{link.description.length > 120 ? "..." : ""}</div>}<div style={{ fontSize: 10, color: "#D29922", marginTop: 4, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>🔗 외부 기사 ↗</div></a>)}
                   {m.cards?.map((card, j) => {
                     const cardStyle = { display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}`, textDecoration: "none" };
                     const cardContent = <><div style={{ fontSize: 12, fontWeight: 700, color: t.tx }}>{SIG_L[card.signal] || SIG_L[card.s] || "INFO"} {card.title}</div>{card.subtitle && <div style={{ fontSize: 11, color: t.sub, marginTop: 3 }}>{card.subtitle}</div>}{card.gist && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, lineHeight: 1.5, opacity: 0.85 }}>💡 {card.gist}</div>}<div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(card.date)} · {card.region} · {card.source || "source"}</div>{card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}</>;
-                    return card.url ? <a key={j} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} onClick={() => markCardSelected(card)} style={cardStyle}>{cardContent}</a> : <div key={j} style={cardStyle} onClick={() => markCardSelected(card)}>{cardContent}</div>;
+                    return card.url ? <a key={j} id={`chat-card-${i}-${j + 1}`} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} onClick={() => markCardSelected(card)} style={cardStyle}>{cardContent}</a> : <div key={j} id={`chat-card-${i}-${j + 1}`} style={cardStyle} onClick={() => markCardSelected(card)}>{cardContent}</div>;
                   })}
                 </div>
               </div>

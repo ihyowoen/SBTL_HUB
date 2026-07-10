@@ -2,13 +2,13 @@
 // POST /api/chat — Phase 2 5-layer orchestrator
 // ============================================================================
 
-import { loadKnowledge } from "../lib/chat/common.js";
+import { loadKnowledge, expandAliasCandidates } from "../lib/chat/common.js";
 import { parseRequest } from "../lib/chat/parseRequest.js";
 import { resolveContext } from "../lib/chat/resolveContext.js";
 import { retrieve } from "../lib/chat/retrieve/index.js";
 import { synthesize } from "../lib/chat/synthesize.js";
 import { respond, respondClarification } from "../lib/chat/respond.js";
-import { synthesizeCardAnalysis, synthesizeCardConsult } from "../lib/chat/llm.js";
+import { synthesizeCardAnalysis, synthesizeCardConsult, expandSearchQuery } from "../lib/chat/llm.js";
 import { synthesizeScout, synthesizeAnalyst, synthesizeRedTeam } from "../lib/chat/consultation.js";
 
 function setCors(res) {
@@ -456,7 +456,19 @@ export default async function handler(req, res) {
       parsed.scope.entity_candidates = [...(parsed.scope.entity_candidates || []), ...watchTerms];
       parsed._reasons.push(`watch_terms_boost:${watchTerms.length}`);
     }
-    console.log(`[chat-parse] action=${parsed.action} topic=${parsed.topic} region=${parsed.scope?.region || "-"} date=${parsed.scope?.date || "-"} watch=${watchTerms.length}`);
+
+    // 별칭 확장: 질문 속 엔티티 표기 변주("닝더시대"/"宁德时代")를 별칭 그룹 전체로 확장해
+    // entity_candidates에 편입 — scoreCard 보너스·comparison 수집·날짜경로 재정렬에 자동 반영.
+    const aliasCands = expandAliasCandidates(message, data.aliasGroups || []);
+    if (aliasCands.length) {
+      parsed.scope.entity_candidates = [...new Set([...(parsed.scope.entity_candidates || []), ...aliasCands])];
+      parsed._reasons.push(`alias_expand:${aliasCands.length}`);
+    }
+    // 워치/별칭 주입 질의는 엔티티 지배 랭킹 — 일반어 토큰 매칭이 엔티티 카드를 밀어내지 않게
+    if (aliasCands.length || (watchTerms.length && parsed._reasons.some((r) => String(r).startsWith("watch_terms_boost")))) {
+      parsed.scope.entity_weight = 20;
+    }
+    console.log(`[chat-parse] action=${parsed.action} topic=${parsed.topic} region=${parsed.scope?.region || "-"} date=${parsed.scope?.date || "-"} watch=${watchTerms.length} alias=${aliasCands.length}`);
 
     const resolvedCtx = resolveContext({ parsed, context });
 
@@ -467,8 +479,39 @@ export default async function handler(req, res) {
       );
     }
 
-    const retrieval = retrieve({ parsed, resolved: resolvedCtx.resolved, data });
+    let retrieval = retrieve({ parsed, resolved: resolvedCtx.resolved, data });
     console.log(`[chat-retrieve] source=${retrieval.source} cards=${(retrieval.cards || []).length}`);
+
+    // 약한 리트리벌 → LLM 검색어 확장 1회 재시도.
+    // "충전 빨리 되는 배터리" 같은 표현 변주가 lexical에 안 잡힐 때, 저비용 LLM 호출로
+    // 동의어·전문용어를 뽑아 토큰과 엔티티 후보에 더해 다시 검색한다.
+    // 날짜 질의는 제외(빈 결과가 아니라 날짜 폴백이 정답이므로).
+    let expandMeta = null;
+    const isDateQuery = !!parsed.scope?.date || /(오늘|금일|today)/i.test(message);
+    const weakRetrieval = ["news", "comparison", "general"].includes(parsed.topic)
+      && parsed.action === "new_query" && !isDateQuery
+      && (!(retrieval.cards || []).length
+          || retrieval.news_meta?.date_mode === "fallback_latest"
+          || (retrieval._reasons || []).some((r) => String(r).includes("latest_fallback")));
+    if (weakRetrieval) {
+      const exp = await expandSearchQuery(message);
+      expandMeta = { attempted: true, keywords: exp.keywords || [], error: exp.error, latency_ms: exp.latencyMs };
+      if (exp.keywords) {
+        const parsed2 = {
+          ...parsed,
+          rawMessage: `${parsed.rawMessage} ${exp.keywords.join(" ")}`,
+          scope: { ...parsed.scope, entity_candidates: [...new Set([...(parsed.scope.entity_candidates || []), ...exp.keywords])] },
+        };
+        const retry = retrieve({ parsed: parsed2, resolved: resolvedCtx.resolved, data });
+        const retryLexical = (retry.cards || []).length && retry.news_meta?.date_mode !== "fallback_latest"
+          && !(retry._reasons || []).some((r) => String(r).includes("latest_fallback"));
+        if (retryLexical) {
+          // rawMessage는 원문 유지(컨텍스트 에코 오염 방지) — 재검색 결과만 채택
+          retrieval = { ...retry, _reasons: [...(retry._reasons || []), "query_expanded_retry"] };
+        }
+      }
+      console.log(`[chat-expand] keywords=${(exp.keywords || []).join(",") || "-"} error=${exp.error || "-"} applied=${(retrieval._reasons || []).includes("query_expanded_retry")}`);
+    }
 
     const synthesis = await synthesize({
       parsed,
@@ -495,7 +538,7 @@ export default async function handler(req, res) {
       retrieval,
       synthesis,
       context,
-      debug: debugBase,
+      debug: expandMeta ? { ...debugBase, query_expand: expandMeta } : debugBase,
     });
 
     return res.status(200).json(response);

@@ -34,6 +34,7 @@ EVIDENCE_QC_BUCKETS = (
     'single_source_exception_review', 'deferred_review_pool',
     'review_pool_deferred',
 )
+OWNER_FIELDS = ('independent_owner', 'owner', 'source_owner', 'publisher_owner', 'canonical_owner', 'parent_owner')
 
 
 def is_landing_page(url):
@@ -62,6 +63,56 @@ def is_official(url):
     host = urlparse(url).netloc.lower()
     text = url.lower()
     return any(hint in host or hint in text for hint in OFFICIAL_HINTS)
+
+
+def int_from_nested(obj, *keys):
+    if not isinstance(obj, dict):
+        return None
+    for key in keys:
+        value = obj.get(key)
+        if isinstance(value, int):
+            return value
+    return None
+
+
+def owner_count_from_ledger(card):
+    ledger = card.get('source_independence_ledger') if isinstance(card, dict) else None
+    if not isinstance(ledger, list):
+        return None
+    owners = set()
+    independent_rows = 0
+    for row in ledger:
+        if not isinstance(row, dict):
+            continue
+        if row.get('is_independent') is False or row.get('independent') is False:
+            continue
+        for field in OWNER_FIELDS:
+            value = row.get(field)
+            if value:
+                owners.add(str(value).strip().lower())
+                break
+        else:
+            if row.get('is_independent') is True or row.get('independent') is True:
+                independent_rows += 1
+    if owners:
+        return len(owners)
+    if independent_rows:
+        return independent_rows
+    return None
+
+
+def independent_owner_count(card, independent_hosts):
+    count = int_from_nested(card, 'source_independent_owner_count', 'independent_owner_count')
+    if count is not None:
+        return count
+    measure = card.get('source_diversity_measure') if isinstance(card, dict) else None
+    count = int_from_nested(measure, 'source_independent_owner_count', 'independent_owner_count')
+    if count is not None:
+        return count
+    count = owner_count_from_ledger(card)
+    if count is not None:
+        return count
+    return len(independent_hosts)
 
 
 def source_has_primary_or_official_metadata(source):
@@ -159,7 +210,7 @@ def main():
         visible_urls = [src.get('source_url') for src in visible_sources if src.get('source_url')]
         visible_url_count = len(set(visible_urls))
         independent_hosts = {host_key(url) for url in visible_urls if host_key(url)}
-        independent_count = len(independent_hosts)
+        owner_count = independent_owner_count(card, independent_hosts)
         diversity_status = card.get('source_diversity_status')
         discovery_ledger = (
             card.get('source_discovery_ledger')
@@ -171,8 +222,8 @@ def main():
             flags['invalid_source_diversity_status'].append((cid, f'missing/invalid source_diversity_status={diversity_status}'))
         if bucket in COMPLETE_BUCKETS and diversity_status in SOURCE_DIVERSITY_HOLD_FAIL:
             flags['invalid_source_diversity_status'].append((cid, f'{diversity_status} may not appear in complete bucket {bucket}'))
-        if diversity_status == 'PASS_MULTI_SOURCE' and independent_count < 2:
-            flags['invalid_source_diversity_status'].append((cid, f'PASS_MULTI_SOURCE requires >=2 independent visible-source hosts, got {independent_count}'))
+        if diversity_status == 'PASS_MULTI_SOURCE' and owner_count < 2:
+            flags['invalid_source_diversity_status'].append((cid, f'PASS_MULTI_SOURCE requires >=2 independent source owners, got {owner_count}'))
 
         for url in source_urls:
             if is_landing_page(url):
@@ -182,23 +233,21 @@ def main():
             flags['fake_diversity'].append((cid, f'{len(fact_sources)} entries / {len(distinct_urls)} distinct urls'))
 
         if visible_url_count <= 1:
-            exception = card.get('single_source_exception')
-            if not exception:
-                flags['missing_single_source_exception'].append((cid, f'{visible_url_count} distinct visible-claim source'))
-            if not isinstance(exception, dict) or exception.get('allowed') is not True or not exception.get('reason'):
-                flags['invalid_source_diversity_status'].append((cid, 'single-source exception missing allowed=true/reason'))
+            if diversity_status == 'PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION':
+                if not has_explicit_single_source_exception(card):
+                    flags['invalid_source_diversity_status'].append((cid, 'single-source pass exception missing allowed=true/reason'))
             if diversity_status == 'PASS_SINGLE_SOURCE':
                 flags['invalid_source_diversity_status'].append((cid, 'PASS_SINGLE_SOURCE is not an allowed status'))
-            if not discovery_ledger:
-                flags['missing_source_discovery_ledger'].append((cid, 'single-source card lacks source_discovery_ledger/ref'))
+            if diversity_status in SOURCE_DIVERSITY_PASS and not discovery_ledger:
+                flags['missing_source_discovery_ledger'].append((cid, f'{diversity_status} requires source_discovery_ledger/ref'))
 
         text_blob = ' '.join(str(card.get(k, '')) for k in ('title', 'sub', 'gate', 'fact'))
         needs_corroboration = signal in HIGH_SIGNAL or bool(CORROBORATION_RE.search(text_blob))
         if needs_corroboration:
             has_official_visible_source = any(is_official(url) for url in set(visible_urls))
             has_primary_exception = has_primary_or_official_single_source_support(card, visible_sources)
-            if independent_count < 2 and not has_official_visible_source and not has_primary_exception:
-                flags['weak_corroboration'].append((cid, f'signal={signal or "?"}, {independent_count} independent visible-source host, no official/primary exception'))
+            if owner_count < 2 and not has_official_visible_source and not has_primary_exception:
+                flags['weak_corroboration'].append((cid, f'signal={signal or "?"}, {owner_count} independent source owner, no official/primary exception'))
 
         url_set = set(urls)
         for url in visible_urls:

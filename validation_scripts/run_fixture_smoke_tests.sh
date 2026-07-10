@@ -134,6 +134,30 @@ cat > "$TMPDIR/stage_b_lineage_pass.json" <<'JSON'
 }
 JSON
 
+cat > "$TMPDIR/stage_b_lineage_package_pass.json" <<'JSON'
+{
+  "lineage_integrity_status": "PASS",
+  "stage_a_validity_guard_applied": true,
+  "strict_gate_metadata_preserved": true,
+  "execution_anchor_metadata_preserved": true,
+  "superseded_lineage_mixed": false,
+  "manual_integrated_rule_mixed": false,
+  "previous_run_output_mixed": false,
+  "evidence_packages": [
+    {
+      "spec_id": "S_PACKAGE",
+      "stage_a_support_sources_attempted": [{"source_url": "https://support.example.com/a", "result": "checked"}],
+      "source_independence_ledger": [{"host": "example.gov", "owner": "Example Government"}],
+      "source_unique_url_count": 2,
+      "source_unique_domain_count": 2,
+      "source_independent_owner_count": 2,
+      "source_role_coverage": {"primary_event_evidence": 1},
+      "source_synthesis_plan": "Use package-level source diversity lineage."
+    }
+  ]
+}
+JSON
+
 cat > "$TMPDIR/stage_b_lineage_fail_missing_source_diversity.json" <<'JSON'
 {
   "lineage_integrity_status": "PASS",
@@ -167,6 +191,44 @@ cat > "$TMPDIR/evidence_qc_primary_exception_pass.json" <<'JSON'
       "single_source_exception": {"allowed": true, "reason": "Company announcement is the primary source for its own release; visible claims are limited to the announcement."},
       "fact_sources": [
         {"source_url": "https://company.example.com/news/safety-announcement", "evidence_role": "primary_event_evidence", "source_type": "company_primary_announcement"}
+      ]
+    }
+  ]
+}
+JSON
+
+cat > "$TMPDIR/evidence_qc_hold_single_caveat_pass.json" <<'JSON'
+{
+  "needs_source_augmentation": [
+    {
+      "id": "C_HOLD_SINGLE",
+      "source_diversity_status": "HOLD_NEEDS_SOURCE_AUGMENTATION",
+      "urls": ["https://news.example.com/one-source"],
+      "single_source_exception": {"allowed": false, "reason": "Needs corroboration before completion."},
+      "fact_sources": [
+        {"source_url": "https://news.example.com/one-source", "evidence_role": "primary_event_evidence"}
+      ]
+    }
+  ]
+}
+JSON
+
+cat > "$TMPDIR/evidence_qc_fail_same_owner_multi.json" <<'JSON'
+{
+  "evidence_complete_and_source_claim_covered": [
+    {
+      "id": "C_SAME_OWNER",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_independent_owner_count": 1,
+      "source_independence_ledger": [
+        {"host": "wire1.example.com", "owner": "WireCo"},
+        {"host": "wire2.example.com", "owner": "WireCo"}
+      ],
+      "urls": ["https://wire1.example.com/a", "https://wire2.example.com/b"],
+      "source_discovery_ledger": [{"query": "q"}],
+      "fact_sources": [
+        {"source_url": "https://wire1.example.com/a", "evidence_role": "primary_event_evidence"},
+        {"source_url": "https://wire2.example.com/b", "evidence_role": "secondary_event_evidence"}
       ]
     }
   ]
@@ -266,10 +328,13 @@ pass "stage_b schema-blocked accounting pass" python3 "$ROOT/validation_scripts/
 fail "stage_b missing accounting fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_fail_missing_accounting.json"
 fail "stage_b unverified primary evidence fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_fail_unverified_primary_evidence.json"
 fail "stage_b duplicate output key fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_fail_duplicate_output_key.json"
-pass "stage_b lineage pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_pass.json"
+pass "stage_b lineage root pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_pass.json"
+pass "stage_b lineage package pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_package_pass.json"
 fail "stage_b lineage missing source-diversity fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_fail_missing_source_diversity.json"
 fail "stage_c missing lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_c "$TMPDIR/stage_c_fail_missing_lineage.json"
 pass "Evidence QC primary-source exception pass" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_primary_exception_pass.json"
+pass "Evidence QC held one-source caveat pass" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_hold_single_caveat_pass.json"
+fail "Evidence QC same-owner multi-source fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_same_owner_multi.json"
 fail "evidence complete bucket cannot hold HOLD status" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_complete_bucket_hold.json"
 fail "single-source PASS_MULTI_SOURCE fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_pass_multi_single.json"
 fail "multi-source bogus source_diversity_status fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_bogus_multi_status.json"

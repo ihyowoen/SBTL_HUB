@@ -40,10 +40,10 @@ cat > "$TMPDIR/stage_a_empty_format_tags_pass.json" <<'JSON'
       "stage_a_evidence_status": "not_evidence_complete_no_fetch",
       "stage_b_evidence_package_required": true,
       "primary_url_semantics": "provided_source_candidate_not_evidence",
-      "same_event_source_cluster": [],
+      "same_event_source_cluster": [{"source_url": "https://example.gov/news/release-1", "cluster_role": "primary_candidate"}],
       "support_source_candidates": [],
       "source_domain_candidates": ["example.gov"],
-      "source_diversity_path": "single official source candidate preserved for Stage B discovery",
+      "source_diversity_path": {"status": "preserved_for_stage_b_discovery", "reason": "Stage A does not fetch; source cluster preserved for Stage B."},
       "source_cluster_preserved": true
     }
   ]
@@ -70,10 +70,10 @@ cat > "$TMPDIR/stage_a_fail_nonpass_gate.json" <<'JSON'
       "stage_a_evidence_status": "not_evidence_complete_no_fetch",
       "stage_b_evidence_package_required": true,
       "primary_url_semantics": "provided_source_candidate_not_evidence",
-      "same_event_source_cluster": [],
+      "same_event_source_cluster": [{"source_url": "https://example.gov/news/release-1"}],
       "support_source_candidates": [],
       "source_domain_candidates": ["example.gov"],
-      "source_diversity_path": "single official source candidate preserved for Stage B discovery",
+      "source_diversity_path": {"status": "preserved_for_stage_b_discovery"},
       "source_cluster_preserved": true
     }
   ]
@@ -100,6 +100,36 @@ cat > "$TMPDIR/stage_a_fail_missing_source_diversity.json" <<'JSON'
       "stage_a_evidence_status": "not_evidence_complete_no_fetch",
       "stage_b_evidence_package_required": true,
       "primary_url_semantics": "provided_source_candidate_not_evidence"
+    }
+  ]
+}
+JSON
+
+cat > "$TMPDIR/stage_a_fail_bad_source_diversity_values.json" <<'JSON'
+{
+  "strict_passed_specs": [
+    {
+      "spec_id": "A_BAD_SD_VALUES",
+      "source_story_ids": ["S1"],
+      "strict_pass_gate": {"status": "pass", "reason": "six conditions met", "all_six_conditions_passed": true},
+      "enhanced_selector_precision_version": "v1",
+      "selector_policy_version": "v1",
+      "strict_gate_check": "PASS",
+      "format_risk_tags": [],
+      "execution_anchor_type": "regulatory_decision",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "staleness_decision": "fresh",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [{"source_url": "https://example.gov/news/release-1"}],
+      "support_source_candidates": [],
+      "source_domain_candidates": ["example.gov"],
+      "source_diversity_path": "",
+      "source_cluster_preserved": false
     }
   ]
 }
@@ -186,6 +216,26 @@ cat > "$TMPDIR/stage_b_lineage_package_pass.json" <<'JSON'
       "source_synthesis_plan": "Use primary and corroborating sources."
     }
   ]
+}
+JSON
+
+cat > "$TMPDIR/stage_b_lineage_root_with_packages_pass.json" <<'JSON'
+{
+  "lineage_integrity_status": "PASS",
+  "stage_a_validity_guard_applied": true,
+  "strict_gate_metadata_preserved": true,
+  "execution_anchor_metadata_preserved": true,
+  "superseded_lineage_mixed": false,
+  "manual_integrated_rule_mixed": false,
+  "previous_run_output_mixed": false,
+  "stage_a_support_sources_attempted": [{"source_url": "https://support.example/a"}],
+  "source_independence_ledger": [{"host": "example.gov", "owner": "Example Government"}],
+  "source_unique_url_count": 2,
+  "source_unique_domain_count": 2,
+  "source_independent_owner_count": 2,
+  "source_role_coverage": {"primary_event_evidence": 1},
+  "source_synthesis_plan": "Root-level lineage covers the Stage B artifact.",
+  "evidence_packages": [{"spec_id": "PKG_ROOT"}]
 }
 JSON
 
@@ -295,11 +345,13 @@ JSON
 pass "Stage A empty format_risk_tags pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_a "$TMPDIR/stage_a_empty_format_tags_pass.json"
 fail "Stage A non-pass strict gate fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_a "$TMPDIR/stage_a_fail_nonpass_gate.json"
 fail "Stage A missing source-diversity lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_a "$TMPDIR/stage_a_fail_missing_source_diversity.json"
+fail "Stage A bad source-diversity values fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_a "$TMPDIR/stage_a_fail_bad_source_diversity_values.json"
 pass "Stage B evidence pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_evidence_pass.json"
 pass "Stage B blocked ledger reference pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_blocked_reference_pass.json"
 fail "Stage B unverified primary evidence fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_unverified_primary_fail.json"
 fail "Stage B duplicate output key fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_duplicate_fail.json"
 pass "Stage B package lineage pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_package_pass.json"
+pass "Stage B root lineage with packages pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_root_with_packages_pass.json"
 fail "Stage B missing source-diversity lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_missing_fail.json"
 fail "Stage C missing source-diversity lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_c "$TMPDIR/stage_c_missing_lineage_fail.json"
 pass "Evidence QC primary-source exception pass" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_primary_exception_pass.json"

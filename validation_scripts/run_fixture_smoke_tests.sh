@@ -22,6 +22,64 @@ fail() {
   fi
 }
 
+cat > "$TMPDIR/stage_a_empty_format_tags_pass.json" <<'JSON'
+{
+  "strict_passed_specs": [
+    {
+      "spec_id": "SA_PASS",
+      "source_story_ids": ["story-a"],
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "All strict-pass conditions satisfied.",
+        "all_six_conditions_passed": true
+      },
+      "enhanced_selector_precision_version": "v1",
+      "selector_policy_version": "v1",
+      "strict_gate_check": "PASS",
+      "format_risk_tags": [],
+      "execution_anchor_type": "regulatory_decision",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new_event",
+      "duplicate_risk": "low",
+      "staleness_decision": "fresh",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence"
+    }
+  ]
+}
+JSON
+
+cat > "$TMPDIR/stage_a_fail_nonpass_gate.json" <<'JSON'
+{
+  "strict_passed_specs": [
+    {
+      "spec_id": "SA_FAIL",
+      "source_story_ids": ["story-b"],
+      "strict_pass_gate": {
+        "status": "blocked_to_review_pool",
+        "reason": "Not all strict-pass conditions were satisfied.",
+        "all_six_conditions_passed": false
+      },
+      "enhanced_selector_precision_version": "v1",
+      "selector_policy_version": "v1",
+      "strict_gate_check": "PASS",
+      "format_risk_tags": [],
+      "execution_anchor_type": "regulatory_decision",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new_event",
+      "duplicate_risk": "low",
+      "staleness_decision": "fresh",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence"
+    }
+  ]
+}
+JSON
+
 cat > "$TMPDIR/stage_b_pass.json" <<'JSON'
 {
   "strict_passed_spec_count": 1,
@@ -235,6 +293,21 @@ cat > "$TMPDIR/evidence_qc_fail_same_owner_multi.json" <<'JSON'
 }
 JSON
 
+cat > "$TMPDIR/evidence_qc_fail_addable_merge_safe_input.json" <<'JSON'
+{
+  "addable_merge_safe": [
+    {
+      "id": "C_INPUT",
+      "source_diversity_status": "BOGUS",
+      "urls": ["https://news.example.com/input"],
+      "fact_sources": [
+        {"source_url": "https://news.example.com/input", "evidence_role": "primary_event_evidence"}
+      ]
+    }
+  ]
+}
+JSON
+
 cat > "$TMPDIR/evidence_qc_fail_complete_bucket_hold.json" <<'JSON'
 {
   "evidence_complete_and_source_claim_covered": [
@@ -322,6 +395,8 @@ cat > "$TMPDIR/content_audit_fail_omitted_bucket.json" <<'JSON'
 }
 JSON
 
+pass "stage_a empty format tags pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_a "$TMPDIR/stage_a_empty_format_tags_pass.json"
+fail "stage_a non-pass strict gate fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_a "$TMPDIR/stage_a_fail_nonpass_gate.json"
 pass "stage_b evidence pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_pass.json"
 pass "stage_b blocked ledger reference pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_blocked_reference_pass.json"
 pass "stage_b schema-blocked accounting pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_schema_blocked_pass.json"
@@ -335,6 +410,7 @@ fail "stage_c missing lineage fail" python3 "$ROOT/validation_scripts/stage_line
 pass "Evidence QC primary-source exception pass" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_primary_exception_pass.json"
 pass "Evidence QC held one-source caveat pass" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_hold_single_caveat_pass.json"
 fail "Evidence QC same-owner multi-source fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_same_owner_multi.json"
+fail "Evidence QC addable_merge_safe input bucket fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_addable_merge_safe_input.json"
 fail "evidence complete bucket cannot hold HOLD status" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_complete_bucket_hold.json"
 fail "single-source PASS_MULTI_SOURCE fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_pass_multi_single.json"
 fail "multi-source bogus source_diversity_status fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_fail_bogus_multi_status.json"

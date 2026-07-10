@@ -17,7 +17,11 @@ STAGE_A_REQUIRED = [
     'staleness_decision', 'source_access_risk', 'stage_a_evidence_status',
     'stage_b_evidence_package_required', 'primary_url_semantics',
 ]
-STAGE_A_PRESENCE_ONLY = {'format_risk_tags'}
+STAGE_A_SOURCE_DIVERSITY_REQUIRED = [
+    'same_event_source_cluster', 'support_source_candidates',
+    'source_domain_candidates', 'source_diversity_path', 'source_cluster_preserved',
+]
+STAGE_A_PRESENCE_ONLY = {'format_risk_tags'} | set(STAGE_A_SOURCE_DIVERSITY_REQUIRED)
 STAGE_A_GATE_REQUIRED = ['status', 'reason', 'all_six_conditions_passed']
 STAGE_A_ALLOWED_STAGE_EVIDENCE_STATUS = {'not_evidence_complete_no_fetch'}
 STAGE_A_ALLOWED_PRIMARY_URL_SEMANTICS = {'provided_source_candidate_not_evidence'}
@@ -124,7 +128,7 @@ def validate_stage_a_spec(spec, index, messages):
         messages.append(f'{spec_id}: spec row is not object')
         return
 
-    for field in STAGE_A_REQUIRED:
+    for field in STAGE_A_REQUIRED + STAGE_A_SOURCE_DIVERSITY_REQUIRED:
         missing = missing_presence(spec, field) if field in STAGE_A_PRESENCE_ONLY else missing_nonempty(spec, field)
         if missing:
             messages.append(f'{spec_id}: missing {field}')

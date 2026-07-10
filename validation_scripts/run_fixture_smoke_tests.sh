@@ -40,10 +40,10 @@ cat > "$TMPDIR/stage_a_empty_format_tags_pass.json" <<'JSON'
       "stage_a_evidence_status": "not_evidence_complete_no_fetch",
       "stage_b_evidence_package_required": true,
       "primary_url_semantics": "provided_source_candidate_not_evidence",
-      "same_event_source_cluster": [{"source_url": "https://example.gov/news/release-1", "cluster_role": "primary_candidate"}],
+      "same_event_source_cluster": [{"source_url": "https://example.gov/news/a", "cluster_role": "same_event_candidate"}],
       "support_source_candidates": [],
       "source_domain_candidates": ["example.gov"],
-      "source_diversity_path": {"status": "preserved_for_stage_b_discovery", "reason": "Stage A does not fetch; source cluster preserved for Stage B."},
+      "source_diversity_path": {"status": "preserved_for_stage_b", "reason": "single official source candidate preserved for Stage B discovery"},
       "source_cluster_preserved": true
     }
   ]
@@ -70,10 +70,10 @@ cat > "$TMPDIR/stage_a_fail_nonpass_gate.json" <<'JSON'
       "stage_a_evidence_status": "not_evidence_complete_no_fetch",
       "stage_b_evidence_package_required": true,
       "primary_url_semantics": "provided_source_candidate_not_evidence",
-      "same_event_source_cluster": [{"source_url": "https://example.gov/news/release-1"}],
+      "same_event_source_cluster": [{"source_url": "https://example.gov/news/a"}],
       "support_source_candidates": [],
       "source_domain_candidates": ["example.gov"],
-      "source_diversity_path": {"status": "preserved_for_stage_b_discovery"},
+      "source_diversity_path": {"status": "preserved_for_stage_b"},
       "source_cluster_preserved": true
     }
   ]
@@ -109,7 +109,7 @@ cat > "$TMPDIR/stage_a_fail_bad_source_diversity_values.json" <<'JSON'
 {
   "strict_passed_specs": [
     {
-      "spec_id": "A_BAD_SD_VALUES",
+      "spec_id": "A_BAD_SD",
       "source_story_ids": ["S1"],
       "strict_pass_gate": {"status": "pass", "reason": "six conditions met", "all_six_conditions_passed": true},
       "enhanced_selector_precision_version": "v1",
@@ -125,7 +125,7 @@ cat > "$TMPDIR/stage_a_fail_bad_source_diversity_values.json" <<'JSON'
       "stage_a_evidence_status": "not_evidence_complete_no_fetch",
       "stage_b_evidence_package_required": true,
       "primary_url_semantics": "provided_source_candidate_not_evidence",
-      "same_event_source_cluster": [{"source_url": "https://example.gov/news/release-1"}],
+      "same_event_source_cluster": [],
       "support_source_candidates": [],
       "source_domain_candidates": ["example.gov"],
       "source_diversity_path": "",
@@ -154,6 +154,18 @@ cat > "$TMPDIR/stage_b_evidence_pass.json" <<'JSON'
       ]
     }
   ]
+}
+JSON
+
+cat > "$TMPDIR/stage_b_bool_count_fail.json" <<'JSON'
+{
+  "strict_passed_spec_count": true,
+  "stage_b_accounting_matches_strict_passed_spec_count": true,
+  "draft_cards": [
+    {"source_spec_id": "B_BOOL", "evidence_package": {"source_discovery_status": "completed_verified_source_found", "source_discovery_ledger": [{"query": "q"}], "single_source_exception": {"allowed": true, "reason": "official"}, "sources": [{"source_url": "https://example.gov/news/a", "fetched": true, "source_quote": "quote", "source_quote_status": "body_quote_verified"}]}}
+  ],
+  "draft_blocked": [],
+  "draft_blocked_schema": []
 }
 JSON
 
@@ -234,8 +246,8 @@ cat > "$TMPDIR/stage_b_lineage_root_with_packages_pass.json" <<'JSON'
   "source_unique_domain_count": 2,
   "source_independent_owner_count": 2,
   "source_role_coverage": {"primary_event_evidence": 1},
-  "source_synthesis_plan": "Root-level lineage covers the Stage B artifact.",
-  "evidence_packages": [{"spec_id": "PKG_ROOT"}]
+  "source_synthesis_plan": "Use top-level source diversity lineage.",
+  "evidence_packages": [{"spec_id": "PKG_WITH_ROOT_LINEAGE"}]
 }
 JSON
 
@@ -288,6 +300,21 @@ cat > "$TMPDIR/evidence_qc_media_single_exception_fail.json" <<'JSON'
 }
 JSON
 
+cat > "$TMPDIR/evidence_qc_media_primary_role_exception_fail.json" <<'JSON'
+{
+  "evidence_complete_and_source_claim_covered": [
+    {
+      "id": "EQ_MEDIA_PRIMARY_ROLE",
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "urls": ["https://media.example.com/article"],
+      "source_discovery_ledger": [{"query": "corroboration", "result": "none"}],
+      "single_source_exception": {"allowed": true, "reason": "media article marked primary"},
+      "fact_sources": [{"source_url": "https://media.example.com/article", "evidence_role": "primary_event_evidence", "source_type": "media_article"}]
+    }
+  ]
+}
+JSON
+
 cat > "$TMPDIR/evidence_qc_hold_single_pass.json" <<'JSON'
 {
   "needs_source_augmentation": [
@@ -318,6 +345,21 @@ cat > "$TMPDIR/evidence_qc_same_owner_fail.json" <<'JSON'
 }
 JSON
 
+cat > "$TMPDIR/evidence_qc_multi_no_visible_sources_fail.json" <<'JSON'
+{
+  "evidence_complete_and_source_claim_covered": [
+    {
+      "id": "EQ_NO_VISIBLE",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_independent_owner_count": 2,
+      "urls": [],
+      "source_discovery_ledger": [{"query": "q"}],
+      "fact_sources": []
+    }
+  ]
+}
+JSON
+
 cat > "$TMPDIR/evidence_qc_addable_merge_safe_fail.json" <<'JSON'
 {
   "addable_merge_safe": [
@@ -331,6 +373,14 @@ cat > "$TMPDIR/content_audit_pass.json" <<'JSON'
   "content_enriched_and_language_polished": [{"id": "P1"}],
   "card_claim_diversity_audit": [{"card_id": "P1"}],
   "related_coverage_audit": [{"card_id": "P1"}]
+}
+JSON
+
+cat > "$TMPDIR/content_audit_source_spec_id_pass.json" <<'JSON'
+{
+  "content_enriched_and_language_polished": [{"source_spec_id": "SPEC1"}],
+  "card_claim_diversity_audit": [{"source_spec_id": "SPEC1"}],
+  "related_coverage_audit": [{"source_spec_id": "SPEC1"}]
 }
 JSON
 
@@ -348,6 +398,7 @@ fail "Stage A missing source-diversity lineage fail" python3 "$ROOT/validation_s
 fail "Stage A bad source-diversity values fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_a "$TMPDIR/stage_a_fail_bad_source_diversity_values.json"
 pass "Stage B evidence pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_evidence_pass.json"
 pass "Stage B blocked ledger reference pass" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_blocked_reference_pass.json"
+fail "Stage B boolean count fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_bool_count_fail.json"
 fail "Stage B unverified primary evidence fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_unverified_primary_fail.json"
 fail "Stage B duplicate output key fail" python3 "$ROOT/validation_scripts/stage_b_evidence_gate.py" "$TMPDIR/stage_b_duplicate_fail.json"
 pass "Stage B package lineage pass" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_package_pass.json"
@@ -355,11 +406,14 @@ pass "Stage B root lineage with packages pass" python3 "$ROOT/validation_scripts
 fail "Stage B missing source-diversity lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_b "$TMPDIR/stage_b_lineage_missing_fail.json"
 fail "Stage C missing source-diversity lineage fail" python3 "$ROOT/validation_scripts/stage_lineage_contract_check.py" stage_c "$TMPDIR/stage_c_missing_lineage_fail.json"
 pass "Evidence QC primary-source exception pass" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_primary_exception_pass.json"
-fail "Evidence QC media-only single-source exception fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_media_single_exception_fail.json"
 pass "Evidence QC held one-source caveat pass" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_hold_single_pass.json"
+fail "Evidence QC media single-source exception fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_media_single_exception_fail.json"
+fail "Evidence QC media primary-role exception fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_media_primary_role_exception_fail.json"
 fail "Evidence QC same-owner multi-source fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_same_owner_fail.json"
+fail "Evidence QC multi-source with no visible sources fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_multi_no_visible_sources_fail.json"
 fail "Evidence QC addable_merge_safe input bucket fail" python3 "$ROOT/validation_scripts/evidence_qc_v8_check.py" "$TMPDIR/evidence_qc_addable_merge_safe_fail.json"
 pass "Content audit pass" python3 "$ROOT/validation_scripts/content_audit_check.py" "$TMPDIR/content_audit_pass.json"
+pass "Content audit source_spec_id coverage pass" python3 "$ROOT/validation_scripts/content_audit_check.py" "$TMPDIR/content_audit_source_spec_id_pass.json"
 fail "Content audit omitted bucket coverage fail" python3 "$ROOT/validation_scripts/content_audit_check.py" "$TMPDIR/content_audit_omitted_bucket_fail.json"
 
 echo "All validation script smoke tests behaved as expected."

@@ -104,12 +104,43 @@ def item_key(item):
     return ''
 
 
+def as_list(value):
+    if isinstance(value, list):
+        return value
+    if isinstance(value, dict):
+        return list(value.values())
+    return []
+
+
+def evidence_packages(data):
+    raw = data.get('evidence_packages') or data.get('evidence_package') or []
+    return [row for row in as_list(raw) if isinstance(row, dict)]
+
+
 def has_review_items(data):
     for pool in REVIEW_POOLS:
         rows = data.get(pool)
         if isinstance(rows, list) and rows:
             return True
     return False
+
+
+def validate_source_diversity_field(scope, field, label, messages):
+    if field not in scope:
+        messages.append(f'{label}: missing source-diversity lineage field {field}')
+        return
+    value = scope.get(field)
+    if field == 'stage_a_support_sources_attempted':
+        if not isinstance(value, (list, bool)):
+            messages.append(f'{label}: {field} must be a support-attempt ledger array or boolean compatibility flag')
+    elif field in B_SOURCE_DIVERSITY_INTEGER_FIELDS and not isinstance(value, int):
+        messages.append(f'{label}: {field} must be integer')
+    elif field not in B_SOURCE_DIVERSITY_INTEGER_FIELDS and value in (None, '', [], {}):
+        messages.append(f'{label}: {field} must be populated')
+
+
+def has_any_source_diversity_field(scope):
+    return isinstance(scope, dict) and any(field in scope for field in B_SOURCE_DIVERSITY_FIELDS)
 
 
 def check_stage_a(data):
@@ -179,18 +210,18 @@ def check_stage_b(data):
         elif data.get(field) != expected:
             messages.append(f'top-level {field} must be {expected!r}, got {data.get(field)!r}')
 
-    for field in B_SOURCE_DIVERSITY_FIELDS:
-        if field not in data:
-            messages.append(f'top-level missing source-diversity lineage field {field}')
-            continue
-        value = data.get(field)
-        if field == 'stage_a_support_sources_attempted':
-            if not isinstance(value, (list, bool)):
-                messages.append(f'{field} must be a support-attempt ledger array or boolean compatibility flag')
-        elif field in B_SOURCE_DIVERSITY_INTEGER_FIELDS and not isinstance(value, int):
-            messages.append(f'{field} must be integer')
-        elif field not in B_SOURCE_DIVERSITY_INTEGER_FIELDS and value in (None, '', [], {}):
-            messages.append(f'{field} must be populated')
+    packages = evidence_packages(data)
+    if packages:
+        for index, package in enumerate(packages):
+            label = f'evidence_package[{item_key(package) or index}]'
+            for field in B_SOURCE_DIVERSITY_FIELDS:
+                validate_source_diversity_field(package, field, label, messages)
+    elif has_any_source_diversity_field(data):
+        for field in B_SOURCE_DIVERSITY_FIELDS:
+            validate_source_diversity_field(data, field, 'top-level', messages)
+    else:
+        for field in B_SOURCE_DIVERSITY_FIELDS:
+            messages.append(f'top-level/evidence_packages missing source-diversity lineage field {field}')
 
     return fail(messages) if messages else (print('RESULT: PASS_STAGE_B_SCHEMA_CONTRACT'), 0)[1]
 

@@ -3,8 +3,8 @@
 
 Checks source-diversity status, bucket semantics, landing-page/fake diversity,
 owner-level independence, official/primary single-source exceptions, and required
-discovery ledgers. This script flags only; it does not mutate artifacts or
-fabricate sources.
+visible source/discovery ledgers. This script flags only; it does not mutate
+artifacts or fabricate sources.
 """
 import json
 import re
@@ -28,6 +28,13 @@ LANDING_RE = re.compile(r'^/?$|^/(index|home|main)\.?\w*/?$', re.I)
 HIGH_SIGNAL = {'top', 'high'}
 CORROBORATION_RE = re.compile(r'safety|recall|리콜|점유율|market\s*share|시장\s*점유|ranking|순위|1위|최대|최초|world.?first|업계\s*최', re.I)
 OFFICIAL_HINTS = ('.gov', '.go.kr', 'sec.gov', '/ir', 'ir.', 'investor', '.go.jp', 'europa.eu', '.go.uk')
+OFFICIAL_PRIMARY_TERMS = (
+    'official', 'regulatory', 'regulator', 'filing', 'sec_filing', 'court',
+    'original_dataset', 'original_data', 'contracting_party', 'project_owner',
+    'source_owner', 'research_institution', 'company_primary', 'primary_announcement',
+    'government', 'ministry', 'agency', 'issuer_release', 'press_release_owner',
+)
+MEDIA_TERMS = ('media', 'news_article', 'media_article', 'trade_press', 'wire', 'syndication')
 
 
 def load(path):
@@ -67,7 +74,7 @@ def int_field(obj, *keys):
         return None
     for key in keys:
         value = obj.get(key)
-        if isinstance(value, int):
+        if isinstance(value, int) and not isinstance(value, bool):
             return value
     return None
 
@@ -110,16 +117,26 @@ def independent_owner_count(card, independent_hosts):
     return len(independent_hosts)
 
 
+def metadata_blob(source):
+    keys = (
+        'source_type', 'source_kind', 'source_origin_type', 'source_role',
+        'publisher_type', 'origin_type', 'official_source_type', 'source_category',
+    )
+    return ' '.join(str(source.get(key, '')).lower() for key in keys if isinstance(source, dict))
+
+
 def source_has_primary_or_official_metadata(source):
     if not isinstance(source, dict):
         return False
-    role = source.get('evidence_role')
-    if role in {'primary_event_evidence', 'official_material_evidence', 'official_source', 'primary_source'}:
-        return True
     if source.get('is_official') is True or source.get('official_source') is True or source.get('is_primary_source') is True:
         return True
-    source_type = str(source.get('source_type') or source.get('source_kind') or '').lower()
-    return 'official' in source_type or 'primary' in source_type or 'filing' in source_type or 'regulatory' in source_type
+    role = str(source.get('evidence_role') or '').lower()
+    if role in {'official_material_evidence', 'official_source', 'primary_source', 'regulatory_filing', 'original_dataset'}:
+        return True
+    blob = metadata_blob(source)
+    if any(term in blob for term in MEDIA_TERMS) and not any(term in blob for term in OFFICIAL_PRIMARY_TERMS):
+        return False
+    return any(term in blob for term in OFFICIAL_PRIMARY_TERMS)
 
 
 def has_passing_single_source_exception(card):
@@ -192,6 +209,7 @@ def main():
         source_urls = [src.get('source_url') for src in fact_sources if isinstance(src, dict) and src.get('source_url')]
         visible_sources = [src for src in fact_sources if supports_visible_claim(src)]
         visible_urls = [src.get('source_url') for src in visible_sources if src.get('source_url')]
+        visible_url_count = len(set(visible_urls))
         independent_hosts = {host_key(url) for url in visible_urls if host_key(url)}
         owner_count = independent_owner_count(card, independent_hosts)
         discovery_ledger = card.get('source_discovery_ledger') or card.get('source_discovery_ledger_ref') or card.get('source_discovery_ledger_reference')
@@ -201,8 +219,11 @@ def main():
             flags['invalid_source_diversity_status'].append((cid, f'missing/invalid source_diversity_status={status}'))
         if bucket in COMPLETE_BUCKETS and status in HOLD_FAIL_STATUSES:
             flags['invalid_source_diversity_status'].append((cid, f'{status} may not appear in complete bucket {bucket}'))
-        if status == 'PASS_MULTI_SOURCE' and owner_count < 2:
-            flags['invalid_source_diversity_status'].append((cid, f'PASS_MULTI_SOURCE requires >=2 independent source owners, got {owner_count}'))
+        if status == 'PASS_MULTI_SOURCE':
+            if visible_url_count < 2:
+                flags['invalid_source_diversity_status'].append((cid, f'PASS_MULTI_SOURCE requires >=2 visible source URLs, got {visible_url_count}'))
+            if owner_count < 2:
+                flags['invalid_source_diversity_status'].append((cid, f'PASS_MULTI_SOURCE requires >=2 independent source owners, got {owner_count}'))
         if status == 'PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION':
             if not has_passing_single_source_exception(card):
                 flags['invalid_source_diversity_status'].append((cid, 'single-source pass exception missing allowed=true/reason'))

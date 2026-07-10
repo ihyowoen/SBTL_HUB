@@ -149,7 +149,12 @@ def check_stage_a(data):
     for index, spec in enumerate(specs):
         spec_id = spec.get('spec_id', f'idx_{index}')
         for field in A_FIELDS:
-            if missing_or_empty(spec, field):
+            if field == 'format_risk_tags':
+                if field not in spec or spec.get(field) is None:
+                    messages.append(f'{spec_id}: missing {field}')
+                elif not isinstance(spec.get(field), list):
+                    messages.append(f'{spec_id}: format_risk_tags must be a list, including [] when no tags apply')
+            elif missing_or_empty(spec, field):
                 messages.append(f'{spec_id}: missing {field}')
         gate = spec.get('strict_pass_gate') or {}
         if not isinstance(gate, dict):
@@ -158,6 +163,12 @@ def check_stage_a(data):
             for field in ('status', 'reason', 'all_six_conditions_passed'):
                 if field not in gate:
                     messages.append(f'{spec_id}: strict_pass_gate missing {field}')
+            if gate.get('status') != 'pass':
+                messages.append(f'{spec_id}: strict_pass_gate.status must be pass for strict_passed_spec[]')
+            if gate.get('all_six_conditions_passed') is not True:
+                messages.append(f'{spec_id}: strict_pass_gate.all_six_conditions_passed must be true for strict_passed_spec[]')
+            if not gate.get('reason'):
+                messages.append(f'{spec_id}: strict_pass_gate.reason must be populated')
         if spec.get('stage_a_evidence_status') not in (None, 'not_evidence_complete_no_fetch'):
             messages.append(f'{spec_id}: invalid stage_a_evidence_status={spec.get("stage_a_evidence_status")}')
         if spec.get('primary_url_semantics') not in (None, 'provided_source_candidate_not_evidence'):

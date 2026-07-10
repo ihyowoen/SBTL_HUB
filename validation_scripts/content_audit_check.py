@@ -16,6 +16,7 @@ CONTENT_OUTPUT_BUCKETS = (
     'review_pool_deferred', 'addable_hold_source_gap', 'needs_source_augmentation',
     'deferred_review_pool', 'content_polish_rejected',
 )
+ID_FIELDS = ('card_id', 'id', 'source_spec_id', 'spec_id', 'draft_id')
 
 
 def load(path):
@@ -24,7 +25,13 @@ def load(path):
 
 
 def row_id(row):
-    return row.get('id') or row.get('card_id') or row.get('source_spec_id') or row.get('spec_id')
+    if not isinstance(row, dict):
+        return None
+    for field in ID_FIELDS:
+        value = row.get(field)
+        if value:
+            return value
+    return None
 
 
 def load_cards(data):
@@ -51,10 +58,9 @@ def audit_ids(rows):
     ids = set()
     if isinstance(rows, list):
         for row in rows:
-            if isinstance(row, dict):
-                value = row.get('card_id') or row.get('id')
-                if value:
-                    ids.add(value)
+            value = row_id(row)
+            if value:
+                ids.add(value)
     return ids
 
 

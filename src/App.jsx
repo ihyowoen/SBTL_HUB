@@ -2150,7 +2150,9 @@ function AppContent() {
         }
       })();
     } catch { /* noop */ }
-  }, [kb.cards]);
+    // watchSeenVersion: 워치 용어 변경마다 NewsDesk가 onWatchSeen으로 올려주는 신호 —
+    // 앱 로딩 후 처음 워치를 등록한 사용자도 리로드 없이 주간 브리프가 생성되도록 재평가 트리거로 쓴다.
+  }, [kb.cards, watchSeenVersion]); // eslint-disable-line react-hooks/exhaustive-deps
   const { tracker, regionPolicy, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
   const t = T(dark);
   const lastCardDate = latestDate(kb.cards) || "-";

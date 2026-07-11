@@ -2103,6 +2103,7 @@ function AppContent() {
         localStorage.setItem(WEEKLY_BRIEF_LOCK_KEY, lockToken);
       } catch { /* 잠금 불가 환경은 그대로 진행 */ }
       weeklyAttemptRef.current = true;
+      const termsSigAtRequest = JSON.stringify(terms);
       const scopeLabel = `주간 내워치(${terms.slice(0, 4).join(", ")}${terms.length > 4 ? "…" : ""})`;
       (async () => {
         try {
@@ -2123,6 +2124,16 @@ function AppContent() {
           const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
           const j = await r.json();
           if (!j?.ok || !j.narrative) return;
+          // 요청 비행 중 워치 목록이 바뀌었으면(첫 설정에서 용어를 잇달아 추가하는 흐름)
+          // 낡은 목록 기준 브리프를 저장하지 않고, 현재 목록으로 재평가를 예약한다.
+          try {
+            const nowTerms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+            if (JSON.stringify(nowTerms) !== termsSigAtRequest) {
+              weeklyAttemptRef.current = false;
+              bumpWatchSeen(); // deps(watchSeenVersion) 재평가 → 새 목록으로 재생성
+              return;
+            }
+          } catch { /* 비교 불가 환경은 그대로 저장 */ }
           const entry = {
             id: `wb_${Date.now()}`,
             generated_at: kstToday(),

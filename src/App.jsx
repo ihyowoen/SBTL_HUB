@@ -2092,17 +2092,25 @@ function AppContent() {
       const matched = kb.cards.filter((c) => cardMatchesWatch(c, terms) && cardDateWithinDays(c, 7)).slice(0, 40);
       if (matched.length < 2) return;
       // 크로스탭 잠금 — 동시에 뜬 두 탭이 같은 주간 브리프를 중복 생성(LLM 이중 호출)하지 않도록.
-      // localStorage에 원자적 CAS는 없지만 경합 창을 fetch 수 초에서 밀리초 수준으로 줄이고,
+      // 토큰(타임스탬프_난수)을 쓰고 fetch 직전에 소유권을 재확인한다: localStorage 쓰기는
+      // 오리진 단위로 직렬화되므로 최종 토큰과 일치하는 탭은 정확히 하나다.
       // 잠금에 밀린 탭은 승자의 저장을 storage 이벤트로 수신한다.
+      const lockToken = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
       try {
-        const lockAt = Number(localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) || 0);
-        if (lockAt && Date.now() - lockAt < WEEKLY_BRIEF_LOCK_TTL) return;
-        localStorage.setItem(WEEKLY_BRIEF_LOCK_KEY, String(Date.now()));
+        const rawLock = localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY);
+        const lockAt = Number(String(rawLock || "").split("_")[0] || 0);
+        if (rawLock && Date.now() - lockAt < WEEKLY_BRIEF_LOCK_TTL) return;
+        localStorage.setItem(WEEKLY_BRIEF_LOCK_KEY, lockToken);
       } catch { /* 잠금 불가 환경은 그대로 진행 */ }
       weeklyAttemptRef.current = true;
       const scopeLabel = `주간 내워치(${terms.slice(0, 4).join(", ")}${terms.length > 4 ? "…" : ""})`;
       (async () => {
         try {
+          // 소유권 재확인 — check-then-set 사이에 같이 진입한 다른 탭이 토큰을 덮었으면 물러난다
+          try {
+            await new Promise((resolve) => setTimeout(resolve, 50));
+            if (localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) !== lockToken) return;
+          } catch { /* 확인 불가 환경은 진행 */ }
           const payload = {
             scopeLabel,
             cards: matched.map((c) => ({
@@ -2135,7 +2143,10 @@ function AppContent() {
           setWeeklyBriefs(next);
         } catch { /* 조용히 — 다음 접속에서 재시도 */ }
         finally {
-          try { localStorage.removeItem(WEEKLY_BRIEF_LOCK_KEY); } catch { /* noop */ }
+          // 내 토큰일 때만 해제 — 소유권을 잃었으면 남(승자)의 잠금을 지우지 않는다
+          try {
+            if (localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) === lockToken) localStorage.removeItem(WEEKLY_BRIEF_LOCK_KEY);
+          } catch { /* noop */ }
         }
       })();
     } catch { /* noop */ }

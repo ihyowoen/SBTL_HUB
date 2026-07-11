@@ -2071,8 +2071,9 @@ function AppContent() {
       if (!Array.isArray(terms) || !terms.length) return;
       const existing = readWeeklyBriefs();
       if (!weeklyBriefDue(existing)) {
-        // 다른 탭이 이미 발행한 경우 — 생성은 불필요하지만 화면엔 반영 (변경 없으면 참조 유지)
-        setWeeklyBriefs((prev) => (prev.length === existing.length && prev[0]?.id === existing[0]?.id ? prev : existing));
+        // 다른 탭이 이미 발행했거나 항목 내용(read 등)을 갱신한 경우 — 화면에 반영.
+        // 내용 전체 비교로 동일할 때만 이전 참조 유지 (보관함 ≤12항목, 새로고침 시에만 지나는 경로라 비용 무시 가능)
+        setWeeklyBriefs((prev) => (JSON.stringify(prev) === JSON.stringify(existing) ? prev : existing));
         return;
       }
       const matched = kb.cards.filter((c) => cardMatchesWatch(c, terms) && cardDateWithinDays(c, 7)).slice(0, 40);

@@ -2057,6 +2057,17 @@ function AppContent() {
   // 실패는 조용히 넘기고 다음 접속에서 재시도. 서버는 기존 /api/brief 재사용.
   const [weeklyBriefs, setWeeklyBriefs] = useState(() => (typeof window !== "undefined" ? readWeeklyBriefs() : []));
   const weeklyAttemptRef = useRef(false);
+  // 살아있는 다른 탭의 발행/read 갱신을 실시간 반영 — storage 이벤트는 브라우저가
+  // 같은 오리진의 '다른' 탭에만 발화시키므로 자기 쓰기와는 충돌하지 않는다.
+  useEffect(() => {
+    const onStorage = (e) => {
+      if (e.key !== null && e.key !== WEEKLY_BRIEF_KEY) return;
+      const next = readWeeklyBriefs();
+      setWeeklyBriefs((prev) => (JSON.stringify(prev) === JSON.stringify(next) ? prev : next));
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
   const markWeeklyBriefsRead = useMemo(() => () => {
     try {
       const next = readWeeklyBriefs().map((e) => (e.read ? e : { ...e, read: true }));

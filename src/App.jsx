@@ -2069,7 +2069,12 @@ function AppContent() {
     try {
       const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
       if (!Array.isArray(terms) || !terms.length) return;
-      if (!weeklyBriefDue(readWeeklyBriefs())) return;
+      const existing = readWeeklyBriefs();
+      if (!weeklyBriefDue(existing)) {
+        // 다른 탭이 이미 발행한 경우 — 생성은 불필요하지만 화면엔 반영 (변경 없으면 참조 유지)
+        setWeeklyBriefs((prev) => (prev.length === existing.length && prev[0]?.id === existing[0]?.id ? prev : existing));
+        return;
+      }
       const matched = kb.cards.filter((c) => cardMatchesWatch(c, terms) && cardDateWithinDays(c, 7)).slice(0, 40);
       if (matched.length < 2) return;
       weeklyAttemptRef.current = true;

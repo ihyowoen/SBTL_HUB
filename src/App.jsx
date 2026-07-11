@@ -2119,6 +2119,13 @@ function AppContent() {
             localStorage.setItem("sbtl_watch_seen", JSON.stringify([...seen].filter((id) => keep.has(id))));
             localStorage.setItem("sbtl_watch_seen_sig", JSON.stringify(next));
           }
+        } else if (changed && seenRaw === null && cmd.type === "watch_add" && kb.cards.length) {
+          // 첫 워치 추가(스냅샷 없음): NewsDesk firstRun과 동일하게 현재 매칭 전부를 기준선으로.
+          // 여기서 만들지 않으면 다음 카드 갱신 때 fallback 효과가 갱신분까지 '이미 봄'으로
+          // 저장해 새 카드가 배지에 영영 안 잡힌다. cards 미로드면 기존 fallback 효과에 위임.
+          const ids = kb.cards.filter((c) => cardMatchesWatch(c, next)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean);
+          localStorage.setItem("sbtl_watch_seen", JSON.stringify(ids));
+          localStorage.setItem("sbtl_watch_seen_sig", JSON.stringify(next));
         }
         setWatchSeenVersion((v) => v + 1); // 배지·주간 브리프 재평가 트리거
       } else if (cmd.type === "profile_open" && cmd.term) {

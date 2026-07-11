@@ -3,6 +3,7 @@
 // ============================================================================
 
 import { loadKnowledge, expandAliasCandidates } from "../lib/chat/common.js";
+import { detectAppCommand, appCommandResponse } from "../lib/chat/appCommand.js";
 import { parseRequest } from "../lib/chat/parseRequest.js";
 import { resolveContext } from "../lib/chat/resolveContext.js";
 import { retrieve } from "../lib/chat/retrieve/index.js";
@@ -442,6 +443,26 @@ export default async function handler(req, res) {
         ],
         next_context: { last_turn: null, root_turn: null },
         debug: { ...debugBase, legacy_card_consult: true },
+      });
+    }
+
+    // 에이전틱 명령 — "CATL 워치에 추가해줘" 류는 검색 파이프라인 대신
+    // 클라이언트가 실행할 app_command로 단락한다 (규칙 기반, LLM 무관).
+    const appCmd = detectAppCommand(message, data.aliasGroups || []);
+    if (appCmd) {
+      const tpl = appCommandResponse(appCmd);
+      console.log(`[chat-app-command] type=${appCmd.type} term=${appCmd.term || "-"}`);
+      return res.status(200).json({
+        answer: tpl.answer,
+        answer_type: "app_command",
+        source_mode: "internal",
+        confidence: 0.95,
+        cards: [],
+        external_links: [],
+        suggestions: tpl.suggestions,
+        app_command: appCmd,
+        next_context: { last_turn: null, root_turn: context?.root_turn || null },
+        debug: { ...debugBase, app_command: appCmd },
       });
     }
 

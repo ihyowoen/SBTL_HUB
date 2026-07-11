@@ -785,7 +785,7 @@ function StageWrapper({ m, dark, runSuggestion, BubbleComponent, errorFallback }
   );
 }
 
-function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0 }) {
+function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0, onAppCommand = null }) {
   const t = T(dark);
   const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
   const [input, setInput] = useState("");
@@ -812,7 +812,14 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     return out;
   };
 
-  const toUiMessage = (data) => ({
+  const toUiMessage = (data) => {
+    // 에이전틱 명령 — 서버가 감지한 app_command를 앱 상태로 실행 (모든 응답 경로 공통 지점)
+    if (data?.app_command && typeof onAppCommand === "function") {
+      try { onAppCommand(data.app_command); } catch { /* noop */ }
+    }
+    return toUiMessageInner(data);
+  };
+  const toUiMessageInner = (data) => ({
     role: "assistant",
     content: data?.answer || "응답을 생성하지 못했어.",
     sourceBadge: ({ external: "external", hybrid: "hybrid", internal: "internal" }[data?.source_mode] || "internal"),
@@ -1616,7 +1623,7 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   );
 }
 
-function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null }) {
+function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null, agentSeed = null }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -1755,6 +1762,22 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         : <span key={i}>{p.str}</span>);
     };
   }, [glossaryMatcher, dark]);
+
+  // 에이전틱 명령 seed — 강차장이 요청한 프로필/주간 브리프 열기를 마운트 후 소비
+  const agentSeedRef = useRef(0);
+  useEffect(() => {
+    if (!agentSeed || !agentSeed.nonce || agentSeedRef.current === agentSeed.nonce) return;
+    agentSeedRef.current = agentSeed.nonce;
+    if (agentSeed.profileTerm) {
+      setProfileTerm(agentSeed.profileTerm);
+      setShowCount(60);
+    } else if (agentSeed.weeklyOpen) {
+      setProfileTerm(null);
+      setWeeklyOpen(true);
+      setWeeklyShownId(null);
+      if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead();
+    }
+  }, [agentSeed, onWeeklyBriefsRead]);
 
   // 용어 시트가 열려 있는 동안: 배경 스크롤 잠금 + Escape로 닫기
   useEffect(() => {
@@ -2059,6 +2082,33 @@ function AppContent() {
   // 실패는 조용히 넘기고 다음 접속에서 재시도. 서버는 기존 /api/brief 재사용.
   const [weeklyBriefs, setWeeklyBriefs] = useState(() => (typeof window !== "undefined" ? readWeeklyBriefs() : []));
   const weeklyAttemptRef = useRef(false);
+
+  // ---- 에이전틱 명령 디스패처 — 강차장(챗)이 보낸 app_command를 앱 상태로 실행 ----
+  // 챗은 chatbot 탭에서만 살아 있으므로 실행 시점에 NewsDesk는 언마운트 상태 —
+  // 워치는 localStorage에 직접 쓰고(다음 NEWS 마운트가 fresh로 읽음), 화면 이동이
+  // 필요한 명령은 newsSeed로 NewsDesk에 전달한다.
+  const [newsSeed, setNewsSeed] = useState({ profileTerm: null, weeklyOpen: false, nonce: 0 });
+  const executeAppCommand = useMemo(() => (cmd) => {
+    if (!cmd || !cmd.type) return;
+    try {
+      if ((cmd.type === "watch_add" || cmd.type === "watch_remove") && cmd.term) {
+        const raw = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+        const terms = Array.isArray(raw) ? raw : [];
+        const exists = terms.some((x) => String(x).toLowerCase() === String(cmd.term).toLowerCase());
+        const next = cmd.type === "watch_add"
+          ? (exists ? terms : [...terms, cmd.term])
+          : terms.filter((x) => String(x).toLowerCase() !== String(cmd.term).toLowerCase());
+        localStorage.setItem("sbtl_watch_terms", JSON.stringify(next));
+        setWatchSeenVersion((v) => v + 1); // 배지·주간 브리프 재평가 트리거
+      } else if (cmd.type === "profile_open" && cmd.term) {
+        setNewsSeed((s) => ({ profileTerm: cmd.term, weeklyOpen: false, nonce: s.nonce + 1 }));
+        setTab("news");
+      } else if (cmd.type === "weekly_show") {
+        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, nonce: s.nonce + 1 }));
+        setTab("news");
+      }
+    } catch { /* noop */ }
+  }, []);
   // 살아있는 다른 탭의 발행/read 갱신을 실시간 반영 — storage 이벤트는 브라우저가
   // 같은 오리진의 '다른' 탭에만 발화시키므로 자기 쓰기와는 충돌하지 않는다.
   useEffect(() => {
@@ -2220,8 +2270,8 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
-        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} />}
-        {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} />}
+        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} agentSeed={newsSeed} />}
+        {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} />}
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} />}
       </main>

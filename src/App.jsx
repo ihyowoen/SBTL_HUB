@@ -2099,7 +2099,10 @@ function AppContent() {
             read: false,
           };
           const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)
-          if (fresh.length && !weeklyBriefDue(fresh)) return;
+          if (fresh.length && !weeklyBriefDue(fresh)) {
+            setWeeklyBriefs(fresh); // 경합에서 진 탭도 승자 항목을 화면에 반영
+            return;
+          }
           const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
           localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
           setWeeklyBriefs(next);

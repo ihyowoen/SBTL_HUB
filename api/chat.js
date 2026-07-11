@@ -448,7 +448,11 @@ export default async function handler(req, res) {
 
     // 에이전틱 명령 — "CATL 워치에 추가해줘" 류는 검색 파이프라인 대신
     // 클라이언트가 실행할 app_command로 단락한다 (규칙 기반, LLM 무관).
-    const appCmd = detectAppCommand(message, data.aliasGroups || []);
+    // cards·watch_terms는 별칭 그룹에서 클라이언트 매칭에 걸리는 표현을 고르는 데 쓴다.
+    const cmdWatchTerms = Array.isArray(context?.watch_terms)
+      ? context.watch_terms.map((x) => String(x || "").trim()).filter(Boolean)
+      : [];
+    const appCmd = detectAppCommand(message, data.aliasGroups || [], { cards: data.cards || [], watchTerms: cmdWatchTerms });
     if (appCmd) {
       const tpl = appCommandResponse(appCmd);
       console.log(`[chat-app-command] type=${appCmd.type} term=${appCmd.term || "-"}`);

@@ -367,6 +367,8 @@ function splitGlossaryText(text, matcher) {
 // ---- 주간 브리프 보관함: 앱 접속 시 내워치 범위로 조용히 생성해 적재 ----
 const WEEKLY_BRIEF_KEY = "sbtl_weekly_briefs";
 const WEEKLY_BRIEF_CAP = 12; // 약 3개월치
+const WEEKLY_BRIEF_LOCK_KEY = "sbtl_weekly_brief_lock";
+const WEEKLY_BRIEF_LOCK_TTL = 120000; // 생성 중 탭이 죽어도 2분 후 다음 접속이 재시도
 
 function readWeeklyBriefs() {
   try {
@@ -2089,6 +2091,14 @@ function AppContent() {
       }
       const matched = kb.cards.filter((c) => cardMatchesWatch(c, terms) && cardDateWithinDays(c, 7)).slice(0, 40);
       if (matched.length < 2) return;
+      // 크로스탭 잠금 — 동시에 뜬 두 탭이 같은 주간 브리프를 중복 생성(LLM 이중 호출)하지 않도록.
+      // localStorage에 원자적 CAS는 없지만 경합 창을 fetch 수 초에서 밀리초 수준으로 줄이고,
+      // 잠금에 밀린 탭은 승자의 저장을 storage 이벤트로 수신한다.
+      try {
+        const lockAt = Number(localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) || 0);
+        if (lockAt && Date.now() - lockAt < WEEKLY_BRIEF_LOCK_TTL) return;
+        localStorage.setItem(WEEKLY_BRIEF_LOCK_KEY, String(Date.now()));
+      } catch { /* 잠금 불가 환경은 그대로 진행 */ }
       weeklyAttemptRef.current = true;
       const scopeLabel = `주간 내워치(${terms.slice(0, 4).join(", ")}${terms.length > 4 ? "…" : ""})`;
       (async () => {
@@ -2124,6 +2134,9 @@ function AppContent() {
           localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
           setWeeklyBriefs(next);
         } catch { /* 조용히 — 다음 접속에서 재시도 */ }
+        finally {
+          try { localStorage.removeItem(WEEKLY_BRIEF_LOCK_KEY); } catch { /* noop */ }
+        }
       })();
     } catch { /* noop */ }
   }, [kb.cards]);

@@ -2098,7 +2098,28 @@ function AppContent() {
         const next = cmd.type === "watch_add"
           ? (exists ? terms : [...terms, cmd.term])
           : terms.filter((x) => String(x).toLowerCase() !== String(cmd.term).toLowerCase());
+        const changed = next.length !== terms.length;
         localStorage.setItem("sbtl_watch_terms", JSON.stringify(next));
+        // seen 스냅샷 동기화 — NewsDesk의 용어 변경 처리와 동일 규칙. NewsDesk는 챗 탭에서
+        // 언마운트 상태라 여기서 직접 수행하지 않으면 배지가 새 용어의 과거 이력 전체를
+        // 미확인으로 세거나(추가) 제거된 용어의 잔여 id를 창에 남긴다(삭제).
+        const seenRaw = localStorage.getItem("sbtl_watch_seen");
+        if (changed && seenRaw !== null) {
+          if (!next.length) {
+            // 마지막 용어 제거: NewsDesk의 빈 워치 정리와 동일 — 재등록은 first-run 기준선부터
+            localStorage.removeItem("sbtl_watch_seen");
+            localStorage.removeItem("sbtl_watch_seen_sig");
+          } else if (kb.cards.length) {
+            const seen = new Set(JSON.parse(seenRaw || "[]"));
+            if (cmd.type === "watch_add") {
+              // 새 용어의 기존 이력만 확인 처리로 편입 — 기존 용어와 겹치는 미확인 카드는 보존
+              kb.cards.filter((c) => cardMatchesWatch(c, [cmd.term]) && !cardMatchesWatch(c, terms)).slice(0, WATCH_SEEN_WINDOW).forEach((c) => { const id = getCardId(c); if (id) seen.add(id); });
+            }
+            const keep = new Set(kb.cards.filter((c) => cardMatchesWatch(c, next)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean));
+            localStorage.setItem("sbtl_watch_seen", JSON.stringify([...seen].filter((id) => keep.has(id))));
+            localStorage.setItem("sbtl_watch_seen_sig", JSON.stringify(next));
+          }
+        }
         setWatchSeenVersion((v) => v + 1); // 배지·주간 브리프 재평가 트리거
       } else if (cmd.type === "profile_open" && cmd.term) {
         setNewsSeed((s) => ({ profileTerm: cmd.term, weeklyOpen: false, nonce: s.nonce + 1 }));
@@ -2108,7 +2129,7 @@ function AppContent() {
         setTab("news");
       }
     } catch { /* noop */ }
-  }, []);
+  }, [kb.cards]);
   // 살아있는 다른 탭의 발행/read 갱신을 실시간 반영 — storage 이벤트는 브라우저가
   // 같은 오리진의 '다른' 탭에만 발화시키므로 자기 쓰기와는 충돌하지 않는다.
   useEffect(() => {

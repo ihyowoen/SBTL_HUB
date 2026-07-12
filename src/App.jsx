@@ -785,7 +785,7 @@ function StageWrapper({ m, dark, runSuggestion, BubbleComponent, errorFallback }
   );
 }
 
-function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0 }) {
+function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0, onAppCommand = null }) {
   const t = T(dark);
   const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
   const [input, setInput] = useState("");
@@ -812,7 +812,14 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     return out;
   };
 
-  const toUiMessage = (data) => ({
+  const toUiMessage = (data) => {
+    // 에이전틱 명령 — 서버가 감지한 app_command를 앱 상태로 실행 (모든 응답 경로 공통 지점)
+    if (data?.app_command && typeof onAppCommand === "function") {
+      try { onAppCommand(data.app_command); } catch { /* noop */ }
+    }
+    return toUiMessageInner(data);
+  };
+  const toUiMessageInner = (data) => ({
     role: "assistant",
     content: data?.answer || "응답을 생성하지 못했어.",
     sourceBadge: ({ external: "external", hybrid: "hybrid", internal: "internal" }[data?.source_mode] || "internal"),
@@ -853,7 +860,10 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   const readWatchTermsSafe = () => {
     try {
       const t = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
-      return Array.isArray(t) ? t.slice(0, 12) : [];
+      // 전체 워치 목록 전송(과다 방지용 200 상한만). 서버는 개인화엔 앞 12개만 쓰지만
+      // (api/chat.js), 에이전틱 삭제 게이팅엔 전체가 필요 — 12개 초과 사용자의 13번째+
+      // 용어 삭제가 watch_absent로 오판되지 않게.
+      return Array.isArray(t) ? t.slice(0, 200) : [];
     } catch { return []; }
   };
 
@@ -1616,7 +1626,7 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   );
 }
 
-function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null }) {
+function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null, agentSeed = null, onAgentSeedConsumed = null }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -1755,6 +1765,28 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         : <span key={i}>{p.str}</span>);
     };
   }, [glossaryMatcher, dark]);
+
+  // 에이전틱 명령 seed — 강차장이 요청한 프로필/주간 브리프 열기를 마운트 후 소비.
+  // 소비 즉시 부모의 seed를 비활성화(onAgentSeedConsumed)해야, NEWS를 떠났다 돌아와
+  // NewsDesk가 리마운트될 때(로컬 ref 초기화) 옛 명령이 재생되지 않는다.
+  const agentSeedRef = useRef(0);
+  useEffect(() => {
+    if (!agentSeed || !agentSeed.nonce || agentSeedRef.current === agentSeed.nonce) return;
+    agentSeedRef.current = agentSeed.nonce;
+    let applied = false;
+    if (agentSeed.profileTerm) {
+      setProfileTerm(agentSeed.profileTerm);
+      setShowCount(60);
+      applied = true;
+    } else if (agentSeed.weeklyOpen) {
+      setProfileTerm(null);
+      setWeeklyOpen(true);
+      setWeeklyShownId(null);
+      if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead();
+      applied = true;
+    }
+    if (applied && typeof onAgentSeedConsumed === "function") onAgentSeedConsumed();
+  }, [agentSeed, onWeeklyBriefsRead, onAgentSeedConsumed]);
 
   // 용어 시트가 열려 있는 동안: 배경 스크롤 잠금 + Escape로 닫기
   useEffect(() => {
@@ -2059,6 +2091,64 @@ function AppContent() {
   // 실패는 조용히 넘기고 다음 접속에서 재시도. 서버는 기존 /api/brief 재사용.
   const [weeklyBriefs, setWeeklyBriefs] = useState(() => (typeof window !== "undefined" ? readWeeklyBriefs() : []));
   const weeklyAttemptRef = useRef(false);
+
+  // ---- 에이전틱 명령 디스패처 — 강차장(챗)이 보낸 app_command를 앱 상태로 실행 ----
+  // 챗은 chatbot 탭에서만 살아 있으므로 실행 시점에 NewsDesk는 언마운트 상태 —
+  // 워치는 localStorage에 직접 쓰고(다음 NEWS 마운트가 fresh로 읽음), 화면 이동이
+  // 필요한 명령은 newsSeed로 NewsDesk에 전달한다.
+  const [newsSeed, setNewsSeed] = useState({ profileTerm: null, weeklyOpen: false, nonce: 0 });
+  // NewsDesk가 seed를 소비한 뒤 지시 내용을 비운다(nonce는 유지해 다음 명령의 증가와
+  // 구분). 이렇게 해야 NEWS 재방문(NewsDesk 리마운트)에서 옛 프로필/선반이 재생되지 않는다.
+  const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.weeklyOpen ? { ...s, profileTerm: null, weeklyOpen: false } : s)), []);
+  const executeAppCommand = useMemo(() => (cmd) => {
+    if (!cmd || !cmd.type) return;
+    try {
+      if ((cmd.type === "watch_add" || cmd.type === "watch_remove") && cmd.term) {
+        const raw = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+        const terms = Array.isArray(raw) ? raw : [];
+        const exists = terms.some((x) => String(x).toLowerCase() === String(cmd.term).toLowerCase());
+        const next = cmd.type === "watch_add"
+          ? (exists ? terms : [...terms, cmd.term])
+          : terms.filter((x) => String(x).toLowerCase() !== String(cmd.term).toLowerCase());
+        const changed = next.length !== terms.length;
+        localStorage.setItem("sbtl_watch_terms", JSON.stringify(next));
+        // seen 스냅샷 동기화 — NewsDesk의 용어 변경 처리와 동일 규칙. NewsDesk는 챗 탭에서
+        // 언마운트 상태라 여기서 직접 수행하지 않으면 배지가 새 용어의 과거 이력 전체를
+        // 미확인으로 세거나(추가) 제거된 용어의 잔여 id를 창에 남긴다(삭제).
+        const seenRaw = localStorage.getItem("sbtl_watch_seen");
+        if (changed && seenRaw !== null) {
+          if (!next.length) {
+            // 마지막 용어 제거: NewsDesk의 빈 워치 정리와 동일 — 재등록은 first-run 기준선부터
+            localStorage.removeItem("sbtl_watch_seen");
+            localStorage.removeItem("sbtl_watch_seen_sig");
+          } else if (kb.cards.length) {
+            const seen = new Set(JSON.parse(seenRaw || "[]"));
+            if (cmd.type === "watch_add") {
+              // 새 용어의 기존 이력만 확인 처리로 편입 — 기존 용어와 겹치는 미확인 카드는 보존
+              kb.cards.filter((c) => cardMatchesWatch(c, [cmd.term]) && !cardMatchesWatch(c, terms)).slice(0, WATCH_SEEN_WINDOW).forEach((c) => { const id = getCardId(c); if (id) seen.add(id); });
+            }
+            const keep = new Set(kb.cards.filter((c) => cardMatchesWatch(c, next)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean));
+            localStorage.setItem("sbtl_watch_seen", JSON.stringify([...seen].filter((id) => keep.has(id))));
+            localStorage.setItem("sbtl_watch_seen_sig", JSON.stringify(next));
+          }
+        } else if (changed && seenRaw === null && cmd.type === "watch_add" && kb.cards.length) {
+          // 첫 워치 추가(스냅샷 없음): NewsDesk firstRun과 동일하게 현재 매칭 전부를 기준선으로.
+          // 여기서 만들지 않으면 다음 카드 갱신 때 fallback 효과가 갱신분까지 '이미 봄'으로
+          // 저장해 새 카드가 배지에 영영 안 잡힌다. cards 미로드면 기존 fallback 효과에 위임.
+          const ids = kb.cards.filter((c) => cardMatchesWatch(c, next)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean);
+          localStorage.setItem("sbtl_watch_seen", JSON.stringify(ids));
+          localStorage.setItem("sbtl_watch_seen_sig", JSON.stringify(next));
+        }
+        setWatchSeenVersion((v) => v + 1); // 배지·주간 브리프 재평가 트리거
+      } else if (cmd.type === "profile_open" && cmd.term) {
+        setNewsSeed((s) => ({ profileTerm: cmd.term, weeklyOpen: false, nonce: s.nonce + 1 }));
+        setTab("news");
+      } else if (cmd.type === "weekly_show") {
+        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, nonce: s.nonce + 1 }));
+        setTab("news");
+      }
+    } catch { /* noop */ }
+  }, [kb.cards]);
   // 살아있는 다른 탭의 발행/read 갱신을 실시간 반영 — storage 이벤트는 브라우저가
   // 같은 오리진의 '다른' 탭에만 발화시키므로 자기 쓰기와는 충돌하지 않는다.
   useEffect(() => {
@@ -2220,8 +2310,8 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
-        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} />}
-        {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} />}
+        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
+        {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} />}
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} />}
       </main>

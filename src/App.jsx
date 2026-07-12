@@ -94,15 +94,19 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
   const today = latestDate(kb.cards);
   const rank = { t: 3, h: 2, m: 1, i: 0 };
   const todayCards = kb.cards.filter((c) => (c.d || c.date) === today);
-  // ---- 오늘의 흐름 서사: /api/brief 재사용, 카드 최신일 기준 1회 생성 후 캐시 ----
-  // 데이터가 안 바뀌면 호출 0회(캐시 재사용), 생성 실패는 조용히 — 통계 칩·시그널만으로도 성립.
+  // ---- 오늘의 흐름 서사: /api/brief 재사용, 카드셋 지문 기준 1회 생성 후 캐시 ----
+  // 캐시 키는 날짜가 아니라 지문(날짜|장수|서사 입력이 되는 상위 8장 id) — 같은 데이터
+  // 날짜에 카드가 추가·정정돼도(새로고침) 낡은 서사를 재사용하지 않는다. 데이터가 안
+  // 바뀌면 호출 0회, 생성 실패는 조용히 — 통계 칩·시그널만으로도 성립. 구버전 캐시
+  // (sig 없음)는 지문 불일치로 자연 재생성.
+  const flowSig = `${today}|${todayCards.length}|${[...todayCards].sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 8).map((c) => getCardId(c)).join(",")}`;
   const [dailyFlow, setDailyFlow] = useState(() => {
     try { const v = JSON.parse(localStorage.getItem("sbtl_daily_flow") || "null"); return v && v.dataDate ? v : null; } catch { return null; }
   });
   const flowReqRef = useRef(false);
   useEffect(() => {
     if (!today || !todayCards.length) return;
-    if (dailyFlow && dailyFlow.dataDate === today && dailyFlow.narrative) return;
+    if (dailyFlow && dailyFlow.sig === flowSig && dailyFlow.narrative) return;
     if (flowReqRef.current) return;
     flowReqRef.current = true;
     (async () => {
@@ -119,7 +123,7 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
         const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
         const j = await r.json();
         if (j?.ok && j.narrative) {
-          const entry = { dataDate: today, narrative: String(j.narrative) };
+          const entry = { dataDate: today, sig: flowSig, narrative: String(j.narrative) };
           localStorage.setItem("sbtl_daily_flow", JSON.stringify(entry));
           setDailyFlow(entry);
         }
@@ -127,7 +131,7 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       finally { flowReqRef.current = false; }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [today, todayCards.length, dailyFlow]);
+  }, [flowSig, dailyFlow]);
   // ---- 첫 방문 온보딩: 관심사 선택 → 명령 버스로 워치 일괄 등록 (개인화 체인 점화) ----
   const [onboardDone, setOnboardDone] = useState(() => {
     try { return localStorage.getItem("sbtl_onboard_done") === "1"; } catch { return true; }

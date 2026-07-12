@@ -452,7 +452,8 @@ export default async function handler(req, res) {
     const cmdWatchTerms = Array.isArray(context?.watch_terms)
       ? context.watch_terms.map((x) => String(x || "").trim()).filter(Boolean)
       : [];
-    const appCmd = detectAppCommand(message, data.aliasGroups || [], { cards: data.cards || [], watchTerms: cmdWatchTerms });
+    // last_brief_at(epoch ms): brief_now의 10분 쿨다운 게이팅용 — 방금 발행본이 있으면 재생성 대신 열람
+    const appCmd = detectAppCommand(message, data.aliasGroups || [], { cards: data.cards || [], watchTerms: cmdWatchTerms, lastBriefAt: Number(context?.last_brief_at || 0) });
     if (appCmd) {
       const tpl = appCommandResponse(appCmd);
       console.log(`[chat-app-command] type=${appCmd.type} term=${appCmd.term || "-"}`);

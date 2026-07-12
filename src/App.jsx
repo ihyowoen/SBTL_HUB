@@ -1626,7 +1626,7 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   );
 }
 
-function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null, agentSeed = null }) {
+function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null, agentSeed = null, onAgentSeedConsumed = null }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -1766,21 +1766,27 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
     };
   }, [glossaryMatcher, dark]);
 
-  // 에이전틱 명령 seed — 강차장이 요청한 프로필/주간 브리프 열기를 마운트 후 소비
+  // 에이전틱 명령 seed — 강차장이 요청한 프로필/주간 브리프 열기를 마운트 후 소비.
+  // 소비 즉시 부모의 seed를 비활성화(onAgentSeedConsumed)해야, NEWS를 떠났다 돌아와
+  // NewsDesk가 리마운트될 때(로컬 ref 초기화) 옛 명령이 재생되지 않는다.
   const agentSeedRef = useRef(0);
   useEffect(() => {
     if (!agentSeed || !agentSeed.nonce || agentSeedRef.current === agentSeed.nonce) return;
     agentSeedRef.current = agentSeed.nonce;
+    let applied = false;
     if (agentSeed.profileTerm) {
       setProfileTerm(agentSeed.profileTerm);
       setShowCount(60);
+      applied = true;
     } else if (agentSeed.weeklyOpen) {
       setProfileTerm(null);
       setWeeklyOpen(true);
       setWeeklyShownId(null);
       if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead();
+      applied = true;
     }
-  }, [agentSeed, onWeeklyBriefsRead]);
+    if (applied && typeof onAgentSeedConsumed === "function") onAgentSeedConsumed();
+  }, [agentSeed, onWeeklyBriefsRead, onAgentSeedConsumed]);
 
   // 용어 시트가 열려 있는 동안: 배경 스크롤 잠금 + Escape로 닫기
   useEffect(() => {
@@ -2091,6 +2097,9 @@ function AppContent() {
   // 워치는 localStorage에 직접 쓰고(다음 NEWS 마운트가 fresh로 읽음), 화면 이동이
   // 필요한 명령은 newsSeed로 NewsDesk에 전달한다.
   const [newsSeed, setNewsSeed] = useState({ profileTerm: null, weeklyOpen: false, nonce: 0 });
+  // NewsDesk가 seed를 소비한 뒤 지시 내용을 비운다(nonce는 유지해 다음 명령의 증가와
+  // 구분). 이렇게 해야 NEWS 재방문(NewsDesk 리마운트)에서 옛 프로필/선반이 재생되지 않는다.
+  const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.weeklyOpen ? { ...s, profileTerm: null, weeklyOpen: false } : s)), []);
   const executeAppCommand = useMemo(() => (cmd) => {
     if (!cmd || !cmd.type) return;
     try {
@@ -2301,7 +2310,7 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
-        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} agentSeed={newsSeed} />}
+        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} />}
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} />}

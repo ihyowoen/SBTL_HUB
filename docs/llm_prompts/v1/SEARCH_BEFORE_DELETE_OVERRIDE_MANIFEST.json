@@ -1,0 +1,26 @@
+{
+  "override_id": "SEARCH_BEFORE_DELETE_20260712_V1",
+  "authority": "mandatory_conflict_override",
+  "effective_date_kst": "2026-07-12",
+  "override_file": "docs/llm_prompts/v1/00_MANDATORY_SEARCH_BEFORE_DELETE_OVERRIDE.md",
+  "validator": "validation_scripts/validate_search_before_delete.py",
+  "applies_to": [
+    "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
+    "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
+    "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
+    "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
+    "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+    "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
+    "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+    "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
+    "docs/OPERATIONS.md",
+    "docs/WORKFLOW.md"
+  ],
+  "supersedes_conflicting_rules": [
+    "Default: source augmentation is not authorized.",
+    "Do not perform source augmentation automatically.",
+    "Any rule allowing claim deletion or narrowing before bounded same-event search."
+  ],
+  "required_failure_status": "BLOCKED_SEARCH_BEFORE_DELETE_AUDIT_MISSING",
+  "principle": "Find first. Verify second. Integrate third. Delete only last."
+}

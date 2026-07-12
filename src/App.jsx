@@ -128,6 +128,38 @@ function R8TodayHero({ dark, variant, onNav }) {
   );
 }
 
+// R8 목업 B안: '오늘' 탭 전체를 에디토리얼 브리핑으로 대체 — 순흑 배경, 대형 헤드라인,
+// 번호 매긴 구분선 리스트(박스 카드 대신), 시그널은 좌측 컬러 바. A안과 화면 인상 자체가 다르게.
+function R8TodayB({ kb, onNav }) {
+  const today = latestDate(kb.cards);
+  const rank = { t: 3, h: 2, m: 1, i: 0 };
+  const top = kb.cards.filter((c) => (c.d || c.date) === today).sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 5);
+  const sigColor = (s) => (s === "t" ? "#F85149" : s === "h" ? "#D29922" : "#388BFD");
+  return (
+    <div style={{ background: "#07090D", margin: "-10px 0 0", padding: "26px 20px 30px", minHeight: "70vh" }}>
+      <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2.5, color: "#58A6FF", fontFamily: "'JetBrains Mono',monospace" }}>SBTL BRIEFING</div>
+      <h1 style={{ fontSize: 30, fontWeight: 900, lineHeight: 1.2, color: "#F4F9FF", margin: "10px 0 0", letterSpacing: -0.5 }}>7월 12일,<br />오늘의 흐름</h1>
+      <p style={{ fontSize: 14.5, lineHeight: 1.75, color: "#B9C6D8", margin: "16px 0 0", wordBreak: "keep-all" }}>
+        중국 전해액 장기계약이 <b style={{ color: "#F4F9FF" }}>120만 톤</b>을 넘어서며 소재 공급선 잠금이 빨라지고, 미국은 FEOC 세부지침을 앞두고 합작 구조 재점검이 이어지는 하루.
+      </p>
+      <div style={{ display: "flex", gap: 8, margin: "18px 0 6px" }}>
+        <button onClick={() => onNav("chatbot")} style={{ padding: "11px 16px", borderRadius: 12, border: "none", background: "#F4F9FF", color: "#0A0C10", fontSize: 12.5, fontWeight: 900, cursor: "pointer" }}>강차장에게 묻기</button>
+        <button onClick={() => onNav("news")} style={{ padding: "11px 16px", borderRadius: 12, border: "1px solid rgba(244,249,255,0.25)", background: "transparent", color: "#F4F9FF", fontSize: 12.5, fontWeight: 800, cursor: "pointer" }}>피드 전체</button>
+      </div>
+      <div style={{ margin: "26px 0 4px", fontSize: 10.5, fontWeight: 800, letterSpacing: 2, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace" }}>TOP SIGNALS · {fmtDate(today)}</div>
+      {top.map((c, i) => (
+        <div key={`${getCardId(c)}-${i}`} style={{ display: "flex", gap: 14, padding: "16px 0", borderBottom: i < top.length - 1 ? "1px solid rgba(185,198,216,0.14)" : "none" }}>
+          <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(244,249,255,0.28)", fontFamily: "'JetBrains Mono',monospace", lineHeight: 1, minWidth: 30 }}>{String(i + 1).padStart(2, "0")}</div>
+          <div style={{ borderLeft: `3px solid ${sigColor(c.s)}`, paddingLeft: 12, flex: 1 }}>
+            <div style={{ fontSize: 15, fontWeight: 800, lineHeight: 1.45, color: "#EDF3FB", wordBreak: "keep-all" }}>{c.T || c.title}</div>
+            <div style={{ fontSize: 12, lineHeight: 1.6, color: "#8C99AB", marginTop: 5, wordBreak: "keep-all" }}>{String(c.sub || c.subtitle || "").slice(0, 72)}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // R8 목업: '워치룸' 탭 — 개인 인텔리전스(워치 관리·주간 브리프·워치 새 소식)의 집.
 function R8Watchroom({ dark, kb, weeklyBriefs = [], variant, onOpenProfile, onNav }) {
   const t = T(dark);
@@ -151,6 +183,16 @@ function R8Watchroom({ dark, kb, weeklyBriefs = [], variant, onOpenProfile, onNa
   }
   return (
     <div style={{ paddingBottom: 8 }}>
+      {variant === "b" && (
+        <div style={{ display: "flex", borderRadius: 16, background: "#07090D", padding: "18px 8px", margin: "2px 0 6px", border: "1px solid rgba(185,198,216,0.14)" }}>
+          {[["워치", watchTerms.length], ["새 소식", matched.length], ["브리프", weeklyBriefs.length]].map(([l, n]) => (
+            <div key={l} style={{ flex: 1, textAlign: "center" }}>
+              <div style={{ fontSize: 26, fontWeight: 900, color: "#F4F9FF", fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{n}</div>
+              <div style={{ fontSize: 10, color: "#8C99AB", marginTop: 5 }}>{l}</div>
+            </div>
+          ))}
+        </div>
+      )}
       {sectionTitle("MY WATCH — 탭하면 프로필")}
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
         {watchTerms.map((w) => (
@@ -2450,7 +2492,8 @@ function AppContent() {
         <div style={{ marginTop: 10 }}>{tab !== "all" && <h1 style={{ color: "#E6EDF3", fontSize: 18, fontWeight: 800, margin: 0 }}>{headerTitle}</h1>}<p style={{ color: "#7D8590", fontSize: 10, margin: "2px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>{headerSub}</p>{refreshLabel && <p style={{ color: refreshLabel.includes("강력") ? "#F85149" : "#58A6FF", fontSize: 10, margin: "6px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>{refreshLabel}</p>}</div>
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
-        {tab === "all" && <div style={{ paddingTop: 10 }}>{R8_MODE && <div style={{ padding: "0 16px" }}><R8TodayHero dark={dark} variant={R8_MODE} onNav={setTab} /></div>}<Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
+        {tab === "all" && R8_MODE === "b" && <div style={{ paddingTop: 10 }}><R8TodayB kb={kb} onNav={setTab} /></div>}
+        {tab === "all" && R8_MODE !== "b" && <div style={{ paddingTop: 10 }}>{R8_MODE === "a" && <div style={{ padding: "0 16px" }}><R8TodayHero dark={dark} variant="a" onNav={setTab} /></div>}<Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
         {tab === "watchroom" && R8_MODE && <div style={{ padding: "10px 16px 0" }}><R8Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} variant={R8_MODE} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} /></div>}
         {tab === "archive" && R8_MODE && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>POLICY TRACKER</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} weeklyGenerating={weeklyGenerating} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
@@ -2458,8 +2501,18 @@ function AppContent() {
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} />}
       </main>
-      <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">
-        {(R8_MODE ? R8_CATS : CATS).map((cat) => { const active = tab === cat.key; const badgeKey = R8_MODE ? "watchroom" : "news"; return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={cat.key === badgeKey && watchNewCount > 0 ? `${cat.label}, 내워치 새 카드 ${watchNewCount}건` : `Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: 56, cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>{active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}<span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span><span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span>{cat.key === badgeKey && watchNewCount > 0 && <span aria-hidden="true" style={{ position: "absolute", top: 5, left: "50%", transform: "translateX(7px)", background: "#F85149", color: "#fff", borderRadius: 999, fontSize: 8, fontWeight: 800, padding: "2px 5px", lineHeight: 1, fontFamily: "'JetBrains Mono',monospace" }}>{watchNewCount > 99 ? "99+" : watchNewCount}</span>}</button>; })}
+      <div style={R8_MODE === "b"
+        ? { position: "fixed", bottom: 14, left: "50%", transform: "translateX(-50%)", width: "calc(100% - 28px)", maxWidth: 452, background: "rgba(16,20,28,0.92)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", border: "1px solid rgba(185,198,216,0.18)", borderRadius: 999, display: "flex", padding: "5px 6px", boxShadow: "0 10px 34px rgba(0,0,0,0.5)" }
+        : { position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">
+        {(R8_MODE ? R8_CATS : CATS).map((cat) => {
+          const active = tab === cat.key;
+          const badgeKey = R8_MODE ? "watchroom" : "news";
+          const badge = cat.key === badgeKey && watchNewCount > 0;
+          if (R8_MODE === "b") {
+            return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={badge ? `${cat.label}, 내워치 새 카드 ${watchNewCount}건` : `Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ flex: 1, padding: "11px 0", minHeight: 44, border: "none", borderRadius: 999, cursor: "pointer", background: active ? "#F4F9FF" : "transparent", color: active ? "#0A0C10" : "#B9C6D8", fontSize: 12, fontWeight: active ? 900 : 700, position: "relative", transition: "background 0.15s" }}>{cat.label}{badge && <span aria-hidden="true" style={{ position: "absolute", top: 4, right: "14%", background: "#F85149", color: "#fff", borderRadius: 999, fontSize: 8, fontWeight: 800, padding: "2px 5px", lineHeight: 1, fontFamily: "'JetBrains Mono',monospace" }}>{watchNewCount > 99 ? "99+" : watchNewCount}</span>}</button>;
+          }
+          return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={badge ? `${cat.label}, 내워치 새 카드 ${watchNewCount}건` : `Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: 56, cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>{active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}<span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span><span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span>{badge && <span aria-hidden="true" style={{ position: "absolute", top: 5, left: "50%", transform: "translateX(7px)", background: "#F85149", color: "#fff", borderRadius: 999, fontSize: 8, fontWeight: 800, padding: "2px 5px", lineHeight: 1, fontFamily: "'JetBrains Mono',monospace" }}>{watchNewCount > 99 ? "99+" : watchNewCount}</span>}</button>;
+        })}
       </div>
     </div>
   );

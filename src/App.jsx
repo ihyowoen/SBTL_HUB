@@ -358,6 +358,16 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   const [draft, setDraft] = useState("");
   const matched = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, 5);
   const latest = weeklyBriefs[0];
+  // ⚡ 즉시 발행 게이팅 — 챗 명령(brief_now)의 서버 게이트와 동일 기준을 버튼에도 적용.
+  // 게이트 없이 실행하면 재료 부족 시 NEWS로 이동만 하고 조용히 실패하거나(설명 없음),
+  // 방금 발행 직후 연타로 중복 생성될 수 있다. 막힌 이유는 버튼 아래 정직하게 표시.
+  const recentMatchCount = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && cardDateWithinDays(c, 7)).length;
+  const latestBriefTs = Number(String(latest?.id || "").replace(/^wb_/, "")) || 0;
+  const sameScopeBrief = latest ? (latest.terms_sig != null ? latest.terms_sig === JSON.stringify(watchTerms) : true) : false;
+  const briefBlockReason = !watchTerms.length ? "워치를 먼저 등록해 주세요"
+    : recentMatchCount < 2 ? `재료 부족 — 최근 7일 매칭 ${recentMatchCount}장 (2장 필요)`
+    : (sameScopeBrief && latestBriefTs && Date.now() - latestBriefTs < 10 * 60000) ? "방금 발행했어요 — 10분 뒤에 다시 만들 수 있어요"
+    : null;
   const submitDraft = () => { const v = draft.trim(); if (v.length >= 2 && typeof onWatchAdd === "function") { onWatchAdd(v); setDraft(""); } };
   const sectionTitle = (label, desc) => (
     <div style={{ margin: "16px 0 8px" }}>
@@ -425,7 +435,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
         <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px dashed ${t.brd}`, fontSize: 11.5, color: t.sub, lineHeight: 1.6 }}>아직 발행본이 없어요.</div>
       )}
       <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
-        <button onClick={() => onBriefNow && onBriefNow()} disabled={!watchTerms.length} style={{ flex: 1, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: watchTerms.length ? t.cyan : t.sub, fontSize: 11.5, fontWeight: 800, cursor: watchTerms.length ? "pointer" : "not-allowed", fontFamily: "'JetBrains Mono',monospace" }}>⚡ 지금 브리프 발행하기</button>
+        <button onClick={() => { if (!briefBlockReason && onBriefNow) onBriefNow(); }} disabled={!!briefBlockReason} style={{ flex: 1, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: briefBlockReason ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: briefBlockReason ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>⚡ 지금 브리프 발행하기</button>
         {latest && (
           <button
             onClick={async () => {
@@ -441,6 +451,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
           >↗ 공유</button>
         )}
       </div>
+      {briefBlockReason && <div style={{ fontSize: 10, color: t.sub, marginTop: 5, fontFamily: "'JetBrains Mono',monospace" }}>{briefBlockReason}</div>}
       {sectionTitle(`워치 새 소식 (${matched.length})`, matched.length ? "카드를 누르면 해당 기업 프로필로 이동" : undefined)}
       {matched.length ? (
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>

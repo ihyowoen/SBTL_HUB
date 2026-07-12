@@ -94,6 +94,13 @@ const R8_CATS = [
   { key: "chatbot", label: "상담소", icon: "🤖" },
 ];
 
+// R8: '오늘' 탭의 날짜는 카드 최신일이 아니라 실제 오늘(KST) — 데이터 갱신이 하루이틀
+// 늦어도 앱이 낡아 보이지 않게. 데이터 시점(카드 최신일)은 보조 라벨로 정직하게 병기한다.
+function r8TodayLabel() {
+  const d = new Date(Date.now() + 9 * 3600000);
+  return `${d.getUTCFullYear()}.${String(d.getUTCMonth() + 1).padStart(2, "0")}.${String(d.getUTCDate()).padStart(2, "0")} (${"일월화수목금토"[d.getUTCDay()]})`;
+}
+
 // R8 목업: '오늘' 탭 최상단 히어로 — 앱이 흐름을 읽어주는 첫 화면. 서사는 목업용 정적 카피
 // (실구현은 /api/brief 재사용 + 하루 캐시 예정).
 function R8TodayHero({ dark, variant, onNav }) {
@@ -107,7 +114,7 @@ function R8TodayHero({ dark, variant, onNav }) {
   if (variant === "b") {
     return (
       <div style={{ borderRadius: 16, padding: "18px 16px", marginBottom: 12, background: "linear-gradient(135deg,#1f2a63 0%,#0e4e63 55%,#0b6157 100%)", border: "1px solid rgba(88,166,255,0.35)" }}>
-        <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.2, color: "#9dd6ff", fontFamily: "'JetBrains Mono',monospace", marginBottom: 8 }}>TODAY&apos;S FLOW · 2026.07.12</div>
+        <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.2, color: "#9dd6ff", fontFamily: "'JetBrains Mono',monospace", marginBottom: 8 }}>TODAY&apos;S FLOW · {r8TodayLabel()}</div>
         <div style={{ fontSize: 19, fontWeight: 900, lineHeight: 1.45, color: "#F4F9FF", wordBreak: "keep-all" }}>{line1}</div>
         <div style={{ fontSize: 13.5, lineHeight: 1.6, color: "#cfe6ff", marginTop: 8, wordBreak: "keep-all" }}>{line2}</div>
         <div style={{ display: "flex", gap: 6, marginTop: 14, flexWrap: "wrap" }}>
@@ -118,7 +125,7 @@ function R8TodayHero({ dark, variant, onNav }) {
   }
   return (
     <div style={{ borderRadius: 14, padding: "14px 16px", marginBottom: 12, background: t.card2, border: `1px solid ${t.brd}`, borderLeft: `3px solid ${t.cyan}` }}>
-      <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1.2, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>TODAY&apos;S FLOW · 2026.07.12</div>
+      <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1.2, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>TODAY&apos;S FLOW · {r8TodayLabel()}</div>
       <div style={{ fontSize: 14.5, fontWeight: 800, lineHeight: 1.55, color: t.tx, wordBreak: "keep-all" }}>{line1}</div>
       <div style={{ fontSize: 12.5, lineHeight: 1.6, color: t.sub, marginTop: 6, wordBreak: "keep-all" }}>{line2}</div>
       <div style={{ display: "flex", gap: 6, marginTop: 12, flexWrap: "wrap" }}>
@@ -138,7 +145,7 @@ function R8TodayB({ kb, onNav }) {
   return (
     <div style={{ background: "#07090D", margin: "-10px 0 0", padding: "26px 20px 30px", minHeight: "70vh" }}>
       <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2.5, color: "#58A6FF", fontFamily: "'JetBrains Mono',monospace" }}>SBTL BRIEFING</div>
-      <h1 style={{ fontSize: 30, fontWeight: 900, lineHeight: 1.2, color: "#F4F9FF", margin: "10px 0 0", letterSpacing: -0.5 }}>7월 12일,<br />오늘의 흐름</h1>
+      <h1 style={{ fontSize: 30, fontWeight: 900, lineHeight: 1.2, color: "#F4F9FF", margin: "10px 0 0", letterSpacing: -0.5 }}>{(() => { const d = new Date(Date.now() + 9 * 3600000); return `${d.getUTCMonth() + 1}월 ${d.getUTCDate()}일,`; })()}<br />오늘의 흐름</h1>
       <p style={{ fontSize: 14.5, lineHeight: 1.75, color: "#B9C6D8", margin: "16px 0 0", wordBreak: "keep-all" }}>
         중국 전해액 장기계약이 <b style={{ color: "#F4F9FF" }}>120만 톤</b>을 넘어서며 소재 공급선 잠금이 빨라지고, 미국은 FEOC 세부지침을 앞두고 합작 구조 재점검이 이어지는 하루.
       </p>
@@ -208,7 +215,7 @@ function R8TodayC({ dark, kb, tracker, weeklyBriefs = [], onNav, onOpenProfile }
   );
   return (
     <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: 10 }}>
-      <W label={`TODAY'S FLOW · ${fmtDate(today)}`} right={`${todayCards.length}장 갱신`}>
+      <W label={`TODAY'S FLOW · ${r8TodayLabel()}`} right={`카드 최신 ${fmtDate(today)} · ${todayCards.length}장`}>
         <div style={{ fontSize: 13.5, fontWeight: 700, lineHeight: 1.6, color: t.tx, wordBreak: "keep-all" }}>중국 전해액 장기계약 120만 톤 돌파로 소재 공급선 잠금이 빨라지고, 미국 FEOC 세부지침을 앞두고 합작 구조 재점검이 이어지는 하루.</div>
         <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: 10 }}>
           {(sigCount.t || 0) > 0 && <span style={{ fontSize: 9, fontWeight: 800, color: "#F85149", border: "1px solid rgba(248,81,73,0.4)", borderRadius: 999, padding: "3px 8px", fontFamily: "'JetBrains Mono',monospace" }}>TOP {sigCount.t}</span>}
@@ -244,7 +251,7 @@ function R8TodayC({ dark, kb, tracker, weeklyBriefs = [], onNav, onOpenProfile }
           <button onClick={() => onNav("watchroom")} style={{ width: "100%", padding: "10px", borderRadius: 8, border: `1px dashed ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11.5, fontWeight: 700, cursor: "pointer" }}>워치가 비어 있어요 — 워치룸에서 바로 등록하기</button>
         )}
       </W>
-      <W label="TOP SIGNALS" right={`오늘 ${todayCards.length}장 중 상위`}>
+      <W label="TOP SIGNALS" right={`${fmtDate(today)} 기준 상위`}>
         {lead && (
           <button onClick={() => onNav("news")} style={{ display: "block", width: "100%", textAlign: "left", border: "none", background: "transparent", padding: 0, cursor: "pointer", marginBottom: rest.length ? 12 : 0 }}>
             <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 5 }}>

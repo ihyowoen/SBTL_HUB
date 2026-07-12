@@ -349,16 +349,17 @@ function ChatGuide({ dark, runSuggestion }) {
 }
 
 // '워치룸' 탭 — 개인 인텔리전스(워치 관리·주간 브리프·워치 새 소식)의 집.
-function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen }) {
+function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed }) {
   const t = T(dark);
   // 추가/삭제가 executeAppCommand(명령 버스)로 localStorage를 바꾸므로,
   // 버전 신호(watchSeenVersion)로 재읽기해 화면에 즉시 반영한다.
   const watchTerms = useMemo(() => {
     try { const v = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]"); return Array.isArray(v) ? v : []; } catch { return []; }
   }, [watchVersion]);
-  // 워치룸 진입 = '워치 새 소식'을 실제로 본 것 — NewsDesk의 내워치 열람과 동일하게
-  // 현재 매칭 카드 전부를 확인 처리해 하단 네비 배지를 끈다. (배지가 워치룸 탭을
-  // 가리키는데 유일한 리셋 경로가 피드→내워치뿐이면 배지가 영영 안 꺼지는 모순.)
+  // 워치룸 진입 시 '워치 새 소식'에 실제로 표시된 카드(최신 5장)만 확인 처리한다.
+  // 매칭 전부를 마킹하면 미리보기 밖의 새 카드까지 배지가 꺼져 못 본 소식이 사라진다 —
+  // 남은 새 카드는 리스트 아래 '피드 내워치에서 보기'로 열람할 때 NewsDesk가 마저 확인.
+  // seen 병합만 하고 sig는 건드리지 않는다(용어 변경 편입은 NewsDesk·명령 버스 몫).
   // 용어는 localStorage에서 직접 읽는다 — watchTerms(useMemo)를 의존성에 넣으면
   // onWatchSeen→watchVersion→새 배열 참조로 effect가 무한 재실행된다.
   useEffect(() => {
@@ -366,14 +367,23 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     try {
       const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
       if (!Array.isArray(terms) || !terms.length) return;
-      const ids = kb.cards.filter((c) => cardMatchesWatch(c, terms)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean);
-      localStorage.setItem("sbtl_watch_seen", JSON.stringify(ids));
-      localStorage.setItem("sbtl_watch_seen_sig", JSON.stringify(terms));
+      const matchedNow = kb.cards.filter((c) => cardMatchesWatch(c, terms));
+      const windowIds = new Set(matchedNow.slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean));
+      const seen = new Set(JSON.parse(localStorage.getItem("sbtl_watch_seen") || "[]"));
+      matchedNow.slice(0, 5).forEach((c) => { const id = getCardId(c); if (id) seen.add(id); });
+      localStorage.setItem("sbtl_watch_seen", JSON.stringify([...seen].filter((id) => windowIds.has(id))));
       if (typeof onWatchSeen === "function") onWatchSeen();
     } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
   }, [kb.cards, onWatchSeen]);
   const [draft, setDraft] = useState("");
   const matched = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, 5);
+  // 미리보기 5장 밖에 남은 새(unseen) 카드 수 — 확인 처리 후 리렌더(watchVersion)마다 재계산
+  const unseenLeft = (() => {
+    try {
+      const seen = new Set(JSON.parse(localStorage.getItem("sbtl_watch_seen") || "[]"));
+      return kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, WATCH_SEEN_WINDOW).filter((c) => { const id = getCardId(c); return id && !seen.has(id); }).length;
+    } catch { return 0; }
+  })();
   const latest = weeklyBriefs[0];
   // ⚡ 즉시 발행 게이팅 — 챗 명령(brief_now)의 서버 게이트와 동일 기준을 버튼에도 적용.
   // 게이트 없이 실행하면 재료 부족 시 NEWS로 이동만 하고 조용히 실패하거나(설명 없음),
@@ -486,6 +496,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
               </button>
             );
           })}
+          {unseenLeft > 0 && (
+            <button onClick={() => onWatchFeed && onWatchFeed()} style={{ width: "100%", padding: "10px", borderRadius: 10, border: `1px dashed ${t.brd}`, background: "transparent", color: t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>새 카드 {unseenLeft}건 더 — 피드 내워치에서 보기 →</button>
+          )}
         </div>
       ) : (
         <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>아직 매칭 카드가 없어요 — 워치를 넓혀보거나 상담소에 물어보세요.</div>
@@ -2879,7 +2892,7 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><TodayDashboard dark={dark} kb={kb} tracker={tracker} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onFeedSearch={(q) => executeAppCommand({ type: "feed_filter", search: q })} onAppCommand={executeAppCommand} /></div>}
-        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={() => executeAppCommand({ type: "brief_now" })} onWatchSeen={bumpWatchSeen} /></div>}
+        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={() => executeAppCommand({ type: "brief_now" })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} /></div>}
         {tab === "archive" && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>POLICY TRACKER — 정책 일정·규제</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} weeklyGenerating={weeklyGenerating} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} onConsultationConsumed={markConsultationConsumed} />}

@@ -871,8 +871,18 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     // watch_terms: '내 워치 기준으로 정리해줘' 같은 개인화 질의를 서버가 처리할 수 있게 동봉.
     // last_brief_at(epoch ms, 최신 브리프 id의 wb_ 타임스탬프): brief_now 10분 쿨다운 게이팅용 —
     // 방금 발행본이 있으면 서버가 재생성 대신 열람으로 응답한다. 구형/무발행이면 0(쿨다운 없음).
-    const lastBriefAt = Number(String(readWeeklyBriefs()[0]?.id || "").replace(/^wb_/, "")) || 0;
-    const body = { message: mode === "external" ? `${txt} 외부 기사 링크 중심으로 찾아줘` : txt, context: { ...chatCtxRef.current, watch_terms: readWatchTermsSafe(), last_brief_at: lastBriefAt } };
+    // 단, 쿨다운은 '같은 워치 범위'로 방금 만든 브리프에만 적용한다 — 워치를 바꾼 직후
+    // 재발행 요청을 옛 범위 브리프로 막지 않도록, 범위가 바뀌었으면 0을 보내 재생성을 허용한다.
+    // 범위 비교는 브리프와 라이브 워치 목록을 모두 네이티브로 가진 클라이언트에서 수행한다.
+    const watchNow = readWatchTermsSafe();
+    const latestBrief = readWeeklyBriefs()[0];
+    const briefAt = Number(String(latestBrief?.id || "").replace(/^wb_/, "")) || 0;
+    const sameScope = !latestBrief ? false
+      : (latestBrief.terms_sig != null
+        ? latestBrief.terms_sig === JSON.stringify(watchNow) // 신규: 발행 시점 전체 시그니처와 비교
+        : JSON.stringify(latestBrief.terms || []) === JSON.stringify(watchNow.slice(0, (latestBrief.terms || []).length))); // 구형(terms_sig 없음): 표시용 terms로 best-effort 비교
+    const lastBriefAt = sameScope ? briefAt : 0;
+    const body = { message: mode === "external" ? `${txt} 외부 기사 링크 중심으로 찾아줘` : txt, context: { ...chatCtxRef.current, watch_terms: watchNow, last_brief_at: lastBriefAt } };
     if (hint && (hint.hint_action || hint.hint_topic)) body.hint = { action: hint.hint_action || undefined, topic: hint.hint_topic || undefined };
     return postChat(body);
   };
@@ -2173,6 +2183,9 @@ function AppContent() {
             generated_at: kstToday(),
             scope_label: scopeLabel,
             terms: terms.slice(0, 8),
+            // 발행 시점 워치 전체 시그니처 — brief_now 쿨다운을 '같은 범위'에만 적용하기 위한 비교용.
+            // (표시용 terms는 8개로 잘리지만 시그니처는 전체를 보존해 범위 변경을 정확히 감지)
+            terms_sig: JSON.stringify(terms),
             narrative: j.narrative,
             watch: Array.isArray(j.watch) ? j.watch : [],
             refs: matched.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })),

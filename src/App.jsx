@@ -860,7 +860,10 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   const readWatchTermsSafe = () => {
     try {
       const t = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
-      return Array.isArray(t) ? t.slice(0, 12) : [];
+      // 전체 워치 목록 전송(과다 방지용 200 상한만). 서버는 개인화엔 앞 12개만 쓰지만
+      // (api/chat.js), 에이전틱 삭제 게이팅엔 전체가 필요 — 12개 초과 사용자의 13번째+
+      // 용어 삭제가 watch_absent로 오판되지 않게.
+      return Array.isArray(t) ? t.slice(0, 200) : [];
     } catch { return []; }
   };
 

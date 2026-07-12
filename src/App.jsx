@@ -1200,7 +1200,29 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
       sessionStorage.setItem("sbtl_chat_ctx", JSON.stringify(chatCtxRef.current || {}));
     } catch { /* noop */ }
   }, [msgs]);
-  const currentConsultRef = useRef(null);
+  // 상담 진행 상태도 세션에 미러 — receipt/scout 메시지만 복원되고 상태가 없으면
+  // 단계 칩(2차/3차)이 조용히 죽고 후속 질문이 상담 밖으로 새는 '보이는데 못 쓰는'
+  // 세션이 된다. 복원은 대화가 실제 복원될 때만(웰컴-only면 유령 상담 방지).
+  // undefined 센티널로 첫 렌더 전에 1회 복원 — consultActive가 첫 렌더부터 정확하다.
+  const currentConsultRef = useRef(undefined);
+  if (currentConsultRef.current === undefined) {
+    let restored = null;
+    try {
+      const m = JSON.parse(sessionStorage.getItem("sbtl_chat_msgs") || "null");
+      if (Array.isArray(m) && m.length) {
+        const v = JSON.parse(sessionStorage.getItem("sbtl_chat_consult") || "null");
+        if (v && typeof v === "object" && v.cardContext) restored = v;
+      }
+    } catch { /* noop */ }
+    currentConsultRef.current = restored;
+  }
+  const persistConsult = () => {
+    try {
+      const v = currentConsultRef.current;
+      if (v) sessionStorage.setItem("sbtl_chat_consult", JSON.stringify(v));
+      else sessionStorage.removeItem("sbtl_chat_consult");
+    } catch { /* noop */ }
+  };
   const sessionHooksRef = useRef([]);
   const usedTopicsRef = useRef(new Set());
   const consultedNonceRef = useRef(0);
@@ -1296,6 +1318,7 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   const startConsultation = async (init) => {
     if (!init?.cardContext?.card) return;
     currentConsultRef.current = { id: init.consultationId, cardContext: init.cardContext, stage1_output: null, stage2_output: null, current_stage: 0 };
+    persistConsult();
     setMsgs((prev) => [...prev, { role: "receipt", card_meta: init.card_meta, opened_at: init.opened_at }]);
     setLoadingMode("typing_consult");
     const t0 = Date.now();
@@ -1306,6 +1329,7 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
       if (data?.stage_output) {
         currentConsultRef.current.stage1_output = data.stage_output;
         currentConsultRef.current.current_stage = 1;
+        persistConsult();
       }
       setMsgs((prev) => [...prev, { role: "scout", stage_output: data?.stage_output || null, suggestions: Array.isArray(data?.suggestions) ? data.suggestions : [], stage_error: data?.debug?.stage_error || null }]);
       if (init.consultationId) appendMessage(init.consultationId, { role: "assistant", content: data?.answer || "", stage: 1 });
@@ -1331,6 +1355,7 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
         currentConsultRef.current.stage2_output = data.stage_output;
         currentConsultRef.current.current_stage = 2;
       } else if (data?.stage_output && toStage === 3) currentConsultRef.current.current_stage = 3;
+      persistConsult();
       setMsgs((prev) => [...prev, { role: toStage === 2 ? "analyst" : "redteam", stage_output: data?.stage_output || null, suggestions: Array.isArray(data?.suggestions) ? data.suggestions : [], stage_error: data?.debug?.stage_error || null }]);
       if (consult.id) appendMessage(consult.id, { role: "assistant", content: data?.answer || "", stage: toStage });
     } catch {
@@ -1365,7 +1390,7 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     if (!txt || isLoading) return;
     setInput("");
     const consult = currentConsultRef.current;
-    if (consult && consult.current_stage > 0) currentConsultRef.current = null;
+    if (consult && consult.current_stage > 0) { currentConsultRef.current = null; persistConsult(); }
     else if (consult) { await sendConsultFollowup(txt, consult); return; }
     setMsgs((prev) => [...prev, { role: "user", content: txt }]);
     setLoadingMode("typing_normal");
@@ -1462,7 +1487,7 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     <div style={{ display: "flex", flexDirection: "column", height: "calc(100vh - 190px)" }}>
       <div role="log" aria-live="polite" aria-atomic="false" aria-label="대화 내역" style={{ flex: 1, overflowY: "auto", padding: "12px 14px 8px" }}>
         {msgs.length > 1 && (
-          <button onClick={() => { setMsgs(CHAT_WELCOME); chatCtxRef.current = { last_turn: null, root_turn: null, selected_item_id: null, region: null, date: null }; try { sessionStorage.removeItem("sbtl_chat_msgs"); sessionStorage.removeItem("sbtl_chat_ctx"); } catch { /* noop */ } }} style={{ alignSelf: "center", margin: "2px 0 8px", padding: "6px 12px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", display: "block", marginLeft: "auto", marginRight: "auto" }}>🧹 새 대화 시작 (이전 대화는 세션 동안 유지돼요)</button>
+          <button onClick={() => { setMsgs(CHAT_WELCOME); chatCtxRef.current = { last_turn: null, root_turn: null, selected_item_id: null, region: null, date: null }; currentConsultRef.current = null; persistConsult(); try { sessionStorage.removeItem("sbtl_chat_msgs"); sessionStorage.removeItem("sbtl_chat_ctx"); } catch { /* noop */ } }} style={{ alignSelf: "center", margin: "2px 0 8px", padding: "6px 12px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", display: "block", marginLeft: "auto", marginRight: "auto" }}>🧹 새 대화 시작 (이전 대화는 세션 동안 유지돼요)</button>
         )}
         {msgs.length <= 1 && <ChatGuide dark={dark} runSuggestion={runSuggestion} />}
         {msgs.map((m, i) => {

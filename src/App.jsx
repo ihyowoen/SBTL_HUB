@@ -397,6 +397,26 @@ function R8Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, o
       ) : (
         <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>아직 매칭 카드가 없어요 — 워치를 넓혀보거나 상담소에 물어보세요.</div>
       )}
+      {(() => {
+        // R1 ☆보고함(sbtl_bookmarks, 최신이 앞·title/date 내장)을 워치룸으로 — 저장 자산이 '내 방'에 모이게
+        let saved = [];
+        try { const v = JSON.parse(localStorage.getItem("sbtl_bookmarks") || "[]"); saved = Array.isArray(v) ? v.slice(0, 5) : []; } catch { saved = []; }
+        return (
+          <>
+            {sectionTitle(`★ 저장한 카드 (${saved.length})`, saved.length ? "피드에서 ☆로 저장한 카드 — 최근 5개" : "피드 카드의 ☆를 누르면 여기 모여요")}
+            {saved.length > 0 && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {saved.map((b) => (
+                  <div key={b.id} style={{ borderRadius: 10, padding: "9px 12px", background: t.card2, border: `1px solid ${t.brd}` }}>
+                    <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 3 }}>{fmtDate(b.date)}{b.savedAt ? ` · 저장 ${b.savedAt}` : ""}</div>
+                    <div style={{ fontSize: 12, fontWeight: 700, lineHeight: 1.45, color: t.tx, wordBreak: "keep-all" }}>{b.title}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        );
+      })()}
     </div>
   );
 }
@@ -1109,15 +1129,37 @@ function StageWrapper({ m, dark, runSuggestion, BubbleComponent, errorFallback }
   );
 }
 
+const CHAT_WELCOME = [{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }];
+
 function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0, onAppCommand = null }) {
   const t = T(dark);
-  const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
+  // R8 목업: 탭을 오가도 세션 내 대화 유지 — 지금은 탭 이동 시 언마운트로 대화가 리셋된다.
+  // sessionStorage라 브라우저(탭) 닫으면 자연 초기화. 컨텍스트(chatCtx)도 함께 보존해
+  // 복원 후 후속 질문("그거 더 자세히")이 이어진다.
+  const [msgs, setMsgs] = useState(() => {
+    if (R8_MODE) {
+      try { const v = JSON.parse(sessionStorage.getItem("sbtl_chat_msgs") || "null"); if (Array.isArray(v) && v.length) return v; } catch { /* noop */ }
+    }
+    return CHAT_WELCOME;
+  });
   const [input, setInput] = useState("");
   const [loadingMode, setLoadingMode] = useState("none");
   const [searchMode, setSearchMode] = useState("internal");
   const [extQuery, setExtQuery] = useState("");
   const endRef = useRef(null);
   const chatCtxRef = useRef({ last_turn: null, root_turn: null, selected_item_id: null, region: null, date: null });
+  // R8 목업: 대화·컨텍스트 세션 보존 (마운트 시 복원, 변경 시 저장 — 최근 40개만)
+  useEffect(() => {
+    if (!R8_MODE) return;
+    try { const c = JSON.parse(sessionStorage.getItem("sbtl_chat_ctx") || "null"); if (c && typeof c === "object") chatCtxRef.current = c; } catch { /* noop */ }
+  }, []);
+  useEffect(() => {
+    if (!R8_MODE) return;
+    try {
+      sessionStorage.setItem("sbtl_chat_msgs", JSON.stringify(msgs.slice(-40)));
+      sessionStorage.setItem("sbtl_chat_ctx", JSON.stringify(chatCtxRef.current || {}));
+    } catch { /* noop */ }
+  }, [msgs]);
   const currentConsultRef = useRef(null);
   const sessionHooksRef = useRef([]);
   const usedTopicsRef = useRef(new Set());
@@ -1376,6 +1418,9 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "calc(100vh - 190px)" }}>
       <div role="log" aria-live="polite" aria-atomic="false" aria-label="대화 내역" style={{ flex: 1, overflowY: "auto", padding: "12px 14px 8px" }}>
+        {R8_MODE && msgs.length > 1 && (
+          <button onClick={() => { setMsgs(CHAT_WELCOME); chatCtxRef.current = { last_turn: null, root_turn: null, selected_item_id: null, region: null, date: null }; try { sessionStorage.removeItem("sbtl_chat_msgs"); sessionStorage.removeItem("sbtl_chat_ctx"); } catch { /* noop */ } }} style={{ alignSelf: "center", margin: "2px 0 8px", padding: "6px 12px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", display: "block", marginLeft: "auto", marginRight: "auto" }}>🧹 새 대화 시작 (이전 대화는 세션 동안 유지돼요)</button>
+        )}
         {msgs.length <= 1 && (R8_MODE
           ? <R8ChatGuide dark={dark} runSuggestion={runSuggestion} />
           : <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 6, marginBottom: 12 }}>{quickPrimary.map((q) => <button key={q} onClick={() => runSuggestion(q)} style={{ background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "12px 16px", minHeight: 44, fontSize: 12, color: t.tx, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600, textAlign: "left" }}>{q}</button>)}</div>)}
@@ -1985,6 +2030,37 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   const [copiedWeekly, setCopiedWeekly] = useState(false);
   const regions = ["all", "watch", "top", "high", "KR", "US", "NA", "CN", "EU", "JP", "GL"];
 
+  // R8 목업: 파인더 자동완성 — 기업 별칭맵(123 엔티티, 별칭으로 매치해도 canonical 제안)
+  // + 용어사전(faq k[0]) + 내 워치. LLM 없이 기존 데이터 재사용.
+  const [aliasNames, setAliasNames] = useState([]);
+  useEffect(() => {
+    if (!R8_MODE) return undefined;
+    let alive = true;
+    fetch("/data/entity_alias_map.json").then((r) => r.json()).then((j) => {
+      if (!alive) return;
+      const ents = j && j.entities && typeof j.entities === "object" ? j.entities : {};
+      const out = [];
+      for (const key of Object.keys(ents)) {
+        const e = ents[key] || {};
+        const canonical = String(e.canonical || key).trim();
+        if (canonical.length < 2) continue;
+        out.push({ name: canonical, hay: [canonical, ...(Array.isArray(e.aliases) ? e.aliases : [])].map((s) => String(s || "").toLowerCase()).filter(Boolean) });
+      }
+      setAliasNames(out);
+    }).catch(() => { /* 별칭맵 없으면 용어·워치 제안만 */ });
+    return () => { alive = false; };
+  }, []);
+  const finderSuggests = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!R8_MODE || q.length < 1) return [];
+    const out = [];
+    const push = (name, type) => { if (name && !out.some((o) => o.name === name)) out.push({ name, type }); };
+    watchTerms.forEach((w) => { const lw = String(w).toLowerCase(); if (lw.includes(q) && lw !== q) push(w, "내 워치"); });
+    aliasNames.forEach((e) => { if (e.name.toLowerCase() !== q && e.hay.some((h) => h.includes(q))) push(e.name, "기업"); });
+    (kb.faq || []).forEach((f) => { const term = Array.isArray(f?.k) && f.k[0] ? String(f.k[0]).trim() : ""; const lt = term.toLowerCase(); if (term.length >= 2 && lt.includes(q) && lt !== q) push(term, "용어"); });
+    return out.slice(0, 6);
+  }, [search, aliasNames, kb.faq, watchTerms]);
+
   // 프로필 모드에서는 해당 용어 매칭이 필터를 대체한다 (기간 칩·브리프는 그대로 적용)
   let cards = profileTerm ? kb.cards.filter((c) => cardMatchesWatch(c, [profileTerm])) : filter === "all" ? kb.cards : kb.cards.filter((c) => {
     const s = String(c.s || c.signal || "i").toLowerCase();
@@ -2273,9 +2349,19 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       {!profileTerm && R8_MODE && (
         /* R8 목업: 퀵 파인더 — 검색·필터를 피드 최상단 스티키로 (찾기 우선 구성) */
         <div style={{ position: "sticky", top: 0, zIndex: 20, background: t.bg, padding: "8px 0 8px", margin: "-10px 0 2px", borderBottom: `1px solid ${t.brd}` }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8, position: "relative" }}>
             <input type="text" value={search} onChange={(e) => { setSearch(e.target.value); setShowCount(60); }} placeholder="🔍 기업·키워드·이슈 검색" aria-label="카드 검색" style={{ flex: 1, padding: "11px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12.5, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />
             {scopeActive && <div style={{ padding: "8px 12px", borderRadius: 8, background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card, border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`, fontSize: 11, fontWeight: 800, color: cards.length === 0 ? "#F85149" : t.cyan, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{cards.length}건</div>}
+            {finderSuggests.length > 0 && (
+              <div style={{ position: "absolute", top: "100%", left: 0, right: 0, zIndex: 30, background: t.card, border: `1px solid ${t.brd}`, borderRadius: 10, marginTop: 4, overflow: "hidden", boxShadow: "0 10px 26px rgba(0,0,0,0.4)" }}>
+                {finderSuggests.map((s) => (
+                  <button key={`${s.type}-${s.name}`} onClick={() => { setSearch(s.name); setShowCount(60); }} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", padding: "10px 13px", border: "none", background: "transparent", color: t.tx, fontSize: 12, fontWeight: 600, cursor: "pointer", textAlign: "left" }}>
+                    <span>{s.name}</span>
+                    <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{s.type}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           <div style={{ position: "relative" }}>
             <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regions.map((r) => { const label = r === "all" ? `ALL ${kb.cardCount}` : r === "watch" ? `★ 내워치${watchTerms.length ? ` ${watchTerms.length}` : ""}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : `${REG_FLAG[r] || ""} ${r}`; return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "9px 13px", minHeight: 40, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div>

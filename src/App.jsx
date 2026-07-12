@@ -348,13 +348,29 @@ function ChatGuide({ dark, runSuggestion }) {
 }
 
 // '워치룸' 탭 — 개인 인텔리전스(워치 관리·주간 브리프·워치 새 소식)의 집.
-function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow }) {
+function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen }) {
   const t = T(dark);
   // 추가/삭제가 executeAppCommand(명령 버스)로 localStorage를 바꾸므로,
   // 버전 신호(watchSeenVersion)로 재읽기해 화면에 즉시 반영한다.
   const watchTerms = useMemo(() => {
     try { const v = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]"); return Array.isArray(v) ? v : []; } catch { return []; }
   }, [watchVersion]);
+  // 워치룸 진입 = '워치 새 소식'을 실제로 본 것 — NewsDesk의 내워치 열람과 동일하게
+  // 현재 매칭 카드 전부를 확인 처리해 하단 네비 배지를 끈다. (배지가 워치룸 탭을
+  // 가리키는데 유일한 리셋 경로가 피드→내워치뿐이면 배지가 영영 안 꺼지는 모순.)
+  // 용어는 localStorage에서 직접 읽는다 — watchTerms(useMemo)를 의존성에 넣으면
+  // onWatchSeen→watchVersion→새 배열 참조로 effect가 무한 재실행된다.
+  useEffect(() => {
+    if (!kb.cards.length) return;
+    try {
+      const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+      if (!Array.isArray(terms) || !terms.length) return;
+      const ids = kb.cards.filter((c) => cardMatchesWatch(c, terms)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean);
+      localStorage.setItem("sbtl_watch_seen", JSON.stringify(ids));
+      localStorage.setItem("sbtl_watch_seen_sig", JSON.stringify(terms));
+      if (typeof onWatchSeen === "function") onWatchSeen();
+    } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
+  }, [kb.cards, onWatchSeen]);
   const [draft, setDraft] = useState("");
   const matched = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, 5);
   const latest = weeklyBriefs[0];
@@ -1157,7 +1173,7 @@ function StageWrapper({ m, dark, runSuggestion, BubbleComponent, errorFallback }
 
 const CHAT_WELCOME = [{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }];
 
-function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0, onAppCommand = null }) {
+function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0, onAppCommand = null, onConsultationConsumed = null }) {
   const t = T(dark);
   // 대화 세션 보존 — 탭 이동(언마운트)에도 대화가 유지되도록 sessionStorage에서 복원.
   // 브라우저(탭)를 닫으면 자연 초기화. 컨텍스트(chatCtx)도 함께 보존해 복원 후
@@ -1369,6 +1385,9 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     if (consultedNonceRef.current === initialConsultationNonce) return;
     consultedNonceRef.current = initialConsultationNonce;
     void startConsultation(initialConsultation);
+    // 시작했으면 seed 소비 통지 — 부모가 seed를 비워야 탭 이동 후 복귀(재마운트,
+    // consultedNonceRef 초기화) 때 세션 복원과 겹쳐 같은 상담이 중복 시작되지 않는다.
+    if (typeof onConsultationConsumed === "function") onConsultationConsumed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialConsultation, initialConsultationNonce]);
 
@@ -2535,6 +2554,10 @@ function AppContent() {
   const [refreshPending, setRefreshPending] = useState(false);
   const [refreshLabel, setRefreshLabel] = useState("");
   const [consultationSeed, setConsultationSeed] = useState({ data: null, nonce: 0 });
+  // 상담 seed는 1회성 — ChatBot이 시작하면 비운다. 남겨두면 탭 이동 후 복귀(재마운트)
+  // 때 세션 복원(sbtl_chat_msgs)과 겹쳐 같은 상담이 다시 시작된다. nonce는 보존해
+  // 이후 제출과의 단조 증가 비교가 유지되게 한다.
+  const markConsultationConsumed = useMemo(() => () => setConsultationSeed((s) => (s.data ? { data: null, nonce: s.nonce } : s)), []);
   const [consultSummaries, setConsultSummaries] = useState(() => typeof window !== "undefined" ? getAllCardConsultationSummaries() : {});
   const kb = useKnowledgeBase(refreshKey, hardRefresh);
   // 내워치 새 카드 배지 — NewsDesk가 기록한 seen 스냅샷과 현재 카드를 비교.
@@ -2822,10 +2845,10 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><TodayDashboard dark={dark} kb={kb} tracker={tracker} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onFeedSearch={(q) => executeAppCommand({ type: "feed_filter", search: q })} onAppCommand={executeAppCommand} /></div>}
-        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={() => executeAppCommand({ type: "brief_now" })} /></div>}
+        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={() => executeAppCommand({ type: "brief_now" })} onWatchSeen={bumpWatchSeen} /></div>}
         {tab === "archive" && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>POLICY TRACKER — 정책 일정·규제</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} weeklyGenerating={weeklyGenerating} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
-        {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} />}
+        {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} onConsultationConsumed={markConsultationConsumed} />}
       </main>
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">
         {CATS.map((cat) => {

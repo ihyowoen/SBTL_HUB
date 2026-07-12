@@ -868,8 +868,11 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   };
 
   const sendToChatApi = async (txt, mode = "internal", hint = null) => {
-    // watch_terms: '내 워치 기준으로 정리해줘' 같은 개인화 질의를 서버가 처리할 수 있게 동봉
-    const body = { message: mode === "external" ? `${txt} 외부 기사 링크 중심으로 찾아줘` : txt, context: { ...chatCtxRef.current, watch_terms: readWatchTermsSafe() } };
+    // watch_terms: '내 워치 기준으로 정리해줘' 같은 개인화 질의를 서버가 처리할 수 있게 동봉.
+    // last_brief_at(epoch ms, 최신 브리프 id의 wb_ 타임스탬프): brief_now 10분 쿨다운 게이팅용 —
+    // 방금 발행본이 있으면 서버가 재생성 대신 열람으로 응답한다. 구형/무발행이면 0(쿨다운 없음).
+    const lastBriefAt = Number(String(readWeeklyBriefs()[0]?.id || "").replace(/^wb_/, "")) || 0;
+    const body = { message: mode === "external" ? `${txt} 외부 기사 링크 중심으로 찾아줘` : txt, context: { ...chatCtxRef.current, watch_terms: readWatchTermsSafe(), last_brief_at: lastBriefAt } };
     if (hint && (hint.hint_action || hint.hint_topic)) body.hint = { action: hint.hint_action || undefined, topic: hint.hint_topic || undefined };
     return postChat(body);
   };
@@ -1626,7 +1629,7 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   );
 }
 
-function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null, agentSeed = null, onAgentSeedConsumed = null }) {
+function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null, weeklyGenerating = false, agentSeed = null, onAgentSeedConsumed = null }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -1932,17 +1935,22 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         </div>
       )}
       {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>날짜별 시그널 피드</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.6 }}>최신 카드부터 날짜 기준으로 정렬했습니다. 같은 날짜 안에서는 중요도가 높은 이슈를 먼저 보여줍니다.</p></div>}
-      {!profileTerm && weeklyBriefs.length > 0 && (() => {
+      {!profileTerm && (weeklyBriefs.length > 0 || weeklyGenerating) && (() => {
         const shown = weeklyBriefs.find((e) => e.id === weeklyShownId) || weeklyBriefs[0];
         const hasUnread = weeklyBriefs.some((e) => !e.read);
         return (
           <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${hasUnread ? t.cyan : t.brd}` }}>
             <button onClick={() => { const next = !weeklyOpen; setWeeklyOpen(next); if (next && hasUnread) { setWeeklyShownId(null); /* 미확인이 있으면 최신 호수를 표시하며 읽음 처리 — 낡은 선택이 새 호수를 가리지 않게 */ if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(); } }} aria-expanded={weeklyOpen} style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", border: "none", background: "transparent", cursor: "pointer", padding: 0, textAlign: "left" }}>
               <span style={{ fontSize: 12, fontWeight: 900, color: t.tx }}>📮 주간 브리프</span>
-              <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{weeklyBriefs[0].generated_at} 발행 · {weeklyBriefs.length}부 보관</span>
+              <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{weeklyBriefs.length > 0 ? `${weeklyBriefs[0].generated_at} 발행 · ${weeklyBriefs.length}부 보관` : "첫 브리프 준비 중"}</span>
               {hasUnread && <span style={{ fontSize: 8, fontWeight: 800, color: "#000", background: t.cyan, padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>NEW</span>}
               <span style={{ marginLeft: "auto", color: t.sub, fontSize: 13 }}>{weeklyOpen ? "▾" : "▸"}</span>
             </button>
+            {weeklyOpen && weeklyGenerating && (
+              <div aria-live="polite" style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", borderRadius: 8, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>
+                🔄 새 브리프 만드는 중… (수십 초 걸릴 수 있어요 — 완성되면 여기 맨 위에 꽂혀요)
+              </div>
+            )}
             {weeklyOpen && shown && (
               <div style={{ marginTop: 10 }}>
                 <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{shown.scope_label} · {shown.generated_at} · 근거 {shown.refs?.length || 0}장</div>
@@ -2100,6 +2108,97 @@ function AppContent() {
   // NewsDesk가 seed를 소비한 뒤 지시 내용을 비운다(nonce는 유지해 다음 명령의 증가와
   // 구분). 이렇게 해야 NEWS 재방문(NewsDesk 리마운트)에서 옛 프로필/선반이 재생되지 않는다.
   const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.weeklyOpen ? { ...s, profileTerm: null, weeklyOpen: false } : s)), []);
+  // 주간 브리프 생성 실행부 — 패시브(접속 시 1회)와 강제 발행(brief_now 명령)이 공유.
+  // force는 7일 주기 게이트만 우회하고 잠금·시그니처 가드·12주 캡은 그대로 유지한다.
+  const [weeklyGenerating, setWeeklyGenerating] = useState(false);
+  const runWeeklyBrief = useMemo(() => (opts = {}) => {
+    const force = !!opts.force;
+    if (!kb.cards.length) return;
+    try {
+      const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+      if (!Array.isArray(terms) || !terms.length) return;
+      const existing = readWeeklyBriefs();
+      if (!force && !weeklyBriefDue(existing)) {
+        // 다른 탭이 이미 발행했거나 항목 내용(read 등)을 갱신한 경우 — 화면에 반영.
+        // 내용 전체 비교로 동일할 때만 이전 참조 유지 (보관함 ≤12항목이라 비용 무시 가능)
+        setWeeklyBriefs((prev) => (JSON.stringify(prev) === JSON.stringify(existing) ? prev : existing));
+        return;
+      }
+      const matched = kb.cards.filter((c) => cardMatchesWatch(c, terms) && cardDateWithinDays(c, 7)).slice(0, 40);
+      if (matched.length < 2) return;
+      // 크로스탭 잠금 — 동시에 뜬 두 탭이 같은 주간 브리프를 중복 생성(LLM 이중 호출)하지 않도록.
+      // 토큰(타임스탬프_난수)을 쓰고 fetch 직전에 소유권을 재확인한다: localStorage 쓰기는
+      // 오리진 단위로 직렬화되므로 최종 토큰과 일치하는 탭은 정확히 하나다.
+      const lockToken = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+      try {
+        const rawLock = localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY);
+        const lockAt = Number(String(rawLock || "").split("_")[0] || 0);
+        if (rawLock && Date.now() - lockAt < WEEKLY_BRIEF_LOCK_TTL) return;
+        localStorage.setItem(WEEKLY_BRIEF_LOCK_KEY, lockToken);
+      } catch { /* 잠금 불가 환경은 그대로 진행 */ }
+      if (!force) weeklyAttemptRef.current = true;
+      setWeeklyGenerating(true);
+      const termsSigAtRequest = JSON.stringify(terms);
+      const scopeLabel = `주간 내워치(${terms.slice(0, 4).join(", ")}${terms.length > 4 ? "…" : ""})`;
+      (async () => {
+        try {
+          // 소유권 재확인 — check-then-set 사이에 같이 진입한 다른 탭이 토큰을 덮었으면 물러난다
+          try {
+            await new Promise((resolve) => setTimeout(resolve, 50));
+            if (localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) !== lockToken) return;
+          } catch { /* 확인 불가 환경은 진행 */ }
+          const payload = {
+            scopeLabel,
+            cards: matched.map((c) => ({
+              date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
+              fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
+              quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
+              quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
+            })),
+          };
+          const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+          const j = await r.json();
+          if (!j?.ok || !j.narrative) return;
+          // 요청 비행 중 워치 목록이 바뀌었으면 낡은 목록 기준 브리프를 저장하지 않는다.
+          // 패시브는 현재 목록으로 재평가를 예약하고, 강제 발행은 조용히 폐기(사용자가 다시 명령하면 됨).
+          try {
+            const nowTerms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+            if (JSON.stringify(nowTerms) !== termsSigAtRequest) {
+              if (!force) { weeklyAttemptRef.current = false; bumpWatchSeen(); }
+              return;
+            }
+          } catch { /* 비교 불가 환경은 그대로 저장 */ }
+          const entry = {
+            id: `wb_${Date.now()}`,
+            generated_at: kstToday(),
+            scope_label: scopeLabel,
+            terms: terms.slice(0, 8),
+            narrative: j.narrative,
+            watch: Array.isArray(j.watch) ? j.watch : [],
+            refs: matched.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })),
+            read: false,
+          };
+          const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)
+          if (!force && fresh.length && !weeklyBriefDue(fresh)) {
+            setWeeklyBriefs(fresh); // 경합에서 진 탭도 승자 항목을 화면에 반영
+            return;
+          }
+          const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
+          localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
+          setWeeklyBriefs(next);
+          // 강제 발행은 사용자가 지금 기다리는 중 — 완성본을 📮 선반 최신 호수로 바로 펼친다
+          if (force) setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, nonce: s.nonce + 1 }));
+        } catch { /* 조용히 — 다음 접속(또는 재명령)에서 재시도 */ }
+        finally {
+          setWeeklyGenerating(false);
+          // 내 토큰일 때만 해제 — 소유권을 잃었으면 남(승자)의 잠금을 지우지 않는다
+          try {
+            if (localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) === lockToken) localStorage.removeItem(WEEKLY_BRIEF_LOCK_KEY);
+          } catch { /* noop */ }
+        }
+      })();
+    } catch { /* noop */ }
+  }, [kb.cards, bumpWatchSeen]);
   const executeAppCommand = useMemo(() => (cmd) => {
     if (!cmd || !cmd.type) return;
     try {
@@ -2146,9 +2245,16 @@ function AppContent() {
       } else if (cmd.type === "weekly_show") {
         setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, nonce: s.nonce + 1 }));
         setTab("news");
+      } else if (cmd.type === "brief_now") {
+        // 강제 발행: 선반을 먼저 열어 '만드는 중'을 보여주고, 완성되면 runWeeklyBrief가
+        // seed를 한 번 더 올려 최신 호수를 자동 표시한다. (brief_empty_watch·brief_no_material은
+        // 서버 응답만 있고 클라 동작 없음 — watch_absent와 같은 무동작 안전 분기)
+        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, nonce: s.nonce + 1 }));
+        setTab("news");
+        runWeeklyBrief({ force: true });
       }
     } catch { /* noop */ }
-  }, [kb.cards]);
+  }, [kb.cards, runWeeklyBrief]);
   // 살아있는 다른 탭의 발행/read 갱신을 실시간 반영 — storage 이벤트는 브라우저가
   // 같은 오리진의 '다른' 탭에만 발화시키므로 자기 쓰기와는 충돌하지 않는다.
   useEffect(() => {
@@ -2169,91 +2275,10 @@ function AppContent() {
   }, []);
   useEffect(() => {
     if (weeklyAttemptRef.current || !kb.cards.length) return;
-    try {
-      const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
-      if (!Array.isArray(terms) || !terms.length) return;
-      const existing = readWeeklyBriefs();
-      if (!weeklyBriefDue(existing)) {
-        // 다른 탭이 이미 발행했거나 항목 내용(read 등)을 갱신한 경우 — 화면에 반영.
-        // 내용 전체 비교로 동일할 때만 이전 참조 유지 (보관함 ≤12항목, 새로고침 시에만 지나는 경로라 비용 무시 가능)
-        setWeeklyBriefs((prev) => (JSON.stringify(prev) === JSON.stringify(existing) ? prev : existing));
-        return;
-      }
-      const matched = kb.cards.filter((c) => cardMatchesWatch(c, terms) && cardDateWithinDays(c, 7)).slice(0, 40);
-      if (matched.length < 2) return;
-      // 크로스탭 잠금 — 동시에 뜬 두 탭이 같은 주간 브리프를 중복 생성(LLM 이중 호출)하지 않도록.
-      // 토큰(타임스탬프_난수)을 쓰고 fetch 직전에 소유권을 재확인한다: localStorage 쓰기는
-      // 오리진 단위로 직렬화되므로 최종 토큰과 일치하는 탭은 정확히 하나다.
-      // 잠금에 밀린 탭은 승자의 저장을 storage 이벤트로 수신한다.
-      const lockToken = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-      try {
-        const rawLock = localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY);
-        const lockAt = Number(String(rawLock || "").split("_")[0] || 0);
-        if (rawLock && Date.now() - lockAt < WEEKLY_BRIEF_LOCK_TTL) return;
-        localStorage.setItem(WEEKLY_BRIEF_LOCK_KEY, lockToken);
-      } catch { /* 잠금 불가 환경은 그대로 진행 */ }
-      weeklyAttemptRef.current = true;
-      const termsSigAtRequest = JSON.stringify(terms);
-      const scopeLabel = `주간 내워치(${terms.slice(0, 4).join(", ")}${terms.length > 4 ? "…" : ""})`;
-      (async () => {
-        try {
-          // 소유권 재확인 — check-then-set 사이에 같이 진입한 다른 탭이 토큰을 덮었으면 물러난다
-          try {
-            await new Promise((resolve) => setTimeout(resolve, 50));
-            if (localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) !== lockToken) return;
-          } catch { /* 확인 불가 환경은 진행 */ }
-          const payload = {
-            scopeLabel,
-            cards: matched.map((c) => ({
-              date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
-              fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
-              quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
-              quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
-            })),
-          };
-          const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-          const j = await r.json();
-          if (!j?.ok || !j.narrative) return;
-          // 요청 비행 중 워치 목록이 바뀌었으면(첫 설정에서 용어를 잇달아 추가하는 흐름)
-          // 낡은 목록 기준 브리프를 저장하지 않고, 현재 목록으로 재평가를 예약한다.
-          try {
-            const nowTerms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
-            if (JSON.stringify(nowTerms) !== termsSigAtRequest) {
-              weeklyAttemptRef.current = false;
-              bumpWatchSeen(); // deps(watchSeenVersion) 재평가 → 새 목록으로 재생성
-              return;
-            }
-          } catch { /* 비교 불가 환경은 그대로 저장 */ }
-          const entry = {
-            id: `wb_${Date.now()}`,
-            generated_at: kstToday(),
-            scope_label: scopeLabel,
-            terms: terms.slice(0, 8),
-            narrative: j.narrative,
-            watch: Array.isArray(j.watch) ? j.watch : [],
-            refs: matched.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })),
-            read: false,
-          };
-          const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)
-          if (fresh.length && !weeklyBriefDue(fresh)) {
-            setWeeklyBriefs(fresh); // 경합에서 진 탭도 승자 항목을 화면에 반영
-            return;
-          }
-          const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
-          localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
-          setWeeklyBriefs(next);
-        } catch { /* 조용히 — 다음 접속에서 재시도 */ }
-        finally {
-          // 내 토큰일 때만 해제 — 소유권을 잃었으면 남(승자)의 잠금을 지우지 않는다
-          try {
-            if (localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) === lockToken) localStorage.removeItem(WEEKLY_BRIEF_LOCK_KEY);
-          } catch { /* noop */ }
-        }
-      })();
-    } catch { /* noop */ }
+    runWeeklyBrief({ force: false });
     // watchSeenVersion: 워치 용어 변경마다 NewsDesk가 onWatchSeen으로 올려주는 신호 —
     // 앱 로딩 후 처음 워치를 등록한 사용자도 리로드 없이 주간 브리프가 생성되도록 재평가 트리거로 쓴다.
-  }, [kb.cards, watchSeenVersion]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [kb.cards, watchSeenVersion, runWeeklyBrief]); // eslint-disable-line react-hooks/exhaustive-deps
   const { tracker, regionPolicy, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
   const t = T(dark);
   const lastCardDate = latestDate(kb.cards) || "-";
@@ -2310,7 +2335,7 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
-        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
+        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} weeklyGenerating={weeklyGenerating} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} />}
         {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
         {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} />}

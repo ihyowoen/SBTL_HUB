@@ -157,7 +157,8 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     for (let i = 6; i >= 0; i--) {
       const d = new Date(base.getTime() - i * 86400000);
       const key = d.toISOString().slice(0, 10);
-      days.push({ key, n: byDay[key] || 0, dow: "일월화수목금토"[d.getDay()] });
+      // getUTCDay — base가 UTC 자정이라 로컬 getDay()는 UTC 서쪽에서 하루 밀린다
+      days.push({ key, n: byDay[key] || 0, dow: "일월화수목금토"[d.getUTCDay()] });
     }
     return days;
   })();

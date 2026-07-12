@@ -205,7 +205,8 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     </div>
   );
   return (
-    <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: 10 }}>
+    // 하단 110px — fixed 하단 네비(+safe-area) 위 공간 예약, 다른 탭 루트와 동일
+    <div style={{ padding: "0 16px 110px", display: "flex", flexDirection: "column", gap: 10 }}>
       {!onboardDone && watchTerms.length === 0 && (
         <W label="처음이시죠? 관심사를 골라주세요" right="개인화 시작">
           <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, marginBottom: 8, wordBreak: "keep-all" }}>고르면 새 카드 배지·매주 📮 브리프·프로필 바로가기가 켜져요. 나중에 워치룸이나 상담소에서 바꿀 수 있어요.</div>
@@ -392,7 +393,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     </div>
   );
   return (
-    <div style={{ paddingBottom: 8 }}>
+    // 하단 110px — fixed 하단 네비(+safe-area) 위 공간 예약 (마지막 섹션인 🔔 알림
+    // 미리보기가 네비 밑에 깔리지 않게), 다른 탭 루트와 동일 규약
+    <div style={{ paddingBottom: 110 }}>
       {variant === "b" && (
         <div style={{ display: "flex", borderRadius: 16, background: "#07090D", padding: "18px 8px", margin: "2px 0 6px", border: "1px solid rgba(185,198,216,0.14)" }}>
           {[["워치", watchTerms.length], ["새 소식", matched.length], ["브리프", weeklyBriefs.length]].map(([l, n]) => (
@@ -2138,12 +2141,18 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   if (dateRange) cards = cards.filter((c) => cardDateWithinDays(c, dateRange));
 
   if (search.trim() && !profileTerm) {
-    const sw = search.toLowerCase();
+    const sw = search.trim().toLowerCase();
+    // 별칭 확장 — 검색어가 별칭맵의 한 그룹 표기(canonical 포함)와 정확히 일치하면
+    // 그룹 표기 전체로 OR 매칭. 자동완성이 canonical(Samsung SDI)을 넣어도 카드의
+    // 국문 표기(삼성SDI)가 그대로 잡히고, 별칭(닝더)을 직접 쳐도 CATL 카드가 나온다.
+    // 부분어("삼성")는 그룹 확장 없이 기존 부분 매칭 그대로.
+    const aliasGroup = aliasNames.find((e) => e.hay.includes(sw));
+    const needles = aliasGroup ? [...new Set([sw, ...aliasGroup.hay])] : [sw];
     cards = cards.filter((c) => {
       const fields = [c.T, c.title, c.sub, c.subtitle, c.g, c.gate, c.fact, c.src, c.source, c.implicationText, Array.isArray(c.implication) ? c.implication.join(" ") : c.implication, Array.isArray(c.urls) ? c.urls.join(" ") : c.url];
-      if (fields.some((v) => String(v || "").toLowerCase().includes(sw))) return true;
-      if (Array.isArray(c.k) && c.k.some((k) => String(k).toLowerCase().includes(sw))) return true;
-      if (Array.isArray(c.keywords) && c.keywords.some((k) => String(k).toLowerCase().includes(sw))) return true;
+      if (fields.some((v) => { const h = String(v || "").toLowerCase(); return needles.some((n) => h.includes(n)); })) return true;
+      if (Array.isArray(c.k) && c.k.some((k) => { const h = String(k).toLowerCase(); return needles.some((n) => h.includes(n)); })) return true;
+      if (Array.isArray(c.keywords) && c.keywords.some((k) => { const h = String(k).toLowerCase(); return needles.some((n) => h.includes(n)); })) return true;
       return false;
     });
   }

@@ -2392,14 +2392,15 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead();
       applied = true;
     } else if (agentSeed.feedFilter) {
-      // 피드 필터 seed — 지역/내워치는 filter 축, 시그널은 sigFilter 축(결합 가능), 기간·검색어는 각자 상태
+      // 피드 필터 seed — 명령은 필터 상태의 '선언'이다: 언급된 면은 적용하고 언급 없는
+      // 축은 리셋한다. 남겨두면 이전에 켜둔 토글(예: TOP)이 잔존해, 응답은 "중국으로
+      // 맞춰서"라는데 화면은 중국∩TOP이 되는 라벨-화면 불일치가 생긴다.
       const ff = agentSeed.feedFilter;
       setProfileTerm(null);
-      if (ff.search) setSearch(ff.search);
-      if (ff.region) setFilter(ff.region);
-      else if (ff.watch) setFilter("watch");
-      if (ff.signal) setSigFilter(ff.signal);
-      if (ff.range != null && ff.range !== 0) setDateRange(ff.range);
+      setFilter(ff.region ? ff.region : ff.watch ? "watch" : "all");
+      setSigFilter(ff.signal || null);
+      setDateRange(ff.range != null && ff.range !== 0 ? ff.range : 0);
+      setSearch(ff.search || "");
       setShowCount(60);
       applied = true;
     }
@@ -2466,12 +2467,13 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   const scopeActive = Boolean(profileTerm) || filter !== "all" || Boolean(sigFilter) || dateRange > 0 || Boolean(search.trim());
   const scopeLabel = [
     profileTerm ? `프로필(${profileTerm})` : (filter === "watch" ? `내워치(${watchTerms.slice(0, 4).join(", ")}${watchTerms.length > 4 ? "…" : ""})` : (filter !== "all" ? filter.toUpperCase() : null)),
+    sigFilter && !profileTerm ? sigFilter.toUpperCase() : null, // 시그널 축도 범위의 일부 (프로필 모드는 시그널 미적용이라 제외)
     dateRange ? `최근 ${dateRange}일` : null,
     search.trim() && !profileTerm ? `"${search.trim()}"` : null,
   ].filter(Boolean).join(" × ") || "전체";
   const briefCards = cards.slice(0, 40);
   // 브리프는 생성 시점의 범위 지문(scopeKey)과 일치할 때만 렌더·복사 — 범위 변경 후 stale 서사에 새 라벨이 붙는 것 방지
-  const scopeKey = [profileTerm || "", filter, dateRange, search.trim().toLowerCase(), filter === "watch" && !profileTerm ? watchTerms.join("·") : "", briefCards.length, briefCards.length ? getCardId(briefCards[0]) : "", briefCards.length ? getCardId(briefCards[briefCards.length - 1]) : ""].join("|");
+  const scopeKey = [profileTerm || "", filter, sigFilter || "", dateRange, search.trim().toLowerCase(), filter === "watch" && !profileTerm ? watchTerms.join("·") : "", briefCards.length, briefCards.length ? getCardId(briefCards[0]) : "", briefCards.length ? getCardId(briefCards[briefCards.length - 1]) : ""].join("|");
   const briefMatch = brief && brief.scopeKey === scopeKey ? brief : null;
   const briefLoading = briefLoadingKey === scopeKey; // 현재 범위의 요청일 때만 로딩으로 취급
   const briefReqRef = useRef(0); // 최신 요청만 상태를 쓸 수 있다 — 늦게 도착한 이전 범위 응답이 새 브리프를 덮어쓰는 것 방지

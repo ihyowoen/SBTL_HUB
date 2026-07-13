@@ -779,6 +779,27 @@ function cardMatchesWatch(c, terms) {
   return terms.some((term) => hay.includes(String(term).toLowerCase()));
 }
 
+// 프로필/엔티티 매칭 — 순수 ASCII 용어는 단어 경계로(Xi≠Flexibility, DOE≠does,
+// ESS≠PRESS), 한글 포함 용어는 접사 결합을 살리기 위해 부분 매칭으로(배터리→리튬배터리).
+// 엔티티 자동링크가 짧은 ASCII 별칭(Xi 등)을 프로필로 여는 새 경로를 열었기 때문에,
+// 워치용 substring(cardMatchesWatch)과 달리 프로필에는 경계 인식이 필요하다.
+function termHitBoundary(term, hay) {
+  const w = String(term || "").trim().toLowerCase();
+  if (!w) return false;
+  if (!/^[\x00-\x7f]+$/.test(w)) return hay.includes(w); // 한글 등 비ASCII는 부분 매칭 유지
+  let idx = hay.indexOf(w);
+  while (idx !== -1) {
+    const before = hay[idx - 1];
+    const after = hay[idx + w.length];
+    if ((!before || !/[a-z0-9]/.test(before)) && (!after || !/[a-z0-9]/.test(after))) return true;
+    idx = hay.indexOf(w, idx + 1);
+  }
+  return false;
+}
+function cardMatchesProfileTerm(c, term) {
+  return termHitBoundary(term, cardWatchHay(c));
+}
+
 function cardDateWithinDays(c, days) {
   if (!days) return true;
   const d = String(c.d || c.date || "");
@@ -2208,8 +2229,9 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
     return () => document.removeEventListener("mousedown", onDown);
   }, []);
 
-  // 프로필 모드에서는 해당 용어 매칭이 필터를 대체한다 (기간 칩·브리프는 그대로 적용)
-  let cards = profileTerm ? kb.cards.filter((c) => cardMatchesWatch(c, [profileTerm])) : filter === "all" ? kb.cards : kb.cards.filter((c) => {
+  // 프로필 모드에서는 해당 용어 매칭이 필터를 대체한다 (기간 칩·브리프는 그대로 적용).
+  // 프로필은 경계 인식 매처 — ASCII 단어경계로 Xi/DOE/ESS 같은 짧은 표기의 오매칭 차단.
+  let cards = profileTerm ? kb.cards.filter((c) => cardMatchesProfileTerm(c, profileTerm)) : filter === "all" ? kb.cards : kb.cards.filter((c) => {
     if (filter === "watch") return cardMatchesWatch(c, watchTerms);
     return (c.r || c.region) === filter;
   });
@@ -2323,7 +2345,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   // ---- 기업/키워드 프로필: 기간 필터와 무관한 전체 활동 통계 ----
   const profileStats = useMemo(() => {
     if (!profileTerm) return null;
-    const all = kb.cards.filter((c) => cardMatchesWatch(c, [profileTerm]));
+    const all = kb.cards.filter((c) => cardMatchesProfileTerm(c, profileTerm)); // 필터와 동일 매처 — 통계·리스트 일치
     const ds = all.map((c) => String(c.d || c.date || "")).filter(Boolean).sort();
     const regionCount = {};
     let top = 0; let high = 0;
@@ -2346,9 +2368,12 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   const openEntityProfile = useMemo(() => (group) => {
     // 프로필은 그룹 표기 중 카드 최다 히트 표기로 연다 — canonical(Samsung SDI) 고정이면
     // 카드가 국문 표기(삼성SDI)일 때 프로필이 비는 R6 교훈의 클라이언트판. 동점은 canonical.
+    // 카운트는 경계 인식(termHitBoundary) — substring이면 짧은 ASCII 별칭(Xi)이
+    // Flexibility 등에 오매칭돼 부풀려져 그 표기가 뽑히고, 프로필도 그 표기로 필터돼
+    // 무관 카드로 가득 찬다. 선택과 프로필 필터가 같은 매처를 써야 카운트=실제 표시.
     let best = group.name; let bestN = -1;
     (group.spellings || [group.name]).forEach((sp) => {
-      const n = kb.cards.reduce((a, c) => a + (cardMatchesWatch(c, [sp]) ? 1 : 0), 0);
+      const n = kb.cards.reduce((a, c) => a + (cardMatchesProfileTerm(c, sp) ? 1 : 0), 0);
       if (n > bestN) { bestN = n; best = sp; }
     });
     setProfileTerm(best);

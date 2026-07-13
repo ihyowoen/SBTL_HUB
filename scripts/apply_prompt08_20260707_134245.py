@@ -67,3 +67,4 @@ for path in [*payload_parts,SCRIPT_PATH,WORKFLOW_PATH]:
     if path.exists():
         path.unlink()
 print("Prompt 0.8 merge applied:", len(new_cards), "cards; final", len(all_cards))
+# trigger: workflow-present push

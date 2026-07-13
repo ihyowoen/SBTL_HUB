@@ -1,0 +1,35 @@
+name: Apply Prompt 0.8 merge 20260707_134245
+
+on:
+  push:
+    branches:
+      - data/add-publish-ready-cards-20260707_134245
+    paths:
+      - "tmp/prompt08_20260707_134245_payload_part*.b64"
+      - "scripts/apply_prompt08_20260707_134245.py"
+      - ".github/workflows/apply-prompt08-20260707_134245.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: data/add-publish-ready-cards-20260707_134245
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply validated cards merge
+        run: python scripts/apply_prompt08_20260707_134245.py
+      - name: Commit generated cards.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 1
+          git commit -m "data: add 13 publish-ready cards"
+          git push origin HEAD:data/add-publish-ready-cards-20260707_134245

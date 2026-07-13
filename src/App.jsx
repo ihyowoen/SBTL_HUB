@@ -69,13 +69,485 @@ const WEBTOON_COLLECTIONS = [
   },
 ];
 
+// 릴리스 8: 개인 인텔리전스 층(워치·브리프·프로필)에 맞춘 IA 재편 —
+// 오늘(관제 대시보드) / 피드(탐색) / 워치룸(내 것 전부) / 자료실(정책+용어) / 상담소(AI)
 const CATS = [
-  { key: "all", label: "HOME", icon: "🔋" },
-  { key: "news", label: "NEWS", icon: "📰" },
-  { key: "webtoon", label: "LEARN", icon: "🎓" },
-  { key: "tracker", label: "TRCK", icon: "📊" },
-  { key: "chatbot", label: "AI", icon: "🤖" },
+  { key: "all", label: "오늘", icon: "🌅" },
+  { key: "news", label: "피드", icon: "📰" },
+  { key: "watchroom", label: "워치룸", icon: "⭐" },
+  { key: "archive", label: "자료실", icon: "📚" },
+  { key: "chatbot", label: "상담소", icon: "🤖" },
 ];
+
+// '오늘' 탭의 날짜는 카드 최신일이 아니라 실제 오늘(KST) — 데이터 갱신이 하루이틀
+// 늦어도 앱이 낡아 보이지 않게. 데이터 시점(카드 최신일)은 보조 라벨로 정직하게 병기한다.
+function todayLabel() {
+  const d = new Date(Date.now() + 9 * 3600000);
+  return `${d.getUTCFullYear()}.${String(d.getUTCMonth() + 1).padStart(2, "0")}.${String(d.getUTCDate()).padStart(2, "0")} (${"일월화수목금토"[d.getUTCDay()]})`;
+}
+function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0, onNav, onOpenProfile, onFeedSearch, onAppCommand }) {
+  const t = T(dark);
+  // 워치는 명령 버스(executeAppCommand)가 localStorage를 직접 바꾸므로 버전 신호로 재읽기
+  const watchTerms = useMemo(() => {
+    try { const v = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]"); return Array.isArray(v) ? v : []; } catch { return []; }
+  }, [watchVersion]);
+  const today = latestDate(kb.cards);
+  const rank = { t: 3, h: 2, m: 1, i: 0 };
+  const todayCards = kb.cards.filter((c) => (c.d || c.date) === today);
+  // ---- 오늘의 흐름 서사: /api/brief 재사용, 카드셋 지문 기준 1회 생성 후 캐시 ----
+  // 캐시 키는 날짜가 아니라 지문(날짜|장수|서사 입력이 되는 상위 8장 id) — 같은 데이터
+  // 날짜에 카드가 추가·정정돼도(새로고침) 낡은 서사를 재사용하지 않는다. 데이터가 안
+  // 바뀌면 호출 0회, 생성 실패는 조용히 — 통계 칩·시그널만으로도 성립. 구버전 캐시
+  // (sig 없음)는 지문 불일치로 자연 재생성.
+  const flowSig = `${today}|${todayCards.length}|${[...todayCards].sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 8).map((c) => getCardId(c)).join(",")}`;
+  const [dailyFlow, setDailyFlow] = useState(() => {
+    try { const v = JSON.parse(localStorage.getItem("sbtl_daily_flow") || "null"); return v && v.dataDate ? v : null; } catch { return null; }
+  });
+  const flowReqRef = useRef(false);
+  useEffect(() => {
+    if (!today || !todayCards.length) return;
+    if (dailyFlow && dailyFlow.sig === flowSig && dailyFlow.narrative) return;
+    if (flowReqRef.current) return;
+    flowReqRef.current = true;
+    (async () => {
+      try {
+        const src = [...todayCards].sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 8);
+        const payload = {
+          scopeLabel: "오늘의 흐름",
+          cards: src.map((c) => ({
+            date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
+            fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
+            quote: "", quoteSource: "",
+          })),
+        };
+        const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        const j = await r.json();
+        if (j?.ok && j.narrative) {
+          const entry = { dataDate: today, sig: flowSig, narrative: String(j.narrative) };
+          localStorage.setItem("sbtl_daily_flow", JSON.stringify(entry));
+          setDailyFlow(entry);
+        }
+      } catch { /* 조용히 — 다음 방문에서 재시도 */ }
+      finally { flowReqRef.current = false; }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flowSig, dailyFlow]);
+  // ---- 첫 방문 온보딩: 관심사 선택 → 명령 버스로 워치 일괄 등록 (개인화 체인 점화) ----
+  const [onboardDone, setOnboardDone] = useState(() => {
+    try { return localStorage.getItem("sbtl_onboard_done") === "1"; } catch { return true; }
+  });
+  const [onboardPick, setOnboardPick] = useState([]);
+  const finishOnboard = (picks) => {
+    try { localStorage.setItem("sbtl_onboard_done", "1"); } catch { /* noop */ }
+    if (picks.length && typeof onAppCommand === "function") picks.forEach((term) => onAppCommand({ type: "watch_add", term }));
+    setOnboardDone(true);
+  };
+  const top = [...todayCards].sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 4);
+  const lead = top[0];
+  const rest = top.slice(1);
+  // 오늘 구성 통계: 시그널 등급·지역 분포
+  const sigCount = todayCards.reduce((a, c) => { a[c.s] = (a[c.s] || 0) + 1; return a; }, {});
+  const regionTop = Object.entries(todayCards.reduce((a, c) => { const r = c.r || c.region || "GL"; a[r] = (a[r] || 0) + 1; return a; }, {})).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  // 최근 7일 일별 카드 수 — 뉴스 밀도 스파크라인 (기준일 = 최신 카드 날짜)
+  const density = (() => {
+    const base = new Date(String(today || "").replace(/\./g, "-"));
+    if (Number.isNaN(base.getTime())) return [];
+    const byDay = kb.cards.reduce((a, c) => { const d = String(c.d || c.date || "").slice(0, 10); if (d) a[d] = (a[d] || 0) + 1; return a; }, {});
+    const days = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(base.getTime() - i * 86400000);
+      const key = d.toISOString().slice(0, 10);
+      // getUTCDay — base가 UTC 자정이라 로컬 getDay()는 UTC 서쪽에서 하루 밀린다
+      days.push({ key, n: byDay[key] || 0, dow: "일월화수목금토"[d.getUTCDay()] });
+    }
+    return days;
+  })();
+  const maxDay = Math.max(1, ...density.map((d) => d.n));
+  const watchStats = watchTerms.slice(0, 3).map((w) => {
+    const cards = kb.cards.filter((c) => cardMatchesWatch(c, [w]));
+    return { term: w, fresh: cards.filter((c) => cardDateWithinDays(c, 7)).length, latest: cards[0] };
+  });
+  const latestBrief = weeklyBriefs[0];
+  const upcoming = (tracker?.upcoming || []).slice(0, 2);
+  // 🧵 이슈 스레드 — 프로필이 '기업 축'이라면 이건 '사건 축': 제목의 희소 토큰
+  // (df 3~12, 2개 이상 날짜에 걸침)으로 이어지는 카드 묶음을 찾는다. 실구현에선
+  // 클러스터링을 서버에서 정제할 예정 — 목업은 실데이터 lexical 근사.
+  const threads = useMemo(() => {
+    const stop = new Set(["배터리", "전기차", "이차전지", "리튬", "글로벌", "한국", "중국", "미국", "유럽", "일본", "발표", "확대", "계획", "추진", "시장", "산업", "기업", "정부", "신규", "최대", "공장", "생산", "투자", "돌파", "체결", "공급"]);
+    const byTok = {};
+    kb.cards.slice(0, 400).forEach((c) => {
+      const toks = new Set(String(c.T || c.title || "").split(/[^A-Za-z가-힣0-9]+/).filter((w) => w.length >= 3 && !stop.has(w) && !/^\d+$/.test(w)));
+      toks.forEach((w) => { (byTok[w] = byTok[w] || []).push(c); });
+    });
+    const cands = Object.entries(byTok)
+      .filter(([, cs]) => cs.length >= 3 && cs.length <= 12)
+      .map(([w, cs]) => {
+        const dates = [...new Set(cs.map((c) => c.d || c.date))].sort().reverse();
+        return { key: w, n: cs.length, span: dates.length, latest: cs[0], lastDate: dates[0] || "" };
+      })
+      .filter((th) => th.span >= 2)
+      .sort((a, b) => b.lastDate.localeCompare(a.lastDate) || b.n - a.n);
+    const picked = [];
+    const seen = new Set();
+    for (const th of cands) {
+      const id = getCardId(th.latest);
+      if (seen.has(id)) continue;
+      seen.add(id);
+      picked.push(th);
+      if (picked.length >= 3) break;
+    }
+    return picked;
+  }, [kb.cards]);
+  const sigColor = (s) => (s === "t" ? "#F85149" : s === "h" ? "#D29922" : "#388BFD");
+  const linkBtn = { marginTop: 8, padding: 0, border: "none", background: "transparent", color: t.cyan, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" };
+  const W = ({ label, right, children, style }) => (
+    <div style={{ borderRadius: 14, background: t.card2, border: `1px solid ${t.brd}`, padding: "12px 14px", ...style }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 8 }}>
+        <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1.2, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{label}</div>
+        {right && <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{right}</div>}
+      </div>
+      {children}
+    </div>
+  );
+  return (
+    // 하단 110px — fixed 하단 네비(+safe-area) 위 공간 예약, 다른 탭 루트와 동일
+    <div style={{ padding: "0 16px 110px", display: "flex", flexDirection: "column", gap: 10 }}>
+      {!onboardDone && watchTerms.length === 0 && (
+        <W label="처음이시죠? 관심사를 골라주세요" right="개인화 시작">
+          <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, marginBottom: 8, wordBreak: "keep-all" }}>고르면 새 카드 배지·매주 📮 브리프·프로필 바로가기가 켜져요. 나중에 워치룸이나 상담소에서 바꿀 수 있어요.</div>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+            {["CATL", "LG에너지솔루션", "삼성SDI", "SK온", "Tesla", "BYD", "전고체", "ESS"].map((term) => {
+              const on = onboardPick.includes(term);
+              return <button key={term} onClick={() => setOnboardPick((p) => (on ? p.filter((x) => x !== term) : [...p, term]))} aria-pressed={on} style={{ padding: "9px 13px", borderRadius: 999, border: `1px solid ${on ? "transparent" : t.brd}`, background: on ? t.cyan : t.card, color: on ? "#000" : t.tx, fontSize: 11.5, fontWeight: 800, cursor: "pointer" }}>{on ? "✓ " : ""}{term}</button>;
+            })}
+          </div>
+          <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
+            <button onClick={() => finishOnboard(onboardPick)} disabled={!onboardPick.length} style={{ flex: 1, padding: "11px", borderRadius: 10, border: "none", background: onboardPick.length ? t.cyan : t.brd, color: "#000", fontSize: 12, fontWeight: 800, cursor: onboardPick.length ? "pointer" : "not-allowed" }}>{onboardPick.length ? `${onboardPick.length}개 워치로 시작` : "관심사를 골라주세요"}</button>
+            <button onClick={() => finishOnboard([])} style={{ padding: "11px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>나중에</button>
+          </div>
+        </W>
+      )}
+      <W label={`TODAY'S FLOW · ${todayLabel()}`} right={`카드 최신 ${fmtDate(today)} · ${todayCards.length}장`}>
+        {dailyFlow && dailyFlow.dataDate === today && dailyFlow.narrative
+          ? <div style={{ fontSize: 13.5, fontWeight: 700, lineHeight: 1.65, color: t.tx, wordBreak: "keep-all" }}>{String(dailyFlow.narrative).slice(0, 300)}</div>
+          : <div style={{ fontSize: 12.5, lineHeight: 1.6, color: t.sub, wordBreak: "keep-all" }}>최신 카드 {todayCards.length}장이 갱신됐어요 — 아래 시그널과 워치 하이라이트로 오늘의 흐름을 확인하세요.</div>}
+        <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: 10 }}>
+          {(sigCount.t || 0) > 0 && <span style={{ fontSize: 9, fontWeight: 800, color: "#F85149", border: "1px solid rgba(248,81,73,0.4)", borderRadius: 999, padding: "3px 8px", fontFamily: "'JetBrains Mono',monospace" }}>TOP {sigCount.t}</span>}
+          {(sigCount.h || 0) > 0 && <span style={{ fontSize: 9, fontWeight: 800, color: "#D29922", border: "1px solid rgba(210,153,34,0.4)", borderRadius: 999, padding: "3px 8px", fontFamily: "'JetBrains Mono',monospace" }}>HIGH {sigCount.h}</span>}
+          {regionTop.map(([r, n]) => <span key={r} style={{ fontSize: 9, fontWeight: 700, color: t.sub, border: `1px solid ${t.brd}`, borderRadius: 999, padding: "3px 8px", fontFamily: "'JetBrains Mono',monospace" }}>{REG_FLAG[r] || ""} {r} {n}</span>)}
+        </div>
+      </W>
+      <W label="주간 뉴스 밀도" right="최근 7일 · 일별 카드 수">
+        <div style={{ display: "flex", alignItems: "flex-end", gap: 5, height: 46 }}>
+          {density.map((d) => (
+            <div key={d.key} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, height: "100%", justifyContent: "flex-end" }}>
+              {d.n > 0 && <div style={{ fontSize: 8, color: t.sub, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{d.n}</div>}
+              <div style={{ width: "100%", borderRadius: 3, background: d.key === String(today || "").replace(/\./g, "-") ? t.cyan : t.brd, height: `${Math.max(3, Math.round((d.n / maxDay) * 30))}px` }} />
+              <div style={{ fontSize: 8.5, color: t.sub, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{d.dow}</div>
+            </div>
+          ))}
+        </div>
+      </W>
+      <W label="MY WATCH · 최근 7일">
+        {watchTerms.length ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+            {watchStats.map(({ term, fresh, latest }) => (
+              <button key={term} onClick={() => onOpenProfile(term)} style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", textAlign: "left", padding: "8px 10px", borderRadius: 10, border: `1px solid ${fresh ? t.cyan : t.brd}`, background: t.card, cursor: "pointer" }}>
+                <span style={{ fontSize: 11, fontWeight: 800, color: t.tx, whiteSpace: "nowrap" }}>{term}</span>
+                {fresh > 0 && <span style={{ fontSize: 9, fontWeight: 800, color: "#000", background: t.cyan, borderRadius: 999, padding: "2px 6px", fontFamily: "'JetBrains Mono',monospace" }}>+{fresh}</span>}
+                <span style={{ flex: 1, minWidth: 0, fontSize: 10.5, color: t.sub, lineHeight: 1.4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{latest ? String(latest.T || latest.title || "") : "매칭 카드 없음"}</span>
+                <span style={{ fontSize: 10, color: t.sub }}>›</span>
+              </button>
+            ))}
+            <button onClick={() => onNav("watchroom")} style={{ ...linkBtn, marginTop: 2 }}>워치룸 전체 →</button>
+          </div>
+        ) : (
+          <button onClick={() => onNav("watchroom")} style={{ width: "100%", padding: "10px", borderRadius: 8, border: `1px dashed ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11.5, fontWeight: 700, cursor: "pointer" }}>워치가 비어 있어요 — 워치룸에서 바로 등록하기</button>
+        )}
+      </W>
+      <W label="TOP SIGNALS" right={`${fmtDate(today)} 기준 상위`}>
+        {lead && (
+          <button onClick={() => onNav("news")} style={{ display: "block", width: "100%", textAlign: "left", border: "none", background: "transparent", padding: 0, cursor: "pointer", marginBottom: rest.length ? 12 : 0 }}>
+            <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 5 }}>
+              <span style={{ fontSize: 8.5, fontWeight: 800, color: "#fff", background: sigColor(lead.s), borderRadius: 4, padding: "2px 6px", fontFamily: "'JetBrains Mono',monospace" }}>{SIG_L[lead.s] || "INFO"}</span>
+              <span style={{ fontSize: 9.5, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{REG_FLAG[lead.r || lead.region] || ""} {lead.r || lead.region}{Array.isArray(lead.fact_sources) && lead.fact_sources.length > 0 && ` · 📰 ${lead.fact_sources.length}`}</span>
+            </div>
+            <div style={{ fontSize: 15, fontWeight: 900, lineHeight: 1.4, color: t.tx, wordBreak: "keep-all" }}>{lead.T || lead.title}</div>
+            <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.55, marginTop: 4, wordBreak: "keep-all", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{lead.sub || lead.subtitle}</div>
+          </button>
+        )}
+        {rest.length > 0 && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 9, borderTop: `1px solid ${t.brd}`, paddingTop: 10 }}>
+            {rest.map((c, i) => (
+              <button key={`${getCardId(c)}-${i}`} onClick={() => onNav("news")} style={{ display: "block", width: "100%", textAlign: "left", border: "none", background: "transparent", padding: 0, borderLeft: `3px solid ${sigColor(c.s)}`, paddingLeft: 10, cursor: "pointer" }}>
+                <div style={{ fontSize: 12, fontWeight: 700, lineHeight: 1.45, color: t.tx, wordBreak: "keep-all" }}>{c.T || c.title}</div>
+                <div style={{ fontSize: 9.5, color: t.sub, marginTop: 2, fontFamily: "'JetBrains Mono',monospace" }}>{REG_FLAG[c.r || c.region] || ""} {c.r || c.region}{Array.isArray(c.fact_sources) && c.fact_sources.length > 0 && ` · 📰 ${c.fact_sources.length}`}</div>
+              </button>
+            ))}
+          </div>
+        )}
+        <button onClick={() => onNav("news")} style={{ ...linkBtn, marginTop: 10 }}>피드 전체 보기 →</button>
+      </W>
+      {threads.length > 0 && (
+        <W label="🧵 이어지는 이슈" right="같은 사건의 카드 묶음 · 탭하면 피드 검색">
+          <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+            {threads.map((th) => (
+              <button key={th.key} onClick={() => onFeedSearch && onFeedSearch(th.key)} style={{ display: "block", width: "100%", textAlign: "left", border: "none", background: "transparent", padding: 0, cursor: "pointer" }}>
+                <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                  <span style={{ fontSize: 11, fontWeight: 900, color: t.tx }}>{th.key}</span>
+                  <span style={{ fontSize: 9, fontWeight: 800, color: "#000", background: t.cyan, borderRadius: 999, padding: "1px 7px", fontFamily: "'JetBrains Mono',monospace" }}>{th.n}장</span>
+                  <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>~{fmtDate(th.lastDate)}</span>
+                </div>
+                <div style={{ fontSize: 10.5, color: t.sub, lineHeight: 1.5, marginTop: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{String(th.latest.T || th.latest.title || "")}</div>
+              </button>
+            ))}
+          </div>
+        </W>
+      )}
+      <div style={{ display: "flex", gap: 10 }}>
+        <W label="📮 주간 브리프" style={{ flex: 1, minWidth: 0 }}>
+          {latestBrief ? (
+            <div>
+              <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.55, wordBreak: "keep-all" }}>{String(latestBrief.narrative || "").slice(0, 42)}…</div>
+              <button onClick={() => onNav("watchroom")} style={linkBtn}>워치룸에서 →</button>
+            </div>
+          ) : (
+            <div>
+              <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.55, wordBreak: "keep-all" }}>아직 발행본 없음</div>
+              <button onClick={() => onNav("watchroom")} style={linkBtn}>지금 발행하기 →</button>
+            </div>
+          )}
+        </W>
+        <W label="⏰ 정책 마감 임박" style={{ flex: 1, minWidth: 0 }}>
+          {upcoming.length ? upcoming.map((ev, i) => (
+            <div key={i} style={{ fontSize: 11, color: i === 0 ? t.tx : t.sub, lineHeight: 1.5, marginTop: i > 0 ? 5 : 0, wordBreak: "keep-all", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{REG_FLAG[ev.region] || ""} {String(ev.title || "").slice(0, 34)} · {ev.date}</div>
+          )) : <div style={{ fontSize: 11, color: t.sub }}>임박 일정 없음</div>}
+          <button onClick={() => onNav("archive")} style={linkBtn}>트래커 →</button>
+        </W>
+      </div>
+    </div>
+  );
+}
+
+// 상담소 웰컴 가이드 — 릴리스 6·7 기능(에이전틱 명령·브리프 발행)을 카테고리별
+// 예시 명령으로 구체 안내. 모든 예시는 탭하면 그대로 실행되는 칩(기능을 가르치는 UI).
+function ChatGuide({ dark, runSuggestion }) {
+  const t = T(dark);
+  const groups = [
+    { icon: "⚡", title: "앱 조작 (말로 시키기)", desc: "워치·프로필·피드 필터를 채팅으로 바로 조작해", chips: ["CATL 워치에 추가해줘", "삼성SDI 프로필 보여줘", "중국 최근 7일 카드만 보여줘"] },
+    { icon: "📮", title: "주간 브리프", desc: "매주 자동 발행 + 원하면 즉시 발행", chips: ["주간 브리프 보여줘", "지금 브리프 만들어줘"] },
+    { icon: "🔍", title: "검색·비교·개인화", desc: "답변엔 [n] 근거 인용이 달려", chips: ["내워치 최근 소식 정리해줘", "LFP랑 NCM 비교해줘", "미국 FEOC 쉽게 설명해줘"] },
+  ];
+  return (
+    <div style={{ marginTop: 6, marginBottom: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+      {groups.map((g) => (
+        <div key={g.title} style={{ borderRadius: 12, border: `1px solid ${t.brd}`, background: dark ? "#1A2333" : "#fff", padding: "11px 13px" }}>
+          <div style={{ fontSize: 12, fontWeight: 800, color: t.tx }}>{g.icon} {g.title}</div>
+          <div style={{ fontSize: 10.5, color: t.sub, margin: "3px 0 8px" }}>{g.desc}</div>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+            {g.chips.map((q) => <button key={q} onClick={() => runSuggestion(q)} style={{ background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "8px 12px", fontSize: 11, color: t.cyan, cursor: "pointer", fontWeight: 700 }}>{q}</button>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// '워치룸' 탭 — 개인 인텔리전스(워치 관리·주간 브리프·워치 새 소식)의 집.
+function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed }) {
+  const t = T(dark);
+  // 추가/삭제가 executeAppCommand(명령 버스)로 localStorage를 바꾸므로,
+  // 버전 신호(watchSeenVersion)로 재읽기해 화면에 즉시 반영한다.
+  const watchTerms = useMemo(() => {
+    try { const v = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]"); return Array.isArray(v) ? v : []; } catch { return []; }
+  }, [watchVersion]);
+  // 워치룸 진입 시 '워치 새 소식'에 실제로 표시된 카드(최신 5장)만 확인 처리한다.
+  // 매칭 전부를 마킹하면 미리보기 밖의 새 카드까지 배지가 꺼져 못 본 소식이 사라진다 —
+  // 남은 새 카드는 리스트 아래 '피드 내워치에서 보기'로 열람할 때 NewsDesk가 마저 확인.
+  // seen 병합만 하고 sig는 건드리지 않는다(용어 변경 편입은 NewsDesk·명령 버스 몫).
+  // 용어는 localStorage에서 직접 읽는다 — watchTerms(useMemo)를 의존성에 넣으면
+  // onWatchSeen→watchVersion→새 배열 참조로 effect가 무한 재실행된다.
+  useEffect(() => {
+    if (!kb.cards.length) return;
+    try {
+      const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+      if (!Array.isArray(terms) || !terms.length) return;
+      const matchedNow = kb.cards.filter((c) => cardMatchesWatch(c, terms));
+      const windowIds = new Set(matchedNow.slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean));
+      const seen = new Set(JSON.parse(localStorage.getItem("sbtl_watch_seen") || "[]"));
+      matchedNow.slice(0, 5).forEach((c) => { const id = getCardId(c); if (id) seen.add(id); });
+      localStorage.setItem("sbtl_watch_seen", JSON.stringify([...seen].filter((id) => windowIds.has(id))));
+      if (typeof onWatchSeen === "function") onWatchSeen();
+    } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
+  }, [kb.cards, onWatchSeen]);
+  const [draft, setDraft] = useState("");
+  const matched = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, 5);
+  // 미리보기 5장 밖에 남은 새(unseen) 카드 수 — 확인 처리 후 리렌더(watchVersion)마다 재계산
+  const unseenLeft = (() => {
+    try {
+      const seen = new Set(JSON.parse(localStorage.getItem("sbtl_watch_seen") || "[]"));
+      return kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, WATCH_SEEN_WINDOW).filter((c) => { const id = getCardId(c); return id && !seen.has(id); }).length;
+    } catch { return 0; }
+  })();
+  const latest = weeklyBriefs[0];
+  // ⚡ 즉시 발행 게이팅 — 챗 명령(brief_now)의 서버 게이트와 동일 기준을 버튼에도 적용.
+  // 게이트 없이 실행하면 재료 부족 시 NEWS로 이동만 하고 조용히 실패하거나(설명 없음),
+  // 방금 발행 직후 연타로 중복 생성될 수 있다. 막힌 이유는 버튼 아래 정직하게 표시.
+  const recentMatchCount = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && cardDateWithinDays(c, 7)).length;
+  const latestBriefTs = Number(String(latest?.id || "").replace(/^wb_/, "")) || 0;
+  const sameScopeBrief = latest ? (latest.terms_sig != null ? latest.terms_sig === JSON.stringify(watchTerms) : true) : false;
+  const briefBlockReason = !watchTerms.length ? "워치를 먼저 등록해 주세요"
+    : recentMatchCount < 2 ? `재료 부족 — 최근 7일 매칭 ${recentMatchCount}장 (2장 필요)`
+    : (sameScopeBrief && latestBriefTs && Date.now() - latestBriefTs < 10 * 60000) ? "방금 발행했어요 — 10분 뒤에 다시 만들 수 있어요"
+    : null;
+  const submitDraft = () => { const v = draft.trim(); if (v.length >= 2 && typeof onWatchAdd === "function") { onWatchAdd(v); setDraft(""); } };
+  const sectionTitle = (label, desc) => (
+    <div style={{ margin: "16px 0 8px" }}>
+      <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: variant === "b" ? "#9dd6ff" : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{label}</div>
+      {desc && <div style={{ fontSize: 10.5, color: t.sub, marginTop: 3, lineHeight: 1.5, wordBreak: "keep-all" }}>{desc}</div>}
+    </div>
+  );
+  return (
+    // 하단 110px — fixed 하단 네비(+safe-area) 위 공간 예약 (마지막 섹션인 🔔 알림
+    // 미리보기가 네비 밑에 깔리지 않게), 다른 탭 루트와 동일 규약
+    <div style={{ paddingBottom: 110 }}>
+      {variant === "b" && (
+        <div style={{ display: "flex", borderRadius: 16, background: "#07090D", padding: "18px 8px", margin: "2px 0 6px", border: "1px solid rgba(185,198,216,0.14)" }}>
+          {[["워치", watchTerms.length], ["새 소식", matched.length], ["브리프", weeklyBriefs.length]].map(([l, n]) => (
+            <div key={l} style={{ flex: 1, textAlign: "center" }}>
+              <div style={{ fontSize: 26, fontWeight: 900, color: "#F4F9FF", fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{n}</div>
+              <div style={{ fontSize: 10, color: "#8C99AB", marginTop: 5 }}>{l}</div>
+            </div>
+          ))}
+        </div>
+      )}
+      {sectionTitle("MY WATCH", watchTerms.length ? "칩을 탭하면 프로필 · ×로 바로 삭제 — 상담소에서 말로도 돼요" : "관심 기업·키워드를 등록하면 새 카드 배지, 매주 📮 브리프, 프로필 바로가기가 여기 모여요")}
+      {watchTerms.length > 0 && (
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 2 }}>
+          {watchTerms.map((w) => (
+            <span key={w} style={{ display: "inline-flex", alignItems: "center", borderRadius: 999, border: `1px solid ${variant === "b" ? "rgba(88,166,255,0.5)" : t.brd}`, background: variant === "b" ? "rgba(88,166,255,0.12)" : t.card2, overflow: "hidden" }}>
+              <button onClick={() => onOpenProfile(w)} style={{ padding: "9px 4px 9px 13px", border: "none", background: "transparent", color: t.tx, fontSize: 12, fontWeight: 800, cursor: "pointer" }}>🏢 {w}</button>
+              <button onClick={() => onWatchRemove && onWatchRemove(w)} aria-label={`${w} 워치에서 삭제`} style={{ padding: "9px 11px 9px 5px", border: "none", background: "transparent", color: t.sub, fontSize: 13, cursor: "pointer", lineHeight: 1 }}>×</button>
+            </span>
+          ))}
+        </div>
+      )}
+      <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
+        <input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") submitDraft(); }} placeholder="기업·키워드 입력 후 추가 (예: LG에너지솔루션)" aria-label="워치 용어 추가" style={{ flex: 1, minWidth: 0, padding: "10px 12px", borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card, color: t.tx, fontSize: 12, outline: "none", fontFamily: "inherit" }} />
+        <button onClick={submitDraft} disabled={draft.trim().length < 2} style={{ padding: "10px 15px", borderRadius: 10, border: "none", background: draft.trim().length >= 2 ? t.cyan : t.brd, color: "#000", fontSize: 12, fontWeight: 800, cursor: draft.trim().length >= 2 ? "pointer" : "not-allowed" }}>추가</button>
+      </div>
+      {watchTerms.length >= 2 && (() => {
+        // ⚖️ 워치 비교 — 앞 2개 텀 나란히 (실구현: 선택 가능하게)
+        const pair = watchTerms.slice(0, 2).map((w) => {
+          const cs = kb.cards.filter((c) => cardMatchesWatch(c, [w]));
+          const sig = cs.reduce((a, c) => { a[c.s] = (a[c.s] || 0) + 1; return a; }, {});
+          return { w, total: cs.length, f7: cs.filter((c) => cardDateWithinDays(c, 7)).length, top: sig.t || 0, high: sig.h || 0, latest: cs[0] };
+        });
+        return (
+          <>
+            {sectionTitle("⚖️ 워치 비교", "워치 앞 2개 나란히 — 탭하면 프로필")}
+            <div style={{ display: "flex", gap: 8 }}>
+              {pair.map((p) => (
+                <button key={p.w} onClick={() => onOpenProfile(p.w)} style={{ flex: 1, minWidth: 0, textAlign: "left", borderRadius: 12, padding: "11px 12px", background: t.card2, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
+                  <div style={{ fontSize: 12, fontWeight: 900, color: t.tx, marginBottom: 6, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>🏢 {p.w}</div>
+                  <div style={{ fontSize: 18, fontWeight: 900, color: t.tx, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{p.total}<span style={{ fontSize: 9, color: t.sub, fontWeight: 700 }}> 장</span></div>
+                  <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginTop: 4 }}>7일 +{p.f7} · TOP {p.top} · HIGH {p.high}</div>
+                  <div style={{ fontSize: 10, color: t.sub, lineHeight: 1.45, marginTop: 5, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.latest ? String(p.latest.T || p.latest.title || "") : "카드 없음"}</div>
+                </button>
+              ))}
+            </div>
+          </>
+        );
+      })()}
+      {sectionTitle("📮 주간 브리프", "매주 자동 발행 — 기다리기 싫으면 아래 버튼으로 지금 바로")}
+      {latest ? (
+        <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px solid ${t.brd}` }}>
+          <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{latest.generated_at} 발행 · {weeklyBriefs.length}부 보관</div>
+          <div style={{ fontSize: 12.5, lineHeight: 1.7, color: t.tx, wordBreak: "keep-all" }}>{String(latest.narrative || "").slice(0, 110)}…</div>
+        </div>
+      ) : (
+        <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px dashed ${t.brd}`, fontSize: 11.5, color: t.sub, lineHeight: 1.6 }}>아직 발행본이 없어요.</div>
+      )}
+      <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
+        <button onClick={() => { if (!briefBlockReason && onBriefNow) onBriefNow(); }} disabled={!!briefBlockReason} style={{ flex: 1, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: briefBlockReason ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: briefBlockReason ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>⚡ 지금 브리프 발행하기</button>
+        {latest && (
+          <button
+            onClick={async () => {
+              // 브리프 공유 — Web Share, 미지원이면 클립보드
+              const text = `[SBTL 주간 브리프] ${latest.scope_label || "내워치"} · ${latest.generated_at}\n\n${String(latest.narrative || "")}`;
+              try {
+                if (navigator.share) await navigator.share({ title: "SBTL 주간 브리프", text });
+                else await navigator.clipboard.writeText(text);
+              } catch { /* 공유 시트 닫음 등 — 무시 */ }
+            }}
+            aria-label="주간 브리프 공유"
+            style={{ padding: "11px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11.5, fontWeight: 800, cursor: "pointer" }}
+          >↗ 공유</button>
+        )}
+      </div>
+      {briefBlockReason && <div style={{ fontSize: 10, color: t.sub, marginTop: 5, fontFamily: "'JetBrains Mono',monospace" }}>{briefBlockReason}</div>}
+      {sectionTitle(`워치 새 소식 (${matched.length})`, matched.length ? "카드를 누르면 해당 기업 프로필로 이동" : undefined)}
+      {matched.length ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {matched.map((c, i) => {
+            const hitTerm = watchTerms.find((w) => cardMatchesWatch(c, [w]));
+            return (
+              <button key={`${getCardId(c)}-${i}`} onClick={() => hitTerm && onOpenProfile(hitTerm)} style={{ width: "100%", textAlign: "left", borderRadius: 12, padding: "11px 13px", background: t.card2, border: `1px solid ${t.brd}`, cursor: hitTerm ? "pointer" : "default" }}>
+                <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 4 }}>
+                  {hitTerm && <span style={{ fontSize: 8.5, fontWeight: 800, color: "#000", background: t.cyan, borderRadius: 999, padding: "2px 7px", fontFamily: "'JetBrains Mono',monospace" }}>{hitTerm}</span>}
+                  <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(c.d || c.date)} · {c.r || c.region}</span>
+                </div>
+                <div style={{ fontSize: 12.5, fontWeight: 700, lineHeight: 1.5, color: t.tx, wordBreak: "keep-all" }}>{c.T || c.title}</div>
+              </button>
+            );
+          })}
+          {unseenLeft > 0 && (
+            <button onClick={() => onWatchFeed && onWatchFeed()} style={{ width: "100%", padding: "10px", borderRadius: 10, border: `1px dashed ${t.brd}`, background: "transparent", color: t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>새 카드 {unseenLeft}건 더 — 피드 내워치에서 보기 →</button>
+          )}
+        </div>
+      ) : (
+        <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>아직 매칭 카드가 없어요 — 워치를 넓혀보거나 상담소에 물어보세요.</div>
+      )}
+      {(() => {
+        // R1 ☆보고함(sbtl_bookmarks, 최신이 앞·title/date 내장)을 워치룸으로 — 저장 자산이 '내 방'에 모이게
+        let saved = [];
+        try { const v = JSON.parse(localStorage.getItem("sbtl_bookmarks") || "[]"); saved = Array.isArray(v) ? v.slice(0, 5) : []; } catch { saved = []; }
+        return (
+          <>
+            {sectionTitle(`★ 저장한 카드 (${saved.length})`, saved.length ? "피드에서 ☆로 저장한 카드 — 최근 5개" : "피드 카드의 ☆를 누르면 여기 모여요")}
+            {saved.length > 0 && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {saved.map((b) => (
+                  <div key={b.id} style={{ borderRadius: 10, padding: "9px 12px", background: t.card2, border: `1px solid ${t.brd}` }}>
+                    <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 3 }}>{fmtDate(b.date)}{b.savedAt ? ` · 저장 ${b.savedAt}` : ""}</div>
+                    <div style={{ fontSize: 12, fontWeight: 700, lineHeight: 1.45, color: t.tx, wordBreak: "keep-all" }}>{b.title}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        );
+      })()}
+      {sectionTitle("🔔 알림 (미리보기)", "워치 새 카드·브리프 발행을 알림으로 — 앱 꺼져 있을 때 도착하는 실제 푸시는 서버 연동 후 제공")}
+      <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px dashed ${t.brd}`, display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ flex: 1, fontSize: 11, color: t.sub, lineHeight: 1.5 }}>
+          브라우저 알림 상태: <b style={{ color: t.tx }}>{typeof Notification !== "undefined" ? ({ granted: "허용됨", denied: "차단됨", default: "미설정" }[Notification.permission] || Notification.permission) : "미지원"}</b>
+        </div>
+        <button
+          onClick={async () => {
+            try {
+              if (typeof Notification === "undefined") return;
+              const p = await Notification.requestPermission();
+              if (p === "granted") new Notification("SBTL — 워치 새 카드", { body: `${watchTerms[0] || "CATL"} 외 워치에 새 카드가 도착했어요 (예시 알림)` });
+            } catch { /* noop */ }
+          }}
+          disabled={typeof Notification === "undefined"}
+          style={{ padding: "9px 13px", borderRadius: 10, border: "none", background: t.cyan, color: "#000", fontSize: 11, fontWeight: 800, cursor: "pointer", whiteSpace: "nowrap" }}
+        >알림 켜보기</button>
+      </div>
+    </div>
+  );
+}
 
 const SC = { ACTIVE: "#F85149", UPCOMING: "#D29922", WATCH: "#388BFD", DONE: "#7D8590" };
 const SL = { ACTIVE: "ACTIVE", UPCOMING: "UPCOMING", WATCH: "WATCH", DONE: "DONE" };
@@ -200,7 +672,6 @@ const T = (dark = true) => dark
   : { bg: "#F4F6FA", card: "#FFFFFF", card2: "#F8F9FC", tx: "#1A1A2A", sub: "#57606A", brd: "#E0E3EA", cyan: "#0969DA", sh: "0 2px 10px rgba(0,0,0,0.06)" };
 
 const LEGACY_SIGNAL = { top: "t", high: "h", mid: "m", info: "i", t: "t", h: "h", m: "m", i: "i" };
-const quickPrimary = ["오늘 핵심 카드", "오늘의 시그널 TOP", "외부 기사로 전환 →", "한국 정책 일정 뭐 있어?", "미국 FEOC 쉽게 설명해줘", "이번주 ESS 시그널 요약", "전고체 어디까지 왔어?", "중국 가격 흐름 체크"];
 
 function kstNow() {
   const now = new Date();
@@ -633,70 +1104,6 @@ function assignHomeCovers(cards) {
   return result;
 }
 
-function Home({ kb, tracker, onNav, onSubmitConsultation, consultSummaries = {}, dark }) {
-  const t = T(dark);
-  const featured = WEBTOON_COLLECTIONS[0];
-  const todayPicks = latestCards(kb.cards, 4, null, kstToday());
-  const picks = todayPicks.length ? todayPicks : latestCards(kb.cards, 4, null, null);
-  const isFromToday = todayPicks.length > 0;
-  const today = kstNow();
-  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
-  const todayStr = `${kstToday()} (${dayNames[today.getDay()]})`;
-  const lead = picks[0] || null;
-  const rest = picks.slice(1, 4);
-  const leadDateLabel = lead?.d || lead?.date ? fmtDate(lead.d || lead.date) : "-";
-  // 화면 내 unique 커버 배정 (Copilot review #98 #2)
-  const coverMap = useMemo(() => assignHomeCovers(picks), [picks]);
-  const coverFor = (card, idx) => coverMap[String(card?.id || card?.T || card?.title || `idx_${idx}`)] || pickHomeCover(card);
-
-  return (
-    <div style={{ padding: "0 14px 120px", display: "flex", flexDirection: "column", gap: 12 }}>
-      <div style={{ background: `linear-gradient(135deg, ${dark ? "#151B2B" : "#ffffff"}, ${dark ? "#1F2840" : "#EEF3FF"})`, borderRadius: 18, padding: "18px 16px", border: `1px solid ${dark ? "#2C3550" : t.brd}`, boxShadow: t.sh }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
-          <SmallPill label={isFromToday ? "TODAY" : "LATEST"} dark={dark} />
-          <span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{isFromToday ? todayStr : `최근 업데이트 ${leadDateLabel}`}</span>
-        </div>
-        <div style={{ fontSize: 24, fontWeight: 900, color: t.tx, lineHeight: 1.2 }}>{isFromToday ? "오늘의 뉴스" : "최근 뉴스"}</div>
-        <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.65, marginTop: 8 }}>오늘 봐야 할 흐름만 먼저 읽고, 필요하면 뉴스 피드나 강차장 상담으로 이어집니다.</div>
-      </div>
-
-      {lead ? (
-        <StoryNewsItem card={lead} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(lead)] || null} coverImage={coverFor(lead, 0)} featured />
-      ) : (
-        <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}`, fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>
-      )}
-
-      {rest.length > 0 && (
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {rest.map((card, i) => <StoryNewsItem key={`${card.id || card.T || card.title}-${i}`} card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i + 1)} />)}
-        </div>
-      )}
-
-      <div style={{ display: "flex", gap: 8 }}>
-        <button onClick={() => onNav("news")} style={{ flex: 1, border: "none", borderRadius: 10, padding: "12px 14px", minHeight: 44, background: t.cyan, color: "#000", fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>NEWS FEED →</button>
-        <button onClick={() => onNav("tracker")} style={{ flex: 1, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "12px 14px", minHeight: 44, background: "transparent", color: t.tx, fontSize: 11, fontWeight: 900, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>TRACKER →</button>
-      </div>
-
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-        <div onClick={() => onNav("webtoon")} style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
-          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>TOON</div>
-          <div style={{ fontSize: 15, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>웹툰</div>
-          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.5, marginTop: 8 }}>{featured.title}</div>
-        </div>
-        <div onClick={() => onNav("chatbot")} style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
-          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>AI DESK</div>
-          <div style={{ fontSize: 15, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>상담소</div>
-          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.5, marginTop: 8 }}>카드 기준으로 바로 대화</div>
-        </div>
-        <div onClick={() => onNav("tracker")} style={{ background: t.card2, borderRadius: 14, padding: 14, border: `1px solid ${t.brd}`, cursor: "pointer" }}>
-          <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>TRACKER</div>
-          <div style={{ fontSize: 15, fontWeight: 900, color: t.tx, lineHeight: 1.3 }}>정책</div>
-          <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.5, marginTop: 8 }}>{tracker.meta.totalItems} items</div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function ReceiptBubble({ meta, openedAt, dark }) {
   const t = T(dark);
@@ -785,16 +1192,58 @@ function StageWrapper({ m, dark, runSuggestion, BubbleComponent, errorFallback }
   );
 }
 
-function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0, onAppCommand = null }) {
+const CHAT_WELCOME = [{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }];
+
+function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 0, onAppCommand = null, onConsultationConsumed = null }) {
   const t = T(dark);
-  const [msgs, setMsgs] = useState([{ role: "assistant", content: "안녕, 강차장이야. 🔋\n\n궁금한 주제를 편하게 보내줘.\n핵심부터 짧게 정리해주고,\n관련 카드나 최근 이슈도 같이 찾아줄게." }]);
+  // 대화 세션 보존 — 탭 이동(언마운트)에도 대화가 유지되도록 sessionStorage에서 복원.
+  // 브라우저(탭)를 닫으면 자연 초기화. 컨텍스트(chatCtx)도 함께 보존해 복원 후
+  // 후속 질문("그거 더 자세히")이 이어진다.
+  const [msgs, setMsgs] = useState(() => {
+    try { const v = JSON.parse(sessionStorage.getItem("sbtl_chat_msgs") || "null"); if (Array.isArray(v) && v.length) return v; } catch { /* noop */ }
+    return CHAT_WELCOME;
+  });
   const [input, setInput] = useState("");
   const [loadingMode, setLoadingMode] = useState("none");
   const [searchMode, setSearchMode] = useState("internal");
   const [extQuery, setExtQuery] = useState("");
   const endRef = useRef(null);
   const chatCtxRef = useRef({ last_turn: null, root_turn: null, selected_item_id: null, region: null, date: null });
-  const currentConsultRef = useRef(null);
+  // 대화·컨텍스트 세션 보존 (마운트 시 복원, 변경 시 저장 — 최근 40개만).
+  // 웰컴 상태(대화 없음)는 저장하지 않는다 — '새 대화' 리셋 직후 재저장으로 초기화가 무효화되지 않게.
+  useEffect(() => {
+    try { const c = JSON.parse(sessionStorage.getItem("sbtl_chat_ctx") || "null"); if (c && typeof c === "object") chatCtxRef.current = c; } catch { /* noop */ }
+  }, []);
+  useEffect(() => {
+    try {
+      if (msgs.length <= 1) return;
+      sessionStorage.setItem("sbtl_chat_msgs", JSON.stringify(msgs.slice(-40)));
+      sessionStorage.setItem("sbtl_chat_ctx", JSON.stringify(chatCtxRef.current || {}));
+    } catch { /* noop */ }
+  }, [msgs]);
+  // 상담 진행 상태도 세션에 미러 — receipt/scout 메시지만 복원되고 상태가 없으면
+  // 단계 칩(2차/3차)이 조용히 죽고 후속 질문이 상담 밖으로 새는 '보이는데 못 쓰는'
+  // 세션이 된다. 복원은 대화가 실제 복원될 때만(웰컴-only면 유령 상담 방지).
+  // undefined 센티널로 첫 렌더 전에 1회 복원 — consultActive가 첫 렌더부터 정확하다.
+  const currentConsultRef = useRef(undefined);
+  if (currentConsultRef.current === undefined) {
+    let restored = null;
+    try {
+      const m = JSON.parse(sessionStorage.getItem("sbtl_chat_msgs") || "null");
+      if (Array.isArray(m) && m.length) {
+        const v = JSON.parse(sessionStorage.getItem("sbtl_chat_consult") || "null");
+        if (v && typeof v === "object" && v.cardContext) restored = v;
+      }
+    } catch { /* noop */ }
+    currentConsultRef.current = restored;
+  }
+  const persistConsult = () => {
+    try {
+      const v = currentConsultRef.current;
+      if (v) sessionStorage.setItem("sbtl_chat_consult", JSON.stringify(v));
+      else sessionStorage.removeItem("sbtl_chat_consult");
+    } catch { /* noop */ }
+  };
   const sessionHooksRef = useRef([]);
   const usedTopicsRef = useRef(new Set());
   const consultedNonceRef = useRef(0);
@@ -890,6 +1339,7 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   const startConsultation = async (init) => {
     if (!init?.cardContext?.card) return;
     currentConsultRef.current = { id: init.consultationId, cardContext: init.cardContext, stage1_output: null, stage2_output: null, current_stage: 0 };
+    persistConsult();
     setMsgs((prev) => [...prev, { role: "receipt", card_meta: init.card_meta, opened_at: init.opened_at }]);
     setLoadingMode("typing_consult");
     const t0 = Date.now();
@@ -900,6 +1350,7 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
       if (data?.stage_output) {
         currentConsultRef.current.stage1_output = data.stage_output;
         currentConsultRef.current.current_stage = 1;
+        persistConsult();
       }
       setMsgs((prev) => [...prev, { role: "scout", stage_output: data?.stage_output || null, suggestions: Array.isArray(data?.suggestions) ? data.suggestions : [], stage_error: data?.debug?.stage_error || null }]);
       if (init.consultationId) appendMessage(init.consultationId, { role: "assistant", content: data?.answer || "", stage: 1 });
@@ -925,6 +1376,7 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
         currentConsultRef.current.stage2_output = data.stage_output;
         currentConsultRef.current.current_stage = 2;
       } else if (data?.stage_output && toStage === 3) currentConsultRef.current.current_stage = 3;
+      persistConsult();
       setMsgs((prev) => [...prev, { role: toStage === 2 ? "analyst" : "redteam", stage_output: data?.stage_output || null, suggestions: Array.isArray(data?.suggestions) ? data.suggestions : [], stage_error: data?.debug?.stage_error || null }]);
       if (consult.id) appendMessage(consult.id, { role: "assistant", content: data?.answer || "", stage: toStage });
     } catch {
@@ -959,7 +1411,7 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     if (!txt || isLoading) return;
     setInput("");
     const consult = currentConsultRef.current;
-    if (consult && consult.current_stage > 0) currentConsultRef.current = null;
+    if (consult && consult.current_stage > 0) { currentConsultRef.current = null; persistConsult(); }
     else if (consult) { await sendConsultFollowup(txt, consult); return; }
     setMsgs((prev) => [...prev, { role: "user", content: txt }]);
     setLoadingMode("typing_normal");
@@ -979,6 +1431,9 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     if (consultedNonceRef.current === initialConsultationNonce) return;
     consultedNonceRef.current = initialConsultationNonce;
     void startConsultation(initialConsultation);
+    // 시작했으면 seed 소비 통지 — 부모가 seed를 비워야 탭 이동 후 복귀(재마운트,
+    // consultedNonceRef 초기화) 때 세션 복원과 겹쳐 같은 상담이 중복 시작되지 않는다.
+    if (typeof onConsultationConsumed === "function") onConsultationConsumed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialConsultation, initialConsultationNonce]);
 
@@ -1052,7 +1507,10 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "calc(100vh - 190px)" }}>
       <div role="log" aria-live="polite" aria-atomic="false" aria-label="대화 내역" style={{ flex: 1, overflowY: "auto", padding: "12px 14px 8px" }}>
-        {msgs.length <= 1 && <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 6, marginBottom: 12 }}>{quickPrimary.map((q) => <button key={q} onClick={() => runSuggestion(q)} style={{ background: dark ? "#1A2333" : "#FFFFFF", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "12px 16px", minHeight: 44, fontSize: 12, color: t.tx, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600, textAlign: "left" }}>{q}</button>)}</div>}
+        {msgs.length > 1 && (
+          <button onClick={() => { setMsgs(CHAT_WELCOME); chatCtxRef.current = { last_turn: null, root_turn: null, selected_item_id: null, region: null, date: null }; currentConsultRef.current = null; persistConsult(); try { sessionStorage.removeItem("sbtl_chat_msgs"); sessionStorage.removeItem("sbtl_chat_ctx"); } catch { /* noop */ } }} style={{ alignSelf: "center", margin: "2px 0 8px", padding: "6px 12px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", display: "block", marginLeft: "auto", marginRight: "auto" }}>🧹 새 대화 시작 (이전 대화는 세션 동안 유지돼요)</button>
+        )}
+        {msgs.length <= 1 && <ChatGuide dark={dark} runSuggestion={runSuggestion} />}
         {msgs.map((m, i) => {
           if (m.role === "receipt") return <ReceiptBubble key={`receipt-${i}`} meta={m.card_meta} openedAt={m.opened_at} dark={dark} />;
           if (m.role === "scout") return <StageWrapper key={`scout-${i}`} m={m} dark={dark} runSuggestion={runSuggestion} BubbleComponent={ScoutBubble} errorFallback="1차 접수 중에 문제가 있었어. 다시 시도해줘." />;
@@ -1659,6 +2117,36 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   const [copiedWeekly, setCopiedWeekly] = useState(false);
   const regions = ["all", "watch", "top", "high", "KR", "US", "NA", "CN", "EU", "JP", "GL"];
 
+  // 파인더 자동완성 — 기업 별칭맵(123 엔티티, 별칭으로 매치해도 canonical 제안)
+  // + 용어사전(faq k[0]) + 내 워치. LLM 없이 기존 데이터 재사용.
+  const [aliasNames, setAliasNames] = useState([]);
+  useEffect(() => {
+    let alive = true;
+    fetch("/data/entity_alias_map.json").then((r) => r.json()).then((j) => {
+      if (!alive) return;
+      const ents = j && j.entities && typeof j.entities === "object" ? j.entities : {};
+      const out = [];
+      for (const key of Object.keys(ents)) {
+        const e = ents[key] || {};
+        const canonical = String(e.canonical || key).trim();
+        if (canonical.length < 2) continue;
+        out.push({ name: canonical, hay: [canonical, ...(Array.isArray(e.aliases) ? e.aliases : [])].map((s) => String(s || "").toLowerCase()).filter(Boolean) });
+      }
+      setAliasNames(out);
+    }).catch(() => { /* 별칭맵 없으면 용어·워치 제안만 */ });
+    return () => { alive = false; };
+  }, []);
+  const finderSuggests = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (q.length < 1) return [];
+    const out = [];
+    const push = (name, type) => { if (name && !out.some((o) => o.name === name)) out.push({ name, type }); };
+    watchTerms.forEach((w) => { const lw = String(w).toLowerCase(); if (lw.includes(q) && lw !== q) push(w, "내 워치"); });
+    aliasNames.forEach((e) => { if (e.name.toLowerCase() !== q && e.hay.some((h) => h.includes(q))) push(e.name, "기업"); });
+    (kb.faq || []).forEach((f) => { const term = Array.isArray(f?.k) && f.k[0] ? String(f.k[0]).trim() : ""; const lt = term.toLowerCase(); if (term.length >= 2 && lt.includes(q) && lt !== q) push(term, "용어"); });
+    return out.slice(0, 6);
+  }, [search, aliasNames, kb.faq, watchTerms]);
+
   // 프로필 모드에서는 해당 용어 매칭이 필터를 대체한다 (기간 칩·브리프는 그대로 적용)
   let cards = profileTerm ? kb.cards.filter((c) => cardMatchesWatch(c, [profileTerm])) : filter === "all" ? kb.cards : kb.cards.filter((c) => {
     const s = String(c.s || c.signal || "i").toLowerCase();
@@ -1671,12 +2159,18 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   if (dateRange) cards = cards.filter((c) => cardDateWithinDays(c, dateRange));
 
   if (search.trim() && !profileTerm) {
-    const sw = search.toLowerCase();
+    const sw = search.trim().toLowerCase();
+    // 별칭 확장 — 검색어가 별칭맵의 한 그룹 표기(canonical 포함)와 정확히 일치하면
+    // 그룹 표기 전체로 OR 매칭. 자동완성이 canonical(Samsung SDI)을 넣어도 카드의
+    // 국문 표기(삼성SDI)가 그대로 잡히고, 별칭(닝더)을 직접 쳐도 CATL 카드가 나온다.
+    // 부분어("삼성")는 그룹 확장 없이 기존 부분 매칭 그대로.
+    const aliasGroup = aliasNames.find((e) => e.hay.includes(sw));
+    const needles = aliasGroup ? [...new Set([sw, ...aliasGroup.hay])] : [sw];
     cards = cards.filter((c) => {
       const fields = [c.T, c.title, c.sub, c.subtitle, c.g, c.gate, c.fact, c.src, c.source, c.implicationText, Array.isArray(c.implication) ? c.implication.join(" ") : c.implication, Array.isArray(c.urls) ? c.urls.join(" ") : c.url];
-      if (fields.some((v) => String(v || "").toLowerCase().includes(sw))) return true;
-      if (Array.isArray(c.k) && c.k.some((k) => String(k).toLowerCase().includes(sw))) return true;
-      if (Array.isArray(c.keywords) && c.keywords.some((k) => String(k).toLowerCase().includes(sw))) return true;
+      if (fields.some((v) => { const h = String(v || "").toLowerCase(); return needles.some((n) => h.includes(n)); })) return true;
+      if (Array.isArray(c.k) && c.k.some((k) => { const h = String(k).toLowerCase(); return needles.some((n) => h.includes(n)); })) return true;
+      if (Array.isArray(c.keywords) && c.keywords.some((k) => { const h = String(k).toLowerCase(); return needles.some((n) => h.includes(n)); })) return true;
       return false;
     });
   }
@@ -1723,6 +2217,19 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
           aria-label="출처 포함 인용 복사"
           style={{ position: "absolute", top: 46, right: 8, zIndex: 2, width: 34, height: 34, borderRadius: 999, border: `1px solid ${copiedCiteId === getCardId(card) ? "transparent" : t.brd}`, background: copiedCiteId === getCardId(card) ? t.cyan : (dark ? "rgba(13,17,23,0.72)" : "rgba(255,255,255,0.85)"), color: copiedCiteId === getCardId(card) ? "#000" : t.sub, fontSize: 13, cursor: "pointer", lineHeight: 1 }}
         >{copiedCiteId === getCardId(card) ? "✓" : "📋"}</button>
+        <button
+          onClick={async (e) => {
+            e.stopPropagation();
+            // 카드 공유 — Web Share API, 미지원 브라우저는 클립보드 폴백(📋과 같은 ✓ 피드백)
+            const payload = { title: card.title || card.T || "SBTL 카드", text: `${card.title || card.T || ""} (${fmtDate(card.date || card.d)})`, url: card.url || card.primaryUrl || "" };
+            try {
+              if (navigator.share) await navigator.share(payload);
+              else { await navigator.clipboard.writeText(`${payload.text}${payload.url ? ` ${payload.url}` : ""}`); setCopiedCiteId(getCardId(card)); setTimeout(() => setCopiedCiteId(null), 1200); }
+            } catch { /* 사용자가 공유 시트를 닫은 경우 등 — 무시 */ }
+          }}
+          aria-label="카드 공유"
+          style={{ position: "absolute", top: 84, right: 8, zIndex: 2, width: 34, height: 34, borderRadius: 999, border: `1px solid ${t.brd}`, background: dark ? "rgba(13,17,23,0.72)" : "rgba(255,255,255,0.85)", color: t.sub, fontSize: 13, cursor: "pointer", lineHeight: 1 }}
+        >↗</button>
       </div>
     );
   };
@@ -1796,6 +2303,17 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       setWeeklyOpen(true);
       setWeeklyShownId(null);
       if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead();
+      applied = true;
+    } else if (agentSeed.feedFilter) {
+      // 피드 필터 seed — 지역/시그널/내워치는 filter로, 기간은 dateRange로, 검색어는 search로
+      const ff = agentSeed.feedFilter;
+      setProfileTerm(null);
+      if (ff.search) setSearch(ff.search);
+      if (ff.region) setFilter(ff.region);
+      else if (ff.watch) setFilter("watch");
+      else if (ff.signal) setFilter(ff.signal);
+      if (ff.range != null && ff.range !== 0) setDateRange(ff.range);
+      setShowCount(60);
       applied = true;
     }
     if (applied && typeof onAgentSeedConsumed === "function") onAgentSeedConsumed();
@@ -1944,6 +2462,31 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
           <div style={{ marginTop: 8, fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>아래 타임라인은 최신순 · 기간 칩과 📝 브리프가 이 프로필 범위에 적용됩니다</div>
         </div>
       )}
+      {!profileTerm && (
+        /* 퀵 파인더 — 검색·필터를 피드 최상단 스티키로 (찾기 우선 구성) */
+        <div style={{ position: "sticky", top: 0, zIndex: 20, background: t.bg, padding: "8px 0 8px", margin: "-10px 0 2px", borderBottom: `1px solid ${t.brd}` }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8, position: "relative" }}>
+            <input type="text" value={search} onChange={(e) => { setSearch(e.target.value); setShowCount(60); }} placeholder="🔍 기업·키워드·이슈 검색" aria-label="카드 검색" style={{ flex: 1, padding: "11px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12.5, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />
+            {scopeActive && <div style={{ padding: "8px 12px", borderRadius: 8, background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card, border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`, fontSize: 11, fontWeight: 800, color: cards.length === 0 ? "#F85149" : t.cyan, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{cards.length}건</div>}
+            {finderSuggests.length > 0 && (
+              <div style={{ position: "absolute", top: "100%", left: 0, right: 0, zIndex: 30, background: t.card, border: `1px solid ${t.brd}`, borderRadius: 10, marginTop: 4, overflow: "hidden", boxShadow: "0 10px 26px rgba(0,0,0,0.4)" }}>
+                {finderSuggests.map((s) => (
+                  <button key={`${s.type}-${s.name}`} onClick={() => { setSearch(s.name); setShowCount(60); }} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", padding: "10px 13px", border: "none", background: "transparent", color: t.tx, fontSize: 12, fontWeight: 600, cursor: "pointer", textAlign: "left" }}>
+                    <span>{s.name}</span>
+                    <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{s.type}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <div style={{ position: "relative" }}>
+            <div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regions.map((r) => { const label = r === "all" ? `ALL ${kb.cardCount}` : r === "watch" ? `★ 내워치${watchTerms.length ? ` ${watchTerms.length}` : ""}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : `${REG_FLAG[r] || ""} ${r}`; return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "9px 13px", minHeight: 40, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div>
+            <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 32, background: `linear-gradient(to left, ${t.bg}, transparent)`, pointerEvents: "none" }} />
+          </div>
+          <div style={{ display: "flex", gap: 4, marginTop: 2 }}>{[{ v: 0, l: "전체 기간" }, { v: 7, l: "최근 7일" }, { v: 30, l: "최근 30일" }].map((opt) => <button key={opt.v} onClick={() => { setDateRange(opt.v); setShowCount(60); }} style={{ background: dateRange === opt.v ? t.cyan : t.card2, color: dateRange === opt.v ? "#000" : t.sub, border: `1px solid ${dateRange === opt.v ? "transparent" : t.brd}`, borderRadius: 999, padding: "7px 12px", fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{opt.l}</button>)}</div>
+          {cards.length === 0 && scopeActive && <div style={{ marginTop: 8, padding: 12, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center", fontSize: 11, color: t.sub }}>검색 결과가 없어요 — 다른 검색어나 필터를 시도해보세요</div>}
+        </div>
+      )}
       {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>날짜별 시그널 피드</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.6 }}>최신 카드부터 날짜 기준으로 정렬했습니다. 같은 날짜 안에서는 중요도가 높은 이슈를 먼저 보여줍니다.</p></div>}
       {!profileTerm && (weeklyBriefs.length > 0 || weeklyGenerating) && (() => {
         const shown = weeklyBriefs.find((e) => e.id === weeklyShownId) || weeklyBriefs[0];
@@ -1988,9 +2531,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         );
       })()}
       {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => withStar(card, `${card.id || card.T || card.title}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} renderText={renderGlossary} />))}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>}
-      {!profileTerm && <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><input type="text" value={search} onChange={(e) => { setSearch(e.target.value); setShowCount(60); }} placeholder="🔍 카드 검색..." aria-label="Search cards by title, description, or content" style={{ flex: 1, padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box" }} />{scopeActive && <div style={{ padding: "8px 12px", borderRadius: 8, background: cards.length === 0 ? "rgba(248,81,73,0.1)" : t.card, border: `1px solid ${cards.length === 0 ? "rgba(248,81,73,0.3)" : t.brd}`, fontSize: 11, fontWeight: 800, color: cards.length === 0 ? "#F85149" : t.cyan, fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{cards.length}개 결과</div>}</div>{cards.length === 0 && scopeActive && <div style={{ padding: 16, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>검색 결과가 없습니다</div><div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6 }}>다른 검색어나 필터, 기간을 시도해보세요</div></div>}</div>}
-      {!profileTerm && <div style={{ position: "relative" }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regions.map((r) => { const label = r === "all" ? `ALL ${kb.cardCount}` : r === "watch" ? `★ 내워치${watchTerms.length ? ` ${watchTerms.length}` : ""}` : r === "top" ? "TOP" : r === "high" ? "HIGH" : `${REG_FLAG[r] || ""} ${r}`; return <button key={r} onClick={() => { setFilter(r); setShowCount(60); }} style={{ background: filter === r ? t.cyan : t.card2, color: filter === r ? "#000" : t.sub, border: `1px solid ${filter === r ? "transparent" : t.brd}`, borderRadius: 999, padding: "10px 14px", minHeight: 44, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div><div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 32, background: `linear-gradient(to left, ${t.bg}, transparent)`, pointerEvents: "none" }} /></div>}
-      <div style={{ display: "flex", gap: 4 }}>{[{ v: 0, l: "전체 기간" }, { v: 7, l: "최근 7일" }, { v: 30, l: "최근 30일" }].map((opt) => <button key={opt.v} onClick={() => { setDateRange(opt.v); setShowCount(60); }} style={{ background: dateRange === opt.v ? t.cyan : t.card2, color: dateRange === opt.v ? "#000" : t.sub, border: `1px solid ${dateRange === opt.v ? "transparent" : t.brd}`, borderRadius: 999, padding: "7px 12px", fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{opt.l}</button>)}</div>
+      {profileTerm && <div style={{ display: "flex", gap: 4 }}>{[{ v: 0, l: "전체 기간" }, { v: 7, l: "최근 7일" }, { v: 30, l: "최근 30일" }].map((opt) => <button key={opt.v} onClick={() => { setDateRange(opt.v); setShowCount(60); }} style={{ background: dateRange === opt.v ? t.cyan : t.card2, color: dateRange === opt.v ? "#000" : t.sub, border: `1px solid ${dateRange === opt.v ? "transparent" : t.brd}`, borderRadius: 999, padding: "7px 12px", fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{opt.l}</button>)}</div>}
       {profileTerm && profileStats && profileStats.total > 0 && cards.length === 0 && (
         <div style={{ padding: 16, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center" }}>
           <div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginBottom: 4 }}>선택한 기간에 해당하는 카드가 없습니다</div>
@@ -2065,6 +2606,10 @@ function AppContent() {
   const [refreshPending, setRefreshPending] = useState(false);
   const [refreshLabel, setRefreshLabel] = useState("");
   const [consultationSeed, setConsultationSeed] = useState({ data: null, nonce: 0 });
+  // 상담 seed는 1회성 — ChatBot이 시작하면 비운다. 남겨두면 탭 이동 후 복귀(재마운트)
+  // 때 세션 복원(sbtl_chat_msgs)과 겹쳐 같은 상담이 다시 시작된다. nonce는 보존해
+  // 이후 제출과의 단조 증가 비교가 유지되게 한다.
+  const markConsultationConsumed = useMemo(() => () => setConsultationSeed((s) => (s.data ? { data: null, nonce: s.nonce } : s)), []);
   const [consultSummaries, setConsultSummaries] = useState(() => typeof window !== "undefined" ? getAllCardConsultationSummaries() : {});
   const kb = useKnowledgeBase(refreshKey, hardRefresh);
   // 내워치 새 카드 배지 — NewsDesk가 기록한 seen 스냅샷과 현재 카드를 비교.
@@ -2114,10 +2659,10 @@ function AppContent() {
   // 챗은 chatbot 탭에서만 살아 있으므로 실행 시점에 NewsDesk는 언마운트 상태 —
   // 워치는 localStorage에 직접 쓰고(다음 NEWS 마운트가 fresh로 읽음), 화면 이동이
   // 필요한 명령은 newsSeed로 NewsDesk에 전달한다.
-  const [newsSeed, setNewsSeed] = useState({ profileTerm: null, weeklyOpen: false, nonce: 0 });
+  const [newsSeed, setNewsSeed] = useState({ profileTerm: null, weeklyOpen: false, feedFilter: null, nonce: 0 });
   // NewsDesk가 seed를 소비한 뒤 지시 내용을 비운다(nonce는 유지해 다음 명령의 증가와
   // 구분). 이렇게 해야 NEWS 재방문(NewsDesk 리마운트)에서 옛 프로필/선반이 재생되지 않는다.
-  const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.weeklyOpen ? { ...s, profileTerm: null, weeklyOpen: false } : s)), []);
+  const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.weeklyOpen || s.feedFilter ? { ...s, profileTerm: null, weeklyOpen: false, feedFilter: null } : s)), []);
   // 주간 브리프 생성 실행부 — 패시브(접속 시 1회)와 강제 발행(brief_now 명령)이 공유.
   // force는 7일 주기 게이트만 우회하고 잠금·시그니처 가드·12주 캡은 그대로 유지한다.
   const [weeklyGenerating, setWeeklyGenerating] = useState(false);
@@ -2262,9 +2807,13 @@ function AppContent() {
         // 강제 발행: 선반을 먼저 열어 '만드는 중'을 보여주고, 완성되면 runWeeklyBrief가
         // seed를 한 번 더 올려 최신 호수를 자동 표시한다. (brief_empty_watch·brief_no_material은
         // 서버 응답만 있고 클라 동작 없음 — watch_absent와 같은 무동작 안전 분기)
-        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, nonce: s.nonce + 1 }));
+        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, feedFilter: null, nonce: s.nonce + 1 }));
         setTab("news");
         runWeeklyBrief({ force: true });
+      } else if (cmd.type === "feed_filter") {
+        // 피드 필터 명령("중국 카드만 보여줘") — 지역/기간/시그널/내워치/검색어를 seed로
+        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: false, feedFilter: { region: cmd.region || null, range: cmd.range ?? null, signal: cmd.signal || null, watch: !!cmd.watch, search: cmd.search || null }, nonce: s.nonce + 1 }));
+        setTab("news");
       }
     } catch { /* noop */ }
   }, [kb.cards, runWeeklyBrief]);
@@ -2331,8 +2880,8 @@ function AppContent() {
 
   if (kb.loading || trackerLoading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: t.bg, color: t.sub }}>Loading...</div>;
 
-  const headerTitle = { news: "날짜별 시그널 피드", tracker: "Policy Tracker", chatbot: "강차장의 배터리 상담소", webtoon: "배터리교실" }[tab];
-  const headerSub = { news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`, tracker: `Items ${tracker.meta.totalItems} · LAST CHECKED ${fmtDate(tracker.meta.lastUpdated)}`, chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크", webtoon: `${kb.faqCount}/52항목 준비 중 · ${WEBTOON_COLLECTIONS.length}시리즈 · 검증 진행 중` }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
+  const headerTitle = { news: "날짜별 시그널 피드", chatbot: "강차장의 배터리 상담소", watchroom: "워치룸", archive: "자료실" }[tab];
+  const headerSub = { news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`, chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크", watchroom: "내 워치 · 주간 브리프 · 저장 카드가 모이는 곳", archive: `정책 ${tracker.meta.totalItems}건 · 용어 ${kb.faqCount}항목 · ${WEBTOON_COLLECTIONS.length}시리즈` }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
 
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", background: t.bg, minHeight: "100vh", fontFamily: "'Pretendard',-apple-system,sans-serif", position: "relative" }}>
@@ -2347,14 +2896,18 @@ function AppContent() {
         <div style={{ marginTop: 10 }}>{tab !== "all" && <h1 style={{ color: "#E6EDF3", fontSize: 18, fontWeight: 800, margin: 0 }}>{headerTitle}</h1>}<p style={{ color: "#7D8590", fontSize: 10, margin: "2px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>{headerSub}</p>{refreshLabel && <p style={{ color: refreshLabel.includes("강력") ? "#F85149" : "#58A6FF", fontSize: 10, margin: "6px 0 0", fontFamily: "'JetBrains Mono',monospace" }}>{refreshLabel}</p>}</div>
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
-        {tab === "all" && <div style={{ paddingTop: 10 }}><Home kb={kb} tracker={tracker} onNav={setTab} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} /></div>}
+        {tab === "all" && <div style={{ paddingTop: 10 }}><TodayDashboard dark={dark} kb={kb} tracker={tracker} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onFeedSearch={(q) => executeAppCommand({ type: "feed_filter", search: q })} onAppCommand={executeAppCommand} /></div>}
+        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={() => executeAppCommand({ type: "brief_now" })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} /></div>}
+        {tab === "archive" && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>POLICY TRACKER — 정책 일정·규제</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} weeklyGenerating={weeklyGenerating} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
-        {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} />}
-        {tab === "tracker" && <div style={{ paddingTop: 10 }}><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /></div>}
-        {tab === "webtoon" && <WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} />}
+        {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} onConsultationConsumed={markConsultationConsumed} />}
       </main>
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">
-        {CATS.map((cat) => { const active = tab === cat.key; return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={cat.key === "news" && watchNewCount > 0 ? `${cat.label}, 내워치 새 카드 ${watchNewCount}건` : `Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: 56, cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>{active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}<span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span><span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span>{cat.key === "news" && watchNewCount > 0 && <span aria-hidden="true" style={{ position: "absolute", top: 5, left: "50%", transform: "translateX(7px)", background: "#F85149", color: "#fff", borderRadius: 999, fontSize: 8, fontWeight: 800, padding: "2px 5px", lineHeight: 1, fontFamily: "'JetBrains Mono',monospace" }}>{watchNewCount > 99 ? "99+" : watchNewCount}</span>}</button>; })}
+        {CATS.map((cat) => {
+          const active = tab === cat.key;
+          const badge = cat.key === "watchroom" && watchNewCount > 0; // 내워치 배지는 워치룸 탭에
+          return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={badge ? `${cat.label}, 내워치 새 카드 ${watchNewCount}건` : `Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: 56, cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>{active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}<span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span><span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span>{badge && <span aria-hidden="true" style={{ position: "absolute", top: 5, left: "50%", transform: "translateX(7px)", background: "#F85149", color: "#fff", borderRadius: 999, fontSize: 8, fontWeight: 800, padding: "2px 5px", lineHeight: 1, fontFamily: "'JetBrains Mono',monospace" }}>{watchNewCount > 99 ? "99+" : watchNewCount}</span>}</button>;
+        })}
       </div>
     </div>
   );

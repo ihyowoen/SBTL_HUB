@@ -2439,7 +2439,12 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       const firstRun = localStorage.getItem("sbtl_watch_seen") === null;
       const termsChanged = storedSig !== null && storedSig !== termsSig;
       const windowIds = () => kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, WATCH_SEEN_WINDOW).map((c) => getCardId(c)).filter(Boolean);
-      if ((filter === "watch" && !profileTerm) || firstRun) {
+      // 전체 확인 처리는 '순수 내워치 뷰'에서만 — 시그널/기간/검색이 겹쳐 있으면 화면은
+      // 교집합 서브셋인데 windowIds()는 매칭 전부라, 화면에 없던 카드까지 읽음 처리돼
+      // 배지가 부당하게 꺼진다(워치룸 미리보기와 같은 원칙: 표시된 것만 확인).
+      // 좁힌 뷰에서 본 카드는 보수적으로 미확인 유지 — 순수 뷰를 열면 그때 확인된다.
+      const pureWatchView = filter === "watch" && !profileTerm && !sigFilter && !dateRange && !search.trim();
+      if (pureWatchView || firstRun) {
         // 워치 피드를 '실제로 화면에서 보고 있을 때'(프로필 서브뷰 제외) 또는 최초 기준선: 현재 매칭 전부를 확인 처리
         localStorage.setItem("sbtl_watch_seen", JSON.stringify(windowIds()));
         localStorage.setItem("sbtl_watch_seen_sig", termsSig);
@@ -2461,7 +2466,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         if (typeof onWatchSeen === "function") onWatchSeen();
       }
     } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
-  }, [filter, profileTerm, watchTerms, kb.cards, onWatchSeen]);
+  }, [filter, profileTerm, sigFilter, dateRange, search, watchTerms, kb.cards, onWatchSeen]);
 
   // ---- 흐름 브리프: 현재 필터 조합 = 범위 ----
   const scopeActive = Boolean(profileTerm) || filter !== "all" || Boolean(sigFilter) || dateRange > 0 || Boolean(search.trim());

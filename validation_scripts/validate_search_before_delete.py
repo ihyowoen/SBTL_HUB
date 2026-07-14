@@ -116,6 +116,19 @@ def looks_like_claim_reduction(record: dict[str, Any]) -> bool:
     return any(term in action_text for term in terms)
 
 
+def looks_like_full_audit(record: dict[str, Any]) -> bool:
+    """Return true for claim-gap records that contain audit metadata.
+
+    Negative outcome buckets may use lightweight reference rows that only carry
+    ``claim_gap_id``/``claim_gap_ids`` to point at a complete audit elsewhere.
+    Those reference rows should be checked for a valid link, not validated as
+    full audit objects.
+    """
+    return "claim_gap_id" in record and any(
+        field in record for field in AUDIT_REQUIRED_FIELDS - {"claim_gap_id"}
+    )
+
+
 def validate_audit(audit: Any, path: str) -> list[str]:
     errors: list[str] = []
     if not isinstance(audit, dict):
@@ -141,8 +154,20 @@ def validate_audit(audit: Any, path: str) -> list[str]:
         errors.append(f"{path}.searched_urls: must be a list")
     if not isinstance(audit.get("affected_fields"), list) or not audit["affected_fields"]:
         errors.append(f"{path}.affected_fields: must be a non-empty list")
-    if audit.get("source_discovery_result") not in SEARCH_RESULTS:
+    source_discovery_result = audit.get("source_discovery_result")
+    if source_discovery_result not in SEARCH_RESULTS:
         errors.append(f"{path}.source_discovery_result: invalid value")
+    elif source_discovery_result in {"supported_and_restored", "supported_and_narrowed"}:
+        if not isinstance(audit.get("recovered_sources"), list) or not audit["recovered_sources"]:
+            errors.append(
+                f"{path}.recovered_sources: must be a non-empty list "
+                "for supported outcomes"
+            )
+        if not isinstance(audit.get("recovered_quotes"), list) or not audit["recovered_quotes"]:
+            errors.append(
+                f"{path}.recovered_quotes: must be a non-empty list "
+                "for supported outcomes"
+            )
     if audit.get("final_claim_disposition") not in FINAL_DISPOSITIONS:
         errors.append(f"{path}.final_claim_disposition: invalid value")
     if audit.get("claim_repair_before_deletion_check") != "PASS":
@@ -160,7 +185,7 @@ def validate(data: Any) -> list[str]:
     audits: list[tuple[str, Any]] = []
 
     for path, value in walk(data):
-        if isinstance(value, dict) and "claim_gap_id" in value:
+        if isinstance(value, dict) and looks_like_full_audit(value):
             audits.append((path, value))
 
     for path, audit in audits:

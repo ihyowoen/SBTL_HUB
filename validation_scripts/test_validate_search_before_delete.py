@@ -81,6 +81,43 @@ class SearchBeforeDeleteTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("negative/reduction outcome lacks a valid claim-level", result.stdout)
 
+    def test_terminal_bucket_requires_audit_without_keyword_text(self):
+        payload = {
+            "reject_or_support_only_pool": [
+                {"reason": "source broken"}
+            ]
+        }
+        result = run_checker(payload)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("negative/reduction outcome lacks a valid claim-level", result.stdout)
+
+    def test_inline_audit_must_match_reduced_claim_gap_id(self):
+        payload = {
+            "generic_review_rows": [
+                {
+                    "claim_gap_id": "G2",
+                    "decision": "deleted after search",
+                    "search_before_delete_audit": audit(claim_gap_id="G1"),
+                }
+            ]
+        }
+        result = run_checker(payload)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("inline search-before-delete audit does not match", result.stdout)
+
+    def test_inline_audit_passes_when_it_matches_reduced_claim_gap_id(self):
+        payload = {
+            "generic_review_rows": [
+                {
+                    "claim_gap_id": "G1",
+                    "decision": "deleted after search",
+                    "search_before_delete_audit": audit(),
+                }
+            ]
+        }
+        result = run_checker(payload)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_supported_results_require_recovered_sources_and_quotes(self):
         payload = {
             "claim_search_audits": [

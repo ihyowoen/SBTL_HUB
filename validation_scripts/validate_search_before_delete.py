@@ -59,6 +59,14 @@ NEGATIVE_OUTCOME_KEYS = {
     "revise_blocked_manual_review",
     "rejected",
     "support_source_only",
+    "reject_or_support_only_pool",
+    "treasure_reject_or_support_only_pool",
+    "draft_blocked",
+    "draft_blocked_schema",
+    "blocked_specs",
+    "schema_blocked_specs",
+    "confirmed_support_only",
+    "support_only_pending",
     "deferred_review_pool",
     "duplicate_hold",
     "baseline_conflict",
@@ -223,8 +231,18 @@ def validate(data: Any) -> list[str]:
         inline = value.get("search_before_delete_audit") or value.get("claim_search_audit")
         if inline:
             inline_items = inline if isinstance(inline, list) else [inline]
+            inline_ids = {
+                str(item.get("claim_gap_id"))
+                for item in inline_items
+                if isinstance(item, dict) and item.get("claim_gap_id")
+            }
             for index, item in enumerate(inline_items):
                 errors.extend(validate_audit(item, f"{path}.search_before_delete_audit[{index}]"))
+            if linked_ids and not linked_ids.issubset(inline_ids):
+                errors.append(
+                    f"{path}: inline search-before-delete audit does not match "
+                    "the reduced claim_gap_id/claim_gap_ids"
+                )
             continue
 
         if not linked_ids or not linked_ids.issubset(audit_ids):

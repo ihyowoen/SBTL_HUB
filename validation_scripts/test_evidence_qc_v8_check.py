@@ -97,6 +97,52 @@ class EvidenceQcV8CheckTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("requires >=2 independent source owners", result.stdout)
 
+    def test_probable_editorial_owner_rows_do_not_inflate_owner_count(self):
+        card = {
+            "source_spec_id": "SPEC_TEST_004",
+            "signal": "high",
+            "source_diversity_status": "PASS_MULTI_SOURCE",
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_independent_owner_count": 1,
+            "source_independence_ledger": [
+                {"probable_editorial_owner": "same-owner", "is_independent": True},
+                {"probable_editorial_owner": "same-owner", "is_independent": True},
+            ],
+            "source_discovery_ledger": [{"query": "same event"}],
+            "urls": ["https://a.example/article-a", "https://b.example/article-b"],
+            "fact_sources": [
+                source("https://a.example/article-a", "same-owner"),
+                source("https://b.example/article-b", "same-owner"),
+            ],
+        }
+        result = run_checker({"evidence_complete_and_source_claim_covered": [card]})
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("requires >=2 independent source owners, got 1", result.stdout)
+
+    def test_anonymous_ledger_rows_do_not_override_declared_owner_count(self):
+        card = {
+            "source_spec_id": "SPEC_TEST_005",
+            "signal": "high",
+            "source_diversity_status": "PASS_MULTI_SOURCE",
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_independent_owner_count": 1,
+            "source_independence_ledger": [
+                {"is_independent": True},
+                {"is_independent": True},
+            ],
+            "source_discovery_ledger": [{"query": "same event"}],
+            "urls": ["https://a.example/article-a", "https://b.example/article-b"],
+            "fact_sources": [
+                source("https://a.example/article-a", "same-owner"),
+                source("https://b.example/article-b", "same-owner"),
+            ],
+        }
+        result = run_checker({"evidence_complete_and_source_claim_covered": [card]})
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("requires >=2 independent source owners, got 1", result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

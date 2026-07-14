@@ -12,7 +12,7 @@ HOLD={'HOLD_NEEDS_SOURCE_AUGMENTATION','FAIL_SOURCE_DIVERSITY'}
 ALLOWED=PASS|HOLD
 COMPLETE={'accepted','accepted_fact_safe','accepted_fact_safe_with_warnings','evidence_complete_and_source_claim_covered'}
 BUCKETS=('addable_merge_safe','cards','draft_cards','qc_cards','payload','accepted','accepted_fact_safe','accepted_fact_safe_with_warnings','evidence_complete_and_source_claim_covered','addable_hold_source_gap','addable_hold_claim_gap','needs_source_augmentation','evidence_qc_rejected','source_claim_gap','single_source_exception_review','deferred_review_pool','review_pool_deferred')
-OWNER_FIELDS=('independent_owner','owner','source_owner','publisher_owner','canonical_owner','parent_owner')
+OWNER_FIELDS=('independent_owner','owner','source_owner','publisher_owner','canonical_owner','parent_owner','probable_editorial_owner','editorial_owner')
 LANDING=re.compile(r'^/?$|^/(index|home|main)\.?\w*/?$',re.I)
 CORR=re.compile(r'safety|recall|리콜|점유율|market\s*share|시장\s*점유|ranking|순위|1위|최대|최초|world.?first|업계\s*최',re.I)
 OFFICIAL_HINTS=('.gov','.go.kr','sec.gov','/ir','ir.','investor','.go.jp','europa.eu','.go.uk')
@@ -47,14 +47,18 @@ def ledger_owner_count(c):
         for k in OWNER_FIELDS:
             if r.get(k):owners.add(str(r[k]).strip().lower());found=True;break
         if not found and (r.get('is_independent') is True or r.get('independent') is True):anonymous+=1
-    return len(owners) if owners else anonymous or None
+    return (len(owners), anonymous) if owners or anonymous else None
 def owner_count(c,hosts):
-    n=ledger_owner_count(c)
-    if n is not None:return n
-    n=integer(c,'source_independent_owner_count','independent_owner_count')
-    if n is not None:return n
-    n=integer(c.get('source_diversity_measure'),'source_independent_owner_count','independent_owner_count')
-    return n if n is not None else len(hosts)
+    declared=integer(c,'source_independent_owner_count','independent_owner_count')
+    if declared is None:
+        declared=integer(c.get('source_diversity_measure'),'source_independent_owner_count','independent_owner_count')
+    ledger=ledger_owner_count(c)
+    if ledger is not None:
+        ledger_named, ledger_anonymous=ledger
+        if ledger_named:return ledger_named
+        if declared is None:return ledger_anonymous
+    if declared is not None:return declared
+    return len(hosts)
 def metadata(s):
     keys=('source_type','source_kind','source_origin_type','source_role','publisher_type','origin_type','official_source_type','source_category')
     return ' '.join(str(s.get(k,'')).lower() for k in keys if isinstance(s,dict))

@@ -11,6 +11,7 @@ Exit 1: BLOCKED_SEARCH_BEFORE_DELETE_AUDIT_MISSING or malformed artifact
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any, Iterable
@@ -64,6 +65,12 @@ NEGATIVE_OUTCOME_KEYS = {
     "review_pool_deferred",
     "mandatory_evidence_rescue",
     "production_hold",
+    "needs_source_augmentation",
+    "evidence_qc_rejected",
+    "addable_hold_source_gap",
+    "addable_hold_claim_gap",
+    "source_claim_gap",
+    "single_source_exception_review",
 }
 
 
@@ -93,7 +100,7 @@ def looks_like_claim_reduction(record: dict[str, Any]) -> bool:
             "stage_c_issue_addressed",
         )
     ).lower()
-    terms = (
+    english_terms = (
         "delete",
         "deleted",
         "remove",
@@ -106,14 +113,12 @@ def looks_like_claim_reduction(record: dict[str, Any]) -> bool:
         "defer",
         "support_only",
         "support-only",
-        "축소",
-        "삭제",
-        "제거",
-        "보류",
-        "차단",
-        "기각",
     )
-    return any(term in action_text for term in terms)
+    if any(re.search(rf"(?<![a-z0-9]){re.escape(term)}(?![a-z0-9])", action_text) for term in english_terms):
+        return True
+
+    korean_terms = ("축소", "삭제", "제거", "보류", "차단", "기각")
+    return any(term in action_text for term in korean_terms)
 
 
 def looks_like_full_audit(record: dict[str, Any]) -> bool:

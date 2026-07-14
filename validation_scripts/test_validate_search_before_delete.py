@@ -52,6 +52,25 @@ class SearchBeforeDeleteTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("PASS_SEARCH_BEFORE_DELETE_AUDIT", result.stdout)
 
+    def test_evidence_qc_hold_bucket_requires_audit_without_heuristic_text(self):
+        payload = {
+            "needs_source_augmentation": [
+                {"id": "x", "state": "needs_source_augmentation"}
+            ]
+        }
+        result = run_checker(payload)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("negative/reduction outcome lacks a valid claim-level", result.stdout)
+
+    def test_reduction_keywords_do_not_match_inside_benign_words(self):
+        payload = {
+            "metadata": {
+                "notes": "Stakeholder threshold discussion mentions blockchain context."
+            }
+        }
+        result = run_checker(payload)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_supported_results_require_recovered_sources_and_quotes(self):
         payload = {
             "claim_search_audits": [

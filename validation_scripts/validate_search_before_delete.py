@@ -100,21 +100,21 @@ def looks_like_claim_reduction(record: dict[str, Any]) -> bool:
             "stage_c_issue_addressed",
         )
     ).lower()
-    english_terms = (
-        "delete",
-        "deleted",
-        "remove",
-        "removed",
-        "narrow",
-        "narrowed",
-        "hold",
-        "block",
-        "reject",
-        "defer",
-        "support_only",
-        "support-only",
+    english_patterns = (
+        r"delete(?:d|s|ing)?",
+        r"remove(?:d|s|ing)?",
+        r"narrow(?:ed|s|ing)?",
+        r"hold(?:s|ing)?",
+        r"held",
+        r"block(?:ed|s|ing)?",
+        r"reject(?:ed|s|ing)?",
+        r"defer(?:red|s|ring)?",
+        r"support[_-]only",
     )
-    if any(re.search(rf"(?<![a-z0-9]){re.escape(term)}(?![a-z0-9])", action_text) for term in english_terms):
+    if any(
+        re.search(rf"(?<![a-z0-9]){pattern}(?![a-z0-9])", action_text)
+        for pattern in english_patterns
+    ):
         return True
 
     korean_terms = ("축소", "삭제", "제거", "보류", "차단", "기각")

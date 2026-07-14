@@ -71,6 +71,16 @@ class SearchBeforeDeleteTests(unittest.TestCase):
         result = run_checker(payload)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_inflected_reduction_keywords_require_audit_reference(self):
+        payload = {
+            "generic_review_rows": [
+                {"decision": "blocked pending source support", "claim_gap_id": "G1"}
+            ]
+        }
+        result = run_checker(payload)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("negative/reduction outcome lacks a valid claim-level", result.stdout)
+
     def test_supported_results_require_recovered_sources_and_quotes(self):
         payload = {
             "claim_search_audits": [

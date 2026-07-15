@@ -2451,7 +2451,9 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       const wantPeriod = agentSeed.weeklyPeriod;
       const pick = wantPeriod ? weeklyBriefs.find((e) => ((e && e.period) || "weekly") === wantPeriod) : null;
       setWeeklyShownId(pick ? pick.id : null);
-      if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead();
+      // 기간 고정으로 특정 호수를 열 때는 그 호수만 읽음 처리 — 전체를 처리하면 아직 안 본
+      // (더 최신) 다른 기간 호수의 NEW가 열람 없이 사라진다. 폴백(최신호 표시)은 기존대로 전체.
+      if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(pick ? pick.id : undefined);
       applied = true;
     } else if (agentSeed.feedFilter) {
       // 피드 필터 seed — 명령은 필터 상태의 '선언'이다: 언급된 면은 적용하고 언급 없는
@@ -3023,9 +3025,12 @@ function AppContent() {
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
   }, []);
-  const markWeeklyBriefsRead = useMemo(() => () => {
+  // onlyId를 주면 그 호수만 읽음 처리한다 — 기간 고정 열람("월간 브리프 보여줘")은 최신호가
+  // 아닌 호수를 일부러 여는데, 전체를 읽음 처리하면 위에 있는 안 본 주간호의 NEW가 조용히
+  // 사라진다. 인자 없이 부르면 기존대로 전체 처리(선반 토글은 최신호를 보여주므로 그대로).
+  const markWeeklyBriefsRead = useMemo(() => (onlyId) => {
     try {
-      const next = readWeeklyBriefs().map((e) => (e.read ? e : { ...e, read: true }));
+      const next = readWeeklyBriefs().map((e) => (!e.read && (!onlyId || e.id === onlyId) ? { ...e, read: true } : e));
       localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
       setWeeklyBriefs(next);
     } catch { /* noop */ }

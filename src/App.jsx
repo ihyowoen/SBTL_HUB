@@ -414,10 +414,11 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       ? kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && cardDateWithinDays(c, days)).length
       : kb.cards.filter((c) => cardDateWithinDays(c, days)).length;
     if (material < 2) return `재료 부족 — 최근 ${days}일 ${watchTerms.length ? "매칭" : "카드"} ${material}장 (2장 필요)`;
-    const latestOfPeriod = weeklyBriefs.find((e) => ((e && e.period) || "weekly") === period);
-    const ts = Number(String(latestOfPeriod?.id || "").replace(/^wb_/, "")) || 0;
-    // 범위 비교는 챗 쿨다운·패시브 주기 판정과 동일 규약(briefScopeMatches) — 범위가 바뀌면 즉시 재발행 허용
-    if (ts && briefScopeMatches(latestOfPeriod, watchTerms) && Date.now() - ts < 10 * 60000) return "방금 발행했어요 — 10분 뒤에 다시 만들 수 있어요";
+    // 챗 쿨다운(briefAtFor)과 동일 규약 — 기간·범위가 모두 일치하는 최신호로 판정한다
+    // (기간만 find하면 범위 A→B→A 전환 시 앞의 B호에 가려 A 쿨다운이 무력화된다)
+    const latestSame = weeklyBriefs.find((e) => ((e && e.period) || "weekly") === period && briefScopeMatches(e, watchTerms));
+    const ts = Number(String(latestSame?.id || "").replace(/^wb_/, "")) || 0;
+    if (ts && Date.now() - ts < 10 * 60000) return "방금 발행했어요 — 10분 뒤에 다시 만들 수 있어요";
     return null;
   };
   const weeklyBlock = briefGate("weekly");
@@ -1416,11 +1417,12 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     // 주간·월간은 별개 쿨다운 — 기간별 최신 항목을 각각 찾아 같은 범위일 때만 타임스탬프를 보낸다.
     // (period 없는 구 항목은 주간 취급. 빈 워치 범위도 terms_sig "[]" 비교로 동일하게 동작.)
     const briefAtFor = (period) => {
-      const latestBrief = readWeeklyBriefs().find((e) => ((e && e.period) || "weekly") === period);
+      // 기간·범위가 '모두' 일치하는 최신호를 찾는다 — 기간만으로 find하면 범위를 A→B→A로
+      // 바꿨을 때 맨 앞의 B호에서 멈춰 범위 불일치(0)가 되고, 방금 만든 A호가 뒤에 있는데도
+      // A를 다시 생성해버린다. 보관함은 최신순이라 두 조건 동시 find가 곧 '최신 동일호'.
+      const latestBrief = readWeeklyBriefs().find((e) => ((e && e.period) || "weekly") === period && briefScopeMatches(e, watchNow));
       if (!latestBrief) return 0;
-      const briefAt = Number(String(latestBrief.id || "").replace(/^wb_/, "")) || 0;
-      // 같은 범위로 방금 만든 브리프에만 쿨다운 적용 — 범위 비교는 패시브 주기 판정과 동일 규약
-      return briefScopeMatches(latestBrief, watchNow) ? briefAt : 0;
+      return Number(String(latestBrief.id || "").replace(/^wb_/, "")) || 0;
     };
     const body = { message: mode === "external" ? `${txt} 외부 기사 링크 중심으로 찾아줘` : txt, context: { ...chatCtxRef.current, watch_terms: watchNow, last_brief_at: briefAtFor("weekly"), last_monthly_brief_at: briefAtFor("monthly") } };
     if (hint && (hint.hint_action || hint.hint_topic)) body.hint = { action: hint.hint_action || undefined, topic: hint.hint_topic || undefined };
@@ -2857,15 +2859,22 @@ function AppContent() {
         // 전체 범위는 창 안에 카드가 많으므로 시그널 상위 우선으로 40장 캡
         : kb.cards.filter((c) => cardDateWithinDays(c, windowDays)).sort((a, b) => (sigRank[String(b.s || b.signal || "i").toLowerCase()[0]] || 0) - (sigRank[String(a.s || a.signal || "i").toLowerCase()[0]] || 0)).slice(0, 40);
       if (matched.length < 2) return;
-      // 크로스탭 잠금 — 동시에 뜬 두 탭이 같은 주간 브리프를 중복 생성(LLM 이중 호출)하지 않도록.
+      // 크로스탭 잠금 — 동시에 뜬 두 탭이 '같은 산출물'을 중복 생성(LLM 이중 호출)하지 않도록.
       // 토큰(타임스탬프_난수)을 쓰고 fetch 직전에 소유권을 재확인한다: localStorage 쓰기는
       // 오리진 단위로 직렬화되므로 최종 토큰과 일치하는 탭은 정확히 하나다.
+      // 락은 반드시 기간별 — 주간과 월간은 서로 다른 산출물이라 한 락을 공유하면, 접속 시
+      // 패시브 주간 발행(R9로 빈 워치 유저도 자동 발행하므로 흔해졌다)이 도는 동안 들어온
+      // 월간 수동 요청이 "만들게" 약속만 하고 조용히 폐기된다(force는 in-flight 가드도
+      // 조용히 버리므로 사용자에겐 아무 일도 안 일어난 것처럼 보임).
+      // 범위(scope)는 락 키에 넣지 않는다 — 워치 변경 중 겹침은 in-flight 시그니처 가드가
+      // 낡은 결과를 버리고 bumpWatchSeen으로 현재 범위 재평가를 예약해 스스로 회복한다.
+      const lockKey = `${WEEKLY_BRIEF_LOCK_KEY}_${period}`;
       const lockToken = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
       try {
-        const rawLock = localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY);
+        const rawLock = localStorage.getItem(lockKey);
         const lockAt = Number(String(rawLock || "").split("_")[0] || 0);
         if (rawLock && Date.now() - lockAt < WEEKLY_BRIEF_LOCK_TTL) return;
-        localStorage.setItem(WEEKLY_BRIEF_LOCK_KEY, lockToken);
+        localStorage.setItem(lockKey, lockToken);
       } catch { /* 잠금 불가 환경은 그대로 진행 */ }
       if (!force) weeklyAttemptRef.current = true;
       setWeeklyGenerating(true);
@@ -2879,7 +2888,7 @@ function AppContent() {
           // 소유권 재확인 — check-then-set 사이에 같이 진입한 다른 탭이 토큰을 덮었으면 물러난다
           try {
             await new Promise((resolve) => setTimeout(resolve, 50));
-            if (localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) !== lockToken) return;
+            if (localStorage.getItem(lockKey) !== lockToken) return;
           } catch { /* 확인 불가 환경은 진행 */ }
           const payload = {
             scopeLabel,
@@ -2931,7 +2940,7 @@ function AppContent() {
           setWeeklyGenerating(false);
           // 내 토큰일 때만 해제 — 소유권을 잃었으면 남(승자)의 잠금을 지우지 않는다
           try {
-            if (localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) === lockToken) localStorage.removeItem(WEEKLY_BRIEF_LOCK_KEY);
+            if (localStorage.getItem(lockKey) === lockToken) localStorage.removeItem(lockKey);
           } catch { /* noop */ }
         }
       })();

@@ -919,6 +919,14 @@ function readWeeklyBriefs() {
   } catch { return []; }
 }
 
+// 패시브 주기 판정은 '주간' 항목만 본다 — 보관함은 주간·월간이 섞이므로, 오늘 수동으로
+// 만든 월간호가 목록 맨 앞에 오면 weeklyBriefDue가 그걸 최신 주간호로 오인해 주간 자동
+// 발행이 최대 7일 막힌다(주간호가 아예 없거나 낡았어도). period 없는 구 항목은 주간 취급 —
+// 마이그레이션 없이 기존 이력이 그대로 유효하다.
+function weeklyEntriesOnly(entries) {
+  return (entries || []).filter((e) => ((e && e.period) || "weekly") === "weekly");
+}
+
 // 최신 항목의 생성일로부터 7일이 지났으면 새 주간 브리프 생성 대상
 function weeklyBriefDue(entries) {
   if (!entries.length) return true;
@@ -2816,7 +2824,8 @@ function AppContent() {
       const rawTerms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
       const terms = Array.isArray(rawTerms) ? rawTerms : [];
       const existing = readWeeklyBriefs();
-      if (!force && !weeklyBriefDue(existing)) {
+      // 주기 판정은 주간 항목만 (월간호가 주간 자동 발행을 막지 않게) — 상태에는 전체 목록 반영
+      if (!force && !weeklyBriefDue(weeklyEntriesOnly(existing))) {
         // 다른 탭이 이미 발행했거나 항목 내용(read 등)을 갱신한 경우 — 화면에 반영.
         // 내용 전체 비교로 동일할 때만 이전 참조 유지 (보관함 ≤12항목이라 비용 무시 가능)
         setWeeklyBriefs((prev) => (JSON.stringify(prev) === JSON.stringify(existing) ? prev : existing));
@@ -2888,7 +2897,7 @@ function AppContent() {
             read: false,
           };
           const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)
-          if (!force && fresh.length && !weeklyBriefDue(fresh)) {
+          if (!force && !weeklyBriefDue(weeklyEntriesOnly(fresh))) {
             setWeeklyBriefs(fresh); // 경합에서 진 탭도 승자 항목을 화면에 반영
             return;
           }

@@ -452,8 +452,9 @@ export default async function handler(req, res) {
     const cmdWatchTerms = Array.isArray(context?.watch_terms)
       ? context.watch_terms.map((x) => String(x || "").trim()).filter(Boolean)
       : [];
-    // last_brief_at(epoch ms): brief_now의 10분 쿨다운 게이팅용 — 방금 발행본이 있으면 재생성 대신 열람
-    const appCmd = detectAppCommand(message, data.aliasGroups || [], { cards: data.cards || [], watchTerms: cmdWatchTerms, lastBriefAt: Number(context?.last_brief_at || 0) });
+    // last_brief_at / last_monthly_brief_at(epoch ms): brief_now의 10분 쿨다운 게이팅용 —
+    // 방금 발행본이 있으면 재생성 대신 열람. 주간·월간은 별개 쿨다운(주간 직후 월간 요청은 정당).
+    const appCmd = detectAppCommand(message, data.aliasGroups || [], { cards: data.cards || [], watchTerms: cmdWatchTerms, lastBriefAt: Number(context?.last_brief_at || 0), lastMonthlyBriefAt: Number(context?.last_monthly_brief_at || 0) });
     if (appCmd) {
       const tpl = appCommandResponse(appCmd);
       console.log(`[chat-app-command] type=${appCmd.type} term=${appCmd.term || "-"}`);

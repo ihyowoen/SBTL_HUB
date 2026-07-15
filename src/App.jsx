@@ -2933,8 +2933,11 @@ function AppContent() {
           const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
           localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
           setWeeklyBriefs(next);
-          // 강제 발행은 사용자가 지금 기다리는 중 — 완성본을 📮 선반 최신 호수로 바로 펼친다
-          if (force) setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, nonce: s.nonce + 1 }));
+          // 강제 발행은 사용자가 지금 기다리는 중 — 완성본을 📮 선반에 바로 펼친다.
+          // weeklyPeriod로 '요청한 기간'을 박아 그 호수를 고정한다: 락이 기간별로 분리돼
+          // 주간 패시브와 월간 수동이 동시에 돌 수 있으므로, 기간을 안 주면 뒤늦게 끝난
+          // 주간호가 앞에 꽂히며 사용자가 방금 만든 월간호에서 밀려난다(선반은 최신호 표시).
+          if (force) setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: period, feedFilter: null, nonce: s.nonce + 1 }));
         } catch { /* 조용히 — 다음 접속(또는 재명령)에서 재시도 */ }
         finally {
           setWeeklyGenerating(false);
@@ -2997,7 +3000,9 @@ function AppContent() {
         // 강제 발행: 선반을 먼저 열어 '만드는 중'을 보여주고, 완성되면 runWeeklyBrief가
         // seed를 한 번 더 올려 최신 호수를 자동 표시한다. (brief_empty_watch·brief_no_material은
         // 서버 응답만 있고 클라 동작 없음 — watch_absent와 같은 무동작 안전 분기)
-        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, feedFilter: null, nonce: s.nonce + 1 }));
+        // 생성 전 선반 열기도 같은 기간을 박아둔다 — 요청한 기간의 기존 호수를 보여주다가
+        // 완성되면 위 완료 seed가 새 호수로 다시 고정한다(요청 내내 기간 맥락 유지)
+        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: cmd.period || null, feedFilter: null, nonce: s.nonce + 1 }));
         setTab("news");
         runWeeklyBrief({ force: true, period: cmd.period });
       } else if (cmd.type === "feed_filter") {

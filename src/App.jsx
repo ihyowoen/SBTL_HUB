@@ -2933,7 +2933,11 @@ function AppContent() {
           if (!terms.length) {
             const aliasEntities = await loadAliasEntities();
             const axes = computeBriefAxes(matched, aliasEntities || {}, { topK: period === "monthly" ? 4 : 3 });
-            if (axes.length) {
+            // 서버 축 모드 최소치(총 4장, need-axes-with-cards)와 동일 기준 — 3장짜리 축
+            // 하나뿐이면 축 payload가 400으로 거절되고 여기서 조용히 실패한다(flat이면
+            // 2장으로도 충분했을 상황). 미달이면 flat으로 폴백해 브리프는 반드시 나온다.
+            const axisCardTotal = axes.reduce((a, ax) => a + ax.cards.length, 0);
+            if (axes.length && axisCardTotal >= 4) {
               briefCards = axes.flatMap((ax) => ax.cards);
               payload = { scopeLabel, axes: axes.map((ax) => ({ key: ax.key, cards: ax.cards.map(toPayloadCard) })) };
             } else {

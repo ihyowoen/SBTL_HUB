@@ -2710,7 +2710,10 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
                     <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>지난 브리프</div>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       {weeklyBriefs.map((e) => (
-                        <button key={e.id} onClick={() => setWeeklyShownId(e.id)} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}</button>
+                        // 칩으로 호수를 바꾸면 그 호수만 읽음 처리 — 기간 고정 열람이 다른 호수의
+                        // NEW를 일부러 남겨두므로(markWeeklyBriefsRead(onlyId)), 실제로 그 호수를
+                        // 열어보는 이 경로에서 꺼주지 않으면 NEW가 선반을 접었다 펼 때까지 남는다.
+                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}{!e.read ? " ·" : ""}</button>
                       ))}
                     </div>
                   </div>

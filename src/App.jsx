@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
+import { computeBriefAxes } from "./briefAxes";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
@@ -116,7 +117,7 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
           scopeLabel: "오늘의 흐름",
           cards: src.map((c) => ({
             date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
-            fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
+            fact: c.fact || c.gate || c.g || "", implication: cardImplicationText(c),
             quote: "", quoteSource: "",
           })),
         };
@@ -348,7 +349,7 @@ function ChatGuide({ dark, runSuggestion }) {
   const t = T(dark);
   const groups = [
     { icon: "⚡", title: "앱 조작 (말로 시키기)", desc: "워치·프로필·피드 필터를 채팅으로 바로 조작해", chips: ["CATL 워치에 추가해줘", "삼성SDI 프로필 보여줘", "중국 최근 7일 카드만 보여줘"] },
-    { icon: "📮", title: "주간 브리프", desc: "매주 자동 발행 + 원하면 즉시 발행", chips: ["주간 브리프 보여줘", "지금 브리프 만들어줘"] },
+    { icon: "📮", title: "브리프", desc: "매주 자동 발행 + 원하면 주간·월간 즉시 발행 (워치 없으면 전체 기준)", chips: ["주간 브리프 보여줘", "지금 브리프 만들어줘", "월간 브리프 만들어줘"] },
     { icon: "🔍", title: "검색·비교·개인화", desc: "답변엔 [n] 근거 인용이 달려", chips: ["내워치 최근 소식 정리해줘", "LFP랑 NCM 비교해줘", "미국 FEOC 쉽게 설명해줘"] },
   ];
   return (
@@ -406,13 +407,23 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // ⚡ 즉시 발행 게이팅 — 챗 명령(brief_now)의 서버 게이트와 동일 기준을 버튼에도 적용.
   // 게이트 없이 실행하면 재료 부족 시 NEWS로 이동만 하고 조용히 실패하거나(설명 없음),
   // 방금 발행 직후 연타로 중복 생성될 수 있다. 막힌 이유는 버튼 아래 정직하게 표시.
-  const recentMatchCount = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && cardDateWithinDays(c, 7)).length;
-  const latestBriefTs = Number(String(latest?.id || "").replace(/^wb_/, "")) || 0;
-  const sameScopeBrief = latest ? (latest.terms_sig != null ? latest.terms_sig === JSON.stringify(watchTerms) : true) : false;
-  const briefBlockReason = !watchTerms.length ? "워치를 먼저 등록해 주세요"
-    : recentMatchCount < 2 ? `재료 부족 — 최근 7일 매칭 ${recentMatchCount}장 (2장 필요)`
-    : (sameScopeBrief && latestBriefTs && Date.now() - latestBriefTs < 10 * 60000) ? "방금 발행했어요 — 10분 뒤에 다시 만들 수 있어요"
-    : null;
+  // 워치가 비면 차단 대신 '전체' 범위로 폴백(서버·생성기와 동일). 주간·월간은 재료
+  // 창(7/30일)과 쿨다운이 각각 분리 — 주간 발행 직후의 월간 발행은 정당하다.
+  const briefGate = (period) => {
+    const days = period === "monthly" ? 30 : 7;
+    const material = watchTerms.length
+      ? kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && cardDateWithinDays(c, days)).length
+      : kb.cards.filter((c) => cardDateWithinDays(c, days)).length;
+    if (material < 2) return `재료 부족 — 최근 ${days}일 ${watchTerms.length ? "매칭" : "카드"} ${material}장 (2장 필요)`;
+    // 챗 쿨다운(briefAtFor)과 동일 규약 — 기간·범위가 모두 일치하는 최신호로 판정한다
+    // (기간만 find하면 범위 A→B→A 전환 시 앞의 B호에 가려 A 쿨다운이 무력화된다)
+    const latestSame = weeklyBriefs.find((e) => ((e && e.period) || "weekly") === period && briefScopeMatches(e, watchTerms));
+    const ts = Number(String(latestSame?.id || "").replace(/^wb_/, "")) || 0;
+    if (ts && Date.now() - ts < 10 * 60000) return "방금 발행했어요 — 10분 뒤에 다시 만들 수 있어요";
+    return null;
+  };
+  const weeklyBlock = briefGate("weekly");
+  const monthlyBlock = briefGate("monthly");
   const submitDraft = () => { const v = draft.trim(); if (v.length >= 2 && typeof onWatchAdd === "function") { onWatchAdd(v); setDraft(""); } };
   const sectionTitle = (label, desc) => (
     <div style={{ margin: "16px 0 8px" }}>
@@ -472,22 +483,23 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       ) : (
         <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>아직 매칭 카드가 없어요 — 워치를 넓혀보거나 상담소에 물어보세요.</div>
       )}
-      {sectionTitle("📮 주간 브리프", "매주 자동 발행 — 기다리기 싫으면 아래 버튼으로 지금 바로")}
+      {sectionTitle("📮 브리프 보관함", `매주 자동 발행${watchTerms.length ? "" : " (워치가 비어 있어 전체 카드 기준)"} — 기다리기 싫으면 아래 버튼으로 주간·월간 바로 발행`)}
       {latest ? (
         <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px solid ${t.brd}` }}>
-          <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{latest.generated_at} 발행 · {weeklyBriefs.length}부 보관</div>
+          <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{latest.scope_label || "내워치"} · {latest.generated_at} 발행 · {weeklyBriefs.length}부 보관</div>
           <div style={{ fontSize: 12.5, lineHeight: 1.7, color: t.tx, wordBreak: "keep-all" }}>{String(latest.narrative || "").slice(0, 110)}…</div>
         </div>
       ) : (
         <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px dashed ${t.brd}`, fontSize: 11.5, color: t.sub, lineHeight: 1.6 }}>아직 발행본이 없어요.</div>
       )}
       <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
-        <button onClick={() => { if (!briefBlockReason && onBriefNow) onBriefNow(); }} disabled={!!briefBlockReason} style={{ flex: 1, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: briefBlockReason ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: briefBlockReason ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>⚡ 지금 브리프 발행하기</button>
+        <button onClick={() => { if (!weeklyBlock && onBriefNow) onBriefNow("weekly"); }} disabled={!!weeklyBlock} style={{ flex: 1, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: weeklyBlock ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: weeklyBlock ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>⚡ 주간 발행</button>
+        <button onClick={() => { if (!monthlyBlock && onBriefNow) onBriefNow("monthly"); }} disabled={!!monthlyBlock} style={{ flex: 1, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: monthlyBlock ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: monthlyBlock ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>📅 월간 발행</button>
         {latest && (
           <button
             onClick={async () => {
               // 브리프 공유 — Web Share, 미지원이면 클립보드
-              const text = `[SBTL 주간 브리프] ${latest.scope_label || "내워치"} · ${latest.generated_at}\n\n${String(latest.narrative || "")}`;
+              const text = `[SBTL ${latest.period === "monthly" ? "월간" : "주간"} 브리프] ${latest.scope_label || "내워치"} · ${latest.generated_at}\n\n${String(latest.narrative || "")}`;
               try {
                 if (navigator.share) await navigator.share({ title: "SBTL 주간 브리프", text });
                 else await navigator.clipboard.writeText(text);
@@ -498,7 +510,8 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
           >↗ 공유</button>
         )}
       </div>
-      {briefBlockReason && <div style={{ fontSize: 10, color: t.sub, marginTop: 5, fontFamily: "'JetBrains Mono',monospace" }}>{briefBlockReason}</div>}
+      {weeklyBlock && <div style={{ fontSize: 10, color: t.sub, marginTop: 5, fontFamily: "'JetBrains Mono',monospace" }}>주간: {weeklyBlock}</div>}
+      {monthlyBlock && <div style={{ fontSize: 10, color: t.sub, marginTop: 3, fontFamily: "'JetBrains Mono',monospace" }}>월간: {monthlyBlock}</div>}
       {watchTerms.length >= 2 && (() => {
         // ⚖️ 워치 비교 — 앞 2개 텀 나란히 (실구현: 선택 가능하게)
         const pair = watchTerms.slice(0, 2).map((w) => {
@@ -773,6 +786,15 @@ function cardWatchHay(c) {
     .map((v) => String(v || "")).join(" ").toLowerCase();
 }
 
+// 카드의 함의(implication) — 원본은 3문장 배열, 정규화본은 implicationText 문자열.
+// R10 이전엔 브리프 페이로드 4곳이 '원본' 카드에서 c.implicationText(원본에 없는 필드)를
+// 읽어 함의가 100% 유실됐다(1082/1082장 보유 → 전달 0%). 인과·후속 단계가 담긴 필드라
+// 이 유실이 '나열 서사'와 '공허한 워치'의 근본 원인이었다 — 반드시 이 헬퍼로 읽는다.
+function cardImplicationText(c) {
+  if (Array.isArray(c?.implication)) return c.implication.filter(Boolean).join(" ");
+  return String(c?.implicationText || c?.implication || "");
+}
+
 function cardMatchesWatch(c, terms) {
   if (!Array.isArray(terms) || terms.length === 0) return false;
   const hay = cardWatchHay(c);
@@ -895,6 +917,19 @@ function buildEntityMatcher(aliasNames) {
   return { regex, byLower };
 }
 
+// 축 선별용 별칭맵 — 1회 로드 모듈 캐시. NewsDesk 파인더의 fetch와 별개(이쪽은 AppContent의
+// 브리프 생성 경로). 실패해도 null — 엔티티 축만 빠지고 related·테마·지역 생성기는 동작한다.
+let aliasEntitiesPromise = null;
+function loadAliasEntities() {
+  if (!aliasEntitiesPromise) {
+    aliasEntitiesPromise = fetch("/data/entity_alias_map.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => (j && (j.entities || j)) || null)
+      .catch(() => null);
+  }
+  return aliasEntitiesPromise;
+}
+
 // ---- 주간 브리프 보관함: 앱 접속 시 내워치 범위로 조용히 생성해 적재 ----
 const WEEKLY_BRIEF_KEY = "sbtl_weekly_briefs";
 const WEEKLY_BRIEF_CAP = 12; // 약 3개월치
@@ -906,6 +941,24 @@ function readWeeklyBriefs() {
     const v = JSON.parse(localStorage.getItem(WEEKLY_BRIEF_KEY) || "[]");
     return Array.isArray(v) ? v : [];
   } catch { return []; }
+}
+
+// 패시브 주기 판정은 '주간' 항목만 본다 — 보관함은 주간·월간이 섞이므로, 오늘 수동으로
+// 만든 월간호가 목록 맨 앞에 오면 weeklyBriefDue가 그걸 최신 주간호로 오인해 주간 자동
+// 발행이 최대 7일 막힌다(주간호가 아예 없거나 낡았어도). period 없는 구 항목은 주간 취급 —
+// 마이그레이션 없이 기존 이력이 그대로 유효하다.
+function weeklyEntriesOnly(entries) {
+  return (entries || []).filter((e) => ((e && e.period) || "weekly") === "weekly");
+}
+
+// 브리프 항목이 '지금의 워치 범위'로 만들어진 것인지 — terms_sig(R7+)가 정본이고,
+// 구 항목은 표시용 terms로 best-effort 비교. 전체 범위 폴백(R9)은 terms_sig "[]"라
+// 워치를 등록하면 자연히 불일치가 되어 새 범위로 다시 만들어진다.
+function briefScopeMatches(entry, terms) {
+  if (!entry) return false;
+  if (entry.terms_sig != null) return entry.terms_sig === JSON.stringify(terms);
+  const et = entry.terms || [];
+  return JSON.stringify(et) === JSON.stringify(terms.slice(0, et.length));
 }
 
 // 최신 항목의 생성일로부터 7일이 지났으면 새 주간 브리프 생성 대상
@@ -1384,14 +1437,17 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     // 재발행 요청을 옛 범위 브리프로 막지 않도록, 범위가 바뀌었으면 0을 보내 재생성을 허용한다.
     // 범위 비교는 브리프와 라이브 워치 목록을 모두 네이티브로 가진 클라이언트에서 수행한다.
     const watchNow = readWatchTermsSafe();
-    const latestBrief = readWeeklyBriefs()[0];
-    const briefAt = Number(String(latestBrief?.id || "").replace(/^wb_/, "")) || 0;
-    const sameScope = !latestBrief ? false
-      : (latestBrief.terms_sig != null
-        ? latestBrief.terms_sig === JSON.stringify(watchNow) // 신규: 발행 시점 전체 시그니처와 비교
-        : JSON.stringify(latestBrief.terms || []) === JSON.stringify(watchNow.slice(0, (latestBrief.terms || []).length))); // 구형(terms_sig 없음): 표시용 terms로 best-effort 비교
-    const lastBriefAt = sameScope ? briefAt : 0;
-    const body = { message: mode === "external" ? `${txt} 외부 기사 링크 중심으로 찾아줘` : txt, context: { ...chatCtxRef.current, watch_terms: watchNow, last_brief_at: lastBriefAt } };
+    // 주간·월간은 별개 쿨다운 — 기간별 최신 항목을 각각 찾아 같은 범위일 때만 타임스탬프를 보낸다.
+    // (period 없는 구 항목은 주간 취급. 빈 워치 범위도 terms_sig "[]" 비교로 동일하게 동작.)
+    const briefAtFor = (period) => {
+      // 기간·범위가 '모두' 일치하는 최신호를 찾는다 — 기간만으로 find하면 범위를 A→B→A로
+      // 바꿨을 때 맨 앞의 B호에서 멈춰 범위 불일치(0)가 되고, 방금 만든 A호가 뒤에 있는데도
+      // A를 다시 생성해버린다. 보관함은 최신순이라 두 조건 동시 find가 곧 '최신 동일호'.
+      const latestBrief = readWeeklyBriefs().find((e) => ((e && e.period) || "weekly") === period && briefScopeMatches(e, watchNow));
+      if (!latestBrief) return 0;
+      return Number(String(latestBrief.id || "").replace(/^wb_/, "")) || 0;
+    };
+    const body = { message: mode === "external" ? `${txt} 외부 기사 링크 중심으로 찾아줘` : txt, context: { ...chatCtxRef.current, watch_terms: watchNow, last_brief_at: briefAtFor("weekly"), last_monthly_brief_at: briefAtFor("monthly") } };
     if (hint && (hint.hint_action || hint.hint_topic)) body.hint = { action: hint.hint_action || undefined, topic: hint.hint_topic || undefined };
     return postChat(body);
   };
@@ -2335,7 +2391,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       card.fact ? String(card.fact) : "",
       srcs.length ? "근거:" : "",
       ...srcs.slice(0, 4).map((s) => `- "${String(s.source_quote || "").slice(0, 300)}" — ${s.source_name || "출처"}${s.source_url ? ` ${s.source_url}` : ""}`),
-      card.implicationText ? `함의: ${card.implicationText}` : "",
+      cardImplicationText(card) ? `함의: ${cardImplicationText(card)}` : "",
       (card.url || card.primaryUrl) ? `원문: ${card.url || card.primaryUrl}` : "",
     ].filter(Boolean).join("\n");
     const id = getCardId(card);
@@ -2413,8 +2469,14 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
     } else if (agentSeed.weeklyOpen) {
       setProfileTerm(null);
       setWeeklyOpen(true);
-      setWeeklyShownId(null);
-      if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead();
+      // 기간을 명시한 요청이면 그 기간의 최신호를 선택 — null이면 최신호(기간 무관)를 그대로.
+      // (요청한 기간의 발행본이 아직 없으면 최신호로 폴백 — 빈 화면보다 낫다)
+      const wantPeriod = agentSeed.weeklyPeriod;
+      const pick = wantPeriod ? weeklyBriefs.find((e) => ((e && e.period) || "weekly") === wantPeriod) : null;
+      setWeeklyShownId(pick ? pick.id : null);
+      // 기간 고정으로 특정 호수를 열 때는 그 호수만 읽음 처리 — 전체를 처리하면 아직 안 본
+      // (더 최신) 다른 기간 호수의 NEW가 열람 없이 사라진다. 폴백(최신호 표시)은 기존대로 전체.
+      if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(pick ? pick.id : undefined);
       applied = true;
     } else if (agentSeed.feedFilter) {
       // 피드 필터 seed — 명령은 필터 상태의 '선언'이다: 언급된 면은 적용하고 언급 없는
@@ -2430,6 +2492,9 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       applied = true;
     }
     if (applied && typeof onAgentSeedConsumed === "function") onAgentSeedConsumed();
+    // weeklyBriefs는 seed 소비 시점의 보관함을 읽기만 한다 — nonce 가드가 있어 목록 변화로
+    // 재실행되면 안 되므로 deps에서 제외(넣으면 발행 직후 목록 갱신에 옛 명령이 재생된다)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [agentSeed, onWeeklyBriefsRead, onAgentSeedConsumed]);
 
   // 용어 시트가 열려 있는 동안: 배경 스크롤 잠금 + Escape로 닫기
@@ -2515,7 +2580,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         scopeLabel,
         cards: briefCards.map((c) => ({
           date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
-          fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
+          fact: c.fact || c.gate || c.g || "", implication: cardImplicationText(c),
           quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
           quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
         })),
@@ -2548,7 +2613,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   const copyWeeklyBrief = (entry) => {
     if (!entry?.narrative) return;
     const text = [
-      `[SBTL 주간 브리프] ${entry.scope_label || "내워치"} — ${entry.generated_at || ""}`,
+      `[SBTL ${entry.period === "monthly" ? "월간" : "주간"} 브리프] ${entry.scope_label || "내워치"} — ${entry.generated_at || ""}`,
       "",
       entry.narrative,
       ...(entry.watch?.length ? ["", "지켜볼 것:", ...entry.watch.map((w) => `- ${w}`)] : []),
@@ -2631,7 +2696,8 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
             {weeklyOpen && shown && (
               <div style={{ marginTop: 10 }}>
                 <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{shown.scope_label} · {shown.generated_at} · 근거 {shown.refs?.length || 0}장</div>
-                <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all" }}>{shown.narrative}</div>
+                {/* whiteSpace pre-line — 축 모드 브리프는 【축】 문단을 \n\n로 구분한다 */}
+                <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all", whiteSpace: "pre-line" }}>{shown.narrative}</div>
                 {shown.watch?.length > 0 && (
                   <div style={{ marginTop: 10 }}>
                     <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
@@ -2644,7 +2710,10 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
                     <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>지난 브리프</div>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       {weeklyBriefs.map((e) => (
-                        <button key={e.id} onClick={() => setWeeklyShownId(e.id)} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}</button>
+                        // 칩으로 호수를 바꾸면 그 호수만 읽음 처리 — 기간 고정 열람이 다른 호수의
+                        // NEW를 일부러 남겨두므로(markWeeklyBriefsRead(onlyId)), 실제로 그 호수를
+                        // 열어보는 이 경로에서 꺼주지 않으면 NEW가 선반을 접었다 펼 때까지 남는다.
+                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}{!e.read ? " ·" : ""}</button>
                       ))}
                     </div>
                   </div>
@@ -2778,63 +2847,110 @@ function AppContent() {
   // 실패는 조용히 넘기고 다음 접속에서 재시도. 서버는 기존 /api/brief 재사용.
   const [weeklyBriefs, setWeeklyBriefs] = useState(() => (typeof window !== "undefined" ? readWeeklyBriefs() : []));
   const weeklyAttemptRef = useRef(false);
+  const weeklyAttemptScopeRef = useRef(null); // 시도 플래그가 걸린 워치 범위 — 범위가 바뀌면 재시도 허용
 
   // ---- 에이전틱 명령 디스패처 — 강차장(챗)이 보낸 app_command를 앱 상태로 실행 ----
   // 챗은 chatbot 탭에서만 살아 있으므로 실행 시점에 NewsDesk는 언마운트 상태 —
   // 워치는 localStorage에 직접 쓰고(다음 NEWS 마운트가 fresh로 읽음), 화면 이동이
   // 필요한 명령은 newsSeed로 NewsDesk에 전달한다.
-  const [newsSeed, setNewsSeed] = useState({ profileTerm: null, weeklyOpen: false, feedFilter: null, nonce: 0 });
+  const [newsSeed, setNewsSeed] = useState({ profileTerm: null, weeklyOpen: false, weeklyPeriod: null, feedFilter: null, nonce: 0 });
   // NewsDesk가 seed를 소비한 뒤 지시 내용을 비운다(nonce는 유지해 다음 명령의 증가와
   // 구분). 이렇게 해야 NEWS 재방문(NewsDesk 리마운트)에서 옛 프로필/선반이 재생되지 않는다.
-  const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.weeklyOpen || s.feedFilter ? { ...s, profileTerm: null, weeklyOpen: false, feedFilter: null } : s)), []);
-  // 주간 브리프 생성 실행부 — 패시브(접속 시 1회)와 강제 발행(brief_now 명령)이 공유.
-  // force는 7일 주기 게이트만 우회하고 잠금·시그니처 가드·12주 캡은 그대로 유지한다.
+  const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.weeklyOpen || s.feedFilter ? { ...s, profileTerm: null, weeklyOpen: false, weeklyPeriod: null, feedFilter: null } : s)), []);
+  // 브리프 생성 실행부 — 패시브(접속 시 1회, 주간)와 강제 발행(brief_now 명령·워치룸 버튼,
+  // 주간/월간)이 공유. force는 7일 주기 게이트만 우회하고 잠금·시그니처 가드·12주 캡은 유지.
+  // 워치가 비어 있으면 거절 대신 '전체' 범위(창 내 시그널 상위 카드)로 폴백 — 온보딩을
+  // 스킵한 유저(다수 예상)도 브리프를 경험하게 한다. 자동(패시브) 발행도 동일 폴백.
   const [weeklyGenerating, setWeeklyGenerating] = useState(false);
   const runWeeklyBrief = useMemo(() => (opts = {}) => {
     const force = !!opts.force;
+    const period = opts.period === "monthly" ? "monthly" : "weekly";
+    const windowDays = period === "monthly" ? 30 : 7;
     if (!kb.cards.length) return;
     try {
-      const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
-      if (!Array.isArray(terms) || !terms.length) return;
+      const rawTerms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+      const terms = Array.isArray(rawTerms) ? rawTerms : [];
       const existing = readWeeklyBriefs();
-      if (!force && !weeklyBriefDue(existing)) {
+      // 주기 판정은 '같은 범위의 주간호'만 본다 — 기간(월간호가 주간 발행을 막지 않게)에
+      // 더해 범위까지 봐야 한다: 온보딩 스킵 → 자동 "주간 전체"(terms_sig "[]") 발행 →
+      // 첫 워치 등록 시, 그 전체호가 충족으로 잡히면 개인화 내워치 브리프가 7일간 안 만들어진다.
+      // (brief_now 쿨다운이 이미 terms_sig 범위 한정인 것과 같은 규약 — R7 교훈)
+      // 상태에는 전체 목록을 그대로 반영한다(다른 탭의 월간·타범위 발행도 화면에 보이게).
+      if (!force && !weeklyBriefDue(weeklyEntriesOnly(existing).filter((e) => briefScopeMatches(e, terms)))) {
         // 다른 탭이 이미 발행했거나 항목 내용(read 등)을 갱신한 경우 — 화면에 반영.
         // 내용 전체 비교로 동일할 때만 이전 참조 유지 (보관함 ≤12항목이라 비용 무시 가능)
         setWeeklyBriefs((prev) => (JSON.stringify(prev) === JSON.stringify(existing) ? prev : existing));
         return;
       }
-      const matched = kb.cards.filter((c) => cardMatchesWatch(c, terms) && cardDateWithinDays(c, 7)).slice(0, 40);
+      const sigRank = { t: 3, h: 2, m: 1, i: 0 };
+      // 전체 범위 풀은 정렬 없이 창 전체 — 축 선별(computeBriefAxes)이 이야기 단위로 고른다.
+      // 워치 범위는 기존 flat 유지: 이미 주어(엔티티)가 고정된 좁은 범위라 축이 불필요하고,
+      // 실측에서도 유일하게 처음부터 잘 되던 케이스다.
+      const matched = terms.length
+        ? kb.cards.filter((c) => cardMatchesWatch(c, terms) && cardDateWithinDays(c, windowDays)).slice(0, 40)
+        : kb.cards.filter((c) => cardDateWithinDays(c, windowDays));
       if (matched.length < 2) return;
-      // 크로스탭 잠금 — 동시에 뜬 두 탭이 같은 주간 브리프를 중복 생성(LLM 이중 호출)하지 않도록.
+      // 크로스탭 잠금 — 동시에 뜬 두 탭이 '같은 산출물'을 중복 생성(LLM 이중 호출)하지 않도록.
       // 토큰(타임스탬프_난수)을 쓰고 fetch 직전에 소유권을 재확인한다: localStorage 쓰기는
       // 오리진 단위로 직렬화되므로 최종 토큰과 일치하는 탭은 정확히 하나다.
+      // 락은 반드시 기간별 — 주간과 월간은 서로 다른 산출물이라 한 락을 공유하면, 접속 시
+      // 패시브 주간 발행(R9로 빈 워치 유저도 자동 발행하므로 흔해졌다)이 도는 동안 들어온
+      // 월간 수동 요청이 "만들게" 약속만 하고 조용히 폐기된다(force는 in-flight 가드도
+      // 조용히 버리므로 사용자에겐 아무 일도 안 일어난 것처럼 보임).
+      // 범위(scope)는 락 키에 넣지 않는다 — 워치 변경 중 겹침은 in-flight 시그니처 가드가
+      // 낡은 결과를 버리고 bumpWatchSeen으로 현재 범위 재평가를 예약해 스스로 회복한다.
+      const lockKey = `${WEEKLY_BRIEF_LOCK_KEY}_${period}`;
       const lockToken = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
       try {
-        const rawLock = localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY);
+        const rawLock = localStorage.getItem(lockKey);
         const lockAt = Number(String(rawLock || "").split("_")[0] || 0);
         if (rawLock && Date.now() - lockAt < WEEKLY_BRIEF_LOCK_TTL) return;
-        localStorage.setItem(WEEKLY_BRIEF_LOCK_KEY, lockToken);
+        localStorage.setItem(lockKey, lockToken);
       } catch { /* 잠금 불가 환경은 그대로 진행 */ }
       if (!force) weeklyAttemptRef.current = true;
       setWeeklyGenerating(true);
-      const termsSigAtRequest = JSON.stringify(terms);
-      const scopeLabel = `주간 내워치(${terms.slice(0, 4).join(", ")}${terms.length > 4 ? "…" : ""})`;
+      const termsSigAtRequest = JSON.stringify(terms); // 빈 워치는 "[]" — 기존 시그니처 비교가 그대로 동작
+      const periodLabel = period === "monthly" ? "월간" : "주간";
+      const scopeLabel = terms.length
+        ? `${periodLabel} 내워치(${terms.slice(0, 4).join(", ")}${terms.length > 4 ? "…" : ""})`
+        : `${periodLabel} 전체`;
       (async () => {
         try {
           // 소유권 재확인 — check-then-set 사이에 같이 진입한 다른 탭이 토큰을 덮었으면 물러난다
           try {
             await new Promise((resolve) => setTimeout(resolve, 50));
-            if (localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) !== lockToken) return;
+            if (localStorage.getItem(lockKey) !== lockToken) return;
           } catch { /* 확인 불가 환경은 진행 */ }
-          const payload = {
-            scopeLabel,
-            cards: matched.map((c) => ({
-              date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
-              fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
-              quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
-              quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
-            })),
-          };
+          const toPayloadCard = (c) => ({
+            date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
+            fact: c.fact || c.gate || c.g || "", implication: cardImplicationText(c),
+            quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
+            quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
+          });
+          // 전체 범위는 축 시장으로 '이야기가 되는 묶음'을 골라 축 모드 페이로드를 만든다.
+          // 응집 축이 하나도 없으면(드묾) 기존 flat(시그널 상위 40장)으로 폴백.
+          // briefCards는 [n] 인용 ↔ refs 대응의 정본 — 서버가 축 순서대로 전역 번호를
+          // 붙이므로 flatMap 순서와 정확히 일치한다.
+          let payload;
+          let briefCards = matched;
+          if (!terms.length) {
+            const aliasEntities = await loadAliasEntities();
+            const axes = computeBriefAxes(matched, aliasEntities || {}, { topK: period === "monthly" ? 4 : 3 });
+            // 서버 축 모드 최소치(총 4장, need-axes-with-cards)와 동일 기준 — 3장짜리 축
+            // 하나뿐이면 축 payload가 400으로 거절되고 여기서 조용히 실패한다(flat이면
+            // 2장으로도 충분했을 상황). 미달이면 flat으로 폴백해 브리프는 반드시 나온다.
+            const axisCardTotal = axes.reduce((a, ax) => a + ax.cards.length, 0);
+            if (axes.length && axisCardTotal >= 4) {
+              briefCards = axes.flatMap((ax) => ax.cards);
+              payload = { scopeLabel, axes: axes.map((ax) => ({ key: ax.key, cards: ax.cards.map(toPayloadCard) })) };
+            } else {
+              const sigOrder = (c) => sigRank[String(c.s || c.signal || "i").toLowerCase()[0]] || 0;
+              briefCards = matched.slice().sort((a, b) => sigOrder(b) - sigOrder(a)).slice(0, 40);
+              payload = { scopeLabel, cards: briefCards.map(toPayloadCard) };
+            }
+          } else {
+            payload = { scopeLabel, cards: briefCards.map(toPayloadCard) };
+          }
           const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
           const j = await r.json();
           if (!j?.ok || !j.narrative) return;
@@ -2851,31 +2967,35 @@ function AppContent() {
             id: `wb_${Date.now()}`,
             generated_at: kstToday(),
             scope_label: scopeLabel,
+            period, // "weekly" | "monthly" — 쿨다운·표시가 기간별로 분리된다 (구 항목은 없음=주간 취급)
             terms: terms.slice(0, 8),
             // 발행 시점 워치 전체 시그니처 — brief_now 쿨다운을 '같은 범위'에만 적용하기 위한 비교용.
             // (표시용 terms는 8개로 잘리지만 시그니처는 전체를 보존해 범위 변경을 정확히 감지)
             terms_sig: JSON.stringify(terms),
             narrative: j.narrative,
             watch: Array.isArray(j.watch) ? j.watch : [],
-            refs: matched.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })),
+            refs: briefCards.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })), // 서버 전역 [n]과 동일 순서 (축 모드는 축 연결 순)
             read: false,
           };
           const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)
-          if (!force && fresh.length && !weeklyBriefDue(fresh)) {
+          if (!force && !weeklyBriefDue(weeklyEntriesOnly(fresh).filter((e) => briefScopeMatches(e, terms)))) {
             setWeeklyBriefs(fresh); // 경합에서 진 탭도 승자 항목을 화면에 반영
             return;
           }
           const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
           localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
           setWeeklyBriefs(next);
-          // 강제 발행은 사용자가 지금 기다리는 중 — 완성본을 📮 선반 최신 호수로 바로 펼친다
-          if (force) setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, nonce: s.nonce + 1 }));
+          // 강제 발행은 사용자가 지금 기다리는 중 — 완성본을 📮 선반에 바로 펼친다.
+          // weeklyPeriod로 '요청한 기간'을 박아 그 호수를 고정한다: 락이 기간별로 분리돼
+          // 주간 패시브와 월간 수동이 동시에 돌 수 있으므로, 기간을 안 주면 뒤늦게 끝난
+          // 주간호가 앞에 꽂히며 사용자가 방금 만든 월간호에서 밀려난다(선반은 최신호 표시).
+          if (force) setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: period, feedFilter: null, nonce: s.nonce + 1 }));
         } catch { /* 조용히 — 다음 접속(또는 재명령)에서 재시도 */ }
         finally {
           setWeeklyGenerating(false);
           // 내 토큰일 때만 해제 — 소유권을 잃었으면 남(승자)의 잠금을 지우지 않는다
           try {
-            if (localStorage.getItem(WEEKLY_BRIEF_LOCK_KEY) === lockToken) localStorage.removeItem(WEEKLY_BRIEF_LOCK_KEY);
+            if (localStorage.getItem(lockKey) === lockToken) localStorage.removeItem(lockKey);
           } catch { /* noop */ }
         }
       })();
@@ -2925,15 +3045,18 @@ function AppContent() {
         setNewsSeed((s) => ({ profileTerm: cmd.term, weeklyOpen: false, nonce: s.nonce + 1 }));
         setTab("news");
       } else if (cmd.type === "weekly_show") {
-        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, nonce: s.nonce + 1 }));
+        // 기간을 명시한 열람("월간 브리프 보여줘")은 그 기간의 최신호를 연다 — 없으면 최신호(기간 무관)
+        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: cmd.period || null, feedFilter: null, nonce: s.nonce + 1 }));
         setTab("news");
       } else if (cmd.type === "brief_now") {
         // 강제 발행: 선반을 먼저 열어 '만드는 중'을 보여주고, 완성되면 runWeeklyBrief가
         // seed를 한 번 더 올려 최신 호수를 자동 표시한다. (brief_empty_watch·brief_no_material은
         // 서버 응답만 있고 클라 동작 없음 — watch_absent와 같은 무동작 안전 분기)
-        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, feedFilter: null, nonce: s.nonce + 1 }));
+        // 생성 전 선반 열기도 같은 기간을 박아둔다 — 요청한 기간의 기존 호수를 보여주다가
+        // 완성되면 위 완료 seed가 새 호수로 다시 고정한다(요청 내내 기간 맥락 유지)
+        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: cmd.period || null, feedFilter: null, nonce: s.nonce + 1 }));
         setTab("news");
-        runWeeklyBrief({ force: true });
+        runWeeklyBrief({ force: true, period: cmd.period });
       } else if (cmd.type === "feed_filter") {
         // 피드 필터 명령("중국 카드만 보여줘") — 지역/기간/시그널/내워치/검색어를 seed로
         setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: false, feedFilter: { region: cmd.region || null, range: cmd.range ?? null, signal: cmd.signal || null, watch: !!cmd.watch, search: cmd.search || null }, nonce: s.nonce + 1 }));
@@ -2952,17 +3075,30 @@ function AppContent() {
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
   }, []);
-  const markWeeklyBriefsRead = useMemo(() => () => {
+  // onlyId를 주면 그 호수만 읽음 처리한다 — 기간 고정 열람("월간 브리프 보여줘")은 최신호가
+  // 아닌 호수를 일부러 여는데, 전체를 읽음 처리하면 위에 있는 안 본 주간호의 NEW가 조용히
+  // 사라진다. 인자 없이 부르면 기존대로 전체 처리(선반 토글은 최신호를 보여주므로 그대로).
+  const markWeeklyBriefsRead = useMemo(() => (onlyId) => {
     try {
-      const next = readWeeklyBriefs().map((e) => (e.read ? e : { ...e, read: true }));
+      const next = readWeeklyBriefs().map((e) => (!e.read && (!onlyId || e.id === onlyId) ? { ...e, read: true } : e));
       localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
       setWeeklyBriefs(next);
     } catch { /* noop */ }
   }, []);
   useEffect(() => {
+    // 세션 1회 시도 가드는 '같은 범위'에만 건다 — 범위가 바뀌면(첫 워치 등록 등) 다시 시도한다.
+    // R9의 전체 범위 폴백 전에는 빈 워치가 생성 전 early-return이라 시도 플래그가 안 켜져서
+    // "첫 워치 등록 시 즉시 발행"(R5 설계)이 동작했는데, 이제 전체호를 실제로 발행하며 플래그가
+    // 켜지므로 명시적으로 리셋해줘야 그 동작이 유지된다(리로드 없이 개인화 브리프).
+    let scopeSig = "[]";
+    try { const v = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]"); scopeSig = JSON.stringify(Array.isArray(v) ? v : []); } catch { /* noop */ }
+    if (weeklyAttemptScopeRef.current !== scopeSig) {
+      weeklyAttemptScopeRef.current = scopeSig;
+      weeklyAttemptRef.current = false;
+    }
     if (weeklyAttemptRef.current || !kb.cards.length) return;
     runWeeklyBrief({ force: false });
-    // watchSeenVersion: 워치 용어 변경마다 NewsDesk가 onWatchSeen으로 올려주는 신호 —
+    // watchSeenVersion: 워치 용어 변경마다 명령 버스·워치룸이 onWatchSeen으로 올려주는 신호 —
     // 앱 로딩 후 처음 워치를 등록한 사용자도 리로드 없이 주간 브리프가 생성되도록 재평가 트리거로 쓴다.
   }, [kb.cards, watchSeenVersion, runWeeklyBrief]); // eslint-disable-line react-hooks/exhaustive-deps
   const { tracker, regionPolicy, loading: trackerLoading } = useTrackerData(refreshKey, hardRefresh);
@@ -3021,7 +3157,7 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><TodayDashboard dark={dark} kb={kb} tracker={tracker} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onFeedSearch={(q) => executeAppCommand({ type: "feed_filter", search: q })} onAppCommand={executeAppCommand} /></div>}
-        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={() => executeAppCommand({ type: "brief_now" })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} /></div>}
+        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period) => executeAppCommand({ type: "brief_now", period })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} /></div>}
         {tab === "archive" && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>POLICY TRACKER — 정책 일정·규제</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} weeklyGenerating={weeklyGenerating} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} onConsultationConsumed={markConsultationConsumed} />}

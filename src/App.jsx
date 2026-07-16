@@ -1566,7 +1566,12 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     try {
       const data = await sendToChatApi(txt, "internal", hint);
       updateContextFromResponse(data);
-      setMsgs((prev) => [...prev, toUiMessage(data)]);
+      // toUiMessage()는 app_command을 부모(onAppCommand→AppContent setState)로 디스패치하는
+      // 부수효과가 있다. setMsgs 업데이터 안에서 호출하면 그 부수효과가 렌더 단계(업데이터 실행
+      // 시점)에 일어나 "Cannot update AppContent while rendering ChatBot" setState-in-render
+      // 경고가 뜬다. 핸들러 본문(await 이후 이벤트 컨텍스트)에서 먼저 만들어 순수 값만 넣는다.
+      const uiMsg = toUiMessage(data);
+      setMsgs((prev) => [...prev, uiMsg]);
     } catch {
       setMsgs((prev) => [...prev, { role: "assistant", content: "채팅 응답 중 네트워크 오류가 발생했어.", suggestions: [{ label: "오늘 핵심 카드", hint_action: "new_query", hint_topic: "news" }, { label: "관련 카드 더 보여줘", hint_action: "follow_up" }] }]);
     } finally {
@@ -1594,7 +1599,10 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
     try {
       const data = await sendToChatApi(txt, "external", hint);
       updateContextFromResponse(data);
-      setMsgs((prev) => [...prev, toUiMessage(data)]);
+      // 부수효과(app_command 디스패치)를 setMsgs 업데이터 밖 핸들러 본문에서 실행 —
+      // 렌더 단계에서 부모 setState가 호출되는 setState-in-render 방지. (sendWithText 주석 참고)
+      const uiMsg = toUiMessage(data);
+      setMsgs((prev) => [...prev, uiMsg]);
     } catch (err) {
       let errMsg = "외부 검색 중 네트워크 오류가 발생했어.";
       if (err.status === 401 || err.status === 403) errMsg = "외부 검색 API 설정에 문제가 있는 것 같아.";

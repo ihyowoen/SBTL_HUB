@@ -42,15 +42,49 @@ function leanCard(c, n) {
   };
 }
 
-function parseJsonLoose(text) {
+export function parseJsonLoose(text) {
   if (!text) return null;
   let body = String(text).trim();
   const fence = body.match(/```(?:json)?\s*([\s\S]*?)```/);
   if (fence) body = fence[1].trim();
+  else body = body.replace(/^```(?:json)?\s*/, ""); // 토큰 상한에 잘려 닫는 fence가 없는 응답
   const start = body.indexOf("{");
   const end = body.lastIndexOf("}");
   if (start >= 0 && end > start) body = body.slice(start, end + 1);
-  try { return JSON.parse(body); } catch { return null; }
+  try { return JSON.parse(body); } catch { /* 아래에서 잘린 JSON 구제 */ }
+  // 잘린 응답 구제 — narrative만이라도 살린다. 토큰 상한에 걸리면 문자열 리터럴이 닫히지도
+  // 않은 채 끝나므로(실측: 축 3개가 1600토큰에서 잘려 ```json 원문이 그대로 degraded로 나가고
+  // watch가 통째로 사라짐), 닫힌 경우와 안 닫힌 경우를 모두 처리한다.
+  const key = body.search(/"narrative"\s*:\s*"/);
+  if (key < 0) return null;
+  const open = body.indexOf('"', body.indexOf(":", key)) + 1;
+  // 이스케이프되지 않은 종료 따옴표 탐색 (없으면 끝까지 = 잘린 응답)
+  let close = -1;
+  for (let i = open; i < body.length; i += 1) {
+    if (body[i] === "\\") { i += 1; continue; }
+    if (body[i] === '"') { close = i; break; }
+  }
+  const truncated = close < 0;
+  const lit = body.slice(open, truncated ? body.length : close).replace(/\\+$/, ""); // 끝에 걸친 이스케이프 제거
+  let narrative = null;
+  for (let cut = lit.length; cut > 0 && narrative === null; cut = lit.lastIndexOf("\\n", cut - 1) > 0 ? lit.lastIndexOf("\\n", cut - 1) : -1) {
+    try { narrative = JSON.parse(`"${lit.slice(0, cut).replace(/\\+$/, "")}"`); } catch { /* 더 짧게 재시도 */ }
+  }
+  if (narrative === null) { try { narrative = JSON.parse(`"${lit}"`); } catch { return null; } }
+  if (truncated) {
+    // 잘린 문장은 버린다 — 마지막 인용([n]) 뒤 문장 끝까지만 남겨 반토막 문장을 안 보여준다
+    const lastStop = Math.max(narrative.lastIndexOf("]."), narrative.lastIndexOf("] ."));
+    if (lastStop > 0) narrative = narrative.slice(0, lastStop + 2).trim();
+  }
+  if (!narrative.trim()) return null;
+  const watch = [];
+  const wIdx = body.indexOf('"watch"');
+  if (wIdx >= 0) {
+    for (const w of body.slice(wIdx + 7).matchAll(/"((?:[^"\\]|\\.)*)"/g)) {
+      try { const s = JSON.parse(`"${w[1]}"`); if (s) watch.push(s); } catch { /* 미완결 리터럴은 버린다 */ }
+    }
+  }
+  return { narrative, watch: watch.slice(0, 4), salvaged: true };
 }
 
 function cardLines(cards) {
@@ -79,8 +113,11 @@ async function generateOnce({ system, user, maxTokens }) {
   return { parsed, raw: result.text, provider: result.provider || null };
 }
 
-// 품질 검출 — 실패 사유 목록을 돌려준다 (비면 통과)
-export function qualityIssues(parsed) {
+// 품질 검출 — 실패 사유 목록을 돌려준다 (비면 통과).
+// axisKeys를 주면 축 누락도 검출한다: 축 모드에서 재시도본이 축을 통째로 빠뜨리고도
+// 경어체·인용만 깨끗하면 '이슈 0'으로 채택되던 결함이 있었다(실측: 축 4개 요청에
+// 재시도본이 【저장장치】 한 문단만 반환 → 커버리지 21%로 baseline 수준 후퇴).
+export function qualityIssues(parsed, axisKeys = null) {
   if (!parsed?.narrative) return ["no-narrative"];
   const issues = [];
   const text = String(parsed.narrative);
@@ -88,20 +125,31 @@ export function qualityIssues(parsed) {
   const sents = text.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
   const noCite = sents.filter((s) => !/\[\d/.test(s)).length;
   if (sents.length > 0 && noCite / sents.length > 0.34) issues.push("uncited-sentences"); // 1/3 넘게 무인용이면 총평 나열로 후퇴한 것
+  if (Array.isArray(axisKeys) && axisKeys.length) {
+    const missing = axisKeys.filter((k) => !text.includes(`【${k}】`));
+    if (missing.length) issues.push(`missing-axes:${missing.length}`);
+  }
   return issues;
 }
 
-// 재시도 채택 규칙 — narrative 존재가 이슈 수보다 우선한다.
+// 재시도 채택 규칙 — narrative 존재 > 축 완결성 > 이슈 수.
 // 첫 응답이 'JSON은 파싱되나 narrative 없음'({"watch":[...]} 류)일 때, 재시도가
 // narrative를 가져와도 남은 이슈 수가 같으면(1<1 false) 버려져 degraded 원문으로
 // 떨어지는 결함이 있었다 — 재시도의 존재 이유가 바로 그 경로인데.
-export function pickBetterAttempt(first, second, firstIssues) {
+// 축 모드에선 '축을 더 많이 담은 쪽'이 이슈 수보다 우선한다 — 축 3개를 버리고 얻은
+// 무결점 한 문단은 개선이 아니라 후퇴다.
+export function pickBetterAttempt(first, second, firstIssues, axisKeys = null) {
   if (!second || second.error || !second.parsed) return first;
   const firstHasNarrative = !!first.parsed?.narrative;
   const secondHasNarrative = !!second.parsed.narrative;
-  if (secondHasNarrative && !firstHasNarrative) return second; // 유일하게 쓸 수 있는 쪽
-  if (secondHasNarrative && qualityIssues(second.parsed).length < firstIssues.length) return second; // 둘 다 있으면 덜 나쁜 쪽
-  return first;
+  if (!secondHasNarrative) return first;
+  if (!firstHasNarrative) return second; // 유일하게 쓸 수 있는 쪽
+  if (Array.isArray(axisKeys) && axisKeys.length) {
+    const covered = (p) => axisKeys.filter((k) => String(p.narrative).includes(`【${k}】`)).length;
+    const c1 = covered(first.parsed), c2 = covered(second.parsed);
+    if (c2 !== c1) return c2 > c1 ? second : first; // 축을 더 담은 쪽이 이긴다
+  }
+  return qualityIssues(second.parsed, axisKeys).length < firstIssues.length ? second : first;
 }
 
 export default async function handler(req, res) {
@@ -119,6 +167,7 @@ export default async function handler(req, res) {
   let system;
   let user;
   let maxTokens;
+  let axisKeys = null; // 축 모드일 때 품질 가드가 축 누락을 검출하는 데 쓴다
   const axesIn = Array.isArray(payload?.axes) ? payload.axes.slice(0, MAX_AXES) : null;
   if (axesIn && axesIn.length) {
     // 축 모드 — 전역 연속 번호를 부여하고 축 경계를 프롬프트에 명시
@@ -141,7 +190,11 @@ export default async function handler(req, res) {
       return `## 축: ${ax.key} (카드 [${ax.cards[0].n}]~[${ax.cards[ax.cards.length - 1].n}], ${span})\n${cardLines(ax.cards)}`;
     }).join("\n\n");
     user = `범위: ${scopeLabel} — 축 ${axes.length}개, 카드 ${n}장\n\n${axisBlocks}\n\n위 축들로 JSON 브리프를 작성하라.`;
-    maxTokens = 1600; // 축 3~4개 × 문단 3~5문장 + watch — 900이면 잘린다
+    axisKeys = axes.map((ax) => ax.key);
+    // 축 수에 연동 — 한국어는 대략 1자≈1토큰이고 축 하나가 문단(3~5문장, 400~600자)+watch를
+    // 만든다. 고정 1600은 축 3개에서 이미 잘려 닫는 fence 없이 끝났다(실측: degraded 응답,
+    // watch 0개). 축당 700 + 여유 800, 상한 3600.
+    maxTokens = Math.min(3600, 800 + axes.length * 700);
   } else {
     // flat 모드(기존) — 좁은 범위(내워치·피드 필터 조합)
     const rawCards = Array.isArray(payload?.cards) ? payload.cards : [];
@@ -163,14 +216,15 @@ export default async function handler(req, res) {
   // ---- 생성 + 품질 가드(1회 재시도) ----
   let attempt = await generateOnce({ system, user, maxTokens });
   if (attempt.error) return res.status(502).json({ ok: false, error: attempt.error, provider: attempt.provider });
-  let issues = qualityIssues(attempt.parsed);
+  let issues = qualityIssues(attempt.parsed, axisKeys);
   let retried = false;
   if (issues.length) {
     console.log(`[brief] quality issues ${JSON.stringify(issues)} — retrying once`);
     retried = true;
-    const strictUser = `${user}\n\n(직전 출력이 다음 규칙을 어겼다: ${issues.join(", ")}. 특히 경어체 금지·모든 문장 [n] 인용을 지켜 다시 작성하라.)`;
+    const axisNote = axisKeys ? ` 축 ${axisKeys.length}개(${axisKeys.join(", ")})를 모두 각각 한 문단으로 써라.` : "";
+    const strictUser = `${user}\n\n(직전 출력이 다음 규칙을 어겼다: ${issues.join(", ")}. 특히 경어체 금지·모든 문장 [n] 인용을 지켜 다시 작성하라.${axisNote})`;
     const second = await generateOnce({ system, user: strictUser, maxTokens });
-    attempt = pickBetterAttempt(attempt, second, issues);
+    attempt = pickBetterAttempt(attempt, second, issues, axisKeys);
   }
 
   if (!attempt.parsed?.narrative) {
@@ -178,13 +232,18 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, narrative: clip(attempt.raw, 2000), watch: [], degraded: true, provider: attempt.provider });
   }
 
-  // 축 모드의 문단 구분(\n\n)은 살려야 한다 — clip이 개행을 공백으로 뭉개므로 문단별 clip
-  const narrative = String(attempt.parsed.narrative).split(/\n{2,}/).map((p) => clip(p, 1200)).filter(Boolean).join("\n\n").slice(0, 4800);
+  // 축 모드의 문단 구분(\n\n)은 살려야 한다 — clip이 개행을 공백으로 뭉개므로 문단별 clip.
+  // 모델이 문단을 홑 개행으로만 나눠도 【축】 앞에서 문단이 갈리게 정규화한다(pre-line 렌더 전제).
+  const narrative = String(attempt.parsed.narrative)
+    .replace(/\s*\n?\s*(?=【)/g, "\n\n").trim()
+    .split(/\n{2,}/).map((p) => clip(p, 1200)).filter(Boolean).join("\n\n")
+    .slice(0, 4800);
   return res.status(200).json({
     ok: true,
     narrative,
     watch: Array.isArray(attempt.parsed.watch) ? attempt.parsed.watch.slice(0, 4).map((w) => clip(w, 240)) : [],
     retried: retried || undefined,
+    salvaged: attempt.parsed.salvaged || undefined, // 잘린 응답에서 구제한 경우 — 관측용
     provider: attempt.provider,
   });
 }

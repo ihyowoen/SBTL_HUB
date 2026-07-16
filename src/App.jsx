@@ -969,12 +969,14 @@ function readWeeklyBriefs() {
   } catch { return []; }
 }
 
-// 패시브 주기 판정은 '주간' 항목만 본다 — 보관함은 주간·월간이 섞이므로, 오늘 수동으로
-// 만든 월간호가 목록 맨 앞에 오면 weeklyBriefDue가 그걸 최신 주간호로 오인해 주간 자동
-// 발행이 최대 7일 막힌다(주간호가 아예 없거나 낡았어도). period 없는 구 항목은 주간 취급 —
-// 마이그레이션 없이 기존 이력이 그대로 유효하다.
-function weeklyEntriesOnly(entries) {
-  return (entries || []).filter((e) => ((e && e.period) || "weekly") === "weekly");
+// 패시브 주기 판정은 '일반(plain) 주간' 항목만 본다 — 패시브가 만드는 게 그것뿐이므로.
+// 보관함은 주간·월간·달력월·지역별이 섞이는데, 맨 앞의 다른 변형호를 weeklyBriefDue가
+// 최신 주간호로 오인하면 일반 주간 자동 발행이 최대 7일 막힌다(일반 주간호가 아예 없거나
+// 낡았어도). 그래서 달력월호(month)·지역별호(group)를 함께 제외한다 — 예: 수동으로 만든
+// 지역별 주간호가 있어도 일반 주간 자동 발행은 별개로 due 판정되어야 한다.
+// period 없는 구 항목은 주간 취급(마이그레이션 없이 기존 이력이 그대로 유효).
+function plainWeeklyEntries(entries) {
+  return (entries || []).filter((e) => ((e && e.period) || "weekly") === "weekly" && !(e && e.month) && !(e && e.group));
 }
 
 // 브리프 항목이 '지금의 워치 범위'로 만들어진 것인지 — terms_sig(R7+)가 정본이고,
@@ -1469,9 +1471,11 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
       // 기간·범위가 '모두' 일치하는 최신호를 찾는다 — 기간만으로 find하면 범위를 A→B→A로
       // 바꿨을 때 맨 앞의 B호에서 멈춰 범위 불일치(0)가 되고, 방금 만든 A호가 뒤에 있는데도
       // A를 다시 생성해버린다. 보관함은 최신순이라 두 조건 동시 find가 곧 '최신 동일호'.
-      // 달력월호(entry.month)는 롤링 월간 쿨다운에서 제외 — '2026-05호' 발행 직후의
-      // "월간 브리프 만들어줘"(최근 30일)는 다른 산출물이라 강등하면 안 된다.
-      const latestBrief = readWeeklyBriefs().find((e) => ((e && e.period) || "weekly") === period && !(e && e.month) && briefScopeMatches(e, watchNow));
+      // 달력월호(month)·지역별호(group)는 롤링(일반) 쿨다운에서 제외 — 이 타임스탬프의
+      // 유일한 소비처가 서버의 '일반' 주간/월간 쿨다운이라(달력월·지역별 요청은 서버가
+      // lastAt을 아예 안 본다), 지역별 월간 발행 직후의 "월간 브리프 만들어줘"나 달력월호
+      // 직후의 롤링 요청을 다른 산출물인데도 열람으로 강등시키면 안 된다.
+      const latestBrief = readWeeklyBriefs().find((e) => ((e && e.period) || "weekly") === period && !(e && e.month) && !(e && e.group) && briefScopeMatches(e, watchNow));
       if (!latestBrief) return 0;
       return Number(String(latestBrief.id || "").replace(/^wb_/, "")) || 0;
     };
@@ -2922,7 +2926,7 @@ function AppContent() {
       // 첫 워치 등록 시, 그 전체호가 충족으로 잡히면 개인화 내워치 브리프가 7일간 안 만들어진다.
       // (brief_now 쿨다운이 이미 terms_sig 범위 한정인 것과 같은 규약 — R7 교훈)
       // 상태에는 전체 목록을 그대로 반영한다(다른 탭의 월간·타범위 발행도 화면에 보이게).
-      if (!force && !weeklyBriefDue(weeklyEntriesOnly(existing).filter((e) => briefScopeMatches(e, terms)))) {
+      if (!force && !weeklyBriefDue(plainWeeklyEntries(existing).filter((e) => briefScopeMatches(e, terms)))) {
         // 다른 탭이 이미 발행했거나 항목 내용(read 등)을 갱신한 경우 — 화면에 반영.
         // 내용 전체 비교로 동일할 때만 이전 참조 유지 (보관함 ≤12항목이라 비용 무시 가능)
         setWeeklyBriefs((prev) => (JSON.stringify(prev) === JSON.stringify(existing) ? prev : existing));
@@ -3036,7 +3040,7 @@ function AppContent() {
             read: false,
           };
           const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)
-          if (!force && !weeklyBriefDue(weeklyEntriesOnly(fresh).filter((e) => briefScopeMatches(e, terms)))) {
+          if (!force && !weeklyBriefDue(plainWeeklyEntries(fresh).filter((e) => briefScopeMatches(e, terms)))) {
             setWeeklyBriefs(fresh); // 경합에서 진 탭도 승자 항목을 화면에 반영
             return;
           }

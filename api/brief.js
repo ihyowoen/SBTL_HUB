@@ -80,8 +80,8 @@ async function generateOnce({ system, user, maxTokens }) {
 }
 
 // 품질 검출 — 실패 사유 목록을 돌려준다 (비면 통과)
-function qualityIssues(parsed) {
-  if (!parsed?.narrative) return ["no-json"];
+export function qualityIssues(parsed) {
+  if (!parsed?.narrative) return ["no-narrative"];
   const issues = [];
   const text = String(parsed.narrative);
   if (/(습니다|합니다|입니다|됩니다|어요|에요)[.\s]/.test(text)) issues.push("polite-tone");
@@ -89,6 +89,19 @@ function qualityIssues(parsed) {
   const noCite = sents.filter((s) => !/\[\d/.test(s)).length;
   if (sents.length > 0 && noCite / sents.length > 0.34) issues.push("uncited-sentences"); // 1/3 넘게 무인용이면 총평 나열로 후퇴한 것
   return issues;
+}
+
+// 재시도 채택 규칙 — narrative 존재가 이슈 수보다 우선한다.
+// 첫 응답이 'JSON은 파싱되나 narrative 없음'({"watch":[...]} 류)일 때, 재시도가
+// narrative를 가져와도 남은 이슈 수가 같으면(1<1 false) 버려져 degraded 원문으로
+// 떨어지는 결함이 있었다 — 재시도의 존재 이유가 바로 그 경로인데.
+export function pickBetterAttempt(first, second, firstIssues) {
+  if (!second || second.error || !second.parsed) return first;
+  const firstHasNarrative = !!first.parsed?.narrative;
+  const secondHasNarrative = !!second.parsed.narrative;
+  if (secondHasNarrative && !firstHasNarrative) return second; // 유일하게 쓸 수 있는 쪽
+  if (secondHasNarrative && qualityIssues(second.parsed).length < firstIssues.length) return second; // 둘 다 있으면 덜 나쁜 쪽
+  return first;
 }
 
 export default async function handler(req, res) {
@@ -157,8 +170,7 @@ export default async function handler(req, res) {
     retried = true;
     const strictUser = `${user}\n\n(직전 출력이 다음 규칙을 어겼다: ${issues.join(", ")}. 특히 경어체 금지·모든 문장 [n] 인용을 지켜 다시 작성하라.)`;
     const second = await generateOnce({ system, user: strictUser, maxTokens });
-    if (!second.error && second.parsed && qualityIssues(second.parsed).length < issues.length) attempt = second;
-    else if (!second.error && second.parsed && !attempt.parsed) attempt = second;
+    attempt = pickBetterAttempt(attempt, second, issues);
   }
 
   if (!attempt.parsed?.narrative) {

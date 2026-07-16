@@ -138,14 +138,56 @@ function isCohesive(ax, aliasEntities) {
   return false;
 }
 
+// 축 카드 정돈 — 시그널 상위 maxPerAxis장만 남기고 시간 오름차순(서사는 시간축)
+function capAndOrderCards(cardsArr, maxPerAxis) {
+  return cardsArr.slice()
+    .sort((a, b) => (SIG_RANK[sigOf(b)] || 0) - (SIG_RANK[sigOf(a)] || 0)).slice(0, maxPerAxis)
+    .sort((a, b) => dateOf(a).localeCompare(dateOf(b)));
+}
+
+// ---- R11: 달력월·지역별 구성 ----
+
+// "2026-05" 형식의 달력월 판정 — 발행기(App.jsx)·워치룸 게이트가 같은 식을 쓴다.
+// (챗 서버 게이트 lib/chat/appCommand.js의 countMonth*도 같은 startsWith 규약 — 서버는
+// src/를 import하지 않으므로 중복 구현이며, 형식을 바꾸면 양쪽을 함께 바꿔야 한다.)
+export function cardInMonth(c, month) {
+  return String(c.date || c.d || "").slice(0, 7) === String(month || "");
+}
+
+// 카드 region 필드 코드 → 축 라벨. 봇 파이프라인 6리전 그대로이며, 소수(6장)인
+// "US/KR" 류 콤보는 첫 코드 기준. 미지정·미지의 코드는 지역 축에서 제외.
+const REGION_LABELS = { KR: "한국", CN: "중국", US: "미국", EU: "유럽", JP: "일본", GL: "글로벌" };
+export function regionLabelOf(c) {
+  const code = String(c.region || c.r || "").split("/")[0].trim().toUpperCase();
+  return REGION_LABELS[code] || null;
+}
+
+// 지역별 구성 — 사용자가 명시 요청한 '의도적 정리'라 시장 경쟁·응집 게이트를 거치지
+// 않는다(축 시장의 genRegion은 제목의 국가명 매칭이지만, 이쪽은 카드 region 필드가
+// 정본이라 '인도/인도네시아' 류 오염이 없다). 카드 수 상위 topK개 지역, 축당
+// maxPerAxis장. topK 기본 4 = 서버 MAX_AXES — 초과분은 서버가 조용히 잘라
+// 클라 refs와 어긋나므로 여기서 맞춰 보낸다.
+export function computeRegionAxes(pool, { topK = 4, maxPerAxis = 10, minPerAxis = 3 } = {}) {
+  const groups = new Map();
+  for (const c of pool) {
+    const label = regionLabelOf(c);
+    if (!label) continue;
+    if (!groups.has(label)) groups.set(label, []);
+    groups.get(label).push(c);
+  }
+  return [...groups.entries()]
+    .filter(([, cards]) => cards.length >= minPerAxis)
+    .sort((a, b) => b[1].length - a[1].length)
+    .slice(0, topK)
+    .map(([key, cards]) => ({ key, source: "regionField", cards: capAndOrderCards(cards, maxPerAxis) }));
+}
+
 // pool → 응집 축 최대 topK개 (축당 maxPerAxis장, 내부는 시간 오름차순 — 서사는 시간축)
 export function computeBriefAxes(pool, aliasEntities, { topK = 3, maxPerAxis = 10 } = {}) {
   const cand = [...genRelated(pool), ...genEntity(pool, aliasEntities), ...genTheme(pool), ...genRegion(pool)]
     .map((ax) => ({ ...ax, score: score(ax) }))
     .sort((a, b) => b.score - a.score);
-  const capAndOrder = (cardsArr) => cardsArr.slice()
-    .sort((a, b) => (SIG_RANK[sigOf(b)] || 0) - (SIG_RANK[sigOf(a)] || 0)).slice(0, maxPerAxis)
-    .sort((a, b) => dateOf(a).localeCompare(dateOf(b)));
+  const capAndOrder = (cardsArr) => capAndOrderCards(cardsArr, maxPerAxis);
   const picked = [];
   const used = new Set(); // greedy 카드 소진 — 같은 사건이 두 문단에 반복되지 않게
   const tryPick = (ax) => {

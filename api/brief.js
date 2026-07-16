@@ -102,6 +102,14 @@ export function parseJsonLoose(text) {
   return { narrative, watch: watch.slice(0, 4), salvaged: true };
 }
 
+// 축 모드 narrative의 JSON 뼈대 — '실제 축 이름'으로 만든 템플릿을 프롬프트에 박는다.
+// generic 예시("【축1】 ...\n\n【축2】 ...")만 주면 모델이 확률적으로 첫 축만 쓰고 멈춘다
+// (실측: 2026-06 지역별 4축 요청 6회 중 3회가 1문단 — 재시도 가드가 발동해도 재시도본까지
+// 붕괴하면 1축이 그대로 나간다). 요구 문단 수·이름·순서를 출력 형식 자체에 새겨 앵커한다.
+export function axisSkeleton(keys) {
+  return (keys || []).map((k) => `【${k}】 ...`).join("\\n\\n");
+}
+
 function cardLines(cards) {
   return cards.map((c) => {
     const bits = [`[${c.n}] ${c.date} ${c.region} — ${c.title}`];
@@ -198,7 +206,8 @@ export default async function handler(req, res) {
       "규칙:",
       COMMON_RULES,
       `6. narrative는 축마다 정확히 한 문단, 문단 시작에 【축이름】 을 붙인다. 문단 사이는 빈 줄 하나. 각 문단은 그 축의 카드만 인용한다(다른 축 카드 인용 금지). 축 내부는 시간 순서로 사건을 잇되, 각 문장은 '무엇이 왜/무엇에 이어 어떻게 되었다'가 드러나게 쓴다. 문단은 3~5문장.`,
-      '7. 출력은 순수 JSON 하나만: {"narrative":"【축1】 ...\\n\\n【축2】 ...","watch":["...","..."]}',
+      // 뼈대는 실제 축 이름으로 — 문단 수·이름·순서를 형식에 새겨 '첫 축만 쓰고 종료'를 막는다
+      `7. 출력은 순수 JSON 하나만, narrative는 정확히 ${axes.length}개 문단(아래 뼈대의 ... 부분만 채운다): {"narrative":"${axisSkeleton(axes.map((ax) => ax.key))}","watch":["...","..."]}`,
     ].join("\n");
     const axisBlocks = axes.map((ax) => {
       const span = `${ax.cards[0].date} ~ ${ax.cards[ax.cards.length - 1].date}`;
@@ -236,7 +245,9 @@ export default async function handler(req, res) {
   if (issues.length) {
     console.log(`[brief] quality issues ${JSON.stringify(issues)} — retrying once`);
     retried = true;
-    const axisNote = axisKeys ? ` 축 ${axisKeys.length}개(${axisKeys.join(", ")})를 모두 각각 한 문단으로 써라.` : "";
+    // 재시도 지시도 뼈대로 — "축 N개를 모두 써라"는 서술만으로는 붕괴 재발을 못 막았다
+    // (실측: 재시도본도 1문단). 채워야 할 출력 형식을 그대로 다시 보여준다.
+    const axisNote = axisKeys ? ` narrative는 반드시 정확히 ${axisKeys.length}개 문단이어야 한다: "${axisSkeleton(axisKeys)}" — 이 뼈대의 ... 만 채워라. 문단 수가 ${axisKeys.length}개가 아니면 실패다.` : "";
     const strictUser = `${user}\n\n(직전 출력이 다음 규칙을 어겼다: ${issues.join(", ")}. 특히 경어체 금지·모든 문장 [n] 인용을 지켜 다시 작성하라.${axisNote})`;
     const second = await generateOnce({ system, user: strictUser, maxTokens });
     attempt = pickBetterAttempt(attempt, second, issues, axisKeys);

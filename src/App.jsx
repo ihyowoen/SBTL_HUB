@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
+import { computeBriefAxes } from "./briefAxes";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
@@ -116,7 +117,7 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
           scopeLabel: "오늘의 흐름",
           cards: src.map((c) => ({
             date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
-            fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
+            fact: c.fact || c.gate || c.g || "", implication: cardImplicationText(c),
             quote: "", quoteSource: "",
           })),
         };
@@ -785,6 +786,15 @@ function cardWatchHay(c) {
     .map((v) => String(v || "")).join(" ").toLowerCase();
 }
 
+// 카드의 함의(implication) — 원본은 3문장 배열, 정규화본은 implicationText 문자열.
+// R10 이전엔 브리프 페이로드 4곳이 '원본' 카드에서 c.implicationText(원본에 없는 필드)를
+// 읽어 함의가 100% 유실됐다(1082/1082장 보유 → 전달 0%). 인과·후속 단계가 담긴 필드라
+// 이 유실이 '나열 서사'와 '공허한 워치'의 근본 원인이었다 — 반드시 이 헬퍼로 읽는다.
+function cardImplicationText(c) {
+  if (Array.isArray(c?.implication)) return c.implication.filter(Boolean).join(" ");
+  return String(c?.implicationText || c?.implication || "");
+}
+
 function cardMatchesWatch(c, terms) {
   if (!Array.isArray(terms) || terms.length === 0) return false;
   const hay = cardWatchHay(c);
@@ -905,6 +915,19 @@ function buildEntityMatcher(aliasNames) {
   const byLower = new Map();
   entries.forEach((x) => { const key = x.kw.toLowerCase(); if (!byLower.has(key)) byLower.set(key, x.entry); });
   return { regex, byLower };
+}
+
+// 축 선별용 별칭맵 — 1회 로드 모듈 캐시. NewsDesk 파인더의 fetch와 별개(이쪽은 AppContent의
+// 브리프 생성 경로). 실패해도 null — 엔티티 축만 빠지고 related·테마·지역 생성기는 동작한다.
+let aliasEntitiesPromise = null;
+function loadAliasEntities() {
+  if (!aliasEntitiesPromise) {
+    aliasEntitiesPromise = fetch("/data/entity_alias_map.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => (j && (j.entities || j)) || null)
+      .catch(() => null);
+  }
+  return aliasEntitiesPromise;
 }
 
 // ---- 주간 브리프 보관함: 앱 접속 시 내워치 범위로 조용히 생성해 적재 ----
@@ -2368,7 +2391,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       card.fact ? String(card.fact) : "",
       srcs.length ? "근거:" : "",
       ...srcs.slice(0, 4).map((s) => `- "${String(s.source_quote || "").slice(0, 300)}" — ${s.source_name || "출처"}${s.source_url ? ` ${s.source_url}` : ""}`),
-      card.implicationText ? `함의: ${card.implicationText}` : "",
+      cardImplicationText(card) ? `함의: ${cardImplicationText(card)}` : "",
       (card.url || card.primaryUrl) ? `원문: ${card.url || card.primaryUrl}` : "",
     ].filter(Boolean).join("\n");
     const id = getCardId(card);
@@ -2557,7 +2580,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         scopeLabel,
         cards: briefCards.map((c) => ({
           date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
-          fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
+          fact: c.fact || c.gate || c.g || "", implication: cardImplicationText(c),
           quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
           quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
         })),
@@ -2673,7 +2696,8 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
             {weeklyOpen && shown && (
               <div style={{ marginTop: 10 }}>
                 <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{shown.scope_label} · {shown.generated_at} · 근거 {shown.refs?.length || 0}장</div>
-                <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all" }}>{shown.narrative}</div>
+                {/* whiteSpace pre-line — 축 모드 브리프는 【축】 문단을 \n\n로 구분한다 */}
+                <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all", whiteSpace: "pre-line" }}>{shown.narrative}</div>
                 {shown.watch?.length > 0 && (
                   <div style={{ marginTop: 10 }}>
                     <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
@@ -2859,10 +2883,12 @@ function AppContent() {
         return;
       }
       const sigRank = { t: 3, h: 2, m: 1, i: 0 };
+      // 전체 범위 풀은 정렬 없이 창 전체 — 축 선별(computeBriefAxes)이 이야기 단위로 고른다.
+      // 워치 범위는 기존 flat 유지: 이미 주어(엔티티)가 고정된 좁은 범위라 축이 불필요하고,
+      // 실측에서도 유일하게 처음부터 잘 되던 케이스다.
       const matched = terms.length
         ? kb.cards.filter((c) => cardMatchesWatch(c, terms) && cardDateWithinDays(c, windowDays)).slice(0, 40)
-        // 전체 범위는 창 안에 카드가 많으므로 시그널 상위 우선으로 40장 캡
-        : kb.cards.filter((c) => cardDateWithinDays(c, windowDays)).sort((a, b) => (sigRank[String(b.s || b.signal || "i").toLowerCase()[0]] || 0) - (sigRank[String(a.s || a.signal || "i").toLowerCase()[0]] || 0)).slice(0, 40);
+        : kb.cards.filter((c) => cardDateWithinDays(c, windowDays));
       if (matched.length < 2) return;
       // 크로스탭 잠금 — 동시에 뜬 두 탭이 '같은 산출물'을 중복 생성(LLM 이중 호출)하지 않도록.
       // 토큰(타임스탬프_난수)을 쓰고 fetch 직전에 소유권을 재확인한다: localStorage 쓰기는
@@ -2895,15 +2921,36 @@ function AppContent() {
             await new Promise((resolve) => setTimeout(resolve, 50));
             if (localStorage.getItem(lockKey) !== lockToken) return;
           } catch { /* 확인 불가 환경은 진행 */ }
-          const payload = {
-            scopeLabel,
-            cards: matched.map((c) => ({
-              date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
-              fact: c.fact || c.gate || c.g || "", implication: c.implicationText || "",
-              quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
-              quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
-            })),
-          };
+          const toPayloadCard = (c) => ({
+            date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
+            fact: c.fact || c.gate || c.g || "", implication: cardImplicationText(c),
+            quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
+            quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
+          });
+          // 전체 범위는 축 시장으로 '이야기가 되는 묶음'을 골라 축 모드 페이로드를 만든다.
+          // 응집 축이 하나도 없으면(드묾) 기존 flat(시그널 상위 40장)으로 폴백.
+          // briefCards는 [n] 인용 ↔ refs 대응의 정본 — 서버가 축 순서대로 전역 번호를
+          // 붙이므로 flatMap 순서와 정확히 일치한다.
+          let payload;
+          let briefCards = matched;
+          if (!terms.length) {
+            const aliasEntities = await loadAliasEntities();
+            const axes = computeBriefAxes(matched, aliasEntities || {}, { topK: period === "monthly" ? 4 : 3 });
+            // 서버 축 모드 최소치(총 4장, need-axes-with-cards)와 동일 기준 — 3장짜리 축
+            // 하나뿐이면 축 payload가 400으로 거절되고 여기서 조용히 실패한다(flat이면
+            // 2장으로도 충분했을 상황). 미달이면 flat으로 폴백해 브리프는 반드시 나온다.
+            const axisCardTotal = axes.reduce((a, ax) => a + ax.cards.length, 0);
+            if (axes.length && axisCardTotal >= 4) {
+              briefCards = axes.flatMap((ax) => ax.cards);
+              payload = { scopeLabel, axes: axes.map((ax) => ({ key: ax.key, cards: ax.cards.map(toPayloadCard) })) };
+            } else {
+              const sigOrder = (c) => sigRank[String(c.s || c.signal || "i").toLowerCase()[0]] || 0;
+              briefCards = matched.slice().sort((a, b) => sigOrder(b) - sigOrder(a)).slice(0, 40);
+              payload = { scopeLabel, cards: briefCards.map(toPayloadCard) };
+            }
+          } else {
+            payload = { scopeLabel, cards: briefCards.map(toPayloadCard) };
+          }
           const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
           const j = await r.json();
           if (!j?.ok || !j.narrative) return;
@@ -2927,7 +2974,7 @@ function AppContent() {
             terms_sig: JSON.stringify(terms),
             narrative: j.narrative,
             watch: Array.isArray(j.watch) ? j.watch : [],
-            refs: matched.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })),
+            refs: briefCards.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })), // 서버 전역 [n]과 동일 순서 (축 모드는 축 연결 순)
             read: false,
           };
           const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)

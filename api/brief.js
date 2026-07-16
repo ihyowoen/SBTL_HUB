@@ -42,6 +42,25 @@ function leanCard(c, n) {
   };
 }
 
+// 잘린 서사를 '마지막 완결 문장'까지 자른다. 경계는 인용 + 문장부호("[n]." / "[1, 2]!").
+//
+// 인용만으로는 경계가 아니다. 프롬프트(규칙 2)는 문장 끝에 [n]을 요구하지만 모델은
+// 문장 중간에도 인용을 단다 — 실서사 13편 126개 인용 실측: 마침표가 뒤따르는 것 93개
+// (73.8%), 마침표 없는 맨인용 33개인데 33개 전부가 문장 중간이었다("…전환하고 [34],
+// 삼성SDI도…", "…준비하는 등 [35] ESS 사업…"). 종결형 뒤 맨인용은 0개.
+// 그래서 맨인용을 경계로 받으면 연결형에서 끊긴 꼬리가 나간다(절단점 1549개 시뮬:
+// 맨인용 허용 19.4% vs 마침표 필수 0%). 마침표를 필수로 둔다.
+//
+// 경계를 못 찾으면 통째로 버린다(""). 이게 이번 수정의 본체다 — 예전엔 경계가 없으면
+// 원문을 그대로 뒀고(잘린 서사의 2.5%: 첫 완결 문장 전에 상한이 떨어진 경우), 그 반토막이
+// 성공 응답으로 나갔다. 빈 문자열은 호출부에서 no-narrative → 재시도로 이어진다.
+export function trimToLastCitation(text) {
+  const s = String(text);
+  let cut = -1;
+  for (const m of s.matchAll(/\[\s*\d+(?:\s*,\s*\d+)*\s*\]\s*[.!?]/g)) cut = m.index + m[0].length;
+  return cut > 0 ? s.slice(0, cut).trim() : "";
+}
+
 export function parseJsonLoose(text) {
   if (!text) return null;
   let body = String(text).trim();
@@ -71,11 +90,7 @@ export function parseJsonLoose(text) {
     try { narrative = JSON.parse(`"${lit.slice(0, cut).replace(/\\+$/, "")}"`); } catch { /* 더 짧게 재시도 */ }
   }
   if (narrative === null) { try { narrative = JSON.parse(`"${lit}"`); } catch { return null; } }
-  if (truncated) {
-    // 잘린 문장은 버린다 — 마지막 인용([n]) 뒤 문장 끝까지만 남겨 반토막 문장을 안 보여준다
-    const lastStop = Math.max(narrative.lastIndexOf("]."), narrative.lastIndexOf("] ."));
-    if (lastStop > 0) narrative = narrative.slice(0, lastStop + 2).trim();
-  }
+  if (truncated) narrative = trimToLastCitation(narrative);
   if (!narrative.trim()) return null;
   const watch = [];
   const wIdx = body.indexOf('"watch"');

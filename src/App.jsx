@@ -2497,12 +2497,23 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
     } else if (agentSeed.weeklyOpen) {
       setProfileTerm(null);
       setWeeklyOpen(true);
-      // 호수 선택 우선순위: id(방금 만든 그 호수) > 달력월("5월 브리프 보여줘") > 기간.
-      // null이면 최신호(기간 무관). 요청한 호수가 아직 없으면 최신호로 폴백 — 빈 화면보다 낫다.
+      // 호수 선택: id(방금 만든 그 호수)가 있으면 그것, 없으면 '요청한 면과 정확히 같은'
+      // 최신호. 요청한 면(기간·달·구성)은 정확히 일치하고, 요청하지 않은 면은 부재를 요구한다
+      // — '월간 브리프 보여줘'(기간만)가 더 최근의 5월호·지역별호를 열면 안 되고("period-only는
+      // 롤링 월간"), '5월 지역별 브리프'는 5월 일반호가 아니라 5월 지역별호를 골라야 한다.
+      // weeklyBriefs는 최신순이라 .find가 곧 '가장 최근 동일 변형'. 없으면 null→최신호 폴백.
       const wantPeriod = agentSeed.weeklyPeriod;
+      const wantMonth = agentSeed.weeklyMonth || null;
+      const wantGroup = agentSeed.weeklyGroup || null;
+      const matchesReq = (e) => {
+        if (((e && e.month) || null) !== wantMonth) return false;           // 달 미요청=부재 요구
+        if (((e && e.group) || null) !== wantGroup) return false;           // 구성 미요청=부재 요구
+        if (wantMonth) return true;                                         // 달이 곧 기간(monthly) 함의
+        return !wantPeriod || ((e && e.period) || "weekly") === wantPeriod;
+      };
+      const anyFacet = wantPeriod || wantMonth || wantGroup;
       const pick = (agentSeed.weeklyId && weeklyBriefs.find((e) => e.id === agentSeed.weeklyId))
-        || (agentSeed.weeklyMonth && weeklyBriefs.find((e) => (e && e.month) === agentSeed.weeklyMonth))
-        || (wantPeriod ? weeklyBriefs.find((e) => ((e && e.period) || "weekly") === wantPeriod) : null);
+        || (anyFacet ? weeklyBriefs.find(matchesReq) : null);
       setWeeklyShownId(pick ? pick.id : null);
       // 기간 고정으로 특정 호수를 열 때는 그 호수만 읽음 처리 — 전체를 처리하면 아직 안 본
       // (더 최신) 다른 기간 호수의 NEW가 열람 없이 사라진다. 폴백(최신호 표시)은 기존대로 전체.
@@ -2883,10 +2894,10 @@ function AppContent() {
   // 챗은 chatbot 탭에서만 살아 있으므로 실행 시점에 NewsDesk는 언마운트 상태 —
   // 워치는 localStorage에 직접 쓰고(다음 NEWS 마운트가 fresh로 읽음), 화면 이동이
   // 필요한 명령은 newsSeed로 NewsDesk에 전달한다.
-  const [newsSeed, setNewsSeed] = useState({ profileTerm: null, weeklyOpen: false, weeklyPeriod: null, weeklyMonth: null, weeklyId: null, feedFilter: null, nonce: 0 });
+  const [newsSeed, setNewsSeed] = useState({ profileTerm: null, weeklyOpen: false, weeklyPeriod: null, weeklyMonth: null, weeklyGroup: null, weeklyId: null, feedFilter: null, nonce: 0 });
   // NewsDesk가 seed를 소비한 뒤 지시 내용을 비운다(nonce는 유지해 다음 명령의 증가와
   // 구분). 이렇게 해야 NEWS 재방문(NewsDesk 리마운트)에서 옛 프로필/선반이 재생되지 않는다.
-  const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.weeklyOpen || s.feedFilter ? { ...s, profileTerm: null, weeklyOpen: false, weeklyPeriod: null, weeklyMonth: null, weeklyId: null, feedFilter: null } : s)), []);
+  const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.weeklyOpen || s.feedFilter ? { ...s, profileTerm: null, weeklyOpen: false, weeklyPeriod: null, weeklyMonth: null, weeklyGroup: null, weeklyId: null, feedFilter: null } : s)), []);
   // 브리프 생성 실행부 — 패시브(접속 시 1회, 주간)와 강제 발행(brief_now 명령·워치룸 버튼,
   // 주간/월간)이 공유. force는 7일 주기 게이트만 우회하고 잠금·시그니처 가드·12주 캡은 유지.
   // 워치가 비어 있으면 거절 대신 '전체' 범위(창 내 시그널 상위 카드)로 폴백 — 온보딩을
@@ -2934,8 +2945,11 @@ function AppContent() {
       // 조용히 버리므로 사용자에겐 아무 일도 안 일어난 것처럼 보임).
       // 범위(scope)는 락 키에 넣지 않는다 — 워치 변경 중 겹침은 in-flight 시그니처 가드가
       // 낡은 결과를 버리고 bumpWatchSeen으로 현재 범위 재평가를 예약해 스스로 회복한다.
-      // 달력월은 락도 달 단위 — '5월호' 생성 중 '4월호' 요청은 다른 산출물이라 막지 않는다
-      const lockKey = `${WEEKLY_BRIEF_LOCK_KEY}_${period}${month ? `_${month}` : ""}`;
+      // 락은 '산출물' 단위로 분리 — 달력월('5월호' 생성 중 '4월호')·구성(월간 vs 지역별
+      // 월간)이 다르면 다른 산출물이라 막지 않는다. 쿨다운·보관이 이미 month·group으로
+      // 구별되는데 락만 공유하면, 일반 월간 생성 중 들어온 지역별 월간 요청이 락 체크에서
+      // 물러나며 "만들게" 약속 후 아무것도 안 나온다(force는 in-flight도 조용히 버림).
+      const lockKey = `${WEEKLY_BRIEF_LOCK_KEY}_${period}${month ? `_${month}` : ""}${group ? `_${group}` : ""}`;
       const lockToken = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
       try {
         const rawLock = localStorage.getItem(lockKey);
@@ -3033,7 +3047,7 @@ function AppContent() {
           // weeklyId로 '방금 만든 그 호수'를 고정한다: 락이 기간·달별로 분리돼 여러 발행이
           // 동시에 돌 수 있으므로, 기간(weeklyPeriod)만으로 고르면 뒤늦게 끝난 다른 호수가
           // 앞에 꽂히며 사용자가 방금 만든 호수에서 밀려난다(선반은 최신호 표시).
-          if (force) setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: period, weeklyId: entry.id, feedFilter: null, nonce: s.nonce + 1 }));
+          if (force) setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: period, weeklyMonth: month, weeklyGroup: group, weeklyId: entry.id, feedFilter: null, nonce: s.nonce + 1 }));
         } catch { /* 조용히 — 다음 접속(또는 재명령)에서 재시도 */ }
         finally {
           setWeeklyGenerating(false);
@@ -3089,8 +3103,8 @@ function AppContent() {
         setNewsSeed((s) => ({ profileTerm: cmd.term, weeklyOpen: false, nonce: s.nonce + 1 }));
         setTab("news");
       } else if (cmd.type === "weekly_show") {
-        // 기간·달을 명시한 열람("월간/5월 브리프 보여줘")은 그 호수를 연다 — 없으면 최신호로 폴백
-        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: cmd.period || null, weeklyMonth: cmd.month || null, weeklyId: null, feedFilter: null, nonce: s.nonce + 1 }));
+        // 기간·달·구성을 명시한 열람("월간/5월/5월 지역별 브리프 보여줘")은 그 변형 호수를 연다 — 없으면 최신호 폴백
+        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: cmd.period || null, weeklyMonth: cmd.month || null, weeklyGroup: cmd.group || null, weeklyId: null, feedFilter: null, nonce: s.nonce + 1 }));
         setTab("news");
       } else if (cmd.type === "brief_now") {
         // 강제 발행: 선반을 먼저 열어 '만드는 중'을 보여주고, 완성되면 runWeeklyBrief가
@@ -3098,7 +3112,7 @@ function AppContent() {
         // brief_no_material은 서버 응답만 있고 클라 동작 없음 — watch_absent와 같은 무동작 안전 분기)
         // 생성 전 선반 열기도 같은 기간·달을 박아둔다 — 요청한 호수의 기존 발행본을 보여주다가
         // 완성되면 위 완료 seed가 새 호수로 다시 고정한다(요청 내내 맥락 유지)
-        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: cmd.period || null, weeklyMonth: cmd.month || null, weeklyId: null, feedFilter: null, nonce: s.nonce + 1 }));
+        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: cmd.period || null, weeklyMonth: cmd.month || null, weeklyGroup: cmd.group || null, weeklyId: null, feedFilter: null, nonce: s.nonce + 1 }));
         setTab("news");
         runWeeklyBrief({ force: true, period: cmd.period, month: cmd.month, group: cmd.group });
       } else if (cmd.type === "feed_filter") {

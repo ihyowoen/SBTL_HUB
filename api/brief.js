@@ -16,7 +16,9 @@
 import { callLLM } from "../lib/chat/llm.js";
 
 const MAX_CARDS = 40;
-const MAX_AXES = 4;
+// 6 = 지역별 구성이 6리전 전부를 축으로 보낼 수 있게(R13 — topK=4는 매달 두 지역을
+// 떨궜다: 2026-06엔 한국(30장)이 통째로 빠짐). 축 시장(전체)은 클라가 topK 3~5로 보냄.
+const MAX_AXES = 6;
 const MAX_PER_AXIS = 10;
 // groq 폴백 허용 상한(입력+출력 토큰). groq 무료 티어 per-request TPM이 6K(llama-3.1-8b)
 // 이므로 여유를 두고 5000으로 잡는다 — 이보다 큰 요청은 groq가 413으로 확정 실패하니
@@ -141,7 +143,10 @@ const COMMON_RULES = [
 ].join("\n");
 
 async function generateOnce({ system, user, maxTokens, allowFallback = true }) {
-  const result = await callLLM({ system, user, maxTokens, temperature: 0.3, timeoutMs: 25000, allowFallback });
+  // 타임아웃은 출력 상한에 비례 — 6축(5000tok) 출력은 25s를 넘길 수 있다(flash ~150-250tok/s
+  // 실측). 함수 예산은 vercel.json maxDuration 60s로 명시(1차 + 품질 재시도 1회까지 수용).
+  const timeoutMs = maxTokens > 3600 ? 40000 : 25000;
+  const result = await callLLM({ system, user, maxTokens, temperature: 0.3, timeoutMs, allowFallback });
   // status·detail(업스트림 에러 본문 스니펫)을 그대로 올린다 — 502만 보고는 폴백 실패의
   // 실원인(모델 폐기 404 vs 단일요청 TPM 초과 413 vs 요청 거부 400)을 구별할 수 없다.
   if (!result?.text) return { error: result?.error || "llm-failed", provider: result?.provider || null, status: result?.status || null, detail: result?.detail || null };
@@ -230,8 +235,9 @@ export default async function handler(req, res) {
     axisKeys = axes.map((ax) => ax.key);
     // 축 수에 연동 — 한국어는 대략 1자≈1토큰이고 축 하나가 문단(3~5문장, 400~600자)+watch를
     // 만든다. 고정 1600은 축 3개에서 이미 잘려 닫는 fence 없이 끝났다(실측: degraded 응답,
-    // watch 0개). 축당 700 + 여유 800, 상한 3600.
-    maxTokens = Math.min(3600, 800 + axes.length * 700);
+    // watch 0개). 축당 700 + 여유 800, 상한 5000(지역별 6축 = 5000 — 구 상한 3600이면
+    // 6축이 다시 절단·구제 경로로 빠진다).
+    maxTokens = Math.min(5000, 800 + axes.length * 700);
   } else {
     // flat 모드(기존) — 좁은 범위(내워치·피드 필터 조합)
     const rawCards = Array.isArray(payload?.cards) ? payload.cards : [];

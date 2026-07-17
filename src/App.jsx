@@ -492,6 +492,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // 브리프 열람 seed 소비 — 챗("5월 브리프 보여줘")·발행 완료가 특정 호수를 지목한다.
   // 소비 즉시 부모 seed를 비활성화해야 탭을 떠났다 돌아와 리마운트될 때 옛 명령이 재생되지 않는다.
   const briefSeedRef = useRef(0);
+  const shelfRef = useRef(null); // 📮 선반 컨테이너 — seed 소비 시 결과 위치로 스크롤(빌더는 한참 아래라 완성이 화면 밖에서 일어남)
   useEffect(() => {
     if (!briefSeed || !briefSeed.nonce || briefSeedRef.current === briefSeed.nonce) return;
     briefSeedRef.current = briefSeed.nonce;
@@ -504,9 +505,13 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     const wantPeriod = briefSeed.period;
     const wantMonth = briefSeed.month || null;
     const wantGroup = briefSeed.group || null;
+    const wantSpecSig = briefSeed.specSig || null;
     const matchesReq = (e) => {
       if (((e && e.month) || null) !== wantMonth) return false;
       if (((e && e.group) || null) !== wantGroup) return false;
+      // 커스텀은 spec_sig까지 정확 일치 — '다른 조합=다른 산출물'(쿨다운·게이트와 같은 규약).
+      // 다른 조합의 옛 커스텀호를 요청 결과처럼 열고 읽음 처리하면 안 된다.
+      if (wantGroup === "custom" && wantSpecSig && ((e && e.spec_sig) || null) !== wantSpecSig) return false;
       if (wantMonth) return true; // 달이 곧 기간(monthly) 함의
       return !wantPeriod || ((e && e.period) || "weekly") === wantPeriod;
     };
@@ -517,6 +522,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     // 특정 호수를 지목해 열 때는 그 호수만 읽음 처리 — 전체를 처리하면 아직 안 본
     // (더 최신) 다른 호수의 NEW가 열람 없이 사라진다. 폴백(최신호 표시)은 전체.
     if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(pick ? pick.id : undefined);
+    // 결과 위치로 스크롤 — 빌더(패널 하단)에서 발행하면 완성 호수가 화면 밖 위 선반에서
+    // 열리고, 사용자가 보는 건 쿨다운으로 바뀐 발행 버튼뿐이라 성공이 실패처럼 읽힌다.
+    try { shelfRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* 미지원 환경 무시 */ }
     if (typeof onBriefSeedConsumed === "function") onBriefSeedConsumed();
     // weeklyBriefs는 소비 시점의 보관함을 읽기만 한다 — nonce 가드가 있어 deps에서 제외
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -617,9 +625,21 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // 후 수치가 줄 수 있다. 요약·게이트는 반드시 이 소진 후 결과로 계산한다(생성기와 동일 함수·동일 매처).
   const builderAxes = useMemo(() => computeCustomAxes(builderPool, builderSpec, { maxPerAxis: 8, watchMatch: builderWatchMatch }), [builderPool, builderSpec]);
   const builderCardTotal = builderAxes.reduce((a, ax) => a + ax.cards.length, 0);
-  const builderDropped = builderSpec.filter((s) => !builderAxes.some((ax) => ax.key === s.key)).map((s) => s.key);
-  const builderSpecSig = JSON.stringify(builderSpec); // 항목이 {type,key}뿐 — 생성기 entry.spec_sig와 동일 직렬화
-  const builderBlock = !builderSpec.length ? "축을 골라주세요 — 지역·주제 칩에서 최대 6개"
+  // 탈락 축은 원인을 갈라 말한다 — 후보 자체가 3장 미만이면 '재료 부족'(기간 전환으로
+  // 선택 당시 활성이던 칩이 미달로 변한 경우), 후보는 충분한데 빠졌으면 '겹침 소진'
+  // (앞 축이 카드를 가져감). 지역끼리는 겹침이 원천 불가라 오귀인이 특히 티가 난다.
+  const builderDroppedThin = [];
+  const builderDroppedOverlap = [];
+  for (const s of builderSpec) {
+    if (builderAxes.some((ax) => ax.key === s.key)) continue;
+    ((builderCounts.get(`${s.type}:${s.key}`) || 0) < 3 ? builderDroppedThin : builderDroppedOverlap).push(s.key);
+  }
+  // 발행·시그니처는 '살아남은 축'만 — 죽은 축이 spec_sig에 남으면 entry의 재현 계약이
+  // 깨지고, 안내대로 죽은 칩만 해제해 재발행하면 실질 동일 브리프가 쿨다운을 우회한다.
+  const builderEffectiveSpec = builderSpec.filter((s) => builderAxes.some((ax) => ax.key === s.key));
+  const builderSpecSig = JSON.stringify(builderEffectiveSpec); // 항목이 {type,key}뿐 — 생성기 entry.spec_sig와 동일 직렬화(normalizeCustomSpec)
+  const builderBlock = weeklyGenerating ? "🔄 브리프 만드는 중 — 완성되면 발행할 수 있어요"
+    : !builderSpec.length ? "축을 골라주세요 — 워치·지역·주제 칩에서 최대 6개"
     : !builderAxes.length ? "고른 축 전부 재료 부족(축당 3장 필요) — 기간을 넓히거나 다른 축을 골라보세요"
     : builderCardTotal < 4 ? `재료 부족 — 축 합계 ${builderCardTotal}장 (4장 필요)`
     : briefGate(builderPeriodKind, { month: builderMonth, group: "custom", specSig: builderSpecSig });
@@ -710,7 +730,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
         const shown = weeklyBriefs.find((e) => e.id === weeklyShownId) || weeklyBriefs[0];
         const hasUnread = weeklyBriefs.some((e) => !e.read);
         return (
-          <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${hasUnread ? t.cyan : t.brd}` }}>
+          <div ref={shelfRef} style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${hasUnread ? t.cyan : t.brd}`, scrollMarginTop: 12 }}>
             <button onClick={() => { const next = !weeklyOpen; setWeeklyOpen(next); if (next && hasUnread) { setWeeklyShownId(null); /* 미확인이 있으면 최신 호수를 표시하며 읽음 처리 — 낡은 선택이 새 호수를 가리지 않게 */ if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(); } }} aria-expanded={weeklyOpen} style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", border: "none", background: "transparent", cursor: "pointer", padding: 0, textAlign: "left" }}>
               <span style={{ fontSize: 12, fontWeight: 900, color: t.tx }}>📮 브리프</span>
               <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{weeklyBriefs.length > 0 ? `${weeklyBriefs[0].generated_at} 발행 · ${weeklyBriefs.length}부 보관` : "첫 브리프 준비 중"}</span>
@@ -811,7 +831,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
           const on = order >= 0;
           const disabled = !on && n < 3; // 축당 3장 미달은 선택 불가 — 발행 시 조용히 빠지는 것보다 정직
           return (
-            <button key={`${type}:${key}`} onClick={() => { if (!disabled) toggleBuilderAxis(type, key); }} aria-pressed={on} disabled={disabled} style={pill(on, disabled)}>
+            <button key={`${type}:${key}`} onClick={() => { if (!disabled) toggleBuilderAxis(type, key); }} aria-pressed={on} disabled={disabled} title={disabled ? "이 기간 카드가 3장 미만이라 축으로 쓸 수 없어요" : undefined} style={pill(on, disabled)}>
               {on ? `${order + 1} · ` : ""}{type === "watch" ? "🏢 " : ""}{key} <span style={{ opacity: 0.7 }}>{n}</span>
             </button>
           );
@@ -819,7 +839,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
         return (
           <div style={{ marginTop: 8, borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px solid ${t.brd}` }}>
             <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>🧩 브리프 빌더</div>
-            <div style={{ fontSize: 10.5, color: t.sub, marginTop: 3, lineHeight: 1.5, wordBreak: "keep-all" }}>내 워치(🏢)·지역·주제 축을 고른 순서대로 엮어 나만의 브리프를 만들어요 — 숫자는 그 기간 카드 수, 최대 6축</div>
+            <div style={{ fontSize: 10.5, color: t.sub, marginTop: 3, lineHeight: 1.5, wordBreak: "keep-all" }}>내 워치(🏢)·지역·주제 축을 고른 순서대로 엮어 나만의 브리프를 만들어요 — 숫자는 그 기간 카드 수(축당 최대 8장 수록), 최대 6축</div>
             <div style={{ display: "flex", gap: 6, marginTop: 9, flexWrap: "wrap" }}>
               {[["weekly", "주간"], ["monthly", "월간"], ...briefMonths.map((m) => [m, m.replace("-", ".")])].map(([v, label]) => (
                 <button key={v} onClick={() => setBuilderPeriod(v)} aria-pressed={builderPeriod === v} style={pill(builderPeriod === v, false)}>{label}</button>
@@ -830,11 +850,14 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
             )}
             <div style={{ display: "flex", gap: 6, marginTop: builderWatchKeys.length ? 6 : 8, flexWrap: "wrap" }}>{REGION_AXIS_KEYS.map((k) => axisChip("region", k))}</div>
             <div style={{ display: "flex", gap: 6, marginTop: 6, flexWrap: "wrap" }}>{THEME_AXIS_KEYS.map((k) => axisChip("theme", k))}</div>
-            <button onClick={() => { if (!builderBlock && onBriefNow) onBriefNow(builderPeriodKind, { group: "custom", customSpec: builderSpec, ...(builderMonth ? { month: builderMonth } : {}) }); }} disabled={!!builderBlock} style={{ width: "100%", marginTop: 10, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: builderBlock ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: builderBlock ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>
+            <button onClick={() => { if (!builderBlock && onBriefNow) onBriefNow(builderPeriodKind, { group: "custom", customSpec: builderEffectiveSpec, ...(builderMonth ? { month: builderMonth } : {}) }); }} disabled={!!builderBlock} style={{ width: "100%", marginTop: 10, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: builderBlock ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: builderBlock ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>
               {builderBlock ? builderBlock : `🧩 발행 — ${builderAxes.map((ax) => ax.key).join("·")} · ${builderAxes.length}축 ${builderCardTotal}장`}
             </button>
-            {!builderBlock && builderDropped.length > 0 && (
-              <div style={{ fontSize: 10, color: t.sub, marginTop: 5, fontFamily: "'JetBrains Mono',monospace" }}>겹침 소진으로 제외: {builderDropped.join("·")} — 앞 축이 카드를 먼저 가져갔어요</div>
+            {!builderBlock && builderDroppedOverlap.length > 0 && (
+              <div style={{ fontSize: 10, color: t.sub, marginTop: 5, fontFamily: "'JetBrains Mono',monospace" }}>겹침 소진으로 제외: {builderDroppedOverlap.join("·")} — 앞 축이 카드를 먼저 가져갔어요</div>
+            )}
+            {!builderBlock && builderDroppedThin.length > 0 && (
+              <div style={{ fontSize: 10, color: t.sub, marginTop: 3, fontFamily: "'JetBrains Mono',monospace" }}>재료 부족으로 제외: {builderDroppedThin.join("·")} — 이 기간엔 3장이 안 돼요</div>
             )}
           </div>
         );
@@ -1293,6 +1316,17 @@ function readWeeklyBriefs() {
 // period 없는 구 항목은 주간 취급(마이그레이션 없이 기존 이력이 그대로 유효).
 function plainWeeklyEntries(entries) {
   return (entries || []).filter((e) => ((e && e.period) || "weekly") === "weekly" && !(e && e.month) && !(e && e.group));
+}
+
+// 커스텀 spec 정규화(R14) — 생성기(entry.spec_sig)·발행 seed·빌더 게이트가 '같은 조합'을
+// 같은 직렬화로 봐야 하므로 한 곳에서만 정의한다. {type,key}만 남기고 미지 type은
+// theme으로 접으며(생성기 규약), 6개 상한(서버 MAX_AXES 페어)까지 여기서 통일한다.
+function normalizeCustomSpec(spec) {
+  if (!Array.isArray(spec) || !spec.length) return null;
+  const norm = spec.slice(0, 6)
+    .map((s) => ({ type: s && s.type === "region" ? "region" : s && s.type === "watch" ? "watch" : "theme", key: String((s && s.key) || "") }))
+    .filter((s) => s.key);
+  return norm.length ? norm : null;
 }
 
 // 브리프 항목이 '지금의 워치 범위'로 만들어진 것인지 — terms_sig(R7+)가 정본이고,
@@ -3136,8 +3170,8 @@ function AppContent() {
   const [newsSeed, setNewsSeed] = useState({ profileTerm: null, feedFilter: null, nonce: 0 });
   // 브리프 열람 seed — 브리핑룸(Watchroom)이 소비한다(R12: 선반이 NEWS→브리핑룸으로 이사).
   // open이면 선반을 펼치고 period/month/group/id로 호수를 지목한다.
-  const [briefSeed, setBriefSeed] = useState({ open: false, period: null, month: null, group: null, id: null, nonce: 0 });
-  const markBriefSeedConsumed = useMemo(() => () => setBriefSeed((s) => (s.open ? { ...s, open: false, period: null, month: null, group: null, id: null } : s)), []);
+  const [briefSeed, setBriefSeed] = useState({ open: false, period: null, month: null, group: null, specSig: null, id: null, nonce: 0 });
+  const markBriefSeedConsumed = useMemo(() => () => setBriefSeed((s) => (s.open ? { ...s, open: false, period: null, month: null, group: null, specSig: null, id: null } : s)), []);
   // NewsDesk가 seed를 소비한 뒤 지시 내용을 비운다(nonce는 유지해 다음 명령의 증가와
   // 구분). 이렇게 해야 NEWS 재방문(NewsDesk 리마운트)에서 옛 프로필/선반이 재생되지 않는다.
   const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.feedFilter ? { ...s, profileTerm: null, feedFilter: null } : s)), []);
@@ -3158,9 +3192,7 @@ function AppContent() {
     const period = month || opts.period === "monthly" ? "monthly" : "weekly";
     // 커스텀 조합(R14 빌더): 사용자가 고른 축 spec 배열이 오면 group="custom". spec은
     // entry에 함께 저장돼(spec_sig) 같은 조합만 쿨다운을 물린다. 항상 force(패시브 없음).
-    const customSpec = Array.isArray(opts.customSpec) && opts.customSpec.length
-      ? opts.customSpec.slice(0, 6).map((s) => ({ type: s.type === "region" ? "region" : s.type === "watch" ? "watch" : "theme", key: String(s.key || "") })).filter((s) => s.key)
-      : null;
+    const customSpec = normalizeCustomSpec(opts.customSpec); // 정규화·직렬화는 seed·게이트와 공용(spec_sig 일치 계약)
     const group = customSpec ? "custom" : opts.group === "region" ? "region" : opts.group === "theme" ? "theme" : null; // 구성(R11 지역별·R13 주제별·R14 커스텀)
     const windowDays = period === "monthly" ? 30 : 7;
     const inWindow = (c) => (month ? cardInMonth(c, month) : cardDateWithinDays(c, windowDays));
@@ -3190,7 +3222,13 @@ function AppContent() {
       const matched = terms.length
         ? kb.cards.filter((c) => cardMatchesWatch(c, terms) && inWindow(c)).slice(0, 40)
         : kb.cards.filter(inWindow);
-      if (matched.length < 2) return;
+      // 재료 미달 조기 종료 — 강제 발행(사용자가 버튼/명령으로 기다리는 중)은 조용히 죽지
+      // 않는다: 게이트는 렌더 시점, 여기는 클릭 시점 창(cardDateWithinDays가 벽시계 기준)
+      // 이라 KST 09시 경계에서 게이트 통과 후 재료가 빠질 수 있다(#173 graceful 규약).
+      if (matched.length < 2) {
+        if (force) setWeeklyError("재료가 부족해 브리프를 만들지 못했어 — 기간을 넓히거나 잠시 후 다시 시도해줘.");
+        return;
+      }
       // 크로스탭 잠금 — 동시에 뜬 두 탭이 '같은 산출물'을 중복 생성(LLM 이중 호출)하지 않도록.
       // 토큰(타임스탬프_난수)을 쓰고 fetch 직전에 소유권을 재확인한다: localStorage 쓰기는
       // 오리진 단위로 직렬화되므로 최종 토큰과 일치하는 탭은 정확히 하나다.
@@ -3272,6 +3310,14 @@ function AppContent() {
           if (axes && axes.length && axisCardTotal >= 4) {
             briefCards = axes.flatMap((ax) => ax.cards);
             payload = { scopeLabel, axes: axes.map((ax) => ({ key: ax.key, cards: ax.cards.map(toPayloadCard) })) };
+          } else if (group === "custom") {
+            // 커스텀은 flat 폴백 금지 — '고른 축 조합'이 산출물 정체성이라, 축이 무너졌는데
+            // 전체 창 시그널 상위 40장을 '커스텀(…)' 라벨·spec_sig로 발행하면 오표기다
+            // (지역별·주제별의 폴백은 '그래도 그 기간 브리프'라는 정체성이 남지만 커스텀은 아님).
+            // 빌더 게이트(렌더 시점)와 여기(클릭 시점)의 창이 벽시계 경계에서 어긋날 수 있어
+            // 이 경로는 실재한다 — 정직하게 실패를 알리고 중단한다(락·스피너는 finally가 정리).
+            setWeeklyError("고른 축의 재료가 부족해 브리프를 만들지 못했어 — 축을 바꾸거나 기간을 넓혀줘.");
+            return;
           } else if (!terms.length || group) {
             const sigOrder = (c) => sigRank[String(c.s || c.signal || "i").toLowerCase()[0]] || 0;
             briefCards = matched.slice().sort((a, b) => sigOrder(b) - sigOrder(a)).slice(0, 40);
@@ -3334,7 +3380,7 @@ function AppContent() {
           // id로 '방금 만든 그 호수'를 고정한다: 락이 기간·달별로 분리돼 여러 발행이
           // 동시에 돌 수 있으므로, 기간만으로 고르면 뒤늦게 끝난 다른 호수가 앞에 꽂히며
           // 사용자가 방금 만든 호수에서 밀려난다(선반은 최신호 표시).
-          if (force) setBriefSeed((s) => ({ open: true, period, month, group, id: entry.id, nonce: s.nonce + 1 }));
+          if (force) setBriefSeed((s) => ({ open: true, period, month, group, specSig: customSpec ? JSON.stringify(customSpec) : null, id: entry.id, nonce: s.nonce + 1 }));
         } catch {
           // 네트워크 예외 등 — 강제 발행이면 사용자에게 알린다(패시브는 조용히 재시도)
           if (force) setWeeklyError("브리프 생성 중 네트워크 오류가 났어 — 잠시 후 다시 시도해줘.");
@@ -3395,7 +3441,7 @@ function AppContent() {
       } else if (cmd.type === "weekly_show") {
         // 기간·달·구성을 명시한 열람("월간/5월/5월 지역별 브리프 보여줘")은 그 변형 호수를 연다 — 없으면 최신호 폴백.
         // R12: 브리프의 집은 브리핑룸 — 선반 seed를 올리고 브리핑룸으로 이동한다.
-        setBriefSeed((s) => ({ open: true, period: cmd.period || null, month: cmd.month || null, group: cmd.group || null, id: null, nonce: s.nonce + 1 }));
+        setBriefSeed((s) => ({ open: true, period: cmd.period || null, month: cmd.month || null, group: cmd.group || null, specSig: null, id: null, nonce: s.nonce + 1 }));
         setTab("watchroom");
       } else if (cmd.type === "brief_now") {
         // 강제 발행: 선반을 먼저 열어 '만드는 중'을 보여주고, 완성되면 runWeeklyBrief가
@@ -3403,7 +3449,10 @@ function AppContent() {
         // brief_no_material은 서버 응답만 있고 클라 동작 없음 — watch_absent와 같은 무동작 안전 분기)
         // 생성 전 선반 열기도 같은 기간·달을 박아둔다 — 요청한 호수의 기존 발행본을 보여주다가
         // 완성되면 위 완료 seed가 새 호수로 다시 고정한다(요청 내내 맥락 유지)
-        setBriefSeed((s) => ({ open: true, period: cmd.period || null, month: cmd.month || null, group: cmd.group || null, id: null, nonce: s.nonce + 1 }));
+        // 커스텀은 specSig까지 — spec_sig가 '같은 조합' 판정의 정본인데 seed만 group으로
+        // 뭉뚱그리면 다른 조합의 옛 커스텀호를 열고 읽음 처리한다(산출물 면 전파 규약).
+        const preSig = (() => { const n = normalizeCustomSpec(cmd.customSpec); return n ? JSON.stringify(n) : null; })();
+        setBriefSeed((s) => ({ open: true, period: cmd.period || null, month: cmd.month || null, group: cmd.group || null, specSig: preSig, id: null, nonce: s.nonce + 1 }));
         setTab("watchroom");
         // customSpec(R14 빌더)은 그대로 관통 — runWeeklyBrief가 group="custom" 유도·spec 저장까지 담당
         runWeeklyBrief({ force: true, period: cmd.period, month: cmd.month, group: cmd.group, customSpec: cmd.customSpec });

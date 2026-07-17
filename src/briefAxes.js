@@ -182,6 +182,31 @@ export function computeRegionAxes(pool, { topK = 4, maxPerAxis = 10, minPerAxis 
     .map(([key, cards]) => ({ key, source: "regionField", cards: capAndOrderCards(cards, maxPerAxis) }));
 }
 
+// 주제별 구성(R13) — genTheme의 주제 사전을 지역별처럼 '의도적 정리' 축으로 쓴다.
+// 지역과 달리 한 카드가 여러 주제에 걸릴 수 있어(예: 리튬 수주 계약) greedy 소진으로
+// 배타화한다: 카드 수 큰 주제부터 아직 안 쓰인 카드만 취해, 최종 [n] 인용·refs 대응이
+// 깨지지 않게 같은 카드가 두 문단에 반복되지 않도록 한다. 사용자가 명시 요청한 구성이라
+// 응집 게이트는 없다(축 시장의 genTheme는 후보 경쟁용으로 그대로 남는다).
+export function computeThemeAxes(pool, { topK = 6, maxPerAxis = 8, minPerAxis = 3 } = {}) {
+  const groups = [];
+  for (const [label, keys] of THEMES) {
+    const cs = pool.filter((c) => { const h = titleOf(c).toLowerCase(); return keys.some((k) => hitBoundary(k, h)); });
+    if (cs.length >= minPerAxis) groups.push({ key: label, cards: cs });
+  }
+  groups.sort((a, b) => b.cards.length - a.cards.length);
+  const used = new Set();
+  const picked = [];
+  for (const g of groups) {
+    if (picked.length >= topK) break;
+    const fresh = g.cards.filter((c) => !used.has(idOf(c)));
+    if (fresh.length < minPerAxis) continue;
+    const cards = capAndOrderCards(fresh, maxPerAxis);
+    cards.forEach((c) => used.add(idOf(c)));
+    picked.push({ key: g.key, source: "themeField", cards });
+  }
+  return picked;
+}
+
 // pool → 응집 축 최대 topK개 (축당 maxPerAxis장, 내부는 시간 오름차순 — 서사는 시간축)
 export function computeBriefAxes(pool, aliasEntities, { topK = 3, maxPerAxis = 10 } = {}) {
   const cand = [...genRelated(pool), ...genEntity(pool, aliasEntities), ...genTheme(pool), ...genRegion(pool)]

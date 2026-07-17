@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
-import { computeBriefAxes, computeRegionAxes, cardInMonth } from "./briefAxes";
+import { computeBriefAxes, computeRegionAxes, computeThemeAxes, cardInMonth } from "./briefAxes";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
@@ -503,9 +503,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     if (ts && Date.now() - ts < 10 * 60000) return "방금 발행했어요 — 10분 뒤에 다시 만들 수 있어요";
     return null;
   };
-  // 지역별 구성 토글 — 아래 발행 버튼·월 칩에 공통 적용 (R11)
-  const [regionOn, setRegionOn] = useState(false);
-  const briefExtra = regionOn ? { group: "region" } : {};
+  // 구성 선택(자동축·지역별·주제별) — 아래 발행 버튼·월 칩에 공통 적용 (R11 지역별·R13 주제별)
+  const [briefGroup, setBriefGroup] = useState(null); // null(자동축) | "region" | "theme"
+  const briefExtra = briefGroup ? { group: briefGroup } : {};
   const weeklyBlock = briefGate("weekly", briefExtra);
   const monthlyBlock = briefGate("monthly", briefExtra);
   // 달력월 칩 — 카드가 실제로 있는 달만(노이즈 달 제외 ≥10장), 최신부터 4개.
@@ -632,7 +632,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                         // 칩으로 호수를 바꾸면 그 호수만 읽음 처리 — 특정 호수 열람이 다른 호수의
                         // NEW를 일부러 남겨두므로(markWeeklyBriefsRead(onlyId)), 실제로 그 호수를
                         // 열어보는 이 경로에서 꺼주지 않으면 NEW가 선반을 접었다 펼 때까지 남는다.
-                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}{e.month ? ` ${Number(e.month.slice(5))}월호` : e.period === "monthly" ? " 월간" : ""}{e.group === "region" ? "🗺" : ""}{!e.read ? " ·" : ""}</button>
+                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}{e.month ? ` ${Number(e.month.slice(5))}월호` : e.period === "monthly" ? " 월간" : ""}{e.group === "region" ? "🗺" : e.group === "theme" ? "🏷" : ""}{!e.read ? " ·" : ""}</button>
                       ))}
                     </div>
                   </div>
@@ -650,7 +650,11 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       </div>
       {/* R11: 지역별 구성 토글 + 달력월 발행 칩 — "5월엔 무슨 일이 있었지"를 달 단위로 끊어 만든다 */}
       <div style={{ display: "flex", gap: 6, marginTop: 6, alignItems: "center", flexWrap: "wrap" }}>
-        <button onClick={() => setRegionOn((v) => !v)} aria-pressed={regionOn} style={{ padding: "8px 12px", borderRadius: 999, border: `1px solid ${regionOn ? t.cyan : t.brd}`, background: regionOn ? (dark ? "rgba(88,166,255,0.14)" : "rgba(9,105,218,0.08)") : "transparent", color: regionOn ? t.cyan : t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>🗺️ 지역별로 묶기{regionOn ? " ✓" : ""}</button>
+        {/* 구성 세그먼트 — 재탭으로 자동축 복귀 */}
+        {[["region", "🗺️ 지역별"], ["theme", "🏷️ 주제별"]].map(([g, label]) => {
+          const on = briefGroup === g;
+          return <button key={g} onClick={() => setBriefGroup(on ? null : g)} aria-pressed={on} style={{ padding: "8px 12px", borderRadius: 999, border: `1px solid ${on ? t.cyan : t.brd}`, background: on ? (dark ? "rgba(88,166,255,0.14)" : "rgba(9,105,218,0.08)") : "transparent", color: on ? t.cyan : t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{label}{on ? " ✓" : ""}</button>;
+        })}
         {briefMonths.map((m) => {
           const block = briefGate("monthly", { month: m, ...briefExtra });
           return (
@@ -2962,7 +2966,7 @@ function AppContent() {
     // 월간 규약을 따르고, entry.month로 롤링 월간과 구별된다. 항상 force 경로(패시브 없음).
     const month = /^\d{4}-(0[1-9]|1[0-2])$/.test(String(opts.month || "")) ? opts.month : null;
     const period = month || opts.period === "monthly" ? "monthly" : "weekly";
-    const group = opts.group === "region" ? "region" : null; // 지역별 구성(R11)
+    const group = opts.group === "region" ? "region" : opts.group === "theme" ? "theme" : null; // 구성(R11 지역별·R13 주제별)
     const windowDays = period === "monthly" ? 30 : 7;
     const inWindow = (c) => (month ? cardInMonth(c, month) : cardDateWithinDays(c, windowDays));
     if (!kb.cards.length) return;
@@ -3019,7 +3023,7 @@ function AppContent() {
         : period === "monthly" ? "월간" : "주간";
       const scopeLabel = (terms.length
         ? `${periodLabel} 내워치(${terms.slice(0, 4).join(", ")}${terms.length > 4 ? "…" : ""})`
-        : `${periodLabel} 전체`) + (group === "region" ? " · 지역별" : "");
+        : `${periodLabel} 전체`) + (group === "region" ? " · 지역별" : group === "theme" ? " · 주제별" : "");
       (async () => {
         try {
           // 소유권 재확인 — check-then-set 사이에 같이 진입한 다른 탭이 토큰을 덮었으면 물러난다
@@ -3045,16 +3049,22 @@ function AppContent() {
           let briefCards = matched;
           let axes = null;
           if (group === "region") {
-            axes = computeRegionAxes(matched, { topK: 4 });
+            // 6리전 전부 — topK=4는 매달 두 지역을 떨궜다(실측: 2026-06 한국 30장 통째 탈락).
+            // 축당 8장으로 총량을 다스린다(6×8≈48장, 서버 출력 상한 5000tok과 페어).
+            axes = computeRegionAxes(matched, { topK: 6, maxPerAxis: 8 });
+          } else if (group === "theme") {
+            // 주제 사전 상위 6개(월별 적격 주제 실측 4~8개) — greedy 배타로 카드 중복 없음
+            axes = computeThemeAxes(matched, { topK: 6, maxPerAxis: 8 });
           } else if (!terms.length) {
             const aliasEntities = await loadAliasEntities();
-            axes = computeBriefAxes(matched, aliasEntities || {}, { topK: period === "monthly" ? 4 : 3 });
+            // 월간 전체는 축 5개 — 한 달 200장+에서 4개 축은 폭이 좁다(사용자 피드백)
+            axes = computeBriefAxes(matched, aliasEntities || {}, { topK: period === "monthly" ? 5 : 3 });
           }
           const axisCardTotal = (axes || []).reduce((a, ax) => a + ax.cards.length, 0);
           if (axes && axes.length && axisCardTotal >= 4) {
             briefCards = axes.flatMap((ax) => ax.cards);
             payload = { scopeLabel, axes: axes.map((ax) => ({ key: ax.key, cards: ax.cards.map(toPayloadCard) })) };
-          } else if (!terms.length || group === "region") {
+          } else if (!terms.length || group) {
             const sigOrder = (c) => sigRank[String(c.s || c.signal || "i").toLowerCase()[0]] || 0;
             briefCards = matched.slice().sort((a, b) => sigOrder(b) - sigOrder(a)).slice(0, 40);
             payload = { scopeLabel, cards: briefCards.map(toPayloadCard) };

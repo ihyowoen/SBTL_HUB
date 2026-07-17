@@ -237,6 +237,20 @@ Default value caps:
 - stage 2: 69/100 unless adoption is highly probable, near, and already causing a material observable effect;
 - stages 3–6: no automatic floor or ceiling; score the actual industrial consequence.
 
+### Policy/legal scoring transmission guard
+
+The legal-policy score measures only operative legal force, rights, duties, eligibility, liability, market-access status, and procedural certainty.
+
+Allocate the industrial consequences separately:
+
+- entry barriers, procurement access, concentration, grid access, or revenue design → `market_structure_competition`;
+- quotas, tariffs, imports, exports, actual supply, demand, utilisation, or price formation → `supply_demand_price_utilisation`;
+- technical standards, qualification, safety, durability, repairability, or technology pathways → `technology_performance_safety`;
+- subsidy value, tax burden, compliance cost, financing, liability, margin, or asset value → `cashflow_asset_value`;
+- legal force and enforceability itself → `law_policy_market_access`.
+
+Do not double-count the same policy effect.
+
 Every applicable item must preserve or request:
 
 - exact instrument type;

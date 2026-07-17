@@ -2253,7 +2253,7 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   );
 }
 
-function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null, weeklyGenerating = false, agentSeed = null, onAgentSeedConsumed = null }) {
+function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null, weeklyGenerating = false, weeklyError = null, agentSeed = null, onAgentSeedConsumed = null }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
   // 시그널(TOP/HIGH)은 지역/워치와 결합 가능한 별도 축 — "중국 TOP만"이 실제로 교집합이 되게.
@@ -2730,7 +2730,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         </div>
       )}
       {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>날짜별 시그널 피드</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.6 }}>최신 카드부터 날짜 기준으로 정렬했습니다. 같은 날짜 안에서는 중요도가 높은 이슈를 먼저 보여줍니다.</p></div>}
-      {!profileTerm && (weeklyBriefs.length > 0 || weeklyGenerating) && (() => {
+      {!profileTerm && (weeklyBriefs.length > 0 || weeklyGenerating || weeklyError) && (() => {
         const shown = weeklyBriefs.find((e) => e.id === weeklyShownId) || weeklyBriefs[0];
         const hasUnread = weeklyBriefs.some((e) => !e.read);
         return (
@@ -2745,6 +2745,9 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
               <div aria-live="polite" style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", borderRadius: 8, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>
                 🔄 새 브리프 만드는 중… (수십 초 걸릴 수 있어요 — 완성되면 여기 맨 위에 꽂혀요)
               </div>
+            )}
+            {weeklyOpen && !weeklyGenerating && weeklyError && (
+              <div aria-live="polite" style={{ marginTop: 10, padding: "8px 10px", borderRadius: 8, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>⚠️ {weeklyError}</div>
             )}
             {weeklyOpen && shown && (
               <div style={{ marginTop: 10 }}>
@@ -2915,6 +2918,10 @@ function AppContent() {
   // 워치가 비어 있으면 거절 대신 '전체' 범위(창 내 시그널 상위 카드)로 폴백 — 온보딩을
   // 스킵한 유저(다수 예상)도 브리프를 경험하게 한다. 자동(패시브) 발행도 동일 폴백.
   const [weeklyGenerating, setWeeklyGenerating] = useState(false);
+  // 강제 발행이 실패하면(예: 축 브리프에서 gemini 불안정 + groq 폴백 제외) 조용히 사라지는
+  // 대신 사용자에게 보이는 메시지를 남긴다 — 챗·워치룸이 "만들게"라고 약속했는데 화면에
+  // 아무것도 없는 상태를 방지(graceful degrade). 패시브(자동)는 조용히 넘어가도 무방.
+  const [weeklyError, setWeeklyError] = useState(null);
   const runWeeklyBrief = useMemo(() => (opts = {}) => {
     const force = !!opts.force;
     // 달력월("2026-05", R11): 재료를 그 달로 한정하는 월간 계열 산출물. 락·보관·표시는
@@ -2970,6 +2977,7 @@ function AppContent() {
         localStorage.setItem(lockKey, lockToken);
       } catch { /* 잠금 불가 환경은 그대로 진행 */ }
       if (!force) weeklyAttemptRef.current = true;
+      if (force) setWeeklyError(null); // 새 시도 시작 — 이전 실패 메시지 소거
       setWeeklyGenerating(true);
       const termsSigAtRequest = JSON.stringify(terms); // 빈 워치는 "[]" — 기존 시그니처 비교가 그대로 동작
       const periodLabel = month
@@ -3020,8 +3028,15 @@ function AppContent() {
             payload = { scopeLabel, cards: briefCards.map(toPayloadCard) };
           }
           const r = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-          const j = await r.json();
-          if (!j?.ok || !j.narrative) return;
+          const j = await r.json().catch(() => null);
+          if (!j?.ok || !j.narrative) {
+            // 강제 발행 실패는 사용자에게 알린다(graceful degrade). unavailable(축 모드 gemini
+            // 실패 등)은 일시적 안내로, 그 외는 일반 재시도 안내로. 패시브는 조용히 넘어간다.
+            if (force) setWeeklyError(j?.unavailable
+              ? "지금은 브리프를 만들 수 없어 — 생성 서버가 잠깐 붐비는 중이야. 잠시 후 다시 시도해줘."
+              : "브리프 생성에 실패했어 — 잠시 후 다시 시도해줘.");
+            return;
+          }
           // 요청 비행 중 워치 목록이 바뀌었으면 낡은 목록 기준 브리프를 저장하지 않는다.
           // 패시브는 현재 목록으로 재평가를 예약하고, 강제 발행은 조용히 폐기(사용자가 다시 명령하면 됨).
           try {
@@ -3050,17 +3065,24 @@ function AppContent() {
           const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)
           if (!force && !weeklyBriefDue(plainWeeklyEntries(fresh).filter((e) => briefScopeMatches(e, terms)))) {
             setWeeklyBriefs(fresh); // 경합에서 진 탭도 승자 항목을 화면에 반영
+            if (fresh.length) setWeeklyError(null); // 승자 브리프가 화면에 뜨면 낡은 실패 메시지 소거
             return;
           }
           const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
           localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
           setWeeklyBriefs(next);
+          // 브리프가 성공적으로 저장·표시됐으니 낡은 실패 메시지를 소거한다 — 새 브리프와 ⚠️가
+          // 함께 뜨지 않게(force는 시작 시 이미 소거하지만, 패시브 성공은 여기서만 소거된다).
+          setWeeklyError(null);
           // 강제 발행은 사용자가 지금 기다리는 중 — 완성본을 📮 선반에 바로 펼친다.
           // weeklyId로 '방금 만든 그 호수'를 고정한다: 락이 기간·달별로 분리돼 여러 발행이
           // 동시에 돌 수 있으므로, 기간(weeklyPeriod)만으로 고르면 뒤늦게 끝난 다른 호수가
           // 앞에 꽂히며 사용자가 방금 만든 호수에서 밀려난다(선반은 최신호 표시).
           if (force) setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: period, weeklyMonth: month, weeklyGroup: group, weeklyId: entry.id, feedFilter: null, nonce: s.nonce + 1 }));
-        } catch { /* 조용히 — 다음 접속(또는 재명령)에서 재시도 */ }
+        } catch {
+          // 네트워크 예외 등 — 강제 발행이면 사용자에게 알린다(패시브는 조용히 재시도)
+          if (force) setWeeklyError("브리프 생성 중 네트워크 오류가 났어 — 잠시 후 다시 시도해줘.");
+        }
         finally {
           setWeeklyGenerating(false);
           // 내 토큰일 때만 해제 — 소유권을 잃었으면 남(승자)의 잠금을 지우지 않는다
@@ -3229,7 +3251,7 @@ function AppContent() {
         {tab === "all" && <div style={{ paddingTop: 10 }}><TodayDashboard dark={dark} kb={kb} tracker={tracker} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onFeedSearch={(q) => executeAppCommand({ type: "feed_filter", search: q })} onAppCommand={executeAppCommand} /></div>}
         {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} /></div>}
         {tab === "archive" && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>POLICY TRACKER — 정책 일정·규제</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /></div>}
-        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} weeklyGenerating={weeklyGenerating} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
+        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} onConsultationConsumed={markConsultationConsumed} />}
       </main>
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">

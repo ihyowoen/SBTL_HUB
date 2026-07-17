@@ -446,6 +446,16 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     // weeklyBriefs는 소비 시점의 보관함을 읽기만 한다 — nonce 가드가 있어 deps에서 제외
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [briefSeed, onBriefSeedConsumed]);
+  // 진입 읽음 처리 — 브리핑룸 선반은 기본 펼침이라 '진입만으로' 최신호가 보인다.
+  // 예전 NEWS 선반은 기본 접힘이라 펼침 토글에서 처리했는데, 그 규약만 남기면 진입 후
+  // NEW 배지가 접었다 펴야 사라진다. seed가 특정 호수를 지목해 들어온 마운트는 seed
+  // 소비가 그 호수만 읽음 처리하므로 여기선 건너뛴다(전체 처리하면 R6 규약 위반 —
+  // 지목되지 않은 더 최신 호수의 NEW가 열람 없이 사라진다). 마운트 1회.
+  useEffect(() => {
+    if (briefSeed && briefSeed.open) return; // seed 경로가 처리
+    if (weeklyBriefs.some((e) => e && !e.read) && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const matched = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, 5);
   // 미리보기 5장 밖에 남은 새(unseen) 카드 수 — 확인 처리 후 리렌더(watchVersion)마다 재계산
   const unseenLeft = (() => {

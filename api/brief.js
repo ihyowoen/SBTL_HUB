@@ -131,7 +131,9 @@ const COMMON_RULES = [
 
 async function generateOnce({ system, user, maxTokens }) {
   const result = await callLLM({ system, user, maxTokens, temperature: 0.3, timeoutMs: 25000 });
-  if (!result?.text) return { error: result?.error || "llm-failed", provider: result?.provider || null };
+  // status·detail(업스트림 에러 본문 스니펫)을 그대로 올린다 — 502만 보고는 폴백 실패의
+  // 실원인(모델 폐기 404 vs 단일요청 TPM 초과 413 vs 요청 거부 400)을 구별할 수 없다.
+  if (!result?.text) return { error: result?.error || "llm-failed", provider: result?.provider || null, status: result?.status || null, detail: result?.detail || null };
   const parsed = parseJsonLoose(result.text);
   return { parsed, raw: result.text, provider: result.provider || null };
 }
@@ -239,7 +241,7 @@ export default async function handler(req, res) {
 
   // ---- 생성 + 품질 가드(1회 재시도) ----
   let attempt = await generateOnce({ system, user, maxTokens });
-  if (attempt.error) return res.status(502).json({ ok: false, error: attempt.error, provider: attempt.provider });
+  if (attempt.error) return res.status(502).json({ ok: false, error: attempt.error, provider: attempt.provider, status: attempt.status || null, detail: attempt.detail || null });
   let issues = qualityIssues(attempt.parsed, axisKeys);
   let retried = false;
   if (issues.length) {

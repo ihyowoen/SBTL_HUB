@@ -230,8 +230,11 @@ const THEME_KEYWORDS = new Map(THEMES.map(([label, keys]) => [label, keys]));
 // (뱃지 수와 실제 발행 재료가 어긋나면 '21장이라더니 축이 빠졌다'는 정직성 문제가 된다.
 //  단 뱃지는 단독 축 기준이고 발행은 선택 순서 greedy 소진 후라, 겹치는 축을 여럿 고르면
 //  실제 축 카드는 뱃지보다 적을 수 있다 — 빌더 요약이 소진 후 수치를 다시 보여준다.)
-export function customAxisCandidates(pool, type, key) {
+// type "watch"(워치 용어 축)는 매칭식이 앱 소유(cardMatchesWatch — 별칭·건초더미 규약)라
+// watchMatch 주입으로 받는다 — 이 모듈은 앱 의존 없이 순수하게 남는다.
+export function customAxisCandidates(pool, type, key, watchMatch = null) {
   if (type === "region") return pool.filter((c) => regionLabelOf(c) === key);
+  if (type === "watch") return typeof watchMatch === "function" ? pool.filter((c) => watchMatch(c, key)) : [];
   const keys = THEME_KEYWORDS.get(key);
   if (!keys) return [];
   return pool.filter((c) => { const h = titleOf(c).toLowerCase(); return keys.some((k) => hitBoundary(k, h)); });
@@ -243,19 +246,19 @@ export function customAxisCandidates(pool, type, key) {
 // 걸릴 수 있어 spec 순서대로 greedy 소진해 배타화한다 — computeThemeAxes와 같은
 // 이유([n] 인용·refs 대응이 카드 중복으로 깨지지 않게). minPerAxis 미달 축은 탈락 —
 // 빌더 UI가 사전에 카드 수를 보여주므로 여기 탈락은 '겹침 소진 후 부족'이 대부분이다.
-export function computeCustomAxes(pool, spec, { maxPerAxis = 8, minPerAxis = 3 } = {}) {
+export function computeCustomAxes(pool, spec, { maxPerAxis = 8, minPerAxis = 3, watchMatch = null } = {}) {
   const used = new Set();
   const picked = [];
   for (const s of Array.isArray(spec) ? spec : []) {
     if (picked.length >= 6) break; // 서버 MAX_AXES와 페어 — 초과분은 서버가 잘라 refs가 어긋난다
-    const type = s && s.type === "region" ? "region" : s && s.type === "theme" ? "theme" : null;
+    const type = s && s.type === "region" ? "region" : s && s.type === "theme" ? "theme" : s && s.type === "watch" ? "watch" : null;
     const key = String((s && s.key) || "");
     if (!type || !key) continue;
-    const fresh = customAxisCandidates(pool, type, key).filter((c) => !used.has(idOf(c)));
+    const fresh = customAxisCandidates(pool, type, key, watchMatch).filter((c) => !used.has(idOf(c)));
     if (fresh.length < minPerAxis) continue;
     const cards = capAndOrderCards(fresh, maxPerAxis);
     cards.forEach((c) => used.add(idOf(c)));
-    picked.push({ key, source: type === "region" ? "customRegion" : "customTheme", cards });
+    picked.push({ key, source: type === "region" ? "customRegion" : type === "watch" ? "customWatch" : "customTheme", cards });
   }
   return picked;
 }

@@ -598,15 +598,24 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     const days = builderPeriodKind === "monthly" ? 30 : 7;
     return kb.cards.filter((c) => (builderMonth ? cardInMonth(c, builderMonth) : cardDateWithinDays(c, days)));
   }, [kb.cards, builderPeriod]); // builderMonth·Kind는 builderPeriod 파생 — deps는 원본 하나로 충분
+  // 워치 축 칩 목록 — 내 워치 용어 + spec에 남은 워치 키의 합집합. 용어를 워치에서 지워도
+  // 이미 고른 축 칩은 보이게 유지한다(안 그러면 '보이지 않는 선택'이 spec에 남아 발행됨).
+  const builderWatchKeys = useMemo(() => {
+    const set = new Set(watchTerms);
+    for (const s of builderSpec) if (s.type === "watch") set.add(s.key);
+    return [...set];
+  }, [watchTerms, builderSpec]);
+  const builderWatchMatch = (c, term) => cardMatchesWatch(c, [term]);
   const builderCounts = useMemo(() => {
     const m = new Map();
     for (const k of REGION_AXIS_KEYS) m.set(`region:${k}`, customAxisCandidates(builderPool, "region", k).length);
     for (const k of THEME_AXIS_KEYS) m.set(`theme:${k}`, customAxisCandidates(builderPool, "theme", k).length);
+    for (const k of builderWatchKeys) m.set(`watch:${k}`, customAxisCandidates(builderPool, "watch", k, builderWatchMatch).length);
     return m;
-  }, [builderPool]);
+  }, [builderPool, builderWatchKeys]);
   // 발행될 실제 축 미리보기 — 뱃지는 단독 축 기준이라 겹치는 축을 여럿 고르면 greedy 소진
-  // 후 수치가 줄 수 있다. 요약·게이트는 반드시 이 소진 후 결과로 계산한다(생성기와 동일 함수).
-  const builderAxes = useMemo(() => computeCustomAxes(builderPool, builderSpec, { maxPerAxis: 8 }), [builderPool, builderSpec]);
+  // 후 수치가 줄 수 있다. 요약·게이트는 반드시 이 소진 후 결과로 계산한다(생성기와 동일 함수·동일 매처).
+  const builderAxes = useMemo(() => computeCustomAxes(builderPool, builderSpec, { maxPerAxis: 8, watchMatch: builderWatchMatch }), [builderPool, builderSpec]);
   const builderCardTotal = builderAxes.reduce((a, ax) => a + ax.cards.length, 0);
   const builderDropped = builderSpec.filter((s) => !builderAxes.some((ax) => ax.key === s.key)).map((s) => s.key);
   const builderSpecSig = JSON.stringify(builderSpec); // 항목이 {type,key}뿐 — 생성기 entry.spec_sig와 동일 직렬화
@@ -803,20 +812,23 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
           const disabled = !on && n < 3; // 축당 3장 미달은 선택 불가 — 발행 시 조용히 빠지는 것보다 정직
           return (
             <button key={`${type}:${key}`} onClick={() => { if (!disabled) toggleBuilderAxis(type, key); }} aria-pressed={on} disabled={disabled} style={pill(on, disabled)}>
-              {on ? `${order + 1} · ` : ""}{key} <span style={{ opacity: 0.7 }}>{n}</span>
+              {on ? `${order + 1} · ` : ""}{type === "watch" ? "🏢 " : ""}{key} <span style={{ opacity: 0.7 }}>{n}</span>
             </button>
           );
         };
         return (
           <div style={{ marginTop: 8, borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px solid ${t.brd}` }}>
             <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>🧩 브리프 빌더</div>
-            <div style={{ fontSize: 10.5, color: t.sub, marginTop: 3, lineHeight: 1.5, wordBreak: "keep-all" }}>지역·주제 축을 고른 순서대로 엮어 나만의 브리프를 만들어요 — 숫자는 그 기간 카드 수, 최대 6축</div>
+            <div style={{ fontSize: 10.5, color: t.sub, marginTop: 3, lineHeight: 1.5, wordBreak: "keep-all" }}>내 워치(🏢)·지역·주제 축을 고른 순서대로 엮어 나만의 브리프를 만들어요 — 숫자는 그 기간 카드 수, 최대 6축</div>
             <div style={{ display: "flex", gap: 6, marginTop: 9, flexWrap: "wrap" }}>
               {[["weekly", "주간"], ["monthly", "월간"], ...briefMonths.map((m) => [m, m.replace("-", ".")])].map(([v, label]) => (
                 <button key={v} onClick={() => setBuilderPeriod(v)} aria-pressed={builderPeriod === v} style={pill(builderPeriod === v, false)}>{label}</button>
               ))}
             </div>
-            <div style={{ display: "flex", gap: 6, marginTop: 8, flexWrap: "wrap" }}>{REGION_AXIS_KEYS.map((k) => axisChip("region", k))}</div>
+            {builderWatchKeys.length > 0 && (
+              <div style={{ display: "flex", gap: 6, marginTop: 8, flexWrap: "wrap" }}>{builderWatchKeys.map((k) => axisChip("watch", k))}</div>
+            )}
+            <div style={{ display: "flex", gap: 6, marginTop: builderWatchKeys.length ? 6 : 8, flexWrap: "wrap" }}>{REGION_AXIS_KEYS.map((k) => axisChip("region", k))}</div>
             <div style={{ display: "flex", gap: 6, marginTop: 6, flexWrap: "wrap" }}>{THEME_AXIS_KEYS.map((k) => axisChip("theme", k))}</div>
             <button onClick={() => { if (!builderBlock && onBriefNow) onBriefNow(builderPeriodKind, { group: "custom", customSpec: builderSpec, ...(builderMonth ? { month: builderMonth } : {}) }); }} disabled={!!builderBlock} style={{ width: "100%", marginTop: 10, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: builderBlock ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: builderBlock ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>
               {builderBlock ? builderBlock : `🧩 발행 — ${builderAxes.map((ax) => ax.key).join("·")} · ${builderAxes.length}축 ${builderCardTotal}장`}
@@ -3147,7 +3159,7 @@ function AppContent() {
     // 커스텀 조합(R14 빌더): 사용자가 고른 축 spec 배열이 오면 group="custom". spec은
     // entry에 함께 저장돼(spec_sig) 같은 조합만 쿨다운을 물린다. 항상 force(패시브 없음).
     const customSpec = Array.isArray(opts.customSpec) && opts.customSpec.length
-      ? opts.customSpec.slice(0, 6).map((s) => ({ type: s.type === "region" ? "region" : "theme", key: String(s.key || "") })).filter((s) => s.key)
+      ? opts.customSpec.slice(0, 6).map((s) => ({ type: s.type === "region" ? "region" : s.type === "watch" ? "watch" : "theme", key: String(s.key || "") })).filter((s) => s.key)
       : null;
     const group = customSpec ? "custom" : opts.group === "region" ? "region" : opts.group === "theme" ? "theme" : null; // 구성(R11 지역별·R13 주제별·R14 커스텀)
     const windowDays = period === "monthly" ? 30 : 7;
@@ -3241,8 +3253,9 @@ function AppContent() {
           let axes = null;
           if (group === "custom") {
             // 사용자 선택 순서 그대로 — 정렬하지 않는다(순서가 곧 편집 의도). 겹침은
-            // spec 순서 greedy 소진으로 배타화(computeCustomAxes 내부).
-            axes = computeCustomAxes(matched, customSpec, { maxPerAxis: 8 });
+            // spec 순서 greedy 소진으로 배타화(computeCustomAxes 내부). 워치 용어 축은
+            // 앱의 매칭식(cardMatchesWatch — 별칭·건초더미 규약)을 주입 — 칩 뱃지와 동일식.
+            axes = computeCustomAxes(matched, customSpec, { maxPerAxis: 8, watchMatch: (c, term) => cardMatchesWatch(c, [term]) });
           } else if (group === "region") {
             // 6리전 전부 — topK=4는 매달 두 지역을 떨궜다(실측: 2026-06 한국 30장 통째 탈락).
             // 축당 8장으로 총량을 다스린다(6×8≈48장, 서버 출력 상한 5000tok과 페어).

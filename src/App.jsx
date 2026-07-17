@@ -445,7 +445,7 @@ function BriefReader({ entry, dark }) {
 
 // '브리핑룸' 탭 — 개인 인텔리전스의 집: 브리프(발행·보관함)와 워치(관리·새 소식)를 총괄.
 // R12: 브리프 선반이 NEWS에서 여기로 이사 — 발행 버튼과 결과물이 같은 방에 산다.
-function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed, weeklyGenerating = false, weeklyError = null, onWeeklyBriefsRead = null, briefSeed = null, onBriefSeedConsumed = null }) {
+function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed, weeklyGenerating = false, weeklyError = null, onWeeklyBriefsRead = null, briefSeed = null, onBriefSeedConsumed = null, onAdoptLibraryEntry = null }) {
   const t = T(dark);
   // 추가/삭제가 executeAppCommand(명령 버스)로 localStorage를 바꾸므로,
   // 버전 신호(watchSeenVersion)로 재읽기해 화면에 즉시 반영한다.
@@ -581,6 +581,11 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // 구성 선택(자동축·지역별·주제별) — 아래 발행 버튼·월 칩에 공통 적용 (R11 지역별·R13 주제별)
   const [briefGroup, setBriefGroup] = useState(null); // null(자동축) | "region" | "theme"
   const briefExtra = briefGroup ? { group: briefGroup } : {};
+  // 사전 생성 라이브러리(R13) — 월 칩의 1·2순위 소스: 보관함 → 라이브러리 → 온디맨드 생성
+  const [library, setLibrary] = useState(null);
+  useEffect(() => { let alive = true; loadBriefLibrary().then((j) => { if (alive) setLibrary(j); }); return () => { alive = false; }; }, []);
+  const libFind = (m, g) => (library?.items || []).find((it) => (it.month || null) === m && ((it.group) || null) === g) || null;
+  const archiveFind = (m, g) => weeklyBriefs.find((e) => ((e && e.month) || null) === m && ((e && e.group) || null) === g && (e.terms_sig === "[]" || e.terms_sig == null)) || null;
   const weeklyBlock = briefGate("weekly", briefExtra);
   const monthlyBlock = briefGate("monthly", briefExtra);
   // 달력월 칩 — 카드가 실제로 있는 달만(노이즈 달 제외 ≥10장), 최신부터 4개.
@@ -724,9 +729,24 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
           return <button key={g} onClick={() => setBriefGroup(on ? null : g)} aria-pressed={on} style={{ padding: "8px 12px", borderRadius: 999, border: `1px solid ${on ? t.cyan : t.brd}`, background: on ? (dark ? "rgba(88,166,255,0.14)" : "rgba(9,105,218,0.08)") : "transparent", color: on ? t.cyan : t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{label}{on ? " ✓" : ""}</button>;
         })}
         {briefMonths.map((m) => {
-          const block = briefGate("monthly", { month: m, ...briefExtra });
+          // 소스 우선순위: 보관함(이미 만든 그 호수) → 사전 생성 라이브러리(0초·LLM 0회) →
+          // 온디맨드 생성(기존 게이트 적용). 즉시 열람 가능한 칩은 채움 스타일로 구별.
+          const inArchive = archiveFind(m, briefGroup);
+          const inLib = !inArchive && libFind(m, briefGroup);
+          const instant = !!(inArchive || inLib);
+          const block = instant ? null : briefGate("monthly", { month: m, ...briefExtra });
+          const onTap = () => {
+            if (inArchive) { setWeeklyOpen(true); setWeeklyShownId(inArchive.id); if (!inArchive.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(inArchive.id); return; }
+            if (inLib) {
+              const entry = { period: "monthly", terms: [], terms_sig: "[]", read: true, ...inLib };
+              if (typeof onAdoptLibraryEntry === "function") onAdoptLibraryEntry(entry);
+              setWeeklyOpen(true); setWeeklyShownId(entry.id);
+              return;
+            }
+            if (!block && onBriefNow) onBriefNow("monthly", { month: m, ...briefExtra });
+          };
           return (
-            <button key={m} onClick={() => { if (!block && onBriefNow) onBriefNow("monthly", { month: m, ...briefExtra }); }} disabled={!!block} title={block || `${Number(m.slice(5))}월 한 달치 브리프 발행`} style={{ padding: "8px 11px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: block ? t.sub : t.cyan, fontSize: 10.5, fontWeight: 800, cursor: block ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{m.replace("-", ".")}</button>
+            <button key={m} onClick={onTap} disabled={!!block} title={instant ? `${Number(m.slice(5))}월호 바로 열기${inLib ? " (사전 생성)" : ""}` : (block || `${Number(m.slice(5))}월 한 달치 브리프 발행`)} style={{ padding: "8px 11px", borderRadius: 999, border: `1px solid ${instant ? t.cyan : t.brd}`, background: instant ? (dark ? "rgba(88,166,255,0.12)" : "rgba(9,105,218,0.07)") : "transparent", color: block ? t.sub : t.cyan, fontSize: 10.5, fontWeight: 800, cursor: block ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{m.replace("-", ".")}{instant ? " ⚡" : ""}</button>
           );
         })}
       </div>
@@ -1148,6 +1168,21 @@ function loadAliasEntities() {
       .catch(() => null);
   }
   return aliasEntitiesPromise;
+}
+
+// ---- 사전 생성 브리프 라이브러리(R13) ----
+// 지나간 달의 재료는 불변 → 달×구성(전체/지역별/주제별) 호수를 한 번 생성해 정적 파일로
+// 커밋해두면 모든 유저가 0초·LLM 0회로 연다(생성은 ~/tools/gen_brief_library.mjs, 배포 후
+// 실행). 파일이 없거나 조합이 비면 조용히 null — 월 칩이 온디맨드 생성으로 폴백한다.
+let briefLibraryPromise = null;
+function loadBriefLibrary() {
+  if (!briefLibraryPromise) {
+    briefLibraryPromise = fetch("/data/briefs.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => (j && Array.isArray(j.items) ? j : null))
+      .catch(() => null);
+  }
+  return briefLibraryPromise;
 }
 
 // ---- 주간 브리프 보관함: 앱 접속 시 내워치 범위로 조용히 생성해 적재 ----
@@ -3290,6 +3325,18 @@ function AppContent() {
       setWeeklyBriefs(next);
     } catch { /* noop */ }
   }, []);
+  // 사전 생성 라이브러리 호수를 보관함에 채택(R13) — 월 칩이 라이브러리에서 열 때 1회 주입.
+  // 이미 있으면(id 동일) 중복 주입하지 않고 최신 목록만 반영한다.
+  const adoptLibraryEntry = useMemo(() => (entry) => {
+    try {
+      if (!entry || !entry.id || !entry.narrative) return;
+      const fresh = readWeeklyBriefs();
+      if (fresh.some((e) => e && e.id === entry.id)) { setWeeklyBriefs(fresh); return; }
+      const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
+      localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
+      setWeeklyBriefs(next);
+    } catch { /* noop */ }
+  }, []);
   useEffect(() => {
     // 세션 1회 시도 가드는 '같은 범위'에만 건다 — 범위가 바뀌면(첫 워치 등록 등) 다시 시도한다.
     // R9의 전체 범위 폴백 전에는 빈 워치가 생성 전 early-return이라 시도 플래그가 안 켜져서
@@ -3362,7 +3409,7 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><TodayDashboard dark={dark} kb={kb} tracker={tracker} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onFeedSearch={(q) => executeAppCommand({ type: "feed_filter", search: q })} onAppCommand={executeAppCommand} /></div>}
-        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, feedFilter: null, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} onWeeklyBriefsRead={markWeeklyBriefsRead} briefSeed={briefSeed} onBriefSeedConsumed={markBriefSeedConsumed} /></div>}
+        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, feedFilter: null, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} onWeeklyBriefsRead={markWeeklyBriefsRead} briefSeed={briefSeed} onBriefSeedConsumed={markBriefSeedConsumed} onAdoptLibraryEntry={adoptLibraryEntry} /></div>}
         {tab === "archive" && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>POLICY TRACKER — 정책 일정·규제</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} onConsultationConsumed={markConsultationConsumed} />}

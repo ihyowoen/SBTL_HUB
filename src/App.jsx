@@ -71,11 +71,12 @@ const WEBTOON_COLLECTIONS = [
 ];
 
 // 릴리스 8: 개인 인텔리전스 층(워치·브리프·프로필)에 맞춘 IA 재편 —
-// 오늘(관제 대시보드) / 피드(탐색) / 워치룸(내 것 전부) / 자료실(정책+용어) / 상담소(AI)
+// 오늘(관제 대시보드) / 피드(탐색) / 브리핑룸(브리프+내 워치 전부) / 자료실(정책+용어) / 상담소(AI)
+// (내부 key는 "watchroom" 유지 — localStorage·seed 등 상태 계약을 건드리지 않는 표시명 변경)
 const CATS = [
   { key: "all", label: "오늘", icon: "🌅" },
   { key: "news", label: "피드", icon: "📰" },
-  { key: "watchroom", label: "워치룸", icon: "⭐" },
+  { key: "watchroom", label: "브리핑룸", icon: "📮" },
   { key: "archive", label: "자료실", icon: "📚" },
   { key: "chatbot", label: "상담소", icon: "🤖" },
 ];
@@ -228,7 +229,7 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     <div style={{ padding: "0 16px 110px", display: "flex", flexDirection: "column", gap: 10 }}>
       {!onboardDone && watchTerms.length === 0 && (
         <W label="처음이시죠? 관심사를 골라주세요" right="개인화 시작">
-          <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, marginBottom: 8, wordBreak: "keep-all" }}>고르면 새 카드 배지·매주 📮 브리프·프로필 바로가기가 켜져요. 나중에 워치룸이나 상담소에서 바꿀 수 있어요.</div>
+          <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, marginBottom: 8, wordBreak: "keep-all" }}>고르면 새 카드 배지·매주 📮 브리프·프로필 바로가기가 켜져요. 나중에 브리핑룸이나 상담소에서 바꿀 수 있어요.</div>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {["CATL", "LG에너지솔루션", "삼성SDI", "SK온", "Tesla", "BYD", "전고체", "ESS"].map((term) => {
               const on = onboardPick.includes(term);
@@ -273,10 +274,10 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
                 <span style={{ fontSize: 10, color: t.sub }}>›</span>
               </button>
             ))}
-            <button onClick={() => onNav("watchroom")} style={{ ...linkBtn, marginTop: 2 }}>워치룸 전체 →</button>
+            <button onClick={() => onNav("watchroom")} style={{ ...linkBtn, marginTop: 2 }}>브리핑룸 전체 →</button>
           </div>
         ) : (
-          <button onClick={() => onNav("watchroom")} style={{ width: "100%", padding: "10px", borderRadius: 8, border: `1px dashed ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11.5, fontWeight: 700, cursor: "pointer" }}>워치가 비어 있어요 — 워치룸에서 바로 등록하기</button>
+          <button onClick={() => onNav("watchroom")} style={{ width: "100%", padding: "10px", borderRadius: 8, border: `1px dashed ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11.5, fontWeight: 700, cursor: "pointer" }}>워치가 비어 있어요 — 브리핑룸에서 바로 등록하기</button>
         )}
       </W>
       <W label="TOP SIGNALS" right={`${fmtDate(today)} 기준 상위`}>
@@ -323,7 +324,7 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
           {latestBrief ? (
             <div>
               <div style={{ fontSize: 11, color: t.tx, lineHeight: 1.55, wordBreak: "keep-all" }}>{String(latestBrief.narrative || "").slice(0, 42)}…</div>
-              <button onClick={() => onNav("watchroom")} style={linkBtn}>워치룸에서 →</button>
+              <button onClick={() => onNav("watchroom")} style={linkBtn}>브리핑룸에서 →</button>
             </div>
           ) : (
             <div>
@@ -367,8 +368,9 @@ function ChatGuide({ dark, runSuggestion }) {
   );
 }
 
-// '워치룸' 탭 — 개인 인텔리전스(워치 관리·주간 브리프·워치 새 소식)의 집.
-function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed }) {
+// '브리핑룸' 탭 — 개인 인텔리전스의 집: 브리프(발행·보관함)와 워치(관리·새 소식)를 총괄.
+// R12: 브리프 선반이 NEWS에서 여기로 이사 — 발행 버튼과 결과물이 같은 방에 산다.
+function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed, weeklyGenerating = false, weeklyError = null, onWeeklyBriefsRead = null, briefSeed = null, onBriefSeedConsumed = null }) {
   const t = T(dark);
   // 추가/삭제가 executeAppCommand(명령 버스)로 localStorage를 바꾸므로,
   // 버전 신호(watchSeenVersion)로 재읽기해 화면에 즉시 반영한다.
@@ -395,6 +397,83 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
   }, [kb.cards, onWatchSeen]);
   const [draft, setDraft] = useState("");
+  // ---- 📮 브리프 선반 (R12: NewsDesk에서 이사) ----
+  const [weeklyOpen, setWeeklyOpen] = useState(true); // 브리핑룸의 중심 콘텐츠 — 기본 펼침
+  const [weeklyShownId, setWeeklyShownId] = useState(null); // 보관함에서 선택된 항목 (null=최신)
+  const [copiedWeekly, setCopiedWeekly] = useState(false);
+  const copyWeeklyBrief = (entry) => {
+    if (!entry?.narrative) return;
+    const text = [
+      `[SBTL ${entry.period === "monthly" ? "월간" : "주간"} 브리프] ${entry.scope_label || "내워치"} — ${entry.generated_at || ""}`,
+      "",
+      entry.narrative,
+      ...(entry.watch?.length ? ["", "지켜볼 것:", ...entry.watch.map((w) => `- ${w}`)] : []),
+      "",
+      "출처 카드:",
+      ...(entry.refs || []).map((r) => `[${r.n}] ${r.title} (${r.date})${r.url ? ` ${r.url}` : ""}`),
+    ].join("\n");
+    writeClipboard(text, () => { setCopiedWeekly(true); setTimeout(() => setCopiedWeekly(false), 1600); });
+  };
+  // 브리프 열람 seed 소비 — 챗("5월 브리프 보여줘")·발행 완료가 특정 호수를 지목한다.
+  // 소비 즉시 부모 seed를 비활성화해야 탭을 떠났다 돌아와 리마운트될 때 옛 명령이 재생되지 않는다.
+  const briefSeedRef = useRef(0);
+  useEffect(() => {
+    if (!briefSeed || !briefSeed.nonce || briefSeedRef.current === briefSeed.nonce) return;
+    briefSeedRef.current = briefSeed.nonce;
+    if (!briefSeed.open) return;
+    setWeeklyOpen(true);
+    // 호수 선택: id(방금 만든 그 호수) > '요청한 면과 정확히 같은' 최신호. 요청한 면
+    // (기간·달·구성)은 정확히 일치, 요청하지 않은 면은 부재 요구 — '월간 브리프 보여줘'
+    // (기간만)가 더 최근의 5월호·지역별호를 열면 안 되고, '5월 지역별'은 5월 지역별호를
+    // 골라야 한다. weeklyBriefs는 최신순이라 .find가 곧 '가장 최근 동일 변형'.
+    const wantPeriod = briefSeed.period;
+    const wantMonth = briefSeed.month || null;
+    const wantGroup = briefSeed.group || null;
+    const matchesReq = (e) => {
+      if (((e && e.month) || null) !== wantMonth) return false;
+      if (((e && e.group) || null) !== wantGroup) return false;
+      if (wantMonth) return true; // 달이 곧 기간(monthly) 함의
+      return !wantPeriod || ((e && e.period) || "weekly") === wantPeriod;
+    };
+    const anyFacet = wantPeriod || wantMonth || wantGroup;
+    const pick = (briefSeed.id && weeklyBriefs.find((e) => e.id === briefSeed.id))
+      || (anyFacet ? weeklyBriefs.find(matchesReq) : null);
+    setWeeklyShownId(pick ? pick.id : null);
+    // 특정 호수를 지목해 열 때는 그 호수만 읽음 처리 — 전체를 처리하면 아직 안 본
+    // (더 최신) 다른 호수의 NEW가 열람 없이 사라진다. 폴백(최신호 표시)은 전체.
+    if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(pick ? pick.id : undefined);
+    if (typeof onBriefSeedConsumed === "function") onBriefSeedConsumed();
+    // weeklyBriefs는 소비 시점의 보관함을 읽기만 한다 — nonce 가드가 있어 deps에서 제외
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [briefSeed, onBriefSeedConsumed]);
+  // 진입 읽음 처리 — 브리핑룸 선반은 기본 펼침이라 '진입만으로' 최신호가 보인다.
+  // 예전 NEWS 선반은 기본 접힘이라 펼침 토글에서 처리했는데, 그 규약만 남기면 진입 후
+  // NEW 배지가 접었다 펴야 사라진다. seed가 특정 호수를 지목해 들어온 마운트는 seed
+  // 소비가 그 호수만 읽음 처리하므로 여기선 건너뛴다(전체 처리하면 R6 규약 위반 —
+  // 지목되지 않은 더 최신 호수의 NEW가 열람 없이 사라진다). 마운트 1회.
+  useEffect(() => {
+    if (briefSeed && briefSeed.open) return; // seed 경로가 처리
+    if (weeklyBriefs.some((e) => e && !e.read) && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // 체류 중 도착 읽음 처리 — 선반이 '열린 채로' 새 호수가 도착하면(패시브 완성·다른 탭
+  // 발행) 즉시 표시되는데, 마운트(위)·펼침 토글·seed 어느 읽음 경로에도 안 걸려 NEW가
+  // 남는다. '마운트 이후 새로 나타난 id'가 최신으로 실제 표시되고 있을 때만 그 호수를
+  // 읽음 처리한다. seed 대기 중(briefSeed.open)엔 양보(발행 완료는 seed가 지목 처리),
+  // seed가 보존한 기존 unread는 '새 id'가 아니라 여기서도 건드리지 않는다(R6 유지).
+  const knownIdsRef = useRef(null);
+  useEffect(() => {
+    const ids = new Set(weeklyBriefs.map((e) => e && e.id).filter(Boolean));
+    if (knownIdsRef.current === null) { knownIdsRef.current = ids; return; } // 마운트분은 진입 처리 몫
+    const freshIds = [...ids].filter((id) => !knownIdsRef.current.has(id));
+    knownIdsRef.current = ids;
+    if (!freshIds.length) return;
+    if (briefSeed && briefSeed.open) return;
+    if (!weeklyOpen || weeklyShownId) return; // 접힘·과거 호수 고정 중엔 새 호수가 표시되지 않음 — NEW 유지
+    const top = weeklyBriefs[0];
+    if (top && !top.read && freshIds.includes(top.id) && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(top.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [weeklyBriefs]);
   const matched = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, 5);
   // 미리보기 5장 밖에 남은 새(unseen) 카드 수 — 확인 처리 후 리렌더(watchVersion)마다 재계산
   const unseenLeft = (() => {
@@ -403,7 +482,6 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       return kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, WATCH_SEEN_WINDOW).filter((c) => { const id = getCardId(c); return id && !seen.has(id); }).length;
     } catch { return 0; }
   })();
-  const latest = weeklyBriefs[0];
   // ⚡ 즉시 발행 게이팅 — 챗 명령(brief_now)의 서버 게이트와 동일 기준을 버튼에도 적용.
   // 게이트 없이 실행하면 재료 부족 시 NEWS로 이동만 하고 조용히 실패하거나(설명 없음),
   // 방금 발행 직후 연타로 중복 생성될 수 있다. 막힌 이유는 버튼 아래 정직하게 표시.
@@ -499,32 +577,76 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       ) : (
         <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>아직 매칭 카드가 없어요 — 워치를 넓혀보거나 상담소에 물어보세요.</div>
       )}
-      {sectionTitle("📮 브리프 보관함", `매주 자동 발행${watchTerms.length ? "" : " (워치가 비어 있어 전체 카드 기준)"} — 아래 버튼으로 주간·월간 바로 발행, 달 칩으로 그 달만 끊어서도, 지역별로 묶어서도 돼요`)}
-      {latest ? (
-        <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px solid ${t.brd}` }}>
-          <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{latest.scope_label || "내워치"} · {latest.generated_at} 발행 · {weeklyBriefs.length}부 보관</div>
-          <div style={{ fontSize: 12.5, lineHeight: 1.7, color: t.tx, wordBreak: "keep-all" }}>{String(latest.narrative || "").slice(0, 110)}…</div>
-        </div>
-      ) : (
-        <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px dashed ${t.brd}`, fontSize: 11.5, color: t.sub, lineHeight: 1.6 }}>아직 발행본이 없어요.</div>
+      {sectionTitle("📮 브리프", `매주 자동 발행${watchTerms.length ? "" : " (워치가 비어 있어 전체 카드 기준)"} — 아래 버튼으로 주간·월간 바로 발행, 달 칩으로 그 달만 끊어서도, 지역별로 묶어서도 돼요`)}
+      {(weeklyBriefs.length > 0 || weeklyGenerating || weeklyError) ? (() => {
+        const shown = weeklyBriefs.find((e) => e.id === weeklyShownId) || weeklyBriefs[0];
+        const hasUnread = weeklyBriefs.some((e) => !e.read);
+        return (
+          <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${hasUnread ? t.cyan : t.brd}` }}>
+            <button onClick={() => { const next = !weeklyOpen; setWeeklyOpen(next); if (next && hasUnread) { setWeeklyShownId(null); /* 미확인이 있으면 최신 호수를 표시하며 읽음 처리 — 낡은 선택이 새 호수를 가리지 않게 */ if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(); } }} aria-expanded={weeklyOpen} style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", border: "none", background: "transparent", cursor: "pointer", padding: 0, textAlign: "left" }}>
+              <span style={{ fontSize: 12, fontWeight: 900, color: t.tx }}>📮 브리프</span>
+              <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{weeklyBriefs.length > 0 ? `${weeklyBriefs[0].generated_at} 발행 · ${weeklyBriefs.length}부 보관` : "첫 브리프 준비 중"}</span>
+              {hasUnread && <span style={{ fontSize: 8, fontWeight: 800, color: "#000", background: t.cyan, padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>NEW</span>}
+              <span style={{ marginLeft: "auto", color: t.sub, fontSize: 13 }}>{weeklyOpen ? "▾" : "▸"}</span>
+            </button>
+            {weeklyOpen && weeklyGenerating && (
+              <div aria-live="polite" style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", borderRadius: 8, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>
+                🔄 새 브리프 만드는 중… (수십 초 걸릴 수 있어요 — 완성되면 여기 맨 위에 꽂혀요)
+              </div>
+            )}
+            {weeklyOpen && !weeklyGenerating && weeklyError && (
+              <div aria-live="polite" style={{ marginTop: 10, padding: "8px 10px", borderRadius: 8, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>⚠️ {weeklyError}</div>
+            )}
+            {weeklyOpen && shown && (
+              <div style={{ marginTop: 10 }}>
+                <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{shown.scope_label} · {shown.generated_at} · 근거 {shown.refs?.length || 0}장</div>
+                {/* whiteSpace pre-line — 축 모드 브리프는 【축】 문단을 \n\n로 구분한다 */}
+                <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all", whiteSpace: "pre-line" }}>{shown.narrative}</div>
+                {shown.watch?.length > 0 && (
+                  <div style={{ marginTop: 10 }}>
+                    <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
+                    {shown.watch.map((w, i) => <div key={i} style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.6, paddingLeft: 8, borderLeft: `2px solid ${t.brd}`, marginBottom: 4, wordBreak: "keep-all" }}>{w}</div>)}
+                  </div>
+                )}
+                <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
+                  <button onClick={() => copyWeeklyBrief(shown)} style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: `1px solid ${copiedWeekly ? "transparent" : t.brd}`, background: copiedWeekly ? t.cyan : "transparent", color: copiedWeekly ? "#000" : t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{copiedWeekly ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}</button>
+                  {/* 공유는 '현재 표시 중인 호수'(shown) — 예전엔 발행 버튼 행에서 latest를 공유해,
+                      칩으로 옛 호수를 보는 중에도 최신호가 나가는 표시-공유 불일치가 있었다 */}
+                  <button
+                    onClick={async () => {
+                      const text = `[SBTL ${shown.period === "monthly" ? "월간" : "주간"} 브리프] ${shown.scope_label || "내워치"} · ${shown.generated_at}\n\n${String(shown.narrative || "")}`;
+                      try {
+                        if (navigator.share) await navigator.share({ title: "SBTL 브리프", text });
+                        else await navigator.clipboard.writeText(text);
+                      } catch { /* 공유 시트 닫음 등 — 무시 */ }
+                    }}
+                    aria-label="표시 중인 브리프 공유"
+                    style={{ padding: "9px 12px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11, fontWeight: 800, cursor: "pointer" }}
+                  >↗ 공유</button>
+                </div>
+                {weeklyBriefs.length > 1 && (
+                  <div style={{ marginTop: 10 }}>
+                    <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>지난 브리프</div>
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      {weeklyBriefs.map((e) => (
+                        // 칩으로 호수를 바꾸면 그 호수만 읽음 처리 — 특정 호수 열람이 다른 호수의
+                        // NEW를 일부러 남겨두므로(markWeeklyBriefsRead(onlyId)), 실제로 그 호수를
+                        // 열어보는 이 경로에서 꺼주지 않으면 NEW가 선반을 접었다 펼 때까지 남는다.
+                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}{e.month ? ` ${Number(e.month.slice(5))}월호` : e.period === "monthly" ? " 월간" : ""}{e.group === "region" ? "🗺" : ""}{!e.read ? " ·" : ""}</button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })() : (
+        <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px dashed ${t.brd}`, fontSize: 11.5, color: t.sub, lineHeight: 1.6 }}>아직 발행본이 없어요 — 아래 버튼으로 바로 만들 수 있어요.</div>
       )}
       <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
         <button onClick={() => { if (!weeklyBlock && onBriefNow) onBriefNow("weekly", briefExtra); }} disabled={!!weeklyBlock} style={{ flex: 1, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: weeklyBlock ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: weeklyBlock ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>⚡ 주간 발행</button>
         <button onClick={() => { if (!monthlyBlock && onBriefNow) onBriefNow("monthly", briefExtra); }} disabled={!!monthlyBlock} style={{ flex: 1, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: monthlyBlock ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: monthlyBlock ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>📅 월간 발행</button>
-        {latest && (
-          <button
-            onClick={async () => {
-              // 브리프 공유 — Web Share, 미지원이면 클립보드
-              const text = `[SBTL ${latest.period === "monthly" ? "월간" : "주간"} 브리프] ${latest.scope_label || "내워치"} · ${latest.generated_at}\n\n${String(latest.narrative || "")}`;
-              try {
-                if (navigator.share) await navigator.share({ title: "SBTL 주간 브리프", text });
-                else await navigator.clipboard.writeText(text);
-              } catch { /* 공유 시트 닫음 등 — 무시 */ }
-            }}
-            aria-label="주간 브리프 공유"
-            style={{ padding: "11px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11.5, fontWeight: 800, cursor: "pointer" }}
-          >↗ 공유</button>
-        )}
       </div>
       {/* R11: 지역별 구성 토글 + 달력월 발행 칩 — "5월엔 무슨 일이 있었지"를 달 단위로 끊어 만든다 */}
       <div style={{ display: "flex", gap: 6, marginTop: 6, alignItems: "center", flexWrap: "wrap" }}>
@@ -996,6 +1118,12 @@ function weeklyBriefDue(entries) {
   const ms = new Date(last).getTime();
   if (Number.isNaN(ms)) return true;
   return Date.now() - ms >= 7 * 86400000;
+}
+
+// 클립보드 쓰기(실패 시 prompt 폴백) — NewsDesk(인용·흐름 브리프)와 브리핑룸(주간 브리프)이 공유
+function writeClipboard(text, done) {
+  if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).then(done).catch(() => window.prompt("복사해서 사용하세요:", text));
+  else window.prompt("복사해서 사용하세요:", text);
 }
 
 // ---- 상담소 답변의 [n] 인용을 탭 가능한 배지로 (해당 근거 카드로 점프) ----
@@ -2253,7 +2381,7 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   );
 }
 
-function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, weeklyBriefs = [], onWeeklyBriefsRead = null, weeklyGenerating = false, weeklyError = null, agentSeed = null, onAgentSeedConsumed = null }) {
+function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, agentSeed = null, onAgentSeedConsumed = null }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
   // 시그널(TOP/HIGH)은 지역/워치와 결합 가능한 별도 축 — "중국 TOP만"이 실제로 교집합이 되게.
@@ -2271,9 +2399,6 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   const [copiedCiteId, setCopiedCiteId] = useState(null);
   const [profileTerm, setProfileTerm] = useState(null); // 기업/키워드 프로필 서브뷰
   const [glossaryPop, setGlossaryPop] = useState(null); // 용어 정의 바텀시트 (faq 엔트리)
-  const [weeklyOpen, setWeeklyOpen] = useState(false); // 📮 주간 브리프 선반 펼침
-  const [weeklyShownId, setWeeklyShownId] = useState(null); // 보관함에서 선택된 항목 (null=최신)
-  const [copiedWeekly, setCopiedWeekly] = useState(false);
   const regions = ["all", "watch", "KR", "US", "NA", "CN", "EU", "JP", "GL"]; // TOP/HIGH는 sigFilter 축으로 분리
 
   // 파인더 자동완성 — 기업 별칭맵(123 엔티티, 별칭으로 매치해도 canonical 제안)
@@ -2418,11 +2543,6 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
     );
   };
 
-  const writeClipboard = (text, done) => {
-    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).then(done).catch(() => window.prompt("복사해서 사용하세요:", text));
-    else window.prompt("복사해서 사용하세요:", text);
-  };
-
   // 출처 각주 포함 인용 복사 — 보고서/카톡 붙여넣기용 플레인텍스트
   const copyCitation = (card) => {
     const srcs = Array.isArray(card.fact_sources) ? card.fact_sources.filter((s) => s && (s.source_quote || s.source_url)) : [];
@@ -2494,7 +2614,8 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
     };
   }, [glossaryMatcher, entityMatcher, dark, openEntityProfile]);
 
-  // 에이전틱 명령 seed — 강차장이 요청한 프로필/주간 브리프 열기를 마운트 후 소비.
+  // 에이전틱 명령 seed — 강차장이 요청한 프로필/피드 필터를 마운트 후 소비.
+  // (브리프 열람 seed는 R12부터 브리핑룸이 소비한다 — briefSeed)
   // 소비 즉시 부모의 seed를 비활성화(onAgentSeedConsumed)해야, NEWS를 떠났다 돌아와
   // NewsDesk가 리마운트될 때(로컬 ref 초기화) 옛 명령이 재생되지 않는다.
   const agentSeedRef = useRef(0);
@@ -2505,31 +2626,6 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
     if (agentSeed.profileTerm) {
       setProfileTerm(agentSeed.profileTerm);
       setShowCount(60);
-      applied = true;
-    } else if (agentSeed.weeklyOpen) {
-      setProfileTerm(null);
-      setWeeklyOpen(true);
-      // 호수 선택: id(방금 만든 그 호수)가 있으면 그것, 없으면 '요청한 면과 정확히 같은'
-      // 최신호. 요청한 면(기간·달·구성)은 정확히 일치하고, 요청하지 않은 면은 부재를 요구한다
-      // — '월간 브리프 보여줘'(기간만)가 더 최근의 5월호·지역별호를 열면 안 되고("period-only는
-      // 롤링 월간"), '5월 지역별 브리프'는 5월 일반호가 아니라 5월 지역별호를 골라야 한다.
-      // weeklyBriefs는 최신순이라 .find가 곧 '가장 최근 동일 변형'. 없으면 null→최신호 폴백.
-      const wantPeriod = agentSeed.weeklyPeriod;
-      const wantMonth = agentSeed.weeklyMonth || null;
-      const wantGroup = agentSeed.weeklyGroup || null;
-      const matchesReq = (e) => {
-        if (((e && e.month) || null) !== wantMonth) return false;           // 달 미요청=부재 요구
-        if (((e && e.group) || null) !== wantGroup) return false;           // 구성 미요청=부재 요구
-        if (wantMonth) return true;                                         // 달이 곧 기간(monthly) 함의
-        return !wantPeriod || ((e && e.period) || "weekly") === wantPeriod;
-      };
-      const anyFacet = wantPeriod || wantMonth || wantGroup;
-      const pick = (agentSeed.weeklyId && weeklyBriefs.find((e) => e.id === agentSeed.weeklyId))
-        || (anyFacet ? weeklyBriefs.find(matchesReq) : null);
-      setWeeklyShownId(pick ? pick.id : null);
-      // 기간 고정으로 특정 호수를 열 때는 그 호수만 읽음 처리 — 전체를 처리하면 아직 안 본
-      // (더 최신) 다른 기간 호수의 NEW가 열람 없이 사라진다. 폴백(최신호 표시)은 기존대로 전체.
-      if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(pick ? pick.id : undefined);
       applied = true;
     } else if (agentSeed.feedFilter) {
       // 피드 필터 seed — 명령은 필터 상태의 '선언'이다: 언급된 면은 적용하고 언급 없는
@@ -2545,10 +2641,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       applied = true;
     }
     if (applied && typeof onAgentSeedConsumed === "function") onAgentSeedConsumed();
-    // weeklyBriefs는 seed 소비 시점의 보관함을 읽기만 한다 — nonce 가드가 있어 목록 변화로
-    // 재실행되면 안 되므로 deps에서 제외(넣으면 발행 직후 목록 갱신에 옛 명령이 재생된다)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [agentSeed, onWeeklyBriefsRead, onAgentSeedConsumed]);
+  }, [agentSeed, onAgentSeedConsumed]);
 
   // 용어 시트가 열려 있는 동안: 배경 스크롤 잠금 + Escape로 닫기
   useEffect(() => {
@@ -2663,20 +2756,6 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   };
 
   // 주간 브리프 복사 — 수동 브리프와 동일한 출처 각주 포맷
-  const copyWeeklyBrief = (entry) => {
-    if (!entry?.narrative) return;
-    const text = [
-      `[SBTL ${entry.period === "monthly" ? "월간" : "주간"} 브리프] ${entry.scope_label || "내워치"} — ${entry.generated_at || ""}`,
-      "",
-      entry.narrative,
-      ...(entry.watch?.length ? ["", "지켜볼 것:", ...entry.watch.map((w) => `- ${w}`)] : []),
-      "",
-      "출처 카드:",
-      ...(entry.refs || []).map((r) => `[${r.n}] ${r.title} (${r.date})${r.url ? ` ${r.url}` : ""}`),
-    ].join("\n");
-    writeClipboard(text, () => { setCopiedWeekly(true); setTimeout(() => setCopiedWeekly(false), 1600); });
-  };
-
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
       {profileTerm && (
@@ -2730,55 +2809,6 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         </div>
       )}
       {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>날짜별 시그널 피드</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.6 }}>최신 카드부터 날짜 기준으로 정렬했습니다. 같은 날짜 안에서는 중요도가 높은 이슈를 먼저 보여줍니다.</p></div>}
-      {!profileTerm && (weeklyBriefs.length > 0 || weeklyGenerating || weeklyError) && (() => {
-        const shown = weeklyBriefs.find((e) => e.id === weeklyShownId) || weeklyBriefs[0];
-        const hasUnread = weeklyBriefs.some((e) => !e.read);
-        return (
-          <div style={{ background: t.card2, borderRadius: 12, padding: "12px 14px", border: `1px solid ${hasUnread ? t.cyan : t.brd}` }}>
-            <button onClick={() => { const next = !weeklyOpen; setWeeklyOpen(next); if (next && hasUnread) { setWeeklyShownId(null); /* 미확인이 있으면 최신 호수를 표시하며 읽음 처리 — 낡은 선택이 새 호수를 가리지 않게 */ if (typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(); } }} aria-expanded={weeklyOpen} style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", border: "none", background: "transparent", cursor: "pointer", padding: 0, textAlign: "left" }}>
-              <span style={{ fontSize: 12, fontWeight: 900, color: t.tx }}>📮 주간 브리프</span>
-              <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{weeklyBriefs.length > 0 ? `${weeklyBriefs[0].generated_at} 발행 · ${weeklyBriefs.length}부 보관` : "첫 브리프 준비 중"}</span>
-              {hasUnread && <span style={{ fontSize: 8, fontWeight: 800, color: "#000", background: t.cyan, padding: "2px 6px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>NEW</span>}
-              <span style={{ marginLeft: "auto", color: t.sub, fontSize: 13 }}>{weeklyOpen ? "▾" : "▸"}</span>
-            </button>
-            {weeklyOpen && weeklyGenerating && (
-              <div aria-live="polite" style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", borderRadius: 8, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>
-                🔄 새 브리프 만드는 중… (수십 초 걸릴 수 있어요 — 완성되면 여기 맨 위에 꽂혀요)
-              </div>
-            )}
-            {weeklyOpen && !weeklyGenerating && weeklyError && (
-              <div aria-live="polite" style={{ marginTop: 10, padding: "8px 10px", borderRadius: 8, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>⚠️ {weeklyError}</div>
-            )}
-            {weeklyOpen && shown && (
-              <div style={{ marginTop: 10 }}>
-                <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{shown.scope_label} · {shown.generated_at} · 근거 {shown.refs?.length || 0}장</div>
-                {/* whiteSpace pre-line — 축 모드 브리프는 【축】 문단을 \n\n로 구분한다 */}
-                <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all", whiteSpace: "pre-line" }}>{shown.narrative}</div>
-                {shown.watch?.length > 0 && (
-                  <div style={{ marginTop: 10 }}>
-                    <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
-                    {shown.watch.map((w, i) => <div key={i} style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.6, paddingLeft: 8, borderLeft: `2px solid ${t.brd}`, marginBottom: 4, wordBreak: "keep-all" }}>{w}</div>)}
-                  </div>
-                )}
-                <button onClick={() => copyWeeklyBrief(shown)} style={{ width: "100%", marginTop: 10, padding: "9px 12px", borderRadius: 8, border: `1px solid ${copiedWeekly ? "transparent" : t.brd}`, background: copiedWeekly ? t.cyan : "transparent", color: copiedWeekly ? "#000" : t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{copiedWeekly ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}</button>
-                {weeklyBriefs.length > 1 && (
-                  <div style={{ marginTop: 10 }}>
-                    <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>지난 브리프</div>
-                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                      {weeklyBriefs.map((e) => (
-                        // 칩으로 호수를 바꾸면 그 호수만 읽음 처리 — 기간 고정 열람이 다른 호수의
-                        // NEW를 일부러 남겨두므로(markWeeklyBriefsRead(onlyId)), 실제로 그 호수를
-                        // 열어보는 이 경로에서 꺼주지 않으면 NEW가 선반을 접었다 펼 때까지 남는다.
-                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}{e.month ? ` ${Number(e.month.slice(5))}월호` : e.period === "monthly" ? " 월간" : ""}{e.group === "region" ? "🗺" : ""}{!e.read ? " ·" : ""}</button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        );
-      })()}
       {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => withStar(card, `${card.id || card.T || card.title}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} renderText={renderCardText} />))}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>}
       {profileTerm && <div style={{ display: "flex", gap: 4 }}>{[{ v: 0, l: "전체 기간" }, { v: 7, l: "최근 7일" }, { v: 30, l: "최근 30일" }].map((opt) => <button key={opt.v} onClick={() => { setDateRange(opt.v); setShowCount(60); }} style={{ background: dateRange === opt.v ? t.cyan : t.card2, color: dateRange === opt.v ? "#000" : t.sub, border: `1px solid ${dateRange === opt.v ? "transparent" : t.brd}`, borderRadius: 999, padding: "7px 12px", fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{opt.l}</button>)}</div>}
       {profileTerm && profileStats && profileStats.total > 0 && cards.length === 0 && (
@@ -2909,10 +2939,14 @@ function AppContent() {
   // 챗은 chatbot 탭에서만 살아 있으므로 실행 시점에 NewsDesk는 언마운트 상태 —
   // 워치는 localStorage에 직접 쓰고(다음 NEWS 마운트가 fresh로 읽음), 화면 이동이
   // 필요한 명령은 newsSeed로 NewsDesk에 전달한다.
-  const [newsSeed, setNewsSeed] = useState({ profileTerm: null, weeklyOpen: false, weeklyPeriod: null, weeklyMonth: null, weeklyGroup: null, weeklyId: null, feedFilter: null, nonce: 0 });
+  const [newsSeed, setNewsSeed] = useState({ profileTerm: null, feedFilter: null, nonce: 0 });
+  // 브리프 열람 seed — 브리핑룸(Watchroom)이 소비한다(R12: 선반이 NEWS→브리핑룸으로 이사).
+  // open이면 선반을 펼치고 period/month/group/id로 호수를 지목한다.
+  const [briefSeed, setBriefSeed] = useState({ open: false, period: null, month: null, group: null, id: null, nonce: 0 });
+  const markBriefSeedConsumed = useMemo(() => () => setBriefSeed((s) => (s.open ? { ...s, open: false, period: null, month: null, group: null, id: null } : s)), []);
   // NewsDesk가 seed를 소비한 뒤 지시 내용을 비운다(nonce는 유지해 다음 명령의 증가와
   // 구분). 이렇게 해야 NEWS 재방문(NewsDesk 리마운트)에서 옛 프로필/선반이 재생되지 않는다.
-  const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.weeklyOpen || s.feedFilter ? { ...s, profileTerm: null, weeklyOpen: false, weeklyPeriod: null, weeklyMonth: null, weeklyGroup: null, weeklyId: null, feedFilter: null } : s)), []);
+  const markNewsSeedConsumed = useMemo(() => () => setNewsSeed((s) => (s.profileTerm || s.feedFilter ? { ...s, profileTerm: null, feedFilter: null } : s)), []);
   // 브리프 생성 실행부 — 패시브(접속 시 1회, 주간)와 강제 발행(brief_now 명령·워치룸 버튼,
   // 주간/월간)이 공유. force는 7일 주기 게이트만 우회하고 잠금·시그니처 가드·12주 캡은 유지.
   // 워치가 비어 있으면 거절 대신 '전체' 범위(창 내 시그널 상위 카드)로 폴백 — 온보딩을
@@ -3074,11 +3108,11 @@ function AppContent() {
           // 브리프가 성공적으로 저장·표시됐으니 낡은 실패 메시지를 소거한다 — 새 브리프와 ⚠️가
           // 함께 뜨지 않게(force는 시작 시 이미 소거하지만, 패시브 성공은 여기서만 소거된다).
           setWeeklyError(null);
-          // 강제 발행은 사용자가 지금 기다리는 중 — 완성본을 📮 선반에 바로 펼친다.
-          // weeklyId로 '방금 만든 그 호수'를 고정한다: 락이 기간·달별로 분리돼 여러 발행이
-          // 동시에 돌 수 있으므로, 기간(weeklyPeriod)만으로 고르면 뒤늦게 끝난 다른 호수가
-          // 앞에 꽂히며 사용자가 방금 만든 호수에서 밀려난다(선반은 최신호 표시).
-          if (force) setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: period, weeklyMonth: month, weeklyGroup: group, weeklyId: entry.id, feedFilter: null, nonce: s.nonce + 1 }));
+          // 강제 발행은 사용자가 지금 기다리는 중 — 완성본을 📮 선반(브리핑룸)에 바로 펼친다.
+          // id로 '방금 만든 그 호수'를 고정한다: 락이 기간·달별로 분리돼 여러 발행이
+          // 동시에 돌 수 있으므로, 기간만으로 고르면 뒤늦게 끝난 다른 호수가 앞에 꽂히며
+          // 사용자가 방금 만든 호수에서 밀려난다(선반은 최신호 표시).
+          if (force) setBriefSeed((s) => ({ open: true, period, month, group, id: entry.id, nonce: s.nonce + 1 }));
         } catch {
           // 네트워크 예외 등 — 강제 발행이면 사용자에게 알린다(패시브는 조용히 재시도)
           if (force) setWeeklyError("브리프 생성 중 네트워크 오류가 났어 — 잠시 후 다시 시도해줘.");
@@ -3134,20 +3168,21 @@ function AppContent() {
         }
         setWatchSeenVersion((v) => v + 1); // 배지·주간 브리프 재평가 트리거
       } else if (cmd.type === "profile_open" && cmd.term) {
-        setNewsSeed((s) => ({ profileTerm: cmd.term, weeklyOpen: false, nonce: s.nonce + 1 }));
+        setNewsSeed((s) => ({ profileTerm: cmd.term, feedFilter: null, nonce: s.nonce + 1 }));
         setTab("news");
       } else if (cmd.type === "weekly_show") {
-        // 기간·달·구성을 명시한 열람("월간/5월/5월 지역별 브리프 보여줘")은 그 변형 호수를 연다 — 없으면 최신호 폴백
-        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: cmd.period || null, weeklyMonth: cmd.month || null, weeklyGroup: cmd.group || null, weeklyId: null, feedFilter: null, nonce: s.nonce + 1 }));
-        setTab("news");
+        // 기간·달·구성을 명시한 열람("월간/5월/5월 지역별 브리프 보여줘")은 그 변형 호수를 연다 — 없으면 최신호 폴백.
+        // R12: 브리프의 집은 브리핑룸 — 선반 seed를 올리고 브리핑룸으로 이동한다.
+        setBriefSeed((s) => ({ open: true, period: cmd.period || null, month: cmd.month || null, group: cmd.group || null, id: null, nonce: s.nonce + 1 }));
+        setTab("watchroom");
       } else if (cmd.type === "brief_now") {
         // 강제 발행: 선반을 먼저 열어 '만드는 중'을 보여주고, 완성되면 runWeeklyBrief가
-        // seed를 한 번 더 올려 방금 만든 호수(weeklyId)를 자동 표시한다. (brief_empty_watch·
+        // seed를 한 번 더 올려 방금 만든 호수(id)를 자동 표시한다. (brief_empty_watch·
         // brief_no_material은 서버 응답만 있고 클라 동작 없음 — watch_absent와 같은 무동작 안전 분기)
         // 생성 전 선반 열기도 같은 기간·달을 박아둔다 — 요청한 호수의 기존 발행본을 보여주다가
         // 완성되면 위 완료 seed가 새 호수로 다시 고정한다(요청 내내 맥락 유지)
-        setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: true, weeklyPeriod: cmd.period || null, weeklyMonth: cmd.month || null, weeklyGroup: cmd.group || null, weeklyId: null, feedFilter: null, nonce: s.nonce + 1 }));
-        setTab("news");
+        setBriefSeed((s) => ({ open: true, period: cmd.period || null, month: cmd.month || null, group: cmd.group || null, id: null, nonce: s.nonce + 1 }));
+        setTab("watchroom");
         runWeeklyBrief({ force: true, period: cmd.period, month: cmd.month, group: cmd.group });
       } else if (cmd.type === "feed_filter") {
         // 피드 필터 명령("중국 카드만 보여줘") — 지역/기간/시그널/내워치/검색어를 seed로
@@ -3232,8 +3267,8 @@ function AppContent() {
 
   if (kb.loading || trackerLoading) return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: t.bg, color: t.sub }}>Loading...</div>;
 
-  const headerTitle = { news: "날짜별 시그널 피드", chatbot: "강차장의 배터리 상담소", watchroom: "워치룸", archive: "자료실" }[tab];
-  const headerSub = { news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`, chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크", watchroom: "내 워치 · 주간 브리프 · 저장 카드가 모이는 곳", archive: `정책 ${tracker.meta.totalItems}건 · 용어 ${kb.faqCount}항목 · ${WEBTOON_COLLECTIONS.length}시리즈` }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
+  const headerTitle = { news: "날짜별 시그널 피드", chatbot: "강차장의 배터리 상담소", watchroom: "브리핑룸", archive: "자료실" }[tab];
+  const headerSub = { news: `Cards ${kb.cardCount} · updated ${fmtDate(lastCardDate)} · live feed`, chatbot: "배터리·ESS 이슈를 빠르게 찾고 정리해주는 AI 데스크", watchroom: "브리프 · 내 워치 · 저장 카드가 모이는 곳", archive: `정책 ${tracker.meta.totalItems}건 · 용어 ${kb.faqCount}항목 · ${WEBTOON_COLLECTIONS.length}시리즈` }[tab] || `Cards ${kb.cardCount} · ESS · EV · Policy`;
 
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", background: t.bg, minHeight: "100vh", fontFamily: "'Pretendard',-apple-system,sans-serif", position: "relative" }}>
@@ -3249,9 +3284,9 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><TodayDashboard dark={dark} kb={kb} tracker={tracker} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onFeedSearch={(q) => executeAppCommand({ type: "feed_filter", search: q })} onAppCommand={executeAppCommand} /></div>}
-        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} /></div>}
+        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, feedFilter: null, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} onWeeklyBriefsRead={markWeeklyBriefsRead} briefSeed={briefSeed} onBriefSeedConsumed={markBriefSeedConsumed} /></div>}
         {tab === "archive" && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>POLICY TRACKER — 정책 일정·규제</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /></div>}
-        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} weeklyBriefs={weeklyBriefs} onWeeklyBriefsRead={markWeeklyBriefsRead} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
+        {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} onConsultationConsumed={markConsultationConsumed} />}
       </main>
       <div style={{ position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "100%", maxWidth: 480, background: dark ? t.card : "#fff", borderTop: `1px solid ${t.brd}`, display: "flex", paddingBottom: "env(safe-area-inset-bottom, 8px)" }} role="navigation" aria-label="Main navigation">

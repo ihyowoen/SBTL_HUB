@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
-import { computeBriefAxes, computeRegionAxes, computeThemeAxes, cardInMonth } from "./briefAxes";
+import { computeBriefAxes, computeRegionAxes, computeThemeAxes, cardInMonth, parseBriefSections } from "./briefAxes";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
@@ -368,6 +368,81 @@ function ChatGuide({ dark, runSuggestion }) {
   );
 }
 
+// 📖 브리프 리더(R13) — 텍스트 덩어리 대신 구조를 그대로 보여준다:
+// 【축】 문단 → 섹션 카드(아이콘+축 이름 헤더), [n] 인용 → 탭 배지(→하단 출처 각주로
+// 점프·하이라이트), 지켜볼 것 → 체크리스트 카드, 출처 카드 → 접이식 각주(원문 링크).
+// 데이터 계약은 불변(entry.narrative/watch/refs) — 표시만 바꾼다.
+function BriefReader({ entry, dark }) {
+  const t = T(dark);
+  const [refsOpen, setRefsOpen] = useState(false);
+  const [citeFocus, setCiteFocus] = useState(null);
+  const refsBoxRef = useRef(null);
+  const sections = parseBriefSections(entry.narrative);
+  const refs = Array.isArray(entry.refs) ? entry.refs : [];
+  const onCite = (n) => {
+    setRefsOpen(true);
+    setCiteFocus(n);
+    // 각주 영역이 방금 열린 경우 렌더 후 스크롤
+    setTimeout(() => { try { refsBoxRef.current?.querySelector(`[data-ref="${n}"]`)?.scrollIntoView({ block: "center", behavior: "smooth" }); } catch { /* noop */ } }, 80);
+  };
+  const groupIcon = entry.group === "region" ? "🗺" : entry.group === "theme" ? "🏷" : "▦";
+  const hasSections = sections.some((s) => s.key);
+  return (
+    <div style={{ marginTop: 10 }}>
+      {/* 메타 — 범위 배지 + 발행일 + 근거 수 */}
+      <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 4, border: `1px solid ${t.cyan}`, color: t.cyan, borderRadius: 999, padding: "3px 9px", fontSize: 9.5, fontWeight: 800, fontFamily: "'JetBrains Mono',monospace" }}>{groupIcon} {entry.scope_label || "내워치"}</span>
+        <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{entry.generated_at} 발행 · 근거 {refs.length}장</span>
+      </div>
+      {/* 서사 — 축 섹션 카드(무축 flat이면 문단 그대로) */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {sections.map((sec, i) => (
+          <div key={i} style={{ background: t.card, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "11px 13px" }}>
+            {sec.key && (
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, color: t.tx, wordBreak: "keep-all" }}>{groupIcon === "▦" ? "▍" : groupIcon} {sec.key}</span>
+                <span style={{ flex: 1, height: 1, background: t.brd }} />
+              </div>
+            )}
+            <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.85, wordBreak: "keep-all" }}>{renderChatCitations(sec.text, refs.length, onCite)}</div>
+          </div>
+        ))}
+        {!sections.length && <div style={{ fontSize: 12, color: t.sub }}>서사가 비어 있어요.</div>}
+      </div>
+      {/* 지켜볼 것 — 체크리스트 카드 */}
+      {entry.watch?.length > 0 && (
+        <div style={{ marginTop: 8, background: t.card, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "11px 13px" }}>
+          <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
+          {entry.watch.map((w, i) => (
+            <div key={i} style={{ display: "flex", gap: 7, alignItems: "flex-start", padding: "5px 0", borderTop: i ? `1px dashed ${t.brd}` : "none" }}>
+              <span aria-hidden="true" style={{ color: t.cyan, fontSize: 11, lineHeight: 1.7 }}>◻</span>
+              <span style={{ flex: 1, fontSize: 11.5, color: t.tx, lineHeight: 1.7, wordBreak: "keep-all" }}>{renderChatCitations(w, refs.length, onCite)}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {/* 출처 각주 — 접이식, [n] 탭 시 자동 오픈+하이라이트 */}
+      {refs.length > 0 && (
+        <div style={{ marginTop: 8 }}>
+          <button onClick={() => setRefsOpen((v) => !v)} aria-expanded={refsOpen} style={{ width: "100%", textAlign: "left", padding: "8px 12px", borderRadius: 8, border: `1px dashed ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{refsOpen ? "▾" : "▸"} 출처 카드 {refs.length}장</button>
+          {refsOpen && (
+            <div ref={refsBoxRef} style={{ marginTop: 6, display: "flex", flexDirection: "column", gap: 3, maxHeight: 260, overflowY: "auto", padding: "2px 0" }}>
+              {refs.map((r) => (
+                <div key={r.n} data-ref={r.n} style={{ display: "flex", gap: 7, alignItems: "baseline", padding: "5px 8px", borderRadius: 6, background: citeFocus === r.n ? "rgba(88,166,255,0.16)" : "transparent" }}>
+                  <span style={{ fontSize: 9.5, fontWeight: 800, color: t.cyan, fontFamily: "'JetBrains Mono',monospace", flexShrink: 0 }}>[{r.n}]</span>
+                  {r.url
+                    ? <a href={r.url} target="_blank" rel="noreferrer" style={{ flex: 1, fontSize: 11, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all", textDecorationColor: t.brd }}>{r.title} <span style={{ color: t.sub, fontSize: 9.5, fontFamily: "'JetBrains Mono',monospace" }}>({r.date})</span></a>
+                    : <span style={{ flex: 1, fontSize: 11, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all" }}>{r.title} <span style={{ color: t.sub, fontSize: 9.5, fontFamily: "'JetBrains Mono',monospace" }}>({r.date})</span></span>}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // '브리핑룸' 탭 — 개인 인텔리전스의 집: 브리프(발행·보관함)와 워치(관리·새 소식)를 총괄.
 // R12: 브리프 선반이 NEWS에서 여기로 이사 — 발행 버튼과 결과물이 같은 방에 산다.
 function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed, weeklyGenerating = false, weeklyError = null, onWeeklyBriefsRead = null, briefSeed = null, onBriefSeedConsumed = null }) {
@@ -598,16 +673,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
               <div aria-live="polite" style={{ marginTop: 10, padding: "8px 10px", borderRadius: 8, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>⚠️ {weeklyError}</div>
             )}
             {weeklyOpen && shown && (
-              <div style={{ marginTop: 10 }}>
-                <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{shown.scope_label} · {shown.generated_at} · 근거 {shown.refs?.length || 0}장</div>
-                {/* whiteSpace pre-line — 축 모드 브리프는 【축】 문단을 \n\n로 구분한다 */}
-                <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all", whiteSpace: "pre-line" }}>{shown.narrative}</div>
-                {shown.watch?.length > 0 && (
-                  <div style={{ marginTop: 10 }}>
-                    <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
-                    {shown.watch.map((w, i) => <div key={i} style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.6, paddingLeft: 8, borderLeft: `2px solid ${t.brd}`, marginBottom: 4, wordBreak: "keep-all" }}>{w}</div>)}
-                  </div>
-                )}
+              <div style={{ marginTop: 2 }}>
+                {/* R13 브리프 리더 — 섹션 카드·탭 인용·체크리스트·출처 각주 */}
+                <BriefReader entry={shown} dark={dark} />
                 <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
                   <button onClick={() => copyWeeklyBrief(shown)} style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: `1px solid ${copiedWeekly ? "transparent" : t.brd}`, background: copiedWeekly ? t.cyan : "transparent", color: copiedWeekly ? "#000" : t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{copiedWeekly ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}</button>
                   {/* 공유는 '현재 표시 중인 호수'(shown) — 예전엔 발행 버튼 행에서 latest를 공유해,

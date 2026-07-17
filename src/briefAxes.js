@@ -182,6 +182,18 @@ export function computeRegionAxes(pool, { topK = 4, maxPerAxis = 10, minPerAxis 
     .map(([key, cards]) => ({ key, source: "regionField", cards: capAndOrderCards(cards, maxPerAxis) }));
 }
 
+// 서사 → 섹션 배열 [{key, text}] — 리더 렌더용(R13). 【축】 문단을 섹션으로 분해하고,
+// 축 없는 flat 서사는 key=null 단일(또는 문단별) 섹션으로 돌려준다. 모델이 문단 중간에
+// 【】를 인용부호로 쓴 경우는 문단 '시작'의 마커만 축 헤더로 인정한다.
+export function parseBriefSections(narrative) {
+  const t = String(narrative || "").trim();
+  if (!t) return [];
+  return t.split(/\n{2,}/).map((s) => s.trim()).filter(Boolean).map((p) => {
+    const m = p.match(/^【([^】]{1,40})】\s*/);
+    return m ? { key: m[1], text: p.slice(m[0].length) } : { key: null, text: p };
+  });
+}
+
 // 주제별 구성(R13) — genTheme의 주제 사전을 지역별처럼 '의도적 정리' 축으로 쓴다.
 // 지역과 달리 한 카드가 여러 주제에 걸릴 수 있어(예: 리튬 수주 계약) greedy 소진으로
 // 배타화한다: 카드 수 큰 주제부터 아직 안 쓰인 카드만 취해, 최종 [n] 인용·refs 대응이

@@ -628,15 +628,19 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // 탈락 축은 원인을 갈라 말한다 — 후보 자체가 3장 미만이면 '재료 부족'(기간 전환으로
   // 선택 당시 활성이던 칩이 미달로 변한 경우), 후보는 충분한데 빠졌으면 '겹침 소진'
   // (앞 축이 카드를 가져감). 지역끼리는 겹침이 원천 불가라 오귀인이 특히 티가 난다.
+  // spec↔축 대응은 (specKey, specType) 정확 매칭 — 표시 키(ax.key)는 동명 충돌 시
+  // 접미로 유일화되므로(예: 'LFP' 워치 + LFP 주제 → 'LFP(주제)') key 단독 비교는
+  // 죽은 축을 산 것으로 오판한다(Codex #179).
+  const axisAlive = (s) => builderAxes.some((ax) => ax.specKey === s.key && ax.specType === s.type);
   const builderDroppedThin = [];
   const builderDroppedOverlap = [];
   for (const s of builderSpec) {
-    if (builderAxes.some((ax) => ax.key === s.key)) continue;
+    if (axisAlive(s)) continue;
     ((builderCounts.get(`${s.type}:${s.key}`) || 0) < 3 ? builderDroppedThin : builderDroppedOverlap).push(s.key);
   }
   // 발행·시그니처는 '살아남은 축'만 — 죽은 축이 spec_sig에 남으면 entry의 재현 계약이
   // 깨지고, 안내대로 죽은 칩만 해제해 재발행하면 실질 동일 브리프가 쿨다운을 우회한다.
-  const builderEffectiveSpec = builderSpec.filter((s) => builderAxes.some((ax) => ax.key === s.key));
+  const builderEffectiveSpec = builderSpec.filter(axisAlive);
   const builderSpecSig = JSON.stringify(builderEffectiveSpec); // 항목이 {type,key}뿐 — 생성기 entry.spec_sig와 동일 직렬화(normalizeCustomSpec)
   const builderBlock = weeklyGenerating ? "🔄 브리프 만드는 중 — 완성되면 발행할 수 있어요"
     : !builderSpec.length ? "축을 골라주세요 — 워치·지역·주제 칩에서 최대 6개"

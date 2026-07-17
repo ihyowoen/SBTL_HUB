@@ -258,7 +258,13 @@ export function computeCustomAxes(pool, spec, { maxPerAxis = 8, minPerAxis = 3, 
     if (fresh.length < minPerAxis) continue;
     const cards = capAndOrderCards(fresh, maxPerAxis);
     cards.forEach((c) => used.add(idOf(c)));
-    picked.push({ key, source: type === "region" ? "customRegion" : type === "watch" ? "customWatch" : "customTheme", cards });
+    // 표시 키 유일화 — 워치 용어가 주제·지역 라벨과 같은 텍스트일 수 있다(예: 'LFP' 워치 +
+    // LFP 주제). 같은 【축】 마커가 둘이면 서버 축 커버리지 검사(마커 포함 여부)가 한 문단
+    // 누락을 못 잡고 뼈대 프롬프트도 모호해진다. 나중 축에 type 접미를 붙여 유일화하되,
+    // 원 spec 좌표는 specKey/specType으로 보존한다(빌더의 spec↔축 정확 대응용).
+    const dupe = picked.some((p) => p.key === key);
+    const displayKey = dupe ? `${key}(${type === "watch" ? "워치" : type === "region" ? "지역" : "주제"})` : key;
+    picked.push({ key: displayKey, specKey: key, specType: type, source: type === "region" ? "customRegion" : type === "watch" ? "customWatch" : "customTheme", cards });
   }
   return picked;
 }

@@ -373,6 +373,22 @@ A policy or legal event should earn additional points under A, B, C, or D when i
 
 Political statements and draft proposals score lower than effective, implemented, or enforced rules unless the actor possesses immediate legal authority and the transmission pathway is credible.
 
+#### Policy/legal scoring transmission guard
+
+The 10-point legal-policy dimension measures only the event's operative legal effect: enforceability, rights, duties, eligibility, liability, market-access status, and procedural certainty.
+
+Do not place the full industrial consequence inside the legal-policy dimension.
+
+Allocate consequences as follows:
+
+- change in entry barriers, procurement access, competitive concentration, grid access, or revenue design → **A. Market structure**;
+- change in quotas, tariffs, imports, exports, actual supply, demand, utilisation, or price formation → **B. Supply-demand-price**;
+- change in mandatory technical standards, product qualification, safety performance, repairability, durability, or technology pathway → **C. Technology-performance-safety**;
+- change in subsidy value, tax burden, compliance cost, financing, liability, margin, or asset value → **D. Cash flow and asset value**;
+- legal force, covered rights and duties, effective status, enforcement exposure, and market-access entitlement itself → **E. Law-policy-market access**.
+
+A policy event may therefore receive a high total score, but only when its verified industrial transmission is material. It must not receive a high score by placing the same policy effect in multiple dimensions without separate reasoning.
+
 ### F. Systemic scale and coverage — 0 to 5
 
 Assess scale against the relevant denominator, not the headline amount alone.

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
 import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections } from "./briefAxes";
+import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
@@ -653,6 +654,30 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     if (prev.length >= 6) return prev; // 서버 MAX_AXES — 초과 탭은 무시(요약에 6축 상한 명시)
     return [...prev, { type, key }];
   });
+  // 📌 핀 보드(R15) — ★저장 카드가 연결 지도(🧠)가 된다. pins는 마운트 스냅샷으로 충분
+  // (탭 전환=리마운트 구조라 피드에서 ☆한 뒤 돌아오면 새로 읽힌다). 보기 기본은 '목록'
+  // — 기존 표시를 바꾸지 않아 읽음·트리거 감사가 불필요하다(교훈⑮). 지도는 표시 전용:
+  // 게이트·락·읽음 어디에도 물리지 않는 순수 시각화라 산출물 면 전파 대상이 아니다.
+  const [pins, setPins] = useState(() => { try { const v = JSON.parse(localStorage.getItem("sbtl_bookmarks") || "[]"); return Array.isArray(v) ? v : []; } catch { return []; } });
+  const [pinView, setPinView] = useState("list"); // "list" | "map"
+  const [pinAlias, setPinAlias] = useState(null); // 엔티티 별칭 맵 — 지도 첫 진입 시 1회 로드
+  const [pinSel, setPinSel] = useState(null); // 선택 노드 id
+  useEffect(() => {
+    if (pinView !== "map" || pinAlias != null) return;
+    let alive = true;
+    loadAliasEntities().then((j) => { if (alive) setPinAlias(j || {}); });
+    return () => { alive = false; };
+  }, [pinView, pinAlias]);
+  const pinLayout = useMemo(() => {
+    if (pinView !== "map" || pinAlias == null || !pins.length) return null;
+    return layoutPinGraph(buildPinGraph(pins, kb.cards, pinAlias), { width: 620 });
+  }, [pinView, pinAlias, pins, kb.cards]);
+  const unpin = (id) => {
+    const next = pins.filter((p) => p.id !== id);
+    setPins(next);
+    try { localStorage.setItem("sbtl_bookmarks", JSON.stringify(next)); } catch { /* 세션 상태만이라도 반영 */ }
+    setPinSel(null);
+  };
   // 사전 생성 라이브러리(R13) — 월 칩의 1·2순위 소스: 보관함 → 라이브러리 → 온디맨드 생성
   const [library, setLibrary] = useState(null);
   useEffect(() => { let alive = true; loadBriefLibrary().then((j) => { if (alive) setLibrary(j); }); return () => { alive = false; }; }, []);
@@ -890,13 +915,24 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
         );
       })()}
       {(() => {
-        // R1 ☆보고함(sbtl_bookmarks, 최신이 앞·title/date 내장)을 워치룸으로 — 저장 자산이 '내 방'에 모이게
-        let saved = [];
-        try { const v = JSON.parse(localStorage.getItem("sbtl_bookmarks") || "[]"); saved = Array.isArray(v) ? v.slice(0, 5) : []; } catch { saved = []; }
+        // R1 ☆보고함 → R15 📌 핀 보드 — 저장 카드가 목록을 넘어 '연결 지도'가 된다.
+        const saved = pins.slice(0, 5);
+        const pill = (on) => ({ padding: "7px 11px", borderRadius: 999, border: `1px solid ${on ? t.cyan : t.brd}`, background: on ? (dark ? "rgba(88,166,255,0.14)" : "rgba(9,105,218,0.08)") : "transparent", color: on ? t.cyan : t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" });
+        const selNode = pinLayout && pinSel ? pinLayout.nodes.find((n) => n.id === pinSel) : null;
+        const selEdges = pinLayout && pinSel ? pinLayout.edges.filter((e) => e.a === pinSel || e.b === pinSel) : [];
+        const nodeById = pinLayout ? new Map(pinLayout.nodes.map((n) => [n.id, n])) : null;
+        const KIND_LABEL = { related: "편집자 연결", entity: "같은 주체", theme: "같은 주제" };
         return (
           <>
-            {sectionTitle(`★ 저장한 카드 (${saved.length})`, saved.length ? "피드에서 ☆로 저장한 카드 — 최근 5개" : "피드 카드의 ☆를 누르면 여기 모여요")}
-            {saved.length > 0 && (
+            {sectionTitle(`📌 핀 보드 (${pins.length})`, pins.length ? "피드에서 ☆로 저장한 카드 — 🧠 지도에서 카드 사이 연결을 봐요" : "피드 카드의 ☆를 누르면 여기 모여요")}
+            {pins.length > 0 && (
+              <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
+                {[["list", "목록"], ["map", "🧠 지도"]].map(([v, label]) => (
+                  <button key={v} onClick={() => { setPinView(v); if (v !== "map") setPinSel(null); }} aria-pressed={pinView === v} style={pill(pinView === v)}>{label}</button>
+                ))}
+              </div>
+            )}
+            {pins.length > 0 && pinView === "list" && (
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 {saved.map((b) => (
                   <div key={b.id} style={{ borderRadius: 10, padding: "9px 12px", background: t.card2, border: `1px solid ${t.brd}` }}>
@@ -904,6 +940,63 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                     <div style={{ fontSize: 12, fontWeight: 700, lineHeight: 1.45, color: t.tx, wordBreak: "keep-all" }}>{b.title}</div>
                   </div>
                 ))}
+                {pins.length > 5 && <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>+ {pins.length - 5}개 더 — 🧠 지도에서 전부(최신 {PIN_GRAPH_MAX_NODES}개) 보여요</div>}
+              </div>
+            )}
+            {pins.length > 0 && pinView === "map" && (
+              <div style={{ borderRadius: 12, background: t.card2, border: `1px solid ${t.brd}`, padding: "10px 8px 6px" }}>
+                {!pinLayout ? (
+                  <div style={{ fontSize: 11, color: t.sub, padding: "14px 8px", fontFamily: "'JetBrains Mono',monospace" }}>🧠 연결 계산 중…</div>
+                ) : (
+                  <>
+                    <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+                      <svg width={pinLayout.width} height={pinLayout.height} viewBox={`0 0 ${pinLayout.width} ${pinLayout.height}`} role="img" aria-label={`핀 보드 지도 — 카드 ${pinLayout.nodes.length}개, 연결 ${pinLayout.edges.length}개`} onClick={() => setPinSel(null)}>
+                        {pinLayout.edges.map((e, i) => {
+                          const hot = pinSel && (e.a === pinSel || e.b === pinSel);
+                          const stroke = e.kind === "related" ? t.cyan : e.kind === "entity" ? (dark ? "#8B99AC" : "#57606A") : t.brd;
+                          return <line key={i} x1={e.x1} y1={e.y1} x2={e.x2} y2={e.y2} stroke={stroke} strokeWidth={hot ? 2.4 : e.kind === "related" ? 1.8 : 1.1} strokeDasharray={e.kind === "theme" ? "3 4" : undefined} opacity={pinSel && !hot ? 0.25 : 0.9} />;
+                        })}
+                        {pinLayout.nodes.map((n) => {
+                          const on = pinSel === n.id;
+                          return (
+                            <g key={n.id} onClick={(ev) => { ev.stopPropagation(); setPinSel(on ? null : n.id); }} style={{ cursor: "pointer" }} aria-label={n.title}>
+                              {n.isHub && n.compLabel && <text x={n.x} y={n.y - n.r - 10} textAnchor="middle" fontSize="9" fontWeight="800" fill={t.cyan} fontFamily="'JetBrains Mono',monospace">{n.compLabel}</text>}
+                              <circle cx={n.x} cy={n.y} r={n.r} fill={on ? t.cyan : (dark ? "#1C2333" : "#fff")} stroke={on ? t.cyan : n.isHub ? t.cyan : t.brd} strokeWidth={n.isHub ? 2 : 1.2} strokeDasharray={n.orphan ? "3 3" : undefined} opacity={pinSel && !on && !selEdges.some((e) => e.a === n.id || e.b === n.id) ? 0.35 : 1} />
+                              <text x={n.x} y={n.y + 3.5} textAnchor="middle" fontSize="10" fontWeight="800" fill={on ? "#000" : t.sub}>{{ t: "T", h: "H", m: "M" }[n.signal] || "·"}</text>
+                              <text x={n.x} y={n.y + n.r + 12} textAnchor="middle" fontSize="9" fill={t.sub} fontFamily="'JetBrains Mono',monospace">{n.title.length > 11 ? n.title.slice(0, 10) + "…" : n.title}</text>
+                            </g>
+                          );
+                        })}
+                      </svg>
+                    </div>
+                    <div style={{ display: "flex", gap: 10, padding: "6px 6px 4px", fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexWrap: "wrap" }}>
+                      <span><span style={{ color: t.cyan }}>━</span> 편집자 연결</span>
+                      <span>─ 같은 주체</span>
+                      <span>┄ 같은 주제</span>
+                      <span>◌ 데이터에서 빠진 카드</span>
+                    </div>
+                    {selNode && (
+                      <div style={{ margin: "6px 4px 4px", borderRadius: 10, padding: "10px 12px", background: t.card, border: `1px solid ${t.cyan}` }}>
+                        <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 3 }}>{fmtDate(selNode.date)}{selNode.orphan ? " · 현재 데이터에 없는 카드(저장본)" : ""}</div>
+                        <div style={{ fontSize: 12, fontWeight: 700, lineHeight: 1.45, color: t.tx, wordBreak: "keep-all" }}>{selNode.title}</div>
+                        {selEdges.length > 0 && (
+                          <div style={{ marginTop: 6, display: "flex", flexDirection: "column", gap: 3 }}>
+                            {selEdges.slice(0, 5).map((e, i) => {
+                              const other = nodeById.get(e.a === pinSel ? e.b : e.a);
+                              return <div key={i} style={{ fontSize: 10, color: t.sub, lineHeight: 1.5 }}>· <b style={{ color: t.tx }}>{KIND_LABEL[e.kind]}{e.kind !== "related" ? `(${e.label})` : ""}</b> — {other ? (other.title.length > 24 ? other.title.slice(0, 23) + "…" : other.title) : ""}</div>;
+                            })}
+                            {selEdges.length > 5 && <div style={{ fontSize: 9.5, color: t.sub }}>+ 연결 {selEdges.length - 5}개 더</div>}
+                          </div>
+                        )}
+                        <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
+                          {selNode.url && <a href={selNode.url} target="_blank" rel="noreferrer" style={{ padding: "7px 11px", borderRadius: 8, border: `1px solid ${t.brd}`, color: t.cyan, fontSize: 10.5, fontWeight: 800, textDecoration: "none", fontFamily: "'JetBrains Mono',monospace" }}>원문 ↗</a>}
+                          <button onClick={() => unpin(selNode.id)} style={{ padding: "7px 11px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>★ 보드에서 빼기</button>
+                        </div>
+                      </div>
+                    )}
+                    {!selNode && <div style={{ padding: "2px 6px 4px", fontSize: 10, color: t.sub }}>노드를 탭하면 카드와 연결 이유가 보여요</div>}
+                  </>
+                )}
               </div>
             )}
           </>

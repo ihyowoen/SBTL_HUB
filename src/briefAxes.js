@@ -18,7 +18,7 @@ const idOf = (c) => c.id || c.draft_id || "";
 const titleOf = (c) => String(c.title || c.T || "");
 const SIG_RANK = { t: 3, h: 2, m: 1, i: 0 };
 
-function hitBoundary(term, h) {
+export function hitBoundary(term, h) { // R15 핀 보드가 엔티티 에지 매칭에 재사용 — 규약 단일화
   const w = String(term).toLowerCase();
   if (!w) return false;
   if (!/^[\x00-\x7f]+$/.test(w)) return h.includes(w); // 한글 등 비ASCII는 부분 매칭(접사 결합 허용)
@@ -59,8 +59,8 @@ function guessLabel(g) {
   return top ? top[0] : "연관 흐름";
 }
 
-// ② 주체 엔티티 (제목 등장 한정)
-const LINK_TYPES = new Set(["company", "company_division", "company_brand", "research_org", "industry_org", "government_agency", "person"]);
+// ② 주체 엔티티 (제목 등장 한정) — LINK_TYPES는 R15 핀 보드도 공유(엔티티 에지 대상 타입)
+export const LINK_TYPES = new Set(["company", "company_division", "company_brand", "research_org", "industry_org", "government_agency", "person"]);
 function genEntity(pool, aliasEntities) {
   const out = [];
   for (const [k, e] of Object.entries(aliasEntities || {})) {

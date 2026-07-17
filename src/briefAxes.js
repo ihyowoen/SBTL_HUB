@@ -219,6 +219,56 @@ export function computeThemeAxes(pool, { topK = 6, maxPerAxis = 8, minPerAxis = 
   return picked;
 }
 
+// ---- R14: 커스텀 조합(브리프 빌더) ----
+
+// 빌더 칩 선택지 — 지역 6 + 주제 9. 라벨이 곧 spec.key(축 제목·서버 【축】 마커)다.
+export const REGION_AXIS_KEYS = Object.values(REGION_LABELS);
+export const THEME_AXIS_KEYS = THEMES.map(([label]) => label);
+const THEME_KEYWORDS = new Map(THEMES.map(([label, keys]) => [label, keys]));
+
+// 한 축 선택지의 후보 카드 — computeCustomAxes와 빌더 칩 카드 수 뱃지가 같은 식을 쓴다
+// (뱃지 수와 실제 발행 재료가 어긋나면 '21장이라더니 축이 빠졌다'는 정직성 문제가 된다.
+//  단 뱃지는 단독 축 기준이고 발행은 선택 순서 greedy 소진 후라, 겹치는 축을 여럿 고르면
+//  실제 축 카드는 뱃지보다 적을 수 있다 — 빌더 요약이 소진 후 수치를 다시 보여준다.)
+// type "watch"(워치 용어 축)는 매칭식이 앱 소유(cardMatchesWatch — 별칭·건초더미 규약)라
+// watchMatch 주입으로 받는다 — 이 모듈은 앱 의존 없이 순수하게 남는다.
+export function customAxisCandidates(pool, type, key, watchMatch = null) {
+  if (type === "region") return pool.filter((c) => regionLabelOf(c) === key);
+  if (type === "watch") return typeof watchMatch === "function" ? pool.filter((c) => watchMatch(c, key)) : [];
+  const keys = THEME_KEYWORDS.get(key);
+  if (!keys) return [];
+  return pool.filter((c) => { const h = titleOf(c).toLowerCase(); return keys.some((k) => hitBoundary(k, h)); });
+}
+
+// 커스텀 조합 — 사용자가 지역·주제 축을 직접 골라 배치한 브리프("내맘대로 짜깁기").
+// spec: [{type:"region"|"theme", key}] 순서 배열. 선택 '순서'가 곧 서사 순서라
+// 카드 수 정렬을 하지 않는다(지역별·주제별과 다른 점). 한 카드가 지역·주제 양쪽에
+// 걸릴 수 있어 spec 순서대로 greedy 소진해 배타화한다 — computeThemeAxes와 같은
+// 이유([n] 인용·refs 대응이 카드 중복으로 깨지지 않게). minPerAxis 미달 축은 탈락 —
+// 빌더 UI가 사전에 카드 수를 보여주므로 여기 탈락은 '겹침 소진 후 부족'이 대부분이다.
+export function computeCustomAxes(pool, spec, { maxPerAxis = 8, minPerAxis = 3, watchMatch = null } = {}) {
+  const used = new Set();
+  const picked = [];
+  for (const s of Array.isArray(spec) ? spec : []) {
+    if (picked.length >= 6) break; // 서버 MAX_AXES와 페어 — 초과분은 서버가 잘라 refs가 어긋난다
+    const type = s && s.type === "region" ? "region" : s && s.type === "theme" ? "theme" : s && s.type === "watch" ? "watch" : null;
+    const key = String((s && s.key) || "");
+    if (!type || !key) continue;
+    const fresh = customAxisCandidates(pool, type, key, watchMatch).filter((c) => !used.has(idOf(c)));
+    if (fresh.length < minPerAxis) continue;
+    const cards = capAndOrderCards(fresh, maxPerAxis);
+    cards.forEach((c) => used.add(idOf(c)));
+    // 표시 키 유일화 — 워치 용어가 주제·지역 라벨과 같은 텍스트일 수 있다(예: 'LFP' 워치 +
+    // LFP 주제). 같은 【축】 마커가 둘이면 서버 축 커버리지 검사(마커 포함 여부)가 한 문단
+    // 누락을 못 잡고 뼈대 프롬프트도 모호해진다. 나중 축에 type 접미를 붙여 유일화하되,
+    // 원 spec 좌표는 specKey/specType으로 보존한다(빌더의 spec↔축 정확 대응용).
+    const dupe = picked.some((p) => p.key === key);
+    const displayKey = dupe ? `${key}(${type === "watch" ? "워치" : type === "region" ? "지역" : "주제"})` : key;
+    picked.push({ key: displayKey, specKey: key, specType: type, source: type === "region" ? "customRegion" : type === "watch" ? "customWatch" : "customTheme", cards });
+  }
+  return picked;
+}
+
 // pool → 응집 축 최대 topK개 (축당 maxPerAxis장, 내부는 시간 오름차순 — 서사는 시간축)
 export function computeBriefAxes(pool, aliasEntities, { topK = 3, maxPerAxis = 10 } = {}) {
   const cand = [...genRelated(pool), ...genEntity(pool, aliasEntities), ...genTheme(pool), ...genRegion(pool)]

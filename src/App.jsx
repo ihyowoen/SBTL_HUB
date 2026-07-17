@@ -3065,11 +3065,15 @@ function AppContent() {
           const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)
           if (!force && !weeklyBriefDue(plainWeeklyEntries(fresh).filter((e) => briefScopeMatches(e, terms)))) {
             setWeeklyBriefs(fresh); // 경합에서 진 탭도 승자 항목을 화면에 반영
+            if (fresh.length) setWeeklyError(null); // 승자 브리프가 화면에 뜨면 낡은 실패 메시지 소거
             return;
           }
           const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
           localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
           setWeeklyBriefs(next);
+          // 브리프가 성공적으로 저장·표시됐으니 낡은 실패 메시지를 소거한다 — 새 브리프와 ⚠️가
+          // 함께 뜨지 않게(force는 시작 시 이미 소거하지만, 패시브 성공은 여기서만 소거된다).
+          setWeeklyError(null);
           // 강제 발행은 사용자가 지금 기다리는 중 — 완성본을 📮 선반에 바로 펼친다.
           // weeklyId로 '방금 만든 그 호수'를 고정한다: 락이 기간·달별로 분리돼 여러 발행이
           // 동시에 돌 수 있으므로, 기간(weeklyPeriod)만으로 고르면 뒤늦게 끝난 다른 호수가

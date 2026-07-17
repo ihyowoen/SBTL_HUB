@@ -482,7 +482,6 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       return kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, WATCH_SEEN_WINDOW).filter((c) => { const id = getCardId(c); return id && !seen.has(id); }).length;
     } catch { return 0; }
   })();
-  const latest = weeklyBriefs[0];
   // ⚡ 즉시 발행 게이팅 — 챗 명령(brief_now)의 서버 게이트와 동일 기준을 버튼에도 적용.
   // 게이트 없이 실행하면 재료 부족 시 NEWS로 이동만 하고 조용히 실패하거나(설명 없음),
   // 방금 발행 직후 연타로 중복 생성될 수 있다. 막힌 이유는 버튼 아래 정직하게 표시.
@@ -609,7 +608,22 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                     {shown.watch.map((w, i) => <div key={i} style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.6, paddingLeft: 8, borderLeft: `2px solid ${t.brd}`, marginBottom: 4, wordBreak: "keep-all" }}>{w}</div>)}
                   </div>
                 )}
-                <button onClick={() => copyWeeklyBrief(shown)} style={{ width: "100%", marginTop: 10, padding: "9px 12px", borderRadius: 8, border: `1px solid ${copiedWeekly ? "transparent" : t.brd}`, background: copiedWeekly ? t.cyan : "transparent", color: copiedWeekly ? "#000" : t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{copiedWeekly ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}</button>
+                <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
+                  <button onClick={() => copyWeeklyBrief(shown)} style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: `1px solid ${copiedWeekly ? "transparent" : t.brd}`, background: copiedWeekly ? t.cyan : "transparent", color: copiedWeekly ? "#000" : t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{copiedWeekly ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}</button>
+                  {/* 공유는 '현재 표시 중인 호수'(shown) — 예전엔 발행 버튼 행에서 latest를 공유해,
+                      칩으로 옛 호수를 보는 중에도 최신호가 나가는 표시-공유 불일치가 있었다 */}
+                  <button
+                    onClick={async () => {
+                      const text = `[SBTL ${shown.period === "monthly" ? "월간" : "주간"} 브리프] ${shown.scope_label || "내워치"} · ${shown.generated_at}\n\n${String(shown.narrative || "")}`;
+                      try {
+                        if (navigator.share) await navigator.share({ title: "SBTL 브리프", text });
+                        else await navigator.clipboard.writeText(text);
+                      } catch { /* 공유 시트 닫음 등 — 무시 */ }
+                    }}
+                    aria-label="표시 중인 브리프 공유"
+                    style={{ padding: "9px 12px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11, fontWeight: 800, cursor: "pointer" }}
+                  >↗ 공유</button>
+                </div>
                 {weeklyBriefs.length > 1 && (
                   <div style={{ marginTop: 10 }}>
                     <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>지난 브리프</div>
@@ -633,20 +647,6 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
         <button onClick={() => { if (!weeklyBlock && onBriefNow) onBriefNow("weekly", briefExtra); }} disabled={!!weeklyBlock} style={{ flex: 1, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: weeklyBlock ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: weeklyBlock ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>⚡ 주간 발행</button>
         <button onClick={() => { if (!monthlyBlock && onBriefNow) onBriefNow("monthly", briefExtra); }} disabled={!!monthlyBlock} style={{ flex: 1, padding: "11px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: monthlyBlock ? t.sub : t.cyan, fontSize: 11.5, fontWeight: 800, cursor: monthlyBlock ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>📅 월간 발행</button>
-        {latest && (
-          <button
-            onClick={async () => {
-              // 브리프 공유 — Web Share, 미지원이면 클립보드
-              const text = `[SBTL ${latest.period === "monthly" ? "월간" : "주간"} 브리프] ${latest.scope_label || "내워치"} · ${latest.generated_at}\n\n${String(latest.narrative || "")}`;
-              try {
-                if (navigator.share) await navigator.share({ title: "SBTL 주간 브리프", text });
-                else await navigator.clipboard.writeText(text);
-              } catch { /* 공유 시트 닫음 등 — 무시 */ }
-            }}
-            aria-label="주간 브리프 공유"
-            style={{ padding: "11px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11.5, fontWeight: 800, cursor: "pointer" }}
-          >↗ 공유</button>
-        )}
       </div>
       {/* R11: 지역별 구성 토글 + 달력월 발행 칩 — "5월엔 무슨 일이 있었지"를 달 단위로 끊어 만든다 */}
       <div style={{ display: "flex", gap: 6, marginTop: 6, alignItems: "center", flexWrap: "wrap" }}>

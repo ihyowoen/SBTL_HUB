@@ -11,6 +11,9 @@
 // ============================================================================
 // .js 명시 — vite는 무확장도 풀지만 유닛(순수 node ESM)은 확장자가 필수다
 import { hitBoundary, LINK_TYPES, THEME_AXIS_KEYS, customAxisCandidates } from "./briefAxes.js";
+// 북마크는 getCardId(id→news_id→url→urls[0]→date-title 폴백)로 저장된다 — 역매칭도
+// 같은 규약이어야 id 없는 카드(news_id/url 식별)가 보드에서 고아로 오판되지 않는다(Codex #180).
+import { getCardId } from "./story/normalizeCard.js";
 
 const idOf = (c) => c.id || c.draft_id || "";
 const titleOf = (c) => String(c.title || c.T || "");
@@ -25,7 +28,7 @@ const GENERIC_RATIO = 0.6;
 // 카드가 데이터 갱신으로 사라진 핀은 북마크의 title/date로 '고아 노드'가 된다
 // (저장 자산은 데이터 교체보다 오래 산다 — 조용히 빼면 사용자의 수집이 증발).
 export function buildPinGraph(pins, cards, aliasEntities) {
-  const byId = new Map((cards || []).map((c) => [idOf(c), c]));
+  const byId = new Map((cards || []).map((c) => [getCardId(c), c]));
   const nodes = (Array.isArray(pins) ? pins : []).slice(0, PIN_GRAPH_MAX_NODES).map((p) => {
     const card = byId.get(p.id) || null;
     return {

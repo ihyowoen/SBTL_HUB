@@ -18,6 +18,17 @@ import { callLLM } from "../lib/chat/llm.js";
 const MAX_CARDS = 40;
 const MAX_AXES = 4;
 const MAX_PER_AXIS = 10;
+// groq 폴백 허용 상한(입력+출력 토큰). groq 무료 티어 per-request TPM이 6K(llama-3.1-8b)
+// 이므로 여유를 두고 5000으로 잡는다 — 이보다 큰 요청은 groq가 413으로 확정 실패하니
+// 폴백을 켜봐야 헛수고다. Developer 플랜(높은 TPM)으로 올리면 이 값을 함께 올린다.
+const GROQ_FALLBACK_TOKEN_BUDGET = 5000;
+
+// 프롬프트가 groq 폴백에 들어갈 만큼 작은가 — 입력(문자수/1.5, 한국어 보수 추정)+출력이
+// 예산 안이면 true. 큰 요청은 groq가 413으로 확정 실패하므로 미리 폴백을 꺼 헛호출을 아낀다.
+export function groqFallbackAllowed(system, user, maxTokens, budget = GROQ_FALLBACK_TOKEN_BUDGET) {
+  const estInputTokens = Math.round((String(system || "").length + String(user || "").length) / 1.5);
+  return estInputTokens + (maxTokens || 0) <= budget;
+}
 
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -129,8 +140,8 @@ const COMMON_RULES = [
   "5. watch는 '지켜볼 것' 2~4개. 각 항목은 카드의 함의에 명시된 후속 단계·판단 기준을 근거로, 확인할 주체·시점·지표가 드러나게 쓴다. '~동향', '~추이', '~주목해야 한다'처럼 확인 방법이 없는 문구 금지. 각 항목 끝에 [n] 인용(최대 3개).",
 ].join("\n");
 
-async function generateOnce({ system, user, maxTokens }) {
-  const result = await callLLM({ system, user, maxTokens, temperature: 0.3, timeoutMs: 25000 });
+async function generateOnce({ system, user, maxTokens, allowFallback = true }) {
+  const result = await callLLM({ system, user, maxTokens, temperature: 0.3, timeoutMs: 25000, allowFallback });
   // status·detail(업스트림 에러 본문 스니펫)을 그대로 올린다 — 502만 보고는 폴백 실패의
   // 실원인(모델 폐기 404 vs 단일요청 TPM 초과 413 vs 요청 거부 400)을 구별할 수 없다.
   if (!result?.text) return { error: result?.error || "llm-failed", provider: result?.provider || null, status: result?.status || null, detail: result?.detail || null };
@@ -239,9 +250,16 @@ export default async function handler(req, res) {
     maxTokens = 1100;
   }
 
+  // groq 폴백 가능 여부 — 요청 크기 기준(groqFallbackAllowed). 축 모드(~11K+)든 카드
+  // 많은 flat이든 크면 groq는 413으로 확정 실패하므로 미리 폴백을 꺼 헛호출을 아낀다
+  // (gemini 실패 시 클라가 graceful degrade).
+  const allowFallback = groqFallbackAllowed(system, user, maxTokens);
+
   // ---- 생성 + 품질 가드(1회 재시도) ----
-  let attempt = await generateOnce({ system, user, maxTokens });
-  if (attempt.error) return res.status(502).json({ ok: false, error: attempt.error, provider: attempt.provider, status: attempt.status || null, detail: attempt.detail || null });
+  let attempt = await generateOnce({ system, user, maxTokens, allowFallback });
+  // unavailable: 클라가 '조용한 실패' 대신 '일시적으로 못 만듦'을 사용자에게 보이게 하는 신호.
+  // 축 모드는 groq 폴백을 끄므로(대용량=413 확정) gemini가 흔들리면 여기로 온다.
+  if (attempt.error) return res.status(502).json({ ok: false, error: attempt.error, provider: attempt.provider, status: attempt.status || null, detail: attempt.detail || null, unavailable: true });
   let issues = qualityIssues(attempt.parsed, axisKeys);
   let retried = false;
   if (issues.length) {
@@ -251,7 +269,7 @@ export default async function handler(req, res) {
     // (실측: 재시도본도 1문단). 채워야 할 출력 형식을 그대로 다시 보여준다.
     const axisNote = axisKeys ? ` narrative는 반드시 정확히 ${axisKeys.length}개 문단이어야 한다: "${axisSkeleton(axisKeys)}" — 이 뼈대의 ... 만 채워라. 문단 수가 ${axisKeys.length}개가 아니면 실패다.` : "";
     const strictUser = `${user}\n\n(직전 출력이 다음 규칙을 어겼다: ${issues.join(", ")}. 특히 경어체 금지·모든 문장 [n] 인용을 지켜 다시 작성하라.${axisNote})`;
-    const second = await generateOnce({ system, user: strictUser, maxTokens });
+    const second = await generateOnce({ system, user: strictUser, maxTokens, allowFallback });
     attempt = pickBetterAttempt(attempt, second, issues, axisKeys);
   }
 

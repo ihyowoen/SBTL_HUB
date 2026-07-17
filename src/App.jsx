@@ -456,6 +456,24 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     if (weeklyBriefs.some((e) => e && !e.read) && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // 체류 중 도착 읽음 처리 — 선반이 '열린 채로' 새 호수가 도착하면(패시브 완성·다른 탭
+  // 발행) 즉시 표시되는데, 마운트(위)·펼침 토글·seed 어느 읽음 경로에도 안 걸려 NEW가
+  // 남는다. '마운트 이후 새로 나타난 id'가 최신으로 실제 표시되고 있을 때만 그 호수를
+  // 읽음 처리한다. seed 대기 중(briefSeed.open)엔 양보(발행 완료는 seed가 지목 처리),
+  // seed가 보존한 기존 unread는 '새 id'가 아니라 여기서도 건드리지 않는다(R6 유지).
+  const knownIdsRef = useRef(null);
+  useEffect(() => {
+    const ids = new Set(weeklyBriefs.map((e) => e && e.id).filter(Boolean));
+    if (knownIdsRef.current === null) { knownIdsRef.current = ids; return; } // 마운트분은 진입 처리 몫
+    const freshIds = [...ids].filter((id) => !knownIdsRef.current.has(id));
+    knownIdsRef.current = ids;
+    if (!freshIds.length) return;
+    if (briefSeed && briefSeed.open) return;
+    if (!weeklyOpen || weeklyShownId) return; // 접힘·과거 호수 고정 중엔 새 호수가 표시되지 않음 — NEW 유지
+    const top = weeklyBriefs[0];
+    if (top && !top.read && freshIds.includes(top.id) && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(top.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [weeklyBriefs]);
   const matched = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, 5);
   // 미리보기 5장 밖에 남은 새(unseen) 카드 수 — 확인 처리 후 리렌더(watchVersion)마다 재계산
   const unseenLeft = (() => {

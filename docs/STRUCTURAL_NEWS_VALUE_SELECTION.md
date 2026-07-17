@@ -28,6 +28,20 @@ The core question is:
 
 > **What previously reasonable judgment must change because this fact is now known?**
 
+### Industry-first rationale
+
+SBTL_HUB is an industrial intelligence product, not a corporate announcement ledger or legal gazette.
+
+Therefore the scoring model places the greatest weight on the three forces that most directly reshape the battery, ESS, charging, grid, and critical-minerals industries:
+
+1. **market structure and competitive position**;
+2. **supply, demand, price, and utilisation**;
+3. **technology, performance, safety, and operational validity**.
+
+These three dimensions carry 70 of 100 points.
+
+Law, policy, finance, transactions, and project milestones remain important, but their value must be translated into one or more of those industrial effects. Formal legal status, contract size, or construction stage cannot substitute for actual industrial consequence.
+
 This document supplements:
 
 - `docs/FACT_DISCIPLINE.md`

@@ -44,7 +44,9 @@ Required weighting:
 - persistence and irreversibility: 0–3
 - decision urgency and actionability: 0–2
 
-The first three core industrial dimensions must total a maximum of 70 points.
+The first three core industrial dimensions total a maximum of 70 points because SBTL_HUB is an industrial intelligence product, not a corporate-announcement ledger or legal gazette.
+
+Transactions, laws, policies, and court decisions gain most of their value through verified effects on market structure, supply-demand-price, technology-performance-safety, or economics.
 
 ### D. `publication_urgency`
 

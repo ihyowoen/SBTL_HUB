@@ -32,6 +32,22 @@ export function groqFallbackAllowed(system, user, maxTokens, budget = GROQ_FALLB
   return estInputTokens + (maxTokens || 0) <= budget;
 }
 
+// ---- 함수 시간 예산(R13) ----
+// vercel.json maxDuration 60s. 6축 호출 40s + gemini 내부 429 재시도 + 품질 재시도가
+// 겹치면 플랫폼이 함수를 죽여 '의도된 degraded/에러 응답' 대신 정체불명 타임아웃이
+// 나간다 — 코드가 항상 플랫폼보다 먼저 끝나도록 데드라인을 전 호출에 관통시킨다.
+export const FUNCTION_TIME_BUDGET_MS = 55000; // 60s − 응답 직렬화·전송 여유 5s
+
+// 개별 LLM 호출 타임아웃을 남은 예산에 맞춰 자른다(최소 5s는 보장해 즉사 방지)
+export function clampTimeout(baseMs, deadlineAt, now = Date.now()) {
+  return Math.max(5000, Math.min(baseMs, deadlineAt - now - 2000));
+}
+
+// 품질 재시도를 돌릴 만큼 예산이 남았는가 — 최소 15s(짧은 호출 한 번 + 마무리)
+export function canRetry(deadlineAt, now = Date.now()) {
+  return deadlineAt - now > 15000;
+}
+
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -142,11 +158,13 @@ const COMMON_RULES = [
   "5. watch는 '지켜볼 것' 2~4개. 각 항목은 카드의 함의에 명시된 후속 단계·판단 기준을 근거로, 확인할 주체·시점·지표가 드러나게 쓴다. '~동향', '~추이', '~주목해야 한다'처럼 확인 방법이 없는 문구 금지. 각 항목 끝에 [n] 인용(최대 3개).",
 ].join("\n");
 
-async function generateOnce({ system, user, maxTokens, allowFallback = true }) {
-  // 타임아웃은 출력 상한에 비례 — 6축(5000tok) 출력은 25s를 넘길 수 있다(flash ~150-250tok/s
-  // 실측). 함수 예산은 vercel.json maxDuration 60s로 명시(1차 + 품질 재시도 1회까지 수용).
-  const timeoutMs = maxTokens > 3600 ? 40000 : 25000;
-  const result = await callLLM({ system, user, maxTokens, temperature: 0.3, timeoutMs, allowFallback });
+async function generateOnce({ system, user, maxTokens, allowFallback = true, deadlineAt = null }) {
+  // 타임아웃은 출력 상한에 비례하되(6축 5000tok 출력은 25s를 넘길 수 있다 — flash
+  // ~150-250tok/s 실측) 남은 함수 예산으로 자른다. 데드라인은 gemini 내부 429 재시도·
+  // groq 폴백까지 관통해, 어떤 조합에서도 플랫폼 타임아웃 전에 우리가 먼저 응답한다.
+  const base = maxTokens > 3600 ? 40000 : 25000;
+  const timeoutMs = deadlineAt ? clampTimeout(base, deadlineAt) : base;
+  const result = await callLLM({ system, user, maxTokens, temperature: 0.3, timeoutMs, allowFallback, deadlineAt });
   // status·detail(업스트림 에러 본문 스니펫)을 그대로 올린다 — 502만 보고는 폴백 실패의
   // 실원인(모델 폐기 404 vs 단일요청 TPM 초과 413 vs 요청 거부 400)을 구별할 수 없다.
   if (!result?.text) return { error: result?.error || "llm-failed", provider: result?.provider || null, status: result?.status || null, detail: result?.detail || null };
@@ -261,14 +279,21 @@ export default async function handler(req, res) {
   // (gemini 실패 시 클라가 graceful degrade).
   const allowFallback = groqFallbackAllowed(system, user, maxTokens);
 
-  // ---- 생성 + 품질 가드(1회 재시도) ----
-  let attempt = await generateOnce({ system, user, maxTokens, allowFallback });
+  // ---- 생성 + 품질 가드(1회 재시도) — 함수 시간 예산 안에서 ----
+  const deadlineAt = Date.now() + FUNCTION_TIME_BUDGET_MS;
+  let attempt = await generateOnce({ system, user, maxTokens, allowFallback, deadlineAt });
   // unavailable: 클라가 '조용한 실패' 대신 '일시적으로 못 만듦'을 사용자에게 보이게 하는 신호.
   // 축 모드는 groq 폴백을 끄므로(대용량=413 확정) gemini가 흔들리면 여기로 온다.
   if (attempt.error) return res.status(502).json({ ok: false, error: attempt.error, provider: attempt.provider, status: attempt.status || null, detail: attempt.detail || null, unavailable: true });
   let issues = qualityIssues(attempt.parsed, axisKeys);
   let retried = false;
-  if (issues.length) {
+  // 재시도는 예산이 남았을 때만 — 1차가 40s급이었으면 재시도를 돌리다 플랫폼(60s)이
+  // 함수를 죽여 '의도된 응답' 대신 정체불명 타임아웃이 나간다. 예산 부족이면 1차를
+  // 그대로 채택(품질 이슈 있는 응답 > 무응답).
+  if (issues.length && !canRetry(deadlineAt)) {
+    console.log(`[brief] quality issues ${JSON.stringify(issues)} — but time budget exhausted, keeping first attempt`);
+  }
+  if (issues.length && canRetry(deadlineAt)) {
     console.log(`[brief] quality issues ${JSON.stringify(issues)} — retrying once`);
     retried = true;
     // 재시도 지시도 뼈대로 — "축 N개를 모두 써라"는 서술만으로는 붕괴 재발을 못 막았다
@@ -278,7 +303,7 @@ export default async function handler(req, res) {
     // 재시도 프롬프트는 이슈 텍스트+뼈대가 붙어 원본보다 길다 — 폴백 적격을 strictUser로
     // 다시 계산한다. 원본이 예산 바로 아래였다면 재시도는 초과라, 원본 기준 allowFallback을
     // 재사용하면 groq에 413 확정 요청을 던지고 만다(가드 취지 무력화).
-    const second = await generateOnce({ system, user: strictUser, maxTokens, allowFallback: groqFallbackAllowed(system, strictUser, maxTokens) });
+    const second = await generateOnce({ system, user: strictUser, maxTokens, allowFallback: groqFallbackAllowed(system, strictUser, maxTokens), deadlineAt });
     attempt = pickBetterAttempt(attempt, second, issues, axisKeys);
   }
 

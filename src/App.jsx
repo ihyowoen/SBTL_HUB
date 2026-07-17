@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
-import { computeBriefAxes, computeRegionAxes, cardInMonth } from "./briefAxes";
+import { computeBriefAxes, computeRegionAxes, computeThemeAxes, cardInMonth, parseBriefSections } from "./briefAxes";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
@@ -368,9 +368,84 @@ function ChatGuide({ dark, runSuggestion }) {
   );
 }
 
+// 📖 브리프 리더(R13) — 텍스트 덩어리 대신 구조를 그대로 보여준다:
+// 【축】 문단 → 섹션 카드(아이콘+축 이름 헤더), [n] 인용 → 탭 배지(→하단 출처 각주로
+// 점프·하이라이트), 지켜볼 것 → 체크리스트 카드, 출처 카드 → 접이식 각주(원문 링크).
+// 데이터 계약은 불변(entry.narrative/watch/refs) — 표시만 바꾼다.
+function BriefReader({ entry, dark }) {
+  const t = T(dark);
+  const [refsOpen, setRefsOpen] = useState(false);
+  const [citeFocus, setCiteFocus] = useState(null);
+  const refsBoxRef = useRef(null);
+  const sections = parseBriefSections(entry.narrative);
+  const refs = Array.isArray(entry.refs) ? entry.refs : [];
+  const onCite = (n) => {
+    setRefsOpen(true);
+    setCiteFocus(n);
+    // 각주 영역이 방금 열린 경우 렌더 후 스크롤
+    setTimeout(() => { try { refsBoxRef.current?.querySelector(`[data-ref="${n}"]`)?.scrollIntoView({ block: "center", behavior: "smooth" }); } catch { /* noop */ } }, 80);
+  };
+  const groupIcon = entry.group === "region" ? "🗺" : entry.group === "theme" ? "🏷" : "▦";
+  const hasSections = sections.some((s) => s.key);
+  return (
+    <div style={{ marginTop: 10 }}>
+      {/* 메타 — 범위 배지 + 발행일 + 근거 수 */}
+      <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 4, border: `1px solid ${t.cyan}`, color: t.cyan, borderRadius: 999, padding: "3px 9px", fontSize: 9.5, fontWeight: 800, fontFamily: "'JetBrains Mono',monospace" }}>{groupIcon} {entry.scope_label || "내워치"}</span>
+        <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{entry.generated_at} 발행 · 근거 {refs.length}장</span>
+      </div>
+      {/* 서사 — 축 섹션 카드(무축 flat이면 문단 그대로) */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {sections.map((sec, i) => (
+          <div key={i} style={{ background: t.card, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "11px 13px" }}>
+            {sec.key && (
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, color: t.tx, wordBreak: "keep-all" }}>{groupIcon === "▦" ? "▍" : groupIcon} {sec.key}</span>
+                <span style={{ flex: 1, height: 1, background: t.brd }} />
+              </div>
+            )}
+            <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.85, wordBreak: "keep-all" }}>{renderChatCitations(sec.text, refs.length, onCite)}</div>
+          </div>
+        ))}
+        {!sections.length && <div style={{ fontSize: 12, color: t.sub }}>서사가 비어 있어요.</div>}
+      </div>
+      {/* 지켜볼 것 — 체크리스트 카드 */}
+      {entry.watch?.length > 0 && (
+        <div style={{ marginTop: 8, background: t.card, border: `1px solid ${t.brd}`, borderRadius: 10, padding: "11px 13px" }}>
+          <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 6, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
+          {entry.watch.map((w, i) => (
+            <div key={i} style={{ display: "flex", gap: 7, alignItems: "flex-start", padding: "5px 0", borderTop: i ? `1px dashed ${t.brd}` : "none" }}>
+              <span aria-hidden="true" style={{ color: t.cyan, fontSize: 11, lineHeight: 1.7 }}>◻</span>
+              <span style={{ flex: 1, fontSize: 11.5, color: t.tx, lineHeight: 1.7, wordBreak: "keep-all" }}>{renderChatCitations(w, refs.length, onCite)}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {/* 출처 각주 — 접이식, [n] 탭 시 자동 오픈+하이라이트 */}
+      {refs.length > 0 && (
+        <div style={{ marginTop: 8 }}>
+          <button onClick={() => setRefsOpen((v) => !v)} aria-expanded={refsOpen} style={{ width: "100%", textAlign: "left", padding: "8px 12px", borderRadius: 8, border: `1px dashed ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{refsOpen ? "▾" : "▸"} 출처 카드 {refs.length}장</button>
+          {refsOpen && (
+            <div ref={refsBoxRef} style={{ marginTop: 6, display: "flex", flexDirection: "column", gap: 3, maxHeight: 260, overflowY: "auto", padding: "2px 0" }}>
+              {refs.map((r) => (
+                <div key={r.n} data-ref={r.n} style={{ display: "flex", gap: 7, alignItems: "baseline", padding: "5px 8px", borderRadius: 6, background: citeFocus === r.n ? "rgba(88,166,255,0.16)" : "transparent" }}>
+                  <span style={{ fontSize: 9.5, fontWeight: 800, color: t.cyan, fontFamily: "'JetBrains Mono',monospace", flexShrink: 0 }}>[{r.n}]</span>
+                  {r.url
+                    ? <a href={r.url} target="_blank" rel="noreferrer" style={{ flex: 1, fontSize: 11, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all", textDecorationColor: t.brd }}>{r.title} <span style={{ color: t.sub, fontSize: 9.5, fontFamily: "'JetBrains Mono',monospace" }}>({r.date})</span></a>
+                    : <span style={{ flex: 1, fontSize: 11, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all" }}>{r.title} <span style={{ color: t.sub, fontSize: 9.5, fontFamily: "'JetBrains Mono',monospace" }}>({r.date})</span></span>}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // '브리핑룸' 탭 — 개인 인텔리전스의 집: 브리프(발행·보관함)와 워치(관리·새 소식)를 총괄.
 // R12: 브리프 선반이 NEWS에서 여기로 이사 — 발행 버튼과 결과물이 같은 방에 산다.
-function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed, weeklyGenerating = false, weeklyError = null, onWeeklyBriefsRead = null, briefSeed = null, onBriefSeedConsumed = null }) {
+function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed, weeklyGenerating = false, weeklyError = null, onWeeklyBriefsRead = null, briefSeed = null, onBriefSeedConsumed = null, onAdoptLibraryEntry = null }) {
   const t = T(dark);
   // 추가/삭제가 executeAppCommand(명령 버스)로 localStorage를 바꾸므로,
   // 버전 신호(watchSeenVersion)로 재읽기해 화면에 즉시 반영한다.
@@ -503,9 +578,14 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     if (ts && Date.now() - ts < 10 * 60000) return "방금 발행했어요 — 10분 뒤에 다시 만들 수 있어요";
     return null;
   };
-  // 지역별 구성 토글 — 아래 발행 버튼·월 칩에 공통 적용 (R11)
-  const [regionOn, setRegionOn] = useState(false);
-  const briefExtra = regionOn ? { group: "region" } : {};
+  // 구성 선택(자동축·지역별·주제별) — 아래 발행 버튼·월 칩에 공통 적용 (R11 지역별·R13 주제별)
+  const [briefGroup, setBriefGroup] = useState(null); // null(자동축) | "region" | "theme"
+  const briefExtra = briefGroup ? { group: briefGroup } : {};
+  // 사전 생성 라이브러리(R13) — 월 칩의 1·2순위 소스: 보관함 → 라이브러리 → 온디맨드 생성
+  const [library, setLibrary] = useState(null);
+  useEffect(() => { let alive = true; loadBriefLibrary().then((j) => { if (alive) setLibrary(j); }); return () => { alive = false; }; }, []);
+  const libFind = (m, g) => (library?.items || []).find((it) => (it.month || null) === m && ((it.group) || null) === g) || null;
+  const archiveFind = (m, g) => weeklyBriefs.find((e) => ((e && e.month) || null) === m && ((e && e.group) || null) === g && (e.terms_sig === "[]" || e.terms_sig == null)) || null;
   const weeklyBlock = briefGate("weekly", briefExtra);
   const monthlyBlock = briefGate("monthly", briefExtra);
   // 달력월 칩 — 카드가 실제로 있는 달만(노이즈 달 제외 ≥10장), 최신부터 4개.
@@ -598,16 +678,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
               <div aria-live="polite" style={{ marginTop: 10, padding: "8px 10px", borderRadius: 8, border: `1px dashed ${t.brd}`, fontSize: 11, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>⚠️ {weeklyError}</div>
             )}
             {weeklyOpen && shown && (
-              <div style={{ marginTop: 10 }}>
-                <div style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 6 }}>{shown.scope_label} · {shown.generated_at} · 근거 {shown.refs?.length || 0}장</div>
-                {/* whiteSpace pre-line — 축 모드 브리프는 【축】 문단을 \n\n로 구분한다 */}
-                <div style={{ fontSize: 12.5, color: t.tx, lineHeight: 1.75, paddingLeft: 10, borderLeft: `3px solid ${t.cyan}`, wordBreak: "keep-all", whiteSpace: "pre-line" }}>{shown.narrative}</div>
-                {shown.watch?.length > 0 && (
-                  <div style={{ marginTop: 10 }}>
-                    <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, marginBottom: 4, fontFamily: "'JetBrains Mono',monospace" }}>👁 지켜볼 것</div>
-                    {shown.watch.map((w, i) => <div key={i} style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.6, paddingLeft: 8, borderLeft: `2px solid ${t.brd}`, marginBottom: 4, wordBreak: "keep-all" }}>{w}</div>)}
-                  </div>
-                )}
+              <div style={{ marginTop: 2 }}>
+                {/* R13 브리프 리더 — 섹션 카드·탭 인용·체크리스트·출처 각주 */}
+                <BriefReader entry={shown} dark={dark} />
                 <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
                   <button onClick={() => copyWeeklyBrief(shown)} style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: `1px solid ${copiedWeekly ? "transparent" : t.brd}`, background: copiedWeekly ? t.cyan : "transparent", color: copiedWeekly ? "#000" : t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{copiedWeekly ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}</button>
                   {/* 공유는 '현재 표시 중인 호수'(shown) — 예전엔 발행 버튼 행에서 latest를 공유해,
@@ -632,7 +705,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                         // 칩으로 호수를 바꾸면 그 호수만 읽음 처리 — 특정 호수 열람이 다른 호수의
                         // NEW를 일부러 남겨두므로(markWeeklyBriefsRead(onlyId)), 실제로 그 호수를
                         // 열어보는 이 경로에서 꺼주지 않으면 NEW가 선반을 접었다 펼 때까지 남는다.
-                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}{e.month ? ` ${Number(e.month.slice(5))}월호` : e.period === "monthly" ? " 월간" : ""}{e.group === "region" ? "🗺" : ""}{!e.read ? " ·" : ""}</button>
+                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}{e.month ? ` ${Number(e.month.slice(5))}월호` : e.period === "monthly" ? " 월간" : ""}{e.group === "region" ? "🗺" : e.group === "theme" ? "🏷" : ""}{!e.read ? " ·" : ""}</button>
                       ))}
                     </div>
                   </div>
@@ -650,11 +723,30 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       </div>
       {/* R11: 지역별 구성 토글 + 달력월 발행 칩 — "5월엔 무슨 일이 있었지"를 달 단위로 끊어 만든다 */}
       <div style={{ display: "flex", gap: 6, marginTop: 6, alignItems: "center", flexWrap: "wrap" }}>
-        <button onClick={() => setRegionOn((v) => !v)} aria-pressed={regionOn} style={{ padding: "8px 12px", borderRadius: 999, border: `1px solid ${regionOn ? t.cyan : t.brd}`, background: regionOn ? (dark ? "rgba(88,166,255,0.14)" : "rgba(9,105,218,0.08)") : "transparent", color: regionOn ? t.cyan : t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>🗺️ 지역별로 묶기{regionOn ? " ✓" : ""}</button>
+        {/* 구성 세그먼트 — 재탭으로 자동축 복귀 */}
+        {[["region", "🗺️ 지역별"], ["theme", "🏷️ 주제별"]].map(([g, label]) => {
+          const on = briefGroup === g;
+          return <button key={g} onClick={() => setBriefGroup(on ? null : g)} aria-pressed={on} style={{ padding: "8px 12px", borderRadius: 999, border: `1px solid ${on ? t.cyan : t.brd}`, background: on ? (dark ? "rgba(88,166,255,0.14)" : "rgba(9,105,218,0.08)") : "transparent", color: on ? t.cyan : t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{label}{on ? " ✓" : ""}</button>;
+        })}
         {briefMonths.map((m) => {
-          const block = briefGate("monthly", { month: m, ...briefExtra });
+          // 소스 우선순위: 보관함(이미 만든 그 호수) → 사전 생성 라이브러리(0초·LLM 0회) →
+          // 온디맨드 생성(기존 게이트 적용). 즉시 열람 가능한 칩은 채움 스타일로 구별.
+          const inArchive = archiveFind(m, briefGroup);
+          const inLib = !inArchive && libFind(m, briefGroup);
+          const instant = !!(inArchive || inLib);
+          const block = instant ? null : briefGate("monthly", { month: m, ...briefExtra });
+          const onTap = () => {
+            if (inArchive) { setWeeklyOpen(true); setWeeklyShownId(inArchive.id); if (!inArchive.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(inArchive.id); return; }
+            if (inLib) {
+              const entry = { period: "monthly", terms: [], terms_sig: "[]", read: true, ...inLib };
+              if (typeof onAdoptLibraryEntry === "function") onAdoptLibraryEntry(entry);
+              setWeeklyOpen(true); setWeeklyShownId(entry.id);
+              return;
+            }
+            if (!block && onBriefNow) onBriefNow("monthly", { month: m, ...briefExtra });
+          };
           return (
-            <button key={m} onClick={() => { if (!block && onBriefNow) onBriefNow("monthly", { month: m, ...briefExtra }); }} disabled={!!block} title={block || `${Number(m.slice(5))}월 한 달치 브리프 발행`} style={{ padding: "8px 11px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: block ? t.sub : t.cyan, fontSize: 10.5, fontWeight: 800, cursor: block ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{m.replace("-", ".")}</button>
+            <button key={m} onClick={onTap} disabled={!!block} title={instant ? `${Number(m.slice(5))}월호 바로 열기${inLib ? " (사전 생성)" : ""}` : (block || `${Number(m.slice(5))}월 한 달치 브리프 발행`)} style={{ padding: "8px 11px", borderRadius: 999, border: `1px solid ${instant ? t.cyan : t.brd}`, background: instant ? (dark ? "rgba(88,166,255,0.12)" : "rgba(9,105,218,0.07)") : "transparent", color: block ? t.sub : t.cyan, fontSize: 10.5, fontWeight: 800, cursor: block ? "not-allowed" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{m.replace("-", ".")}{instant ? " ⚡" : ""}</button>
           );
         })}
       </div>
@@ -1076,6 +1168,21 @@ function loadAliasEntities() {
       .catch(() => null);
   }
   return aliasEntitiesPromise;
+}
+
+// ---- 사전 생성 브리프 라이브러리(R13) ----
+// 지나간 달의 재료는 불변 → 달×구성(전체/지역별/주제별) 호수를 한 번 생성해 정적 파일로
+// 커밋해두면 모든 유저가 0초·LLM 0회로 연다(생성은 ~/tools/gen_brief_library.mjs, 배포 후
+// 실행). 파일이 없거나 조합이 비면 조용히 null — 월 칩이 온디맨드 생성으로 폴백한다.
+let briefLibraryPromise = null;
+function loadBriefLibrary() {
+  if (!briefLibraryPromise) {
+    briefLibraryPromise = fetch("/data/briefs.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => (j && Array.isArray(j.items) ? j : null))
+      .catch(() => null);
+  }
+  return briefLibraryPromise;
 }
 
 // ---- 주간 브리프 보관함: 앱 접속 시 내워치 범위로 조용히 생성해 적재 ----
@@ -2962,7 +3069,7 @@ function AppContent() {
     // 월간 규약을 따르고, entry.month로 롤링 월간과 구별된다. 항상 force 경로(패시브 없음).
     const month = /^\d{4}-(0[1-9]|1[0-2])$/.test(String(opts.month || "")) ? opts.month : null;
     const period = month || opts.period === "monthly" ? "monthly" : "weekly";
-    const group = opts.group === "region" ? "region" : null; // 지역별 구성(R11)
+    const group = opts.group === "region" ? "region" : opts.group === "theme" ? "theme" : null; // 구성(R11 지역별·R13 주제별)
     const windowDays = period === "monthly" ? 30 : 7;
     const inWindow = (c) => (month ? cardInMonth(c, month) : cardDateWithinDays(c, windowDays));
     if (!kb.cards.length) return;
@@ -3019,7 +3126,7 @@ function AppContent() {
         : period === "monthly" ? "월간" : "주간";
       const scopeLabel = (terms.length
         ? `${periodLabel} 내워치(${terms.slice(0, 4).join(", ")}${terms.length > 4 ? "…" : ""})`
-        : `${periodLabel} 전체`) + (group === "region" ? " · 지역별" : "");
+        : `${periodLabel} 전체`) + (group === "region" ? " · 지역별" : group === "theme" ? " · 주제별" : "");
       (async () => {
         try {
           // 소유권 재확인 — check-then-set 사이에 같이 진입한 다른 탭이 토큰을 덮었으면 물러난다
@@ -3045,16 +3152,22 @@ function AppContent() {
           let briefCards = matched;
           let axes = null;
           if (group === "region") {
-            axes = computeRegionAxes(matched, { topK: 4 });
+            // 6리전 전부 — topK=4는 매달 두 지역을 떨궜다(실측: 2026-06 한국 30장 통째 탈락).
+            // 축당 8장으로 총량을 다스린다(6×8≈48장, 서버 출력 상한 5000tok과 페어).
+            axes = computeRegionAxes(matched, { topK: 6, maxPerAxis: 8 });
+          } else if (group === "theme") {
+            // 주제 사전 상위 6개(월별 적격 주제 실측 4~8개) — greedy 배타로 카드 중복 없음
+            axes = computeThemeAxes(matched, { topK: 6, maxPerAxis: 8 });
           } else if (!terms.length) {
             const aliasEntities = await loadAliasEntities();
-            axes = computeBriefAxes(matched, aliasEntities || {}, { topK: period === "monthly" ? 4 : 3 });
+            // 월간 전체는 축 5개 — 한 달 200장+에서 4개 축은 폭이 좁다(사용자 피드백)
+            axes = computeBriefAxes(matched, aliasEntities || {}, { topK: period === "monthly" ? 5 : 3 });
           }
           const axisCardTotal = (axes || []).reduce((a, ax) => a + ax.cards.length, 0);
           if (axes && axes.length && axisCardTotal >= 4) {
             briefCards = axes.flatMap((ax) => ax.cards);
             payload = { scopeLabel, axes: axes.map((ax) => ({ key: ax.key, cards: ax.cards.map(toPayloadCard) })) };
-          } else if (!terms.length || group === "region") {
+          } else if (!terms.length || group) {
             const sigOrder = (c) => sigRank[String(c.s || c.signal || "i").toLowerCase()[0]] || 0;
             briefCards = matched.slice().sort((a, b) => sigOrder(b) - sigOrder(a)).slice(0, 40);
             payload = { scopeLabel, cards: briefCards.map(toPayloadCard) };
@@ -3212,6 +3325,18 @@ function AppContent() {
       setWeeklyBriefs(next);
     } catch { /* noop */ }
   }, []);
+  // 사전 생성 라이브러리 호수를 보관함에 채택(R13) — 월 칩이 라이브러리에서 열 때 1회 주입.
+  // 이미 있으면(id 동일) 중복 주입하지 않고 최신 목록만 반영한다.
+  const adoptLibraryEntry = useMemo(() => (entry) => {
+    try {
+      if (!entry || !entry.id || !entry.narrative) return;
+      const fresh = readWeeklyBriefs();
+      if (fresh.some((e) => e && e.id === entry.id)) { setWeeklyBriefs(fresh); return; }
+      const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
+      localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
+      setWeeklyBriefs(next);
+    } catch { /* noop */ }
+  }, []);
   useEffect(() => {
     // 세션 1회 시도 가드는 '같은 범위'에만 건다 — 범위가 바뀌면(첫 워치 등록 등) 다시 시도한다.
     // R9의 전체 범위 폴백 전에는 빈 워치가 생성 전 early-return이라 시도 플래그가 안 켜져서
@@ -3284,7 +3409,7 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><TodayDashboard dark={dark} kb={kb} tracker={tracker} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onFeedSearch={(q) => executeAppCommand({ type: "feed_filter", search: q })} onAppCommand={executeAppCommand} /></div>}
-        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, feedFilter: null, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} onWeeklyBriefsRead={markWeeklyBriefsRead} briefSeed={briefSeed} onBriefSeedConsumed={markBriefSeedConsumed} /></div>}
+        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, feedFilter: null, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} onWeeklyBriefsRead={markWeeklyBriefsRead} briefSeed={briefSeed} onBriefSeedConsumed={markBriefSeedConsumed} onAdoptLibraryEntry={adoptLibraryEntry} /></div>}
         {tab === "archive" && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>POLICY TRACKER — 정책 일정·규제</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} onConsultationConsumed={markConsultationConsumed} />}

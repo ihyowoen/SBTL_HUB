@@ -269,7 +269,10 @@ export default async function handler(req, res) {
     // (실측: 재시도본도 1문단). 채워야 할 출력 형식을 그대로 다시 보여준다.
     const axisNote = axisKeys ? ` narrative는 반드시 정확히 ${axisKeys.length}개 문단이어야 한다: "${axisSkeleton(axisKeys)}" — 이 뼈대의 ... 만 채워라. 문단 수가 ${axisKeys.length}개가 아니면 실패다.` : "";
     const strictUser = `${user}\n\n(직전 출력이 다음 규칙을 어겼다: ${issues.join(", ")}. 특히 경어체 금지·모든 문장 [n] 인용을 지켜 다시 작성하라.${axisNote})`;
-    const second = await generateOnce({ system, user: strictUser, maxTokens, allowFallback });
+    // 재시도 프롬프트는 이슈 텍스트+뼈대가 붙어 원본보다 길다 — 폴백 적격을 strictUser로
+    // 다시 계산한다. 원본이 예산 바로 아래였다면 재시도는 초과라, 원본 기준 allowFallback을
+    // 재사용하면 groq에 413 확정 요청을 던지고 만다(가드 취지 무력화).
+    const second = await generateOnce({ system, user: strictUser, maxTokens, allowFallback: groqFallbackAllowed(system, strictUser, maxTokens) });
     attempt = pickBetterAttempt(attempt, second, issues, axisKeys);
   }
 

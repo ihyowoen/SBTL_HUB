@@ -713,9 +713,11 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // 가장 많이 속한 달(월 칩에 있는 달이면)을 자동 제안 — 사용자는 칩·카드 수를 보고 발행만.
   const builderPanelRef = useRef(null);
   const sendComponentToBuilder = (comp) => {
-    const hints = (comp.axisHints || []).filter((h) => h && h.label);
+    const hints = (comp.axisHints || []).filter((h) => h && (h.key || h.label));
     if (!hints.length) return; // related만으로 묶인 성분 — 축 근거 없음(캡슐이 비활성 안내)
-    const spec = hints.slice(0, 6).map((h) => ({ type: h.kind === "entity" ? "watch" : "theme", key: h.label }));
+    // 주입 키는 h.key(성분 멤버 제목의 최다 히트 표기) — canonical을 넣으면 빌더의
+    // substring 매처가 별칭 표기 제목(소프트뱅크 vs SoftBank)을 못 찾는다(Codex #185).
+    const spec = hints.slice(0, 6).map((h) => ({ type: h.kind === "entity" ? "watch" : "theme", key: h.key || h.label }));
     // 성분 카드의 다수 달 — 월 칩 목록에 있으면 그 달로, 아니면 롤링 월간
     const memberDates = pinLayout ? pinLayout.nodes.filter((n) => n.compIndex === comp.index).map((n) => String(n.date || "").slice(0, 7)) : [];
     const cnt = new Map();

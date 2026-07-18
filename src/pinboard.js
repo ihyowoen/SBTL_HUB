@@ -58,19 +58,35 @@ export function buildPinGraph(pins, cards, aliasEntities) {
       if (inBoard.has(r)) addEdge(n.id, r, "related", "편집자 연결");
     }
   }
+  // 축 힌트 후보(R16) — 에지 dedupe(쌍당 강한 kind 하나)와 '무관하게' 그룹 멤버십을 따로
+  // 기록한다: related가 같은 쌍의 entity/theme 에지를 삼켜도 힌트는 살아야 하고(Codex #185),
+  // 주입 키는 canonical이 아니라 '멤버 제목 최다 히트 표기'여야 빌더의 substring 매처가
+  // 실제로 그 카드들을 다시 찾는다(R6 교훈 — 소프트뱅크 제목에 SoftBank 키는 매칭 0).
+  const hintCands = []; // {kind, label(표시=canonical), key(주입=최다 히트 표기), ids:Set}
   // ② entity — 별칭 그룹의 어느 표기든 제목에 등장하는 핀 쌍
   for (const [k, e] of Object.entries(aliasEntities || {})) {
     if (e && e.type && !LINK_TYPES.has(e.type)) continue;
     const name = (e && e.canonical) || k;
     const spellings = [name, ...(Array.isArray(e && e.aliases) ? e.aliases : [])].filter((s) => s && String(s).trim().length >= 2);
-    const hits = nodes.filter((n) => { const h = n.title.toLowerCase(); return spellings.some((s) => hitBoundary(String(s).toLowerCase(), h)); });
+    const spellHits = new Map(); // 표기 → 히트 수 (주입 키 선택용)
+    const hits = nodes.filter((n) => {
+      const h = n.title.toLowerCase();
+      let any = false;
+      for (const s of spellings) {
+        if (hitBoundary(String(s).toLowerCase(), h)) { spellHits.set(s, (spellHits.get(s) || 0) + 1); any = true; }
+      }
+      return any;
+    });
     if (hits.length < 2 || hits.length > Math.max(2, Math.floor(nodes.length * GENERIC_RATIO))) continue;
+    const bestSpelling = [...spellHits.entries()].sort((a, b) => b[1] - a[1] || String(a[0]).localeCompare(String(b[0])))[0]?.[0] || name;
+    hintCands.push({ kind: "entity", label: name, key: bestSpelling, ids: new Set(hits.map((n) => n.id)) });
     for (let i = 0; i < hits.length; i++) for (let j = i + 1; j < hits.length; j++) addEdge(hits[i].id, hits[j].id, "entity", name);
   }
   // ③ theme — 주제 사전 매칭(제목 한정, customAxisCandidates 재사용으로 규약 단일화)
   for (const label of THEME_AXIS_KEYS) {
     const hits = customAxisCandidates(nodes.map((n) => ({ id: n.id, title: n.title })), "theme", label).map((c) => c.id);
     if (hits.length < 2 || hits.length > Math.max(2, Math.floor(nodes.length * GENERIC_RATIO))) continue;
+    hintCands.push({ kind: "theme", label, key: label, ids: new Set(hits) });
     for (let i = 0; i < hits.length; i++) for (let j = i + 1; j < hits.length; j++) addEdge(hits[i], hits[j], "theme", label);
   }
 
@@ -86,23 +102,18 @@ export function buildPinGraph(pins, cards, aliasEntities) {
   }
   const degree = new Map(nodes.map((n) => [n.id, 0]));
   for (const e of edges.values()) { degree.set(e.a, (degree.get(e.a) || 0) + 1); degree.set(e.b, (degree.get(e.b) || 0) + 1); }
-  // 성분 라벨 + 축 힌트(R16) — 성분 내부 에지의 연결 근거(엔티티·테마 라벨)를 에지 수
-  // 내림차순으로 모은다. 이 힌트가 '이 묶음으로 브리프 만들기'의 빌더 spec 재료가 된다:
-  // entity → 워치 축(cardMatchesWatch가 별칭까지 커버, R14의 임의 용어 워치 축 재사용),
-  // theme → 주제 축. related 에지는 근거 라벨이 없어 힌트에 못 들어간다 — related만으로
-  // 묶인 성분(힌트 0)은 축으로 변환 불가가 정직한 결론이다.
+  // 성분 라벨 + 축 힌트(R16) — 힌트는 에지가 아니라 '후보 그룹과 성분 멤버의 교집합'으로
+  // 센다: 에지는 쌍당 강한 kind 하나만 남기므로(related 우선) 같은 쌍의 entity/theme 근거가
+  // 에지에서 지워질 수 있지만, 그룹 멤버십은 그와 무관한 사실이다(Codex #185). 이 힌트가
+  // '이 묶음으로 브리프 만들기'의 빌더 spec 재료: entity → 워치 축(key=최다 히트 표기),
+  // theme → 주제 축. related만으로 묶여 그룹 근거가 없는 성분(힌트 0)은 변환 불가가 정직.
   const components = [...compOf.values()].map((ids) => {
     const set = new Set(ids);
-    const cnt = new Map(); // "kind|label" → 에지 수
-    for (const e of edges.values()) {
-      if (!set.has(e.a) || e.kind === "related") continue;
-      const k = `${e.kind}|${e.label}`;
-      cnt.set(k, (cnt.get(k) || 0) + 1);
-    }
-    const axisHints = [...cnt.entries()]
-      .sort((x, y) => y[1] - x[1] || String(x[0]).localeCompare(String(y[0])))
-      .slice(0, 4)
-      .map(([k, n]) => { const [kind, label] = k.split("|"); return { kind, label, n }; });
+    const axisHints = hintCands
+      .map((g) => ({ kind: g.kind, label: g.label, key: g.key, n: ids.reduce((a, id) => a + (g.ids.has(id) ? 1 : 0), 0) }))
+      .filter((h) => h.n >= 2)
+      .sort((x, y) => y.n - x.n || String(x.label).localeCompare(String(y.label)))
+      .slice(0, 4);
     const top = axisHints[0];
     return { ids, label: ids.length > 1 ? (top ? top.label : "연결 묶음") : null, axisHints };
   }).sort((a, b) => b.ids.length - a.ids.length);

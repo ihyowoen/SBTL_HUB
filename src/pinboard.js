@@ -58,19 +58,39 @@ export function buildPinGraph(pins, cards, aliasEntities) {
       if (inBoard.has(r)) addEdge(n.id, r, "related", "편집자 연결");
     }
   }
+  // 축 힌트 후보(R16) — 에지 dedupe(쌍당 강한 kind 하나)와 '무관하게' 그룹 멤버십을 따로
+  // 기록한다: related가 같은 쌍의 entity/theme 에지를 삼켜도 힌트는 살아야 하고(Codex #185),
+  // 주입 키는 canonical이 아니라 '멤버 제목 최다 히트 표기'여야 빌더의 substring 매처가
+  // 실제로 그 카드들을 다시 찾는다(R6 교훈 — 소프트뱅크 제목에 SoftBank 키는 매칭 0).
+  const hintCands = []; // {kind, label(표시=canonical), key(주입=최다 히트 표기), ids:Set}
   // ② entity — 별칭 그룹의 어느 표기든 제목에 등장하는 핀 쌍
   for (const [k, e] of Object.entries(aliasEntities || {})) {
     if (e && e.type && !LINK_TYPES.has(e.type)) continue;
     const name = (e && e.canonical) || k;
     const spellings = [name, ...(Array.isArray(e && e.aliases) ? e.aliases : [])].filter((s) => s && String(s).trim().length >= 2);
-    const hits = nodes.filter((n) => { const h = n.title.toLowerCase(); return spellings.some((s) => hitBoundary(String(s).toLowerCase(), h)); });
+    const spellHits = new Map(); // 표기 → 히트 수 (주입 키 선택용)
+    const hits = nodes.filter((n) => {
+      const h = n.title.toLowerCase();
+      let any = false;
+      for (const s of spellings) {
+        if (hitBoundary(String(s).toLowerCase(), h)) { spellHits.set(s, (spellHits.get(s) || 0) + 1); any = true; }
+      }
+      return any;
+    });
     if (hits.length < 2 || hits.length > Math.max(2, Math.floor(nodes.length * GENERIC_RATIO))) continue;
+    // 동률은 '긴 표기' 우선(R6 교훈) — canonical 제목엔 짧은 별칭도 항상 함께 히트해
+    // 동률이 되는데(EVE Energy ⊃ EVE), 사전순으로 짧은 쪽을 고르면 워치 축의 substring
+    // 매칭이 develop의 EVE 같은 오매칭을 끌어온다(Codex #185 R2). 짧은 별칭이 '더 많이'
+    // 히트하면 그 표기가 실제 카드 표기이므로 그대로 선택이 정당하다.
+    const bestSpelling = [...spellHits.entries()].sort((a, b) => b[1] - a[1] || String(b[0]).length - String(a[0]).length || String(a[0]).localeCompare(String(b[0])))[0]?.[0] || name;
+    hintCands.push({ kind: "entity", label: name, key: bestSpelling, ids: new Set(hits.map((n) => n.id)) });
     for (let i = 0; i < hits.length; i++) for (let j = i + 1; j < hits.length; j++) addEdge(hits[i].id, hits[j].id, "entity", name);
   }
   // ③ theme — 주제 사전 매칭(제목 한정, customAxisCandidates 재사용으로 규약 단일화)
   for (const label of THEME_AXIS_KEYS) {
     const hits = customAxisCandidates(nodes.map((n) => ({ id: n.id, title: n.title })), "theme", label).map((c) => c.id);
     if (hits.length < 2 || hits.length > Math.max(2, Math.floor(nodes.length * GENERIC_RATIO))) continue;
+    hintCands.push({ kind: "theme", label, key: label, ids: new Set(hits) });
     for (let i = 0; i < hits.length; i++) for (let j = i + 1; j < hits.length; j++) addEdge(hits[i], hits[j], "theme", label);
   }
 
@@ -86,16 +106,20 @@ export function buildPinGraph(pins, cards, aliasEntities) {
   }
   const degree = new Map(nodes.map((n) => [n.id, 0]));
   for (const e of edges.values()) { degree.set(e.a, (degree.get(e.a) || 0) + 1); degree.set(e.b, (degree.get(e.b) || 0) + 1); }
-  // 성분 라벨 — 성분 내부 에지에서 최다 등장 라벨(엔티티·테마), 없으면 '연결 묶음'
+  // 성분 라벨 + 축 힌트(R16) — 힌트는 에지가 아니라 '후보 그룹과 성분 멤버의 교집합'으로
+  // 센다: 에지는 쌍당 강한 kind 하나만 남기므로(related 우선) 같은 쌍의 entity/theme 근거가
+  // 에지에서 지워질 수 있지만, 그룹 멤버십은 그와 무관한 사실이다(Codex #185). 이 힌트가
+  // '이 묶음으로 브리프 만들기'의 빌더 spec 재료: entity → 워치 축(key=최다 히트 표기),
+  // theme → 주제 축. related만으로 묶여 그룹 근거가 없는 성분(힌트 0)은 변환 불가가 정직.
   const components = [...compOf.values()].map((ids) => {
     const set = new Set(ids);
-    const cnt = new Map();
-    for (const e of edges.values()) {
-      if (!set.has(e.a) || e.kind === "related") continue;
-      cnt.set(e.label, (cnt.get(e.label) || 0) + 1);
-    }
-    const top = [...cnt.entries()].sort((x, y) => y[1] - x[1])[0];
-    return { ids, label: ids.length > 1 ? (top ? top[0] : "연결 묶음") : null };
+    const axisHints = hintCands
+      .map((g) => ({ kind: g.kind, label: g.label, key: g.key, n: ids.reduce((a, id) => a + (g.ids.has(id) ? 1 : 0), 0) }))
+      .filter((h) => h.n >= 2)
+      .sort((x, y) => y.n - x.n || String(x.label).localeCompare(String(y.label)))
+      .slice(0, 4);
+    const top = axisHints[0];
+    return { ids, label: ids.length > 1 ? (top ? top.label : "연결 묶음") : null, axisHints };
   }).sort((a, b) => b.ids.length - a.ids.length);
 
   return { nodes, edges: [...edges.values()], components, degree };
@@ -104,24 +128,28 @@ export function buildPinGraph(pins, cards, aliasEntities) {
 // 결정적 레이아웃 — 성분별 중심+링, 성분 상자 행 팩킹. width에 맞춰 좌표를 돌려준다.
 export function layoutPinGraph(graph, { width = 640 } = {}) {
   const NODE_R = 15;
-  const LABEL_H = 26; // 노드 아래 라벨 공간
+  const LABEL_H = 36; // 노드 아래 라벨 공간 — 제목 2줄(끊김 최소화)
+  const SIDE = 84;    // 좌우 방사 라벨 폭 여유 — 없으면 9시/3시 라벨이 viewBox 밖으로 잘린다(Codex #185 R4)
   const PAD = 18;
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   const boxes = graph.components.map((comp) => {
     const ids = comp.ids.slice().sort((a, b) => (graph.degree.get(b) || 0) - (graph.degree.get(a) || 0) || String(a).localeCompare(String(b)));
     if (ids.length === 1) {
-      return { comp, ids, w: NODE_R * 2 + PAD * 2 + 44, h: NODE_R * 2 + LABEL_H + PAD * 2, place: () => [{ id: ids[0], dx: 0, dy: 0 }] };
+      return { comp, ids, w: NODE_R * 2 + PAD * 2 + 96, h: NODE_R * 2 + LABEL_H + PAD * 2, place: () => [{ id: ids[0], dx: 0, dy: 0 }] };
     }
     const ring = ids.slice(1);
-    const ringR = Math.max(56, NODE_R * 2 + (ring.length * (NODE_R * 2 + 26)) / (2 * Math.PI));
-    const size = (ringR + NODE_R + 30) * 2;
+    // 링 반지름·간격은 '라벨 폭'(10자 ≈ 90px)을 감안한다 — 노드 크기만 기준으로 하면
+    // 허브·좌우 노드의 라벨이 같은 높이에서 수평으로 겹쳐 글자가 깨져 보인다(실사용 보고).
+    // 라벨은 방사 방향(labelAng — 링 바깥쪽)으로 배치해 구조적으로 흩어지게 한다.
+    const ringR = Math.max(88, NODE_R * 2 + (ring.length * (NODE_R * 2 + 56)) / (2 * Math.PI));
+    const size = (ringR + NODE_R + 44) * 2;
     return {
-      comp, ids, w: size + PAD, h: size + LABEL_H + PAD,
+      comp, ids, w: size + PAD + SIDE * 2, h: size + LABEL_H + PAD,
       place: () => [
         { id: ids[0], dx: 0, dy: 0 },
         ...ring.map((id, i) => {
           const ang = (2 * Math.PI * i) / ring.length - Math.PI / 2; // 12시부터 시계방향 — 결정적
-          return { id, dx: Math.cos(ang) * ringR, dy: Math.sin(ang) * ringR };
+          return { id, dx: Math.cos(ang) * ringR, dy: Math.sin(ang) * ringR, labelAng: ang };
         }),
       ],
     };
@@ -140,11 +168,11 @@ export function layoutPinGraph(graph, { width = 640 } = {}) {
     for (const p of b.place()) {
       const n = byId.get(p.id);
       const r = NODE_R + Math.min(6, (graph.degree.get(p.id) || 0) * 1.2);
-      placed.push({ ...n, x: cx + p.dx, y: cy + p.dy, r, compLabel: b.comp.label, compSize: b.ids.length, compIndex, isHub: b.ids.length > 1 && p.dx === 0 && p.dy === 0 });
+      placed.push({ ...n, x: cx + p.dx, y: cy + p.dy, r, compLabel: b.comp.label, compSize: b.ids.length, compIndex, isHub: b.ids.length > 1 && p.dx === 0 && p.dy === 0, labelAng: p.labelAng ?? null });
       far = Math.max(far, Math.hypot(p.dx, p.dy) + r);
-      maxW = Math.max(maxW, cx + p.dx + NODE_R + 30);
+      maxW = Math.max(maxW, cx + p.dx + NODE_R + 30 + (b.ids.length > 1 ? SIDE : 40));
     }
-    comps.push({ index: compIndex, label: b.comp.label, size: b.ids.length, cx, cy, r: far + 12 });
+    comps.push({ index: compIndex, label: b.comp.label, size: b.ids.length, cx, cy, r: far + 12, axisHints: b.comp.axisHints || [] });
     x += b.w; rowH = Math.max(rowH, b.h);
   }
   const height = y + rowH;

@@ -643,7 +643,11 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     for (const s of builderSpec) if (s.type === "watch") set.add(s.key);
     return [...set];
   }, [watchTerms, builderSpec]);
-  const builderWatchMatch = (c, term) => cardMatchesWatch(c, [term]);
+  // 워치 '축' 매칭은 경계 인식(cardMatchesProfileTerm — ASCII 단어 경계·한글 substring,
+  // R8b 프로필 규약) — 지도가 주입하는 짧은 ASCII 별칭(EVE·Xi)을 substring으로 매칭하면
+  // develop의 eve, flexibility의 xi가 브리프 재료로 섞인다(Codex #185 R5). 워치 배지·피드는
+  // 기존 substring 유지 — 축은 발행 재료의 정밀도가 수치 일치보다 우선(프로필과 같은 절충).
+  const builderWatchMatch = (c, term) => cardMatchesProfileTerm(c, term);
   const builderCounts = useMemo(() => {
     const m = new Map();
     for (const k of REGION_AXIS_KEYS) m.set(`region:${k}`, customAxisCandidates(builderPool, "region", k).length);
@@ -706,6 +710,28 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     setPins(next);
     try { localStorage.setItem("sbtl_bookmarks", JSON.stringify(next)); } catch { /* 세션 상태만이라도 반영 */ }
     setPinSel(null);
+  };
+  // 🧩 성분→빌더(R16) — 지도에서 발견한 '이야기 덩어리'를 한 탭으로 브리프 재료로.
+  // 성분의 연결 근거(axisHints)를 빌더 spec으로 매핑한다: entity→워치 축(별칭 매칭 재사용,
+  // 워치 미등록 용어도 R14 규약상 칩으로 표시·발행됨), theme→주제 축. 기간은 성분 카드가
+  // 가장 많이 속한 달(월 칩에 있는 달이면)을 자동 제안 — 사용자는 칩·카드 수를 보고 발행만.
+  const builderPanelRef = useRef(null);
+  const sendComponentToBuilder = (comp) => {
+    const hints = (comp.axisHints || []).filter((h) => h && (h.key || h.label));
+    if (!hints.length) return; // related만으로 묶인 성분 — 축 근거 없음(캡슐이 비활성 안내)
+    // 주입 키는 h.key(성분 멤버 제목의 최다 히트 표기) — canonical을 넣으면 빌더의
+    // substring 매처가 별칭 표기 제목(소프트뱅크 vs SoftBank)을 못 찾는다(Codex #185).
+    const spec = hints.slice(0, 6).map((h) => ({ type: h.kind === "entity" ? "watch" : "theme", key: h.key || h.label }));
+    // 성분 카드의 다수 달 — 월 칩 목록에 있으면 그 달로, 아니면 롤링 월간
+    const memberDates = pinLayout ? pinLayout.nodes.filter((n) => n.compIndex === comp.index).map((n) => String(n.date || "").slice(0, 7)) : [];
+    const cnt = new Map();
+    for (const m of memberDates) if (/^\d{4}-\d{2}$/.test(m)) cnt.set(m, (cnt.get(m) || 0) + 1);
+    const topMonth = [...cnt.entries()].sort((a, b) => b[1] - a[1] || String(b[0]).localeCompare(String(a[0])))[0]?.[0];
+    setBuilderSpec(spec);
+    setBuilderPeriod(topMonth && briefMonths.includes(topMonth) ? topMonth : "monthly");
+    setBuilderOpen(true);
+    // 패널이 이제 막 열리는 리렌더 뒤에 스크롤 — ref는 다음 프레임에 붙는다
+    setTimeout(() => { try { builderPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);
   };
   // 사전 생성 라이브러리(R13) — 월 칩의 1·2순위 소스: 보관함 → 라이브러리 → 온디맨드 생성
   const [library, setLibrary] = useState(null);
@@ -933,7 +959,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
           );
         };
         return (
-          <div style={{ marginTop: 8, borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px solid ${t.brd}` }}>
+          <div ref={builderPanelRef} style={{ marginTop: 8, borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px solid ${t.brd}`, scrollMarginTop: 12 }}>
             <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>🧩 브리프 빌더</div>
             <div style={{ fontSize: 10.5, color: t.sub, marginTop: 3, lineHeight: 1.5, wordBreak: "keep-all" }}>내 워치(🏢)·지역·주제 축을 고른 순서대로 엮어 나만의 브리프를 만들어요 — 숫자는 그 기간 카드 수(축당 최대 8장 수록), 최대 6축</div>
             <div style={{ display: "flex", gap: 6, marginTop: 9, flexWrap: "wrap" }}>
@@ -1049,10 +1075,13 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                                     // 캡슐 폭이 성분 상자를 넘어 viewBox 밖으로 잘리거나 이웃과 겹친다
                                     // (2+노드 성분 최소 폭 ~220px > 절단 캡슐 최대 ~128px라 항상 안전).
                                     // 전체 라벨은 <title> 툴팁으로 보존한다(Codex #182).
-                                    const disp = c.label.length > 12 ? c.label.slice(0, 11) + "…" : c.label;
+                                    // R16: 축 근거(axisHints)가 있는 캡슐은 탭→빌더로 보낸다 — 🧩 접두가
+                                    // 어포던스. related만으로 묶인 성분은 근거 라벨이 없어 비활성(툴팁 안내).
+                                    const canBuild = (c.axisHints || []).some((h) => h && h.label);
+                                    const disp = (canBuild ? "🧩 " : "") + (c.label.length > 12 ? c.label.slice(0, 11) + "…" : c.label);
                                     return (
-                                      <g>
-                                        <title>{c.label}</title>
+                                      <g onClick={canBuild ? (ev) => { ev.stopPropagation(); sendComponentToBuilder(c); } : undefined} onKeyDown={canBuild ? (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ev.stopPropagation(); sendComponentToBuilder(c); } } : undefined} tabIndex={canBuild ? 0 : undefined} style={canBuild ? { cursor: "pointer" } : undefined} role={canBuild ? "button" : undefined} aria-label={canBuild ? `${c.label} 묶음으로 브리프 만들기` : undefined}>
+                                        <title>{canBuild ? `${c.label} — 이 묶음으로 브리프 만들기` : `${c.label} — 편집자 연결 묶음이라 축으로 변환할 근거 라벨이 없어요`}</title>
                                         <rect x={c.cx - disp.length * 4.6 - 9} y={c.cy - c.r - 17} width={disp.length * 9.2 + 18} height={17} rx={8.5} fill={halo} stroke={col} strokeWidth="1" opacity={0.95} />
                                         <text x={c.cx} y={c.cy - c.r - 5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={col} fontFamily="'JetBrains Mono',monospace">{disp}</text>
                                       </g>
@@ -1075,7 +1104,35 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                                   {(n.isHub || on) && <circle cx={n.x} cy={n.y} r={n.r + 5} fill={col} opacity={on ? 0.3 : 0.18} />}
                                   <circle cx={n.x} cy={n.y} r={n.r} fill={on ? col : nodeBg} stroke={col} strokeWidth={n.isHub ? 2.4 : 1.5} strokeDasharray={n.orphan ? "3 3" : undefined} />
                                   <text x={n.x} y={n.y + 3.5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={on ? (dark ? "#000" : "#fff") : t.sub}>{{ t: "T", h: "H", m: "M" }[n.signal] || "·"}</text>
-                                  <text x={n.x} y={n.y + n.r + 12} textAnchor="middle" fontSize="9" fontWeight={n.isHub ? 800 : 500} fill={dark ? "#C9D1D9" : "#24292F"} stroke={halo} strokeWidth="3" paintOrder="stroke" fontFamily="'JetBrains Mono',monospace">{n.title.length > 11 ? n.title.slice(0, 10) + "…" : n.title}</text>
+                                  {(() => {
+                                    // 라벨은 방사 방향(링 바깥쪽)으로 — 전부 노드 '아래'에 두면 허브와
+                                    // 좌우 이웃의 라벨이 같은 높이에서 겹쳐 깨져 보인다(실사용 보고).
+                                    // 제목은 2줄(11+10자)까지 — 10자 한 줄은 '나오다가 마는' 수준이라
+                                    // 지도에서 카드를 알아볼 수 없다(실사용 보고). 그래도 넘치면 ….
+                                    const la = n.labelAng;
+                                    const l1 = n.title.slice(0, 11);
+                                    const l2 = n.title.length > 11 ? n.title.slice(11, 21) + (n.title.length > 21 ? "…" : "") : null;
+                                    const common = { fontSize: "9", fill: dark ? "#C9D1D9" : "#24292F", stroke: halo, strokeWidth: "3", paintOrder: "stroke", fontFamily: "'JetBrains Mono',monospace" };
+                                    // 12시 근방(sin<-0.85)은 위로 빼면 성분 캡슐 라벨과 겹친다 — 아래(링 안쪽)로
+                                    if (la == null || Math.sin(la) < -0.85) {
+                                      return (
+                                        <text x={n.x} y={n.y + n.r + 13} textAnchor="middle" fontWeight={n.isHub ? 800 : 500} {...common}>
+                                          <tspan x={n.x} dy="0">{l1}</tspan>
+                                          {l2 && <tspan x={n.x} dy="10">{l2}</tspan>}
+                                        </text>
+                                      );
+                                    }
+                                    const cos = Math.cos(la), sin = Math.sin(la);
+                                    const anchor = cos > 0.35 ? "start" : cos < -0.35 ? "end" : "middle";
+                                    const lx = n.x + cos * (n.r + 7);
+                                    const ly = n.y + sin * (n.r + 7) + (anchor === "middle" ? (sin < 0 ? (l2 ? -14 : -5) : 11) : (l2 ? -1.5 : 3.5));
+                                    return (
+                                      <text x={lx} y={ly} textAnchor={anchor} fontWeight="500" {...common}>
+                                        <tspan x={lx} dy="0">{l1}</tspan>
+                                        {l2 && <tspan x={lx} dy="10">{l2}</tspan>}
+                                      </text>
+                                    );
+                                  })()}
                                 </g>
                               );
                             })}
@@ -1098,7 +1155,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                           <div style={{ marginTop: 6, display: "flex", flexDirection: "column", gap: 3 }}>
                             {selEdges.slice(0, 5).map((e, i) => {
                               const other = nodeById.get(e.a === pinSel ? e.b : e.a);
-                              return <div key={i} style={{ fontSize: 10, color: t.sub, lineHeight: 1.5 }}>· <b style={{ color: t.tx }}>{KIND_LABEL[e.kind]}{e.kind !== "related" ? `(${e.label})` : ""}</b> — {other ? (other.title.length > 24 ? other.title.slice(0, 23) + "…" : other.title) : ""}</div>;
+                              // 상대 제목은 자르지 않는다 — HTML이라 줄바꿈이 되는데 24자에서 끊으면
+                              // '나오다가 마는' 글이 된다(실사용 보고). keep-all로 어절 단위 줄바꿈.
+                              return <div key={i} style={{ fontSize: 10, color: t.sub, lineHeight: 1.5, wordBreak: "keep-all" }}>· <b style={{ color: t.tx }}>{KIND_LABEL[e.kind]}{e.kind !== "related" ? `(${e.label})` : ""}</b> — {other ? other.title : ""}</div>;
                             })}
                             {selEdges.length > 5 && <div style={{ fontSize: 9.5, color: t.sub }}>+ 연결 {selEdges.length - 5}개 더</div>}
                           </div>
@@ -3527,8 +3586,9 @@ function AppContent() {
           if (group === "custom") {
             // 사용자 선택 순서 그대로 — 정렬하지 않는다(순서가 곧 편집 의도). 겹침은
             // spec 순서 greedy 소진으로 배타화(computeCustomAxes 내부). 워치 용어 축은
-            // 앱의 매칭식(cardMatchesWatch — 별칭·건초더미 규약)을 주입 — 칩 뱃지와 동일식.
-            axes = computeCustomAxes(matched, customSpec, { maxPerAxis: 8, watchMatch: (c, term) => cardMatchesWatch(c, [term]) });
+            // 경계 인식 매칭(cardMatchesProfileTerm) — 빌더 칩 카운트·미리보기와 동일식이어야
+            // 하고(삼자 일치), 짧은 ASCII 별칭(EVE·Xi)의 substring 오매칭을 막는다(Codex #185 R5).
+            axes = computeCustomAxes(matched, customSpec, { maxPerAxis: 8, watchMatch: (c, term) => cardMatchesProfileTerm(c, term) });
           } else if (group === "region") {
             // 6리전 전부 — topK=4는 매달 두 지역을 떨궜다(실측: 2026-06 한국 30장 통째 탈락).
             // 축당 8장으로 총량을 다스린다(6×8≈48장, 서버 출력 상한 5000tok과 페어).

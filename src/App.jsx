@@ -488,6 +488,11 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       setArmDelId(null);
       setWeeklyShownId(null); // 삭제 후엔 최신호 표시
       if (typeof onDeleteBrief === "function") onDeleteBrief(id);
+      // 폴백으로 표시될 호수가 미확인이면 읽음 처리 — '표시된 것은 읽음' 규약(Codex #181).
+      // 고정 열람 중 도착해 일부러 unread로 남겨둔 호수가, 삭제로 자동 표시되는 순간까지
+      // NEW를 달고 있으면 화면과 배지가 어긋난다. 다른 미표시 호수의 NEW는 건드리지 않는다.
+      const next = weeklyBriefs.find((e) => e && e.id !== id);
+      if (next && !next.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(next.id);
       return;
     }
     setArmDelId(id);
@@ -827,7 +832,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                         // 칩으로 호수를 바꾸면 그 호수만 읽음 처리 — 특정 호수 열람이 다른 호수의
                         // NEW를 일부러 남겨두므로(markWeeklyBriefsRead(onlyId)), 실제로 그 호수를
                         // 열어보는 이 경로에서 꺼주지 않으면 NEW가 선반을 접었다 펼 때까지 남는다.
-                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{briefChipLabel(e, new Date().getFullYear())}{e.group === "region" ? "🗺" : e.group === "theme" ? "🏷" : ""}{!e.read ? " ·" : ""}</button>
+                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{briefChipLabel(e, new Date().getFullYear(), !!e.month && weeklyBriefs.filter((x) => x && x.month === e.month).length > 1)}{e.group === "region" ? "🗺" : e.group === "theme" ? "🏷" : ""}{!e.read ? " ·" : ""}</button>
                       ))}
                     </div>
                   </div>
@@ -1435,13 +1440,15 @@ function readWeeklyBriefs() {
 // 혼란 보고). 달력월호는 달이 정체성(재료 불변 — 언제 만들었든 같은 호수)이라 발행일을
 // 아예 빼고, 롤링 주간/월간·커스텀은 발행일이 정체성이라 짧은 날짜(MM.DD)를 뒤에 둔다.
 // 커스텀은 🧩가 곧 라벨이라 칩 접미 아이콘을 따로 붙이지 않는다.
-function briefChipLabel(e, nowYear) {
+function briefChipLabel(e, nowYear, dupMonth = false) {
   const dd = String((e && e.generated_at) || "").slice(5);
   if (e && e.month) {
     const y = Number(e.month.slice(0, 4));
     // 달력월 커스텀(빌더에서 달 칩 선택)은 🧩를 라벨에 포함 — 렌더러의 접미 아이콘이
     // 🗺/🏷만 다루므로 여기서 빼면 커스텀 5월호가 일반 5월호와 똑같아 보인다(Codex #181).
-    return `${Number.isFinite(nowYear) && y !== nowYear ? `${y}년 ` : ""}${Number(e.month.slice(5))}월호${e.group === "custom" ? "🧩" : ""}`;
+    // 같은 달 호수가 선반에 여럿이면(범위·구성·spec이 달라 공존 — 쿨다운 규약상 정당)
+    // 그때만 발행일을 뒤에 복원한다 — 평시엔 깔끔하게, 충돌 시엔 구별 가능하게.
+    return `${Number.isFinite(nowYear) && y !== nowYear ? `${y}년 ` : ""}${Number(e.month.slice(5))}월호${e.group === "custom" ? "🧩" : ""}${dupMonth ? ` ${dd}` : ""}`;
   }
   // 롤링 커스텀도 기간을 표기 — 주간·월간 커스텀이 같은 날 발행되면 🧩 MM.DD만으로는 동일해진다
   if (e && e.group === "custom") return `🧩 ${e.period === "monthly" ? "월간" : "주간"} ${dd}`;

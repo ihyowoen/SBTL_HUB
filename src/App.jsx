@@ -1439,9 +1439,12 @@ function briefChipLabel(e, nowYear) {
   const dd = String((e && e.generated_at) || "").slice(5);
   if (e && e.month) {
     const y = Number(e.month.slice(0, 4));
-    return `${Number.isFinite(nowYear) && y !== nowYear ? `${y}년 ` : ""}${Number(e.month.slice(5))}월호`;
+    // 달력월 커스텀(빌더에서 달 칩 선택)은 🧩를 라벨에 포함 — 렌더러의 접미 아이콘이
+    // 🗺/🏷만 다루므로 여기서 빼면 커스텀 5월호가 일반 5월호와 똑같아 보인다(Codex #181).
+    return `${Number.isFinite(nowYear) && y !== nowYear ? `${y}년 ` : ""}${Number(e.month.slice(5))}월호${e.group === "custom" ? "🧩" : ""}`;
   }
-  if (e && e.group === "custom") return `🧩 ${dd}`;
+  // 롤링 커스텀도 기간을 표기 — 주간·월간 커스텀이 같은 날 발행되면 🧩 MM.DD만으로는 동일해진다
+  if (e && e.group === "custom") return `🧩 ${e.period === "monthly" ? "월간" : "주간"} ${dd}`;
   return `${e && e.period === "monthly" ? "월간" : "주간"} ${dd}`;
 }
 

@@ -446,7 +446,7 @@ function BriefReader({ entry, dark }) {
 
 // '브리핑룸' 탭 — 개인 인텔리전스의 집: 브리프(발행·보관함)와 워치(관리·새 소식)를 총괄.
 // R12: 브리프 선반이 NEWS에서 여기로 이사 — 발행 버튼과 결과물이 같은 방에 산다.
-function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed, weeklyGenerating = false, weeklyError = null, onWeeklyBriefsRead = null, briefSeed = null, onBriefSeedConsumed = null, onAdoptLibraryEntry = null }) {
+function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed, weeklyGenerating = false, weeklyError = null, onWeeklyBriefsRead = null, briefSeed = null, onBriefSeedConsumed = null, onAdoptLibraryEntry = null, onDeleteBrief = null }) {
   const t = T(dark);
   // 추가/삭제가 executeAppCommand(명령 버스)로 localStorage를 바꾸므로,
   // 버전 신호(watchSeenVersion)로 재읽기해 화면에 즉시 반영한다.
@@ -477,6 +477,29 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   const [weeklyOpen, setWeeklyOpen] = useState(true); // 브리핑룸의 중심 콘텐츠 — 기본 펼침
   const [weeklyShownId, setWeeklyShownId] = useState(null); // 보관함에서 선택된 항목 (null=최신)
   const [copiedWeekly, setCopiedWeekly] = useState(false);
+  // 호수 삭제 2탭 확인(R15b) — confirm() 다이얼로그 없이 같은 행 안에서 무장→확정.
+  // 무장 상태는 2.5초 뒤 자동 해제(다른 호수로 전환·오탭 보호). 대상 id를 저장해
+  // 무장 중 칩으로 호수를 바꾸면 확정이 다른 호수를 지우지 않게 한다.
+  const [armDelId, setArmDelId] = useState(null);
+  const armDelTimer = useRef(null);
+  const tapDelete = (id) => {
+    if (armDelId === id) {
+      if (armDelTimer.current) clearTimeout(armDelTimer.current);
+      setArmDelId(null);
+      setWeeklyShownId(null); // 삭제 후엔 최신호 표시
+      if (typeof onDeleteBrief === "function") onDeleteBrief(id);
+      // 폴백으로 표시될 호수가 미확인이면 읽음 처리 — '표시된 것은 읽음' 규약(Codex #181).
+      // 고정 열람 중 도착해 일부러 unread로 남겨둔 호수가, 삭제로 자동 표시되는 순간까지
+      // NEW를 달고 있으면 화면과 배지가 어긋난다. 다른 미표시 호수의 NEW는 건드리지 않는다.
+      const next = weeklyBriefs.find((e) => e && e.id !== id);
+      if (next && !next.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(next.id);
+      return;
+    }
+    setArmDelId(id);
+    if (armDelTimer.current) clearTimeout(armDelTimer.current);
+    armDelTimer.current = setTimeout(() => setArmDelId(null), 2500);
+  };
+  useEffect(() => () => { if (armDelTimer.current) clearTimeout(armDelTimer.current); }, []); // 탭 이탈 시 무장 타이머 정리
   const copyWeeklyBrief = (entry) => {
     if (!entry?.narrative) return;
     const text = [
@@ -793,6 +816,13 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                     aria-label="표시 중인 브리프 공유"
                     style={{ padding: "9px 12px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11, fontWeight: 800, cursor: "pointer" }}
                   >↗ 공유</button>
+                  {/* 삭제도 공유와 같은 규약 — '현재 표시 중인 호수'(shown)만. 라이브러리
+                      채택본은 월 칩 ⚡가 언제든 다시 채택하므로 지워도 잃는 게 없다. */}
+                  <button
+                    onClick={() => tapDelete(shown.id)}
+                    aria-label={armDelId === shown.id ? "한 번 더 누르면 이 브리프 삭제" : "표시 중인 브리프 삭제"}
+                    style={{ padding: "9px 12px", borderRadius: 8, border: `1px solid ${armDelId === shown.id ? "#E5534B" : t.brd}`, background: armDelId === shown.id ? "rgba(229,83,75,0.12)" : "transparent", color: armDelId === shown.id ? "#E5534B" : t.sub, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}
+                  >{armDelId === shown.id ? "삭제 확정?" : "🗑"}</button>
                 </div>
                 {weeklyBriefs.length > 1 && (
                   <div style={{ marginTop: 10 }}>
@@ -802,7 +832,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                         // 칩으로 호수를 바꾸면 그 호수만 읽음 처리 — 특정 호수 열람이 다른 호수의
                         // NEW를 일부러 남겨두므로(markWeeklyBriefsRead(onlyId)), 실제로 그 호수를
                         // 열어보는 이 경로에서 꺼주지 않으면 NEW가 선반을 접었다 펼 때까지 남는다.
-                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{e.generated_at}{e.month ? ` ${Number(e.month.slice(5))}월호` : e.period === "monthly" ? " 월간" : ""}{e.group === "region" ? "🗺" : e.group === "theme" ? "🏷" : e.group === "custom" ? "🧩" : ""}{!e.read ? " ·" : ""}</button>
+                        <button key={e.id} onClick={() => { setWeeklyShownId(e.id); if (!e.read && typeof onWeeklyBriefsRead === "function") onWeeklyBriefsRead(e.id); }} style={{ padding: "5px 10px", borderRadius: 999, border: `1px solid ${shown.id === e.id ? "transparent" : t.brd}`, background: shown.id === e.id ? t.cyan : "transparent", color: shown.id === e.id ? "#000" : t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{briefChipLabel(e, new Date().getFullYear(), !!e.month && weeklyBriefs.filter((x) => x && x.month === e.month).length > 1)}{e.group === "region" ? "🗺" : e.group === "theme" ? "🏷" : ""}{!e.read ? " ·" : ""}</button>
                       ))}
                     </div>
                   </div>
@@ -1403,6 +1433,26 @@ function readWeeklyBriefs() {
     const v = JSON.parse(localStorage.getItem(WEEKLY_BRIEF_KEY) || "[]");
     return Array.isArray(v) ? v : [];
   } catch { return []; }
+}
+
+// 선반 호수 칩 라벨 — '내용'이 먼저다. 발행일이 앞서면 라이브러리 채택본(같은 날 일괄
+// 발행)이 전부 같은 날짜로 시작해 구별이 안 되고, "6월호인데 왜 7월?"로 읽힌다(실사용
+// 혼란 보고). 달력월호는 달이 정체성(재료 불변 — 언제 만들었든 같은 호수)이라 발행일을
+// 아예 빼고, 롤링 주간/월간·커스텀은 발행일이 정체성이라 짧은 날짜(MM.DD)를 뒤에 둔다.
+// 커스텀은 🧩가 곧 라벨이라 칩 접미 아이콘을 따로 붙이지 않는다.
+function briefChipLabel(e, nowYear, dupMonth = false) {
+  const dd = String((e && e.generated_at) || "").slice(5);
+  if (e && e.month) {
+    const y = Number(e.month.slice(0, 4));
+    // 달력월 커스텀(빌더에서 달 칩 선택)은 🧩를 라벨에 포함 — 렌더러의 접미 아이콘이
+    // 🗺/🏷만 다루므로 여기서 빼면 커스텀 5월호가 일반 5월호와 똑같아 보인다(Codex #181).
+    // 같은 달 호수가 선반에 여럿이면(범위·구성·spec이 달라 공존 — 쿨다운 규약상 정당)
+    // 그때만 발행일을 뒤에 복원한다 — 평시엔 깔끔하게, 충돌 시엔 구별 가능하게.
+    return `${Number.isFinite(nowYear) && y !== nowYear ? `${y}년 ` : ""}${Number(e.month.slice(5))}월호${e.group === "custom" ? "🧩" : ""}${dupMonth ? ` ${dd}` : ""}`;
+  }
+  // 롤링 커스텀도 기간을 표기 — 주간·월간 커스텀이 같은 날 발행되면 🧩 MM.DD만으로는 동일해진다
+  if (e && e.group === "custom") return `🧩 ${e.period === "monthly" ? "월간" : "주간"} ${dd}`;
+  return `${e && e.period === "monthly" ? "월간" : "주간"} ${dd}`;
 }
 
 // 패시브 주기 판정은 '일반(plain) 주간' 항목만 본다 — 패시브가 만드는 게 그것뿐이므로.
@@ -3581,6 +3631,18 @@ function AppContent() {
       setWeeklyBriefs(next);
     } catch { /* noop */ }
   }, []);
+  // 호수 삭제(R15b) — 선반 리셋의 정직한 경로(예전엔 devtools localStorage 조작뿐이었다).
+  // 부수효과는 의도된 것: 삭제된 호수는 쿨다운·due 조회에서 자연히 빠지므로 같은 산출물을
+  // 즉시 다시 만들 수 있고(삭제했으면 재발행 가능해야 정직), plain 주간을 지우면 다음
+  // 접속 패시브가 다시 채운다. 라이브러리 채택본도 지워도 되는 이유 — 월 칩이 라이브러리
+  // 폴백(⚡)으로 언제든 다시 채택한다.
+  const deleteWeeklyBrief = useMemo(() => (id) => {
+    try {
+      const next = readWeeklyBriefs().filter((e) => e && e.id !== id);
+      localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
+      setWeeklyBriefs(next);
+    } catch { /* noop */ }
+  }, []);
   // 사전 생성 라이브러리 호수를 보관함에 채택(R13) — 월 칩이 라이브러리에서 열 때 1회 주입.
   // 이미 있으면(id 동일) 중복 주입하지 않고 최신 목록만 반영한다.
   const adoptLibraryEntry = useMemo(() => (entry) => {
@@ -3665,7 +3727,7 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><TodayDashboard dark={dark} kb={kb} tracker={tracker} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onFeedSearch={(q) => executeAppCommand({ type: "feed_filter", search: q })} onAppCommand={executeAppCommand} /></div>}
-        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, feedFilter: null, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} onWeeklyBriefsRead={markWeeklyBriefsRead} briefSeed={briefSeed} onBriefSeedConsumed={markBriefSeedConsumed} onAdoptLibraryEntry={adoptLibraryEntry} /></div>}
+        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, feedFilter: null, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} onWeeklyBriefsRead={markWeeklyBriefsRead} briefSeed={briefSeed} onBriefSeedConsumed={markBriefSeedConsumed} onAdoptLibraryEntry={adoptLibraryEntry} onDeleteBrief={deleteWeeklyBrief} /></div>}
         {tab === "archive" && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>POLICY TRACKER — 정책 일정·규제</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} onConsultationConsumed={markConsultationConsumed} />}

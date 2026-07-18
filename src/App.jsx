@@ -594,23 +594,29 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // 방금 발행 직후 연타로 중복 생성될 수 있다. 막힌 이유는 버튼 아래 정직하게 표시.
   // 워치가 비면 차단 대신 '전체' 범위로 폴백(서버·생성기와 동일). 주간·월간은 재료
   // 창(7/30일)과 쿨다운이 각각 분리 — 주간 발행 직후의 월간 발행은 정당하다.
-  const briefGate = (period, { month = null, group = null, specSig = null } = {}) => {
+  const briefGate = (period, { month = null, group = null, specSig = null, scopeAll = false } = {}) => {
     const days = period === "monthly" ? 30 : 7;
     const inWin = (c) => (month ? cardInMonth(c, month) : cardDateWithinDays(c, days));
-    // 커스텀(R14 빌더)은 항상 전체 창 풀 — 생성기(runWeeklyBrief)가 커스텀에서 워치를
-    // 무시하므로 게이트도 같은 풀로 세야 한다(빌더 칩 뱃지·발행 재료·게이트 삼자 일치).
-    const useWatch = watchTerms.length > 0 && group !== "custom";
+    // 전체 범위 계열(커스텀·scopeAll 재발행)은 항상 전체 창 풀 — 생성기가 워치를 무시하는
+    // 경로이므로 게이트도 같은 풀로 세야 한다(뱃지·발행 재료·게이트 삼자 일치). 워치 기준으로
+    // 세면 워치 사용자의 전체호 재발행이 '재료 부족'으로 부당 차단된다(Codex #184).
+    const fullScope = group === "custom" || scopeAll;
+    const useWatch = watchTerms.length > 0 && !fullScope;
     const material = useWatch
       ? kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && inWin(c)).length
       : kb.cards.filter(inWin).length;
     if (material < 2) return `재료 부족 — ${month ? `${Number(month.slice(5))}월` : `최근 ${days}일`} ${useWatch ? "매칭" : "카드"} ${material}장 (2장 필요)`;
     // 챗 쿨다운(briefAtFor)과 동일 규약 — 기간·범위에 더해 달력월·구성까지 일치하는
     // 최신호로 판정한다(축 월간 직후의 '지역별 월간'·'5월호'는 다른 산출물이라 정당).
-    // 커스텀은 범위(terms_sig, 항상 "[]") 대신 spec_sig로 '같은 조합'만 물린다 —
-    // 워치가 있는 사용자의 briefScopeMatches는 "[]"와 항상 불일치라 쿨다운이 구멍난다.
+    // 범위 비교: 커스텀=spec_sig('같은 조합'), scopeAll=전체 범위 항목(terms_sig "[]"),
+    // 그 외=현재 워치 범위 — 워치 사용자의 briefScopeMatches는 "[]"와 항상 불일치라
+    // 전체 범위 산출물에 그대로 쓰면 쿨다운이 구멍나거나 무관 호수에 물린다.
+    const scopeMatch = (e) => (group === "custom"
+      ? ((e && e.spec_sig) || null) === specSig
+      : scopeAll ? ((e && e.terms_sig) === "[]" || (e && e.terms_sig) == null) : briefScopeMatches(e, watchTerms));
     const latestSame = weeklyBriefs.find((e) => ((e && e.period) || "weekly") === period
       && ((e && e.month) || null) === month && ((e && e.group) || null) === group
-      && (group === "custom" ? ((e && e.spec_sig) || null) === specSig : briefScopeMatches(e, watchTerms)));
+      && scopeMatch(e));
     const ts = Number(String(latestSame?.id || "").replace(/^wb_/, "")) || 0;
     if (ts && Date.now() - ts < 10 * 60000) return "방금 발행했어요 — 10분 뒤에 다시 만들 수 있어요";
     return null;
@@ -799,6 +805,37 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
             )}
             {weeklyOpen && shown && (
               <div style={{ marginTop: 2 }}>
+                {(() => {
+                  // R15d 신선도 고백 — 달력월호는 발행 시점 스냅샷인데, 카드 날짜가 '사건일'
+                  // 기준이라 지난달 소급 편입이 정상 동작이다(예: 7/15 기사 → 6/2 계약 → 6월).
+                  // 그 달 카드 수가 발행 후 변했으면 조용히 낡는 대신 배지로 말하고, 같은
+                  // 면(범위·구성/spec)의 재발행 경로를 바로 연다.
+                  // 비교는 '그 호수의 범위 풀'로만(Codex #184): 전체 범위 호수(라이브러리·
+                  // scopeAll·커스텀, terms_sig "[]")는 전 월 카드, 워치 범위 호수는 현재
+                  // 워치가 발행 당시와 같을 때만 워치 매칭 수로 — 범위가 달라졌으면 비교
+                  // 자체가 무의미하므로 배지를 띄우지 않는다(오발동이 더 나쁘다).
+                  if (!shown.month || !Number.isFinite(shown.source_month_count)) return null;
+                  const fullScopeEntry = shown.terms_sig === "[]" || shown.terms_sig == null;
+                  if (!fullScopeEntry && !briefScopeMatches(shown, watchTerms)) return null;
+                  const nowCount = (fullScopeEntry
+                    ? kb.cards.filter((c) => cardInMonth(c, shown.month))
+                    : kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && cardInMonth(c, shown.month))).length;
+                  const drift = nowCount - shown.source_month_count;
+                  if (!drift) return null;
+                  // 커스텀은 group을 명시해야 사전 seed(executeAppCommand — cmd.group 탑재)가
+                  // 커스텀 spec 매칭 경로를 탄다 — 빼면 seed가 일반 월호로 오매칭돼 보던 호수를
+                  // 거부하고 다른 동월 호수를 열거나 전체 읽음 처리한다(Codex #184 R2).
+                  const extra = shown.group === "custom"
+                    ? { month: shown.month, group: "custom", customSpec: shown.axes_spec }
+                    : { month: shown.month, ...(shown.group ? { group: shown.group } : {}), ...(fullScopeEntry ? { scopeAll: true } : {}) };
+                  const block = weeklyGenerating ? "🔄 만드는 중" : briefGate("monthly", { month: shown.month, group: shown.group || null, specSig: shown.spec_sig || null, scopeAll: fullScopeEntry && shown.group !== "custom" });
+                  return (
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, margin: "6px 0 8px", padding: "8px 10px", borderRadius: 8, border: `1px dashed ${t.cyan}`, fontSize: 10.5, color: t.sub, lineHeight: 1.5, fontFamily: "'JetBrains Mono',monospace" }}>
+                      <span style={{ flex: 1, wordBreak: "keep-all" }}>📈 발행 후 {Number(shown.month.slice(5))}월 기사 {drift > 0 ? `+${drift}건` : `${drift}건`} 변동 — 이 호수는 그 전 스냅샷이에요</span>
+                      <button onClick={() => { if (!block && onBriefNow) onBriefNow("monthly", extra); }} disabled={!!block} title={block || undefined} style={{ padding: "7px 10px", borderRadius: 8, border: `1px solid ${block ? t.brd : t.cyan}`, background: "transparent", color: block ? t.sub : t.cyan, fontSize: 10, fontWeight: 800, cursor: block ? "not-allowed" : "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>새 재료로 재발행</button>
+                    </div>
+                  );
+                })()}
                 {/* R13 브리프 리더 — 섹션 카드·탭 인용·체크리스트·출처 각주 */}
                 <BriefReader entry={shown} dark={dark} />
                 <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
@@ -3397,7 +3434,10 @@ function AppContent() {
       // 커스텀은 항상 '전체' 창 풀 — 축을 직접 고르는 조합에 워치 필터가 겹치면 빌더 칩의
       // 카드 수 뱃지(전체 기준)와 실제 재료가 어긋난다. terms를 비워 전체 규약(R9,
       // terms_sig "[]")을 그대로 태운다 — scopeLabel·시그니처·풀 선택이 특례 없이 동작.
-      const terms = customSpec ? [] : Array.isArray(rawTerms) ? rawTerms : [];
+      // scopeAll(R15d): 라이브러리 호수의 '새 재료로 다시 발행' — 라이브러리는 전체 범위라
+      // 재발행도 전체로 강제해야 같은 산출물의 갱신이 된다(워치 범위로 새면 다른 호수).
+      const scopeAll = !!opts.scopeAll || !!customSpec;
+      const terms = scopeAll ? [] : Array.isArray(rawTerms) ? rawTerms : [];
       const existing = readWeeklyBriefs();
       // 주기 판정은 '같은 범위의 주간호'만 본다 — 기간(월간호가 주간 발행을 막지 않게)에
       // 더해 범위까지 봐야 한다: 온보딩 스킵 → 자동 "주간 전체"(terms_sig "[]") 발행 →
@@ -3532,8 +3572,8 @@ function AppContent() {
           }
           // 요청 비행 중 워치 목록이 바뀌었으면 낡은 목록 기준 브리프를 저장하지 않는다.
           // 패시브는 현재 목록으로 재평가를 예약하고, 강제 발행은 조용히 폐기(사용자가 다시 명령하면 됨).
-          // 커스텀은 스킵 — 풀이 워치와 무관(전체 창 + 사용자 spec)이라 워치 변경이 결과를 낡게 하지 않는다.
-          if (!customSpec) try {
+          // 전체 범위(커스텀·scopeAll)는 스킵 — 풀이 워치와 무관이라 워치 변경이 결과를 낡게 하지 않는다.
+          if (!scopeAll) try {
             const nowTerms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
             if (JSON.stringify(nowTerms) !== termsSigAtRequest) {
               if (!force) { weeklyAttemptRef.current = false; bumpWatchSeen(); }
@@ -3545,7 +3585,14 @@ function AppContent() {
             generated_at: kstToday(),
             scope_label: scopeLabel,
             period, // "weekly" | "monthly" — 쿨다운·표시가 기간별로 분리된다 (구 항목은 없음=주간 취급)
-            ...(month ? { month } : {}), // 달력월호("2026-05") — 롤링 월간 쿨다운·열람에서 별개 취급
+            // 달력월호("2026-05") — 롤링 월간 쿨다운·열람에서 별개 취급. source_month_count는
+            // '이 서사가 본 그 달 재료 수'(R15d) — 카드 날짜가 사건일 기준이라 지난달 소급
+            // 편입이 정상이므로, 앱이 현재 수와 비교해 낡음을 배지로 고백하는 데 쓴다.
+            // 반드시 '자기 범위'의 풀로 센다(워치 범위 월호는 워치 매칭 수, 캡 없이) —
+            // 전 월 카드로 세면 무관 카드 변동에 오발동하고 워치 소재 변동은 놓친다(Codex #184).
+            ...(month ? { month, source_month_count: (terms.length
+              ? kb.cards.filter((c) => cardMatchesWatch(c, terms) && cardInMonth(c, month))
+              : kb.cards.filter((c) => cardInMonth(c, month))).length } : {}),
             ...(group ? { group } : {}), // "region"|"theme"|"custom" — 같은 기간이라도 구성이 다르면 다른 산출물
             // 커스텀 조합의 재현·비교용 — spec_sig가 '같은 조합' 판정의 정본(쿨다운·빌더 게이트).
             // 다른 조합의 커스텀호끼리는 서로 쿨다운을 물리지 않는다.
@@ -3649,8 +3696,8 @@ function AppContent() {
         const preSig = (() => { const n = normalizeCustomSpec(cmd.customSpec); return n ? JSON.stringify(n) : null; })();
         setBriefSeed((s) => ({ open: true, period: cmd.period || null, month: cmd.month || null, group: cmd.group || null, specSig: preSig, id: null, nonce: s.nonce + 1 }));
         setTab("watchroom");
-        // customSpec(R14 빌더)은 그대로 관통 — runWeeklyBrief가 group="custom" 유도·spec 저장까지 담당
-        runWeeklyBrief({ force: true, period: cmd.period, month: cmd.month, group: cmd.group, customSpec: cmd.customSpec });
+        // customSpec(R14 빌더)·scopeAll(R15d 재발행)은 그대로 관통 — runWeeklyBrief가 범위·spec 저장까지 담당
+        runWeeklyBrief({ force: true, period: cmd.period, month: cmd.month, group: cmd.group, customSpec: cmd.customSpec, scopeAll: cmd.scopeAll });
       } else if (cmd.type === "feed_filter") {
         // 피드 필터 명령("중국 카드만 보여줘") — 지역/기간/시그널/내워치/검색어를 seed로
         setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: false, feedFilter: { region: cmd.region || null, range: cmd.range ?? null, signal: cmd.signal || null, watch: !!cmd.watch, search: cmd.search || null }, nonce: s.nonce + 1 }));

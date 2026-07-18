@@ -643,7 +643,11 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     for (const s of builderSpec) if (s.type === "watch") set.add(s.key);
     return [...set];
   }, [watchTerms, builderSpec]);
-  const builderWatchMatch = (c, term) => cardMatchesWatch(c, [term]);
+  // 워치 '축' 매칭은 경계 인식(cardMatchesProfileTerm — ASCII 단어 경계·한글 substring,
+  // R8b 프로필 규약) — 지도가 주입하는 짧은 ASCII 별칭(EVE·Xi)을 substring으로 매칭하면
+  // develop의 eve, flexibility의 xi가 브리프 재료로 섞인다(Codex #185 R5). 워치 배지·피드는
+  // 기존 substring 유지 — 축은 발행 재료의 정밀도가 수치 일치보다 우선(프로필과 같은 절충).
+  const builderWatchMatch = (c, term) => cardMatchesProfileTerm(c, term);
   const builderCounts = useMemo(() => {
     const m = new Map();
     for (const k of REGION_AXIS_KEYS) m.set(`region:${k}`, customAxisCandidates(builderPool, "region", k).length);
@@ -3582,8 +3586,9 @@ function AppContent() {
           if (group === "custom") {
             // 사용자 선택 순서 그대로 — 정렬하지 않는다(순서가 곧 편집 의도). 겹침은
             // spec 순서 greedy 소진으로 배타화(computeCustomAxes 내부). 워치 용어 축은
-            // 앱의 매칭식(cardMatchesWatch — 별칭·건초더미 규약)을 주입 — 칩 뱃지와 동일식.
-            axes = computeCustomAxes(matched, customSpec, { maxPerAxis: 8, watchMatch: (c, term) => cardMatchesWatch(c, [term]) });
+            // 경계 인식 매칭(cardMatchesProfileTerm) — 빌더 칩 카운트·미리보기와 동일식이어야
+            // 하고(삼자 일치), 짧은 ASCII 별칭(EVE·Xi)의 substring 오매칭을 막는다(Codex #185 R5).
+            axes = computeCustomAxes(matched, customSpec, { maxPerAxis: 8, watchMatch: (c, term) => cardMatchesProfileTerm(c, term) });
           } else if (group === "region") {
             // 6리전 전부 — topK=4는 매달 두 지역을 떨궜다(실측: 2026-06 한국 30장 통째 탈락).
             // 축당 8장으로 총량을 다스린다(6×8≈48장, 서버 출력 상한 5000tok과 페어).

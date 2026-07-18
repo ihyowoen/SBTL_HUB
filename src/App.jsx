@@ -701,10 +701,36 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     loadAliasEntities().then((j) => { if (alive) setPinAlias(j || {}); });
     return () => { alive = false; };
   }, [pinView, pinAlias]);
+  // 지도 소스(R17) — ★저장 외에 '내 워치'로도 지도를 그린다. 별표는 능동 습관이라
+  // 대부분 0장에서 시작하는데(콜드스타트), 워치는 온보딩에서 이미 생기므로 워치 매칭
+  // 최근 30일 카드를 가상 핀으로 쓰면 첫날부터 발견→생산 루프가 열린다. 매칭은 워치
+  // 배지·새 소식과 같은 식(cardMatchesWatch) — 지도가 '워치 새 소식'과 같은 집합을 보여야
+  // 직관적이다(축 발행 시점의 정밀 매칭은 빌더 경계 규약이 따로 담당).
+  const [pinSource, setPinSource] = useState(null); // null=auto | "star" | "watch"
+  const effPinSource = pinSource || (pins.length ? "star" : watchTerms.length ? "watch" : "star");
+  const watchPins = useMemo(() => {
+    if (!watchTerms.length) return [];
+    return kb.cards
+      .filter((c) => cardMatchesWatch(c, watchTerms) && cardDateWithinDays(c, 30))
+      .sort((a, b) => String(b.date || b.d || "").localeCompare(String(a.date || a.d || "")))
+      .slice(0, PIN_GRAPH_MAX_NODES)
+      .map((c) => ({ id: getCardId(c), title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || (Array.isArray(c.urls) ? c.urls[0] : "") || "" }));
+  }, [kb.cards, watchTerms]);
+  const boardPins = effPinSource === "watch" ? watchPins : pins;
   const pinLayout = useMemo(() => {
-    if (pinView !== "map" || pinAlias == null || !pins.length) return null;
-    return layoutPinGraph(buildPinGraph(pins, kb.cards, pinAlias), { width: 620 });
-  }, [pinView, pinAlias, pins, kb.cards]);
+    if (pinView !== "map" || pinAlias == null || !boardPins.length) return null;
+    return layoutPinGraph(buildPinGraph(boardPins, kb.cards, pinAlias), { width: 620 });
+  }, [pinView, pinAlias, boardPins, kb.cards]);
+  // 워치 지도에서 ☆ 저장 — 발견한 카드를 고정 컬렉션으로 승격(수집 유입구). NewsDesk의
+  // toggleBookmark와 같은 스키마(sbtl_bookmarks)로 기록해 피드 ☆ 상태와도 일치한다.
+  const starFromMap = (node) => {
+    if (!node || pins.some((p) => p.id === node.id)) return;
+    // pins 0→1이 되면 자동 소스가 star로 넘어가 보던 워치 지도가 통째로 바뀜 — 현재 뷰 고정
+    if (!pinSource) setPinSource("watch");
+    const next = [{ id: node.id, title: node.title, date: node.date, url: node.url || "", savedAt: kstToday() }, ...pins].slice(0, 200);
+    setPins(next);
+    try { localStorage.setItem("sbtl_bookmarks", JSON.stringify(next)); } catch { /* 세션 상태만이라도 반영 */ }
+  };
   const unpin = (id) => {
     const next = pins.filter((p) => p.id !== id);
     setPins(next);
@@ -1017,13 +1043,18 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
         const KIND_LABEL = { related: "편집자 연결", entity: "같은 주체", theme: "같은 주제" };
         return (
           <>
-            {sectionTitle(`📌 핀 보드 (${pins.length})`, pins.length ? "피드에서 ☆로 저장한 카드 — 🧠 지도에서 카드 사이 연결을 봐요" : "피드 카드의 ☆를 누르면 여기 모여요")}
-            {pins.length > 0 && (
+            {sectionTitle(`📌 핀 보드 (${pins.length})`, (pins.length || watchTerms.length)
+              ? "피드에서 ☆로 저장한 카드 — 🧠 지도는 내 워치만으로도 그려져요"
+              : "피드 카드의 ☆를 누르거나 워치를 등록하면 여기 모여요")}
+            {(pins.length > 0 || watchTerms.length > 0) && (
               <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
                 {[["list", "목록"], ["map", "🧠 지도"]].map(([v, label]) => (
                   <button key={v} onClick={() => { setPinView(v); if (v !== "map") setPinSel(null); }} aria-pressed={pinView === v} style={pill(pinView === v)}>{label}</button>
                 ))}
               </div>
+            )}
+            {pinView === "list" && pins.length === 0 && watchTerms.length > 0 && (
+              <div style={{ fontSize: 11, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>저장한 카드가 아직 없어요 — 🧠 지도를 켜면 내 워치 카드로 바로 연결을 볼 수 있어요.</div>
             )}
             {pins.length > 0 && pinView === "list" && (
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -1036,9 +1067,17 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                 {pins.length > 5 && <div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>+ {pins.length - 5}개 더 — 🧠 지도에서 전부(최신 {PIN_GRAPH_MAX_NODES}개) 보여요</div>}
               </div>
             )}
-            {pins.length > 0 && pinView === "map" && (
+            {(pins.length > 0 || watchTerms.length > 0) && pinView === "map" && (
               <div style={{ borderRadius: 12, background: t.card2, border: `1px solid ${t.brd}`, padding: "10px 8px 6px" }}>
-                {!pinLayout ? (
+                {/* 지도 소스(R17) — ★저장 | 👁 내 워치. 전환 시 선택 해제(다른 보드의 노드 id) */}
+                <div style={{ display: "flex", gap: 6, marginBottom: 6, flexWrap: "wrap" }}>
+                  {[["star", `★ 저장 ${pins.length}`], ["watch", `👁 내 워치 ${watchPins.length}`]].map(([v, label]) => (
+                    <button key={v} onClick={() => { setPinSource(v); setPinSel(null); }} aria-pressed={effPinSource === v} style={{ padding: "6px 10px", borderRadius: 999, border: `1px solid ${effPinSource === v ? t.cyan : t.brd}`, background: effPinSource === v ? (dark ? "rgba(88,166,255,0.14)" : "rgba(9,105,218,0.08)") : "transparent", color: effPinSource === v ? t.cyan : t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>
+                  ))}
+                </div>
+                {!boardPins.length ? (
+                  <div style={{ fontSize: 11, color: t.sub, padding: "10px 8px", lineHeight: 1.6, wordBreak: "keep-all" }}>{effPinSource === "watch" ? "최근 30일에 워치 매칭 카드가 없어요 — 워치를 넓히거나 ★ 저장으로 모아보세요." : "저장한 카드가 없어요 — 👁 내 워치로 전환하거나 피드에서 ☆를 눌러보세요."}</div>
+                ) : !pinLayout ? (
                   <div style={{ fontSize: 11, color: t.sub, padding: "14px 8px", fontFamily: "'JetBrains Mono',monospace" }}>🧠 연결 계산 중…</div>
                 ) : (
                   <>
@@ -1164,7 +1203,14 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                         )}
                         <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
                           {selNode.url && <a href={selNode.url} target="_blank" rel="noreferrer" style={{ padding: "7px 11px", borderRadius: 8, border: `1px solid ${t.brd}`, color: t.cyan, fontSize: 10.5, fontWeight: 800, textDecoration: "none", fontFamily: "'JetBrains Mono',monospace" }}>원문 ↗</a>}
-                          <button onClick={() => unpin(selNode.id)} style={{ padding: "7px 11px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>★ 보드에서 빼기</button>
+                          {effPinSource === "star" ? (
+                            <button onClick={() => unpin(selNode.id)} style={{ padding: "7px 11px", borderRadius: 8, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>★ 보드에서 빼기</button>
+                          ) : pins.some((p) => p.id === selNode.id) ? (
+                            <span style={{ padding: "7px 11px", borderRadius: 8, border: `1px solid ${t.brd}`, color: t.sub, fontSize: 10.5, fontWeight: 800, fontFamily: "'JetBrains Mono',monospace" }}>★ 저장됨</span>
+                          ) : (
+                            // 워치 지도의 수집 유입구 — 발견한 카드를 ★ 고정 컬렉션으로 승격
+                            <button onClick={() => starFromMap(selNode)} style={{ padding: "7px 11px", borderRadius: 8, border: `1px solid ${t.cyan}`, background: "transparent", color: t.cyan, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>☆ 저장하기</button>
+                          )}
                         </div>
                       </div>
                     )}

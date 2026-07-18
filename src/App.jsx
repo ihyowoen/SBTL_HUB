@@ -822,8 +822,11 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                     : kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && cardInMonth(c, shown.month))).length;
                   const drift = nowCount - shown.source_month_count;
                   if (!drift) return null;
+                  // 커스텀은 group을 명시해야 사전 seed(executeAppCommand — cmd.group 탑재)가
+                  // 커스텀 spec 매칭 경로를 탄다 — 빼면 seed가 일반 월호로 오매칭돼 보던 호수를
+                  // 거부하고 다른 동월 호수를 열거나 전체 읽음 처리한다(Codex #184 R2).
                   const extra = shown.group === "custom"
-                    ? { month: shown.month, customSpec: shown.axes_spec }
+                    ? { month: shown.month, group: "custom", customSpec: shown.axes_spec }
                     : { month: shown.month, ...(shown.group ? { group: shown.group } : {}), ...(fullScopeEntry ? { scopeAll: true } : {}) };
                   const block = weeklyGenerating ? "🔄 만드는 중" : briefGate("monthly", { month: shown.month, group: shown.group || null, specSig: shown.spec_sig || null, scopeAll: fullScopeEntry && shown.group !== "custom" });
                   return (

@@ -977,12 +977,20 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                                 <g key={`comp-${c.index}`}>
                                   <circle cx={c.cx} cy={c.cy} r={c.r} fill={col} opacity={dark ? 0.07 : 0.06} />
                                   <circle cx={c.cx} cy={c.cy} r={c.r} fill="none" stroke={col} strokeWidth="1" strokeDasharray="2 5" opacity={0.35} />
-                                  {c.label && (
-                                    <g>
-                                      <rect x={c.cx - c.label.length * 4.6 - 9} y={c.cy - c.r - 17} width={c.label.length * 9.2 + 18} height={17} rx={8.5} fill={halo} stroke={col} strokeWidth="1" opacity={0.95} />
-                                      <text x={c.cx} y={c.cy - c.r - 5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={col} fontFamily="'JetBrains Mono',monospace">{c.label}</text>
-                                    </g>
-                                  )}
+                                  {c.label && (() => {
+                                    // 긴 엔티티 라벨(예: Cerberus Capital Management)은 12자 절단 —
+                                    // 캡슐 폭이 성분 상자를 넘어 viewBox 밖으로 잘리거나 이웃과 겹친다
+                                    // (2+노드 성분 최소 폭 ~220px > 절단 캡슐 최대 ~128px라 항상 안전).
+                                    // 전체 라벨은 <title> 툴팁으로 보존한다(Codex #182).
+                                    const disp = c.label.length > 12 ? c.label.slice(0, 11) + "…" : c.label;
+                                    return (
+                                      <g>
+                                        <title>{c.label}</title>
+                                        <rect x={c.cx - disp.length * 4.6 - 9} y={c.cy - c.r - 17} width={disp.length * 9.2 + 18} height={17} rx={8.5} fill={halo} stroke={col} strokeWidth="1" opacity={0.95} />
+                                        <text x={c.cx} y={c.cy - c.r - 5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={col} fontFamily="'JetBrains Mono',monospace">{disp}</text>
+                                      </g>
+                                    );
+                                  })()}
                                 </g>
                               );
                             })}

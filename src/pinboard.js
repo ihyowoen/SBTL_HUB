@@ -126,21 +126,29 @@ export function layoutPinGraph(graph, { width = 640 } = {}) {
       ],
     };
   });
-  // 행 팩킹 — 큰 성분부터, 행 너비 초과 시 다음 행
+  // 행 팩킹 — 큰 성분부터, 행 너비 초과 시 다음 행. 성분 기하(중심·반지름·인덱스)를
+  // 함께 돌려줘 렌더러가 클러스터 배경(blob)·색상 팔레트를 결정적으로 입힐 수 있게 한다.
   const placed = [];
+  const comps = [];
   let x = 0, y = 0, rowH = 0, maxW = 0;
+  let ci = 0;
   for (const b of boxes) {
     if (x > 0 && x + b.w > width) { x = 0; y += rowH; rowH = 0; }
     const cx = x + b.w / 2, cy = y + (b.h - LABEL_H) / 2 + PAD / 2;
+    const compIndex = ci++;
+    let far = 0;
     for (const p of b.place()) {
       const n = byId.get(p.id);
-      placed.push({ ...n, x: cx + p.dx, y: cy + p.dy, r: NODE_R + Math.min(6, (graph.degree.get(p.id) || 0) * 1.2), compLabel: b.comp.label, compSize: b.ids.length, isHub: b.ids.length > 1 && p.dx === 0 && p.dy === 0 });
+      const r = NODE_R + Math.min(6, (graph.degree.get(p.id) || 0) * 1.2);
+      placed.push({ ...n, x: cx + p.dx, y: cy + p.dy, r, compLabel: b.comp.label, compSize: b.ids.length, compIndex, isHub: b.ids.length > 1 && p.dx === 0 && p.dy === 0 });
+      far = Math.max(far, Math.hypot(p.dx, p.dy) + r);
       maxW = Math.max(maxW, cx + p.dx + NODE_R + 30);
     }
+    comps.push({ index: compIndex, label: b.comp.label, size: b.ids.length, cx, cy, r: far + 12 });
     x += b.w; rowH = Math.max(rowH, b.h);
   }
   const height = y + rowH;
   const pos = new Map(placed.map((n) => [n.id, n]));
-  const edges = graph.edges.map((e) => ({ ...e, x1: pos.get(e.a)?.x, y1: pos.get(e.a)?.y, x2: pos.get(e.b)?.x, y2: pos.get(e.b)?.y })).filter((e) => e.x1 != null && e.x2 != null);
-  return { nodes: placed, edges, width: Math.max(width, Math.ceil(maxW)), height: Math.max(height, 120) };
+  const edges = graph.edges.map((e) => ({ ...e, x1: pos.get(e.a)?.x, y1: pos.get(e.a)?.y, x2: pos.get(e.b)?.x, y2: pos.get(e.b)?.y, compIndex: pos.get(e.a)?.compIndex ?? 0 })).filter((e) => e.x1 != null && e.x2 != null);
+  return { nodes: placed, edges, comps, width: Math.max(width, Math.ceil(maxW)), height: Math.max(height, 120) };
 }

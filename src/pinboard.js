@@ -78,7 +78,11 @@ export function buildPinGraph(pins, cards, aliasEntities) {
       return any;
     });
     if (hits.length < 2 || hits.length > Math.max(2, Math.floor(nodes.length * GENERIC_RATIO))) continue;
-    const bestSpelling = [...spellHits.entries()].sort((a, b) => b[1] - a[1] || String(a[0]).localeCompare(String(b[0])))[0]?.[0] || name;
+    // 동률은 '긴 표기' 우선(R6 교훈) — canonical 제목엔 짧은 별칭도 항상 함께 히트해
+    // 동률이 되는데(EVE Energy ⊃ EVE), 사전순으로 짧은 쪽을 고르면 워치 축의 substring
+    // 매칭이 develop의 EVE 같은 오매칭을 끌어온다(Codex #185 R2). 짧은 별칭이 '더 많이'
+    // 히트하면 그 표기가 실제 카드 표기이므로 그대로 선택이 정당하다.
+    const bestSpelling = [...spellHits.entries()].sort((a, b) => b[1] - a[1] || String(b[0]).length - String(a[0]).length || String(a[0]).localeCompare(String(b[0])))[0]?.[0] || name;
     hintCands.push({ kind: "entity", label: name, key: bestSpelling, ids: new Set(hits.map((n) => n.id)) });
     for (let i = 0; i < hits.length; i++) for (let j = i + 1; j < hits.length; j++) addEdge(hits[i].id, hits[j].id, "entity", name);
   }

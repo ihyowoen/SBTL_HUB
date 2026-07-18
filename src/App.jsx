@@ -950,29 +950,69 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                 ) : (
                   <>
                     <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-                      <svg width={pinLayout.width} height={pinLayout.height} viewBox={`0 0 ${pinLayout.width} ${pinLayout.height}`} role="img" aria-label={`핀 보드 지도 — 카드 ${pinLayout.nodes.length}개, 연결 ${pinLayout.edges.length}개`} onClick={() => setPinSel(null)}>
-                        {pinLayout.edges.map((e, i) => {
-                          const hot = pinSel && (e.a === pinSel || e.b === pinSel);
-                          const stroke = e.kind === "related" ? t.cyan : e.kind === "entity" ? (dark ? "#8B99AC" : "#57606A") : t.brd;
-                          return <line key={i} x1={e.x1} y1={e.y1} x2={e.x2} y2={e.y2} stroke={stroke} strokeWidth={hot ? 2.4 : e.kind === "related" ? 1.8 : 1.1} strokeDasharray={e.kind === "theme" ? "3 4" : undefined} opacity={pinSel && !hot ? 0.25 : 0.9} />;
-                        })}
-                        {pinLayout.nodes.map((n) => {
-                          const on = pinSel === n.id;
-                          return (
-                            <g key={n.id} onClick={(ev) => { ev.stopPropagation(); setPinSel(on ? null : n.id); }} style={{ cursor: "pointer" }} aria-label={n.title}>
-                              {n.isHub && n.compLabel && <text x={n.x} y={n.y - n.r - 10} textAnchor="middle" fontSize="9" fontWeight="800" fill={t.cyan} fontFamily="'JetBrains Mono',monospace">{n.compLabel}</text>}
-                              <circle cx={n.x} cy={n.y} r={n.r} fill={on ? t.cyan : (dark ? "#1C2333" : "#fff")} stroke={on ? t.cyan : n.isHub ? t.cyan : t.brd} strokeWidth={n.isHub ? 2 : 1.2} strokeDasharray={n.orphan ? "3 3" : undefined} opacity={pinSel && !on && !selEdges.some((e) => e.a === n.id || e.b === n.id) ? 0.35 : 1} />
-                              <text x={n.x} y={n.y + 3.5} textAnchor="middle" fontSize="10" fontWeight="800" fill={on ? "#000" : t.sub}>{{ t: "T", h: "H", m: "M" }[n.signal] || "·"}</text>
-                              <text x={n.x} y={n.y + n.r + 12} textAnchor="middle" fontSize="9" fill={t.sub} fontFamily="'JetBrains Mono',monospace">{n.title.length > 11 ? n.title.slice(0, 10) + "…" : n.title}</text>
-                            </g>
-                          );
-                        })}
-                      </svg>
+                      {(() => {
+                        // 🧠 지도 도식화(R15c) — 성분별 색·클러스터 blob·곡선 에지·허브 글로우·라벨 헤일로.
+                        // 팔레트는 성분 인덱스로 결정적 배정(같은 보드=같은 색). 1인 성분은 무채색 —
+                        // 고립 노드까지 색을 주면 색이 정보(연결 묶음)가 아니라 장식이 된다.
+                        const PALETTE = ["#58A6FF", "#3FB950", "#D29922", "#BC8CFF", "#F778BA", "#39C5CF"];
+                        const compColor = (ci, size) => (size > 1 ? PALETTE[ci % PALETTE.length] : (dark ? "#8B99AC" : "#57606A"));
+                        const nodeBg = dark ? "#1C2333" : "#fff";
+                        const halo = dark ? "#161B26" : "#fff"; // 라벨 헤일로 = 카드 배경색(글자가 에지 위에서도 읽히게)
+                        const sizeOf = new Map(pinLayout.comps.map((c) => [c.index, c.size]));
+                        // 곡선 에지 — 중점에서 수직 방향으로 살짝 휘어 유기적으로. 휘는 방향은 인덱스
+                        // 짝홀로 교대(결정적), 곡률은 거리에 비례하되 18px 상한.
+                        const edgePath = (e, i) => {
+                          const mx = (e.x1 + e.x2) / 2, my = (e.y1 + e.y2) / 2;
+                          const dx = e.x2 - e.x1, dy = e.y2 - e.y1;
+                          const d = Math.hypot(dx, dy) || 1;
+                          const k = Math.min(18, d * 0.18) * (i % 2 ? 1 : -1);
+                          return `M ${e.x1} ${e.y1} Q ${mx - (dy / d) * k} ${my + (dx / d) * k} ${e.x2} ${e.y2}`;
+                        };
+                        return (
+                          <svg width={pinLayout.width} height={pinLayout.height} viewBox={`0 0 ${pinLayout.width} ${pinLayout.height}`} role="img" aria-label={`핀 보드 지도 — 카드 ${pinLayout.nodes.length}개, 연결 ${pinLayout.edges.length}개`} onClick={() => setPinSel(null)}>
+                            {/* 클러스터 배경 blob + 캡슐 라벨 — '이야기 덩어리'가 한눈에 영역으로 보이게 */}
+                            {pinLayout.comps.filter((c) => c.size > 1).map((c) => {
+                              const col = compColor(c.index, c.size);
+                              return (
+                                <g key={`comp-${c.index}`}>
+                                  <circle cx={c.cx} cy={c.cy} r={c.r} fill={col} opacity={dark ? 0.07 : 0.06} />
+                                  <circle cx={c.cx} cy={c.cy} r={c.r} fill="none" stroke={col} strokeWidth="1" strokeDasharray="2 5" opacity={0.35} />
+                                  {c.label && (
+                                    <g>
+                                      <rect x={c.cx - c.label.length * 4.6 - 9} y={c.cy - c.r - 17} width={c.label.length * 9.2 + 18} height={17} rx={8.5} fill={halo} stroke={col} strokeWidth="1" opacity={0.95} />
+                                      <text x={c.cx} y={c.cy - c.r - 5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={col} fontFamily="'JetBrains Mono',monospace">{c.label}</text>
+                                    </g>
+                                  )}
+                                </g>
+                              );
+                            })}
+                            {pinLayout.edges.map((e, i) => {
+                              const hot = pinSel && (e.a === pinSel || e.b === pinSel);
+                              const col = compColor(e.compIndex, sizeOf.get(e.compIndex) || 2);
+                              return <path key={i} d={edgePath(e, i)} fill="none" stroke={col} strokeWidth={hot ? 2.6 : e.kind === "related" ? 2 : e.kind === "entity" ? 1.3 : 1.1} strokeDasharray={e.kind === "theme" ? "3 4" : undefined} strokeLinecap="round" opacity={pinSel && !hot ? 0.15 : e.kind === "related" ? 0.95 : 0.7} />;
+                            })}
+                            {pinLayout.nodes.map((n) => {
+                              const on = pinSel === n.id;
+                              const col = compColor(n.compIndex, n.compSize);
+                              const dimmed = pinSel && !on && !selEdges.some((e) => e.a === n.id || e.b === n.id);
+                              return (
+                                <g key={n.id} onClick={(ev) => { ev.stopPropagation(); setPinSel(on ? null : n.id); }} style={{ cursor: "pointer" }} aria-label={n.title} opacity={dimmed ? 0.3 : 1}>
+                                  {(n.isHub || on) && <circle cx={n.x} cy={n.y} r={n.r + 5} fill={col} opacity={on ? 0.3 : 0.18} />}
+                                  <circle cx={n.x} cy={n.y} r={n.r} fill={on ? col : nodeBg} stroke={col} strokeWidth={n.isHub ? 2.4 : 1.5} strokeDasharray={n.orphan ? "3 3" : undefined} />
+                                  <text x={n.x} y={n.y + 3.5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={on ? (dark ? "#000" : "#fff") : t.sub}>{{ t: "T", h: "H", m: "M" }[n.signal] || "·"}</text>
+                                  <text x={n.x} y={n.y + n.r + 12} textAnchor="middle" fontSize="9" fontWeight={n.isHub ? 800 : 500} fill={dark ? "#C9D1D9" : "#24292F"} stroke={halo} strokeWidth="3" paintOrder="stroke" fontFamily="'JetBrains Mono',monospace">{n.title.length > 11 ? n.title.slice(0, 10) + "…" : n.title}</text>
+                                </g>
+                              );
+                            })}
+                          </svg>
+                        );
+                      })()}
                     </div>
                     <div style={{ display: "flex", gap: 10, padding: "6px 6px 4px", fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexWrap: "wrap" }}>
-                      <span><span style={{ color: t.cyan }}>━</span> 편집자 연결</span>
-                      <span>─ 같은 주체</span>
-                      <span>┄ 같은 주제</span>
+                      <span>━ 편집자 연결</span>
+                      <span style={{ opacity: 0.75 }}>─ 같은 주체</span>
+                      <span style={{ opacity: 0.75 }}>┄ 같은 주제</span>
+                      <span>● 색 = 연결 묶음</span>
                       <span>◌ 데이터에서 빠진 카드</span>
                     </div>
                     {selNode && (

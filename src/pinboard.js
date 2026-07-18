@@ -137,15 +137,18 @@ export function layoutPinGraph(graph, { width = 640 } = {}) {
       return { comp, ids, w: NODE_R * 2 + PAD * 2 + 44, h: NODE_R * 2 + LABEL_H + PAD * 2, place: () => [{ id: ids[0], dx: 0, dy: 0 }] };
     }
     const ring = ids.slice(1);
-    const ringR = Math.max(56, NODE_R * 2 + (ring.length * (NODE_R * 2 + 26)) / (2 * Math.PI));
-    const size = (ringR + NODE_R + 30) * 2;
+    // 링 반지름·간격은 '라벨 폭'(10자 ≈ 90px)을 감안한다 — 노드 크기만 기준으로 하면
+    // 허브·좌우 노드의 라벨이 같은 높이에서 수평으로 겹쳐 글자가 깨져 보인다(실사용 보고).
+    // 라벨은 방사 방향(labelAng — 링 바깥쪽)으로 배치해 구조적으로 흩어지게 한다.
+    const ringR = Math.max(88, NODE_R * 2 + (ring.length * (NODE_R * 2 + 56)) / (2 * Math.PI));
+    const size = (ringR + NODE_R + 44) * 2;
     return {
       comp, ids, w: size + PAD, h: size + LABEL_H + PAD,
       place: () => [
         { id: ids[0], dx: 0, dy: 0 },
         ...ring.map((id, i) => {
           const ang = (2 * Math.PI * i) / ring.length - Math.PI / 2; // 12시부터 시계방향 — 결정적
-          return { id, dx: Math.cos(ang) * ringR, dy: Math.sin(ang) * ringR };
+          return { id, dx: Math.cos(ang) * ringR, dy: Math.sin(ang) * ringR, labelAng: ang };
         }),
       ],
     };
@@ -164,7 +167,7 @@ export function layoutPinGraph(graph, { width = 640 } = {}) {
     for (const p of b.place()) {
       const n = byId.get(p.id);
       const r = NODE_R + Math.min(6, (graph.degree.get(p.id) || 0) * 1.2);
-      placed.push({ ...n, x: cx + p.dx, y: cy + p.dy, r, compLabel: b.comp.label, compSize: b.ids.length, compIndex, isHub: b.ids.length > 1 && p.dx === 0 && p.dy === 0 });
+      placed.push({ ...n, x: cx + p.dx, y: cy + p.dy, r, compLabel: b.comp.label, compSize: b.ids.length, compIndex, isHub: b.ids.length > 1 && p.dx === 0 && p.dy === 0, labelAng: p.labelAng ?? null });
       far = Math.max(far, Math.hypot(p.dx, p.dy) + r);
       maxW = Math.max(maxW, cx + p.dx + NODE_R + 30);
     }

@@ -1076,7 +1076,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                                     const canBuild = (c.axisHints || []).some((h) => h && h.label);
                                     const disp = (canBuild ? "🧩 " : "") + (c.label.length > 12 ? c.label.slice(0, 11) + "…" : c.label);
                                     return (
-                                      <g onClick={canBuild ? (ev) => { ev.stopPropagation(); sendComponentToBuilder(c); } : undefined} style={canBuild ? { cursor: "pointer" } : undefined} role={canBuild ? "button" : undefined} aria-label={canBuild ? `${c.label} 묶음으로 브리프 만들기` : undefined}>
+                                      <g onClick={canBuild ? (ev) => { ev.stopPropagation(); sendComponentToBuilder(c); } : undefined} onKeyDown={canBuild ? (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ev.stopPropagation(); sendComponentToBuilder(c); } } : undefined} tabIndex={canBuild ? 0 : undefined} style={canBuild ? { cursor: "pointer" } : undefined} role={canBuild ? "button" : undefined} aria-label={canBuild ? `${c.label} 묶음으로 브리프 만들기` : undefined}>
                                         <title>{canBuild ? `${c.label} — 이 묶음으로 브리프 만들기` : `${c.label} — 편집자 연결 묶음이라 축으로 변환할 근거 라벨이 없어요`}</title>
                                         <rect x={c.cx - disp.length * 4.6 - 9} y={c.cy - c.r - 17} width={disp.length * 9.2 + 18} height={17} rx={8.5} fill={halo} stroke={col} strokeWidth="1" opacity={0.95} />
                                         <text x={c.cx} y={c.cy - c.r - 5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={col} fontFamily="'JetBrains Mono',monospace">{disp}</text>
@@ -1100,7 +1100,19 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                                   {(n.isHub || on) && <circle cx={n.x} cy={n.y} r={n.r + 5} fill={col} opacity={on ? 0.3 : 0.18} />}
                                   <circle cx={n.x} cy={n.y} r={n.r} fill={on ? col : nodeBg} stroke={col} strokeWidth={n.isHub ? 2.4 : 1.5} strokeDasharray={n.orphan ? "3 3" : undefined} />
                                   <text x={n.x} y={n.y + 3.5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={on ? (dark ? "#000" : "#fff") : t.sub}>{{ t: "T", h: "H", m: "M" }[n.signal] || "·"}</text>
-                                  <text x={n.x} y={n.y + n.r + 12} textAnchor="middle" fontSize="9" fontWeight={n.isHub ? 800 : 500} fill={dark ? "#C9D1D9" : "#24292F"} stroke={halo} strokeWidth="3" paintOrder="stroke" fontFamily="'JetBrains Mono',monospace">{n.title.length > 11 ? n.title.slice(0, 10) + "…" : n.title}</text>
+                                  {(() => {
+                                    // 라벨은 방사 방향(링 바깥쪽)으로 — 전부 노드 '아래'에 두면 허브와
+                                    // 좌우 이웃의 라벨이 같은 높이에서 겹쳐 글자가 깨져 보인다(실사용 보고).
+                                    const la = n.labelAng;
+                                    const disp = n.title.length > 11 ? n.title.slice(0, 10) + "…" : n.title;
+                                    // 12시 근방(sin<-0.85)은 위로 빼면 성분 캡슐 라벨과 겹친다 — 아래(링 안쪽)로
+                                    if (la == null || Math.sin(la) < -0.85) return <text x={n.x} y={n.y + n.r + 13} textAnchor="middle" fontSize="9" fontWeight={n.isHub ? 800 : 500} fill={dark ? "#C9D1D9" : "#24292F"} stroke={halo} strokeWidth="3" paintOrder="stroke" fontFamily="'JetBrains Mono',monospace">{disp}</text>;
+                                    const cos = Math.cos(la), sin = Math.sin(la);
+                                    const anchor = cos > 0.35 ? "start" : cos < -0.35 ? "end" : "middle";
+                                    const lx = n.x + cos * (n.r + 7);
+                                    const ly = n.y + sin * (n.r + 7) + (anchor === "middle" ? (sin < 0 ? -5 : 11) : 3.5);
+                                    return <text x={lx} y={ly} textAnchor={anchor} fontSize="9" fontWeight="500" fill={dark ? "#C9D1D9" : "#24292F"} stroke={halo} strokeWidth="3" paintOrder="stroke" fontFamily="'JetBrains Mono',monospace">{disp}</text>;
+                                  })()}
                                 </g>
                               );
                             })}

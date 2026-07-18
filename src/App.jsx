@@ -1102,16 +1102,32 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                                   <text x={n.x} y={n.y + 3.5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={on ? (dark ? "#000" : "#fff") : t.sub}>{{ t: "T", h: "H", m: "M" }[n.signal] || "·"}</text>
                                   {(() => {
                                     // 라벨은 방사 방향(링 바깥쪽)으로 — 전부 노드 '아래'에 두면 허브와
-                                    // 좌우 이웃의 라벨이 같은 높이에서 겹쳐 글자가 깨져 보인다(실사용 보고).
+                                    // 좌우 이웃의 라벨이 같은 높이에서 겹쳐 깨져 보인다(실사용 보고).
+                                    // 제목은 2줄(11+10자)까지 — 10자 한 줄은 '나오다가 마는' 수준이라
+                                    // 지도에서 카드를 알아볼 수 없다(실사용 보고). 그래도 넘치면 ….
                                     const la = n.labelAng;
-                                    const disp = n.title.length > 11 ? n.title.slice(0, 10) + "…" : n.title;
+                                    const l1 = n.title.slice(0, 11);
+                                    const l2 = n.title.length > 11 ? n.title.slice(11, 21) + (n.title.length > 21 ? "…" : "") : null;
+                                    const common = { fontSize: "9", fill: dark ? "#C9D1D9" : "#24292F", stroke: halo, strokeWidth: "3", paintOrder: "stroke", fontFamily: "'JetBrains Mono',monospace" };
                                     // 12시 근방(sin<-0.85)은 위로 빼면 성분 캡슐 라벨과 겹친다 — 아래(링 안쪽)로
-                                    if (la == null || Math.sin(la) < -0.85) return <text x={n.x} y={n.y + n.r + 13} textAnchor="middle" fontSize="9" fontWeight={n.isHub ? 800 : 500} fill={dark ? "#C9D1D9" : "#24292F"} stroke={halo} strokeWidth="3" paintOrder="stroke" fontFamily="'JetBrains Mono',monospace">{disp}</text>;
+                                    if (la == null || Math.sin(la) < -0.85) {
+                                      return (
+                                        <text x={n.x} y={n.y + n.r + 13} textAnchor="middle" fontWeight={n.isHub ? 800 : 500} {...common}>
+                                          <tspan x={n.x} dy="0">{l1}</tspan>
+                                          {l2 && <tspan x={n.x} dy="10">{l2}</tspan>}
+                                        </text>
+                                      );
+                                    }
                                     const cos = Math.cos(la), sin = Math.sin(la);
                                     const anchor = cos > 0.35 ? "start" : cos < -0.35 ? "end" : "middle";
                                     const lx = n.x + cos * (n.r + 7);
-                                    const ly = n.y + sin * (n.r + 7) + (anchor === "middle" ? (sin < 0 ? -5 : 11) : 3.5);
-                                    return <text x={lx} y={ly} textAnchor={anchor} fontSize="9" fontWeight="500" fill={dark ? "#C9D1D9" : "#24292F"} stroke={halo} strokeWidth="3" paintOrder="stroke" fontFamily="'JetBrains Mono',monospace">{disp}</text>;
+                                    const ly = n.y + sin * (n.r + 7) + (anchor === "middle" ? (sin < 0 ? (l2 ? -14 : -5) : 11) : (l2 ? -1.5 : 3.5));
+                                    return (
+                                      <text x={lx} y={ly} textAnchor={anchor} fontWeight="500" {...common}>
+                                        <tspan x={lx} dy="0">{l1}</tspan>
+                                        {l2 && <tspan x={lx} dy="10">{l2}</tspan>}
+                                      </text>
+                                    );
                                   })()}
                                 </g>
                               );
@@ -1135,7 +1151,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                           <div style={{ marginTop: 6, display: "flex", flexDirection: "column", gap: 3 }}>
                             {selEdges.slice(0, 5).map((e, i) => {
                               const other = nodeById.get(e.a === pinSel ? e.b : e.a);
-                              return <div key={i} style={{ fontSize: 10, color: t.sub, lineHeight: 1.5 }}>· <b style={{ color: t.tx }}>{KIND_LABEL[e.kind]}{e.kind !== "related" ? `(${e.label})` : ""}</b> — {other ? (other.title.length > 24 ? other.title.slice(0, 23) + "…" : other.title) : ""}</div>;
+                              // 상대 제목은 자르지 않는다 — HTML이라 줄바꿈이 되는데 24자에서 끊으면
+                              // '나오다가 마는' 글이 된다(실사용 보고). keep-all로 어절 단위 줄바꿈.
+                              return <div key={i} style={{ fontSize: 10, color: t.sub, lineHeight: 1.5, wordBreak: "keep-all" }}>· <b style={{ color: t.tx }}>{KIND_LABEL[e.kind]}{e.kind !== "related" ? `(${e.label})` : ""}</b> — {other ? other.title : ""}</div>;
                             })}
                             {selEdges.length > 5 && <div style={{ fontSize: 9.5, color: t.sub }}>+ 연결 {selEdges.length - 5}개 더</div>}
                           </div>

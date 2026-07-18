@@ -128,13 +128,14 @@ export function buildPinGraph(pins, cards, aliasEntities) {
 // 결정적 레이아웃 — 성분별 중심+링, 성분 상자 행 팩킹. width에 맞춰 좌표를 돌려준다.
 export function layoutPinGraph(graph, { width = 640 } = {}) {
   const NODE_R = 15;
-  const LABEL_H = 26; // 노드 아래 라벨 공간
+  const LABEL_H = 36; // 노드 아래 라벨 공간 — 제목 2줄(끊김 최소화)
+  const SIDE = 84;    // 좌우 방사 라벨 폭 여유 — 없으면 9시/3시 라벨이 viewBox 밖으로 잘린다(Codex #185 R4)
   const PAD = 18;
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   const boxes = graph.components.map((comp) => {
     const ids = comp.ids.slice().sort((a, b) => (graph.degree.get(b) || 0) - (graph.degree.get(a) || 0) || String(a).localeCompare(String(b)));
     if (ids.length === 1) {
-      return { comp, ids, w: NODE_R * 2 + PAD * 2 + 44, h: NODE_R * 2 + LABEL_H + PAD * 2, place: () => [{ id: ids[0], dx: 0, dy: 0 }] };
+      return { comp, ids, w: NODE_R * 2 + PAD * 2 + 96, h: NODE_R * 2 + LABEL_H + PAD * 2, place: () => [{ id: ids[0], dx: 0, dy: 0 }] };
     }
     const ring = ids.slice(1);
     // 링 반지름·간격은 '라벨 폭'(10자 ≈ 90px)을 감안한다 — 노드 크기만 기준으로 하면
@@ -143,7 +144,7 @@ export function layoutPinGraph(graph, { width = 640 } = {}) {
     const ringR = Math.max(88, NODE_R * 2 + (ring.length * (NODE_R * 2 + 56)) / (2 * Math.PI));
     const size = (ringR + NODE_R + 44) * 2;
     return {
-      comp, ids, w: size + PAD, h: size + LABEL_H + PAD,
+      comp, ids, w: size + PAD + SIDE * 2, h: size + LABEL_H + PAD,
       place: () => [
         { id: ids[0], dx: 0, dy: 0 },
         ...ring.map((id, i) => {
@@ -169,7 +170,7 @@ export function layoutPinGraph(graph, { width = 640 } = {}) {
       const r = NODE_R + Math.min(6, (graph.degree.get(p.id) || 0) * 1.2);
       placed.push({ ...n, x: cx + p.dx, y: cy + p.dy, r, compLabel: b.comp.label, compSize: b.ids.length, compIndex, isHub: b.ids.length > 1 && p.dx === 0 && p.dy === 0, labelAng: p.labelAng ?? null });
       far = Math.max(far, Math.hypot(p.dx, p.dy) + r);
-      maxW = Math.max(maxW, cx + p.dx + NODE_R + 30);
+      maxW = Math.max(maxW, cx + p.dx + NODE_R + 30 + (b.ids.length > 1 ? SIDE : 40));
     }
     comps.push({ index: compIndex, label: b.comp.label, size: b.ids.length, cx, cy, r: far + 12, axisHints: b.comp.axisHints || [] });
     x += b.w; rowH = Math.max(rowH, b.h);

@@ -373,7 +373,7 @@ function ChatGuide({ dark, runSuggestion }) {
 // 【축】 문단 → 섹션 카드(아이콘+축 이름 헤더), [n] 인용 → 탭 배지(→하단 출처 각주로
 // 점프·하이라이트), 지켜볼 것 → 체크리스트 카드, 출처 카드 → 접이식 각주(원문 링크).
 // 데이터 계약은 불변(entry.narrative/watch/refs) — 표시만 바꾼다.
-function BriefReader({ entry, dark }) {
+function BriefReader({ entry, dark, pinnedIds = null, onStarRef = null }) {
   const t = T(dark);
   const [refsOpen, setRefsOpen] = useState(false);
   const [citeFocus, setCiteFocus] = useState(null);
@@ -434,6 +434,11 @@ function BriefReader({ entry, dark }) {
                   {r.url
                     ? <a href={r.url} target="_blank" rel="noreferrer" style={{ flex: 1, fontSize: 11, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all", textDecorationColor: t.brd }}>{r.title} <span style={{ color: t.sub, fontSize: 9.5, fontFamily: "'JetBrains Mono',monospace" }}>({r.date})</span></a>
                     : <span style={{ flex: 1, fontSize: 11, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all" }}>{r.title} <span style={{ color: t.sub, fontSize: 9.5, fontFamily: "'JetBrains Mono',monospace" }}>({r.date})</span></span>}
+                  {/* 각주 ☆(R17b) — 읽다가 발견한 근거 카드를 핀 보드로 승격. id 있는 카드 근거만
+                      (웹 보강 출처·구버전 호수의 refs엔 id가 없어 조용히 미표시) */}
+                  {r.id && onStarRef && (pinnedIds && pinnedIds.has(r.id)
+                    ? <span title="핀 보드에 저장됨" aria-label={`[${r.n}] 저장됨`} style={{ flexShrink: 0, fontSize: 12, color: t.cyan, lineHeight: 1 }}>★</span>
+                    : <button onClick={() => onStarRef(r)} title="핀 보드에 저장" aria-label={`[${r.n}] 카드를 핀 보드에 저장`} style={{ flexShrink: 0, border: "none", background: "transparent", padding: "0 2px", fontSize: 13, color: t.sub, cursor: "pointer", lineHeight: 1 }}>☆</button>)}
                 </div>
               ))}
             </div>
@@ -723,14 +728,20 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   }, [pinView, pinAlias, boardPins, kb.cards]);
   // 워치 지도에서 ☆ 저장 — 발견한 카드를 고정 컬렉션으로 승격(수집 유입구). NewsDesk의
   // toggleBookmark와 같은 스키마(sbtl_bookmarks)로 기록해 피드 ☆ 상태와도 일치한다.
+  const savePin = (item) => {
+    if (!item || !item.id || pins.some((p) => p.id === item.id)) return;
+    const next = [{ id: item.id, title: item.title || "", date: item.date || "", url: item.url || "", savedAt: kstToday() }, ...pins].slice(0, 200);
+    setPins(next);
+    try { localStorage.setItem("sbtl_bookmarks", JSON.stringify(next)); } catch { /* 세션 상태만이라도 반영 */ }
+  };
   const starFromMap = (node) => {
     if (!node || pins.some((p) => p.id === node.id)) return;
     // pins 0→1이 되면 자동 소스가 star로 넘어가 보던 워치 지도가 통째로 바뀜 — 현재 뷰 고정
     if (!pinSource) setPinSource("watch");
-    const next = [{ id: node.id, title: node.title, date: node.date, url: node.url || "", savedAt: kstToday() }, ...pins].slice(0, 200);
-    setPins(next);
-    try { localStorage.setItem("sbtl_bookmarks", JSON.stringify(next)); } catch { /* 세션 상태만이라도 반영 */ }
+    savePin(node);
   };
+  // 브리프 각주 ☆(R17b)의 저장 대상 판별 — 피드 ☆·지도 저장과 같은 컬렉션(sbtl_bookmarks)
+  const pinnedIds = useMemo(() => new Set(pins.map((p) => p.id)), [pins]);
   const unpin = (id) => {
     const next = pins.filter((p) => p.id !== id);
     setPins(next);
@@ -889,7 +900,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                   );
                 })()}
                 {/* R13 브리프 리더 — 섹션 카드·탭 인용·체크리스트·출처 각주 */}
-                <BriefReader entry={shown} dark={dark} />
+                <BriefReader entry={shown} dark={dark} pinnedIds={pinnedIds} onStarRef={savePin} />
                 <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
                   <button onClick={() => copyWeeklyBrief(shown)} style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: `1px solid ${copiedWeekly ? "transparent" : t.brd}`, background: copiedWeekly ? t.cyan : "transparent", color: copiedWeekly ? "#000" : t.cyan, fontSize: 11, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{copiedWeekly ? "복사됨 ✓" : "브리프 복사 (출처 각주 포함)"}</button>
                   {/* 공유는 '현재 표시 중인 호수'(shown) — 예전엔 발행 버튼 행에서 latest를 공유해,
@@ -3709,7 +3720,8 @@ function AppContent() {
             terms_sig: JSON.stringify(terms),
             narrative: j.narrative,
             watch: Array.isArray(j.watch) ? j.watch : [],
-            refs: briefCards.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })), // 서버 전역 [n]과 동일 순서 (축 모드는 축 연결 순)
+            // id는 각주 ☆ 저장(핀 보드 승격)의 열쇠 — getCardId 정본 체인이라 핀 보드가 같은 카드로 역매칭된다(R17b)
+            refs: briefCards.map((c, i) => ({ n: i + 1, id: getCardId(c), title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })), // 서버 전역 [n]과 동일 순서 (축 모드는 축 연결 순)
             read: false,
           };
           const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)

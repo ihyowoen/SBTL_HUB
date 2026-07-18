@@ -86,16 +86,25 @@ export function buildPinGraph(pins, cards, aliasEntities) {
   }
   const degree = new Map(nodes.map((n) => [n.id, 0]));
   for (const e of edges.values()) { degree.set(e.a, (degree.get(e.a) || 0) + 1); degree.set(e.b, (degree.get(e.b) || 0) + 1); }
-  // 성분 라벨 — 성분 내부 에지에서 최다 등장 라벨(엔티티·테마), 없으면 '연결 묶음'
+  // 성분 라벨 + 축 힌트(R16) — 성분 내부 에지의 연결 근거(엔티티·테마 라벨)를 에지 수
+  // 내림차순으로 모은다. 이 힌트가 '이 묶음으로 브리프 만들기'의 빌더 spec 재료가 된다:
+  // entity → 워치 축(cardMatchesWatch가 별칭까지 커버, R14의 임의 용어 워치 축 재사용),
+  // theme → 주제 축. related 에지는 근거 라벨이 없어 힌트에 못 들어간다 — related만으로
+  // 묶인 성분(힌트 0)은 축으로 변환 불가가 정직한 결론이다.
   const components = [...compOf.values()].map((ids) => {
     const set = new Set(ids);
-    const cnt = new Map();
+    const cnt = new Map(); // "kind|label" → 에지 수
     for (const e of edges.values()) {
       if (!set.has(e.a) || e.kind === "related") continue;
-      cnt.set(e.label, (cnt.get(e.label) || 0) + 1);
+      const k = `${e.kind}|${e.label}`;
+      cnt.set(k, (cnt.get(k) || 0) + 1);
     }
-    const top = [...cnt.entries()].sort((x, y) => y[1] - x[1])[0];
-    return { ids, label: ids.length > 1 ? (top ? top[0] : "연결 묶음") : null };
+    const axisHints = [...cnt.entries()]
+      .sort((x, y) => y[1] - x[1] || String(x[0]).localeCompare(String(y[0])))
+      .slice(0, 4)
+      .map(([k, n]) => { const [kind, label] = k.split("|"); return { kind, label, n }; });
+    const top = axisHints[0];
+    return { ids, label: ids.length > 1 ? (top ? top.label : "연결 묶음") : null, axisHints };
   }).sort((a, b) => b.ids.length - a.ids.length);
 
   return { nodes, edges: [...edges.values()], components, degree };
@@ -144,7 +153,7 @@ export function layoutPinGraph(graph, { width = 640 } = {}) {
       far = Math.max(far, Math.hypot(p.dx, p.dy) + r);
       maxW = Math.max(maxW, cx + p.dx + NODE_R + 30);
     }
-    comps.push({ index: compIndex, label: b.comp.label, size: b.ids.length, cx, cy, r: far + 12 });
+    comps.push({ index: compIndex, label: b.comp.label, size: b.ids.length, cx, cy, r: far + 12, axisHints: b.comp.axisHints || [] });
     x += b.w; rowH = Math.max(rowH, b.h);
   }
   const height = y + rowH;

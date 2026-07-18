@@ -707,6 +707,26 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     try { localStorage.setItem("sbtl_bookmarks", JSON.stringify(next)); } catch { /* 세션 상태만이라도 반영 */ }
     setPinSel(null);
   };
+  // 🧩 성분→빌더(R16) — 지도에서 발견한 '이야기 덩어리'를 한 탭으로 브리프 재료로.
+  // 성분의 연결 근거(axisHints)를 빌더 spec으로 매핑한다: entity→워치 축(별칭 매칭 재사용,
+  // 워치 미등록 용어도 R14 규약상 칩으로 표시·발행됨), theme→주제 축. 기간은 성분 카드가
+  // 가장 많이 속한 달(월 칩에 있는 달이면)을 자동 제안 — 사용자는 칩·카드 수를 보고 발행만.
+  const builderPanelRef = useRef(null);
+  const sendComponentToBuilder = (comp) => {
+    const hints = (comp.axisHints || []).filter((h) => h && h.label);
+    if (!hints.length) return; // related만으로 묶인 성분 — 축 근거 없음(캡슐이 비활성 안내)
+    const spec = hints.slice(0, 6).map((h) => ({ type: h.kind === "entity" ? "watch" : "theme", key: h.label }));
+    // 성분 카드의 다수 달 — 월 칩 목록에 있으면 그 달로, 아니면 롤링 월간
+    const memberDates = pinLayout ? pinLayout.nodes.filter((n) => n.compIndex === comp.index).map((n) => String(n.date || "").slice(0, 7)) : [];
+    const cnt = new Map();
+    for (const m of memberDates) if (/^\d{4}-\d{2}$/.test(m)) cnt.set(m, (cnt.get(m) || 0) + 1);
+    const topMonth = [...cnt.entries()].sort((a, b) => b[1] - a[1] || String(b[0]).localeCompare(String(a[0])))[0]?.[0];
+    setBuilderSpec(spec);
+    setBuilderPeriod(topMonth && briefMonths.includes(topMonth) ? topMonth : "monthly");
+    setBuilderOpen(true);
+    // 패널이 이제 막 열리는 리렌더 뒤에 스크롤 — ref는 다음 프레임에 붙는다
+    setTimeout(() => { try { builderPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);
+  };
   // 사전 생성 라이브러리(R13) — 월 칩의 1·2순위 소스: 보관함 → 라이브러리 → 온디맨드 생성
   const [library, setLibrary] = useState(null);
   useEffect(() => { let alive = true; loadBriefLibrary().then((j) => { if (alive) setLibrary(j); }); return () => { alive = false; }; }, []);
@@ -933,7 +953,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
           );
         };
         return (
-          <div style={{ marginTop: 8, borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px solid ${t.brd}` }}>
+          <div ref={builderPanelRef} style={{ marginTop: 8, borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px solid ${t.brd}`, scrollMarginTop: 12 }}>
             <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>🧩 브리프 빌더</div>
             <div style={{ fontSize: 10.5, color: t.sub, marginTop: 3, lineHeight: 1.5, wordBreak: "keep-all" }}>내 워치(🏢)·지역·주제 축을 고른 순서대로 엮어 나만의 브리프를 만들어요 — 숫자는 그 기간 카드 수(축당 최대 8장 수록), 최대 6축</div>
             <div style={{ display: "flex", gap: 6, marginTop: 9, flexWrap: "wrap" }}>
@@ -1049,10 +1069,13 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                                     // 캡슐 폭이 성분 상자를 넘어 viewBox 밖으로 잘리거나 이웃과 겹친다
                                     // (2+노드 성분 최소 폭 ~220px > 절단 캡슐 최대 ~128px라 항상 안전).
                                     // 전체 라벨은 <title> 툴팁으로 보존한다(Codex #182).
-                                    const disp = c.label.length > 12 ? c.label.slice(0, 11) + "…" : c.label;
+                                    // R16: 축 근거(axisHints)가 있는 캡슐은 탭→빌더로 보낸다 — 🧩 접두가
+                                    // 어포던스. related만으로 묶인 성분은 근거 라벨이 없어 비활성(툴팁 안내).
+                                    const canBuild = (c.axisHints || []).some((h) => h && h.label);
+                                    const disp = (canBuild ? "🧩 " : "") + (c.label.length > 12 ? c.label.slice(0, 11) + "…" : c.label);
                                     return (
-                                      <g>
-                                        <title>{c.label}</title>
+                                      <g onClick={canBuild ? (ev) => { ev.stopPropagation(); sendComponentToBuilder(c); } : undefined} style={canBuild ? { cursor: "pointer" } : undefined} role={canBuild ? "button" : undefined} aria-label={canBuild ? `${c.label} 묶음으로 브리프 만들기` : undefined}>
+                                        <title>{canBuild ? `${c.label} — 이 묶음으로 브리프 만들기` : `${c.label} — 편집자 연결 묶음이라 축으로 변환할 근거 라벨이 없어요`}</title>
                                         <rect x={c.cx - disp.length * 4.6 - 9} y={c.cy - c.r - 17} width={disp.length * 9.2 + 18} height={17} rx={8.5} fill={halo} stroke={col} strokeWidth="1" opacity={0.95} />
                                         <text x={c.cx} y={c.cy - c.r - 5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={col} fontFamily="'JetBrains Mono',monospace">{disp}</text>
                                       </g>

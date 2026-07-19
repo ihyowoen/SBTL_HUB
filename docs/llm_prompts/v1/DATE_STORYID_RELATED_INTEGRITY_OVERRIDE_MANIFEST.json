@@ -29,13 +29,33 @@
     "story_id_lineage_check": {
       "detection_command": "python validation_scripts/story_id_lineage_check.py RUN_JSON BASELINE_CARDS_JSON",
       "quarantine_verification_command": "python validation_scripts/story_id_lineage_check.py RUN_JSON BASELINE_CARDS_JSON --stage-a-results STAGE_A_RESULTS_JSON",
+      "accepted_input_containers": [
+        "stories[]",
+        "decision_ledger[]",
+        "strict_passed_spec[]",
+        "candidate_review_pool[]",
+        "watchlist_context_pool[]",
+        "existing_reinforcement[]",
+        "support_source_only[]",
+        "rejected[]"
+      ],
+      "accepted_url_fields": [
+        "primary_url",
+        "url",
+        "source_urls[]",
+        "urls[]",
+        "fact_sources[].source_url",
+        "fact_sources[].url"
+      ],
+      "canonical_url_policy": "remove known tracking parameters and sort remaining query-parameter key/value pairs before lookup",
+      "grouped_spec_pairing_policy": "When source_story_ids[] and source_urls[] or urls[] have equal length, pair by array position; do not assign every grouped URL to every story ID.",
       "pass_statuses": [
         "PASS_NO_COLLISIONS",
         "PASS_COLLISIONS_QUARANTINED"
       ],
       "blocking_status": "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED",
       "blocking_exit_code": 2,
-      "rule": "A detected cross-run story-ID collision cannot pass unless the Stage A artifact proves the story ID was not trusted or used for duplicate routing."
+      "rule": "A detected cross-run story-ID collision cannot pass unless the Stage A artifact proves the story ID was not trusted or used for duplicate routing. Exact or canonical URL identity must be evaluated across every accepted Stage A URL field before collision classification."
     }
   },
   "required_package_manifests": [

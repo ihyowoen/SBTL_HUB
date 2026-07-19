@@ -3307,7 +3307,11 @@ function NewsExplode({ startCard, kb, dark, onClose, isBookmarked, onToggleBookm
           )}
           <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
             {onToggleBookmark && <button onClick={() => onToggleBookmark(center)} aria-pressed={bm} style={{ padding: "8px 12px", borderRadius: 8, border: `1px solid ${bm ? "transparent" : t.brd}`, background: bm ? t.cyan : "transparent", color: bm ? "#000" : t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{bm ? "★ 저장됨" : "☆ 저장"}</button>}
-            {(center.url || center.primaryUrl) && <a href={center.url || center.primaryUrl} target="_blank" rel="noreferrer" style={{ padding: "8px 12px", borderRadius: 8, border: `1px solid ${t.brd}`, color: t.cyan, fontSize: 10.5, fontWeight: 800, textDecoration: "none", fontFamily: "'JetBrains Mono',monospace" }}>원문 ↗</a>}
+            {(() => {
+              // 원문 링크 정본 체인(R13b 규약, Codex #198 R2) — 실카드는 urls[] 배열이 원본
+              const src = center.primaryUrl || center.primary_url || (Array.isArray(center.urls) ? center.urls[0] : "") || center.url || "";
+              return src ? <a href={src} target="_blank" rel="noreferrer" style={{ padding: "8px 12px", borderRadius: 8, border: `1px solid ${t.brd}`, color: t.cyan, fontSize: 10.5, fontWeight: 800, textDecoration: "none", fontFamily: "'JetBrains Mono',monospace" }}>원문 ↗</a> : null;
+            })()}
           </div>
         </div>
       </div>

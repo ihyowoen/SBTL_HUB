@@ -12,6 +12,10 @@ import { getCardId } from "./story/normalizeCard.js";
 import { hitBoundary } from "./briefAxes.js";
 
 const SIG_W = { t: 2, h: 1 };
+// 시그널 가중치 — 축약형(s: "t")과 원본 스키마(signal: "top") 모두 첫 글자로 정규화
+// (App sigOrder와 같은 규약, Codex #198 R2 — 전체 단어에서 전부 0이 되면 같은 주체
+// 다리가 날짜로만 잘려 옛 TOP이 새 MID에 밀린다).
+const sigWeight = (c) => SIG_W[String((c && (c.s || c.signal)) || "").toLowerCase()[0]] || 0;
 
 // '같은 주체' 자격이 있는 별칭 타입 — 기업·기관·인물 계열만(R8b 엔티티 링크 화이트리스트
 // 규약, Codex #198). 지명(place)·기술 용어(tech_term)·정책 용어(policy_term)는 주체가
@@ -69,7 +73,7 @@ export function pickNeighbors(centerCard, cards, aliasMap, { cap = 14 } = {}) {
         const tt = String(c.T || c.title || "").toLowerCase();
         return groups.some((sp) => sp.some((s) => hitBoundary(s, tt)));
       })
-      .sort((a, b) => (SIG_W[a.s] || 0) < (SIG_W[b.s] || 0) ? 1 : (SIG_W[a.s] || 0) > (SIG_W[b.s] || 0) ? -1 : byDateDesc(a, b))
+      .sort((a, b) => sigWeight(b) - sigWeight(a) || byDateDesc(a, b))
       .forEach((c) => push(c, "같은 주체"));
   }
   return out;

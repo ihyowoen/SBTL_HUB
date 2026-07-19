@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
 import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections, hitBoundary } from "./briefAxes";
 import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
-import { pickNeighbors, explodePins } from "./explode";
+import { pickNeighbors, explodePins, ensureCenterEdges } from "./explode";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
@@ -3200,7 +3200,7 @@ function NewsExplode({ startCard, kb, dark, onClose, isBookmarked, onToggleBookm
   const center = byId.get(centerId) || startCard;
   const neighbors = useMemo(() => (alias ? pickNeighbors(center, kb.cards, alias, { cap: 14 }) : []), [center, kb.cards, alias]);
   const whyById = useMemo(() => new Map(neighbors.map((n) => [n.id, n.why])), [neighbors]);
-  const lay = useMemo(() => (alias ? layoutPinGraph(buildPinGraph(explodePins(center, neighbors), kb.cards, alias), { width: 620 }) : null), [center, neighbors, kb.cards, alias]);
+  const lay = useMemo(() => (alias ? layoutPinGraph(buildPinGraph(explodePins(center, neighbors), kb.cards, alias, { ensureEdges: ensureCenterEdges(getCardId(center), neighbors) }), { width: 620 }) : null), [center, neighbors, kb.cards, alias]);
   const recenter = (id) => {
     if (!id || id === centerId || !byId.has(id)) return;
     setTrail((tr) => [...tr, { id: centerId, title: String(center.T || center.title || "") }].slice(-8));

@@ -27,7 +27,7 @@ const GENERIC_RATIO = 0.6;
 // pins(sbtl_bookmarks 항목)를 kb.cards로 역매칭해 그래프를 만든다.
 // 카드가 데이터 갱신으로 사라진 핀은 북마크의 title/date로 '고아 노드'가 된다
 // (저장 자산은 데이터 교체보다 오래 산다 — 조용히 빼면 사용자의 수집이 증발).
-export function buildPinGraph(pins, cards, aliasEntities) {
+export function buildPinGraph(pins, cards, aliasEntities, opts = {}) {
   const byId = new Map((cards || []).map((c) => [getCardId(c), c]));
   const nodes = (Array.isArray(pins) ? pins : []).slice(0, PIN_GRAPH_MAX_NODES).map((p) => {
     const card = byId.get(p.id) || null;
@@ -57,6 +57,14 @@ export function buildPinGraph(pins, cards, aliasEntities) {
     for (const r of (Array.isArray(n.card.related) ? n.card.related : [])) {
       if (inBoard.has(r)) addEdge(n.id, r, "related", "편집자 연결");
     }
+  }
+  // ①.5 보장 에지(R22 분해 뷰) — 호출부가 '이미 확정한 관계'를 에지로 보장한다.
+  // 분해 뷰는 이웃을 '같은 주체'로 선별하는데, 그 주체가 핀 60%+에 등장하면 아래
+  // 범용 억제가 선별 이유 자체를 지워 몸통이 고아처럼 보인다(Codex #198 R4 — 실카드
+  // 다리 14개·중심 에지 0). related 뒤에 넣어 실제 편집자 연결이 우선하고, 성분·차수
+  // 계산 전이라 허브·클러스터에도 반영된다. 핀 보드는 opts 미사용 — 동작 불변.
+  for (const fe of (Array.isArray(opts.ensureEdges) ? opts.ensureEdges : [])) {
+    if (fe && inBoard.has(fe.a) && inBoard.has(fe.b)) addEdge(fe.a, fe.b, fe.kind || "entity", fe.label || "같은 주체");
   }
   // 축 힌트 후보(R16) — 에지 dedupe(쌍당 강한 kind 하나)와 '무관하게' 그룹 멤버십을 따로
   // 기록한다: related가 같은 쌍의 entity/theme 에지를 삼켜도 힌트는 살아야 하고(Codex #185),

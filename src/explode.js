@@ -82,6 +82,18 @@ export function pickNeighbors(centerCard, cards, aliasMap, { cap = 14 } = {}) {
   return out;
 }
 
+// 보장 에지(Codex #198 R4) — 선별이 확정한 중심↔다리 관계를 buildPinGraph에 전달할
+// 형태로. 같은 주체 다리는 entity, 편집자 연결 계열(연관·후속·앞선)은 related로 —
+// 범용 엔티티 억제(핀 60%+)가 선별 이유를 지워 몸통이 고아로 보이는 것을 막는다.
+export function ensureCenterEdges(centerId, neighbors) {
+  return (Array.isArray(neighbors) ? neighbors : []).map((n) => ({
+    a: centerId,
+    b: n.id,
+    kind: String(n.why || "").includes("주체") ? "entity" : "related",
+    label: String(n.why || "").includes("주체") ? "같은 주체" : "편집자 연결",
+  }));
+}
+
 // 지도 입력(핀 배열) — 중심을 맨 앞에, pinboard 핀 스키마({id,title,date,url})로
 export function explodePins(centerCard, neighbors) {
   const toPin = (c) => ({

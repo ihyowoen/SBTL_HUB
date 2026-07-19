@@ -4,7 +4,7 @@ import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
-import { composeKangBriefing } from "./kang";
+import { composeKangBriefing, pickStaleBrief } from "./kang";
 import {
   createConsultation,
   appendMessage,
@@ -183,13 +183,8 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     }
     const unreadEntry = weeklyBriefs.find((e) => e && !e.read);
     const unreadBrief = unreadEntry ? { id: unreadEntry.id || null, label: briefChipLabel(unreadEntry, new Date().getFullYear(), false), period: unreadEntry.period || null, month: unreadEntry.month || null, group: unreadEntry.group || null } : null;
-    let staleBrief = null;
-    for (const e of weeklyBriefs) {
-      if (!e || !e.month || typeof e.source_month_count !== "number" || e.group === "custom") continue;
-      if (!(e.terms_sig === "[]" || e.terms_sig == null)) continue; // 전체 범위 호수만 — 워치 범위는 풀이 달라 오발동(R15d 규약)
-      const drift = kb.cards.filter((c) => String(c.d || c.date || "").slice(0, 7) === e.month).length - e.source_month_count;
-      if (drift > 0 && (!staleBrief || drift > staleBrief.drift)) staleBrief = { month: e.month, monthNum: Number(e.month.slice(5, 7)), drift, group: e.group || null };
-    }
+    // 같은 면당 최신 호수만 — 재발행 대체본이 있으면 옛 스냅샷으로 조르지 않는다(pickStaleBrief)
+    const staleBrief = pickStaleBrief(weeklyBriefs, (m) => kb.cards.filter((c) => String(c.d || c.date || "").slice(0, 7) === m).length);
     const topC = kb.cards.find((c) => c.s === "t" && cardDateWithinDays(c, 7));
     const gapDays = kangPrev.ts ? Math.max(0, Math.floor((Date.now() - kangPrev.ts) / 86400000)) : null;
     return composeKangBriefing({

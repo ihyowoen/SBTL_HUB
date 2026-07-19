@@ -22,6 +22,27 @@ export function searchFrag(s, n = 24) {
   return String(s || "").split(" — ")[0].trim().slice(0, n).trim();
 }
 
+// 낡은 달력월호 고르기 — 같은 면(month·group·scope)당 '최신 호수만' 판단한다.
+// 재발행으로 대체된 옛 호수까지 보면, 방금 재발행했는데도 옛 스냅샷 기준으로
+// "N건 붙었어"를 계속 조르게 된다(Codex #190 R3). entries는 최신 우선 순서(선반 규약),
+// monthCountOf(month)는 호출부가 주는 현재 풀 계산기(순수성 유지).
+export function pickStaleBrief(entries, monthCountOf) {
+  let best = null;
+  const seenFacets = new Set();
+  for (const e of Array.isArray(entries) ? entries : []) {
+    if (!e || !e.month || e.group === "custom") continue;
+    const scopeKey = e.terms_sig === "[]" || e.terms_sig == null ? "[]" : String(e.terms_sig);
+    const facet = `${e.month}|${e.group || ""}|${scopeKey}`;
+    if (seenFacets.has(facet)) continue; // 같은 면의 더 옛 호수 = 대체됨
+    seenFacets.add(facet);
+    if (typeof e.source_month_count !== "number") continue;
+    if (scopeKey !== "[]") continue; // 전체 범위만 — 워치 범위는 풀이 달라 오발동(R15d 규약)
+    const drift = monthCountOf(e.month) - e.source_month_count;
+    if (drift > 0 && (!best || drift > best.drift)) best = { month: e.month, monthNum: Number(e.month.slice(5, 7)), drift, group: e.group || null };
+  }
+  return best;
+}
+
 // 입력(전부 호출부가 계산해 주입):
 //   gapDays: null=첫 만남(이전 방문 기록 없음) | 0 | 1 | n
 //   cardDelta: 지난 방문 이후 늘어난 카드 수(0이면 언급 안 함)

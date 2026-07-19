@@ -86,7 +86,25 @@ The validator supports both canonical source shapes:
 - `stories[]`
 - `final_news_llm_input.stories[]`
 
-It also reads Stage A ledger and pool containers. When cross-run collisions exist, detection-only mode intentionally exits with code `2` and status:
+It also reads every current Stage A terminal or lineage container:
+
+- `decision_ledger[]`
+- `strict_passed_spec[]`
+- `candidate_review_pool[]`
+- `watchlist_context_pool[]`
+- `existing_reinforcement[]`
+- `support_source_only[]`
+- `rejected[]`
+- `reject_or_support_only_pool[]`
+
+Identity is evaluated for each run record and each baseline card independently. Do not treat a story ID as trusted merely because another record or another baseline card with the same story ID has an exact URL match. The output separates:
+
+- unique collision story IDs: `collision_count`
+- colliding run records: `collision_record_count`
+- unmatched run-record/baseline-card pairs: `collision_pair_count`
+- partially matched records: `partial_identity_match_record_count`
+
+When cross-run collisions exist, detection-only mode intentionally exits with code `2` and status:
 
 ```text
 BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED

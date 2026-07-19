@@ -141,13 +141,7 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flowSig, dailyFlow]);
-  // ---- 관심사 고르기(R18b): 별도 온보딩 카드 폐지 — 강차장 인사 카드가 온보더를 겸한다.
-  // 워치가 비면 인사 안에 칩 그리드가 붙고, 고르면 명령 버스 watch_add 일괄 등록.
-  const [kangPick, setKangPick] = useState([]);
-  const startKangWatch = (picks) => {
-    if (picks.length && typeof onAppCommand === "function") picks.forEach((term) => onAppCommand({ type: "watch_add", term }));
-    setKangPick([]);
-  };
+  // R18c: 관심사 칩은 브리핑룸 워치 관리에 상시 거주 — 인사에는 팁 한 줄이 그리로 안내만 한다.
   // ---- 강차장 브리핑(R18): 접속하면 앱이 먼저 말을 건다 — 재료는 전부 기존 기계 재사용 ----
   // 방문 흔적은 effect에서 기록하고 인사 계산은 마운트 스냅샷(kangPrev) 기준 — 새로고침해도
   // 미확인·미열람 근거가 남아 있는 한 제안은 유지되고, 근거가 사라져야 침묵한다(원칙②).
@@ -190,6 +184,7 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     const gapDays = kangPrev.ts ? Math.max(0, Math.floor((Date.now() - kangPrev.ts) / 86400000)) : null;
     return composeKangBriefing({
       gapDays,
+      dayKey: Math.floor(Date.now() / 86400000), // 팁 로테이션 — 하루 하나, 결정적
       cardDelta: kangPrev.cnt != null && kb.cards.length > kangPrev.cnt ? kb.cards.length - kangPrev.cnt : 0,
       hasWatch: watchTerms.length > 0,
       watchNew: unseen.length,
@@ -297,16 +292,10 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
                   </div>
                 ))}
               </div>
-              {kang.watchSetup && (
-                <div style={{ marginTop: 9 }}>
-                  <div style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.55, wordBreak: "keep-all" }}>뭘 지켜볼지 골라줘 — 고르면 새 카드 배지·매주 📮 브리프·프로필 바로가기가 켜져.</div>
-                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8 }}>
-                    {KANG_RECO_TERMS.map((term) => {
-                      const on = kangPick.includes(term);
-                      return <button key={term} onClick={() => setKangPick((p) => (on ? p.filter((x) => x !== term) : [...p, term]))} aria-pressed={on} style={{ padding: "9px 13px", borderRadius: 999, border: `1px solid ${on ? "transparent" : t.brd}`, background: on ? t.cyan : t.card2, color: on ? "#000" : t.tx, fontSize: 11.5, fontWeight: 800, cursor: "pointer" }}>{on ? "✓ " : ""}{term}</button>;
-                    })}
-                  </div>
-                  <button onClick={() => startKangWatch(kangPick)} disabled={!kangPick.length} style={{ width: "100%", marginTop: 9, padding: "11px", borderRadius: 10, border: "none", background: kangPick.length ? t.cyan : t.brd, color: "#000", fontSize: 12, fontWeight: 800, cursor: kangPick.length ? "pointer" : "not-allowed" }}>{kangPick.length ? `${kangPick.length}개 워치로 시작` : "골라주면 바로 시작할게"}</button>
+              {kang.tip && (
+                <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 9, paddingTop: 9, borderTop: `1px dashed ${t.brd}` }}>
+                  <span style={{ flex: 1, minWidth: 0, fontSize: 11, color: t.sub, lineHeight: 1.55, wordBreak: "keep-all" }}>💡 {kang.tip.text}</span>
+                  <button onClick={() => { if (kang.tip.cmd && kang.tip.cmd.type === "nav") { onNav(kang.tip.cmd.tab); } else if (kang.tip.cmd && typeof onAppCommand === "function") { onAppCommand(kang.tip.cmd); } }} style={{ flexShrink: 0, padding: "6px 10px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{kang.tip.chip} →</button>
                 </div>
               )}
             </div>

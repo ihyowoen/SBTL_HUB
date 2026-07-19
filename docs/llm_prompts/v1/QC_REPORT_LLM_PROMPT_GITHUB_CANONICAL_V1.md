@@ -48,7 +48,16 @@ The story-ID validator reads both canonical source-input shapes:
 - top-level `stories[]`
 - nested `final_news_llm_input.stories[]`
 
-It also reads Stage A artifact containers including `decision_ledger[]`, strict/review pools, reinforcement, support-only, and rejected pools.
+It also reads every Stage A terminal or lineage container used by the current contract:
+
+- `decision_ledger[]`
+- `strict_passed_spec[]`
+- `candidate_review_pool[]`
+- `watchlist_context_pool[]`
+- `existing_reinforcement[]`
+- `support_source_only[]`
+- `rejected[]`
+- `reject_or_support_only_pool[]`
 
 Accepted URL fields:
 
@@ -63,7 +72,25 @@ Every discovered story ID is registered even when no URL exists. A reused baseli
 
 Canonical URL matching removes known tracking parameters and sorts all remaining query-parameter key/value pairs before lookup. Equivalent URLs therefore match even when their query parameters appear in a different order.
 
-For grouped specs, equal-length `source_story_ids[]` and `source_urls[]` or `urls[]` arrays are paired by position. The validator does not assign every grouped URL to every story ID.
+For grouped specs, equal-length `source_story_ids[]` and `source_urls[]` or `urls[]` arrays are paired by position. When no safe one-to-one mapping exists, only an explicitly named representative story may receive the representative URL; every other story ID remains URL-unmapped.
+
+## Per-record and per-baseline-card identity
+
+The validator no longer unions all URLs under one `story_id` before identity classification.
+
+- every run record is evaluated independently;
+- every baseline card sharing that story ID is evaluated independently;
+- one exact record cannot trust another missing or mismatched record;
+- a match to one baseline card cannot trust another baseline card that reuses the same story ID without its own matching URL;
+- a partially matched record remains a collision and reports both trusted and unmatched baseline-card IDs.
+
+For Stage A compatibility, `collision_count` remains the number of unique collision story IDs. The validator additionally reports:
+
+- `collision_record_count`
+- `collision_pair_count`
+- `trusted_record_count`
+- `trusted_pair_count`
+- `partial_identity_match_record_count`
 
 ## Validation-scope separation
 
@@ -94,10 +121,14 @@ This PR does not modify `public/data/cards.json`. The unchanged baseline current
 
 | Case | Expected | Result |
 |---|---|---|
-| raw run, 353 stories, no quarantine artifact | 41 collisions blocked, exit 2 | PASS |
-| same run + hardened Stage A artifact | 41 collisions quarantined, exit 0 | PASS |
+| raw run, 353 stories, no quarantine artifact | 41 collision story IDs blocked, exit 2 | PASS |
+| same run + hardened Stage A artifact | 41 collision story IDs quarantined, exit 0 | PASS |
+| existing run baseline-card pair expansion | 48 unmatched record/card pairs retained | PASS |
 | canonical nested `final_news_llm_input.stories[]` | stories enumerated; reused IDs evaluated | PASS |
 | nested story ID with missing URL | untrusted collision blocked, exit 2 | PASS |
+| `reject_or_support_only_pool[]` only | reused ID registered and blocked | PASS |
+| same story ID in exact and mismatched run records | mismatched record remains collision | PASS |
+| same story ID on two baseline cards, only one URL match | unmatched baseline-card pair remains collision | PASS |
 | raw story identity supplied only in `urls[]` | trusted exact URL | PASS |
 | Stage A decision ledger identity supplied only in `url` | trusted exact URL | PASS |
 | grouped strict spec using `source_story_ids[] + urls[]` | positional exact-URL matching | PASS |

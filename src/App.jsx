@@ -263,14 +263,15 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       extraCard: extraC ? { title: extraC.T || extraC.title || "" } : null,
     });
   }, [kb.cards, watchTerms, weeklyBriefs, kangPrev, kangAlias]);
-  // 완료 인정 스탬프(R20) — 이번 인사가 다룬 완료 상태를 기록해, 같은 경험을 다음
-  // 인사에서 또 인정하지 않는다(인정은 한 번). 렌더 후 effect라 memo 순수성 유지.
+  // 완료 인정 스탬프(R20) — 작곡기가 '이번 인사에서 소진했다'고 알려준 키(ackStamp:
+  // 표시된 하나+표시 불가능한 것)만 기록한다. 완료 전부를 찍으면 대기 중인 두 번째
+  // 인정이 영영 삼켜진다(Codex #196 — 방문당 하나씩 이월이 의도). 렌더 후 effect.
   useEffect(() => {
-    if (!kang || !kang.quest) return;
+    if (!kang || !Array.isArray(kang.ackStamp) || !kang.ackStamp.length) return;
     try {
       const cur = JSON.parse(localStorage.getItem("sbtl_kang_quest_ack") || "{}") || {};
       let changed = false;
-      for (const q of kang.quest.items) if (q.done && !cur[q.key]) { cur[q.key] = kstToday(); changed = true; }
+      for (const k of kang.ackStamp) if (!cur[k]) { cur[k] = kstToday(); changed = true; }
       if (changed) localStorage.setItem("sbtl_kang_quest_ack", JSON.stringify(cur));
     } catch { /* noop */ }
   }, [kang]);

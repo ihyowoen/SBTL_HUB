@@ -74,13 +74,19 @@ export function composeKangBriefing(inp) {
   const doneSet = new Set(Array.isArray(i.questsDone) ? i.questsDone : []);
   if (i.hasWatch) doneSet.add("watch_set");
   const newly = Array.isArray(i.newlyDone) ? i.newlyDone : [];
+  // ackStamp = 이번 인사에서 '소진'된 완료 키만(표시된 하나 + 인정 줄이 나올 수 없는
+  // 것). 나머지 새 완료는 스탬프하지 않아 다음 인사로 이월된다 — 전부 찍으면 대기 중인
+  // 두 번째 인정이 영영 삼켜진다(Codex #196). 방문당 하나씩 똑똑 떨어지는 게 의도.
+  const ackStamp = [];
+  let ackLine = null;
   for (const k of KANG_QUESTS) {
     if (!newly.includes(k)) continue;
     const f = ACK_FOLLOWUPS[k];
-    if (!f || doneSet.has(f.follow)) continue;
-    lines.push({ text: f.text, chip: f.chip, cmd: f.cmd });
-    break; // 인정은 한 번에 하나만 — 줄줄이 칭찬은 금방 소음이 된다
+    if (!f || doneSet.has(f.follow)) { ackStamp.push(k); continue; } // 표시 불가 — 지금 소진
+    if (!ackLine) { ackLine = { text: f.text, chip: f.chip, cmd: f.cmd }; ackStamp.push(k); }
+    // else: 이번엔 대기 — 인정은 한 번에 하나만(줄줄이 칭찬은 금방 소음이 된다)
   }
+  if (ackLine) lines.push(ackLine);
   // 우선순위: 개인화 강한 순 — 워치 > 핀 후속 > 안 읽은 브리프 > 낡은 월호
   if (i.hasWatch && i.watchNew > 0) {
     const top = i.watchTopTitle ? ` — 제일 큰 건 "${trimKangTitle(i.watchTopTitle)}"` : "";
@@ -170,6 +176,7 @@ export function composeKangBriefing(inp) {
     lines: lines.slice(0, MAX_LINES),
     tip: tip ? { text: tip.text, chip: tip.chip, cmd: tip.cmd } : null,
     quest: { done: doneCount, total: QUEST_DEFS.length, items: questItems },
+    ackStamp, // 호출부가 이 키들만 인정 스탬프 — 대기분은 다음 인사로 이월
   };
 }
 

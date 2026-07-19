@@ -107,23 +107,36 @@ export function composeKangBriefing(inp) {
       chip: "TOP", cmd: { type: "feed_filter", signal: "top" },
     });
   }
-  // 팁 한 줄(R18c) — 인사의 본체는 뉴스+기본 제안이고, 그 밑에 앱을 더 똑똑하게 쓰는
-  // 길(브리프·지도·빌더·상담소·검색)로 이끄는 팁을 하루 하나씩 곁들인다(사용자 방향:
-  // "여기선 뉴스를 던져주고 기본 제안을 줘 + 기능으로 이끄는 팁 하나"). 워치가 비면
-  // 워치 팁 고정(가장 가치 있는 다음 걸음 — 고르기 칩은 브리핑룸에 상시 거주), 있으면
-  // dayKey로 결정적 로테이션. 강요 없음 — 버튼 하나짜리 초대일 뿐.
-  const TIPS = [
-    { text: "지난 이야기들은 📮 브리프로 미리 만들어뒀어 — 월호부터 읽어봐.", chip: "브리프", cmd: { type: "weekly_show" } },
-    // 지도·빌더는 딥링크(room_view) — 탭 상단이 아니라 광고한 그 기능을 실제로 연다(Codex #193)
-    { text: "🧠 지도를 켜면 카드 사이 연결이 보여 — 워치만 있어도 그려져.", chip: "지도", cmd: { type: "room_view", view: "map" } },
-    { text: "🧩 빌더로 워치·지역·주제를 골라 나만의 브리프를 짜깁을 수 있어.", chip: "빌더", cmd: { type: "room_view", view: "builder" } },
-    { text: "궁금한 건 상담소에 말로 물어봐 — '중국 ESS 최근 소식' 이런 식으로.", chip: "상담소", cmd: { type: "nav", tab: "chatbot" } },
-    { text: "피드 검색에 기업 이름을 치면 별칭·한영 표기까지 묶어서 찾아줘.", chip: "피드", cmd: { type: "nav", tab: "news" } },
-  ];
+  // 팁 한 줄(R18c→R19 퀘스트) — 인사의 본체는 뉴스+기본 제안이고, 그 밑에 앱을 더
+  // 똑똑하게 쓰는 길로 이끄는 팁을 하루 하나씩 곁들인다. R19: 팁이 "아직 안 해본
+  // 경험"을 우선 안내한다(똑똑하게 앱 쓰기 퀘스트 — questsDone은 호출부가 상태
+  // 유도+플래그로 채워 줌). 미완료가 없으면 전체 로테이션으로 복귀. 강요 없음 —
+  // 진행 점은 조용한 표시일 뿐 게이트 어디에도 안 물린다.
+  const dk = Math.abs(Math.trunc(i.dayKey || 0));
+  const done = new Set(Array.isArray(i.questsDone) ? i.questsDone : []);
+  const undone = QUEST_TIPS.filter((q) => !done.has(q.quest));
   const tip = !i.hasWatch
     ? { text: "워치를 등록해두면 네 기준으로 골라줄게 — 브리핑룸에 한 탭 칩으로 만들어뒀어.", chip: "등록하러", cmd: { type: "nav", tab: "watchroom" } }
-    : TIPS[Math.abs(Math.trunc(i.dayKey || 0)) % TIPS.length];
+    : undone.length
+      ? undone[dk % undone.length]
+      : ALL_TIPS[dk % ALL_TIPS.length];
 
   if (!lines.length && !tip) return null; // 원칙② — 행동 없는 인사는 안 띄운다
-  return { header, lines: lines.slice(0, 3), tip };
+  const quest = { done: KANG_QUESTS.filter((q) => (q === "watch_set" ? i.hasWatch : done.has(q))).length, total: KANG_QUESTS.length };
+  return { header, lines: lines.slice(0, 3), tip: tip ? { text: tip.text, chip: tip.chip, cmd: tip.cmd } : null, quest };
 }
+
+// 퀘스트(R19) — 핵심 여정 6개. watch_set은 워치 존재로 유도, 나머지는 questsDone으로.
+export const KANG_QUESTS = ["watch_set", "brief_read", "map_open", "builder_publish", "star_save", "chat_ask"];
+const QUEST_TIPS = [
+  { quest: "brief_read", text: "지난 이야기들은 📮 브리프로 미리 만들어뒀어 — 월호부터 읽어봐.", chip: "브리프", cmd: { type: "weekly_show" } },
+  // 지도·빌더는 딥링크(room_view) — 탭 상단이 아니라 광고한 그 기능을 실제로 연다(Codex #193)
+  { quest: "map_open", text: "🧠 지도를 켜면 카드 사이 연결이 보여 — 워치만 있어도 그려져.", chip: "지도", cmd: { type: "room_view", view: "map" } },
+  { quest: "builder_publish", text: "🧩 빌더로 워치·지역·주제를 골라 나만의 브리프를 짜깁어봐.", chip: "빌더", cmd: { type: "room_view", view: "builder" } },
+  { quest: "star_save", text: "마음에 든 카드는 ☆로 저장해봐 — 📌 핀 보드에 모이고 지도가 진해져.", chip: "피드", cmd: { type: "nav", tab: "news" } },
+  { quest: "chat_ask", text: "궁금한 건 상담소에 말로 물어봐 — '중국 ESS 최근 소식' 이런 식으로.", chip: "상담소", cmd: { type: "nav", tab: "chatbot" } },
+];
+const ALL_TIPS = [
+  ...QUEST_TIPS,
+  { text: "피드 검색에 기업 이름을 치면 별칭·한영 표기까지 묶어서 찾아줘.", chip: "피드", cmd: { type: "nav", tab: "news" } },
+];

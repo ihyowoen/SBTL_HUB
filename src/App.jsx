@@ -699,6 +699,19 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       // 첫 설치 직후엔 active 워커가 아직 없어 periodicSync.register가 InvalidStateError로
       // 조용히 실패한다(Codex #197) — 테스트 경로와 동일하게 활성화를 기다린다.
       await navigator.serviceWorker.ready;
+      // 기준선 시드(Codex #197 R2) — 켠 시점의 카드 수를 기록해 '첫 백그라운드 확인'부터
+      // 비교·노크가 가능하게 한다(안 심으면 첫 주기는 기준선만 적고 지나가 한 주기 늦는다).
+      // 지금 앱 안에서 보고 있으므로 현재 수 = 이미 본 것: 기존 기준선 덮어쓰기가 정확하다.
+      if (kb.cards.length) {
+        await new Promise((resolve) => {
+          try {
+            const rq = indexedDB.open("kang", 1);
+            rq.onupgradeneeded = () => { try { rq.result.createObjectStore("kv"); } catch { /* noop */ } };
+            rq.onsuccess = () => { try { const tx = rq.result.transaction("kv", "readwrite").objectStore("kv").put(kb.cards.length, "lastCount"); tx.onsuccess = () => resolve(); tx.onerror = () => resolve(); } catch { resolve(); } };
+            rq.onerror = () => resolve();
+          } catch { resolve(); }
+        });
+      }
       const perm = await Notification.requestPermission();
       const canSync = "periodicSync" in reg;
       let syncOn = false;

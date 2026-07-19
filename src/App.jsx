@@ -695,6 +695,11 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   const enableKnock = async () => {
     try {
       if (!("serviceWorker" in navigator) || typeof Notification === "undefined") return;
+      // 권한 요청은 클릭 제스처 안에서 '가장 먼저'(Codex #197 R3) — register/ready/IDB를
+      // 기다리는 동안 사용자 활성화가 만료되면 브라우저가 프롬프트를 조용히 무시한다.
+      // 등록·기준선·주기 설정은 허용 이후에.
+      const perm = await Notification.requestPermission();
+      if (perm !== "granted") { setNotif((s) => ({ ...s, perm })); return; }
       const reg = await navigator.serviceWorker.register("/kang-sw.js");
       // 첫 설치 직후엔 active 워커가 아직 없어 periodicSync.register가 InvalidStateError로
       // 조용히 실패한다(Codex #197) — 테스트 경로와 동일하게 활성화를 기다린다.
@@ -712,10 +717,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
           } catch { resolve(); }
         });
       }
-      const perm = await Notification.requestPermission();
       const canSync = "periodicSync" in reg;
       let syncOn = false;
-      if (perm === "granted" && canSync) {
+      if (canSync) {
         try {
           const st = await navigator.permissions.query({ name: "periodic-background-sync" });
           if (st.state === "granted") { await reg.periodicSync.register("kang-nudge", { minInterval: 12 * 3600 * 1000 }); syncOn = true; }

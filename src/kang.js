@@ -58,14 +58,18 @@ export function composeKangBriefing(inp) {
   }
   if (i.unreadBrief && i.unreadBrief.label) {
     lines.push({
+      // id로 그 호수를 정확히 지목 — 면만 보내면 같은 면의 더 최신호가 대신 열리고
+      // 읽음 처리도 그쪽에 붙는다(Codex #190). 면은 id 미발견 시 폴백용으로 유지.
       text: `${i.unreadBrief.label} 브리프 만들어뒀어 — 읽고 가.`,
-      chip: "읽기", cmd: { type: "weekly_show", period: i.unreadBrief.period || null, month: i.unreadBrief.month || null, group: i.unreadBrief.group || null },
+      chip: "읽기", cmd: { type: "weekly_show", id: i.unreadBrief.id || null, period: i.unreadBrief.period || null, month: i.unreadBrief.month || null, group: i.unreadBrief.group || null },
     });
   }
   if (i.staleBrief && i.staleBrief.drift > 0) {
     lines.push({
+      // group 보존 — 지역별/주제별 월호가 낡았는데 group 없이 보내면 일반 월호가 열려
+      // 정작 낡은 그 호수(재발행 버튼이 있는 곳)에 못 간다(Codex #190).
       text: `${i.staleBrief.monthNum}월호에 발행 뒤 기사 ${i.staleBrief.drift}건이 더 붙었어 — 새 재료로 다시 뽑을 수 있어.`,
-      chip: `${i.staleBrief.monthNum}월호`, cmd: { type: "weekly_show", period: "monthly", month: i.staleBrief.month || null, group: null },
+      chip: `${i.staleBrief.monthNum}월호`, cmd: { type: "weekly_show", period: "monthly", month: i.staleBrief.month || null, group: i.staleBrief.group || null },
     });
   }
   // 개인화 줄이 없을 때만 TOP 폴백(콜드스타트·조용한 날) — 첫 만남엔 항상 보여줘

@@ -179,13 +179,13 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       if (best) pinFollow = { pinTitle: byPin.get(best.related.find((r) => pinnedIds.has(r)))?.title || "", cardTitle: best.T || best.title || "" };
     }
     const unreadEntry = weeklyBriefs.find((e) => e && !e.read);
-    const unreadBrief = unreadEntry ? { label: briefChipLabel(unreadEntry, new Date().getFullYear(), false), period: unreadEntry.period || null, month: unreadEntry.month || null, group: unreadEntry.group || null } : null;
+    const unreadBrief = unreadEntry ? { id: unreadEntry.id || null, label: briefChipLabel(unreadEntry, new Date().getFullYear(), false), period: unreadEntry.period || null, month: unreadEntry.month || null, group: unreadEntry.group || null } : null;
     let staleBrief = null;
     for (const e of weeklyBriefs) {
       if (!e || !e.month || typeof e.source_month_count !== "number" || e.group === "custom") continue;
       if (!(e.terms_sig === "[]" || e.terms_sig == null)) continue; // 전체 범위 호수만 — 워치 범위는 풀이 달라 오발동(R15d 규약)
       const drift = kb.cards.filter((c) => String(c.d || c.date || "").slice(0, 7) === e.month).length - e.source_month_count;
-      if (drift > 0 && (!staleBrief || drift > staleBrief.drift)) staleBrief = { month: e.month, monthNum: Number(e.month.slice(5, 7)), drift };
+      if (drift > 0 && (!staleBrief || drift > staleBrief.drift)) staleBrief = { month: e.month, monthNum: Number(e.month.slice(5, 7)), drift, group: e.group || null };
     }
     const topC = kb.cards.find((c) => c.s === "t" && cardDateWithinDays(c, 7));
     const gapDays = kangPrev.ts ? Math.max(0, Math.floor((Date.now() - kangPrev.ts) / 86400000)) : null;
@@ -3874,7 +3874,9 @@ function AppContent() {
       } else if (cmd.type === "weekly_show") {
         // 기간·달·구성을 명시한 열람("월간/5월/5월 지역별 브리프 보여줘")은 그 변형 호수를 연다 — 없으면 최신호 폴백.
         // R12: 브리프의 집은 브리핑룸 — 선반 seed를 올리고 브리핑룸으로 이동한다.
-        setBriefSeed((s) => ({ open: true, period: cmd.period || null, month: cmd.month || null, group: cmd.group || null, specSig: null, id: null, nonce: s.nonce + 1 }));
+        // id가 오면 그 호수를 정확히 지목(강차장 '읽기' 등) — 면만으로는 같은 면의 더 최신호가
+        // 대신 열리고 읽음 처리도 그쪽에 붙는다(Codex #190).
+        setBriefSeed((s) => ({ open: true, period: cmd.period || null, month: cmd.month || null, group: cmd.group || null, specSig: null, id: cmd.id || null, nonce: s.nonce + 1 }));
         setTab("watchroom");
       } else if (cmd.type === "brief_now") {
         // 강제 발행: 선반을 먼저 열어 '만드는 중'을 보여주고, 완성되면 runWeeklyBrief가

@@ -94,6 +94,17 @@ function todayLabel() {
 // 상시 거주 — "관심사는 언제라도 친절하게 고를 수 있어야 한다"(사용자 지적).
 const KANG_RECO_TERMS = ["CATL", "LG에너지솔루션", "삼성SDI", "SK온", "Tesla", "BYD", "전고체", "ESS"];
 
+// 퀘스트 경험 플래그(R19) — '해본 적 있음'을 기록하는 일회성 마크(멱등).
+// 상태형 퀘스트(워치·브리프 읽음·핀)는 기존 상태에서 유도하고, 경험형(지도 열기·
+// 빌더 발행·상담 질문·☆ 저장)만 여기에 남긴다. 게이트 어디에도 안 물리는 표시 전용.
+function markKangQuest(key) {
+  try {
+    const cur = JSON.parse(localStorage.getItem("sbtl_kang_quests") || "{}") || {};
+    if (cur[key]) return;
+    localStorage.setItem("sbtl_kang_quests", JSON.stringify({ ...cur, [key]: kstToday() }));
+  } catch { /* noop */ }
+}
+
 function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0, onNav, onOpenProfile, onFeedSearch, onAppCommand }) {
   const t = T(dark);
   // 워치는 명령 버스(executeAppCommand)가 localStorage를 직접 바꾸므로 버전 신호로 재읽기
@@ -182,9 +193,20 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     const staleBrief = pickStaleBrief(weeklyBriefs, (m) => kb.cards.filter((c) => String(c.d || c.date || "").slice(0, 7) === m).length);
     const topC = kb.cards.find((c) => c.s === "t" && cardDateWithinDays(c, 7));
     const gapDays = kangPrev.ts ? Math.max(0, Math.floor((Date.now() - kangPrev.ts) / 86400000)) : null;
+    // 퀘스트 집계(R19) — 상태형은 유도(워치·브리프 읽음·핀), 경험형은 플래그. 마운트
+    // 시점 스냅샷이면 충분(다른 탭에서 완료 → 오늘 탭 재방문 때 반영).
+    let questFlags; try { questFlags = JSON.parse(localStorage.getItem("sbtl_kang_quests") || "{}") || {}; } catch { questFlags = {}; }
+    const questsDone = [
+      ...(weeklyBriefs.some((e) => e && e.read) ? ["brief_read"] : []),
+      ...(pins.length || questFlags.star_save ? ["star_save"] : []),
+      ...(questFlags.map_open ? ["map_open"] : []),
+      ...(questFlags.builder_publish ? ["builder_publish"] : []),
+      ...(questFlags.chat_ask ? ["chat_ask"] : []),
+    ];
     return composeKangBriefing({
       gapDays,
       dayKey: Math.floor(Date.now() / 86400000), // 팁 로테이션 — 하루 하나, 결정적
+      questsDone,
       cardDelta: kangPrev.cnt != null && kb.cards.length > kangPrev.cnt ? kb.cards.length - kangPrev.cnt : 0,
       hasWatch: watchTerms.length > 0,
       watchNew: unseen.length,
@@ -293,9 +315,20 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
                 ))}
               </div>
               {kang.tip && (
-                <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 9, paddingTop: 9, borderTop: `1px dashed ${t.brd}` }}>
-                  <span style={{ flex: 1, minWidth: 0, fontSize: 11, color: t.sub, lineHeight: 1.55, wordBreak: "keep-all" }}>💡 {kang.tip.text}</span>
-                  <button onClick={() => { if (kang.tip.cmd && kang.tip.cmd.type === "nav") { onNav(kang.tip.cmd.tab); } else if (kang.tip.cmd && typeof onAppCommand === "function") { onAppCommand(kang.tip.cmd); } }} style={{ flexShrink: 0, padding: "6px 10px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{kang.tip.chip} →</button>
+                <div style={{ marginTop: 9, paddingTop: 9, borderTop: `1px dashed ${t.brd}` }}>
+                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                    <span style={{ flex: 1, minWidth: 0, fontSize: 11, color: t.sub, lineHeight: 1.55, wordBreak: "keep-all" }}>💡 {kang.tip.text}</span>
+                    <button onClick={() => { if (kang.tip.cmd && kang.tip.cmd.type === "nav") { onNav(kang.tip.cmd.tab); } else if (kang.tip.cmd && typeof onAppCommand === "function") { onAppCommand(kang.tip.cmd); } }} style={{ flexShrink: 0, padding: "6px 10px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{kang.tip.chip} →</button>
+                  </div>
+                  {/* 앱 탐험 진행 점(R19) — 조용한 표시일 뿐, 압박 없음(게이트 무관) */}
+                  {kang.quest && kang.quest.total > 0 && (
+                    <div style={{ display: "flex", gap: 3, marginTop: 7, alignItems: "center" }}>
+                      {Array.from({ length: kang.quest.total }).map((_, qi) => (
+                        <span key={qi} style={{ width: 5, height: 5, borderRadius: 3, background: qi < kang.quest.done ? t.cyan : t.brd }} />
+                      ))}
+                      <span style={{ fontSize: 9, color: t.sub, marginLeft: 4, fontFamily: "'JetBrains Mono',monospace" }}>앱 탐험 {kang.quest.done}/{kang.quest.total}</span>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -773,6 +806,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     roomDeepRef.current = true; // 소비로 prop이 null이 된 뒤에도 방문 내내 병합 양보 유지
     if (roomSeed.view === "map") {
       setPinView("map");
+      markKangQuest("map_open");
       setTimeout(() => { try { pinBoardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);
     } else if (roomSeed.view === "builder") {
       setBuilderOpen(true);
@@ -813,6 +847,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // toggleBookmark와 같은 스키마(sbtl_bookmarks)로 기록해 피드 ☆ 상태와도 일치한다.
   const savePin = (item) => {
     if (!item || !item.id || pins.some((p) => p.id === item.id)) return;
+    markKangQuest("star_save"); // 퀘스트(R19) — 첫 ☆ 저장(지도·각주 경로)
     const next = [{ id: item.id, title: item.title || "", date: item.date || "", url: item.url || "", savedAt: kstToday() }, ...pins].slice(0, 200);
     setPins(next);
     try { localStorage.setItem("sbtl_bookmarks", JSON.stringify(next)); } catch { /* 세션 상태만이라도 반영 */ }
@@ -1155,7 +1190,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
             {(pins.length > 0 || watchTerms.length > 0) && (
               <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
                 {[["list", "목록"], ["map", "🧠 지도"]].map(([v, label]) => (
-                  <button key={v} onClick={() => { setPinView(v); if (v !== "map") setPinSel(null); }} aria-pressed={pinView === v} style={pill(pinView === v)}>{label}</button>
+                  <button key={v} onClick={() => { setPinView(v); if (v === "map") markKangQuest("map_open"); else setPinSel(null); }} aria-pressed={pinView === v} style={pill(pinView === v)}>{label}</button>
                 ))}
               </div>
             )}
@@ -2356,6 +2391,7 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   const sendWithText = async (rawText, hint = null) => {
     const txt = String(rawText || "").trim();
     if (!txt || isLoading) return;
+    markKangQuest("chat_ask"); // 퀘스트(R19) — 상담소에 첫 질문
     setInput("");
     const consult = currentConsultRef.current;
     if (consult && consult.current_stage > 0) { currentConsultRef.current = null; persistConsult(); }
@@ -3177,6 +3213,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
     if (bookmarks.some((b) => b.id === id)) {
       setBookmarks(bookmarks.filter((b) => b.id !== id));
     } else {
+      markKangQuest("star_save"); // 퀘스트(R19) — 첫 ☆ 저장(피드 경로)
       setBookmarks([{ id, title: card.title || card.T || "", date: card.date || card.d || "", url: card.url || card.primaryUrl || "", savedAt: kstToday() }, ...bookmarks].slice(0, 200));
     }
   };
@@ -3829,6 +3866,7 @@ function AppContent() {
           const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
           localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
           setWeeklyBriefs(next);
+          if (customSpec) markKangQuest("builder_publish"); // 퀘스트(R19) — 빌더로 첫 발행 성공
           // 브리프가 성공적으로 저장·표시됐으니 낡은 실패 메시지를 소거한다 — 새 브리프와 ⚠️가
           // 함께 뜨지 않게(force는 시작 시 이미 소거하지만, 패시브 성공은 여기서만 소거된다).
           setWeeklyError(null);

@@ -104,9 +104,14 @@ export function composeKangBriefing(inp) {
   // 원칙②는 '근거 없는 채움 금지'에서 '기본 제안은 명시적으로 채움'으로 조정 —
   // 제안이 계속 와야 능동이 된다는 통찰이 우선(원칙① 전부-제안은 그대로).
   const MAX_LINES = 5, FILL_TO = 4;
+  // 근거 줄이 이미 인용한 카드 제목 — 채움(TOP·HIGH)이 같은 카드를 다시 권하지
+  // 않게 한다(Codex #195: 워치 톱·핀 후속과의 중복까지 전부).
+  const used = new Set();
+  if (i.watchTopTitle) used.add(trimKangTitle(i.watchTopTitle));
+  if (i.pinFollow && i.pinFollow.cardTitle) used.add(trimKangTitle(i.pinFollow.cardTitle));
   const topTrim = i.topCard && i.topCard.title ? trimKangTitle(i.topCard.title) : null;
-  // 워치 줄이 이미 같은 카드를 인용했으면 TOP 중복 생략
-  if (topTrim && lines.length < MAX_LINES && !(i.watchTopTitle && trimKangTitle(i.watchTopTitle) === topTrim)) {
+  if (topTrim && lines.length < MAX_LINES && !used.has(topTrim)) {
+    used.add(topTrim);
     lines.push({
       text: `${i.gapDays == null ? "일단 " : ""}오늘 제일 큰 건 "${topTrim}"이야.`,
       chip: "TOP", cmd: { type: "feed_filter", signal: "top" },
@@ -119,9 +124,10 @@ export function composeKangBriefing(inp) {
       chip: "프로필", cmd: { type: "profile_open", term: i.watchProfile.term },
     });
   }
-  if (i.extraCard && i.extraCard.title && lines.length < FILL_TO) {
+  const extraTrim = i.extraCard && i.extraCard.title ? trimKangTitle(i.extraCard.title) : null;
+  if (extraTrim && lines.length < FILL_TO && !used.has(extraTrim)) {
     lines.push({
-      text: `"${trimKangTitle(i.extraCard.title)}"도 챙겨볼 만해.`,
+      text: `"${extraTrim}"도 챙겨볼 만해.`,
       chip: "보기", cmd: { type: "feed_filter", search: searchFrag(i.extraCard.title) },
     });
   }

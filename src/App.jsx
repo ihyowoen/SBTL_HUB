@@ -158,9 +158,13 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
   // 미확인·미열람 근거가 남아 있는 한 제안은 유지되고, 근거가 사라져야 침묵한다(원칙②).
   const [kangPrev] = useState(() => {
     try {
-      let ack; try { ack = new Set(Object.keys(JSON.parse(localStorage.getItem("sbtl_kang_quest_ack") || "{}") || {})); } catch { ack = new Set(); }
-      return { ts: Number(localStorage.getItem("sbtl_kang_last_visit")) || null, cnt: Number(localStorage.getItem("sbtl_kang_card_count")) || null, ack };
-    } catch { return { ts: null, cnt: null, ack: new Set() }; }
+      // ackFresh = ack 스토어가 아예 없던 첫 로드 — 이때의 기존 완료는 '새로 한 것'이
+      // 아니므로 인정 없이 기준선 시드한다(Codex #196 R4 — seen first-run 기준선과 같은
+      // 규약: 과거 이력을 지금 한 것처럼 인정하면 어색하다).
+      const ackRaw = localStorage.getItem("sbtl_kang_quest_ack");
+      let ack; try { ack = new Set(Object.keys(JSON.parse(ackRaw || "{}") || {})); } catch { ack = new Set(); }
+      return { ts: Number(localStorage.getItem("sbtl_kang_last_visit")) || null, cnt: Number(localStorage.getItem("sbtl_kang_card_count")) || null, ack, ackFresh: ackRaw === null };
+    } catch { return { ts: null, cnt: null, ack: new Set(), ackFresh: false }; }
   });
   useEffect(() => {
     if (!kb.cards.length) return;
@@ -252,9 +256,10 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
         if (cands.length) watchSuggest = cands[Math.floor(Date.now() / 86400000) % Math.min(3, cands.length)];
       }
     }
-    // 완료 인정(R20) — 지난 인사에서 아직 인정하지 않은(새로) 완료 경험
+    // 완료 인정(R20) — 지난 인사에서 아직 인정하지 않은(새로) 완료 경험.
+    // ack 첫 로드(기준선)면 기존 완료는 인정 대상이 아니다 — effect가 조용히 시드.
     const doneAll = [...questsDone, ...(watchTerms.length ? ["watch_set"] : [])];
-    const newlyDone = doneAll.filter((k) => !kangPrev.ack.has(k));
+    const newlyDone = kangPrev.ackFresh ? [] : doneAll.filter((k) => !kangPrev.ack.has(k));
     return composeKangBriefing({
       gapDays,
       dayKey: Math.floor(Date.now() / 86400000), // 팁 로테이션 — 하루 하나, 결정적
@@ -274,14 +279,26 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
   // 완료 인정 스탬프(R20) — 작곡기가 '이번 인사에서 소진했다'고 알려준 키(ackStamp:
   // 표시된 하나+표시 불가능한 것)만 기록한다. 완료 전부를 찍으면 대기 중인 두 번째
   // 인정이 영영 삼켜진다(Codex #196 — 방문당 하나씩 이월이 의도). 렌더 후 effect.
+  // ack 첫 로드(ackFresh)는 1회 기준선 시드: 그 시점의 완료 전부를 인정 없이 기록하고
+  // (빈 {}라도 써서 기준선 확정), 같은 마운트의 이후 완료부터 정상 모드로 드립.
+  const ackSeededRef = useRef(false);
   useEffect(() => {
-    if (!kang || !Array.isArray(kang.ackStamp) || !kang.ackStamp.length) return;
+    if (!kang || !kang.quest) return;
     try {
+      if (kangPrev.ackFresh && !ackSeededRef.current) {
+        ackSeededRef.current = true;
+        const seed = {};
+        for (const q of kang.quest.items) if (q.done) seed[q.key] = kstToday();
+        localStorage.setItem("sbtl_kang_quest_ack", JSON.stringify(seed));
+        return;
+      }
+      if (!Array.isArray(kang.ackStamp) || !kang.ackStamp.length) return;
       const cur = JSON.parse(localStorage.getItem("sbtl_kang_quest_ack") || "{}") || {};
       let changed = false;
       for (const k of kang.ackStamp) if (!cur[k]) { cur[k] = kstToday(); changed = true; }
       if (changed) localStorage.setItem("sbtl_kang_quest_ack", JSON.stringify(cur));
     } catch { /* noop */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kang]);
   const top = [...todayCards].sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 4);
   const lead = top[0];

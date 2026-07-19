@@ -74,7 +74,10 @@ Package-integrity checks and card-data checks are separate gates.
 - all three Python validators compile;
 - all three manifests parse;
 - every path listed by `UPLOAD_MANIFEST.json` exists;
-- story-ID detection/quarantine behavior passes its run-specific contract.
+- story-ID detection/quarantine behavior passes its run-specific contract;
+- `git diff --quiet` proves `public/data/cards.json` is unchanged from the branch merge base.
+
+The unchanged-card check is what authorizes the docs-only exception. If the card file changes, the exception is unavailable and data validators become blocking.
 
 ### Hard gate for card-data operations
 
@@ -99,6 +102,7 @@ This PR does not modify `public/data/cards.json`. The unchanged baseline current
 | Stage A decision ledger identity supplied only in `url` | trusted exact URL | PASS |
 | grouped strict spec using `source_story_ids[] + urls[]` | positional exact-URL matching | PASS |
 | equivalent query parameters in different order | same canonical URL | PASS |
+| docs-only cards diff check | unchanged card file required | PASS |
 | unchanged baseline date audit | five historical findings recorded for remediation | PASS_WITH_RECORDED_FINDINGS |
 | Python syntax compilation | no syntax error | PASS |
 

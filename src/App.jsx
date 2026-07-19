@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
-import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections } from "./briefAxes";
+import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections, hitBoundary } from "./briefAxes";
 import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
@@ -234,12 +234,17 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
           const spells = [canon, ...rawArr].map((s) => String(s || "")).filter(Boolean);
           if (!spells.length || spells.some((s) => wset.includes(s.toLowerCase()))) continue;
           // 건수는 그룹 합집합이 아니라 '실제로 추가될 그 표기'의 매칭 수 — 문장의 N장과
-          // 추가 후 워치 동작이 정확히 같아야 한다(Codex #196 R2 정합의 완성형)
+          // 추가 후 워치 동작이 정확히 같아야 한다(Codex #196 R2 정합의 완성형).
+          // 단 적격 판정은 경계 매칭(hitBoundary) ≥3 — substring 잡음만으로 뜨는 짧은
+          // ASCII 별칭(GM↔augment류, R8b 실측 교훈)을 추천하지 않는다(Codex R3).
+          // 한글 표기는 hitBoundary가 부분 매칭이라 자연 통과.
           let best = null, bestHits = 0;
           for (const s of spells) {
             const sl = s.toLowerCase();
-            const h = hays.reduce((a, hy) => a + (hy.includes(sl) ? 1 : 0), 0);
-            if (h > bestHits) { bestHits = h; best = s; }
+            let sub = 0, bnd = 0;
+            for (const hy of hays) { if (hy.includes(sl)) { sub++; if (hitBoundary(sl, hy)) bnd++; } }
+            if (bnd < 3) continue; // substring 전용 후보 배제
+            if (sub > bestHits) { bestHits = sub; best = s; }
           }
           if (bestHits >= 3 && best) cands.push({ term: best, count: bestHits });
         }

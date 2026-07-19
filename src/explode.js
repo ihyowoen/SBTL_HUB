@@ -13,6 +13,12 @@ import { hitBoundary } from "./briefAxes.js";
 
 const SIG_W = { t: 2, h: 1 };
 
+// '같은 주체' 자격이 있는 별칭 타입 — 기업·기관·인물 계열만(R8b 엔티티 링크 화이트리스트
+// 규약, Codex #198). 지명(place)·기술 용어(tech_term)·정책 용어(policy_term)는 주체가
+// 아니라 소재라 다리로 쓰면 노이즈가 판을 덮는다(예: 제목의 'ESS'로 수백 장이 딸려옴).
+// 타입 정보가 없는 구형(배열형) 항목은 허용(하위호환).
+const SUBJECT_TYPES = new Set(["company", "company_division", "company_brand", "person", "research_org", "government_agency", "industry_org"]);
+
 function aliasSpellings(v, key) {
   const arr = Array.isArray(v) ? v
     : v && typeof v === "object" ? [v.canonical, ...(Array.isArray(v.aliases) ? v.aliases : [])]
@@ -50,6 +56,8 @@ export function pickNeighbors(centerCard, cards, aliasMap, { cap = 14 } = {}) {
   const title = String(centerCard.T || centerCard.title || "").toLowerCase();
   const groups = [];
   for (const [key, v] of Object.entries(aliasMap || {})) {
+    const type = v && typeof v === "object" && !Array.isArray(v) ? v.type : null;
+    if (type && !SUBJECT_TYPES.has(type)) continue; // 지명·기술·정책 용어는 주체가 아니다
     const spells = aliasSpellings(v, key);
     if (spells.some((s) => hitBoundary(s, title))) groups.push(spells);
   }

@@ -61,7 +61,16 @@ if missing:
     raise SystemExit(f"missing package files: {missing}")
 print("PASS: manifests parse and all listed package paths exist")
 PY
+
+BASE_REF="${BASE_REF:-origin/main}"
+MERGE_BASE="$(git merge-base HEAD "$BASE_REF")"
+git diff --quiet "$MERGE_BASE" HEAD -- public/data/cards.json || {
+  echo "FAIL: docs-only baseline exception requires unchanged public/data/cards.json"
+  exit 1
+}
 ```
+
+The final command is mandatory for the docs-only exception. If `public/data/cards.json` differs from the merge base, the date and related validators become hard blocking checks and the PR must include the corresponding data remediation.
 
 ## Run-bound story-ID check
 
@@ -112,7 +121,7 @@ They are hard gates when any of the following applies:
 - Prompt 0.9 production verification is running;
 - a baseline date/related remediation PR is being prepared.
 
-For a docs-only package PR that does not modify `public/data/cards.json`, existing baseline findings must be recorded but do not block the package commit. At the time of this hardening PR, the unchanged baseline has five historical date-integrity findings and unresolved historical related references that are preserved for lineage-safe remediation. This exception applies only to pre-existing findings in an unchanged baseline; any new card-data finding remains a blocker.
+For a docs-only package PR that does not modify `public/data/cards.json`, existing baseline findings must be recorded but do not block the package commit. At the time of this hardening PR, the unchanged baseline has five historical date-integrity findings and unresolved historical related references that are preserved for lineage-safe remediation. This exception applies only when the `git diff --quiet` check above proves the baseline card file is unchanged; any card-data change or new finding restores the hard gate.
 
 ## PR title
 

@@ -149,21 +149,33 @@ def collect_run_story_records(run):
             if not isinstance(item, dict):
                 continue
 
-            if item.get("story_id"):
+            explicit_story_id = item.get("story_id")
+            source_story_ids = item.get("source_story_ids") or []
+            if not isinstance(source_story_ids, list):
+                source_story_ids = []
+            source_story_ids = [value for value in source_story_ids if value]
+
+            # A representative story_id does not replace the grouped universe.
+            # Record it separately only when it is not already one of the
+            # source_story_ids that will be evaluated below.
+            if explicit_story_id and explicit_story_id not in source_story_ids:
                 add(
-                    item["story_id"],
+                    explicit_story_id,
                     url_values(item),
                     container,
                     item_index,
                     "single_story_item",
                 )
-                continue
 
-            story_ids = item.get("source_story_ids") or []
-            if not isinstance(story_ids, list):
-                continue
-            story_ids = [story_id for story_id in story_ids if story_id]
-            if not story_ids:
+            if not source_story_ids:
+                if explicit_story_id:
+                    add(
+                        explicit_story_id,
+                        url_values(item),
+                        container,
+                        item_index,
+                        "single_story_item",
+                    )
                 continue
 
             plural_urls = []
@@ -177,9 +189,9 @@ def collect_run_story_records(run):
                     if plural_urls:
                         break
 
-            if len(story_ids) == len(plural_urls):
+            if len(source_story_ids) == len(plural_urls):
                 for position, (story_id, url) in enumerate(
-                    zip(story_ids, plural_urls)
+                    zip(source_story_ids, plural_urls)
                 ):
                     add(
                         story_id,
@@ -190,23 +202,25 @@ def collect_run_story_records(run):
                     )
                 continue
 
-            if len(story_ids) == 1:
+            if len(source_story_ids) == 1:
                 add(
-                    story_ids[0],
+                    source_story_ids[0],
                     url_values(item),
                     container,
-                    item_index,
+                    f"{item_index}:0",
                     "grouped_single_story",
                 )
                 continue
 
-            representative_id = item.get("representative_story_id")
+            representative_id = (
+                item.get("representative_story_id") or explicit_story_id
+            )
             representative_urls = [
                 value
                 for value in (item.get("primary_url"), item.get("url"))
                 if isinstance(value, str) and value.strip()
             ]
-            for position, story_id in enumerate(story_ids):
+            for position, story_id in enumerate(source_story_ids):
                 assigned = (
                     representative_urls
                     if story_id == representative_id
@@ -232,7 +246,6 @@ def collect_run_story_records(run):
             tuple(record["canonical_run_urls"]),
             record["source_container"],
             str(record["source_record_index"]),
-            record["source_record_role"],
         )
         if key not in seen:
             seen.add(key)
@@ -252,18 +265,10 @@ def baseline_indexes(baseline):
             if story_id:
                 story_to_cards[story_id].append(card_id)
 
-        for url in card.get("urls", []) or []:
+        for url in url_values(card):
             canonical = canon(url)
             if canonical:
                 card_urls[card_id].add(canonical)
-
-        for source in card.get("fact_sources", []) or []:
-            if not isinstance(source, dict):
-                continue
-            for field in ("source_url", "url"):
-                canonical = canon(source.get(field))
-                if canonical:
-                    card_urls[card_id].add(canonical)
     return story_to_cards, card_urls
 
 
@@ -293,10 +298,7 @@ def classify_records(run_records, story_to_cards, card_urls):
                 "matching_urls": matching_urls,
                 "identity_route_trusted": trusted,
             })
-            if trusted:
-                trusted_cards.append(card_id)
-            else:
-                collision_cards.append(card_id)
+            (trusted_cards if trusted else collision_cards).append(card_id)
 
         classified = {
             **record,
@@ -314,6 +316,21 @@ def classify_records(run_records, story_to_cards, card_urls):
             trusted_records.append(classified)
 
     return trusted_records, collision_records
+
+
+def declared_collision_count(stage_a_results, top_level_audit):
+    candidates = (
+        top_level_audit.get("collision_count"),
+        top_level_audit.get("story_id_collision_count"),
+        stage_a_results.get("story_id_collision_count"),
+        (stage_a_results.get("summary") or {}).get(
+            "story_id_collision_count"
+        ),
+    )
+    for value in candidates:
+        if isinstance(value, int) and not isinstance(value, bool):
+            return value
+    return None
 
 
 def quarantine_audit(stage_a_results, collision_story_ids):
@@ -353,13 +370,17 @@ def quarantine_audit(stage_a_results, collision_story_ids):
                 "ledger_row_checks": checks,
             })
 
-    collision_count = len(set(collision_story_ids))
-    top = stage_a_results.get("story_id_lineage_audit", {})
+    expected_count = len(set(collision_story_ids))
+    top = stage_a_results.get("story_id_lineage_audit", {}) or {}
+    reported_count = declared_collision_count(stage_a_results, top)
+    audit_status = (
+        stage_a_results.get("story_id_lineage_audit_status")
+        or top.get("status")
+    )
     top_level_valid = (
         top.get("story_id_used_for_duplicate_routing") is False
-        and top.get("collision_count") == collision_count
-        and stage_a_results.get("story_id_lineage_audit_status")
-        == "PASS_COLLISIONS_QUARANTINED"
+        and reported_count == expected_count
+        and audit_status == "PASS_COLLISIONS_QUARANTINED"
     )
     return {
         "status": (
@@ -367,7 +388,14 @@ def quarantine_audit(stage_a_results, collision_story_ids):
             if not missing_or_invalid and top_level_valid
             else "FAIL"
         ),
-        "expected_unique_collision_story_id_count": collision_count,
+        "expected_unique_collision_story_id_count": expected_count,
+        "reported_collision_count": reported_count,
+        "accepted_collision_count_fields": [
+            "story_id_lineage_audit.collision_count",
+            "story_id_lineage_audit.story_id_collision_count",
+            "story_id_collision_count",
+            "summary.story_id_collision_count",
+        ],
         "top_level_quarantine_valid": top_level_valid,
         "missing_or_invalid_collision_rows": missing_or_invalid,
     }

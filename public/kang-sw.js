@@ -88,8 +88,18 @@ self.addEventListener("message", (event) => {
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
   event.waitUntil((async () => {
+    // 알림이 지목한 목적지로 — 포커스만 하면 다른 경로에 있던 창은 노크 내용과 다른
+    // 화면을 보여준다(Codex #197 R4). 이미 그 주소면 navigate 생략(불필요한 SPA
+    // 리로드로 화면 상태를 잃지 않게 — 현 앱은 단일 경로라 대부분 생략된다).
+    const target = new URL((event.notification.data && event.notification.data.url) || "/", self.location.origin).href;
     const list = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
-    for (const c of list) { if ("focus" in c) { await c.focus(); return; } }
-    if (self.clients.openWindow) await self.clients.openWindow("/");
+    for (const c of list) {
+      if ("focus" in c) {
+        await c.focus();
+        if (c.url !== target && "navigate" in c) { try { await c.navigate(target); } catch (e) { /* noop */ } }
+        return;
+      }
+    }
+    if (self.clients.openWindow) await self.clients.openWindow(target);
   })());
 });

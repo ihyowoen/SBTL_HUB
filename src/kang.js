@@ -114,8 +114,9 @@ export function composeKangBriefing(inp) {
   // dayKey로 결정적 로테이션. 강요 없음 — 버튼 하나짜리 초대일 뿐.
   const TIPS = [
     { text: "지난 이야기들은 📮 브리프로 미리 만들어뒀어 — 월호부터 읽어봐.", chip: "브리프", cmd: { type: "weekly_show" } },
-    { text: "🧠 지도를 켜면 카드 사이 연결이 보여 — 워치만 있어도 그려져.", chip: "지도", cmd: { type: "nav", tab: "watchroom" } },
-    { text: "🧩 빌더로 워치·지역·주제를 골라 나만의 브리프를 짜깁을 수 있어.", chip: "빌더", cmd: { type: "nav", tab: "watchroom" } },
+    // 지도·빌더는 딥링크(room_view) — 탭 상단이 아니라 광고한 그 기능을 실제로 연다(Codex #193)
+    { text: "🧠 지도를 켜면 카드 사이 연결이 보여 — 워치만 있어도 그려져.", chip: "지도", cmd: { type: "room_view", view: "map" } },
+    { text: "🧩 빌더로 워치·지역·주제를 골라 나만의 브리프를 짜깁을 수 있어.", chip: "빌더", cmd: { type: "room_view", view: "builder" } },
     { text: "궁금한 건 상담소에 말로 물어봐 — '중국 ESS 최근 소식' 이런 식으로.", chip: "상담소", cmd: { type: "nav", tab: "chatbot" } },
     { text: "피드 검색에 기업 이름을 치면 별칭·한영 표기까지 묶어서 찾아줘.", chip: "피드", cmd: { type: "nav", tab: "news" } },
   ];

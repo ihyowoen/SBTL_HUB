@@ -510,7 +510,7 @@ function BriefReader({ entry, dark, pinnedIds = null, onStarRef = null }) {
 
 // '브리핑룸' 탭 — 개인 인텔리전스의 집: 브리프(발행·보관함)와 워치(관리·새 소식)를 총괄.
 // R12: 브리프 선반이 NEWS에서 여기로 이사 — 발행 버튼과 결과물이 같은 방에 산다.
-function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed, weeklyGenerating = false, weeklyError = null, onWeeklyBriefsRead = null, briefSeed = null, onBriefSeedConsumed = null, onAdoptLibraryEntry = null, onDeleteBrief = null }) {
+function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onOpenProfile, onNav, onWatchAdd, onWatchRemove, onBriefNow, onWatchSeen, onWatchFeed, weeklyGenerating = false, weeklyError = null, onWeeklyBriefsRead = null, briefSeed = null, onBriefSeedConsumed = null, onAdoptLibraryEntry = null, onDeleteBrief = null, roomSeed = null, onRoomSeedConsumed = null }) {
   const t = T(dark);
   // 추가/삭제가 executeAppCommand(명령 버스)로 localStorage를 바꾸므로,
   // 버전 신호(watchSeenVersion)로 재읽기해 화면에 즉시 반영한다.
@@ -757,6 +757,21 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // 게이트·락·읽음 어디에도 물리지 않는 순수 시각화라 산출물 면 전파 대상이 아니다.
   const [pins, setPins] = useState(() => { try { const v = JSON.parse(localStorage.getItem("sbtl_bookmarks") || "[]"); return Array.isArray(v) ? v : []; } catch { return []; } });
   const [pinView, setPinView] = useState("list"); // "list" | "map"
+  const pinBoardRef = useRef(null);
+  // 팁 딥링크(R18c Codex) — 광고한 기능(지도·빌더)을 실제로 연다: 탭 상단이 아니라
+  // 그 자리로. 1회성 seed, nonce 가드, 소비 후 클리어(R8 seed 규약).
+  useEffect(() => {
+    if (!roomSeed || !roomSeed.view) return;
+    if (roomSeed.view === "map") {
+      setPinView("map");
+      setTimeout(() => { try { pinBoardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);
+    } else if (roomSeed.view === "builder") {
+      setBuilderOpen(true);
+      setTimeout(() => { try { builderPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);
+    }
+    if (typeof onRoomSeedConsumed === "function") onRoomSeedConsumed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roomSeed && roomSeed.nonce]);
   const [pinAlias, setPinAlias] = useState(null); // 엔티티 별칭 맵 — 지도 첫 진입 시 1회 로드
   const [pinSel, setPinSel] = useState(null); // 선택 노드 id
   useEffect(() => {
@@ -1125,9 +1140,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
         const KIND_LABEL = { related: "편집자 연결", entity: "같은 주체", theme: "같은 주제" };
         return (
           <>
-            {sectionTitle(`📌 핀 보드 (${pins.length})`, (pins.length || watchTerms.length)
+            <div ref={pinBoardRef} style={{ scrollMarginTop: 12 }}>{sectionTitle(`📌 핀 보드 (${pins.length})`, (pins.length || watchTerms.length)
               ? "피드에서 ☆로 저장한 카드 — 🧠 지도는 내 워치만으로도 그려져요"
-              : "피드 카드의 ☆를 누르거나 워치를 등록하면 여기 모여요")}
+              : "피드 카드의 ☆를 누르거나 워치를 등록하면 여기 모여요")}</div>
             {(pins.length > 0 || watchTerms.length > 0) && (
               <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
                 {[["list", "목록"], ["map", "🧠 지도"]].map(([v, label]) => (
@@ -3590,6 +3605,7 @@ function AppContent() {
   // 브리프 열람 seed — 브리핑룸(Watchroom)이 소비한다(R12: 선반이 NEWS→브리핑룸으로 이사).
   // open이면 선반을 펼치고 period/month/group/id로 호수를 지목한다.
   const [briefSeed, setBriefSeed] = useState({ open: false, period: null, month: null, group: null, specSig: null, id: null, nonce: 0 });
+  const [roomSeed, setRoomSeed] = useState(null); // 팁 딥링크 — {view: "map"|"builder", nonce}
   const markBriefSeedConsumed = useMemo(() => () => setBriefSeed((s) => (s.open ? { ...s, open: false, period: null, month: null, group: null, specSig: null, id: null } : s)), []);
   // NewsDesk가 seed를 소비한 뒤 지시 내용을 비운다(nonce는 유지해 다음 명령의 증가와
   // 구분). 이렇게 해야 NEWS 재방문(NewsDesk 리마운트)에서 옛 프로필/선반이 재생되지 않는다.
@@ -3893,6 +3909,10 @@ function AppContent() {
         // 피드 필터 명령("중국 카드만 보여줘") — 지역/기간/시그널/내워치/검색어를 seed로
         setNewsSeed((s) => ({ profileTerm: null, weeklyOpen: false, feedFilter: { region: cmd.region || null, range: cmd.range ?? null, signal: cmd.signal || null, watch: !!cmd.watch, search: cmd.search || null }, nonce: s.nonce + 1 }));
         setTab("news");
+      } else if (cmd.type === "room_view" && (cmd.view === "map" || cmd.view === "builder")) {
+        // 팁 딥링크(R18c Codex) — 광고한 기능(지도·빌더)을 브리핑룸 안에서 실제로 연다
+        setRoomSeed((s) => ({ view: cmd.view, nonce: (s ? s.nonce : 0) + 1 }));
+        setTab("watchroom");
       }
     } catch { /* noop */ }
   }, [kb.cards, runWeeklyBrief]);
@@ -4013,7 +4033,7 @@ function AppContent() {
       </div>
       <main id="main-content" role="main" aria-label="SBTL 콘텐츠 허브">
         {tab === "all" && <div style={{ paddingTop: 10 }}><TodayDashboard dark={dark} kb={kb} tracker={tracker} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, weeklyOpen: false, nonce: s.nonce + 1 })); setTab("news"); }} onFeedSearch={(q) => executeAppCommand({ type: "feed_filter", search: q })} onAppCommand={executeAppCommand} /></div>}
-        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, feedFilter: null, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} onWeeklyBriefsRead={markWeeklyBriefsRead} briefSeed={briefSeed} onBriefSeedConsumed={markBriefSeedConsumed} onAdoptLibraryEntry={adoptLibraryEntry} onDeleteBrief={deleteWeeklyBrief} /></div>}
+        {tab === "watchroom" && <div style={{ padding: "10px 16px 0" }}><Watchroom dark={dark} kb={kb} weeklyBriefs={weeklyBriefs} watchVersion={watchSeenVersion} onNav={setTab} onOpenProfile={(term) => { setNewsSeed((s) => ({ profileTerm: term, feedFilter: null, nonce: s.nonce + 1 })); setTab("news"); }} onWatchAdd={(term) => executeAppCommand({ type: "watch_add", term })} onWatchRemove={(term) => executeAppCommand({ type: "watch_remove", term })} onBriefNow={(period, extra) => executeAppCommand({ type: "brief_now", period, ...(extra || {}) })} onWatchSeen={bumpWatchSeen} onWatchFeed={() => executeAppCommand({ type: "feed_filter", watch: true })} weeklyGenerating={weeklyGenerating} weeklyError={weeklyError} onWeeklyBriefsRead={markWeeklyBriefsRead} briefSeed={briefSeed} onBriefSeedConsumed={markBriefSeedConsumed} onAdoptLibraryEntry={adoptLibraryEntry} onDeleteBrief={deleteWeeklyBrief} roomSeed={roomSeed} onRoomSeedConsumed={() => setRoomSeed(null)} /></div>}
         {tab === "archive" && <div style={{ paddingTop: 10 }}><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "4px 0 8px" }}>POLICY TRACKER — 정책 일정·규제</div><Tracker tracker={tracker} regionPolicy={regionPolicy} dark={dark} /><div style={{ padding: "0 16px", fontSize: 10, fontWeight: 800, letterSpacing: 1.1, color: "#7D8590", fontFamily: "'JetBrains Mono',monospace", margin: "18px 0 8px" }}>배터리교실 · 용어</div><WebtoonLibrary dark={dark} faq={kb.faq} faqError={kb.faqError} /></div>}
         {tab === "news" && <NewsDesk kb={kb} onSubmitConsultation={handleSubmitConsultation} consultSummaries={consultSummaries} dark={dark} onWatchSeen={bumpWatchSeen} agentSeed={newsSeed} onAgentSeedConsumed={markNewsSeedConsumed} />}
         {tab === "chatbot" && <ChatBot dark={dark} initialConsultation={consultationSeed.data} initialConsultationNonce={consultationSeed.nonce} onAppCommand={executeAppCommand} onConsultationConsumed={markConsultationConsumed} />}

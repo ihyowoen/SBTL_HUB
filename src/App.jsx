@@ -696,6 +696,9 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     try {
       if (!("serviceWorker" in navigator) || typeof Notification === "undefined") return;
       const reg = await navigator.serviceWorker.register("/kang-sw.js");
+      // 첫 설치 직후엔 active 워커가 아직 없어 periodicSync.register가 InvalidStateError로
+      // 조용히 실패한다(Codex #197) — 테스트 경로와 동일하게 활성화를 기다린다.
+      await navigator.serviceWorker.ready;
       const perm = await Notification.requestPermission();
       const canSync = "periodicSync" in reg;
       let syncOn = false;

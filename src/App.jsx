@@ -4,6 +4,7 @@ import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
+import { composeKangBriefing } from "./kang";
 import {
   createConsultation,
   appendMessage,
@@ -145,6 +146,59 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     if (picks.length && typeof onAppCommand === "function") picks.forEach((term) => onAppCommand({ type: "watch_add", term }));
     setOnboardDone(true);
   };
+  // ---- 강차장 브리핑(R18): 접속하면 앱이 먼저 말을 건다 — 재료는 전부 기존 기계 재사용 ----
+  // 방문 흔적은 effect에서 기록하고 인사 계산은 마운트 스냅샷(kangPrev) 기준 — 새로고침해도
+  // 미확인·미열람 근거가 남아 있는 한 제안은 유지되고, 근거가 사라져야 침묵한다(원칙②).
+  const [kangPrev] = useState(() => {
+    try { return { ts: Number(localStorage.getItem("sbtl_kang_last_visit")) || null, cnt: Number(localStorage.getItem("sbtl_kang_card_count")) || null }; } catch { return { ts: null, cnt: null }; }
+  });
+  useEffect(() => {
+    if (!kb.cards.length) return;
+    try {
+      localStorage.setItem("sbtl_kang_last_visit", String(Date.now()));
+      localStorage.setItem("sbtl_kang_card_count", String(kb.cards.length));
+    } catch { /* noop */ }
+  }, [kb.cards.length]);
+  const kang = useMemo(() => {
+    if (!onboardDone || !kb.cards.length) return null;
+    let seen; try { const v = JSON.parse(localStorage.getItem("sbtl_watch_seen") || "[]"); seen = new Set(Array.isArray(v) ? v : []); } catch { seen = new Set(); }
+    const sigRank = { t: 2, h: 1 };
+    const latestFirst = (a, b) => (sigRank[b.s] || 0) - (sigRank[a.s] || 0) || String(b.d || b.date || "").localeCompare(String(a.d || a.date || ""));
+    // 워치 미확인 — 워치룸 배지·피드 내워치와 같은 창(WATCH_SEEN_WINDOW)·같은 매칭
+    const unseen = watchTerms.length
+      ? kb.cards.filter((c) => cardMatchesWatch(c, watchTerms)).slice(0, WATCH_SEEN_WINDOW).filter((c) => { const id = getCardId(c); return id && !seen.has(id); })
+      : [];
+    const unseenTop = [...unseen].sort(latestFirst)[0];
+    let pins; try { const v = JSON.parse(localStorage.getItem("sbtl_bookmarks") || "[]"); pins = Array.isArray(v) ? v : []; } catch { pins = []; }
+    const pinnedIds = new Set(pins.map((p) => p.id));
+    let pinFollow = null;
+    if (pins.length) {
+      const byPin = new Map(pins.map((p) => [p.id, p]));
+      // 편집자 related가 저장 카드를 가리키는 새 카드 = 확인된 후속(R15 에지① 신뢰 순서 재사용)
+      const best = kb.cards.filter((c) => !pinnedIds.has(getCardId(c)) && Array.isArray(c.related) && c.related.some((r) => pinnedIds.has(r))).sort(latestFirst)[0];
+      if (best) pinFollow = { pinTitle: byPin.get(best.related.find((r) => pinnedIds.has(r)))?.title || "", cardTitle: best.T || best.title || "" };
+    }
+    const unreadEntry = weeklyBriefs.find((e) => e && !e.read);
+    const unreadBrief = unreadEntry ? { label: briefChipLabel(unreadEntry, new Date().getFullYear(), false), period: unreadEntry.period || null, month: unreadEntry.month || null, group: unreadEntry.group || null } : null;
+    let staleBrief = null;
+    for (const e of weeklyBriefs) {
+      if (!e || !e.month || typeof e.source_month_count !== "number" || e.group === "custom") continue;
+      if (!(e.terms_sig === "[]" || e.terms_sig == null)) continue; // 전체 범위 호수만 — 워치 범위는 풀이 달라 오발동(R15d 규약)
+      const drift = kb.cards.filter((c) => String(c.d || c.date || "").slice(0, 7) === e.month).length - e.source_month_count;
+      if (drift > 0 && (!staleBrief || drift > staleBrief.drift)) staleBrief = { month: e.month, monthNum: Number(e.month.slice(5, 7)), drift };
+    }
+    const topC = kb.cards.find((c) => c.s === "t" && cardDateWithinDays(c, 7));
+    const gapDays = kangPrev.ts ? Math.max(0, Math.floor((Date.now() - kangPrev.ts) / 86400000)) : null;
+    return composeKangBriefing({
+      gapDays,
+      cardDelta: kangPrev.cnt != null && kb.cards.length > kangPrev.cnt ? kb.cards.length - kangPrev.cnt : 0,
+      hasWatch: watchTerms.length > 0,
+      watchNew: unseen.length,
+      watchTopTitle: unseenTop ? (unseenTop.T || unseenTop.title || "") : "",
+      pinFollow, unreadBrief, staleBrief,
+      topCard: topC ? { title: topC.T || topC.title || "" } : null,
+    });
+  }, [kb.cards, watchTerms, weeklyBriefs, kangPrev, onboardDone]);
   const top = [...todayCards].sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 4);
   const lead = top[0];
   const rest = top.slice(1);
@@ -242,6 +296,25 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
             <button onClick={() => finishOnboard([])} style={{ padding: "11px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>나중에</button>
           </div>
         </W>
+      )}
+      {/* 강차장 브리핑(R18) — 앱이 먼저 말을 거는 제안 카드. 줄마다 명령 버스 행동 칩 */}
+      {kang && (
+        <div style={{ borderRadius: 14, border: `1px solid ${t.brd}`, background: t.card, padding: "12px 13px" }}>
+          <div style={{ display: "flex", gap: 9, alignItems: "flex-start" }}>
+            <img src="/data/kang.png" alt="강차장" style={{ width: 30, height: 30, borderRadius: 15, flexShrink: 0, marginTop: 1, border: "2px solid #2a1a40" }} />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 12.5, fontWeight: 800, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all" }}>{kang.header}</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 7 }}>
+                {kang.lines.map((ln, i) => (
+                  <div key={i} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                    <span style={{ flex: 1, minWidth: 0, fontSize: 11.5, color: t.tx, lineHeight: 1.55, wordBreak: "keep-all" }}>{ln.text}</span>
+                    <button onClick={() => { if (ln.cmd && ln.cmd.type === "nav") { onNav(ln.cmd.tab); } else if (ln.cmd && typeof onAppCommand === "function") { onAppCommand(ln.cmd); } }} style={{ flexShrink: 0, padding: "6px 10px", borderRadius: 999, border: `1px solid ${t.cyan}`, background: "transparent", color: t.cyan, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{ln.chip} →</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       )}
       <W label={`TODAY'S FLOW · ${todayLabel()}`} right={`카드 최신 ${fmtDate(today)} · ${todayCards.length}장`}>
         {dailyFlow && dailyFlow.dataDate === today && dailyFlow.narrative

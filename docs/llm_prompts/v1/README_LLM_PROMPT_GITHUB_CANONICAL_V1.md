@@ -1,6 +1,6 @@
 # LLM Prompt GitHub Canonical v1
 
-Updated KST: `2026-07-19T20:35:00+09:00`
+Updated KST: `2026-07-19`
 
 This is the GitHub-canonical SBTL_HUB LLM prompt package.
 
@@ -54,6 +54,10 @@ BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED
 ```
 
 with exit code `2`.
+
+The validator reads canonical raw input, the Stage A decision ledger, and all current terminal/lineage pools, including `reject_or_support_only_pool[]`.
+
+Identity is evaluated independently for every run record and every baseline card sharing the same story ID. An exact URL match on one record or one baseline card never grants trust to another missing or mismatched record/card pair. `collision_count` remains the unique story-ID count used by Stage A quarantine, while `collision_record_count` and `collision_pair_count` retain the detailed failures.
 
 After Stage A has quarantined those collisions, verify the quarantine artifact:
 

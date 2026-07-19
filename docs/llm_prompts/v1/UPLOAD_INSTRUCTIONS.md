@@ -1,6 +1,6 @@
 # Upload Instructions — LLM Prompt GitHub Canonical v1
 
-Updated KST: `2026-07-19T20:35:00+09:00`
+Updated KST: `2026-07-19`
 
 ## Package contents
 
@@ -29,15 +29,55 @@ git push -u origin docs/llm-prompt-canonical-v1
 
 Do not use `git add docs` alone. That would omit the registered validators and produce an incomplete package.
 
-## Required pre-commit checks
+## Required package pre-commit checks
+
+These checks validate the prompt/validator package itself and must pass for a docs-only package PR:
 
 ```bash
-python validation_scripts/date_role_alignment_check.py BASELINE_CARDS_JSON
-python validation_scripts/related_lineage_check.py BASELINE_CARDS_JSON
-python validation_scripts/story_id_lineage_check.py RUN_JSON BASELINE_CARDS_JSON
+python -m py_compile \
+  validation_scripts/date_role_alignment_check.py \
+  validation_scripts/story_id_lineage_check.py \
+  validation_scripts/related_lineage_check.py
+
+python - <<'PY'
+import json
+from pathlib import Path
+
+manifest_paths = [
+    Path("docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json"),
+    Path("docs/llm_prompts/v1/UPLOAD_MANIFEST.json"),
+    Path("docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json"),
+]
+for path in manifest_paths:
+    json.loads(path.read_text(encoding="utf-8"))
+
+upload = json.loads(manifest_paths[1].read_text(encoding="utf-8"))
+listed = []
+for value in upload.get("paths", {}).values():
+    if isinstance(value, list):
+        listed.extend(value)
+missing = [path for path in listed if not Path(path).exists()]
+if missing:
+    raise SystemExit(f"missing package files: {missing}")
+print("PASS: manifests parse and all listed package paths exist")
+PY
 ```
 
-The story-ID command is detection-only. When cross-run collisions exist, it intentionally exits with code `2` and status:
+## Run-bound story-ID check
+
+When a current run and baseline are available, run:
+
+```bash
+python validation_scripts/story_id_lineage_check.py \
+  RUN_JSON BASELINE_CARDS_JSON
+```
+
+The validator supports both canonical source shapes:
+
+- `stories[]`
+- `final_news_llm_input.stories[]`
+
+It also reads Stage A ledger and pool containers. When cross-run collisions exist, detection-only mode intentionally exits with code `2` and status:
 
 ```text
 BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED
@@ -55,6 +95,24 @@ Acceptable story-ID validator success states are:
 
 - `PASS_NO_COLLISIONS`
 - `PASS_COLLISIONS_QUARANTINED`
+
+## Baseline and production data audits
+
+The following checks validate card data rather than the docs/validator package:
+
+```bash
+python validation_scripts/date_role_alignment_check.py BASELINE_CARDS_JSON
+python validation_scripts/related_lineage_check.py BASELINE_CARDS_JSON
+```
+
+They are hard gates when any of the following applies:
+
+- `public/data/cards.json` is changed;
+- Prompt 0.8 merge preparation is running;
+- Prompt 0.9 production verification is running;
+- a baseline date/related remediation PR is being prepared.
+
+For a docs-only package PR that does not modify `public/data/cards.json`, existing baseline findings must be recorded but do not block the package commit. At the time of this hardening PR, the unchanged baseline has five historical date-integrity findings and unresolved historical related references that are preserved for lineage-safe remediation. This exception applies only to pre-existing findings in an unchanged baseline; any new card-data finding remains a blocker.
 
 ## PR title
 
@@ -79,6 +137,7 @@ Notes:
 - No public/data/cards.json change
 - No app runtime-code change
 - Omitting registered validators is a package failure
+- Existing unchanged-baseline findings are reported separately from package-integrity checks
 ```
 
 ## Historical note

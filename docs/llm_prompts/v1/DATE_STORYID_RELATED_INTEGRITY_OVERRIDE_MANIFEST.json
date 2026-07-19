@@ -25,6 +25,19 @@
     "validation_scripts/story_id_lineage_check.py",
     "validation_scripts/related_lineage_check.py"
   ],
+  "validator_contracts": {
+    "story_id_lineage_check": {
+      "detection_command": "python validation_scripts/story_id_lineage_check.py RUN_JSON BASELINE_CARDS_JSON",
+      "quarantine_verification_command": "python validation_scripts/story_id_lineage_check.py RUN_JSON BASELINE_CARDS_JSON --stage-a-results STAGE_A_RESULTS_JSON",
+      "pass_statuses": [
+        "PASS_NO_COLLISIONS",
+        "PASS_COLLISIONS_QUARANTINED"
+      ],
+      "blocking_status": "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED",
+      "blocking_exit_code": 2,
+      "rule": "A detected cross-run story-ID collision cannot pass unless the Stage A artifact proves the story ID was not trusted or used for duplicate routing."
+    }
+  },
   "required_package_manifests": [
     "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
     "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
@@ -40,6 +53,7 @@
   ],
   "required_failure_statuses": {
     "stage_a_date_ambiguity": "BLOCKED_DATE_ROLE_AMBIGUITY",
+    "story_id_collision_unquarantined": "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED",
     "final_qc_date_contradiction": "FINAL_QC_EVENT_SOURCE_DATE_CONTRADICTION",
     "merge_prep_id_date_mismatch": "BLOCKED_ID_EVENT_DATE_MISMATCH"
   },

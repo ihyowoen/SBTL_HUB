@@ -50,21 +50,29 @@ async function checkNewCards() {
   }
   if (count == null) return { error: "no-count" };
   const prev = await idbGet("lastCount");
-  await idbSet("lastCount", count);
   const delta = typeof prev === "number" ? count - prev : 0;
   let notified = false;
-  // 첫 실행(prev 없음)은 기준선만 기록 — 과거 전체를 '새로 왔다'고 말하지 않는다
-  if (typeof prev === "number" && delta > 0 && self.Notification && Notification.permission === "granted") {
-    try {
-      await self.registration.showNotification("강차장", {
-        body: `밤사이 새 카드 ${delta}장 들어왔어 — 읽어두고 정리해뒀어. 들어와서 봐.`,
-        icon: "/data/kang.png",
-        badge: "/data/kang.png",
-        tag: "kang-nudge", // 같은 태그로 갱신 — 노크가 쌓여 도배되지 않게
-        data: { url: "/" },
-      });
-      notified = true;
-    } catch (e) { /* 알림 실패는 조용히 — 다음 주기에 다시 */ }
+  if (typeof prev !== "number" || delta <= 0) {
+    // 첫 실행(기준선만 기록 — 과거 전체를 '새로 왔다'고 말하지 않는다) 또는
+    // 무변화·감소(재산정 등) — 기준선 갱신만.
+    await idbSet("lastCount", count);
+  } else {
+    if (self.Notification && Notification.permission === "granted") {
+      try {
+        await self.registration.showNotification("강차장", {
+          body: `밤사이 새 카드 ${delta}장 들어왔어 — 읽어두고 정리해뒀어. 들어와서 봐.`,
+          icon: "/data/kang.png",
+          badge: "/data/kang.png",
+          tag: "kang-nudge", // 같은 태그로 갱신 — 노크가 쌓여 도배되지 않게
+          data: { url: "/" },
+        });
+        notified = true;
+      } catch (e) { /* 알림 실패 — 아래에서 기준선 보존 */ }
+    }
+    // 기준선은 '알림이 실제로 나간 뒤에만' 전진(Codex #197 R5) — 먼저 전진하면 알림
+    // 실패(권한 부재·예외·SW 종료) 시 그 델타가 영영 유실된다. 못 보냈으면 유지해
+    // 다음 주기·다음 확인에서 누적 델타로 재발견한다.
+    if (notified) await idbSet("lastCount", count);
   }
   return { count, prev: typeof prev === "number" ? prev : null, delta, notified };
 }

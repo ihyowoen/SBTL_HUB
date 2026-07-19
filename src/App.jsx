@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
-import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections } from "./briefAxes";
+import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections, hitBoundary } from "./briefAxes";
 import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
@@ -157,7 +157,14 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
   // 방문 흔적은 effect에서 기록하고 인사 계산은 마운트 스냅샷(kangPrev) 기준 — 새로고침해도
   // 미확인·미열람 근거가 남아 있는 한 제안은 유지되고, 근거가 사라져야 침묵한다(원칙②).
   const [kangPrev] = useState(() => {
-    try { return { ts: Number(localStorage.getItem("sbtl_kang_last_visit")) || null, cnt: Number(localStorage.getItem("sbtl_kang_card_count")) || null }; } catch { return { ts: null, cnt: null }; }
+    try {
+      // ackFresh = ack 스토어가 아예 없던 첫 로드 — 이때의 기존 완료는 '새로 한 것'이
+      // 아니므로 인정 없이 기준선 시드한다(Codex #196 R4 — seen first-run 기준선과 같은
+      // 규약: 과거 이력을 지금 한 것처럼 인정하면 어색하다).
+      const ackRaw = localStorage.getItem("sbtl_kang_quest_ack");
+      let ack; try { ack = new Set(Object.keys(JSON.parse(ackRaw || "{}") || {})); } catch { ack = new Set(); }
+      return { ts: Number(localStorage.getItem("sbtl_kang_last_visit")) || null, cnt: Number(localStorage.getItem("sbtl_kang_card_count")) || null, ack, ackFresh: ackRaw === null };
+    } catch { return { ts: null, cnt: null, ack: new Set(), ackFresh: false }; }
   });
   useEffect(() => {
     if (!kb.cards.length) return;
@@ -166,6 +173,9 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       localStorage.setItem("sbtl_kang_card_count", String(kb.cards.length));
     } catch { /* noop */ }
   }, [kb.cards.length]);
+  // 별칭 그룹(R20 워치 추천용) — 지도와 같은 캐시 로더 재사용, 로드되면 추천 줄이 켜진다
+  const [kangAlias, setKangAlias] = useState(null);
+  useEffect(() => { let alive = true; loadAliasEntities().then((j) => { if (alive) setKangAlias(j || {}); }); return () => { alive = false; }; }, []);
   const kang = useMemo(() => {
     // R18b: 온보딩 게이트 폐지 — 강차장은 데이터만 있으면 항상 인사한다(워치가 비면
     // 인사 카드가 온보더를 겸함). 별도 온보딩 카드가 인사를 가로막던 구조 제거.
@@ -207,10 +217,55 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       ...(questFlags.builder_publish ? ["builder_publish"] : []),
       ...(questFlags.chat_ask ? ["chat_ask"] : []),
     ];
+    // 워치 후보 추천(R20) — 최근 30일 워치 매칭 카드에 자주 같이 등장하는 별칭 그룹.
+    // 카운트·표기 선택은 반드시 워치 매처와 같은 식(cardWatchHay substring — Codex #196
+    // R2 정합 지적): 추가된 용어는 substring으로 동작하므로, 다른 식(경계·제목 한정)으로
+    // 세면 표시 건수와 실제 워치 매칭이 어긋난다. 표기는 최다 히트 스펠링(R6 규약),
+    // 이미 워치인 그룹 제외, 동시등장 3장 이상만, 상위 3 안에서 일자 로테이션.
+    // 추가하면 다음 재계산에서 워치로 잡혀 줄이 자연 소멸.
+    let watchSuggest = null;
+    if (watchTerms.length && kangAlias) {
+      const matched30 = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && cardDateWithinDays(c, 30));
+      if (matched30.length >= 3) {
+        const hays = matched30.map((c) => cardWatchHay(c));
+        const wset = watchTerms.map((x) => String(x).toLowerCase());
+        const cands = [];
+        for (const [canon, spellRaw] of Object.entries(kangAlias)) {
+          // 별칭 맵 실형태: {key: {canonical, aliases[]}} — 배열형(구형)도 수용
+          const rawArr = Array.isArray(spellRaw) ? spellRaw
+            : spellRaw && typeof spellRaw === "object" ? [spellRaw.canonical, ...(Array.isArray(spellRaw.aliases) ? spellRaw.aliases : [])]
+            : [];
+          const spells = [canon, ...rawArr].map((s) => String(s || "")).filter(Boolean);
+          if (!spells.length || spells.some((s) => wset.includes(s.toLowerCase()))) continue;
+          // 건수는 그룹 합집합이 아니라 '실제로 추가될 그 표기'의 매칭 수 — 문장의 N장과
+          // 추가 후 워치 동작이 정확히 같아야 한다(Codex #196 R2 정합의 완성형).
+          // 단 적격 판정은 경계 매칭(hitBoundary) ≥3 — substring 잡음만으로 뜨는 짧은
+          // ASCII 별칭(GM↔augment류, R8b 실측 교훈)을 추천하지 않는다(Codex R3).
+          // 한글 표기는 hitBoundary가 부분 매칭이라 자연 통과.
+          let best = null, bestHits = 0;
+          for (const s of spells) {
+            const sl = s.toLowerCase();
+            let sub = 0, bnd = 0;
+            for (const hy of hays) { if (hy.includes(sl)) { sub++; if (hitBoundary(sl, hy)) bnd++; } }
+            if (bnd < 3) continue; // substring 전용 후보 배제
+            if (sub > bestHits) { bestHits = sub; best = s; }
+          }
+          if (bestHits >= 3 && best) cands.push({ term: best, count: bestHits });
+        }
+        cands.sort((a, b) => b.count - a.count || String(a.term).localeCompare(String(b.term)));
+        if (cands.length) watchSuggest = cands[Math.floor(Date.now() / 86400000) % Math.min(3, cands.length)];
+      }
+    }
+    // 완료 인정(R20) — 지난 인사에서 아직 인정하지 않은(새로) 완료 경험.
+    // ack 첫 로드(기준선)면 기존 완료는 인정 대상이 아니다 — effect가 조용히 시드.
+    const doneAll = [...questsDone, ...(watchTerms.length ? ["watch_set"] : [])];
+    const newlyDone = kangPrev.ackFresh ? [] : doneAll.filter((k) => !kangPrev.ack.has(k));
     return composeKangBriefing({
       gapDays,
       dayKey: Math.floor(Date.now() / 86400000), // 팁 로테이션 — 하루 하나, 결정적
       questsDone,
+      newlyDone,
+      watchSuggest,
       cardDelta: kangPrev.cnt != null && kb.cards.length > kangPrev.cnt ? kb.cards.length - kangPrev.cnt : 0,
       hasWatch: watchTerms.length > 0,
       watchNew: unseen.length,
@@ -220,7 +275,31 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       watchProfile,
       extraCard: extraC ? { title: extraC.T || extraC.title || "" } : null,
     });
-  }, [kb.cards, watchTerms, weeklyBriefs, kangPrev]);
+  }, [kb.cards, watchTerms, weeklyBriefs, kangPrev, kangAlias]);
+  // 완료 인정 스탬프(R20) — 작곡기가 '이번 인사에서 소진했다'고 알려준 키(ackStamp:
+  // 표시된 하나+표시 불가능한 것)만 기록한다. 완료 전부를 찍으면 대기 중인 두 번째
+  // 인정이 영영 삼켜진다(Codex #196 — 방문당 하나씩 이월이 의도). 렌더 후 effect.
+  // ack 첫 로드(ackFresh)는 1회 기준선 시드: 그 시점의 완료 전부를 인정 없이 기록하고
+  // (빈 {}라도 써서 기준선 확정), 같은 마운트의 이후 완료부터 정상 모드로 드립.
+  const ackSeededRef = useRef(false);
+  useEffect(() => {
+    if (!kang || !kang.quest) return;
+    try {
+      if (kangPrev.ackFresh && !ackSeededRef.current) {
+        ackSeededRef.current = true;
+        const seed = {};
+        for (const q of kang.quest.items) if (q.done) seed[q.key] = kstToday();
+        localStorage.setItem("sbtl_kang_quest_ack", JSON.stringify(seed));
+        return;
+      }
+      if (!Array.isArray(kang.ackStamp) || !kang.ackStamp.length) return;
+      const cur = JSON.parse(localStorage.getItem("sbtl_kang_quest_ack") || "{}") || {};
+      let changed = false;
+      for (const k of kang.ackStamp) if (!cur[k]) { cur[k] = kstToday(); changed = true; }
+      if (changed) localStorage.setItem("sbtl_kang_quest_ack", JSON.stringify(cur));
+    } catch { /* noop */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [kang]);
   const top = [...todayCards].sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 4);
   const lead = top[0];
   const rest = top.slice(1);

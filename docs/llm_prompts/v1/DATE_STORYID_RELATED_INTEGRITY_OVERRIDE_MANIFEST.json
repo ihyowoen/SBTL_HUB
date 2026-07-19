@@ -38,7 +38,8 @@
         "watchlist_context_pool[]",
         "existing_reinforcement[]",
         "support_source_only[]",
-        "rejected[]"
+        "rejected[]",
+        "reject_or_support_only_pool[]"
       ],
       "accepted_url_fields": [
         "primary_url",
@@ -49,15 +50,18 @@
         "fact_sources[].url"
       ],
       "canonical_url_policy": "remove known tracking parameters and sort remaining query-parameter key/value pairs before lookup",
-      "grouped_spec_pairing_policy": "When source_story_ids[] and source_urls[] or urls[] have equal length, pair by array position; do not assign every grouped URL to every story ID.",
+      "grouped_spec_pairing_policy": "When source_story_ids[] and source_urls[] or urls[] have equal length, pair by array position; do not assign every grouped URL to every story ID. For unmatched grouped arrays, only an explicitly named representative story may receive the representative URL; all other story IDs remain URL-unmapped and enter collision review when reused.",
       "missing_url_policy": "Register every discovered story ID even when no URL is present. A baseline story-ID reuse without an independently matching URL enters the block/quarantine flow.",
+      "record_identity_policy": "Classify every run record independently. Never union URLs across records that share a story ID before identity classification.",
+      "baseline_pair_policy": "For each reused story ID, evaluate every run-record and baseline-card pair independently. One exact URL match cannot trust a different missing or mismatched run record, and a match to one baseline card cannot trust another baseline card that reuses the same story ID without its own matching URL.",
+      "counting_policy": "collision_count is the number of unique collision story IDs for Stage A quarantine compatibility; collision_record_count and collision_pair_count preserve per-record and per-baseline-card detail.",
       "pass_statuses": [
         "PASS_NO_COLLISIONS",
         "PASS_COLLISIONS_QUARANTINED"
       ],
       "blocking_status": "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED",
       "blocking_exit_code": 2,
-      "rule": "A detected cross-run story-ID collision cannot pass unless the Stage A artifact proves the story ID was not trusted or used for duplicate routing. Exact or canonical URL identity must be evaluated across every accepted input container and URL field before collision classification."
+      "rule": "A detected cross-run story-ID collision cannot pass unless the Stage A artifact proves the story ID was not trusted or used for duplicate routing. Exact or canonical URL identity must be evaluated independently for every accepted input record and every baseline card sharing that story ID."
     },
     "date_role_alignment_check": {
       "command": "python validation_scripts/date_role_alignment_check.py BASELINE_CARDS_JSON",

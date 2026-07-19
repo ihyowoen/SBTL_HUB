@@ -3200,7 +3200,7 @@ function NewsExplode({ startCard, kb, dark, onClose, isBookmarked, onToggleBookm
   const center = byId.get(centerId) || startCard;
   const neighbors = useMemo(() => (alias ? pickNeighbors(center, kb.cards, alias, { cap: 14 }) : []), [center, kb.cards, alias]);
   const whyById = useMemo(() => new Map(neighbors.map((n) => [n.id, n.why])), [neighbors]);
-  const lay = useMemo(() => (alias ? layoutPinGraph(buildPinGraph(explodePins(center, neighbors), kb.cards, alias, { ensureEdges: ensureCenterEdges(getCardId(center), neighbors) }), { width: 620 }) : null), [center, neighbors, kb.cards, alias]);
+  const lay = useMemo(() => (alias ? layoutPinGraph(buildPinGraph(explodePins(center, neighbors), kb.cards, alias, { ensureEdges: ensureCenterEdges(getCardId(center), neighbors) }), { width: 620, preferHub: getCardId(center) }) : null), [center, neighbors, kb.cards, alias]);
   const recenter = (id) => {
     if (!id || id === centerId || !byId.has(id)) return;
     setTrail((tr) => [...tr, { id: centerId, title: String(center.T || center.title || "") }].slice(-8));

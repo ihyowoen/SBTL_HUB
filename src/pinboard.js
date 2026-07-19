@@ -134,14 +134,20 @@ export function buildPinGraph(pins, cards, aliasEntities, opts = {}) {
 }
 
 // 결정적 레이아웃 — 성분별 중심+링, 성분 상자 행 팩킹. width에 맞춰 좌표를 돌려준다.
-export function layoutPinGraph(graph, { width = 640 } = {}) {
+// preferHub(R22 분해 뷰): 동률 차수(삼각형 등)에서 사전순이 이웃을 허브로 앉혀 '현재
+// 몸통'이 링 가장자리로 밀리는 것을 막는다(Codex #198 R5 — 실카드 검증). 지정 노드가
+// 속한 성분에서만 최우선, 미지정(핀 보드)은 기존 규칙 그대로.
+export function layoutPinGraph(graph, { width = 640, preferHub = null } = {}) {
   const NODE_R = 15;
   const LABEL_H = 36; // 노드 아래 라벨 공간 — 제목 2줄(끊김 최소화)
   const SIDE = 84;    // 좌우 방사 라벨 폭 여유 — 없으면 9시/3시 라벨이 viewBox 밖으로 잘린다(Codex #185 R4)
   const PAD = 18;
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   const boxes = graph.components.map((comp) => {
-    const ids = comp.ids.slice().sort((a, b) => (graph.degree.get(b) || 0) - (graph.degree.get(a) || 0) || String(a).localeCompare(String(b)));
+    const ids = comp.ids.slice().sort((a, b) =>
+      (a === preferHub ? -1 : b === preferHub ? 1 : 0) ||
+      (graph.degree.get(b) || 0) - (graph.degree.get(a) || 0) ||
+      String(a).localeCompare(String(b)));
     if (ids.length === 1) {
       return { comp, ids, w: NODE_R * 2 + PAD * 2 + 96, h: NODE_R * 2 + LABEL_H + PAD * 2, place: () => [{ id: ids[0], dx: 0, dy: 0 }] };
     }

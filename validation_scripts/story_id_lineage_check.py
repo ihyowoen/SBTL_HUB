@@ -28,9 +28,7 @@ def canon(url):
     query = sorted(
         (
             (key, value)
-            for key, value in parse_qsl(
-                parsed.query, keep_blank_values=True
-            )
+            for key, value in parse_qsl(parsed.query, keep_blank_values=True)
             if key.lower() not in TRACKING
         ),
         key=lambda item: (item[0], item[1]),
@@ -50,7 +48,6 @@ def load_json(path):
 
 def url_values(record):
     values = []
-
     for field in ("primary_url", "url"):
         value = record.get(field)
         if isinstance(value, str) and value.strip():
@@ -62,8 +59,7 @@ def url_values(record):
             values.append(value)
         elif isinstance(value, list):
             values.extend(
-                item
-                for item in value
+                item for item in value
                 if isinstance(item, str) and item.strip()
             )
 
@@ -74,7 +70,6 @@ def url_values(record):
             value = source.get(field)
             if isinstance(value, str) and value.strip():
                 values.append(value)
-
     return values
 
 
@@ -84,23 +79,23 @@ def collect_run_story_urls(run):
     def add(story_id, urls):
         if not story_id:
             return
+        # Register the story ID before URL iteration. A missing URL is not a
+        # reason to skip a cross-run story-ID collision; it is an untrusted
+        # identity route that must enter the block/quarantine flow.
+        story_urls[story_id]
         for url in urls:
             canonical = canon(url)
             if canonical:
                 story_urls[story_id].add(canonical)
 
-    # Raw run contract.
     for story in run.get("stories", []) or []:
         if isinstance(story, dict):
             add(story.get("story_id"), url_values(story))
 
-    # Stage A decision-ledger contract (`url` may be the only URL field).
     for row in run.get("decision_ledger", []) or []:
         if isinstance(row, dict):
             add(row.get("story_id"), url_values(row))
 
-    # Stage A grouped specs. Pair one URL to one story ID whenever the arrays
-    # have equal length. This avoids assigning every grouped URL to every ID.
     for collection_name in STAGE_A_COLLECTIONS:
         for item in run.get(collection_name, []) or []:
             if not isinstance(item, dict):
@@ -115,6 +110,8 @@ def collect_run_story_urls(run):
             if not isinstance(story_ids, list):
                 continue
             story_ids = [value for value in story_ids if value]
+            for source_story_id in story_ids:
+                add(source_story_id, [])
 
             plural_urls = []
             for field in ("source_urls", "urls"):
@@ -128,25 +125,17 @@ def collect_run_story_urls(run):
                         break
 
             if story_ids and len(story_ids) == len(plural_urls):
-                for source_story_id, source_url in zip(
-                    story_ids, plural_urls
-                ):
+                for source_story_id, source_url in zip(story_ids, plural_urls):
                     add(source_story_id, [source_url])
             elif len(story_ids) == 1:
                 add(story_ids[0], url_values(item))
             else:
-                representative_story_id = item.get(
-                    "representative_story_id"
-                )
+                representative_story_id = item.get("representative_story_id")
                 if representative_story_id:
                     add(
                         representative_story_id,
-                        [
-                            item.get("primary_url"),
-                            item.get("url"),
-                        ],
+                        [item.get("primary_url"), item.get("url")],
                     )
-
     return story_urls
 
 
@@ -187,13 +176,8 @@ def quarantine_audit(stage_a_results, collisions):
         and stage_a_results.get("story_id_lineage_audit_status")
         == "PASS_COLLISIONS_QUARANTINED"
     )
-
     return {
-        "status": (
-            "PASS"
-            if not missing_or_invalid and top_level_valid
-            else "FAIL"
-        ),
+        "status": "PASS" if not missing_or_invalid and top_level_valid else "FAIL",
         "top_level_quarantine_valid": top_level_valid,
         "missing_or_invalid_collision_rows": missing_or_invalid,
     }
@@ -221,11 +205,13 @@ def main():
         for story_id in card.get("source_story_ids", []):
             story_to_cards[story_id].append(card.get("id"))
         for url in card.get("urls", []):
-            url_to_cards[canon(url)].add(card.get("id"))
+            canonical = canon(url)
+            if canonical:
+                url_to_cards[canonical].add(card.get("id"))
         for source in card.get("fact_sources", []):
-            url_to_cards[canon(source.get("source_url"))].add(
-                card.get("id")
-            )
+            canonical = canon(source.get("source_url"))
+            if canonical:
+                url_to_cards[canonical].add(card.get("id"))
 
     run_story_urls = collect_run_story_urls(run)
     collisions, trusted = [], []
@@ -243,6 +229,7 @@ def main():
             "story_id_baseline_cards": matched_cards,
             "canonical_run_urls": sorted(run_urls),
             "exact_url_cards": sorted(exact_url_cards),
+            "run_url_missing": not run_urls,
         }
         if exact_url_cards.intersection(matched_cards):
             trusted.append(row)
@@ -255,8 +242,9 @@ def main():
             status = "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED"
             exit_code = 2
         else:
-            stage_a_results = load_json(args.stage_a_results)
-            quarantine = quarantine_audit(stage_a_results, collisions)
+            quarantine = quarantine_audit(
+                load_json(args.stage_a_results), collisions
+            )
             if quarantine["status"] == "PASS":
                 status = "PASS_COLLISIONS_QUARANTINED"
                 exit_code = 0
@@ -270,19 +258,19 @@ def main():
     print(json.dumps({
         "status": status,
         "run_story_record_count": len(run_story_urls),
-        "story_id_cross_run_match_count": (
-            len(collisions) + len(trusted)
-        ),
+        "story_id_cross_run_match_count": len(collisions) + len(trusted),
         "trusted_identity_match_count": len(trusted),
         "collision_count": len(collisions),
+        "url_missing_collision_count": sum(
+            1 for row in collisions if row["run_url_missing"]
+        ),
         "trusted": trusted,
         "collisions": collisions,
         "quarantine_audit": quarantine,
         "required_action_when_blocked": (
             "Run Stage A with story-ID collision quarantine fields and rerun "
             "this validator with --stage-a-results."
-            if exit_code
-            else None
+            if exit_code else None
         ),
     }, ensure_ascii=False, indent=2))
     return exit_code

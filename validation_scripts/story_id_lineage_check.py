@@ -158,7 +158,11 @@ def collect_run_story_records(run):
             # A representative story_id does not replace the grouped universe.
             # Record it separately only when it is not already one of the
             # source_story_ids that will be evaluated below.
-            if explicit_story_id and explicit_story_id not in source_story_ids:
+            if (
+                source_story_ids
+                and explicit_story_id
+                and explicit_story_id not in source_story_ids
+            ):
                 add(
                     explicit_story_id,
                     url_values(item),

@@ -523,13 +523,15 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // seen 병합만 하고 sig는 건드리지 않는다(용어 변경 편입은 NewsDesk·명령 버스 몫).
   // 용어는 localStorage에서 직접 읽는다 — watchTerms(useMemo)를 의존성에 넣으면
   // onWatchSeen→watchVersion→새 배열 참조로 effect가 무한 재실행된다.
+  const roomDeepRef = useRef(false); // 딥링크 방문 래치 — 이번 마운트 동안 진입 병합 양보
   useEffect(() => {
     if (!kb.cards.length) return;
     // 딥링크(room_view) 진입은 지도·빌더를 보러 온 것 — 새 소식 미리보기를 스크롤로
     // 지나칠 뿐 실제로 보지 않으므로 진입 병합을 양보한다(미확인 보존, Codex #193 R2).
-    // briefSeed 지목 마운트가 진입 읽음을 양보하는 것과 같은 규약. roomSeed는 소비 후
-    // null이 되지만 deps에 없어 재실행되지 않는다 — 이번 방문 내내 양보 유지.
-    if (roomSeed && roomSeed.view) return;
+    // briefSeed 지목 마운트가 진입 읽음을 양보하는 것과 같은 규약. prop만 보면 소비 후
+    // 데이터 새로고침(kb.cards 변경) 때 가드가 뚫리므로(Codex R3) 마운트 단위 ref 래치
+    // (roomDeepRef)로 방문 내내 유지 — 다음 일반 진입(새 마운트)부터 병합 재개.
+    if ((roomSeed && roomSeed.view) || roomDeepRef.current) return;
     try {
       const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
       if (!Array.isArray(terms) || !terms.length) return;
@@ -768,6 +770,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // 그 자리로. 1회성 seed, nonce 가드, 소비 후 클리어(R8 seed 규약).
   useEffect(() => {
     if (!roomSeed || !roomSeed.view) return;
+    roomDeepRef.current = true; // 소비로 prop이 null이 된 뒤에도 방문 내내 병합 양보 유지
     if (roomSeed.view === "map") {
       setPinView("map");
       setTimeout(() => { try { pinBoardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch { /* noop */ } }, 60);

@@ -1,0 +1,49 @@
+{
+  "override_id": "DATE_STORYID_RELATED_INTEGRITY_V1",
+  "authority": "authoritative_conflict_override",
+  "effective_date_kst": "2026-07-19",
+  "override_file": "docs/llm_prompts/v1/00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md",
+  "override_sha256": "6d3cd9e6dcf7ad47801ef587f25633ec849a2108a9b9f6aa8b775076206ec05d",
+  "applies_to": [
+    "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+    "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+    "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
+    "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+    "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+    "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md"
+  ],
+  "stage_addenda": [
+    "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A_HARDENING_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC_HARDENING_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish_HARDENING_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC_HARDENING_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep_HARDENING_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md"
+  ],
+  "validators": [
+    "validation_scripts/date_role_alignment_check.py",
+    "validation_scripts/story_id_lineage_check.py",
+    "validation_scripts/related_lineage_check.py"
+  ],
+  "required_package_manifests": [
+    "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
+    "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
+    "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+  ],
+  "required_artifact_fields": [
+    "integrity_override_file",
+    "integrity_override_sha256",
+    "integrity_override_status",
+    "date_role_separation_status",
+    "story_id_lineage_audit_status",
+    "related_lineage_audit_status"
+  ],
+  "required_failure_statuses": {
+    "stage_a_date_ambiguity": "BLOCKED_DATE_ROLE_AMBIGUITY",
+    "final_qc_date_contradiction": "FINAL_QC_EVENT_SOURCE_DATE_CONTRADICTION",
+    "merge_prep_id_date_mismatch": "BLOCKED_ID_EVENT_DATE_MISMATCH"
+  },
+  "story_id_identity_policy": "story_id is discovery lineage only and cannot independently establish duplicate, reinforcement, merge, or related identity",
+  "related_policy": "Stage A nominates factual lineage only; production related arrays change only after confirmed target validation",
+  "search_before_delete_policy": "Preserve unresolved historical references until bounded lineage search finds a confirmed replacement or deletion is explicitly authorized"
+}

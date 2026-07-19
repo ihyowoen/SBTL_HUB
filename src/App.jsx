@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
-import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections, hitBoundary } from "./briefAxes";
+import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections } from "./briefAxes";
 import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
@@ -213,15 +213,17 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       ...(questFlags.builder_publish ? ["builder_publish"] : []),
       ...(questFlags.chat_ask ? ["chat_ask"] : []),
     ];
-    // 워치 후보 추천(R20) — 최근 30일 워치 매칭 카드 '제목'에 자주 같이 등장하는 별칭
-    // 그룹(경계 매칭 hitBoundary — 제목 등장 한정은 R10 주체 축 규약). 표기는 최다 히트
-    // 스펠링(R6 규약), 이미 워치인 그룹 제외, 동시등장 3장 이상만, 상위 3 안에서 일자
-    // 로테이션. 추가하면 다음 재계산에서 워치로 잡혀 줄이 자연 소멸.
+    // 워치 후보 추천(R20) — 최근 30일 워치 매칭 카드에 자주 같이 등장하는 별칭 그룹.
+    // 카운트·표기 선택은 반드시 워치 매처와 같은 식(cardWatchHay substring — Codex #196
+    // R2 정합 지적): 추가된 용어는 substring으로 동작하므로, 다른 식(경계·제목 한정)으로
+    // 세면 표시 건수와 실제 워치 매칭이 어긋난다. 표기는 최다 히트 스펠링(R6 규약),
+    // 이미 워치인 그룹 제외, 동시등장 3장 이상만, 상위 3 안에서 일자 로테이션.
+    // 추가하면 다음 재계산에서 워치로 잡혀 줄이 자연 소멸.
     let watchSuggest = null;
     if (watchTerms.length && kangAlias) {
       const matched30 = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && cardDateWithinDays(c, 30));
       if (matched30.length >= 3) {
-        const titles = matched30.map((c) => String(c.T || c.title || "").toLowerCase());
+        const hays = matched30.map((c) => cardWatchHay(c));
         const wset = watchTerms.map((x) => String(x).toLowerCase());
         const cands = [];
         for (const [canon, spellRaw] of Object.entries(kangAlias)) {
@@ -231,14 +233,15 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
             : [];
           const spells = [canon, ...rawArr].map((s) => String(s || "")).filter(Boolean);
           if (!spells.length || spells.some((s) => wset.includes(s.toLowerCase()))) continue;
-          const hitIdx = new Set();
+          // 건수는 그룹 합집합이 아니라 '실제로 추가될 그 표기'의 매칭 수 — 문장의 N장과
+          // 추가 후 워치 동작이 정확히 같아야 한다(Codex #196 R2 정합의 완성형)
           let best = null, bestHits = 0;
           for (const s of spells) {
-            let h = 0;
-            titles.forEach((tt, ti) => { if (hitBoundary(s, tt)) { hitIdx.add(ti); h++; } });
+            const sl = s.toLowerCase();
+            const h = hays.reduce((a, hy) => a + (hy.includes(sl) ? 1 : 0), 0);
             if (h > bestHits) { bestHits = h; best = s; }
           }
-          if (hitIdx.size >= 3 && best) cands.push({ term: best, count: hitIdx.size });
+          if (bestHits >= 3 && best) cands.push({ term: best, count: bestHits });
         }
         cands.sort((a, b) => b.count - a.count || String(a.term).localeCompare(String(b.term)));
         if (cands.length) watchSuggest = cands[Math.floor(Date.now() / 86400000) % Math.min(3, cands.length)];

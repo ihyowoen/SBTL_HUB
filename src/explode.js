@@ -51,11 +51,14 @@ export function pickNeighbors(centerCard, cards, aliasMap, { cap = 14 } = {}) {
   if (rel.size) {
     cards.filter((c) => rel.has(getCardId(c))).sort(byDateDesc).forEach((c) => push(c, "연관 — 편집자 연결"));
   }
-  // ② 후속(역방향) — 뒤 카드가 이 카드를 이어받음
+  // ② 역방향 연결 — 자기 related로 중심을 가리키는 카드. 방향이 역이라고 다 '후속'은
+  // 아니다: 편집자는 시간 양방향으로 잇는다(실데이터에 중심보다 앞선 역링크 존재 —
+  // Codex #198 R3). 날짜 비교로 후행만 '후속', 선행은 사실 그대로 '앞선 연결'.
+  const centerDate = String(centerCard.date || centerCard.d || "");
   cards
     .filter((c) => Array.isArray(c.related) && c.related.includes(centerId))
     .sort(byDateDesc)
-    .forEach((c) => push(c, "후속 — 이 카드를 이어받음"));
+    .forEach((c) => push(c, String(c.date || c.d || "") > centerDate ? "후속 — 이 카드를 이어받음" : "앞선 연결 — 이 카드를 가리킴"));
   // ③ 같은 주체 — 중심 제목의 별칭 그룹 공유(경계), 시그널·최신순으로 남은 자리 채움
   const title = String(centerCard.T || centerCard.title || "").toLowerCase();
   const groups = [];

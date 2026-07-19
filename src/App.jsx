@@ -525,6 +525,11 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
   // onWatchSeen→watchVersion→새 배열 참조로 effect가 무한 재실행된다.
   useEffect(() => {
     if (!kb.cards.length) return;
+    // 딥링크(room_view) 진입은 지도·빌더를 보러 온 것 — 새 소식 미리보기를 스크롤로
+    // 지나칠 뿐 실제로 보지 않으므로 진입 병합을 양보한다(미확인 보존, Codex #193 R2).
+    // briefSeed 지목 마운트가 진입 읽음을 양보하는 것과 같은 규약. roomSeed는 소비 후
+    // null이 되지만 deps에 없어 재실행되지 않는다 — 이번 방문 내내 양보 유지.
+    if (roomSeed && roomSeed.view) return;
     try {
       const terms = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
       if (!Array.isArray(terms) || !terms.length) return;
@@ -535,6 +540,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
       localStorage.setItem("sbtl_watch_seen", JSON.stringify([...seen].filter((id) => windowIds.has(id))));
       if (typeof onWatchSeen === "function") onWatchSeen();
     } catch { /* localStorage 불가 환경은 배지 기능만 조용히 비활성 */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kb.cards, onWatchSeen]);
   const [draft, setDraft] = useState("");
   // ---- 📮 브리프 선반 (R12: NewsDesk에서 이사) ----

@@ -99,32 +99,67 @@ export function composeKangBriefing(inp) {
       chip: `${i.staleBrief.monthNum}월호`, cmd: { type: "weekly_show", period: "monthly", month: i.staleBrief.month || null, group: i.staleBrief.group || null },
     });
   }
-  // 개인화 줄이 없을 때만 TOP 폴백(콜드스타트·조용한 날) — 첫 만남엔 항상 보여줘
-  // '괜찮네?'의 첫 경험을 만든다.
-  if ((lines.length === 0 || i.gapDays == null) && i.topCard && i.topCard.title) {
+  // 기본 제안 채움(R19b) — "말 하나밖에 안 해, 밑으로 쭉쭉 제안해야지"(사용자 지적).
+  // 근거 줄 뒤에 오늘의 뉴스·워치 프로필 같은 기본 제안을 채워 최소 서너 줄을 유지한다.
+  // 원칙②는 '근거 없는 채움 금지'에서 '기본 제안은 명시적으로 채움'으로 조정 —
+  // 제안이 계속 와야 능동이 된다는 통찰이 우선(원칙① 전부-제안은 그대로).
+  const MAX_LINES = 5, FILL_TO = 4;
+  // 근거 줄이 이미 인용한 카드 제목 — 채움(TOP·HIGH)이 같은 카드를 다시 권하지
+  // 않게 한다(Codex #195: 워치 톱·핀 후속과의 중복까지 전부).
+  const used = new Set();
+  if (i.watchTopTitle) used.add(trimKangTitle(i.watchTopTitle));
+  if (i.pinFollow && i.pinFollow.cardTitle) used.add(trimKangTitle(i.pinFollow.cardTitle));
+  const topTrim = i.topCard && i.topCard.title ? trimKangTitle(i.topCard.title) : null;
+  if (topTrim && lines.length < MAX_LINES && !used.has(topTrim)) {
+    used.add(topTrim);
     lines.push({
-      text: `${i.gapDays == null ? "일단 " : ""}오늘 제일 큰 건 "${trimKangTitle(i.topCard.title)}"이야.`,
+      text: `${i.gapDays == null ? "일단 " : ""}오늘 제일 큰 건 "${topTrim}"이야.`,
       chip: "TOP", cmd: { type: "feed_filter", signal: "top" },
     });
   }
-  // 팁 한 줄(R18c→R19 퀘스트) — 인사의 본체는 뉴스+기본 제안이고, 그 밑에 앱을 더
-  // 똑똑하게 쓰는 길로 이끄는 팁을 하루 하나씩 곁들인다. R19: 팁이 "아직 안 해본
-  // 경험"을 우선 안내한다(똑똑하게 앱 쓰기 퀘스트 — questsDone은 호출부가 상태
-  // 유도+플래그로 채워 줌). 미완료가 없으면 전체 로테이션으로 복귀. 강요 없음 —
-  // 진행 점은 조용한 표시일 뿐 게이트 어디에도 안 물린다.
+  if (i.watchProfile && i.watchProfile.term && lines.length < FILL_TO) {
+    const f = i.watchProfile.fresh > 0 ? ` — 최근 7일 새 카드 ${i.watchProfile.fresh}건` : "";
+    lines.push({
+      text: `${i.watchProfile.term} 프로필도 열어봐${f}.`,
+      chip: "프로필", cmd: { type: "profile_open", term: i.watchProfile.term },
+    });
+  }
+  const extraTrim = i.extraCard && i.extraCard.title ? trimKangTitle(i.extraCard.title) : null;
+  if (extraTrim && lines.length < FILL_TO && !used.has(extraTrim)) {
+    lines.push({
+      text: `"${extraTrim}"도 챙겨볼 만해.`,
+      chip: "보기", cmd: { type: "feed_filter", search: searchFrag(i.extraCard.title) },
+    });
+  }
+  // 퀘스트 보드(R19b) — 점 6개 대신 여정 전체를 '시현'한다(사용자: "퀘스트 시현을
+  // 해주는 게 좋을 것 같아"): 완료는 ✓로, 미완료는 [해보기 →] 버튼으로 전부 보이게.
+  // 전부 완료한 사용자에겐 보드 대신 기능 팁 로테이션 한 줄(ALL_TIPS)로 복귀.
   const dk = Math.abs(Math.trunc(i.dayKey || 0));
   const done = new Set(Array.isArray(i.questsDone) ? i.questsDone : []);
-  const undone = QUEST_TIPS.filter((q) => !done.has(q.quest));
-  const tip = !i.hasWatch
-    ? { text: "워치를 등록해두면 네 기준으로 골라줄게 — 브리핑룸에 한 탭 칩으로 만들어뒀어.", chip: "등록하러", cmd: { type: "nav", tab: "watchroom" } }
-    : undone.length
-      ? undone[dk % undone.length]
-      : ALL_TIPS[dk % ALL_TIPS.length];
+  const isDone = (k) => (k === "watch_set" ? !!i.hasWatch : done.has(k));
+  const questItems = QUEST_DEFS.map((q) => ({ key: q.key, label: q.label, done: isDone(q.key), cmd: q.cmd }));
+  const doneCount = questItems.filter((q) => q.done).length;
+  const tip = doneCount >= QUEST_DEFS.length ? ALL_TIPS[dk % ALL_TIPS.length] : null;
 
-  if (!lines.length && !tip) return null; // 원칙② — 행동 없는 인사는 안 띄운다
-  const quest = { done: KANG_QUESTS.filter((q) => (q === "watch_set" ? i.hasWatch : done.has(q))).length, total: KANG_QUESTS.length };
-  return { header, lines: lines.slice(0, 3), tip: tip ? { text: tip.text, chip: tip.chip, cmd: tip.cmd } : null, quest };
+  if (!lines.length && !tip && doneCount >= QUEST_DEFS.length) return null; // 원칙① — 행동 없는 인사는 안 띄운다
+  return {
+    header,
+    lines: lines.slice(0, MAX_LINES),
+    tip: tip ? { text: tip.text, chip: tip.chip, cmd: tip.cmd } : null,
+    quest: { done: doneCount, total: QUEST_DEFS.length, items: questItems },
+  };
 }
+
+// 퀘스트 보드 정의(R19b) — 라벨·착지 한 곳에서. 지도·빌더는 딥링크(광고한 기능을
+// 실제로 연다 — Codex #193 규약), 나머지는 해당 기능이 사는 탭으로.
+const QUEST_DEFS = [
+  { key: "watch_set", label: "워치 등록하기", cmd: { type: "nav", tab: "watchroom" } },
+  { key: "brief_read", label: "📮 브리프 읽어보기", cmd: { type: "weekly_show" } },
+  { key: "map_open", label: "🧠 지도 열어보기", cmd: { type: "room_view", view: "map" } },
+  { key: "builder_publish", label: "🧩 빌더로 발행해보기", cmd: { type: "room_view", view: "builder" } },
+  { key: "star_save", label: "☆ 카드 저장해보기", cmd: { type: "nav", tab: "news" } },
+  { key: "chat_ask", label: "상담소에 물어보기", cmd: { type: "nav", tab: "chatbot" } },
+];
 
 // 퀘스트(R19) — 핵심 여정 6개. watch_set은 워치 존재로 유도, 나머지는 questsDone으로.
 export const KANG_QUESTS = ["watch_set", "brief_read", "map_open", "builder_publish", "star_save", "chat_ask"];

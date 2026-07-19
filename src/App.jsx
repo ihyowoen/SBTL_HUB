@@ -192,6 +192,10 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     // 같은 면당 최신 호수만 — 재발행 대체본이 있으면 옛 스냅샷으로 조르지 않는다(pickStaleBrief)
     const staleBrief = pickStaleBrief(weeklyBriefs, (m) => kb.cards.filter((c) => String(c.d || c.date || "").slice(0, 7) === m).length);
     const topC = kb.cards.find((c) => c.s === "t" && cardDateWithinDays(c, 7));
+    // 기본 제안 채움 재료(R19b) — 첫 워치 프로필(+최근 7일 수), TOP과 겹치지 않는 HIGH 한 장
+    const wpTerm = watchTerms[0] || null;
+    const watchProfile = wpTerm ? { term: wpTerm, fresh: kb.cards.filter((c) => cardMatchesWatch(c, [wpTerm]) && cardDateWithinDays(c, 7)).length } : null;
+    const extraC = kb.cards.find((c) => c.s === "h" && cardDateWithinDays(c, 7) && (!topC || getCardId(c) !== getCardId(topC)));
     const gapDays = kangPrev.ts ? Math.max(0, Math.floor((Date.now() - kangPrev.ts) / 86400000)) : null;
     // 퀘스트 집계(R19) — 상태형은 유도(워치·브리프 읽음·핀), 경험형은 플래그. 마운트
     // 시점 스냅샷이면 충분(다른 탭에서 완료 → 오늘 탭 재방문 때 반영).
@@ -213,6 +217,8 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       watchTopTitle: unseenTop ? (unseenTop.T || unseenTop.title || "") : "",
       pinFollow, unreadBrief, staleBrief,
       topCard: topC ? { title: topC.T || topC.title || "" } : null,
+      watchProfile,
+      extraCard: extraC ? { title: extraC.T || extraC.title || "" } : null,
     });
   }, [kb.cards, watchTerms, weeklyBriefs, kangPrev]);
   const top = [...todayCards].sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 4);
@@ -314,19 +320,30 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
                   </div>
                 ))}
               </div>
-              {kang.tip && (
+              {(kang.tip || (kang.quest && kang.quest.done < kang.quest.total)) && (
                 <div style={{ marginTop: 9, paddingTop: 9, borderTop: `1px dashed ${t.brd}` }}>
-                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                    <span style={{ flex: 1, minWidth: 0, fontSize: 11, color: t.sub, lineHeight: 1.55, wordBreak: "keep-all" }}>💡 {kang.tip.text}</span>
-                    <button onClick={() => { if (kang.tip.cmd && kang.tip.cmd.type === "nav") { onNav(kang.tip.cmd.tab); } else if (kang.tip.cmd && typeof onAppCommand === "function") { onAppCommand(kang.tip.cmd); } }} style={{ flexShrink: 0, padding: "6px 10px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{kang.tip.chip} →</button>
-                  </div>
-                  {/* 앱 탐험 진행 점(R19) — 조용한 표시일 뿐, 압박 없음(게이트 무관) */}
-                  {kang.quest && kang.quest.total > 0 && (
-                    <div style={{ display: "flex", gap: 3, marginTop: 7, alignItems: "center" }}>
-                      {Array.from({ length: kang.quest.total }).map((_, qi) => (
-                        <span key={qi} style={{ width: 5, height: 5, borderRadius: 3, background: qi < kang.quest.done ? t.cyan : t.brd }} />
-                      ))}
-                      <span style={{ fontSize: 9, color: t.sub, marginLeft: 4, fontFamily: "'JetBrains Mono',monospace" }}>앱 탐험 {kang.quest.done}/{kang.quest.total}</span>
+                  {/* 퀘스트 보드(R19b) — 여정 전체를 시현: 완료 ✓ 한 줄 요약 + 미완료 [해보기 →] */}
+                  {kang.quest && kang.quest.done < kang.quest.total && (
+                    <div>
+                      <div style={{ fontSize: 10, fontWeight: 800, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>🎯 앱 탐험 {kang.quest.done}/{kang.quest.total} — 하나씩 해보면 내가 점점 똑똑해져</div>
+                      {kang.quest.items.some((q) => q.done) && (
+                        <div style={{ fontSize: 10, color: t.sub, opacity: 0.75, marginTop: 5, lineHeight: 1.6, wordBreak: "keep-all" }}>{kang.quest.items.filter((q) => q.done).map((q) => `✓ ${q.label}`).join(" · ")}</div>
+                      )}
+                      <div style={{ display: "flex", flexDirection: "column", gap: 5, marginTop: 6 }}>
+                        {kang.quest.items.filter((q) => !q.done).map((q) => (
+                          <div key={q.key} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                            <span style={{ flex: 1, minWidth: 0, fontSize: 11, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all" }}>○ {q.label}</span>
+                            <button onClick={() => { if (q.cmd && q.cmd.type === "nav") { onNav(q.cmd.tab); } else if (q.cmd && typeof onAppCommand === "function") { onAppCommand(q.cmd); } }} style={{ flexShrink: 0, padding: "5px 10px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.cyan, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>해보기 →</button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {/* 전부 완료한 사용자 — 보드 대신 기능 팁 로테이션 한 줄 */}
+                  {kang.tip && (
+                    <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                      <span style={{ flex: 1, minWidth: 0, fontSize: 11, color: t.sub, lineHeight: 1.55, wordBreak: "keep-all" }}>💡 {kang.tip.text}</span>
+                      <button onClick={() => { if (kang.tip.cmd && kang.tip.cmd.type === "nav") { onNav(kang.tip.cmd.tab); } else if (kang.tip.cmd && typeof onAppCommand === "function") { onAppCommand(kang.tip.cmd); } }} style={{ flexShrink: 0, padding: "6px 10px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 10, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap" }}>{kang.tip.chip} →</button>
                     </div>
                   )}
                 </div>

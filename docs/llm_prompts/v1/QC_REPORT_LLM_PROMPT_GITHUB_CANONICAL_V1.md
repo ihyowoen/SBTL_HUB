@@ -1,6 +1,6 @@
 # LLM Prompt GitHub Canonical v1 — Integrity-Hardened QC
 
-Updated KST: `2026-07-19T20:35:00+09:00`
+Updated KST: `2026-07-19T20:48:00+09:00`
 
 | Item | Value |
 |---|---:|
@@ -40,6 +40,37 @@ Registered validators:
 - collision without complete quarantine evidence: `BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED`, exit `2`
 
 The validator must be rerun with `--stage-a-results` after Stage A whenever collisions are detected.
+
+## Story URL compatibility
+
+The story-ID validator reads both raw-run and Stage A artifact shapes.
+
+Accepted URL fields:
+
+- `primary_url`
+- `url`
+- `source_urls[]`
+- `urls[]`
+- `fact_sources[].source_url`
+- `fact_sources[].url`
+
+Accepted Stage A containers include `decision_ledger[]`, strict/review pools, reinforcement, support-only, and rejected pools.
+
+Canonical URL matching removes known tracking parameters and sorts all remaining query-parameter key/value pairs before lookup. Equivalent URLs therefore match even when their query parameters appear in a different order.
+
+For grouped specs, equal-length `source_story_ids[]` and `source_urls[]` or `urls[]` arrays are paired by position. The validator does not assign every grouped URL to every story ID.
+
+## Regression checks
+
+| Case | Expected | Result |
+|---|---|---|
+| raw run, 353 stories, no quarantine artifact | 41 collisions blocked, exit 2 | PASS |
+| same run + hardened Stage A artifact | 41 collisions quarantined, exit 0 | PASS |
+| raw story identity supplied only in `urls[]` | trusted exact URL | PASS |
+| Stage A decision ledger identity supplied only in `url` | trusted exact URL | PASS |
+| grouped strict spec using `source_story_ids[] + urls[]` | positional exact-URL matching | PASS |
+| equivalent query parameters in different order | same canonical URL | PASS |
+| Python syntax compilation | no syntax error | PASS |
 
 ## Package consistency
 

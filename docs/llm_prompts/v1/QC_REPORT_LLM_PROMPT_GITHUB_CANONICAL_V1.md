@@ -72,7 +72,7 @@ Every discovered story ID is registered even when no URL exists. A reused baseli
 
 Canonical URL matching removes known tracking parameters and sorts all remaining query-parameter key/value pairs before lookup. Equivalent URLs therefore match even when their query parameters appear in a different order.
 
-For grouped specs, equal-length `source_story_ids[]` and `source_urls[]` or `urls[]` arrays are paired by position. When no safe one-to-one mapping exists, only an explicitly named representative story may receive the representative URL; every other story ID remains URL-unmapped.
+A representative `story_id` does not terminate grouped processing. Every member of `source_story_ids[]` remains in the validator universe. Equal-length `source_story_ids[]` and `source_urls[]` or `urls[]` arrays are paired by position. When no safe one-to-one mapping exists, only an explicitly named representative story may receive the representative URL; every other story ID remains URL-unmapped.
 
 ## Per-record and per-baseline-card identity
 
@@ -91,6 +91,15 @@ For Stage A compatibility, `collision_count` remains the number of unique collis
 - `trusted_record_count`
 - `trusted_pair_count`
 - `partial_identity_match_record_count`
+
+Quarantine verification accepts the Stage A count from any of these compatible locations:
+
+- `story_id_lineage_audit.collision_count`
+- `story_id_lineage_audit.story_id_collision_count`
+- top-level `story_id_collision_count`
+- `summary.story_id_collision_count`
+
+This preserves existing hardened artifacts while honoring the canonical Stage A addendum field `story_id_collision_count`.
 
 ## Validation-scope separation
 
@@ -123,10 +132,12 @@ This PR does not modify `public/data/cards.json`. The unchanged baseline current
 |---|---|---|
 | raw run, 353 stories, no quarantine artifact | 41 collision story IDs blocked, exit 2 | PASS |
 | same run + hardened Stage A artifact | 41 collision story IDs quarantined, exit 0 | PASS |
+| Stage A artifact with only `summary.story_id_collision_count` | quarantine count accepted, exit 0 | PASS |
 | existing run baseline-card pair expansion | 48 unmatched record/card pairs retained | PASS |
 | canonical nested `final_news_llm_input.stories[]` | stories enumerated; reused IDs evaluated | PASS |
 | nested story ID with missing URL | untrusted collision blocked, exit 2 | PASS |
 | `reject_or_support_only_pool[]` only | reused ID registered and blocked | PASS |
+| grouped item with representative `story_id` plus `source_story_ids[]` | every grouped ID evaluated | PASS |
 | same story ID in exact and mismatched run records | mismatched record remains collision | PASS |
 | same story ID on two baseline cards, only one URL match | unmatched baseline-card pair remains collision | PASS |
 | raw story identity supplied only in `urls[]` | trusted exact URL | PASS |

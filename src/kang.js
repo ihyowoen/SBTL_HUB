@@ -68,6 +68,19 @@ export function composeKangBriefing(inp) {
     `${i.gapDays}일 만이네.${delta}`;
 
   const lines = [];
+  // 완료 인정(R20) — 지난 인사 이후 새로 해본 경험을 알아봐주고 다음 걸음을 잇는다
+  // ("괜찮네?"의 순간을 만드는 인정 + 연결 제안). 후속 경험까지 이미 해봤으면 보드의
+  // ✓가 대신 말하므로 조용히 생략. newlyDone은 호출부가 ack 스냅샷과 대조해 준다.
+  const doneSet = new Set(Array.isArray(i.questsDone) ? i.questsDone : []);
+  if (i.hasWatch) doneSet.add("watch_set");
+  const newly = Array.isArray(i.newlyDone) ? i.newlyDone : [];
+  for (const k of KANG_QUESTS) {
+    if (!newly.includes(k)) continue;
+    const f = ACK_FOLLOWUPS[k];
+    if (!f || doneSet.has(f.follow)) continue;
+    lines.push({ text: f.text, chip: f.chip, cmd: f.cmd });
+    break; // 인정은 한 번에 하나만 — 줄줄이 칭찬은 금방 소음이 된다
+  }
   // 우선순위: 개인화 강한 순 — 워치 > 핀 후속 > 안 읽은 브리프 > 낡은 월호
   if (i.hasWatch && i.watchNew > 0) {
     const top = i.watchTopTitle ? ` — 제일 큰 건 "${trimKangTitle(i.watchTopTitle)}"` : "";
@@ -103,6 +116,16 @@ export function composeKangBriefing(inp) {
   // 근거 줄 뒤에 오늘의 뉴스·워치 프로필 같은 기본 제안을 채워 최소 서너 줄을 유지한다.
   // 원칙②는 '근거 없는 채움 금지'에서 '기본 제안은 명시적으로 채움'으로 조정 —
   // 제안이 계속 와야 능동이 된다는 통찰이 우선(원칙① 전부-제안은 그대로).
+  // 워치 후보 추천(R20 능동 제안) — 워치 카드들에 자주 같이 등장하는 엔티티를 한 탭
+  // 등록으로 제안(동시등장 계산은 호출부, 명령 버스 watch_add 재사용). 추가하면 다음
+  // 재계산에서 워치가 되어 줄이 자연 소멸 — 제안→행동→변화의 즉각 순환.
+  if (i.watchSuggest && i.watchSuggest.term) {
+    const n = i.watchSuggest.count > 0 ? ` (최근 한 달 ${i.watchSuggest.count}장)` : "";
+    lines.push({
+      text: `요즘 "${i.watchSuggest.term}" 얘기가 네 워치 카드에 자주 붙어 나와${n} — 워치에 넣을까?`,
+      chip: "추가", cmd: { type: "watch_add", term: i.watchSuggest.term },
+    });
+  }
   const MAX_LINES = 5, FILL_TO = 4;
   // 근거 줄이 이미 인용한 카드 제목 — 채움(TOP·HIGH)이 같은 카드를 다시 권하지
   // 않게 한다(Codex #195: 워치 톱·핀 후속과의 중복까지 전부).
@@ -160,6 +183,17 @@ const QUEST_DEFS = [
   { key: "star_save", label: "☆ 카드 저장해보기", cmd: { type: "nav", tab: "news" } },
   { key: "chat_ask", label: "상담소에 물어보기", cmd: { type: "nav", tab: "chatbot" } },
 ];
+
+// 완료 인정→다음 걸음(R20) — 방금 해본 경험을 알아봐주고, 자연스럽게 이어지는 미완
+// 경험 하나를 권한다(후속까지 완료면 생략 — 보드 ✓가 대신 말한다).
+const ACK_FOLLOWUPS = {
+  watch_set: { follow: "map_open", text: "워치 등록했더라 — 이제 🧠 지도가 네 워치로도 그려져.", chip: "지도", cmd: { type: "room_view", view: "map" } },
+  map_open: { follow: "star_save", text: "🧠 지도 켜봤더라? ☆로 카드를 모으면 지도가 더 진해져.", chip: "피드", cmd: { type: "nav", tab: "news" } },
+  star_save: { follow: "map_open", text: "☆ 모으기 시작했네 — 지도에서 연결로 봐봐.", chip: "지도", cmd: { type: "room_view", view: "map" } },
+  brief_read: { follow: "builder_publish", text: "📮 브리프 읽었더라 — 🧩 빌더로 네 조합도 만들어봐.", chip: "빌더", cmd: { type: "room_view", view: "builder" } },
+  builder_publish: { follow: "chat_ask", text: "🧩 발행까지 해봤네! 궁금한 건 상담소에 말로 물어봐.", chip: "상담소", cmd: { type: "nav", tab: "chatbot" } },
+  chat_ask: { follow: "brief_read", text: "상담소 써봤더라 — 📮 브리프도 읽어봐.", chip: "브리프", cmd: { type: "weekly_show" } },
+};
 
 // 퀘스트(R19) — 핵심 여정 6개. watch_set은 워치 존재로 유도, 나머지는 questsDone으로.
 export const KANG_QUESTS = ["watch_set", "brief_read", "map_open", "builder_publish", "star_save", "chat_ask"];

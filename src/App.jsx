@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
-import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections } from "./briefAxes";
+import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections, hitBoundary } from "./briefAxes";
 import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
@@ -157,7 +157,10 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
   // 방문 흔적은 effect에서 기록하고 인사 계산은 마운트 스냅샷(kangPrev) 기준 — 새로고침해도
   // 미확인·미열람 근거가 남아 있는 한 제안은 유지되고, 근거가 사라져야 침묵한다(원칙②).
   const [kangPrev] = useState(() => {
-    try { return { ts: Number(localStorage.getItem("sbtl_kang_last_visit")) || null, cnt: Number(localStorage.getItem("sbtl_kang_card_count")) || null }; } catch { return { ts: null, cnt: null }; }
+    try {
+      let ack; try { ack = new Set(Object.keys(JSON.parse(localStorage.getItem("sbtl_kang_quest_ack") || "{}") || {})); } catch { ack = new Set(); }
+      return { ts: Number(localStorage.getItem("sbtl_kang_last_visit")) || null, cnt: Number(localStorage.getItem("sbtl_kang_card_count")) || null, ack };
+    } catch { return { ts: null, cnt: null, ack: new Set() }; }
   });
   useEffect(() => {
     if (!kb.cards.length) return;
@@ -166,6 +169,9 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       localStorage.setItem("sbtl_kang_card_count", String(kb.cards.length));
     } catch { /* noop */ }
   }, [kb.cards.length]);
+  // 별칭 그룹(R20 워치 추천용) — 지도와 같은 캐시 로더 재사용, 로드되면 추천 줄이 켜진다
+  const [kangAlias, setKangAlias] = useState(null);
+  useEffect(() => { let alive = true; loadAliasEntities().then((j) => { if (alive) setKangAlias(j || {}); }); return () => { alive = false; }; }, []);
   const kang = useMemo(() => {
     // R18b: 온보딩 게이트 폐지 — 강차장은 데이터만 있으면 항상 인사한다(워치가 비면
     // 인사 카드가 온보더를 겸함). 별도 온보딩 카드가 인사를 가로막던 구조 제거.
@@ -207,10 +213,46 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       ...(questFlags.builder_publish ? ["builder_publish"] : []),
       ...(questFlags.chat_ask ? ["chat_ask"] : []),
     ];
+    // 워치 후보 추천(R20) — 최근 30일 워치 매칭 카드 '제목'에 자주 같이 등장하는 별칭
+    // 그룹(경계 매칭 hitBoundary — 제목 등장 한정은 R10 주체 축 규약). 표기는 최다 히트
+    // 스펠링(R6 규약), 이미 워치인 그룹 제외, 동시등장 3장 이상만, 상위 3 안에서 일자
+    // 로테이션. 추가하면 다음 재계산에서 워치로 잡혀 줄이 자연 소멸.
+    let watchSuggest = null;
+    if (watchTerms.length && kangAlias) {
+      const matched30 = kb.cards.filter((c) => cardMatchesWatch(c, watchTerms) && cardDateWithinDays(c, 30));
+      if (matched30.length >= 3) {
+        const titles = matched30.map((c) => String(c.T || c.title || "").toLowerCase());
+        const wset = watchTerms.map((x) => String(x).toLowerCase());
+        const cands = [];
+        for (const [canon, spellRaw] of Object.entries(kangAlias)) {
+          // 별칭 맵 실형태: {key: {canonical, aliases[]}} — 배열형(구형)도 수용
+          const rawArr = Array.isArray(spellRaw) ? spellRaw
+            : spellRaw && typeof spellRaw === "object" ? [spellRaw.canonical, ...(Array.isArray(spellRaw.aliases) ? spellRaw.aliases : [])]
+            : [];
+          const spells = [canon, ...rawArr].map((s) => String(s || "")).filter(Boolean);
+          if (!spells.length || spells.some((s) => wset.includes(s.toLowerCase()))) continue;
+          const hitIdx = new Set();
+          let best = null, bestHits = 0;
+          for (const s of spells) {
+            let h = 0;
+            titles.forEach((tt, ti) => { if (hitBoundary(s, tt)) { hitIdx.add(ti); h++; } });
+            if (h > bestHits) { bestHits = h; best = s; }
+          }
+          if (hitIdx.size >= 3 && best) cands.push({ term: best, count: hitIdx.size });
+        }
+        cands.sort((a, b) => b.count - a.count || String(a.term).localeCompare(String(b.term)));
+        if (cands.length) watchSuggest = cands[Math.floor(Date.now() / 86400000) % Math.min(3, cands.length)];
+      }
+    }
+    // 완료 인정(R20) — 지난 인사에서 아직 인정하지 않은(새로) 완료 경험
+    const doneAll = [...questsDone, ...(watchTerms.length ? ["watch_set"] : [])];
+    const newlyDone = doneAll.filter((k) => !kangPrev.ack.has(k));
     return composeKangBriefing({
       gapDays,
       dayKey: Math.floor(Date.now() / 86400000), // 팁 로테이션 — 하루 하나, 결정적
       questsDone,
+      newlyDone,
+      watchSuggest,
       cardDelta: kangPrev.cnt != null && kb.cards.length > kangPrev.cnt ? kb.cards.length - kangPrev.cnt : 0,
       hasWatch: watchTerms.length > 0,
       watchNew: unseen.length,
@@ -220,7 +262,18 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       watchProfile,
       extraCard: extraC ? { title: extraC.T || extraC.title || "" } : null,
     });
-  }, [kb.cards, watchTerms, weeklyBriefs, kangPrev]);
+  }, [kb.cards, watchTerms, weeklyBriefs, kangPrev, kangAlias]);
+  // 완료 인정 스탬프(R20) — 이번 인사가 다룬 완료 상태를 기록해, 같은 경험을 다음
+  // 인사에서 또 인정하지 않는다(인정은 한 번). 렌더 후 effect라 memo 순수성 유지.
+  useEffect(() => {
+    if (!kang || !kang.quest) return;
+    try {
+      const cur = JSON.parse(localStorage.getItem("sbtl_kang_quest_ack") || "{}") || {};
+      let changed = false;
+      for (const q of kang.quest.items) if (q.done && !cur[q.key]) { cur[q.key] = kstToday(); changed = true; }
+      if (changed) localStorage.setItem("sbtl_kang_quest_ack", JSON.stringify(cur));
+    } catch { /* noop */ }
+  }, [kang]);
   const top = [...todayCards].sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 4);
   const lead = top[0];
   const rest = top.slice(1);

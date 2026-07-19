@@ -674,6 +674,63 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kb.cards, onWatchSeen]);
   const [draft, setDraft] = useState("");
+  // ---- 🔔 강차장 노크(R21): 알림 전용 SW(fetch 핸들러 없음 — 로딩·캐시 무영향) ----
+  // periodicsync는 설치된 안드로이드 크롬 계열 한정·브라우저 재량(보통 12시간+).
+  // '지금 확인해보기'는 SW의 같은 루틴을 메시지로 돌려 결과를 회신받는다(E2E 관측 겸용).
+  const [notif, setNotif] = useState({ perm: typeof Notification !== "undefined" ? Notification.permission : "unsupported", syncOn: false, canSync: false, checking: false, lastResult: null });
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        if (!("serviceWorker" in navigator)) return;
+        const reg = await navigator.serviceWorker.getRegistration("/kang-sw.js");
+        let canSync = reg ? "periodicSync" in reg : "PeriodicSyncManager" in window;
+        let syncOn = false;
+        if (reg && "periodicSync" in reg) { try { syncOn = (await reg.periodicSync.getTags()).includes("kang-nudge"); } catch { /* noop */ } }
+        if (alive) setNotif((s) => ({ ...s, canSync, syncOn }));
+      } catch { /* noop */ }
+    })();
+    return () => { alive = false; };
+  }, []);
+  const enableKnock = async () => {
+    try {
+      if (!("serviceWorker" in navigator) || typeof Notification === "undefined") return;
+      const reg = await navigator.serviceWorker.register("/kang-sw.js");
+      const perm = await Notification.requestPermission();
+      const canSync = "periodicSync" in reg;
+      let syncOn = false;
+      if (perm === "granted" && canSync) {
+        try {
+          const st = await navigator.permissions.query({ name: "periodic-background-sync" });
+          if (st.state === "granted") { await reg.periodicSync.register("kang-nudge", { minInterval: 12 * 3600 * 1000 }); syncOn = true; }
+        } catch { /* 미지원·거부 — 아래 안내 문구가 설명 */ }
+      }
+      setNotif((s) => ({ ...s, perm, canSync, syncOn }));
+    } catch { /* noop */ }
+  };
+  const disableKnock = async () => {
+    try {
+      const reg = await navigator.serviceWorker.getRegistration("/kang-sw.js");
+      if (reg && "periodicSync" in reg) { try { await reg.periodicSync.unregister("kang-nudge"); } catch { /* noop */ } }
+      setNotif((s) => ({ ...s, syncOn: false }));
+    } catch { /* noop */ }
+  };
+  const testKnock = async () => {
+    try {
+      setNotif((s) => ({ ...s, checking: true, lastResult: null }));
+      const reg = await navigator.serviceWorker.register("/kang-sw.js");
+      await navigator.serviceWorker.ready;
+      const done = new Promise((resolve) => {
+        const on = (e) => { if (e.data && e.data.type === "kang-sync-result") { navigator.serviceWorker.removeEventListener("message", on); resolve(e.data.result); } };
+        navigator.serviceWorker.addEventListener("message", on);
+        setTimeout(() => { navigator.serviceWorker.removeEventListener("message", on); resolve(null); }, 8000);
+      });
+      const target = reg.active || navigator.serviceWorker.controller;
+      if (target) target.postMessage({ type: "kang-sync-test" });
+      const result = await done;
+      setNotif((s) => ({ ...s, checking: false, lastResult: result || { error: "timeout" } }));
+    } catch { setNotif((s) => ({ ...s, checking: false, lastResult: { error: "fail" } })); }
+  };
   // ---- 📮 브리프 선반 (R12: NewsDesk에서 이사) ----
   const [weeklyOpen, setWeeklyOpen] = useState(true); // 브리핑룸의 중심 콘텐츠 — 기본 펼침
   const [weeklyShownId, setWeeklyShownId] = useState(null); // 보관함에서 선택된 항목 (null=최신)
@@ -1459,22 +1516,26 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
           </>
         );
       })()}
-      {sectionTitle("🔔 알림 (미리보기)", "워치 새 카드·브리프 발행을 알림으로 — 앱 꺼져 있을 때 도착하는 실제 푸시는 서버 연동 후 제공")}
-      <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px dashed ${t.brd}`, display: "flex", alignItems: "center", gap: 10 }}>
-        <div style={{ flex: 1, fontSize: 11, color: t.sub, lineHeight: 1.5 }}>
-          브라우저 알림 상태: <b style={{ color: t.tx }}>{typeof Notification !== "undefined" ? ({ granted: "허용됨", denied: "차단됨", default: "미설정" }[Notification.permission] || Notification.permission) : "미지원"}</b>
+      {sectionTitle("🔔 강차장 노크", "설치된 앱(안드로이드 크롬 계열)에서 하루 한두 번, 밤사이 새 카드가 있으면 앱 밖에서 노크해요 — 시점은 브라우저가 정해요(보통 12시간+)")}
+      <div style={{ borderRadius: 12, padding: "12px 14px", background: t.card2, border: `1px solid ${t.brd}` }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ flex: 1, fontSize: 11, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all" }}>
+            알림 권한: <b style={{ color: t.tx }}>{{ granted: "허용됨", denied: "차단됨", default: "미설정", unsupported: "미지원" }[notif.perm] || notif.perm}</b> · 백그라운드 확인: <b style={{ color: t.tx }}>{notif.syncOn ? "켜짐" : notif.canSync ? "꺼짐" : "이 브라우저 미지원"}</b>
+          </div>
+          {notif.syncOn
+            ? <button onClick={disableKnock} style={{ padding: "9px 13px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11, fontWeight: 800, cursor: "pointer", whiteSpace: "nowrap" }}>끄기</button>
+            : <button onClick={enableKnock} disabled={notif.perm === "unsupported" || notif.perm === "denied"} style={{ padding: "9px 13px", borderRadius: 10, border: "none", background: notif.perm === "unsupported" || notif.perm === "denied" ? t.brd : t.cyan, color: "#000", fontSize: 11, fontWeight: 800, cursor: notif.perm === "unsupported" || notif.perm === "denied" ? "not-allowed" : "pointer", whiteSpace: "nowrap" }}>알림 켜기</button>}
         </div>
-        <button
-          onClick={async () => {
-            try {
-              if (typeof Notification === "undefined") return;
-              const p = await Notification.requestPermission();
-              if (p === "granted") new Notification("SBTL — 워치 새 카드", { body: `${watchTerms[0] || "CATL"} 외 워치에 새 카드가 도착했어요 (예시 알림)` });
-            } catch { /* noop */ }
-          }}
-          disabled={typeof Notification === "undefined"}
-          style={{ padding: "9px 13px", borderRadius: 10, border: "none", background: t.cyan, color: "#000", fontSize: 11, fontWeight: 800, cursor: "pointer", whiteSpace: "nowrap" }}
-        >알림 켜보기</button>
+        <div style={{ display: "flex", gap: 8, marginTop: 8, alignItems: "center", flexWrap: "wrap" }}>
+          <button onClick={testKnock} disabled={notif.checking || notif.perm === "unsupported"} style={{ padding: "7px 11px", borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.cyan, fontSize: 10.5, fontWeight: 800, cursor: notif.checking ? "wait" : "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{notif.checking ? "확인 중…" : "지금 확인해보기"}</button>
+          {notif.lastResult && (
+            <span style={{ fontSize: 10.5, color: t.sub, lineHeight: 1.5 }}>
+              {notif.lastResult.error ? "확인 실패 — 잠시 뒤 다시" : notif.lastResult.delta > 0 ? `새 카드 ${notif.lastResult.delta}장 발견${notif.lastResult.notified ? " — 알림 보냈어" : ""}` : `지금은 새 카드 없음 (기준 ${notif.lastResult.count}장 기록)`}
+            </span>
+          )}
+        </div>
+        {notif.perm === "denied" && <div style={{ marginTop: 8, fontSize: 10.5, color: t.sub, lineHeight: 1.5, wordBreak: "keep-all" }}>브라우저 설정에서 이 사이트의 알림 차단을 풀어야 켤 수 있어요.</div>}
+        {!notif.canSync && notif.perm !== "unsupported" && <div style={{ marginTop: 8, fontSize: 10.5, color: t.sub, lineHeight: 1.5, wordBreak: "keep-all" }}>백그라운드 주기 확인은 홈 화면에 설치된 안드로이드 크롬 계열에서만 돼요 — 설치 후 다시 열어봐요. iOS는 서버 푸시로 준비 중이에요. (알림 권한만 있으면 '지금 확인해보기'는 어디서든 동작)</div>}
       </div>
     </div>
   );

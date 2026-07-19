@@ -33,9 +33,12 @@ def canon(url):
         ),
         key=lambda item: (item[0], item[1]),
     )
+    netloc = parsed.netloc.lower()
+    if netloc.startswith("www."):
+        netloc = netloc[4:]
     return urlunsplit((
         parsed.scheme.lower(),
-        parsed.netloc.lower().replace("www.", ""),
+        netloc,
         parsed.path.rstrip("/"),
         "",
         urlencode(query),
@@ -73,31 +76,57 @@ def url_values(record):
     return values
 
 
+def raw_story_containers(run):
+    containers = []
+
+    top_level = run.get("stories")
+    if isinstance(top_level, list):
+        containers.append(("stories[]", top_level))
+
+    wrapped = run.get("final_news_llm_input")
+    if isinstance(wrapped, dict):
+        nested = wrapped.get("stories")
+        if isinstance(nested, list):
+            containers.append(("final_news_llm_input.stories[]", nested))
+
+    return containers
+
+
 def collect_run_story_urls(run):
     story_urls = defaultdict(set)
+    detected_containers = []
 
     def add(story_id, urls):
         if not story_id:
             return
-        # Register the story ID before URL iteration. A missing URL is not a
-        # reason to skip a cross-run story-ID collision; it is an untrusted
-        # identity route that must enter the block/quarantine flow.
+        # Register the story ID before URL iteration. Missing URLs cannot make
+        # a reused baseline story ID disappear from collision detection.
         story_urls[story_id]
         for url in urls:
             canonical = canon(url)
             if canonical:
                 story_urls[story_id].add(canonical)
 
-    for story in run.get("stories", []) or []:
-        if isinstance(story, dict):
-            add(story.get("story_id"), url_values(story))
+    for container_name, stories in raw_story_containers(run):
+        detected_containers.append(container_name)
+        for story in stories:
+            if isinstance(story, dict):
+                add(story.get("story_id"), url_values(story))
 
-    for row in run.get("decision_ledger", []) or []:
-        if isinstance(row, dict):
-            add(row.get("story_id"), url_values(row))
+    decision_ledger = run.get("decision_ledger")
+    if isinstance(decision_ledger, list):
+        detected_containers.append("decision_ledger[]")
+        for row in decision_ledger:
+            if isinstance(row, dict):
+                add(row.get("story_id"), url_values(row))
 
     for collection_name in STAGE_A_COLLECTIONS:
-        for item in run.get(collection_name, []) or []:
+        collection = run.get(collection_name)
+        if not isinstance(collection, list):
+            continue
+        detected_containers.append(f"{collection_name}[]")
+
+        for item in collection:
             if not isinstance(item, dict):
                 continue
 
@@ -110,6 +139,8 @@ def collect_run_story_urls(run):
             if not isinstance(story_ids, list):
                 continue
             story_ids = [value for value in story_ids if value]
+
+            # Register every ID even when the grouped item has no URL route.
             for source_story_id in story_ids:
                 add(source_story_id, [])
 
@@ -136,7 +167,8 @@ def collect_run_story_urls(run):
                         representative_story_id,
                         [item.get("primary_url"), item.get("url")],
                     )
-    return story_urls
+
+    return story_urls, detected_containers
 
 
 def quarantine_audit(stage_a_results, collisions):
@@ -213,7 +245,7 @@ def main():
             if canonical:
                 url_to_cards[canonical].add(card.get("id"))
 
-    run_story_urls = collect_run_story_urls(run)
+    run_story_urls, detected_containers = collect_run_story_urls(run)
     collisions, trusted = [], []
     for story_id, run_urls in sorted(run_story_urls.items()):
         matched_cards = story_to_cards.get(story_id, [])
@@ -257,6 +289,7 @@ def main():
 
     print(json.dumps({
         "status": status,
+        "input_containers_detected": detected_containers,
         "run_story_record_count": len(run_story_urls),
         "story_id_cross_run_match_count": len(collisions) + len(trusted),
         "trusted_identity_match_count": len(trusted),

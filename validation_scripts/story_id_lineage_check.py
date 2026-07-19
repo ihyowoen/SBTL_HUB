@@ -18,6 +18,7 @@ STAGE_A_COLLECTIONS = (
     "existing_reinforcement",
     "support_source_only",
     "rejected",
+    "reject_or_support_only_pool",
 )
 
 
@@ -78,71 +79,92 @@ def url_values(record):
 
 def raw_story_containers(run):
     containers = []
-
-    top_level = run.get("stories")
-    if isinstance(top_level, list):
-        containers.append(("stories[]", top_level))
+    if isinstance(run.get("stories"), list):
+        containers.append(("stories[]", run["stories"]))
 
     wrapped = run.get("final_news_llm_input")
-    if isinstance(wrapped, dict):
-        nested = wrapped.get("stories")
-        if isinstance(nested, list):
-            containers.append(("final_news_llm_input.stories[]", nested))
-
+    if isinstance(wrapped, dict) and isinstance(wrapped.get("stories"), list):
+        containers.append((
+            "final_news_llm_input.stories[]",
+            wrapped["stories"],
+        ))
     return containers
 
 
-def collect_run_story_urls(run):
-    story_urls = defaultdict(set)
-    detected_containers = []
+def collect_run_story_records(run):
+    records = []
+    detected = []
 
-    def add(story_id, urls):
+    def add(story_id, urls, container, record_index, role):
         if not story_id:
             return
-        # Register the story ID before URL iteration. Missing URLs cannot make
-        # a reused baseline story ID disappear from collision detection.
-        story_urls[story_id]
-        for url in urls:
-            canonical = canon(url)
-            if canonical:
-                story_urls[story_id].add(canonical)
+        canonical_urls = sorted({
+            canonical
+            for url in urls
+            if (canonical := canon(url))
+        })
+        records.append({
+            "record_id": f"{container}#{record_index}",
+            "story_id": story_id,
+            "canonical_run_urls": canonical_urls,
+            "run_url_missing": not canonical_urls,
+            "source_container": container,
+            "source_record_index": record_index,
+            "source_record_role": role,
+        })
 
-    for container_name, stories in raw_story_containers(run):
-        detected_containers.append(container_name)
-        for story in stories:
+    for container, stories in raw_story_containers(run):
+        detected.append(container)
+        for index, story in enumerate(stories):
             if isinstance(story, dict):
-                add(story.get("story_id"), url_values(story))
+                add(
+                    story.get("story_id"),
+                    url_values(story),
+                    container,
+                    index,
+                    "raw_story",
+                )
 
-    decision_ledger = run.get("decision_ledger")
-    if isinstance(decision_ledger, list):
-        detected_containers.append("decision_ledger[]")
-        for row in decision_ledger:
+    ledger = run.get("decision_ledger")
+    if isinstance(ledger, list):
+        detected.append("decision_ledger[]")
+        for index, row in enumerate(ledger):
             if isinstance(row, dict):
-                add(row.get("story_id"), url_values(row))
+                add(
+                    row.get("story_id"),
+                    url_values(row),
+                    "decision_ledger[]",
+                    index,
+                    "decision_ledger",
+                )
 
     for collection_name in STAGE_A_COLLECTIONS:
         collection = run.get(collection_name)
         if not isinstance(collection, list):
             continue
-        detected_containers.append(f"{collection_name}[]")
+        container = f"{collection_name}[]"
+        detected.append(container)
 
-        for item in collection:
+        for item_index, item in enumerate(collection):
             if not isinstance(item, dict):
                 continue
 
-            story_id = item.get("story_id")
-            if story_id:
-                add(story_id, url_values(item))
+            if item.get("story_id"):
+                add(
+                    item["story_id"],
+                    url_values(item),
+                    container,
+                    item_index,
+                    "single_story_item",
+                )
                 continue
 
             story_ids = item.get("source_story_ids") or []
             if not isinstance(story_ids, list):
                 continue
-            story_ids = [value for value in story_ids if value]
-
-            # Register every ID even when the grouped item has no URL route.
-            for source_story_id in story_ids:
-                add(source_story_id, [])
+            story_ids = [story_id for story_id in story_ids if story_id]
+            if not story_ids:
+                continue
 
             plural_urls = []
             for field in ("source_urls", "urls"):
@@ -155,61 +177,197 @@ def collect_run_story_urls(run):
                     if plural_urls:
                         break
 
-            if story_ids and len(story_ids) == len(plural_urls):
-                for source_story_id, source_url in zip(story_ids, plural_urls):
-                    add(source_story_id, [source_url])
-            elif len(story_ids) == 1:
-                add(story_ids[0], url_values(item))
-            else:
-                representative_story_id = item.get("representative_story_id")
-                if representative_story_id:
+            if len(story_ids) == len(plural_urls):
+                for position, (story_id, url) in enumerate(
+                    zip(story_ids, plural_urls)
+                ):
                     add(
-                        representative_story_id,
-                        [item.get("primary_url"), item.get("url")],
+                        story_id,
+                        [url],
+                        container,
+                        f"{item_index}:{position}",
+                        "grouped_positional_story",
                     )
+                continue
 
-    return story_urls, detected_containers
+            if len(story_ids) == 1:
+                add(
+                    story_ids[0],
+                    url_values(item),
+                    container,
+                    item_index,
+                    "grouped_single_story",
+                )
+                continue
+
+            representative_id = item.get("representative_story_id")
+            representative_urls = [
+                value
+                for value in (item.get("primary_url"), item.get("url"))
+                if isinstance(value, str) and value.strip()
+            ]
+            for position, story_id in enumerate(story_ids):
+                assigned = (
+                    representative_urls
+                    if story_id == representative_id
+                    else []
+                )
+                add(
+                    story_id,
+                    assigned,
+                    container,
+                    f"{item_index}:{position}",
+                    (
+                        "grouped_representative_story"
+                        if assigned
+                        else "grouped_unmapped_story"
+                    ),
+                )
+
+    unique = []
+    seen = set()
+    for record in records:
+        key = (
+            record["story_id"],
+            tuple(record["canonical_run_urls"]),
+            record["source_container"],
+            str(record["source_record_index"]),
+            record["source_record_role"],
+        )
+        if key not in seen:
+            seen.add(key)
+            unique.append(record)
+    return unique, sorted(set(detected))
 
 
-def quarantine_audit(stage_a_results, collisions):
-    ledger_by_story_id = {
-        row.get("story_id"): row
-        for row in stage_a_results.get("decision_ledger", [])
-        if row.get("story_id")
-    }
-    top_level_audit = stage_a_results.get("story_id_lineage_audit", {})
+def baseline_indexes(baseline):
+    story_to_cards = defaultdict(list)
+    card_urls = defaultdict(set)
+    for card in baseline.get("cards", []):
+        card_id = card.get("id")
+        if not card_id:
+            continue
+
+        for story_id in card.get("source_story_ids", []) or []:
+            if story_id:
+                story_to_cards[story_id].append(card_id)
+
+        for url in card.get("urls", []) or []:
+            canonical = canon(url)
+            if canonical:
+                card_urls[card_id].add(canonical)
+
+        for source in card.get("fact_sources", []) or []:
+            if not isinstance(source, dict):
+                continue
+            for field in ("source_url", "url"):
+                canonical = canon(source.get(field))
+                if canonical:
+                    card_urls[card_id].add(canonical)
+    return story_to_cards, card_urls
+
+
+def classify_records(run_records, story_to_cards, card_urls):
+    trusted_records = []
+    collision_records = []
+
+    for record in run_records:
+        baseline_cards = sorted(set(
+            story_to_cards.get(record["story_id"], [])
+        ))
+        if not baseline_cards:
+            continue
+
+        run_urls = set(record["canonical_run_urls"])
+        trusted_cards = []
+        collision_cards = []
+        card_results = []
+
+        for card_id in baseline_cards:
+            baseline_urls = set(card_urls.get(card_id, set()))
+            matching_urls = sorted(run_urls.intersection(baseline_urls))
+            trusted = bool(matching_urls)
+            card_results.append({
+                "baseline_card_id": card_id,
+                "canonical_baseline_urls": sorted(baseline_urls),
+                "matching_urls": matching_urls,
+                "identity_route_trusted": trusted,
+            })
+            if trusted:
+                trusted_cards.append(card_id)
+            else:
+                collision_cards.append(card_id)
+
+        classified = {
+            **record,
+            "story_id_baseline_cards": baseline_cards,
+            "trusted_baseline_card_ids": trusted_cards,
+            "collision_baseline_card_ids": collision_cards,
+            "baseline_card_results": card_results,
+            "partial_identity_match": bool(
+                trusted_cards and collision_cards
+            ),
+        }
+        if collision_cards:
+            collision_records.append(classified)
+        else:
+            trusted_records.append(classified)
+
+    return trusted_records, collision_records
+
+
+def quarantine_audit(stage_a_results, collision_story_ids):
+    rows_by_story_id = defaultdict(list)
+    for row in stage_a_results.get("decision_ledger", []) or []:
+        if isinstance(row, dict) and row.get("story_id"):
+            rows_by_story_id[row["story_id"]].append(row)
 
     missing_or_invalid = []
-    for collision in collisions:
-        story_id = collision["story_id"]
-        row = ledger_by_story_id.get(story_id)
-        audit = row.get("story_id_lineage_audit", {}) if row else {}
+    for story_id in sorted(set(collision_story_ids)):
+        rows = rows_by_story_id.get(story_id, [])
+        checks = []
+        for row in rows:
+            audit = row.get("story_id_lineage_audit", {})
+            checks.append({
+                "story_id_collision_detected": (
+                    audit.get("story_id_collision_detected") is True
+                ),
+                "story_id_match_trusted_false": (
+                    audit.get("story_id_match_trusted") is False
+                ),
+                "duplicate_decision_ignored_story_id": (
+                    audit.get("duplicate_decision_ignored_story_id") is True
+                ),
+            })
+
         required = {
-            "ledger_row_present": row is not None,
-            "story_id_collision_detected": (
-                audit.get("story_id_collision_detected") is True
-            ),
-            "story_id_match_trusted_false": (
-                audit.get("story_id_match_trusted") is False
-            ),
-            "duplicate_decision_ignored_story_id": (
-                audit.get("duplicate_decision_ignored_story_id") is True
+            "ledger_row_present": bool(rows),
+            "all_ledger_rows_quarantined": bool(rows) and all(
+                all(check.values()) for check in checks
             ),
         }
         if not all(required.values()):
             missing_or_invalid.append({
                 "story_id": story_id,
                 "required_quarantine_checks": required,
+                "ledger_row_checks": checks,
             })
 
+    collision_count = len(set(collision_story_ids))
+    top = stage_a_results.get("story_id_lineage_audit", {})
     top_level_valid = (
-        top_level_audit.get("story_id_used_for_duplicate_routing") is False
-        and top_level_audit.get("collision_count") == len(collisions)
+        top.get("story_id_used_for_duplicate_routing") is False
+        and top.get("collision_count") == collision_count
         and stage_a_results.get("story_id_lineage_audit_status")
         == "PASS_COLLISIONS_QUARANTINED"
     )
     return {
-        "status": "PASS" if not missing_or_invalid and top_level_valid else "FAIL",
+        "status": (
+            "PASS"
+            if not missing_or_invalid and top_level_valid
+            else "FAIL"
+        ),
+        "expected_unique_collision_story_id_count": collision_count,
         "top_level_quarantine_valid": top_level_valid,
         "missing_or_invalid_collision_rows": missing_or_invalid,
     }
@@ -222,83 +380,83 @@ def main():
     parser.add_argument(
         "--stage-a-results",
         help=(
-            "Optional Stage A result artifact. Required when collisions are "
-            "detected and the caller wants to prove they were quarantined."
+            "Optional Stage A artifact used to prove detected collisions "
+            "were quarantined and ignored for duplicate routing."
         ),
     )
     args = parser.parse_args()
 
     run = load_json(args.run_json)
     baseline = load_json(args.baseline_cards_json)
+    run_records, detected = collect_run_story_records(run)
+    story_to_cards, card_urls = baseline_indexes(baseline)
+    trusted_records, collision_records = classify_records(
+        run_records,
+        story_to_cards,
+        card_urls,
+    )
 
-    story_to_cards = defaultdict(list)
-    url_to_cards = defaultdict(set)
-    for card in baseline.get("cards", []):
-        for story_id in card.get("source_story_ids", []):
-            story_to_cards[story_id].append(card.get("id"))
-        for url in card.get("urls", []):
-            canonical = canon(url)
-            if canonical:
-                url_to_cards[canonical].add(card.get("id"))
-        for source in card.get("fact_sources", []):
-            canonical = canon(source.get("source_url"))
-            if canonical:
-                url_to_cards[canonical].add(card.get("id"))
-
-    run_story_urls, detected_containers = collect_run_story_urls(run)
-    collisions, trusted = [], []
-    for story_id, run_urls in sorted(run_story_urls.items()):
-        matched_cards = story_to_cards.get(story_id, [])
-        if not matched_cards:
-            continue
-
-        exact_url_cards = set()
-        for url in run_urls:
-            exact_url_cards |= url_to_cards.get(url, set())
-
-        row = {
-            "story_id": story_id,
-            "story_id_baseline_cards": matched_cards,
-            "canonical_run_urls": sorted(run_urls),
-            "exact_url_cards": sorted(exact_url_cards),
-            "run_url_missing": not run_urls,
-        }
-        if exact_url_cards.intersection(matched_cards):
-            trusted.append(row)
-        else:
-            collisions.append(row)
+    all_cross_run = trusted_records + collision_records
+    cross_run_story_ids = sorted({
+        record["story_id"] for record in all_cross_run
+    })
+    collision_story_ids = sorted({
+        record["story_id"] for record in collision_records
+    })
+    trusted_only_story_ids = sorted(
+        {record["story_id"] for record in trusted_records}
+        - set(collision_story_ids)
+    )
 
     quarantine = None
-    if collisions:
-        if not args.stage_a_results:
-            status = "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED"
-            exit_code = 2
-        else:
-            quarantine = quarantine_audit(
-                load_json(args.stage_a_results), collisions
-            )
-            if quarantine["status"] == "PASS":
-                status = "PASS_COLLISIONS_QUARANTINED"
-                exit_code = 0
-            else:
-                status = "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED"
-                exit_code = 2
+    if collision_records and not args.stage_a_results:
+        status = "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED"
+        exit_code = 2
+    elif collision_records:
+        quarantine = quarantine_audit(
+            load_json(args.stage_a_results),
+            collision_story_ids,
+        )
+        status = (
+            "PASS_COLLISIONS_QUARANTINED"
+            if quarantine["status"] == "PASS"
+            else "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED"
+        )
+        exit_code = 0 if quarantine["status"] == "PASS" else 2
     else:
         status = "PASS_NO_COLLISIONS"
         exit_code = 0
 
     print(json.dumps({
         "status": status,
-        "input_containers_detected": detected_containers,
-        "run_story_record_count": len(run_story_urls),
-        "story_id_cross_run_match_count": len(collisions) + len(trusted),
-        "trusted_identity_match_count": len(trusted),
-        "collision_count": len(collisions),
-        "url_missing_collision_count": sum(
-            1 for row in collisions if row["run_url_missing"]
+        "input_containers_detected": detected,
+        "run_story_record_count": len(run_records),
+        "cross_run_record_count": len(all_cross_run),
+        "story_id_cross_run_match_count": len(cross_run_story_ids),
+        "trusted_identity_match_count": len(trusted_only_story_ids),
+        "trusted_record_count": len(trusted_records),
+        "trusted_pair_count": sum(
+            len(record["trusted_baseline_card_ids"])
+            for record in all_cross_run
         ),
-        "trusted": trusted,
-        "collisions": collisions,
+        "collision_count": len(collision_story_ids),
+        "collision_record_count": len(collision_records),
+        "collision_pair_count": sum(
+            len(record["collision_baseline_card_ids"])
+            for record in collision_records
+        ),
+        "url_missing_collision_count": sum(
+            1 for record in collision_records
+            if record["run_url_missing"]
+        ),
+        "partial_identity_match_record_count": sum(
+            1 for record in collision_records
+            if record["partial_identity_match"]
+        ),
+        "trusted_story_ids": trusted_only_story_ids,
+        "collision_story_ids": collision_story_ids,
+        "trusted": trusted_records,
+        "collisions": collision_records,
         "quarantine_audit": quarantine,
         "required_action_when_blocked": (
             "Run Stage A with story-ID collision quarantine fields and rerun "

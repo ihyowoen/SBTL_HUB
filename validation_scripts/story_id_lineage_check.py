@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
+from __future__ import annotations
+
 import argparse
 import json
 import sys
 from collections import defaultdict
 from pathlib import Path
+from typing import Any, Iterable
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 TRACKING = {
@@ -22,10 +25,10 @@ STAGE_A_COLLECTIONS = (
 )
 
 
-def canon(url):
-    if not url:
+def canon(url: Any) -> str:
+    if not isinstance(url, str) or not url.strip():
         return ""
-    parsed = urlsplit(str(url).strip())
+    parsed = urlsplit(url.strip())
     query = sorted(
         (
             (key, value)
@@ -46,12 +49,25 @@ def canon(url):
     ))
 
 
-def load_json(path):
-    return json.loads(Path(path).read_text(encoding="utf-8"))
+def load_json(path: str) -> dict[str, Any]:
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"Expected a JSON object: {path}")
+    return data
 
 
-def url_values(record):
-    values = []
+def ordered_unique(values: Iterable[Any]) -> list[str]:
+    result: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        if isinstance(value, str) and value and value not in seen:
+            seen.add(value)
+            result.append(value)
+    return result
+
+
+def url_values(record: dict[str, Any]) -> list[str]:
+    values: list[str] = []
     for field in ("primary_url", "url"):
         value = record.get(field)
         if isinstance(value, str) and value.strip():
@@ -77,8 +93,8 @@ def url_values(record):
     return values
 
 
-def raw_story_containers(run):
-    containers = []
+def raw_story_containers(run: dict[str, Any]) -> list[tuple[str, list[Any]]]:
+    containers: list[tuple[str, list[Any]]] = []
     if isinstance(run.get("stories"), list):
         containers.append(("stories[]", run["stories"]))
 
@@ -91,12 +107,45 @@ def raw_story_containers(run):
     return containers
 
 
-def collect_run_story_records(run):
-    records = []
-    detected = []
+def grouped_story_ids(item: dict[str, Any]) -> list[str]:
+    """Return the complete grouped lineage universe in stable order."""
+    values: list[Any] = []
+    for field in ("source_story_ids", "grouped_story_ids"):
+        field_value = item.get(field)
+        if isinstance(field_value, list):
+            values.extend(field_value)
+        elif isinstance(field_value, str):
+            values.append(field_value)
+    return ordered_unique(values)
 
-    def add(story_id, urls, container, record_index, role):
-        if not story_id:
+
+def plural_url_values(item: dict[str, Any]) -> list[str]:
+    for field in ("source_urls", "urls"):
+        value = item.get(field)
+        if isinstance(value, list):
+            urls = [
+                url for url in value
+                if isinstance(url, str) and url.strip()
+            ]
+            if urls:
+                return urls
+    return []
+
+
+def collect_run_story_records(
+    run: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    records: list[dict[str, Any]] = []
+    detected: list[str] = []
+
+    def add(
+        story_id: Any,
+        urls: Iterable[Any],
+        container: str,
+        record_index: Any,
+        role: str,
+    ) -> None:
+        if not isinstance(story_id, str) or not story_id:
             return
         canonical_urls = sorted({
             canonical
@@ -150,18 +199,12 @@ def collect_run_story_records(run):
                 continue
 
             explicit_story_id = item.get("story_id")
-            source_story_ids = item.get("source_story_ids") or []
-            if not isinstance(source_story_ids, list):
-                source_story_ids = []
-            source_story_ids = [value for value in source_story_ids if value]
+            story_ids = grouped_story_ids(item)
 
-            # A representative story_id does not replace the grouped universe.
-            # Record it separately only when it is not already one of the
-            # source_story_ids that will be evaluated below.
             if (
-                source_story_ids
+                isinstance(explicit_story_id, str)
                 and explicit_story_id
-                and explicit_story_id not in source_story_ids
+                and explicit_story_id not in story_ids
             ):
                 add(
                     explicit_story_id,
@@ -171,8 +214,8 @@ def collect_run_story_records(run):
                     "single_story_item",
                 )
 
-            if not source_story_ids:
-                if explicit_story_id:
+            if not story_ids:
+                if isinstance(explicit_story_id, str) and explicit_story_id:
                     add(
                         explicit_story_id,
                         url_values(item),
@@ -182,20 +225,10 @@ def collect_run_story_records(run):
                     )
                 continue
 
-            plural_urls = []
-            for field in ("source_urls", "urls"):
-                value = item.get(field)
-                if isinstance(value, list):
-                    plural_urls = [
-                        url for url in value
-                        if isinstance(url, str) and url.strip()
-                    ]
-                    if plural_urls:
-                        break
-
-            if len(source_story_ids) == len(plural_urls):
+            plural_urls = plural_url_values(item)
+            if len(story_ids) == len(plural_urls):
                 for position, (story_id, url) in enumerate(
-                    zip(source_story_ids, plural_urls)
+                    zip(story_ids, plural_urls)
                 ):
                     add(
                         story_id,
@@ -206,9 +239,9 @@ def collect_run_story_records(run):
                     )
                 continue
 
-            if len(source_story_ids) == 1:
+            if len(story_ids) == 1:
                 add(
-                    source_story_ids[0],
+                    story_ids[0],
                     url_values(item),
                     container,
                     f"{item_index}:0",
@@ -224,7 +257,7 @@ def collect_run_story_records(run):
                 for value in (item.get("primary_url"), item.get("url"))
                 if isinstance(value, str) and value.strip()
             ]
-            for position, story_id in enumerate(source_story_ids):
+            for position, story_id in enumerate(story_ids):
                 assigned = (
                     representative_urls
                     if story_id == representative_id
@@ -242,14 +275,15 @@ def collect_run_story_records(run):
                     ),
                 )
 
-    unique = []
-    seen = set()
+    unique: list[dict[str, Any]] = []
+    seen: set[tuple[Any, ...]] = set()
     for record in records:
         key = (
             record["story_id"],
             tuple(record["canonical_run_urls"]),
             record["source_container"],
             str(record["source_record_index"]),
+            record["source_record_role"],
         )
         if key not in seen:
             seen.add(key)
@@ -257,28 +291,44 @@ def collect_run_story_records(run):
     return unique, sorted(set(detected))
 
 
-def baseline_indexes(baseline):
-    story_to_cards = defaultdict(list)
-    card_urls = defaultdict(set)
-    for card in baseline.get("cards", []):
+def baseline_indexes(
+    baseline: dict[str, Any],
+) -> tuple[dict[str, list[str]], dict[str, set[str]]]:
+    story_to_cards: dict[str, list[str]] = defaultdict(list)
+    card_urls: dict[str, set[str]] = defaultdict(set)
+    for card in baseline.get("cards", []) or []:
+        if not isinstance(card, dict):
+            continue
         card_id = card.get("id")
-        if not card_id:
+        if not isinstance(card_id, str) or not card_id:
             continue
 
         for story_id in card.get("source_story_ids", []) or []:
-            if story_id:
+            if isinstance(story_id, str) and story_id:
                 story_to_cards[story_id].append(card_id)
 
-        for url in url_values(card):
+        for url in card.get("urls", []) or []:
             canonical = canon(url)
             if canonical:
                 card_urls[card_id].add(canonical)
+
+        for source in card.get("fact_sources", []) or []:
+            if not isinstance(source, dict):
+                continue
+            for field in ("source_url", "url"):
+                canonical = canon(source.get(field))
+                if canonical:
+                    card_urls[card_id].add(canonical)
     return story_to_cards, card_urls
 
 
-def classify_records(run_records, story_to_cards, card_urls):
-    trusted_records = []
-    collision_records = []
+def classify_records(
+    run_records: list[dict[str, Any]],
+    story_to_cards: dict[str, list[str]],
+    card_urls: dict[str, set[str]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    trusted_records: list[dict[str, Any]] = []
+    collision_records: list[dict[str, Any]] = []
 
     for record in run_records:
         baseline_cards = sorted(set(
@@ -288,9 +338,9 @@ def classify_records(run_records, story_to_cards, card_urls):
             continue
 
         run_urls = set(record["canonical_run_urls"])
-        trusted_cards = []
-        collision_cards = []
-        card_results = []
+        trusted_cards: list[str] = []
+        collision_cards: list[str] = []
+        card_results: list[dict[str, Any]] = []
 
         for card_id in baseline_cards:
             baseline_urls = set(card_urls.get(card_id, set()))
@@ -302,7 +352,10 @@ def classify_records(run_records, story_to_cards, card_urls):
                 "matching_urls": matching_urls,
                 "identity_route_trusted": trusted,
             })
-            (trusted_cards if trusted else collision_cards).append(card_id)
+            if trusted:
+                trusted_cards.append(card_id)
+            else:
+                collision_cards.append(card_id)
 
         classified = {
             **record,
@@ -322,14 +375,18 @@ def classify_records(run_records, story_to_cards, card_urls):
     return trusted_records, collision_records
 
 
-def declared_collision_count(stage_a_results, top_level_audit):
+def declared_collision_count(
+    stage_a_results: dict[str, Any],
+    top_level_audit: dict[str, Any],
+) -> int | None:
+    summary = stage_a_results.get("summary")
+    if not isinstance(summary, dict):
+        summary = {}
     candidates = (
         top_level_audit.get("collision_count"),
         top_level_audit.get("story_id_collision_count"),
         stage_a_results.get("story_id_collision_count"),
-        (stage_a_results.get("summary") or {}).get(
-            "story_id_collision_count"
-        ),
+        summary.get("story_id_collision_count"),
     )
     for value in candidates:
         if isinstance(value, int) and not isinstance(value, bool):
@@ -337,18 +394,23 @@ def declared_collision_count(stage_a_results, top_level_audit):
     return None
 
 
-def quarantine_audit(stage_a_results, collision_story_ids):
-    rows_by_story_id = defaultdict(list)
+def quarantine_audit(
+    stage_a_results: dict[str, Any],
+    collision_story_ids: list[str],
+) -> dict[str, Any]:
+    rows_by_story_id: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in stage_a_results.get("decision_ledger", []) or []:
-        if isinstance(row, dict) and row.get("story_id"):
+        if isinstance(row, dict) and isinstance(row.get("story_id"), str):
             rows_by_story_id[row["story_id"]].append(row)
 
-    missing_or_invalid = []
+    missing_or_invalid: list[dict[str, Any]] = []
     for story_id in sorted(set(collision_story_ids)):
         rows = rows_by_story_id.get(story_id, [])
-        checks = []
+        checks: list[dict[str, bool]] = []
         for row in rows:
             audit = row.get("story_id_lineage_audit", {})
+            if not isinstance(audit, dict):
+                audit = {}
             checks.append({
                 "story_id_collision_detected": (
                     audit.get("story_id_collision_detected") is True
@@ -375,7 +437,9 @@ def quarantine_audit(stage_a_results, collision_story_ids):
             })
 
     expected_count = len(set(collision_story_ids))
-    top = stage_a_results.get("story_id_lineage_audit", {}) or {}
+    top = stage_a_results.get("story_id_lineage_audit", {})
+    if not isinstance(top, dict):
+        top = {}
     reported_count = declared_collision_count(stage_a_results, top)
     audit_status = (
         stage_a_results.get("story_id_lineage_audit_status")
@@ -405,7 +469,7 @@ def quarantine_audit(stage_a_results, collision_story_ids):
     }
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("run_json")
     parser.add_argument("baseline_cards_json")
@@ -418,15 +482,22 @@ def main():
     )
     args = parser.parse_args()
 
-    run = load_json(args.run_json)
-    baseline = load_json(args.baseline_cards_json)
-    run_records, detected = collect_run_story_records(run)
-    story_to_cards, card_urls = baseline_indexes(baseline)
-    trusted_records, collision_records = classify_records(
-        run_records,
-        story_to_cards,
-        card_urls,
-    )
+    try:
+        run = load_json(args.run_json)
+        baseline = load_json(args.baseline_cards_json)
+        run_records, detected = collect_run_story_records(run)
+        story_to_cards, card_urls = baseline_indexes(baseline)
+        trusted_records, collision_records = classify_records(
+            run_records,
+            story_to_cards,
+            card_urls,
+        )
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        print(json.dumps({
+            "status": "VALIDATOR_INPUT_ERROR",
+            "error": str(exc),
+        }, ensure_ascii=False, indent=2))
+        return 3
 
     all_cross_run = trusted_records + collision_records
     cross_run_story_ids = sorted({
@@ -445,10 +516,17 @@ def main():
         status = "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED"
         exit_code = 2
     elif collision_records:
-        quarantine = quarantine_audit(
-            load_json(args.stage_a_results),
-            collision_story_ids,
-        )
+        try:
+            quarantine = quarantine_audit(
+                load_json(args.stage_a_results),
+                collision_story_ids,
+            )
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            print(json.dumps({
+                "status": "VALIDATOR_INPUT_ERROR",
+                "error": str(exc),
+            }, ensure_ascii=False, indent=2))
+            return 3
         status = (
             "PASS_COLLISIONS_QUARANTINED"
             if quarantine["status"] == "PASS"
@@ -493,7 +571,7 @@ def main():
         "required_action_when_blocked": (
             "Run Stage A with story-ID collision quarantine fields and rerun "
             "this validator with --stage-a-results."
-            if exit_code else None
+            if exit_code == 2 else None
         ),
     }, ensure_ascii=False, indent=2))
     return exit_code

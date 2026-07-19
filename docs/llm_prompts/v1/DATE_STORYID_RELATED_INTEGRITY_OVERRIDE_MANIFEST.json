@@ -31,6 +31,7 @@
       "quarantine_verification_command": "python validation_scripts/story_id_lineage_check.py RUN_JSON BASELINE_CARDS_JSON --stage-a-results STAGE_A_RESULTS_JSON",
       "accepted_input_containers": [
         "stories[]",
+        "final_news_llm_input.stories[]",
         "decision_ledger[]",
         "strict_passed_spec[]",
         "candidate_review_pool[]",
@@ -49,13 +50,26 @@
       ],
       "canonical_url_policy": "remove known tracking parameters and sort remaining query-parameter key/value pairs before lookup",
       "grouped_spec_pairing_policy": "When source_story_ids[] and source_urls[] or urls[] have equal length, pair by array position; do not assign every grouped URL to every story ID.",
+      "missing_url_policy": "Register every discovered story ID even when no URL is present. A baseline story-ID reuse without an independently matching URL enters the block/quarantine flow.",
       "pass_statuses": [
         "PASS_NO_COLLISIONS",
         "PASS_COLLISIONS_QUARANTINED"
       ],
       "blocking_status": "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED",
       "blocking_exit_code": 2,
-      "rule": "A detected cross-run story-ID collision cannot pass unless the Stage A artifact proves the story ID was not trusted or used for duplicate routing. Exact or canonical URL identity must be evaluated across every accepted Stage A URL field before collision classification."
+      "rule": "A detected cross-run story-ID collision cannot pass unless the Stage A artifact proves the story ID was not trusted or used for duplicate routing. Exact or canonical URL identity must be evaluated across every accepted input container and URL field before collision classification."
+    },
+    "date_role_alignment_check": {
+      "command": "python validation_scripts/date_role_alignment_check.py BASELINE_CARDS_JSON",
+      "hard_gate_contexts": [
+        "public/data/cards.json changes",
+        "Prompt 0.8 merge preparation",
+        "Prompt 0.9 production verification",
+        "baseline date remediation"
+      ],
+      "docs_only_unchanged_baseline_policy": "For a docs-only package PR with no cards.json change, record pre-existing baseline findings separately from package-integrity checks. They do not block the package commit, but no new finding may be introduced.",
+      "known_unchanged_baseline_findings_at_registration": 5,
+      "known_findings_remediation_required": true
     }
   },
   "required_package_manifests": [

@@ -160,7 +160,10 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     } catch { /* noop */ }
   }, [kb.cards.length]);
   const kang = useMemo(() => {
-    if (!onboardDone || !kb.cards.length) return null;
+    // 숨김은 '온보딩 카드가 실제로 보이는 동안'만 — 렌더 조건(!onboardDone && 워치 0)과
+    // 동일식. onboardDone만 보면 온보딩 도입 전부터 워치를 쓰던 기존 사용자(플래그 없음
+    // +워치 있음)는 온보딩도 강차장도 영영 못 본다(Codex #190 R2).
+    if ((!onboardDone && watchTerms.length === 0) || !kb.cards.length) return null;
     let seen; try { const v = JSON.parse(localStorage.getItem("sbtl_watch_seen") || "[]"); seen = new Set(Array.isArray(v) ? v : []); } catch { seen = new Set(); }
     const sigRank = { t: 2, h: 1 };
     const latestFirst = (a, b) => (sigRank[b.s] || 0) - (sigRank[a.s] || 0) || String(b.d || b.date || "").localeCompare(String(a.d || a.date || ""));

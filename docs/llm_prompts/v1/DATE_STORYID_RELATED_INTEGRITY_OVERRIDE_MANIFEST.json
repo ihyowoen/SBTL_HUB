@@ -49,12 +49,18 @@
         "fact_sources[].source_url",
         "fact_sources[].url"
       ],
+      "accepted_collision_count_fields": [
+        "story_id_lineage_audit.collision_count",
+        "story_id_lineage_audit.story_id_collision_count",
+        "story_id_collision_count",
+        "summary.story_id_collision_count"
+      ],
       "canonical_url_policy": "remove known tracking parameters and sort remaining query-parameter key/value pairs before lookup",
-      "grouped_spec_pairing_policy": "When source_story_ids[] and source_urls[] or urls[] have equal length, pair by array position; do not assign every grouped URL to every story ID. For unmatched grouped arrays, only an explicitly named representative story may receive the representative URL; all other story IDs remain URL-unmapped and enter collision review when reused.",
+      "grouped_spec_pairing_policy": "A representative story_id never terminates grouped evaluation. Every source_story_ids[] member must be registered. When source_story_ids[] and source_urls[] or urls[] have equal length, pair by array position; do not assign every grouped URL to every story ID. For unmatched grouped arrays, only an explicitly named representative story may receive the representative URL; all other story IDs remain URL-unmapped and enter collision review when reused.",
       "missing_url_policy": "Register every discovered story ID even when no URL is present. A baseline story-ID reuse without an independently matching URL enters the block/quarantine flow.",
       "record_identity_policy": "Classify every run record independently. Never union URLs across records that share a story ID before identity classification.",
       "baseline_pair_policy": "For each reused story ID, evaluate every run-record and baseline-card pair independently. One exact URL match cannot trust a different missing or mismatched run record, and a match to one baseline card cannot trust another baseline card that reuses the same story ID without its own matching URL.",
-      "counting_policy": "collision_count is the number of unique collision story IDs for Stage A quarantine compatibility; collision_record_count and collision_pair_count preserve per-record and per-baseline-card detail.",
+      "counting_policy": "collision_count is the number of unique collision story IDs for Stage A quarantine compatibility; collision_record_count and collision_pair_count preserve per-record and per-baseline-card detail. Quarantine verification accepts the canonical Stage A summary field story_id_collision_count as well as legacy collision_count placements.",
       "pass_statuses": [
         "PASS_NO_COLLISIONS",
         "PASS_COLLISIONS_QUARANTINED"

@@ -89,6 +89,11 @@ function todayLabel() {
   const d = new Date(Date.now() + 9 * 3600000);
   return `${d.getUTCFullYear()}.${String(d.getUTCMonth() + 1).padStart(2, "0")}.${String(d.getUTCDate()).padStart(2, "0")} (${"일월화수목금토"[d.getUTCDay()]})`;
 }
+// 강차장 온보딩·브리핑룸 워치 추천 공용 칩 — 처음 고르기 좋은 대표 8종.
+// R18b: 일회용 온보딩 카드 대신 강차장 인사(워치 빈 상태)와 브리핑룸 워치 관리에
+// 상시 거주 — "관심사는 언제라도 친절하게 고를 수 있어야 한다"(사용자 지적).
+const KANG_RECO_TERMS = ["CATL", "LG에너지솔루션", "삼성SDI", "SK온", "Tesla", "BYD", "전고체", "ESS"];
+
 function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0, onNav, onOpenProfile, onFeedSearch, onAppCommand }) {
   const t = T(dark);
   // 워치는 명령 버스(executeAppCommand)가 localStorage를 직접 바꾸므로 버전 신호로 재읽기
@@ -136,15 +141,12 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flowSig, dailyFlow]);
-  // ---- 첫 방문 온보딩: 관심사 선택 → 명령 버스로 워치 일괄 등록 (개인화 체인 점화) ----
-  const [onboardDone, setOnboardDone] = useState(() => {
-    try { return localStorage.getItem("sbtl_onboard_done") === "1"; } catch { return true; }
-  });
-  const [onboardPick, setOnboardPick] = useState([]);
-  const finishOnboard = (picks) => {
-    try { localStorage.setItem("sbtl_onboard_done", "1"); } catch { /* noop */ }
+  // ---- 관심사 고르기(R18b): 별도 온보딩 카드 폐지 — 강차장 인사 카드가 온보더를 겸한다.
+  // 워치가 비면 인사 안에 칩 그리드가 붙고, 고르면 명령 버스 watch_add 일괄 등록.
+  const [kangPick, setKangPick] = useState([]);
+  const startKangWatch = (picks) => {
     if (picks.length && typeof onAppCommand === "function") picks.forEach((term) => onAppCommand({ type: "watch_add", term }));
-    setOnboardDone(true);
+    setKangPick([]);
   };
   // ---- 강차장 브리핑(R18): 접속하면 앱이 먼저 말을 건다 — 재료는 전부 기존 기계 재사용 ----
   // 방문 흔적은 effect에서 기록하고 인사 계산은 마운트 스냅샷(kangPrev) 기준 — 새로고침해도
@@ -160,10 +162,9 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     } catch { /* noop */ }
   }, [kb.cards.length]);
   const kang = useMemo(() => {
-    // 숨김은 '온보딩 카드가 실제로 보이는 동안'만 — 렌더 조건(!onboardDone && 워치 0)과
-    // 동일식. onboardDone만 보면 온보딩 도입 전부터 워치를 쓰던 기존 사용자(플래그 없음
-    // +워치 있음)는 온보딩도 강차장도 영영 못 본다(Codex #190 R2).
-    if ((!onboardDone && watchTerms.length === 0) || !kb.cards.length) return null;
+    // R18b: 온보딩 게이트 폐지 — 강차장은 데이터만 있으면 항상 인사한다(워치가 비면
+    // 인사 카드가 온보더를 겸함). 별도 온보딩 카드가 인사를 가로막던 구조 제거.
+    if (!kb.cards.length) return null;
     let seen; try { const v = JSON.parse(localStorage.getItem("sbtl_watch_seen") || "[]"); seen = new Set(Array.isArray(v) ? v : []); } catch { seen = new Set(); }
     const sigRank = { t: 2, h: 1 };
     const latestFirst = (a, b) => (sigRank[b.s] || 0) - (sigRank[a.s] || 0) || String(b.d || b.date || "").localeCompare(String(a.d || a.date || ""));
@@ -196,7 +197,7 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
       pinFollow, unreadBrief, staleBrief,
       topCard: topC ? { title: topC.T || topC.title || "" } : null,
     });
-  }, [kb.cards, watchTerms, weeklyBriefs, kangPrev, onboardDone]);
+  }, [kb.cards, watchTerms, weeklyBriefs, kangPrev]);
   const top = [...todayCards].sort((a, b) => (rank[b.s] || 0) - (rank[a.s] || 0)).slice(0, 4);
   const lead = top[0];
   const rest = top.slice(1);
@@ -280,22 +281,8 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
   return (
     // 하단 110px — fixed 하단 네비(+safe-area) 위 공간 예약, 다른 탭 루트와 동일
     <div style={{ padding: "0 16px 110px", display: "flex", flexDirection: "column", gap: 10 }}>
-      {!onboardDone && watchTerms.length === 0 && (
-        <W label="처음이시죠? 관심사를 골라주세요" right="개인화 시작">
-          <div style={{ fontSize: 11.5, color: t.sub, lineHeight: 1.6, marginBottom: 8, wordBreak: "keep-all" }}>고르면 새 카드 배지·매주 📮 브리프·프로필 바로가기가 켜져요. 나중에 브리핑룸이나 상담소에서 바꿀 수 있어요.</div>
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-            {["CATL", "LG에너지솔루션", "삼성SDI", "SK온", "Tesla", "BYD", "전고체", "ESS"].map((term) => {
-              const on = onboardPick.includes(term);
-              return <button key={term} onClick={() => setOnboardPick((p) => (on ? p.filter((x) => x !== term) : [...p, term]))} aria-pressed={on} style={{ padding: "9px 13px", borderRadius: 999, border: `1px solid ${on ? "transparent" : t.brd}`, background: on ? t.cyan : t.card, color: on ? "#000" : t.tx, fontSize: 11.5, fontWeight: 800, cursor: "pointer" }}>{on ? "✓ " : ""}{term}</button>;
-            })}
-          </div>
-          <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
-            <button onClick={() => finishOnboard(onboardPick)} disabled={!onboardPick.length} style={{ flex: 1, padding: "11px", borderRadius: 10, border: "none", background: onboardPick.length ? t.cyan : t.brd, color: "#000", fontSize: 12, fontWeight: 800, cursor: onboardPick.length ? "pointer" : "not-allowed" }}>{onboardPick.length ? `${onboardPick.length}개 워치로 시작` : "관심사를 골라주세요"}</button>
-            <button onClick={() => finishOnboard([])} style={{ padding: "11px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>나중에</button>
-          </div>
-        </W>
-      )}
-      {/* 강차장 브리핑(R18) — 앱이 먼저 말을 거는 제안 카드. 줄마다 명령 버스 행동 칩 */}
+      {/* 강차장 브리핑(R18) — 앱이 먼저 말을 거는 제안 카드. 줄마다 명령 버스 행동 칩.
+          R18b: 워치가 비면 인사 안에 관심사 칩 그리드(온보더 겸임) — 별도 온보딩 카드 폐지 */}
       {kang && (
         <div style={{ borderRadius: 14, border: `1px solid ${t.brd}`, background: t.card, padding: "12px 13px" }}>
           <div style={{ display: "flex", gap: 9, alignItems: "flex-start" }}>
@@ -310,6 +297,18 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
                   </div>
                 ))}
               </div>
+              {kang.watchSetup && (
+                <div style={{ marginTop: 9 }}>
+                  <div style={{ fontSize: 11.5, color: t.tx, lineHeight: 1.55, wordBreak: "keep-all" }}>뭘 지켜볼지 골라줘 — 고르면 새 카드 배지·매주 📮 브리프·프로필 바로가기가 켜져.</div>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8 }}>
+                    {KANG_RECO_TERMS.map((term) => {
+                      const on = kangPick.includes(term);
+                      return <button key={term} onClick={() => setKangPick((p) => (on ? p.filter((x) => x !== term) : [...p, term]))} aria-pressed={on} style={{ padding: "9px 13px", borderRadius: 999, border: `1px solid ${on ? "transparent" : t.brd}`, background: on ? t.cyan : t.card2, color: on ? "#000" : t.tx, fontSize: 11.5, fontWeight: 800, cursor: "pointer" }}>{on ? "✓ " : ""}{term}</button>;
+                    })}
+                  </div>
+                  <button onClick={() => startKangWatch(kangPick)} disabled={!kangPick.length} style={{ width: "100%", marginTop: 9, padding: "11px", borderRadius: 10, border: "none", background: kangPick.length ? t.cyan : t.brd, color: "#000", fontSize: 12, fontWeight: 800, cursor: kangPick.length ? "pointer" : "not-allowed" }}>{kangPick.length ? `${kangPick.length}개 워치로 시작` : "골라주면 바로 시작할게"}</button>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -894,6 +893,18 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
         <input value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") submitDraft(); }} placeholder="기업·키워드 입력 후 추가 (예: LG에너지솔루션)" aria-label="워치 용어 추가" style={{ flex: 1, minWidth: 0, padding: "10px 12px", borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card, color: t.tx, fontSize: 12, outline: "none", fontFamily: "inherit" }} />
         <button onClick={submitDraft} disabled={draft.trim().length < 2} style={{ padding: "10px 15px", borderRadius: 10, border: "none", background: draft.trim().length >= 2 ? t.cyan : t.brd, color: "#000", fontSize: 12, fontWeight: 800, cursor: draft.trim().length >= 2 ? "pointer" : "not-allowed" }}>추가</button>
       </div>
+      {/* 추천 칩 상시 거주(R18b) — 온보딩 일회용이던 친절한 고르기를 언제라도.
+          이미 등록된 용어는 숨김(전부 등록되면 행 자체가 사라짐) */}
+      {(() => {
+        const reco = KANG_RECO_TERMS.filter((x) => !watchTerms.some((w) => String(w).toLowerCase() === x.toLowerCase()));
+        return reco.length ? (
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8 }}>
+            {reco.map((term) => (
+              <button key={term} onClick={() => onWatchAdd && onWatchAdd(term)} aria-label={`${term} 워치에 추가`} style={{ padding: "8px 12px", borderRadius: 999, border: `1px dashed ${t.brd}`, background: "transparent", color: t.sub, fontSize: 11.5, fontWeight: 700, cursor: "pointer" }}>+ {term}</button>
+            ))}
+          </div>
+        ) : null;
+      })()}
       {/* 위계: 매일 보는 것부터 — 새 소식 → 주간 브리프 → 비교 → 저장 카드 → 알림 */}
       {sectionTitle(`워치 새 소식 (${matched.length})`, matched.length ? "카드를 누르면 해당 기업 프로필로 이동" : undefined)}
       {matched.length ? (

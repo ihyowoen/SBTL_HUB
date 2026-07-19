@@ -101,13 +101,11 @@ export function composeKangBriefing(inp) {
       chip: "TOP", cmd: { type: "feed_filter", signal: "top" },
     });
   }
-  if (!i.hasWatch) {
-    lines.push({
-      text: "워치를 등록하면 네 기준으로 골라줄게.",
-      chip: "워치 등록", cmd: { type: "nav", tab: "watchroom" },
-    });
-  }
+  // 워치가 비면 강차장이 곧 온보더 — 별도 온보딩 카드로 인사를 가로막지 않고(사용자
+  // 지적: "나중에 안 누르면 강차장을 만날 수 없잖아") 인사 카드 안에 관심사 칩
+  // 그리드를 붙인다(렌더러 담당). 칩 자체가 행동이라 원칙②(전부 제안)와도 정합.
+  const watchSetup = !i.hasWatch;
 
-  if (!lines.length) return null; // 원칙② — 행동 없는 인사는 안 띄운다
-  return { header, lines: lines.slice(0, 3) };
+  if (!lines.length && !watchSetup) return null; // 원칙② — 행동 없는 인사는 안 띄운다
+  return { header, lines: lines.slice(0, 3), watchSetup };
 }

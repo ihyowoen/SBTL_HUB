@@ -1,6 +1,6 @@
 # Upload Instructions — LLM Prompt GitHub Canonical v1
 
-Updated KST: `2026-07-19`
+Updated KST: `2026-07-20`
 
 ## Package contents
 
@@ -97,6 +97,8 @@ It also reads every current Stage A terminal or lineage container:
 - `rejected[]`
 - `reject_or_support_only_pool[]`
 
+The grouped story universe is the stable-order union of `source_story_ids[]` and `grouped_story_ids[]`. Positional URL pairing evaluates both `source_urls[]` and `urls[]`; every array whose filtered length exactly matches the grouped story count is paired by position. A short representative URL array cannot suppress a complete positional URL array.
+
 Identity is evaluated for each run record and each baseline card independently. Do not treat a story ID as trusted merely because another record or another baseline card with the same story ID has an exact URL match. The output separates:
 
 - unique collision story IDs: `collision_count`
@@ -128,9 +130,15 @@ Acceptable story-ID validator success states are:
 The following checks validate card data rather than the docs/validator package:
 
 ```bash
-python validation_scripts/date_role_alignment_check.py BASELINE_CARDS_JSON
-python validation_scripts/related_lineage_check.py BASELINE_CARDS_JSON
+python validation_scripts/date_role_alignment_check.py CURRENT_CARDS_JSON
+python validation_scripts/related_lineage_check.py \
+  CURRENT_CARDS_JSON \
+  --previous-baseline PREVIOUS_CARDS_JSON
 ```
+
+The date validator parses card dates, standardized ID dates, event-fingerprint dates, source publication dates and visible quote dates as real ISO calendar dates. Equal invalid source-date strings do not pass merely because they match each other.
+
+The related validator requires the previous active baseline whenever the current cards contain missing targets. Only an identical source/target dangling pair already present in that previous baseline may be classified as historical unresolved. A new typo, deleted target or newly missing related ID returns `BLOCKED_NEW_MISSING_RELATED_TARGETS` with exit code `2`. Running without `--previous-baseline` while unresolved targets exist returns `BLOCKED_UNRESOLVED_RELATED_TARGETS_UNCLASSIFIED` with exit code `2`.
 
 They are hard gates when any of the following applies:
 

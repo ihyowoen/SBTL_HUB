@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
 import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections, hitBoundary } from "./briefAxes";
 import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
+import { pickNeighbors, explodePins, ensureCenterEdges } from "./explode";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
@@ -3265,6 +3266,140 @@ function WebtoonLibrary({ dark, faq = [], faqError = false }) {
   );
 }
 
+// 🕸 뉴스 분해(R22) — 카드 하나를 몸통 삼아 연관·후속·같은 주체 다리를 지도로 펼치고,
+// 다리를 탭하면 그 카드가 새 몸통이 된다(가지→몸통 재중심). 지나온 길은 빵부스러기.
+// 이웃 선별은 src/explode.js(순수), 지도 계산·배치는 pinboard 재사용 — 표시 전용
+// (게이트·락·읽음 어디에도 안 물림). 인사이트 도출은 사용자 층: 여기는 카드의 함의
+// (편집 원자)와 연결 사실만 배열·인용한다(주장문 금지 규약 그대로).
+function NewsExplode({ startCard, kb, dark, onClose, isBookmarked, onToggleBookmark }) {
+  const t = T(dark);
+  const [alias, setAlias] = useState(null);
+  useEffect(() => { let alive = true; loadAliasEntities().then((j) => { if (alive) setAlias(j || {}); }); return () => { alive = false; }; }, []);
+  const byId = useMemo(() => { const m = new Map(); for (const c of kb.cards) { const id = getCardId(c); if (id && !m.has(id)) m.set(id, c); } return m; }, [kb.cards]);
+  const [centerId, setCenterId] = useState(() => getCardId(startCard));
+  const [trail, setTrail] = useState([]); // 빵부스러기 — [{id,title}], 깊이 상한 8
+  const center = byId.get(centerId) || startCard;
+  const neighbors = useMemo(() => (alias ? pickNeighbors(center, kb.cards, alias, { cap: 14 }) : []), [center, kb.cards, alias]);
+  const whyById = useMemo(() => new Map(neighbors.map((n) => [n.id, n.why])), [neighbors]);
+  const lay = useMemo(() => (alias ? layoutPinGraph(buildPinGraph(explodePins(center, neighbors), kb.cards, alias, { ensureEdges: ensureCenterEdges(getCardId(center), neighbors) }), { width: 620, preferHub: getCardId(center) }) : null), [center, neighbors, kb.cards, alias]);
+  const recenter = (id) => {
+    if (!id || id === centerId || !byId.has(id)) return;
+    setTrail((tr) => [...tr, { id: centerId, title: String(center.T || center.title || "") }].slice(-8));
+    setCenterId(id);
+  };
+  const jumpBack = (idx) => { const target = trail[idx]; if (!target) return; setCenterId(target.id); setTrail(trail.slice(0, idx)); };
+  const KIND_LABEL = { related: "편집자 연결", entity: "같은 주체", theme: "같은 주제" };
+  const centerEdges = lay ? lay.edges.filter((e) => e.a === centerId || e.b === centerId) : [];
+  const nodeBg = dark ? "#1C2333" : "#fff";
+  const halo = dark ? "#161B26" : "#fff";
+  const edgePath = (e, i) => {
+    const mx = (e.x1 + e.x2) / 2, my = (e.y1 + e.y2) / 2;
+    const dx = e.x2 - e.x1, dy = e.y2 - e.y1;
+    const d = Math.hypot(dx, dy) || 1;
+    const k = Math.min(18, d * 0.18) * (i % 2 ? 1 : -1);
+    return `M ${e.x1} ${e.y1} Q ${mx - (dy / d) * k} ${my + (dx / d) * k} ${e.x2} ${e.y2}`;
+  };
+  const impl = cardImplicationText(center);
+  const bm = isBookmarked ? isBookmarked(center) : false;
+  return (
+    <div onClick={onClose} role="dialog" aria-label="뉴스 분해" style={{ position: "fixed", inset: 0, zIndex: 80, background: "rgba(0,0,0,0.55)", display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+      <div onClick={(e) => e.stopPropagation()} style={{ width: "100%", maxWidth: 680, maxHeight: "92vh", overflowY: "auto", background: t.bg, borderRadius: "16px 16px 0 0", borderTop: `1px solid ${t.brd}`, padding: "12px 14px 26px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ flex: 1, fontSize: 12, fontWeight: 800, color: t.tx, fontFamily: "'JetBrains Mono',monospace" }}>🕸 뉴스 분해 <span style={{ color: t.sub, fontWeight: 500 }}>— 다리를 탭하면 그 카드가 몸통이 돼요</span></div>
+          <button onClick={onClose} aria-label="닫기" style={{ width: 34, height: 34, borderRadius: 999, border: `1px solid ${t.brd}`, background: "transparent", color: t.sub, fontSize: 15, cursor: "pointer", lineHeight: 1 }}>×</button>
+        </div>
+        {trail.length > 0 && (
+          <div style={{ display: "flex", gap: 5, alignItems: "center", marginTop: 8, overflowX: "auto", paddingBottom: 2 }}>
+            {trail.map((tr2, i) => (
+              <button key={`${tr2.id}-${i}`} onClick={() => jumpBack(i)} title={tr2.title} style={{ flexShrink: 0, padding: "5px 9px", borderRadius: 999, border: `1px dashed ${t.brd}`, background: "transparent", color: t.sub, fontSize: 9.5, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", maxWidth: 110, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{tr2.title.slice(0, 10) || tr2.id}</button>
+            ))}
+            <span style={{ flexShrink: 0, fontSize: 9.5, color: t.sub }}>›</span>
+            <span style={{ flexShrink: 0, fontSize: 9.5, fontWeight: 800, color: t.cyan, fontFamily: "'JetBrains Mono',monospace", maxWidth: 150, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{String(center.T || center.title || "").slice(0, 14)}</span>
+          </div>
+        )}
+        <div style={{ marginTop: 8, borderRadius: 12, background: t.card2, border: `1px solid ${t.brd}`, overflowX: "auto" }}>
+          {!lay ? (
+            <div style={{ fontSize: 11, color: t.sub, padding: "16px 12px", fontFamily: "'JetBrains Mono',monospace" }}>🕸 연결 계산 중…</div>
+          ) : (
+            <svg width={lay.width} height={lay.height} viewBox={`0 0 ${lay.width} ${lay.height}`} role="img" aria-label={`뉴스 분해 지도 — 카드 ${lay.nodes.length}개, 연결 ${lay.edges.length}개`}>
+              {lay.edges.map((e, i) => {
+                const hot = e.a === centerId || e.b === centerId;
+                return <path key={i} d={edgePath(e, i)} fill="none" stroke={hot ? t.cyan : (dark ? "#8B99AC" : "#57606A")} strokeWidth={hot ? 2.2 : e.kind === "related" ? 1.8 : 1.1} strokeDasharray={e.kind === "theme" ? "3 4" : undefined} strokeLinecap="round" opacity={hot ? 0.9 : 0.45} />;
+              })}
+              {lay.nodes.map((n) => {
+                const isCenter = n.id === centerId;
+                const col = isCenter ? t.cyan : (dark ? "#8B99AC" : "#57606A");
+                return (
+                  <g key={n.id} onClick={(ev) => { ev.stopPropagation(); if (!isCenter) recenter(n.id); }} style={{ cursor: isCenter ? "default" : "pointer" }} aria-label={isCenter ? `${n.title} (현재 몸통)` : `${n.title} — 탭하면 몸통으로`}>
+                    {isCenter && <circle cx={n.x} cy={n.y} r={n.r + 6} fill={t.cyan} opacity={0.22} />}
+                    <circle cx={n.x} cy={n.y} r={isCenter ? n.r + 2 : n.r} fill={isCenter ? col : nodeBg} stroke={col} strokeWidth={isCenter ? 2.6 : 1.5} />
+                    <text x={n.x} y={n.y + 3.5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={isCenter ? (dark ? "#000" : "#fff") : t.sub}>{{ t: "T", h: "H", m: "M" }[n.signal] || "·"}</text>
+                    {(() => {
+                      const la = n.labelAng;
+                      const l1 = n.title.slice(0, 11);
+                      const l2 = n.title.length > 11 ? n.title.slice(11, 21) + (n.title.length > 21 ? "…" : "") : null;
+                      const common = { fontSize: "9", fill: dark ? "#C9D1D9" : "#24292F", stroke: halo, strokeWidth: "3", paintOrder: "stroke", fontFamily: "'JetBrains Mono',monospace" };
+                      if (la == null || Math.sin(la) < -0.85) {
+                        return (
+                          <text x={n.x} y={n.y + n.r + 13} textAnchor="middle" fontWeight={isCenter ? 800 : 500} {...common}>
+                            <tspan x={n.x} dy="0">{l1}</tspan>
+                            {l2 && <tspan x={n.x} dy="10">{l2}</tspan>}
+                          </text>
+                        );
+                      }
+                      const cos = Math.cos(la), sin = Math.sin(la);
+                      const anchor = cos > 0.35 ? "start" : cos < -0.35 ? "end" : "middle";
+                      const lx = n.x + cos * (n.r + 7);
+                      const ly = n.y + sin * (n.r + 7) + (anchor === "middle" ? (sin < 0 ? (l2 ? -14 : -5) : 11) : (l2 ? -1.5 : 3.5));
+                      return (
+                        <text x={lx} y={ly} textAnchor={anchor} fontWeight={isCenter ? 800 : 500} {...common}>
+                          <tspan x={lx} dy="0">{l1}</tspan>
+                          {l2 && <tspan x={lx} dy="10">{l2}</tspan>}
+                        </text>
+                      );
+                    })()}
+                  </g>
+                );
+              })}
+            </svg>
+          )}
+        </div>
+        <div style={{ marginTop: 10, borderRadius: 12, background: t.card2, border: `1px solid ${t.brd}`, padding: "12px 13px" }}>
+          <div style={{ fontSize: 9.5, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(center.date || center.d)} · {center.r || center.region || ""}{(center.s || center.signal) ? ` · ${SIG_L[center.s || center.signal] || ""}` : ""}</div>
+          <div style={{ fontSize: 13.5, fontWeight: 800, color: t.tx, lineHeight: 1.5, marginTop: 4, wordBreak: "keep-all" }}>{center.T || center.title}</div>
+          {impl && (
+            <div style={{ marginTop: 8, padding: "9px 11px", borderLeft: `3px solid ${t.cyan}`, background: dark ? "rgba(88,166,255,0.06)" : "rgba(9,105,218,0.04)", fontSize: 11.5, color: t.tx, lineHeight: 1.65, wordBreak: "keep-all" }}>{impl}</div>
+          )}
+          {(centerEdges.length > 0 || neighbors.length > 0) && (
+            <div style={{ marginTop: 9 }}>
+              <div style={{ fontSize: 9.5, fontWeight: 800, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>다리 {neighbors.length}개 — 탭하면 몸통으로</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 5, maxHeight: 180, overflowY: "auto" }}>
+                {neighbors.map((nb) => {
+                  const edge = centerEdges.find((e) => e.a === nb.id || e.b === nb.id);
+                  return (
+                    <button key={nb.id} onClick={() => recenter(nb.id)} style={{ display: "flex", gap: 7, alignItems: "baseline", width: "100%", textAlign: "left", padding: "6px 8px", borderRadius: 8, border: "none", background: "transparent", cursor: "pointer" }}>
+                      <span style={{ flexShrink: 0, fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>{whyById.get(nb.id) || (edge ? KIND_LABEL[edge.kind] : "연결")}</span>
+                      <span style={{ flex: 1, minWidth: 0, fontSize: 11, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all" }}>{String(nb.card.T || nb.card.title || "")} <span style={{ color: t.sub, fontSize: 9, fontFamily: "'JetBrains Mono',monospace" }}>({fmtDate(nb.card.date || nb.card.d)})</span></span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
+            {onToggleBookmark && <button onClick={() => onToggleBookmark(center)} aria-pressed={bm} style={{ padding: "8px 12px", borderRadius: 8, border: `1px solid ${bm ? "transparent" : t.brd}`, background: bm ? t.cyan : "transparent", color: bm ? "#000" : t.sub, fontSize: 10.5, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{bm ? "★ 저장됨" : "☆ 저장"}</button>}
+            {(() => {
+              // 원문 링크 정본 체인(R13b 규약, Codex #198 R2) — 실카드는 urls[] 배열이 원본
+              const src = center.primaryUrl || center.primary_url || (Array.isArray(center.urls) ? center.urls[0] : "") || center.url || "";
+              return src ? <a href={src} target="_blank" rel="noreferrer" style={{ padding: "8px 12px", borderRadius: 8, border: `1px solid ${t.brd}`, color: t.cyan, fontSize: 10.5, fontWeight: 800, textDecoration: "none", fontFamily: "'JetBrains Mono',monospace" }}>원문 ↗</a> : null;
+            })()}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWatchSeen = null, agentSeed = null, onAgentSeedConsumed = null }) {
   const t = T(dark);
   const [filter, setFilter] = useState("all");
@@ -3395,6 +3530,8 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
     }
   };
   // 카드 우상단 ☆ 오버레이 — StoryNewsItem 무수정 (key는 래퍼로 이동)
+  // 🕸 뉴스 분해(R22) — 카드에서 바로 개미지옥 입장
+  const [explodeCard, setExplodeCard] = useState(null);
   const withStar = (card, key, node) => {
     const on = isBookmarked(card);
     return (
@@ -3424,6 +3561,11 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
           aria-label="카드 공유"
           style={{ position: "absolute", top: 84, right: 8, zIndex: 2, width: 34, height: 34, borderRadius: 999, border: `1px solid ${t.brd}`, background: dark ? "rgba(13,17,23,0.72)" : "rgba(255,255,255,0.85)", color: t.sub, fontSize: 13, cursor: "pointer", lineHeight: 1 }}
         >↗</button>
+        <button
+          onClick={(e) => { e.stopPropagation(); setExplodeCard(card); }}
+          aria-label="뉴스 분해 — 연관·후속 지도로 파헤치기"
+          style={{ position: "absolute", top: 122, right: 8, zIndex: 2, width: 34, height: 34, borderRadius: 999, border: `1px solid ${t.brd}`, background: dark ? "rgba(13,17,23,0.72)" : "rgba(255,255,255,0.85)", color: t.sub, fontSize: 13, cursor: "pointer", lineHeight: 1 }}
+        >🕸</button>
       </div>
     );
   };
@@ -3643,6 +3785,8 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   // 주간 브리프 복사 — 수동 브리프와 동일한 출처 각주 포맷
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
+      {/* 🕸 뉴스 분해 오버레이(R22) — 어느 카드에서든 개미지옥 입장 */}
+      {explodeCard && <NewsExplode startCard={explodeCard} kb={kb} dark={dark} onClose={() => setExplodeCard(null)} isBookmarked={isBookmarked} onToggleBookmark={toggleBookmark} />}
       {profileTerm && (
         <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.cyan}` }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>

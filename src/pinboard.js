@@ -27,7 +27,7 @@ const GENERIC_RATIO = 0.6;
 // pins(sbtl_bookmarks 항목)를 kb.cards로 역매칭해 그래프를 만든다.
 // 카드가 데이터 갱신으로 사라진 핀은 북마크의 title/date로 '고아 노드'가 된다
 // (저장 자산은 데이터 교체보다 오래 산다 — 조용히 빼면 사용자의 수집이 증발).
-export function buildPinGraph(pins, cards, aliasEntities) {
+export function buildPinGraph(pins, cards, aliasEntities, opts = {}) {
   const byId = new Map((cards || []).map((c) => [getCardId(c), c]));
   const nodes = (Array.isArray(pins) ? pins : []).slice(0, PIN_GRAPH_MAX_NODES).map((p) => {
     const card = byId.get(p.id) || null;
@@ -57,6 +57,14 @@ export function buildPinGraph(pins, cards, aliasEntities) {
     for (const r of (Array.isArray(n.card.related) ? n.card.related : [])) {
       if (inBoard.has(r)) addEdge(n.id, r, "related", "편집자 연결");
     }
+  }
+  // ①.5 보장 에지(R22 분해 뷰) — 호출부가 '이미 확정한 관계'를 에지로 보장한다.
+  // 분해 뷰는 이웃을 '같은 주체'로 선별하는데, 그 주체가 핀 60%+에 등장하면 아래
+  // 범용 억제가 선별 이유 자체를 지워 몸통이 고아처럼 보인다(Codex #198 R4 — 실카드
+  // 다리 14개·중심 에지 0). related 뒤에 넣어 실제 편집자 연결이 우선하고, 성분·차수
+  // 계산 전이라 허브·클러스터에도 반영된다. 핀 보드는 opts 미사용 — 동작 불변.
+  for (const fe of (Array.isArray(opts.ensureEdges) ? opts.ensureEdges : [])) {
+    if (fe && inBoard.has(fe.a) && inBoard.has(fe.b)) addEdge(fe.a, fe.b, fe.kind || "entity", fe.label || "같은 주체");
   }
   // 축 힌트 후보(R16) — 에지 dedupe(쌍당 강한 kind 하나)와 '무관하게' 그룹 멤버십을 따로
   // 기록한다: related가 같은 쌍의 entity/theme 에지를 삼켜도 힌트는 살아야 하고(Codex #185),
@@ -126,14 +134,20 @@ export function buildPinGraph(pins, cards, aliasEntities) {
 }
 
 // 결정적 레이아웃 — 성분별 중심+링, 성분 상자 행 팩킹. width에 맞춰 좌표를 돌려준다.
-export function layoutPinGraph(graph, { width = 640 } = {}) {
+// preferHub(R22 분해 뷰): 동률 차수(삼각형 등)에서 사전순이 이웃을 허브로 앉혀 '현재
+// 몸통'이 링 가장자리로 밀리는 것을 막는다(Codex #198 R5 — 실카드 검증). 지정 노드가
+// 속한 성분에서만 최우선, 미지정(핀 보드)은 기존 규칙 그대로.
+export function layoutPinGraph(graph, { width = 640, preferHub = null } = {}) {
   const NODE_R = 15;
   const LABEL_H = 36; // 노드 아래 라벨 공간 — 제목 2줄(끊김 최소화)
   const SIDE = 84;    // 좌우 방사 라벨 폭 여유 — 없으면 9시/3시 라벨이 viewBox 밖으로 잘린다(Codex #185 R4)
   const PAD = 18;
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
   const boxes = graph.components.map((comp) => {
-    const ids = comp.ids.slice().sort((a, b) => (graph.degree.get(b) || 0) - (graph.degree.get(a) || 0) || String(a).localeCompare(String(b)));
+    const ids = comp.ids.slice().sort((a, b) =>
+      (a === preferHub ? -1 : b === preferHub ? 1 : 0) ||
+      (graph.degree.get(b) || 0) - (graph.degree.get(a) || 0) ||
+      String(a).localeCompare(String(b)));
     if (ids.length === 1) {
       return { comp, ids, w: NODE_R * 2 + PAD * 2 + 96, h: NODE_R * 2 + LABEL_H + PAD * 2, place: () => [{ id: ids[0], dx: 0, dy: 0 }] };
     }

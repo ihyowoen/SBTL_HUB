@@ -1,28 +1,74 @@
 # LLM Prompt GitHub Canonical v1
 
-Generated KST: `2026-07-09T12:20:13.190794+09:00`
+Updated KST: `2026-07-19`
 
-This is the first GitHub-canonical SBTL_HUB LLM prompt package.
+This is the GitHub-canonical SBTL_HUB LLM prompt package.
 
 ## Layout
 
 - `docs/` — live governance docs.
-- `docs/llm_prompts/v1/` — numbered prompt package, master rules, and manifests.
+- `docs/llm_prompts/v1/` — numbered prompt package, master rules, manifests, mandatory integrity overrides, and stage addenda.
+- `validation_scripts/` — executable integrity validators registered by the package manifests.
 
 ## Version rule
 
 Use `v1` for GitHub canonical pathing and PR wording. Prior local iteration labels are not repo-version names.
 
-## Scope
+## Current package scope
 
-- Replaces 9 live governance docs under `docs/`.
-- Adds 14 numbered prompt files under `docs/llm_prompts/v1/`.
-- Adds source-diversity and IB/Codex master rules.
-- Adds entity alias map and manifests.
-- Does not add executable validation scripts in this PR.
-- Does not modify `public/data/cards.json`.
-- Does not modify app runtime code.
+- 9 live governance documents under `docs/`.
+- 14 numbered stage prompt files under `docs/llm_prompts/v1/`.
+- Source-diversity and IB/Codex master rules.
+- Entity alias map and package manifests.
+- 1 mandatory date/story-ID/related integrity override.
+- 6 stage-specific hardening addenda for Stage A and Prompts 0.5–0.9.
+- 3 executable integrity validators:
+  - `validation_scripts/date_role_alignment_check.py`
+  - `validation_scripts/story_id_lineage_check.py`
+  - `validation_scripts/related_lineage_check.py`
+- No change to `public/data/cards.json`.
+- No app runtime-code change.
 
-## Validator follow-up
+## Mandatory integrity registration
 
-Python validation scripts are intentionally excluded from this docs-only canonical v1 PR. The validator work from PR #151 was preserved on branch `chore/prompt-validation-scripts-hardening-from-pr151` for a separate follow-up PR with fixtures/tests.
+Prompt assemblers and upload tooling must read:
+
+- `DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json`
+- `LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json`
+- `UPLOAD_MANIFEST.json`
+
+The override, six addenda, and three validators are mandatory package components. Omitting any of them produces an incomplete package.
+
+## Story-ID validator contract
+
+Detection-only invocation:
+
+```bash
+python validation_scripts/story_id_lineage_check.py RUN_JSON BASELINE_CARDS_JSON
+```
+
+When collisions are detected, the command returns:
+
+```text
+BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED
+```
+
+with exit code `2`.
+
+The validator reads canonical raw input, the Stage A decision ledger, and all current terminal/lineage pools, including `reject_or_support_only_pool[]`.
+
+Identity is evaluated independently for every run record and every baseline card sharing the same story ID. An exact URL match on one record or one baseline card never grants trust to another missing or mismatched record/card pair. `collision_count` remains the unique story-ID count used by Stage A quarantine, while `collision_record_count` and `collision_pair_count` retain the detailed failures.
+
+After Stage A has quarantined those collisions, verify the quarantine artifact:
+
+```bash
+python validation_scripts/story_id_lineage_check.py \
+  RUN_JSON BASELINE_CARDS_JSON \
+  --stage-a-results STAGE_A_RESULTS_JSON
+```
+
+Only `PASS_NO_COLLISIONS` or `PASS_COLLISIONS_QUARANTINED` is an acceptable success state.
+
+## Historical validator note
+
+Earlier canonical-v1 packaging intentionally excluded the PR #151 validator set. That historical note does not apply to the three integrity validators registered by the current date/story-ID/related override.

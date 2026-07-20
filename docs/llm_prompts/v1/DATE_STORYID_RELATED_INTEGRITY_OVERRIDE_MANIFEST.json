@@ -1,0 +1,114 @@
+{
+  "override_id": "DATE_STORYID_RELATED_INTEGRITY_V1",
+  "authority": "authoritative_conflict_override",
+  "effective_date_kst": "2026-07-19",
+  "override_file": "docs/llm_prompts/v1/00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md",
+  "override_sha256": "6d3cd9e6dcf7ad47801ef587f25633ec849a2108a9b9f6aa8b775076206ec05d",
+  "applies_to": [
+    "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+    "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+    "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
+    "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+    "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+    "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md"
+  ],
+  "stage_addenda": [
+    "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A_HARDENING_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC_HARDENING_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish_HARDENING_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC_HARDENING_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep_HARDENING_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md"
+  ],
+  "validators": [
+    "validation_scripts/date_role_alignment_check.py",
+    "validation_scripts/story_id_lineage_check.py",
+    "validation_scripts/related_lineage_check.py"
+  ],
+  "validator_contracts": {
+    "story_id_lineage_check": {
+      "detection_command": "python validation_scripts/story_id_lineage_check.py RUN_JSON BASELINE_CARDS_JSON",
+      "quarantine_verification_command": "python validation_scripts/story_id_lineage_check.py RUN_JSON BASELINE_CARDS_JSON --stage-a-results STAGE_A_RESULTS_JSON",
+      "accepted_input_containers": [
+        "stories[]",
+        "final_news_llm_input.stories[]",
+        "decision_ledger[]",
+        "strict_passed_spec[]",
+        "candidate_review_pool[]",
+        "watchlist_context_pool[]",
+        "existing_reinforcement[]",
+        "support_source_only[]",
+        "rejected[]",
+        "reject_or_support_only_pool[]"
+      ],
+      "accepted_story_id_fields": [
+        "story_id",
+        "source_story_ids[]",
+        "grouped_story_ids[]",
+        "representative_story_id"
+      ],
+      "accepted_url_fields": [
+        "primary_url",
+        "url",
+        "source_urls[]",
+        "urls[]",
+        "fact_sources[].source_url",
+        "fact_sources[].url"
+      ],
+      "accepted_collision_count_fields": [
+        "story_id_lineage_audit.collision_count",
+        "story_id_lineage_audit.story_id_collision_count",
+        "story_id_collision_count",
+        "summary.story_id_collision_count"
+      ],
+      "canonical_url_policy": "remove known tracking parameters and sort remaining query-parameter key/value pairs before lookup",
+      "grouped_spec_pairing_policy": "A representative story_id never terminates grouped evaluation. The complete stable-order group is the union of source_story_ids[] and grouped_story_ids[]. Every member must be registered. When the combined group and source_urls[] or urls[] have equal length, pair by array position; do not assign every grouped URL to every story ID. For unmatched grouped arrays, only an explicitly named representative story may receive the representative URL; all other story IDs remain URL-unmapped and enter collision review when reused.",
+      "missing_url_policy": "Register every discovered story ID even when no URL is present. A baseline story-ID reuse without an independently matching URL enters the block/quarantine flow.",
+      "record_identity_policy": "Classify every run record independently. Never union URLs across records that share a story ID before identity classification.",
+      "baseline_pair_policy": "For each reused story ID, evaluate every run-record and baseline-card pair independently. One exact URL match cannot trust a different missing or mismatched run record, and a match to one baseline card cannot trust another baseline card that reuses the same story ID without its own matching URL.",
+      "counting_policy": "collision_count is the number of unique collision story IDs for Stage A quarantine compatibility; collision_record_count and collision_pair_count preserve per-record and per-baseline-card detail. Quarantine verification accepts the canonical Stage A summary field story_id_collision_count as well as legacy collision_count placements.",
+      "pass_statuses": [
+        "PASS_NO_COLLISIONS",
+        "PASS_COLLISIONS_QUARANTINED"
+      ],
+      "blocking_status": "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED",
+      "blocking_exit_code": 2,
+      "rule": "A detected cross-run story-ID collision cannot pass unless the Stage A artifact proves the story ID was not trusted or used for duplicate routing. Exact or canonical URL identity must be evaluated independently for every accepted input record and every baseline card sharing that story ID."
+    },
+    "date_role_alignment_check": {
+      "command": "python validation_scripts/date_role_alignment_check.py BASELINE_CARDS_JSON",
+      "calendar_date_policy": "Every standardized card date, standardized ID date prefix, and event_fingerprint.event_date must both match YYYY-MM-DD shape and parse as a real ISO calendar date via datetime.date.fromisoformat. Impossible dates are hard errors.",
+      "hard_gate_contexts": [
+        "public/data/cards.json changes",
+        "Prompt 0.8 merge preparation",
+        "Prompt 0.9 production verification",
+        "baseline date remediation"
+      ],
+      "docs_only_unchanged_baseline_policy": "For a docs-only package PR with no cards.json change, record pre-existing baseline findings separately from package-integrity checks. They do not block the package commit, but no new finding may be introduced.",
+      "known_unchanged_baseline_findings_at_registration": 5,
+      "known_findings_remediation_required": true
+    }
+  },
+  "required_package_manifests": [
+    "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
+    "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
+    "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+  ],
+  "required_artifact_fields": [
+    "integrity_override_file",
+    "integrity_override_sha256",
+    "integrity_override_status",
+    "date_role_separation_status",
+    "story_id_lineage_audit_status",
+    "related_lineage_audit_status"
+  ],
+  "required_failure_statuses": {
+    "stage_a_date_ambiguity": "BLOCKED_DATE_ROLE_AMBIGUITY",
+    "story_id_collision_unquarantined": "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED",
+    "final_qc_date_contradiction": "FINAL_QC_EVENT_SOURCE_DATE_CONTRADICTION",
+    "merge_prep_id_date_mismatch": "BLOCKED_ID_EVENT_DATE_MISMATCH"
+  },
+  "story_id_identity_policy": "story_id is discovery lineage only and cannot independently establish duplicate, reinforcement, merge, or related identity",
+  "related_policy": "Stage A nominates factual lineage only; production related arrays change only after confirmed target validation",
+  "search_before_delete_policy": "Preserve unresolved historical references until bounded lineage search finds a confirmed replacement or deletion is explicitly authorized"
+}

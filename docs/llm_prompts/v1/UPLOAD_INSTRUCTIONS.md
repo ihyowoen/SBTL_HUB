@@ -1,6 +1,6 @@
 # Upload Instructions — LLM Prompt GitHub Canonical v1
 
-Updated KST: `2026-07-19`
+Updated KST: `2026-07-20`
 
 ## Package contents
 
@@ -128,9 +128,13 @@ Acceptable story-ID validator success states are:
 The following checks validate card data rather than the docs/validator package:
 
 ```bash
-python validation_scripts/date_role_alignment_check.py BASELINE_CARDS_JSON
-python validation_scripts/related_lineage_check.py BASELINE_CARDS_JSON
+python validation_scripts/date_role_alignment_check.py CURRENT_CARDS_JSON
+python validation_scripts/related_lineage_check.py \
+  CURRENT_CARDS_JSON \
+  --previous-cards-json PREVIOUS_BASELINE_CARDS_JSON
 ```
+
+The previous baseline is mandatory whenever unresolved `related[]` targets exist. It is the only trusted way to separate preserved historical dangling references from newly introduced typos or deletions. Without it, unresolved targets produce `BLOCKED_RELATED_HISTORY_UNCLASSIFIED` with exit code `2`; a new missing target produces `NEW_MISSING_RELATED_TARGET` and exit code `1`.
 
 They are hard gates when any of the following applies:
 

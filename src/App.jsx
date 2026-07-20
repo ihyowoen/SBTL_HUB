@@ -3284,7 +3284,7 @@ function NewsExplode({ startCard, kb, dark, onClose, isBookmarked, onToggleBookm
           )}
         </div>
         <div style={{ marginTop: 10, borderRadius: 12, background: t.card2, border: `1px solid ${t.brd}`, padding: "12px 13px" }}>
-          <div style={{ fontSize: 9.5, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(center.date || center.d)} · {center.r || center.region || ""} · {(center.s || "").toUpperCase()}</div>
+          <div style={{ fontSize: 9.5, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(center.date || center.d)} · {center.r || center.region || ""}{(center.s || center.signal) ? ` · ${SIG_L[center.s || center.signal] || ""}` : ""}</div>
           <div style={{ fontSize: 13.5, fontWeight: 800, color: t.tx, lineHeight: 1.5, marginTop: 4, wordBreak: "keep-all" }}>{center.T || center.title}</div>
           {impl && (
             <div style={{ marginTop: 8, padding: "9px 11px", borderLeft: `3px solid ${t.cyan}`, background: dark ? "rgba(88,166,255,0.06)" : "rgba(9,105,218,0.04)", fontSize: 11.5, color: t.tx, lineHeight: 1.65, wordBreak: "keep-all" }}>{impl}</div>

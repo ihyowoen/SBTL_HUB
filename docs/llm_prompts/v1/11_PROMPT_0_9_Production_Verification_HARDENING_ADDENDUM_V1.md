@@ -10,11 +10,18 @@ Recompute from merged GitHub main and production data:
 - ID prefix versus event date and region;
 - latest-first order;
 - atomic claim-map hashes for newly merged cards;
-- source publication and visible quote dates;
+- source publication and visible quote dates, including real ISO calendar-date validation;
 - story-ID collision flags;
-- related target existence, self-link, duplicate-link, and confirmed-remap
-  history;
+- related target existence, self-link, duplicate-link, and confirmed-remap history, compared with the prior production/main card baseline;
 - state-ladder monotonicity.
 
-Do not accept upstream PASS flags as proof.
+Required related-lineage command:
+
+```bash
+python validation_scripts/related_lineage_check.py \
+  MERGED_PRODUCTION_CARDS_JSON \
+  --previous-cards-json PRIOR_PRODUCTION_CARDS_JSON
+```
+
+Do not accept upstream PASS flags as proof. Do not classify a dangling related target as historical without the previous baseline comparison.
 Production verified requires successful recomputation.

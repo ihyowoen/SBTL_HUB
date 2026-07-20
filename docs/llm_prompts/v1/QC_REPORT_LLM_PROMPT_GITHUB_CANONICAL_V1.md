@@ -1,6 +1,6 @@
 # LLM Prompt GitHub Canonical v1 — Integrity-Hardened QC
 
-Updated KST: `2026-07-19`
+Updated KST: `2026-07-20`
 
 | Item | Value |
 |---|---:|
@@ -79,7 +79,7 @@ Every discovered story ID is registered even when no URL exists. A reused baseli
 
 Canonical URL matching removes known tracking parameters and sorts all remaining query-parameter key/value pairs before lookup. Equivalent URLs therefore match even when their query parameters appear in a different order.
 
-A representative `story_id` does not terminate grouped processing. The complete grouped universe is the stable-order union of `source_story_ids[]` and `grouped_story_ids[]`. Equal-length grouped IDs and `source_urls[]` or `urls[]` arrays are paired by position. When no safe one-to-one mapping exists, only an explicitly named representative story may receive the representative URL; every other story ID remains URL-unmapped.
+A representative `story_id` does not terminate grouped processing. The complete grouped universe is the stable-order union of `source_story_ids[]` and `grouped_story_ids[]`. Positional matching evaluates `source_urls[]` and `urls[]` independently and uses every array whose filtered length exactly equals the grouped story count. If both arrays match, each story receives the URLs from its own position in both arrays. A short representative/source array cannot suppress a complete positional array.
 
 ## Per-record and per-baseline-card identity
 
@@ -115,8 +115,22 @@ This preserves existing hardened artifacts while honoring the canonical Stage A 
 - card `date` must be a real ISO date;
 - standardized ID date prefixes must be real ISO dates;
 - `event_fingerprint.event_date` must be a real ISO date;
+- every fact-source `source_published_date` must be a real ISO date;
+- every fact-source `visible_quote_date` must be a real ISO date;
 - impossible values such as `2026-02-31` or `2026-13-01` are hard errors;
+- equal invalid source-date strings remain two date errors rather than passing an equality check;
 - parsing uses `datetime.date.fromisoformat()` after the `YYYY-MM-DD` shape check.
+
+## Related-target comparison gate
+
+`related_lineage_check.py` separates inherited dangling history from newly introduced broken links.
+
+- card-data change gates must supply `--previous-baseline PREVIOUS_CARDS_JSON`;
+- an unresolved `(source_card_id, target_card_id)` pair is historical only when the identical pair was already unresolved in the previous baseline;
+- newly missing targets return `BLOCKED_NEW_MISSING_RELATED_TARGETS`, exit `2`;
+- unresolved targets without a previous baseline return `BLOCKED_UNRESOLVED_RELATED_TARGETS_UNCLASSIFIED`, exit `2`;
+- historical unresolved pairs may return `PASS_WITH_UNRESOLVED_HISTORY`, exit `0`;
+- no validator path authorizes deletion of unresolved historical references.
 
 ## Validation-scope separation
 
@@ -156,15 +170,20 @@ This PR does not modify `public/data/cards.json`. The unchanged baseline current
 | `reject_or_support_only_pool[]` only | reused ID registered and blocked | PASS |
 | grouped item with representative `story_id` plus `source_story_ids[]` | every grouped ID evaluated | PASS |
 | grouped item using only `grouped_story_ids[]` | every grouped ID evaluated and reused ID blocked | PASS |
+| short `source_urls[]` plus complete `urls[]` | complete equal-length array used; valid records trusted | PASS |
+| both URL arrays equal group length | each record receives both URLs at its own position | PASS |
 | same story ID in exact and mismatched run records | mismatched record remains collision | PASS |
 | same story ID on two baseline cards, only one URL match | unmatched baseline-card pair remains collision | PASS |
 | raw story identity supplied only in `urls[]` | trusted exact URL | PASS |
 | Stage A decision ledger identity supplied only in `url` | trusted exact URL | PASS |
-| grouped strict spec using `source_story_ids[] + urls[]` | positional exact-URL matching | PASS |
 | equivalent query parameters in different order | same canonical URL | PASS |
 | impossible card date `2026-02-31` | `INVALID_EVENT_DATE`, exit 1 | PASS |
 | impossible standardized ID date | `INVALID_ID_DATE`, exit 1 | PASS |
 | impossible fingerprint event date | `INVALID_FINGERPRINT_EVENT_DATE`, exit 1 | PASS |
+| equal impossible source publication/quote dates | both source-date error codes, exit 1 | PASS |
+| dangling related target without previous baseline | unclassified unresolved blocked, exit 2 | PASS |
+| previous historical dangling pair retained unchanged | `PASS_WITH_UNRESOLVED_HISTORY`, exit 0 | PASS |
+| newly introduced dangling related target | `BLOCKED_NEW_MISSING_RELATED_TARGETS`, exit 2 | PASS |
 | docs-only cards diff check | unchanged card file required | PASS |
 | unchanged baseline date audit | five historical findings recorded for remediation | PASS_WITH_RECORDED_FINDINGS |
 | Python syntax compilation | no syntax error | PASS |

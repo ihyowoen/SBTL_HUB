@@ -62,7 +62,7 @@
         "summary.story_id_collision_count"
       ],
       "canonical_url_policy": "remove known tracking parameters and sort remaining query-parameter key/value pairs before lookup",
-      "grouped_spec_pairing_policy": "A representative story_id never terminates grouped evaluation. The complete stable-order group is the union of source_story_ids[] and grouped_story_ids[]. Every member must be registered. When the combined group and source_urls[] or urls[] have equal length, pair by array position; do not assign every grouped URL to every story ID. For unmatched grouped arrays, only an explicitly named representative story may receive the representative URL; all other story IDs remain URL-unmapped and enter collision review when reused.",
+      "grouped_spec_pairing_policy": "A representative story_id never terminates grouped evaluation. The complete stable-order group is the union of source_story_ids[] and grouped_story_ids[]. Every member must be registered. Positional pairing evaluates source_urls[] and urls[] independently and uses every array whose filtered length exactly equals the grouped story count; if both match, each story receives the URLs from its own position in both arrays. A nonmatching representative/source array cannot suppress a matching array. If no array safely maps one-to-one, only an explicitly named representative story may receive the representative URL and all other IDs remain URL-unmapped.",
       "missing_url_policy": "Register every discovered story ID even when no URL is present. A baseline story-ID reuse without an independently matching URL enters the block/quarantine flow.",
       "record_identity_policy": "Classify every run record independently. Never union URLs across records that share a story ID before identity classification.",
       "baseline_pair_policy": "For each reused story ID, evaluate every run-record and baseline-card pair independently. One exact URL match cannot trust a different missing or mismatched run record, and a match to one baseline card cannot trust another baseline card that reuses the same story ID without its own matching URL.",
@@ -77,7 +77,11 @@
     },
     "date_role_alignment_check": {
       "command": "python validation_scripts/date_role_alignment_check.py BASELINE_CARDS_JSON",
-      "calendar_date_policy": "Every standardized card date, standardized ID date prefix, and event_fingerprint.event_date must both match YYYY-MM-DD shape and parse as a real ISO calendar date via datetime.date.fromisoformat. Impossible dates are hard errors.",
+      "calendar_date_policy": "Every standardized card date, standardized ID date prefix, event_fingerprint.event_date, fact-source source_published_date and fact-source visible_quote_date must both match YYYY-MM-DD shape and parse as a real ISO calendar date via datetime.date.fromisoformat. Impossible dates are hard errors even when two source date fields contain the same invalid string.",
+      "source_date_error_codes": [
+        "INVALID_SOURCE_PUBLISHED_DATE",
+        "INVALID_VISIBLE_QUOTE_DATE"
+      ],
       "hard_gate_contexts": [
         "public/data/cards.json changes",
         "Prompt 0.8 merge preparation",
@@ -87,6 +91,21 @@
       "docs_only_unchanged_baseline_policy": "For a docs-only package PR with no cards.json change, record pre-existing baseline findings separately from package-integrity checks. They do not block the package commit, but no new finding may be introduced.",
       "known_unchanged_baseline_findings_at_registration": 5,
       "known_findings_remediation_required": true
+    },
+    "related_lineage_check": {
+      "detection_command": "python validation_scripts/related_lineage_check.py CURRENT_CARDS_JSON",
+      "change_gate_command": "python validation_scripts/related_lineage_check.py CURRENT_CARDS_JSON --previous-baseline PREVIOUS_CARDS_JSON",
+      "comparison_policy": "A dangling related pair may pass as unresolved history only when the identical source-card/target-card pair was already dangling in the supplied previous baseline. Every newly introduced missing target is blocking. If dangling references exist and no previous baseline is supplied, classification is impossible and the validator blocks.",
+      "pass_statuses": [
+        "PASS",
+        "PASS_WITH_UNRESOLVED_HISTORY"
+      ],
+      "blocking_statuses": [
+        "BLOCKED_UNRESOLVED_RELATED_TARGETS_UNCLASSIFIED",
+        "BLOCKED_NEW_MISSING_RELATED_TARGETS"
+      ],
+      "blocking_exit_code": 2,
+      "deletion_authorized": false
     }
   },
   "required_package_manifests": [
@@ -105,6 +124,7 @@
   "required_failure_statuses": {
     "stage_a_date_ambiguity": "BLOCKED_DATE_ROLE_AMBIGUITY",
     "story_id_collision_unquarantined": "BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED",
+    "new_missing_related_target": "BLOCKED_NEW_MISSING_RELATED_TARGETS",
     "final_qc_date_contradiction": "FINAL_QC_EVENT_SOURCE_DATE_CONTRADICTION",
     "merge_prep_id_date_mismatch": "BLOCKED_ID_EVENT_DATE_MISMATCH"
   },

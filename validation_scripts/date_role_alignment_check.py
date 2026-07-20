@@ -107,13 +107,46 @@ def main() -> int:
         for source in card.get("fact_sources", []) or []:
             if not isinstance(source, dict):
                 continue
+            source_ref = source.get("source_url") or source.get("url")
             source_date = source.get("source_published_date")
             visible_date = source.get("visible_quote_date")
-            if source_date and visible_date and source_date != visible_date:
+
+            source_date_valid = source_date is None
+            visible_date_valid = visible_date is None
+
+            if source_date is not None:
+                source_date_valid, reason = valid_iso_date(source_date)
+                if not source_date_valid:
+                    errors.append({
+                        "id": card_id,
+                        "code": "INVALID_SOURCE_PUBLISHED_DATE",
+                        "source": source_ref,
+                        "value": source_date,
+                        "reason": reason,
+                    })
+
+            if visible_date is not None:
+                visible_date_valid, reason = valid_iso_date(visible_date)
+                if not visible_date_valid:
+                    errors.append({
+                        "id": card_id,
+                        "code": "INVALID_VISIBLE_QUOTE_DATE",
+                        "source": source_ref,
+                        "value": visible_date,
+                        "reason": reason,
+                    })
+
+            if (
+                source_date is not None
+                and visible_date is not None
+                and source_date_valid
+                and visible_date_valid
+                and source_date != visible_date
+            ):
                 errors.append({
                     "id": card_id,
                     "code": "VISIBLE_SOURCE_DATE_MISMATCH",
-                    "source": source.get("source_url"),
+                    "source": source_ref,
                 })
 
     print(json.dumps({

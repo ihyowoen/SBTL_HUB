@@ -119,17 +119,28 @@ def grouped_story_ids(item: dict[str, Any]) -> list[str]:
     return ordered_unique(values)
 
 
-def plural_url_values(item: dict[str, Any]) -> list[str]:
+def positional_group_urls(
+    item: dict[str, Any], expected_count: int
+) -> tuple[list[list[str]], list[str]]:
+    """Combine every equal-length grouped URL array by position.
+
+    A representative/source URL array with a different length is ignored for
+    positional pairing. If both source_urls[] and urls[] match the grouped
+    story count, each story receives both URLs at its own array position.
+    """
+    per_position: list[list[str]] = [[] for _ in range(expected_count)]
+    matched_fields: list[str] = []
     for field in ("source_urls", "urls"):
         value = item.get(field)
-        if isinstance(value, list):
-            urls = [
-                url for url in value
-                if isinstance(url, str) and url.strip()
-            ]
-            if urls:
-                return urls
-    return []
+        if not isinstance(value, list):
+            continue
+        urls = [url for url in value if isinstance(url, str) and url.strip()]
+        if len(urls) != expected_count:
+            continue
+        matched_fields.append(f"{field}[]")
+        for position, url in enumerate(urls):
+            per_position[position].append(url)
+    return per_position, matched_fields
 
 
 def collect_run_story_records(
@@ -144,6 +155,7 @@ def collect_run_story_records(
         container: str,
         record_index: Any,
         role: str,
+        url_route_fields: list[str] | None = None,
     ) -> None:
         if not isinstance(story_id, str) or not story_id:
             return
@@ -160,6 +172,7 @@ def collect_run_story_records(
             "source_container": container,
             "source_record_index": record_index,
             "source_record_role": role,
+            "url_route_fields": url_route_fields or [],
         })
 
     for container, stories in raw_story_containers(run):
@@ -225,17 +238,18 @@ def collect_run_story_records(
                     )
                 continue
 
-            plural_urls = plural_url_values(item)
-            if len(story_ids) == len(plural_urls):
-                for position, (story_id, url) in enumerate(
-                    zip(story_ids, plural_urls)
-                ):
+            positional_urls, matched_fields = positional_group_urls(
+                item, len(story_ids)
+            )
+            if matched_fields:
+                for position, story_id in enumerate(story_ids):
                     add(
                         story_id,
-                        [url],
+                        positional_urls[position],
                         container,
                         f"{item_index}:{position}",
                         "grouped_positional_story",
+                        matched_fields,
                     )
                 continue
 
@@ -571,7 +585,7 @@ def main() -> int:
         "required_action_when_blocked": (
             "Run Stage A with story-ID collision quarantine fields and rerun "
             "this validator with --stage-a-results."
-            if exit_code == 2 else None
+            if exit_code else None
         ),
     }, ensure_ascii=False, indent=2))
     return exit_code

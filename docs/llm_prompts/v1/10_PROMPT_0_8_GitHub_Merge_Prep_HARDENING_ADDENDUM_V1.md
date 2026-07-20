@@ -10,9 +10,17 @@ Order of operations:
 3. enumerate all current and historical IDs;
 4. retire superseded IDs in audit metadata;
 5. update only confirmed related-ID replacements;
-6. validate related targets, self-links, duplicates, and forward-date anomalies;
-7. preserve unresolved historical related IDs unless deletion is authorized;
+6. validate related targets, self-links, duplicates, and forward-date anomalies against the merge-base card baseline;
+7. preserve only unresolved related IDs that were already dangling in that previous baseline; block every newly missing target;
 8. re-sort latest-first;
 9. rerun ID/date/region integrity.
 
-Hard fail: `BLOCKED_ID_EVENT_DATE_MISMATCH`.
+Required related-lineage command:
+
+```bash
+python validation_scripts/related_lineage_check.py \
+  CURRENT_CARDS_JSON \
+  --previous-cards-json MERGE_BASE_CARDS_JSON
+```
+
+Hard fail: `BLOCKED_ID_EVENT_DATE_MISMATCH`, `NEW_MISSING_RELATED_TARGET`, or `BLOCKED_RELATED_HISTORY_UNCLASSIFIED`.

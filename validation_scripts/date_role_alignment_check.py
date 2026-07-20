@@ -23,6 +23,29 @@ def valid_iso_date(value: Any) -> tuple[bool, str | None]:
     return True, None
 
 
+def append_date_error(
+    errors: list[dict[str, Any]],
+    *,
+    card_id: Any,
+    code: str,
+    value: Any,
+    source_url: Any = None,
+) -> bool:
+    valid, reason = valid_iso_date(value)
+    if valid:
+        return True
+    row: dict[str, Any] = {
+        "id": card_id,
+        "code": code,
+        "value": value,
+        "reason": reason,
+    }
+    if source_url is not None:
+        row["source"] = source_url
+    errors.append(row)
+    return False
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("cards_json")
@@ -48,27 +71,23 @@ def main() -> int:
         card_id = card.get("id")
         card_date = card.get("date")
         region = card.get("region")
-        card_date_valid, card_date_reason = valid_iso_date(card_date)
-        if not card_date_valid:
-            errors.append({
-                "id": card_id,
-                "code": "INVALID_EVENT_DATE",
-                "value": card_date,
-                "reason": card_date_reason,
-            })
+        card_date_valid = append_date_error(
+            errors,
+            card_id=card_id,
+            code="INVALID_EVENT_DATE",
+            value=card_date,
+        )
 
         match = STANDARD_ID_RE.match(card_id or "")
         if match:
             id_date, id_region = match.groups()
-            id_date_valid, id_date_reason = valid_iso_date(id_date)
-            if not id_date_valid:
-                errors.append({
-                    "id": card_id,
-                    "code": "INVALID_ID_DATE",
-                    "value": id_date,
-                    "reason": id_date_reason,
-                })
-            if card_date_valid and id_date != card_date:
+            id_date_valid = append_date_error(
+                errors,
+                card_id=card_id,
+                code="INVALID_ID_DATE",
+                value=id_date,
+            )
+            if card_date_valid and id_date_valid and id_date != card_date:
                 errors.append({
                     "id": card_id,
                     "code": "ID_EVENT_DATE_MISMATCH",
@@ -90,15 +109,13 @@ def main() -> int:
         if isinstance(fingerprint, dict):
             fingerprint_date = fingerprint.get("event_date")
             if fingerprint_date is not None:
-                fp_valid, fp_reason = valid_iso_date(fingerprint_date)
-                if not fp_valid:
-                    errors.append({
-                        "id": card_id,
-                        "code": "INVALID_FINGERPRINT_EVENT_DATE",
-                        "value": fingerprint_date,
-                        "reason": fp_reason,
-                    })
-                elif card_date_valid and fingerprint_date != card_date:
+                fp_valid = append_date_error(
+                    errors,
+                    card_id=card_id,
+                    code="INVALID_FINGERPRINT_EVENT_DATE",
+                    value=fingerprint_date,
+                )
+                if fp_valid and card_date_valid and fingerprint_date != card_date:
                     errors.append({
                         "id": card_id,
                         "code": "FINGERPRINT_EVENT_DATE_MISMATCH",
@@ -107,13 +124,41 @@ def main() -> int:
         for source in card.get("fact_sources", []) or []:
             if not isinstance(source, dict):
                 continue
+            source_url = source.get("source_url") or source.get("url")
             source_date = source.get("source_published_date")
             visible_date = source.get("visible_quote_date")
-            if source_date and visible_date and source_date != visible_date:
+
+            source_valid = True
+            visible_valid = True
+            if source_date is not None:
+                source_valid = append_date_error(
+                    errors,
+                    card_id=card_id,
+                    code="INVALID_SOURCE_PUBLISHED_DATE",
+                    value=source_date,
+                    source_url=source_url,
+                )
+            if visible_date is not None:
+                visible_valid = append_date_error(
+                    errors,
+                    card_id=card_id,
+                    code="INVALID_VISIBLE_QUOTE_DATE",
+                    value=visible_date,
+                    source_url=source_url,
+                )
+            if (
+                source_date is not None
+                and visible_date is not None
+                and source_valid
+                and visible_valid
+                and source_date != visible_date
+            ):
                 errors.append({
                     "id": card_id,
                     "code": "VISIBLE_SOURCE_DATE_MISMATCH",
-                    "source": source.get("source_url"),
+                    "source": source_url,
+                    "source_published_date": source_date,
+                    "visible_quote_date": visible_date,
                 })
 
     print(json.dumps({

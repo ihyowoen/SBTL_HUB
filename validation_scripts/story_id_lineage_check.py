@@ -119,17 +119,31 @@ def grouped_story_ids(item: dict[str, Any]) -> list[str]:
     return ordered_unique(values)
 
 
-def plural_url_values(item: dict[str, Any]) -> list[str]:
+def plural_url_values(
+    item: dict[str, Any],
+    expected_count: int | None = None,
+) -> list[str]:
+    """Prefer the plural URL array that can be positionally paired.
+
+    Stage A artifacts can carry both ``source_urls[]`` and ``urls[]``. A
+    representative-only ``source_urls[]`` must not mask a complete ``urls[]``
+    array, so equal-length candidates win before the first non-empty fallback.
+    """
+    candidates: list[list[str]] = []
     for field in ("source_urls", "urls"):
         value = item.get(field)
-        if isinstance(value, list):
-            urls = [
-                url for url in value
-                if isinstance(url, str) and url.strip()
-            ]
-            if urls:
-                return urls
-    return []
+        if not isinstance(value, list):
+            continue
+        urls = [
+            url for url in value
+            if isinstance(url, str) and url.strip()
+        ]
+        if not urls:
+            continue
+        if expected_count is not None and len(urls) == expected_count:
+            return urls
+        candidates.append(urls)
+    return candidates[0] if candidates else []
 
 
 def collect_run_story_records(
@@ -225,7 +239,7 @@ def collect_run_story_records(
                     )
                 continue
 
-            plural_urls = plural_url_values(item)
+            plural_urls = plural_url_values(item, len(story_ids))
             if len(story_ids) == len(plural_urls):
                 for position, (story_id, url) in enumerate(
                     zip(story_ids, plural_urls)
@@ -303,11 +317,17 @@ def baseline_indexes(
         if not isinstance(card_id, str) or not card_id:
             continue
 
-        for story_id in card.get("source_story_ids", []) or []:
+        story_ids = card.get("source_story_ids", []) or []
+        if isinstance(story_ids, str):
+            story_ids = [story_ids]
+        for story_id in story_ids:
             if isinstance(story_id, str) and story_id:
                 story_to_cards[story_id].append(card_id)
 
-        for url in card.get("urls", []) or []:
+        urls = card.get("urls", []) or []
+        if isinstance(urls, str):
+            urls = [urls]
+        for url in urls:
             canonical = canon(url)
             if canonical:
                 card_urls[card_id].add(canonical)

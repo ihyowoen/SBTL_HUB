@@ -61,6 +61,9 @@ if (runPath) {
     const meth=i.verify?.method;
     if (lc===rd && meth!=='mechanical' && !covered.has(i.id))
       err(`${i.id}: verify=${rd} 인데 원장(${run.runId})에 근거 없음 — 부분검증 금지 위반`);
+    // v2 verify 사용 시 runId까지 대조 (동일 날짜 다른 원장으로 통과하는 구멍 차단)
+    if (i.verify && lc===rd && meth!=='mechanical' && i.verify.runId !== run.runId)
+      err(`${i.id}: verify.runId(${i.verify.runId ?? '없음'}) ≠ 원장 runId(${run.runId}) — 추적성 미확보`);
   }
 }
 // 7) checkNote 내 미이관 pending 신호 (watch 필드 부재 항목)
@@ -103,11 +106,12 @@ if (process.env.RP_PATH) {
 if (tj.meta && tj.meta.totalItems != null && tj.meta.totalItems !== items.length)
   err(`meta.totalItems(${tj.meta.totalItems}) ≠ items.length(${items.length}) — 앱 헤더가 과소/과대 보고`);
 
-// 11) 산문 D-day ↔ 선행 앵커 날짜 정합 (롤오버 누락 검출; 1~2자리 월/일 허용)
+// 11) dt의 D-day ↔ 선행 앵커 날짜 정합 (롤오버 누락 검출; 1~2자리 월/일 허용, dt 전용)
 {
   const DATE=/(\d{4})\.(\d{1,2})\.(\d{1,2})/g, MK=/D-{1,2}\d+|D\+\d+/g;
   const today=new Date(); const t0=Date.UTC(today.getUTCFullYear(),today.getUTCMonth(),today.getUTCDate());
-  for (const i of items) for (const k of ['t','d','detail','tip','dt']) {
+  // dt 전용: 산문(t/d/detail/tip)은 앵커가 모호해 오탐 → 검사 #1이 산문 D-day 자체를 금지
+  for (const i of items) for (const k of ['dt']) {
     const v=i[k]; if (typeof v!=='string') continue;
     for (const m of v.matchAll(MK)) {
       const pre=v.slice(0,m.index); const ds=[...pre.matchAll(DATE)];

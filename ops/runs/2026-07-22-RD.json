@@ -1,0 +1,49 @@
+{
+ "runId": "2026-07-22-RD",
+ "date": "2026-07-22",
+ "type": "RD",
+ "summary": "일일 RD — 부분 run(NA 경계 클러스터). D-day 전량 7/22 재계산 + NA 경계 3건 실검증. RD-2 전 항목 전수는 미완(다음 run 우선).",
+ "partial": true,
+ "partialReason": "세션 컨텍스트 한계로 NA 경계·통상 클러스터만 실검증. EU/CN/KR/JP/GL 항목은 7/17·7/13 검증 스탬프 유지(덮어쓰기 안 함).",
+ "searches": [
+  {
+   "query": "USMCA round 3 Mexico City July 20 2026 outcome",
+   "region": "NA",
+   "itemsCovered": ["NA-014"],
+   "result": "change"
+  },
+  {
+   "query": "Section 122 surcharge expires July 24 2026 replacement",
+   "region": "NA",
+   "itemsCovered": ["NA-003", "NA-024"],
+   "result": "change"
+  },
+  {
+   "query": "USTR Section 301 final determination 46 countries 12.5% Korea",
+   "region": "NA",
+   "itemsCovered": ["NA-021", "NA-017"],
+   "result": "change"
+  }
+ ],
+ "changes": [
+  "D-day 전 필드 67건 7/22 기준 재계산",
+  "NA-014 Round 3 = 7.21~23 진행 중(의제 철강·알루미늄 파생품), 기존 '7.20 주간' 정밀화",
+  "NA-003 만료 D-2 확정(연장법안 부재·CAFC 정지로 징수 유지)",
+  "NA-021 한국이 신규 301 12.5% 46개국에 포함 + 232 대상 물품 제외 규정 발견",
+  "NA-017/NA-024 232·301 상호작용 반영",
+  "region_policy NA headline·watchpoints 갱신"
+ ],
+ "newItems": [],
+ "dedups": [],
+ "coverageCells": ["trade/NA"],
+ "watchProcessed": [],
+ "pendingDecisions": [
+  "파우치필름 HTS 귀속(7607 vs 3921) 확정 — 232 50% vs 신규 301 12.5% 결정, 사내 확인 필요(트래커 밖 실무)",
+  "다음 run: RD-2 전 항목 전수 미완분(EU/CN/KR/JP/GL) 우선",
+  "7.24 이후 Section 122 만료·신규 301 발효 여부 표적 재검증(RD-1)"
+ ],
+ "lessons": [
+  "대화가 여러 날 걸치면 스탬프 날짜가 실제와 어긋날 수 있음 — 세션 시작 시 실제 날짜 확인(커밋 타임스탬프 등) 후 D-day 재계산",
+  "검증 없이 lastChecked를 최신일로 밀지 않음 — 미검증분은 이전 검증일 유지가 정직"
+ ]
+}

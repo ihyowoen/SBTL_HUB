@@ -22,6 +22,7 @@
 | F10 | 제안이 DONE/ACTIVE | status 의미 암묵 | statusReason + 규칙표 |
 | F11 | 벌칙·수치 무근거 기재 | 원문 미확인 | G1 primary-doc 요구 |
 | F12 | 대화가 여러 날 걸치며 D-day가 5일 밀림(스탬프≠실제일) | 세션 실제 날짜 미확인 | §6.1 실제 날짜 확인 → RD-0 재계산 |
+| F13 | ops/가 데이터보다 먼저 착지 → coverage가 미존재 ID를 covered로 표시(gap 은폐) | 두 계층 착지 순서 미규정 | validate2 검사 #9 + 동시 착지 규칙(G2) |
 
 ---
 
@@ -103,6 +104,7 @@ run {
   - RD-3에서 요일 슬라이스별 로테이션(§4), **lastSwept 오래된 순 + gap 셀 우선**
   - 전 셀 주 1회 스윕 보장 (일요일에 미스윕 보충)
   - gap 셀에서 2회 연속 아무것도 안 나오면 status를 na(해당 규범 부재) 후보로 — Claire 승인 후 na 처리, 분기 1회 재확인
+  - **items에 적는 ID는 tracker에 실재해야 함**(검사 #9 ERROR). 신규 항목을 셀에 넣을 땐 데이터 파일과 **같은 PR**로 착지 (F13)
 
 ---
 
@@ -121,7 +123,7 @@ run {
 |------|------|
 | RD-0 롤오버 | **실제 날짜 확인**(§6.1) → milestones→dt 재생성(`ops/build_dt.mjs`) + 오늘 기준 D-day 재계산 |
 | RD-1 경계 우선 | D≤10·D+≤7 항목 먼저 실검증(변화 확률 최고) + watch 큐 due 순 전수 처리 |
-| RD-2 항목 전수 | 6권역 클러스터 검색으로 **전 115항목이 당일 원장에 최소 1회 명중**. 미명중 잔존 = run 미완(G2가 차단) |
+| RD-2 항목 전수 | 6권역 클러스터 검색으로 **전 항목이 당일 원장에 최소 1회 명중**. 미명중 잔존 = run 미완(G2가 차단) |
 | RD-3 신규발굴 | 오늘의 **커버리지 슬라이스**(아래 7일 로테이션)만 신규 스캔 — 전 셀 매일은 과부하, 7일 완주 |
 | RD-4 region_policy | tracker 당일 변화(신규·status·경계 진전·정정)를 **region_policy.json**에 전파: 권역별 headline·summary·watchpoints 재작성, `_meta.lastUpdated`·cycleNote 갱신. **두 파일 정합 필수** (§4a) |
 | RD-5 게이트·배포 | G2→G3→present→G4. tracker + region_policy **2파일 동시** 배포. **무변화일도 verify 날짜 갱신분 커밋**(매일 배포 결정) |
@@ -151,6 +153,7 @@ run {
 - **매일 PR — tracker_data.json + region_policy.json 2파일.** 변화 있으면 변경분, 무변화일은 두 파일 verify/lastUpdated 갱신 커밋("YYYY-MM-DD RD 무변화 확인").
 - 무변화일 PR도 G4 전 시퀀스 준수(리뷰 확인 포함) — 자동화라도 게이트는 동일.
 - 대용량 tracker(~400KB 한글)는 **웹UI 업로드 유지** — MCP 인라인은 전사 손상 위험. ops/ 텍스트 파일은 MCP 푸시 후 raw diff 검증 가능(2026-07-22 실증).
+- **ops/ 변경이 신규 항목을 전제하면 데이터 파일과 같은 PR로 착지**(F13, 검사 #9).
 
 ### 자동화 실패 안전장치
 - 스케줄 run이 G2/G3 FAIL이면 **배포 중단·원장에 FAIL 기록·운영자 알림**. 절대 FAIL 상태로 머지 금지.
@@ -166,12 +169,19 @@ run {
 4. 수치·벌칙·조문은 원문 확인 없이는 기재 금지 — 미확인 시 watch-point로만 (F11).
 
 **G2 검증 게이트 — run 종료 전:**
-- verify 갱신분 ↔ 원장 itemsCovered 대조 (스크립트).
-- watch 큐에 due 경과 open이 있으면 run 종료 불가 — 처리하거나 due 연기(사유 기재).
+- verify 갱신분 ↔ 원장 itemsCovered 대조 (스크립트, validate2 검사 #6 = ERROR).
+- watch 큐에 due 경과 open이 있으면 run 종료 불가 — 처리하거나 due 연기(사유 기재). **validate2 검사 #5가 ERROR로 차단**(경고 아님).
+- coverage.json이 참조하는 항목 ID는 tracker에 실재해야 함 — **검사 #9가 ERROR**. ops/와 데이터 파일은 **같은 PR로 동시 착지**시킬 것(분리 착지 시 신규 항목 셀이 covered로 잘못 표시돼 gap을 가림, F13).
 
 **G3 정합 게이트 — validator v1 + v2 (커밋 전 필수):**
-- v1(scripts/validate.mjs) 기존 검사 + v2(ops/validate2.mjs) 검사 8종: 산문 D-day / refs dangling·미등재 / 동일 법령번호 중복 후보 / 제안 키워드+ACTIVE·DONE / watch due 경과 / verify↔원장 대조 / pending 미이관 / region_policy 정합
-- 실행: `node scripts/validate.mjs tracker_data.json region_policy.json` + `RP_PATH=region_policy.json node ops/validate2.mjs tracker_data.json ops/runs/<오늘원장>.json`
+- v1(scripts/validate.mjs) 기존 검사 + v2(ops/validate2.mjs) 검사 9종: 산문 D-day(WARN) / refs dangling(ERROR)·미등재(WARN) / 동일 법령번호 중복 후보(WARN) / 제안 키워드+ACTIVE·DONE(WARN) / **watch due 경과(ERROR)** / **verify↔원장 대조(ERROR)** / pending 미이관(WARN) / region_policy 정합(WARN) / **coverage↔tracker ID 동기(ERROR)**
+- 실행(**리포 루트 기준**):
+  ```
+  node scripts/validate.mjs public/data/tracker_data.json public/data/region_policy.json
+  RP_PATH=public/data/region_policy.json COV_PATH=ops/coverage.json \
+    node ops/validate2.mjs public/data/tracker_data.json ops/runs/<오늘원장>.json
+  ```
+- 샌드박스에서 데이터 파일을 작업 디렉토리 루트로 내려받아 쓰는 경우엔 basename만 넘겨도 동작(경로 인자가 그대로 전달됨).
 
 **G4 배포 게이트 — PR 머지 시퀀스 (F3):**
 ```
@@ -206,5 +216,5 @@ get_files → get_check_runs → get → get_reviews → get_review_comments
 4. **미검증 항목의 verify/lastChecked를 오늘 날짜로 밀지 않는다** — 이전 검증일 유지가 정직하고, 다음 run이 우선 처리할 대상을 드러낸다.
 5. 신규 항목 추가 전: 법령·규정 번호로 트래커 전문 검색(중복 방지) → ID는 dedup 재부여 스크립트로.
 6. 신규 항목·status 변경·병합·na 처리 = Claire 승인. 나머지 자율.
-7. run 종료: G2·G3 통과 → present → 배포 절반(브랜치→업로드→PR→G4).
+7. run 종료: G2·G3 통과 → present → 배포 절반(브랜치→업로드→PR→G4). **ops/와 데이터는 같은 PR로**(F13).
 8. 이월: pendingDecisions와 due 임박 watch를 다음 run 첫 작업으로.

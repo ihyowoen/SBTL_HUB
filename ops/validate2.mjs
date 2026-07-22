@@ -99,5 +99,27 @@ if (process.env.RP_PATH) {
   } catch(e){ if (process.env.COV_PATH) warn('coverage 로드 실패: '+e.message); }
 }
 
+// 10) meta.totalItems ↔ items.length 동기 (앱이 totalItems를 우선 표시)
+if (tj.meta && tj.meta.totalItems != null && tj.meta.totalItems !== items.length)
+  err(`meta.totalItems(${tj.meta.totalItems}) ≠ items.length(${items.length}) — 앱 헤더가 과소/과대 보고`);
+
+// 11) 산문 D-day ↔ 선행 앵커 날짜 정합 (롤오버 누락 검출; 1~2자리 월/일 허용)
+{
+  const DATE=/(\d{4})\.(\d{1,2})\.(\d{1,2})/g, MK=/D-{1,2}\d+|D\+\d+/g;
+  const today=new Date(); const t0=Date.UTC(today.getUTCFullYear(),today.getUTCMonth(),today.getUTCDate());
+  for (const i of items) for (const k of ['t','d','detail','tip','dt']) {
+    const v=i[k]; if (typeof v!=='string') continue;
+    for (const m of v.matchAll(MK)) {
+      const pre=v.slice(0,m.index); const ds=[...pre.matchAll(DATE)];
+      if (!ds.length) continue;
+      const [,y,mo,d]=ds[ds.length-1];
+      const anc=Date.UTC(+y,+mo-1,+d); if (Number.isNaN(anc)) continue;
+      const delta=Math.round((anc-t0)/86400000);
+      const good = delta>=0 ? `D-${delta}` : `D+${-delta}`;
+      if (m[0]!==good) err(`${i.id}.${k}: D-day 스테일 ${m[0]} → ${good} (앵커 ${y}.${mo}.${d}) — RD-0 롤오버 누락`);
+    }
+  }
+}
+
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);
 process.exit(E?1:0);

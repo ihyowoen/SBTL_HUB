@@ -1,0 +1,59 @@
+{
+ "runId": "2026-07-17-R1R3",
+ "date": "2026-07-17",
+ "type": "R1+R3",
+ "summary": "정석 run + enhanced ② 재실행 + EU-016 표적 + 검증 정직화",
+ "searches": [
+  {"query": "45X FEOC MACR Treasury guidance", "region": "NA", "itemsCovered": ["NA-001","NA-002","NA-005","NA-006","NA-007","NA-009","NA-013"], "result": "no-change"},
+  {"query": "NDAA 1260H outbound", "region": "NA", "itemsCovered": ["NA-019","NA-020","NA-025","NA-012"], "result": "change"},
+  {"query": "Section 122 expiration", "region": "NA", "itemsCovered": ["NA-003"], "result": "no-change"},
+  {"query": "301 forced labor / overcapacity", "region": "NA", "itemsCovered": ["NA-021"], "result": "no-change"},
+  {"query": "232 critical minerals 180-day", "region": "NA", "itemsCovered": ["NA-015"], "result": "no-change"},
+  {"query": "USMCA round 3", "region": "NA", "itemsCovered": ["NA-014"], "result": "change"},
+  {"query": "232 aluminum derivative 7607", "region": "NA", "itemsCovered": ["NA-017","NA-022"], "result": "change"},
+  {"query": "EU battery reg suite + DD guideline", "region": "EU", "itemsCovered": ["EU-001","EU-009","EU-011","EU-012","EU-014","EU-018","EU-019"], "result": "no-change"},
+  {"query": "CBAM downstream ENVI", "region": "EU", "itemsCovered": ["EU-020"], "result": "change"},
+  {"query": "ELV regulation adopted", "axis": "recycle/EU", "itemsCovered": ["EU-024"], "result": "new"},
+  {"query": "universal PFAS restriction RAC SEAC", "axis": "chemicals/EU", "itemsCovered": ["EU-025"], "result": "new"},
+  {"query": "PPWR ESPR application", "axis": "packaging/EU", "itemsCovered": ["EU-026"], "result": "new"},
+  {"query": "Article 11 removability delegated act", "region": "EU", "itemsCovered": ["EU-016"], "result": "change"},
+  {"query": "WSR non-OECD plastic + FLR + RESourceEU", "region": "EU", "itemsCovered": ["EU-017","EU-021","EU-022"], "result": "change"},
+  {"query": "GB standards + 出口管制 briefing + 规范条件", "region": "CN", "itemsCovered": ["CN-005","CN-009","CN-012","CN-014","CN-016","CN-017","CN-019","CN-024","CN-027","CN-006","CN-020","CN-022","CN-026"], "result": "change"},
+  {"query": "KR 공급망3법·세액공제·사용후배터리", "region": "KR", "itemsCovered": ["KR-008","KR-013","KR-014","KR-015","KR-017","KR-019","KR-021"], "result": "change"},
+  {"query": "JP GX·資源法·需給調整·供給確保", "region": "JP", "itemsCovered": ["JP-002","JP-004","JP-005","JP-008","JP-006","JP-013"], "result": "change"},
+  {"query": "UN R100 GTR20", "axis": "product_std/GL", "itemsCovered": ["GL-003"], "result": "new"},
+  {"query": "UN38.3 ICAO IMDG SoC", "region": "GL", "itemsCovered": ["GL-001"], "result": "no-change"},
+  {"query": "消防法 蓄電池 危険物", "axis": "transport/JP", "itemsCovered": [], "result": "new-candidate-deferred"},
+  {"query": "PHMSA HM-215R + EPA universal waste", "axis": "transport/NA + waste_ship/NA", "itemsCovered": [], "result": "new-candidate-deferred"},
+  {"query": "USITC AAM final negative + EO 14389 Section 122", "region": "NA", "itemsCovered": ["NA-024"], "result": "change"}
+ ],
+ "changes": [
+  "NA-014 dt 정정",
+  "NA-017 7607 보강",
+  "NA-020 1260H 상세",
+  "EU-006 dt",
+  "EU-016 위임규칙 채택 반영+status/eff 정정",
+  "EU-017 DIWASS",
+  "EU-020 ENVI",
+  "CN-005 병합·벌칙/공포일 정정",
+  "CN-014 참조 오기",
+  "JP-004 15엔 정정",
+  "KR-008 7.14 방침",
+  "D-day 사각지대 36건"
+ ],
+ "newItems": ["EU-024","EU-025","EU-026","GL-003","CN-027"],
+ "dedups": ["CN-022→CN-005"],
+ "watchProcessed": [
+  {"id": "EU-016", "what": "위임행위 채택 대기", "outcome": "7.14 C(2026)5031 채택 확인 — 늦게 처리(사고 F9)"}
+ ],
+ "pendingDecisions": [
+  "JP 消防法 정령 후보(공포·시행일 확인 필요)",
+  "PHMSA HM-215R·EPA UW 후보(제안 단계)",
+  "KR-024 화평법 스코프(보류 판단됨)"
+ ],
+ "lessons": [
+  "기계 편집에 lastChecked 금지",
+  "checkNote pending flag 항목별 검색 필수",
+  "빈 검색은 각도 재시도 후 결론"
+ ]
+}

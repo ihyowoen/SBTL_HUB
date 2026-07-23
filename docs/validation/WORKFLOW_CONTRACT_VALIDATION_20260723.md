@@ -72,7 +72,7 @@ Workflow: `Workflow contract validation`
 - Workflow-contract tests: **25/25 PASS**
 - Prompt overlay check: PASS
 
-Commits after the tested executable-code head only update this validation record.
+Subsequent commits only finalized this validation record; executable validator code is unchanged.
 
 ## Legacy inventory
 

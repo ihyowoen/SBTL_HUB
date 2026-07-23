@@ -67,12 +67,30 @@ ITEM_REQUIRED = {
 }
 
 
+def item_marker(item):
+    identifier = item.get("id") or item.get("source_spec_id") or item.get("spec_id")
+    if identifier:
+        return ("id", str(identifier))
+    return ("value", json.dumps(item, ensure_ascii=False, sort_keys=True))
+
+
 def collect_items(payload, stage):
     items = []
+    seen = set()
     for bucket in BUCKETS.get(stage, []):
         value = payload.get(bucket)
-        if isinstance(value, list):
-            items.extend(item for item in value if isinstance(item, dict))
+        if isinstance(value, dict):
+            candidates = [value]
+        elif isinstance(value, list):
+            candidates = [item for item in value if isinstance(item, dict)]
+        else:
+            candidates = []
+        for item in candidates:
+            marker = item_marker(item)
+            if marker in seen:
+                continue
+            seen.add(marker)
+            items.append(item)
     return items
 
 

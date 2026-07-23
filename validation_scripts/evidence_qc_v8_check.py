@@ -7,6 +7,7 @@ hostnames and editorial owners are separate measures.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import re
 import sys
@@ -126,6 +127,28 @@ def cards(data: Any):
     return output
 
 
+def load_ids(path: str | None) -> set[str] | None:
+    if path is None:
+        return None
+    source = Path(path)
+    if source.suffix.lower() == ".csv":
+        rows = csv.DictReader(source.open(encoding="utf-8-sig"))
+        values = set()
+        for row in rows:
+            value = row.get("assigned_id") or row.get("id") or row.get("card_id")
+            if value:
+                values.add(str(value))
+        return values
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    if isinstance(payload, list):
+        return {str(value) for value in payload}
+    if isinstance(payload, dict):
+        for key in ("ids", "new_ids", "production_ids"):
+            if isinstance(payload.get(key), list):
+                return {str(value) for value in payload[key]}
+    raise ValueError("ID scope file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("input")
@@ -134,11 +157,18 @@ def main() -> int:
         default="validation_data/source_owner_registry.json",
     )
     parser.add_argument("--json-report")
+    parser.add_argument("--id-file", "--new-id-file", dest="id_file")
     args = parser.parse_args()
 
     registry_path = Path(args.owner_registry)
     registry = load_owner_registry(registry_path if registry_path.exists() else None)
     rows = cards(load(args.input))
+    selected_ids = load_ids(args.id_file)
+    if selected_ids is not None:
+        rows = [
+            card for card in rows
+            if str(card.get("id") or card.get("card_id") or "") in selected_ids
+        ]
     names = (
         "landing_page", "fake_diversity", "weak_corroboration", "url_desync",
         "invalid_source_diversity_status", "missing_source_discovery_ledger",

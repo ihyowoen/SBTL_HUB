@@ -2256,3 +2256,24 @@ Any waiver or exception must be explicit, bounded, and auditable.
 ## Final QC extra
 
 Final QC must hard-block publish-ready cards with active blockers or invalid single-source waiver metadata.
+
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->
+Mandatory shared contracts for this stage:
+
+- `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
+- `validation_data/source_owner_registry.json` when source-owner counting is performed
+
+The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
+source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
+
+Prompt 0.7 final-gate overlay:
+
+- Run `evidence_qc_v8_check.py`, `related_lifecycle_check.py`,
+  `date_role_freshness_check.py --require-date-role`, and
+  `stage_artifact_contract_check.py 0.7` before `publish_ready=true`.
+- Reapprove bounded single-source exceptions without weakening Related proof.
+- Output filename must be `publish_ready_PENDING_MERGE_PREP_<RUN_TAG>.json`;
+  reserve `pr_candidate_payload` for Prompt 0.8.
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

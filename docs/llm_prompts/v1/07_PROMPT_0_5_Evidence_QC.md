@@ -2600,3 +2600,24 @@ Any waiver or exception must be explicit, bounded, and auditable.
 ## Evidence QC extra
 
 Evidence QC must check single-source waiver validity and stale blocker conflicts before any card can proceed to content polish.
+
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->
+Mandatory shared contracts for this stage:
+
+- `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
+- `validation_data/source_owner_registry.json` when source-owner counting is performed
+
+The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
+source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
+
+Prompt 0.5 source/date/Related overlay:
+
+- Recompute all source counters, domains, owners, diversity status, discovery ledger and URL-resolution
+  from current `fact_sources` before deciding evidence completeness.
+- Run landing-page detection and reject non-durable article endpoints from evidence counts.
+- When an earlier source is found, re-run earliest-same-event and fresh-anchor checks; return stale
+  republications upstream instead of allowing evidence strength to launder selection.
+- Run `evidence_qc_v8_check.py` before advancing a card.
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

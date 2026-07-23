@@ -1616,3 +1616,31 @@ Any waiver or exception must be explicit, bounded, and auditable.
 ## PR/Production extra
 
 Before merge, re-run metadata blocker scans against the exact PR head, not only local candidate files.
+
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->
+Mandatory shared contracts for this stage:
+
+- `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
+- `validation_data/source_owner_registry.json` when source-owner counting is performed
+
+The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
+source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
+
+Prompt 0.9 verification overlay:
+
+Allowed overall states:
+
+- `PASS`
+- `PASS_WITH_LIMITATIONS`
+- `FAIL`
+
+Record separately:
+`production_data_verified`, `production_deployment_verified`,
+`production_html_shell_verified`, `production_interactive_ui_verified`, and
+`production_mobile_verified`.
+
+Never set `production_verified=true` while any mandatory surface is untested. Verify live Related IDs
+and, when browser access exists, Related-card navigation/rendering.
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

@@ -9,7 +9,12 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from card_audit_utils import ALLOWED_RELATION_TYPES, dedupe, parse_date
+from card_audit_utils import (
+    ALLOWED_RELATION_TYPES,
+    dedupe,
+    parse_date,
+    select_scoped_cards,
+)
 
 PUBLISH_STATES = {"publish_ready", "github_merge_ready", "production_verified"}
 DISALLOWED_PUBLISH_RELATIONS = {
@@ -141,9 +146,16 @@ def main() -> int:
     _, cards = load_cards(args.input)
     by_id = {str(card.get("id")): card for card in cards if card.get("id")}
     selected = load_ids(args.new_id_file)
-    rows = cards if selected is None else [card for card in cards if card.get("id") in selected]
+    rows, scope = select_scoped_cards(cards, selected)
 
     findings = []
+    if scope["errors"]:
+        findings.append({
+            "id": "<id-scope>",
+            "source_spec_id": None,
+            "errors": scope["errors"],
+            "warnings": [],
+        })
     for card in rows:
         errors, warnings = check_card(card, by_id, args.require_contract)
         if errors or warnings:
@@ -155,6 +167,7 @@ def main() -> int:
             })
     error_count = sum(len(row["errors"]) for row in findings)
     report = {
+        "id_scope": scope,
         "status": "PASS" if error_count == 0 else "FAIL",
         "cards_checked": len(rows),
         "error_count": error_count,

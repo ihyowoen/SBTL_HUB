@@ -20,6 +20,7 @@ Mandatory shared contracts for this stage:
 
 - `docs/RELATED_LIFECYCLE_CONTRACT.md`
 - `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
 - `validation_data/source_owner_registry.json` when source-owner counting is performed
 
 The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
@@ -125,7 +126,8 @@ Prompt 0.8 merge overlay:
   `related_id_resolution_ledger`.
 - Fail on dangling, self, duplicate, unexplained, or unresolved Related links.
 - Recompute source-audit metadata after every source URL change and run the repository Evidence QC.
-- Run `related_lifecycle_check.py --require-contract` against the merged candidate/new-ID scope.
+- Run `related_lifecycle_check.py --require-contract --new-id-file <ID_LEDGER>` and
+  `evidence_qc_v8_check.py --new-id-file <ID_LEDGER>` against the merged candidate/current merge-ID scope.
 - Only Prompt 0.8 may emit `pr_candidate_payload` and the authoritative replace-all file.
 """,
     "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md": """

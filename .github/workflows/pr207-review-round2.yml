@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: pr207-review-round2
+  cancel-in-progress: false
+
 jobs:
   apply-and-verify:
     runs-on: ubuntu-latest

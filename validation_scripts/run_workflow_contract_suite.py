@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import subprocess
 import sys
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -36,6 +38,76 @@ def run(name: str, command: list[str], expect_json: bool = True):
     }
 
 
+def load_card_ids(path: str) -> set[str]:
+    payload: Any = json.loads(Path(path).read_text(encoding="utf-8"))
+    if isinstance(payload, list):
+        rows = payload
+    elif isinstance(payload, dict) and isinstance(payload.get("cards"), list):
+        rows = payload["cards"]
+    else:
+        raise ValueError("--cards must be a card list or an object with cards[]")
+    return {
+        str(row.get("id"))
+        for row in rows
+        if isinstance(row, dict) and row.get("id")
+    }
+
+
+def load_scope_ids(path: str) -> set[str]:
+    source = Path(path)
+    if source.suffix.lower() == ".csv":
+        rows = csv.DictReader(source.open(encoding="utf-8-sig"))
+        values = set()
+        for row in rows:
+            value = row.get("assigned_id") or row.get("id") or row.get("card_id")
+            if value:
+                values.add(str(value))
+        return values
+
+    payload: Any = json.loads(source.read_text(encoding="utf-8"))
+    if isinstance(payload, list):
+        return {str(value) for value in payload if value}
+    if isinstance(payload, dict):
+        for key in ("ids", "new_ids", "production_ids"):
+            values = payload.get(key)
+            if isinstance(values, list):
+                return {str(value) for value in values if value}
+    raise ValueError("--new-id-file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id")
+
+
+def validate_scope(cards_path: str, id_path: str) -> dict[str, Any]:
+    available = load_card_ids(cards_path)
+    requested = load_scope_ids(id_path)
+    matched = requested & available
+    missing = requested - available
+    errors = []
+
+    if not requested:
+        errors.append("ID scope is empty")
+    if requested and not matched:
+        errors.append("ID scope matched zero cards")
+    if missing:
+        errors.append(f"ID scope contains {len(missing)} IDs absent from cards")
+
+    status = "PASS" if not errors else "FAIL"
+    return {
+        "name": "current_run_scope_validation",
+        "command": ["internal", "validate_scope", cards_path, id_path],
+        "return_code": 0 if status == "PASS" else 1,
+        "status": status,
+        "json": {
+            "status": status,
+            "requested_id_count": len(requested),
+            "matched_card_count": len(matched),
+            "missing_id_count": len(missing),
+            "missing_ids": sorted(missing),
+            "errors": errors,
+        },
+        "stdout": None,
+        "stderr": None,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--cards", required=True)
@@ -49,12 +121,14 @@ def main() -> int:
     args = parser.parse_args()
 
     python = sys.executable
+    scope_validation = validate_scope(args.cards, args.new_id_file)
     checks = [
         run(
             "unit_tests",
             [python, "-m", "unittest", "discover", "-s", "validation_scripts/tests", "-v"],
             expect_json=False,
         ),
+        scope_validation,
         run(
             "evidence_qc_current_run_scope",
             [
@@ -93,12 +167,13 @@ def main() -> int:
         ),
     ]
 
-    hard_checks = checks[:4]
+    hard_checks = checks[:5]
     result = {
         "status": "PASS" if all(item["return_code"] == 0 for item in hard_checks) else "FAIL",
         "current_run_hard_check_count": len(hard_checks),
         "current_run_hard_fail_count": sum(item["return_code"] != 0 for item in hard_checks),
-        "legacy_inventory_status": checks[4]["status"],
+        "scope_validation": scope_validation["json"],
+        "legacy_inventory_status": checks[5]["status"],
         "legacy_inventory_is_separate_remediation_scope": True,
         "checks": checks,
     }

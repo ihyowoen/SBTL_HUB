@@ -2,6 +2,23 @@
 
 This document consolidates the 20260721 run retrospective and PR #206 review findings into implementation workstreams.
 
+## Current implementation status
+
+Draft PR: `#207 workflow: harden Related lineage and source-audit contracts`
+
+Implemented in the draft branch:
+
+- canonical Related lifecycle contract;
+- canonical source-audit contract;
+- shared URL/domain/editorial-owner utilities and owner registry;
+- Related, date/freshness, source-audit recomputation and stage-artifact validators;
+- hardened Evidence QC validator with current merge-ID scope;
+- idempotent overlay generator for all 11 named prompts;
+- unit/regression tests;
+- legacy Related dangling manifest and machine-readable `WG_016`.
+
+Generated prompt overlays are applied and tested by the branch-only workflow. Prompt files must contain exactly one `WORKFLOW_CONTRACT_OVERLAY_20260723` block before this draft is marked ready for review.
+
 ## Workstream A — Evidence repair routing
 
 Covers `WG_001`, `WG_002`, `WG_005`, `WG_007`, `WG_011`.

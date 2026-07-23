@@ -2,41 +2,64 @@
  "runId": "2026-07-23-RD",
  "date": "2026-07-23",
  "type": "RD",
- "summary": "일일 RD — 부분 run. 세션 날짜 이월(F12 재발) 확인 후 dt D-day 36건 7/23 재계산 + NA 경계 D-1 실검증(Section 122 만료·신규 301).",
+ "summary": "일일 RD 전수 스윕 — 20개 권역 클러스터 실검색으로 91/116 항목 당일 명중. D-day 36건 7/23 재계산. Section 122 만료 D-1 경계 검증.",
  "partial": true,
- "partialReason": "NA 통상 경계 클러스터만 실검증. EU/CN/KR/JP/GL은 7/22·7/17·7/13 검증 스탬프 유지(최신일로 밀지 않음). 다음 run에서 RD-2 전수 우선.",
+ "partialReason": "25개 항목이 당일 검색에 미명중(CN 10, KR 8, JP 4, EU-022, GL-003, NA-016) — 이전 검증일 유지. 나머지 91항목은 아래 searches에 itemsCovered로 기재됨.",
  "searches": [
-  {
-   "query": "Section 122 surcharge expires July 24 2026 Section 301 46 countries 12.5 percent effective",
-   "region": "NA",
-   "itemsCovered": ["NA-003", "NA-021", "NA-017", "NA-024"],
-   "result": "change"
-  }
+  {"query": "Section 122 expires July 24 / Section 301 46 countries", "region": "NA", "itemsCovered": ["NA-003","NA-021","NA-017","NA-024"], "result": "change"},
+  {"query": "USMCA round 3 Mexico City outcome", "region": "NA", "itemsCovered": ["NA-014"], "result": "change"},
+  {"query": "45X FEOC MACR Treasury safe harbor", "region": "NA", "itemsCovered": ["NA-001","NA-002","NA-005","NA-006","NA-007","NA-009","NA-013"], "result": "no-change"},
+  {"query": "NDAA 1260H outbound 31 CFR 850 US-Japan G7", "region": "NA", "itemsCovered": ["NA-012","NA-018","NA-019","NA-020","NA-025"], "result": "no-change"},
+  {"query": "California SB1215 CHARGE Act 301 exclusions 232 truck", "region": "NA", "itemsCovered": ["NA-010","NA-011","NA-022"], "result": "change"},
+  {"query": "CHARGE Act / 301 exclusions 178 / 232 critical minerals list revision", "region": "NA", "itemsCovered": ["NA-004","NA-008","NA-015"], "result": "change"},
+  {"query": "EU battery regulation delegated implementing acts CF label DPP recycling efficiency", "region": "EU", "itemsCovered": ["EU-001","EU-009","EU-011","EU-012","EU-014","EU-015","EU-016","EU-018","EU-019","EU-023"], "result": "no-change"},
+  {"query": "EU CBAM downstream ELV PFAS PPWR IAA CRMA permanent magnet", "region": "EU", "itemsCovered": ["EU-002","EU-004","EU-005","EU-007","EU-008","EU-010","EU-020","EU-021","EU-024"], "result": "change"},
+  {"query": "Battery Booster call Q3 / black mass non-OECD / WSR / PPWR August 2026", "region": "EU", "itemsCovered": ["EU-003","EU-006","EU-013","EU-017","EU-025","EU-026"], "result": "change"},
+  {"query": "中国 动力电池 政策 国家标准 回收 白名单 反内卷 储能", "region": "CN", "itemsCovered": ["CN-003","CN-005","CN-006","CN-010","CN-012","CN-015","CN-018","CN-019","CN-020","CN-022","CN-024"], "result": "no-change"},
+  {"query": "稀土 出口管制 黑粉 再生原料 碳足迹 移动电源", "region": "CN", "itemsCovered": ["CN-004","CN-014","CN-023"], "result": "no-change"},
+  {"query": "GB31241 GB47372 移动电源 能耗 储能 容量电价", "region": "CN", "itemsCovered": ["CN-009","CN-016"], "result": "change"},
+  {"query": "新能源汽车 购置税 2026 减半 消费税", "region": "CN", "itemsCovered": ["CN-001","CN-028"], "result": "change"},
+  {"query": "사용후배터리법 하위법령 정보공개 안전성인증", "region": "KR", "itemsCovered": ["KR-002","KR-005","KR-007","KR-009","KR-017","KR-018"], "result": "no-change"},
+  {"query": "자원안보 희토류 알루미늄 할당관세 생산세액공제", "region": "KR", "itemsCovered": ["KR-003","KR-008","KR-015","KR-016"], "result": "change"},
+  {"query": "구동축전지 안전성인증 순환이용 무공해차 소부장 공급망 시행령", "region": "KR", "itemsCovered": ["KR-013","KR-020","KR-023"], "result": "no-change"},
+  {"query": "日本 GX-ETS 省エネ法 需給調整市場 LTDA", "region": "JP", "itemsCovered": ["JP-003","JP-004","JP-006","JP-008","JP-009","JP-012","JP-013","JP-015"], "result": "change"},
+  {"query": "改正資源有効利用促進法 モバイルバッテリー 回収義務 CEV", "region": "JP", "itemsCovered": ["JP-002","JP-005"], "result": "no-change"},
+  {"query": "UN38.3 IMDG ICAO SoC 3m stacking", "region": "GL", "itemsCovered": ["GL-001"], "result": "change"},
+  {"query": "Basel Convention battery waste OEWG-15 BC-17/5", "region": "GL", "itemsCovered": ["GL-002"], "result": "no-change"}
  ],
  "changes": [
-  "dt D-day 36건 2026-07-23 기준 재계산(세션 날짜 이월로 1일 밀려 있었음)",
-  "NA-003 제목에 만료 일시 명시(7.24 12:01am ET) + 평균 실효관세 13%→7.2% 기록 + 요율 10% vs 15% 확인 flag",
-  "NA-021 티어 구조 확정(10% 14개국 / 12.5% 46개국·한국 포함), 최종조치 미발표 확인",
-  "NA-017 232 불변 재확인, NA-024 122 소멸 후 잔존 구조",
-  "region_policy NA headline·watchpoints 갱신"
+  "D-day 36건 7/23 재계산(세션 날짜 이월 F12 정정)",
+  "NA-021 정밀화: 54국 12.5%/6국 10%, 신규 301은 232 위에 스택 안 됨",
+  "NA-008: 178개 제외 2026.11.10까지 연장, 신규 신청 창구 없음",
+  "EU-020: CBAM 다운스트림 180품목·시행 2028.01.01·인증서 구매 2027.02",
+  "EU-013: black mass 유해폐기물화 2026.12 → 비OECD 수출금지",
+  "EU-026: PPWR 가이던스 3.30, 식품접촉 PFAS 25/250ppb·50ppm, 전 포장 SoC 최소화",
+  "CN-016: GB47372-2026 발布 3.31/실시 2027.04.01, 针刺·析锂·唯一编码",
+  "NA-020: DFARS covered materials 2027.01.01",
+  "NA-009: PFE 세이프하버표 법정기한 2026.12.31",
+  "JP-004: 2026년도 需給調整市場 저압리소스 개방",
+  "GL-001: UN38.3 3m 적층시험·SoC30% 나트륨이온 차량 확대",
+  "region_policy 스키마 정합: flag·title·policies·why 추가, watchpoints 문자열 정규화(원본은 watchItems 보존)"
  ],
  "newItems": [],
  "dedups": [],
- "coverageCells": ["trade/NA"],
- "watchProcessed": [],
+ "coverageCells": ["trade/NA","subsidy/NA","recycle/EU","chemicals/EU","packaging/EU","waste_ship/EU","product_std/CN","trade/CN","recycle/KR","carbon/JP","transport/GL"],
  "pendingDecisions": [
-  "NA-003 요율 표기: 발동 10% → 이후 법정상한 15% 인상 보도 다수(소송은 10% 기준) — 1차 확인 후 제목 정정 여부 결정",
-  "Section 338 캐나다 50%(2026.08.19 발효 예정) 신규 항목화 여부 — 캐나다 한정이라 SBTL 직접성 낮음",
-  "coverage.json에 CN-028 편입(subsidy/CN)",
-  "src URL 4건 확보: EU-025·EU-026·GL-003·CN-027"
+  "NA-003 요율: 발동 10% → 법정상한 15% 인상 보도(소송은 10% 기준) — 1차 확인 후 제목 정정",
+  "EU 산업용 배터리 CF 기한: 일부 자료 2026.07.26 vs 트래커 2026.02.18 — 1차 확인 요망",
+  "CN 공고 2025년 79호(철강 300품목 수출허가증 2026.01.01) 항목화 여부 — 철강 한정, SBTL 주변부",
+  "Section 338 캐나다 50%(2026.08.19) 항목화 여부",
+  "coverage.json에 CN-028 편입(subsidy/CN)"
  ],
  "carryOver": [
-  "2026-07-24 Section 122 만료 실행 여부 + 신규 301 발효 여부 — 다음 run 최우선(D-1)",
-  "USMCA Round 3(7.21~23) 종료 결과 — 오늘 D-0, 결과 미발표",
-  "RD-2 미검증 91항목 전수",
-  "파우치필름 HTS 7607 vs 3921 사내 확정(트래커 밖 실무, 7.24부 실질 비용 결정)"
+  "2026-07-24 Section 122 만료 + 신규 301 발효 여부 — 최우선(D-1)",
+  "미검증 25개: CN-002/007/008/011/013/017/021/025/026/027, KR-004/006/010/011/014/019/021/022, JP-007/010/011/014, EU-022, GL-003, NA-016",
+  "src URL 4건: EU-025·EU-026·GL-003·CN-027",
+  "파우치필름 HTS 7607 vs 3921 사내 확정 — 7.24부 관세구조 결정"
  ],
  "lessons": [
-  "세션이 자정을 넘기면 날짜 감각이 고정된다 — RUNBOOK §6.1대로 매 run 시작 시 외부 신호로 실제 날짜 재확인(F12 두 번째 발생)"
+  "20개 클러스터로 91/116 커버 — 클러스터당 평균 4.6항목. 전수 완주에는 25~28 클러스터 필요",
+  "원장은 verify 스탬프의 유일한 근거이므로 tracker와 반드시 같은 시점에 커밋해야 함 — 로컬 갱신 후 push 누락 시 G3 검사 #6이 전량 ERROR(PR#208에서 87건 검출)",
+  "region_policy는 App.jsx 로더 스키마(policies+watchpoints 배열)를 충족해야 렌더됨 — 미충족 시 하드코드 폴백으로 갱신이 화면에 반영되지 않음(검사 #12로 상시 검출)"
  ]
 }

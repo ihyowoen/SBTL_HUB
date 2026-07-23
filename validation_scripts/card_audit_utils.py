@@ -11,9 +11,8 @@ from urllib.parse import parse_qsl, urlencode, urlparse, urlunsplit
 TRACKING_KEYS = {"fbclid", "gclid", "amp", "output"}
 LANDING = re.compile(r"^/?$|^/(index|home|main)\.?\w*/?$", re.I)
 COLLECTION_SEGMENTS = {
-    "article", "articles", "blog", "blogs", "media", "news", "newsroom",
-    "press", "press-release", "press-releases", "publication", "publications",
-    "resource", "resources", "stories", "updates",
+    "articles", "blog", "blogs", "media", "news", "newsroom", "press",
+    "press-releases", "publications", "resources", "stories", "updates",
 }
 LISTING_PREFIX_SEGMENTS = {
     "archive", "archives", "category", "categories", "search", "tag", "tags",

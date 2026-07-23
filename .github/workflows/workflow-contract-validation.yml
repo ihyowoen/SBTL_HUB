@@ -1,0 +1,45 @@
+name: Workflow contract validation
+
+on:
+  pull_request:
+    paths:
+      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
+      - "docs/SOURCE_AUDIT_CONTRACT.md"
+      - "docs/llm_prompts/v1/**"
+      - "validation_data/source_owner_registry.json"
+      - "validation_scripts/**"
+      - ".github/workflows/workflow-contract-validation.yml"
+  push:
+    branches:
+      - agent/workflow-contract-related-source-audit
+    paths:
+      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
+      - "docs/SOURCE_AUDIT_CONTRACT.md"
+      - "docs/llm_prompts/v1/**"
+      - "validation_data/source_owner_registry.json"
+      - "validation_scripts/**"
+      - ".github/workflows/workflow-contract-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile validators
+        run: python -m compileall -q validation_scripts
+
+      - name: Run workflow-contract tests
+        run: python -m unittest discover -s validation_scripts/tests -v
+
+      - name: Verify prompt overlays
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check

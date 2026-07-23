@@ -11,12 +11,48 @@ Current-run and legacy scopes are intentionally separated.
 | Check | Result |
 |---|---|
 | Python compile | PASS |
-| Unit tests | **13/13 PASS** |
+| Unit tests | **19/19 PASS** |
 | Evidence QC — new 35 ID scope | PASS, 0 flags |
 | Related structure — new 35 ID scope | PASS, 0 findings |
 | Date-role legacy compatibility — new 35 ID scope | PASS, 0 findings |
 | Prompt overlays present | **11/11 named prompt files changed** |
 | Overlay application idempotence | PASS |
+| GitHub Actions workflow-contract validation | PASS |
+
+## PR #207 review remediation
+
+Codex review on the final pre-review head produced three actionable validator findings and one early-head observation.
+
+### Actionable findings addressed
+
+1. **Current-run ID scope could match zero cards and still pass**
+   - Added an explicit `current_run_scope_validation` hard check.
+   - Empty scope, zero matches, or any requested ID absent from `cards[]` now fails the suite.
+   - The suite records requested, matched, and missing ID counts.
+
+2. **Blank source URLs could count as diversity**
+   - `canonical_url` and `canonical_domain` now return an empty value for blank, malformed, or non-HTTP(S) endpoints.
+   - Empty canonical URLs, domains, and owners are excluded from diversity sets.
+   - Missing visible-source URL counts are measured separately.
+   - A real source plus a URL-less visible row cannot satisfy `PASS_MULTI_SOURCE`.
+
+3. **Non-cardable Related states could survive before publish flags existed**
+   - With `--require-contract`, `same_event_duplicate`, `existing_card_reinforcement`, and `uncertain_needs_review` now fail immediately.
+   - The validator no longer waits for `publish_ready` or a publish state to appear.
+
+### Early-head observation
+
+The first review stated that `validation_scripts/related_lifecycle_check.py` did not exist. That review targeted commit `74987faf68`; the validator was added in later commits and is now referenced by the contracts, prompt overlays, suite, tests, and CI.
+
+## GitHub Actions proof
+
+Workflow: `Workflow contract validation`
+
+- Run ID: `29979376929`
+- Conclusion: **success**
+- Compile validators: PASS
+- Workflow-contract tests: PASS
+- Prompt overlay check: PASS
 
 ## Legacy inventory
 
@@ -40,9 +76,11 @@ The PR #206 cases were used as regressions for:
 - conditional Bloomberg/Bernama syndication grouping;
 - source-discovery ledger preservation;
 - landing-page detection;
+- blank or malformed source-URL exclusion;
 - single-source exception validation;
 - resolution URL synchronization;
-- current merge-ID scoping.
+- current merge-ID scoping;
+- stale or partially missing ID-scope rejection.
 
 Result for the new 35 fixture: **0 Evidence QC flags**.
 
@@ -66,9 +104,7 @@ The one-time generation workflow was removed after prompt files were produced. T
 
 ## Remaining acceptance step
 
-Before the draft PR is marked ready:
-
-- run PR-level review on the final diff;
-- address any review findings;
-- rerun the 13 tests and current-run scoped suite;
-- keep legacy Related remediation as a separate audited change.
+- rerun Codex review against the latest head;
+- address any new findings;
+- keep legacy Related remediation as a separate audited change;
+- merge only after the latest review is clean or all remaining comments are explicitly dispositioned.

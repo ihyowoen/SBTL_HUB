@@ -65,12 +65,14 @@ The first review stated that `validation_scripts/related_lifecycle_check.py` did
 
 Workflow: `Workflow contract validation`
 
-- Latest validated head: `8552161f61f903fdcb0545b380dd8c23cd45441a`
+- Tested code head: `8552161f61f903fdcb0545b380dd8c23cd45441a`
 - Run ID: `29980837186`
 - Conclusion: **success**
 - Compile validators: PASS
 - Workflow-contract tests: **25/25 PASS**
 - Prompt overlay check: PASS
+
+The subsequent commit only updated this validation record and did not change executable code.
 
 ## Legacy inventory
 

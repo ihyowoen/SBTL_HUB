@@ -1,0 +1,50 @@
+{
+  "gap_id": "WG_016",
+  "title": "Related lifecycle contract",
+  "status": "IMPLEMENTATION_IN_PROGRESS_DRAFT_PR_207",
+  "observed_run": "20260721_134545",
+  "observed_problem": [
+    "Related screening was concentrated in a pre-pass and final baseline check rather than preserved as a stage-by-stage lineage contract.",
+    "Candidate-to-candidate relations could be lost before production IDs existed.",
+    "A newer article date could be mistaken for a distinct follow-up without proving a new execution anchor.",
+    "Legacy cards contain dangling Related IDs that were not caught by the new-card merge flow."
+  ],
+  "proposed_contract": "docs/RELATED_LIFECYCLE_CONTRACT.md",
+  "relation_types": [
+    "same_event_duplicate",
+    "distinct_follow_up",
+    "existing_card_reinforcement",
+    "program_lineage",
+    "new_unrelated_event",
+    "uncertain_needs_review"
+  ],
+  "stage_requirements": {
+    "stage_a": "related_prepass",
+    "stage_b": "related_evidence_review",
+    "stage_c": "related_lineage lock",
+    "prompt_0_4": "latest-baseline and current-batch revalidation",
+    "prompt_0_5_0_5R": "earliest-same-event freshness backstop",
+    "prompt_0_7": "final relation consistency gate",
+    "prompt_0_8": "candidate-spec to production-ID resolution and merged validation",
+    "prompt_0_9": "live dangling/rendering verification"
+  },
+  "guardrails": [
+    "shared company, sector, chemistry, location or keyword is not sufficient",
+    "distinct follow-up requires a direct fresh execution anchor",
+    "same-event duplicate sources must be preserved as reinforcement candidates",
+    "no automatic legacy retargeting by title similarity",
+    "production merge must fail on dangling, self, duplicate or unresolved links"
+  ],
+  "implementation_files": [
+    "docs/RELATED_LIFECYCLE_CONTRACT.md",
+    "validation_scripts/related_lifecycle_check.py",
+    "validation_scripts/apply_prompt_contract_overlays.py",
+    "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json"
+  ],
+  "validation_status": {
+    "new_35_structural_related_check": "PASS",
+    "legacy_baseline_affected_cards": 13,
+    "legacy_baseline_dangling_edges": 14,
+    "legacy_edges_auto_fixed": 0
+  }
+}

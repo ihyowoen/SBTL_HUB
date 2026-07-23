@@ -1964,3 +1964,25 @@ github_ready = true
 ```
 
 Any waiver or exception must be explicit, bounded, and auditable.
+
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->
+Mandatory shared contracts for this stage:
+
+- `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
+- `validation_data/source_owner_registry.json` when source-owner counting is performed
+
+The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
+source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
+
+Stage C Related/source overlay:
+
+- Lock `related_lineage` for every accepted card.
+- `same_event_duplicate`, `existing_card_reinforcement`, and `uncertain_needs_review` may not enter
+  `accepted_fact_safe` as new cards.
+- `distinct_follow_up` requires a direct fresh execution anchor.
+- Recompute source independence from current `fact_sources`; do not trust stale counters.
+- Stage exit must satisfy:
+  `python validation_scripts/stage_artifact_contract_check.py C <STAGE_C_JSON>`.
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

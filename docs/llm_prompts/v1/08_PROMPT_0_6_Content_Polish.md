@@ -2377,3 +2377,22 @@ Any waiver or exception must be explicit, bounded, and auditable.
 ## Content Polish extra
 
 Content polish may improve IB-grade framing but must not add unsupported factual weight.
+
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->
+Mandatory shared contracts for this stage:
+
+- `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
+- `validation_data/source_owner_registry.json` when source-owner counting is performed
+
+The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
+source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
+
+Prompt 0.6 lineage overlay:
+
+- Preserve `related_lineage`, `date_role`, source-audit fields and all evidence verbatim.
+- Emit the exact top-level lineage fields and `lineage_and_anchor_guard` required by Prompt 0.7;
+  do not rely only on nested aliases.
+- Content polish may not create or remove Related edges.
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

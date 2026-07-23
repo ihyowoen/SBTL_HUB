@@ -2503,3 +2503,25 @@ Any waiver or exception must be explicit, bounded, and auditable.
 ## Stage B extra
 
 Stage B must not draft from source-lite evidence. It must separate official, independent, contextual, and copied/syndicated evidence.
+
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->
+Mandatory shared contracts for this stage:
+
+- `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
+- `validation_data/source_owner_registry.json` when source-owner counting is performed
+
+The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
+source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
+
+Stage B Related/date/source overlay:
+
+- Resolve every `related_prepass` using body-level or official evidence and emit `related_evidence_review`.
+- Emit `date_role` with event-date URL/quote and `earliest_same_event_date_checked=true`.
+- A newer article date is not a fresh follow-up anchor.
+- After any source add/remove/URL repair, run `recompute_source_audit_metadata.py` and then
+  `evidence_qc_v8_check.py`; do not hand-maintain derived counters.
+- Stage exit must satisfy:
+  `python validation_scripts/stage_artifact_contract_check.py B <STAGE_B_JSON>`.
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

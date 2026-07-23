@@ -1894,3 +1894,24 @@ github_ready = true
 ```
 
 Any waiver or exception must be explicit, bounded, and auditable.
+
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->
+Mandatory shared contracts for this stage:
+
+- `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
+- `validation_data/source_owner_registry.json` when source-owner counting is performed
+
+The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
+source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
+
+Prompt 0.4 Related baseline overlay:
+
+- Re-run Related and duplicate screening against current main and the current candidate batch.
+- Classify candidates as new unrelated, distinct follow-up, program lineage, same-event duplicate,
+  existing reinforcement, or Related-uncertain hold.
+- Preserve candidate-to-candidate edges for production-ID resolution.
+- Strong evidence does not override a stale or duplicate selection defect.
+- Run `related_lifecycle_check.py` structurally before emitting addable candidates.
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

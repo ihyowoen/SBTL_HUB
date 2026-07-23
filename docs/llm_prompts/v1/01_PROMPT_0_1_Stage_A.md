@@ -2614,3 +2614,25 @@ Any waiver or exception must be explicit, bounded, and auditable.
 ## Stage A extra
 
 Stage A must preserve source clusters and must not promote review-pool items because they are high-value. It can only route them with explicit promotion path.
+
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->
+Mandatory shared contracts for this stage:
+
+- `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
+- `validation_data/source_owner_registry.json` when source-owner counting is performed
+
+The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
+source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
+
+Stage A Related/date overlay:
+
+- Perform the metadata-only Related pre-pass required by `RELATED_LIFECYCLE_CONTRACT.md`.
+- Every strict or bounded-review item must emit `related_prepass`.
+- Clear same-event duplicates may not enter the normal Stage B full-draft queue.
+- Candidate-to-candidate relation edges must be preserved.
+- Emit preliminary `date_role` with publication/event/representative date candidates; do not invent dates.
+- Stage exit must satisfy:
+  `python validation_scripts/stage_artifact_contract_check.py A <STAGE_A_JSON>`.
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

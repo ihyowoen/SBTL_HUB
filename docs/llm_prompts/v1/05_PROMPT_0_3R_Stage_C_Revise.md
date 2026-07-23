@@ -1167,3 +1167,22 @@ github_ready = true
 ```
 
 Any waiver or exception must be explicit, bounded, and auditable.
+
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->
+Mandatory shared contracts for this stage:
+
+- `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
+- `validation_data/source_owner_registry.json` when source-owner counting is performed
+
+The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
+source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
+
+Stage C revise bounded-repair overlay:
+
+- Same-URL body/official quote repair is allowed when URL, event scope and visible claim are unchanged.
+- Record before/after quote and status; numbers, dates or event stage changes require the normal B revise path.
+- A deterministic date-only repair requires direct date evidence plus Related/story-ID impact revalidation.
+- Preserve or re-lock `related_lineage`; do not accept a same-event duplicate as a new card.
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

@@ -1241,3 +1241,26 @@ Any waiver or exception must be explicit, bounded, and auditable.
 ## Stage B extra
 
 Stage B must not draft from source-lite evidence. It must separate official, independent, contextual, and copied/syndicated evidence.
+
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->
+Mandatory shared contracts for this stage:
+
+- `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
+- `docs/SOURCE_AUDIT_CONTRACT.md`
+- `validation_data/source_owner_registry.json` when source-owner counting is performed
+
+The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
+source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
+
+Stage B revise defect routing overlay:
+
+Classify every defect as one of:
+`same_url_quote_repair`, `date_only_repair`, `metadata_only_materialization`,
+`new_source_augmentation`, `visible_claim_change`, `selection_or_staleness_defect`.
+
+- Same-URL quote repair and verified metadata materialization do not consume a full revise-loop count.
+- Date-only repair is allowed only when all other visible/evidence fields remain byte-stable.
+- Selection/staleness defects return upstream; they are not repaired as draft wording issues.
+- Any source change must trigger source-audit recomputation and Related/date recheck.
+<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

@@ -10,6 +10,17 @@ from urllib.parse import parse_qsl, urlencode, urlparse, urlunsplit
 
 TRACKING_KEYS = {"fbclid", "gclid", "amp", "output"}
 LANDING = re.compile(r"^/?$|^/(index|home|main)\.?\w*/?$", re.I)
+COLLECTION_SEGMENTS = {
+    "article", "articles", "blog", "blogs", "media", "news", "newsroom",
+    "press", "press-release", "press-releases", "publication", "publications",
+    "resource", "resources", "stories", "updates",
+}
+LISTING_PREFIX_SEGMENTS = {
+    "archive", "archives", "category", "categories", "search", "tag", "tags",
+    "topic", "topics",
+}
+LISTING_CHILD_SEGMENTS = LISTING_PREFIX_SEGMENTS | {"page", "pages"}
+SEARCH_QUERY_KEYS = {"q", "query", "s", "search", "keyword", "keywords"}
 VISIBLE_SUPPORT_FIELDS = {"title", "sub", "gate", "fact", "implication"}
 USABLE_QUOTE_STATUSES = {
     "body_quote_verified",
@@ -39,12 +50,50 @@ def canonical_domain(url: str) -> str:
     return host
 
 
+def _is_listing_or_search_endpoint(url: str) -> bool:
+    if not isinstance(url, str) or not url.strip():
+        return True
+    parsed = urlparse(url.strip())
+    if parsed.scheme.lower() not in {"http", "https"} or not parsed.netloc:
+        return True
+
+    path = (parsed.path or "").strip()
+    segments = [segment.lower() for segment in path.split("/") if segment]
+    query_keys = {
+        key.lower()
+        for key, _ in parse_qsl(parsed.query, keep_blank_values=True)
+    }
+
+    if not segments:
+        return not parsed.query or bool(query_keys & SEARCH_QUERY_KEYS)
+    if bool(LANDING.match(path)) and not parsed.query:
+        return True
+
+    first = segments[0]
+    if first in LISTING_PREFIX_SEGMENTS:
+        return True
+    if len(segments) == 1 and first in COLLECTION_SEGMENTS:
+        return True
+    if (
+        first in COLLECTION_SEGMENTS
+        and len(segments) >= 2
+        and segments[1] in LISTING_CHILD_SEGMENTS
+    ):
+        return True
+    if (
+        query_keys & SEARCH_QUERY_KEYS
+        and first in (COLLECTION_SEGMENTS | LISTING_PREFIX_SEGMENTS)
+    ):
+        return True
+    return False
+
+
 def canonical_url(url: str) -> str:
     if not isinstance(url, str) or not url.strip():
         return ""
     parsed = urlparse(url.strip())
     host = canonical_domain(url)
-    if not host:
+    if not host or _is_listing_or_search_endpoint(url):
         return ""
     query = [
         (key, value)
@@ -57,14 +106,8 @@ def canonical_url(url: str) -> str:
 
 
 def is_landing_page(url: str) -> bool:
-    if not isinstance(url, str) or not url:
-        return True
-    parsed = urlparse(url.strip())
-    return (
-        not parsed.scheme
-        or not parsed.netloc
-        or bool(LANDING.match((parsed.path or "").strip()) and not parsed.query)
-    )
+    """Return true for non-durable home, listing, category, tag or search endpoints."""
+    return _is_listing_or_search_endpoint(url)
 
 
 def is_visible_source(source: dict[str, Any]) -> bool:
@@ -118,9 +161,11 @@ def source_owner(
     source: dict[str, Any],
     registry: dict[str, list[dict[str, Any]]],
 ) -> str:
-    domain = canonical_domain(str(source.get("source_url", "")))
-    if not domain:
+    source_url = str(source.get("source_url", ""))
+    canonical = canonical_url(source_url)
+    if not canonical:
         return ""
+    domain = canonical_domain(canonical)
     blob = source_metadata_blob(source)
     for rule in registry.get(domain, []):
         required = rule.get("requires_metadata_contains_any", [])
@@ -155,8 +200,8 @@ def source_audit_measure(
     }
     domains = {
         value
-        for source in sources
-        if (value := canonical_domain(str(source.get("source_url", ""))))
+        for canonical in canonical_urls
+        if (value := canonical_domain(canonical))
     }
     owners = {
         value

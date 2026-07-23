@@ -80,6 +80,13 @@ def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_c
     if lineage is None:
         return errors, warnings
 
+    if require_contract and lineage.get("status") != "PASS":
+        errors.append("related lifecycle status must be PASS")
+    if require_contract and lineage.get("same_event_checked") is not True:
+        errors.append("same_event_checked must be true")
+    if require_contract and lineage.get("earliest_same_event_date_checked") is not True:
+        errors.append("earliest_same_event_date_checked must be true")
+
     relation_type = lineage.get("relation_type") or lineage.get("relation_type_candidate")
     if relation_type not in ALLOWED_RELATION_TYPES:
         errors.append(f"invalid relation_type={relation_type}")
@@ -110,7 +117,11 @@ def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_c
             if child_date and parent_date and child_date < parent_date:
                 errors.append(f"follow-up date precedes predecessor {target}")
 
-    unresolved = lineage.get("related_candidate_spec_ids") or []
+    unresolved = (
+        lineage.get("related_candidate_spec_ids")
+        or card.get("related_candidate_spec_ids")
+        or []
+    )
     if unresolved and card.get("state") in {"github_merge_ready", "production_verified"}:
         errors.append("unresolved related_candidate_spec_ids remain after merge prep")
     return errors, warnings

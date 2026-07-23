@@ -15,6 +15,7 @@ from typing import Any
 
 from card_audit_utils import (
     USABLE_QUOTE_STATUSES,
+    canonical_domain,
     canonical_url,
     is_landing_page,
     load_owner_registry,
@@ -76,7 +77,10 @@ def valid_existing_exception(card: dict[str, Any]) -> dict[str, Any] | None:
     return None
 
 
-def build_resolution_entries(card: dict[str, Any], registry: dict[str, str]):
+def build_resolution_entries(
+    card: dict[str, Any],
+    registry: dict[str, list[dict[str, Any]]],
+):
     grouped: dict[str, list[tuple[int, dict[str, Any]]]] = defaultdict(list)
     for index, source in enumerate(usable_sources(card)):
         grouped[canonical_url(str(source.get("source_url", "")))].append((index, source))
@@ -104,7 +108,11 @@ def build_resolution_entries(card: dict[str, Any], registry: dict[str, str]):
     return entries
 
 
-def recompute(card: dict[str, Any], registry: dict[str, str], strict: bool):
+def recompute(
+    card: dict[str, Any],
+    registry: dict[str, list[dict[str, Any]]],
+    strict: bool,
+):
     before = deepcopy(card)
     sources = usable_sources(card)
     measure = source_audit_measure(card, registry)
@@ -131,11 +139,14 @@ def recompute(card: dict[str, Any], registry: dict[str, str], strict: bool):
         card["single_source_exception"] = {"allowed": False, "reason": "not applicable: multi-owner evidence"}
     elif any(source_is_primary(source) for source in sources):
         if exception is None:
-            card["source_diversity_status"] = HOLD
-            card["single_source_exception"] = {
-                "allowed": False,
-                "reason": "primary single-source candidate lacks an approved bounded-discovery exception",
-            }
+            if strict:
+                card["source_diversity_status"] = HOLD
+                card["single_source_exception"] = {
+                    "allowed": False,
+                    "reason": "primary single-source candidate lacks an approved bounded-discovery exception",
+                }
+            else:
+                card["source_diversity_status"] = HOLD
         else:
             card["source_diversity_status"] = PASS_SINGLE
             card["single_source_exception"] = exception
@@ -157,25 +168,44 @@ def recompute(card: dict[str, Any], registry: dict[str, str], strict: bool):
         "status": card["source_diversity_status"],
     }
 
-    ledger = []
+    generated_ledger = []
+    used_canonical_urls = set()
     for entry in resolution_entries:
+        canonical = canonical_url(str(entry["source_url"]))
+        used_canonical_urls.add(canonical)
         matching = [
             source for source in sources
-            if canonical_url(str(source.get("source_url", ""))) == canonical_url(str(entry["source_url"]))
+            if canonical_url(str(source.get("source_url", ""))) == canonical
         ]
-        ledger.append({
+        generated_ledger.append({
             "source_url": entry["source_url"],
-            "canonical_url": canonical_url(str(entry["source_url"])),
-            "source_name": " / ".join(sorted({str(source.get("source_name", "")) for source in matching})),
+            "canonical_url": canonical,
+            "source_name": " / ".join(
+                sorted({str(source.get("source_name", "")) for source in matching})
+            ),
             "source_owner": source_owner(matching[0], registry) if matching else "",
-            "source_domain": sorted({str(source.get("source_url", "")) for source in matching}),
+            "source_domain": canonical_domain(str(entry["source_url"])),
             "outcome": "used_in_fact_sources",
             "unique_contribution": " | ".join(
                 str(source.get("source_contribution") or source.get("claim") or "")
                 for source in matching
             ),
+            "visible_supports": sorted({
+                support
+                for source in matching
+                for support in (source.get("supports") or [])
+            }),
         })
-    card["source_discovery_ledger"] = ledger
+
+    preserved_discovery_rows = []
+    for row in before.get("source_discovery_ledger", []) or []:
+        if not isinstance(row, dict):
+            continue
+        canonical = canonical_url(str(row.get("source_url", "")))
+        if row.get("outcome") == "used_in_fact_sources" and canonical in used_canonical_urls:
+            continue
+        preserved_discovery_rows.append(row)
+    card["source_discovery_ledger"] = generated_ledger + preserved_discovery_rows
 
     landing_hits = [
         str(source.get("source_url"))

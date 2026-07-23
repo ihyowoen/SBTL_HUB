@@ -191,6 +191,48 @@ def source_audit_measure(
     }
 
 
+def card_identifier(card: dict[str, Any]) -> str:
+    return str(card.get("id") or card.get("card_id") or "").strip()
+
+
+def select_scoped_cards(
+    cards: Iterable[dict[str, Any]],
+    selected_ids: set[str] | None,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    rows = list(cards)
+    if selected_ids is None:
+        return rows, {
+            "applied": False,
+            "status": "NOT_APPLIED",
+            "requested_count": None,
+            "matched_count": len(rows),
+            "missing_ids": [],
+            "errors": [],
+        }
+
+    requested = {str(value).strip() for value in selected_ids if str(value).strip()}
+    available = {card_identifier(card) for card in rows if card_identifier(card)}
+    matched = requested & available
+    missing = sorted(requested - available)
+    errors: list[str] = []
+    if not requested:
+        errors.append("ID scope is empty")
+    elif not matched:
+        errors.append("ID scope matched zero cards")
+    if missing:
+        errors.append(f"ID scope has {len(missing)} unmatched ID(s)")
+
+    selected_rows = [card for card in rows if card_identifier(card) in matched]
+    return selected_rows, {
+        "applied": True,
+        "status": "PASS" if not errors else "FAIL",
+        "requested_count": len(requested),
+        "matched_count": len(matched),
+        "missing_ids": missing,
+        "errors": errors,
+    }
+
+
 def dedupe(values: Iterable[str]) -> list[str]:
     seen: set[str] = set()
     output: list[str] = []

@@ -1,0 +1,31 @@
+{
+  "schema_version": "source_owner_registry_v1",
+  "updated": "2026-07-23",
+  "rules": [
+    {
+      "owner_id": "solar_media",
+      "domains": ["energy-storage.news", "pv-tech.org"],
+      "reason": "same editorial group"
+    },
+    {
+      "owner_id": "pv_magazine_group",
+      "domains": ["pv-magazine.com", "pv-magazine-india.com", "ess-news.com"],
+      "reason": "same publishing group; treat as one owner unless an article proves independent reporting"
+    },
+    {
+      "owner_id": "bernama_syndication",
+      "domains": ["bernama.com", "majujohor.bernama.com", "nst.com.my"],
+      "reason": "national-wire source and republication cluster"
+    },
+    {
+      "owner_id": "bloomberg_syndication",
+      "domains": ["bloomberg.com", "theedgemalaysia.com", "businesstimes.com.sg"],
+      "reason": "Bloomberg-origin syndication cluster when source metadata identifies Bloomberg"
+    },
+    {
+      "owner_id": "cornex_new_energy",
+      "domains": ["cornexbattery.com", "cn-ne.cn"],
+      "reason": "official domains controlled by the same company"
+    }
+  ]
+}

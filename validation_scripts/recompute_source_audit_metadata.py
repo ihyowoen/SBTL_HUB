@@ -72,7 +72,12 @@ def source_is_primary(source: dict[str, Any]) -> bool:
 def valid_existing_exception(card: dict[str, Any]) -> dict[str, Any] | None:
     for key in ("single_source_exception", "final_qc_single_source_exception"):
         value = card.get(key)
-        if isinstance(value, dict) and value.get("allowed") is True and value.get("reason"):
+        if (
+            isinstance(value, dict)
+            and value.get("allowed") is True
+            and value.get("reason")
+            and (value.get("mitigation") or value.get("scope_limits"))
+        ):
             return deepcopy(value)
     return None
 
@@ -83,7 +88,10 @@ def build_resolution_entries(
 ):
     grouped: dict[str, list[tuple[int, dict[str, Any]]]] = defaultdict(list)
     for index, source in enumerate(usable_sources(card)):
-        grouped[canonical_url(str(source.get("source_url", "")))].append((index, source))
+        canonical = canonical_url(str(source.get("source_url", "")))
+        if not canonical:
+            continue
+        grouped[canonical].append((index, source))
     entries = []
     for canonical, rows in sorted(grouped.items()):
         sources = [source for _, source in rows]

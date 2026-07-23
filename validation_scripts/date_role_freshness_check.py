@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from card_audit_utils import parse_date
+from card_audit_utils import parse_date, select_scoped_cards
 
 
 def collect_cards(payload: Any):
@@ -114,10 +114,14 @@ def main() -> int:
     payload = json.loads(Path(args.input).read_text(encoding="utf-8"))
     rows = collect_cards(payload)
     selected = load_ids(args.id_file)
-    if selected is not None:
-        rows = [card for card in rows if str(card.get("id", "")) in selected]
+    rows, scope = select_scoped_cards(rows, selected)
 
     findings = []
+    if scope["errors"]:
+        findings.append({
+            "id": "<id-scope>",
+            "errors": scope["errors"],
+        })
     for card in rows:
         errors = check_card(card, args.require_date_role)
         if errors:
@@ -127,6 +131,7 @@ def main() -> int:
             })
 
     result = {
+        "id_scope": scope,
         "status": "PASS" if not findings else "FAIL",
         "cards_checked": len(rows),
         "finding_count": len(findings),

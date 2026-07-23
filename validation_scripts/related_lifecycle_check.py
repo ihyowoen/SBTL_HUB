@@ -102,10 +102,13 @@ def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_c
         errors.append(f"{relation_type} requires at least one related ID")
     if relation_type == "distinct_follow_up" and not lineage.get("fresh_follow_up_anchor"):
         errors.append("distinct_follow_up requires fresh_follow_up_anchor")
-    if relation_type in DISALLOWED_PUBLISH_RELATIONS and (
-        card.get("publish_ready") is True or card.get("state") in PUBLISH_STATES
-    ):
-        errors.append(f"publishable card may not use relation_type={relation_type}")
+
+    is_publishable = card.get("publish_ready") is True or card.get("state") in PUBLISH_STATES
+    if relation_type in DISALLOWED_PUBLISH_RELATIONS and (require_contract or is_publishable):
+        errors.append(
+            f"validated new-card output may not use relation_type={relation_type}"
+        )
+
     if not lineage.get("reason") and not lineage.get("relation_reason"):
         errors.append("relation reason is required")
 

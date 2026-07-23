@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from card_audit_utils import canonical_domain, canonical_url, is_landing_page
+from card_audit_utils import (
+    canonical_domain, canonical_url, is_landing_page, load_owner_registry, source_owner,
+)
 from related_lifecycle_check import check_card
+from recompute_source_audit_metadata import recompute
 
 
 class AuditUtilsTest(unittest.TestCase):
@@ -32,6 +37,66 @@ class AuditUtilsTest(unittest.TestCase):
     def test_landing_page(self):
         self.assertTrue(is_landing_page("https://example.com/"))
         self.assertFalse(is_landing_page("https://example.com/2026/07/article"))
+
+    def test_conditional_syndication_registry(self):
+        payload = {
+            "rules": [
+                {
+                    "owner_id": "bloomberg_syndication",
+                    "domains": ["theedgemalaysia.com"],
+                    "requires_metadata_contains_any": ["bloomberg"],
+                }
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "owners.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            registry = load_owner_registry(path)
+            syndicated = {
+                "source_url": "https://theedgemalaysia.com/node/1",
+                "source_owner_id_normalized": "bloomberg_syndication",
+            }
+            independent = {
+                "source_url": "https://theedgemalaysia.com/node/2",
+                "source_origin_type": "independent_media",
+            }
+            self.assertEqual(source_owner(syndicated, registry), "bloomberg_syndication")
+            self.assertEqual(source_owner(independent, registry), "theedgemalaysia.com")
+
+
+class SourceAuditRecomputeTest(unittest.TestCase):
+    def test_recompute_preserves_rejected_discovery_rows(self):
+        card = {
+            "source_spec_id": "TEST",
+            "fact_sources": [
+                {
+                    "source_name": "Official",
+                    "source_url": "https://example.gov/article",
+                    "source_quote": "Body quote",
+                    "source_quote_status": "official_material_quote_verified",
+                    "evidence_role": "primary_event_evidence",
+                    "supports": ["fact"],
+                    "source_origin_type": "government_primary",
+                    "claim": "Event occurred",
+                }
+            ],
+            "source_discovery_ledger": [
+                {
+                    "source_url": "https://media.example/rejected",
+                    "outcome": "rejected_wrong_event",
+                    "reason": "different event",
+                }
+            ],
+        }
+        _, updated, _ = recompute(card, {}, True)
+        outcomes = [row.get("outcome") for row in updated["source_discovery_ledger"]]
+        self.assertIn("used_in_fact_sources", outcomes)
+        self.assertIn("rejected_wrong_event", outcomes)
+        used = next(
+            row for row in updated["source_discovery_ledger"]
+            if row.get("outcome") == "used_in_fact_sources"
+        )
+        self.assertEqual(used["source_domain"], "example.gov")
 
 
 class RelatedContractTest(unittest.TestCase):

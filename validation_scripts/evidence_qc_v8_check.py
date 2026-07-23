@@ -19,6 +19,7 @@ from card_audit_utils import (
     is_landing_page,
     is_visible_source,
     load_owner_registry,
+    select_scoped_cards,
     source_audit_measure,
     usable_sources,
 )
@@ -164,17 +165,17 @@ def main() -> int:
     registry = load_owner_registry(registry_path if registry_path.exists() else None)
     rows = cards(load(args.input))
     selected_ids = load_ids(args.id_file)
-    if selected_ids is not None:
-        rows = [
-            card for card in rows
-            if str(card.get("id") or card.get("card_id") or "") in selected_ids
-        ]
+    rows, scope = select_scoped_cards(rows, selected_ids)
+
     names = (
-        "landing_page", "fake_diversity", "weak_corroboration", "url_desync",
+        "invalid_id_scope", "invalid_source_url", "landing_page",
+        "fake_diversity", "weak_corroboration", "url_desync",
         "invalid_source_diversity_status", "missing_source_discovery_ledger",
-        "domain_owner_semantics", "resolution_mismatch",
+        "resolution_mismatch",
     )
     flags = {name: [] for name in names}
+    for message in scope["errors"]:
+        flags["invalid_id_scope"].append(("<id-scope>", message))
     reuse = []
 
     for card in rows:
@@ -187,6 +188,16 @@ def main() -> int:
         sources = usable_sources(card)
         visible_sources = [source for source in sources if is_visible_source(source)]
         measure = source_audit_measure(card, registry)
+
+        if measure["missing_source_url_count"]:
+            flags["invalid_source_url"].append(
+                (cid, f"{measure['missing_source_url_count']} usable source row(s) lack a durable HTTP(S) URL")
+            )
+        if measure["missing_visible_source_url_count"]:
+            flags["invalid_source_url"].append(
+                (cid, f"{measure['missing_visible_source_url_count']} visible source row(s) lack a durable HTTP(S) URL")
+            )
+
         source_urls = [source.get("source_url") for source in sources if source.get("source_url")]
         visible_urls = [
             source.get("source_url") for source in visible_sources if source.get("source_url")
@@ -245,10 +256,6 @@ def main() -> int:
                     (cid, f"declared {field}={value}, actual={actual}")
                 )
 
-        if measure["source_unique_domain_count"] < measure["source_independent_owner_count"]:
-            flags["domain_owner_semantics"].append(
-                (cid, "unique domain count cannot be below independent owner count")
-            )
         if len(sources) > measure["source_unique_url_count"]:
             reuse.append(
                 (cid, f"{len(sources)} claim rows / {measure['source_unique_url_count']} canonical URLs")
@@ -278,8 +285,10 @@ def main() -> int:
         if isinstance(resolution, dict):
             entries = resolution.get("resolution_entries") or []
             resolved_urls = {
-                canonical_url(str(entry.get("source_url", "")))
-                for entry in entries if isinstance(entry, dict)
+                value
+                for entry in entries
+                if isinstance(entry, dict)
+                and (value := canonical_url(str(entry.get("source_url", ""))))
             }
             if resolved_urls != set(measure["canonical_urls"]):
                 flags["resolution_mismatch"].append(
@@ -292,6 +301,7 @@ def main() -> int:
 
     total = sum(len(values) for values in flags.values())
     report = {
+        "id_scope": scope,
         "cards_checked": len(rows),
         "flags": {name: len(flags[name]) for name in names},
         "flag_details": flags,

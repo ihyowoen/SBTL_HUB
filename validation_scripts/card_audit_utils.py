@@ -70,24 +70,52 @@ def is_visible_source(source: dict[str, Any]) -> bool:
     return isinstance(supports, list) and bool(VISIBLE_SUPPORT_FIELDS & set(supports))
 
 
-def load_owner_registry(path: str | Path | None) -> dict[str, str]:
-    mapping: dict[str, str] = {}
+def source_metadata_blob(source: dict[str, Any]) -> str:
+    keys = (
+        "source_name", "source_type", "source_kind", "source_origin_type",
+        "source_role", "publisher_type", "origin_type", "official_source_type",
+        "source_category", "source_contribution", "claim",
+        "source_owner_id", "source_owner_id_normalized",
+    )
+    return " ".join(str(source.get(key, "")).lower() for key in keys)
+
+
+def load_owner_registry(path: str | Path | None) -> dict[str, list[dict[str, Any]]]:
+    mapping: dict[str, list[dict[str, Any]]] = {}
     if path is None:
         return mapping
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
     for rule in payload.get("rules", []):
         owner = str(rule.get("owner_id", "")).strip()
+        if not owner:
+            continue
+        normalized_rule = {
+            "owner_id": owner,
+            "requires_metadata_contains_any": [
+                str(value).lower()
+                for value in rule.get("requires_metadata_contains_any", [])
+                if value
+            ],
+            "reason": rule.get("reason", ""),
+        }
         for domain in rule.get("domains", []):
-            if owner and domain:
-                mapping[canonical_domain("https://" + domain)] = owner
+            normalized = canonical_domain("https://" + str(domain))
+            mapping.setdefault(normalized, []).append(normalized_rule)
     return mapping
 
 
-def source_owner(source: dict[str, Any], registry: dict[str, str]) -> str:
+def source_owner(
+    source: dict[str, Any],
+    registry: dict[str, list[dict[str, Any]]],
+) -> str:
     domain = canonical_domain(str(source.get("source_url", "")))
+    blob = source_metadata_blob(source)
+    for rule in registry.get(domain, []):
+        required = rule.get("requires_metadata_contains_any", [])
+        if not required or any(value in blob for value in required):
+            return str(rule["owner_id"])
     return (
-        registry.get(domain)
-        or str(source.get("source_owner_id_normalized") or "").strip()
+        str(source.get("source_owner_id_normalized") or "").strip()
         or str(source.get("source_owner_id") or "").strip()
         or domain
     )
@@ -101,7 +129,10 @@ def usable_sources(card: dict[str, Any]) -> list[dict[str, Any]]:
     ]
 
 
-def source_audit_measure(card: dict[str, Any], registry: dict[str, str]) -> dict[str, Any]:
+def source_audit_measure(
+    card: dict[str, Any],
+    registry: dict[str, list[dict[str, Any]]],
+) -> dict[str, Any]:
     sources = usable_sources(card)
     visible = [source for source in sources if is_visible_source(source)]
     canonical_urls = {canonical_url(str(source.get("source_url", ""))) for source in sources}

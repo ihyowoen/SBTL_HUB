@@ -1,0 +1,42 @@
+{
+ "runId": "2026-07-23-RD",
+ "date": "2026-07-23",
+ "type": "RD",
+ "summary": "일일 RD — 부분 run. 세션 날짜 이월(F12 재발) 확인 후 dt D-day 36건 7/23 재계산 + NA 경계 D-1 실검증(Section 122 만료·신규 301).",
+ "partial": true,
+ "partialReason": "NA 통상 경계 클러스터만 실검증. EU/CN/KR/JP/GL은 7/22·7/17·7/13 검증 스탬프 유지(최신일로 밀지 않음). 다음 run에서 RD-2 전수 우선.",
+ "searches": [
+  {
+   "query": "Section 122 surcharge expires July 24 2026 Section 301 46 countries 12.5 percent effective",
+   "region": "NA",
+   "itemsCovered": ["NA-003", "NA-021", "NA-017", "NA-024"],
+   "result": "change"
+  }
+ ],
+ "changes": [
+  "dt D-day 36건 2026-07-23 기준 재계산(세션 날짜 이월로 1일 밀려 있었음)",
+  "NA-003 제목에 만료 일시 명시(7.24 12:01am ET) + 평균 실효관세 13%→7.2% 기록 + 요율 10% vs 15% 확인 flag",
+  "NA-021 티어 구조 확정(10% 14개국 / 12.5% 46개국·한국 포함), 최종조치 미발표 확인",
+  "NA-017 232 불변 재확인, NA-024 122 소멸 후 잔존 구조",
+  "region_policy NA headline·watchpoints 갱신"
+ ],
+ "newItems": [],
+ "dedups": [],
+ "coverageCells": ["trade/NA"],
+ "watchProcessed": [],
+ "pendingDecisions": [
+  "NA-003 요율 표기: 발동 10% → 이후 법정상한 15% 인상 보도 다수(소송은 10% 기준) — 1차 확인 후 제목 정정 여부 결정",
+  "Section 338 캐나다 50%(2026.08.19 발효 예정) 신규 항목화 여부 — 캐나다 한정이라 SBTL 직접성 낮음",
+  "coverage.json에 CN-028 편입(subsidy/CN)",
+  "src URL 4건 확보: EU-025·EU-026·GL-003·CN-027"
+ ],
+ "carryOver": [
+  "2026-07-24 Section 122 만료 실행 여부 + 신규 301 발효 여부 — 다음 run 최우선(D-1)",
+  "USMCA Round 3(7.21~23) 종료 결과 — 오늘 D-0, 결과 미발표",
+  "RD-2 미검증 91항목 전수",
+  "파우치필름 HTS 7607 vs 3921 사내 확정(트래커 밖 실무, 7.24부 실질 비용 결정)"
+ ],
+ "lessons": [
+  "세션이 자정을 넘기면 날짜 감각이 고정된다 — RUNBOOK §6.1대로 매 run 시작 시 외부 신호로 실제 날짜 재확인(F12 두 번째 발생)"
+ ]
+}

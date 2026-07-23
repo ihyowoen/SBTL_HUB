@@ -24,7 +24,7 @@ STAGE_TOP_LEVEL = {
     ],
     "0.4": ["lineage_guard"],
     "0.5": ["lineage_integrity_status"],
-    "0.6": ["upstream_lineage_integrity"],
+    "0.6": ["upstream_lineage_integrity", "lineage_and_anchor_guard"],
     "0.7": ["lineage_and_anchor_guard"],
     "0.8": ["github_main_sync_gate", "lineage_merge_gate"],
 }
@@ -41,14 +41,29 @@ BUCKETS = {
 }
 
 ITEM_REQUIRED = {
-    "A": ["spec_id", "strict_pass_gate", "execution_anchor_type", "baseline_relation", "related_prepass"],
+    "A": [
+        "spec_id", "strict_pass_gate", "execution_anchor_type", "baseline_relation",
+        "related_prepass", "date_role",
+    ],
     "B": ["source_spec_id", "fact_sources", "related_evidence_review", "date_role"],
     "C": ["source_spec_id", "fact_sources", "related_lineage", "date_role"],
     "0.4": ["source_spec_id", "event_fingerprint", "related_lineage"],
-    "0.5": ["source_spec_id", "source_diversity_status", "source_discovery_ledger"],
-    "0.6": ["source_spec_id", "content_enriched", "language_terminology_polished"],
-    "0.7": ["source_spec_id", "final_qc_gates", "related_lineage", "source_diversity_status"],
-    "0.8": ["id", "source_spec_id", "related_lineage", "merge_prep"],
+    "0.5": [
+        "source_spec_id", "source_diversity_status", "source_discovery_ledger",
+        "related_lineage", "date_role",
+    ],
+    "0.6": [
+        "source_spec_id", "content_enriched", "language_terminology_polished",
+        "related_lineage", "date_role", "source_diversity_status",
+    ],
+    "0.7": [
+        "source_spec_id", "final_qc_gates", "related_lineage",
+        "source_diversity_status",
+    ],
+    "0.8": [
+        "id", "source_spec_id", "related_lineage", "date_role",
+        "source_diversity_status", "merge_prep",
+    ],
 }
 
 

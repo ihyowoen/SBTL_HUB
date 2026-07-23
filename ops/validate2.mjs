@@ -125,5 +125,23 @@ if (tj.meta && tj.meta.totalItems != null && tj.meta.totalItems !== items.length
   }
 }
 
+// 12) region_policy ↔ App.jsx 로더 스키마 (useTrackerData는 policies+watchpoints 배열 요구)
+if (process.env.RP_PATH) {
+  try {
+    const rp=JSON.parse(readFileSync(process.env.RP_PATH,'utf8'));
+    for (const rg of ['NA','EU','CN','KR','JP','GL']) {
+      const e=rp[rg]; if (!e) continue;
+      if (!Array.isArray(e.policies) || !Array.isArray(e.watchpoints))
+        err(`region_policy ${rg}: policies/watchpoints 배열 누락 — App.jsx useTrackerData가 병합을 거부하고 하드코드 REGION_POLICY로 폴백(갱신 미반영)`);
+      const nonStr=(e.watchpoints||[]).filter(w=>typeof w!=='string').length;
+      if (nonStr) err(`region_policy ${rg}: watchpoints에 비문자열 ${nonStr}건 — 렌더러가 {wp}를 직접 출력하므로 React 렌더 오류`);
+      for (const p of e.policies||[]) if (!p || typeof p.name!=='string' || typeof p.desc!=='string')
+        err(`region_policy ${rg}: policies 항목에 name/desc 문자열 누락`);
+      if (typeof e.why!=='string') warn(`region_policy ${rg}: why 문자열 없음 — '왜 중요한지' 블록이 빈칸으로 렌더`);
+      if (typeof e.title!=='string') warn(`region_policy ${rg}: title 없음 — 카드 헤더 빈칸`);
+    }
+  } catch(e){ warn('region_policy 스키마 검사 실패: '+e.message); }
+}
+
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);
 process.exit(E?1:0);

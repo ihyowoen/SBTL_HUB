@@ -27,7 +27,12 @@ ALLOWED_RELATION_TYPES = {
 
 
 def canonical_domain(url: str) -> str:
-    host = urlparse(url or "").netloc.lower()
+    if not isinstance(url, str) or not url.strip():
+        return ""
+    parsed = urlparse(url.strip())
+    if parsed.scheme.lower() not in {"http", "https"} or not parsed.netloc:
+        return ""
+    host = parsed.netloc.lower()
     for prefix in ("www.", "m.", "mobile."):
         if host.startswith(prefix):
             host = host[len(prefix):]
@@ -35,8 +40,12 @@ def canonical_domain(url: str) -> str:
 
 
 def canonical_url(url: str) -> str:
-    parsed = urlparse(url or "")
+    if not isinstance(url, str) or not url.strip():
+        return ""
+    parsed = urlparse(url.strip())
     host = canonical_domain(url)
+    if not host:
+        return ""
     query = [
         (key, value)
         for key, value in parse_qsl(parsed.query, keep_blank_values=True)
@@ -100,7 +109,8 @@ def load_owner_registry(path: str | Path | None) -> dict[str, list[dict[str, Any
         }
         for domain in rule.get("domains", []):
             normalized = canonical_domain("https://" + str(domain))
-            mapping.setdefault(normalized, []).append(normalized_rule)
+            if normalized:
+                mapping.setdefault(normalized, []).append(normalized_rule)
     return mapping
 
 
@@ -109,6 +119,8 @@ def source_owner(
     registry: dict[str, list[dict[str, Any]]],
 ) -> str:
     domain = canonical_domain(str(source.get("source_url", "")))
+    if not domain:
+        return ""
     blob = source_metadata_blob(source)
     for rule in registry.get(domain, []):
         required = rule.get("requires_metadata_contains_any", [])
@@ -135,15 +147,44 @@ def source_audit_measure(
 ) -> dict[str, Any]:
     sources = usable_sources(card)
     visible = [source for source in sources if is_visible_source(source)]
-    canonical_urls = {canonical_url(str(source.get("source_url", ""))) for source in sources}
-    domains = {canonical_domain(str(source.get("source_url", ""))) for source in sources}
-    owners = {source_owner(source, registry) for source in visible}
+
+    canonical_urls = {
+        value
+        for source in sources
+        if (value := canonical_url(str(source.get("source_url", ""))))
+    }
+    domains = {
+        value
+        for source in sources
+        if (value := canonical_domain(str(source.get("source_url", ""))))
+    }
+    owners = {
+        value
+        for source in visible
+        if (value := source_owner(source, registry))
+    }
+    visible_urls = {
+        value
+        for source in visible
+        if (value := canonical_url(str(source.get("source_url", ""))))
+    }
+    missing_source_url_count = sum(
+        not canonical_url(str(source.get("source_url", "")))
+        for source in sources
+    )
+    missing_visible_source_url_count = sum(
+        not canonical_url(str(source.get("source_url", "")))
+        for source in visible
+    )
+
     return {
         "source_evidence_entry_count": len(sources),
         "source_unique_url_count": len(canonical_urls),
         "source_unique_domain_count": len(domains),
         "source_independent_owner_count": len(owners),
-        "visible_source_url_count": len({str(source.get("source_url", "")) for source in visible}),
+        "visible_source_url_count": len(visible_urls),
+        "missing_source_url_count": missing_source_url_count,
+        "missing_visible_source_url_count": missing_visible_source_url_count,
         "canonical_urls": sorted(canonical_urls),
         "canonical_domains": sorted(domains),
         "independent_owners": sorted(owners),

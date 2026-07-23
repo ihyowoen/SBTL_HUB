@@ -1,5 +1,5 @@
 {
-  "schema_version": "source_owner_registry_v1",
+  "schema_version": "source_owner_registry_v2",
   "updated": "2026-07-23",
   "rules": [
     {
@@ -10,17 +10,29 @@
     {
       "owner_id": "pv_magazine_group",
       "domains": ["pv-magazine.com", "pv-magazine-india.com", "ess-news.com"],
-      "reason": "same publishing group; treat as one owner unless an article proves independent reporting"
+      "reason": "same publishing group"
     },
     {
       "owner_id": "bernama_syndication",
-      "domains": ["bernama.com", "majujohor.bernama.com", "nst.com.my"],
-      "reason": "national-wire source and republication cluster"
+      "domains": ["bernama.com", "majujohor.bernama.com"],
+      "reason": "same national-wire owner"
+    },
+    {
+      "owner_id": "bernama_syndication",
+      "domains": ["nst.com.my"],
+      "requires_metadata_contains_any": ["bernama"],
+      "reason": "group only when the source row identifies Bernama-origin republication"
     },
     {
       "owner_id": "bloomberg_syndication",
-      "domains": ["bloomberg.com", "theedgemalaysia.com", "businesstimes.com.sg"],
-      "reason": "Bloomberg-origin syndication cluster when source metadata identifies Bloomberg"
+      "domains": ["bloomberg.com"],
+      "reason": "Bloomberg source owner"
+    },
+    {
+      "owner_id": "bloomberg_syndication",
+      "domains": ["theedgemalaysia.com", "businesstimes.com.sg"],
+      "requires_metadata_contains_any": ["bloomberg"],
+      "reason": "group only when source metadata identifies Bloomberg-origin syndication"
     },
     {
       "owner_id": "cornex_new_energy",

@@ -13,6 +13,7 @@ sys.path.insert(0, str(ROOT))
 from card_audit_utils import (
     canonical_domain, canonical_url, is_landing_page, load_owner_registry, source_owner,
 )
+from date_role_freshness_check import check_card as check_date_card
 from related_lifecycle_check import check_card
 from recompute_source_audit_metadata import recompute
 
@@ -99,6 +100,46 @@ class SourceAuditRecomputeTest(unittest.TestCase):
         self.assertEqual(used["source_domain"], "example.gov")
 
 
+class DateRoleContractTest(unittest.TestCase):
+    def test_valid_date_role(self):
+        card = {
+            "date": "2026-07-01",
+            "related_lineage": {
+                "relation_type": "distinct_follow_up",
+                "fresh_follow_up_anchor": "commissioning",
+            },
+            "date_role": {
+                "representative_date": "2026-07-01",
+                "event_date": "2026-07-01",
+                "publication_dates": ["2026-07-02"],
+                "earliest_same_event_date_checked": True,
+                "event_date_source_url": "https://example.com/article",
+                "event_date_source_quote": "commissioned on July 1",
+            },
+        }
+        self.assertEqual(check_date_card(card, True), [])
+
+    def test_follow_up_requires_anchor(self):
+        card = {
+            "date": "2026-07-01",
+            "related_lineage": {"relation_type": "distinct_follow_up"},
+            "date_role": {
+                "representative_date": "2026-07-01",
+                "event_date": "2026-07-01",
+                "publication_dates": ["2026-07-02"],
+                "earliest_same_event_date_checked": True,
+                "event_date_source_url": "https://example.com/article",
+                "event_date_source_quote": "event date",
+            },
+        }
+        self.assertTrue(
+            any(
+                "fresh_follow_up_anchor" in error
+                for error in check_date_card(card, True)
+            )
+        )
+
+
 class RelatedContractTest(unittest.TestCase):
     def setUp(self):
         self.parent = {"id": "2026-05-01_US_01", "date": "2026-05-01", "related": []}
@@ -120,8 +161,14 @@ class RelatedContractTest(unittest.TestCase):
         self.by_id = {self.parent["id"]: self.parent, self.child["id"]: self.child}
 
     def test_valid_follow_up(self):
+        self.child["related_lineage"]["same_event_checked"] = True
+        self.child["related_lineage"]["earliest_same_event_date_checked"] = True
         errors, _ = check_card(self.child, self.by_id, True)
         self.assertEqual(errors, [])
+
+    def test_strict_contract_requires_review_flags(self):
+        errors, _ = check_card(self.child, self.by_id, True)
+        self.assertTrue(any("same_event_checked" in error for error in errors))
 
     def test_duplicate_cannot_publish(self):
         self.child["related_lineage"]["relation_type"] = "same_event_duplicate"

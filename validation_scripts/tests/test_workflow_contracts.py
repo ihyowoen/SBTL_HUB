@@ -5,17 +5,24 @@ import json
 import sys
 import tempfile
 import unittest
+from copy import deepcopy
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from card_audit_utils import (
-    canonical_domain, canonical_url, is_landing_page, load_owner_registry, source_owner,
+    canonical_domain,
+    canonical_url,
+    is_landing_page,
+    load_owner_registry,
+    source_audit_measure,
+    source_owner,
 )
 from date_role_freshness_check import check_card as check_date_card
 from related_lifecycle_check import check_card
 from recompute_source_audit_metadata import recompute
+from run_workflow_contract_suite import validate_scope
 
 
 class AuditUtilsTest(unittest.TestCase):
@@ -63,6 +70,32 @@ class AuditUtilsTest(unittest.TestCase):
             }
             self.assertEqual(source_owner(syndicated, registry), "bloomberg_syndication")
             self.assertEqual(source_owner(independent, registry), "theedgemalaysia.com")
+
+    def test_blank_source_url_is_not_counted_as_diversity(self):
+        card = {
+            "fact_sources": [
+                {
+                    "source_url": "https://example.com/article",
+                    "evidence_role": "primary_event_evidence",
+                    "supports": ["fact"],
+                },
+                {
+                    "source_url": "",
+                    "evidence_role": "secondary_event_evidence",
+                    "supports": ["fact"],
+                },
+            ]
+        }
+        measure = source_audit_measure(card, {})
+        self.assertEqual(measure["source_evidence_entry_count"], 2)
+        self.assertEqual(measure["source_unique_url_count"], 1)
+        self.assertEqual(measure["source_unique_domain_count"], 1)
+        self.assertEqual(measure["source_independent_owner_count"], 1)
+        self.assertEqual(measure["visible_source_url_count"], 1)
+        self.assertEqual(measure["missing_visible_source_url_count"], 1)
+        self.assertNotIn("https://", measure["canonical_urls"])
+        self.assertNotIn("", measure["canonical_domains"])
+        self.assertNotIn("", measure["independent_owners"])
 
 
 class SourceAuditRecomputeTest(unittest.TestCase):
@@ -175,10 +208,71 @@ class RelatedContractTest(unittest.TestCase):
         errors, _ = check_card(self.child, self.by_id, True)
         self.assertTrue(any("may not use" in error for error in errors))
 
+    def test_non_cardable_relation_rejected_before_publish_state(self):
+        child = deepcopy(self.child)
+        child.pop("state")
+        child.pop("publish_ready")
+        child["related_lineage"]["relation_type"] = "same_event_duplicate"
+        child["related_lineage"]["same_event_checked"] = True
+        child["related_lineage"]["earliest_same_event_date_checked"] = True
+        by_id = {self.parent["id"]: self.parent, child["id"]: child}
+        errors, _ = check_card(child, by_id, True)
+        self.assertTrue(any("validated new-card output" in error for error in errors))
+
     def test_unrelated_must_not_have_related(self):
         self.child["related_lineage"]["relation_type"] = "new_unrelated_event"
         errors, _ = check_card(self.child, self.by_id, True)
         self.assertTrue(any("empty related" in error for error in errors))
+
+
+class SuiteScopeTest(unittest.TestCase):
+    def write_json(self, directory: str, name: str, payload) -> str:
+        path = Path(directory) / name
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        return str(path)
+
+    def test_scope_requires_all_requested_ids_to_exist(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cards = self.write_json(
+                tmp,
+                "cards.json",
+                {"cards": [{"id": "A"}, {"id": "B"}]},
+            )
+            ids = self.write_json(tmp, "ids.json", ["A", "MISSING"])
+            result = validate_scope(cards, ids)
+            self.assertEqual(result["status"], "FAIL")
+            self.assertEqual(result["json"]["matched_card_count"], 1)
+            self.assertEqual(result["json"]["missing_ids"], ["MISSING"])
+
+    def test_scope_rejects_zero_matches(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cards = self.write_json(tmp, "cards.json", {"cards": [{"id": "A"}]})
+            ids = self.write_json(tmp, "ids.json", ["MISSING"])
+            result = validate_scope(cards, ids)
+            self.assertEqual(result["status"], "FAIL")
+            self.assertEqual(result["json"]["matched_card_count"], 0)
+            self.assertTrue(any("zero cards" in error for error in result["json"]["errors"]))
+
+    def test_scope_rejects_empty_id_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cards = self.write_json(tmp, "cards.json", {"cards": [{"id": "A"}]})
+            ids = self.write_json(tmp, "ids.json", [])
+            result = validate_scope(cards, ids)
+            self.assertEqual(result["status"], "FAIL")
+            self.assertTrue(any("empty" in error for error in result["json"]["errors"]))
+
+    def test_scope_passes_when_all_ids_match(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cards = self.write_json(
+                tmp,
+                "cards.json",
+                {"cards": [{"id": "A"}, {"id": "B"}]},
+            )
+            ids = self.write_json(tmp, "ids.json", ["A", "B"])
+            result = validate_scope(cards, ids)
+            self.assertEqual(result["status"], "PASS")
+            self.assertEqual(result["json"]["requested_id_count"], 2)
+            self.assertEqual(result["json"]["matched_card_count"], 2)
 
 
 if __name__ == "__main__":

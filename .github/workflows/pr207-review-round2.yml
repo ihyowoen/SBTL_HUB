@@ -1,0 +1,45 @@
+name: PR 207 review round 2
+
+on:
+  push:
+    branches:
+      - agent/workflow-contract-related-source-audit
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/workflow-contract-related-source-audit
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Apply targeted review fixes
+        run: python scripts/address_pr207_review_round2.py
+
+      - name: Compile validators
+        run: python -m compileall -q validation_scripts scripts/address_pr207_review_round2.py
+
+      - name: Run unit and regression tests
+        run: python -m unittest discover -s validation_scripts/tests -v
+
+      - name: Commit generated fixes
+        run: |
+          if git diff --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add validation_scripts
+          git commit -m "fix: address PR 207 validator review findings"
+          git push origin HEAD:agent/workflow-contract-related-source-audit

@@ -345,8 +345,7 @@
     "region_policy 6권역 전면 갱신 + _meta.lastUpdated 동기(RD-4)",
     "src 필드 스키마 정합 3건(NA-024·EU-022·CN-022 문자열→[{n,u}] 배열), src 결측 5건 보정",
     "실명·구두승인 표기 38개 항목 스크럽",
-    "coverage.json 신규 6건 편입(NA-026/027/028·EU-027/028·CN-029) + CN-028 이월분 편입 — 미매핑 0, dangling 0",
-    "coverage.json 정합: 신규 6건 셀 편입(8개 매핑) + CN-028 이월 미처리분 편입 + 실검증 교집합 기준 lastSwept 33셀 갱신"
+    "coverage.json 정합: 신규 6건(NA-026·NA-027·NA-028·EU-027·EU-028·CN-029) 셀 편입 — 8개 매핑(NA-027은 trade/NA+subsidy/NA, EU-027은 product_std/EU+recycle/EU 양축). CN-028 이월 미처리분 subsidy/CN 편입. 원장 itemsCovered와 교집합이 있는 32셀에 lastSwept=2026-07-27 기록(gap 셀은 신규발굴 미실시로 미갱신). 결과 미매핑 0 · dangling 0"
   ],
   "newItems": [
     "NA-026",
@@ -399,8 +398,7 @@
     "NA-003 제목의 (D+3) 표기 제거 — 동일하게 출처 불명, 검증기 #1 규약에는 부합",
     "선존 status↔effectiveDate 모순 2건: EU-022(UPCOMING인데 발효일 2024-12-13), CN-002(ACTIVE인데 effectiveDate가 만료일)",
     "CN-027 src 결측 — 工信部 공고 1차 출처 미확인으로 보정 보류",
-    "EU-020(CBAM 정식단계)이 trade/EU에 배치돼 있으나 축 정의상 carbon 해당 — EU-028은 양 셀 병행 등재, EU-020 재배치 여부 승인 대기",
-    "EU-028 축 귀속 — EU-020 선례로 trade/EU에 배정했으나 carbon 축 scope에 'CBAM' 명시. EU-020 재분류 여부와 함께 결정 필요(단독 재분류 보류)"
+    "CBAM 축 귀속 — carbon 축 scope에 'CBAM'이 명시돼 있으나 EU-020(정식단계)은 trade/EU에 배치돼 있음. EU-028은 그 선례를 따라 **trade/EU 단일 등재**(carbon/EU 병행 등재 아님). EU-020 재배치 여부와 EU-028 병행 등재 여부를 함께 결정 필요 — 단독 재분류 보류"
   ],
   "carryOver": [
     "EU-012 실사 가이드라인 공표 여부 — 법정기한 경과 상태, 차기 최우선",
@@ -417,7 +415,8 @@
     "lastChecked를 기계적 갱신(D-day 롤오버·스크럽)에도 일괄로 찍으면 실검색 미명중 항목이 검증된 것으로 오표기됨 — verify.method로 search/mechanical 분리가 필수",
     "항목의 성격을 전환(NA-021 對中→강제노동, NA-003 ACTIVE→DONE, GL-003 03→05시리즈)할 때 t·d·dt만 고치고 tip·detail·src·effectiveDate를 남기면 한 카드에 두 개의 상충 서술이 공존 — 성격 전환은 카드 전 필드 동시 갱신을 원칙으로",
     "미채택 제안을 신규 항목으로 분리할 때 원 항목의 서사를 제거하지 않으면 정본 2개가 생겨 드리프트(EU-020/EU-028) — 분리는 이관과 삭제를 한 쌍으로",
-    "coverage 미매핑은 검증기가 WARN으로만 잡아 넘어가기 쉬우나, 미매핑 항목은 어느 셀에도 안 잡혀 요일 로테이션에서 영구 누락됨 — 신규 항목 생성과 셀 편입을 한 커밋으로 고정할 것. CN-028은 7/23 pendingDecisions에 등록되고도 4일간 미처리였음"
+    "coverage 미매핑은 검증기가 WARN으로만 잡아 넘어가기 쉬우나, 미매핑 항목은 어느 셀에도 안 잡혀 요일 로테이션에서 영구 누락됨 — 신규 항목 생성과 셀 편입을 한 커밋으로 고정할 것. CN-028은 7/23 pendingDecisions에 등록되고도 4일간 미처리였음",
+    "원장 서술 자체도 데이터와 대조해야 함 — 본 원장에 (a) coverage 관련 changes 2줄 중복, (b) lastSwept '33셀'(실제 32셀) 오기, (c) 'EU-028 양 셀 병행 등재'라는 사실과 다른 pendingDecisions 서술이 있었고 PR#210 검수에서 적발. 원장은 검증 스탬프의 근거이므로 수치·배치 서술은 산출 데이터에서 도출하고 하드코딩하지 말 것"
   ],
   "verifyCounts": {
     "total": 122,

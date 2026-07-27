@@ -1,0 +1,30 @@
+name: PR213 Address Review
+
+on:
+  push:
+    branches:
+      - ihyowoen-patch-58
+    paths:
+      - .github/workflows/pr213-address-review.yml
+
+permissions:
+  contents: write
+
+jobs:
+  consolidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ihyowoen-patch-58
+          fetch-depth: 0
+      - name: Apply and validate duplicate consolidation
+        run: python scripts/pr213_address_review.py
+      - name: Commit updated cards.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/cards.json
+          git diff --cached --quiet && { echo "No cards.json change produced"; exit 1; }
+          git commit -m "Consolidate duplicate card events"
+          git push origin HEAD:ihyowoen-patch-58

@@ -1,0 +1,397 @@
+{
+  "runId": "2026-07-27-RD",
+  "date": "2026-07-27",
+  "type": "RD",
+  "summary": "일일 RD 전권역 Enhanced Red Team 스윕 — 34개 클러스터 실검색 + 1차 문서 1건으로 61/122 항목 당일 실검증. 경계 확정 2건(Section 122 만료·강제노동 301 발효), 정정 1건(R100 열전파 계열 03→05), 신규 6건. PR#209 Codex 리뷰 P1 6건 대응 반영.",
+  "partial": true,
+  "partialReason": "122항목 중 실검색 명중 61건(verify.method=search). 36건은 D-day 롤오버·표기 스크럽·스키마 정합 등 기계적 갱신만 적용돼 verify.method=mechanical로 스탬프 — 규제 사실관계 재검증 아님. 나머지 25건은 당일 미명중으로 이전 검증일 유지. 전수 완주에는 클러스터 약 28~30개 필요(클러스터당 평균 1.8항목). 또한 RD-3(커버리지 셀 신규발굴)은 미실시 — 본 run의 검색은 전부 항목 종속(RD-2)이며 셀 사전정의 쿼리를 돌리지 않았음. 신규 6건도 RD-2 중 부수 발견이지 셀 스윕 산물이 아님. 따라서 lastSwept 무갱신·coverageCells 빈 배열.",
+  "searches": [
+    {
+      "query": "Section 122 tariff expired July 24 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-003",
+        "NA-021"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "USTR Section 301 final determination 12.5% duties July 24 2026 Korea",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-021",
+        "NA-003",
+        "NA-017"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "Trump Section 338 tariffs Canada proclamation July 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-026",
+        "NA-014"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "Section 232 aluminum derivative products inclusion July 2026 Federal Register new HTS",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-017",
+        "NA-022"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "Section 232 incentive program July 2026 tariff offset domestic investment aluminum steel",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-027",
+        "NA-017"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "Section 232 critical minerals Proclamation 11001 tariff July 2026 decision",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-015"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "USMCA joint review third bilateral round Mexico City July 2026 Greer",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-014"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "Treasury FEOC safe harbor table guidance 45X material assistance cost ratio July 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-001",
+        "NA-002",
+        "NA-009"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "antidumping countervailing duty battery materials aluminum foil July 2026 Commerce",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-024"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "EU battery regulation 18 August 2026 delegated act labelling carbon footprint recycled content",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-001",
+        "EU-009",
+        "EU-011",
+        "EU-014",
+        "EU-018",
+        "EU-019"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "PPWR Regulation 2025/40 12 August 2026 application implementing acts status July 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-026"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "EU Environmental Omnibus 2026 packaging battery regulation simplification Council mandate",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-027",
+        "EU-016"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "ELV Regulation circularity vehicles Official Journal published 2026 recycled aluminium steel",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-024"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "end-of-life vehicles Regulation EU 2026 Official Journal publication date entry into force",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-024"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "CBAM definitive period 2026 aluminium downstream extension regulation July 2026 adopted",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-020",
+        "EU-028"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "ECHA PFAS universal restriction SEAC opinion fluoropolymers July 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-025"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "Battery Booster Facility call for proposals launched July 2026 Innovation Fund",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-006",
+        "EU-003"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "Basel Convention black mass listing 2025 2026 hazardous waste battery entry into force",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-013",
+        "GL-002"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "EU Batteries Regulation due diligence guidelines Commission published July 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-012",
+        "EU-015"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "锂电池 消费税 2026年 公告 第20号 9月1日 实施 细则",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-028"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "锂电池 石墨 出口管制 公告 2026年7月 商务部 许可",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-014",
+        "CN-004"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "2026年7月 工信部 动力电池 新政策 标准 发布 锂电池 行业规范",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-019",
+        "CN-024",
+        "CN-029",
+        "CN-006"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "GB/T 固态电池 术语和分类 国家标准 发布 2026 实施日期",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-012"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "2026年7月 新能源汽车 动力电池 十五五 规划 反内卷 政策 发布",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-003",
+        "CN-015",
+        "CN-001",
+        "CN-005"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "사용후배터리법 시행령 제정 입법예고 2026년 7월 산업통상자원부",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-017",
+        "KR-005",
+        "KR-009"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "2026년 하반기 경제성장전략 배터리 생산세액공제 7월 발표",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-003",
+        "KR-008"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "2026년 세제개편안 발표 국내생산세액공제 이차전지 조세특례",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-003",
+        "KR-008"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "2026년 7월 배터리 이차전지 고시 시행 규제 산업통상부 기후에너지환경부 제정",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-018",
+        "KR-023"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "희토류 핵심광물 공급망 대책 2026년 7월 한국 광해광업공단법 개정 재자원화",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-016",
+        "KR-015"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "GX-ETS 2026年 排出枠 割当 届出 9月30日 義務化 進捗",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-008",
+        "JP-006",
+        "JP-013"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "2026年7月 経済産業省 蓄電池 リチウムイオン電池 リサイクル 再資源化 制度",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-005",
+        "JP-014"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "経済産業省 2026年7月 電池 蓄電池 政策 発表 認定 補助金",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-002",
+        "JP-010"
+      ],
+      "result": "no-change"
+    },
+    {
+      "query": "UN R100.03 GTR20 thermal propagation 2026 EU implementation ICAO lithium battery transport",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-003",
+        "GL-001"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "\"UN Regulation No. 100\" \"05 series\" thermal propagation entry into force September 2025",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-003"
+      ],
+      "result": "change"
+    }
+  ],
+  "primaryDocs": [
+    {
+      "title": "USTR — Takes Action in Forced Labor Section 301 Investigations (2026.07.23)",
+      "url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations",
+      "itemsCovered": [
+        "NA-021",
+        "NA-003"
+      ],
+      "note": "세율 3계층·net of MFN 상한국(한국 12.5%)·제외 사유 원문 확인"
+    }
+  ],
+  "changes": [
+    "NA-003 Section 122 2026.07.24 12:01 ET 법정 만료 확정 — ACTIVE→DONE. 기징수분 환급은 CAFC State of Oregon v. Trump 계류",
+    "NA-021 강제노동 Section 301 60개 경제 2026.07.24 발효 — 한국 12.5% net of MFN 상한, Section 232 대상품 명시 제외로 301 비중첩 확정",
+    "NA-017 232-301 비중첩 확정 반영 — 파우치필름 7607(232 50%) vs 3921(301 12.5%) 격차 37.5%p 고착",
+    "NA-014 USMCA 3차 양자협상 2026.07.21~23 멕시코시티 종료 — 철강·알루미늄 파생품 의제 포함",
+    "EU-009/014/019 2026.08.18 기일의 조건부성 명시 — 이행·위임행위 미채택으로 실질 이연(자동 개시 아님)",
+    "EU-012 실사 가이드라인 공표 법정기한 2026.07.26 경과·공표 미확인 — 경계 기록",
+    "EU-020 하류 확장 서사를 EU-028로 이관, 정식 단계 발효분으로 축소 — 검증기 #4 경고 해소",
+    "EU-024 EP 본회의 2026.06.18(437-112-20)·이사회 2026.06.29 채택 확정, OJ 공표 미확인",
+    "EU-026 Commission Notice C/2026/3084(OJ 2026.06.10)·독일 VerpackDG·授權代理人 요건 유지 반영",
+    "CN-012 GB/T 43568-2026 2026.07.01 시행 확정 — 액체전해질 >20%/5~20%/<5% + 실중률 ≤0.5%",
+    "CN-028 과세대상 5종 확인·光伏电池 별도일정(2027.04.01)·제5조 원료 세액공제·CMA 검사보고서 요건 보강",
+    "KR-003/008 국내생산세액공제 공식화(2026.07.14 하반기 경제성장전략) — 미제정 유지",
+    "GL-003 열전파 요건 시리즈 정정 R100.03→05시리즈, d·tip·detail 전면 재작성",
+    "GL-001 ICAO TI 2025-26 SoC ≤30% 및 UN3551 나트륨이온 Class 9 편입 반영",
+    "D-day 전면 롤오버 32건(RD-0) — 7/23→7/27 이월 누락 정정",
+    "region_policy 6권역 전면 갱신 + _meta.lastUpdated 동기(RD-4)",
+    "src 필드 스키마 정합 3건(NA-024·EU-022·CN-022 문자열→[{n,u}] 배열), src 결측 5건 보정",
+    "실명·구두승인 표기 38개 항목 스크럽",
+    "coverage.json 정합: 신규 6건(NA-026·NA-027·NA-028·EU-027·EU-028·CN-029) 셀 편입 — 8개 매핑(NA-027은 trade/NA+subsidy/NA, EU-027은 product_std/EU+recycle/EU 양축). CN-028 이월 미처리분 subsidy/CN 편입. 결과 미매핑 0 · dangling 0. **lastSwept·coverageCells는 갱신하지 않음 — 본 run은 RD-3 미실시**"
+  ],
+  "newItems": [
+    "NA-026",
+    "NA-027",
+    "NA-028",
+    "EU-027",
+    "EU-028",
+    "CN-029"
+  ],
+  "dedups": [
+    "EU-020 → EU-028 (CBAM 하류 확장 서사 이관)",
+    "NA-021 → NA-028 (對中 4년 리뷰 페이로드 이관)"
+  ],
+  "coverageCells": [],
+  "pendingDecisions": [
+    "NA-027 status UPCOMING→ACTIVE 변경 — 세션 외 편집으로 출처 불명. 내용은 타당(UPCOMING+과거 effectiveDate 모순, NA-015 선례)하나 승인 확인 필요",
+    "NA-003 제목의 (D+3) 표기 제거 — 동일하게 출처 불명, 검증기 #1 규약에는 부합",
+    "선존 status↔effectiveDate 모순 2건: EU-022(UPCOMING인데 발효일 2024-12-13), CN-002(ACTIVE인데 effectiveDate가 만료일)",
+    "CN-027 src 결측 — 工信部 공고 1차 출처 미확인으로 보정 보류",
+    "CBAM 축 귀속 — carbon 축 scope에 'CBAM'이 명시돼 있으나 EU-020(정식단계)은 trade/EU에 배치돼 있음. EU-028은 그 선례를 따라 **trade/EU 단일 등재**(carbon/EU 병행 등재 아님). EU-020 재배치 여부와 EU-028 병행 등재 여부를 함께 결정 필요 — 단독 재분류 보류"
+  ],
+  "carryOver": [
+    "**RD-3 미실시 — 2026-07-27(월) 슬라이스 trade+subsidy 전 권역 미수행.** 특히 gap 셀 trade/JP·trade/GL의 사전정의 쿼리 미실행. 차기 run 최우선 보충",
+    "EU-012 실사 가이드라인 공표 여부 — 법정기한 경과 상태, 차기 최우선",
+    "EU-028 CBAM 하류 확장 확정 CN 코드 목록 — SBTL 포섭 판단의 결정 트리거",
+    "NA-026 Section 338 캐나다 2026.08.19 발효 여부 — 협상 결과에 따른 조정·철회 가능성",
+    "NA-028 이관 내용 1차 출처 재검증 — 2026.08.22 List 2 continuation 마감 전",
+    "과잉생산 Section 301(16국, 한국 포함) 결정 공표 여부",
+    "《新能源汽车运行安全性能检验规程》 표준번호 확인 후 항목화 검토(2026.03.01 시행, SOH≥70%)",
+    "GL-003 (EU)2019/2144 부속서 R100 05 갱신 위임규칙 공표 확인",
+    "미검증 25건(이전 검증일 유지) + 기계적 갱신 36건 — 차기 사이클 클러스터 배분 시 우선 배치",
+    "lastSwept=null 유지 셀 7개(subsidy/EU·product_std/EU·supply_chain/GL·waste_ship/GL·data_dpp/KR·energy_market/CN·energy_market/KR) — 최초 스윕 이력 없음, 일요일 강제 보충 대상"
+  ],
+  "lessons": [
+    "7/23 원장 lessons에 '원장은 verify 스탬프의 유일한 근거이므로 tracker와 같은 시점에 커밋'이 이미 기록돼 있었음에도 7/27에 원장 없이 데이터만 갱신 — 동일 실패 반복. 원장 작성을 데이터 편집의 선행 단계로 고정할 것",
+    "lastChecked를 기계적 갱신(D-day 롤오버·스크럽)에도 일괄로 찍으면 실검색 미명중 항목이 검증된 것으로 오표기됨 — verify.method로 search/mechanical 분리가 필수",
+    "항목의 성격을 전환(NA-021 對中→강제노동, NA-003 ACTIVE→DONE, GL-003 03→05시리즈)할 때 t·d·dt만 고치고 tip·detail·src·effectiveDate를 남기면 한 카드에 두 개의 상충 서술이 공존 — 성격 전환은 카드 전 필드 동시 갱신을 원칙으로",
+    "미채택 제안을 신규 항목으로 분리할 때 원 항목의 서사를 제거하지 않으면 정본 2개가 생겨 드리프트(EU-020/EU-028) — 분리는 이관과 삭제를 한 쌍으로",
+    "coverage 미매핑은 검증기가 WARN으로만 잡아 넘어가기 쉬우나, 미매핑 항목은 어느 셀에도 안 잡혀 요일 로테이션에서 영구 누락됨 — 신규 항목 생성과 셀 편입을 한 커밋으로 고정할 것. CN-028은 7/23 pendingDecisions에 등록되고도 4일간 미처리였음",
+    "원장 서술 자체도 데이터와 대조해야 함 — 본 원장에 (a) coverage 관련 changes 2줄 중복, (b) lastSwept '33셀'(실제 32셀) 오기, (c) 'EU-028 양 셀 병행 등재'라는 사실과 다른 pendingDecisions 서술이 있었고 PR#210 검수에서 적발. 원장은 검증 스탬프의 근거이므로 수치·배치 서술은 산출 데이터에서 도출하고 하드코딩하지 말 것",
+    "coverage의 lastSwept·coverageCells는 RD-3(셀 사전정의 쿼리 기반 신규발굴) 전용 필드다. RD-2 항목검증이 그 셀의 items와 겹친다는 이유로 갱신하면 미스윕 셀이 신선함으로 위장돼 주간 발굴 스캔이 미뤄지고, F7(검색축이 기존 항목에 종속되어 ELV·PFAS·PPWR 누락)이 그대로 재발한다. PR#210에서 32셀(그중 sweepDay 위반 24셀, 최초 스윕 이력 없는 셀 7개)을 잘못 갱신했다가 적발·원복. '항목을 검증했다'와 '셀을 훑었다'는 다른 사건이며, 후자만 이 필드를 움직인다"
+  ],
+  "verifyCounts": {
+    "total": 122,
+    "search": 61,
+    "mechanical": 36,
+    "unchangedDate": 25
+  }
+}

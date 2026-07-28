@@ -24,6 +24,8 @@ const MIN_CARDS = 1000;
 const BROKEN_RELATED_MAX = 14; // 2026-04 레거시 동결분
 const ID_DATE_MISMATCH_MAX = 3; // 레거시 리데이팅(ID 불변) 흔적 동결분
 const SIGNALS = new Set(["top", "high", "mid", "info"]);
+// 앱 피드의 지역 칩(App.jsx regions)과 카드 스키마 문서가 인정하는 코드
+const REGIONS = new Set(["KR", "US", "NA", "CN", "EU", "JP", "GL"]);
 const ISO_RE = /^\d{4}-\d{2}-\d{2}$/;
 const ID_DATE_RE = /^(\d{4}-\d{2}-\d{2})_/;
 
@@ -78,7 +80,7 @@ const isNew = (c) => (baseIds ? !baseIds.has(c.id) : false);
 
 // ---- 2) id·필수 필드 ----
 const ids = new Set();
-let dupIds = 0, missingReq = 0, badDate = 0, badSignalNew = 0, badType = 0;
+let dupIds = 0, missingReq = 0, badDate = 0, badSignalNew = 0, badType = 0, badRegionNew = 0;
 const REQUIRED = ["id", "date", "title", "region", "signal", "gate", "fact", "urls", "implication"];
 const ARRAY_FIELDS = new Set(["urls", "implication"]);
 for (const c of cards) {
@@ -106,6 +108,10 @@ for (const c of cards) {
   if (!isRealDate(c.date)) { badDate++; if (badDate <= 3) E(`${c.id}: date가 실제 달력 날짜가 아님 "${c.date}"`); }
   const sig = String(c.signal || "").toLowerCase();
   if (!SIGNALS.has(sig) && isNew(c)) { badSignalNew++; W(`${c.id}: 신규 카드 signal 미등록 값 "${c.signal}"`); }
+  // 피드 지역 필터는 (c.r || c.region) === filter 완전일치라(App.jsx), 목록에 없는 코드는
+  // 어떤 지역 뷰에도 안 잡힌다. 신규만 강제 — 레거시 복합 표기("US/KR" 등 7장)는 이미
+  // 그 상태로 굳었고 여기서 되돌릴 수 없다(아래 요약에서 별도 경고)
+  if (isNew(c) && !REGIONS.has(String(c.region || ""))) { badRegionNew++; E(`신규 카드 region 미등록 값 "${c.region}": ${c.id} — 허용 ${[...REGIONS].join("|")}`); }
 }
 if (missingReq > 5) E(`…필수 필드 누락 총 ${missingReq}건`);
 
@@ -113,8 +119,16 @@ if (missingReq > 5) E(`…필수 필드 누락 총 ${missingReq}건`);
 // 숫자 상한만 쓰면 레거시 카드가 깨진 대상을 다른 없는 id로 바꿔도, 하나를 고치고
 // 다른 곳에 새로 만들어도 총계가 그대로라 통과한다(Codex #220 R3). 기준본의 (카드id→대상id)
 // 쌍 집합에 없는 깨진 엣지는 전부 신규 결함으로 본다.
-let broken = 0, brokenNew = 0, selfRef = 0;
+let broken = 0, brokenNew = 0, selfRef = 0, badRelShape = 0;
 for (const c of cards) {
+  // related가 문자열·객체로 오면 Array.isArray 폴백이 조용히 빈 목록으로 만든다 — 앱의
+  // 소비부도 같은 폴백이라(buildCardConsultContext resolveExplicitRelated) 큐레이션한
+  // 링크가 검증 실패 없이 증발한다
+  if (c.related !== undefined && c.related !== null && !Array.isArray(c.related)) {
+    badRelShape++;
+    E(`${c.id}: related 타입 위반 — 배열 필요, 실제 ${typeof c.related}`);
+    continue;
+  }
   const rel = Array.isArray(c.related) ? c.related : [];
   for (const r of rel) {
     if (r === c.id) { selfRef++; E(`${c.id}: related가 자기 자신을 가리킴`); }
@@ -148,6 +162,9 @@ for (const c of cards) {
 if (idDateMis > ID_DATE_MISMATCH_MAX) E(`id접두≠date ${idDateMis}건 > 동결 기준선 ${ID_DATE_MISMATCH_MAX}`);
 
 // ---- 5) 정보성 지표 (막지 않음) — lean export 전까지 관측만 ----
+// 목록 밖 region을 가진 레거시 카드는 피드 지역 필터(완전일치)에서 어느 칩에도 안 잡힌다
+const ghostRegion = cards.filter((c) => !REGIONS.has(String(c.region || "")));
+if (ghostRegion.length) W(`피드 지역 필터에 안 잡히는 레거시 region ${ghostRegion.length}장(${[...new Set(ghostRegion.map((c) => c.region))].join(", ")}) — 신규는 차단되나 기존분은 별도 정리 필요`);
 const fieldCounts = cards.map((c) => Object.keys(c).length);
 const maxFields = Math.max(...fieldCounts);
 const over20 = fieldCounts.filter((n) => n > 20).length;

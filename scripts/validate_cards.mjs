@@ -32,6 +32,15 @@ const warns = [];
 const E = (m) => errors.push(m);
 const W = (m) => warns.push(m);
 
+// 자리수만 맞는 가짜 날짜(2026-99-99)는 앱의 사전식 최신 비교(App.jsx latestFirst)에서
+// 모든 정상 카드보다 새 것으로 취급돼 날짜 그룹을 오염시킨다 — 왕복 대조로 실재 확인
+function isRealDate(s) {
+  const v = String(s || "");
+  if (!ISO_RE.test(v)) return false;
+  const d = new Date(v + "T00:00:00Z");
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === v;
+}
+
 // ---- 0) 파싱·크기 ----
 if (!existsSync(CARDS_PATH)) { console.error(`FAIL: ${CARDS_PATH} 없음`); process.exit(1); }
 const bytes = statSync(CARDS_PATH).size;
@@ -41,9 +50,12 @@ try { doc = JSON.parse(readFileSync(CARDS_PATH, "utf8")); }
 catch (e) { console.error(`FAIL: JSON 파싱 실패 — ${e.message}`); process.exit(1); }
 const cards = Array.isArray(doc.cards) ? doc.cards : null;
 if (!cards) { console.error("FAIL: cards 배열 없음"); process.exit(1); }
-// total은 존재·수치·정합 셋 다 강제 — 없으면 merge-cards.yml의 d['total'] 직독이 깨진다
+// total·updated는 merge-cards.yml이 d['total']·d['updated']로 직독한다 — 없으면 다음
+// 페이로드 병합이 merge_cards.py 도달 전에 KeyError로 죽는다
 if (!Number.isFinite(doc.total)) E(`total 필드 없음/비수치(${JSON.stringify(doc.total)})`);
 else if (doc.total !== cards.length) E(`total(${doc.total}) ≠ cards.length(${cards.length})`);
+if (typeof doc.updated !== "string" || !doc.updated.trim()) E(`updated 필드 없음/비문자열(${JSON.stringify(doc.updated)})`);
+else if (Number.isNaN(Date.parse(doc.updated))) E(`updated 파싱 불가: "${doc.updated}"`);
 
 // ---- 1) 기준본(있으면) — 수량 감소·신규 카드 판별 ----
 // PR에선 origin/main의 파일이 기준본. push(main)에선 기준본==현재라 자동 무시.
@@ -73,7 +85,7 @@ for (const c of cards) {
     const empty = v === undefined || v === null || v === "" || (Array.isArray(v) && v.length === 0);
     if (empty) { missingReq++; if (missingReq <= 5) E(`${c.id || "(id없음)"}: 필수 필드 ${k} 비어있음`); }
   }
-  if (!ISO_RE.test(String(c.date || ""))) { badDate++; if (badDate <= 3) E(`${c.id}: date 형식 위반 "${c.date}"`); }
+  if (!isRealDate(c.date)) { badDate++; if (badDate <= 3) E(`${c.id}: date가 실제 달력 날짜가 아님 "${c.date}"`); }
   const sig = String(c.signal || "").toLowerCase();
   if (!SIGNALS.has(sig) && isNew(c)) { badSignalNew++; W(`${c.id}: 신규 카드 signal 미등록 값 "${c.signal}"`); }
 }

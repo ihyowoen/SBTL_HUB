@@ -3,18 +3,25 @@ name: validate-tracker
 # Gates any change to tracker data / region policy. Blocks merge on structural errors
 # (dup id, bad status/region, banned emoji, dangling canonicalId, broken JSON).
 # Migration WARNINGs (missing effectiveDate / instrumentType / accessedDate) do NOT block.
+#
+# cards.json 게이트(validate_cards.mjs): 카드 PR이 무검사로 머지되던 위장 통과를
+# 차단한다 — 파싱·크기 하한·수량 감소·중복 id·필수 필드·깨진 related(신규 무관용,
+# 레거시 동결)·id접두↔date. fetch-depth 0은 origin/main 기준본 비교(수량 감소·신규
+# 카드 판별)에 필요하다.
 
 on:
   pull_request:
     paths:
       - "public/data/**"
       - "scripts/validate.mjs"
+      - "scripts/validate_cards.mjs"
       - ".github/workflows/validate-tracker.yml"
   push:
     branches: [main]
     paths:
       - "public/data/**"
       - "scripts/validate.mjs"
+      - "scripts/validate_cards.mjs"
   workflow_dispatch: {}
 
 jobs:
@@ -22,8 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
       - name: Validate tracker data
         run: node scripts/validate.mjs
+      - name: Validate cards data
+        run: node scripts/validate_cards.mjs

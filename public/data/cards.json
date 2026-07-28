@@ -322,9 +322,10 @@
         "factual_anchor": "noncontact nondestructive validation over 50 to 150 micrometers",
         "event_date": "2026-07-23",
         "source_url_cluster": [
-          "https:etnews.com/20260723000099",
-          "https:news.kaist.ac.kr/newsen/html/news?language=en&mng_no=20260723&mode=V",
-          "https:news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V"
+          "https://news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V",
+          "https://news.kaist.ac.kr/newsen/html/news?language=en&mng_no=20260723&mode=V",
+          "https://nature.com/articles/s41467-026-74193-8",
+          "https://yna.co.kr/view/AKR20260723072600063"
         ]
       },
       "duplicate_screening": {
@@ -467,9 +468,7 @@
       "source_independent_owner_count": 3,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -477,104 +476,70 @@
         "source_unique_url_count": 4,
         "source_unique_domain_count": 3,
         "source_independent_owner_count": 3,
-        "visible_source_url_count": 5,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 4,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://nature.com/articles/s41467-026-74193-8",
+          "https://news.kaist.ac.kr/newsen/html/news?language=en&mng_no=20260723&mode=V",
+          "https://news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V",
+          "https://yna.co.kr/view/AKR20260723072600063"
+        ],
+        "canonical_domains": [
+          "nature.com",
+          "news.kaist.ac.kr",
+          "yna.co.kr"
+        ],
+        "independent_owners": [
+          "nature.com",
+          "news.kaist.ac.kr",
+          "yna.co.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 4,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
-            "source_url": "https://news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V",
-            "source_urls_grouped": [
-              "https://news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V"
-            ],
+            "source_url": "https://nature.com/articles/s41467-026-74193-8",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=2; owners=nature.com",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://news.kaist.ac.kr/newsen/html/news?language=en&mng_no=20260723&mode=V",
-            "source_urls_grouped": [
-              "https://news.kaist.ac.kr/newsen/html/news?language=en&mng_no=20260723&mode=V"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=news.kaist.ac.kr",
+            "source_url_propagation_performed": false
           },
           {
-            "source_url": "https://nature.com/articles/s41467-026-74193-8",
-            "source_urls_grouped": [
-              "https://nature.com/articles/s41467-026-74193-8"
-            ],
+            "source_url": "https://news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=2",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=news.kaist.ac.kr",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://yna.co.kr/view/AKR20260723072600063",
-            "source_urls_grouped": [
-              "https://yna.co.kr/view/AKR20260723072600063"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=3",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=3; owners=yna.co.kr",
+            "source_url_propagation_performed": false
           }
         ]
       },
       "source_discovery_ledger": [
-        {
-          "source_url": "https://news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V",
-          "canonical_url": "https://news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V",
-          "source_name": "KAIST",
-          "source_owner": "news.kaist.ac.kr",
-          "source_domain": "news.kaist.ac.kr",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "연구진은 전극 두께를 비접촉·비파괴 방식으로 측정했다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "academic_or_research_institution"
-        },
-        {
-          "source_url": "https://news.kaist.ac.kr/newsen/html/news?language=en&mng_no=20260723&mode=V",
-          "canonical_url": "https://news.kaist.ac.kr/newsen/html/news?language=en&mng_no=20260723&mode=V",
-          "source_name": "KAIST News English",
-          "source_owner": "news.kaist.ac.kr",
-          "source_domain": "news.kaist.ac.kr",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "측정은 50~150μm 전극에서 검증됐다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "academic_or_research_institution"
-        },
         {
           "source_url": "https://nature.com/articles/s41467-026-74193-8",
           "canonical_url": "https://nature.com/articles/s41467-026-74193-8",
           "source_name": "Nature Communications",
           "source_owner": "nature.com",
           "source_domain": "nature.com",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "원 논문은 배터리 전극 두께 측정을 위한 나노미터 정밀 테라헤르츠 간섭계를 제시했다.",
           "visible_supports": [
@@ -583,9 +548,39 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "original_peer_reviewed_research"
+          ]
+        },
+        {
+          "source_url": "https://news.kaist.ac.kr/newsen/html/news?language=en&mng_no=20260723&mode=V",
+          "canonical_url": "https://news.kaist.ac.kr/newsen/html/news?language=en&mng_no=20260723&mode=V",
+          "source_name": "KAIST News English",
+          "source_owner": "news.kaist.ac.kr",
+          "source_domain": "news.kaist.ac.kr",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "측정은 50~150μm 전극에서 검증됐다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
+        },
+        {
+          "source_url": "https://news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V",
+          "canonical_url": "https://news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V",
+          "source_name": "KAIST",
+          "source_owner": "news.kaist.ac.kr",
+          "source_domain": "news.kaist.ac.kr",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "연구진은 전극 두께를 비접촉·비파괴 방식으로 측정했다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
         },
         {
           "source_url": "https://yna.co.kr/view/AKR20260723072600063",
@@ -593,16 +588,13 @@
           "source_name": "연합뉴스",
           "source_owner": "yna.co.kr",
           "source_domain": "yna.co.kr",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "연구팀은 50~150마이크로미터 전극으로 기술을 검증했다.",
           "visible_supports": [
             "fact",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -650,6 +642,43 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "initial_12"
+      },
+      "date_role": {
+        "representative_date": "2026-07-23",
+        "event_date": "2026-07-23",
+        "publication_dates": [
+          "2026-06-10",
+          "2026-07-23"
+        ],
+        "event_date_source_url": "https://news.kaist.ac.kr/newsen/html/news?mng_no=20260723&mode=V",
+        "event_date_source_quote": "non-contact and non-destructive measurement of battery electrode thickness",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -838,24 +867,8 @@
         "factual_anchor": "policy-finance support coordination meeting",
         "event_date": "2026-07-23",
         "source_url_cluster": [
-          "https:ajunews.com/view/20260723104243660",
-          "https:dailian.co.kr/news/view/1669965/%EC%B2%A8%EB%8B%A8%EC%82%B0%EC%97%85-%EC%9B%90%EB%A3%8C-%ED%95%B5%EC%8B%AC%EA%B4%91%EB%AC%BC-%EA%B3%B5%EA%B8%89%EB%A7%9D-%EC%B4%9D%EB%A0%A5-2026",
-          "https:ebn.co.kr/news/articleView.html?idxno=1717471",
-          "https:edaily.co.kr/News/Read?mediaCodeNo=257&newsId=03775286645517472",
-          "https:energy-news.co.kr/news/articleView.html?idxno=226996",
-          "https:fsc.go.kr/no010101/87397",
-          "https:go.seoul.co.kr/news/prnewsView.php?id=438764",
-          "https:metroseoul.co.kr/article/20260723500080",
-          "https:mobile.newsis.com/view_amp.html?ar_id=NISX20260723_0003719985",
-          "https:mt.co.kr/amp/economy/2026/07/23/2026072310081556832",
-          "https:news.einfomax.co.kr/news/articleViewAmp.html?idxno=4426410",
-          "https:news.nate.com/view/20260723n13141",
-          "https:news.nate.com/view/20260723n13207",
-          "https:news.nate.com/view/20260723n13500?mid=n1101",
-          "https:news1.kr/economy/trend/6236279",
-          "https:newsis.com/view/NISX20260723_0003719985",
-          "https:v.daum.net/v/20260723111809431",
-          "https:yna.co.kr/view/AKR20260723075000003"
+          "https://fsc.go.kr/no010101/87397",
+          "https://yna.co.kr/view/AKR20260723075000003"
         ]
       },
       "duplicate_screening": {
@@ -928,9 +941,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -938,35 +949,42 @@
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
-        "visible_source_url_count": 18,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://fsc.go.kr/no010101/87397",
+          "https://yna.co.kr/view/AKR20260723075000003"
+        ],
+        "canonical_domains": [
+          "fsc.go.kr",
+          "yna.co.kr"
+        ],
+        "independent_owners": [
+          "fsc.go.kr",
+          "yna.co.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
             "source_url": "https://fsc.go.kr/no010101/87397",
-            "source_urls_grouped": [
-              "https://fsc.go.kr/no010101/87397"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=fsc.go.kr",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://yna.co.kr/view/AKR20260723075000003",
-            "source_urls_grouped": [
-              "https://yna.co.kr/view/AKR20260723075000003"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=yna.co.kr",
+            "source_url_propagation_performed": false
           }
         ]
       },
@@ -977,7 +995,6 @@
           "source_name": "금융위원회",
           "source_owner": "fsc.go.kr",
           "source_domain": "fsc.go.kr",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "정부는 핵심광물 개발·가공·재자원화에 정책금융을 연계한다.",
           "visible_supports": [
@@ -986,9 +1003,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "government_or_regulator_official"
+          ]
         },
         {
           "source_url": "https://yna.co.kr/view/AKR20260723075000003",
@@ -996,7 +1011,6 @@
           "source_name": "연합뉴스",
           "source_owner": "yna.co.kr",
           "source_domain": "yna.co.kr",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "지원범위는 해외개발과 국내 가공·재자원화를 포함한다.",
           "visible_supports": [
@@ -1005,9 +1019,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -1104,6 +1116,42 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "post_0_5R_supplemental"
+      },
+      "date_role": {
+        "representative_date": "2026-07-23",
+        "event_date": "2026-07-23",
+        "publication_dates": [
+          "2026-07-23"
+        ],
+        "event_date_source_url": "https://fsc.go.kr/no010101/87397",
+        "event_date_source_quote": "7.23일 핵심광물 공급망 강화 금융지원 협력회의를 개최하고 국민성장펀드 등 정책금융을 활용하여 적극 지원",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -1393,8 +1441,9 @@
         "factual_anchor": "China supply up about 70 percent and North America expansion preparation",
         "event_date": "2026-07-23",
         "source_url_cluster": [
-          "https:edaily.co.kr/News/Read?newsId=202607231010",
-          "https:view.asiae.co.kr/article/2026072310010083430"
+          "https://view.asiae.co.kr/article/2026072310010083430",
+          "https://edaily.co.kr/News/Read?newsId=202607231010",
+          "https://thebell.co.kr/m/newsview.asp?newskey=202607231539240640107010"
         ]
       },
       "duplicate_screening": {
@@ -1530,9 +1579,7 @@
       "source_independent_owner_count": 3,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -1541,74 +1588,61 @@
         "source_unique_domain_count": 3,
         "source_independent_owner_count": 3,
         "visible_source_url_count": 3,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://edaily.co.kr/News/Read?newsId=202607231010",
+          "https://thebell.co.kr/m/newsview.asp?newskey=202607231539240640107010",
+          "https://view.asiae.co.kr/article/2026072310010083430"
+        ],
+        "canonical_domains": [
+          "edaily.co.kr",
+          "thebell.co.kr",
+          "view.asiae.co.kr"
+        ],
+        "independent_owners": [
+          "edaily.co.kr",
+          "m.thebell.co.kr",
+          "view.asiae.co.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 3,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
-            "source_url": "https://view.asiae.co.kr/article/2026072310010083430",
-            "source_urls_grouped": [
-              "https://view.asiae.co.kr/article/2026072310010083430"
-            ],
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=0",
-            "source_url_propagation_performed": true
-          },
-          {
             "source_url": "https://edaily.co.kr/News/Read?newsId=202607231010",
-            "source_urls_grouped": [
-              "https://edaily.co.kr/News/Read?newsId=202607231010"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=edaily.co.kr",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://m.thebell.co.kr/m/newsview.asp?newskey=202607231539240640107010",
-            "source_urls_grouped": [
-              "https://m.thebell.co.kr/m/newsview.asp?newskey=202607231539240640107010"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=2",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=2; owners=m.thebell.co.kr",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://view.asiae.co.kr/article/2026072310010083430",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=view.asiae.co.kr",
+            "source_url_propagation_performed": false
           }
         ]
       },
       "source_discovery_ledger": [
-        {
-          "source_url": "https://view.asiae.co.kr/article/2026072310010083430",
-          "canonical_url": "https://view.asiae.co.kr/article/2026072310010083430",
-          "source_name": "아시아경제",
-          "source_owner": "view.asiae.co.kr",
-          "source_domain": "view.asiae.co.kr",
-          "source_role": "independent_event_confirmation",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "엔켐은 중국 ESS용 전해액 출하가 증가했다고 밝혔다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
-        },
         {
           "source_url": "https://edaily.co.kr/News/Read?newsId=202607231010",
           "canonical_url": "https://edaily.co.kr/News/Read?newsId=202607231010",
           "source_name": "이데일리",
           "source_owner": "edaily.co.kr",
           "source_domain": "edaily.co.kr",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "회사는 북미 ESS용 LFP 전해액 공급을 준비한다.",
           "visible_supports": [
@@ -1617,26 +1651,37 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
         },
         {
           "source_url": "https://m.thebell.co.kr/m/newsview.asp?newskey=202607231539240640107010",
-          "canonical_url": "https://m.thebell.co.kr/m/newsview.asp?newskey=202607231539240640107010",
+          "canonical_url": "https://thebell.co.kr/m/newsview.asp?newskey=202607231539240640107010",
           "source_name": "더벨",
           "source_owner": "m.thebell.co.kr",
-          "source_domain": "m.thebell.co.kr",
-          "source_role": "independent_event_confirmation",
+          "source_domain": "thebell.co.kr",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "엔켐 중국법인의 2025년 전해액 공급량은 약 3만8천톤으로 전년 대비 70% 이상 증가했다.",
           "visible_supports": [
             "fact",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
+        },
+        {
+          "source_url": "https://view.asiae.co.kr/article/2026072310010083430",
+          "canonical_url": "https://view.asiae.co.kr/article/2026072310010083430",
+          "source_name": "아시아경제",
+          "source_owner": "view.asiae.co.kr",
+          "source_domain": "view.asiae.co.kr",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "엔켐은 중국 ESS용 전해액 출하가 증가했다고 밝혔다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -1684,6 +1729,42 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "initial_12"
+      },
+      "date_role": {
+        "representative_date": "2026-07-23",
+        "event_date": "2026-07-23",
+        "publication_dates": [
+          "2026-07-23"
+        ],
+        "event_date_source_url": "https://view.asiae.co.kr/article/2026072310010083430",
+        "event_date_source_quote": "중국 ESS용 전해액 공급량이 전년 대비 약 70% 증가",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -1863,9 +1944,8 @@
         "factual_anchor": "two 50MW 100MWh facilities entered commercial operation",
         "event_date": "2026-07-23",
         "source_url_cluster": [
-          "https:energyglobal.com/energy-storage/23072026/engie-commissions-100-mw-of-battery-storage-in-scotland",
-          "https:engie.co.uk/news/engie-signs-a-deal-with-canadian-solars-e-storage",
-          "https:renews.biz/other-news/energy-storage/engie-commissions-scottish-battery-double"
+          "https://energyglobal.com/energy-storage/23072026/engie-commissions-100-mw-of-battery-storage-in-scotland",
+          "https://engie.co.uk/news/engie-signs-a-deal-with-canadian-solars-e-storage"
         ]
       },
       "duplicate_screening": {
@@ -1950,13 +2030,15 @@
       "date_role": {
         "representative_date": "2026-07-23",
         "event_date": "2026-07-23",
-        "event_date_confidence": "high",
-        "event_date_source_url": "https://energyglobal.com/energy-storage/23072026/engie-commissions-100-mw-of-battery-storage-in-scotland",
-        "event_date_source_quote": "two 50 MW/100 MWh facilities are now operational and actively participating in the UK electricity and balancing markets",
         "publication_dates": [
           "2023-12-06",
           "2026-07-23"
-        ]
+        ],
+        "event_date_source_url": "https://energyglobal.com/energy-storage/23072026/engie-commissions-100-mw-of-battery-storage-in-scotland",
+        "event_date_source_quote": "two 50 MW/100 MWh facilities are now operational and actively participating in the UK electricity and balancing markets",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
       },
       "source_evidence_entry_count": 3,
       "source_unique_url_count": 2,
@@ -1964,9 +2046,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -1974,36 +2054,42 @@
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
-        "visible_source_url_count": 3,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://energyglobal.com/energy-storage/23072026/engie-commissions-100-mw-of-battery-storage-in-scotland",
+          "https://engie.co.uk/news/engie-signs-a-deal-with-canadian-solars-e-storage"
+        ],
+        "canonical_domains": [
+          "energyglobal.com",
+          "engie.co.uk"
+        ],
+        "independent_owners": [
+          "energyglobal.com",
+          "engie.co.uk"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 3,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
             "source_url": "https://energyglobal.com/energy-storage/23072026/engie-commissions-100-mw-of-battery-storage-in-scotland",
-            "source_urls_grouped": [
-              "https://energyglobal.com/energy-storage/23072026/engie-commissions-100-mw-of-battery-storage-in-scotland",
-              "https://energyglobal.com/energy-storage/23072026/engie-commissions-100-mw-of-battery-storage-in-scotland"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=0,1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0,1; owners=energyglobal.com",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://engie.co.uk/news/engie-signs-a-deal-with-canadian-solars-e-storage",
-            "source_urls_grouped": [
-              "https://engie.co.uk/news/engie-signs-a-deal-with-canadian-solars-e-storage"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=2",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=2; owners=engie.co.uk",
+            "source_url_propagation_performed": false
           }
         ]
       },
@@ -2014,34 +2100,15 @@
           "source_name": "Energy Global",
           "source_owner": "energyglobal.com",
           "source_domain": "energyglobal.com",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "Cathkin과 Broxburn의 두 50MW·100MWh 시설이 상업운전하며 영국 전력·밸런싱시장에 참여한다.",
+          "unique_contribution": "Cathkin과 Broxburn의 두 50MW·100MWh 시설이 상업운전하며 영국 전력·밸런싱시장에 참여한다. | 두 BESS는 ENGIE의 AI 기반 ORUS 플랫폼으로 최적화된다.",
           "visible_supports": [
             "fact",
             "gate",
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "source_origin_type": "independent_specialty_media_body"
-        },
-        {
-          "source_url": "https://energyglobal.com/energy-storage/23072026/engie-commissions-100-mw-of-battery-storage-in-scotland",
-          "canonical_url": "https://energyglobal.com/energy-storage/23072026/engie-commissions-100-mw-of-battery-storage-in-scotland",
-          "source_name": "Energy Global",
-          "source_owner": "energyglobal.com",
-          "source_domain": "energyglobal.com",
-          "source_role": "secondary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "두 BESS는 ENGIE의 AI 기반 ORUS 플랫폼으로 최적화된다.",
-          "visible_supports": [
-            "gate",
-            "implication"
-          ],
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "source_origin_type": "independent_specialty_media_body"
+          ]
         },
         {
           "source_url": "https://engie.co.uk/news/engie-signs-a-deal-with-canadian-solars-e-storage",
@@ -2049,14 +2116,11 @@
           "source_name": "ENGIE UK",
           "source_owner": "engie.co.uk",
           "source_domain": "engie.co.uk",
-          "source_role": "background_context",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "ENGIE는 Cathkin과 Broxburn에 각각 50MW·100MWh BESS를 계획했다.",
           "visible_supports": [
             "fact"
-          ],
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "source_origin_type": "company_official"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -2153,6 +2217,30 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "post_0_5R_supplemental"
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -2431,8 +2519,9 @@
         "factual_anchor": "48.5 million euro financing for 100MW 200MWh phase",
         "event_date": "2026-07-23",
         "source_url_cluster": [
-          "https:balkangreenenergynews.com/financing-signed-for-largest-battery-storage-system-in-romania",
-          "https:cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html"
+          "https://cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html",
+          "https://balkangreenenergynews.com/financing-signed-for-largest-battery-storage-system-in-romania",
+          "https://disclosures.ifc.org/project-detail/SII/51260/aukera-bess"
         ]
       },
       "duplicate_screening": {
@@ -2505,9 +2594,7 @@
       "source_independent_owner_count": 3,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -2516,74 +2603,61 @@
         "source_unique_domain_count": 3,
         "source_independent_owner_count": 3,
         "visible_source_url_count": 3,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://balkangreenenergynews.com/financing-signed-for-largest-battery-storage-system-in-romania",
+          "https://cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html",
+          "https://disclosures.ifc.org/project-detail/SII/51260/aukera-bess"
+        ],
+        "canonical_domains": [
+          "balkangreenenergynews.com",
+          "cliffordchance.com",
+          "disclosures.ifc.org"
+        ],
+        "independent_owners": [
+          "balkangreenenergynews.com",
+          "cliffordchance.com",
+          "disclosures.ifc.org"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 3,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
-            "source_url": "https://cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html",
-            "source_urls_grouped": [
-              "https://cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html"
-            ],
+            "source_url": "https://balkangreenenergynews.com/financing-signed-for-largest-battery-storage-system-in-romania",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=balkangreenenergynews.com",
+            "source_url_propagation_performed": false
           },
           {
-            "source_url": "https://balkangreenenergynews.com/financing-signed-for-largest-battery-storage-system-in-romania",
-            "source_urls_grouped": [
-              "https://balkangreenenergynews.com/financing-signed-for-largest-battery-storage-system-in-romania"
-            ],
+            "source_url": "https://cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=cliffordchance.com",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://disclosures.ifc.org/project-detail/SII/51260/aukera-bess",
-            "source_urls_grouped": [
-              "https://disclosures.ifc.org/project-detail/SII/51260/aukera-bess"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=2",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=2; owners=disclosures.ifc.org",
+            "source_url_propagation_performed": false
           }
         ]
       },
       "source_discovery_ledger": [
-        {
-          "source_url": "https://cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html",
-          "canonical_url": "https://cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html",
-          "source_name": "Clifford Chance",
-          "source_owner": "cliffordchance.com",
-          "source_domain": "cliffordchance.com",
-          "source_role": "independent_event_confirmation",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "IFC는 Aukera BESS 2단계에 4,850만유로를 제공한다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
-        },
         {
           "source_url": "https://balkangreenenergynews.com/financing-signed-for-largest-battery-storage-system-in-romania",
           "canonical_url": "https://balkangreenenergynews.com/financing-signed-for-largest-battery-storage-system-in-romania",
           "source_name": "Balkan Green Energy News",
           "source_owner": "balkangreenenergynews.com",
           "source_domain": "balkangreenenergynews.com",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "2단계는 100MW·200MWh다.",
           "visible_supports": [
@@ -2592,9 +2666,23 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
+        },
+        {
+          "source_url": "https://cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html",
+          "canonical_url": "https://cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html",
+          "source_name": "Clifford Chance",
+          "source_owner": "cliffordchance.com",
+          "source_domain": "cliffordchance.com",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "IFC는 Aukera BESS 2단계에 4,850만유로를 제공한다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
         },
         {
           "source_url": "https://disclosures.ifc.org/project-detail/SII/51260/aukera-bess",
@@ -2602,7 +2690,6 @@
           "source_name": "IFC",
           "source_owner": "disclosures.ifc.org",
           "source_domain": "disclosures.ifc.org",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "IFC의 Aukera BESS 투자는 최대 4,850만유로 건설금융을 포함한다.",
           "visible_supports": [
@@ -2610,9 +2697,7 @@
             "gate",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "government_or_regulator_official"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -2707,6 +2792,43 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "post_0_5R_supplemental"
+      },
+      "date_role": {
+        "representative_date": "2026-07-23",
+        "event_date": "2026-07-23",
+        "publication_dates": [
+          "2026-03-27",
+          "2026-07-23"
+        ],
+        "event_date_source_url": "https://cliffordchance.com/news/news/2026/07/financing-romania-battery-storage.html",
+        "event_date_source_quote": "EUR 48.5 million financing for the second phase",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -2865,8 +2987,8 @@
         "factual_anchor": "38 million dollar federal award",
         "event_date": "2026-07-22",
         "source_url_cluster": [
-          "https:eda.gov/news/press-release/2026/07/22/missouri-critical-minerals-tech-hub",
-          "https:news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub"
+          "https://news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub",
+          "https://eda.gov/news/press-release/2026/07/22/missouri-critical-minerals-tech-hub"
         ]
       },
       "duplicate_screening": {
@@ -2931,9 +3053,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -2942,64 +3062,51 @@
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
         "visible_source_url_count": 2,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://eda.gov/news/press-release/2026/07/22/missouri-critical-minerals-tech-hub",
+          "https://news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub"
+        ],
+        "canonical_domains": [
+          "eda.gov",
+          "news.mst.edu"
+        ],
+        "independent_owners": [
+          "eda.gov",
+          "news.mst.edu"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
-            "source_url": "https://news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub",
-            "source_urls_grouped": [
-              "https://news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub"
-            ],
+            "source_url": "https://eda.gov/news/press-release/2026/07/22/missouri-critical-minerals-tech-hub",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=eda.gov",
+            "source_url_propagation_performed": false
           },
           {
-            "source_url": "https://eda.gov/news/press-release/2026/07/22/missouri-critical-minerals-tech-hub",
-            "source_urls_grouped": [
-              "https://eda.gov/news/press-release/2026/07/22/missouri-critical-minerals-tech-hub"
-            ],
+            "source_url": "https://news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=news.mst.edu",
+            "source_url_propagation_performed": false
           }
         ]
       },
       "source_discovery_ledger": [
-        {
-          "source_url": "https://news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub",
-          "canonical_url": "https://news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub",
-          "source_name": "Missouri S&T",
-          "source_owner": "news.mst.edu",
-          "source_domain": "news.mst.edu",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "핵심광물 Tech Hub는 3,800만달러 지원을 받았다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "academic_or_research_institution"
-        },
         {
           "source_url": "https://eda.gov/news/press-release/2026/07/22/missouri-critical-minerals-tech-hub",
           "canonical_url": "https://eda.gov/news/press-release/2026/07/22/missouri-critical-minerals-tech-hub",
           "source_name": "U.S. EDA",
           "source_owner": "eda.gov",
           "source_domain": "eda.gov",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "지원은 국내 정제·가공과 제조역량을 겨냥한다.",
           "visible_supports": [
@@ -3008,9 +3115,23 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "government_or_regulator_official"
+          ]
+        },
+        {
+          "source_url": "https://news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub",
+          "canonical_url": "https://news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub",
+          "source_name": "Missouri S&T",
+          "source_owner": "news.mst.edu",
+          "source_domain": "news.mst.edu",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "핵심광물 Tech Hub는 3,800만달러 지원을 받았다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -3107,6 +3228,42 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "post_0_5R_supplemental"
+      },
+      "date_role": {
+        "representative_date": "2026-07-22",
+        "event_date": "2026-07-22",
+        "publication_dates": [
+          "2026-07-22"
+        ],
+        "event_date_source_url": "https://news.mst.edu/2026/07/u-s-department-of-commerce-awards-38-million-to-missouri-sts-critical-minerals-tech-hub",
+        "event_date_source_quote": "awards $38 million to Missouri S&T’s critical minerals Tech Hub",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -3359,10 +3516,8 @@
         "factual_anchor": "acquisition agreement at approximately 7 billion dollars",
         "event_date": "2026-07-22",
         "source_url_cluster": [
-          "https:blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners",
-          "https:bloomberg.com/news/articles/2026-07-22/brookfield-agrees-to-7-billion-deal-for-battery-storage-firm-aypa",
-          "https:brookfield.com/news-insights/news-releases/brookfield-acquire-aypa-power",
-          "https:globenewswire.com/news-release/2026/07/22/3331786/0/en/Brookfield-to-Acquire-Aypa-Power-the-Leading-North-American-Battery-Storage-Platform-from-Blackstone-Energy-Transition-Partners.html"
+          "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners",
+          "https://brookfield.com/news-insights/news-releases/brookfield-acquire-aypa-power"
         ]
       },
       "duplicate_screening": {
@@ -3490,9 +3645,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -3500,35 +3653,42 @@
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
-        "visible_source_url_count": 4,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners",
+          "https://brookfield.com/news-insights/news-releases/brookfield-acquire-aypa-power"
+        ],
+        "canonical_domains": [
+          "blackstone.com",
+          "brookfield.com"
+        ],
+        "independent_owners": [
+          "blackstone.com",
+          "brookfield.com"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
             "source_url": "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners",
-            "source_urls_grouped": [
-              "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=blackstone.com",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://brookfield.com/news-insights/news-releases/brookfield-acquire-aypa-power",
-            "source_urls_grouped": [
-              "https://brookfield.com/news-insights/news-releases/brookfield-acquire-aypa-power"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=brookfield.com",
+            "source_url_propagation_performed": false
           }
         ]
       },
@@ -3539,7 +3699,6 @@
           "source_name": "Blackstone",
           "source_owner": "blackstone.com",
           "source_domain": "blackstone.com",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "브룩필드는 약 70억달러 기업가치로 Aypa Power를 인수하기로 했다.",
           "visible_supports": [
@@ -3548,9 +3707,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "company_or_source_owner_official"
+          ]
         },
         {
           "source_url": "https://brookfield.com/news-insights/news-releases/brookfield-acquire-aypa-power",
@@ -3558,7 +3715,6 @@
           "source_name": "Brookfield",
           "source_owner": "brookfield.com",
           "source_domain": "brookfield.com",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "Aypa는 6.5GW 자산과 20GW 초과 개발 파이프라인을 보유한다.",
           "visible_supports": [
@@ -3567,9 +3723,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "company_or_source_owner_official"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -3617,6 +3771,42 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "initial_12"
+      },
+      "date_role": {
+        "representative_date": "2026-07-22",
+        "event_date": "2026-07-22",
+        "publication_dates": [
+          "2026-07-22"
+        ],
+        "event_date_source_url": "https://blackstone.com/news/press/brookfield-to-acquire-aypa-power-from-blackstone-energy-transition-partners",
+        "event_date_source_quote": "approximately $7 billion enterprise value at closing",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -3878,8 +4068,8 @@
         "factual_anchor": "13 violations at 29 sites and actions against 9 sites",
         "event_date": "2026-07-22",
         "source_url_cluster": [
-          "https:energy-news.co.kr/news/articleView.html?idxno=226999",
-          "https:jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286"
+          "https://jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286",
+          "https://energy-news.co.kr/news/articleView.html?idxno=226999"
         ]
       },
       "duplicate_screening": {
@@ -4007,9 +4197,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -4018,64 +4206,51 @@
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
         "visible_source_url_count": 2,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://energy-news.co.kr/news/articleView.html?idxno=226999",
+          "https://jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286"
+        ],
+        "canonical_domains": [
+          "energy-news.co.kr",
+          "jinboparty.com"
+        ],
+        "independent_owners": [
+          "energy-news.co.kr",
+          "jinboparty.com"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
-            "source_url": "https://jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286",
-            "source_urls_grouped": [
-              "https://jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286"
-            ],
+            "source_url": "https://energy-news.co.kr/news/articleView.html?idxno=226999",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=energy-news.co.kr",
+            "source_url_propagation_performed": false
           },
           {
-            "source_url": "https://energy-news.co.kr/news/articleView.html?idxno=226999",
-            "source_urls_grouped": [
-              "https://energy-news.co.kr/news/articleView.html?idxno=226999"
-            ],
+            "source_url": "https://jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=jinboparty.com",
+            "source_url_propagation_performed": false
           }
         ]
       },
       "source_discovery_ledger": [
-        {
-          "source_url": "https://jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286",
-          "canonical_url": "https://jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286",
-          "source_name": "정혜경 의원실",
-          "source_owner": "jinboparty.com",
-          "source_domain": "jinboparty.com",
-          "source_role": "independent_event_confirmation",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "29개 사업장에서 13건 위반이 적발됐다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
-        },
         {
           "source_url": "https://energy-news.co.kr/news/articleView.html?idxno=226999",
           "canonical_url": "https://energy-news.co.kr/news/articleView.html?idxno=226999",
           "source_name": "에너지신문",
           "source_owner": "energy-news.co.kr",
           "source_domain": "energy-news.co.kr",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "9개 사업장에 행정처분이 이뤄졌다.",
           "visible_supports": [
@@ -4084,9 +4259,23 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
+        },
+        {
+          "source_url": "https://jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286",
+          "canonical_url": "https://jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286",
+          "source_name": "정혜경 의원실",
+          "source_owner": "jinboparty.com",
+          "source_domain": "jinboparty.com",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "29개 사업장에서 13건 위반이 적발됐다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -4134,6 +4323,42 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "initial_12"
+      },
+      "date_role": {
+        "representative_date": "2026-07-22",
+        "event_date": "2026-07-22",
+        "publication_dates": [
+          "2026-07-22"
+        ],
+        "event_date_source_url": "https://jinboparty.com/pages?b=b_1_111&bn=17522&m=read&p=286",
+        "event_date_source_quote": "29 곳 중 13 건 위반 적발",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -4395,8 +4620,8 @@
         "factual_anchor": "7-institution research project worth 7.1 billion won",
         "event_date": "2026-07-22",
         "source_url_cluster": [
-          "https:electimes.com/news/articleView.html?idxno=370580",
-          "https:pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view"
+          "https://pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view",
+          "https://electimes.com/news/articleView.html?idxno=370580"
         ]
       },
       "duplicate_screening": {
@@ -4524,9 +4749,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -4535,64 +4758,51 @@
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
         "visible_source_url_count": 2,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://electimes.com/news/articleView.html?idxno=370580",
+          "https://pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view"
+        ],
+        "canonical_domains": [
+          "electimes.com",
+          "pusan.ac.kr"
+        ],
+        "independent_owners": [
+          "electimes.com",
+          "pusan.ac.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
-            "source_url": "https://pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view",
-            "source_urls_grouped": [
-              "https://pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view"
-            ],
+            "source_url": "https://electimes.com/news/articleView.html?idxno=370580",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=electimes.com",
+            "source_url_propagation_performed": false
           },
           {
-            "source_url": "https://electimes.com/news/articleView.html?idxno=370580",
-            "source_urls_grouped": [
-              "https://electimes.com/news/articleView.html?idxno=370580"
-            ],
+            "source_url": "https://pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=pusan.ac.kr",
+            "source_url_propagation_performed": false
           }
         ]
       },
       "source_discovery_ledger": [
-        {
-          "source_url": "https://pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view",
-          "canonical_url": "https://pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view",
-          "source_name": "부산대학교",
-          "source_owner": "pusan.ac.kr",
-          "source_domain": "pusan.ac.kr",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "7개 기관이 총 71억원 과제를 수행한다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "company_or_source_owner_official"
-        },
         {
           "source_url": "https://electimes.com/news/articleView.html?idxno=370580",
           "canonical_url": "https://electimes.com/news/articleView.html?idxno=370580",
           "source_name": "전기신문",
           "source_owner": "electimes.com",
           "source_domain": "electimes.com",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "과제는 자가세라믹화 열폭주 차단소재 개발을 목표로 한다.",
           "visible_supports": [
@@ -4601,9 +4811,23 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
+        },
+        {
+          "source_url": "https://pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view",
+          "canonical_url": "https://pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view",
+          "source_name": "부산대학교",
+          "source_owner": "pusan.ac.kr",
+          "source_domain": "pusan.ac.kr",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "7개 기관이 총 71억원 과제를 수행한다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -4651,6 +4875,42 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "initial_12"
+      },
+      "date_role": {
+        "representative_date": "2026-07-22",
+        "event_date": "2026-07-22",
+        "publication_dates": [
+          "2026-07-22"
+        ],
+        "event_date_source_url": "https://pusan.ac.kr/kor/CMS/Board/Board.do?board_seq=20260722&mCode=MN109&mgr_seq=12&mode=view",
+        "event_date_source_quote": "7개 기관이 참여하며 총 71억원 규모",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -5509,10 +5769,8 @@
         "factual_anchor": "136800 yuan per tonne and five-month low",
         "event_date": "2026-07-22",
         "source_url_cluster": [
-          "https:mining.com/lithium-price-sinks-to-five-month-low-as-restarts-stoke-2027-glut-fears",
-          "https:miningweekly.com/article/china-lithium-prices-hit-five-month-low-on-expectations-of-oversupply-in-2027-2026-07-21",
-          "https:northernminer.com/news/lithium-sinks-to-five-month-low-amid-2027-glut-fears/1003893274",
-          "https:oilprice.com/Metals/Commodities/Lithium-Prices-Sink-To-Five-Month-Lows-Amid-Oversupply-Jitters.html"
+          "https://northernminer.com/news/lithium-sinks-to-five-month-low-amid-2027-glut-fears/1003893274",
+          "https://oilprice.com/Metals/Commodities/Lithium-Prices-Sink-To-Five-Month-Lows-Amid-Oversupply-Jitters.html"
         ]
       },
       "duplicate_screening": {
@@ -5577,9 +5835,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -5587,35 +5843,42 @@
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
-        "visible_source_url_count": 4,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://northernminer.com/news/lithium-sinks-to-five-month-low-amid-2027-glut-fears/1003893274",
+          "https://oilprice.com/Metals/Commodities/Lithium-Prices-Sink-To-Five-Month-Lows-Amid-Oversupply-Jitters.html"
+        ],
+        "canonical_domains": [
+          "northernminer.com",
+          "oilprice.com"
+        ],
+        "independent_owners": [
+          "northernminer.com",
+          "oilprice.com"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
             "source_url": "https://northernminer.com/news/lithium-sinks-to-five-month-low-amid-2027-glut-fears/1003893274",
-            "source_urls_grouped": [
-              "https://northernminer.com/news/lithium-sinks-to-five-month-low-amid-2027-glut-fears/1003893274"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "upstream lineage repair revalidation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=northernminer.com",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://oilprice.com/Metals/Commodities/Lithium-Prices-Sink-To-Five-Month-Lows-Amid-Oversupply-Jitters.html",
-            "source_urls_grouped": [
-              "https://oilprice.com/Metals/Commodities/Lithium-Prices-Sink-To-Five-Month-Lows-Amid-Oversupply-Jitters.html"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "upstream lineage repair revalidation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=oilprice.com",
+            "source_url_propagation_performed": false
           }
         ]
       },
@@ -5626,7 +5889,6 @@
           "source_name": "The Northern Miner",
           "source_owner": "northernminer.com",
           "source_domain": "northernminer.com",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "중국 탄산리튬 선물은 5개월 저점으로 하락했다.",
           "visible_supports": [
@@ -5635,9 +5897,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
         },
         {
           "source_url": "https://oilprice.com/Metals/Commodities/Lithium-Prices-Sink-To-Five-Month-Lows-Amid-Oversupply-Jitters.html",
@@ -5645,7 +5905,6 @@
           "source_name": "OilPrice.com",
           "source_owner": "oilprice.com",
           "source_domain": "oilprice.com",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "주력계약은 톤당 13만6,800위안이었다.",
           "visible_supports": [
@@ -5654,9 +5913,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -5752,6 +6009,42 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "lineage_repair_supplemental"
+      },
+      "date_role": {
+        "representative_date": "2026-07-22",
+        "event_date": "2026-07-22",
+        "publication_dates": [
+          "2026-07-22"
+        ],
+        "event_date_source_url": "https://northernminer.com/news/lithium-sinks-to-five-month-low-amid-2027-glut-fears/1003893274",
+        "event_date_source_quote": "Lithium futures in China sank to a five-month low",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -6018,10 +6311,8 @@
         "factual_anchor": "autoclave delivered ahead of planned completion",
         "event_date": "2026-07-22",
         "source_url_cluster": [
-          "https:ecopro.co.kr/sub0401/view/id/2144",
-          "https:mbiz.heraldcorp.com/article/10817433",
-          "https:view.asiae.co.kr/article/2026072309330129966",
-          "https:zdnet.co.kr/view?no=20260723102037"
+          "https://ecopro.co.kr/sub0401/view/id/2144",
+          "https://view.asiae.co.kr/article/2026072309330129966"
         ]
       },
       "duplicate_screening": {
@@ -6149,9 +6440,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -6159,35 +6448,42 @@
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
-        "visible_source_url_count": 4,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://ecopro.co.kr/sub0401/view/id/2144",
+          "https://view.asiae.co.kr/article/2026072309330129966"
+        ],
+        "canonical_domains": [
+          "ecopro.co.kr",
+          "view.asiae.co.kr"
+        ],
+        "independent_owners": [
+          "ecopro.co.kr",
+          "view.asiae.co.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
             "source_url": "https://ecopro.co.kr/sub0401/view/id/2144",
-            "source_urls_grouped": [
-              "https://ecopro.co.kr/sub0401/view/id/2144"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=ecopro.co.kr",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://view.asiae.co.kr/article/2026072309330129966",
-            "source_urls_grouped": [
-              "https://view.asiae.co.kr/article/2026072309330129966"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=view.asiae.co.kr",
+            "source_url_propagation_performed": false
           }
         ]
       },
@@ -6198,7 +6494,6 @@
           "source_name": "에코프로",
           "source_owner": "ecopro.co.kr",
           "source_domain": "ecopro.co.kr",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "BNSI 제련소에 오토클레이브가 반입됐다.",
           "visible_supports": [
@@ -6207,9 +6502,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "company_or_source_owner_official"
+          ]
         },
         {
           "source_url": "https://view.asiae.co.kr/article/2026072309330129966",
@@ -6217,7 +6510,6 @@
           "source_name": "아시아경제",
           "source_owner": "view.asiae.co.kr",
           "source_domain": "view.asiae.co.kr",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "회사는 연말 준공과 2027년 2분기 가동을 목표로 한다.",
           "visible_supports": [
@@ -6226,9 +6518,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -6276,6 +6566,43 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "initial_12"
+      },
+      "date_role": {
+        "representative_date": "2026-07-22",
+        "event_date": "2026-07-22",
+        "publication_dates": [
+          "2026-07-22",
+          "2026-07-23"
+        ],
+        "event_date_source_url": "https://ecopro.co.kr/sub0401/view/id/2144",
+        "event_date_source_quote": "BNSI 니켈 제련소에 핵심 설비인 오토클레이브 반입",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -6285,8 +6612,9 @@
       "draft_id": "DRAFT_B_MAIN_R1_Q_SA26Q_004",
       "source_spec_id": "SA26Q_004",
       "source_story_ids": [
-        "GL_2026-07-22_C41",
-        "GL_2026-07-22_C42"
+        "GL_2026-07-22_C22",
+        "GL_2026-07-22_C21",
+        "GL_2026-07-21_C33"
       ],
       "region": "GL",
       "date": "2026-07-22",
@@ -6446,7 +6774,7 @@
       "selection_risk_flags": [
         "none"
       ],
-      "lineage_integrity_status": "PASS_AFTER_SOURCE_STORY_ID_REPAIR",
+      "lineage_integrity_status": "PASS",
       "stage_a_validity_status": "PASS",
       "artifact_consistency_status": "PASS",
       "accepted_pool_lineage_status": "PASS",
@@ -6846,27 +7174,7 @@
         "github_main_blob_sha_before": "b7c9d8588426fe0e82e094117f26da4481010efa",
         "prepared_at_kst": "2026-07-27T15:35:02.792589+09:00",
         "production_verified": false
-      },
-      "lineage_repair_history": [
-        {
-          "repair_run_tag": "20260723_111344",
-          "repaired_at_kst": "2026-07-27T16:27:07.333037+09:00",
-          "repair_type": "source_story_lineage_correction",
-          "old_source_story_ids": [
-            "GL_2026-07-22_C22",
-            "GL_2026-07-22_C21",
-            "GL_2026-07-21_C33"
-          ],
-          "new_source_story_ids": [
-            "GL_2026-07-22_C41",
-            "GL_2026-07-22_C42"
-          ],
-          "source_universe_revalidated": true,
-          "visible_fields_changed": false,
-          "evidence_changed": false,
-          "reason": "Current source-universe anchors show the previous story IDs belonged to unrelated events."
-        }
-      ]
+      }
     },
     {
       "revision_pass": "r2",
@@ -7318,12 +7626,8 @@
         "factual_anchor": "Texas case filed July 21 and separate ITC complaint submitted",
         "event_date": "2026-07-21",
         "source_url_cluster": [
-          "https:dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612",
-          "https:etnews.com/20260723000131",
-          "https:khan.co.kr/article/202607230930001",
-          "https:mt.co.kr/industry/2026/07/23/2026072309271565700",
-          "https:tulipinnovation.com/news/eve-energy-itc-litigation",
-          "https:zdnet.co.kr/view?no=20260723102741"
+          "https://dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612",
+          "https://tulipinnovation.com/news/eve-energy-itc-litigation"
         ]
       },
       "duplicate_screening": {
@@ -7451,9 +7755,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -7461,36 +7763,42 @@
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
-        "visible_source_url_count": 6,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612",
+          "https://tulipinnovation.com/news/eve-energy-itc-litigation"
+        ],
+        "canonical_domains": [
+          "dockets.justia.com",
+          "tulipinnovation.com"
+        ],
+        "independent_owners": [
+          "dockets.justia.com",
+          "tulipinnovation.com"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 3,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
             "source_url": "https://dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612",
-            "source_urls_grouped": [
-              "https://dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612",
-              "https://dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=0,1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0,1; owners=dockets.justia.com",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://tulipinnovation.com/news/eve-energy-itc-litigation",
-            "source_urls_grouped": [
-              "https://tulipinnovation.com/news/eve-energy-itc-litigation"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=2",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=2; owners=tulipinnovation.com",
+            "source_url_propagation_performed": false
           }
         ]
       },
@@ -7501,34 +7809,15 @@
           "source_name": "Justia 연방법원 docket listing",
           "source_owner": "dockets.justia.com",
           "source_domain": "dockets.justia.com",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "텍사스 특허소송 원고는 LG에너지솔루션이다.",
+          "unique_contribution": "텍사스 특허소송 원고는 LG에너지솔루션이다. | 사건 접수일은 2026년 7월 21일이다.",
           "visible_supports": [
             "fact",
             "gate",
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T12:46:38+09:00",
-          "source_origin_type": "court_docket_listing"
-        },
-        {
-          "source_url": "https://dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612",
-          "canonical_url": "https://dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612",
-          "source_name": "Justia 연방법원 docket listing",
-          "source_owner": "dockets.justia.com",
-          "source_domain": "dockets.justia.com",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "사건 접수일은 2026년 7월 21일이다.",
-          "visible_supports": [
-            "fact",
-            "sub"
-          ],
-          "checked_at": "2026-07-27T12:46:38+09:00",
-          "source_origin_type": "court_docket_listing"
+          ]
         },
         {
           "source_url": "https://tulipinnovation.com/news/eve-energy-itc-litigation",
@@ -7536,7 +7825,6 @@
           "source_name": "Tulip Innovation",
           "source_owner": "tulipinnovation.com",
           "source_domain": "tulipinnovation.com",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "튤립 자료는 미국 ITC complaint 제출 사실을 밝혔다.",
           "visible_supports": [
@@ -7545,9 +7833,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T12:46:38+09:00",
-          "source_origin_type": "company_or_source_owner_official"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -7595,6 +7881,42 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "initial_12"
+      },
+      "date_role": {
+        "representative_date": "2026-07-21",
+        "event_date": "2026-07-21",
+        "publication_dates": [
+          "2026-07-21"
+        ],
+        "event_date_source_url": "https://dockets.justia.com/docket/texas/txedce/2%3A2026cv00598/247612",
+        "event_date_source_quote": "Plaintiff:  | LG Energy Solution Ltd.",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -10956,7 +11278,9 @@
         "https://e2news.com/news/articleView.html?idxno=332544",
         "https://yna.co.kr/view/AKR20260721157900003"
       ],
-      "related": [],
+      "related": [
+        "2026-06-05_GL_01"
+      ],
       "fact_sources": [
         {
           "source_name": "이투뉴스",
@@ -11086,8 +11410,8 @@
         "factual_anchor": "board approval for 200MW solar and 2200MWh BESS",
         "event_date": "2026-07-21",
         "source_url_cluster": [
-          "https:arkenergy.com.au/richmond-valley-solar-and-battery",
-          "https:e2news.com/news/articleView.html?idxno=332544"
+          "https://e2news.com/news/articleView.html?idxno=332544",
+          "https://yna.co.kr/view/AKR20260721157900003"
         ]
       },
       "duplicate_screening": {
@@ -11160,9 +11484,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -11171,34 +11493,41 @@
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
         "visible_source_url_count": 2,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://e2news.com/news/articleView.html?idxno=332544",
+          "https://yna.co.kr/view/AKR20260721157900003"
+        ],
+        "canonical_domains": [
+          "e2news.com",
+          "yna.co.kr"
+        ],
+        "independent_owners": [
+          "e2news.com",
+          "yna.co.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
             "source_url": "https://e2news.com/news/articleView.html?idxno=332544",
-            "source_urls_grouped": [
-              "https://e2news.com/news/articleView.html?idxno=332544"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=e2news.com",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://yna.co.kr/view/AKR20260721157900003",
-            "source_urls_grouped": [
-              "https://yna.co.kr/view/AKR20260721157900003"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=yna.co.kr",
+            "source_url_propagation_performed": false
           }
         ]
       },
@@ -11209,7 +11538,6 @@
           "source_name": "이투뉴스",
           "source_owner": "e2news.com",
           "source_domain": "e2news.com",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "고려아연 이사회는 Richmond Valley 투자안을 의결했다.",
           "visible_supports": [
@@ -11218,9 +11546,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
         },
         {
           "source_url": "https://yna.co.kr/view/AKR20260721157900003",
@@ -11228,7 +11554,6 @@
           "source_name": "연합뉴스",
           "source_owner": "yna.co.kr",
           "source_domain": "yna.co.kr",
-          "source_role": "independent_event_confirmation",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "고려아연 이사회는 2026년 7월 21일 투자안을 의결했고 프로젝트 운영기간은 40년이다.",
           "visible_supports": [
@@ -11236,9 +11561,7 @@
             "fact",
             "gate",
             "sub"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "independent_news_or_trade_media"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -11335,6 +11658,52 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "post_0_5R_supplemental"
+      },
+      "date_role": {
+        "representative_date": "2026-07-21",
+        "event_date": "2026-07-21",
+        "publication_dates": [
+          "2026-07-21"
+        ],
+        "event_date_source_url": "https://e2news.com/news/articleView.html?idxno=332544",
+        "event_date_source_quote": "200MW 태양광·2,200MWh BESS 통합 프로젝트 투자안 이사회 의결",
+        "event_date_confidence": "high",
+        "relation_type": "distinct_follow_up",
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor": "Ark Energy/Korea Zinc board approved investment in the 200MW solar and 2,200MWh BESS project on 2026-07-21, a new execution decision after the earlier grid-connection approval."
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-06-05_GL_01"
+        ],
+        "reason": "Baseline comparison identified the earlier Richmond Valley grid-connection card; the July board investment approval is a later, independently anchored execution milestone for the same project.",
+        "fresh_follow_up_anchor": "Ark Energy/Korea Zinc board approved investment in the 200MW solar and 2,200MWh BESS project on 2026-07-21, a new execution decision after the earlier grid-connection approval."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-06-05_GL_01"
+        ],
+        "reason": "Baseline comparison identified the earlier Richmond Valley grid-connection card; the July board investment approval is a later, independently anchored execution milestone for the same project.",
+        "fresh_follow_up_anchor": "Ark Energy/Korea Zinc board approved investment in the 200MW solar and 2,200MWh BESS project on 2026-07-21, a new execution decision after the earlier grid-connection approval."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-06-05_GL_01"
+        ],
+        "reason": "Baseline comparison identified the earlier Richmond Valley grid-connection card; the July board investment approval is a later, independently anchored execution milestone for the same project.",
+        "fresh_follow_up_anchor": "Ark Energy/Korea Zinc board approved investment in the 200MW solar and 2,200MWh BESS project on 2026-07-21, a new execution decision after the earlier grid-connection approval."
       }
     },
     {
@@ -15692,8 +16061,8 @@
       "draft_id": "DRAFT_B_MAIN_R1_Q_SA26Q_020",
       "source_spec_id": "SA26Q_020",
       "source_story_ids": [
-        "EU_2026-07-22_C35",
-        "EU_2026-07-21_C07"
+        "EU_2026-07-21_C09",
+        "EU_2026-07-22_C29"
       ],
       "region": "EU",
       "date": "2026-07-21",
@@ -15857,7 +16226,7 @@
       "selection_risk_flags": [
         "none"
       ],
-      "lineage_integrity_status": "PASS_AFTER_SOURCE_STORY_ID_REPAIR",
+      "lineage_integrity_status": "PASS",
       "stage_a_validity_status": "PASS",
       "artifact_consistency_status": "PASS",
       "accepted_pool_lineage_status": "PASS",
@@ -16275,26 +16644,7 @@
         "github_main_blob_sha_before": "b7c9d8588426fe0e82e094117f26da4481010efa",
         "prepared_at_kst": "2026-07-27T15:35:02.792589+09:00",
         "production_verified": false
-      },
-      "lineage_repair_history": [
-        {
-          "repair_run_tag": "20260723_111344",
-          "repaired_at_kst": "2026-07-27T16:27:07.333037+09:00",
-          "repair_type": "source_story_lineage_correction",
-          "old_source_story_ids": [
-            "EU_2026-07-21_C09",
-            "EU_2026-07-22_C29"
-          ],
-          "new_source_story_ids": [
-            "EU_2026-07-22_C35",
-            "EU_2026-07-21_C07"
-          ],
-          "source_universe_revalidated": true,
-          "visible_fields_changed": false,
-          "evidence_changed": false,
-          "reason": "Current source-universe anchors show the previous story IDs belonged to unrelated events."
-        }
-      ]
+      }
     },
     {
       "state": "github_merge_ready",
@@ -23895,7 +24245,7 @@
       "draft_id": "DRAFT_B_R1_SA26O_012",
       "source_spec_id": "SA26O_012",
       "source_story_ids": [
-        "GL_2026-07-21_C11"
+        "GL_2026-07-21_C03"
       ],
       "event_fingerprint": {
         "actor": "European Energy",
@@ -23963,7 +24313,7 @@
         "single_source_in_upstream_run",
         "partial_text_coverage"
       ],
-      "lineage_integrity_status": "PASS_AFTER_SOURCE_STORY_ID_REPAIR",
+      "lineage_integrity_status": "PASS",
       "strict_gate_metadata_preserved": true,
       "source_evidence_entry_count": 2,
       "source_unique_url_count": 2,
@@ -24121,24 +24471,7 @@
         "visible_source_url_count": 2,
         "status": "PASS_MULTI_SOURCE",
         "recomputed_at_kst": "2026-07-23T11:24:43.098216+09:00"
-      },
-      "lineage_repair_history": [
-        {
-          "repair_run_tag": "20260723_111344",
-          "repaired_at_kst": "2026-07-27T16:27:07.333037+09:00",
-          "repair_type": "source_story_lineage_correction",
-          "old_source_story_ids": [
-            "GL_2026-07-21_C03"
-          ],
-          "new_source_story_ids": [
-            "GL_2026-07-21_C11"
-          ],
-          "source_universe_revalidated": true,
-          "visible_fields_changed": false,
-          "evidence_changed": false,
-          "reason": "Current source-universe anchors show the previous story IDs belonged to unrelated events."
-        }
-      ]
+      }
     },
     {
       "region": "GL",
@@ -32374,7 +32707,8 @@
       "urls": [
         "https://electimes.com/news/articleView.html?idxno=370615",
         "https://occto.or.jp/iken/000606.html",
-        "https://gridwatch.jp/policy/ltda-fourth-auction-final-package-july-2026"
+        "https://gridwatch.jp/policy/ltda-fourth-auction-final-package-july-2026",
+        "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020"
       ],
       "related": [],
       "fact_sources": [
@@ -32505,9 +32839,8 @@
         "factual_anchor": "consultation draft proposes three 400MW storage buckets",
         "event_date": "2026-07-17",
         "source_url_cluster": [
-          "https:electimes.com/news/articleView.html?idxno=370615",
-          "https:gridwatch.jp/policy/ltda-fourth-auction-final-package-july-2026",
-          "https:occto.or.jp/iken/000606.html"
+          "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020",
+          "https://gridwatch.jp/policy/ltda-fourth-auction-final-package-july-2026"
         ]
       },
       "duplicate_screening": {
@@ -32569,13 +32902,15 @@
       "date_role": {
         "representative_date": "2026-07-17",
         "event_date": "2026-07-17",
-        "event_date_confidence": "high",
-        "event_date_source_url": "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020",
-        "event_date_source_quote": "案の公示日 2026年7月17日...受付開始日時 2026年7月17日16時0分",
         "publication_dates": [
           "2026-07-17",
           "2026-07-21"
-        ]
+        ],
+        "event_date_source_url": "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020",
+        "event_date_source_quote": "案の公示日 2026年7月17日...受付開始日時 2026年7月17日16時0分",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
       },
       "source_evidence_entry_count": 2,
       "source_unique_url_count": 2,
@@ -32583,9 +32918,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -32593,65 +32926,52 @@
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
-        "visible_source_url_count": 3,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://gridwatch.jp/policy/ltda-fourth-auction-final-package-july-2026",
+          "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020"
+        ],
+        "canonical_domains": [
+          "gridwatch.jp",
+          "public-comment.e-gov.go.jp"
+        ],
+        "independent_owners": [
+          "gridwatch.jp",
+          "public-comment.e-gov.go.jp"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
-            "source_url": "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020",
-            "source_urls_grouped": [
-              "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020"
-            ],
+            "source_url": "https://gridwatch.jp/policy/ltda-fourth-auction-final-package-july-2026",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=gridwatch.jp",
+            "source_url_propagation_performed": false
           },
           {
-            "source_url": "https://gridwatch.jp/policy/ltda-fourth-auction-final-package-july-2026",
-            "source_urls_grouped": [
-              "https://gridwatch.jp/policy/ltda-fourth-auction-final-package-july-2026"
-            ],
+            "source_url": "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=public-comment.e-gov.go.jp",
+            "source_url_propagation_performed": false
           }
         ]
       },
       "source_discovery_ledger": [
-        {
-          "source_url": "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020",
-          "canonical_url": "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020",
-          "source_name": "e-Gov Public Comment",
-          "source_owner": "public-comment.e-gov.go.jp",
-          "source_domain": "public-comment.e-gov.go.jp",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "제4회 장기 탈탄소 전원 경매안 의견수렴은 2026년 7월 17일 시작됐다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "source_origin_type": "government_official"
-        },
         {
           "source_url": "https://gridwatch.jp/policy/ltda-fourth-auction-final-package-july-2026",
           "canonical_url": "https://gridwatch.jp/policy/ltda-fourth-auction-final-package-july-2026",
           "source_name": "Gridwatch Policy Desk",
           "source_owner": "gridwatch.jp",
           "source_domain": "gridwatch.jp",
-          "source_role": "secondary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "저장기술별로 400MW씩 세 모집구분을 제시했다.",
           "visible_supports": [
@@ -32660,9 +32980,23 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "source_origin_type": "independent_specialty_media_body"
+          ]
+        },
+        {
+          "source_url": "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020",
+          "canonical_url": "https://public-comment.e-gov.go.jp/pcm/detail?CLASSNAME=PCMMSTDETAIL&Mode=0&id=620226020",
+          "source_name": "e-Gov Public Comment",
+          "source_owner": "public-comment.e-gov.go.jp",
+          "source_domain": "public-comment.e-gov.go.jp",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "제4회 장기 탈탄소 전원 경매안 의견수렴은 2026년 7월 17일 시작됐다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -32759,6 +33093,30 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "post_0_5R_supplemental"
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -36355,7 +36713,9 @@
       ],
       "urls": [
         "https://china5e.com/news/news-1206767-1.html",
-        "https://cnesa.org/white-paper-2026"
+        "https://cnesa.org/white-paper-2026",
+        "https://cnesa.org/periodical?column_id=90",
+        "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml"
       ],
       "related": [],
       "fact_sources": [
@@ -36585,8 +36945,8 @@
         "factual_anchor": "496.2GW global storage and 144.7GW China new storage",
         "event_date": "2026-07-17",
         "source_url_cluster": [
-          "https:china5e.com/news/news-1206767-1.html",
-          "https:cnesa.org/white-paper-2026"
+          "https://cnesa.org/periodical?column_id=90",
+          "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml"
         ]
       },
       "duplicate_screening": {
@@ -36659,9 +37019,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -36670,34 +37028,41 @@
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
         "visible_source_url_count": 2,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://cnesa.org/periodical?column_id=90",
+          "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml"
+        ],
+        "canonical_domains": [
+          "cnesa.org",
+          "finance.sina.com.cn"
+        ],
+        "independent_owners": [
+          "cnesa.org",
+          "finance.sina.com.cn"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
             "source_url": "https://cnesa.org/periodical?column_id=90",
-            "source_urls_grouped": [
-              "https://cnesa.org/periodical?column_id=90"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=cnesa.org",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
-            "source_urls_grouped": [
-              "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=finance.sina.com.cn",
+            "source_url_propagation_performed": false
           }
         ]
       },
@@ -36708,16 +37073,13 @@
           "source_name": "CNESA",
           "source_owner": "cnesa.org",
           "source_domain": "cnesa.org",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "CNESA가 Energy Storage Industry White Paper 2026 Summary Version을 공개했다.",
           "visible_supports": [
             "fact",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "source_origin_type": "research_institution_official"
+          ]
         },
         {
           "source_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
@@ -36725,7 +37087,6 @@
           "source_name": "Sina Finance",
           "source_owner": "finance.sina.com.cn",
           "source_domain": "finance.sina.com.cn",
-          "source_role": "secondary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "2025년 말 글로벌 전력저장 496.2GW와 중국 신형저장 144.7GW를 제시했다.",
           "visible_supports": [
@@ -36734,9 +37095,7 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "source_origin_type": "independent_media_body"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -36831,6 +37190,43 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "post_0_5R_supplemental"
+      },
+      "date_role": {
+        "representative_date": "2026-07-17",
+        "event_date": "2026-07-17",
+        "publication_dates": [
+          "2026-04-04",
+          "2026-05-18"
+        ],
+        "event_date_source_url": "https://cnesa.org/periodical?column_id=90",
+        "event_date_source_quote": "CNESA Energy Storage Industry White Paper 2026_Summary Version",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -60579,9 +60975,8 @@
         "factual_anchor": "15 million initial award with up to 160 million potential",
         "event_date": "2026-07-14",
         "source_url_cluster": [
-          "https:chargedevs.com/newswire/critical-materials-crossroads-engine-wins-160-million-nsf-award-to-develop-domestic-sources-of-critical-minerals",
-          "https:nsf.gov/news/nsf-engines-critical-materials-crossroads",
-          "https:umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html"
+          "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html",
+          "https://nsf.gov/news/nsf-engines-critical-materials-crossroads"
         ]
       },
       "duplicate_screening": {
@@ -60659,12 +61054,14 @@
       "date_role": {
         "representative_date": "2026-07-14",
         "event_date": "2026-07-14",
-        "event_date_confidence": "high",
-        "event_date_source_url": "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html",
-        "event_date_source_quote": "initial $15 million over the first two years; ... up to $160 million over the next decade",
         "publication_dates": [
           "2026-07-14"
-        ]
+        ],
+        "event_date_source_url": "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html",
+        "event_date_source_quote": "initial $15 million over the first two years; if it demonstrates progress on well-defined milestones, it could receive up to $160 million over the next decade",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
       },
       "source_evidence_entry_count": 2,
       "source_unique_url_count": 2,
@@ -60672,9 +61069,7 @@
       "source_independent_owner_count": 2,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -60682,65 +61077,52 @@
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
         "source_independent_owner_count": 2,
-        "visible_source_url_count": 3,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://nsf.gov/news/nsf-engines-critical-materials-crossroads",
+          "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html"
+        ],
+        "canonical_domains": [
+          "nsf.gov",
+          "umkc.edu"
+        ],
+        "independent_owners": [
+          "nsf.gov",
+          "umkc.edu"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
-            "source_url": "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html",
-            "source_urls_grouped": [
-              "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html"
-            ],
+            "source_url": "https://nsf.gov/news/nsf-engines-critical-materials-crossroads",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=nsf.gov",
+            "source_url_propagation_performed": false
           },
           {
-            "source_url": "https://nsf.gov/news/nsf-engines-critical-materials-crossroads",
-            "source_urls_grouped": [
-              "https://nsf.gov/news/nsf-engines-critical-materials-crossroads"
-            ],
+            "source_url": "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=umkc.edu",
+            "source_url_propagation_performed": false
           }
         ]
       },
       "source_discovery_ledger": [
-        {
-          "source_url": "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html",
-          "canonical_url": "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html",
-          "source_name": "UMKC",
-          "source_owner": "umkc.edu",
-          "source_domain": "umkc.edu",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "초기 지원은 2년간 1,500만달러다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "academic_or_research_institution"
-        },
         {
           "source_url": "https://nsf.gov/news/nsf-engines-critical-materials-crossroads",
           "canonical_url": "https://nsf.gov/news/nsf-engines-critical-materials-crossroads",
           "source_name": "NSF",
           "source_owner": "nsf.gov",
           "source_domain": "nsf.gov",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "지원은 10년간 최대 1억6천만달러로 확대될 수 있다.",
           "visible_supports": [
@@ -60749,9 +61131,23 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "government_or_regulator_official"
+          ]
+        },
+        {
+          "source_url": "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html",
+          "canonical_url": "https://umkc.edu/news/posts/2026/july/nsf-critical-materials-crossroads-engine.html",
+          "source_name": "UMKC",
+          "source_owner": "umkc.edu",
+          "source_domain": "umkc.edu",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "초기 지원은 2년간 1,500만달러다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -60846,6 +61242,30 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "post_0_5R_supplemental"
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -145774,8 +146194,7 @@
         "factual_anchor": "H1 average awards of 602.1 and 541.3 yuan per kWh",
         "event_date": "2026-06-30",
         "source_url_cluster": [
-          "https:cbea.com/djgc/202607/308250.html",
-          "https:cnesa.org/latest-news/2026-h1-tender-data"
+          "https://cnesa.org/latest-news/2026-h1-tender-data"
         ]
       },
       "duplicate_screening": {
@@ -145933,8 +146352,10 @@
       "single_source_exception": {
         "allowed": true,
         "type": "official_or_original_primary_single_source",
-        "reason": "Core claims are limited to verified official/original material after bounded review.",
-        "bounded_discovery_completed": true
+        "reason": "The two visible claims are separate figures from the same CNESA first-party H1 tender dataset; bounded discovery found no independent owner reproducing the underlying table.",
+        "bounded_discovery_completed": true,
+        "mitigation": "Keep both figures attributed explicitly to CNESA, retain the exact source quotes and canonical article URL, and do not generalize the figures beyond the reported 2026 H1 2-hour and 4-hour tender averages.",
+        "scope_limits": "Exception covers only CNESA’s published 2026 H1 average winning prices of 602.1 yuan/kWh (2h) and 541.3 yuan/kWh (4h); it does not establish market-wide audited prices, forecasts, or causation."
       },
       "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_diversity_measure": {
@@ -145942,26 +146363,32 @@
         "source_unique_url_count": 1,
         "source_unique_domain_count": 1,
         "source_independent_owner_count": 1,
-        "visible_source_url_count": 2,
-        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 1,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://cnesa.org/latest-news/2026-h1-tender-data"
+        ],
+        "canonical_domains": [
+          "cnesa.org"
+        ],
+        "independent_owners": [
+          "cnesa.org"
+        ],
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
             "source_url": "https://cnesa.org/latest-news/2026-h1-tender-data",
-            "source_urls_grouped": [
-              "https://cnesa.org/latest-news/2026-h1-tender-data",
-              "https://cnesa.org/latest-news/2026-h1-tender-data"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "Prompt 0.6 upstream revalidation; fact_source_indices=0,1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0,1; owners=cnesa.org",
+            "source_url_propagation_performed": false
           }
         ]
       },
@@ -145972,37 +146399,15 @@
           "source_name": "CNESA",
           "source_owner": "cnesa.org",
           "source_domain": "cnesa.org",
-          "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "2시간 BESS 평균 낙찰가격은 602.1위안/kWh였다.",
+          "unique_contribution": "2시간 BESS 평균 낙찰가격은 602.1위안/kWh였다. | 4시간형 평균은 541.3위안/kWh였다.",
           "visible_supports": [
             "fact",
             "gate",
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "company_or_source_owner_official"
-        },
-        {
-          "source_url": "https://cnesa.org/latest-news/2026-h1-tender-data",
-          "canonical_url": "https://cnesa.org/latest-news/2026-h1-tender-data",
-          "source_name": "CNESA",
-          "source_owner": "cnesa.org",
-          "source_domain": "cnesa.org",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "4시간형 평균은 541.3위안/kWh였다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T14:22:01+09:00",
-          "source_origin_type": "company_or_source_owner_official"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -146050,6 +146455,42 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "initial_12"
+      },
+      "date_role": {
+        "representative_date": "2026-06-30",
+        "event_date": "2026-06-30",
+        "publication_dates": [
+          "2026-07-06"
+        ],
+        "event_date_source_url": "https://cnesa.org/latest-news/2026-h1-tender-data",
+        "event_date_source_quote": "2026年上半年，2h储能系统平均中标价格602.1元/kWh",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {
@@ -165628,7 +166069,7 @@
           "fetched_at": "2026-07-27T16:27:07.333037+09:00",
           "fetch_method": "prompt_0_5R_authorized_source_augmentation",
           "source_owner_id": "energy-storage.news",
-          "source_owner_id_normalized": "energy-storage.news",
+          "source_owner_id_normalized": "solar_media",
           "source_domain": "energy-storage.news",
           "source_origin_type": "independent_specialty_media_body",
           "source_role": "secondary_event_evidence",
@@ -165834,10 +166275,9 @@
         "factual_anchor": "entry into federal EPBC environmental assessment",
         "event_date": "2026-06-22",
         "source_url_cluster": [
-          "https:energy-storage.news/samsung-ct-submits-1000mwh-solar-plus-storage-project-in-new-south-wales-to-australias-epbc-act",
-          "https:epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
-          "https:press9.kr/news/articleView.html?idxno=79896",
-          "https:reneweconomy.com.au/new-solar-battery-hybrid-promising-four-hours-of-storage-near-canberra-seeks-federal-green-light"
+          "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
+          "https://energy-storage.news/samsung-ct-submits-1000mwh-solar-plus-storage-project-in-new-south-wales-to-australias-epbc-act",
+          "https://reneweconomy.com.au/new-solar-battery-hybrid-promising-four-hours-of-storage-near-canberra-seeks-federal-green-light"
         ]
       },
       "duplicate_screening": {
@@ -165899,13 +166339,15 @@
       "date_role": {
         "representative_date": "2026-06-22",
         "event_date": "2026-06-22",
-        "event_date_confidence": "high",
-        "event_date_source_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
-        "event_date_source_quote": "up to 150-megawatt solar farm and a 250 megawatts/1000-megawatt hours storage BESS",
         "publication_dates": [
           "2026-06-22",
           "2026-07-22"
-        ]
+        ],
+        "event_date_source_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
+        "event_date_source_quote": "up to 150-megawatt solar farm and a 250 megawatts/1000-megawatt hours storage BESS",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
       },
       "source_evidence_entry_count": 3,
       "source_unique_url_count": 3,
@@ -165913,9 +166355,7 @@
       "source_independent_owner_count": 3,
       "single_source_exception": {
         "allowed": false,
-        "type": "not_applicable_multi_source",
-        "reason": "At least two independent source owners support the card.",
-        "bounded_discovery_completed": true
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -165923,75 +166363,62 @@
         "source_unique_url_count": 3,
         "source_unique_domain_count": 3,
         "source_independent_owner_count": 3,
-        "visible_source_url_count": 4,
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-27T16:27:07.333037+09:00"
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://energy-storage.news/samsung-ct-submits-1000mwh-solar-plus-storage-project-in-new-south-wales-to-australias-epbc-act",
+          "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
+          "https://reneweconomy.com.au/new-solar-battery-hybrid-promising-four-hours-of-storage-near-canberra-seeks-federal-green-light"
+        ],
+        "canonical_domains": [
+          "energy-storage.news",
+          "epbcpublicportal.environment.gov.au",
+          "reneweconomy.com.au"
+        ],
+        "independent_owners": [
+          "epbcpublicportal.environment.gov.au",
+          "reneweconomy.com.au",
+          "solar_media"
+        ],
+        "status": "PASS_MULTI_SOURCE"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 3,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": true,
+        "source_url_propagation_performed": false,
         "resolution_entries": [
           {
-            "source_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
-            "source_urls_grouped": [
-              "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4"
-            ],
+            "source_url": "https://energy-storage.news/samsung-ct-submits-1000mwh-solar-plus-storage-project-in-new-south-wales-to-australias-epbc-act",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=0",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=solar_media",
+            "source_url_propagation_performed": false
           },
           {
-            "source_url": "https://energy-storage.news/samsung-ct-submits-1000mwh-solar-plus-storage-project-in-new-south-wales-to-australias-epbc-act",
-            "source_urls_grouped": [
-              "https://energy-storage.news/samsung-ct-submits-1000mwh-solar-plus-storage-project-in-new-south-wales-to-australias-epbc-act"
-            ],
+            "source_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=1",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=epbcpublicportal.environment.gov.au",
+            "source_url_propagation_performed": false
           },
           {
             "source_url": "https://reneweconomy.com.au/new-solar-battery-hybrid-promising-four-hours-of-storage-near-canberra-seeks-federal-green-light",
-            "source_urls_grouped": [
-              "https://reneweconomy.com.au/new-solar-battery-hybrid-promising-four-hours-of-storage-near-canberra-seeks-federal-green-light"
-            ],
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "source/evidence recomputation; fact_source_indices=2",
-            "source_url_propagation_performed": true
+            "resolution_basis": "recomputed from current fact_sources; indices=2; owners=reneweconomy.com.au",
+            "source_url_propagation_performed": false
           }
         ]
       },
       "source_discovery_ledger": [
         {
-          "source_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
-          "canonical_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
-          "source_name": "EPBC Act Public Portal",
-          "source_owner": "epbcpublicportal.environment.gov.au",
-          "source_domain": "epbcpublicportal.environment.gov.au",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "Boro 프로젝트는 최대 150MW 태양광과 250MW·1,000MWh BESS를 제안했다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ],
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "source_origin_type": "government_official"
-        },
-        {
           "source_url": "https://energy-storage.news/samsung-ct-submits-1000mwh-solar-plus-storage-project-in-new-south-wales-to-australias-epbc-act",
           "canonical_url": "https://energy-storage.news/samsung-ct-submits-1000mwh-solar-plus-storage-project-in-new-south-wales-to-australias-epbc-act",
           "source_name": "Energy-Storage.news",
-          "source_owner": "energy-storage.news",
+          "source_owner": "solar_media",
           "source_domain": "energy-storage.news",
-          "source_role": "secondary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "Samsung C&T가 1,000MWh Boro 태양광·저장 프로젝트를 EPBC 절차에 제출했다.",
           "visible_supports": [
@@ -166000,9 +166427,23 @@
             "implication",
             "sub",
             "title"
-          ],
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "source_origin_type": "independent_specialty_media_body"
+          ]
+        },
+        {
+          "source_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
+          "canonical_url": "https://epbcpublicportal.environment.gov.au/all-referrals/project-referral-summary?id=9665fcf1-d46d-f111-ab0d-7c1e5262e9e4",
+          "source_name": "EPBC Act Public Portal",
+          "source_owner": "epbcpublicportal.environment.gov.au",
+          "source_domain": "epbcpublicportal.environment.gov.au",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "Boro 프로젝트는 최대 150MW 태양광과 250MW·1,000MWh BESS를 제안했다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
         },
         {
           "source_url": "https://reneweconomy.com.au/new-solar-battery-hybrid-promising-four-hours-of-storage-near-canberra-seeks-federal-green-light",
@@ -166010,7 +166451,6 @@
           "source_name": "RenewEconomy",
           "source_owner": "reneweconomy.com.au",
           "source_domain": "reneweconomy.com.au",
-          "source_role": "secondary_event_evidence",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "Boro 사업이 연방 EPBC 환경평가 절차에 들어갔다.",
           "visible_supports": [
@@ -166018,9 +166458,7 @@
             "gate",
             "implication",
             "sub"
-          ],
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "source_origin_type": "independent_media_body"
+          ]
         }
       ],
       "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
@@ -166115,6 +166553,30 @@
         "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
         "production_verified": false,
         "merge_prep_round": "post_0_5R_supplemental"
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
       }
     },
     {

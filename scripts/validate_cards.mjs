@@ -24,8 +24,13 @@ const MIN_CARDS = 1000;
 const BROKEN_RELATED_MAX = 14; // 2026-04 레거시 동결분
 const ID_DATE_MISMATCH_MAX = 3; // 레거시 리데이팅(ID 불변) 흔적 동결분
 const SIGNALS = new Set(["top", "high", "mid", "info"]);
-// 앱 피드의 지역 칩(App.jsx regions)과 카드 스키마 문서가 인정하는 코드
-const REGIONS = new Set(["KR", "US", "NA", "CN", "EU", "JP", "GL"]);
+// 신규 카드가 쓸 수 있는 region — CARD_ID_STANDARD §1·FUTURE_CARD_STANDARD §1이
+// 잠근 목록(그 밖의 지역은 GL로 접는다). NA는 앱 칩엔 있지만 신규 스키마엔 없다
+const NEW_REGIONS = new Set(["KR", "US", "CN", "JP", "EU", "GL"]);
+// 피드 지역 칩(App.jsx regions) — 이 목록 밖이면 어떤 지역 뷰에도 안 잡힌다
+const FEED_REGIONS = new Set(["KR", "US", "NA", "CN", "EU", "JP", "GL"]);
+// 신규 카드 id 전체 형식: 날짜 + 잠긴 region + 2자리 zero-padded 순번
+const NEW_ID_RE = /^(\d{4}-\d{2}-\d{2})_([A-Z]{2})_(\d{2})$/;
 const ISO_RE = /^\d{4}-\d{2}-\d{2}$/;
 const ID_DATE_RE = /^(\d{4}-\d{2}-\d{2})_/;
 
@@ -63,6 +68,7 @@ else if (Number.isNaN(Date.parse(doc.updated))) E(`updated 파싱 불가: "${doc
 // PR에선 origin/main의 파일이 기준본. push(main)에선 기준본==현재라 자동 무시.
 let baseIds = null;
 let baseBrokenPairs = null; // "카드id→대상id" 집합 — 숫자 상한이 아니라 '어느 엣지가' 예외인지를 동결
+let baseMisPairs = null; // "카드id@date" 집합 — id접두 불일치도 같은 방식으로 정체 동결
 const baseSrc = process.env.CARDS_BASE;
 try {
   const raw = baseSrc
@@ -73,6 +79,8 @@ try {
   baseIds = new Set(bc.map((c) => c.id));
   baseBrokenPairs = new Set();
   for (const c of bc) for (const r of (Array.isArray(c.related) ? c.related : [])) if (!baseIds.has(r)) baseBrokenPairs.add(`${c.id}→${r}`);
+  baseMisPairs = new Set();
+  for (const c of bc) { const m = String(c.id || "").match(ID_DATE_RE); if (m && m[1] !== c.date) baseMisPairs.add(`${c.id}@${c.date}`); }
   if (cards.length < bc.length) E(`카드 수 감소 ${bc.length} → ${cards.length} — 의도한 삭제면 커밋 메시지에 명시하고 이 검사를 재검토할 것`);
 } catch { W("기준본 없음(git origin/main 미접근) — 수량 감소·신규·엣지 동결 판별 생략, 절대 하한만 적용"); }
 if (cards.length < MIN_CARDS) E(`카드 ${cards.length}장 < 절대 하한 ${MIN_CARDS}`);
@@ -111,7 +119,7 @@ for (const c of cards) {
   // 피드 지역 필터는 (c.r || c.region) === filter 완전일치라(App.jsx), 목록에 없는 코드는
   // 어떤 지역 뷰에도 안 잡힌다. 신규만 강제 — 레거시 복합 표기("US/KR" 등 7장)는 이미
   // 그 상태로 굳었고 여기서 되돌릴 수 없다(아래 요약에서 별도 경고)
-  if (isNew(c) && !REGIONS.has(String(c.region || ""))) { badRegionNew++; E(`신규 카드 region 미등록 값 "${c.region}": ${c.id} — 허용 ${[...REGIONS].join("|")}`); }
+  if (isNew(c) && !NEW_REGIONS.has(String(c.region || ""))) { badRegionNew++; E(`신규 카드 region 미등록 값 "${c.region}": ${c.id} — 허용 ${[...NEW_REGIONS].join("|")}`); }
 }
 if (missingReq > 5) E(`…필수 필드 누락 총 ${missingReq}건`);
 
@@ -144,26 +152,35 @@ for (const c of cards) {
 if (!baseBrokenPairs && broken > BROKEN_RELATED_MAX) E(`깨진 related ${broken}건 > 동결 기준선 ${BROKEN_RELATED_MAX} (기준본 없어 총계로만 판정)`);
 else if (broken && !brokenNew) W(`깨진 related ${broken}건 — 전부 기준본 동결분(신규 0)`);
 
-// ---- 4) id 날짜접두 ↔ date — 신규만 무관용(레거시 리데이팅은 ID 불변 관행) ----
+// ---- 4) id 형식·id↔date ----
+// 신규는 CARD_ID_STANDARD의 완전 형식(YYYY-MM-DD_REGION_NN, region 일치)을 강제하고,
+// 레거시 불일치는 related와 같은 방식으로 '정체'를 동결한다 — 총계 상한만 쓰면 하나를
+// 고치고 다른 카드를 망가뜨려도 3이 유지돼 통과한다(Codex #220 R6, R3과 동형 결함)
 let idDateMis = 0;
+const curMisPairs = new Set();
 for (const c of cards) {
-  const m = String(c.id || "").match(ID_DATE_RE);
-  if (!m) {
-    // 날짜 접두 자체가 없으면 접두 검사가 통째로 우회된다 — 신규는 표준 형식 강제,
-    // 레거시(R##_##·W#·D_## 등 240장)는 허용
-    if (isNew(c)) E(`신규 카드 id 형식 위반(YYYY-MM-DD_ 접두 없음): ${c.id}`);
+  const id = String(c.id || "");
+  if (isNew(c)) {
+    const nm = id.match(NEW_ID_RE);
+    if (!nm) E(`신규 카드 id 형식 위반: "${id}" — YYYY-MM-DD_REGION_NN 필요(REGION 2자·NN 2자리)`);
+    else {
+      if (nm[1] !== c.date) E(`신규 카드 id 날짜(${nm[1]}) ≠ date(${c.date}): ${id} — 0.8은 날짜 잠금 후 id 부여가 규약`);
+      if (nm[2] !== String(c.region || "")) E(`신규 카드 id 지역(${nm[2]}) ≠ region(${c.region}): ${id}`);
+    }
     continue;
   }
-  if (m[1] !== c.date) {
-    idDateMis++;
-    if (isNew(c)) E(`신규 카드 id 접두(${m[1]}) ≠ date(${c.date}): ${c.id} — 0.8은 날짜 잠금 후 id 부여가 규약`);
-  }
+  const m = id.match(ID_DATE_RE);
+  if (m && m[1] !== c.date) { idDateMis++; curMisPairs.add(`${id}@${c.date}`); }
 }
-if (idDateMis > ID_DATE_MISMATCH_MAX) E(`id접두≠date ${idDateMis}건 > 동결 기준선 ${ID_DATE_MISMATCH_MAX}`);
+if (baseIds) {
+  // 기준본의 불일치 쌍과 대조 — 새로 생긴 것만 잡는다
+  for (const p of curMisPairs) if (!baseMisPairs.has(p)) E(`기존 카드에 새 id접두≠date 유입: ${p}`);
+  if (idDateMis && ![...curMisPairs].some((p) => !baseMisPairs.has(p))) W(`id접두≠date ${idDateMis}건 — 전부 기준본 동결분(리데이팅 ID 불변 관행)`);
+} else if (idDateMis > ID_DATE_MISMATCH_MAX) E(`id접두≠date ${idDateMis}건 > 동결 기준선 ${ID_DATE_MISMATCH_MAX} (기준본 없어 총계로만 판정)`);
 
 // ---- 5) 정보성 지표 (막지 않음) — lean export 전까지 관측만 ----
 // 목록 밖 region을 가진 레거시 카드는 피드 지역 필터(완전일치)에서 어느 칩에도 안 잡힌다
-const ghostRegion = cards.filter((c) => !REGIONS.has(String(c.region || "")));
+const ghostRegion = cards.filter((c) => !FEED_REGIONS.has(String(c.region || "")));
 if (ghostRegion.length) W(`피드 지역 필터에 안 잡히는 레거시 region ${ghostRegion.length}장(${[...new Set(ghostRegion.map((c) => c.region))].join(", ")}) — 신규는 차단되나 기존분은 별도 정리 필요`);
 const fieldCounts = cards.map((c) => Object.keys(c).length);
 const maxFields = Math.max(...fieldCounts);

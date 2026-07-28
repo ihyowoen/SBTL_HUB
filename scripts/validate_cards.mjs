@@ -41,7 +41,9 @@ try { doc = JSON.parse(readFileSync(CARDS_PATH, "utf8")); }
 catch (e) { console.error(`FAIL: JSON 파싱 실패 — ${e.message}`); process.exit(1); }
 const cards = Array.isArray(doc.cards) ? doc.cards : null;
 if (!cards) { console.error("FAIL: cards 배열 없음"); process.exit(1); }
-if (Number.isFinite(doc.total) && doc.total !== cards.length) E(`total(${doc.total}) ≠ cards.length(${cards.length})`);
+// total은 존재·수치·정합 셋 다 강제 — 없으면 merge-cards.yml의 d['total'] 직독이 깨진다
+if (!Number.isFinite(doc.total)) E(`total 필드 없음/비수치(${JSON.stringify(doc.total)})`);
+else if (doc.total !== cards.length) E(`total(${doc.total}) ≠ cards.length(${cards.length})`);
 
 // ---- 1) 기준본(있으면) — 수량 감소·신규 카드 판별 ----
 // PR에선 origin/main의 파일이 기준본. push(main)에선 기준본==현재라 자동 무시.
@@ -96,7 +98,13 @@ else if (broken) W(`깨진 related ${broken}건 (레거시 동결분 ≤ ${BROKE
 let idDateMis = 0;
 for (const c of cards) {
   const m = String(c.id || "").match(ID_DATE_RE);
-  if (m && m[1] !== c.date) {
+  if (!m) {
+    // 날짜 접두 자체가 없으면 접두 검사가 통째로 우회된다 — 신규는 표준 형식 강제,
+    // 레거시(R##_##·W#·D_## 등 240장)는 허용
+    if (isNew(c)) E(`신규 카드 id 형식 위반(YYYY-MM-DD_ 접두 없음): ${c.id}`);
+    continue;
+  }
+  if (m[1] !== c.date) {
     idDateMis++;
     if (isNew(c)) E(`신규 카드 id 접두(${m[1]}) ≠ date(${c.date}): ${c.id} — 0.8은 날짜 잠금 후 id 부여가 규약`);
   }

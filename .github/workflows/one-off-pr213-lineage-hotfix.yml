@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - hotfix/pr213-source-story-lineage
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write

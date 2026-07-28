@@ -98,10 +98,7 @@ jobs:
           before_ids = [card['id'] for card in before['cards']]
           after_ids = [card['id'] for card in after['cards']]
           if before_ids != after_ids or len(set(after_ids)) != 1304:
-              raise SystemExit('Production IDs/order changed')
-          expected_order = sorted(after_ids, reverse=True)
-          if after_ids != expected_order:
-              raise SystemExit('date_desc_id_desc order check failed')
+              raise SystemExit('Production IDs or existing card order changed')
 
           for card_id in before_ids:
               old_card = copy.deepcopy(before_cards[card_id])

@@ -1,0 +1,108 @@
+{
+  "runId": "2026-07-28-RD",
+  "date": "2026-07-28",
+  "type": "RD",
+  "summary": "일일 RD — 4개 클러스터 + CBP 1차 원문 1건으로 5개 항목 실검증. RD-0 D-day 전면 롤오버 38건. RD-1 경계 NA-021 on-the-water 유예 당일 종료. CBP 'Forced Labor HTS List'(39면) 전문 대조로 SBTL 분류 귀결을 章99 헤딩 수준에서 확정하고 2차 보도 1건 정정. RD-3에서 chemicals/KR gap 셀 최초 표면 확보(KR-024). **부분 실행 run — RD-2/RD-3 상당 범위 미실시, carryOver 참조.**",
+  "partial": true,
+  "partialReason": "123항목 중 **본 run 실검증 5건**뿐이고 118건은 이전 run 검증일을 승계. D-day 롤오버 38건은 dt 표기만 갱신해 lastChecked를 올리지 않았으므로 검증 표기 인플레이션 없음. **RD-2 전권역 클러스터 미완주 — CN·JP·GL 미실시.** **RD-3 화요일 슬라이스 12셀 중 chemicals/KR 1셀만 수행.** 월요일 이월 trade/JP·trade/GL도 2일 연속 미실시.",
+  "searches": [
+    {
+      "query": "Section 301 forced labor tariffs on-the-water exemption July 28 2026 CBP guidance",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-021",
+        "NA-003"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "Section 301 forced labor Korea 9903.05 Chapter 99 heading exemption Annex II list expanded",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-021",
+        "NA-017",
+        "NA-028"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "EU Commission battery due diligence guidelines published 27 July 2026 Regulation 2023/1542",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-012",
+        "EU-015",
+        "EU-011"
+      ],
+      "result": "change"
+    },
+    {
+      "query": "화평법 화관법 개정 시행 2026년 배터리 소재 유해화학물질 고시",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-024"
+      ],
+      "result": "new-surface"
+    }
+  ],
+  "primaryDocs": [
+    {
+      "title": "CBP — Forced Labor HTS List (CSMS #69326983 첨부, 39면)",
+      "url": "https://content.govdelivery.com/attachments/USDHSCBP/2026/07/23/file_attachments/3723786/Forced%20Labor%20HTS%20LIST.pdf",
+      "itemsCovered": [
+        "NA-021",
+        "NA-017",
+        "NA-003"
+      ],
+      "note": "9903.05.86 일반면제 전문 대조 — 3921·7607 미등재, 章76은 7602.00.00만. 9903.05.88에 8507.60.00 조건부 등재. 9903.05.90 232 파생품 헤딩 특정. 2825.20.00·2836.91.00 일반면제 확인"
+    }
+  ],
+  "verifyCounts": {
+    "total": 123,
+    "searchThisRun": 5,
+    "mechanicalThisRun": 0,
+    "carriedFromPriorRuns": 118,
+    "note": "searchThisRun/mechanicalThisRun은 verify.date=2026-07-28 항목만 집계. 나머지는 이전 run의 검증일을 그대로 승계한 상태이며 본 run에서 재검증되지 않았음."
+  },
+  "changes": [
+    "NA-021 on-the-water 유예 2026.07.28 12:01 ET 종료 — 7.24 이전 선적분도 금일 이후 통관 시 과세",
+    "NA-021/NA-017 CBP 원문 대조: 9903.05.86 일반면제에 HTS 3921·7607 미등재. 章39는 비료·안료계만, 章76은 7602.00.00(스크랩)만 등재",
+    "NA-017 7607의 301 제외가 9903.05.90 → 232 파생품 헤딩(9903.82.02, 9903.82.04~82.26) 경로로 헤딩 수준 확정 — 추정 아님",
+    "정정: '리튬이온전지 8507.60.00 301 면제' 2차 보도는 부정확 — CBP 목록상 9903.05.88(민간항공기·GN6 조건부)에만 등재, 9903.05.86 일반면제에는 없음",
+    "NA-021 원료 단계: 2825.20.00·2836.91.00은 9903.05.86 일반면제 등재",
+    "NA-021 면제 구조 보강: USMCA 9903.05.93/.94, CAFTA-DR 9903.05.95, 의약용도 9903.05.89, 13개 경제 품목별 9903.05.96~9903.06.21, Chapter 98 특칙",
+    "EU-012 실사 가이드라인 법정기한 2026.07.26 D+2 경과·공표 미확인",
+    "EU-012 신규: COM(2025)501 별도 트랙 — 3자협의 2026.03.11 개시, 미채택",
+    "KR-024 신규 — 화관법 전부개정 단계별 시행(제9·16·20조 2026.07.01)",
+    "RD-0 D-day 전면 롤오버 38건",
+    "coverage: chemicals/KR gap→covered, lastSwept 2026-07-28 기록(사전정의 쿼리 실행분에 한정)"
+  ],
+  "newItems": [
+    "KR-024"
+  ],
+  "dedups": [],
+  "coverageCells": [
+    "chemicals/KR"
+  ],
+  "pendingDecisions": [
+    "KR-024 화관법 단계별 시행일이 2차 출처 기반 — 법제처 1차 조문 대조 필요",
+    "8507.60.00 면제 범위 — CBP 목록 판독상 민간항공기 조건부. 431면 고시 본문 Annex II Part A로 교차 확인 권고",
+    "전일 이월: NA-027 status·NA-003 제목 출처 불명 편집, EU-022/CN-002 status↔effectiveDate 모순, CN-027 src 결측, CBAM 축 귀속"
+  ],
+  "carryOver": [
+    "**RD-2 미완주 — CN·JP·GL 전권역 클러스터 미실시.** 차기 최우선",
+    "**RD-3 화요일 슬라이스 11/12셀 미실시** — product_std/NA·JP, chemicals/NA·CN·JP·GL 등",
+    "**RD-3 월요일 이월 잔존 — trade/JP·trade/GL 사전정의 쿼리 2일 연속 미실행**",
+    "EU-012 가이드라인 공표 여부",
+    "EU-028 CBAM 하류 확장 확정 CN 코드 목록",
+    "NA-026 Section 338 캐나다 2026.08.19 발효 여부 (D-22)",
+    "NA-028 이관분 1차 출처 재검증 (2026.08.22 전)",
+    "과잉생산 Section 301(16국, 한국 포함) 결정 공표",
+    "GL-003 (EU)2019/2144 부속서 R100 05 갱신 위임규칙 공표",
+    "lastSwept=null 셀 7개 — 일요일 강제 보충"
+  ],
+  "lessons": [
+    "2차 보도(업계 매체)의 면제 판정을 그대로 반영했다면 '리튬이온전지 301 면제'라는 오정보가 배포될 뻔했다. 관세 면제처럼 재무 영향이 직접적인 사실은 고시 첨부 원문(章99 헤딩 단위) 대조를 원칙으로 할 것",
+    "면제는 '품목이 목록에 있는가'가 아니라 '어느 헤딩의 목록에 있는가'로 갈린다 — 9903.05.86(무조건)과 9903.05.88/.89(용도 조건부)는 실무 효과가 전혀 다르므로 헤딩을 함께 기록할 것",
+    "RD-2/RD-3를 단일 세션에서 전량 소화하지 못할 때는 미실시 범위를 원장 partialReason에 축·셀 단위로 명시해야 다음 사이클이 공백을 승계한다"
+  ]
+}

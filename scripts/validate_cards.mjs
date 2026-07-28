@@ -60,6 +60,7 @@ else if (Number.isNaN(Date.parse(doc.updated))) E(`updated 파싱 불가: "${doc
 // ---- 1) 기준본(있으면) — 수량 감소·신규 카드 판별 ----
 // PR에선 origin/main의 파일이 기준본. push(main)에선 기준본==현재라 자동 무시.
 let baseIds = null;
+let baseBrokenPairs = null; // "카드id→대상id" 집합 — 숫자 상한이 아니라 '어느 엣지가' 예외인지를 동결
 const baseSrc = process.env.CARDS_BASE;
 try {
   const raw = baseSrc
@@ -68,22 +69,30 @@ try {
   const base = JSON.parse(raw);
   const bc = Array.isArray(base.cards) ? base.cards : [];
   baseIds = new Set(bc.map((c) => c.id));
+  baseBrokenPairs = new Set();
+  for (const c of bc) for (const r of (Array.isArray(c.related) ? c.related : [])) if (!baseIds.has(r)) baseBrokenPairs.add(`${c.id}→${r}`);
   if (cards.length < bc.length) E(`카드 수 감소 ${bc.length} → ${cards.length} — 의도한 삭제면 커밋 메시지에 명시하고 이 검사를 재검토할 것`);
-} catch { W("기준본 없음(git origin/main 미접근) — 수량 감소·신규 판별 생략, 절대 하한만 적용"); }
+} catch { W("기준본 없음(git origin/main 미접근) — 수량 감소·신규·엣지 동결 판별 생략, 절대 하한만 적용"); }
 if (cards.length < MIN_CARDS) E(`카드 ${cards.length}장 < 절대 하한 ${MIN_CARDS}`);
 const isNew = (c) => (baseIds ? !baseIds.has(c.id) : false);
 
 // ---- 2) id·필수 필드 ----
 const ids = new Set();
-let dupIds = 0, missingReq = 0, badDate = 0, badSignalNew = 0;
+let dupIds = 0, missingReq = 0, badDate = 0, badSignalNew = 0, badType = 0;
 const REQUIRED = ["id", "date", "title", "region", "signal", "gate", "fact", "urls", "implication"];
+const ARRAY_FIELDS = new Set(["urls", "implication"]);
 for (const c of cards) {
   if (ids.has(c.id)) { dupIds++; E(`중복 id: ${c.id}`); }
   ids.add(c.id);
   for (const k of REQUIRED) {
     const v = c[k];
     const empty = v === undefined || v === null || v === "" || (Array.isArray(v) && v.length === 0);
-    if (empty) { missingReq++; if (missingReq <= 5) E(`${c.id || "(id없음)"}: 필수 필드 ${k} 비어있음`); }
+    if (empty) { missingReq++; if (missingReq <= 5) E(`${c.id || "(id없음)"}: 필수 필드 ${k} 비어있음`); continue; }
+    // 존재만 보면 title이 객체여도 통과한다 — toCompatCard가 그대로 보존하고
+    // JSX가 {card.title}로 렌더하면 "Objects are not valid as a React child"로 화면이 죽는다
+    const wantArray = ARRAY_FIELDS.has(k);
+    const ok = wantArray ? Array.isArray(v) : typeof v === "string";
+    if (!ok) { badType++; if (badType <= 5) E(`${c.id || "(id없음)"}: ${k} 타입 위반 — ${wantArray ? "배열" : "문자열"} 필요, 실제 ${Array.isArray(v) ? "array" : typeof v}`); }
   }
   if (!isRealDate(c.date)) { badDate++; if (badDate <= 3) E(`${c.id}: date가 실제 달력 날짜가 아님 "${c.date}"`); }
   const sig = String(c.signal || "").toLowerCase();
@@ -91,7 +100,10 @@ for (const c of cards) {
 }
 if (missingReq > 5) E(`…필수 필드 누락 총 ${missingReq}건`);
 
-// ---- 3) related 무결성 — 신규는 무관용, 레거시는 동결 ----
+// ---- 3) related 무결성 — 동결은 '숫자'가 아니라 '엣지 정체'로 ----
+// 숫자 상한만 쓰면 레거시 카드가 깨진 대상을 다른 없는 id로 바꿔도, 하나를 고치고
+// 다른 곳에 새로 만들어도 총계가 그대로라 통과한다(Codex #220 R3). 기준본의 (카드id→대상id)
+// 쌍 집합에 없는 깨진 엣지는 전부 신규 결함으로 본다.
 let broken = 0, brokenNew = 0, selfRef = 0;
 for (const c of cards) {
   const rel = Array.isArray(c.related) ? c.related : [];
@@ -99,12 +111,15 @@ for (const c of cards) {
     if (r === c.id) { selfRef++; E(`${c.id}: related가 자기 자신을 가리킴`); }
     else if (!ids.has(r)) {
       broken++;
-      if (isNew(c)) { brokenNew++; E(`신규 카드 깨진 related: ${c.id} → ${r}`); }
+      const pair = `${c.id}→${r}`;
+      if (baseBrokenPairs) {
+        if (!baseBrokenPairs.has(pair)) { brokenNew++; E(`새 깨진 related: ${pair}${isNew(c) ? " (신규 카드)" : " (기존 카드에 신규 유입)"}`); }
+      } else if (isNew(c)) { brokenNew++; E(`신규 카드 깨진 related: ${pair}`); }
     }
   }
 }
-if (broken > BROKEN_RELATED_MAX) E(`깨진 related ${broken}건 > 동결 기준선 ${BROKEN_RELATED_MAX} — 신규 유입 여부 확인`);
-else if (broken) W(`깨진 related ${broken}건 (레거시 동결분 ≤ ${BROKEN_RELATED_MAX}, 신규 0)`);
+if (!baseBrokenPairs && broken > BROKEN_RELATED_MAX) E(`깨진 related ${broken}건 > 동결 기준선 ${BROKEN_RELATED_MAX} (기준본 없어 총계로만 판정)`);
+else if (broken && !brokenNew) W(`깨진 related ${broken}건 — 전부 기준본 동결분(신규 0)`);
 
 // ---- 4) id 날짜접두 ↔ date — 신규만 무관용(레거시 리데이팅은 ID 불변 관행) ----
 let idDateMis = 0;

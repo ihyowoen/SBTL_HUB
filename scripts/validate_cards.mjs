@@ -86,13 +86,22 @@ for (const c of cards) {
   ids.add(c.id);
   for (const k of REQUIRED) {
     const v = c[k];
+    const cid = c.id || "(id없음)";
     const empty = v === undefined || v === null || v === "" || (Array.isArray(v) && v.length === 0);
-    if (empty) { missingReq++; if (missingReq <= 5) E(`${c.id || "(id없음)"}: 필수 필드 ${k} 비어있음`); continue; }
+    if (empty) { missingReq++; if (missingReq <= 5) E(`${cid}: 필수 필드 ${k} 비어있음`); continue; }
     // 존재만 보면 title이 객체여도 통과한다 — toCompatCard가 그대로 보존하고
     // JSX가 {card.title}로 렌더하면 "Objects are not valid as a React child"로 화면이 죽는다
-    const wantArray = ARRAY_FIELDS.has(k);
-    const ok = wantArray ? Array.isArray(v) : typeof v === "string";
-    if (!ok) { badType++; if (badType <= 5) E(`${c.id || "(id없음)"}: ${k} 타입 위반 — ${wantArray ? "배열" : "문자열"} 필요, 실제 ${Array.isArray(v) ? "array" : typeof v}`); }
+    if (ARRAY_FIELDS.has(k)) {
+      if (!Array.isArray(v)) { badType++; if (badType <= 5) E(`${cid}: ${k} 타입 위반 — 배열 필요, 실제 ${typeof v}`); continue; }
+      // 컨테이너만 보면 urls:[null]·implication:[{}]가 통과한다 — 앞은 원문 링크가 안 잡히고
+      // 뒤는 "[object Object]"로 화면에 나간다
+      const bad = v.filter((x) => typeof x !== "string" || !x.trim());
+      if (bad.length) { badType++; if (badType <= 5) E(`${cid}: ${k}에 사용 불가 원소 ${bad.length}개 — 비어있지 않은 문자열이어야 함 (예: ${JSON.stringify(bad[0]).slice(0, 40)})`); }
+    } else {
+      if (typeof v !== "string") { badType++; if (badType <= 5) E(`${cid}: ${k} 타입 위반 — 문자열 필요, 실제 ${Array.isArray(v) ? "array" : typeof v}`); continue; }
+      // 공백만 있는 값은 truthy라 빈 검사를 통과하지만 화면엔 빈칸으로 나간다
+      if (!v.trim()) { missingReq++; if (missingReq <= 5) E(`${cid}: 필수 필드 ${k}가 공백뿐`); }
+    }
   }
   if (!isRealDate(c.date)) { badDate++; if (badDate <= 3) E(`${c.id}: date가 실제 달력 날짜가 아님 "${c.date}"`); }
   const sig = String(c.signal || "").toLowerCase();

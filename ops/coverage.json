@@ -328,10 +328,8 @@
     {
       "axis": "chemicals",
       "region": "KR",
-      "items": [
-        "KR-024"
-      ],
-      "status": "covered",
+      "items": [],
+      "status": "gap",
       "lastSwept": "2026-07-28",
       "queries": [
         "화평법 화관법 개정 시행 배터리 소재",
@@ -952,7 +950,7 @@
   ],
   "_meta": {
     "created": "2026-07-17",
-    "note": "초판 — F7(커버리지 맹점) 대응. gap 셀은 RD-3 요일 로테이션, 2회 연속 무발견 시 na 후보(승인制). || 2026-07-27: 신규 6건(NA-026·NA-027·NA-028·EU-027·EU-028·CN-029) 셀 편입. NA-027은 232 세율체계(trade)와 국산화 인센티브(subsidy) 양축, EU-027은 Art.11 탈착(product_std)과 EPR 생산자 정의(recycle) 양축에 배정. EU-028은 EU-020(CBAM)의 trade/EU 선례를 따랐으나 carbon 축 scope에 'CBAM'이 명시돼 있어 축 귀속 재검토 대상(단독 재분류 보류). **lastSwept는 갱신하지 않음** — 본 사이클은 RD-2(항목 전수 재검증)만 수행했고 RD-3(커버리지 셀 신규발굴)은 미실시. RUNBOOK §3·§4상 lastSwept·coverageCells는 셀의 사전정의 쿼리로 도는 RD-3 스윕에만 갱신하는 필드이며, RD-2 항목검증이 셀 items와 교집합을 갖는다는 사실로 대체할 수 없다(대체 시 미스윕 셀이 신선함으로 위장돼 주간 발굴이 미뤄짐). 2026-07-27은 월요일이므로 원래 슬라이스는 trade+subsidy 전 권역이었으나 미수행 — 원장 carryOver로 이월. CN-028(리튬전지 소비세)은 2026-07-23 원장 pendingDecisions의 결정(subsidy/CN)에 따라 편입 — 이월 미처리분 해소. || 2026-07-28: RD-3 화요일 슬라이스 중 chemicals/KR 1셀만 실행(사전정의 쿼리 사용) → KR-024 최초 표면 확보, gap→covered, lastSwept 기록. 동 슬라이스 잔여 11셀 및 월요일 이월 trade/JP·trade/GL은 미실행이므로 lastSwept 무갱신.",
+    "note": "초판 — F7(커버리지 맹점) 대응. gap 셀은 RD-3 요일 로테이션, 2회 연속 무발견 시 na 후보(승인制). || 2026-07-27: 신규 6건(NA-026·NA-027·NA-028·EU-027·EU-028·CN-029) 셀 편입. NA-027은 232 세율체계(trade)와 국산화 인센티브(subsidy) 양축, EU-027은 Art.11 탈착(product_std)과 EPR 생산자 정의(recycle) 양축에 배정. EU-028은 EU-020(CBAM)의 trade/EU 선례를 따랐으나 carbon 축 scope에 'CBAM'이 명시돼 있어 축 귀속 재검토 대상(단독 재분류 보류). **lastSwept는 갱신하지 않음** — 본 사이클은 RD-2(항목 전수 재검증)만 수행했고 RD-3(커버리지 셀 신규발굴)은 미실시. RUNBOOK §3·§4상 lastSwept·coverageCells는 셀의 사전정의 쿼리로 도는 RD-3 스윕에만 갱신하는 필드이며, RD-2 항목검증이 셀 items와 교집합을 갖는다는 사실로 대체할 수 없다(대체 시 미스윕 셀이 신선함으로 위장돼 주간 발굴이 미뤄짐). 2026-07-27은 월요일이므로 원래 슬라이스는 trade+subsidy 전 권역이었으나 미수행 — 원장 carryOver로 이월. CN-028(리튬전지 소비세)은 2026-07-23 원장 pendingDecisions의 결정(subsidy/CN)에 따라 편입 — 이월 미처리분 해소. || 2026-07-28: RD-3 화요일 슬라이스 중 chemicals/KR 1셀만 실행(사전정의 쿼리 사용) → 후보 표면 1건(화관법 단계별 시행) 확보했으나 1차 출처 미대조로 **승인 큐 보류**, items 미편입·status gap 유지. 스윕 자체는 수행했으므로 lastSwept만 기록. 동 슬라이스 잔여 11셀 및 월요일 이월 trade/JP·trade/GL은 미실행이므로 lastSwept 무갱신.",
     "cadence": "daily-full (RD) — 전 항목 매일 재검증(RD-2), 신규발굴은 7일 요일 로테이션(RD-3), 매일 배포",
     "sliceSchedule": {
       "trade": "Mon",

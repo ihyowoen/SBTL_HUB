@@ -8,8 +8,10 @@
 // 원본은 버리지 않는다 — data/cards.full.json에 통째로 보존한다(빌드에 포함되지 않는
 // 저장소 경로라 배포 용량과 무관). 계약 검증·감사·리뷰는 그 파일을 본다.
 //
-// KEEP 15: 전수 대조(703필드 × src/api/lib 32파일)로 확정. source_tier는
-// buildCardConsultContext가 읽으므로 발행 14필드에 더한다.
+// KEEP 16: 전수 대조(703필드 × src/api/lib 32파일)로 확정한 15에 related_lineage를
+// 더한다. source_tier는 buildCardConsultContext가 읽고, related_lineage는 편집자가
+// '왜 이었는지'(relation_type 10종·reason 서술·fresh_follow_up_anchor)를 담은 표시
+// 재료다 — 🕸 분해 다리 라벨 고도화가 소비할 예정이라 발행본에 남긴다(사용자 결정).
 //
 // Usage:
 //   node scripts/lean_cards.mjs           # 변환 적용(원본 → data/cards.full.json)
@@ -21,6 +23,7 @@ import { dirname } from "node:path";
 const KEEP = [
   "id", "region", "date", "cat", "sub_cat", "signal", "title", "sub",
   "gate", "fact", "implication", "urls", "related", "fact_sources", "source_tier",
+  "related_lineage",
 ];
 const LEAN_PATH = "public/data/cards.json";
 const FULL_PATH = "data/cards.full.json";

@@ -74,6 +74,10 @@
 
 - main sync
 - only intended files changed
+- **cards.json 업로드 전 lean export**: `node scripts/lean_cards.mjs`
+  (발행본은 KEEP 15만 — 원본 전체는 data/cards.full.json에 자동 보존.
+  잊어도 CI의 `lean_cards.mjs --check`가 막아준다. 계약 검증·감사는
+  full 파일을 본다)
 - production data endpoint 확인
 - UI/rendering smoke test
 

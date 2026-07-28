@@ -15,6 +15,7 @@ on:
       - "public/data/**"
       - "scripts/validate.mjs"
       - "scripts/validate_cards.mjs"
+      - "scripts/lean_cards.mjs"
       - ".github/workflows/validate-tracker.yml"
   push:
     branches: [main]
@@ -22,6 +23,7 @@ on:
       - "public/data/**"
       - "scripts/validate.mjs"
       - "scripts/validate_cards.mjs"
+      - "scripts/lean_cards.mjs"
   workflow_dispatch: {}
 
 jobs:
@@ -38,3 +40,7 @@ jobs:
         run: node scripts/validate.mjs
       - name: Validate cards data
         run: node scripts/validate_cards.mjs
+      # 발행본에 파이프라인 QC 메타데이터가 다시 실려오면 여기서 잡는다 —
+      # 사람이 스크립트 실행을 잊는 지점이라 기계가 지킨다
+      - name: Check cards payload is lean
+        run: node scripts/lean_cards.mjs --check

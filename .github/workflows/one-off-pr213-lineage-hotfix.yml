@@ -1,0 +1,152 @@
+name: One-off PR213 lineage hotfix
+
+on:
+  push:
+    branches:
+      - hotfix/pr213-source-story-lineage
+
+permissions:
+  contents: write
+
+jobs:
+  patch-lineage:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out hotfix branch
+        uses: actions/checkout@v4
+        with:
+          ref: hotfix/pr213-source-story-lineage
+          fetch-depth: 0
+
+      - name: Apply exact source-story lineage repairs
+        shell: bash
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+
+          import copy
+          import json
+          from pathlib import Path
+
+          path = Path('public/data/cards.json')
+          text = path.read_text(encoding='utf-8')
+          before = json.loads(text)
+
+          repairs = {
+              '2026-07-20_GL_04': ['GL_2026-07-21_C11'],
+              '2026-07-22_GL_01': ['GL_2026-07-22_C41', 'GL_2026-07-22_C42'],
+          }
+
+          before_cards = {card['id']: copy.deepcopy(card) for card in before['cards']}
+          if set(repairs) - set(before_cards):
+              raise SystemExit(f'Missing target cards: {sorted(set(repairs) - set(before_cards))}')
+
+          def replace_story_ids(raw: str, card_id: str, new_ids: list[str]) -> str:
+              id_token = f'"id": "{card_id}"'
+              id_pos = raw.find(id_token)
+              if id_pos < 0:
+                  raise SystemExit(f'Card id token not found: {card_id}')
+
+              card_start = raw.rfind('\n    {\n', 0, id_pos)
+              if card_start < 0:
+                  raise SystemExit(f'Card start not found: {card_id}')
+              card_start += 1
+
+              card_end = raw.find('\n    },', id_pos)
+              if card_end < 0:
+                  card_end = raw.find('\n    }\n', id_pos)
+              if card_end < 0:
+                  raise SystemExit(f'Card end not found: {card_id}')
+
+              segment = raw[card_start:card_end]
+              array_start = segment.find('      "source_story_ids": [')
+              if array_start < 0:
+                  raise SystemExit(f'source_story_ids start not found: {card_id}')
+              array_end = segment.find('\n      ],', array_start)
+              if array_end < 0:
+                  raise SystemExit(f'source_story_ids end not found: {card_id}')
+              array_end += len('\n      ],')
+
+              replacement = '      "source_story_ids": [\n'
+              replacement += ',\n'.join(f'        "{story_id}"' for story_id in new_ids)
+              replacement += '\n      ],'
+
+              new_segment = segment[:array_start] + replacement + segment[array_end:]
+              return raw[:card_start] + new_segment + raw[card_end:]
+
+          for card_id, story_ids in repairs.items():
+              text = replace_story_ids(text, card_id, story_ids)
+
+          after = json.loads(text)
+          after_cards = {card['id']: card for card in after['cards']}
+
+          if before.keys() != after.keys():
+              raise SystemExit('Top-level key set changed')
+          for key in before:
+              if key != 'cards' and before[key] != after[key]:
+                  raise SystemExit(f'Unexpected top-level change: {key}')
+
+          if before.get('total') != 1304 or after.get('total') != 1304:
+              raise SystemExit('Expected total=1304')
+          if len(before['cards']) != 1304 or len(after['cards']) != 1304:
+              raise SystemExit('Expected cards.length=1304')
+
+          before_ids = [card['id'] for card in before['cards']]
+          after_ids = [card['id'] for card in after['cards']]
+          if before_ids != after_ids or len(set(after_ids)) != 1304:
+              raise SystemExit('Production IDs/order changed')
+          expected_order = sorted(after_ids, reverse=True)
+          if after_ids != expected_order:
+              raise SystemExit('date_desc_id_desc order check failed')
+
+          for card_id in before_ids:
+              old_card = copy.deepcopy(before_cards[card_id])
+              new_card = copy.deepcopy(after_cards[card_id])
+              if card_id in repairs:
+                  if new_card.get('source_story_ids') != repairs[card_id]:
+                      raise SystemExit(f'Repair value mismatch: {card_id}')
+                  old_card['source_story_ids'] = repairs[card_id]
+              if old_card != new_card:
+                  raise SystemExit(f'Unexpected field change: {card_id}')
+
+          owners: dict[str, list[str]] = {}
+          for card in after['cards']:
+              for story_id in card.get('source_story_ids', []) or []:
+                  owners.setdefault(story_id, []).append(card['id'])
+
+          expected_owners = {
+              'GL_2026-07-21_C11': ['2026-07-20_GL_04'],
+              'GL_2026-07-22_C41': ['2026-07-22_GL_01'],
+              'GL_2026-07-22_C42': ['2026-07-22_GL_01'],
+          }
+          for story_id, expected in expected_owners.items():
+              actual = sorted(owners.get(story_id, []))
+              if actual != expected:
+                  raise SystemExit(f'Story ID ownership mismatch {story_id}: {actual}')
+
+          path.write_text(text, encoding='utf-8')
+          print('Applied exact two-card lineage hotfix and verified field-level scope.')
+          PY
+
+      - name: Validate JSON and lineage
+        shell: bash
+        run: |
+          python -m json.tool public/data/cards.json >/dev/null
+          python validation_scripts/story_id_lineage_check.py public/data/cards.json public/data/cards.json
+          git diff --check
+
+      - name: Build
+        shell: bash
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit and push cards hotfix
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/data/cards.json
+          git commit -m 'Fix source-story lineage collisions'
+          git push origin HEAD:hotfix/pr213-source-story-lineage

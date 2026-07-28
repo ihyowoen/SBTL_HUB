@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-28T16:08:07+09:00",
+  "updated": "2026-07-28T16:54:08+09:00",
   "total": 1325,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -1133,603 +1133,6 @@
         "No unresolved source-strength blocker remains."
       ],
       "assigned_id": "2026-07-27_KR_01",
-      "production_id_assigned_0_8": true,
-      "production_id_pending": false,
-      "production_verified": false,
-      "duplicate_check": {
-        "status": "PASS",
-        "current_main_count": 1304,
-        "exact_id": false,
-        "exact_url": false,
-        "canonical_url": false,
-        "event_fingerprint": false,
-        "source_story_id": false
-      },
-      "schema_runtime_check": {
-        "status": "PASS",
-        "full_schema": true,
-        "types_valid": true,
-        "source_schema_valid": true
-      },
-      "sort_check": {
-        "status": "PASS",
-        "repo_sort": "date_desc_id_desc"
-      },
-      "related_evidence_review": {
-        "status": "PASS",
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
-        "related_candidate_spec_ids": [],
-        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
-        "fresh_follow_up_anchor": "",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "rejected_relation_candidates": []
-      },
-      "related_prepass": {
-        "status": "PASS",
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
-        "related_candidate_spec_ids": [],
-        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
-        "fresh_follow_up_anchor": "",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "rejected_relation_candidates": []
-      },
-      "merge_prep": {
-        "run_tag": "20260727_133155",
-        "target_repo": "ihyowoen/SBTL_HUB",
-        "target_branch_base": "main",
-        "planned_target_branch": "data/add-publish-ready-cards-20260727_133155",
-        "target_data_path": "public/data/cards.json",
-        "state": "github_merge_ready",
-        "github_main_blob_sha_before": "6d61bae394309d7474d9fb85b5b0d4556d454c4e",
-        "prepared_at_kst": "2026-07-28T15:13:15+09:00",
-        "production_verified": false,
-        "baseline_source": "user-uploaded cards (22).json",
-        "baseline_count_before": 1304
-      },
-      "pr219_review_addressed": {
-        "pr_number": 219,
-        "review_comment_id": 5100900902,
-        "reviewed_head_sha": "306d748b46f7a274b7c372e47892890ea635ac69",
-        "addressed_at_kst": "2026-07-28T16:08:07+09:00",
-        "changes": [
-          "date_role event-date source URL and quote populated"
-        ],
-        "visible_fields_changed": false,
-        "production_id_changed": false,
-        "related_ids_changed": false
-      }
-    },
-    {
-      "draft_id": "2026-07-24_US_02",
-      "source_spec_id": "SA27_002",
-      "source_story_ids": [
-        "US_2026-07-24_C07"
-      ],
-      "region": "US",
-      "date": "2026-07-24",
-      "cat": "Charging",
-      "sub_cat": "V2G보상실증",
-      "signal": "high",
-      "title": "매사추세츠, EV 전력공급 보상 실증 착수",
-      "sub": "차량 배터리의 계통 기여에 보상하는 운영모델 시험",
-      "gate": "이번 조치는 보상형 운영모델을 시험하는 실증이다. 상용 요금제로의 전환 여부는 계통 기여량과 실제 정산결과를 확인해야 한다.",
-      "fact": "매사추세츠의 실증 프로그램은 전기차 소유자가 차량 전력을 계통에 공급할 때 기존 유틸리티 보상 프로그램에 참여하도록 지원한다. 구체적인 참여 규모와 정산 결과는 아직 공개되지 않았다.",
-      "implication": [
-        "V2G가 기술 시연을 넘어 고객 보상과 계통운영을 함께 검증하는 단계로 이동하고 있다.",
-        "확대 가능성은 차량 호환성과 배전망 성과, 실제 보상 수준에 달려 있다."
-      ],
-      "urls": [
-        "https://insideevs.com/news/802693/massachusetts-ev-owners-v2g-pilot-program",
-        "https://www.masscec.com/press/healey-driscoll-administration-announces-participants-groundbreaking-vehicle-everything"
-      ],
-      "related": [],
-      "fact_sources": [
-        {
-          "source_name": "InsideEVs RSS (Articles)",
-          "source_url": "https://insideevs.com/news/802693/massachusetts-ev-owners-v2g-pilot-program",
-          "claim": "매사추세츠의 신규 실증은 참여 전기차 소유자가 차량 배터리 전력을 계통에 제공하면 보상받도록 설계됐다.",
-          "source_quote": "AI data centers are straining the grid. EVs can help mitigate that load. A new pilot program in Massachusetts will pay electric vehicle owners for supporting the grid. They may be able to earn hundreds of dollars depending on the time and t",
-          "source_quote_status": "body_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "fact"
-          ],
-          "fetched_at": "2026-07-27T17:03:54+09:00",
-          "fetch_method": "direct_inspection_current_run_source_packet_article_body",
-          "source_published_date": "2026-07-24",
-          "visible_quote_date": "2026-07-24",
-          "source_origin_type": "trade_or_news_media",
-          "source_contribution": "현재 사건의 주체·실행단계·정량 정보를 본문 수준에서 제공",
-          "source_role": "primary_event_evidence",
-          "checked_at": "2026-07-27T17:59:54+09:00",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
-        },
-        {
-          "source_name": "MassCEC",
-          "source_url": "https://www.masscec.com/press/healey-driscoll-administration-announces-participants-groundbreaking-vehicle-everything",
-          "claim": "보도에 따르면 약 60가구가 참여하며, 양방향 충전과 피크수요 대응을 시험한다.",
-          "source_quote": "The program will help participants enroll in existing utility programs that offer compensation to EV owners who supply power back to the grid.",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "background_context",
-          "supports": [
-            "title",
-            "sub",
-            "fact",
-            "gate",
-            "implication"
-          ],
-          "fetched_at": "2026-07-27T17:03:54+09:00",
-          "fetch_method": "web_direct_open_or_search_result_body_inspection",
-          "source_published_date": "2026-02-02",
-          "visible_quote_date": "2026-02-02",
-          "source_origin_type": "official_agency",
-          "source_contribution": "공식 또는 독립 출처로 동일 사건의 핵심 실행정보를 보강",
-          "source_role": "policy_market_context",
-          "checked_at": "2026-07-27T17:59:54+09:00",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
-        }
-      ],
-      "source_availability": "multi_source_with_official",
-      "fetch_coverage": "core_event_and_visible_quantitative_claims_covered",
-      "evidence_package_status": "evidence_package_ready_for_draft",
-      "single_source_reason": null,
-      "needs_stage_c_attention": false,
-      "writer_notes": {
-        "date_corrected_from_stage_a": false,
-        "stage_a_representative_date": "2026-07-24",
-        "locked_event_date": "2026-07-24",
-        "source_strength_caveat": false,
-        "source_strength_caveat_routing_decision": "clean_no_0_5R_needed",
-        "claim_scope": "same Stage A event anchor only",
-        "related_candidates_preserved_not_production_mutation": []
-      },
-      "stage_b_only": true,
-      "publish_ready": true,
-      "stage_b_self_check": {
-        "signal_canonical": true,
-        "cat_locked_12": true,
-        "sub_cat_korean_compound": true,
-        "region_allowed": true,
-        "id_format_valid": true,
-        "all_pass": true
-      },
-      "lineage": {
-        "enhanced_selector_precision_version": "STRUCTURAL_NEWS_VALUE_OVERRIDE_V2_DATE_STORYID_RELATED_V1",
-        "selector_policy_version": "GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX",
-        "strict_pass_gate": {
-          "status": "pass",
-          "reason": "6개 strict gate 통과: publicly_funded_field_pilot 실행앵커가 업스트림 텍스트에 보이고, 현재 run에서 독립 카드가치가 있으며 baseline 관계가 new_distinct_event으로 정리됨.",
-          "all_six_conditions_passed": true,
-          "anchor_supported_by_upstream_text": true,
-          "why_not_review_pool": "현재 입력만으로 실행·데이터·정책 앵커, 날짜 후보, lane fit, baseline 관계가 모두 구체적이다.",
-          "rescue_path": null,
-          "conditions": {
-            "lane_fit": "PASS",
-            "concrete_fresh_execution_or_data_anchor": "PASS",
-            "source_direction_compatibility": "PASS_PROVISIONAL_STAGE_A",
-            "freshness_or_staleness_confidence": "PASS",
-            "baseline_duplicate_followup_risk": "PASS",
-            "independent_card_value_and_full_schema_viability": "PASS"
-          }
-        },
-        "strict_gate_check": {
-          "status": "PASS",
-          "all_six_conditions_passed": true,
-          "lane_fit": "PASS",
-          "concrete_fresh_execution_or_data_anchor": "PASS",
-          "source_direction_compatibility": "PASS_PROVISIONAL_STAGE_A",
-          "freshness_or_staleness_confidence": "PASS",
-          "baseline_duplicate_followup_risk": "PASS",
-          "independent_card_value_and_full_schema_viability": "PASS"
-        },
-        "format_risk_tags": [
-          "pilot"
-        ],
-        "execution_anchor_type": "publicly_funded_field_pilot",
-        "execution_anchor_strength": "strong",
-        "baseline_relation": "new_distinct_event",
-        "baseline_relation_type": "new_distinct_event",
-        "duplicate_risk": "low",
-        "staleness_decision": "fresh_or_current_release",
-        "source_access_risk": "low",
-        "stage_a_evidence_status": "not_evidence_complete_no_fetch",
-        "primary_url_semantics": "provided_source_candidate_not_evidence",
-        "same_event_source_cluster": {
-          "story_ids": [
-            "US_2026-07-24_C07"
-          ],
-          "urls": [
-            "https://insideevs.com/news/802693/massachusetts-ev-owners-v2g-pilot-program"
-          ],
-          "support_story_ids_review_only": []
-        },
-        "support_source_candidates": [],
-        "source_cluster_preserved": true,
-        "integrity_override_status": "PASS"
-      },
-      "source_diversity_precheck": {
-        "distinct_source_url_count": 2,
-        "distinct_source_domain_count": 2,
-        "official_or_primary_source_present": true,
-        "independent_secondary_source_present": true,
-        "single_source_candidate": false,
-        "source_diversity_required": true,
-        "source_diversity_reason_codes": [],
-        "single_source_exception_candidate": false,
-        "single_source_exception_candidate_reason": null,
-        "background_context_source_count": 1,
-        "core_event_source_count": 1,
-        "source_diversity_precheck_status": "PASS_PRECHECK"
-      },
-      "revision_pass": "r1",
-      "previous_draft_id": "2026-07-24_US_02",
-      "revised_draft_id": "2026-07-24_US_02-R1",
-      "id": "2026-07-24_US_02",
-      "spec_id": "SA27_002",
-      "stage_b_revise_only": false,
-      "needs_stage_c_recheck": true,
-      "remaining_risks": [],
-      "strict_gate_check": {
-        "status": "PASS",
-        "all_six_conditions_passed": true,
-        "lane_fit": "PASS",
-        "concrete_fresh_execution_or_data_anchor": "PASS",
-        "source_direction_compatibility": "PASS_PROVISIONAL_STAGE_A",
-        "freshness_or_staleness_confidence": "PASS",
-        "baseline_duplicate_followup_risk": "PASS",
-        "independent_card_value_and_full_schema_viability": "PASS"
-      },
-      "selection_risk_flags": [],
-      "enhanced_selector_precision_version": "STRUCTURAL_NEWS_VALUE_OVERRIDE_V2_DATE_STORYID_RELATED_V1",
-      "selector_policy_version": "GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX",
-      "execution_anchor_type": "publicly_funded_field_pilot",
-      "execution_anchor_strength": "strong",
-      "stage_a_lineage": {
-        "strict_pass_gate": {
-          "status": "pass",
-          "reason": "6개 strict gate 통과: publicly_funded_field_pilot 실행앵커가 업스트림 텍스트에 보이고, 현재 run에서 독립 카드가치가 있으며 baseline 관계가 new_distinct_event으로 정리됨.",
-          "all_six_conditions_passed": true,
-          "anchor_supported_by_upstream_text": true,
-          "why_not_review_pool": "현재 입력만으로 실행·데이터·정책 앵커, 날짜 후보, lane fit, baseline 관계가 모두 구체적이다.",
-          "rescue_path": null,
-          "conditions": {
-            "lane_fit": "PASS",
-            "concrete_fresh_execution_or_data_anchor": "PASS",
-            "source_direction_compatibility": "PASS_PROVISIONAL_STAGE_A",
-            "freshness_or_staleness_confidence": "PASS",
-            "baseline_duplicate_followup_risk": "PASS",
-            "independent_card_value_and_full_schema_viability": "PASS"
-          }
-        },
-        "strict_gate_check": {
-          "status": "PASS",
-          "all_six_conditions_passed": true,
-          "lane_fit": "PASS",
-          "concrete_fresh_execution_or_data_anchor": "PASS",
-          "source_direction_compatibility": "PASS_PROVISIONAL_STAGE_A",
-          "freshness_or_staleness_confidence": "PASS",
-          "baseline_duplicate_followup_risk": "PASS",
-          "independent_card_value_and_full_schema_viability": "PASS"
-        },
-        "format_risk_tags": [
-          "pilot"
-        ],
-        "execution_anchor_type": "publicly_funded_field_pilot",
-        "execution_anchor_strength": "strong",
-        "baseline_relation": "new_distinct_event",
-        "duplicate_risk": "low",
-        "staleness_decision": "fresh_or_current_release",
-        "enhanced_selector_precision_version": "STRUCTURAL_NEWS_VALUE_OVERRIDE_V2_DATE_STORYID_RELATED_V1",
-        "selector_policy_version": "GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX"
-      },
-      "date_role": {
-        "representative_date": "2026-07-24",
-        "event_date": "2026-07-24",
-        "publication_dates": [
-          "2026-02-02",
-          "2026-07-24"
-        ],
-        "event_date_confidence": "high",
-        "relation_type": "new_unrelated_event",
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://insideevs.com/news/802693/massachusetts-ev-owners-v2g-pilot-program",
-        "event_date_source_quote": "AI data centers are straining the grid. EVs can help mitigate that load. A new pilot program in Massachusetts will pay electric vehicle owners for supporting the grid. They may be able to earn hundreds of dollars depending on the time and t",
-        "event_date_source_name": "InsideEVs RSS (Articles)",
-        "date_role_reviewed_at_kst": "2026-07-28T16:08:07+09:00"
-      },
-      "related_lineage": {
-        "status": "PASS",
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
-        "related_candidate_spec_ids": [],
-        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
-        "fresh_follow_up_anchor": "",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "rejected_relation_candidates": []
-      },
-      "source_diversity_status": "PASS_MULTI_SOURCE",
-      "source_diversity_measure": {
-        "source_evidence_entry_count": 2,
-        "source_unique_url_count": 2,
-        "source_unique_domain_count": 2,
-        "source_independent_owner_count": 2
-      },
-      "source_independence_ledger": [
-        {
-          "owner": "insideevs.com",
-          "visible_claim_source": true
-        },
-        {
-          "owner": "masscec.com",
-          "visible_claim_source": true
-        }
-      ],
-      "source_role_coverage": {
-        "primary_event_evidence": 1,
-        "policy_market_context": 1
-      },
-      "source_synthesis_applied": true,
-      "source_synthesis_fields": [
-        "fact",
-        "gate",
-        "implication"
-      ],
-      "source_synthesis_audit": [
-        {
-          "source_domain": "insideevs.com",
-          "source_role": "primary_event_evidence",
-          "unique_contribution": "현재 사건의 주체·실행단계·정량 정보를 본문 수준에서 제공",
-          "affected_visible_fields": [
-            "fact_sentence_1"
-          ]
-        },
-        {
-          "source_domain": "masscec.com",
-          "source_role": "policy_market_context",
-          "unique_contribution": "공식 또는 독립 출처로 동일 사건의 핵심 실행정보를 보강",
-          "affected_visible_fields": [
-            "fact_sentence_2",
-            "gate_context"
-          ]
-        }
-      ],
-      "single_source_exception": {
-        "allowed": false,
-        "reason": "two or more independent visible-claim source owners",
-        "mitigation": "not applicable"
-      },
-      "source_discovery_ledger": [
-        {
-          "attempt_order": 1,
-          "ledger_type": "fetch_attempt",
-          "source_type_attempted": "trade_or_news_media",
-          "query_or_url": "https://insideevs.com/news/802693/massachusetts-ev-owners-v2g-pilot-program",
-          "search_terms_used": [
-            "Massachusetts EV Owners Will Earn Money By Selling Battery Power"
-          ],
-          "access_result": "body_or_official_material_verified",
-          "supports_core_event": true,
-          "supports_missing_claims": [
-            "core_event"
-          ],
-          "source_direction_check": "PASS",
-          "same_actor_event_date_check": "PASS",
-          "reason_not_used": null
-        },
-        {
-          "attempt_order": 2,
-          "ledger_type": "alternate_source_search",
-          "source_type_attempted": "official_agency",
-          "query_or_url": "https://www.masscec.com/press/healey-driscoll-administration-announces-participants-groundbreaking-vehicle-everything",
-          "search_terms_used": [
-            "Massachusetts EV Owners Will Earn Money By Selling Battery Power"
-          ],
-          "access_result": "body_or_official_material_verified",
-          "supports_core_event": true,
-          "supports_missing_claims": [
-            "core_event"
-          ],
-          "source_direction_check": "PASS",
-          "same_actor_event_date_check": "PASS",
-          "reason_not_used": null
-        }
-      ],
-      "revision_change_log": [
-        {
-          "previous_draft_id": "2026-07-24_US_02",
-          "revised_draft_id": "2026-07-24_US_02-R1",
-          "field": "title",
-          "before": "매사추세츠, 가정용 V2G 전력보상 실증 착수",
-          "after": "매사추세츠, EV 전력공급 보상 실증 착수",
-          "stage_c_issue_addressed": "전력보상 실증과 프로그램 목적은 확인되지만 60가구, 양방향 충전, 피크 대응 등 가시적 세부조건이 현재 quote에 직접 연결되지 않는다.",
-          "source_lock_check": "PASS",
-          "introduced_new_claim": false,
-          "notes": "visible wording narrowed or rebuilt from existing/authorised same-event evidence"
-        },
-        {
-          "previous_draft_id": "2026-07-24_US_02",
-          "revised_draft_id": "2026-07-24_US_02-R1",
-          "field": "sub",
-          "before": "전기차 배터리를 계통자원으로 보상하는 운영모델 시험",
-          "after": "차량 배터리의 계통 기여에 보상하는 운영모델 시험",
-          "stage_c_issue_addressed": "전력보상 실증과 프로그램 목적은 확인되지만 60가구, 양방향 충전, 피크 대응 등 가시적 세부조건이 현재 quote에 직접 연결되지 않는다.",
-          "source_lock_check": "PASS",
-          "introduced_new_claim": false,
-          "notes": "visible wording narrowed or rebuilt from existing/authorised same-event evidence"
-        },
-        {
-          "previous_draft_id": "2026-07-24_US_02",
-          "revised_draft_id": "2026-07-24_US_02-R1",
-          "field": "fact",
-          "before": "매사추세츠의 신규 실증은 참여 전기차 소유자가 차량 배터리 전력을 계통에 제공하면 보상받도록 설계됐다. 보도에 따르면 약 60가구가 참여하며, 양방향 충전과 피크수요 대응을 시험한다.",
-          "after": "매사추세츠의 실증 프로그램은 전기차 소유자가 차량 전력을 계통에 공급할 때 기존 유틸리티 보상 프로그램에 참여하도록 지원한다. 구체적인 참여 규모와 정산 결과는 아직 공개되지 않았다.",
-          "stage_c_issue_addressed": "전력보상 실증과 프로그램 목적은 확인되지만 60가구, 양방향 충전, 피크 대응 등 가시적 세부조건이 현재 quote에 직접 연결되지 않는다.",
-          "source_lock_check": "PASS",
-          "introduced_new_claim": false,
-          "notes": "visible wording narrowed or rebuilt from existing/authorised same-event evidence"
-        },
-        {
-          "previous_draft_id": "2026-07-24_US_02",
-          "revised_draft_id": "2026-07-24_US_02-R1",
-          "field": "gate",
-          "before": "참여 차량·주택 수와 보상 방식은 실증 범위에 한정된다. 상용 요금제 전환 여부는 별도 확인이 필요하다.",
-          "after": "이번 조치는 보상형 운영모델을 시험하는 실증이다. 상용 요금제로의 전환 여부는 계통 기여량과 실제 정산결과를 확인해야 한다.",
-          "stage_c_issue_addressed": "전력보상 실증과 프로그램 목적은 확인되지만 60가구, 양방향 충전, 피크 대응 등 가시적 세부조건이 현재 quote에 직접 연결되지 않는다.",
-          "source_lock_check": "PASS",
-          "introduced_new_claim": false,
-          "notes": "visible wording narrowed or rebuilt from existing/authorised same-event evidence"
-        },
-        {
-          "previous_draft_id": "2026-07-24_US_02",
-          "revised_draft_id": "2026-07-24_US_02-R1",
-          "field": "implication",
-          "before": [
-            "V2G가 기술 시연을 넘어 고객 보상과 계통운영을 함께 시험하는 단계로 이동하는 흐름이 관찰된다.",
-            "확대 가능성은 차량 호환성, 배전망 운영성과 실제 정산결과를 확인해야 판단할 수 있다."
-          ],
-          "after": [
-            "V2G가 기술 시연을 넘어 고객 보상과 계통운영을 함께 검증하는 단계로 이동하고 있다.",
-            "확대 가능성은 차량 호환성과 배전망 성과, 실제 보상 수준에 달려 있다."
-          ],
-          "stage_c_issue_addressed": "전력보상 실증과 프로그램 목적은 확인되지만 60가구, 양방향 충전, 피크 대응 등 가시적 세부조건이 현재 quote에 직접 연결되지 않는다.",
-          "source_lock_check": "PASS",
-          "introduced_new_claim": false,
-          "notes": "visible wording narrowed or rebuilt from existing/authorised same-event evidence"
-        }
-      ],
-      "state": "github_merge_ready",
-      "stage_c_revise_only": true,
-      "prior_issue_resolved": true,
-      "revision_count": 1,
-      "needs_post_acceptance_duplicate_review": true,
-      "needs_post_acceptance_evidence_qc": true,
-      "strict_gate_acceptance_guard_applied": true,
-      "accepted_pool_lineage_status": "PASS",
-      "stage_c_revise_findings": {
-        "prior_issue_resolution": "PASS",
-        "new_unsupported_claim_check": "PASS",
-        "source_direction": "PASS",
-        "visible_claim_coverage": "PASS",
-        "quote_quality": "PASS",
-        "language_meta_check": "PASS",
-        "taxonomy_check": "PASS",
-        "publish_ready_false": "PASS",
-        "related_lineage": "PASS",
-        "source_diversity": "PASS_MULTI_SOURCE"
-      },
-      "previous_state": "publish_ready",
-      "evidence_complete": true,
-      "source_claim_covered": true,
-      "content_enriched": true,
-      "language_terminology_polished": true,
-      "needs_evidence_completeness_qc": true,
-      "needs_source_claim_coverage_qc": true,
-      "needs_content_enrichment": false,
-      "needs_language_terminology_polish": false,
-      "needs_publish_readiness_qc": false,
-      "publish_ready_reset": true,
-      "reset_reason": "content_enrichment_does_not_decide_publish_ready",
-      "github_main_sync_required_later": false,
-      "baseline_relation": "new",
-      "duplicate_risk": "low_after_full_1304_card_screen",
-      "duplicate_screening": {
-        "exact_id_match": false,
-        "exact_url_match": false,
-        "canonical_url_match": false,
-        "title_similarity_match": false,
-        "actor_asset_event_match": false,
-        "baseline_event_fingerprint_match": false,
-        "internal_batch_duplicate_match": false,
-        "already_covered_by_broader_card": false,
-        "matched_baseline_card_ids": [],
-        "baseline_count_screened": 1304,
-        "baseline_blob_sha": "6d61bae394309d7474d9fb85b5b0d4556d454c4e"
-      },
-      "id_collision": false,
-      "id_collision_notes": "No current-main collision for the provisional ID; Prompt 0.8 will revalidate and finalize the production ID.",
-      "notes": [
-        "Compared against the byte-identical current GitHub main 1,304-card baseline.",
-        "No exact/canonical URL or same-event fingerprint duplicate was found.",
-        "addable_merge_safe is not evidence_complete and not publish_ready."
-      ],
-      "evidence_qc_findings": {
-        "quote_quality": "PASS_BODY_OR_OFFICIAL_MATERIAL",
-        "fact_sources_schema": "PASS_AFTER_METADATA_ONLY_NORMALIZATION",
-        "source_role_sufficiency": "PASS",
-        "single_source_status": "NOT_SINGLE_SOURCE",
-        "numeric_claim_audit": "PASS",
-        "causal_claim_audit": "PASS",
-        "source_accessibility": "PASS_CARRIED_VERIFIED_BODY_OR_OFFICIAL",
-        "execution_anchor_supported": true,
-        "source_diversity": "PASS_MULTI_SOURCE"
-      },
-      "claim_coverage_summary": {
-        "status": "PASS",
-        "title": "strong",
-        "sub": "strong",
-        "fact": "strong",
-        "gate": "adequate",
-        "implication": "adequate",
-        "weak_or_missing_core_claim_count": 0
-      },
-      "source_schema_metadata_repair_applied": true,
-      "content_polish_findings": {
-        "title_quality": "PASS_ACTOR_ACTION_SCALE_OR_LOCATION",
-        "sub_quality": "PASS_ONE_SENTENCE_EVENT_SCALE_STRATEGIC_ANGLE",
-        "gate_depth": "PASS_TWO_TO_THREE_SENTENCE_INTERPRETATION_BOUNDARY",
-        "fact_source_lock": "PASS_NO_UNSUPPORTED_CLAIM_ADDED",
-        "fact_depth": "PASS_MINIMUM_TWO_SENTENCES",
-        "implication_quality": "PASS_MINIMUM_TWO_DISTINCT_OBSERVATIONAL_ITEMS",
-        "terminology_consistency": "PASS",
-        "foreign_language_residue": "PASS_NONE",
-        "banned_phrase_check": "PASS_NONE",
-        "tone_check": "PASS_EXECUTIVE_BRIEFING",
-        "sbtl_forcing_check": "PASS_NO_FORCED_SBTL_REFERENCE",
-        "execution_anchor_preservation": "PASS_NO_STAGE_INFLATION"
-      },
-      "visible_field_change_summary": {
-        "changed_fields": [],
-        "changed_field_count": 0,
-        "source_lock_narrowing_or_depth_fix": false,
-        "introduced_new_claim": false,
-        "evidence_fields_preserved": true
-      },
-      "github_ready": true,
-      "pr_candidate_ready": true,
-      "hard_fail_count": 0,
-      "proposed_production_id_0_8": "2026-07-24_US_02",
-      "id_assignment_preview_only": false,
-      "id_assignment_reason": "CARD_ID_STANDARD event-date+region assignment against exact current GitHub main; next unused NN allocated without reusing historical IDs.",
-      "github_main_sync_confirmed_for_final_qc": true,
-      "github_main_blob_sha_at_final_qc": "6d61bae394309d7474d9fb85b5b0d4556d454c4e",
-      "final_qc_reviewed_at_kst": "2026-07-28T14:15:59+09:00",
-      "final_qc_gates": {
-        "fact_safety": "PASS",
-        "merge_safety": "PASS",
-        "evidence_completeness": "PASS",
-        "claim_coverage": "PASS",
-        "content_depth": "PASS",
-        "language_tone": "PASS",
-        "schema_runtime": "PASS",
-        "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
-      },
-      "final_qc_notes": [
-        "All nine final publish gates passed.",
-        "GitHub main sync was confirmed by exact Git blob SHA.",
-        "Production ID assignment and replace-all merge remain Prompt 0.8 tasks.",
-        "No unresolved source-strength blocker remains."
-      ],
-      "assigned_id": "2026-07-24_US_02",
       "production_id_assigned_0_8": true,
       "production_id_pending": false,
       "production_verified": false,
@@ -5239,6 +4642,712 @@
       }
     },
     {
+      "draft_id": "2026-07-23_US_01",
+      "source_spec_id": "SA27_002",
+      "source_story_ids": [
+        "US_2026-07-24_C07"
+      ],
+      "region": "US",
+      "date": "2026-07-23",
+      "cat": "Charging",
+      "sub_cat": "V2G보상실증",
+      "signal": "high",
+      "title": "Eversource·National Grid, 매사추세츠 가정용 V2G 보상 실증 추진",
+      "sub": "ConnectedSolutions에 V2G 가능 전기차를 참여시키는 공동시험",
+      "gate": "이번 조치는 보상형 운영모델을 시험하는 실증이다. 상용 요금제로의 전환 여부는 계통 기여량과 실제 정산결과를 확인해야 한다.",
+      "fact": "Eversource와 National Grid는 EnergyHub·Sunrun·The Mobility House와 함께 7월 23일 매사추세츠 ConnectedSolutions에 V2G 가능 전기차를 참여시키는 공동시험을 발표했다. InsideEVs는 MassCEC 지원으로 참여자 가정에 60개의 양방향 충전시스템이 설치될 예정이라고 보도했으며, 실제 계통기여량과 정산 결과는 아직 공개되지 않았다.",
+      "implication": [
+        "V2G가 기술 시연을 넘어 고객 보상과 계통운영을 함께 검증하는 단계로 이동하고 있다.",
+        "확대 가능성은 차량 호환성과 배전망 성과, 실제 보상 수준에 달려 있다."
+      ],
+      "urls": [
+        "https://www.businesswire.com/news/home/20260723542704/en/",
+        "https://insideevs.com/news/802693/massachusetts-ev-owners-v2g-pilot-program",
+        "https://www.masscec.com/press/healey-driscoll-administration-announces-participants-groundbreaking-vehicle-everything"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "EnergyHub via Business Wire",
+          "source_url": "https://www.businesswire.com/news/home/20260723542704/en/",
+          "claim": "Eversource, National Grid, EnergyHub, Sunrun, The Mobility House는 7월 23일 매사추세츠에서 가정용 V2G 공동시험을 발표했다.",
+          "source_quote": "Eversource, National Grid, EnergyHub, Sunrun, and The Mobility House today announced a joint effort to test vehicle-to-grid capabilities in Massachusetts.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-07-28T16:54:08+09:00",
+          "fetch_method": "web_direct_open_or_search_result_body_inspection",
+          "source_published_date": "2026-07-23",
+          "visible_quote_date": "2026-07-23",
+          "source_origin_type": "company_press_release_wire",
+          "source_contribution": "7월 23일 공동시험 발표와 참여 주체를 직접 확인",
+          "source_role": "primary_event_evidence",
+          "checked_at": "2026-07-28T16:54:08+09:00",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        },
+        {
+          "source_name": "InsideEVs",
+          "source_url": "https://insideevs.com/news/802693/massachusetts-ev-owners-v2g-pilot-program",
+          "claim": "MassCEC 지원으로 참여자 가정에 60개의 양방향 충전시스템이 설치될 예정이다.",
+          "source_quote": "Massachusetts Clean Energy Center is funding the program and will install 60 bidirectional charging systems in participants’ homes.",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-07-27T17:03:54+09:00",
+          "fetch_method": "direct_inspection_current_run_source_packet_article_body",
+          "source_published_date": "2026-07-24",
+          "visible_quote_date": "2026-07-24",
+          "source_origin_type": "trade_or_news_media",
+          "source_contribution": "가정용 양방향 충전시스템 60개 설치 규모를 보강",
+          "source_role": "secondary_event_evidence",
+          "checked_at": "2026-07-28T16:54:08+09:00",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        },
+        {
+          "source_name": "MassCEC",
+          "source_url": "https://www.masscec.com/press/healey-driscoll-administration-announces-participants-groundbreaking-vehicle-everything",
+          "claim": "2월 2일 발표된 V2X Demonstration은 참여자에게 양방향 충전기를 무상 제공하고 기존 보상 프로그램 연계를 지원한다.",
+          "source_quote": "Selected participants, including school districts, residents, and municipal projects, will receive bi-directional electric vehicle chargers at no cost.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "background_context",
+          "supports": [
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-07-27T17:03:54+09:00",
+          "fetch_method": "web_direct_open_or_search_result_body_inspection",
+          "source_published_date": "2026-02-02",
+          "visible_quote_date": "2026-02-02",
+          "source_origin_type": "official_agency",
+          "source_contribution": "기존 MassCEC V2X 실증의 지원구조와 참여대상을 공식 확인",
+          "source_role": "policy_market_context",
+          "checked_at": "2026-07-28T16:54:08+09:00",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        }
+      ],
+      "source_availability": "multi_source_with_official",
+      "fetch_coverage": "core_event_and_visible_quantitative_claims_covered",
+      "evidence_package_status": "evidence_package_ready_for_draft",
+      "single_source_reason": null,
+      "needs_stage_c_attention": false,
+      "writer_notes": {
+        "date_corrected_from_stage_a": true,
+        "stage_a_representative_date": "2026-07-24",
+        "locked_event_date": "2026-07-23",
+        "source_strength_caveat": false,
+        "source_strength_caveat_routing_decision": "clean_no_0_5R_needed",
+        "claim_scope": "same Stage A event anchor only",
+        "related_candidates_preserved_not_production_mutation": [],
+        "date_correction_reason": "July 23 partner announcement is the fresh event; July 24 InsideEVs is later coverage."
+      },
+      "stage_b_only": true,
+      "publish_ready": true,
+      "stage_b_self_check": {
+        "signal_canonical": true,
+        "cat_locked_12": true,
+        "sub_cat_korean_compound": true,
+        "region_allowed": true,
+        "id_format_valid": true,
+        "all_pass": true
+      },
+      "lineage": {
+        "enhanced_selector_precision_version": "STRUCTURAL_NEWS_VALUE_OVERRIDE_V2_DATE_STORYID_RELATED_V1",
+        "selector_policy_version": "GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX",
+        "strict_pass_gate": {
+          "status": "pass",
+          "reason": "6개 strict gate 통과: publicly_funded_field_pilot 실행앵커가 업스트림 텍스트에 보이고, 현재 run에서 독립 카드가치가 있으며 baseline 관계가 new_distinct_event으로 정리됨.",
+          "all_six_conditions_passed": true,
+          "anchor_supported_by_upstream_text": true,
+          "why_not_review_pool": "현재 입력만으로 실행·데이터·정책 앵커, 날짜 후보, lane fit, baseline 관계가 모두 구체적이다.",
+          "rescue_path": null,
+          "conditions": {
+            "lane_fit": "PASS",
+            "concrete_fresh_execution_or_data_anchor": "PASS",
+            "source_direction_compatibility": "PASS_PROVISIONAL_STAGE_A",
+            "freshness_or_staleness_confidence": "PASS",
+            "baseline_duplicate_followup_risk": "PASS",
+            "independent_card_value_and_full_schema_viability": "PASS"
+          }
+        },
+        "strict_gate_check": {
+          "status": "PASS",
+          "all_six_conditions_passed": true,
+          "lane_fit": "PASS",
+          "concrete_fresh_execution_or_data_anchor": "PASS",
+          "source_direction_compatibility": "PASS_PROVISIONAL_STAGE_A",
+          "freshness_or_staleness_confidence": "PASS",
+          "baseline_duplicate_followup_risk": "PASS",
+          "independent_card_value_and_full_schema_viability": "PASS"
+        },
+        "format_risk_tags": [
+          "pilot"
+        ],
+        "execution_anchor_type": "publicly_funded_field_pilot",
+        "execution_anchor_strength": "strong",
+        "baseline_relation": "new_distinct_event",
+        "baseline_relation_type": "new_distinct_event",
+        "duplicate_risk": "low",
+        "staleness_decision": "fresh_or_current_release",
+        "source_access_risk": "low",
+        "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+        "primary_url_semantics": "provided_source_candidate_not_evidence",
+        "same_event_source_cluster": {
+          "story_ids": [
+            "US_2026-07-24_C07"
+          ],
+          "urls": [
+            "https://insideevs.com/news/802693/massachusetts-ev-owners-v2g-pilot-program"
+          ],
+          "support_story_ids_review_only": []
+        },
+        "support_source_candidates": [],
+        "source_cluster_preserved": true,
+        "integrity_override_status": "PASS"
+      },
+      "source_diversity_precheck": {
+        "distinct_source_url_count": 3,
+        "distinct_source_domain_count": 3,
+        "official_or_primary_source_present": true,
+        "independent_secondary_source_present": true,
+        "single_source_candidate": false,
+        "source_diversity_required": true,
+        "source_diversity_reason_codes": [],
+        "single_source_exception_candidate": false,
+        "single_source_exception_candidate_reason": null,
+        "background_context_source_count": 1,
+        "core_event_source_count": 2,
+        "source_diversity_precheck_status": "PASS_PRECHECK"
+      },
+      "revision_pass": "r1",
+      "previous_draft_id": "2026-07-23_US_01",
+      "revised_draft_id": "2026-07-23_US_01-R1",
+      "id": "2026-07-23_US_01",
+      "spec_id": "SA27_002",
+      "stage_b_revise_only": false,
+      "needs_stage_c_recheck": true,
+      "remaining_risks": [],
+      "strict_gate_check": {
+        "status": "PASS",
+        "all_six_conditions_passed": true,
+        "lane_fit": "PASS",
+        "concrete_fresh_execution_or_data_anchor": "PASS",
+        "source_direction_compatibility": "PASS_PROVISIONAL_STAGE_A",
+        "freshness_or_staleness_confidence": "PASS",
+        "baseline_duplicate_followup_risk": "PASS",
+        "independent_card_value_and_full_schema_viability": "PASS"
+      },
+      "selection_risk_flags": [],
+      "enhanced_selector_precision_version": "STRUCTURAL_NEWS_VALUE_OVERRIDE_V2_DATE_STORYID_RELATED_V1",
+      "selector_policy_version": "GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX",
+      "execution_anchor_type": "publicly_funded_field_pilot",
+      "execution_anchor_strength": "strong",
+      "stage_a_lineage": {
+        "strict_pass_gate": {
+          "status": "pass",
+          "reason": "6개 strict gate 통과: publicly_funded_field_pilot 실행앵커가 업스트림 텍스트에 보이고, 현재 run에서 독립 카드가치가 있으며 baseline 관계가 new_distinct_event으로 정리됨.",
+          "all_six_conditions_passed": true,
+          "anchor_supported_by_upstream_text": true,
+          "why_not_review_pool": "현재 입력만으로 실행·데이터·정책 앵커, 날짜 후보, lane fit, baseline 관계가 모두 구체적이다.",
+          "rescue_path": null,
+          "conditions": {
+            "lane_fit": "PASS",
+            "concrete_fresh_execution_or_data_anchor": "PASS",
+            "source_direction_compatibility": "PASS_PROVISIONAL_STAGE_A",
+            "freshness_or_staleness_confidence": "PASS",
+            "baseline_duplicate_followup_risk": "PASS",
+            "independent_card_value_and_full_schema_viability": "PASS"
+          }
+        },
+        "strict_gate_check": {
+          "status": "PASS",
+          "all_six_conditions_passed": true,
+          "lane_fit": "PASS",
+          "concrete_fresh_execution_or_data_anchor": "PASS",
+          "source_direction_compatibility": "PASS_PROVISIONAL_STAGE_A",
+          "freshness_or_staleness_confidence": "PASS",
+          "baseline_duplicate_followup_risk": "PASS",
+          "independent_card_value_and_full_schema_viability": "PASS"
+        },
+        "format_risk_tags": [
+          "pilot"
+        ],
+        "execution_anchor_type": "publicly_funded_field_pilot",
+        "execution_anchor_strength": "strong",
+        "baseline_relation": "new_distinct_event",
+        "duplicate_risk": "low",
+        "staleness_decision": "fresh_or_current_release",
+        "enhanced_selector_precision_version": "STRUCTURAL_NEWS_VALUE_OVERRIDE_V2_DATE_STORYID_RELATED_V1",
+        "selector_policy_version": "GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX"
+      },
+      "date_role": {
+        "representative_date": "2026-07-23",
+        "event_date": "2026-07-23",
+        "publication_dates": [
+          "2026-02-02",
+          "2026-07-23",
+          "2026-07-24"
+        ],
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.businesswire.com/news/home/20260723542704/en/",
+        "event_date_source_quote": "Eversource, National Grid, EnergyHub, Sunrun, and The Mobility House today announced a joint effort to test vehicle-to-grid capabilities in Massachusetts.",
+        "event_date_source_name": "EnergyHub via Business Wire",
+        "date_role_reviewed_at_kst": "2026-07-28T16:54:08+09:00",
+        "date_correction_reason": "July 23 joint-effort announcement is the event anchor; July 24 is secondary coverage."
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 3,
+        "source_independent_owner_count": 3
+      },
+      "source_independence_ledger": [
+        {
+          "owner": "businesswire.com",
+          "visible_claim_source": true
+        },
+        {
+          "owner": "insideevs.com",
+          "visible_claim_source": true
+        },
+        {
+          "owner": "masscec.com",
+          "visible_claim_source": true
+        }
+      ],
+      "source_role_coverage": {
+        "primary_event_evidence": 1,
+        "secondary_event_evidence": 1,
+        "policy_market_context": 1
+      },
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "fact",
+        "gate",
+        "implication"
+      ],
+      "source_synthesis_audit": [
+        {
+          "source_domain": "businesswire.com",
+          "source_role": "primary_event_evidence",
+          "unique_contribution": "7월 23일 공동시험 발표와 참여 주체",
+          "affected_visible_fields": [
+            "title",
+            "sub",
+            "fact_sentence_1"
+          ]
+        },
+        {
+          "source_domain": "insideevs.com",
+          "source_role": "secondary_event_evidence",
+          "unique_contribution": "가정용 양방향 충전시스템 60개 설치 규모",
+          "affected_visible_fields": [
+            "fact_sentence_2",
+            "gate_context"
+          ]
+        },
+        {
+          "source_domain": "masscec.com",
+          "source_role": "policy_market_context",
+          "unique_contribution": "기존 V2X 실증의 지원구조와 참여대상",
+          "affected_visible_fields": [
+            "fact_context",
+            "implication_context"
+          ]
+        }
+      ],
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "two or more independent visible-claim source owners",
+        "mitigation": "not applicable"
+      },
+      "source_discovery_ledger": [
+        {
+          "attempt_order": 1,
+          "ledger_type": "event_anchor_search",
+          "source_type_attempted": "company_press_release_wire",
+          "query_or_url": "https://www.businesswire.com/news/home/20260723542704/en/",
+          "search_terms_used": [
+            "Massachusetts residential V2G ConnectedSolutions July 23 2026"
+          ],
+          "access_result": "body_or_official_material_verified",
+          "supports_core_event": true,
+          "supports_missing_claims": [
+            "event_date",
+            "actors",
+            "joint_test"
+          ],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": null
+        },
+        {
+          "attempt_order": 2,
+          "ledger_type": "independent_secondary_search",
+          "source_type_attempted": "trade_or_news_media",
+          "query_or_url": "https://insideevs.com/news/802693/massachusetts-ev-owners-v2g-pilot-program",
+          "search_terms_used": [
+            "Massachusetts EV owners V2G pilot 60 chargers"
+          ],
+          "access_result": "body_or_official_material_verified",
+          "supports_core_event": true,
+          "supports_missing_claims": [
+            "60_home_bidirectional_chargers"
+          ],
+          "source_direction_check": "PASS",
+          "same_actor_event_date_check": "PASS_SECONDARY_COVERAGE",
+          "reason_not_used": null
+        },
+        {
+          "attempt_order": 3,
+          "ledger_type": "official_context_search",
+          "source_type_attempted": "official_agency",
+          "query_or_url": "https://www.masscec.com/press/healey-driscoll-administration-announces-participants-groundbreaking-vehicle-everything",
+          "search_terms_used": [
+            "MassCEC V2X demonstration participants February 2 2026"
+          ],
+          "access_result": "body_or_official_material_verified",
+          "supports_core_event": false,
+          "supports_missing_claims": [
+            "program_context",
+            "participant_support"
+          ],
+          "source_direction_check": "PASS_CONTEXT_ONLY",
+          "same_actor_event_date_check": "PASS_EARLIER_PROGRAM_CONTEXT",
+          "reason_not_used": null
+        }
+      ],
+      "revision_change_log": [
+        {
+          "previous_draft_id": "2026-07-23_US_01",
+          "revised_draft_id": "2026-07-23_US_01-R1",
+          "field": "title",
+          "before": "매사추세츠, 가정용 V2G 전력보상 실증 착수",
+          "after": "매사추세츠, EV 전력공급 보상 실증 착수",
+          "stage_c_issue_addressed": "전력보상 실증과 프로그램 목적은 확인되지만 60가구, 양방향 충전, 피크 대응 등 가시적 세부조건이 현재 quote에 직접 연결되지 않는다.",
+          "source_lock_check": "PASS",
+          "introduced_new_claim": false,
+          "notes": "visible wording narrowed or rebuilt from existing/authorised same-event evidence"
+        },
+        {
+          "previous_draft_id": "2026-07-23_US_01",
+          "revised_draft_id": "2026-07-23_US_01-R1",
+          "field": "sub",
+          "before": "전기차 배터리를 계통자원으로 보상하는 운영모델 시험",
+          "after": "차량 배터리의 계통 기여에 보상하는 운영모델 시험",
+          "stage_c_issue_addressed": "전력보상 실증과 프로그램 목적은 확인되지만 60가구, 양방향 충전, 피크 대응 등 가시적 세부조건이 현재 quote에 직접 연결되지 않는다.",
+          "source_lock_check": "PASS",
+          "introduced_new_claim": false,
+          "notes": "visible wording narrowed or rebuilt from existing/authorised same-event evidence"
+        },
+        {
+          "previous_draft_id": "2026-07-23_US_01",
+          "revised_draft_id": "2026-07-23_US_01-R1",
+          "field": "fact",
+          "before": "매사추세츠의 신규 실증은 참여 전기차 소유자가 차량 배터리 전력을 계통에 제공하면 보상받도록 설계됐다. 보도에 따르면 약 60가구가 참여하며, 양방향 충전과 피크수요 대응을 시험한다.",
+          "after": "매사추세츠의 실증 프로그램은 전기차 소유자가 차량 전력을 계통에 공급할 때 기존 유틸리티 보상 프로그램에 참여하도록 지원한다. 구체적인 참여 규모와 정산 결과는 아직 공개되지 않았다.",
+          "stage_c_issue_addressed": "전력보상 실증과 프로그램 목적은 확인되지만 60가구, 양방향 충전, 피크 대응 등 가시적 세부조건이 현재 quote에 직접 연결되지 않는다.",
+          "source_lock_check": "PASS",
+          "introduced_new_claim": false,
+          "notes": "visible wording narrowed or rebuilt from existing/authorised same-event evidence"
+        },
+        {
+          "previous_draft_id": "2026-07-23_US_01",
+          "revised_draft_id": "2026-07-23_US_01-R1",
+          "field": "gate",
+          "before": "참여 차량·주택 수와 보상 방식은 실증 범위에 한정된다. 상용 요금제 전환 여부는 별도 확인이 필요하다.",
+          "after": "이번 조치는 보상형 운영모델을 시험하는 실증이다. 상용 요금제로의 전환 여부는 계통 기여량과 실제 정산결과를 확인해야 한다.",
+          "stage_c_issue_addressed": "전력보상 실증과 프로그램 목적은 확인되지만 60가구, 양방향 충전, 피크 대응 등 가시적 세부조건이 현재 quote에 직접 연결되지 않는다.",
+          "source_lock_check": "PASS",
+          "introduced_new_claim": false,
+          "notes": "visible wording narrowed or rebuilt from existing/authorised same-event evidence"
+        },
+        {
+          "previous_draft_id": "2026-07-23_US_01",
+          "revised_draft_id": "2026-07-23_US_01-R1",
+          "field": "implication",
+          "before": [
+            "V2G가 기술 시연을 넘어 고객 보상과 계통운영을 함께 시험하는 단계로 이동하는 흐름이 관찰된다.",
+            "확대 가능성은 차량 호환성, 배전망 운영성과 실제 정산결과를 확인해야 판단할 수 있다."
+          ],
+          "after": [
+            "V2G가 기술 시연을 넘어 고객 보상과 계통운영을 함께 검증하는 단계로 이동하고 있다.",
+            "확대 가능성은 차량 호환성과 배전망 성과, 실제 보상 수준에 달려 있다."
+          ],
+          "stage_c_issue_addressed": "전력보상 실증과 프로그램 목적은 확인되지만 60가구, 양방향 충전, 피크 대응 등 가시적 세부조건이 현재 quote에 직접 연결되지 않는다.",
+          "source_lock_check": "PASS",
+          "introduced_new_claim": false,
+          "notes": "visible wording narrowed or rebuilt from existing/authorised same-event evidence"
+        },
+        {
+          "previous_draft_id": "2026-07-24_US_02",
+          "revised_draft_id": "2026-07-23_US_01",
+          "field": "date_and_production_id",
+          "before": {
+            "date": "2026-07-24",
+            "id": "2026-07-24_US_02"
+          },
+          "after": {
+            "date": "2026-07-23",
+            "id": "2026-07-23_US_01"
+          },
+          "stage_c_issue_addressed": "PR #219 comment 5101334338: use the pilot's actual event date.",
+          "source_lock_check": "PASS_NEW_EVENT_ANCHOR_FOUND",
+          "introduced_new_claim": false,
+          "notes": "July 23 partner announcement established the fresh event anchor."
+        },
+        {
+          "previous_draft_id": "2026-07-24_US_02",
+          "revised_draft_id": "2026-07-23_US_01",
+          "field": "fact",
+          "before": "매사추세츠의 실증 프로그램은 전기차 소유자가 차량 전력을 계통에 공급할 때 기존 유틸리티 보상 프로그램에 참여하도록 지원한다. 구체적인 참여 규모와 정산 결과는 아직 공개되지 않았다.",
+          "after": "Eversource와 National Grid는 EnergyHub·Sunrun·The Mobility House와 함께 7월 23일 매사추세츠 ConnectedSolutions에 V2G 가능 전기차를 참여시키는 공동시험을 발표했다. InsideEVs는 MassCEC 지원으로 참여자 가정에 60개의 양방향 충전시스템이 설치될 예정이라고 보도했으며, 실제 계통기여량과 정산 결과는 아직 공개되지 않았다.",
+          "stage_c_issue_addressed": "PR #219 comment 5101334338: remove false participation non-disclosure.",
+          "source_lock_check": "PASS",
+          "introduced_new_claim": false,
+          "notes": "60 home bidirectional charging systems are disclosed; only operational settlement results remain pending."
+        }
+      ],
+      "state": "github_merge_ready",
+      "stage_c_revise_only": true,
+      "prior_issue_resolved": true,
+      "revision_count": 1,
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "strict_gate_acceptance_guard_applied": true,
+      "accepted_pool_lineage_status": "PASS",
+      "stage_c_revise_findings": {
+        "prior_issue_resolution": "PASS",
+        "new_unsupported_claim_check": "PASS",
+        "source_direction": "PASS",
+        "visible_claim_coverage": "PASS",
+        "quote_quality": "PASS",
+        "language_meta_check": "PASS",
+        "taxonomy_check": "PASS",
+        "publish_ready_false": "PASS",
+        "related_lineage": "PASS",
+        "source_diversity": "PASS_MULTI_SOURCE"
+      },
+      "previous_state": "publish_ready",
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_evidence_completeness_qc": true,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_enrichment": false,
+      "needs_language_terminology_polish": false,
+      "needs_publish_readiness_qc": false,
+      "publish_ready_reset": true,
+      "reset_reason": "content_enrichment_does_not_decide_publish_ready",
+      "github_main_sync_required_later": false,
+      "baseline_relation": "new",
+      "duplicate_risk": "low_after_full_1304_card_screen",
+      "duplicate_screening": {
+        "exact_id_match": false,
+        "exact_url_match": false,
+        "canonical_url_match": false,
+        "title_similarity_match": false,
+        "actor_asset_event_match": false,
+        "baseline_event_fingerprint_match": false,
+        "internal_batch_duplicate_match": false,
+        "already_covered_by_broader_card": false,
+        "matched_baseline_card_ids": [],
+        "baseline_count_screened": 1304,
+        "baseline_blob_sha": "6d61bae394309d7474d9fb85b5b0d4556d454c4e"
+      },
+      "id_collision": false,
+      "id_collision_notes": "No current-main collision for the provisional ID; Prompt 0.8 will revalidate and finalize the production ID.",
+      "notes": [
+        "Compared against the byte-identical current GitHub main 1,304-card baseline.",
+        "No exact/canonical URL or same-event fingerprint duplicate was found.",
+        "addable_merge_safe is not evidence_complete and not publish_ready."
+      ],
+      "evidence_qc_findings": {
+        "quote_quality": "PASS_BODY_OR_OFFICIAL_MATERIAL",
+        "fact_sources_schema": "PASS_AFTER_METADATA_ONLY_NORMALIZATION",
+        "source_role_sufficiency": "PASS",
+        "single_source_status": "NOT_SINGLE_SOURCE",
+        "numeric_claim_audit": "PASS",
+        "causal_claim_audit": "PASS",
+        "source_accessibility": "PASS_CARRIED_VERIFIED_BODY_OR_OFFICIAL",
+        "execution_anchor_supported": true,
+        "source_diversity": "PASS_MULTI_SOURCE"
+      },
+      "claim_coverage_summary": {
+        "status": "PASS",
+        "title": "strong",
+        "sub": "strong",
+        "fact": "strong",
+        "gate": "adequate",
+        "implication": "adequate",
+        "weak_or_missing_core_claim_count": 0
+      },
+      "source_schema_metadata_repair_applied": true,
+      "content_polish_findings": {
+        "title_quality": "PASS_ACTOR_ACTION_SCALE_OR_LOCATION",
+        "sub_quality": "PASS_ONE_SENTENCE_EVENT_SCALE_STRATEGIC_ANGLE",
+        "gate_depth": "PASS_TWO_TO_THREE_SENTENCE_INTERPRETATION_BOUNDARY",
+        "fact_source_lock": "PASS_NO_UNSUPPORTED_CLAIM_ADDED",
+        "fact_depth": "PASS_MINIMUM_TWO_SENTENCES",
+        "implication_quality": "PASS_MINIMUM_TWO_DISTINCT_OBSERVATIONAL_ITEMS",
+        "terminology_consistency": "PASS",
+        "foreign_language_residue": "PASS_NONE",
+        "banned_phrase_check": "PASS_NONE",
+        "tone_check": "PASS_EXECUTIVE_BRIEFING",
+        "sbtl_forcing_check": "PASS_NO_FORCED_SBTL_REFERENCE",
+        "execution_anchor_preservation": "PASS_NO_STAGE_INFLATION"
+      },
+      "visible_field_change_summary": {
+        "changed_fields": [],
+        "changed_field_count": 0,
+        "source_lock_narrowing_or_depth_fix": false,
+        "introduced_new_claim": false,
+        "evidence_fields_preserved": true
+      },
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "hard_fail_count": 0,
+      "proposed_production_id_0_8": "2026-07-23_US_01",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "CARD_ID_STANDARD event-date+region assignment using the July 23 joint V2G-test announcement; next unused US NN allocated.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "6d61bae394309d7474d9fb85b5b0d4556d454c4e",
+      "final_qc_reviewed_at_kst": "2026-07-28T16:54:08+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "final_qc_notes": [
+        "All nine final publish gates passed.",
+        "GitHub main sync was confirmed by exact Git blob SHA.",
+        "Production ID assignment and replace-all merge remain Prompt 0.8 tasks.",
+        "No unresolved source-strength blocker remains."
+      ],
+      "assigned_id": "2026-07-23_US_01",
+      "production_id_assigned_0_8": true,
+      "production_id_pending": false,
+      "production_verified": false,
+      "duplicate_check": {
+        "status": "PASS",
+        "current_main_count": 1304,
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "event_fingerprint": false,
+        "source_story_id": false
+      },
+      "schema_runtime_check": {
+        "status": "PASS",
+        "full_schema": true,
+        "types_valid": true,
+        "source_schema_valid": true
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc"
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "active upstream baseline에서 직접 동일사건 계보가 확인되지 않은 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      },
+      "merge_prep": {
+        "run_tag": "20260727_133155",
+        "target_repo": "ihyowoen/SBTL_HUB",
+        "target_branch_base": "main",
+        "planned_target_branch": "data/add-publish-ready-cards-20260727_133155",
+        "target_data_path": "public/data/cards.json",
+        "state": "github_merge_ready",
+        "github_main_blob_sha_before": "6d61bae394309d7474d9fb85b5b0d4556d454c4e",
+        "prepared_at_kst": "2026-07-28T16:54:08+09:00",
+        "production_verified": false,
+        "baseline_source": "user-uploaded cards (22).json",
+        "baseline_count_before": 1304
+      },
+      "pr219_review_addressed": {
+        "pr_number": 219,
+        "review_comment_id": 5100900902,
+        "reviewed_head_sha": "306d748b46f7a274b7c372e47892890ea635ac69",
+        "addressed_at_kst": "2026-07-28T16:08:07+09:00",
+        "changes": [
+          "date_role event-date source URL and quote populated"
+        ],
+        "visible_fields_changed": false,
+        "production_id_changed": false,
+        "related_ids_changed": false
+      },
+      "pr219_review3_addressed": {
+        "pr_number": 219,
+        "review_comment_id": 5101334338,
+        "reviewed_head_sha": "d1fb0838d7691e8d2009608c67aa27158204f957",
+        "addressed_at_kst": "2026-07-28T16:54:08+09:00",
+        "changes": [
+          "re-anchored event date to July 23 partner announcement",
+          "changed production ID 2026-07-24_US_02 -> 2026-07-23_US_01",
+          "replaced false participation non-disclosure with 60-system disclosed scale",
+          "replaced malformed InsideEVs quote with sentence-bounded body excerpt"
+        ],
+        "visible_fields_changed": true,
+        "production_id_changed": true,
+        "related_ids_changed": false
+      }
+    },
+    {
       "revision_pass": "r1",
       "previous_draft_id": "DRAFT_B_SA23N_027",
       "revised_draft_id": "DRAFT_B_SA23N_027_R1",
@@ -7032,7 +7141,7 @@
           "source_name": "Energy-Storage.News Europe",
           "source_url": "https://www.energy-storage.news/poland-r-power-enlists-epcs-for-2-2gwh-of-bess-edf-and-eurus-eiffel-and-ergy-co-invest-in-projects",
           "claim": "R.Power는 폴란드에서 300MW·1,200MWh와 250MW·1,000MWh 규모 BESS 두 건의 EPC 계약을 체결했다.",
-          "source_quote": "Poland BESS projects have been moved to construction and delivery by EDF, Eurus, Eiffel, Ergy, R.Power Renewables and EDP. It’s been a busy week for the large-scale energy storage market in Poland, with projects moved to construction and de",
+          "source_quote": "It has enlisted contractor Onde to deliver its Dzięgielewo (300MW/1,200MWh) project and a separate contractor, Esix, to deliver its Gdańsk (250MW/1,000MWh) project.",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
@@ -7049,7 +7158,7 @@
           "source_origin_type": "trade_or_news_media",
           "source_contribution": "현재 사건의 주체·실행단계·정량 정보를 본문 수준에서 제공",
           "source_role": "primary_event_evidence",
-          "checked_at": "2026-07-27T17:59:54+09:00",
+          "checked_at": "2026-07-28T16:54:08+09:00",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true
         },
@@ -7579,6 +7688,18 @@
         "addressed_at_kst": "2026-07-28T16:08:07+09:00",
         "changes": [
           "date_role event-date source URL and quote populated"
+        ],
+        "visible_fields_changed": false,
+        "production_id_changed": false,
+        "related_ids_changed": false
+      },
+      "pr219_review3_addressed": {
+        "pr_number": 219,
+        "review_comment_id": 5101334338,
+        "reviewed_head_sha": "d1fb0838d7691e8d2009608c67aa27158204f957",
+        "addressed_at_kst": "2026-07-28T16:54:08+09:00",
+        "changes": [
+          "replaced hard-truncated source_quote with sentence-bounded excerpt"
         ],
         "visible_fields_changed": false,
         "production_id_changed": false,
@@ -10380,8 +10501,8 @@
           "source_name": "EcoPro",
           "source_url": "https://www.ecopro.co.kr/sub0401/view/id/2149",
           "claim": "에코프로비엠, 솔브레인, 애경케미칼은 7월 22일 충북 오창에서 K-소듐 얼라이언스 업무협약을 체결했다.",
-          "source_quote": "EcoPro - 에코프로비엠 , 솔브레인 · 애경케미칼과 ‘ 소듐이온배터리 (SIB) 소재 패키지 ’ 개발 추진 에코프로비엠이 솔브레인 , 애경케미칼과 손잡고 대한민국 소듐이온배터리 (SIB) 소재 생태계 구축에 나선다 . 국내 배터리 산업에서 SIB 소재 기업들이 기술개발을 공동으로 추진하는 것은 이번이 처음으로 , 차세대 배터리 경쟁에 대응하기 위한 업계 차원의 협력이라는 점에서 주목된다 . 에코프로비엠은 솔브레인 , 애경",
-          "source_quote_status": "body_quote_verified",
+          "source_quote": "에코프로비엠은 솔브레인, 애경케미칼과 22일 충북 오창 에코프로비엠 본사에서 업무협약(MOU)을 체결하고 ‘K-Sodium Alliance’를 출범했다고 26일 밝혔다.",
+          "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
             "title",
@@ -10397,7 +10518,7 @@
           "source_origin_type": "company_official",
           "source_contribution": "현재 사건의 주체·실행단계·정량 정보를 본문 수준에서 제공",
           "source_role": "primary_event_evidence",
-          "checked_at": "2026-07-27T17:59:54+09:00",
+          "checked_at": "2026-07-28T16:54:08+09:00",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true
         }
@@ -10966,6 +11087,18 @@
         "addressed_at_kst": "2026-07-28T16:08:07+09:00",
         "changes": [
           "date_role event-date source URL and quote populated"
+        ],
+        "visible_fields_changed": false,
+        "production_id_changed": false,
+        "related_ids_changed": false
+      },
+      "pr219_review3_addressed": {
+        "pr_number": 219,
+        "review_comment_id": 5101334338,
+        "reviewed_head_sha": "d1fb0838d7691e8d2009608c67aa27158204f957",
+        "addressed_at_kst": "2026-07-28T16:54:08+09:00",
+        "changes": [
+          "replaced hard-truncated source_quote with sentence-bounded excerpt"
         ],
         "visible_fields_changed": false,
         "production_id_changed": false,
@@ -62387,17 +62520,18 @@
         "효과는 준공 후 성능저하 탐지와 안전관리 결과를 통해 확인해야 한다."
       ],
       "urls": [
-        "https://www.ess-news.com/2026/07/24/qair-selects-powerup-software-to-monitor-bess-portfolio-in-mauritius",
-        "https://africa.qair.energy/qair-and-powerup-partner-to-enhance-safety-and-performance-of-storsun-bess-assets-in-mauritius/"
+        "https://powerup-technology.com/qair-powerup-partner-to-enhance-safety-performance-stor-sun-bess-asset-mauritius/",
+        "https://africa.qair.energy/qair-and-powerup-partner-to-enhance-safety-and-performance-of-storsun-bess-assets-in-mauritius/",
+        "https://www.ess-news.com/2026/07/24/qair-selects-powerup-software-to-monitor-bess-portfolio-in-mauritius"
       ],
       "related": [],
       "fact_sources": [
         {
-          "source_name": "ESS News RSS",
-          "source_url": "https://www.ess-news.com/2026/07/24/qair-selects-powerup-software-to-monitor-bess-portfolio-in-mauritius",
-          "claim": "Qair는 7월 15일 PowerUp과 3년 계약을 체결해 모리셔스에서 건설 중인 BESS 4곳의 성능과 안전을 모니터링하기로 했다.",
-          "source_quote": "Qair has signed a three-year agreement with French battery analytics provider PowerUp to monitor the performance and safety of four battery energy storage systems (BESS) under construction in Mauritius, including the 391 MWh Stor'Sun projec",
-          "source_quote_status": "body_quote_verified",
+          "source_name": "PowerUp",
+          "source_url": "https://powerup-technology.com/qair-powerup-partner-to-enhance-safety-performance-stor-sun-bess-asset-mauritius/",
+          "claim": "PowerUp과 Qair는 7월 15일 모리셔스 BESS 자산의 안전·성능 모니터링을 위한 3년 파트너십을 발표했다.",
+          "source_quote": "Qair and PowerUp today announced a new partnership agreement.",
+          "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
             "title",
@@ -62406,14 +62540,14 @@
             "gate",
             "implication"
           ],
-          "fetched_at": "2026-07-27T17:03:54+09:00",
-          "fetch_method": "direct_inspection_current_run_source_packet_article_body",
-          "source_published_date": "2026-07-24",
-          "visible_quote_date": "2026-07-24",
-          "source_origin_type": "trade_or_news_media",
-          "source_contribution": "현재 사건의 주체·실행단계·정량 정보를 본문 수준에서 제공",
+          "fetched_at": "2026-07-28T16:54:08+09:00",
+          "fetch_method": "web_direct_open_or_search_result_body_inspection",
+          "source_published_date": "2026-07-15",
+          "visible_quote_date": "2026-07-15",
+          "source_origin_type": "company_official",
+          "source_contribution": "계약 당사자의 7월 15일 파트너십 발표를 직접 확인",
           "source_role": "primary_event_evidence",
-          "checked_at": "2026-07-27T17:59:54+09:00",
+          "checked_at": "2026-07-28T16:54:08+09:00",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true
         },
@@ -62631,11 +62765,11 @@
       },
       "source_independence_ledger": [
         {
-          "owner": "pv_magazine_group",
+          "owner": "powerup-technology.com",
           "visible_claim_source": true
         },
         {
-          "owner": "africa.qair.energy",
+          "owner": "qair.energy",
           "visible_claim_source": true
         }
       ],
@@ -62677,16 +62811,16 @@
       "source_discovery_ledger": [
         {
           "attempt_order": 1,
-          "ledger_type": "fetch_attempt",
-          "source_type_attempted": "trade_or_news_media",
-          "query_or_url": "https://www.ess-news.com/2026/07/24/qair-selects-powerup-software-to-monitor-bess-portfolio-in-mauritius",
+          "ledger_type": "official_source_search",
+          "source_type_attempted": "company_official",
+          "query_or_url": "https://powerup-technology.com/qair-powerup-partner-to-enhance-safety-performance-stor-sun-bess-asset-mauritius/",
           "search_terms_used": [
-            "Qair selects PowerUp software to monitor BESS portfolio in Mauritius"
+            "Qair PowerUp Mauritius BESS July 15 2026"
           ],
           "access_result": "body_or_official_material_verified",
           "supports_core_event": true,
           "supports_missing_claims": [
-            "core_event"
+            "partnership_announcement"
           ],
           "source_direction_check": "PASS",
           "same_actor_event_date_check": "PASS",
@@ -62694,20 +62828,37 @@
         },
         {
           "attempt_order": 2,
-          "ledger_type": "alternate_source_search",
-          "source_type_attempted": "project_owner_official",
-          "query_or_url": "https://www.qair.energy/",
+          "ledger_type": "counterparty_official_search",
+          "source_type_attempted": "company_official",
+          "query_or_url": "https://africa.qair.energy/qair-and-powerup-partner-to-enhance-safety-and-performance-of-storsun-bess-assets-in-mauritius/",
           "search_terms_used": [
-            "Qair selects PowerUp software to monitor BESS portfolio in Mauritius"
+            "Qair PowerUp StorSun Mauritius four assets"
           ],
           "access_result": "body_or_official_material_verified",
           "supports_core_event": true,
           "supports_missing_claims": [
-            "core_event"
+            "three_year_term",
+            "four_assets",
+            "safety_performance_scope"
           ],
           "source_direction_check": "PASS",
           "same_actor_event_date_check": "PASS",
           "reason_not_used": null
+        },
+        {
+          "attempt_order": 3,
+          "ledger_type": "independent_secondary_search",
+          "source_type_attempted": "trade_or_news_media",
+          "query_or_url": "https://www.ess-news.com/2026/07/24/qair-selects-powerup-software-to-monitor-bess-portfolio-in-mauritius",
+          "search_terms_used": [
+            "Qair selects PowerUp Mauritius BESS"
+          ],
+          "access_result": "article_identified_but_quote_replaced_by_primary_sources",
+          "supports_core_event": true,
+          "supports_missing_claims": [],
+          "source_direction_check": "PASS_SECONDARY",
+          "same_actor_event_date_check": "PASS",
+          "reason_not_used": "Primary counterparty sources provide cleaner sentence-bounded evidence."
         }
       ],
       "revision_change_log": [
@@ -62952,6 +63103,20 @@
         "addressed_at_kst": "2026-07-28T16:08:07+09:00",
         "changes": [
           "date_role event-date source URL and quote populated"
+        ],
+        "visible_fields_changed": false,
+        "production_id_changed": false,
+        "related_ids_changed": false
+      },
+      "pr219_review3_addressed": {
+        "pr_number": 219,
+        "review_comment_id": 5101334338,
+        "reviewed_head_sha": "d1fb0838d7691e8d2009608c67aa27158204f957",
+        "addressed_at_kst": "2026-07-28T16:54:08+09:00",
+        "changes": [
+          "removed hard-truncated ESS News evidence row",
+          "replaced it with sentence-bounded PowerUp official evidence",
+          "retained ESS News URL in discovery trail as independent secondary coverage"
         ],
         "visible_fields_changed": false,
         "production_id_changed": false,

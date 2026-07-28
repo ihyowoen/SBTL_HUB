@@ -137,7 +137,8 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
           scopeLabel: "오늘의 흐름",
           cards: src.map((c) => ({
             date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
-            fact: c.fact || c.gate || c.g || "", implication: cardImplicationText(c),
+            fact: c.fact || c.gate || c.g || "", gate: c.gate || c.g || "",
+            implication: cardImplicationText(c),
             quote: "", quoteSource: "",
           })),
         };

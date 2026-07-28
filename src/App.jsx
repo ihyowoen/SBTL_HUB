@@ -3753,7 +3753,8 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         scopeLabel,
         cards: briefCards.map((c) => ({
           date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
-          fact: c.fact || c.gate || c.g || "", implication: cardImplicationText(c),
+          fact: c.fact || c.gate || c.g || "", gate: c.gate || c.g || "",
+          implication: cardImplicationText(c),
           quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
           quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
         })),
@@ -3762,7 +3763,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
       const j = await r.json();
       if (reqId !== briefReqRef.current) return; // 그 사이 더 새 요청이 시작됨 — 이 응답은 폐기
       if (!j?.ok) throw new Error(j?.error || "brief-failed");
-      setBrief({ ...j, scopeKey, scopeLabel, refs: briefCards.map((c, i) => ({ n: i + 1, title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })) });
+      setBrief({ ...j, scopeKey, scopeLabel, refs: briefCards.map((c, i) => ({ n: i + 1, id: getCardId(c), title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || (Array.isArray(c.urls) ? c.urls[0] : "") || "" })) });
     } catch (e) {
       if (reqId !== briefReqRef.current) return;
       setBrief({ ok: false, error: String(e?.message || e), scopeKey });
@@ -4079,7 +4080,8 @@ function AppContent() {
           } catch { /* 확인 불가 환경은 진행 */ }
           const toPayloadCard = (c) => ({
             date: c.date || c.d || "", region: c.region || c.r || "", title: c.title || c.T || "",
-            fact: c.fact || c.gate || c.g || "", implication: cardImplicationText(c),
+            fact: c.fact || c.gate || c.g || "", gate: c.gate || c.g || "",
+            implication: cardImplicationText(c),
             quote: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_quote) || "",
             quoteSource: (Array.isArray(c.fact_sources) && c.fact_sources[0]?.source_name) || "",
           });
@@ -4175,7 +4177,7 @@ function AppContent() {
             narrative: j.narrative,
             watch: Array.isArray(j.watch) ? j.watch : [],
             // id는 각주 ☆ 저장(핀 보드 승격)의 열쇠 — getCardId 정본 체인이라 핀 보드가 같은 카드로 역매칭된다(R17b)
-            refs: briefCards.map((c, i) => ({ n: i + 1, id: getCardId(c), title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || "" })), // 서버 전역 [n]과 동일 순서 (축 모드는 축 연결 순)
+            refs: briefCards.map((c, i) => ({ n: i + 1, id: getCardId(c), title: c.title || c.T || "", date: c.date || c.d || "", url: c.url || c.primaryUrl || (Array.isArray(c.urls) ? c.urls[0] : "") || "" })), // 서버 전역 [n]과 동일 순서 (축 모드는 축 연결 순)
             read: false,
           };
           const fresh = readWeeklyBriefs(); // 저장 직전 재확인 (다른 탭 경합)

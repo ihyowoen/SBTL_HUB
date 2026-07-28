@@ -65,6 +65,7 @@ function leanCard(c, n) {
     region: clip(c.region, 6),
     title: clip(c.title, 120),
     fact: clip(c.fact, 420),
+    gate: clip(c.gate, 140),
     implication: clip(c.implication, 300),
     quote: clip(c.quote, 220),
     quoteSource: clip(c.quoteSource, 60),
@@ -143,6 +144,7 @@ function cardLines(cards) {
   return cards.map((c) => {
     const bits = [`[${c.n}] ${c.date} ${c.region} — ${c.title}`];
     if (c.fact) bits.push(`  사실: ${c.fact}`);
+    if (c.gate) bits.push(`  의미: ${c.gate}`);
     if (c.implication) bits.push(`  함의: ${c.implication}`);
     if (c.quote) bits.push(`  원문인용(매체 표현 — 검증된 사실 아님, ${c.quoteSource || "출처"}): "${c.quote}"`);
     return bits.join("\n");
@@ -242,9 +244,11 @@ export default async function handler(req, res) {
       "이 브리프는 '축' 단위로 쓴다. 축은 서로 이어지는 사건 묶음이다.",
       "규칙:",
       COMMON_RULES,
-      `6. narrative는 축마다 정확히 한 문단, 문단 시작에 【축이름】 을 붙인다. 문단 사이는 빈 줄 하나. 각 문단은 그 축의 카드만 인용한다(다른 축 카드 인용 금지). 축 내부는 시간 순서로 사건을 잇되, 각 문장은 '무엇이 왜/무엇에 이어 어떻게 되었다'가 드러나게 쓴다. 문단은 3~5문장.`,
+      // COMMON_RULES가 1~6번을 쓰므로 여기는 7번부터 — 번호가 겹치면 재시도 지시("다음 규칙을
+      // 어겼다")가 어느 규칙인지 모호해진다
+      `7. narrative는 축마다 정확히 한 문단, 문단 시작에 【축이름】 을 붙인다. 문단 사이는 빈 줄 하나. 각 문단은 그 축의 카드만 인용한다(다른 축 카드 인용 금지). 축 내부는 시간 순서로 사건을 잇되, 각 문장은 '무엇이 왜/무엇에 이어 어떻게 되었다'가 드러나게 쓴다. 문단은 3~5문장.`,
       // 뼈대는 실제 축 이름으로 — 문단 수·이름·순서를 형식에 새겨 '첫 축만 쓰고 종료'를 막는다
-      `7. 출력은 순수 JSON 하나만, narrative는 정확히 ${axes.length}개 문단(아래 뼈대의 ... 부분만 채운다): {"narrative":"${axisSkeleton(axes.map((ax) => ax.key))}","watch":["...","..."]}`,
+      `8. 출력은 순수 JSON 하나만, narrative는 정확히 ${axes.length}개 문단(아래 뼈대의 ... 부분만 채운다): {"narrative":"${axisSkeleton(axes.map((ax) => ax.key))}","watch":["...","..."]}`,
     ].join("\n");
     const axisBlocks = axes.map((ax) => {
       const span = `${ax.cards[0].date} ~ ${ax.cards[ax.cards.length - 1].date}`;
@@ -268,8 +272,8 @@ export default async function handler(req, res) {
       "너는 배터리·ESS·EV 공급망 산업의 동향 브리프 작성자다.",
       "규칙:",
       COMMON_RULES,
-      "6. narrative는 사건을 시간 흐름 순으로 엮은 4~6문장 한 문단. 나열이 아니라 인과·전개가 보이게 쓴다. 서사의 시점 표현은 아래 '실제 수록 기간'만 사용한다.",
-      '7. 출력은 순수 JSON 하나만: {"narrative":"...","watch":["...","..."]}',
+      "7. narrative는 사건을 시간 흐름 순으로 엮은 4~6문장 한 문단. 나열이 아니라 인과·전개가 보이게 쓴다. 서사의 시점 표현은 아래 '실제 수록 기간'만 사용한다.",
+      '8. 출력은 순수 JSON 하나만: {"narrative":"...","watch":["...","..."]}',
     ].join("\n");
     user = `범위: ${scopeLabel} (카드 ${cards.length}장, 실제 수록 기간 ${span})\n\n${cardLines(cards)}\n\n위 카드들로 JSON 브리프를 작성하라.`;
     maxTokens = 1100;

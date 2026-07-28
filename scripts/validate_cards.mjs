@@ -82,15 +82,29 @@ try {
   baseMisPairs = new Set();
   for (const c of bc) { const m = String(c.id || "").match(ID_DATE_RE); if (m && m[1] !== c.date) baseMisPairs.add(`${c.id}@${c.date}`); }
   if (cards.length < bc.length) E(`카드 수 감소 ${bc.length} → ${cards.length} — 의도한 삭제면 커밋 메시지에 명시하고 이 검사를 재검토할 것`);
+  // 총계만 보면 한 장을 지우고 다른 장을 더한 PR이 통과한다 — 프로덕션 레코드가
+  // 조용히 사라지는 경로다(Codex #220 R7 P1). id 집합으로 소실 자체를 잡는다
+  const curIdSet = new Set(cards.map((c) => c.id));
+  const lost = [...baseIds].filter((id) => !curIdSet.has(id));
+  if (lost.length) {
+    const msg = `기준본 카드 ${lost.length}장이 사라짐 — 예: ${lost.slice(0, 5).join(", ")}${lost.length > 5 ? " 외" : ""}`;
+    if (process.env.CARDS_ALLOW_DELETE === "1") W(`${msg} (CARDS_ALLOW_DELETE=1로 허용됨)`);
+    else E(`${msg} (의도한 삭제면 CARDS_ALLOW_DELETE=1)`);
+  }
 } catch { W("기준본 없음(git origin/main 미접근) — 수량 감소·신규·엣지 동결 판별 생략, 절대 하한만 적용"); }
 if (cards.length < MIN_CARDS) E(`카드 ${cards.length}장 < 절대 하한 ${MIN_CARDS}`);
 const isNew = (c) => (baseIds ? !baseIds.has(c.id) : false);
 
 // ---- 2) id·필수 필드 ----
 const ids = new Set();
-let dupIds = 0, missingReq = 0, badDate = 0, badSignalNew = 0, badType = 0, badRegionNew = 0;
+let dupIds = 0, missingReq = 0, badDate = 0, badSignalNew = 0, badType = 0, badRegionNew = 0, missingNew = 0;
 const REQUIRED = ["id", "date", "title", "region", "signal", "gate", "fact", "urls", "implication"];
+// 신규 카드는 full schema only(FUTURE_CARD_STANDARD §1) — fact_sources는 문서가 명시적으로 필수
+const REQUIRED_NEW = ["cat", "sub", "sub_cat"]; // 문자열 3종 (fact_sources는 객체 배열이라 아래에서 따로)
 const ARRAY_FIELDS = new Set(["urls", "implication"]);
+// 문서가 잠근 12종. 다만 실데이터는 66종까지 퍼져 있고 7월 배치에도 34장이 목록 밖이라
+// hard fail로 걸면 정상 운영이 멈춘다 — 경고로 두고 taxonomy 정리는 별도 과제로 남긴다
+const CATS = new Set(["Battery", "ESS", "Materials", "EV", "Charging", "Policy", "Manufacturing", "AI", "Robotics", "PowerGrid", "SupplyChain", "Other"]);
 for (const c of cards) {
   if (ids.has(c.id)) { dupIds++; E(`중복 id: ${c.id}`); }
   ids.add(c.id);
@@ -120,6 +134,24 @@ for (const c of cards) {
   // 어떤 지역 뷰에도 안 잡힌다. 신규만 강제 — 레거시 복합 표기("US/KR" 등 7장)는 이미
   // 그 상태로 굳었고 여기서 되돌릴 수 없다(아래 요약에서 별도 경고)
   if (isNew(c) && !NEW_REGIONS.has(String(c.region || ""))) { badRegionNew++; E(`신규 카드 region 미등록 값 "${c.region}": ${c.id} — 허용 ${[...NEW_REGIONS].join("|")}`); }
+  // 신규 카드는 full schema — 부분 카드(근거 없는 카드 포함)가 게이트를 통과하지 못하게
+  if (isNew(c)) {
+    for (const k of REQUIRED_NEW) {
+      const v = c[k];
+      if (typeof v !== "string" || !v.trim()) { missingNew++; E(`신규 카드 필수 필드 ${k} 없음/비어있음: ${c.id} — full schema only(FUTURE_CARD_STANDARD §1)`); }
+    }
+    // fact_sources: 문서가 명시적으로 필수. 원소는 최소한 출처 URL을 가져야 근거 구실을 한다
+    const fs = c.fact_sources;
+    if (!Array.isArray(fs) || !fs.length) { missingNew++; E(`신규 카드 fact_sources 없음/비어있음: ${c.id} — 문서상 필수`); }
+    else {
+      const bad = fs.filter((s) => !s || typeof s !== "object" || typeof s.source_url !== "string" || !s.source_url.trim());
+      if (bad.length) { missingNew++; E(`신규 카드 fact_sources에 source_url 없는 원소 ${bad.length}개: ${c.id}`); }
+    }
+    // related는 존재·배열만 요구하고 빈 배열을 허용한다 — '이을 게 없다'가 정상 판정이고,
+    // 채움을 강제하면 지어내기 압력이 된다(감사 결론)
+    if (c.related === undefined) { missingNew++; E(`신규 카드 related 필드 없음(빈 배열이라도 명시): ${c.id}`); }
+    if (!CATS.has(String(c.cat || ""))) W(`${c.id}: cat "${c.cat}"이 문서 12종 밖 — taxonomy 정리 대상`);
+  }
 }
 if (missingReq > 5) E(`…필수 필드 누락 총 ${missingReq}건`);
 

@@ -36689,547 +36689,6 @@
       }
     },
     {
-      "revision_pass": "r1",
-      "previous_draft_id": "DRAFT_B_SA23N_017",
-      "revised_draft_id": "DRAFT_B_SA23N_017_R1",
-      "source_spec_id": "SA23N_017",
-      "stage_a_spec_id": "SA23N_017",
-      "source_story_ids": [
-        "CN_2026-07-22_C11"
-      ],
-      "region": "CN",
-      "date": "2026-07-17",
-      "cat": "ESS",
-      "sub_cat": "글로벌 저장장치 백서",
-      "signal": "top",
-      "title": "CNESA 백서, 2025년 말 글로벌 전력저장 496.2GW 집계",
-      "sub": "CNESA 데이터는 2025년 말 글로벌 전력저장 누적설치를 496.2GW, 중국 신형저장을 144.7GW로 제시했다.",
-      "gate": "글로벌 전력저장 전체와 중국 신형저장은 서로 다른 분모다. 설치규모를 비교할 때 기술범위와 지역범위를 분리해야 한다.",
-      "fact": "CNESA DataLink 기준 2025년 말 글로벌 전력저장 누적설치는 496.2GW였다. 중국 신형저장 누적설치는 144.7GW로 집계됐다.",
-      "implication": [
-        "글로벌 전력저장과 중국 신형저장의 누적규모가 함께 확대된 흐름이 확인된다.",
-        "전체 전력저장과 신형저장의 분모를 구분해야 시장규모를 과장하지 않을 수 있다.",
-        "설치량 이후에는 이용률과 운영성과가 시장가치를 가르는 후속 지표다."
-      ],
-      "urls": [
-        "https://china5e.com/news/news-1206767-1.html",
-        "https://cnesa.org/white-paper-2026",
-        "https://cnesa.org/periodical?column_id=90",
-        "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml"
-      ],
-      "related": [],
-      "fact_sources": [
-        {
-          "source_name": "CNESA",
-          "source_url": "https://cnesa.org/periodical?column_id=90",
-          "claim": "CNESA가 Energy Storage Industry White Paper 2026 Summary Version을 공개했다.",
-          "source_quote": "CNESA Energy Storage Industry White Paper 2026_Summary Version",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "fact"
-          ],
-          "source_published_date": "2026-05-18",
-          "visible_quote_date": "2026-05-18",
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "fetched_at": "2026-07-27T16:27:07.333037+09:00",
-          "fetch_method": "prompt_0_5R_authorized_source_augmentation",
-          "source_owner_id": "cnesa.org",
-          "source_owner_id_normalized": "cnesa.org",
-          "source_domain": "cnesa.org",
-          "source_origin_type": "research_institution_official",
-          "source_role": "primary_event_evidence",
-          "source_contribution": "CNESA가 Energy Storage Industry White Paper 2026 Summary Version을 공개했다.",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true,
-          "web_reference_id": "turn318229search0"
-        },
-        {
-          "source_name": "Sina Finance",
-          "source_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
-          "claim": "2025년 말 글로벌 전력저장 496.2GW와 중국 신형저장 144.7GW를 제시했다.",
-          "source_quote": "截至2025年底，全球已投运电力储能项目累计装机规模496.2GW...新型储能累计装机规模达到144.7GW",
-          "source_quote_status": "body_quote_verified",
-          "evidence_role": "secondary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "source_published_date": "2026-04-04",
-          "visible_quote_date": "2026-04-04",
-          "checked_at": "2026-07-27T16:27:07.333037+09:00",
-          "fetched_at": "2026-07-27T16:27:07.333037+09:00",
-          "fetch_method": "prompt_0_5R_authorized_source_augmentation",
-          "source_owner_id": "finance.sina.com.cn",
-          "source_owner_id_normalized": "finance.sina.com.cn",
-          "source_domain": "finance.sina.com.cn",
-          "source_origin_type": "independent_media_body",
-          "source_role": "secondary_event_evidence",
-          "source_contribution": "2025년 말 글로벌 전력저장 496.2GW와 중국 신형저장 144.7GW를 제시했다.",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true,
-          "web_reference_id": "turn318229search4"
-        }
-      ],
-      "source_availability": "verified_body_or_official_sources",
-      "fetch_coverage": "multi_source_core_event_covered",
-      "evidence_package_status": "evidence_package_partial_needs_stage_c_attention",
-      "strict_pass_gate": {
-        "status": "pass",
-        "all_six_conditions_passed": true,
-        "lane_fit": "PASS",
-        "concrete_fresh_execution_or_data_anchor": "PASS",
-        "source_direction_compatibility": "PASS_PROVISIONAL_UPSTREAM",
-        "freshness_or_staleness_confidence": "PASS",
-        "baseline_duplicate_followup_risk": "PASS_PROVISIONAL_CURRENT_MAIN_SCREEN",
-        "independent_card_value_and_full_schema_viability": "PASS",
-        "reason": "직접 lane 적합성과 구체적 실행·데이터·정책 앵커가 있고 Stage B 근거패키지 구축 가치가 있다.",
-        "anchor_supported_by_upstream_text": true,
-        "why_not_review_pool": "핵심 실행 사건과 수치가 upstream body/official preview에 구체적으로 나타난다.",
-        "execution_anchor_type": "industry_whitepaper_release",
-        "execution_anchor_strength": "strong",
-        "format_risk_tags": [
-          "none"
-        ],
-        "notes": "Stage A selector-only provisional pass; evidence is not yet complete."
-      },
-      "strict_gate_check": {
-        "status": "PASS",
-        "all_six_conditions_passed": true
-      },
-      "selection_risk_flags": {
-        "status": "not_applicable_compatibility",
-        "reason": "The current Stage A artifact did not contain a field named selection_risk_flags. The authoritative risk metadata is preserved separately below without inference.",
-        "preserved_risk_metadata": {
-          "format_risk_tags": [
-            "none"
-          ],
-          "baseline_relation": "new_or_fresh_followup_requires_stage_b_recheck",
-          "duplicate_risk": "moderate",
-          "staleness_decision": "fresh",
-          "source_access_risk": "low"
-        }
-      },
-      "enhanced_selector_precision_version": "structural_value_override_v2_202607",
-      "selector_policy_version": "structural_default_review_pool_partition_20260506",
-      "format_risk_tags": [
-        "none"
-      ],
-      "execution_anchor_type": "industry_whitepaper_release",
-      "execution_anchor_strength": "strong",
-      "baseline_relation": "new",
-      "duplicate_risk": "low",
-      "staleness_decision": "fresh",
-      "source_access_risk": "low",
-      "lineage_integrity_status": "PASS",
-      "strict_gate_metadata_preserved": true,
-      "execution_anchor_metadata_preserved": true,
-      "stage_b_revise_only": true,
-      "publish_ready": true,
-      "needs_stage_c_recheck": true,
-      "source_augmentation_authorized": true,
-      "source_augmentation_performed": true,
-      "later_discovered_evidence_used": false,
-      "authorized_modification_scope": "Visible-field narrowing and existing fact-source schema preservation only",
-      "claim_repair_before_deletion_check": {
-        "status": "PASS_REPAIRED_BY_NARROWING",
-        "repair_paths_used": [
-          "narrowed visible wording to existing source_quote",
-          "removed unsupported scope, stage, date, actor, or numeric detail"
-        ],
-        "new_source_used": false,
-        "core_event_anchor_changed": false
-      },
-      "remaining_risks": [
-        "Stage C revise r1 recheck is required.",
-        "Post-acceptance evidence, source-diversity, duplicate, and publish-readiness gates have not been run."
-      ],
-      "revision_change_log": [
-        {
-          "previous_draft_id": "DRAFT_B_SA23N_017",
-          "revised_draft_id": "DRAFT_B_SA23N_017_R1",
-          "source_spec_id": "SA23N_017",
-          "field": "title",
-          "before": "CNESA, 2025년 말 글로벌 전력저장 누적 496.2GW 집계",
-          "after": "CNESA, 2025년 말 글로벌 전력저장 496.2GW 집계",
-          "stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
-          "source_lock_check": "PASS_EXISTING_FACT_SOURCES_ONLY",
-          "introduced_new_claim": false,
-          "notes": "Unsupported detail was removed or wording was narrowed to claims already present in the Stage B fact sources."
-        },
-        {
-          "previous_draft_id": "DRAFT_B_SA23N_017",
-          "revised_draft_id": "DRAFT_B_SA23N_017_R1",
-          "source_spec_id": "SA23N_017",
-          "field": "sub",
-          "before": "CNESA 백서는 2025년 말 글로벌 전력저장 누적설치를 496.2GW, 중국을 213.3GW로 집계하고 중국 신형저장을 144.7GW로 제시했다.",
-          "after": "CNESA 백서 관련 자료는 2025년 말 글로벌 전력저장 누적설치를 496.2GW, 중국 신형저장을 144.7GW로 제시했다.",
-          "stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
-          "source_lock_check": "PASS_EXISTING_FACT_SOURCES_ONLY",
-          "introduced_new_claim": false,
-          "notes": "Unsupported detail was removed or wording was narrowed to claims already present in the Stage B fact sources."
-        },
-        {
-          "previous_draft_id": "DRAFT_B_SA23N_017",
-          "revised_draft_id": "DRAFT_B_SA23N_017_R1",
-          "source_spec_id": "SA23N_017",
-          "field": "gate",
-          "before": "누적규모 확대와 함께 중국 시장의 핵심 질문이 설치량에서 활용가치로 이동했다는 진단이다. 리튬이온 비중의 미세한 변화와 장주기 프로젝트의 실제 운전실적이 기술다변화의 기준이 된다.",
-          "after": "전력저장 전체와 신형저장은 서로 다른 분모다. 누적설치 확대 이후에는 실제 이용률과 계통기여가 시장가치를 가르는 기준이 될 수 있다.",
-          "stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
-          "source_lock_check": "PASS_EXISTING_FACT_SOURCES_ONLY",
-          "introduced_new_claim": false,
-          "notes": "Unsupported detail was removed or wording was narrowed to claims already present in the Stage B fact sources."
-        },
-        {
-          "previous_draft_id": "DRAFT_B_SA23N_017",
-          "revised_draft_id": "DRAFT_B_SA23N_017_R1",
-          "source_spec_id": "SA23N_017",
-          "field": "fact",
-          "before": "CNESA DataLink에 따르면 2025년 말 글로벌 전력저장 누적설치는 496.2GW로 전년 대비 33.3% 증가했다. 중국은 213.3GW였고, 이 가운데 신형저장은 144.7GW로 집계됐다.",
-          "after": "중국에너지망은 2025년 말 글로벌 전력저장 누적설치를 496.2GW로 제시했다. 같은 자료는 중국 신형저장 누적설치를 144.7GW로 집계했으며, CNESA는 2026 저장산업 연구백서를 발간했다.",
-          "stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
-          "source_lock_check": "PASS_EXISTING_FACT_SOURCES_ONLY",
-          "introduced_new_claim": false,
-          "notes": "Unsupported detail was removed or wording was narrowed to claims already present in the Stage B fact sources."
-        },
-        {
-          "previous_draft_id": "DRAFT_B_SA23N_017",
-          "revised_draft_id": "DRAFT_B_SA23N_017_R1",
-          "source_spec_id": "SA23N_017",
-          "field": "implication",
-          "before": [
-            "중국이 글로벌 전력저장 누적설치의 43%를 차지하는 시장집중도가 확인된다.",
-            "신형저장 확대 이후에는 이용률·시장수익·계통기여가 투자효율을 가르는 기준으로 이동할 수 있다.",
-            "장주기 기술의 설치비중과 실제 운영성과가 기술구조 전환 여부를 판단할 다음 지표다."
-          ],
-          "after": [
-            "글로벌 전력저장과 중국 신형저장의 누적규모가 함께 확대된 흐름이 확인된다.",
-            "전체 전력저장과 신형저장의 분모를 구분해야 시장규모를 과장하지 않을 수 있다.",
-            "향후에는 설치량뿐 아니라 실제 이용률과 운영성과가 핵심 점검 대상이다."
-          ],
-          "stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
-          "source_lock_check": "PASS_EXISTING_FACT_SOURCES_ONLY",
-          "introduced_new_claim": false,
-          "notes": "Unsupported detail was removed or wording was narrowed to claims already present in the Stage B fact sources."
-        }
-      ],
-      "state": "github_merge_ready",
-      "stage_c_revise_only": true,
-      "prior_issue_resolved": true,
-      "prior_issue_resolution": {
-        "status": "PASS",
-        "specific_stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
-        "no_new_unsupported_claim_introduced": true,
-        "source_direction_unchanged": true,
-        "fact_sources_still_support_visible_fields": true,
-        "quote_quality_unchanged_or_improved": true,
-        "language_meta_check": "PASS",
-        "publish_ready_remains_false": true
-      },
-      "needs_post_acceptance_duplicate_review": true,
-      "needs_post_acceptance_evidence_qc": true,
-      "strict_gate_acceptance_guard_result": "PASS",
-      "draft_id": "DRAFT_B_SA23N_017_R1",
-      "previous_state": "publish_ready",
-      "event_fingerprint": {
-        "actor": "CNESA",
-        "asset_or_policy": "2026 energy-storage industry white paper",
-        "location": "Global and China",
-        "event_type": "other",
-        "factual_anchor": "496.2GW global storage and 144.7GW China new storage",
-        "event_date": "2026-07-17",
-        "source_url_cluster": [
-          "https://cnesa.org/periodical?column_id=90",
-          "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml"
-        ]
-      },
-      "duplicate_screening": {
-        "exact_url_match": false,
-        "canonical_url_match": false,
-        "title_similarity_match": false,
-        "actor_asset_event_match": false,
-        "baseline_event_fingerprint_match": false,
-        "internal_batch_duplicate_match": false,
-        "already_covered_by_broader_card": false,
-        "stage_a_same_blob_screen_status": "PASS_NO_MATCH",
-        "stage_a_baseline_match_values": [
-          "None"
-        ],
-        "current_main_code_search_status": "NO_MATCH",
-        "current_main_code_search_query": "496.2GW 144.7GW CNESA"
-      },
-      "id_collision": false,
-      "id_collision_notes": "No production ID is assigned in Prompt 0.4. Date-region sequence assignment and collision recheck remain Prompt 0.8 tasks.",
-      "evidence_complete": true,
-      "source_claim_covered": true,
-      "content_enriched": true,
-      "language_terminology_polished": true,
-      "needs_evidence_completeness_qc": true,
-      "needs_source_claim_coverage_qc": true,
-      "needs_content_enrichment": true,
-      "needs_language_terminology_polish": true,
-      "needs_publish_readiness_qc": true,
-      "publish_ready_reset": true,
-      "reset_reason": "evidence_qc_does_not_decide_publish_ready",
-      "notes": [
-        "Compared against the current 1,250-card GitHub main baseline at the exact Stage A blob SHA.",
-        "Stage A same-blob full baseline screen recorded no baseline match.",
-        "Prompt 0.4 current-main code search found no direct project, policy, URL, or unique-number match.",
-        "No internal URL or event-fingerprint duplicate was found.",
-        "addable_merge_safe is not evidence_complete and not publish_ready."
-      ],
-      "supplemental_pass": true,
-      "supplemental_pass_id": "prompt_0_5R_20260723_111344_SA23N_017",
-      "source_strength_review_attempted": true,
-      "final_source_strength_decision": "clean_after_review",
-      "source_strength_caveat_retained": false,
-      "source_strength_caveat_reason": "",
-      "source_metadata_schema_complete": true,
-      "source_published_date_complete": false,
-      "fact_sources_changed_in_0_5R": true,
-      "visible_change_required_for_prompt_0_6": false,
-      "source_change_diff": [
-        {
-          "source_spec_id": "SA23N_017",
-          "change_type": "source_quote_reextracted",
-          "source_url": "https://www.china5e.com/news/news-1206767-1.html",
-          "before": "全球已投运电力储能项目累计装机规模达到496.2GW",
-          "after": "截至2025年底，全球已投运电力储能项目累计装机规模达到496.2GW"
-        }
-      ],
-      "lineage_metadata_preserved": true,
-      "validation_gate_passed": true,
-      "source_strength_review_log": [
-        {
-          "review_scope": "same-event evidence rescue, source-strength search and source metadata completion",
-          "reviewed_at": "2026-07-27T14:22:01+09:00",
-          "result": "clean_after_review",
-          "reason": "core evidence, visible-claim mapping and source-strength review pass"
-        }
-      ],
-      "source_evidence_entry_count": 2,
-      "source_unique_url_count": 2,
-      "source_unique_domain_count": 2,
-      "source_independent_owner_count": 2,
-      "single_source_exception": {
-        "allowed": false,
-        "reason": "not applicable: multi-owner evidence"
-      },
-      "source_diversity_status": "PASS_MULTI_SOURCE",
-      "source_diversity_measure": {
-        "source_evidence_entry_count": 2,
-        "source_unique_url_count": 2,
-        "source_unique_domain_count": 2,
-        "source_independent_owner_count": 2,
-        "visible_source_url_count": 2,
-        "missing_source_url_count": 0,
-        "missing_visible_source_url_count": 0,
-        "canonical_urls": [
-          "https://cnesa.org/periodical?column_id=90",
-          "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml"
-        ],
-        "canonical_domains": [
-          "cnesa.org",
-          "finance.sina.com.cn"
-        ],
-        "independent_owners": [
-          "cnesa.org",
-          "finance.sina.com.cn"
-        ],
-        "status": "PASS_MULTI_SOURCE"
-      },
-      "source_url_resolution": {
-        "supporting_fact_source_count": 2,
-        "canonical_complete": true,
-        "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": false,
-        "resolution_entries": [
-          {
-            "source_url": "https://cnesa.org/periodical?column_id=90",
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=cnesa.org",
-            "source_url_propagation_performed": false
-          },
-          {
-            "source_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=finance.sina.com.cn",
-            "source_url_propagation_performed": false
-          }
-        ]
-      },
-      "source_discovery_ledger": [
-        {
-          "source_url": "https://cnesa.org/periodical?column_id=90",
-          "canonical_url": "https://cnesa.org/periodical?column_id=90",
-          "source_name": "CNESA",
-          "source_owner": "cnesa.org",
-          "source_domain": "cnesa.org",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "CNESA가 Energy Storage Industry White Paper 2026 Summary Version을 공개했다.",
-          "visible_supports": [
-            "fact",
-            "sub",
-            "title"
-          ]
-        },
-        {
-          "source_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
-          "canonical_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
-          "source_name": "Sina Finance",
-          "source_owner": "finance.sina.com.cn",
-          "source_domain": "finance.sina.com.cn",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "2025년 말 글로벌 전력저장 496.2GW와 중국 신형저장 144.7GW를 제시했다.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
-            "sub",
-            "title"
-          ]
-        }
-      ],
-      "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
-      "same_source_ui_grouping": {
-        "status": "PASS",
-        "source_group_count": 2,
-        "evidence_entry_count": 2,
-        "display_label": "출처 2곳 · 근거 2개",
-        "one_original_link_per_canonical_group": true
-      },
-      "visible_quote_publication_date_ready": true,
-      "evidence_qc_remediation_pass": "0.5R",
-      "evidence_qc_remediated_at_kst": "2026-07-27T16:27:07.333037+09:00",
-      "claim_coverage_summary": {
-        "status": "PASS",
-        "title": "strong",
-        "sub": "strong",
-        "gate": "adequate",
-        "fact": "strong",
-        "implication": "adequate",
-        "date": "strong_event_and_publication_dates_separated",
-        "weak_or_missing_core_claim_count": 0
-      },
-      "content_polish_findings": {
-        "title_quality": "PASS_ACTOR_ACTION_SCALE_OR_LOCATION",
-        "sub_quality": "PASS_ONE_SENTENCE_EVENT_SCALE_STRATEGIC_ANGLE",
-        "gate_depth": "PASS_TWO_TO_THREE_SENTENCE_INTERPRETATION_BOUNDARY",
-        "fact_source_lock": "PASS_NO_UNSUPPORTED_CLAIM_ADDED",
-        "implication_quality": "PASS_DISTINCT_OBSERVATIONAL_ROLES",
-        "terminology_consistency": "PASS",
-        "foreign_language_residue": "PASS_NONE",
-        "banned_phrase_check": "PASS_NONE",
-        "tone_check": "PASS_EXECUTIVE_BRIEFING",
-        "sbtl_forcing_check": "PASS_NO_FORCED_SBTL_REFERENCE",
-        "execution_anchor_preservation": "PASS_NO_STAGE_INFLATION"
-      },
-      "visible_field_change_summary": {
-        "changed_fields": [],
-        "changed_field_count": 0,
-        "source_lock_narrowing_performed": true,
-        "introduced_new_claim": false,
-        "evidence_fields_preserved": true
-      },
-      "github_ready": true,
-      "pr_candidate_ready": true,
-      "production_verified": false,
-      "hard_fail_count": 0,
-      "final_qc_completed_at_kst": "2026-07-27T16:27:07.333037+09:00",
-      "final_qc_gates": {
-        "fact_safety": "PASS",
-        "merge_safety": "PASS",
-        "evidence_completeness": "PASS",
-        "claim_coverage": "PASS",
-        "content_depth": "PASS",
-        "language_tone": "PASS",
-        "schema_runtime": "PASS",
-        "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
-      },
-      "id": "2026-07-17_CN_04",
-      "assigned_id": "2026-07-17_CN_04",
-      "production_id_assigned_0_8": true,
-      "production_id_pending": false,
-      "id_assignment_reason": "CARD_ID_STANDARD event-date+region assignment against current GitHub main 1286-card baseline; historical NN values were not reused; same-group order follows signal then source_spec_id.",
-      "duplicate_check": {
-        "status": "PASS",
-        "current_main_count": 1286,
-        "exact_id": false,
-        "exact_url": false,
-        "canonical_url": false,
-        "event_fingerprint": false,
-        "source_story_id": false
-      },
-      "schema_runtime_check": {
-        "status": "PASS",
-        "full_schema": true,
-        "types_valid": true,
-        "source_schema_valid": true
-      },
-      "sort_check": {
-        "status": "PASS",
-        "repo_sort": "date_desc_id_desc"
-      },
-      "merge_prep": {
-        "run_tag": "20260723_111344",
-        "target_repo": "ihyowoen/SBTL_HUB",
-        "target_branch_base": "main",
-        "planned_target_branch": "data/add-publish-ready-cards-20260723_111344",
-        "target_data_path": "public/data/cards.json",
-        "state": "github_merge_ready",
-        "github_main_blob_sha_before": "4dcb7cdbfea221575998fdb833a94937b1e6d264",
-        "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
-        "production_verified": false,
-        "merge_prep_round": "post_0_5R_supplemental"
-      },
-      "date_role": {
-        "representative_date": "2026-07-17",
-        "event_date": "2026-07-17",
-        "publication_dates": [
-          "2026-04-04",
-          "2026-05-18"
-        ],
-        "event_date_source_url": "https://cnesa.org/periodical?column_id=90",
-        "event_date_source_quote": "CNESA Energy Storage Industry White Paper 2026_Summary Version",
-        "event_date_confidence": "high",
-        "relation_type": "new_unrelated_event",
-        "earliest_same_event_date_checked": true
-      },
-      "related_lineage": {
-        "status": "PASS",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
-        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
-      },
-      "related_evidence_review": {
-        "status": "PASS",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
-        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
-      },
-      "related_prepass": {
-        "status": "PASS",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
-        "reason": "Same-event and baseline-date review found no matching historical card; this card represents a new unrelated event and has no related IDs."
-      }
-    },
-    {
       "state": "github_merge_ready",
       "previous_state": "publish_ready",
       "draft_id": "DRAFT_B_R1_SA26N_019",
@@ -234129,6 +233588,547 @@
       ],
       "week": "W6",
       "related": []
+    },
+    {
+      "revision_pass": "r1",
+      "previous_draft_id": "DRAFT_B_SA23N_017",
+      "revised_draft_id": "DRAFT_B_SA23N_017_R1",
+      "source_spec_id": "SA23N_017",
+      "stage_a_spec_id": "SA23N_017",
+      "source_story_ids": [
+        "CN_2026-07-22_C11"
+      ],
+      "region": "CN",
+      "date": "2026-04-04",
+      "cat": "ESS",
+      "sub_cat": "글로벌 저장장치 백서",
+      "signal": "top",
+      "title": "CNESA 백서, 2025년 말 글로벌 전력저장 496.2GW 집계",
+      "sub": "CNESA 데이터는 2025년 말 글로벌 전력저장 누적설치를 496.2GW, 중국 신형저장을 144.7GW로 제시했다.",
+      "gate": "글로벌 전력저장 전체와 중국 신형저장은 서로 다른 분모다. 설치규모를 비교할 때 기술범위와 지역범위를 분리해야 한다.",
+      "fact": "CNESA DataLink 기준 2025년 말 글로벌 전력저장 누적설치는 496.2GW였다. 중국 신형저장 누적설치는 144.7GW로 집계됐다.",
+      "implication": [
+        "글로벌 전력저장과 중국 신형저장의 누적규모가 함께 확대된 흐름이 확인된다.",
+        "전체 전력저장과 신형저장의 분모를 구분해야 시장규모를 과장하지 않을 수 있다.",
+        "설치량 이후에는 이용률과 운영성과가 시장가치를 가르는 후속 지표다."
+      ],
+      "urls": [
+        "https://china5e.com/news/news-1206767-1.html",
+        "https://cnesa.org/white-paper-2026",
+        "https://cnesa.org/periodical?column_id=90",
+        "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "CNESA",
+          "source_url": "https://cnesa.org/periodical?column_id=90",
+          "claim": "CNESA가 Energy Storage Industry White Paper 2026 Summary Version을 공개했다.",
+          "source_quote": "CNESA Energy Storage Industry White Paper 2026_Summary Version",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "source_published_date": "2026-05-18",
+          "visible_quote_date": "2026-05-18",
+          "checked_at": "2026-07-27T16:27:07.333037+09:00",
+          "fetched_at": "2026-07-27T16:27:07.333037+09:00",
+          "fetch_method": "prompt_0_5R_authorized_source_augmentation",
+          "source_owner_id": "cnesa.org",
+          "source_owner_id_normalized": "cnesa.org",
+          "source_domain": "cnesa.org",
+          "source_origin_type": "research_institution_official",
+          "source_role": "primary_event_evidence",
+          "source_contribution": "CNESA가 Energy Storage Industry White Paper 2026 Summary Version을 공개했다.",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "web_reference_id": "turn318229search0"
+        },
+        {
+          "source_name": "Sina Finance",
+          "source_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
+          "claim": "2025년 말 글로벌 전력저장 496.2GW와 중국 신형저장 144.7GW를 제시했다.",
+          "source_quote": "截至2025年底，全球已投运电力储能项目累计装机规模496.2GW...新型储能累计装机规模达到144.7GW",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-04-04",
+          "visible_quote_date": "2026-04-04",
+          "checked_at": "2026-07-27T16:27:07.333037+09:00",
+          "fetched_at": "2026-07-27T16:27:07.333037+09:00",
+          "fetch_method": "prompt_0_5R_authorized_source_augmentation",
+          "source_owner_id": "finance.sina.com.cn",
+          "source_owner_id_normalized": "finance.sina.com.cn",
+          "source_domain": "finance.sina.com.cn",
+          "source_origin_type": "independent_media_body",
+          "source_role": "secondary_event_evidence",
+          "source_contribution": "2025년 말 글로벌 전력저장 496.2GW와 중국 신형저장 144.7GW를 제시했다.",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "web_reference_id": "turn318229search4"
+        }
+      ],
+      "source_availability": "verified_body_or_official_sources",
+      "fetch_coverage": "multi_source_core_event_covered",
+      "evidence_package_status": "evidence_package_partial_needs_stage_c_attention",
+      "strict_pass_gate": {
+        "status": "pass",
+        "all_six_conditions_passed": true,
+        "lane_fit": "PASS",
+        "concrete_fresh_execution_or_data_anchor": "PASS",
+        "source_direction_compatibility": "PASS_PROVISIONAL_UPSTREAM",
+        "freshness_or_staleness_confidence": "PASS",
+        "baseline_duplicate_followup_risk": "PASS_PROVISIONAL_CURRENT_MAIN_SCREEN",
+        "independent_card_value_and_full_schema_viability": "PASS",
+        "reason": "직접 lane 적합성과 구체적 실행·데이터·정책 앵커가 있고 Stage B 근거패키지 구축 가치가 있다.",
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "핵심 실행 사건과 수치가 upstream body/official preview에 구체적으로 나타난다.",
+        "execution_anchor_type": "industry_whitepaper_release",
+        "execution_anchor_strength": "strong",
+        "format_risk_tags": [
+          "none"
+        ],
+        "notes": "Stage A selector-only provisional pass; evidence is not yet complete."
+      },
+      "strict_gate_check": {
+        "status": "PASS",
+        "all_six_conditions_passed": true
+      },
+      "selection_risk_flags": {
+        "status": "not_applicable_compatibility",
+        "reason": "The current Stage A artifact did not contain a field named selection_risk_flags. The authoritative risk metadata is preserved separately below without inference.",
+        "preserved_risk_metadata": {
+          "format_risk_tags": [
+            "none"
+          ],
+          "baseline_relation": "new_or_fresh_followup_requires_stage_b_recheck",
+          "duplicate_risk": "moderate",
+          "staleness_decision": "fresh",
+          "source_access_risk": "low"
+        }
+      },
+      "enhanced_selector_precision_version": "structural_value_override_v2_202607",
+      "selector_policy_version": "structural_default_review_pool_partition_20260506",
+      "format_risk_tags": [
+        "none"
+      ],
+      "execution_anchor_type": "industry_whitepaper_release",
+      "execution_anchor_strength": "strong",
+      "baseline_relation": "new",
+      "duplicate_risk": "low",
+      "staleness_decision": "fresh",
+      "source_access_risk": "low",
+      "lineage_integrity_status": "PASS",
+      "strict_gate_metadata_preserved": true,
+      "execution_anchor_metadata_preserved": true,
+      "stage_b_revise_only": true,
+      "publish_ready": true,
+      "needs_stage_c_recheck": true,
+      "source_augmentation_authorized": true,
+      "source_augmentation_performed": true,
+      "later_discovered_evidence_used": false,
+      "authorized_modification_scope": "Visible-field narrowing and existing fact-source schema preservation only",
+      "claim_repair_before_deletion_check": {
+        "status": "PASS_REPAIRED_BY_NARROWING",
+        "repair_paths_used": [
+          "narrowed visible wording to existing source_quote",
+          "removed unsupported scope, stage, date, actor, or numeric detail"
+        ],
+        "new_source_used": false,
+        "core_event_anchor_changed": false
+      },
+      "remaining_risks": [
+        "Stage C revise r1 recheck is required.",
+        "Post-acceptance evidence, source-diversity, duplicate, and publish-readiness gates have not been run."
+      ],
+      "revision_change_log": [
+        {
+          "previous_draft_id": "DRAFT_B_SA23N_017",
+          "revised_draft_id": "DRAFT_B_SA23N_017_R1",
+          "source_spec_id": "SA23N_017",
+          "field": "title",
+          "before": "CNESA, 2025년 말 글로벌 전력저장 누적 496.2GW 집계",
+          "after": "CNESA, 2025년 말 글로벌 전력저장 496.2GW 집계",
+          "stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
+          "source_lock_check": "PASS_EXISTING_FACT_SOURCES_ONLY",
+          "introduced_new_claim": false,
+          "notes": "Unsupported detail was removed or wording was narrowed to claims already present in the Stage B fact sources."
+        },
+        {
+          "previous_draft_id": "DRAFT_B_SA23N_017",
+          "revised_draft_id": "DRAFT_B_SA23N_017_R1",
+          "source_spec_id": "SA23N_017",
+          "field": "sub",
+          "before": "CNESA 백서는 2025년 말 글로벌 전력저장 누적설치를 496.2GW, 중국을 213.3GW로 집계하고 중국 신형저장을 144.7GW로 제시했다.",
+          "after": "CNESA 백서 관련 자료는 2025년 말 글로벌 전력저장 누적설치를 496.2GW, 중국 신형저장을 144.7GW로 제시했다.",
+          "stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
+          "source_lock_check": "PASS_EXISTING_FACT_SOURCES_ONLY",
+          "introduced_new_claim": false,
+          "notes": "Unsupported detail was removed or wording was narrowed to claims already present in the Stage B fact sources."
+        },
+        {
+          "previous_draft_id": "DRAFT_B_SA23N_017",
+          "revised_draft_id": "DRAFT_B_SA23N_017_R1",
+          "source_spec_id": "SA23N_017",
+          "field": "gate",
+          "before": "누적규모 확대와 함께 중국 시장의 핵심 질문이 설치량에서 활용가치로 이동했다는 진단이다. 리튬이온 비중의 미세한 변화와 장주기 프로젝트의 실제 운전실적이 기술다변화의 기준이 된다.",
+          "after": "전력저장 전체와 신형저장은 서로 다른 분모다. 누적설치 확대 이후에는 실제 이용률과 계통기여가 시장가치를 가르는 기준이 될 수 있다.",
+          "stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
+          "source_lock_check": "PASS_EXISTING_FACT_SOURCES_ONLY",
+          "introduced_new_claim": false,
+          "notes": "Unsupported detail was removed or wording was narrowed to claims already present in the Stage B fact sources."
+        },
+        {
+          "previous_draft_id": "DRAFT_B_SA23N_017",
+          "revised_draft_id": "DRAFT_B_SA23N_017_R1",
+          "source_spec_id": "SA23N_017",
+          "field": "fact",
+          "before": "CNESA DataLink에 따르면 2025년 말 글로벌 전력저장 누적설치는 496.2GW로 전년 대비 33.3% 증가했다. 중국은 213.3GW였고, 이 가운데 신형저장은 144.7GW로 집계됐다.",
+          "after": "중국에너지망은 2025년 말 글로벌 전력저장 누적설치를 496.2GW로 제시했다. 같은 자료는 중국 신형저장 누적설치를 144.7GW로 집계했으며, CNESA는 2026 저장산업 연구백서를 발간했다.",
+          "stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
+          "source_lock_check": "PASS_EXISTING_FACT_SOURCES_ONLY",
+          "introduced_new_claim": false,
+          "notes": "Unsupported detail was removed or wording was narrowed to claims already present in the Stage B fact sources."
+        },
+        {
+          "previous_draft_id": "DRAFT_B_SA23N_017",
+          "revised_draft_id": "DRAFT_B_SA23N_017_R1",
+          "source_spec_id": "SA23N_017",
+          "field": "implication",
+          "before": [
+            "중국이 글로벌 전력저장 누적설치의 43%를 차지하는 시장집중도가 확인된다.",
+            "신형저장 확대 이후에는 이용률·시장수익·계통기여가 투자효율을 가르는 기준으로 이동할 수 있다.",
+            "장주기 기술의 설치비중과 실제 운영성과가 기술구조 전환 여부를 판단할 다음 지표다."
+          ],
+          "after": [
+            "글로벌 전력저장과 중국 신형저장의 누적규모가 함께 확대된 흐름이 확인된다.",
+            "전체 전력저장과 신형저장의 분모를 구분해야 시장규모를 과장하지 않을 수 있다.",
+            "향후에는 설치량뿐 아니라 실제 이용률과 운영성과가 핵심 점검 대상이다."
+          ],
+          "stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
+          "source_lock_check": "PASS_EXISTING_FACT_SOURCES_ONLY",
+          "introduced_new_claim": false,
+          "notes": "Unsupported detail was removed or wording was narrowed to claims already present in the Stage B fact sources."
+        }
+      ],
+      "state": "github_merge_ready",
+      "stage_c_revise_only": true,
+      "prior_issue_resolved": true,
+      "prior_issue_resolution": {
+        "status": "PASS",
+        "specific_stage_c_issue_addressed": "496.2GW와 144.7GW는 현재 인용되지만 33.3%, 중국 213.3GW, 글로벌 43%는 fact_sources에 직접 매핑되지 않았다.",
+        "no_new_unsupported_claim_introduced": true,
+        "source_direction_unchanged": true,
+        "fact_sources_still_support_visible_fields": true,
+        "quote_quality_unchanged_or_improved": true,
+        "language_meta_check": "PASS",
+        "publish_ready_remains_false": true
+      },
+      "needs_post_acceptance_duplicate_review": true,
+      "needs_post_acceptance_evidence_qc": true,
+      "strict_gate_acceptance_guard_result": "PASS",
+      "draft_id": "DRAFT_B_SA23N_017_R1",
+      "previous_state": "publish_ready",
+      "event_fingerprint": {
+        "actor": "CNESA",
+        "asset_or_policy": "2026 energy-storage industry white paper",
+        "location": "Global and China",
+        "event_type": "other",
+        "factual_anchor": "496.2GW global storage and 144.7GW China new storage",
+        "event_date": "2026-04-04",
+        "source_url_cluster": [
+          "https://cnesa.org/periodical?column_id=90",
+          "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml"
+        ]
+      },
+      "duplicate_screening": {
+        "exact_url_match": false,
+        "canonical_url_match": false,
+        "title_similarity_match": false,
+        "actor_asset_event_match": false,
+        "baseline_event_fingerprint_match": false,
+        "internal_batch_duplicate_match": false,
+        "already_covered_by_broader_card": false,
+        "stage_a_same_blob_screen_status": "PASS_NO_MATCH",
+        "stage_a_baseline_match_values": [
+          "None"
+        ],
+        "current_main_code_search_status": "NO_MATCH",
+        "current_main_code_search_query": "496.2GW 144.7GW CNESA"
+      },
+      "id_collision": false,
+      "id_collision_notes": "No production ID is assigned in Prompt 0.4. Date-region sequence assignment and collision recheck remain Prompt 0.8 tasks.",
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "needs_evidence_completeness_qc": true,
+      "needs_source_claim_coverage_qc": true,
+      "needs_content_enrichment": true,
+      "needs_language_terminology_polish": true,
+      "needs_publish_readiness_qc": true,
+      "publish_ready_reset": true,
+      "reset_reason": "evidence_qc_does_not_decide_publish_ready",
+      "notes": [
+        "Compared against the current 1,250-card GitHub main baseline at the exact Stage A blob SHA.",
+        "Stage A same-blob full baseline screen recorded no baseline match.",
+        "Prompt 0.4 current-main code search found no direct project, policy, URL, or unique-number match.",
+        "No internal URL or event-fingerprint duplicate was found.",
+        "addable_merge_safe is not evidence_complete and not publish_ready."
+      ],
+      "supplemental_pass": true,
+      "supplemental_pass_id": "prompt_0_5R_20260723_111344_SA23N_017",
+      "source_strength_review_attempted": true,
+      "final_source_strength_decision": "clean_after_review",
+      "source_strength_caveat_retained": false,
+      "source_strength_caveat_reason": "",
+      "source_metadata_schema_complete": true,
+      "source_published_date_complete": false,
+      "fact_sources_changed_in_0_5R": true,
+      "visible_change_required_for_prompt_0_6": false,
+      "source_change_diff": [
+        {
+          "source_spec_id": "SA23N_017",
+          "change_type": "source_quote_reextracted",
+          "source_url": "https://www.china5e.com/news/news-1206767-1.html",
+          "before": "全球已投运电力储能项目累计装机规模达到496.2GW",
+          "after": "截至2025年底，全球已投运电力储能项目累计装机规模达到496.2GW"
+        }
+      ],
+      "lineage_metadata_preserved": true,
+      "validation_gate_passed": true,
+      "source_strength_review_log": [
+        {
+          "review_scope": "same-event evidence rescue, source-strength search and source metadata completion",
+          "reviewed_at": "2026-07-27T14:22:01+09:00",
+          "result": "clean_after_review",
+          "reason": "core evidence, visible-claim mapping and source-strength review pass"
+        }
+      ],
+      "source_evidence_entry_count": 2,
+      "source_unique_url_count": 2,
+      "source_unique_domain_count": 2,
+      "source_independent_owner_count": 2,
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "not applicable: multi-owner evidence"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://cnesa.org/periodical?column_id=90",
+          "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml"
+        ],
+        "canonical_domains": [
+          "cnesa.org",
+          "finance.sina.com.cn"
+        ],
+        "independent_owners": [
+          "cnesa.org",
+          "finance.sina.com.cn"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
+      "source_url_resolution": {
+        "supporting_fact_source_count": 2,
+        "canonical_complete": true,
+        "resolved_article_matches_quote": true,
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://cnesa.org/periodical?column_id=90",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=cnesa.org",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=finance.sina.com.cn",
+            "source_url_propagation_performed": false
+          }
+        ]
+      },
+      "source_discovery_ledger": [
+        {
+          "source_url": "https://cnesa.org/periodical?column_id=90",
+          "canonical_url": "https://cnesa.org/periodical?column_id=90",
+          "source_name": "CNESA",
+          "source_owner": "cnesa.org",
+          "source_domain": "cnesa.org",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "CNESA가 Energy Storage Industry White Paper 2026 Summary Version을 공개했다.",
+          "visible_supports": [
+            "fact",
+            "sub",
+            "title"
+          ]
+        },
+        {
+          "source_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
+          "canonical_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
+          "source_name": "Sina Finance",
+          "source_owner": "finance.sina.com.cn",
+          "source_domain": "finance.sina.com.cn",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "2025년 말 글로벌 전력저장 496.2GW와 중국 신형저장 144.7GW를 제시했다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
+        }
+      ],
+      "source_discovery_ledger_reference_status": "PASS_DURABLE_REFERENCE_AND_MATERIALIZED_ROWS",
+      "same_source_ui_grouping": {
+        "status": "PASS",
+        "source_group_count": 2,
+        "evidence_entry_count": 2,
+        "display_label": "출처 2곳 · 근거 2개",
+        "one_original_link_per_canonical_group": true
+      },
+      "visible_quote_publication_date_ready": true,
+      "evidence_qc_remediation_pass": "0.5R",
+      "evidence_qc_remediated_at_kst": "2026-07-27T16:27:07.333037+09:00",
+      "claim_coverage_summary": {
+        "status": "PASS",
+        "title": "strong",
+        "sub": "strong",
+        "gate": "adequate",
+        "fact": "strong",
+        "implication": "adequate",
+        "date": "strong_event_and_publication_dates_separated",
+        "weak_or_missing_core_claim_count": 0
+      },
+      "content_polish_findings": {
+        "title_quality": "PASS_ACTOR_ACTION_SCALE_OR_LOCATION",
+        "sub_quality": "PASS_ONE_SENTENCE_EVENT_SCALE_STRATEGIC_ANGLE",
+        "gate_depth": "PASS_TWO_TO_THREE_SENTENCE_INTERPRETATION_BOUNDARY",
+        "fact_source_lock": "PASS_NO_UNSUPPORTED_CLAIM_ADDED",
+        "implication_quality": "PASS_DISTINCT_OBSERVATIONAL_ROLES",
+        "terminology_consistency": "PASS",
+        "foreign_language_residue": "PASS_NONE",
+        "banned_phrase_check": "PASS_NONE",
+        "tone_check": "PASS_EXECUTIVE_BRIEFING",
+        "sbtl_forcing_check": "PASS_NO_FORCED_SBTL_REFERENCE",
+        "execution_anchor_preservation": "PASS_NO_STAGE_INFLATION"
+      },
+      "visible_field_change_summary": {
+        "changed_fields": [],
+        "changed_field_count": 0,
+        "source_lock_narrowing_performed": true,
+        "introduced_new_claim": false,
+        "evidence_fields_preserved": true
+      },
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "production_verified": false,
+      "hard_fail_count": 0,
+      "final_qc_completed_at_kst": "2026-07-27T16:27:07.333037+09:00",
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      },
+      "id": "2026-04-04_CN_01",
+      "assigned_id": "2026-04-04_CN_01",
+      "production_id_assigned_0_8": true,
+      "production_id_pending": false,
+      "id_assignment_reason": "CARD_ID_STANDARD earliest documented same-event publication date plus region sequence; 2026-04-04_CN had no existing production ID collision, so sequence _01 was assigned.",
+      "duplicate_check": {
+        "status": "PASS",
+        "current_main_count": 1286,
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "event_fingerprint": false,
+        "source_story_id": false
+      },
+      "schema_runtime_check": {
+        "status": "PASS",
+        "full_schema": true,
+        "types_valid": true,
+        "source_schema_valid": true
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc"
+      },
+      "merge_prep": {
+        "run_tag": "20260723_111344",
+        "target_repo": "ihyowoen/SBTL_HUB",
+        "target_branch_base": "main",
+        "planned_target_branch": "data/add-publish-ready-cards-20260723_111344",
+        "target_data_path": "public/data/cards.json",
+        "state": "github_merge_ready",
+        "github_main_blob_sha_before": "4dcb7cdbfea221575998fdb833a94937b1e6d264",
+        "prepared_at_kst": "2026-07-27T16:27:07.333037+09:00",
+        "production_verified": false,
+        "merge_prep_round": "post_0_5R_supplemental"
+      },
+      "date_role": {
+        "representative_date": "2026-04-04",
+        "event_date": "2026-04-04",
+        "publication_dates": [
+          "2026-04-04",
+          "2026-05-18"
+        ],
+        "event_date_source_url": "https://finance.sina.com.cn/wm/2026-04-04/doc-inhthwxz9636571.shtml",
+        "event_date_source_quote": "截至2025年底，全球已投运电力储能项目累计装机规模496.2GW...新型储能累计装机规模达到144.7GW",
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "The Sina same-event article documents the white-paper figures on 2026-04-04, earlier than CNESA publication on 2026-05-18; baseline review found no matching historical card, so the event is new and unrelated."
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "The Sina same-event article documents the white-paper figures on 2026-04-04, earlier than CNESA publication on 2026-05-18; baseline review found no matching historical card, so the event is new and unrelated."
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "The Sina same-event article documents the white-paper figures on 2026-04-04, earlier than CNESA publication on 2026-05-18; baseline review found no matching historical card, so the event is new and unrelated."
+      }
     },
     {
       "id": "W6N_09",

@@ -158,7 +158,9 @@ async function handleConsultationV2({ consultation, ticketId, debugBase }) {
       prevStage1: prev_stage1,
       prevStage2: prev_stage2,
     });
-    answerLine = result?.stageOutput?.counter_scenario;
+    // 3차 산출 키는 caveat가 정본 — consultation.js가 caveat만 생산·검증한다.
+    // counter_scenario는 설계 문서(CONSULTATION_3STAGE_DESIGN)의 구명칭이라 폴백으로만 남긴다.
+    answerLine = result?.stageOutput?.caveat || result?.stageOutput?.counter_scenario;
     nextStageLabel = null;
   } else {
     return makeStageErrorResponse({

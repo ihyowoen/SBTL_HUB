@@ -44,7 +44,13 @@ const load = (p) => {
 };
 const isFullRecord = (c) => Object.keys(c).some((k) => !keepSet.has(k));
 const project = (c) => { const o = {}; for (const k of KEEP) if (c[k] !== undefined) o[k] = c[k]; return o; };
-const sameKeep = (a, b) => KEEP.every((k) => JSON.stringify(a[k] ?? null) === JSON.stringify(b[k] ?? null));
+// 존재 여부까지 비교 — ?? 병합은 'null 값 보유'와 '필드 부재'를 동일시해 실데이터
+// source_tier:null(37장)에서 발행본의 필드 삭제가 사영 정합으로 오판된다(Codex #221 R8)
+const sameKeep = (a, b) => KEEP.every((k) => {
+  const ha = k in a, hb = k in b;
+  if (ha !== hb) return false;
+  return !ha || JSON.stringify(a[k]) === JSON.stringify(b[k]);
+});
 
 if (!existsSync(LEAN_PATH)) { console.error(`FAIL: ${LEAN_PATH} 없음`); process.exit(1); }
 let pub;

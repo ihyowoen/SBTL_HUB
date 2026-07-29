@@ -4038,21 +4038,13 @@ function AppContent() {
       const scopeAll = !!opts.scopeAll || !!customSpec;
       const terms = scopeAll ? [] : Array.isArray(rawTerms) ? rawTerms : [];
       const existing = readWeeklyBriefs();
-      // 주기 판정은 '같은 범위의 주간호'만 본다 — 기간(월간호가 주간 발행을 막지 않게)에
-      // 더해 범위까지 봐야 한다: 온보딩 스킵 → 자동 "주간 전체"(terms_sig "[]") 발행 →
-      // 첫 워치 등록 시, 그 전체호가 충족으로 잡히면 개인화 내워치 브리프가 7일간 안 만들어진다.
-      // (brief_now 쿨다운이 이미 terms_sig 범위 한정인 것과 같은 규약 — R7 교훈)
-      // 상태에는 전체 목록을 그대로 반영한다(다른 탭의 월간·타범위 발행도 화면에 보이게).
-      if (!force && !weeklyBriefDue(plainWeeklyEntries(existing).filter((e) => briefScopeMatches(e, terms)))) {
-        // 다른 탭이 이미 발행했거나 항목 내용(read 등)을 갱신한 경우 — 화면에 반영.
-        // 내용 전체 비교로 동일할 때만 이전 참조 유지 (보관함 ≤12항목이라 비용 무시 가능)
-        setWeeklyBriefs((prev) => (JSON.stringify(prev) === JSON.stringify(existing) ? prev : existing));
-        return;
-      }
       // 주간 사전 발행 채택(R28, Codex #224 R2) — 전체 범위 패시브 주간은 신선한(≤7일)
-      // 라이브러리 주간호가 있으면 API 생성 대신 그것을 선반에 얹는다: 수기 편집본으로
-      // 품질·일관성을 고정한다(사용자 결정). 개인화(워치 범위)·수동 force·월간/커스텀/
-      // 지역·주제 구성은 온디맨드 유지 — 조합형은 사전 발행이 불가능한 항목이다.
+      // 라이브러리 주간호가 보관본보다 최신이면 API 생성 대신 그것을 선반에 얹는다: 수기
+      // 편집본으로 품질·일관성을 고정한다(사용자 결정). 개인화(워치 범위)·수동 force·
+      // 월간/커스텀/지역·주제 구성은 온디맨드 유지 — 조합형은 사전 발행이 불가능한 항목.
+      // 쿨다운(아래 주기 판정)보다 먼저 본다 — 뒤에 두면 3일 전 API 주간을 가진 사용자가
+      // 오늘 나온 공식 호수를 만기까지 못 받고, 만기 땐 호수가 낡아 영영 못 받는다
+      // (Codex #224 R6). 채택 불발 시 _skipLibrary 재진입이 기존 쿨다운·API 경로를 탄다.
       // terms_sig "[]"를 물려 전체 범위 규약(R9)에 편입 — 쿨다운·미독·리더가 기존 경로.
       if (!force && !opts._skipLibrary && period === "weekly" && !customSpec && !group && !terms.length) {
         loadBriefLibrary().then((lib) => {
@@ -4068,12 +4060,27 @@ function AppContent() {
             .filter((it) => it && it.period === "weekly" && it.narrative && !it.month && !it.group)
             .sort((a, b) => String(b.generated_at || "").localeCompare(String(a.generated_at || "")))[0];
           const ms = wk ? new Date(String(wk.generated_at || "").replace(/\./g, "-")).getTime() : NaN;
-          if (wk && !Number.isNaN(ms) && Date.now() - ms < 7 * 86400000) {
+          // '보관본보다 최신'일 때만 — 같은 id면 당일 개정까지 보고(isLibraryRevision),
+          // 다른 id(API 발행본)면 발행일 비교만: 같은 날 API 본이 있으면 중복 채택하지 않는다.
+          const stored = plainWeeklyEntries(existing).filter((e) => briefScopeMatches(e, []))[0];
+          const newer = !stored || (stored.id === wk?.id ? isLibraryRevision(wk, stored) : String(wk?.generated_at || "") > String(stored.generated_at || ""));
+          if (wk && !Number.isNaN(ms) && Date.now() - ms < 7 * 86400000 && newer) {
             adoptLibraryEntry({ ...wk, terms_sig: "[]" });
           } else {
-            runWeeklyBrief({ ...opts, _skipLibrary: true }); // 신선한 호수 없음 — 기존 API 경로
+            runWeeklyBrief({ ...opts, _skipLibrary: true }); // 채택 불발 — 기존 쿨다운·API 경로
           }
         });
+        return;
+      }
+      // 주기 판정은 '같은 범위의 주간호'만 본다 — 기간(월간호가 주간 발행을 막지 않게)에
+      // 더해 범위까지 봐야 한다: 온보딩 스킵 → 자동 "주간 전체"(terms_sig "[]") 발행 →
+      // 첫 워치 등록 시, 그 전체호가 충족으로 잡히면 개인화 내워치 브리프가 7일간 안 만들어진다.
+      // (brief_now 쿨다운이 이미 terms_sig 범위 한정인 것과 같은 규약 — R7 교훈)
+      // 상태에는 전체 목록을 그대로 반영한다(다른 탭의 월간·타범위 발행도 화면에 보이게).
+      if (!force && !weeklyBriefDue(plainWeeklyEntries(existing).filter((e) => briefScopeMatches(e, terms)))) {
+        // 다른 탭이 이미 발행했거나 항목 내용(read 등)을 갱신한 경우 — 화면에 반영.
+        // 내용 전체 비교로 동일할 때만 이전 참조 유지 (보관함 ≤12항목이라 비용 무시 가능)
+        setWeeklyBriefs((prev) => (JSON.stringify(prev) === JSON.stringify(existing) ? prev : existing));
         return;
       }
       const sigRank = { t: 3, h: 2, m: 1, i: 0 };

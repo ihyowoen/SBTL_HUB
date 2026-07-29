@@ -4054,6 +4054,14 @@ function AppContent() {
       // terms_sig "[]"를 물려 전체 범위 규약(R9)에 편입 — 쿨다운·미독·리더가 기존 경로.
       if (!force && !opts._skipLibrary && period === "weekly" && !customSpec && !group && !terms.length) {
         loadBriefLibrary().then((lib) => {
+          // 채택 직전 범위 재확인 — 라이브러리 로딩 사이 워치가 등록됐으면 이 결과는
+          // 낡은 스코프의 것이다: 전체호를 얹으면 방금 만든 개인화 브리프를 선반 앞에서
+          // 가린다(Codex #224 R4). 폐기가 정답 — 워치 변경은 watchSeenVersion 효과가
+          // 새 스코프로 다시 발행한다(API 경로의 시도 가드와 같은 규약).
+          try {
+            const now = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+            if (Array.isArray(now) && now.length) return;
+          } catch { /* noop */ }
           const wk = (lib && Array.isArray(lib.items) ? lib.items : [])
             .filter((it) => it && it.period === "weekly" && it.narrative && !it.month && !it.group)
             .sort((a, b) => String(b.generated_at || "").localeCompare(String(a.generated_at || "")))[0];

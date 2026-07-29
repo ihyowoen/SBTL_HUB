@@ -49,7 +49,7 @@ export function pickNeighbors(centerCard, cards, aliasMap, { cap = 14 } = {}) {
 
   // ① 연관(정방향) — 편집자 연결이 가장 강한 다리
   if (rel.size) {
-    cards.filter((c) => rel.has(getCardId(c))).sort(byDateDesc).forEach((c) => push(c, "연관 — 편집자 연결"));
+    cards.filter((c) => rel.has(getCardId(c))).sort(byDateDesc).forEach((c) => push(c, "연관 — 강차장 연결"));
   }
   // ② 역방향 연결 — 자기 related로 중심을 가리키는 카드. 방향이 역이라고 다 '후속'은
   // 아니다: 편집자는 시간 양방향으로 잇는다(실데이터에 중심보다 앞선 역링크 존재 —
@@ -90,7 +90,7 @@ export function ensureCenterEdges(centerId, neighbors) {
     a: centerId,
     b: n.id,
     kind: String(n.why || "").includes("주체") ? "entity" : "related",
-    label: String(n.why || "").includes("주체") ? "같은 주체" : "편집자 연결",
+    label: String(n.why || "").includes("주체") ? "같은 주체" : "강차장 연결",
   }));
 }
 
@@ -139,7 +139,7 @@ export function bridgeLineage(centerCard, neighbor) {
 export function emptyVerdict(centerCard) {
   const rl = centerCard && centerCard.related_lineage;
   if (rl && typeof rl === "object" && String(rl.relation_type) === "new_unrelated_event") {
-    return "편집자 대조 완료 — 이어진 사건 없음(독립 사건 판정)";
+    return "강차장이 다 대조했어요 — 이어진 사건 없음(독립 사건 판정)";
   }
   return null;
 }

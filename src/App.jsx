@@ -1356,7 +1356,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
         const selNode = pinLayout && pinSel ? pinLayout.nodes.find((n) => n.id === pinSel) : null;
         const selEdges = pinLayout && pinSel ? pinLayout.edges.filter((e) => e.a === pinSel || e.b === pinSel) : [];
         const nodeById = pinLayout ? new Map(pinLayout.nodes.map((n) => [n.id, n])) : null;
-        const KIND_LABEL = { related: "편집자 연결", entity: "같은 주체", theme: "같은 주제" };
+        const KIND_LABEL = { related: "강차장 연결", entity: "같은 주체", theme: "같은 주제" };
         return (
           <>
             <div ref={pinBoardRef} style={{ scrollMarginTop: 12 }}>{sectionTitle(`📌 핀 보드 (${pins.length})`, (pins.length || watchTerms.length)
@@ -1436,7 +1436,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                                     const disp = (canBuild ? "🧩 " : "") + (c.label.length > 12 ? c.label.slice(0, 11) + "…" : c.label);
                                     return (
                                       <g onClick={canBuild ? (ev) => { ev.stopPropagation(); sendComponentToBuilder(c); } : undefined} onKeyDown={canBuild ? (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ev.stopPropagation(); sendComponentToBuilder(c); } } : undefined} tabIndex={canBuild ? 0 : undefined} style={canBuild ? { cursor: "pointer" } : undefined} role={canBuild ? "button" : undefined} aria-label={canBuild ? `${c.label} 묶음으로 브리프 만들기` : undefined}>
-                                        <title>{canBuild ? `${c.label} — 이 묶음으로 브리프 만들기` : `${c.label} — 편집자 연결 묶음이라 축으로 변환할 근거 라벨이 없어요`}</title>
+                                        <title>{canBuild ? `${c.label} — 이 묶음으로 브리프 만들기` : `${c.label} — 강차장 연결 묶음이라 축으로 변환할 근거 라벨이 없어요`}</title>
                                         <rect x={c.cx - disp.length * 4.6 - 9} y={c.cy - c.r - 17} width={disp.length * 9.2 + 18} height={17} rx={8.5} fill={halo} stroke={col} strokeWidth="1" opacity={0.95} />
                                         <text x={c.cx} y={c.cy - c.r - 5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={col} fontFamily="'JetBrains Mono',monospace">{disp}</text>
                                       </g>
@@ -1496,7 +1496,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                       })()}
                     </div>
                     <div style={{ display: "flex", gap: 10, padding: "6px 6px 4px", fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexWrap: "wrap" }}>
-                      <span>━ 편집자 연결</span>
+                      <span>━ 강차장 연결</span>
                       <span style={{ opacity: 0.75 }}>─ 같은 주체</span>
                       <span style={{ opacity: 0.75 }}>┄ 같은 주제</span>
                       <span>● 색 = 연결 묶음</span>
@@ -3289,7 +3289,7 @@ function NewsExplode({ startCard, kb, dark, onClose, isBookmarked, onToggleBookm
     setCenterId(id);
   };
   const jumpBack = (idx) => { const target = trail[idx]; if (!target) return; setCenterId(target.id); setTrail(trail.slice(0, idx)); };
-  const KIND_LABEL = { related: "편집자 연결", entity: "같은 주체", theme: "같은 주제" };
+  const KIND_LABEL = { related: "강차장 연결", entity: "같은 주체", theme: "같은 주제" };
   const centerEdges = lay ? lay.edges.filter((e) => e.a === centerId || e.b === centerId) : [];
   const nodeBg = dark ? "#1C2333" : "#fff";
   const halo = dark ? "#161B26" : "#fff";

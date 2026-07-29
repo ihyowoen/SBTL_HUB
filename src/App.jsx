@@ -1947,6 +1947,27 @@ function readWeeklyBriefs() {
   } catch { return []; }
 }
 
+// 삭제 묘비(R28) — 라이브러리 호수를 🗑 지우면 {id: 발행일}을 남긴다. 묘비가 없으면
+// 자동 채택이 "보관본 없음=최신"으로 판정해 지운 호수를 매 방문 되살린다(red team 실증).
+// 같은 id라도 개정판(다른 발행일)은 묘비 불일치라 다시 채택된다 — 새 내용은 정당.
+const BRIEF_DISMISS_KEY = "sbtl_brief_dismissed";
+function readBriefDismissals() {
+  try {
+    const v = JSON.parse(localStorage.getItem(BRIEF_DISMISS_KEY) || "{}");
+    return v && typeof v === "object" && !Array.isArray(v) ? v : {};
+  } catch { return {}; }
+}
+function recordBriefDismissal(id, generatedAt) {
+  try {
+    const m = readBriefDismissals();
+    m[id] = String(generatedAt || "");
+    // 30일 지난 묘비는 청소 — 호수 신선창(7일)보다 충분히 길다
+    const cut = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10).replace(/-/g, ".");
+    for (const [k, v] of Object.entries(m)) if (String(v) < cut) delete m[k];
+    localStorage.setItem(BRIEF_DISMISS_KEY, JSON.stringify(m));
+  } catch { /* noop */ }
+}
+
 // 선반 호수 칩 라벨 — '내용'이 먼저다. 발행일이 앞서면 라이브러리 채택본(같은 날 일괄
 // 발행)이 전부 같은 날짜로 시작해 구별이 안 되고, "6월호인데 왜 7월?"로 읽힌다(실사용
 // 혼란 보고). 달력월호는 달이 정체성(재료 불변 — 언제 만들었든 같은 호수)이라 발행일을
@@ -4060,15 +4081,34 @@ function AppContent() {
             .filter((it) => it && it.period === "weekly" && it.narrative && !it.month && !it.group)
             .sort((a, b) => String(b.generated_at || "").localeCompare(String(a.generated_at || "")))[0];
           const ms = wk ? new Date(String(wk.generated_at || "").replace(/\./g, "-")).getTime() : NaN;
-          // '보관본보다 최신'일 때만 — 같은 id면 당일 개정까지 보고(isLibraryRevision),
-          // 다른 id(API 발행본)면 발행일 비교만: 같은 날 API 본이 있으면 중복 채택하지 않는다.
-          const stored = plainWeeklyEntries(existing).filter((e) => briefScopeMatches(e, []))[0];
-          const newer = !stored || (stored.id === wk?.id ? isLibraryRevision(wk, stored) : String(wk?.generated_at || "") > String(stored.generated_at || ""));
-          if (wk && !Number.isNaN(ms) && Date.now() - ms < 7 * 86400000 && newer) {
-            adoptLibraryEntry({ ...wk, terms_sig: "[]" });
-          } else {
-            runWeeklyBrief({ ...opts, _skipLibrary: true }); // 채택 불발 — 기존 쿨다운·API 경로
+          if (!wk || Number.isNaN(ms) || Date.now() - ms >= 7 * 86400000) {
+            runWeeklyBrief({ ...opts, _skipLibrary: true }); // 신선한 호수 없음 — 기존 쿨다운·API 경로
+            return;
           }
+          // 묘비 존중(R28) — 사용자가 이 호수(이 발행일)를 지웠으면 되살리지 않는다.
+          // API 재생성도 하지 않는다: 삭제 의사는 '이번 호는 치웠다'이고, 다음 개정판·
+          // 다음 호수(발행일 다름)나 수동 ⚡발행은 그대로 열려 있다.
+          const dismissed = readBriefDismissals();
+          if (dismissed[wk.id] === String(wk.generated_at || "")) return;
+          // '보관본보다 최신'일 때만 — 같은 id면 당일 개정까지 보고(isLibraryRevision),
+          // 다른 id(API 발행본)면 발행일 비교. 같은 날 API 본은 공식본으로 '교체'한다
+          // (사용자 독트린: 라이브러리=정본, API 폴백은 임시본 — R6의 중복 채택 금지를
+          // 교체로 승격, Codex #224 R6 후속·red team 가설 2).
+          const shelfNow = readWeeklyBriefs();
+          const stored = plainWeeklyEntries(shelfNow).filter((e) => briefScopeMatches(e, []))[0];
+          const sameDayApi = !!stored && stored.id !== wk.id && String(stored.generated_at || "") === String(wk.generated_at || "");
+          const newer = !stored || (stored.id === wk.id ? isLibraryRevision(wk, stored) : sameDayApi || String(wk.generated_at || "") > String(stored.generated_at || ""));
+          if (!newer) {
+            runWeeklyBrief({ ...opts, _skipLibrary: true }); // 채택 불발 — 기존 쿨다운·API 경로
+            return;
+          }
+          if (sameDayApi) {
+            // 같은 날 API 임시본 제거(묘비 없음 — 시스템 교체지 사용자 삭제가 아니다)
+            const next = shelfNow.filter((e) => !(e && e.id === stored.id));
+            localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
+            setWeeklyBriefs(next);
+          }
+          adoptLibraryEntry({ ...wk, terms_sig: "[]" });
         });
         return;
       }
@@ -4376,7 +4416,11 @@ function AppContent() {
   // 폴백(⚡)으로 언제든 다시 채택한다.
   const deleteWeeklyBrief = useMemo(() => (id) => {
     try {
-      const next = readWeeklyBriefs().filter((e) => e && e.id !== id);
+      const cur = readWeeklyBriefs();
+      const victim = cur.find((e) => e && e.id === id);
+      // 묘비 기록 — 자동 채택이 이 호수(이 발행일)를 되살리지 못하게(R28 red team 실증)
+      if (victim) recordBriefDismissal(id, victim.generated_at);
+      const next = cur.filter((e) => e && e.id !== id);
       localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
       setWeeklyBriefs(next);
     } catch { /* noop */ }

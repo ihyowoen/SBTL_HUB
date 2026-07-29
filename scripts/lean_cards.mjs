@@ -88,7 +88,7 @@ if (CHECK) {
 }
 
 // ---- apply: 유입(발행 경로) → 아카이브 병합 → 사영 재생성 ----
-const stats = { fullReplaced: 0, leanMerged: 0, inserted: 0, dropped: 0, leanNew: 0 };
+const stats = { fullMerged: 0, leanMerged: 0, inserted: 0, dropped: 0, leanNew: 0 };
 let mergedCards;
 if (!archive) {
   // 최초 실행 — 현재 발행 파일이 그대로 초대 아카이브가 된다
@@ -99,24 +99,29 @@ if (!archive) {
   const pubIds = new Set(pub.cards.map((c) => c.id));
   mergedCards = pub.cards.map((c) => {
     const prev = am.get(c.id);
-    if (isFullRecord(c)) { stats[prev ? "fullReplaced" : "inserted"]++; return c; }
-    if (prev) {
-      // lean 유입 — 아카이브의 비KEEP만 보존하고 KEEP 부분은 유입본으로 '정확히 교체'.
-      // {...prev, ...project(c)} 스프레드는 유입본이 지운 선택 필드(source_tier·
-      // related_lineage 등)를 prev 값으로 조용히 되살린다(Codex #221 R6) — 삭제도 편집이다.
-      if (!sameKeep(c, prev)) stats.leanMerged++;
-      // prev의 키 순서를 보존해야 무변경 병합이 바이트 동일 = apply 멱등(불필요한 전량
-      // 재작성·커밋 방지). prev에 있었지만 유입이 지운 KEEP 키는 건너뛴다.
-      const proj = project(c);
-      const merged = {};
-      for (const [k, v] of Object.entries(prev)) {
-        if (!keepSet.has(k)) { merged[k] = v; continue; }
-        if (k in proj) { merged[k] = proj[k]; delete proj[k]; }
-      }
-      return Object.assign(merged, proj); // 유입이 새로 추가한 KEEP 키
+    if (!prev) { stats[isFullRecord(c) ? "inserted" : "leanNew"]++; return c; }
+    // 기존 카드는 통째 교체 금지 — '비KEEP 필드가 있으면 완전판'이라는 판별은 잡키
+    // 하나로 아카이브 감사 기록 전체를 날린다(Codex #221 R7 P1). 대신 키 단위 합집합:
+    //   비KEEP: 유입이 가진 키는 유입 값, prev에만 있는 키는 보존(손실 원천 불가.
+    //           봇이 의도적으로 지운 낡은 감사 필드가 남는 편향은 감수 — 아카이브는
+    //           감사 원천이라 '손실 < 잔존'이다)
+    //   KEEP:   유입본으로 정확히 교체 — 발행면이 KEEP의 표면이므로 삭제도 편집(R6)
+    // prev 키 순서 보존 = 무변경 병합이 바이트 동일 = apply 멱등.
+    const incomingNonKeep = Object.keys(c).filter((k) => !keepSet.has(k));
+    if (incomingNonKeep.length) {
+      stats.fullMerged++;
+      // 풍부한 아카이브에 쥐꼬리 비KEEP만 유입 = 잡키 의심 — 막지 않고 드러낸다
+      const prevNonKeep = Object.keys(prev).filter((k) => !keepSet.has(k)).length;
+      if (incomingNonKeep.length <= 2 && prevNonKeep >= 10) console.log(`경고: ${c.id} 비KEEP 유입 ${incomingNonKeep.length}개(${incomingNonKeep.join(",")}) vs 아카이브 ${prevNonKeep}개 — 잡키 의심, 합집합 병합으로 기존 기록은 보존됨`);
+    } else if (!sameKeep(c, prev)) stats.leanMerged++;
+    const rest = { ...c };
+    const merged = {};
+    for (const [k, v] of Object.entries(prev)) {
+      if (k in rest) { merged[k] = rest[k]; delete rest[k]; }
+      else if (!keepSet.has(k)) merged[k] = v; // prev에만 있는 비KEEP은 보존
+      // prev에만 있는 KEEP 키는 건너뜀 — 유입이 지운 것(삭제도 편집)
     }
-    stats.leanNew++;
-    return c; // lean만으로 새로 온 카드 — 완전판이 없다는 사실 자체를 보존(경고)
+    return Object.assign(merged, rest); // 유입이 새로 추가한 키
   });
   for (const c of archive.cards) if (!pubIds.has(c.id)) stats.dropped++;
 }
@@ -125,7 +130,7 @@ const leanDoc = { ...pub, cards: mergedCards.map(project) };
 
 const before = Buffer.byteLength(JSON.stringify(pub));
 const after = Buffer.byteLength(JSON.stringify(leanDoc));
-console.log(`유입 ${pub.cards.length}장 → 아카이브: 완전판 교체 ${stats.fullReplaced} · 신규 ${stats.inserted} · lean 병합 ${stats.leanMerged} · 제거 ${stats.dropped}`);
+console.log(`유입 ${pub.cards.length}장 → 아카이브: 완전판 병합 ${stats.fullMerged} · 신규 ${stats.inserted} · lean 병합 ${stats.leanMerged} · 제거 ${stats.dropped}`);
 if (stats.leanNew) console.log(`경고: 완전판 없이 lean으로만 들어온 신규 카드 ${stats.leanNew}장 — 아카이브에 감사 기록이 없다`);
 console.log(`발행본 ${(before / 1048576).toFixed(2)}MB → ${(after / 1048576).toFixed(2)}MB`);
 

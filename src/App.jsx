@@ -4341,11 +4341,44 @@ function AppContent() {
     try {
       if (!entry || !entry.id || !entry.narrative) return;
       const fresh = readWeeklyBriefs();
-      if (fresh.some((e) => e && e.id === entry.id)) { setWeeklyBriefs(fresh); return; }
+      const idx = fresh.findIndex((e) => e && e.id === entry.id);
+      if (idx >= 0) {
+        // 같은 호수라도 개정판(재발행일이 더 최신)이면 교체 — 거부하면 6월호 증보처럼
+        // 재발행된 내용이 이미 채택한 사용자에게 영원히 안 닿는다(Codex #224 P1).
+        // 날짜 포맷 "YYYY.MM.DD"는 문자열 비교가 시간 순서와 일치한다.
+        if (String(entry.generated_at || "") > String(fresh[idx].generated_at || "")) {
+          const next = [...fresh];
+          next[idx] = { ...entry, read: false }; // 내용이 새것 — 미독으로 되돌린다
+          localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
+          setWeeklyBriefs(next);
+        } else setWeeklyBriefs(fresh);
+        return;
+      }
       const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
       localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
       setWeeklyBriefs(next);
     } catch { /* noop */ }
+  }, []);
+  useEffect(() => {
+    // 라이브러리 개정판 이행 — 보관함의 같은 id 호수가 낡았으면(재발행일 비교) 개정판으로
+    // 교체한다. 이 이행이 없으면 정적 파일만 갱신한 재발행은 기존 채택자에게 도달하지 못해
+    // 낡은 +N 배지가 영구 잔존한다(Codex #224 P1). 멱등: 교체 후엔 날짜가 같아 재실행 무변경.
+    let alive = true;
+    loadBriefLibrary().then((lib) => {
+      if (!alive || !lib || !Array.isArray(lib.items)) return;
+      const fresh = readWeeklyBriefs();
+      let changed = false;
+      const next = fresh.map((e) => {
+        const rev = e && e.id ? lib.items.find((it) => it && it.id === e.id) : null;
+        if (rev && String(rev.generated_at || "") > String(e.generated_at || "")) { changed = true; return { ...rev, read: false }; }
+        return e;
+      });
+      if (changed) {
+        localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
+        setWeeklyBriefs(next);
+      }
+    });
+    return () => { alive = false; };
   }, []);
   useEffect(() => {
     // 세션 1회 시도 가드는 '같은 범위'에만 건다 — 범위가 바뀌면(첫 워치 등록 등) 다시 시도한다.

@@ -94,6 +94,56 @@ export function ensureCenterEdges(centerId, neighbors) {
   }));
 }
 
+// ---- R26: related_lineage 판독 — 편집자가 '왜 이었는지'를 다리 라벨로 ----
+// 실측(전수 76장): 무결성은 완벽하나 reason의 71%가 영문·파이프라인 말투라 직표시
+// 불가. 타입은 한국어 사전으로 매핑하고, 서술(anchor·reason)은 '한국어가 실리고
+// 내부 용어가 없는' 통과분만 인용한다 — 걸러서 라벨만 남는 쪽이 오염보다 낫다.
+const LINEAGE_BRIDGE_LABEL = {
+  distinct_follow_up: "후속 실행 단계",
+  program_lineage: "같은 프로그램",
+};
+const LINEAGE_META_RE = /baseline|stage|prompt|contract|audit|lineage|schema|pipeline|metadata|screen|collision|\bQC\b/i;
+
+// 사용자 화면에 낼 수 있는 서술인가 — 아니면 null(생략이 정답)
+export function lineageDisplayText(s) {
+  const txt = String(s || "").trim();
+  if (!txt || !/[가-힣]/.test(txt) || LINEAGE_META_RE.test(txt)) return null;
+  return txt;
+}
+
+// 다리 하나의 편집자 서사 {label, quote|null} — 없으면 null(호출부는 기존 why 유지).
+// 방향 규약: lineage는 '그 링크를 기록한 카드'가 소유한다 — ①연관(중심 related→다리)은
+// 중심의 lineage, ②후속·앞선(다리 related→중심)은 다리의 lineage. related_ids가 상대를
+// 지목할 때만 그 관계의 서사로 인정한다(다중 링크 대비).
+export function bridgeLineage(centerCard, neighbor) {
+  const centerId = getCardId(centerCard);
+  const nbId = neighbor && neighbor.id;
+  if (!centerId || !nbId) return null;
+  const owns = (card, targetId) => {
+    const rl = card && card.related_lineage;
+    if (!rl || typeof rl !== "object") return null;
+    const ids = Array.isArray(rl.related_ids) ? rl.related_ids : (Array.isArray(card.related) ? card.related : []);
+    return ids.includes(targetId) ? rl : null;
+  };
+  const rl = owns(centerCard, nbId) || owns(neighbor.card, centerId);
+  if (!rl) return null;
+  const type = String(rl.relation_type || "");
+  if (type === "new_unrelated_event") return null; // 독립 판정은 다리의 서사가 아니다
+  const label = LINEAGE_BRIDGE_LABEL[type] || null;
+  const quote = lineageDisplayText(rl.fresh_follow_up_anchor) || lineageDisplayText(rl.reason);
+  return label || quote ? { label, quote } : null;
+}
+
+// 빈 지도 판정 — '대조했고 이을 게 없다'(편집 판정)와 '아직 대조 안 됨'을 구별한다.
+// 독립 판정 카드(현 lineage 보유의 88%)가 이 뱃지의 재료 — 빈 지도가 정보가 된다.
+export function emptyVerdict(centerCard) {
+  const rl = centerCard && centerCard.related_lineage;
+  if (rl && typeof rl === "object" && String(rl.relation_type) === "new_unrelated_event") {
+    return "편집자 대조 완료 — 이어진 사건 없음(독립 사건 판정)";
+  }
+  return null;
+}
+
 // 지도 입력(핀 배열) — 중심을 맨 앞에, pinboard 핀 스키마({id,title,date,url})로
 export function explodePins(centerCard, neighbors) {
   const toPin = (c) => ({

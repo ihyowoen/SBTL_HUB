@@ -4376,8 +4376,9 @@ function AppContent() {
         // 채택한 사용자에게 영원히 안 닿는다(Codex #224 P1). 판별은 isLibraryRevision
         // 공용 규약(날짜 우선, 같은 날짜면 내용 비교 — 당일 재발행 대응).
         if (isLibraryRevision(entry, fresh[idx])) {
-          const next = [...fresh];
-          next[idx] = { ...entry, read: false }; // 내용이 새것 — 미독으로 되돌린다
+          // 개정판은 맨 앞으로 — 제자리에 두면 선반이 [0]만 기본 표시하고 입장 시 일괄
+          // 읽음 처리가 미독 표시만 지워, 새 내용을 보지도 못한 채 확인된다(Codex #224 R3)
+          const next = [{ ...entry, read: false }, ...fresh.filter((_, i) => i !== idx)];
           localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
           setWeeklyBriefs(next);
         } else setWeeklyBriefs(fresh);
@@ -4396,13 +4397,16 @@ function AppContent() {
     loadBriefLibrary().then((lib) => {
       if (!alive || !lib || !Array.isArray(lib.items)) return;
       const fresh = readWeeklyBriefs();
-      let changed = false;
-      const next = fresh.map((e) => {
+      // 개정판은 맨 앞으로 모은다(상대 순서 유지) — 제자리 교체는 선반 기본 표시([0])에
+      // 안 잡혀 입장 일괄 읽음 처리에 미독만 지워진다(Codex #224 R3). 나머지는 순서 보존.
+      const revised = [], rest = [];
+      for (const e of fresh) {
         const rev = e && e.id ? lib.items.find((it) => it && it.id === e.id) : null;
-        if (rev && isLibraryRevision(rev, e)) { changed = true; return { ...rev, read: false, ...(e.terms_sig != null ? { terms_sig: e.terms_sig } : {}) }; }
-        return e;
-      });
-      if (changed) {
+        if (rev && isLibraryRevision(rev, e)) revised.push({ ...rev, read: false, ...(e.terms_sig != null ? { terms_sig: e.terms_sig } : {}) });
+        else rest.push(e);
+      }
+      if (revised.length) {
+        const next = [...revised, ...rest];
         localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
         setWeeklyBriefs(next);
       }

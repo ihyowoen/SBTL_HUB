@@ -70,7 +70,10 @@ if (CHECK) {
   // 최상위 메타(total·updated·schema·sort 등 cards 밖 전부) — 한쪽만 고치면 실패
   const topKeys = new Set([...Object.keys(pub), ...Object.keys(archive)].filter((k) => k !== "cards"));
   for (const k of topKeys) {
-    if (JSON.stringify(pub[k] ?? null) !== JSON.stringify(archive[k] ?? null)) errs.push(`최상위 ${k} 불일치 — 발행 ${JSON.stringify(pub[k]).slice(0, 40)} vs 아카이브 ${JSON.stringify(archive[k]).slice(0, 40)}`);
+    // 존재 여부 먼저 — ?? 병합은 한쪽에만 있는 null 키를 부재와 동일시한다(sameKeep과 동일 규약)
+    const hp = k in pub, ha = k in archive;
+    if (hp !== ha) { errs.push(`최상위 ${k} 존재 불일치 — ${hp ? "발행에만" : "아카이브에만"} 있음`); continue; }
+    if (JSON.stringify(pub[k]) !== JSON.stringify(archive[k])) errs.push(`최상위 ${k} 불일치 — 발행 ${JSON.stringify(pub[k]).slice(0, 40)} vs 아카이브 ${JSON.stringify(archive[k]).slice(0, 40)}`);
   }
   // 카드는 순서까지 동일해야 한다 — 앱이 kb.cards.slice(0,400)처럼 순서를 소비하므로
   // 집합 비교로는 재정렬된 발행본이 통과한다(Codex #221 R3)
@@ -145,9 +148,12 @@ const changedLean = JSON.stringify(leanDoc) !== JSON.stringify(pub);
 if (!changedArchive && !changedLean) { console.log("변경 없음 — 발행본·아카이브 이미 정합"); process.exit(0); }
 if (DRY) { console.log("(--dry: 쓰지 않음)"); process.exit(0); }
 
-// 아카이브가 먼저 — 사영을 먼저 쓰면 실패 시 원본이 남지 않는다
+// 아카이브가 먼저 — 사영을 먼저 쓰면 실패 시 원본이 남지 않는다.
+// 아카이브는 감사·리뷰 원천이라 줄 단위 diff가 계약이다(Codex #221 R9): compact 한 줄로
+// 쓰면 카드 하나 바뀔 때마다 전량 교체로 보인다 — 들여쓰기 1 + 끝 개행으로 안정 포맷.
+// 발행본만 compact(전송 크기가 계약).
 mkdirSync(dirname(FULL_PATH), { recursive: true });
-writeFileSync(FULL_PATH, JSON.stringify(mergedArchive));
+writeFileSync(FULL_PATH, JSON.stringify(mergedArchive, null, 1) + "\n");
 const verify = load(FULL_PATH);
 if (verify.cards.length !== mergedCards.length) { console.error(`FAIL: 아카이브 검증 실패 — 발행본은 건드리지 않았다`); process.exit(1); }
 writeFileSync(LEAN_PATH, JSON.stringify(leanDoc));

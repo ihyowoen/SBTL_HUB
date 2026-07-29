@@ -1,0 +1,51 @@
+name: lean-cards
+
+# 카드 PR 자동 lean — 발행 흐름(0.8 프롬프트·WORKFLOW.md §B)은 public/data/cards.json만
+# 커밋하도록 지시하므로, 사람에게 새 단계를 요구하는 대신 CI가 병합·사영을 대신한다:
+#   봇 replace-all 업로드 → 이 워크플로가 아카이브(id 병합)·발행본(KEEP 사영)을 커밋
+#   → 같은 잡에서 게이트 전체를 재검증(토큰 푸시는 다른 워크플로를 재트리거하지 않으므로
+#     여기서 직접 돌려 최종 SHA의 판정을 남긴다)
+# 재귀 방지: 두 번째 실행은 apply가 '변경 없음'이라 커밋하지 않는다.
+
+on:
+  pull_request:
+    paths:
+      - "public/data/cards.json"
+
+permissions:
+  contents: write
+
+jobs:
+  lean:
+    # 같은 저장소 브랜치의 PR만 — 포크에는 푸시 권한이 없다
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Apply lean export (merge into archive + project)
+        run: node scripts/lean_cards.mjs
+      - name: Commit generated files if changed
+        run: |
+          if ! git diff --quiet -- public/data/cards.json data/cards.full.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/data/cards.json data/cards.full.json
+            git commit -m "chore: lean export 자동 적용 (아카이브 병합 + KEEP 사영)"
+            git push
+          else
+            echo "변경 없음 — 커밋 생략"
+          fi
+      - name: Validate tracker data
+        run: node scripts/validate.mjs
+      - name: Validate cards data
+        run: node scripts/validate_cards.mjs
+      - name: Validate full archive
+        run: node scripts/validate_cards.mjs data/cards.full.json
+      - name: Check lean payload matches archive
+        run: node scripts/lean_cards.mjs --check

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-29T12:10:00+09:00",
+  "updated": "2026-07-29T13:08:28+09:00",
   "total": 1343,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -135,7 +135,7 @@
         "rekey_required": false
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_id_match": false,
         "exact_url_match": false,
         "canonical_url_match": false,
@@ -146,7 +146,21 @@
         "already_covered_by_broader_card": false,
         "matched_baseline_card_ids": [
           "2026-04-28_GL_03"
-        ]
+        ],
+        "status": "PASS_DISTINCT_FOLLOW_UP",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [
+          "2026-04-28_GL_03"
+        ],
+        "fresh_anchor": "quarterly_operating_and_financial_results",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_safety": "PASS",
@@ -204,7 +218,7 @@
       "github_ready": true,
       "pr_candidate_ready": true,
       "production_verified": false,
-      "github_main_sync_required_later": true,
+      "github_main_sync_required_later": false,
       "related_lineage": {
         "status": "PASS",
         "relation_type": "distinct_follow_up",
@@ -247,18 +261,38 @@
       "final_qc_notes": [
         "Promoted after full 373-story re-audit.",
         "Official or primary evidence and independent confirmation used where available.",
-        "No unsupported production, transaction or valuation inference added."
+        "No unsupported production, transaction or valuation inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735_FULL_REAUDIT",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "prepared_at_kst": "2026-07-28T19:20:00+09:00",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
         "production_verified": false,
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-28_GL_01",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "distinct_follow_up",
+        "related_existing_ids_verified": [
+          "2026-04-28_GL_03"
+        ],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A",
@@ -314,7 +348,7 @@
           }
         ]
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -324,7 +358,15 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -367,6 +409,54 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-28_GL_01",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_DISTINCT_FOLLOW_UP",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [
+          "2026-04-28_GL_03"
+        ],
+        "fresh_follow_up_anchor": "quarterly_operating_and_financial_results",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [],
+        "same_date_region_candidate_ids": [
+          "2026-07-28_GL_01"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -481,11 +571,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -632,9 +734,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -642,18 +752,36 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-27_US_02",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A-",
@@ -695,335 +823,52 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
-      }
-    },
-    {
-      "draft_id": "DRAFT_B_SA28_002",
-      "source_spec_id": "SA28_002",
-      "source_story_ids": [
-        "US_2026-07-27_C09"
-      ],
-      "region": "US",
-      "date": "2026-07-27",
-      "cat": "Battery",
-      "sub_cat": "BESS 기업 SPAC 결합",
-      "signal": "high",
-      "title": "InoBat, Cartesian II와 기업결합 계약·7,750만달러 PIPE 확보",
-      "sub": "합병 전 기업가치 12억6,500만달러·7,750만달러 PIPE의 SPAC 본계약 체결",
-      "gate": "본계약과 PIPE는 자본시장 실행단계지만 상장종결과 현금유입을 보장하지 않는다. 기업가치에는 earnout이 포함되고 최소현금 조건이 없어, 실제 조달액은 SPAC 환매·PIPE 납입·종결조건에 좌우된다.",
-      "fact": "InoBat과 Cartesian Growth Corporation II는 7월 27일 확정 기업결합계약을 체결했다. 거래는 earnout을 포함해 InoBat의 합병 전 기업가치를 12억6,500만달러로 평가하고 7,750만달러의 committed PIPE를 포함한다. 회사는 유틸리티 BESS 875MWh를 계약했거나 납품했다고 밝혔으며 거래에는 최소현금 종결조건이 없다.",
-      "implication": [
-        "유럽 배터리·BESS 플랫폼이 미국 상장자본을 통해 생산·판매 확대를 추진한다.",
-        "875MWh 수주·납품 기반이 존재하지만 평가가치의 검증은 매출·마진·현금전환에 달려 있다.",
-        "주주승인, 환매율, PIPE 납입액과 거래종결이 핵심 모니터링 항목이다."
-      ],
-      "urls": [
-        "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html"
-      ],
-      "related": [],
-      "fact_sources": [
-        {
-          "source_name": "InoBat / GlobeNewswire",
-          "source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html",
-          "claim": "확정 기업결합계약·기업가치·PIPE 조건을 당사자 발표로 확인",
-          "source_quote": "definitive business combination agreement",
-          "source_quote_status": "body_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "source_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "fact",
-            "gate",
-            "implication"
-          ],
-          "source_published_date": "2026-07-27",
-          "visible_quote_date": "2026-07-27",
-          "source_origin_type": "contracting_party_release_via_distribution",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true,
-          "checked_at": "2026-07-28T17:28:12+09:00",
-          "fetch_method": "stage_b_direct_web_verification"
-        }
-      ],
-      "event_fingerprint": {
-        "actor": "InoBat·Cartesian Growth Corporation II",
-        "asset_or_policy": "SPAC 기업결합·7,750만달러 PIPE",
-        "location": "미국·유럽",
-        "event_type": "definitive_business_combination_agreement",
-        "event_date": "2026-07-27",
-        "source_url_cluster": [
-          "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html"
-        ],
-        "factual_anchor": "definitive_business_combination_agreement"
       },
-      "date_role": {
-        "representative_date": "2026-07-27",
-        "event_date": "2026-07-27",
-        "publication_dates": [
-          "2026-07-27"
-        ],
-        "event_date_confidence": "high",
-        "relation_type": "new_unrelated_event",
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html",
-        "event_date_source_quote": "definitive business combination agreement",
-        "event_date_source_name": "InoBat / GlobeNewswire",
-        "date_role_reviewed_at_kst": "2026-07-28T17:28:12+09:00"
-      },
-      "baseline_relation": "new_unrelated_event",
-      "duplicate_risk": "low_after_full_1326_card_screen",
-      "evidence_complete": true,
-      "source_claim_covered": true,
-      "content_enriched": true,
-      "language_terminology_polished": true,
-      "publish_ready": true,
-      "stage_b_only": true,
-      "needs_stage_c_attention": false,
-      "source_strength_caveat": false,
-      "source_strength_caveat_reason": "",
-      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
-      "source_evidence_entry_count": 1,
-      "source_unique_url_count": 1,
-      "source_unique_domain_count": 1,
-      "source_independent_owner_count": 1,
-      "strict_gate_check": {
-        "status": "PASS",
-        "all_six_conditions_passed": true,
-        "lane_fit": "PASS",
-        "concrete_fresh_execution_or_data_anchor": "PASS",
-        "source_direction_compatibility": "PASS_AFTER_PRIMARY_OR_ORIGINAL_RESEARCH",
-        "freshness_or_staleness_confidence": "PASS",
-        "baseline_duplicate_followup_risk": "PASS_AFTER_1326_CARD_BASELINE_RESCREEN",
-        "independent_card_value_and_full_schema_viability": "PASS"
-      },
-      "rescue_promoted": false,
-      "stage_b_evidence_status": "EVIDENCE_PACKAGE_READY_AFTER_0_5R_EXCEPTION",
-      "state": "github_merge_ready",
-      "reviewed_at_kst": "2026-07-28T17:28:12+09:00",
-      "story_id_collision_audit": {
+      "proposed_production_id_0_8": "2026-07-27_US_02",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
         "status": "PASS_NO_COLLISION",
-        "story_id_collision_detected": false,
-        "duplicate_decision_ignored_story_id": false,
-        "collision_details": [],
-        "checked_at_kst": "2026-07-28T17:28:12+09:00"
-      },
-      "duplicate_screening": {
-        "baseline_count_screened": 1326,
-        "exact_url_match": false,
-        "source_story_id_collision": false,
-        "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
-      },
-      "single_source_exception": {
-        "allowed": true,
-        "type": "contracting_party_release_via_distribution",
-        "bounded_discovery_completed": true,
-        "independent_same_event_body_source_found": false,
-        "reason": "확정 기업결합계약의 당사자 공동발표가 계약조건을 직접 지원하며, 거래종결·상장완료·실적효과로 확대하지 않았다.",
-        "mitigation": "본계약·PIPE·평가조건만 유지하고 주주승인·종결·상장완료는 후속사건으로 분리한다.",
-        "reviewed_at_kst": "2026-07-28T17:28:12+09:00"
-      },
-      "stage_c_findings": {
-        "fact_source_lock": "PASS",
-        "numeric_claim_audit": "PASS",
-        "event_date_audit": "PASS",
-        "execution_stage_inflation": "PASS",
-        "baseline_duplicate_followup": "PASS",
-        "related_lineage": "PASS",
-        "language_terminology": "PASS",
-        "banned_phrase_check": "PASS",
-        "visible_claim_coverage": "PASS",
-        "source_strength": "PASS"
-      },
-      "stage_c_decision": "accepted_fact_safe",
-      "hard_fail_count": 0,
-      "hard_fail_reason": [],
-      "source_independent_owners": [
-        "globenewswire.com"
-      ],
-      "source_discovery_ledger": [
-        {
-          "attempt_order": 1,
-          "source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html",
-          "source_name": "InoBat / GlobeNewswire",
-          "source_owner": "inobat_cartesian_joint_release",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "확정 기업결합계약·기업가치·PIPE 조건을 당사자 발표로 확인",
-          "visible_supports": [
-            "title",
-            "sub",
-            "fact",
-            "gate",
-            "implication"
-          ],
-          "checked_at": "2026-07-28T17:28:12+09:00"
-        }
-      ],
-      "id": "2026-07-27_US_01",
-      "assigned_id": "2026-07-27_US_01",
-      "production_id_assigned_0_8": true,
-      "production_id_pending": false,
-      "previous_state": "stage_c_accepted",
-      "github_ready": true,
-      "pr_candidate_ready": true,
-      "production_verified": false,
-      "github_main_sync_required_later": false,
-      "related_lineage": {
-        "status": "PASS",
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
-        "reason": "1,325장 baseline에서 동일사건 충돌이 없는 독립 사건",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
         "fresh_follow_up_anchor": "",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "rejected_relation_candidates": []
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
-      "related_evidence_review": {
+      "sort_check": {
         "status": "PASS",
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
-        "reason": "1,325장 baseline에서 동일사건 충돌이 없는 독립 사건",
-        "fresh_follow_up_anchor": "",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "rejected_relation_candidates": []
-      },
-      "related_prepass": {
-        "status": "PASS",
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
-        "reason": "1,325장 baseline에서 동일사건 충돌이 없는 독립 사건",
-        "fresh_follow_up_anchor": "",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "rejected_relation_candidates": []
-      },
-      "source_diversity_measure": {
-        "source_evidence_entry_count": 1,
-        "source_unique_url_count": 1,
-        "source_unique_domain_count": 1,
-        "source_independent_owner_count": 1,
-        "canonical_urls": [
-          "https://globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html"
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [],
+        "same_date_region_candidate_ids": [
+          "2026-07-27_US_02"
         ],
-        "independent_owners": [
-          "globenewswire.com"
-        ],
-        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
-        "recomputed_at_kst": "2026-07-29T11:20:06+09:00"
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
-      "source_url_resolution": {
-        "supporting_fact_source_count": 1,
-        "canonical_complete": true,
-        "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
-        "source_url_propagation_performed": false,
-        "resolution_entries": [
-          {
-            "source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html",
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
-            "source_url_propagation_performed": false
-          }
-        ]
-      },
-      "claim_coverage_summary": {
-        "status": "PASS",
-        "title": "strong",
-        "sub": "strong",
-        "fact": "strong",
-        "gate": "adequate",
-        "implication": "strong",
-        "weak_or_missing_core_claim_count": 0
-      },
-      "content_polish_findings": {
-        "title_quality": "PASS_ACTOR_ACTION_SCALE_OR_LOCATION",
-        "sub_quality": "PASS_ONE_SENTENCE_EVENT_SCALE_STRATEGIC_ANGLE",
-        "gate_depth": "PASS_FACT_INTERPRETATION_BOUNDARY",
-        "fact_source_lock": "PASS_NO_UNSUPPORTED_CLAIM_ADDED",
-        "fact_depth": "PASS",
-        "implication_quality": "PASS_DISTINCT_OBSERVATIONAL_ITEMS",
-        "terminology_consistency": "PASS",
-        "foreign_language_residue": "PASS_NONE",
-        "banned_phrase_check": "PASS_NONE",
-        "tone_check": "PASS_EXECUTIVE_BRIEFING",
-        "execution_anchor_preservation": "PASS_NO_STAGE_INFLATION"
-      },
-      "final_qc_gates": {
-        "fact_safety": "PASS",
-        "merge_safety": "PASS",
-        "evidence_completeness": "PASS",
-        "claim_coverage": "PASS",
-        "content_depth": "PASS",
-        "language_tone": "PASS",
-        "schema_runtime": "PASS",
-        "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
-      },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
-      "final_qc_notes": [
-        "All final publish gates passed against the uploaded 1,325-card baseline.",
-        "Production ID assigned using event-date and region next-unused sequence.",
-        "Visible claims remain bounded to verified execution stage.",
-        "production verification remains pending after merge.",
-        "Full 373-story re-audit completed.",
-        "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
-      ],
-      "merge_prep": {
-        "run_tag": "20260728_140735",
-        "target_repo": "ihyowoen/SBTL_HUB",
-        "target_branch_base": "main",
-        "target_data_path": "public/data/cards.json",
-        "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
-      },
-      "ib_quality": {
-        "grade": "A",
-        "status": "IB_GRADE_WITH_PUBLIC_DISCLOSURE_LIMITS",
-        "remaining_limit": "당사자 발표 중심·환매 후 실제 현금 미확정",
-        "enhanced_at_kst": "2026-07-28T19:20:00+09:00"
-      },
-      "content_enrichment_pass": "full_reaudit_ib_enhancement_v2",
-      "full_reaudit": {
-        "status": "PASS",
-        "reviewed_at_kst": "2026-07-28T19:20:00+09:00",
-        "baseline_count": 1326,
-        "scope": "373 stories plus 1326-card duplicate/lineage screen",
-        "important_fact_omission_check": "PASS",
-        "safe_missed_story_check": "PASS"
-      },
-      "baseline1326_revalidation": {
-        "baseline_file": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_total": 1326,
-        "exact_id_collision": false,
-        "exact_url_collision": false,
-        "source_story_id_collision": false,
-        "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
-      },
-      "pr222_review_addressed": {
+      "pr222_final_merge_prep": {
         "pr_number": 222,
-        "review_id": 4797144872,
-        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
-        "review_comment_ids": [
-          3665427848,
-          3665427854,
-          3665427865
-        ],
-        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
-        "changes": [
-          "per-source URL resolution entries populated",
-          "single-source status enum normalized"
-        ],
-        "visible_narrative_fields_changed": false,
-        "production_id_changed": false,
-        "card_count_changed": false
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -2300,10 +2145,10 @@
       "cat": "Materials",
       "sub_cat": "천연흑연광산경제성",
       "signal": "high",
-      "title": "NextSource, Molo 15만tpa 확장 CAPEX 2.908억달러로 재산정",
+      "title": "NextSource, Molo Phase 2 총 15만tpa 확장 CAPEX 2.908억달러로 재산정",
       "sub": "37년 광산수명·세후 NPV8 3.484억달러·IRR 20%…생산결정은 미확정",
       "gate": "회사는 첫 확장단계의 생산결정을 아직 내리지 않았다. 경제성은 100% 자기자본 조달과 평균 판매가 1,138달러/t을 전제로 하며, 마다가스카르의 최소 10% 무상지분 가능성과 국내공급 의무는 모델에 반영되지 않아 실제 주주가치가 낮아질 수 있다.",
-      "fact": "NextSource의 Molo 흑연광산 업데이트 타당성조사는 기존 1.7만tpa 운영에 5만tpa 모듈 3개를 단계적으로 추가해 총 15만tpa로 확대하는 방안을 제시했다. 확장 CAPEX는 2억9,080만달러, 세후 NPV8은 3억4,840만달러, 세후 명목 IRR은 20%, 회수기간은 7.2년, 광산수명은 37년이다.",
+      "fact": "NextSource의 Molo 흑연광산 업데이트 타당성조사는 기존 Phase 1 운영을 넘어 5만tpa 처리모듈 3개를 두 단계로 건설하는 Phase 2 확장안을 제시했다. 타당성조사가 산정한 안정상태 흑연정광 총 생산능력은 연 15만톤이다. 확장 CAPEX는 2억9,080만달러, 세후 NPV8은 3억4,840만달러, 세후 명목 IRR은 20%, 회수기간은 7.2년, 광산수명은 37년이다.",
       "implication": [
         "흑연 가격가정 하락과 CAPEX 79% 상승에도 양(+)의 NPV를 유지하지만 2023년 조사 대비 수익성이 낮아졌다.",
         "단계형 모듈투자는 자금부담을 분산하지만 오프테이크·전략파트너 확보가 착공시점을 결정한다.",
@@ -2318,8 +2163,8 @@
         {
           "source_name": "NextSource release via ACCESS Newswire",
           "source_url": "https://www.accessnewswire.com/newsroom/en/metals-and-mining/nextsource-materials-announces-updated-feasibility-study-results-for-molo-mine-ex-1196584",
-          "claim": "Updated FS economics, assumptions and regulatory risks",
-          "source_quote": "Phase 2 expansion capital costs of US$290.8 million",
+          "claim": "Phase 2 완료 후 안정상태 총 15만tpa와 2억9,080만달러 CAPEX를 확인",
+          "source_quote": "to reach a total capacity of 150,000 tonnes per annum",
           "source_quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "source_role": "primary_event_evidence",
@@ -2418,7 +2263,7 @@
         "rekey_required": false
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_id_match": false,
         "exact_url_match": false,
         "canonical_url_match": false,
@@ -2427,7 +2272,19 @@
         "baseline_event_fingerprint_match": false,
         "internal_batch_duplicate_match": false,
         "already_covered_by_broader_card": false,
-        "matched_baseline_card_ids": []
+        "matched_baseline_card_ids": [],
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_safety": "PASS",
@@ -2451,7 +2308,7 @@
           "source_owner": "accessnewswire.com",
           "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "Updated FS economics, assumptions and regulatory risks",
+          "unique_contribution": "Phase 2 안정상태 총 15만tpa, 5만tpa 모듈 3개와 확장 경제성 확인",
           "visible_supports": [
             "title",
             "sub",
@@ -2485,7 +2342,7 @@
       "github_ready": true,
       "pr_candidate_ready": true,
       "production_verified": false,
-      "github_main_sync_required_later": true,
+      "github_main_sync_required_later": false,
       "related_lineage": {
         "status": "PASS",
         "relation_type": "new_unrelated_event",
@@ -2522,18 +2379,37 @@
       "final_qc_notes": [
         "Promoted after full 373-story re-audit.",
         "Official or primary evidence and independent confirmation used where available.",
-        "No unsupported production, transaction or valuation inference added."
+        "No unsupported production, transaction or valuation inference added.",
+        "PR #222 review 4803684777: Molo capacity wording reconciled to the official FS total-capacity definition.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735_FULL_REAUDIT",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "prepared_at_kst": "2026-07-28T19:20:00+09:00",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
         "production_verified": false,
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-27_GL_04",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A",
@@ -2589,7 +2465,7 @@
           }
         ]
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -2599,7 +2475,15 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -2642,6 +2526,77 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "pr222_review3_addressed": {
+        "pr_number": 222,
+        "review_id": 4803684777,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "reviewed_cards_blob_sha": "9952778c4147f2ac53887b1e4e48baa9186e4ff5",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "addressed_at_kst": "2026-07-29T12:39:59+09:00",
+        "review_comments": [
+          {
+            "comment_id": 3670719738,
+            "thread_id": "PRRT_kwDOR4qHAM6UnJ3e"
+          }
+        ],
+        "changes": [
+          "removed arithmetic-implying phrase that added existing 17,000 tpa to three 50,000 tpa modules",
+          "retained official FS basis: steady-state total capacity 150,000 tpa",
+          "clarified the 150,000 tpa figure as the Phase 2 completed steady-state total"
+        ],
+        "visible_narrative_fields_changed": true,
+        "production_id_changed": false,
+        "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-27_GL_04",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [],
+        "same_date_region_candidate_ids": [
+          "2026-07-27_GL_01",
+          "2026-07-27_GL_02",
+          "2026-07-27_GL_03",
+          "2026-07-27_GL_04"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -2786,11 +2741,25 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_DISTINCT_FOLLOW_UP",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [
+          "R15_03"
+        ],
+        "fresh_anchor": "binding_cross_investment_agreement",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -2966,9 +2935,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -2976,18 +2953,38 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-27_GL_03",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "distinct_follow_up",
+        "related_existing_ids_verified": [
+          "R15_03"
+        ],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A",
@@ -3028,6 +3025,57 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-27_GL_03",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_DISTINCT_FOLLOW_UP",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [
+          "R15_03"
+        ],
+        "fresh_follow_up_anchor": "binding_cross_investment_agreement",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [],
+        "same_date_region_candidate_ids": [
+          "2026-07-27_GL_01",
+          "2026-07-27_GL_02",
+          "2026-07-27_GL_03",
+          "2026-07-27_GL_04"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -3172,11 +3220,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -3346,9 +3406,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -3356,18 +3424,36 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-27_GL_02",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "B+",
@@ -3408,6 +3494,55 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-27_GL_02",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [],
+        "same_date_region_candidate_ids": [
+          "2026-07-27_GL_01",
+          "2026-07-27_GL_02",
+          "2026-07-27_GL_03",
+          "2026-07-27_GL_04"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -3548,11 +3683,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -3722,9 +3869,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -3732,18 +3887,36 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-27_GL_01",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A-",
@@ -3784,6 +3957,512 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-27_GL_01",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [],
+        "same_date_region_candidate_ids": [
+          "2026-07-27_GL_01",
+          "2026-07-27_GL_02",
+          "2026-07-27_GL_03",
+          "2026-07-27_GL_04"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
+      }
+    },
+    {
+      "draft_id": "DRAFT_B_SA28_002",
+      "source_spec_id": "SA28_002",
+      "source_story_ids": [
+        "US_2026-07-27_C09"
+      ],
+      "region": "EU",
+      "date": "2026-07-27",
+      "cat": "Battery",
+      "sub_cat": "BESS 기업 SPAC 결합",
+      "signal": "high",
+      "title": "InoBat, Cartesian II와 기업결합 계약·7,750만달러 PIPE 확보",
+      "sub": "합병 전 기업가치 12억6,500만달러·7,750만달러 PIPE의 SPAC 본계약 체결",
+      "gate": "본계약과 PIPE는 자본시장 실행단계지만 상장종결과 현금유입을 보장하지 않는다. 기업가치에는 earnout이 포함되고 최소현금 조건이 없어, 실제 조달액은 SPAC 환매·PIPE 납입·종결조건에 좌우된다.",
+      "fact": "InoBat과 Cartesian Growth Corporation II는 7월 27일 확정 기업결합계약을 체결했다. 거래는 earnout을 포함해 InoBat의 합병 전 기업가치를 12억6,500만달러로 평가하고 7,750만달러의 committed PIPE를 포함한다. 회사는 유틸리티 BESS 875MWh를 계약했거나 납품했다고 밝혔으며 거래에는 최소현금 종결조건이 없다.",
+      "implication": [
+        "유럽 배터리·BESS 플랫폼이 미국 상장자본을 통해 생산·판매 확대를 추진한다.",
+        "875MWh 수주·납품 기반이 존재하지만 평가가치의 검증은 매출·마진·현금전환에 달려 있다.",
+        "주주승인, 환매율, PIPE 납입액과 거래종결이 핵심 모니터링 항목이다."
+      ],
+      "urls": [
+        "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "InoBat / GlobeNewswire",
+          "source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html",
+          "claim": "확정 기업결합계약·기업가치·PIPE 조건을 당사자 발표로 확인",
+          "source_quote": "definitive business combination agreement",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "source_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "source_published_date": "2026-07-27",
+          "visible_quote_date": "2026-07-27",
+          "source_origin_type": "contracting_party_release_via_distribution",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "checked_at": "2026-07-28T17:28:12+09:00",
+          "fetch_method": "stage_b_direct_web_verification"
+        }
+      ],
+      "event_fingerprint": {
+        "actor": "InoBat·Cartesian Growth Corporation II",
+        "asset_or_policy": "SPAC 기업결합·7,750만달러 PIPE",
+        "location": "미국·유럽",
+        "event_type": "definitive_business_combination_agreement",
+        "event_date": "2026-07-27",
+        "source_url_cluster": [
+          "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html"
+        ],
+        "factual_anchor": "definitive_business_combination_agreement"
+      },
+      "date_role": {
+        "representative_date": "2026-07-27",
+        "event_date": "2026-07-27",
+        "publication_dates": [
+          "2026-07-27"
+        ],
+        "event_date_confidence": "high",
+        "relation_type": "new_unrelated_event",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html",
+        "event_date_source_quote": "definitive business combination agreement",
+        "event_date_source_name": "InoBat / GlobeNewswire",
+        "date_role_reviewed_at_kst": "2026-07-28T17:28:12+09:00"
+      },
+      "baseline_relation": "new_unrelated_event",
+      "duplicate_risk": "low_after_full_1326_card_screen",
+      "evidence_complete": true,
+      "source_claim_covered": true,
+      "content_enriched": true,
+      "language_terminology_polished": true,
+      "publish_ready": true,
+      "stage_b_only": true,
+      "needs_stage_c_attention": false,
+      "source_strength_caveat": false,
+      "source_strength_caveat_reason": "",
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+      "source_evidence_entry_count": 1,
+      "source_unique_url_count": 1,
+      "source_unique_domain_count": 1,
+      "source_independent_owner_count": 1,
+      "strict_gate_check": {
+        "status": "PASS",
+        "all_six_conditions_passed": true,
+        "lane_fit": "PASS",
+        "concrete_fresh_execution_or_data_anchor": "PASS",
+        "source_direction_compatibility": "PASS_AFTER_PRIMARY_OR_ORIGINAL_RESEARCH",
+        "freshness_or_staleness_confidence": "PASS",
+        "baseline_duplicate_followup_risk": "PASS_AFTER_1326_CARD_BASELINE_RESCREEN",
+        "independent_card_value_and_full_schema_viability": "PASS"
+      },
+      "rescue_promoted": false,
+      "stage_b_evidence_status": "EVIDENCE_PACKAGE_READY_AFTER_0_5R_EXCEPTION",
+      "state": "github_merge_ready",
+      "reviewed_at_kst": "2026-07-28T17:28:12+09:00",
+      "story_id_collision_audit": {
+        "status": "PASS_NO_COLLISION",
+        "story_id_collision_detected": false,
+        "duplicate_decision_ignored_story_id": false,
+        "collision_details": [],
+        "checked_at_kst": "2026-07-28T17:28:12+09:00"
+      },
+      "duplicate_screening": {
+        "baseline_count_screened": 1325,
+        "exact_url_match": false,
+        "source_story_id_collision": false,
+        "matched_baseline_card_ids": [],
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id_collision": false,
+        "checked_at_kst": "2026-07-29T13:08:28+09:00",
+        "status": "PASS_NO_COLLISION",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": ""
+      },
+      "single_source_exception": {
+        "allowed": true,
+        "type": "contracting_party_release_via_distribution",
+        "bounded_discovery_completed": true,
+        "independent_same_event_body_source_found": false,
+        "reason": "확정 기업결합계약의 당사자 공동발표가 계약조건을 직접 지원하며, 거래종결·상장완료·실적효과로 확대하지 않았다.",
+        "mitigation": "본계약·PIPE·평가조건만 유지하고 주주승인·종결·상장완료는 후속사건으로 분리한다.",
+        "reviewed_at_kst": "2026-07-28T17:28:12+09:00"
+      },
+      "stage_c_findings": {
+        "fact_source_lock": "PASS",
+        "numeric_claim_audit": "PASS",
+        "event_date_audit": "PASS",
+        "execution_stage_inflation": "PASS",
+        "baseline_duplicate_followup": "PASS",
+        "related_lineage": "PASS",
+        "language_terminology": "PASS",
+        "banned_phrase_check": "PASS",
+        "visible_claim_coverage": "PASS",
+        "source_strength": "PASS"
+      },
+      "stage_c_decision": "accepted_fact_safe",
+      "hard_fail_count": 0,
+      "hard_fail_reason": [],
+      "source_independent_owners": [
+        "globenewswire.com"
+      ],
+      "source_discovery_ledger": [
+        {
+          "attempt_order": 1,
+          "source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html",
+          "source_name": "InoBat / GlobeNewswire",
+          "source_owner": "inobat_cartesian_joint_release",
+          "source_role": "primary_event_evidence",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "확정 기업결합계약·기업가치·PIPE 조건을 당사자 발표로 확인",
+          "visible_supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "checked_at": "2026-07-28T17:28:12+09:00"
+        }
+      ],
+      "id": "2026-07-27_EU_03",
+      "assigned_id": "2026-07-27_EU_03",
+      "production_id_assigned_0_8": true,
+      "production_id_pending": false,
+      "previous_state": "stage_c_accepted",
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "production_verified": false,
+      "github_main_sync_required_later": false,
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "1,325장 baseline에서 동일사건 충돌이 없는 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      },
+      "related_evidence_review": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "1,325장 baseline에서 동일사건 충돌이 없는 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      },
+      "related_prepass": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "reason": "1,325장 baseline에서 동일사건 충돌이 없는 독립 사건",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "rejected_relation_candidates": []
+      },
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 1,
+        "source_unique_url_count": 1,
+        "source_unique_domain_count": 1,
+        "source_independent_owner_count": 1,
+        "canonical_urls": [
+          "https://globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html"
+        ],
+        "independent_owners": [
+          "globenewswire.com"
+        ],
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00"
+      },
+      "source_url_resolution": {
+        "supporting_fact_source_count": 1,
+        "canonical_complete": true,
+        "resolved_article_matches_quote": true,
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          }
+        ]
+      },
+      "claim_coverage_summary": {
+        "status": "PASS",
+        "title": "strong",
+        "sub": "strong",
+        "fact": "strong",
+        "gate": "adequate",
+        "implication": "strong",
+        "weak_or_missing_core_claim_count": 0
+      },
+      "content_polish_findings": {
+        "title_quality": "PASS_ACTOR_ACTION_SCALE_OR_LOCATION",
+        "sub_quality": "PASS_ONE_SENTENCE_EVENT_SCALE_STRATEGIC_ANGLE",
+        "gate_depth": "PASS_FACT_INTERPRETATION_BOUNDARY",
+        "fact_source_lock": "PASS_NO_UNSUPPORTED_CLAIM_ADDED",
+        "fact_depth": "PASS",
+        "implication_quality": "PASS_DISTINCT_OBSERVATIONAL_ITEMS",
+        "terminology_consistency": "PASS",
+        "foreign_language_residue": "PASS_NONE",
+        "banned_phrase_check": "PASS_NONE",
+        "tone_check": "PASS_EXECUTIVE_BRIEFING",
+        "execution_anchor_preservation": "PASS_NO_STAGE_INFLATION"
+      },
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
+      },
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
+      "final_qc_notes": [
+        "All final publish gates passed against the uploaded 1,325-card baseline.",
+        "Production ID assigned using event-date and region next-unused sequence.",
+        "Visible claims remain bounded to verified execution stage.",
+        "production verification remains pending after merge.",
+        "Full 373-story re-audit completed.",
+        "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
+        "No unsupported valuation or capacity inference added.",
+        "PR #222 review 4803684777: InoBat home-region classification and EU production ID corrected.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
+      ],
+      "merge_prep": {
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "target_repo": "ihyowoen/SBTL_HUB",
+        "target_branch_base": "main",
+        "target_data_path": "public/data/cards.json",
+        "state": "github_merge_ready",
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "assigned_id": "2026-07-27_EU_03",
+        "region": "EU",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "exact_id_collision": false,
+        "same_date_region_collision": false,
+        "sort_verified": "date_desc_id_desc",
+        "planned_target_branch": "ihyowoen-patch-61",
+        "full_candidate_total_after": 1343,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
+      },
+      "ib_quality": {
+        "grade": "A",
+        "status": "IB_GRADE_WITH_PUBLIC_DISCLOSURE_LIMITS",
+        "remaining_limit": "당사자 발표 중심·환매 후 실제 현금 미확정",
+        "enhanced_at_kst": "2026-07-28T19:20:00+09:00"
+      },
+      "content_enrichment_pass": "full_reaudit_ib_enhancement_v2",
+      "full_reaudit": {
+        "status": "PASS",
+        "reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+        "baseline_count": 1326,
+        "scope": "373 stories plus 1326-card duplicate/lineage screen",
+        "important_fact_omission_check": "PASS",
+        "safe_missed_story_check": "PASS"
+      },
+      "baseline1326_revalidation": {
+        "baseline_file": "current GitHub main public/data/cards.json",
+        "baseline_total": 1325,
+        "exact_id_collision": false,
+        "exact_url_collision": false,
+        "source_story_id_collision": false,
+        "revalidated_at_kst": "2026-07-29T12:39:59+09:00",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated",
+          "single-source status enum normalized"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
+      },
+      "baseline1326_id_reassignment": {
+        "old_id": "2026-07-27_EU_03",
+        "new_id": "2026-07-27_EU_03",
+        "old_region": "US",
+        "new_region": "EU",
+        "rule": "overseas listing/capital raising uses company home region",
+        "same_date_region_existing_ids": [
+          "2026-07-27_EU_01",
+          "2026-07-27_EU_02"
+        ],
+        "next_unused_sequence": "03",
+        "main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "reassigned_at_kst": "2026-07-29T12:39:59+09:00"
+      },
+      "pr222_review3_addressed": {
+        "pr_number": 222,
+        "review_id": 4803684777,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "reviewed_cards_blob_sha": "9952778c4147f2ac53887b1e4e48baa9186e4ff5",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "addressed_at_kst": "2026-07-29T12:39:59+09:00",
+        "review_comments": [
+          {
+            "comment_id": 3670719736,
+            "thread_id": "PRRT_kwDOR4qHAM6UnJ3c"
+          }
+        ],
+        "changes": [
+          "region US -> EU",
+          "production ID 2026-07-27_EU_03 -> 2026-07-27_EU_03",
+          "same-date EU next-unused sequence 03 confirmed against current main",
+          "global related/reference rewrite completed"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": true,
+        "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-27_EU_03",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [],
+        "same_date_region_candidate_ids": [
+          "2026-07-27_EU_01",
+          "2026-07-27_EU_02",
+          "2026-07-27_EU_03"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -3833,12 +4512,14 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "checked_at": "2026-07-28T17:28:12+09:00",
-          "fetch_method": "stage_b_direct_web_verification"
+          "fetch_method": "stage_b_direct_web_verification",
+          "source_owner_id": "amg-nv.com",
+          "source_owner_id_normalized": "amg-nv.com"
         },
         {
-          "source_name": "GlobeNewswire",
+          "source_name": "GlobeNewswire mirror of AMG release",
           "source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333743/0/en/AMG-Critical-Materials-N-V-Successfully-Closes-the-Acquisition-of-Zinnwald-Lithium-Plc.html",
-          "claim": "규제정보 공시를 배포본으로 확인",
+          "claim": "AMG 공식발표의 배포본에서 인수 종결일을 확인",
           "source_quote": "successfully completed as of July 27, 2026",
           "source_quote_status": "body_quote_verified",
           "evidence_role": "primary_event_evidence",
@@ -3852,11 +4533,14 @@
           ],
           "source_published_date": "2026-07-27",
           "visible_quote_date": "2026-07-27",
-          "source_origin_type": "regulated_release_distribution",
+          "source_origin_type": "same_owner_press_release_mirror",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "checked_at": "2026-07-28T17:28:12+09:00",
-          "fetch_method": "stage_b_direct_web_verification"
+          "fetch_method": "stage_b_direct_web_verification",
+          "independent_source_owner": false,
+          "source_owner_id": "amg-nv.com",
+          "source_owner_id_normalized": "amg-nv.com"
         }
       ],
       "event_fingerprint": {
@@ -3896,11 +4580,11 @@
       "needs_stage_c_attention": false,
       "source_strength_caveat": false,
       "source_strength_caveat_reason": "",
-      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_evidence_entry_count": 2,
       "source_unique_url_count": 2,
       "source_unique_domain_count": 2,
-      "source_independent_owner_count": 2,
+      "source_independent_owner_count": 1,
       "strict_gate_check": {
         "status": "PASS",
         "all_six_conditions_passed": true,
@@ -3923,11 +4607,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -3945,16 +4641,16 @@
       "hard_fail_count": 0,
       "hard_fail_reason": [],
       "source_independent_owners": [
-        "amg-nv.com",
-        "globenewswire.com"
+        "amg-nv.com"
       ],
       "single_source_exception": {
         "allowed": true,
         "type": "official_or_contracting_party_primary_single_source",
         "bounded_discovery_completed": true,
-        "reason": "핵심 visible claim이 공식기관·계약당사자 원문에 직접 잠겨 있고 실행단계를 확대하지 않았다.",
-        "mitigation": "확정된 계약·발표·생산일정 범위만 유지하며 종결·가동·성과로 확대하지 않는다.",
-        "reviewed_at_kst": "2026-07-28T17:28:12+09:00"
+        "reason": "AMG official page and GlobeNewswire carry the same AMG release; both are one editorial source owner.",
+        "mitigation": "Only acquisition completion and the stated 18-24 month review phase are retained.",
+        "reviewed_at_kst": "2026-07-29T12:39:59+09:00",
+        "independent_same_event_body_source_found": false
       },
       "source_discovery_ledger": [
         {
@@ -3977,11 +4673,11 @@
         {
           "attempt_order": 2,
           "source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333743/0/en/AMG-Critical-Materials-N-V-Successfully-Closes-the-Acquisition-of-Zinnwald-Lithium-Plc.html",
-          "source_name": "GlobeNewswire",
+          "source_name": "GlobeNewswire mirror of AMG release",
           "source_owner": "amg-nv.com",
-          "source_role": "primary_event_evidence",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "규제정보 공시를 배포본으로 확인",
+          "source_role": "same_owner_distribution_mirror",
+          "outcome": "retained_not_counted_as_independent",
+          "unique_contribution": "공식발표의 배포 경로와 종결일 표기를 확인하나 독립 출처로 계산하지 않음",
           "visible_supports": [
             "title",
             "sub",
@@ -4035,17 +4731,22 @@
         "source_evidence_entry_count": 2,
         "source_unique_url_count": 2,
         "source_unique_domain_count": 2,
-        "source_independent_owner_count": 2,
+        "source_independent_owner_count": 1,
+        "visible_source_url_count": 2,
         "canonical_urls": [
           "https://amg-nv.com/investors/press-release/amg-critical-materials-n-v-successfully-closes-the-acquisition-of-zinnwald-lithium-plc",
           "https://globenewswire.com/news-release/2026/07/27/3333743/0/en/AMG-Critical-Materials-N-V-Successfully-Closes-the-Acquisition-of-Zinnwald-Lithium-Plc.html"
         ],
-        "independent_owners": [
+        "canonical_domains": [
           "amg-nv.com",
           "globenewswire.com"
         ],
-        "status": "PASS_MULTI_SOURCE",
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "independent_owners": [
+          "amg-nv.com"
+        ],
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+        "recomputed_at_kst": "2026-07-29T13:08:28+09:00",
+        "ownership_note": "AMG official page and GlobeNewswire carry the same AMG release and are normalized to one editorial owner."
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
@@ -4101,9 +4802,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -4111,18 +4820,37 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "PR #222 review 4803684777: AMG and GlobeNewswire mirror grouped as one source owner.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-27_EU_02",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A-",
@@ -4163,6 +4891,77 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "pr222_review3_addressed": {
+        "pr_number": 222,
+        "review_id": 4803684777,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "reviewed_cards_blob_sha": "9952778c4147f2ac53887b1e4e48baa9186e4ff5",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "addressed_at_kst": "2026-07-29T12:39:59+09:00",
+        "review_comments": [
+          {
+            "comment_id": 3670719740,
+            "thread_id": "PRRT_kwDOR4qHAM6UnJ3g"
+          }
+        ],
+        "changes": [
+          "independent owner count 2 -> 1",
+          "source owner set normalized to amg-nv.com",
+          "PASS_MULTI_SOURCE -> PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+          "GlobeNewswire row retained as same-owner distribution mirror"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-27_EU_02",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [],
+        "same_date_region_candidate_ids": [
+          "2026-07-27_EU_01",
+          "2026-07-27_EU_02",
+          "2026-07-27_EU_03"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -4176,10 +4975,10 @@
       "cat": "ESS",
       "sub_cat": "독일 BESS 플랫폼 인수",
       "signal": "high",
-      "title": "Zenobē, 독일 sdp energie 인수로 1.75GW BESS 개발경로 확보",
-      "sub": "인수 완료로 독일 6개 부지 1.75GW 개발경로를 편입하고 Zenobē의 3.3GWh 운영·건설 포트폴리오와 결합",
+      "title": "Zenobe, 독일 sdp energie 인수로 1.75GW BESS 개발경로 확보",
+      "sub": "인수 완료로 독일 6개 부지 1.75GW 개발경로를 편입하고 Zenobe의 3.3GWh 운영·건설 포트폴리오와 결합",
       "gate": "인수 완료는 독일 시장 진입의 실행앵커지만 1.75GW는 가동자산이 아니라 개발 파이프라인이다. 인수가격·부지별 CAPEX·상업운전일은 공개되지 않았고, 계통접속·인허가·투자결정 전환률이 실제 가치의 핵심이다.",
-      "fact": "Zenobē는 7월 27일 바이에른 소재 BESS 개발사 sdp energie 인수를 완료했다. 인수대상은 독일 6개 부지에서 총 1.75GW의 송전망 연계 BESS를 개발 중이며 프로젝트별 성숙도는 다르다. Zenobē는 별도로 3.3GWh의 저장자산을 운영 중이거나 건설 중이라고 밝혔다.",
+      "fact": "Zenobe는 7월 27일 바이에른 소재 BESS 개발사 sdp energie 인수를 완료했다. 인수대상은 독일 6개 부지에서 총 1.75GW의 송전망 연계 BESS를 개발 중이며 프로젝트별 성숙도는 다르다. Zenobe는 별도로 3.3GWh의 저장자산을 운영 중이거나 건설 중이라고 밝혔다.",
       "implication": [
         "영국 중심 운영플랫폼이 독일 현지 개발조직을 인수해 신규 시장 진입기간을 단축했다.",
         "파이프라인 명목용량보다 부지별 개발단계와 건설전환률이 인수성과를 좌우한다.",
@@ -4192,7 +4991,7 @@
       "related": [],
       "fact_sources": [
         {
-          "source_name": "Zenobē official",
+          "source_name": "Zenobe official",
           "source_url": "https://www.zenobe.com/news-and-events/zenobe-acquires-sdp-energie-a-leading-battery-storage-developer-to-accelerate-bess-deployment-in-the-german-market/",
           "claim": "sdp energie 인수와 1.75GW·6개 부지 파이프라인을 확인",
           "source_quote": "acquisition of Bavaria headquartered sdp energie",
@@ -4239,7 +5038,7 @@
         }
       ],
       "event_fingerprint": {
-        "actor": "Zenobē·sdp energie",
+        "actor": "Zenobe·sdp energie",
         "asset_or_policy": "독일 송전망 연계 BESS 1.75GW 개발경로",
         "location": "독일",
         "event_type": "completed_acquisition",
@@ -4261,7 +5060,7 @@
         "earliest_same_event_date_checked": true,
         "event_date_source_url": "https://www.zenobe.com/news-and-events/zenobe-acquires-sdp-energie-a-leading-battery-storage-developer-to-accelerate-bess-deployment-in-the-german-market/",
         "event_date_source_quote": "acquisition of Bavaria headquartered sdp energie",
-        "event_date_source_name": "Zenobē official",
+        "event_date_source_name": "Zenobe official",
         "date_role_reviewed_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "baseline_relation": "new_unrelated_event",
@@ -4302,11 +5101,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -4335,7 +5146,7 @@
         {
           "attempt_order": 1,
           "source_url": "https://www.zenobe.com/news-and-events/zenobe-acquires-sdp-energie-a-leading-battery-storage-developer-to-accelerate-bess-deployment-in-the-german-market/",
-          "source_name": "Zenobē official",
+          "source_name": "Zenobe official",
           "source_owner": "zenobe.com",
           "source_role": "primary_event_evidence",
           "outcome": "used_in_fact_sources",
@@ -4476,9 +5287,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -4486,18 +5305,37 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "PR #222 review 4803684777: Zenobe spelling normalized to ASCII.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-27_EU_01",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A-",
@@ -4538,6 +5376,74 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "pr222_review3_addressed": {
+        "pr_number": 222,
+        "review_id": 4803684777,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "reviewed_cards_blob_sha": "9952778c4147f2ac53887b1e4e48baa9186e4ff5",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "addressed_at_kst": "2026-07-29T12:39:59+09:00",
+        "review_comments": [
+          {
+            "comment_id": 3670719749,
+            "thread_id": "PRRT_kwDOR4qHAM6UnJ3n"
+          }
+        ],
+        "changes": [
+          "macron spelling normalized to ASCII Zenobe across card text and audit labels"
+        ],
+        "visible_narrative_fields_changed": true,
+        "production_id_changed": false,
+        "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-27_EU_01",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [],
+        "same_date_region_candidate_ids": [
+          "2026-07-27_EU_01",
+          "2026-07-27_EU_02",
+          "2026-07-27_EU_03"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -4701,11 +5607,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -4885,9 +5803,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -4895,18 +5821,36 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-24_US_02",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "B+",
@@ -4947,6 +5891,55 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-24_US_02",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [
+          "2026-07-24_US_01"
+        ],
+        "same_date_region_candidate_ids": [
+          "2026-07-24_US_01",
+          "2026-07-24_US_02"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -8741,11 +9734,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -8942,9 +9947,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -8952,18 +9965,36 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-23_US_02",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A",
@@ -9004,6 +10035,55 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-23_US_02",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [
+          "2026-07-23_US_01"
+        ],
+        "same_date_region_candidate_ids": [
+          "2026-07-23_US_01",
+          "2026-07-23_US_02"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -11023,7 +12103,7 @@
         "rekey_required": false
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_id_match": false,
         "exact_url_match": false,
         "canonical_url_match": false,
@@ -11032,7 +12112,19 @@
         "baseline_event_fingerprint_match": false,
         "internal_batch_duplicate_match": false,
         "already_covered_by_broader_card": false,
-        "matched_baseline_card_ids": []
+        "matched_baseline_card_ids": [],
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_safety": "PASS",
@@ -11090,7 +12182,7 @@
       "github_ready": true,
       "pr_candidate_ready": true,
       "production_verified": false,
-      "github_main_sync_required_later": true,
+      "github_main_sync_required_later": false,
       "related_lineage": {
         "status": "PASS",
         "relation_type": "new_unrelated_event",
@@ -11127,18 +12219,36 @@
       "final_qc_notes": [
         "Promoted after full 373-story re-audit.",
         "Official or primary evidence and independent confirmation used where available.",
-        "No unsupported production, transaction or valuation inference added."
+        "No unsupported production, transaction or valuation inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735_FULL_REAUDIT",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "prepared_at_kst": "2026-07-28T19:20:00+09:00",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
         "production_verified": false,
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-23_GL_02",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A-",
@@ -11194,7 +12304,7 @@
           }
         ]
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -11204,7 +12314,15 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -11247,6 +12365,55 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-23_GL_02",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [
+          "2026-07-23_GL_01"
+        ],
+        "same_date_region_candidate_ids": [
+          "2026-07-23_GL_01",
+          "2026-07-23_GL_02"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -12000,11 +13167,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -12174,9 +13353,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -12184,18 +13371,36 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-23_EU_05",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A-",
@@ -12236,6 +13441,61 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-23_EU_05",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [
+          "2026-07-23_EU_01",
+          "2026-07-23_EU_02",
+          "2026-07-23_EU_03",
+          "2026-07-23_EU_04"
+        ],
+        "same_date_region_candidate_ids": [
+          "2026-07-23_EU_01",
+          "2026-07-23_EU_02",
+          "2026-07-23_EU_03",
+          "2026-07-23_EU_04",
+          "2026-07-23_EU_05"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -18154,7 +19414,7 @@
         "rekey_required": false
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_id_match": false,
         "exact_url_match": false,
         "canonical_url_match": false,
@@ -18163,7 +19423,19 @@
         "baseline_event_fingerprint_match": false,
         "internal_batch_duplicate_match": false,
         "already_covered_by_broader_card": false,
-        "matched_baseline_card_ids": []
+        "matched_baseline_card_ids": [],
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_safety": "PASS",
@@ -18220,7 +19492,7 @@
       "github_ready": true,
       "pr_candidate_ready": true,
       "production_verified": false,
-      "github_main_sync_required_later": true,
+      "github_main_sync_required_later": false,
       "related_lineage": {
         "status": "PASS",
         "relation_type": "new_unrelated_event",
@@ -18264,18 +19536,36 @@
       "final_qc_notes": [
         "Promoted after full 373-story re-audit.",
         "Official or primary evidence and independent confirmation used where available.",
-        "No unsupported production, transaction or valuation inference added."
+        "No unsupported production, transaction or valuation inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735_FULL_REAUDIT",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "prepared_at_kst": "2026-07-28T19:20:00+09:00",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
         "production_verified": false,
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-22_GL_04",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A",
@@ -18331,7 +19621,7 @@
           }
         ]
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -18341,7 +19631,15 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -18385,6 +19683,59 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-22_GL_04",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [
+          "2026-07-22_GL_01",
+          "2026-07-22_GL_02",
+          "2026-07-22_GL_03"
+        ],
+        "same_date_region_candidate_ids": [
+          "2026-07-22_GL_01",
+          "2026-07-22_GL_02",
+          "2026-07-22_GL_03",
+          "2026-07-22_GL_04"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -29371,11 +30722,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint; collided TF_0054 rekeyed to unique lineage ID"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint; collided TF_0054 rekeyed to unique lineage ID",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -29547,9 +30910,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -29557,18 +30928,36 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-21_EU_08",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "upstream_story_ids_original": [
         "TF_0054"
@@ -29613,6 +31002,67 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-21_EU_08",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [
+          "2026-07-21_EU_01",
+          "2026-07-21_EU_02",
+          "2026-07-21_EU_03",
+          "2026-07-21_EU_04",
+          "2026-07-21_EU_05",
+          "2026-07-21_EU_06",
+          "2026-07-21_EU_07"
+        ],
+        "same_date_region_candidate_ids": [
+          "2026-07-21_EU_01",
+          "2026-07-21_EU_02",
+          "2026-07-21_EU_03",
+          "2026-07-21_EU_04",
+          "2026-07-21_EU_05",
+          "2026-07-21_EU_06",
+          "2026-07-21_EU_07",
+          "2026-07-21_EU_08"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -40251,13 +41701,13 @@
       ],
       "region": "EU",
       "date": "2026-07-20",
-      "cat": "SupplyChain",
+      "cat": "Materials",
       "sub_cat": "배터리 재활용 증설",
       "signal": "high",
       "title": "ACCUREC, 크레펠트 재활용 거점 550만유로 증설 착수",
       "sub": "550만유로를 투자해 크레펠트 사업장 운영면적을 두 배로 확대",
       "gate": "투자액과 물리적 증설은 확인됐지만 처리능력 증가량이 없어 공급확대 규모를 계산할 수 없다. 설비별 처리량·원료조달·회수제품 판매계약이 공개되기 전에는 면적 확대를 생산량 증가로 환산하지 않아야 한다.",
-      "fact": "ACCUREC은 7월 20일 크레펠트 Bataverstraße 사업장의 최종 확장단계에 착수했다. 투자액은 550만유로이며 배터리 재활용과 원료회수 시설의 운영면적을 두 배로 늘린다. 회사는 증설 후 연간 처리능력, 회수율과 상업가동일을 공개하지 않았다.",
+      "fact": "ACCUREC은 7월 20일 크레펠트 Bataverstrasse 사업장의 최종 확장단계에 착수했다. 투자액은 550만유로이며 배터리 재활용과 원료회수 시설의 운영면적을 두 배로 늘린다. 회사는 증설 후 연간 처리능력, 회수율과 상업가동일을 공개하지 않았다.",
       "implication": [
         "유럽 재활용 투자가 연구개발보다 상업 처리거점 확장으로 이동했다.",
         "다만 CAPEX 대비 증분 처리능력과 단위경제성은 현재 공개정보로 산출할 수 없다.",
@@ -40381,11 +41831,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -40555,9 +42017,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -40565,18 +42035,37 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "PR #222 review 4803684777: recycling category and German street-name transliteration corrected.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-20_EU_07",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "B+",
@@ -40625,6 +42114,89 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "pr222_review3_addressed": {
+        "pr_number": 222,
+        "review_id": 4803684777,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "reviewed_cards_blob_sha": "9952778c4147f2ac53887b1e4e48baa9186e4ff5",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "addressed_at_kst": "2026-07-29T12:39:59+09:00",
+        "review_comments": [
+          {
+            "comment_id": 3670719744,
+            "thread_id": "PRRT_kwDOR4qHAM6UnJ3j"
+          },
+          {
+            "comment_id": 3670719751,
+            "thread_id": "PRRT_kwDOR4qHAM6UnJ3p"
+          }
+        ],
+        "changes": [
+          "cat SupplyChain -> Materials",
+          "Bataverstraße -> Bataverstrasse in visible fact"
+        ],
+        "visible_narrative_fields_changed": true,
+        "production_id_changed": false,
+        "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-20_EU_07",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [
+          "2026-07-20_EU_01",
+          "2026-07-20_EU_02",
+          "2026-07-20_EU_03",
+          "2026-07-20_EU_04",
+          "2026-07-20_EU_05"
+        ],
+        "same_date_region_candidate_ids": [
+          "2026-07-20_EU_01",
+          "2026-07-20_EU_02",
+          "2026-07-20_EU_03",
+          "2026-07-20_EU_04",
+          "2026-07-20_EU_05",
+          "2026-07-20_EU_06",
+          "2026-07-20_EU_07"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -40994,13 +42566,19 @@
         "exact_id": false,
         "exact_event": false,
         "related_existing_card": "2026-07-15_EU_01",
-        "fresh_anchor": "2026-07-20 DPP Registry operational launch",
+        "fresh_anchor": "7월 20일 등록소·시험환경 operational launch",
         "baseline_count_screened": 1325,
         "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
         "canonical_url": false,
         "source_story_id": false,
         "event_fingerprint": false,
-        "checked_at_kst": "2026-07-29T12:10:00+09:00"
+        "checked_at_kst": "2026-07-29T13:08:28+09:00",
+        "exact_url": false,
+        "normalized_direct_url": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [
+          "2026-07-15_EU_01"
+        ]
       },
       "id_collision": false,
       "id_collision_notes": null,
@@ -41015,10 +42593,10 @@
       "hard_fail_count": 0,
       "proposed_production_id_0_8": "2026-07-20_EU_06",
       "id_assignment_preview_only": false,
-      "id_assignment_reason": "Fresh GitHub main 1,325-card sync confirmed; 2026-07-20 EU_01 through EU_05 exist in main, so EU_06 is the next unused production sequence.",
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
       "github_main_sync_confirmed_for_final_qc": true,
       "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
-      "final_qc_reviewed_at_kst": "2026-07-29T12:10:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_gates": {
         "fact_safety": "PASS",
         "merge_safety": "PASS",
@@ -41028,7 +42606,15 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
       "final_qc_notes": [
         "P",
@@ -41082,7 +42668,8 @@
         "e",
         "d",
         ".",
-        "PR #222 review 4803554043 addressed: Prompt 0.8 merge preparation rerun against current main blob 327e30c1f824a1d8beaa6742a54273174b04d14a."
+        "PR #222 review 4803554043 addressed: Prompt 0.8 merge preparation rerun against current main blob 327e30c1f824a1d8beaa6742a54273174b04d14a.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "assigned_id": "2026-07-20_EU_06",
       "production_id_assigned_0_8": true,
@@ -41097,18 +42684,44 @@
         "source_story_id": false,
         "event_fingerprint": false,
         "related_existing_id": "2026-07-15_EU_01",
-        "fresh_follow_up_anchor": "2026-07-20 European Commission DPP Registry and testing environment go-live after the 2026-07-15 harmonised-standards event.",
-        "checked_at_kst": "2026-07-29T12:10:00+09:00"
+        "fresh_follow_up_anchor": "7월 20일 등록소·시험환경 operational launch",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00",
+        "exact_url": false,
+        "normalized_direct_url": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [
+          "2026-07-15_EU_01"
+        ]
       },
       "schema_runtime_check": "PASS",
       "sort_check": {
         "status": "PASS",
         "repo_sort": "date_desc_id_desc",
         "full_inventory_count": 1343,
-        "checked_at_kst": "2026-07-29T12:10:00+09:00"
+        "same_date_region_main_ids": [
+          "2026-07-20_EU_01",
+          "2026-07-20_EU_02",
+          "2026-07-20_EU_03",
+          "2026-07-20_EU_04",
+          "2026-07-20_EU_05"
+        ],
+        "same_date_region_candidate_ids": [
+          "2026-07-20_EU_01",
+          "2026-07-20_EU_02",
+          "2026-07-20_EU_03",
+          "2026-07-20_EU_04",
+          "2026-07-20_EU_05",
+          "2026-07-20_EU_06",
+          "2026-07-20_EU_07"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "merge_prep": {
-        "run_tag": "20260729_PR222_REVIEW2",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "planned_target_branch": "ihyowoen-patch-61",
@@ -41123,10 +42736,21 @@
         "event_fingerprint_collision": false,
         "related_predecessor_verified": "2026-07-15_EU_01",
         "sort_verified": "date_desc_id_desc",
-        "prepared_at_kst": "2026-07-29T12:10:00+09:00",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
         "production_verified": false,
         "baseline_source": "current GitHub main public/data/cards.json",
-        "baseline_count_before": 1325
+        "baseline_count_before": 1325,
+        "full_candidate_total_after": 1343,
+        "normalized_direct_url_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "distinct_follow_up",
+        "related_existing_ids_verified": [
+          "2026-07-15_EU_01"
+        ],
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_grade_review": {
         "review_version": "IB_FULL_RECHECK_V1_20260728",
@@ -41170,6 +42794,18 @@
         "production_id_changed": false,
         "related_ids_changed": false,
         "card_count_changed": false
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {
@@ -133038,11 +134674,23 @@
         "checked_at_kst": "2026-07-28T17:28:12+09:00"
       },
       "duplicate_screening": {
-        "baseline_count_screened": 1326,
+        "baseline_count_screened": 1325,
         "exact_url_match": false,
         "source_story_id_collision": false,
         "matched_baseline_card_ids": [],
-        "decision_basis": "canonical URL + actor/asset/event fingerprint"
+        "decision_basis": "canonical URL + actor/asset/event fingerprint",
+        "status": "PASS_NO_COLLISION",
+        "baseline_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "related_existing_ids": [],
+        "fresh_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
       },
       "stage_c_findings": {
         "fact_source_lock": "PASS",
@@ -133212,9 +134860,17 @@
         "language_tone": "PASS",
         "schema_runtime": "PASS",
         "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
+        "output_integrity": "PASS",
+        "current_main_sync": "PASS",
+        "id_collision": "PASS",
+        "actor_asset_event_duplicate": "PASS",
+        "normalized_direct_url_duplicate": "PASS",
+        "source_story_id_collision": "PASS",
+        "related_lifecycle": "PASS",
+        "evidence_qc": "PASS",
+        "date_role_freshness": "PASS"
       },
-      "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
+      "final_qc_reviewed_at_kst": "2026-07-29T13:08:28+09:00",
       "final_qc_notes": [
         "All final publish gates passed against the uploaded 1,325-card baseline.",
         "Production ID assigned using event-date and region next-unused sequence.",
@@ -133222,18 +134878,36 @@
         "production verification remains pending after merge.",
         "Full 373-story re-audit completed.",
         "Visible fields enhanced with decision-useful scale, transaction structure, execution stage and disclosure limits.",
-        "No unsupported valuation or capacity inference added."
+        "No unsupported valuation or capacity inference added.",
+        "20260729_PR222_FINAL_MERGE_READY: Prompt 0.8 rerun against main blob 327e30c1f824a1d8beaa6742a54273174b04d14a; collision, lifecycle, evidence, date-role and sort checks passed."
       ],
       "merge_prep": {
-        "run_tag": "20260728_140735",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
         "target_repo": "ihyowoen/SBTL_HUB",
         "target_branch_base": "main",
         "target_data_path": "public/data/cards.json",
         "state": "github_merge_ready",
-        "baseline_source": "cards_REPLACE_ALL_PR219_IB_ENHANCED_PLUS1_20260728(1).json",
-        "baseline_count_before": 1326,
-        "prepared_at_kst": "2026-07-28T17:28:12+09:00",
-        "production_verified": false
+        "baseline_source": "current GitHub main public/data/cards.json",
+        "baseline_count_before": 1325,
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "production_verified": false,
+        "planned_target_branch": "ihyowoen-patch-61",
+        "github_main_blob_sha_before": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "github_main_total_before": 1325,
+        "full_candidate_total_after": 1343,
+        "assigned_id": "2026-07-05_GL_01",
+        "exact_id_collision": false,
+        "normalized_direct_url_collision": false,
+        "source_story_id_collision": false,
+        "event_fingerprint_collision": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_collision": false,
+        "relation_type": "new_unrelated_event",
+        "related_existing_ids_verified": [],
+        "sort_verified": "date_desc_id_desc",
+        "evidence_qc_verified": true,
+        "related_lifecycle_verified": true,
+        "date_role_freshness_verified": true
       },
       "ib_quality": {
         "grade": "A-",
@@ -133274,6 +134948,52 @@
         "visible_narrative_fields_changed": false,
         "production_id_changed": false,
         "card_count_changed": false
+      },
+      "proposed_production_id_0_8": "2026-07-05_GL_01",
+      "id_assignment_preview_only": false,
+      "id_assignment_reason": "Fresh current-main sync confirmed; ID is unique against main and the complete PR candidate.",
+      "github_main_sync_confirmed_for_final_qc": true,
+      "github_main_blob_sha_at_final_qc": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+      "duplicate_check": {
+        "status": "PASS_NO_COLLISION",
+        "current_main_count": 1325,
+        "current_main_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "exact_id": false,
+        "exact_url": false,
+        "canonical_url": false,
+        "normalized_direct_url": false,
+        "source_story_id": false,
+        "event_fingerprint": false,
+        "actor_asset_event_duplicate": false,
+        "candidate_internal_id_collision": false,
+        "candidate_internal_url_collision": false,
+        "candidate_internal_story_id_collision": false,
+        "candidate_internal_event_fingerprint_collision": false,
+        "related_existing_ids": [],
+        "fresh_follow_up_anchor": "",
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "sort_check": {
+        "status": "PASS",
+        "repo_sort": "date_desc_id_desc",
+        "full_inventory_count": 1343,
+        "same_date_region_main_ids": [],
+        "same_date_region_candidate_ids": [
+          "2026-07-05_GL_01"
+        ],
+        "checked_at_kst": "2026-07-29T13:08:28+09:00"
+      },
+      "pr222_final_merge_prep": {
+        "pr_number": 222,
+        "reviewed_head_sha": "3077a11b3e873932aa428dbd7aa95cac86c65362",
+        "run_tag": "20260729_PR222_FINAL_MERGE_READY",
+        "prepared_at_kst": "2026-07-29T13:08:28+09:00",
+        "main_cards_blob_sha": "327e30c1f824a1d8beaa6742a54273174b04d14a",
+        "main_card_count": 1325,
+        "candidate_card_count": 1343,
+        "state": "github_merge_ready",
+        "all_prompt_0_8_gates_passed": true,
+        "production_verified": false
       }
     },
     {

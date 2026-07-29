@@ -327,7 +327,9 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     const cards = kb.cards.filter((c) => cardMatchesWatch(c, [w]));
     return { term: w, fresh: cards.filter((c) => cardDateWithinDays(c, 7)).length, latest: cards[0] };
   });
-  const latestBrief = weeklyBriefs[0];
+  // '주간 브리프' 고정 라벨 슬롯은 순수 주간 최신본만 — 선반은 개정판(월간 포함)을 [0]에
+  // 올리므로(노출 보장, R3) 그대로 읽으면 6월호가 주간으로 표시된다(Codex #224 R5)
+  const latestBrief = plainWeeklyEntries(weeklyBriefs)[0];
   const upcoming = (tracker?.upcoming || []).slice(0, 2);
   // 🧵 이슈 스레드 — 프로필이 '기업 축'이라면 이건 '사건 축': 제목의 희소 토큰
   // (df 3~12, 2개 이상 날짜에 걸침)으로 이어지는 카드 묶음을 찾는다. 실구현에선
@@ -1994,6 +1996,16 @@ function briefScopeMatches(entry, terms) {
   if (entry.terms_sig != null) return entry.terms_sig === JSON.stringify(terms);
   const et = entry.terms || [];
   return JSON.stringify(et) === JSON.stringify(terms.slice(0, et.length));
+}
+
+// 라이브러리 항목이 보관본의 개정판인가 — 발행일("YYYY.MM.DD", 문자열 비교=시간 순)이
+// 앞서면 개정판. 같은 날짜면 내용(서사·watch·refs)을 비교한다: 하루 단위 스탬프만 보면
+// 당일 2차 수정본이 기존 채택자에게 영원히 못 닿는다(Codex #224 R2). 라이브러리가 발행
+// 정본이므로 같은 날짜·다른 내용이면 라이브러리 쪽이 이긴다. 내용까지 같으면 false=멱등.
+function isLibraryRevision(rev, cur) {
+  const a = String((rev && rev.generated_at) || ""), b = String((cur && cur.generated_at) || "");
+  if (a !== b) return a > b;
+  return JSON.stringify({ n: rev?.narrative, w: rev?.watch, r: rev?.refs }) !== JSON.stringify({ n: cur?.narrative, w: cur?.watch, r: cur?.refs });
 }
 
 // 최신 항목의 생성일로부터 7일이 지났으면 새 주간 브리프 생성 대상
@@ -4026,6 +4038,40 @@ function AppContent() {
       const scopeAll = !!opts.scopeAll || !!customSpec;
       const terms = scopeAll ? [] : Array.isArray(rawTerms) ? rawTerms : [];
       const existing = readWeeklyBriefs();
+      // 주간 사전 발행 채택(R28, Codex #224 R2) — 전체 범위 패시브 주간은 신선한(≤7일)
+      // 라이브러리 주간호가 보관본보다 최신이면 API 생성 대신 그것을 선반에 얹는다: 수기
+      // 편집본으로 품질·일관성을 고정한다(사용자 결정). 개인화(워치 범위)·수동 force·
+      // 월간/커스텀/지역·주제 구성은 온디맨드 유지 — 조합형은 사전 발행이 불가능한 항목.
+      // 쿨다운(아래 주기 판정)보다 먼저 본다 — 뒤에 두면 3일 전 API 주간을 가진 사용자가
+      // 오늘 나온 공식 호수를 만기까지 못 받고, 만기 땐 호수가 낡아 영영 못 받는다
+      // (Codex #224 R6). 채택 불발 시 _skipLibrary 재진입이 기존 쿨다운·API 경로를 탄다.
+      // terms_sig "[]"를 물려 전체 범위 규약(R9)에 편입 — 쿨다운·미독·리더가 기존 경로.
+      if (!force && !opts._skipLibrary && period === "weekly" && !customSpec && !group && !terms.length) {
+        loadBriefLibrary().then((lib) => {
+          // 채택 직전 범위 재확인 — 라이브러리 로딩 사이 워치가 등록됐으면 이 결과는
+          // 낡은 스코프의 것이다: 전체호를 얹으면 방금 만든 개인화 브리프를 선반 앞에서
+          // 가린다(Codex #224 R4). 폐기가 정답 — 워치 변경은 watchSeenVersion 효과가
+          // 새 스코프로 다시 발행한다(API 경로의 시도 가드와 같은 규약).
+          try {
+            const now = JSON.parse(localStorage.getItem("sbtl_watch_terms") || "[]");
+            if (Array.isArray(now) && now.length) return;
+          } catch { /* noop */ }
+          const wk = (lib && Array.isArray(lib.items) ? lib.items : [])
+            .filter((it) => it && it.period === "weekly" && it.narrative && !it.month && !it.group)
+            .sort((a, b) => String(b.generated_at || "").localeCompare(String(a.generated_at || "")))[0];
+          const ms = wk ? new Date(String(wk.generated_at || "").replace(/\./g, "-")).getTime() : NaN;
+          // '보관본보다 최신'일 때만 — 같은 id면 당일 개정까지 보고(isLibraryRevision),
+          // 다른 id(API 발행본)면 발행일 비교만: 같은 날 API 본이 있으면 중복 채택하지 않는다.
+          const stored = plainWeeklyEntries(existing).filter((e) => briefScopeMatches(e, []))[0];
+          const newer = !stored || (stored.id === wk?.id ? isLibraryRevision(wk, stored) : String(wk?.generated_at || "") > String(stored.generated_at || ""));
+          if (wk && !Number.isNaN(ms) && Date.now() - ms < 7 * 86400000 && newer) {
+            adoptLibraryEntry({ ...wk, terms_sig: "[]" });
+          } else {
+            runWeeklyBrief({ ...opts, _skipLibrary: true }); // 채택 불발 — 기존 쿨다운·API 경로
+          }
+        });
+        return;
+      }
       // 주기 판정은 '같은 범위의 주간호'만 본다 — 기간(월간호가 주간 발행을 막지 않게)에
       // 더해 범위까지 봐야 한다: 온보딩 스킵 → 자동 "주간 전체"(terms_sig "[]") 발행 →
       // 첫 워치 등록 시, 그 전체호가 충족으로 잡히면 개인화 내워치 브리프가 7일간 안 만들어진다.
@@ -4341,11 +4387,48 @@ function AppContent() {
     try {
       if (!entry || !entry.id || !entry.narrative) return;
       const fresh = readWeeklyBriefs();
-      if (fresh.some((e) => e && e.id === entry.id)) { setWeeklyBriefs(fresh); return; }
+      const idx = fresh.findIndex((e) => e && e.id === entry.id);
+      if (idx >= 0) {
+        // 같은 호수라도 개정판이면 교체 — 거부하면 6월호 증보처럼 재발행된 내용이 이미
+        // 채택한 사용자에게 영원히 안 닿는다(Codex #224 P1). 판별은 isLibraryRevision
+        // 공용 규약(날짜 우선, 같은 날짜면 내용 비교 — 당일 재발행 대응).
+        if (isLibraryRevision(entry, fresh[idx])) {
+          // 개정판은 맨 앞으로 — 제자리에 두면 선반이 [0]만 기본 표시하고 입장 시 일괄
+          // 읽음 처리가 미독 표시만 지워, 새 내용을 보지도 못한 채 확인된다(Codex #224 R3)
+          const next = [{ ...entry, read: false }, ...fresh.filter((_, i) => i !== idx)];
+          localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
+          setWeeklyBriefs(next);
+        } else setWeeklyBriefs(fresh);
+        return;
+      }
       const next = [entry, ...fresh].slice(0, WEEKLY_BRIEF_CAP);
       localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
       setWeeklyBriefs(next);
     } catch { /* noop */ }
+  }, []);
+  useEffect(() => {
+    // 라이브러리 개정판 이행 — 보관함의 같은 id 호수가 낡았으면(재발행일 비교) 개정판으로
+    // 교체한다. 이 이행이 없으면 정적 파일만 갱신한 재발행은 기존 채택자에게 도달하지 못해
+    // 낡은 +N 배지가 영구 잔존한다(Codex #224 P1). 멱등: 교체 후엔 날짜가 같아 재실행 무변경.
+    let alive = true;
+    loadBriefLibrary().then((lib) => {
+      if (!alive || !lib || !Array.isArray(lib.items)) return;
+      const fresh = readWeeklyBriefs();
+      // 개정판은 맨 앞으로 모은다(상대 순서 유지) — 제자리 교체는 선반 기본 표시([0])에
+      // 안 잡혀 입장 일괄 읽음 처리에 미독만 지워진다(Codex #224 R3). 나머지는 순서 보존.
+      const revised = [], rest = [];
+      for (const e of fresh) {
+        const rev = e && e.id ? lib.items.find((it) => it && it.id === e.id) : null;
+        if (rev && isLibraryRevision(rev, e)) revised.push({ ...rev, read: false, ...(e.terms_sig != null ? { terms_sig: e.terms_sig } : {}) });
+        else rest.push(e);
+      }
+      if (revised.length) {
+        const next = [...revised, ...rest];
+        localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
+        setWeeklyBriefs(next);
+      }
+    });
+    return () => { alive = false; };
   }, []);
   useEffect(() => {
     // 세션 1회 시도 가드는 '같은 범위'에만 건다 — 범위가 바뀌면(첫 워치 등록 등) 다시 시도한다.

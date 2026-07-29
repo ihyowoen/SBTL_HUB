@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, Component } from "react";
 import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections, hitBoundary } from "./briefAxes";
 import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
-import { pickNeighbors, explodePins, ensureCenterEdges } from "./explode";
+import { pickNeighbors, explodePins, ensureCenterEdges, bridgeLineage, emptyVerdict } from "./explode";
 import StoryNewsItem from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
@@ -1356,7 +1356,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
         const selNode = pinLayout && pinSel ? pinLayout.nodes.find((n) => n.id === pinSel) : null;
         const selEdges = pinLayout && pinSel ? pinLayout.edges.filter((e) => e.a === pinSel || e.b === pinSel) : [];
         const nodeById = pinLayout ? new Map(pinLayout.nodes.map((n) => [n.id, n])) : null;
-        const KIND_LABEL = { related: "편집자 연결", entity: "같은 주체", theme: "같은 주제" };
+        const KIND_LABEL = { related: "강차장 연결", entity: "같은 주체", theme: "같은 주제" };
         return (
           <>
             <div ref={pinBoardRef} style={{ scrollMarginTop: 12 }}>{sectionTitle(`📌 핀 보드 (${pins.length})`, (pins.length || watchTerms.length)
@@ -1436,7 +1436,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                                     const disp = (canBuild ? "🧩 " : "") + (c.label.length > 12 ? c.label.slice(0, 11) + "…" : c.label);
                                     return (
                                       <g onClick={canBuild ? (ev) => { ev.stopPropagation(); sendComponentToBuilder(c); } : undefined} onKeyDown={canBuild ? (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ev.stopPropagation(); sendComponentToBuilder(c); } } : undefined} tabIndex={canBuild ? 0 : undefined} style={canBuild ? { cursor: "pointer" } : undefined} role={canBuild ? "button" : undefined} aria-label={canBuild ? `${c.label} 묶음으로 브리프 만들기` : undefined}>
-                                        <title>{canBuild ? `${c.label} — 이 묶음으로 브리프 만들기` : `${c.label} — 편집자 연결 묶음이라 축으로 변환할 근거 라벨이 없어요`}</title>
+                                        <title>{canBuild ? `${c.label} — 이 묶음으로 브리프 만들기` : `${c.label} — 강차장 연결 묶음이라 축으로 변환할 근거 라벨이 없어요`}</title>
                                         <rect x={c.cx - disp.length * 4.6 - 9} y={c.cy - c.r - 17} width={disp.length * 9.2 + 18} height={17} rx={8.5} fill={halo} stroke={col} strokeWidth="1" opacity={0.95} />
                                         <text x={c.cx} y={c.cy - c.r - 5} textAnchor="middle" fontSize="9.5" fontWeight="800" fill={col} fontFamily="'JetBrains Mono',monospace">{disp}</text>
                                       </g>
@@ -1496,7 +1496,7 @@ function Watchroom({ dark, kb, weeklyBriefs = [], variant, watchVersion = 0, onO
                       })()}
                     </div>
                     <div style={{ display: "flex", gap: 10, padding: "6px 6px 4px", fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexWrap: "wrap" }}>
-                      <span>━ 편집자 연결</span>
+                      <span>━ 강차장 연결</span>
                       <span style={{ opacity: 0.75 }}>─ 같은 주체</span>
                       <span style={{ opacity: 0.75 }}>┄ 같은 주제</span>
                       <span>● 색 = 연결 묶음</span>
@@ -3289,7 +3289,7 @@ function NewsExplode({ startCard, kb, dark, onClose, isBookmarked, onToggleBookm
     setCenterId(id);
   };
   const jumpBack = (idx) => { const target = trail[idx]; if (!target) return; setCenterId(target.id); setTrail(trail.slice(0, idx)); };
-  const KIND_LABEL = { related: "편집자 연결", entity: "같은 주체", theme: "같은 주제" };
+  const KIND_LABEL = { related: "강차장 연결", entity: "같은 주체", theme: "같은 주제" };
   const centerEdges = lay ? lay.edges.filter((e) => e.a === centerId || e.b === centerId) : [];
   const nodeBg = dark ? "#1C2333" : "#fff";
   const halo = dark ? "#161B26" : "#fff";
@@ -3371,16 +3371,31 @@ function NewsExplode({ startCard, kb, dark, onClose, isBookmarked, onToggleBookm
           {impl && (
             <div style={{ marginTop: 8, padding: "9px 11px", borderLeft: `3px solid ${t.cyan}`, background: dark ? "rgba(88,166,255,0.06)" : "rgba(9,105,218,0.04)", fontSize: 11.5, color: t.tx, lineHeight: 1.65, wordBreak: "keep-all" }}>{impl}</div>
           )}
+          {alias && neighbors.length === 0 && (() => {
+            // R26 — 빈 지도의 정보화: '대조 완료 판정'과 '아직 못 찾음'을 구별해 보여준다
+            // (관계 채움률이 낮은 건 유실이 아니라 편집 판정임을 감사로 확인 — 그 판정을 표면화)
+            const verdict = emptyVerdict(center);
+            return (
+              <div style={{ marginTop: 9, padding: "8px 11px", borderRadius: 8, border: `1px dashed ${t.brd}`, fontSize: 10.5, color: t.sub, lineHeight: 1.6, wordBreak: "keep-all", fontFamily: "'JetBrains Mono',monospace" }}>
+                {verdict ? <>🧷 {verdict}</> : <>아직 이어진 카드를 찾지 못했어요 — 연관·후속 링크나 같은 주체 카드가 생기면 여기 다리로 나타나요</>}
+              </div>
+            );
+          })()}
           {(centerEdges.length > 0 || neighbors.length > 0) && (
             <div style={{ marginTop: 9 }}>
               <div style={{ fontSize: 9.5, fontWeight: 800, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>다리 {neighbors.length}개 — 탭하면 몸통으로</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 5, maxHeight: 180, overflowY: "auto" }}>
                 {neighbors.map((nb) => {
                   const edge = centerEdges.find((e) => e.a === nb.id || e.b === nb.id);
+                  // R26 — 편집자 서사가 있으면 유형 라벨을 그것으로, 통과한 인용은 둘째 줄로
+                  const bl = bridgeLineage(center, nb);
                   return (
                     <button key={nb.id} onClick={() => recenter(nb.id)} style={{ display: "flex", gap: 7, alignItems: "baseline", width: "100%", textAlign: "left", padding: "6px 8px", borderRadius: 8, border: "none", background: "transparent", cursor: "pointer" }}>
-                      <span style={{ flexShrink: 0, fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>{whyById.get(nb.id) || (edge ? KIND_LABEL[edge.kind] : "연결")}</span>
-                      <span style={{ flex: 1, minWidth: 0, fontSize: 11, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all" }}>{String(nb.card.T || nb.card.title || "")} <span style={{ color: t.sub, fontSize: 9, fontFamily: "'JetBrains Mono',monospace" }}>({fmtDate(nb.card.date || nb.card.d)})</span></span>
+                      <span style={{ flexShrink: 0, fontSize: 9, color: t.cyan, fontFamily: "'JetBrains Mono',monospace" }}>{(bl && bl.label) || whyById.get(nb.id) || (edge ? KIND_LABEL[edge.kind] : "연결")}</span>
+                      <span style={{ flex: 1, minWidth: 0, fontSize: 11, color: t.tx, lineHeight: 1.5, wordBreak: "keep-all" }}>
+                        {String(nb.card.T || nb.card.title || "")} <span style={{ color: t.sub, fontSize: 9, fontFamily: "'JetBrains Mono',monospace" }}>({fmtDate(nb.card.date || nb.card.d)})</span>
+                        {bl && bl.quote && <span style={{ display: "block", marginTop: 2, fontSize: 10, color: t.sub, lineHeight: 1.5, wordBreak: "keep-all" }}>❝ {bl.quote}</span>}
+                      </span>
                     </button>
                   );
                 })}

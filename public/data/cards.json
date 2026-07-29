@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-28T21:11:22+09:00",
+  "updated": "2026-07-29T11:20:06+09:00",
   "total": 1343,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -295,7 +295,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.igo.com.au/site/pdf/035c89b8-5edc-46a2-a7d7-8901e0f6b01b/Platform/ListPage/June-2026-Quarterly-Activities-Report.pdf",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.australianmining.com.au/improved-greenbushes-production-lifts-igo-as-nova-exceeds-guidance",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
       "final_qc_gates": {
@@ -333,6 +350,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -420,7 +454,7 @@
       "needs_stage_c_attention": false,
       "source_strength_caveat": false,
       "source_strength_caveat_reason": "",
-      "source_diversity_status": "PASS_BOUNDED_PRIMARY_SOURCE_EXCEPTION",
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_evidence_entry_count": 1,
       "source_unique_url_count": 1,
       "source_unique_domain_count": 1,
@@ -548,14 +582,24 @@
         "independent_owners": [
           "press.bmwgroup.com"
         ],
-        "status": "PASS_BOUNDED_PRIMARY_SOURCE_EXCEPTION",
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 1,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.press.bmwgroup.com/usa/article/detail/T0459652EN_US/first-glimpse-into-production%3A-bmw-group-plant-woodruff-assembles-high-voltage-batteries-for-the-new-bmw-ix5",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -633,6 +677,24 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated",
+          "single-source status enum normalized"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -720,7 +782,7 @@
       "needs_stage_c_attention": false,
       "source_strength_caveat": false,
       "source_strength_caveat_reason": "",
-      "source_diversity_status": "PASS_BOUNDED_PRIMARY_SOURCE_EXCEPTION",
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_evidence_entry_count": 1,
       "source_unique_url_count": 1,
       "source_unique_domain_count": 1,
@@ -849,14 +911,24 @@
         "independent_owners": [
           "globenewswire.com"
         ],
-        "status": "PASS_BOUNDED_PRIMARY_SOURCE_EXCEPTION",
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 1,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333471/0/en/InoBat-and-Cartesian-Growth-Corporation-II-Announce-Business-Combination-Agreement-to-Accelerate-Expansion-of-Battery-Energy-Storage-Systems.html",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -934,6 +1006,24 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated",
+          "single-source status enum normalized"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -2480,7 +2570,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.accessnewswire.com/newsroom/en/metals-and-mining/nextsource-materials-announces-updated-feasibility-study-results-for-molo-mine-ex-1196584",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.mining.com/nextsource-eyes-longer-madagascar-graphite-mine-life-higher-costs",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
       "final_qc_gates": {
@@ -2518,6 +2625,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -2792,7 +2916,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.lsholdings.com/ko/media/news/666949325578506944506631414c69616237504a72336d50576e646f34736a76",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.yna.co.kr/view/AKR20260727025900003",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -2870,6 +3011,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -3138,7 +3296,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.korea.kr/news/policyNewsView.do?newsId=148968920",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.reuters.com/world/asia-pacific/brazil-south-korea-agree-advance-talks-mercosur-trade-deal-2026-07-27/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -3216,6 +3391,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -3480,7 +3672,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.adb.org/news/adb-and-partners-power-timor-leste-energy-future-landmark-investment-solar-and-battery-storage",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.jica.go.jp/english/information/press/2026/20260728_11.html",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -3558,6 +3767,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -3825,7 +4051,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://amg-nv.com/investors/press-release/amg-critical-materials-n-v-successfully-closes-the-acquisition-of-zinnwald-lithium-plc/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.globenewswire.com/news-release/2026/07/27/3333743/0/en/AMG-Critical-Materials-N-V-Successfully-Closes-the-Acquisition-of-Zinnwald-Lithium-Plc.html",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -3903,6 +4146,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -4166,7 +4426,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.zenobe.com/news-and-events/zenobe-acquires-sdp-energie-a-leading-battery-storage-developer-to-accelerate-bess-deployment-in-the-german-market/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.ess-news.com/2026/07/27/zenobe-acquires-sdp-energie-plans-to-buy-more-transmission-projects",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -4244,6 +4521,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -4534,7 +4828,31 @@
         "supporting_fact_source_count": 3,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.prnewswire.com/news-releases/cs-powertech-launches-best-in-class-pv-hjt-solar-cell-plant-302833602.html",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.energymonitor.ai/news/cs-powertech-opens-solar-facility",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.reuters.com/business/energy/us-solar-cell-factory-opens-indiana-2026-07-24/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=2",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -4612,6 +4930,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -8550,7 +8885,31 @@
         "supporting_fact_source_count": 3,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.whitehouse.gov/presidential-actions/2026/07/addressing-failures-to-take-action-on-trade-in-forced-labor-goods/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://source.benchmarkminerals.com/article/us-replaces-expiring-tariffs-with-new-forced-labour-duties-on-60-countries",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=2",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -8628,6 +8987,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -10799,7 +11175,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://canadanickel.com/document/canada-nickel-announces-initial-mineral-resource-at-nesbitt-and-delivers-46-increase-in-indicated-resource-at-deloro/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.northernminer.com/news/canada-nickels-ninth-resource-lifts-holdings-to-4-3b-tonnes-in-timmins-district/1003893310",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
       "final_qc_gates": {
@@ -10837,6 +11230,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -11714,7 +12124,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://prosolia.com/albispark-battery-energy-storage-portugal/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.ess-news.com/2026/07/27/prosolia-energy-adds-15-mw-60-mwh-bess-to-solar-plant-in-portugal",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -11792,6 +12219,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -17606,10 +18050,7 @@
         "https://investorpa.com/announcement/318928/",
         "https://www.miningweekly.com/article/australias-lynas-flags-cost-overrun-after-revenue-miss-shares-tumble-2026-07-22"
       ],
-      "related": [
-        "2026-07-06_GL_03",
-        "2026-07-17_GL_01"
-      ],
+      "related": [],
       "fact_sources": [
         {
           "source_name": "Lynas quarterly report mirror",
@@ -17681,7 +18122,7 @@
         "event_date_source_url": "https://investorpa.com/announcement/318928/",
         "event_date_source_quote": "Quarterly Activities Report",
         "event_date_source_name": "Lynas quarterly report mirror",
-        "date_role_reviewed_at_kst": "2026-07-28T19:20:00+09:00"
+        "date_role_reviewed_at_kst": "2026-07-29T11:20:06+09:00"
       },
       "baseline_relation": "new_unrelated_event",
       "duplicate_risk": "low_after_full_1326_card_screen",
@@ -17783,11 +18224,8 @@
       "related_lineage": {
         "status": "PASS",
         "relation_type": "new_unrelated_event",
-        "related_ids": [
-          "2026-07-06_GL_03",
-          "2026-07-17_GL_01"
-        ],
-        "reason": "full 1,325-card actor-asset-event and URL screen",
+        "related_ids": [],
+        "reason": "7월 6일 희토류 자석공장 계약과 7월 17일 미국 방산계약 정부검토는 7월 22일 말레이시아 중희토류 분리증설 CAPEX 수정과 동일 사건·동일 프로그램 계보가 아니므로 관련 링크에서 제외",
         "fresh_follow_up_anchor": "",
         "same_event_checked": true,
         "earliest_same_event_date_checked": true
@@ -17795,19 +18233,20 @@
       "related_evidence_review": {
         "status": "PASS",
         "relation_type": "new_unrelated_event",
-        "related_ids": [
-          "2026-07-06_GL_03",
-          "2026-07-17_GL_01"
-        ],
-        "same_event_checked": true
+        "related_ids": [],
+        "same_event_checked": true,
+        "reason": "7월 6일 희토류 자석공장 계약과 7월 17일 미국 방산계약 정부검토는 7월 22일 말레이시아 중희토류 분리증설 CAPEX 수정과 동일 사건·동일 프로그램 계보가 아니므로 관련 링크에서 제외",
+        "fresh_follow_up_anchor": "",
+        "earliest_same_event_date_checked": true
       },
       "related_prepass": {
         "status": "PASS",
         "relation_type": "new_unrelated_event",
-        "related_ids": [
-          "2026-07-06_GL_03",
-          "2026-07-17_GL_01"
-        ]
+        "related_ids": [],
+        "reason": "7월 6일 희토류 자석공장 계약과 7월 17일 미국 방산계약 정부검토는 7월 22일 말레이시아 중희토류 분리증설 CAPEX 수정과 동일 사건·동일 프로그램 계보가 아니므로 관련 링크에서 제외",
+        "fresh_follow_up_anchor": "",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true
       },
       "content_polish_findings": {
         "title_quality": "PASS",
@@ -17873,7 +18312,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://investorpa.com/announcement/318928/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.miningweekly.com/article/australias-lynas-flags-cost-overrun-after-revenue-miss-shares-tumble-2026-07-22",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "final_qc_reviewed_at_kst": "2026-07-28T19:20:00+09:00",
       "final_qc_gates": {
@@ -17911,6 +18367,24 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated",
+          "unrelated Lynas links removed and lifecycle mirrors reconciled"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -18898,7 +19372,31 @@
         "supporting_fact_source_count": 3,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://ecopro.co.kr/sub0401/view/id/2144",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://view.asiae.co.kr/article/2026072309330129966",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://saladeimprensa.vale.com/ca/w/sambalagi-hpal-project-reaches-major-milestone-with-autoclave-arrival-strengthening-the-future-of-sustainable-downstreaming",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=2",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "source_discovery_ledger": [
         {
@@ -19057,6 +19555,23 @@
           "implication"
         ],
         "production_id_changed": false
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -28815,7 +29330,7 @@
       "needs_stage_c_attention": false,
       "source_strength_caveat": false,
       "source_strength_caveat_reason": "",
-      "source_diversity_status": "PASS_BOUNDED_PRIMARY_SOURCE_EXCEPTION",
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_evidence_entry_count": 2,
       "source_unique_url_count": 2,
       "source_unique_domain_count": 1,
@@ -28975,14 +29490,31 @@
         "independent_owners": [
           "iberdrola.com"
         ],
-        "status": "PASS_BOUNDED_PRIMARY_SOURCE_EXCEPTION",
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00"
       },
       "source_url_resolution": {
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.iberdrola.com/shareholders-investors/operational-financial-information/corporate-operations",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.iberdrola.com/press-room/news/detail/iberdrola-acquires-finland-largest-electricity-distribution-company-valued-5-billion-euros",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -29063,6 +29595,24 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated",
+          "single-source status enum normalized"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -39955,7 +40505,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://accurec.de/startschuss-fuer-den-finalen-ausbau",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.euwid-recycling.de/news/wirtschaft/accurec-startet-erweiterungsbau-in-krefeld-220726/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -40041,6 +40608,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {
@@ -132467,7 +133051,24 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "recomputed_at_kst": "2026-07-28T19:20:00+09:00"
+        "recomputed_at_kst": "2026-07-29T11:20:06+09:00",
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://en.evn.com.vn/d/en-US/news/EVNHANOI-Puts-into-operation-5-battery-energy-storage-systems-60-204-501555",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=0",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.energy-storage.news/hanoi-power-corporation-inaugurates-the-first-100mwh-battery-storage-portfolio-in-vietnamese-capital",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "PR #222 review remediation; fact_sources index=1",
+            "source_url_propagation_performed": false
+          }
+        ]
       },
       "claim_coverage_summary": {
         "status": "PASS",
@@ -132545,6 +133146,23 @@
         "exact_url_collision": false,
         "source_story_id_collision": false,
         "revalidated_at_kst": "2026-07-28T21:05:57+09:00"
+      },
+      "pr222_review_addressed": {
+        "pr_number": 222,
+        "review_id": 4797144872,
+        "reviewed_head_sha": "aae40541f56d8db6ddcd7644626b3172e43c8cb6",
+        "review_comment_ids": [
+          3665427848,
+          3665427854,
+          3665427865
+        ],
+        "addressed_at_kst": "2026-07-29T11:20:06+09:00",
+        "changes": [
+          "per-source URL resolution entries populated"
+        ],
+        "visible_narrative_fields_changed": false,
+        "production_id_changed": false,
+        "card_count_changed": false
       }
     },
     {

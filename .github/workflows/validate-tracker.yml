@@ -13,15 +13,19 @@ on:
   pull_request:
     paths:
       - "public/data/**"
+      - "data/cards.full.json"
       - "scripts/validate.mjs"
       - "scripts/validate_cards.mjs"
+      - "scripts/lean_cards.mjs"
       - ".github/workflows/validate-tracker.yml"
   push:
     branches: [main]
     paths:
       - "public/data/**"
+      - "data/cards.full.json"
       - "scripts/validate.mjs"
       - "scripts/validate_cards.mjs"
+      - "scripts/lean_cards.mjs"
   workflow_dispatch: {}
 
 jobs:
@@ -38,3 +42,10 @@ jobs:
         run: node scripts/validate.mjs
       - name: Validate cards data
         run: node scripts/validate_cards.mjs
+      # 정본 아카이브도 같은 게이트로 — 감사 원천이 깨진 채 머지되는 것을 막는다
+      - name: Validate full archive
+        run: test ! -f data/cards.full.json || node scripts/validate_cards.mjs data/cards.full.json
+      # 발행본 ≡ 아카이브 사영 검증 — 여분 필드·값 괴리·id 집합 불일치 전부 실패.
+      # 사람이 병합 스크립트 실행을 잊는 지점이라 기계가 지킨다
+      - name: Check lean payload matches archive
+        run: node scripts/lean_cards.mjs --check

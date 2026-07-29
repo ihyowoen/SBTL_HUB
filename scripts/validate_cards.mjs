@@ -57,8 +57,8 @@ try { doc = JSON.parse(readFileSync(CARDS_PATH, "utf8")); }
 catch (e) { console.error(`FAIL: JSON 파싱 실패 — ${e.message}`); process.exit(1); }
 const cards = Array.isArray(doc.cards) ? doc.cards : null;
 if (!cards) { console.error("FAIL: cards 배열 없음"); process.exit(1); }
-// total·updated는 merge-cards.yml이 d['total']·d['updated']로 직독한다 — 없으면 다음
-// 페이로드 병합이 merge_cards.py 도달 전에 KeyError로 죽는다
+// total·updated는 스키마 계약이자 하류 소비 필드 — 게이트의 수량 정합 검사와 앱의
+// 갱신 시각 표시가 둘 다 여기에 기댄다 (구 merge-cards.yml도 직독했으나 R25에서 제거)
 if (!Number.isFinite(doc.total)) E(`total 필드 없음/비수치(${JSON.stringify(doc.total)})`);
 else if (doc.total !== cards.length) E(`total(${doc.total}) ≠ cards.length(${cards.length})`);
 if (typeof doc.updated !== "string" || !doc.updated.trim()) E(`updated 필드 없음/비문자열(${JSON.stringify(doc.updated)})`);
@@ -73,7 +73,9 @@ const baseSrc = process.env.CARDS_BASE;
 try {
   const raw = baseSrc
     ? readFileSync(baseSrc, "utf8")
-    : execSync("git show origin/main:public/data/cards.json", { maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "ignore"] }).toString();
+    : execSync(`git show origin/main:${CARDS_PATH}`, { maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "ignore"] }).toString();
+  // 기준본은 검사 대상과 같은 경로의 main 버전 — 아카이브(data/cards.full.json) 검사 시
+  // 발행본과 엇갈려 비교하는 것을 막는다. 저장소 밖 경로면 catch로 떨어져 총계 폴백.
   const base = JSON.parse(raw);
   const bc = Array.isArray(base.cards) ? base.cards : [];
   baseIds = new Set(bc.map((c) => c.id));

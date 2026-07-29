@@ -74,6 +74,10 @@
 
 - main sync
 - only intended files changed
+- **cards.json 업로드 전 lean export**: `node scripts/lean_cards.mjs`
+  (발행본은 KEEP 15만 — 원본 전체는 data/cards.full.json에 자동 보존.
+  잊어도 CI의 `lean_cards.mjs --check`가 막아준다. 계약 검증·감사는
+  full 파일을 본다)
 - production data endpoint 확인
 - UI/rendering smoke test
 
@@ -1733,3 +1737,24 @@ Any waiver or exception must be explicit, bounded, and auditable.
 ## Operations/QC extra
 
 Codex comments must be translated into deterministic QC checks and not handled as ad-hoc prose.
+
+## F. cards.json 발행 이원화 — lean export (2026-07-29, PR #221)
+
+발행본과 감사 정본을 분리한다. 발행 절차는 바뀌지 않는다.
+
+- `public/data/cards.json` = **발행본이자 배치 유입함**. 앱이 읽는 KEEP 16필드
+  (id·region·date·cat·sub_cat·signal·title·sub·gate·fact·implication·urls·related·
+  fact_sources·source_tier·related_lineage)만 남는다. 봇의 replace-all은 지금처럼
+  여기에 업로드하면 된다.
+- `data/cards.full.json` = **정본 아카이브**(전체 필드). 계약 검증·감사·리뷰의 원천.
+  직접 편집 금지 — `scripts/lean_cards.mjs`가 id 단위로 병합한다(완전판 유입 = 교체,
+  lean 유입 = 비KEEP 보존 + KEEP 갱신).
+- **자동화**: 카드 PR이 열리면 `.github/workflows/lean-cards.yml`이 검증(4중) 통과한
+  트리만 자동 커밋하고, 푸시 후 validate-tracker를 workflow_dispatch로 재실행해
+  생성 커밋에 실제 체크를 남긴다. 수동으로 하려면 커밋 전에
+  `node scripts/lean_cards.mjs` 한 번.
+- **검증**: `node scripts/lean_cards.mjs --check`가 발행본 ≡ 아카이브 사영(순서·최상위
+  메타 포함)을 강제한다. validate-tracker가 PR·push마다 실행.
+- 프롬프트 체인(0.8 GitHub Merge Prep)과 WORKFLOW.md §B의 문구 개정은 오버레이
+  체계를 통해야 하므로 봇 세션 과제로 남긴다 — 자동화 덕에 개정 전에도 기존 지시
+  그대로 동작한다.

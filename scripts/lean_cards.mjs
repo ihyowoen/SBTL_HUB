@@ -60,18 +60,23 @@ if (existsSync(FULL_PATH)) {
 //  괴리를 잡는다. Codex #221 P2)
 if (CHECK) {
   if (!archive) { console.error(`FAIL: ${FULL_PATH} 없음 — 아카이브가 정본이다. 'node scripts/lean_cards.mjs'로 생성할 것`); process.exit(1); }
-  const am = new Map(archive.cards.map((c) => [c.id, c]));
   const errs = [];
+  // 최상위 메타(total·updated·schema·sort 등 cards 밖 전부) — 한쪽만 고치면 실패
+  const topKeys = new Set([...Object.keys(pub), ...Object.keys(archive)].filter((k) => k !== "cards"));
+  for (const k of topKeys) {
+    if (JSON.stringify(pub[k] ?? null) !== JSON.stringify(archive[k] ?? null)) errs.push(`최상위 ${k} 불일치 — 발행 ${JSON.stringify(pub[k]).slice(0, 40)} vs 아카이브 ${JSON.stringify(archive[k]).slice(0, 40)}`);
+  }
+  // 카드는 순서까지 동일해야 한다 — 앱이 kb.cards.slice(0,400)처럼 순서를 소비하므로
+  // 집합 비교로는 재정렬된 발행본이 통과한다(Codex #221 R3)
   if (pub.cards.length !== archive.cards.length) errs.push(`카드 수 불일치 발행 ${pub.cards.length} vs 아카이브 ${archive.cards.length}`);
-  for (const c of pub.cards) {
+  const n = Math.min(pub.cards.length, archive.cards.length);
+  for (let i = 0; i < n; i++) {
+    const c = pub.cards[i], a = archive.cards[i];
+    if (c.id !== a.id) { errs.push(`순서 불일치 @${i}: 발행 ${c.id} vs 아카이브 ${a.id}`); break; }
     const extra = Object.keys(c).filter((k) => !keepSet.has(k));
     if (extra.length) { errs.push(`${c.id}: 발행본에 KEEP 밖 필드 ${extra.length}개(${extra.slice(0, 3).join(",")}…) — 병합·재사영 필요`); continue; }
-    const a = am.get(c.id);
-    if (!a) { errs.push(`${c.id}: 아카이브에 없음`); continue; }
     if (!sameKeep(c, a)) errs.push(`${c.id}: KEEP 값이 아카이브와 다름 — 한쪽만 고쳐졌다`);
   }
-  const pubIds = new Set(pub.cards.map((c) => c.id));
-  for (const c of archive.cards) if (!pubIds.has(c.id)) errs.push(`${c.id}: 아카이브에만 있음`);
   if (errs.length) {
     errs.slice(0, 6).forEach((e) => console.error("FAIL:", e));
     if (errs.length > 6) console.error(`… 외 ${errs.length - 6}건`);

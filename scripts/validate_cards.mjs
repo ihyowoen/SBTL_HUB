@@ -57,8 +57,8 @@ try { doc = JSON.parse(readFileSync(CARDS_PATH, "utf8")); }
 catch (e) { console.error(`FAIL: JSON 파싱 실패 — ${e.message}`); process.exit(1); }
 const cards = Array.isArray(doc.cards) ? doc.cards : null;
 if (!cards) { console.error("FAIL: cards 배열 없음"); process.exit(1); }
-// total·updated는 merge-cards.yml이 d['total']·d['updated']로 직독한다 — 없으면 다음
-// 페이로드 병합이 merge_cards.py 도달 전에 KeyError로 죽는다
+// total·updated는 스키마 계약이자 하류 소비 필드 — 게이트의 수량 정합 검사와 앱의
+// 갱신 시각 표시가 둘 다 여기에 기댄다 (구 merge-cards.yml도 직독했으나 R25에서 제거)
 if (!Number.isFinite(doc.total)) E(`total 필드 없음/비수치(${JSON.stringify(doc.total)})`);
 else if (doc.total !== cards.length) E(`total(${doc.total}) ≠ cards.length(${cards.length})`);
 if (typeof doc.updated !== "string" || !doc.updated.trim()) E(`updated 필드 없음/비문자열(${JSON.stringify(doc.updated)})`);

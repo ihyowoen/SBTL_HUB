@@ -1,10 +1,11 @@
 name: lean-cards
 
 # 카드 PR 자동 lean — 발행 흐름(0.8 프롬프트·WORKFLOW.md §B)은 public/data/cards.json만
-# 커밋하도록 지시하므로, 사람에게 새 단계를 요구하는 대신 CI가 병합·사영을 대신한다:
-#   봇 replace-all 업로드 → 이 워크플로가 아카이브(id 병합)·발행본(KEEP 사영)을 커밋
-#   → 같은 잡에서 게이트 전체를 재검증(토큰 푸시는 다른 워크플로를 재트리거하지 않으므로
-#     여기서 직접 돌려 최종 SHA의 판정을 남긴다)
+# 커밋하도록 지시하므로, 사람에게 새 단계를 요구하는 대신 CI가 병합·사영을 대신한다.
+#
+# 순서가 계약이다(Codex #221 R5 P1): GITHUB_TOKEN 푸시는 후속 워크플로를 트리거하지
+# 않으므로 ①검증을 커밋 전에 전부 통과시키고(검증한 트리 == 푸시할 트리) ②생성된
+# SHA에는 commit status를 명시적으로 보고한다 — 새 head가 무검증으로 남지 않는다.
 # 재귀 방지: 두 번째 실행은 apply가 '변경 없음'이라 커밋하지 않는다.
 
 on:
@@ -14,6 +15,7 @@ on:
 
 permissions:
   contents: write
+  statuses: write
 
 jobs:
   lean:
@@ -30,17 +32,7 @@ jobs:
           node-version: "20"
       - name: Apply lean export (merge into archive + project)
         run: node scripts/lean_cards.mjs
-      - name: Commit generated files if changed
-        run: |
-          if ! git diff --quiet -- public/data/cards.json data/cards.full.json; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add public/data/cards.json data/cards.full.json
-            git commit -m "chore: lean export 자동 적용 (아카이브 병합 + KEEP 사영)"
-            git push
-          else
-            echo "변경 없음 — 커밋 생략"
-          fi
+      # ---- 검증 먼저: 실패하면 푸시 자체가 없다 ----
       - name: Validate tracker data
         run: node scripts/validate.mjs
       - name: Validate cards data
@@ -49,3 +41,25 @@ jobs:
         run: node scripts/validate_cards.mjs data/cards.full.json
       - name: Check lean payload matches archive
         run: node scripts/lean_cards.mjs --check
+      # ---- 전부 통과한 트리만 커밋·푸시하고, 생성 SHA에 판정을 새긴다 ----
+      - name: Commit, push, and report status on generated head
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- public/data/cards.json data/cards.full.json; then
+            echo "변경 없음 — 커밋 생략"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/cards.json data/cards.full.json
+          git commit -m "chore: lean export 자동 적용 (아카이브 병합 + KEEP 사영)"
+          git push
+          NEW_SHA=$(git rev-parse HEAD)
+          for CTX in "lean-cards / apply" "validate-tracker (pre-verified)"; do
+            gh api "repos/${{ github.repository }}/statuses/$NEW_SHA" \
+              -f state=success \
+              -f context="$CTX" \
+              -f description="커밋 전 검증 통과한 트리(validate·cards 양파일·--check)" \
+              -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          done

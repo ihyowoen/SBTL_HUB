@@ -55,7 +55,7 @@ export function buildPinGraph(pins, cards, aliasEntities, opts = {}) {
   for (const n of nodes) {
     if (!n.card) continue;
     for (const r of (Array.isArray(n.card.related) ? n.card.related : [])) {
-      if (inBoard.has(r)) addEdge(n.id, r, "related", "편집자 연결");
+      if (inBoard.has(r)) addEdge(n.id, r, "related", "강차장 연결");
     }
   }
   // ①.5 보장 에지(R22 분해 뷰) — 호출부가 '이미 확정한 관계'를 에지로 보장한다.

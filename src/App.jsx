@@ -327,7 +327,9 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
     const cards = kb.cards.filter((c) => cardMatchesWatch(c, [w]));
     return { term: w, fresh: cards.filter((c) => cardDateWithinDays(c, 7)).length, latest: cards[0] };
   });
-  const latestBrief = weeklyBriefs[0];
+  // '주간 브리프' 고정 라벨 슬롯은 순수 주간 최신본만 — 선반은 개정판(월간 포함)을 [0]에
+  // 올리므로(노출 보장, R3) 그대로 읽으면 6월호가 주간으로 표시된다(Codex #224 R5)
+  const latestBrief = plainWeeklyEntries(weeklyBriefs)[0];
   const upcoming = (tracker?.upcoming || []).slice(0, 2);
   // 🧵 이슈 스레드 — 프로필이 '기업 축'이라면 이건 '사건 축': 제목의 희소 토큰
   // (df 3~12, 2개 이상 날짜에 걸침)으로 이어지는 카드 묶음을 찾는다. 실구현에선

@@ -4,8 +4,10 @@ name: lean-cards
 # 커밋하도록 지시하므로, 사람에게 새 단계를 요구하는 대신 CI가 병합·사영을 대신한다.
 #
 # 순서가 계약이다(Codex #221 R5 P1): GITHUB_TOKEN 푸시는 후속 워크플로를 트리거하지
-# 않으므로 ①검증을 커밋 전에 전부 통과시키고(검증한 트리 == 푸시할 트리) ②생성된
-# SHA에는 commit status를 명시적으로 보고한다 — 새 head가 무검증으로 남지 않는다.
+# 않으므로 ①검증을 커밋 전에 전부 통과시키고(검증한 트리 == 푸시할 트리) ②푸시 후
+# validate-tracker를 workflow_dispatch로 재실행한다 — dispatch는 토큰 억제의 문서화된
+# 예외라 생성 SHA에 '실제' 체크가 남는다. 수제 status context는 job 이름과 어긋나
+# required check를 만족 못 하므로 쓰지 않는다(R6 P1).
 # 재귀 방지: 두 번째 실행은 apply가 '변경 없음'이라 커밋하지 않는다.
 
 on:
@@ -15,7 +17,7 @@ on:
 
 permissions:
   contents: write
-  statuses: write
+  actions: write
 
 jobs:
   lean:
@@ -41,8 +43,8 @@ jobs:
         run: node scripts/validate_cards.mjs data/cards.full.json
       - name: Check lean payload matches archive
         run: node scripts/lean_cards.mjs --check
-      # ---- 전부 통과한 트리만 커밋·푸시하고, 생성 SHA에 판정을 새긴다 ----
-      - name: Commit, push, and report status on generated head
+      # ---- 전부 통과한 트리만 커밋·푸시하고, 실제 검증 워크플로를 새 SHA에 재실행 ----
+      - name: Commit, push, and dispatch real checks on generated head
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -55,11 +57,4 @@ jobs:
           git add public/data/cards.json data/cards.full.json
           git commit -m "chore: lean export 자동 적용 (아카이브 병합 + KEEP 사영)"
           git push
-          NEW_SHA=$(git rev-parse HEAD)
-          for CTX in "lean-cards / apply" "validate-tracker (pre-verified)"; do
-            gh api "repos/${{ github.repository }}/statuses/$NEW_SHA" \
-              -f state=success \
-              -f context="$CTX" \
-              -f description="커밋 전 검증 통과한 트리(validate·cards 양파일·--check)" \
-              -f target_url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          done
+          gh workflow run validate-tracker.yml --ref "${{ github.event.pull_request.head.ref }}"

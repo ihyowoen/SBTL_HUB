@@ -1749,8 +1749,9 @@ Codex comments must be translated into deterministic QC checks and not handled a
 - `data/cards.full.json` = **정본 아카이브**(전체 필드). 계약 검증·감사·리뷰의 원천.
   직접 편집 금지 — `scripts/lean_cards.mjs`가 id 단위로 병합한다(완전판 유입 = 교체,
   lean 유입 = 비KEEP 보존 + KEEP 갱신).
-- **자동화**: 카드 PR이 열리면 `.github/workflows/lean-cards.yml`이 병합·사영을
-  자동 커밋하고 같은 잡에서 게이트 전체를 재검증한다. 수동으로 하려면 커밋 전에
+- **자동화**: 카드 PR이 열리면 `.github/workflows/lean-cards.yml`이 검증(4중) 통과한
+  트리만 자동 커밋하고, 푸시 후 validate-tracker를 workflow_dispatch로 재실행해
+  생성 커밋에 실제 체크를 남긴다. 수동으로 하려면 커밋 전에
   `node scripts/lean_cards.mjs` 한 번.
 - **검증**: `node scripts/lean_cards.mjs --check`가 발행본 ≡ 아카이브 사영(순서·최상위
   메타 포함)을 강제한다. validate-tracker가 PR·push마다 실행.

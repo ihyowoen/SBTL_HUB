@@ -101,9 +101,19 @@ if (!archive) {
     const prev = am.get(c.id);
     if (isFullRecord(c)) { stats[prev ? "fullReplaced" : "inserted"]++; return c; }
     if (prev) {
-      // lean 유입 — 아카이브의 비KEEP은 보존, KEEP만 발행본 값으로
+      // lean 유입 — 아카이브의 비KEEP만 보존하고 KEEP 부분은 유입본으로 '정확히 교체'.
+      // {...prev, ...project(c)} 스프레드는 유입본이 지운 선택 필드(source_tier·
+      // related_lineage 등)를 prev 값으로 조용히 되살린다(Codex #221 R6) — 삭제도 편집이다.
       if (!sameKeep(c, prev)) stats.leanMerged++;
-      return { ...prev, ...project(c) };
+      // prev의 키 순서를 보존해야 무변경 병합이 바이트 동일 = apply 멱등(불필요한 전량
+      // 재작성·커밋 방지). prev에 있었지만 유입이 지운 KEEP 키는 건너뛴다.
+      const proj = project(c);
+      const merged = {};
+      for (const [k, v] of Object.entries(prev)) {
+        if (!keepSet.has(k)) { merged[k] = v; continue; }
+        if (k in proj) { merged[k] = proj[k]; delete proj[k]; }
+      }
+      return Object.assign(merged, proj); // 유입이 새로 추가한 KEEP 키
     }
     stats.leanNew++;
     return c; // lean만으로 새로 온 카드 — 완전판이 없다는 사실 자체를 보존(경고)

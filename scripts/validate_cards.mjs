@@ -73,7 +73,9 @@ const baseSrc = process.env.CARDS_BASE;
 try {
   const raw = baseSrc
     ? readFileSync(baseSrc, "utf8")
-    : execSync("git show origin/main:public/data/cards.json", { maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "ignore"] }).toString();
+    : execSync(`git show origin/main:${CARDS_PATH}`, { maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "ignore"] }).toString();
+  // 기준본은 검사 대상과 같은 경로의 main 버전 — 아카이브(data/cards.full.json) 검사 시
+  // 발행본과 엇갈려 비교하는 것을 막는다. 저장소 밖 경로면 catch로 떨어져 총계 폴백.
   const base = JSON.parse(raw);
   const bc = Array.isArray(base.cards) ? base.cards : [];
   baseIds = new Set(bc.map((c) => c.id));

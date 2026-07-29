@@ -1,21 +1,24 @@
 #!/usr/bin/env node
-// cards.json lean export — 앱이 읽는 필드만 남겨 발행본을 가볍게 한다.
+// cards.json lean export — 정본은 아카이브, 발행본은 사영(projection).
 //
-// 왜: 파이프라인이 단계마다 남기는 QC 메타데이터(publish_ready·github_main_sync_passed·
-// prompt_0_5R_before_hash·related_lineage·date_role 등 700종 가까이)가 발행본에 그대로
-// 실려 파일의 절반을 차지한다. 앱은 하나도 읽지 않는데 모든 사용자가 매번 내려받는다.
+// 왜: 파이프라인이 단계마다 남기는 QC 메타데이터(700종 가까이)가 발행본에 실려
+// 파일의 절반을 차지한다. 앱은 KEEP 16만 읽는데 모든 사용자가 매번 내려받는다.
 //
-// 원본은 버리지 않는다 — data/cards.full.json에 통째로 보존한다(빌드에 포함되지 않는
-// 저장소 경로라 배포 용량과 무관). 계약 검증·감사·리뷰는 그 파일을 본다.
+// 구조(Codex #221 P1 반영 — 발행본을 원천으로 삼으면 다음 배치가 아카이브를
+// 혼합본으로 덮어써 기존 카드의 메타데이터가 영구 소실된다):
+//   data/cards.full.json   = 정본 아카이브(전체 필드). 계약 검증·감사·리뷰의 원천.
+//   public/data/cards.json = 배치 유입함이자 발행본. 봇의 replace-all이 여기 착지하고,
+//                            apply가 id 단위로 아카이브에 병합한 뒤 사영으로 재생성한다.
 //
-// KEEP 16: 전수 대조(703필드 × src/api/lib 32파일)로 확정한 15에 related_lineage를
-// 더한다. source_tier는 buildCardConsultContext가 읽고, related_lineage는 편집자가
-// '왜 이었는지'(relation_type 10종·reason 서술·fresh_follow_up_anchor)를 담은 표시
-// 재료다 — 🕸 분해 다리 라벨 고도화가 소비할 예정이라 발행본에 남긴다(사용자 결정).
+// 병합 규약(id 단위):
+//   - 유입 카드에 KEEP 밖 필드가 하나라도 있으면 = 봇의 완전판 → 아카이브 항목을 교체
+//   - KEEP만 있으면 = lean 편집 → 아카이브의 비KEEP 필드는 보존하고 KEEP 값만 갱신
+//   - 유입에 없는 아카이브 id = 상류에서 삭제된 카드 → 아카이브도 제거(경고, 게이트가
+//     삭제 자체를 별도 차단하므로 여기선 거울만 맞춘다)
 //
 // Usage:
-//   node scripts/lean_cards.mjs           # 변환 적용(원본 → data/cards.full.json)
-//   node scripts/lean_cards.mjs --check   # 위반만 보고(쓰지 않음, 위반 시 exit 1)
+//   node scripts/lean_cards.mjs           # 병합 + 사영 재생성
+//   node scripts/lean_cards.mjs --check   # 발행본 ≡ 사영(아카이브) 검증(쓰지 않음)
 //   node scripts/lean_cards.mjs --dry     # 미리보기
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { dirname } from "node:path";
@@ -27,59 +30,99 @@ const KEEP = [
 ];
 const LEAN_PATH = "public/data/cards.json";
 const FULL_PATH = "data/cards.full.json";
+const keepSet = new Set(KEEP);
 
 const args = process.argv.slice(2);
 const CHECK = args.includes("--check");
 const DRY = args.includes("--dry");
 
-if (!existsSync(LEAN_PATH)) { console.error(`FAIL: ${LEAN_PATH} 없음`); process.exit(1); }
-const raw = readFileSync(LEAN_PATH, "utf8");
-let doc;
-try { doc = JSON.parse(raw); } catch (e) { console.error(`FAIL: JSON 파싱 — ${e.message}`); process.exit(1); }
-const cards = Array.isArray(doc.cards) ? doc.cards : null;
-if (!cards) { console.error("FAIL: cards 배열 없음"); process.exit(1); }
+const load = (p) => {
+  const raw = readFileSync(p, "utf8");
+  const doc = JSON.parse(raw);
+  if (!Array.isArray(doc.cards)) throw new Error(`${p}: cards 배열 없음`);
+  return doc;
+};
+const isFullRecord = (c) => Object.keys(c).some((k) => !keepSet.has(k));
+const project = (c) => { const o = {}; for (const k of KEEP) if (c[k] !== undefined) o[k] = c[k]; return o; };
+const sameKeep = (a, b) => KEEP.every((k) => JSON.stringify(a[k] ?? null) === JSON.stringify(b[k] ?? null));
 
-const keepSet = new Set(KEEP);
-const extraFields = new Set();
-let dirty = 0;
-for (const c of cards) {
-  const extras = Object.keys(c).filter((k) => !keepSet.has(k));
-  if (extras.length) { dirty++; extras.forEach((k) => extraFields.add(k)); }
+if (!existsSync(LEAN_PATH)) { console.error(`FAIL: ${LEAN_PATH} 없음`); process.exit(1); }
+let pub;
+try { pub = load(LEAN_PATH); } catch (e) { console.error(`FAIL: ${e.message}`); process.exit(1); }
+
+let archive = null;
+if (existsSync(FULL_PATH)) {
+  try { archive = load(FULL_PATH); } catch (e) { console.error(`FAIL: 아카이브 파싱 — ${e.message}`); process.exit(1); }
 }
 
-const before = Buffer.byteLength(raw);
-const leanCards = cards.map((c) => {
-  const o = {};
-  for (const k of KEEP) if (c[k] !== undefined) o[k] = c[k];
-  return o;
-});
-const leanDoc = { ...doc, cards: leanCards };
-const out = JSON.stringify(leanDoc);
-const after = Buffer.byteLength(out);
-
-console.log(`카드 ${cards.length}장 · 발행 외 필드를 가진 카드 ${dirty}장 · 제거 대상 필드 ${extraFields.size}종`);
-console.log(`크기 ${(before / 1048576).toFixed(2)}MB → ${(after / 1048576).toFixed(2)}MB (${Math.round((1 - after / before) * 100)}% 감소)`);
-
+// ---- --check: 발행본이 아카이브의 KEEP 사영과 정확히 일치하는가 ----
+// (발행본에 여분 필드 / 값 불일치 / id 집합 불일치 전부 실패 — 발행·감사본의 조용한
+//  괴리를 잡는다. Codex #221 P2)
 if (CHECK) {
-  if (dirty) {
-    console.error(`\nFAIL: 발행본에 파이프라인 메타데이터가 남아 있다 — 'node scripts/lean_cards.mjs'로 정리할 것`);
-    console.error(`예: ${[...extraFields].slice(0, 8).join(", ")}${extraFields.size > 8 ? " 외" : ""}`);
+  if (!archive) { console.error(`FAIL: ${FULL_PATH} 없음 — 아카이브가 정본이다. 'node scripts/lean_cards.mjs'로 생성할 것`); process.exit(1); }
+  const am = new Map(archive.cards.map((c) => [c.id, c]));
+  const errs = [];
+  if (pub.cards.length !== archive.cards.length) errs.push(`카드 수 불일치 발행 ${pub.cards.length} vs 아카이브 ${archive.cards.length}`);
+  for (const c of pub.cards) {
+    const extra = Object.keys(c).filter((k) => !keepSet.has(k));
+    if (extra.length) { errs.push(`${c.id}: 발행본에 KEEP 밖 필드 ${extra.length}개(${extra.slice(0, 3).join(",")}…) — 병합·재사영 필요`); continue; }
+    const a = am.get(c.id);
+    if (!a) { errs.push(`${c.id}: 아카이브에 없음`); continue; }
+    if (!sameKeep(c, a)) errs.push(`${c.id}: KEEP 값이 아카이브와 다름 — 한쪽만 고쳐졌다`);
+  }
+  const pubIds = new Set(pub.cards.map((c) => c.id));
+  for (const c of archive.cards) if (!pubIds.has(c.id)) errs.push(`${c.id}: 아카이브에만 있음`);
+  if (errs.length) {
+    errs.slice(0, 6).forEach((e) => console.error("FAIL:", e));
+    if (errs.length > 6) console.error(`… 외 ${errs.length - 6}건`);
+    console.error(`\n'node scripts/lean_cards.mjs'로 병합·재사영할 것`);
     process.exit(1);
   }
-  console.log("\nPASS: 발행본이 KEEP 15로 정리돼 있다");
+  console.log(`PASS: 발행본 ${pub.cards.length}장 ≡ 아카이브 사영 (KEEP ${KEEP.length})`);
   process.exit(0);
 }
 
-if (!dirty) { console.log("\n이미 정리돼 있음 — 변경 없음"); process.exit(0); }
-if (DRY) { console.log("\n(--dry: 쓰지 않음)"); process.exit(0); }
-
-// 원본 보존이 먼저 — 이 순서가 뒤집히면 되돌릴 수 없다
-mkdirSync(dirname(FULL_PATH), { recursive: true });
-writeFileSync(FULL_PATH, raw);
-const verify = JSON.parse(readFileSync(FULL_PATH, "utf8"));
-if (!Array.isArray(verify.cards) || verify.cards.length !== cards.length) {
-  console.error(`FAIL: 원본 보존 검증 실패 — ${FULL_PATH}를 확인할 것. 발행본은 건드리지 않았다`);
-  process.exit(1);
+// ---- apply: 유입(발행 경로) → 아카이브 병합 → 사영 재생성 ----
+const stats = { fullReplaced: 0, leanMerged: 0, inserted: 0, dropped: 0, leanNew: 0 };
+let mergedCards;
+if (!archive) {
+  // 최초 실행 — 현재 발행 파일이 그대로 초대 아카이브가 된다
+  mergedCards = pub.cards;
+  stats.inserted = pub.cards.length;
+} else {
+  const am = new Map(archive.cards.map((c) => [c.id, c]));
+  const pubIds = new Set(pub.cards.map((c) => c.id));
+  mergedCards = pub.cards.map((c) => {
+    const prev = am.get(c.id);
+    if (isFullRecord(c)) { stats[prev ? "fullReplaced" : "inserted"]++; return c; }
+    if (prev) {
+      // lean 유입 — 아카이브의 비KEEP은 보존, KEEP만 발행본 값으로
+      if (!sameKeep(c, prev)) stats.leanMerged++;
+      return { ...prev, ...project(c) };
+    }
+    stats.leanNew++;
+    return c; // lean만으로 새로 온 카드 — 완전판이 없다는 사실 자체를 보존(경고)
+  });
+  for (const c of archive.cards) if (!pubIds.has(c.id)) stats.dropped++;
 }
-writeFileSync(LEAN_PATH, out);
-console.log(`\n완료: 원본 → ${FULL_PATH} (${cards.length}장) · 발행본 → ${LEAN_PATH} (KEEP ${KEEP.length})`);
+const mergedArchive = { ...pub, cards: mergedCards };
+const leanDoc = { ...pub, cards: mergedCards.map(project) };
+
+const before = Buffer.byteLength(JSON.stringify(pub));
+const after = Buffer.byteLength(JSON.stringify(leanDoc));
+console.log(`유입 ${pub.cards.length}장 → 아카이브: 완전판 교체 ${stats.fullReplaced} · 신규 ${stats.inserted} · lean 병합 ${stats.leanMerged} · 제거 ${stats.dropped}`);
+if (stats.leanNew) console.log(`경고: 완전판 없이 lean으로만 들어온 신규 카드 ${stats.leanNew}장 — 아카이브에 감사 기록이 없다`);
+console.log(`발행본 ${(before / 1048576).toFixed(2)}MB → ${(after / 1048576).toFixed(2)}MB`);
+
+const changedArchive = !archive || JSON.stringify(mergedArchive) !== JSON.stringify(archive);
+const changedLean = JSON.stringify(leanDoc) !== JSON.stringify(pub);
+if (!changedArchive && !changedLean) { console.log("변경 없음 — 발행본·아카이브 이미 정합"); process.exit(0); }
+if (DRY) { console.log("(--dry: 쓰지 않음)"); process.exit(0); }
+
+// 아카이브가 먼저 — 사영을 먼저 쓰면 실패 시 원본이 남지 않는다
+mkdirSync(dirname(FULL_PATH), { recursive: true });
+writeFileSync(FULL_PATH, JSON.stringify(mergedArchive));
+const verify = load(FULL_PATH);
+if (verify.cards.length !== mergedCards.length) { console.error(`FAIL: 아카이브 검증 실패 — 발행본은 건드리지 않았다`); process.exit(1); }
+writeFileSync(LEAN_PATH, JSON.stringify(leanDoc));
+console.log(`완료: 아카이브 ${FULL_PATH} (${mergedCards.length}장, 전체 필드) · 발행본 ${LEAN_PATH} (KEEP ${KEEP.length})`);

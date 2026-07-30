@@ -4103,12 +4103,15 @@ function AppContent() {
           const dismissed = readBriefDismissals();
           if (dismissed[wk.id] === briefDismissKeyOf(wk)) return;
           // '보관본보다 최신'일 때만 — 같은 id면 당일 개정까지 보고(isLibraryRevision),
-          // 다른 id(API 발행본)면 발행일 비교. 같은 날 API 본은 공식본으로 '교체'한다
-          // (사용자 독트린: 라이브러리=정본, API 폴백은 임시본 — R6의 중복 채택 금지를
-          // 교체로 승격, Codex #224 R6 후속·red team 가설 2).
+          // 다른 id(API 발행본)면 발행일 비교. 같은 날 '패시브' API 폴백(auto 표식)만
+          // 공식본으로 '교체'한다(사용자 독트린: 라이브러리=정본, API 폴백은 임시본 —
+          // R6의 중복 채택 금지를 교체로 승격, red team 가설 2). 사용자가 ⚡로 직접
+          // 발행한 당일 본(표식 없음 — 구버전 포함)은 교체하지 않는다: 이번 주는 그
+          // 본이 이기고, 다음 호수(발행일이 더 최신)부터 채택이 재개된다(Codex #226 R7).
+          // 지난 주 수동 본은 발행일 비교로 채택되되 제거 없이 나란히 보존된다.
           const shelfNow = readWeeklyBriefs();
           const stored = plainWeeklyEntries(shelfNow).filter((e) => briefScopeMatches(e, []))[0];
-          const sameDayApi = !!stored && stored.id !== wk.id && String(stored.generated_at || "") === String(wk.generated_at || "");
+          const sameDayApi = !!stored && stored.auto === true && stored.id !== wk.id && String(stored.generated_at || "") === String(wk.generated_at || "");
           const newer = !stored || (stored.id === wk.id ? isLibraryRevision(wk, stored) : sameDayApi || String(wk.generated_at || "") > String(stored.generated_at || ""));
           if (!newer) {
             runWeeklyBrief({ ...opts, _skipLibrary: true }); // 채택 불발 — 기존 쿨다운·API 경로
@@ -4272,6 +4275,11 @@ function AppContent() {
             generated_at: kstToday(),
             scope_label: scopeLabel,
             period, // "weekly" | "monthly" — 쿨다운·표시가 기간별로 분리된다 (구 항목은 없음=주간 취급)
+            // auto: 패시브 생성 표식(Codex #226 R7) — 시스템이 알아서 만든 폴백만 당일
+            // 공식 호수로 교체된다. 사용자가 ⚡로 직접 발행한 본(force)은 표식이 없어
+            // 교체 대상에서 빠진다 — 명시적 발행 의사를 시스템이 뒤집으면 안 된다.
+            // 구버전 항목(표식 자체가 없음)도 수동 취급: 분류 못 하는 것은 지우지 않는다.
+            ...(force ? {} : { auto: true }),
             // 달력월호("2026-05") — 롤링 월간 쿨다운·열람에서 별개 취급. source_month_count는
             // '이 서사가 본 그 달 재료 수'(R15d) — 카드 날짜가 사건일 기준이라 지난달 소급
             // 편입이 정상이므로, 앱이 현재 수와 비교해 낡음을 배지로 고백하는 데 쓴다.

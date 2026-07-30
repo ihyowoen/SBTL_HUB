@@ -309,7 +309,7 @@ function hashSeed(value) {
   return Math.abs(hash);
 }
 
-function imageCategoryFor(card) {
+export function imageCategoryFor(card) {
   const text = [card?.id, card?.title, card?.T, card?.sub, card?.subtitle, card?.gate, card?.g, card?.source, card?.src, card?.region, card?.r]
     .filter(Boolean)
     .join(' ')
@@ -462,6 +462,8 @@ function StoryNewsItem({
   dark,
   onSubmitConsultation,
   coverImage = '',
+  fallbackImage = '',
+  fallbackImages = null,
   featured = false,
   // 용어 자동링크 등 텍스트 장식 — 반드시 안정된(useMemo) 함수를 넘길 것 (memo 컴포넌트)
   renderText = null,
@@ -491,11 +493,16 @@ function StoryNewsItem({
   const imageCategory = useMemo(() => imageCategoryFor({ ...card, ...c }), [card, c]);
   const imagePool = useMemo(() => {
     const pool = IMAGE_POOLS[imageCategory] || IMAGE_POOLS.DEFAULT;
-    // coverImage prop이 있으면 항상 첫 후보로 사용 (featured 무관) —
-    // 부모 컴포넌트의 assignCardCoverImages dedup 결과가 자식까지 그대로 전달되도록.
-    const candidates = coverImage ? [coverImage, ...pool] : pool;
-    return Array.from(new Set(candidates.filter(Boolean)));
-  }, [imageCategory, coverImage]);
+    // 실제 기사 이미지 뒤에 부모가 페이지 단위로 중복 제거한 최대 3개의 폴백을 둔다.
+    // 명시적 체인이 없는 단독 사용 시에만 기존 카테고리 풀을 사용한다.
+    const provided = [
+      coverImage,
+      ...(Array.isArray(fallbackImages) ? fallbackImages : []),
+      fallbackImage,
+    ].filter(Boolean);
+    const candidates = provided.length ? provided : pool;
+    return Array.from(new Set(candidates));
+  }, [imageCategory, coverImage, fallbackImage, fallbackImages]);
 
   const imageStartIndex = useMemo(() => {
     // coverImage prop이 있으면 항상 첫번째(index 0)부터 — 부모가 unique 배정한 사진을 보존.
@@ -509,16 +516,27 @@ function StoryNewsItem({
 
   const [imageOffset, setImageOffset] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const imagePoolSignature = imagePool.join('\u0001');
+  const primaryImageSrc = imagePool.length
+    ? imagePool[imageStartIndex % imagePool.length]
+    : null;
 
+  // 후보 체인의 실제 내용이 달라졌을 때만 첫 후보부터 다시 시도한다. 배열 identity만
+  // 바뀐 리렌더는 무시해 이미 로드된 동일 src를 투명 상태로 되돌리지 않는다.
   useEffect(() => {
-    setImageOffset(0);
-    setImageLoaded(false);
-  }, [imageStartIndex, imageCategory]);
+    setImageOffset((current) => (current === 0 ? current : 0));
+  }, [primaryImageSrc, imagePoolSignature]);
 
   const hasImageCandidate = imagePool.length > 0 && imageOffset < imagePool.length;
   const imageSrc = hasImageCandidate
     ? imagePool[(imageStartIndex + imageOffset) % imagePool.length]
     : null;
+
+  // opacity 상태는 선택된 URL 자체가 바뀔 때만 초기화한다. 같은 src를 유지한 채 부모가
+  // 리렌더되면 브라우저가 load 이벤트를 다시 내지 않으므로 identity 기반 초기화는 금지한다.
+  useEffect(() => {
+    setImageLoaded(false);
+  }, [imageSrc]);
 
   useEffect(() => () => {
     if (timerRef.current) window.clearTimeout(timerRef.current);
@@ -566,10 +584,12 @@ function StoryNewsItem({
           decoding="async"
           onLoad={() => setImageLoaded(true)}
           onError={() => {
-            // 2026-05-02b 정석 fix: 풀 점프 제거.
-            // 기존: imageOffset++ 로 풀 안 다음 사진 점프 → cross-pool 중복 사진 만나면 부모 dedup 깨짐
-            // 현재: ad-blocker 차단 사진은 gradient placeholder로 fallback (renderVisualImage에 이미 구현)
             setImageLoaded(false);
+            // 기사 원본이나 폴백이 차단되면 다음 unique 후보로 이동한다.
+            // 최대 3개 폴백까지 소진한 뒤에만 gradient로 끝낸다.
+            setImageOffset((current) => (
+              current + 1 < imagePool.length ? current + 1 : imagePool.length
+            ));
           }}
           style={{
             position: 'absolute',

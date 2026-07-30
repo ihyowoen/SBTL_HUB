@@ -2,9 +2,10 @@ import { useEffect, useMemo, useRef, useState, Component } from "react";
 import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections, hitBoundary } from "./briefAxes";
 import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
 import { pickNeighbors, explodePins, ensureCenterEdges, bridgeLineage, emptyVerdict } from "./explode";
-import StoryNewsItem from "./story/StoryNewsItem";
+import StoryNewsItem, { assignCardCoverImages } from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
+import { getArticleImageKey, useFreshArticleImages } from "./story/useFreshArticleImages";
 import { composeKangBriefing, pickStaleBrief } from "./kang";
 import {
   createConsultation,
@@ -2207,103 +2208,6 @@ function SmallPill({ label, dark }) {
   return <span style={{ fontSize: 9, fontWeight: 800, color: t.cyan, background: dark ? "rgba(88,166,255,0.14)" : "rgba(45,90,142,0.10)", padding: "4px 8px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>{label}</span>;
 }
 
-const AUTO_IMAGES = {
-  POLICY: ["https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80"],
-  FINANCE: ["https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80"],
-  FACTORY: ["https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=600&q=80"],
-  AUTO: ["https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1617704548623-340376564e68?auto=format&fit=crop&w=600&q=80"],
-  BATTERY: ["https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1620800615556-91eecfc5108f?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80"],
-  TECH: ["https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80"],
-  DEFAULT: ["https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=600&q=80"],
-};
-
-function pickHomeCover(card) {
-  const text = [card?.T, card?.title, card?.sub, card?.subtitle, card?.g, card?.gate, card?.source, card?.src].filter(Boolean).join(" ").toLowerCase();
-  let category = "DEFAULT";
-  if (/(ira|feoc|crma|보조금|관세|규제|법안|정부|정책|세액공제)/.test(text)) category = "POLICY";
-  else if (/(실적|영업이익|매출|주가|투자|적자|흑자|m&a|상장)/.test(text)) category = "FINANCE";
-  else if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율)/.test(text)) category = "FACTORY";
-  else if (/(테슬라|전기차|ev|완성차|현대차|기아|포드|gm|bmw|폭스바겐)/.test(text)) category = "AUTO";
-  else if (/(배터리|lfp|전고체|리튬|니켈|코발트|흑연|양극재|음극재|분리막|전해액|ess|bess|catl|byd|엔솔|sdi)/.test(text)) category = "BATTERY";
-  else if (/(기술|r&d|특허|연구|차세대|효율|혁신|개발|테스트|파일럿)/.test(text)) category = "TECH";
-  const pool = AUTO_IMAGES[category];
-  const seed = String(card?.id || card?.T || card?.title || "random_seed");
-  let hash = 0;
-  for (let i = 0; i < seed.length; i += 1) {
-    hash = (hash << 5) - hash + seed.charCodeAt(i);
-    hash |= 0;
-  }
-  return pool[Math.abs(hash) % pool.length];
-}
-
-// 카드 list 단위로 unique 커버 이미지 배정.
-// pickHomeCover만 쓰면 카테고리당 3장 풀이라 같은 페이지에 20+장 카드면 중복 대량 발생
-// (Copilot review #98 #2). list 안에서 round-robin으로 한 풀에서 나눠 쓰고,
-// 풀 소진되면 다른 카테고리 풀로 넘김 → 같은 화면에서 인접 중복 최소화.
-//
-// 반환: { [cardKey]: imageUrl } — getCardId(card) 또는 fallback key 사용.
-function assignHomeCovers(cards) {
-  const result = {};
-  if (!Array.isArray(cards) || cards.length === 0) return result;
-
-  // 카테고리 분류기 (pickHomeCover와 동일 로직)
-  const categorize = (card) => {
-    const text = [card?.T, card?.title, card?.sub, card?.subtitle, card?.g, card?.gate, card?.source, card?.src].filter(Boolean).join(" ").toLowerCase();
-    if (/(ira|feoc|crma|보조금|관세|규제|법안|정부|정책|세액공제)/.test(text)) return "POLICY";
-    if (/(실적|영업이익|매출|주가|투자|적자|흑자|m&a|상장)/.test(text)) return "FINANCE";
-    if (/(공장|양산|생산|가동|캐파|capa|증설|설비|수율)/.test(text)) return "FACTORY";
-    if (/(테슬라|전기차|ev|완성차|현대차|기아|포드|gm|bmw|폭스바겐)/.test(text)) return "AUTO";
-    if (/(배터리|lfp|전고체|리튬|니켈|코발트|흑연|양극재|음극재|분리막|전해액|ess|bess|catl|byd|엔솔|sdi)/.test(text)) return "BATTERY";
-    if (/(기술|r&d|특허|연구|차세대|효율|혁신|개발|테스트|파일럿)/.test(text)) return "TECH";
-    return "DEFAULT";
-  };
-
-  const cardKey = (card, idx) => String(card?.id || card?.T || card?.title || `idx_${idx}`);
-
-  // 카테고리별 사용 인덱스 카운터 — 한 카테고리 내에서 round-robin
-  const usage = {};
-  // 마지막에 배정된 이미지 기록 — 인접 카드 중복 강제 회피
-  let lastImage = null;
-
-  cards.forEach((card, idx) => {
-    const cat = categorize(card);
-    const pool = AUTO_IMAGES[cat] || AUTO_IMAGES.DEFAULT;
-
-    // 1차: 카테고리 풀에서 round-robin
-    const startIdx = usage[cat] || 0;
-    let chosen = null;
-    for (let i = 0; i < pool.length; i += 1) {
-      const candidate = pool[(startIdx + i) % pool.length];
-      if (candidate !== lastImage) {
-        chosen = candidate;
-        usage[cat] = (startIdx + i + 1) % pool.length;
-        break;
-      }
-    }
-    // 풀이 1장이거나 모두 lastImage인 케이스 — 다른 카테고리 풀에서 차용
-    if (!chosen) {
-      const altCats = Object.keys(AUTO_IMAGES).filter((c) => c !== cat);
-      for (const altCat of altCats) {
-        const altPool = AUTO_IMAGES[altCat];
-        const candidate = altPool[(usage[altCat] || 0) % altPool.length];
-        if (candidate !== lastImage) {
-          chosen = candidate;
-          usage[altCat] = ((usage[altCat] || 0) + 1) % altPool.length;
-          break;
-        }
-      }
-    }
-    // 최후 — 어쨌든 풀 첫 항목
-    if (!chosen) chosen = pool[0];
-
-    result[cardKey(card, idx)] = chosen;
-    lastImage = chosen;
-  });
-
-  return result;
-}
-
-
 function ReceiptBubble({ meta, openedAt, dark }) {
   const t = T(dark);
   const d = openedAt ? new Date(openedAt) : null;
@@ -2743,11 +2647,18 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
                     {m.sourceBadge ? <div>{renderChatCitations(m.content, m.cards?.length || 0, (n) => { const el = document.getElementById(`chat-card-${i}-${n}`); if (el) { el.scrollIntoView({ behavior: "smooth", block: "center" }); el.style.boxShadow = "0 0 0 2px #58A6FF"; setTimeout(() => { el.style.boxShadow = "none"; }, 1400); } })}</div> : m.content}
                   </div>
                   {m.braveLinks?.map((link, j) => <a key={`brave-${j}`} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Open external article: ${link.title}`} style={{ display: "block", background: dark ? "#1A1E2A" : "#FFFBF0", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: "pointer", border: `1px solid ${dark ? "rgba(210,153,34,0.25)" : "rgba(210,153,34,0.2)"}`, textDecoration: "none" }}><div style={{ fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.4 }}>{link.title}</div>{link.description && <div style={{ fontSize: 11, color: t.sub, marginTop: 3, lineHeight: 1.45 }}>{link.description.slice(0, 120)}{link.description.length > 120 ? "..." : ""}</div>}<div style={{ fontSize: 10, color: "#D29922", marginTop: 4, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>🔗 외부 기사 ↗</div></a>)}
-                  {m.cards?.map((card, j) => {
-                    const cardStyle = { display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}`, textDecoration: "none" };
-                    const cardContent = <><div style={{ fontSize: 12, fontWeight: 700, color: t.tx }}>{SIG_L[card.signal] || SIG_L[card.s] || "INFO"} {card.title}</div>{card.subtitle && <div style={{ fontSize: 11, color: t.sub, marginTop: 3 }}>{card.subtitle}</div>}{card.gist && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, lineHeight: 1.5, opacity: 0.85 }}>💡 {card.gist}</div>}<div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(card.date)} · {card.region} · {card.source || "source"}</div>{card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}</>;
-                    return card.url ? <a key={j} id={`chat-card-${i}-${j + 1}`} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} onClick={() => markCardSelected(card)} style={cardStyle}>{cardContent}</a> : <div key={j} id={`chat-card-${i}-${j + 1}`} style={cardStyle} onClick={() => markCardSelected(card)}>{cardContent}</div>;
-                  })}
+                  {(() => {
+                    const chatCards = Array.isArray(m.cards) ? m.cards : [];
+                    const fallbackImages = assignCardCoverImages(chatCards, { alreadyUsed: chatCards.map((card) => card.image).filter(Boolean) });
+                    return chatCards.map((card, j) => {
+                      const fallbackImage = fallbackImages[j] || "";
+                      const image = card.image || fallbackImage;
+                      const cardStyle = { display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: 0, overflow: "hidden", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}`, textDecoration: "none" };
+                      const imageBlock = image ? <img src={image} data-fallback={card.image && fallbackImage && card.image !== fallbackImage ? fallbackImage : ""} alt={`${card.title || "뉴스 카드"} 관련 이미지`} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={(e) => { const fallback = e.currentTarget.dataset.fallback; if (fallback) { e.currentTarget.dataset.fallback = ""; e.currentTarget.src = fallback; } else { e.currentTarget.style.display = "none"; } }} style={{ display: "block", width: "100%", height: 112, objectFit: "cover", background: dark ? "#10151F" : "#E9EDF4" }} /> : null;
+                      const cardContent = <>{imageBlock}<div style={{ padding: "10px 12px" }}><div style={{ fontSize: 12, fontWeight: 700, color: t.tx }}>{SIG_L[card.signal] || SIG_L[card.s] || "INFO"} {card.title}</div>{card.subtitle && <div style={{ fontSize: 11, color: t.sub, marginTop: 3 }}>{card.subtitle}</div>}{card.gist && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, lineHeight: 1.5, opacity: 0.85 }}>💡 {card.gist}</div>}<div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(card.date)} · {card.region} · {card.source || "source"}</div>{card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}</div></>;
+                      return card.url ? <a key={j} id={`chat-card-${i}-${j + 1}`} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} onClick={() => markCardSelected(card)} style={cardStyle}>{cardContent}</a> : <div key={j} id={`chat-card-${i}-${j + 1}`} style={cardStyle} onClick={() => markCardSelected(card)}>{cardContent}</div>;
+                    });
+                  })()}
                 </div>
               </div>
               {m.role === "assistant" && m.suggestions?.length > 0 && <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8, marginBottom: 4, paddingLeft: 35 }}>{m.suggestions.map((s) => <button key={s.label} onClick={() => runSuggestion(s)} style={{ background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "10px 16px", minHeight: 44, fontSize: 11, color: t.cyan, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600 }}>{s.label}</button>)}</div>}
@@ -3576,9 +3487,46 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
   const todayHighlights = latestCards(kb.cards, 4, null, kstToday());
   const highlights = todayHighlights.length ? todayHighlights : latestCards(kb.cards, 4, null, null);
   const highlightsIsToday = todayHighlights.length > 0;
-  // 화면 내 unique 커버 배정 — highlights와 visible 합쳐서 한 번에 (Copilot review #98 #2)
-  const coverMap = useMemo(() => assignHomeCovers([...highlights, ...visible]), [highlights, visible]);
-  const coverFor = (card, idx) => coverMap[String(card?.id || card?.T || card?.title || `idx_${idx}`)] || pickHomeCover(card);
+  // 2026년 7월 뉴스는 실제 기사 OG 이미지를 우선 사용한다. API는 한 번에 18건씩
+  // 안전하게 나눠 처리하므로 18장은 총 제한이 아니라 배치 크기다. 화면에 추가로 표시되는
+  // 7월 카드도 이어서 조회하고, 다른 월/추출 실패 건은 165장 deterministic 풀로 내려간다.
+  const coverCards = useMemo(() => {
+    const seen = new Set();
+    return [...highlights, ...visible].filter((card, idx) => {
+      const key = getArticleImageKey(card) || getCardId(card, idx);
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }, [highlights, visible]);
+  const articleImages = useFreshArticleImages(coverCards, { month: "2026-07" });
+  const fallbackCoverChains = useMemo(() => {
+    const used = new Set(Object.values(articleImages).filter(Boolean));
+    const layers = Array.from({ length: 3 }, () => {
+      const layer = assignCardCoverImages(coverCards, { alreadyUsed: used });
+      layer.forEach((url) => { if (url) used.add(url); });
+      return layer;
+    });
+    return coverCards.map((_, idx) => layers.map((layer) => layer[idx]).filter(Boolean));
+  }, [coverCards, articleImages]);
+  const fallbackCoverMap = useMemo(() => {
+    const map = {};
+    coverCards.forEach((card, idx) => {
+      const key = getArticleImageKey(card) || getCardId(card, idx);
+      if (key) map[key] = fallbackCoverChains[idx] || [];
+    });
+    return map;
+  }, [coverCards, fallbackCoverChains]);
+  const imagePropsFor = (card, idx) => {
+    const articleKey = getArticleImageKey(card);
+    const mapKey = articleKey || getCardId(card, idx);
+    const fresh = articleKey ? (articleImages[articleKey] || "") : "";
+    const fallbackImages = fallbackCoverMap[mapKey] || [];
+    return {
+      coverImage: fresh || fallbackImages[0] || "",
+      fallbackImages,
+    };
+  };
 
   const isBookmarked = (card) => bookmarks.some((b) => b.id === getCardId(card));
   const toggleBookmark = (card) => {
@@ -3900,7 +3848,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
         </div>
       )}
       {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><h2 style={{ fontSize: 22, fontWeight: 900, color: t.tx, margin: "0 0 6px", lineHeight: 1.25 }}>날짜별 시그널 피드</h2><p style={{ fontSize: 12, color: t.sub, margin: 0, lineHeight: 1.6 }}>최신 카드부터 날짜 기준으로 정렬했습니다. 같은 날짜 안에서는 중요도가 높은 이슈를 먼저 보여줍니다.</p></div>}
-      {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => withStar(card, `${card.id || card.T || card.title}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} renderText={renderCardText} />))}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>}
+      {!profileTerm && <div style={{ background: t.card2, borderRadius: 14, padding: 16, border: `1px solid ${t.brd}` }}><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginBottom: 4 }}>EDITOR'S PICKS</div><h3 style={{ fontSize: 18, fontWeight: 900, color: t.tx, margin: "0 0 12px" }}>{highlightsIsToday ? "오늘의 핵심 카드" : "최신 핵심 카드"}</h3>{highlights.length ? <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{highlights.map((card, i) => withStar(card, `${card.id || card.T || card.title}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} {...imagePropsFor(card, i)} renderText={renderCardText} />))}</div> : <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.6 }}>오늘 기준 등록된 뉴스카드가 아직 없습니다.</div>}</div>}
       {profileTerm && <div style={{ display: "flex", gap: 4 }}>{[{ v: 0, l: "전체 기간" }, { v: 7, l: "최근 7일" }, { v: 30, l: "최근 30일" }].map((opt) => <button key={opt.v} onClick={() => { setDateRange(opt.v); setShowCount(60); }} style={{ background: dateRange === opt.v ? t.cyan : t.card2, color: dateRange === opt.v ? "#000" : t.sub, border: `1px solid ${dateRange === opt.v ? "transparent" : t.brd}`, borderRadius: 999, padding: "7px 12px", fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>{opt.l}</button>)}</div>}
       {profileTerm && profileStats && profileStats.total > 0 && cards.length === 0 && (
         <div style={{ padding: 16, borderRadius: 10, background: t.card, border: `1px solid ${t.brd}`, textAlign: "center" }}>
@@ -3947,7 +3895,7 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
           )}
         </div>
       )}
-      {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => withStar(card, `${card.id || date}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} coverImage={coverFor(card, i)} renderText={renderCardText} />))}</div></div>)}
+      {dates.map((date) => <div key={date}><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(date)}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "flex", flexDirection: "column", gap: 10 }}>{visible.filter((c) => (c.d || c.date) === date).map((card, i) => withStar(card, `${card.id || date}-${i}`, <StoryNewsItem card={card} dark={dark} onSubmitConsultation={onSubmitConsultation} consultationHint={consultSummaries[getCardId(card)] || null} {...imagePropsFor(card, i)} renderText={renderCardText} />))}</div></div>)}
       {visible.length < cards.length && <button onClick={() => setShowCount((prev) => prev + 60)} style={{ width: "100%", padding: 12, marginTop: 16, borderRadius: 10, border: `1px solid ${t.brd}`, background: t.card2, color: t.tx, fontWeight: 700, cursor: "pointer" }}>더 보기 ({Math.min(showCount, cards.length)} / {cards.length})</button>}
       {glossaryPop && (
         <div onClick={() => setGlossaryPop(null)} role="dialog" aria-modal="true" aria-label="용어 설명" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.45)", zIndex: 60, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>

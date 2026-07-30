@@ -68,6 +68,12 @@ replaceOnce(
 );
 
 replaceOnce(
+  "src/story/StoryNewsItem.jsx",
+  "function imageCategoryFor(card) {\n",
+  "export function imageCategoryFor(card) {\n",
+);
+
+replaceOnce(
   "src/App.jsx",
   'import StoryNewsItem from "./story/StoryNewsItem";\n',
   'import StoryNewsItem, { assignCardCoverImages } from "./story/StoryNewsItem";\n',

@@ -63,6 +63,25 @@ describe("URL safety", () => {
     expect(isSafePublicHttpUrl(url)).toBe(false);
   });
 
+  // DNS 루트 점·단일 라벨 호스트는 공개 FQDN이 아니다 — 파서가 끝점을 보존해
+  // 이름 비교를 빠져나가고, 단일 라벨은 검색 도메인으로 내부 서비스에 닿는다.
+  it.each([
+    "http://localhost./a",
+    "http://localhost../a",
+    "http://foo.localhost./a",
+    "http://svc.internal./a",
+    "http://svc.local./a",
+    "http://metadata.google.internal./a",
+    "http://intranet/a",
+    "http://metadata/a",
+  ])("rejects non-public hostname form %s", (url) => {
+    expect(isSafePublicHttpUrl(url)).toBe(false);
+  });
+
+  it("accepts a public FQDN written with the DNS root dot", () => {
+    expect(isSafePublicHttpUrl("https://www.reuters.com./world/example")).toBe(true);
+  });
+
   it("accepts ordinary public HTTPS URLs", () => {
     expect(isSafePublicHttpUrl("https://www.reuters.com/world/example")).toBe(true);
   });

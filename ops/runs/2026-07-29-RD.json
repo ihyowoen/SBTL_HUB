@@ -663,11 +663,17 @@
     }
   ],
   "verifyCounts": {
-    "total": 122,
-    "searchThisRun": 4,
-    "mechanicalThisRun": 0,
-    "carriedFromPriorRuns": 118,
-    "note": "searchThisRun은 verify.date=2026-07-29 항목만 집계. D-day 롤오버 31항목은 lastChecked를 올리지 않아 검증 표기 인플레이션 없음."
+    "derivedFrom": "public/data/tracker_data.json (최종 발행본 기준)",
+    "totalItems": 149,
+    "thisRun": {
+      "primary-doc": 2,
+      "primary-meta": 18,
+      "secondary": 27,
+      "mechanical": 4
+    },
+    "thisRunTotal": 51,
+    "carriedFromPriorRuns": 98,
+    "note": "verify.date가 2026-07-29인 항목의 method별 분포. 발행 후 최종 데이터셋에서 산출."
   },
   "changes": [
     "RD-0 D-day 전면 롤오버 31항목 (7/28→7/29)",
@@ -1304,84 +1310,235 @@
   },
   "verificationDebt": [
     {
+      "id": "NA-013",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "NA-020",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "NA-022",
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
       "id": "NA-029",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "NA-031",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "NA-032",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "NA-033",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "EU-029",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "EU-030",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "EU-031",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "EU-032",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "EU-033",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "CN-010",
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "CN-012",
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "CN-014",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "CN-015",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "CN-016",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "CN-017",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "CN-018",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "CN-019",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "CN-022",
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "CN-024",
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "CN-027",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "CN-028",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
     },
     {
       "id": "CN-030",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "CN-031",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "CN-032",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "CN-033",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "CN-034",
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "CN-035",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
     },
     {
       "id": "CN-036",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "CN-038",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "KR-017",
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "KR-018",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "KR-019",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
     },
     {
       "id": "KR-025",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "KR-026",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "KR-027",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
     },
     {
       "id": "KR-028",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
+    },
+    {
+      "id": "JP-002",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
+    },
+    {
+      "id": "JP-004",
+      "method": "primary-meta",
+      "reason": "조문 전문 미취득"
     },
     {
       "id": "JP-016",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "JP-017",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "GL-004",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     },
     {
       "id": "GL-005",
-      "reason": "조문 내용 1차 출처 미대조 — 후속 사이클 원문 확보 필요"
+      "method": "secondary",
+      "reason": "1차 출처 문서 미확보"
     }
-  ]
+  ],
+  "verifyMethods": {
+    "primary-doc": "1차 출처에서 조문 전문 확인",
+    "primary-meta": "1차 출처에서 메타데이터(발포일·시행일·문서번호)만 확인 — 조문 전문 미취득",
+    "secondary": "1차 출처 문서 미확보 — 2차 출처 기반",
+    "mechanical": "사실관계 재검증 없음 — 관계 정리·표기 정합만"
+  }
 }

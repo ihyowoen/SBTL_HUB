@@ -84,6 +84,21 @@ describe("DNS validation and pinning", () => {
     expect(requestImpl).not.toHaveBeenCalled();
   });
 
+  it("includes a stalled DNS lookup in the caller abort deadline", async () => {
+    const controller = new AbortController();
+    const dnsLookupImpl = vi.fn(() => new Promise(() => {}));
+    const requestImpl = vi.fn();
+    const pending = requestHtmlPinned("https://news.example/article", {
+      dnsLookupImpl,
+      requestImpl,
+      signal: controller.signal,
+    });
+
+    controller.abort();
+    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+    expect(requestImpl).not.toHaveBeenCalled();
+  });
+
   it("supports all:true without releasing the pinned address", () => {
     const lookup = createPinnedLookup({ address: "93.184.216.34", family: 4 });
     lookup("news.example", { all: true }, (error, records) => {

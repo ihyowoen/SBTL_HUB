@@ -516,16 +516,27 @@ function StoryNewsItem({
 
   const [imageOffset, setImageOffset] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const imagePoolSignature = imagePool.join('\u0001');
+  const primaryImageSrc = imagePool.length
+    ? imagePool[imageStartIndex % imagePool.length]
+    : null;
 
+  // 후보 체인의 실제 내용이 달라졌을 때만 첫 후보부터 다시 시도한다. 배열 identity만
+  // 바뀐 리렌더는 무시해 이미 로드된 동일 src를 투명 상태로 되돌리지 않는다.
   useEffect(() => {
-    setImageOffset(0);
-    setImageLoaded(false);
-  }, [imageStartIndex, imageCategory, imagePool]);
+    setImageOffset((current) => (current === 0 ? current : 0));
+  }, [primaryImageSrc, imagePoolSignature]);
 
   const hasImageCandidate = imagePool.length > 0 && imageOffset < imagePool.length;
   const imageSrc = hasImageCandidate
     ? imagePool[(imageStartIndex + imageOffset) % imagePool.length]
     : null;
+
+  // opacity 상태는 선택된 URL 자체가 바뀔 때만 초기화한다. 같은 src를 유지한 채 부모가
+  // 리렌더되면 브라우저가 load 이벤트를 다시 내지 않으므로 identity 기반 초기화는 금지한다.
+  useEffect(() => {
+    setImageLoaded(false);
+  }, [imageSrc]);
 
   useEffect(() => () => {
     if (timerRef.current) window.clearTimeout(timerRef.current);

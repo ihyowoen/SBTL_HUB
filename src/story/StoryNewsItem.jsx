@@ -462,6 +462,7 @@ function StoryNewsItem({
   dark,
   onSubmitConsultation,
   coverImage = '',
+  fallbackImage = '',
   featured = false,
   // 용어 자동링크 등 텍스트 장식 — 반드시 안정된(useMemo) 함수를 넘길 것 (memo 컴포넌트)
   renderText = null,
@@ -491,11 +492,13 @@ function StoryNewsItem({
   const imageCategory = useMemo(() => imageCategoryFor({ ...card, ...c }), [card, c]);
   const imagePool = useMemo(() => {
     const pool = IMAGE_POOLS[imageCategory] || IMAGE_POOLS.DEFAULT;
-    // coverImage prop이 있으면 항상 첫 후보로 사용 (featured 무관) —
-    // 부모 컴포넌트의 assignCardCoverImages dedup 결과가 자식까지 그대로 전달되도록.
-    const candidates = coverImage ? [coverImage, ...pool] : pool;
+    // 실제 기사 이미지 → 페이지 단위로 중복 제거된 deterministic fallback → 카테고리 풀.
+    // fallbackImage는 기사 hotlink가 차단될 때 한 번만 사용하고, 이후에는 gradient로 끝낸다.
+    const candidates = coverImage
+      ? [coverImage, fallbackImage, ...pool]
+      : (fallbackImage ? [fallbackImage, ...pool] : pool);
     return Array.from(new Set(candidates.filter(Boolean)));
-  }, [imageCategory, coverImage]);
+  }, [imageCategory, coverImage, fallbackImage]);
 
   const imageStartIndex = useMemo(() => {
     // coverImage prop이 있으면 항상 첫번째(index 0)부터 — 부모가 unique 배정한 사진을 보존.
@@ -513,7 +516,7 @@ function StoryNewsItem({
   useEffect(() => {
     setImageOffset(0);
     setImageLoaded(false);
-  }, [imageStartIndex, imageCategory]);
+  }, [imageStartIndex, imageCategory, coverImage, fallbackImage]);
 
   const hasImageCandidate = imagePool.length > 0 && imageOffset < imagePool.length;
   const imageSrc = hasImageCandidate
@@ -566,10 +569,12 @@ function StoryNewsItem({
           decoding="async"
           onLoad={() => setImageLoaded(true)}
           onError={() => {
-            // 2026-05-02b 정석 fix: 풀 점프 제거.
-            // 기존: imageOffset++ 로 풀 안 다음 사진 점프 → cross-pool 중복 사진 만나면 부모 dedup 깨짐
-            // 현재: ad-blocker 차단 사진은 gradient placeholder로 fallback (renderVisualImage에 이미 구현)
             setImageLoaded(false);
+            // 원문 OG hotlink 실패 때만 부모가 미리 unique 배정한 단일 fallback으로 이동한다.
+            // fallback까지 실패하면 추가 풀 점프 없이 gradient로 끝내 dedup 결과를 보존한다.
+            if (coverImage && fallbackImage && imageOffset === 0 && imageSrc === coverImage) {
+              setImageOffset(1);
+            }
           }}
           style={{
             position: 'absolute',

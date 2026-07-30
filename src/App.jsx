@@ -1951,19 +1951,31 @@ function readWeeklyBriefs() {
 // 자동 채택이 "보관본 없음=최신"으로 판정해 지운 호수를 매 방문 되살린다(red team 실증).
 // 같은 id라도 개정판(다른 발행일)은 묘비 불일치라 다시 채택된다 — 새 내용은 정당.
 const BRIEF_DISMISS_KEY = "sbtl_brief_dismissed";
+// 묘비 값 = "발행일#내용지문" — 날짜만 쓰면 당일 정정판(같은 id·같은 발행일·다른 내용)까지
+// 눌러버려, 다른 곳의 당일 개정 규약(isLibraryRevision 내용 비교)과 어긋난다(Codex #226 R3).
+// 지문 재료는 isLibraryRevision과 동일(서사·watch·refs).
+function briefContentSig(e) {
+  const s = JSON.stringify({ n: e?.narrative, w: e?.watch, r: e?.refs });
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h * 33) ^ s.charCodeAt(i)) >>> 0;
+  return h.toString(36);
+}
+function briefDismissKeyOf(e) {
+  return String((e && e.generated_at) || "") + "#" + briefContentSig(e);
+}
 function readBriefDismissals() {
   try {
     const v = JSON.parse(localStorage.getItem(BRIEF_DISMISS_KEY) || "{}");
     return v && typeof v === "object" && !Array.isArray(v) ? v : {};
   } catch { return {}; }
 }
-function recordBriefDismissal(id, generatedAt) {
+function recordBriefDismissal(id, entry) {
   try {
     const m = readBriefDismissals();
-    m[id] = String(generatedAt || "");
-    // 30일 지난 묘비는 청소 — 호수 신선창(7일)보다 충분히 길다
+    m[id] = briefDismissKeyOf(entry);
+    // 30일 지난 묘비는 청소 — 호수 신선창(7일)보다 충분히 길다 (값 접두 = 발행일)
     const cut = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10).replace(/-/g, ".");
-    for (const [k, v] of Object.entries(m)) if (String(v) < cut) delete m[k];
+    for (const [k, v] of Object.entries(m)) if (String(v).slice(0, 10) < cut) delete m[k];
     localStorage.setItem(BRIEF_DISMISS_KEY, JSON.stringify(m));
   } catch { /* noop */ }
 }
@@ -4085,11 +4097,11 @@ function AppContent() {
             runWeeklyBrief({ ...opts, _skipLibrary: true }); // 신선한 호수 없음 — 기존 쿨다운·API 경로
             return;
           }
-          // 묘비 존중(R28) — 사용자가 이 호수(이 발행일)를 지웠으면 되살리지 않는다.
-          // API 재생성도 하지 않는다: 삭제 의사는 '이번 호는 치웠다'이고, 다음 개정판·
-          // 다음 호수(발행일 다름)나 수동 ⚡발행은 그대로 열려 있다.
+          // 묘비 존중(R28) — 사용자가 지운 '그 발행일·그 내용'만 되살리지 않는다(값=날짜#지문).
+          // API 재생성도 하지 않는다: 삭제 의사는 '이번 호는 치웠다'이고, 개정판(내용 지문
+          // 다름 — 당일 정정 포함)·다음 호수·수동 ⚡발행은 그대로 열려 있다(Codex #226 R3).
           const dismissed = readBriefDismissals();
-          if (dismissed[wk.id] === String(wk.generated_at || "")) return;
+          if (dismissed[wk.id] === briefDismissKeyOf(wk)) return;
           // '보관본보다 최신'일 때만 — 같은 id면 당일 개정까지 보고(isLibraryRevision),
           // 다른 id(API 발행본)면 발행일 비교. 같은 날 API 본은 공식본으로 '교체'한다
           // (사용자 독트린: 라이브러리=정본, API 폴백은 임시본 — R6의 중복 채택 금지를
@@ -4418,8 +4430,8 @@ function AppContent() {
     try {
       const cur = readWeeklyBriefs();
       const victim = cur.find((e) => e && e.id === id);
-      // 묘비 기록 — 자동 채택이 이 호수(이 발행일)를 되살리지 못하게(R28 red team 실증)
-      if (victim) recordBriefDismissal(id, victim.generated_at);
+      // 묘비 기록 — 자동 채택이 이 호수(이 발행일·이 내용)를 되살리지 못하게(R28 red team 실증)
+      if (victim) recordBriefDismissal(id, victim);
       const next = cur.filter((e) => e && e.id !== id);
       localStorage.setItem(WEEKLY_BRIEF_KEY, JSON.stringify(next));
       setWeeklyBriefs(next);

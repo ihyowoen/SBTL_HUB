@@ -41,10 +41,25 @@ describe("URL safety", () => {
     "http://169.254.169.254/latest/meta-data",
     "http://192.168.0.1/a",
     "http://[::1]/a",
+    "http://[::ffff:127.0.0.1]/a",
+    "http://[::ffff:7f00:1]/a",
+    "http://[::ffff:10.0.0.1]/a",
+    "http://[64:ff9b::7f00:1]/a",
+    "http://0x7f000001/a",
+    "http://2130706433/a",
     "ftp://example.com/a",
     "https://user:pass@example.com/a",
     "https://example.com:8443/a",
   ])("rejects unsafe URL %s", (url) => {
+    expect(isSafePublicHttpUrl(url)).toBe(false);
+  });
+
+  // IP 리터럴은 공인 대역이라도 클래스로 거부한다 — 사설 대역 열거는 WHATWG 정규화
+  // 표기 변형(16진 IPv6 등)에 지므로, 실사용 0건(카드 전수)인 리터럴 자체를 닫는다.
+  it.each([
+    "http://1.2.3.4/a",
+    "http://[2001:db8::1]/a",
+  ])("rejects any IP-literal host even if public: %s", (url) => {
     expect(isSafePublicHttpUrl(url)).toBe(false);
   });
 

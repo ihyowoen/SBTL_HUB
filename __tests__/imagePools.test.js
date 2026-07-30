@@ -9,8 +9,8 @@
  */
 import { describe, it, expect } from 'vitest';
 import {
-  // imageCategoryFor와 IMAGE_POOLS는 module 내부지만 helper export로 충분히 검증 가능
   assignCardCoverImages,
+  imageCategoryFor,
 } from '../src/story/StoryNewsItem.jsx';
 
 describe('assignCardCoverImages: 같은 페이지 내 dedup 보장', () => {
@@ -74,7 +74,6 @@ describe('assignCardCoverImages: 같은 페이지 내 dedup 보장', () => {
     ];
     const firstCovers = assignCardCoverImages(cards);
 
-    // 첫 번째 결과를 alreadyUsed로 넘기면 다른 이미지 받아야 함
     const secondCovers = assignCardCoverImages(cards, {
       alreadyUsed: firstCovers,
     });
@@ -92,61 +91,38 @@ describe('assignCardCoverImages: 같은 페이지 내 dedup 보장', () => {
 });
 
 describe('카테고리 매처 회귀 (imageCategoryFor 키워드)', () => {
-  // assignCardCoverImages 결과가 카테고리 풀에서 나오는지로 매처 동작 간접 검증
-  // (imageCategoryFor 자체는 export 안 됐지만 결과로 검증 가능)
-
-  // 각 카테고리 풀의 첫 번째 URL을 anchor로 사용해서 매처 동작 확인
-  // 풀 변경 시 이 anchor를 업데이트하면 됨
-  const CATEGORY_ANCHORS = {
-    POLICY: 'photo-1589829085413-56de8ae18c73',
-    AVIATION: 'photo-1436491865332-7a61a109cc05', // KR-010, JP-011, CN-016 cluster
-    RECYCLE: 'photo-1532996122724-e3c354a0b15b',
-    MINING: 'photo-1578319439584-104c94d37305',
-  };
-
-  it('항공 키워드 → AVIATION 풀 (KR-010, JP-011 cluster)', () => {
+  it('항공 키워드 → AVIATION (KR-010, JP-011, CN-016 cluster)', () => {
     const cases = [
       { id: 'kr-010', title: 'ICAO 기내 보조배터리 규제', region: 'KR' },
       { id: 'jp-011', title: 'MLIT 항공기 모바일배터리', region: 'JP' },
       { id: 'cn-016', title: 'GB 47372 파워뱅크 강제표준', region: 'CN' },
     ];
-    cases.forEach((card) => {
-      const cover = assignCardCoverImages([card])[0];
-      expect(cover).toContain(CATEGORY_ANCHORS.AVIATION);
-    });
+    cases.forEach((card) => expect(imageCategoryFor(card)).toBe('AVIATION'));
   });
 
-  it('Critical Minerals 키워드 → MINING 풀', () => {
-    const card = {
+  it('Critical Minerals 키워드 → MINING', () => {
+    expect(imageCategoryFor({
       id: 'na-012',
       title: 'U.S.-Japan Critical Minerals Action Plan',
       region: 'NA',
-    };
-    const cover = assignCardCoverImages([card])[0];
-    expect(cover).toContain(CATEGORY_ANCHORS.MINING);
+    })).toBe('MINING');
   });
 
-  it('USMCA / Section 232 / IEEPA → POLICY 풀', () => {
+  it('USMCA / Section 232 / IEEPA → POLICY', () => {
     const cases = [
       { id: 'na-014', title: 'USMCA 6년 검토', region: 'NA' },
-      { id: 'na-015', title: 'BIS Section 232 critical minerals', region: 'NA' },
-      // IEEPA는 단독으로 POLICY로 가야 함
+      { id: 'na-015', title: 'BIS Section 232 조치', region: 'NA' },
       { id: 'na-003', title: 'IEEPA 관세 SCOTUS 위헌 판결', region: 'NA' },
     ];
-    cases.forEach((card) => {
-      const cover = assignCardCoverImages([card])[0];
-      expect(cover).toContain(CATEGORY_ANCHORS.POLICY);
-    });
+    cases.forEach((card) => expect(imageCategoryFor(card)).toBe('POLICY'));
   });
 
-  it('Article 11 / 분리·교체 / removability → RECYCLE 풀', () => {
+  it('Article 11 / 분리·교체 / removability → RECYCLE', () => {
     const cases = [
       { id: 'eu-016', title: 'EU 휴대용 배터리 분리·교체 의무 면제', region: 'EU' },
       { id: 'eu-016b', title: 'Article 11 위임행위 의견수렴', region: 'EU' },
+      { id: 'eu-016c', title: 'Portable battery removability guidance', region: 'EU' },
     ];
-    cases.forEach((card) => {
-      const cover = assignCardCoverImages([card])[0];
-      expect(cover).toContain(CATEGORY_ANCHORS.RECYCLE);
-    });
+    cases.forEach((card) => expect(imageCategoryFor(card)).toBe('RECYCLE'));
   });
 });

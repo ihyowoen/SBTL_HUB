@@ -99,6 +99,38 @@ describe("network extraction", () => {
     expect(fetchImpl).toHaveBeenCalledTimes(2);
   });
 
+  it("re-resolves every redirect and blocks a private DNS target", async () => {
+    const dnsLookupImpl = vi.fn(async (hostname) => hostname === "example.com"
+      ? [{ address: "93.184.216.34", family: 4 }]
+      : [{ address: "127.0.0.1", family: 4 }]);
+    const requestImpl = vi.fn((url, options, onResponse) => {
+      options.lookup(url.hostname, {}, (error, address, family) => {
+        expect(error).toBeNull();
+        expect(address).toBe("93.184.216.34");
+        expect(family).toBe(4);
+      });
+      const response = {
+        statusCode: 302,
+        headers: { location: "https://rebinding.example/final" },
+        resume: vi.fn(),
+      };
+      queueMicrotask(() => onResponse(response));
+      const request = {
+        on: vi.fn(() => request),
+        end: vi.fn(),
+      };
+      return request;
+    });
+
+    await expect(getOgImage("https://example.com/start", {
+      dnsLookupImpl,
+      requestImpl,
+      timeoutMs: 500,
+    })).resolves.toBeNull();
+    expect(dnsLookupImpl).toHaveBeenCalledTimes(2);
+    expect(requestImpl).toHaveBeenCalledTimes(1);
+  });
+
   it("does not fetch a private URL", async () => {
     const fetchImpl = vi.fn();
     await expect(getOgImage("http://127.0.0.1/private", { fetchImpl })).resolves.toBeNull();

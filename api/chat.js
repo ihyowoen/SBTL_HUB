@@ -11,6 +11,7 @@ import { synthesize } from "../lib/chat/synthesize.js";
 import { respond, respondClarification } from "../lib/chat/respond.js";
 import { synthesizeCardAnalysis, synthesizeCardConsult, expandSearchQuery } from "../lib/chat/llm.js";
 import { synthesizeScout, synthesizeAnalyst, synthesizeRedTeam } from "../lib/chat/consultation.js";
+import { enrichNewsWithOgImages } from "../lib/chat/retrieve/ogExtractor.js";
 
 function setCors(res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -542,13 +543,25 @@ export default async function handler(req, res) {
       console.log(`[chat-expand] keywords=${(exp.keywords || []).join(",") || "-"} error=${exp.error || "-"} applied=${(retrieval._reasons || []).includes("query_expanded_retry")}`);
     }
 
+    // OG fetch는 LLM 합성과 병렬 실행해 체감 지연을 최소화한다. trustedCards는
+    // 서버가 방금 로드한 정본이므로 context로 주입된 임의 URL은 네트워크 요청 대상이 아니다.
+    const ogImageTask = parsed.topic === "news" && (retrieval.cards || []).length
+      ? enrichNewsWithOgImages(retrieval.cards, { trustedCards: data.cards || [] })
+      : Promise.resolve({ cards: retrieval.cards || [], meta: { attempted: 0, found: 0, deduped: 0, skipped_untrusted: 0, latency_ms: 0 } });
+
     const synthesis = await synthesize({
       parsed,
       resolved: resolvedCtx.resolved,
       retrieval,
       personal: { watch_terms: watchTerms },
     });
-    console.log(`[chat-synth] path=${synthesis?.meta?.path} used_llm=${synthesis?.used_llm} delegate=${synthesis?.delegate?.to || "-"}`);
+    const ogImageResult = await ogImageTask;
+    retrieval = {
+      ...retrieval,
+      cards: ogImageResult.cards,
+      _reasons: [...(retrieval._reasons || []), `og_images:${ogImageResult.meta.found}/${ogImageResult.meta.attempted}`],
+    };
+    console.log(`[chat-synth] path=${synthesis?.meta?.path} used_llm=${synthesis?.used_llm} delegate=${synthesis?.delegate?.to || "-"} og=${ogImageResult.meta.found}/${ogImageResult.meta.attempted}`);
 
     if (synthesis?.delegate?.to === "analysis_api" || parsed.action === "analyze_card") {
       const resp = await handleAnalyzeCard({
@@ -567,7 +580,7 @@ export default async function handler(req, res) {
       retrieval,
       synthesis,
       context,
-      debug: expandMeta ? { ...debugBase, query_expand: expandMeta } : debugBase,
+      debug: { ...debugBase, ...(expandMeta ? { query_expand: expandMeta } : {}), og_image: ogImageResult.meta },
     });
 
     return res.status(200).json(response);

@@ -309,7 +309,7 @@ function hashSeed(value) {
   return Math.abs(hash);
 }
 
-function imageCategoryFor(card) {
+export function imageCategoryFor(card) {
   const text = [card?.id, card?.title, card?.T, card?.sub, card?.subtitle, card?.gate, card?.g, card?.source, card?.src, card?.region, card?.r]
     .filter(Boolean)
     .join(' ')

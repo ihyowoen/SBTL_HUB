@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, Component } from "react";
 import { computeBriefAxes, computeRegionAxes, computeThemeAxes, computeCustomAxes, customAxisCandidates, REGION_AXIS_KEYS, THEME_AXIS_KEYS, cardInMonth, parseBriefSections, hitBoundary } from "./briefAxes";
 import { buildPinGraph, layoutPinGraph, PIN_GRAPH_MAX_NODES } from "./pinboard";
 import { pickNeighbors, explodePins, ensureCenterEdges, bridgeLineage, emptyVerdict } from "./explode";
-import StoryNewsItem from "./story/StoryNewsItem";
+import StoryNewsItem, { assignCardCoverImages } from "./story/StoryNewsItem";
 import { buildCardConsultContext } from "./story/buildCardConsultContext";
 import { getCardId } from "./story/normalizeCard";
 import { composeKangBriefing, pickStaleBrief } from "./kang";
@@ -2743,11 +2743,18 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
                     {m.sourceBadge ? <div>{renderChatCitations(m.content, m.cards?.length || 0, (n) => { const el = document.getElementById(`chat-card-${i}-${n}`); if (el) { el.scrollIntoView({ behavior: "smooth", block: "center" }); el.style.boxShadow = "0 0 0 2px #58A6FF"; setTimeout(() => { el.style.boxShadow = "none"; }, 1400); } })}</div> : m.content}
                   </div>
                   {m.braveLinks?.map((link, j) => <a key={`brave-${j}`} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`Open external article: ${link.title}`} style={{ display: "block", background: dark ? "#1A1E2A" : "#FFFBF0", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: "pointer", border: `1px solid ${dark ? "rgba(210,153,34,0.25)" : "rgba(210,153,34,0.2)"}`, textDecoration: "none" }}><div style={{ fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.4 }}>{link.title}</div>{link.description && <div style={{ fontSize: 11, color: t.sub, marginTop: 3, lineHeight: 1.45 }}>{link.description.slice(0, 120)}{link.description.length > 120 ? "..." : ""}</div>}<div style={{ fontSize: 10, color: "#D29922", marginTop: 4, fontWeight: 700, fontFamily: "'JetBrains Mono',monospace" }}>🔗 외부 기사 ↗</div></a>)}
-                  {m.cards?.map((card, j) => {
-                    const cardStyle = { display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: "10px 12px", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}`, textDecoration: "none" };
-                    const cardContent = <><div style={{ fontSize: 12, fontWeight: 700, color: t.tx }}>{SIG_L[card.signal] || SIG_L[card.s] || "INFO"} {card.title}</div>{card.subtitle && <div style={{ fontSize: 11, color: t.sub, marginTop: 3 }}>{card.subtitle}</div>}{card.gist && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, lineHeight: 1.5, opacity: 0.85 }}>💡 {card.gist}</div>}<div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(card.date)} · {card.region} · {card.source || "source"}</div>{card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}</>;
-                    return card.url ? <a key={j} id={`chat-card-${i}-${j + 1}`} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} onClick={() => markCardSelected(card)} style={cardStyle}>{cardContent}</a> : <div key={j} id={`chat-card-${i}-${j + 1}`} style={cardStyle} onClick={() => markCardSelected(card)}>{cardContent}</div>;
-                  })}
+                  {(() => {
+                    const chatCards = Array.isArray(m.cards) ? m.cards : [];
+                    const fallbackImages = assignCardCoverImages(chatCards, { alreadyUsed: chatCards.map((card) => card.image).filter(Boolean) });
+                    return chatCards.map((card, j) => {
+                      const fallbackImage = fallbackImages[j] || "";
+                      const image = card.image || fallbackImage;
+                      const cardStyle = { display: "block", background: dark ? "#151B26" : "#f8f9fc", borderRadius: 10, padding: 0, overflow: "hidden", marginTop: 6, cursor: card.url ? "pointer" : "default", border: `1px solid ${t.brd}`, textDecoration: "none" };
+                      const imageBlock = image ? <img src={image} data-fallback={card.image && fallbackImage && card.image !== fallbackImage ? fallbackImage : ""} alt={`${card.title || "뉴스 카드"} 관련 이미지`} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={(e) => { const fallback = e.currentTarget.dataset.fallback; if (fallback) { e.currentTarget.dataset.fallback = ""; e.currentTarget.src = fallback; } else { e.currentTarget.style.display = "none"; } }} style={{ display: "block", width: "100%", height: 112, objectFit: "cover", background: dark ? "#10151F" : "#E9EDF4" }} /> : null;
+                      const cardContent = <>{imageBlock}<div style={{ padding: "10px 12px" }}><div style={{ fontSize: 12, fontWeight: 700, color: t.tx }}>{SIG_L[card.signal] || SIG_L[card.s] || "INFO"} {card.title}</div>{card.subtitle && <div style={{ fontSize: 11, color: t.sub, marginTop: 3 }}>{card.subtitle}</div>}{card.gist && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, lineHeight: 1.5, opacity: 0.85 }}>💡 {card.gist}</div>}<div style={{ fontSize: 10, color: t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace" }}>{fmtDate(card.date)} · {card.region} · {card.source || "source"}</div>{card.url && <div style={{ fontSize: 10, color: t.cyan, marginTop: 4, fontWeight: 700 }}>→ 원문 보기 ↗</div>}</div></>;
+                      return card.url ? <a key={j} id={`chat-card-${i}-${j + 1}`} href={card.url} target="_blank" rel="noopener noreferrer" aria-label={`Open article: ${card.title}`} onClick={() => markCardSelected(card)} style={cardStyle}>{cardContent}</a> : <div key={j} id={`chat-card-${i}-${j + 1}`} style={cardStyle} onClick={() => markCardSelected(card)}>{cardContent}</div>;
+                    });
+                  })()}
                 </div>
               </div>
               {m.role === "assistant" && m.suggestions?.length > 0 && <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8, marginBottom: 4, paddingLeft: 35 }}>{m.suggestions.map((s) => <button key={s.label} onClick={() => runSuggestion(s)} style={{ background: dark ? "#1A2333" : "#fff", border: `1px solid ${t.brd}`, borderRadius: 999, padding: "10px 16px", minHeight: 44, fontSize: 11, color: t.cyan, cursor: "pointer", fontFamily: "'Pretendard',sans-serif", fontWeight: 600 }}>{s.label}</button>)}</div>}

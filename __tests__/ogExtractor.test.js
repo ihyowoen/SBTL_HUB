@@ -24,6 +24,13 @@ describe("OG image parser", () => {
     const twitter = "<meta name='twitter:image' content='//cdn.example.com/t.jpg'>";
     expect(extractOgImageFromHtml(twitter, "https://example.com")).toBe("https://cdn.example.com/t.jpg");
   });
+
+  it("rejects private or credentialed image targets from article metadata", () => {
+    const privateImage = '<meta property="og:image" content="http://127.0.0.1/admin.png">';
+    const credentialedImage = '<meta property="og:image" content="https://user:pass@cdn.example.com/a.jpg">';
+    expect(extractOgImageFromHtml(privateImage, "https://example.com")).toBeNull();
+    expect(extractOgImageFromHtml(credentialedImage, "https://example.com")).toBeNull();
+  });
 });
 
 describe("URL safety", () => {

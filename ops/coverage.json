@@ -98,10 +98,11 @@
       "axis": "trade",
       "region": "CN",
       "items": [
+        "CN-001",
         "CN-013",
         "CN-014",
         "CN-018",
-        "CN-001"
+        "CN-033"
       ],
       "status": "covered",
       "lastSwept": "2026-07-17",
@@ -177,7 +178,8 @@
       "region": "EU",
       "items": [
         "EU-006",
-        "EU-008"
+        "EU-008",
+        "EU-032"
       ],
       "status": "covered",
       "lastSwept": "2026-07-29",
@@ -246,7 +248,9 @@
     {
       "axis": "product_std",
       "region": "NA",
-      "items": [],
+      "items": [
+        "NA-030"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -344,7 +348,9 @@
     {
       "axis": "chemicals",
       "region": "NA",
-      "items": [],
+      "items": [
+        "NA-029"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -362,7 +368,8 @@
       "axis": "chemicals",
       "region": "EU",
       "items": [
-        "EU-025"
+        "EU-025",
+        "EU-029"
       ],
       "status": "covered",
       "lastSwept": "2026-07-29",
@@ -376,7 +383,9 @@
     {
       "axis": "chemicals",
       "region": "CN",
-      "items": [],
+      "items": [
+        "CN-031"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -404,7 +413,9 @@
     {
       "axis": "chemicals",
       "region": "JP",
-      "items": [],
+      "items": [
+        "JP-016"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -421,7 +432,9 @@
     {
       "axis": "chemicals",
       "region": "GL",
-      "items": [],
+      "items": [
+        "GL-004"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -506,7 +519,8 @@
       "axis": "recycle",
       "region": "JP",
       "items": [
-        "JP-005"
+        "JP-005",
+        "JP-017"
       ],
       "status": "covered",
       "lastSwept": "2026-07-29",
@@ -574,7 +588,8 @@
       "axis": "supply_chain",
       "region": "CN",
       "items": [
-        "CN-023"
+        "CN-023",
+        "CN-036"
       ],
       "status": "covered",
       "lastSwept": "2026-07-29",
@@ -646,7 +661,9 @@
     {
       "axis": "transport",
       "region": "EU",
-      "items": [],
+      "items": [
+        "EU-030"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -663,7 +680,9 @@
     {
       "axis": "transport",
       "region": "CN",
-      "items": [],
+      "items": [
+        "CN-035"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -721,7 +740,9 @@
     {
       "axis": "carbon",
       "region": "NA",
-      "items": [],
+      "items": [
+        "NA-032"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -763,7 +784,9 @@
     {
       "axis": "carbon",
       "region": "KR",
-      "items": [],
+      "items": [
+        "KR-026"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -796,7 +819,9 @@
     {
       "axis": "carbon",
       "region": "GL",
-      "items": [],
+      "items": [
+        "GL-005"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -813,7 +838,9 @@
     {
       "axis": "packaging",
       "region": "NA",
-      "items": [],
+      "items": [
+        "NA-031"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -846,7 +873,9 @@
     {
       "axis": "packaging",
       "region": "CN",
-      "items": [],
+      "items": [
+        "CN-034"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -863,7 +892,9 @@
     {
       "axis": "packaging",
       "region": "KR",
-      "items": [],
+      "items": [
+        "KR-027"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -939,7 +970,8 @@
       "axis": "waste_ship",
       "region": "CN",
       "items": [
-        "CN-021"
+        "CN-021",
+        "CN-032"
       ],
       "status": "covered",
       "lastSwept": "2026-07-29",
@@ -957,7 +989,9 @@
     {
       "axis": "waste_ship",
       "region": "KR",
-      "items": [],
+      "items": [
+        "KR-025"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -1107,7 +1141,9 @@
     {
       "axis": "energy_market",
       "region": "NA",
-      "items": [],
+      "items": [
+        "NA-033"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -1124,7 +1160,9 @@
     {
       "axis": "energy_market",
       "region": "EU",
-      "items": [],
+      "items": [
+        "EU-031"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [
@@ -1145,6 +1183,7 @@
         "CN-003",
         "CN-008",
         "CN-022",
+        "CN-037",
         "CN-038"
       ],
       "status": "covered",
@@ -1161,8 +1200,9 @@
       "axis": "energy_market",
       "region": "KR",
       "items": [
+        "KR-006",
         "KR-016",
-        "KR-006"
+        "KR-028"
       ],
       "status": "covered",
       "lastSwept": "2026-07-29",
@@ -1314,8 +1354,9 @@
       "axis": "upstream",
       "region": "CN",
       "items": [
+        "CN-014",
         "CN-015",
-        "CN-014"
+        "CN-030"
       ],
       "status": "covered",
       "lastSwept": "2026-07-29",
@@ -1383,7 +1424,9 @@
     {
       "axis": "downstream",
       "region": "EU",
-      "items": [],
+      "items": [
+        "EU-033"
+      ],
       "status": "gap",
       "lastSwept": "2026-07-29",
       "queries": [

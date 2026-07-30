@@ -903,13 +903,6 @@
       "basis": "primary-doc"
     },
     {
-      "id": "CN-036",
-      "r": "CN",
-      "s": "ACTIVE",
-      "t": "《矿产资源法实施条例》 국무원령 — 리튬·코발트·희토 등 36종 국가급 전략성 광산자원 목록 + 3위일체 비축제도 (2026.06.15 시행)",
-      "basis": "secondary"
-    },
-    {
       "id": "CN-037",
       "r": "CN",
       "s": "ACTIVE",
@@ -1048,13 +1041,28 @@
     "GL-003 (EU)2019/2144 부속서 R100 05 갱신 위임규칙 공표"
   ],
   "coverageBacklog": {
-    "lastSweptNull": 0,
-    "derivedFrom": "ops/coverage.json (하드코딩 금지)",
-    "delta": "40 → 0 (본 run 누적 45셀 스윕, 72셀 전량 이력 확보)",
-    "partialCells": [
-      "product_std/EU",
-      "waste_ship/GL"
-    ]
+    "totalCells": 90,
+    "sweptThisRun": 47,
+    "neverSwept": 13,
+    "neverSweptCells": [
+      "downstream/CN",
+      "downstream/GL",
+      "downstream/JP",
+      "downstream/KR",
+      "downstream/NA",
+      "next_tech/EU",
+      "next_tech/GL",
+      "next_tech/KR",
+      "next_tech/NA",
+      "upstream/EU",
+      "upstream/GL",
+      "upstream/JP",
+      "upstream/NA"
+    ],
+    "partialResweepRequired": [
+      "upstream/KR"
+    ],
+    "note": "축 확장(12→15) 이후 최종 coverage 기준으로 재계산. 신설 축(next_tech·upstream·downstream)에 미스윕이 집중돼 있으며 다음 run의 최우선 대상이다."
   },
   "lessons": [
     "gap 셀 스윕이 실제로 값을 낸다 — waste_ship/KR은 items 0의 gap 셀이었고, 사전정의 축 쿼리 1회로 SBTL 알루미늄 스크랩 수출신고 의무화라는 직결 표면이 나왔다. 기존 항목에 종속된 RD-2만 돌면 이 축은 영원히 안 잡힌다(F7). RD-3 이월을 방치하면 안 되는 이유가 실증됨",
@@ -1290,7 +1298,7 @@
     "file": "public/data/tracker_data.json",
     "itemsBefore": 122,
     "itemsAfter": 149,
-    "newCount": 28,
+    "newCount": 27,
     "correctedCount": 20,
     "note": "본 run의 신규 편입분과 정정분은 **모두 발행됐다.** 이전 기술의 \"데이터셋 편입 0건 / 승인 큐 대기\"는 작업 중간 상태였고 최종 상태와 불일치했으므로 정정한다. 신규 28건 중 1차 출처 대조는 8건이고 나머지 20건은 2차 출처 기반이며 각 항목 verify.method=secondary와 basis에 그 사실을 명시했다. blocker가 남은 항목도 발행하되 checkNote에 잔여 확인 사항을 기재한다 — 규범의 존재는 확인됐고 스코프 게이트는 제정 여부 단일 기준이기 때문이다."
   },

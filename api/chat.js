@@ -545,7 +545,7 @@ export default async function handler(req, res) {
 
     // OG fetch는 LLM 합성과 병렬 실행해 체감 지연을 최소화한다. trustedCards는
     // 서버가 방금 로드한 정본이므로 context로 주입된 임의 URL은 네트워크 요청 대상이 아니다.
-    const ogImageTask = parsed.topic === "news" && (retrieval.cards || []).length
+    const ogImageTask = parsed.topic === "news" && parsed.action !== "analyze_card" && (retrieval.cards || []).length
       ? enrichNewsWithOgImages(retrieval.cards, { trustedCards: data.cards || [] })
       : Promise.resolve({ cards: retrieval.cards || [], meta: { attempted: 0, found: 0, deduped: 0, skipped_untrusted: 0, latency_ms: 0 } });
 

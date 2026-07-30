@@ -45,10 +45,36 @@ export function chunkArticleImageKeys(keys = [], size = ARTICLE_IMAGE_BATCH_SIZE
   return chunks;
 }
 
+export function mergeUniqueArticleImages(current = {}, incoming = {}) {
+  const merged = { ...(current && typeof current === "object" ? current : {}) };
+  const usedUrls = new Set(
+    Object.values(merged)
+      .map((value) => String(value || "").trim())
+      .filter(Boolean),
+  );
+
+  for (const [rawKey, rawUrl] of Object.entries(incoming && typeof incoming === "object" ? incoming : {})) {
+    const key = String(rawKey || "").trim();
+    const url = String(rawUrl || "").trim();
+    if (!key || !url || merged[key] || usedUrls.has(url)) continue;
+    merged[key] = url;
+    usedUrls.add(url);
+  }
+
+  return merged;
+}
+
+export function clearAttemptedArticleImageKeys(attempted, keys = []) {
+  if (!attempted || typeof attempted.delete !== "function") return;
+  for (const key of keys) attempted.delete(key);
+}
+
 function readSessionCache() {
   try {
     const value = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "{}");
-    return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+    return value && typeof value === "object" && !Array.isArray(value)
+      ? mergeUniqueArticleImages({}, value)
+      : {};
   } catch {
     return {};
   }
@@ -78,12 +104,16 @@ export function useFreshArticleImages(cards = [], options = {}) {
     if (!missing.length) return undefined;
 
     const controller = new AbortController();
+    const inFlightKeys = new Set();
     let active = true;
 
     (async () => {
       for (const batch of chunkArticleImageKeys(missing)) {
         if (!active || controller.signal.aborted) break;
-        batch.forEach((key) => attemptedRef.current.add(key));
+        batch.forEach((key) => {
+          attemptedRef.current.add(key);
+          inFlightKeys.add(key);
+        });
         try {
           const response = await fetch("/api/news-images", {
             method: "POST",
@@ -96,23 +126,26 @@ export function useFreshArticleImages(cards = [], options = {}) {
           const next = payload?.images && typeof payload.images === "object" ? payload.images : null;
           if (!active || !next || !Object.keys(next).length) continue;
           setImages((current) => {
-            const merged = { ...current, ...next };
+            const merged = mergeUniqueArticleImages(current, next);
             writeSessionCache(merged);
             return merged;
           });
         } catch (error) {
-          if (error?.name === "AbortError") {
-            batch.forEach((key) => attemptedRef.current.delete(key));
-            break;
-          }
-          batch.forEach((key) => attemptedRef.current.delete(key));
+          clearAttemptedArticleImageKeys(attemptedRef.current, batch);
+          if (error?.name === "AbortError") break;
           console.warn(`[feed-images] ${error?.message || error}`);
+        } finally {
+          clearAttemptedArticleImageKeys(inFlightKeys, batch);
         }
       }
     })();
 
     return () => {
       active = false;
+      // React runs cleanup before the replacement effect. Release pending keys synchronously
+      // so overlapping cards remain eligible in that immediately-following effect.
+      clearAttemptedArticleImageKeys(attemptedRef.current, inFlightKeys);
+      inFlightKeys.clear();
       controller.abort();
     };
     // images is intentionally omitted: one signature run processes every missing key in bounded batches.

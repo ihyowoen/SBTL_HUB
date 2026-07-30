@@ -3500,26 +3500,31 @@ function NewsDesk({ kb, onSubmitConsultation, consultSummaries = {}, dark, onWat
     });
   }, [highlights, visible]);
   const articleImages = useFreshArticleImages(coverCards, { month: "2026-07" });
-  const fallbackCoverUrls = useMemo(
-    () => assignCardCoverImages(coverCards, { alreadyUsed: Object.values(articleImages) }),
-    [coverCards, articleImages],
-  );
+  const fallbackCoverChains = useMemo(() => {
+    const used = new Set(Object.values(articleImages).filter(Boolean));
+    const layers = Array.from({ length: 3 }, () => {
+      const layer = assignCardCoverImages(coverCards, { alreadyUsed: used });
+      layer.forEach((url) => { if (url) used.add(url); });
+      return layer;
+    });
+    return coverCards.map((_, idx) => layers.map((layer) => layer[idx]).filter(Boolean));
+  }, [coverCards, articleImages]);
   const fallbackCoverMap = useMemo(() => {
     const map = {};
     coverCards.forEach((card, idx) => {
       const key = getArticleImageKey(card) || getCardId(card, idx);
-      if (key) map[key] = fallbackCoverUrls[idx] || "";
+      if (key) map[key] = fallbackCoverChains[idx] || [];
     });
     return map;
-  }, [coverCards, fallbackCoverUrls]);
+  }, [coverCards, fallbackCoverChains]);
   const imagePropsFor = (card, idx) => {
     const articleKey = getArticleImageKey(card);
     const mapKey = articleKey || getCardId(card, idx);
     const fresh = articleKey ? (articleImages[articleKey] || "") : "";
-    const fallbackImage = fallbackCoverMap[mapKey] || "";
+    const fallbackImages = fallbackCoverMap[mapKey] || [];
     return {
-      coverImage: fresh || fallbackImage,
-      fallbackImage: fresh && fallbackImage && fresh !== fallbackImage ? fallbackImage : "",
+      coverImage: fresh || fallbackImages[0] || "",
+      fallbackImages,
     };
   };
 

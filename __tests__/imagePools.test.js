@@ -88,6 +88,23 @@ describe('assignCardCoverImages: 같은 페이지 내 dedup 보장', () => {
     const result2 = assignCardCoverImages([card])[0];
     expect(result1).toBe(result2);
   });
+
+  it('3단계 폴백 레이어도 앞선 이미지와 겹치지 않게 배정한다', () => {
+    const cards = [
+      { id: 'f1', title: 'Greenbushes lithium mine earnings', region: 'GL' },
+      { id: 'f2', title: 'EU battery policy update', region: 'EU' },
+      { id: 'f3', title: 'ESS grid project', region: 'US' },
+      { id: 'f4', title: 'Battery factory ramp-up', region: 'KR' },
+    ];
+    const used = new Set();
+    const all = [];
+    for (let depth = 0; depth < 3; depth += 1) {
+      const layer = assignCardCoverImages(cards, { alreadyUsed: used });
+      layer.forEach((url) => { used.add(url); all.push(url); });
+    }
+    expect(all).toHaveLength(12);
+    expect(new Set(all).size).toBe(12);
+  });
 });
 
 describe('카테고리 매처 회귀 (imageCategoryFor 키워드)', () => {

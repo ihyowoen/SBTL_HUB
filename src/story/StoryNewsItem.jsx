@@ -463,6 +463,7 @@ function StoryNewsItem({
   onSubmitConsultation,
   coverImage = '',
   fallbackImage = '',
+  fallbackImages = null,
   featured = false,
   // 용어 자동링크 등 텍스트 장식 — 반드시 안정된(useMemo) 함수를 넘길 것 (memo 컴포넌트)
   renderText = null,
@@ -492,13 +493,16 @@ function StoryNewsItem({
   const imageCategory = useMemo(() => imageCategoryFor({ ...card, ...c }), [card, c]);
   const imagePool = useMemo(() => {
     const pool = IMAGE_POOLS[imageCategory] || IMAGE_POOLS.DEFAULT;
-    // 실제 기사 이미지 → 페이지 단위로 중복 제거된 deterministic fallback → 카테고리 풀.
-    // fallbackImage는 기사 hotlink가 차단될 때 한 번만 사용하고, 이후에는 gradient로 끝낸다.
-    const candidates = coverImage
-      ? [coverImage, fallbackImage, ...pool]
-      : (fallbackImage ? [fallbackImage, ...pool] : pool);
-    return Array.from(new Set(candidates.filter(Boolean)));
-  }, [imageCategory, coverImage, fallbackImage]);
+    // 실제 기사 이미지 뒤에 부모가 페이지 단위로 중복 제거한 최대 3개의 폴백을 둔다.
+    // 명시적 체인이 없는 단독 사용 시에만 기존 카테고리 풀을 사용한다.
+    const provided = [
+      coverImage,
+      ...(Array.isArray(fallbackImages) ? fallbackImages : []),
+      fallbackImage,
+    ].filter(Boolean);
+    const candidates = provided.length ? provided : pool;
+    return Array.from(new Set(candidates));
+  }, [imageCategory, coverImage, fallbackImage, fallbackImages]);
 
   const imageStartIndex = useMemo(() => {
     // coverImage prop이 있으면 항상 첫번째(index 0)부터 — 부모가 unique 배정한 사진을 보존.
@@ -516,7 +520,7 @@ function StoryNewsItem({
   useEffect(() => {
     setImageOffset(0);
     setImageLoaded(false);
-  }, [imageStartIndex, imageCategory, coverImage, fallbackImage]);
+  }, [imageStartIndex, imageCategory, imagePool]);
 
   const hasImageCandidate = imagePool.length > 0 && imageOffset < imagePool.length;
   const imageSrc = hasImageCandidate
@@ -570,11 +574,11 @@ function StoryNewsItem({
           onLoad={() => setImageLoaded(true)}
           onError={() => {
             setImageLoaded(false);
-            // 원문 OG hotlink 실패 때만 부모가 미리 unique 배정한 단일 fallback으로 이동한다.
-            // fallback까지 실패하면 추가 풀 점프 없이 gradient로 끝내 dedup 결과를 보존한다.
-            if (coverImage && fallbackImage && imageOffset === 0 && imageSrc === coverImage) {
-              setImageOffset(1);
-            }
+            // 기사 원본이나 폴백이 차단되면 다음 unique 후보로 이동한다.
+            // 최대 3개 폴백까지 소진한 뒤에만 gradient로 끝낸다.
+            setImageOffset((current) => (
+              current + 1 < imagePool.length ? current + 1 : imagePool.length
+            ));
           }}
           style={{
             position: 'absolute',

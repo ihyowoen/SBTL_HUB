@@ -1,7 +1,7 @@
 {
   "version": "LLM_PROMPT_GITHUB_CANONICAL_V2_DYNAMIC_GOVERNANCE_COMPLETENESS",
   "mode": "github_canonical_dynamic_document_universe_and_editorial_completeness",
-  "integrity_policy": "Git commit is canonical. Stage 0.0D must read or parse every docs file, then reconcile active canonical documents, mandatory overrides, validator contracts, applicable open remediations, explicitly activated migrations, registered canonical-data runtime contracts, and their regression tests before any editorial stage.",
+  "integrity_policy": "Git commit is canonical. Stage 0.0D must read or parse every docs file, then reconcile active canonical documents, mandatory overrides, validator contracts, applicable open remediations, explicitly activated migrations, registered canonical-data runtime contracts, their trigger workflows, and their regression tests before any editorial stage.",
   "stage_prompt_count": 17,
   "governance_doc_count": 15,
   "integrity_override_family_count": 2,
@@ -80,7 +80,8 @@
     ],
     "runtime_contract_files": [
       "scripts/lean_cards.mjs",
-      ".github/workflows/lean-cards.yml"
+      ".github/workflows/lean-cards.yml",
+      ".github/workflows/workflow-contract-validation.yml"
     ],
     "runtime_contract_tests": [
       "validation_scripts/tests/test_lean_cards_exporter.py"

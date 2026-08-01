@@ -34,6 +34,7 @@ Each discovered governed file must receive one class:
 | `ACTIVE_VALIDATOR_CONTRACT` | active machine-enforced contract or registry | Yes | Yes |
 | `OPEN_REMEDIATION` | unresolved bounded legacy defect | Yes, when applicable | Yes, within scope |
 | `ACTIVE_MIGRATION` | explicitly activated one-time transition | Yes | Only when activated |
+| `COMPLETED_REFERENCE` | completed migration retained only as historical/audit reference | Yes | No |
 | `REFERENCE_ONLY` | explanatory or historical context | Yes | No |
 | `SUPERSEDED` | replaced by a named active document | Yes | No |
 | `ARCHIVED` | historical, non-operative | Yes | No |
@@ -170,7 +171,13 @@ Stage 0.0C and all later stages are blocked when any of the following is true:
 - a migration was applied without explicit activation;
 - a migration that is not active contaminated a permanent rule decision.
 
-Blocked status:
+Blocked statuses:
+
+```text
+BLOCKED_DOCUMENT_AUTHORITY_CONFLICT
+```
+
+Use the conflict-specific status whenever `unresolved_rule_conflicts[]` is non-empty. For all other incomplete-universe conditions use:
 
 ```text
 BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE

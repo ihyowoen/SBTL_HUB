@@ -34,6 +34,51 @@ as the only canonical full baseline.
 
 `public/data/cards.json` is a generated lean projection and must not substitute for the full when preserving evidence, lineage, audit, or workflow metadata.
 
+### 2.1 Explicit supersession of legacy public-baseline clauses
+
+This addendum explicitly supersedes **every clause** in `10_PROMPT_0_8_GitHub_Merge_Prep.md` that describes `public/data/cards.json` as any of the following:
+
+- the current GitHub main baseline;
+- the merge source of truth;
+- the file to read for canonical card count or duplicate screening;
+- the fallback baseline when the canonical full is unreadable;
+- the sole target data path for the merge operation;
+- the authoritative replacement file.
+
+The operative interpretation is:
+
+```text
+merge input / source of truth  = data/cards.full.json
+canonical output               = data/cards.full.json
+application projection output  = public/data/cards.json
+```
+
+Prompt 0.8 must read, count, compare, deduplicate, and apply declared operations against `data/cards.full.json`. It must then regenerate `public/data/cards.json` from the updated full using the repository lean-projection process.
+
+A readable `public/data/cards.json` never cures an unreadable or unverified canonical full. If `data/cards.full.json` is unreadable, missing, empty, truncated, unparsable, or its blob SHA cannot be verified, Prompt 0.8 must block with:
+
+```text
+BLOCKED_CANONICAL_FULL_UNREADABLE
+```
+
+No local/public-projection fallback may be labeled GitHub-ready, PR-ready, merge-ready-on-main, or production-ready.
+
+Legacy output fields that say `current_main_cards_source` or singular `target_data_path` must be interpreted or migrated as:
+
+```json
+{
+  "current_main_cards_source": "data/cards.full.json",
+  "canonical_target_data_path": "data/cards.full.json",
+  "public_projection_target_data_path": "public/data/cards.json"
+}
+```
+
+Any assembled Prompt 0.8 artifact that still treats `public/data/cards.json` as the merge baseline is invalid and must stop with:
+
+```text
+BLOCKED_PROMPT_0_8_PUBLIC_BASELINE_CONFLICT
+```
+
 ## 3. Allowed ordinary operations
 
 ```text

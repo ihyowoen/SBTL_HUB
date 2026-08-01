@@ -37,7 +37,7 @@ You must not perform news discovery, candidate selection, drafting, evidence ass
 8. Verify supersession, archive, remediation, migration, and reference status using the fully read content.
 9. Resolve rule conflicts using `RUN_GOVERNANCE_INDEX.md`.
 10. Record required stage fields and validators.
-11. Block if any governed document is unread, unparsed, unclassified, missing, stale, or conflicting, or if an inactive document was incorrectly applied.
+11. Evaluate blockers using the mandatory precedence order in this prompt.
 
 Activation controls whether a migration is applied. It never controls whether the migration document is read.
 
@@ -65,6 +65,11 @@ Activation controls whether a migration is applied. It never controls whether th
   "archived_documents_read": [],
   "excluded_migrations": [],
   "required_stage_contracts": {},
+  "blocker_precedence": [
+    "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
+    "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE"
+  ],
+  "selected_blocker_reason": "",
   "all_docs_files_read_or_parsed": false,
   "stage_0_0c_authorized": false
 }
@@ -80,8 +85,17 @@ Activation controls whether a migration is applied. It never controls whether th
 - Classification and applicability must be decided after the full read, not used as a reason to skip reading.
 - A migration never applies automatically.
 - A completed migration is classified `COMPLETED_REFERENCE`; it is read for audit/conflict checking but never applied to ordinary runs.
-- If `unread_documents[]` is non-empty or `all_docs_files_read_or_parsed != true`, status must be `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE`.
-- If `unresolved_rule_conflicts[]` is non-empty, status must be `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`.
+
+### Blocker precedence
+
+The single `status` field must be selected in this order:
+
+1. If `unresolved_rule_conflicts[]` is non-empty, status must be `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`, even when unread, missing, stale, unclassified, or dependency defects also exist.
+2. Otherwise, if `unread_documents[]` is non-empty, `all_docs_files_read_or_parsed != true`, or any other incomplete-universe condition exists, status must be `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE`.
+3. Only when neither blocker condition exists may status be `PASS`.
+
+All defects remain recorded in their respective arrays. Precedence selects the single top-level status; it does not suppress secondary defects.
+
 - Do not claim the document universe was read unless every governed record proves `READ_COMPLETE` or an equivalent complete structured parse.
 
 ## Exit

@@ -1,16 +1,16 @@
 {
-  "generated_at_utc": "2026-08-01T14:45:00+00:00",
+  "generated_at_utc": "2026-08-01T14:55:00+00:00",
   "version": "LLM_PROMPT_GITHUB_CANONICAL_V2_DYNAMIC_GOVERNANCE_COMPLETENESS",
-  "manifest_policy": "Upload packages are incomplete unless both mandatory override families, all registered named-stage prompts, permanent governance documents, applicable validators, and open-remediation references are included. Stage 0.0D performs run-time reconciliation.",
-  "scope": "GitHub-canonical SBTL_HUB prompt and governance package with dynamic document-universe preflight, coverage discovery, independent completeness review, and canonical-full incremental operation.",
+  "manifest_policy": "Upload packages are incomplete unless both mandatory override families, all registered named-stage prompts, stage addenda, permanent governance documents, applicable validators, and open-remediation references are included. Stage 0.0D reads or parses every docs file and performs run-time reconciliation.",
+  "scope": "GitHub-canonical SBTL_HUB prompt and governance package with dynamic document-universe preflight, coverage discovery, independent completeness review, canonical-full incremental operation, and retrospective canonical promotion.",
   "base_branch": "main",
   "head_branch": "agent/dynamic-governance-completeness",
-  "file_count": 64,
+  "file_count": 68,
   "file_count_policy": "informational_only_stage_0_0d_reconciles_current_repository",
   "governance_doc_count": 15,
   "stage_prompt_count": 17,
   "integrity_override_family_count": 2,
-  "hardening_addendum_count": 6,
+  "hardening_addendum_count": 9,
   "validation_script_count": 8,
   "runtime_code_change": false,
   "cards_json_change": false,
@@ -63,7 +63,13 @@
       "docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
       "docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json"
     ],
+    "dynamic_governance_stage_addenda": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md",
+      "docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
+      "docs/llm_prompts/v1/13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md"
+    ],
     "package_docs": [
+      "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
       "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
       "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
       "docs/llm_prompts/v1/PROMPT_MANIFEST.md",

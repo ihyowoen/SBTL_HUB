@@ -1,74 +1,135 @@
-# LLM Prompt GitHub Canonical v1
+# SBTL_HUB LLM Prompt Package — Dynamic Governance
 
-Updated KST: `2026-07-19`
+**Stable package path:** `docs/llm_prompts/v1/`  
+**Current internal version:** `LLM_PROMPT_GITHUB_CANONICAL_V2_DYNAMIC_GOVERNANCE_COMPLETENESS`
 
-This is the GitHub-canonical SBTL_HUB LLM prompt package.
+The directory name remains `v1` for repository-path stability. The active manifest version, not the directory name alone, defines the current governance contract.
 
-## Layout
+## 1. Mandatory entry point
 
-- `docs/` — live governance docs.
-- `docs/llm_prompts/v1/` — numbered prompt package, master rules, manifests, mandatory integrity overrides, and stage addenda.
-- `validation_scripts/` — executable integrity validators registered by the package manifests.
-
-## Version rule
-
-Use `v1` for GitHub canonical pathing and PR wording. Prior local iteration labels are not repo-version names.
-
-## Current package scope
-
-- 9 live governance documents under `docs/`.
-- 14 numbered stage prompt files under `docs/llm_prompts/v1/`.
-- Source-diversity and IB/Codex master rules.
-- Entity alias map and package manifests.
-- 1 mandatory date/story-ID/related integrity override.
-- 6 stage-specific hardening addenda for Stage A and Prompts 0.5–0.9.
-- 3 executable integrity validators:
-  - `validation_scripts/date_role_alignment_check.py`
-  - `validation_scripts/story_id_lineage_check.py`
-  - `validation_scripts/related_lineage_check.py`
-- No change to `public/data/cards.json`.
-- No app runtime-code change.
-
-## Mandatory integrity registration
-
-Prompt assemblers and upload tooling must read:
-
-- `DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json`
-- `LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json`
-- `UPLOAD_MANIFEST.json`
-
-The override, six addenda, and three validators are mandatory package components. Omitting any of them produces an incomplete package.
-
-## Story-ID validator contract
-
-Detection-only invocation:
-
-```bash
-python validation_scripts/story_id_lineage_check.py RUN_JSON BASELINE_CARDS_JSON
-```
-
-When collisions are detected, the command returns:
+Every governed run begins with:
 
 ```text
-BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED
+Stage 0.0D — Document Universe Preflight
 ```
 
-with exit code `2`.
+Stage 0.0D reads or parses every file under `docs/**` in full, classifies applicability, resolves conflicts, and records the exact repository state.
 
-The validator reads canonical raw input, the Stage A decision ledger, and all current terminal/lineage pools, including `reject_or_support_only_pool[]`.
+A fixed list of core documents is not a complete run contract.
 
-Identity is evaluated independently for every run record and every baseline card sharing the same story ID. An exact URL match on one record or one baseline card never grants trust to another missing or mismatched record/card pair. `collision_count` remains the unique story-ID count used by Stage A quarantine, while `collision_record_count` and `collision_pair_count` retain the detailed failures.
+## 2. Pipeline
 
-After Stage A has quarantined those collisions, verify the quarantine artifact:
-
-```bash
-python validation_scripts/story_id_lineage_check.py \
-  RUN_JSON BASELINE_CARDS_JSON \
-  --stage-a-results STAGE_A_RESULTS_JSON
+```text
+0.0D Document Universe Preflight
+→ 0.0C Coverage Discovery & Completeness
+→ 0.0 Run intake / expanded source universe lock
+→ 0.1 Stage A
+→ 0.2 Stage B
+→ 0.3 Stage C
+→ authorized revise loops
+→ 0.4 Baseline Revalidation
+→ 0.5 Evidence QC
+→ 0.6 Content Polish
+→ 0.7 Final QC
+→ 0.7C Independent Completeness Review
+→ 0.8 Incremental Merge Preparation
+→ 0.9 Production Verification
+→ 1.0 Remediation when needed
+→ 1.1 Retrospective and Canonical Promotion
 ```
 
-Only `PASS_NO_COLLISIONS` or `PASS_COLLISIONS_QUARANTINED` is an acceptable success state.
+## 3. Package layout
 
-## Historical validator note
+- `docs/` — permanent governance, active contracts, remediation, validation records, and migration records.
+- `docs/llm_prompts/v1/` — named prompts, mandatory overrides, addenda, manifests, and package registries.
+- `validation_scripts/` — executable integrity validators referenced by active contracts.
+- `docs/migrations/` — one-time transitions that never apply automatically to ordinary runs.
 
-Earlier canonical-v1 packaging intentionally excluded the PR #151 validator set. That historical note does not apply to the three integrity validators registered by the current date/story-ID/related override.
+## 4. Permanent governance additions
+
+- `docs/RUN_GOVERNANCE_INDEX.md`
+- `docs/DOCUMENT_UNIVERSE_POLICY.md`
+- `docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md`
+- `docs/CARD_INCREMENTAL_RUN_CONTRACT.md`
+
+These documents do not replace compatible fact, source, schema, related, or stage contracts. They close the governance, completeness, and incremental-operation gaps.
+
+## 5. New named stages
+
+- `00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md`
+- `00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md`
+- `09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md`
+
+Stage A remains selector-only. External search for missing news and follow-ups belongs to Stage 0.0C.
+
+## 6. Mandatory override families
+
+Prompt assemblers and upload tooling must include both:
+
+1. `DATE_STORYID_RELATED_INTEGRITY_V1`
+2. `DYNAMIC_GOVERNANCE_COMPLETENESS_V1`
+
+Required manifests:
+
+- `DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json`
+- `DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json`
+- `LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json`
+- `UPLOAD_MANIFEST.json`
+- `GOVERNANCE_LIFECYCLE_REGISTRY.json`
+
+Omitting a mandatory override, stage addendum, active validator, or permanent governance document produces an incomplete package.
+
+## 7. Canonical card data
+
+```text
+data/cards.full.json      canonical full inventory
+public/data/cards.json    generated lean application projection
+```
+
+Ordinary runs declare:
+
+- `insert`;
+- `update`;
+- `related_add`.
+
+Ordinary runs do not delete cards or remove existing related edges. Those changes require separate remediation.
+
+## 8. Editorial completeness and IB grade
+
+Fact safety is necessary but not sufficient.
+
+Each run must also review:
+
+- missing must-report news;
+- material follow-ups;
+- event-stage transitions;
+- existing-card reinforcement and correction;
+- regional and topic coverage;
+- exclusions and held candidates;
+- decision usefulness and evidence-bounded strategic read-through.
+
+The final completeness claim must come from the independent Stage 0.7C artifact and disclose residual risk.
+
+## 9. Historical package records
+
+The following files remain for traceability but are not current rule-universe authority:
+
+- `LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json`
+- `QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md`
+
+Their lifecycle classification is recorded in `GOVERNANCE_LIFECYCLE_REGISTRY.json`.
+
+## 10. Migration isolation
+
+A file under `docs/migrations/` is read during Stage 0.0D but affects a run only when explicitly activated.
+
+After completion it becomes `COMPLETED_REFERENCE` and does not apply to later ordinary runs.
+
+## 11. Current source of truth
+
+Use:
+
+- `PROMPT_MANIFEST.md` for the human-readable package map;
+- `LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json` for the canonical machine-readable package;
+- `UPLOAD_MANIFEST.json` for upload completeness;
+- `RUN_GOVERNANCE_INDEX.md` and the Stage 0.0D artifact for run-time authority.

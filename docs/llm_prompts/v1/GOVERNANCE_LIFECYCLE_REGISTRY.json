@@ -1,0 +1,118 @@
+{
+  "registry_version": "GOVERNANCE_LIFECYCLE_REGISTRY_V1",
+  "status": "ACTIVE_VALIDATOR_CONTRACT",
+  "classification": "ACTIVE_VALIDATOR_CONTRACT",
+  "completeness_policy": "SEED_REGISTRY_ONLY_STAGE_0_0D_MUST_READ_AND_CLASSIFY_EVERY_DOCS_FILE",
+  "entries": [
+    {
+      "path": "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
+      "classification": "ACTIVE_VALIDATOR_CONTRACT",
+      "ordinary_run_applies": true,
+      "note": "Self-classification for the lifecycle registry using an allowed Document Universe lifecycle class."
+    },
+    {
+      "path": "docs/RUN_GOVERNANCE_INDEX.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/DOCUMENT_UNIVERSE_POLICY.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/CARD_INCREMENTAL_RUN_CONTRACT.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
+      "classification": "ACTIVE_MANDATORY_ADDENDUM",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json",
+      "classification": "ACTIVE_MANDATORY_ADDENDUM",
+      "ordinary_run_applies": true,
+      "note": "Machine-readable registration for the mandatory dynamic-governance override family."
+    },
+    {
+      "path": "docs/llm_prompts/v1/01_PROMPT_0_1_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md",
+      "classification": "ACTIVE_MANDATORY_ADDENDUM",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true,
+      "note": "Canonical Prompt 0.8 entry point. Uses data/cards.full.json as merge baseline and output."
+    },
+    {
+      "path": "docs/llm_prompts/v1/legacy/10_PROMPT_0_8_GitHub_Merge_Prep_LEGACY_BODY.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true,
+      "authority_scope": "subordinate_compatible_rules_only",
+      "note": "Accumulated Prompt 0.8 rule body. Public-baseline, replace-all-only, fixed-doc, and fallback clauses are superseded by the canonical entry point and mandatory addendum."
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
+      "classification": "ACTIVE_MANDATORY_ADDENDUM",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/llm_prompts/v1/13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md",
+      "classification": "ACTIVE_MANDATORY_ADDENDUM",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true,
+      "note": "Stable path; internal version identifies dynamic-governance package."
+    },
+    {
+      "path": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
+      "classification": "ACTIVE_VALIDATOR_CONTRACT",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
+      "classification": "REFERENCE_ONLY",
+      "ordinary_run_applies": false,
+      "note": "Historical package-assembly ledger; its static counts and file universe are not current authority."
+    },
+    {
+      "path": "docs/llm_prompts/v1/QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+      "classification": "REFERENCE_ONLY",
+      "ordinary_run_applies": false,
+      "note": "Historical package QC report; current run compliance requires Stage 0.0D."
+    },
+    {
+      "path": "docs/llm_prompts/v1/README_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/llm_prompts/v1/UPLOAD_INSTRUCTIONS.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true
+    },
+    {
+      "path": "docs/migrations/BOOTSTRAP_CONSOLIDATION_20260801.md",
+      "classification": "ACTIVE_MIGRATION",
+      "ordinary_run_applies": false,
+      "activation_required": true,
+      "completion_classification": "COMPLETED_REFERENCE"
+    }
+  ]
+}

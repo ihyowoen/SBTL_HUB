@@ -1,16 +1,15 @@
 {
-  "version": "LLM_PROMPT_GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX",
-  "generated_at_utc": "2026-07-19T11:15:00+00:00",
-  "mode": "github_canonical_v1_docs_with_integrity_overrides_and_validators",
-  "integrity_policy": "Git commit is the canonical integrity source. Mandatory override manifests and their listed addenda and validators are part of the canonical package and must not be omitted by prompt assemblers.",
-  "stage_prompt_count": 14,
-  "governance_doc_count": 9,
-  "integrity_override_count": 1,
-  "hardening_addendum_count": 6,
-  "validation_script_count": 3,
-  "changed_file_count": 44,
-  "runtime_code_change": false,
+  "version": "LLM_PROMPT_GITHUB_CANONICAL_V2_DYNAMIC_GOVERNANCE_COMPLETENESS",
+  "mode": "github_canonical_dynamic_document_universe_and_editorial_completeness",
+  "integrity_policy": "Git commit is canonical. Stage 0.0D must read or parse every docs file, then reconcile active canonical documents, mandatory overrides, validator contracts, applicable open remediations, explicitly activated migrations, registered canonical-data runtime contracts, their trigger workflows, and their regression tests before any editorial stage.",
+  "stage_prompt_count": 17,
+  "governance_doc_count": 15,
+  "integrity_override_family_count": 2,
+  "hardening_addendum_count": 9,
+  "validation_script_count": 8,
+  "runtime_code_change": true,
   "cards_json_change": false,
+  "static_counts_informational_only": true,
   "canonical_paths": {
     "governance_docs": [
       "docs/CARD_ID_STANDARD.md",
@@ -21,9 +20,17 @@
       "docs/PROMPT_ABC_DEFAULT_MODE.md",
       "docs/PROMPT_ABC_SUPPORTING_RULES.md",
       "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
-      "docs/WORKFLOW.md"
+      "docs/WORKFLOW.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md",
+      "docs/SOURCE_AUDIT_CONTRACT.md",
+      "docs/RUN_GOVERNANCE_INDEX.md",
+      "docs/DOCUMENT_UNIVERSE_POLICY.md",
+      "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+      "docs/CARD_INCREMENTAL_RUN_CONTRACT.md"
     ],
     "stage_prompts": [
+      "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
+      "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
       "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
       "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
       "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
@@ -33,6 +40,7 @@
       "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
       "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
       "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+      "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md",
       "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
       "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
       "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
@@ -47,9 +55,18 @@
       "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish_HARDENING_ADDENDUM_V1.md",
       "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC_HARDENING_ADDENDUM_V1.md",
       "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep_HARDENING_ADDENDUM_V1.md",
-      "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md"
+      "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md",
+      "docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
+      "docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json"
+    ],
+    "dynamic_governance_stage_addenda": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md",
+      "docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
+      "docs/llm_prompts/v1/13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md"
     ],
     "support_files": [
+      "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
+      "docs/llm_prompts/v1/legacy/10_PROMPT_0_8_GitHub_Merge_Prep_LEGACY_BODY.md",
       "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
       "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
       "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
@@ -61,21 +78,71 @@
       "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
       "docs/llm_prompts/v1/entity_alias_map.json"
     ],
+    "runtime_contract_files": [
+      "scripts/lean_cards.mjs",
+      ".github/workflows/lean-cards.yml",
+      ".github/workflows/workflow-contract-validation.yml"
+    ],
+    "runtime_contract_tests": [
+      "validation_scripts/tests/test_lean_cards_exporter.py"
+    ],
     "validation_scripts": [
       "validation_scripts/date_role_alignment_check.py",
       "validation_scripts/story_id_lineage_check.py",
-      "validation_scripts/related_lineage_check.py"
+      "validation_scripts/related_lineage_check.py",
+      "validation_scripts/date_role_freshness_check.py",
+      "validation_scripts/evidence_qc_v8_check.py",
+      "validation_scripts/related_lifecycle_check.py",
+      "validation_scripts/stage_artifact_contract_check.py",
+      "validation_scripts/run_workflow_contract_suite.py"
+    ],
+    "open_remediations": [
+      "docs/WORKFLOW_GAP_REMEDIATION_20260723.md",
+      "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
+      "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md"
+    ],
+    "migration_docs": [
+      "docs/migrations/BOOTSTRAP_CONSOLIDATION_20260801.md"
     ]
   },
-  "integrity_override_registration": {
-    "status": "registered",
-    "override_id": "DATE_STORYID_RELATED_INTEGRITY_V1",
-    "manifest": "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json",
-    "override_file": "docs/llm_prompts/v1/00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md",
-    "required_for_prompt_assembly": true
+  "override_registrations": [
+    {
+      "status": "registered",
+      "override_id": "DATE_STORYID_RELATED_INTEGRITY_V1",
+      "manifest": "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json",
+      "required_for_prompt_assembly": true,
+      "required_for_upload": true
+    },
+    {
+      "status": "registered",
+      "override_id": "DYNAMIC_GOVERNANCE_COMPLETENESS_V1",
+      "manifest": "docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json",
+      "required_for_prompt_assembly": true,
+      "required_for_upload": true
+    }
+  ],
+  "canonical_baseline": {
+    "full": "data/cards.full.json",
+    "public_projection": "public/data/cards.json",
+    "public_projection_is_canonical": false,
+    "stage_a_uses_full_content": true,
+    "export_direction": "full_to_public_only",
+    "public_projection_may_rebuild_full": false
   },
-  "validator_followup": {
-    "status": "included_in_this_package",
-    "validation_script_count": 3
+  "ordinary_run_operations": [
+    "insert",
+    "update",
+    "related_add"
+  ],
+  "ordinary_run_forbidden_operations": [
+    "delete",
+    "related_remove",
+    "public_to_full_ingest"
+  ],
+  "migration_policy": {
+    "directory": "docs/migrations/",
+    "ordinary_run_auto_apply": false,
+    "requires_explicit_activation": true,
+    "completed_status": "COMPLETED_REFERENCE"
   }
 }

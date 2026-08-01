@@ -1,0 +1,103 @@
+{
+  "override_id": "DYNAMIC_GOVERNANCE_COMPLETENESS_V1",
+  "status": "ACTIVE_MANDATORY_ADDENDUM",
+  "required_for_prompt_assembly": true,
+  "required_for_upload": true,
+  "ordinary_run_default": true,
+  "override_file": "docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
+  "permanent_governance_docs": [
+    "docs/RUN_GOVERNANCE_INDEX.md",
+    "docs/DOCUMENT_UNIVERSE_POLICY.md",
+    "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+    "docs/CARD_INCREMENTAL_RUN_CONTRACT.md"
+  ],
+  "named_stage_prompts": [
+    "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
+    "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
+    "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md"
+  ],
+  "stage_addenda": [
+    "docs/llm_prompts/v1/01_PROMPT_0_1_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md"
+  ],
+  "lifecycle_registry": "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
+  "superseded_scopes": [
+    {
+      "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "scope": "fixed governance list as complete rule universe"
+    },
+    {
+      "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "scope": "supplied final input as complete editorial universe"
+    },
+    {
+      "path": "docs/WORKFLOW.md",
+      "scope": "workflow order without 0.0D, 0.0C, and 0.7C"
+    },
+    {
+      "path": "docs/WORKFLOW.md",
+      "scope": "stale docs/run_prompts Stage A path"
+    },
+    {
+      "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "scope": "public/data/cards.json as sole canonical baseline"
+    },
+    {
+      "path": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "scope": "public, uploaded, local, branch-only, prior-run, or remembered inventories as independent Stage A baselines without byte-equivalence to current GitHub main data/cards.full.json"
+    },
+    {
+      "path": "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
+      "scope": "fixed eight-document retrospective preflight and hierarchy"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "scope": "replace-all-only merge assumption where it conflicts with declared incremental operations"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "scope": "every clause treating public/data/cards.json as current baseline, merge source of truth, canonical count source, fallback baseline, sole merge target, authoritative replacement file, or batch inbox"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "scope": "legacy fallback rules that permit public or local projection data to substitute for unreadable data/cards.full.json"
+    },
+    {
+      "path": "docs/OPERATIONS.md",
+      "scope": "Section F public-to-full batch-ingestion and reverse-direction archive reconstruction as the ordinary-run exporter flow"
+    }
+  ],
+  "canonical_data_contract": {
+    "baseline": "data/cards.full.json",
+    "stage_a_relationship_baseline": "data/cards.full.json",
+    "canonical_output": "data/cards.full.json",
+    "public_projection": "public/data/cards.json",
+    "exporter": "scripts/lean_cards.mjs",
+    "export_direction": "data/cards.full.json -> public/data/cards.json",
+    "public_may_rebuild_full": false,
+    "verified_local_copy_allowed": true,
+    "verified_local_copy_requirement": "byte_equivalent_to_locked_main_full_blob"
+  },
+  "migration_policy": {
+    "directory": "docs/migrations/",
+    "ordinary_run_auto_apply": false,
+    "requires_explicit_activation": true,
+    "completed_status": "COMPLETED_REFERENCE"
+  },
+  "required_blockers": [
+    "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE",
+    "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
+    "BLOCKED_COVERAGE_DISCOVERY_INCOMPLETE",
+    "BLOCKED_STAGE_A_EXPANDED_SOURCE_UNIVERSE_MISSING",
+    "BLOCKED_EDITORIAL_COMPLETENESS_UNPROVEN",
+    "BLOCKED_INCREMENTAL_MERGE_PRECONDITION_MISSING",
+    "BLOCKED_CANONICAL_FULL_UNREADABLE",
+    "BLOCKED_PROMPT_0_8_PUBLIC_BASELINE_CONFLICT",
+    "BLOCKED_BASELINE_MOVED_REBASE_REQUIRED",
+    "BLOCKED_UNDECLARED_CARD_DIFF",
+    "BLOCKED_EXISTING_RELATED_EDGE_LOSS",
+    "BLOCKED_NEW_MISSING_RELATED_TARGETS",
+    "BLOCKED_RETROSPECTIVE_RULE_PROMOTION_INCOMPLETE"
+  ]
+}

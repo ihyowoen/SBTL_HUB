@@ -86,6 +86,34 @@ class LeanCardsExporterTest(unittest.TestCase):
             check_result = self.run_exporter(full_path, public_path, "--check")
             self.assertEqual(check_result.returncode, 0, check_result.stderr)
 
+    def test_generation_normalizes_semantically_equal_pretty_public(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            full_path = root / "cards.full.json"
+            public_path = root / "cards.json"
+            full_bytes = self.full_bytes()
+            full_path.write_bytes(full_bytes)
+
+            first = self.run_exporter(full_path, public_path)
+            self.assertEqual(first.returncode, 0, first.stderr)
+            canonical_public_bytes = public_path.read_bytes()
+
+            public_doc = json.loads(canonical_public_bytes.decode("utf-8"))
+            public_path.write_text(
+                json.dumps(public_doc, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            self.assertNotEqual(public_path.read_bytes(), canonical_public_bytes)
+
+            strict_check = self.run_exporter(full_path, public_path, "--check")
+            self.assertNotEqual(strict_check.returncode, 0)
+            self.assertIn("직렬화", strict_check.stderr)
+
+            regenerate = self.run_exporter(full_path, public_path)
+            self.assertEqual(regenerate.returncode, 0, regenerate.stderr)
+            self.assertEqual(public_path.read_bytes(), canonical_public_bytes)
+            self.assertEqual(full_path.read_bytes(), full_bytes)
+
     def test_same_full_and_public_path_is_rejected_without_writing(self):
         with tempfile.TemporaryDirectory() as tmp:
             full_path = Path(tmp) / "cards.full.json"

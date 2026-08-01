@@ -7,7 +7,7 @@
 
 This document is the mandatory entry point for every governed SBTL_HUB news-card run.
 
-No fixed list of “core documents” is complete by itself. A run is governed by the complete active rule universe identified from the current GitHub `main`, including canonical documents, mandatory addenda and overrides, applicable validator contracts, and open remediation records.
+No fixed list of “core documents” is complete by itself. Every file under `docs/**` must first be read or parsed in full; classification then determines which rules are operative. A run is governed by the complete active rule universe identified from the current GitHub `main`, including canonical documents, mandatory addenda and overrides, applicable validator contracts, and open remediation records.
 
 A run must not start Stage 0.0C, Stage A, or any later stage until Stage 0.0D has produced a valid document-universe manifest.
 
@@ -78,7 +78,7 @@ The active document universe must cover, at minimum, the following domains:
 - `docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md`
 - applicable Prompt 0.4–0.9 contracts, overlays, and validators
 
-This section identifies required domains, not a closed file list. Stage 0.0D must discover later active documents that govern the same domains.
+This section identifies required domains, not a closed file list. Stage 0.0D must inventory and read every file under `docs/**`, then discover which later documents govern the same domains.
 
 ## 4. Dynamic authority resolution
 
@@ -140,7 +140,7 @@ The Stage 0.0D artifact must record:
 - open remediation applicability;
 - migration activation status.
 
-The run is blocked when any active governed document is unread, unregistered, stale, missing its SHA, or in unresolved conflict.
+The run is blocked when any `docs/**` file is unread or unparsed, or when any active governed document is unregistered, stale, missing its SHA, or in unresolved conflict.
 
 ## 7. Prompt and validator registration
 
@@ -197,7 +197,8 @@ Permanent documents must not embed one-time migration facts.
 A governed run may claim that the rule universe was reviewed only when:
 
 - Stage 0.0D passed;
-- all active documents were read;
+- every file under `docs/**` was read or parsed in full;
+- all active rules were correctly classified and applied;
 - all conflicts were resolved;
 - all required stage prompts and validators were registered;
 - migrations were either explicitly activated or explicitly excluded;

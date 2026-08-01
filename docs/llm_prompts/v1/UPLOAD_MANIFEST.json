@@ -1,17 +1,17 @@
 {
   "version": "LLM_PROMPT_GITHUB_CANONICAL_V2_DYNAMIC_GOVERNANCE_COMPLETENESS",
-  "manifest_policy": "Upload packages are incomplete unless both mandatory override families, all registered named-stage prompts, stage addenda, permanent governance documents, applicable validators, open-remediation references, and subordinate canonical support bodies are included. Stage 0.0D reads or parses every docs file and performs run-time reconciliation.",
-  "scope": "GitHub-canonical SBTL_HUB prompt and governance package with dynamic document-universe preflight, coverage discovery, independent completeness review, canonical-full incremental operation, and retrospective canonical promotion.",
+  "manifest_policy": "Upload packages are incomplete unless both mandatory override families, all registered named-stage prompts, stage addenda, permanent governance documents, applicable validators, open-remediation references, subordinate canonical support bodies, and registered canonical-data runtime contracts are included. Stage 0.0D reads or parses every docs file and performs run-time reconciliation.",
+  "scope": "GitHub-canonical SBTL_HUB prompt and governance package with dynamic document-universe preflight, coverage discovery, independent completeness review, canonical-full incremental operation, full-to-lean export, and retrospective canonical promotion.",
   "base_branch": "main",
   "head_branch": "agent/dynamic-governance-completeness",
-  "file_count": 69,
+  "file_count": 71,
   "file_count_policy": "informational_only_stage_0_0d_reconciles_current_repository",
   "governance_doc_count": 15,
   "stage_prompt_count": 17,
   "integrity_override_family_count": 2,
   "hardening_addendum_count": 9,
   "validation_script_count": 8,
-  "runtime_code_change": false,
+  "runtime_code_change": true,
   "cards_json_change": false,
   "paths": {
     "governance_docs": [
@@ -81,6 +81,10 @@
       "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
       "docs/llm_prompts/v1/entity_alias_map.json"
     ],
+    "runtime_contract_files": [
+      "scripts/lean_cards.mjs",
+      ".github/workflows/lean-cards.yml"
+    ],
     "validation_scripts": [
       "validation_scripts/date_role_alignment_check.py",
       "validation_scripts/story_id_lineage_check.py",
@@ -116,7 +120,9 @@
   ],
   "canonical_baseline": {
     "full": "data/cards.full.json",
-    "public_projection": "public/data/cards.json"
+    "public_projection": "public/data/cards.json",
+    "export_direction": "full_to_public_only",
+    "public_projection_is_merge_input": false
   },
   "migration_policy": {
     "ordinary_run_auto_apply": false,

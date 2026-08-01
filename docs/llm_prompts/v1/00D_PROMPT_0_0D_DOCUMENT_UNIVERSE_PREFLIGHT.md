@@ -36,7 +36,7 @@ You must not perform news discovery, candidate selection, drafting, evidence ass
    - do not apply `COMPLETED_REFERENCE`, `REFERENCE_ONLY`, `SUPERSEDED`, `ARCHIVED`, or inactive migration rules to an ordinary run.
 8. Verify supersession, archive, remediation, migration, and reference status using the fully read content.
 9. Resolve rule conflicts using `RUN_GOVERNANCE_INDEX.md`.
-10. Record required stage fields and validators.
+10. Record every authority-conflict and incomplete-universe defect in the required output fields.
 11. Evaluate blockers using the mandatory precedence order in this prompt.
 
 Activation controls whether a migration is applied. It never controls whether the migration document is read.
@@ -51,11 +51,25 @@ Activation controls whether a migration is applied. It never controls whether th
   "canonical_full_blob_sha": "",
   "document_universe_status": "PASS|FAIL",
   "documents": [],
+  "repository_state_defects": [],
+  "missing_or_stale_components": [],
+  "missing_content_identity_documents": [],
   "unclassified_documents": [],
   "unread_documents": [],
   "unread_active_documents": [],
   "unresolved_dependencies": [],
   "unresolved_rule_conflicts": [],
+  "misapplied_non_authoritative_documents": [],
+  "unchecked_open_remediations": [],
+  "unauthorized_migration_applications": [],
+  "inactive_document_contamination": [],
+  "incomplete_universe_defects": [
+    {
+      "type": "REPOSITORY_HEAD_CHANGED|MISSING_COMPONENT|STALE_COMPONENT|MISSING_CONTENT_IDENTITY|UNREAD_DOCUMENT|UNCLASSIFIED_DOCUMENT|MISSING_DEPENDENCY|MISAPPLIED_NON_AUTHORITATIVE_DOCUMENT|UNCHECKED_OPEN_REMEDIATION|UNAUTHORIZED_MIGRATION_APPLICATION|INACTIVE_DOCUMENT_CONTAMINATION",
+      "path": "",
+      "detail": ""
+    }
+  ],
   "open_remediations_checked": [],
   "active_migrations": [],
   "inactive_migrations_read": [],
@@ -75,6 +89,17 @@ Activation controls whether a migration is applied. It never controls whether th
 }
 ```
 
+## Defect recording contract
+
+Every non-conflict hard blocker must be recorded:
+
+1. in its dedicated category field when one exists; and
+2. exactly once in `incomplete_universe_defects[]` using the corresponding `type`.
+
+`unresolved_rule_conflicts[]` remains the authoritative authority-conflict ledger. It is not duplicated into `incomplete_universe_defects[]`.
+
+When multiple defects coexist, none may be dropped merely because another blocker has higher top-level precedence. `selected_blocker_reason` explains the selected `status`; all other defects remain available in their category fields and normalized ledger.
+
 ## Hard rules
 
 - A remembered fixed list is not sufficient.
@@ -90,14 +115,14 @@ Activation controls whether a migration is applied. It never controls whether th
 
 The single `status` field must be selected in this order:
 
-1. If `unresolved_rule_conflicts[]` is non-empty, status must be `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`, even when unread, missing, stale, unclassified, or dependency defects also exist.
-2. Otherwise, if `unread_documents[]` is non-empty, `all_docs_files_read_or_parsed != true`, or any other incomplete-universe condition exists, status must be `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE`.
+1. If `unresolved_rule_conflicts[]` is non-empty, status must be `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`, even when unread, missing, stale, unclassified, dependency, remediation, migration, or repository-state defects also exist.
+2. Otherwise, if `incomplete_universe_defects[]` is non-empty, `unread_documents[]` is non-empty, `all_docs_files_read_or_parsed != true`, or any other incomplete-universe condition exists, status must be `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE`.
 3. Only when neither blocker condition exists may status be `PASS`.
 
-All defects remain recorded in their respective arrays. Precedence selects the single top-level status; it does not suppress secondary defects.
+All defects remain recorded in their respective fields. Precedence selects the single top-level status; it does not suppress secondary defects.
 
 - Do not claim the document universe was read unless every governed record proves `READ_COMPLETE` or an equivalent complete structured parse.
 
 ## Exit
 
-Only `status=PASS`, `all_docs_files_read_or_parsed=true`, and `stage_0_0c_authorized=true` permit Stage 0.0C.
+Only `status=PASS`, `all_docs_files_read_or_parsed=true`, `unresolved_rule_conflicts=[]`, `incomplete_universe_defects=[]`, and `stage_0_0c_authorized=true` permit Stage 0.0C.

@@ -1,16 +1,17 @@
 {
-  "generated_at_utc": "2026-07-19T11:15:00+00:00",
-  "version": "LLM_PROMPT_GITHUB_CANONICAL_V1",
-  "manifest_policy": "Git commit is the canonical integrity source. Prompt uploaders must include mandatory integrity overrides, their stage addenda, and listed validators.",
-  "scope": "GitHub-canonical LLM prompt package v1 for SBTL_HUB with date, story-ID, and related-lineage integrity hardening.",
+  "generated_at_utc": "2026-08-01T14:45:00+00:00",
+  "version": "LLM_PROMPT_GITHUB_CANONICAL_V2_DYNAMIC_GOVERNANCE_COMPLETENESS",
+  "manifest_policy": "Upload packages are incomplete unless both mandatory override families, all registered named-stage prompts, permanent governance documents, applicable validators, and open-remediation references are included. Stage 0.0D performs run-time reconciliation.",
+  "scope": "GitHub-canonical SBTL_HUB prompt and governance package with dynamic document-universe preflight, coverage discovery, independent completeness review, and canonical-full incremental operation.",
   "base_branch": "main",
-  "head_branch": "agent/prompt-date-storyid-related-integrity",
-  "file_count": 44,
-  "governance_doc_count": 9,
-  "stage_prompt_count": 14,
-  "integrity_override_count": 1,
+  "head_branch": "agent/dynamic-governance-completeness",
+  "file_count": 64,
+  "file_count_policy": "informational_only_stage_0_0d_reconciles_current_repository",
+  "governance_doc_count": 15,
+  "stage_prompt_count": 17,
+  "integrity_override_family_count": 2,
   "hardening_addendum_count": 6,
-  "validation_script_count": 3,
+  "validation_script_count": 8,
   "runtime_code_change": false,
   "cards_json_change": false,
   "paths": {
@@ -23,9 +24,17 @@
       "docs/PROMPT_ABC_DEFAULT_MODE.md",
       "docs/PROMPT_ABC_SUPPORTING_RULES.md",
       "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
-      "docs/WORKFLOW.md"
+      "docs/WORKFLOW.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md",
+      "docs/SOURCE_AUDIT_CONTRACT.md",
+      "docs/RUN_GOVERNANCE_INDEX.md",
+      "docs/DOCUMENT_UNIVERSE_POLICY.md",
+      "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+      "docs/CARD_INCREMENTAL_RUN_CONTRACT.md"
     ],
     "stage_prompts": [
+      "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
+      "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
       "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
       "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
       "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
@@ -35,6 +44,7 @@
       "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
       "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
       "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+      "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md",
       "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
       "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
       "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
@@ -49,7 +59,9 @@
       "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish_HARDENING_ADDENDUM_V1.md",
       "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC_HARDENING_ADDENDUM_V1.md",
       "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep_HARDENING_ADDENDUM_V1.md",
-      "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md"
+      "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md",
+      "docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
+      "docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json"
     ],
     "package_docs": [
       "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
@@ -66,18 +78,42 @@
     "validation_scripts": [
       "validation_scripts/date_role_alignment_check.py",
       "validation_scripts/story_id_lineage_check.py",
-      "validation_scripts/related_lineage_check.py"
+      "validation_scripts/related_lineage_check.py",
+      "validation_scripts/date_role_freshness_check.py",
+      "validation_scripts/evidence_qc_v8_check.py",
+      "validation_scripts/related_lifecycle_check.py",
+      "validation_scripts/stage_artifact_contract_check.py",
+      "validation_scripts/run_workflow_contract_suite.py"
+    ],
+    "open_remediations": [
+      "docs/WORKFLOW_GAP_REMEDIATION_20260723.md",
+      "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
+      "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md"
+    ],
+    "migration_docs": [
+      "docs/migrations/BOOTSTRAP_CONSOLIDATION_20260801.md"
     ]
   },
-  "integrity_override_registration": {
-    "status": "registered",
-    "override_id": "DATE_STORYID_RELATED_INTEGRITY_V1",
-    "manifest": "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json",
-    "required_for_upload": true,
-    "fail_if_omitted": true
+  "required_override_registrations": [
+    {
+      "override_id": "DATE_STORYID_RELATED_INTEGRITY_V1",
+      "manifest": "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json",
+      "required_for_upload": true,
+      "fail_if_omitted": true
+    },
+    {
+      "override_id": "DYNAMIC_GOVERNANCE_COMPLETENESS_V1",
+      "manifest": "docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json",
+      "required_for_upload": true,
+      "fail_if_omitted": true
+    }
+  ],
+  "canonical_baseline": {
+    "full": "data/cards.full.json",
+    "public_projection": "public/data/cards.json"
   },
-  "validator_followup": {
-    "status": "included_in_this_package",
-    "validation_script_count": 3
+  "migration_policy": {
+    "ordinary_run_auto_apply": false,
+    "explicit_activation_required": true
   }
 }

@@ -7,7 +7,7 @@
 
 This package is not complete merely because a fixed list of files was uploaded.
 
-Every run must begin with Stage 0.0D, reconcile the current active document universe, and prove that all active canonical documents, mandatory overrides, validator contracts, and applicable open remediations were read from the same repository state.
+Every run must begin with Stage 0.0D, read or parse every file under `docs/**`, classify applicability, reconcile the current active rule universe, and prove that all active canonical documents, mandatory overrides, validator contracts, and applicable open remediations came from the same repository state.
 
 Static counts below are package inventory aids. Stage 0.0D is the authority for run-time completeness.
 
@@ -36,7 +36,7 @@ Static counts below are package inventory aids. Stage 0.0D is the authority for 
 
 | Stage | File | Role |
 |---|---|---|
-| 0.0D | `00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md` | complete active document-universe discovery and read proof |
+| 0.0D | `00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md` | complete docs-universe read, classification, and authority proof |
 | 0.0C | `00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md` | missing-news, follow-up, correction, and reinforcement discovery |
 | 0.1 | `01_PROMPT_0_1_Stage_A.md` | selector-only review of the expanded source universe |
 | 0.2 | `02_PROMPT_0_2_Stage_B_r0.md` | evidence package and card draft |
@@ -72,7 +72,7 @@ Static counts below are package inventory aids. Stage 0.0D is the authority for 
 - `docs/WORKFLOW.md`
 - `docs/OPERATIONS.md`
 
-The list is a registered permanent baseline, not a closed universe. Stage 0.0D must discover later active documents and dependencies.
+The list is a registered permanent baseline, not a closed universe. Stage 0.0D must read every `docs/**` file and discover later active documents and dependencies.
 
 ## 4. Mandatory override families
 
@@ -90,9 +90,23 @@ The list is a registered permanent baseline, not a closed universe. Stage 0.0D m
 - Stage 0.0D, 0.0C, and 0.7C prompts
 - permanent governance documents added by that manifest
 
-Omission of either mandatory override family invalidates prompt assembly and upload.
+### 4.3 Dynamic stage addenda
 
-## 5. Active contract families
+- `01_PROMPT_0_1_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md`
+- `10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md`
+- `13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md`
+
+These addenda close the exact execution gaps in the legacy Stage A, Prompt 0.8, and Prompt 1.1 bodies without deleting compatible accumulated rules.
+
+Omission of either mandatory override family or any registered stage addendum invalidates prompt assembly and upload.
+
+## 5. Lifecycle registry
+
+`GOVERNANCE_LIFECYCLE_REGISTRY.json` is the seed registry for package-artifact lifecycle.
+
+It identifies active package guides and classifies historical assembly manifests and QC reports as reference-only. It is not a substitute for Stage 0.0D’s full repository read and classification.
+
+## 6. Active contract families
 
 - fact and assertion discipline;
 - source identity, owner independence, discovery, and synthesis;
@@ -104,13 +118,13 @@ Omission of either mandatory override family invalidates prompt assembly and upl
 - canonical full and declared incremental operations;
 - main and production verification.
 
-## 6. Open remediation
+## 7. Open remediation
 
 Open remediation is not silently normalized or deleted.
 
 Applicable remediation manifests must be discovered by Stage 0.0D and carried into the governed run. A remediation affects only its bounded legacy scope.
 
-## 7. Migration isolation
+## 8. Migration isolation
 
 Files under `docs/migrations/` are not ordinary-run rules.
 
@@ -118,7 +132,7 @@ They apply only when explicitly activated in the current run intake and must bec
 
 Exact dates, run names, counts, or one-time branch details belong only in migration records and their audits.
 
-## 8. Canonical baseline
+## 9. Canonical baseline
 
 ```text
 GitHub main → data/cards.full.json
@@ -126,7 +140,7 @@ GitHub main → data/cards.full.json
 
 `public/data/cards.json` is the application lean projection and is not the canonical full baseline.
 
-## 9. Ordinary run operations
+## 10. Ordinary run operations
 
 ```text
 insert
@@ -138,15 +152,19 @@ Existing related edges are preserved.
 
 Card deletion and `related_remove` require separate remediation and explicit approval.
 
-## 10. Package validity
+## 11. Package validity
 
 The package is invalid when:
 
 - Stage 0.0D is missing;
+- a `docs/**` file was not read or parsed in full;
 - a mandatory active component is omitted;
 - a superseded document is applied as authority;
 - an active dependency or validator is missing;
 - the supplied input is treated as the complete news universe without Stage 0.0C;
+- Stage A ignores the expanded source universe;
 - Prompt 0.8 is authorized without Stage 0.7C;
+- Prompt 0.8 applies undeclared changes or loses existing related edges;
+- Prompt 1.1 leaves a recurring rule as an unregistered patch;
 - a migration is applied as a permanent rule;
 - the baseline is not locked to the current canonical full.

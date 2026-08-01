@@ -4,9 +4,9 @@
 **Branch:** `agent/dynamic-governance-completeness`  
 **Base main commit:** `27385027c94f83e060cbee2af964f6f45edd67f5`  
 **Validated PR:** `#231`  
-**Runtime, upload workflow, and regression-test implementation validated through:** `0293b1601aee3221ce238969a104dbeca59ca18a`
+**Runtime, workflow-trigger, upload, and regression-test package validated through:** `c48f049eaccac831a6d09ac45162b0c48763cb80`
 
-Later commits that only synchronize manifests or this validation record do not alter the validated exporter, workflow, upload instructions, or regression-test behavior; their own CI must still pass before merge.
+Later commits that only synchronize this validation record do not alter the validated exporter, workflows, upload instructions, manifests, or regression-test behavior; their own CI must still pass before merge.
 
 ## 1. Validated scope
 
@@ -18,12 +18,12 @@ This record validates:
 - canonical full ownership and Stage A baseline requirements;
 - Prompt 0.8 canonical-full merge preparation contract;
 - full-to-lean exporter implementation and workflow write boundaries;
-- malformed-public self-healing;
-- byte-exact public projection serialization;
+- malformed-public self-healing and byte-exact public serialization;
 - direct-path, symlink-alias, and hard-link full/public collision protection;
-- upload instructions that stage all registered runtime contracts and their tests;
+- exporter regression tests triggered by exporter-only and workflow-only changes;
+- upload instructions and manifests that include all registered runtime contracts, trigger workflows, and tests;
 - repository validators, prompt-overlay checks, and 35 unit/regression tests;
-- Codex findings addressed through the implementation commit above.
+- Codex findings addressed through the validated head.
 
 This record does not claim completion of:
 
@@ -49,20 +49,20 @@ Enforced rules:
 - `scripts/lean_cards.mjs` reads the full and writes only the public projection;
 - `.github/workflows/lean-cards.yml` commits only the generated public projection;
 - public-only edits are overwritten by the canonical projection;
-- an absent or invalid canonical full blocks generation;
-- an invalid existing public projection is treated as stale output in generation mode and rebuilt from the valid full;
-- semantically equivalent but byte-different public JSON is regenerated into the canonical compact serialization;
+- invalid public JSON is rebuilt from the valid full;
+- semantically equal but byte-different public JSON is normalized into canonical compact serialization;
 - `--check` fails on unreadable, mismatched, or byte-different public output;
-- full and public paths must resolve to distinct paths and distinct filesystem objects before any write;
-- device/inode identity prevents distinct hard-link names from bypassing the collision guard.
+- full and public paths must identify different filesystem objects before any write;
+- device/inode identity prevents hard-link aliases from bypassing the collision guard.
 
-## 3. Runtime, upload, and regression-test changes
+## 3. Runtime, workflow, upload, and regression-test changes
 
 This PR intentionally changes:
 
 ```text
 scripts/lean_cards.mjs
 .github/workflows/lean-cards.yml
+.github/workflows/workflow-contract-validation.yml
 validation_scripts/tests/test_lean_cards_exporter.py
 docs/llm_prompts/v1/UPLOAD_INSTRUCTIONS.md
 ```
@@ -75,23 +75,28 @@ node scripts/lean_cards.mjs --check  verify exact projection and bytes without w
 node scripts/lean_cards.mjs --dry    preview generation without writing
 ```
 
-Projection verification covers:
+Projection verification covers top-level metadata, card count, order, IDs, KEEP-field presence and values, non-KEEP exclusion, and exact generated-byte equality.
 
-- top-level metadata equality;
-- card-count equality;
-- card-order and ID equality;
-- KEEP-field presence and value equality;
-- absence of non-KEEP fields in public output;
-- exact generated-byte equality.
-
-### Added regression tests
+### Regression tests
 
 - `test_generation_repairs_malformed_public_without_mutating_full`
 - `test_generation_normalizes_semantically_equal_pretty_public`
 - `test_same_full_and_public_path_is_rejected_without_writing`
 - `test_hard_linked_full_and_public_paths_are_rejected_without_writing`
 
-Together they verify malformed-public recovery, pretty-print normalization, strict byte checks, direct-path rejection, hard-link rejection, and byte-for-byte full preservation.
+Together they verify malformed-public recovery, deterministic byte normalization, strict checks, path and inode isolation, and byte-for-byte full preservation.
+
+### Regression trigger contract
+
+`.github/workflows/workflow-contract-validation.yml` now triggers on:
+
+- `scripts/lean_cards.mjs`;
+- `.github/workflows/lean-cards.yml`;
+- `.github/workflows/workflow-contract-validation.yml`;
+- `validation_scripts/**`;
+- the existing governed prompt and contract paths.
+
+Therefore exporter-only changes execute the full unit/regression suite instead of relying only on current repository data checks.
 
 ### Upload workflow
 
@@ -102,21 +107,14 @@ docs/
 validation_scripts/
 scripts/lean_cards.mjs
 .github/workflows/lean-cards.yml
+.github/workflows/workflow-contract-validation.yml
 ```
 
-It also verifies that the registered exporter, workflow, and exporter regression-test path are present in the staged package. Card data remains excluded.
+It verifies that the registered exporter, both workflows, and exporter regression-test path are staged. Card data remains excluded.
 
 ## 4. Document-universe closure
 
-Stage 0.0D requires:
-
-- full enumeration, reading, or parsing of every `docs/**` file before classification;
-- reading inactive migrations, completed references, reference-only, superseded, and archived files;
-- the complete nine-class lifecycle model;
-- lifecycle-registry self-classification as `ACTIVE_VALIDATOR_CONTRACT`;
-- conflict-specific blocker precedence;
-- typed preservation of every secondary incomplete-universe defect;
-- no Stage 0.0C authorization unless all identity, read, classification, dependency, and conflict gates pass.
+Stage 0.0D requires full enumeration and reading/parsing of every `docs/**` file, the complete nine-class lifecycle model, registry self-classification, conflict-specific blocker precedence, typed preservation of secondary defects, and no Stage 0.0C authorization until all identity, read, classification, dependency, and conflict gates pass.
 
 ## 5. Editorial completeness closure
 
@@ -129,8 +127,6 @@ Stage 0.0D requires:
 → 0.8 canonical incremental merge preparation
 → 0.9 production verification
 ```
-
-Required review surface includes missing must-report news, follow-ups, execution-stage transitions, corrections and reversals, existing-card reinforcement, regional/topic coverage, exclusion rescue, evidence quality, materiality, incremental information, and decision usefulness.
 
 Stage 0.0C findings remain candidate leads and must pass Stage A/B/C. Discovery search does not become evidence automatically.
 
@@ -154,7 +150,7 @@ undeclared existing-card changes
 silent related-edge loss
 ```
 
-The canonical full may be materialized only through a governed declared-operation path with base locking, count reconciliation, declared field-level diffs, ID and duplicate validation, related preservation, target resolution, and full validation before public projection generation.
+The canonical full may be materialized only through a governed declared-operation path with base locking, count reconciliation, declared field-level diffs, ID and duplicate validation, related preservation, target resolution, and full validation before projection generation.
 
 The generic executable incremental apply engine remains pending follow-up implementation.
 
@@ -170,35 +166,33 @@ Accepted and addressed findings include:
 - document-record classification limited to one lifecycle class;
 - reverse-direction public-to-full exporter conflict;
 - Stage A allowing stale uploaded or local baselines;
-- generation unable to repair malformed public JSON;
-- direct path collision capable of overwriting full metadata;
-- different hard-link names capable of bypassing path-string collision checks;
-- upload instructions omitting registered runtime files from staging;
-- semantically equal but byte-different public JSON escaping deterministic regeneration.
+- malformed public JSON not self-healing;
+- direct and hard-link path collisions capable of modifying full metadata;
+- upload instructions omitting registered runtime files;
+- byte-different public JSON escaping deterministic regeneration;
+- exporter-only changes not triggering the exporter regression suite.
 
 Each thread was answered with implementation and CI evidence, then resolved.
 
 ## 8. CI evidence
 
-Against implementation head `0293b1601aee3221ce238969a104dbeca59ca18a`:
+Against validated head `c48f049eaccac831a6d09ac45162b0c48763cb80`:
 
-### Workflow contract validation — run #82
+### Workflow contract validation — run #87
 
 - Python validator compilation: PASS
-- unit/regression suite: **35 tests PASS**
-- malformed-public, pretty-print normalization, direct-path, and hard-link exporter tests: PASS
-- prompt files checked: 11
-- missing prompt files: 0
-- overlay updates required: 0
+- workflow-contract and exporter regression suite: **35 tests PASS**
+- prompt-overlay check: PASS
+- exporter and workflow paths are registered triggers for future runs.
 
-### validate-tracker — run #234
+### validate-tracker — run #239
 
 - tracker validation: PASS
 - public cards validation: PASS
 - canonical full validation: PASS
 - public projection equals canonical full exact projection: PASS
 
-### lean-cards — run #29
+### lean-cards — run #34
 
 - full-to-lean generation: PASS
 - tracker/public/full validation: PASS
@@ -236,8 +230,6 @@ It should also add CI gates requiring Stage 0.0D, Stage 0.0C, and Stage 0.7C art
 
 ## 11. Conclusion
 
-The validated direction is:
-
 ```text
 governed incremental operations
 → data/cards.full.json
@@ -245,4 +237,4 @@ governed incremental operations
 → public/data/cards.json
 ```
 
-The canonical full remains the sole source of truth. The public file is a reproducible, byte-deterministic application artifact. Runtime protection, upload-package completeness, and regression tests pass, while the not-yet-implemented generic incremental apply engine remains explicitly pending.
+The canonical full remains the sole source of truth. The public file is a reproducible, byte-deterministic application artifact. Runtime protection, package completeness, regression-trigger coverage, and tests pass, while the not-yet-implemented generic incremental apply engine remains explicitly pending.

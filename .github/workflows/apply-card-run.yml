@@ -1,0 +1,142 @@
+name: apply-card-run
+
+on:
+  pull_request:
+    paths:
+      - "runs/**/card-run.json"
+      - "scripts/apply_card_run.mjs"
+      - "scripts/apply_card_run_test.mjs"
+      - "schemas/card-run.v1.schema.json"
+      - ".github/workflows/apply-card-run.yml"
+  workflow_dispatch:
+    inputs:
+      run_path:
+        description: "Repository-relative card-run.json path"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: apply-card-run-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run incremental engine regression tests
+        run: node scripts/apply_card_run_test.mjs
+
+  apply:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    needs: validate-engine
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Resolve exactly one governed run
+        id: run
+        shell: bash
+        env:
+          DISPATCH_RUN_PATH: ${{ inputs.run_path }}
+          BASE_REF: ${{ github.event.pull_request.base.ref || github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          git fetch origin "$BASE_REF"
+          if [[ -n "${DISPATCH_RUN_PATH:-}" ]]; then
+            run_path="$DISPATCH_RUN_PATH"
+          else
+            mapfile -t runs < <(git diff --name-only "origin/$BASE_REF...HEAD" -- 'runs/**/card-run.json')
+            if [[ ${#runs[@]} -eq 0 ]]; then
+              echo "has_run=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            if [[ ${#runs[@]} -ne 1 ]]; then
+              echo "FAIL: one PR must contain exactly one card-run.json; found ${#runs[@]}" >&2
+              printf '%s\n' "${runs[@]}" >&2
+              exit 1
+            fi
+            run_path="${runs[0]}"
+          fi
+          test -f "$run_path"
+          echo "has_run=true" >> "$GITHUB_OUTPUT"
+          echo "path=$run_path" >> "$GITHUB_OUTPUT"
+          echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
+      - name: Apply declared operations to canonical full
+        if: steps.run.outputs.has_run == 'true'
+        run: >-
+          node scripts/apply_card_run.mjs
+          --run "${{ steps.run.outputs.path }}"
+          --baseline data/cards.full.json
+          --output data/cards.full.json
+          --lean-path public/data/cards.json
+          --base-main-sha "${{ steps.run.outputs.base_sha }}"
+          --apply
+      - name: Validate canonical full and lean projection
+        if: steps.run.outputs.has_run == 'true'
+        run: |
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/lean_cards.mjs --check
+      - name: Finalize apply report after repository validators pass
+        if: steps.run.outputs.has_run == 'true'
+        env:
+          RUN_PATH: ${{ steps.run.outputs.path }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from "node:fs";
+          import { dirname, resolve } from "node:path";
+          const path = resolve(dirname(process.env.RUN_PATH), "apply-report.json");
+          const report = JSON.parse(readFileSync(path, "utf8"));
+          report.github_merge_ready = true;
+          report.repository_validators = [
+            "node scripts/validate.mjs",
+            "node scripts/validate_cards.mjs",
+            "node scripts/validate_cards.mjs data/cards.full.json",
+            "node scripts/lean_cards.mjs --check"
+          ];
+          writeFileSync(path, `${JSON.stringify(report, null, 2)}\n`);
+          NODE
+      - name: Enforce generated-only data diff
+        if: steps.run.outputs.has_run == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          mapfile -t changed < <(git diff --name-only)
+          for path in "${changed[@]}"; do
+            case "$path" in
+              data/cards.full.json|public/data/cards.json|*/apply-report.json) ;;
+              *) echo "FAIL: apply engine changed undeclared path $path" >&2; exit 1 ;;
+            esac
+          done
+      - name: Commit canonical and generated outputs
+        if: steps.run.outputs.has_run == 'true' && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- data/cards.full.json public/data/cards.json 'runs/**/apply-report.json'; then
+            echo "변경 없음 — 생성 커밋 생략"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cards.full.json public/data/cards.json 'runs/**/apply-report.json'
+          git commit -m "chore: apply governed card run"
+          git push
+          gh workflow run validate-tracker.yml --ref "${{ github.event.pull_request.head.ref }}"

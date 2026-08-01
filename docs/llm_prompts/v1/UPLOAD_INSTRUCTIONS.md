@@ -1,44 +1,62 @@
-# Upload Instructions — LLM Prompt GitHub Canonical v1
+# Upload Instructions — Dynamic Governance Prompt Package
 
-Updated KST: `2026-07-20`
+**Stable package path:** `docs/llm_prompts/v1/`  
+**Active package version:** `LLM_PROMPT_GITHUB_CANONICAL_V2_DYNAMIC_GOVERNANCE_COMPLETENESS`
 
-## Package contents
+## 1. Required package roots
 
-The upload package includes prompt/governance documents and three executable integrity validators. Both directories are mandatory:
+Both directories are mandatory:
 
-- `docs/`
-- `validation_scripts/`
+```text
+docs/
+validation_scripts/
+```
 
-The required package inventory is defined by:
+Do not upload a remembered subset of governance files or validators.
+
+The package must include the current paths registered by:
 
 - `docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json`
 - `docs/llm_prompts/v1/UPLOAD_MANIFEST.json`
 - `docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json`
+- `docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json`
+- `docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json`
 
-## Upload
+Static counts are informational. Stage 0.0D reconciles the actual repository universe at run time.
+
+## 2. Mandatory governance entry
+
+Every ordinary run must execute:
+
+```text
+0.0D Document Universe Preflight
+→ 0.0C Coverage Discovery
+```
+
+before Stage A.
+
+Stage 0.0D reads or parses every file under `docs/**` in full, classifies applicability, and verifies the current repository SHA.
+
+Stage 0.0C performs missing-news, follow-up, correction, and existing-card reinforcement discovery. Stage A remains selector-only.
+
+## 3. Upload workflow
 
 ```bash
 git checkout main
-git pull
-git checkout -b docs/llm-prompt-canonical-v1
-unzip LLM_PROMPT_GITHUB_CANONICAL_V1_FINAL_REPO_READY_*.zip
+git pull --ff-only
+git checkout -b agent/dynamic-governance-completeness
+
+# Copy the complete intended docs/ and validation_scripts/ changes.
 git add docs validation_scripts
-git commit -m "docs: add LLM prompt canonical v1"
-git push -u origin docs/llm-prompt-canonical-v1
+git status --short
+git diff --cached --stat
 ```
 
-Do not use `git add docs` alone. That would omit the registered validators and produce an incomplete package.
+Do not stage card data or runtime code in the governance PR.
 
-## Required package pre-commit checks
-
-These checks validate the prompt/validator package itself and must pass for a docs-only package PR:
+## 4. Required JSON and path validation
 
 ```bash
-python -m py_compile \
-  validation_scripts/date_role_alignment_check.py \
-  validation_scripts/story_id_lineage_check.py \
-  validation_scripts/related_lineage_check.py
-
 python - <<'PY'
 import json
 from pathlib import Path
@@ -47,7 +65,10 @@ manifest_paths = [
     Path("docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json"),
     Path("docs/llm_prompts/v1/UPLOAD_MANIFEST.json"),
     Path("docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json"),
+    Path("docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json"),
+    Path("docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"),
 ]
+
 for path in manifest_paths:
     json.loads(path.read_text(encoding="utf-8"))
 
@@ -56,125 +77,130 @@ listed = []
 for value in upload.get("paths", {}).values():
     if isinstance(value, list):
         listed.extend(value)
-missing = [path for path in listed if not Path(path).exists()]
+missing = sorted({p for p in listed if not Path(p).exists()})
 if missing:
-    raise SystemExit(f"missing package files: {missing}")
-print("PASS: manifests parse and all listed package paths exist")
-PY
+    raise SystemExit(f"missing registered package files: {missing}")
 
+canonical = json.loads(manifest_paths[0].read_text(encoding="utf-8"))
+required_overrides = {
+    "DATE_STORYID_RELATED_INTEGRITY_V1",
+    "DYNAMIC_GOVERNANCE_COMPLETENESS_V1",
+}
+registered = {
+    row.get("override_id")
+    for row in canonical.get("override_registrations", [])
+}
+if not required_overrides <= registered:
+    raise SystemExit(
+        f"missing mandatory override registration: {sorted(required_overrides - registered)}"
+    )
+
+print("PASS: manifests parse, registered files exist, mandatory overrides registered")
+PY
+```
+
+## 5. Required validator syntax checks
+
+```bash
+python -m py_compile \
+  validation_scripts/date_role_alignment_check.py \
+  validation_scripts/story_id_lineage_check.py \
+  validation_scripts/related_lineage_check.py \
+  validation_scripts/date_role_freshness_check.py \
+  validation_scripts/evidence_qc_v8_check.py \
+  validation_scripts/related_lifecycle_check.py \
+  validation_scripts/stage_artifact_contract_check.py \
+  validation_scripts/run_workflow_contract_suite.py
+```
+
+Run the repository’s workflow-contract tests when dependencies are available.
+
+## 6. Docs-only isolation check
+
+```bash
 BASE_REF="${BASE_REF:-origin/main}"
 MERGE_BASE="$(git merge-base HEAD "$BASE_REF")"
-git diff --quiet "$MERGE_BASE" HEAD -- public/data/cards.json || {
-  echo "FAIL: docs-only baseline exception requires unchanged public/data/cards.json"
-  exit 1
-}
+
+for path in data/cards.full.json public/data/cards.json; do
+  git diff --quiet "$MERGE_BASE" HEAD -- "$path" || {
+    echo "FAIL: governance PR must not modify $path"
+    exit 1
+  }
+done
 ```
 
-The final command is mandatory for the docs-only exception. If `public/data/cards.json` differs from the merge base, the date and related validators become hard blocking checks and the PR must include the corresponding data remediation.
+This separation is mandatory:
 
-## Run-bound story-ID check
+- governance PR: documents, manifests, prompts, validators;
+- migration/data PR: explicitly activated transition data;
+- incremental-engine PR: schema, apply logic, and CI automation;
+- ordinary data PR: governed run operation only.
 
-When a current run and baseline are available, run:
+## 7. Migration handling
+
+Files under `docs/migrations/` are included for traceability but do not apply automatically.
+
+A migration affects a run only when the run intake explicitly records:
+
+- migration path;
+- activation authority;
+- bounded scope;
+- baseline SHAs;
+- completion condition.
+
+Do not copy migration-specific dates, counts, run IDs, or branch details into permanent governance documents.
+
+## 8. Card-data validation when data is later changed
+
+When a separate data or incremental-operation PR changes the canonical full or public projection, run all applicable data validators, including:
 
 ```bash
-python validation_scripts/story_id_lineage_check.py \
-  RUN_JSON BASELINE_CARDS_JSON
-```
-
-The validator supports both canonical source shapes:
-
-- `stories[]`
-- `final_news_llm_input.stories[]`
-
-It also reads every current Stage A terminal or lineage container:
-
-- `decision_ledger[]`
-- `strict_passed_spec[]`
-- `candidate_review_pool[]`
-- `watchlist_context_pool[]`
-- `existing_reinforcement[]`
-- `support_source_only[]`
-- `rejected[]`
-- `reject_or_support_only_pool[]`
-
-The grouped story universe is the stable-order union of `source_story_ids[]` and `grouped_story_ids[]`. Positional URL pairing evaluates both `source_urls[]` and `urls[]`; every array whose filtered length exactly matches the grouped story count is paired by position. A short representative URL array cannot suppress a complete positional URL array.
-
-Identity is evaluated for each run record and each baseline card independently. Do not treat a story ID as trusted merely because another record or another baseline card with the same story ID has an exact URL match. The output separates:
-
-- unique collision story IDs: `collision_count`
-- colliding run records: `collision_record_count`
-- unmatched run-record/baseline-card pairs: `collision_pair_count`
-- partially matched records: `partial_identity_match_record_count`
-
-When cross-run collisions exist, detection-only mode intentionally exits with code `2` and status:
-
-```text
-BLOCKED_STORY_ID_COLLISIONS_UNQUARANTINED
-```
-
-After Stage A has recorded collision quarantine fields, rerun:
-
-```bash
-python validation_scripts/story_id_lineage_check.py \
-  RUN_JSON BASELINE_CARDS_JSON \
+python validation_scripts/date_role_alignment_check.py CURRENT_FULL_JSON
+python validation_scripts/story_id_lineage_check.py RUN_JSON CURRENT_FULL_JSON \
   --stage-a-results STAGE_A_RESULTS_JSON
-```
-
-Acceptable story-ID validator success states are:
-
-- `PASS_NO_COLLISIONS`
-- `PASS_COLLISIONS_QUARANTINED`
-
-## Baseline and production data audits
-
-The following checks validate card data rather than the docs/validator package:
-
-```bash
-python validation_scripts/date_role_alignment_check.py CURRENT_CARDS_JSON
 python validation_scripts/related_lineage_check.py \
-  CURRENT_CARDS_JSON \
-  --previous-baseline PREVIOUS_CARDS_JSON
+  CURRENT_FULL_JSON \
+  --previous-baseline PREVIOUS_FULL_JSON
+python validation_scripts/related_lifecycle_check.py \
+  CURRENT_FULL_JSON \
+  --require-contract
+node scripts/validate_cards.mjs data/cards.full.json
+node scripts/lean_cards.mjs --check
 ```
 
-The date validator parses card dates, standardized ID dates, event-fingerprint dates, source publication dates and visible quote dates as real ISO calendar dates. Equal invalid source-date strings do not pass merely because they match each other.
+Use exact current command options supported by the validator version on the target branch. A docs-only PR does not waive future data gates.
 
-The related validator requires the previous active baseline whenever the current cards contain missing targets. Only an identical source/target dangling pair already present in that previous baseline may be classified as historical unresolved. A new typo, deleted target or newly missing related ID returns `BLOCKED_NEW_MISSING_RELATED_TARGETS` with exit code `2`. Running without `--previous-baseline` while unresolved targets exist returns `BLOCKED_UNRESOLVED_RELATED_TARGETS_UNCLASSIFIED` with exit code `2`.
-
-They are hard gates when any of the following applies:
-
-- `public/data/cards.json` is changed;
-- Prompt 0.8 merge preparation is running;
-- Prompt 0.9 production verification is running;
-- a baseline date/related remediation PR is being prepared.
-
-For a docs-only package PR that does not modify `public/data/cards.json`, existing baseline findings must be recorded but do not block the package commit. At the time of this hardening PR, the unchanged baseline has five historical date-integrity findings and unresolved historical related references that are preserved for lineage-safe remediation. This exception applies only when the `git diff --quiet` check above proves the baseline card file is unchanged; any card-data change or new finding restores the hard gate.
-
-## PR title
+## 9. Canonical data rule
 
 ```text
-docs: add LLM prompt canonical v1
+data/cards.full.json      canonical full inventory
+public/data/cards.json    generated lean projection
 ```
 
-## PR body scope
+Ordinary operations are:
 
 ```text
-Adds or updates the GitHub-canonical LLM prompt package v1.
-
-Scope:
-- Replaces live prompt governance docs under docs/
-- Adds numbered A/B/C and post-acceptance prompt files under docs/llm_prompts/v1/
-- Adds source-diversity and IB/Codex master rules
-- Adds mandatory integrity override and stage addenda
-- Adds registered date, story-ID, and related-lineage validators
-- Keeps GitHub canonical version at v1
-
-Notes:
-- No public/data/cards.json change
-- No app runtime-code change
-- Omitting registered validators is a package failure
-- Existing unchanged-baseline findings are reported separately from package-integrity checks
+insert
+update
+related_add
 ```
 
-## Historical note
+Ordinary runs do not delete cards or remove existing related edges.
 
-The earlier PR #151 validator set remains a separate historical follow-up. It does not replace or negate the three validators registered by the current date/story-ID/related integrity override.
+## 10. PR scope
+
+Recommended title:
+
+```text
+docs: add dynamic governance and editorial completeness contracts
+```
+
+The PR body should state:
+
+- fixed-document governance is replaced by Stage 0.0D dynamic discovery;
+- Stage 0.0C searches for missing news and follow-ups before Stage A;
+- Stage 0.7C independently challenges completeness and news value;
+- canonical full and lean projection roles are separated;
+- ordinary run operations are insert, update, and related_add;
+- one-time migration facts are isolated under `docs/migrations/`;
+- no card data or runtime code changed.

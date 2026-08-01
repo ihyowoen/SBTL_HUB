@@ -1,10 +1,10 @@
 {
   "version": "LLM_PROMPT_GITHUB_CANONICAL_V2_DYNAMIC_GOVERNANCE_COMPLETENESS",
-  "manifest_policy": "Upload packages are incomplete unless both mandatory override families, all registered named-stage prompts, stage addenda, permanent governance documents, applicable validators, and open-remediation references are included. Stage 0.0D reads or parses every docs file and performs run-time reconciliation.",
+  "manifest_policy": "Upload packages are incomplete unless both mandatory override families, all registered named-stage prompts, stage addenda, permanent governance documents, applicable validators, open-remediation references, and subordinate canonical support bodies are included. Stage 0.0D reads or parses every docs file and performs run-time reconciliation.",
   "scope": "GitHub-canonical SBTL_HUB prompt and governance package with dynamic document-universe preflight, coverage discovery, independent completeness review, canonical-full incremental operation, and retrospective canonical promotion.",
   "base_branch": "main",
   "head_branch": "agent/dynamic-governance-completeness",
-  "file_count": 68,
+  "file_count": 69,
   "file_count_policy": "informational_only_stage_0_0d_reconciles_current_repository",
   "governance_doc_count": 15,
   "stage_prompt_count": 17,
@@ -69,6 +69,7 @@
     ],
     "package_docs": [
       "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
+      "docs/llm_prompts/v1/legacy/10_PROMPT_0_8_GitHub_Merge_Prep_LEGACY_BODY.md",
       "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
       "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
       "docs/llm_prompts/v1/PROMPT_MANIFEST.md",

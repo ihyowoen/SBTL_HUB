@@ -44,6 +44,10 @@
       "scope": "public/data/cards.json as sole canonical baseline"
     },
     {
+      "path": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "scope": "public, uploaded, local, branch-only, prior-run, or remembered inventories as independent Stage A baselines without byte-equivalence to current GitHub main data/cards.full.json"
+    },
+    {
       "path": "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
       "scope": "fixed eight-document retrospective preflight and hierarchy"
     },
@@ -53,13 +57,28 @@
     },
     {
       "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
-      "scope": "every clause treating public/data/cards.json as current baseline, merge source of truth, canonical count source, fallback baseline, sole merge target, or authoritative replacement file"
+      "scope": "every clause treating public/data/cards.json as current baseline, merge source of truth, canonical count source, fallback baseline, sole merge target, authoritative replacement file, or batch inbox"
     },
     {
       "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
       "scope": "legacy fallback rules that permit public or local projection data to substitute for unreadable data/cards.full.json"
+    },
+    {
+      "path": "docs/OPERATIONS.md",
+      "scope": "Section F public-to-full batch-ingestion and reverse-direction archive reconstruction as the ordinary-run exporter flow"
     }
   ],
+  "canonical_data_contract": {
+    "baseline": "data/cards.full.json",
+    "stage_a_relationship_baseline": "data/cards.full.json",
+    "canonical_output": "data/cards.full.json",
+    "public_projection": "public/data/cards.json",
+    "exporter": "scripts/lean_cards.mjs",
+    "export_direction": "data/cards.full.json -> public/data/cards.json",
+    "public_may_rebuild_full": false,
+    "verified_local_copy_allowed": true,
+    "verified_local_copy_requirement": "byte_equivalent_to_locked_main_full_blob"
+  },
   "migration_policy": {
     "directory": "docs/migrations/",
     "ordinary_run_auto_apply": false,

@@ -13,8 +13,14 @@
 //   node scripts/lean_cards.mjs           # generate public projection from canonical full
 //   node scripts/lean_cards.mjs --check   # verify public projection exactly matches canonical full
 //   node scripts/lean_cards.mjs --dry     # preview generation without writing
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
-import { dirname } from "node:path";
+import {
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  existsSync,
+  realpathSync,
+} from "node:fs";
+import { dirname, resolve } from "node:path";
 
 const KEEP = [
   "id", "region", "date", "cat", "sub_cat", "signal", "title", "sub",
@@ -36,6 +42,20 @@ if (CHECK && DRY) {
 }
 if (unknown.length) {
   console.error(`FAIL: 지원하지 않는 인자 ${unknown.join(", ")}`);
+  process.exit(2);
+}
+
+if (!existsSync(FULL_PATH)) {
+  console.error(`FAIL: canonical full 없음 — ${FULL_PATH}`);
+  process.exit(1);
+}
+
+// Environment overrides are useful for tests, but input and output must never resolve to the same
+// file. Otherwise a projection write could destroy full-only metadata.
+const resolvedFullPath = realpathSync(FULL_PATH);
+const resolvedLeanPath = existsSync(LEAN_PATH) ? realpathSync(LEAN_PATH) : resolve(LEAN_PATH);
+if (resolvedFullPath === resolvedLeanPath) {
+  console.error(`FAIL: canonical full과 public projection 경로가 동일함 — ${resolvedFullPath}`);
   process.exit(2);
 }
 
@@ -68,11 +88,6 @@ const sameKeep = (publicCard, fullCard) => KEEP.every((key) => {
   if (publicHas !== fullHas) return false;
   return !publicHas || JSON.stringify(publicCard[key]) === JSON.stringify(fullCard[key]);
 });
-
-if (!existsSync(FULL_PATH)) {
-  console.error(`FAIL: canonical full 없음 — ${FULL_PATH}`);
-  process.exit(1);
-}
 
 let fullLoaded;
 try {
@@ -160,8 +175,9 @@ if (existsSync(LEAN_PATH)) {
     currentPublic = loaded.doc;
     currentRaw = loaded.raw;
   } catch (error) {
-    console.error(`FAIL: 기존 public projection 파싱 — ${error.message}`);
-    process.exit(1);
+    // Generation mode is self-healing: malformed or truncated public data is stale output, not an
+    // authority source. Keep --check strict, but overwrite malformed output from the valid full.
+    console.warn(`경고: 기존 public projection 파싱 실패 — canonical full에서 재생성함 (${error.message})`);
   }
 }
 

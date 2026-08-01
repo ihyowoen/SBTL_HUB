@@ -27,6 +27,7 @@ Every relevant repository document must be classified as exactly one of:
 - `ACTIVE_VALIDATOR_CONTRACT`
 - `OPEN_REMEDIATION`
 - `ACTIVE_MIGRATION`
+- `COMPLETED_REFERENCE`
 - `REFERENCE_ONLY`
 - `SUPERSEDED`
 - `ARCHIVED`
@@ -34,6 +35,8 @@ Every relevant repository document must be classified as exactly one of:
 Only the first four classes apply automatically to ordinary runs.
 
 `ACTIVE_MIGRATION` applies only when the run intake explicitly activates that migration. Migration documents never become default operating rules merely because they exist in the repository.
+
+`COMPLETED_REFERENCE` is the terminal class for a completed migration. It remains readable for audit and conflict detection but never applies to ordinary runs.
 
 ## 3. Permanent canonical rule domains
 

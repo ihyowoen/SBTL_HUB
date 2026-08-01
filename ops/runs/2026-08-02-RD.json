@@ -2,9 +2,9 @@
   "runId": "2026-08-02-RD",
   "date": "2026-08-02",
   "type": "RD-sunday",
-  "summary": "일요일 run(KST). 로테이션상 일요일은 셀 스윕 무배정(Mon~Sat 90셀)이므로 일요일 완전 run = 롤오버 + standing monitor + 부채 소화로 정의. 수행: ① 스냅샷 롤오버(meta·region_policy 08-02, baked 카운트다운 3건 스크럽) ② 부채 소화 — CN-026 실검증(위험군 21/21 완결·징구의견稿 단계 진입), CN-017 재검증(07-29 무효화분 해소·std.samr 대조), CN-018 VAT 모니터 겸 재확인(문고 2026A판 등 실무 기준 보강), KR-019 별표 3회 시도(미확보·부채 유지) ③ standing monitor 5/5 점검 완료 ④ neverSwept 13셀(next_tech·upstream·downstream) 전수 실스윕 완료 — 신규 후보 11건 승인 큐 등재(직접 편입 0), neverSwept 0 달성.",
-  "partial": false,
-  "partialReason": null,
+  "summary": "일요일 run(KST). 로테이션상 일요일은 셀 스윕 무배정(Mon~Sat 90셀)이므로 수행(RD-2 전수 재검증 제외 — partial): ① 스냅샷 롤오버(meta·region_policy 08-02, baked 카운트다운 3건 스크럽) ② 부채 소화 — CN-026 실검증(위험군 21/21 완결·징구의견稿 단계 진입), CN-017 재검증(07-29 무효화분 해소·std.samr 대조), CN-018 VAT 모니터 겸 재확인(문고 2026A판 등 실무 기준 보강), KR-019 별표 3회 시도(미확보·부채 유지) ③ standing monitor 5/5 점검 완료 ④ neverSwept 13셀(next_tech·upstream·downstream) 전수 실스윕 완료 — 신규 후보 11건 승인 큐 등재(직접 편입 0), neverSwept 0 달성.",
+  "partial": true,
+  "partialReason": "RUNBOOK RD-2(전 항목 매일 재검증)/G2 기준 미충족 — 본 run 실검증 3건(CN-017·CN-026 primary-meta, CN-018 secondary), 나머지 146건은 이전 run 검증일 승계. 수행 범위는 롤오버·standing monitor 5/5·부채 소화·neverSwept 13셀 전수 스윕으로 한정하며, RD-2 전수 재검증은 차기 정규 run에서 수행한다. (일요일을 축소 run으로 상설화하려면 RUNBOOK 개정이 선행되어야 하며, 개정 전에는 partial로 기록한다.)",
   "searches": [
     {
       "query": "관세법 제71조에 따른 할당관세의 적용에 관한 규정 별표 알루미늄 합금 7601 7606",
@@ -205,7 +205,8 @@
     "KR-019 — 별표 HS 대조 3회 시도 기록(미확보, 부채 유지)",
     "meta.lastUpdated 2026-08-02, region_policy _meta 동기화 + baked 카운트다운 3건 스크럽",
     "standing monitor 5/5 점검 — 전 항목 무변동(GM/Tesla는 관찰 기록)",
-    "neverSwept 13셀 전수 스윕(실검색 13회) — coverage.json lastSwept 갱신, 승인 큐 후보 11건 도출(CCC 충전설비 D-1·GB/T 43568·NDAA §842 등). 스코프 게이트 준수: 데이터셋 직접 편입 0건"
+    "neverSwept 13셀 전수 스윕(실검색 13회) — coverage.json lastSwept 갱신, 승인 큐 후보 11건 도출(CCC 충전설비 2026.08.01 기발효·GB/T 43568·NDAA §842 등). 스코프 게이트 준수: 데이터셋 직접 편입 0건",
+    "**[2026-08-02 PR#227 리뷰 정정 6차]** partial을 true로 환원(RUNBOOK RD-2 전수 재검증 미수행 — 축소 run 상설화는 RUNBOOK 개정 선행 필요), CCC 충전설비 인증을 기발효(2026.08.01, D+1)로 정정하고 즉시 검증 우선순위 부여, coverage _meta lastRun·note를 08-02 스윕 상태로 동기화, region_policy _meta.lastUpdated를 실제 작업 시각으로 정정."
   ],
   "newItems": [],
   "corrections": [],
@@ -268,7 +269,7 @@
       "cell": "downstream/CN",
       "sweptAt": "2026-08-02",
       "finding": "① 전동차 공전설비 CCC 강제인증 2026.08.01 시행(시감총국 2024 공고, 미인증 출하·판매·수입·사용 금지) ② GB 47372-2026 《移动电源安全技术规范》 2026.04.03 발포·2027.04.01 시행(침자시험·순환노화 후 리튬석출 검출 신설)",
-      "candidates": "후보 2: CCC 충전설비 인증(D-1), GB 47372-2026"
+      "candidates": "후보 2: CCC 충전설비 인증(2026.08.01 기발효), GB 47372-2026"
     },
     {
       "cell": "downstream/KR",
@@ -300,7 +301,7 @@
     "KR-019 별표 HS·세율·물량 대조 — law.go.kr 원문 직접 확인 필요(자동접근 차단으로 수동 확인 권고). SBTL 직결 최우선",
     "CN-017·CN-026 표준 전문 취득(한계치 테이블·초안 전문)",
     "CN-034·CN-035·CN-038 표준 전문 취득(verificationDebt)",
-    "승인 큐 11건 심사(최우선: CCC 충전설비 — 2026.08.03 run에서 시행 확인과 함께)",
+    "승인 큐 11건 심사(최우선: CCC 충전설비 — 2026.08.01 기발효 상태이므로 차기 run 개시 시 즉시 시행 확인·항목화)",
     "EU 로컬콘텐츠 입법 제정 여부·법안명 확인"
   ],
   "pendingDecisions": [
@@ -341,8 +342,8 @@
   "approvalQueueCandidates": [
     {
       "name": "CN 전동차 공전설비 CCC 강제인증",
-      "basis": "시감총국 2024 공고, 2026.08.01 시행(미인증 출하·판매·수입·사용 금지)",
-      "priority": "P1 — 시행 D-1"
+      "basis": "시감총국 2024 공고, 2026.08.01 기시행(스냅샷 기준 D+1) — 미인증 설비 출하·판매·수입·사용 금지 이미 발효",
+      "priority": "P1 — 기발효, 즉시 검증"
     },
     {
       "name": "GB/T 43568-2026 전기차 전고체전지 제1부 용어·분류",

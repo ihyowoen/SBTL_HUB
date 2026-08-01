@@ -19,6 +19,7 @@ import {
   mkdirSync,
   existsSync,
   realpathSync,
+  statSync,
 } from "node:fs";
 import { dirname, resolve } from "node:path";
 
@@ -50,12 +51,23 @@ if (!existsSync(FULL_PATH)) {
   process.exit(1);
 }
 
-// Environment overrides are useful for tests, but input and output must never resolve to the same
-// file. Otherwise a projection write could destroy full-only metadata.
+// Environment overrides are useful for tests, but input and output must never identify the same
+// filesystem object. Path-string checks catch aliases and symlinks; device/inode checks also catch
+// distinct hard-link names that point to the same underlying file.
 const resolvedFullPath = realpathSync(FULL_PATH);
-const resolvedLeanPath = existsSync(LEAN_PATH) ? realpathSync(LEAN_PATH) : resolve(LEAN_PATH);
-if (resolvedFullPath === resolvedLeanPath) {
-  console.error(`FAIL: canonical full과 public projection 경로가 동일함 — ${resolvedFullPath}`);
+const leanExists = existsSync(LEAN_PATH);
+const resolvedLeanPath = leanExists ? realpathSync(LEAN_PATH) : resolve(LEAN_PATH);
+const sameResolvedPath = resolvedFullPath === resolvedLeanPath;
+let sameFileIdentity = false;
+if (leanExists) {
+  const fullStat = statSync(FULL_PATH);
+  const leanStat = statSync(LEAN_PATH);
+  sameFileIdentity = fullStat.dev === leanStat.dev && fullStat.ino === leanStat.ino;
+}
+if (sameResolvedPath || sameFileIdentity) {
+  console.error(
+    `FAIL: canonical full과 public projection이 동일한 파일 객체를 가리킴 — ${resolvedFullPath} / ${resolvedLeanPath}`,
+  );
   process.exit(2);
 }
 

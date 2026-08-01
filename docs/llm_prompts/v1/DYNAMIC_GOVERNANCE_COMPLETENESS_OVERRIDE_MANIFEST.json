@@ -16,6 +16,12 @@
     "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
     "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md"
   ],
+  "stage_addenda": [
+    "docs/llm_prompts/v1/01_PROMPT_0_1_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md"
+  ],
+  "lifecycle_registry": "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
   "superseded_scopes": [
     {
       "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
@@ -36,6 +42,14 @@
     {
       "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
       "scope": "public/data/cards.json as sole canonical baseline"
+    },
+    {
+      "path": "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
+      "scope": "fixed eight-document retrospective preflight and hierarchy"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "scope": "replace-all-only merge assumption where it conflicts with declared incremental operations"
     }
   ],
   "migration_policy": {
@@ -47,9 +61,12 @@
   "required_blockers": [
     "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE",
     "BLOCKED_COVERAGE_DISCOVERY_INCOMPLETE",
+    "BLOCKED_STAGE_A_EXPANDED_SOURCE_UNIVERSE_MISSING",
     "BLOCKED_EDITORIAL_COMPLETENESS_UNPROVEN",
+    "BLOCKED_INCREMENTAL_MERGE_PRECONDITION_MISSING",
     "BLOCKED_BASELINE_MOVED_REBASE_REQUIRED",
     "BLOCKED_UNDECLARED_CARD_DIFF",
-    "BLOCKED_EXISTING_RELATED_EDGE_LOSS"
+    "BLOCKED_EXISTING_RELATED_EDGE_LOSS",
+    "BLOCKED_RETROSPECTIVE_RULE_PROMOTION_INCOMPLETE"
   ]
 }

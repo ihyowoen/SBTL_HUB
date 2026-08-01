@@ -300,4 +300,4 @@ The assistant may state that “all applicable documents were read” only when 
 - no unresolved conflict;
 - `incomplete_universe_defects=[]`.
 
-Otherwise the correct status is `DOCUMENT_UNIVERSE_UNVERIFIED`.
+If any assertion prerequisite is missing, set `document_universe_status=FAIL` and select the permitted top-level blocker using Section 6: `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT` when `unresolved_rule_conflicts[]` is non-empty; otherwise `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE`.

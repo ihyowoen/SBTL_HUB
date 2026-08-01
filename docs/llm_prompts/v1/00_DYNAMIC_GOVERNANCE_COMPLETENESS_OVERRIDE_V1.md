@@ -25,7 +25,7 @@ Every run must begin with:
 - `docs/DOCUMENT_UNIVERSE_POLICY.md`;
 - `docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md`.
 
-Stage 0.0D must discover and read the complete active rule universe from the current GitHub `main`.
+Stage 0.0D must read or parse every file under `docs/**`, then classify and apply the complete active rule universe from the current GitHub `main`.
 
 A fixed list of core documents is a minimum seed only. It is not proof that all applicable rules were read.
 
@@ -38,6 +38,29 @@ After Stage 0.0D, Stage 0.0C must review the canonical full, input stories, trac
 Stage A remains selector-only and uses the Stage 0.0C expanded source universe as its authoritative input.
 
 Stage A does not perform the external search itself.
+
+### 2.1 Fact-discipline boundary
+
+Stage 0.0C discovery is not evidence creation and does not weaken `FACT_DISCIPLINE.md`.
+
+A web search result discovered in Stage 0.0C is only a candidate lead. It must still:
+
+1. enter the explicit expanded source-universe ledger;
+2. pass Stage A selection;
+3. pass Stage B body-level or official-material evidence collection;
+4. pass Stage C fact-safe validation;
+5. pass every applicable post-acceptance gate.
+
+Any earlier rule that prohibits web search from silently creating a new card or unsupported claim remains fully effective.
+
+For clarity:
+
+- Stage 0.0C may discover a new candidate lead;
+- Stage 0.0C may not create a final claim, `fact_sources`, accepted card, or publish state;
+- Stage B and later may not use the Stage 0.0C search result as evidence without direct inspection and claim mapping;
+- no discovered candidate may bypass Stage A/B/C.
+
+This is a workflow-scope clarification, not an exception to factual accuracy or evidence requirements.
 
 ## 3. Independent completeness rule
 
@@ -105,9 +128,12 @@ Use the applicable blocker when:
 
 - `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE`;
 - `BLOCKED_COVERAGE_DISCOVERY_INCOMPLETE`;
+- `BLOCKED_STAGE_A_EXPANDED_SOURCE_UNIVERSE_MISSING`;
 - `BLOCKED_EDITORIAL_COMPLETENESS_UNPROVEN`;
+- `BLOCKED_INCREMENTAL_MERGE_PRECONDITION_MISSING`;
 - `BLOCKED_BASELINE_MOVED_REBASE_REQUIRED`;
 - `BLOCKED_UNDECLARED_CARD_DIFF`;
-- `BLOCKED_EXISTING_RELATED_EDGE_LOSS`.
+- `BLOCKED_EXISTING_RELATED_EDGE_LOSS`;
+- `BLOCKED_RETROSPECTIVE_RULE_PROMOTION_INCOMPLETE`.
 
 No downstream stage may waive these blockers through prose or memory.

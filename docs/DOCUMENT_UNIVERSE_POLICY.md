@@ -2,7 +2,7 @@
 
 **Status:** `ACTIVE_CANONICAL`  
 **Stage:** `0.0D`  
-**Version:** `DOCUMENT_UNIVERSE_PREFLIGHT_V1`
+**Version:** `DOCUMENT_UNIVERSE_PREFLIGHT_V2`
 
 ## 0. Purpose
 
@@ -129,12 +129,33 @@ For each conflicting pair, record:
 
 Any unresolved conflict produces `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`.
 
+### 4.6 Defect preservation
+
+Every non-conflict hard blocker must be represented both in its dedicated category field and exactly once in the normalized `incomplete_universe_defects[]` ledger.
+
+The normalized ledger uses these defect types:
+
+- `REPOSITORY_HEAD_CHANGED`;
+- `MISSING_COMPONENT`;
+- `STALE_COMPONENT`;
+- `MISSING_CONTENT_IDENTITY`;
+- `UNREAD_DOCUMENT`;
+- `UNCLASSIFIED_DOCUMENT`;
+- `MISSING_DEPENDENCY`;
+- `MISAPPLIED_NON_AUTHORITATIVE_DOCUMENT`;
+- `UNCHECKED_OPEN_REMEDIATION`;
+- `UNAUTHORIZED_MIGRATION_APPLICATION`;
+- `INACTIVE_DOCUMENT_CONTAMINATION`.
+
+Authority conflicts remain exclusively in `unresolved_rule_conflicts[]`. Selecting one top-level blocker must never erase secondary defects.
+
 ## 5. Required output
 
 ```json
 {
   "stage": "0.0D",
-  "document_universe_status": "PASS",
+  "status": "PASS|BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE|BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
+  "document_universe_status": "PASS|FAIL",
   "repository_head_sha": "",
   "canonical_full_blob_sha": "",
   "documents": [
@@ -153,11 +174,25 @@ Any unresolved conflict produces `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`.
       "superseded_by": null
     }
   ],
+  "repository_state_defects": [],
+  "missing_or_stale_components": [],
+  "missing_content_identity_documents": [],
   "unclassified_documents": [],
   "unread_documents": [],
   "unread_active_documents": [],
   "unresolved_dependencies": [],
   "unresolved_rule_conflicts": [],
+  "misapplied_non_authoritative_documents": [],
+  "unchecked_open_remediations": [],
+  "unauthorized_migration_applications": [],
+  "inactive_document_contamination": [],
+  "incomplete_universe_defects": [
+    {
+      "type": "REPOSITORY_HEAD_CHANGED|MISSING_COMPONENT|STALE_COMPONENT|MISSING_CONTENT_IDENTITY|UNREAD_DOCUMENT|UNCLASSIFIED_DOCUMENT|MISSING_DEPENDENCY|MISAPPLIED_NON_AUTHORITATIVE_DOCUMENT|UNCHECKED_OPEN_REMEDIATION|UNAUTHORIZED_MIGRATION_APPLICATION|INACTIVE_DOCUMENT_CONTAMINATION",
+      "path": "",
+      "detail": ""
+    }
+  ],
   "open_remediations_checked": [],
   "active_migrations": [],
   "inactive_migrations_read": [],
@@ -166,6 +201,11 @@ Any unresolved conflict produces `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`.
   "superseded_documents_read": [],
   "archived_documents_read": [],
   "excluded_migrations": [],
+  "blocker_precedence": [
+    "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
+    "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE"
+  ],
+  "selected_blocker_reason": "",
   "all_docs_files_read_or_parsed": true,
   "stage_0_0c_authorized": true
 }
@@ -183,23 +223,21 @@ Stage 0.0C and all later stages are blocked when any of the following is true:
 - an active addendum or validator is absent from the package;
 - a referenced dependency is missing;
 - an unclassified governed file remains;
-- a superseded document was applied as authority;
+- a superseded, archived, reference-only, completed-migration, or inactive-migration document was applied as authority;
 - an active rule conflict is unresolved;
 - an open remediation applicable to the current data was not checked;
 - a migration was applied without explicit activation;
-- a migration that is not active contaminated a permanent rule decision.
+- a migration or other inactive document contaminated a permanent rule decision.
 
-Blocked statuses:
+### Blocker precedence
 
-```text
-BLOCKED_DOCUMENT_AUTHORITY_CONFLICT
-```
+The single `status` field must be selected in this order:
 
-Use the conflict-specific status whenever `unresolved_rule_conflicts[]` is non-empty. For all other incomplete-universe conditions use:
+1. When `unresolved_rule_conflicts[]` is non-empty, use `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT` even if other defects coexist.
+2. Otherwise, when `incomplete_universe_defects[]` is non-empty or any other incomplete-universe condition exists, use `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE`.
+3. Only when both ledgers are empty and all completeness conditions pass may status be `PASS`.
 
-```text
-BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE
-```
+All secondary defects remain in their dedicated fields and normalized ledger regardless of the selected top-level status.
 
 ## 7. First adoption and subsequent runs
 
@@ -259,6 +297,7 @@ The assistant may state that “all applicable documents were read” only when 
 - no unread governed files;
 - no unclassified governed files;
 - no unresolved dependency;
-- no unresolved conflict.
+- no unresolved conflict;
+- `incomplete_universe_defects=[]`.
 
 Otherwise the correct status is `DOCUMENT_UNIVERSE_UNVERIFIED`.

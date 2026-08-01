@@ -8,6 +8,8 @@ on:
       - "docs/llm_prompts/v1/**"
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
+      - "scripts/lean_cards.mjs"
+      - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
   push:
     branches:
@@ -18,6 +20,8 @@ on:
       - "docs/llm_prompts/v1/**"
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
+      - "scripts/lean_cards.mjs"
+      - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
@@ -38,7 +42,7 @@ jobs:
       - name: Compile validators
         run: python -m compileall -q validation_scripts
 
-      - name: Run workflow-contract tests
+      - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays

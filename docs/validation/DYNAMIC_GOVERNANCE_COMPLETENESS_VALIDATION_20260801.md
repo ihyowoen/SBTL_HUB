@@ -4,9 +4,9 @@
 **Branch:** `agent/dynamic-governance-completeness`  
 **Base main commit:** `27385027c94f83e060cbee2af964f6f45edd67f5`  
 **Validated PR:** `#231`  
-**Runtime and regression-test implementation validated through:** `799f0c6d44cb53201c16a4e9549d106b855a853b`
+**Runtime, upload workflow, and regression-test implementation validated through:** `db5c846dd03d79b9b4946c5b411a3d740dff4892`
 
-Later commits that only synchronize manifests or this validation record do not alter the validated exporter, workflow, or regression-test behavior; their own CI must still pass before merge.
+Later commits that only synchronize manifests or this validation record do not alter the validated exporter, workflow, upload instructions, or regression-test behavior; their own CI must still pass before merge.
 
 ## 1. Validated scope
 
@@ -18,8 +18,10 @@ This record validates:
 - canonical full ownership and Stage A baseline requirements;
 - Prompt 0.8 canonical-full merge preparation contract;
 - full-to-lean exporter implementation and workflow write boundaries;
-- malformed-public self-healing and full/public path-collision protection;
-- repository validators, prompt-overlay checks, and 33 unit/regression tests;
+- malformed-public self-healing;
+- direct-path, symlink-alias, and hard-link full/public collision protection;
+- upload instructions that stage all registered runtime contracts and their tests;
+- repository validators, prompt-overlay checks, and 34 unit/regression tests;
 - Codex findings addressed through the implementation commit above.
 
 This record does not claim completion of:
@@ -49,9 +51,10 @@ Enforced rules:
 - an absent or invalid canonical full blocks generation;
 - an invalid existing public projection is treated as stale output in generation mode and rebuilt from the valid full;
 - `--check` remains strict and fails on an unreadable or mismatched public projection;
-- full and public paths must resolve to distinct files before any write.
+- full and public paths must resolve to distinct paths and distinct filesystem objects before any write;
+- device/inode identity prevents distinct hard-link names from bypassing the collision guard.
 
-## 3. Runtime and regression-test changes
+## 3. Runtime, upload, and regression-test changes
 
 This PR intentionally changes:
 
@@ -59,6 +62,7 @@ This PR intentionally changes:
 scripts/lean_cards.mjs
 .github/workflows/lean-cards.yml
 validation_scripts/tests/test_lean_cards_exporter.py
+docs/llm_prompts/v1/UPLOAD_INSTRUCTIONS.md
 ```
 
 ### Exporter modes
@@ -86,8 +90,24 @@ Projection verification covers:
   - verifies KEEP-only output and subsequent `--check` success.
 - `test_same_full_and_public_path_is_rejected_without_writing`
   - points both environment paths to one temporary full file;
-  - verifies non-zero exit;
-  - verifies byte-for-byte full preservation.
+  - verifies non-zero exit and byte-for-byte full preservation.
+- `test_hard_linked_full_and_public_paths_are_rejected_without_writing`
+  - creates different hard-link names for the same inode;
+  - verifies device/inode collision detection;
+  - verifies non-zero exit and byte-for-byte preservation through both names.
+
+### Upload workflow
+
+The active upload procedure stages:
+
+```text
+docs/
+validation_scripts/
+scripts/lean_cards.mjs
+.github/workflows/lean-cards.yml
+```
+
+It also verifies that the registered exporter, workflow, and exporter regression-test path are present in the staged package. Card data remains excluded.
 
 ## 4. Document-universe closure
 
@@ -163,31 +183,33 @@ Accepted and addressed findings include:
 - reverse-direction public-to-full exporter conflict;
 - Stage A allowing stale uploaded or local baselines;
 - generation unable to repair malformed public JSON;
-- full/public path collision capable of overwriting full metadata.
+- direct path collision capable of overwriting full metadata;
+- different hard-link names capable of bypassing path-string collision checks;
+- upload instructions omitting registered runtime files from staging.
 
 Each thread was answered with implementation and CI evidence, then resolved.
 
 ## 8. CI evidence
 
-Against implementation head `799f0c6d44cb53201c16a4e9549d106b855a853b`:
+Against implementation head `db5c846dd03d79b9b4946c5b411a3d740dff4892`:
 
-### Workflow contract validation — run #73
+### Workflow contract validation — run #79
 
 - Python validator compilation: PASS
-- unit/regression suite: **33 tests PASS**
-- both new exporter regression tests: PASS
+- unit/regression suite: **34 tests PASS**
+- malformed-public, direct-path, and hard-link exporter regression tests: PASS
 - prompt files checked: 11
 - missing prompt files: 0
 - overlay updates required: 0
 
-### validate-tracker — run #225
+### validate-tracker — run #231
 
 - tracker validation: PASS
 - public cards validation: PASS
 - canonical full validation: PASS
 - public projection equals canonical full projection: PASS
 
-### lean-cards — run #20
+### lean-cards — run #26
 
 - full-to-lean generation: PASS
 - tracker/public/full validation: PASS
@@ -234,4 +256,4 @@ governed incremental operations
 → public/data/cards.json
 ```
 
-The canonical full remains the sole source of truth. The public file is a reproducible application artifact. Runtime protection and regression tests pass, while the not-yet-implemented generic incremental apply engine remains explicitly pending.
+The canonical full remains the sole source of truth. The public file is a reproducible application artifact. Runtime protection, upload-package completeness, and regression tests pass, while the not-yet-implemented generic incremental apply engine remains explicitly pending.

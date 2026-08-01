@@ -668,11 +668,11 @@
     "thisRun": {
       "primary-doc": 2,
       "primary-meta": 17,
-      "secondary": 28,
+      "secondary": 27,
       "mechanical": 4
     },
-    "thisRunTotal": 51,
-    "carriedFromPriorRuns": 98,
+    "thisRunTotal": 50,
+    "carriedFromPriorRuns": 99,
     "note": "verify.date가 2026-07-29인 항목의 method별 분포. 발행 후 최종 데이터셋에서 산출."
   },
   "changes": [
@@ -739,7 +739,8 @@
     "**[기존 항목 검증] JP-002 — 실적 수치 전면 누락.** 2026.06.02 기준 누적 42건(축전지 7·**부소재 27**·제조장치 8), 사업총액 1조8,819억엔, 조성 최대 6,682억엔. 제6탄 인정 2026.02.17, **제7탄 모집 2026.03.05 개시**, 보조율(설비 1/3·기술개발 1/2), 150GWh/년 목표 미기재. **부소재 27건(64%)이 최다** — 일본 정부 지원 무게중심이 소재에 있음. 파우치필름 포함 여부가 SBTL 경쟁환경 판정의 핵심",
     "**[완료] 위험군 21건 전량 검증** — ACTIVE·UPCOMING이면서 1차 출처가 없던 21개 항목을 모두 원문 대조. **21건 전부에서 문제 확인**",
     "**[2026-07-30 PR#227 리뷰 정정]** EU-029 SCIP/REACH 제7(2)조 제도 분리(1톤·6개월 게이트는 제7(2)조 소속, SCIP는 톤수 무관 상시 의무 — region_policy EU watchpoint 동반 정정), 기존 detail 82건 개행 복원, UPCOMING dt 정렬 정정 8건(차기 마일스톤 날짜 선두 배치), JP-016 UPCOMING→ACTIVE(PFHxS 수입금지 2026.06.17 기시행)·effectiveDate 2026-06-17, 신규 편입분 23건 d/detail 구조 재편(요약은 d·전문 분석은 detail), newItems basis를 최종 verify.method와 정합(CN-034 secondary / CN-035·CN-038·KR-027·EU-033 primary-meta) 및 JP-016 status 반영.",
-    "**[2026-08-01 PR#227 리뷰 정정 2차]** CN-017 d·dt·tip·출처의 GB 43854-2024 오혼입을 GB 36980.1-2025 내용으로 복원(verify primary-meta→secondary 하향, verificationDebt 등재, GB 43854는 승인 큐 후보), CN-022 d·dt·tip·출처의 GB 44240-2024/ESS 표준군 오혼입을 令73号 내용으로 복원(GB 44240→CN-025·GB/T 46261→CN-038 기추적), partialReason을 최종 run 상태(149항목·47셀·null 13셀)로 재산출, verifyCounts primary-meta 18→17·secondary 27→28."
+    "**[2026-08-01 PR#227 리뷰 정정 2차]** CN-017 d·dt·tip·출처의 GB 43854-2024 오혼입을 GB 36980.1-2025 내용으로 복원(verify primary-meta→secondary 하향, verificationDebt 등재, GB 43854는 승인 큐 후보), CN-022 d·dt·tip·출처의 GB 44240-2024/ESS 표준군 오혼입을 令73号 내용으로 복원(GB 44240→CN-025·GB/T 46261→CN-038 기추적), partialReason을 최종 run 상태(149항목·47셀·null 13셀)로 재산출, verifyCounts primary-meta 18→17·secondary 27→28.",
+    "**[2026-08-01 PR#227 리뷰 정정 3차]** CN-017 verify 레코드 제거·lastChecked 2026-07-13 환원(07-29 무효 대조를 본 run 실적에서 제외 — verifyCounts secondary 28→27, thisRunTotal 51→50, carried 98→99), published.note를 최종 newItems 기준(27건, primary-doc 2·primary-meta 4·secondary 21)으로 재생성."
   ],
   "newItems": [
     {
@@ -1308,7 +1309,7 @@
     "itemsAfter": 149,
     "newCount": 27,
     "correctedCount": 20,
-    "note": "본 run의 신규 편입분과 정정분은 **모두 발행됐다.** 이전 기술의 \"데이터셋 편입 0건 / 승인 큐 대기\"는 작업 중간 상태였고 최종 상태와 불일치했으므로 정정한다. 신규 28건 중 1차 출처 대조는 8건이고 나머지 20건은 2차 출처 기반이며 각 항목 verify.method=secondary와 basis에 그 사실을 명시했다. blocker가 남은 항목도 발행하되 checkNote에 잔여 확인 사항을 기재한다 — 규범의 존재는 확인됐고 스코프 게이트는 제정 여부 단일 기준이기 때문이다."
+    "note": "본 run의 신규 편입분과 정정분은 **모두 발행됐다.** 이전 기술의 \"데이터셋 편입 0건 / 승인 큐 대기\"는 작업 중간 상태였고 최종 상태와 불일치했으므로 정정한다. 최종 newItems는 **27건**이며 basis 분포는 **primary-doc 2·primary-meta 4·secondary 21** — 각 항목의 verify.method와 basis에 그 사실을 명시했다. blocker가 남은 항목도 발행하되 checkNote에 잔여 확인 사항을 기재한다 — 규범의 존재는 확인됐고 스코프 게이트는 제정 여부 단일 기준이기 때문이다."
   },
   "verificationDebt": [
     {
@@ -1399,7 +1400,7 @@
     {
       "id": "CN-017",
       "method": "primary-meta",
-      "reason": "조문 전문 미취득"
+      "reason": "07-29 대조는 오혼입 콘텐츠(GB 43854)에 대한 것이어서 verify 레코드 제거 — 유효 확인은 2026.07.06 GB 검색(2차, 원장체계 도입 전), 차기 run 재검증 대상"
     },
     {
       "id": "CN-018",
@@ -1539,7 +1540,7 @@
     {
       "id": "CN-017",
       "method": "secondary",
-      "reason": "1차 출처 문서 미확보 — 2026-07-29 primary-meta 대조는 오혼입 콘텐츠(GB 43854)에 대한 것이어서 무효 처리"
+      "reason": "07-29 대조는 오혼입 콘텐츠(GB 43854)에 대한 것이어서 verify 레코드 제거 — 유효 확인은 2026.07.06 GB 검색(2차, 원장체계 도입 전), 차기 run 재검증 대상"
     }
   ],
   "verifyMethods": {

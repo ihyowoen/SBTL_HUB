@@ -1,10 +1,10 @@
 {
   "version": "LLM_PROMPT_GITHUB_CANONICAL_V2_DYNAMIC_GOVERNANCE_COMPLETENESS",
-  "manifest_policy": "Upload packages are incomplete unless both mandatory override families, all registered named-stage prompts, stage addenda, permanent governance documents, applicable validators, open-remediation references, subordinate canonical support bodies, and registered canonical-data runtime contracts are included. Stage 0.0D reads or parses every docs file and performs run-time reconciliation.",
+  "manifest_policy": "Upload packages are incomplete unless both mandatory override families, all registered named-stage prompts, stage addenda, permanent governance documents, applicable validators, open-remediation references, subordinate canonical support bodies, registered canonical-data runtime contracts, and their regression tests are included. Stage 0.0D reads or parses every docs file and performs run-time reconciliation.",
   "scope": "GitHub-canonical SBTL_HUB prompt and governance package with dynamic document-universe preflight, coverage discovery, independent completeness review, canonical-full incremental operation, full-to-lean export, and retrospective canonical promotion.",
   "base_branch": "main",
   "head_branch": "agent/dynamic-governance-completeness",
-  "file_count": 71,
+  "file_count": 72,
   "file_count_policy": "informational_only_stage_0_0d_reconciles_current_repository",
   "governance_doc_count": 15,
   "stage_prompt_count": 17,
@@ -84,6 +84,9 @@
     "runtime_contract_files": [
       "scripts/lean_cards.mjs",
       ".github/workflows/lean-cards.yml"
+    ],
+    "runtime_contract_tests": [
+      "validation_scripts/tests/test_lean_cards_exporter.py"
     ],
     "validation_scripts": [
       "validation_scripts/date_role_alignment_check.py",

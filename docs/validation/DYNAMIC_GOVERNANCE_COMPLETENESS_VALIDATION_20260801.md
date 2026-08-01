@@ -4,25 +4,27 @@
 **Branch:** `agent/dynamic-governance-completeness`  
 **Base main commit:** `27385027c94f83e060cbee2af964f6f45edd67f5`  
 **Validated PR:** `#231`  
-**Validated head:** `8a7c7a41fe0335df8306e0616e30daae508e7e77`
+**Runtime and regression-test implementation validated through:** `799f0c6d44cb53201c16a4e9549d106b855a853b`
+
+Later commits that only synchronize manifests or this validation record do not alter the validated exporter, workflow, or regression-test behavior; their own CI must still pass before merge.
 
 ## 1. Validated scope
 
 This record validates:
 
 - permanent governance and one-time migration separation;
-- full `docs/**` document-universe preflight requirements;
+- complete `docs/**` document-universe preflight requirements;
 - coverage discovery and independent completeness review contracts;
 - canonical full ownership and Stage A baseline requirements;
 - Prompt 0.8 canonical-full merge preparation contract;
-- full-to-lean exporter implementation;
-- lean-cards workflow direction and write boundaries;
-- existing repository validators, workflow-contract tests, and prompt-overlay checks;
-- all Codex findings addressed through the validated head.
+- full-to-lean exporter implementation and workflow write boundaries;
+- malformed-public self-healing and full/public path-collision protection;
+- repository validators, prompt-overlay checks, and 33 unit/regression tests;
+- Codex findings addressed through the implementation commit above.
 
 This record does not claim completion of:
 
-- the general incremental apply engine for `insert`, `update`, and `related_add`;
+- the generic incremental apply engine for `insert`, `update`, and `related_add`;
 - executable Stage 0.0D manifest generation;
 - executable coverage-completeness validation;
 - the first governed migration execution;
@@ -30,95 +32,76 @@ This record does not claim completion of:
 
 ## 2. Canonical data contract
 
-The validated ownership model is:
-
 ```text
 data/cards.full.json      sole canonical inventory and full metadata source
 public/data/cards.json    generated lean application projection only
 ```
 
-The following are enforced by the contract and runtime implementation:
+Enforced rules:
 
-- Stage A screens duplicates, reinforcement, follow-ups, corrections, and relations against the verified current GitHub `main` full content;
+- Stage A performs duplicate, reinforcement, follow-up, correction, stage-transition, and related-lineage screening against the verified current GitHub `main` full content;
 - an uploaded or local copy is usable only when byte-equivalent to the locked canonical full blob;
 - Prompt 0.8 uses the canonical full as merge input, count source, metadata-preservation source, and canonical output;
 - the public projection is not a baseline, batch inbox, fallback, or source for rebuilding the full;
 - `scripts/lean_cards.mjs` reads the full and writes only the public projection;
 - `.github/workflows/lean-cards.yml` commits only the generated public projection;
 - public-only edits are overwritten by the canonical projection;
-- the exporter fails if the canonical full is absent or invalid.
+- an absent or invalid canonical full blocks generation;
+- an invalid existing public projection is treated as stale output in generation mode and rebuilt from the valid full;
+- `--check` remains strict and fails on an unreadable or mismatched public projection;
+- full and public paths must resolve to distinct files before any write.
 
-## 3. Runtime changes
+## 3. Runtime and regression-test changes
 
-This PR is no longer documentation-only. It intentionally changes:
+This PR intentionally changes:
 
 ```text
 scripts/lean_cards.mjs
 .github/workflows/lean-cards.yml
+validation_scripts/tests/test_lean_cards_exporter.py
 ```
 
-### Exporter behavior
-
-Default execution:
+### Exporter modes
 
 ```text
-node scripts/lean_cards.mjs
+node scripts/lean_cards.mjs          generate public from full
+node scripts/lean_cards.mjs --check  verify exact projection without writing
+node scripts/lean_cards.mjs --dry    preview generation without writing
 ```
 
-performs:
-
-```text
-read data/cards.full.json
-→ project KEEP fields in canonical order
-→ preserve canonical top-level metadata
-→ write public/data/cards.json only
-→ verify the written projection
-```
-
-Check mode:
-
-```text
-node scripts/lean_cards.mjs --check
-```
-
-verifies:
+Projection verification covers:
 
 - top-level metadata equality;
 - card-count equality;
-- card-order equality;
-- ID equality by position;
+- card-order and ID equality;
 - KEEP-field presence and value equality;
-- absence of non-KEEP fields in the public projection.
+- absence of non-KEEP fields in public output.
 
-The exporter contains no ordinary public-to-full ingestion path and does not write the canonical full.
+### Added regression tests
 
-### Workflow behavior
-
-The lean-cards workflow now triggers on changes to:
-
-- `data/cards.full.json`;
-- `public/data/cards.json`;
-- `scripts/lean_cards.mjs`;
-- `.github/workflows/lean-cards.yml`.
-
-It regenerates the public projection, validates tracker/public/full/projection consistency, and commits only `public/data/cards.json` when generation changes it.
+- `test_generation_repairs_malformed_public_without_mutating_full`
+  - creates a valid temporary full and malformed public file;
+  - verifies successful regeneration;
+  - verifies byte-for-byte full preservation;
+  - verifies KEEP-only output and subsequent `--check` success.
+- `test_same_full_and_public_path_is_rejected_without_writing`
+  - points both environment paths to one temporary full file;
+  - verifies non-zero exit;
+  - verifies byte-for-byte full preservation.
 
 ## 4. Document-universe closure
 
-Stage 0.0D now requires:
+Stage 0.0D requires:
 
-- full enumeration of `docs/**`;
-- full reading or complete parsing before classification;
+- full enumeration, reading, or parsing of every `docs/**` file before classification;
 - reading inactive migrations, completed references, reference-only, superseded, and archived files;
-- lifecycle classification using the complete nine-class model;
+- the complete nine-class lifecycle model;
 - lifecycle-registry self-classification as `ACTIVE_VALIDATOR_CONTRACT`;
 - conflict-specific blocker precedence;
-- preservation of every secondary incomplete-universe defect in typed ledgers;
-- no Stage 0.0C authorization unless all required read, identity, dependency, classification, and conflict gates pass.
+- typed preservation of every secondary incomplete-universe defect;
+- no Stage 0.0C authorization unless all identity, read, classification, dependency, and conflict gates pass.
 
 ## 5. Editorial completeness closure
-
-The permanent workflow now requires:
 
 ```text
 0.0D Document Universe Preflight
@@ -130,7 +113,7 @@ The permanent workflow now requires:
 → 0.9 production verification
 ```
 
-The review surface includes:
+Required review surface includes:
 
 - missing must-report news outside the supplied input;
 - follow-ups to existing full cards;
@@ -145,7 +128,7 @@ Stage 0.0C findings remain candidate leads and must pass Stage A/B/C. Discovery 
 
 ## 6. Incremental operation contract
 
-Ordinary run operations remain:
+Ordinary operations:
 
 ```text
 insert
@@ -153,7 +136,7 @@ update
 related_add
 ```
 
-Ordinary runs prohibit:
+Ordinary prohibitions:
 
 ```text
 delete
@@ -163,62 +146,54 @@ undeclared existing-card changes
 silent related-edge loss
 ```
 
-The canonical full may be materialized only through a governed declared-operation path with:
+The canonical full may be materialized only through a governed declared-operation path with base locking, count reconciliation, declared field-level diffs, ID and duplicate validation, related preservation, target resolution, and full validation before public projection generation.
 
-- main commit and full blob lock;
-- count reconciliation;
-- declared field-level diffs;
-- ID and duplicate validation;
-- related preservation and target resolution;
-- full validation before public projection generation.
-
-The generic executable incremental apply engine remains a required follow-up implementation.
+The generic executable incremental apply engine remains pending follow-up implementation.
 
 ## 7. Review findings addressed
 
-Codex findings accepted and addressed include:
+Accepted and addressed findings include:
 
 - public projection incorrectly allowed as Prompt 0.8 baseline;
-- missing `COMPLETED_REFERENCE` lifecycle class;
-- missing authority-conflict blocker;
+- missing lifecycle and blocker registrations;
 - inactive documents not guaranteed to be read;
-- ambiguous blocker precedence;
-- unregistered missing-related-target blocker;
-- incomplete secondary-defect fields;
-- out-of-contract unverifiable-universe status;
-- lifecycle registry lacking an allowed self-classification;
-- document record classification template limited to one lifecycle class;
-- active reverse-direction public-to-full exporter conflict;
-- Stage A allowing stale uploaded or local baselines.
+- ambiguous blocker precedence and incomplete secondary-defect recording;
+- invalid universe status and registry self-classification;
+- document-record classification limited to one lifecycle class;
+- reverse-direction public-to-full exporter conflict;
+- Stage A allowing stale uploaded or local baselines;
+- generation unable to repair malformed public JSON;
+- full/public path collision capable of overwriting full metadata.
 
-Each review thread was answered with the implementing head and corresponding CI result, then resolved.
+Each thread was answered with implementation and CI evidence, then resolved.
 
-## 8. CI results
+## 8. CI evidence
 
-Against validated head `8a7c7a41fe0335df8306e0616e30daae508e7e77`:
+Against implementation head `799f0c6d44cb53201c16a4e9549d106b855a853b`:
 
-### Workflow contract validation — run #70
+### Workflow contract validation — run #73
 
 - Python validator compilation: PASS
-- workflow-contract unit/regression suite: **31 tests PASS**
-- prompt-overlay presence and idempotence: PASS
+- unit/regression suite: **33 tests PASS**
+- both new exporter regression tests: PASS
+- prompt files checked: 11
+- missing prompt files: 0
+- overlay updates required: 0
 
-### validate-tracker — run #222
+### validate-tracker — run #225
 
 - tracker validation: PASS
 - public cards validation: PASS
 - canonical full validation: PASS
 - public projection equals canonical full projection: PASS
 
-### lean-cards — run #17
+### lean-cards — run #20
 
 - full-to-lean generation: PASS
-- tracker validation: PASS
-- public validation: PASS
-- canonical full validation: PASS
+- tracker/public/full validation: PASS
 - exact projection check: PASS
 - generated-commit step: PASS
-- canonical full remained unmodified by the exporter: PASS
+- canonical full write boundary: PASS
 
 Vercel preview also reported ready during the PR review cycle.
 
@@ -230,7 +205,7 @@ The date-specific consolidation remains isolated in:
 docs/migrations/BOOTSTRAP_CONSOLIDATION_20260801.md
 ```
 
-It does not define ordinary-run governance. It requires explicit activation and becomes `COMPLETED_REFERENCE` after completion.
+It requires explicit activation, does not define ordinary-run governance, and becomes `COMPLETED_REFERENCE` after completion.
 
 ## 10. Remaining implementation work
 
@@ -250,7 +225,7 @@ It should also add CI gates requiring Stage 0.0D, Stage 0.0C, and Stage 0.7C art
 
 ## 11. Conclusion
 
-The PR now aligns governance and repository automation on one direction:
+The validated direction is:
 
 ```text
 governed incremental operations
@@ -259,4 +234,4 @@ governed incremental operations
 → public/data/cards.json
 ```
 
-The canonical full remains the sole source of truth. The public file is a reproducible application artifact. The existing runtime and workflow tests pass, while the not-yet-implemented general incremental apply engine remains explicitly pending rather than being overstated as complete.
+The canonical full remains the sole source of truth. The public file is a reproducible application artifact. Runtime protection and regression tests pass, while the not-yet-implemented generic incremental apply engine remains explicitly pending.

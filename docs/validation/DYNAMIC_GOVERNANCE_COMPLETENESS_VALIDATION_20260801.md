@@ -1,280 +1,240 @@
 # Dynamic Governance and Editorial Completeness — Validation Record
 
-**Status:** `PASS_DOCS_AND_EXISTING_WORKFLOW_CI_WITH_NEW_ENGINE_PENDING`  
+**Status:** `PASS_GOVERNANCE_AND_FULL_TO_LEAN_RUNTIME_WITH_INCREMENTAL_ENGINE_PENDING`  
 **Branch:** `agent/dynamic-governance-completeness`  
 **Base main commit:** `27385027c94f83e060cbee2af964f6f45edd67f5`  
 **Validated PR:** `#231`  
-**Contract validation scope through:** `a39e0e8eb84889628e5ad241b03ec07418c659eb`
+**Validated head:** `8a7c7a41fe0335df8306e0616e30daae508e7e77`
 
-## 1. Scope validated
+## 1. Validated scope
 
 This record validates:
 
-- governance-document restructuring;
-- permanent-rule and one-time-migration separation;
-- canonical prompt and manifest registration;
-- existing repository workflow-contract tests and overlay checks;
-- review findings addressed through the current PR head.
+- permanent governance and one-time migration separation;
+- full `docs/**` document-universe preflight requirements;
+- coverage discovery and independent completeness review contracts;
+- canonical full ownership and Stage A baseline requirements;
+- Prompt 0.8 canonical-full merge preparation contract;
+- full-to-lean exporter implementation;
+- lean-cards workflow direction and write boundaries;
+- existing repository validators, workflow-contract tests, and prompt-overlay checks;
+- all Codex findings addressed through the validated head.
 
-It does not validate:
+This record does not claim completion of:
 
-- a card-data migration;
-- the not-yet-implemented incremental apply engine;
-- the first complete Stage 0.0D repository inventory;
-- production behavior after a data migration.
+- the general incremental apply engine for `insert`, `update`, and `related_add`;
+- executable Stage 0.0D manifest generation;
+- executable coverage-completeness validation;
+- the first governed migration execution;
+- production verification after a future card-data merge.
 
-## 2. Change isolation
+## 2. Canonical data contract
 
-GitHub comparison against `main` confirms:
+The validated ownership model is:
 
-- documentation, prompt, manifest, lifecycle-registry, migration, and validation-record files only;
-- no `data/cards.full.json` change;
-- no `public/data/cards.json` change;
-- no application runtime-code change;
-- no existing validator-code change.
+```text
+data/cards.full.json      sole canonical inventory and full metadata source
+public/data/cards.json    generated lean application projection only
+```
 
-The governance change and the one-time migration remain separated from card data.
+The following are enforced by the contract and runtime implementation:
 
-## 3. Permanent versus migration separation
+- Stage A screens duplicates, reinforcement, follow-ups, corrections, and relations against the verified current GitHub `main` full content;
+- an uploaded or local copy is usable only when byte-equivalent to the locked canonical full blob;
+- Prompt 0.8 uses the canonical full as merge input, count source, metadata-preservation source, and canonical output;
+- the public projection is not a baseline, batch inbox, fallback, or source for rebuilding the full;
+- `scripts/lean_cards.mjs` reads the full and writes only the public projection;
+- `.github/workflows/lean-cards.yml` commits only the generated public projection;
+- public-only edits are overwritten by the canonical projection;
+- the exporter fails if the canonical full is absent or invalid.
 
-Validated permanent contracts:
+## 3. Runtime changes
 
-- `docs/RUN_GOVERNANCE_INDEX.md`;
-- `docs/DOCUMENT_UNIVERSE_POLICY.md`;
-- `docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md`;
-- `docs/CARD_INCREMENTAL_RUN_CONTRACT.md`;
-- permanent named-stage prompts and addenda;
-- canonical and upload manifests;
-- package README and upload instructions.
+This PR is no longer documentation-only. It intentionally changes:
 
-The permanent contracts are date-independent and do not name the one-time source runs or transition counts.
+```text
+scripts/lean_cards.mjs
+.github/workflows/lean-cards.yml
+```
 
-Transition-specific source-run dates and consolidation instructions appear only in:
+### Exporter behavior
+
+Default execution:
+
+```text
+node scripts/lean_cards.mjs
+```
+
+performs:
+
+```text
+read data/cards.full.json
+→ project KEEP fields in canonical order
+→ preserve canonical top-level metadata
+→ write public/data/cards.json only
+→ verify the written projection
+```
+
+Check mode:
+
+```text
+node scripts/lean_cards.mjs --check
+```
+
+verifies:
+
+- top-level metadata equality;
+- card-count equality;
+- card-order equality;
+- ID equality by position;
+- KEEP-field presence and value equality;
+- absence of non-KEEP fields in the public projection.
+
+The exporter contains no ordinary public-to-full ingestion path and does not write the canonical full.
+
+### Workflow behavior
+
+The lean-cards workflow now triggers on changes to:
+
+- `data/cards.full.json`;
+- `public/data/cards.json`;
+- `scripts/lean_cards.mjs`;
+- `.github/workflows/lean-cards.yml`.
+
+It regenerates the public projection, validates tracker/public/full/projection consistency, and commits only `public/data/cards.json` when generation changes it.
+
+## 4. Document-universe closure
+
+Stage 0.0D now requires:
+
+- full enumeration of `docs/**`;
+- full reading or complete parsing before classification;
+- reading inactive migrations, completed references, reference-only, superseded, and archived files;
+- lifecycle classification using the complete nine-class model;
+- lifecycle-registry self-classification as `ACTIVE_VALIDATOR_CONTRACT`;
+- conflict-specific blocker precedence;
+- preservation of every secondary incomplete-universe defect in typed ledgers;
+- no Stage 0.0C authorization unless all required read, identity, dependency, classification, and conflict gates pass.
+
+## 5. Editorial completeness closure
+
+The permanent workflow now requires:
+
+```text
+0.0D Document Universe Preflight
+→ 0.0C Coverage Discovery
+→ Stage A/B/C
+→ post-acceptance quality stages
+→ 0.7C independent completeness and news-value review
+→ 0.8 canonical incremental merge preparation
+→ 0.9 production verification
+```
+
+The review surface includes:
+
+- missing must-report news outside the supplied input;
+- follow-ups to existing full cards;
+- execution-stage transitions;
+- corrections, reversals, delays, reductions, suspensions, and cancellations;
+- existing-card reinforcement;
+- regional and topic coverage;
+- exclusion and hold rescue review;
+- evidence quality, execution maturity, claim completeness, materiality, incremental information, and decision usefulness.
+
+Stage 0.0C findings remain candidate leads and must pass Stage A/B/C. Discovery search does not become evidence automatically.
+
+## 6. Incremental operation contract
+
+Ordinary run operations remain:
+
+```text
+insert
+update
+related_add
+```
+
+Ordinary runs prohibit:
+
+```text
+delete
+related_remove
+public_to_full_ingest
+undeclared existing-card changes
+silent related-edge loss
+```
+
+The canonical full may be materialized only through a governed declared-operation path with:
+
+- main commit and full blob lock;
+- count reconciliation;
+- declared field-level diffs;
+- ID and duplicate validation;
+- related preservation and target resolution;
+- full validation before public projection generation.
+
+The generic executable incremental apply engine remains a required follow-up implementation.
+
+## 7. Review findings addressed
+
+Codex findings accepted and addressed include:
+
+- public projection incorrectly allowed as Prompt 0.8 baseline;
+- missing `COMPLETED_REFERENCE` lifecycle class;
+- missing authority-conflict blocker;
+- inactive documents not guaranteed to be read;
+- ambiguous blocker precedence;
+- unregistered missing-related-target blocker;
+- incomplete secondary-defect fields;
+- out-of-contract unverifiable-universe status;
+- lifecycle registry lacking an allowed self-classification;
+- document record classification template limited to one lifecycle class;
+- active reverse-direction public-to-full exporter conflict;
+- Stage A allowing stale uploaded or local baselines.
+
+Each review thread was answered with the implementing head and corresponding CI result, then resolved.
+
+## 8. CI results
+
+Against validated head `8a7c7a41fe0335df8306e0616e30daae508e7e77`:
+
+### Workflow contract validation — run #70
+
+- Python validator compilation: PASS
+- workflow-contract unit/regression suite: **31 tests PASS**
+- prompt-overlay presence and idempotence: PASS
+
+### validate-tracker — run #222
+
+- tracker validation: PASS
+- public cards validation: PASS
+- canonical full validation: PASS
+- public projection equals canonical full projection: PASS
+
+### lean-cards — run #17
+
+- full-to-lean generation: PASS
+- tracker validation: PASS
+- public validation: PASS
+- canonical full validation: PASS
+- exact projection check: PASS
+- generated-commit step: PASS
+- canonical full remained unmodified by the exporter: PASS
+
+Vercel preview also reported ready during the PR review cycle.
+
+## 9. One-time migration isolation
+
+The date-specific consolidation remains isolated in:
 
 ```text
 docs/migrations/BOOTSTRAP_CONSOLIDATION_20260801.md
 ```
 
-That document is classified as `ACTIVE_MIGRATION`, has `ordinary_run_applies=false`, requires explicit activation, and must become `COMPLETED_REFERENCE` after completion.
+It does not define ordinary-run governance. It requires explicit activation and becomes `COMPLETED_REFERENCE` after completion.
 
-`COMPLETED_REFERENCE` is now an explicit lifecycle class in both the document-universe policy and the run-governance index. It is readable for audit and conflict detection but never applies automatically to ordinary runs.
+## 10. Remaining implementation work
 
-## 4. Fixed-document governance closure
-
-Validated:
-
-- Stage 0.0D is the mandatory entry point;
-- every file under `docs/**` must be read or parsed in full before applicability classification;
-- archived, superseded, reference, completed-migration, and inactive-migration documents are read but not automatically applied;
-- a fixed core-document list is not accepted as proof of completeness;
-- repository head and file SHAs are mandatory;
-- unresolved authority conflicts block the run with `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`;
-- all other incomplete-universe states use `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE`.
-
-The Stage 0.0D output schema, Markdown override, and machine-readable override manifest now use the same conflict blocker.
-
-## 5. Editorial completeness closure
-
-Validated:
-
-- Stage 0.0C may search for missing must-report news, material follow-ups, corrections, reversals, and existing-card reinforcement;
-- Stage A remains selector-only;
-- Stage 0.0C findings are candidate leads, not evidence or accepted facts;
-- all discovered candidates must enter the explicit ledger and pass Stage A/B/C;
-- regional and topic coverage matrices are mandatory;
-- event-stage progression is explicit;
-- IB-grade is defined by materiality, execution maturity, incremental information, decision usefulness, evidence quality, claim completeness, and strategic read-through;
-- evidence quality, execution maturity, and claim completeness are hard gates;
-- Stage 0.7C independently challenges completeness, news value, exclusions, and residual risk before Prompt 0.8.
-
-## 6. FACT_DISCIPLINE compatibility
-
-The dynamic-governance override explicitly preserves the prohibition on silently creating claims or cards through web search.
-
-Stage 0.0C may discover a candidate lead only. The lead must still pass:
-
-```text
-Stage A selection
-→ Stage B evidence collection
-→ Stage C fact-safe validation
-→ all post-acceptance gates
-```
-
-No source discovered at Stage 0.0C is treated as evidence without direct inspection and claim mapping.
-
-## 7. Prompt 0.8 canonical-full closure
-
-The canonical Prompt 0.8 entry path now directly declares:
-
-```text
-merge baseline and source of truth = data/cards.full.json
-canonical output                  = data/cards.full.json
-application projection            = public/data/cards.json
-```
-
-The previous accumulated Prompt 0.8 body is preserved at:
-
-```text
-docs/llm_prompts/v1/legacy/10_PROMPT_0_8_GitHub_Merge_Prep_LEGACY_BODY.md
-```
-
-It is subordinate and contributes compatible evidence, lineage, duplicate, schema, source-diversity, accounting, PR, and production-boundary safeguards only.
-
-The following former clauses are explicitly non-operative:
-
-- `public/data/cards.json` as current baseline;
-- the public projection as merge source of truth or canonical count source;
-- the public projection or a local copy as fallback for an unreadable full;
-- Prompt 0.8 writing only the public file;
-- replace-all as the only merge model;
-- a fixed eight-document read as complete governance proof.
-
-The canonical wrapper, mandatory incremental-operation addendum, Markdown override, override manifest, canonical manifest, upload manifest, and lifecycle registry are aligned on this interpretation.
-
-If the canonical full is unreadable, Prompt 0.8 must use:
-
-```text
-BLOCKED_CANONICAL_FULL_UNREADABLE
-```
-
-If an assembled instruction still treats the public projection as the merge baseline, it must use:
-
-```text
-BLOCKED_PROMPT_0_8_PUBLIC_BASELINE_CONFLICT
-```
-
-## 8. Incremental operation closure
-
-Validated ordinary operations:
-
-- `insert`;
-- `update`;
-- `related_add`.
-
-Validated prohibitions for ordinary runs:
-
-- no card deletion;
-- no `related_remove`;
-- no undeclared existing-card changes;
-- no silent loss of existing related edges;
-- no stale-baseline force application.
-
-Canonical baseline:
-
-```text
-data/cards.full.json
-```
-
-Application projection:
-
-```text
-public/data/cards.json
-```
-
-## 9. Stage-specific closure
-
-Added and registered:
-
-- Stage A expanded-source-universe addendum;
-- Prompt 0.8 incremental-operation addendum;
-- Prompt 1.1 canonical-promotion addendum.
-
-The canonical Prompt 0.8 wrapper also contains the repository-required `WORKFLOW_CONTRACT_OVERLAY_20260723` block. The preserved legacy body remains separately registered as a subordinate support dependency.
-
-## 10. Manifest reconciliation
-
-Canonical package metadata declares:
-
-- 17 named stage prompts;
-- 15 permanent governance documents;
-- 2 mandatory override families;
-- 9 registered hardening/stage addenda;
-- 8 registered existing validator scripts;
-- canonical full and lean-projection roles;
-- the Prompt 0.8 subordinate legacy body;
-- open remediation references;
-- migration isolation.
-
-The static counts are informational. Stage 0.0D remains the run-time source of completeness proof.
-
-## 11. Registered path checks
-
-The following registered validator paths were confirmed on the branch with Git blob SHAs:
-
-- `date_role_alignment_check.py`;
-- `story_id_lineage_check.py`;
-- `related_lineage_check.py`;
-- `date_role_freshness_check.py`;
-- `evidence_qc_v8_check.py`;
-- `related_lifecycle_check.py`;
-- `stage_artifact_contract_check.py`;
-- `run_workflow_contract_suite.py`.
-
-The registered workflow-gap and legacy-related remediation files were also confirmed.
-
-The canonical manifest, upload manifest, dynamic override manifest, lifecycle registry, canonical Prompt 0.8 wrapper, and subordinate legacy body were fetched back from the branch after update.
-
-## 12. Codex review disposition
-
-Codex review `4834968293` raised three findings. All were accepted as valid and addressed.
-
-### Finding 1 — public-projection merge baseline
-
-Resolution:
-
-- canonical Prompt 0.8 path replaced with a full-baseline wrapper;
-- accumulated old body preserved under `legacy/`;
-- all public-baseline and public-fallback clauses expressly superseded;
-- manifests and lifecycle registry updated;
-- workflow-contract overlay restored.
-
-### Finding 2 — missing completed-migration class
-
-Resolution:
-
-- `COMPLETED_REFERENCE` added to the exhaustive policy classification table;
-- same class added to the upper-level governance index;
-- completed migrations defined as non-operative audit references.
-
-### Finding 3 — authority-conflict blocker absent from Stage 0.0D schema
-
-Resolution:
-
-- Stage 0.0D status enum expanded;
-- conflict-specific blocker required when unresolved conflicts exist;
-- Markdown and machine-readable override registrations aligned.
-
-All three review threads were replied to and resolved.
-
-## 13. Existing workflow CI completed
-
-GitHub Actions workflow `Workflow contract validation`, run `#51`, completed successfully against the review-addressed PR head.
-
-Validated by that workflow:
-
-- Python validator compilation: PASS;
-- existing workflow-contract unit/regression suite: **31 tests PASS**;
-- prompt-overlay idempotence and presence check: PASS.
-
-Vercel preview deployment also reported success.
-
-This proves compatibility with the repository’s existing validator and overlay suite. It does not prove the not-yet-implemented dynamic document-universe or incremental-apply engine.
-
-## 14. Remaining execution work
-
-The following remain pending and must not be described as complete:
-
-1. implementation of document-manifest build and validation scripts;
-2. implementation of coverage-completeness validation;
-3. implementation of the incremental run JSON schema, declared-diff validator, and apply engine;
-4. CI gates that require the new Stage 0.0D, Stage 0.0C, and Stage 0.7C artifacts;
-5. first actual Stage 0.0D full repository inventory;
-6. one-time migration execution;
-7. canonical full and lean-projection production verification after data merge.
-
-## 15. Required next implementation PR
-
-The next code-focused PR should implement, at minimum:
+A subsequent code-focused PR should implement, at minimum:
 
 ```text
 scripts/build_run_doc_manifest.py
@@ -286,20 +246,17 @@ scripts/apply_incremental_card_run.py
 scripts/validate_declared_card_diff.py
 ```
 
-It must add CI gates that block Stage A, Prompt 0.8, and merge when required governance artifacts are absent, stale, or inconsistent.
+It should also add CI gates requiring Stage 0.0D, Stage 0.0C, and Stage 0.7C artifacts for governed card runs.
 
-## 16. Final conclusion
+## 11. Conclusion
 
-The documentation layer now separates:
+The PR now aligns governance and repository automation on one direction:
 
 ```text
-permanent ordinary-run governance
-from
-one-time migration execution
+governed incremental operations
+→ data/cards.full.json
+→ scripts/lean_cards.mjs
+→ public/data/cards.json
 ```
 
-and closes the structural gaps around full-document reading, missing-news discovery, existing-card strengthening, material follow-ups, independent completeness review, canonical-full ownership, related preservation, completed-migration classification, and authority-conflict reporting.
-
-The branch passes the repository’s existing workflow-contract CI and has addressed all findings in Codex review `4834968293`.
-
-It is ready for renewed review, but it is not yet entitled to claim machine-enforced end-to-end dynamic governance or incremental card application until the next implementation PR is completed.
+The canonical full remains the sole source of truth. The public file is a reproducible application artifact. The existing runtime and workflow tests pass, while the not-yet-implemented general incremental apply engine remains explicitly pending rather than being overstated as complete.

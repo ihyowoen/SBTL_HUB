@@ -58,13 +58,15 @@ class LeanCardsExporterTest(unittest.TestCase):
             check=False,
         )
 
+    def full_bytes(self) -> bytes:
+        return (json.dumps(self.make_full(), ensure_ascii=False, indent=1) + "\n").encode()
+
     def test_generation_repairs_malformed_public_without_mutating_full(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             full_path = root / "cards.full.json"
             public_path = root / "cards.json"
-            full_doc = self.make_full()
-            full_bytes = (json.dumps(full_doc, ensure_ascii=False, indent=1) + "\n").encode()
+            full_bytes = self.full_bytes()
             full_path.write_bytes(full_bytes)
             public_path.write_text('{"cards": [', encoding="utf-8")
 
@@ -87,13 +89,32 @@ class LeanCardsExporterTest(unittest.TestCase):
     def test_same_full_and_public_path_is_rejected_without_writing(self):
         with tempfile.TemporaryDirectory() as tmp:
             full_path = Path(tmp) / "cards.full.json"
-            full_bytes = (json.dumps(self.make_full(), ensure_ascii=False, indent=1) + "\n").encode()
+            full_bytes = self.full_bytes()
             full_path.write_bytes(full_bytes)
 
             result = self.run_exporter(full_path, full_path)
             self.assertNotEqual(result.returncode, 0)
-            self.assertIn("경로가 동일", result.stderr)
+            self.assertIn("동일한 파일 객체", result.stderr)
             self.assertEqual(full_path.read_bytes(), full_bytes)
+
+    @unittest.skipUnless(hasattr(os, "link"), "hard links are required")
+    def test_hard_linked_full_and_public_paths_are_rejected_without_writing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            full_path = root / "cards.full.json"
+            public_path = root / "cards.json"
+            full_bytes = self.full_bytes()
+            full_path.write_bytes(full_bytes)
+            os.link(full_path, public_path)
+
+            self.assertNotEqual(full_path.resolve(), public_path.resolve())
+            self.assertEqual(full_path.stat().st_ino, public_path.stat().st_ino)
+
+            result = self.run_exporter(full_path, public_path)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("동일한 파일 객체", result.stderr)
+            self.assertEqual(full_path.read_bytes(), full_bytes)
+            self.assertEqual(public_path.read_bytes(), full_bytes)
 
 
 if __name__ == "__main__":

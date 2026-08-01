@@ -50,6 +50,14 @@
     {
       "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
       "scope": "replace-all-only merge assumption where it conflicts with declared incremental operations"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "scope": "every clause treating public/data/cards.json as current baseline, merge source of truth, canonical count source, fallback baseline, sole merge target, or authoritative replacement file"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "scope": "legacy fallback rules that permit public or local projection data to substitute for unreadable data/cards.full.json"
     }
   ],
   "migration_policy": {
@@ -60,10 +68,13 @@
   },
   "required_blockers": [
     "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE",
+    "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
     "BLOCKED_COVERAGE_DISCOVERY_INCOMPLETE",
     "BLOCKED_STAGE_A_EXPANDED_SOURCE_UNIVERSE_MISSING",
     "BLOCKED_EDITORIAL_COMPLETENESS_UNPROVEN",
     "BLOCKED_INCREMENTAL_MERGE_PRECONDITION_MISSING",
+    "BLOCKED_CANONICAL_FULL_UNREADABLE",
+    "BLOCKED_PROMPT_0_8_PUBLIC_BASELINE_CONFLICT",
     "BLOCKED_BASELINE_MOVED_REBASE_REQUIRED",
     "BLOCKED_UNDECLARED_CARD_DIFF",
     "BLOCKED_EXISTING_RELATED_EDGE_LOSS",

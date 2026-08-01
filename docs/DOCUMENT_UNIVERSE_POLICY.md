@@ -163,7 +163,7 @@ Authority conflicts remain exclusively in `unresolved_rule_conflicts[]`. Selecti
       "path": "",
       "sha256": "",
       "git_blob_sha": "",
-      "classification": "ACTIVE_CANONICAL",
+      "classification": "ACTIVE_CANONICAL|ACTIVE_MANDATORY_ADDENDUM|ACTIVE_VALIDATOR_CONTRACT|OPEN_REMEDIATION|ACTIVE_MIGRATION|COMPLETED_REFERENCE|REFERENCE_ONLY|SUPERSEDED|ARCHIVED",
       "authority_level": 0,
       "applicable_stages": [],
       "read_status": "READ_COMPLETE",

@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbtl.local/schemas/card-run.v1.schema.json",
+  "title": "SBTL governed incremental card run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "run_id",
+    "base_main_commit_sha",
+    "base_full_blob_sha",
+    "expected_before",
+    "operations",
+    "expected_after",
+    "audit_refs",
+    "document_universe_manifest_ref",
+    "coverage_discovery_ref",
+    "independent_completeness_ref"
+  ],
+  "properties": {
+    "schema": { "const": "card_run_v1" },
+    "run_id": { "type": "string", "minLength": 1 },
+    "base_main_commit_sha": { "$ref": "#/$defs/sha1" },
+    "base_full_blob_sha": { "$ref": "#/$defs/sha1" },
+    "expected_before": { "type": "integer", "minimum": 0 },
+    "operations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["insert", "update", "related_add"],
+      "properties": {
+        "insert": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/insert" }
+        },
+        "update": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/update" }
+        },
+        "related_add": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/relatedAdd" }
+        }
+      }
+    },
+    "expected_after": { "type": "integer", "minimum": 0 },
+    "audit_refs": { "$ref": "#/$defs/nonEmptyStrings" },
+    "document_universe_manifest_ref": { "type": "string", "minLength": 1 },
+    "coverage_discovery_ref": { "type": "string", "minLength": 1 },
+    "independent_completeness_ref": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "sha1": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "insert": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["card", "stage_artifacts", "evidence_refs"],
+      "properties": {
+        "card": {
+          "type": "object",
+          "required": ["id"],
+          "properties": { "id": { "type": "string", "minLength": 1 } }
+        },
+        "before_id": { "type": "string", "minLength": 1 },
+        "after_id": { "type": "string", "minLength": 1 },
+        "stage_artifacts": { "$ref": "#/$defs/nonEmptyStrings" },
+        "evidence_refs": { "$ref": "#/$defs/nonEmptyStrings" }
+      },
+      "not": { "required": ["before_id", "after_id"] }
+    },
+    "change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["op", "path"],
+      "properties": {
+        "op": { "enum": ["add", "replace", "remove"] },
+        "path": { "type": "string", "pattern": "^/" },
+        "value": true
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "op": { "enum": ["add", "replace"] } } },
+          "then": { "required": ["value"] }
+        },
+        {
+          "if": { "properties": { "op": { "const": "remove" } } },
+          "then": { "not": { "required": ["value"] } }
+        }
+      ]
+    },
+    "update": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "changes", "reason", "stage_artifacts", "evidence_refs"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "changes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/change" }
+        },
+        "reason": { "type": "string", "minLength": 1 },
+        "stage_artifacts": { "$ref": "#/$defs/nonEmptyStrings" },
+        "evidence_refs": { "$ref": "#/$defs/nonEmptyStrings" }
+      }
+    },
+    "relationPatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["card_id", "op", "path", "value"],
+      "properties": {
+        "card_id": { "type": "string", "minLength": 1 },
+        "op": { "const": "add" },
+        "path": {
+          "type": "string",
+          "pattern": "^/(related|related_ids|related_lineage)(/|$)"
+        },
+        "value": true
+      }
+    },
+    "relatedAdd": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "target_id",
+        "relation_type",
+        "lineage_reason",
+        "event_stage_relationship",
+        "direction",
+        "evidence_refs",
+        "patches"
+      ],
+      "properties": {
+        "source_id": { "type": "string", "minLength": 1 },
+        "target_id": { "type": "string", "minLength": 1 },
+        "relation_type": { "type": "string", "minLength": 1 },
+        "lineage_reason": { "type": "string", "minLength": 1 },
+        "event_stage_relationship": { "type": "string", "minLength": 1 },
+        "direction": { "enum": ["directional", "reciprocal"] },
+        "evidence_refs": { "$ref": "#/$defs/nonEmptyStrings" },
+        "patches": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/relationPatch" }
+        }
+      }
+    }
+  }
+}

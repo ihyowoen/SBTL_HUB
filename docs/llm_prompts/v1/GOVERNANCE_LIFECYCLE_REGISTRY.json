@@ -1,8 +1,15 @@
 {
   "registry_version": "GOVERNANCE_LIFECYCLE_REGISTRY_V1",
-  "status": "ACTIVE_CANONICAL_REGISTRY",
+  "status": "ACTIVE_VALIDATOR_CONTRACT",
+  "classification": "ACTIVE_VALIDATOR_CONTRACT",
   "completeness_policy": "SEED_REGISTRY_ONLY_STAGE_0_0D_MUST_READ_AND_CLASSIFY_EVERY_DOCS_FILE",
   "entries": [
+    {
+      "path": "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
+      "classification": "ACTIVE_VALIDATOR_CONTRACT",
+      "ordinary_run_applies": true,
+      "note": "Self-classification for the lifecycle registry using an allowed Document Universe lifecycle class."
+    },
     {
       "path": "docs/RUN_GOVERNANCE_INDEX.md",
       "classification": "ACTIVE_CANONICAL",

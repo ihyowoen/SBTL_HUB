@@ -1,0 +1,55 @@
+{
+  "override_id": "DYNAMIC_GOVERNANCE_COMPLETENESS_V1",
+  "status": "ACTIVE_MANDATORY_ADDENDUM",
+  "required_for_prompt_assembly": true,
+  "required_for_upload": true,
+  "ordinary_run_default": true,
+  "override_file": "docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
+  "permanent_governance_docs": [
+    "docs/RUN_GOVERNANCE_INDEX.md",
+    "docs/DOCUMENT_UNIVERSE_POLICY.md",
+    "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+    "docs/CARD_INCREMENTAL_RUN_CONTRACT.md"
+  ],
+  "named_stage_prompts": [
+    "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
+    "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
+    "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md"
+  ],
+  "superseded_scopes": [
+    {
+      "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "scope": "fixed governance list as complete rule universe"
+    },
+    {
+      "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "scope": "supplied final input as complete editorial universe"
+    },
+    {
+      "path": "docs/WORKFLOW.md",
+      "scope": "workflow order without 0.0D, 0.0C, and 0.7C"
+    },
+    {
+      "path": "docs/WORKFLOW.md",
+      "scope": "stale docs/run_prompts Stage A path"
+    },
+    {
+      "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "scope": "public/data/cards.json as sole canonical baseline"
+    }
+  ],
+  "migration_policy": {
+    "directory": "docs/migrations/",
+    "ordinary_run_auto_apply": false,
+    "requires_explicit_activation": true,
+    "completed_status": "COMPLETED_REFERENCE"
+  },
+  "required_blockers": [
+    "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE",
+    "BLOCKED_COVERAGE_DISCOVERY_INCOMPLETE",
+    "BLOCKED_EDITORIAL_COMPLETENESS_UNPROVEN",
+    "BLOCKED_BASELINE_MOVED_REBASE_REQUIRED",
+    "BLOCKED_UNDECLARED_CARD_DIFF",
+    "BLOCKED_EXISTING_RELATED_EDGE_LOSS"
+  ]
+}

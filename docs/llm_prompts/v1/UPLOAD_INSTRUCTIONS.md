@@ -12,9 +12,10 @@ docs/
 validation_scripts/
 scripts/lean_cards.mjs
 .github/workflows/lean-cards.yml
+.github/workflows/workflow-contract-validation.yml
 ```
 
-Do not upload a remembered subset of governance files, validators, runtime contracts, or regression tests.
+Do not upload a remembered subset of governance files, validators, runtime contracts, trigger workflows, or regression tests.
 
 The package must include the current paths registered by:
 
@@ -53,13 +54,14 @@ git add \
   docs \
   validation_scripts \
   scripts/lean_cards.mjs \
-  .github/workflows/lean-cards.yml
+  .github/workflows/lean-cards.yml \
+  .github/workflows/workflow-contract-validation.yml
 
 git status --short
 git diff --cached --stat
 ```
 
-Do not stage card data in this package PR. Registered runtime contract files must be staged; otherwise the manifest and uploaded package diverge.
+Do not stage card data in this package PR. Registered runtime contract and regression-trigger workflow files must be staged; otherwise the manifest and uploaded package diverge.
 
 ## 4. Required JSON, path, and staging validation
 
@@ -101,6 +103,7 @@ staged = set(
 required_staged = {
     "scripts/lean_cards.mjs",
     ".github/workflows/lean-cards.yml",
+    ".github/workflows/workflow-contract-validation.yml",
     "validation_scripts/tests/test_lean_cards_exporter.py",
 }
 missing_staged = sorted(required_staged - staged)
@@ -122,7 +125,7 @@ if not required_overrides <= registered_overrides:
         f"{sorted(required_overrides - registered_overrides)}"
     )
 
-print("PASS: manifests parse, registered files exist, runtime/test paths are staged")
+print("PASS: manifests parse, registered files exist, runtime/test/trigger paths are staged")
 PY
 ```
 
@@ -144,7 +147,14 @@ python -m unittest discover -s validation_scripts/tests -v
 node scripts/lean_cards.mjs --check
 ```
 
-The exporter regression suite must cover malformed-public recovery, direct path collision, and hard-link path collision without modifying the canonical full.
+The exporter regression suite must cover malformed-public recovery, deterministic serialization normalization, direct path collision, and hard-link path collision without modifying the canonical full.
+
+The `Workflow contract validation` workflow must trigger when any of the following changes:
+
+- `scripts/lean_cards.mjs`;
+- `.github/workflows/lean-cards.yml`;
+- `.github/workflows/workflow-contract-validation.yml`;
+- `validation_scripts/**`.
 
 ## 6. Card-data isolation check
 
@@ -160,11 +170,11 @@ for path in data/cards.full.json public/data/cards.json; do
 done
 ```
 
-This package may change registered runtime contract code and CI workflow, but not card data.
+This package may change registered runtime contract code and CI workflows, but not card data.
 
 Recommended separation:
 
-- governance/runtime-contract package PR: documents, manifests, prompts, validators, exporter, exporter workflow, and their tests;
+- governance/runtime-contract package PR: documents, manifests, prompts, validators, exporter, exporter workflows, and their tests;
 - migration/data PR: explicitly activated transition data;
 - incremental-engine PR: run schema, generic apply logic, declared-diff validation, and additional CI automation;
 - ordinary data PR: governed run operations only.
@@ -234,8 +244,8 @@ The PR body should state:
 - Stage 0.0C searches for missing news and follow-ups before Stage A;
 - Stage 0.7C independently challenges completeness and news value;
 - canonical full and lean projection roles are separated;
-- the exporter and workflow are changed to enforce full-to-lean ownership;
-- exporter regression tests protect malformed-public recovery and filesystem-path isolation;
+- exporter and workflows enforce full-to-lean ownership and run regression tests on exporter-only changes;
+- exporter regression tests protect malformed-public recovery, byte normalization, and filesystem-path isolation;
 - ordinary run operations are insert, update, and related_add;
 - one-time migration facts are isolated under `docs/migrations/`;
 - card data is unchanged.

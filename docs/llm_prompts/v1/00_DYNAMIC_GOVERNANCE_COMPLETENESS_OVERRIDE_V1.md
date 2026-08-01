@@ -12,11 +12,13 @@ This override supersedes earlier conflicting language only in the following area
 3. any rule treating the supplied final input as the complete news universe;
 4. any workflow that omits Stage 0.0D, Stage 0.0C, or Stage 0.7C;
 5. any baseline rule treating `public/data/cards.json` as the canonical full inventory;
-6. every Prompt 0.8 clause treating `public/data/cards.json` as the current baseline, merge source of truth, canonical count source, fallback baseline, sole merge target, or authoritative replacement file;
-7. any ordinary-run process that permits silent card deletion or related-edge removal;
-8. any permanent rule that embeds one-time migration dates, counts, or run names.
+6. every Stage A clause permitting `public/data/cards.json`, an uploaded baseline, or a local candidate to replace the current verified `GitHub main → data/cards.full.json` content, unless the supplied copy is proved byte-equivalent to the locked canonical blob;
+7. every Prompt 0.8 clause treating `public/data/cards.json` as the current baseline, merge source of truth, canonical count source, fallback baseline, sole merge target, authoritative replacement file, or batch inbox used to rebuild the full;
+8. `docs/OPERATIONS.md` Section F clauses that define public-to-full ingestion or reverse-direction archive reconstruction as the ordinary-run exporter flow;
+9. any ordinary-run process that permits silent card deletion or related-edge removal;
+10. any permanent rule that embeds one-time migration dates, counts, or run names.
 
-All other compatible fact, evidence, schema, stage, source-diversity, related-lineage, and production rules remain in force.
+All other compatible fact, evidence, schema, stage, source-diversity, related-lineage, and production rules remain in force. The prohibition on uncontrolled manual edits remains active; governed incremental materialization of the canonical full is not an uncontrolled manual edit.
 
 ## 1. Mandatory governance entry point
 
@@ -36,7 +38,9 @@ The supplied input is not the complete editorial universe.
 
 After Stage 0.0D, Stage 0.0C must review the canonical full, input stories, trackers, review pools, watchlists, open rescue candidates, regional and topic coverage, material follow-ups, corrections, reversals, and missing must-report events.
 
-Stage A remains selector-only and uses the Stage 0.0C expanded source universe as its authoritative input.
+Stage A remains selector-only and uses the Stage 0.0C expanded source universe as its authoritative candidate input.
+
+Stage A’s sole duplicate, relationship, reinforcement, and follow-up baseline is the verified current GitHub `main` content of `data/cards.full.json`. A local or uploaded copy is usable only after byte-equivalence to the locked canonical blob is proved.
 
 Stage A does not perform the external search itself.
 
@@ -76,7 +80,7 @@ Prompt 0.8 is blocked until Stage 0.7C independently reviews:
 
 A self-authored statement that the batch is “complete” or “IB-grade” is not sufficient.
 
-## 4. Canonical data rule
+## 4. Canonical data and exporter rule
 
 The canonical baseline and merge source of truth are:
 
@@ -98,9 +102,17 @@ public/data/cards.json
 
 and must be regenerated as a lean projection of the updated canonical full.
 
-`public/data/cards.json` must never be used as a substitute merge baseline, canonical count source, fallback source of truth, or full-metadata preservation source.
+`public/data/cards.json` must never be used as a substitute merge baseline, canonical count source, fallback source of truth, full-metadata preservation source, or ordinary-run batch inbox.
 
-If the canonical full cannot be read and verified, Prompt 0.8 must block rather than fall back to the public projection.
+Repository exporter direction is mandatory:
+
+```text
+data/cards.full.json → scripts/lean_cards.mjs → public/data/cards.json
+```
+
+The exporter and its workflow may write only the public projection. They may not write, reconstruct, or delete records from the canonical full.
+
+If the canonical full cannot be read and verified, Stage A and Prompt 0.8 must block rather than fall back to the public projection or an unverified local copy.
 
 Every run must record the current main commit SHA and canonical full blob SHA.
 

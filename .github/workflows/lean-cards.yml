@@ -1,19 +1,21 @@
 name: lean-cards
 
-# 카드 PR 자동 lean — 발행 흐름(0.8 프롬프트·WORKFLOW.md §B)은 public/data/cards.json만
-# 커밋하도록 지시하므로, 사람에게 새 단계를 요구하는 대신 CI가 병합·사영을 대신한다.
+# Canonical full → lean public projection.
 #
-# 순서가 계약이다(Codex #221 R5 P1): GITHUB_TOKEN 푸시는 후속 워크플로를 트리거하지
-# 않으므로 ①검증을 커밋 전에 전부 통과시키고(검증한 트리 == 푸시할 트리) ②푸시 후
-# validate-tracker를 workflow_dispatch로 재실행한다 — dispatch는 토큰 억제의 문서화된
-# 예외라 생성 SHA에 '실제' 체크가 남는다. 수제 status context는 job 이름과 어긋나
-# required check를 만족 못 하므로 쓰지 않는다(R6 P1).
-# 재귀 방지: 두 번째 실행은 apply가 '변경 없음'이라 커밋하지 않는다.
+# data/cards.full.json is the sole card source of truth. This workflow never merges public data back
+# into the full inventory. It regenerates public/data/cards.json from the committed canonical full,
+# validates the exact generated tree, and pushes only the generated public projection when needed.
+#
+# Direct public-only edits are also included in the trigger so they are deterministically overwritten
+# by the canonical projection rather than becoming an alternative source of truth.
 
 on:
   pull_request:
     paths:
+      - "data/cards.full.json"
       - "public/data/cards.json"
+      - "scripts/lean_cards.mjs"
+      - ".github/workflows/lean-cards.yml"
 
 permissions:
   contents: write
@@ -21,7 +23,7 @@ permissions:
 
 jobs:
   lean:
-    # 같은 저장소 브랜치의 PR만 — 포크에는 푸시 권한이 없다
+    # same-repository branches only; fork PRs do not have push permission
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
@@ -32,29 +34,32 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Apply lean export (merge into archive + project)
+      - name: Generate lean projection from canonical full
         run: node scripts/lean_cards.mjs
-      # ---- 검증 먼저: 실패하면 푸시 자체가 없다 ----
+      # Validate the exact tree before any generated commit is pushed.
       - name: Validate tracker data
         run: node scripts/validate.mjs
       - name: Validate cards data
         run: node scripts/validate_cards.mjs
-      - name: Validate full archive
+      - name: Validate canonical full
         run: node scripts/validate_cards.mjs data/cards.full.json
-      - name: Check lean payload matches archive
+      - name: Check public projection matches canonical full
         run: node scripts/lean_cards.mjs --check
-      # ---- 전부 통과한 트리만 커밋·푸시하고, 실제 검증 워크플로를 새 SHA에 재실행 ----
-      - name: Commit, push, and dispatch real checks on generated head
+      - name: Commit generated projection and dispatch real checks
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- public/data/cards.json data/cards.full.json; then
-            echo "변경 없음 — 커밋 생략"
+          if git diff --quiet -- public/data/cards.json; then
+            echo "변경 없음 — 생성 커밋 생략"
             exit 0
+          fi
+          if ! git diff --quiet -- data/cards.full.json; then
+            echo "FAIL: lean exporter가 canonical full을 변경함"
+            exit 1
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/data/cards.json data/cards.full.json
-          git commit -m "chore: lean export 자동 적용 (아카이브 병합 + KEEP 사영)"
+          git add public/data/cards.json
+          git commit -m "chore: regenerate lean cards projection from canonical full"
           git push
           gh workflow run validate-tracker.yml --ref "${{ github.event.pull_request.head.ref }}"

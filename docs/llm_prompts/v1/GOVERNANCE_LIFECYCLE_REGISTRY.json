@@ -40,6 +40,19 @@
       "ordinary_run_applies": true
     },
     {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true,
+      "note": "Canonical Prompt 0.8 entry point. Uses data/cards.full.json as merge baseline and output."
+    },
+    {
+      "path": "docs/llm_prompts/v1/legacy/10_PROMPT_0_8_GitHub_Merge_Prep_LEGACY_BODY.md",
+      "classification": "ACTIVE_CANONICAL",
+      "ordinary_run_applies": true,
+      "authority_scope": "subordinate_compatible_rules_only",
+      "note": "Accumulated Prompt 0.8 rule body. Public-baseline, replace-all-only, fixed-doc, and fallback clauses are superseded by the canonical entry point and mandatory addendum."
+    },
+    {
       "path": "docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
       "classification": "ACTIVE_MANDATORY_ADDENDUM",
       "ordinary_run_applies": true

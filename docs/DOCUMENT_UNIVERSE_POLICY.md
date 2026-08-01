@@ -8,7 +8,7 @@
 
 Stage 0.0D prevents a run from applying only a remembered or fixed subset of SBTL_HUB rules.
 
-Its purpose is to discover the complete governed document universe from the current GitHub `main`, classify every relevant document, read every active rule in full, resolve authority conflicts, and produce a reproducible manifest before editorial work begins.
+Its purpose is to discover the complete governed document universe from the current GitHub `main`, read every document under `docs/**` in full, classify applicability after reading, resolve authority conflicts, and produce a reproducible manifest before editorial work begins.
 
 ## 1. Scope
 
@@ -34,9 +34,9 @@ Each discovered governed file must receive one class:
 | `ACTIVE_VALIDATOR_CONTRACT` | active machine-enforced contract or registry | Yes | Yes |
 | `OPEN_REMEDIATION` | unresolved bounded legacy defect | Yes, when applicable | Yes, within scope |
 | `ACTIVE_MIGRATION` | explicitly activated one-time transition | Yes | Only when activated |
-| `REFERENCE_ONLY` | explanatory or historical context | As needed | No |
-| `SUPERSEDED` | replaced by a named active document | No, except conflict check | No |
-| `ARCHIVED` | historical, non-operative | No, except status check | No |
+| `REFERENCE_ONLY` | explanatory or historical context | Yes | No |
+| `SUPERSEDED` | replaced by a named active document | Yes | No |
+| `ARCHIVED` | historical, non-operative | Yes | No |
 
 A file without a classification is not silently ignored. It enters `UNCLASSIFIED_REVIEW_REQUIRED` and blocks progression until dispositioned.
 
@@ -44,7 +44,9 @@ A file without a classification is not silently ignored. It enters `UNCLASSIFIED
 
 A valid full read requires more than opening a filename.
 
-For each active file, the Stage 0.0D artifact must record:
+Every text or structured-data file under `docs/**` must be read or parsed in full before classification is finalized. Archived, superseded, reference, and inactive migration documents are read to detect hidden patches, stale authority, contradictory language, and missing supersession links, but their rules are not applied unless their classification authorizes application.
+
+For each document, the Stage 0.0D artifact must record:
 
 - path;
 - Git blob SHA or content SHA-256;
@@ -191,7 +193,7 @@ The first governed run after adoption must:
 
 Every subsequent run must still enumerate the full scope, but may optimize reading by:
 
-- fully rereading every active document;
+- fully rereading or parsing every file under `docs/**`;
 - highlighting documents changed since the previous manifest;
 - comparing SHAs and dependencies;
 - verifying archived and superseded status without treating them as authority;
@@ -227,7 +229,7 @@ Once completed, the migration becomes `COMPLETED_REFERENCE` and must not influen
 The assistant may state that “all applicable documents were read” only when the Stage 0.0D manifest proves:
 
 - full scope enumeration;
-- full reads for all active classes;
+- full reads or complete parsing for every file under `docs/**`;
 - no unread active files;
 - no unclassified governed files;
 - no unresolved dependency;

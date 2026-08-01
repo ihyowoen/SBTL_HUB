@@ -19,7 +19,7 @@ The inventory scope includes:
 - validator scripts and registries explicitly referenced by active documents or manifests;
 - GitHub workflows that enforce card, prompt, document, or production contracts;
 - open remediation manifests;
-- migration documents, solely to determine whether they are active for the current run.
+- migration documents, including inactive and completed migrations, to determine status, conflicts, and applicability.
 
 The inventory must not be limited to files named in a remembered list.
 
@@ -32,7 +32,7 @@ Each discovered governed file must receive one class:
 | `ACTIVE_CANONICAL` | permanent authoritative rule | Yes | Yes |
 | `ACTIVE_MANDATORY_ADDENDUM` | temporary but mandatory active overlay | Yes | Yes |
 | `ACTIVE_VALIDATOR_CONTRACT` | active machine-enforced contract or registry | Yes | Yes |
-| `OPEN_REMEDIATION` | unresolved bounded legacy defect | Yes, when applicable | Yes, within scope |
+| `OPEN_REMEDIATION` | unresolved bounded legacy defect | Yes | Yes, within applicable scope only |
 | `ACTIVE_MIGRATION` | explicitly activated one-time transition | Yes | Only when activated |
 | `COMPLETED_REFERENCE` | completed migration retained only as historical/audit reference | Yes | No |
 | `REFERENCE_ONLY` | explanatory or historical context | Yes | No |
@@ -45,7 +45,14 @@ A file without a classification is not silently ignored. It enters `UNCLASSIFIED
 
 A valid full read requires more than opening a filename.
 
-Every text or structured-data file under `docs/**` must be read or parsed in full before classification is finalized. Archived, superseded, reference, and inactive migration documents are read to detect hidden patches, stale authority, contradictory language, and missing supersession links, but their rules are not applied unless their classification authorizes application.
+Every text or structured-data file under `docs/**` must be read or parsed in full before classification is finalized. Archived, superseded, reference, completed migration, and inactive migration documents are read to detect hidden patches, stale authority, contradictory language, and missing supersession links, but their rules are not applied unless their classification authorizes application.
+
+Reading and applying are separate decisions:
+
+- full read or parse is mandatory for every file under `docs/**`;
+- classification is finalized only after the full read or parse;
+- activation controls whether a migration is applied, never whether it is read;
+- non-operative documents remain available for conflict detection and audit but do not govern ordinary runs.
 
 For each document, the Stage 0.0D artifact must record:
 
@@ -57,7 +64,8 @@ For each document, the Stage 0.0D artifact must record:
 - extracted mandatory rule IDs;
 - required output fields or validators;
 - superseded documents;
-- read status `READ_COMPLETE`;
+- read status `READ_COMPLETE` or equivalent complete structured parse;
+- application status;
 - reader notes on conflicts or dependencies.
 
 Reading only headers, snippets, search matches, summaries, old chat memory, or a prior run’s manifest is insufficient.
@@ -89,9 +97,9 @@ Enumerate the full scope and collect:
 - validator references;
 - replacement or archive references.
 
-### 4.3 Classification
+### 4.3 Full read and classification
 
-Classify each document using explicit evidence from:
+Read or parse every inventoried `docs/**` file in full. Only after that full read may Stage 0.0D classify the document using explicit evidence from:
 
 - `RUN_GOVERNANCE_INDEX.md`;
 - canonical prompt manifests;
@@ -101,7 +109,7 @@ Classify each document using explicit evidence from:
 - remediation status;
 - migration activation in the current run intake.
 
-File age alone is not authority evidence.
+File age alone is not authority evidence. An apparent lifecycle label is not permission to skip the full read.
 
 ### 4.4 Dependency expansion
 
@@ -138,6 +146,7 @@ Any unresolved conflict produces `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`.
       "authority_level": 0,
       "applicable_stages": [],
       "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED|NOT_APPLIED|APPLIED_WITHIN_SCOPE",
       "rule_ids": [],
       "dependencies": [],
       "supersedes": [],
@@ -145,12 +154,19 @@ Any unresolved conflict produces `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`.
     }
   ],
   "unclassified_documents": [],
+  "unread_documents": [],
   "unread_active_documents": [],
   "unresolved_dependencies": [],
   "unresolved_rule_conflicts": [],
   "open_remediations_checked": [],
   "active_migrations": [],
+  "inactive_migrations_read": [],
+  "completed_references_read": [],
+  "reference_only_documents_read": [],
+  "superseded_documents_read": [],
+  "archived_documents_read": [],
   "excluded_migrations": [],
+  "all_docs_files_read_or_parsed": true,
   "stage_0_0c_authorized": true
 }
 ```
@@ -159,8 +175,10 @@ Any unresolved conflict produces `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`.
 
 Stage 0.0C and all later stages are blocked when any of the following is true:
 
-- an active document was not read in full;
-- an active document lacks a SHA;
+- any text or structured-data file under `docs/**` was not read or parsed in full before classification was finalized;
+- any governed document lacks a SHA or equivalent content identity;
+- `all_docs_files_read_or_parsed != true`;
+- `unread_documents[]` is non-empty;
 - the repository head changed after manifest creation;
 - an active addendum or validator is absent from the package;
 - a referenced dependency is missing;
@@ -198,7 +216,7 @@ The first governed run after adoption must:
 
 ### Subsequent runs
 
-Every subsequent run must still enumerate the full scope, but may optimize reading by:
+Every subsequent run must still enumerate the full scope, but may optimize review by:
 
 - fully rereading or parsing every file under `docs/**`;
 - highlighting documents changed since the previous manifest;
@@ -218,7 +236,7 @@ Stage 0.0D must not perform candidate selection or news discovery. Stage 0.0C mu
 
 ## 9. Migration isolation
 
-Migration documents are always inventoried but ordinarily classified as inactive.
+Migration documents are always inventoried and fully read or parsed. They are ordinarily not applied.
 
 They affect a run only when the run intake explicitly records:
 
@@ -229,7 +247,7 @@ They affect a run only when the run intake explicitly records:
 - completion condition;
 - required audit artifacts.
 
-Once completed, the migration becomes `COMPLETED_REFERENCE` and must not influence later ordinary runs.
+Once completed, the migration becomes `COMPLETED_REFERENCE`; it remains readable for audit and conflict detection but must not influence later ordinary runs.
 
 ## 10. Assertion discipline
 
@@ -237,7 +255,8 @@ The assistant may state that “all applicable documents were read” only when 
 
 - full scope enumeration;
 - full reads or complete parsing for every file under `docs/**`;
-- no unread active files;
+- `all_docs_files_read_or_parsed=true`;
+- no unread governed files;
 - no unclassified governed files;
 - no unresolved dependency;
 - no unresolved conflict.

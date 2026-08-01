@@ -78,12 +78,36 @@ const WEBTOON_COLLECTIONS = [
 // 오늘(관제 대시보드) / 피드(탐색) / 브리핑룸(브리프+내 워치 전부) / 자료실(정책+용어) / 상담소(AI)
 // (내부 key는 "watchroom" 유지 — localStorage·seed 등 상태 계약을 건드리지 않는 표시명 변경)
 const CATS = [
-  { key: "all", label: "오늘", icon: "🌅" },
-  { key: "news", label: "피드", icon: "📰" },
-  { key: "watchroom", label: "브리핑룸", icon: "📮" },
-  { key: "archive", label: "자료실", icon: "📚" },
-  { key: "chatbot", label: "상담소", icon: "🤖" },
+  { key: "all", label: "오늘", icon: "today" },
+  { key: "news", label: "피드", icon: "feed" },
+  { key: "watchroom", label: "브리핑룸", icon: "brief" },
+  { key: "archive", label: "자료실", icon: "archive" },
+  { key: "chatbot", label: "상담소", icon: "consult" },
 ];
+
+// 탭 아이콘(R29): 이모지 → 라인 아이콘. 이모지는 색을 못 받아 활성 탭이 강조색을 쓸 수
+// 없었고(라벨만 시안, 그림은 제 색), 기기마다 다른 그림으로 그려졌다. currentColor를 쓰는
+// SVG라 부모의 color가 그대로 적용된다 — 활성/비활성 색 규약은 기존과 동일하게 유지.
+// 24 그리드·stroke 1.7 한 규격. 뜻: 지평선의 해 / 쌓인 카드 / 도착한 브리프 / 보관함 / 말풍선.
+const TAB_ICON_PATHS = {
+  today: <><path d="M2.75 19.25h18.5" /><path d="M7 19.25a5 5 0 0 1 10 0" /><path d="M12 5.5V3.25" /><path d="M6.4 8.1 4.9 6.6" /><path d="M17.6 8.1l1.5-1.5" /></>,
+  feed: <><rect x="3.25" y="4.75" width="17.5" height="6" rx="1.8" /><rect x="3.25" y="13.25" width="17.5" height="6" rx="1.8" /></>,
+  brief: <><rect x="3" y="5.25" width="18" height="13.5" rx="2.2" /><path d="M3.6 7.4 12 13.4l8.4-6" /></>,
+  archive: <><rect x="3" y="4.5" width="18" height="4.2" rx="1.4" /><path d="M4.8 8.7v9.1a1.8 1.8 0 0 0 1.8 1.8h10.8a1.8 1.8 0 0 0 1.8-1.8V8.7" /><path d="M10 12.4h4" /></>,
+  consult: <><path d="M6 4.75h12a3 3 0 0 1 3 3v6.5a3 3 0 0 1-3 3h-6.4L7.4 20.4v-3.15H6a3 3 0 0 1-3-3v-6.5a3 3 0 0 1 3-3Z" /><path d="M8.5 10.75h7M8.5 13.75h4.5" /></>,
+};
+
+function TabIcon({ name, size = 22 }) {
+  const paths = TAB_ICON_PATHS[name];
+  if (!paths) return null;
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"
+      style={{ display: "block" }}>
+      {paths}
+    </svg>
+  );
+}
 
 // '오늘' 탭의 날짜는 카드 최신일이 아니라 실제 오늘(KST) — 데이터 갱신이 하루이틀
 // 늦어도 앱이 낡아 보이지 않게. 데이터 시점(카드 최신일)은 보조 라벨로 정직하게 병기한다.
@@ -309,21 +333,9 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
   // 오늘 구성 통계: 시그널 등급·지역 분포
   const sigCount = todayCards.reduce((a, c) => { a[c.s] = (a[c.s] || 0) + 1; return a; }, {});
   const regionTop = Object.entries(todayCards.reduce((a, c) => { const r = c.r || c.region || "GL"; a[r] = (a[r] || 0) + 1; return a; }, {})).sort((a, b) => b[1] - a[1]).slice(0, 3);
-  // 최근 7일 일별 카드 수 — 뉴스 밀도 스파크라인 (기준일 = 최신 카드 날짜)
-  const density = (() => {
-    const base = new Date(String(today || "").replace(/\./g, "-"));
-    if (Number.isNaN(base.getTime())) return [];
-    const byDay = kb.cards.reduce((a, c) => { const d = String(c.d || c.date || "").slice(0, 10); if (d) a[d] = (a[d] || 0) + 1; return a; }, {});
-    const days = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(base.getTime() - i * 86400000);
-      const key = d.toISOString().slice(0, 10);
-      // getUTCDay — base가 UTC 자정이라 로컬 getDay()는 UTC 서쪽에서 하루 밀린다
-      days.push({ key, n: byDay[key] || 0, dow: "일월화수목금토"[d.getUTCDay()] });
-    }
-    return days;
-  })();
-  const maxDay = Math.max(1, ...density.map((d) => d.n));
+  // 주간 뉴스 밀도 스파크라인은 제거됨(R29, 사용자 결정) — 탭할 행동이 없고, 값의 절반이
+  // 주말 0이며, 양은 중요도와 무관하다(TOP 1장 < 평범한 12장으로 읽히게 만든다). 신선도는
+  // 강차장 인사("N일 만이네 · 새 카드 N장")가 이미 말한다.
   const watchStats = watchTerms.slice(0, 3).map((w) => {
     const cards = kb.cards.filter((c) => cardMatchesWatch(c, [w]));
     return { term: w, fresh: cards.filter((c) => cardDateWithinDays(c, 7)).length, latest: cards[0] };
@@ -444,17 +456,6 @@ function TodayDashboard({ dark, kb, tracker, weeklyBriefs = [], watchVersion = 0
           {(sigCount.t || 0) > 0 && <span style={{ fontSize: 9, fontWeight: 800, color: "#F85149", border: "1px solid rgba(248,81,73,0.4)", borderRadius: 999, padding: "3px 8px", fontFamily: "'JetBrains Mono',monospace" }}>TOP {sigCount.t}</span>}
           {(sigCount.h || 0) > 0 && <span style={{ fontSize: 9, fontWeight: 800, color: "#D29922", border: "1px solid rgba(210,153,34,0.4)", borderRadius: 999, padding: "3px 8px", fontFamily: "'JetBrains Mono',monospace" }}>HIGH {sigCount.h}</span>}
           {regionTop.map(([r, n]) => <span key={r} style={{ fontSize: 9, fontWeight: 700, color: t.sub, border: `1px solid ${t.brd}`, borderRadius: 999, padding: "3px 8px", fontFamily: "'JetBrains Mono',monospace" }}>{REG_FLAG[r] || ""} {r} {n}</span>)}
-        </div>
-      </W>
-      <W label="주간 뉴스 밀도" right="최근 7일 · 일별 카드 수">
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 5, height: 46 }}>
-          {density.map((d) => (
-            <div key={d.key} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, height: "100%", justifyContent: "flex-end" }}>
-              {d.n > 0 && <div style={{ fontSize: 8, color: t.sub, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{d.n}</div>}
-              <div style={{ width: "100%", borderRadius: 3, background: d.key === String(today || "").replace(/\./g, "-") ? t.cyan : t.brd, height: `${Math.max(3, Math.round((d.n / maxDay) * 30))}px` }} />
-              <div style={{ fontSize: 8.5, color: t.sub, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1 }}>{d.dow}</div>
-            </div>
-          ))}
         </div>
       </W>
       <W label="MY WATCH · 최근 7일">
@@ -4523,7 +4524,7 @@ function AppContent() {
         {CATS.map((cat) => {
           const active = tab === cat.key;
           const badge = cat.key === "watchroom" && watchNewCount > 0; // 내워치 배지는 워치룸 탭에
-          return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={badge ? `${cat.label}, 내워치 새 카드 ${watchNewCount}건` : `Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: 56, cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>{active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}<span style={{ fontSize: 22, lineHeight: 1, filter: active ? "none" : "grayscale(0.3) opacity(0.7)" }} aria-hidden="true">{cat.icon}</span><span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span>{badge && <span aria-hidden="true" style={{ position: "absolute", top: 5, left: "50%", transform: "translateX(7px)", background: "#F85149", color: "#fff", borderRadius: 999, fontSize: 8, fontWeight: 800, padding: "2px 5px", lineHeight: 1, fontFamily: "'JetBrains Mono',monospace" }}>{watchNewCount > 99 ? "99+" : watchNewCount}</span>}</button>;
+          return <button key={cat.key} onClick={() => setTab(cat.key)} aria-label={badge ? `${cat.label}, 내워치 새 카드 ${watchNewCount}건` : `Maps to ${cat.label}`} aria-current={active ? "page" : undefined} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "8px 0", minHeight: 56, cursor: "pointer", border: "none", background: "transparent", flex: 1, position: "relative" }}>{active && <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 20, height: 2, borderRadius: 1, background: t.cyan }} />}<span style={{ lineHeight: 1, color: active ? t.cyan : t.sub, opacity: active ? 1 : 0.75 }} aria-hidden="true"><TabIcon name={cat.icon} /></span><span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? t.cyan : t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{cat.label}</span>{badge && <span aria-hidden="true" style={{ position: "absolute", top: 5, left: "50%", transform: "translateX(7px)", background: "#F85149", color: "#fff", borderRadius: 999, fontSize: 8, fontWeight: 800, padding: "2px 5px", lineHeight: 1, fontFamily: "'JetBrains Mono',monospace" }}>{watchNewCount > 99 ? "99+" : watchNewCount}</span>}</button>;
         })}
       </div>
     </div>

@@ -12,8 +12,9 @@ This override supersedes earlier conflicting language only in the following area
 3. any rule treating the supplied final input as the complete news universe;
 4. any workflow that omits Stage 0.0D, Stage 0.0C, or Stage 0.7C;
 5. any baseline rule treating `public/data/cards.json` as the canonical full inventory;
-6. any ordinary-run process that permits silent card deletion or related-edge removal;
-7. any permanent rule that embeds one-time migration dates, counts, or run names.
+6. every Prompt 0.8 clause treating `public/data/cards.json` as the current baseline, merge source of truth, canonical count source, fallback baseline, sole merge target, or authoritative replacement file;
+7. any ordinary-run process that permits silent card deletion or related-edge removal;
+8. any permanent rule that embeds one-time migration dates, counts, or run names.
 
 All other compatible fact, evidence, schema, stage, source-diversity, related-lineage, and production rules remain in force.
 
@@ -77,10 +78,16 @@ A self-authored statement that the batch is “complete” or “IB-grade” is 
 
 ## 4. Canonical data rule
 
-The canonical baseline is:
+The canonical baseline and merge source of truth are:
 
 ```text
 GitHub main → data/cards.full.json
+```
+
+The canonical merge output is also:
+
+```text
+data/cards.full.json
 ```
 
 The application file is:
@@ -89,7 +96,11 @@ The application file is:
 public/data/cards.json
 ```
 
-and must be a generated lean projection of the canonical full.
+and must be regenerated as a lean projection of the updated canonical full.
+
+`public/data/cards.json` must never be used as a substitute merge baseline, canonical count source, fallback source of truth, or full-metadata preservation source.
+
+If the canonical full cannot be read and verified, Prompt 0.8 must block rather than fall back to the public projection.
 
 Every run must record the current main commit SHA and canonical full blob SHA.
 
@@ -111,6 +122,8 @@ One-time transition or recovery details belong only under `docs/migrations/`.
 
 A migration applies only when explicitly activated in the run intake and must become `COMPLETED_REFERENCE` after completion.
 
+`COMPLETED_REFERENCE` is non-operative in ordinary runs and remains available only for audit and conflict detection.
+
 Permanent governance documents must remain date-independent and run-independent.
 
 ## 7. Mandatory workflow order
@@ -127,10 +140,13 @@ Permanent governance documents must remain date-independent and run-independent.
 Use the applicable blocker when:
 
 - `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE`;
+- `BLOCKED_DOCUMENT_AUTHORITY_CONFLICT`;
 - `BLOCKED_COVERAGE_DISCOVERY_INCOMPLETE`;
 - `BLOCKED_STAGE_A_EXPANDED_SOURCE_UNIVERSE_MISSING`;
 - `BLOCKED_EDITORIAL_COMPLETENESS_UNPROVEN`;
 - `BLOCKED_INCREMENTAL_MERGE_PRECONDITION_MISSING`;
+- `BLOCKED_CANONICAL_FULL_UNREADABLE`;
+- `BLOCKED_PROMPT_0_8_PUBLIC_BASELINE_CONFLICT`;
 - `BLOCKED_BASELINE_MOVED_REBASE_REQUIRED`;
 - `BLOCKED_UNDECLARED_CARD_DIFF`;
 - `BLOCKED_EXISTING_RELATED_EDGE_LOSS`;

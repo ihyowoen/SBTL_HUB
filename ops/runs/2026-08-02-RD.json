@@ -1,0 +1,403 @@
+{
+  "runId": "2026-08-02-RD",
+  "date": "2026-08-02",
+  "type": "RD-sunday",
+  "summary": "일요일 run(KST). 로테이션상 일요일은 셀 스윕 무배정(Mon~Sat 90셀)이므로 일요일 완전 run = 롤오버 + standing monitor + 부채 소화로 정의. 수행: ① 스냅샷 롤오버(meta·region_policy 08-02, baked 카운트다운 3건 스크럽) ② 부채 소화 — CN-026 실검증(위험군 21/21 완결·징구의견稿 단계 진입), CN-017 재검증(07-29 무효화분 해소·std.samr 대조), CN-018 VAT 모니터 겸 재확인(문고 2026A판 등 실무 기준 보강), KR-019 별표 3회 시도(미확보·부채 유지) ③ standing monitor 5/5 점검 완료 ④ neverSwept 13셀(next_tech·upstream·downstream) 전수 실스윕 완료 — 신규 후보 11건 승인 큐 등재(직접 편입 0), neverSwept 0 달성.",
+  "partial": false,
+  "partialReason": null,
+  "searches": [
+    {
+      "query": "관세법 제71조에 따른 할당관세의 적용에 관한 규정 별표 알루미늄 합금 7601 7606",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-019"
+      ],
+      "result": "별표 세번 미노출 — 법령 본문·입법예고 페이지만 확인. law.go.kr 자동접근 차단"
+    },
+    {
+      "query": "할당관세의 적용에 관한 규정 별표 2026 알루미늄의 합금 세율표",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-019"
+      ],
+      "result": "무결과"
+    },
+    {
+      "query": "할당관세 규정 일부개정령 2025.12.30 공포 별표 84개 품목 알루미늄",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-019"
+      ],
+      "result": "개정 골자(84품목·58 산업품목 0~3%) 재확인, 별표는 hwpx 첨부 — HS 대조 부채 유지"
+    },
+    {
+      "query": "动力蓄电池拆解破碎 强制性国家标准 计划 2026",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-026"
+      ],
+      "result": "std.samr 표준계획 등록정보(1차 메타)+징구의견稿 공표·마감 2026.07.25(2차) — 초안 단계 진입, 미발포"
+    },
+    {
+      "query": "GB 36980.1-2025 电动汽车能量消耗量限值 实施 2026",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-017"
+      ],
+      "result": "std.samr 등록정보(발포 2025-05-30·시행 2026-01-01·GB/T 36980-2018 대체)+신화사·편제설명 보도 — 카드 내용 전부 정합, verify 복구"
+    },
+    {
+      "query": "CAFE penalties reinstated SAFE rule NHTSA 2026",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "[모니터①] §32912 세율 $0 유지(SAFE III PRIA 명시). SAFE III NPRM(2025.12.05) 코멘트 마감·미최종화. 무변동"
+    },
+    {
+      "query": "new EV tax credit bill Congress 2026 replace 30D",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "[모니터②] §30D 후속·부활 입법 없음. 30C 충전설비 크레딧도 2026.06.30 일몰 경과. OBBBA 오토론 이자공제가 사실상 대체 기제. 무변동"
+    },
+    {
+      "query": "IRS prohibited foreign entity 45X guidance proposed regulations material assistance 2026",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "[모니터③] Notice 2026-15 이후 신규 없음 — PFE 정의·MACR 제안규칙 및 safe harbor 테이블 미공표(공표 후 60일 신뢰기간 구조 유지). 무변동"
+    },
+    {
+      "query": "锂电池 出口退税 2026年第2号 调整 6% 最新",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-018",
+        "CN-010"
+      ],
+      "result": "[모니터⑤] 무변동 + 실무 보강: 출구퇴세율문고 2026A판(税总货劳函〔2026〕27号)·2026年第11号/第5号 신고 프레임·상류재료 附件1 귀령 확인"
+    },
+    {
+      "query": "GM Tesla supplier China-free battery materials requirement 2026 update",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "[모니터④·관찰만] Tesla 미국산 차량 탈중국 부품 지시(1~2년 전환·네바다 LFP Q1 2026)·GM 2027 공급사 탈중국 유지·Tesla-Syrah Vidalia AAM 계약 유지 반전. 트래커 스코프 밖(사적 표준) — 컨텍스트 기록"
+    },
+    {
+      "query": "DOE solid state battery standard rule UL 2580 certification 2026",
+      "region": "NA",
+      "cell": "next_tech/NA",
+      "itemsCovered": [],
+      "result": "UL 2285 전고체 안전표준 美·加 공동 개발 중(미제정) — 승인 큐 후보(WATCH)"
+    },
+    {
+      "query": "EU solid state battery standard regulation 2026",
+      "region": "EU",
+      "cell": "next_tech/EU",
+      "itemsCovered": [],
+      "result": "EU 전용 규범 없음(2023/1542 커버). 부수: GB/T 43568-2026(中 전고체 용어·분류, 2026.07.01 시행) 발견 — 승인 큐"
+    },
+    {
+      "query": "전고체 배터리 안전기준 KC 인증 국가표준 제정 2026",
+      "region": "KR",
+      "cell": "next_tech/KR",
+      "itemsCovered": [],
+      "result": "전용 제정 규범 없음"
+    },
+    {
+      "query": "IEC solid state battery standard published UN GTR next generation battery 2026",
+      "region": "GL",
+      "cell": "next_tech/GL",
+      "itemsCovered": [],
+      "result": "IEC 전용표준 pre-research 단계(미제정), UN GTR 신규 없음. GB 47372-2026 언급 확인"
+    },
+    {
+      "query": "cathode anode material battery precursor import regulation US rule 2026",
+      "region": "NA",
+      "cell": "upstream/NA",
+      "itemsCovered": [],
+      "result": "FY2026 NDAA §842(제정)·EPA TSCA SNUR 제안(CAM)·AAM AD/CVD — 승인 큐 3건"
+    },
+    {
+      "query": "EU cathode active material regulation battery component standard 2026",
+      "region": "EU",
+      "cell": "upstream/EU",
+      "itemsCovered": [],
+      "result": "EU 배터리 로컬콘텐츠 입법(셀·CAM·BMS 등 EU 원산 요구) — 제정 여부 확인 필요, 승인 큐. SBTL 직결성 높음"
+    },
+    {
+      "query": "蓄電池 正極材 負極材 規格 告示 経済産業省 2026",
+      "region": "JP",
+      "cell": "upstream/JP",
+      "itemsCovered": [],
+      "result": "신규 제정 없음(산업전략 문서만)"
+    },
+    {
+      "query": "IEC ISO battery cathode anode material standard published 2025 2026",
+      "region": "GL",
+      "cell": "upstream/GL",
+      "itemsCovered": [],
+      "result": "소재 전용 신규 제정 없음(EN IEC 62902:2025 마킹은 인접 경미)"
+    },
+    {
+      "query": "NEVI charging infrastructure rule federal minimum standards 2026 update",
+      "region": "NA",
+      "cell": "downstream/NA",
+      "itemsCovered": [],
+      "result": "23 CFR 680 + 2026.01 판결·가이던스 개정 — 승인 큐"
+    },
+    {
+      "query": "充电基础设施 标准 强制性 2026 实施 换电站",
+      "region": "CN",
+      "cell": "downstream/CN",
+      "itemsCovered": [],
+      "result": "충전설비 CCC 강제인증 2026.08.01 시행 + GB 47372-2026 — 승인 큐 2건"
+    },
+    {
+      "query": "전기차 충전시설 설치의무 고시 개정 2026 환경친화적 자동차",
+      "region": "KR",
+      "cell": "downstream/KR",
+      "itemsCovered": [],
+      "result": "전기안전관리법 충전시설 신고·책임보험 의무(2025.11.28 시행) — 승인 큐"
+    },
+    {
+      "query": "充電インフラ 整備 補助 基準 経産省 告示 2026 急速充電",
+      "region": "JP",
+      "cell": "downstream/JP",
+      "itemsCovered": [],
+      "result": "신규 제정 고시 없음(보조금 지침은 스코프 밖)"
+    },
+    {
+      "query": "ISO 15118-20 charging standard mandatory megawatt charging MCS standard published",
+      "region": "GL",
+      "cell": "downstream/GL",
+      "itemsCovered": [],
+      "result": "IEC 63379:2026(MCS 커넥터) 2026.02 발포 — 승인 큐. SAE J3271 2025.03 기발포"
+    }
+  ],
+  "primaryDocs": [
+    {
+      "doc": "全国标准信息公共服务平台 국가표준계획 《车用动力电池拆解破碎安全要求》 등록정보",
+      "itemsCovered": [
+        "CN-026"
+      ],
+      "note": "제출 工信部(339)·집행 TC114SC27·기초단위 확인 → primary-meta"
+    },
+    {
+      "doc": "全国标准信息公共服务平台 GB 36980.1-2025 등록정보",
+      "itemsCovered": [
+        "CN-017"
+      ],
+      "note": "발포·시행·대체·귀구 확인 → primary-meta. 표준 전문 미취득"
+    }
+  ],
+  "verifyCounts": {
+    "derivedFrom": "public/data/tracker_data.json (최종 발행본 기준, 스크립트 산출)",
+    "totalItems": 149,
+    "thisRun": {
+      "primary-meta": 2,
+      "secondary": 1
+    },
+    "thisRunTotal": 3,
+    "carriedFromPriorRuns": 146,
+    "note": "verify.date=2026-08-02 항목의 method별 분포. 수기 기입 금지 — 데이터셋에서 산출."
+  },
+  "changes": [
+    "CN-026 — 실검증: 표준계획→징구의견稿 단계 진전 반영(의견마감 2026.07.25 경과), verify primary-meta. 위험군 21건 검증 완결(07-29 잔여 1건 해소)",
+    "CN-017 — 07-29 무효화분 재검증 완료: std.samr 등록정보 대조로 카드 내용 전부 정합 확인, verify 복구(primary-meta 2026-08-02). 07-29 원장 verificationDebt의 CN-017 건 해소",
+    "CN-018 — standing monitor 겸 재확인(secondary): 문고 2026A판·11号/5号 신고 프레임·상류재료 附件1 귀령 등 실무 기준 보강",
+    "KR-019 — 별표 HS 대조 3회 시도 기록(미확보, 부채 유지)",
+    "meta.lastUpdated 2026-08-02, region_policy _meta 동기화 + baked 카운트다운 3건 스크럽",
+    "standing monitor 5/5 점검 — 전 항목 무변동(GM/Tesla는 관찰 기록)",
+    "neverSwept 13셀 전수 스윕(실검색 13회) — coverage.json lastSwept 갱신, 승인 큐 후보 11건 도출(CCC 충전설비 D-1·GB/T 43568·NDAA §842 등). 스코프 게이트 준수: 데이터셋 직접 편입 0건"
+  ],
+  "newItems": [],
+  "corrections": [],
+  "coverageCells": [
+    {
+      "cell": "next_tech/NA",
+      "sweptAt": "2026-08-02",
+      "finding": "UL 2285(전고체 전지 안전표준) 美·加 공동 신규 개발 중(ULSE·SCC 의향공고) — 미제정. UL 2580은 기존 EV팩 안전표준(제정, 3판 2020/개정 2022)",
+      "candidates": "후보: UL 2285(개발 중→WATCH 후보)"
+    },
+    {
+      "cell": "next_tech/EU",
+      "sweptAt": "2026-08-02",
+      "finding": "EU 전용 전고체 규범 없음 — (EU) 2023/1542가 화학 불문 커버(기추적). EU 전고체 파일럿라인 2026 가동은 정책 동향",
+      "candidates": "후보 없음"
+    },
+    {
+      "cell": "next_tech/KR",
+      "sweptAt": "2026-08-02",
+      "finding": "전용 제정 규범 없음 — 전안법 KC 62619(ESS 리튬이차전지) 기존 체계, 전고체 전용 안전기준 미제정",
+      "candidates": "후보 없음"
+    },
+    {
+      "cell": "next_tech/GL",
+      "sweptAt": "2026-08-02",
+      "finding": "IEC TC21/SC21A 전고체 전용표준 pre-research(미제정), IEC 63203 시리즈 정비 중. UN GTR 신규 없음",
+      "candidates": "후보 없음"
+    },
+    {
+      "cell": "upstream/NA",
+      "sweptAt": "2026-08-02",
+      "finding": "FY2026 NDAA §842 DoD FEOC 전지 조달제한(제정, 2028.1.1 신규계약 단계시행) / EPA TSCA SNUR 제안(CAM 대상 MMO) / AAM(인조흑연 음극재) AD 최대 102%·CVD 6.5~11.6%",
+      "candidates": "후보 3: NDAA §842(제정), TSCA SNUR(제안→WATCH), AAM AD/CVD"
+    },
+    {
+      "cell": "upstream/EU",
+      "sweptAt": "2026-08-02",
+      "finding": "EU 배터리 로컬콘텐츠 입법 드라이브 — 트랙션 배터리에 셀·CAM·BMS 등 5개 핵심부품 EU 원산 요구+BESS 공공조달(제안 단계 추정, 제정 여부 확인 필요). 2023/1542 마일스톤은 기추적",
+      "candidates": "후보 1: EU 로컬콘텐츠 입법(확인 필요·SBTL 직결성 높음)"
+    },
+    {
+      "cell": "upstream/JP",
+      "sweptAt": "2026-08-02",
+      "finding": "신규 제정 규격·고시 없음 — 蓄電池·電源産業戦略(2026.06.02)은 정책 문서. 経済安保法 특정중요물자 지정은 기존 제도",
+      "candidates": "후보 없음"
+    },
+    {
+      "cell": "upstream/GL",
+      "sweptAt": "2026-08-02",
+      "finding": "소재 전용 신규 IEC/ISO 제정 없음 — EN IEC 62902:2025(화학표기 마킹)는 인접 경미",
+      "candidates": "후보 없음"
+    },
+    {
+      "cell": "downstream/NA",
+      "sweptAt": "2026-08-02",
+      "finding": "23 CFR 680(NEVI 최저기준, 제정 연방규정) + 2026.01 Washington v. DOT 최종판결로 자금 전면 해제·2025.09 가이던스 개정(NACS/J3400 확산·OCPP 2.0.1·ISO 15118)",
+      "candidates": "후보 1: 23 CFR 680 NEVI"
+    },
+    {
+      "cell": "downstream/CN",
+      "sweptAt": "2026-08-02",
+      "finding": "① 전동차 공전설비 CCC 강제인증 2026.08.01 시행(시감총국 2024 공고, 미인증 출하·판매·수입·사용 금지) ② GB 47372-2026 《移动电源安全技术规范》 2026.04.03 발포·2027.04.01 시행(침자시험·순환노화 후 리튬석출 검출 신설)",
+      "candidates": "후보 2: CCC 충전설비 인증(D-1), GB 47372-2026"
+    },
+    {
+      "cell": "downstream/KR",
+      "sweptAt": "2026-08-02",
+      "finding": "전기안전관리법 개정 — 충전시설 설치·변경 신고+책임보험 의무(법 시행 2025.11.28, 기존시설 경과 2026.05.28 만료). 친환경차법 시행령 §18조의7 개정(2025.10.01)",
+      "candidates": "후보 1: 전기안전관리법 충전시설 신고·보험"
+    },
+    {
+      "cell": "downstream/JP",
+      "sweptAt": "2026-08-02",
+      "finding": "신규 제정 고시 없음 — CEV 보조금 2026 개편(150kW 구분·OCPP 요건화)은 보조사업 지침으로 스코프 밖",
+      "candidates": "후보 없음"
+    },
+    {
+      "cell": "downstream/GL",
+      "sweptAt": "2026-08-02",
+      "finding": "IEC 63379 v1.0(MCS 메가와트 충전 커넥터) 2026.02 발포(제정), SAE J3271 2025.03 발포. IEC 61851-23-3(저레벨 통신) 연말 목표 — 대형상용차 1~3.75MW",
+      "candidates": "후보 1: IEC 63379:2026 MCS"
+    }
+  ],
+  "coverageBacklog": {
+    "derivedFrom": "ops/coverage.json (스크립트 산출)",
+    "totalCells": 90,
+    "neverSwept": 0,
+    "neverSweptCells": [],
+    "note": "신설 3축 이월 13셀을 본 run에서 전수 실스윕 — neverSwept 0 달성. 일요일 정기 슬라이스는 로테이션 무배정(Mon~Sat 90셀)"
+  },
+  "carryOver": [
+    "KR-019 별표 HS·세율·물량 대조 — law.go.kr 원문 직접 확인 필요(자동접근 차단으로 수동 확인 권고). SBTL 직결 최우선",
+    "CN-017·CN-026 표준 전문 취득(한계치 테이블·초안 전문)",
+    "CN-034·CN-035·CN-038 표준 전문 취득(verificationDebt)",
+    "승인 큐 11건 심사(최우선: CCC 충전설비 — 2026.08.03 run에서 시행 확인과 함께)",
+    "EU 로컬콘텐츠 입법 제정 여부·법안명 확인"
+  ],
+  "pendingDecisions": [
+    "구조 PR 3건 우선순위 확정: ① 레저 파생값 스크립트 산출 전환 ② validate2 CI 편입 ③ nextMilestone ISO 필드(UPCOMING 정렬)",
+    "승인 큐: GB 43854-2024(전동자전거 전지) 신규 항목 후보, ESS 표준군 4층 구조 정리, OBBBA §40006, 中 MoF/SAT 2026年第2号"
+  ],
+  "standingMonitor": {
+    "date": "2026-08-02",
+    "checked": "5/5",
+    "items": [
+      {
+        "id": "CAFE §32912",
+        "status": "무변동",
+        "note": "민사벌 세율 $0(OBBBA §40006). SAFE III NPRM 미최종화 — 최종화 시 즉시 플래그"
+      },
+      {
+        "id": "§30D 후속",
+        "status": "무변동",
+        "note": "부활·대체 입법 없음. 30C도 2026.06.30 일몰 경과"
+      },
+      {
+        "id": "IRS PFE/MACR",
+        "status": "무변동",
+        "note": "Notice 2026-15 이후 제안규칙·safe harbor 테이블 미공표. 공표 시 45X 신뢰기간(공표+60일) 기산 — 즉시 플래그"
+      },
+      {
+        "id": "GM/Tesla 탈중국 조달",
+        "status": "관찰",
+        "note": "Tesla 미국산 차량 1~2년 내 탈중국 부품 전환 지시·GM 2027 유지·Syrah Vidalia AAM 진전. 스코프 밖"
+      },
+      {
+        "id": "中 VAT 환급(2026年第2号)",
+        "status": "무변동",
+        "note": "전지 22항 6% 과도기 유지·2027.1.1 귀령. 문고 2026A판이 공식 대조 기준(CN-018 반영)"
+      }
+    ]
+  },
+  "approvalQueueCandidates": [
+    {
+      "name": "CN 전동차 공전설비 CCC 강제인증",
+      "basis": "시감총국 2024 공고, 2026.08.01 시행(미인증 출하·판매·수입·사용 금지)",
+      "priority": "P1 — 시행 D-1"
+    },
+    {
+      "name": "GB/T 43568-2026 전기차 전고체전지 제1부 용어·분류",
+      "basis": "2026.07.01 시행, 세계 최초 자동차용 전고체 국가표준",
+      "priority": "P1"
+    },
+    {
+      "name": "FY2026 NDAA §842 DoD FEOC 전지 조달 제한",
+      "basis": "2025.12 제정, 2028.1.1 신규계약부터 단계 시행",
+      "priority": "P1"
+    },
+    {
+      "name": "GB 47372-2026 移动电源安全技术规范",
+      "basis": "2026.04.03 발포·2027.04.01 시행(침자·리튬석출 검출)",
+      "priority": "P2"
+    },
+    {
+      "name": "IEC 63379:2026 MCS 메가와트 충전 커넥터",
+      "basis": "2026.02 v1.0 발포",
+      "priority": "P2"
+    },
+    {
+      "name": "KR 전기안전관리법 충전시설 신고·책임보험 의무",
+      "basis": "2025.11.28 시행(경과조치 2026.05.28 만료)",
+      "priority": "P2"
+    },
+    {
+      "name": "23 CFR 680 NEVI 최저기준",
+      "basis": "제정 연방규정 + 2026.01 Washington v. DOT 판결",
+      "priority": "P3"
+    },
+    {
+      "name": "EU 배터리 로컬콘텐츠 입법(셀·CAM·BMS EU 원산)",
+      "basis": "제안 단계 추정 — 제정 여부·법안명 확인 필요. SBTL 직결성 높음",
+      "priority": "P2(확인 선행)"
+    },
+    {
+      "name": "EPA TSCA SNUR(CAM MMO)",
+      "basis": "제안규칙 — WATCH 후보",
+      "priority": "P3"
+    },
+    {
+      "name": "UL 2285 전고체 안전표준",
+      "basis": "개발 중 — WATCH 후보",
+      "priority": "P3"
+    },
+    {
+      "name": "AAM(인조흑연 음극재) AD/CVD",
+      "basis": "AD 최대 102%·CVD 6.5~11.6%",
+      "priority": "P3"
+    },
+    {
+      "name": "기존 후보 유지",
+      "basis": "GB 43854-2024 / ESS 표준군 4층 / OBBBA §40006 CAFE",
+      "priority": "기존"
+    }
+  ]
+}

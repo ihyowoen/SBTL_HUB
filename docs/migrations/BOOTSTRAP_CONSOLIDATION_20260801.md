@@ -10,30 +10,68 @@ This document governs one bounded transition only: consolidating multiple approv
 
 It is not a permanent operating rule.
 
-## 1. Scope
+## 1. Migration-specific scope
 
-This migration may contain:
+The source runs authorized for this one-time consolidation are:
 
-- the current main baseline commit and full blob SHA;
-- the explicitly approved unmerged run list;
-- the reason a one-time consolidation is required;
-- cross-run duplicate, reinforcement, follow-up, correction, and related review;
-- preservation of existing related edges;
-- the final consolidation PR and production-verification records.
+- `2026-07-29`;
+- `2026-07-30`;
+- `2026-08-01`.
 
-All exact dates, counts, run names, branches, and transition-specific facts belong here or in its audit artifacts, not in permanent governance documents.
+The exact input artifacts, baseline count, candidate count, branch, current main commit SHA, and canonical full blob SHA must be recorded in the execution audit and reverified immediately before application.
 
-## 2. Required principles
+No preliminary count or previously downloaded file is authoritative if current `main` differs.
+
+## 2. Why consolidation is exceptional
+
+These runs accumulated before ordinary incremental operation was established. They may therefore be processed together once, with explicit approval, rather than creating multiple overlapping replacement-file PRs.
+
+The consolidation must not become the default operating pattern.
+
+## 3. Required review
+
+The consolidation must re-evaluate across all three source runs and the current canonical full:
+
+- exact duplicates;
+- same-event republication;
+- existing-card reinforcement;
+- existing-card correction;
+- material follow-up;
+- execution-stage transition;
+- correction or reversal;
+- distinct new event;
+- verified `related_add`;
+- source reinforcement.
+
+Simple concatenation is prohibited.
+
+## 4. Required principles
 
 - current main `data/cards.full.json` is the baseline;
-- original run inputs and audits remain separately identifiable;
+- original run inputs, decisions, and audits remain separately identifiable;
 - cross-run items are not concatenated without re-evaluation;
 - existing related edges are preserved;
 - verified new relations may be added;
 - card deletion and related removal are outside this migration unless separately approved under remediation;
 - the final merged result becomes the next canonical baseline only after production verification.
 
-## 3. Completion condition
+## 5. Required audit
+
+The migration audit must record:
+
+- verified baseline main commit SHA;
+- verified canonical full blob SHA and count;
+- source-run artifact references;
+- cross-run duplicate and lineage ledger;
+- inserts;
+- updates;
+- related additions;
+- zero ordinary deletion assertion;
+- zero ordinary related-removal assertion;
+- final full and lean hashes;
+- PR and production-verification references.
+
+## 6. Completion condition
 
 Set status to `COMPLETED_REFERENCE` only when:
 

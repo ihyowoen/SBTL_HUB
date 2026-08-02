@@ -77,6 +77,19 @@ A candidate may enter `strict_passed_spec[]` when all are true:
 
 Do not lower evidence standards.
 
+### Routing matrix
+
+| Credibility | Cardability | Decision value | Route |
+|---|---|---:|---|
+| PASS | PASS | 70–100 | strict pass if all other Stage A gates pass |
+| PASS | PASS | 55–69 | strict or candidate review based on evidence and duplicate risk |
+| PASS | PASS/REVIEW | 40–54 | lower-priority strict, review, or reinforcement |
+| REVIEW | PASS/REVIEW | 55–100 | candidate or structural review with mandatory rescue question |
+| PASS/REVIEW | REVIEW | any | candidate review, earnings deep dive, reinforcement, or watchlist |
+| FAIL | any | any | item-specific reject/support-only with reason and ledger |
+
+Do not force cards to improve topic balance.
+
 ---
 
 ## 3. Structural Value Override
@@ -483,6 +496,18 @@ Required summary validators:
 - `follow_up_repromotion_audit_status`
 - `execution_event_bias_audit_status`
 - `content_depth_audit_status`
+
+---
+
+## 15A. Signal assignment
+
+Assign `signal = top | high | mid` only after the four independent judgments.
+
+- `top`: 85–100, or 70–84 with exceptional urgency and strong evidence;
+- `high`: 70–84, or 55–69 with material lane impact and strong evidence;
+- `mid`: 40–69 depending on scope.
+
+No execution, legal, corporate, or earnings form creates a signal level by itself.
 
 ---
 

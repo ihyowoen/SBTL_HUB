@@ -19,12 +19,14 @@ V3 preserves and explicitly restates the governing V2 framework:
 - V2 novelty classification caps remain enforceable at the total score/classification level;
 - the Stage A routing matrix remains explicit;
 - `signal = top | high | mid` remains assigned only after the four judgments;
+- the narrow `mid` fallback for a credible independently cardable execution event remains available when all other gates pass;
 - the 100-point industry-first model remains 25/25/20/10/10/5/3/2;
 - the three core industrial dimensions remain 70 points;
 - denominator discipline remains mandatory;
 - technology-evidence score caps remain mandatory;
 - legal-policy Stage 0–6 remains mandatory;
 - the twelve mandatory legal-policy questions remain explicit;
+- missing instrument, authority, or procedural status and lifecycle-stage conflation are hard blockers in Prompt 0.1S;
 - proposal, adoption, effectiveness, implementation, enforcement, and judicial review remain distinct;
 - the twelve-question IB-grade decision-useful content test remains explicit;
 - blocker output fields remain explicit;
@@ -86,9 +88,10 @@ Evidence, baseline, duplicate, direct-lineage, state-ladder, source-diversity, a
 - both selector files preserve 25/25/20 core weighting;
 - novelty total-score/classification caps are present;
 - Stage A routing matrix is present;
-- signal-assignment rules are present;
+- signal-assignment rules and narrow execution fallback are present;
 - legal-policy Stage 0–6 is present;
 - mandatory legal-policy questions are present;
+- legal-policy missing-field and stage-conflation blockers are present in the operational override;
 - technology score caps are present;
 - IB-grade decision-useful content questions are present;
 - blocker output fields are present;

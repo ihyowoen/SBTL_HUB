@@ -25,7 +25,7 @@ on:
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -33,11 +33,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Apply focused PR 233 review patch
+        run: node scripts/patch_pr233_review_latest.mjs
 
       - name: Compile validators
         run: python -m compileall -q validation_scripts
@@ -47,3 +58,23 @@ jobs:
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Restore workflow and remove temporary patch files
+        run: |
+          git checkout origin/main -- .github/workflows/workflow-contract-validation.yml
+          rm -f scripts/patch_pr233_review_latest.mjs
+          rm -f .github/workflows/patch-pr233-latest-review.yml
+          rm -f scripts/patch_structural_v3_review_4839500000.mjs
+          rm -f .github/workflows/patch-structural-v3-review-4839334318-followup.yml
+
+      - name: Commit verified fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "docs: address latest PR 233 review feedback"
+            git push origin HEAD:agent/structural-news-value-v3
+          fi

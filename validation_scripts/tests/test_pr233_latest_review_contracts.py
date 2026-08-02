@@ -3,7 +3,10 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 
+
 class TestPR233LatestReviewContracts(unittest.TestCase):
+    """Regression coverage for the latest verified PR #233 review fixes."""
+
     def test_review_pool_subtypes_are_canonical(self):
         for rel in [
             'docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md',
@@ -24,6 +27,7 @@ class TestPR233LatestReviewContracts(unittest.TestCase):
         text = (ROOT / 'docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md').read_text(encoding='utf-8')
         self.assertIn('item with non-empty `format_risk_tags` must emit its selected path', text)
         self.assertIn('ordinary items must omit them rather than invent a route', text)
+
 
 if __name__ == '__main__':
     unittest.main()

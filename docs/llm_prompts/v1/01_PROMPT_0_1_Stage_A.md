@@ -15,17 +15,19 @@ Use GitHub main as the workflow source of truth.
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -126,13 +128,15 @@ Governance hierarchy:
 When rules conflict, apply this hierarchy:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 FACT_DISCIPLINE.md always wins for facts, numbers, quotes, and evidence discipline.
 
@@ -362,7 +366,7 @@ Critical workflow rules:
 
    Instead, apply a strict-pass presumption block:
 
-   - If no concrete execution anchor is visible in upstream metadata, source_packets, usable_text, or the available content preview, the story must not enter strict_passed_spec[].
+   - If neither a concrete execution anchor nor a complete V3 Structural Value Override is visible in upstream metadata, source_packets, usable_text, or the available content preview, the story must not enter strict_passed_spec[]. A valid override requires a supported non-execution anchor class, item-specific Stage B evidence targets, and a specific explanation of why a conventional execution event is unnecessary.
    - Route strategically relevant but incomplete format-risk items to needs_review / review_pool.
    - Route background-only format-risk items to support_source_only.
    - Reject only when the item is promotional, stale, out-of-scope, evidence-poor, duplicate, generic/static, internally contradictory beyond repair, or lacks SBTL_HUB decision value.
@@ -398,6 +402,10 @@ Critical workflow rules:
    - format_risk_tags
    - execution_anchor_type
    - execution_anchor_strength
+   - structural_value_override_applied
+   - anchor_classes
+   - evidence_needed_for_stage_b
+   - why_execution_event_not_required
    - strict_pass_gate
 
    strict_pass_gate.status must be one of:
@@ -407,7 +415,7 @@ Critical workflow rules:
    - blocked_to_support_source_only
    - blocked_to_rejected
 
-   A format-risk item may enter strict_passed_spec only when strict_pass_gate.status = "pass" and execution_anchor_strength is "strong" or "moderate".
+   A format-risk item may enter strict_passed_spec only when strict_pass_gate.status = "pass" and either (a) execution_anchor_strength is "strong" or "moderate", or (b) structural_value_override_applied is true with at least one valid non-execution anchor class, non-empty item-specific evidence_needed_for_stage_b, and non-empty specific why_execution_event_not_required.
 
    Do not use the phrases hard-exclude, automatic exclusion, or categorical exclusion in Stage A reasoning for these formats. The correct reasoning is: strict-pass blocked unless a concrete fresh execution anchor is visible.
 
@@ -474,7 +482,7 @@ Now perform Stage A only.
 
 Stage A tasks:
 
-A. Read all 8 required docs from GitHub main.
+A. Read all 10 required docs from GitHub main.
 
 B. If all 8 required docs are confirmed, load {{SOURCE_INPUT_FILE}}.
 
@@ -716,6 +724,10 @@ Each strict_passed_spec must include:
 - format_risk_tags
 - execution_anchor_type
 - execution_anchor_strength
+- structural_value_override_applied
+- anchor_classes
+- evidence_needed_for_stage_b
+- why_execution_event_not_required
 - strict_pass_gate
 - title_raw
 - summary_hint

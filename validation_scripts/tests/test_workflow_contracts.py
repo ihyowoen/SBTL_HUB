@@ -234,6 +234,20 @@ class RelatedContractTest(unittest.TestCase):
         errors, _ = check_card(self.child, self.by_id, True)
         self.assertTrue(any("changed_judgment_vs_predecessor" in error for error in errors))
 
+    def test_legacy_mode_does_not_require_v2_follow_up_fields(self):
+        child = deepcopy(self.child)
+        child["related_lineage"].pop("fresh_follow_up_anchor_class")
+        child["related_lineage"].pop("incremental_fact_vs_predecessor")
+        child["related_lineage"].pop("changed_judgment_vs_predecessor")
+        by_id = {self.parent["id"]: self.parent, child["id"]: child}
+        errors, _ = check_card(child, by_id, False)
+        strict_field_names = (
+            "fresh_follow_up_anchor_class",
+            "incremental_fact_vs_predecessor",
+            "changed_judgment_vs_predecessor",
+        )
+        self.assertFalse(any(any(name in error for name in strict_field_names) for error in errors))
+
     def test_duplicate_cannot_publish(self):
         self.child["related_lineage"]["relation_type"] = "same_event_duplicate"
         errors, _ = check_card(self.child, self.by_id, True)

@@ -113,7 +113,7 @@ def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_c
         errors.append("new_unrelated_event must have empty related[]")
     if relation_type in {"distinct_follow_up", "program_lineage"} and not related:
         errors.append(f"{relation_type} requires at least one related ID")
-    if relation_type == "distinct_follow_up":
+    if require_contract and relation_type == "distinct_follow_up":
         if not lineage.get("fresh_follow_up_anchor"):
             errors.append("distinct_follow_up requires fresh_follow_up_anchor")
         anchor_class = lineage.get("fresh_follow_up_anchor_class")

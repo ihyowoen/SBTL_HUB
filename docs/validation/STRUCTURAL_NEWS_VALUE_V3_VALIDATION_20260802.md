@@ -120,7 +120,7 @@ This PR aligns the central V3 feature with the active execution path:
 - the Stage A CSV gate carries and validates the subtype and override fields;
 - Stage B verifies the exact non-execution anchor claims and evidence targets instead of demanding an execution event;
 - Final QC accepts a source-backed V3 non-execution path and hard-fails incomplete or inflated overrides;
-- the Related production validator enforces fresh anchor class, incremental fact, and changed judgment for every `distinct_follow_up`;
+- the Related production validator enforces fresh anchor class, incremental fact, and changed judgment for every current-run `distinct_follow_up` under `--require-contract`, while preserving legacy unflagged validation behavior;
 - regression fixtures cover the new Related blockers.
 
 Remaining future implementation may add dedicated structural-value, earnings-Q&A, portfolio-coverage, and content-depth validators, but it must not reintroduce an execution-only gate or unsupported review partition. Fact Discipline and the card-run safety engine remain unchanged.

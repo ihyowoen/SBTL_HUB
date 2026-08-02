@@ -6,12 +6,15 @@ Prompt 0.2R — Reusable Default / Replace All / Stage B Revise Pass
 
 Proceed to Stage B revise pass only.
 
-Use the current run’s Stage C revise_required[] as the only input universe for this revise pass.
+Use exactly one current-run revise input universe for this pass:
+
+- revision pass `r1`: the immediately previous Stage C `revise_required[]`; or
+- revision pass `r2` or later: the immediately previous Stage C revise `revise_required_again[]`.
 
 This is not a new Stage B run.
 This is not candidate selection.
 This is not source augmentation unless explicitly authorized.
-This is a limited revision pass for cards that Stage C classified as revise_required.
+This is a limited revision pass for cards that the immediately preceding Stage C-family step classified into the selected revise state.
 
 Input files:
 
@@ -52,13 +55,20 @@ If any required document is missing, inaccessible, unreadable, stale, ambiguous,
 
 Candidate input rule:
 
-Only previous Stage C revise_required[] may enter this Stage B revise pass.
+Select exactly one input state from the immediately preceding Stage C-family output:
+
+- If `REVISION_PASS = r1`, only previous Stage C `revise_required[]` may enter.
+- If `REVISION_PASS = r2` or later, only the immediately previous Stage C revise `revise_required_again[]` may enter.
+
+Do not mix `revise_required[]` and `revise_required_again[]` in one pass. Do not skip across revision generations or import an older loop's unresolved items.
 
 Do not include:
 - previous Stage C accepted_fact_safe
 - previous Stage C rejected
 - previous Stage C support_source_only
 - previous Stage C deferred_review_pool
+- previous Stage C `revise_required[]` when `REVISION_PASS` is r2 or later
+- previous Stage C revise `revise_required_again[]` when `REVISION_PASS` is r1
 - Stage B draft_blocked
 - Stage A review_pool
 - Stage A rejected
@@ -67,11 +77,11 @@ Do not include:
 - any new web-discovered candidate
 - any prior-run candidate
 
-If any non-revise_required item is mixed in, exclude it and report mixed_input_excluded.
+If any item outside the selected revise input state is mixed in, exclude it and report `mixed_input_excluded`.
 
 Anchor-path revise input rule:
 
-For every format-risk `revise_required[]` item, consume the complete Stage C `anchor_path_validation` object.
+For every format-risk item in the selected `revise_required[]` or `revise_required_again[]` input, consume the complete immediately preceding `anchor_path_validation` object.
 
 - If the selected route was already settled and only visible wording requires revision, preserve `anchor_path_validation` byte-for-byte.
 - If Stage C emitted `selected_anchor_path: unresolved`, this pass may resolve the route only from already-authorized, source-backed evidence in the current run. It must select exactly one of `execution` or `v3_non_execution`, set `anchor_path_qc_passed: true`, set exactly one route status to `pass`, set the other to `not_applicable`, and provide a specific `non_applicable_anchor_path_reason`.
@@ -80,7 +90,7 @@ For every format-risk `revise_required[]` item, consume the complete Stage C `an
 
 Role of this pass:
 
-Stage B revise pass must fix only the specific issues identified by Stage C revise_required.
+Stage B revise pass must fix only the specific issues identified by the selected immediately preceding `revise_required[]` or `revise_required_again[]` input state.
 
 Allowed fixes:
 
@@ -114,7 +124,7 @@ Source augmentation rule:
 
 Default: source augmentation is not authorized.
 
-If Stage C revise_required says source augmentation is needed, do not perform it automatically.
+If the selected Stage C-family revise input says source augmentation is needed, do not perform it automatically.
 
 Instead mark:
 - revise_blocked_needs_source_augmentation
@@ -135,7 +145,7 @@ If augmentation cannot satisfy source diversity or the single-source exception, 
 
 Revision decision states:
 
-Every revise_required item must appear exactly once as:
+Every item in the selected `revise_required[]` or `revise_required_again[]` input must appear exactly once as:
 
 1. revised_draft_card
 
@@ -159,7 +169,7 @@ Use when manual judgment is needed.
 
 Accounting rule:
 
-Every previous Stage C revise_required item must appear exactly once in this Stage B revise output.
+Every item in the selected immediately preceding revise input must appear exactly once in this Stage B revise output.
 
 Output files:
 
@@ -177,14 +187,19 @@ JSON output must include:
 - run_label
 - input_previous_stage_b_file
 - input_previous_stage_c_file
+- revise_input_state: revise_required|revise_required_again
+- revise_input_count
 - revise_required_input_count
+- revise_required_again_input_count
 - revised_draft_card_count
 - revise_blocked_needs_source_augmentation_count
 - revise_blocked_evidence_gap_count
 - revise_blocked_scope_change_required_count
 - revise_blocked_manual_review_count
 - outcome_total_count
-- accounting_matches_revise_required_input_count
+- accounting_matches_revise_input_count
+- accounting_matches_revise_required_input_count, required for r1 and `not_applicable` with reason for r2+
+- accounting_matches_revise_required_again_input_count, required for r2+ and `not_applicable` with reason for r1
 - revised_draft_cards[]
 - revise_blocked_needs_source_augmentation[]
 - revise_blocked_evidence_gap[]
@@ -241,7 +256,7 @@ Each revision_change_log item must include:
 Report must include:
 
 1. Revision pass metadata
-2. Stage C revise_required input count
+2. Selected revise input state and count (`revise_required[]` for r1 or `revise_required_again[]` for r2+)
 3. Scope confirmation
 4. What was fixed
 5. What was blocked and why
@@ -249,7 +264,7 @@ Report must include:
 7. Accounting check
 8. Boundary statement:
 
-“Stage B revise pass fixed only Stage C revise_required items. It did not add new candidates, promote review_pool, rescue rejected cards, decide accepted_fact_safe, decide evidence_complete, or decide publish_ready.”
+“Stage B revise pass fixed only the selected immediately preceding Stage C-family revise items (`revise_required[]` for r1 or `revise_required_again[]` for r2+). It did not add new candidates, promote review_pool, rescue rejected cards, decide accepted_fact_safe, decide evidence_complete, or decide publish_ready.”
 
 
 

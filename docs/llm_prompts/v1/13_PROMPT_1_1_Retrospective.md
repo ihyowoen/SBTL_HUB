@@ -30,17 +30,19 @@ Use GitHub main workflow docs as the process reference.
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 

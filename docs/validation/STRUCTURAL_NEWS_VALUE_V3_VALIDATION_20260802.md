@@ -191,3 +191,12 @@ The review's four findings are addressed as one end-to-end contract correction:
 - Prompt 1.1 retrospective recognizes a complete source-backed V3 non-execution override as the alternative to an execution anchor.
 
 Regression coverage is included in `validation_scripts/tests/test_workflow_contracts.py`.
+
+## REVIEW_4838372817_ADDRESSING
+
+The review's two findings are addressed as linked contract fixes:
+
+- Prompt 0.2R now accepts `revise_required[]` only for r1 and the immediately previous Prompt 0.3R `revise_required_again[]` for r2+, with explicit generation, mixing, accounting, and anchor-path preservation rules.
+- Prompt 1.1 now reads the two governing V3 contracts and uses the same 10-document preflight as other V3-aware stages before auditing Structural Value Override completeness.
+
+Focused regression coverage is provided in `validation_scripts/tests/test_review_4838372817_contracts.py`.

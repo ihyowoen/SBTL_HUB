@@ -207,3 +207,11 @@ Focused regression coverage is provided in `validation_scripts/tests/test_review
 - 유효한 V3 non-execution route는 conventional execution anchor 부재만으로 hold되지 않는다.
 - Prompt 1.1 retrospective의 red-team question과 Markdown report contract를 모두 10 required docs 기준으로 통일했다.
 
+
+
+## Review 4839991362
+
+- Prompt 0.5 promoted-item producer contract now preserves the complete canonical V3 non-execution package byte-for-byte.
+- Prompt 0.6 polished-item producer contract preserves the same package and may not reconstruct or summarize it away.
+- Prompt 0.7 and the overlay generator invoke `related_lifecycle_check.py --require-contract` for current V3 Final QC while legacy inventory mode remains permissive.
+- Regression coverage blocks package-field loss and non-strict Final QC invocation.

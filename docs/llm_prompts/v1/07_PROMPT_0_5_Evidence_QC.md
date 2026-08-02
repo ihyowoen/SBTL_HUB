@@ -820,6 +820,29 @@ Each evidence_complete_and_source_claim_covered item must include:
 - urls
 - related
 - fact_sources
+
+For every format-risk `evidence_complete_and_source_claim_covered[]` item, preserve the same-run `anchor_path_validation` and route-status fields without alteration.
+
+For every such item with `selected_anchor_path = v3_non_execution`, preserve the complete canonical, source-backed Structural Value Override package byte-for-byte from Baseline Revalidation:
+
+- `structural_value_override_applied: true`
+- `structural_value_override_reason`
+- non-empty valid `anchor_classes[]`
+- `incremental_information`
+- `decision_relevance`
+- `baseline_expectation_changed`
+- non-empty item-specific `evidence_needed_for_stage_b[]`
+- non-empty measurable `next_confirmation_points[]`
+- specific `why_execution_event_not_required`
+- `prior_state`
+- `new_verified_fact`
+- `changed_judgment`
+- applicable uncertainty / probability-change fields
+- applicable baseline-expectation / before-after fields
+- current-run source lineage that supports every package field
+
+Do not summarize away, reconstruct from memory, rename, or drop any package field. Missing, altered, generic, unsupported, or internally inconsistent V3 package metadata requires `addable_hold_claim_gap` or return to the earliest defective stage; it must not enter `evidence_complete_and_source_claim_covered[]`.
+
 - evidence_complete: true
 - source_claim_covered: true
 - content_enriched: false

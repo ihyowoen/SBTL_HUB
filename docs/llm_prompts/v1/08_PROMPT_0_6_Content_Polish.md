@@ -786,6 +786,29 @@ Each content_enriched_and_language_polished item must include:
 - urls
 - related
 - fact_sources
+
+For every format-risk `content_enriched_and_language_polished[]` item, preserve the same-run `anchor_path_validation` and route-status fields without alteration.
+
+For every such item with `selected_anchor_path = v3_non_execution`, preserve the complete canonical, source-backed Structural Value Override package byte-for-byte from Evidence QC:
+
+- `structural_value_override_applied: true`
+- `structural_value_override_reason`
+- non-empty valid `anchor_classes[]`
+- `incremental_information`
+- `decision_relevance`
+- `baseline_expectation_changed`
+- non-empty item-specific `evidence_needed_for_stage_b[]`
+- non-empty measurable `next_confirmation_points[]`
+- specific `why_execution_event_not_required`
+- `prior_state`
+- `new_verified_fact`
+- `changed_judgment`
+- applicable uncertainty / probability-change fields
+- applicable baseline-expectation / before-after fields
+- current-run source lineage that supports every package field
+
+Content Polish may change visible prose only within its existing source lock. It must not summarize away, reconstruct, rename, or drop any V3 package field. Missing, altered, generic, unsupported, or internally inconsistent package metadata requires `needs_return_to_evidence_qc[]`; it must not enter `content_enriched_and_language_polished[]`.
+
 - evidence_complete: true
 - source_claim_covered: true
 - content_enriched: true

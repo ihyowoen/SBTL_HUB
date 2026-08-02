@@ -2306,7 +2306,7 @@ source-audit metadata derivation, stage-exit artifact conformance, and productio
 
 Prompt 0.7 final-gate overlay:
 
-- Run `evidence_qc_v8_check.py`, `related_lifecycle_check.py`,
+- Run `evidence_qc_v8_check.py`, `related_lifecycle_check.py --require-contract`,
   `date_role_freshness_check.py --require-date-role`, and
   `stage_artifact_contract_check.py 0.7` before `publish_ready=true`.
 - Reapprove bounded single-source exceptions without weakening Related proof.

@@ -695,6 +695,23 @@ Assess legal basis, affected party, economic effect, precedent, appeal, and prob
 
 Assess court level, finality, appealability, jurisdiction, binding effect, remedy, industry scope, agency response, and legislative response.
 
+### Mandatory legal-policy questions
+
+For every applicable item, answer:
+
+1. What is the exact legal instrument?
+2. Which authority issued, adopted, implemented, or enforced it?
+3. What procedural stage has actually been reached?
+4. Which dates govern adoption, publication, effectiveness, and mandatory application?
+5. Which entities, products, activities, and geographies are covered?
+6. Which exemptions, thresholds, transitions, grandfathering, or emergency exceptions apply?
+7. Which budget, registry, guidance, certification, staffing, or data system is required?
+8. What happens on non-compliance?
+9. Can the action be appealed, stayed, invalidated, amended, or reversed?
+10. Is the effect party-specific, national, regional, extraterritorial, or industry-wide?
+11. What is the economic and industrial transmission pathway?
+12. What next event determines real implementation?
+
 ### Required legal-policy fields
 
 - `legal_policy_stage`
@@ -858,6 +875,19 @@ A candidate may enter `strict_passed_spec[]` only when:
 
 **The absence of a conventional corporate execution event is not, by itself, a strict-pass blocker.**
 
+### Stage A routing matrix
+
+| Credibility | Cardability | Decision value | Default route |
+|---|---|---:|---|
+| PASS | PASS | 70–100 | `strict_passed_spec[]`, subject to all other strict gates |
+| PASS | PASS | 55–69 | strict or candidate review based on evidence and duplicate risk |
+| PASS | PASS/REVIEW | 40–54 | lower-priority strict, candidate review, or reinforcement |
+| REVIEW | PASS/REVIEW | 55–100 | `candidate_review_pool[]` or `structural_signal_review_pool[]` with a mandatory rescue question |
+| PASS/REVIEW | REVIEW | any | candidate review, earnings deep dive, reinforcement, or watchlist |
+| FAIL | any | any | item-specific reject/support-only only with a valid reason and ledger |
+
+Do not force a minimum number of structural cards. Do not lower evidence standards to improve topic balance.
+
 ### Review partitions
 
 - `candidate_review_pool[]` — potentially cardable after bounded clarification;
@@ -987,6 +1017,37 @@ Required durable value fields:
 - `next_confirmation_points[]`
 - `baseline_follow_up_relation`
 - `why_standalone_card`
+
+### IB-grade decision-useful content test
+
+A high-quality card should answer, where applicable:
+
+1. What changed?
+2. What was the prior state?
+3. What uncertainty was resolved?
+4. What is legally, financially, technically, competitively, or operationally different?
+5. Who and what products, assets, customers, or markets are affected?
+6. What is the relevant denominator?
+7. What is committed, conditional, proposed, effective, enforced, operating, or still planned?
+8. What exceptions, thresholds, conditions, transitions, or appeal risks apply?
+9. Through what chain does the event change market structure, supply-demand, technology, cash flow, access, or risk?
+10. What measurable next event determines whether the effect is realised?
+11. What remains unknown or undisclosed?
+12. What action should an investor, operator, supplier, customer, lender, regulator, or legal team reconsider?
+
+Do not answer these questions with generic implications. Use verified facts and bounded inference.
+
+### Signal assignment
+
+`signal = top | high | mid` remains a publication field and must be assigned after the four independent judgments.
+
+Default guidance:
+
+- `top`: decision score 85–100, or 70–84 with exceptional urgency and strong evidence;
+- `high`: decision score 70–84, or 55–69 with material lane impact and strong evidence;
+- `mid`: decision score 40–69 depending on scope, or a credible execution event with narrower independent value.
+
+No transaction, law, court ruling, policy announcement, funding round, factory event, or earnings headline becomes `top` solely because of its form.
 
 ---
 
@@ -1230,6 +1291,14 @@ Required blocker:
 BLOCKED_STRUCTURAL_NEWS_VALUE_SELECTION_INVALID
 ```
 
+Required blocker output:
+
+- `affected_items[]`
+- `missing_or_invalid_fields[]`
+- `execution_or_formality_bias_findings[]`
+- `recommended_return_stage`
+- `no_next_stage_recommendation: true`
+
 Required validator outcomes:
 
 - `structural_value_selector_status = PASS`
@@ -1321,7 +1390,7 @@ Downstream stages must preserve these fields or explicitly record why a field is
 
 ## 21. Supersession statement
 
-This V3 replace-all policy preserves the complete V2 framework:
+This V3 replace-all policy preserves and operationalises the governing V2 framework:
 
 - four independent judgments;
 - before–after and novelty tests;

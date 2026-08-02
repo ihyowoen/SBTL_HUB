@@ -293,6 +293,17 @@ Default to reinforcement, support, watchlist, or lower priority when the item is
 - a routine stage update resolving no material uncertainty;
 - a quarterly headline whose drivers were already known and whose call adds no new signal.
 
+### Novelty classification caps — HARD RULE
+
+The following caps apply to the total `decision_news_value_score` and resulting classification, not only to one component:
+
+- repeated announcement, translation, syndication, or headline rewrite with no new fact: maximum `context_or_reinforcement` and 39/100;
+- routine stage progression resolving no material uncertainty: maximum `standard_monitoring` and 54/100;
+- company target or aspiration without independent execution, validation, or a current observable market effect: maximum `standard_monitoring` and 54/100;
+- unsupported political rhetoric or advocacy without immediate operative authority or an independently verified current market effect: maximum `context_or_reinforcement` and 39/100.
+
+A component score or corporate prominence must not be used to bypass these overall caps.
+
 ---
 
 ## 5. Structural Value Override
@@ -1186,8 +1197,13 @@ Every strict and high-potential review item must include:
   "baseline_follow_up_relation": "",
   "next_confirmation_points": [],
   "portfolio_coverage_contribution": [],
-  "earnings_deep_dive_required": false,
-  "qna_status": "not_applicable",
+  "earnings_deep_dive_required": "true_for_listed_company_results|false_otherwise",
+  "earnings_release_available": "yes|no|unknown|not_applicable",
+  "ir_deck_available": "yes|no|unknown|not_applicable",
+  "call_or_transcript_expected": "yes|no|unknown|not_applicable",
+  "qna_status": "not_checked_stage_a_for_earnings|not_applicable_otherwise",
+  "prior_period_comparison_required": "true_for_listed_company_results|false_otherwise",
+  "earnings_rescue_questions": [],
   "anti_bias_check": {
     "binding_status_used_as_importance_proxy": false,
     "legal_formality_used_as_importance_proxy": false,
@@ -1203,6 +1219,16 @@ Every strict and high-potential review item must include:
 ```
 
 The eight score components must total the decision score.
+
+For a listed-company result, the template is conditional and must be materialised as follows:
+
+- `earnings_deep_dive_required: true`;
+- `qna_status: not_checked_stage_a`;
+- `prior_period_comparison_required: true`;
+- availability fields must not be `not_applicable`;
+- `earnings_rescue_questions[]` must cover every unavailable or unresolved filing, IR, call, Q&A, bridge, guidance, and prior-period item.
+
+Only a non-earnings candidate may use `earnings_deep_dive_required: false` and `qna_status: not_applicable`.
 
 ---
 
@@ -1280,6 +1306,8 @@ Block when:
 - a systemic claim lacks a denominator;
 - a technology claim exceeds its evidence-stage cap;
 - earnings analysis is completed without recording call/Q&A status;
+- a listed-company earnings candidate uses `qna_status: not_applicable`, omits required earnings availability fields, or lacks prior-period comparison and rescue questions;
+- a novelty-capped item exceeds its maximum total score or classification;
 - a material follow-up is closed as duplicate without an incremental-information analysis;
 - a mandatory structural domain is zero without a recheck and explanation;
 - deletion or support-only is finalised before the applicable search-first process;

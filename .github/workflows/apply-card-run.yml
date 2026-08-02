@@ -31,8 +31,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Run incremental engine regression tests
-        run: node scripts/apply_card_run_test.mjs
+      - name: Run incremental engine contract checks
+        run: |
+          set -euo pipefail
+          node --check scripts/apply_card_run.mjs
+          node scripts/apply_card_run_test.mjs
+          node -e 'const fs=require("node:fs"); JSON.parse(fs.readFileSync("schemas/card-run.v1.schema.json","utf8")); console.log("PASS: card-run schema JSON")'
 
   apply:
     if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
@@ -54,7 +58,7 @@ jobs:
           BASE_REF: ${{ github.event.pull_request.base.ref || github.event.repository.default_branch }}
         run: |
           set -euo pipefail
-          git fetch origin "$BASE_REF"
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
           if [[ -n "${DISPATCH_RUN_PATH:-}" ]]; then
             run_path="$DISPATCH_RUN_PATH"
           else
@@ -74,12 +78,30 @@ jobs:
           echo "has_run=true" >> "$GITHUB_OUTPUT"
           echo "path=$run_path" >> "$GITHUB_OUTPUT"
           echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
+      - name: Reconstruct declared canonical baseline
+        id: baseline
+        if: steps.run.outputs.has_run == 'true'
+        shell: bash
+        env:
+          BASE_SHA: ${{ steps.run.outputs.base_sha }}
+          RUN_PATH: ${{ steps.run.outputs.path }}
+        run: |
+          set -euo pipefail
+          baseline_path="$RUNNER_TEMP/cards.full.baseline.json"
+          git show "${BASE_SHA}:data/cards.full.json" > "$baseline_path"
+          declared_blob="$(node -e 'const fs=require("node:fs"); const run=JSON.parse(fs.readFileSync(process.argv[1],"utf8")); process.stdout.write(run.base_full_blob_sha)' "$RUN_PATH")"
+          actual_blob="$(git hash-object "$baseline_path")"
+          if [[ "$actual_blob" != "$declared_blob" ]]; then
+            echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED: reconstructed full blob $actual_blob != declared $declared_blob" >&2
+            exit 1
+          fi
+          echo "path=$baseline_path" >> "$GITHUB_OUTPUT"
       - name: Apply declared operations to canonical full
         if: steps.run.outputs.has_run == 'true'
         run: >-
           node scripts/apply_card_run.mjs
           --run "${{ steps.run.outputs.path }}"
-          --baseline data/cards.full.json
+          --baseline "${{ steps.baseline.outputs.path }}"
           --output data/cards.full.json
           --lean-path public/data/cards.json
           --base-main-sha "${{ steps.run.outputs.base_sha }}"
@@ -87,6 +109,7 @@ jobs:
       - name: Validate canonical full and lean projection
         if: steps.run.outputs.has_run == 'true'
         run: |
+          set -euo pipefail
           node scripts/validate.mjs
           node scripts/validate_cards.mjs
           node scripts/validate_cards.mjs data/cards.full.json

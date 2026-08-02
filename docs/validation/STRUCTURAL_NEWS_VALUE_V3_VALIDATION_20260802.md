@@ -2,12 +2,15 @@
 
 ## Scope
 
-This rollout upgrades the canonical structural-value policy and aligns the executable selector, evidence, final-QC, and Related contracts:
+This rollout upgrades the canonical structural-value policy and aligns the executable selector, evidence, content-polish, final-QC, and Related contracts:
 
 - `docs/STRUCTURAL_NEWS_VALUE_SELECTION.md`
 - `docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md`
 - `docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md`
 - `docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md`
+- `docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md`
+- `docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md`
+- `docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md`
 - `docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md`
 - `docs/RELATED_LIFECYCLE_CONTRACT.md`
 - `validation_scripts/related_lifecycle_check.py`
@@ -106,22 +109,25 @@ Evidence, baseline, duplicate, direct-lineage, state-ladder, source-diversity, a
 - non-execution follow-ups have a defined Related evidence contract;
 - the production Related validator enforces the V2 anchor-class, incremental-fact, and changed-judgment fields;
 - Stage A review subtypes remain inside the supported candidate partition;
-- Stage B and Final QC accept only fully evidenced V3 non-execution anchor packages;
+- Stage B, Stage C, Evidence QC, Content Polish, and Final QC all implement the same two-path anchor model;
 - mandatory structural domains and zero-coverage treatment are present;
 - Stage A no-fetch boundary remains present;
 - card data is unchanged.
 
 ## Executable alignment completed in this PR
 
-This PR aligns the central V3 feature with the active execution path:
+This PR aligns the central V3 feature with the full active execution path:
 
 - base Stage A accepts either a concrete execution anchor or a complete V3 non-execution override for format-risk strict items;
 - structural and earnings review categories are subtypes of the supported `candidate_review_pool`, not unsupported top-level partitions;
 - the Stage A JSON and CSV contracts carry and validate the subtype and override fields;
 - Stage B verifies the exact non-execution anchor claims and evidence targets instead of demanding an execution event;
-- Final QC accepts a source-backed V3 non-execution path and hard-fails incomplete or inflated overrides;
+- Stage C validates exactly one source-backed route and carries `anchor_path_validation` forward;
+- Evidence QC verifies route-specific source coverage and emits `anchor_path_qc_summary.item_results[]`;
+- Content Polish consumes those item results without switching or inflating the selected route and emits exact root/item `lineage_and_anchor_guard` objects;
+- Final QC consumes the same selected-path and route-status schema and hard-fails incomplete, contradictory, or inflated packages;
 - the Related production validator enforces fresh anchor class, incremental fact, and changed judgment for every current-run `distinct_follow_up` under `--require-contract`, while preserving legacy unflagged validation behavior;
-- regression fixtures cover missing and invalid anchor classes, missing incremental fact, missing changed judgment, and legacy unflagged behavior.
+- regression fixtures cover missing and invalid anchor classes, missing incremental fact, missing changed judgment, legacy unflagged behavior, execution-only gate regression, route-status producer/consumer mismatch, and stale eight-document accounting.
 
 Remaining future implementation may add dedicated structural-value, earnings-Q&A, portfolio-coverage, and content-depth validators, but it must not reintroduce an execution-only gate or unsupported review partition. Fact Discipline and the card-run safety engine remain unchanged.
 
@@ -129,7 +135,7 @@ Remaining future implementation may add dedicated structural-value, earnings-Q&A
 
 The review findings are addressed as follows:
 
-- Stage A, Stage B, and Final QC now share the same execution-or-V3-non-execution eligibility model;
+- Stage A, Stage B, and Final QC share the execution-or-V3-non-execution eligibility model;
 - the active Stage A format-risk presumption gate, strict-pass condition, required item object, lineage metadata, report contract, and CSV contract carry the override fields;
 - structural and earnings review categories are `candidate_review_pool` subtypes, not unsupported top-level partitions;
 - Related V2 fields are enforced only for current-run strict validation with `--require-contract`;
@@ -138,13 +144,22 @@ The review findings are addressed as follows:
 
 ## Review 4837763004 downstream residual closure
 
-- Stage B source-direction and draft-blocked lists now reject format-risk items only when neither the source-backed execution path nor the complete source-backed V3 non-execution path is available.
-- Final QC's later safety overlay and publish-ready checklist now validate both source-backed paths and carry explicit anchor-path QC status.
-- Stage B and Final QC required-doc accounting now consistently requires all ten governance documents.
-- Regression tests fail on the removed execution-only blocker phrases or any return to eight-document accounting.
+- Stage B source-direction and draft-blocked lists reject format-risk items only when neither the source-backed execution path nor the complete source-backed V3 non-execution path is available.
+- Final QC's later safety overlay and publish-ready checklist validate both source-backed paths and carry explicit anchor-path QC status.
+- Stage B and Final QC required-doc accounting consistently requires all ten governance documents.
+- Regression tests fail on removed execution-only blocker phrases or any return to eight-document accounting.
+
+## Review 4838008669 full-pipeline closure
+
+- Stage C's reject rules, source-direction check, and Pass 2A now use the same two-path gate and emit route-specific validation metadata.
+- Evidence QC requires the V3 selector marker, verifies exactly one source-backed route per format-risk item, and emits route-specific item results.
+- Content Polish consumes the Evidence QC route results, preserves the selected path, and emits a root accounting guard plus per-item route statuses.
+- Final QC consumes `selected_anchor_path`, `execution_anchor_qc_status`, `structural_value_override_qc_status`, and `non_applicable_anchor_path_reason` rather than requiring an execution-only boolean.
+- Stage C, Evidence QC, and Content Polish required-doc lists and governance hierarchies include the two V3 documents and require all ten documents.
+- Regression tests cover all intervening-stage and producer-consumer schema requirements.
 
 ## Latest verified head
 
-- Review-fix commit before this record: `54313c7d44f321faa421b9c8688a6813ae42c79b`.
-- One-shot patch workflow completed successfully and removed all temporary workflow/helper files.
-- The next normal commit exists solely to record this closure and trigger the standard workflow-contract validation on the final branch state.
+- Intervening-stage patch commit before this record: `7086883fceeacd284851764707bd769fa9195582`.
+- The one-shot patch workflow completed successfully and removed all temporary workflow/helper files.
+- The next standard workflow-contract validation is triggered by this documentation commit against the final branch state.

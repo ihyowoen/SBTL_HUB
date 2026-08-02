@@ -5,6 +5,7 @@ on:
     branches: [agent/structural-news-value-v3]
     paths:
       - 'scripts/patch_structural_v3_review_4839500000.mjs'
+      - '.github/workflows/patch-structural-v3-review-4839334318-followup.yml'
 permissions:
   contents: write
 jobs:

@@ -1,0 +1,45 @@
+name: Patch PR 233 latest review
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - scripts/patch_pr233_review_latest.mjs
+      - .github/workflows/patch-pr233-latest-review.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply patch
+        run: node scripts/patch_pr233_review_latest.mjs
+      - name: Compile validators
+        run: python -m compileall -q validation_scripts
+      - name: Run regression tests
+        run: python -m unittest discover -s validation_scripts/tests -v
+      - name: Verify prompt overlays
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+      - name: Remove temporary patch files
+        run: |
+          rm scripts/patch_pr233_review_latest.mjs
+          rm .github/workflows/patch-pr233-latest-review.yml
+          find validation_scripts -type d -name __pycache__ -prune -exec rm -rf {} +
+      - name: Commit verified changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m 'docs: align review pool and format-risk route schemas'
+          git push origin HEAD:agent/structural-news-value-v3

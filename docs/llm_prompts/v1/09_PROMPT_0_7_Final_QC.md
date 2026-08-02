@@ -29,7 +29,7 @@ Before starting, read the latest versions of all required workflow docs from Git
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -811,7 +811,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - confirm each was read from GitHub main
    - if any doc was not read, this step must not proceed
 
@@ -1023,7 +1023,7 @@ Terminology lock:
 
 - Do not use or enforce a format-based hard-exclude rule.
 - Product, demo, PoC, component, interview, commentary, roundup, speech, or personnel formats are not automatically rejected by format alone.
-- They are subject to a strict-pass presumption block: without a concrete fresh execution anchor, they must not have entered `strict_passed_spec[]`; if they did, the downstream step must hold, reject, or return the item to the appropriate prior stage rather than polishing it forward.
+- They are subject to a strict-pass presumption block: without either a concrete fresh execution anchor or a complete V3 non-execution Structural Value Override, they must not have entered `strict_passed_spec[]`; if neither source-backed path is valid, the downstream step must hold, reject, or return the item to the appropriate prior stage rather than polishing it forward.
 - Concrete execution anchors include signed contract, binding customer order, offtake, commercial deployment, field installation, commissioning, production start, facility opening, certification, regulatory decision, public funding approval, binding procurement, measurable capacity addition, safety recall/regulatory action, or named customer adoption.
 
 ### Required upstream lineage gate for Final QC
@@ -1031,9 +1031,10 @@ Terminology lock:
 Before final publish-readiness QC begins, verify that `CONTENT_POLISH_RESULTS_JSON` includes:
 
 - a passed Evidence QC lineage declaration
-- a passed execution-anchor QC summary
+- a passed anchor-path QC summary covering the selected execution or V3 non-execution route
 - `lineage_and_anchor_guard.evidence_qc_lineage_passed: true`
-- `lineage_and_anchor_guard.execution_anchor_qc_passed: true`
+- `lineage_and_anchor_guard.anchor_path_qc_passed: true`
+- exactly one applicable route result: `execution_anchor_qc_passed: true` or `structural_value_override_qc_passed: true`; the non-applicable route must be explicitly marked not_applicable with a reason
 - content polish accounting matches input
 
 If missing or failed, stop and report:
@@ -1046,12 +1047,12 @@ no final QC work performed
 
 ### Publish-ready hard gate for format-risk items
 
-A card with `format_risk_tags`, `execution_anchor_type`, or an execution/deployment implication may receive `publish_ready=true` only if Final QC confirms all of the following:
+A card with `format_risk_tags`, anchor-path metadata, or an execution/deployment implication may receive `publish_ready=true` only if Final QC confirms all of the following:
 
-1. the execution anchor is explicitly covered by `fact_sources` and `source_claim_coverage_map`;
-2. the visible fields do not overstate stage, scale, causality, market effect, or commercialization;
-3. the card retains any necessary caveat when the event is pilot, demo, PoC, early deployment, or review-stage policy;
-4. no selector-lineage defect is unresolved.
+1. exactly one source-backed path is complete: either (a) the concrete execution anchor is explicitly covered by `fact_sources` and `source_claim_coverage_map`, or (b) the V3 non-execution anchor class, every item-specific `evidence_needed_for_stage_b[]` target, before-after chain, changed judgment, and specific `why_execution_event_not_required` are explicitly covered;
+2. the visible fields do not overstate stage, scale, causality, market effect, commercialization, or the selected non-execution anchor class;
+3. the card retains any necessary caveat when the event is pilot, demo, PoC, early deployment, review-stage policy, preliminary financial data, strategic intent, or uncertain follow-up probability;
+4. no selector-lineage or anchor-path defect is unresolved.
 
 If any condition fails, put the card in `final_qc_hold` or `needs_return_to_evidence_qc`; do not assign `publish_ready=true`.
 
@@ -1065,6 +1066,8 @@ Add to Final QC JSON:
   "artifact_consistency_passed": true,
   "superseded_lineage_detected": false,
   "format_risk_publish_ready_checked_count": 0,
+  "format_risk_execution_path_pass_count": 0,
+  "format_risk_non_execution_path_pass_count": 0,
   "format_risk_publish_ready_blocked_count": 0
 }
 ```

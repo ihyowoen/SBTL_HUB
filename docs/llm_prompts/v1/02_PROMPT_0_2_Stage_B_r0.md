@@ -27,7 +27,7 @@ Before starting, read the latest versions of all required workflow docs from Git
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -522,7 +522,7 @@ If source direction differs, do not force a draft.
 
 Mark draft_blocked when:
 
-- product/demo/PoC/pilot/prototype/component/interview/commentary/roundup/speech/personnel/partnership format has no concrete execution anchor
+- product/demo/PoC/pilot/prototype/component/interview/commentary/roundup/speech/personnel/partnership format has neither a fetched source-backed concrete execution anchor nor a complete fetched source-backed V3 non-execution Structural Value Override package
 - source reports MOU/pilot but spec implies commercial deployment
 - source reports semi-solid but spec implies solid-state
 - source reports consideration/plan but spec implies confirmed execution
@@ -724,7 +724,7 @@ Mark draft_blocked when:
 - source is too weak to support a full-schema card
 - source is generic landing page / listing page / static product page
 - source requires speculation to write a meaningful fact field
-- format-risk item has no fetched evidence for a concrete execution anchor
+- format-risk item has fetched evidence for neither a concrete execution anchor nor a complete V3 non-execution Structural Value Override package with a valid anchor class, item-specific evidence targets, specific why_execution_event_not_required, before-after chain, and changed judgment
 - only background_context evidence is available
 
 Each draft_blocked item must include:
@@ -962,7 +962,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - confirm each was read from GitHub main
    - if any doc was not read, Stage B must not proceed
 

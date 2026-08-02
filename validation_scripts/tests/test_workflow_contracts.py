@@ -320,5 +320,33 @@ class SuiteScopeTest(unittest.TestCase):
             self.assertEqual(result["json"]["matched_card_count"], 2)
 
 
+class StructuralV3PromptRegressionTest(unittest.TestCase):
+    def read_prompt(self, relative_path: str) -> str:
+        return (ROOT.parent / relative_path).read_text(encoding="utf-8")
+
+    def test_stage_b_has_ten_required_docs_and_no_execution_only_blockers(self):
+        text = self.read_prompt("docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md")
+        self.assertIn("All 10 documents above are mandatory.", text)
+        self.assertIn("list all 10 required docs", text)
+        self.assertNotIn("All 8 documents above are mandatory.", text)
+        self.assertNotIn("list all 8 required docs", text)
+        self.assertNotIn("format has no concrete execution anchor", text)
+        self.assertNotIn("format-risk item has no fetched evidence for a concrete execution anchor", text)
+        self.assertIn("neither a fetched source-backed concrete execution anchor nor a complete fetched source-backed V3 non-execution Structural Value Override package", text)
+        self.assertIn("has fetched evidence for neither a concrete execution anchor nor a complete V3 non-execution Structural Value Override package", text)
+
+    def test_final_qc_overlay_accepts_both_source_backed_paths(self):
+        text = self.read_prompt("docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md")
+        self.assertIn("All 10 documents above are mandatory.", text)
+        self.assertIn("list all 10 required docs", text)
+        self.assertNotIn("All 8 documents above are mandatory.", text)
+        self.assertNotIn("list all 8 required docs", text)
+        self.assertNotIn("without a concrete fresh execution anchor, they must not have entered", text)
+        self.assertNotIn("the execution anchor is explicitly covered by `fact_sources` and `source_claim_coverage_map`;", text)
+        self.assertIn("without either a concrete fresh execution anchor or a complete V3 non-execution Structural Value Override", text)
+        self.assertIn("exactly one source-backed path is complete", text)
+        self.assertIn("lineage_and_anchor_guard.anchor_path_qc_passed: true", text)
+
+
 if __name__ == "__main__":
     unittest.main()

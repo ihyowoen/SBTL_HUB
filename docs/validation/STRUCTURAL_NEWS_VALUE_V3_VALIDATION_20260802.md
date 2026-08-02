@@ -135,3 +135,10 @@ The review findings are addressed as follows:
 - Related V2 fields are enforced only for current-run strict validation with `--require-contract`;
 - legacy unflagged inventory validation is unchanged;
 - temporary patch workflows, helper scripts, and generated Python bytecode are absent from the final diff.
+
+## Review 4837763004 downstream residual closure
+
+- Stage B source-direction and draft-blocked lists now reject format-risk items only when neither the source-backed execution path nor the complete source-backed V3 non-execution path is available.
+- Final QC's later safety overlay and publish-ready checklist now validate both source-backed paths and carry explicit anchor-path QC status.
+- Stage B and Final QC required-doc accounting now consistently requires all ten governance documents.
+- Regression tests fail on the removed execution-only blocker phrases or any return to eight-document accounting.

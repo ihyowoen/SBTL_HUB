@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - scripts/patch_structural_v3_review_4837529388.mjs
+      - scripts/patch_structural_v3_review_4837529388_v2.mjs
       - .github/workflows/patch-structural-v3-review-4837529388.yml
 
 permissions:
@@ -24,7 +25,7 @@ jobs:
         with:
           node-version: '20'
       - name: Apply guarded downstream alignment patch
-        run: node scripts/patch_structural_v3_review_4837529388.mjs
+        run: node scripts/patch_structural_v3_review_4837529388_v2.mjs
       - name: Validate and commit aligned contracts
         run: |
           set -euo pipefail

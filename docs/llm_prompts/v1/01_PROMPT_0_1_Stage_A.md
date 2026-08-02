@@ -575,7 +575,7 @@ The default Stage A output model is:
 `review_pool[]` may remain only as a backward-compatible aggregate container.
 If `review_pool[]` is emitted, every item inside it must duplicate the exact `review_pool_partition` used in the first-class partition arrays.
 
-`structural_signal_review_pool` and `earnings_deep_dive_pool` are not additional top-level partition arrays. They are `review_pool_subtype` values within `candidate_review_pool[]`, preserving the existing promotion workflow and partition enum.
+`structural_signal_review` and `earnings_deep_dive` are not additional top-level partition arrays. They are `review_pool_subtype` values within `candidate_review_pool[]`, preserving the existing promotion workflow and partition enum.
 
 Partition definitions:
 
@@ -586,7 +586,7 @@ Partition definitions:
    - A non-execution candidate must carry the V3 Structural Value Override fields, including item-specific Stage B evidence targets and why a conventional execution event is unnecessary.
    - Must have a specific unresolved issue that can be resolved by a later review/promotion run.
    - Must include `review_pool_subtype`, `promotion_precondition`, and `bounded_review_question`.
-   - Allowed subtypes are `general_candidate`, `structural_signal_review_pool`, and `earnings_deep_dive_pool`.
+   - Allowed subtypes are `general_candidate`, `structural_signal_review`, and `earnings_deep_dive`.
 
 2. `watchlist_context_pool[]`
    - Useful as industry context, trend context, source background, or future monitoring.
@@ -981,8 +981,8 @@ For `stage_a_bucket = review_pool`:
   - `reject_or_support_only_pool`
 - `review_pool_partition_reason` must not be empty.
 - `promotion_precondition` must not be empty for `candidate_review_pool`.
-- For `candidate_review_pool`, `review_pool_subtype` must be exactly one of `general_candidate`, `structural_signal_review_pool`, or `earnings_deep_dive_pool`.
-- `structural_signal_review_pool` and `earnings_deep_dive_pool` must never appear as top-level `review_pool_partition` values.
+- For `candidate_review_pool`, `review_pool_subtype` must be exactly one of `general_candidate`, `structural_signal_review`, or `earnings_deep_dive`.
+- `structural_signal_review` and `earnings_deep_dive` must never appear as top-level `review_pool_partition` values.
 - `recommended_next_action` must not recommend Stage B for `watchlist_context_pool` or `reject_or_support_only_pool`.
 
 CSV schema gate:

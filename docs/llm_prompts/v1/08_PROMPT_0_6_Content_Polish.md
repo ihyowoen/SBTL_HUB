@@ -1169,7 +1169,7 @@ At root level emit:
 }
 ```
 
-Every `content_enriched_and_language_polished[]` item must emit its selected path and coherent route statuses. Final override: if lineage, route accounting, or anchor-path guard fails, the next recommended call must not be Prompt 0.7.
+Every `content_enriched_and_language_polished[]` item with non-empty `format_risk_tags` must emit its selected path and coherent route statuses. Ordinary items with no format risk must preserve the lineage guard but must not invent selected-path or route-status fields. Final override: if lineage, applicable route accounting, or the anchor-path guard fails, the next recommended call must not be Prompt 0.7.
 
 ## Operational integrated rule — NO_UNVERIFIED_HOLD_OR_DELETE_RULE_20260507_V2
 
@@ -1674,18 +1674,18 @@ Required root-level fields in the 0.6 JSON output:
 }
 ```
 
-Required payload-item fields for every `content_enriched_and_language_polished[]` item:
+Required payload-item fields for every `content_enriched_and_language_polished[]` item begin with the ordinary lineage fields below. The anchor-path fields shown after them are required only when the item has non-empty `format_risk_tags`; ordinary items must omit them rather than invent a route.
 
 ```json
 "lineage_and_anchor_guard": {
   "status": "PASS",
   "source_spec_id": "...",
   "evidence_qc_lineage_passed": true,
-  "anchor_path_qc_passed": true,
-  "selected_anchor_path": "execution|v3_non_execution",
-  "execution_anchor_qc_status": "pass|not_applicable",
-  "structural_value_override_qc_status": "pass|not_applicable",
-  "non_applicable_anchor_path_reason": "...",
+  "anchor_path_qc_passed": "true for format-risk item; NOT_APPLICABLE_NO_FORMAT_RISK otherwise",
+  "selected_anchor_path": "execution|v3_non_execution; omit for ordinary item",
+  "execution_anchor_qc_status": "pass|not_applicable; omit for ordinary item",
+  "structural_value_override_qc_status": "pass|not_applicable; omit for ordinary item",
+  "non_applicable_anchor_path_reason": "required for the unselected route on format-risk item; omit for ordinary item",
   "source_strength_caveat_preserved": true,
   "publish_ready_remains_false": true,
   "visible_field_change_log_ref": "...",

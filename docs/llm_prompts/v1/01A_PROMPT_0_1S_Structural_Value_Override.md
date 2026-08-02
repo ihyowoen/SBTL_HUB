@@ -191,7 +191,7 @@ When preview or metadata indicates a listed-company result:
 
 - classify `data_financial_anchor`;
 - set `earnings_deep_dive_required: true`;
-- place the candidate in strict or `earnings_deep_dive_pool[]` according to current Stage A evidence and cardability;
+- place the candidate in strict or `earnings_deep_dive[]` according to current Stage A evidence and cardability;
 - do not imply that release-only information proves customer demand, utilisation recovery, profitability durability, or capex strategy.
 
 Stage B rescue questions must cover, where applicable:
@@ -272,7 +272,7 @@ Use only the supported top-level Stage A partitions:
 
 `existing_reinforcement[]`, `support_source_only[]`, and `rejected[]` remain separate non-review outcomes.
 
-`structural_signal_review_pool` and `earnings_deep_dive_pool` are not standalone top-level partition arrays. They are `review_pool_subtype` values inside `candidate_review_pool[]` so the existing promotion workflow remains authoritative.
+`structural_signal_review` and `earnings_deep_dive` are not standalone top-level partition arrays. They are `review_pool_subtype` values inside `candidate_review_pool[]` so the existing promotion workflow remains authoritative.
 
 For every non-strict review item include:
 
@@ -286,10 +286,10 @@ For every non-strict review item include:
 For `review_pool_partition: candidate_review_pool`, set exactly one subtype:
 
 - `general_candidate`
-- `structural_signal_review_pool`
-- `earnings_deep_dive_pool`
+- `structural_signal_review`
+- `earnings_deep_dive`
 
-High-value unresolved structural items use `structural_signal_review_pool`; listed-company results awaiting full call/Q&A or prior-period comparison use `earnings_deep_dive_pool`. Both remain promotable only through the existing candidate-review authorization path.
+High-value unresolved structural items use `structural_signal_review`; listed-company results awaiting full call/Q&A or prior-period comparison use `earnings_deep_dive`. Both remain promotable only through the existing candidate-review authorization path.
 
 High-value unresolved structural items require:
 
@@ -439,8 +439,8 @@ Add:
 - `critical_structural_candidate_ids[]`
 - `high_decision_value_candidate_ids[]`
 - `high_value_review_pool_ids[]`
-- `structural_signal_review_pool_ids[]`
-- `earnings_deep_dive_pool_ids[]`
+- `structural_signal_review_ids[]`
+- `earnings_deep_dive_ids[]`
 - `follow_up_candidate_ids[]`
 - `zero_coverage_domains[]`
 - `execution_or_formality_bias_findings[]`
@@ -544,7 +544,7 @@ Block if:
 - a novelty-capped item exceeds its total-score or classification cap;
 - a material follow-up is treated as duplicate without incremental analysis;
 - a mandatory structural domain is zero without recheck and explanation;
-- `structural_signal_review_pool` or `earnings_deep_dive_pool` is emitted as a standalone top-level partition instead of a `candidate_review_pool` subtype;
+- `structural_signal_review` or `earnings_deep_dive` is emitted as a standalone top-level partition instead of a `candidate_review_pool` subtype;
 - a candidate-review item lacks a valid `review_pool_subtype`;
 - deletion/support-only is finalised before the applicable search-first process.
 

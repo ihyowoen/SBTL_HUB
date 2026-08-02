@@ -646,7 +646,7 @@ Each addable_merge_safe item must include:
 - urls
 - related
 - fact_sources
-- anchor_path_validation
+- anchor_path_validation (required only when the item has non-empty format_risk_tags; ordinary items with no format risk must not invent this object)
   - selected_anchor_path: execution|v3_non_execution
   - anchor_path_qc_passed: true
   - execution_anchor_qc_status: pass|not_applicable

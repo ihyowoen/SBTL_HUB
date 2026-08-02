@@ -740,6 +740,12 @@ Each accepted_fact_safe item must include:
 - urls
 - related
 - fact_sources
+- anchor_path_validation
+  - selected_anchor_path: execution|v3_non_execution
+  - anchor_path_qc_passed: true
+  - execution_anchor_qc_status: pass|not_applicable
+  - structural_value_override_qc_status: pass|not_applicable
+  - non_applicable_anchor_path_reason
 - stage_c_findings
   - source_direction
   - fact_safety

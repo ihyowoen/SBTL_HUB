@@ -17,17 +17,19 @@ Use GitHub main as the workflow source of truth.
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -65,6 +67,7 @@ The Stage C JSON must include:
 - run_label
 - draft_cards_input_count
 - accepted_fact_safe[]
+- every format-risk accepted_fact_safe item carries anchor_path_validation
 - revise_required[]
 - rejected[]
 - support_source_only[]
@@ -77,6 +80,8 @@ If Stage C r0 JSON is missing, invalid, incomplete, not from the same run, or ha
 - status: BLOCKED_STAGE_C_INVALID
 - reason: [...]
 - no baseline revalidation work performed
+
+For every format-risk `accepted_fact_safe[]` item, require a complete Stage C `anchor_path_validation` object with exactly one selected route, a passing `anchor_path_qc_passed`, coherent execution/non-execution route statuses, and a specific non-applicable-route reason. Missing, contradictory, or stale anchor-path metadata is `BLOCKED_STAGE_C_ANCHOR_PATH_MISSING`; do not reconstruct it from prose.
 
 If any supplied Stage C revise JSON is missing, invalid, incomplete, not from the same run, or has accounting mismatch, stop and report:
 
@@ -142,13 +147,15 @@ Governance hierarchy:
 When rules conflict, apply this hierarchy:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 FACT_DISCIPLINE.md always wins for facts, numbers, quotes, and evidence discipline.
 
@@ -560,6 +567,12 @@ For every addable_merge_safe item, set:
 - needs_evidence_completeness_qc: true
 - needs_source_claim_coverage_qc: true
 
+Anchor-path preservation rule:
+
+- copy Stage C `anchor_path_validation` byte-for-byte into every format-risk `addable_merge_safe[]` item;
+- do not switch `selected_anchor_path`, alter either route status, or replace the non-applicable-route reason during baseline comparison;
+- if the metadata is absent or conflicts with Stage C, route to `baseline_conflict` with `conflict_type: anchor_path_lineage_conflict` and do not send the item to Evidence QC.
+
 Output files:
 
 1. post_acceptance_baseline_revalidation_{{RUN_TAG}}.json
@@ -603,6 +616,7 @@ The main JSON must include:
 - baseline_duplicate_summary
 - event_fingerprint_summary
 - id_collision_summary
+- anchor_path_preservation_summary
 - addable_merge_safe[]
 - duplicate_hold[]
 - existing_reinforcement[]
@@ -632,6 +646,12 @@ Each addable_merge_safe item must include:
 - urls
 - related
 - fact_sources
+- anchor_path_validation
+  - selected_anchor_path: execution|v3_non_execution
+  - anchor_path_qc_passed: true
+  - execution_anchor_qc_status: pass|not_applicable
+  - structural_value_override_qc_status: pass|not_applicable
+  - non_applicable_anchor_path_reason
 - event_fingerprint
 - baseline_relation
 - duplicate_risk
@@ -753,6 +773,7 @@ Each decision_ledger row must include:
 - matched_internal_draft_id
 - event_fingerprint
 - id_collision
+- anchor_path_preserved
 - publish_ready_reset
 - reason
 - notes
@@ -774,7 +795,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - confirm each was read from GitHub main
    - if any doc was not read, this step must not proceed
 

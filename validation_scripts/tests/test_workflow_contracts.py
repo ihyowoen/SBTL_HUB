@@ -248,6 +248,13 @@ class RelatedContractTest(unittest.TestCase):
         )
         self.assertFalse(any(any(name in error for name in strict_field_names) for error in errors))
 
+    def test_legacy_mode_still_requires_fresh_follow_up_anchor(self):
+        child = deepcopy(self.child)
+        child["related_lineage"].pop("fresh_follow_up_anchor")
+        by_id = {self.parent["id"]: self.parent, child["id"]: child}
+        errors, _ = check_card(child, by_id, False)
+        self.assertTrue(any("fresh_follow_up_anchor" in error for error in errors))
+
     def test_duplicate_cannot_publish(self):
         self.child["related_lineage"]["relation_type"] = "same_event_duplicate"
         errors, _ = check_card(self.child, self.by_id, True)
@@ -381,6 +388,27 @@ class StructuralV3InterveningStageContractTest(unittest.TestCase):
         self.assertIn("non_applicable_anchor_path_reason", text)
         self.assertNotIn('"execution_anchor_qc_passed": true', text)
         self.assertNotIn("without a concrete fresh execution anchor", text)
+
+    def test_stage_c_and_baseline_revalidation_preserve_anchor_path(self):
+        stage_c = self.read_prompt("docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md")
+        baseline = self.read_prompt("docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md")
+        self.assertIn("Each accepted_fact_safe item must include:", stage_c)
+        self.assertIn("anchor_path_validation", stage_c)
+        self.assertIn("All 10 documents above are mandatory.", baseline)
+        self.assertIn("copy Stage C `anchor_path_validation` byte-for-byte", baseline)
+        self.assertIn("anchor_path_preservation_summary", baseline)
+        self.assertIn("anchor_path_preserved", baseline)
+
+    def test_production_and_remediation_accept_both_anchor_paths(self):
+        production = self.read_prompt("docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md")
+        remediation = self.read_prompt("docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md")
+        for text in (production, remediation):
+            self.assertIn("All 10 documents above are mandatory.", text)
+            self.assertIn("exactly one source-backed route", text)
+            self.assertIn("valid V3 non-execution route", text)
+            self.assertNotIn("without a concrete fresh execution anchor, they must not have entered", text)
+        self.assertIn("v3_non_execution_path_cards_checked_count", production)
+        self.assertIn("anchor_path_defect_confirmed", remediation)
 
     def test_final_qc_consumes_route_status_schema(self):
         text = self.read_prompt("docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md")

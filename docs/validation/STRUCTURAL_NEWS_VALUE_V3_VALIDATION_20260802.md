@@ -163,3 +163,13 @@ The review findings are addressed as follows:
 - Intervening-stage patch commit before this record: `7086883fceeacd284851764707bd769fa9195582`.
 - The one-shot patch workflow completed successfully and removed all temporary workflow/helper files.
 - The next standard workflow-contract validation is triggered by this documentation commit against the final branch state.
+
+
+## Review 4838068572 end-to-end lineage closure
+
+- Stage C's mandatory `accepted_fact_safe[]` schema now emits `anchor_path_validation`.
+- Prompt 0.4 requires that object on format-risk inputs and preserves it byte-for-byte into `addable_merge_safe[]`; missing or contradictory metadata is blocked before Evidence QC.
+- Prompt 0.9 verifies both execution and V3 non-execution routes after merge and does not misclassify a valid non-execution route as an execution defect.
+- Prompt 1.0 remediates confirmed selected-route, route-status, source-coverage, or lineage defects only.
+- The legacy `distinct_follow_up` fresh-anchor presence check remains unconditional; only the new V2 class, incremental-fact, and changed-judgment requirements are scoped to `--require-contract`.
+- Regression tests cover Stage C → Prompt 0.4 preservation, production/remediation two-path handling, and legacy fresh-anchor enforcement.

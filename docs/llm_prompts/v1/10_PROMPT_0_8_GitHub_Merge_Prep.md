@@ -114,9 +114,49 @@ The following legacy statements are expressly non-operative:
 - the public projection may replace an unreadable canonical full;
 - Prompt 0.8 writes only the public file;
 - replace-all is the only permitted merge model;
-- a fixed eight-document read is complete governance proof.
+- a fixed eight-document read is complete governance proof;
+- a conventional execution event is the sole valid strict-pass route for a format-risk card;
+- a merge-prep lineage gate may omit the selected V3 anchor path, route-specific statuses, or non-applicable-route reason.
 
 All compatible evidence, lineage, duplicate, schema, source-diversity, accounting, PR, and production-boundary safeguards remain in force.
+
+## 5A. V3 anchor-path merge-prep gate
+
+The subordinate legacy execution-only overlay is non-operative. Before any format-risk `publish_ready[]` card may enter `pr_candidate_payload`, Prompt 0.8 must verify the Final QC output preserves exactly one source-backed route:
+
+1. `selected_anchor_path: execution` with `execution_anchor_qc_status: pass` and `structural_value_override_qc_status: not_applicable`; or
+2. `selected_anchor_path: v3_non_execution` with `structural_value_override_qc_status: pass` and `execution_anchor_qc_status: not_applicable`.
+
+Both routes require:
+
+- `anchor_path_qc_passed: true`;
+- a specific `non_applicable_anchor_path_reason`;
+- exact current-run lineage from Stage A through Final QC;
+- no route switch, status rewrite, or evidence laundering during merge preparation.
+
+The execution route must retain its source-backed execution evidence. The V3 non-execution route must retain its verified anchor class, item-specific evidence targets, before-after chain, changed judgment, and specific `why_execution_event_not_required`. Absence of a conventional execution event is not itself a defect when the V3 non-execution route passed.
+
+If metadata is missing, contradictory, stale, or unsupported, return:
+
+```text
+status: BLOCKED_FINAL_QC_ANCHOR_PATH_INVALID
+merge_prep_hold_count: [...]
+no PR candidate emitted for affected items
+```
+
+Add to Prompt 0.8 JSON:
+
+```json
+"lineage_merge_gate": {
+  "final_qc_lineage_passed": true,
+  "anchor_path_lineage_passed": true,
+  "publish_ready_lineage_checked_count": 0,
+  "execution_path_checked_count": 0,
+  "v3_non_execution_path_checked_count": 0,
+  "anchor_path_hold_count": 0,
+  "github_ready_allowed": true
+}
+```
 
 ## 6. Exit
 

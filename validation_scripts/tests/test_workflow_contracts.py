@@ -418,5 +418,57 @@ class StructuralV3InterveningStageContractTest(unittest.TestCase):
         self.assertNotIn("execution_anchor_qc_passed: true` or `structural_value_override_qc_passed: true", text)
 
 
+class StructuralV3MergePrepAndRevisionContractTest(unittest.TestCase):
+    @staticmethod
+    def read_prompt(path: str) -> str:
+        return (ROOT.parent / path).read_text(encoding="utf-8")
+
+    def test_merge_prep_accepts_both_v3_routes(self):
+        canonical = self.read_prompt("docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md")
+        legacy = self.read_prompt("docs/llm_prompts/v1/legacy/10_PROMPT_0_8_GitHub_Merge_Prep_LEGACY_BODY.md")
+        self.assertIn("V3 anchor-path merge-prep gate", canonical)
+        self.assertIn("selected_anchor_path: execution", canonical)
+        self.assertIn("selected_anchor_path: v3_non_execution", canonical)
+        self.assertIn("anchor_path_lineage_passed", canonical)
+        self.assertIn("Anchor-path and selector-lineage safety overlay — V3", legacy)
+        self.assertIn("exactly one source-backed route passed Final QC", legacy)
+        self.assertNotIn("without a concrete fresh execution anchor, they must not have entered", legacy)
+
+    def test_stage_c_allows_unresolved_route_only_for_revise_required(self):
+        text = self.read_prompt("docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md")
+        self.assertIn("For every accepted_fact_safe format-risk item", text)
+        self.assertIn("A revise_required format-risk item may use", text)
+        self.assertIn('"selected_anchor_path": "unresolved"', text)
+        self.assertIn('"anchor_path_qc_passed": false', text)
+        self.assertIn("must not enter `accepted_fact_safe[]`", text)
+        self.assertNotIn("For every accepted_fact_safe or revise_required format-risk item", text)
+
+
+class RelatedMalformedAnchorClassTest(unittest.TestCase):
+    def test_unhashable_anchor_class_returns_validation_error(self):
+        parent = {"id": "PARENT", "date": "2026-01-01", "related": []}
+        child = {
+            "id": "CHILD",
+            "date": "2026-02-01",
+            "state": "publish_ready",
+            "publish_ready": True,
+            "related": ["PARENT"],
+            "related_lineage": {
+                "status": "PASS",
+                "same_event_checked": True,
+                "earliest_same_event_date_checked": True,
+                "relation_type": "distinct_follow_up",
+                "related_ids": ["PARENT"],
+                "reason": "new development",
+                "fresh_follow_up_anchor": "new evidence",
+                "fresh_follow_up_anchor_class": ["execution_event_anchor"],
+                "incremental_fact_vs_predecessor": "New evidence is available.",
+                "changed_judgment_vs_predecessor": "The assessment changed.",
+            },
+        }
+        errors, _ = check_card(child, {"PARENT": parent, "CHILD": child}, True)
+        self.assertTrue(any("fresh_follow_up_anchor_class" in error for error in errors))
+
+
 if __name__ == "__main__":
     unittest.main()

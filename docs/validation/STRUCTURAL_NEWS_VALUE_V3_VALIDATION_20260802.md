@@ -173,3 +173,10 @@ The review findings are addressed as follows:
 - Prompt 1.0 remediates confirmed selected-route, route-status, source-coverage, or lineage defects only.
 - The legacy `distinct_follow_up` fresh-anchor presence check remains unconditional; only the new V2 class, incremental-fact, and changed-judgment requirements are scoped to `--require-contract`.
 - Regression tests cover Stage C → Prompt 0.4 preservation, production/remediation two-path handling, and legacy fresh-anchor enforcement.
+
+## Review 4838143604 closure
+
+- Prompt 0.8 canonical and subordinate legacy merge-prep overlays now preserve exactly one source-backed execution or V3 non-execution route.
+- Stage C certifies a passing route only for `accepted_fact_safe`; format-risk `revise_required` items may honestly carry an unresolved/failed route object until a revise pass resolves it.
+- `fresh_follow_up_anchor_class` is type-checked before membership validation, so malformed arrays or objects return findings instead of aborting the validator.
+- Regression tests cover merge-prep route compatibility, revise-required unresolved status, and malformed anchor-class types.

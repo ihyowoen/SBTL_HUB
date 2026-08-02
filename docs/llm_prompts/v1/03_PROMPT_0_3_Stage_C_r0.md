@@ -394,7 +394,7 @@ Decision rule:
 - If both paths are claimed without a clear primary path, use revise_required and require one selected path plus a reason the other is not applicable.
 - Do not reject solely because of source format; reject only because both paths are absent, unsupported, stale, contradictory, or non-cardable.
 
-For every accepted_fact_safe or revise_required format-risk item, preserve the Stage A/B override metadata and emit:
+For every accepted_fact_safe format-risk item, preserve the Stage A/B override metadata and emit a passing object:
 
 ```json
 "anchor_path_validation": {
@@ -406,7 +406,23 @@ For every accepted_fact_safe or revise_required format-risk item, preserve the S
 }
 ```
 
-Exactly one route status must be `pass`; the other must be `not_applicable` with a specific reason.
+Exactly one accepted-item route status must be `pass`; the other must be `not_applicable` with a specific reason.
+
+A revise_required format-risk item may use the same passing object when the route is settled and only visible wording needs revision. When the route itself is unresolved, contradicted, or dual-claimed, emit an honest unresolved object instead of certifying PASS:
+
+```json
+"anchor_path_validation": {
+  "selected_anchor_path": "unresolved",
+  "anchor_path_qc_passed": false,
+  "execution_anchor_qc_status": "unresolved|failed|not_applicable",
+  "structural_value_override_qc_status": "unresolved|failed|not_applicable",
+  "non_applicable_anchor_path_reason": null,
+  "anchor_path_issue": "...",
+  "required_resolution": "select and source-validate exactly one route"
+}
+```
+
+An unresolved revise_required item must not enter `accepted_fact_safe[]`, Baseline Revalidation, or Evidence QC until a Stage C revise pass resolves exactly one route and emits the passing schema.
 
 Pass 3 — Fact discipline check
 
@@ -774,6 +790,9 @@ Each revise_required item must include:
 - can_be_revised_without_new_source: true/false
 - needs_source_augmentation: true/false
 - recommended_next_action
+- anchor_path_validation, required for format-risk revise items
+  - either the accepted-style passing schema when only wording needs revision
+  - or the unresolved schema with `anchor_path_qc_passed: false`, `anchor_path_issue`, and `required_resolution`
 
 Allowed issue_type values:
 

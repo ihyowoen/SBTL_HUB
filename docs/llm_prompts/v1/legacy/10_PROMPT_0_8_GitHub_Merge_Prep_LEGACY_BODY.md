@@ -997,16 +997,17 @@ Do not proceed to production verification until the PR is merged and I explicitl
 
 ---
 
-## Execution-anchor and selector-lineage safety overlay — 2026-05-05
+## Anchor-path and selector-lineage safety overlay — V3
 
-This overlay is downstream of the Stage A safe-selector integrated rule. It prevents post-acceptance steps from laundering a weak or superseded Stage A/B/C lineage into publish-ready or production status.
+This overlay is downstream of the Stage A V3 selector rule. It prevents merge preparation from laundering a weak or superseded lineage while preserving valid execution and V3 non-execution routes.
 
 Terminology lock:
 
 - Do not use or enforce a format-based hard-exclude rule.
 - Product, demo, PoC, component, interview, commentary, roundup, speech, or personnel formats are not automatically rejected by format alone.
-- They are subject to a strict-pass presumption block: without a concrete fresh execution anchor, they must not have entered `strict_passed_spec[]`; if they did, the downstream step must hold, reject, or return the item to the appropriate prior stage rather than polishing it forward.
-- Concrete execution anchors include signed contract, binding customer order, offtake, commercial deployment, field installation, commissioning, production start, facility opening, certification, regulatory decision, public funding approval, binding procurement, measurable capacity addition, safety recall/regulatory action, or named customer adoption.
+- A format-risk card may enter merge preparation only when exactly one source-backed route passed Final QC: a concrete execution anchor or a complete V3 non-execution Structural Value Override.
+- The selected route, route-specific statuses, non-applicable-route reason, narrowed visible wording, and source coverage must remain unchanged through merge preparation.
+- A valid V3 non-execution route is not defective merely because no conventional execution event exists.
 
 ### Required upstream lineage gate for GitHub Merge Prep
 
@@ -1017,6 +1018,10 @@ Before preparing any PR candidate, verify that `FINAL_QC_RESULTS_JSON` includes:
 - `selector_lineage_final_gate.superseded_lineage_detected: false`
 - `final_qc_accounting_matches_input_count: true`
 - `publish_ready[]` only from current-run validated lineage
+- every format-risk item has `anchor_path_qc_passed: true`
+- every format-risk item has `selected_anchor_path: execution|v3_non_execution`
+- exactly one route status is `pass`; the other is `not_applicable` with a specific reason
+- execution-route evidence or the complete V3 non-execution evidence package is preserved without route switching
 
 If missing or failed, stop and report:
 
@@ -1039,7 +1044,10 @@ Add to GitHub Merge Prep JSON:
 ```json
 "lineage_merge_gate": {
   "final_qc_lineage_passed": true,
+  "anchor_path_lineage_passed": true,
   "publish_ready_lineage_checked_count": 0,
+  "execution_path_checked_count": 0,
+  "v3_non_execution_path_checked_count": 0,
   "publish_ready_lineage_hold_count": 0,
   "github_ready_allowed": true
 }

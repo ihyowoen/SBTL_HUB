@@ -117,7 +117,7 @@ def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_c
         errors.append("distinct_follow_up requires fresh_follow_up_anchor")
     if require_contract and relation_type == "distinct_follow_up":
         anchor_class = lineage.get("fresh_follow_up_anchor_class")
-        if anchor_class not in FRESH_FOLLOW_UP_ANCHOR_CLASSES:
+        if not isinstance(anchor_class, str) or anchor_class not in FRESH_FOLLOW_UP_ANCHOR_CLASSES:
             errors.append("distinct_follow_up requires valid fresh_follow_up_anchor_class")
         incremental_fact = lineage.get("incremental_fact_vs_predecessor")
         if not isinstance(incremental_fact, str) or not incremental_fact.strip():

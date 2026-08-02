@@ -35,3 +35,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "fix: align V3 downstream gates and related validator"
           git push origin HEAD:agent/structural-news-value-v3
+
+# Triggered after workflow installation so the guarded patch runs once.

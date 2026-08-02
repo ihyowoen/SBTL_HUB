@@ -19,99 +19,260 @@
     "independent_completeness_ref"
   ],
   "properties": {
-    "schema": { "const": "card_run_v1" },
-    "run_id": { "type": "string", "minLength": 1 },
-    "base_main_commit_sha": { "$ref": "#/$defs/sha1" },
-    "base_full_blob_sha": { "$ref": "#/$defs/sha1" },
-    "expected_before": { "type": "integer", "minimum": 0 },
-    "output_updated": { "type": "string", "format": "date-time" },
+    "schema": {
+      "const": "card_run_v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_main_commit_sha": {
+      "$ref": "#/$defs/sha1"
+    },
+    "base_full_blob_sha": {
+      "$ref": "#/$defs/sha1"
+    },
+    "expected_before": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "output_updated": {
+      "type": "string",
+      "format": "date-time"
+    },
     "operations": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["insert", "update", "related_add"],
+      "required": [
+        "insert",
+        "update",
+        "related_add"
+      ],
       "properties": {
-        "insert": { "type": "array", "items": { "$ref": "#/$defs/insert" } },
-        "update": { "type": "array", "items": { "$ref": "#/$defs/update" } },
-        "related_add": { "type": "array", "items": { "$ref": "#/$defs/relatedAdd" } }
+        "insert": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/insert"
+          }
+        },
+        "update": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/update"
+          }
+        },
+        "related_add": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/relatedAdd"
+          }
+        }
       }
     },
-    "expected_after": { "type": "integer", "minimum": 0 },
-    "audit_refs": { "$ref": "#/$defs/nonEmptyStrings" },
-    "document_universe_manifest_ref": { "type": "string", "minLength": 1 },
-    "coverage_discovery_ref": { "type": "string", "minLength": 1 },
-    "independent_completeness_ref": { "type": "string", "minLength": 1 },
-    "notes": { "type": "string" }
+    "expected_after": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "audit_refs": {
+      "$ref": "#/$defs/repoRefs"
+    },
+    "document_universe_manifest_ref": {
+      "$ref": "#/$defs/repoRef"
+    },
+    "coverage_discovery_ref": {
+      "$ref": "#/$defs/repoRef"
+    },
+    "independent_completeness_ref": {
+      "$ref": "#/$defs/repoRef"
+    },
+    "notes": {
+      "type": "string"
+    }
   },
   "$defs": {
-    "sha1": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "sha1": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
     "nonEmptyStrings": {
       "type": "array",
       "minItems": 1,
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "insert": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["card", "stage_artifacts", "evidence_refs"],
+      "required": [
+        "card",
+        "stage_artifacts",
+        "evidence_refs"
+      ],
       "properties": {
         "card": {
           "type": "object",
-          "required": ["id", "date"],
+          "required": [
+            "id",
+            "date"
+          ],
           "properties": {
-            "id": { "type": "string", "minLength": 1 },
-            "date": { "type": "string", "format": "date" }
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "date": {
+              "type": "string",
+              "format": "date"
+            },
+            "related": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "related_ids": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "related_lineage": {
+              "type": "object",
+              "properties": {
+                "relation_type": {
+                  "const": "new_unrelated_event"
+                },
+                "related_ids": {
+                  "type": "array",
+                  "maxItems": 0
+                }
+              },
+              "required": [
+                "relation_type"
+              ]
+            }
           }
         },
-        "stage_artifacts": { "$ref": "#/$defs/nonEmptyStrings" },
-        "evidence_refs": { "$ref": "#/$defs/nonEmptyStrings" }
+        "stage_artifacts": {
+          "$ref": "#/$defs/repoRefs"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/evidenceRefs"
+        }
       }
     },
     "change": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["op", "path"],
+      "required": [
+        "op",
+        "path"
+      ],
       "properties": {
-        "op": { "enum": ["add", "replace", "remove"] },
-        "path": { "type": "string", "pattern": "^/[^/]" },
+        "op": {
+          "enum": [
+            "add",
+            "replace",
+            "remove"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^/[^/]"
+        },
         "value": true
       },
       "allOf": [
         {
-          "if": { "properties": { "op": { "enum": ["add", "replace"] } } },
-          "then": { "required": ["value"] }
+          "if": {
+            "properties": {
+              "op": {
+                "enum": [
+                  "add",
+                  "replace"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "value"
+            ]
+          }
         },
         {
-          "if": { "properties": { "op": { "const": "remove" } } },
-          "then": { "not": { "required": ["value"] } }
+          "if": {
+            "properties": {
+              "op": {
+                "const": "remove"
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": [
+                "value"
+              ]
+            }
+          }
         }
       ]
     },
     "update": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "changes", "reason", "stage_artifacts", "evidence_refs"],
+      "required": [
+        "id",
+        "changes",
+        "reason",
+        "stage_artifacts",
+        "evidence_refs"
+      ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
         "changes": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/change" }
+          "items": {
+            "$ref": "#/$defs/change"
+          }
         },
-        "reason": { "type": "string", "minLength": 1 },
-        "stage_artifacts": { "$ref": "#/$defs/nonEmptyStrings" },
-        "evidence_refs": { "$ref": "#/$defs/nonEmptyStrings" }
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stage_artifacts": {
+          "$ref": "#/$defs/repoRefs"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/evidenceRefs"
+        }
       }
     },
     "relationPatch": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["card_id", "op", "path", "value"],
+      "required": [
+        "card_id",
+        "op",
+        "path",
+        "value"
+      ],
       "properties": {
-        "card_id": { "type": "string", "minLength": 1 },
-        "op": { "enum": ["add", "replace"] },
+        "card_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "op": {
+          "enum": [
+            "add",
+            "replace"
+          ]
+        },
         "path": {
           "type": "string",
-          "pattern": "^/(related|related_ids|related_lineage)(/|$)"
+          "pattern": "^/(related|related_ids)/-$|^/related_lineage/(related_ids/-|relation_type|reason|event_stage_relationship|direction)$"
         },
         "value": true
       }
@@ -126,22 +287,81 @@
         "lineage_reason",
         "event_stage_relationship",
         "direction",
+        "stage_artifacts",
         "evidence_refs",
         "patches"
       ],
       "properties": {
-        "source_id": { "type": "string", "minLength": 1 },
-        "target_id": { "type": "string", "minLength": 1 },
-        "relation_type": { "type": "string", "minLength": 1 },
-        "lineage_reason": { "type": "string", "minLength": 1 },
-        "event_stage_relationship": { "type": "string", "minLength": 1 },
-        "direction": { "enum": ["directional", "reciprocal"] },
-        "evidence_refs": { "$ref": "#/$defs/nonEmptyStrings" },
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relation_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lineage_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "event_stage_relationship": {
+          "type": "string",
+          "minLength": 1
+        },
+        "direction": {
+          "enum": [
+            "directional",
+            "reciprocal"
+          ]
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/evidenceRefs"
+        },
         "patches": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/relationPatch" }
+          "items": {
+            "$ref": "#/$defs/relationPatch"
+          }
+        },
+        "stage_artifacts": {
+          "$ref": "#/$defs/repoRefs"
         }
+      }
+    },
+    "repoRef": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!https?://).+"
+    },
+    "evidenceRef": {
+      "type": "string",
+      "minLength": 1,
+      "anyOf": [
+        {
+          "pattern": "^https?://[^\\s]+$"
+        },
+        {
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!https?://).+"
+        }
+      ]
+    },
+    "repoRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/repoRef"
+      }
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/evidenceRef"
       }
     }
   }

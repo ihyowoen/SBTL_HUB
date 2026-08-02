@@ -2,7 +2,7 @@
 
 ## Scope
 
-This record validates the first executable ordinary-run path required by `CARD_INCREMENTAL_RUN_CONTRACT.md` and the Prompt 0.8 incremental addendum.
+This record validates the executable ordinary-run path required by `CARD_INCREMENTAL_RUN_CONTRACT.md` and the Prompt 0.8 incremental addendum.
 
 Implemented files:
 
@@ -11,46 +11,76 @@ Implemented files:
 - `.github/workflows/apply-card-run.yml`
 - `scripts/apply_card_run_test.mjs`
 
+This code PR does not modify `data/cards.full.json` or `public/data/cards.json`.
+
 ## Enforced invariants
 
-- `data/cards.full.json` is the only canonical baseline.
-- `base_main_commit_sha`, canonical Git blob SHA, and `expected_before` must all match.
-- The workflow reconstructs the declared baseline from `git show <base_main_commit_sha>:data/cards.full.json`; it never treats an already-generated PR working copy as the original baseline.
-- Ordinary operations are limited to `insert`, `update`, and `related_add`.
-- Card deletion and `related_remove` are rejected.
-- Existing IDs cannot disappear or change.
-- Existing `related`, `related_ids`, and `related_lineage` values must remain a deep subset of the result.
+- `data/cards.full.json` is the only canonical full inventory.
+- `base_main_commit_sha`, the Git blob at `<base commit>:data/cards.full.json`, and `expected_before` must all match.
+- The expected result is rebuilt from bytes read with `git show <declared main>:data/cards.full.json`; a branch-modified full can never become the baseline.
+- The working full must be either the declared baseline, the exact expected result, or a semantically equal result needing format normalization. Any other branch edit blocks with `BLOCKED_UNDECLARED_CARD_DIFF`.
+- Ordinary operations are limited to `insert`, `update`, and `related_add`; card deletion and `related_remove` are rejected.
+- Inserted cards may not carry relationship edges. All new `related`, `related_ids`, and non-independent lineage links must pass through `related_add`.
+- Every edge-valued relation patch must point to the operation’s declared opposite endpoint. A single operation cannot smuggle a third relation target.
+- Directional and reciprocal edge patches are checked independently.
+- Existing `related` and `related_ids` edges are preserved; legacy dangling edges remain frozen and no new dangling edge may appear.
 - Updates may change only declared JSON Pointer paths and may not edit relation roots.
-- Relation changes are append-only and require source, target, type, evidence, lineage reason, event-stage relationship, and direction.
-- New missing, duplicate, and self-related edges are rejected.
-- Counts must reconcile exactly.
-- Unpositioned inserts are applied as one latest-first block without reordering existing cards.
-- The canonical full is written before the existing full-to-lean exporter runs.
-- `github_merge_ready` remains false until all repository validators and the exact lean-projection check pass.
+- Counts reconcile exactly and the result remains stable latest-first.
+- Stage 0.0D, Stage 0.0C, and Stage 0.7C references must resolve to passing JSON artifacts bound to the declared main/full baseline.
+- Audit and per-operation stage artifact paths must exist and be nonempty. Referenced JSON stage artifacts may not carry blocked/failing status.
+- Evidence references must resolve to an absolute HTTP(S) URL or a real repository file.
+- The canonical full preserves the baseline BOM, indentation, CRLF/LF convention, and trailing-newline convention. A semantically equal minified working copy is normalized before merge.
+- `github_merge_ready=true` is written only by verify mode after repository card validators and exact full-to-lean projection validation pass.
 
-## Local regression result
+## Regression result
 
 ```text
-PASS: apply_card_run_test — positive + 5 blockers
+PASS: engine syntax
+PASS: test syntax
 PASS: schema JSON parse
-PASS: workflow YAML parse
-PASS: synthetic apply → lean → verify → idempotent rerun
-PASS: moved-main baseline blocker
+PASS: positive apply
+PASS: byte-identical idempotent reapply
+PASS: CRLF and indentation preservation
+PASS: formatting normalization
+PASS: latest-first result
+PASS: metadata update
+PASS: legacy dangling-edge preservation
+PASS: governed reference resolution
+PASS: 14 blocker cases
 ```
 
-Covered blocker cases:
+Blocker coverage includes:
 
-1. stale canonical blob SHA;
-2. forbidden delete operation;
-3. relation modification smuggled through update;
-4. newly missing related target;
-5. count reconciliation failure;
-6. current main SHA differing from the declared run baseline.
+1. current main SHA moved;
+2. Stage 0.0D/full binding stale;
+3. forged full blob rejected by Git object lookup;
+4. forbidden delete operation;
+5. relation edit smuggled through update;
+6. missing related target;
+7. third endpoint smuggled through `related`;
+8. count reconciliation failure;
+9. prelinked inserted card;
+10. third endpoint smuggled through `related_lineage`;
+11. missing Stage 0.0D artifact;
+12. blocked Stage 0.7C artifact;
+13. missing per-operation stage artifact;
+14. invalid evidence reference;
+15. undeclared working-full modification.
 
-## Rerun and generated-commit safety
+## Workflow behavior
 
-The first workflow execution may commit generated `data/cards.full.json`, `public/data/cards.json`, and `apply-report.json` to the data PR branch. A later `pull_request synchronize` execution must not reinterpret that generated full as the declared original baseline. The workflow therefore reconstructs the immutable baseline from the declared base commit and verifies its Git blob SHA before every application. Re-execution deterministically regenerates the same outputs and produces no further commit when the branch already matches the declared result.
+A data PR must contain exactly one `runs/**/card-run.json`. The workflow:
 
-## Operational boundary
+```text
+fetch base branch
+→ lock declared main and full blob to the base commit
+→ validate governance and operation references
+→ apply declared operations
+→ generate lean projection from full
+→ run full/public validators and byte-exact lean check
+→ verify expected full and set github_merge_ready=true
+→ allow only full, lean, and apply-report working-tree changes
+→ commit generated outputs
+```
 
-This PR installs the engine only. It does not apply the 2026-08-01 editorial input and does not modify either card inventory. After this PR is reviewed and merged, the first data PR may submit exactly one governed input at `runs/2026-08-01/card-run.json`; the workflow will generate and validate the canonical full, lean projection, and apply report.
+The first governed data PR remains a separate follow-up after this engine PR is independently reviewed and merged.

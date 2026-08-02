@@ -5,6 +5,8 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class StructuralV3LatestReviewTests(unittest.TestCase):
+    """Regression coverage for the latest PR 233 contract-alignment review."""
+
     def read(self, path):
         return (ROOT / path).read_text(encoding="utf-8")
 

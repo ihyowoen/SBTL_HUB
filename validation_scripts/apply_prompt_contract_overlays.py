@@ -56,7 +56,7 @@ Stage C Related/source overlay:
 - Lock `related_lineage` for every accepted card.
 - `same_event_duplicate`, `existing_card_reinforcement`, and `uncertain_needs_review` may not enter
   `accepted_fact_safe` as new cards.
-- `distinct_follow_up` requires a valid non-empty `fresh_follow_up_anchor`, a valid `fresh_follow_up_anchor_class` under `docs/RELATED_LIFECYCLE_CONTRACT.md`, and non-empty `incremental_fact_vs_predecessor` plus `changed_judgment_vs_predecessor`. A conventional execution anchor is required only when the selected anchor class is `execution`; valid policy, financial, strategic, technology, or probability anchors are permitted by the shared contract.
+- `distinct_follow_up` requires a valid non-empty `fresh_follow_up_anchor`, a valid `fresh_follow_up_anchor_class` under `docs/RELATED_LIFECYCLE_CONTRACT.md`, and non-empty `incremental_fact_vs_predecessor` plus `changed_judgment_vs_predecessor`. A conventional execution anchor is required only when the selected anchor class is `execution_event_anchor`; valid policy, financial, strategic, technology, or probability anchors are permitted by the shared contract.
 - Recompute source independence from current `fact_sources`; do not trust stale counters.
 - Stage exit must satisfy:
   `python validation_scripts/stage_artifact_contract_check.py C <STAGE_C_JSON>`.

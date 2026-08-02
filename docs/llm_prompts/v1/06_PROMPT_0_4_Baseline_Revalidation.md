@@ -652,6 +652,19 @@ Each addable_merge_safe item must include:
   - execution_anchor_qc_status: pass|not_applicable
   - structural_value_override_qc_status: pass|not_applicable
   - non_applicable_anchor_path_reason
+- V3 override package (required and preserved byte-for-byte when `selected_anchor_path = v3_non_execution`; omit for the execution route and ordinary non-format-risk items)
+  - structural_value_override_applied: true
+  - anchor_classes[] with at least one valid non-execution class
+  - evidence_needed_for_stage_b[] with item-specific evidence targets
+  - why_execution_event_not_required
+  - prior_state
+  - new_verified_fact
+  - changed_judgment
+  - uncertainty_resolved
+  - remaining_uncertainty
+  - incremental_information
+  - baseline_expectation_changed
+  - decision_relevance
 - event_fingerprint
 - baseline_relation
 - duplicate_risk

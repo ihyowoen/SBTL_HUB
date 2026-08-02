@@ -191,7 +191,7 @@ When preview or metadata indicates a listed-company result:
 
 - classify `data_financial_anchor`;
 - set `earnings_deep_dive_required: true`;
-- place the candidate in strict or `earnings_deep_dive[]` according to current Stage A evidence and cardability;
+- place the candidate in strict or `candidate_review_pool[]` with `review_pool_subtype: earnings_deep_dive` according to current Stage A evidence and cardability;
 - do not imply that release-only information proves customer demand, utilisation recovery, profitability durability, or capex strategy.
 
 Stage B rescue questions must cover, where applicable:

@@ -9,7 +9,6 @@ on:
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
       - "scripts/lean_cards.mjs"
-      - "scripts/patch_pr233_review_latest.mjs"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
   push:
@@ -26,7 +25,7 @@ on:
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
@@ -34,17 +33,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: agent/structural-news-value-v3
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Apply latest review patch
-        run: node scripts/patch_pr233_review_latest.mjs
 
       - name: Compile validators
         run: python -m compileall -q validation_scripts
@@ -54,69 +47,3 @@ jobs:
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
-
-      - name: Restore workflow and remove temporary files
-        run: |
-          rm -f scripts/patch_pr233_review_latest.mjs
-          rm -f .github/workflows/patch-pr233-latest-review.yml
-          find validation_scripts -type d -name __pycache__ -prune -exec rm -rf {} +
-          cat > .github/workflows/workflow-contract-validation.yml <<'EOF'
-          name: Workflow contract validation
-
-          on:
-            pull_request:
-              paths:
-                - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-                - "docs/SOURCE_AUDIT_CONTRACT.md"
-                - "docs/llm_prompts/v1/**"
-                - "validation_data/source_owner_registry.json"
-                - "validation_scripts/**"
-                - "scripts/lean_cards.mjs"
-                - ".github/workflows/lean-cards.yml"
-                - ".github/workflows/workflow-contract-validation.yml"
-            push:
-              branches:
-                - agent/workflow-contract-related-source-audit
-              paths:
-                - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-                - "docs/SOURCE_AUDIT_CONTRACT.md"
-                - "docs/llm_prompts/v1/**"
-                - "validation_data/source_owner_registry.json"
-                - "validation_scripts/**"
-                - "scripts/lean_cards.mjs"
-                - ".github/workflows/lean-cards.yml"
-                - ".github/workflows/workflow-contract-validation.yml"
-
-          permissions:
-            contents: read
-
-          jobs:
-            validate:
-              runs-on: ubuntu-latest
-              steps:
-                - name: Checkout
-                  uses: actions/checkout@v4
-
-                - name: Set up Python
-                  uses: actions/setup-python@v5
-                  with:
-                    python-version: "3.12"
-
-                - name: Compile validators
-                  run: python -m compileall -q validation_scripts
-
-                - name: Run workflow-contract and exporter regression tests
-                  run: python -m unittest discover -s validation_scripts/tests -v
-
-                - name: Verify prompt overlays
-                  run: python validation_scripts/apply_prompt_contract_overlays.py --check
-          EOF
-
-      - name: Commit verified changes
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git diff --cached --quiet && exit 0
-          git commit -m 'docs: unify review subtypes and scope route metadata'
-          git push origin HEAD:agent/structural-news-value-v3

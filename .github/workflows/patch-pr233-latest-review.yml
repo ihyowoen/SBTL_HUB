@@ -7,6 +7,7 @@ on:
       - agent/structural-news-value-v3
     paths:
       - scripts/patch_pr233_review_latest.mjs
+      - .github/workflows/patch-pr233-latest-review.yml
 
 permissions:
   contents: write

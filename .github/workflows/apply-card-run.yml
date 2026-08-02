@@ -64,9 +64,15 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
           DISPATCH_RUN_PATH: ${{ inputs.run_path }}
           BASE_REF: ${{ github.event.pull_request.base.ref || github.event.repository.default_branch }}
+          HEAD_REPO_FULL_NAME: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
           git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
+          is_fork=false
+          if [[ "$EVENT_NAME" == "pull_request" && "$HEAD_REPO_FULL_NAME" != "$REPOSITORY" ]]; then
+            is_fork=true
+          fi
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             run_path="$DISPATCH_RUN_PATH"
             test -n "$run_path" && test -f "$run_path"
@@ -80,6 +86,7 @@ jobs:
                 exit 1
               fi
               echo "has_run=false" >> "$GITHUB_OUTPUT"
+              echo "is_fork=$is_fork" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             if [[ ${#runs[@]} -ne 1 ]]; then
@@ -90,11 +97,12 @@ jobs:
             run_path="${runs[0]}"
           fi
           echo "has_run=true" >> "$GITHUB_OUTPUT"
+          echo "is_fork=$is_fork" >> "$GITHUB_OUTPUT"
           echo "path=$run_path" >> "$GITHUB_OUTPUT"
           echo "report_path=$(dirname "$run_path")/apply-report.json" >> "$GITHUB_OUTPUT"
           echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
 
-      - name: Require explicit passing stage-artifact statuses
+      - name: Require explicit passing and run-bound governance artifacts
         if: steps.run.outputs.has_run == 'true'
         run: >-
           node scripts/validate_card_run_stage_artifacts.mjs
@@ -116,8 +124,11 @@ jobs:
           git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
           [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
 
-      - name: Apply declared operations
-        if: steps.run.outputs.has_run == 'true'
+      - name: Apply declared operations on writable branches
+        if: >-
+          steps.run.outputs.has_run == 'true' &&
+          (github.event_name != 'pull_request' ||
+           github.event.pull_request.head.repo.full_name == github.repository)
         run: >-
           node scripts/apply_card_run.mjs
           --run "${{ steps.run.outputs.path }}"
@@ -129,7 +140,7 @@ jobs:
           --base-main-sha "${{ steps.run.outputs.base_sha }}"
           --apply
 
-      - name: Validate canonical full and exact lean projection
+      - name: Validate submitted or generated canonical outputs
         if: steps.run.outputs.has_run == 'true'
         run: |
           set -euo pipefail
@@ -153,14 +164,26 @@ jobs:
         shell: bash
         env:
           REPORT_PATH: ${{ steps.run.outputs.report_path }}
+          IS_FORK: ${{ steps.run.outputs.is_fork }}
         run: |
           set -euo pipefail
           mapfile -t changed < <(git diff --name-only)
           for path in "${changed[@]}"; do
-            case "$path" in
-              data/cards.full.json|public/data/cards.json|"$REPORT_PATH") ;;
-              *) echo "FAIL: apply engine changed undeclared path $path" >&2; exit 1 ;;
-            esac
+            if [[ "$IS_FORK" == "true" ]]; then
+              case "$path" in
+                "$REPORT_PATH") ;;
+                data/cards.full.json|public/data/cards.json)
+                  echo "FAIL: fork PR must commit byte-exact generated full/lean outputs; runner changed $path" >&2
+                  exit 1
+                  ;;
+                *) echo "FAIL: verification changed undeclared path $path" >&2; exit 1 ;;
+              esac
+            else
+              case "$path" in
+                data/cards.full.json|public/data/cards.json|"$REPORT_PATH") ;;
+                *) echo "FAIL: apply engine changed undeclared path $path" >&2; exit 1 ;;
+              esac
+            fi
           done
 
       - name: Commit generated outputs

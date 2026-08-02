@@ -19,85 +19,37 @@ This code PR does not modify `data/cards.full.json` or `public/data/cards.json`.
 ## Enforced invariants
 
 - `data/cards.full.json` is the only canonical full inventory.
-- `base_main_commit_sha`, the Git blob at `<base commit>:data/cards.full.json`, and `expected_before` must all match.
-- The expected result is rebuilt from bytes read with `git show <declared main>:data/cards.full.json`; a branch-modified full can never become the baseline.
-- The working full must be either the declared baseline, the exact expected result, or a semantically equal result needing format normalization. Any other branch edit blocks with `BLOCKED_UNDECLARED_CARD_DIFF`.
-- Ordinary operations are limited to `insert`, `update`, and `related_add`; card deletion and `related_remove` are rejected.
-- Inserted cards may not carry relationship edges. All new relations must pass through `related_add`.
-- Every `related_add` must include the app-visible `/related/-` edge, the `/related_ids/-` mirror, the `/related_lineage/related_ids/-` edge, and matching lineage metadata for relation type, reason, event-stage relationship, and direction.
+- The declared main commit, its canonical full blob, and `expected_before` must all match.
+- Ordinary operations are limited to `insert`, `update`, and `related_add`; deletion and `related_remove` are rejected.
+- Inserted cards may not carry relationship edges. All new relations pass through `related_add`.
+- Canonical cards use the app-visible `related` array and `related_lineage`; the current 1,343-card baseline does not use a top-level `related_ids` mirror.
+- Every `related_add` must include `/related/-`, `/related_lineage/related_ids/-`, and matching lineage relation type, reason, event-stage relationship, and direction.
+- A top-level `/related_ids/-` patch is blocked because it cannot be safely appended to the current canonical shape.
 - Directional relations require the complete source-side patch set. Reciprocal relations require the same complete patch set on both sides.
-- A lone `related_ids` patch, a lone `related` patch, missing lineage metadata, duplicate card/path patches, and undeclared-side patches are blocked before apply.
-- Every relation patch must point to the operation’s declared opposite endpoint. A single operation cannot smuggle a third relation target.
-- Existing `related` and `related_ids` edges are preserved; legacy dangling edges remain frozen and no new dangling edge may appear.
-- Updates may change only declared JSON Pointer paths and may not edit relation roots.
-- Counts reconcile exactly and the result remains stable latest-first.
-- Stage 0.0D, Stage 0.0C, and Stage 0.7C references must resolve to passing JSON artifacts bound to the declared run and baseline.
-- Stage 0.7C must match the current `run_id`, base main SHA, full blob SHA, document-universe reference, coverage-discovery reference, and a stable SHA-256 digest of the exact declared operations.
-- Audit and per-operation stage artifact paths must exist and be nonempty.
-- Every present stage-status marker among `status`, `artifact_status`, `validation_status`, `state`, and `result` must be in the explicit passing allowlist.
-- A leading `status: PASS` cannot hide `validation_status: FAIL`, `result: HOLD`, or any other nonpassing marker.
-- `HOLD`, `SKIPPED`, missing status, and every unrecognized status are rejected before the apply engine can emit merge-readiness output.
-- `output_updated` must be a complete RFC 3339 date-time with timezone; bare years, date-only values, locale dates, impossible calendar dates, and invalid offsets are rejected.
-- Evidence references must resolve to an absolute HTTP(S) URL or a real repository file.
-- The canonical full preserves the baseline BOM, indentation, CRLF/LF convention, and trailing-newline convention. A semantically equal minified working copy is normalized before merge.
-- `github_merge_ready=true` is written only by verify mode after repository card validators and exact full-to-lean projection validation pass.
-- Pull requests that edit `data/cards.full.json` or `public/data/cards.json` must contain exactly one governed `runs/**/card-run.json`.
-- Same-repository PRs may receive generated full, lean, and report commits from the workflow.
-- Fork PRs never receive a generated push. They must already contain the byte-exact generated full and lean outputs; the workflow performs verify-only validation and rejects runner-side full/lean changes.
-- `workflow_dispatch` is explicitly read-only. It verifies the selected ref and run but never applies or pushes generated outputs; submitted full/lean outputs must already be byte-exact.
+- Every present status marker among `status`, `artifact_status`, `validation_status`, `state`, and `result` must be allowlisted.
+- Status consistency applies to Stage 0.0D, Stage 0.0C, Stage 0.7C, and every operation-level stage artifact.
+- A leading `status: PASS` cannot hide `validation_status: FAIL`, `result: HOLD`, or another nonpassing marker.
+- Stage 0.7C is bound to the current run ID, baseline, universe refs, and exact operations digest.
+- `output_updated` must be a complete RFC 3339 date-time with timezone.
+- Existing canonical serialization, latest-first order, counts, relation preservation, and byte-exact lean projection remain enforced.
 
-## Stage 0.7C run binding
+## Pull-request security model
 
-The independent completeness artifact must contain the following exact bindings:
+The pull-request workflow is verification-only.
 
-```json
-{
-  "stage": "0.7C",
-  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
-  "run_id": "<card-run run_id>",
-  "base_main_commit_sha": "<card-run base_main_commit_sha>",
-  "base_full_blob_sha": "<card-run base_full_blob_sha>",
-  "document_universe_manifest_ref": "<card-run document_universe_manifest_ref>",
-  "coverage_discovery_ref": "<card-run coverage_discovery_ref>",
-  "reviewed_operations_sha256": "<stable canonical SHA-256 of card-run operations>"
-}
-```
-
-The operations digest recursively sorts object keys while preserving array order. Reusing a passing 0.7C artifact from another run, baseline, universe, or operation set is blocked.
-
-## Explicit passing-status allowlist
-
-Every present status field is validated. Current accepted states are:
-
-```text
-PASS
-PASSED
-PASS_WITH_DECLARED_RESIDUAL_RISK
-PASS_WITH_NOTES
-PASS_WITH_WARNINGS
-VERIFIED
-ACCEPTED_FACT_SAFE
-ACCEPTED_FACT_SAFE_AFTER_CONTROLLED_RESCUE
-ADDABLE_MERGE_SAFE
-EVIDENCE_COMPLETE
-SOURCE_CLAIM_COVERED
-EVIDENCE_COMPLETE_AND_SOURCE_CLAIM_COVERED
-CONTENT_ENRICHED
-LANGUAGE_TERMINOLOGY_POLISHED
-CONTENT_ENRICHED_AND_LANGUAGE_TERMINOLOGY_POLISHED
-PUBLISH_READY
-GITHUB_MERGE_READY
-```
-
-Unknown or contradictory nonpassing values do not pass by omission. Adding a new valid stage state requires an intentional code and regression-test change.
+- Workflow permissions are `contents: read` only.
+- Both checkouts use `persist-credentials: false`.
+- PR-supplied engine, validator, test, and workflow code never runs with write-capable repository credentials.
+- Same-repository PRs, fork PRs, and `workflow_dispatch` all require submitted full and lean outputs to already be byte-exact.
+- The workflow does not apply operations, commit generated files, push branches, or dispatch another workflow.
+- Governed outputs must be generated before submission using a trusted local or separately controlled execution path.
 
 ## Related lifecycle contract
 
-Each required side of a declared relation must carry exactly one patch for every path below:
+Each required side of a declared relation carries exactly one patch for:
 
 ```text
 /related/-
-/related_ids/-
 /related_lineage/related_ids/-
 /related_lineage/relation_type
 /related_lineage/reason
@@ -105,27 +57,28 @@ Each required side of a declared relation must carry exactly one patch for every
 /related_lineage/direction
 ```
 
-The values must match the declared source, target, relation type, lineage reason, event-stage relationship, and direction. This closes the gap where the app-visible edge, legacy mirror, or lineage metadata could diverge.
+The following path is currently unsupported and blocked:
+
+```text
+/related_ids/-
+```
 
 ## Regression result
 
-Actions `apply-card-run` run #31 on head `041ff0af3b77db6dced0f5875cf3dd5af72fb9d5`:
+Actions `apply-card-run` run #35 on head `155c511c3d13ca81a26b71285ab66b42d35c4b19`:
 
 ```text
 PASS: validate-engine
-PASS: apply
-PASS: engine syntax
-PASS: engine regression suite
-PASS: schema JSON parse
-PASS: stage-status exact-allowlist self-test
-PASS: conflicting status marker blocker
-PASS: related lifecycle validator self-test
-PASS: related_ids-only blocker
+PASS: verify-submitted-run
+PASS: relation lifecycle self-test
+PASS: unsupported top-level related_ids blocker
+PASS: missing published edge blocker
 PASS: missing lineage blocker
-PASS: missing related_ids mirror blocker
-PASS: non-RFC3339 output_updated blocker
-PASS: stale Stage 0.7C run binding blocker
-PASS: stale Stage 0.7C operation digest blocker
+PASS: operation-level conflicting status blocker
+PASS: run-level governance conflicting status blocker
+PASS: RFC3339 output_updated blocker
+PASS: Stage 0.7C run and operations binding blockers
+PASS: read-only checkout and workflow execution
 ```
 
 Existing engine blocker coverage continues to include moved main, stale full binding, forged blob, forbidden delete, relation smuggling, missing target, count mismatch, prelinked insert, missing governance references, invalid evidence references, and undeclared working-full modification.
@@ -136,21 +89,15 @@ A canonical-data PR must contain exactly one `runs/**/card-run.json`. A code-onl
 
 ```text
 trigger on run, engine, schema, workflow, canonical full, or lean projection changes
-→ fetch the base branch
-→ detect canonical-data changes and require exactly one governed run
-→ checkout the PR head, including fork PR heads
-→ validate all present status markers
-→ validate complete related lifecycle patches
+→ execute PR-controlled code with contents:read only and no persisted credentials
+→ fetch and lock the base branch and canonical full blob
+→ validate all run-level and operation-level status markers
+→ validate complete canonical related + related_lineage patches
 → require RFC3339 output_updated and run-bound Stage 0.7C
-→ lock declared main and full blob to the base commit
-→ same-repository PR: apply declared operations and generate full/lean/report
-→ fork PR: skip apply and require submitted full/lean to already be byte-exact
-→ workflow_dispatch: skip apply and perform the same read-only verification
+→ require submitted full/lean outputs to already equal the declared expected result
 → run full/public validators and byte-exact lean check
-→ verify expected full and set github_merge_ready=true
-→ same-repository PR: allow only full, lean, and apply-report working-tree changes
-→ fork/dispatch: allow only the ephemeral apply-report change; any full/lean change fails
-→ commit generated outputs only for same-repository PR branches
+→ permit only the ephemeral apply-report working-tree change
+→ never commit or push from the PR workflow
 ```
 
 The first governed data PR remains a separate follow-up after this engine PR is independently reviewed and merged.

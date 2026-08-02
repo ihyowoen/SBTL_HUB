@@ -17,13 +17,15 @@ Use GitHub main as the workflow source of truth.
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
@@ -149,17 +151,17 @@ Do not include:
 If any non-content_enriched_and_language_polished item is mixed into the candidate input, exclude it and report it as mixed_input_excluded.
 
 
-Upstream lineage integrity rule — Stage A V2 selector safety:
+Upstream lineage integrity rule — Stage A V3 selector safety:
 
-This step must verify that every upstream workflow output belongs to the same current run lineage and that the Stage A V2 selector gates were valid.
+This step must verify that every upstream workflow output belongs to the same current run lineage and that the Stage A V3 selector gates were valid.
 
 Required lineage fields to confirm, directly or through carried-forward metadata:
 
 - stage_a_validity_status: PASS
 - artifact_consistency_gate.status: PASS
-- Stage A selector marker is present and accepted. Accepted markers include `enhanced_selector_precision_version: 20260505_safe_execution_anchor` or later/equivalent, or legacy `selector_policy_version: stage_a_high_precision_execution_anchor_v2` or later.
-- strict_pass_gate or strict_gate_check exists for every candidate that originated from strict_passed_spec[]
-- execution_anchor_type / execution_anchor_strength is present for every format-risk candidate
+- Stage A selector marker is present and accepted. The current marker is `structural_selector_policy_version: STRUCTURAL_NEWS_VALUE_SELECTION_V3`; explicitly authorized legacy markers may be accepted only for a declared one-off recovery run.
+- `strict_pass_gate` or `strict_gate_check` exists for every candidate that originated from `strict_passed_spec[]`
+- every format-risk candidate carries either source-backed `execution_anchor_type` / `execution_anchor_strength`, or a validated V3 Structural Value Override package with a valid non-execution anchor class, item-specific Stage B evidence targets, and a specific explanation of why execution is not required
 - watchlist_audit, if a user watchlist was provided, accounts for every watchlist item without auto-promotion
 
 If these fields are missing, inconsistent, stale, or indicate failure, do not silently continue. Stop this step and report:
@@ -171,18 +173,19 @@ If these fields are missing, inconsistent, stale, or indicate failure, do not si
 Do not repair Stage A/B/C selection defects in this step. Return the run to the earliest defective stage instead.
 
 
-Final QC execution-anchor publish gate:
+Final QC anchor publish gate:
 
-A card may receive publish_ready=true only if final QC confirms that any Stage A format-risk / execution-anchor risk was resolved with source-backed evidence.
+A card may receive `publish_ready=true` only if final QC confirms that every Stage A format-risk was resolved through one source-backed path: a concrete execution anchor or a valid V3 non-execution Structural Value Override.
 
-Hard fail for publish_ready:
+Hard fail for `publish_ready`:
 
-- missing strict_pass_gate / strict_gate_check metadata
+- missing `strict_pass_gate` / `strict_gate_check` metadata
 - Stage A selector validity not PASS
 - artifact consistency not PASS
-- format-risk card has no execution_anchor_type or no source-backed execution anchor
-- execution anchor was inflated in title, sub, gate, fact, or implication
-- card entered the pipeline from review_pool, support_source_only, rejected, duplicate_hold, existing_reinforcement, or any non-addable state without an explicit authorized reopen
+- a format-risk card has neither a source-backed execution anchor nor a validated V3 non-execution anchor package
+- `structural_value_override_applied: true` but the valid non-execution anchor class, concrete item-specific evidence targets, specific `why_execution_event_not_required`, before-after chain, or changed judgment is missing or unsupported
+- execution stage, non-execution anchor class, Structural Value Override, title, sub, gate, fact, or implication was inflated beyond fetched evidence
+- the card entered the pipeline from review_pool, support_source_only, rejected, duplicate_hold, existing_reinforcement, or any non-addable state without an explicit authorized reopen
 
 If any hard fail is present, route to final_qc_hold or needs_return_to_evidence_qc. Do not set publish_ready=true.
 
@@ -191,13 +194,15 @@ Governance hierarchy:
 When rules conflict, apply this hierarchy:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 FACT_DISCIPLINE.md always wins for facts, numbers, quotes, and evidence discipline.
 

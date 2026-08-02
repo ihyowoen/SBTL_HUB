@@ -264,23 +264,32 @@ A later article with the same facts is reinforcement. A changed stage or judgmen
 
 ## 8. Review-pool partition
 
-Use:
+Use only the supported top-level Stage A partitions:
 
 - `candidate_review_pool[]`
-- `structural_signal_review_pool[]`
-- `earnings_deep_dive_pool[]`
 - `watchlist_context_pool[]`
-- `existing_reinforcement[]`
-- `support_source_only[]`
-- `rejected[]`
+- `reject_or_support_only_pool[]`
 
-Each non-strict item must include:
+`existing_reinforcement[]`, `support_source_only[]`, and `rejected[]` remain separate non-review outcomes.
+
+`structural_signal_review_pool` and `earnings_deep_dive_pool` are not standalone top-level partition arrays. They are `review_pool_subtype` values inside `candidate_review_pool[]` so the existing promotion workflow remains authoritative.
+
+For every non-strict review item include:
 
 - `review_pool_partition`
+- `review_pool_subtype`
 - `review_pool_partition_reason`
 - `promotion_precondition`
 - `bounded_review_question`
 - `recommended_next_action`
+
+For `review_pool_partition: candidate_review_pool`, set exactly one subtype:
+
+- `general_candidate`
+- `structural_signal_review_pool`
+- `earnings_deep_dive_pool`
+
+High-value unresolved structural items use `structural_signal_review_pool`; listed-company results awaiting full call/Q&A or prior-period comparison use `earnings_deep_dive_pool`. Both remain promotable only through the existing candidate-review authorization path.
 
 High-value unresolved structural items require:
 
@@ -498,6 +507,7 @@ Add:
 - `portfolio_coverage_contribution`
 - `earnings_deep_dive_required`
 - `qna_status`
+- `review_pool_subtype`
 - `review_pool_repromotion_precondition`
 
 Retain all V2 score, before–after, denominator, technology, legal-policy, urgency, rescue, and anti-bias columns.
@@ -534,6 +544,8 @@ Block if:
 - a novelty-capped item exceeds its total-score or classification cap;
 - a material follow-up is treated as duplicate without incremental analysis;
 - a mandatory structural domain is zero without recheck and explanation;
+- `structural_signal_review_pool` or `earnings_deep_dive_pool` is emitted as a standalone top-level partition instead of a `candidate_review_pool` subtype;
+- a candidate-review item lacks a valid `review_pool_subtype`;
 - deletion/support-only is finalised before the applicable search-first process.
 
 Required summary validators:

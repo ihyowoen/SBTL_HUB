@@ -541,7 +541,7 @@ L. Identify strict_passed_spec candidates for Stage B.
    - acceptable duplicate/follow-up relation
    - source tier and evidence availability risk not fatal
    - full-schema viability
-   - concrete execution anchor when format-risk tags are present
+   - for format-risk items, either a concrete execution anchor or a complete V3 Structural Value Override package with a valid non-execution anchor class, item-specific Stage B evidence targets, and a specific explanation of why execution is not required
 
    Do not promote a product/demo/PoC/component/interview/roundup/commentary/speech/personnel/partnership item to strict_passed_spec merely because it is interesting or thematically aligned.
 
@@ -567,14 +567,18 @@ The default Stage A output model is:
 `review_pool[]` may remain only as a backward-compatible aggregate container.
 If `review_pool[]` is emitted, every item inside it must duplicate the exact `review_pool_partition` used in the first-class partition arrays.
 
+`structural_signal_review_pool` and `earnings_deep_dive_pool` are not additional top-level partition arrays. They are `review_pool_subtype` values within `candidate_review_pool[]`, preserving the existing promotion workflow and partition enum.
+
 Partition definitions:
 
 1. `candidate_review_pool[]`
    - Plausibly cardable after bounded clarification.
    - Must have direct SBTL_HUB lane fit.
-   - Must have a plausible concrete execution anchor or a clearly checkable path to one.
+   - Must have a plausible valid anchor class or a clearly checkable path to one.
+   - A non-execution candidate must carry the V3 Structural Value Override fields, including item-specific Stage B evidence targets and why a conventional execution event is unnecessary.
    - Must have a specific unresolved issue that can be resolved by a later review/promotion run.
-   - Must include `promotion_precondition` and `bounded_review_question`.
+   - Must include `review_pool_subtype`, `promotion_precondition`, and `bounded_review_question`.
+   - Allowed subtypes are `general_candidate`, `structural_signal_review_pool`, and `earnings_deep_dive_pool`.
 
 2. `watchlist_context_pool[]`
    - Useful as industry context, trend context, source background, or future monitoring.
@@ -936,9 +940,14 @@ The Stage A decisions CSV must include at minimum:
 - `format_risk_tags`
 - `execution_anchor_type`
 - `execution_anchor_strength`
+- `structural_value_override_applied`
+- `anchor_classes`
+- `evidence_needed_for_stage_b`
+- `why_execution_event_not_required`
 - `strict_pass_gate_status`
 - `strict_pass_gate_reason`
 - `review_pool_partition`
+- `review_pool_subtype`
 - `review_pool_partition_reason`
 - `promotion_precondition`
 - `bounded_review_question`
@@ -951,7 +960,7 @@ For `stage_a_bucket = strict_passed_spec`:
 - `baseline_relation` must not be `duplicate_of_main`.
 - `duplicate_risk` must not be `fatal`.
 - `staleness_decision` must not be `stale`.
-- If `format_risk_tags` is not empty/none, `execution_anchor_strength` must be `strong` or `moderate`.
+- If `format_risk_tags` is not empty/none, either `execution_anchor_strength` must be `strong` or `moderate`, or `structural_value_override_applied` must be true with at least one valid non-execution `anchor_classes` value, non-empty item-specific `evidence_needed_for_stage_b`, and non-empty specific `why_execution_event_not_required`.
 
 For `stage_a_bucket = review_pool`:
 - `review_pool_partition` must be exactly one of:
@@ -960,6 +969,8 @@ For `stage_a_bucket = review_pool`:
   - `reject_or_support_only_pool`
 - `review_pool_partition_reason` must not be empty.
 - `promotion_precondition` must not be empty for `candidate_review_pool`.
+- For `candidate_review_pool`, `review_pool_subtype` must be exactly one of `general_candidate`, `structural_signal_review_pool`, or `earnings_deep_dive_pool`.
+- `structural_signal_review_pool` and `earnings_deep_dive_pool` must never appear as top-level `review_pool_partition` values.
 - `recommended_next_action` must not recommend Stage B for `watchlist_context_pool` or `reject_or_support_only_pool`.
 
 CSV schema gate:

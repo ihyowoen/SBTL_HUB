@@ -22,6 +22,14 @@ DISALLOWED_PUBLISH_RELATIONS = {
     "existing_card_reinforcement",
     "uncertain_needs_review",
 }
+FRESH_FOLLOW_UP_ANCHOR_CLASSES = {
+    "execution_event_anchor",
+    "policy_regulatory_anchor",
+    "data_financial_anchor",
+    "strategic_behavior_anchor",
+    "technology_commercialization_anchor",
+    "follow_up_probability_anchor",
+}
 
 
 def load_cards(path: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
@@ -105,8 +113,18 @@ def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_c
         errors.append("new_unrelated_event must have empty related[]")
     if relation_type in {"distinct_follow_up", "program_lineage"} and not related:
         errors.append(f"{relation_type} requires at least one related ID")
-    if relation_type == "distinct_follow_up" and not lineage.get("fresh_follow_up_anchor"):
-        errors.append("distinct_follow_up requires fresh_follow_up_anchor")
+    if relation_type == "distinct_follow_up":
+        if not lineage.get("fresh_follow_up_anchor"):
+            errors.append("distinct_follow_up requires fresh_follow_up_anchor")
+        anchor_class = lineage.get("fresh_follow_up_anchor_class")
+        if anchor_class not in FRESH_FOLLOW_UP_ANCHOR_CLASSES:
+            errors.append("distinct_follow_up requires valid fresh_follow_up_anchor_class")
+        incremental_fact = lineage.get("incremental_fact_vs_predecessor")
+        if not isinstance(incremental_fact, str) or not incremental_fact.strip():
+            errors.append("distinct_follow_up requires incremental_fact_vs_predecessor")
+        changed_judgment = lineage.get("changed_judgment_vs_predecessor")
+        if not isinstance(changed_judgment, str) or not changed_judgment.strip():
+            errors.append("distinct_follow_up requires changed_judgment_vs_predecessor")
 
     is_publishable = card.get("publish_ready") is True or card.get("state") in PUBLISH_STATES
     if relation_type in DISALLOWED_PUBLISH_RELATIONS and (require_contract or is_publishable):

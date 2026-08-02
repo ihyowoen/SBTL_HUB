@@ -2,11 +2,16 @@
 
 ## Scope
 
-This governance change upgrades the canonical structural-value and Stage A override files introduced by PR #176 and aligns the Related lifecycle contract:
+This rollout upgrades the canonical structural-value policy and aligns the executable selector, evidence, final-QC, and Related contracts:
 
 - `docs/STRUCTURAL_NEWS_VALUE_SELECTION.md`
+- `docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md`
 - `docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md`
+- `docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md`
+- `docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md`
 - `docs/RELATED_LIFECYCLE_CONTRACT.md`
+- `validation_scripts/related_lifecycle_check.py`
+- `validation_scripts/tests/test_workflow_contracts.py`
 
 It does not modify card data, the card-run engine, or any production ID.
 
@@ -45,7 +50,7 @@ V3 adds:
 4. full earnings-release → filing → IR → prepared remarks → call → analyst-Q&A → prior-period comparison workflow;
 5. conditional earnings defaults that prevent `qna_status: not_applicable` from bypassing deep-dive review;
 6. explicit material-follow-up probability review;
-7. structural and earnings-specific review pools;
+7. structural and earnings-specific review subtypes routed through the supported `candidate_review_pool`;
 8. canonical `portfolio_coverage_audit.json` plus zero-domain explanations;
 9. anti-regression validator outcome names;
 10. mandatory next-confirmation points.
@@ -99,21 +104,23 @@ Evidence, baseline, duplicate, direct-lineage, state-ladder, source-diversity, a
 - `portfolio_coverage_audit.json` is required in the canonical policy and Prompt 0.1S;
 - follow-up and incremental-information fields are present;
 - non-execution follow-ups have a defined Related evidence contract;
+- the production Related validator enforces the V2 anchor-class, incremental-fact, and changed-judgment fields;
+- Stage A review subtypes remain inside the supported candidate partition;
+- Stage B and Final QC accept only fully evidenced V3 non-execution anchor packages;
 - mandatory structural domains and zero-coverage treatment are present;
 - Stage A no-fetch boundary remains present;
 - card data is unchanged.
 
-## Declared implementation boundary
+## Executable alignment completed in this PR
 
-This PR establishes governance authority, the Stage A override, and the Related lifecycle semantic contract.
+This PR aligns the central V3 feature with the active execution path:
 
-A follow-up implementation PR must align the downstream executable contracts, including where applicable:
+- base Stage A accepts either a concrete execution anchor or a complete V3 non-execution override for format-risk strict items;
+- structural and earnings review categories are subtypes of the supported `candidate_review_pool`, not unsupported top-level partitions;
+- the Stage A CSV gate carries and validates the subtype and override fields;
+- Stage B verifies the exact non-execution anchor claims and evidence targets instead of demanding an execution event;
+- Final QC accepts a source-backed V3 non-execution path and hard-fails incomplete or inflated overrides;
+- the Related production validator enforces fresh anchor class, incremental fact, and changed judgment for every `distinct_follow_up`;
+- regression fixtures cover the new Related blockers.
 
-- base Stage A prompt required-doc list and strict-gate wording;
-- Stage B/C and post-acceptance prompt field preservation;
-- Stage A JSON/CSV schemas;
-- Related JSON/schema and validators for the new anchor-class fields;
-- structural-value, earnings-Q&A, follow-up, coverage, and content-depth validators;
-- artifact contracts and regression fixtures.
-
-The follow-up implementation must not weaken Fact Discipline or the card-run safety engine.
+Remaining future implementation may add dedicated structural-value, earnings-Q&A, portfolio-coverage, and content-depth validators, but it must not reintroduce an execution-only gate or unsupported review partition. Fact Discipline and the card-run safety engine remain unchanged.

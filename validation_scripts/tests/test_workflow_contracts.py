@@ -187,7 +187,10 @@ class RelatedContractTest(unittest.TestCase):
                 "relation_type": "distinct_follow_up",
                 "related_ids": [self.parent["id"]],
                 "reason": "contract followed by commissioning",
+                "fresh_follow_up_anchor_class": "execution_event_anchor",
                 "fresh_follow_up_anchor": "commissioning",
+                "incremental_fact_vs_predecessor": "Commissioning is now source-confirmed.",
+                "changed_judgment_vs_predecessor": "The project moved from contracted to operating-stage evidence.",
                 "related_candidate_spec_ids": [],
             },
         }
@@ -202,6 +205,34 @@ class RelatedContractTest(unittest.TestCase):
     def test_strict_contract_requires_review_flags(self):
         errors, _ = check_card(self.child, self.by_id, True)
         self.assertTrue(any("same_event_checked" in error for error in errors))
+
+    def test_distinct_follow_up_requires_valid_anchor_class(self):
+        self.child["related_lineage"]["same_event_checked"] = True
+        self.child["related_lineage"]["earliest_same_event_date_checked"] = True
+        self.child["related_lineage"].pop("fresh_follow_up_anchor_class")
+        errors, _ = check_card(self.child, self.by_id, True)
+        self.assertTrue(any("fresh_follow_up_anchor_class" in error for error in errors))
+
+    def test_distinct_follow_up_rejects_invalid_anchor_class(self):
+        self.child["related_lineage"]["same_event_checked"] = True
+        self.child["related_lineage"]["earliest_same_event_date_checked"] = True
+        self.child["related_lineage"]["fresh_follow_up_anchor_class"] = "generic_topic_anchor"
+        errors, _ = check_card(self.child, self.by_id, True)
+        self.assertTrue(any("fresh_follow_up_anchor_class" in error for error in errors))
+
+    def test_distinct_follow_up_requires_incremental_fact(self):
+        self.child["related_lineage"]["same_event_checked"] = True
+        self.child["related_lineage"]["earliest_same_event_date_checked"] = True
+        self.child["related_lineage"]["incremental_fact_vs_predecessor"] = ""
+        errors, _ = check_card(self.child, self.by_id, True)
+        self.assertTrue(any("incremental_fact_vs_predecessor" in error for error in errors))
+
+    def test_distinct_follow_up_requires_changed_judgment(self):
+        self.child["related_lineage"]["same_event_checked"] = True
+        self.child["related_lineage"]["earliest_same_event_date_checked"] = True
+        self.child["related_lineage"]["changed_judgment_vs_predecessor"] = ""
+        errors, _ = check_card(self.child, self.by_id, True)
+        self.assertTrue(any("changed_judgment_vs_predecessor" in error for error in errors))
 
     def test_duplicate_cannot_publish(self):
         self.child["related_lineage"]["relation_type"] = "same_event_duplicate"

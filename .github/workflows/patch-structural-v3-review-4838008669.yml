@@ -1,0 +1,40 @@
+name: patch-structural-v3-review-4838008669
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - scripts/patch_structural_v3_review_4838008669.py
+      - .github/workflows/patch-structural-v3-review-4838008669.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply intervening-stage V3 patch
+        run: python scripts/patch_structural_v3_review_4838008669.py
+      - name: Validate and commit
+        run: |
+          set -euo pipefail
+          python -m unittest validation_scripts.tests.test_workflow_contracts
+          find validation_scripts -type d -name __pycache__ -prune -exec rm -rf {} +
+          git add -A
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix: align intervening stages with V3 anchor paths"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}

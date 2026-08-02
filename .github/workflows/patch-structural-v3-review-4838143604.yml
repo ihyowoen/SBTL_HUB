@@ -24,7 +24,7 @@ jobs:
       - name: Validate and commit
         run: |
           python -m unittest validation_scripts.tests.test_workflow_contracts
-          python validation_scripts/apply_prompt_contract_overlays.py --verify
+          python validation_scripts/apply_prompt_contract_overlays.py --check
           git rm scripts/patch_structural_v3_review_4838143604.py
           git rm .github/workflows/patch-structural-v3-review-4838143604.yml
           git config user.name "github-actions[bot]"

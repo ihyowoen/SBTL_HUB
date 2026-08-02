@@ -1,0 +1,36 @@
+name: patch-structural-v3-review-4837475460
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - scripts/patch_structural_v3_review_4837475460.mjs
+      - .github/workflows/patch-structural-v3-review-4837475460.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Apply guarded document patch
+        run: node scripts/patch_structural_v3_review_4837475460.mjs
+      - name: Commit patched governance documents and remove temporary patch files
+        run: |
+          set -euo pipefail
+          git add -A
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix: enforce concrete structural override evidence paths"
+          git push origin HEAD:agent/structural-news-value-v3

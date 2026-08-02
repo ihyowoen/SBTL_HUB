@@ -598,7 +598,7 @@ When reviewing a run affected by Stage A selection quality, the retrospective mu
 2. Whether Stage A JSON, CSV, and Markdown were generated from the same result object.
 3. Whether `stage_a_validity_status` and `artifact_consistency_status` were PASS before Stage B started.
 4. Whether every strict_passed_spec had a complete all-pass `strict_gate_check`.
-5. Whether any product/demo/PoC/component/interview/commentary/personnel/consumer anecdote entered strict_passed_spec without a hard commercial/policy event.
+5. Whether any product/demo/PoC/component/interview/commentary/personnel/consumer anecdote entered `strict_passed_spec[]` without either a source-backed concrete execution anchor or a complete V3 non-execution Structural Value Override package.
 6. Whether stale-warm or unknown event_date items entered strict_passed_spec.
 7. Whether source-tier-3 or access-risk candidates entered strict_passed_spec without official/source-body alternatives.
 8. Whether baseline incremental-scope cases were correctly routed to existing_reinforcement or review_pool_follow_up_check.
@@ -1375,14 +1375,14 @@ Every Stage A report and JSON output must include:
 
 ### Negative filters
 
-The following patterns must not enter `strict_passed_spec[]` unless a concrete battery/grid/ESS/EV/materials execution anchor is present:
+The following patterns must not enter `strict_passed_spec[]` unless either a source-backed concrete battery/grid/ESS/EV/materials execution anchor or a complete V3 non-execution Structural Value Override package is present:
 
 - generic finance or insurance items without battery/grid/ESS/EV/material impact
 - general AI/data-center items without power, grid, battery, ESS, or energy-infrastructure execution
 - publicity/event participation without operational signal
 - broad corporate positioning without project, contract, capacity, policy, filing, or data release anchor
 - roundups where no single event can support a full-schema card
-- trend/explainer items without a fresh execution or data-release anchor
+- trend/explainer items without either a fresh execution/data-release anchor or a complete V3 non-execution Structural Value Override package
 
 Do not overcorrect by deleting all adjacent items. If a candidate has plausible relevance but lacks strict-pass certainty, route it to `candidate_review_pool[]` with:
 

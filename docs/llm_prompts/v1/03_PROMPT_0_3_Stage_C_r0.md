@@ -380,7 +380,7 @@ Valid execution anchors include signed contract, binding customer order, offtake
 A valid V3 non-execution path requires all of the following to remain source-supported and carried forward from Stage A/B:
 
 - `structural_value_override_applied: true`
-- one valid non-execution `anchor_class`
+- `anchor_classes[]` containing at least one valid non-execution anchor class permitted by the canonical V3 policy
 - concrete item-specific `evidence_needed_for_stage_b[]` targets verified by Stage B
 - specific `why_execution_event_not_required`
 - explicit before-after chain

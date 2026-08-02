@@ -180,3 +180,14 @@ The review findings are addressed as follows:
 - Stage C certifies a passing route only for `accepted_fact_safe`; format-risk `revise_required` items may honestly carry an unresolved/failed route object until a revise pass resolves it.
 - `fresh_follow_up_anchor_class` is type-checked before membership validation, so malformed arrays or objects return findings instead of aborting the validator.
 - Regression tests cover merge-prep route compatibility, revise-required unresolved status, and malformed anchor-class types.
+
+## REVIEW_4838187744_ADDRESSING
+
+The review's four findings are addressed as one end-to-end contract correction:
+
+- Final QC now emits item-level anchor-path metadata required by Prompt 0.8.
+- Stage B/C revise prompts consume, preserve, resolve, validate, and carry `anchor_path_validation` into Baseline Revalidation.
+- Stage C validates the canonical `anchor_classes[]` array rather than an undefined singular key.
+- Prompt 1.1 retrospective recognizes a complete source-backed V3 non-execution override as the alternative to an execution anchor.
+
+Regression coverage is included in `validation_scripts/tests/test_workflow_contracts.py`.

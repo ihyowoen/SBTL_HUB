@@ -444,6 +444,46 @@ class StructuralV3MergePrepAndRevisionContractTest(unittest.TestCase):
         self.assertNotIn("For every accepted_fact_safe or revise_required format-risk item", text)
 
 
+class StructuralV3Review4838187744RegressionTest(unittest.TestCase):
+    @staticmethod
+    def read_prompt(path: str) -> str:
+        return (ROOT.parent / path).read_text(encoding="utf-8")
+
+    def test_final_qc_publish_ready_emits_route_metadata(self):
+        text = self.read_prompt("docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md")
+        self.assertIn("For every format-risk `publish_ready[]` item", text)
+        for field in (
+            "selected_anchor_path: execution|v3_non_execution",
+            "anchor_path_qc_passed: true",
+            "execution_anchor_qc_status: pass|not_applicable",
+            "structural_value_override_qc_status: pass|not_applicable",
+            "non_applicable_anchor_path_reason",
+        ):
+            self.assertIn(field, text)
+
+    def test_revise_loop_preserves_and_validates_anchor_path(self):
+        stage_b_revise = self.read_prompt("docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md")
+        stage_c_revise = self.read_prompt("docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md")
+        for text in (stage_b_revise, stage_c_revise):
+            self.assertIn("All 10 documents above are mandatory.", text)
+            self.assertNotIn("All 8 documents above are mandatory.", text)
+            self.assertIn("anchor_path_validation", text)
+        self.assertIn("anchor_path_resolution_action: preserved|resolved_from_unresolved", stage_b_revise)
+        self.assertIn("accepted_with_v3_non_execution_path_count", stage_c_revise)
+
+    def test_stage_c_uses_canonical_anchor_classes_array(self):
+        text = self.read_prompt("docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md")
+        self.assertIn("`anchor_classes[]` containing at least one valid non-execution anchor class", text)
+        self.assertNotIn("one valid non-execution `anchor_class`", text)
+
+    def test_retrospective_accepts_complete_v3_override(self):
+        text = self.read_prompt("docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md")
+        self.assertIn("without either a source-backed concrete execution anchor or a complete V3 non-execution Structural Value Override package", text)
+        self.assertIn("unless either a source-backed concrete battery/grid/ESS/EV/materials execution anchor or a complete V3 non-execution Structural Value Override package is present", text)
+        self.assertNotIn("without a hard commercial/policy event", text)
+        self.assertNotIn("unless a concrete battery/grid/ESS/EV/materials execution anchor is present", text)
+
+
 class RelatedMalformedAnchorClassTest(unittest.TestCase):
     def test_unhashable_anchor_class_returns_validation_error(self):
         parent = {"id": "PARENT", "date": "2026-01-01", "related": []}

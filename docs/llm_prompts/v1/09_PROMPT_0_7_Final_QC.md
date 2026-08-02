@@ -637,6 +637,17 @@ Each publish_ready item must include:
 - urls
 - related
 - fact_sources
+
+For every format-risk `publish_ready[]` item, the following route fields are mandatory and must be copied from the same-run Content Polish / Evidence QC lineage without alteration:
+
+- `selected_anchor_path: execution|v3_non_execution`
+- `anchor_path_qc_passed: true`
+- `execution_anchor_qc_status: pass|not_applicable`
+- `structural_value_override_qc_status: pass|not_applicable`
+- `non_applicable_anchor_path_reason`
+
+Exactly one route status must be `pass`; the other must be `not_applicable` with a specific reason. Missing, contradictory, dual-pass, or dual-not-applicable route metadata requires `final_qc_hold` or return to the earliest defective stage and must not enter `publish_ready[]`.
+
 - evidence_complete: true
 - source_claim_covered: true
 - content_enriched: true

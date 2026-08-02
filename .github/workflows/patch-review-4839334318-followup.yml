@@ -1,6 +1,12 @@
 name: Patch latest PR 233 review
 
 on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - ".github/workflows/patch-review-4839334318-followup.yml"
+      - "scripts/patch_review_4839334318_followup.mjs"
   workflow_dispatch:
 
 permissions:

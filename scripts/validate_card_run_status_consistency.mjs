@@ -42,6 +42,11 @@ const PASSING_STAGE_STATUSES = new Set([
   "GITHUB_MERGE_READY",
 ]);
 const STATUS_FIELDS = ["status", "artifact_status", "validation_status", "state", "result"];
+const RUN_LEVEL_ARTIFACTS = [
+  ["document_universe_manifest_ref", "Stage 0.0D manifest"],
+  ["coverage_discovery_ref", "Stage 0.0C artifact"],
+  ["independent_completeness_ref", "Stage 0.7C artifact"],
+];
 const normalizeStatus = (value) => String(value).trim().toUpperCase();
 
 const readJson = (path, label) => {
@@ -108,6 +113,16 @@ const validateAllPresentStatusMarkers = (payload, label, reference) => {
   return markers;
 };
 
+const validateReference = (root, reference, label, kind) => {
+  const absolute = resolveRepoJson(root, reference, label);
+  const payload = readJson(absolute, label);
+  return {
+    kind,
+    reference,
+    markers: validateAllPresentStatusMarkers(payload, label, reference),
+  };
+};
+
 const validateRun = (run, root = ".") => {
   if (!run || typeof run !== "object" || Array.isArray(run)) {
     fail("INVALID_RUN", "card-run 최상위 객체 필요");
@@ -116,6 +131,11 @@ const validateRun = (run, root = ".") => {
     fail("INVALID_RUN", "operations 객체 필요");
   }
   const validated = [];
+
+  for (const [field, label] of RUN_LEVEL_ARTIFACTS) {
+    validated.push(validateReference(root, run[field], label, "run_level_governance"));
+  }
+
   for (const kind of ["insert", "update", "related_add"]) {
     const operations = run.operations[kind];
     if (!Array.isArray(operations)) fail("INVALID_RUN", `operations.${kind} 배열 필요`);
@@ -125,12 +145,7 @@ const validateRun = (run, root = ".") => {
       }
       operation.stage_artifacts.forEach((reference, referenceIndex) => {
         const label = `${kind}[${operationIndex}].stage_artifacts[${referenceIndex}]`;
-        const absolute = resolveRepoJson(root, reference, label);
-        const payload = readJson(absolute, label);
-        validated.push({
-          reference,
-          markers: validateAllPresentStatusMarkers(payload, label, reference),
-        });
+        validated.push(validateReference(root, reference, label, "operation_stage"));
       });
     });
   }
@@ -149,25 +164,37 @@ const runSelfTest = () => {
     };
     const pass = write("pass.json", { status: "PASS", validation_status: "VERIFIED" });
     const conflict = write("conflict.json", { status: "PASS", validation_status: "FAIL", result: "HOLD" });
-    const makeRun = (reference) => ({
+    const makeRun = (operationReference = pass, governanceReference = pass) => ({
+      document_universe_manifest_ref: governanceReference,
+      coverage_discovery_ref: pass,
+      independent_completeness_ref: pass,
       operations: {
-        insert: [{ stage_artifacts: [reference] }],
+        insert: [{ stage_artifacts: [operationReference] }],
         update: [],
         related_add: [],
       },
     });
-    validateRun(makeRun(pass), root);
-    let caught = null;
-    try {
-      validateRun(makeRun(conflict), root);
-    } catch (error) {
-      caught = error;
-    }
-    if (!(caught instanceof ValidationError)
-      || caught.code !== "BLOCKED_STAGE_ARTIFACT_CONFLICTING_STATUS") {
-      throw new Error(`expected conflicting-status blocker, got ${caught?.code || "PASS"}`);
-    }
-    console.log("PASS: validate_card_run_status_consistency — every present status marker must be allowlisted");
+    validateRun(makeRun(), root);
+
+    const expectConflict = (run, label) => {
+      let caught = null;
+      try {
+        validateRun(run, root);
+      } catch (error) {
+        caught = error;
+      }
+      if (!(caught instanceof ValidationError)
+        || caught.code !== "BLOCKED_STAGE_ARTIFACT_CONFLICTING_STATUS") {
+        throw new Error(`${label}: expected conflicting-status blocker, got ${caught?.code || "PASS"}`);
+      }
+    };
+
+    expectConflict(makeRun(conflict, pass), "operation status conflict");
+    expectConflict(makeRun(pass, conflict), "run-level governance status conflict");
+
+    console.log(
+      "PASS: validate_card_run_status_consistency — every present status marker in run-level and operation artifacts must be allowlisted",
+    );
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -201,10 +228,10 @@ try {
   console.log(JSON.stringify({
     status: "PASS",
     run_path: options.run,
-    validated_stage_artifact_count: validated.length,
+    validated_artifact_count: validated.length,
     artifacts: validated,
   }, null, 2));
-  console.log(`PASS: ${validated.length} stage artifacts have no hidden nonpassing status marker`);
+  console.log(`PASS: ${validated.length} run-level and operation artifacts have no hidden nonpassing status marker`);
 } catch (error) {
   if (error instanceof ValidationError) {
     console.error(`FAIL [${error.code}]: ${error.message}`);

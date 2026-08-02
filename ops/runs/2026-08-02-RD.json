@@ -2,7 +2,7 @@
   "runId": "2026-08-02-RD",
   "date": "2026-08-02",
   "type": "RD-sunday",
-  "summary": "일요일 run(KST). 로테이션상 일요일은 셀 스윕 무배정(Mon~Sat 90셀)이므로 수행(RD-2 전수 재검증 제외 — partial): ① 스냅샷 롤오버(meta·region_policy 08-02, baked 카운트다운 3건 스크럽) ② 부채 소화 — CN-026 실검증(위험군 21/21 완결·징구의견稿 단계 진입), CN-017 재검증(07-29 무효화분 해소·std.samr 대조), CN-018 VAT 모니터 겸 재확인(문고 2026A판 등 실무 기준 보강), KR-019 별표 3회 시도(미확보·부채 유지) ③ standing monitor 5/5 점검 완료 ④ neverSwept 13셀(next_tech·upstream·downstream) 전수 실스윕 완료 — 신규 후보 11건 승인 큐 등재(직접 편입 0), neverSwept 0 달성.",
+  "summary": "일요일 run(KST). 로테이션상 일요일은 셀 스윕 무배정(Mon~Sat 90셀)이므로 수행(RD-2 전수 재검증 제외 — partial): ① 스냅샷 롤오버(meta·region_policy 08-02, baked 카운트다운 3건 스크럽) ② 부채 소화 — CN-026 실검증(위험군 21/21 완결·징구의견稿 단계 진입), CN-017 재검증(07-29 무효화분 해소·std.samr 대조), CN-018 VAT 모니터 겸 재확인(문고 2026A판 등 실무 기준 보강), KR-019 별표 3회 시도(미확보·부채 유지) ③ standing monitor 5/5 점검 완료 ④ neverSwept 13셀(next_tech·upstream·downstream) 전수 실스윕 완료 — 신규 후보 8건 승인 큐 등재(직접 편입 0 — GB/T 43568=CN-012·GB 47372=CN-016·AAM=NA-024는 기추적 확인으로 큐 제외), neverSwept 0 달성.",
   "partial": true,
   "partialReason": "RUNBOOK RD-2(전 항목 매일 재검증)/G2 기준 미충족 — 본 run 실검증 4건(CN-017·CN-026·EU-030 primary-meta, CN-018 secondary), 나머지 145건은 이전 run 검증일 승계. 수행 범위는 롤오버·standing monitor 5/5·부채 소화·neverSwept 13셀 전수 스윕으로 한정하며, RD-2 전수 재검증은 차기 정규 run에서 수행한다. (일요일을 축소 run으로 상설화하려면 RUNBOOK 개정이 선행되어야 하며, 개정 전에는 partial로 기록한다.)",
   "searches": [
@@ -91,7 +91,7 @@
       "region": "EU",
       "cell": "next_tech/EU",
       "itemsCovered": [],
-      "result": "EU 전용 규범 없음(2023/1542 커버). 부수: GB/T 43568-2026(中 전고체 용어·분류, 2026.07.01 시행) 발견 — 승인 큐"
+      "result": "EU 전용 규범 없음(2023/1542 커버). 부수 언급 GB/T 43568-2026은 CN-012 기추적 확인 — 큐 제외"
     },
     {
       "query": "전고체 배터리 안전기준 KC 인증 국가표준 제정 2026",
@@ -112,7 +112,7 @@
       "region": "NA",
       "cell": "upstream/NA",
       "itemsCovered": [],
-      "result": "FY2026 NDAA §842(제정)·EPA TSCA SNUR 제안(CAM)·AAM AD/CVD — 승인 큐 3건"
+      "result": "FY2026 NDAA §842(제정)·EPA TSCA SNUR 제안(CAM) — 승인 큐 2건. AAM AD/CVD 검색결과는 예비판정 수치 — NA-024(ITC 최종 부정판정) 기추적, 큐 제외"
     },
     {
       "query": "EU cathode active material regulation battery component standard 2026",
@@ -147,7 +147,7 @@
       "region": "CN",
       "cell": "downstream/CN",
       "itemsCovered": [],
-      "result": "충전설비 CCC 강제인증 2026.08.01 시행 + GB 47372-2026 — 승인 큐 2건"
+      "result": "충전설비 CCC 강제인증 2026.08.01 기시행 — 승인 큐 1건. GB 47372-2026은 CN-016 기추적 — 큐 제외"
     },
     {
       "query": "전기차 충전시설 설치의무 고시 개정 2026 환경친화적 자동차",
@@ -213,9 +213,10 @@
     "KR-019 — 별표 HS 대조 3회 시도 기록(미확보, 부채 유지)",
     "meta.lastUpdated 2026-08-02, region_policy _meta 동기화 + baked 카운트다운 3건 스크럽",
     "standing monitor 5/5 점검 — 전 항목 무변동(GM/Tesla는 관찰 기록)",
-    "neverSwept 13셀 전수 스윕(실검색 13회) — coverage.json lastSwept 갱신, 승인 큐 후보 11건 도출(CCC 충전설비 2026.08.01 기발효·GB/T 43568·NDAA §842 등). 스코프 게이트 준수: 데이터셋 직접 편입 0건",
+    "neverSwept 13셀 전수 스윕(실검색 13회) — coverage.json lastSwept 갱신, 승인 큐 후보 도출(CCC 충전설비 2026.08.01 기발효·NDAA §842 등 — 최종 8건, 기추적 3건은 대조 후 큐 제거). 스코프 게이트 준수: 데이터셋 직접 편입 0건",
     "**[2026-08-02 PR#227 리뷰 정정 6차]** partial을 true로 환원(RUNBOOK RD-2 전수 재검증 미수행 — 축소 run 상설화는 RUNBOOK 개정 선행 필요), CCC 충전설비 인증을 기발효(2026.08.01, D+1)로 정정하고 즉시 검증 우선순위 부여, coverage _meta lastRun·note를 08-02 스윕 상태로 동기화, region_policy _meta.lastUpdated를 실제 작업 시각으로 정정.",
-    "**[2026-08-02 PR#227 리뷰 정정 7차]** meta.lastUpdated를 2026-07-29(최근 대규모 검증 run)로 복원하고 dataSnapshotDate(2026-08-02)·snapshotNote 신설 — 부분 run이 전역 LAST CHECKED로 오독되는 문제 해소. EU-030 ADR 2027 실검증(UNECE 1차: WP.15 채택·기탁 통보 CN.252.2026·이의기간 2026.10.01) — verify primary-meta 승격, 이의기간 조건 명시 하 UPCOMING 유지, dt 차기 마일스톤(10.01) 선두 재배치."
+    "**[2026-08-02 PR#227 리뷰 정정 7차]** meta.lastUpdated를 2026-07-29(최근 대규모 검증 run)로 복원하고 dataSnapshotDate(2026-08-02)·snapshotNote 신설 — 부분 run이 전역 LAST CHECKED로 오독되는 문제 해소. EU-030 ADR 2027 실검증(UNECE 1차: WP.15 채택·기탁 통보 CN.252.2026·이의기간 2026.10.01) — verify primary-meta 승격, 이의기간 조건 명시 하 UPCOMING 유지, dt 차기 마일스톤(10.01) 선두 재배치.",
+    "**[2026-08-02 PR#227 리뷰 정정 8차]** 승인 큐 후보를 기존 트래커 149항목과 전수 대조 — 기추적 3건(GB/T 43568=CN-012, GB 47372=CN-016, AAM AD/CVD=NA-024) 큐 제거·11→8건, existingItemReconciliation에 사유 기록(NA-024는 스윕 검색의 예비판정 수치보다 기존 카드의 ITC 최종 부정판정이 정확함을 확인). coverage _meta gate 문구를 RUNBOOK WATCH 계약과 정합화(미제정 제안·전략은 폐기가 아니라 WATCH 후보로 승인 큐 회부)."
   ],
   "newItems": [],
   "corrections": [
@@ -255,7 +256,7 @@
       "cell": "upstream/NA",
       "sweptAt": "2026-08-02",
       "finding": "FY2026 NDAA §842 DoD FEOC 전지 조달제한(제정, 2028.1.1 신규계약 단계시행) / EPA TSCA SNUR 제안(CAM 대상 MMO) / AAM(인조흑연 음극재) AD 최대 102%·CVD 6.5~11.6%",
-      "candidates": "후보 3: NDAA §842(제정), TSCA SNUR(제안→WATCH), AAM AD/CVD"
+      "candidates": "후보 2: NDAA §842(제정), TSCA SNUR(제안→WATCH). AAM AD/CVD는 NA-024 기추적(ITC 최종 부정판정·관세 미부과) — 큐 제외"
     },
     {
       "cell": "upstream/EU",
@@ -285,7 +286,7 @@
       "cell": "downstream/CN",
       "sweptAt": "2026-08-02",
       "finding": "① 전동차 공전설비 CCC 강제인증 2026.08.01 시행(시감총국 2024 공고, 미인증 출하·판매·수입·사용 금지) ② GB 47372-2026 《移动电源安全技术规范》 2026.04.03 발포·2027.04.01 시행(침자시험·순환노화 후 리튬석출 검출 신설)",
-      "candidates": "후보 2: CCC 충전설비 인증(2026.08.01 기발효), GB 47372-2026"
+      "candidates": "후보 1: CCC 충전설비 인증(2026.08.01 기발효). GB 47372-2026은 CN-016 기추적 — 큐 제외"
     },
     {
       "cell": "downstream/KR",
@@ -317,7 +318,7 @@
     "KR-019 별표 HS·세율·물량 대조 — law.go.kr 원문 직접 확인 필요(자동접근 차단으로 수동 확인 권고). SBTL 직결 최우선",
     "CN-017·CN-026 표준 전문 취득(한계치 테이블·초안 전문)",
     "CN-034·CN-035·CN-038 표준 전문 취득(verificationDebt)",
-    "승인 큐 11건 심사(최우선: CCC 충전설비 — 2026.08.01 기발효 상태이므로 차기 run 개시 시 즉시 시행 확인·항목화)",
+    "승인 큐 8건 심사(최우선: CCC 충전설비 — 2026.08.01 기발효 상태이므로 차기 run 개시 시 즉시 시행 확인·항목화)",
     "EU 로컬콘텐츠 입법 제정 여부·법안명 확인",
     "EU-030 — WP.15/274 전문에서 SP680 조문 원문 대조, 2026.10.01 이의기간 경과 후 확정 전환 확인"
   ],
@@ -363,19 +364,9 @@
       "priority": "P1 — 기발효, 즉시 검증"
     },
     {
-      "name": "GB/T 43568-2026 전기차 전고체전지 제1부 용어·분류",
-      "basis": "2026.07.01 시행, 세계 최초 자동차용 전고체 국가표준",
-      "priority": "P1"
-    },
-    {
       "name": "FY2026 NDAA §842 DoD FEOC 전지 조달 제한",
       "basis": "2025.12 제정, 2028.1.1 신규계약부터 단계 시행",
       "priority": "P1"
-    },
-    {
-      "name": "GB 47372-2026 移动电源安全技术规范",
-      "basis": "2026.04.03 발포·2027.04.01 시행(침자·리튬석출 검출)",
-      "priority": "P2"
     },
     {
       "name": "IEC 63379:2026 MCS 메가와트 충전 커넥터",
@@ -408,14 +399,26 @@
       "priority": "P3"
     },
     {
-      "name": "AAM(인조흑연 음극재) AD/CVD",
-      "basis": "AD 최대 102%·CVD 6.5~11.6%",
-      "priority": "P3"
-    },
-    {
       "name": "기존 후보 유지",
       "basis": "GB 43854-2024 / ESS 표준군 4층 / OBBBA §40006 CAFE",
       "priority": "기존"
+    }
+  ],
+  "existingItemReconciliation": [
+    {
+      "candidate": "GB/T 43568-2026 전고체 용어·분류",
+      "existingId": "CN-012",
+      "action": "큐 제거 — 기추적(ACTIVE). 스윕의 '신규 발견' 판정은 기존 149항목 대조 누락에 따른 오류"
+    },
+    {
+      "candidate": "GB 47372-2026 이동전원 안전기술규범",
+      "existingId": "CN-016",
+      "action": "큐 제거 — 기추적(UPCOMING, 2027.04.01 시행). 동일 사유"
+    },
+    {
+      "candidate": "AAM AD/CVD",
+      "existingId": "NA-024",
+      "action": "큐 제거 — 기추적(ACTIVE). 스윕 검색 결과의 AD 102%·CVD 6.5~11.6%는 예비판정 수치이며, NA-024의 ITC 최종 부정 피해판정(관세 미부과) 서술이 최종 상태로 정확 — 카드 수정 불요"
     }
   ]
 }

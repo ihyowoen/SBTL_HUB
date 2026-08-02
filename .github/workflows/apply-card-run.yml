@@ -4,8 +4,11 @@ on:
   pull_request:
     paths:
       - "runs/**/card-run.json"
+      - "data/cards.full.json"
+      - "public/data/cards.json"
       - "scripts/apply_card_run.mjs"
       - "scripts/apply_card_run_test.mjs"
+      - "scripts/validate_card_run_stage_artifacts.mjs"
       - "schemas/card-run.v1.schema.json"
       - ".github/workflows/apply-card-run.yml"
   workflow_dispatch:
@@ -36,18 +39,20 @@ jobs:
           set -euo pipefail
           node --check scripts/apply_card_run.mjs
           node --check scripts/apply_card_run_test.mjs
+          node --check scripts/validate_card_run_stage_artifacts.mjs
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
           node scripts/apply_card_run_test.mjs
+          node scripts/validate_card_run_stage_artifacts.mjs --self-test
 
   apply:
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     needs: validate-engine
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          ref: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.ref_name }}
           fetch-depth: 0
+          persist-credentials: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -67,7 +72,13 @@ jobs:
             test -n "$run_path" && test -f "$run_path"
           else
             mapfile -t runs < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)runs/**/card-run.json')
+            mapfile -t canonical_data < <(git diff --name-only "origin/$BASE_REF...HEAD" -- data/cards.full.json public/data/cards.json)
             if [[ ${#runs[@]} -eq 0 ]]; then
+              if [[ ${#canonical_data[@]} -gt 0 ]]; then
+                echo "FAIL: canonical card-data changes require exactly one governed runs/**/card-run.json" >&2
+                printf ' - %s\n' "${canonical_data[@]}" >&2
+                exit 1
+              fi
               echo "has_run=false" >> "$GITHUB_OUTPUT"
               exit 0
             fi
@@ -82,6 +93,12 @@ jobs:
           echo "path=$run_path" >> "$GITHUB_OUTPUT"
           echo "report_path=$(dirname "$run_path")/apply-report.json" >> "$GITHUB_OUTPUT"
           echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
+
+      - name: Require explicit passing stage-artifact statuses
+        if: steps.run.outputs.has_run == 'true'
+        run: >-
+          node scripts/validate_card_run_stage_artifacts.mjs
+          --run "${{ steps.run.outputs.path }}"
 
       - name: Lock declared baseline to base commit
         if: steps.run.outputs.has_run == 'true'
@@ -147,7 +164,10 @@ jobs:
           done
 
       - name: Commit generated outputs
-        if: steps.run.outputs.has_run == 'true' && github.event_name == 'pull_request'
+        if: >-
+          steps.run.outputs.has_run == 'true' &&
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}

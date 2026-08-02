@@ -11,16 +11,21 @@ It does not modify card data, the card-run engine, or any production ID.
 
 ## V2 framework preservation
 
-V3 preserves the governing V2 framework:
+V3 preserves and explicitly restates the governing V2 framework:
 
 - credibility, cardability, decision value, and urgency remain separate;
 - the before–after and novelty tests remain mandatory;
+- the Stage A routing matrix remains explicit;
+- `signal = top | high | mid` remains assigned only after the four judgments;
 - the 100-point industry-first model remains 25/25/20/10/10/5/3/2;
 - the three core industrial dimensions remain 70 points;
 - denominator discipline remains mandatory;
 - technology-evidence score caps remain mandatory;
 - legal-policy Stage 0–6 remains mandatory;
+- the twelve mandatory legal-policy questions remain explicit;
 - proposal, adoption, effectiveness, implementation, enforcement, and judicial review remain distinct;
+- the twelve-question IB-grade decision-useful content test remains explicit;
+- blocker output fields remain explicit;
 - search-before-delete remains mandatory;
 - Stage A remains selector-only and no-fetch;
 - high decision value never waives evidence or workflow gates;
@@ -51,8 +56,13 @@ Evidence, baseline, duplicate, lineage, state-ladder, source-diversity, and no-s
 - canonical version is `STRUCTURAL_NEWS_VALUE_SELECTION_V3`;
 - Prompt 0.1S version matches V3;
 - both files preserve 25/25/20 core weighting;
+- Stage A routing matrix is present;
+- signal-assignment rules are present;
 - legal-policy Stage 0–6 is present;
+- mandatory legal-policy questions are present;
 - technology score caps are present;
+- IB-grade decision-useful content questions are present;
+- blocker output fields are present;
 - earnings call and Q&A status fields are present;
 - follow-up and incremental-information fields are present;
 - mandatory structural domains and zero-coverage treatment are present;

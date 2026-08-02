@@ -42,13 +42,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
       - name: Apply focused PR 233 review patch
-        run: node scripts/patch_structural_v3_review_4839500000.mjs
+        run: python scripts/patch_pr233_latest.py
 
       - name: Compile validators
         run: python -m compileall -q validation_scripts
@@ -62,6 +57,7 @@ jobs:
       - name: Restore workflow and remove temporary patch files
         run: |
           git checkout origin/main -- .github/workflows/workflow-contract-validation.yml
+          rm -f scripts/patch_pr233_latest.py
           rm -f scripts/patch_pr233_review_latest.mjs
           rm -f .github/workflows/patch-pr233-latest-review.yml
           rm -f scripts/patch_structural_v3_review_4839500000.mjs

@@ -21,7 +21,7 @@ permissions:
 
 concurrency:
   group: apply-card-run-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   validate-engine:
@@ -33,6 +33,7 @@ jobs:
           node-version: "20"
       - name: Validate engine, schema, and regression suite
         run: |
+          set -euo pipefail
           node --check scripts/apply_card_run.mjs
           node --check scripts/apply_card_run_test.mjs
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
@@ -60,7 +61,7 @@ jobs:
           BASE_REF: ${{ github.event.pull_request.base.ref || github.event.repository.default_branch }}
         run: |
           set -euo pipefail
-          git fetch origin "$BASE_REF"
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             run_path="$DISPATCH_RUN_PATH"
             test -n "$run_path" && test -f "$run_path"
@@ -82,7 +83,23 @@ jobs:
           echo "report_path=$(dirname "$run_path")/apply-report.json" >> "$GITHUB_OUTPUT"
           echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
 
-      - name: Apply declared operations to canonical full
+      - name: Lock declared baseline to base commit
+        if: steps.run.outputs.has_run == 'true'
+        shell: bash
+        env:
+          RUN_PATH: ${{ steps.run.outputs.path }}
+          BASE_SHA: ${{ steps.run.outputs.base_sha }}
+        run: |
+          set -euo pipefail
+          declared_main="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")); process.stdout.write(r.base_main_commit_sha)' "$RUN_PATH")"
+          declared_blob="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")); process.stdout.write(r.base_full_blob_sha)' "$RUN_PATH")"
+          actual_blob="$(git rev-parse "${BASE_SHA}:data/cards.full.json")"
+          [[ "$declared_main" == "$BASE_SHA" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED main $BASE_SHA != $declared_main" >&2; exit 1; }
+          [[ "$declared_blob" == "$actual_blob" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED blob $actual_blob != $declared_blob" >&2; exit 1; }
+          git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
+          [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
+
+      - name: Apply declared operations
         if: steps.run.outputs.has_run == 'true'
         run: >-
           node scripts/apply_card_run.mjs
@@ -114,7 +131,7 @@ jobs:
             --verify
           git diff --check
 
-      - name: Enforce generated-only diff
+      - name: Enforce generated-only working-tree diff
         if: steps.run.outputs.has_run == 'true'
         shell: bash
         env:
@@ -129,7 +146,7 @@ jobs:
             esac
           done
 
-      - name: Commit generated outputs and dispatch checks on generated head
+      - name: Commit generated outputs
         if: steps.run.outputs.has_run == 'true' && github.event_name == 'pull_request'
         shell: bash
         env:
@@ -146,8 +163,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          RUN_ID="$(node -e 'const fs=require("fs"); const r=JSON.parse(fs.readFileSync(process.argv[1],"utf8")); process.stdout.write(r.run_id)' "$RUN_PATH")"
+          RUN_ID="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8")); process.stdout.write(r.run_id)' "$RUN_PATH")"
           git commit -m "chore: apply governed card run ${RUN_ID}"
           git push origin "HEAD:${HEAD_REF}"
-          gh workflow run apply-card-run.yml --ref "$HEAD_REF" -f run_path="$RUN_PATH"
           gh workflow run validate-tracker.yml --ref "$HEAD_REF"

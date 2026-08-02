@@ -510,5 +510,23 @@ class RelatedMalformedAnchorClassTest(unittest.TestCase):
         self.assertTrue(any("fresh_follow_up_anchor_class" in error for error in errors))
 
 
+class FinalQcV3PackageContractTest(unittest.TestCase):
+    def test_final_qc_preserves_complete_v3_package_for_publish_ready(self):
+        prompt = (ROOT.parent / "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md").read_text(encoding="utf-8")
+        required = [
+            "selected_anchor_path = v3_non_execution",
+            "structural_value_override_applied: true",
+            "anchor_classes[]",
+            "evidence_needed_for_stage_b[]",
+            "why_execution_event_not_required",
+            "prior_state",
+            "new_verified_fact",
+            "changed_judgment",
+            "must remain available to Prompt 0.8",
+        ]
+        for token in required:
+            self.assertIn(token, prompt)
+
+
 if __name__ == "__main__":
     unittest.main()

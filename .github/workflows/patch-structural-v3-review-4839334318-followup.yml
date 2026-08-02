@@ -1,0 +1,38 @@
+name: Patch structural V3 review follow-up
+on:
+  workflow_dispatch:
+  push:
+    branches: [agent/structural-news-value-v3]
+    paths:
+      - 'scripts/patch_structural_v3_review_4839500000.mjs'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Apply review fixes
+        run: node scripts/patch_structural_v3_review_4839500000.mjs
+      - name: Run regression suite
+        run: python -m unittest validation_scripts.tests.test_workflow_contracts validation_scripts.tests.test_structural_v3_review_4839334318_followup
+      - name: Remove temporary patch files
+        run: |
+          git rm scripts/patch_structural_v3_review_4839500000.mjs
+          git rm .github/workflows/patch-structural-v3-review-4839334318-followup.yml
+      - name: Commit verified fixes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs validation_scripts
+          git commit -m 'docs: align remaining structural V3 contracts'
+          git push origin HEAD:agent/structural-news-value-v3

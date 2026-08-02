@@ -12,6 +12,7 @@ on:
       - "scripts/validate_card_run_status_consistency.mjs"
       - "scripts/validate_card_run_relations.mjs"
       - "scripts/validate_card_run_lineage_containers.mjs"
+      - "scripts/validate_card_run_audits.mjs"
       - "schemas/card-run.v1.schema.json"
       - ".github/workflows/apply-card-run.yml"
   workflow_dispatch:
@@ -49,12 +50,14 @@ jobs:
           node --check scripts/validate_card_run_status_consistency.mjs
           node --check scripts/validate_card_run_relations.mjs
           node --check scripts/validate_card_run_lineage_containers.mjs
+          node --check scripts/validate_card_run_audits.mjs
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
           node scripts/apply_card_run_test.mjs
           node scripts/validate_card_run_stage_artifacts.mjs --self-test
           node scripts/validate_card_run_status_consistency.mjs --self-test
           node scripts/validate_card_run_relations.mjs --self-test
           node scripts/validate_card_run_lineage_containers.mjs --self-test
+          node scripts/validate_card_run_audits.mjs --self-test
 
   verify-submitted-run:
     needs: validate-engine
@@ -121,6 +124,10 @@ jobs:
           node scripts/validate_card_run_lineage_containers.mjs \
             --run "${{ steps.run.outputs.path }}" \
             --canonical data/cards.full.json
+          node scripts/validate_card_run_audits.mjs \
+            --run "${{ steps.run.outputs.path }}" \
+            --full data/cards.full.json \
+            --lean public/data/cards.json
 
       - name: Lock declared baseline to base commit
         if: steps.run.outputs.has_run == 'true'

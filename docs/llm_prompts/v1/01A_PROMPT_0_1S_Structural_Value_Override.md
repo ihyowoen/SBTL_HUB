@@ -508,6 +508,8 @@ Block if:
 - a high-value review item lacks a rescue question;
 - technology score exceeds evidence-stage cap;
 - legal stage or date is overstated;
+- a legal-policy candidate lacks the exact instrument, competent authority, or procedural status required by the legal-policy questions;
+- proposal, adoption, publication, effectiveness, mandatory application, implementation, enforcement, or judicial review is conflated;
 - announced capacity is treated as output;
 - scale or price claim lacks a denominator note;
 - an earnings candidate is completed without a call/Q&A status;
@@ -534,7 +536,7 @@ Assign `signal = top | high | mid` only after the four independent judgments.
 
 - `top`: 85–100, or 70–84 with exceptional urgency and strong evidence;
 - `high`: 70–84, or 55–69 with material lane impact and strong evidence;
-- `mid`: 40–69 depending on scope.
+- `mid`: 40–69 depending on scope, or a credible independently cardable execution event below 40 with narrow value when all novelty, evidence, and workflow gates pass.
 
 No execution, legal, corporate, or earnings form creates a signal level by itself.
 

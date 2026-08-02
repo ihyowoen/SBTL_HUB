@@ -16,13 +16,12 @@ function replaceOnce(path, from, to, label) {
   fs.writeFileSync(path, text);
 }
 
-const stageA = 'docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md';
-const override = 'docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md';
-for (const path of [stageA, override]) {
-  replaceAllExact(path, '`structural_signal_review_pool`', '`structural_signal_review`', `${path} structural subtype`);
-  replaceAllExact(path, '`earnings_deep_dive_pool`', '`earnings_deep_dive`', `${path} earnings subtype`);
-  replaceAllExact(path, 'structural_signal_review_pool', 'structural_signal_review', `${path} raw structural subtype`);
-  replaceAllExact(path, 'earnings_deep_dive_pool', 'earnings_deep_dive', `${path} raw earnings subtype`);
+for (const path of [
+  'docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md',
+  'docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md',
+]) {
+  replaceAllExact(path, 'structural_signal_review_pool', 'structural_signal_review', `${path} structural subtype`);
+  replaceAllExact(path, 'earnings_deep_dive_pool', 'earnings_deep_dive', `${path} earnings subtype`);
 }
 
 const baseline = 'docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md';
@@ -33,7 +32,7 @@ replaceOnce(baseline,
   - execution_anchor_qc_status: pass|not_applicable
   - structural_value_override_qc_status: pass|not_applicable
   - non_applicable_anchor_path_reason`,
-`- anchor_path_validation (required only when the item has non-empty \`format_risk_tags\`; ordinary items with no format risk must not invent this object)
+`- anchor_path_validation (required only when the item has non-empty format_risk_tags; ordinary items with no format risk must not invent this object)
   - selected_anchor_path: execution|v3_non_execution
   - anchor_path_qc_passed: true
   - execution_anchor_qc_status: pass|not_applicable
@@ -43,8 +42,8 @@ replaceOnce(baseline,
 
 const polish = 'docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md';
 replaceOnce(polish,
-`Every \`content_enriched_and_language_polished[]\` item must emit its selected path and coherent route statuses. Final override: if lineage, route accounting, or anchor-path guard fails, the next recommended call must not be Prompt 0.7.`,
-`Every \`content_enriched_and_language_polished[]\` item with non-empty \`format_risk_tags\` must emit its selected path and coherent route statuses. Ordinary items with no format risk must preserve the lineage guard but must not invent selected-path or route-status fields. Final override: if lineage, applicable route accounting, or the anchor-path guard fails, the next recommended call must not be Prompt 0.7.`,
+'Every `content_enriched_and_language_polished[]` item must emit its selected path and coherent route statuses. Final override: if lineage, route accounting, or anchor-path guard fails, the next recommended call must not be Prompt 0.7.',
+'Every `content_enriched_and_language_polished[]` item with non-empty `format_risk_tags` must emit its selected path and coherent route statuses. Ordinary items with no format risk must preserve the lineage guard but must not invent selected-path or route-status fields. Final override: if lineage, applicable route accounting, or the anchor-path guard fails, the next recommended call must not be Prompt 0.7.',
 'content polish output scope');
 replaceOnce(polish,
 `Required payload-item fields for every \`content_enriched_and_language_polished[]\` item:
@@ -73,7 +72,36 @@ replaceOnce(polish,
   "non_applicable_anchor_path_reason": "required for the unselected route on format-risk item; omit for ordinary item",`,
 'content polish payload conditional schema');
 
-const testPath = 'validation_scripts/tests/test_pr233_latest_review_contracts.py';
-fs.writeFileSync(testPath, `from pathlib import Path\nimport unittest\n\nROOT = Path(__file__).resolve().parents[2]\n\nclass TestPR233LatestReviewContracts(unittest.TestCase):\n    def test_review_pool_subtypes_are_canonical(self):\n        for rel in [\n            'docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md',\n            'docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md',\n        ]:\n            text = (ROOT / rel).read_text(encoding='utf-8')\n            self.assertNotIn('structural_signal_review_pool', text)\n            self.assertNotIn('earnings_deep_dive_pool', text)\n            self.assertIn('structural_signal_review', text)\n            self.assertIn('earnings_deep_dive', text)\n\n    def test_baseline_anchor_schema_is_format_risk_only(self):\n        text = (ROOT / 'docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md').read_text(encoding='utf-8')\n        self.assertIn('required only when the item has non-empty \\`format_risk_tags\\`', text)\n        self.assertIn('ordinary items with no format risk must not invent this object', text)\n\n    def test_content_polish_route_schema_is_format_risk_only(self):\n        text = (ROOT / 'docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md').read_text(encoding='utf-8')\n        self.assertIn('item with non-empty \\`format_risk_tags\\` must emit its selected path', text)\n        self.assertIn('ordinary items must omit them rather than invent a route', text)\n\nif __name__ == '__main__':\n    unittest.main()\n`, 'utf8');
-
-// Trigger after workflow registration.
+const testLines = [
+  'from pathlib import Path',
+  'import unittest',
+  '',
+  'ROOT = Path(__file__).resolve().parents[2]',
+  '',
+  'class TestPR233LatestReviewContracts(unittest.TestCase):',
+  '    def test_review_pool_subtypes_are_canonical(self):',
+  '        for rel in [',
+  "            'docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md',",
+  "            'docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md',",
+  '        ]:',
+  "            text = (ROOT / rel).read_text(encoding='utf-8')",
+  "            self.assertNotIn('structural_signal_review_pool', text)",
+  "            self.assertNotIn('earnings_deep_dive_pool', text)",
+  "            self.assertIn('structural_signal_review', text)",
+  "            self.assertIn('earnings_deep_dive', text)",
+  '',
+  '    def test_baseline_anchor_schema_is_format_risk_only(self):',
+  "        text = (ROOT / 'docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md').read_text(encoding='utf-8')",
+  "        self.assertIn('required only when the item has non-empty format_risk_tags', text)",
+  "        self.assertIn('ordinary items with no format risk must not invent this object', text)",
+  '',
+  '    def test_content_polish_route_schema_is_format_risk_only(self):',
+  "        text = (ROOT / 'docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md').read_text(encoding='utf-8')",
+  "        self.assertIn('item with non-empty `format_risk_tags` must emit its selected path', text)",
+  "        self.assertIn('ordinary items must omit them rather than invent a route', text)",
+  '',
+  "if __name__ == '__main__':",
+  '    unittest.main()',
+  '',
+];
+fs.writeFileSync('validation_scripts/tests/test_pr233_latest_review_contracts.py', testLines.join('\n'), 'utf8');

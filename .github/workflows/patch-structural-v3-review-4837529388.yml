@@ -1,0 +1,37 @@
+name: patch-structural-v3-review-4837529388
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - scripts/patch_structural_v3_review_4837529388.mjs
+      - .github/workflows/patch-structural-v3-review-4837529388.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Apply guarded downstream alignment patch
+        run: node scripts/patch_structural_v3_review_4837529388.mjs
+      - name: Validate and commit aligned contracts
+        run: |
+          set -euo pipefail
+          python -m unittest validation_scripts.tests.test_workflow_contracts
+          git add -A
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix: align V3 downstream gates and related validator"
+          git push origin HEAD:agent/structural-news-value-v3

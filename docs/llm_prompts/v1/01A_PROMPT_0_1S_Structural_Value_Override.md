@@ -90,6 +90,17 @@ Do not lower evidence standards.
 
 Do not force cards to improve topic balance.
 
+### Novelty classification caps — HARD RULE
+
+Cap the total score and classification as follows:
+
+- repeated announcement or republication with no new fact: maximum 39 and `context_or_reinforcement`;
+- routine stage progression resolving no material uncertainty: maximum 54 and `standard_monitoring`;
+- company target without independent execution, validation, or current observable market effect: maximum 54 and `standard_monitoring`;
+- unsupported political rhetoric without immediate operative authority or verified current market effect: maximum 39 and `context_or_reinforcement`.
+
+Do not allow other score components or corporate prominence to bypass these caps.
+
 ---
 
 ## 3. Structural Value Override
@@ -352,8 +363,13 @@ Do not conflate proposal, adoption, publication, effectiveness, mandatory applic
   "baseline_follow_up_relation": "",
   "next_confirmation_points": [],
   "portfolio_coverage_contribution": [],
-  "earnings_deep_dive_required": false,
-  "qna_status": "not_applicable",
+  "earnings_deep_dive_required": "true_for_listed_company_results|false_otherwise",
+  "earnings_release_available": "yes|no|unknown|not_applicable",
+  "ir_deck_available": "yes|no|unknown|not_applicable",
+  "call_or_transcript_expected": "yes|no|unknown|not_applicable",
+  "qna_status": "not_checked_stage_a_for_earnings|not_applicable_otherwise",
+  "prior_period_comparison_required": "true_for_listed_company_results|false_otherwise",
+  "earnings_rescue_questions": [],
   "anti_bias_check": {
     "binding_status_used_as_importance_proxy": false,
     "legal_formality_used_as_importance_proxy": false,
@@ -369,6 +385,16 @@ Do not conflate proposal, adoption, publication, effectiveness, mandatory applic
 ```
 
 The eight score values must sum to the total.
+
+For listed-company results, materialise the conditional fields as:
+
+- `earnings_deep_dive_required: true`;
+- `qna_status: not_checked_stage_a`;
+- `prior_period_comparison_required: true`;
+- availability fields must not be `not_applicable`;
+- unresolved items must be listed in `earnings_rescue_questions[]`.
+
+Only non-earnings candidates may use `false` and `not_applicable`.
 
 ---
 
@@ -417,6 +443,7 @@ Produce separate ranked lists for:
 
 Stage A must produce or prepare:
 
+- `portfolio_coverage_audit.json`
 - `structural_lens_coverage.csv`
 - `zero_coverage_explanation.json`
 - `follow_up_tracker.json`
@@ -484,6 +511,8 @@ Block if:
 - announced capacity is treated as output;
 - scale or price claim lacks a denominator note;
 - an earnings candidate is completed without a call/Q&A status;
+- a listed-company earnings candidate uses `qna_status: not_applicable` or omits availability, prior-period, or rescue fields;
+- a novelty-capped item exceeds its total-score or classification cap;
 - a material follow-up is treated as duplicate without incremental analysis;
 - a mandatory structural domain is zero without recheck and explanation;
 - deletion/support-only is finalised before the applicable search-first process.

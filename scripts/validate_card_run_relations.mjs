@@ -60,7 +60,6 @@ const resolveRepoJson = (root, reference, label) => {
 
 const requiredPatchesForSide = (operation, cardId, counterpartId) => [
   { path: "/related/-", op: "add", value: counterpartId, kind: "published edge" },
-  { path: "/related_ids/-", op: "add", value: counterpartId, kind: "legacy edge mirror" },
   { path: "/related_lineage/related_ids/-", op: "add", value: counterpartId, kind: "lineage edge" },
   { path: "/related_lineage/relation_type", value: operation.relation_type, kind: "lineage relation_type" },
   { path: "/related_lineage/reason", value: operation.lineage_reason, kind: "lineage reason" },
@@ -83,6 +82,12 @@ const validatePatchShape = (patch, label) => {
   }
   if (!("value" in patch)) {
     fail("BLOCKED_RELATED_PATCH_INVALID", `${label}.value 누락`);
+  }
+  if (patch.path === "/related_ids/-" || patch.path.startsWith("/related_ids/")) {
+    fail(
+      "BLOCKED_RELATED_UNSUPPORTED_MIRROR",
+      `${label}: canonical cards do not carry a top-level related_ids array; use /related/- plus related_lineage only`,
+    );
   }
 };
 
@@ -226,22 +231,26 @@ const runSelfTest = () => {
       }
     };
 
-    const idsOnly = structuredClone(validDirectional);
-    idsOnly.patches = idsOnly.patches.filter((patch) => patch.path !== "/related/-");
-    expectFailure(idsOnly, "BLOCKED_RELATED_PUBLISHED_EDGE_MISSING", "related_ids-only");
+    const lineageOnly = structuredClone(validDirectional);
+    lineageOnly.patches = lineageOnly.patches.filter((patch) => patch.path !== "/related/-");
+    expectFailure(lineageOnly, "BLOCKED_RELATED_PUBLISHED_EDGE_MISSING", "lineage-only");
 
     const relatedOnly = structuredClone(validDirectional);
     relatedOnly.patches = relatedOnly.patches.filter((patch) =>
       !patch.path.startsWith("/related_lineage/"));
     expectFailure(relatedOnly, "BLOCKED_RELATED_LINEAGE_INCOMPLETE", "missing lineage");
 
-    const missingLegacyMirror = structuredClone(validDirectional);
-    missingLegacyMirror.patches = missingLegacyMirror.patches.filter((patch) =>
-      patch.path !== "/related_ids/-");
-    expectFailure(missingLegacyMirror, "BLOCKED_RELATED_LINEAGE_INCOMPLETE", "missing related_ids mirror");
+    const unsupportedMirror = structuredClone(validDirectional);
+    unsupportedMirror.patches.push({
+      card_id: "A",
+      op: "add",
+      path: "/related_ids/-",
+      value: "B",
+    });
+    expectFailure(unsupportedMirror, "BLOCKED_RELATED_UNSUPPORTED_MIRROR", "unsupported top-level related_ids");
 
     console.log(
-      "PASS: validate_card_run_relations — published edge, related_ids mirror, lineage ID, and lineage metadata are mandatory",
+      "PASS: validate_card_run_relations — published related edge and complete related_lineage are mandatory; unsupported top-level related_ids is blocked",
     );
   } finally {
     rmSync(root, { recursive: true, force: true });
@@ -279,13 +288,13 @@ try {
     related_add_count: count,
     lifecycle_contract: [
       "/related/-",
-      "/related_ids/-",
       "/related_lineage/related_ids/-",
       "/related_lineage/relation_type",
       "/related_lineage/reason",
       "/related_lineage/event_stage_relationship",
       "/related_lineage/direction",
     ],
+    unsupported_paths: ["/related_ids/-"],
   }, null, 2));
   console.log(`PASS: ${count} related_add operations carry complete published and lineage patches`);
 } catch (error) {

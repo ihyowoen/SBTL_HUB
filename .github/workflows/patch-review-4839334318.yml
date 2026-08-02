@@ -1,0 +1,44 @@
+name: Patch review 4839334318
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - .github/workflows/patch-review-4839334318.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply patch
+        run: python scripts/patch_structural_v3_review_4839334318.py
+      - name: Smoke-check prompt contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md').read_text(encoding='utf-8')
+          assert 'require the preserved `anchor_path_validation` to prove exactly one source-backed route' in p
+          assert '`addable_hold_anchor_path_gap`' in p
+          assert 'Do not require a conventional execution anchor when the complete V3 non-execution route is the single validated path.' in p
+          assert 'For every candidate with `format_risk_tags` such as product/demo/PoC/component/interview/roundup/commentary/speech/personnel/partnership, require:\n\n- `execution_anchor_type` is not null;' not in p
+          PY
+      - name: Remove temporary patch files
+        run: rm -f scripts/patch_structural_v3_review_4839334318.py .github/workflows/patch-review-4839334318.yml
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "docs: align later Evidence QC guard with V3 two-path contract"
+          git push origin HEAD:agent/structural-news-value-v3

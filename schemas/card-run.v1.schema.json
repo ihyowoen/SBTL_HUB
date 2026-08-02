@@ -10,6 +10,7 @@
     "base_main_commit_sha",
     "base_full_blob_sha",
     "expected_before",
+    "output_updated",
     "operations",
     "expected_after",
     "audit_refs",
@@ -23,36 +24,26 @@
     "base_main_commit_sha": { "$ref": "#/$defs/sha1" },
     "base_full_blob_sha": { "$ref": "#/$defs/sha1" },
     "expected_before": { "type": "integer", "minimum": 0 },
+    "output_updated": { "type": "string", "format": "date-time" },
     "operations": {
       "type": "object",
       "additionalProperties": false,
       "required": ["insert", "update", "related_add"],
       "properties": {
-        "insert": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/insert" }
-        },
-        "update": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/update" }
-        },
-        "related_add": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/relatedAdd" }
-        }
+        "insert": { "type": "array", "items": { "$ref": "#/$defs/insert" } },
+        "update": { "type": "array", "items": { "$ref": "#/$defs/update" } },
+        "related_add": { "type": "array", "items": { "$ref": "#/$defs/relatedAdd" } }
       }
     },
     "expected_after": { "type": "integer", "minimum": 0 },
     "audit_refs": { "$ref": "#/$defs/nonEmptyStrings" },
     "document_universe_manifest_ref": { "type": "string", "minLength": 1 },
     "coverage_discovery_ref": { "type": "string", "minLength": 1 },
-    "independent_completeness_ref": { "type": "string", "minLength": 1 }
+    "independent_completeness_ref": { "type": "string", "minLength": 1 },
+    "notes": { "type": "string" }
   },
   "$defs": {
-    "sha1": {
-      "type": "string",
-      "pattern": "^[0-9a-f]{40}$"
-    },
+    "sha1": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
     "nonEmptyStrings": {
       "type": "array",
       "minItems": 1,
@@ -65,15 +56,15 @@
       "properties": {
         "card": {
           "type": "object",
-          "required": ["id"],
-          "properties": { "id": { "type": "string", "minLength": 1 } }
+          "required": ["id", "date"],
+          "properties": {
+            "id": { "type": "string", "minLength": 1 },
+            "date": { "type": "string", "format": "date" }
+          }
         },
-        "before_id": { "type": "string", "minLength": 1 },
-        "after_id": { "type": "string", "minLength": 1 },
         "stage_artifacts": { "$ref": "#/$defs/nonEmptyStrings" },
         "evidence_refs": { "$ref": "#/$defs/nonEmptyStrings" }
-      },
-      "not": { "required": ["before_id", "after_id"] }
+      }
     },
     "change": {
       "type": "object",
@@ -81,7 +72,7 @@
       "required": ["op", "path"],
       "properties": {
         "op": { "enum": ["add", "replace", "remove"] },
-        "path": { "type": "string", "pattern": "^/" },
+        "path": { "type": "string", "pattern": "^/[^/]" },
         "value": true
       },
       "allOf": [
@@ -117,7 +108,7 @@
       "required": ["card_id", "op", "path", "value"],
       "properties": {
         "card_id": { "type": "string", "minLength": 1 },
-        "op": { "const": "add" },
+        "op": { "enum": ["add", "replace"] },
         "path": {
           "type": "string",
           "pattern": "^/(related|related_ids|related_lineage)(/|$)"

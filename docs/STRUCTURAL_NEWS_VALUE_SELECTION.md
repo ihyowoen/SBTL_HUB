@@ -893,17 +893,18 @@ A candidate may enter `strict_passed_spec[]` only when:
 | PASS | PASS | 70–100 | `strict_passed_spec[]`, subject to all other strict gates |
 | PASS | PASS | 55–69 | strict or candidate review based on evidence and duplicate risk |
 | PASS | PASS/REVIEW | 40–54 | lower-priority strict, candidate review, or reinforcement |
-| REVIEW | PASS/REVIEW | 55–100 | `candidate_review_pool[]` or `structural_signal_review_pool[]` with a mandatory rescue question |
-| PASS/REVIEW | REVIEW | any | candidate review, earnings deep dive, reinforcement, or watchlist |
+| REVIEW | PASS/REVIEW | 55–100 | `candidate_review_pool[]` with `review_pool_subtype: structural_signal_review` and a mandatory rescue question |
+| PASS/REVIEW | REVIEW | any | `candidate_review_pool[]` with the applicable subtype (including `earnings_deep_dive`), reinforcement, or watchlist |
 | FAIL | any | any | item-specific reject/support-only only with a valid reason and ledger |
 
 Do not force a minimum number of structural cards. Do not lower evidence standards to improve topic balance.
 
 ### Review partitions
 
-- `candidate_review_pool[]` — potentially cardable after bounded clarification;
-- `structural_signal_review_pool[]` — high structural potential requiring source, denominator, stage, or comparison rescue;
-- `earnings_deep_dive_pool[]` — earnings candidate lacking full call/Q&A or prior-period comparison;
+- `candidate_review_pool[]` — the only top-level candidate review partition; every item must include `review_pool_subtype`.
+  - `review_pool_subtype: structural_signal_review` — high structural potential requiring source, denominator, stage, or comparison rescue;
+  - `review_pool_subtype: earnings_deep_dive` — earnings candidate lacking full call/Q&A or prior-period comparison;
+- `structural_signal_review_pool[]` and `earnings_deep_dive_pool[]` are prohibited as standalone top-level arrays; they are subtype views of `candidate_review_pool[]` only;
 - `watchlist_context_pool[]` — not yet cardable, but a defined future trigger exists;
 - `existing_reinforcement[]` — strengthens an existing card without a distinct event;
 - `support_source_only[]` — contextual evidence only;

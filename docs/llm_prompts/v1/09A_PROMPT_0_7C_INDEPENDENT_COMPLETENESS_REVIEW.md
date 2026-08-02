@@ -34,9 +34,14 @@ Verify every original and discovered item is accounted for and every mandatory c
 
 Reassess duplicate, reinforcement, correction, follow-up, stage transition, and related decisions. Confirm no existing relation was lost.
 
-### 3. Event-stage challenge
+### 3. Event-stage and anchor-path challenge
 
-Verify the exact stage, fresh execution anchor, predecessor, successor, contrary signals, and next milestone.
+For every format-risk proposed card, verify the exact stage and the preserved `anchor_path_validation` using an exactly-one two-path check:
+
+1. `execution`: source-backed fresh execution anchor, valid type/strength, and the V3 override route marked not applicable with a specific reason; or
+2. `v3_non_execution`: complete source-backed Structural Value Override with valid `anchor_classes[]`, item-specific evidence targets, specific execution-not-required rationale, before-after change, changed judgment, and the execution route marked not applicable with a specific reason.
+
+Also verify predecessor, successor, contrary signals, and next milestone. Do not reject a valid V3 non-execution route solely because no conventional execution event exists.
 
 ### 4. Fact-completeness challenge
 
@@ -67,6 +72,8 @@ Reopen candidates where further search could rescue a material event, an officia
   "baseline_follow_up_review_complete": false,
   "review_pool_rescue_complete": false,
   "must_report_candidates_accounted": false,
+  "format_risk_anchor_path_review_complete": false,
+  "anchor_path_review_results": [],
   "insert_decisions_reviewed": [],
   "update_decisions_reviewed": [],
   "related_add_decisions_reviewed": [],
@@ -87,7 +94,8 @@ Block Prompt 0.8 when:
 - a mandatory coverage axis was not searched;
 - a must-report candidate is unaccounted for;
 - a material exclusion lacks a red-team disposition;
-- a follow-up lacks an execution-stage comparison;
+- a format-risk proposed card lacks exactly one source-backed `execution` or complete `v3_non_execution` route, or has missing/contradictory route metadata;
+- a follow-up lacks a valid fresh V3 anchor-class comparison, incremental fact, or changed judgment versus its predecessor;
 - an update or related addition lacks a declared operation;
 - an existing relation disappeared;
 - known unknowns were hidden;

@@ -756,12 +756,13 @@ Each accepted_fact_safe item must include:
 - urls
 - related
 - fact_sources
-- anchor_path_validation
+- `anchor_path_validation` only when the accepted item has non-empty `format_risk_tags`
   - selected_anchor_path: execution|v3_non_execution
   - anchor_path_qc_passed: true
   - execution_anchor_qc_status: pass|not_applicable
   - structural_value_override_qc_status: pass|not_applicable
   - non_applicable_anchor_path_reason
+- ordinary accepted items without `format_risk_tags` must not invent or be required to emit `anchor_path_validation`
 - stage_c_findings
   - source_direction
   - fact_safety
@@ -2038,7 +2039,7 @@ Stage C Related/source overlay:
 - Lock `related_lineage` for every accepted card.
 - `same_event_duplicate`, `existing_card_reinforcement`, and `uncertain_needs_review` may not enter
   `accepted_fact_safe` as new cards.
-- `distinct_follow_up` requires a direct fresh execution anchor.
+- `distinct_follow_up` requires a valid non-empty `fresh_follow_up_anchor`, a valid `fresh_follow_up_anchor_class` under `docs/RELATED_LIFECYCLE_CONTRACT.md`, and non-empty `incremental_fact_vs_predecessor` plus `changed_judgment_vs_predecessor`. A conventional execution anchor is required only when the selected anchor class is `execution`; valid policy, financial, strategic, technology, or probability anchors are permitted by the shared contract.
 - Recompute source independence from current `fact_sources`; do not trust stale counters.
 - Stage exit must satisfy:
   `python validation_scripts/stage_artifact_contract_check.py C <STAGE_C_JSON>`.

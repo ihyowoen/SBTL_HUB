@@ -1,0 +1,56 @@
+name: Apply review 4838372817 patch
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - "scripts/patch_structural_v3_review_4838372817.py"
+      - ".github/workflows/patch-review-4838372817.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-validate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply focused review patch
+        run: python scripts/patch_structural_v3_review_4838372817.py
+
+      - name: Compile validators
+        run: python -m compileall -q validation_scripts
+
+      - name: Run full workflow-contract regression suite
+        run: python -m unittest discover -s validation_scripts/tests -v
+
+      - name: Verify prompt overlays
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Check patch cleanliness
+        run: git diff --check
+
+      - name: Remove temporary patch machinery
+        run: git rm scripts/patch_structural_v3_review_4838372817.py .github/workflows/patch-review-4838372817.yml
+
+      - name: Commit reviewed contract fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md \
+                  docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md \
+                  docs/validation/STRUCTURAL_NEWS_VALUE_V3_VALIDATION_20260802.md
+          git commit -m "docs: address review 4838372817 contract gaps"
+          git push origin HEAD:agent/structural-news-value-v3

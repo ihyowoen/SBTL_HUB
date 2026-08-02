@@ -142,3 +142,9 @@ The review findings are addressed as follows:
 - Final QC's later safety overlay and publish-ready checklist now validate both source-backed paths and carry explicit anchor-path QC status.
 - Stage B and Final QC required-doc accounting now consistently requires all ten governance documents.
 - Regression tests fail on the removed execution-only blocker phrases or any return to eight-document accounting.
+
+## Latest verified head
+
+- Review-fix commit before this record: `54313c7d44f321faa421b9c8688a6813ae42c79b`.
+- One-shot patch workflow completed successfully and removed all temporary workflow/helper files.
+- The next normal commit exists solely to record this closure and trigger the standard workflow-contract validation on the final branch state.

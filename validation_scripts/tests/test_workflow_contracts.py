@@ -348,5 +348,47 @@ class StructuralV3PromptRegressionTest(unittest.TestCase):
         self.assertIn("lineage_and_anchor_guard.anchor_path_qc_passed: true", text)
 
 
+class StructuralV3InterveningStageContractTest(unittest.TestCase):
+    @staticmethod
+    def read_prompt(path: str) -> str:
+        return (ROOT.parent / path).read_text(encoding="utf-8")
+
+    def test_stage_c_uses_two_path_anchor_gate(self):
+        text = self.read_prompt("docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md")
+        self.assertIn("All 10 documents above are mandatory.", text)
+        self.assertIn("Pass 2A — Anchor-path check for format-risk cards", text)
+        self.assertIn("exactly one source-backed path", text)
+        self.assertIn("structural_value_override_qc_status", text)
+        self.assertNotIn("item lacks a concrete execution anchor", text)
+        self.assertNotIn("without a concrete execution anchor", text)
+
+    def test_evidence_qc_emits_route_specific_anchor_results(self):
+        text = self.read_prompt("docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md")
+        self.assertIn("All 10 documents above are mandatory.", text)
+        self.assertIn("anchor_path_qc_summary", text)
+        self.assertIn("execution_anchor_qc_status", text)
+        self.assertIn("structural_value_override_qc_status", text)
+        self.assertNotIn("without a concrete fresh execution anchor", text)
+        self.assertNotIn("Execution-anchor evidence check", text)
+
+    def test_content_polish_produces_final_qc_guard_schema(self):
+        text = self.read_prompt("docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md")
+        self.assertIn("All 10 documents above are mandatory.", text)
+        self.assertIn("anchor_path_qc_passed", text)
+        self.assertIn("selected_anchor_path", text)
+        self.assertIn("execution_anchor_qc_status", text)
+        self.assertIn("structural_value_override_qc_status", text)
+        self.assertIn("non_applicable_anchor_path_reason", text)
+        self.assertNotIn('"execution_anchor_qc_passed": true', text)
+        self.assertNotIn("without a concrete fresh execution anchor", text)
+
+    def test_final_qc_consumes_route_status_schema(self):
+        text = self.read_prompt("docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md")
+        self.assertIn("execution_anchor_qc_status", text)
+        self.assertIn("structural_value_override_qc_status", text)
+        self.assertIn("non_applicable_anchor_path_reason", text)
+        self.assertNotIn("execution_anchor_qc_passed: true` or `structural_value_override_qc_passed: true", text)
+
+
 if __name__ == "__main__":
     unittest.main()

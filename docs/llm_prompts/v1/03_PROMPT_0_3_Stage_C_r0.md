@@ -15,17 +15,19 @@ Use GitHub main as the workflow source of truth.
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -128,13 +130,15 @@ Governance hierarchy:
 When rules conflict, apply this hierarchy:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 FACT_DISCIPLINE.md always wins for facts, numbers, quotes, and evidence discipline.
 
@@ -265,7 +269,7 @@ Reject for:
 - generic landing/listing/static product page
 - event is already covered and not a meaningful follow-up
 - card requires speculation to be meaningful
-- product/demo/PoC/pilot/prototype/component/interview/commentary/roundup/speech/personnel/partnership item lacks a concrete execution anchor
+- product/demo/PoC/pilot/prototype/component/interview/commentary/roundup/speech/personnel/partnership item has neither a source-backed concrete execution anchor nor a complete source-backed V3 non-execution Structural Value Override package
 
 4. support_source_only
 
@@ -360,21 +364,49 @@ Reject or revise when:
 - source says consideration/plan but card says confirmed execution
 - source says one company statement but card says industry consensus
 - source reports old event but card frames it as fresh without follow-up
-- product/demo/PoC/pilot/prototype/component/interview/commentary/roundup/speech/personnel/partnership wrapper is framed as independent strategic proof without a concrete execution anchor
+- product/demo/PoC/pilot/prototype/component/interview/commentary/roundup/speech/personnel/partnership wrapper is framed as independent strategic proof without either a source-backed concrete execution anchor or a complete source-backed V3 non-execution Structural Value Override package
 - interview or roundup source is used as a generic theme instead of isolating a specific fresh event anchor
 - card adds causality not present in source
 
-Pass 2A — Execution-anchor check for format-risk cards
+Pass 2A — Anchor-path check for format-risk cards
 
-If a draft card originates from product news, demo, PoC, pilot, prototype, component launch, interview, commentary, event roundup, speech, personnel coverage, or partnership/integration coverage, Stage C must confirm that the visible fields are built around a concrete execution anchor.
+If a draft card originates from product news, demo, PoC, pilot, prototype, component launch, interview, commentary, event roundup, speech, personnel coverage, or partnership/integration coverage, Stage C must confirm that the visible fields are built around exactly one source-backed path:
 
-Valid anchors include signed contract, binding customer order, offtake, price floor/risk-sharing facility, commercial deployment, field installation, commissioning, production start, facility opening, certification/regulatory approval, regulatory decision/enforcement, public funding approval, binding procurement, measurable capacity addition, safety recall/regulatory safety action, named customer adoption, named deployment site with measurable pilot scale/duration/objective, factory/project groundbreaking, or final investment decision.
+1. a concrete execution anchor; or
+2. a complete V3 non-execution Structural Value Override.
+
+Valid execution anchors include signed contract, binding customer order, offtake, price floor/risk-sharing facility, commercial deployment, field installation, commissioning, production start, facility opening, certification/regulatory approval, regulatory decision/enforcement, public funding approval, binding procurement, measurable capacity addition, safety recall/regulatory safety action, named customer adoption, named deployment site with measurable pilot scale/duration/objective, factory/project groundbreaking, or final investment decision.
+
+A valid V3 non-execution path requires all of the following to remain source-supported and carried forward from Stage A/B:
+
+- `structural_value_override_applied: true`
+- one valid non-execution `anchor_class`
+- concrete item-specific `evidence_needed_for_stage_b[]` targets verified by Stage B
+- specific `why_execution_event_not_required`
+- explicit before-after chain
+- source-supported changed judgment
+- no stage, scale, causality, market-effect, or commercialisation inflation
 
 Decision rule:
 
-- If the anchor exists but wording overclaims its maturity, use revise_required to narrow the card.
-- If no concrete execution anchor exists and the draft depends on strategic speculation, reject or classify as support_source_only.
-- Do not reject solely because the source format is product/demo/PoC/interview/roundup; reject only because the execution anchor is absent, unsupported, stale, or non-cardable.
+- If the selected path exists but wording overclaims its maturity or class, use revise_required to narrow the card.
+- If neither source-backed path exists, reject or classify as support_source_only.
+- If both paths are claimed without a clear primary path, use revise_required and require one selected path plus a reason the other is not applicable.
+- Do not reject solely because of source format; reject only because both paths are absent, unsupported, stale, contradictory, or non-cardable.
+
+For every accepted_fact_safe or revise_required format-risk item, preserve the Stage A/B override metadata and emit:
+
+```json
+"anchor_path_validation": {
+  "selected_anchor_path": "execution|v3_non_execution",
+  "anchor_path_qc_passed": true,
+  "execution_anchor_qc_status": "pass|not_applicable",
+  "structural_value_override_qc_status": "pass|not_applicable",
+  "non_applicable_anchor_path_reason": "..."
+}
+```
+
+Exactly one route status must be `pass`; the other must be `not_applicable` with a specific reason.
 
 Pass 3 — Fact discipline check
 
@@ -887,7 +919,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - confirm each was read from GitHub main
    - if any doc was not read, Stage C must not proceed
 

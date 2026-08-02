@@ -1034,7 +1034,9 @@ Before final publish-readiness QC begins, verify that `CONTENT_POLISH_RESULTS_JS
 - a passed anchor-path QC summary covering the selected execution or V3 non-execution route
 - `lineage_and_anchor_guard.evidence_qc_lineage_passed: true`
 - `lineage_and_anchor_guard.anchor_path_qc_passed: true`
-- exactly one applicable route result: `execution_anchor_qc_passed: true` or `structural_value_override_qc_passed: true`; the non-applicable route must be explicitly marked not_applicable with a reason
+- every format-risk item guard has `selected_anchor_path: execution|v3_non_execution`
+- exactly one item route status is `pass`: `execution_anchor_qc_status` or `structural_value_override_qc_status`; the other is `not_applicable`
+- every non-applicable route has a specific `non_applicable_anchor_path_reason`
 - content polish accounting matches input
 
 If missing or failed, stop and report:

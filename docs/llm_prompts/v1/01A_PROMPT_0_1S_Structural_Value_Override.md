@@ -61,7 +61,7 @@ For every candidate, classify one or more:
 - `technology_commercialization_anchor`
 - `follow_up_probability_anchor`
 
-A candidate may enter `strict_passed_spec[]` when all are true:
+A candidate may enter `strict_passed_spec[]` only when all are true:
 
 1. SBTL_HUB lane fit;
 2. at least one valid anchor class;
@@ -92,7 +92,7 @@ Do not force cards to improve topic balance.
 
 ### Novelty classification caps — HARD RULE
 
-Cap the total score and classification as follows:
+Cap total score and classification as follows:
 
 - repeated announcement or republication with no new fact: maximum 39 and `context_or_reinforcement`;
 - routine stage progression resolving no material uncertainty: maximum 54 and `standard_monitoring`;
@@ -125,6 +125,16 @@ Required fields:
 - `evidence_needed_for_stage_b[]`
 - `next_confirmation_points[]`
 - `why_execution_event_not_required`
+
+When `structural_value_override_applied: true`:
+
+- `structural_value_override_reason` must be non-empty and item-specific;
+- `anchor_classes[]` must contain at least one valid non-execution anchor class;
+- `evidence_needed_for_stage_b[]` must contain concrete official, filing, dataset, transcript, technical-validation, or independent-reporting paths required to validate the override;
+- `why_execution_event_not_required` must be non-empty and explain why the verified change is independently decision-useful without a conventional execution event;
+- `next_confirmation_points[]` must identify measurable events or metrics that would confirm, weaken, or invalidate the interpretation.
+
+A false override may use empty or null values for override-only fields.
 
 Do not use override for generic forecasts, unsupported commentary, repeated reporting, or direct-benefit claims without evidence.
 
@@ -169,13 +179,13 @@ Inspect and tag every applicable item against:
 
 These are discovery obligations, not quotas.
 
-If a domain is zero, Stage A must recheck review, watchlist, support, dropped, and full input stories before closing it.
+If a domain is zero, Stage A must recheck review, watchlist, support, dropped, and full-input stories before closing it.
 
 ---
 
 ## 6. Earnings candidate handling
 
-When the preview or metadata indicates a listed-company result:
+When preview or metadata indicates a listed-company result:
 
 - classify `data_financial_anchor`;
 - set `earnings_deep_dive_required: true`;
@@ -207,6 +217,16 @@ Required Stage A fields:
 - `qna_status: not_checked_stage_a | not_applicable`
 - `prior_period_comparison_required`
 - `earnings_rescue_questions[]`
+
+For listed-company results:
+
+- `earnings_deep_dive_required: true`;
+- `qna_status: not_checked_stage_a`;
+- `prior_period_comparison_required: true`;
+- availability fields must not be `not_applicable`;
+- unresolved items must be listed in `earnings_rescue_questions[]`.
+
+Only non-earnings candidates may use `false` and `not_applicable`.
 
 ---
 
@@ -345,6 +365,8 @@ Do not conflate proposal, adoption, publication, effectiveness, mandatory applic
   "structural_value_lenses": [],
   "structural_value_override_applied": false,
   "structural_value_override_reason": null,
+  "evidence_needed_for_stage_b": [],
+  "why_execution_event_not_required": null,
   "prior_state": "",
   "new_verified_fact": "",
   "changed_judgment": "",
@@ -385,16 +407,6 @@ Do not conflate proposal, adoption, publication, effectiveness, mandatory applic
 ```
 
 The eight score values must sum to the total.
-
-For listed-company results, materialise the conditional fields as:
-
-- `earnings_deep_dive_required: true`;
-- `qna_status: not_checked_stage_a`;
-- `prior_period_comparison_required: true`;
-- availability fields must not be `not_applicable`;
-- unresolved items must be listed in `earnings_rescue_questions[]`.
-
-Only non-earnings candidates may use `false` and `not_applicable`.
 
 ---
 
@@ -474,6 +486,8 @@ Add:
 - `structural_value_lenses`
 - `structural_value_override_applied`
 - `structural_value_override_reason`
+- `evidence_needed_for_stage_b`
+- `why_execution_event_not_required`
 - `incremental_information`
 - `decision_relevance`
 - `baseline_expectation_changed`
@@ -505,6 +519,7 @@ Block if:
 - a top item lacks the before–after chain;
 - transaction, execution, legal form, or company prominence is the importance explanation;
 - a high-potential structural item is rejected only for lacking a conventional execution event;
+- `structural_value_override_applied: true` is used while `evidence_needed_for_stage_b[]` is missing or empty, or `why_execution_event_not_required` is missing, null, generic, or non-specific;
 - a high-value review item lacks a rescue question;
 - technology score exceeds evidence-stage cap;
 - legal stage or date is overstated;
@@ -570,6 +585,7 @@ Stage A is valid only when:
 - the 70-point industrial weighting is preserved;
 - multi-anchor eligibility is applied;
 - high-value non-transaction signals are preserved;
+- every applied Structural Value Override has a concrete Stage B evidence path and an item-specific explanation for why execution is not required;
 - legal stages are not overstated;
 - technology claims are evidence-bounded;
 - earnings candidates are routed for full-call review;

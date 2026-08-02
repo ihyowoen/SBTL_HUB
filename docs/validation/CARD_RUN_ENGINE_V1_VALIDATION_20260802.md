@@ -15,6 +15,7 @@ Implemented files:
 
 - `data/cards.full.json` is the only canonical baseline.
 - `base_main_commit_sha`, canonical Git blob SHA, and `expected_before` must all match.
+- The workflow reconstructs the declared baseline from `git show <base_main_commit_sha>:data/cards.full.json`; it never treats an already-generated PR working copy as the original baseline.
 - Ordinary operations are limited to `insert`, `update`, and `related_add`.
 - Card deletion and `related_remove` are rejected.
 - Existing IDs cannot disappear or change.
@@ -33,6 +34,8 @@ Implemented files:
 PASS: apply_card_run_test — positive + 5 blockers
 PASS: schema JSON parse
 PASS: workflow YAML parse
+PASS: synthetic apply → lean → verify → idempotent rerun
+PASS: moved-main baseline blocker
 ```
 
 Covered blocker cases:
@@ -41,7 +44,12 @@ Covered blocker cases:
 2. forbidden delete operation;
 3. relation modification smuggled through update;
 4. newly missing related target;
-5. count reconciliation failure.
+5. count reconciliation failure;
+6. current main SHA differing from the declared run baseline.
+
+## Rerun and generated-commit safety
+
+The first workflow execution may commit generated `data/cards.full.json`, `public/data/cards.json`, and `apply-report.json` to the data PR branch. A later `pull_request synchronize` execution must not reinterpret that generated full as the declared original baseline. The workflow therefore reconstructs the immutable baseline from the declared base commit and verifies its Git blob SHA before every application. Re-execution deterministically regenerates the same outputs and produces no further commit when the branch already matches the declared result.
 
 ## Operational boundary
 

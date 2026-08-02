@@ -48,7 +48,7 @@ jobs:
           node-version: "22"
 
       - name: Apply focused PR 233 review patch
-        run: node scripts/patch_pr233_review_latest.mjs
+        run: node scripts/patch_structural_v3_review_4839500000.mjs
 
       - name: Compile validators
         run: python -m compileall -q validation_scripts

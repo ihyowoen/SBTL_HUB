@@ -1,9 +1,9 @@
 name: patch-structural-v3-review-4837529388
 
 on:
-  push:
+  pull_request:
     branches:
-      - agent/structural-news-value-v3
+      - main
     paths:
       - scripts/patch_structural_v3_review_4837529388.mjs
       - .github/workflows/patch-structural-v3-review-4837529388.yml
@@ -13,12 +13,12 @@ permissions:
 
 jobs:
   patch:
-    if: github.actor != 'github-actions[bot]'
+    if: github.actor != 'github-actions[bot]' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: agent/structural-news-value-v3
+          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
@@ -34,6 +34,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "fix: align V3 downstream gates and related validator"
-          git push origin HEAD:agent/structural-news-value-v3
-
-# Triggered after workflow installation so the guarded patch runs once.
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}

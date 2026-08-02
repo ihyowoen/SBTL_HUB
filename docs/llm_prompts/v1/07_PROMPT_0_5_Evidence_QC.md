@@ -180,7 +180,9 @@ If a candidate has any of these tags:
 - speech_or_political_statement
 - personnel
 
-then evidence QC must confirm body-level or official evidence for at least one concrete execution anchor, such as:
+then evidence QC must confirm body-level or official evidence for exactly one supported anchor path:
+
+1. `execution` — a concrete execution anchor such as:
 
 - signed contract
 - customer order
@@ -198,7 +200,11 @@ then evidence QC must confirm body-level or official evidence for at least one c
 - safety recall or regulatory action
 - named customer adoption
 
-If the anchor is missing or only implied by commentary, do not mark evidence_complete. Route the card to addable_hold_claim_gap or needs_return_to_prompt_c with reason execution_anchor_not_evidenced.
+2. `v3_non_execution` — a complete, source-backed V3 Structural Value Override that preserves the governing `anchor_classes[]`, item-specific `evidence_needed_for_stage_b[]`, specific `why_execution_event_not_required`, before-after change, changed judgment, and route metadata from the current-run lineage.
+
+For every format-risk item, validate the selected route and require exactly one route status to be `pass`; the other route must be `not_applicable` with a specific `non_applicable_anchor_path_reason`. If neither route is source-backed, both routes are claimed, the selected route conflicts with the current-run lineage, or the route is only implied by commentary, do not mark `evidence_complete`. Route the card to `addable_hold_claim_gap` or `needs_return_to_prompt_c` with reason `anchor_path_not_evidenced` or the more specific route conflict reason.
+
+A complete V3 non-execution route must not be held solely because a conventional execution anchor is absent.
 
 Evidence QC must not convert review_pool, support_source_only, rejected, duplicate_hold, existing_reinforcement, or baseline_conflict items into addable candidates.
 

@@ -166,7 +166,7 @@ Core red-team questions:
 
 A. Required docs discipline
 
-- Were all 8 docs read from GitHub main?
+- Were all 10 docs read from GitHub main?
 - Did any prompt use “if present” or similar optional language for mandatory docs?
 - Did any stage proceed despite missing docs?
 - Were branch/local/archive docs used incorrectly?
@@ -449,7 +449,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - read status
    - blocker, if any
 

@@ -200,3 +200,10 @@ The review's two findings are addressed as linked contract fixes:
 - Prompt 1.1 now reads the two governing V3 contracts and uses the same 10-document preflight as other V3-aware stages before auditing Structural Value Override completeness.
 
 Focused regression coverage is provided in `validation_scripts/tests/test_review_4838372817_contracts.py`.
+
+## Review 4838393180 follow-up
+
+- Evidence QC의 초기 format-risk guard를 execution-only에서 exactly-one two-path gate로 정렬했다.
+- 유효한 V3 non-execution route는 conventional execution anchor 부재만으로 hold되지 않는다.
+- Prompt 1.1 retrospective의 red-team question과 Markdown report contract를 모두 10 required docs 기준으로 통일했다.
+

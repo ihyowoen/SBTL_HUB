@@ -11,6 +11,7 @@ Implemented files:
 - `scripts/validate_card_run_stage_artifacts.mjs`
 - `scripts/validate_card_run_status_consistency.mjs`
 - `scripts/validate_card_run_relations.mjs`
+- `scripts/validate_card_run_lineage_containers.mjs`
 - `schemas/card-run.v1.schema.json`
 - `.github/workflows/apply-card-run.yml`
 
@@ -26,6 +27,9 @@ This code PR does not modify `data/cards.full.json` or `public/data/cards.json`.
 - Every `related_add` must include `/related/-`, `/related_lineage/related_ids/-`, and matching lineage relation type, reason, event-stage relationship, and direction.
 - A top-level `/related_ids/-` patch is blocked because it cannot be safely appended to the current canonical shape.
 - Directional relations require the complete source-side patch set. Reciprocal relations require the same complete patch set on both sides.
+- A required relation side must already contain `related: []` and `related_lineage.related_ids: []` array containers.
+- Missing or malformed relation containers fail closed before the apply engine runs. The engine never creates `related_ids: {"-": target}` objects from absent parents.
+- Existing cards without an initialized lineage container are not eligible for ordinary `related_add` until a separately reviewed canonical-data migration initializes those containers.
 - Every present status marker among `status`, `artifact_status`, `validation_status`, `state`, and `result` must be allowlisted.
 - Status consistency applies to Stage 0.0D, Stage 0.0C, Stage 0.7C, and every operation-level stage artifact.
 - A leading `status: PASS` cannot hide `validation_status: FAIL`, `result: HOLD`, or another nonpassing marker.
@@ -63,9 +67,22 @@ The following path is currently unsupported and blocked:
 /related_ids/-
 ```
 
+Before those patches can be submitted, the source side—and both sides for reciprocal relations—must already have:
+
+```json
+{
+  "related": [],
+  "related_lineage": {
+    "related_ids": []
+  }
+}
+```
+
+If the canonical card lacks that shape, the run blocks with `BLOCKED_RELATED_PUBLISHED_CONTAINER_MISSING` or `BLOCKED_RELATED_LINEAGE_CONTAINER_MISSING`. Initialization is intentionally deferred to a separate canonical-data migration rather than silently performed by this code-only PR.
+
 ## Regression result
 
-Actions `apply-card-run` run #35 on head `155c511c3d13ca81a26b71285ab66b42d35c4b19`:
+Actions `apply-card-run` run #38 on head `e76ee8743be6e942cb5722f8d452e5bb1b3a77df`:
 
 ```text
 PASS: validate-engine
@@ -73,7 +90,10 @@ PASS: verify-submitted-run
 PASS: relation lifecycle self-test
 PASS: unsupported top-level related_ids blocker
 PASS: missing published edge blocker
-PASS: missing lineage blocker
+PASS: missing lineage patch blocker
+PASS: missing lineage container blocker
+PASS: malformed lineage related_ids object blocker
+PASS: initialized inserted-card relation container
 PASS: operation-level conflicting status blocker
 PASS: run-level governance conflicting status blocker
 PASS: RFC3339 output_updated blocker
@@ -93,6 +113,7 @@ trigger on run, engine, schema, workflow, canonical full, or lean projection cha
 → fetch and lock the base branch and canonical full blob
 → validate all run-level and operation-level status markers
 → validate complete canonical related + related_lineage patches
+→ fail closed when required relation containers are missing or malformed
 → require RFC3339 output_updated and run-bound Stage 0.7C
 → require submitted full/lean outputs to already equal the declared expected result
 → run full/public validators and byte-exact lean check
@@ -100,4 +121,4 @@ trigger on run, engine, schema, workflow, canonical full, or lean projection cha
 → never commit or push from the PR workflow
 ```
 
-The first governed data PR remains a separate follow-up after this engine PR is independently reviewed and merged.
+The first governed data PR remains a separate follow-up after this engine PR is independently reviewed and merged. A separate lineage-container migration must precede ordinary `related_add` for legacy cards that do not yet carry `related_lineage.related_ids` arrays.

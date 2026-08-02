@@ -417,7 +417,7 @@ Critical workflow rules:
 
    A format-risk item may enter strict_passed_spec only when strict_pass_gate.status = "pass" and either (a) execution_anchor_strength is "strong" or "moderate", or (b) structural_value_override_applied is true with at least one valid non-execution anchor class, non-empty item-specific evidence_needed_for_stage_b, and non-empty specific why_execution_event_not_required.
 
-   Do not use the phrases hard-exclude, automatic exclusion, or categorical exclusion in Stage A reasoning for these formats. The correct reasoning is: strict-pass blocked unless a concrete fresh execution anchor is visible.
+   Do not use the phrases hard-exclude, automatic exclusion, or categorical exclusion in Stage A reasoning for these formats. The correct reasoning is: strict-pass blocked unless either a concrete fresh execution anchor or a complete V3 non-execution Structural Value Override is visible in the allowed Stage A inputs.
 
 17. Stage B spec failure terminology:
 
@@ -484,7 +484,7 @@ Stage A tasks:
 
 A. Read all 10 required docs from GitHub main.
 
-B. If all 8 required docs are confirmed, load {{SOURCE_INPUT_FILE}}.
+B. If all 10 required docs are confirmed, load {{SOURCE_INPUT_FILE}}.
 
 C. Confirm run metadata and story counts from the source input:
 
@@ -529,7 +529,7 @@ F. Do not auto-pass KEEP.
    - strategic signal
    - full-schema viability
    - format-risk status for product/demo/PoC/component/interview/roundup/commentary/speech/personnel/partnership items
-   - concrete execution-anchor viability when format-risk is present
+   - concrete execution-anchor or complete V3 non-execution-anchor viability when format-risk is present
 
 G. Do not perform external web search.
 
@@ -597,7 +597,7 @@ Partition definitions:
 3. `reject_or_support_only_pool[]`
    - Too weak for candidate review, but either useful as support_source_only or clearly rejectable.
    - Must not be recommended for Stage B or candidate promotion.
-   - Use for product/demo/PoC/partnership/commentary/macro items where the execution anchor is absent or too weak.
+   - Use for product/demo/PoC/partnership/commentary/macro items where neither a concrete execution anchor nor a complete V3 non-execution anchor package is sufficient.
 
 Stage A validity rule:
 
@@ -1016,7 +1016,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - confirm each was read from GitHub main
    - if any doc was not read, Stage A must not proceed
 
@@ -1064,6 +1064,7 @@ The Markdown report must include:
    - staleness decision
    - why it can proceed to Stage B
    - execution anchor type and strength
+   - Structural Value Override status, anchor classes, Stage B evidence targets, and why execution is not required, when applicable
    - format-risk tags, if any
    - strict_pass_gate.status and reason
    - Stage B evidence package required before draft
@@ -1075,7 +1076,7 @@ The Markdown report must include:
    - reason for review
    - what must be checked before promotion
    - why it was not strict_passed_spec
-   - execution-anchor gap or source-strength gap, if applicable
+   - execution-anchor, non-execution-anchor, or source-strength gap, if applicable
 
 7. rejected summary
 
@@ -1350,6 +1351,10 @@ Every Stage A `strict_passed_spec[]` item must include:
 - `format_risk_tags`
 - `execution_anchor_type`
 - `execution_anchor_strength`
+- `structural_value_override_applied`
+- `anchor_classes`
+- `evidence_needed_for_stage_b`
+- `why_execution_event_not_required`
 - `baseline_relation`
 - `duplicate_risk`
 - `staleness_decision`
@@ -1772,7 +1777,7 @@ Every Stage A report and JSON output must include:
 
 ### Negative filters
 
-The following patterns must not enter `strict_passed_spec[]` unless a concrete battery/grid/ESS/EV/materials execution anchor is present:
+The following patterns must not enter `strict_passed_spec[]` unless either a concrete battery/grid/ESS/EV/materials execution anchor or a complete, item-specific V3 Structural Value Override is present:
 
 - generic finance or insurance items without battery/grid/ESS/EV/material impact
 - general AI/data-center items without power, grid, battery, ESS, or energy-infrastructure execution

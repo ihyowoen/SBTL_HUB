@@ -117,10 +117,21 @@ This PR aligns the central V3 feature with the active execution path:
 
 - base Stage A accepts either a concrete execution anchor or a complete V3 non-execution override for format-risk strict items;
 - structural and earnings review categories are subtypes of the supported `candidate_review_pool`, not unsupported top-level partitions;
-- the Stage A CSV gate carries and validates the subtype and override fields;
+- the Stage A JSON and CSV contracts carry and validate the subtype and override fields;
 - Stage B verifies the exact non-execution anchor claims and evidence targets instead of demanding an execution event;
 - Final QC accepts a source-backed V3 non-execution path and hard-fails incomplete or inflated overrides;
 - the Related production validator enforces fresh anchor class, incremental fact, and changed judgment for every current-run `distinct_follow_up` under `--require-contract`, while preserving legacy unflagged validation behavior;
-- regression fixtures cover the new Related blockers.
+- regression fixtures cover missing and invalid anchor classes, missing incremental fact, missing changed judgment, and legacy unflagged behavior.
 
 Remaining future implementation may add dedicated structural-value, earnings-Q&A, portfolio-coverage, and content-depth validators, but it must not reintroduce an execution-only gate or unsupported review partition. Fact Discipline and the card-run safety engine remain unchanged.
+
+## Review 4837529388 closure
+
+The review findings are addressed as follows:
+
+- Stage A, Stage B, and Final QC now share the same execution-or-V3-non-execution eligibility model;
+- the active Stage A format-risk presumption gate, strict-pass condition, required item object, lineage metadata, report contract, and CSV contract carry the override fields;
+- structural and earnings review categories are `candidate_review_pool` subtypes, not unsupported top-level partitions;
+- Related V2 fields are enforced only for current-run strict validation with `--require-contract`;
+- legacy unflagged inventory validation is unchanged;
+- temporary patch workflows, helper scripts, and generated Python bytecode are absent from the final diff.

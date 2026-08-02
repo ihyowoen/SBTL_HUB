@@ -1179,6 +1179,8 @@ Every strict and high-potential review item must include:
   "structural_value_lenses": [],
   "structural_value_override_applied": false,
   "structural_value_override_reason": null,
+  "evidence_needed_for_stage_b": [],
+  "why_execution_event_not_required": null,
   "prior_state": "",
   "new_verified_fact": "",
   "changed_judgment": "",
@@ -1230,6 +1232,18 @@ For a listed-company result, the template is conditional and must be materialise
 
 Only a non-earnings candidate may use `earnings_deep_dive_required: false` and `qna_status: not_applicable`.
 
+When `structural_value_override_applied: true`, materialise all override fields as follows:
+
+- `structural_value_override_reason` must be non-empty and item-specific;
+- `anchor_classes[]` must contain at least one valid non-execution anchor class;
+- `evidence_needed_for_stage_b[]` must be a non-empty array of item-specific verification targets;
+- every evidence entry must identify both (a) the source, document, dataset, transcript, filing, technical test, or independent-reporting class and (b) the exact claim, metric, stage, date, or uncertainty to verify;
+- generic placeholders such as `official sources`, `company materials`, `media reports`, `additional confirmation`, `more evidence`, or equivalent wording are invalid;
+- `why_execution_event_not_required` must be non-empty and explain why the verified change is independently decision-useful without a conventional execution event;
+- `next_confirmation_points[]` must identify the measurable event or metric that would confirm, weaken, or invalidate the interpretation.
+
+A false override may use empty or null values for the override-only fields.
+
 ---
 
 ## 16. Stage A summary and decision ledger
@@ -1264,6 +1278,8 @@ Required decision-ledger columns include:
 - `structural_value_lenses`
 - `structural_value_override_applied`
 - `structural_value_override_reason`
+- `evidence_needed_for_stage_b`
+- `why_execution_event_not_required`
 - `incremental_information`
 - `decision_relevance`
 - `baseline_expectation_changed`
@@ -1300,6 +1316,7 @@ Block when:
 - a top candidate lacks the before–after chain;
 - an execution, legal, or transaction form is used as the importance explanation;
 - a high-potential structural item is rejected solely for lacking a conventional execution event;
+- `structural_value_override_applied: true` is used while `evidence_needed_for_stage_b` is not an array, is empty, contains blank, generic, placeholder, duplicate-only, or non-item-specific entries, fails to identify both the evidence target and the exact claim or uncertainty to verify, or while `why_execution_event_not_required` is missing, null, generic, or non-specific;
 - a high-value review item lacks a concrete rescue question;
 - legal stage, effective date, or implementation is overstated;
 - announced capacity is treated as output;

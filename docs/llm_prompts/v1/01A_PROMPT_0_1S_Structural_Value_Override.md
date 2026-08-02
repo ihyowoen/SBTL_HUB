@@ -130,7 +130,9 @@ When `structural_value_override_applied: true`:
 
 - `structural_value_override_reason` must be non-empty and item-specific;
 - `anchor_classes[]` must contain at least one valid non-execution anchor class;
-- `evidence_needed_for_stage_b[]` must contain concrete official, filing, dataset, transcript, technical-validation, or independent-reporting paths required to validate the override;
+- `evidence_needed_for_stage_b[]` must be a non-empty array of item-specific verification targets;
+- every evidence entry must identify both (a) the source, document, dataset, transcript, filing, technical test, or independent-reporting class and (b) the exact claim, metric, stage, date, or uncertainty to verify;
+- generic placeholders such as `official sources`, `company materials`, `media reports`, `additional confirmation`, `more evidence`, or equivalent wording are invalid;
 - `why_execution_event_not_required` must be non-empty and explain why the verified change is independently decision-useful without a conventional execution event;
 - `next_confirmation_points[]` must identify measurable events or metrics that would confirm, weaken, or invalidate the interpretation.
 
@@ -519,7 +521,7 @@ Block if:
 - a top item lacks the before–after chain;
 - transaction, execution, legal form, or company prominence is the importance explanation;
 - a high-potential structural item is rejected only for lacking a conventional execution event;
-- `structural_value_override_applied: true` is used while `evidence_needed_for_stage_b[]` is missing or empty, or `why_execution_event_not_required` is missing, null, generic, or non-specific;
+- `structural_value_override_applied: true` is used while `evidence_needed_for_stage_b` is not an array, is empty, contains blank, generic, placeholder, duplicate-only, or non-item-specific entries, fails to identify both the evidence target and the exact claim or uncertainty to verify, or while `why_execution_event_not_required` is missing, null, generic, or non-specific;
 - a high-value review item lacks a rescue question;
 - technology score exceeds evidence-stage cap;
 - legal stage or date is overstated;

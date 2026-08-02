@@ -1,320 +1,539 @@
-<!-- CANONICAL_POLICY: STRUCTURAL_NEWS_VALUE_SELECTION_V2 -->
-<!-- Effective KST: 2026-07-17 -->
-<!-- Supersedes: STRUCTURAL_NEWS_VALUE_SELECTION_V1 -->
+<!-- CANONICAL_POLICY: STRUCTURAL_NEWS_VALUE_SELECTION_V3 -->
+<!-- Effective KST: 2026-08-02 -->
+<!-- Supersedes: STRUCTURAL_NEWS_VALUE_SELECTION_V2 -->
+<!-- REPLACE_ALL_CLEAN_VERSION: true -->
 
-# Structural News Value Selection V2
+# Structural News Value Selection V3
 
 ## 0. Purpose
 
-This document defines what makes a news event valuable for SBTL_HUB.
+This document is the canonical SBTL_HUB policy for determining:
+
+- whether an event is credible;
+- whether it is independently cardable;
+- how much industrial and decision value it carries;
+- how urgently it must be published;
+- which structural domains every run must actively search;
+- how earnings, conference calls, analyst Q&A, follow-up events, and portfolio coverage must be handled;
+- what downstream evidence, validation, and editorial fields must survive through the card lifecycle.
+
+SBTL_HUB is an industrial-intelligence product, not a corporate-announcement ledger, transaction diary, or legal gazette.
 
 The selector must not confuse:
 
 - ease of verification with importance;
 - binding execution with structural impact;
-- a large headline amount with a large market effect;
-- a law being adopted with that law being implemented;
+- transaction size with market effect;
+- formal legal status with implemented industrial consequence;
 - announced capacity with actual output;
-- a tender pipeline with awarded, financed, or commissioned capacity;
-- an interesting event with a decision-useful event.
-
-A signed contract, capital increase, financing close, construction start, first shipment, factory opening, policy announcement, bill, court decision, regulatory notice, or production start may be credible and cardable. None is automatically important merely because of its form.
+- tender pipeline with awarded, financed, commissioned, or operating capacity;
+- a new article with new information;
+- a company statement with a durable strategy change;
+- a quarterly result headline with the full earnings signal;
+- the same actor or asset with the same event;
+- individual card safety with portfolio completeness.
 
 ### Canonical definition
 
-> **News value is the magnitude by which a newly verified fact changes a market participant's expected future cash flows, asset value, market access, legal rights and obligations, cost structure, supply-demand balance, competitive position, technology pathway, or probability of loss.**
+> **News value is the magnitude by which a newly verified fact changes a market participant's expected future cash flows, asset value, market access, legal rights and obligations, cost structure, supply-demand balance, competitive position, technology pathway, commercialisation probability, or probability of loss.**
 
 The core question is:
 
 > **What previously reasonable judgment must change because this fact is now known?**
 
-### Industry-first rationale
+### Core rule
 
-SBTL_HUB is an industrial intelligence product, not a corporate announcement ledger or legal gazette.
+Execution is one credibility-anchor class. It is not the sole source of news value and is not a mandatory form for every strict candidate.
 
-Therefore the scoring model places the greatest weight on the three forces that most directly reshape the battery, ESS, charging, grid, and critical-minerals industries:
-
-1. **market structure and competitive position**;
-2. **supply, demand, price, and utilisation**;
-3. **technology, performance, safety, and operational validity**.
-
-These three dimensions carry 70 of 100 points.
-
-Law, policy, finance, transactions, and project milestones remain important, but their value must be translated into one or more of those industrial effects. Formal legal status, contract size, or construction stage cannot substitute for actual industrial consequence.
-
-This document supplements:
-
-- `docs/FACT_DISCIPLINE.md`
-- `docs/PROMPT_ABC_DEFAULT_MODE.md`
-- `docs/PROMPT_ABC_SUPPORTING_RULES.md`
-- `docs/WORKFLOW.md`
-- `docs/OPERATIONS.md`
-- `docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md`
-
-Conflict hierarchy:
-
-1. `FACT_DISCIPLINE.md` always wins for facts, figures, dates, quotations, source direction, and evidence support.
-2. This document wins over any selector rule that treats execution-anchor strength, transaction size, or corporate prominence as a proxy for editorial importance.
-3. Existing state-ladder, lineage, duplicate, no-silent-enrichment, and source-diversity rules remain unchanged.
-4. A high news-value score never waives an evidence or workflow requirement.
+A signed contract, financing close, construction start, first shipment, factory opening, enacted law, court decision, policy notice, earnings release, management statement, official market dataset, or production start may be credible and cardable. None is automatically important merely because of its form.
 
 ---
 
-## 1. Four independent judgments — HARD RULE
+## 1. Governance hierarchy
 
-Every candidate must be assessed through four separate objects.
+For facts, numbers, dates, quotations, source direction, and evidence support:
 
-### 1.1 `execution_credibility_gate`
+1. `docs/FACT_DISCIPLINE.md`
+
+For editorial value, structural selection, anchor classification, earnings-call review, follow-up value, and portfolio coverage:
+
+2. `docs/STRUCTURAL_NEWS_VALUE_SELECTION.md` — this document
+3. `docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md`
+4. `docs/PROMPT_ABC_DEFAULT_MODE.md`
+5. `docs/PROMPT_ABC_SUPPORTING_RULES.md`
+6. `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md`
+7. `docs/CARD_ID_STANDARD.md`
+8. `docs/WORKFLOW.md`
+9. `docs/OPERATIONS.md`
+10. `docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md`
+
+This document overrides any selector rule that:
+
+- treats execution-anchor strength as a proxy for editorial importance;
+- blocks strict eligibility solely because a conventional corporate execution event is absent;
+- over-ranks contracts, financing, construction, production, transaction size, corporate prominence, or legal form;
+- allows earnings analysis to stop at the press release;
+- treats a material follow-up as a duplicate merely because the actor, asset, policy, or project is already represented;
+- closes a run without explaining zero coverage in a mandatory structural domain.
+
+This document does not waive evidence, state-ladder, source-diversity, duplicate, lineage, no-silent-enrichment, or baseline-safety requirements.
+
+Every run applying this policy must read both this file and Prompt 0.1S before Stage A selection.
+
+---
+
+## 2. Four independent judgments — HARD RULE
+
+Every candidate must be represented by four separate objects.
+
+### 2.1 `execution_credibility_gate`
 
 Question:
 
-> Is the event real, current, correctly scoped, and supportable?
+> Is the event real, current, correctly scoped, stage-precise, and supportable?
 
 This is a credibility gate, not an importance score.
 
-Accepted credibility anchors include, but are not limited to:
+Status:
 
-- signed contract, binding order, offtake, procurement, financing close;
-- construction start, commissioning, production start, delivery, or field deployment;
-- statute, enacted rule, final regulation, delegated act, official standard, or administrative notice;
-- regulator decision, enforcement action, recall, penalty, permit, suspension, or licence withdrawal;
-- government programme award, budget allocation, tender decision, or implementation notice;
-- official market, grid, price, demand, trade, inventory, utilisation, safety, accident, failure, or operating-data release;
-- court judgment, tribunal ruling, injunction, administrative appeal, or legally operative filing;
-- independently verified production, supply, shutdown, restart, cancellation, bankruptcy, eligibility, or market-access change.
+- `PASS`
+- `REVIEW`
+- `FAIL`
 
-The event stage must be labelled precisely.
-
-- A plan is not execution.
-- A bill is not enacted law.
-- Adoption is not necessarily effectiveness.
-- Effectiveness is not necessarily enforcement.
-- A permit is not production.
-- An award is not installation.
-- A quota is not actual output.
-- A tender is not awarded capacity.
-- Awarded capacity is not financed capacity.
-- Financed capacity is not commissioned capacity.
-
-### 1.2 `independent_cardability_gate`
+### 2.2 `independent_cardability_gate`
 
 Question:
 
-> Can this event support an independent, full-schema, decision-useful card rather than only a supporting fact?
+> Can the event support an independent, full-schema, decision-useful card rather than only background, reinforcement, watchlist context, or support evidence?
 
 Cardability requires:
 
-- a distinct current event or material stage progression;
-- a specific factual anchor;
-- a clear affected market, company, asset, policy, legal rule, or technology;
-- enough verified content to explain what changed, why it matters, and what remains conditional;
-- acceptable duplicate and reinforcement treatment against the active baseline.
+- a distinct current event, verified structural change, or material stage progression;
+- a specific anchor;
+- a clear affected market, company, asset, policy, rule, customer, supply chain, or technology;
+- sufficient factual specificity to explain what changed and what remains conditional;
+- acceptable duplicate, follow-up, reinforcement, and baseline treatment;
+- plausible Stage B source paths.
 
-A source can be useful without supporting an independent card. Background, repeated plans, static explainers, and non-material stage updates may be reinforcement rather than new cards.
-
-### 1.3 `decision_news_value_score`
-
-Question:
-
-> How much does the new fact change industrial, economic, legal, strategic, technical, or risk judgments?
-
-This is the 100-point editorial-priority score defined in Section 4.
-
-### 1.4 `publication_urgency`
+### 2.3 `decision_news_value_score`
 
 Question:
 
-> Must a decision-maker know this now to change an action, valuation, contract, compliance plan, procurement choice, hedge, or risk assessment?
+> How much does the new fact change industrial, economic, legal, strategic, technical, operating, or risk judgments?
 
-Urgency is separate from long-run importance.
+This is the 100-point score in Section 7.
 
-A major rule with a two-year transition period may be structurally important but not operationally urgent today. A smaller recall, permit suspension, customs block, or auction deadline may be immediately urgent.
+### 2.4 `publication_urgency`
+
+Question:
+
+> Must a decision-maker know this now to alter valuation, sourcing, contract, compliance, investment, operating, customer, technology, inventory, or risk decisions?
+
+Levels:
+
+- `immediate`
+- `near_term`
+- `monitor`
 
 ### Prohibited collapse
 
-The following objects must never be represented by one combined score:
+Credibility, cardability, decision value, and urgency must never be collapsed into a single score or status.
 
-- credibility;
-- cardability;
-- decision news value;
-- publication urgency.
+A high decision-value score never waives a credibility, evidence, or workflow gate.
 
 ---
 
-## 2. Mandatory before–after test
+## 3. Anchor classes
 
-A valuable news item must establish the following chain.
+Stage A must classify one or more anchor classes. A strict candidate does not require `execution_event_anchor` when another valid anchor class establishes a current, specific, decision-useful change.
 
-### 2.1 Prior state
+### 3.1 `execution_event_anchor`
 
-What was reasonably believed before the event?
-
-Examples:
-
-- a factory was planned but not financed;
-- a policy was proposed but not legally binding;
-- a subsidy was available but eligibility details were unresolved;
-- a mine was suspended and supply was expected to remain offline;
-- a technology had laboratory results but no commercial-scale yield data;
-- storage capacity was growing but dispatch access was assumed to function normally.
-
-### 2.2 New verified fact
-
-What new fact has now been confirmed?
+Use when rights, obligations, capital, facilities, procurement, production, or realised operating state changes.
 
 Examples:
 
-- final regulation adopted;
-- effective date and covered entities published;
-- first enforcement action issued;
-- budget allocated and programme application opened;
-- financing closed;
-- production restarted;
-- market data contradicted the previous demand assumption;
-- court invalidated or narrowed an agency interpretation;
-- field performance, defect, or recall data became available.
+- signed contract, binding order, offtake, procurement;
+- financing close, FID, investment approval;
+- construction, expansion, commissioning, opening;
+- production start, commercial shipment, field deployment;
+- certification, regulatory approval;
+- recall, enforcement, penalty, customs action, licence action.
 
-### 2.3 Changed judgment
+### 3.2 `policy_regulatory_anchor`
 
-What decision or expectation should change?
+Use when legal or administrative treatment changes.
 
 Examples:
 
-- market access is now conditional on traceability data;
-- project revenue can include capacity payments;
-- lithium supply expectations rise and price support weakens;
-- a subsidy-dependent project becomes less bankable;
-- liability or warranty risk increases;
-- a chemistry gains or loses relative demand;
-- a previously announced project is more or less likely to reach commercial operation.
+- bill, enacted law, final rule, delegated act;
+- implementation guidance, FAQ, registry, application process;
+- subsidy, tax-credit, procurement, tariff, quota, FEOC, local-content, customs, export-control rule;
+- exemption, threshold, grandfathering, transition rule;
+- enforcement, denial, payment, penalty, court or tribunal interpretation.
 
-### Mandatory output fields
+### 3.3 `data_financial_anchor`
 
-Each high-value candidate must include:
+Use when official or sufficiently reliable data changes a prior market or company judgment.
+
+Examples:
+
+- quarterly or annual results;
+- exchange filing or audited financial statement;
+- earnings call or analyst Q&A;
+- shipment, order backlog, inventory, utilisation, margin, price, trade, production, demand, grid, interconnection, accident, safety, or market-operation data;
+- official forecast revision.
+
+### 3.4 `strategic_behavior_anchor`
+
+Use when concrete behavior or comparative management language identifies a strategy change.
+
+Examples:
+
+- capital-allocation priority change;
+- capex delay, reduction, cancellation, relocation, or reallocation;
+- EV-to-ESS, AI-power, defence, or other application shift;
+- supplier replacement, localisation, dual sourcing, or insourcing;
+- chemistry, form-factor, packaging, service-model, or customer-selection change;
+- material guidance or strategic-language change versus a prior quarter or prior official statement.
+
+A generic interview, aspiration, or promotional statement is insufficient. The change must be specific and comparable to prior behavior, commitments, or language.
+
+### 3.5 `technology_commercialization_anchor`
+
+Use when technology maturity, qualification, manufacturability, cost, performance, safety, yield, or commercial timing changes.
+
+Examples:
+
+- research → prototype;
+- prototype → pilot;
+- pilot → field demonstration;
+- field demonstration → customer evaluation;
+- customer evaluation → qualification or certification;
+- qualification → binding order;
+- order → mass-production line;
+- line → commercial shipment;
+- verified yield, cost, energy-density, cycle-life, safety, degradation, or recovery-rate result;
+- commercialisation delay, retreat, failure, or cancellation.
+
+### 3.6 `follow_up_probability_anchor`
+
+Use when a later event changes the probability, scale, economics, timing, or legal effect of an existing card.
+
+Examples:
+
+- proposal → selection;
+- selection → approval;
+- MOU → binding contract;
+- plan → FID;
+- FID → construction;
+- construction → commissioning;
+- commissioning → commercial operation;
+- order → shipment or revenue recognition;
+- policy adoption → implementation or enforcement;
+- investigation → recall, penalty, litigation, or closure;
+- expected capacity → awarded, financed, operating, reduced, delayed, or cancelled capacity.
+
+---
+
+## 4. Mandatory before–after and novelty tests
+
+### 4.1 Prior state
+
+Record what was reasonably believed before the event.
+
+### 4.2 New verified fact
+
+Record the new fact now established.
+
+### 4.3 Changed judgment
+
+Record what expectation, decision, probability, valuation, market-access view, technology view, or risk view must change.
+
+### 4.4 Uncertainty
+
+Record:
+
+- `uncertainty_resolved`
+- `remaining_uncertainty`
+
+### Mandatory fields
 
 - `prior_state`
 - `new_verified_fact`
 - `changed_judgment`
 - `uncertainty_resolved`
 - `remaining_uncertainty`
+- `incremental_information`
+- `baseline_expectation_changed`
 
-If these cannot be stated without speculation, the item is not yet ready for a high-priority card. It must be researched, narrowed, or routed to review.
-
----
-
-## 3. Novelty and information-value gate
-
-News value requires new information, not merely a new article.
-
-### 3.1 Qualifying novelty
+### Qualifying novelty
 
 Qualifying novelty includes:
 
-- a plan becoming a legally binding duty;
-- a bill becoming enacted law;
-- a law receiving implementation rules, budget, eligibility criteria, or enforcement;
-- a target becoming a signed obligation or funded project;
-- a permit becoming physical restart or output;
-- a previously expected investment being cancelled, delayed, or reduced;
-- a new exception, exemption, transition rule, or grandfathering provision;
-- a first court interpretation or enforcement action;
-- actual price, inventory, demand, utilisation, failure, safety, or operating data changing the prior assumption;
-- a materially different follow-up event for the same actor, project, policy, or asset.
+- a plan becoming a binding duty, funded project, or executable process;
+- a proposal becoming enacted, implemented, or enforced;
+- a new exemption, threshold, transition, or grandfathering rule;
+- a first enforcement, denial, customs block, recall, payment, or precedent;
+- price, inventory, demand, utilisation, shipment, margin, safety, or operating data contradicting the prior assumption;
+- management guidance, capital allocation, customer strategy, or commercial timing changing from a prior official position;
+- a material follow-up event for the same actor, asset, policy, project, or technology;
+- an analyst Q&A answer revealing new facts or uncertainty not visible in the prepared materials.
 
-### 3.2 Low-novelty patterns
+### Low-novelty patterns
 
-Default to reinforcement, watchlist, or lower priority when the item is:
+Default to reinforcement, support, watchlist, or lower priority when the item is:
 
-- a repeated announcement with no new legal, financial, technical, or operational fact;
-- the same contract distributed by another outlet;
-- an inauguration or ceremony for an already-carded event with no new execution fact;
-- a policy speech restating an existing programme;
+- a repeated press release with no new fact;
+- a translation, syndication, or headline rewrite;
+- a ceremony for an already-carded stage with no changed judgment;
+- a restated policy speech;
 - an unchanged capacity target;
-- an article using a new headline for an old event;
-- a stage update that resolves no material uncertainty.
-
-### 3.3 Novelty caps
-
-Unless a stronger fresh fact is established:
-
-- repeated announcement: maximum `context_or_reinforcement`;
-- routine stage progression with no changed decision: maximum `standard_monitoring`;
-- corporate target without independent execution or validation: maximum `standard_monitoring`;
-- political rhetoric without legal or administrative pathway: maximum `context_or_reinforcement`.
+- an unchanged corporate aspiration;
+- a routine stage update resolving no material uncertainty;
+- a quarterly headline whose drivers were already known and whose call adds no new signal.
 
 ---
 
-## 4. Decision news-value score — 100 points
+## 5. Structural Value Override
 
-The score is deliberately **industry-first**.
+### 5.1 Purpose
 
-The three core industrial dimensions — market structure, supply-demand-price, and technology-performance-safety — account for **70 of 100 points**.
+`Structural Value Override` prevents high-value non-transaction signals from being demoted solely because they lack a conventional execution event.
 
-Law and policy are not allowed to dominate merely because an instrument is formal. A legal or policy event earns most of its value by changing market structure, supply, demand, technology pathways, costs, or risk. Its legal force is assessed separately in Section 5 and contributes a maximum of 10 points here.
+It never lowers the evidence standard.
+
+### 5.2 Apply when one or more are material
+
+- future cash flow or asset value changes;
+- legal rights, duties, eligibility, liability, or market access changes;
+- supply, demand, price, cost, inventory, utilisation, or product-mix structure changes;
+- customer or competitor behavior changes;
+- technology pathway, qualification, safety, yield, or commercialisation timing changes;
+- the probability, scale, economics, or timing of an existing event changes;
+- economic-security, localisation, traceability, strategic-mineral, or allied-supply-chain importance changes;
+- management, investor, lender, customer, supplier, or policy decisions should change.
+
+### 5.3 Do not apply to
+
+- unsupported general commentary;
+- promotional forecasts;
+- generic “market growth expected” claims;
+- interpretations without an identifiable event, document, dataset, or statement;
+- repeated reporting with no incremental information;
+- direct-benefit or inevitability claims unsupported by evidence.
+
+### 5.4 Required override fields
+
+- `structural_value_override_applied`
+- `structural_value_override_reason`
+- `anchor_classes[]`
+- `incremental_information`
+- `decision_relevance`
+- `baseline_expectation_changed`
+- `evidence_needed_for_stage_b[]`
+- `next_confirmation_points[]`
+- `why_execution_event_not_required`
+
+---
+
+## 6. Mandatory structural lenses — PORTFOLIO OBLIGATION
+
+Every run must actively inspect all lenses below. They are discovery obligations, not card quotas.
+
+### 6.1 AI data-centre power demand and ESS demand structure
+
+Do not stop at data-centre investment headlines.
+
+Check:
+
+- AI/HPC load size and load characteristics;
+- interconnection, transmission, substation, and generation constraints;
+- power-procurement structure and timing;
+- utility BESS, UPS, BBU, backup generation, and microgrid roles;
+- required duration, power, safety, and response profile;
+- co-development of data centres, generation, grid assets, and BESS;
+- reuse of existing power infrastructure;
+- PPA, interconnection, approval, construction, and operating stage;
+- planned versus contracted versus operating capacity;
+- conversion of AI-power demand into actual orders, shipments, revenue, or utilisation.
+
+### 6.2 United States, European Union, and China policy and supply-chain rules
+
+Independently inspect:
+
+- proposal;
+- adoption;
+- implementing rule;
+- effective date;
+- mandatory application;
+- customs or enforcement practice;
+- exemption, threshold, transition, and grandfathering;
+- judicial or administrative interpretation;
+- corporate response.
+
+Check covered products, entities, ownership, origin, content, mineral, component, subsidy, tax-credit, procurement, tariff, export-control, investment-screening, and market-access conditions.
+
+### 6.3 Economic security of battery materials, rare earths, and graphite
+
+Inspect:
+
+- critical-mineral or strategic-item designation;
+- government stockpiling;
+- price floors, purchase guarantees, and offtake;
+- localisation or allied-sourcing requirements;
+- policy finance, grants, loan guarantees, and insurance;
+- export controls, tariffs, investment screening, and procurement exclusion;
+- defence, aerospace, grid, and other strategic demand;
+- domestic separation, refining, conversion, and processing capacity;
+- supply-chain lead-company designation;
+- country-dependence reduction.
+
+Focus on bargaining power, market access, risk allocation, and the mechanism by which government changes private economics.
+
+### 6.4 Price, earnings, and profitability direction
+
+Decompose:
+
+- price;
+- volume;
+- mix;
+- utilisation;
+- raw-material cost;
+- inventory;
+- fixed cost;
+- subsidy or tax-credit contribution;
+- one-off gains or losses;
+- cash flow;
+- capex;
+- backlog;
+- customer and regional demand.
+
+Determine whether the signal is structural demand, inventory normalisation, price pressure, utilisation recovery, policy support, or a one-off accounting effect.
+
+### 6.5 Competitor and customer strategy
+
+Inspect:
+
+- application priorities across EV, ESS, AI power, defence, and small batteries;
+- production-footprint relocation;
+- JV expansion, reduction, withdrawal, or restructuring;
+- customer insourcing versus external procurement;
+- supplier replacement, qualification, and dual sourcing;
+- chemistry, cell format, pack, packaging, and material selection;
+- capex delay, reduction, suspension, or reallocation;
+- pricing, warranty, service, and commercial-model changes;
+- customer concentration and regional dependence.
+
+Competitor news is not automatically external-news material, but it must be analysed when it changes industry structure, customer demand, or SBTL-relevant positioning.
+
+### 6.6 Technology transition and commercialisation speed
+
+Classify exactly:
+
+1. concept or target;
+2. research or paper;
+3. prototype;
+4. pilot;
+5. field demonstration;
+6. customer evaluation;
+7. qualification;
+8. certification;
+9. order or offtake;
+10. mass-production equipment;
+11. production start;
+12. commercial shipment;
+13. repeat order;
+14. profitability or field-performance validation.
+
+Do not convert:
+
+- semi-solid into all-solid-state;
+- pilot into commercialisation;
+- MOU into supply contract;
+- target yield into achieved yield;
+- planned capacity into operating output;
+- customer evaluation into customer adoption.
+
+### 6.7 Existing-card follow-ups and next confirmation points
+
+Do not classify a story as duplicate merely because actor, asset, project, policy, or topic is already represented.
+
+A standalone follow-up may exist when any of the following changes:
+
+- stage;
+- legal rights or duties;
+- approval;
+- financing;
+- scale;
+- timing;
+- customer or supplier;
+- price or economics;
+- technical maturity;
+- risk probability;
+- earnings contribution;
+- delay, suspension, reduction, or cancellation probability.
+
+Every applicable card must state the next event or metric that would confirm, weaken, or invalidate the current interpretation.
+
+---
+
+## 7. Decision news-value score — 100 points
+
+The V2 100-point industry-first model is preserved without reducing any weight or scoring discipline.
+
+The three core industrial dimensions carry 70 of 100 points.
 
 Do not double-count the same effect across dimensions.
 
 ### A. Market structure and competitive position — 0 to 25
 
-Assess whether the event changes:
+Assess:
 
-- industry concentration;
-- supplier or customer bargaining power;
-- entry barriers;
-- switching costs;
+- concentration;
+- supplier and customer bargaining power;
+- entry barriers and switching costs;
 - vertical integration;
 - control of standards, data, channels, infrastructure, permits, or key inputs;
 - ownership and operating models;
 - access to grids, sites, customers, capital, procurement, or subsidies;
-- recurring revenue or service models;
-- competitive dependence on a country, company, chemistry, or technology;
-- market design, dispatch access, capacity remuneration, or revenue-stack availability.
+- recurring-revenue or service models;
+- dependence on a country, company, chemistry, or technology;
+- market design, dispatch access, capacity remuneration, and revenue-stack availability.
 
-High scores require a market-level consequence, not only a company-level transaction.
+A company transaction receives a high score only when it changes market-level structure or competitive behavior.
 
-A merger, partnership, or contract does not automatically score highly. Explain how it changes concentration, market access, operating control, revenue formation, or competitive behaviour.
+### B. Supply, demand, price, and utilisation — 0 to 25
 
-### B. Supply, demand, price, and utilisation structure — 0 to 25
+Assess:
 
-Assess whether the event changes:
-
-- actual or expected commodity, material, cell, pack, system, or electricity supply;
-- demand by application, region, customer, or chemistry;
+- actual and expected supply;
+- demand by application, region, customer, and chemistry;
 - inventory;
-- imports, exports, quotas, or trade flows;
-- utilisation or operating rates;
+- trade flows, quotas, tariffs, and export controls;
+- operating and utilisation rates;
 - shortage or surplus expectations;
-- benchmark prices or price formation;
-- marginal cost or the industry cost curve;
-- EV versus ESS demand composition;
-- duration, power, safety, or duty-cycle requirements affecting product mix;
-- relationships among lithium, nickel, cobalt, graphite, LFP, high-nickel, sodium-ion, flow-battery, and recycling demand.
+- price formation and cost curves;
+- EV versus ESS demand mix;
+- duration, power, safety, and duty-cycle requirements;
+- lithium, nickel, cobalt, graphite, LFP, high-nickel, sodium-ion, flow-battery, and recycling relationships.
 
-Capacity announcements must be distinguished from actual output.
+Capacity discipline:
 
-- Planned capacity is not supply.
-- Permitted capacity is not production.
-- Nameplate capacity is not utilisation.
-- A quota is not actual extraction.
-- A tender pipeline is not commissioned demand.
-
-High scores generally require one or more of:
-
-- a meaningful market denominator;
-- actual operating, inventory, trade, demand, or price data;
-- a credible change to supply or demand expectations;
-- a demonstrated effect on price formation, cost curves, or utilisation.
+- planned capacity is not supply;
+- permitted capacity is not production;
+- nameplate capacity is not utilisation;
+- quota is not output;
+- tender pipeline is not commissioned demand.
 
 ### C. Technology, performance, safety, and operational validity — 0 to 20
 
-Assess whether the event changes the credible position of a technology on:
+Assess:
 
 - cost;
-- energy density;
-- power density;
-- cycle life;
-- calendar life;
-- fast charging;
+- energy and power density;
+- cycle and calendar life;
+- charging;
 - temperature range;
 - degradation;
 - recovery rate;
@@ -322,331 +541,161 @@ Assess whether the event changes the credible position of a technology on:
 - manufacturability;
 - material intensity;
 - commercial-scale operability;
-- safety, defect, fire, recall, or failure rates;
-- maintenance, warranty, insurance, or replacement requirements;
-- standardisation, certification, customer qualification, or field validation.
+- safety, fire, defect, recall, and failure rates;
+- maintenance, warranty, insurance, and replacement requirements;
+- standardisation, certification, qualification, and field validation.
 
-Technology claims must be classified by evidence stage:
-
-1. concept or company target;
-2. laboratory result;
-3. prototype or pilot;
-4. third-party or standardised test;
-5. customer qualification;
-6. commercial-scale production data;
-7. multi-site or long-duration field performance;
-8. recall, defect, warranty, or operating-failure evidence.
-
-Scoring caps:
+Technology score caps:
 
 - company target or unsupported claim: maximum 4/20;
 - laboratory result without independent validation: maximum 7/20;
 - pilot result without commercial-scale evidence: maximum 11/20;
 - independent test or customer qualification: maximum 15/20;
-- commercial-scale or long-duration field evidence may receive 16–20/20;
-- material safety failure, recall, or operating evidence may receive 16–20/20 even when the technology outcome is negative.
+- commercial-scale or long-duration field evidence: up to 20/20;
+- material recall, defect, fire, warranty, or operating-failure evidence: up to 20/20.
 
-### D. Future cash flow and asset-value impact — 0 to 10
-
-Assess whether the event can materially change:
-
-- revenue;
-- sales volume;
-- realised price;
-- operating cost;
-- gross margin or EBITDA;
-- utilisation;
-- warranty, insurance, remediation, or recall cost;
-- capex;
-- tax, subsidy, grant, guarantee, or financing cost;
-- project NPV, IRR, DSCR, or bankability;
-- impairment, stranded-asset, or replacement risk;
-- asset or enterprise value.
-
-This dimension measures the economic transmission, not the size of the announced transaction.
-
-Generic claims such as "positive for growth" receive no meaningful score.
-
-### E. Law, policy, rights, obligations, and market access — 0 to 10
-
-Assess whether the event changes:
-
-- legal rights or duties;
-- product eligibility;
-- subsidy, tax-credit, procurement, or financing eligibility;
-- tariff, quota, export-control, import-ban, FEOC, local-content, or customs treatment;
-- licensing, certification, registration, or permitting;
-- battery-passport, traceability, recycling, repair, durability, disclosure, or due-diligence obligations;
-- enforcement exposure, penalties, recall, refund, remediation, or civil liability;
-- court interpretation of a statute, regulation, contract, patent, permit, or valuation method;
-- the ability to enter, remain in, or compete in a material market.
-
-The formal status of a legal instrument does not itself earn 10 points.
-
-A policy or legal event should earn additional points under A, B, C, or D when it changes market structure, supply-demand, technology pathways, or economics.
-
-Political statements and draft proposals score lower than effective, implemented, or enforced rules unless the actor possesses immediate legal authority and the transmission pathway is credible.
-
-#### Policy/legal scoring transmission guard
-
-The 10-point legal-policy dimension measures only the event's operative legal effect: enforceability, rights, duties, eligibility, liability, market-access status, and procedural certainty.
-
-Do not place the full industrial consequence inside the legal-policy dimension.
-
-Allocate consequences as follows:
-
-- change in entry barriers, procurement access, competitive concentration, grid access, or revenue design → **A. Market structure**;
-- change in quotas, tariffs, imports, exports, actual supply, demand, utilisation, or price formation → **B. Supply-demand-price**;
-- change in mandatory technical standards, product qualification, safety performance, repairability, durability, or technology pathway → **C. Technology-performance-safety**;
-- change in subsidy value, tax burden, compliance cost, financing, liability, margin, or asset value → **D. Cash flow and asset value**;
-- legal force, covered rights and duties, effective status, enforcement exposure, and market-access entitlement itself → **E. Law-policy-market access**.
-
-A policy event may therefore receive a high total score, but only when its verified industrial transmission is material. It must not receive a high score by placing the same policy effect in multiple dimensions without separate reasoning.
-
-### F. Systemic scale and coverage — 0 to 5
-
-Assess scale against the relevant denominator, not the headline amount alone.
-
-Possible denominators include:
-
-- share of global or national supply;
-- share of annual demand;
-- share of installed storage or new additions;
-- affected customers, products, operators, or assets;
-- covered geography;
-- share of a regional project pipeline;
-- number and significance of economic operators subject to a rule;
-- proportion of company capacity, revenue, or capital committed.
-
-If no defensible denominator is available, score no more than 2/5 and record `denominator_gap`.
-
-### G. Persistence and irreversibility — 0 to 3
-
-Assess whether the effect:
-
-- persists beyond a quarter or single project;
-- creates multi-year compliance or switching costs;
-- changes supply-chain geography;
-- requires hard-to-reverse capex;
-- locks in a standard, contract, network, or operating model;
-- strands prior investment;
-- invalidates a durable market assumption.
-
-### H. Decision urgency and actionability — 0 to 2
-
-Assess whether a decision-maker should promptly:
-
-- change valuation or forecasts;
-- revise a contract or covenant;
-- alter sourcing or customer strategy;
-- prepare compliance systems;
-- change a project schedule;
-- secure alternative supply;
-- adjust a hedge or inventory position;
-- reassess a permit, warranty, litigation, or enforcement risk.
-
-### Score bands
-
-| Score | Classification | Meaning |
-|---:|---|---|
-| 85–100 | `critical_structural` | Resets an industry, market, technology, regulatory, price, or risk assumption |
-| 70–84 | `high_decision_value` | Directly relevant to investment, procurement, policy, legal, technology, or operating decisions |
-| 55–69 | `material_industry_signal` | Material execution or structural signal with bounded reach |
-| 40–54 | `standard_monitoring` | Useful and cardable, but limited change to core assumptions |
-| 25–39 | `context_or_reinforcement` | Better used as supporting context, watchlist, or baseline reinforcement |
-| 0–24 | `low_independent_value` | Low independent card value unless additional facts are found |
-
----
-
-## 5. Law and policy effect framework — HARD RULE
-
-Law and policy news must be analysed by legal effect and implementation stage, not by headline language.
-
-Legal-policy stage is an **effect and confidence framework**, not a substitute for the 100-point industrial-value score.
-
-A formal legal event can be low-value if it affects only one narrow dispute. A guidance document can be high-value if it immediately controls subsidy eligibility, customs clearance, licensing, procurement, or market access.
-
-### 5.1 Legal-policy stage classification
-
-Record one primary stage and any relevant secondary stage.
-
-#### Stage 0 — rhetoric, political statement, campaign pledge, or advocacy
-
-Examples:
-
-- ministerial statement;
-- party manifesto;
-- industry request;
-- political speech;
-- non-operative bilateral declaration.
-
-Default treatment: watchlist or context unless the actor possesses immediate executive authority or the statement changes market expectations through a credible implementation pathway.
-
-Default decision-value cap: 39/100 unless an immediate operative effect or independently verified market consequence exists.
-
-#### Stage 1 — roadmap, white paper, study, consultation, or draft standard
-
-Examples:
-
-- government roadmap;
-- consultation paper;
-- regulator study;
-- technical-standard draft;
-- preliminary guidance.
-
-Value rises when covered entities, obligations, dates, metrics, budget, or implementing authority are specific.
-
-Default decision-value cap: 54/100 unless the document directly changes current administrative practice, procurement, funding, or market expectations.
-
-#### Stage 2 — bill, proposed rule, draft delegated act, draft budget, or formal legislative proposal
+### D. Future cash flow and asset value — 0 to 10
 
 Assess:
 
-- sponsor and competent authority;
-- legislative or rulemaking stage;
-- political support;
-- expected amendments;
-- adoption probability;
-- expected timing;
-- legal authority and possible challenge.
+- revenue, volume, realised price;
+- operating cost and margin;
+- utilisation;
+- warranty, insurance, remediation, and recall cost;
+- capex;
+- tax, subsidy, grant, guarantee, and financing cost;
+- project NPV, IRR, DSCR, and bankability;
+- impairment, stranded-asset, and replacement risk;
+- asset and enterprise value.
 
-Do not write as if adopted.
+Transaction size is not the score. Economic transmission is the score.
 
-Default decision-value cap: 69/100 unless passage is highly probable, timing is near, and the market effect is already material and independently observable.
+### E. Law, policy, rights, obligations, and market access — 0 to 10
 
-#### Stage 3 — enacted law, final rule, formally adopted standard, or signed legal instrument
+Assess operative effect on:
+
+- rights and duties;
+- product eligibility;
+- subsidy, tax-credit, procurement, and financing eligibility;
+- tariff, quota, export-control, import-ban, FEOC, local-content, and customs treatment;
+- licensing, certification, registration, and permitting;
+- battery-passport, traceability, recycling, repair, durability, disclosure, and due diligence;
+- enforcement, penalty, recall, refund, remediation, and liability;
+- court interpretation;
+- ability to enter, remain in, or compete in a market.
+
+Formal status alone does not earn a high score.
+
+Transmission guard:
+
+- entry barriers, procurement access, concentration, grid access, revenue design → A;
+- quotas, tariffs, trade, supply, demand, utilisation, price formation → B;
+- standards, qualification, safety, durability, repairability, technology pathway → C;
+- subsidy value, tax burden, compliance cost, financing, liability, margin, asset value → D;
+- legal force, enforceability, rights, duties, eligibility, liability, market-access entitlement → E.
+
+### F. Systemic scale and coverage — 0 to 5
+
+Use a defensible denominator:
+
+- share of global or national supply;
+- share of annual demand;
+- installed or new storage;
+- affected customers, products, operators, or assets;
+- geography;
+- regional project pipeline;
+- economic operators covered;
+- company capacity, revenue, or capital exposed.
+
+If no defensible denominator exists, score no more than 2/5 and record `denominator_gap`.
+
+### G. Persistence and irreversibility — 0 to 3
+
+Assess whether the event:
+
+- persists beyond one quarter or one project;
+- creates multi-year compliance or switching cost;
+- changes supply-chain geography;
+- requires hard-to-reverse capex;
+- locks in a standard, contract, network, or operating model;
+- strands investment;
+- invalidates a durable assumption.
+
+### H. Decision urgency and actionability — 0 to 2
+
+Assess whether a decision-maker should promptly change:
+
+- valuation or forecast;
+- contract or covenant;
+- sourcing or customer strategy;
+- compliance systems;
+- project schedule;
+- alternative supply;
+- hedge or inventory;
+- permit, warranty, litigation, or enforcement risk.
+
+### Score bands
+
+| Score | Classification |
+|---:|---|
+| 85–100 | `critical_structural` |
+| 70–84 | `high_decision_value` |
+| 55–69 | `material_industry_signal` |
+| 40–54 | `standard_monitoring` |
+| 25–39 | `context_or_reinforcement` |
+| 0–24 | `low_independent_value` |
+
+---
+
+## 8. Law and policy effect framework — HARD RULE
+
+Law and policy must be analysed by legal effect and implementation stage, not headline language.
+
+### Stage 0 — rhetoric or advocacy
+
+Political statement, campaign pledge, manifesto, industry request, or non-operative declaration.
+
+Default score cap: 39 unless immediate authority or an independently verified market effect exists.
+
+### Stage 1 — roadmap, study, consultation, or draft standard
+
+Check covered entities, obligations, dates, metrics, budget, and implementing authority.
+
+Default score cap: 54 unless current administrative, procurement, funding, or market practice changes.
+
+### Stage 2 — bill, proposed rule, draft act, or draft budget
+
+Check sponsor, authority, procedural stage, political support, amendment risk, adoption probability, timing, and legal challenge.
+
+Default score cap: 69 unless adoption is highly probable, near, and already causing a material observable effect.
+
+### Stage 3 — enacted law, final rule, adopted standard, or signed legal instrument
 
 Separate:
 
 - adoption date;
-- publication or gazette date;
+- publication date;
 - effective date;
-- mandatory application date;
-- transition period;
+- mandatory-application date;
+- transition;
 - grandfathering;
 - delegated implementation still required.
 
-Adoption does not prove administrative readiness or enforcement.
+No automatic score floor or ceiling.
 
-No automatic score floor or ceiling. Score the actual industrial effect.
+### Stage 4 — implementation rule, budget, guidance, registry, eligibility criteria, or programme opening
 
-#### Stage 4 — implementation rule, budget allocation, administrative guidance, registration system, eligibility criteria, or programme opening
+Assess agency, budget, application process, certification or data system, administrative capacity, timetable, and transitional recognition.
 
-This stage often has more practical value than enactment because it converts legal authority into an executable process.
+### Stage 5 — enforcement, payment, award, denial, penalty, recall, customs action, or licence action
 
-Assess:
+Assess legal basis, affected party, economic effect, precedent, appeal, and probability of wider enforcement.
 
-- responsible agency;
-- budget and funding source;
-- application and selection criteria;
-- forms, registry, certification, or data system;
-- administrative capacity;
-- timetable;
-- transitional recognition of existing operators.
+### Stage 6 — judicial or tribunal interpretation
 
-No automatic score floor. High scores require a material effect on market structure, supply, demand, technology, economics, or access.
+Assess court level, finality, appealability, jurisdiction, binding effect, remedy, industry scope, agency response, and legislative response.
 
-#### Stage 5 — enforcement, payment, award, denial, penalty, recall, customs action, licence suspension, or procurement exclusion
-
-This is the point where legal or policy rules create realised economic effects.
-
-Assess:
-
-- affected party and conduct;
-- legal basis;
-- monetary or operating effect;
-- precedent value;
-- appeal or review rights;
-- probability of wider enforcement.
-
-First enforcement, first denial, first customs block, or first market exclusion may be highly valuable even when the monetary amount is small.
-
-#### Stage 6 — judicial or tribunal interpretation
-
-Court decisions are not automatically the highest-value stage. Their importance depends on:
-
-- court level;
-- finality;
-- appealability;
-- jurisdiction;
-- binding versus persuasive effect;
-- party-specific versus industry-wide application;
-- whether the decision invalidates, narrows, or confirms agency action;
-- remedy: damages, injunction, vacatur, remand, permit cancellation, or valuation order;
-- likely regulatory or legislative response.
-
-A project-specific valuation ruling may be a standard or support card. A ruling that changes subsidy eligibility, market access, permitting, FEOC treatment, patent freedom to operate, or agency authority may be critical.
-
-### 5.2 Legal instrument type
-
-Record the instrument precisely:
-
-- constitution or treaty;
-- statute or act;
-- regulation or rule;
-- delegated or implementing act;
-- executive order or decree;
-- ministerial notice, guidance, circular, or administrative interpretation;
-- public-procurement requirement;
-- mandatory or voluntary standard;
-- court or tribunal decision;
-- consent order, settlement, or enforcement undertaking;
-- programme term, grant condition, loan condition, or guarantee condition.
-
-Do not use generic labels such as "new law" when the instrument is guidance, a proposal, a programme notice, or a court order limited to the parties.
-
-### 5.3 Legal-policy transmission analysis
-
-Every policy or legal card must map the transmission chain.
-
-Examples:
-
-```text
-rule change
-→ subsidy eligibility changes
-→ effective product price changes
-→ demand and utilisation change
-→ margin, cash flow, or asset value changes
-```
-
-```text
-capacity-market implementation
-→ storage availability receives remuneration
-→ revenue stack and DSCR improve
-→ financing probability rises
-→ storage investment increases
-```
-
-```text
-traceability obligation
-→ data and supplier-verification systems become mandatory
-→ compliance cost and supplier switching rise
-→ market access depends on verified data
-→ competitive advantage shifts to prepared operators
-```
-
-If the transmission pathway cannot be explained, policy implication must remain narrow.
-
-### 5.4 Mandatory legal-policy questions
-
-For every legal, policy, regulatory, judicial, enforcement, subsidy, tax, tariff, quota, procurement, or standardisation event, answer:
-
-1. What is the exact legal instrument?
-2. Which authority issued, adopted, implemented, or enforced it?
-3. What procedural stage has actually been reached?
-4. What dates govern adoption, publication, effectiveness, and mandatory application?
-5. Who and what products are covered?
-6. What exemptions, thresholds, transition periods, grandfathering, or emergency exceptions apply?
-7. What budget, registry, guidance, certification, staffing, or administrative system is required?
-8. What happens on non-compliance?
-9. Can the action be appealed, stayed, invalidated, amended, or reversed?
-10. Is the effect party-specific, national, regional, extraterritorial, or industry-wide?
-11. What is the economic and industrial transmission pathway?
-12. What next event determines real implementation?
-
-### 5.5 Required legal-policy fields
-
-Each applicable item must include:
+### Required legal-policy fields
 
 - `legal_policy_stage`
 - `legal_instrument_type`
@@ -672,356 +721,634 @@ Each applicable item must include:
 - `legal_policy_transmission_chain[]`
 - `next_implementation_trigger`
 
-Use `not_disclosed`, `not_applicable`, or `not_yet_determined` where appropriate. Do not invent missing legal detail.
+Use `not_disclosed`, `not_applicable`, or `not_yet_determined`; do not invent missing legal detail.
 
 ---
 
-## 6. Anti-execution and anti-formality bias — HARD RULE
+## 9. Earnings, conference call, and analyst Q&A — HARD RULE
 
-### 6.1 Binding status is not an importance score
+### 9.1 Required evidence universe
 
-The following is invalid reasoning:
+For a listed-company earnings candidate, inspect where available:
 
-> This is a binding contract, therefore it is a top news item.
+1. earnings release;
+2. exchange or regulator filing;
+3. quarterly or annual IR deck;
+4. detailed statements and segment results;
+5. prepared remarks;
+6. complete conference-call or earnings-call recording/transcript;
+7. analyst Q&A;
+8. correction, FAQ, or supplemental material;
+9. prior-quarter and prior-year official language.
 
-Valid reasoning explains the structural effect:
+Prepared remarks alone are not a completed call review.
 
-> The contract covers a material share of regional demand, changes supplier concentration, establishes a price benchmark, or materially de-risks a technology or project.
+### 9.2 Mandatory extraction
 
-### 6.2 Legal formality is not an importance score
+- revenue, operating profit, EBITDA, and cash-flow drivers;
+- price, volume, mix, utilisation, and raw-material bridge;
+- demand by EV, ESS, AI data centre, small battery, defence, and other applications;
+- customer inventory correction versus actual orders and shipments;
+- new customers, backlog, offtake, qualification, and mass-production timing;
+- capex expansion, reduction, delay, cancellation, or reallocation;
+- plant utilisation and breakeven;
+- inventory write-down, impairment, provision, and one-off item;
+- price-decline effect on revenue and margin;
+- subsidy, tax-credit, and policy-support contribution;
+- regional sales, profitability, and market access;
+- management-language change versus the prior period;
+- guidance maintained, raised, lowered, or withdrawn;
+- future revenue, margin, shipment, utilisation, and capex outlook;
+- evasive, conditional, vague, or repeatedly challenged answers.
 
-The following is invalid reasoning:
+### 9.3 Q&A is a structural signal
 
-> Parliament passed a law, therefore the event is top priority.
+Separately capture:
 
-Valid reasoning explains:
+- new facts first disclosed in Q&A;
+- demand, price, utilisation, or capex change versus prior guidance;
+- customer, region, product, or application concentration;
+- order delay, renegotiation, destocking, or qualification delay;
+- prerequisites for margin recovery;
+- one-off versus structural profitability;
+- commercialisation and mass-production schedule change;
+- competitor pricing and customer insourcing;
+- policy, tariff, FEOC, localisation, and market-access effects;
+- analyst themes repeated across questions;
+- management uncertainty or answer avoidance.
 
-- the covered market;
-- enforceable duties;
-- effective and application dates;
-- exceptions and transition;
-- implementation readiness;
-- market, supply, demand, technology, cost, or access effects.
+### 9.4 Required earnings conclusion
 
-### 6.3 Transaction-size discipline
+Do not stop at “revenue increased,” “profit declined,” or “turned profitable.”
 
-A large amount supports importance only after clarifying:
+Explain:
 
-- currency;
-- committed versus potential amount;
-- total project cost versus current financing;
-- capacity actually awarded versus pipeline or target;
-- annual capacity versus cumulative volume;
-- relevant market denominator;
-- conditions precedent;
-- share of company or market exposure.
+- what moved the numbers;
+- price/volume/mix/cost bridge;
+- genuine demand versus inventory or one-off effect;
+- affected business, customer, region, and application;
+- guidance change;
+- analyst focus and risk;
+- next-quarter confirmation points;
+- discrepancy between press release, prepared remarks, Q&A, and prior-period language.
 
-### 6.4 Construction and production discipline
+### 9.5 Missing call or Q&A
 
-Construction start, factory opening, production start, or first delivery must not automatically outrank:
+Record one:
 
-- market-rule changes;
-- grid dispatch failures;
-- price-moving supply restarts or shutdowns;
-- recalls, fires, warranty failures, or safety enforcement;
-- demand and chemistry shifts;
-- independently validated technology change;
-- mandatory compliance and market-access rules.
+- `earnings_materials_only`
+- `prepared_remarks_only`
+- `full_call_transcript_available`
+- `qna_available`
+- `qna_partial`
+- `qna_unavailable`
+- `call_not_held`
+- `transcript_access_blocked`
 
-### 6.5 MOU and partnership discipline
+Without Q&A, do not make definitive conclusions about customer demand, inventory normalisation, utilisation recovery, profitability durability, capex strategy, or new-application revenue contribution.
 
-An MOU or partnership may be cardable only when the card states:
+### 9.6 Required earnings fields
 
-- binding or non-binding status;
-- concrete role of each party;
-- committed capital, volume, site, or deliverable, if any;
-- previous LOI or earlier agreement;
-- conditions for execution;
-- structural consequence beyond the announcement itself.
-
----
-
-## 7. Structural-event patterns requiring active rescue
-
-The selector must not discard the following merely because they lack a conventional corporate execution anchor.
-
-### 7.1 Market structure and market-operation signals
-
-- storage skip rates or dispatch failures;
-- curtailment, congestion, negative-price, interconnection, or queue changes;
-- capacity-market design;
-- ancillary-service or balancing-rule changes;
-- network-tariff or charging-rule changes;
-- concentration, market-access, or platform-control changes.
-
-### 7.2 Supply, demand, price, and utilisation signals
-
-- material mine, refinery, plant, or factory restart or shutdown;
-- quota, export-control, tariff, inventory, or utilisation change;
-- cost-curve or benchmark-price change;
-- supply deficit or surplus revision supported by data;
-- EV versus ESS demand-mix change;
-- chemistry-share change;
-- regional sales, installation, or operating-data reversal.
-
-### 7.3 Technology, safety, and operating evidence
-
-- independently verified cost, cycle-life, safety, energy-density, recovery-rate, or yield change;
-- standardised or third-party-tested performance;
-- customer qualification;
-- commercial-scale production result;
-- long-duration field performance;
-- recall, fire, defect, warranty, degradation, or insurer response;
-- project cancellation or revenue-model failure caused by technical or operating weakness.
-
-### 7.4 Regulation, policy, and law
-
-- enacted or implemented battery-passport, traceability, recycling, safety, repair, durability, local-content, FEOC, tariff, subsidy, procurement, or market-access rule;
-- implementation standard or administrative guidance that changes eligibility or compliance;
-- first enforcement, denial, customs block, recall, penalty, or licence action;
-- court decision changing agency authority, eligibility, permitting, valuation, liability, or freedom to operate.
-
-These items may use official data, policy, legal, safety, standards, or market-operation material as the credibility anchor.
+- `earnings_release_checked`
+- `filing_checked`
+- `ir_deck_checked`
+- `prepared_remarks_checked`
+- `earnings_call_checked`
+- `qna_checked`
+- `qna_status`
+- `prior_quarter_language_compared`
+- `management_guidance_change`
+- `analyst_question_themes[]`
+- `answer_avoidance_or_uncertainty[]`
+- `price_volume_mix_cost_bridge`
+- `next_quarter_confirmation_points[]`
 
 ---
 
-## 8. Stage A operating rule
+## 10. Stage A operating rule
 
 Stage A remains selector-only and must not perform external web search or article-body fetch.
 
 Stage A must:
 
-1. estimate news value from current-run metadata, previews, usable text, and source-packet metadata;
-2. separate credibility, cardability, decision value, and urgency;
-3. avoid rejecting a high-potential structural item solely because a corporate execution anchor is absent;
-4. route unresolved but high-potential structural items to `candidate_review_pool[]` with a concrete rescue question;
-5. mark easy-to-verify but low-value transactions as lower editorial priority even when they enter `strict_passed_spec[]`;
-6. preserve unresolved legal, policy, market, supply, technology, and denominator questions for Stage B or an authorised rescue loop;
-7. apply search-before-delete at all stages where search is authorised.
+1. assess all current-run stories;
+2. separate credibility, cardability, value, and urgency;
+3. classify one or more anchor classes;
+4. apply Structural Value Override where warranted;
+5. inspect all mandatory structural lenses;
+6. preserve high-potential unresolved items with a bounded rescue question;
+7. screen all baseline relations for duplicate, reinforcement, and material follow-up;
+8. identify earnings candidates requiring deep-dive review;
+9. record portfolio coverage contribution;
+10. apply search-before-delete within the Stage A no-fetch boundary.
 
-### Required item fields
+### Strict eligibility
 
-Each `strict_passed_spec[]` and `candidate_review_pool[]` item must include:
+A candidate may enter `strict_passed_spec[]` only when:
 
-- `execution_credibility_gate`
-  - `status: PASS | REVIEW | FAIL`
-  - `anchor_type`
-  - `anchor_strength`
-  - `stage_precision_note`
-- `independent_cardability_gate`
-  - `status: PASS | REVIEW | FAIL`
-  - `distinct_event_or_stage_progression`
-  - `full_schema_viability`
-  - `duplicate_or_reinforcement_note`
-- `decision_news_value_score`
-- `decision_value_breakdown`
-  - `market_structure_competition` — 0 to 25
-  - `supply_demand_price_utilisation` — 0 to 25
-  - `technology_performance_safety` — 0 to 20
-  - `cashflow_asset_value` — 0 to 10
-  - `law_policy_market_access` — 0 to 10
-  - `systemic_scale` — 0 to 5
-  - `persistence_irreversibility` — 0 to 3
-  - `decision_urgency_actionability` — 0 to 2
-- `decision_value_classification`
-- `structural_change_types[]`
-- `prior_state`
-- `new_verified_fact`
-- `changed_judgment`
-- `uncertainty_resolved`
-- `remaining_uncertainty`
-- `denominator_used`
-- `denominator_gap`
-- `publication_urgency`
-  - `level: immediate | near_term | monitor`
-  - `action_required`
-  - `decision_deadline`
-- `anti_bias_check`
-  - `binding_status_used_as_importance_proxy: false`
-  - `legal_formality_used_as_importance_proxy: false`
-  - `headline_amount_used_without_denominator: false`
-  - `announced_capacity_treated_as_actual_output: false`
-  - `routine_execution_event_overranked: false`
-- `structural_rescue_required`
-- `structural_rescue_question`
-- `search_before_delete_status`
+1. SBTL_HUB lane fit passes;
+2. at least one valid anchor class exists;
+3. incremental information exists;
+4. structural or decision value exists;
+5. source direction is plausibly compatible;
+6. freshness and staleness treatment is acceptable;
+7. duplicate, follow-up, and reinforcement treatment is acceptable;
+8. full-schema viability exists;
+9. a plausible Stage B source path exists.
 
-Policy and legal items must also include the Section 5 fields, subject to Stage A's no-fetch boundary and available metadata.
+**The absence of a conventional corporate execution event is not, by itself, a strict-pass blocker.**
 
-### Routing matrix
+### Review partitions
 
-| Credibility | Cardability | Decision value | Default route |
-|---|---|---:|---|
-| PASS | PASS | 70–100 | `strict_passed_spec[]`, subject to all other strict gates |
-| PASS | PASS | 55–69 | strict or candidate review based on evidence and duplicate risk |
-| PASS | PASS/REVIEW | 40–54 | lower-priority strict, candidate review, or reinforcement |
-| REVIEW | PASS/REVIEW | 55–100 | `candidate_review_pool[]` with mandatory rescue question |
-| PASS/REVIEW | REVIEW | any | candidate review, reinforcement, or watchlist |
-| FAIL | any | any | reject/support-only only with item-specific reason and ledger |
+- `candidate_review_pool[]` — potentially cardable after bounded clarification;
+- `structural_signal_review_pool[]` — high structural potential requiring source, denominator, stage, or comparison rescue;
+- `earnings_deep_dive_pool[]` — earnings candidate lacking full call/Q&A or prior-period comparison;
+- `watchlist_context_pool[]` — not yet cardable, but a defined future trigger exists;
+- `existing_reinforcement[]` — strengthens an existing card without a distinct event;
+- `support_source_only[]` — contextual evidence only;
+- `rejected[]` — item-specific closure after the applicable review rule.
 
-Do not force a minimum number of structural cards. Do not lower evidence standards to improve topic balance.
+### Treasure hunting
+
+Stage A must inspect KEEP, REVIEW, STEP2_PENDING, DROPPED, and INPUT_ONLY stories for:
+
+- structural false negatives;
+- earnings-call fragments separated from the earnings release;
+- material follow-ups misclassified as duplicates;
+- AI-power or grid demand hidden inside general energy coverage;
+- strategic-mineral or graphite policy hidden inside mining coverage;
+- strategy change hidden inside interview or commentary format;
+- technology delay or failure hidden inside promotional coverage.
 
 ---
 
-## 9. Stage B and rescue search order
+## 11. Stage B and authorised rescue
 
-For each important candidate, search in this order:
+Stage B validates the Stage A anchor and structural thesis. It must not search for an execution event merely to retrofit the candidate into an obsolete selector rule.
 
-1. re-read the full existing source packet;
+Search order:
+
+1. full current source packet;
 2. official government, regulator, legislature, court, exchange, standards body, grid operator, company filing, or source-owner material;
 3. independent Tier 1/Tier 2 same-event reporting;
-4. preceding and follow-up events for the same actor, policy, asset, technology, or market;
-5. market denominator and comparison data;
-6. legal instrument, procedural stage, effective date, exception, implementation, and appeal details where applicable;
-7. technology validation stage and commercial or field evidence where applicable;
-8. repair and enrich the claim;
-9. narrow the visible scope only if evidence remains insufficient;
-10. consider support-only or deletion only after failed search and repair steps are logged.
+4. preceding and follow-up events;
+5. denominator and comparison data;
+6. policy instrument, dates, exceptions, implementation, and appeal;
+7. technology validation and commercial/field evidence;
+8. earnings release, filing, IR deck, call, Q&A, and prior-period comparison;
+9. repair and enrich;
+10. narrow only if evidence remains insufficient;
+11. support-only or deletion only after the search and repair ledger is complete.
 
-Deletion is the last resort.
+### Required evidence package additions
 
-A missing fact that can be found must be added through the authorised revise or rescue path. It must not be deleted merely because the initial source packet was thin.
+- `anchor_classes[]`
+- `structural_value_thesis`
+- `incremental_information`
+- `baseline_expectation`
+- `source_discovery_ledger[]`
+- `official_source_search_ledger[]`
+- `independent_confirmation_ledger[]`
+- `earnings_call_qna_ledger[]`
+- `prior_statement_comparison`
+- `event_or_data_date`
+- `source_publication_date`
+- `source_direction_check`
+- `extracted_evidence[]`
+- `missing_evidence[]`
+- `next_confirmation_points[]`
+- `evidence_package_status`
 
----
+### No anchor laundering
 
-## 10. IB-grade decision-useful content
+Never transform:
 
-A high-quality card should answer, where applicable:
-
-1. What changed?
-2. What was the prior state?
-3. What new uncertainty was resolved?
-4. What is legally, financially, technically, competitively, or operationally different now?
-5. Who and what products, assets, or markets are affected?
-6. What is the relevant denominator and market share?
-7. What is committed, conditional, proposed, effective, enforced, operating, or still planned?
-8. What exceptions, thresholds, conditions, transition periods, or appeal risks apply?
-9. Through what chain does the event change market structure, supply-demand, technology, cash flow, access, or risk?
-10. What measurable next event determines whether the effect is realised?
-11. What remains unknown or undisclosed?
-12. What action should an investor, operator, supplier, customer, lender, regulator, or legal team reconsider?
-
-Do not fill these questions with generic implications. Use verified facts and clearly bounded inference.
-
----
-
-## 11. Signal assignment
-
-`signal = top | high | mid` remains a publication field, but it must be assigned after the four independent judgments.
-
-Default guidance:
-
-- `top`: decision score 85–100, or 70–84 with exceptional urgency and strong evidence;
-- `high`: decision score 70–84, or 55–69 with material lane impact and strong evidence;
-- `mid`: decision score 40–69 depending on scope, or a credible execution event with narrower independent value.
-
-A contract, law, court ruling, policy announcement, funding round, or factory event does not become `top` solely because of its form.
+- strategy into committed investment;
+- discussion into contract;
+- target into result;
+- pilot into commercialisation;
+- guidance into confirmed demand;
+- vague Q&A into a firm plan;
+- capacity ceiling into installed capacity;
+- proposed policy into effective rule.
 
 ---
 
-## 12. Mandatory validation blockers
+## 12. Stage C and downstream validation
 
-Stage A or any promotion, reselection, or rescue run must block if:
+Stage C validates both fact safety and value safety.
 
-- credibility, cardability, decision value, and urgency are collapsed into one score;
-- the eight breakdown values do not sum to `decision_news_value_score`;
-- the three core industrial dimensions do not use the required 25/25/20 maximum weights;
+Check:
+
+- source direction;
+- quote quality;
+- visible-claim coverage;
+- numbers, dates, and event stage;
+- fact versus implication;
+- anchor-class suitability;
+- structural-value thesis;
+- incremental information;
+- baseline follow-up relation;
+- earnings-call and Q&A completeness;
+- next confirmation points;
+- portfolio contribution.
+
+Do not reject solely because an item is not a contract, investment, construction event, production event, or other execution event.
+
+Revise when:
+
+- implication exceeds evidence;
+- execution stage is overstated;
+- customer demand is asserted without Q&A or other direct support;
+- price, volume, mix, and cost are conflated;
+- follow-up incremental information is unclear;
+- next confirmation point is absent;
+- the card is a mere event summary.
+
+### Post-acceptance content requirement
+
+Every card should answer:
+
+- what happened;
+- what changed;
+- why it matters now;
+- which demand, supply, price, profitability, policy, technology, competition, or risk variable changes;
+- whether the prior view is strengthened, weakened, or replaced;
+- what remains uncertain;
+- what must be checked next.
+
+Required durable value fields:
+
+- `news_value_basis`
+- `structural_value_lenses[]`
+- `incremental_information`
+- `industry_implication`
+- `uncertainty_boundary`
+- `next_confirmation_points[]`
+- `baseline_follow_up_relation`
+- `why_standalone_card`
+
+---
+
+## 13. Follow-up and related lifecycle
+
+### Duplicate
+
+- same release or syndicated copy;
+- same facts and same stage;
+- no new rights, obligations, scale, timing, economics, technology, or risk.
+
+### Material follow-up
+
+- stage change;
+- approval, finance, contract, or legal-effect change;
+- scale or timing change;
+- customer or supplier change;
+- profitability or earnings-contribution change;
+- delay, cancellation, or risk realisation;
+- implementation, enforcement, or judgment;
+- qualification, mass production, or commercial shipment.
+
+`related` must reflect event lineage, not mere thematic similarity.
+
+Record:
+
+- predecessor;
+- follow-up;
+- parallel policy;
+- same asset;
+- same customer;
+- same supply-chain dependency;
+- reinforcement only.
+
+Ordinary processing must not remove existing related edges without a separately authorised remediation procedure.
+
+---
+
+## 14. Portfolio coverage audit
+
+A run is not complete merely because every selected card is individually safe.
+
+### Mandatory coverage domains
+
+1. AI data-centre power and ESS demand structure;
+2. U.S. policy and supply-chain rules;
+3. European policy and supply-chain rules;
+4. China policy and supply-chain rules;
+5. battery materials, rare earths, and graphite economic security;
+6. price, earnings, and profitability;
+7. competitor strategy;
+8. customer strategy;
+9. technology transition and commercialisation;
+10. existing-card follow-ups;
+11. safety, recall, quality, and operating risk;
+12. regional coverage;
+13. balance across demand, supply, policy, technology, finance, and risk.
+
+### Zero-coverage treatment
+
+A zero count must not automatically mean “no news.”
+
+Record one:
+
+- `no_material_event_found_after_full_scan`
+- `candidate_found_evidence_insufficient`
+- `existing_card_reinforcement_only`
+- `watchlist_trigger_pending`
+- `selector_bias_detected_and_reopened`
+- `source_universe_gap`
+- `earnings_call_or_qna_gap`
+- `regional_source_gap`
+
+Before closing a zero domain, recheck review, watchlist, support, dropped, and full input stories.
+
+### Required artifacts
+
+- `portfolio_coverage_audit.json`
+- `structural_lens_coverage.csv`
+- `zero_coverage_explanation.json`
+- `follow_up_tracker.json`
+- `earnings_call_qna_ledger.json`
+- `review_pool_repromotion_ledger.json`
+
+---
+
+## 15. Required Stage A fields
+
+Every strict and high-potential review item must include:
+
+```json
+{
+  "execution_credibility_gate": {
+    "status": "PASS|REVIEW|FAIL",
+    "anchor_type": "...",
+    "anchor_strength": "strong|moderate|weak|unknown",
+    "stage_precision_note": "..."
+  },
+  "independent_cardability_gate": {
+    "status": "PASS|REVIEW|FAIL",
+    "distinct_event_or_stage_progression": true,
+    "full_schema_viability": "PASS|REVIEW|FAIL",
+    "duplicate_or_reinforcement_note": "..."
+  },
+  "anchor_classes": [],
+  "decision_news_value_score": 0,
+  "decision_value_breakdown": {
+    "market_structure_competition": 0,
+    "supply_demand_price_utilisation": 0,
+    "technology_performance_safety": 0,
+    "cashflow_asset_value": 0,
+    "law_policy_market_access": 0,
+    "systemic_scale": 0,
+    "persistence_irreversibility": 0,
+    "decision_urgency_actionability": 0
+  },
+  "decision_value_classification": "",
+  "structural_value_lenses": [],
+  "structural_value_override_applied": false,
+  "structural_value_override_reason": null,
+  "prior_state": "",
+  "new_verified_fact": "",
+  "changed_judgment": "",
+  "uncertainty_resolved": "",
+  "remaining_uncertainty": "",
+  "incremental_information": "",
+  "baseline_expectation_changed": "",
+  "decision_relevance": "",
+  "denominator_used": "",
+  "denominator_gap": false,
+  "publication_urgency": {
+    "level": "immediate|near_term|monitor",
+    "action_required": "",
+    "decision_deadline": null
+  },
+  "baseline_follow_up_relation": "",
+  "next_confirmation_points": [],
+  "portfolio_coverage_contribution": [],
+  "earnings_deep_dive_required": false,
+  "qna_status": "not_applicable",
+  "anti_bias_check": {
+    "binding_status_used_as_importance_proxy": false,
+    "legal_formality_used_as_importance_proxy": false,
+    "headline_amount_used_without_denominator": false,
+    "announced_capacity_treated_as_actual_output": false,
+    "routine_execution_event_overranked": false,
+    "conventional_execution_event_required_without_reason": false
+  },
+  "structural_rescue_required": false,
+  "structural_rescue_question": null,
+  "search_before_delete_status": "applied"
+}
+```
+
+The eight score components must total the decision score.
+
+---
+
+## 16. Stage A summary and decision ledger
+
+Required summary fields:
+
+- `structural_selector_policy_version`
+- `structural_selector_policy_file`
+- `structural_selector_policy_sha`
+- `credibility_cardability_value_urgency_separated`
+- `industry_first_weighting_applied`
+- `core_industrial_weight_total`
+- `anchor_class_counts`
+- `structural_lens_coverage_counts`
+- `decision_value_classification_counts`
+- `critical_structural_candidate_ids[]`
+- `high_decision_value_candidate_ids[]`
+- `high_value_review_pool_ids[]`
+- `structural_signal_review_pool_ids[]`
+- `earnings_deep_dive_pool_ids[]`
+- `execution_or_formality_bias_findings[]`
+- `technology_validation_gap_ids[]`
+- `legal_policy_stage_gap_ids[]`
+- `follow_up_candidate_ids[]`
+- `zero_coverage_domains[]`
+- `search_before_delete_applied`
+
+Required decision-ledger columns include:
+
+- `anchor_classes`
+- `news_value_basis`
+- `structural_value_lenses`
+- `structural_value_override_applied`
+- `structural_value_override_reason`
+- `incremental_information`
+- `decision_relevance`
+- `baseline_expectation_changed`
+- `follow_up_relation`
+- `next_confirmation_points`
+- `portfolio_coverage_contribution`
+- `earnings_deep_dive_required`
+- `qna_status`
+- `review_pool_repromotion_precondition`
+
+Stage A reports must keep separate ranked views for:
+
+1. market structure and competition;
+2. supply, demand, price, and utilisation;
+3. technology, safety, and operations;
+4. law and policy;
+5. price, earnings, and profitability;
+6. AI power and ESS demand;
+7. economic security and strategic materials;
+8. execution events;
+9. follow-ups.
+
+Do not collapse them into one undifferentiated list.
+
+---
+
+## 17. Anti-regression guard and hard blockers
+
+Block when:
+
+- the four judgments are collapsed;
+- score components do not total 100-point scoring logic;
+- the 25/25/20 core weights are changed;
 - a top candidate lacks the before–after chain;
-- a contract, financing, capital increase, construction, production, legal, or policy event is ranked top without an industrial-effect explanation;
-- a high-potential market, supply, demand, price, technology, safety, policy, or legal event is rejected solely for lacking a corporate execution anchor;
-- a high-value review item lacks a specific rescue question;
-- a legal or policy item lacks instrument and procedural-stage precision;
-- adoption, effectiveness, implementation, and enforcement are conflated;
-- announced capacity is treated as actual output;
-- a market-share, price-impact, or scale claim lacks a denominator;
-- a company technology claim receives a high technology score without validation-stage support;
-- deletion or support-only is finalised before the applicable search-first process.
+- an execution, legal, or transaction form is used as the importance explanation;
+- a high-potential structural item is rejected solely for lacking a conventional execution event;
+- a high-value review item lacks a concrete rescue question;
+- legal stage, effective date, or implementation is overstated;
+- announced capacity is treated as output;
+- a systemic claim lacks a denominator;
+- a technology claim exceeds its evidence-stage cap;
+- earnings analysis is completed without recording call/Q&A status;
+- a material follow-up is closed as duplicate without an incremental-information analysis;
+- a mandatory structural domain is zero without a recheck and explanation;
+- deletion or support-only is finalised before the applicable search-first process;
+- a card merely states that an investment, contract, factory, law, or profit result occurred.
 
-Required blocker status:
+Required blocker:
 
 ```text
 BLOCKED_STRUCTURAL_NEWS_VALUE_SELECTION_INVALID
 ```
 
-Required output:
+Required validator outcomes:
 
-- `affected_items[]`
-- `missing_or_invalid_fields[]`
-- `execution_or_formality_bias_findings[]`
-- `recommended_return_stage`
-- `no_next_stage_recommendation: true`
+- `structural_value_selector_status = PASS`
+- `portfolio_coverage_audit_status = PASS`
+- `earnings_call_qna_audit_status = PASS | NOT_APPLICABLE`
+- `follow_up_repromotion_audit_status = PASS`
+- `execution_event_bias_audit_status = PASS`
+- `content_depth_audit_status = PASS`
 
----
-
-## 13. Calibration examples
-
-### Example A — large contract, limited structural value
-
-A 2GWh BESS supply contract is signed.
-
-- credibility: strong;
-- cardability: likely pass;
-- value: depends on regional market share, supplier concentration, price benchmark, technology de-risking, and system role;
-- default: material or high only when structural significance is demonstrated.
-
-### Example B — grid operating failure, high structural value
-
-A grid operator reports that 35% of available BESS dispatch opportunities are skipped because of market or control-system design.
-
-- credibility: official operating data;
-- market-structure value: high because installed assets cannot access expected revenue;
-- supply-demand value: relevant if dispatch affects curtailment and balancing;
-- default: critical or high when definitions, period, and denominator are verified.
-
-### Example C — adopted battery-passport standard
-
-A regulator formally adopts technical standards supporting battery-passport implementation.
-
-- legal stage: formally adopted standard, not necessarily mandatory application;
-- value: depends on effective date, covered batteries, registry readiness, required data, liability, and market-access consequences;
-- default: high when it materially changes supplier systems and market access; not top merely because it is an official standard.
-
-### Example D — price-moving mine restart
-
-A mine representing a material share of global supply receives restart permission.
-
-- permit is not output;
-- supply score depends on capacity, restart timing, actual utilisation, inventory, and global denominator;
-- price impact must be supported or framed as bounded inference;
-- default: candidate rescue or high priority depending on evidence.
-
-### Example E — technology breakthrough claim
-
-A company announces a battery with exceptional cycle life and cost.
-
-- company target only: technology score capped at 4/20;
-- laboratory result: capped at 7/20;
-- independent standardised test: up to 15/20;
-- customer qualification or field data: potentially 16–20/20;
-- default: do not rank top from corporate claims alone.
-
-### Example F — first enforcement under an existing law
-
-A customs authority blocks imports under a battery-supply-chain rule for the first time.
-
-- legal stage: enforcement;
-- policy score: material;
-- market-structure and supply scores may also be high if the action affects a major supplier or establishes a replicable precedent;
-- urgency: immediate for importers and customers;
-- default: high or critical depending on scope and precedent.
+No Prompt 0.6 or final-QC recommendation is allowed when an applicable validator is missing or nonpassing.
 
 ---
 
-## 14. Version and lineage
+## 18. Calibration examples
+
+### Large contract, limited structural value
+
+A 2 GWh BESS contract is credible and cardable. Its priority depends on regional market share, supplier concentration, price benchmark, technology de-risking, customer significance, and system role.
+
+### Grid operating failure, high structural value
+
+Official data showing that a material share of available BESS dispatch is skipped can be more important than a new project announcement because it changes expected revenue and asset value.
+
+### Battery-passport implementation standard
+
+Value depends on mandatory dates, covered batteries, registry readiness, required data, liability, exceptions, and market-access consequences—not merely official adoption.
+
+### Price-moving mine restart
+
+Permission is not output. Assess capacity, physical restart, utilisation, inventory, global denominator, and price transmission.
+
+### Technology breakthrough claim
+
+Apply the evidence-stage score caps. Corporate claims alone do not justify top priority.
+
+### First enforcement
+
+A first customs block, subsidy denial, recall, or exclusion may be highly valuable when it establishes an actionable precedent.
+
+### Earnings headline versus Q&A
+
+A reported profit improvement may be low-value if caused by a one-off credit. A Q&A disclosure that utilisation recovery depends on customer destocking and delayed qualification may be the more important structural signal.
+
+### Material follow-up
+
+A previously carded project entering financing close, losing a customer, delaying commercial operation, or cutting capacity is not a duplicate merely because the project name is unchanged.
+
+---
+
+## 19. Run completion criteria
+
+A structural-selection run is complete only when:
+
+1. the complete source universe is accounted for;
+2. strict, review, structural-review, earnings-deep-dive, watchlist, reinforcement, support, and reject outcomes are item-specific;
+3. all mandatory structural lenses were inspected;
+4. zero-coverage domains have explanations;
+5. earnings candidates record call and Q&A status;
+6. existing-card follow-ups were separately reviewed;
+7. execution-event bias audit passed;
+8. every strict candidate has anchor class and news-value basis;
+9. every card has incremental information and next confirmation points;
+10. evidence and interpretation remain separated;
+11. lineage is preserved;
+12. portfolio coverage audit passed.
+
+---
+
+## 20. Version and lineage
 
 Every run applying this policy must record:
 
-- `structural_selector_policy_version: STRUCTURAL_NEWS_VALUE_SELECTION_V2`
+- `structural_selector_policy_version: STRUCTURAL_NEWS_VALUE_SELECTION_V3`
 - `structural_selector_policy_file: docs/STRUCTURAL_NEWS_VALUE_SELECTION.md`
 - `structural_selector_policy_sha`
 - `credibility_cardability_value_urgency_separated: true`
 - `industry_first_weighting_applied: true`
 - `core_industrial_weight_total: 70`
+- `multi_anchor_class_model_applied: true`
+- `mandatory_structural_lenses_applied: true`
+- `earnings_call_qna_rule_applied: true`
+- `follow_up_probability_review_applied: true`
+- `portfolio_coverage_audit_applied: true`
 - `search_before_delete_applied: true`
 
-Downstream stages must preserve these fields or explicitly record why they are not applicable.
+Downstream stages must preserve these fields or explicitly record why a field is not applicable.
+
+---
+
+## 21. Supersession statement
+
+This V3 replace-all policy preserves the complete V2 framework:
+
+- four independent judgments;
+- before–after and novelty tests;
+- 100-point industry-first score;
+- 25/25/20 core weighting;
+- denominator discipline;
+- technology-validation caps;
+- legal-policy Stage 0–6;
+- anti-execution and anti-formality bias;
+- search-before-delete;
+- IB-grade decision-useful content;
+- Stage A no-fetch boundary;
+- signal and blocker discipline.
+
+V3 adds and makes mandatory:
+
+- multiple anchor classes;
+- Structural Value Override;
+- seven structural discovery lenses;
+- full earnings-call and analyst-Q&A review;
+- material follow-up probability review;
+- explicit portfolio coverage audit;
+- anti-regression validators.
+
+Any older rule stating or implying that strict eligibility requires a conventional corporate execution event is superseded.
+
+**Structural value determines editorial priority.  
+Anchor class fixes what changed.  
+Evidence supports the visible claim.  
+The next confirmation point preserves future decision value.**

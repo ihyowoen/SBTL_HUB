@@ -9,12 +9,14 @@ on:
       - "scripts/apply_card_run.mjs"
       - "scripts/apply_card_run_test.mjs"
       - "scripts/validate_card_run_stage_artifacts.mjs"
+      - "scripts/validate_card_run_status_consistency.mjs"
+      - "scripts/validate_card_run_relations.mjs"
       - "schemas/card-run.v1.schema.json"
       - ".github/workflows/apply-card-run.yml"
   workflow_dispatch:
     inputs:
       run_path:
-        description: "Repository-relative card-run.json path"
+        description: "Repository-relative card-run.json path (read-only verification; submitted full/lean outputs required)"
         required: true
         type: string
 
@@ -40,9 +42,13 @@ jobs:
           node --check scripts/apply_card_run.mjs
           node --check scripts/apply_card_run_test.mjs
           node --check scripts/validate_card_run_stage_artifacts.mjs
+          node --check scripts/validate_card_run_status_consistency.mjs
+          node --check scripts/validate_card_run_relations.mjs
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
           node scripts/apply_card_run_test.mjs
           node scripts/validate_card_run_stage_artifacts.mjs --self-test
+          node scripts/validate_card_run_status_consistency.mjs --self-test
+          node scripts/validate_card_run_relations.mjs --self-test
 
   apply:
     needs: validate-engine
@@ -52,7 +58,7 @@ jobs:
         with:
           ref: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/head', github.event.pull_request.number) || github.ref_name }}
           fetch-depth: 0
-          persist-credentials: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+          persist-credentials: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -70,10 +76,12 @@ jobs:
           set -euo pipefail
           git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
           is_fork=false
+          is_dispatch=false
           if [[ "$EVENT_NAME" == "pull_request" && "$HEAD_REPO_FULL_NAME" != "$REPOSITORY" ]]; then
             is_fork=true
           fi
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            is_dispatch=true
             run_path="$DISPATCH_RUN_PATH"
             test -n "$run_path" && test -f "$run_path"
           else
@@ -87,6 +95,7 @@ jobs:
               fi
               echo "has_run=false" >> "$GITHUB_OUTPUT"
               echo "is_fork=$is_fork" >> "$GITHUB_OUTPUT"
+              echo "is_dispatch=$is_dispatch" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             if [[ ${#runs[@]} -ne 1 ]]; then
@@ -98,15 +107,21 @@ jobs:
           fi
           echo "has_run=true" >> "$GITHUB_OUTPUT"
           echo "is_fork=$is_fork" >> "$GITHUB_OUTPUT"
+          echo "is_dispatch=$is_dispatch" >> "$GITHUB_OUTPUT"
           echo "path=$run_path" >> "$GITHUB_OUTPUT"
           echo "report_path=$(dirname "$run_path")/apply-report.json" >> "$GITHUB_OUTPUT"
           echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
 
       - name: Require explicit passing and run-bound governance artifacts
         if: steps.run.outputs.has_run == 'true'
-        run: >-
-          node scripts/validate_card_run_stage_artifacts.mjs
-          --run "${{ steps.run.outputs.path }}"
+        run: |
+          set -euo pipefail
+          node scripts/validate_card_run_stage_artifacts.mjs \
+            --run "${{ steps.run.outputs.path }}"
+          node scripts/validate_card_run_status_consistency.mjs \
+            --run "${{ steps.run.outputs.path }}"
+          node scripts/validate_card_run_relations.mjs \
+            --run "${{ steps.run.outputs.path }}"
 
       - name: Lock declared baseline to base commit
         if: steps.run.outputs.has_run == 'true'
@@ -124,11 +139,11 @@ jobs:
           git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
           [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
 
-      - name: Apply declared operations on writable branches
+      - name: Apply declared operations on same-repository pull requests
         if: >-
           steps.run.outputs.has_run == 'true' &&
-          (github.event_name != 'pull_request' ||
-           github.event.pull_request.head.repo.full_name == github.repository)
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository
         run: >-
           node scripts/apply_card_run.mjs
           --run "${{ steps.run.outputs.path }}"
@@ -165,18 +180,19 @@ jobs:
         env:
           REPORT_PATH: ${{ steps.run.outputs.report_path }}
           IS_FORK: ${{ steps.run.outputs.is_fork }}
+          IS_DISPATCH: ${{ steps.run.outputs.is_dispatch }}
         run: |
           set -euo pipefail
           mapfile -t changed < <(git diff --name-only)
           for path in "${changed[@]}"; do
-            if [[ "$IS_FORK" == "true" ]]; then
+            if [[ "$IS_FORK" == "true" || "$IS_DISPATCH" == "true" ]]; then
               case "$path" in
                 "$REPORT_PATH") ;;
                 data/cards.full.json|public/data/cards.json)
-                  echo "FAIL: fork PR must commit byte-exact generated full/lean outputs; runner changed $path" >&2
+                  echo "FAIL: read-only verification requires committed byte-exact full/lean outputs; runner changed $path" >&2
                   exit 1
                   ;;
-                *) echo "FAIL: verification changed undeclared path $path" >&2; exit 1 ;;
+                *) echo "FAIL: read-only verification changed undeclared path $path" >&2; exit 1 ;;
               esac
             else
               case "$path" in

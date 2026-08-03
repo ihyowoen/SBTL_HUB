@@ -53,6 +53,7 @@ STAGE_A_V3_NARRATIVE_FIELDS = (
     'structural_value_override_reason',
     'incremental_information',
     'decision_relevance',
+    'baseline_expectation_changed',
     'why_execution_event_not_required',
     'prior_state',
     'new_verified_fact',
@@ -442,10 +443,6 @@ def validate_stage_a_v3_override(spec, spec_id, messages):
         if not _item_specific_narrative(spec.get(field)):
             messages.append(f'{spec_id}: {field} must be item-specific narrative text')
             valid = False
-
-    if spec.get('baseline_expectation_changed') is not True:
-        messages.append(f'{spec_id}: baseline_expectation_changed must be true for v3_non_execution')
-        valid = False
 
     classes = spec.get('anchor_classes')
     if not isinstance(classes, list) or not classes:

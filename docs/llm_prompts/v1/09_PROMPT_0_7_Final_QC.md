@@ -662,7 +662,9 @@ For every format-risk `publish_ready[]` item with `selected_anchor_path = v3_non
 - `prior_state`
 - `new_verified_fact`
 - `changed_judgment`
-- applicable uncertainty / probability-change fields
+- `uncertainty_resolved`
+- `remaining_uncertainty`
+- applicable probability-change fields
 - applicable baseline-expectation / before-after fields
 - current-run source lineage that supports every package field
 

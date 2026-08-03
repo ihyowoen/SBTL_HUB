@@ -1,3 +1,5 @@
+"""Regression coverage for the latest PR #233 semantic-validation review."""
+
 from __future__ import annotations
 
 import copy

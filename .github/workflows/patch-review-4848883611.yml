@@ -1,0 +1,44 @@
+name: Patch review 4848883611
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - .github/workflows/patch-review-4848883611.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply reviewed fixes
+        run: python scripts/patch_review_4848883611.py
+      - name: Compile validators
+        run: |
+          python -m py_compile validation_scripts/stage_lineage_contract_check.py
+          python -m py_compile validation_scripts/apply_prompt_contract_overlays.py
+      - name: Focused regression
+        run: python -m unittest validation_scripts.tests.test_review_4848883611_contracts -v
+      - name: Full regression
+        run: python -m unittest discover -s validation_scripts/tests -p 'test_*.py' -v
+      - name: Prompt overlay verification
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+      - name: Commit verified fixes and remove helpers
+        run: |
+          rm -f scripts/patch_review_4848883611.py .github/workflows/patch-review-4848883611.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "fix: address review 4849281461"
+          git push origin HEAD:agent/structural-news-value-v3

@@ -390,7 +390,14 @@ def _structured_interpretation_effect(value):
 
 
 def _term_pattern(term):
-    return rf'(?<![\w]){re.escape(term)}(?![\w])'
+    escaped = re.escape(term)
+    if re.search(r'[가-힣]', term):
+        # Korean source-class terms commonly appear inside compounds such as
+        # 공시자료. Preserve the left boundary so 비공식 does not satisfy 공식.
+        return rf'(?<![\w]){escaped}'
+    # Accept ordinary English inflections such as filing/filings while keeping
+    # full left/right boundaries so unofficial does not satisfy official.
+    return rf'(?<![\w]){escaped}(?:s|es)?(?![\w])'
 
 
 def _matching_terms(value, terms):
@@ -521,7 +528,17 @@ def validate_stage_a_spec(spec, index, messages):
         messages.append(f'{spec_id}: format_risk_tags must be an array')
         has_format_risk = False
     else:
-        has_format_risk = bool(format_risk_tags)
+        invalid_format_risk_tags = [
+            value for value in format_risk_tags
+            if not isinstance(value, str) or not value.strip()
+        ]
+        if invalid_format_risk_tags:
+            messages.append(f'{spec_id}: format_risk_tags must contain non-empty strings')
+        normalized_format_risk_tags = [
+            value.strip().lower() for value in format_risk_tags
+            if isinstance(value, str) and value.strip()
+        ]
+        has_format_risk = normalized_format_risk_tags not in ([], ['none'])
     execution_type = spec.get('execution_anchor_type')
     execution_strength = spec.get('execution_anchor_strength')
     execution_core_complete = (

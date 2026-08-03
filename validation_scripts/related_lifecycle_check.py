@@ -389,7 +389,17 @@ def check_card(
             errors.append(
                 "conflicting related_candidate_spec_ids between related lifecycle and card root"
             )
-            provisional = dedupe(lineage_provisional + card_provisional)
+            combined_provisional = lineage_provisional + card_provisional
+            if any(
+                not isinstance(value, str) or not value.strip()
+                for value in combined_provisional
+            ):
+                errors.append(
+                    "related_candidate_spec_ids must contain non-empty strings before deduplication"
+                )
+                provisional = combined_provisional
+            else:
+                provisional = dedupe(combined_provisional)
         else:
             provisional = lineage_provisional
     elif lineage_has_provisional:

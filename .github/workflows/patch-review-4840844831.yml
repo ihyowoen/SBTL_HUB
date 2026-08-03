@@ -62,3 +62,5 @@ jobs:
           git add -A
           git commit -m "fix: address review 4840844831 contracts"
           git push origin HEAD:agent/structural-news-value-v3
+
+# Triggered after workflow registration so the patch job runs on this branch.

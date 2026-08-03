@@ -68,12 +68,9 @@ STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS = (
     'document', 'dataset', 'statistics', 'transcript', 'technical test',
     'test result', 'independent report', 'audit', 'contract', 'permit',
     'court decision', 'legislation', 'earnings release', 'prepared remarks',
-)
-STAGE_A_EVIDENCE_TARGET_TERMS = (
-    'claim', 'metric', 'date', 'stage', 'effective', 'eligibility', 'amount',
-    'capacity', 'volume', 'price', 'cost', 'margin', 'schedule', 'probability',
-    'approval', 'qualification', 'shipment', 'production', 'utilisation',
-    'utilization', 'market access', 'adoption rate', 'test result', 'threshold',
+    '공식', '공시', '규정', '지침', '명령', '고시', '문서', '데이터셋',
+    '통계', '회의록', '시험', '시험결과', '보고서', '감사', '계약',
+    '허가', '판결', '법률', '실적발표', '준비발언',
 )
 STAGE_A_CONFIRMATION_EVENT_TERMS = (
     'publication', 'filing', 'guidance', 'approval', 'decision', 'contract',
@@ -222,11 +219,21 @@ def _valid_evidence_target(value):
         source_class = value.get('source_or_document_class') or value.get('source_class')
         exact_target = value.get('exact_claim_or_metric') or value.get('verification_target')
         return _specific_string(source_class) and _specific_string(exact_target)
-    return (
-        _specific_string(value)
-        and _has_any_term(value, STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS)
-        and _has_any_term(value, STAGE_A_EVIDENCE_TARGET_TERMS)
-    )
+
+    text = _normalized_text(value)
+    if not text or _contains_generic_fragment(text):
+        return False
+    matched_source_terms = [term for term in STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS if term in text]
+    if not matched_source_terms:
+        return False
+
+    target_text = text
+    for term in sorted(matched_source_terms, key=len, reverse=True):
+        target_text = target_text.replace(term, ' ')
+    target_tokens = [token for token in target_text.replace('/', ' ').replace(':', ' ').split() if token]
+    has_exact_metric_or_date = any(any(char.isdigit() for char in token) for token in target_tokens)
+    has_named_target = len(target_tokens) >= 2
+    return has_exact_metric_or_date or has_named_target
 
 
 def _valid_confirmation_point(value):
@@ -320,16 +327,40 @@ def validate_stage_a_spec(spec, index, messages):
     has_format_risk = isinstance(format_risk_tags, list) and bool(format_risk_tags)
     execution_type = spec.get('execution_anchor_type')
     execution_strength = spec.get('execution_anchor_strength')
-    execution_path_complete = _nonempty_string(execution_type) and execution_strength in STAGE_A_ALLOWED_EXECUTION_ANCHOR_STRENGTH
+    execution_core_complete = (
+        _nonempty_string(execution_type)
+        and execution_strength in STAGE_A_ALLOWED_EXECUTION_ANCHOR_STRENGTH
+    )
+    override_marker = spec.get('structural_value_override_applied')
+    residual_override_fields = [
+        field for field in STAGE_A_V3_OVERRIDE_REQUIRED
+        if spec.get(field) not in (None, '', [], {})
+    ]
+    execution_path_complete = (
+        execution_core_complete
+        and override_marker is False
+        and not residual_override_fields
+    )
 
     if has_format_risk:
         override_path_complete = validate_stage_a_v3_override(spec, spec_id, messages)
-        if execution_path_complete == override_path_complete:
+        if execution_core_complete and override_marker is not False:
+            messages.append(
+                f'{spec_id}: execution route requires structural_value_override_applied=false'
+            )
+        if execution_core_complete and residual_override_fields:
+            messages.append(
+                f'{spec_id}: execution route must leave override-only fields empty; '
+                f'found {residual_override_fields}'
+            )
+        if execution_path_complete == override_path_complete or (
+            execution_core_complete and override_path_complete
+        ):
             messages.append(
                 f'{spec_id}: format-risk strict_passed_spec requires exactly one complete '
                 'execution or v3_non_execution path'
             )
-        if (execution_type or execution_strength) and not execution_path_complete:
+        if (execution_type or execution_strength) and not execution_core_complete:
             messages.append(f'{spec_id}: partial/invalid execution path metadata for format-risk strict_passed_spec')
     else:
         if not _nonempty_string(execution_type):

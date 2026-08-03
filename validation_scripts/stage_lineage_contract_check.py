@@ -253,7 +253,11 @@ def _contains_generic_fragment(value):
 
 
 def _contains_generic_target_fragment(value):
-    text = ' '.join(_normalized_text(value).replace(':', ' ').replace(';', ' ').split())
+    text = _normalized_text(value)
+    # Normalize ordinary punctuation so placeholder-only variants such as
+    # "additional data." cannot bypass complete-pattern matching.
+    text = re.sub(r"[\s\.,:;!?]+$", "", text)
+    text = ' '.join(text.replace(':', ' ').replace(';', ' ').split())
     if not text:
         return True
     # Match generic evidence scaffolds as complete placeholder semantics, not

@@ -238,6 +238,9 @@ def _valid_http_url(value: Any) -> bool:
     try:
         parsed = urlparse(text)
         host = parsed.hostname
+        # Accessing parsed.port is required: urllib defers malformed and
+        # out-of-range port validation until this property is read.
+        parsed.port
     except ValueError:
         return False
     if parsed.scheme not in {"http", "https"} or not host:
@@ -390,6 +393,7 @@ def check_card(
                 normalized_provisional.append(value.strip())
             if normalized_provisional != dedupe(normalized_provisional):
                 errors.append("related_candidate_spec_ids contains duplicate IDs")
+            resolved_provisional_aliases: dict[int, str] = {}
             for target in normalized_provisional:
                 if target in ambiguous_provisional_ids:
                     errors.append(f"ambiguous provisional related ID: {target}")
@@ -400,7 +404,16 @@ def check_card(
                 elif resolved_target is None:
                     errors.append(f"dangling provisional related ID: {target}")
                 else:
-                    resolved_provisional_targets.append((target, resolved_target))
+                    resolved_identity = id(resolved_target)
+                    previous_alias = resolved_provisional_aliases.get(resolved_identity)
+                    if previous_alias is not None:
+                        errors.append(
+                            "provisional related aliases resolve to duplicate target: "
+                            f"{previous_alias}, {target}"
+                        )
+                    else:
+                        resolved_provisional_aliases[resolved_identity] = target
+                        resolved_provisional_targets.append((target, resolved_target))
             valid_provisional_edge = bool(normalized_provisional) and not any(
                 message.startswith((
                     "related_candidate_spec_ids",

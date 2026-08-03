@@ -22,6 +22,15 @@ for prompt_path in (
     elif correct not in text:
         raise SystemExit(f"{prompt_path}: Stage A lineage command not found")
 
+validator_path = "validation_scripts/stage_lineage_contract_check.py"
+old_generic = "        r'(?:needs confirmation|confirmation needed|to be confirmed|tbd)',"
+new_generic = "        r'(?:(?:needs confirmation|confirmation needed|to be confirmed)(?:\\b.*)?|tbd)',"
+text = Path(validator_path).read_text(encoding="utf-8")
+if old_generic in text:
+    replace_once(validator_path, old_generic, new_generic)
+elif new_generic not in text:
+    raise SystemExit("generic confirmation pattern not found")
+
 old_confirmation = """def _valid_confirmation_point(value):
     if isinstance(value, dict):
         measurable = value.get('measurable_event_or_metric') or value.get('confirmation_event')
@@ -54,7 +63,7 @@ new_confirmation = """def _valid_confirmation_point(value):
         and has_measurable_event_or_metric
     )
 """
-replace_once("validation_scripts/stage_lineage_contract_check.py", old_confirmation, new_confirmation)
+replace_once(validator_path, old_confirmation, new_confirmation)
 
 Path("validation_scripts/tests/test_review_4848883611_contracts.py").write_text(
     '''from __future__ import annotations

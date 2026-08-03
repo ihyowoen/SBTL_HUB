@@ -8,7 +8,6 @@ on:
       - "docs/llm_prompts/v1/**"
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
-      - "scripts/patch_review_4840119588.py"
       - "scripts/lean_cards.mjs"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
@@ -26,55 +25,25 @@ on:
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  patch-review-4840119588:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout PR branch
-        uses: actions/checkout@v4
-        with:
-          ref: agent/structural-news-value-v3
-          fetch-depth: 0
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Apply patch
-        run: python scripts/patch_review_4840119588.py
-      - name: Run regression tests
-        env:
-          PYTHONDONTWRITEBYTECODE: "1"
-        run: python -m unittest discover -s validation_scripts/tests -v
-      - name: Verify prompt overlays
-        env:
-          PYTHONDONTWRITEBYTECODE: "1"
-        run: python validation_scripts/apply_prompt_contract_overlays.py --check
-      - name: Commit verified source patch
-        run: |
-          find validation_scripts -type d -name __pycache__ -prune -exec rm -rf {} +
-          find validation_scripts -type f -name '*.pyc' -delete
-          git restore --source=HEAD --staged --worktree .github/workflows
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "fix: align pre-merge scope and upstream V3 gates"
-          git push origin HEAD:agent/structural-news-value-v3
-
   validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Compile validators
         run: python -m compileall -q validation_scripts
+
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
+
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check

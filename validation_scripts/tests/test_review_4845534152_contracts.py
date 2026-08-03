@@ -13,6 +13,8 @@ from validation_scripts.tests.test_review_4840844831_contracts import (
 
 
 class TestReview4845534152Contracts(unittest.TestCase):
+    """Regression coverage for the three validator edge cases in this review."""
+
     def base_v3_spec(self):
         return copy.deepcopy(TestReview4840844831Contracts().base_spec())
 

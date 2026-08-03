@@ -194,6 +194,57 @@ def relation_object(card: dict[str, Any]) -> dict[str, Any] | None:
     return None
 
 
+def validate_follow_up_chronology_justification(
+    lineage: dict[str, Any],
+) -> tuple[set[str], str | None]:
+    value = lineage.get("follow_up_date_precedes_predecessor_justification")
+    if value in (None, "", {}):
+        return set(), None
+    if not isinstance(value, dict):
+        return set(), "follow-up chronology justification must be an object"
+    if value.get("applied") is not True:
+        return set(), "follow-up chronology justification must set applied=true"
+
+    identifiers = value.get("predecessor_identifiers")
+    if not isinstance(identifiers, list) or not identifiers:
+        return set(), "follow-up chronology justification requires predecessor_identifiers[]"
+    normalized_identifiers = []
+    for identifier in identifiers:
+        if not isinstance(identifier, str) or not identifier.strip():
+            return set(), "follow-up chronology predecessor_identifiers must be non-empty strings"
+        normalized_identifiers.append(identifier.strip())
+    if normalized_identifiers != dedupe(normalized_identifiers):
+        return set(), "follow-up chronology predecessor_identifiers contains duplicates"
+
+    basis = value.get("representative_date_basis")
+    reason = value.get("reason")
+    if not isinstance(basis, str) or len(basis.strip()) < 12:
+        return set(), "follow-up chronology justification requires a specific representative_date_basis"
+    if not isinstance(reason, str) or len(reason.strip()) < 20:
+        return set(), "follow-up chronology justification requires a specific reason"
+
+    source_urls = value.get("evidence_source_urls")
+    if not isinstance(source_urls, list) or not source_urls:
+        return set(), "follow-up chronology justification requires evidence_source_urls[]"
+    for url in source_urls:
+        if not isinstance(url, str) or not url.strip().startswith(("https://", "http://")):
+            return set(), "follow-up chronology evidence_source_urls must contain HTTP(S) URLs"
+
+    return set(normalized_identifiers), None
+
+
+def chronology_exception_covers(
+    requested_target: str,
+    resolved_target: dict[str, Any] | None,
+    exception_identifiers: set[str],
+) -> bool:
+    candidate_identifiers = {requested_target}
+    if resolved_target is not None:
+        candidate_identifiers.update(canonical_card_identifiers(resolved_target))
+        candidate_identifiers.update(provisional_card_identifiers(resolved_target))
+    return bool(candidate_identifiers & exception_identifiers)
+
+
 def check_card(
     card: dict[str, Any],
     by_id: dict[str, dict[str, Any]],
@@ -311,16 +362,32 @@ def check_card(
     if not lineage.get("reason") and not lineage.get("relation_reason"):
         errors.append("relation reason is required")
 
+    chronology_exception_ids, chronology_exception_error = (
+        validate_follow_up_chronology_justification(lineage)
+    )
+    if chronology_exception_error:
+        errors.append(chronology_exception_error)
+
     if relation_type == "distinct_follow_up":
         child_date = parse_date(card.get("date"))
         for target in related:
             parent = by_id.get(target)
             parent_date = parse_date(parent.get("date")) if parent else None
-            if child_date and parent_date and child_date < parent_date:
+            if (
+                child_date
+                and parent_date
+                and child_date < parent_date
+                and not chronology_exception_covers(target, parent, chronology_exception_ids)
+            ):
                 errors.append(f"follow-up date precedes predecessor {target}")
         for target, parent in resolved_provisional_targets:
             parent_date = parse_date(parent.get("date"))
-            if child_date and parent_date and child_date < parent_date:
+            if (
+                child_date
+                and parent_date
+                and child_date < parent_date
+                and not chronology_exception_covers(target, parent, chronology_exception_ids)
+            ):
                 errors.append(f"follow-up date precedes provisional predecessor {target}")
 
     unresolved = (

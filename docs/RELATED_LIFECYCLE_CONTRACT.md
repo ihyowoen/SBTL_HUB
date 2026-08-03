@@ -210,11 +210,26 @@ Stage C must decide fact safety and lock the Related lineage for accepted cards:
     "changed_judgment_vs_predecessor": "",
     "same_event_checked": true,
     "earliest_same_event_date_checked": true,
+    "follow_up_date_precedes_predecessor_justification": null,
     "rejected_relation_candidates": [],
     "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
   }
 }
 ```
+
+`follow_up_date_precedes_predecessor_justification` must normally be `null` or absent. It may be populated only when a `distinct_follow_up` uses a representative date earlier than a predecessor date. The object must contain:
+
+```json
+{
+  "applied": true,
+  "predecessor_identifiers": ["final_or_provisional_predecessor_id"],
+  "representative_date_basis": "specific explanation of what event the earlier date represents",
+  "reason": "specific explanation of why the earlier representative date remains a later distinct follow-up judgment",
+  "evidence_source_urls": ["https://..."]
+}
+```
+
+The exception is target-specific and evidence-backed. A generic explanation, missing source URL, or identifier that does not resolve to the earlier predecessor does not waive the chronology invariant.
 
 Stage C must not accept a new card with:
 

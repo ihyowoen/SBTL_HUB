@@ -284,11 +284,10 @@ def _item_specific_narrative(value):
     if not isinstance(value, str):
         return False
     text = value.strip()
-    return (
-        len(text) >= 8
-        and not _contains_generic_fragment(text)
-        and not _placeholder_only_text(text)
-    )
+    # Narrative fields may legitimately describe residual unknowns or pending
+    # confirmation. Reject placeholder-only semantics, not contextual words
+    # such as "unknown" inside an otherwise item-specific explanation.
+    return len(text) >= 8 and not _placeholder_only_text(text)
 
 
 def _structured_component(value):

@@ -242,6 +242,7 @@ def check_card(
         or []
     )
     valid_provisional_edge = False
+    resolved_provisional_targets: list[tuple[str, dict[str, Any]]] = []
     if allow_provisional_related and provisional:
         if not isinstance(provisional, list):
             errors.append("related_candidate_spec_ids must be a list")
@@ -263,6 +264,8 @@ def check_card(
                     errors.append("related_candidate_spec_ids contains self-reference")
                 elif resolved_target is None:
                     errors.append(f"dangling provisional related ID: {target}")
+                else:
+                    resolved_provisional_targets.append((target, resolved_target))
             valid_provisional_edge = bool(normalized_provisional) and not any(
                 message.startswith((
                     "related_candidate_spec_ids",
@@ -309,6 +312,10 @@ def check_card(
             parent_date = parse_date(parent.get("date")) if parent else None
             if child_date and parent_date and child_date < parent_date:
                 errors.append(f"follow-up date precedes predecessor {target}")
+        for target, parent in resolved_provisional_targets:
+            parent_date = parse_date(parent.get("date"))
+            if child_date and parent_date and child_date < parent_date:
+                errors.append(f"follow-up date precedes provisional predecessor {target}")
 
     unresolved = (
         lineage.get("related_candidate_spec_ids")

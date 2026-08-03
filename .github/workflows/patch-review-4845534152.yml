@@ -1,17 +1,17 @@
 name: Patch review 4845534152
 
 on:
-  push:
-    branches:
-      - agent/structural-news-value-v3
+  pull_request:
     paths:
       - ".github/workflows/patch-review-4845534152.yml"
+      - "scripts/patch_review_4845534152.py"
 
 permissions:
   contents: write
 
 jobs:
   patch-and-verify:
+    if: github.event.pull_request.head.ref == 'agent/structural-news-value-v3'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout PR branch

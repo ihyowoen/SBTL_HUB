@@ -7,6 +7,7 @@ Usage:
   python validation_scripts/stage_lineage_contract_check.py stage_c <stage_c.json>
 """
 import json
+import re
 import sys
 
 STAGE_A_REQUIRED = [
@@ -81,11 +82,17 @@ STAGE_A_PLACEHOLDER_NARRATIVE_PHRASES = {
     '미제공', '정보 없음', '자료 없음', '해당 없음', '확인 불가',
 }
 STAGE_A_PLACEHOLDER_NARRATIVE_TOKENS = {
-    'not', 'provided', 'available', 'specified', 'applicable', 'no',
-    'information', 'details', 'data', 'none', 'placeholder', 'dummy',
-    'text', 'n/a', 'na', 'nil', 'yet', '미제공', '정보', '자료', '없음',
-    '해당', '확인', '불가',
+    'not', 'provided', 'available', 'specified', 'applicable', 'disclosed',
+    'known', 'no', 'information', 'details', 'data', 'none', 'placeholder',
+    'dummy', 'text', 'n/a', 'na', 'nil', 'yet', 'unavailable', 'undisclosed',
+    'missing', 'unknown', '미제공', '미공개', '비공개', '정보', '자료', '내용',
+    '없음', '해당', '확인', '불가', '아직',
 }
+STAGE_A_PLACEHOLDER_NARRATIVE_PATTERNS = (
+    r'\b(?:not|no|none)\s+(?:yet\s+)?(?:provided|available|specified|applicable|disclosed|known)\b',
+    r'\b(?:information|details|data)\s+(?:is\s+)?(?:not\s+)?(?:available|unavailable|missing|unknown|undisclosed)\b',
+    r'\b(?:unavailable|undisclosed|unknown)\s+(?:information|details|data)\b',
+)
 STAGE_A_EXACT_TARGET_TERMS = (
     'revenue', 'sales', 'ebitda', 'ebit', 'profit', 'margin', 'cost',
     'price', 'volume', 'capacity', 'utilisation', 'utilization', 'yield',
@@ -257,9 +264,19 @@ def _placeholder_only_text(value):
     )
     if normalized in STAGE_A_PLACEHOLDER_NARRATIVE_PHRASES:
         return True
+    if any(re.fullmatch(pattern, normalized) for pattern in STAGE_A_PLACEHOLDER_NARRATIVE_PATTERNS):
+        return True
     tokens = normalized.split()
-    return bool(tokens) and len(tokens) <= 4 and all(
+    if bool(tokens) and len(tokens) <= 5 and all(
         token in STAGE_A_PLACEHOLDER_NARRATIVE_TOKENS for token in tokens
+    ):
+        return True
+    korean_absence = ('없음', '미제공', '미공개', '비공개', '불가')
+    korean_subject = ('정보', '자료', '내용', '세부', '사항')
+    return (
+        len(tokens) <= 5
+        and any(marker in normalized for marker in korean_absence)
+        and any(subject in normalized for subject in korean_subject)
     )
 
 
@@ -296,10 +313,21 @@ def _structured_exact_target(value):
         return False
     text = _normalized_text(value)
     tokens = [token for token in text.replace('/', ' ').replace(':', ' ').split() if token]
-    has_number_or_date = any(any(char.isdigit() for char in token) for token in tokens)
-    has_named_target = len(tokens) >= 2
+    has_named_target = len(tokens) >= 2 and any(
+        re.search(r'[a-z가-힣]', token) for token in tokens
+    )
+    is_explicit_date = bool(re.fullmatch(
+        r'(?:19|20|21)\d{2}(?:[-/.](?:0?[1-9]|1[0-2])(?:[-/.](?:0?[1-9]|[12]\d|3[01]))?|년(?:\s*(?:0?[1-9]|1[0-2])월(?:\s*(?:0?[1-9]|[12]\d|3[01])일)?)?)?',
+        text,
+    ))
+    has_qualified_numeric_target = (
+        any(char.isdigit() for char in text)
+        and any(re.search(r'[a-z가-힣]', token) for token in tokens)
+        and (has_named_target or _has_any_term(value, STAGE_A_EXACT_TARGET_TERMS))
+    )
     return (
-        has_number_or_date
+        is_explicit_date
+        or has_qualified_numeric_target
         or has_named_target
         or _has_any_term(value, STAGE_A_EXACT_TARGET_TERMS)
     )
@@ -311,9 +339,20 @@ def _structured_interpretation_effect(value):
     )
 
 
-def _has_any_term(value, terms):
+def _term_pattern(term):
+    return rf'(?<![\w]){re.escape(term)}(?![\w])'
+
+
+def _matching_terms(value, terms):
     text = _normalized_text(value)
-    return any(term in text for term in terms)
+    return [
+        term for term in sorted(terms, key=len, reverse=True)
+        if re.search(_term_pattern(term), text)
+    ]
+
+
+def _has_any_term(value, terms):
+    return bool(_matching_terms(value, terms))
 
 
 def _valid_evidence_target(value):
@@ -325,13 +364,13 @@ def _valid_evidence_target(value):
     text = _normalized_text(value)
     if not text or _contains_generic_fragment(text):
         return False
-    matched_source_terms = [term for term in STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS if term in text]
+    matched_source_terms = _matching_terms(text, STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS)
     if not matched_source_terms:
         return False
 
     target_text = text
-    for term in sorted(matched_source_terms, key=len, reverse=True):
-        target_text = target_text.replace(term, ' ')
+    for term in matched_source_terms:
+        target_text = re.sub(_term_pattern(term), ' ', target_text)
     target_tokens = [token for token in target_text.replace('/', ' ').replace(':', ' ').split() if token]
     has_exact_metric_or_date = any(any(char.isdigit() for char in token) for token in target_tokens)
     has_named_target = len(target_tokens) >= 2

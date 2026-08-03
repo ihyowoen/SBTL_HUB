@@ -232,3 +232,60 @@ class TestReview4842556549Contracts(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 ''', encoding="utf-8")
+
+original_workflow = '''name: Workflow contract validation
+
+on:
+  pull_request:
+    paths:
+      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
+      - "docs/SOURCE_AUDIT_CONTRACT.md"
+      - "docs/llm_prompts/v1/**"
+      - "validation_data/source_owner_registry.json"
+      - "validation_scripts/**"
+      - "scripts/lean_cards.mjs"
+      - ".github/workflows/lean-cards.yml"
+      - ".github/workflows/workflow-contract-validation.yml"
+  push:
+    branches:
+      - agent/workflow-contract-related-source-audit
+    paths:
+      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
+      - "docs/SOURCE_AUDIT_CONTRACT.md"
+      - "docs/llm_prompts/v1/**"
+      - "validation_data/source_owner_registry.json"
+      - "validation_scripts/**"
+      - "scripts/lean_cards.mjs"
+      - ".github/workflows/lean-cards.yml"
+      - ".github/workflows/workflow-contract-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile validators
+        run: python -m compileall -q validation_scripts
+
+      - name: Run workflow-contract and exporter regression tests
+        run: python -m unittest discover -s validation_scripts/tests -v
+
+      - name: Verify prompt overlays
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+'''
+(ROOT / ".github/workflows/workflow-contract-validation.yml").write_text(
+    original_workflow,
+    encoding="utf-8",
+)
+(ROOT / ".github/workflows/apply-pr233-review-4842556549.yml").unlink(missing_ok=True)
+Path(__file__).unlink()

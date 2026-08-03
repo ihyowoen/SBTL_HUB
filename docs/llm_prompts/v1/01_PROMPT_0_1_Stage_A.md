@@ -2691,5 +2691,5 @@ Stage A Related/date overlay:
 - Emit preliminary `date_role` with publication/event/representative date candidates; do not invent dates.
 - Stage exit must satisfy:
   `python validation_scripts/stage_artifact_contract_check.py A <STAGE_A_JSON>`.
-python validation_scripts/stage_lineage_contract_check.py stage_a <STAGE_A_JSON>`.
+  `python validation_scripts/stage_lineage_contract_check.py stage_a <STAGE_A_JSON>`.
 <!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

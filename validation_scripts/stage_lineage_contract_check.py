@@ -452,7 +452,14 @@ def _valid_confirmation_point(value):
         measurable = value.get('measurable_event_or_metric') or value.get('confirmation_event')
         interpretation_effect = value.get('interpretation_effect') or value.get('confirm_weaken_invalidate')
         return _structured_exact_target(measurable) and _structured_interpretation_effect(interpretation_effect)
-    return _specific_string(value) and _has_any_term(value, STAGE_A_CONFIRMATION_EVENT_TERMS)
+    text = _normalized_text(value)
+    return (
+        bool(text)
+        and len(text.split()) >= 4
+        and not _placeholder_only_text(text)
+        and not _contains_generic_target_fragment(text)
+        and _has_any_term(text, STAGE_A_CONFIRMATION_EVENT_TERMS)
+    )
 
 
 def validate_stage_a_v3_override(spec, spec_id, messages):

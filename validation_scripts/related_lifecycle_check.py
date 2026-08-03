@@ -65,9 +65,19 @@ def load_ids(path: str | None) -> set[str] | None:
 
 
 def card_identifiers(card: dict[str, Any]) -> set[str]:
+    """Identifiers accepted only for selecting the current-run validation scope."""
     return {
         str(card.get(key)).strip()
         for key in ("id", "card_id", "draft_id", "source_spec_id")
+        if card.get(key) is not None and str(card.get(key)).strip()
+    }
+
+
+def canonical_card_identifiers(card: dict[str, Any]) -> set[str]:
+    """Canonical identifiers permitted for Related target resolution."""
+    return {
+        str(card.get(key)).strip()
+        for key in ("id", "card_id")
         if card.get(key) is not None and str(card.get(key)).strip()
     }
 
@@ -214,10 +224,10 @@ def main() -> int:
     _, cards = load_cards(args.input)
     by_id: dict[str, dict[str, Any]] = {}
     for card in cards:
-        for identifier in card_identifiers(card):
+        for identifier in canonical_card_identifiers(card):
             existing = by_id.get(identifier)
             if existing is not None and existing is not card:
-                raise ValueError(f"duplicate card identifier alias: {identifier}")
+                raise ValueError(f"duplicate canonical card identifier: {identifier}")
             by_id[identifier] = card
     selected = load_ids(args.new_id_file)
     rows, scope = select_related_scope(cards, selected)

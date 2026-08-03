@@ -300,13 +300,19 @@ def _specific_string(value):
 
 
 def _placeholder_only_text(value):
-    text = _normalized_text(value)
+    text = _strip_unicode_edge_punctuation(value)
     if not text:
         return True
-    normalized = ' '.join(
-        text.replace('.', ' ').replace(',', ' ').replace(':', ' ')
-        .replace(';', ' ').replace('-', ' ').strip().split()
+    if text in STAGE_A_PLACEHOLDER_NARRATIVE_PHRASES:
+        return True
+    normalized = ''.join(
+        ' ' if (
+            char.isspace()
+            or unicodedata.category(char).startswith(('P', 'S'))
+        ) else char
+        for char in text
     )
+    normalized = ' '.join(normalized.split())
     if normalized in STAGE_A_PLACEHOLDER_NARRATIVE_PHRASES:
         return True
     if any(re.fullmatch(pattern, normalized) for pattern in STAGE_A_PLACEHOLDER_NARRATIVE_PATTERNS):
@@ -449,7 +455,11 @@ def validate_stage_a_v3_override(spec, spec_id, messages):
         messages.append(f'{spec_id}: anchor_classes must be a non-empty array for v3_non_execution')
         valid = False
     else:
-        invalid_classes = [value for value in classes if value not in STAGE_A_NON_EXECUTION_ANCHOR_CLASSES]
+        invalid_classes = [
+            value for value in classes
+            if not isinstance(value, str)
+            or value not in STAGE_A_NON_EXECUTION_ANCHOR_CLASSES
+        ]
         if invalid_classes:
             messages.append(f'{spec_id}: invalid non-execution anchor_classes={invalid_classes}')
             valid = False

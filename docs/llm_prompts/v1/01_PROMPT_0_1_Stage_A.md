@@ -725,9 +725,19 @@ Each strict_passed_spec must include:
 - execution_anchor_type
 - execution_anchor_strength
 - structural_value_override_applied
+- structural_value_override_reason
 - anchor_classes
+- incremental_information
+- decision_relevance
+- baseline_expectation_changed
 - evidence_needed_for_stage_b
+- next_confirmation_points
 - why_execution_event_not_required
+- prior_state
+- new_verified_fact
+- changed_judgment
+- uncertainty_resolved
+- remaining_uncertainty
 - strict_pass_gate
 - title_raw
 - summary_hint
@@ -784,13 +794,31 @@ format_risk_tags should use one or more of:
 - consumer_field_data
 - none
 
-execution_anchor_strength must be one of:
+Anchor-route contract for `strict_passed_spec[]`:
 
-- strong
-- moderate
-- weak
-- none
-- unknown
+For every item with non-empty `format_risk_tags`, exactly one route must be complete:
+
+1. execution route
+   - non-empty `execution_anchor_type`;
+   - `execution_anchor_strength: strong | moderate`;
+   - `structural_value_override_applied: false`;
+   - override-only fields are null or empty.
+2. V3 non-execution route
+   - execution-route fields are null or empty, not `weak`, `none`, or `unknown` placeholders;
+   - `structural_value_override_applied: true`;
+   - non-empty item-specific `structural_value_override_reason`;
+   - at least one valid non-execution `anchor_classes[]` value;
+   - non-empty `incremental_information`, `decision_relevance`, and `baseline_expectation_changed`;
+   - non-empty `evidence_needed_for_stage_b[]`, where every entry identifies both a source/document/dataset/transcript/filing/test/report class and the exact claim, metric, stage, or date to verify;
+   - non-empty `next_confirmation_points[]`, where every entry identifies a measurable event or metric that can confirm, weaken, or invalidate the interpretation;
+   - specific `why_execution_event_not_required`;
+   - complete before-after chain: `prior_state`, `new_verified_fact`, `changed_judgment`, `uncertainty_resolved`, and `remaining_uncertainty`.
+
+Partial execution metadata, a generic or incomplete V3 package, dual-complete routes, or neither route complete must not enter `strict_passed_spec[]`; route the item to the appropriate review/support/reject partition.
+
+For an ordinary strict item with empty `format_risk_tags`, `execution_anchor_type` must be non-empty and `execution_anchor_strength` must be `strong | moderate`.
+
+Generic variants such as `official sources for confirmation`, `more evidence on adoption`, `additional data needed`, or equivalent wording do not satisfy the V3 evidence or confirmation-point contract.
 
 Each review_pool item must include:
 

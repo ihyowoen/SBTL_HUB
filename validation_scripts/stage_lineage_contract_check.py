@@ -44,11 +44,44 @@ STAGE_A_V3_OVERRIDE_REQUIRED = [
     'prior_state',
     'new_verified_fact',
     'changed_judgment',
+    'uncertainty_resolved',
+    'remaining_uncertainty',
 ]
-STAGE_A_GENERIC_OVERRIDE_TEXT = {
-    'official sources', 'company materials', 'media reports',
-    'additional confirmation', 'more evidence', 'tbd', 'unknown',
-}
+STAGE_A_GENERIC_OVERRIDE_FRAGMENTS = (
+    'official source',
+    'company material',
+    'media report',
+    'additional confirmation',
+    'more evidence',
+    'further evidence',
+    'more data',
+    'additional data',
+    'further confirmation',
+    'needs confirmation',
+    'confirmation needed',
+    'to be confirmed',
+    'tbd',
+    'unknown',
+)
+STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS = (
+    'official', 'filing', 'rule', 'regulation', 'guidance', 'order', 'notice',
+    'document', 'dataset', 'statistics', 'transcript', 'technical test',
+    'test result', 'independent report', 'audit', 'contract', 'permit',
+    'court decision', 'legislation', 'earnings release', 'prepared remarks',
+)
+STAGE_A_EVIDENCE_TARGET_TERMS = (
+    'claim', 'metric', 'date', 'stage', 'effective', 'eligibility', 'amount',
+    'capacity', 'volume', 'price', 'cost', 'margin', 'schedule', 'probability',
+    'approval', 'qualification', 'shipment', 'production', 'utilisation',
+    'utilization', 'market access', 'adoption rate', 'test result', 'threshold',
+)
+STAGE_A_CONFIRMATION_EVENT_TERMS = (
+    'publication', 'filing', 'guidance', 'approval', 'decision', 'contract',
+    'award', 'permit', 'launch', 'production', 'shipment', 'qualification',
+    'test result', 'effective date', 'deadline', 'schedule', 'capacity',
+    'volume', 'price', 'cost', 'margin', 'utilisation', 'utilization',
+    'adoption rate', 'threshold', 'probability', 'metric',
+)
 
 STAGE_B_EXPECTED_TOP_LEVEL = {
     'lineage_integrity_status': 'PASS',
@@ -165,8 +198,43 @@ def _nonempty_string(value):
     return isinstance(value, str) and bool(value.strip())
 
 
+def _normalized_text(value):
+    return value.strip().lower() if isinstance(value, str) else ''
+
+
+def _contains_generic_fragment(value):
+    text = _normalized_text(value)
+    return any(fragment in text for fragment in STAGE_A_GENERIC_OVERRIDE_FRAGMENTS)
+
+
 def _specific_string(value):
-    return _nonempty_string(value) and value.strip().lower() not in STAGE_A_GENERIC_OVERRIDE_TEXT
+    text = _normalized_text(value)
+    return bool(text) and len(text.split()) >= 4 and not _contains_generic_fragment(text)
+
+
+def _has_any_term(value, terms):
+    text = _normalized_text(value)
+    return any(term in text for term in terms)
+
+
+def _valid_evidence_target(value):
+    if isinstance(value, dict):
+        source_class = value.get('source_or_document_class') or value.get('source_class')
+        exact_target = value.get('exact_claim_or_metric') or value.get('verification_target')
+        return _specific_string(source_class) and _specific_string(exact_target)
+    return (
+        _specific_string(value)
+        and _has_any_term(value, STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS)
+        and _has_any_term(value, STAGE_A_EVIDENCE_TARGET_TERMS)
+    )
+
+
+def _valid_confirmation_point(value):
+    if isinstance(value, dict):
+        measurable = value.get('measurable_event_or_metric') or value.get('confirmation_event')
+        interpretation_effect = value.get('interpretation_effect') or value.get('confirm_weaken_invalidate')
+        return _specific_string(measurable) and _specific_string(interpretation_effect)
+    return _specific_string(value) and _has_any_term(value, STAGE_A_CONFIRMATION_EVENT_TERMS)
 
 
 def validate_stage_a_v3_override(spec, spec_id, messages):
@@ -192,15 +260,21 @@ def validate_stage_a_v3_override(spec, spec_id, messages):
     evidence_targets = spec.get('evidence_needed_for_stage_b')
     if not isinstance(evidence_targets, list) or not evidence_targets:
         valid = False
-    elif any(not _specific_string(value) for value in evidence_targets):
-        messages.append(f'{spec_id}: evidence_needed_for_stage_b must contain item-specific targets')
+    elif any(not _valid_evidence_target(value) for value in evidence_targets):
+        messages.append(
+            f'{spec_id}: evidence_needed_for_stage_b entries must identify both '
+            'a source/document class and an exact claim, metric, stage, or date'
+        )
         valid = False
 
     confirmation_points = spec.get('next_confirmation_points')
     if not isinstance(confirmation_points, list) or not confirmation_points:
         valid = False
-    elif any(not _specific_string(value) for value in confirmation_points):
-        messages.append(f'{spec_id}: next_confirmation_points must contain measurable item-specific points')
+    elif any(not _valid_confirmation_point(value) for value in confirmation_points):
+        messages.append(
+            f'{spec_id}: next_confirmation_points entries must identify measurable '
+            'events or metrics, not generic confirmation requests'
+        )
         valid = False
 
     if not _specific_string(spec.get('structural_value_override_reason')):

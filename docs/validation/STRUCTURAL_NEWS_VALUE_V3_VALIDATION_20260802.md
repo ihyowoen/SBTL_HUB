@@ -231,3 +231,10 @@ Focused regression coverage is provided in `validation_scripts/tests/test_review
 - Related lifecycle scope recognizes final `id` / `card_id` and pre-merge `draft_id` / `source_spec_id` aliases in the merged artifact.
 - Final QC retains `CURRENT_RUN_ID_FILE` while allowing validator-recognized provisional identifiers before Prompt 0.8 production-ID assignment.
 - Evidence QC, Content Polish, Production Verification, and Remediation upstream lineage gates require exactly one supported execution or V3 non-execution path rather than execution-only fields.
+
+## Review 4840844831
+
+- Stage A `strict_passed_spec[]` producer schema now enumerates the complete canonical V3 non-execution package and the same exactly-one route contract enforced by the lineage validator.
+- Stage A V3 evidence targets must encode both a source/document class and an exact claim, metric, stage, or date; substring variants of generic placeholders fail closed.
+- `next_confirmation_points[]` must identify measurable events or metrics; generic future-confirmation wording is rejected.
+- Focused regression covers complete-route PASS, generic-evidence FAIL, non-measurable-confirmation FAIL, and missing uncertainty-chain FAIL.

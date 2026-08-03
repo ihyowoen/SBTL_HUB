@@ -13,6 +13,8 @@ STAGE_C = ROOT / "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md"
 
 
 class TestReview4840649968Contracts(unittest.TestCase):
+    # Untyped scope strings must fail closed when they identify different rows
+    # through canonical and provisional namespaces.
     def run_validator(self, cards, selected_ids):
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)

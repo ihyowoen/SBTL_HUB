@@ -26,7 +26,7 @@ jobs:
           python -m py_compile validation_scripts/related_lifecycle_check.py validation_scripts/stage_lineage_contract_check.py
           python -m unittest validation_scripts.tests.test_review_4842822807
           python -m unittest validation_scripts.tests.test_workflow_contracts
-          python validation_scripts/apply_prompt_contract_overlays.py --verify
+          python validation_scripts/apply_prompt_contract_overlays.py --check
       - name: Commit patch
         run: |
           git config user.name "github-actions[bot]"

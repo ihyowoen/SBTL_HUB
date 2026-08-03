@@ -1,10 +1,11 @@
 name: PR233 review 4844677489 fix
 
 on:
-  push:
-    branches:
-      - agent/structural-news-value-v3
+  pull_request:
+    types: [synchronize]
+    branches: [main]
     paths:
+      - .github/workflows/pr233-review-4844677489-fix.yml
       - .github/pr233-review-4844677489.trigger
 
 permissions:
@@ -12,6 +13,7 @@ permissions:
 
 jobs:
   apply-fix:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

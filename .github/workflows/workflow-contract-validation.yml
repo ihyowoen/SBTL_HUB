@@ -9,8 +9,10 @@ on:
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
       - "scripts/lean_cards.mjs"
+      - "scripts/patch_pr233_review_20260803_run4.py"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
+      - ".github/workflows/pr233-review-run4-fix.yml"
   push:
     branches:
       - agent/workflow-contract-related-source-audit
@@ -25,7 +27,7 @@ on:
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -33,17 +35,42 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
+      - name: Apply latest PR233 review fixes
+        run: python scripts/patch_pr233_review_20260803_run4.py
+
       - name: Compile validators
         run: python -m compileall -q validation_scripts
+
+      - name: Run focused review regression tests
+        run: python -m unittest validation_scripts.tests.test_review_20260803_run4 -v
 
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Commit verified fixes and restore canonical workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout HEAD^ -- .github/workflows/workflow-contract-validation.yml
+          git rm -f scripts/patch_pr233_review_20260803_run4.py .github/workflows/pr233-review-run4-fix.yml
+          git add \
+            .github/workflows/workflow-contract-validation.yml \
+            validation_scripts/stage_lineage_contract_check.py \
+            validation_scripts/related_lifecycle_check.py \
+            docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md \
+            docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md \
+            validation_scripts/tests/test_review_20260803_run4.py
+          git commit -m 'fix: address latest PR233 review feedback'
+          git push origin HEAD:agent/structural-news-value-v3

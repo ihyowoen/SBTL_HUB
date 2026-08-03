@@ -1,0 +1,150 @@
+name: PR233 review 4844677489 fix
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - .github/pr233-review-4844677489.trigger
+
+permissions:
+  contents: write
+
+jobs:
+  apply-fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+
+      - name: Apply validator fixes and regression tests
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          validator_path = Path('validation_scripts/stage_lineage_contract_check.py')
+          text = validator_path.read_text(encoding='utf-8')
+
+          old_placeholder = '''def _placeholder_only_text(value):
+              text = _normalized_text(value)
+              if not text:
+                  return True
+              normalized = ' '.join(
+                  text.replace('.', ' ').replace(',', ' ').replace(':', ' ')
+                  .replace(';', ' ').replace('-', ' ').strip().split()
+              )
+              if normalized in STAGE_A_PLACEHOLDER_NARRATIVE_PHRASES:
+                  return True
+          '''
+          new_placeholder = '''def _placeholder_only_text(value):
+              # Apply the same Unicode normalization and edge-wrapper stripping used
+              # by evidence-target validation before evaluating placeholder semantics.
+              text = _strip_unicode_edge_punctuation(value)
+              if not text:
+                  return True
+              if text in STAGE_A_PLACEHOLDER_NARRATIVE_PHRASES:
+                  return True
+              normalized = ''.join(
+                  ' ' if (
+                      char.isspace()
+                      or unicodedata.category(char).startswith(('P', 'S'))
+                  ) else char
+                  for char in text
+              )
+              normalized = ' '.join(normalized.split())
+              if normalized in STAGE_A_PLACEHOLDER_NARRATIVE_PHRASES:
+                  return True
+          '''
+          if text.count(old_placeholder) != 1:
+              raise SystemExit('placeholder normalization target not unique')
+          text = text.replace(old_placeholder, new_placeholder, 1)
+
+          old_classes = '''        invalid_classes = [value for value in classes if value not in STAGE_A_NON_EXECUTION_ANCHOR_CLASSES]
+          '''
+          new_classes = '''        invalid_classes = [
+              value for value in classes
+              if not isinstance(value, str)
+              or value not in STAGE_A_NON_EXECUTION_ANCHOR_CLASSES
+          ]
+          '''
+          if text.count(old_classes) != 1:
+              raise SystemExit('anchor class validation target not unique')
+          text = text.replace(old_classes, new_classes, 1)
+          validator_path.write_text(text, encoding='utf-8')
+
+          test_path = Path('validation_scripts/tests/test_review_4844677489_contracts.py')
+          test_path.write_text('''from __future__ import annotations
+
+import copy
+import io
+import unittest
+from contextlib import redirect_stdout
+
+from validation_scripts import stage_lineage_contract_check as lineage
+from validation_scripts.tests.test_review_4840844831_contracts import (
+    TestReview4840844831Contracts,
+)
+
+
+class TestReview4844677489Contracts(unittest.TestCase):
+    def base_v3_spec(self):
+        return copy.deepcopy(TestReview4840844831Contracts().base_spec())
+
+    def run_stage_a(self, spec):
+        stream = io.StringIO()
+        with redirect_stdout(stream):
+            result = lineage.check_stage_a({"strict_passed_spec": [spec]})
+        return result, stream.getvalue()
+
+    def test_punctuated_placeholder_narratives_fail_closed(self):
+        variants = (
+            "not provided!",
+            "“not provided”",
+            "「not provided」",
+            "not—provided",
+        )
+        for placeholder in variants:
+            with self.subTest(placeholder=placeholder):
+                spec = self.base_v3_spec()
+                for field in lineage.STAGE_A_V3_NARRATIVE_FIELDS:
+                    spec[field] = placeholder
+                result, output = self.run_stage_a(spec)
+                self.assertEqual(result, 1, output)
+                self.assertIn("must be item-specific narrative text", output)
+
+    def test_non_string_anchor_classes_fail_without_type_error(self):
+        for malformed in ([[]], [{}]):
+            with self.subTest(malformed=malformed):
+                spec = self.base_v3_spec()
+                spec["anchor_classes"] = malformed
+                result, output = self.run_stage_a(spec)
+                self.assertEqual(result, 1, output)
+                self.assertIn("invalid non-execution anchor_classes", output)
+
+
+if __name__ == "__main__":
+    unittest.main()
+''', encoding='utf-8')
+          PY
+
+      - name: Validate
+        shell: bash
+        run: |
+          python -m py_compile validation_scripts/stage_lineage_contract_check.py
+          python -m unittest validation_scripts.tests.test_review_4844677489_contracts
+          python -m unittest discover -s validation_scripts/tests -p 'test*.py'
+          python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          rm -f .github/workflows/pr233-review-4844677489-fix.yml
+          rm -f .github/pr233-review-4844677489.trigger
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "fix: harden Stage A placeholder and anchor validation"
+          git push origin HEAD:agent/structural-news-value-v3

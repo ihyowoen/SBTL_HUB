@@ -11,39 +11,49 @@ on:
       - "scripts/lean_cards.mjs"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
-  push:
-    branches:
-      - agent/workflow-contract-related-source-audit
-    paths:
-      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-      - "docs/SOURCE_AUDIT_CONTRACT.md"
-      - "docs/llm_prompts/v1/**"
-      - "validation_data/source_owner_registry.json"
-      - "validation_scripts/**"
-      - "scripts/lean_cards.mjs"
-      - ".github/workflows/lean-cards.yml"
-      - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout PR branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
+      - name: Apply review fixes
+        run: python validation_scripts/apply_review_4849281461_fix.py
+
       - name: Compile validators
         run: python -m compileall -q validation_scripts
+
+      - name: Run focused regression
+        run: python -m unittest validation_scripts.tests.test_review_4849281461_contracts -v
 
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Commit validated fixes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No validated changes to commit"
+            exit 1
+          fi
+          git commit -m "fix: address review 4849281461"
+          git push origin HEAD:${{ github.head_ref }}

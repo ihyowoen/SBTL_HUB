@@ -10,6 +10,8 @@ from validation_scripts.tests.test_review_4840844831_contracts import (
     TestReview4840844831Contracts,
 )
 
+# Locks the semantic-type and concise structured-target regressions from review 4841064772.
+
 
 class TestReview4841064772Contracts(unittest.TestCase):
     def base_spec(self):

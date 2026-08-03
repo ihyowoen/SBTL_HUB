@@ -39,12 +39,17 @@ class TestReview4841064772Contracts(unittest.TestCase):
         self.assertEqual(result, 1)
         self.assertIn("changed_judgment must be item-specific narrative text", output)
 
-    def test_baseline_expectation_changed_must_be_true(self):
-        spec = copy.deepcopy(self.base_spec())
-        spec["baseline_expectation_changed"] = False
-        result, output = self.run_stage_a(spec)
-        self.assertEqual(result, 1)
-        self.assertIn("baseline_expectation_changed must be true", output)
+    def test_baseline_expectation_changed_requires_item_specific_narrative(self):
+        for invalid_value in (True, False, 0):
+            with self.subTest(invalid_value=invalid_value):
+                spec = copy.deepcopy(self.base_spec())
+                spec["baseline_expectation_changed"] = invalid_value
+                result, output = self.run_stage_a(spec)
+                self.assertEqual(result, 1)
+                self.assertIn(
+                    "baseline_expectation_changed must be item-specific narrative text",
+                    output,
+                )
 
     def test_concise_structured_evidence_targets_pass(self):
         targets = (

@@ -1,9 +1,10 @@
 name: Patch review 4848883611
 
 on:
-  push:
+  pull_request:
+    types: [synchronize]
     branches:
-      - agent/structural-news-value-v3
+      - main
     paths:
       - .github/workflows/patch-review-4848883611.yml
   workflow_dispatch:
@@ -13,6 +14,7 @@ permissions:
 
 jobs:
   patch-and-verify:
+    if: github.event.pull_request.number == 233
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

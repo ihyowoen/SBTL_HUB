@@ -273,7 +273,7 @@ def check_card(
             )
 
     if relation_type == "new_unrelated_event" and (related or (allow_provisional_related and provisional)):
-        errors.append("new_unrelated_event must have no final or provisional related edges")
+        errors.append("new_unrelated_event must have empty related[] and no provisional related edges")
     if (
         relation_type in {"distinct_follow_up", "program_lineage"}
         and not related

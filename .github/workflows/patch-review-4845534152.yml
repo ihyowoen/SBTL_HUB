@@ -32,13 +32,13 @@ jobs:
         run: python -m compileall -q validation_scripts
 
       - name: Run focused regression
-        run: python -m unittest validation_scripts.tests.test_review_4845534152_contracts -v
+        run: PYTHONPATH=validation_scripts:. python -m unittest validation_scripts.tests.test_review_4845534152_contracts -v
 
       - name: Run full regression suite
-        run: python -m unittest discover -s validation_scripts/tests -v
+        run: PYTHONPATH=validation_scripts:. python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
-        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+        run: PYTHONPATH=validation_scripts:. python validation_scripts/apply_prompt_contract_overlays.py --check
 
       - name: Commit verified fixes and remove temporary files
         run: |

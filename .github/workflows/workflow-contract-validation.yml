@@ -59,14 +59,12 @@ jobs:
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
 
-      - name: Commit verified fixes and restore canonical workflow
+      - name: Commit and push verified non-workflow fixes
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git checkout HEAD^ -- .github/workflows/workflow-contract-validation.yml
-          git rm -f scripts/patch_pr233_review_20260803_run4.py .github/workflows/pr233-review-run4-fix.yml
+          git rm -f scripts/patch_pr233_review_20260803_run4.py
           git add \
-            .github/workflows/workflow-contract-validation.yml \
             validation_scripts/stage_lineage_contract_check.py \
             validation_scripts/related_lifecycle_check.py \
             docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md \

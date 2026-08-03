@@ -215,3 +215,12 @@ Focused regression coverage is provided in `validation_scripts/tests/test_review
 - Prompt 0.6 polished-item producer contract preserves the same package and may not reconstruct or summarize it away.
 - Prompt 0.7 and the overlay generator invoke `related_lifecycle_check.py --require-contract` for current V3 Final QC while legacy inventory mode remains permissive.
 - Regression coverage blocks package-field loss and non-strict Final QC invocation.
+
+
+## Review 4839991362 follow-up: current-run strict scope
+
+- Prompt 0.7 now runs the strict Related lifecycle validator with `--new-id-file <CURRENT_RUN_ID_FILE>`.
+- The validator runs against a merged baseline/candidate artifact so Related targets remain resolvable.
+- Unscoped strict validation of the full legacy inventory is explicitly forbidden; legacy-compatible validation remains unchanged.
+- The overlay generator carries the identical scoped command.
+- Focused regression coverage now rejects the superseded unscoped strict invocation.

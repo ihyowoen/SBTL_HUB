@@ -61,16 +61,18 @@ class Review4839991362Contracts(unittest.TestCase):
         self.assertIn("byte-for-byte from Evidence QC", section)
         self.assertIn("must not summarize away", section)
 
-    def test_final_qc_uses_strict_related_contract_in_prompt_and_generator(self) -> None:
-        expected = "`related_lifecycle_check.py --require-contract`"
-        old = "`related_lifecycle_check.py`,"
+    def test_final_qc_uses_current_run_scoped_strict_related_contract(self) -> None:
+        scoped = "`related_lifecycle_check.py --require-contract --new-id-file <CURRENT_RUN_ID_FILE>`"
+        unscoped = "`related_lifecycle_check.py --require-contract`,"
         for path in (
             "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
             "validation_scripts/apply_prompt_contract_overlays.py",
         ):
             text = (ROOT / path).read_text(encoding="utf-8")
-            self.assertIn(expected, text)
-            self.assertNotIn(old, text)
+            self.assertIn(scoped, text)
+            self.assertIn("merged baseline/candidate validation artifact", text)
+            self.assertIn("Do not apply `--require-contract` unscoped", text)
+            self.assertNotIn(unscoped, text)
 
 
 if __name__ == "__main__":

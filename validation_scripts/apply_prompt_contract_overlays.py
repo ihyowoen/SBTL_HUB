@@ -112,9 +112,13 @@ Prompt 0.6 lineage overlay:
     "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md": """
 Prompt 0.7 final-gate overlay:
 
-- Run `evidence_qc_v8_check.py`, `related_lifecycle_check.py --require-contract`,
+- Build a merged baseline/candidate validation artifact so every current-run card and every referenced Related target is resolvable.
+- Build `CURRENT_RUN_ID_FILE` containing only the production IDs / candidate IDs introduced or materially updated by the current run.
+- Run `evidence_qc_v8_check.py`,
+  `related_lifecycle_check.py --require-contract --new-id-file <CURRENT_RUN_ID_FILE>` against the merged baseline/candidate validation artifact,
   `date_role_freshness_check.py --require-date-role`, and
   `stage_artifact_contract_check.py 0.7` before `publish_ready=true`.
+- Do not apply `--require-contract` unscoped to the full legacy inventory; strict V3 fields are current-run obligations while legacy rows remain under the legacy-compatible check.
 - Reapprove bounded single-source exceptions without weakening Related proof.
 - Output filename must be `publish_ready_PENDING_MERGE_PREP_<RUN_TAG>.json`;
   reserve `pr_candidate_payload` for Prompt 0.8.

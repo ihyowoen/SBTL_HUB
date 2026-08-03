@@ -3,6 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Triggered after the patch workflow is present on the branch.
 OLD = """- Run `evidence_qc_v8_check.py`, `related_lifecycle_check.py --require-contract`,
   `date_role_freshness_check.py --require-date-role`, and
   `stage_artifact_contract_check.py 0.7` before `publish_ready=true`."""

@@ -9,6 +9,7 @@ Usage:
 import json
 import re
 import sys
+import unicodedata
 
 STAGE_A_REQUIRED = [
     'spec_id', 'source_story_ids', 'strict_pass_gate',
@@ -252,11 +253,30 @@ def _contains_generic_fragment(value):
     return any(fragment in text for fragment in STAGE_A_GENERIC_OVERRIDE_FRAGMENTS)
 
 
+def _strip_unicode_edge_punctuation(value):
+    text = unicodedata.normalize('NFKC', _normalized_text(value)).strip()
+    while text:
+        before = text
+        while text and (
+            text[0].isspace()
+            or unicodedata.category(text[0]).startswith(('P', 'S'))
+        ):
+            text = text[1:].lstrip()
+        while text and (
+            text[-1].isspace()
+            or unicodedata.category(text[-1]).startswith(('P', 'S'))
+        ):
+            text = text[:-1].rstrip()
+        if text == before:
+            break
+    return text
+
+
 def _contains_generic_target_fragment(value):
-    text = _normalized_text(value)
-    # Normalize ordinary punctuation so placeholder-only variants such as
-    # "additional data." cannot bypass complete-pattern matching.
-    text = re.sub(r"[\s\.,:;!?]+$", "", text)
+    # Normalize Unicode punctuation and paired quote/bracket wrappers so
+    # placeholder-only variants such as “more evidence”… or more evidence。
+    # cannot bypass complete-pattern matching.
+    text = _strip_unicode_edge_punctuation(value)
     text = ' '.join(text.replace(':', ' ').replace(';', ' ').split())
     if not text:
         return True

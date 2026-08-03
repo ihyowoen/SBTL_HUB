@@ -238,3 +238,10 @@ Focused regression coverage is provided in `validation_scripts/tests/test_review
 - Stage A V3 evidence targets must encode both a source/document class and an exact claim, metric, stage, or date; substring variants of generic placeholders fail closed.
 - `next_confirmation_points[]` must identify measurable events or metrics; generic future-confirmation wording is rejected.
 - Focused regression covers complete-route PASS, generic-evidence FAIL, non-measurable-confirmation FAIL, and missing uncertainty-chain FAIL.
+
+
+## Review 4842822807 closure
+
+- final `related[]` and provisional `related_candidate_spec_ids[]` aliases are deduplicated against one shared resolved target identity map;
+- Unicode terminal punctuation, ellipsis, quotes, and bracket wrappers are normalized before generic V3 evidence-target matching;
+- focused regressions cover cross-namespace Related duplicates and multilingual punctuation-only placeholder variants.

@@ -405,8 +405,14 @@ def check_card(
                     errors.append(f"dangling provisional related ID: {target}")
                 else:
                     resolved_identity = id(resolved_target)
+                    final_alias = resolved_edge_aliases.get(resolved_identity)
                     previous_alias = resolved_provisional_aliases.get(resolved_identity)
-                    if previous_alias is not None:
+                    if final_alias is not None:
+                        errors.append(
+                            "final and provisional related aliases resolve to duplicate target: "
+                            f"{final_alias}, {target}"
+                        )
+                    elif previous_alias is not None:
                         errors.append(
                             "provisional related aliases resolve to duplicate target: "
                             f"{previous_alias}, {target}"
@@ -420,6 +426,7 @@ def check_card(
                     "ambiguous provisional related ID",
                     "dangling provisional related ID",
                     "provisional related aliases resolve to duplicate target",
+                    "final and provisional related aliases resolve to duplicate target",
                 ))
                 for message in errors
             )

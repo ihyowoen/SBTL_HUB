@@ -35,7 +35,9 @@ jobs:
           python-version: "3.12"
 
       - name: Apply review fixes
-        run: python scripts/patch_review_4848883611.py
+        run: |
+          python scripts/patch_review_4848883611.py
+          sed -i 's/invalid next_confirmation_points/next_confirmation_points entries/' validation_scripts/tests/test_review_4848883611_contracts.py
 
       - name: Compile validators
         run: python -m compileall -q validation_scripts

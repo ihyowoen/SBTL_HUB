@@ -28,6 +28,8 @@ def lineage(relation_type: str, provisional=None):
 
 
 class TestReview4840598467Contracts(unittest.TestCase):
+    """Protect Final QC chronology for current-run provisional Related edges."""
+
     def run_validator(self, parent_date: str, child_date: str):
         parent = {
             "source_spec_id": "SPEC_PARENT",

@@ -1,6 +1,7 @@
 from pathlib import Path
 
 
+# Temporary idempotent patch runner for review 4840431415 CI compatibility.
 def replace_once(path: str, old: str, new: str) -> None:
     p = Path(path)
     text = p.read_text(encoding="utf-8")

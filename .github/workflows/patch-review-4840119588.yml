@@ -1,0 +1,50 @@
+name: Patch review 4840119588
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - scripts/patch_review_4840119588.py
+      - .github/workflows/patch-review-4840119588.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Apply patch
+        run: python scripts/patch_review_4840119588.py
+
+      - name: Run regression tests without bytecode artifacts
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python -m unittest discover -s validation_scripts/tests -v
+
+      - name: Verify prompt overlays
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Commit patch
+        run: |
+          find validation_scripts -type d -name __pycache__ -prune -exec rm -rf {} +
+          find validation_scripts -type f -name '*.pyc' -delete
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "fix: align pre-merge scope and upstream V3 gates"
+          git push origin HEAD:agent/structural-news-value-v3

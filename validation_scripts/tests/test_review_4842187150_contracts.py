@@ -1,4 +1,8 @@
-"""Regression coverage for Codex review 4842187150."""
+"""Regression coverage for Codex review 4842187150.
+
+The suite permits item-specific uncertainty targets while keeping generic
+evidence scaffolding and stale chronology exception metadata fail-closed.
+"""
 
 from __future__ import annotations
 

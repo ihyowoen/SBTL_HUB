@@ -14,6 +14,8 @@ from validation_scripts.tests.test_review_4840783305_contracts import (
 ROOT = Path(__file__).resolve().parents[2]
 STAGE_A_PROMPT = ROOT / "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md"
 
+# Producer and validator must share the complete V3 package, reject generic
+# evidence variants, and require measurable confirmation points.
 CANONICAL_STAGE_A_FIELDS = (
     "structural_value_override_reason",
     "anchor_classes",

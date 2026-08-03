@@ -82,6 +82,15 @@ def canonical_card_identifiers(card: dict[str, Any]) -> set[str]:
     }
 
 
+def provisional_card_identifiers(card: dict[str, Any]) -> set[str]:
+    """Pre-merge aliases permitted only for current-run scope selection."""
+    return {
+        str(card.get(key)).strip()
+        for key in ("draft_id", "source_spec_id")
+        if card.get(key) is not None and str(card.get(key)).strip()
+    }
+
+
 def primary_card_identifier(card: dict[str, Any]) -> str:
     for key in ("id", "card_id", "draft_id", "source_spec_id"):
         value = card.get(key)
@@ -99,25 +108,56 @@ def select_related_scope(cards: list[dict[str, Any]], selected: set[str] | None)
             "requested_count": None,
             "matched_count": len(rows),
             "missing_ids": [],
+            "ambiguous_ids": [],
             "errors": [],
         }
+
     requested = {str(value).strip() for value in selected if str(value).strip()}
-    selected_rows = [card for card in rows if card_identifiers(card) & requested]
-    matched = set().union(*(card_identifiers(card) & requested for card in selected_rows)) if selected_rows else set()
-    missing = sorted(requested - matched)
+    selected_rows: list[dict[str, Any]] = []
+    matched: set[str] = set()
+    ambiguous: list[str] = []
+
+    for identifier in sorted(requested):
+        canonical_matches = [
+            card for card in rows if identifier in canonical_card_identifiers(card)
+        ]
+        if len(canonical_matches) == 1:
+            matched.add(identifier)
+            if canonical_matches[0] not in selected_rows:
+                selected_rows.append(canonical_matches[0])
+            continue
+        if len(canonical_matches) > 1:
+            ambiguous.append(identifier)
+            continue
+
+        alias_matches = [
+            card for card in rows if identifier in provisional_card_identifiers(card)
+        ]
+        if len(alias_matches) == 1:
+            matched.add(identifier)
+            if alias_matches[0] not in selected_rows:
+                selected_rows.append(alias_matches[0])
+        elif len(alias_matches) > 1:
+            ambiguous.append(identifier)
+
+    missing = sorted(requested - matched - set(ambiguous))
     errors = []
     if not requested:
         errors.append("ID scope is empty")
-    elif not matched:
+    elif not matched and not ambiguous:
         errors.append("ID scope matched zero cards")
     if missing:
         errors.append(f"ID scope has {len(missing)} unmatched ID(s)")
+    if ambiguous:
+        errors.append(f"ID scope has {len(ambiguous)} ambiguous ID(s)")
+
     return selected_rows, {
         "applied": True,
         "status": "PASS" if not errors else "FAIL",
         "requested_count": len(requested),
         "matched_count": len(matched),
         "missing_ids": missing,
+        "ambiguous_ids": sorted(ambiguous),
         "errors": errors,
     }
 
@@ -131,7 +171,6 @@ def relation_object(card: dict[str, Any]) -> dict[str, Any] | None:
 
 
 def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_contract: bool):
-    cid = primary_card_identifier(card)
     related = card.get("related") or []
     errors = []
     warnings = []
@@ -140,10 +179,11 @@ def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_c
         return ["related must be a list"], warnings
     if related != dedupe(related):
         errors.append("related contains duplicate IDs")
-    if cid and cid in related:
-        errors.append("related contains self-reference")
     for target in related:
-        if target not in by_id:
+        resolved_target = by_id.get(target)
+        if resolved_target is card:
+            errors.append("related contains self-reference")
+        elif resolved_target is None:
             errors.append(f"dangling related ID: {target}")
 
     lineage = relation_object(card)

@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
+# This regression locks the complete Prompt 0.4 producer package consumed by Prompt 0.5.
 ROOT = Path(__file__).resolve().parents[2]
 BASELINE = ROOT / "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md"
 EVIDENCE = ROOT / "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md"

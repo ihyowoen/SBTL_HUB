@@ -1,6 +1,7 @@
 name: Patch review 4848883611
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - agent/structural-news-value-v3

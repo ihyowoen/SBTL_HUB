@@ -1,0 +1,47 @@
+name: Patch review 4840431415
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - scripts/patch_review_4840431415.py
+      - .github/workflows/patch-review-4840431415.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: ${{ !contains(github.event.head_commit.message, '[skip patch]') }}
+    runs-on: ubuntu-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply review patch
+        run: python scripts/patch_review_4840431415.py
+      - name: Run focused regression
+        run: python -m unittest validation_scripts.tests.test_review_4840431415_contracts
+      - name: Verify prompt overlays
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+      - name: Remove temporary patch artifacts
+        run: |
+          rm -f scripts/patch_review_4840431415.py
+          rm -f .github/workflows/patch-review-4840431415.yml
+          find . -type d -name __pycache__ -prune -exec rm -rf {} +
+          find . -type f -name '*.pyc' -delete
+      - name: Commit verified fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "fix: address review 4840431415 [skip patch]"
+          git push origin HEAD:agent/structural-news-value-v3

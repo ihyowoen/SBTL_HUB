@@ -1,0 +1,13 @@
+name: Apply PR233 review 4842006582
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  disabled:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Enable after patch helper is present"

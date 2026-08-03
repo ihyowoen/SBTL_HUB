@@ -419,6 +419,7 @@ def check_card(
                     "related_candidate_spec_ids",
                     "ambiguous provisional related ID",
                     "dangling provisional related ID",
+                    "provisional related aliases resolve to duplicate target",
                 ))
                 for message in errors
             )

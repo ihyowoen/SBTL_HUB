@@ -84,7 +84,8 @@ Anchor-path revise input rule:
 For every format-risk item in the selected `revise_required[]` or `revise_required_again[]` input, consume the complete immediately preceding `anchor_path_validation` object.
 
 - If the selected route was already settled and only visible wording requires revision, preserve `anchor_path_validation` byte-for-byte.
-- If Stage C emitted `selected_anchor_path: unresolved`, this pass may resolve the route only from already-authorized, source-backed evidence in the current run. It must select exactly one of `execution` or `v3_non_execution`, set `anchor_path_qc_passed: true`, set exactly one route status to `pass`, set the other to `not_applicable`, and provide a specific `non_applicable_anchor_path_reason`.
+- If the settled route is `v3_non_execution`, also preserve the complete canonical Structural Value Override package byte-for-byte: `structural_value_override_applied`, `structural_value_override_reason`, `anchor_classes[]`, `evidence_needed_for_stage_b[]`, `why_execution_event_not_required`, `prior_state`, `new_verified_fact`, `changed_judgment`, `uncertainty_resolved`, `remaining_uncertainty`, `incremental_information`, `baseline_expectation_changed`, `decision_relevance`, and `next_confirmation_points[]`. A wording-only revision must not summarize, rename, drop, or regenerate these fields.
+- If Stage C emitted `selected_anchor_path: unresolved`, this pass may resolve the route only from already-authorized, source-backed evidence in the current run. It must select exactly one of `execution` or `v3_non_execution`, set `anchor_path_qc_passed: true`, set exactly one route status to `pass`, set the other to `not_applicable`, and provide a specific `non_applicable_anchor_path_reason`. When resolving to `v3_non_execution`, the complete canonical package above must be present and source-backed; existing non-null package fields must remain byte-for-byte stable unless the resolution change is explicitly recorded in `revision_change_log[]`.
 - If the existing evidence cannot resolve exactly one route, do not manufacture a passing object. Route the item to the appropriate revise-blocked state and preserve the unresolved object plus the remaining issue.
 - Source augmentation remains subject to the explicit authorization rule below.
 
@@ -234,6 +235,7 @@ Each revised_draft_card must include:
 - related
 - fact_sources
 - `anchor_path_validation` for every format-risk item
+- when `anchor_path_validation.selected_anchor_path = v3_non_execution`, the complete byte-for-byte canonical package: `structural_value_override_applied`, `structural_value_override_reason`, `anchor_classes[]`, `evidence_needed_for_stage_b[]`, `why_execution_event_not_required`, `prior_state`, `new_verified_fact`, `changed_judgment`, `uncertainty_resolved`, `remaining_uncertainty`, `incremental_information`, `baseline_expectation_changed`, `decision_relevance`, and `next_confirmation_points[]`
 - `anchor_path_resolution_action: preserved|resolved_from_unresolved`
 - stage_b_revise_only: true
 - publish_ready: false

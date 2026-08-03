@@ -99,6 +99,7 @@ For each revised_draft_card:
 - verify signal/category changes are justified
 - verify publish_ready remains false
 - for every format-risk item, consume the Stage B revise `anchor_path_validation` and validate exactly one source-backed route
+- when the selected route is `v3_non_execution`, consume and preserve byte-for-byte the complete canonical Structural Value Override package: `structural_value_override_applied`, `structural_value_override_reason`, `anchor_classes[]`, `evidence_needed_for_stage_b[]`, `why_execution_event_not_required`, `prior_state`, `new_verified_fact`, `changed_judgment`, `uncertainty_resolved`, `remaining_uncertainty`, `incremental_information`, `baseline_expectation_changed`, `decision_relevance`, and `next_confirmation_points[]`; missing, renamed, summarized, or mutated package fields prevent acceptance
 - accept a format-risk item only when `selected_anchor_path` is `execution` or `v3_non_execution`, `anchor_path_qc_passed: true`, exactly one route status is `pass`, and the other is `not_applicable` with a specific reason
 - if the route remains unresolved, contradictory, dual-pass, or unsupported, place the item in `revise_required_again` or an appropriate non-accepted state; never certify `accepted_fact_safe`
 
@@ -168,6 +169,7 @@ Each accepted_fact_safe item must include:
 - related
 - fact_sources
 - `anchor_path_validation` for every format-risk item, with a passing two-path schema
+- when `anchor_path_validation.selected_anchor_path = v3_non_execution`, the complete byte-for-byte canonical package: `structural_value_override_applied`, `structural_value_override_reason`, `anchor_classes[]`, `evidence_needed_for_stage_b[]`, `why_execution_event_not_required`, `prior_state`, `new_verified_fact`, `changed_judgment`, `uncertainty_resolved`, `remaining_uncertainty`, `incremental_information`, `baseline_expectation_changed`, `decision_relevance`, and `next_confirmation_points[]`
 - stage_c_revise_only: true
 - publish_ready: false
 - prior_issue_resolved: true
@@ -182,6 +184,7 @@ Each revise_required_again item must include:
 - revised_draft_id
 - source_spec_id
 - `anchor_path_validation` when the item is format-risk, preserving the honest unresolved or failed state
+- when any V3 override package fields entered the revise pass, preserve them byte-for-byte in `revise_required_again[]`; a later pass may complete missing fields only from already-authorized evidence and must record the resolution change
 - remaining_issue_type
 - remaining_issue_detail
 - new_issue_introduced: true/false

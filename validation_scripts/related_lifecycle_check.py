@@ -162,6 +162,24 @@ def select_related_scope(cards: list[dict[str, Any]], selected: set[str] | None)
     }
 
 
+def build_provisional_target_index(
+    cards: list[dict[str, Any]],
+) -> tuple[dict[str, dict[str, Any]], set[str]]:
+    """Resolve provisional candidate IDs only within the current-run scope."""
+    index: dict[str, dict[str, Any]] = {}
+    ambiguous: set[str] = set()
+    for card in cards:
+        for identifier in provisional_card_identifiers(card):
+            existing = index.get(identifier)
+            if existing is not None and existing is not card:
+                ambiguous.add(identifier)
+            else:
+                index[identifier] = card
+    for identifier in ambiguous:
+        index.pop(identifier, None)
+    return index, ambiguous
+
+
 def relation_object(card: dict[str, Any]) -> dict[str, Any] | None:
     for key in ("related_lineage", "related_evidence_review", "related_prepass"):
         value = card.get(key)
@@ -170,8 +188,17 @@ def relation_object(card: dict[str, Any]) -> dict[str, Any] | None:
     return None
 
 
-def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_contract: bool):
+def check_card(
+    card: dict[str, Any],
+    by_id: dict[str, dict[str, Any]],
+    require_contract: bool,
+    allow_provisional_related: bool = False,
+    provisional_by_id: dict[str, dict[str, Any]] | None = None,
+    ambiguous_provisional_ids: set[str] | None = None,
+):
     related = card.get("related") or []
+    provisional_by_id = provisional_by_id or {}
+    ambiguous_provisional_ids = ambiguous_provisional_ids or set()
     errors = []
     warnings = []
 
@@ -209,10 +236,50 @@ def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_c
     if isinstance(declared, list) and set(declared) != set(related):
         errors.append("related_lineage.related_ids does not match related[]")
 
-    if relation_type == "new_unrelated_event" and related:
-        errors.append("new_unrelated_event must have empty related[]")
-    if relation_type in {"distinct_follow_up", "program_lineage"} and not related:
-        errors.append(f"{relation_type} requires at least one related ID")
+    provisional = (
+        lineage.get("related_candidate_spec_ids")
+        or card.get("related_candidate_spec_ids")
+        or []
+    )
+    valid_provisional_edge = False
+    if allow_provisional_related and provisional:
+        if not isinstance(provisional, list):
+            errors.append("related_candidate_spec_ids must be a list")
+        else:
+            normalized_provisional = []
+            for value in provisional:
+                if not isinstance(value, str) or not value.strip():
+                    errors.append("related_candidate_spec_ids must contain non-empty strings")
+                    continue
+                normalized_provisional.append(value.strip())
+            if normalized_provisional != dedupe(normalized_provisional):
+                errors.append("related_candidate_spec_ids contains duplicate IDs")
+            for target in normalized_provisional:
+                if target in ambiguous_provisional_ids:
+                    errors.append(f"ambiguous provisional related ID: {target}")
+                    continue
+                resolved_target = provisional_by_id.get(target)
+                if resolved_target is card:
+                    errors.append("related_candidate_spec_ids contains self-reference")
+                elif resolved_target is None:
+                    errors.append(f"dangling provisional related ID: {target}")
+            valid_provisional_edge = bool(normalized_provisional) and not any(
+                message.startswith((
+                    "related_candidate_spec_ids",
+                    "ambiguous provisional related ID",
+                    "dangling provisional related ID",
+                ))
+                for message in errors
+            )
+
+    if relation_type == "new_unrelated_event" and (related or (allow_provisional_related and provisional)):
+        errors.append("new_unrelated_event must have no final or provisional related edges")
+    if (
+        relation_type in {"distinct_follow_up", "program_lineage"}
+        and not related
+        and not valid_provisional_edge
+    ):
+        errors.append(f"{relation_type} requires at least one final or allowed provisional related ID")
     if relation_type == "distinct_follow_up" and not lineage.get("fresh_follow_up_anchor"):
         errors.append("distinct_follow_up requires fresh_follow_up_anchor")
     if require_contract and relation_type == "distinct_follow_up":
@@ -258,8 +325,14 @@ def main() -> int:
     parser.add_argument("input")
     parser.add_argument("--new-id-file")
     parser.add_argument("--require-contract", action="store_true")
+    parser.add_argument("--allow-provisional-related", action="store_true")
     parser.add_argument("--report")
     args = parser.parse_args()
+
+    if args.allow_provisional_related and not args.require_contract:
+        parser.error("--allow-provisional-related requires --require-contract")
+    if args.allow_provisional_related and not args.new_id_file:
+        parser.error("--allow-provisional-related requires --new-id-file current-run scope")
 
     _, cards = load_cards(args.input)
     by_id: dict[str, dict[str, Any]] = {}
@@ -271,6 +344,10 @@ def main() -> int:
             by_id[identifier] = card
     selected = load_ids(args.new_id_file)
     rows, scope = select_related_scope(cards, selected)
+    if args.allow_provisional_related:
+        provisional_by_id, ambiguous_provisional_ids = build_provisional_target_index(rows)
+    else:
+        provisional_by_id, ambiguous_provisional_ids = {}, set()
 
     findings = []
     if scope["errors"]:
@@ -281,7 +358,14 @@ def main() -> int:
             "warnings": [],
         })
     for card in rows:
-        errors, warnings = check_card(card, by_id, args.require_contract)
+        errors, warnings = check_card(
+            card,
+            by_id,
+            args.require_contract,
+            allow_provisional_related=args.allow_provisional_related,
+            provisional_by_id=provisional_by_id,
+            ambiguous_provisional_ids=ambiguous_provisional_ids,
+        )
         if errors or warnings:
             findings.append({
                 "id": card.get("id"),

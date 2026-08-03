@@ -1,3 +1,5 @@
+"""Regression coverage for Codex review 4841207046."""
+
 from __future__ import annotations
 
 import copy

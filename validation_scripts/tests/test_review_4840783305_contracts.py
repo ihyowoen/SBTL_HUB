@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[2]
 FINAL_QC = ROOT / "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md"
 MERGE_PREP = ROOT / "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md"
 
+# Final QC and merge prep must preserve the same canonical package, while the
+# Stage A validator accepts exactly one complete execution or V3 route.
 CANONICAL_V3_FIELDS = (
     "structural_value_override_reason",
     "anchor_classes[]",

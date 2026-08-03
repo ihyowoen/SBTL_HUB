@@ -648,20 +648,25 @@ For every format-risk `publish_ready[]` item, the following route fields are man
 
 Exactly one route status must be `pass`; the other must be `not_applicable` with a specific reason. Missing, contradictory, dual-pass, or dual-not-applicable route metadata requires `final_qc_hold` or return to the earliest defective stage and must not enter `publish_ready[]`.
 
-For every format-risk `publish_ready[]` item with `selected_anchor_path = v3_non_execution`, preserve the complete same-run, source-backed Structural Value Override package byte-for-byte alongside the route fields:
+For every format-risk `publish_ready[]` item with `selected_anchor_path = v3_non_execution`, preserve the complete same-run, source-backed canonical Structural Value Override package byte-for-byte alongside the route fields:
 
 - `structural_value_override_applied: true`
+- `structural_value_override_reason`
 - non-empty valid `anchor_classes[]`
+- `incremental_information`
+- `decision_relevance`
+- `baseline_expectation_changed`
 - non-empty item-specific `evidence_needed_for_stage_b[]`
+- non-empty measurable `next_confirmation_points[]`
 - specific `why_execution_event_not_required`
 - `prior_state`
 - `new_verified_fact`
 - `changed_judgment`
 - applicable uncertainty / probability-change fields
 - applicable baseline-expectation / before-after fields
-- current-run source lineage that supports each package field
+- current-run source lineage that supports every package field
 
-These fields must remain available to Prompt 0.8 and must not be summarized away, reconstructed from memory, or dropped by Final QC. If any required V3 package field is missing, altered, generic, unsupported, or inconsistent with the selected route, route the item to `final_qc_hold` or `needs_return_to_evidence_qc`; do not emit it in `publish_ready[]`.
+This list is the same canonical package emitted by Prompt 0.5 and Prompt 0.6; Final QC must not narrow it to a summary subset. These fields must remain available to Prompt 0.8 and must not be summarized away, reconstructed from memory, renamed, or dropped by Final QC. If any required V3 package field is missing, altered, generic, unsupported, or inconsistent with the selected route, route the item to `final_qc_hold` or `needs_return_to_evidence_qc`; do not emit it in `publish_ready[]`.
 
 - evidence_complete: true
 - source_claim_covered: true

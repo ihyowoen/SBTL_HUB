@@ -12,8 +12,7 @@ import sys
 STAGE_A_REQUIRED = [
     'spec_id', 'source_story_ids', 'strict_pass_gate',
     'enhanced_selector_precision_version', 'selector_policy_version',
-    'strict_gate_check', 'format_risk_tags', 'execution_anchor_type',
-    'execution_anchor_strength', 'baseline_relation', 'duplicate_risk',
+    'strict_gate_check', 'format_risk_tags', 'baseline_relation', 'duplicate_risk',
     'staleness_decision', 'source_access_risk', 'stage_a_evidence_status',
     'stage_b_evidence_package_required', 'primary_url_semantics',
 ]
@@ -26,6 +25,30 @@ STAGE_A_GATE_REQUIRED = ['status', 'reason', 'all_six_conditions_passed']
 STAGE_A_ALLOWED_STAGE_EVIDENCE_STATUS = {'not_evidence_complete_no_fetch'}
 STAGE_A_ALLOWED_PRIMARY_URL_SEMANTICS = {'provided_source_candidate_not_evidence'}
 STAGE_A_ALLOWED_EXECUTION_ANCHOR_STRENGTH = {'strong', 'moderate'}
+STAGE_A_NON_EXECUTION_ANCHOR_CLASSES = {
+    'policy_regulatory_anchor',
+    'data_financial_anchor',
+    'strategic_behavior_anchor',
+    'technology_commercialization_anchor',
+    'follow_up_probability_anchor',
+}
+STAGE_A_V3_OVERRIDE_REQUIRED = [
+    'structural_value_override_reason',
+    'anchor_classes',
+    'incremental_information',
+    'decision_relevance',
+    'baseline_expectation_changed',
+    'evidence_needed_for_stage_b',
+    'next_confirmation_points',
+    'why_execution_event_not_required',
+    'prior_state',
+    'new_verified_fact',
+    'changed_judgment',
+]
+STAGE_A_GENERIC_OVERRIDE_TEXT = {
+    'official sources', 'company materials', 'media reports',
+    'additional confirmation', 'more evidence', 'tbd', 'unknown',
+}
 
 STAGE_B_EXPECTED_TOP_LEVEL = {
     'lineage_integrity_status': 'PASS',
@@ -138,6 +161,58 @@ def validate_stage_a_source_diversity(spec, spec_id, messages):
         messages.append(f'{spec_id}: source_cluster_preserved must be true for strict_passed_spec')
 
 
+def _nonempty_string(value):
+    return isinstance(value, str) and bool(value.strip())
+
+
+def _specific_string(value):
+    return _nonempty_string(value) and value.strip().lower() not in STAGE_A_GENERIC_OVERRIDE_TEXT
+
+
+def validate_stage_a_v3_override(spec, spec_id, messages):
+    if spec.get('structural_value_override_applied') is not True:
+        return False
+
+    valid = True
+    for field in STAGE_A_V3_OVERRIDE_REQUIRED:
+        if missing_nonempty(spec, field):
+            messages.append(f'{spec_id}: incomplete V3 override package missing {field}')
+            valid = False
+
+    classes = spec.get('anchor_classes')
+    if not isinstance(classes, list) or not classes:
+        messages.append(f'{spec_id}: anchor_classes must be a non-empty array for v3_non_execution')
+        valid = False
+    else:
+        invalid_classes = [value for value in classes if value not in STAGE_A_NON_EXECUTION_ANCHOR_CLASSES]
+        if invalid_classes:
+            messages.append(f'{spec_id}: invalid non-execution anchor_classes={invalid_classes}')
+            valid = False
+
+    evidence_targets = spec.get('evidence_needed_for_stage_b')
+    if not isinstance(evidence_targets, list) or not evidence_targets:
+        valid = False
+    elif any(not _specific_string(value) for value in evidence_targets):
+        messages.append(f'{spec_id}: evidence_needed_for_stage_b must contain item-specific targets')
+        valid = False
+
+    confirmation_points = spec.get('next_confirmation_points')
+    if not isinstance(confirmation_points, list) or not confirmation_points:
+        valid = False
+    elif any(not _specific_string(value) for value in confirmation_points):
+        messages.append(f'{spec_id}: next_confirmation_points must contain measurable item-specific points')
+        valid = False
+
+    if not _specific_string(spec.get('structural_value_override_reason')):
+        messages.append(f'{spec_id}: structural_value_override_reason must be item-specific')
+        valid = False
+    if not _specific_string(spec.get('why_execution_event_not_required')):
+        messages.append(f'{spec_id}: why_execution_event_not_required must be item-specific')
+        valid = False
+
+    return valid
+
+
 def validate_stage_a_spec(spec, index, messages):
     spec_id = spec.get('spec_id', f'idx_{index}') if isinstance(spec, dict) else f'idx_{index}'
     if not isinstance(spec, dict):
@@ -167,8 +242,26 @@ def validate_stage_a_spec(spec, index, messages):
         messages.append(f'{spec_id}: invalid stage_a_evidence_status={spec.get("stage_a_evidence_status")}')
     if spec.get('primary_url_semantics') not in STAGE_A_ALLOWED_PRIMARY_URL_SEMANTICS:
         messages.append(f'{spec_id}: invalid primary_url_semantics={spec.get("primary_url_semantics")}')
-    if spec.get('execution_anchor_strength') not in STAGE_A_ALLOWED_EXECUTION_ANCHOR_STRENGTH:
-        messages.append(f'{spec_id}: execution_anchor_strength must be strong or moderate for strict_passed_spec')
+    format_risk_tags = spec.get('format_risk_tags')
+    has_format_risk = isinstance(format_risk_tags, list) and bool(format_risk_tags)
+    execution_type = spec.get('execution_anchor_type')
+    execution_strength = spec.get('execution_anchor_strength')
+    execution_path_complete = _nonempty_string(execution_type) and execution_strength in STAGE_A_ALLOWED_EXECUTION_ANCHOR_STRENGTH
+
+    if has_format_risk:
+        override_path_complete = validate_stage_a_v3_override(spec, spec_id, messages)
+        if execution_path_complete == override_path_complete:
+            messages.append(
+                f'{spec_id}: format-risk strict_passed_spec requires exactly one complete '
+                'execution or v3_non_execution path'
+            )
+        if (execution_type or execution_strength) and not execution_path_complete:
+            messages.append(f'{spec_id}: partial/invalid execution path metadata for format-risk strict_passed_spec')
+    else:
+        if not _nonempty_string(execution_type):
+            messages.append(f'{spec_id}: missing execution_anchor_type')
+        if execution_strength not in STAGE_A_ALLOWED_EXECUTION_ANCHOR_STRENGTH:
+            messages.append(f'{spec_id}: execution_anchor_strength must be strong or moderate for strict_passed_spec')
 
 
 def has_review_items(data):

@@ -64,6 +64,30 @@ It also requires:
 - exact current-run lineage and accounting;
 - all registered validators and open-remediation checks required by Stage 0.0D.
 
+### 2A. Stage 0.7C governance-preflight consumer gate
+
+Before any card may enter `pr_candidate_payload`, Prompt 0.8 must validate the Stage 0.7C artifact itself rather than trusting its top-level PASS label.
+
+The artifact must contain all of the following from the same repository revision used by Stage 0.7C:
+
+- `status: PASS_WITH_DECLARED_RESIDUAL_RISK`;
+- `prompt_0_8_authorized: true`;
+- `governing_contracts_same_revision: true`;
+- `v3_contract_preflight_passed: true`;
+- `governing_contracts_read[]` containing exactly these required original documents:
+  - `docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md`;
+  - `docs/STRUCTURAL_NEWS_VALUE_SELECTION.md`;
+  - `docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md`;
+  - `docs/RELATED_LIFECYCLE_CONTRACT.md`.
+
+A summary, downstream excerpt, renamed substitute, missing path, duplicate path, mixed repository revision, false/absent preflight field, or internally inconsistent authorization is a hard consumer-side failure even when the Stage 0.7C artifact claims PASS. Stop before operation materialization and report:
+
+```text
+status: BLOCKED_STAGE_0_7C_GOVERNANCE_PREFLIGHT_INVALID
+invalid_or_missing_stage_0_7c_fields: [...]
+no pr_candidate_payload emitted
+```
+
 ## 3. Ordinary-run operations
 
 Only the following operations are permitted:
@@ -134,7 +158,27 @@ Both routes require:
 - exact current-run lineage from Stage A through Final QC;
 - no route switch, status rewrite, or evidence laundering during merge preparation.
 
-The execution route must retain its source-backed execution evidence. The V3 non-execution route must retain its verified anchor class, item-specific evidence targets, before-after chain, changed judgment, and specific `why_execution_event_not_required`. Absence of a conventional execution event is not itself a defect when the V3 non-execution route passed.
+The execution route must retain its source-backed execution evidence.
+
+For `selected_anchor_path: v3_non_execution`, Prompt 0.8 must verify and preserve the complete canonical package byte-for-byte from Final QC:
+
+- `structural_value_override_applied: true`;
+- `structural_value_override_reason`;
+- non-empty valid `anchor_classes[]`;
+- `incremental_information`;
+- `decision_relevance`;
+- `baseline_expectation_changed`;
+- non-empty item-specific `evidence_needed_for_stage_b[]`;
+- non-empty measurable `next_confirmation_points[]`;
+- specific `why_execution_event_not_required`;
+- `prior_state`;
+- `new_verified_fact`;
+- `changed_judgment`;
+- applicable uncertainty / probability-change fields;
+- applicable baseline-expectation / before-after fields;
+- current-run source lineage supporting every package field.
+
+Missing, renamed, summarized, reconstructed, generic, altered, unsupported, or internally inconsistent package data requires `BLOCKED_FINAL_QC_ANCHOR_PATH_INVALID`; it must not enter `pr_candidate_payload`. Absence of a conventional execution event is not itself a defect when the complete V3 non-execution route passed.
 
 If metadata is missing, contradictory, stale, or unsupported, return:
 

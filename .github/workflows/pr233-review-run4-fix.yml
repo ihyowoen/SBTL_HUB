@@ -7,12 +7,20 @@ on:
     paths:
       - scripts/patch_pr233_review_20260803_run4.py
       - .github/workflows/pr233-review-run4-fix.yml
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+    paths:
+      - scripts/patch_pr233_review_20260803_run4.py
+      - .github/workflows/pr233-review-run4-fix.yml
 
 permissions:
   contents: write
 
 jobs:
   patch-test-push:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

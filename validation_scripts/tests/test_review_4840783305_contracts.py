@@ -97,6 +97,8 @@ class TestReview4840783305Contracts(unittest.TestCase):
             "prior_state": "Eligibility was uncertain under draft guidance.",
             "new_verified_fact": "The final rule establishes the new eligibility condition.",
             "changed_judgment": "Market-access probability is now lower for non-compliant suppliers.",
+            "uncertainty_resolved": "The final rule resolves whether the eligibility condition is mandatory.",
+            "remaining_uncertainty": "Implementation timing remains subject to the final agency guidance.",
         }
 
     def run_stage_a(self, spec):

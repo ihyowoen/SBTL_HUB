@@ -3,7 +3,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-# Triggered after the patch workflow is present on the branch.
 OLD = """- Run `evidence_qc_v8_check.py`, `related_lifecycle_check.py --require-contract`,
   `date_role_freshness_check.py --require-date-role`, and
   `stage_artifact_contract_check.py 0.7` before `publish_ready=true`."""
@@ -37,6 +36,58 @@ with log.open("a", encoding="utf-8") as f:
 - Unscoped strict validation of the full legacy inventory is explicitly forbidden; legacy-compatible validation remains unchanged.
 - The overlay generator carries the identical scoped command.
 """)
+
+# Restore the canonical validation workflow after using it as a one-shot patch runner.
+(ROOT / ".github/workflows/workflow-contract-validation.yml").write_text("""name: Workflow contract validation
+
+on:
+  pull_request:
+    paths:
+      - \"docs/RELATED_LIFECYCLE_CONTRACT.md\"
+      - \"docs/SOURCE_AUDIT_CONTRACT.md\"
+      - \"docs/llm_prompts/v1/**\"
+      - \"validation_data/source_owner_registry.json\"
+      - \"validation_scripts/**\"
+      - \"scripts/lean_cards.mjs\"
+      - \".github/workflows/lean-cards.yml\"
+      - \".github/workflows/workflow-contract-validation.yml\"
+  push:
+    branches:
+      - agent/workflow-contract-related-source-audit
+    paths:
+      - \"docs/RELATED_LIFECYCLE_CONTRACT.md\"
+      - \"docs/SOURCE_AUDIT_CONTRACT.md\"
+      - \"docs/llm_prompts/v1/**\"
+      - \"validation_data/source_owner_registry.json\"
+      - \"validation_scripts/**\"
+      - \"scripts/lean_cards.mjs\"
+      - \".github/workflows/lean-cards.yml\"
+      - \".github/workflows/workflow-contract-validation.yml\"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: \"3.12\"
+
+      - name: Compile validators
+        run: python -m compileall -q validation_scripts
+
+      - name: Run workflow-contract and exporter regression tests
+        run: python -m unittest discover -s validation_scripts/tests -v
+
+      - name: Verify prompt overlays
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+""", encoding="utf-8")
 
 (ROOT / "scripts/patch_structural_v3_scope_final_qc.py").unlink()
 (ROOT / ".github/workflows/patch-final-qc-scope.yml").unlink()

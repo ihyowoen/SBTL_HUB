@@ -117,7 +117,9 @@ new_execution = """    execution_type = spec.get('execution_anchor_type')
                 f'{spec_id}: execution route must leave override-only fields empty; '
                 f'found {residual_override_fields}'
             )
-        if execution_path_complete == override_path_complete:
+        if execution_path_complete == override_path_complete or (
+            execution_core_complete and override_path_complete
+        ):
             messages.append(
                 f'{spec_id}: format-risk strict_passed_spec requires exactly one complete '
                 'execution or v3_non_execution path'

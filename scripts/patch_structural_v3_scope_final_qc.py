@@ -25,6 +25,38 @@ for rel in [
         raise SystemExit(f"{rel}: expected one unscoped Final QC block, found {count}")
     path.write_text(text.replace(OLD, NEW, 1), encoding="utf-8")
 
+# Update the focused regression from the now-superseded unscoped strict call
+# to the current-run scoped contract required by this review.
+test_path = ROOT / "validation_scripts/tests/test_review_4839991362_contracts.py"
+test_text = test_path.read_text(encoding="utf-8")
+old_test = '''    def test_final_qc_uses_strict_related_contract_in_prompt_and_generator(self) -> None:
+        expected = "`related_lifecycle_check.py --require-contract`"
+        old = "`related_lifecycle_check.py`,"
+        for path in (
+            "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+            "validation_scripts/apply_prompt_contract_overlays.py",
+        ):
+            text = (ROOT / path).read_text(encoding="utf-8")
+            self.assertIn(expected, text)
+            self.assertNotIn(old, text)
+'''
+new_test = '''    def test_final_qc_uses_current_run_scoped_strict_related_contract(self) -> None:
+        scoped = "`related_lifecycle_check.py --require-contract --new-id-file <CURRENT_RUN_ID_FILE>`"
+        unscoped = "`related_lifecycle_check.py --require-contract`,"
+        for path in (
+            "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+            "validation_scripts/apply_prompt_contract_overlays.py",
+        ):
+            text = (ROOT / path).read_text(encoding="utf-8")
+            self.assertIn(scoped, text)
+            self.assertIn("merged baseline/candidate validation artifact", text)
+            self.assertIn("Do not apply `--require-contract` unscoped", text)
+            self.assertNotIn(unscoped, text)
+'''
+if test_text.count(old_test) != 1:
+    raise SystemExit("focused review test: expected exactly one old unscoped test block")
+test_path.write_text(test_text.replace(old_test, new_test, 1), encoding="utf-8")
+
 log = ROOT / "docs/validation/STRUCTURAL_NEWS_VALUE_V3_VALIDATION_20260802.md"
 with log.open("a", encoding="utf-8") as f:
     f.write("""
@@ -35,6 +67,7 @@ with log.open("a", encoding="utf-8") as f:
 - The validator runs against a merged baseline/candidate artifact so Related targets remain resolvable.
 - Unscoped strict validation of the full legacy inventory is explicitly forbidden; legacy-compatible validation remains unchanged.
 - The overlay generator carries the identical scoped command.
+- Focused regression coverage now rejects the superseded unscoped strict invocation.
 """)
 
 # Restore the canonical validation workflow after using it as a one-shot patch runner.

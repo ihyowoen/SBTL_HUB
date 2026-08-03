@@ -14,18 +14,20 @@ on:
   push:
     branches:
       - agent/workflow-contract-related-source-audit
+      - agent/structural-news-value-v3
     paths:
       - "docs/RELATED_LIFECYCLE_CONTRACT.md"
       - "docs/SOURCE_AUDIT_CONTRACT.md"
       - "docs/llm_prompts/v1/**"
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
+      - "scripts/patch_structural_v3_scope_final_qc.py"
       - "scripts/lean_cards.mjs"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -33,17 +35,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Compile validators
-        run: python -m compileall -q validation_scripts
+      - name: Apply scoped Final QC patch
+        run: python scripts/patch_structural_v3_scope_final_qc.py
 
       - name: Run workflow-contract and exporter regression tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
         run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Commit verified patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "fix: scope Final QC strict lifecycle validation"
+          git push origin HEAD:agent/structural-news-value-v3

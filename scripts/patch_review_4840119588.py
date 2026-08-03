@@ -55,11 +55,9 @@ if old_main not in text:
 text = text.replace(old_main, new_main, 1)
 validator.write_text(text, encoding='utf-8')
 
-# Validation log
 log = ROOT / 'docs/validation/STRUCTURAL_NEWS_VALUE_V3_VALIDATION_20260802.md'
 with log.open('a', encoding='utf-8') as f:
     f.write('''\n\n## Review 4840119588\n\n- Related lifecycle scope now recognizes final `id` / `card_id` and pre-merge `draft_id` / `source_spec_id` aliases in the merged artifact.\n- Final QC uses a current-run scope file compatible with identifiers available before Prompt 0.8 production-ID assignment.\n- Evidence QC, Content Polish, Production Verification, and Remediation upstream lineage gates now require exactly one supported execution or V3 non-execution path rather than execution-only fields.\n- Focused regression coverage verifies pre-merge scoping, unmatched-scope failure, and removal of residual execution-only lineage requirements.\n''')
 
-# Remove patch machinery before committing.
 (ROOT / 'scripts/patch_review_4840119588.py').unlink()
 (ROOT / '.github/workflows/patch-review-4840119588.yml').unlink()

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -194,6 +195,40 @@ def relation_object(card: dict[str, Any]) -> dict[str, Any] | None:
     return None
 
 
+CHRONOLOGY_GENERIC_TEMPLATE_PHRASES = (
+    "specific explanation of what event the earlier date represents",
+    "specific explanation of why the earlier representative date remains a later distinct follow-up judgment",
+    "what event the earlier date represents",
+    "why the earlier representative date remains",
+    "generic explanation",
+)
+CHRONOLOGY_GENERIC_TOKENS = {
+    'a', 'an', 'and', 'as', 'at', 'be', 'because', 'card', 'date', 'distinct',
+    'earlier', 'event', 'explanation', 'follow', 'for', 'generic', 'how', 'is',
+    'it', 'judgment', 'later', 'of', 'or', 'reason', 'remain', 'remains',
+    'representative', 'represents', 'specific', 'that', 'the', 'this', 'to',
+    'up', 'what', 'why', 'basis', 'chronology', 'predecessor', 'related',
+    'same', 'project', '대표일', '이전', '날짜', '사건', '설명', '사유',
+    '근거', '후속', '판단', '동일', '프로젝트',
+}
+
+
+def _specific_chronology_text(value: Any, minimum_content_tokens: int = 2) -> bool:
+    if not isinstance(value, str):
+        return False
+    normalized = ' '.join(value.strip().lower().split())
+    if len(normalized) < 12:
+        return False
+    if any(phrase in normalized for phrase in CHRONOLOGY_GENERIC_TEMPLATE_PHRASES):
+        return False
+    tokens = re.findall(r'[a-z0-9가-힣]+', normalized)
+    content_tokens = {
+        token for token in tokens
+        if token not in CHRONOLOGY_GENERIC_TOKENS and not token.isdigit()
+    }
+    return len(content_tokens) >= minimum_content_tokens
+
+
 def validate_follow_up_chronology_justification(
     lineage: dict[str, Any],
 ) -> tuple[set[str], str | None]:
@@ -218,10 +253,12 @@ def validate_follow_up_chronology_justification(
 
     basis = value.get("representative_date_basis")
     reason = value.get("reason")
-    if not isinstance(basis, str) or len(basis.strip()) < 12:
-        return set(), "follow-up chronology justification requires a specific representative_date_basis"
-    if not isinstance(reason, str) or len(reason.strip()) < 20:
-        return set(), "follow-up chronology justification requires a specific reason"
+    if not _specific_chronology_text(basis):
+        return set(), "follow-up chronology justification requires an item-specific representative_date_basis"
+    if not _specific_chronology_text(reason):
+        return set(), "follow-up chronology justification requires an item-specific reason"
+    if ' '.join(basis.strip().lower().split()) == ' '.join(reason.strip().lower().split()):
+        return set(), "follow-up chronology basis and reason must be independently specific"
 
     source_urls = value.get("evidence_source_urls")
     if not isinstance(source_urls, list) or not source_urls:

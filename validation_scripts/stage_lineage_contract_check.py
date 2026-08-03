@@ -85,8 +85,11 @@ STAGE_A_PLACEHOLDER_NARRATIVE_TOKENS = {
     'not', 'provided', 'available', 'specified', 'applicable', 'disclosed',
     'known', 'no', 'information', 'details', 'data', 'none', 'placeholder',
     'dummy', 'text', 'n/a', 'na', 'nil', 'yet', 'unavailable', 'undisclosed',
-    'missing', 'unknown', '미제공', '미공개', '비공개', '정보', '자료', '내용',
-    '없음', '해당', '확인', '불가', '아직',
+    'missing', 'unknown', 'currently', 'still', 'presently', 'current',
+    'present', 'at', 'as', 'of', 'now', 'this', 'time', 'remains', 'remaining',
+    'undetermined', 'unconfirmed', 'unverified', 'unclear', 'pending',
+    '미제공', '미공개', '비공개', '정보', '자료', '내용', '없음', '해당',
+    '확인', '불가', '아직', '현재', '여전히', '미정', '미확인', '불명',
 }
 STAGE_A_PLACEHOLDER_NARRATIVE_PATTERNS = (
     r'\b(?:not|no|none)\s+(?:yet\s+)?(?:provided|available|specified|applicable|disclosed|known)\b',

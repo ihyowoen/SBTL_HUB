@@ -1,4 +1,8 @@
-"""Regression coverage for Codex review 4842310205."""
+"""Regression coverage for Codex review 4842310205.
+
+The suite locks real-host chronology evidence, resolved-target Related
+deduplication, and phrase-level generic evidence detection.
+"""
 
 from __future__ import annotations
 

@@ -253,15 +253,20 @@ def _contains_generic_fragment(value):
 
 
 def _contains_generic_target_fragment(value):
-    text = _normalized_text(value)
-    # Exact evidence targets may legitimately name a concrete residual unknown.
-    # Keep generic evidence scaffolding fail-closed while allowing contextual
-    # uncertainty that is qualified by a source class and named metric/claim.
-    return any(
-        fragment in text
-        for fragment in STAGE_A_GENERIC_OVERRIDE_FRAGMENTS
-        if fragment != 'unknown'
+    text = ' '.join(_normalized_text(value).replace(':', ' ').replace(';', ' ').split())
+    if not text:
+        return True
+    # Match generic evidence scaffolds as complete placeholder semantics, not
+    # substrings inside concrete claims such as "additional data center capacity".
+    patterns = (
+        r'(?:more|further) evidence(?: (?:on|for|needed|required)\b.*)?',
+        r'more data(?: (?:on|for|needed|required)\b.*)?',
+        r'additional data(?: (?:on|for|needed|required|to confirm)\b.*)?',
+        r'(?:additional|further) confirmation(?: (?:on|for|needed|required)\b.*)?',
+        r'(?:needs confirmation|confirmation needed|to be confirmed|tbd)',
+        r'(?:official source|company material|media report)(?:s)?(?: for confirmation)?',
     )
+    return any(re.fullmatch(pattern, text) for pattern in patterns)
 
 
 def _specific_string(value):

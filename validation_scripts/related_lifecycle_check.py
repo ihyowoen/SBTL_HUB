@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import argparse
 import csv
+import ipaddress
 import json
 import re
 import sys
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 from card_audit_utils import (
     ALLOWED_RELATION_TYPES,
@@ -229,6 +231,31 @@ def _specific_chronology_text(value: Any, minimum_content_tokens: int = 2) -> bo
     return len(content_tokens) >= minimum_content_tokens
 
 
+def _valid_http_url(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    text = value.strip()
+    try:
+        parsed = urlparse(text)
+        host = parsed.hostname
+    except ValueError:
+        return False
+    if parsed.scheme not in {"http", "https"} or not host:
+        return False
+    try:
+        ipaddress.ip_address(host)
+        return True
+    except ValueError:
+        pass
+    labels = host.rstrip(".").split(".")
+    if len(labels) < 2:
+        return False
+    return all(
+        bool(re.fullmatch(r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?", label))
+        for label in labels
+    )
+
+
 def validate_follow_up_chronology_justification(
     lineage: dict[str, Any],
 ) -> tuple[set[str], str | None]:
@@ -264,8 +291,11 @@ def validate_follow_up_chronology_justification(
     if not isinstance(source_urls, list) or not source_urls:
         return set(), "follow-up chronology justification requires evidence_source_urls[]"
     for url in source_urls:
-        if not isinstance(url, str) or not url.strip().startswith(("https://", "http://")):
-            return set(), "follow-up chronology evidence_source_urls must contain HTTP(S) URLs"
+        if not _valid_http_url(url):
+            return set(), (
+                "follow-up chronology evidence_source_urls must contain parseable "
+                "HTTP(S) URLs with a real host"
+            )
 
     return set(normalized_identifiers), None
 
@@ -300,12 +330,23 @@ def check_card(
         return ["related must be a list"], warnings
     if related != dedupe(related):
         errors.append("related contains duplicate IDs")
+    resolved_edge_aliases: dict[int, str] = {}
     for target in related:
         resolved_target = by_id.get(target)
         if resolved_target is card:
             errors.append("related contains self-reference")
         elif resolved_target is None:
             errors.append(f"dangling related ID: {target}")
+        else:
+            resolved_identity = id(resolved_target)
+            previous_alias = resolved_edge_aliases.get(resolved_identity)
+            if previous_alias is not None:
+                errors.append(
+                    "related aliases resolve to duplicate target: "
+                    f"{previous_alias}, {target}"
+                )
+            else:
+                resolved_edge_aliases[resolved_identity] = target
 
     lineage = relation_object(card)
     if require_contract and lineage is None:

@@ -1,4 +1,9 @@
-"""Regression coverage for Codex review 4842006582."""
+"""Regression coverage for Codex review 4842006582.
+
+The suite keeps contextual uncertainty valid while modified placeholder-only
+phrases remain blocked, and requires chronology exceptions to contain
+item-specific basis and reason text rather than generic template scaffolding.
+"""
 
 from __future__ import annotations
 

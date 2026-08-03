@@ -74,6 +74,33 @@ STAGE_A_GENERIC_OVERRIDE_FRAGMENTS = (
     'tbd',
     'unknown',
 )
+STAGE_A_PLACEHOLDER_NARRATIVE_PHRASES = {
+    'not provided', 'not available', 'not specified', 'not applicable',
+    'no information', 'no details', 'no data', 'none provided',
+    'placeholder', 'dummy text', 'n/a', 'na', 'nil', 'none',
+    '미제공', '정보 없음', '자료 없음', '해당 없음', '확인 불가',
+}
+STAGE_A_PLACEHOLDER_NARRATIVE_TOKENS = {
+    'not', 'provided', 'available', 'specified', 'applicable', 'no',
+    'information', 'details', 'data', 'none', 'placeholder', 'dummy',
+    'text', 'n/a', 'na', 'nil', 'yet', '미제공', '정보', '자료', '없음',
+    '해당', '확인', '불가',
+}
+STAGE_A_EXACT_TARGET_TERMS = (
+    'revenue', 'sales', 'ebitda', 'ebit', 'profit', 'margin', 'cost',
+    'price', 'volume', 'capacity', 'utilisation', 'utilization', 'yield',
+    'throughput', 'capex', 'opex', 'deadline', 'date', 'stage', 'status',
+    'probability', 'adoption', 'approval', 'production', 'shipment',
+    '매출', '영업이익', '이익', '마진', '원가', '가격', '물량', '용량',
+    '가동률', '수율', '투자', '기한', '날짜', '단계', '상태', '확률',
+    '채택', '승인', '생산', '출하',
+)
+STAGE_A_INTERPRETATION_EFFECT_TERMS = (
+    'confirm', 'strengthen', 'support', 'weaken', 'invalidate', 'reject',
+    'revise', 'change', 'raise', 'lower', 'increase', 'decrease', 'hold',
+    '확인', '강화', '지지', '약화', '무효', '기각', '수정', '변경',
+    '상향', '하향', '증가', '감소', '유지',
+)
 STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS = (
     'official', 'filing', 'rule', 'regulation', 'guidance', 'order', 'notice',
     'document', 'dataset', 'statistics', 'transcript', 'technical test',
@@ -220,18 +247,68 @@ def _specific_string(value):
     return bool(text) and len(text.split()) >= 4 and not _contains_generic_fragment(text)
 
 
+def _placeholder_only_text(value):
+    text = _normalized_text(value)
+    if not text:
+        return True
+    normalized = ' '.join(
+        text.replace('.', ' ').replace(',', ' ').replace(':', ' ')
+        .replace(';', ' ').replace('-', ' ').strip().split()
+    )
+    if normalized in STAGE_A_PLACEHOLDER_NARRATIVE_PHRASES:
+        return True
+    tokens = normalized.split()
+    return bool(tokens) and len(tokens) <= 4 and all(
+        token in STAGE_A_PLACEHOLDER_NARRATIVE_TOKENS for token in tokens
+    )
+
+
 def _item_specific_narrative(value):
     if not isinstance(value, str):
         return False
     text = value.strip()
-    return len(text) >= 8 and not _contains_generic_fragment(text)
+    return (
+        len(text) >= 8
+        and not _contains_generic_fragment(text)
+        and not _placeholder_only_text(text)
+    )
 
 
 def _structured_component(value):
     if not isinstance(value, str):
         return False
     text = value.strip()
-    return len(text) >= 2 and not _contains_generic_fragment(text)
+    return (
+        len(text) >= 2
+        and not _contains_generic_fragment(text)
+        and not _placeholder_only_text(text)
+    )
+
+
+def _structured_source_class(value):
+    return _structured_component(value) and _has_any_term(
+        value, STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS
+    )
+
+
+def _structured_exact_target(value):
+    if not _structured_component(value):
+        return False
+    text = _normalized_text(value)
+    tokens = [token for token in text.replace('/', ' ').replace(':', ' ').split() if token]
+    has_number_or_date = any(any(char.isdigit() for char in token) for token in tokens)
+    has_named_target = len(tokens) >= 2
+    return (
+        has_number_or_date
+        or has_named_target
+        or _has_any_term(value, STAGE_A_EXACT_TARGET_TERMS)
+    )
+
+
+def _structured_interpretation_effect(value):
+    return _structured_component(value) and _has_any_term(
+        value, STAGE_A_INTERPRETATION_EFFECT_TERMS
+    )
 
 
 def _has_any_term(value, terms):
@@ -243,7 +320,7 @@ def _valid_evidence_target(value):
     if isinstance(value, dict):
         source_class = value.get('source_or_document_class') or value.get('source_class')
         exact_target = value.get('exact_claim_or_metric') or value.get('verification_target')
-        return _structured_component(source_class) and _structured_component(exact_target)
+        return _structured_source_class(source_class) and _structured_exact_target(exact_target)
 
     text = _normalized_text(value)
     if not text or _contains_generic_fragment(text):
@@ -265,7 +342,7 @@ def _valid_confirmation_point(value):
     if isinstance(value, dict):
         measurable = value.get('measurable_event_or_metric') or value.get('confirmation_event')
         interpretation_effect = value.get('interpretation_effect') or value.get('confirm_weaken_invalidate')
-        return _structured_component(measurable) and _structured_component(interpretation_effect)
+        return _structured_exact_target(measurable) and _structured_interpretation_effect(interpretation_effect)
     return _specific_string(value) and _has_any_term(value, STAGE_A_CONFIRMATION_EVENT_TERMS)
 
 

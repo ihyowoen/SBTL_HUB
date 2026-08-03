@@ -328,7 +328,7 @@ def check_card(
         or card.get("related_candidate_spec_ids")
         or []
     )
-    if unresolved and card.get("state") in {"github_merge_ready", "production_verified"}:
+    if unresolved and not allow_provisional_related:
         errors.append("unresolved related_candidate_spec_ids remain after merge prep")
     return errors, warnings
 

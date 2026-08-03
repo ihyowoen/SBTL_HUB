@@ -2307,7 +2307,8 @@ source-audit metadata derivation, stage-exit artifact conformance, and productio
 Prompt 0.7 final-gate overlay:
 
 - Build a merged baseline/candidate validation artifact so every current-run card and every referenced Related target is resolvable.
-- Build `CURRENT_RUN_ID_FILE` containing only the production IDs / candidate IDs introduced or materially updated by the current run.
+- Build `CURRENT_RUN_ID_FILE` containing only identifiers introduced or materially updated by the current run. Use final `id` / `card_id` when assigned; before Prompt 0.8 production-ID resolution, the file may contain the exact carried `draft_id` or `source_spec_id` present on the merged candidate artifact.
+- The Related lifecycle validator must match scope entries against `id`, `card_id`, `draft_id`, or `source_spec_id`; unmatched, empty, partial, or zero-match scope remains a hard failure.
 - Run `evidence_qc_v8_check.py`,
   `related_lifecycle_check.py --require-contract --new-id-file <CURRENT_RUN_ID_FILE>` against the merged baseline/candidate validation artifact,
   `date_role_freshness_check.py --require-date-role`, and

@@ -13,7 +13,6 @@ from card_audit_utils import (
     ALLOWED_RELATION_TYPES,
     dedupe,
     parse_date,
-    select_scoped_cards,
 )
 
 PUBLISH_STATES = {"publish_ready", "github_merge_ready", "production_verified"}
@@ -49,7 +48,10 @@ def load_ids(path: str | None) -> set[str] | None:
         rows = csv.DictReader(Path(path).open(encoding="utf-8-sig"))
         values = set()
         for row in rows:
-            value = row.get("assigned_id") or row.get("id") or row.get("card_id")
+            value = (
+                row.get("assigned_id") or row.get("id") or row.get("card_id")
+                or row.get("draft_id") or row.get("source_spec_id")
+            )
             if value:
                 values.add(value)
         return values
@@ -62,6 +64,54 @@ def load_ids(path: str | None) -> set[str] | None:
     raise ValueError("new-id file must contain a list or ids[]")
 
 
+def card_identifiers(card: dict[str, Any]) -> set[str]:
+    return {
+        str(card.get(key)).strip()
+        for key in ("id", "card_id", "draft_id", "source_spec_id")
+        if card.get(key) is not None and str(card.get(key)).strip()
+    }
+
+
+def primary_card_identifier(card: dict[str, Any]) -> str:
+    for key in ("id", "card_id", "draft_id", "source_spec_id"):
+        value = card.get(key)
+        if value is not None and str(value).strip():
+            return str(value).strip()
+    return ""
+
+
+def select_related_scope(cards: list[dict[str, Any]], selected: set[str] | None):
+    rows = list(cards)
+    if selected is None:
+        return rows, {
+            "applied": False,
+            "status": "NOT_APPLIED",
+            "requested_count": None,
+            "matched_count": len(rows),
+            "missing_ids": [],
+            "errors": [],
+        }
+    requested = {str(value).strip() for value in selected if str(value).strip()}
+    selected_rows = [card for card in rows if card_identifiers(card) & requested]
+    matched = set().union(*(card_identifiers(card) & requested for card in selected_rows)) if selected_rows else set()
+    missing = sorted(requested - matched)
+    errors = []
+    if not requested:
+        errors.append("ID scope is empty")
+    elif not matched:
+        errors.append("ID scope matched zero cards")
+    if missing:
+        errors.append(f"ID scope has {len(missing)} unmatched ID(s)")
+    return selected_rows, {
+        "applied": True,
+        "status": "PASS" if not errors else "FAIL",
+        "requested_count": len(requested),
+        "matched_count": len(matched),
+        "missing_ids": missing,
+        "errors": errors,
+    }
+
+
 def relation_object(card: dict[str, Any]) -> dict[str, Any] | None:
     for key in ("related_lineage", "related_evidence_review", "related_prepass"):
         value = card.get(key)
@@ -71,7 +121,7 @@ def relation_object(card: dict[str, Any]) -> dict[str, Any] | None:
 
 
 def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_contract: bool):
-    cid = str(card.get("id", ""))
+    cid = primary_card_identifier(card)
     related = card.get("related") or []
     errors = []
     warnings = []
@@ -162,9 +212,15 @@ def main() -> int:
     args = parser.parse_args()
 
     _, cards = load_cards(args.input)
-    by_id = {str(card.get("id")): card for card in cards if card.get("id")}
+    by_id: dict[str, dict[str, Any]] = {}
+    for card in cards:
+        for identifier in card_identifiers(card):
+            existing = by_id.get(identifier)
+            if existing is not None and existing is not card:
+                raise ValueError(f"duplicate card identifier alias: {identifier}")
+            by_id[identifier] = card
     selected = load_ids(args.new_id_file)
-    rows, scope = select_scoped_cards(cards, selected)
+    rows, scope = select_related_scope(cards, selected)
 
     findings = []
     if scope["errors"]:

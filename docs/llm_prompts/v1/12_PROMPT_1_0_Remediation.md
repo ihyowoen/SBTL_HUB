@@ -86,7 +86,10 @@ Required lineage fields to confirm, directly or through carried-forward metadata
 - artifact_consistency_gate.status: PASS
 - Stage A selector marker is present and accepted. Accepted markers include `enhanced_selector_precision_version: 20260505_safe_execution_anchor` or later/equivalent, or legacy `selector_policy_version: stage_a_high_precision_execution_anchor_v2` or later.
 - strict_pass_gate or strict_gate_check exists for every candidate that originated from strict_passed_spec[]
-- execution_anchor_type / execution_anchor_strength is present for every format-risk candidate
+- every format-risk candidate preserves a passing `anchor_path_validation` and selects exactly one source-backed path:
+  - `selected_anchor_path: execution` with non-empty `execution_anchor_type` and adequate/strong `execution_anchor_strength`; or
+  - `selected_anchor_path: v3_non_execution` with `structural_value_override_applied: true`, complete canonical V3 override metadata, and the execution route explicitly `not_applicable` with a specific reason.
+- conventional execution-anchor fields are not mandatory for a valid `v3_non_execution` path; missing, dual-claimed, contradictory, or unsupported route metadata is invalid upstream lineage
 - watchlist_audit, if a user watchlist was provided, accounts for every watchlist item without auto-promotion
 
 If these fields are missing, inconsistent, stale, or indicate failure, do not silently continue. Stop this step and report:

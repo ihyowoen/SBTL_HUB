@@ -224,3 +224,10 @@ Focused regression coverage is provided in `validation_scripts/tests/test_review
 - Unscoped strict validation of the full legacy inventory is explicitly forbidden; legacy-compatible validation remains unchanged.
 - The overlay generator carries the identical scoped command.
 - Focused regression coverage now rejects the superseded unscoped strict invocation.
+
+
+## Review 4840119588
+
+- Related lifecycle scope recognizes final `id` / `card_id` and pre-merge `draft_id` / `source_spec_id` aliases in the merged artifact.
+- Final QC retains `CURRENT_RUN_ID_FILE` while allowing validator-recognized provisional identifiers before Prompt 0.8 production-ID assignment.
+- Evidence QC, Content Polish, Production Verification, and Remediation upstream lineage gates require exactly one supported execution or V3 non-execution path rather than execution-only fields.

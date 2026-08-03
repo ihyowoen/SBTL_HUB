@@ -1,6 +1,12 @@
 name: Patch review 4848883611
 
 on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/patch_review_4848883611.py"
+      - ".github/workflows/patch-review-4848883611.yml"
   workflow_dispatch:
   push:
     branches:
@@ -14,6 +20,7 @@ permissions:
 
 jobs:
   patch-and-verify:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout PR branch

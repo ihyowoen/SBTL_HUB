@@ -47,6 +47,17 @@ STAGE_A_V3_OVERRIDE_REQUIRED = [
     'uncertainty_resolved',
     'remaining_uncertainty',
 ]
+STAGE_A_V3_NARRATIVE_FIELDS = (
+    'structural_value_override_reason',
+    'incremental_information',
+    'decision_relevance',
+    'why_execution_event_not_required',
+    'prior_state',
+    'new_verified_fact',
+    'changed_judgment',
+    'uncertainty_resolved',
+    'remaining_uncertainty',
+)
 STAGE_A_GENERIC_OVERRIDE_FRAGMENTS = (
     'official source',
     'company material',
@@ -209,6 +220,20 @@ def _specific_string(value):
     return bool(text) and len(text.split()) >= 4 and not _contains_generic_fragment(text)
 
 
+def _item_specific_narrative(value):
+    if not isinstance(value, str):
+        return False
+    text = value.strip()
+    return len(text) >= 8 and not _contains_generic_fragment(text)
+
+
+def _structured_component(value):
+    if not isinstance(value, str):
+        return False
+    text = value.strip()
+    return len(text) >= 2 and not _contains_generic_fragment(text)
+
+
 def _has_any_term(value, terms):
     text = _normalized_text(value)
     return any(term in text for term in terms)
@@ -218,7 +243,7 @@ def _valid_evidence_target(value):
     if isinstance(value, dict):
         source_class = value.get('source_or_document_class') or value.get('source_class')
         exact_target = value.get('exact_claim_or_metric') or value.get('verification_target')
-        return _specific_string(source_class) and _specific_string(exact_target)
+        return _structured_component(source_class) and _structured_component(exact_target)
 
     text = _normalized_text(value)
     if not text or _contains_generic_fragment(text):
@@ -240,7 +265,7 @@ def _valid_confirmation_point(value):
     if isinstance(value, dict):
         measurable = value.get('measurable_event_or_metric') or value.get('confirmation_event')
         interpretation_effect = value.get('interpretation_effect') or value.get('confirm_weaken_invalidate')
-        return _specific_string(measurable) and _specific_string(interpretation_effect)
+        return _structured_component(measurable) and _structured_component(interpretation_effect)
     return _specific_string(value) and _has_any_term(value, STAGE_A_CONFIRMATION_EVENT_TERMS)
 
 
@@ -253,6 +278,15 @@ def validate_stage_a_v3_override(spec, spec_id, messages):
         if missing_nonempty(spec, field):
             messages.append(f'{spec_id}: incomplete V3 override package missing {field}')
             valid = False
+
+    for field in STAGE_A_V3_NARRATIVE_FIELDS:
+        if not _item_specific_narrative(spec.get(field)):
+            messages.append(f'{spec_id}: {field} must be item-specific narrative text')
+            valid = False
+
+    if spec.get('baseline_expectation_changed') is not True:
+        messages.append(f'{spec_id}: baseline_expectation_changed must be true for v3_non_execution')
+        valid = False
 
     classes = spec.get('anchor_classes')
     if not isinstance(classes, list) or not classes:
@@ -282,13 +316,6 @@ def validate_stage_a_v3_override(spec, spec_id, messages):
             f'{spec_id}: next_confirmation_points entries must identify measurable '
             'events or metrics, not generic confirmation requests'
         )
-        valid = False
-
-    if not _specific_string(spec.get('structural_value_override_reason')):
-        messages.append(f'{spec_id}: structural_value_override_reason must be item-specific')
-        valid = False
-    if not _specific_string(spec.get('why_execution_event_not_required')):
-        messages.append(f'{spec_id}: why_execution_event_not_required must be item-specific')
         valid = False
 
     return valid

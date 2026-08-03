@@ -27,10 +27,10 @@ for path in [
 old_overlay = '''- Build `CURRENT_RUN_ID_FILE` containing only the production IDs / candidate IDs introduced or materially updated by the current run.
 - Run `evidence_qc_v8_check.py`,
   `related_lifecycle_check.py --require-contract --new-id-file <CURRENT_RUN_ID_FILE>` against the merged baseline/candidate validation artifact,'''
-new_overlay = '''- Build `CURRENT_RUN_SCOPE_FILE` containing only identifiers introduced or materially updated by the current run. Use final `id` / `card_id` when assigned; before Prompt 0.8 production-ID resolution, use the exact carried `draft_id` or `source_spec_id` present on the merged candidate artifact.
-- The Related lifecycle validator must match scope entries against `id`, `card_id`, `draft_id`, or `source_spec_id`; unmatched or zero-match scope remains a hard failure.
+new_overlay = '''- Build `CURRENT_RUN_ID_FILE` containing only identifiers introduced or materially updated by the current run. Use final `id` / `card_id` when assigned; before Prompt 0.8 production-ID resolution, the file may contain the exact carried `draft_id` or `source_spec_id` present on the merged candidate artifact.
+- The Related lifecycle validator must match scope entries against `id`, `card_id`, `draft_id`, or `source_spec_id`; unmatched, empty, partial, or zero-match scope remains a hard failure.
 - Run `evidence_qc_v8_check.py`,
-  `related_lifecycle_check.py --require-contract --new-id-file <CURRENT_RUN_SCOPE_FILE>` against the merged baseline/candidate validation artifact,'''
+  `related_lifecycle_check.py --require-contract --new-id-file <CURRENT_RUN_ID_FILE>` against the merged baseline/candidate validation artifact,'''
 for path in ['docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md', 'validation_scripts/apply_prompt_contract_overlays.py']:
     replace_once(path, old_overlay, new_overlay, f'pre-merge scope contract in {path}')
 
@@ -56,17 +56,35 @@ def primary_card_identifier(card: dict[str, Any]) -> str:
 
 
 def select_related_scope(cards: list[dict[str, Any]], selected: set[str] | None):
+    rows = list(cards)
     if selected is None:
-        return cards, {"errors": [], "matched_ids": [], "unmatched_ids": []}
-    rows = [card for card in cards if card_identifiers(card) & selected]
-    matched = set().union(*(card_identifiers(card) & selected for card in rows)) if rows else set()
-    unmatched = sorted(selected - matched)
+        return rows, {
+            "applied": False,
+            "status": "NOT_APPLIED",
+            "requested_count": None,
+            "matched_count": len(rows),
+            "missing_ids": [],
+            "errors": [],
+        }
+    requested = {str(value).strip() for value in selected if str(value).strip()}
+    selected_rows = [card for card in rows if card_identifiers(card) & requested]
+    matched = set().union(*(card_identifiers(card) & requested for card in selected_rows)) if selected_rows else set()
+    missing = sorted(requested - matched)
     errors = []
-    if unmatched:
-        errors.append(f"unmatched scope identifiers: {', '.join(unmatched)}")
-    if selected and not rows:
-        errors.append("scope matched zero cards")
-    return rows, {"errors": errors, "matched_ids": sorted(matched), "unmatched_ids": unmatched}
+    if not requested:
+        errors.append("ID scope is empty")
+    elif not matched:
+        errors.append("ID scope matched zero cards")
+    if missing:
+        errors.append(f"ID scope has {len(missing)} unmatched ID(s)")
+    return selected_rows, {
+        "applied": True,
+        "status": "PASS" if not errors else "FAIL",
+        "requested_count": len(requested),
+        "matched_count": len(matched),
+        "missing_ids": missing,
+        "errors": errors,
+    }
 
 
 '''
@@ -82,7 +100,7 @@ validator.write_text(text.replace(old_main, new_main, 1), encoding='utf-8')
 
 log = ROOT / 'docs/validation/STRUCTURAL_NEWS_VALUE_V3_VALIDATION_20260802.md'
 with log.open('a', encoding='utf-8') as f:
-    f.write('''\n\n## Review 4840119588\n\n- Related lifecycle scope recognizes final `id` / `card_id` and pre-merge `draft_id` / `source_spec_id` aliases in the merged artifact.\n- Final QC uses a current-run scope file compatible with identifiers available before Prompt 0.8 production-ID assignment.\n- Evidence QC, Content Polish, Production Verification, and Remediation upstream lineage gates require exactly one supported execution or V3 non-execution path rather than execution-only fields.\n''')
+    f.write('''\n\n## Review 4840119588\n\n- Related lifecycle scope recognizes final `id` / `card_id` and pre-merge `draft_id` / `source_spec_id` aliases in the merged artifact.\n- Final QC retains `CURRENT_RUN_ID_FILE` while allowing validator-recognized provisional identifiers before Prompt 0.8 production-ID assignment.\n- Evidence QC, Content Polish, Production Verification, and Remediation upstream lineage gates require exactly one supported execution or V3 non-execution path rather than execution-only fields.\n''')
 
 canonical_workflow = '''name: Workflow contract validation
 

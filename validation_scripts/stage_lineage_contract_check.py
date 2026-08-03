@@ -288,7 +288,7 @@ def _contains_generic_target_fragment(value):
         r'more data(?: (?:on|for|needed|required)\b.*)?',
         r'additional data(?: (?:on|for|needed|required|to confirm)\b.*)?',
         r'(?:additional|further) confirmation(?: (?:on|for|needed|required)\b.*)?',
-        r'(?:needs confirmation|confirmation needed|to be confirmed|tbd)',
+        r'(?:(?:needs confirmation|confirmation needed|to be confirmed)(?:\b.*)?|tbd)',
         r'(?:official source|company material|media report)(?:s)?(?: for confirmation)?',
     )
     return any(re.fullmatch(pattern, text) for pattern in patterns)
@@ -453,12 +453,16 @@ def _valid_confirmation_point(value):
         interpretation_effect = value.get('interpretation_effect') or value.get('confirm_weaken_invalidate')
         return _structured_exact_target(measurable) and _structured_interpretation_effect(interpretation_effect)
     text = _normalized_text(value)
+    has_measurable_event_or_metric = (
+        _has_any_term(text, STAGE_A_CONFIRMATION_EVENT_TERMS)
+        or _has_any_term(text, STAGE_A_EXACT_TARGET_TERMS)
+    )
     return (
         bool(text)
         and len(text.split()) >= 4
         and not _placeholder_only_text(text)
         and not _contains_generic_target_fragment(text)
-        and _has_any_term(text, STAGE_A_CONFIRMATION_EVENT_TERMS)
+        and has_measurable_event_or_metric
     )
 
 

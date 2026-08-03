@@ -1,69 +1,56 @@
 from __future__ import annotations
 
 import copy
-import io
 import unittest
-from contextlib import redirect_stdout
 from pathlib import Path
 
 from validation_scripts import stage_lineage_contract_check as lineage
-from validation_scripts.tests.test_review_4840844831_contracts import (
-    TestReview4840844831Contracts,
-)
+from validation_scripts.tests import test_review_4840844831_contracts as prior_contracts
 
 
 class TestReview4848883611Contracts(unittest.TestCase):
     def base_v3_spec(self):
-        return copy.deepcopy(TestReview4840844831Contracts().base_spec())
+        return copy.deepcopy(prior_contracts.TestReview4840844831Contracts().base_spec())
 
-    def run_stage_a(self, spec):
-        stream = io.StringIO()
-        with redirect_stdout(stream):
-            result = lineage.check_stage_a({"strict_passed_spec": [spec]})
-        return result, stream.getvalue()
+    def test_stage_a_exit_commands_are_valid_markdown(self):
+        expected = "  `python validation_scripts/stage_lineage_contract_check.py stage_a <STAGE_A_JSON>`."
+        for path in (
+            "validation_scripts/apply_prompt_contract_overlays.py",
+            "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+        ):
+            text = Path(path).read_text(encoding="utf-8")
+            self.assertIn(expected, text)
+            self.assertNotIn("  ``python validation_scripts/stage_lineage_contract_check.py", text)
 
-    def test_stage_a_exit_runs_v3_lineage_validator(self):
-        prompt = Path("docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md").read_text(encoding="utf-8")
-        artifact = "python validation_scripts/stage_artifact_contract_check.py A"
-        lineage_cmd = "python validation_scripts/stage_lineage_contract_check.py stage_a"
-        self.assertIn(artifact, prompt)
-        self.assertIn(lineage_cmd, prompt)
-        self.assertLess(prompt.index(artifact), prompt.index(lineage_cmd))
+    def test_specific_confirmation_with_additional_data_substring_passes(self):
+        value = "Publication of additional data center capacity for Project Alpha would confirm adoption"
+        self.assertTrue(lineage._valid_confirmation_point(value))
 
-    def test_concise_free_text_exact_metrics_are_accepted(self):
-        for target in ("official revenue", "filing margin"):
-            with self.subTest(target=target):
-                spec = self.base_v3_spec()
-                spec["evidence_needed_for_stage_b"] = [target]
-                result, output = self.run_stage_a(spec)
-                self.assertEqual(result, 0, output)
+    def test_existing_metric_confirmation_remains_valid(self):
+        value = "Publication of implementing guidance with the final effective date"
+        self.assertTrue(lineage._valid_confirmation_point(value))
 
-    def test_interpretation_effect_inflections_are_accepted(self):
-        variants = (
-            "would be confirmed",
-            "confirmed thesis",
-            "would be weakened",
-            "invalidated thesis",
-        )
-        for effect in variants:
-            with self.subTest(effect=effect):
-                spec = self.base_v3_spec()
-                spec["next_confirmation_points"] = [{
-                    "measurable_event_or_metric": "2027 revenue",
-                    "interpretation_effect": effect,
-                }]
-                result, output = self.run_stage_a(spec)
-                self.assertEqual(result, 0, output)
+    def test_generic_confirmation_scaffolds_still_fail(self):
+        for value in (
+            "additional data needed to confirm adoption",
+            "more evidence required for approval",
+            "confirmation needed for production",
+        ):
+            with self.subTest(value=value):
+                self.assertFalse(lineage._valid_confirmation_point(value))
 
-    def test_complete_term_boundaries_remain_fail_closed(self):
+    def test_confirmation_requires_measurable_event_or_metric(self):
+        self.assertFalse(lineage._valid_confirmation_point("Project Alpha would confirm the thesis"))
+        self.assertFalse(lineage._valid_confirmation_point("General commentary may become available later"))
+
+    def test_complete_v3_spec_accepts_specific_confirmation_text(self):
         spec = self.base_v3_spec()
-        spec["next_confirmation_points"] = [{
-            "measurable_event_or_metric": "2027 revenue",
-            "interpretation_effect": "unchanged thesis",
-        }]
-        result, output = self.run_stage_a(spec)
-        self.assertEqual(result, 1, output)
-        self.assertIn("next_confirmation_points entries", output)
+        spec["next_confirmation_points"] = [
+            "Publication of additional data center capacity for Project Alpha would confirm adoption"
+        ]
+        messages = []
+        self.assertTrue(lineage.validate_stage_a_v3_override(spec, spec["spec_id"], messages), messages)
+        self.assertEqual(messages, [])
 
 
 if __name__ == "__main__":

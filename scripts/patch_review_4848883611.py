@@ -12,29 +12,42 @@ def replace_once(path: str, old: str, new: str) -> None:
 
 malformed = "python validation_scripts/stage_lineage_contract_check.py stage_a <STAGE_A_JSON>`."
 correct = "`python validation_scripts/stage_lineage_contract_check.py stage_a <STAGE_A_JSON>`."
-replace_once("validation_scripts/apply_prompt_contract_overlays.py", malformed, correct)
-replace_once("docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md", malformed, correct)
+for prompt_path in (
+    "validation_scripts/apply_prompt_contract_overlays.py",
+    "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+):
+    text = Path(prompt_path).read_text(encoding="utf-8")
+    if malformed in text:
+        replace_once(prompt_path, malformed, correct)
+    elif correct not in text:
+        raise SystemExit(f"{prompt_path}: Stage A lineage command not found")
 
 old_confirmation = """def _valid_confirmation_point(value):
     if isinstance(value, dict):
         measurable = value.get('measurable_event_or_metric') or value.get('confirmation_event')
         interpretation_effect = value.get('interpretation_effect') or value.get('confirm_weaken_invalidate')
         return _structured_exact_target(measurable) and _structured_interpretation_effect(interpretation_effect)
-    return _specific_string(value) and _has_any_term(value, STAGE_A_CONFIRMATION_EVENT_TERMS)
+    text = _normalized_text(value)
+    return (
+        bool(text)
+        and len(text.split()) >= 4
+        and not _placeholder_only_text(text)
+        and not _contains_generic_target_fragment(text)
+        and _has_any_term(text, STAGE_A_CONFIRMATION_EVENT_TERMS)
+    )
 """
 new_confirmation = """def _valid_confirmation_point(value):
     if isinstance(value, dict):
         measurable = value.get('measurable_event_or_metric') or value.get('confirmation_event')
         interpretation_effect = value.get('interpretation_effect') or value.get('confirm_weaken_invalidate')
         return _structured_exact_target(measurable) and _structured_interpretation_effect(interpretation_effect)
-
     text = _normalized_text(value)
     has_measurable_event_or_metric = (
         _has_any_term(text, STAGE_A_CONFIRMATION_EVENT_TERMS)
         or _has_any_term(text, STAGE_A_EXACT_TARGET_TERMS)
     )
     return (
-        isinstance(value, str)
+        bool(text)
         and len(text.split()) >= 4
         and not _placeholder_only_text(text)
         and not _contains_generic_target_fragment(text)

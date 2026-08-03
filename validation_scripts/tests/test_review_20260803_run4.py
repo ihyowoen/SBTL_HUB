@@ -1,93 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-# Triggered after the temporary workflow exists on the PR branch.
-from pathlib import Path
-
-
-def replace_once(path: str, old: str, new: str, label: str) -> None:
-    target = Path(path)
-    text = target.read_text(encoding="utf-8")
-    count = text.count(old)
-    if count != 1:
-        raise SystemExit(f"{label}: expected exactly one match, found {count}")
-    target.write_text(text.replace(old, new, 1), encoding="utf-8")
-
-
-replace_once(
-    "validation_scripts/stage_lineage_contract_check.py",
-    """    format_risk_tags = spec.get('format_risk_tags')
-    has_format_risk = isinstance(format_risk_tags, list) and bool(format_risk_tags)
-""",
-    """    format_risk_tags = spec.get('format_risk_tags')
-    if not isinstance(format_risk_tags, list):
-        messages.append(f'{spec_id}: format_risk_tags must be an array')
-        has_format_risk = False
-    else:
-        has_format_risk = bool(format_risk_tags)
-""",
-    "Stage A format_risk_tags type gate",
-)
-
-for prompt_path in (
-    "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
-    "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
-):
-    replace_once(
-        prompt_path,
-        """- `changed_judgment`
-- applicable uncertainty / probability-change fields
-- applicable baseline-expectation / before-after fields
-""",
-        """- `changed_judgment`
-- `uncertainty_resolved`
-- `remaining_uncertainty`
-- applicable probability-change fields
-- applicable baseline-expectation / before-after fields
-""",
-        f"Exact uncertainty fields in {prompt_path}",
-    )
-
-replace_once(
-    "validation_scripts/related_lifecycle_check.py",
-    """    provisional = (
-        lineage.get(\"related_candidate_spec_ids\")
-        or card.get(\"related_candidate_spec_ids\")
-        or []
-    )
-""",
-    """    lineage_provisional = lineage.get(\"related_candidate_spec_ids\")
-    card_provisional = card.get(\"related_candidate_spec_ids\")
-    lineage_has_provisional = lineage_provisional not in (None, [])
-    card_has_provisional = card_provisional not in (None, [])
-
-    if lineage_has_provisional and card_has_provisional:
-        if not isinstance(lineage_provisional, list) or not isinstance(card_provisional, list):
-            errors.append(
-                \"related_candidate_spec_ids representations must both be arrays when both are populated\"
-            )
-            provisional = lineage_provisional if isinstance(lineage_provisional, list) else card_provisional
-        elif lineage_provisional != card_provisional:
-            errors.append(
-                \"conflicting related_candidate_spec_ids between related lifecycle and card root\"
-            )
-            provisional = dedupe(lineage_provisional + card_provisional)
-        else:
-            provisional = lineage_provisional
-    elif lineage_has_provisional:
-        provisional = lineage_provisional
-    elif card_has_provisional:
-        provisional = card_provisional
-    else:
-        provisional = []
-""",
-    "Provisional-edge container consistency",
-)
-
-Path("validation_scripts/tests/test_review_20260803_run4.py").write_text(
-    '''#!/usr/bin/env python3
-from __future__ import annotations
-
 import copy
 import io
 import unittest
@@ -201,6 +114,3 @@ class UpstreamUncertaintyFieldPreservationTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-''',
-    encoding="utf-8",
-)

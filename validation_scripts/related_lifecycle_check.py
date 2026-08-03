@@ -374,11 +374,30 @@ def check_card(
     if isinstance(declared, list) and set(declared) != set(related):
         errors.append("related_lineage.related_ids does not match related[]")
 
-    provisional = (
-        lineage.get("related_candidate_spec_ids")
-        or card.get("related_candidate_spec_ids")
-        or []
-    )
+    lineage_provisional = lineage.get("related_candidate_spec_ids")
+    card_provisional = card.get("related_candidate_spec_ids")
+    lineage_has_provisional = lineage_provisional not in (None, [])
+    card_has_provisional = card_provisional not in (None, [])
+
+    if lineage_has_provisional and card_has_provisional:
+        if not isinstance(lineage_provisional, list) or not isinstance(card_provisional, list):
+            errors.append(
+                "related_candidate_spec_ids representations must both be arrays when both are populated"
+            )
+            provisional = lineage_provisional if isinstance(lineage_provisional, list) else card_provisional
+        elif lineage_provisional != card_provisional:
+            errors.append(
+                "conflicting related_candidate_spec_ids between related lifecycle and card root"
+            )
+            provisional = dedupe(lineage_provisional + card_provisional)
+        else:
+            provisional = lineage_provisional
+    elif lineage_has_provisional:
+        provisional = lineage_provisional
+    elif card_has_provisional:
+        provisional = card_provisional
+    else:
+        provisional = []
     valid_provisional_edge = False
     resolved_provisional_targets: list[tuple[str, dict[str, Any]]] = []
     if allow_provisional_related and provisional:

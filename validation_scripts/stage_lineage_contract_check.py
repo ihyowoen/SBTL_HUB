@@ -507,7 +507,11 @@ def validate_stage_a_spec(spec, index, messages):
     if spec.get('primary_url_semantics') not in STAGE_A_ALLOWED_PRIMARY_URL_SEMANTICS:
         messages.append(f'{spec_id}: invalid primary_url_semantics={spec.get("primary_url_semantics")}')
     format_risk_tags = spec.get('format_risk_tags')
-    has_format_risk = isinstance(format_risk_tags, list) and bool(format_risk_tags)
+    if not isinstance(format_risk_tags, list):
+        messages.append(f'{spec_id}: format_risk_tags must be an array')
+        has_format_risk = False
+    else:
+        has_format_risk = bool(format_risk_tags)
     execution_type = spec.get('execution_anchor_type')
     execution_strength = spec.get('execution_anchor_strength')
     execution_core_complete = (

@@ -391,6 +391,18 @@ def _structured_interpretation_effect(value):
 
 def _term_pattern(term):
     escaped = re.escape(term)
+    if term in STAGE_A_INTERPRETATION_EFFECT_TERMS and not re.search(r'[가-힣]', term):
+        irregular = {
+            'hold': r'(?:hold|holds|holding|held)',
+        }
+        if term in irregular:
+            body = irregular[term]
+        elif term.endswith('e'):
+            stem = re.escape(term[:-1])
+            body = rf'(?:{escaped}|{stem}es|{stem}ed|{stem}ing)'
+        else:
+            body = rf'(?:{escaped}|{escaped}s|{escaped}es|{escaped}ed|{escaped}ing)'
+        return rf'(?<![\w]){body}(?![\w])'
     if re.search(r'[가-힣]', term):
         # Korean source-class terms commonly appear inside compounds such as
         # 공시자료. Preserve the left boundary so 비공식 does not satisfy 공식.
@@ -431,7 +443,8 @@ def _valid_evidence_target(value):
     target_tokens = [token for token in target_text.replace('/', ' ').replace(':', ' ').split() if token]
     has_exact_metric_or_date = any(any(char.isdigit() for char in token) for token in target_tokens)
     has_named_target = len(target_tokens) >= 2
-    return has_exact_metric_or_date or has_named_target
+    has_exact_metric_term = _has_any_term(target_text, STAGE_A_EXACT_TARGET_TERMS)
+    return has_exact_metric_or_date or has_named_target or has_exact_metric_term
 
 
 def _valid_confirmation_point(value):

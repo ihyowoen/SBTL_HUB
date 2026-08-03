@@ -762,6 +762,7 @@ Each accepted_fact_safe item must include:
   - execution_anchor_qc_status: pass|not_applicable
   - structural_value_override_qc_status: pass|not_applicable
   - non_applicable_anchor_path_reason
+- when `anchor_path_validation.selected_anchor_path = v3_non_execution`, the complete byte-for-byte canonical package: `structural_value_override_applied`, `structural_value_override_reason`, `anchor_classes[]`, `evidence_needed_for_stage_b[]`, `why_execution_event_not_required`, `prior_state`, `new_verified_fact`, `changed_judgment`, `uncertainty_resolved`, `remaining_uncertainty`, `incremental_information`, `baseline_expectation_changed`, `decision_relevance`, and `next_confirmation_points[]`
 - ordinary accepted items without `format_risk_tags` must not invent or be required to emit `anchor_path_validation`
 - stage_c_findings
   - source_direction

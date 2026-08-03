@@ -131,7 +131,7 @@ class TestReview4840276596Contracts(unittest.TestCase):
         self.assertEqual(report["id_scope"]["ambiguous_ids"], ["shared-draft"])
         self.assertIn("ID scope has 1 ambiguous ID(s)", report["id_scope"]["errors"])
 
-    def test_canonical_identifier_wins_over_colliding_draft_alias(self):
+    def test_canonical_provisional_cross_row_collision_fails_scope_as_ambiguous(self):
         canonical = self.unrelated_card(card_id="stable-id")
         alias_collision = self.unrelated_card(
             card_id="other-final",
@@ -140,10 +140,11 @@ class TestReview4840276596Contracts(unittest.TestCase):
 
         result, report = self.run_validator([canonical, alias_collision], ["stable-id"])
 
-        self.assertEqual(result.returncode, 0, result.stderr or result.stdout)
-        self.assertEqual(report["cards_checked"], 1)
-        self.assertEqual(report["id_scope"]["matched_count"], 1)
-        self.assertEqual(report["id_scope"]["ambiguous_ids"], [])
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(report["cards_checked"], 0)
+        self.assertEqual(report["id_scope"]["matched_count"], 0)
+        self.assertEqual(report["id_scope"]["ambiguous_ids"], ["stable-id"])
+        self.assertIn("ID scope has 1 ambiguous ID(s)", report["id_scope"]["errors"])
 
     def test_self_reference_via_card_id_alias_is_rejected(self):
         candidate = self.follow_up_card(

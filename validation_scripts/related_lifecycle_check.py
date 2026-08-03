@@ -121,24 +121,30 @@ def select_related_scope(cards: list[dict[str, Any]], selected: set[str] | None)
         canonical_matches = [
             card for card in rows if identifier in canonical_card_identifiers(card)
         ]
+        alias_matches = [
+            card for card in rows if identifier in provisional_card_identifiers(card)
+        ]
+
+        # Scope identifiers are intentionally untyped. If the same string names a
+        # canonical identifier on one row and a provisional alias on another, the
+        # requested row cannot be inferred safely and the scope must fail closed.
+        if len(canonical_matches) > 1 or len(alias_matches) > 1:
+            ambiguous.append(identifier)
+            continue
+
         if len(canonical_matches) == 1:
+            if alias_matches and alias_matches[0] is not canonical_matches[0]:
+                ambiguous.append(identifier)
+                continue
             matched.add(identifier)
             if canonical_matches[0] not in selected_rows:
                 selected_rows.append(canonical_matches[0])
             continue
-        if len(canonical_matches) > 1:
-            ambiguous.append(identifier)
-            continue
 
-        alias_matches = [
-            card for card in rows if identifier in provisional_card_identifiers(card)
-        ]
         if len(alias_matches) == 1:
             matched.add(identifier)
             if alias_matches[0] not in selected_rows:
                 selected_rows.append(alias_matches[0])
-        elif len(alias_matches) > 1:
-            ambiguous.append(identifier)
 
     missing = sorted(requested - matched - set(ambiguous))
     errors = []

@@ -5,7 +5,7 @@ on:
     branches:
       - agent/structural-news-value-v3
     paths:
-      - .github/workflows/patch-review-4845534152.yml
+      - ".github/workflows/patch-review-4845534152.yml"
 
 permissions:
   contents: write
@@ -14,182 +14,19 @@ jobs:
   patch-and-verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
         with:
           ref: agent/structural-news-value-v3
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Apply fixes and regression tests
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          related_path = Path('validation_scripts/related_lifecycle_check.py')
-          related = related_path.read_text(encoding='utf-8')
-          old = '''        elif lineage_provisional != card_provisional:
-              errors.append(
-                  "conflicting related_candidate_spec_ids between related lifecycle and card root"
-              )
-              provisional = dedupe(lineage_provisional + card_provisional)
-          else:
-'''
-          new = '''        elif lineage_provisional != card_provisional:
-              errors.append(
-                  "conflicting related_candidate_spec_ids between related lifecycle and card root"
-              )
-              # Preserve the raw combined values until entry type validation below.
-              # Calling dedupe() here can raise TypeError for malformed list/object
-              # entries before the validator can return a fail-closed finding.
-              provisional = lineage_provisional + card_provisional
-          else:
-'''
-          if old not in related:
-              raise SystemExit('related conflict block not found')
-          related_path.write_text(related.replace(old, new, 1), encoding='utf-8')
-
-          stage_path = Path('validation_scripts/stage_lineage_contract_check.py')
-          stage = stage_path.read_text(encoding='utf-8')
-          old = '''def _term_pattern(term):
-              return rf'(?<![\\w]){re.escape(term)}(?![\\w])'
-'''
-          new = '''def _term_pattern(term):
-              # Keep complete-term protection (so ``unofficial`` cannot satisfy
-              # ``official``), while accepting ordinary English plurals and
-              # Korean source-class compounds such as ``공시자료``.
-              if re.search(r'[가-힣]', term):
-                  suffix = r'(?:자료|문서|보고서|정보|데이터|결과|발표)?'
-              elif re.fullmatch(r'[a-z]+', term) and not term.endswith('s'):
-                  suffix = r's?'
-              else:
-                  suffix = ''
-              return rf'(?<![\\w]){re.escape(term)}{suffix}(?![\\w])'
-'''
-          if old not in stage:
-              raise SystemExit('term pattern block not found')
-          stage = stage.replace(old, new, 1)
-
-          old = '''    format_risk_tags = spec.get('format_risk_tags')
-              if not isinstance(format_risk_tags, list):
-                  messages.append(f'{spec_id}: format_risk_tags must be an array')
-                  has_format_risk = False
-              else:
-                  has_format_risk = bool(format_risk_tags)
-'''
-          new = '''    format_risk_tags = spec.get('format_risk_tags')
-              if not isinstance(format_risk_tags, list):
-                  messages.append(f'{spec_id}: format_risk_tags must be an array')
-                  has_format_risk = False
-              else:
-                  invalid_format_risk_tags = [
-                      value for value in format_risk_tags
-                      if not isinstance(value, str) or not value.strip()
-                  ]
-                  if invalid_format_risk_tags:
-                      messages.append(
-                          f'{spec_id}: format_risk_tags must contain non-empty strings'
-                      )
-                  normalized_format_risk_tags = [
-                      value.strip().lower()
-                      for value in format_risk_tags
-                      if isinstance(value, str) and value.strip()
-                  ]
-                  if 'none' in normalized_format_risk_tags and normalized_format_risk_tags != ['none']:
-                      messages.append(
-                          f'{spec_id}: format_risk_tags none sentinel must be the only entry'
-                      )
-                  has_format_risk = normalized_format_risk_tags not in ([], ['none'])
-'''
-          if old not in stage:
-              raise SystemExit('format risk block not found')
-          stage_path.write_text(stage.replace(old, new, 1), encoding='utf-8')
-
-          test_path = Path('validation_scripts/tests/test_review_4845534152_contracts.py')
-          test_path.write_text('''from __future__ import annotations
-
-import copy
-import io
-import unittest
-from contextlib import redirect_stdout
-
-from validation_scripts import related_lifecycle_check as related
-from validation_scripts import stage_lineage_contract_check as lineage
-from validation_scripts.tests.test_review_4840844831_contracts import (
-    TestReview4840844831Contracts,
-)
-
-
-class TestReview4845534152Contracts(unittest.TestCase):
-    def base_v3_spec(self):
-        return copy.deepcopy(TestReview4840844831Contracts().base_spec())
-
-    def run_stage_a(self, spec):
-        stream = io.StringIO()
-        with redirect_stdout(stream):
-            result = lineage.check_stage_a({"strict_passed_spec": [spec]})
-        return result, stream.getvalue()
-
-    def test_conflicting_provisional_arrays_validate_types_before_dedupe(self):
-        parent = {"draft_id": "PD"}
-        child = {
-            "related": [],
-            "related_candidate_spec_ids": [{"malformed": True}],
-            "related_lineage": {
-                "relation_type": "program_lineage",
-                "related_candidate_spec_ids": ["PD"],
-            },
-        }
-        errors, _ = related.check_card(
-            child,
-            by_id={},
-            require_contract=False,
-            allow_provisional_related=True,
-            provisional_by_id={"PD": parent},
-            ambiguous_provisional_ids=set(),
-        )
-        self.assertIn(
-            "conflicting related_candidate_spec_ids between related lifecycle and card root",
-            errors,
-        )
-        self.assertIn(
-            "related_candidate_spec_ids must contain non-empty strings",
-            errors,
-        )
-
-    def test_source_class_compounds_and_inflections_are_supported(self):
-        self.assertTrue(lineage._structured_source_class("금융감독원 공시자료"))
-        self.assertTrue(lineage._structured_source_class("SEC filings"))
-        self.assertFalse(lineage._structured_source_class("unofficial rumor"))
-
-    def test_none_format_risk_sentinel_is_ordinary(self):
-        spec = self.base_v3_spec()
-        spec["format_risk_tags"] = ["none"]
-        spec["execution_anchor_type"] = "contract_award"
-        spec["execution_anchor_strength"] = "strong"
-        spec["structural_value_override_applied"] = False
-        for field in lineage.STAGE_A_V3_OVERRIDE_REQUIRED:
-            spec[field] = [] if field in {
-                "anchor_classes", "evidence_needed_for_stage_b", "next_confirmation_points"
-            } else None
-        result, output = self.run_stage_a(spec)
-        self.assertEqual(result, 0, output)
-
-    def test_none_format_risk_sentinel_cannot_be_mixed(self):
-        spec = self.base_v3_spec()
-        spec["format_risk_tags"] = ["none", "interview"]
-        result, output = self.run_stage_a(spec)
-        self.assertEqual(result, 1, output)
-        self.assertIn("none sentinel must be the only entry", output)
-
-
-if __name__ == "__main__":
-    unittest.main()
-''', encoding='utf-8')
-          PY
+      - name: Apply review fixes
+        run: python scripts/patch_review_4845534152.py
 
       - name: Compile validators
         run: python -m compileall -q validation_scripts
@@ -203,15 +40,16 @@ if __name__ == "__main__":
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
 
-      - name: Commit verified fixes and remove helper workflow
-        shell: bash
+      - name: Commit verified fixes and remove temporary files
         run: |
-          rm .github/workflows/patch-review-4845534152.yml
+          rm -f scripts/patch_review_4845534152.py
+          rm -f .github/workflows/patch-review-4845534152.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add validation_scripts/related_lifecycle_check.py \
                   validation_scripts/stage_lineage_contract_check.py \
                   validation_scripts/tests/test_review_4845534152_contracts.py \
+                  scripts/patch_review_4845534152.py \
                   .github/workflows/patch-review-4845534152.yml
-          git commit -m "fix: address review 4845534152"
+          git commit -m "fix: address review 4845534152 validator edge cases"
           git push origin HEAD:agent/structural-news-value-v3

@@ -399,33 +399,47 @@ def check_card(
     if not lineage.get("reason") and not lineage.get("relation_reason"):
         errors.append("relation reason is required")
 
+    chronology_exception_value = lineage.get(
+        "follow_up_date_precedes_predecessor_justification"
+    )
+    has_chronology_exception = chronology_exception_value not in (None, "", {})
     chronology_exception_ids, chronology_exception_error = (
         validate_follow_up_chronology_justification(lineage)
     )
     if chronology_exception_error:
         errors.append(chronology_exception_error)
+    elif has_chronology_exception and relation_type != "distinct_follow_up":
+        errors.append(
+            "follow-up chronology justification is only valid for an inverted distinct_follow_up"
+        )
 
+    chronology_exception_used = False
     if relation_type == "distinct_follow_up":
         child_date = parse_date(card.get("date"))
         for target in related:
             parent = by_id.get(target)
             parent_date = parse_date(parent.get("date")) if parent else None
-            if (
-                child_date
-                and parent_date
-                and child_date < parent_date
-                and not chronology_exception_covers(target, parent, chronology_exception_ids)
-            ):
-                errors.append(f"follow-up date precedes predecessor {target}")
+            if child_date and parent_date and child_date < parent_date:
+                if chronology_exception_covers(target, parent, chronology_exception_ids):
+                    chronology_exception_used = True
+                else:
+                    errors.append(f"follow-up date precedes predecessor {target}")
         for target, parent in resolved_provisional_targets:
             parent_date = parse_date(parent.get("date"))
-            if (
-                child_date
-                and parent_date
-                and child_date < parent_date
-                and not chronology_exception_covers(target, parent, chronology_exception_ids)
-            ):
-                errors.append(f"follow-up date precedes provisional predecessor {target}")
+            if child_date and parent_date and child_date < parent_date:
+                if chronology_exception_covers(target, parent, chronology_exception_ids):
+                    chronology_exception_used = True
+                else:
+                    errors.append(f"follow-up date precedes provisional predecessor {target}")
+
+        if (
+            has_chronology_exception
+            and chronology_exception_error is None
+            and not chronology_exception_used
+        ):
+            errors.append(
+                "follow-up chronology justification requires at least one covered date inversion"
+            )
 
     unresolved = (
         lineage.get("related_candidate_spec_ids")

@@ -252,6 +252,18 @@ def _contains_generic_fragment(value):
     return any(fragment in text for fragment in STAGE_A_GENERIC_OVERRIDE_FRAGMENTS)
 
 
+def _contains_generic_target_fragment(value):
+    text = _normalized_text(value)
+    # Exact evidence targets may legitimately name a concrete residual unknown.
+    # Keep generic evidence scaffolding fail-closed while allowing contextual
+    # uncertainty that is qualified by a source class and named metric/claim.
+    return any(
+        fragment in text
+        for fragment in STAGE_A_GENERIC_OVERRIDE_FRAGMENTS
+        if fragment != 'unknown'
+    )
+
+
 def _specific_string(value):
     text = _normalized_text(value)
     return bool(text) and len(text.split()) >= 4 and not _contains_generic_fragment(text)
@@ -297,21 +309,19 @@ def _structured_component(value):
     if not isinstance(value, str):
         return False
     text = value.strip()
-    return (
-        len(text) >= 2
-        and not _contains_generic_fragment(text)
-        and not _placeholder_only_text(text)
-    )
+    return len(text) >= 2 and not _placeholder_only_text(text)
 
 
 def _structured_source_class(value):
-    return _structured_component(value) and _has_any_term(
-        value, STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS
+    return (
+        _structured_component(value)
+        and not _contains_generic_fragment(value)
+        and _has_any_term(value, STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS)
     )
 
 
 def _structured_exact_target(value):
-    if not _structured_component(value):
+    if not _structured_component(value) or _contains_generic_target_fragment(value):
         return False
     text = _normalized_text(value)
     tokens = [token for token in text.replace('/', ' ').replace(':', ' ').split() if token]
@@ -336,8 +346,10 @@ def _structured_exact_target(value):
 
 
 def _structured_interpretation_effect(value):
-    return _structured_component(value) and _has_any_term(
-        value, STAGE_A_INTERPRETATION_EFFECT_TERMS
+    return (
+        _structured_component(value)
+        and not _contains_generic_fragment(value)
+        and _has_any_term(value, STAGE_A_INTERPRETATION_EFFECT_TERMS)
     )
 
 
@@ -364,7 +376,7 @@ def _valid_evidence_target(value):
         return _structured_source_class(source_class) and _structured_exact_target(exact_target)
 
     text = _normalized_text(value)
-    if not text or _contains_generic_fragment(text):
+    if not text or _placeholder_only_text(text) or _contains_generic_target_fragment(text):
         return False
     matched_source_terms = _matching_terms(text, STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS)
     if not matched_source_terms:

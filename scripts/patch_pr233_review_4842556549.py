@@ -5,100 +5,50 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def replace_once(path: Path, old: str, new: str, label: str) -> None:
+def replace_or_assert(path: Path, old: str, new: str, label: str) -> None:
     text = path.read_text(encoding="utf-8")
-    count = text.count(old)
-    if count != 1:
-        raise SystemExit(f"{label}: expected exactly one match, found {count}")
-    path.write_text(text.replace(old, new, 1), encoding="utf-8")
+    old_count = text.count(old)
+    new_count = text.count(new)
+    if old_count == 1 and new_count == 0:
+        path.write_text(text.replace(old, new, 1), encoding="utf-8")
+        return
+    if old_count == 0 and new_count == 1:
+        return
+    raise SystemExit(
+        f"{label}: expected one old or one applied state, found old={old_count}, new={new_count}"
+    )
 
 
 related = ROOT / "validation_scripts/related_lifecycle_check.py"
-replace_once(
+related_text = related.read_text(encoding="utf-8")
+if "parsed.port" not in related_text:
+    raise SystemExit("validate chronology URL port: applied state missing")
+
+replace_or_assert(
     related,
-    '''    try:
-        parsed = urlparse(text)
-        host = parsed.hostname
-    except ValueError:
-        return False
-    if parsed.scheme not in {"http", "https"} or not host:
-        return False
-''',
-    '''    try:
-        parsed = urlparse(text)
-        host = parsed.hostname
-        port = parsed.port
-    except ValueError:
-        return False
-    if parsed.scheme not in {"http", "https"} or not host:
-        return False
-    if port is not None and not (1 <= port <= 65535):
-        return False
-''',
-    "validate chronology URL port",
-)
-replace_once(
-    related,
-    '''    valid_provisional_edge = False
-    resolved_provisional_targets: list[tuple[str, dict[str, Any]]] = []
-    if allow_provisional_related and provisional:
-''',
-    '''    valid_provisional_edge = False
-    resolved_provisional_targets: list[tuple[str, dict[str, Any]]] = []
-    resolved_provisional_aliases: dict[int, str] = {}
-    if allow_provisional_related and provisional:
-''',
-    "track provisional target identities",
-)
-replace_once(
-    related,
-    '''                else:
-                    resolved_provisional_targets.append((target, resolved_target))
-            valid_provisional_edge = bool(normalized_provisional) and not any(
-                message.startswith((
-                    "related_candidate_spec_ids",
-                    "ambiguous provisional related ID",
+    '''                    "ambiguous provisional related ID",
                     "dangling provisional related ID",
                 ))
 ''',
-    '''                else:
-                    resolved_identity = id(resolved_target)
-                    previous_alias = resolved_provisional_aliases.get(resolved_identity)
-                    if previous_alias is not None:
-                        errors.append(
-                            "provisional related aliases resolve to duplicate target: "
-                            f"{previous_alias}, {target}"
-                        )
-                    else:
-                        resolved_provisional_aliases[resolved_identity] = target
-                        resolved_provisional_targets.append((target, resolved_target))
-            valid_provisional_edge = bool(normalized_provisional) and not any(
-                message.startswith((
-                    "related_candidate_spec_ids",
-                    "ambiguous provisional related ID",
+    '''                    "ambiguous provisional related ID",
                     "dangling provisional related ID",
                     "provisional related aliases resolve to duplicate target",
                 ))
 ''',
-    "deduplicate resolved provisional targets",
+    "invalidate duplicate resolved provisional aliases",
 )
+related_text = related.read_text(encoding="utf-8")
+for required in (
+    "resolved_provisional_aliases: dict[int, str] = {}",
+    "provisional related aliases resolve to duplicate target:",
+):
+    if required not in related_text:
+        raise SystemExit(f"provisional alias dedupe: missing applied state {required}")
 
 stage = ROOT / "validation_scripts/stage_lineage_contract_check.py"
-replace_once(
-    stage,
-    '''def _contains_generic_target_fragment(value):
-    text = ' '.join(_normalized_text(value).replace(':', ' ').replace(';', ' ').split())
-    if not text:
-        return True
-''',
-    '''def _contains_generic_target_fragment(value):
-    text = ' '.join(_normalized_text(value).replace(':', ' ').replace(';', ' ').split())
-    text = re.sub(r'[\\s\\.,!?;:。！？，]+$', '', text)
-    if not text:
-        return True
-''',
-    "normalize terminal punctuation in generic targets",
-)
+stage_text = stage.read_text(encoding="utf-8")
+if "Normalize ordinary punctuation" not in stage_text or "re.sub" not in stage_text:
+    raise SystemExit("generic target punctuation normalization: applied state missing")
 
 test = ROOT / "validation_scripts/tests/test_review_4842556549_contracts.py"
 test.write_text('''"""Regression coverage for Codex review 4842556549.
@@ -204,6 +154,10 @@ class TestReview4842556549Contracts(unittest.TestCase):
         )
         self.assertIn(
             "provisional related aliases resolve to duplicate target: PARENT_DRAFT, PARENT_SPEC",
+            errors,
+        )
+        self.assertIn(
+            "program_lineage requires at least one final or allowed provisional related ID",
             errors,
         )
 

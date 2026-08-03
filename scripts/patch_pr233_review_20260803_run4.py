@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+# Triggered after the temporary workflow exists on the PR branch.
 from pathlib import Path
 
 

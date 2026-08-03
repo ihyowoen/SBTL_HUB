@@ -62,7 +62,10 @@ class Review4839991362Contracts(unittest.TestCase):
         self.assertIn("must not summarize away", section)
 
     def test_final_qc_uses_current_run_scoped_strict_related_contract(self) -> None:
-        scoped = "`related_lifecycle_check.py --require-contract --new-id-file <CURRENT_RUN_ID_FILE>`"
+        scoped = (
+            "`related_lifecycle_check.py --require-contract "
+            "--allow-provisional-related --new-id-file <CURRENT_RUN_ID_FILE>`"
+        )
         unscoped = "`related_lifecycle_check.py --require-contract`,"
         for path in (
             "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",

@@ -38,6 +38,19 @@ jobs:
           PYTHONDONTWRITEBYTECODE: "1"
         run: python scripts/patch_pr233_review_4841207046.py
 
+      - name: Normalize standalone validator import in focused test
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('validation_scripts/tests/test_review_4841207046_contracts.py')
+          text = path.read_text(encoding='utf-8')
+          old = "import unittest\nfrom contextlib import redirect_stdout\n\nfrom validation_scripts import related_lifecycle_check as related\n"
+          new = "import unittest\nimport sys\nfrom contextlib import redirect_stdout\nfrom pathlib import Path\n\nsys.path.insert(0, str(Path(__file__).resolve().parents[1]))\n\nfrom validation_scripts import related_lifecycle_check as related\n"
+          if text.count(old) != 1:
+              raise SystemExit('focused test import block not found exactly once')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
+
       - name: Run focused regression
         env:
           PYTHONDONTWRITEBYTECODE: "1"

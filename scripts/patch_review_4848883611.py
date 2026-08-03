@@ -29,12 +29,16 @@ new_confirmation = """def _valid_confirmation_point(value):
         return _structured_exact_target(measurable) and _structured_interpretation_effect(interpretation_effect)
 
     text = _normalized_text(value)
+    has_measurable_event_or_metric = (
+        _has_any_term(text, STAGE_A_CONFIRMATION_EVENT_TERMS)
+        or _has_any_term(text, STAGE_A_EXACT_TARGET_TERMS)
+    )
     return (
         isinstance(value, str)
         and len(text.split()) >= 4
         and not _placeholder_only_text(text)
         and not _contains_generic_target_fragment(text)
-        and _has_any_term(text, STAGE_A_CONFIRMATION_EVENT_TERMS)
+        and has_measurable_event_or_metric
         and _has_any_term(text, STAGE_A_INTERPRETATION_EFFECT_TERMS)
     )
 """
@@ -48,14 +52,12 @@ import unittest
 from pathlib import Path
 
 from validation_scripts import stage_lineage_contract_check as lineage
-from validation_scripts.tests.test_review_4840844831_contracts import (
-    TestReview4840844831Contracts,
-)
+from validation_scripts.tests import test_review_4840844831_contracts as prior_contracts
 
 
 class TestReview4848883611Contracts(unittest.TestCase):
     def base_v3_spec(self):
-        return copy.deepcopy(TestReview4840844831Contracts().base_spec())
+        return copy.deepcopy(prior_contracts.TestReview4840844831Contracts().base_spec())
 
     def test_stage_a_exit_commands_are_valid_markdown(self):
         for path in (
@@ -71,6 +73,10 @@ class TestReview4848883611Contracts(unittest.TestCase):
         value = "Publication of additional data center capacity for Project Alpha would confirm adoption"
         self.assertTrue(lineage._valid_confirmation_point(value))
 
+    def test_existing_metric_confirmation_remains_valid(self):
+        value = "Publication of implementing guidance with the final effective date"
+        self.assertTrue(lineage._valid_confirmation_point(value))
+
     def test_generic_confirmation_scaffolds_still_fail(self):
         for value in (
             "additional data needed to confirm adoption",
@@ -80,9 +86,9 @@ class TestReview4848883611Contracts(unittest.TestCase):
             with self.subTest(value=value):
                 self.assertFalse(lineage._valid_confirmation_point(value))
 
-    def test_confirmation_requires_event_and_interpretation_effect(self):
+    def test_confirmation_requires_measurable_target_and_interpretation_effect(self):
         self.assertFalse(lineage._valid_confirmation_point("Publication of Project Alpha capacity data"))
-        self.assertFalse(lineage._valid_confirmation_point("Project Alpha would confirm adoption"))
+        self.assertFalse(lineage._valid_confirmation_point("Project Alpha would confirm the thesis"))
 
     def test_complete_v3_spec_accepts_specific_confirmation_text(self):
         spec = self.base_v3_spec()

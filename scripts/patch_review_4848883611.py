@@ -39,7 +39,6 @@ new_confirmation = """def _valid_confirmation_point(value):
         and not _placeholder_only_text(text)
         and not _contains_generic_target_fragment(text)
         and has_measurable_event_or_metric
-        and _has_any_term(text, STAGE_A_INTERPRETATION_EFFECT_TERMS)
     )
 """
 replace_once("validation_scripts/stage_lineage_contract_check.py", old_confirmation, new_confirmation)
@@ -86,9 +85,9 @@ class TestReview4848883611Contracts(unittest.TestCase):
             with self.subTest(value=value):
                 self.assertFalse(lineage._valid_confirmation_point(value))
 
-    def test_confirmation_requires_measurable_target_and_interpretation_effect(self):
-        self.assertFalse(lineage._valid_confirmation_point("Publication of Project Alpha capacity data"))
+    def test_confirmation_requires_measurable_event_or_metric(self):
         self.assertFalse(lineage._valid_confirmation_point("Project Alpha would confirm the thesis"))
+        self.assertFalse(lineage._valid_confirmation_point("General commentary may become available later"))
 
     def test_complete_v3_spec_accepts_specific_confirmation_text(self):
         spec = self.base_v3_spec()

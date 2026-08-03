@@ -1,4 +1,4 @@
-"""Regression coverage for the latest PR 233 baseline/uncertainty review."""
+"""Regression coverage for PR 233 baseline-change and uncertainty preservation."""
 
 from __future__ import annotations
 

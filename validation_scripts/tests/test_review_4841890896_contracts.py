@@ -1,4 +1,9 @@
-"""Regression coverage for Codex review 4841890896."""
+"""Regression coverage for Codex review 4841890896.
+
+The suite preserves substantive uncertainty language while keeping placeholder
+text fail-closed, and permits only target-specific evidence-backed chronology
+exceptions for final or provisional predecessor edges.
+"""
 
 from __future__ import annotations
 

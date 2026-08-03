@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 
 def replace_once(path: str, old: str, new: str) -> None:
@@ -12,23 +13,40 @@ def replace_once(path: str, old: str, new: str) -> None:
     p.write_text(text.replace(old, new, 1), encoding="utf-8")
 
 
-# P1: make the documented Stage A exit run the substantive V3 lineage validator.
-exit_old = "python validation_scripts/stage_artifact_contract_check.py A <STAGE_A_OUTPUT.json>"
-exit_new = (
-    "python validation_scripts/stage_artifact_contract_check.py A <STAGE_A_OUTPUT.json>\n"
-    "python validation_scripts/stage_lineage_contract_check.py stage_a <STAGE_A_OUTPUT.json>"
-)
+# P1: make every documented/generated Stage A artifact exit run the substantive
+# V3 lineage validator immediately after the lightweight artifact checker.
 for path in (
     "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
     "validation_scripts/apply_prompt_contract_overlays.py",
 ):
     p = Path(path)
     text = p.read_text(encoding="utf-8")
-    if exit_new not in text:
-        count = text.count(exit_old)
-        if count < 1:
-            raise SystemExit(f"{path}: Stage A exit command not found")
-        p.write_text(text.replace(exit_old, exit_new), encoding="utf-8")
+    if "stage_lineage_contract_check.py stage_a" not in text:
+        pattern = re.compile(
+            r"(?P<indent>[^\n]*?)python validation_scripts/stage_artifact_contract_check\.py A (?P<arg>[^\n'\"]+|<[^>]+>)"
+        )
+        match = pattern.search(text)
+        if not match:
+            # Generator strings may contain escaped/newline-adjacent command text.
+            needle = "python validation_scripts/stage_artifact_contract_check.py A"
+            index = text.find(needle)
+            if index < 0:
+                raise SystemExit(f"{path}: Stage A exit command not found")
+            line_end = text.find("\\n", index)
+            if line_end < 0:
+                line_end = text.find("\n", index)
+            if line_end < 0:
+                raise SystemExit(f"{path}: Stage A exit command line ending not found")
+            command = text[index:line_end]
+            suffix = command.split(" A ", 1)[1]
+            insertion = command + "\\npython validation_scripts/stage_lineage_contract_check.py stage_a " + suffix
+            text = text[:index] + insertion + text[line_end:]
+        else:
+            command = match.group(0)
+            arg = match.group("arg").strip()
+            insertion = command + "\npython validation_scripts/stage_lineage_contract_check.py stage_a " + arg
+            text = text[:match.start()] + insertion + text[match.end():]
+        p.write_text(text, encoding="utf-8")
 
 # P2: concise free-text source-class + exact metric should be accepted.
 replace_once(
@@ -39,7 +57,7 @@ replace_once(
 )
 
 # P2: support ordinary participle/past-tense interpretation-effect forms while
-# retaining complete-term boundaries and the source-class collision protections.
+# retaining complete-term boundaries and source-class collision protections.
 replace_once(
     "validation_scripts/stage_lineage_contract_check.py",
     "def _term_pattern(term):\n    escaped = re.escape(term)\n    if re.search(r'[가-힣]', term):",
@@ -88,8 +106,8 @@ class TestReview4848883611Contracts(unittest.TestCase):
 
     def test_stage_a_exit_runs_v3_lineage_validator(self):
         prompt = Path("docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md").read_text(encoding="utf-8")
-        artifact = "python validation_scripts/stage_artifact_contract_check.py A <STAGE_A_OUTPUT.json>"
-        lineage_cmd = "python validation_scripts/stage_lineage_contract_check.py stage_a <STAGE_A_OUTPUT.json>"
+        artifact = "python validation_scripts/stage_artifact_contract_check.py A"
+        lineage_cmd = "python validation_scripts/stage_lineage_contract_check.py stage_a"
         self.assertIn(artifact, prompt)
         self.assertIn(lineage_cmd, prompt)
         self.assertLess(prompt.index(artifact), prompt.index(lineage_cmd))

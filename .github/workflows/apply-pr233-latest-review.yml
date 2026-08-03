@@ -1,0 +1,69 @@
+name: Apply PR233 latest review
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - "scripts/patch_pr233_review_latest.py"
+      - ".github/workflows/apply-pr233-latest-review.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/patch_pr233_review_latest.py"
+      - ".github/workflows/apply-pr233-latest-review.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/agent/structural-news-value-v3'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply review patch
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python scripts/patch_pr233_review_latest.py
+
+      - name: Run focused regressions
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python -m unittest validation_scripts.tests.test_review_4841207046_followup_contracts -v
+
+      - name: Compile validators
+        run: python -m compileall -q validation_scripts
+
+      - name: Run full regression suite
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python -m unittest discover -s validation_scripts/tests -v
+
+      - name: Verify prompt overlays
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Commit verified fixes and remove temporary helpers
+        run: |
+          find validation_scripts -type d -name __pycache__ -prune -exec rm -rf {} +
+          find validation_scripts -type f -name '*.pyc' -delete
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/apply-pr233-latest-review.yml
+          git rm scripts/patch_pr233_review_latest.py
+          git add -A
+          git commit -m "fix: harden V3 semantic role validation"
+          git push origin HEAD:agent/structural-news-value-v3

@@ -1,4 +1,4 @@
-"""Regression coverage for the unresolved PR233 review threads found 2026-08-03."""
+"""Regression coverage for the latest unresolved PR233 review threads."""
 
 from __future__ import annotations
 

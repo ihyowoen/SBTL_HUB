@@ -1,0 +1,237 @@
+name: PR233 review 4850660403 remediation
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - ".github/workflows/pr233-review-4850660403.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout review branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply review fixes and regression tests
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("validation_scripts/stage_lineage_contract_check.py")
+          text = path.read_text(encoding="utf-8")
+
+          old_attachment = '''_base.STAGE_A_EFFECT_FIRST_MEASUREMENT_ATTACHMENT_TERMS = {
+              "under", "within", "amid", "during", "according", "against", "alongside",
+              "beneath", "inside", "아래", "하에서", "중", "내", "가운데",
+          }
+          '''
+          new_attachment = '''_base.STAGE_A_EFFECT_FIRST_MEASUREMENT_ATTACHMENT_TERMS = {
+              "under", "within", "amid", "during", "according", "against", "alongside",
+              "beneath", "inside", "in", "아래", "하에서", "중", "내", "가운데",
+          }
+          '''
+          if text.count(old_attachment) != 1:
+              raise SystemExit("attachment term block was not uniquely found")
+          text = text.replace(old_attachment, new_attachment)
+
+          marker = '''def _has_bound_interpretation_effect(value):
+          '''
+          helper = '''def _preserve_parenthetical_subject_modifiers(text):
+              """Keep comma-delimited parenthetical modifiers with their subject."""
+              parenthetical_leads = {
+                  "in", "at", "within", "from", "under", "inside", "amid", "during",
+                  "with", "without", "after", "before", "near", "across", "throughout",
+                  "located", "based", "on", "by",
+                  "에서", "내", "안", "아래", "중", "동안", "근처", "기반",
+              }
+
+              def replace(match):
+                  modifier = match.group(1).strip()
+                  tokens = _effect_tokens(modifier)
+                  if not tokens or tokens[0] not in parenthetical_leads:
+                      return match.group(0)
+                  has_effect_or_object = any(
+                      _base._has_any_term(
+                          token,
+                          _base.STAGE_A_INTERPRETATION_EFFECT_TERMS
+                          + _base.STAGE_A_INTERPRETATION_OBJECT_TERMS,
+                      )
+                      for token in tokens
+                  )
+                  if has_effect_or_object:
+                      return match.group(0)
+                  return f" {modifier} "
+
+              return _base.re.sub(r",\\s*([^,;\\n.]+?)\\s*,", replace, text)
+
+
+          def _has_bound_interpretation_effect(value):
+          '''
+          if text.count(marker) != 1:
+              raise SystemExit("effect-binding function marker was not uniquely found")
+          text = text.replace(marker, helper)
+
+          old_split = '''    clauses = _base.re.split(
+                  r"[.;,\\n]+|\\b(?:but|while|whereas|although|however)\\b|(?:하지만|그러나|반면)",
+                  text,
+              )
+          '''
+          new_split = '''    prepared_text = _preserve_parenthetical_subject_modifiers(text)
+              clauses = _base.re.split(
+                  r"[.;,\\n]+|\\b(?:but|while|whereas|although|however)\\b|(?:하지만|그러나|반면)",
+                  prepared_text,
+              )
+          '''
+          if text.count(old_split) != 1:
+              raise SystemExit("clause split block was not uniquely found")
+          text = text.replace(old_split, new_split)
+
+          old_export = '''_base._has_measurement_context = _has_measurement_context
+          _base._has_bound_interpretation_effect = _has_bound_interpretation_effect
+          '''
+          new_export = '''_base._has_measurement_context = _has_measurement_context
+          _base._preserve_parenthetical_subject_modifiers = _preserve_parenthetical_subject_modifiers
+          _base._has_bound_interpretation_effect = _has_bound_interpretation_effect
+          '''
+          if text.count(old_export) != 1:
+              raise SystemExit("public helper export block was not uniquely found")
+          text = text.replace(old_export, new_export)
+          path.write_text(text, encoding="utf-8")
+
+          test_path = Path("validation_scripts/tests/test_review_4850660403_contracts.py")
+          test_path.write_text('''from __future__ import annotations
+
+          import copy
+          import unittest
+
+          from validation_scripts import stage_lineage_contract_check as lineage
+          from validation_scripts.tests import test_review_4840844831_contracts as prior_contracts
+
+
+          class TestReview4850660403Contracts(unittest.TestCase):
+              def base_v3_spec(self):
+                  return copy.deepcopy(
+                      prior_contracts.TestReview4840844831Contracts().base_spec()
+                  )
+
+              def confirmation_point(self, effect):
+                  return {
+                      "measurable_event_or_metric": "Project Alpha production milestone",
+                      "interpretation_effect": effect,
+                  }
+
+              def test_parenthetical_measurement_subjects_are_rejected(self):
+                  for effect in (
+                      "Project Alpha production, in the northern manufacturing facility, was weakened under the current demand outlook",
+                      "Project Alpha production, in the northern manufacturing facility, was confirmed under the current demand outlook",
+                  ):
+                      with self.subTest(effect=effect):
+                          self.assertFalse(
+                              lineage._valid_confirmation_point(
+                                  self.confirmation_point(effect)
+                              )
+                          )
+
+              def test_complete_v3_spec_rejects_parenthetical_subject_bypass(self):
+                  spec = self.base_v3_spec()
+                  spec["next_confirmation_points"] = [self.confirmation_point(
+                      "Project Alpha production, in the northern manufacturing facility, was weakened under the current demand outlook"
+                  )]
+                  messages = []
+                  self.assertFalse(
+                      lineage.validate_stage_a_v3_override(spec, spec["spec_id"], messages)
+                  )
+                  self.assertTrue(
+                      any("interpretation effect" in message for message in messages),
+                      messages,
+                  )
+
+              def test_in_measurement_attachments_are_rejected(self):
+                  for effect in (
+                      "Project Alpha production was weakened in the current demand outlook",
+                      "Project Alpha production was confirmed in the current demand outlook",
+                  ):
+                      with self.subTest(effect=effect):
+                          self.assertFalse(
+                              lineage._valid_confirmation_point(
+                                  self.confirmation_point(effect)
+                              )
+                          )
+
+              def test_complete_v3_spec_rejects_in_attachment_bypass(self):
+                  spec = self.base_v3_spec()
+                  spec["next_confirmation_points"] = [self.confirmation_point(
+                      "Project Alpha production was weakened in the current demand outlook"
+                  )]
+                  messages = []
+                  self.assertFalse(
+                      lineage.validate_stage_a_v3_override(spec, spec["spec_id"], messages)
+                  )
+                  self.assertTrue(
+                      any("interpretation effect" in message for message in messages),
+                      messages,
+                  )
+
+              def test_parenthetical_direct_transitive_effect_remains_valid(self):
+                  self.assertTrue(
+                      lineage._valid_confirmation_point(
+                          self.confirmation_point(
+                              "The filing, from the northern manufacturing facility, weakened the current demand outlook"
+                          )
+                      )
+                  )
+
+              def test_adversative_comma_clause_remains_separate(self):
+                  self.assertTrue(
+                      lineage._valid_confirmation_point(
+                          self.confirmation_point(
+                              "Project Alpha production increased, but the filing weakened the current demand outlook"
+                          )
+                      )
+                  )
+
+
+          if __name__ == "__main__":
+              unittest.main()
+          '''.replace("          ", ""), encoding="utf-8")
+          PY
+
+      - name: Compile validators
+        run: python -m py_compile validation_scripts/stage_lineage_contract_check.py validation_scripts/tests/test_review_4850660403_contracts.py
+
+      - name: Run focused review regression
+        run: python -m unittest validation_scripts.tests.test_review_4850660403_contracts -v
+
+      - name: Run full workflow-contract regression
+        run: python -m unittest discover -s validation_scripts/tests -v
+
+      - name: Verify prompt overlays
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Commit validated remediation
+        shell: bash
+        run: |
+          rm -f .github/workflows/pr233-review-4850660403.yml
+          find validation_scripts -type d -name __pycache__ -prune -exec rm -rf {} +
+          find validation_scripts -type f -name '*.pyc' -delete
+          git status --short
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add validation_scripts/stage_lineage_contract_check.py validation_scripts/tests/test_review_4850660403_contracts.py .github/workflows/pr233-review-4850660403.yml
+          git commit -m "fix: preserve parenthetical measurement subjects"
+          git push origin HEAD:agent/structural-news-value-v3

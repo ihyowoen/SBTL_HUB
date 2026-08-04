@@ -1,0 +1,54 @@
+name: Patch review 4851050000
+
+on:
+  push:
+    branches:
+      - agent/structural-news-value-v3
+    paths:
+      - scripts/patch_review_4851050000.py
+      - .github/workflows/patch-review-4851050000.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/structural-news-value-v3
+          fetch-depth: 0
+          persist-credentials: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Apply review fixes
+        run: python scripts/patch_review_4851050000.py
+
+      - name: Compile validators
+        run: |
+          python -m py_compile \
+            validation_scripts/stage_lineage_contract_check.py \
+            validation_scripts/stage_lineage_contract_check_semantic.py \
+            validation_scripts/related_lifecycle_check.py
+
+      - name: Run focused regression
+        run: python -m unittest validation_scripts.tests.test_review_4851050000_contracts
+
+      - name: Run full workflow-contract regression
+        run: python -m unittest discover -s validation_scripts/tests -p 'test_*.py'
+
+      - name: Verify prompt overlays
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Commit verified fixes and remove temporary files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm scripts/patch_review_4851050000.py .github/workflows/patch-review-4851050000.yml
+          git add -A
+          git commit -m "Address latest PR 233 review feedback"
+          git push origin HEAD:agent/structural-news-value-v3

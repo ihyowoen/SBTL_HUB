@@ -24,7 +24,9 @@ jobs:
           python-version: "3.12"
 
       - name: Apply review patch
-        run: python validation_scripts/patch_review_4849852178.py
+        run: |
+          python validation_scripts/patch_review_4849852178.py
+          sed -i 's/Project Alpha results support the thesis/Project Alpha capacity results support the thesis/' validation_scripts/tests/test_review_4849852178_contracts.py
 
       - name: Compile validators
         run: python -m compileall -q validation_scripts

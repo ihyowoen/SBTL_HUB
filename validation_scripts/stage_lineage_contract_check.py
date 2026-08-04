@@ -244,15 +244,19 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
     # describes the measured event, not a change to that interpretation. This
     # applies to directional and direct effects alike: "capacity increased under
     # the outlook" and "production was weakened under the outlook" must fail.
-    # Direct transitive effects remain available through their normal path.
+    # The clause has already been split on punctuation and adversative
+    # conjunctions, so scan the complete preceding subject region rather than a
+    # fixed local window; ordinary facility/location modifiers must not push the
+    # measurement noun out of view. Direct transitive effects remain available
+    # through their normal path because they do not use a relational attachment.
     if effect_index < object_index and _base._has_any_term(
         tokens[effect_index],
         _base.STAGE_A_INTERPRETATION_EFFECT_TERMS,
     ):
-        left_context = tokens[max(0, effect_index - 4):effect_index]
+        subject_context = tokens[:effect_index]
         has_measurement_subject = any(
             token in _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
-            for token in left_context
+            for token in subject_context
         )
         has_relational_attachment = any(
             token in _base.STAGE_A_EFFECT_FIRST_MEASUREMENT_ATTACHMENT_TERMS

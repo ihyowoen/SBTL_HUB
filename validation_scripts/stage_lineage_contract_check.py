@@ -53,11 +53,11 @@ _base.STAGE_A_EFFECT_BRIDGE_PREDICATE_BLOCKERS = {
 }
 _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS = {
     "report", "document", "filing", "release", "disclosure", "announcement",
-    "data", "result", "results", "metric", "measurement", "event", "project",
+    "data", "result", "results", "metric", "measurement", "event",
     "capacity", "production", "output", "volume", "revenue", "sales", "margin",
     "price", "cost", "shipment", "shipments", "order", "orders", "customer",
     "보고서", "문서", "공시", "자료", "결과", "지표", "측정", "사건",
-    "프로젝트", "용량", "생산", "생산량", "물량", "매출", "마진", "가격",
+    "용량", "생산", "생산량", "물량", "매출", "마진", "가격",
     "비용", "출하", "주문", "고객",
 }
 
@@ -89,9 +89,9 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
     if any(token in _base.STAGE_A_EFFECT_BRIDGE_PREDICATE_BLOCKERS for token in bridge):
         return False
     # When the interpretation object appears before the effect, reject a bridge
-    # that crosses a separate reported event or measurement noun. This prevents
-    # "the outlook report says capacity increased" from binding outlook to the
-    # metric direction while preserving "the outlook would materially decrease".
+    # that crosses a separate reported event or measurement noun. Entity/project
+    # qualifiers are allowed, so "outlook for Project Alpha would decrease"
+    # remains valid while "outlook report says capacity increased" is blocked.
     if object_index < effect_index and any(
         token in _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
         for token in bridge
@@ -102,15 +102,18 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
 
 def _has_verbal_effect_cue(clause, term):
     pattern = _base._term_pattern(term)
-    base = _base._normalized_text(term)
     for match in _base.re.finditer(pattern, clause):
-        surface = match.group(0).lower()
-        if surface != base:
-            return True
         prefix_tokens = _base.re.findall(r"[a-z0-9가-힣]+", clause[:match.start()])[-3:]
         if any(token in _base.STAGE_A_EFFECT_AUXILIARY_TERMS for token in prefix_tokens):
             return True
     return False
+
+
+def _has_measurement_context(tokens):
+    return any(
+        token in _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
+        for token in tokens
+    ) or any(any(char.isdigit() for char in token) for token in tokens)
 
 
 def _has_bound_interpretation_effect(value):
@@ -137,6 +140,7 @@ def _has_bound_interpretation_effect(value):
             for index, token in enumerate(tokens)
             if _base._has_any_term(token, _base.STAGE_A_INTERPRETATION_EFFECT_TERMS)
         ]
+        measurement_context = _has_measurement_context(tokens)
         for effect_index, effect_token in effect_positions:
             matched_directional = _base._matching_terms(
                 effect_token, _base.STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS
@@ -152,13 +156,10 @@ def _has_bound_interpretation_effect(value):
             if matched_directional:
                 continue
             for direct_term in matched_direct:
-                if direct_term in _base.STAGE_A_AMBIGUOUS_DIRECT_INTERPRETATION_EFFECT_TERMS:
-                    if _has_verbal_effect_cue(clause, direct_term):
-                        return True
-                elif (
-                    direct_term in _base.STAGE_A_UNAMBIGUOUS_DIRECT_INTERPRETATION_EFFECT_TERMS
-                    and _has_verbal_effect_cue(clause, direct_term)
-                ):
+                # Inflection alone is not semantic evidence. An unbound direct
+                # effect needs an auxiliary verbal cue and must not merely
+                # describe a measured event such as "capacity weakened by 10%".
+                if _has_verbal_effect_cue(clause, direct_term) and not measurement_context:
                     return True
     return False
 
@@ -174,6 +175,7 @@ def _structured_interpretation_effect(value):
 _base._effect_tokens = _effect_tokens
 _base._effect_bridge_is_semantic = _effect_bridge_is_semantic
 _base._has_verbal_effect_cue = _has_verbal_effect_cue
+_base._has_measurement_context = _has_measurement_context
 _base._has_bound_interpretation_effect = _has_bound_interpretation_effect
 _base._structured_interpretation_effect = _structured_interpretation_effect
 

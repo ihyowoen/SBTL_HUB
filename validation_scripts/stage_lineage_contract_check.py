@@ -117,6 +117,20 @@ def _parenthetical_modifier_is_safe(modifier, parenthetical_leads):
     )
 
 
+def _sanitize_parenthetical_interpretation_objects(modifier):
+    """Keep modifier context without exposing a stale object to effect binding."""
+    sanitized = modifier
+    for term in sorted(
+        set(_base.STAGE_A_INTERPRETATION_OBJECT_TERMS), key=len, reverse=True
+    ):
+        sanitized = _base.re.sub(
+            _base._term_pattern(term),
+            "context",
+            sanitized,
+        )
+    return sanitized
+
+
 def _preserve_parenthetical_subject_modifiers(text):
     """Preserve one or more adjacent comma-delimited subject modifiers."""
     parenthetical_leads = {
@@ -141,7 +155,7 @@ def _preserve_parenthetical_subject_modifiers(text):
             search_from = opening_comma + 1
             continue
 
-        modifiers = [modifier]
+        modifiers = [_sanitize_parenthetical_interpretation_objects(modifier)]
         sequence_end = closing_comma
         while True:
             next_closing_comma = result.find(",", sequence_end + 1)
@@ -154,7 +168,9 @@ def _preserve_parenthetical_subject_modifiers(text):
                 next_modifier, parenthetical_leads
             ):
                 break
-            modifiers.append(next_modifier)
+            modifiers.append(
+                _sanitize_parenthetical_interpretation_objects(next_modifier)
+            )
             sequence_end = next_closing_comma
 
         replacement = " " + " ".join(modifiers) + " "

@@ -147,3 +147,5 @@ if __name__ == "__main__":
 ''',
     encoding="utf-8",
 )
+
+# Trigger the already-present workflow after its initial creation commit.

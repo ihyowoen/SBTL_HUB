@@ -457,12 +457,16 @@ def _valid_confirmation_point(value):
         _has_any_term(text, STAGE_A_CONFIRMATION_EVENT_TERMS)
         or _has_any_term(text, STAGE_A_EXACT_TARGET_TERMS)
     )
+    has_interpretation_effect = _has_any_term(
+        text, STAGE_A_INTERPRETATION_EFFECT_TERMS
+    )
     return (
         bool(text)
         and len(text.split()) >= 4
         and not _placeholder_only_text(text)
         and not _contains_generic_target_fragment(text)
         and has_measurable_event_or_metric
+        and has_interpretation_effect
     )
 
 
@@ -511,7 +515,7 @@ def validate_stage_a_v3_override(spec, spec_id, messages):
     elif any(not _valid_confirmation_point(value) for value in confirmation_points):
         messages.append(
             f'{spec_id}: next_confirmation_points entries must identify measurable '
-            'events or metrics, not generic confirmation requests'
+            'events or metrics and an interpretation effect, not generic confirmation requests'
         )
         valid = False
 

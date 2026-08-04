@@ -92,7 +92,7 @@ class TestReview4840783305Contracts(unittest.TestCase):
             "decision_relevance": "The change alters supplier qualification and timing decisions.",
             "baseline_expectation_changed": "The baseline changed from discretionary eligibility to mandatory screening.",
             "evidence_needed_for_stage_b": ["Official rule text confirming the eligibility clause and effective date"],
-            "next_confirmation_points": ["Publication of implementing guidance with the final effective date"],
+            "next_confirmation_points": ["Publication of implementing guidance with the final effective date would confirm the eligibility change"],
             "why_execution_event_not_required": "The operative legal eligibility change is decision-useful before a commercial execution event.",
             "prior_state": "Eligibility was uncertain under draft guidance.",
             "new_verified_fact": "The final rule establishes the new eligibility condition.",

@@ -27,7 +27,7 @@ class TestReview4848883611Contracts(unittest.TestCase):
         self.assertTrue(lineage._valid_confirmation_point(value))
 
     def test_existing_metric_confirmation_remains_valid(self):
-        value = "Publication of implementing guidance with the final effective date"
+        value = "Publication of implementing guidance with the final effective date would confirm the eligibility change"
         self.assertTrue(lineage._valid_confirmation_point(value))
 
     def test_generic_confirmation_scaffolds_still_fail(self):

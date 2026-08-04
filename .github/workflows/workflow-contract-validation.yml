@@ -1,49 +1,53 @@
-name: Workflow contract validation
+name: Apply review 4849852178 and validate
 
 on:
-  pull_request:
-    paths:
-      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-      - "docs/SOURCE_AUDIT_CONTRACT.md"
-      - "docs/llm_prompts/v1/**"
-      - "validation_data/source_owner_registry.json"
-      - "validation_scripts/**"
-      - "scripts/lean_cards.mjs"
-      - ".github/workflows/lean-cards.yml"
-      - ".github/workflows/workflow-contract-validation.yml"
   push:
     branches:
-      - agent/workflow-contract-related-source-audit
+      - agent/structural-news-value-v3
     paths:
-      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-      - "docs/SOURCE_AUDIT_CONTRACT.md"
-      - "docs/llm_prompts/v1/**"
-      - "validation_data/source_owner_registry.json"
-      - "validation_scripts/**"
-      - "scripts/lean_cards.mjs"
-      - ".github/workflows/lean-cards.yml"
+      - "validation_scripts/patch_review_4849852178.py"
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  validate:
+  patch-and-validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
+      - name: Apply review patch
+        run: python validation_scripts/patch_review_4849852178.py
+
       - name: Compile validators
         run: python -m compileall -q validation_scripts
 
-      - name: Run workflow-contract and exporter regression tests
+      - name: Run focused regression tests
+        run: python -m unittest validation_scripts.tests.test_review_4849852178_contracts -v
+
+      - name: Run full regression suite
         run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Commit validated patch
+        run: |
+          git config user.name "ihyowoen"
+          git config user.email "ihyowoen@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "fix: bind structured and ambiguous confirmation effects"
+            git push origin HEAD:agent/structural-news-value-v3
+          fi

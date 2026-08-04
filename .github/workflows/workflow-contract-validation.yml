@@ -1,50 +1,49 @@
-name: Validate review 4849852178 patch artifact
+name: Workflow contract validation
 
 on:
   pull_request:
     paths:
+      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
+      - "docs/SOURCE_AUDIT_CONTRACT.md"
+      - "docs/llm_prompts/v1/**"
+      - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
+      - "scripts/lean_cards.mjs"
+      - ".github/workflows/lean-cards.yml"
+      - ".github/workflows/workflow-contract-validation.yml"
+  push:
+    branches:
+      - agent/workflow-contract-related-source-audit
+    paths:
+      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
+      - "docs/SOURCE_AUDIT_CONTRACT.md"
+      - "docs/llm_prompts/v1/**"
+      - "validation_data/source_owner_registry.json"
+      - "validation_scripts/**"
+      - "scripts/lean_cards.mjs"
+      - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
   contents: read
 
 jobs:
-  patch-and-validate:
+  validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout PR head
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: agent/structural-news-value-v3
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Apply review patch
-        run: |
-          python validation_scripts/patch_review_4849852178.py
-          sed -i 's/Project Alpha results support the thesis/Project Alpha capacity results support the thesis/' validation_scripts/tests/test_review_4849852178_contracts.py
-
       - name: Compile validators
         run: python -m compileall -q validation_scripts
 
-      - name: Run focused regression tests
-        run: python -m unittest validation_scripts.tests.test_review_4849852178_contracts -v
-
-      - name: Run full regression suite
+      - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
-
-      - name: Package validated files
-        uses: actions/upload-artifact@v4
-        with:
-          name: review-4849852178-validated-files
-          path: |
-            validation_scripts/stage_lineage_contract_check.py
-            validation_scripts/tests/test_review_4849852178_contracts.py
-          if-no-files-found: error

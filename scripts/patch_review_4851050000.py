@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Trigger verified patch workflow after workflow installation.
 from pathlib import Path
 
 

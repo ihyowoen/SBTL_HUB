@@ -30,6 +30,14 @@ _base.STAGE_A_INTERPRETATION_OBJECT_TERMS = (
     "결론", "견해", "예측", "채택", "적격성", "일정", "시나리오",
     "가정", "위험",
 )
+_base.STAGE_A_OVERLOADED_INTERPRETATION_OBJECT_TERMS = {
+    "adoption", "채택",
+}
+_base.STAGE_A_INTERPRETATION_METRIC_QUALIFIERS = {
+    "rate", "rates", "share", "shares", "ratio", "ratios", "percentage",
+    "percent", "pct", "volume", "count", "number", "level", "growth",
+    "율", "비율", "점유율", "백분율", "물량", "건수", "수치", "수준", "증가율",
+}
 _base.STAGE_A_EFFECT_AUXILIARY_TERMS = {
     "would", "will", "could", "can", "may", "might", "should", "must",
     "do", "does", "did", "to", "is", "are", "was", "were", "be", "been",
@@ -56,10 +64,20 @@ _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS = {
     "data", "result", "results", "metric", "measurement", "event",
     "capacity", "production", "output", "volume", "revenue", "sales", "margin",
     "price", "cost", "shipment", "shipments", "order", "orders", "customer",
+    "rate", "rates", "share", "shares", "ratio", "ratios", "percentage",
+    "percent", "pct", "count", "number", "level", "growth",
     "보고서", "문서", "공시", "자료", "결과", "지표", "측정", "사건",
     "용량", "생산", "생산량", "물량", "매출", "마진", "가격",
-    "비용", "출하", "주문", "고객",
+    "비용", "출하", "주문", "고객", "율", "비율", "점유율", "백분율",
+    "건수", "수치", "수준", "증가율",
 }
+_base.STAGE_A_SUBSTANTIVE_TARGET_PREDICATE_TERMS = (
+    "increase", "decrease", "change", "hold", "raise", "lower",
+    "launch", "approve", "qualify", "complete", "delay", "cancel",
+    "secure", "award", "publish", "file", "disclose", "remain", "unknown",
+    "증가", "감소", "변경", "유지", "상향", "하향", "출시", "승인",
+    "완료", "지연", "취소", "확보", "수주", "공시", "미확인",
+)
 
 
 def _effect_tokens(clause):
@@ -75,6 +93,86 @@ def _effect_tokens(clause):
             prepared,
         )
     return _base.re.findall(r"[a-z0-9가-힣]+", prepared)
+
+
+def _structured_exact_target(value):
+    """Require a claim, metric, event, stage, or date—not a bare entity name."""
+    if (
+        not _base._structured_component(value)
+        or _base._contains_generic_target_fragment(value)
+    ):
+        return False
+
+    text = _base._normalized_text(value)
+    tokens = [
+        token
+        for token in text.replace("/", " ").replace(":", " ").split()
+        if token
+    ]
+    is_explicit_date = bool(_base.re.fullmatch(
+        r"(?:19|20|21)\d{2}(?:[-/.](?:0?[1-9]|1[0-2])"
+        r"(?:[-/.](?:0?[1-9]|[12]\d|3[01]))?|년"
+        r"(?:\s*(?:0?[1-9]|1[0-2])월"
+        r"(?:\s*(?:0?[1-9]|[12]\d|3[01])일)?)?)?",
+        text,
+    ))
+    has_alpha = any(_base.re.search(r"[a-z가-힣]", token) for token in tokens)
+    has_exact_role = _base._has_any_term(
+        value, _base.STAGE_A_EXACT_TARGET_TERMS
+    )
+    has_event_role = _base._has_any_term(
+        value, _base.STAGE_A_CONFIRMATION_EVENT_TERMS
+    )
+    has_predicate_role = _base._has_any_term(
+        value, _base.STAGE_A_SUBSTANTIVE_TARGET_PREDICATE_TERMS
+    )
+    has_qualified_numeric_target = (
+        any(char.isdigit() for char in text)
+        and has_alpha
+        and (has_exact_role or has_event_role or has_predicate_role)
+    )
+    return (
+        is_explicit_date
+        or has_qualified_numeric_target
+        or has_exact_role
+        or has_event_role
+        or has_predicate_role
+    )
+
+
+def _valid_evidence_target(value):
+    """Require a source class plus a substantive exact target."""
+    if isinstance(value, dict):
+        source_class = (
+            value.get("source_or_document_class")
+            or value.get("source_class")
+        )
+        exact_target = (
+            value.get("exact_claim_or_metric")
+            or value.get("verification_target")
+        )
+        return (
+            _base._structured_source_class(source_class)
+            and _structured_exact_target(exact_target)
+        )
+
+    text = _base._normalized_text(value)
+    if (
+        not text
+        or _base._placeholder_only_text(text)
+        or _base._contains_generic_target_fragment(text)
+    ):
+        return False
+    matched_source_terms = _base._matching_terms(
+        text, _base.STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS
+    )
+    if not matched_source_terms:
+        return False
+
+    target_text = text
+    for term in matched_source_terms:
+        target_text = _base.re.sub(_base._term_pattern(term), " ", target_text)
+    return _structured_exact_target(target_text)
 
 
 def _effect_bridge_is_semantic(tokens, effect_index, object_index):
@@ -98,6 +196,18 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
     ):
         return False
     return True
+
+
+def _object_position_is_interpretive(tokens, index):
+    """Exclude overloaded object terms when they form a measured metric."""
+    token = tokens[index]
+    if token not in _base.STAGE_A_OVERLOADED_INTERPRETATION_OBJECT_TERMS:
+        return True
+    neighbors = tokens[max(0, index - 1):index] + tokens[index + 1:index + 3]
+    return not any(
+        neighbor in _base.STAGE_A_INTERPRETATION_METRIC_QUALIFIERS
+        for neighbor in neighbors
+    )
 
 
 def _has_verbal_effect_cue(clause, term):
@@ -133,7 +243,10 @@ def _has_bound_interpretation_effect(value):
         tokens = _effect_tokens(clause)
         object_positions = [
             index for index, token in enumerate(tokens)
-            if _base._has_any_term(token, _base.STAGE_A_INTERPRETATION_OBJECT_TERMS)
+            if _base._has_any_term(
+                token, _base.STAGE_A_INTERPRETATION_OBJECT_TERMS
+            )
+            and _object_position_is_interpretive(tokens, index)
         ]
         effect_positions = [
             (index, token)
@@ -173,7 +286,10 @@ def _structured_interpretation_effect(value):
 
 
 _base._effect_tokens = _effect_tokens
+_base._structured_exact_target = _structured_exact_target
+_base._valid_evidence_target = _valid_evidence_target
 _base._effect_bridge_is_semantic = _effect_bridge_is_semantic
+_base._object_position_is_interpretive = _object_position_is_interpretive
 _base._has_verbal_effect_cue = _has_verbal_effect_cue
 _base._has_measurement_context = _has_measurement_context
 _base._has_bound_interpretation_effect = _has_bound_interpretation_effect

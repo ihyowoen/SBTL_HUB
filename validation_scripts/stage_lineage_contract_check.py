@@ -51,7 +51,7 @@ _base.STAGE_A_EFFECT_BRIDGE_BLOCKERS = {
 }
 _base.STAGE_A_EFFECT_FIRST_MEASUREMENT_ATTACHMENT_TERMS = {
     "under", "within", "amid", "during", "according", "against", "alongside",
-    "beneath", "inside", "아래", "하에서", "중", "내", "가운데",
+    "beneath", "inside", "in", "아래", "하에서", "중", "내", "가운데",
 }
 _base.STAGE_A_EFFECT_BRIDGE_PREDICATE_BLOCKERS = {
     "say", "says", "said", "report", "reports", "reported", "reporting",
@@ -336,15 +336,45 @@ def _has_measurement_context(tokens):
     ) or any(any(char.isdigit() for char in token) for token in tokens)
 
 
+def _preserve_parenthetical_subject_modifiers(text):
+    """Keep comma-delimited parenthetical modifiers with their subject."""
+    parenthetical_leads = {
+        "in", "at", "within", "from", "under", "inside", "amid", "during",
+        "with", "without", "after", "before", "near", "across", "throughout",
+        "located", "based", "on", "by",
+        "에서", "내", "안", "아래", "중", "동안", "근처", "기반",
+    }
+
+    def replace(match):
+        modifier = match.group(1).strip()
+        tokens = _effect_tokens(modifier)
+        if not tokens or tokens[0] not in parenthetical_leads:
+            return match.group(0)
+        has_effect_or_object = any(
+            _base._has_any_term(
+                token,
+                _base.STAGE_A_INTERPRETATION_EFFECT_TERMS
+                + _base.STAGE_A_INTERPRETATION_OBJECT_TERMS,
+            )
+            for token in tokens
+        )
+        if has_effect_or_object:
+            return match.group(0)
+        return f" {modifier} "
+
+    return _base.re.sub(r",\s*([^,;\n.]+?)\s*,", replace, text)
+
+
 def _has_bound_interpretation_effect(value):
     """Require semantic or grammatical interpretation-effect binding."""
     text = _base._normalized_text(value)
     if not text:
         return False
 
+    prepared_text = _preserve_parenthetical_subject_modifiers(text)
     clauses = _base.re.split(
         r"[.;,\n]+|\b(?:but|while|whereas|although|however)\b|(?:하지만|그러나|반면)",
-        text,
+        prepared_text,
     )
     for clause in clauses:
         clause = clause.strip()
@@ -404,6 +434,7 @@ _base._effect_bridge_is_semantic = _effect_bridge_is_semantic
 _base._object_position_is_interpretive = _object_position_is_interpretive
 _base._has_verbal_effect_cue = _has_verbal_effect_cue
 _base._has_measurement_context = _has_measurement_context
+_base._preserve_parenthetical_subject_modifiers = _preserve_parenthetical_subject_modifiers
 _base._has_bound_interpretation_effect = _has_bound_interpretation_effect
 _base._structured_interpretation_effect = _structured_interpretation_effect
 

@@ -11,7 +11,6 @@ on:
       - "scripts/lean_cards.mjs"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
-      - ".github/workflows/pr233-review-4850660403.yml"
   push:
     branches:
       - agent/workflow-contract-related-source-audit
@@ -26,145 +25,25 @@ on:
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout review branch
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: agent/structural-news-value-v3
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Apply review 4850660403 remediation
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          path = Path("validation_scripts/stage_lineage_contract_check.py")
-          text = path.read_text(encoding="utf-8")
-
-          old_attachment = '''_base.STAGE_A_EFFECT_FIRST_MEASUREMENT_ATTACHMENT_TERMS = {
-              "under", "within", "amid", "during", "according", "against", "alongside",
-              "beneath", "inside", "아래", "하에서", "중", "내", "가운데",
-          }
-          '''
-          new_attachment = '''_base.STAGE_A_EFFECT_FIRST_MEASUREMENT_ATTACHMENT_TERMS = {
-              "under", "within", "amid", "during", "according", "against", "alongside",
-              "beneath", "inside", "in", "아래", "하에서", "중", "내", "가운데",
-          }
-          '''
-          if old_attachment in text:
-              if text.count(old_attachment) != 1:
-                  raise SystemExit("attachment term block was not uniquely found")
-              text = text.replace(old_attachment, new_attachment)
-          elif new_attachment not in text:
-              raise SystemExit("attachment term block was not found")
-
-          marker = '''def _has_bound_interpretation_effect(value):
-          '''
-          helper = '''def _preserve_parenthetical_subject_modifiers(text):
-              """Keep comma-delimited parenthetical modifiers with their subject."""
-              parenthetical_leads = {
-                  "in", "at", "within", "from", "under", "inside", "amid", "during",
-                  "with", "without", "after", "before", "near", "across", "throughout",
-                  "located", "based", "on", "by",
-                  "에서", "내", "안", "아래", "중", "동안", "근처", "기반",
-              }
-
-              def replace(match):
-                  modifier = match.group(1).strip()
-                  tokens = _effect_tokens(modifier)
-                  if not tokens or tokens[0] not in parenthetical_leads:
-                      return match.group(0)
-                  has_effect_or_object = any(
-                      _base._has_any_term(
-                          token,
-                          _base.STAGE_A_INTERPRETATION_EFFECT_TERMS
-                          + _base.STAGE_A_INTERPRETATION_OBJECT_TERMS,
-                      )
-                      for token in tokens
-                  )
-                  if has_effect_or_object:
-                      return match.group(0)
-                  return f" {modifier} "
-
-              return _base.re.sub(r",\\s*([^,;\\n.]+?)\\s*,", replace, text)
-
-
-          def _has_bound_interpretation_effect(value):
-          '''
-          if "def _preserve_parenthetical_subject_modifiers(text):" not in text:
-              if text.count(marker) != 1:
-                  raise SystemExit("effect-binding marker was not uniquely found")
-              text = text.replace(marker, helper)
-
-          old_split = '''    clauses = _base.re.split(
-                  r"[.;,\\n]+|\\b(?:but|while|whereas|although|however)\\b|(?:하지만|그러나|반면)",
-                  text,
-              )
-          '''
-          new_split = '''    prepared_text = _preserve_parenthetical_subject_modifiers(text)
-              clauses = _base.re.split(
-                  r"[.;,\\n]+|\\b(?:but|while|whereas|although|however)\\b|(?:하지만|그러나|반면)",
-                  prepared_text,
-              )
-          '''
-          if old_split in text:
-              if text.count(old_split) != 1:
-                  raise SystemExit("clause split block was not uniquely found")
-              text = text.replace(old_split, new_split)
-          elif new_split not in text:
-              raise SystemExit("clause split block was not found")
-
-          old_export = '''_base._has_measurement_context = _has_measurement_context
-          _base._has_bound_interpretation_effect = _has_bound_interpretation_effect
-          '''
-          new_export = '''_base._has_measurement_context = _has_measurement_context
-          _base._preserve_parenthetical_subject_modifiers = _preserve_parenthetical_subject_modifiers
-          _base._has_bound_interpretation_effect = _has_bound_interpretation_effect
-          '''
-          if old_export in text:
-              if text.count(old_export) != 1:
-                  raise SystemExit("helper export block was not uniquely found")
-              text = text.replace(old_export, new_export)
-          elif new_export not in text:
-              raise SystemExit("helper export block was not found")
-
-          path.write_text(text, encoding="utf-8")
-          PY
-
       - name: Compile validators
         run: python -m compileall -q validation_scripts
-
-      - name: Run focused review regression
-        run: python -m unittest validation_scripts.tests.test_review_4850660403_contracts -v
 
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
-
-      - name: Commit validated remediation and restore CI
-        shell: bash
-        run: |
-          git fetch origin main
-          git show origin/main:.github/workflows/workflow-contract-validation.yml > .github/workflows/workflow-contract-validation.yml
-          rm -f .github/workflows/pr233-review-4850660403.yml
-          find validation_scripts -type d -name __pycache__ -prune -exec rm -rf {} +
-          find validation_scripts -type f -name '*.pyc' -delete
-          git status --short
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add validation_scripts/stage_lineage_contract_check.py validation_scripts/tests/test_review_4850660403_contracts.py .github/workflows/workflow-contract-validation.yml .github/workflows/pr233-review-4850660403.yml
-          git commit -m "fix: preserve parenthetical measurement subjects"
-          git push origin HEAD:agent/structural-news-value-v3

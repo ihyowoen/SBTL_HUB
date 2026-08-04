@@ -239,15 +239,15 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
         for token in bridge
     ):
         return False
-    # When a directional effect appears first, a preceding measurement subject
-    # plus a relational attachment to a later interpretation object describes
-    # the measured event, not a change to that interpretation. For example,
-    # "capacity increased under the current demand outlook" must not bind the
-    # capacity movement to "outlook". Direct transitive effects and auxiliary-
-    # governed phrases remain available through their normal semantic paths.
+    # When any interpretation effect appears first, a preceding measurement
+    # subject plus a relational attachment to a later interpretation object
+    # describes the measured event, not a change to that interpretation. This
+    # applies to directional and direct effects alike: "capacity increased under
+    # the outlook" and "production was weakened under the outlook" must fail.
+    # Direct transitive effects remain available through their normal path.
     if effect_index < object_index and _base._has_any_term(
         tokens[effect_index],
-        _base.STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS,
+        _base.STAGE_A_INTERPRETATION_EFFECT_TERMS,
     ):
         left_context = tokens[max(0, effect_index - 4):effect_index]
         has_measurement_subject = any(

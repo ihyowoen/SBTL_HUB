@@ -103,6 +103,44 @@ class TestReview4850894120Contracts(unittest.TestCase):
             ))
         )
 
+    def test_outlook_parenthetical_does_not_hide_measurement_subject(self):
+        for effect in (
+            "Project Alpha production, under the prior outlook, was weakened under the current demand outlook",
+            "Project Alpha production, under the prior outlook, was confirmed under the current demand outlook",
+        ):
+            with self.subTest(effect=effect):
+                self.assertFalse(
+                    lineage._valid_confirmation_point(self.confirmation_point(effect))
+                )
+
+    def test_complete_v3_spec_rejects_outlook_parenthetical_bypass(self):
+        spec = self.base_v3_spec()
+        spec["next_confirmation_points"] = [self.confirmation_point(
+            "Project Alpha production, under the prior outlook, was weakened under the current demand outlook"
+        )]
+        messages = []
+        self.assertFalse(
+            lineage.validate_stage_a_v3_override(spec, spec["spec_id"], messages)
+        )
+        self.assertTrue(
+            any("interpretation effect" in message for message in messages),
+            messages,
+        )
+
+    def test_outlook_parenthetical_preserves_valid_transitive_effect(self):
+        self.assertTrue(
+            lineage._valid_confirmation_point(self.confirmation_point(
+                "The filing, under the prior outlook, weakened the current demand outlook"
+            ))
+        )
+
+    def test_parenthetical_with_own_effect_remains_a_clause_boundary(self):
+        text = "Project Alpha production, under an outlook that weakened, remained stable"
+        self.assertEqual(
+            lineage._preserve_parenthetical_subject_modifiers(text),
+            text,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

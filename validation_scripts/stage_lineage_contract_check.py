@@ -75,6 +75,13 @@ _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS = {
     "비용", "출하", "주문", "고객", "율", "비율", "점유율", "백분율",
     "건수", "수치", "수준", "증가율",
 }
+_base.STAGE_A_EFFECT_FIRST_MEASUREMENT_SUBJECT_TERMS = set(
+    _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
+) | set(_base.STAGE_A_EXACT_TARGET_TERMS)
+_base.STAGE_A_INTERPRETATION_OBJECT_QUALIFIER_TERMS = {
+    "for", "of", "regarding", "concerning", "about", "on", "around",
+    "toward", "towards", "대한", "관련", "관한",
+}
 _base.STAGE_A_SUBSTANTIVE_TARGET_PREDICATE_TERMS = (
     "increase", "decrease", "change", "hold", "raise", "lower",
     "launch", "approve", "qualify", "complete", "delay", "cancel",
@@ -231,14 +238,27 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
     if any(token in _base.STAGE_A_EFFECT_BRIDGE_PREDICATE_BLOCKERS for token in bridge):
         return False
     # When the interpretation object appears before the effect, reject a bridge
-    # that crosses a separate reported event or measurement noun. Entity/project
-    # qualifiers are allowed, so "outlook for Project Alpha would decrease"
-    # remains valid while "outlook report says capacity increased" is blocked.
-    if object_index < effect_index and any(
-        token in _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
-        for token in bridge
-    ):
-        return False
+    # that crosses a separate reported event or measurement noun. Measurement
+    # nouns that follow an explicit object qualifier (for/of/regarding/...) are
+    # part of the interpretation object itself, so "outlook for capacity would
+    # weaken" remains valid while "outlook report says capacity increased" is
+    # still blocked.
+    if object_index < effect_index:
+        measurement_positions = [
+            index for index, token in enumerate(bridge)
+            if token in _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
+        ]
+        if measurement_positions:
+            qualifier_positions = [
+                index for index, token in enumerate(bridge)
+                if token in _base.STAGE_A_INTERPRETATION_OBJECT_QUALIFIER_TERMS
+            ]
+            measurement_terms_are_object_qualifiers = bool(qualifier_positions) and all(
+                any(qualifier_index < measurement_index for qualifier_index in qualifier_positions)
+                for measurement_index in measurement_positions
+            )
+            if not measurement_terms_are_object_qualifiers:
+                return False
     # When any interpretation effect appears first, a preceding measurement
     # subject plus a relational attachment to a later interpretation object
     # describes the measured event, not a change to that interpretation. This
@@ -255,7 +275,7 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
     ):
         subject_context = tokens[:effect_index]
         has_measurement_subject = any(
-            token in _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
+            token in _base.STAGE_A_EFFECT_FIRST_MEASUREMENT_SUBJECT_TERMS
             for token in subject_context
         )
         has_relational_attachment = any(
@@ -344,6 +364,10 @@ def _preserve_parenthetical_subject_modifiers(text):
         "located", "based", "on", "by",
         "에서", "내", "안", "아래", "중", "동안", "근처", "기반",
     }
+    lead_pattern = "|".join(
+        _base.re.escape(term)
+        for term in sorted(parenthetical_leads, key=len, reverse=True)
+    )
 
     def replace(match):
         modifier = match.group(1).strip()
@@ -362,7 +386,11 @@ def _preserve_parenthetical_subject_modifiers(text):
             return match.group(0)
         return f" {modifier} "
 
-    return _base.re.sub(r",\s*([^,;\n.]+?)\s*,", replace, text)
+    # Match only a comma whose following token is a known parenthetical lead.
+    # This prevents an introductory comma from being paired with a later
+    # subject-boundary comma.
+    pattern = rf",\s*((?:{lead_pattern})(?![\w])[^,;\n.]*?)\s*,"
+    return _base.re.sub(pattern, replace, text)
 
 
 def _has_bound_interpretation_effect(value):

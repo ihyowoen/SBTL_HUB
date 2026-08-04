@@ -41,6 +41,25 @@ _base.STAGE_A_EFFECT_BRIDGE_BLOCKERS = {
     "mw", "mwh", "gw", "gwh", "units", "unit", "tons", "tonnes",
     "그리고", "또는", "하지만", "그러나", "반면", "대비", "에서", "까지",
 }
+_base.STAGE_A_EFFECT_BRIDGE_PREDICATE_BLOCKERS = {
+    "say", "says", "said", "report", "reports", "reported", "reporting",
+    "show", "shows", "showed", "shown", "indicate", "indicates", "indicated",
+    "state", "states", "stated", "note", "notes", "noted", "describe",
+    "describes", "described", "record", "records", "recorded", "find",
+    "finds", "found", "disclose", "discloses", "disclosed", "announce",
+    "announces", "announced", "publish", "publishes", "published",
+    "말한다", "말했다", "보고", "보고했다", "공시", "공시했다", "발표",
+    "발표했다", "기재", "기재했다", "나타낸다", "보여준다",
+}
+_base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS = {
+    "report", "document", "filing", "release", "disclosure", "announcement",
+    "data", "result", "results", "metric", "measurement", "event", "project",
+    "capacity", "production", "output", "volume", "revenue", "sales", "margin",
+    "price", "cost", "shipment", "shipments", "order", "orders", "customer",
+    "보고서", "문서", "공시", "자료", "결과", "지표", "측정", "사건",
+    "프로젝트", "용량", "생산", "생산량", "물량", "매출", "마진", "가격",
+    "비용", "출하", "주문", "고객",
+}
 
 
 def _effect_tokens(clause):
@@ -58,14 +77,27 @@ def _effect_tokens(clause):
     return _base.re.findall(r"[a-z0-9가-힣]+", prepared)
 
 
-def _effect_bridge_is_semantic(tokens, first_index, second_index):
-    start, end = sorted((first_index, second_index))
+def _effect_bridge_is_semantic(tokens, effect_index, object_index):
+    start, end = sorted((effect_index, object_index))
     bridge = tokens[start + 1:end]
     if len(bridge) > 6:
         return False
     if any(any(char.isdigit() for char in token) for token in bridge):
         return False
-    return not any(token in _base.STAGE_A_EFFECT_BRIDGE_BLOCKERS for token in bridge)
+    if any(token in _base.STAGE_A_EFFECT_BRIDGE_BLOCKERS for token in bridge):
+        return False
+    if any(token in _base.STAGE_A_EFFECT_BRIDGE_PREDICATE_BLOCKERS for token in bridge):
+        return False
+    # When the interpretation object appears before the effect, reject a bridge
+    # that crosses a separate reported event or measurement noun. This prevents
+    # "the outlook report says capacity increased" from binding outlook to the
+    # metric direction while preserving "the outlook would materially decrease".
+    if object_index < effect_index and any(
+        token in _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
+        for token in bridge
+    ):
+        return False
+    return True
 
 
 def _has_verbal_effect_cue(clause, term):
@@ -134,7 +166,7 @@ def _has_bound_interpretation_effect(value):
 def _structured_interpretation_effect(value):
     return (
         _base._structured_component(value)
-        and not _base._contains_generic_fragment(value)
+        and not _base._contains_generic_target_fragment(value)
         and _has_bound_interpretation_effect(value)
     )
 

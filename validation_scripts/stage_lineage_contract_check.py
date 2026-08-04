@@ -83,12 +83,23 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
             tokens, effect_index, object_index
         )
 
-    sanitized_tokens = list(tokens)
-    for index in range(object_index + 1, effect_index):
-        if sanitized_tokens[index] in _QUALIFIED_OBJECT_CONJUNCTION_TERMS:
-            sanitized_tokens[index] = "qualified_join"
+    # A conjunction joining two nouns is grammatical structure, not another
+    # semantic modifier. Remove only the validated join tokens before applying
+    # the preserved six-token bridge contract, and adjust the effect index.
+    sanitized_tokens = []
+    removed_before_effect = 0
+    for index, token in enumerate(tokens):
+        if (
+            object_index < index < effect_index
+            and token in _QUALIFIED_OBJECT_CONJUNCTION_TERMS
+        ):
+            removed_before_effect += 1
+            continue
+        sanitized_tokens.append(token)
     return _prior_effect_bridge_is_semantic(
-        sanitized_tokens, effect_index, object_index
+        sanitized_tokens,
+        effect_index - removed_before_effect,
+        object_index,
     )
 
 

@@ -47,8 +47,8 @@ replace_once(validator_path, old_validator, new_validator)
 old_message = '''            f'{spec_id}: next_confirmation_points entries must identify measurable '
             'events or metrics, not generic confirmation requests'
 '''
-new_message = '''            f'{spec_id}: next_confirmation_points entries must identify both a measurable '
-            'event or metric and an interpretation effect, not generic confirmation requests'
+new_message = '''            f'{spec_id}: next_confirmation_points entries must identify measurable '
+            'events or metrics and an interpretation effect, not generic confirmation requests'
 '''
 replace_once(validator_path, old_message, new_message)
 

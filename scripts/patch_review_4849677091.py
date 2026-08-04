@@ -123,3 +123,5 @@ class TestReview4849677091Contracts(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 ''', encoding='utf-8')
+
+# trigger workflow after the workflow file exists on the branch

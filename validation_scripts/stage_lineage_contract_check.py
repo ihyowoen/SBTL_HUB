@@ -104,14 +104,14 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
 
 
 def _parenthetical_modifier_is_safe(modifier, parenthetical_leads):
+    """Preserve subject parentheticals unless they contain their own effect."""
     tokens = _semantic._effect_tokens(modifier)
     if not tokens or tokens[0] not in parenthetical_leads:
         return False
     return not any(
         _base._has_any_term(
             token,
-            _base.STAGE_A_INTERPRETATION_EFFECT_TERMS
-            + _base.STAGE_A_INTERPRETATION_OBJECT_TERMS,
+            _base.STAGE_A_INTERPRETATION_EFFECT_TERMS,
         )
         for token in tokens
     )

@@ -139,7 +139,7 @@ def _structured_interpretation_effect(value):
     )
 
 
-_base._efffect_tokens = _effect_tokens
+_base._effect_tokens = _effect_tokens
 _base._effect_bridge_is_semantic = _effect_bridge_is_semantic
 _base._has_verbal_effect_cue = _has_verbal_effect_cue
 _base._has_bound_interpretation_effect = _has_bound_interpretation_effect

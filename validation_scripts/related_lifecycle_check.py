@@ -374,18 +374,39 @@ def check_card(
     if isinstance(declared, list) and set(declared) != set(related):
         errors.append("related_lineage.related_ids does not match related[]")
 
+    lineage_provisional_present = "related_candidate_spec_ids" in lineage
+    card_provisional_present = "related_candidate_spec_ids" in card
     lineage_provisional = lineage.get("related_candidate_spec_ids")
     card_provisional = card.get("related_candidate_spec_ids")
-    lineage_has_provisional = lineage_provisional not in (None, [])
-    card_has_provisional = card_provisional not in (None, [])
+
+    lineage_provisional_valid = (
+        not lineage_provisional_present or isinstance(lineage_provisional, list)
+    )
+    card_provisional_valid = (
+        not card_provisional_present or isinstance(card_provisional, list)
+    )
+    if not lineage_provisional_valid:
+        errors.append(
+            "related_lineage.related_candidate_spec_ids must be an array when present"
+        )
+    if not card_provisional_valid:
+        errors.append(
+            "card.related_candidate_spec_ids must be an array when present"
+        )
+
+    lineage_has_provisional = (
+        lineage_provisional_present
+        and lineage_provisional_valid
+        and bool(lineage_provisional)
+    )
+    card_has_provisional = (
+        card_provisional_present
+        and card_provisional_valid
+        and bool(card_provisional)
+    )
 
     if lineage_has_provisional and card_has_provisional:
-        if not isinstance(lineage_provisional, list) or not isinstance(card_provisional, list):
-            errors.append(
-                "related_candidate_spec_ids representations must both be arrays when both are populated"
-            )
-            provisional = lineage_provisional if isinstance(lineage_provisional, list) else card_provisional
-        elif lineage_provisional != card_provisional:
+        if lineage_provisional != card_provisional:
             errors.append(
                 "conflicting related_candidate_spec_ids between related lifecycle and card root"
             )
@@ -411,54 +432,51 @@ def check_card(
     valid_provisional_edge = False
     resolved_provisional_targets: list[tuple[str, dict[str, Any]]] = []
     if allow_provisional_related and provisional:
-        if not isinstance(provisional, list):
-            errors.append("related_candidate_spec_ids must be a list")
-        else:
-            normalized_provisional = []
-            for value in provisional:
-                if not isinstance(value, str) or not value.strip():
-                    errors.append("related_candidate_spec_ids must contain non-empty strings")
-                    continue
-                normalized_provisional.append(value.strip())
-            if normalized_provisional != dedupe(normalized_provisional):
-                errors.append("related_candidate_spec_ids contains duplicate IDs")
-            resolved_provisional_aliases: dict[int, str] = {}
-            for target in normalized_provisional:
-                if target in ambiguous_provisional_ids:
-                    errors.append(f"ambiguous provisional related ID: {target}")
-                    continue
-                resolved_target = provisional_by_id.get(target)
-                if resolved_target is card:
-                    errors.append("related_candidate_spec_ids contains self-reference")
-                elif resolved_target is None:
-                    errors.append(f"dangling provisional related ID: {target}")
+        normalized_provisional = []
+        for value in provisional:
+            if not isinstance(value, str) or not value.strip():
+                errors.append("related_candidate_spec_ids must contain non-empty strings")
+                continue
+            normalized_provisional.append(value.strip())
+        if normalized_provisional != dedupe(normalized_provisional):
+            errors.append("related_candidate_spec_ids contains duplicate IDs")
+        resolved_provisional_aliases: dict[int, str] = {}
+        for target in normalized_provisional:
+            if target in ambiguous_provisional_ids:
+                errors.append(f"ambiguous provisional related ID: {target}")
+                continue
+            resolved_target = provisional_by_id.get(target)
+            if resolved_target is card:
+                errors.append("related_candidate_spec_ids contains self-reference")
+            elif resolved_target is None:
+                errors.append(f"dangling provisional related ID: {target}")
+            else:
+                resolved_identity = id(resolved_target)
+                final_alias = resolved_edge_aliases.get(resolved_identity)
+                previous_alias = resolved_provisional_aliases.get(resolved_identity)
+                if final_alias is not None:
+                    errors.append(
+                        "final and provisional related aliases resolve to duplicate target: "
+                        f"{final_alias}, {target}"
+                    )
+                elif previous_alias is not None:
+                    errors.append(
+                        "provisional related aliases resolve to duplicate target: "
+                        f"{previous_alias}, {target}"
+                    )
                 else:
-                    resolved_identity = id(resolved_target)
-                    final_alias = resolved_edge_aliases.get(resolved_identity)
-                    previous_alias = resolved_provisional_aliases.get(resolved_identity)
-                    if final_alias is not None:
-                        errors.append(
-                            "final and provisional related aliases resolve to duplicate target: "
-                            f"{final_alias}, {target}"
-                        )
-                    elif previous_alias is not None:
-                        errors.append(
-                            "provisional related aliases resolve to duplicate target: "
-                            f"{previous_alias}, {target}"
-                        )
-                    else:
-                        resolved_provisional_aliases[resolved_identity] = target
-                        resolved_provisional_targets.append((target, resolved_target))
-            valid_provisional_edge = bool(normalized_provisional) and not any(
-                message.startswith((
-                    "related_candidate_spec_ids",
-                    "ambiguous provisional related ID",
-                    "dangling provisional related ID",
-                    "provisional related aliases resolve to duplicate target",
-                    "final and provisional related aliases resolve to duplicate target",
-                ))
-                for message in errors
-            )
+                    resolved_provisional_aliases[resolved_identity] = target
+                    resolved_provisional_targets.append((target, resolved_target))
+        valid_provisional_edge = bool(normalized_provisional) and not any(
+            message.startswith((
+                "related_candidate_spec_ids",
+                "ambiguous provisional related ID",
+                "dangling provisional related ID",
+                "provisional related aliases resolve to duplicate target",
+                "final and provisional related aliases resolve to duplicate target",
+            ))
+            for message in errors
+        )
 
     if relation_type == "new_unrelated_event" and (related or (allow_provisional_related and provisional)):
         errors.append("new_unrelated_event must have empty related[] and no provisional related edges")

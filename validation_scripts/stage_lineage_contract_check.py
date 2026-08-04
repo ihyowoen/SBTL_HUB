@@ -49,6 +49,10 @@ _base.STAGE_A_EFFECT_BRIDGE_BLOCKERS = {
     "mw", "mwh", "gw", "gwh", "units", "unit", "tons", "tonnes",
     "그리고", "또는", "하지만", "그러나", "반면", "대비", "에서", "까지",
 }
+_base.STAGE_A_EFFECT_FIRST_MEASUREMENT_ATTACHMENT_TERMS = {
+    "under", "within", "amid", "during", "according", "against", "alongside",
+    "beneath", "inside", "아래", "하에서", "중", "내", "가운데",
+}
 _base.STAGE_A_EFFECT_BRIDGE_PREDICATE_BLOCKERS = {
     "say", "says", "said", "report", "reports", "reported", "reporting",
     "show", "shows", "showed", "shown", "indicate", "indicates", "indicated",
@@ -235,6 +239,27 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
         for token in bridge
     ):
         return False
+    # When a directional effect appears first, a preceding measurement subject
+    # plus a relational attachment to a later interpretation object describes
+    # the measured event, not a change to that interpretation. For example,
+    # "capacity increased under the current demand outlook" must not bind the
+    # capacity movement to "outlook". Direct transitive effects and auxiliary-
+    # governed phrases remain available through their normal semantic paths.
+    if effect_index < object_index and _base._has_any_term(
+        tokens[effect_index],
+        _base.STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS,
+    ):
+        left_context = tokens[max(0, effect_index - 4):effect_index]
+        has_measurement_subject = any(
+            token in _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
+            for token in left_context
+        )
+        has_relational_attachment = any(
+            token in _base.STAGE_A_EFFECT_FIRST_MEASUREMENT_ATTACHMENT_TERMS
+            for token in bridge
+        )
+        if has_measurement_subject and has_relational_attachment:
+            return False
     return True
 
 

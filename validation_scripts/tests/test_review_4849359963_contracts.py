@@ -6,6 +6,8 @@ import unittest
 from validation_scripts import stage_lineage_contract_check as lineage
 from validation_scripts.tests import test_review_4840844831_contracts as prior_contracts
 
+# Review 4849677091: directional metric words require interpretation binding.
+
 
 class TestReview4849359963Contracts(unittest.TestCase):
     def base_v3_spec(self):

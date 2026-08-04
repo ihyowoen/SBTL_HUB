@@ -75,9 +75,14 @@ _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS = {
     "비용", "출하", "주문", "고객", "율", "비율", "점유율", "백분율",
     "건수", "수치", "수준", "증가율",
 }
-_base.STAGE_A_EFFECT_FIRST_MEASUREMENT_SUBJECT_TERMS = set(
+# Keep every measurement guard and the auxiliary direct-effect fallback aligned
+# with the complete exact-metric vocabulary accepted elsewhere by the validator.
+_base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS = set(
     _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
 ) | set(_base.STAGE_A_EXACT_TARGET_TERMS)
+_base.STAGE_A_EFFECT_FIRST_MEASUREMENT_SUBJECT_TERMS = (
+    _base.STAGE_A_EFFECT_BRIDGE_EVENT_MEASUREMENT_BLOCKERS
+)
 _base.STAGE_A_INTERPRETATION_OBJECT_QUALIFIER_TERMS = {
     "for", "of", "regarding", "concerning", "about", "on", "around",
     "toward", "towards", "대한", "관련", "관한",

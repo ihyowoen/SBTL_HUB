@@ -1,24 +1,22 @@
-name: Apply review 4849852178 and validate
+name: Validate review 4849852178 patch artifact
 
 on:
-  push:
-    branches:
-      - agent/structural-news-value-v3
+  pull_request:
     paths:
-      - "validation_scripts/patch_review_4849852178.py"
+      - "validation_scripts/**"
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   patch-and-validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout PR head
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          ref: agent/structural-news-value-v3
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -40,14 +38,11 @@ jobs:
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
 
-      - name: Commit validated patch
-        run: |
-          git config user.name "ihyowoen"
-          git config user.email "ihyowoen@users.noreply.github.com"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "fix: bind structured and ambiguous confirmation effects"
-            git push origin HEAD:agent/structural-news-value-v3
-          fi
+      - name: Package validated files
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-4849852178-validated-files
+          path: |
+            validation_scripts/stage_lineage_contract_check.py
+            validation_scripts/tests/test_review_4849852178_contracts.py
+          if-no-files-found: error

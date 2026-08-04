@@ -63,7 +63,8 @@ class Review4839991362Contracts(unittest.TestCase):
 
     def test_final_qc_uses_current_run_scoped_strict_related_contract(self) -> None:
         scoped = (
-            "`related_lifecycle_check.py --require-contract "
+            "`python validation_scripts/related_lifecycle_check.py "
+            "<MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-contract "
             "--allow-provisional-related --new-id-file <CURRENT_RUN_ID_FILE>`"
         )
         unscoped = "`related_lifecycle_check.py --require-contract`,"

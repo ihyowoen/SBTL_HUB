@@ -8,7 +8,7 @@ on:
       - "docs/llm_prompts/v1/**"
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
-      - "scripts/**"
+      - "scripts/lean_cards.mjs"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
   push:
@@ -25,97 +25,25 @@ on:
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout PR branch
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: agent/structural-news-value-v3
-          fetch-depth: 0
-          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Apply latest review fixes
-        run: |
-          python scripts/patch_review_4851050000.py
-          python scripts/patch_review_4851050000_regression.py
-
       - name: Compile validators
         run: python -m compileall -q validation_scripts
-
-      - name: Run focused regression tests
-        run: PYTHONPATH=validation_scripts:. python -m unittest validation_scripts.tests.test_review_4851050000_contracts -v
 
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
-
-      - name: Restore read-only CI and commit verified fixes
-        run: |
-          cat > .github/workflows/workflow-contract-validation.yml <<'EOF'
-          name: Workflow contract validation
-
-          on:
-            pull_request:
-              paths:
-                - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-                - "docs/SOURCE_AUDIT_CONTRACT.md"
-                - "docs/llm_prompts/v1/**"
-                - "validation_data/source_owner_registry.json"
-                - "validation_scripts/**"
-                - "scripts/lean_cards.mjs"
-                - ".github/workflows/lean-cards.yml"
-                - ".github/workflows/workflow-contract-validation.yml"
-            push:
-              branches:
-                - agent/workflow-contract-related-source-audit
-              paths:
-                - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-                - "docs/SOURCE_AUDIT_CONTRACT.md"
-                - "docs/llm_prompts/v1/**"
-                - "validation_data/source_owner_registry.json"
-                - "validation_scripts/**"
-                - "scripts/lean_cards.mjs"
-                - ".github/workflows/lean-cards.yml"
-                - ".github/workflows/workflow-contract-validation.yml"
-
-          permissions:
-            contents: read
-
-          jobs:
-            validate:
-              runs-on: ubuntu-latest
-              steps:
-                - name: Checkout
-                  uses: actions/checkout@v4
-
-                - name: Set up Python
-                  uses: actions/setup-python@v5
-                  with:
-                    python-version: "3.12"
-
-                - name: Compile validators
-                  run: python -m compileall -q validation_scripts
-
-                - name: Run workflow-contract and exporter regression tests
-                  run: python -m unittest discover -s validation_scripts/tests -v
-
-                - name: Verify prompt overlays
-                  run: python validation_scripts/apply_prompt_contract_overlays.py --check
-          EOF
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm scripts/patch_review_4851050000.py scripts/patch_review_4851050000_regression.py .github/workflows/patch-review-4851050000.yml
-          git add -A
-          git commit -m "Address latest PR 233 review feedback"
-          git push origin HEAD:agent/structural-news-value-v3

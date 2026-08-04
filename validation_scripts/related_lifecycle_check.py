@@ -33,6 +33,36 @@ FRESH_FOLLOW_UP_ANCHOR_CLASSES = {
     "follow_up_probability_anchor",
 }
 
+_GENERIC_LINEAGE_ASSERTION_TOKENS = {
+    "same", "project", "topic", "event", "related", "follow", "followup",
+    "up", "update", "updated", "new", "information", "evidence", "fact",
+    "incremental", "changed", "judgment", "judgement", "anchor", "fresh",
+    "tbd", "none", "na", "n", "a", "sameproject", "sametopic",
+    "동일", "프로젝트", "주제", "사건", "관련", "후속", "업데이트",
+    "신규", "정보", "근거", "사실", "증분", "판단", "변경", "앵커",
+    "미정", "없음",
+}
+_GENERIC_LINEAGE_ASSERTION_PHRASES = {
+    "same project", "same topic", "same event", "related event",
+    "follow up", "follow-up", "new information", "new evidence",
+    "incremental fact", "changed judgment", "changed judgement",
+    "fresh anchor", "same project update", "same topic update",
+    "동일 프로젝트", "동일 주제", "관련 사건", "후속 업데이트",
+    "신규 정보", "신규 근거", "증분 사실", "판단 변경",
+}
+
+
+def item_specific_lineage_assertion(value: Any) -> bool:
+    if not isinstance(value, str):
+        return False
+    normalized = re.sub(r"[^a-z0-9가-힣]+", " ", value.casefold()).strip()
+    if not normalized or normalized in _GENERIC_LINEAGE_ASSERTION_PHRASES:
+        return False
+    tokens = [token for token in normalized.split() if token]
+    if not tokens or all(token in _GENERIC_LINEAGE_ASSERTION_TOKENS for token in tokens):
+        return False
+    return True
+
 
 def load_cards(path: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
@@ -492,12 +522,15 @@ def check_card(
         anchor_class = lineage.get("fresh_follow_up_anchor_class")
         if not isinstance(anchor_class, str) or anchor_class not in FRESH_FOLLOW_UP_ANCHOR_CLASSES:
             errors.append("distinct_follow_up requires valid fresh_follow_up_anchor_class")
+        fresh_anchor = lineage.get("fresh_follow_up_anchor")
+        if not item_specific_lineage_assertion(fresh_anchor):
+            errors.append("distinct_follow_up requires item-specific fresh_follow_up_anchor")
         incremental_fact = lineage.get("incremental_fact_vs_predecessor")
-        if not isinstance(incremental_fact, str) or not incremental_fact.strip():
-            errors.append("distinct_follow_up requires incremental_fact_vs_predecessor")
+        if not item_specific_lineage_assertion(incremental_fact):
+            errors.append("distinct_follow_up requires item-specific incremental_fact_vs_predecessor")
         changed_judgment = lineage.get("changed_judgment_vs_predecessor")
-        if not isinstance(changed_judgment, str) or not changed_judgment.strip():
-            errors.append("distinct_follow_up requires changed_judgment_vs_predecessor")
+        if not item_specific_lineage_assertion(changed_judgment):
+            errors.append("distinct_follow_up requires item-specific changed_judgment_vs_predecessor")
 
     is_publishable = card.get("publish_ready") is True or card.get("state") in PUBLISH_STATES
     if relation_type in DISALLOWED_PUBLISH_RELATIONS and (require_contract or is_publishable):

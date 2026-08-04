@@ -187,12 +187,27 @@ def _structured_exact_target(value):
         and has_alpha
         and (has_exact_role or has_event_role or has_predicate_role)
     )
+    generic_role_tokens = set()
+    for term in (
+        tuple(_base.STAGE_A_EXACT_TARGET_TERMS)
+        + tuple(_base.STAGE_A_CONFIRMATION_EVENT_TERMS)
+        + tuple(_base.STAGE_A_SUBSTANTIVE_TARGET_PREDICATE_TERMS)
+    ):
+        generic_role_tokens.update(_base.re.findall(r"[a-z0-9가-힣]+", _base._normalized_text(term)))
+    generic_role_tokens.update({
+        "and", "or", "the", "a", "an", "of", "for", "to", "in", "on",
+        "at", "by", "from", "with", "was", "were", "is", "are", "be",
+        "및", "또는", "의", "에", "에서", "대한",
+    })
+    has_named_or_item_specific_subject = any(
+        token not in generic_role_tokens and not token.isdigit()
+        for token in tokens
+    )
+    has_substantive_role = has_exact_role or has_event_role or has_predicate_role
     return (
         is_explicit_date
         or has_qualified_numeric_target
-        or has_exact_role
-        or has_event_role
-        or has_predicate_role
+        or (has_substantive_role and has_named_or_item_specific_subject)
     )
 
 

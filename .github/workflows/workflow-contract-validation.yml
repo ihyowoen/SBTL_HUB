@@ -44,7 +44,9 @@ jobs:
           python-version: "3.12"
 
       - name: Apply latest review fixes
-        run: python scripts/patch_review_4851050000.py
+        run: |
+          python scripts/patch_review_4851050000.py
+          python scripts/patch_review_4851050000_regression.py
 
       - name: Compile validators
         run: python -m compileall -q validation_scripts
@@ -113,7 +115,7 @@ jobs:
           EOF
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm scripts/patch_review_4851050000.py .github/workflows/patch-review-4851050000.yml
+          git rm scripts/patch_review_4851050000.py scripts/patch_review_4851050000_regression.py .github/workflows/patch-review-4851050000.yml
           git add -A
           git commit -m "Address latest PR 233 review feedback"
           git push origin HEAD:agent/structural-news-value-v3

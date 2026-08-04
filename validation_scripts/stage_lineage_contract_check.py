@@ -259,23 +259,27 @@ def _object_position_is_interpretive(tokens, index):
     if any(neighbor in semantic_qualifiers for neighbor in neighbors):
         return True
 
-    # Numeric movement of adoption itself is a measured outcome, even when the
-    # percentage follows the directional verb rather than the adoption token.
-    tail = tokens[index + 1:]
-    for offset, candidate in enumerate(tail):
-        if not _base._has_any_term(
+    # Directional movement plus a numeric/metric qualifier makes adoption a
+    # measured outcome regardless of whether the movement appears before or
+    # after the overloaded object (for example, "10% increase in adoption" or
+    # "adoption increased by 10%"). Keep the window local so an unrelated
+    # measurement elsewhere in the clause cannot reclassify the object.
+    local_window = tokens[max(0, index - 6):min(len(tokens), index + 7)]
+    has_directional_movement = any(
+        _base._has_any_term(
             candidate, _base.STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS
-        ):
-            continue
-        movement_tail = tail[offset + 1:]
-        if any(any(char.isdigit() for char in part) for part in movement_tail):
-            return False
-        if any(
-            part in _base.STAGE_A_INTERPRETATION_METRIC_QUALIFIERS
-            for part in movement_tail
-        ):
-            return False
-        break
+        )
+        for candidate in local_window
+    )
+    has_measurement = any(
+        any(char.isdigit() for char in candidate)
+        for candidate in local_window
+    ) or any(
+        candidate in _base.STAGE_A_INTERPRETATION_METRIC_QUALIFIERS
+        for candidate in local_window
+    )
+    if has_directional_movement and has_measurement:
+        return False
     return True
 
 

@@ -50,7 +50,7 @@ jobs:
         run: python -m compileall -q validation_scripts
 
       - name: Run focused regression tests
-        run: python -m unittest validation_scripts.tests.test_review_4851050000_contracts -v
+        run: PYTHONPATH=validation_scripts:. python -m unittest validation_scripts.tests.test_review_4851050000_contracts -v
 
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v

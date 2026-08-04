@@ -9,57 +9,41 @@ on:
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
       - "scripts/lean_cards.mjs"
-      - "scripts/patch_review_4849359963_direct.py"
       - ".github/workflows/lean-cards.yml"
-      - ".github/workflows/patch-review-4849359963-direct.yml"
+      - ".github/workflows/workflow-contract-validation.yml"
+  push:
+    branches:
+      - agent/workflow-contract-related-source-audit
+    paths:
+      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
+      - "docs/SOURCE_AUDIT_CONTRACT.md"
+      - "docs/llm_prompts/v1/**"
+      - "validation_data/source_owner_registry.json"
+      - "validation_scripts/**"
+      - "scripts/lean_cards.mjs"
+      - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  validate-and-patch-review-4849359963:
+  validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout PR branch
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: agent/structural-news-value-v3
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Apply review fix
-        run: python scripts/patch_review_4849359963_direct.py
-
       - name: Compile validators
         run: python -m compileall -q validation_scripts
 
-      - name: Run focused regression
-        run: python -m unittest validation_scripts.tests.test_review_4849359963_contracts -v
-
       - name: Run workflow-contract and exporter regression tests
-        run: python -m unittest discover -s validation_scripts/tests -p 'test_*.py' -v
+        run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
-
-      - name: Restore workflow, remove helpers, and commit verified fix
-        run: |
-          git show HEAD^:.github/workflows/workflow-contract-validation.yml > .github/workflows/workflow-contract-validation.yml
-          rm -f scripts/patch_review_4849359963_direct.py .github/workflows/patch-review-4849359963-direct.yml
-          find validation_scripts -type d -name __pycache__ -prune -exec rm -rf {} +
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add validation_scripts/stage_lineage_contract_check.py \
-            validation_scripts/tests/test_review_4840783305_contracts.py \
-            validation_scripts/tests/test_review_4848883611_contracts.py \
-            validation_scripts/tests/test_review_4849359963_contracts.py \
-            scripts/patch_review_4849359963_direct.py \
-            .github/workflows/patch-review-4849359963-direct.yml \
-            .github/workflows/workflow-contract-validation.yml
-          git commit -m 'fix: require interpretation effect in free-text confirmations'
-          git push origin HEAD:agent/structural-news-value-v3

@@ -95,6 +95,48 @@ def _effect_tokens(clause):
     return _base.re.findall(r"[a-z0-9가-힣]+", prepared)
 
 
+def _substantive_target_pattern(term):
+    """Match ordinary predicate inflections without reopening substrings."""
+    if _base.re.search(r"[가-힣]", term):
+        return _base._term_pattern(term)
+
+    irregular = {
+        "hold": ("hold", "holds", "holding", "held"),
+        "cancel": (
+            "cancel", "cancels", "canceled", "cancelled",
+            "canceling", "cancelling",
+        ),
+        "unknown": ("unknown",),
+    }
+    if term in irregular:
+        forms = irregular[term]
+    elif term.endswith("e"):
+        stem = term[:-1]
+        forms = (term, f"{stem}es", f"{stem}ed", f"{stem}ing")
+    elif term.endswith("y") and len(term) > 1:
+        stem = term[:-1]
+        if term[-2] not in "aeiou":
+            forms = (term, f"{stem}ies", f"{stem}ied", f"{term}ing")
+        else:
+            forms = (term, f"{term}s", f"{term}ed", f"{term}ing")
+    else:
+        plural = f"{term}es" if term.endswith(("s", "x", "z", "ch", "sh", "o")) else f"{term}s"
+        forms = (term, plural, f"{term}ed", f"{term}ing")
+
+    body = "|".join(
+        _base.re.escape(form) for form in sorted(set(forms), key=len, reverse=True)
+    )
+    return rf"(?<![\w])(?:{body})(?![\w])"
+
+
+def _has_substantive_target_predicate(value):
+    text = _base._normalized_text(value)
+    return any(
+        _base.re.search(_substantive_target_pattern(term), text)
+        for term in _base.STAGE_A_SUBSTANTIVE_TARGET_PREDICATE_TERMS
+    )
+
+
 def _structured_exact_target(value):
     """Require a claim, metric, event, stage, or date—not a bare entity name."""
     if (
@@ -123,9 +165,7 @@ def _structured_exact_target(value):
     has_event_role = _base._has_any_term(
         value, _base.STAGE_A_CONFIRMATION_EVENT_TERMS
     )
-    has_predicate_role = _base._has_any_term(
-        value, _base.STAGE_A_SUBSTANTIVE_TARGET_PREDICATE_TERMS
-    )
+    has_predicate_role = _has_substantive_target_predicate(value)
     has_qualified_numeric_target = (
         any(char.isdigit() for char in text)
         and has_alpha
@@ -203,11 +243,40 @@ def _object_position_is_interpretive(tokens, index):
     token = tokens[index]
     if token not in _base.STAGE_A_OVERLOADED_INTERPRETATION_OBJECT_TERMS:
         return True
+
     neighbors = tokens[max(0, index - 1):index] + tokens[index + 1:index + 3]
-    return not any(
+    if any(
         neighbor in _base.STAGE_A_INTERPRETATION_METRIC_QUALIFIERS
         for neighbor in neighbors
+    ):
+        return False
+
+    # An explicit semantic qualifier such as adoption probability/outlook keeps
+    # the overloaded term interpretive even if the probability is quantified.
+    semantic_qualifiers = set(_base.STAGE_A_INTERPRETATION_OBJECT_TERMS) - set(
+        _base.STAGE_A_OVERLOADED_INTERPRETATION_OBJECT_TERMS
     )
+    if any(neighbor in semantic_qualifiers for neighbor in neighbors):
+        return True
+
+    # Numeric movement of adoption itself is a measured outcome, even when the
+    # percentage follows the directional verb rather than the adoption token.
+    tail = tokens[index + 1:]
+    for offset, candidate in enumerate(tail):
+        if not _base._has_any_term(
+            candidate, _base.STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS
+        ):
+            continue
+        movement_tail = tail[offset + 1:]
+        if any(any(char.isdigit() for char in part) for part in movement_tail):
+            return False
+        if any(
+            part in _base.STAGE_A_INTERPRETATION_METRIC_QUALIFIERS
+            for part in movement_tail
+        ):
+            return False
+        break
+    return True
 
 
 def _has_verbal_effect_cue(clause, term):
@@ -286,6 +355,8 @@ def _structured_interpretation_effect(value):
 
 
 _base._effect_tokens = _effect_tokens
+_base._substantive_target_pattern = _substantive_target_pattern
+_base._has_substantive_target_predicate = _has_substantive_target_predicate
 _base._structured_exact_target = _structured_exact_target
 _base._valid_evidence_target = _valid_evidence_target
 _base._effect_bridge_is_semantic = _effect_bridge_is_semantic

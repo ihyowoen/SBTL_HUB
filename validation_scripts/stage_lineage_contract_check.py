@@ -113,6 +113,21 @@ STAGE_A_INTERPRETATION_EFFECT_TERMS = (
     '확인', '강화', '지지', '약화', '무효', '기각', '수정', '변경',
     '상향', '하향', '증가', '감소', '유지',
 )
+STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS = (
+    'change', 'raise', 'lower', 'increase', 'decrease', 'hold',
+    '변경', '상향', '하향', '증가', '감소', '유지',
+)
+STAGE_A_DIRECT_INTERPRETATION_EFFECT_TERMS = tuple(
+    term for term in STAGE_A_INTERPRETATION_EFFECT_TERMS
+    if term not in STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS
+)
+STAGE_A_INTERPRETATION_OBJECT_TERMS = (
+    'interpretation', 'thesis', 'outlook', 'judgment', 'judgement',
+    'expectation', 'assessment', 'probability', 'conviction', 'conclusion',
+    'view', 'forecast',
+    '해석', '논지', '전망', '판단', '기대', '평가', '확률', '확신',
+    '결론', '견해', '예측',
+)
 STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS = (
     'official', 'filing', 'rule', 'regulation', 'guidance', 'order', 'notice',
     'document', 'dataset', 'statistics', 'transcript', 'technical test',
@@ -424,6 +439,63 @@ def _has_any_term(value, terms):
     return bool(_matching_terms(value, terms))
 
 
+def _has_bound_interpretation_effect(value):
+    """Require directional terms to modify an interpretation object.
+
+    Direct semantic effects such as confirm/weaken/invalidate are sufficient on
+    their own. Ambiguous direction words such as increase/decrease/hold/change
+    count only when they occur in the same clause and within two intervening
+    tokens of thesis/outlook/interpretation-like language. This prevents a
+    measured event such as "capacity decreased by 10%" from masquerading as
+    an interpretation effect.
+    """
+    text = _normalized_text(value)
+    if not text:
+        return False
+    if _has_any_term(text, STAGE_A_DIRECT_INTERPRETATION_EFFECT_TERMS):
+        return True
+
+    clauses = re.split(
+        r'[.;,\n]+|\b(?:but|while|whereas|although|however)\b|(?:하지만|그러나|반면)',
+        text,
+    )
+    all_bound_terms = (
+        STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS
+        + STAGE_A_INTERPRETATION_OBJECT_TERMS
+    )
+    for clause in clauses:
+        clause = clause.strip()
+        if not clause:
+            continue
+
+        # Surround matched terms before tokenization. This preserves English
+        # inflections and separates Korean particles (for example, 전망을 or
+        # 감소는) without weakening complete-term collision protection.
+        prepared = clause
+        for term in sorted(set(all_bound_terms), key=len, reverse=True):
+            prepared = re.sub(
+                _term_pattern(term),
+                lambda match: f' {match.group(0)} ',
+                prepared,
+            )
+        tokens = re.findall(r'[a-z0-9가-힣]+', prepared)
+        direction_positions = [
+            index for index, token in enumerate(tokens)
+            if _has_any_term(token, STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS)
+        ]
+        object_positions = [
+            index for index, token in enumerate(tokens)
+            if _has_any_term(token, STAGE_A_INTERPRETATION_OBJECT_TERMS)
+        ]
+        if any(
+            abs(direction_index - object_index) - 1 <= 2
+            for direction_index in direction_positions
+            for object_index in object_positions
+        ):
+            return True
+    return False
+
+
 def _valid_evidence_target(value):
     if isinstance(value, dict):
         source_class = value.get('source_or_document_class') or value.get('source_class')
@@ -457,9 +529,7 @@ def _valid_confirmation_point(value):
         _has_any_term(text, STAGE_A_CONFIRMATION_EVENT_TERMS)
         or _has_any_term(text, STAGE_A_EXACT_TARGET_TERMS)
     )
-    has_interpretation_effect = _has_any_term(
-        text, STAGE_A_INTERPRETATION_EFFECT_TERMS
-    )
+    has_interpretation_effect = _has_bound_interpretation_effect(text)
     return (
         bool(text)
         and len(text.split()) >= 4

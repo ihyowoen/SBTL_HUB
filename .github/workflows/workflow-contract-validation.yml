@@ -1,108 +1,49 @@
-name: Apply review 4849677091 and validate
+name: Workflow contract validation
 
 on:
   pull_request:
     paths:
+      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
+      - "docs/SOURCE_AUDIT_CONTRACT.md"
+      - "docs/llm_prompts/v1/**"
+      - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
+      - "scripts/lean_cards.mjs"
+      - ".github/workflows/lean-cards.yml"
+      - ".github/workflows/workflow-contract-validation.yml"
+  push:
+    branches:
+      - agent/workflow-contract-related-source-audit
+    paths:
+      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
+      - "docs/SOURCE_AUDIT_CONTRACT.md"
+      - "docs/llm_prompts/v1/**"
+      - "validation_data/source_owner_registry.json"
+      - "validation_scripts/**"
+      - "scripts/lean_cards.mjs"
+      - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  patch-and-validate:
-    if: github.event.pull_request.head.repo.full_name == github.repository
+  validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout PR branch
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Apply review patch
-        run: python validation_scripts/patch_review_4849677091.py
-
       - name: Compile validators
         run: python -m compileall -q validation_scripts
 
-      - name: Run focused review regression
-        run: python -m unittest validation_scripts.tests.test_review_4849359963_contracts -v
-
-      - name: Run full workflow-contract regression suite
+      - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
-
-      - name: Restore read-only workflow and commit validated patch
-        shell: bash
-        run: |
-          cat > .github/workflows/workflow-contract-validation.yml <<'EOF'
-          name: Workflow contract validation
-
-          on:
-            pull_request:
-              paths:
-                - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-                - "docs/SOURCE_AUDIT_CONTRACT.md"
-                - "docs/llm_prompts/v1/**"
-                - "validation_data/source_owner_registry.json"
-                - "validation_scripts/**"
-                - "scripts/lean_cards.mjs"
-                - ".github/workflows/lean-cards.yml"
-                - ".github/workflows/workflow-contract-validation.yml"
-            push:
-              branches:
-                - agent/workflow-contract-related-source-audit
-              paths:
-                - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-                - "docs/SOURCE_AUDIT_CONTRACT.md"
-                - "docs/llm_prompts/v1/**"
-                - "validation_data/source_owner_registry.json"
-                - "validation_scripts/**"
-                - "scripts/lean_cards.mjs"
-                - ".github/workflows/lean-cards.yml"
-                - ".github/workflows/workflow-contract-validation.yml"
-
-          permissions:
-            contents: read
-
-          jobs:
-            validate:
-              runs-on: ubuntu-latest
-              steps:
-                - name: Checkout
-                  uses: actions/checkout@v4
-
-                - name: Set up Python
-                  uses: actions/setup-python@v5
-                  with:
-                    python-version: "3.12"
-
-                - name: Compile validators
-                  run: python -m compileall -q validation_scripts
-
-                - name: Run workflow-contract and exporter regression tests
-                  run: python -m unittest discover -s validation_scripts/tests -v
-
-                - name: Verify prompt overlays
-                  run: python validation_scripts/apply_prompt_contract_overlays.py --check
-          EOF
-          rm validation_scripts/patch_review_4849677091.py
-          find validation_scripts -type d -name __pycache__ -prune -exec rm -rf {} +
-          git config user.name "chatgpt-codex-connector[bot]"
-          git config user.email "209208005+chatgpt-codex-connector[bot]@users.noreply.github.com"
-          git add validation_scripts/stage_lineage_contract_check.py \
-                  validation_scripts/tests/test_review_4849359963_contracts.py \
-                  validation_scripts/patch_review_4849677091.py \
-                  .github/workflows/workflow-contract-validation.yml
-          git diff --cached --check
-          git commit -m "fix: bind confirmation effects to interpretation"
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}

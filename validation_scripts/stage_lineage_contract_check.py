@@ -262,24 +262,32 @@ def _object_position_is_interpretive(tokens, index):
     # Directional movement plus a numeric/metric qualifier makes adoption a
     # measured outcome regardless of whether the movement appears before or
     # after the overloaded object (for example, "10% increase in adoption" or
-    # "adoption increased by 10%"). Keep the window local so an unrelated
-    # measurement elsewhere in the clause cannot reclassify the object.
-    local_window = tokens[max(0, index - 6):min(len(tokens), index + 7)]
-    has_directional_movement = any(
-        _base._has_any_term(
-            candidate, _base.STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS
+    # "adoption increased by 10%"). Inspect every directional endpoint allowed
+    # by the six-token semantic bridge, plus the two-token measurement modifier
+    # immediately outside that endpoint (for example, "10 percent increase").
+    directional_positions = [
+        candidate_index
+        for candidate_index in range(
+            max(0, index - 7), min(len(tokens), index + 8)
         )
-        for candidate in local_window
-    )
-    has_measurement = any(
-        any(char.isdigit() for char in candidate)
-        for candidate in local_window
-    ) or any(
-        candidate in _base.STAGE_A_INTERPRETATION_METRIC_QUALIFIERS
-        for candidate in local_window
-    )
-    if has_directional_movement and has_measurement:
-        return False
+        if _base._has_any_term(
+            tokens[candidate_index],
+            _base.STAGE_A_DIRECTIONAL_INTERPRETATION_EFFECT_TERMS,
+        )
+    ]
+    for directional_index in directional_positions:
+        context_start = max(0, min(index, directional_index) - 2)
+        context_end = min(len(tokens), max(index, directional_index) + 3)
+        measurement_context = tokens[context_start:context_end]
+        has_measurement = any(
+            any(char.isdigit() for char in candidate)
+            for candidate in measurement_context
+        ) or any(
+            candidate in _base.STAGE_A_INTERPRETATION_METRIC_QUALIFIERS
+            for candidate in measurement_context
+        )
+        if has_measurement:
+            return False
     return True
 
 

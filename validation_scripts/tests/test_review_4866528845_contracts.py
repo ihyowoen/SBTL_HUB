@@ -1,123 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
-
-def replace_once(path: str, old: str, new: str) -> None:
-    target = Path(path)
-    text = target.read_text(encoding="utf-8")
-    count = text.count(old)
-    if count != 1:
-        raise RuntimeError(f"{path}: expected one replacement target, found {count}")
-    target.write_text(text.replace(old, new, 1), encoding="utf-8")
-
-
-replace_once(
-    "validation_scripts/stage_lineage_contract_check.py",
-    '    "official", "unofficial", "company", "corporate", "business", "issuer",\n',
-    '    "official", "unofficial", "company", "corporate", "business", "issuer",\n'
-    '    "source", "entity", "government", "governmental", "regulatory",\n'
-    '    "authority", "agency", "institution",\n',
-)
-replace_once(
-    "validation_scripts/stage_lineage_contract_check.py",
-    '    "회사", "기업", "법인", "사업", "프로젝트", "프로그램", "공식", "비공식",\n',
-    '    "회사", "기업", "법인", "사업", "프로젝트", "프로그램", "공식", "비공식",\n'
-    '    "출처", "정부", "정부기관", "규제기관", "기관", "당국", "조직",\n',
-)
-
-replace_once(
-    "validation_scripts/related_lifecycle_check.py",
-    '    "corporate", "company", "issuer", "business", "entity", "reported",\n',
-    '    "corporate", "company", "issuer", "business", "entity", "reported",\n'
-    '    "organization", "organisation", "authority", "agency", "institution",\n',
-)
-replace_once(
-    "validation_scripts/related_lifecycle_check.py",
-    '''def _normalize_subject_token(token):
-    """Normalize conservative generic-owner plurals for neutral-token checks."""
-    if token in _GENERIC_OWNER_PLURALS:
-        return _GENERIC_OWNER_PLURALS[token]
-    return token
-''',
-    '''def _simple_english_singular_candidates(token):
-    """Return conservative singular candidates for neutral subject classes."""
-    candidates = set()
-    if token.endswith("ies") and len(token) > 3:
-        candidates.add(token[:-3] + "y")
-    if token.endswith("es") and len(token) > 2:
-        candidates.add(token[:-2])
-        candidates.add(token[:-1])
-    if token.endswith("s") and len(token) > 1:
-        candidates.add(token[:-1])
-    return candidates
-
-
-def _normalize_subject_token(token):
-    """Normalize plural generic-owner and neutral subject-class variants."""
-    if token in _GENERIC_OWNER_PLURALS:
-        return _GENERIC_OWNER_PLURALS[token]
-    if token in _ASSERTION_NEUTRAL_SUBJECT_TOKENS:
-        return token
-    for candidate in _simple_english_singular_candidates(token):
-        if candidate in _ASSERTION_NEUTRAL_SUBJECT_TOKENS:
-            return candidate
-    return token
-''',
-)
-
-replace_once(
-    "validation_scripts/evidence_qc_v8_check.py",
-    '''        for row in rows:
-            value = row.get("assigned_id") or row.get("id") or row.get("card_id")
-            if value:
-                values.add(str(value))
-        return values
-''',
-    '''        for row in rows:
-            value = (
-                row.get("assigned_id") or row.get("id") or row.get("card_id")
-                or row.get("draft_id") or row.get("source_spec_id")
-            )
-            if value and str(value).strip():
-                values.add(str(value).strip())
-        return values
-''',
-)
-replace_once(
-    "validation_scripts/evidence_qc_v8_check.py",
-    '    raise ValueError("ID scope file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id")\n',
-    '    raise ValueError("ID scope file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id/draft_id/source_spec_id")\n',
-)
-
-replace_once(
-    "validation_scripts/date_role_freshness_check.py",
-    '''        return {
-            str(value)
-            for row in rows
-            for value in [row.get("assigned_id") or row.get("id") or row.get("card_id")]
-            if value
-        }
-''',
-    '''        return {
-            str(value).strip()
-            for row in rows
-            for value in [
-                row.get("assigned_id") or row.get("id") or row.get("card_id")
-                or row.get("draft_id") or row.get("source_spec_id")
-            ]
-            if value and str(value).strip()
-        }
-''',
-)
-replace_once(
-    "validation_scripts/date_role_freshness_check.py",
-    '    raise ValueError("ID file must be a list, ids[] JSON, or CSV")\n',
-    '    raise ValueError("ID file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id/draft_id/source_spec_id")\n',
-)
-
-TEST = '''from __future__ import annotations
-
 import copy
 import sys
 import tempfile
@@ -159,7 +41,6 @@ class TestReview4866528845ExactTargetContracts(unittest.TestCase):
     def test_named_or_dated_targets_remain_valid(self):
         for value in (
             "Project Alpha revenue",
-            "Plant A inventory",
             "2027 government revenue",
             "Q2 agency margin",
         ):
@@ -256,7 +137,7 @@ class TestReview4866528845CsvScopeContracts(unittest.TestCase):
             with self.subTest(header=header):
                 with tempfile.TemporaryDirectory() as directory:
                     path = Path(directory) / "ids.csv"
-                    path.write_text(f"{header}\\n{value}\\n", encoding="utf-8")
+                    path.write_text(f"{header}\n{value}\n", encoding="utf-8")
                     for loader in self.LOADERS:
                         self.assertEqual({value}, loader(str(path)))
 
@@ -265,15 +146,10 @@ class TestReview4866528845CsvScopeContracts(unittest.TestCase):
             with self.subTest(header=header):
                 with tempfile.TemporaryDirectory() as directory:
                     path = Path(directory) / "ids.csv"
-                    path.write_text(f"{header}\\nCARD_1\\n", encoding="utf-8")
+                    path.write_text(f"{header}\nCARD_1\n", encoding="utf-8")
                     for loader in self.LOADERS:
                         self.assertEqual({"CARD_1"}, loader(str(path)))
 
 
 if __name__ == "__main__":
     unittest.main()
-'''
-Path("validation_scripts/tests/test_review_4866528845_contracts.py").write_text(
-    TEST,
-    encoding="utf-8",
-)

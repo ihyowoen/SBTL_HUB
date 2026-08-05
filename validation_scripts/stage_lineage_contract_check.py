@@ -22,11 +22,14 @@ for _name in dir(_base_layer):
 _prior_structured_exact_target = _base_layer._structured_exact_target
 _GENERIC_TARGET_MODIFIER_TOKENS = {
     "official", "unofficial", "company", "corporate", "business", "issuer",
+    "source", "entity", "government", "governmental", "regulatory",
+    "authority", "agency", "institution",
     "group", "firm", "enterprise", "organization", "organisation", "project",
     "program", "programme", "reported", "published", "public", "private",
     "current", "latest", "new", "additional", "relevant", "specific",
     "formal", "final", "preliminary", "estimated", "expected", "planned",
     "회사", "기업", "법인", "사업", "프로젝트", "프로그램", "공식", "비공식",
+    "출처", "정부", "정부기관", "규제기관", "기관", "당국", "조직",
     "현재", "최신", "신규", "추가", "관련", "구체", "최종", "예비", "예상",
 }
 _SOURCE_CLASS_ROLE_TOKENS = set()

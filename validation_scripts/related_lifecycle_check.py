@@ -82,6 +82,7 @@ _ASSERTION_NEUTRAL_SUBJECT_TOKENS = {
     "on", "at", "to", "from", "as", "by", "with", "and", "or", "its", "s",
     "their", "official", "public", "regulatory", "government", "governmental",
     "corporate", "company", "issuer", "business", "entity", "reported",
+    "organization", "organisation", "authority", "agency", "institution",
     "published", "disclosed", "source", "sources", "document", "documents",
     "dataset", "datasets", "transcript", "transcripts", "report", "reports",
     "release", "releases", "announcement", "announcements", "general", "latest",
@@ -168,10 +169,28 @@ def _normalize_assertion_text(value):
     return normalized
 
 
+def _simple_english_singular_candidates(token):
+    """Return conservative singular candidates for neutral subject classes."""
+    candidates = set()
+    if token.endswith("ies") and len(token) > 3:
+        candidates.add(token[:-3] + "y")
+    if token.endswith("es") and len(token) > 2:
+        candidates.add(token[:-2])
+        candidates.add(token[:-1])
+    if token.endswith("s") and len(token) > 1:
+        candidates.add(token[:-1])
+    return candidates
+
+
 def _normalize_subject_token(token):
-    """Normalize conservative generic-owner plurals for neutral-token checks."""
+    """Normalize plural generic-owner and neutral subject-class variants."""
     if token in _GENERIC_OWNER_PLURALS:
         return _GENERIC_OWNER_PLURALS[token]
+    if token in _ASSERTION_NEUTRAL_SUBJECT_TOKENS:
+        return token
+    for candidate in _simple_english_singular_candidates(token):
+        if candidate in _ASSERTION_NEUTRAL_SUBJECT_TOKENS:
+            return candidate
     return token
 
 

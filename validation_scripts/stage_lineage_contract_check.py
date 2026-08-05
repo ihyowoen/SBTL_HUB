@@ -48,11 +48,6 @@ def _is_temporal_noun_modifier(text, marker):
     if remainder.startswith("-"):
         return True
 
-    # Examples: "the filing after review would strengthen ..." and
-    # "the filing before publication may weaken ...".  The temporal phrase
-    # modifies the preceding noun, while the modal/auxiliary starts the main
-    # predicate.  A true dependent clause instead carries its own predicate
-    # (for example, "after the outlook improved").
     return bool(
         _prior._base_layer._base.re.match(
             rf"\s+(?:the\s+)?[a-z0-9가-힣-]+"
@@ -90,8 +85,6 @@ def _independent_clause_for_causal(text):
             )
         )
 
-        # Korean causal/temporal markers are normally suffixes attached to the
-        # dependent clause, so the following text is the independent clause.
         if marker_is_korean_suffix:
             current = _prior._base_layer._base.re.sub(
                 r"^\s*[,;]?\s*", "", remainder
@@ -100,8 +93,6 @@ def _independent_clause_for_causal(text):
                 return ""
             continue
 
-        # A leading English subordinator introduces a dependent clause. Keep
-        # only the comma/semicolon-delimited main clause that follows it.
         if not prefix:
             separator = _prior._base_layer._base.re.search(r"[,;]\s*", remainder)
             if separator is None:
@@ -109,8 +100,6 @@ def _independent_clause_for_causal(text):
             current = remainder[separator.end():].strip()
             continue
 
-        # For a medial English subordinator, the prefix is the independent
-        # clause. The suffix must not be re-evaluated as a standalone effect.
         return prefix
 
     return ""
@@ -157,6 +146,10 @@ _NUMBERED_EXACT_TARGET_CLASSES = set(
         },
     )
 )
+_NUMBERED_TARGET_ROLE_ALIASES = {
+    "output": "production",
+    "outputs": "production",
+}
 
 
 def _is_period_qualifier_token(token):
@@ -195,7 +188,9 @@ def _structured_exact_target(value):
             )
         )
     normalized_prior_value = " ".join(
-        _prior._normalize_supported_role_token(token, role_tokens)
+        _prior._normalize_supported_role_token(
+            _NUMBERED_TARGET_ROLE_ALIASES.get(token, token), role_tokens
+        )
         for token in tokens
     )
     if not _prior_structured_exact_target(normalized_prior_value):

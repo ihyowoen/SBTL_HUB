@@ -1,0 +1,286 @@
+#!/usr/bin/env python3
+"""One-time patcher for review 4866342255; removed by its workflow."""
+from pathlib import Path
+
+
+def main() -> None:
+    audit_path = Path("validation_scripts/card_audit_utils.py")
+    audit = audit_path.read_text(encoding="utf-8")
+    start = audit.index("def select_scoped_cards(")
+    end = audit.index("\ndef dedupe(", start)
+    replacement = '''def _scope_identifiers(
+    card: dict[str, Any],
+    fields: tuple[str, ...],
+) -> set[str]:
+    return {
+        str(card.get(field)).strip()
+        for field in fields
+        if card.get(field) is not None and str(card.get(field)).strip()
+    }
+
+
+def select_scoped_cards(
+    cards: Iterable[dict[str, Any]],
+    selected_ids: set[str] | None,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Select an exact current-run scope across final and pre-merge IDs.
+
+    Final QC may run before production IDs are assigned, so unique ``draft_id``
+    and ``source_spec_id`` aliases are valid scope selectors. Because the scope
+    file is untyped, any identifier resolving to multiple rows across canonical
+    or provisional namespaces is ambiguous and fails closed.
+    """
+    rows = list(cards)
+    if selected_ids is None:
+        return rows, {
+            "applied": False,
+            "status": "NOT_APPLIED",
+            "requested_count": None,
+            "matched_count": len(rows),
+            "selected_card_count": len(rows),
+            "missing_ids": [],
+            "ambiguous_ids": [],
+            "errors": [],
+        }
+
+    requested = {str(value).strip() for value in selected_ids if str(value).strip()}
+    canonical_index: dict[str, set[int]] = {}
+    provisional_index: dict[str, set[int]] = {}
+    for index, card in enumerate(rows):
+        for value in _scope_identifiers(card, ("id", "card_id")):
+            canonical_index.setdefault(value, set()).add(index)
+        for value in _scope_identifiers(card, ("draft_id", "source_spec_id")):
+            provisional_index.setdefault(value, set()).add(index)
+
+    matched_ids: set[str] = set()
+    selected_indexes: set[int] = set()
+    missing: list[str] = []
+    ambiguous: list[str] = []
+    for value in sorted(requested):
+        indexes = canonical_index.get(value, set()) | provisional_index.get(value, set())
+        if not indexes:
+            missing.append(value)
+        elif len(indexes) > 1:
+            ambiguous.append(value)
+        else:
+            matched_ids.add(value)
+            selected_indexes.update(indexes)
+
+    errors: list[str] = []
+    if not requested:
+        errors.append("ID scope is empty")
+    elif not matched_ids:
+        errors.append("ID scope matched zero cards")
+    if missing:
+        errors.append(f"ID scope has {len(missing)} unmatched ID(s)")
+    if ambiguous:
+        errors.append(f"ID scope has {len(ambiguous)} ambiguous ID(s)")
+
+    selected_rows = [
+        card for index, card in enumerate(rows) if index in selected_indexes
+    ]
+    return selected_rows, {
+        "applied": True,
+        "status": "PASS" if not errors else "FAIL",
+        "requested_count": len(requested),
+        "matched_count": len(matched_ids),
+        "selected_card_count": len(selected_rows),
+        "missing_ids": missing,
+        "ambiguous_ids": ambiguous,
+        "errors": errors,
+    }
+
+'''
+    audit_path.write_text(audit[:start] + replacement + audit[end + 1:], encoding="utf-8")
+
+    related_path = Path("validation_scripts/related_lifecycle_check.py")
+    related = related_path.read_text(encoding="utf-8")
+    marker = '''_NUMERIC_ENTITY_LABEL_LEADS = {
+    "plant", "facility", "site", "unit", "line", "block", "mine", "well",
+    "factory", "공장", "시설", "사업장", "사이트", "라인", "광산", "유정",
+}
+'''
+    addition = marker + '''_LETTERED_ENTITY_LABEL_LEADS = _NUMERIC_ENTITY_LABEL_LEADS | {
+    "project", "program", "programme", "platform", "initiative", "venture",
+    "프로젝트", "프로그램", "사업",
+}
+'''
+    if related.count(marker) != 1:
+        raise RuntimeError("numeric entity lead marker mismatch")
+    related = related.replace(marker, addition, 1)
+
+    old_helper = '''def _has_numeric_entity_label(tokens):
+    """Recognize common concrete identifiers such as Plant 1 or Site 3."""
+    for index, token in enumerate(tokens[:-1]):
+        if _normalize_subject_token(token) not in _NUMERIC_ENTITY_LABEL_LEADS:
+            continue
+        identifier = tokens[index + 1]
+        if identifier.isdigit():
+            return True
+    return False
+'''
+    new_helper = '''def _has_concrete_entity_label(tokens):
+    """Recognize class-bound identifiers such as Plant 1 or Project A."""
+    for index, token in enumerate(tokens[:-1]):
+        lead = _normalize_subject_token(token)
+        identifier = tokens[index + 1]
+        if lead in _NUMERIC_ENTITY_LABEL_LEADS and identifier.isdigit():
+            return True
+        if lead in _LETTERED_ENTITY_LABEL_LEADS and re.fullmatch(r"[a-z]", identifier):
+            return True
+    return False
+'''
+    if related.count(old_helper) != 1:
+        raise RuntimeError("entity helper marker mismatch")
+    related = related.replace(old_helper, new_helper, 1)
+    old_assignment = "    has_numeric_entity_label = _has_numeric_entity_label(tokens)\n"
+    old_use = "    has_concrete_subject_detail = has_numeric_entity_label or any(\n"
+    if related.count(old_assignment) != 1 or related.count(old_use) != 1:
+        raise RuntimeError("entity helper use marker mismatch")
+    related = related.replace(
+        old_assignment,
+        "    has_concrete_entity_label = _has_concrete_entity_label(tokens)\n",
+        1,
+    )
+    related = related.replace(
+        old_use,
+        "    has_concrete_subject_detail = has_concrete_entity_label or any(\n",
+        1,
+    )
+    if "has_numeric_entity_label" in related:
+        raise RuntimeError("stale numeric entity helper reference remains")
+    related_path.write_text(related, encoding="utf-8")
+
+    test_path = Path("validation_scripts/tests/test_review_4866342255_contracts.py")
+    test_path.write_text(TEST_CONTENT, encoding="utf-8")
+
+
+TEST_CONTENT = '''from __future__ import annotations
+
+import sys
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+SCRIPTS = ROOT / "validation_scripts"
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
+
+import card_audit_utils as audit
+import date_role_freshness_check as date_role
+import evidence_qc_v8_check as evidence_qc
+from validation_scripts import related_lifecycle_check as related
+
+
+class TestReview4866342255ScopeContracts(unittest.TestCase):
+    SELECTORS = (
+        audit.select_scoped_cards,
+        evidence_qc.select_scoped_cards,
+        date_role.select_scoped_cards,
+    )
+
+    def test_unique_draft_and_source_spec_ids_select_premerge_cards(self):
+        cards = [
+            {"id": "LEGACY"},
+            {"draft_id": "DRAFT_NEW", "source_spec_id": "SPEC_NEW"},
+        ]
+        for selector in self.SELECTORS:
+            for requested in ({"DRAFT_NEW"}, {"SPEC_NEW"}):
+                with self.subTest(selector=selector.__module__, requested=requested):
+                    rows, scope = selector(cards, requested)
+                    self.assertEqual("PASS", scope["status"])
+                    self.assertEqual([cards[1]], rows)
+                    self.assertEqual(1, scope["matched_count"])
+                    self.assertEqual(1, scope["selected_card_count"])
+
+    def test_ambiguous_provisional_and_cross_namespace_ids_fail_closed(self):
+        cases = (
+            ([{"draft_id": "DUP"}, {"source_spec_id": "DUP"}], "DUP"),
+            ([{"id": "COLLIDE"}, {"draft_id": "COLLIDE"}], "COLLIDE"),
+        )
+        for selector in self.SELECTORS:
+            for cards, requested in cases:
+                with self.subTest(selector=selector.__module__, requested=requested):
+                    rows, scope = selector(cards, {requested})
+                    self.assertEqual([], rows)
+                    self.assertEqual("FAIL", scope["status"])
+                    self.assertEqual([requested], scope["ambiguous_ids"])
+                    self.assertIn("ID scope matched zero cards", scope["errors"])
+                    self.assertIn("ID scope has 1 ambiguous ID(s)", scope["errors"])
+
+    def test_same_row_canonical_and_provisional_alias_is_unambiguous(self):
+        cards = [{"id": "SAME", "draft_id": "SAME"}]
+        for selector in self.SELECTORS:
+            rows, scope = selector(cards, {"SAME"})
+            self.assertEqual(cards, rows)
+            self.assertEqual("PASS", scope["status"])
+            self.assertEqual([], scope["ambiguous_ids"])
+
+    def test_partial_scope_retains_unique_matches_but_fails(self):
+        cards = [{"draft_id": "DRAFT_NEW"}]
+        for selector in self.SELECTORS:
+            rows, scope = selector(cards, {"DRAFT_NEW", "MISSING"})
+            self.assertEqual(cards, rows)
+            self.assertEqual("FAIL", scope["status"])
+            self.assertEqual(["MISSING"], scope["missing_ids"])
+
+
+class TestReview4866342255LetteredEntityContracts(unittest.TestCase):
+    @staticmethod
+    def _strict_follow_up(assertion: str):
+        parent = {"id": "PARENT", "date": "2026-04-01", "related": []}
+        child = {
+            "id": "CHILD",
+            "date": "2026-07-01",
+            "related": ["PARENT"],
+            "publish_ready": True,
+            "related_lineage": {
+                "status": "PASS",
+                "relation_type": "distinct_follow_up",
+                "related_ids": ["PARENT"],
+                "reason": "The new verified data materially changes the predecessor assessment.",
+                "same_event_checked": True,
+                "earliest_same_event_date_checked": True,
+                "fresh_follow_up_anchor_class": "data_financial_anchor",
+                "fresh_follow_up_anchor": assertion,
+                "incremental_fact_vs_predecessor": assertion,
+                "changed_judgment_vs_predecessor": assertion,
+            },
+        }
+        return child, {"PARENT": parent, "CHILD": child}
+
+    def _assert_strict_success(self, assertion: str):
+        self.assertTrue(related.item_specific_lineage_assertion(assertion))
+        child, by_id = self._strict_follow_up(assertion)
+        errors, warnings = related.check_card(child, by_id, require_contract=True)
+        self.assertEqual([], warnings)
+        self.assertEqual([], errors)
+
+    def test_lettered_project_and_facility_labels_are_concrete_subjects(self):
+        assertions = (
+            "Project A Q2 revenue",
+            "Plant A Q2 inventory",
+            "Facility B Q2 safety data",
+            "Site C Q2 utilization",
+            "Unit D Q2 operating data",
+            "프로젝트 A Q2 매출",
+            "공장 B Q2 재고",
+        )
+        for assertion in assertions:
+            with self.subTest(assertion=assertion):
+                self._assert_strict_success(assertion)
+
+    def test_generic_owner_plus_letter_does_not_become_a_subject(self):
+        assertions = ("Company A Q2 revenue", "Issuer A Q2 revenue", "a Q2 revenue")
+        for assertion in assertions:
+            with self.subTest(assertion=assertion):
+                self.assertFalse(related.item_specific_lineage_assertion(assertion))
+
+
+if __name__ == "__main__":
+    unittest.main()
+'''
+
+
+if __name__ == "__main__":
+    main()

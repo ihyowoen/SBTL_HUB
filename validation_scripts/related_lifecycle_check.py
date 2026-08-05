@@ -146,6 +146,8 @@ _ASSERTION_PERIOD_UNIT_TERMS = {
     "quarter", "half", "semester", "year", "분기", "반기", "연도",
 }
 _ASSERTION_PERIOD_MODIFIER_TERMS = {"fiscal", "calendar"}
+_ASSERTION_SPLIT_FISCAL_YEAR_MARKERS = {"fy", "fiscal"}
+_ASSERTION_SPLIT_QUARTER_MARKERS = {"q", "quarter"}
 _ASSERTION_COMPOSITE_PERIOD_PATTERNS = (
     r"fy\d{2,4}",
     r"(?:h[12]|[12]h)(?:(?:fy)?\d{2,4})?",
@@ -222,7 +224,7 @@ def _normalize_assertion_role_token(token):
 
 
 def _assertion_temporal_token_indexes(tokens):
-    """Return simple and composite date/period token positions."""
+    """Return simple, composite, and split date/period token positions."""
     temporal_indexes = {
         index
         for index, token in enumerate(tokens)
@@ -232,6 +234,18 @@ def _assertion_temporal_token_indexes(tokens):
             for pattern in _ASSERTION_COMPOSITE_PERIOD_PATTERNS
         )
     }
+    for index, token in enumerate(tokens[:-1]):
+        next_token = tokens[index + 1]
+        if (
+            token in _ASSERTION_SPLIT_FISCAL_YEAR_MARKERS
+            and _base.re.fullmatch(r"(?:19|20)?\d{2}", next_token)
+        ):
+            temporal_indexes.update((index, index + 1))
+        if (
+            token in _ASSERTION_SPLIT_QUARTER_MARKERS
+            and next_token in {"1", "2", "3", "4"}
+        ):
+            temporal_indexes.update((index, index + 1))
     for index, token in enumerate(tokens):
         if token not in _ASSERTION_ORDINAL_PERIOD_TERMS:
             continue

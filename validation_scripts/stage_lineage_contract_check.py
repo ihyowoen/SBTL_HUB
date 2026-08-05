@@ -172,6 +172,7 @@ def _structured_exact_target(value):
         and not _is_generic_target_modifier_token(token)
         and not _is_source_class_role_token(token)
         and not token.isdigit()
+        and not (len(token) == 1 and token.isalpha())
         and not _is_substantive_predicate_role_token(token)
         for token in tokens
     )

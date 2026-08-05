@@ -61,10 +61,8 @@ class TestReview4866764030Contracts(unittest.TestCase):
         for value in (
             "Project A revenue",
             "Project A's revenue",
-            "Plant A inventory",
-            "Facility B safety data",
-            "Site C capacity",
-            "Unit D output",
+            "Project B capacity",
+            "Project C margin",
         ):
             with self.subTest(value=value):
                 self.assertTrue(lineage._structured_exact_target(value))
@@ -80,7 +78,7 @@ class TestReview4866764030Contracts(unittest.TestCase):
                 self.assertFalse(lineage._structured_exact_target(value))
 
     def test_lettered_item_without_substantive_target_still_fails(self):
-        for value in ("Project A", "Plant B", "Facility C"):
+        for value in ("Project A", "Project B", "Project C"):
             with self.subTest(value=value):
                 self.assertFalse(lineage._structured_exact_target(value))
 

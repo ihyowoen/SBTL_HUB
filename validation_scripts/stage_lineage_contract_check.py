@@ -102,7 +102,7 @@ def _is_generic_target_modifier_token(token):
 
 _prior_has_bound_interpretation_effect = _base_layer._has_bound_interpretation_effect
 _CONDITIONAL_OR_CONCESSIVE_PATTERN = (
-    r"\b(?:if|unless|until|despite)\b|"
+    r"\b(?:even\s+though|although|though|if|unless|until|despite)\b|"
     r"(?:만약|경우|않으면|까지|에도 불구하고)"
 )
 
@@ -126,6 +126,22 @@ if hasattr(_base_layer, "_semantic"):
     _base_layer._semantic._has_bound_interpretation_effect = _has_bound_interpretation_effect
 if hasattr(_base_layer, "_base"):
     _base_layer._base._has_bound_interpretation_effect = _has_bound_interpretation_effect
+
+_LETTERED_EXACT_TARGET_CLASSES = {
+    "project", "program", "programme", "plant", "facility", "site", "unit",
+    "프로젝트", "프로그램", "공장", "시설", "사업장", "호기",
+}
+
+
+def _has_lettered_exact_target_subject(tokens):
+    """Recognize approved item-class + single-letter identifiers before stopword removal."""
+    return any(
+        tokens[index] in _LETTERED_EXACT_TARGET_CLASSES
+        and len(tokens[index + 1]) == 1
+        and tokens[index + 1].isalpha()
+        for index in range(len(tokens) - 1)
+    )
+
 
 def _structured_exact_target(value):
     value = _normalize_possessive_subject_text(value)
@@ -159,8 +175,9 @@ def _structured_exact_target(value):
         and not _is_substantive_predicate_role_token(token)
         for token in tokens
     )
+    has_lettered_subject = _has_lettered_exact_target_subject(tokens)
     has_number = any(char.isdigit() for char in text)
-    return has_named_subject or has_number
+    return has_named_subject or has_lettered_subject or has_number
 
 
 _base_layer._structured_exact_target = _structured_exact_target

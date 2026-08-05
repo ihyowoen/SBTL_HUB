@@ -103,8 +103,9 @@ _GENERIC_OWNER_PLURALS = {
     "ventures": "venture",
 }
 _NUMERIC_ENTITY_LABEL_LEADS = {
-    "plant", "facility", "site", "unit", "line", "block", "mine", "well",
-    "factory", "공장", "시설", "사업장", "사이트", "라인", "광산", "유정",
+    "project", "program", "programme", "plant", "facility", "site", "unit",
+    "line", "block", "mine", "well", "factory", "프로젝트", "프로그램", "사업",
+    "공장", "시설", "사업장", "사이트", "라인", "광산", "유정",
 }
 _LETTERED_ENTITY_LABEL_LEADS = _NUMERIC_ENTITY_LABEL_LEADS | {
     "project", "program", "programme", "platform", "initiative", "venture",
@@ -339,7 +340,7 @@ def item_specific_lineage_assertion(value):
     # A date or period plus a bare role noun (for example `Q2 revenue` or
     # `2026 revenue`) is not a fresh anchor, incremental fact, or changed
     # judgment. Stopwords, source modifiers, and generic owner classes do not
-    # count as a concrete subject. Numeric plant/site/facility labels do count.
+    # count as a concrete subject. Numeric plant/site/facility/project labels do count.
     dated_or_numeric_detail_is_specific = (
         has_change_predicate
         or has_self_identifying_event_subject

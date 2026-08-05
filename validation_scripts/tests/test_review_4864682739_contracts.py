@@ -33,6 +33,12 @@ class TestReview4864682739Contracts(unittest.TestCase):
             for value in forbidden:
                 self.assertNotIn(value, text, path)
 
+    def test_generator_and_generated_prompt_keep_one_command_each(self):
+        for path in TARGETS:
+            text = path.read_text(encoding="utf-8")
+            for command in COMMANDS:
+                self.assertEqual(text.count(f"`{command}`"), 1, path)
+
 
 if __name__ == "__main__":
     unittest.main()

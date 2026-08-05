@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4861045407 compatibility layer for Related assertion semantics."""
+"""Review 4861267953 compatibility layer for Related assertion semantics."""
 from __future__ import annotations
 
 import importlib.util
@@ -58,6 +58,7 @@ _ENTITY_LABEL_SUFFIXES = {
     "ventures", "energy", "technologies", "technology", "systems", "solutions",
     "주식회사", "홀딩스", "그룹", "에너지", "테크놀로지", "시스템", "솔루션",
 }
+_AMBIGUOUS_ENTITY_ROLE_TERMS = _ENTITY_LABEL_LEADS | _ENTITY_LABEL_SUFFIXES
 
 
 def _title_like_english_entity_label(value, tokens):
@@ -87,8 +88,18 @@ def item_specific_lineage_assertion(value):
         r"[^a-z0-9가-힣]+", " ", value.casefold()
     ).strip()
     tokens = [token for token in normalized.split() if token]
-    has_role = any(token in _ASSERTION_ROLE_TERMS for token in tokens)
+    role_tokens = {token for token in tokens if token in _ASSERTION_ROLE_TERMS}
+    has_role = bool(role_tokens)
+    has_unambiguous_role = any(
+        token not in _AMBIGUOUS_ENTITY_ROLE_TERMS for token in role_tokens
+    )
     has_numeric_detail = any(any(char.isdigit() for char in token) for token in tokens)
+
+    # An entity label must be rejected before an ambiguous noun such as `fund`
+    # can satisfy the role shortcut. A genuine event/metric role still preserves
+    # concise assertions such as `Fund Alpha secured financing`.
+    if _entity_only_label(value, tokens) and not has_unambiguous_role:
+        return False
     if has_role or has_numeric_detail:
         return True
     # Retain the prior compatibility path for substantive three-plus-token prose,

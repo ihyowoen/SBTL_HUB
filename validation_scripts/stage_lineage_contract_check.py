@@ -22,7 +22,7 @@ for _name in dir(_prior):
     if not _name.startswith("__"):
         globals()[_name] = getattr(_prior, _name)
 
-_re = _prior._prior._base_layer._base.re
+_re = _prior._base_layer._base.re
 _prior_is_temporal_noun_modifier = _prior._is_temporal_noun_modifier
 _TEMPORAL_AUXILIARY_PATTERN = (
     r"(?:would|will|can|could|may|might|must|shall|should|is|are|was|were|"
@@ -134,6 +134,6 @@ def _patch_module_chain(root, name, value):
 _patch_module_chain(_prior, "validate_stage_a_spec", validate_stage_a_spec)
 
 if __name__ == "__main__":
-    _prior._prior._base_layer._base.sys.exit(
-        _prior._prior._base_layer._base.main()
+    _prior._base_layer._base.sys.exit(
+        _prior._base_layer._base.main()
     )

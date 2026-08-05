@@ -45,6 +45,10 @@ class TestReview4861534917Contracts(unittest.TestCase):
             require_contract=True,
         )
 
+    def test_focused_related_module_imports_as_package(self):
+        self.assertTrue(callable(related.item_specific_lineage_assertion))
+        self.assertTrue(callable(related.check_card))
+
     def test_internal_temporal_marker_in_parenthetical_preserves_subject(self):
         for effect in (
             "Project Alpha production, during the quarter after a 10% decline, was weakened under the current demand outlook",
@@ -96,6 +100,34 @@ class TestReview4861534917Contracts(unittest.TestCase):
                     any("item-specific changed_judgment_vs_predecessor" in error for error in errors),
                     errors,
                 )
+
+    def test_dated_role_only_follow_up_assertions_fail(self):
+        for value in ("Q2 revenue", "2026 revenue"):
+            with self.subTest(value=value):
+                self.assertFalse(related.item_specific_lineage_assertion(value))
+                errors, _warnings = self.strict_follow_up(value)
+                self.assertTrue(
+                    any("item-specific fresh_follow_up_anchor" in error for error in errors),
+                    errors,
+                )
+                self.assertTrue(
+                    any("item-specific incremental_fact_vs_predecessor" in error for error in errors),
+                    errors,
+                )
+                self.assertTrue(
+                    any("item-specific changed_judgment_vs_predecessor" in error for error in errors),
+                    errors,
+                )
+
+    def test_dated_assertions_with_subject_or_change_remain_valid(self):
+        for value in (
+            "Project Alpha Q2 revenue",
+            "Project Alpha 2026 revenue increased",
+            "August supply agreement",
+            "2026 permit approved",
+        ):
+            with self.subTest(value=value):
+                self.assertTrue(related.item_specific_lineage_assertion(value))
 
     def test_substantive_concise_follow_up_assertions_remain_valid(self):
         for value in (

@@ -139,6 +139,22 @@ _ASSERTION_TEMPORAL_TERMS = {
     "september", "october", "november", "december", "quarter", "q1", "q2",
     "q3", "q4", "today", "yesterday", "tomorrow", "월", "분기", "오늘", "어제",
 }
+_ASSERTION_ORDINAL_PERIOD_TERMS = {
+    "first", "second", "third", "fourth", "1st", "2nd", "3rd", "4th",
+}
+_ASSERTION_PERIOD_UNIT_TERMS = {
+    "quarter", "half", "semester", "year", "분기", "반기", "연도",
+}
+_ASSERTION_PERIOD_MODIFIER_TERMS = {"fiscal", "calendar"}
+_ASSERTION_COMPOSITE_PERIOD_PATTERNS = (
+    r"fy\d{2,4}",
+    r"(?:h[12]|[12]h)(?:(?:fy)?\d{2,4})?",
+    r"q[1-4](?:(?:fy)?\d{2,4})?",
+    r"(?:19|20)\d{2}년?",
+    r"[1-4]분기",
+    r"[12]반기",
+    r"(?:상|하|전|후)반기",
+)
 
 
 def _title_like_english_entity_label(value, tokens):
@@ -204,6 +220,35 @@ def _normalize_assertion_role_token(token):
     return token
 
 
+def _assertion_temporal_token_indexes(tokens):
+    """Return simple and composite date/period token positions."""
+    temporal_indexes = {
+        index
+        for index, token in enumerate(tokens)
+        if token in _ASSERTION_TEMPORAL_TERMS
+        or any(
+            _base.re.fullmatch(pattern, token)
+            for pattern in _ASSERTION_COMPOSITE_PERIOD_PATTERNS
+        )
+    }
+    for index, token in enumerate(tokens):
+        if token not in _ASSERTION_ORDINAL_PERIOD_TERMS:
+            continue
+        unit_index = index + 1
+        if (
+            unit_index < len(tokens)
+            and tokens[unit_index] in _ASSERTION_PERIOD_MODIFIER_TERMS
+        ):
+            temporal_indexes.add(unit_index)
+            unit_index += 1
+        if (
+            unit_index < len(tokens)
+            and tokens[unit_index] in _ASSERTION_PERIOD_UNIT_TERMS
+        ):
+            temporal_indexes.update((index, unit_index))
+    return temporal_indexes
+
+
 def _has_concrete_entity_label(tokens):
     """Recognize class-bound identifiers such as Plant 1 or Project A."""
     for index, token in enumerate(tokens[:-1]):
@@ -233,25 +278,26 @@ def item_specific_lineage_assertion(value):
     role_tokens = {
         token for token in normalized_role_tokens if token in _ASSERTION_ROLE_TERMS
     }
+    temporal_token_indexes = _assertion_temporal_token_indexes(tokens)
     has_role = bool(role_tokens)
     has_unambiguous_role = any(
         token not in _AMBIGUOUS_ENTITY_ROLE_TERMS for token in role_tokens
     )
     has_numeric_detail = any(any(char.isdigit() for char in token) for token in tokens)
-    has_temporal_detail = any(token in _ASSERTION_TEMPORAL_TERMS for token in tokens)
+    has_temporal_detail = bool(temporal_token_indexes)
     has_change_predicate = any(
         token in _ASSERTION_CHANGE_PREDICATE_TERMS
         for token in normalized_role_tokens
     )
     has_concrete_entity_label = _has_concrete_entity_label(tokens)
     has_concrete_subject_detail = has_concrete_entity_label or any(
-        token not in _ASSERTION_ROLE_TERMS
-        and token not in _ASSERTION_TEMPORAL_TERMS
+        index not in temporal_token_indexes
+        and token not in _ASSERTION_ROLE_TERMS
         and token not in _ASSERTION_NEUTRAL_SUBJECT_TOKENS
         and token not in _GENERIC_OWNER_SINGULARS
         and token not in _base._GENERIC_LINEAGE_ASSERTION_TOKENS
         and not token.isdigit()
-        for token in subject_tokens
+        for index, token in enumerate(subject_tokens)
     )
     has_non_role_detail = has_concrete_subject_detail
     has_self_identifying_event_subject = any(

@@ -4,7 +4,7 @@ from validation_scripts import related_lifecycle_check as related
 
 
 class TestReview4862131806Contracts(unittest.TestCase):
-    """Focused regressions for the two Related assertion review findings."""
+    """Focused regressions for Related assertion subject semantics."""
 
     @staticmethod
     def _strict_follow_up(assertion):
@@ -33,6 +33,31 @@ class TestReview4862131806Contracts(unittest.TestCase):
         }
         return child, {"PARENT": parent, "CHILD": child}
 
+    def _assert_strict_failure(self, assertion):
+        self.assertFalse(related.item_specific_lineage_assertion(assertion))
+        child, by_id = self._strict_follow_up(assertion)
+        errors, warnings = related.check_card(child, by_id, require_contract=True)
+        self.assertEqual([], warnings)
+        self.assertIn(
+            "distinct_follow_up requires item-specific fresh_follow_up_anchor",
+            errors,
+        )
+        self.assertIn(
+            "distinct_follow_up requires item-specific incremental_fact_vs_predecessor",
+            errors,
+        )
+        self.assertIn(
+            "distinct_follow_up requires item-specific changed_judgment_vs_predecessor",
+            errors,
+        )
+
+    def _assert_strict_success(self, assertion):
+        self.assertTrue(related.item_specific_lineage_assertion(assertion))
+        child, by_id = self._strict_follow_up(assertion)
+        errors, warnings = related.check_card(child, by_id, require_contract=True)
+        self.assertEqual([], warnings)
+        self.assertEqual([], errors)
+
     def test_neutral_words_do_not_become_follow_up_subjects(self):
         assertions = (
             "the Q2 revenue",
@@ -41,22 +66,31 @@ class TestReview4862131806Contracts(unittest.TestCase):
         )
         for assertion in assertions:
             with self.subTest(assertion=assertion):
-                self.assertFalse(related.item_specific_lineage_assertion(assertion))
-                child, by_id = self._strict_follow_up(assertion)
-                errors, warnings = related.check_card(child, by_id, require_contract=True)
-                self.assertEqual([], warnings)
-                self.assertIn(
-                    "distinct_follow_up requires item-specific fresh_follow_up_anchor",
-                    errors,
-                )
-                self.assertIn(
-                    "distinct_follow_up requires item-specific incremental_fact_vs_predecessor",
-                    errors,
-                )
-                self.assertIn(
-                    "distinct_follow_up requires item-specific changed_judgment_vs_predecessor",
-                    errors,
-                )
+                self._assert_strict_failure(assertion)
+
+    def test_generic_owner_possessives_and_plurals_are_neutral(self):
+        assertions = (
+            "companies' Q2 revenue",
+            "issuers’ 2026 revenue",
+            "issuer's 2026 revenue",
+            "businesses' Q2 inventory",
+            "projects’ Q2 utilization",
+        )
+        for assertion in assertions:
+            with self.subTest(assertion=assertion):
+                self._assert_strict_failure(assertion)
+
+    def test_numeric_entity_labels_are_concrete_subjects(self):
+        assertions = (
+            "Plant 1 Q2 inventory",
+            "Facility 2 Q2 safety data",
+            "Site 3 Q2 utilization",
+            "Unit 4 Q2 operating data",
+            "공장 1 Q2 재고",
+        )
+        for assertion in assertions:
+            with self.subTest(assertion=assertion):
+                self._assert_strict_success(assertion)
 
     def test_full_related_data_financial_roles_are_accepted(self):
         assertions = (
@@ -71,11 +105,7 @@ class TestReview4862131806Contracts(unittest.TestCase):
         )
         for assertion in assertions:
             with self.subTest(assertion=assertion):
-                self.assertTrue(related.item_specific_lineage_assertion(assertion))
-                child, by_id = self._strict_follow_up(assertion)
-                errors, warnings = related.check_card(child, by_id, require_contract=True)
-                self.assertEqual([], warnings)
-                self.assertEqual([], errors)
+                self._assert_strict_success(assertion)
 
 
 if __name__ == "__main__":

@@ -22,7 +22,10 @@ for _name in dir(_prior):
         globals()[_name] = getattr(_prior, _name)
 
 _prior_has_bound_interpretation_effect = _prior._has_bound_interpretation_effect
-_ENGLISH_CAUSAL_CLAUSE_PATTERN = r"\b(?:because|since|as|after|before|when)\b"
+_ENGLISH_CAUSAL_CLAUSE_PATTERN = (
+    r"\b(?:because|since|after|before|when)\b|"
+    r"(?<!long )\bas\b(?!\s+(?:of|long\s+as)\b)"
+)
 _KOREAN_CAUSAL_SUFFIX_PATTERN = (
     r"(?:때문에|이므로|므로|이후에|이후|이전에|전에|할 때|했을 때)"
 )
@@ -80,6 +83,11 @@ def _has_bound_interpretation_effect(value):
     text = _prior._base_layer._base._normalized_text(value)
     if not text:
         return False
+    preserve_parentheticals = getattr(
+        _prior, "_preserve_parenthetical_subject_modifiers", None
+    )
+    if preserve_parentheticals is not None:
+        text = preserve_parentheticals(text)
     independent_clause = _independent_clause_for_causal(text)
     return bool(
         independent_clause

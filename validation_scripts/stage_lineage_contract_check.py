@@ -15,15 +15,15 @@ _SPEC = importlib.util.spec_from_file_location(
 )
 if _SPEC is None or _SPEC.loader is None:
     raise ImportError(f"cannot load validator base from {_PRIOR_PATH}")
-_prior = importlib.util.module_from_spec(_SPEC)
-_SPEC.loader.exec_module(_prior)
+_compat_module = importlib.util.module_from_spec(_SPEC)
+_SPEC.loader.exec_module(_compat_module)
 
-for _name in dir(_prior):
+for _name in dir(_compat_module):
     if not _name.startswith("__"):
-        globals()[_name] = getattr(_prior, _name)
+        globals()[_name] = getattr(_compat_module, _name)
 
-_re = _prior._base_layer._base.re
-_prior_is_temporal_noun_modifier = _prior._is_temporal_noun_modifier
+_re = _compat_module._base_layer._base.re
+_prior_is_temporal_noun_modifier = _compat_module._is_temporal_noun_modifier
 _TEMPORAL_AUXILIARY_PATTERN = (
     r"(?:would|will|can|could|may|might|must|shall|should|is|are|was|were|"
     r"has|have|had)"
@@ -69,9 +69,9 @@ def _is_temporal_noun_modifier(text, marker):
     return False
 
 
-_prior._is_temporal_noun_modifier = _is_temporal_noun_modifier
+_compat_module._is_temporal_noun_modifier = _is_temporal_noun_modifier
 
-_prior_validate_stage_a_spec = _prior.validate_stage_a_spec
+_prior_validate_stage_a_spec = _compat_module.validate_stage_a_spec
 
 
 def _ordinary_override_candidate(spec):
@@ -89,7 +89,7 @@ def _ordinary_override_candidate(spec):
         return False
     residual_override_fields = [
         field
-        for field in _prior.STAGE_A_V3_OVERRIDE_REQUIRED
+        for field in _compat_module.STAGE_A_V3_OVERRIDE_REQUIRED
         if spec.get(field) not in (None, "", [], {})
     ]
     return (
@@ -131,9 +131,9 @@ def _patch_module_chain(root, name, value):
                 stack.append(child)
 
 
-_patch_module_chain(_prior, "validate_stage_a_spec", validate_stage_a_spec)
+_patch_module_chain(_compat_module, "validate_stage_a_spec", validate_stage_a_spec)
 
 if __name__ == "__main__":
-    _prior._base_layer._base.sys.exit(
-        _prior._base_layer._base.main()
+    _compat_module._base_layer._base.sys.exit(
+        _compat_module._base_layer._base.main()
     )

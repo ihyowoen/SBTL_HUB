@@ -56,8 +56,7 @@ def _structured_exact_target(value):
         token not in neutral_tokens and not token.isdigit() for token in tokens
     )
     has_number = any(char.isdigit() for char in text)
-    has_predicate = _base_layer._has_substantive_target_predicate(value)
-    return has_named_subject or has_number or has_predicate
+    return has_named_subject or has_number
 
 
 _base_layer._structured_exact_target = _structured_exact_target

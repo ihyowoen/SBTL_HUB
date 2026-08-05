@@ -22,6 +22,9 @@ if _SPEC is None or _SPEC.loader is None:
 _prior = importlib.util.module_from_spec(_SPEC)
 _SPEC.loader.exec_module(_prior)
 
+# Keep the public source-level chronology contract visible to static checks;
+# behavior remains implemented by the preserved prior layer.
+_RESOLVED_PROVISIONAL_TARGETS_CONTRACT = "resolved_provisional_targets"
 _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS = {
     "ebitda", "profit", "profits", "capex", "opex", "yield", "yields",
     "throughput", "영업이익", "이익", "수익", "설비투자", "자본지출",

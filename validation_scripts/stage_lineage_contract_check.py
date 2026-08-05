@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4861045407 compatibility layer for exact-target specificity."""
+"""Review 4861267953 compatibility layer for exact-target specificity."""
 from __future__ import annotations
 
 import importlib.util
@@ -46,6 +46,7 @@ def _structured_exact_target(value):
         tuple(_base_layer._base.STAGE_A_EXACT_TARGET_TERMS)
         + tuple(_base_layer._base.STAGE_A_CONFIRMATION_EVENT_TERMS)
         + tuple(_base_layer._base.STAGE_A_SUBSTANTIVE_TARGET_PREDICATE_TERMS)
+        + tuple(_base_layer._base.STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS)
     ):
         role_tokens.update(
             _base_layer._base.re.findall(

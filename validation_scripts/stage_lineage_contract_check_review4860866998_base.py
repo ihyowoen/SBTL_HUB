@@ -33,6 +33,14 @@ _PARENTHETICAL_TEMPORAL_MARKER_PATTERN = r"\b(?:after|before|when)\b"
 _PARENTHETICAL_KOREAN_TEMPORAL_MARKER_PATTERN = (
     r"(?:이후에|이후|이전에|전에|할 때|했을 때)"
 )
+_PARENTHETICAL_AS_OF_PATTERN = r"\bas\s+of\b"
+_TEMPORAL_PERIOD_REFERENCE_PATTERN = (
+    r"\b(?:q[1-4]|h[12]|fy(?:20)?\d{2}|(?:19|20)\d{2})\b|"
+    r"\b(?:first|second|third|fourth)\s+quarter\b|"
+    r"\b(?:january|february|march|april|may|june|july|august|september|"
+    r"october|november|december)\b|"
+    r"(?:[1-4]분기|상반기|하반기|(?:19|20)\d{2}년)"
+)
 _NUMERIC_PARENTHETICAL_DIRECTION_TERMS = {
     "up", "down", "higher", "lower", "above", "below", "plus", "minus",
     "increase", "increased", "decrease", "decreased", "rise", "rising", "rose",
@@ -145,12 +153,35 @@ def _numeric_parenthetical_modifier_is_safe(modifier, tokens):
     )
 
 
+def _temporal_parenthetical_modifier_is_safe(modifier, tokens):
+    """Recognize narrow `as of/for + period` subject-attached time scopes."""
+    if not tokens:
+        return False
+    text = _base._normalized_text(modifier)
+    starts_with_safe_scope = (
+        text.startswith("as of ") or text.startswith("for ")
+    )
+    if not starts_with_safe_scope:
+        return False
+    if not _base.re.search(_TEMPORAL_PERIOD_REFERENCE_PATTERN, text):
+        return False
+    # Do not absorb a separate interpretation/effect clause merely because it
+    # starts with `as` or `for`; this exception is for period labels only.
+    return not _base._has_any_term(
+        modifier,
+        tuple(_base.STAGE_A_INTERPRETATION_OBJECT_TERMS)
+        + tuple(_base.STAGE_A_INTERPRETATION_EFFECT_TERMS),
+    )
+
+
 def _parenthetical_modifier_is_safe(modifier, parenthetical_leads):
     """Preserve subject parentheticals unless they contain their own effect."""
     tokens = _semantic._effect_tokens(modifier)
     if not tokens:
         return False
     if _numeric_parenthetical_modifier_is_safe(modifier, tokens):
+        return True
+    if _temporal_parenthetical_modifier_is_safe(modifier, tokens):
         return True
     if tokens[0] not in parenthetical_leads:
         return False
@@ -169,6 +200,11 @@ def _sanitize_parenthetical_interpretation_objects(modifier):
     # Preserved modifiers remain part of the grammatical subject regardless of
     # where a temporal marker appears inside them. Shield every marker—not only
     # a leading one—before the later dependent-clause split runs.
+    sanitized = _base.re.sub(
+        _PARENTHETICAL_AS_OF_PATTERN,
+        "temporal_context",
+        sanitized,
+    )
     sanitized = _base.re.sub(
         _PARENTHETICAL_TEMPORAL_MARKER_PATTERN,
         "temporal_context",

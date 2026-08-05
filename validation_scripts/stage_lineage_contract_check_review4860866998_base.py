@@ -29,6 +29,10 @@ _DEPENDENT_CLAUSE_PATTERN = (
     r"\b(?:because|since|as|after|before|when)\b|"
     r"(?:때문에|이므로|므로|이후에|이후|이전에|전에|할 때|했을 때)"
 )
+_PARENTHETICAL_TEMPORAL_MARKER_PATTERN = r"\b(?:after|before|when)\b"
+_PARENTHETICAL_KOREAN_TEMPORAL_MARKER_PATTERN = (
+    r"(?:이후에|이후|이전에|전에|할 때|했을 때)"
+)
 _NUMERIC_PARENTHETICAL_DIRECTION_TERMS = {
     "up", "down", "higher", "lower", "above", "below", "plus", "minus",
     "increased", "decreased", "rising", "falling", "flat", "unchanged",
@@ -147,13 +151,16 @@ def _parenthetical_modifier_is_safe(modifier, parenthetical_leads):
 def _sanitize_parenthetical_interpretation_objects(modifier):
     """Keep modifier context without exposing stale objects or split markers."""
     sanitized = modifier
+    # Preserved modifiers remain part of the grammatical subject regardless of
+    # where a temporal marker appears inside them. Shield every marker—not only
+    # a leading one—before the later dependent-clause split runs.
     sanitized = _base.re.sub(
-        r"^\s*(?:after|before|when)\b",
+        _PARENTHETICAL_TEMPORAL_MARKER_PATTERN,
         "temporal_context",
         sanitized,
     )
     sanitized = _base.re.sub(
-        r"^\s*(?:이후에|이후|이전에|전에|할 때|했을 때)",
+        _PARENTHETICAL_KOREAN_TEMPORAL_MARKER_PATTERN,
         "시간맥락",
         sanitized,
     )

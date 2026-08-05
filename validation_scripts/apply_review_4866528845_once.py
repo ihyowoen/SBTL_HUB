@@ -3,37 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 
 
-def replace_once(path: str, old: str, new: str) -> None:
-    target = Path(path)
-    text = target.read_text(encoding="utf-8")
-    count = text.count(old)
-    if count != 1:
-        raise RuntimeError(f"{path}: expected one replacement target, found {count}")
-    target.write_text(text.replace(old, new, 1), encoding="utf-8")
-
-
-# Review 4866528845: neutralize generic source/entity/government target owners.
-replace_once(
-    "validation_scripts/stage_lineage_contract_check.py",
-    '    "official", "unofficial", "company", "corporate", "business", "issuer",\n',
-    '    "official", "unofficial", "company", "corporate", "business", "issuer",\n'
-    '    "source", "entity", "government", "governmental", "regulatory",\n'
-    '    "authority", "agency", "institution",\n',
-)
-replace_once(
-    "validation_scripts/stage_lineage_contract_check.py",
-    '    "회사", "기업", "법인", "사업", "프로젝트", "프로그램", "공식", "비공식",\n',
-    '    "회사", "기업", "법인", "사업", "프로젝트", "프로그램", "공식", "비공식",\n'
-    '    "출처", "정부", "정부기관", "규제기관", "기관", "당국", "조직",\n',
-)
-
-# Review 4866342255: do not bind an interpretation effect through a conditional
-# or concessive clause. Evaluate only the independent clause before the marker.
-replace_once(
-    "validation_scripts/stage_lineage_contract_check.py",
-    '''def _structured_exact_target(value):
-''',
-    '''_prior_has_bound_interpretation_effect = _base_layer._has_bound_interpretation_effect
+stage = Path("validation_scripts/stage_lineage_contract_check.py")
+text = stage.read_text(encoding="utf-8")
+marker = "_CONDITIONAL_OR_CONCESSIVE_PATTERN"
+if marker not in text:
+    anchor = "\ndef _structured_exact_target(value):\n"
+    patch = '''
+_prior_has_bound_interpretation_effect = _base_layer._has_bound_interpretation_effect
 _CONDITIONAL_OR_CONCESSIVE_PATTERN = (
     r"\\b(?:if|unless|until|despite)\\b|"
     r"(?:만약|경우|않으면|까지|에도 불구하고)"
@@ -41,6 +17,7 @@ _CONDITIONAL_OR_CONCESSIVE_PATTERN = (
 
 
 def _has_bound_interpretation_effect(value):
+    """Do not bind an interpretation effect through a dependent condition."""
     text = _base_layer._base._normalized_text(value)
     if not text:
         return False
@@ -58,103 +35,33 @@ if hasattr(_base_layer, "_semantic"):
     _base_layer._semantic._has_bound_interpretation_effect = _has_bound_interpretation_effect
 if hasattr(_base_layer, "_base"):
     _base_layer._base._has_bound_interpretation_effect = _has_bound_interpretation_effect
+'''
+    if text.count(anchor) != 1:
+        raise RuntimeError("structured exact-target insertion anchor changed")
+    stage.write_text(text.replace(anchor, patch + anchor, 1), encoding="utf-8")
 
-
-def _structured_exact_target(value):
-''',
-)
-
-# Review 4866528845: normalize plural/possessive variants of every neutral
-# Related subject class, not only the hand-maintained generic-owner subset.
-replace_once(
-    "validation_scripts/related_lifecycle_check.py",
-    '    "corporate", "company", "issuer", "business", "entity", "reported",\n',
-    '    "corporate", "company", "issuer", "business", "entity", "reported",\n'
-    '    "organization", "organisation", "authority", "agency", "institution",\n',
-)
-replace_once(
-    "validation_scripts/related_lifecycle_check.py",
-    '''def _normalize_subject_token(token):
-    """Normalize conservative generic-owner plurals for neutral-token checks."""
-    if token in _GENERIC_OWNER_PLURALS:
-        return _GENERIC_OWNER_PLURALS[token]
-    return token
-''',
-    '''def _simple_english_singular_candidates(token):
-    """Return conservative singular candidates for neutral subject classes."""
-    candidates = set()
-    if token.endswith("ies") and len(token) > 3:
-        candidates.add(token[:-3] + "y")
-    if token.endswith("es") and len(token) > 2:
-        candidates.add(token[:-2])
-        candidates.add(token[:-1])
-    if token.endswith("s") and len(token) > 1:
-        candidates.add(token[:-1])
-    return candidates
-
-
-def _normalize_subject_token(token):
-    """Normalize plural generic-owner and neutral subject-class variants."""
-    if token in _GENERIC_OWNER_PLURALS:
-        return _GENERIC_OWNER_PLURALS[token]
-    if token in _ASSERTION_NEUTRAL_SUBJECT_TOKENS:
-        return token
-    for candidate in _simple_english_singular_candidates(token):
-        if candidate in _ASSERTION_NEUTRAL_SUBJECT_TOKENS:
-            return candidate
-    return token
-''',
-)
-
-# Review 4866528845: Evidence QC/date-role CSV scopes accept provisional IDs.
-replace_once(
-    "validation_scripts/evidence_qc_v8_check.py",
-    '''        for row in rows:
-            value = row.get("assigned_id") or row.get("id") or row.get("card_id")
-            if value:
-                values.add(str(value))
-        return values
-''',
-    '''        for row in rows:
-            value = (
-                row.get("assigned_id") or row.get("id") or row.get("card_id")
-                or row.get("draft_id") or row.get("source_spec_id")
-            )
-            if value and str(value).strip():
-                values.add(str(value).strip())
-        return values
-''',
-)
-replace_once(
-    "validation_scripts/evidence_qc_v8_check.py",
-    '    raise ValueError("ID scope file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id")\n',
-    '    raise ValueError("ID scope file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id/draft_id/source_spec_id")\n',
-)
-replace_once(
-    "validation_scripts/date_role_freshness_check.py",
-    '''        return {
-            str(value)
-            for row in rows
-            for value in [row.get("assigned_id") or row.get("id") or row.get("card_id")]
-            if value
-        }
-''',
-    '''        return {
-            str(value).strip()
-            for row in rows
-            for value in [
-                row.get("assigned_id") or row.get("id") or row.get("card_id")
-                or row.get("draft_id") or row.get("source_spec_id")
-            ]
-            if value and str(value).strip()
-        }
-''',
-)
-replace_once(
-    "validation_scripts/date_role_freshness_check.py",
-    '    raise ValueError("ID file must be a list, ids[] JSON, or CSV")\n',
-    '    raise ValueError("ID file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id/draft_id/source_spec_id")\n',
-)
+# The other three review fixes may already be present from an earlier successful
+# application. Fail closed if any required production behavior is absent.
+required_snippets = {
+    "validation_scripts/stage_lineage_contract_check.py": (
+        '"source", "entity", "government", "governmental", "regulatory"',
+    ),
+    "validation_scripts/related_lifecycle_check.py": (
+        'def _simple_english_singular_candidates(token):',
+        '"organization", "organisation", "authority", "agency", "institution"',
+    ),
+    "validation_scripts/evidence_qc_v8_check.py": (
+        'row.get("draft_id") or row.get("source_spec_id")',
+    ),
+    "validation_scripts/date_role_freshness_check.py": (
+        'row.get("draft_id") or row.get("source_spec_id")',
+    ),
+}
+for filename, snippets in required_snippets.items():
+    source = Path(filename).read_text(encoding="utf-8")
+    missing = [snippet for snippet in snippets if snippet not in source]
+    if missing:
+        raise RuntimeError(f"{filename}: missing required review fix: {missing}")
 
 Path("validation_scripts/tests/test_review_4866528845_contracts.py").write_text(
 '''from __future__ import annotations
@@ -183,6 +90,9 @@ class TestReview4866528845Contracts(unittest.TestCase):
                 self.assertFalse(lineage._has_bound_interpretation_effect(value))
         self.assertTrue(lineage._has_bound_interpretation_effect(
             "The filing weakened the current demand outlook"
+        ))
+        self.assertTrue(lineage._has_bound_interpretation_effect(
+            "The milestone confirmed the adoption thesis"
         ))
 
     def test_generic_exact_target_owners_are_neutral(self):

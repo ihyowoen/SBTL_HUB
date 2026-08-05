@@ -236,6 +236,13 @@ def _assertion_temporal_token_indexes(tokens):
             for pattern in _ASSERTION_COMPOSITE_PERIOD_PATTERNS
         )
     }
+    for index in range(len(tokens) - 2):
+        if (
+            tokens[index] in _ASSERTION_PERIOD_MODIFIER_TERMS
+            and tokens[index + 1] == "year"
+            and _base.re.fullmatch(r"(?:19|20)\d{2}", tokens[index + 2])
+        ):
+            temporal_indexes.update((index, index + 1, index + 2))
     for index, token in enumerate(tokens[:-1]):
         next_token = tokens[index + 1]
         if (

@@ -24,18 +24,20 @@ _ASSERTION_ROLE_TERMS = {
     "approve", "approved", "adopt", "adopted", "effective", "enforce", "enforced",
     "launch", "launched", "start", "started", "complete", "completed", "secure",
     "secured", "award", "awarded", "contract", "contracted", "finance", "financed",
-    "file", "filed", "filing", "disclose", "disclosed", "publish", "published",
-    "announce", "announced", "delay", "delayed", "cancel", "cancelled", "canceled",
-    "increase", "increased", "decrease", "decreased", "add", "added", "remove",
-    "removed", "change", "changed", "shift", "shifted", "move", "moved", "confirm",
-    "confirmed", "weaken", "weakened", "strengthen", "strengthened", "invalidate",
-    "invalidated", "rule", "revenue", "margin", "capacity", "volume", "price", "cost",
-    "date", "stage", "status", "eligibility", "probability", "outlook", "judgment",
+    "commission", "commissioned", "commissioning", "file", "filed", "filing",
+    "disclose", "disclosed", "publish", "published", "announce", "announced",
+    "delay", "delayed", "cancel", "cancelled", "canceled", "increase", "increased",
+    "decrease", "decreased", "add", "added", "remove", "removed", "change",
+    "changed", "shift", "shifted", "move", "moved", "confirm", "confirmed",
+    "weaken", "weakened", "strengthen", "strengthened", "invalidate", "invalidated",
+    "rule", "revenue", "margin", "capacity", "volume", "price", "cost", "date",
+    "stage", "status", "eligibility", "probability", "outlook", "judgment",
     "judgement", "target", "execution", "승인", "채택", "발효", "시행", "집행",
-    "출시", "착수", "완료", "확보", "수주", "계약", "금융", "공시", "발표",
-    "지연", "취소", "증가", "감소", "추가", "삭제", "변경", "전환", "이동",
-    "확인", "약화", "강화", "무효화", "매출", "마진", "용량", "물량", "가격",
-    "비용", "날짜", "단계", "상태", "적격성", "확률", "전망", "판단", "목표",
+    "출시", "착수", "준공", "상업운전", "완료", "확보", "수주", "계약", "금융",
+    "공시", "발표", "지연", "취소", "증가", "감소", "추가", "삭제", "변경",
+    "전환", "이동", "확인", "약화", "강화", "무효화", "매출", "마진", "용량",
+    "물량", "가격", "비용", "날짜", "단계", "상태", "적격성", "확률", "전망",
+    "판단", "목표",
 }
 
 
@@ -49,7 +51,7 @@ def item_specific_lineage_assertion(value):
     has_role = any(token in _ASSERTION_ROLE_TERMS for token in tokens)
     has_numeric_detail = any(any(char.isdigit() for char in token) for token in tokens)
     # Reject a bare entity label such as "Project Alpha", while preserving
-    # concise but substantive prior narratives that contain three or more terms.
+    # concise event anchors and substantive prior narratives.
     return has_role or has_numeric_detail or len(tokens) >= 3
 
 

@@ -100,6 +100,33 @@ def _is_generic_target_modifier_token(token):
     return _is_simple_plural_role_token(token, _GENERIC_TARGET_MODIFIER_TOKENS)
 
 
+_prior_has_bound_interpretation_effect = _base_layer._has_bound_interpretation_effect
+_CONDITIONAL_OR_CONCESSIVE_PATTERN = (
+    r"\b(?:if|unless|until|despite)\b|"
+    r"(?:만약|경우|않으면|까지|에도 불구하고)"
+)
+
+
+def _has_bound_interpretation_effect(value):
+    """Do not bind an interpretation effect through a dependent condition."""
+    text = _base_layer._base._normalized_text(value)
+    if not text:
+        return False
+    independent_clause = _base_layer._base.re.split(
+        _CONDITIONAL_OR_CONCESSIVE_PATTERN, text, maxsplit=1
+    )[0].strip()
+    return bool(
+        independent_clause
+        and _prior_has_bound_interpretation_effect(independent_clause)
+    )
+
+
+_base_layer._has_bound_interpretation_effect = _has_bound_interpretation_effect
+if hasattr(_base_layer, "_semantic"):
+    _base_layer._semantic._has_bound_interpretation_effect = _has_bound_interpretation_effect
+if hasattr(_base_layer, "_base"):
+    _base_layer._base._has_bound_interpretation_effect = _has_bound_interpretation_effect
+
 def _structured_exact_target(value):
     value = _normalize_possessive_subject_text(value)
     if not _prior_structured_exact_target(value):

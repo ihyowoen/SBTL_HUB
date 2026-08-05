@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4861381740 compatibility layer for exact-target specificity."""
+"""Review 4861534917 compatibility layer for exact-target specificity."""
 from __future__ import annotations
 
 import importlib.util
@@ -38,6 +38,27 @@ for _term in _base_layer._base.STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS:
     )
 
 
+def _normalize_possessive_subject_text(value):
+    """Remove English possessive morphology without dropping the owner name."""
+    if not isinstance(value, str):
+        return value
+    # `company's` tokenizes as `company`, `s`; the suffix must not become a
+    # fabricated named subject. Curly apostrophes and plural possessives are
+    # normalized as well, while `Project Alpha's` retains `Project Alpha`.
+    normalized = _base_layer._base.re.sub(
+        r"(?<=[a-z0-9])(?:['’]s)\b",
+        "",
+        value,
+        flags=_base_layer._base.re.IGNORECASE,
+    )
+    return _base_layer._base.re.sub(
+        r"(?<=s)['’](?=\s|$)",
+        "",
+        normalized,
+        flags=_base_layer._base.re.IGNORECASE,
+    )
+
+
 def _is_substantive_predicate_role_token(token):
     """Treat every supported predicate inflection as role vocabulary."""
     return _base_layer._semantic._has_substantive_target_predicate(token)
@@ -60,6 +81,7 @@ def _is_source_class_role_token(token):
 
 
 def _structured_exact_target(value):
+    value = _normalize_possessive_subject_text(value)
     if not _prior_structured_exact_target(value):
         return False
     text = _base_layer._base._normalized_text(value)

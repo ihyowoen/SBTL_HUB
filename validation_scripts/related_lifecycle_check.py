@@ -47,8 +47,10 @@ for _name in dir(_prior):
 _prior_item_specific_lineage_assertion = _prior.item_specific_lineage_assertion
 _GENERIC_JUDGMENT_DESCRIPTOR_TERMS = {
     "outlook", "probability", "likelihood", "risk", "risks", "judgment",
-    "judgement", "expectation", "expectations", "전망", "확률", "가능성",
-    "위험", "리스크", "판단", "기대",
+    "judgement", "expectation", "expectations", "forecast", "forecasts",
+    "sentiment", "confidence", "conviction", "view", "views",
+    "전망", "확률", "가능성", "위험", "리스크", "판단", "기대", "예측",
+    "심리", "신뢰", "신뢰도", "확신", "견해",
 }
 
 

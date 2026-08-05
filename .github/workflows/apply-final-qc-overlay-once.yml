@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Patch Final QC overlay and add regression
+      - name: Patch Final QC overlay
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -47,10 +47,17 @@ jobs:
               text = path.read_text(encoding="utf-8")
               count = text.count(old)
               if count != 1:
-                  raise SystemExit(f"expected one old Final QC command block in {path}, found {count}")
+                  raise SystemExit(
+                      f"expected one old Final QC command block in {path}, found {count}"
+                  )
               path.write_text(text.replace(old, new), encoding="utf-8")
+          PY
 
-          test = '''from pathlib import Path
+      - name: Add focused regression
+        run: |
+          cat > validation_scripts/tests/test_review_4864682739_contracts.py <<'PYTEST'
+          """Regression coverage for review 4864682739 Final QC commands."""
+          from pathlib import Path
           import unittest
 
           ROOT = Path(__file__).resolve().parents[2]
@@ -87,18 +94,7 @@ jobs:
 
           if __name__ == "__main__":
               unittest.main()
-          '''
-          # Remove workflow indentation from the embedded test source.
-          lines = test.splitlines()
-          normalized = "\n".join(
-              line[10:] if line.startswith("          ") else line
-              for line in lines
-          ).lstrip() + "\n"
-          Path("validation_scripts/tests/test_review_4864682739_contracts.py").write_text(
-              normalized,
-              encoding="utf-8",
-          )
-          PY
+          PYTEST
 
       - name: Verify overlay and focused regression
         run: |

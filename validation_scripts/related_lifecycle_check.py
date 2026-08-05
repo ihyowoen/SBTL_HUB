@@ -147,6 +147,7 @@ _ASSERTION_PERIOD_UNIT_TERMS = {
     "quarter", "half", "semester", "year", "분기", "반기", "연도",
 }
 _ASSERTION_PERIOD_MODIFIER_TERMS = {"fiscal", "calendar"}
+_ASSERTION_ADJACENT_PERIOD_MODIFIER_TERMS = _ASSERTION_PERIOD_MODIFIER_TERMS | {"fy"}
 _ASSERTION_SPLIT_FISCAL_YEAR_MARKERS = {"fy", "fiscal"}
 _ASSERTION_SPLIT_QUARTER_MARKERS = {"q", "quarter"}
 _ASSERTION_COMPOSITE_PERIOD_PATTERNS = (
@@ -262,6 +263,19 @@ def _assertion_temporal_token_indexes(tokens):
             and tokens[unit_index] in _ASSERTION_PERIOD_UNIT_TERMS
         ):
             temporal_indexes.update((index, unit_index))
+
+    # Fiscal/calendar/FY qualifiers directly adjoining a recognized period are
+    # part of the same temporal span, not an item subject. This covers both
+    # `Fiscal Q1` and ordinal forms such as `Fiscal first quarter` after the
+    # underlying period indexes have been identified.
+    for index, token in enumerate(tokens):
+        if token not in _ASSERTION_ADJACENT_PERIOD_MODIFIER_TERMS:
+            continue
+        if index > 0 and index - 1 in temporal_indexes:
+            temporal_indexes.add(index)
+            continue
+        if index + 1 < len(tokens) and index + 1 in temporal_indexes:
+            temporal_indexes.add(index)
     return temporal_indexes
 
 

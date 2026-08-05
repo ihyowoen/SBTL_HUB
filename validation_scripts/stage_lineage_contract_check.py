@@ -23,7 +23,7 @@ for _name in dir(_prior):
 
 _prior_has_bound_interpretation_effect = _prior._has_bound_interpretation_effect
 _ENGLISH_CAUSAL_CLAUSE_PATTERN = (
-    r"\b(?:because|since|after|before|when)\b|"
+    r"\b(?:because|since|after|before|when|once|whenever)\b|"
     r"(?<!long )\bas\b(?!\s+(?:of|long\s+as)\b)"
 )
 _KOREAN_CAUSAL_SUFFIX_PATTERN = (
@@ -32,15 +32,52 @@ _KOREAN_CAUSAL_SUFFIX_PATTERN = (
 _CAUSAL_CLAUSE_PATTERN = (
     rf"(?:{_ENGLISH_CAUSAL_CLAUSE_PATTERN}|{_KOREAN_CAUSAL_SUFFIX_PATTERN})"
 )
+_TEMPORAL_NOUN_MODIFIER_AUXILIARY_PATTERN = (
+    r"(?:would|will|can|could|may|might|must|shall|should|is|are|was|were|"
+    r"has|have|had)"
+)
+
+
+def _is_temporal_noun_modifier(text, marker):
+    """Treat after/before as modifiers when they qualify a noun, not a clause."""
+    marker_text = marker.group(0).lower()
+    if marker_text not in {"after", "before"}:
+        return False
+
+    remainder = text[marker.end():]
+    if remainder.startswith("-"):
+        return True
+
+    # Examples: "the filing after review would strengthen ..." and
+    # "the filing before publication may weaken ...".  The temporal phrase
+    # modifies the preceding noun, while the modal/auxiliary starts the main
+    # predicate.  A true dependent clause instead carries its own predicate
+    # (for example, "after the outlook improved").
+    return bool(
+        _prior._base_layer._base.re.match(
+            rf"\s+(?:the\s+)?[a-z0-9가-힣-]+"
+            rf"(?:\s+[a-z0-9가-힣-]+){{0,3}}\s+"
+            rf"{_TEMPORAL_NOUN_MODIFIER_AUXILIARY_PATTERN}\b",
+            remainder,
+        )
+    )
+
+
+def _next_causal_clause_marker(text):
+    for marker in _prior._base_layer._base.re.finditer(
+        _CAUSAL_CLAUSE_PATTERN, text
+    ):
+        if _is_temporal_noun_modifier(text, marker):
+            continue
+        return marker
+    return None
 
 
 def _independent_clause_for_causal(text):
     """Return only the independent clause, never a causal/temporal dependent suffix."""
     current = text.strip()
     for _ in range(16):
-        marker = _prior._base_layer._base.re.search(
-            _CAUSAL_CLAUSE_PATTERN, current
-        )
+        marker = _next_causal_clause_marker(current)
         if marker is None:
             return current.strip()
 
@@ -110,6 +147,16 @@ _prior_structured_exact_target = _prior._structured_exact_target
 _PERIOD_QUALIFIER_TOKEN_PATTERN = (
     r"(?:q[1-4]|[1-4]q|fy\d{2,4}|(?:19|20)\d{2}년?|h[12]|[12]h)"
 )
+_NUMBERED_EXACT_TARGET_CLASSES = set(
+    getattr(
+        _prior,
+        "_LETTERED_EXACT_TARGET_CLASSES",
+        {
+            "project", "program", "programme", "plant", "facility", "site",
+            "unit", "프로젝트", "프로그램", "공장", "시설", "사업장", "호기",
+        },
+    )
+)
 
 
 def _is_period_qualifier_token(token):
@@ -117,6 +164,15 @@ def _is_period_qualifier_token(token):
         _prior._base_layer._base.re.fullmatch(
             _PERIOD_QUALIFIER_TOKEN_PATTERN, token
         )
+    )
+
+
+def _has_numbered_exact_target_subject(tokens):
+    """Recognize a class-bound numeric identifier, not an unbound period/amount."""
+    return any(
+        tokens[index] in _NUMBERED_EXACT_TARGET_CLASSES
+        and tokens[index + 1].isdigit()
+        for index in range(len(tokens) - 1)
     )
 
 
@@ -162,7 +218,8 @@ def _structured_exact_target(value):
         for token in tokens
     )
     has_lettered_subject = _prior._has_lettered_exact_target_subject(tokens)
-    return has_named_subject or has_lettered_subject
+    has_numbered_subject = _has_numbered_exact_target_subject(tokens)
+    return has_named_subject or has_lettered_subject or has_numbered_subject
 
 
 _prior._structured_exact_target = _structured_exact_target

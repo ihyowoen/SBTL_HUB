@@ -105,6 +105,10 @@ _NUMERIC_ENTITY_LABEL_LEADS = {
     "plant", "facility", "site", "unit", "line", "block", "mine", "well",
     "factory", "공장", "시설", "사업장", "사이트", "라인", "광산", "유정",
 }
+_LETTERED_ENTITY_LABEL_LEADS = _NUMERIC_ENTITY_LABEL_LEADS | {
+    "project", "program", "programme", "platform", "initiative", "venture",
+    "프로젝트", "프로그램", "사업",
+}
 _ASSERTION_CHANGE_PREDICATE_TERMS = {
     "approved", "adopted", "effective", "enforced", "launched", "started",
     "completed", "secured", "awarded", "contracted", "financed", "commissioned",
@@ -171,13 +175,14 @@ def _normalize_subject_token(token):
     return token
 
 
-def _has_numeric_entity_label(tokens):
-    """Recognize common concrete identifiers such as Plant 1 or Site 3."""
+def _has_concrete_entity_label(tokens):
+    """Recognize class-bound identifiers such as Plant 1 or Project A."""
     for index, token in enumerate(tokens[:-1]):
-        if _normalize_subject_token(token) not in _NUMERIC_ENTITY_LABEL_LEADS:
-            continue
+        lead = _normalize_subject_token(token)
         identifier = tokens[index + 1]
-        if identifier.isdigit():
+        if lead in _NUMERIC_ENTITY_LABEL_LEADS and identifier.isdigit():
+            return True
+        if lead in _LETTERED_ENTITY_LABEL_LEADS and re.fullmatch(r"[a-z]", identifier):
             return True
     return False
 
@@ -201,8 +206,8 @@ def item_specific_lineage_assertion(value):
     has_change_predicate = any(
         token in _ASSERTION_CHANGE_PREDICATE_TERMS for token in tokens
     )
-    has_numeric_entity_label = _has_numeric_entity_label(tokens)
-    has_concrete_subject_detail = has_numeric_entity_label or any(
+    has_concrete_entity_label = _has_concrete_entity_label(tokens)
+    has_concrete_subject_detail = has_concrete_entity_label or any(
         token not in _ASSERTION_ROLE_TERMS
         and token not in _ASSERTION_TEMPORAL_TERMS
         and token not in _ASSERTION_NEUTRAL_SUBJECT_TOKENS

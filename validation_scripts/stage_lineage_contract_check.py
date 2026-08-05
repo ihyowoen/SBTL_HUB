@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4861534917 compatibility layer for exact-target specificity."""
+"""Review 4861676549 compatibility layer for exact-target specificity."""
 from __future__ import annotations
 
 import importlib.util
@@ -59,6 +59,19 @@ def _normalize_possessive_subject_text(value):
     )
 
 
+def _simple_english_singular_candidates(token):
+    """Return conservative singular candidates for role-vocabulary matching."""
+    candidates = set()
+    if token.endswith("ies") and len(token) > 3:
+        candidates.add(token[:-3] + "y")
+    if token.endswith("es") and len(token) > 2:
+        candidates.add(token[:-2])
+        candidates.add(token[:-1])
+    if token.endswith("s") and len(token) > 1:
+        candidates.add(token[:-1])
+    return candidates
+
+
 def _is_substantive_predicate_role_token(token):
     """Treat every supported predicate inflection as role vocabulary."""
     return _base_layer._semantic._has_substantive_target_predicate(token)
@@ -68,16 +81,20 @@ def _is_source_class_role_token(token):
     """Treat simple English plural source/document nouns as role vocabulary."""
     if token in _SOURCE_CLASS_ROLE_TOKENS:
         return True
+    return any(
+        candidate in _SOURCE_CLASS_ROLE_TOKENS
+        for candidate in _simple_english_singular_candidates(token)
+    )
 
-    singular_candidates = set()
-    if token.endswith("ies") and len(token) > 3:
-        singular_candidates.add(token[:-3] + "y")
-    if token.endswith("es") and len(token) > 2:
-        singular_candidates.add(token[:-2])
-        singular_candidates.add(token[:-1])
-    if token.endswith("s") and len(token) > 1:
-        singular_candidates.add(token[:-1])
-    return any(candidate in _SOURCE_CLASS_ROLE_TOKENS for candidate in singular_candidates)
+
+def _is_generic_target_modifier_token(token):
+    """Neutralize singular and simple-plural generic owner/modifier classes."""
+    if token in _GENERIC_TARGET_MODIFIER_TOKENS:
+        return True
+    return any(
+        candidate in _GENERIC_TARGET_MODIFIER_TOKENS
+        for candidate in _simple_english_singular_candidates(token)
+    )
 
 
 def _structured_exact_target(value):
@@ -98,13 +115,14 @@ def _structured_exact_target(value):
                 r"[a-z0-9가-힣]+", _base_layer._base._normalized_text(term)
             )
         )
-    neutral_tokens = role_tokens | _GENERIC_TARGET_MODIFIER_TOKENS | {
+    neutral_tokens = role_tokens | {
         "and", "or", "the", "a", "an", "of", "for", "to", "in", "on",
         "at", "by", "from", "with", "was", "were", "is", "are", "be",
         "been", "being", "및", "또는", "의", "에", "에서", "대한",
     }
     has_named_subject = any(
         token not in neutral_tokens
+        and not _is_generic_target_modifier_token(token)
         and not _is_source_class_role_token(token)
         and not token.isdigit()
         and not _is_substantive_predicate_role_token(token)

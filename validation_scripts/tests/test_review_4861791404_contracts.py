@@ -51,11 +51,11 @@ class TestReview4861791404Contracts(unittest.TestCase):
             lineage.validate_stage_a_v3_override(spec, spec["spec_id"], messages)
         )
         self.assertTrue(
-            any(
-                "exact claim or metric" in message
-                or "measurable event or metric" in message
-                for message in messages
-            ),
+            any("exact claim, metric, stage, or date" in message for message in messages),
+            messages,
+        )
+        self.assertTrue(
+            any("measurable events or metrics" in message for message in messages),
             messages,
         )
 

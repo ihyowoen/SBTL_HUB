@@ -105,7 +105,7 @@ _prior_has_bound_interpretation_effect = _base_layer._has_bound_interpretation_e
 _CONDITIONAL_OR_CONCESSIVE_PATTERN = (
     r"\b(?:contingent\s+on|given\s+that|on\s+condition\s+that|"
     r"supposing\s+that|even\s+though|although|though|if|unless|until|despite|"
-    r"as\s+long\s+as|so\s+long\s+as|"
+    r"conditional\s+on|dependent\s+on|as\s+long\s+as|so\s+long\s+as|"
     r"provided\s+that|providing\s+that|assuming(?:\s+that)?)\b|"
     r"(?:만약|경우|않으면|까지|에도 불구하고)"
 )

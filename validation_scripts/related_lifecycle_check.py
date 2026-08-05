@@ -129,10 +129,11 @@ _ASSERTION_CHANGE_PREDICATE_TERMS = {
 }
 _ASSERTION_EVENT_SUBJECT_TERMS = {
     "permit", "license", "agreement", "contract", "filing", "construction",
-    "operation", "operations", "commissioning", "delivery", "shipment",
-    "investment", "funding", "guidance", "forecast", "rule", "milestone",
-    "허가", "인가", "계약", "공시", "건설", "운영", "가동", "상업운전",
-    "납품", "출하", "투자", "금융", "전망", "규정", "이정표",
+    "operation", "operations", "commissioning", "launch", "start", "award",
+    "delivery", "shipment", "investment", "funding", "guidance", "forecast",
+    "rule", "milestone", "허가", "인가", "계약", "공시", "건설", "운영",
+    "가동", "상업운전", "출시", "착수", "수주", "납품", "출하", "투자",
+    "금융", "전망", "규정", "이정표",
 }
 _STANDALONE_ASSERTION_EVENT_TERMS = {"commissioning", "상업운전"}
 _ASSERTION_TEMPORAL_TERMS = {

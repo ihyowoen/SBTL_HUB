@@ -1,47 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-
-
-def replace_exact(path: Path, old: str, new: str, label: str) -> None:
-    content = path.read_text(encoding="utf-8")
-    if content.count(old) != 1:
-        raise SystemExit(f"{label} did not match exactly once")
-    path.write_text(content.replace(old, new), encoding="utf-8")
-
-
-def main() -> None:
-    replace_exact(
-        Path("validation_scripts/related_lifecycle_check.py"),
-        '''_ASSERTION_EVENT_SUBJECT_TERMS = {
-    "permit", "license", "agreement", "contract", "filing", "construction",
-    "operation", "operations", "commissioning", "delivery", "shipment",
-    "investment", "funding", "guidance", "forecast", "rule", "milestone",
-    "허가", "인가", "계약", "공시", "건설", "운영", "가동", "상업운전",
-    "납품", "출하", "투자", "금융", "전망", "규정", "이정표",
-}
-''',
-        '''_ASSERTION_EVENT_SUBJECT_TERMS = {
-    "permit", "license", "agreement", "contract", "filing", "construction",
-    "operation", "operations", "commissioning", "launch", "start", "award",
-    "delivery", "shipment", "investment", "funding", "guidance", "forecast",
-    "rule", "milestone", "허가", "인가", "계약", "공시", "건설", "운영",
-    "가동", "상업운전", "출시", "착수", "수주", "납품", "출하", "투자",
-    "금융", "전망", "규정", "이정표",
-}
-''',
-        "related event-subject block",
-    )
-    replace_exact(
-        Path("validation_scripts/stage_lineage_contract_check.py"),
-        '    r"as\\s+long\\s+as|so\\s+long\\s+as|"\n',
-        '    r"conditional\\s+on|dependent\\s+on|as\\s+long\\s+as|so\\s+long\\s+as|"\n',
-        "conditional boundary line",
-    )
-
-    Path("validation_scripts/tests/test_review_4868539997_contracts.py").write_text(
-        '''from __future__ import annotations
-
 import copy
 import unittest
 
@@ -135,10 +93,3 @@ class TestReview4868539997Contracts(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-''',
-        encoding="utf-8",
-    )
-
-
-if __name__ == "__main__":
-    main()

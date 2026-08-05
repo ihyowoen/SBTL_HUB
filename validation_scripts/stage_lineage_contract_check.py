@@ -45,9 +45,6 @@ def _normalize_possessive_subject_text(value):
     """Remove English possessive morphology without dropping the owner name."""
     if not isinstance(value, str):
         return value
-    # `company's` tokenizes as `company`, `s`; the suffix must not become a
-    # fabricated named subject. Curly apostrophes and plural possessives are
-    # normalized as well, while `Project Alpha's` retains `Project Alpha`.
     normalized = _base_layer._base.re.sub(
         r"(?<=[a-z0-9])(?:['’]s)\b",
         "",
@@ -63,7 +60,6 @@ def _normalize_possessive_subject_text(value):
 
 
 def _simple_english_singular_candidates(token):
-    """Return conservative singular candidates for role-vocabulary matching."""
     candidates = set()
     if token.endswith("ies") and len(token) > 3:
         candidates.add(token[:-3] + "y")
@@ -76,12 +72,10 @@ def _simple_english_singular_candidates(token):
 
 
 def _is_substantive_predicate_role_token(token):
-    """Treat every supported predicate inflection as role vocabulary."""
     return _base_layer._semantic._has_substantive_target_predicate(token)
 
 
 def _is_simple_plural_role_token(token, role_tokens):
-    """Neutralize conservative English plurals of metric/event role nouns."""
     if token in role_tokens:
         return True
     return any(
@@ -91,7 +85,6 @@ def _is_simple_plural_role_token(token, role_tokens):
 
 
 def _normalize_supported_role_token(token, role_tokens):
-    """Map a conservative plural to a known role before the inherited gate."""
     if token in role_tokens:
         return token
     for candidate in sorted(_simple_english_singular_candidates(token)):
@@ -101,12 +94,10 @@ def _normalize_supported_role_token(token, role_tokens):
 
 
 def _is_source_class_role_token(token):
-    """Treat simple English plural source/document nouns as role vocabulary."""
     return _is_simple_plural_role_token(token, _SOURCE_CLASS_ROLE_TOKENS)
 
 
 def _is_generic_target_modifier_token(token):
-    """Neutralize singular and simple-plural generic owner/modifier classes."""
     return _is_simple_plural_role_token(token, _GENERIC_TARGET_MODIFIER_TOKENS)
 
 
@@ -114,6 +105,7 @@ _prior_has_bound_interpretation_effect = _base_layer._has_bound_interpretation_e
 _CONDITIONAL_OR_CONCESSIVE_PATTERN = (
     r"\b(?:contingent\s+on|given\s+that|on\s+condition\s+that|"
     r"supposing\s+that|even\s+though|although|though|if|unless|until|despite|"
+    r"as\s+long\s+as|so\s+long\s+as|"
     r"provided\s+that|providing\s+that|assuming(?:\s+that)?)\b|"
     r"(?:만약|경우|않으면|까지|에도 불구하고)"
 )
@@ -125,11 +117,6 @@ _KOREAN_SUFFIX_CONDITIONAL_OR_CONCESSIVE_PATTERN = (
 def _independent_clause_for_conditional_or_concessive(text):
     """Keep the main clause while removing dependent conditions/concessions."""
     current = text.strip()
-
-    # Re-evaluate after every extraction. This matters when a leading
-    # concession is followed by a main clause that itself carries a trailing
-    # condition, and when a comma-delimited medial concession interrupts the
-    # subject/predicate of the same main clause.
     for _ in range(16):
         marker = _base_layer._base.re.search(
             _CONDITIONAL_OR_CONCESSIVE_PATTERN, current
@@ -150,17 +137,10 @@ def _independent_clause_for_conditional_or_concessive(text):
         )
 
         if marker_is_korean_suffix and suffix_separator is not None:
-            # Korean conditional/concessive endings follow the dependent
-            # clause rather than introducing it. When the marker is directly
-            # followed by a comma/semicolon, keep the post-separator main
-            # clause and inspect it again for nested/trailing dependencies.
             current = current[marker.end() + suffix_separator.end():].strip()
             continue
 
         if not prefix:
-            # A leading dependent clause must end at a comma/semicolon. Keep
-            # the following main clause, then inspect it again for any later
-            # dependent marker instead of accepting it wholesale.
             separator = _base_layer._base.re.search(
                 r"[,;]\s*", current[marker.end():]
             )
@@ -170,9 +150,6 @@ def _independent_clause_for_conditional_or_concessive(text):
             continue
 
         if raw_prefix.rstrip().endswith((",", ";")):
-            # A medial comma/semicolon-delimited concession is parenthetical,
-            # not the end of the independent clause. Remove only that
-            # dependent segment and reconnect the surrounding main clause.
             remainder = current[marker.end():]
             separator = _base_layer._base.re.search(r"[,;]\s*", remainder)
             if separator is None:
@@ -181,17 +158,12 @@ def _independent_clause_for_conditional_or_concessive(text):
             current = " ".join(part for part in (prefix, suffix) if part)
             continue
 
-        # A trailing dependent condition/concession cannot supply the
-        # interpretation object for an effect in the independent prefix.
         current = prefix
 
-    # Malformed or adversarial nesting must fail closed rather than loop or
-    # guess at a main clause.
     return ""
 
 
 def _has_bound_interpretation_effect(value):
-    """Evaluate only the independent side of a condition or concession."""
     text = _base_layer._base._normalized_text(value)
     if not text:
         return False
@@ -215,7 +187,6 @@ _LETTERED_EXACT_TARGET_CLASSES = {
 
 
 def _has_lettered_exact_target_subject(tokens):
-    """Recognize approved item-class + single-letter identifiers before stopword removal."""
     return any(
         tokens[index] in _LETTERED_EXACT_TARGET_CLASSES
         and len(tokens[index + 1]) == 1

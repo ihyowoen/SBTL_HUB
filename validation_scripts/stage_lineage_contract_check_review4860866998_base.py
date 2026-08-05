@@ -28,6 +28,11 @@ _QUALIFIED_OBJECT_CONJUNCTION_TERMS = {"and", "or", "그리고", "또는"}
 _CAUSAL_CLAUSE_PATTERN = (
     r"\b(?:because|since|as)\b|(?:때문에|이므로|므로)"
 )
+_NUMERIC_PARENTHETICAL_DIRECTION_TERMS = {
+    "up", "down", "higher", "lower", "above", "below", "plus", "minus",
+    "increased", "decreased", "rising", "falling", "flat", "unchanged",
+    "상승", "하락", "증가", "감소", "높은", "낮은", "상회", "하회",
+}
 
 
 def _qualified_object_bridge_allows_conjunctions(tokens, effect_index, object_index):
@@ -103,10 +108,31 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
     )
 
 
+def _numeric_parenthetical_modifier_is_safe(modifier, tokens):
+    """Recognize subject-attached numeric comparatives such as `up 10%`."""
+    if not tokens or not any(any(char.isdigit() for char in token) for token in tokens):
+        return False
+    starts_with_direction = tokens[0] in _NUMERIC_PARENTHETICAL_DIRECTION_TERMS
+    starts_with_number = any(char.isdigit() for char in tokens[0]) and any(
+        token in _NUMERIC_PARENTHETICAL_DIRECTION_TERMS for token in tokens[1:3]
+    )
+    if not (starts_with_direction or starts_with_number):
+        return False
+    # A numeric modifier may contain directional vocabulary, but it must not
+    # carry its own interpretation object; that would be an independent clause.
+    return not _base._has_any_term(
+        modifier, _base.STAGE_A_INTERPRETATION_OBJECT_TERMS
+    )
+
+
 def _parenthetical_modifier_is_safe(modifier, parenthetical_leads):
     """Preserve subject parentheticals unless they contain their own effect."""
     tokens = _semantic._effect_tokens(modifier)
-    if not tokens or tokens[0] not in parenthetical_leads:
+    if not tokens:
+        return False
+    if _numeric_parenthetical_modifier_is_safe(modifier, tokens):
+        return True
+    if tokens[0] not in parenthetical_leads:
         return False
     return not any(
         _base._has_any_term(

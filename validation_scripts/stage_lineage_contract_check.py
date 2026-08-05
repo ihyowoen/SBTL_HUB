@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4860866998 compatibility layer for exact-target specificity."""
+"""Review 4861045407 compatibility layer for exact-target specificity."""
 from __future__ import annotations
 
 import importlib.util
@@ -31,6 +31,11 @@ _GENERIC_TARGET_MODIFIER_TOKENS = {
 }
 
 
+def _is_substantive_predicate_role_token(token):
+    """Treat every supported predicate inflection as role vocabulary."""
+    return _base_layer._semantic._has_substantive_target_predicate(token)
+
+
 def _structured_exact_target(value):
     if not _prior_structured_exact_target(value):
         return False
@@ -50,10 +55,13 @@ def _structured_exact_target(value):
     neutral_tokens = role_tokens | _GENERIC_TARGET_MODIFIER_TOKENS | {
         "and", "or", "the", "a", "an", "of", "for", "to", "in", "on",
         "at", "by", "from", "with", "was", "were", "is", "are", "be",
-        "및", "또는", "의", "에", "에서", "대한",
+        "been", "being", "및", "또는", "의", "에", "에서", "대한",
     }
     has_named_subject = any(
-        token not in neutral_tokens and not token.isdigit() for token in tokens
+        token not in neutral_tokens
+        and not token.isdigit()
+        and not _is_substantive_predicate_role_token(token)
+        for token in tokens
     )
     has_number = any(char.isdigit() for char in text)
     return has_named_subject or has_number

@@ -118,9 +118,9 @@ Prompt 0.7 final-gate overlay:
 - The Related lifecycle validator must match scope entries against `id`, `card_id`, `draft_id`, or `source_spec_id`; unmatched, empty, partial, ambiguous, or zero-match scope remains a hard failure.
 - Before Prompt 0.8 assigns production IDs, a current-run `distinct_follow_up` or `program_lineage` may carry candidate-to-candidate edges in `related_candidate_spec_ids` while `related[]` remains empty. Every provisional target must resolve uniquely within the current-run scope; dangling, ambiguous, duplicate, or self-referential provisional edges are hard failures.
 - Run all four validators against `<MERGED_BASELINE_CANDIDATE_ARTIFACT>` before `publish_ready=true`:
-  `python validation_scripts/evidence_qc_v8_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT>`,
+  `python validation_scripts/evidence_qc_v8_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --new-id-file <CURRENT_RUN_ID_FILE>`,
   `python validation_scripts/related_lifecycle_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-contract --allow-provisional-related --new-id-file <CURRENT_RUN_ID_FILE>`,
-  `python validation_scripts/date_role_freshness_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-date-role`, and
+  `python validation_scripts/date_role_freshness_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-date-role --new-id-file <CURRENT_RUN_ID_FILE>`, and
   `python validation_scripts/stage_artifact_contract_check.py 0.7 <MERGED_BASELINE_CANDIDATE_ARTIFACT>`.
 - Do not apply `--require-contract` unscoped to the full legacy inventory; strict V3 fields are current-run obligations while legacy rows remain under the legacy-compatible check.
 - Reapprove bounded single-source exceptions without weakening Related proof.

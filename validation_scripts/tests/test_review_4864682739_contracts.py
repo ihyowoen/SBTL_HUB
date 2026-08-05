@@ -8,9 +8,9 @@ TARGETS = (
     ROOT / "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
 )
 COMMANDS = (
-    "python validation_scripts/evidence_qc_v8_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT>",
+    "python validation_scripts/evidence_qc_v8_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --new-id-file <CURRENT_RUN_ID_FILE>",
     "python validation_scripts/related_lifecycle_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-contract --allow-provisional-related --new-id-file <CURRENT_RUN_ID_FILE>",
-    "python validation_scripts/date_role_freshness_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-date-role",
+    "python validation_scripts/date_role_freshness_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-date-role --new-id-file <CURRENT_RUN_ID_FILE>",
     "python validation_scripts/stage_artifact_contract_check.py 0.7 <MERGED_BASELINE_CANDIDATE_ARTIFACT>",
 )
 

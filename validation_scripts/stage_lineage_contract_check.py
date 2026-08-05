@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4868891584 compatibility layer for independent causal clauses."""
+"""Review 4869087245 compatibility layer for causal and exact-target semantics."""
 from __future__ import annotations
 
 import importlib.util
@@ -105,6 +105,60 @@ if hasattr(_prior._base_layer, "_base"):
     _prior._base_layer._base._has_bound_interpretation_effect = (
         _has_bound_interpretation_effect
     )
+
+_prior_structured_exact_target = _prior._structured_exact_target
+
+
+def _structured_exact_target(value):
+    """Require a concrete named/item subject; dates and numbers only qualify it."""
+    value = _prior._normalize_possessive_subject_text(value)
+    text = _prior._base_layer._base._normalized_text(value)
+    tokens = _prior._base_layer._base.re.findall(r"[a-z0-9가-힣]+", text)
+    role_tokens = set()
+    for term in (
+        tuple(_prior._base_layer._base.STAGE_A_EXACT_TARGET_TERMS)
+        + tuple(_prior._base_layer._base.STAGE_A_CONFIRMATION_EVENT_TERMS)
+        + tuple(_prior._base_layer._base.STAGE_A_SUBSTANTIVE_TARGET_PREDICATE_TERMS)
+        + tuple(_prior._base_layer._base.STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS)
+    ):
+        role_tokens.update(
+            _prior._base_layer._base.re.findall(
+                r"[a-z0-9가-힣]+",
+                _prior._base_layer._base._normalized_text(term),
+            )
+        )
+    normalized_prior_value = " ".join(
+        _prior._normalize_supported_role_token(token, role_tokens)
+        for token in tokens
+    )
+    if not _prior_structured_exact_target(normalized_prior_value):
+        return False
+
+    neutral_tokens = role_tokens | {
+        "and", "or", "the", "a", "an", "of", "for", "to", "in", "on",
+        "at", "by", "from", "with", "was", "were", "is", "are", "be",
+        "been", "being", "및", "또는", "의", "에", "에서", "대한",
+    }
+    has_named_subject = any(
+        token not in neutral_tokens
+        and not _prior._is_simple_plural_role_token(token, role_tokens)
+        and not _prior._is_generic_target_modifier_token(token)
+        and not _prior._is_source_class_role_token(token)
+        and not token.isdigit()
+        and not (len(token) == 1 and token.isalpha())
+        and not _prior._is_substantive_predicate_role_token(token)
+        for token in tokens
+    )
+    has_lettered_subject = _prior._has_lettered_exact_target_subject(tokens)
+    return has_named_subject or has_lettered_subject
+
+
+_prior._structured_exact_target = _structured_exact_target
+_prior._base_layer._structured_exact_target = _structured_exact_target
+if hasattr(_prior._base_layer, "_semantic"):
+    _prior._base_layer._semantic._structured_exact_target = _structured_exact_target
+if hasattr(_prior._base_layer, "_base"):
+    _prior._base_layer._base._structured_exact_target = _structured_exact_target
 
 if __name__ == "__main__":
     _prior._base_layer._base.sys.exit(_prior._base_layer._base.main())

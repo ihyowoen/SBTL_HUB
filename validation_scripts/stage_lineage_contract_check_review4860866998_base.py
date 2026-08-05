@@ -25,8 +25,9 @@ _prior_effect_bridge_is_semantic = _semantic._effect_bridge_is_semantic
 _prior_has_bound_interpretation_effect = _semantic._has_bound_interpretation_effect
 
 _QUALIFIED_OBJECT_CONJUNCTION_TERMS = {"and", "or", "그리고", "또는"}
-_CAUSAL_CLAUSE_PATTERN = (
-    r"\b(?:because|since|as)\b|(?:때문에|이므로|므로)"
+_DEPENDENT_CLAUSE_PATTERN = (
+    r"\b(?:because|since|as|after|before|when)\b|"
+    r"(?:때문에|이므로|므로|이후에|이후|이전에|전에|할 때|했을 때)"
 )
 _NUMERIC_PARENTHETICAL_DIRECTION_TERMS = {
     "up", "down", "higher", "lower", "above", "below", "plus", "minus",
@@ -211,15 +212,15 @@ def _preserve_parenthetical_subject_modifiers(text):
 
 
 def _has_bound_interpretation_effect(value):
-    """Evaluate causal clauses independently before semantic effect binding."""
+    """Evaluate causal and temporal clauses independently before binding."""
     text = _base._normalized_text(value)
     if not text:
         return False
 
-    causal_clauses = _base.re.split(_CAUSAL_CLAUSE_PATTERN, text)
+    dependent_clauses = _base.re.split(_DEPENDENT_CLAUSE_PATTERN, text)
     return any(
         _prior_has_bound_interpretation_effect(clause.strip())
-        for clause in causal_clauses
+        for clause in dependent_clauses
         if clause.strip()
     )
 

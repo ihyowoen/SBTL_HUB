@@ -3,9 +3,17 @@
 from __future__ import annotations
 
 import importlib.util
+import sys
 from pathlib import Path
 
 _BASE_PATH = Path(__file__).with_name("related_lifecycle_check_review4860866998_base.py")
+# The base validator retains direct-script imports for CLI compatibility. Ensure
+# its sibling modules are also importable when this wrapper is imported as the
+# validation_scripts package from an isolated focused unittest invocation.
+_BASE_DIR = str(_BASE_PATH.parent)
+if _BASE_DIR not in sys.path:
+    sys.path.insert(0, _BASE_DIR)
+
 _SPEC = importlib.util.spec_from_file_location(
     "validation_scripts.related_lifecycle_check_review4860866998_base",
     _BASE_PATH,
@@ -127,11 +135,14 @@ def item_specific_lineage_assertion(value):
     has_change_predicate = any(
         token in _ASSERTION_CHANGE_PREDICATE_TERMS for token in tokens
     )
-    has_non_role_detail = any(
+    has_concrete_subject_detail = any(
         token not in _ASSERTION_ROLE_TERMS
+        and token not in _ASSERTION_TEMPORAL_TERMS
         and token not in _base._GENERIC_LINEAGE_ASSERTION_TOKENS
+        and not token.isdigit()
         for token in tokens
     )
+    has_non_role_detail = has_concrete_subject_detail
     has_self_identifying_event_subject = any(
         token in _ASSERTION_EVENT_SUBJECT_TERMS for token in tokens
     )
@@ -153,9 +164,18 @@ def item_specific_lineage_assertion(value):
     ):
         return False
 
-    if has_numeric_detail and has_role:
+    # A date or period plus a bare role noun (for example `Q2 revenue` or
+    # `2026 revenue`) is not a fresh anchor, incremental fact, or changed
+    # judgment. Require a concrete subject, a real change predicate, or a
+    # self-identifying event noun before temporal/numeric detail can qualify it.
+    dated_or_numeric_detail_is_specific = (
+        has_change_predicate
+        or has_self_identifying_event_subject
+        or has_concrete_subject_detail
+    )
+    if has_numeric_detail and has_role and dated_or_numeric_detail_is_specific:
         return True
-    if has_temporal_detail and has_role:
+    if has_temporal_detail and has_role and dated_or_numeric_detail_is_specific:
         return True
     if has_change_predicate and (
         has_non_role_detail or has_self_identifying_event_subject

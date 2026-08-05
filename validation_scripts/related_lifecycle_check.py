@@ -146,9 +146,9 @@ _ASSERTION_ORDINAL_PERIOD_TERMS = {
 _ASSERTION_PERIOD_UNIT_TERMS = {
     "quarter", "half", "semester", "year", "분기", "반기", "연도",
 }
-_ASSERTION_PERIOD_MODIFIER_TERMS = {"fiscal", "calendar"}
+_ASSERTION_PERIOD_MODIFIER_TERMS = {"fiscal", "calendar", "financial"}
 _ASSERTION_ADJACENT_PERIOD_MODIFIER_TERMS = _ASSERTION_PERIOD_MODIFIER_TERMS | {"fy"}
-_ASSERTION_SPLIT_FISCAL_YEAR_MARKERS = {"fy", "fiscal"}
+_ASSERTION_SPLIT_FISCAL_YEAR_MARKERS = {"fy", "fiscal", "financial"}
 _ASSERTION_SPLIT_QUARTER_MARKERS = {"q", "quarter"}
 _ASSERTION_COMPOSITE_PERIOD_PATTERNS = (
     r"fy\d{2,4}",
@@ -271,7 +271,7 @@ def _assertion_temporal_token_indexes(tokens):
         ):
             temporal_indexes.update((index, unit_index))
 
-    # Fiscal/calendar/FY qualifiers directly adjoining a recognized period are
+    # Fiscal/calendar/financial/FY qualifiers directly adjoining a recognized period are
     # part of the same temporal span, not an item subject. This covers both
     # `Fiscal Q1` and ordinal forms such as `Fiscal first quarter` after the
     # underlying period indexes have been identified.
@@ -293,7 +293,7 @@ def _has_concrete_entity_label(tokens):
         identifier = tokens[index + 1]
         if lead in _NUMERIC_ENTITY_LABEL_LEADS and identifier.isdigit():
             return True
-        if lead in _LETTERED_ENTITY_LABEL_LEADS and re.fullmatch(r"[a-z]", identifier):
+        if lead in _LETTERED_ENTITY_LABEL_LEADS and _base.re.fullmatch(r"[a-z]", identifier):
             return True
     return False
 
@@ -348,13 +348,14 @@ def item_specific_lineage_assertion(value):
         return normalized_role_tokens[0] in _STANDALONE_ASSERTION_EVENT_TERMS
 
     # An entity label must be rejected before an ambiguous noun such as `fund`
-    # can satisfy the role shortcut. A genuine predicate, date, or number still
-    # preserves concise assertions such as `Fund Alpha secured financing`.
+    # can satisfy the role shortcut. Named self-identifying execution events
+    # such as `Project Alpha commissioning` remain valid concise anchors.
     if (
         _entity_only_label(value, tokens)
         and not has_numeric_detail
         and not has_temporal_detail
         and not has_change_predicate
+        and not has_self_identifying_event_subject
     ):
         return False
 

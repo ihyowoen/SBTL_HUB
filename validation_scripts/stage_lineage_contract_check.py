@@ -107,14 +107,38 @@ _CONDITIONAL_OR_CONCESSIVE_PATTERN = (
 )
 
 
+def _independent_clause_for_conditional_or_concessive(text):
+    """Return the independent clause without binding across a dependent marker."""
+    marker = _base_layer._base.re.search(
+        _CONDITIONAL_OR_CONCESSIVE_PATTERN, text
+    )
+    if marker is None:
+        return text
+
+    prefix = text[:marker.start()].strip(" ,;")
+    if prefix:
+        # A trailing dependent condition/concession cannot supply the
+        # interpretation object for an effect in the independent prefix.
+        return prefix
+
+    # With a leading dependent condition/concession, the independent clause
+    # follows its comma/semicolon boundary. Fail closed when no such boundary
+    # is present instead of guessing where the main clause begins.
+    dependent_tail = text[marker.end():].lstrip()
+    clause_parts = _base_layer._base.re.split(
+        r"[,;]\s*", dependent_tail, maxsplit=1
+    )
+    if len(clause_parts) != 2:
+        return ""
+    return clause_parts[1].strip()
+
+
 def _has_bound_interpretation_effect(value):
-    """Do not bind an interpretation effect through a dependent condition."""
+    """Evaluate only the independent side of a condition or concession."""
     text = _base_layer._base._normalized_text(value)
     if not text:
         return False
-    independent_clause = _base_layer._base.re.split(
-        _CONDITIONAL_OR_CONCESSIVE_PATTERN, text, maxsplit=1
-    )[0].strip()
+    independent_clause = _independent_clause_for_conditional_or_concessive(text)
     return bool(
         independent_clause
         and _prior_has_bound_interpretation_effect(independent_clause)

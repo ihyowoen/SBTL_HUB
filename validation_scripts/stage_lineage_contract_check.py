@@ -90,6 +90,16 @@ def _is_simple_plural_role_token(token, role_tokens):
     )
 
 
+def _normalize_supported_role_token(token, role_tokens):
+    """Map a conservative plural to a known role before the inherited gate."""
+    if token in role_tokens:
+        return token
+    for candidate in sorted(_simple_english_singular_candidates(token)):
+        if candidate in role_tokens:
+            return candidate
+    return token
+
+
 def _is_source_class_role_token(token):
     """Treat simple English plural source/document nouns as role vocabulary."""
     return _is_simple_plural_role_token(token, _SOURCE_CLASS_ROLE_TOKENS)
@@ -214,8 +224,6 @@ def _has_lettered_exact_target_subject(tokens):
 
 def _structured_exact_target(value):
     value = _normalize_possessive_subject_text(value)
-    if not _prior_structured_exact_target(value):
-        return False
     text = _base_layer._base._normalized_text(value)
     tokens = _base_layer._base.re.findall(r"[a-z0-9가-힣]+", text)
     role_tokens = set()
@@ -230,6 +238,11 @@ def _structured_exact_target(value):
                 r"[a-z0-9가-힣]+", _base_layer._base._normalized_text(term)
             )
         )
+    normalized_prior_value = " ".join(
+        _normalize_supported_role_token(token, role_tokens) for token in tokens
+    )
+    if not _prior_structured_exact_target(normalized_prior_value):
+        return False
     neutral_tokens = role_tokens | {
         "and", "or", "the", "a", "an", "of", "for", "to", "in", "on",
         "at", "by", "from", "with", "was", "were", "is", "are", "be",

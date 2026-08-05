@@ -35,8 +35,13 @@ _PARENTHETICAL_KOREAN_TEMPORAL_MARKER_PATTERN = (
 )
 _NUMERIC_PARENTHETICAL_DIRECTION_TERMS = {
     "up", "down", "higher", "lower", "above", "below", "plus", "minus",
-    "increased", "decreased", "rising", "falling", "flat", "unchanged",
+    "increase", "increased", "decrease", "decreased", "rise", "rising", "rose",
+    "fall", "falling", "fell", "gain", "gained", "loss", "flat", "unchanged",
     "상승", "하락", "증가", "감소", "높은", "낮은", "상회", "하회",
+}
+_EMBEDDED_NUMERIC_PARENTHETICAL_LEADS = {
+    "in", "within", "during", "throughout", "after", "before", "under", "over",
+    "for", "중", "동안", "내", "이후", "이전", "후", "전",
 }
 
 
@@ -114,14 +119,24 @@ def _effect_bridge_is_semantic(tokens, effect_index, object_index):
 
 
 def _numeric_parenthetical_modifier_is_safe(modifier, tokens):
-    """Recognize subject-attached numeric comparatives such as `up 10%`."""
+    """Recognize subject-attached numeric comparatives, including nested ones."""
     if not tokens or not any(any(char.isdigit() for char in token) for token in tokens):
         return False
+    has_direction = any(
+        token in _NUMERIC_PARENTHETICAL_DIRECTION_TERMS for token in tokens
+    )
     starts_with_direction = tokens[0] in _NUMERIC_PARENTHETICAL_DIRECTION_TERMS
     starts_with_number = any(char.isdigit() for char in tokens[0]) and any(
         token in _NUMERIC_PARENTHETICAL_DIRECTION_TERMS for token in tokens[1:3]
     )
-    if not (starts_with_direction or starts_with_number):
+    contains_embedded_numeric_comparison = (
+        tokens[0] in _EMBEDDED_NUMERIC_PARENTHETICAL_LEADS and has_direction
+    )
+    if not (
+        starts_with_direction
+        or starts_with_number
+        or contains_embedded_numeric_comparison
+    ):
         return False
     # A numeric modifier may contain directional vocabulary, but it must not
     # carry its own interpretation object; that would be an independent clause.

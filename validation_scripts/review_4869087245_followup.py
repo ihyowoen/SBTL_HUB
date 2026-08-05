@@ -74,6 +74,13 @@ replace(
     '"measurable_event_or_metric": "Project Alpha 2027 milestone"',
 )
 replace(
+    "validation_scripts/tests/test_review_4841207046_followup_contracts.py",
+    '''"measurable_event_or_metric": "Project Alpha 2027 milestone",
+            "interpretation_effect": "confirm thesis"''',
+    '''"measurable_event_or_metric": "Project Alpha 2027 milestone",
+            "interpretation_effect": "would strengthen the demand outlook"''',
+)
+replace(
     "validation_scripts/tests/test_review_4845534152_contracts.py",
     '"2027 revenue"',
     '"Project Alpha 2027 revenue"',

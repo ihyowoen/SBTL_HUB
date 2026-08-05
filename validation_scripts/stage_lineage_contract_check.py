@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4861676549 compatibility layer for exact-target specificity."""
+"""Review 4861791404 compatibility layer for exact-target specificity."""
 from __future__ import annotations
 
 import importlib.util
@@ -77,24 +77,24 @@ def _is_substantive_predicate_role_token(token):
     return _base_layer._semantic._has_substantive_target_predicate(token)
 
 
-def _is_source_class_role_token(token):
-    """Treat simple English plural source/document nouns as role vocabulary."""
-    if token in _SOURCE_CLASS_ROLE_TOKENS:
+def _is_simple_plural_role_token(token, role_tokens):
+    """Neutralize conservative English plurals of metric/event role nouns."""
+    if token in role_tokens:
         return True
     return any(
-        candidate in _SOURCE_CLASS_ROLE_TOKENS
+        candidate in role_tokens
         for candidate in _simple_english_singular_candidates(token)
     )
+
+
+def _is_source_class_role_token(token):
+    """Treat simple English plural source/document nouns as role vocabulary."""
+    return _is_simple_plural_role_token(token, _SOURCE_CLASS_ROLE_TOKENS)
 
 
 def _is_generic_target_modifier_token(token):
     """Neutralize singular and simple-plural generic owner/modifier classes."""
-    if token in _GENERIC_TARGET_MODIFIER_TOKENS:
-        return True
-    return any(
-        candidate in _GENERIC_TARGET_MODIFIER_TOKENS
-        for candidate in _simple_english_singular_candidates(token)
-    )
+    return _is_simple_plural_role_token(token, _GENERIC_TARGET_MODIFIER_TOKENS)
 
 
 def _structured_exact_target(value):
@@ -122,6 +122,7 @@ def _structured_exact_target(value):
     }
     has_named_subject = any(
         token not in neutral_tokens
+        and not _is_simple_plural_role_token(token, role_tokens)
         and not _is_generic_target_modifier_token(token)
         and not _is_source_class_role_token(token)
         and not token.isdigit()

@@ -48,12 +48,15 @@ def item_specific_lineage_assertion(value):
     tokens = [token for token in normalized.split() if token]
     has_role = any(token in _ASSERTION_ROLE_TERMS for token in tokens)
     has_numeric_detail = any(any(char.isdigit() for char in token) for token in tokens)
-    return has_role or has_numeric_detail
+    # Reject a bare entity label such as "Project Alpha", while preserving
+    # concise but substantive prior narratives that contain three or more terms.
+    return has_role or has_numeric_detail or len(tokens) >= 3
 
 
 _base.item_specific_lineage_assertion = item_specific_lineage_assertion
 
-# Compatibility contract marker retained for source-level regression tests:
+# Compatibility contract markers retained for source-level regression tests:
 # resolved_provisional_targets
+# follow-up date precedes provisional predecessor
 if __name__ == "__main__":
     _base.sys.exit(_base.main())

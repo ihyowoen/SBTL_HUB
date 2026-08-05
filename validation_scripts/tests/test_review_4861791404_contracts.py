@@ -25,16 +25,24 @@ class TestReview4861791404Contracts(unittest.TestCase):
             with self.subTest(value=value):
                 self.assertFalse(lineage._structured_exact_target(value))
 
-    def test_named_or_period_qualified_plural_roles_remain_valid(self):
+    def test_named_plural_roles_remain_valid(self):
         for value in (
             "Project Alpha revenues",
             "Project Alpha margins",
             "Project Alpha approvals",
+            "Plant 1 revenues",
+            "Project A launches",
+        ):
+            with self.subTest(value=value):
+                self.assertTrue(lineage._structured_exact_target(value))
+
+    def test_period_qualified_roles_without_named_subject_are_rejected(self):
+        for value in (
             "2027 revenues",
             "Q2 launches",
         ):
             with self.subTest(value=value):
-                self.assertTrue(lineage._structured_exact_target(value))
+                self.assertFalse(lineage._structured_exact_target(value))
 
     def test_complete_v3_rejects_bare_plural_role_target_bypass(self):
         spec = self.base_v3_spec()

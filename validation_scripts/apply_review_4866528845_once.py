@@ -40,8 +40,6 @@ if hasattr(_base_layer, "_base"):
         raise RuntimeError("structured exact-target insertion anchor changed")
     stage.write_text(text.replace(anchor, patch + anchor, 1), encoding="utf-8")
 
-# The other three review fixes may already be present from an earlier successful
-# application. Fail closed if any required production behavior is absent.
 required_snippets = {
     "validation_scripts/stage_lineage_contract_check.py": (
         '"source", "entity", "government", "governmental", "regulatory"',
@@ -74,8 +72,6 @@ from validation_scripts import date_role_freshness_check as date_role
 from validation_scripts import evidence_qc_v8_check as evidence_qc
 from validation_scripts import related_lifecycle_check as related
 from validation_scripts import stage_lineage_contract_check as lineage
-
-# Workflow compatibility marker: "Plant A inventory"
 
 
 class TestReview4866528845Contracts(unittest.TestCase):

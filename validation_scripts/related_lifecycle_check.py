@@ -79,7 +79,7 @@ _ENTITY_LABEL_SUFFIXES = {
 _AMBIGUOUS_ENTITY_ROLE_TERMS = _ENTITY_LABEL_LEADS | _ENTITY_LABEL_SUFFIXES
 _ASSERTION_NEUTRAL_SUBJECT_TOKENS = {
     "a", "an", "the", "this", "that", "these", "those", "of", "for", "in",
-    "on", "at", "to", "from", "as", "by", "with", "and", "or", "its",
+    "on", "at", "to", "from", "as", "by", "with", "and", "or", "its", "s",
     "their", "official", "public", "regulatory", "government", "governmental",
     "corporate", "company", "issuer", "business", "entity", "reported",
     "published", "disclosed", "source", "sources", "document", "documents",
@@ -88,6 +88,23 @@ _ASSERTION_NEUTRAL_SUBJECT_TOKENS = {
     "current", "해당", "공식", "공공", "정부", "규제", "기업", "회사", "발행사",
     "자료", "문서", "데이터셋", "보고서", "발표자료", "일반", "최신", "현재",
 } | _AMBIGUOUS_ENTITY_ROLE_TERMS
+_GENERIC_OWNER_SINGULARS = {
+    "company", "issuer", "business", "entity", "corporation", "corporate",
+    "project", "program", "programme", "fund", "group", "facility", "plant",
+    "site", "platform", "initiative", "venture",
+}
+_GENERIC_OWNER_PLURALS = {
+    "companies": "company", "issuers": "issuer", "businesses": "business",
+    "entities": "entity", "corporations": "corporation", "projects": "project",
+    "programs": "program", "programmes": "programme", "funds": "fund",
+    "groups": "group", "facilities": "facility", "plants": "plant",
+    "sites": "site", "platforms": "platform", "initiatives": "initiative",
+    "ventures": "venture",
+}
+_NUMERIC_ENTITY_LABEL_LEADS = {
+    "plant", "facility", "site", "unit", "line", "block", "mine", "well",
+    "factory", "공장", "시설", "사업장", "사이트", "라인", "광산", "유정",
+}
 _ASSERTION_CHANGE_PREDICATE_TERMS = {
     "approved", "adopted", "effective", "enforced", "launched", "started",
     "completed", "secured", "awarded", "contracted", "financed", "commissioned",
@@ -139,13 +156,41 @@ def _entity_only_label(value, tokens):
     return _title_like_english_entity_label(value, tokens)
 
 
+def _normalize_assertion_text(value):
+    """Remove possessive syntax without fabricating a standalone subject token."""
+    normalized = value.casefold().replace("’", "'")
+    normalized = _base.re.sub(r"(?<=[a-z0-9])'s\b", "", normalized)
+    normalized = _base.re.sub(r"(?<=[a-z0-9])s'\b", "s", normalized)
+    return normalized
+
+
+def _normalize_subject_token(token):
+    """Normalize conservative generic-owner plurals for neutral-token checks."""
+    if token in _GENERIC_OWNER_PLURALS:
+        return _GENERIC_OWNER_PLURALS[token]
+    return token
+
+
+def _has_numeric_entity_label(tokens):
+    """Recognize common concrete identifiers such as Plant 1 or Site 3."""
+    for index, token in enumerate(tokens[:-1]):
+        if _normalize_subject_token(token) not in _NUMERIC_ENTITY_LABEL_LEADS:
+            continue
+        identifier = tokens[index + 1]
+        if identifier.isdigit():
+            return True
+    return False
+
+
 def item_specific_lineage_assertion(value):
     if not _prior_item_specific_lineage_assertion(value):
         return False
+    normalized_value = _normalize_assertion_text(value)
     normalized = _base.re.sub(
-        r"[^a-z0-9가-힣]+", " ", value.casefold()
+        r"[^a-z0-9가-힣]+", " ", normalized_value
     ).strip()
     tokens = [token for token in normalized.split() if token]
+    subject_tokens = [_normalize_subject_token(token) for token in tokens]
     role_tokens = {token for token in tokens if token in _ASSERTION_ROLE_TERMS}
     has_role = bool(role_tokens)
     has_unambiguous_role = any(
@@ -156,13 +201,15 @@ def item_specific_lineage_assertion(value):
     has_change_predicate = any(
         token in _ASSERTION_CHANGE_PREDICATE_TERMS for token in tokens
     )
-    has_concrete_subject_detail = any(
+    has_numeric_entity_label = _has_numeric_entity_label(tokens)
+    has_concrete_subject_detail = has_numeric_entity_label or any(
         token not in _ASSERTION_ROLE_TERMS
         and token not in _ASSERTION_TEMPORAL_TERMS
         and token not in _ASSERTION_NEUTRAL_SUBJECT_TOKENS
+        and token not in _GENERIC_OWNER_SINGULARS
         and token not in _base._GENERIC_LINEAGE_ASSERTION_TOKENS
         and not token.isdigit()
-        for token in tokens
+        for token in subject_tokens
     )
     has_non_role_detail = has_concrete_subject_detail
     has_self_identifying_event_subject = any(
@@ -188,9 +235,8 @@ def item_specific_lineage_assertion(value):
 
     # A date or period plus a bare role noun (for example `Q2 revenue` or
     # `2026 revenue`) is not a fresh anchor, incremental fact, or changed
-    # judgment. Stopwords, source modifiers, and entity-class nouns do not count
-    # as a concrete subject; require a named subject, a real change predicate, or
-    # a self-identifying event noun before temporal/numeric detail can qualify it.
+    # judgment. Stopwords, source modifiers, and generic owner classes do not
+    # count as a concrete subject. Numeric plant/site/facility labels do count.
     dated_or_numeric_detail_is_specific = (
         has_change_predicate
         or has_self_identifying_event_subject

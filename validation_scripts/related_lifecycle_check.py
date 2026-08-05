@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4861267953 compatibility layer for Related assertion semantics."""
+"""Review 4861534917 compatibility layer for Related assertion semantics."""
 from __future__ import annotations
 
 import importlib.util
@@ -59,6 +59,33 @@ _ENTITY_LABEL_SUFFIXES = {
     "주식회사", "홀딩스", "그룹", "에너지", "테크놀로지", "시스템", "솔루션",
 }
 _AMBIGUOUS_ENTITY_ROLE_TERMS = _ENTITY_LABEL_LEADS | _ENTITY_LABEL_SUFFIXES
+_ASSERTION_CHANGE_PREDICATE_TERMS = {
+    "approved", "adopted", "effective", "enforced", "launched", "started",
+    "completed", "secured", "awarded", "contracted", "financed", "commissioned",
+    "filed", "disclosed", "published", "announced", "delayed", "cancelled",
+    "canceled", "increased", "decreased", "added", "removed", "changed",
+    "shifted", "moved", "confirmed", "weakened", "strengthened", "invalidated",
+    "permitted", "licensed", "agreed", "constructed", "operated", "operating",
+    "began", "begins", "entered", "funded", "invested", "supplied", "delivered",
+    "sold", "purchased", "승인", "채택", "발효", "시행", "집행", "출시", "착수",
+    "준공", "상업운전", "완료", "확보", "수주", "공시", "발표", "지연", "취소",
+    "증가", "감소", "추가", "삭제", "변경", "전환", "이동", "확인", "약화",
+    "강화", "무효화", "허가", "인가", "건설", "운영", "가동", "투자", "공급",
+    "납품", "판매", "구매", "출하",
+}
+_ASSERTION_EVENT_SUBJECT_TERMS = {
+    "permit", "license", "agreement", "contract", "filing", "construction",
+    "operation", "operations", "commissioning", "delivery", "shipment",
+    "investment", "funding", "guidance", "forecast", "rule", "milestone",
+    "허가", "인가", "계약", "공시", "건설", "운영", "가동", "상업운전",
+    "납품", "출하", "투자", "금융", "전망", "규정", "이정표",
+}
+_STANDALONE_ASSERTION_EVENT_TERMS = {"commissioning", "상업운전"}
+_ASSERTION_TEMPORAL_TERMS = {
+    "january", "february", "march", "april", "may", "june", "july", "august",
+    "september", "october", "november", "december", "quarter", "q1", "q2",
+    "q3", "q4", "today", "yesterday", "tomorrow", "월", "분기", "오늘", "어제",
+}
 
 
 def _title_like_english_entity_label(value, tokens):
@@ -94,17 +121,55 @@ def item_specific_lineage_assertion(value):
         token not in _AMBIGUOUS_ENTITY_ROLE_TERMS for token in role_tokens
     )
     has_numeric_detail = any(any(char.isdigit() for char in token) for token in tokens)
+    has_temporal_detail = any(token in _ASSERTION_TEMPORAL_TERMS for token in tokens)
+    has_change_predicate = any(
+        token in _ASSERTION_CHANGE_PREDICATE_TERMS for token in tokens
+    )
+    has_non_role_detail = any(
+        token not in _ASSERTION_ROLE_TERMS
+        and token not in _base._GENERIC_LINEAGE_ASSERTION_TOKENS
+        for token in tokens
+    )
+    has_self_identifying_event_subject = any(
+        token in _ASSERTION_EVENT_SUBJECT_TERMS for token in tokens
+    )
+
+    # A bare metric or event-role word does not identify the item or the actual
+    # fresh change. Preserve only the long-standing canonical one-word execution
+    # anchor, while `revenue`, `launch`, and similar role-only values fail.
+    if len(tokens) == 1:
+        return tokens[0] in _STANDALONE_ASSERTION_EVENT_TERMS
 
     # An entity label must be rejected before an ambiguous noun such as `fund`
-    # can satisfy the role shortcut. A genuine event/metric role still preserves
-    # concise assertions such as `Fund Alpha secured financing`.
-    if _entity_only_label(value, tokens) and not has_unambiguous_role:
+    # can satisfy the role shortcut. A genuine predicate, date, or number still
+    # preserves concise assertions such as `Fund Alpha secured financing`.
+    if (
+        _entity_only_label(value, tokens)
+        and not has_numeric_detail
+        and not has_temporal_detail
+        and not has_change_predicate
+    ):
         return False
-    if has_role or has_numeric_detail:
+
+    if has_numeric_detail and has_role:
         return True
-    # Retain the prior compatibility path for substantive three-plus-token prose,
-    # but do not let an arbitrary multi-token entity label satisfy lineage.
-    return len(tokens) >= 3 and not _entity_only_label(value, tokens)
+    if has_temporal_detail and has_role:
+        return True
+    if has_change_predicate and (
+        has_non_role_detail or has_self_identifying_event_subject
+    ):
+        return True
+    if has_role and has_non_role_detail and has_unambiguous_role:
+        return True
+
+    # Retain the prior compatibility path only for substantive prose containing
+    # an actual predicate/change cue; arbitrary role-only or entity-only strings
+    # cannot satisfy strict follow-up lineage.
+    return (
+        len(tokens) >= 3
+        and has_change_predicate
+        and not _entity_only_label(value, tokens)
+    )
 
 
 _base.item_specific_lineage_assertion = item_specific_lineage_assertion

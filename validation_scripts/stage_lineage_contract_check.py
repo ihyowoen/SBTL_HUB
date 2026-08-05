@@ -112,7 +112,8 @@ def _is_generic_target_modifier_token(token):
 
 _prior_has_bound_interpretation_effect = _base_layer._has_bound_interpretation_effect
 _CONDITIONAL_OR_CONCESSIVE_PATTERN = (
-    r"\b(?:even\s+though|although|though|if|unless|until|despite)\b|"
+    r"\b(?:even\s+though|although|though|if|unless|until|despite|"
+    r"provided\s+that|providing\s+that|assuming(?:\s+that)?)\b|"
     r"(?:만약|경우|않으면|까지|에도 불구하고)"
 )
 _KOREAN_SUFFIX_CONDITIONAL_OR_CONCESSIVE_PATTERN = (

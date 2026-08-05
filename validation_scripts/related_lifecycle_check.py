@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4861534917 compatibility layer for Related assertion semantics."""
+"""Review 4862131806 compatibility layer for Related assertion semantics."""
 from __future__ import annotations
 
 import importlib.util
@@ -28,6 +28,16 @@ for _name in dir(_base):
         globals()[_name] = getattr(_base, _name)
 
 _prior_item_specific_lineage_assertion = _base.item_specific_lineage_assertion
+_RELATED_DATA_FINANCIAL_ROLE_TERMS = {
+    "operating", "operation", "operations", "shipment", "shipments", "price",
+    "prices", "inventory", "inventories", "utilisation", "utilisations",
+    "utilization", "utilizations", "safety", "market", "data", "economics",
+    "impairment", "impairments", "loss", "losses", "recognition", "scale",
+    "delay", "delays", "revenue", "revenues", "customer", "customers",
+    "운영", "가동", "출하", "가격", "재고", "가동률", "이용률", "안전",
+    "시장", "데이터", "경제성", "손상", "손실", "매출인식", "규모", "지연",
+    "매출", "고객",
+}
 _ASSERTION_ROLE_TERMS = {
     "approve", "approved", "adopt", "adopted", "effective", "enforce", "enforced",
     "launch", "launched", "start", "started", "complete", "completed", "secure",
@@ -53,7 +63,7 @@ _ASSERTION_ROLE_TERMS = {
     "운영", "가동", "투자", "공급", "납품", "판매", "구매", "출하", "고객",
     "매출", "마진", "용량", "물량", "가격", "비용", "날짜", "단계", "상태",
     "적격성", "확률", "전망", "판단", "목표",
-}
+} | _RELATED_DATA_FINANCIAL_ROLE_TERMS
 _ENTITY_LABEL_LEADS = {
     "project", "program", "programme", "company", "corporation", "corp", "group",
     "fund", "facility", "plant", "site", "platform", "initiative", "venture",
@@ -67,6 +77,17 @@ _ENTITY_LABEL_SUFFIXES = {
     "주식회사", "홀딩스", "그룹", "에너지", "테크놀로지", "시스템", "솔루션",
 }
 _AMBIGUOUS_ENTITY_ROLE_TERMS = _ENTITY_LABEL_LEADS | _ENTITY_LABEL_SUFFIXES
+_ASSERTION_NEUTRAL_SUBJECT_TOKENS = {
+    "a", "an", "the", "this", "that", "these", "those", "of", "for", "in",
+    "on", "at", "to", "from", "as", "by", "with", "and", "or", "its",
+    "their", "official", "public", "regulatory", "government", "governmental",
+    "corporate", "company", "issuer", "business", "entity", "reported",
+    "published", "disclosed", "source", "sources", "document", "documents",
+    "dataset", "datasets", "transcript", "transcripts", "report", "reports",
+    "release", "releases", "announcement", "announcements", "general", "latest",
+    "current", "해당", "공식", "공공", "정부", "규제", "기업", "회사", "발행사",
+    "자료", "문서", "데이터셋", "보고서", "발표자료", "일반", "최신", "현재",
+} | _AMBIGUOUS_ENTITY_ROLE_TERMS
 _ASSERTION_CHANGE_PREDICATE_TERMS = {
     "approved", "adopted", "effective", "enforced", "launched", "started",
     "completed", "secured", "awarded", "contracted", "financed", "commissioned",
@@ -138,6 +159,7 @@ def item_specific_lineage_assertion(value):
     has_concrete_subject_detail = any(
         token not in _ASSERTION_ROLE_TERMS
         and token not in _ASSERTION_TEMPORAL_TERMS
+        and token not in _ASSERTION_NEUTRAL_SUBJECT_TOKENS
         and token not in _base._GENERIC_LINEAGE_ASSERTION_TOKENS
         and not token.isdigit()
         for token in tokens
@@ -166,8 +188,9 @@ def item_specific_lineage_assertion(value):
 
     # A date or period plus a bare role noun (for example `Q2 revenue` or
     # `2026 revenue`) is not a fresh anchor, incremental fact, or changed
-    # judgment. Require a concrete subject, a real change predicate, or a
-    # self-identifying event noun before temporal/numeric detail can qualify it.
+    # judgment. Stopwords, source modifiers, and entity-class nouns do not count
+    # as a concrete subject; require a named subject, a real change predicate, or
+    # a self-identifying event noun before temporal/numeric detail can qualify it.
     dated_or_numeric_detail_is_specific = (
         has_change_predicate
         or has_self_identifying_event_subject

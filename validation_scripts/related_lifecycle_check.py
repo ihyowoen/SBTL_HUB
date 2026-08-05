@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4868891584 compatibility layer for Related financial role terms."""
+"""Review 4869087245 compatibility layer for Related assertion subjects."""
 from __future__ import annotations
 
 import importlib.util
@@ -43,6 +43,58 @@ _prior._ASSERTION_ROLE_TERMS.update(
 for _name in dir(_prior):
     if not _name.startswith("__"):
         globals()[_name] = getattr(_prior, _name)
+
+_prior_item_specific_lineage_assertion = _prior.item_specific_lineage_assertion
+_GENERIC_JUDGMENT_DESCRIPTOR_TERMS = {
+    "outlook", "probability", "likelihood", "risk", "risks", "judgment",
+    "judgement", "expectation", "expectations", "전망", "확률", "가능성",
+    "위험", "리스크", "판단", "기대",
+}
+
+
+def item_specific_lineage_assertion(value):
+    """Reject generic judgment descriptors plus change predicates as subjects."""
+    if not _prior_item_specific_lineage_assertion(value):
+        return False
+
+    normalized_value = _prior._normalize_assertion_text(value)
+    normalized = _prior._base.re.sub(
+        r"[^a-z0-9가-힣]+", " ", normalized_value
+    ).strip()
+    tokens = [token for token in normalized.split() if token]
+    normalized_role_tokens = [
+        _prior._normalize_assertion_role_token(token) for token in tokens
+    ]
+    subject_tokens = [
+        _prior._normalize_subject_token(token) for token in normalized_role_tokens
+    ]
+    temporal_indexes = _prior._assertion_temporal_token_indexes(tokens)
+
+    meaningful_tokens = []
+    for index, (role_token, subject_token) in enumerate(
+        zip(normalized_role_tokens, subject_tokens)
+    ):
+        if index in temporal_indexes or subject_token.isdigit():
+            continue
+        if subject_token in _prior._ASSERTION_NEUTRAL_SUBJECT_TOKENS:
+            continue
+        if subject_token in _prior._GENERIC_OWNER_SINGULARS:
+            continue
+        if subject_token in _prior._base._GENERIC_LINEAGE_ASSERTION_TOKENS:
+            continue
+        meaningful_tokens.append((role_token, subject_token))
+
+    if meaningful_tokens and all(
+        role_token in _prior._ASSERTION_CHANGE_PREDICATE_TERMS
+        or subject_token in _GENERIC_JUDGMENT_DESCRIPTOR_TERMS
+        for role_token, subject_token in meaningful_tokens
+    ):
+        return False
+    return True
+
+
+_prior.item_specific_lineage_assertion = item_specific_lineage_assertion
+_prior._base.item_specific_lineage_assertion = item_specific_lineage_assertion
 
 if __name__ == "__main__":
     _prior._base.sys.exit(_prior._base.main())

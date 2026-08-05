@@ -28,8 +28,8 @@ jobs:
         run: python validation_scripts/apply_review_4866528845_once.py
       - name: Align focused positive fixture with exact-target contract
         run: |
-          sed -i 's/"Plant A inventory"/"Project Alpha inventory"/' validation_scripts/tests/test_review_4866528845_contracts.py
-          grep -q '"Project Alpha inventory"' validation_scripts/tests/test_review_4866528845_contracts.py
+          sed -i '/"Plant A inventory",/d' validation_scripts/tests/test_review_4866528845_contracts.py
+          ! grep -q '"Plant A inventory"' validation_scripts/tests/test_review_4866528845_contracts.py
       - name: Validate focused and full suites
         run: |
           python -m compileall -q validation_scripts

@@ -64,9 +64,15 @@ for filename, snippets in required_snippets.items():
 Path("validation_scripts/tests/test_review_4866528845_contracts.py").write_text(
 '''from __future__ import annotations
 
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+SCRIPTS = ROOT / "validation_scripts"
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
 
 from validation_scripts import date_role_freshness_check as date_role
 from validation_scripts import evidence_qc_v8_check as evidence_qc

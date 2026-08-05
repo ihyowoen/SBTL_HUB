@@ -194,6 +194,16 @@ def _normalize_subject_token(token):
     return token
 
 
+def _normalize_assertion_role_token(token):
+    """Normalize conservative English plurals only when they map to a known role."""
+    if token in _ASSERTION_ROLE_TERMS:
+        return token
+    for candidate in _simple_english_singular_candidates(token):
+        if candidate in _ASSERTION_ROLE_TERMS:
+            return candidate
+    return token
+
+
 def _has_concrete_entity_label(tokens):
     """Recognize class-bound identifiers such as Plant 1 or Project A."""
     for index, token in enumerate(tokens[:-1]):
@@ -214,8 +224,15 @@ def item_specific_lineage_assertion(value):
         r"[^a-z0-9가-힣]+", " ", normalized_value
     ).strip()
     tokens = [token for token in normalized.split() if token]
-    subject_tokens = [_normalize_subject_token(token) for token in tokens]
-    role_tokens = {token for token in tokens if token in _ASSERTION_ROLE_TERMS}
+    normalized_role_tokens = [
+        _normalize_assertion_role_token(token) for token in tokens
+    ]
+    subject_tokens = [
+        _normalize_subject_token(token) for token in normalized_role_tokens
+    ]
+    role_tokens = {
+        token for token in normalized_role_tokens if token in _ASSERTION_ROLE_TERMS
+    }
     has_role = bool(role_tokens)
     has_unambiguous_role = any(
         token not in _AMBIGUOUS_ENTITY_ROLE_TERMS for token in role_tokens
@@ -223,7 +240,8 @@ def item_specific_lineage_assertion(value):
     has_numeric_detail = any(any(char.isdigit() for char in token) for token in tokens)
     has_temporal_detail = any(token in _ASSERTION_TEMPORAL_TERMS for token in tokens)
     has_change_predicate = any(
-        token in _ASSERTION_CHANGE_PREDICATE_TERMS for token in tokens
+        token in _ASSERTION_CHANGE_PREDICATE_TERMS
+        for token in normalized_role_tokens
     )
     has_concrete_entity_label = _has_concrete_entity_label(tokens)
     has_concrete_subject_detail = has_concrete_entity_label or any(
@@ -237,14 +255,14 @@ def item_specific_lineage_assertion(value):
     )
     has_non_role_detail = has_concrete_subject_detail
     has_self_identifying_event_subject = any(
-        token in _ASSERTION_EVENT_SUBJECT_TERMS for token in tokens
+        token in _ASSERTION_EVENT_SUBJECT_TERMS for token in normalized_role_tokens
     )
 
     # A bare metric or event-role word does not identify the item or the actual
     # fresh change. Preserve only the long-standing canonical one-word execution
     # anchor, while `revenue`, `launch`, and similar role-only values fail.
     if len(tokens) == 1:
-        return tokens[0] in _STANDALONE_ASSERTION_EVENT_TERMS
+        return normalized_role_tokens[0] in _STANDALONE_ASSERTION_EVENT_TERMS
 
     # An entity label must be rejected before an ambiguous noun such as `fund`
     # can satisfy the role shortcut. A genuine predicate, date, or number still

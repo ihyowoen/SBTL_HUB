@@ -67,11 +67,13 @@ _ASSERTION_CHANGE_PREDICATE_TERMS = {
     "shifted", "moved", "confirmed", "weakened", "strengthened", "invalidated",
     "permitted", "licensed", "agreed", "constructed", "operated", "operating",
     "began", "begins", "entered", "funded", "invested", "supplied", "delivered",
-    "sold", "purchased", "승인", "채택", "발효", "시행", "집행", "출시", "착수",
-    "준공", "상업운전", "완료", "확보", "수주", "공시", "발표", "지연", "취소",
-    "증가", "감소", "추가", "삭제", "변경", "전환", "이동", "확인", "약화",
-    "강화", "무효화", "허가", "인가", "건설", "운영", "가동", "투자", "공급",
-    "납품", "판매", "구매", "출하",
+    "sold", "purchased", "lower", "lowered", "higher", "raised", "reduced",
+    "improved", "worsened", "stronger", "weaker",
+    "승인", "채택", "발효", "시행", "집행", "출시", "착수", "준공", "상업운전",
+    "완료", "확보", "수주", "공시", "발표", "지연", "취소", "증가", "감소",
+    "추가", "삭제", "변경", "전환", "이동", "확인", "약화", "강화", "무효화",
+    "허가", "인가", "건설", "운영", "가동", "투자", "공급", "납품", "판매",
+    "구매", "출하", "하향", "상향", "낮아짐", "높아짐", "개선", "악화",
 }
 _ASSERTION_EVENT_SUBJECT_TERMS = {
     "permit", "license", "agreement", "contract", "filing", "construction",

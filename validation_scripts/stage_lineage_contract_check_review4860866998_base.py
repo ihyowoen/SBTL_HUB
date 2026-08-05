@@ -145,8 +145,18 @@ def _parenthetical_modifier_is_safe(modifier, parenthetical_leads):
 
 
 def _sanitize_parenthetical_interpretation_objects(modifier):
-    """Keep modifier context without exposing a stale object to effect binding."""
+    """Keep modifier context without exposing stale objects or split markers."""
     sanitized = modifier
+    sanitized = _base.re.sub(
+        r"^\s*(?:after|before|when)\b",
+        "temporal_context",
+        sanitized,
+    )
+    sanitized = _base.re.sub(
+        r"^\s*(?:이후에|이후|이전에|전에|할 때|했을 때)",
+        "시간맥락",
+        sanitized,
+    )
     for term in sorted(
         set(_base.STAGE_A_INTERPRETATION_OBJECT_TERMS), key=len, reverse=True
     ):
@@ -212,11 +222,12 @@ def _preserve_parenthetical_subject_modifiers(text):
 
 
 def _has_bound_interpretation_effect(value):
-    """Evaluate causal and temporal clauses independently before binding."""
+    """Preserve subject parentheticals, then evaluate dependent clauses."""
     text = _base._normalized_text(value)
     if not text:
         return False
 
+    text = _preserve_parenthetical_subject_modifiers(text)
     dependent_clauses = _base.re.split(_DEPENDENT_CLAUSE_PATTERN, text)
     return any(
         _prior_has_bound_interpretation_effect(clause.strip())

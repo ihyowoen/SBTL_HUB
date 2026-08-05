@@ -154,19 +154,25 @@ def _numeric_parenthetical_modifier_is_safe(modifier, tokens):
 
 
 def _temporal_parenthetical_modifier_is_safe(modifier, tokens):
-    """Recognize narrow `as of/for + period` subject-attached time scopes."""
+    """Recognize a bare period label or narrow `as of/for + period` scope."""
     if not tokens:
         return False
     text = _base._normalized_text(modifier)
     starts_with_safe_scope = (
         text.startswith("as of ") or text.startswith("for ")
     )
-    if not starts_with_safe_scope:
-        return False
-    if not _base.re.search(_TEMPORAL_PERIOD_REFERENCE_PATTERN, text):
+    is_bare_period_label = bool(
+        _base.re.fullmatch(_TEMPORAL_PERIOD_REFERENCE_PATTERN, text)
+    )
+    has_scoped_period_reference = (
+        starts_with_safe_scope
+        and bool(_base.re.search(_TEMPORAL_PERIOD_REFERENCE_PATTERN, text))
+    )
+    if not (is_bare_period_label or has_scoped_period_reference):
         return False
     # Do not absorb a separate interpretation/effect clause merely because it
-    # starts with `as` or `for`; this exception is for period labels only.
+    # contains a period reference. Bare labels must match the entire modifier;
+    # prefixed scopes remain restricted to `as of` or `for`.
     return not _base._has_any_term(
         modifier,
         tuple(_base.STAGE_A_INTERPRETATION_OBJECT_TERMS)

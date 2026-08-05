@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4861267953 compatibility layer for exact-target specificity."""
+"""Review 4861381740 compatibility layer for exact-target specificity."""
 from __future__ import annotations
 
 import importlib.util
@@ -29,11 +29,34 @@ _GENERIC_TARGET_MODIFIER_TOKENS = {
     "회사", "기업", "법인", "사업", "프로젝트", "프로그램", "공식", "비공식",
     "현재", "최신", "신규", "추가", "관련", "구체", "최종", "예비", "예상",
 }
+_SOURCE_CLASS_ROLE_TOKENS = set()
+for _term in _base_layer._base.STAGE_A_EVIDENCE_SOURCE_CLASS_TERMS:
+    _SOURCE_CLASS_ROLE_TOKENS.update(
+        _base_layer._base.re.findall(
+            r"[a-z0-9가-힣]+", _base_layer._base._normalized_text(_term)
+        )
+    )
 
 
 def _is_substantive_predicate_role_token(token):
     """Treat every supported predicate inflection as role vocabulary."""
     return _base_layer._semantic._has_substantive_target_predicate(token)
+
+
+def _is_source_class_role_token(token):
+    """Treat simple English plural source/document nouns as role vocabulary."""
+    if token in _SOURCE_CLASS_ROLE_TOKENS:
+        return True
+
+    singular_candidates = set()
+    if token.endswith("ies") and len(token) > 3:
+        singular_candidates.add(token[:-3] + "y")
+    if token.endswith("es") and len(token) > 2:
+        singular_candidates.add(token[:-2])
+        singular_candidates.add(token[:-1])
+    if token.endswith("s") and len(token) > 1:
+        singular_candidates.add(token[:-1])
+    return any(candidate in _SOURCE_CLASS_ROLE_TOKENS for candidate in singular_candidates)
 
 
 def _structured_exact_target(value):
@@ -60,6 +83,7 @@ def _structured_exact_target(value):
     }
     has_named_subject = any(
         token not in neutral_tokens
+        and not _is_source_class_role_token(token)
         and not token.isdigit()
         and not _is_substantive_predicate_role_token(token)
         for token in tokens

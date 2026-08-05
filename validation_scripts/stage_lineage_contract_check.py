@@ -105,6 +105,9 @@ _CONDITIONAL_OR_CONCESSIVE_PATTERN = (
     r"\b(?:even\s+though|although|though|if|unless|until|despite)\b|"
     r"(?:만약|경우|않으면|까지|에도 불구하고)"
 )
+_KOREAN_SUFFIX_CONDITIONAL_OR_CONCESSIVE_PATTERN = (
+    r"(?:경우|않으면|까지|에도\s*불구하고)"
+)
 
 
 def _independent_clause_for_conditional_or_concessive(text):
@@ -124,6 +127,23 @@ def _independent_clause_for_conditional_or_concessive(text):
 
         raw_prefix = current[:marker.start()]
         prefix = raw_prefix.strip(" ,;")
+        suffix_separator = _base_layer._base.re.match(
+            r"\s*[,;]\s*", current[marker.end():]
+        )
+        marker_is_korean_suffix = bool(
+            _base_layer._base.re.fullmatch(
+                _KOREAN_SUFFIX_CONDITIONAL_OR_CONCESSIVE_PATTERN,
+                marker.group(0),
+            )
+        )
+
+        if marker_is_korean_suffix and suffix_separator is not None:
+            # Korean conditional/concessive endings follow the dependent
+            # clause rather than introducing it. When the marker is directly
+            # followed by a comma/semicolon, keep the post-separator main
+            # clause and inspect it again for nested/trailing dependencies.
+            current = current[marker.end() + suffix_separator.end():].strip()
+            continue
 
         if not prefix:
             # A leading dependent clause must end at a comma/semicolon. Keep

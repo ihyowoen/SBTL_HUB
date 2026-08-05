@@ -107,6 +107,17 @@ if hasattr(_prior._base_layer, "_base"):
     )
 
 _prior_structured_exact_target = _prior._structured_exact_target
+_PERIOD_QUALIFIER_TOKEN_PATTERN = (
+    r"(?:q[1-4]|[1-4]q|fy\d{2,4}|(?:19|20)\d{2}년?|h[12]|[12]h)"
+)
+
+
+def _is_period_qualifier_token(token):
+    return bool(
+        _prior._base_layer._base.re.fullmatch(
+            _PERIOD_QUALIFIER_TOKEN_PATTERN, token
+        )
+    )
 
 
 def _structured_exact_target(value):
@@ -145,6 +156,7 @@ def _structured_exact_target(value):
         and not _prior._is_generic_target_modifier_token(token)
         and not _prior._is_source_class_role_token(token)
         and not token.isdigit()
+        and not _is_period_qualifier_token(token)
         and not (len(token) == 1 and token.isalpha())
         and not _prior._is_substantive_predicate_role_token(token)
         for token in tokens

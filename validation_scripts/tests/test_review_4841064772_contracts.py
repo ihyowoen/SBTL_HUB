@@ -55,11 +55,11 @@ class TestReview4841064772Contracts(unittest.TestCase):
         targets = (
             {
                 "source_or_document_class": "SEC filing",
-                "exact_claim_or_metric": "2027 revenue",
+                "exact_claim_or_metric": "Project Alpha 2027 revenue",
             },
             {
                 "source_or_document_class": "금감원 공시",
-                "exact_claim_or_metric": "2027년 매출",
+                "exact_claim_or_metric": "알파 프로젝트 2027년 매출",
             },
         )
         for target in targets:
@@ -82,7 +82,7 @@ class TestReview4841064772Contracts(unittest.TestCase):
     def test_concise_structured_confirmation_point_passes(self):
         spec = copy.deepcopy(self.base_spec())
         spec["next_confirmation_points"] = [{
-            "measurable_event_or_metric": "2027 revenue",
+            "measurable_event_or_metric": "Project Alpha 2027 revenue",
             "interpretation_effect": "confirm thesis",
         }]
         result, output = self.run_stage_a(spec)

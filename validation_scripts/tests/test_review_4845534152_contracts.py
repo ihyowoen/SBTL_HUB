@@ -54,7 +54,7 @@ class TestReview4845534152Contracts(unittest.TestCase):
                 spec = self.base_v3_spec()
                 spec["evidence_needed_for_stage_b"] = [{
                     "source_or_document_class": source_class,
-                    "exact_claim_or_metric": "2027 revenue",
+                    "exact_claim_or_metric": "Project Alpha 2027 revenue",
                 }]
                 result, output = self.run_stage_a(spec)
                 self.assertEqual(result, 0, output)
@@ -63,7 +63,7 @@ class TestReview4845534152Contracts(unittest.TestCase):
         spec = self.base_v3_spec()
         spec["evidence_needed_for_stage_b"] = [{
             "source_or_document_class": "unofficial rumor",
-            "exact_claim_or_metric": "2027 revenue",
+            "exact_claim_or_metric": "Project Alpha 2027 revenue",
         }]
         result, output = self.run_stage_a(spec)
         self.assertEqual(result, 1, output)

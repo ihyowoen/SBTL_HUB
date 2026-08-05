@@ -62,10 +62,10 @@ class TestReview4841207046Contracts(unittest.TestCase):
         spec = copy.deepcopy(self.base_spec())
         spec["evidence_needed_for_stage_b"] = [{
             "source_or_document_class": "SEC filing",
-            "exact_claim_or_metric": "2027 revenue",
+            "exact_claim_or_metric": "Project Alpha 2027 revenue",
         }]
         spec["next_confirmation_points"] = [{
-            "measurable_event_or_metric": "2027 revenue",
+            "measurable_event_or_metric": "Project Alpha 2027 revenue",
             "interpretation_effect": "confirm thesis",
         }]
         result, output = self.run_stage_a(spec)

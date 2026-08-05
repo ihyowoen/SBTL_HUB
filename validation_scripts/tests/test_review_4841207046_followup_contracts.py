@@ -63,11 +63,11 @@ class TestReview4841207046FollowupContracts(unittest.TestCase):
         spec = copy.deepcopy(self.base_spec())
         spec["evidence_needed_for_stage_b"] = [{
             "source_or_document_class": "SEC filing",
-            "exact_claim_or_metric": "2027 revenue",
+            "exact_claim_or_metric": "Project Alpha 2027 revenue",
         }]
         spec["next_confirmation_points"] = [{
-            "measurable_event_or_metric": "2027",
-            "interpretation_effect": "confirm thesis",
+            "measurable_event_or_metric": "Project Alpha 2027 revenue",
+            "interpretation_effect": "would strengthen the demand outlook",
         }]
         result, output = self.run_stage_a(spec)
         self.assertEqual(result, 0, output)
@@ -76,10 +76,10 @@ class TestReview4841207046FollowupContracts(unittest.TestCase):
         invalid_cases = (
             ("evidence_needed_for_stage_b", {
                 "source_or_document_class": "unofficial rumor",
-                "exact_claim_or_metric": "2027 revenue",
+                "exact_claim_or_metric": "Project Alpha 2027 revenue",
             }),
             ("next_confirmation_points", {
-                "measurable_event_or_metric": "2027 revenue",
+                "measurable_event_or_metric": "Project Alpha 2027 revenue",
                 "interpretation_effect": "unchanged",
             }),
         )

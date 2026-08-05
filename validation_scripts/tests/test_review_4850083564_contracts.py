@@ -19,7 +19,7 @@ class TestReview4850083564Contracts(unittest.TestCase):
     def test_entity_with_substantive_metric_or_date_remains_valid(self):
         self.assertTrue(lineage._structured_exact_target("Project Alpha capacity"))
         self.assertTrue(lineage._structured_exact_target("Project Alpha launch date"))
-        self.assertTrue(lineage._structured_exact_target("2027 revenue"))
+        self.assertTrue(lineage._structured_exact_target("Project Alpha 2027 revenue"))
 
     def test_free_text_evidence_rejects_entity_only_target(self):
         self.assertFalse(lineage._valid_evidence_target("official Project Alpha"))

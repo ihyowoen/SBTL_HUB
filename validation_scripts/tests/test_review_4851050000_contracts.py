@@ -21,7 +21,7 @@ class TestReview4851050000Contracts(unittest.TestCase):
         for value in (
             "Project Alpha revenue",
             "Project Alpha capacity",
-            "2027 revenue",
+            "Project Alpha 2027 revenue",
             "Project Alpha was approved",
             "Project Alpha launch date",
         ):

@@ -35,7 +35,7 @@ class TestReview4861045407Contracts(unittest.TestCase):
             "Project Alpha was approved",
             "Project Alpha launched",
             "Project Alpha completed construction",
-            "2027 project approved",
+            "Project Alpha 2027 approved",
         ):
             with self.subTest(value=value):
                 self.assertTrue(lineage._structured_exact_target(value))

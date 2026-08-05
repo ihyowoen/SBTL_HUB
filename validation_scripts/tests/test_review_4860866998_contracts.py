@@ -26,7 +26,7 @@ class TestReview4860866998Contracts(unittest.TestCase):
     def test_named_numeric_and_predicate_targets_remain_valid(self):
         for value in (
             "Project Alpha revenue",
-            "2027 revenue",
+            "Project Alpha 2027 revenue",
             "Project Alpha was approved",
             "Project Alpha launch date",
         ):

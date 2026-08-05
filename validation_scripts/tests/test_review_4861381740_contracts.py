@@ -34,7 +34,7 @@ class TestReview4861381740Contracts(unittest.TestCase):
         for value in (
             "filings Project Alpha revenue",
             "documents Project Alpha launch date",
-            "reports 2027 revenue",
+            "reports Project Alpha 2027 revenue",
         ):
             with self.subTest(value=value):
                 self.assertTrue(lineage._structured_exact_target(value))

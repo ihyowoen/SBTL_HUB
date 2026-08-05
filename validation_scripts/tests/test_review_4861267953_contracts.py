@@ -35,7 +35,7 @@ class TestReview4861267953Contracts(unittest.TestCase):
         for value in (
             "dataset Project Alpha revenue",
             "document Project Alpha launch date",
-            "report 2027 revenue",
+            "report Project Alpha 2027 revenue",
             "공시자료 프로젝트 알파 매출",
         ):
             with self.subTest(value=value):

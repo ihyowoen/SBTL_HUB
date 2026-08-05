@@ -22,7 +22,7 @@ def lifecycle(relation_type: str, related_candidate_spec_ids=None):
         "fresh_follow_up_anchor": "new verified timing change" if relation_type == "distinct_follow_up" else None,
         "fresh_follow_up_anchor_class": "follow_up_probability_anchor" if relation_type == "distinct_follow_up" else None,
         "incremental_fact_vs_predecessor": "schedule moved" if relation_type == "distinct_follow_up" else None,
-        "changed_judgment_vs_predecessor": "probability reduced" if relation_type == "distinct_follow_up" else None,
+        "changed_judgment_vs_predecessor": "Project Alpha probability reduced" if relation_type == "distinct_follow_up" else None,
         "reason": "current-run candidate relation",
     }
 

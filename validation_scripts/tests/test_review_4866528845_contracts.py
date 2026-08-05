@@ -42,7 +42,7 @@ class TestReview4866528845Contracts(unittest.TestCase):
             with self.subTest(value=value):
                 self.assertFalse(lineage._structured_exact_target(value))
         self.assertTrue(lineage._structured_exact_target("Project Alpha capacity"))
-        self.assertTrue(lineage._structured_exact_target("2027 government revenue"))
+        self.assertTrue(lineage._structured_exact_target("Project Alpha 2027 government revenue"))
 
     def test_plural_neutral_related_subjects_fail(self):
         for value in (

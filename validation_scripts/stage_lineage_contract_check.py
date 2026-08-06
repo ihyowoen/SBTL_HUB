@@ -6,6 +6,11 @@ import importlib.util
 from pathlib import Path
 from types import ModuleType
 
+try:
+    from validation_scripts.v3_stage_contracts import stage_a_validator_constants
+except ModuleNotFoundError:
+    from v3_stage_contracts import stage_a_validator_constants
+
 _PRIOR_PATH = Path(__file__).with_name(
     "stage_lineage_contract_check_review4869324626_base.py"
 )
@@ -130,6 +135,10 @@ def _patch_module_chain(root, name, value):
             if isinstance(child, ModuleType):
                 stack.append(child)
 
+
+for _constant_name, _constant_value in stage_a_validator_constants().items():
+    _patch_module_chain(_compat_module, _constant_name, _constant_value)
+    globals()[_constant_name] = _constant_value
 
 _patch_module_chain(_compat_module, "validate_stage_a_spec", validate_stage_a_spec)
 

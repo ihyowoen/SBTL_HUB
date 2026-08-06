@@ -122,9 +122,13 @@ def item_specific_lineage_assertion(value):
         )
     )
 
+    # Nominal metric-change phrases require an actual entity/item subject even
+    # when the historical gate would otherwise accept the role words alone.
+    if metric_roles and has_nominal_change and not has_concrete_subject:
+        return False
+
     # The historical gate predates nominal metric-change nouns. Extend it only
-    # for the bounded shape `concrete subject + metric + nominal change`; generic
-    # forms such as `capex reduction` or `company profit improvement` still fail.
+    # for the bounded shape `concrete subject + metric + nominal change`.
     nominal_metric_override = (
         bool(metric_roles) and has_nominal_change and has_concrete_subject
     )

@@ -45,19 +45,20 @@ _CORPORATE_NAME_SUFFIXES = {
 _GOVERNED_SINGLE_TOKEN_ENTITY_NAMES = set(
     getattr(_base, "_KNOWN_SINGLE_TOKEN_ENTITY_NAMES", set())
 ) | {
-    "tesla", "acme", "sbtl", "panasonic", "ford", "toyota",
+    "tesla", "sbtl", "acme", "panasonic", "ford", "toyota",
 }
 _SPELLED_PERCENT_RE = re.compile(
     r"(?<![a-z0-9가-힣])[-+]?\d+(?:[.,]\d+)?\s*(?:percent|percentage|퍼센트)(?![a-z0-9가-힣])",
     re.IGNORECASE,
 )
-_ENGLISH_CLASS_BOUND_RE = re.compile(
-    r"\b(?P<class>project|plant|facility|site|line|phase|unit|factory|program)\s+"
-    r"(?P<identifier>[A-Z][A-Za-z0-9-]*|\d+)\b",
-    re.IGNORECASE,
-)
-_KOREAN_CLASS_BOUND_RE = re.compile(
+_EXPLICIT_CLASS_BOUND_RE = re.compile(
+    r"\b(?i:project|plant|facility|site|line|phase|unit|factory|program)\s+"
+    r"(?:[A-Z][A-Za-z0-9-]*|\d+)\b|"
     r"(?:제?\d+|[A-Za-z]\d*)\s*(?:공장|프로젝트|사업|시설|플랜트|라인|단지)"
+)
+_ENGLISH_CLASS_BOUND_CAPTURE_RE = re.compile(
+    r"\b(?P<class>(?i:project|plant|facility|site|line|phase|unit|factory|program))\s+"
+    r"(?P<identifier>[A-Z][A-Za-z0-9-]*|\d+)\b"
 )
 
 
@@ -103,9 +104,14 @@ def _candidate_indexes(role_tokens, subject_tokens, temporal_indexes):
     return indexes
 
 
-def _identifier_is_governed_name(identifier):
-    normalized = _base._prior._normalize_assertion_role_token(identifier)
-    subject = _base._prior._normalize_subject_token(normalized)
+def _normalized_token_forms(token):
+    raw = str(token).casefold()
+    role = _base._prior._normalize_assertion_role_token(token)
+    subject = _base._prior._normalize_subject_token(role)
+    return {raw, role, subject}
+
+
+def _identifier_is_blocked(identifier):
     blocked = (
         set(_base._RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS)
         | set(_base._NOMINAL_CHANGE_TERMS)
@@ -120,32 +126,108 @@ def _identifier_is_governed_name(identifier):
         | set(_base._prior._GENERIC_OWNER_SINGULARS)
         | set(_base._prior._base._GENERIC_LINEAGE_ASSERTION_TOKENS)
     )
-    return bool(subject) and subject not in blocked
+    return bool(_normalized_token_forms(identifier) & blocked)
 
 
-def _english_class_bound_matches(value):
-    return list(_ENGLISH_CLASS_BOUND_RE.finditer(str(value)))
-
-
-def _has_valid_explicit_class_bound(value):
-    text = str(value)
-    if _KOREAN_CLASS_BOUND_RE.search(text):
-        return True
-    return any(
-        _identifier_is_governed_name(match.group("identifier"))
-        for match in _english_class_bound_matches(text)
+def _has_invalid_capitalized_class_identifier(value):
+    matches = list(_ENGLISH_CLASS_BOUND_CAPTURE_RE.finditer(str(value)))
+    return bool(matches) and any(
+        _identifier_is_blocked(match.group("identifier")) for match in matches
     )
 
 
-def _has_invalid_english_class_bound(value):
-    matches = _english_class_bound_matches(value)
-    return bool(matches) and not any(
-        _identifier_is_governed_name(match.group("identifier"))
-        for match in matches
+def _has_generic_corporate_suffix_bypass(
+    role_tokens,
+    subject_tokens,
+    original_tokens,
+):
+    for index in range(1, len(subject_tokens)):
+        suffix_forms = {
+            str(original_tokens[index]).casefold(),
+            role_tokens[index],
+            subject_tokens[index],
+        }
+        if not (suffix_forms & _CORPORATE_NAME_SUFFIXES):
+            continue
+        lead_forms = {
+            str(original_tokens[index - 1]).casefold(),
+            role_tokens[index - 1],
+            subject_tokens[index - 1],
+        }
+        if lead_forms & _GENERIC_TITLE_MODIFIERS:
+            return True
+    return False
+
+
+def _has_bound_corporate_suffix(
+    role_tokens,
+    subject_tokens,
+    original_tokens,
+):
+    for index in range(1, len(subject_tokens)):
+        suffix_forms = {
+            str(original_tokens[index]).casefold(),
+            role_tokens[index],
+            subject_tokens[index],
+        }
+        if not (suffix_forms & _CORPORATE_NAME_SUFFIXES):
+            continue
+        lead = str(original_tokens[index - 1])
+        lead_forms = {
+            lead.casefold(), role_tokens[index - 1], subject_tokens[index - 1]
+        }
+        if lead_forms & _GENERIC_TITLE_MODIFIERS:
+            continue
+        if (
+            lead.casefold() in _GOVERNED_SINGLE_TOKEN_ENTITY_NAMES
+            or lead[:1].isupper()
+            or lead.isupper()
+            or any(char.isupper() for char in lead[1:])
+            or any(char.isdigit() for char in lead)
+        ):
+            return True
+    return False
+
+
+def _has_unsupported_single_titlecase_subject(
+    value,
+    role_tokens,
+    subject_tokens,
+    temporal_indexes,
+    original_tokens,
+):
+    candidates = [
+        index
+        for index in _candidate_indexes(
+            role_tokens, subject_tokens, temporal_indexes
+        )
+        if subject_tokens[index] not in _PERIOD_OR_COMPARATIVE_TERMS
+        and subject_tokens[index] not in _GENERIC_TITLE_MODIFIERS
+    ]
+    if len(candidates) != 1 or candidates[0] != 0:
+        return False
+    original = original_tokens[0]
+    subject = subject_tokens[0]
+    if (
+        subject in _GOVERNED_SINGLE_TOKEN_ENTITY_NAMES
+        or original.isupper()
+        or any(char.isupper() for char in original[1:])
+        or any(char.isdigit() for char in original)
+        or _EXPLICIT_CLASS_BOUND_RE.search(str(value))
+        or _has_bound_corporate_suffix(role_tokens, subject_tokens, original_tokens)
+        or "'" in str(value)
+        or "’" in str(value)
+    ):
+        return False
+    return (
+        len(original) >= 2
+        and original[:1].isupper()
+        and original[1:].islower()
     )
 
 
-def _has_governed_single_token_entity(
+def _has_unseen_single_token_entity(
+    value,
     role_tokens,
     subject_tokens,
     temporal_indexes,
@@ -171,39 +253,6 @@ def _has_governed_single_token_entity(
     )
 
 
-def _has_bound_corporate_name(
-    role_tokens,
-    subject_tokens,
-    original_tokens,
-):
-    for suffix_index, suffix in enumerate(subject_tokens):
-        if suffix not in _CORPORATE_NAME_SUFFIXES or suffix_index == 0:
-            continue
-        name_index = suffix_index - 1
-        name_subject = subject_tokens[name_index]
-        name_role = role_tokens[name_index]
-        original = original_tokens[name_index]
-        if (
-            not original
-            or name_subject in _GENERIC_TITLE_MODIFIERS
-            or name_role in _base._SUBJECTLESS_NOMINAL_MODIFIER_TERMS
-            or name_subject in _base._prior._GENERIC_OWNER_SINGULARS
-            or name_subject in _base._prior._ASSERTION_NEUTRAL_SUBJECT_TOKENS
-            or name_role in _base._RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
-            or name_role in _base._NOMINAL_CHANGE_TERMS
-        ):
-            continue
-        if (
-            name_subject in _GOVERNED_SINGLE_TOKEN_ENTITY_NAMES
-            or original.isupper()
-            or any(char.isupper() for char in original[1:])
-            or any(char.isdigit() for char in original)
-            or original[:1].isupper()
-        ):
-            return True
-    return False
-
-
 def _has_positive_subject(
     value,
     tokens,
@@ -212,49 +261,27 @@ def _has_positive_subject(
     temporal_indexes,
     original_tokens,
 ):
-    if _has_valid_explicit_class_bound(value):
+    concrete_label = _base._prior._has_concrete_entity_label(tokens)
+    if _EXPLICIT_CLASS_BOUND_RE.search(str(value)):
         return True
-
-    if any(re.search(r"[가-힣]", token) for token in original_tokens):
-        concrete_label = _base._prior._has_concrete_entity_label(tokens)
-        if _base._has_positively_identifiable_subject(
-            value,
-            tokens,
-            role_tokens,
-            subject_tokens,
-            temporal_indexes,
-            concrete_label,
-        ):
-            return True
-
-    possessive_subjects = _base._possessive_subject_tokens(value)
-    if any(subject in possessive_subjects for subject in subject_tokens):
+    if _has_bound_corporate_suffix(role_tokens, subject_tokens, original_tokens):
         return True
-
-    if _has_bound_corporate_name(role_tokens, subject_tokens, original_tokens):
+    if _base._has_positively_identifiable_subject(
+        value,
+        tokens,
+        role_tokens,
+        subject_tokens,
+        temporal_indexes,
+        concrete_label,
+    ):
         return True
-
-    if _has_governed_single_token_entity(
+    return _has_unseen_single_token_entity(
+        value,
         role_tokens,
         subject_tokens,
         temporal_indexes,
         original_tokens,
-    ):
-        return True
-
-    candidates = _candidate_indexes(role_tokens, subject_tokens, temporal_indexes)
-    for index in candidates:
-        original = original_tokens[index]
-        subject = subject_tokens[index]
-        if subject in _PERIOD_OR_COMPARATIVE_TERMS:
-            continue
-        if (
-            original.isupper()
-            or any(char.isupper() for char in original[1:])
-            or any(char.isdigit() for char in original)
-        ):
-            return True
-    return False
+    )
 
 
 def _is_titlecase_modifier_pair_without_entity_cue(
@@ -273,9 +300,9 @@ def _is_titlecase_modifier_pair_without_entity_cue(
     ]
     if len(title_indexes) < 2:
         return False
-    if _has_valid_explicit_class_bound(value):
+    if _EXPLICIT_CLASS_BOUND_RE.search(str(value)):
         return False
-    if _has_bound_corporate_name(role_tokens, subject_tokens, original_tokens):
+    if _has_bound_corporate_suffix(role_tokens, subject_tokens, original_tokens):
         return False
     if "'" in str(value) or "’" in str(value):
         return False
@@ -283,7 +310,7 @@ def _is_titlecase_modifier_pair_without_entity_cue(
 
 
 def item_specific_lineage_assertion(value):
-    """Close period/title bypasses while preserving governed named developments."""
+    """Close subject-fabrication bypasses while preserving named developments."""
     (
         tokens,
         role_tokens,
@@ -306,6 +333,22 @@ def item_specific_lineage_assertion(value):
         token in _base._prior._ASSERTION_CHANGE_PREDICATE_TERMS
         for token in role_tokens
     )
+
+    if metric_roles and _has_invalid_capitalized_class_identifier(value):
+        return False
+    if metric_roles and _has_generic_corporate_suffix_bypass(
+        role_tokens, subject_tokens, original_tokens
+    ):
+        return False
+    if metric_roles and _has_unsupported_single_titlecase_subject(
+        value,
+        role_tokens,
+        subject_tokens,
+        temporal_indexes,
+        original_tokens,
+    ):
+        return False
+
     has_positive_subject = _has_positive_subject(
         value,
         tokens,
@@ -315,10 +358,11 @@ def item_specific_lineage_assertion(value):
         original_tokens,
     )
 
-    if metric_roles and has_change_predicate and _has_invalid_english_class_bound(value):
-        return False
-
-    if metric_roles and has_change_predicate and _has_valid_explicit_class_bound(value):
+    if (
+        metric_roles
+        and has_change_predicate
+        and _EXPLICIT_CLASS_BOUND_RE.search(str(value))
+    ):
         return True
 
     candidates = _candidate_indexes(role_tokens, subject_tokens, temporal_indexes)
@@ -328,7 +372,7 @@ def item_specific_lineage_assertion(value):
     ):
         return False
 
-    if metric_roles and has_change_predicate:
+    if metric_roles and has_nominal_change:
         if _is_titlecase_modifier_pair_without_entity_cue(
             value,
             role_tokens,
@@ -337,7 +381,14 @@ def item_specific_lineage_assertion(value):
             original_tokens,
         ):
             return False
-        return has_positive_subject
+        if _has_unseen_single_token_entity(
+            value,
+            role_tokens,
+            subject_tokens,
+            temporal_indexes,
+            original_tokens,
+        ):
+            return True
 
     if metric_roles and has_positive_subject:
         if any(token in _RECURRING_PERIOD_TERMS for token in role_tokens):

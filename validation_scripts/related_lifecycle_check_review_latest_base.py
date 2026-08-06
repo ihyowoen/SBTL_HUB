@@ -44,10 +44,9 @@ _SPELLED_PERCENT_RE = re.compile(
     re.IGNORECASE,
 )
 _EXPLICIT_CLASS_BOUND_RE = re.compile(
-    r"\b(?:project|plant|facility|site|line|phase|unit|factory|program)\s+"
+    r"\b(?i:project|plant|facility|site|line|phase|unit|factory|program)\s+"
     r"(?:[A-Z][A-Za-z0-9-]*|\d+)\b|"
-    r"(?:제?\d+|[A-Za-z]\d*)\s*(?:공장|프로젝트|사업|시설|플랜트|라인|단지)",
-    re.IGNORECASE,
+    r"(?:제?\d+|[A-Za-z]\d*)\s*(?:공장|프로젝트|사업|시설|플랜트|라인|단지)"
 )
 
 

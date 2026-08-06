@@ -58,6 +58,23 @@ class CanonicalV3ContractTests(unittest.TestCase):
                 definitions["v3_non_execution_route"]["properties"][field],
             )
 
+    def test_route_definitions_remain_object_only(self):
+        route_names = ("execution_route", "v3_non_execution_route")
+        for route_name in route_names:
+            for loosened_type in ("array", ["object", "array"]):
+                with self.subTest(
+                    route=route_name, loosened_type=loosened_type
+                ):
+                    broken = copy.deepcopy(self.contract)
+                    broken["$defs"][route_name]["type"] = loosened_type
+                    errors = validate_contract_document(broken)
+                    expected = (
+                        "execution_route type must be exactly object"
+                        if route_name == "execution_route"
+                        else "v3_non_execution_route type must be exactly object"
+                    )
+                    self.assertIn(expected, errors)
+
     def test_execution_route_required_fields_cannot_drift(self):
         required_fields = (
             "execution_anchor_type",
@@ -111,6 +128,81 @@ class CanonicalV3ContractTests(unittest.TestCase):
                 self.assertIn(
                     "empty_route_value must remain empty-only", errors
                 )
+
+    def test_positive_route_property_schemas_cannot_be_loosened(self):
+        cases = (
+            (
+                "execution_route",
+                "execution_anchor_type",
+                {},
+                "execution_anchor_type schema must require a non-empty string",
+            ),
+            (
+                "execution_route",
+                "execution_anchor_strength",
+                {"type": "string"},
+                "execution_route strength schema differs from canonical metadata",
+            ),
+            (
+                "v3_non_execution_route",
+                "remaining_uncertainty",
+                {},
+                "remaining_uncertainty must require a non-empty narrative",
+            ),
+            (
+                "v3_non_execution_route",
+                "anchor_classes",
+                {"type": "array"},
+                "anchor_classes schema differs from canonical metadata",
+            ),
+            (
+                "v3_non_execution_route",
+                "evidence_needed_for_stage_b",
+                {"type": "array", "minItems": 1},
+                "evidence_needed_for_stage_b schema differs from canonical contract",
+            ),
+            (
+                "v3_non_execution_route",
+                "next_confirmation_points",
+                {"type": "array", "minItems": 1},
+                "next_confirmation_points schema differs from canonical contract",
+            ),
+        )
+        for route_name, field, schema, expected_fragment in cases:
+            with self.subTest(route=route_name, field=field):
+                broken = copy.deepcopy(self.contract)
+                broken["$defs"][route_name]["properties"][field] = schema
+                errors = validate_contract_document(broken)
+                self.assertTrue(
+                    any(expected_fragment in error for error in errors),
+                    errors,
+                )
+
+    def test_structured_target_definitions_cannot_be_loosened(self):
+        cases = (
+            (
+                "evidence_target",
+                "evidence_target definition differs from canonical structured contract",
+            ),
+            (
+                "confirmation_point",
+                "confirmation_point definition differs from canonical structured contract",
+            ),
+        )
+        for definition_name, expected_error in cases:
+            with self.subTest(definition=definition_name):
+                broken = copy.deepcopy(self.contract)
+                broken["$defs"][definition_name] = {}
+                errors = validate_contract_document(broken)
+                self.assertIn(expected_error, errors)
+
+                weakened = copy.deepcopy(self.contract)
+                weakened_definition = weakened["$defs"][definition_name]
+                first_option = weakened_definition["oneOf"][0]
+                first_key = first_option["required"][0]
+                del first_option["properties"][first_key]["minLength"]
+                errors = validate_contract_document(weakened)
+                self.assertIn(expected_error, errors)
 
     def test_route_reference_drift_is_rejected(self):
         broken = copy.deepcopy(self.contract)

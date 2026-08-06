@@ -65,16 +65,17 @@ class TestReview4870635557Contracts(unittest.TestCase):
             "Acme yield",
             "Project A profit",
             "Plant 1 capex",
-            "Tesla FY2026 profit",
         )
         for assertion in assertions:
             with self.subTest(assertion=assertion):
                 self._assert_strict_failure(assertion)
 
-    def test_metric_assertions_with_change_value_or_event_pass(self):
+    def test_scoped_or_developed_metric_assertions_pass(self):
         assertions = (
             "Tesla profit increased",
             "Tesla Q2 profit 10%",
+            "Tesla FY2026 profit",
+            "Project Alpha Q2 EBITDA",
             "Project A capex reduced",
             "Plant 1 yield 95%",
             "Acme profit guidance",

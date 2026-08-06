@@ -7,6 +7,15 @@ layers are collapsed in later, independently reviewable cleanup PRs.
 """
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
+# Direct script execution starts with validation_scripts/ on sys.path. Add the
+# repository root before absolute package imports, matching the public CLI.
+_REPO_ROOT = str(Path(__file__).resolve().parent.parent)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
 from validation_scripts.callable_seam import (
     clone_function_with_globals as _clone_function_with_globals,
 )

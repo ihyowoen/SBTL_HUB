@@ -70,6 +70,17 @@ class TestReview4870635557Contracts(unittest.TestCase):
             with self.subTest(assertion=assertion):
                 self._assert_strict_failure(assertion)
 
+    def test_numeric_entity_identifiers_are_not_metric_values(self):
+        assertions = (
+            "Plant1 capex",
+            "Facility2 profit",
+            "공장1 설비투자",
+            "Tesla Model 3 profit",
+        )
+        for assertion in assertions:
+            with self.subTest(assertion=assertion):
+                self._assert_strict_failure(assertion)
+
     def test_scoped_or_developed_metric_assertions_pass(self):
         assertions = (
             "Tesla profit increased",
@@ -80,6 +91,20 @@ class TestReview4870635557Contracts(unittest.TestCase):
             "Plant 1 yield 95%",
             "Acme profit guidance",
             "SBTL 영업이익 증가",
+            "Tesla capex $10 million",
+            "Project Alpha throughput 2 GWh",
+        )
+        for assertion in assertions:
+            with self.subTest(assertion=assertion):
+                self._assert_strict_success(assertion)
+
+    def test_nominal_metric_changes_pass(self):
+        assertions = (
+            "Tesla capex reduction",
+            "Tesla profit improvement",
+            "Plant 1 yield decline",
+            "Project A throughput growth",
+            "SBTL 영업이익 개선",
         )
         for assertion in assertions:
             with self.subTest(assertion=assertion):

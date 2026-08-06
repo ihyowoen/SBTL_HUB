@@ -104,6 +104,7 @@ class TestReview4870635557Contracts(unittest.TestCase):
             "Tesla profit improvement",
             "Plant 1 yield decline",
             "Project A throughput growth",
+            "Project Alpha profit improvement",
             "SBTL 영업이익 개선",
         )
         for assertion in assertions:
@@ -116,6 +117,23 @@ class TestReview4870635557Contracts(unittest.TestCase):
             "company profit improvement",
             "project yield decline",
             "설비투자 감축",
+        )
+        for assertion in assertions:
+            with self.subTest(assertion=assertion):
+                self._assert_strict_failure(assertion)
+
+    def test_nominal_change_modifiers_do_not_fabricate_subjects(self):
+        assertions = (
+            "significant capex reduction",
+            "Significant capex reduction",
+            "material profit improvement",
+            "Material profit improvement",
+            "quarterly yield decline",
+            "Quarterly yield decline",
+            "reported throughput growth",
+            "substantial EBITDA improvement",
+            "상당한 설비투자 감축",
+            "분기별 영업이익 개선",
         )
         for assertion in assertions:
             with self.subTest(assertion=assertion):

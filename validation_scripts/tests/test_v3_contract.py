@@ -135,7 +135,7 @@ class CanonicalV3ContractTests(unittest.TestCase):
                 "execution_route",
                 "execution_anchor_type",
                 {},
-                "execution_anchor_type schema must require a non-empty string",
+                "execution_anchor_type schema must require a non-whitespace string",
             ),
             (
                 "execution_route",

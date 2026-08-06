@@ -35,6 +35,38 @@ class CanonicalV3ContractTests(unittest.TestCase):
             set(self.projection["route_names"]),
         )
 
+    def test_route_residual_fields_are_empty_only(self):
+        empty_only = self.projection["empty_only_fields_by_route"]
+        self.assertEqual(
+            set(self.projection["v3_override_required_fields"]),
+            set(empty_only["execution"]),
+        )
+        self.assertEqual(
+            {"execution_anchor_type", "execution_anchor_strength"},
+            set(empty_only["v3_non_execution"]),
+        )
+        empty_ref = {"$ref": "#/$defs/empty_route_value"}
+        definitions = self.contract["$defs"]
+        for field in empty_only["execution"]:
+            self.assertEqual(
+                empty_ref,
+                definitions["execution_route"]["properties"][field],
+            )
+        for field in empty_only["v3_non_execution"]:
+            self.assertEqual(
+                empty_ref,
+                definitions["v3_non_execution_route"]["properties"][field],
+            )
+
+    def test_route_reference_drift_is_rejected(self):
+        broken = copy.deepcopy(self.contract)
+        broken["oneOf"].reverse()
+        errors = validate_contract_document(broken)
+        self.assertTrue(
+            any("must reference execution" in error for error in errors),
+            errors,
+        )
+
     def test_duplicate_enum_is_rejected(self):
         broken = copy.deepcopy(self.contract)
         strengths = broken["x-sbtl-contract"][
@@ -57,7 +89,7 @@ class CanonicalV3ContractTests(unittest.TestCase):
             errors,
         )
 
-    def test_current_validator_projection_has_no_drift(self):
+    def test_aligned_projection_has_no_drift(self):
         validator = SimpleNamespace(
             STAGE_A_ALLOWED_EXECUTION_ANCHOR_STRENGTH=set(
                 self.projection["allowed_execution_anchor_strengths"]
@@ -81,6 +113,9 @@ class CanonicalV3ContractTests(unittest.TestCase):
         self.assertEqual(
             [], alignment_errors(self.contract, validator)
         )
+
+    def test_public_validator_has_no_drift(self):
+        self.assertEqual([], alignment_errors(self.contract))
 
     def test_drift_is_reported(self):
         validator = SimpleNamespace(

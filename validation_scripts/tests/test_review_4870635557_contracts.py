@@ -110,6 +110,17 @@ class TestReview4870635557Contracts(unittest.TestCase):
             with self.subTest(assertion=assertion):
                 self._assert_strict_success(assertion)
 
+    def test_nominal_metric_changes_still_require_a_concrete_subject(self):
+        assertions = (
+            "capex reduction",
+            "company profit improvement",
+            "project yield decline",
+            "설비투자 감축",
+        )
+        for assertion in assertions:
+            with self.subTest(assertion=assertion):
+                self._assert_strict_failure(assertion)
+
     def test_concrete_numbered_entity_judgment_changes_pass(self):
         assertions = (
             "Project A outlook weakened",

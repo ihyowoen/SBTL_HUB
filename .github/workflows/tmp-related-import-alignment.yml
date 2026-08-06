@@ -32,7 +32,7 @@ jobs:
                   globals()[_name] = getattr(_base, _name)
           '''
           new_impl_export = '''for _name, _value in vars(_base).items():
-              if not _name.startswith("__"):
+              if not _name.startswith("__") and _name not in {"_base", "_prior"}:
                   globals()[_name] = _value
           '''
           if old_impl_export not in impl:
@@ -58,7 +58,7 @@ jobs:
                   globals()[_name] = getattr(_impl, _name)
           '''
           new_main_export = '''for _name, _value in vars(_impl).items():
-              if not _name.startswith("__"):
+              if not _name.startswith("__") and _name not in {"_base", "_prior", "_impl"}:
                   globals()[_name] = _value
           '''
           if old_main_export not in main:

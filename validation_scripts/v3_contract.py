@@ -27,6 +27,19 @@ _REQUIRED_METADATA_KEYS = (
     "structured_confirmation_point_key_pairs",
     "empty_only_fields_by_route",
 )
+_EXECUTION_ROUTE_REQUIRED_FIELDS = {
+    "execution_anchor_type",
+    "execution_anchor_strength",
+    "structural_value_override_applied",
+}
+_EMPTY_ROUTE_VALUE_DEFINITION = {
+    "oneOf": [
+        {"type": "null"},
+        {"type": "string", "maxLength": 0},
+        {"type": "array", "maxItems": 0},
+        {"type": "object", "maxProperties": 0},
+    ]
+}
 
 
 def load_contract(path: str | Path | None = None) -> dict[str, Any]:
@@ -75,6 +88,15 @@ def _as_key_pairs(
     if len(set(pairs)) != len(pairs):
         errors.append(f"{label} must not contain duplicate key pairs")
     return tuple(pairs)
+
+
+def _required_fields_match(value: Any, expected: set[str]) -> bool:
+    """Return true only for an exact, duplicate-free required-field array."""
+    return (
+        isinstance(value, list)
+        and len(value) == len(expected)
+        and set(value) == expected
+    )
 
 
 def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
@@ -173,12 +195,21 @@ def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
         if definition not in definitions:
             errors.append(f"$defs missing {definition}")
 
-    execution_properties = definitions.get("execution_route", {}).get(
-        "properties", {}
-    )
-    non_execution_properties = definitions.get(
-        "v3_non_execution_route", {}
-    ).get("properties", {})
+    if definitions.get("empty_route_value") != _EMPTY_ROUTE_VALUE_DEFINITION:
+        errors.append("empty_route_value must remain empty-only")
+
+    execution_definition = definitions.get("execution_route", {})
+    non_execution_definition = definitions.get("v3_non_execution_route", {})
+    execution_properties = execution_definition.get("properties", {})
+    non_execution_properties = non_execution_definition.get("properties", {})
+
+    execution_required = execution_definition.get("required")
+    if not _required_fields_match(
+        execution_required, _EXECUTION_ROUTE_REQUIRED_FIELDS
+    ):
+        errors.append(
+            "execution_route required fields differ from canonical contract"
+        )
 
     execution_strengths = execution_properties.get(
         "execution_anchor_strength", {}
@@ -202,14 +233,9 @@ def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
             "v3_non_execution_route anchor enum differs from canonical metadata"
         )
 
-    non_execution_required = definitions.get(
-        "v3_non_execution_route", {}
-    ).get("required")
+    non_execution_required = non_execution_definition.get("required")
     expected_required = {"structural_value_override_applied", *override_required}
-    if (
-        not isinstance(non_execution_required, list)
-        or set(non_execution_required) != expected_required
-    ):
+    if not _required_fields_match(non_execution_required, expected_required):
         errors.append(
             "v3_non_execution_route required fields differ from canonical metadata"
         )

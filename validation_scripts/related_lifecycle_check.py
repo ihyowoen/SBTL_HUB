@@ -78,6 +78,20 @@ _SUBJECTLESS_NOMINAL_MODIFIER_TERMS = {
 # governed legacy single-token names; other English names need an acronym,
 # possessive, corporate suffix, internal-capital/digit, or multi-token signal.
 _KNOWN_SINGLE_TOKEN_ENTITY_NAMES = {"tesla", "acme"}
+_KNOWN_KOREAN_SINGLE_TOKEN_ENTITY_NAMES = {
+    "삼성", "현대", "기아", "포스코", "한화", "두산", "롯데", "에코프로",
+    "엘지", "금양", "천보", "율촌화학", "동화기업", "한국전력",
+    "수출입은행", "산업통상자원부",
+}
+_KOREAN_ENTITY_CLASS_TERMS = {
+    "프로젝트", "사업", "공장", "플랜트", "시설", "법인", "컨소시엄",
+    "센터", "단지", "기지", "연구원", "위원회", "은행",
+}
+_KOREAN_ENTITY_SUFFIXES = (
+    "주식회사", "에너지솔루션", "솔루션", "퓨처엠", "비엠", "화학",
+    "전자", "전력", "산업", "소재", "배터리", "모빌리티", "홀딩스",
+    "테크놀로지", "테크", "공사", "연구원", "위원회", "은행", "그룹",
+)
 _METRIC_VALUE_PATTERNS = (
     r"(?<![a-z0-9가-힣])[-+]?\d+(?:[.,]\d+)?\s*%",
     r"(?<![a-z0-9가-힣])[$€£¥₩]\s*[-+]?\d+(?:[.,]\d+)?",
@@ -164,11 +178,26 @@ def _has_positively_identifiable_subject(
         if subject_token in _prior._base._GENERIC_LINEAGE_ASSERTION_TOKENS:
             continue
 
-        # Korean/mixed-script proper names have no capitalization signal. Once
-        # neutral role/modifier vocabularies are removed, a substantive Hangul
-        # token is treated as an identifiable named subject.
+        # Hangul has no capitalization signal, so require an affirmative
+        # company/institution or class-bound project/facility cue. Unknown
+        # Korean modifiers and adverbs remain fail-closed.
         if _prior._base.re.search(r"[가-힣]", original):
-            return True
+            korean_base = original[:-1] if original.endswith("의") else original
+            next_is_entity_class = (
+                index + 1 < len(normalized_role_tokens)
+                and normalized_role_tokens[index + 1] in _KOREAN_ENTITY_CLASS_TERMS
+            )
+            has_entity_suffix = any(
+                korean_base.endswith(suffix) and len(korean_base) > len(suffix)
+                for suffix in _KOREAN_ENTITY_SUFFIXES
+            )
+            if (
+                subject_token in _KNOWN_KOREAN_SINGLE_TOKEN_ENTITY_NAMES
+                or next_is_entity_class
+                or has_entity_suffix
+            ):
+                return True
+            continue
 
         # English entity signals must be positive. Sentence-initial TitleCase
         # alone is not enough because ordinary assertion prose is sentence-cased.

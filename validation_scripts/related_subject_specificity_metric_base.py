@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4870635557 compatibility layer for Related assertion specificity."""
+"""Stable Related metric-specificity policy layer."""
 from __future__ import annotations
 
 import importlib.util
@@ -7,14 +7,14 @@ import sys
 from pathlib import Path
 
 _PRIOR_PATH = Path(__file__).with_name(
-    "related_lifecycle_check_review4868891584_base.py"
+    "related_subject_specificity_role_base.py"
 )
 _PRIOR_DIR = str(_PRIOR_PATH.parent)
 if _PRIOR_DIR not in sys.path:
     sys.path.insert(0, _PRIOR_DIR)
 
 _SPEC = importlib.util.spec_from_file_location(
-    "validation_scripts.related_lifecycle_check_review4868891584_base",
+    "validation_scripts.related_subject_specificity_role_base",
     _PRIOR_PATH,
 )
 if _SPEC is None or _SPEC.loader is None:

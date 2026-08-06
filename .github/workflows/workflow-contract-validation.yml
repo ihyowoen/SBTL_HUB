@@ -52,6 +52,9 @@ jobs:
       - name: Verify generated V3 stage contracts
         run: python validation_scripts/v3_stage_contracts.py --check
 
+      - name: Verify V3 stage contract flow
+        run: python validation_scripts/v3_stage_contract_flow_check.py --check
+
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 

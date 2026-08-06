@@ -156,6 +156,32 @@ def _has_positively_identifiable_subject(
 ):
     """Require a named/class-bound entity, not an arbitrary leftover modifier."""
     if has_concrete_entity_label:
+        concrete_label_candidates = []
+        for index, (role_token, subject_token) in enumerate(
+            zip(normalized_role_tokens, subject_tokens)
+        ):
+            if index in temporal_indexes or subject_token.isdigit():
+                continue
+            if role_token in _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS:
+                continue
+            if role_token in _NOMINAL_CHANGE_TERMS:
+                continue
+            if role_token in _SUBJECTLESS_NOMINAL_MODIFIER_TERMS:
+                continue
+            if subject_token in _GENERIC_JUDGMENT_DESCRIPTOR_TERMS:
+                continue
+            if subject_token in _prior._ASSERTION_NEUTRAL_SUBJECT_TOKENS:
+                continue
+            if subject_token in _prior._GENERIC_OWNER_SINGULARS:
+                continue
+            if subject_token in _prior._base._GENERIC_LINEAGE_ASSERTION_TOKENS:
+                continue
+            concrete_label_candidates.append(subject_token)
+        if concrete_label_candidates and all(
+            token in _COMPARATIVE_OR_PERIOD_ACRONYMS
+            for token in concrete_label_candidates
+        ):
+            return False
         return True
 
     original_tokens = _original_assertion_tokens(value)

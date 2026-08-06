@@ -10,12 +10,16 @@ from typing import Any
 _MUTABLE_GLOBAL_TYPES = (MutableMapping, MutableSequence, MutableSet)
 
 
-def _clone_namespace_value(name: str, value: Any) -> Any:
+def _clone_namespace_value(
+    name: str,
+    value: Any,
+    memo: dict[int, Any],
+) -> Any:
     """Copy mutable policy globals while retaining shared runtime primitives."""
     if name == "__builtins__" or not isinstance(value, _MUTABLE_GLOBAL_TYPES):
         return value
     try:
-        return deepcopy(value)
+        return deepcopy(value, memo)
     except Exception as exc:  # pragma: no cover - defensive fail-closed path
         raise TypeError(f"cannot isolate mutable module global {name!r}") from exc
 
@@ -51,16 +55,22 @@ def clone_module_with_shared_globals(
     """Clone a module namespace without loading its file a second time.
 
     Functions defined by ``source`` are rebound to one shared cloned globals
-    dictionary. Mutable policy containers are deep-copied so in-place changes
-    remain local to the clone. The canonical imported module stays untouched.
+    dictionary. Mutable policy containers are deep-copied with one shared memo,
+    preserving aliases inside the clone while preventing source-state leakage.
+    The canonical imported module stays untouched.
     """
     cloned = ModuleType(module_name, source.__doc__)
     namespace = cloned.__dict__
+    mutable_copy_memo: dict[int, Any] = {}
 
     for name, value in vars(source).items():
         if name in {"__name__", "__package__", "__loader__", "__spec__"}:
             continue
-        namespace[name] = _clone_namespace_value(name, value)
+        namespace[name] = _clone_namespace_value(
+            name,
+            value,
+            mutable_copy_memo,
+        )
 
     namespace["__name__"] = module_name
     namespace["__package__"] = module_name.rpartition(".")[0]

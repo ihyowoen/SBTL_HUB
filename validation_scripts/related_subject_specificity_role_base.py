@@ -6,7 +6,7 @@ import importlib.util
 import sys
 from pathlib import Path
 
-_BASE_PATH = Path(__file__).with_name("related_lifecycle_check_review4860866998_base.py")
+_BASE_PATH = Path(__file__).with_name("related_lifecycle_core.py")
 # The base validator retains direct-script imports for CLI compatibility. Ensure
 # its sibling modules are also importable when this wrapper is imported as the
 # validation_scripts package from an isolated focused unittest invocation.
@@ -15,7 +15,7 @@ if _BASE_DIR not in sys.path:
     sys.path.insert(0, _BASE_DIR)
 
 _SPEC = importlib.util.spec_from_file_location(
-    "validation_scripts.related_lifecycle_check_review4860866998_base",
+    "validation_scripts.related_lifecycle_core",
     _BASE_PATH,
 )
 if _SPEC is None or _SPEC.loader is None:

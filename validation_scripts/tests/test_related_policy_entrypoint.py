@@ -7,8 +7,8 @@ import tempfile
 import unittest
 
 from validation_scripts import related_lifecycle_check as public
-from validation_scripts import related_lifecycle_check_review4871397803_base as legacy_base
 from validation_scripts import related_subject_specificity as stable
+from validation_scripts import related_subject_specificity_metric_base as metric_base
 
 
 class RelatedPolicyEntrypointTests(unittest.TestCase):
@@ -19,13 +19,20 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
 
     def test_stable_policy_owns_latest_layer_directly(self):
         source = Path(stable.__file__).read_text(encoding="utf-8")
-        self.assertNotIn("related_lifecycle_check_review_latest_base", source)
-        removed_layer = (
-            Path(stable.__file__).with_name(
-                "related_lifecycle_check_review_latest_base.py"
-            )
+        self.assertIn("related_subject_specificity_metric_base as _base", source)
+        self.assertNotIn("related_lifecycle_check_review4871397803_base", source)
+        removed_layers = (
+            "related_lifecycle_check_review_latest_base.py",
+            "related_lifecycle_check_review4871397803_base.py",
         )
-        self.assertFalse(removed_layer.exists())
+        for filename in removed_layers:
+            with self.subTest(filename=filename):
+                self.assertFalse(Path(stable.__file__).with_name(filename).exists())
+
+    def test_stable_metric_layer_keeps_only_next_historical_dependency(self):
+        source = Path(metric_base.__file__).read_text(encoding="utf-8")
+        self.assertNotIn("related_lifecycle_check_review4871397803_base", source)
+        self.assertIn("related_lifecycle_check_review4868891584_base.py", source)
 
     def test_stable_policy_script_is_directly_executable(self):
         script = Path(stable.__file__).resolve()
@@ -66,10 +73,10 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
                 )
 
     def test_stable_policy_owns_isolated_callable_graph(self):
-        self.assertIsNot(stable.check_card, legacy_base.check_card)
-        self.assertIsNot(stable.main, legacy_base.main)
+        self.assertIsNot(stable.check_card, metric_base.check_card)
+        self.assertIsNot(stable.main, metric_base.main)
         self.assertIsNot(
-            stable.check_card.__globals__, legacy_base.check_card.__globals__
+            stable.check_card.__globals__, metric_base.check_card.__globals__
         )
         self.assertIs(
             stable.check_card.__globals__["item_specific_lineage_assertion"],
@@ -89,9 +96,9 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
         )
         self.assertIs(public.main.__globals__["check_card"], public.check_card)
 
-    def test_lower_legacy_import_cannot_rebind_stable_or_public_policy(self):
-        legacy_base.check_card.__globals__["item_specific_lineage_assertion"] = (
-            legacy_base.item_specific_lineage_assertion
+    def test_lower_metric_layer_cannot_rebind_stable_or_public_policy(self):
+        metric_base.check_card.__globals__["item_specific_lineage_assertion"] = (
+            metric_base.item_specific_lineage_assertion
         )
         self.assertIs(
             stable.check_card.__globals__["item_specific_lineage_assertion"],

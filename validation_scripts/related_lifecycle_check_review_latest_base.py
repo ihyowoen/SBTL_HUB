@@ -32,20 +32,30 @@ _GENERIC_TITLE_MODIFIERS = {
     "small", "rapid", "gradual", "significant", "material", "substantial",
     "sharp", "strong", "weak", "notable", "meaningful", "recent",
     "expected", "projected", "reported", "documented", "verified",
-    "continued", "continuing", "further", "ongoing",
+    "continued", "continuing", "further", "ongoing", "alarming", "steep",
+    "abrupt", "emerging", "leading", "new", "global", "local", "public",
+    "private",
 }
 _CORPORATE_NAME_SUFFIXES = {
     "motors", "energy", "power", "technologies", "technology", "holdings",
     "group", "corporation", "corp", "inc", "ltd", "company", "systems",
     "solutions", "industries", "industrial",
 }
+_GOVERNED_SINGLE_TOKEN_ENTITY_NAMES = set(
+    getattr(_base, "_KNOWN_SINGLE_TOKEN_ENTITY_NAMES", set())
+) | {
+    "panasonic", "ford", "toyota",
+}
 _SPELLED_PERCENT_RE = re.compile(
     r"(?<![a-z0-9가-힣])[-+]?\d+(?:[.,]\d+)?\s*(?:percent|percentage|퍼센트)(?![a-z0-9가-힣])",
     re.IGNORECASE,
 )
-_EXPLICIT_CLASS_BOUND_RE = re.compile(
-    r"\b(?i:project|plant|facility|site|line|phase|unit|factory|program)\s+"
-    r"(?:[A-Z][A-Za-z0-9-]*|\d+)\b|"
+_ENGLISH_CLASS_BOUND_RE = re.compile(
+    r"\b(?P<class>project|plant|facility|site|line|phase|unit|factory|program)\s+"
+    r"(?P<identifier>[A-Z][A-Za-z0-9-]*|\d+)\b",
+    re.IGNORECASE,
+)
+_KOREAN_CLASS_BOUND_RE = re.compile(
     r"(?:제?\d+|[A-Za-z]\d*)\s*(?:공장|프로젝트|사업|시설|플랜트|라인|단지)"
 )
 
@@ -92,8 +102,37 @@ def _candidate_indexes(role_tokens, subject_tokens, temporal_indexes):
     return indexes
 
 
-def _has_unseen_single_token_entity(
-    value,
+def _identifier_is_governed_name(identifier):
+    normalized = _base._prior._normalize_assertion_role_token(identifier)
+    subject = _base._prior._normalize_subject_token(normalized)
+    blocked = (
+        set(_base._RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS)
+        | set(_base._NOMINAL_CHANGE_TERMS)
+        | set(_base._prior._ASSERTION_CHANGE_PREDICATE_TERMS)
+        | set(_base._SUBJECTLESS_NOMINAL_MODIFIER_TERMS)
+        | set(_base._GENERIC_JUDGMENT_DESCRIPTOR_TERMS)
+        | set(_PERIOD_OR_COMPARATIVE_TERMS)
+        | set(_RECURRING_PERIOD_TERMS)
+        | set(_GENERIC_TITLE_MODIFIERS)
+        | set(_CORPORATE_NAME_SUFFIXES)
+        | set(_base._prior._ASSERTION_NEUTRAL_SUBJECT_TOKENS)
+        | set(_base._prior._GENERIC_OWNER_SINGULARS)
+        | set(_base._prior._base._GENERIC_LINEAGE_ASSERTION_TOKENS)
+    )
+    return bool(subject) and subject not in blocked
+
+
+def _has_valid_explicit_class_bound(value):
+    text = str(value)
+    if _KOREAN_CLASS_BOUND_RE.search(text):
+        return True
+    return any(
+        _identifier_is_governed_name(match.group("identifier"))
+        for match in _ENGLISH_CLASS_BOUND_RE.finditer(text)
+    )
+
+
+def _has_governed_single_token_entity(
     role_tokens,
     subject_tokens,
     temporal_indexes,
@@ -113,10 +152,43 @@ def _has_unseen_single_token_entity(
     original = original_tokens[index]
     return (
         index == 0
+        and subject_tokens[index] in _GOVERNED_SINGLE_TOKEN_ENTITY_NAMES
         and len(original) >= 2
         and original[:1].isupper()
-        and original[1:].islower()
     )
+
+
+def _has_bound_corporate_name(
+    role_tokens,
+    subject_tokens,
+    original_tokens,
+):
+    for suffix_index, suffix in enumerate(subject_tokens):
+        if suffix not in _CORPORATE_NAME_SUFFIXES or suffix_index == 0:
+            continue
+        name_index = suffix_index - 1
+        name_subject = subject_tokens[name_index]
+        name_role = role_tokens[name_index]
+        original = original_tokens[name_index]
+        if (
+            not original
+            or name_subject in _GENERIC_TITLE_MODIFIERS
+            or name_role in _base._SUBJECTLESS_NOMINAL_MODIFIER_TERMS
+            or name_subject in _base._prior._GENERIC_OWNER_SINGULARS
+            or name_subject in _base._prior._ASSERTION_NEUTRAL_SUBJECT_TOKENS
+            or name_role in _base._RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
+            or name_role in _base._NOMINAL_CHANGE_TERMS
+        ):
+            continue
+        if (
+            name_subject in _GOVERNED_SINGLE_TOKEN_ENTITY_NAMES
+            or original.isupper()
+            or any(char.isupper() for char in original[1:])
+            or any(char.isdigit() for char in original)
+            or original[:1].isupper()
+        ):
+            return True
+    return False
 
 
 def _has_positive_subject(
@@ -127,25 +199,49 @@ def _has_positive_subject(
     temporal_indexes,
     original_tokens,
 ):
-    concrete_label = _base._prior._has_concrete_entity_label(tokens)
-    if _EXPLICIT_CLASS_BOUND_RE.search(str(value)):
+    if _has_valid_explicit_class_bound(value):
         return True
-    if _base._has_positively_identifiable_subject(
-        value,
-        tokens,
-        role_tokens,
-        subject_tokens,
-        temporal_indexes,
-        concrete_label,
-    ):
+
+    if any(re.search(r"[가-힣]", token) for token in original_tokens):
+        concrete_label = _base._prior._has_concrete_entity_label(tokens)
+        if _base._has_positively_identifiable_subject(
+            value,
+            tokens,
+            role_tokens,
+            subject_tokens,
+            temporal_indexes,
+            concrete_label,
+        ):
+            return True
+
+    possessive_subjects = _base._possessive_subject_tokens(value)
+    if any(subject in possessive_subjects for subject in subject_tokens):
         return True
-    return _has_unseen_single_token_entity(
-        value,
+
+    if _has_bound_corporate_name(role_tokens, subject_tokens, original_tokens):
+        return True
+
+    if _has_governed_single_token_entity(
         role_tokens,
         subject_tokens,
         temporal_indexes,
         original_tokens,
-    )
+    ):
+        return True
+
+    candidates = _candidate_indexes(role_tokens, subject_tokens, temporal_indexes)
+    for index in candidates:
+        original = original_tokens[index]
+        subject = subject_tokens[index]
+        if subject in _PERIOD_OR_COMPARATIVE_TERMS:
+            continue
+        if (
+            original.isupper()
+            or any(char.isupper() for char in original[1:])
+            or any(char.isdigit() for char in original)
+        ):
+            return True
+    return False
 
 
 def _is_titlecase_modifier_pair_without_entity_cue(
@@ -164,12 +260,9 @@ def _is_titlecase_modifier_pair_without_entity_cue(
     ]
     if len(title_indexes) < 2:
         return False
-    if _EXPLICIT_CLASS_BOUND_RE.search(str(value)):
+    if _has_valid_explicit_class_bound(value):
         return False
-    if any(
-        subject_tokens[index] in _CORPORATE_NAME_SUFFIXES
-        for index in title_indexes
-    ):
+    if _has_bound_corporate_name(role_tokens, subject_tokens, original_tokens):
         return False
     if "'" in str(value) or "’" in str(value):
         return False
@@ -177,7 +270,7 @@ def _is_titlecase_modifier_pair_without_entity_cue(
 
 
 def item_specific_lineage_assertion(value):
-    """Close period/title bypasses while preserving real named developments."""
+    """Close period/title bypasses while preserving governed named developments."""
     (
         tokens,
         role_tokens,
@@ -209,11 +302,7 @@ def item_specific_lineage_assertion(value):
         original_tokens,
     )
 
-    if (
-        metric_roles
-        and has_change_predicate
-        and _EXPLICIT_CLASS_BOUND_RE.search(str(value))
-    ):
+    if metric_roles and has_change_predicate and _has_valid_explicit_class_bound(value):
         return True
 
     candidates = _candidate_indexes(role_tokens, subject_tokens, temporal_indexes)
@@ -232,14 +321,8 @@ def item_specific_lineage_assertion(value):
             original_tokens,
         ):
             return False
-        if _has_unseen_single_token_entity(
-            value,
-            role_tokens,
-            subject_tokens,
-            temporal_indexes,
-            original_tokens,
-        ):
-            return True
+        # Nominal metric changes must have an affirmative governed subject.
+        return has_positive_subject
 
     if metric_roles and has_positive_subject:
         if any(token in _RECURRING_PERIOD_TERMS for token in role_tokens):

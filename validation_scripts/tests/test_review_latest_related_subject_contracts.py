@@ -97,6 +97,42 @@ class TestLatestRelatedSubjectRegressions(unittest.TestCase):
             with self.subTest(assertion=assertion):
                 self._assert_success(assertion)
 
+    def test_capitalized_metric_tokens_are_not_class_identifiers(self):
+        for assertion in (
+            "Project Profit decline",
+            "Plant Yield Improvement",
+            "Facility EBITDA improvement",
+        ):
+            with self.subTest(assertion=assertion):
+                self._assert_failure(assertion)
+
+    def test_unregistered_titlecase_modifiers_need_affirmative_name_cue(self):
+        for assertion in (
+            "Alarming capex reduction",
+            "Steep profit decline",
+            "Abrupt yield improvement",
+        ):
+            with self.subTest(assertion=assertion):
+                self._assert_failure(assertion)
+
+    def test_generic_corporate_suffixes_do_not_promote_modifiers(self):
+        for assertion in (
+            "emerging company profit decline",
+            "leading group EBITDA improvement",
+            "new corporation yield decline",
+        ):
+            with self.subTest(assertion=assertion):
+                self._assert_failure(assertion)
+
+    def test_bound_corporate_names_remain_valid(self):
+        for assertion in (
+            "Acme Corp profit decline",
+            "General Motors profit decline",
+            "Tesla Energy capex reduction",
+        ):
+            with self.subTest(assertion=assertion):
+                self._assert_success(assertion)
+
 
 if __name__ == "__main__":
     unittest.main()

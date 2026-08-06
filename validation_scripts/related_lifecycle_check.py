@@ -67,10 +67,17 @@ _SUBJECTLESS_NOMINAL_MODIFIER_TERMS = {
     "daily", "recent", "recently", "expected", "projected", "reported",
     "documented", "verified", "continued", "continuing", "further", "ongoing",
     "large", "small", "rapid", "rapidly", "gradual", "gradually",
+    "unexpected", "severe", "historic", "historical", "dramatic", "sudden",
+    "record", "surprising", "unprecedented", "exceptional", "temporary",
+    "persistent", "structural", "cyclical", "seasonal", "broad", "modest",
     "중대한", "상당한", "유의미한", "뚜렷한", "큰", "작은", "급격한",
     "빠른", "완만한", "분기", "분기별", "연간", "월간", "주간", "일간",
     "최근", "예상", "전망된", "보고된", "확인된", "지속적인", "추가적인",
 }
+# A bare sentence-initial TitleCase token is ambiguous. Keep only explicitly
+# governed legacy single-token names; other English names need an acronym,
+# possessive, corporate suffix, internal-capital/digit, or multi-token signal.
+_KNOWN_SINGLE_TOKEN_ENTITY_NAMES = {"tesla", "acme"}
 _METRIC_VALUE_PATTERNS = (
     r"(?<![a-z0-9가-힣])[-+]?\d+(?:[.,]\d+)?\s*%",
     r"(?<![a-z0-9가-힣])[$€£¥₩]\s*[-+]?\d+(?:[.,]\d+)?",
@@ -105,6 +112,17 @@ def _original_assertion_tokens(value):
     return _prior._base.re.findall(r"[A-Za-z0-9가-힣]+", original)
 
 
+def _possessive_subject_tokens(value):
+    original = str(value).replace("’", "'")
+    return {
+        match.group(1).casefold()
+        for match in _prior._base.re.finditer(
+            r"\b([A-Za-z][A-Za-z0-9]*)'s\b", original,
+            flags=_prior._base.re.IGNORECASE,
+        )
+    }
+
+
 def _has_positively_identifiable_subject(
     value,
     tokens,
@@ -120,6 +138,11 @@ def _has_positively_identifiable_subject(
     original_tokens = _original_assertion_tokens(value)
     if len(original_tokens) != len(tokens):
         return False
+    possessive_subjects = _possessive_subject_tokens(value)
+    has_corporate_suffix = any(
+        token in _prior._ENTITY_LABEL_SUFFIXES
+        for token in normalized_role_tokens
+    )
 
     for index, (original, role_token, subject_token) in enumerate(
         zip(original_tokens, normalized_role_tokens, subject_tokens)
@@ -147,12 +170,34 @@ def _has_positively_identifiable_subject(
         if _prior._base.re.search(r"[가-힣]", original):
             return True
 
-        # English entity tokens must retain an explicit proper-name signal.
-        # This accepts Tesla, Acme, SBTL and the Alpha part of Project Alpha,
-        # while lower-case modifiers such as significant/material/quarterly do
-        # not become fabricated subjects.
+        # English entity signals must be positive. Sentence-initial TitleCase
+        # alone is not enough because ordinary assertion prose is sentence-cased.
+        has_internal_name_signal = any(char.isupper() for char in original[1:])
+        has_digit_signal = any(char.isdigit() for char in original)
+        previous_is_entity_lead = (
+            index > 0
+            and normalized_role_tokens[index - 1] in _prior._ENTITY_LABEL_LEADS
+        )
+        previous_is_named_token = (
+            index > 0
+            and original_tokens[index - 1][:1].isupper()
+            and normalized_role_tokens[index - 1]
+            not in _SUBJECTLESS_NOMINAL_MODIFIER_TERMS
+        )
+        has_multi_token_name_signal = (
+            index > 0
+            and original[:1].isupper()
+            and (previous_is_entity_lead or previous_is_named_token)
+        )
+        has_corporate_name_signal = index == 0 and has_corporate_suffix
         if len(original) >= 2 and (
-            original.isupper() or original[:1].isupper()
+            original.isupper()
+            or has_internal_name_signal
+            or has_digit_signal
+            or has_multi_token_name_signal
+            or has_corporate_name_signal
+            or subject_token in possessive_subjects
+            or subject_token in _KNOWN_SINGLE_TOKEN_ENTITY_NAMES
         ):
             return True
     return False

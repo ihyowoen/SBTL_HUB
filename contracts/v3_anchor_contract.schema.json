@@ -11,7 +11,7 @@
       "execution",
       "v3_non_execution"
     ],
-    "applicability": [
+    "applicality": [
       "format_risk",
       "ordinary_v3_with_override_metadata"
     ],
@@ -159,7 +159,7 @@
         "baseline_expectation_changed": {
           "$ref": "#/$defs/empty_route_value"
         },
-        "evidence_needed_for_stage_b": {
+        "evidence_neded_for_stage_b": {
           "$ref": "#/$defs/empty_route_value"
         },
         "next_confirmation_points": {
@@ -197,12 +197,12 @@
             "source_or_document_class": {
               "type": "string",
               "minLength": 2,
-              "pattern": "\\S"
+              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
             },
             "exact_claim_or_metric": {
               "type": "string",
               "minLength": 2,
-              "pattern": "\\S"
+              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
             }
           },
           "additionalProperties": true
@@ -217,12 +217,12 @@
             "source_class": {
               "type": "string",
               "minLength": 2,
-              "pattern": "\\S"
+              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
             },
             "verification_target": {
               "type": "string",
               "minLength": 2,
-              "pattern": "\\S"
+              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
             }
           },
           "additionalProperties": true
@@ -230,7 +230,7 @@
         {
           "type": "string",
           "minLength": 4,
-          "pattern": "\\S"
+          "pattern": "^\\s*\\S[\\s\\S]{2,}\\S\\s*$"
         }
       ]
     },
@@ -246,12 +246,12 @@
             "measurable_event_or_metric": {
               "type": "string",
               "minLength": 2,
-              "pattern": "\\S"
+              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
             },
             "interpretation_effect": {
               "type": "string",
               "minLength": 2,
-              "pattern": "\\S"
+              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
             }
           },
           "additionalProperties": true
@@ -266,12 +266,12 @@
             "confirmation_event": {
               "type": "string",
               "minLength": 2,
-              "pattern": "\\S"
+              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
             },
             "confirm_weaken_invalidate": {
               "type": "string",
               "minLength": 2,
-              "pattern": "\\S"
+              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
             }
           },
           "additionalProperties": true
@@ -279,7 +279,7 @@
         {
           "type": "string",
           "minLength": 4,
-          "pattern": "\\S"
+          "pattern": "^\\s*\\S[\\s\\S]{2,}\\S\\s*$"
         }
       ]
     },

@@ -112,6 +112,12 @@ def _normalized_token_forms(token):
 
 
 def _identifier_is_blocked(identifier):
+    raw_identifier = str(identifier)
+    # A single uppercase letter is an explicit class-bound identifier, not the
+    # neutral indefinite article produced by case-folding (Project A). Numeric
+    # identifiers are likewise concrete labels (Plant 1, Facility 2).
+    if re.fullmatch(r"(?:[A-Z]|\d+)", raw_identifier):
+        return False
     blocked = (
         set(_base._RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS)
         | set(_base._NOMINAL_CHANGE_TERMS)

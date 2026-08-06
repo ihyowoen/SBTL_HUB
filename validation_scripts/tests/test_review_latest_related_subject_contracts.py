@@ -62,6 +62,11 @@ class TestLatestRelatedSubjectRegressions(unittest.TestCase):
             with self.subTest(assertion=assertion):
                 self._assert_success(assertion)
 
+    def test_uppercase_class_identifier_is_not_the_neutral_article(self):
+        self.assertFalse(related._identifier_is_blocked("A"))
+        self.assertTrue(related._identifier_is_blocked("a"))
+        self.assertFalse(related._identifier_is_blocked("1"))
+
     def test_unseen_single_token_company_names_are_supported(self):
         for assertion in (
             "Panasonic capex reduction",

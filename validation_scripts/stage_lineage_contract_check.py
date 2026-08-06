@@ -3,13 +3,20 @@
 from __future__ import annotations
 
 import importlib.util
+import sys
 from pathlib import Path
 from types import ModuleType
 
-try:
-    from validation_scripts.v3_stage_contracts import stage_a_validator_constants
-except ModuleNotFoundError:
-    from v3_stage_contracts import stage_a_validator_constants
+_VALIDATION_DIR = Path(__file__).resolve().parent
+_ROOT_DIR = _VALIDATION_DIR.parent
+for _import_path in (_ROOT_DIR, _VALIDATION_DIR):
+    _import_path_text = str(_import_path)
+    if _import_path_text not in sys.path:
+        sys.path.insert(0, _import_path_text)
+
+from validation_scripts.v3_stage_contracts import (  # noqa: E402
+    stage_a_validator_constants,
+)
 
 _PRIOR_PATH = Path(__file__).with_name(
     "stage_lineage_contract_check_review4869324626_base.py"

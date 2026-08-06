@@ -1,0 +1,65 @@
+name: Apply review 4871316124 fix
+
+on:
+  push:
+    branches:
+      - agent/canonical-v3-contract-schema
+    paths:
+      - .github/workflows/review-4871316124-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/canonical-v3-contract-schema
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Apply bounded contract patch
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          schema_path = Path("contracts/v3_anchor_contract.schema.json")
+          schema = schema_path.read_text(encoding="utf-8")
+          old_schema = '          "type": "string",\n          "minLength": 8\n'
+          new_schema = '          "type": "string",\n          "minLength": 8,\n          "pattern": "\\\\S"\n'
+          count = schema.count(old_schema)
+          if count != 10:
+              raise SystemExit(f"expected 10 narrative schemas, found {count}")
+          schema_path.write_text(schema.replace(old_schema, new_schema), encoding="utf-8")
+
+          module_path = Path("validation_scripts/v3_contract.py")
+          module = module_path.read_text(encoding="utf-8")
+          old_module = '_NONEMPTY_NARRATIVE_SCHEMA = {\n    "type": "string",\n    "minLength": 8,\n}\n'
+          new_module = '_NONEMPTY_NARRATIVE_SCHEMA = {\n    "type": "string",\n    "minLength": 8,\n    "pattern": r"\\S",\n}\n'
+          if module.count(old_module) != 1:
+              raise SystemExit("canonical narrative schema constant not found exactly once")
+          module_path.write_text(module.replace(old_module, new_module), encoding="utf-8")
+
+          test_path = Path("validation_scripts/tests/test_review_4871316124_contracts.py")
+          test_path.write_text('''import copy\nimport re\nimport unittest\n\nfrom validation_scripts.v3_contract import load_contract, validate_contract_document\n\n\nclass TestReview4871316124Contracts(unittest.TestCase):\n    def test_narrative_schemas_require_non_whitespace_content(self):\n        contract = load_contract()\n        metadata = contract["x-sbtl-contract"]\n        properties = contract["$defs"]["v3_non_execution_route"]["properties"]\n        for field in metadata["v3_narrative_fields"]:\n            with self.subTest(field=field):\n                schema = properties[field]\n                self.assertEqual({"type": "string", "minLength": 8, "pattern": r"\\S"}, schema)\n                self.assertIsNone(re.search(schema["pattern"], "        "))\n                self.assertIsNotNone(re.search(schema["pattern"], "verified fact"))\n\n    def test_removed_narrative_pattern_is_canonical_drift(self):\n        contract = load_contract()\n        field = contract["x-sbtl-contract"]["v3_narrative_fields"][0]\n        mutated = copy.deepcopy(contract)\n        mutated["$defs"]["v3_non_execution_route"]["properties"][field].pop("pattern")\n        errors = validate_contract_document(mutated)\n        self.assertTrue(any(field in error and "non-empty narrative" in error for error in errors), errors)\n\n\nif __name__ == "__main__":\n    unittest.main()\n''', encoding="utf-8")
+          PY
+      - name: Validate patch
+        shell: bash
+        run: |
+          python -m compileall -q validation_scripts
+          python validation_scripts/v3_contract_drift_check.py
+          python -m unittest discover -s validation_scripts/tests -v
+          python validation_scripts/apply_prompt_contract_overlays.py --check
+      - name: Commit patch and remove one-off workflow
+        shell: bash
+        run: |
+          rm .github/workflows/review-4871316124-fix.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add contracts/v3_anchor_contract.schema.json validation_scripts/v3_contract.py validation_scripts/tests/test_review_4871316124_contracts.py .github/workflows/review-4871316124-fix.yml
+          git commit -m "fix: reject whitespace-only V3 narratives"
+          git push origin HEAD:agent/canonical-v3-contract-schema

@@ -52,23 +52,31 @@ _GENERIC_JUDGMENT_DESCRIPTOR_TERMS = {
     "전망", "확률", "가능성", "위험", "리스크", "판단", "기대", "예측",
     "심리", "신뢰", "신뢰도", "확신", "견해",
 }
+_NOMINAL_CHANGE_TERMS = {
+    "reduction", "reductions", "improvement", "improvements", "decline",
+    "declines", "increase", "increases", "decrease", "decreases", "growth",
+    "deterioration", "recovery", "expansion", "contraction", "cut", "cuts",
+    "drop", "drops", "rise", "rises", "gain", "gains", "감축", "개선",
+    "하락", "상승", "증가", "감소", "악화", "회복", "확대", "축소",
+}
+_METRIC_VALUE_PATTERNS = (
+    r"(?<![a-z0-9가-힣])[-+]?\d+(?:[.,]\d+)?\s*%",
+    r"(?<![a-z0-9가-힣])[$€£¥₩]\s*[-+]?\d+(?:[.,]\d+)?",
+    r"(?<![a-z0-9가-힣])[-+]?\d+(?:[.,]\d+)?\s*(?:"
+    r"usd|eur|krw|jpy|cny|rmb|won|dollars?|euros?|yuan|yen|"
+    r"million|billion|trillion|mn|bn|bps|bp|pp|percentage\s+points?|"
+    r"times?|x|억원|조원|만원|원|달러|유로|위안|엔|톤|천톤|만톤|kg|"
+    r"gwh|mwh|kwh|gw|mw|kw|units?|대|건|배)(?![a-z0-9가-힣])",
+)
 
 
-def _entity_label_identifier_indexes(tokens):
-    """Return indexes occupied by concrete class-bound entity labels."""
-    indexes = set()
-    for index, token in enumerate(tokens[:-1]):
-        lead = _prior._normalize_subject_token(token)
-        identifier = tokens[index + 1]
-        if (
-            lead in _prior._NUMERIC_ENTITY_LABEL_LEADS
-            and identifier.isdigit()
-        ) or (
-            lead in _prior._LETTERED_ENTITY_LABEL_LEADS
-            and _prior._base.re.fullmatch(r"[a-z]", identifier)
-        ):
-            indexes.update((index, index + 1))
-    return indexes
+def _has_concrete_metric_value(value):
+    """Recognize a measured value, not a digit embedded in an entity label."""
+    normalized = _prior._normalize_assertion_text(value)
+    return any(
+        _prior._base.re.search(pattern, normalized)
+        for pattern in _METRIC_VALUE_PATTERNS
+    )
 
 
 def item_specific_lineage_assertion(value):
@@ -88,9 +96,9 @@ def item_specific_lineage_assertion(value):
         _prior._normalize_subject_token(token) for token in normalized_role_tokens
     ]
     temporal_indexes = _prior._assertion_temporal_token_indexes(tokens)
-    entity_label_indexes = _entity_label_identifier_indexes(tokens)
     has_change_predicate = any(
         token in _prior._ASSERTION_CHANGE_PREDICATE_TERMS
+        or token in _NOMINAL_CHANGE_TERMS
         for token in normalized_role_tokens
     )
     has_concrete_entity_label = _prior._has_concrete_entity_label(tokens)
@@ -100,12 +108,7 @@ def item_specific_lineage_assertion(value):
         for token in normalized_role_tokens
         if token in _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
     }
-    has_non_temporal_numeric_value = any(
-        index not in temporal_indexes
-        and index not in entity_label_indexes
-        and any(char.isdigit() for char in token)
-        for index, token in enumerate(tokens)
-    )
+    has_concrete_metric_value = _has_concrete_metric_value(value)
     has_execution_event = any(
         token in _prior._ASSERTION_EVENT_SUBJECT_TERMS
         and token not in _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
@@ -114,18 +117,19 @@ def item_specific_lineage_assertion(value):
 
     # A named entity plus a metric noun is still not a fact or change. Preserve
     # the existing scoped `named subject + period + metric` contract, but require
-    # a predicate/comparative, concrete value, execution event, or period scope.
+    # a predicate/comparative, measured value, execution event, or period scope.
+    # Digits embedded in product or facility names do not count as measurements.
     if metric_roles and not (
         has_change_predicate
-        or has_non_temporal_numeric_value
+        or has_concrete_metric_value
         or has_execution_event
         or bool(temporal_indexes)
     ):
         return False
 
     # Project A / Plant 1 / Facility 2 are concrete subjects. Preserve them when
-    # a real judgment change is present instead of stripping the label and then
-    # misclassifying the remainder as generic judgment prose.
+    # a real verbal or nominal judgment change is present instead of stripping
+    # the label and misclassifying the remainder as generic judgment prose.
     if has_concrete_entity_label and has_change_predicate:
         return True
 
@@ -145,6 +149,7 @@ def item_specific_lineage_assertion(value):
 
     if meaningful_tokens and all(
         role_token in _prior._ASSERTION_CHANGE_PREDICATE_TERMS
+        or role_token in _NOMINAL_CHANGE_TERMS
         or subject_token in _GENERIC_JUDGMENT_DESCRIPTOR_TERMS
         for role_token, subject_token in meaningful_tokens
     ):

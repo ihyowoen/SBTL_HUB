@@ -43,7 +43,16 @@ _EMPTY_ROUTE_VALUE_DEFINITION = {
 _NONEMPTY_EXECUTION_ANCHOR_TYPE_SCHEMA = {
     "type": "string",
     "minLength": 1,
+    "pattern": r"\S",
 }
+_CANONICAL_EVIDENCE_TARGET_KEY_PAIRS = (
+    ("source_or_document_class", "exact_claim_or_metric"),
+    ("source_class", "verification_target"),
+)
+_CANONICAL_CONFIRMATION_POINT_KEY_PAIRS = (
+    ("measurable_event_or_metric", "interpretation_effect"),
+    ("confirmation_event", "confirm_weaken_invalidate"),
+)
 _NONEMPTY_NARRATIVE_SCHEMA = {
     "type": "string",
     "minLength": 8,
@@ -267,7 +276,7 @@ def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
         "execution_anchor_type"
     ) != _NONEMPTY_EXECUTION_ANCHOR_TYPE_SCHEMA:
         errors.append(
-            "execution_anchor_type schema must require a non-empty string"
+            "execution_anchor_type schema must require a non-whitespace string"
         )
 
     expected_execution_strength_schema = {
@@ -352,19 +361,13 @@ def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
                 f"v3_non_execution_route {field} must reference empty_route_value"
             )
 
-    if evidence_pairs and evidence_pairs[0] != (
-        "source_or_document_class",
-        "exact_claim_or_metric",
-    ):
+    if evidence_pairs != _CANONICAL_EVIDENCE_TARGET_KEY_PAIRS:
         errors.append(
-            "first evidence key pair must be the canonical structured representation"
+            "structured_evidence_target_key_pairs must equal the canonical aliases"
         )
-    if confirmation_pairs and confirmation_pairs[0] != (
-        "measurable_event_or_metric",
-        "interpretation_effect",
-    ):
+    if confirmation_pairs != _CANONICAL_CONFIRMATION_POINT_KEY_PAIRS:
         errors.append(
-            "first confirmation key pair must be the canonical structured representation"
+            "structured_confirmation_point_key_pairs must equal the canonical aliases"
         )
 
     expected_routes = [

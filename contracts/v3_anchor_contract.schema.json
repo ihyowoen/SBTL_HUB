@@ -132,7 +132,8 @@
       "properties": {
         "execution_anchor_type": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "\\S"
         },
         "execution_anchor_strength": {
           "enum": [

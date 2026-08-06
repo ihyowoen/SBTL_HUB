@@ -81,8 +81,7 @@ def _has_concrete_metric_value(value):
 
 def item_specific_lineage_assertion(value):
     """Require concrete metric developments and preserve numbered entity labels."""
-    if not _prior_item_specific_lineage_assertion(value):
-        return False
+    prior_accepts = _prior_item_specific_lineage_assertion(value)
 
     normalized_value = _prior._normalize_assertion_text(value)
     normalized = _prior._base.re.sub(
@@ -96,9 +95,11 @@ def item_specific_lineage_assertion(value):
         _prior._normalize_subject_token(token) for token in normalized_role_tokens
     ]
     temporal_indexes = _prior._assertion_temporal_token_indexes(tokens)
-    has_change_predicate = any(
+    has_nominal_change = any(
+        token in _NOMINAL_CHANGE_TERMS for token in normalized_role_tokens
+    )
+    has_change_predicate = has_nominal_change or any(
         token in _prior._ASSERTION_CHANGE_PREDICATE_TERMS
-        or token in _NOMINAL_CHANGE_TERMS
         for token in normalized_role_tokens
     )
     has_concrete_entity_label = _prior._has_concrete_entity_label(tokens)
@@ -108,6 +109,28 @@ def item_specific_lineage_assertion(value):
         for token in normalized_role_tokens
         if token in _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
     }
+    has_concrete_subject = has_concrete_entity_label or any(
+        index not in temporal_indexes
+        and role_token not in _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
+        and role_token not in _NOMINAL_CHANGE_TERMS
+        and subject_token not in _prior._ASSERTION_NEUTRAL_SUBJECT_TOKENS
+        and subject_token not in _prior._GENERIC_OWNER_SINGULARS
+        and subject_token not in _prior._base._GENERIC_LINEAGE_ASSERTION_TOKENS
+        and not subject_token.isdigit()
+        for index, (role_token, subject_token) in enumerate(
+            zip(normalized_role_tokens, subject_tokens)
+        )
+    )
+
+    # The historical gate predates nominal metric-change nouns. Extend it only
+    # for the bounded shape `concrete subject + metric + nominal change`; generic
+    # forms such as `capex reduction` or `company profit improvement` still fail.
+    nominal_metric_override = (
+        bool(metric_roles) and has_nominal_change and has_concrete_subject
+    )
+    if not prior_accepts and not nominal_metric_override:
+        return False
+
     has_concrete_metric_value = _has_concrete_metric_value(value)
     has_execution_event = any(
         token in _prior._ASSERTION_EVENT_SUBJECT_TERMS

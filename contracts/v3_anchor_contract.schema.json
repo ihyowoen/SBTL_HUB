@@ -297,7 +297,8 @@
         },
         "structural_value_override_reason": {
           "type": "string",
-          "minLength": 8
+          "minLength": 8,
+          "pattern": "\\S"
         },
         "anchor_classes": {
           "type": "array",
@@ -315,15 +316,18 @@
         },
         "incremental_information": {
           "type": "string",
-          "minLength": 8
+          "minLength": 8,
+          "pattern": "\\S"
         },
         "decision_relevance": {
           "type": "string",
-          "minLength": 8
+          "minLength": 8,
+          "pattern": "\\S"
         },
         "baseline_expectation_changed": {
           "type": "string",
-          "minLength": 8
+          "minLength": 8,
+          "pattern": "\\S"
         },
         "evidence_needed_for_stage_b": {
           "type": "array",
@@ -341,27 +345,33 @@
         },
         "why_execution_event_not_required": {
           "type": "string",
-          "minLength": 8
+          "minLength": 8,
+          "pattern": "\\S"
         },
         "prior_state": {
           "type": "string",
-          "minLength": 8
+          "minLength": 8,
+          "pattern": "\\S"
         },
         "new_verified_fact": {
           "type": "string",
-          "minLength": 8
+          "minLength": 8,
+          "pattern": "\\S"
         },
         "changed_judgment": {
           "type": "string",
-          "minLength": 8
+          "minLength": 8,
+          "pattern": "\\S"
         },
         "uncertainty_resolved": {
           "type": "string",
-          "minLength": 8
+          "minLength": 8,
+          "pattern": "\\S"
         },
         "remaining_uncertainty": {
           "type": "string",
-          "minLength": 8
+          "minLength": 8,
+          "pattern": "\\S"
         },
         "execution_anchor_type": {
           "$ref": "#/$defs/empty_route_value"

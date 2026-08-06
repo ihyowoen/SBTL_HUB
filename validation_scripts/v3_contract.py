@@ -56,6 +56,7 @@ _CANONICAL_CONFIRMATION_POINT_KEY_PAIRS = (
 _NONEMPTY_NARRATIVE_SCHEMA = {
     "type": "string",
     "minLength": 8,
+    "pattern": r"\S",
 }
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review 4869087245 compatibility layer for Related assertion subjects."""
+"""Review 4870635557 compatibility layer for Related assertion specificity."""
 from __future__ import annotations
 
 import importlib.util
@@ -54,8 +54,25 @@ _GENERIC_JUDGMENT_DESCRIPTOR_TERMS = {
 }
 
 
+def _entity_label_identifier_indexes(tokens):
+    """Return indexes occupied by concrete class-bound entity labels."""
+    indexes = set()
+    for index, token in enumerate(tokens[:-1]):
+        lead = _prior._normalize_subject_token(token)
+        identifier = tokens[index + 1]
+        if (
+            lead in _prior._NUMERIC_ENTITY_LABEL_LEADS
+            and identifier.isdigit()
+        ) or (
+            lead in _prior._LETTERED_ENTITY_LABEL_LEADS
+            and _prior._base.re.fullmatch(r"[a-z]", identifier)
+        ):
+            indexes.update((index, index + 1))
+    return indexes
+
+
 def item_specific_lineage_assertion(value):
-    """Reject generic judgment descriptors plus change predicates as subjects."""
+    """Require concrete metric developments and preserve numbered entity labels."""
     if not _prior_item_specific_lineage_assertion(value):
         return False
 
@@ -71,6 +88,45 @@ def item_specific_lineage_assertion(value):
         _prior._normalize_subject_token(token) for token in normalized_role_tokens
     ]
     temporal_indexes = _prior._assertion_temporal_token_indexes(tokens)
+    entity_label_indexes = _entity_label_identifier_indexes(tokens)
+    has_change_predicate = any(
+        token in _prior._ASSERTION_CHANGE_PREDICATE_TERMS
+        for token in normalized_role_tokens
+    )
+    has_concrete_entity_label = _prior._has_concrete_entity_label(tokens)
+
+    metric_roles = {
+        token
+        for token in normalized_role_tokens
+        if token in _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
+    }
+    has_non_temporal_numeric_value = any(
+        index not in temporal_indexes
+        and index not in entity_label_indexes
+        and any(char.isdigit() for char in token)
+        for index, token in enumerate(tokens)
+    )
+    has_execution_event = any(
+        token in _prior._ASSERTION_EVENT_SUBJECT_TERMS
+        and token not in _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
+        for token in normalized_role_tokens
+    )
+
+    # A named entity plus a metric noun is still not a fact or change. Require
+    # a predicate/comparative, a concrete non-temporal value, or an execution
+    # event such as a filing/guidance/announcement before accepting the metric.
+    if metric_roles and not (
+        has_change_predicate
+        or has_non_temporal_numeric_value
+        or has_execution_event
+    ):
+        return False
+
+    # Project A / Plant 1 / Facility 2 are concrete subjects. Preserve them when
+    # a real judgment change is present instead of stripping the label and then
+    # misclassifying the remainder as generic judgment prose.
+    if has_concrete_entity_label and has_change_predicate:
+        return True
 
     meaningful_tokens = []
     for index, (role_token, subject_token) in enumerate(

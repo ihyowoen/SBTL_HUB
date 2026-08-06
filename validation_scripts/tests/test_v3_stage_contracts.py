@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import copy
+import subprocess
+import sys
+import tempfile
+import textwrap
 import unittest
 from pathlib import Path
 
@@ -50,6 +54,47 @@ class V3StageContractGenerationTests(unittest.TestCase):
         for name, value in expected.items():
             with self.subTest(name=name):
                 self.assertEqual(value, getattr(stage_validator, name))
+
+    def test_explicit_empty_projection_is_rejected(self):
+        self.assertTrue(v3_stage_contracts.generated_stage_contract_errors({}))
+        with self.assertRaises(ValueError):
+            v3_stage_contracts.stage_a_validator_constants({})
+
+    def test_public_validator_import_is_location_independent(self):
+        validator_path = Path(stage_validator.__file__).resolve()
+        repository_root = validator_path.parents[1]
+        validation_dir = validator_path.parent
+        script = textwrap.dedent(
+            f"""
+            import importlib.util
+            import sys
+
+            blocked = {{{str(repository_root)!r}, {str(validation_dir)!r}}}
+            sys.path[:] = [entry for entry in sys.path if entry not in blocked]
+            spec = importlib.util.spec_from_file_location(
+                "external_stage_lineage_contract_check",
+                {str(validator_path)!r},
+            )
+            if spec is None or spec.loader is None:
+                raise RuntimeError("could not build validator spec")
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            assert module.STAGE_A_ALLOWED_EXECUTION_ANCHOR_STRENGTH
+            """
+        )
+        with tempfile.TemporaryDirectory() as temp_dir:
+            completed = subprocess.run(
+                [sys.executable, "-I", "-c", script],
+                cwd=temp_dir,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+        self.assertEqual(
+            0,
+            completed.returncode,
+            msg=f"stdout:\n{completed.stdout}\nstderr:\n{completed.stderr}",
+        )
 
     def test_tampered_generated_projection_is_rejected(self):
         document = v3_stage_contracts.load_generated_stage_contract()

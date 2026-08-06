@@ -128,13 +128,21 @@ def _expected_structured_text_definition(
                 "type": "object",
                 "required": [first_key, second_key],
                 "properties": {
-                    first_key: {"type": "string", "minLength": 2},
-                    second_key: {"type": "string", "minLength": 2},
+                    first_key: {
+                        "type": "string",
+                        "minLength": 2,
+                        "pattern": r"\S",
+                    },
+                    second_key: {
+                        "type": "string",
+                        "minLength": 2,
+                        "pattern": r"\S",
+                    },
                 },
                 "additionalProperties": True,
             }
         )
-    options.append({"type": "string", "minLength": 4})
+    options.append({"type": "string", "minLength": 4, "pattern": r"\S"})
     return {"oneOf": options}
 
 

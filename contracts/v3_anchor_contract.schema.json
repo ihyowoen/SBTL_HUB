@@ -196,11 +196,13 @@
           "properties": {
             "source_or_document_class": {
               "type": "string",
-              "minLength": 2
+              "minLength": 2,
+              "pattern": "\\S"
             },
             "exact_claim_or_metric": {
               "type": "string",
-              "minLength": 2
+              "minLength": 2,
+              "pattern": "\\S"
             }
           },
           "additionalProperties": true
@@ -214,18 +216,21 @@
           "properties": {
             "source_class": {
               "type": "string",
-              "minLength": 2
+              "minLength": 2,
+              "pattern": "\\S"
             },
             "verification_target": {
               "type": "string",
-              "minLength": 2
+              "minLength": 2,
+              "pattern": "\\S"
             }
           },
           "additionalProperties": true
         },
         {
           "type": "string",
-          "minLength": 4
+          "minLength": 4,
+          "pattern": "\\S"
         }
       ]
     },
@@ -240,11 +245,13 @@
           "properties": {
             "measurable_event_or_metric": {
               "type": "string",
-              "minLength": 2
+              "minLength": 2,
+              "pattern": "\\S"
             },
             "interpretation_effect": {
               "type": "string",
-              "minLength": 2
+              "minLength": 2,
+              "pattern": "\\S"
             }
           },
           "additionalProperties": true
@@ -258,18 +265,21 @@
           "properties": {
             "confirmation_event": {
               "type": "string",
-              "minLength": 2
+              "minLength": 2,
+              "pattern": "\\S"
             },
             "confirm_weaken_invalidate": {
               "type": "string",
-              "minLength": 2
+              "minLength": 2,
+              "pattern": "\\S"
             }
           },
           "additionalProperties": true
         },
         {
           "type": "string",
-          "minLength": 4
+          "minLength": 4,
+          "pattern": "\\S"
         }
       ]
     },

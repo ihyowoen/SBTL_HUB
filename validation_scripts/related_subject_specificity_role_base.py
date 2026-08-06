@@ -1,27 +1,26 @@
 #!/usr/bin/env python3
-"""Review 4862131806 compatibility layer for Related assertion semantics."""
+"""Stable Related role/assertion policy layer."""
 from __future__ import annotations
 
-import importlib.util
 import sys
 from pathlib import Path
 
-_BASE_PATH = Path(__file__).with_name("related_lifecycle_core.py")
-# The base validator retains direct-script imports for CLI compatibility. Ensure
-# its sibling modules are also importable when this wrapper is imported as the
-# validation_scripts package from an isolated focused unittest invocation.
-_BASE_DIR = str(_BASE_PATH.parent)
-if _BASE_DIR not in sys.path:
-    sys.path.insert(0, _BASE_DIR)
+# Direct script execution starts with validation_scripts/ on sys.path. Add the
+# repository root so package imports behave identically in CLI and package mode.
+_REPO_ROOT = str(Path(__file__).resolve().parent.parent)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
 
-_SPEC = importlib.util.spec_from_file_location(
-    "validation_scripts.related_lifecycle_core",
-    _BASE_PATH,
+from validation_scripts import related_lifecycle_core as _core
+from validation_scripts.module_seam import clone_module_with_shared_globals
+
+# Preserve the historical separately-loaded-module semantics without executing
+# the core file a second time through importlib. Every core-owned function is
+# rebound to this one isolated namespace, so later policy mutations remain local.
+_base = clone_module_with_shared_globals(
+    _core,
+    module_name=f"{__name__}._core",
 )
-if _SPEC is None or _SPEC.loader is None:
-    raise ImportError(f"cannot load Related validator base from {_BASE_PATH}")
-_base = importlib.util.module_from_spec(_SPEC)
-_SPEC.loader.exec_module(_base)
 
 for _name in dir(_base):
     if not _name.startswith("__"):

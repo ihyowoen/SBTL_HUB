@@ -41,11 +41,28 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
         )
         self.assertNotIn("related_lifecycle_check_review4868891584_base", source)
 
-    def test_stable_role_layer_uses_stable_core_dependency(self):
+    def test_stable_role_layer_imports_and_clones_stable_core(self):
         source = Path(role_base.__file__).read_text(encoding="utf-8")
-        self.assertIn("related_lifecycle_core.py", source)
-        self.assertIn("validation_scripts.related_lifecycle_core", source)
+        self.assertIn("related_lifecycle_core as _core", source)
+        self.assertIn("clone_module_with_shared_globals", source)
+        self.assertNotIn("importlib.util", source)
+        self.assertNotIn("spec_from_file_location", source)
         self.assertNotIn("related_lifecycle_check_review4860866998_base", source)
+
+    def test_stable_role_core_clone_owns_shared_isolated_globals(self):
+        self.assertIsNot(role_base._base, core)
+        self.assertIsNot(role_base._base.check_card, core.check_card)
+        self.assertIsNot(role_base._base.main, core.main)
+        self.assertIs(role_base._base.check_card.__globals__, role_base._base.__dict__)
+        self.assertIs(role_base._base.main.__globals__, role_base._base.__dict__)
+        self.assertIs(
+            role_base._base.item_specific_lineage_assertion,
+            role_base.item_specific_lineage_assertion,
+        )
+        self.assertIsNot(
+            core.item_specific_lineage_assertion,
+            role_base.item_specific_lineage_assertion,
+        )
 
     def test_stable_core_has_no_review_id_dependency(self):
         source = Path(core.__file__).read_text(encoding="utf-8")
@@ -55,6 +72,19 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
 
     def test_stable_policy_script_is_directly_executable(self):
         script = Path(stable.__file__).resolve()
+        with tempfile.TemporaryDirectory() as cwd:
+            completed = subprocess.run(
+                [sys.executable, str(script), "--help"],
+                cwd=cwd,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        self.assertEqual(0, completed.returncode, completed.stderr)
+        self.assertNotIn("ModuleNotFoundError", completed.stderr)
+
+    def test_stable_role_script_is_directly_executable(self):
+        script = Path(role_base.__file__).resolve()
         with tempfile.TemporaryDirectory() as cwd:
             completed = subprocess.run(
                 [sys.executable, str(script), "--help"],

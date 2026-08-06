@@ -112,13 +112,14 @@ def item_specific_lineage_assertion(value):
         for token in normalized_role_tokens
     )
 
-    # A named entity plus a metric noun is still not a fact or change. Require
-    # a predicate/comparative, a concrete non-temporal value, or an execution
-    # event such as a filing/guidance/announcement before accepting the metric.
+    # A named entity plus a metric noun is still not a fact or change. Preserve
+    # the existing scoped `named subject + period + metric` contract, but require
+    # a predicate/comparative, concrete value, execution event, or period scope.
     if metric_roles and not (
         has_change_predicate
         or has_non_temporal_numeric_value
         or has_execution_event
+        or bool(temporal_indexes)
     ):
         return False
 

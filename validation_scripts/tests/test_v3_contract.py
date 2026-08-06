@@ -58,6 +58,60 @@ class CanonicalV3ContractTests(unittest.TestCase):
                 definitions["v3_non_execution_route"]["properties"][field],
             )
 
+    def test_execution_route_required_fields_cannot_drift(self):
+        required_fields = (
+            "execution_anchor_type",
+            "execution_anchor_strength",
+            "structural_value_override_applied",
+        )
+        for field in required_fields:
+            with self.subTest(field=field):
+                broken = copy.deepcopy(self.contract)
+                broken["$defs"]["execution_route"]["required"].remove(field)
+                errors = validate_contract_document(broken)
+                self.assertTrue(
+                    any(
+                        "execution_route required fields differ" in error
+                        for error in errors
+                    ),
+                    errors,
+                )
+
+        duplicate = copy.deepcopy(self.contract)
+        duplicate["$defs"]["execution_route"]["required"].append(
+            "execution_anchor_type"
+        )
+        errors = validate_contract_document(duplicate)
+        self.assertTrue(
+            any(
+                "execution_route required fields differ" in error
+                for error in errors
+            ),
+            errors,
+        )
+
+    def test_empty_route_value_cannot_be_loosened(self):
+        broken_definitions = (
+            {},
+            {"type": ["null", "string", "array", "object"]},
+            {
+                "oneOf": [
+                    {"type": "null"},
+                    {"type": "string"},
+                    {"type": "array", "maxItems": 0},
+                    {"type": "object", "maxProperties": 0},
+                ]
+            },
+        )
+        for definition in broken_definitions:
+            with self.subTest(definition=definition):
+                broken = copy.deepcopy(self.contract)
+                broken["$defs"]["empty_route_value"] = definition
+                errors = validate_contract_document(broken)
+                self.assertIn(
+                    "empty_route_value must remain empty-only", errors
+                )
+
     def test_route_reference_drift_is_rejected(self):
         broken = copy.deepcopy(self.contract)
         broken["oneOf"].reverse()

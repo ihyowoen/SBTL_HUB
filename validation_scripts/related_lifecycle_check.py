@@ -59,6 +59,18 @@ _NOMINAL_CHANGE_TERMS = {
     "drop", "drops", "rise", "rises", "gain", "gains", "감축", "개선",
     "하락", "상승", "증가", "감소", "악화", "회복", "확대", "축소",
 }
+_SUBJECTLESS_NOMINAL_MODIFIER_TERMS = {
+    "significant", "significantly", "material", "materially", "substantial",
+    "substantially", "sharp", "sharply", "strong", "strongly", "weak",
+    "weakly", "major", "minor", "notable", "notably", "meaningful",
+    "meaningfully", "quarterly", "annual", "annually", "monthly", "weekly",
+    "daily", "recent", "recently", "expected", "projected", "reported",
+    "documented", "verified", "continued", "continuing", "further", "ongoing",
+    "large", "small", "rapid", "rapidly", "gradual", "gradually",
+    "중대한", "상당한", "유의미한", "뚜렷한", "큰", "작은", "급격한",
+    "빠른", "완만한", "분기", "분기별", "연간", "월간", "주간", "일간",
+    "최근", "예상", "전망된", "보고된", "확인된", "지속적인", "추가적인",
+}
 _METRIC_VALUE_PATTERNS = (
     r"(?<![a-z0-9가-힣])[-+]?\d+(?:[.,]\d+)?\s*%",
     r"(?<![a-z0-9가-힣])[$€£¥₩]\s*[-+]?\d+(?:[.,]\d+)?",
@@ -77,6 +89,73 @@ def _has_concrete_metric_value(value):
         _prior._base.re.search(pattern, normalized)
         for pattern in _METRIC_VALUE_PATTERNS
     )
+
+
+def _original_assertion_tokens(value):
+    """Return assertion tokens while preserving entity-name capitalization."""
+    original = str(value).replace("’", "'")
+    original = _prior._base.re.sub(
+        r"(?<=[A-Za-z0-9])'s\b", "", original,
+        flags=_prior._base.re.IGNORECASE,
+    )
+    original = _prior._base.re.sub(
+        r"(?<=[A-Za-z0-9])s'\b", "s", original,
+        flags=_prior._base.re.IGNORECASE,
+    )
+    return _prior._base.re.findall(r"[A-Za-z0-9가-힣]+", original)
+
+
+def _has_positively_identifiable_subject(
+    value,
+    tokens,
+    normalized_role_tokens,
+    subject_tokens,
+    temporal_indexes,
+    has_concrete_entity_label,
+):
+    """Require a named/class-bound entity, not an arbitrary leftover modifier."""
+    if has_concrete_entity_label:
+        return True
+
+    original_tokens = _original_assertion_tokens(value)
+    if len(original_tokens) != len(tokens):
+        return False
+
+    for index, (original, role_token, subject_token) in enumerate(
+        zip(original_tokens, normalized_role_tokens, subject_tokens)
+    ):
+        if index in temporal_indexes or subject_token.isdigit():
+            continue
+        if role_token in _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS:
+            continue
+        if role_token in _NOMINAL_CHANGE_TERMS:
+            continue
+        if role_token in _SUBJECTLESS_NOMINAL_MODIFIER_TERMS:
+            continue
+        if subject_token in _GENERIC_JUDGMENT_DESCRIPTOR_TERMS:
+            continue
+        if subject_token in _prior._ASSERTION_NEUTRAL_SUBJECT_TOKENS:
+            continue
+        if subject_token in _prior._GENERIC_OWNER_SINGULARS:
+            continue
+        if subject_token in _prior._base._GENERIC_LINEAGE_ASSERTION_TOKENS:
+            continue
+
+        # Korean/mixed-script proper names have no capitalization signal. Once
+        # neutral role/modifier vocabularies are removed, a substantive Hangul
+        # token is treated as an identifiable named subject.
+        if _prior._base.re.search(r"[가-힣]", original):
+            return True
+
+        # English entity tokens must retain an explicit proper-name signal.
+        # This accepts Tesla, Acme, SBTL and the Alpha part of Project Alpha,
+        # while lower-case modifiers such as significant/material/quarterly do
+        # not become fabricated subjects.
+        if len(original) >= 2 and (
+            original.isupper() or original[:1].isupper()
+        ):
+            return True
+    return False
 
 
 def item_specific_lineage_assertion(value):
@@ -109,17 +188,13 @@ def item_specific_lineage_assertion(value):
         for token in normalized_role_tokens
         if token in _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
     }
-    has_concrete_subject = has_concrete_entity_label or any(
-        index not in temporal_indexes
-        and role_token not in _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
-        and role_token not in _NOMINAL_CHANGE_TERMS
-        and subject_token not in _prior._ASSERTION_NEUTRAL_SUBJECT_TOKENS
-        and subject_token not in _prior._GENERIC_OWNER_SINGULARS
-        and subject_token not in _prior._base._GENERIC_LINEAGE_ASSERTION_TOKENS
-        and not subject_token.isdigit()
-        for index, (role_token, subject_token) in enumerate(
-            zip(normalized_role_tokens, subject_tokens)
-        )
+    has_concrete_subject = _has_positively_identifiable_subject(
+        value,
+        tokens,
+        normalized_role_tokens,
+        subject_tokens,
+        temporal_indexes,
+        has_concrete_entity_label,
     )
 
     # Nominal metric-change phrases require an actual entity/item subject even
@@ -128,7 +203,7 @@ def item_specific_lineage_assertion(value):
         return False
 
     # The historical gate predates nominal metric-change nouns. Extend it only
-    # for the bounded shape `concrete subject + metric + nominal change`.
+    # for the bounded shape `identifiable subject + metric + nominal change`.
     nominal_metric_override = (
         bool(metric_roles) and has_nominal_change and has_concrete_subject
     )

@@ -7,6 +7,7 @@ import tempfile
 import unittest
 
 from validation_scripts import related_lifecycle_check as public
+from validation_scripts import related_lifecycle_core as core
 from validation_scripts import related_subject_specificity as stable
 from validation_scripts import related_subject_specificity_metric_base as metric_base
 from validation_scripts import related_subject_specificity_role_base as role_base
@@ -26,6 +27,7 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
             "related_lifecycle_check_review_latest_base.py",
             "related_lifecycle_check_review4871397803_base.py",
             "related_lifecycle_check_review4868891584_base.py",
+            "related_lifecycle_check_review4860866998_base.py",
         )
         for filename in removed_layers:
             with self.subTest(filename=filename):
@@ -39,13 +41,33 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
         )
         self.assertNotIn("related_lifecycle_check_review4868891584_base", source)
 
-    def test_stable_role_layer_keeps_only_next_historical_dependency(self):
+    def test_stable_role_layer_uses_stable_core_dependency(self):
         source = Path(role_base.__file__).read_text(encoding="utf-8")
-        self.assertNotIn("related_lifecycle_check_review4868891584_base", source)
-        self.assertIn("related_lifecycle_check_review4860866998_base.py", source)
+        self.assertIn("related_lifecycle_core.py", source)
+        self.assertIn("validation_scripts.related_lifecycle_core", source)
+        self.assertNotIn("related_lifecycle_check_review4860866998_base", source)
+
+    def test_stable_core_has_no_review_id_dependency(self):
+        source = Path(core.__file__).read_text(encoding="utf-8")
+        self.assertNotIn("related_lifecycle_check_review", source)
+        self.assertIn("def check_card(", source)
+        self.assertIn("def main()", source)
 
     def test_stable_policy_script_is_directly_executable(self):
         script = Path(stable.__file__).resolve()
+        with tempfile.TemporaryDirectory() as cwd:
+            completed = subprocess.run(
+                [sys.executable, str(script), "--help"],
+                cwd=cwd,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        self.assertEqual(0, completed.returncode, completed.stderr)
+        self.assertNotIn("ModuleNotFoundError", completed.stderr)
+
+    def test_stable_core_script_is_directly_executable(self):
+        script = Path(core.__file__).resolve()
         with tempfile.TemporaryDirectory() as cwd:
             completed = subprocess.run(
                 [sys.executable, str(script), "--help"],

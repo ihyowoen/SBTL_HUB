@@ -37,18 +37,42 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
                     stable.item_specific_lineage_assertion(sample),
                 )
 
-    def test_stable_policy_exports_legacy_callables(self):
-        self.assertIs(stable.check_card, legacy.check_card)
-        self.assertIs(stable.main, legacy.main)
+    def test_stable_policy_owns_isolated_callable_graph(self):
+        self.assertIsNot(stable.check_card, legacy.check_card)
+        self.assertIsNot(stable.main, legacy.main)
+        self.assertIsNot(
+            stable.check_card.__globals__, legacy.check_card.__globals__
+        )
+        self.assertIs(
+            stable.check_card.__globals__["item_specific_lineage_assertion"],
+            stable.item_specific_lineage_assertion,
+        )
+        self.assertIs(stable.main.__globals__["check_card"], stable.check_card)
 
-    def test_public_entrypoint_owns_the_final_callable_graph(self):
-        self.assertIs(public.check_card, stable.check_card)
-        self.assertIs(public.main, stable.main)
+    def test_public_entrypoint_owns_isolated_final_callable_graph(self):
+        self.assertIsNot(public.check_card, stable.check_card)
+        self.assertIsNot(public.main, stable.main)
+        self.assertIsNot(
+            public.check_card.__globals__, stable.check_card.__globals__
+        )
         self.assertIs(
             public.check_card.__globals__["item_specific_lineage_assertion"],
             public.item_specific_lineage_assertion,
         )
         self.assertIs(public.main.__globals__["check_card"], public.check_card)
+
+    def test_import_order_cannot_rebind_stable_or_public_policy(self):
+        legacy.check_card.__globals__["item_specific_lineage_assertion"] = (
+            legacy.item_specific_lineage_assertion
+        )
+        self.assertIs(
+            stable.check_card.__globals__["item_specific_lineage_assertion"],
+            stable.item_specific_lineage_assertion,
+        )
+        self.assertIs(
+            public.check_card.__globals__["item_specific_lineage_assertion"],
+            public.item_specific_lineage_assertion,
+        )
 
     def test_public_policy_keeps_latest_single_identifier_guard(self):
         for sample in (

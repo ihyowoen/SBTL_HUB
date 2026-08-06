@@ -37,14 +37,18 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
                     stable.item_specific_lineage_assertion(sample),
                 )
 
-    def test_stable_policy_exports_legacy_cli_graph(self):
+    def test_stable_policy_exports_legacy_callables(self):
         self.assertIs(stable.check_card, legacy.check_card)
         self.assertIs(stable.main, legacy.main)
+
+    def test_public_entrypoint_owns_the_final_callable_graph(self):
+        self.assertIs(public.check_card, stable.check_card)
+        self.assertIs(public.main, stable.main)
         self.assertIs(
-            stable.check_card.__globals__["item_specific_lineage_assertion"],
-            stable.item_specific_lineage_assertion,
+            public.check_card.__globals__["item_specific_lineage_assertion"],
+            public.item_specific_lineage_assertion,
         )
-        self.assertIs(stable.main.__globals__["check_card"], stable.check_card)
+        self.assertIs(public.main.__globals__["check_card"], public.check_card)
 
     def test_public_policy_keeps_latest_single_identifier_guard(self):
         for sample in (

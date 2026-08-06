@@ -91,21 +91,33 @@ def clone_module_with_cloned_dependency(
     *,
     dependency_name: str,
     module_name: str,
+    dependency_source: ModuleType | None = None,
 ) -> ModuleType:
-    """Clone one policy layer and its module dependency without re-execution.
+    """Clone a policy layer and reconstruct its nested dependency ownership.
 
-    Compatibility layers historically loaded the lower layer from a file, which
-    produced both a fresh layer namespace and a fresh nested ``_base`` module.
-    This helper recreates that ownership graph from already imported modules.
-    Same-name exports and function aliases inherited from the dependency are
-    rewired to the cloned dependency, preserving mutation semantics while the
-    canonical imported modules remain untouched.
+    ``dependency`` is the layer's current nested module and is used to identify
+    exports inherited by identity. ``dependency_source`` is the clean module
+    used to build the new nested namespace. When omitted, a module-valued
+    ``source._core`` is preferred; otherwise the current dependency is cloned.
+
+    This distinction recreates historical file-execution order: a clean core is
+    cloned first, the layer captures any ``_prior_<name>`` aliases from it, and
+    layer-owned overrides are then installed into the nested core. No module file
+    is executed a second time and canonical imported modules remain untouched.
     """
     dependency = getattr(source, dependency_name, None)
     if not isinstance(dependency, ModuleType):
         raise TypeError(
             f"module dependency {dependency_name!r} is not a module on {source.__name__}"
         )
+
+    if dependency_source is None:
+        clean_candidate = getattr(source, "_core", None)
+        dependency_source = (
+            clean_candidate if isinstance(clean_candidate, ModuleType) else dependency
+        )
+    if not isinstance(dependency_source, ModuleType):
+        raise TypeError("dependency_source must be a module")
 
     cloned = clone_module_with_shared_globals(
         source,
@@ -115,27 +127,45 @@ def clone_module_with_cloned_dependency(
         f"{module_name}.{dependency_name.lstrip('_') or 'dependency'}"
     )
     cloned_dependency = clone_module_with_shared_globals(
-        dependency,
+        dependency_source,
         module_name=dependency_module_name,
     )
+    clean_dependency_exports = dict(vars(cloned_dependency))
     setattr(cloned, dependency_name, cloned_dependency)
 
     dependency_values = list(vars(dependency).items())
+    layer_owned_dependency_overrides: list[tuple[str, Any]] = []
+
     for name, value in vars(source).items():
         replacement = None
-        if name in vars(dependency) and value is vars(dependency)[name]:
-            replacement = vars(cloned_dependency).get(name)
-        elif isinstance(value, FunctionType):
+        source_owned_function = (
+            isinstance(value, FunctionType)
+            and value.__globals__ is source.__dict__
+        )
+
+        if value is dependency_source:
+            replacement = cloned_dependency
+        elif name.startswith("_prior_"):
+            dependency_export = name.removeprefix("_prior_")
+            if dependency_export in clean_dependency_exports:
+                replacement = clean_dependency_exports[dependency_export]
+        elif source_owned_function:
+            if name in vars(dependency) and vars(dependency)[name] is value:
+                layer_owned_dependency_overrides.append(
+                    (name, getattr(cloned, name))
+                )
+        elif name in vars(dependency) and value is vars(dependency)[name]:
+            replacement = clean_dependency_exports.get(name)
+        elif isinstance(value, (FunctionType, *_MUTABLE_GLOBAL_TYPES)):
             for dependency_export, dependency_value in dependency_values:
                 if value is dependency_value:
-                    replacement = vars(cloned_dependency).get(dependency_export)
+                    replacement = clean_dependency_exports.get(dependency_export)
                     break
-        elif isinstance(value, _MUTABLE_GLOBAL_TYPES):
-            for dependency_export, dependency_value in dependency_values:
-                if value is dependency_value:
-                    replacement = vars(cloned_dependency).get(dependency_export)
-                    break
+
         if replacement is not None:
             setattr(cloned, name, replacement)
+
+    for name, replacement in layer_owned_dependency_overrides:
+        setattr(cloned_dependency, name, replacement)
 
     return cloned

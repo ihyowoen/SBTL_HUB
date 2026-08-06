@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from pathlib import Path
+import subprocess
+import sys
+import tempfile
 import unittest
 
 from validation_scripts import related_lifecycle_check as public
@@ -13,6 +16,19 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
         source = Path(public.__file__).read_text(encoding="utf-8")
         self.assertIn("related_subject_specificity as _impl", source)
         self.assertNotIn("related_lifecycle_check_review", source)
+
+    def test_stable_policy_script_is_directly_executable(self):
+        script = Path(stable.__file__).resolve()
+        with tempfile.TemporaryDirectory() as cwd:
+            completed = subprocess.run(
+                [sys.executable, str(script), "--help"],
+                cwd=cwd,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        self.assertEqual(0, completed.returncode, completed.stderr)
+        self.assertNotIn("ModuleNotFoundError", completed.stderr)
 
     def test_stable_policy_preserves_legacy_decisions(self):
         samples = (

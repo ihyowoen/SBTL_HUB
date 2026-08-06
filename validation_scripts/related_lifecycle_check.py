@@ -87,6 +87,15 @@ _KOREAN_ENTITY_CLASS_TERMS = {
     "프로젝트", "사업", "공장", "플랜트", "시설", "법인", "컨소시엄",
     "센터", "단지", "기지", "연구원", "위원회", "은행",
 }
+_COMPARATIVE_OR_PERIOD_ACRONYMS = {
+    "yoy", "qoq", "mom", "wow", "ytd", "qtd", "mtd", "ttm", "ltm",
+}
+_KNOWN_KOREAN_CLASS_BOUND_IDENTIFIERS = {
+    "울산", "새만금", "포항", "광양", "구미", "오창", "청주", "평택",
+    "화성", "이천", "천안", "아산", "당진", "서산", "군산", "익산",
+    "전주", "여수", "나주", "창원", "부산", "대구", "인천", "서울",
+    "대전", "판교", "제주",
+}
 _KOREAN_ENTITY_SUFFIXES = (
     "주식회사", "에너지솔루션", "솔루션", "퓨처엠", "비엠", "화학",
     "전자", "전력", "산업", "소재", "배터리", "모빌리티", "홀딩스",
@@ -179,13 +188,17 @@ def _has_positively_identifiable_subject(
             continue
 
         # Hangul has no capitalization signal, so require an affirmative
-        # company/institution or class-bound project/facility cue. Unknown
-        # Korean modifiers and adverbs remain fail-closed.
+        # company/institution or positively named project/facility cue.
         if _prior._base.re.search(r"[가-힣]", original):
             korean_base = original[:-1] if original.endswith("의") else original
             next_is_entity_class = (
                 index + 1 < len(normalized_role_tokens)
                 and normalized_role_tokens[index + 1] in _KOREAN_ENTITY_CLASS_TERMS
+            )
+            has_named_class_identifier = next_is_entity_class and (
+                subject_token in _KNOWN_KOREAN_CLASS_BOUND_IDENTIFIERS
+                or subject_token in _KNOWN_KOREAN_SINGLE_TOKEN_ENTITY_NAMES
+                or bool(_prior._base.re.search(r"[0-9A-Za-z]", original))
             )
             has_entity_suffix = any(
                 korean_base.endswith(suffix) and len(korean_base) > len(suffix)
@@ -193,7 +206,7 @@ def _has_positively_identifiable_subject(
             )
             if (
                 subject_token in _KNOWN_KOREAN_SINGLE_TOKEN_ENTITY_NAMES
-                or next_is_entity_class
+                or has_named_class_identifier
                 or has_entity_suffix
             ):
                 return True
@@ -219,8 +232,12 @@ def _has_positively_identifiable_subject(
             and (previous_is_entity_lead or previous_is_named_token)
         )
         has_corporate_name_signal = index == 0 and has_corporate_suffix
-        if len(original) >= 2 and (
+        is_governed_acronym_entity = (
             original.isupper()
+            and subject_token not in _COMPARATIVE_OR_PERIOD_ACRONYMS
+        )
+        if len(original) >= 2 and (
+            is_governed_acronym_entity
             or has_internal_name_signal
             or has_digit_signal
             or has_multi_token_name_signal

@@ -1,0 +1,190 @@
+name: Temporary review 4871394041 fix
+
+on:
+  push:
+    branches:
+      - agent/canonical-v3-contract-schema
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/canonical-v3-contract-schema
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply bounded review fix
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          schema_path = Path('contracts/v3_anchor_contract.schema.json')
+          contract = json.loads(schema_path.read_text(encoding='utf-8'))
+          for definition_name in ('evidence_target', 'confirmation_point'):
+              definition = contract['$defs'][definition_name]
+              for option in definition['oneOf']:
+                  if option.get('type') == 'string':
+                      option['pattern'] = r'\S'
+                  elif option.get('type') == 'object':
+                      for key in option['required']:
+                          option['properties'][key]['pattern'] = r'\S'
+          schema_path.write_text(
+              json.dumps(contract, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8',
+          )
+
+          loader_path = Path('validation_scripts/v3_contract.py')
+          text = loader_path.read_text(encoding='utf-8')
+          old = '''                    first_key: {"type": "string", "minLength": 2},
+                    second_key: {"type": "string", "minLength": 2},
+'''
+          new = '''                    first_key: {
+                        "type": "string",
+                        "minLength": 2,
+                        "pattern": r"\\S",
+                    },
+                    second_key: {
+                        "type": "string",
+                        "minLength": 2,
+                        "pattern": r"\\S",
+                    },
+'''
+          if old not in text:
+              raise SystemExit('structured-property schema marker not found')
+          text = text.replace(old, new, 1)
+          old_free = '''    options.append({"type": "string", "minLength": 4})
+'''
+          new_free = '''    options.append(
+        {"type": "string", "minLength": 4, "pattern": r"\\S"}
+    )
+'''
+          if old_free not in text:
+              raise SystemExit('free-text schema marker not found')
+          text = text.replace(old_free, new_free, 1)
+          loader_path.write_text(text, encoding='utf-8')
+
+          test_path = Path('validation_scripts/tests/test_review_4871394041_contracts.py')
+          test_path.write_text('''from __future__ import annotations
+
+import copy
+import re
+import unittest
+
+from validation_scripts.v3_contract import load_contract, validate_contract_document
+
+
+class TestReview4871394041Contracts(unittest.TestCase):
+    def setUp(self):
+        self.contract = load_contract()
+
+    @staticmethod
+    def _accepts_string(schema, value):
+        return (
+            isinstance(value, str)
+            and len(value) >= schema.get("minLength", 0)
+            and (
+                "pattern" not in schema
+                or re.search(schema["pattern"], value) is not None
+            )
+        )
+
+    def test_evidence_and_confirmation_strings_require_non_whitespace(self):
+        for definition_name in ("evidence_target", "confirmation_point"):
+            definition = self.contract["$defs"][definition_name]
+            for option in definition["oneOf"]:
+                if option["type"] == "string":
+                    schemas = (option,)
+                else:
+                    schemas = tuple(option["properties"].values())
+                for schema in schemas:
+                    with self.subTest(definition=definition_name, schema=schema):
+                        self.assertEqual(r"\\S", schema.get("pattern"))
+                        self.assertFalse(self._accepts_string(schema, "        "))
+                        minimum = schema["minLength"]
+                        self.assertTrue(
+                            self._accepts_string(schema, "x" * minimum)
+                        )
+
+    def test_removing_any_non_whitespace_pattern_is_detected_as_drift(self):
+        for definition_name in ("evidence_target", "confirmation_point"):
+            definition = self.contract["$defs"][definition_name]
+            for option_index, option in enumerate(definition["oneOf"]):
+                if option["type"] == "string":
+                    mutation_keys = (None,)
+                else:
+                    mutation_keys = tuple(option["required"])
+                for key in mutation_keys:
+                    with self.subTest(
+                        definition=definition_name,
+                        option=option_index,
+                        key=key,
+                    ):
+                        broken = copy.deepcopy(self.contract)
+                        target = broken["$defs"][definition_name]["oneOf"][option_index]
+                        if key is None:
+                            target.pop("pattern")
+                        else:
+                            target["properties"][key].pop("pattern")
+                        errors = validate_contract_document(broken)
+                        self.assertTrue(
+                            any(
+                                f"{definition_name} definition differs" in error
+                                for error in errors
+                            ),
+                            errors,
+                        )
+
+    def test_valid_canonical_and_compatibility_pairs_remain_present(self):
+        evidence = self.contract["$defs"]["evidence_target"]["oneOf"]
+        confirmation = self.contract["$defs"]["confirmation_point"]["oneOf"]
+        self.assertEqual(
+            ["source_or_document_class", "exact_claim_or_metric"],
+            evidence[0]["required"],
+        )
+        self.assertEqual(
+            ["source_class", "verification_target"],
+            evidence[1]["required"],
+        )
+        self.assertEqual(
+            ["measurable_event_or_metric", "interpretation_effect"],
+            confirmation[0]["required"],
+        )
+        self.assertEqual(
+            ["confirmation_event", "confirm_weaken_invalidate"],
+            confirmation[1]["required"],
+        )
+        self.assertEqual([], validate_contract_document(self.contract))
+
+
+if __name__ == "__main__":
+    unittest.main()
+''', encoding='utf-8')
+
+          Path('.github/workflows/tmp-review-4871394041-fix.yml').unlink()
+          PY
+      - name: Verify canonical drift
+        run: python validation_scripts/v3_contract_drift_check.py
+      - name: Compile validators
+        run: python -m compileall -q validation_scripts
+      - name: Run focused regressions
+        run: python -m unittest validation_scripts.tests.test_review_4871394041_contracts -v
+      - name: Run full regression suite
+        run: python -m unittest discover -s validation_scripts/tests -v
+      - name: Verify prompt overlays
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+      - name: Commit verified fix
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add contracts/v3_anchor_contract.schema.json validation_scripts/v3_contract.py validation_scripts/tests/test_review_4871394041_contracts.py .github/workflows/tmp-review-4871394041-fix.yml
+          git commit -m "fix: reject whitespace-only evidence contract values"
+          git push origin HEAD:agent/canonical-v3-contract-schema

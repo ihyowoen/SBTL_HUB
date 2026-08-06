@@ -214,14 +214,12 @@ def _structured_exact_target(value):
 def _valid_evidence_target(value):
     """Require a source class plus a substantive exact target."""
     if isinstance(value, dict):
-        source_class = (
-            value.get("source_or_document_class")
-            or value.get("source_class")
+        components = _base._single_schema_structured_alias_pair(
+            value, _base.STAGE_A_EVIDENCE_TARGET_KEY_PAIRS
         )
-        exact_target = (
-            value.get("exact_claim_or_metric")
-            or value.get("verification_target")
-        )
+        if components is None:
+            return False
+        source_class, exact_target = components
         return (
             _base._structured_source_class(source_class)
             and _structured_exact_target(exact_target)

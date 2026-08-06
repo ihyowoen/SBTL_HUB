@@ -496,10 +496,47 @@ def _has_bound_interpretation_effect(value):
     return False
 
 
+STAGE_A_EVIDENCE_TARGET_KEY_PAIRS = (
+    ('source_or_document_class', 'exact_claim_or_metric'),
+    ('source_class', 'verification_target'),
+)
+STAGE_A_CONFIRMATION_POINT_KEY_PAIRS = (
+    ('measurable_event_or_metric', 'interpretation_effect'),
+    ('confirmation_event', 'confirm_weaken_invalidate'),
+)
+
+
+def _schema_structured_component(value):
+    """Mirror the canonical structured-string shape before semantic checks."""
+    return isinstance(value, str) and len(value.strip()) >= 2
+
+
+def _single_schema_structured_alias_pair(value, key_pairs):
+    """Return values from exactly one schema-valid alias pair."""
+    if not isinstance(value, dict):
+        return None
+    candidates = []
+    for first_key, second_key in key_pairs:
+        if first_key not in value or second_key not in value:
+            continue
+        first_value = value[first_key]
+        second_value = value[second_key]
+        if (
+            _schema_structured_component(first_value)
+            and _schema_structured_component(second_value)
+        ):
+            candidates.append((first_value, second_value))
+    return candidates[0] if len(candidates) == 1 else None
+
+
 def _valid_evidence_target(value):
     if isinstance(value, dict):
-        source_class = value.get('source_or_document_class') or value.get('source_class')
-        exact_target = value.get('exact_claim_or_metric') or value.get('verification_target')
+        components = _single_schema_structured_alias_pair(
+            value, STAGE_A_EVIDENCE_TARGET_KEY_PAIRS
+        )
+        if components is None:
+            return False
+        source_class, exact_target = components
         return _structured_source_class(source_class) and _structured_exact_target(exact_target)
 
     text = _normalized_text(value)
@@ -521,8 +558,12 @@ def _valid_evidence_target(value):
 
 def _valid_confirmation_point(value):
     if isinstance(value, dict):
-        measurable = value.get('measurable_event_or_metric') or value.get('confirmation_event')
-        interpretation_effect = value.get('interpretation_effect') or value.get('confirm_weaken_invalidate')
+        components = _single_schema_structured_alias_pair(
+            value, STAGE_A_CONFIRMATION_POINT_KEY_PAIRS
+        )
+        if components is None:
+            return False
+        measurable, interpretation_effect = components
         return _structured_exact_target(measurable) and _structured_interpretation_effect(interpretation_effect)
     text = _normalized_text(value)
     has_measurable_event_or_metric = (

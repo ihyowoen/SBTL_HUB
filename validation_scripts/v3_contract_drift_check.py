@@ -59,6 +59,12 @@ def alignment_errors(
         "STAGE_A_ALLOWED_PRIMARY_URL_SEMANTICS": projection[
             "allowed_primary_url_semantics"
         ],
+        "STAGE_A_EVIDENCE_TARGET_KEY_PAIRS": projection[
+            "structured_evidence_target_key_pairs"
+        ],
+        "STAGE_A_CONFIRMATION_POINT_KEY_PAIRS": projection[
+            "structured_confirmation_point_key_pairs"
+        ],
     }
 
     errors: list[str] = []

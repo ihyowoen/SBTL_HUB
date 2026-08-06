@@ -49,6 +49,9 @@ jobs:
       - name: Verify canonical V3 contract alignment
         run: python validation_scripts/v3_contract_drift_check.py
 
+      - name: Verify generated V3 stage contracts
+        run: python validation_scripts/v3_stage_contracts.py --check
+
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 

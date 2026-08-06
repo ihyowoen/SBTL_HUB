@@ -3,8 +3,20 @@
 from __future__ import annotations
 
 import importlib.util
+import sys
 from pathlib import Path
 from types import ModuleType
+
+_VALIDATION_DIR = Path(__file__).resolve().parent
+_ROOT_DIR = _VALIDATION_DIR.parent
+for _import_path in (_ROOT_DIR, _VALIDATION_DIR):
+    _import_path_text = str(_import_path)
+    if _import_path_text not in sys.path:
+        sys.path.insert(0, _import_path_text)
+
+from validation_scripts.v3_stage_contracts import (  # noqa: E402
+    stage_a_validator_constants,
+)
 
 _PRIOR_PATH = Path(__file__).with_name(
     "stage_lineage_contract_check_review4869324626_base.py"
@@ -130,6 +142,10 @@ def _patch_module_chain(root, name, value):
             if isinstance(child, ModuleType):
                 stack.append(child)
 
+
+for _constant_name, _constant_value in stage_a_validator_constants().items():
+    _patch_module_chain(_compat_module, _constant_name, _constant_value)
+    globals()[_constant_name] = _constant_value
 
 _patch_module_chain(_compat_module, "validate_stage_a_spec", validate_stage_a_spec)
 

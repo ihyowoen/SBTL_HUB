@@ -105,182 +105,78 @@
   "$defs": {
     "empty_route_value": {
       "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "string",
-          "maxLength": 0
-        },
-        {
-          "type": "array",
-          "maxItems": 0
-        },
-        {
-          "type": "object",
-          "maxProperties": 0
-        }
+        {"type": "null"},
+        {"type": "string", "maxLength": 0},
+        {"type": "array", "maxItems": 0},
+        {"type": "object", "maxProperties": 0}
       ]
     },
     "execution_route": {
       "type": "object",
-      "required": [
-        "execution_anchor_type",
-        "execution_anchor_strength",
-        "structural_value_override_applied"
-      ],
+      "required": ["execution_anchor_type", "execution_anchor_strength", "structural_value_override_applied"],
       "properties": {
-        "execution_anchor_type": {
-          "type": "string",
-          "minLength": 1,
-          "pattern": "\\S"
-        },
-        "execution_anchor_strength": {
-          "enum": [
-            "strong",
-            "moderate"
-          ]
-        },
-        "structural_value_override_applied": {
-          "const": false
-        },
-        "structural_value_override_reason": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "anchor_classes": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "incremental_information": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "decision_relevance": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "baseline_expectation_changed": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "evidence_needed_for_stage_b": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "next_confirmation_points": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "why_execution_event_not_required": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "prior_state": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "new_verified_fact": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "changed_judgment": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "uncertainty_resolved": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "remaining_uncertainty": {
-          "$ref": "#/$defs/empty_route_value"
-        }
+        "execution_anchor_type": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "execution_anchor_strength": {"enum": ["strong", "moderate"]},
+        "structural_value_override_applied": {"const": false},
+        "structural_value_override_reason": {"$ref": "#/$defs/empty_route_value"},
+        "anchor_classes": {"$ref": "#/$defs/empty_route_value"},
+        "incremental_information": {"$ref": "#/$defs/empty_route_value"},
+        "decision_relevance": {"$ref": "#/$defs/empty_route_value"},
+        "baseline_expectation_changed": {"$ref": "#/$defs/empty_route_value"},
+        "evidence_needed_for_stage_b": {"$ref": "#/$defs/empty_route_value"},
+        "next_confirmation_points": {"$ref": "#/$defs/empty_route_value"},
+        "why_execution_event_not_required": {"$ref": "#/$defs/empty_route_value"},
+        "prior_state": {"$ref": "#/$defs/empty_route_value"},
+        "new_verified_fact": {"$ref": "#/$defs/empty_route_value"},
+        "changed_judgment": {"$ref": "#/$defs/empty_route_value"},
+        "uncertainty_resolved": {"$ref": "#/$defs/empty_route_value"},
+        "remaining_uncertainty": {"$ref": "#/$defs/empty_route_value"}
       }
     },
     "evidence_target": {
       "oneOf": [
         {
           "type": "object",
-          "required": [
-            "source_or_document_class",
-            "exact_claim_or_metric"
-          ],
+          "required": ["source_or_document_class", "exact_claim_or_metric"],
           "properties": {
-            "source_or_document_class": {
-              "type": "string",
-              "minLength": 2,
-              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
-            },
-            "exact_claim_or_metric": {
-              "type": "string",
-              "minLength": 2,
-              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
-            }
+            "source_or_document_class": {"type": "string", "minLength": 2, "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"},
+            "exact_claim_or_metric": {"type": "string", "minLength": 2, "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"}
           },
           "additionalProperties": true
         },
         {
           "type": "object",
-          "required": [
-            "source_class",
-            "verification_target"
-          ],
+          "required": ["source_class", "verification_target"],
           "properties": {
-            "source_class": {
-              "type": "string",
-              "minLength": 2,
-              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
-            },
-            "verification_target": {
-              "type": "string",
-              "minLength": 2,
-              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
-            }
+            "source_class": {"type": "string", "minLength": 2, "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"},
+            "verification_target": {"type": "string", "minLength": 2, "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"}
           },
           "additionalProperties": true
         },
-        {
-          "type": "string",
-          "minLength": 4,
-          "pattern": "^\\s*\\S[\\s\\S]{2,}\\S\\s*$"
-        }
+        {"type": "string", "minLength": 4, "pattern": "^\\s*\\S[\\s\\S]{2,}\\S\\s*$"}
       ]
     },
     "confirmation_point": {
       "oneOf": [
         {
           "type": "object",
-          "required": [
-            "measurable_event_or_metric",
-            "interpretation_effect"
-          ],
+          "required": ["measurable_event_or_metric", "interpretation_effect"],
           "properties": {
-            "measurable_event_or_metric": {
-              "type": "string",
-              "minLength": 2,
-              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
-            },
-            "interpretation_effect": {
-              "type": "string",
-              "minLength": 2,
-              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
-            }
+            "measurable_event_or_metric": {"type": "string", "minLength": 2, "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"},
+            "interpretation_effect": {"type": "string", "minLength": 2, "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"}
           },
           "additionalProperties": true
         },
         {
           "type": "object",
-          "required": [
-            "confirmation_event",
-            "confirm_weaken_invalidate"
-          ],
+          "required": ["confirmation_event", "confirm_weaken_invalidate"],
           "properties": {
-            "confirmation_event": {
-              "type": "string",
-              "minLength": 2,
-              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
-            },
-            "confirm_weaken_invalidate": {
-              "type": "string",
-              "minLength": 2,
-              "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"
-            }
+            "confirmation_event": {"type": "string", "minLength": 2, "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"},
+            "confirm_weaken_invalidate": {"type": "string", "minLength": 2, "pattern": "^\\s*\\S[\\s\\S]*\\S\\s*$"}
           },
           "additionalProperties": true
         },
-        {
-          "type": "string",
-          "minLength": 4,
-          "pattern": "^\\s*\\S[\\s\\S]{2,}\\S\\s*$"
-        }
+        {"type": "string", "minLength": 4, "pattern": "^\\s*\\S[\\s\\S]{2,}\\S\\s*$"}
       ]
     },
     "v3_non_execution_route": {
@@ -302,102 +198,32 @@
         "remaining_uncertainty"
       ],
       "properties": {
-        "structural_value_override_applied": {
-          "const": true
-        },
-        "structural_value_override_reason": {
-          "type": "string",
-          "minLength": 8,
-          "pattern": "\\S"
-        },
+        "structural_value_override_applied": {"const": true},
+        "structural_value_override_reason": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
         "anchor_classes": {
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": {
-            "enum": [
-              "policy_regulatory_anchor",
-              "data_financial_anchor",
-              "strategic_behavior_anchor",
-              "technology_commercialization_anchor",
-              "follow_up_probability_anchor"
-            ]
-          }
+          "items": {"enum": ["policy_regulatory_anchor", "data_financial_anchor", "strategic_behavior_anchor", "technology_commercialization_anchor", "follow_up_probability_anchor"]}
         },
-        "incremental_information": {
-          "type": "string",
-          "minLength": 8,
-          "pattern": "\\S"
-        },
-        "decision_relevance": {
-          "type": "string",
-          "minLength": 8,
-          "pattern": "\\S"
-        },
-        "baseline_expectation_changed": {
-          "type": "string",
-          "minLength": 8,
-          "pattern": "\\S"
-        },
-        "evidence_needed_for_stage_b": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/$defs/evidence_target"
-          }
-        },
-        "next_confirmation_points": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/$defs/confirmation_point"
-          }
-        },
-        "why_execution_event_not_required": {
-          "type": "string",
-          "minLength": 8,
-          "pattern": "\\S"
-        },
-        "prior_state": {
-          "type": "string",
-          "minLength": 8,
-          "pattern": "\\S"
-        },
-        "new_verified_fact": {
-          "type": "string",
-          "minLength": 8,
-          "pattern": "\\S"
-        },
-        "changed_judgment": {
-          "type": "string",
-          "minLength": 8,
-          "pattern": "\\S"
-        },
-        "uncertainty_resolved": {
-          "type": "string",
-          "minLength": 8,
-          "pattern": "\\S"
-        },
-        "remaining_uncertainty": {
-          "type": "string",
-          "minLength": 8,
-          "pattern": "\\S"
-        },
-        "execution_anchor_type": {
-          "$ref": "#/$defs/empty_route_value"
-        },
-        "execution_anchor_strength": {
-          "$ref": "#/$defs/empty_route_value"
-        }
+        "incremental_information": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "decision_relevance": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "baseline_expectation_changed": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "evidence_needed_for_stage_b": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/evidence_target"}},
+        "next_confirmation_points": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/confirmation_point"}},
+        "why_execution_event_not_required": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "prior_state": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "new_verified_fact": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "changed_judgment": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "uncertainty_resolved": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "remaining_uncertainty": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "execution_anchor_type": {"$ref": "#/$defs/empty_route_value"},
+        "execution_anchor_strength": {"$ref": "#/$defs/empty_route_value"}
       }
     }
   },
   "oneOf": [
-    {
-      "$ref": "#/$defs/execution_route"
-    },
-    {
-      "$ref": "#/$defs/v3_non_execution_route"
-    }
+    {"$ref": "#/$defs/execution_route"},
+    {"$ref": "#/$defs/v3_non_execution_route"}
   ]
 }

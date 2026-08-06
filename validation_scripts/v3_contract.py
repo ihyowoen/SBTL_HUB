@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Canonical V3 loader with trimmed evidence/confirmation constraints."""
+"""Canonical V3 loader with trimmed text constraints."""
 from __future__ import annotations
 
 import importlib.util
@@ -18,6 +18,13 @@ _SPEC.loader.exec_module(_base)
 for _name in dir(_base):
     if not _name.startswith("__"):
         globals()[_name] = getattr(_base, _name)
+
+_TRIMMED_NARRATIVE_PATTERN = r"^\s*\S[\s\S]{6,}\S\s*$"
+_NONEMPTY_NARRATIVE_SCHEMA = {
+    "type": "string",
+    "minLength": 8,
+    "pattern": _TRIMMED_NARRATIVE_PATTERN,
+}
 
 
 def _expected_structured_text_definition(key_pairs):
@@ -51,8 +58,10 @@ def _expected_structured_text_definition(key_pairs):
     return {"oneOf": options}
 
 
-# The base validator resolves this helper through its module globals.
+# The base validator resolves these canonical expectations through its module globals.
+_base._NONEMPTY_NARRATIVE_SCHEMA = _NONEMPTY_NARRATIVE_SCHEMA
 _base._expected_structured_text_definition = _expected_structured_text_definition
+globals()["_NONEMPTY_NARRATIVE_SCHEMA"] = _NONEMPTY_NARRATIVE_SCHEMA
 globals()["_expected_structured_text_definition"] = (
     _expected_structured_text_definition
 )

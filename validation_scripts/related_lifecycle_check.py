@@ -12,7 +12,10 @@ _REPO_ROOT = str(Path(__file__).resolve().parent.parent)
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-from validation_scripts import related_lifecycle_check_review_latest_base as _impl
+from validation_scripts.callable_seam import (
+    clone_function_with_globals as _clone_function_with_globals,
+)
+from validation_scripts import related_subject_specificity as _impl
 
 # Keep source-level chronology contracts visible to static checks.
 _RESOLVED_PROVISIONAL_TARGETS_CONTRACT = "resolved_provisional_targets"
@@ -21,7 +24,13 @@ _PROVISIONAL_CHRONOLOGY_ERROR_CONTRACT = (
 )
 
 for _name, _value in vars(_impl).items():
-    if not _name.startswith("__") and _name not in {"_base", "_prior", "_impl"}:
+    if not _name.startswith("__") and _name not in {
+        "_base",
+        "_prior",
+        "_impl",
+        "_legacy_impl",
+        "_clone_function_with_globals",
+    }:
         globals()[_name] = _value
 
 _impl_item_specific_lineage_assertion = _impl.item_specific_lineage_assertion
@@ -55,12 +64,16 @@ def item_specific_lineage_assertion(value):
     return has_metric and has_change
 
 
-check_card = _impl.check_card
-check_card.__globals__["item_specific_lineage_assertion"] = (
-    item_specific_lineage_assertion
+check_card = _clone_function_with_globals(
+    _impl.check_card,
+    {"item_specific_lineage_assertion": item_specific_lineage_assertion},
+    module_name=__name__,
 )
-main = _impl.main
-main.__globals__["check_card"] = check_card
+main = _clone_function_with_globals(
+    _impl.main,
+    {"check_card": check_card},
+    module_name=__name__,
+)
 
 if __name__ == "__main__":
     raise SystemExit(main())

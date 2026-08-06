@@ -20,7 +20,7 @@ if _REPO_ROOT not in sys.path:
 from validation_scripts.callable_seam import (
     clone_function_with_globals as _clone_function_with_globals,
 )
-from validation_scripts import related_lifecycle_check_review4871397803_base as _base
+from validation_scripts import related_subject_specificity_metric_base as _base
 
 # Keep source-level chronology contracts visible to static checks.
 _RESOLVED_PROVISIONAL_TARGETS_CONTRACT = "resolved_provisional_targets"

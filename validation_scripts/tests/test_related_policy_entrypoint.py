@@ -9,6 +9,7 @@ import unittest
 from validation_scripts import related_lifecycle_check as public
 from validation_scripts import related_subject_specificity as stable
 from validation_scripts import related_subject_specificity_metric_base as metric_base
+from validation_scripts import related_subject_specificity_role_base as role_base
 
 
 class RelatedPolicyEntrypointTests(unittest.TestCase):
@@ -24,15 +25,24 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
         removed_layers = (
             "related_lifecycle_check_review_latest_base.py",
             "related_lifecycle_check_review4871397803_base.py",
+            "related_lifecycle_check_review4868891584_base.py",
         )
         for filename in removed_layers:
             with self.subTest(filename=filename):
                 self.assertFalse(Path(stable.__file__).with_name(filename).exists())
 
-    def test_stable_metric_layer_keeps_only_next_historical_dependency(self):
+    def test_stable_metric_layer_uses_stable_role_dependency(self):
         source = Path(metric_base.__file__).read_text(encoding="utf-8")
-        self.assertNotIn("related_lifecycle_check_review4871397803_base", source)
-        self.assertIn("related_lifecycle_check_review4868891584_base.py", source)
+        self.assertIn("related_subject_specificity_role_base.py", source)
+        self.assertIn(
+            "validation_scripts.related_subject_specificity_role_base", source
+        )
+        self.assertNotIn("related_lifecycle_check_review4868891584_base", source)
+
+    def test_stable_role_layer_keeps_only_next_historical_dependency(self):
+        source = Path(role_base.__file__).read_text(encoding="utf-8")
+        self.assertNotIn("related_lifecycle_check_review4868891584_base", source)
+        self.assertIn("related_lifecycle_check_review4860866998_base.py", source)
 
     def test_stable_policy_script_is_directly_executable(self):
         script = Path(stable.__file__).resolve()

@@ -119,7 +119,7 @@ def build_stage_contract_document(
     contract: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Return the deterministic stage projection derived from the canonical schema."""
-    source = dict(contract or load_contract())
+    source = dict(load_contract() if contract is None else contract)
     projection = contract_projection(source)
     metadata = source["x-sbtl-contract"]
     definitions = source["$defs"]
@@ -219,7 +219,10 @@ def generated_stage_contract_errors(
     document: Mapping[str, Any] | None = None,
     contract: Mapping[str, Any] | None = None,
 ) -> list[str]:
-    actual = dict(document or load_generated_stage_contract())
+    """Return drift errors without replacing explicitly supplied falsey mappings."""
+    actual = dict(
+        load_generated_stage_contract() if document is None else document
+    )
     expected = build_stage_contract_document(contract)
     if actual == expected:
         return []
@@ -232,7 +235,9 @@ def stage_a_validator_constants(
     document: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Return generated constants consumed by the public Stage A validator."""
-    stage_document = dict(document or load_generated_stage_contract())
+    stage_document = dict(
+        load_generated_stage_contract() if document is None else document
+    )
     errors = generated_stage_contract_errors(stage_document)
     if errors:
         raise ValueError("; ".join(errors))

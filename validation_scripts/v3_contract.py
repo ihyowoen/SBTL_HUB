@@ -25,6 +25,7 @@ _REQUIRED_METADATA_KEYS = (
     "allowed_primary_url_semantics",
     "structured_evidence_target_key_pairs",
     "structured_confirmation_point_key_pairs",
+    "empty_only_fields_by_route",
 )
 
 
@@ -101,25 +102,50 @@ def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
             "route_names must contain execution and v3_non_execution only"
         )
 
-    projection_fields = {
-        "allowed_execution_anchor_strengths": "allowed_execution_anchor_strengths",
-        "allowed_non_execution_anchor_classes": "allowed_non_execution_anchor_classes",
-        "v3_override_required_fields": "v3_override_required_fields",
-        "v3_narrative_fields": "v3_narrative_fields",
-        "allowed_stage_a_evidence_statuses": "allowed_stage_a_evidence_statuses",
-        "allowed_primary_url_semantics": "allowed_primary_url_semantics",
+    projection_fields = (
+        "allowed_execution_anchor_strengths",
+        "allowed_non_execution_anchor_classes",
+        "v3_override_required_fields",
+        "v3_narrative_fields",
+        "allowed_stage_a_evidence_statuses",
+        "allowed_primary_url_semantics",
+    )
+    projected = {
+        key: _as_unique_string_tuple(metadata.get(key), key, errors)
+        for key in projection_fields
     }
-    projected: dict[str, tuple[str, ...]] = {}
-    for output_key, metadata_key in projection_fields.items():
-        projected[output_key] = _as_unique_string_tuple(
-            metadata.get(metadata_key), metadata_key, errors
-        )
 
     narrative = set(projected["v3_narrative_fields"])
     override_required = set(projected["v3_override_required_fields"])
     if narrative and not narrative.issubset(override_required):
         errors.append(
             "v3_narrative_fields must be a subset of v3_override_required_fields"
+        )
+
+    empty_only_fields = metadata.get("empty_only_fields_by_route")
+    if not isinstance(empty_only_fields, dict):
+        errors.append("empty_only_fields_by_route must be an object")
+        empty_only_fields = {}
+    execution_empty_fields = _as_unique_string_tuple(
+        empty_only_fields.get("execution"),
+        "empty_only_fields_by_route.execution",
+        errors,
+    )
+    non_execution_empty_fields = _as_unique_string_tuple(
+        empty_only_fields.get("v3_non_execution"),
+        "empty_only_fields_by_route.v3_non_execution",
+        errors,
+    )
+    if execution_empty_fields and set(execution_empty_fields) != override_required:
+        errors.append(
+            "execution empty-only fields must equal v3_override_required_fields"
+        )
+    if non_execution_empty_fields and set(non_execution_empty_fields) != {
+        "execution_anchor_type",
+        "execution_anchor_strength",
+    }:
+        errors.append(
+            "v3_non_execution empty-only fields must be execution anchor fields"
         )
 
     evidence_pairs = _as_key_pairs(
@@ -138,6 +164,7 @@ def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
         errors.append("$defs must be an object")
         return errors
     for definition in (
+        "empty_route_value",
         "execution_route",
         "evidence_target",
         "confirmation_point",
@@ -146,33 +173,31 @@ def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
         if definition not in definitions:
             errors.append(f"$defs missing {definition}")
 
-    execution_strengths = (
-        definitions.get("execution_route", {})
-        .get("properties", {})
-        .get("execution_anchor_strength", {})
-        .get("enum")
+    execution_properties = definitions.get("execution_route", {}).get(
+        "properties", {}
     )
-    if (
-        isinstance(execution_strengths, list)
-        and tuple(execution_strengths)
-        != projected["allowed_execution_anchor_strengths"]
-    ):
+    non_execution_properties = definitions.get(
+        "v3_non_execution_route", {}
+    ).get("properties", {})
+
+    execution_strengths = execution_properties.get(
+        "execution_anchor_strength", {}
+    ).get("enum")
+    if tuple(execution_strengths or ()) != projected[
+        "allowed_execution_anchor_strengths"
+    ]:
         errors.append(
             "execution_route strength enum differs from canonical metadata"
         )
 
     anchor_classes = (
-        definitions.get("v3_non_execution_route", {})
-        .get("properties", {})
-        .get("anchor_classes", {})
+        non_execution_properties.get("anchor_classes", {})
         .get("items", {})
         .get("enum")
     )
-    if (
-        isinstance(anchor_classes, list)
-        and tuple(anchor_classes)
-        != projected["allowed_non_execution_anchor_classes"]
-    ):
+    if tuple(anchor_classes or ()) != projected[
+        "allowed_non_execution_anchor_classes"
+    ]:
         errors.append(
             "v3_non_execution_route anchor enum differs from canonical metadata"
         )
@@ -189,6 +214,26 @@ def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
             "v3_non_execution_route required fields differ from canonical metadata"
         )
 
+    empty_ref = {"$ref": "#/$defs/empty_route_value"}
+    if execution_properties.get("structural_value_override_applied") != {
+        "const": False
+    }:
+        errors.append("execution_route override marker must be const false")
+    if non_execution_properties.get("structural_value_override_applied") != {
+        "const": True
+    }:
+        errors.append("v3_non_execution_route override marker must be const true")
+    for field in execution_empty_fields:
+        if execution_properties.get(field) != empty_ref:
+            errors.append(
+                f"execution_route {field} must reference empty_route_value"
+            )
+    for field in non_execution_empty_fields:
+        if non_execution_properties.get(field) != empty_ref:
+            errors.append(
+                f"v3_non_execution_route {field} must reference empty_route_value"
+            )
+
     if evidence_pairs and evidence_pairs[0] != (
         "source_or_document_class",
         "exact_claim_or_metric",
@@ -204,10 +249,13 @@ def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
             "first confirmation key pair must be the canonical structured representation"
         )
 
-    routes = contract.get("oneOf")
-    if not isinstance(routes, list) or len(routes) != 2:
+    expected_routes = [
+        {"$ref": "#/$defs/execution_route"},
+        {"$ref": "#/$defs/v3_non_execution_route"},
+    ]
+    if contract.get("oneOf") != expected_routes:
         errors.append(
-            "top-level oneOf must contain exactly two route definitions"
+            "top-level oneOf must reference execution and v3_non_execution routes"
         )
     return errors
 
@@ -247,4 +295,8 @@ def contract_projection(contract: Mapping[str, Any]) -> dict[str, Any]:
             tuple(pair)
             for pair in metadata["structured_confirmation_point_key_pairs"]
         ),
+        "empty_only_fields_by_route": {
+            route: tuple(fields)
+            for route, fields in metadata["empty_only_fields_by_route"].items()
+        },
     }

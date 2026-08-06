@@ -38,6 +38,22 @@ jobs:
           if old_impl_export not in impl:
               raise SystemExit('implementation export loop not found')
           impl = impl.replace(old_impl_export, new_impl_export, 1)
+          old_regex_tail = '''    r"(?:제?\\d+|[A-Za-z]\\d*)\\s*(?:공장|프로젝트|사업|시설|플랜트|라인|단지)",
+          )
+          
+          
+          def _assertion_parts(value):
+          '''
+          new_regex_tail = '''    r"(?:제?\\d+|[A-Za-z]\\d*)\\s*(?:공장|프로젝트|사업|시설|플랜트|라인|단지)",
+              re.IGNORECASE,
+          )
+          
+          
+          def _assertion_parts(value):
+          '''
+          if old_regex_tail not in impl:
+              raise SystemExit('class-bound regex tail not found')
+          impl = impl.replace(old_regex_tail, new_regex_tail, 1)
           old_binding = '''# Strict Related checks resolve this function through the preserved module chain.
           _base.item_specific_lineage_assertion = item_specific_lineage_assertion
           _base._prior.item_specific_lineage_assertion = item_specific_lineage_assertion

@@ -84,3 +84,58 @@ def clone_module_with_shared_globals(
             )
 
     return cloned
+
+
+def clone_module_with_cloned_dependency(
+    source: ModuleType,
+    *,
+    dependency_name: str,
+    module_name: str,
+) -> ModuleType:
+    """Clone one policy layer and its module dependency without re-execution.
+
+    Compatibility layers historically loaded the lower layer from a file, which
+    produced both a fresh layer namespace and a fresh nested ``_base`` module.
+    This helper recreates that ownership graph from already imported modules.
+    Same-name exports and function aliases inherited from the dependency are
+    rewired to the cloned dependency, preserving mutation semantics while the
+    canonical imported modules remain untouched.
+    """
+    dependency = getattr(source, dependency_name, None)
+    if not isinstance(dependency, ModuleType):
+        raise TypeError(
+            f"module dependency {dependency_name!r} is not a module on {source.__name__}"
+        )
+
+    cloned = clone_module_with_shared_globals(
+        source,
+        module_name=module_name,
+    )
+    dependency_module_name = (
+        f"{module_name}.{dependency_name.lstrip('_') or 'dependency'}"
+    )
+    cloned_dependency = clone_module_with_shared_globals(
+        dependency,
+        module_name=dependency_module_name,
+    )
+    setattr(cloned, dependency_name, cloned_dependency)
+
+    dependency_values = list(vars(dependency).items())
+    for name, value in vars(source).items():
+        replacement = None
+        if name in vars(dependency) and value is vars(dependency)[name]:
+            replacement = vars(cloned_dependency).get(name)
+        elif isinstance(value, FunctionType):
+            for dependency_export, dependency_value in dependency_values:
+                if value is dependency_value:
+                    replacement = vars(cloned_dependency).get(dependency_export)
+                    break
+        elif isinstance(value, _MUTABLE_GLOBAL_TYPES):
+            for dependency_export, dependency_value in dependency_values:
+                if value is dependency_value:
+                    replacement = vars(cloned_dependency).get(dependency_export)
+                    break
+        if replacement is not None:
+            setattr(cloned, name, replacement)
+
+    return cloned

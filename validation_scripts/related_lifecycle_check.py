@@ -238,6 +238,9 @@ def _has_positively_identifiable_subject(
                 return True
             continue
 
+        if subject_token in _COMPARATIVE_OR_PERIOD_ACRONYMS:
+            continue
+
         # English entity signals must be positive. Sentence-initial TitleCase
         # alone is not enough because ordinary assertion prose is sentence-cased.
         has_internal_name_signal = any(char.isupper() for char in original[1:])
@@ -258,10 +261,7 @@ def _has_positively_identifiable_subject(
             and (previous_is_entity_lead or previous_is_named_token)
         )
         has_corporate_name_signal = index == 0 and has_corporate_suffix
-        is_governed_acronym_entity = (
-            original.isupper()
-            and subject_token not in _COMPARATIVE_OR_PERIOD_ACRONYMS
-        )
+        is_governed_acronym_entity = original.isupper()
         if len(original) >= 2 and (
             is_governed_acronym_entity
             or has_internal_name_signal

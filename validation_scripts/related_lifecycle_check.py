@@ -29,6 +29,9 @@ _CLASS_BOUND_SINGLE_IDENTIFIER_RE = re.compile(
     r"\b(?i:project|plant|facility|site|line|phase|unit|factory|program)\s+"
     r"(?:[A-Z]|\d+)\b"
 )
+_CHANGE_PREDICATE_TERMS = set(
+    getattr(_impl, "_ASSERTION_CHANGE_PREDICATE_TERMS", set())
+)
 
 
 def item_specific_lineage_assertion(value):
@@ -46,7 +49,7 @@ def item_specific_lineage_assertion(value):
     )
     has_change = any(
         token in _impl._NOMINAL_CHANGE_TERMS
-        or token in _impl._prior._ASSERTION_CHANGE_PREDICATE_TERMS
+        or token in _CHANGE_PREDICATE_TERMS
         for token in role_tokens
     )
     return has_metric and has_change

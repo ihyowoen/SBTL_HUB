@@ -27,54 +27,71 @@ jobs:
 
           impl_path = Path('validation_scripts/related_lifecycle_check_review_latest_base.py')
           impl = impl_path.read_text(encoding='utf-8')
-          old_impl = '''for _name in dir(_base):
+          old_impl_export = '''for _name in dir(_base):
               if not _name.startswith("__"):
                   globals()[_name] = getattr(_base, _name)
           '''
-          new_impl = '''for _name, _value in vars(_base).items():
+          new_impl_export = '''for _name, _value in vars(_base).items():
               if not _name.startswith("__"):
                   globals()[_name] = _value
           '''
-          if old_impl not in impl:
+          if old_impl_export not in impl:
               raise SystemExit('implementation export loop not found')
-          impl_path.write_text(impl.replace(old_impl, new_impl, 1), encoding='utf-8')
+          impl = impl.replace(old_impl_export, new_impl_export, 1)
+          old_binding = '''# Strict Related checks resolve this function through the preserved module chain.
+          _base.item_specific_lineage_assertion = item_specific_lineage_assertion
+          _base._prior.item_specific_lineage_assertion = item_specific_lineage_assertion
+          _base._prior._base.item_specific_lineage_assertion = item_specific_lineage_assertion
+          globals()["item_specific_lineage_assertion"] = item_specific_lineage_assertion
+          '''
+          new_binding = '''# The public entrypoint reconciles strict assertion errors with this policy.
+          globals()["item_specific_lineage_assertion"] = item_specific_lineage_assertion
+          '''
+          if old_binding not in impl:
+              raise SystemExit('unsafe implementation binding block not found')
+          impl_path.write_text(impl.replace(old_binding, new_binding, 1), encoding='utf-8')
 
           main_path = Path('validation_scripts/related_lifecycle_check.py')
           main = main_path.read_text(encoding='utf-8')
-          old_main = '''for _name in dir(_impl):
+          old_main_export = '''for _name in dir(_impl):
               if not _name.startswith("__"):
                   globals()[_name] = getattr(_impl, _name)
           '''
-          new_main = '''for _name, _value in vars(_impl).items():
+          new_main_export = '''for _name, _value in vars(_impl).items():
               if not _name.startswith("__"):
                   globals()[_name] = _value
           '''
-          if old_main not in main:
+          if old_main_export not in main:
               raise SystemExit('public export loop not found')
-          main = main.replace(old_main, new_main, 1)
-          main = main.replace(
-              '''    bound = inspect.signature(_prior_check_card).bind_partial(*args, **kwargs)
+          main = main.replace(old_main_export, new_main_export, 1)
+          old_bound = '''    bound = inspect.signature(_prior_check_card).bind_partial(*args, **kwargs)
               card = bound.arguments.get("card")
               require_contract = bool(bound.arguments.get("require_contract", False))
-          ''',
-              '''    bound = inspect.signature(_prior_check_card).bind_partial(*args, **kwargs)
+          '''
+          new_bound = '''    bound = inspect.signature(_prior_check_card).bind_partial(*args, **kwargs)
               bound.apply_defaults()
               card = bound.arguments.get("card")
               if card is None and args:
                   card = args[0]
               require_contract = bool(bound.arguments.get("require_contract", False))
-          ''',
-              1,
-          )
+          '''
+          if old_bound not in main:
+              raise SystemExit('public argument binding block not found')
+          main = main.replace(old_bound, new_bound, 1)
           start = main.find('\ndef _bind_public_check_card(root) -> None:\n')
           end_marker = '\n\n_bind_public_check_card(_impl)\nglobals()["check_card"] = check_card\n'
           end = main.find(end_marker)
           if start == -1 or end == -1:
-              raise SystemExit('recursive binding block not found')
+              raise SystemExit('recursive public binding block not found')
           main = (
               main[:start]
               + '\n\nglobals()["check_card"] = check_card\n'
               + main[end + len(end_marker):]
+          )
+          main = main.replace(
+              '    sys.exit(_impl._base._prior._base.main())\n',
+              '    sys.exit(main())\n',
+              1,
           )
           main_path.write_text(main, encoding='utf-8')
           Path('.github/workflows/tmp-related-import-alignment.yml').unlink()

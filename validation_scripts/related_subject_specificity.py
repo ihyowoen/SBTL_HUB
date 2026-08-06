@@ -7,6 +7,9 @@ layers are collapsed in later, independently reviewable cleanup PRs.
 """
 from __future__ import annotations
 
+from validation_scripts.callable_seam import (
+    clone_function_with_globals as _clone_function_with_globals,
+)
 from validation_scripts import related_lifecycle_check_review_latest_base as _legacy_impl
 
 for _name, _value in vars(_legacy_impl).items():
@@ -21,15 +24,16 @@ for _name, _value in vars(_legacy_impl).items():
 item_specific_lineage_assertion = (
     _legacy_impl.item_specific_lineage_assertion
 )
-check_card = _legacy_impl.check_card
-main = _legacy_impl.main
-
-# Keep the exported callable graph internally consistent for consumers that
-# import this stable policy seam directly.
-check_card.__globals__["item_specific_lineage_assertion"] = (
-    item_specific_lineage_assertion
+check_card = _clone_function_with_globals(
+    _legacy_impl.check_card,
+    {"item_specific_lineage_assertion": item_specific_lineage_assertion},
+    module_name=__name__,
 )
-main.__globals__["check_card"] = check_card
+main = _clone_function_with_globals(
+    _legacy_impl.main,
+    {"check_card": check_card},
+    module_name=__name__,
+)
 
 if __name__ == "__main__":
     raise SystemExit(main())

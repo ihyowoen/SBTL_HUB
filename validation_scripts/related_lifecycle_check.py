@@ -1,102 +1,66 @@
 #!/usr/bin/env python3
-"""Review 4869087245 compatibility layer for Related assertion subjects."""
+"""Public Related validator entrypoint."""
 from __future__ import annotations
 
-import importlib.util
+import re
 import sys
 from pathlib import Path
 
-_PRIOR_PATH = Path(__file__).with_name(
-    "related_lifecycle_check_review4868891584_base.py"
-)
-_PRIOR_DIR = str(_PRIOR_PATH.parent)
-if _PRIOR_DIR not in sys.path:
-    sys.path.insert(0, _PRIOR_DIR)
+# Script execution starts with validation_scripts/ on sys.path. Add the repo
+# root so package imports behave identically in CLI and unittest modes.
+_REPO_ROOT = str(Path(__file__).resolve().parent.parent)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
 
-_SPEC = importlib.util.spec_from_file_location(
-    "validation_scripts.related_lifecycle_check_review4868891584_base",
-    _PRIOR_PATH,
-)
-if _SPEC is None or _SPEC.loader is None:
-    raise ImportError(f"cannot load Related validator base from {_PRIOR_PATH}")
-_prior = importlib.util.module_from_spec(_SPEC)
-_SPEC.loader.exec_module(_prior)
+from validation_scripts import related_lifecycle_check_review_latest_base as _impl
 
-# Keep the public source-level chronology contract visible to static checks;
-# behavior remains implemented by the preserved prior layer.
+# Keep source-level chronology contracts visible to static checks.
 _RESOLVED_PROVISIONAL_TARGETS_CONTRACT = "resolved_provisional_targets"
 _PROVISIONAL_CHRONOLOGY_ERROR_CONTRACT = (
     "follow-up date precedes provisional predecessor"
 )
-_RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS = {
-    "ebitda", "profit", "profits", "capex", "opex", "yield", "yields",
-    "throughput", "영업이익", "이익", "수익", "설비투자", "자본지출",
-    "운영비", "영업비용", "수율", "처리량",
-}
-_prior._RELATED_DATA_FINANCIAL_ROLE_TERMS.update(
-    _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
-)
-_prior._ASSERTION_ROLE_TERMS.update(
-    _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
-)
 
-for _name in dir(_prior):
-    if not _name.startswith("__"):
-        globals()[_name] = getattr(_prior, _name)
+for _name, _value in vars(_impl).items():
+    if not _name.startswith("__") and _name not in {"_base", "_prior", "_impl"}:
+        globals()[_name] = _value
 
-_prior_item_specific_lineage_assertion = _prior.item_specific_lineage_assertion
-_GENERIC_JUDGMENT_DESCRIPTOR_TERMS = {
-    "outlook", "probability", "likelihood", "risk", "risks", "judgment",
-    "judgement", "expectation", "expectations", "forecast", "forecasts",
-    "sentiment", "confidence", "conviction", "view", "views",
-    "전망", "확률", "가능성", "위험", "리스크", "판단", "기대", "예측",
-    "심리", "신뢰", "신뢰도", "확신", "견해",
-}
+_impl_item_specific_lineage_assertion = _impl.item_specific_lineage_assertion
+_CLASS_BOUND_SINGLE_IDENTIFIER_RE = re.compile(
+    r"\b(?i:project|plant|facility|site|line|phase|unit|factory|program)\s+"
+    r"(?:[A-Z]|\d+)\b"
+)
+_CHANGE_PREDICATE_TERMS = set(
+    getattr(_impl, "_ASSERTION_CHANGE_PREDICATE_TERMS", set())
+)
 
 
 def item_specific_lineage_assertion(value):
-    """Reject generic judgment descriptors plus change predicates as subjects."""
-    if not _prior_item_specific_lineage_assertion(value):
+    """Preserve concrete single-letter/number class IDs without reopening metric bypasses."""
+    if _impl_item_specific_lineage_assertion(value):
+        return True
+
+    if not _CLASS_BOUND_SINGLE_IDENTIFIER_RE.search(str(value)):
         return False
 
-    normalized_value = _prior._normalize_assertion_text(value)
-    normalized = _prior._base.re.sub(
-        r"[^a-z0-9가-힣]+", " ", normalized_value
-    ).strip()
-    tokens = [token for token in normalized.split() if token]
-    normalized_role_tokens = [
-        _prior._normalize_assertion_role_token(token) for token in tokens
-    ]
-    subject_tokens = [
-        _prior._normalize_subject_token(token) for token in normalized_role_tokens
-    ]
-    temporal_indexes = _prior._assertion_temporal_token_indexes(tokens)
-
-    meaningful_tokens = []
-    for index, (role_token, subject_token) in enumerate(
-        zip(normalized_role_tokens, subject_tokens)
-    ):
-        if index in temporal_indexes or subject_token.isdigit():
-            continue
-        if subject_token in _prior._ASSERTION_NEUTRAL_SUBJECT_TOKENS:
-            continue
-        if subject_token in _prior._GENERIC_OWNER_SINGULARS:
-            continue
-        if subject_token in _prior._base._GENERIC_LINEAGE_ASSERTION_TOKENS:
-            continue
-        meaningful_tokens.append((role_token, subject_token))
-
-    if meaningful_tokens and all(
-        role_token in _prior._ASSERTION_CHANGE_PREDICATE_TERMS
-        or subject_token in _GENERIC_JUDGMENT_DESCRIPTOR_TERMS
-        for role_token, subject_token in meaningful_tokens
-    ):
-        return False
-    return True
+    _, role_tokens, _, _, _ = _impl._assertion_parts(value)
+    has_metric = any(
+        token in _impl._RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
+        for token in role_tokens
+    )
+    has_change = any(
+        token in _impl._NOMINAL_CHANGE_TERMS
+        or token in _CHANGE_PREDICATE_TERMS
+        for token in role_tokens
+    )
+    return has_metric and has_change
 
 
-_prior.item_specific_lineage_assertion = item_specific_lineage_assertion
-_prior._base.item_specific_lineage_assertion = item_specific_lineage_assertion
+check_card = _impl.check_card
+check_card.__globals__["item_specific_lineage_assertion"] = (
+    item_specific_lineage_assertion
+)
+main = _impl.main
+main.__globals__["check_card"] = check_card
 
 if __name__ == "__main__":
-    _prior._base.sys.exit(_prior._base.main())
+    raise SystemExit(main())

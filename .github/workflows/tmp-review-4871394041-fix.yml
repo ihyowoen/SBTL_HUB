@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - agent/canonical-v3-contract-schema
+  pull_request:
+    types: [synchronize]
 
 permissions:
   contents: write
@@ -169,6 +171,7 @@ if __name__ == "__main__":
 ''', encoding='utf-8')
 
           Path('.github/workflows/tmp-review-4871394041-fix.yml').unlink()
+          Path('.tmp-review-4871394041-trigger').unlink(missing_ok=True)
           PY
       - name: Verify canonical drift
         run: python validation_scripts/v3_contract_drift_check.py
@@ -185,6 +188,6 @@ if __name__ == "__main__":
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add contracts/v3_anchor_contract.schema.json validation_scripts/v3_contract.py validation_scripts/tests/test_review_4871394041_contracts.py .github/workflows/tmp-review-4871394041-fix.yml
+          git add -A
           git commit -m "fix: reject whitespace-only evidence contract values"
           git push origin HEAD:agent/canonical-v3-contract-schema

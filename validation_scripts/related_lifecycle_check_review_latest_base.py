@@ -37,14 +37,15 @@ _GENERIC_TITLE_MODIFIERS = {
     "private",
 }
 _CORPORATE_NAME_SUFFIXES = {
-    "motors", "energy", "power", "technologies", "technology", "holdings",
-    "group", "corporation", "corp", "inc", "ltd", "company", "systems",
-    "solutions", "industries", "industrial",
+    "motor", "motors", "energy", "power", "technology", "technologies",
+    "holding", "holdings", "group", "corporation", "corp", "inc", "ltd",
+    "company", "system", "systems", "solution", "solutions", "industry",
+    "industries", "industrial",
 }
 _GOVERNED_SINGLE_TOKEN_ENTITY_NAMES = set(
     getattr(_base, "_KNOWN_SINGLE_TOKEN_ENTITY_NAMES", set())
 ) | {
-    "panasonic", "ford", "toyota",
+    "tesla", "acme", "sbtl", "panasonic", "ford", "toyota",
 }
 _SPELLED_PERCENT_RE = re.compile(
     r"(?<![a-z0-9가-힣])[-+]?\d+(?:[.,]\d+)?\s*(?:percent|percentage|퍼센트)(?![a-z0-9가-힣])",
@@ -122,13 +123,25 @@ def _identifier_is_governed_name(identifier):
     return bool(subject) and subject not in blocked
 
 
+def _english_class_bound_matches(value):
+    return list(_ENGLISH_CLASS_BOUND_RE.finditer(str(value)))
+
+
 def _has_valid_explicit_class_bound(value):
     text = str(value)
     if _KOREAN_CLASS_BOUND_RE.search(text):
         return True
     return any(
         _identifier_is_governed_name(match.group("identifier"))
-        for match in _ENGLISH_CLASS_BOUND_RE.finditer(text)
+        for match in _english_class_bound_matches(text)
+    )
+
+
+def _has_invalid_english_class_bound(value):
+    matches = _english_class_bound_matches(value)
+    return bool(matches) and not any(
+        _identifier_is_governed_name(match.group("identifier"))
+        for match in matches
     )
 
 
@@ -302,6 +315,9 @@ def item_specific_lineage_assertion(value):
         original_tokens,
     )
 
+    if metric_roles and has_change_predicate and _has_invalid_english_class_bound(value):
+        return False
+
     if metric_roles and has_change_predicate and _has_valid_explicit_class_bound(value):
         return True
 
@@ -312,7 +328,7 @@ def item_specific_lineage_assertion(value):
     ):
         return False
 
-    if metric_roles and has_nominal_change:
+    if metric_roles and has_change_predicate:
         if _is_titlecase_modifier_pair_without_entity_cue(
             value,
             role_tokens,
@@ -321,7 +337,6 @@ def item_specific_lineage_assertion(value):
             original_tokens,
         ):
             return False
-        # Nominal metric changes must have an affirmative governed subject.
         return has_positive_subject
 
     if metric_roles and has_positive_subject:

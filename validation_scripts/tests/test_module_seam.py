@@ -13,6 +13,8 @@ class ModuleSeamTests(unittest.TestCase):
         source = ModuleType("test_source_module")
         exec(
             "POLICY = {'nested': ['base']}\n"
+            "POLICY_ALIAS = POLICY\n"
+            "NESTED_ALIAS = POLICY['nested']\n"
             "POLICY_SET = {'base'}\n"
             "def read_policy():\n"
             "    return POLICY, POLICY_SET\n",
@@ -30,6 +32,10 @@ class ModuleSeamTests(unittest.TestCase):
         self.assertEqual({"base"}, source.POLICY_SET)
         self.assertEqual(["base", "clone"], cloned.POLICY["nested"])
         self.assertEqual({"base", "clone"}, cloned.POLICY_SET)
+        self.assertIs(cloned.POLICY_ALIAS, cloned.POLICY)
+        self.assertIs(cloned.NESTED_ALIAS, cloned.POLICY["nested"])
+        self.assertIsNot(cloned.POLICY, source.POLICY)
+        self.assertIsNot(cloned.NESTED_ALIAS, source.NESTED_ALIAS)
         self.assertIs(cloned.read_policy()[0], cloned.POLICY)
         self.assertIs(cloned.read_policy()[1], cloned.POLICY_SET)
 

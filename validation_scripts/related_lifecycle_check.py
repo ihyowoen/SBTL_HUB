@@ -12,7 +12,7 @@ _REPO_ROOT = str(Path(__file__).resolve().parent.parent)
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-from validation_scripts import related_lifecycle_check_review_latest_base as _impl
+from validation_scripts import related_subject_specificity as _impl
 
 # Keep source-level chronology contracts visible to static checks.
 _RESOLVED_PROVISIONAL_TARGETS_CONTRACT = "resolved_provisional_targets"

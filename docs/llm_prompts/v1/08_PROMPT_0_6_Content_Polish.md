@@ -17,17 +17,19 @@ Use GitHub main as the workflow source of truth.
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -152,7 +154,10 @@ Required lineage fields to confirm, directly or through carried-forward metadata
 - artifact_consistency_gate.status: PASS
 - Stage A selector marker is present and accepted. Accepted markers include `enhanced_selector_precision_version: 20260505_safe_execution_anchor` or later/equivalent, or legacy `selector_policy_version: stage_a_high_precision_execution_anchor_v2` or later.
 - strict_pass_gate or strict_gate_check exists for every candidate that originated from strict_passed_spec[]
-- execution_anchor_type / execution_anchor_strength is present for every format-risk candidate
+- every format-risk candidate preserves a passing `anchor_path_validation` and selects exactly one source-backed path:
+  - `selected_anchor_path: execution` with non-empty `execution_anchor_type` and adequate/strong `execution_anchor_strength`; or
+  - `selected_anchor_path: v3_non_execution` with `structural_value_override_applied: true`, complete canonical V3 override metadata, and the execution route explicitly `not_applicable` with a specific reason.
+- conventional execution-anchor fields are not mandatory for a valid `v3_non_execution` path; missing, dual-claimed, contradictory, or unsupported route metadata is invalid upstream lineage
 - watchlist_audit, if a user watchlist was provided, accounts for every watchlist item without auto-promotion
 
 If these fields are missing, inconsistent, stale, or indicate failure, do not silently continue. Stop this step and report:
@@ -182,13 +187,15 @@ Governance hierarchy:
 When rules conflict, apply this hierarchy:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 FACT_DISCIPLINE.md always wins for facts, numbers, quotes, and evidence discipline.
 
@@ -782,6 +789,31 @@ Each content_enriched_and_language_polished item must include:
 - urls
 - related
 - fact_sources
+
+For every format-risk `content_enriched_and_language_polished[]` item, preserve the same-run `anchor_path_validation` and route-status fields without alteration.
+
+For every such item with `selected_anchor_path = v3_non_execution`, preserve the complete canonical, source-backed Structural Value Override package byte-for-byte from Evidence QC:
+
+- `structural_value_override_applied: true`
+- `structural_value_override_reason`
+- non-empty valid `anchor_classes[]`
+- `incremental_information`
+- `decision_relevance`
+- `baseline_expectation_changed`
+- non-empty item-specific `evidence_needed_for_stage_b[]`
+- non-empty measurable `next_confirmation_points[]`
+- specific `why_execution_event_not_required`
+- `prior_state`
+- `new_verified_fact`
+- `changed_judgment`
+- `uncertainty_resolved`
+- `remaining_uncertainty`
+- applicable probability-change fields
+- applicable baseline-expectation / before-after fields
+- current-run source lineage that supports every package field
+
+Content Polish may change visible prose only within its existing source lock. It must not summarize away, reconstruct, rename, or drop any V3 package field. Missing, altered, generic, unsupported, or internally inconsistent package metadata requires `needs_return_to_evidence_qc[]`; it must not enter `content_enriched_and_language_polished[]`.
+
 - evidence_complete: true
 - source_claim_covered: true
 - content_enriched: true
@@ -935,7 +967,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - confirm each was read from GitHub main
    - if any doc was not read, this step must not proceed
 
@@ -1121,65 +1153,51 @@ Do not proceed to final publish-readiness QC until I explicitly say “final QC�
 
 ---
 
-## Execution-anchor and selector-lineage safety overlay — 2026-05-05
+## Anchor-path and selector-lineage safety overlay — V3
 
-This overlay is downstream of the Stage A safe-selector integrated rule. It prevents post-acceptance steps from laundering a weak or superseded Stage A/B/C lineage into publish-ready or production status.
+This overlay prevents Content Polish from laundering an unsupported execution or non-execution path into Final QC.
 
 Terminology lock:
 
-- Do not use or enforce a format-based hard-exclude rule.
-- Product, demo, PoC, component, interview, commentary, roundup, speech, or personnel formats are not automatically rejected by format alone.
-- They are subject to a strict-pass presumption block: without a concrete fresh execution anchor, they must not have entered `strict_passed_spec[]`; if they did, the downstream step must hold, reject, or return the item to the appropriate prior stage rather than polishing it forward.
-- Concrete execution anchors include signed contract, binding customer order, offtake, commercial deployment, field installation, commissioning, production start, facility opening, certification, regulatory decision, public funding approval, binding procurement, measurable capacity addition, safety recall/regulatory action, or named customer adoption.
+- Do not use a format-based hard-exclude rule.
+- A format-risk item must have exactly one Evidence-QC-validated path: execution or V3 non-execution.
+- Content Polish may narrow language but may not switch the selected path, invent missing evidence, or upgrade stage, scale, causality, market effect, commercialisation, policy status, financial certainty, strategic intent, technical maturity, or follow-up probability.
 
 ### Required upstream lineage gate for Content Polish
 
 Before content enrichment begins, verify that `EVIDENCE_QC_RESULTS_JSON` includes:
 
 - `upstream_lineage_validation.decision: pass`
-- `execution_anchor_qc_summary`
+- `anchor_path_qc_summary`
+- a passing item result for every format-risk input
+- exactly one route status `pass` and the other `not_applicable` with a specific reason for each item
 - `evidence_qc_accounting_matches_input_count: true`
 
-If these are missing or failed, stop and report:
-
-```text
-status: BLOCKED_EVIDENCE_QC_LINEAGE_OR_ANCHOR_INVALID
-reason: [...]
-no content enrichment or language polish work performed
-```
+If these are missing or failed, stop with `BLOCKED_EVIDENCE_QC_LINEAGE_OR_ANCHOR_INVALID` and perform no content enrichment or language polish.
 
 ### Content polish boundary for format-risk cards
 
-Content polish must not use language to upgrade an unsupported format-risk item. In particular, do not turn:
+Do not turn demo into deployment, PoC into rollout, partnership/MOU into implementation, interview/commentary into an execution event, product launch into adoption, policy discussion into enactment, preliminary data into settled performance, strategy into binding action, technical possibility into commercialisation, or probability into certainty.
 
-- demo into commercial deployment
-- PoC into rollout
-- partnership/MOU into signed contract or implementation
-- interview/commentary into fresh event
-- component/product launch into market adoption
-- regulatory discussion/speech into enacted measure
-
-unless the existing `fact_sources`, `source_claim_coverage_map`, and Evidence QC output already support that execution anchor.
-
-If an execution-anchor gap is found during content polish, do not polish the card forward. Route it to:
-
-- `needs_return_to_evidence_qc`, or
-- `content_hold_claim_narrowing_needed` if a safe narrower version can be produced without changing the event status.
+All polished visible fields must remain within the selected Evidence-QC-validated route. If an anchor-path gap is found, route the item to `needs_return_to_evidence_qc` or `content_hold_claim_narrowing_needed`; do not polish it forward.
 
 ### Output requirement
 
-Add to the Content Polish JSON:
+At root level emit:
 
 ```json
 "lineage_and_anchor_guard": {
   "evidence_qc_lineage_passed": true,
-  "execution_anchor_qc_passed": true,
+  "anchor_path_qc_passed": true,
+  "execution_path_item_count": 0,
+  "v3_non_execution_path_item_count": 0,
+  "route_status_accounting_complete": true,
   "format_risk_claims_narrowed_count": 0,
   "returned_to_evidence_qc_count": 0
 }
 ```
 
-Final override: if lineage or execution-anchor guard fails, the next recommended call must not be Prompt 0.7.
+Every `content_enriched_and_language_polished[]` item with non-empty `format_risk_tags` must emit its selected path and coherent route statuses. Ordinary items with no format risk must preserve the lineage guard but must not invent selected-path or route-status fields. Final override: if lineage, applicable route accounting, or the anchor-path guard fails, the next recommended call must not be Prompt 0.7.
 
 ## Operational integrated rule — NO_UNVERIFIED_HOLD_OR_DELETE_RULE_20260507_V2
 
@@ -1670,7 +1688,10 @@ Required root-level fields in the 0.6 JSON output:
 "lineage_and_anchor_guard": {
   "status": "PASS",
   "evidence_qc_lineage_passed": true,
-  "execution_anchor_qc_passed": true,
+  "anchor_path_qc_passed": true,
+  "execution_path_item_count": 0,
+  "v3_non_execution_path_item_count": 0,
+  "route_status_accounting_complete": true,
   "source_strength_caveat_preserved": true,
   "publish_ready_remains_false": true,
   "content_polish_modified_visible_fields_only": true,
@@ -1681,14 +1702,18 @@ Required root-level fields in the 0.6 JSON output:
 }
 ```
 
-Required payload-item fields for every `content_enriched_and_language_polished[]` item:
+Required payload-item fields for every `content_enriched_and_language_polished[]` item begin with the ordinary lineage fields below. The anchor-path fields shown after them are required only when the item has non-empty `format_risk_tags`; ordinary items must omit them rather than invent a route.
 
 ```json
 "lineage_and_anchor_guard": {
   "status": "PASS",
   "source_spec_id": "...",
   "evidence_qc_lineage_passed": true,
-  "execution_anchor_qc_passed": true,
+  "anchor_path_qc_passed": "true for format-risk item; NOT_APPLICABLE_NO_FORMAT_RISK otherwise",
+  "selected_anchor_path": "execution|v3_non_execution; omit for ordinary item",
+  "execution_anchor_qc_status": "pass|not_applicable; omit for ordinary item",
+  "structural_value_override_qc_status": "pass|not_applicable; omit for ordinary item",
+  "non_applicable_anchor_path_reason": "required for the unselected route on format-risk item; omit for ordinary item",
   "source_strength_caveat_preserved": true,
   "publish_ready_remains_false": true,
   "visible_field_change_log_ref": "...",

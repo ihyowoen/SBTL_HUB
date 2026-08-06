@@ -38,6 +38,7 @@ Stage A Related/date overlay:
 - Emit preliminary `date_role` with publication/event/representative date candidates; do not invent dates.
 - Stage exit must satisfy:
   `python validation_scripts/stage_artifact_contract_check.py A <STAGE_A_JSON>`.
+  `python validation_scripts/stage_lineage_contract_check.py stage_a <STAGE_A_JSON>`.
 """,
     "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md": """
 Stage B Related/date/source overlay:
@@ -56,7 +57,7 @@ Stage C Related/source overlay:
 - Lock `related_lineage` for every accepted card.
 - `same_event_duplicate`, `existing_card_reinforcement`, and `uncertain_needs_review` may not enter
   `accepted_fact_safe` as new cards.
-- `distinct_follow_up` requires a direct fresh execution anchor.
+- `distinct_follow_up` requires a valid non-empty `fresh_follow_up_anchor`, a valid `fresh_follow_up_anchor_class` under `docs/RELATED_LIFECYCLE_CONTRACT.md`, and non-empty `incremental_fact_vs_predecessor` plus `changed_judgment_vs_predecessor`. A conventional execution anchor is required only when the selected anchor class is `execution_event_anchor`; valid policy, financial, strategic, technology, or probability anchors are permitted by the shared contract.
 - Recompute source independence from current `fact_sources`; do not trust stale counters.
 - Stage exit must satisfy:
   `python validation_scripts/stage_artifact_contract_check.py C <STAGE_C_JSON>`.
@@ -112,9 +113,16 @@ Prompt 0.6 lineage overlay:
     "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md": """
 Prompt 0.7 final-gate overlay:
 
-- Run `evidence_qc_v8_check.py`, `related_lifecycle_check.py`,
-  `date_role_freshness_check.py --require-date-role`, and
-  `stage_artifact_contract_check.py 0.7` before `publish_ready=true`.
+- Build a merged baseline/candidate validation artifact so every current-run card and every referenced Related target is resolvable.
+- Build `CURRENT_RUN_ID_FILE` containing only identifiers introduced or materially updated by the current run. Use final `id` / `card_id` when assigned; before Prompt 0.8 production-ID resolution, the file may contain the exact carried `draft_id` or `source_spec_id` present on the merged candidate artifact.
+- The Related lifecycle validator must match scope entries against `id`, `card_id`, `draft_id`, or `source_spec_id`; unmatched, empty, partial, ambiguous, or zero-match scope remains a hard failure.
+- Before Prompt 0.8 assigns production IDs, a current-run `distinct_follow_up` or `program_lineage` may carry candidate-to-candidate edges in `related_candidate_spec_ids` while `related[]` remains empty. Every provisional target must resolve uniquely within the current-run scope; dangling, ambiguous, duplicate, or self-referential provisional edges are hard failures.
+- Run all four validators against `<MERGED_BASELINE_CANDIDATE_ARTIFACT>` before `publish_ready=true`:
+  `python validation_scripts/evidence_qc_v8_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --new-id-file <CURRENT_RUN_ID_FILE>`,
+  `python validation_scripts/related_lifecycle_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-contract --allow-provisional-related --new-id-file <CURRENT_RUN_ID_FILE>`,
+  `python validation_scripts/date_role_freshness_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-date-role --new-id-file <CURRENT_RUN_ID_FILE>`, and
+  `python validation_scripts/stage_artifact_contract_check.py 0.7 <MERGED_BASELINE_CANDIDATE_ARTIFACT>`.
+- Do not apply `--require-contract` unscoped to the full legacy inventory; strict V3 fields are current-run obligations while legacy rows remain under the legacy-compatible check.
 - Reapprove bounded single-source exceptions without weakening Related proof.
 - Output filename must be `publish_ready_PENDING_MERGE_PREP_<RUN_TAG>.json`;
   reserve `pr_candidate_payload` for Prompt 0.8.

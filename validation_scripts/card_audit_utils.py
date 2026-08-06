@@ -239,10 +239,28 @@ def card_identifier(card: dict[str, Any]) -> str:
     return str(card.get("id") or card.get("card_id") or "").strip()
 
 
+def _scope_identifiers(
+    card: dict[str, Any],
+    fields: tuple[str, ...],
+) -> set[str]:
+    return {
+        str(card.get(field)).strip()
+        for field in fields
+        if card.get(field) is not None and str(card.get(field)).strip()
+    }
+
+
 def select_scoped_cards(
     cards: Iterable[dict[str, Any]],
     selected_ids: set[str] | None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Select an exact current-run scope across final and pre-merge IDs.
+
+    Final QC may run before production IDs are assigned, so unique ``draft_id``
+    and ``source_spec_id`` aliases are valid scope selectors. Because the scope
+    file is untyped, any identifier resolving to multiple rows across canonical
+    or provisional namespaces is ambiguous and fails closed.
+    """
     rows = list(cards)
     if selected_ids is None:
         return rows, {
@@ -250,32 +268,58 @@ def select_scoped_cards(
             "status": "NOT_APPLIED",
             "requested_count": None,
             "matched_count": len(rows),
+            "selected_card_count": len(rows),
             "missing_ids": [],
+            "ambiguous_ids": [],
             "errors": [],
         }
 
     requested = {str(value).strip() for value in selected_ids if str(value).strip()}
-    available = {card_identifier(card) for card in rows if card_identifier(card)}
-    matched = requested & available
-    missing = sorted(requested - available)
+    canonical_index: dict[str, set[int]] = {}
+    provisional_index: dict[str, set[int]] = {}
+    for index, card in enumerate(rows):
+        for value in _scope_identifiers(card, ("id", "card_id")):
+            canonical_index.setdefault(value, set()).add(index)
+        for value in _scope_identifiers(card, ("draft_id", "source_spec_id")):
+            provisional_index.setdefault(value, set()).add(index)
+
+    matched_ids: set[str] = set()
+    selected_indexes: set[int] = set()
+    missing: list[str] = []
+    ambiguous: list[str] = []
+    for value in sorted(requested):
+        indexes = canonical_index.get(value, set()) | provisional_index.get(value, set())
+        if not indexes:
+            missing.append(value)
+        elif len(indexes) > 1:
+            ambiguous.append(value)
+        else:
+            matched_ids.add(value)
+            selected_indexes.update(indexes)
+
     errors: list[str] = []
     if not requested:
         errors.append("ID scope is empty")
-    elif not matched:
+    elif not matched_ids:
         errors.append("ID scope matched zero cards")
     if missing:
         errors.append(f"ID scope has {len(missing)} unmatched ID(s)")
+    if ambiguous:
+        errors.append(f"ID scope has {len(ambiguous)} ambiguous ID(s)")
 
-    selected_rows = [card for card in rows if card_identifier(card) in matched]
+    selected_rows = [
+        card for index, card in enumerate(rows) if index in selected_indexes
+    ]
     return selected_rows, {
         "applied": True,
         "status": "PASS" if not errors else "FAIL",
         "requested_count": len(requested),
-        "matched_count": len(matched),
+        "matched_count": len(matched_ids),
+        "selected_card_count": len(selected_rows),
         "missing_ids": missing,
+        "ambiguous_ids": ambiguous,
         "errors": errors,
     }
-
 
 def dedupe(values: Iterable[str]) -> list[str]:
     seen: set[str] = set()

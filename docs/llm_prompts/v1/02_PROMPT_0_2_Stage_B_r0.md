@@ -15,17 +15,19 @@ Use GitHub main as the workflow source of truth.
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -164,13 +166,15 @@ Governance hierarchy:
 When rules conflict, apply this hierarchy:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 FACT_DISCIPLINE.md always wins for facts, numbers, quotes, and evidence discipline.
 
@@ -195,15 +199,20 @@ Stage B must:
 
 Stage B strict-pass gate validation:
 
-Stage B must inspect Stage A format-risk and execution-anchor metadata when present.
+Stage B must inspect Stage A format-risk, anchor-class, and Structural Value Override metadata when present.
 
-- If a strict_passed_spec has format_risk_tags other than none, Stage B must verify that fetched evidence supports the claimed execution anchor.
-- In v13 replace-all mode, missing `strict_pass_gate` is a Stage A structural failure. Stage B must stop with `BLOCKED_STAGE_A_STRICT_GATE_METADATA_MISSING` rather than infer the anchor. A legacy exception is allowed only if the user explicitly declares a non-v13 legacy Stage A artifact as authoritative for a one-off recovery run.
-- If fetched evidence shows the item is only product news, demo, PoC, pilot, prototype, component launch, interview, commentary, roundup, speech, personnel, or partnership/integration with no concrete execution anchor, mark draft_blocked.
-- If fetched evidence supports only a weaker stage than Stage A implied, mark draft_blocked with source_direction_mismatch or execution_anchor_missing.
-- If the item remains strategically useful but not independently cardable, recommend support_source_only or review_pool triage in recommended_next_action; do not force a draft.
+- In V3 mode, a format-risk strict candidate must follow one of two source-backed paths: (a) a concrete execution anchor, or (b) a complete Structural Value Override using a valid non-execution anchor class.
+- The non-execution path requires `structural_selector_policy_version: STRUCTURAL_NEWS_VALUE_SELECTION_V3`, `structural_value_override_applied: true`, at least one valid non-execution `anchor_classes[]` value, item-specific `evidence_needed_for_stage_b[]`, a specific `why_execution_event_not_required`, and the required before-after and changed-judgment fields.
+- Stage B must fetch and verify the exact claim, metric, stage, date, or uncertainty named in every `evidence_needed_for_stage_b[]` entry. Generic evidence categories do not satisfy this gate.
+- Missing `strict_pass_gate` is a Stage A structural failure. Stage B must stop with `BLOCKED_STAGE_A_STRICT_GATE_METADATA_MISSING` rather than infer an anchor. A legacy exception is allowed only if the user explicitly declares a non-V3 legacy Stage A artifact as authoritative for a one-off recovery run.
+- Product news, demo, PoC, pilot, prototype, component launch, interview, commentary, roundup, speech, personnel, or partnership/integration must be marked `draft_blocked` only when fetched evidence supports neither a concrete execution anchor nor a valid source-backed V3 non-execution anchor package.
+- If fetched evidence supports a weaker execution stage, weaker non-execution claim, or different anchor class than Stage A implied, mark `draft_blocked` with `source_direction_mismatch` or `anchor_evidence_missing`.
+- Stage B must carry the validated anchor classes, override fields, evidence targets, before-after chain, and changed judgment into the evidence package and draft metadata.
+- If the item remains strategically useful but not independently cardable, recommend `support_source_only` or candidate-review triage in `recommended_next_action`; do not force a draft.
 
-Allowed concrete execution anchors are the same as Stage A: signed contract, binding customer order, offtake, price floor/risk-sharing facility, commercial deployment, field installation, commissioning, production start, facility opening, certification/regulatory approval, regulatory decision/enforcement, public funding approval, binding procurement, measurable capacity addition, safety recall/regulatory safety action, named customer adoption, named deployment site with measurable pilot scale/duration/objective, factory/project groundbreaking, or final investment decision.
+Allowed execution anchors remain: signed contract, binding customer order, offtake, price floor/risk-sharing facility, commercial deployment, field installation, commissioning, production start, facility opening, certification/regulatory approval, regulatory decision/enforcement, public funding approval, binding procurement, measurable capacity addition, safety recall/regulatory safety action, named customer adoption, named deployment site with measurable pilot scale/duration/objective, factory/project groundbreaking, or final investment decision.
+
+Allowed V3 non-execution anchor classes are: `policy_regulatory_anchor`, `data_financial_anchor`, `strategic_behavior_anchor`, `technology_commercialization_anchor`, and `follow_up_probability_anchor`. Their use never waives evidence, source-direction, full-schema cardability, or no-anchor-laundering rules.
 
 Stage B must not:
 
@@ -513,7 +522,7 @@ If source direction differs, do not force a draft.
 
 Mark draft_blocked when:
 
-- product/demo/PoC/pilot/prototype/component/interview/commentary/roundup/speech/personnel/partnership format has no concrete execution anchor
+- product/demo/PoC/pilot/prototype/component/interview/commentary/roundup/speech/personnel/partnership format has neither a fetched source-backed concrete execution anchor nor a complete fetched source-backed V3 non-execution Structural Value Override package
 - source reports MOU/pilot but spec implies commercial deployment
 - source reports semi-solid but spec implies solid-state
 - source reports consideration/plan but spec implies confirmed execution
@@ -715,7 +724,7 @@ Mark draft_blocked when:
 - source is too weak to support a full-schema card
 - source is generic landing page / listing page / static product page
 - source requires speculation to write a meaningful fact field
-- format-risk item has no fetched evidence for a concrete execution anchor
+- format-risk item has fetched evidence for neither a concrete execution anchor nor a complete V3 non-execution Structural Value Override package with a valid anchor class, item-specific evidence targets, specific why_execution_event_not_required, before-after chain, and changed judgment
 - only background_context evidence is available
 
 Each draft_blocked item must include:
@@ -953,7 +962,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - confirm each was read from GitHub main
    - if any doc was not read, Stage B must not proceed
 

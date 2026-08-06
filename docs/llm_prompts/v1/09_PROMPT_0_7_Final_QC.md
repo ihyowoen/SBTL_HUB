@@ -17,17 +17,19 @@ Use GitHub main as the workflow source of truth.
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -149,17 +151,17 @@ Do not include:
 If any non-content_enriched_and_language_polished item is mixed into the candidate input, exclude it and report it as mixed_input_excluded.
 
 
-Upstream lineage integrity rule — Stage A V2 selector safety:
+Upstream lineage integrity rule — Stage A V3 selector safety:
 
-This step must verify that every upstream workflow output belongs to the same current run lineage and that the Stage A V2 selector gates were valid.
+This step must verify that every upstream workflow output belongs to the same current run lineage and that the Stage A V3 selector gates were valid.
 
 Required lineage fields to confirm, directly or through carried-forward metadata:
 
 - stage_a_validity_status: PASS
 - artifact_consistency_gate.status: PASS
-- Stage A selector marker is present and accepted. Accepted markers include `enhanced_selector_precision_version: 20260505_safe_execution_anchor` or later/equivalent, or legacy `selector_policy_version: stage_a_high_precision_execution_anchor_v2` or later.
-- strict_pass_gate or strict_gate_check exists for every candidate that originated from strict_passed_spec[]
-- execution_anchor_type / execution_anchor_strength is present for every format-risk candidate
+- Stage A selector marker is present and accepted. The current marker is `structural_selector_policy_version: STRUCTURAL_NEWS_VALUE_SELECTION_V3`; explicitly authorized legacy markers may be accepted only for a declared one-off recovery run.
+- `strict_pass_gate` or `strict_gate_check` exists for every candidate that originated from `strict_passed_spec[]`
+- every format-risk candidate carries either source-backed `execution_anchor_type` / `execution_anchor_strength`, or a validated V3 Structural Value Override package with a valid non-execution anchor class, item-specific Stage B evidence targets, and a specific explanation of why execution is not required
 - watchlist_audit, if a user watchlist was provided, accounts for every watchlist item without auto-promotion
 
 If these fields are missing, inconsistent, stale, or indicate failure, do not silently continue. Stop this step and report:
@@ -171,18 +173,19 @@ If these fields are missing, inconsistent, stale, or indicate failure, do not si
 Do not repair Stage A/B/C selection defects in this step. Return the run to the earliest defective stage instead.
 
 
-Final QC execution-anchor publish gate:
+Final QC anchor publish gate:
 
-A card may receive publish_ready=true only if final QC confirms that any Stage A format-risk / execution-anchor risk was resolved with source-backed evidence.
+A card may receive `publish_ready=true` only if final QC confirms that every Stage A format-risk was resolved through one source-backed path: a concrete execution anchor or a valid V3 non-execution Structural Value Override.
 
-Hard fail for publish_ready:
+Hard fail for `publish_ready`:
 
-- missing strict_pass_gate / strict_gate_check metadata
+- missing `strict_pass_gate` / `strict_gate_check` metadata
 - Stage A selector validity not PASS
 - artifact consistency not PASS
-- format-risk card has no execution_anchor_type or no source-backed execution anchor
-- execution anchor was inflated in title, sub, gate, fact, or implication
-- card entered the pipeline from review_pool, support_source_only, rejected, duplicate_hold, existing_reinforcement, or any non-addable state without an explicit authorized reopen
+- a format-risk card has neither a source-backed execution anchor nor a validated V3 non-execution anchor package
+- `structural_value_override_applied: true` but the valid non-execution anchor class, concrete item-specific evidence targets, specific `why_execution_event_not_required`, before-after chain, or changed judgment is missing or unsupported
+- execution stage, non-execution anchor class, Structural Value Override, title, sub, gate, fact, or implication was inflated beyond fetched evidence
+- the card entered the pipeline from review_pool, support_source_only, rejected, duplicate_hold, existing_reinforcement, or any non-addable state without an explicit authorized reopen
 
 If any hard fail is present, route to final_qc_hold or needs_return_to_evidence_qc. Do not set publish_ready=true.
 
@@ -191,13 +194,15 @@ Governance hierarchy:
 When rules conflict, apply this hierarchy:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 FACT_DISCIPLINE.md always wins for facts, numbers, quotes, and evidence discipline.
 
@@ -632,6 +637,39 @@ Each publish_ready item must include:
 - urls
 - related
 - fact_sources
+
+For every format-risk `publish_ready[]` item, the following route fields are mandatory and must be copied from the same-run Content Polish / Evidence QC lineage without alteration:
+
+- `selected_anchor_path: execution|v3_non_execution`
+- `anchor_path_qc_passed: true`
+- `execution_anchor_qc_status: pass|not_applicable`
+- `structural_value_override_qc_status: pass|not_applicable`
+- `non_applicable_anchor_path_reason`
+
+Exactly one route status must be `pass`; the other must be `not_applicable` with a specific reason. Missing, contradictory, dual-pass, or dual-not-applicable route metadata requires `final_qc_hold` or return to the earliest defective stage and must not enter `publish_ready[]`.
+
+For every format-risk `publish_ready[]` item with `selected_anchor_path = v3_non_execution`, preserve the complete same-run, source-backed canonical Structural Value Override package byte-for-byte alongside the route fields:
+
+- `structural_value_override_applied: true`
+- `structural_value_override_reason`
+- non-empty valid `anchor_classes[]`
+- `incremental_information`
+- `decision_relevance`
+- `baseline_expectation_changed`
+- non-empty item-specific `evidence_needed_for_stage_b[]`
+- non-empty measurable `next_confirmation_points[]`
+- specific `why_execution_event_not_required`
+- `prior_state`
+- `new_verified_fact`
+- `changed_judgment`
+- `uncertainty_resolved`
+- `remaining_uncertainty`
+- applicable probability-change fields
+- applicable baseline-expectation / before-after fields
+- current-run source lineage that supports every package field
+
+This list is the same canonical package emitted by Prompt 0.5 and Prompt 0.6; Final QC must not narrow it to a summary subset. These fields must remain available to Prompt 0.8 and must not be summarized away, reconstructed from memory, renamed, or dropped by Final QC. If any required V3 package field is missing, altered, generic, unsupported, or inconsistent with the selected route, route the item to `final_qc_hold` or `needs_return_to_evidence_qc`; do not emit it in `publish_ready[]`.
+
 - evidence_complete: true
 - source_claim_covered: true
 - content_enriched: true
@@ -806,7 +844,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - confirm each was read from GitHub main
    - if any doc was not read, this step must not proceed
 
@@ -1018,7 +1056,7 @@ Terminology lock:
 
 - Do not use or enforce a format-based hard-exclude rule.
 - Product, demo, PoC, component, interview, commentary, roundup, speech, or personnel formats are not automatically rejected by format alone.
-- They are subject to a strict-pass presumption block: without a concrete fresh execution anchor, they must not have entered `strict_passed_spec[]`; if they did, the downstream step must hold, reject, or return the item to the appropriate prior stage rather than polishing it forward.
+- They are subject to a strict-pass presumption block: without either a concrete fresh execution anchor or a complete V3 non-execution Structural Value Override, they must not have entered `strict_passed_spec[]`; if neither source-backed path is valid, the downstream step must hold, reject, or return the item to the appropriate prior stage rather than polishing it forward.
 - Concrete execution anchors include signed contract, binding customer order, offtake, commercial deployment, field installation, commissioning, production start, facility opening, certification, regulatory decision, public funding approval, binding procurement, measurable capacity addition, safety recall/regulatory action, or named customer adoption.
 
 ### Required upstream lineage gate for Final QC
@@ -1026,9 +1064,12 @@ Terminology lock:
 Before final publish-readiness QC begins, verify that `CONTENT_POLISH_RESULTS_JSON` includes:
 
 - a passed Evidence QC lineage declaration
-- a passed execution-anchor QC summary
+- a passed anchor-path QC summary covering the selected execution or V3 non-execution route
 - `lineage_and_anchor_guard.evidence_qc_lineage_passed: true`
-- `lineage_and_anchor_guard.execution_anchor_qc_passed: true`
+- `lineage_and_anchor_guard.anchor_path_qc_passed: true`
+- every format-risk item guard has `selected_anchor_path: execution|v3_non_execution`
+- exactly one item route status is `pass`: `execution_anchor_qc_status` or `structural_value_override_qc_status`; the other is `not_applicable`
+- every non-applicable route has a specific `non_applicable_anchor_path_reason`
 - content polish accounting matches input
 
 If missing or failed, stop and report:
@@ -1041,12 +1082,12 @@ no final QC work performed
 
 ### Publish-ready hard gate for format-risk items
 
-A card with `format_risk_tags`, `execution_anchor_type`, or an execution/deployment implication may receive `publish_ready=true` only if Final QC confirms all of the following:
+A card with `format_risk_tags`, anchor-path metadata, or an execution/deployment implication may receive `publish_ready=true` only if Final QC confirms all of the following:
 
-1. the execution anchor is explicitly covered by `fact_sources` and `source_claim_coverage_map`;
-2. the visible fields do not overstate stage, scale, causality, market effect, or commercialization;
-3. the card retains any necessary caveat when the event is pilot, demo, PoC, early deployment, or review-stage policy;
-4. no selector-lineage defect is unresolved.
+1. exactly one source-backed path is complete: either (a) the concrete execution anchor is explicitly covered by `fact_sources` and `source_claim_coverage_map`, or (b) the V3 non-execution anchor class, every item-specific `evidence_needed_for_stage_b[]` target, before-after chain, changed judgment, and specific `why_execution_event_not_required` are explicitly covered;
+2. the visible fields do not overstate stage, scale, causality, market effect, commercialization, or the selected non-execution anchor class;
+3. the card retains any necessary caveat when the event is pilot, demo, PoC, early deployment, review-stage policy, preliminary financial data, strategic intent, or uncertain follow-up probability;
+4. no selector-lineage or anchor-path defect is unresolved.
 
 If any condition fails, put the card in `final_qc_hold` or `needs_return_to_evidence_qc`; do not assign `publish_ready=true`.
 
@@ -1060,6 +1101,8 @@ Add to Final QC JSON:
   "artifact_consistency_passed": true,
   "superseded_lineage_detected": false,
   "format_risk_publish_ready_checked_count": 0,
+  "format_risk_execution_path_pass_count": 0,
+  "format_risk_non_execution_path_pass_count": 0,
   "format_risk_publish_ready_blocked_count": 0
 }
 ```
@@ -2270,9 +2313,16 @@ source-audit metadata derivation, stage-exit artifact conformance, and productio
 
 Prompt 0.7 final-gate overlay:
 
-- Run `evidence_qc_v8_check.py`, `related_lifecycle_check.py`,
-  `date_role_freshness_check.py --require-date-role`, and
-  `stage_artifact_contract_check.py 0.7` before `publish_ready=true`.
+- Build a merged baseline/candidate validation artifact so every current-run card and every referenced Related target is resolvable.
+- Build `CURRENT_RUN_ID_FILE` containing only identifiers introduced or materially updated by the current run. Use final `id` / `card_id` when assigned; before Prompt 0.8 production-ID resolution, the file may contain the exact carried `draft_id` or `source_spec_id` present on the merged candidate artifact.
+- The Related lifecycle validator must match scope entries against `id`, `card_id`, `draft_id`, or `source_spec_id`; unmatched, empty, partial, ambiguous, or zero-match scope remains a hard failure.
+- Before Prompt 0.8 assigns production IDs, a current-run `distinct_follow_up` or `program_lineage` may carry candidate-to-candidate edges in `related_candidate_spec_ids` while `related[]` remains empty. Every provisional target must resolve uniquely within the current-run scope; dangling, ambiguous, duplicate, or self-referential provisional edges are hard failures.
+- Run all four validators against `<MERGED_BASELINE_CANDIDATE_ARTIFACT>` before `publish_ready=true`:
+  `python validation_scripts/evidence_qc_v8_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --new-id-file <CURRENT_RUN_ID_FILE>`,
+  `python validation_scripts/related_lifecycle_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-contract --allow-provisional-related --new-id-file <CURRENT_RUN_ID_FILE>`,
+  `python validation_scripts/date_role_freshness_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-date-role --new-id-file <CURRENT_RUN_ID_FILE>`, and
+  `python validation_scripts/stage_artifact_contract_check.py 0.7 <MERGED_BASELINE_CANDIDATE_ARTIFACT>`.
+- Do not apply `--require-contract` unscoped to the full legacy inventory; strict V3 fields are current-run obligations while legacy rows remain under the legacy-compatible check.
 - Reapprove bounded single-source exceptions without weakening Related proof.
 - Output filename must be `publish_ready_PENDING_MERGE_PREP_<RUN_TAG>.json`;
   reserve `pr_candidate_payload` for Prompt 0.8.

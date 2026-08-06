@@ -35,10 +35,13 @@ def load_ids(path: str | None) -> set[str] | None:
     if source.suffix.lower() == ".csv":
         rows = csv.DictReader(source.open(encoding="utf-8-sig"))
         return {
-            str(value)
+            str(value).strip()
             for row in rows
-            for value in [row.get("assigned_id") or row.get("id") or row.get("card_id")]
-            if value
+            for value in [
+                row.get("assigned_id") or row.get("id") or row.get("card_id")
+                or row.get("draft_id") or row.get("source_spec_id")
+            ]
+            if value and str(value).strip()
         }
     payload = json.loads(source.read_text(encoding="utf-8"))
     if isinstance(payload, list):
@@ -47,7 +50,7 @@ def load_ids(path: str | None) -> set[str] | None:
         for key in ("ids", "new_ids", "production_ids"):
             if isinstance(payload.get(key), list):
                 return {str(value) for value in payload[key]}
-    raise ValueError("ID file must be a list, ids[] JSON, or CSV")
+    raise ValueError("ID file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id/draft_id/source_spec_id")
 
 
 def relation_type(card: dict[str, Any], role: dict[str, Any]) -> str | None:

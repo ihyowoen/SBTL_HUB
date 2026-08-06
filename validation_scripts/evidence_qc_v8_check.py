@@ -136,9 +136,12 @@ def load_ids(path: str | None) -> set[str] | None:
         rows = csv.DictReader(source.open(encoding="utf-8-sig"))
         values = set()
         for row in rows:
-            value = row.get("assigned_id") or row.get("id") or row.get("card_id")
-            if value:
-                values.add(str(value))
+            value = (
+                row.get("assigned_id") or row.get("id") or row.get("card_id")
+                or row.get("draft_id") or row.get("source_spec_id")
+            )
+            if value and str(value).strip():
+                values.add(str(value).strip())
         return values
     payload = json.loads(source.read_text(encoding="utf-8"))
     if isinstance(payload, list):
@@ -147,7 +150,7 @@ def load_ids(path: str | None) -> set[str] | None:
         for key in ("ids", "new_ids", "production_ids"):
             if isinstance(payload.get(key), list):
                 return {str(value) for value in payload[key]}
-    raise ValueError("ID scope file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id")
+    raise ValueError("ID scope file must be a list, ids[] JSON, or CSV with assigned_id/id/card_id/draft_id/source_spec_id")
 
 
 def main() -> int:

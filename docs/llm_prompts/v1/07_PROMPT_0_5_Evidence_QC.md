@@ -17,17 +17,19 @@ Use GitHub main as the workflow source of truth.
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -148,7 +150,10 @@ Required lineage fields to confirm, directly or through carried-forward metadata
 - artifact_consistency_gate.status: PASS
 - Stage A selector marker is present and accepted. Accepted markers include `enhanced_selector_precision_version: 20260505_safe_execution_anchor` or later/equivalent, or legacy `selector_policy_version: stage_a_high_precision_execution_anchor_v2` or later.
 - strict_pass_gate or strict_gate_check exists for every candidate that originated from strict_passed_spec[]
-- execution_anchor_type / execution_anchor_strength is present for every format-risk candidate
+- every format-risk candidate preserves a passing `anchor_path_validation` and selects exactly one source-backed path:
+  - `selected_anchor_path: execution` with non-empty `execution_anchor_type` and adequate/strong `execution_anchor_strength`; or
+  - `selected_anchor_path: v3_non_execution` with `structural_value_override_applied: true`, complete canonical V3 override metadata, and the execution route explicitly `not_applicable` with a specific reason.
+- conventional execution-anchor fields are not mandatory for a valid `v3_non_execution` path; missing, dual-claimed, contradictory, or unsupported route metadata is invalid upstream lineage
 - watchlist_audit, if a user watchlist was provided, accounts for every watchlist item without auto-promotion
 
 If these fields are missing, inconsistent, stale, or indicate failure, do not silently continue. Stop this step and report:
@@ -178,7 +183,9 @@ If a candidate has any of these tags:
 - speech_or_political_statement
 - personnel
 
-then evidence QC must confirm body-level or official evidence for at least one concrete execution anchor, such as:
+then evidence QC must confirm body-level or official evidence for exactly one supported anchor path:
+
+1. `execution` — a concrete execution anchor such as:
 
 - signed contract
 - customer order
@@ -196,7 +203,11 @@ then evidence QC must confirm body-level or official evidence for at least one c
 - safety recall or regulatory action
 - named customer adoption
 
-If the anchor is missing or only implied by commentary, do not mark evidence_complete. Route the card to addable_hold_claim_gap or needs_return_to_prompt_c with reason execution_anchor_not_evidenced.
+2. `v3_non_execution` — a complete, source-backed V3 Structural Value Override that preserves the governing `anchor_classes[]`, item-specific `evidence_needed_for_stage_b[]`, specific `why_execution_event_not_required`, before-after change, changed judgment, and route metadata from the current-run lineage.
+
+For every format-risk item, validate the selected route and require exactly one route status to be `pass`; the other route must be `not_applicable` with a specific `non_applicable_anchor_path_reason`. If neither route is source-backed, both routes are claimed, the selected route conflicts with the current-run lineage, or the route is only implied by commentary, do not mark `evidence_complete`. Route the card to `addable_hold_claim_gap` or `needs_return_to_prompt_c` with reason `anchor_path_not_evidenced` or the more specific route conflict reason.
+
+A complete V3 non-execution route must not be held solely because a conventional execution anchor is absent.
 
 Evidence QC must not convert review_pool, support_source_only, rejected, duplicate_hold, existing_reinforcement, or baseline_conflict items into addable candidates.
 
@@ -205,13 +216,15 @@ Governance hierarchy:
 When rules conflict, apply this hierarchy:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 FACT_DISCIPLINE.md always wins for facts, numbers, quotes, and evidence discipline.
 
@@ -810,6 +823,31 @@ Each evidence_complete_and_source_claim_covered item must include:
 - urls
 - related
 - fact_sources
+
+For every format-risk `evidence_complete_and_source_claim_covered[]` item, preserve the same-run `anchor_path_validation` and route-status fields without alteration.
+
+For every such item with `selected_anchor_path = v3_non_execution`, preserve the complete canonical, source-backed Structural Value Override package byte-for-byte from Baseline Revalidation:
+
+- `structural_value_override_applied: true`
+- `structural_value_override_reason`
+- non-empty valid `anchor_classes[]`
+- `incremental_information`
+- `decision_relevance`
+- `baseline_expectation_changed`
+- non-empty item-specific `evidence_needed_for_stage_b[]`
+- non-empty measurable `next_confirmation_points[]`
+- specific `why_execution_event_not_required`
+- `prior_state`
+- `new_verified_fact`
+- `changed_judgment`
+- `uncertainty_resolved`
+- `remaining_uncertainty`
+- applicable probability-change fields
+- applicable baseline-expectation / before-after fields
+- current-run source lineage that supports every package field
+
+Do not summarize away, reconstruct from memory, rename, or drop any package field. Missing, altered, generic, unsupported, or internally inconsistent V3 package metadata requires `addable_hold_claim_gap` or return to the earliest defective stage; it must not enter `evidence_complete_and_source_claim_covered[]`.
+
 - evidence_complete: true
 - source_claim_covered: true
 - content_enriched: false
@@ -1041,7 +1079,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - confirm each was read from GitHub main
    - if any doc was not read, this step must not proceed
 
@@ -1173,11 +1211,24 @@ For every candidate in `addable_merge_safe[]`, require either:
 1. `strict_pass_gate.status = PASS`, or
 2. an equivalent lineage field showing that the candidate passed Stage A strict-gate validation and Stage C strict-gate acceptance validation.
 
-For every candidate with `format_risk_tags` such as product/demo/PoC/component/interview/roundup/commentary/speech/personnel/partnership, require:
+For every candidate with `format_risk_tags` such as product/demo/PoC/component/interview/roundup/commentary/speech/personnel/partnership, require the preserved `anchor_path_validation` to prove exactly one source-backed route:
 
-- `execution_anchor_type` is not null;
-- `execution_anchor_strength` is `adequate` or `strong`; and
-- Stage C did not leave unresolved `execution_anchor_gap`, `selection_defect`, or `source_direction_reversal` findings.
+1. execution route
+   - `selected_anchor_path = execution`
+   - `anchor_path_qc_passed = true`
+   - `execution_anchor_qc_status = pass`
+   - `structural_value_override_qc_status = not_applicable`
+   - `execution_anchor_type` is not null
+   - `execution_anchor_strength` is `adequate` or `strong`
+
+2. V3 non-execution route
+   - `selected_anchor_path = v3_non_execution`
+   - `anchor_path_qc_passed = true`
+   - `structural_value_override_qc_status = pass`
+   - `execution_anchor_qc_status = not_applicable`
+   - the complete source-backed Structural Value Override package remains intact, including valid `anchor_classes[]`, item-specific `evidence_needed_for_stage_b[]`, specific `why_execution_event_not_required`, before-after change, changed judgment, and current-run source lineage
+
+For either route, the non-selected route must be `not_applicable` with a specific `non_applicable_anchor_path_reason`, and Stage C must not have left unresolved `anchor_path_issue`, `selection_defect`, `source_direction_reversal`, or route-lineage conflict findings. Do not require a conventional execution anchor when the complete V3 non-execution route is the single validated path.
 
 If any required upstream lineage field is missing, contradictory, or failed, stop and report:
 
@@ -1190,10 +1241,10 @@ If any required upstream lineage field is missing, contradictory, or failed, sto
 }
 ```
 
-If only individual candidates have lineage or execution-anchor gaps while the overall lineage is valid, exclude those candidates from evidence QC and record them as:
+If only individual candidates have lineage or anchor-path gaps while the overall lineage is valid, exclude those candidates from evidence QC and record them as:
 
 - `addable_hold_selection_lineage_gap`, or
-- `addable_hold_execution_anchor_gap`
+- `addable_hold_anchor_path_gap`
 
 Do not mark any such candidate as `evidence_complete` or `source_claim_covered`.
 
@@ -1257,75 +1308,82 @@ Do not proceed to content enrichment or language polish until I explicitly say �
 
 ---
 
-## Execution-anchor and selector-lineage safety overlay — 2026-05-05
+## Anchor-path and selector-lineage safety overlay — V3
 
-This overlay is downstream of the Stage A safe-selector integrated rule. It prevents post-acceptance steps from laundering a weak or superseded Stage A/B/C lineage into publish-ready or production status.
+This overlay prevents post-acceptance steps from laundering a weak or superseded Stage A/B/C lineage into evidence-complete status.
 
 Terminology lock:
 
-- Do not use or enforce a format-based hard-exclude rule.
-- Product, demo, PoC, component, interview, commentary, roundup, speech, or personnel formats are not automatically rejected by format alone.
-- They are subject to a strict-pass presumption block: without a concrete fresh execution anchor, they must not have entered `strict_passed_spec[]`; if they did, the downstream step must hold, reject, or return the item to the appropriate prior stage rather than polishing it forward.
-- Concrete execution anchors include signed contract, binding customer order, offtake, commercial deployment, field installation, commissioning, production start, facility opening, certification, regulatory decision, public funding approval, binding procurement, measurable capacity addition, safety recall/regulatory action, or named customer adoption.
+- Do not use a format-based hard-exclude rule.
+- Product, demo, PoC, component, interview, commentary, roundup, speech, or personnel formats are not automatically rejected.
+- A format-risk item must carry exactly one source-backed path: a concrete execution anchor or a complete V3 non-execution Structural Value Override.
+- If neither path is valid, hold, reject, or return the item to the earliest defective stage.
 
 ### Required upstream lineage gate for Evidence QC
 
-Before Evidence QC begins, verify that `BASELINE_REVALIDATION_JSON` carries a valid current-run lineage declaration. It should either contain these fields directly or preserve them through a nested `upstream_lineage` / `stage_a_lineage` object:
+Before Evidence QC begins, verify that `BASELINE_REVALIDATION_JSON` carries a valid current-run lineage declaration directly or through `upstream_lineage` / `stage_a_lineage`:
 
 - `stage_a_validity_status: PASS`
 - `artifact_consistency_gate.status: PASS`
-- the Stage A selector marker includes `20260505_safe_execution_anchor`, `execution_anchor_presumption_block`, or later equivalent
-- every addable candidate originated from Stage C `accepted_fact_safe[]` in the same run
-- no candidate came from Stage A `review_pool[]`, Stage B `draft_blocked[]`, Stage C `revise_required[]`, `rejected[]`, `support_source_only[]`, or any superseded r0/r1 lineage
+- `structural_selector_policy_version: STRUCTURAL_NEWS_VALUE_SELECTION_V3`
+- every addable candidate originated from current-run Stage C `accepted_fact_safe[]`
+- every format-risk item carries Stage C `anchor_path_validation`
+- no candidate came from a review, blocked, rejected, support-only, revise-required, or superseded lineage without an explicit authorized reopen
 
-If any field is missing, contradictory, or indicates a superseded/invalid lineage, stop and report:
+If any field is missing, contradictory, or stale, stop with `BLOCKED_UPSTREAM_LINEAGE_INVALID` and perform no evidence QC.
 
-```text
-status: BLOCKED_UPSTREAM_LINEAGE_INVALID
-reason: [...]
-no evidence QC work performed
-```
+### Anchor-path evidence check
 
-### Execution-anchor evidence check
+For every format-risk `addable_merge_safe[]` item, Evidence QC must verify exactly one route:
 
-For every `addable_merge_safe[]` item with any of the following markers, Evidence QC must verify body-level or official evidence for the execution anchor before assigning `evidence_complete_and_source_claim_covered`:
+Execution route:
 
-- `format_risk_tags` is non-empty
-- `execution_anchor_type` is present
-- `execution_anchor_strength` is `candidate`, `weak`, `uncertain`, or missing
-- `strict_pass_gate.format_risk_handled` is not `pass`
-- the visible fields imply execution, deployment, certification, funding, procurement, or commercial scale
+- body-level or official evidence supports the concrete execution anchor;
+- visible fields do not overstate execution stage, scale, timing, causality, or commercial maturity.
 
-If the evidence does not support the execution anchor, route the card to one of:
+V3 non-execution route:
 
-- `addable_hold_claim_gap`
-- `addable_hold_source_gap`
-- `needs_source_augmentation`
-- `evidence_qc_rejected`
+- `structural_value_override_applied: true`;
+- the non-execution anchor class is valid;
+- every item-specific `evidence_needed_for_stage_b[]` claim, metric, stage, date, and uncertainty is covered by body-level or official evidence;
+- `why_execution_event_not_required`, before-after chain, and changed judgment are specific and source-supported;
+- the card does not launder strategic intent, preliminary data, policy discussion, technical possibility, or follow-up probability into execution.
 
-Do not fix this by rewriting prose alone. Evidence QC cannot convert a format-risk candidate into `source_claim_covered` unless the concrete execution anchor is source-backed.
+Exactly one route may pass. The other must be `not_applicable` with a specific reason. If neither route passes, use `addable_hold_claim_gap`, `addable_hold_source_gap`, `needs_source_augmentation`, or `evidence_qc_rejected`. Do not repair an anchor-path defect by prose rewriting alone.
 
 ### Output requirement
 
-Add to the Evidence QC JSON:
+Add to Evidence QC JSON:
 
 ```json
 "upstream_lineage_validation": {
   "stage_a_validity_status": "PASS|FAIL|MISSING",
   "artifact_consistency_status": "PASS|FAIL|MISSING",
-  "stage_a_selector_marker": "enhanced_selector_precision_version: 20260505_safe_execution_anchor | selector_policy_version: execution_anchor_presumption_block | later equivalent",
+  "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
   "superseded_lineage_detected": false,
   "decision": "pass|blocked"
 },
-"execution_anchor_qc_summary": {
+"anchor_path_qc_summary": {
   "format_risk_input_count": 0,
-  "execution_anchor_supported_count": 0,
-  "execution_anchor_hold_count": 0,
-  "execution_anchor_rejected_count": 0
+  "anchor_path_pass_count": 0,
+  "execution_path_pass_count": 0,
+  "v3_non_execution_path_pass_count": 0,
+  "anchor_path_hold_count": 0,
+  "anchor_path_rejected_count": 0,
+  "item_results": [
+    {
+      "source_spec_id": "...",
+      "selected_anchor_path": "execution|v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass|not_applicable",
+      "structural_value_override_qc_status": "pass|not_applicable",
+      "non_applicable_anchor_path_reason": "..."
+    }
+  ]
 }
 ```
 
-Final override: if `upstream_lineage_validation.decision != "pass"`, the next recommended call must not be Prompt 0.6. It must be upstream repair or rerun from the last valid stage.
+Final override: if `upstream_lineage_validation.decision != "pass"` or any promoted format-risk item lacks a passing item result, the next recommended call must be upstream repair, not Prompt 0.6.
 
 ## Operational integrated rule — NO_UNVERIFIED_HOLD_OR_DELETE_RULE_20260507_V2
 

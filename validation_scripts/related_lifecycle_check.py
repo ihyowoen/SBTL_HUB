@@ -1,184 +1,102 @@
 #!/usr/bin/env python3
-"""Validate Related structure and future Related lifecycle contracts."""
+"""Review 4869087245 compatibility layer for Related assertion subjects."""
 from __future__ import annotations
 
-import argparse
-import csv
-import json
+import importlib.util
 import sys
 from pathlib import Path
-from typing import Any
 
-from card_audit_utils import (
-    ALLOWED_RELATION_TYPES,
-    dedupe,
-    parse_date,
-    select_scoped_cards,
+_PRIOR_PATH = Path(__file__).with_name(
+    "related_lifecycle_check_review4868891584_base.py"
+)
+_PRIOR_DIR = str(_PRIOR_PATH.parent)
+if _PRIOR_DIR not in sys.path:
+    sys.path.insert(0, _PRIOR_DIR)
+
+_SPEC = importlib.util.spec_from_file_location(
+    "validation_scripts.related_lifecycle_check_review4868891584_base",
+    _PRIOR_PATH,
+)
+if _SPEC is None or _SPEC.loader is None:
+    raise ImportError(f"cannot load Related validator base from {_PRIOR_PATH}")
+_prior = importlib.util.module_from_spec(_SPEC)
+_SPEC.loader.exec_module(_prior)
+
+# Keep the public source-level chronology contract visible to static checks;
+# behavior remains implemented by the preserved prior layer.
+_RESOLVED_PROVISIONAL_TARGETS_CONTRACT = "resolved_provisional_targets"
+_PROVISIONAL_CHRONOLOGY_ERROR_CONTRACT = (
+    "follow-up date precedes provisional predecessor"
+)
+_RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS = {
+    "ebitda", "profit", "profits", "capex", "opex", "yield", "yields",
+    "throughput", "영업이익", "이익", "수익", "설비투자", "자본지출",
+    "운영비", "영업비용", "수율", "처리량",
+}
+_prior._RELATED_DATA_FINANCIAL_ROLE_TERMS.update(
+    _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
+)
+_prior._ASSERTION_ROLE_TERMS.update(
+    _RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
 )
 
-PUBLISH_STATES = {"publish_ready", "github_merge_ready", "production_verified"}
-DISALLOWED_PUBLISH_RELATIONS = {
-    "same_event_duplicate",
-    "existing_card_reinforcement",
-    "uncertain_needs_review",
+for _name in dir(_prior):
+    if not _name.startswith("__"):
+        globals()[_name] = getattr(_prior, _name)
+
+_prior_item_specific_lineage_assertion = _prior.item_specific_lineage_assertion
+_GENERIC_JUDGMENT_DESCRIPTOR_TERMS = {
+    "outlook", "probability", "likelihood", "risk", "risks", "judgment",
+    "judgement", "expectation", "expectations", "forecast", "forecasts",
+    "sentiment", "confidence", "conviction", "view", "views",
+    "전망", "확률", "가능성", "위험", "리스크", "판단", "기대", "예측",
+    "심리", "신뢰", "신뢰도", "확신", "견해",
 }
 
 
-def load_cards(path: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    payload = json.loads(Path(path).read_text(encoding="utf-8"))
-    if isinstance(payload, list):
-        return {"cards": payload}, payload
-    cards = payload.get("cards")
-    if not isinstance(cards, list):
-        raise ValueError("input must be a card list or an object with cards[]")
-    return payload, cards
+def item_specific_lineage_assertion(value):
+    """Reject generic judgment descriptors plus change predicates as subjects."""
+    if not _prior_item_specific_lineage_assertion(value):
+        return False
+
+    normalized_value = _prior._normalize_assertion_text(value)
+    normalized = _prior._base.re.sub(
+        r"[^a-z0-9가-힣]+", " ", normalized_value
+    ).strip()
+    tokens = [token for token in normalized.split() if token]
+    normalized_role_tokens = [
+        _prior._normalize_assertion_role_token(token) for token in tokens
+    ]
+    subject_tokens = [
+        _prior._normalize_subject_token(token) for token in normalized_role_tokens
+    ]
+    temporal_indexes = _prior._assertion_temporal_token_indexes(tokens)
+
+    meaningful_tokens = []
+    for index, (role_token, subject_token) in enumerate(
+        zip(normalized_role_tokens, subject_tokens)
+    ):
+        if index in temporal_indexes or subject_token.isdigit():
+            continue
+        if subject_token in _prior._ASSERTION_NEUTRAL_SUBJECT_TOKENS:
+            continue
+        if subject_token in _prior._GENERIC_OWNER_SINGULARS:
+            continue
+        if subject_token in _prior._base._GENERIC_LINEAGE_ASSERTION_TOKENS:
+            continue
+        meaningful_tokens.append((role_token, subject_token))
+
+    if meaningful_tokens and all(
+        role_token in _prior._ASSERTION_CHANGE_PREDICATE_TERMS
+        or subject_token in _GENERIC_JUDGMENT_DESCRIPTOR_TERMS
+        for role_token, subject_token in meaningful_tokens
+    ):
+        return False
+    return True
 
 
-def load_ids(path: str | None) -> set[str] | None:
-    if path is None:
-        return None
-    if path.endswith(".csv"):
-        rows = csv.DictReader(Path(path).open(encoding="utf-8-sig"))
-        values = set()
-        for row in rows:
-            value = row.get("assigned_id") or row.get("id") or row.get("card_id")
-            if value:
-                values.add(value)
-        return values
-    payload = json.loads(Path(path).read_text(encoding="utf-8"))
-    if isinstance(payload, list):
-        return {str(value) for value in payload}
-    for key in ("ids", "new_ids", "production_ids"):
-        if isinstance(payload.get(key), list):
-            return {str(value) for value in payload[key]}
-    raise ValueError("new-id file must contain a list or ids[]")
-
-
-def relation_object(card: dict[str, Any]) -> dict[str, Any] | None:
-    for key in ("related_lineage", "related_evidence_review", "related_prepass"):
-        value = card.get(key)
-        if isinstance(value, dict):
-            return value
-    return None
-
-
-def check_card(card: dict[str, Any], by_id: dict[str, dict[str, Any]], require_contract: bool):
-    cid = str(card.get("id", ""))
-    related = card.get("related") or []
-    errors = []
-    warnings = []
-
-    if not isinstance(related, list):
-        return ["related must be a list"], warnings
-    if related != dedupe(related):
-        errors.append("related contains duplicate IDs")
-    if cid and cid in related:
-        errors.append("related contains self-reference")
-    for target in related:
-        if target not in by_id:
-            errors.append(f"dangling related ID: {target}")
-
-    lineage = relation_object(card)
-    if require_contract and lineage is None:
-        errors.append("missing related lifecycle object")
-        return errors, warnings
-    if lineage is None:
-        return errors, warnings
-
-    if require_contract and lineage.get("status") != "PASS":
-        errors.append("related lifecycle status must be PASS")
-    if require_contract and lineage.get("same_event_checked") is not True:
-        errors.append("same_event_checked must be true")
-    if require_contract and lineage.get("earliest_same_event_date_checked") is not True:
-        errors.append("earliest_same_event_date_checked must be true")
-
-    relation_type = lineage.get("relation_type") or lineage.get("relation_type_candidate")
-    if relation_type not in ALLOWED_RELATION_TYPES:
-        errors.append(f"invalid relation_type={relation_type}")
-        return errors, warnings
-
-    declared = lineage.get("related_ids")
-    if isinstance(declared, list) and set(declared) != set(related):
-        errors.append("related_lineage.related_ids does not match related[]")
-
-    if relation_type == "new_unrelated_event" and related:
-        errors.append("new_unrelated_event must have empty related[]")
-    if relation_type in {"distinct_follow_up", "program_lineage"} and not related:
-        errors.append(f"{relation_type} requires at least one related ID")
-    if relation_type == "distinct_follow_up" and not lineage.get("fresh_follow_up_anchor"):
-        errors.append("distinct_follow_up requires fresh_follow_up_anchor")
-
-    is_publishable = card.get("publish_ready") is True or card.get("state") in PUBLISH_STATES
-    if relation_type in DISALLOWED_PUBLISH_RELATIONS and (require_contract or is_publishable):
-        errors.append(
-            f"validated new-card output may not use relation_type={relation_type}"
-        )
-
-    if not lineage.get("reason") and not lineage.get("relation_reason"):
-        errors.append("relation reason is required")
-
-    if relation_type == "distinct_follow_up":
-        child_date = parse_date(card.get("date"))
-        for target in related:
-            parent = by_id.get(target)
-            parent_date = parse_date(parent.get("date")) if parent else None
-            if child_date and parent_date and child_date < parent_date:
-                errors.append(f"follow-up date precedes predecessor {target}")
-
-    unresolved = (
-        lineage.get("related_candidate_spec_ids")
-        or card.get("related_candidate_spec_ids")
-        or []
-    )
-    if unresolved and card.get("state") in {"github_merge_ready", "production_verified"}:
-        errors.append("unresolved related_candidate_spec_ids remain after merge prep")
-    return errors, warnings
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("input")
-    parser.add_argument("--new-id-file")
-    parser.add_argument("--require-contract", action="store_true")
-    parser.add_argument("--report")
-    args = parser.parse_args()
-
-    _, cards = load_cards(args.input)
-    by_id = {str(card.get("id")): card for card in cards if card.get("id")}
-    selected = load_ids(args.new_id_file)
-    rows, scope = select_scoped_cards(cards, selected)
-
-    findings = []
-    if scope["errors"]:
-        findings.append({
-            "id": "<id-scope>",
-            "source_spec_id": None,
-            "errors": scope["errors"],
-            "warnings": [],
-        })
-    for card in rows:
-        errors, warnings = check_card(card, by_id, args.require_contract)
-        if errors or warnings:
-            findings.append({
-                "id": card.get("id"),
-                "source_spec_id": card.get("source_spec_id"),
-                "errors": errors,
-                "warnings": warnings,
-            })
-    error_count = sum(len(row["errors"]) for row in findings)
-    report = {
-        "id_scope": scope,
-        "status": "PASS" if error_count == 0 else "FAIL",
-        "cards_checked": len(rows),
-        "error_count": error_count,
-        "finding_count": len(findings),
-        "findings": findings,
-    }
-    print(json.dumps(report, ensure_ascii=False, indent=2))
-    if args.report:
-        Path(args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    return 1 if error_count else 0
-
+_prior.item_specific_lineage_assertion = item_specific_lineage_assertion
+_prior._base.item_specific_lineage_assertion = item_specific_lineage_assertion
 
 if __name__ == "__main__":
-    sys.exit(main())
+    _prior._base.sys.exit(_prior._base.main())

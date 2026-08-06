@@ -6,12 +6,15 @@ Prompt 0.2R — Reusable Default / Replace All / Stage B Revise Pass
 
 Proceed to Stage B revise pass only.
 
-Use the current run’s Stage C revise_required[] as the only input universe for this revise pass.
+Use exactly one current-run revise input universe for this pass:
+
+- revision pass `r1`: the immediately previous Stage C `revise_required[]`; or
+- revision pass `r2` or later: the immediately previous Stage C revise `revise_required_again[]`.
 
 This is not a new Stage B run.
 This is not candidate selection.
 This is not source augmentation unless explicitly authorized.
-This is a limited revision pass for cards that Stage C classified as revise_required.
+This is a limited revision pass for cards that the immediately preceding Stage C-family step classified into the selected revise state.
 
 Input files:
 
@@ -30,17 +33,19 @@ Input files:
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -50,13 +55,20 @@ If any required document is missing, inaccessible, unreadable, stale, ambiguous,
 
 Candidate input rule:
 
-Only previous Stage C revise_required[] may enter this Stage B revise pass.
+Select exactly one input state from the immediately preceding Stage C-family output:
+
+- If `REVISION_PASS = r1`, only previous Stage C `revise_required[]` may enter.
+- If `REVISION_PASS = r2` or later, only the immediately previous Stage C revise `revise_required_again[]` may enter.
+
+Do not mix `revise_required[]` and `revise_required_again[]` in one pass. Do not skip across revision generations or import an older loop's unresolved items.
 
 Do not include:
 - previous Stage C accepted_fact_safe
 - previous Stage C rejected
 - previous Stage C support_source_only
 - previous Stage C deferred_review_pool
+- previous Stage C `revise_required[]` when `REVISION_PASS` is r2 or later
+- previous Stage C revise `revise_required_again[]` when `REVISION_PASS` is r1
 - Stage B draft_blocked
 - Stage A review_pool
 - Stage A rejected
@@ -65,11 +77,21 @@ Do not include:
 - any new web-discovered candidate
 - any prior-run candidate
 
-If any non-revise_required item is mixed in, exclude it and report mixed_input_excluded.
+If any item outside the selected revise input state is mixed in, exclude it and report `mixed_input_excluded`.
+
+Anchor-path revise input rule:
+
+For every format-risk item in the selected `revise_required[]` or `revise_required_again[]` input, consume the complete immediately preceding `anchor_path_validation` object.
+
+- If the selected route was already settled and only visible wording requires revision, preserve `anchor_path_validation` byte-for-byte.
+- If the settled route is `v3_non_execution`, also preserve the complete canonical Structural Value Override package byte-for-byte: `structural_value_override_applied`, `structural_value_override_reason`, `anchor_classes[]`, `evidence_needed_for_stage_b[]`, `why_execution_event_not_required`, `prior_state`, `new_verified_fact`, `changed_judgment`, `uncertainty_resolved`, `remaining_uncertainty`, `incremental_information`, `baseline_expectation_changed`, `decision_relevance`, and `next_confirmation_points[]`. A wording-only revision must not summarize, rename, drop, or regenerate these fields.
+- If Stage C emitted `selected_anchor_path: unresolved`, this pass may resolve the route only from already-authorized, source-backed evidence in the current run. It must select exactly one of `execution` or `v3_non_execution`, set `anchor_path_qc_passed: true`, set exactly one route status to `pass`, set the other to `not_applicable`, and provide a specific `non_applicable_anchor_path_reason`. When resolving to `v3_non_execution`, the complete canonical package above must be present and source-backed; existing non-null package fields must remain byte-for-byte stable unless the resolution change is explicitly recorded in `revision_change_log[]`.
+- If the existing evidence cannot resolve exactly one route, do not manufacture a passing object. Route the item to the appropriate revise-blocked state and preserve the unresolved object plus the remaining issue.
+- Source augmentation remains subject to the explicit authorization rule below.
 
 Role of this pass:
 
-Stage B revise pass must fix only the specific issues identified by Stage C revise_required.
+Stage B revise pass must fix only the specific issues identified by the selected immediately preceding `revise_required[]` or `revise_required_again[]` input state.
 
 Allowed fixes:
 
@@ -103,7 +125,7 @@ Source augmentation rule:
 
 Default: source augmentation is not authorized.
 
-If Stage C revise_required says source augmentation is needed, do not perform it automatically.
+If the selected Stage C-family revise input says source augmentation is needed, do not perform it automatically.
 
 Instead mark:
 - revise_blocked_needs_source_augmentation
@@ -124,7 +146,7 @@ If augmentation cannot satisfy source diversity or the single-source exception, 
 
 Revision decision states:
 
-Every revise_required item must appear exactly once as:
+Every item in the selected `revise_required[]` or `revise_required_again[]` input must appear exactly once as:
 
 1. revised_draft_card
 
@@ -148,7 +170,7 @@ Use when manual judgment is needed.
 
 Accounting rule:
 
-Every previous Stage C revise_required item must appear exactly once in this Stage B revise output.
+Every item in the selected immediately preceding revise input must appear exactly once in this Stage B revise output.
 
 Output files:
 
@@ -166,14 +188,19 @@ JSON output must include:
 - run_label
 - input_previous_stage_b_file
 - input_previous_stage_c_file
+- revise_input_state: revise_required|revise_required_again
+- revise_input_count
 - revise_required_input_count
+- revise_required_again_input_count
 - revised_draft_card_count
 - revise_blocked_needs_source_augmentation_count
 - revise_blocked_evidence_gap_count
 - revise_blocked_scope_change_required_count
 - revise_blocked_manual_review_count
 - outcome_total_count
-- accounting_matches_revise_required_input_count
+- accounting_matches_revise_input_count
+- accounting_matches_revise_required_input_count, required for r1 and `not_applicable` with reason for r2+
+- accounting_matches_revise_required_again_input_count, required for r2+ and `not_applicable` with reason for r1
 - revised_draft_cards[]
 - revise_blocked_needs_source_augmentation[]
 - revise_blocked_evidence_gap[]
@@ -181,6 +208,11 @@ JSON output must include:
 - revise_blocked_manual_review[]
 - revision_change_log[]
 - decision_ledger[]
+- anchor_path_revision_summary
+  - format_risk_input_count
+  - anchor_path_preserved_count
+  - anchor_path_resolved_count
+  - anchor_path_still_unresolved_count
 
 Each revised_draft_card must include:
 
@@ -202,6 +234,9 @@ Each revised_draft_card must include:
 - urls
 - related
 - fact_sources
+- `anchor_path_validation` for every format-risk item
+- when `anchor_path_validation.selected_anchor_path = v3_non_execution`, the complete byte-for-byte canonical package: `structural_value_override_applied`, `structural_value_override_reason`, `anchor_classes[]`, `evidence_needed_for_stage_b[]`, `why_execution_event_not_required`, `prior_state`, `new_verified_fact`, `changed_judgment`, `uncertainty_resolved`, `remaining_uncertainty`, `incremental_information`, `baseline_expectation_changed`, `decision_relevance`, and `next_confirmation_points[]`
+- `anchor_path_resolution_action: preserved|resolved_from_unresolved`
 - stage_b_revise_only: true
 - publish_ready: false
 - revision_change_log
@@ -223,7 +258,7 @@ Each revision_change_log item must include:
 Report must include:
 
 1. Revision pass metadata
-2. Stage C revise_required input count
+2. Selected revise input state and count (`revise_required[]` for r1 or `revise_required_again[]` for r2+)
 3. Scope confirmation
 4. What was fixed
 5. What was blocked and why
@@ -231,7 +266,7 @@ Report must include:
 7. Accounting check
 8. Boundary statement:
 
-“Stage B revise pass fixed only Stage C revise_required items. It did not add new candidates, promote review_pool, rescue rejected cards, decide accepted_fact_safe, decide evidence_complete, or decide publish_ready.”
+“Stage B revise pass fixed only the selected immediately preceding Stage C-family revise items (`revise_required[]` for r1 or `revise_required_again[]` for r2+). It did not add new candidates, promote review_pool, rescue rejected cards, decide accepted_fact_safe, decide evidence_complete, or decide publish_ready.”
 
 
 

@@ -15,17 +15,19 @@ Use GitHub main as the workflow source of truth.
 Before starting, read the latest versions of all required workflow docs from GitHub main:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 Required-doc rule:
 
-All 8 documents above are mandatory.
+All 10 documents above are mandatory.
 
 If any required document is missing, inaccessible, unreadable, stale, ambiguous, or cannot be confirmed from GitHub main, stop immediately and report:
 
@@ -126,13 +128,15 @@ Governance hierarchy:
 When rules conflict, apply this hierarchy:
 
 1. docs/FACT_DISCIPLINE.md
-2. docs/PROMPT_ABC_DEFAULT_MODE.md
-3. docs/PROMPT_ABC_SUPPORTING_RULES.md
-4. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
-5. docs/CARD_ID_STANDARD.md
-6. docs/WORKFLOW.md
-7. docs/OPERATIONS.md
-8. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
+2. docs/STRUCTURAL_NEWS_VALUE_SELECTION.md
+3. docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md
+4. docs/PROMPT_ABC_DEFAULT_MODE.md
+5. docs/PROMPT_ABC_SUPPORTING_RULES.md
+6. docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md
+7. docs/CARD_ID_STANDARD.md
+8. docs/WORKFLOW.md
+9. docs/OPERATIONS.md
+10. docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md
 
 FACT_DISCIPLINE.md always wins for facts, numbers, quotes, and evidence discipline.
 
@@ -362,7 +366,7 @@ Critical workflow rules:
 
    Instead, apply a strict-pass presumption block:
 
-   - If no concrete execution anchor is visible in upstream metadata, source_packets, usable_text, or the available content preview, the story must not enter strict_passed_spec[].
+   - If neither a concrete execution anchor nor a complete V3 Structural Value Override is visible in upstream metadata, source_packets, usable_text, or the available content preview, the story must not enter strict_passed_spec[]. A valid override requires a supported non-execution anchor class, item-specific Stage B evidence targets, and a specific explanation of why a conventional execution event is unnecessary.
    - Route strategically relevant but incomplete format-risk items to needs_review / review_pool.
    - Route background-only format-risk items to support_source_only.
    - Reject only when the item is promotional, stale, out-of-scope, evidence-poor, duplicate, generic/static, internally contradictory beyond repair, or lacks SBTL_HUB decision value.
@@ -398,6 +402,10 @@ Critical workflow rules:
    - format_risk_tags
    - execution_anchor_type
    - execution_anchor_strength
+   - structural_value_override_applied
+   - anchor_classes
+   - evidence_needed_for_stage_b
+   - why_execution_event_not_required
    - strict_pass_gate
 
    strict_pass_gate.status must be one of:
@@ -407,9 +415,9 @@ Critical workflow rules:
    - blocked_to_support_source_only
    - blocked_to_rejected
 
-   A format-risk item may enter strict_passed_spec only when strict_pass_gate.status = "pass" and execution_anchor_strength is "strong" or "moderate".
+   A format-risk item may enter strict_passed_spec only when strict_pass_gate.status = "pass" and either (a) execution_anchor_strength is "strong" or "moderate", or (b) structural_value_override_applied is true with at least one valid non-execution anchor class, non-empty item-specific evidence_needed_for_stage_b, and non-empty specific why_execution_event_not_required.
 
-   Do not use the phrases hard-exclude, automatic exclusion, or categorical exclusion in Stage A reasoning for these formats. The correct reasoning is: strict-pass blocked unless a concrete fresh execution anchor is visible.
+   Do not use the phrases hard-exclude, automatic exclusion, or categorical exclusion in Stage A reasoning for these formats. The correct reasoning is: strict-pass blocked unless either a concrete fresh execution anchor or a complete V3 non-execution Structural Value Override is visible in the allowed Stage A inputs.
 
 17. Stage B spec failure terminology:
 
@@ -474,9 +482,9 @@ Now perform Stage A only.
 
 Stage A tasks:
 
-A. Read all 8 required docs from GitHub main.
+A. Read all 10 required docs from GitHub main.
 
-B. If all 8 required docs are confirmed, load {{SOURCE_INPUT_FILE}}.
+B. If all 10 required docs are confirmed, load {{SOURCE_INPUT_FILE}}.
 
 C. Confirm run metadata and story counts from the source input:
 
@@ -521,7 +529,7 @@ F. Do not auto-pass KEEP.
    - strategic signal
    - full-schema viability
    - format-risk status for product/demo/PoC/component/interview/roundup/commentary/speech/personnel/partnership items
-   - concrete execution-anchor viability when format-risk is present
+   - concrete execution-anchor or complete V3 non-execution-anchor viability when format-risk is present
 
 G. Do not perform external web search.
 
@@ -541,7 +549,7 @@ L. Identify strict_passed_spec candidates for Stage B.
    - acceptable duplicate/follow-up relation
    - source tier and evidence availability risk not fatal
    - full-schema viability
-   - concrete execution anchor when format-risk tags are present
+   - for format-risk items, either a concrete execution anchor or a complete V3 Structural Value Override package with a valid non-execution anchor class, item-specific Stage B evidence targets, and a specific explanation of why execution is not required
 
    Do not promote a product/demo/PoC/component/interview/roundup/commentary/speech/personnel/partnership item to strict_passed_spec merely because it is interesting or thematically aligned.
 
@@ -567,14 +575,18 @@ The default Stage A output model is:
 `review_pool[]` may remain only as a backward-compatible aggregate container.
 If `review_pool[]` is emitted, every item inside it must duplicate the exact `review_pool_partition` used in the first-class partition arrays.
 
+`structural_signal_review` and `earnings_deep_dive` are not additional top-level partition arrays. They are `review_pool_subtype` values within `candidate_review_pool[]`, preserving the existing promotion workflow and partition enum.
+
 Partition definitions:
 
 1. `candidate_review_pool[]`
    - Plausibly cardable after bounded clarification.
    - Must have direct SBTL_HUB lane fit.
-   - Must have a plausible concrete execution anchor or a clearly checkable path to one.
+   - Must have a plausible valid anchor class or a clearly checkable path to one.
+   - A non-execution candidate must carry the V3 Structural Value Override fields, including item-specific Stage B evidence targets and why a conventional execution event is unnecessary.
    - Must have a specific unresolved issue that can be resolved by a later review/promotion run.
-   - Must include `promotion_precondition` and `bounded_review_question`.
+   - Must include `review_pool_subtype`, `promotion_precondition`, and `bounded_review_question`.
+   - Allowed subtypes are `general_candidate`, `structural_signal_review`, and `earnings_deep_dive`.
 
 2. `watchlist_context_pool[]`
    - Useful as industry context, trend context, source background, or future monitoring.
@@ -585,7 +597,7 @@ Partition definitions:
 3. `reject_or_support_only_pool[]`
    - Too weak for candidate review, but either useful as support_source_only or clearly rejectable.
    - Must not be recommended for Stage B or candidate promotion.
-   - Use for product/demo/PoC/partnership/commentary/macro items where the execution anchor is absent or too weak.
+   - Use for product/demo/PoC/partnership/commentary/macro items where neither a concrete execution anchor nor a complete V3 non-execution anchor package is sufficient.
 
 Stage A validity rule:
 
@@ -712,6 +724,20 @@ Each strict_passed_spec must include:
 - format_risk_tags
 - execution_anchor_type
 - execution_anchor_strength
+- structural_value_override_applied
+- structural_value_override_reason
+- anchor_classes
+- incremental_information
+- decision_relevance
+- baseline_expectation_changed
+- evidence_needed_for_stage_b
+- next_confirmation_points
+- why_execution_event_not_required
+- prior_state
+- new_verified_fact
+- changed_judgment
+- uncertainty_resolved
+- remaining_uncertainty
 - strict_pass_gate
 - title_raw
 - summary_hint
@@ -768,13 +794,31 @@ format_risk_tags should use one or more of:
 - consumer_field_data
 - none
 
-execution_anchor_strength must be one of:
+Anchor-route contract for `strict_passed_spec[]`:
 
-- strong
-- moderate
-- weak
-- none
-- unknown
+For every item with non-empty `format_risk_tags`, exactly one route must be complete:
+
+1. execution route
+   - non-empty `execution_anchor_type`;
+   - `execution_anchor_strength: strong | moderate`;
+   - `structural_value_override_applied: false`;
+   - override-only fields are null or empty.
+2. V3 non-execution route
+   - execution-route fields are null or empty, not `weak`, `none`, or `unknown` placeholders;
+   - `structural_value_override_applied: true`;
+   - non-empty item-specific `structural_value_override_reason`;
+   - at least one valid non-execution `anchor_classes[]` value;
+   - non-empty `incremental_information`, `decision_relevance`, and `baseline_expectation_changed`;
+   - non-empty `evidence_needed_for_stage_b[]`, where every entry identifies both a source/document/dataset/transcript/filing/test/report class and the exact claim, metric, stage, or date to verify;
+   - non-empty `next_confirmation_points[]`, where every entry identifies a measurable event or metric that can confirm, weaken, or invalidate the interpretation;
+   - specific `why_execution_event_not_required`;
+   - complete before-after chain: `prior_state`, `new_verified_fact`, `changed_judgment`, `uncertainty_resolved`, and `remaining_uncertainty`.
+
+Partial execution metadata, a generic or incomplete V3 package, dual-complete routes, or neither route complete must not enter `strict_passed_spec[]`; route the item to the appropriate review/support/reject partition.
+
+For an ordinary strict item with empty `format_risk_tags`, `execution_anchor_type` must be non-empty and `execution_anchor_strength` must be `strong | moderate`.
+
+Generic variants such as `official sources for confirmation`, `more evidence on adoption`, `additional data needed`, or equivalent wording do not satisfy the V3 evidence or confirmation-point contract.
 
 Each review_pool item must include:
 
@@ -936,9 +980,14 @@ The Stage A decisions CSV must include at minimum:
 - `format_risk_tags`
 - `execution_anchor_type`
 - `execution_anchor_strength`
+- `structural_value_override_applied`
+- `anchor_classes`
+- `evidence_needed_for_stage_b`
+- `why_execution_event_not_required`
 - `strict_pass_gate_status`
 - `strict_pass_gate_reason`
 - `review_pool_partition`
+- `review_pool_subtype`
 - `review_pool_partition_reason`
 - `promotion_precondition`
 - `bounded_review_question`
@@ -951,7 +1000,7 @@ For `stage_a_bucket = strict_passed_spec`:
 - `baseline_relation` must not be `duplicate_of_main`.
 - `duplicate_risk` must not be `fatal`.
 - `staleness_decision` must not be `stale`.
-- If `format_risk_tags` is not empty/none, `execution_anchor_strength` must be `strong` or `moderate`.
+- If `format_risk_tags` is not empty/none, either `execution_anchor_strength` must be `strong` or `moderate`, or `structural_value_override_applied` must be true with at least one valid non-execution `anchor_classes` value, non-empty item-specific `evidence_needed_for_stage_b`, and non-empty specific `why_execution_event_not_required`.
 
 For `stage_a_bucket = review_pool`:
 - `review_pool_partition` must be exactly one of:
@@ -960,6 +1009,8 @@ For `stage_a_bucket = review_pool`:
   - `reject_or_support_only_pool`
 - `review_pool_partition_reason` must not be empty.
 - `promotion_precondition` must not be empty for `candidate_review_pool`.
+- For `candidate_review_pool`, `review_pool_subtype` must be exactly one of `general_candidate`, `structural_signal_review`, or `earnings_deep_dive`.
+- `structural_signal_review` and `earnings_deep_dive` must never appear as top-level `review_pool_partition` values.
 - `recommended_next_action` must not recommend Stage B for `watchlist_context_pool` or `reject_or_support_only_pool`.
 
 CSV schema gate:
@@ -993,7 +1044,7 @@ The Markdown report must include:
 
 2. Required docs check
 
-   - list all 8 required docs
+   - list all 10 required docs
    - confirm each was read from GitHub main
    - if any doc was not read, Stage A must not proceed
 
@@ -1041,6 +1092,7 @@ The Markdown report must include:
    - staleness decision
    - why it can proceed to Stage B
    - execution anchor type and strength
+   - Structural Value Override status, anchor classes, Stage B evidence targets, and why execution is not required, when applicable
    - format-risk tags, if any
    - strict_pass_gate.status and reason
    - Stage B evidence package required before draft
@@ -1052,7 +1104,7 @@ The Markdown report must include:
    - reason for review
    - what must be checked before promotion
    - why it was not strict_passed_spec
-   - execution-anchor gap or source-strength gap, if applicable
+   - execution-anchor, non-execution-anchor, or source-strength gap, if applicable
 
 7. rejected summary
 
@@ -1327,6 +1379,10 @@ Every Stage A `strict_passed_spec[]` item must include:
 - `format_risk_tags`
 - `execution_anchor_type`
 - `execution_anchor_strength`
+- `structural_value_override_applied`
+- `anchor_classes`
+- `evidence_needed_for_stage_b`
+- `why_execution_event_not_required`
 - `baseline_relation`
 - `duplicate_risk`
 - `staleness_decision`
@@ -1749,7 +1805,7 @@ Every Stage A report and JSON output must include:
 
 ### Negative filters
 
-The following patterns must not enter `strict_passed_spec[]` unless a concrete battery/grid/ESS/EV/materials execution anchor is present:
+The following patterns must not enter `strict_passed_spec[]` unless either a concrete battery/grid/ESS/EV/materials execution anchor or a complete, item-specific V3 Structural Value Override is present:
 
 - generic finance or insurance items without battery/grid/ESS/EV/material impact
 - general AI/data-center items without power, grid, battery, ESS, or energy-infrastructure execution
@@ -2635,4 +2691,5 @@ Stage A Related/date overlay:
 - Emit preliminary `date_role` with publication/event/representative date candidates; do not invent dates.
 - Stage exit must satisfy:
   `python validation_scripts/stage_artifact_contract_check.py A <STAGE_A_JSON>`.
+  `python validation_scripts/stage_lineage_contract_check.py stage_a <STAGE_A_JSON>`.
 <!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->

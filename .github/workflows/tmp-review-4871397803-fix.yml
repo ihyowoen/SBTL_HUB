@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - agent/review-4870635557-related-assertions
+  pull_request:
+    types: [synchronize]
 
 permissions:
   contents: write
@@ -185,6 +187,7 @@ if __name__ == "__main__":
 ''', encoding='utf-8')
 
           Path('.github/workflows/tmp-review-4871397803-fix.yml').unlink()
+          Path('.tmp-review-4871397803-trigger').unlink(missing_ok=True)
           PY
       - name: Compile validators
         run: python -m compileall -q validation_scripts
@@ -199,6 +202,6 @@ if __name__ == "__main__":
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add validation_scripts/related_lifecycle_check.py validation_scripts/tests/test_review_4871397803_contracts.py .github/workflows/tmp-review-4871397803-fix.yml
+          git add -A
           git commit -m "fix: close comparative and Korean class subject bypasses"
           git push origin HEAD:agent/review-4870635557-related-assertions

@@ -12,9 +12,9 @@ _PROVISIONAL_CHRONOLOGY_ERROR_CONTRACT = (
     "follow-up date precedes provisional predecessor"
 )
 
-for _name in dir(_base):
-    if not _name.startswith("__"):
-        globals()[_name] = getattr(_base, _name)
+for _name, _value in vars(_base).items():
+    if not _name.startswith("__") and _name not in {"_base", "_prior"}:
+        globals()[_name] = _value
 
 _prior_item_specific_lineage_assertion = _base.item_specific_lineage_assertion
 _PERIOD_OR_COMPARATIVE_TERMS = {
@@ -47,6 +47,7 @@ _EXPLICIT_CLASS_BOUND_RE = re.compile(
     r"\b(?:project|plant|facility|site|line|phase|unit|factory|program)\s+"
     r"(?:[A-Z][A-Za-z0-9-]*|\d+)\b|"
     r"(?:제?\d+|[A-Za-z]\d*)\s*(?:공장|프로젝트|사업|시설|플랜트|라인|단지)",
+    re.IGNORECASE,
 )
 
 
@@ -209,8 +210,6 @@ def item_specific_lineage_assertion(value):
         original_tokens,
     )
 
-    # A real class-bound label remains concrete even when its remaining scope is
-    # a comparison acronym such as YOY or QOQ.
     if (
         metric_roles
         and has_change_predicate
@@ -252,11 +251,16 @@ def item_specific_lineage_assertion(value):
     return _prior_item_specific_lineage_assertion(value)
 
 
-# Strict Related checks resolve this function through the preserved module chain.
-_base.item_specific_lineage_assertion = item_specific_lineage_assertion
-_base._prior.item_specific_lineage_assertion = item_specific_lineage_assertion
-_base._prior._base.item_specific_lineage_assertion = item_specific_lineage_assertion
+# `check_card` is a re-exported function whose globals belong to the original
+# validator module. Patch that exact namespace so strict fields and CLI use the
+# same final policy without mutating a guessed `_base/_prior` chain.
+check_card = _base.check_card
+check_card.__globals__["item_specific_lineage_assertion"] = (
+    item_specific_lineage_assertion
+)
+main = _base.main
+main.__globals__["check_card"] = check_card
 globals()["item_specific_lineage_assertion"] = item_specific_lineage_assertion
 
 if __name__ == "__main__":
-    _base._prior._base.sys.exit(_base._prior._base.main())
+    raise SystemExit(main())

@@ -18,16 +18,17 @@ if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
 from validation_scripts.module_seam import (
-    clone_module_with_shared_globals as _clone_module_with_shared_globals,
+    clone_module_with_rebound_functions as _clone_module_with_rebound_functions,
 )
 from validation_scripts import related_subject_specificity_metric_base as _base
 
-# Build a stable-only metric namespace. Functions and mutable policy containers
-# resolve through one isolated globals dictionary without re-executing files or
-# cloning individual callables through the legacy callable seam.
-_base = _clone_module_with_shared_globals(
+# Build a stable-only metric namespace. The inherited validator callables are
+# explicitly rebound to the clone so the whole stable graph resolves through
+# one isolated globals dictionary without the legacy callable seam.
+_base = _clone_module_with_rebound_functions(
     _base,
     module_name=f"{__name__}._metric",
+    function_names=("check_card", "main"),
 )
 
 # Keep source-level chronology contracts visible to static checks.

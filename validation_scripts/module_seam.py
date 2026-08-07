@@ -203,3 +203,42 @@ def clone_module_with_cloned_dependency(
         setattr(cloned_dependency, name, replacement)
 
     return cloned
+
+
+def clone_module_dependency_chain(
+    source: ModuleType,
+    *,
+    dependency_names: tuple[str, ...],
+    module_name: str,
+) -> ModuleType:
+    """Clone a module and every module dependency along one explicit chain.
+
+    Each dependency is rebuilt bottom-up with ``clone_module_with_cloned_dependency``
+    so module-valued globals never point back into the source graph. This is for
+    compatibility layers whose callables traverse nested policy modules such as
+    ``_base -> _prior -> _base``.
+    """
+    if not dependency_names:
+        return clone_module_with_shared_globals(source, module_name=module_name)
+
+    dependency_name = dependency_names[0]
+    dependency = getattr(source, dependency_name, None)
+    if not isinstance(dependency, ModuleType):
+        raise TypeError(
+            f"module dependency {dependency_name!r} is not a module on {source.__name__}"
+        )
+
+    nested_module_name = (
+        f"{module_name}.{dependency_name.lstrip('_') or 'dependency'}"
+    )
+    cloned_dependency_source = clone_module_dependency_chain(
+        dependency,
+        dependency_names=dependency_names[1:],
+        module_name=nested_module_name,
+    )
+    return clone_module_with_cloned_dependency(
+        source,
+        dependency_name=dependency_name,
+        module_name=module_name,
+        dependency_source=cloned_dependency_source,
+    )

@@ -2736,13 +2736,13 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
   const isDone = item.s === "DONE";
   const dday = deriveDday(item.effectiveDate, item.s, item.supersededBy, item.dt);
   const checkedAgo = daysSinceChecked(item.lastChecked);
-  const staleTone = checkedAgo == null ? null : checkedAgo > 90 ? "red" : checkedAgo > 30 ? "amber" : null;
+  const staleTone = checkedAgo == null ? null : checkedAgo >= 90 ? "red" : checkedAgo > 30 ? "amber" : null;
   const staleColor = staleTone === "red" ? "#F85149" : "#D29922";
   const instShort = TRK_INSTRUMENT[item.instrumentType];
   const [showDetail, setShowDetail] = useState(false);
   const [showNote, setShowNote] = useState(false);
   const cardRef = useRef(null);
-  const prevExpanded = useRef(expanded);
+  const prevExpanded = useRef(false); // false 초기화 — 딥링크로 확장 상태로 신규 마운트된 카드도 스크롤되게 (접힘 마운트는 false===false라 스크롤 없음)
   // 접힘 시 서랍 리셋 · 딥오픈 진입 시 메모 서랍 자동 개방
   useEffect(() => {
     if (!expanded) { setShowDetail(false); setShowNote(false); }
@@ -2755,7 +2755,7 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
     requestAnimationFrame(() => cardRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" }));
   }, [expanded]);
   return (
-    <div ref={cardRef} role="button" onClick={onToggle} style={{ background: t.card2, borderRadius: 10, borderTop: `1px solid ${expanded ? t.cyan : t.brd}`, borderRight: `1px solid ${expanded ? t.cyan : t.brd}`, borderBottom: `1px solid ${expanded ? t.cyan : t.brd}`, borderLeft: `3px solid ${statusColor}`, padding: expanded ? "12px 14px" : "10px 12px", cursor: "pointer", opacity: !expanded && isDone ? 0.65 : 1 }}>
+    <div ref={cardRef} role="button" tabIndex={0} aria-expanded={expanded} onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget) { e.preventDefault(); onToggle(); } }} onClick={onToggle} style={{ background: t.card2, borderRadius: 10, borderTop: `1px solid ${expanded ? t.cyan : t.brd}`, borderRight: `1px solid ${expanded ? t.cyan : t.brd}`, borderBottom: `1px solid ${expanded ? t.cyan : t.brd}`, borderLeft: `3px solid ${statusColor}`, padding: expanded ? "12px 14px" : "10px 12px", cursor: "pointer", opacity: !expanded && isDone ? 0.65 : 1 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
         <span style={{ fontSize: 9, fontWeight: 800, color: statusColor, background: `${statusColor}22`, padding: "2px 7px", borderRadius: 999, fontFamily: mono }}>{statusLabel}</span>
         {item.id && <span style={{ fontSize: 9, color: t.sub, fontFamily: mono, fontWeight: 700 }}>{item.id}</span>}
@@ -2835,7 +2835,7 @@ function Tracker({ tracker, regionPolicy, dark }) {
     return (d.items || []).filter((it) => {
       if (statusFilter !== "all" && it.s !== statusFilter) return false;
       if (regionFilter !== "all" && it.r !== regionFilter) return false;
-      if (staleOnly && !((daysSinceChecked(it.lastChecked) ?? -1) > 90)) return false;
+      if (staleOnly && !((daysSinceChecked(it.lastChecked) ?? -1) >= 90)) return false;
       if (sw) {
         const hay = [it.id, it.t, it.d, it.tip, it.detail, it.checkNote, ...(Array.isArray(it.src) ? it.src.map((s) => s && s.n) : [])].filter(Boolean).join(" ").toLowerCase();
         if (!hay.includes(sw)) return false;
@@ -2857,7 +2857,7 @@ function Tracker({ tracker, regionPolicy, dark }) {
   useEffect(() => {
     if (expandedItemId && !filteredItems.some((it) => (it.id || `${it.r}-${it.t}`) === expandedItemId)) { setExpandedItemId(null); setDeepNoteId(null); }
   }, [filteredItems, expandedItemId]);
-  const staleCount = useMemo(() => (d.items || []).filter((it) => (daysSinceChecked(it.lastChecked) ?? -1) > 90).length, [d.items]);
+  const staleCount = useMemo(() => (d.items || []).filter((it) => (daysSinceChecked(it.lastChecked) ?? -1) >= 90).length, [d.items]);
 
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>

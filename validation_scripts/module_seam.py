@@ -86,6 +86,40 @@ def clone_module_with_shared_globals(
     return cloned
 
 
+def clone_module_with_rebound_functions(
+    source: ModuleType,
+    *,
+    module_name: str,
+    function_names: tuple[str, ...],
+) -> ModuleType:
+    """Clone a module and rebind selected inherited functions to the clone.
+
+    ``clone_module_with_shared_globals`` automatically rebinds functions owned
+    by ``source``. Compatibility layers can also export functions inherited from
+    a nested module. The explicitly named functions are cloned again so they all
+    resolve through the new module's one shared globals dictionary.
+    """
+    cloned = clone_module_with_shared_globals(
+        source,
+        module_name=module_name,
+    )
+    namespace = cloned.__dict__
+
+    for name in function_names:
+        function = getattr(source, name, None)
+        if not isinstance(function, FunctionType):
+            raise TypeError(
+                f"module function {name!r} is not a Python function on {source.__name__}"
+            )
+        namespace[name] = _clone_function_into_namespace(
+            function,
+            namespace,
+            module_name=module_name,
+        )
+
+    return cloned
+
+
 def clone_module_with_cloned_dependency(
     source: ModuleType,
     *,

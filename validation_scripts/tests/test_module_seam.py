@@ -5,7 +5,10 @@ import unittest
 
 from validation_scripts import related_lifecycle_core as core
 from validation_scripts import related_subject_specificity_role_base as role_base
-from validation_scripts.module_seam import clone_module_with_shared_globals
+from validation_scripts.module_seam import (
+    clone_module_with_rebound_functions,
+    clone_module_with_shared_globals,
+)
 
 
 class ModuleSeamTests(unittest.TestCase):
@@ -38,6 +41,37 @@ class ModuleSeamTests(unittest.TestCase):
         self.assertIsNot(cloned.NESTED_ALIAS, source.NESTED_ALIAS)
         self.assertIs(cloned.read_policy()[0], cloned.POLICY)
         self.assertIs(cloned.read_policy()[1], cloned.POLICY_SET)
+
+    def test_selected_inherited_functions_rebind_to_cloned_namespace(self):
+        dependency = ModuleType("test_dependency_module")
+        exec(
+            "POLICY = 'dependency'\n"
+            "def check_card():\n"
+            "    return POLICY\n"
+            "def main():\n"
+            "    return check_card()\n",
+            dependency.__dict__,
+        )
+        source = ModuleType("test_layer_module")
+        source.POLICY = "layer"
+        source.check_card = dependency.check_card
+        source.main = dependency.main
+
+        cloned = clone_module_with_rebound_functions(
+            source,
+            module_name="test_rebound_module",
+            function_names=("check_card", "main"),
+        )
+        cloned.POLICY = "clone"
+
+        self.assertIsNot(cloned.check_card, dependency.check_card)
+        self.assertIsNot(cloned.main, dependency.main)
+        self.assertIs(cloned.check_card.__globals__, cloned.__dict__)
+        self.assertIs(cloned.main.__globals__, cloned.__dict__)
+        self.assertIs(cloned.main.__globals__["check_card"], cloned.check_card)
+        self.assertEqual("clone", cloned.check_card())
+        self.assertEqual("clone", cloned.main())
+        self.assertEqual("dependency", dependency.check_card())
 
     def test_role_policy_mutation_does_not_reach_canonical_core(self):
         marker = "__role_clone_only__"

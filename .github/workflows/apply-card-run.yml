@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "runs/**/card-run.json"
+      - "migrations/**/legacy-related-lineage-container-migration.json"
       - "data/cards.full.json"
       - "public/data/cards.json"
       - "scripts/apply_card_run.mjs"
@@ -13,8 +14,10 @@ on:
       - "scripts/validate_card_run_relations.mjs"
       - "scripts/validate_card_run_lineage_containers.mjs"
       - "scripts/validate_card_run_audits.mjs"
+      - "scripts/validate_legacy_related_lineage_migration.mjs"
       - "schemas/card-run.v1.schema.json"
       - ".github/workflows/apply-card-run.yml"
+      - ".github/workflows/legacy-related-lineage-migration.yml"
   workflow_dispatch:
     inputs:
       run_path:
@@ -51,6 +54,7 @@ jobs:
           node --check scripts/validate_card_run_relations.mjs
           node --check scripts/validate_card_run_lineage_containers.mjs
           node --check scripts/validate_card_run_audits.mjs
+          node --check scripts/validate_legacy_related_lineage_migration.mjs
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
           node scripts/apply_card_run_test.mjs
           node scripts/validate_card_run_stage_artifacts.mjs --self-test
@@ -58,6 +62,7 @@ jobs:
           node scripts/validate_card_run_relations.mjs --self-test
           node scripts/validate_card_run_lineage_containers.mjs --self-test
           node scripts/validate_card_run_audits.mjs --self-test
+          node scripts/validate_legacy_related_lineage_migration.mjs --self-test
 
   verify-submitted-run:
     needs: validate-engine
@@ -89,14 +94,27 @@ jobs:
             test -n "$run_path" && test -f "$run_path"
           else
             mapfile -t runs < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)runs/**/card-run.json')
+            mapfile -t migrations < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)migrations/**/legacy-related-lineage-container-migration.json')
             mapfile -t canonical_data < <(git diff --name-only "origin/$BASE_REF...HEAD" -- data/cards.full.json public/data/cards.json)
+            if [[ ${#runs[@]} -gt 0 && ${#migrations[@]} -gt 0 ]]; then
+              echo "FAIL: ordinary card-run and legacy lineage migration may not share one PR" >&2
+              exit 1
+            fi
             if [[ ${#runs[@]} -eq 0 ]]; then
               if [[ ${#canonical_data[@]} -gt 0 ]]; then
-                echo "FAIL: canonical card-data changes require exactly one governed runs/**/card-run.json" >&2
+                if [[ ${#migrations[@]} -eq 1 ]]; then
+                  echo "INFO: canonical change delegated to dedicated legacy-related-lineage-migration workflow"
+                  echo "has_run=false" >> "$GITHUB_OUTPUT"
+                  echo "delegated_migration=true" >> "$GITHUB_OUTPUT"
+                  exit 0
+                fi
+                echo "FAIL: canonical card-data changes require exactly one governed card-run or one dedicated legacy lineage migration manifest" >&2
                 printf ' - %s\n' "${canonical_data[@]}" >&2
                 exit 1
               fi
+              [[ ${#migrations[@]} -eq 0 ]] || { echo "FAIL: migration manifest present without canonical outputs" >&2; exit 1; }
               echo "has_run=false" >> "$GITHUB_OUTPUT"
+              echo "delegated_migration=false" >> "$GITHUB_OUTPUT"
               exit 0
             fi
             if [[ ${#runs[@]} -ne 1 ]]; then
@@ -107,6 +125,7 @@ jobs:
             run_path="${runs[0]}"
           fi
           echo "has_run=true" >> "$GITHUB_OUTPUT"
+          echo "delegated_migration=false" >> "$GITHUB_OUTPUT"
           echo "path=$run_path" >> "$GITHUB_OUTPUT"
           echo "report_path=$(dirname "$run_path")/apply-report.json" >> "$GITHUB_OUTPUT"
           echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"

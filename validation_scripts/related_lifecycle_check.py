@@ -12,10 +12,19 @@ _REPO_ROOT = str(Path(__file__).resolve().parent.parent)
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-from validation_scripts.callable_seam import (
-    clone_function_with_globals as _clone_function_with_globals,
+from validation_scripts.module_seam import (
+    clone_module_with_rebound_functions as _clone_module_with_rebound_functions,
 )
 from validation_scripts import related_subject_specificity as _impl
+
+# Build a public-only stable namespace. The inherited validator callables are
+# explicitly rebound to the clone so the final public graph resolves through
+# one isolated globals dictionary without the legacy callable seam.
+_impl = _clone_module_with_rebound_functions(
+    _impl,
+    module_name=f"{__name__}._stable",
+    function_names=("check_card", "main"),
+)
 
 # Keep source-level chronology contracts visible to static checks.
 _RESOLVED_PROVISIONAL_TARGETS_CONTRACT = "resolved_provisional_targets"
@@ -29,7 +38,7 @@ for _name, _value in vars(_impl).items():
         "_prior",
         "_impl",
         "_legacy_impl",
-        "_clone_function_with_globals",
+        "_clone_module_with_rebound_functions",
     }:
         globals()[_name] = _value
 
@@ -64,16 +73,9 @@ def item_specific_lineage_assertion(value):
     return has_metric and has_change
 
 
-check_card = _clone_function_with_globals(
-    _impl.check_card,
-    {"item_specific_lineage_assertion": item_specific_lineage_assertion},
-    module_name=__name__,
-)
-main = _clone_function_with_globals(
-    _impl.main,
-    {"check_card": check_card},
-    module_name=__name__,
-)
+_impl.item_specific_lineage_assertion = item_specific_lineage_assertion
+check_card = _impl.check_card
+main = _impl.main
 
 if __name__ == "__main__":
     raise SystemExit(main())

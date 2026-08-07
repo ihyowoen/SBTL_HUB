@@ -10,7 +10,7 @@ from validation_scripts import related_subject_specificity_metric_base as metric
 class RelatedStableImportTests(unittest.TestCase):
     def test_stable_layer_uses_module_clone_not_callable_seam(self):
         source = Path(stable.__file__).read_text(encoding="utf-8")
-        self.assertIn("clone_module_with_shared_globals", source)
+        self.assertIn("clone_module_with_rebound_functions", source)
         self.assertNotIn("callable_seam", source)
         self.assertNotIn("clone_function_with_globals", source)
 

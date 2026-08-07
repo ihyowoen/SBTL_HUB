@@ -2698,7 +2698,9 @@ function deriveDday(effectiveDate, status, supersededBy, dtRaw) {
     if (diff === 0) return { label: "D-DAY", tone: "red" };
     if (diff > 0) return { label: `D-${diff}`, tone: diff <= 7 ? "red" : diff <= 30 ? "amber" : "neutral" };
     if (status === "ACTIVE") return { label: "시행중", tone: "dim" };
-    return { label: `시행 ${p[0]}.${p[1]}.${p[2]}`, tone: "amber" }; // UPCOMING인데 과거 = 데이터 이상 신호
+    // 미제정(WATCH)·미전환(UPCOMING) 항목의 지난 날짜를 시행 사실로 단정하지 않는다 — WATCH의 effectiveDate는
+    // 제안 기한일 수 있다(EU-021 실측). UPCOMING은 ACTIVE 전환 누락 가능성이라 amber, WATCH는 기한 경과가 정상이라 dim.
+    return { label: `${p[0]}.${p[1]}.${p[2]} 경과`, tone: status === "UPCOMING" ? "amber" : "dim" };
   }
   if (status === "ACTIVE" && /^\d{4}(-\d{2})?$/.test(v)) return { label: "시행중", tone: "dim" }; // ACTIVE + 부분 ISO — '예정' 라벨이 ACTIVE 배지와 모순되는 것 방지
   if (/^\d{4}-\d{2}$/.test(v)) { const p = v.split("-"); return { label: `${p[0].slice(2)}.${+p[1]} 예정`, tone: "neutral" }; } // 부분 ISO는 D-day 산술 금지

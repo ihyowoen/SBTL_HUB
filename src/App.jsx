@@ -2709,6 +2709,16 @@ function deriveDday(effectiveDate, status, supersededBy, dtRaw) {
   if (m) return { label: `${m[1]}.${m[2]}.${m[3]}`, tone: "neutral" };
   return null;
 }
+// 확장 카드의 effectiveDate 표기 — 칩(deriveDday)과 같은 규약: 미제정 항목의 날짜를 시행 사실로 단정하지 않는다.
+function trkEffectiveLabel(effectiveDate, status) {
+  const v = String(effectiveDate || "").trim();
+  if (!v) return null;
+  if (status === "ACTIVE" || status === "DONE") return `시행 ${v}`;
+  if (status === "WATCH") return `기준일 ${v}`; // 미제정 — 제안 기한일 수 있다(EU-021 실측)
+  const m = v.match(/^(\d{4})-(\d{2})-(\d{2})$/); // UPCOMING
+  if (m && trkYmdUTC(m[1], m[2], m[3]) < trkTodayUTC()) return `${v} 경과 — 시행 미확인`;
+  return `시행 예정 ${v}`;
+}
 function daysSinceChecked(lastChecked) {
   const m = String(lastChecked || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
   if (!m) return null;
@@ -2792,7 +2802,7 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
       </>}
       {expanded && <div onClick={(e) => e.stopPropagation()} style={{ cursor: "default" }}>
         {(item.effectiveDate || item.dt) && <div style={{ marginTop: 8, fontSize: 10, color: t.sub, fontFamily: mono, lineHeight: 1.6 }}>
-          {item.effectiveDate && <div style={{ fontWeight: 700 }}>시행 {item.effectiveDate}</div>}
+          {item.effectiveDate && <div style={{ fontWeight: 700 }}>{trkEffectiveLabel(item.effectiveDate, item.s)}</div>}
           {item.dt && <div style={{ whiteSpace: "pre-line" }}>{item.dt}</div>}
         </div>}
         {item.d && <p style={{ fontSize: 11, color: t.tx, margin: "8px 0 0", lineHeight: 1.6 }}>{item.d}</p>}

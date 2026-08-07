@@ -1,12 +1,17 @@
 # Workflow Gap Remediation Plan — 2026-07-23
 
-This document consolidates the 20260721 run retrospective and PR #206 review findings into implementation workstreams.
+**Classification:** `OPEN_REMEDIATION_WITH_SUPERSEDED_WORKSTREAMS`  
+**Current applicability:** only workstreams that remain independently open under the current governance registry. A completed or superseded workstream recorded here must not be re-applied by Stage 0.0D merely because this document remains registered as an open remediation.  
+**WG_016 authoritative successor:** `docs/RELATED_LIFECYCLE_CONTRACT.md`  
+**Separate legacy Related remediation:** `docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json` and its companion remediation record remain independently open until separately resolved.
 
-## Current implementation status
+This document consolidates the 20260721 run retrospective and PR #206 review findings into implementation workstreams. It is retained because some remediation scope may remain open, but completed or superseded workstreams are historical records only.
 
-Draft PR: `#207 workflow: harden Related lineage and source-audit contracts`
+## Historical origin and current implementation status
 
-Implemented in the draft branch:
+Historical draft origin: `#207 workflow: harden Related lineage and source-audit contracts`.
+
+The original plan included:
 
 - canonical Related lifecycle contract;
 - canonical source-audit contract;
@@ -17,7 +22,15 @@ Implemented in the draft branch:
 - unit/regression tests;
 - legacy Related dangling manifest and machine-readable `WG_016`.
 
-Generated prompt overlays are applied and tested by the branch-only workflow. Prompt files must contain exactly one `WORKFLOW_CONTRACT_OVERLAY_20260723` block before this draft is marked ready for review.
+As of 2026-08-07, the `WG_016` workflow implementation gap is no longer open implementation work. Its active rule source is `docs/RELATED_LIFECYCLE_CONTRACT.md` (`RELATED_LIFECYCLE_V2_20260802`), with the public Related validator and card-run relation/lineage-container validators implemented and stabilized through the subsequent governance/validator PR chain through PR #248.
+
+This closure does **not** close or silently repair legacy data defects. In particular:
+
+- historical dangling Related edges remain a separate bounded remediation under the dedicated legacy dangling manifests;
+- legacy cards that require `related_lineage` container initialization remain separate canonical-data migration work;
+- neither legacy condition may be interpreted as unfinished implementation of `WG_016`.
+
+Generated prompt overlays and current validators are governed by their present canonical contracts and manifests, not by the historical draft-branch state described in this plan.
 
 ## Workstream A — Evidence repair routing
 
@@ -58,9 +71,13 @@ Actions:
 
 ## Workstream D — Related lifecycle
 
-Covers expanded `WG_003` and new `WG_016`.
+Historical scope: expanded `WG_003` and `WG_016`.
 
-Actions:
+### Current status
+
+`WG_016` workflow implementation is **COMPLETED / SUPERSEDED** by `docs/RELATED_LIFECYCLE_CONTRACT.md` and the current Related validator chain. Stage 0.0D must not apply the checklist below as unfinished `WG_016` remediation.
+
+The checklist is retained only as historical implementation/audit context:
 
 - make Related pre-pass mandatory after Stage A selection and before Stage B full drafting;
 - carry candidate-to-baseline and candidate-to-candidate edges through all stages;
@@ -69,6 +86,13 @@ Actions:
 - route same-event duplicates to reinforcement instead of silent deletion;
 - resolve candidate spec IDs to production IDs at 0.8;
 - run a merged-candidate Related validator.
+
+Any independently open concern associated with older Related gap records must be interpreted through its current active record/contract, not by treating this historical `WG_016` checklist as active implementation work.
+
+The following remain explicitly separate from `WG_016` implementation closure:
+
+- legacy dangling-edge remediation under `docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json` and its companion remediation document;
+- legacy `related_lineage` container initialization, if required, as separately reviewed canonical-data migration work.
 
 ## Workstream E — Artifact naming and production verification
 
@@ -81,7 +105,9 @@ Actions:
 - support `PASS_WITH_LIMITATIONS` in Prompt 0.9 with separate data/deployment/HTML/interactive/mobile proof;
 - never set `production_verified=true` while mandatory interactive or mobile checks remain unexecuted.
 
-## Implementation order
+## Historical implementation order
+
+The sequence below records the original implementation plan. It does not reactivate any workstream now classified as completed or superseded by current governance.
 
 1. Shared contracts and common validation utilities.
 2. Related lifecycle and date/freshness validators.
@@ -93,7 +119,9 @@ Actions:
 8. 0.9 partial-verification state update.
 9. Fixture-based tests using the 20260721 run and PR #206 failure cases.
 
-## Completion criteria
+## Historical completion criteria
+
+These criteria remain useful audit context, but current active contracts and validators are authoritative for present runs. A criterion listed here does not by itself make a superseded workstream active.
 
 - no schema-only full revise loop where a bounded metadata repair is valid;
 - no publication-date contamination of event dates;

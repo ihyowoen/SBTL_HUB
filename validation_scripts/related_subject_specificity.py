@@ -17,10 +17,18 @@ _REPO_ROOT = str(Path(__file__).resolve().parent.parent)
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-from validation_scripts.callable_seam import (
-    clone_function_with_globals as _clone_function_with_globals,
+from validation_scripts.module_seam import (
+    clone_module_with_shared_globals as _clone_module_with_shared_globals,
 )
 from validation_scripts import related_subject_specificity_metric_base as _base
+
+# Build a stable-only metric namespace. Functions and mutable policy containers
+# resolve through one isolated globals dictionary without re-executing files or
+# cloning individual callables through the legacy callable seam.
+_base = _clone_module_with_shared_globals(
+    _base,
+    module_name=f"{__name__}._metric",
+)
 
 # Keep source-level chronology contracts visible to static checks.
 _RESOLVED_PROVISIONAL_TARGETS_CONTRACT = "resolved_provisional_targets"
@@ -421,16 +429,9 @@ def item_specific_lineage_assertion(value):
     return _prior_item_specific_lineage_assertion(value)
 
 
-check_card = _clone_function_with_globals(
-    _base.check_card,
-    {"item_specific_lineage_assertion": item_specific_lineage_assertion},
-    module_name=__name__,
-)
-main = _clone_function_with_globals(
-    _base.main,
-    {"check_card": check_card},
-    module_name=__name__,
-)
+_base.item_specific_lineage_assertion = item_specific_lineage_assertion
+check_card = _base.check_card
+main = _base.main
 
 if __name__ == "__main__":
     raise SystemExit(main())

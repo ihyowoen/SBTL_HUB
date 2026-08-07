@@ -2685,15 +2685,16 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
 // ── Tracker 파생 유틸 — 날짜 파생은 전부 렌더타임 (RUNBOOK 계약: D-day를 데이터에 굽지 않는다) ──
 const TRK_INSTRUMENT = { law: "법", decree: "령", notification: "고시", standard: "표준" };
 const clampLines = (n) => ({ display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: n, overflow: "hidden" });
-// new Date("YYYY-MM-DD")는 UTC 자정 파싱 — KST에서 ±1일 어긋나므로 반드시 로컬 자정으로 구성
-const trkLocalDate = (y, m, dd) => new Date(+y, +m - 1, +dd);
-const trkToday = () => { const n = kstNow(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }; // 앱의 '오늘'은 KST — 브라우저 로컬 자정이 아니라 kstNow() 기준(해외 접속 시 D-day·신선도 경계 어긋남 방지)
+// 날짜 산술은 전부 UTC 타임스탬프로 — 로컬 Date를 쓰면 (1) new Date("YYYY-MM-DD")가 UTC 자정 파싱이라 KST에서 ±1일,
+// (2) DST 경계를 지나는 구간이 23/25시간이 섞여 일수가 하루 어긋난다. 달력 성분만 뽑아 Date.UTC로 환산하면 둘 다 소멸.
+const trkYmdUTC = (y, m, dd) => Date.UTC(+y, +m - 1, +dd);
+const trkTodayUTC = () => { const n = kstNow(); return Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()); }; // 앱의 '오늘'은 KST 기준
 function deriveDday(effectiveDate, status, supersededBy, dtRaw) {
   if (status === "DONE" || supersededBy) return null; // 대체·종결 규범을 임박으로 오신호하지 않는다
   const v = String(effectiveDate || "").trim();
   if (/^\d{4}-\d{2}-\d{2}$/.test(v)) {
     const p = v.split("-");
-    const diff = Math.round((trkLocalDate(p[0], p[1], p[2]) - trkToday()) / 86400000);
+    const diff = Math.round((trkYmdUTC(p[0], p[1], p[2]) - trkTodayUTC()) / 86400000);
     if (diff === 0) return { label: "D-DAY", tone: "red" };
     if (diff > 0) return { label: `D-${diff}`, tone: diff <= 7 ? "red" : diff <= 30 ? "amber" : "neutral" };
     if (status === "ACTIVE") return { label: "시행중", tone: "dim" };
@@ -2709,7 +2710,7 @@ function deriveDday(effectiveDate, status, supersededBy, dtRaw) {
 function daysSinceChecked(lastChecked) {
   const m = String(lastChecked || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
   if (!m) return null;
-  return Math.floor((trkToday() - trkLocalDate(m[1], m[2], m[3])) / 86400000);
+  return Math.round((trkTodayUTC() - trkYmdUTC(m[1], m[2], m[3])) / 86400000);
 }
 function trkVerifyLabel(verify) {
   if (!verify) return "";
@@ -2759,7 +2760,10 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
     if (shouldScroll) requestAnimationFrame(() => cardRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" }));
   }, [expanded]);
   return (
-    <div ref={cardRef} id={item.id ? `trkcard-${item.id}` : undefined} role="button" tabIndex={0} aria-expanded={expanded} onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget) { e.preventDefault(); onToggle(); } }} onClick={onToggle} style={{ background: t.card2, borderRadius: 10, borderTop: `1px solid ${expanded ? t.cyan : t.brd}`, borderRight: `1px solid ${expanded ? t.cyan : t.brd}`, borderBottom: `1px solid ${expanded ? t.cyan : t.brd}`, borderLeft: `3px solid ${statusColor}`, padding: expanded ? "12px 14px" : "10px 12px", cursor: "pointer", opacity: !expanded && isDone ? 0.65 : 1 }}>
+    <div ref={cardRef} id={item.id ? `trkcard-${item.id}` : undefined} onClick={onToggle} style={{ background: t.card2, borderRadius: 10, borderTop: `1px solid ${expanded ? t.cyan : t.brd}`, borderRight: `1px solid ${expanded ? t.cyan : t.brd}`, borderBottom: `1px solid ${expanded ? t.cyan : t.brd}`, borderLeft: `3px solid ${statusColor}`, padding: expanded ? "12px 14px" : "10px 12px", cursor: "pointer", opacity: !expanded && isDone ? 0.65 : 1 }}>
+      {/* 토글 button 역할은 헤더(메타행·제목·티저)에만 — 확장 콘텐츠의 링크·버튼이 button 후손이 되면 보조기술이 의미를 잃는다.
+          마우스는 카드 전면 클릭 유지(컨테이너 onClick), 키보드는 이 헤더가 포커스·Enter/Space를 받는다. */}
+      <div role="button" tabIndex={0} aria-expanded={expanded} aria-label={`${statusLabel} ${item.id || ""} ${item.t}`} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(); } }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
         <span style={{ fontSize: 9, fontWeight: 800, color: statusColor, background: `${statusColor}22`, padding: "2px 7px", borderRadius: 999, fontFamily: mono }}>{statusLabel}</span>
         {item.id && <span style={{ fontSize: 9, color: t.sub, fontFamily: mono, fontWeight: 700 }}>{item.id}</span>}
@@ -2773,8 +2777,9 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
         </span>
       </div>
       <h3 style={{ fontSize: 13, fontWeight: 800, color: t.tx, margin: "6px 0 0", lineHeight: 1.4, ...(expanded ? {} : clampLines(2)) }}>{item.t}</h3>
+      {!expanded && item.d && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.5, ...clampLines(isDone ? 1 : 2) }}>{item.d}</p>}
+      </div>
       {!expanded && <>
-        {item.d && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.5, ...clampLines(isDone ? 1 : 2) }}>{item.d}</p>}
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 8, fontSize: 9, color: t.sub, fontFamily: mono }}>
           {item.tip && <span title="확장하면 💡 팁이 있습니다">💡</span>}
           {sources.length > 0 && <span>📎 {sources.length}</span>}

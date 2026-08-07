@@ -17,7 +17,8 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
     def test_public_entrypoint_imports_and_clones_stable_dependency(self):
         source = Path(public.__file__).read_text(encoding="utf-8")
         self.assertIn("related_subject_specificity as _impl", source)
-        self.assertIn("clone_module_with_rebound_functions", source)
+        self.assertIn("clone_module_dependency_chain", source)
+        self.assertIn("rebind_module_functions", source)
         self.assertNotIn("callable_seam", source)
         self.assertNotIn("clone_function_with_globals", source)
         self.assertNotIn("related_lifecycle_check_review", source)

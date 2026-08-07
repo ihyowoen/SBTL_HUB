@@ -2,25 +2,26 @@
 """Stable Related metric-specificity policy layer."""
 from __future__ import annotations
 
-import importlib.util
 import sys
 from pathlib import Path
 
-_PRIOR_PATH = Path(__file__).with_name(
-    "related_subject_specificity_role_base.py"
-)
-_PRIOR_DIR = str(_PRIOR_PATH.parent)
-if _PRIOR_DIR not in sys.path:
-    sys.path.insert(0, _PRIOR_DIR)
+# Direct script execution starts with validation_scripts/ on sys.path. Add the
+# repository root so package imports behave identically in CLI and package mode.
+_REPO_ROOT = str(Path(__file__).resolve().parent.parent)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
 
-_SPEC = importlib.util.spec_from_file_location(
-    "validation_scripts.related_subject_specificity_role_base",
-    _PRIOR_PATH,
+from validation_scripts import related_subject_specificity_role_base as _role
+from validation_scripts.module_seam import clone_module_with_cloned_dependency
+
+# Preserve the historical separately-loaded role + core ownership graph without
+# executing either file again through importlib. Inherited functions and mutable
+# policy aliases are rewired to the cloned nested base.
+_prior = clone_module_with_cloned_dependency(
+    _role,
+    dependency_name="_base",
+    module_name=f"{__name__}._role",
 )
-if _SPEC is None or _SPEC.loader is None:
-    raise ImportError(f"cannot load Related validator base from {_PRIOR_PATH}")
-_prior = importlib.util.module_from_spec(_SPEC)
-_SPEC.loader.exec_module(_prior)
 
 # Keep the public source-level chronology contract visible to static checks;
 # behavior remains implemented by the preserved prior layer.

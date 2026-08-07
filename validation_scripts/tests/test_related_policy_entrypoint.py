@@ -33,12 +33,13 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
             with self.subTest(filename=filename):
                 self.assertFalse(Path(stable.__file__).with_name(filename).exists())
 
-    def test_stable_metric_layer_uses_stable_role_dependency(self):
+    def test_stable_metric_layer_imports_and_clones_stable_role_dependency(self):
         source = Path(metric_base.__file__).read_text(encoding="utf-8")
-        self.assertIn("related_subject_specificity_role_base.py", source)
-        self.assertIn(
-            "validation_scripts.related_subject_specificity_role_base", source
-        )
+        self.assertIn("related_subject_specificity_role_base as _role", source)
+        self.assertIn("clone_module_with_cloned_dependency", source)
+        self.assertNotIn("importlib.util", source)
+        self.assertNotIn("spec_from_file_location", source)
+        self.assertNotIn("related_subject_specificity_role_base.py", source)
         self.assertNotIn("related_lifecycle_check_review4868891584_base", source)
 
     def test_stable_role_layer_imports_and_clones_stable_core(self):

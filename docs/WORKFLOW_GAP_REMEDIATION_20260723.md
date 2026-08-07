@@ -1,6 +1,6 @@
 # Workflow Gap Remediation Plan — 2026-07-23
 
-**Classification:** `OPEN_REMEDIATION_WITH_SUPERSEDED_WORKSTREAMS`  
+**Classification:** `OPEN_REMEDIATION`  
 **Current applicability:** only workstreams that remain independently open under the current governance registry. A completed or superseded workstream recorded here must not be re-applied by Stage 0.0D merely because this document remains registered as an open remediation.  
 **WG_016 authoritative successor:** `docs/RELATED_LIFECYCLE_CONTRACT.md`  
 **Separate legacy Related remediation:** `docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json` and its companion remediation record remain independently open until separately resolved.

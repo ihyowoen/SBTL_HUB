@@ -6,6 +6,7 @@ on:
       - agent/audit-legacy-relations-20260808
     paths:
       - scripts/audit_legacy_relation_containers.mjs
+      - scripts/dryrun_legacy_relation_container_migration.mjs
       - .github/workflows/one-time-legacy-relation-audit.yml
   workflow_dispatch:
 
@@ -27,9 +28,44 @@ jobs:
       - name: Audit current canonical relation containers
         run: node scripts/audit_legacy_relation_containers.mjs data/cards.full.json docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json
 
+      - name: Generate bounded migration candidate
+        run: node scripts/dryrun_legacy_relation_container_migration.mjs data/cards.full.json legacy-related-migration-candidate.full.json
+
+      - name: Generate matching lean projection
+        env:
+          CARDS_FULL_PATH: legacy-related-migration-candidate.full.json
+          CARDS_PUBLIC_PATH: legacy-related-migration-candidate.lean.json
+        run: node scripts/lean_cards.mjs
+
+      - name: Validate migration candidate full and lean
+        run: |
+          set -euo pipefail
+          node scripts/validate_cards.mjs legacy-related-migration-candidate.full.json
+          node scripts/validate_cards.mjs legacy-related-migration-candidate.lean.json
+          node - <<'NODE'
+          const fs = require('fs');
+          const beforeFull = fs.statSync('data/cards.full.json').size;
+          const afterFull = fs.statSync('legacy-related-migration-candidate.full.json').size;
+          const beforeLean = fs.statSync('public/data/cards.json').size;
+          const afterLean = fs.statSync('legacy-related-migration-candidate.lean.json').size;
+          const before = JSON.parse(fs.readFileSync('public/data/cards.json','utf8'));
+          const after = JSON.parse(fs.readFileSync('legacy-related-migration-candidate.lean.json','utf8'));
+          let changedCards = 0;
+          for (let i=0;i<Math.min(before.cards.length, after.cards.length);i++) {
+            if (JSON.stringify(before.cards[i]) !== JSON.stringify(after.cards[i])) changedCards++;
+          }
+          console.log('MIGRATION_SIZE_IMPACT=' + JSON.stringify({before_full_bytes:beforeFull,after_full_bytes:afterFull,full_delta_bytes:afterFull-beforeFull,before_lean_bytes:beforeLean,after_lean_bytes:afterLean,lean_delta_bytes:afterLean-beforeLean,lean_changed_card_count:changedCards}));
+          NODE
+
+      - name: Re-audit migration candidate
+        run: node scripts/audit_legacy_relation_containers.mjs legacy-related-migration-candidate.full.json docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json
+
       - name: Upload full audit report
         uses: actions/upload-artifact@v4
         with:
           name: legacy-related-audit
-          path: legacy-related-audit.json
+          path: |
+            legacy-related-audit.json
+            legacy-related-migration-candidate.full.json
+            legacy-related-migration-candidate.lean.json
           if-no-files-found: error

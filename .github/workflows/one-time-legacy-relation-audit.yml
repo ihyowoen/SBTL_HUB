@@ -1,0 +1,35 @@
+name: One-time legacy relation audit
+
+on:
+  push:
+    branches:
+      - agent/audit-legacy-relations-20260808
+    paths:
+      - scripts/audit_legacy_relation_containers.mjs
+      - .github/workflows/one-time-legacy-relation-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Audit current canonical relation containers
+        run: node scripts/audit_legacy_relation_containers.mjs data/cards.full.json docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json
+
+      - name: Upload full audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: legacy-related-audit
+          path: legacy-related-audit.json
+          if-no-files-found: error

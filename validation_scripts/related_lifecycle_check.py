@@ -12,10 +12,24 @@ _REPO_ROOT = str(Path(__file__).resolve().parent.parent)
 if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
-from validation_scripts.callable_seam import (
-    clone_function_with_globals as _clone_function_with_globals,
+from validation_scripts.module_seam import (
+    clone_module_dependency_chain as _clone_module_dependency_chain,
+    rebind_module_functions as _rebind_module_functions,
 )
 from validation_scripts import related_subject_specificity as _impl
+
+# Build a public-only stable namespace including the nested metric -> role ->
+# core ownership chain. Rebind the inherited validator callables in place so
+# aliases between public top-level policy state and nested modules stay intact.
+_impl = _clone_module_dependency_chain(
+    _impl,
+    dependency_names=("_base", "_prior", "_base"),
+    module_name=f"{__name__}._stable",
+)
+_impl = _rebind_module_functions(
+    _impl,
+    function_names=("check_card", "main"),
+)
 
 # Keep source-level chronology contracts visible to static checks.
 _RESOLVED_PROVISIONAL_TARGETS_CONTRACT = "resolved_provisional_targets"
@@ -29,7 +43,8 @@ for _name, _value in vars(_impl).items():
         "_prior",
         "_impl",
         "_legacy_impl",
-        "_clone_function_with_globals",
+        "_clone_module_dependency_chain",
+        "_rebind_module_functions",
     }:
         globals()[_name] = _value
 
@@ -64,16 +79,9 @@ def item_specific_lineage_assertion(value):
     return has_metric and has_change
 
 
-check_card = _clone_function_with_globals(
-    _impl.check_card,
-    {"item_specific_lineage_assertion": item_specific_lineage_assertion},
-    module_name=__name__,
-)
-main = _clone_function_with_globals(
-    _impl.main,
-    {"check_card": check_card},
-    module_name=__name__,
-)
+_impl.item_specific_lineage_assertion = item_specific_lineage_assertion
+check_card = _impl.check_card
+main = _impl.main
 
 if __name__ == "__main__":
     raise SystemExit(main())

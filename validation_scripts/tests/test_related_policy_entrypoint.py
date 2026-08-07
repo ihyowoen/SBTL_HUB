@@ -14,10 +14,15 @@ from validation_scripts import related_subject_specificity_role_base as role_bas
 
 
 class RelatedPolicyEntrypointTests(unittest.TestCase):
-    def test_public_entrypoint_has_no_review_id_import(self):
+    def test_public_entrypoint_imports_and_clones_stable_dependency(self):
         source = Path(public.__file__).read_text(encoding="utf-8")
         self.assertIn("related_subject_specificity as _impl", source)
+        self.assertIn("clone_module_dependency_chain", source)
+        self.assertIn("rebind_module_functions", source)
+        self.assertNotIn("callable_seam", source)
+        self.assertNotIn("clone_function_with_globals", source)
         self.assertNotIn("related_lifecycle_check_review", source)
+        self.assertFalse(Path(public.__file__).with_name("callable_seam.py").exists())
 
     def test_stable_policy_owns_latest_layer_directly(self):
         source = Path(stable.__file__).read_text(encoding="utf-8")
@@ -70,6 +75,19 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
         self.assertNotIn("related_lifecycle_check_review", source)
         self.assertIn("def check_card(", source)
         self.assertIn("def main()", source)
+
+    def test_public_policy_script_is_directly_executable(self):
+        script = Path(public.__file__).resolve()
+        with tempfile.TemporaryDirectory() as cwd:
+            completed = subprocess.run(
+                [sys.executable, str(script), "--help"],
+                cwd=cwd,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        self.assertEqual(0, completed.returncode, completed.stderr)
+        self.assertNotIn("ModuleNotFoundError", completed.stderr)
 
     def test_stable_policy_script_is_directly_executable(self):
         script = Path(stable.__file__).resolve()
@@ -147,6 +165,18 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
         )
         self.assertIs(stable.main.__globals__["check_card"], stable.check_card)
 
+    def test_public_entrypoint_owns_isolated_stable_namespace(self):
+        self.assertIsNot(public._impl, stable)
+        self.assertIs(public.check_card, public._impl.check_card)
+        self.assertIs(public.main, public._impl.main)
+        self.assertIs(public.check_card.__globals__, public._impl.__dict__)
+        self.assertIs(public.main.__globals__, public._impl.__dict__)
+        self.assertIs(
+            public._impl.item_specific_lineage_assertion,
+            public.item_specific_lineage_assertion,
+        )
+        self.assertIs(public.main.__globals__["check_card"], public.check_card)
+
     def test_public_entrypoint_owns_isolated_final_callable_graph(self):
         self.assertIsNot(public.check_card, stable.check_card)
         self.assertIsNot(public.main, stable.main)
@@ -158,6 +188,24 @@ class RelatedPolicyEntrypointTests(unittest.TestCase):
             public.item_specific_lineage_assertion,
         )
         self.assertIs(public.main.__globals__["check_card"], public.check_card)
+
+    def test_public_mutable_policy_state_is_isolated_from_stable_layer(self):
+        public_terms = public._impl._RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
+        stable_terms = stable._RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS
+        self.assertIs(public._RELATED_FINANCIAL_AND_OPERATING_METRIC_TERMS, public_terms)
+        self.assertIsNot(public_terms, stable_terms)
+
+        public_marker = "__public_namespace_probe__"
+        stable_marker = "__stable_namespace_probe__"
+        try:
+            public_terms.add(public_marker)
+            self.assertNotIn(public_marker, stable_terms)
+
+            stable_terms.add(stable_marker)
+            self.assertNotIn(stable_marker, public_terms)
+        finally:
+            public_terms.discard(public_marker)
+            stable_terms.discard(stable_marker)
 
     def test_lower_metric_layer_cannot_rebind_stable_or_public_policy(self):
         metric_base.check_card.__globals__["item_specific_lineage_assertion"] = (

@@ -2699,6 +2699,7 @@ function deriveDday(effectiveDate, status, supersededBy, dtRaw) {
     if (status === "ACTIVE") return { label: "시행중", tone: "dim" };
     return { label: `시행 ${p[0]}.${p[1]}.${p[2]}`, tone: "amber" }; // UPCOMING인데 과거 = 데이터 이상 신호
   }
+  if (status === "ACTIVE" && /^\d{4}(-\d{2})?$/.test(v)) return { label: "시행중", tone: "dim" }; // ACTIVE + 부분 ISO — '예정' 라벨이 ACTIVE 배지와 모순되는 것 방지
   if (/^\d{4}-\d{2}$/.test(v)) { const p = v.split("-"); return { label: `${p[0].slice(2)}.${+p[1]} 예정`, tone: "neutral" }; } // 부분 ISO는 D-day 산술 금지
   if (/^\d{4}$/.test(v)) return { label: `${v} 예정`, tone: "neutral" };
   const m = String(dtRaw || "").match(/^(\d{4})[.-](\d{2})[.-](\d{2})/);
@@ -2743,6 +2744,7 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
   const [showNote, setShowNote] = useState(false);
   const cardRef = useRef(null);
   const prevExpanded = useRef(false); // false 초기화 — 딥링크로 확장 상태로 신규 마운트된 카드도 스크롤되게 (접힘 마운트는 false===false라 스크롤 없음)
+  const scrollOnCollapse = useRef(false); // ▲접기 바로 접을 때만 접힘 스크롤 허용 — 아코디언 자동 접힘의 스크롤 경합 방지
   // 접힘 시 서랍 리셋 · 딥오픈 진입 시 메모 서랍 자동 개방
   useEffect(() => {
     if (!expanded) { setShowDetail(false); setShowNote(false); }
@@ -2752,7 +2754,9 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
   useEffect(() => {
     if (prevExpanded.current === expanded) return;
     prevExpanded.current = expanded;
-    requestAnimationFrame(() => cardRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" }));
+    const shouldScroll = expanded || scrollOnCollapse.current;
+    scrollOnCollapse.current = false;
+    if (shouldScroll) requestAnimationFrame(() => cardRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" }));
   }, [expanded]);
   return (
     <div ref={cardRef} role="button" tabIndex={0} aria-expanded={expanded} onKeyDown={(e) => { if ((e.key === "Enter" || e.key === " ") && e.target === e.currentTarget) { e.preventDefault(); onToggle(); } }} onClick={onToggle} style={{ background: t.card2, borderRadius: 10, borderTop: `1px solid ${expanded ? t.cyan : t.brd}`, borderRight: `1px solid ${expanded ? t.cyan : t.brd}`, borderBottom: `1px solid ${expanded ? t.cyan : t.brd}`, borderLeft: `3px solid ${statusColor}`, padding: expanded ? "12px 14px" : "10px 12px", cursor: "pointer", opacity: !expanded && isDone ? 0.65 : 1 }}>
@@ -2799,7 +2803,7 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
           </button>
           {showNote && <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.03)", borderRadius: 6, fontSize: 9.5, color: t.sub, fontFamily: mono, lineHeight: 1.6, whiteSpace: "pre-line" }}>{item.checkNote}{item.verify ? `${item.checkNote ? "\n" : ""}verify: ${trkVerifyLabel(item.verify)}` : ""}</div>}
         </>}
-        <button onClick={() => onToggle()} style={{ width: "100%", minHeight: 44, marginTop: 10, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 8, color: t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: mono }}>▲ 접기</button>
+        <button onClick={() => { scrollOnCollapse.current = true; onToggle(); }} style={{ width: "100%", minHeight: 44, marginTop: 10, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 8, color: t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: mono }}>▲ 접기</button>
       </div>}
     </div>
   );
@@ -2890,7 +2894,7 @@ function Tracker({ tracker, regionPolicy, dark }) {
         <div style={{ position: "relative", marginBottom: 10 }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regionFilterOptions.map((r) => { const active = regionFilter === r; const label = r === "all" ? "ALL REGIONS" : `${TRACKER_REGION[r]?.flag || "🌐"} ${TRACKER_REGION[r]?.name || r}`; return <button key={r} onClick={() => setRegionFilter(r)} style={{ background: active ? t.cyan : t.card2, color: active ? "#000" : t.sub, border: `1px solid ${active ? "transparent" : t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: 36, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div></div>
         {filteredItems.length === 0 ? <div style={{ padding: 20, borderRadius: 10, background: t.card2, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}>조건에 맞는 정책이 없습니다.</div></div> : <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>{filteredItems.map((item) => { const key = item.id || `${item.r}-${item.t}`; const sw = search.trim().toLowerCase(); const hiddenMatch = !!sw && ![item.id, item.t, item.d].filter(Boolean).join(" ").toLowerCase().includes(sw); return <TrackerItemCard key={key} item={item} dark={dark} expanded={expandedItemId === key} initialNoteOpen={deepNoteId === key} hiddenMatch={hiddenMatch} onToggle={() => { setDeepNoteId(null); setExpandedItemId((prev) => prev === key ? null : key); }} onDeepOpen={() => { setDeepNoteId(key); setExpandedItemId(key); }} />; })}</div>}
       </div>
-      <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>KEY DATES</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ background: t.card2, borderRadius: 8, padding: "4px 0", border: `1px solid ${t.brd}` }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px 6px", borderBottom: `1px solid ${t.brd}` }}><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>WATCHLIST — UPCOMING TOP 8</span><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>LAST CHECKED {updatedLabel}</span></div>{d.upcoming.map((ev, i) => <div key={i} onClick={() => { if (!ev.id) return; setStatusFilter("all"); setRegionFilter("all"); setSearch(""); setStaleOnly(false); setDeepNoteId(null); setExpandedItemId(ev.id); }} style={{ padding: "8px 12px", display: "flex", alignItems: "center", gap: 8, borderTop: i > 0 ? `1px solid ${t.brd}` : "none", cursor: ev.id ? "pointer" : "default" }}><span style={{ width: 72, fontSize: 10, fontWeight: 700, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexShrink: 0, lineHeight: 1.35, whiteSpace: "normal", wordBreak: "keep-all" }}>{ev.date}</span><span style={{ flex: 1, fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.45 }}>{ev.title}</span><DdayChip info={deriveDday(ev.eff, "UPCOMING", null, null)} dark={dark} /></div>)}</div></div>
+      <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>KEY DATES</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ background: t.card2, borderRadius: 8, padding: "4px 0", border: `1px solid ${t.brd}` }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px 6px", borderBottom: `1px solid ${t.brd}` }}><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>WATCHLIST — UPCOMING TOP 8</span><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>LAST CHECKED {updatedLabel}</span></div>{d.upcoming.map((ev, i) => <div key={i} role={ev.id ? "button" : undefined} tabIndex={ev.id ? 0 : undefined} onKeyDown={(e) => { if (ev.id && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); e.currentTarget.click(); } }} onClick={() => { if (!ev.id) return; setStatusFilter("all"); setRegionFilter("all"); setSearch(""); setStaleOnly(false); setDeepNoteId(null); setExpandedItemId(ev.id); }} style={{ padding: "8px 12px", display: "flex", alignItems: "center", gap: 8, borderTop: i > 0 ? `1px solid ${t.brd}` : "none", cursor: ev.id ? "pointer" : "default" }}><span style={{ width: 72, fontSize: 10, fontWeight: 700, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexShrink: 0, lineHeight: 1.35, whiteSpace: "normal", wordBreak: "keep-all" }}>{ev.date}</span><span style={{ flex: 1, fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.45 }}>{ev.title}</span><DdayChip info={deriveDday(ev.eff, "UPCOMING", null, null)} dark={dark} /></div>)}</div></div>
     </div>
   );
 }

@@ -86,6 +86,35 @@ def clone_module_with_shared_globals(
     return cloned
 
 
+def rebind_module_functions(
+    module: ModuleType,
+    *,
+    function_names: tuple[str, ...],
+) -> ModuleType:
+    """Rebind selected functions to an already isolated module namespace.
+
+    Unlike cloning the module again, this preserves aliases between mutable
+    top-level exports and nested module state that were established while the
+    dependency graph was reconstructed.
+    """
+    namespace = module.__dict__
+    module_name = module.__name__
+
+    for name in function_names:
+        function = getattr(module, name, None)
+        if not isinstance(function, FunctionType):
+            raise TypeError(
+                f"module function {name!r} is not a Python function on {module_name}"
+            )
+        namespace[name] = _clone_function_into_namespace(
+            function,
+            namespace,
+            module_name=module_name,
+        )
+
+    return module
+
+
 def clone_module_with_rebound_functions(
     source: ModuleType,
     *,
@@ -103,21 +132,10 @@ def clone_module_with_rebound_functions(
         source,
         module_name=module_name,
     )
-    namespace = cloned.__dict__
-
-    for name in function_names:
-        function = getattr(source, name, None)
-        if not isinstance(function, FunctionType):
-            raise TypeError(
-                f"module function {name!r} is not a Python function on {source.__name__}"
-            )
-        namespace[name] = _clone_function_into_namespace(
-            function,
-            namespace,
-            module_name=module_name,
-        )
-
-    return cloned
+    return rebind_module_functions(
+        cloned,
+        function_names=function_names,
+    )
 
 
 def clone_module_with_cloned_dependency(

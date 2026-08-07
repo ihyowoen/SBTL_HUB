@@ -13,13 +13,19 @@ if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
 from validation_scripts.module_seam import (
+    clone_module_dependency_chain as _clone_module_dependency_chain,
     clone_module_with_rebound_functions as _clone_module_with_rebound_functions,
 )
 from validation_scripts import related_subject_specificity as _impl
 
-# Build a public-only stable namespace. The inherited validator callables are
-# explicitly rebound to the clone so the final public graph resolves through
-# one isolated globals dictionary without the legacy callable seam.
+# Build a public-only stable namespace including the nested metric -> role ->
+# core ownership chain. Rebind the inherited validator callables afterwards so
+# every public path resolves through public-owned module and mutable state.
+_impl = _clone_module_dependency_chain(
+    _impl,
+    dependency_names=("_base", "_prior", "_base"),
+    module_name=f"{__name__}._stable",
+)
 _impl = _clone_module_with_rebound_functions(
     _impl,
     module_name=f"{__name__}._stable",
@@ -38,6 +44,7 @@ for _name, _value in vars(_impl).items():
         "_prior",
         "_impl",
         "_legacy_impl",
+        "_clone_module_dependency_chain",
         "_clone_module_with_rebound_functions",
     }:
         globals()[_name] = _value

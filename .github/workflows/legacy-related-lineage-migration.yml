@@ -1,0 +1,97 @@
+name: legacy-related-lineage-migration
+
+on:
+  pull_request:
+    paths:
+      - "migrations/**/legacy-related-lineage-container-migration.json"
+      - "data/cards.full.json"
+      - "public/data/cards.json"
+      - "scripts/validate_legacy_related_lineage_migration.mjs"
+      - ".github/workflows/legacy-related-lineage-migration.yml"
+      - ".github/workflows/apply-card-run.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Validate migration validator
+        run: |
+          set -euo pipefail
+          node --check scripts/validate_legacy_related_lineage_migration.mjs
+          node scripts/validate_legacy_related_lineage_migration.mjs --self-test
+
+      - name: Detect migration payload
+        id: detect
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
+          mapfile -t manifests < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)migrations/**/legacy-related-lineage-container-migration.json')
+          mapfile -t canonical < <(git diff --name-only "origin/$BASE_REF...HEAD" -- data/cards.full.json public/data/cards.json)
+          if [[ ${#canonical[@]} -eq 0 ]]; then
+            [[ ${#manifests[@]} -eq 0 ]] || { echo "FAIL: migration manifest without canonical outputs" >&2; exit 1; }
+            echo "has_migration=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          [[ ${#manifests[@]} -eq 1 ]] || { echo "FAIL: canonical legacy-lineage migration requires exactly one migration manifest" >&2; exit 1; }
+          [[ ${#canonical[@]} -eq 2 ]] || { echo "FAIL: migration must commit both full and lean outputs" >&2; printf ' - %s\n' "${canonical[@]}" >&2; exit 1; }
+          echo "has_migration=true" >> "$GITHUB_OUTPUT"
+          echo "manifest=${manifests[0]}" >> "$GITHUB_OUTPUT"
+          echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
+
+      - name: Lock baseline and validate exact transformation
+        if: steps.detect.outputs.has_migration == 'true'
+        shell: bash
+        env:
+          MANIFEST: ${{ steps.detect.outputs.manifest }}
+          BASE_SHA: ${{ steps.detect.outputs.base_sha }}
+        run: |
+          set -euo pipefail
+          declared_main="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_main_commit_sha)' "$MANIFEST")"
+          declared_blob="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_full_blob_sha)' "$MANIFEST")"
+          actual_blob="$(git rev-parse "${BASE_SHA}:data/cards.full.json")"
+          [[ "$declared_main" == "$BASE_SHA" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED main $BASE_SHA != $declared_main" >&2; exit 1; }
+          [[ "$declared_blob" == "$actual_blob" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED blob $actual_blob != $declared_blob" >&2; exit 1; }
+          git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
+          node scripts/validate_legacy_related_lineage_migration.mjs --manifest "$MANIFEST" --base "$RUNNER_TEMP/cards.full.base.json" --full data/cards.full.json
+
+      - name: Validate canonical and generated lean outputs
+        if: steps.detect.outputs.has_migration == 'true'
+        run: |
+          set -euo pipefail
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          git diff --check
+
+      - name: Enforce migration-only changed-file surface
+        if: steps.detect.outputs.has_migration == 'true'
+        shell: bash
+        env:
+          BASE_SHA: ${{ steps.detect.outputs.base_sha }}
+          MANIFEST: ${{ steps.detect.outputs.manifest }}
+        run: |
+          set -euo pipefail
+          mapfile -t changed < <(git diff --name-only "$BASE_SHA...HEAD")
+          for path in "${changed[@]}"; do
+            case "$path" in
+              data/cards.full.json|public/data/cards.json|"$MANIFEST") ;;
+              *) echo "FAIL: migration data PR contains undeclared changed path $path" >&2; exit 1 ;;
+            esac
+          done

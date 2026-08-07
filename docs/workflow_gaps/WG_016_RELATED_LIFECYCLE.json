@@ -1,7 +1,7 @@
 {
   "gap_id": "WG_016",
   "title": "Related lifecycle contract",
-  "status": "IMPLEMENTATION_IN_PROGRESS_DRAFT_PR_207",
+  "status": "IMPLEMENTED_VALIDATED_WITH_SEPARATE_LEGACY_REMEDIATION",
   "observed_run": "20260721_134545",
   "observed_problem": [
     "Related screening was concentrated in a pre-pass and final baseline check rather than preserved as a stage-by-stage lineage contract.",
@@ -9,7 +9,9 @@
     "A newer article date could be mistaken for a distinct follow-up without proving a new execution anchor.",
     "Legacy cards contain dangling Related IDs that were not caught by the new-card merge flow."
   ],
-  "proposed_contract": "docs/RELATED_LIFECYCLE_CONTRACT.md",
+  "implemented_contract": "docs/RELATED_LIFECYCLE_CONTRACT.md",
+  "implemented_contract_version": "RELATED_LIFECYCLE_V2_20260802",
+  "implementation_completed_through_pr": 248,
   "relation_types": [
     "same_event_duplicate",
     "distinct_follow_up",
@@ -39,12 +41,20 @@
     "docs/RELATED_LIFECYCLE_CONTRACT.md",
     "validation_scripts/related_lifecycle_check.py",
     "validation_scripts/apply_prompt_contract_overlays.py",
-    "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json"
+    "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
+    "scripts/validate_card_run_relations.mjs",
+    "scripts/validate_card_run_lineage_containers.mjs"
   ],
   "validation_status": {
-    "new_35_structural_related_check": "PASS",
-    "legacy_baseline_affected_cards": 13,
-    "legacy_baseline_dangling_edges": 14,
-    "legacy_edges_auto_fixed": 0
-  }
+    "related_lifecycle_contract": "ACTIVE_V2",
+    "stage_by_stage_lineage_contract": "IMPLEMENTED",
+    "public_related_validator": "IMPLEMENTED_AND_STABILIZED",
+    "card_run_relation_validator": "IMPLEMENTED_FAIL_CLOSED",
+    "legacy_baseline_snapshot_20260723_affected_cards": 13,
+    "legacy_baseline_snapshot_20260723_dangling_edges": 14,
+    "legacy_edges_auto_fixed": 0,
+    "legacy_dangling_remediation": "OPEN_SEPARATE_REMEDIATION",
+    "legacy_lineage_container_initialization": "REQUIRED_SEPARATE_CANONICAL_DATA_MIGRATION"
+  },
+  "closure_note": "WG_016's workflow implementation gap is closed: the Related lifecycle is governed by RELATED_LIFECYCLE_V2_20260802 and current validators. Historical dangling edges and legacy lineage-container initialization remain separate bounded data-remediation or migration work and must not be silently treated as unfinished implementation of the lifecycle contract."
 }

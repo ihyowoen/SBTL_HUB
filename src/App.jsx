@@ -2689,35 +2689,44 @@ const clampLines = (n) => ({ display: "-webkit-box", WebkitBoxOrient: "vertical"
 // (2) DST 경계를 지나는 구간이 23/25시간이 섞여 일수가 하루 어긋난다. 달력 성분만 뽑아 Date.UTC로 환산하면 둘 다 소멸.
 const trkYmdUTC = (y, m, dd) => Date.UTC(+y, +m - 1, +dd);
 const trkTodayUTC = () => { const n = kstNow(); return Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()); }; // 앱의 '오늘'은 KST 기준
-function deriveDday(effectiveDate, status, supersededBy, dtRaw) {
-  if (status === "DONE" || supersededBy) return null; // 대체·종결 규범을 임박으로 오신호하지 않는다
-  const v = String(effectiveDate || "").trim();
-  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) {
-    const p = v.split("-");
-    const diff = Math.round((trkYmdUTC(p[0], p[1], p[2]) - trkTodayUTC()) / 86400000);
-    if (diff === 0) return { label: "D-DAY", tone: "red" };
-    if (diff > 0) return { label: `D-${diff}`, tone: diff <= 7 ? "red" : diff <= 30 ? "amber" : "neutral" };
-    if (status === "ACTIVE") return { label: "시행중", tone: "dim" };
-    // 미제정(WATCH)·미전환(UPCOMING) 항목의 지난 날짜를 시행 사실로 단정하지 않는다 — WATCH의 effectiveDate는
-    // 제안 기한일 수 있다(EU-021 실측). UPCOMING은 ACTIVE 전환 누락 가능성이라 amber, WATCH는 기한 경과가 정상이라 dim.
-    return { label: `${p[0]}.${p[1]}.${p[2]} 경과`, tone: status === "UPCOMING" ? "amber" : "dim" };
-  }
-  if (status === "ACTIVE" && /^\d{4}(-\d{2})?$/.test(v)) return { label: "시행중", tone: "dim" }; // ACTIVE + 부분 ISO — '예정' 라벨이 ACTIVE 배지와 모순되는 것 방지
-  if (/^\d{4}-\d{2}$/.test(v)) { const p = v.split("-"); return { label: `${p[0].slice(2)}.${+p[1]} 예정`, tone: "neutral" }; } // 부분 ISO는 D-day 산술 금지
-  if (/^\d{4}$/.test(v)) return { label: `${v} 예정`, tone: "neutral" };
-  const m = String(dtRaw || "").match(/^(\d{4})[.-](\d{2})[.-](\d{2})/);
-  if (m) return { label: `${m[1]}.${m[2]}.${m[3]}`, tone: "neutral" };
+// 부분 ISO를 (상한 UTC, 정밀도)로 — YYYY-MM은 그 달 말일, YYYY는 12/31이 상한. 진행 중인 달·해를 조기에 '경과' 처리하지 않기 위함.
+function trkDateParts(v) {
+  const s = String(v || "").trim();
+  let m;
+  if ((m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/))) return { utc: trkYmdUTC(m[1], m[2], m[3]), prec: "d", label: `${m[1]}.${m[2]}.${m[3]}` };
+  if ((m = s.match(/^(\d{4})-(\d{2})$/))) return { utc: Date.UTC(+m[1], +m[2], 0), prec: "m", label: `${m[1].slice(2)}.${+m[2]}` };
+  if ((m = s.match(/^(\d{4})$/))) return { utc: Date.UTC(+m[1], 11, 31), prec: "y", label: m[1] };
   return null;
 }
-// 확장 카드의 effectiveDate 표기 — 칩(deriveDday)과 같은 규약: 미제정 항목의 날짜를 시행 사실로 단정하지 않는다.
+// dt 선두 날짜 — RUNBOOK 규약상 UPCOMING의 dt 선두는 차기 마일스톤이다.
+function trkDtLead(dtRaw) {
+  const m = String(dtRaw || "").match(/^(\d{4})[.-](\d{2})[.-](\d{2})/);
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
+}
+// 칩은 '언제'만 말한다 — 시행 여부는 status 배지의 몫. 날짜의 성격(시행·만료·기한)이 데이터에 없으므로 단정하지 않는다.
+function deriveDday(effectiveDate, status, supersededBy, dtRaw) {
+  if (status === "DONE" || supersededBy) return null; // 종결·대체는 임박 신호 없음
+  if (status === "ACTIVE") return null; // 이미 시행 중 — 카운트다운은 무의미하고 '시행중'은 상태 배지와 중복. 날짜는 dt 폴백이 그대로 보여준다
+  const p = trkDateParts(effectiveDate) || trkDateParts(trkDtLead(dtRaw));
+  if (!p) return null;
+  const diff = Math.round((p.utc - trkTodayUTC()) / 86400000);
+  // 지난 날짜를 시행 사실로 단정하지 않는다. UPCOMING은 전환 누락 가능성이라 amber, WATCH는 기한 경과가 정상이라 dim.
+  if (diff < 0) return { label: `${p.label} 경과`, tone: status === "UPCOMING" ? "amber" : "dim" };
+  if (status === "WATCH") return { label: p.label, tone: "dim" }; // 미제정 — 카운트다운을 붙이면 확정처럼 읽힌다
+  if (p.prec !== "d") return { label: `${p.label} 예정`, tone: "neutral" }; // 정밀도 부족 — D-day 산술 금지
+  if (diff === 0) return { label: "D-DAY", tone: "red" };
+  return { label: `D-${diff}`, tone: diff <= 7 ? "red" : diff <= 30 ? "amber" : "neutral" };
+}
+// 확장 카드의 effectiveDate 표기 — 칩과 같은 규약.
 function trkEffectiveLabel(effectiveDate, status) {
   const v = String(effectiveDate || "").trim();
   if (!v) return null;
-  if (status === "ACTIVE" || status === "DONE") return `시행 ${v}`;
-  if (status === "WATCH") return `기준일 ${v}`; // 미제정 — 제안 기한일 수 있다(EU-021 실측)
-  const m = v.match(/^(\d{4})-(\d{2})-(\d{2})$/); // UPCOMING
-  if (m && trkYmdUTC(m[1], m[2], m[3]) < trkTodayUTC()) return `${v} 경과 — 시행 미확인`;
-  return `시행 예정 ${v}`;
+  const p = trkDateParts(v);
+  const past = p ? p.utc < trkTodayUTC() : false;
+  // 날짜 성격(시행·만료·기한)이 데이터에 없으므로, 시행으로 단정할 수 있는 건 ACTIVE이면서 그 날짜가 이미 지났을 때뿐이다.
+  if (status === "ACTIVE") return past ? `시행 ${v}` : `기준일 ${v}`;
+  if (status === "DONE" || status === "WATCH") return `기준일 ${v}`; // DONE은 만료·종료일인 경우가 많고, WATCH는 제안 기한일 수 있다
+  return past ? `${v} 경과 — 시행 미확인` : `시행 예정 ${v}`; // UPCOMING
 }
 function daysSinceChecked(lastChecked) {
   const m = String(lastChecked || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -2738,7 +2747,7 @@ function DdayChip({ info, dark, size = 9 }) {
   return <span style={{ fontSize: size, fontWeight: 800, color: c, border: `1px solid ${hot ? c : t.brd}`, borderRadius: 999, padding: "2px 8px", fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap", flexShrink: 0, opacity: info.tone === "dim" ? 0.75 : 1 }}>{info.label}</span>;
 }
 
-function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, onToggle, onDeepOpen }) {
+function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, focusOnExpand, onToggle, onDeepOpen }) {
   const t = T(dark);
   const mono = "'JetBrains Mono',monospace";
   const flag = TRACKER_REGION[item.r]?.flag || "🌐";
@@ -2756,6 +2765,7 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
   const [showDetail, setShowDetail] = useState(false);
   const [showNote, setShowNote] = useState(false);
   const cardRef = useRef(null);
+  const hdrRef = useRef(null);
   const prevExpanded = useRef(false); // false 초기화 — 딥링크로 확장 상태로 신규 마운트된 카드도 스크롤되게 (접힘 마운트는 false===false라 스크롤 없음)
   const scrollOnCollapse = useRef(false); // ▲접기 바로 접을 때만 접힘 스크롤 허용 — 아코디언 자동 접힘의 스크롤 경합 방지
   // 접힘 시 서랍 리셋 · 딥오픈 진입 시 메모 서랍 자동 개방
@@ -2769,13 +2779,14 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
     prevExpanded.current = expanded;
     const shouldScroll = expanded || scrollOnCollapse.current;
     scrollOnCollapse.current = false;
-    if (shouldScroll) requestAnimationFrame(() => cardRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" }));
+    if (shouldScroll) requestAnimationFrame(() => {
+      cardRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      // 선반 딥링크로 열렸을 때 포커스가 화면 밖 선반 행에 남는 것을 막는다 — 키보드/SR 사용자의 다음 Tab이 열린 카드에서 이어지도록.
+      if (expanded && focusOnExpand) hdrRef.current?.focus({ preventScroll: true });
+    });
   }, [expanded]);
   return (
     <div ref={cardRef} id={item.id ? `trkcard-${item.id}` : undefined} onClick={onToggle} style={{ background: t.card2, borderRadius: 10, borderTop: `1px solid ${expanded ? t.cyan : t.brd}`, borderRight: `1px solid ${expanded ? t.cyan : t.brd}`, borderBottom: `1px solid ${expanded ? t.cyan : t.brd}`, borderLeft: `3px solid ${statusColor}`, padding: expanded ? "12px 14px" : "10px 12px", cursor: "pointer", opacity: !expanded && isDone ? 0.65 : 1 }}>
-      {/* 토글 button 역할은 헤더(메타행·제목·티저)에만 — 확장 콘텐츠의 링크·버튼이 button 후손이 되면 보조기술이 의미를 잃는다.
-          마우스는 카드 전면 클릭 유지(컨테이너 onClick), 키보드는 이 헤더가 포커스·Enter/Space를 받는다. */}
-      <div role="button" tabIndex={0} aria-expanded={expanded} aria-label={`${statusLabel} ${item.id || ""} ${item.t}`} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(); } }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
         <span style={{ fontSize: 9, fontWeight: 800, color: statusColor, background: `${statusColor}22`, padding: "2px 7px", borderRadius: 999, fontFamily: mono }}>{statusLabel}</span>
         {item.id && <span style={{ fontSize: 9, color: t.sub, fontFamily: mono, fontWeight: 700 }}>{item.id}</span>}
@@ -2788,9 +2799,13 @@ function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, o
           {!dday && item.dt && <span style={{ fontSize: 9, color: t.sub, fontFamily: mono, fontWeight: 700 }}>{fmtDate(item.dt)}</span>}
         </span>
       </div>
-      <h3 style={{ fontSize: 13, fontWeight: 800, color: t.tx, margin: "6px 0 0", lineHeight: 1.4, ...(expanded ? {} : clampLines(2)) }}>{item.t}</h3>
+      {/* heading을 유지한 채 그 안의 span만 토글 button — role=button은 후손 역할을 지우므로(Children Presentational)
+          h3를 button 안에 넣으면 122개 정책 제목이 헤딩 탐색에서 사라진다. 접근명은 제목 텍스트 그 자체가 된다. */}
+      <h3 style={{ margin: "6px 0 0" }}>
+        <span ref={hdrRef} role="button" tabIndex={0} aria-expanded={expanded} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(); } }}
+          style={{ display: "block", fontSize: 13, fontWeight: 800, color: t.tx, lineHeight: 1.4, cursor: "pointer", ...(expanded ? {} : clampLines(2)) }}>{item.t}</span>
+      </h3>
       {!expanded && item.d && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.5, ...clampLines(isDone ? 1 : 2) }}>{item.d}</p>}
-      </div>
       {!expanded && <>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 8, fontSize: 9, color: t.sub, fontFamily: mono }}>
           {item.tip && <span title="확장하면 💡 팁이 있습니다">💡</span>}
@@ -2839,6 +2854,7 @@ function Tracker({ tracker, regionPolicy, dark }) {
   const [copiedShelf, setCopiedShelf] = useState(false);
   const [staleOnly, setStaleOnly] = useState(false); // ⚠ 90일↑ 미점검만 보기
   const [deepNoteId, setDeepNoteId] = useState(null); // 낡음 칩 딥오픈 — 확장과 동시에 메모 서랍 개방
+  const [focusTargetId, setFocusTargetId] = useState(null); // 선반 딥링크 대상 — 확장 후 그 카드 헤더로 포커스 인계
   const copyShelf = () => {
     const text = [`★ SBTL 보고함 (${bookmarks.length}건)`, ...bookmarks.map((b) => `- [${b.date}] ${b.title}${b.url ? `\n  ${b.url}` : ""}`)].join("\n");
     const done = () => { setCopiedShelf(true); setTimeout(() => setCopiedShelf(false), 1600); };
@@ -2909,9 +2925,9 @@ function Tracker({ tracker, regionPolicy, dark }) {
       <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>POLICY ITEMS — {filteredItems.length} / {d.items.length}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="🔍 정책 검색 (제목·설명·ID)..." aria-label="Search policy items" style={{ width: "100%", padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box", marginBottom: 8 }} />
         <div style={{ position: "relative", marginBottom: 6 }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{statusFilterOptions.map((s) => { const active = statusFilter === s; const label = s === "all" ? `ALL ${d.items.length}` : `${SL[s] || s} ${d.summary[s] || 0}`; const color = s === "all" ? t.cyan : (SC[s] || t.cyan); return <button key={s} onClick={() => setStatusFilter(s)} style={{ background: active ? color : t.card2, color: active ? "#000" : t.sub, border: `1px solid ${active ? "transparent" : t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: 36, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div></div>
         <div style={{ position: "relative", marginBottom: 10 }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regionFilterOptions.map((r) => { const active = regionFilter === r; const label = r === "all" ? "ALL REGIONS" : `${TRACKER_REGION[r]?.flag || "🌐"} ${TRACKER_REGION[r]?.name || r}`; return <button key={r} onClick={() => setRegionFilter(r)} style={{ background: active ? t.cyan : t.card2, color: active ? "#000" : t.sub, border: `1px solid ${active ? "transparent" : t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: 36, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div></div>
-        {filteredItems.length === 0 ? <div style={{ padding: 20, borderRadius: 10, background: t.card2, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}>조건에 맞는 정책이 없습니다.</div></div> : <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>{filteredItems.map((item) => { const key = item.id || `${item.r}-${item.t}`; const sw = search.trim().toLowerCase(); const hiddenMatch = !!sw && ![item.id, item.t, item.d].filter(Boolean).join(" ").toLowerCase().includes(sw); return <TrackerItemCard key={key} item={item} dark={dark} expanded={expandedItemId === key} initialNoteOpen={deepNoteId === key} hiddenMatch={hiddenMatch} onToggle={() => { setDeepNoteId(null); setExpandedItemId((prev) => prev === key ? null : key); }} onDeepOpen={() => { setDeepNoteId(key); setExpandedItemId(key); }} />; })}</div>}
+        {filteredItems.length === 0 ? <div style={{ padding: 20, borderRadius: 10, background: t.card2, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}>조건에 맞는 정책이 없습니다.</div></div> : <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>{filteredItems.map((item) => { const key = item.id || `${item.r}-${item.t}`; const sw = search.trim().toLowerCase(); const hiddenMatch = !!sw && ![item.id, item.t, item.d].filter(Boolean).join(" ").toLowerCase().includes(sw); return <TrackerItemCard key={key} item={item} dark={dark} expanded={expandedItemId === key} initialNoteOpen={deepNoteId === key} hiddenMatch={hiddenMatch} onToggle={() => { setDeepNoteId(null); setFocusTargetId(null); setExpandedItemId((prev) => prev === key ? null : key); }} focusOnExpand={focusTargetId === key} onDeepOpen={() => { setDeepNoteId(key); setExpandedItemId(key); }} />; })}</div>}
       </div>
-      <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>KEY DATES</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ background: t.card2, borderRadius: 8, padding: "4px 0", border: `1px solid ${t.brd}` }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px 6px", borderBottom: `1px solid ${t.brd}` }}><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>WATCHLIST — UPCOMING TOP 8</span><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>LAST CHECKED {updatedLabel}</span></div>{d.upcoming.map((ev, i) => { const kdInfo = deriveDday(ev.eff, "UPCOMING", null, null); return <div key={i} role={ev.id ? "button" : undefined} tabIndex={ev.id ? 0 : undefined} onKeyDown={(e) => { if (ev.id && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); e.currentTarget.click(); } }} onClick={() => { if (!ev.id) return; setStatusFilter("all"); setRegionFilter("all"); setSearch(""); setStaleOnly(false); setDeepNoteId(null); setExpandedItemId(ev.id); requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById(`trkcard-${ev.id}`)?.scrollIntoView({ block: "nearest", behavior: "smooth" }))); }} style={{ padding: "8px 12px", display: "flex", alignItems: "center", gap: 8, borderTop: i > 0 ? `1px solid ${t.brd}` : "none", cursor: ev.id ? "pointer" : "default" }}><span style={{ width: 72, fontSize: 10, fontWeight: 700, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexShrink: 0, lineHeight: 1.35, whiteSpace: "normal", wordBreak: "keep-all" }}>{ev.date}</span><span style={{ flex: 1, fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.45 }}>{ev.title}</span>{kdInfo && /^D-/.test(kdInfo.label) && <DdayChip info={kdInfo} dark={dark} />}</div>; })}</div></div>
+      <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>KEY DATES</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ background: t.card2, borderRadius: 8, padding: "4px 0", border: `1px solid ${t.brd}` }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px 6px", borderBottom: `1px solid ${t.brd}` }}><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>WATCHLIST — UPCOMING TOP 8</span><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>LAST CHECKED {updatedLabel}</span></div>{d.upcoming.map((ev, i) => { const kdInfo = deriveDday(ev.eff, "UPCOMING", null, null); return <div key={i} role={ev.id ? "button" : undefined} tabIndex={ev.id ? 0 : undefined} onKeyDown={(e) => { if (ev.id && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); e.currentTarget.click(); } }} aria-label={ev.id ? `${ev.title}${kdInfo ? `, ${kdInfo.label}` : ""} — 카드 열기` : undefined} onClick={() => { if (!ev.id) return; setStatusFilter("all"); setRegionFilter("all"); setSearch(""); setStaleOnly(false); setDeepNoteId(null); setFocusTargetId(ev.id); setExpandedItemId(ev.id); requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById(`trkcard-${ev.id}`)?.scrollIntoView({ block: "nearest", behavior: "smooth" }))); }} style={{ padding: "8px 12px", display: "flex", alignItems: "center", gap: 8, borderTop: i > 0 ? `1px solid ${t.brd}` : "none", cursor: ev.id ? "pointer" : "default" }}><span aria-hidden="true" style={{ width: 72, fontSize: 10, fontWeight: 700, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexShrink: 0, lineHeight: 1.35, whiteSpace: "normal", wordBreak: "keep-all" }}>{ev.date}</span><span style={{ flex: 1, fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.45 }}>{ev.title}</span>{kdInfo && /^D-/.test(kdInfo.label) && <DdayChip info={kdInfo} dark={dark} />}</div>; })}</div></div>
     </div>
   );
 }

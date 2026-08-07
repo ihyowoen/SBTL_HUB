@@ -229,34 +229,82 @@ def clone_module_dependency_chain(
     dependency_names: tuple[str, ...],
     module_name: str,
 ) -> ModuleType:
-    """Clone a module and every module dependency along one explicit chain.
+    """Clone one existing module graph while preserving cross-layer aliases.
 
-    Each dependency is rebuilt bottom-up with ``clone_module_with_cloned_dependency``
-    so module-valued globals never point back into the source graph. This is for
-    compatibility layers whose callables traverse nested policy modules such as
-    ``_base -> _prior -> _base``.
+    The supplied dependency names identify one nested module path. Every module
+    on that path gets a fresh namespace. A single deepcopy memo is shared across
+    all modules so mutable objects exported by more than one layer remain aliases
+    inside the clone, while being isolated from the source graph. Function aliases
+    are likewise cloned once and rebound to the cloned namespace that owns their
+    original globals. Unlike ``clone_module_with_cloned_dependency``, this copies
+    the graph *as it currently exists* and does not reconstruct historical
+    ``_prior_*`` aliases.
     """
-    if not dependency_names:
-        return clone_module_with_shared_globals(source, module_name=module_name)
+    source_modules: list[tuple[ModuleType, str]] = [(source, module_name)]
+    current = source
+    current_name = module_name
 
-    dependency_name = dependency_names[0]
-    dependency = getattr(source, dependency_name, None)
-    if not isinstance(dependency, ModuleType):
-        raise TypeError(
-            f"module dependency {dependency_name!r} is not a module on {source.__name__}"
+    for dependency_name in dependency_names:
+        dependency = getattr(current, dependency_name, None)
+        if not isinstance(dependency, ModuleType):
+            raise TypeError(
+                f"module dependency {dependency_name!r} is not a module on {current.__name__}"
+            )
+        current_name = (
+            f"{current_name}.{dependency_name.lstrip('_') or 'dependency'}"
         )
+        source_modules.append((dependency, current_name))
+        current = dependency
 
-    nested_module_name = (
-        f"{module_name}.{dependency_name.lstrip('_') or 'dependency'}"
-    )
-    cloned_dependency_source = clone_module_dependency_chain(
-        dependency,
-        dependency_names=dependency_names[1:],
-        module_name=nested_module_name,
-    )
-    return clone_module_with_cloned_dependency(
-        source,
-        dependency_name=dependency_name,
-        module_name=module_name,
-        dependency_source=cloned_dependency_source,
-    )
+    cloned_by_module_id: dict[int, ModuleType] = {}
+    namespace_by_globals_id: dict[int, dict[str, Any]] = {}
+    module_name_by_globals_id: dict[int, str] = {}
+
+    for source_module, cloned_name in source_modules:
+        cloned_module = ModuleType(cloned_name, source_module.__doc__)
+        cloned_by_module_id[id(source_module)] = cloned_module
+        namespace_by_globals_id[id(source_module.__dict__)] = cloned_module.__dict__
+        module_name_by_globals_id[id(source_module.__dict__)] = cloned_name
+
+    mutable_copy_memo: dict[int, Any] = {}
+    metadata_names = {"__name__", "__package__", "__loader__", "__spec__"}
+
+    for source_module, cloned_name in source_modules:
+        cloned_module = cloned_by_module_id[id(source_module)]
+        namespace = cloned_module.__dict__
+        for name, value in vars(source_module).items():
+            if name in metadata_names:
+                continue
+            if isinstance(value, ModuleType) and id(value) in cloned_by_module_id:
+                namespace[name] = cloned_by_module_id[id(value)]
+            else:
+                namespace[name] = _clone_namespace_value(
+                    name,
+                    value,
+                    mutable_copy_memo,
+                )
+        namespace["__name__"] = cloned_name
+        namespace["__package__"] = cloned_name.rpartition(".")[0]
+
+    cloned_functions: dict[int, FunctionType] = {}
+    for source_module, _ in source_modules:
+        cloned_namespace = cloned_by_module_id[id(source_module)].__dict__
+        for name, value in vars(source_module).items():
+            if not isinstance(value, FunctionType):
+                continue
+            cloned_function = cloned_functions.get(id(value))
+            if cloned_function is None:
+                owner_namespace = namespace_by_globals_id.get(id(value.__globals__))
+                owner_module_name = module_name_by_globals_id.get(id(value.__globals__))
+                if owner_namespace is None or owner_module_name is None:
+                    cloned_function = value
+                else:
+                    cloned_function = _clone_function_into_namespace(
+                        value,
+                        owner_namespace,
+                        module_name=owner_module_name,
+                    )
+                cloned_functions[id(value)] = cloned_function
+            cloned_namespace[name] = cloned_function
+
+    return cloned_by_module_id[id(source)]

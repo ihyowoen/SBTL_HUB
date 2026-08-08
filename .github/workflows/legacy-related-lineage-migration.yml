@@ -14,7 +14,8 @@ permissions:
   contents: read
 
 jobs:
-  validate:
+  validate-legacy-lineage-migration:
+    name: validate-legacy-lineage-migration
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

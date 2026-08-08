@@ -1,0 +1,53 @@
+name: tmp-stage00d-full-read
+on:
+  push:
+    branches:
+      - agent/tmp-stage00d-read-20260808
+permissions:
+  contents: read
+jobs:
+  full-read:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read and parse every docs file
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, re
+          root = Path('docs')
+          rows=[]
+          failures=[]
+          allowed={'ACTIVE_CANONICAL','ACTIVE_MANDATORY_ADDENDUM','ACTIVE_VALIDATOR_CONTRACT','OPEN_REMEDIATION','ACTIVE_MIGRATION','COMPLETED_REFERENCE','REFERENCE_ONLY','SUPERSEDED','ARCHIVED'}
+          for p in sorted(x for x in root.rglob('*') if x.is_file()):
+              b=p.read_bytes()  # full read
+              try:
+                  text=b.decode('utf-8-sig')
+              except Exception as e:
+                  failures.append({'path':str(p),'error':f'utf8:{e}'})
+                  continue
+              parsed_json=False
+              if p.suffix.lower()=='.json':
+                  try:
+                      json.loads(text)  # complete structured parse
+                      parsed_json=True
+                  except Exception as e:
+                      failures.append({'path':str(p),'error':f'json:{e}'})
+              markers=[]
+              for pat in [r'(?im)^\s*\*\*Status:\*\*\s*`?([A-Z0-9_]+)', r'(?im)^\s*Status:\s*`?([A-Z0-9_]+)', r'"classification"\s*:\s*"([A-Z0-9_]+)"', r'"status"\s*:\s*"([A-Z0-9_]+)"']:
+                  markers += re.findall(pat,text)
+              markers=list(dict.fromkeys(markers))
+              lifecycle=[m for m in markers if m in allowed]
+              rows.append({'path':str(p),'git_blob_sha':None,'sha256':hashlib.sha256(b).hexdigest(),'bytes':len(b),'json_parsed':parsed_json,'markers':markers[:12],'lifecycle_markers':lifecycle,'read_status':'READ_COMPLETE'})
+          out={'repository_head_sha':__import__('subprocess').check_output(['git','rev-parse','HEAD'],text=True).strip(),'docs_file_count':len(rows),'total_bytes':sum(r['bytes'] for r in rows),'failures':failures,'documents':rows}
+          Path('stage00d-full-read-inventory.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({'repository_head_sha':out['repository_head_sha'],'docs_file_count':out['docs_file_count'],'total_bytes':out['total_bytes'],'failures':len(failures)},ensure_ascii=False))
+          if failures: raise SystemExit(1)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stage00d-full-read-inventory
+          path: stage00d-full-read-inventory.json
+          if-no-files-found: error

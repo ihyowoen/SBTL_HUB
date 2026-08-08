@@ -89,20 +89,36 @@ jobs:
           NODE
           node scripts/lean_cards.mjs
 
-      - name: Validate generated migration
+      - name: Reconstruct migration baseline
         shell: bash
         env:
           BASE_SHA: 07f224d0b946c8708a890c876f6f8d2387a30148
-          MANIFEST: migrations/20260808-legacy-related-lineage-container-init/legacy-related-lineage-container-migration.json
         run: |
           set -euo pipefail
           git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
+
+      - name: Validate exact migration transformation
+        shell: bash
+        env:
+          MANIFEST: migrations/20260808-legacy-related-lineage-container-init/legacy-related-lineage-container-migration.json
+        run: |
+          set -euo pipefail
           node scripts/validate_legacy_related_lineage_migration.mjs --manifest "$MANIFEST" --base "$RUNNER_TEMP/cards.full.base.json" --full data/cards.full.json
-          node scripts/validate.mjs
-          node scripts/validate_cards.mjs data/cards.full.json
-          node scripts/validate_cards.mjs public/data/cards.json
-          node scripts/lean_cards.mjs --check
-          git diff --check
+
+      - name: Validate canonical document
+        run: node scripts/validate.mjs
+
+      - name: Validate full cards
+        run: node scripts/validate_cards.mjs data/cards.full.json
+
+      - name: Validate lean cards
+        run: node scripts/validate_cards.mjs public/data/cards.json
+
+      - name: Check lean byte exactness
+        run: node scripts/lean_cards.mjs --check
+
+      - name: Check diff whitespace
+        run: git diff --check
 
       - name: Commit generated payload
         shell: bash

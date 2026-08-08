@@ -42,12 +42,12 @@ jobs:
           git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
           mapfile -t manifests < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)migrations/**/legacy-related-lineage-container-migration.json')
           mapfile -t canonical < <(git diff --name-only "origin/$BASE_REF...HEAD" -- data/cards.full.json public/data/cards.json)
-          if [[ ${#canonical[@]} -eq 0 ]]; then
-            [[ ${#manifests[@]} -eq 0 ]] || { echo "FAIL: migration manifest without canonical outputs" >&2; exit 1; }
+          if [[ ${#manifests[@]} -eq 0 ]]; then
+            echo "INFO: no legacy-lineage migration manifest; ordinary card-run governance applies"
             echo "has_migration=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          [[ ${#manifests[@]} -eq 1 ]] || { echo "FAIL: canonical legacy-lineage migration requires exactly one migration manifest" >&2; exit 1; }
+          [[ ${#manifests[@]} -eq 1 ]] || { echo "FAIL: legacy-lineage migration requires exactly one migration manifest" >&2; exit 1; }
           [[ ${#canonical[@]} -eq 2 ]] || { echo "FAIL: migration must commit both full and lean outputs" >&2; printf ' - %s\n' "${canonical[@]}" >&2; exit 1; }
           echo "has_migration=true" >> "$GITHUB_OUTPUT"
           echo "manifest=${manifests[0]}" >> "$GITHUB_OUTPUT"

@@ -48,7 +48,7 @@ This is neutral container materialization only. It mirrors the already-published
 
 A card with any dangling published `related[]` target must not be initialized by this migration. It remains under the dedicated legacy dangling-edge remediation until separately resolved with item-specific evidence and approval.
 
-A card that already has a valid `related_lineage.related_ids` array must remain byte-equivalent at card level.
+A card that already has a valid `related_lineage.related_ids` array must remain semantically identical at parsed JSON object level. The validator does not promise preservation of insignificant JSON serialization details such as whitespace or escape spelling.
 
 ## Immutable data guarantees
 

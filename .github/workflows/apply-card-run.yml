@@ -103,9 +103,11 @@ jobs:
             if [[ ${#runs[@]} -eq 0 ]]; then
               if [[ ${#canonical_data[@]} -gt 0 ]]; then
                 if [[ ${#migrations[@]} -eq 1 ]]; then
-                  echo "INFO: canonical change delegated to dedicated legacy-related-lineage-migration workflow"
+                  echo "INFO: canonical change uses dedicated legacy-lineage migration path; validating inside apply-card-run gate as well"
                   echo "has_run=false" >> "$GITHUB_OUTPUT"
                   echo "delegated_migration=true" >> "$GITHUB_OUTPUT"
+                  echo "migration_path=${migrations[0]}" >> "$GITHUB_OUTPUT"
+                  echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
                   exit 0
                 fi
                 echo "FAIL: canonical card-data changes require exactly one governed card-run or one dedicated legacy lineage migration manifest" >&2
@@ -129,6 +131,36 @@ jobs:
           echo "path=$run_path" >> "$GITHUB_OUTPUT"
           echo "report_path=$(dirname "$run_path")/apply-report.json" >> "$GITHUB_OUTPUT"
           echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
+
+      - name: Validate delegated legacy lineage migration inside card-run gate
+        if: steps.run.outputs.delegated_migration == 'true'
+        shell: bash
+        env:
+          MANIFEST: ${{ steps.run.outputs.migration_path }}
+          BASE_SHA: ${{ steps.run.outputs.base_sha }}
+        run: |
+          set -euo pipefail
+          test -n "$MANIFEST" && test -f "$MANIFEST"
+          declared_main="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_main_commit_sha)' "$MANIFEST")"
+          declared_blob="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_full_blob_sha)' "$MANIFEST")"
+          actual_blob="$(git rev-parse "${BASE_SHA}:data/cards.full.json")"
+          [[ "$declared_main" == "$BASE_SHA" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED main $BASE_SHA != $declared_main" >&2; exit 1; }
+          [[ "$declared_blob" == "$actual_blob" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED blob $actual_blob != $declared_blob" >&2; exit 1; }
+          git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
+          [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
+          node scripts/validate_legacy_related_lineage_migration.mjs --manifest "$MANIFEST" --base "$RUNNER_TEMP/cards.full.base.json" --full data/cards.full.json
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          mapfile -t changed < <(git diff --name-only "$BASE_SHA...HEAD")
+          for path in "${changed[@]}"; do
+            case "$path" in
+              data/cards.full.json|public/data/cards.json|"$MANIFEST") ;;
+              *) echo "FAIL: migration data PR contains undeclared changed path $path" >&2; exit 1 ;;
+            esac
+          done
+          git diff --check
 
       - name: Require explicit passing and run-bound governance artifacts
         if: steps.run.outputs.has_run == 'true'

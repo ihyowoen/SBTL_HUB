@@ -9,7 +9,6 @@ on:
       - "scripts/validate_legacy_related_lineage_migration.mjs"
       - ".github/workflows/legacy-related-lineage-migration.yml"
       - ".github/workflows/apply-card-run.yml"
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -34,7 +33,6 @@ jobs:
 
       - name: Detect migration payload
         id: detect
-        if: github.event_name == 'pull_request'
         shell: bash
         env:
           BASE_REF: ${{ github.event.pull_request.base.ref }}

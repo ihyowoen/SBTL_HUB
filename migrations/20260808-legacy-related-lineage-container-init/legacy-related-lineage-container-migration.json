@@ -1,0 +1,26 @@
+{
+  "schema": "legacy_related_lineage_container_migration_v1",
+  "status": "PASS",
+  "migration_id": "LEGACY_RELATED_LINEAGE_CONTAINER_INIT_20260808",
+  "base_main_commit_sha": "07f224d0b946c8708a890c876f6f8d2387a30148",
+  "base_full_blob_sha": "ba7e680c9a3c3425f212ef29bcfd9055113cbdb0",
+  "expected_before": 1343,
+  "expected_after": 1343,
+  "expected_initialized_count": 1236,
+  "expected_skipped_dangling_card_ids": [
+    "2026-04-27_KR_10",
+    "2026-04-27_JP_01",
+    "2026-04-27_CN_22",
+    "2026-04-27_CN_18",
+    "2026-04-27_CN_15",
+    "2026-04-27_CN_08",
+    "2026-04-16_KR_07",
+    "2026-04-16_CN_05",
+    "2026-04-15_US_04",
+    "2026-04-15_KR_02",
+    "2026-04-15_CN_02",
+    "2026-04-15_CN_01",
+    "2026-04-14_CN_01"
+  ],
+  "output_updated": "2026-08-08T16:21:00+09:00"
+}

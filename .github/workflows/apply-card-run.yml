@@ -103,6 +103,11 @@ jobs:
             if [[ ${#runs[@]} -eq 0 ]]; then
               if [[ ${#canonical_data[@]} -gt 0 ]]; then
                 if [[ ${#migrations[@]} -eq 1 ]]; then
+                  if [[ ${#canonical_data[@]} -ne 2 ]]; then
+                    echo "FAIL: legacy lineage migration must commit both data/cards.full.json and public/data/cards.json" >&2
+                    printf ' - %s\n' "${canonical_data[@]}" >&2
+                    exit 1
+                  fi
                   echo "INFO: canonical change uses dedicated legacy-lineage migration path; validating inside apply-card-run gate as well"
                   echo "has_run=false" >> "$GITHUB_OUTPUT"
                   echo "delegated_migration=true" >> "$GITHUB_OUTPUT"

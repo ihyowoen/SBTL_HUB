@@ -1,0 +1,53 @@
+name: tmp-stage00d-dependency-read
+on:
+  push:
+    branches:
+      - agent/tmp-stage00d-read-20260808
+permissions:
+  contents: read
+jobs:
+  dependency-read:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read active governed dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json, hashlib
+          paths=[
+            'data/cards.full.json','public/data/cards.json',
+            'scripts/lean_cards.mjs','scripts/apply_card_run.mjs','scripts/validate.mjs','scripts/validate_cards.mjs',
+            'scripts/validate_card_run_stage_artifacts.mjs','scripts/validate_card_run_status_consistency.mjs',
+            'scripts/validate_card_run_relations.mjs','scripts/validate_card_run_lineage_containers.mjs','scripts/validate_card_run_audits.mjs',
+            'scripts/validate_legacy_related_lineage_migration.mjs',
+            'schemas/card-run.v1.schema.json',
+            '.github/workflows/lean-cards.yml','.github/workflows/workflow-contract-validation.yml','.github/workflows/apply-card-run.yml','.github/workflows/legacy-related-lineage-migration.yml',
+            'validation_scripts/date_role_alignment_check.py','validation_scripts/story_id_lineage_check.py','validation_scripts/related_lineage_check.py',
+            'validation_scripts/date_role_freshness_check.py','validation_scripts/evidence_qc_v8_check.py','validation_scripts/related_lifecycle_check.py',
+            'validation_scripts/stage_artifact_contract_check.py','validation_scripts/run_workflow_contract_suite.py',
+            'validation_scripts/tests/test_lean_cards_exporter.py'
+          ]
+          rows=[]; missing=[]; failures=[]
+          for s in paths:
+              p=Path(s)
+              if not p.is_file(): missing.append(s); continue
+              b=p.read_bytes()
+              try: text=b.decode('utf-8-sig')
+              except Exception as e: failures.append({'path':s,'error':str(e)}); continue
+              if p.suffix=='.json':
+                  try: json.loads(text)
+                  except Exception as e: failures.append({'path':s,'error':f'json:{e}'})
+              rows.append({'path':s,'sha256':hashlib.sha256(b).hexdigest(),'bytes':len(b),'read_status':'READ_COMPLETE'})
+          out={'dependency_count_expected':len(paths),'dependency_count_read':len(rows),'missing':missing,'failures':failures,'dependencies':rows}
+          Path('stage00d-dependency-inventory.json').write_text(json.dumps(out,indent=2),encoding='utf-8')
+          print(json.dumps({'expected':len(paths),'read':len(rows),'missing':missing,'failures':failures}))
+          if missing or failures: raise SystemExit(1)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stage00d-dependency-inventory
+          path: stage00d-dependency-inventory.json
+          if-no-files-found: error

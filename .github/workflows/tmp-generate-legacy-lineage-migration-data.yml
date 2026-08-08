@@ -48,7 +48,10 @@ jobs:
           const fs = require('fs');
           const path = 'data/cards.full.json';
           const raw = fs.readFileSync(path, 'utf8');
-          const eol = raw.includes('\r\n') ? '\r\n' : '\n';
+          const crlfCount = (raw.match(/\r\n/g) || []).length;
+          const lfOnlyCount = (raw.match(/(?<!\r)\n/g) || []).length;
+          const eol = crlfCount > lfOnlyCount ? '\r\n' : '\n';
+          console.log(`::notice title=baseline-eol::CRLF=${crlfCount} LF=${lfOnlyCount} selected=${eol === '\r\n' ? 'CRLF' : 'LF'}`);
           const doc = JSON.parse(raw.replace(/^\uFEFF/, ''));
           if (!doc || !Array.isArray(doc.cards) || doc.cards.length !== 1343) throw new Error('unexpected canonical card inventory');
           const ids = new Set(doc.cards.map((card) => card && card.id));

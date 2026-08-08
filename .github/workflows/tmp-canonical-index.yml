@@ -20,18 +20,23 @@ jobs:
           import json, pathlib
           d=json.load(open('/tmp/cards.full.json',encoding='utf-8'))
           out=[]
+          legacy_non_object_fingerprint_count=0
           for c in d['cards']:
-              ef=c.get('event_fingerprint') or {}
+              raw_ef=c.get('event_fingerprint')
+              if isinstance(raw_ef, dict):
+                  ef={k:raw_ef.get(k) for k in ['actor','asset_or_policy','location','event_type','event_date','factual_anchor']}
+              else:
+                  if raw_ef not in (None, '', {}): legacy_non_object_fingerprint_count += 1
+                  ef={'legacy_raw': raw_ef}
               out.append({
                 'id':c.get('id'), 'date':c.get('date'), 'region':c.get('region'),
                 'title':c.get('title'), 'sub':c.get('sub'),
                 'urls':c.get('urls') or [], 'source_story_ids':c.get('source_story_ids') or [],
-                'related':c.get('related') or [],
-                'event_fingerprint':{k:ef.get(k) for k in ['actor','asset_or_policy','location','event_type','event_date','factual_anchor']}
+                'related':c.get('related') or [], 'event_fingerprint':ef
               })
-          obj={'base_main_commit_sha':'d3137945860664116b1bf90bbb7bee54d2a6c1d9','base_full_blob_sha':'a52745170c70aa649323e346413615c5995b890b','total':d['total'],'cards':out}
+          obj={'base_main_commit_sha':'d3137945860664116b1bf90bbb7bee54d2a6c1d9','base_full_blob_sha':'a52745170c70aa649323e346413615c5995b890b','total':d['total'],'legacy_non_object_fingerprint_count':legacy_non_object_fingerprint_count,'cards':out}
           pathlib.Path('canonical-reconciliation-index.json').write_text(json.dumps(obj,ensure_ascii=False),encoding='utf-8')
-          print(json.dumps({'total':len(out),'main':obj['base_main_commit_sha'],'blob':obj['base_full_blob_sha']}))
+          print(json.dumps({'total':len(out),'legacy_non_object_fingerprint_count':legacy_non_object_fingerprint_count,'main':obj['base_main_commit_sha'],'blob':obj['base_full_blob_sha']}))
           PY
       - uses: actions/upload-artifact@v4
         with:

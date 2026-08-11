@@ -31,6 +31,19 @@ jobs:
       - name: Lock main baseline
         run: git fetch origin main:refs/remotes/origin/main --force
 
+      - name: Persist generated Ofgem operation patches
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/pr256_followup_remediation.py')
+          text = path.read_text(encoding='utf-8')
+          old = '    save_json(OFGEM_AUDIT_PATH, audit)\n\n\ndef update_ops_bindings'
+          new = '    save_json(OFGEM_AUDIT_PATH, audit)\n    save_json(RUN_PATH, run)\n\n\ndef update_ops_bindings'
+          if old not in text:
+              raise SystemExit('expected Ofgem persistence marker not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+
       - name: Apply and validate bounded follow-up remediation
         run: python scripts/pr256_followup_remediation.py
 

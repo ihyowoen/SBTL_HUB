@@ -1,0 +1,56 @@
+{
+  "stage": "0.8",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "generated_kst": "2026-08-11T04:36:00+09:00",
+  "status": "BLOCKED_RUNTIME_CANONICAL_APPLY_AND_PROJECTION_VERIFICATION_UNAVAILABLE_IN_CHAT_RUNTIME",
+  "base_main_commit_sha": "d3137945860664116b1bf90bbb7bee54d2a6c1d9",
+  "base_full_blob_sha": "a52745170c70aa649323e346413615c5995b890b",
+  "baseline_count": 1343,
+  "publish_ready_input_count": 32,
+  "production_ids_assigned_count": 32,
+  "declared_insert_count": 32,
+  "declared_update_count": 1,
+  "declared_related_add_count": 10,
+  "related_remove_count": 0,
+  "delete_count": 0,
+  "declarative_expected_after": 1375,
+  "stage_0_7c_consumer_gate": "PASS",
+  "lineage_merge_gate": {
+    "final_qc_lineage_passed": true,
+    "anchor_path_lineage_passed": true,
+    "publish_ready_lineage_checked_count": 32,
+    "execution_path_checked_count": 22,
+    "v3_non_execution_path_checked_count": 10,
+    "anchor_path_hold_count": 0,
+    "github_ready_allowed": false
+  },
+  "consumer_gate_defect_found_and_remediated": {
+    "source_spec_id": "REC26_A2_036",
+    "type": "related_fresh_anchor_date_content_mismatch",
+    "status": "PASS_METADATA_ONLY_CORRECTION",
+    "relation_target_or_type_changed": false
+  },
+  "ofgem_update": {
+    "target_card_id": "2026-06-26_EU_01",
+    "new_card_created": false,
+    "official_source": "https://www.ofgem.gov.uk/call-for-input/long-duration-electricity-storage-window-1-revised-special-licence-conditions",
+    "source_audit_recompute_required": true
+  },
+  "github_merge_ready": false,
+  "pr_candidate_ready": false,
+  "github_write_performed": false,
+  "branch_created": false,
+  "pr_created": false,
+  "production_verified": false,
+  "runtime_pending": [
+    "materialize actual 1,343-card canonical from locked git object",
+    "run governed apply_card_run check/apply",
+    "recompute source audit metadata after Ofgem source addition",
+    "run evidence_qc_v8_check on merge scope",
+    "run related_lifecycle_check on merge scope",
+    "regenerate public/data/cards.json with lean_cards.mjs",
+    "run lean_cards.mjs --check and exact full-to-lean projection validation"
+  ],
+  "next_state_only_after_runtime_pass": "github_merge_ready / pr_candidate_ready",
+  "card_run_file": "runs/2026-08-11/backlog-reconciliation-r2/card-run.json"
+}

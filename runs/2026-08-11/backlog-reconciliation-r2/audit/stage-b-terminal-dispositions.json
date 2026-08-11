@@ -1,0 +1,357 @@
+{
+  "stage": "0.7C Stage B blocked-pool terminal disposition",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "status": "PASS_ALL_43_ACCOUNTED",
+  "original_blocked_count": 43,
+  "rescued_to_publish_ready_count": 1,
+  "terminal_reject_count": 2,
+  "explicit_high_value_hold_count": 4,
+  "other_evidence_hold_count": 36,
+  "accounting_match": true,
+  "dispositions": [
+    {
+      "source_spec_id": "REC26_A2_001",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_002",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_003",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_005",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_007",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "REJECT_EVENT_IDENTITY_SOURCE_OWNER_CONTAMINATION",
+      "reason": "The $1.05bn corporate-facility pattern belongs to Aypa Power; Avantus official events did not verify this candidate identity.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_010",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_011",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_012",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_EXACT_DATASET_UNRECOVERED",
+      "reason": "The exact dataset behind the 4,705MW / 19,223MWh Chile BESS snapshot remains unrecovered.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_013",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_015",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_016",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_017",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_018",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_019",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_020",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_024",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_026",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_028",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_030",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_031",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_033",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_035",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_037",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_038",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_OFFICIAL_POLICY_DOCUMENT_UNRECOVERED",
+      "reason": "The exact 2026 ARERA consultation supporting the MACSE cap claim remains unrecovered.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_043",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "REJECT_EVENT_STAGE_AMOUNT_IDENTITY_UNVERIFIED",
+      "reason": "Lithium Argentina official material supports a $130m Ganfeng facility; no new $220m debt-facility closing was verified.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_044",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_047",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_048",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_049",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_EXACT_PROCUREMENT_DOCUMENT_UNRECOVERED",
+      "reason": "Broader Massachusetts storage authority is verified, but not the exact claimed 1,000MW Aug-2026 procurement event.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_050",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_052",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_054",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_055",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_058",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_064",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_065",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_067",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_068",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_071",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_EXACT_POLICY_INSTRUMENT_UNRECOVERED",
+      "reason": "Adjacent U.S. critical-materials policy does not verify the claimed recoverable-minerals authority event.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_073",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_074",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    },
+    {
+      "source_spec_id": "REC26_A2_075",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "RESCUED_TO_PUBLISH_READY",
+      "reason": "Stage B block was over-strict; two independent body sources supported the fund-selection event.",
+      "publish_ready": true,
+      "operation_created": true
+    },
+    {
+      "source_spec_id": "REC26_A2_076",
+      "original_stage_b_state": "draft_blocked",
+      "0_7C_terminal_disposition": "HOLD_STAGE_B_EVIDENCE_UNRESOLVED_CURRENT_RUN",
+      "reason": "Original Stage B draft_blocked disposition is preserved. 0.7C did not obtain evidence sufficient to override the block, and no unsupported substitute event/source is used.",
+      "publish_ready": false,
+      "operation_created": false
+    }
+  ]
+}

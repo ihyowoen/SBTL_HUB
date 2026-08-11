@@ -1,0 +1,82 @@
+{
+  "stage": "targeted_related_lineage_correction",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "source_spec_id": "REC26_A2_023",
+  "status": "PASS",
+  "earliest_corrected_stage": "Prompt 0.4 Related baseline revalidation",
+  "correction_type": "related_add_preserve_existing",
+  "visible_fields_changed": false,
+  "fact_sources_changed": false,
+  "date_changed": false,
+  "publish_ready_state_changed": false,
+  "before": {
+    "related": [
+      "2026-04-27_EU_02"
+    ],
+    "related_lineage": {
+      "status": "PASS",
+      "relation_type": "distinct_follow_up",
+      "related_ids": [
+        "2026-04-27_EU_02"
+      ],
+      "related_candidate_spec_ids": [],
+      "reason": "Direct Battery Booster program follow-up from advisory strategy coverage to an implemented EUR1.5bn financing call.",
+      "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+      "fresh_follow_up_anchor": "The European Commission opened the EUR1.5 billion Battery Booster Facility call on 2026-07-28 after the earlier Battery Booster Strategy advisory stage.",
+      "incremental_fact_vs_predecessor": "Compared with 2026-04-27_EU_02, the program moved from an EESC opinion on the Battery Booster Strategy to an actual EUR1.5 billion interest-free-loan call.",
+      "changed_judgment_vs_predecessor": "Judgment changes from strategy/advisory support to a funded implementation instrument open for applications.",
+      "same_event_checked": true,
+      "earliest_same_event_date_checked": true,
+      "follow_up_date_precedes_predecessor_justification": null,
+      "rejected_relation_candidates": [],
+      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+    }
+  },
+  "after": {
+    "related": [
+      "2026-04-27_EU_02",
+      "2026-06-10_EU_01"
+    ],
+    "related_lineage": {
+      "status": "PASS",
+      "relation_type": "distinct_follow_up",
+      "related_ids": [
+        "2026-04-27_EU_02",
+        "2026-06-10_EU_01"
+      ],
+      "related_candidate_spec_ids": [],
+      "reason": "Direct Battery Booster program lineage: 2026-04-27 advisory-strategy coverage, 2026-06-10 formal €1.5bn facility launch, and 2026-07-28 actual call opening.",
+      "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+      "fresh_follow_up_anchor": "The European Commission opened the €1.5bn Battery Booster Facility call on 2026-07-28.",
+      "incremental_fact_vs_predecessor": "Versus the direct 2026-06-10 predecessor, the facility moved from formal launch with a forthcoming call to an application call actually opened on 2026-07-28.",
+      "changed_judgment_vs_predecessor": "The policy instrument changed from announced financing architecture to an executable application window.",
+      "same_event_checked": true,
+      "earliest_same_event_date_checked": true,
+      "follow_up_date_precedes_predecessor_justification": null,
+      "rejected_relation_candidates": [],
+      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+    },
+    "predecessor_card_ids": [
+      "2026-04-27_EU_02",
+      "2026-06-10_EU_01"
+    ]
+  },
+  "evidence_basis": [
+    {
+      "artifact": "Stage 0.0C policy_follow_up_ledger",
+      "finding": "2026-06-10_EU_01 is the direct canonical predecessor; it covered facility launch and a forthcoming call."
+    },
+    {
+      "artifact": "current 0.4 lineage",
+      "finding": "2026-04-27_EU_02 advisory-strategy predecessor is valid and is preserved."
+    }
+  ],
+  "downstream_revalidation": {
+    "prompt_0_5": "PASS_NO_EVIDENCE_CHANGE",
+    "prompt_0_6": "PASS_NO_VISIBLE_CHANGE",
+    "prompt_0_7": "PASS_RELATED_LIFECYCLE_RECHECK",
+    "hard_fail_count": 0
+  }
+}

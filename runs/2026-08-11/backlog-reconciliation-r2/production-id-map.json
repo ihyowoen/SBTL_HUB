@@ -1,0 +1,361 @@
+{
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "status": "PASS",
+  "count": 32,
+  "mapping": {
+    "REC26_A2_070": "2026-08-06_US_01",
+    "REC26_A2_075": "2026-08-06_KR_01",
+    "REC26_A2_022": "2026-08-05_US_01",
+    "REC26_A2_025": "2026-08-05_US_02",
+    "REC26_A2_046": "2026-08-05_KR_01",
+    "REC26_A2_061": "2026-08-05_GL_01",
+    "REC26_A2_029": "2026-08-05_GL_02",
+    "REC26_A2_051": "2026-08-05_EU_01",
+    "REC26_A2_040": "2026-08-04_KR_01",
+    "REC26_A2_009": "2026-08-03_US_01",
+    "REC26_A2_062": "2026-08-03_GL_01",
+    "REC26_A2_060": "2026-08-03_EU_01",
+    "REC26_A2_041": "2026-07-31_KR_01",
+    "REC26_A2_039": "2026-07-31_GL_01",
+    "REC26_A2_006": "2026-07-30_US_01",
+    "REC26_A2_042": "2026-07-30_KR_01",
+    "REC26_A2_072": "2026-07-30_GL_01",
+    "REC26_A2_008": "2026-07-30_EU_01",
+    "REC26_A2_004": "2026-07-30_EU_02",
+    "REC26_A2_021": "2026-07-29_US_01",
+    "REC26_A2_053": "2026-07-29_US_02",
+    "REC26_A2_032": "2026-07-29_GL_01",
+    "REC26_A2_059": "2026-07-28_GL_02",
+    "REC26_A2_023": "2026-07-28_EU_01",
+    "REC26_A2_034": "2026-07-28_CN_01",
+    "REC26_A2_036": "2026-07-27_GL_05",
+    "REC26_A2_014": "2026-07-23_CN_01",
+    "REC26_A2_027": "2026-07-17_EU_07",
+    "REC26_A2_045": "2026-07-10_EU_04",
+    "REC26_A2_057": "2026-07-10_EU_05",
+    "REC26_A2_063": "2026-07-07_US_03",
+    "REC26_A2_056": "2026-07-02_KR_11"
+  },
+  "assignments": [
+    {
+      "source_spec_id": "REC26_A2_070",
+      "lineage_key": "US_BLACKMASS_EXPORT",
+      "date": "2026-08-06",
+      "region": "US",
+      "signal": "top",
+      "production_id": "2026-08-06_US_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_075",
+      "lineage_key": "YEONGGWANG_BESS_FUND",
+      "date": "2026-08-06",
+      "region": "KR",
+      "signal": "high",
+      "production_id": "2026-08-06_KR_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_022",
+      "lineage_key": "EOS_FINAL_Q2",
+      "date": "2026-08-05",
+      "region": "US",
+      "signal": "high",
+      "production_id": "2026-08-05_US_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_025",
+      "lineage_key": "EVGO_TESLA_V4",
+      "date": "2026-08-05",
+      "region": "US",
+      "signal": "high",
+      "production_id": "2026-08-05_US_02",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_046",
+      "lineage_key": "LS_ELECTRIC_G2",
+      "date": "2026-08-05",
+      "region": "KR",
+      "signal": "high",
+      "production_id": "2026-08-05_KR_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_061",
+      "lineage_key": "SNE_H1",
+      "date": "2026-08-05",
+      "region": "GL",
+      "signal": "high",
+      "production_id": "2026-08-05_GL_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_029",
+      "lineage_key": "FLUENCE_Q3",
+      "date": "2026-08-05",
+      "region": "GL",
+      "signal": "high",
+      "production_id": "2026-08-05_GL_02",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_051",
+      "lineage_key": "ORE_SERIES_A",
+      "date": "2026-08-05",
+      "region": "EU",
+      "signal": "high",
+      "production_id": "2026-08-05_EU_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_040",
+      "lineage_key": "KOREA_PRODUCTION_TAX_CREDIT",
+      "date": "2026-08-04",
+      "region": "KR",
+      "signal": "top",
+      "production_id": "2026-08-04_KR_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_009",
+      "lineage_key": "BASE_POWER",
+      "date": "2026-08-03",
+      "region": "US",
+      "signal": "high",
+      "production_id": "2026-08-03_US_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_062",
+      "lineage_key": "SNE_H1_ESS_461",
+      "date": "2026-08-03",
+      "region": "GL",
+      "signal": "high",
+      "production_id": "2026-08-03_GL_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_060",
+      "lineage_key": "SLOVENIA_BESS_AID",
+      "date": "2026-08-03",
+      "region": "EU",
+      "signal": "high",
+      "production_id": "2026-08-03_EU_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_041",
+      "lineage_key": "LF_PLUS_TRIAL",
+      "date": "2026-07-31",
+      "region": "KR",
+      "signal": "high",
+      "production_id": "2026-07-31_KR_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_039",
+      "lineage_key": "KOREA_ARGENTINA",
+      "date": "2026-07-31",
+      "region": "GL",
+      "signal": "high",
+      "production_id": "2026-07-31_GL_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_006",
+      "lineage_key": null,
+      "date": "2026-07-30",
+      "region": "US",
+      "signal": "high",
+      "production_id": "2026-07-30_US_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_042",
+      "lineage_key": "LGES_FINAL_Q2",
+      "date": "2026-07-30",
+      "region": "KR",
+      "signal": "high",
+      "production_id": "2026-07-30_KR_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_072",
+      "lineage_key": "VOLTA_CANADA_70M",
+      "date": "2026-07-30",
+      "region": "GL",
+      "signal": "high",
+      "production_id": "2026-07-30_GL_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_008",
+      "lineage_key": "AXPO_ZELESTRA",
+      "date": "2026-07-30",
+      "region": "EU",
+      "signal": "high",
+      "production_id": "2026-07-30_EU_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_004",
+      "lineage_key": "ALTECH_CERENERGY",
+      "date": "2026-07-30",
+      "region": "EU",
+      "signal": "high",
+      "production_id": "2026-07-30_EU_02",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_021",
+      "lineage_key": "EOLIAN_FLINT",
+      "date": "2026-07-29",
+      "region": "US",
+      "signal": "high",
+      "production_id": "2026-07-29_US_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_053",
+      "lineage_key": "PERPETUA_PILOT",
+      "date": "2026-07-29",
+      "region": "US",
+      "signal": "high",
+      "production_id": "2026-07-29_US_02",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_032",
+      "lineage_key": "GOYDER_STAGE2",
+      "date": "2026-07-29",
+      "region": "GL",
+      "signal": "high",
+      "production_id": "2026-07-29_GL_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_059",
+      "lineage_key": "SIMCOE_ESA",
+      "date": "2026-07-28",
+      "region": "GL",
+      "signal": "high",
+      "production_id": "2026-07-28_GL_02",
+      "baseline_max_same_date_region": 1,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_023",
+      "lineage_key": "EU_BATTERY_BOOSTER_CALL",
+      "date": "2026-07-28",
+      "region": "EU",
+      "signal": "high",
+      "production_id": "2026-07-28_EU_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_034",
+      "lineage_key": "HYPERSTRONG_H1",
+      "date": "2026-07-28",
+      "region": "CN",
+      "signal": "high",
+      "production_id": "2026-07-28_CN_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_036",
+      "lineage_key": null,
+      "date": "2026-07-27",
+      "region": "GL",
+      "signal": "high",
+      "production_id": "2026-07-27_GL_05",
+      "baseline_max_same_date_region": 4,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_014",
+      "lineage_key": "CN_RENEWABLE_FYP",
+      "date": "2026-07-23",
+      "region": "CN",
+      "signal": "high",
+      "production_id": "2026-07-23_CN_01",
+      "baseline_max_same_date_region": 0,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_027",
+      "lineage_key": "FIDRA_WEST_BURTON",
+      "date": "2026-07-17",
+      "region": "EU",
+      "signal": "high",
+      "production_id": "2026-07-17_EU_07",
+      "baseline_max_same_date_region": 6,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_045",
+      "lineage_key": "LOWER_LARKS_TOLL",
+      "date": "2026-07-10",
+      "region": "EU",
+      "signal": "high",
+      "production_id": "2026-07-10_EU_04",
+      "baseline_max_same_date_region": 3,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_057",
+      "lineage_key": "SANDFORD_PERMISSION",
+      "date": "2026-07-10",
+      "region": "EU",
+      "signal": "high",
+      "production_id": "2026-07-10_EU_05",
+      "baseline_max_same_date_region": 3,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_063",
+      "lineage_key": "SOUTH32_HERMOSA_ROD",
+      "date": "2026-07-07",
+      "region": "US",
+      "signal": "high",
+      "production_id": "2026-07-07_US_03",
+      "baseline_max_same_date_region": 2,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    },
+    {
+      "source_spec_id": "REC26_A2_056",
+      "lineage_key": "SAMSUNG_SDI_ASSB",
+      "date": "2026-07-02",
+      "region": "KR",
+      "signal": "high",
+      "production_id": "2026-07-02_KR_11",
+      "baseline_max_same_date_region": 10,
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+    }
+  ]
+}

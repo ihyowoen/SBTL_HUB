@@ -1,0 +1,12 @@
+{
+  "stage": "0.7_targeted_rescue_summary",
+  "status": "PASS",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "source_spec_id": "REC26_A2_075",
+  "route": "Stage B → Stage C → 0.4 → 0.5 → 0.6 → 0.7",
+  "final_state": "publish_ready",
+  "source_diversity_status": "PASS_MULTI_SOURCE",
+  "independent_owner_count": 2,
+  "related": [],
+  "note": "Rescued during 0.7C because the prior Stage B block required an official source more strictly than current source-diversity governance."
+}

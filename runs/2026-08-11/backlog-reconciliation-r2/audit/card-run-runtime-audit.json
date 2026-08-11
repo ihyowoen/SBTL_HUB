@@ -1,0 +1,126 @@
+{
+  "schema": "card_run_audit_v1",
+  "status": "PASS",
+  "audit_complete": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "run_id": "20260811_backlog_reconciliation_r2_prompt_0_8_candidate_v1",
+  "base_main_commit_sha": "d3137945860664116b1bf90bbb7bee54d2a6c1d9",
+  "base_full_blob_sha": "a52745170c70aa649323e346413615c5995b890b",
+  "document_universe_manifest_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0d-engine-bridge.json",
+  "coverage_discovery_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-engine-bridge.json",
+  "independent_completeness_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-7c.json",
+  "reviewed_operations_sha256": "b7335de64a7b5b7bf1ad63624cf46cf90d8193cb28d4afe08a249cd22467d4ef",
+  "expected_before": 1343,
+  "expected_after": 1375,
+  "inserted_ids": [
+    "2026-08-06_KR_01",
+    "2026-08-06_US_01",
+    "2026-08-05_GL_01",
+    "2026-08-05_EU_01",
+    "2026-08-05_KR_01",
+    "2026-08-05_GL_02",
+    "2026-08-05_US_02",
+    "2026-08-05_US_01",
+    "2026-08-04_KR_01",
+    "2026-08-03_GL_01",
+    "2026-08-03_EU_01",
+    "2026-08-03_US_01",
+    "2026-07-31_KR_01",
+    "2026-07-31_GL_01",
+    "2026-07-30_GL_01",
+    "2026-07-30_KR_01",
+    "2026-07-30_EU_01",
+    "2026-07-30_US_01",
+    "2026-07-30_EU_02",
+    "2026-07-29_US_02",
+    "2026-07-29_GL_01",
+    "2026-07-29_US_01",
+    "2026-07-28_GL_02",
+    "2026-07-28_CN_01",
+    "2026-07-28_EU_01",
+    "2026-07-27_GL_05",
+    "2026-07-23_CN_01",
+    "2026-07-17_EU_07",
+    "2026-07-10_EU_05",
+    "2026-07-10_EU_04",
+    "2026-07-07_US_03",
+    "2026-07-02_KR_11"
+  ],
+  "updated_ids": [
+    "2026-06-26_EU_01"
+  ],
+  "related_additions": [
+    {
+      "source_id": "2026-08-05_KR_01",
+      "target_id": "2026-07-02_KR_02",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-08-05_GL_01",
+      "target_id": "2026-07-03_GL_02",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-08-05_EU_01",
+      "target_id": "2026-06-22_EU_02",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-08-05_GL_02",
+      "target_id": "2026-05-06_GL_05",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-08-03_GL_01",
+      "target_id": "2026-06-08_GL_02",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-07-27_GL_05",
+      "target_id": "2026-07-24_GL_01",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-07-31_KR_01",
+      "target_id": "2026-05-18_KR_01",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-07-30_KR_01",
+      "target_id": "2026-07-07_KR_01",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-07-28_EU_01",
+      "target_id": "2026-04-27_EU_02",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-07-28_EU_01",
+      "target_id": "2026-06-10_EU_01",
+      "direction": "directional"
+    }
+  ],
+  "zero_deletion_assertion": true,
+  "zero_related_remove_assertion": true,
+  "full_output_sha256": "39a8f27e7a075aeeb21468261fe00d6e826ab24f0ccd49e28b1eec5d5fae8fa5",
+  "lean_output_sha256": "1b45dde54957edfd1e9027d6e35b5b29300b3ad3e0e5477fb8e6de564b92af2d",
+  "supporting_audit_refs": [
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0d-engine-bridge.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-engine-bridge.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-7-pass.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-7c.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/publish-ready-32.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/operation-manifest.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/production-id-assignment-ledger.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/related-id-resolution-ledger.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/related-correction-rec26-a2-023.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/related-correction-rec26-a2-036.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-b-terminal-dispositions.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-provenance-defect.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/ofgem-ldes-existing-card-update.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/rec26-a2-075-rescue-summary.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/prompt-0-8-static-validation.json"
+  ],
+  "runtime_note": "Governed apply completed; output hashes bind this audit to the committed canonical full and lean projection."
+}

@@ -2,7 +2,7 @@
   "stage": "0.8_related_id_resolution",
   "status": "PASS_STATIC_RESOLUTION",
   "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
-  "edge_count": 10,
+  "edge_count": 9,
   "unresolved_candidate_spec_ids": 0,
   "self_links": 0,
   "duplicate_links": 0,
@@ -83,17 +83,6 @@
       "lineage_reason": "Direct commercialization follow-up from LFP plant completion to first trial-product shipment.",
       "incremental_fact_vs_predecessor": "Compared with 2026-05-18_KR_01, the new fact is first shipment of LFP cathode trial-production material from the completed plant.",
       "changed_judgment_vs_predecessor": "Judgment changes from completed plant with planned production to actual trial-product shipment and customer-validation stage.",
-      "status": "RESOLVED_BASELINE_TARGET"
-    },
-    {
-      "source_spec_id": "REC26_A2_042",
-      "source_production_id": "2026-07-30_KR_01",
-      "target_production_id": "2026-07-07_KR_01",
-      "relation_type": "distinct_follow_up",
-      "fresh_follow_up_anchor_class": "data_financial_anchor",
-      "lineage_reason": "Direct earnings follow-up from preliminary Q2 results to the final Q2 disclosure with ESS operating detail.",
-      "incremental_fact_vs_predecessor": "Compared with preliminary 2026-07-07_KR_01, the final Q2 release adds ESS shipments growing above 30% QoQ and H1 ESS new orders above KRW3 trillion.",
-      "changed_judgment_vs_predecessor": "Judgment changes from preliminary consolidated earnings only to final operating disclosure showing ESS shipment and order momentum.",
       "status": "RESOLVED_BASELINE_TARGET"
     },
     {

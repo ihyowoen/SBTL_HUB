@@ -1,18 +1,18 @@
 {
   "stage": "0.8_static_validation",
-  "status": "PASS_STATIC_CARD_RUN_CONTRACT",
+  "status": "PASS_RUNTIME_VERIFIED",
   "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
   "errors": [],
   "checks": {
     "base_main_sha_locked": true,
     "base_full_blob_sha_locked": true,
     "baseline_count": 1343,
-    "insert_count": 32,
-    "update_count": 1,
-    "related_add_count": 10,
+    "insert_count": 30,
+    "update_count": 3,
+    "related_add_count": 9,
     "related_remove_count": 0,
     "delete_count": 0,
-    "expected_after": 1375,
+    "expected_after": 1373,
     "id_collision_static_count": 0,
     "related_resolution_unresolved_count": 0,
     "stage_0_7c_consumer_gate": "PASS",
@@ -21,15 +21,14 @@
     "anchor_path_hold_count": 0,
     "rec26_a2_036_related_metadata_correction": "PASS",
     "card_run_schema_structure": "PASS_EQUIVALENT_TO_CURRENT_SCHEMA",
-    "canonical_full_runtime_apply": "PENDING_NOT_EXECUTED",
-    "source_audit_recompute_after_ofgem_source_add": "PENDING_REPOSITORY_RUNTIME",
-    "evidence_qc_v8_current_merge_scope": "PENDING_REPOSITORY_RUNTIME",
-    "related_lifecycle_check_current_merge_scope": "PENDING_REPOSITORY_RUNTIME",
-    "lean_cards_generation_and_exact_check": "PENDING_REPOSITORY_RUNTIME"
+    "canonical_full_runtime_apply": "PASS",
+    "source_audit_recompute_after_ofgem_source_add": "PASS",
+    "evidence_qc_v8_current_merge_scope": "PASS",
+    "related_lifecycle_check_current_merge_scope": "PASS",
+    "lean_cards_generation_and_exact_check": "PASS"
   },
-  "github_merge_ready": false,
-  "pr_candidate_ready": false,
-  "runtime_engine_validation_pending": true,
-  "blocker_code": "BLOCKED_RUNTIME_CANONICAL_APPLY_AND_PROJECTION_VERIFICATION_UNAVAILABLE_IN_CHAT_RUNTIME",
-  "note": "The current canonical is readable and SHA/count locked through GitHub, but its complete git object is not mounted as local bytes in this runtime; therefore the governed apply/verify and lean exact check cannot truthfully be claimed."
+  "github_merge_ready": true,
+  "pr_candidate_ready": true,
+  "runtime_engine_validation_pending": false,
+  "note": "Runtime materialization and exact final-scope validation completed after direct PR review remediation."
 }

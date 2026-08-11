@@ -53,7 +53,7 @@
       "max_nn": 10
     }
   ],
-  "assignment_count": 32,
+  "assignment_count": 30,
   "assignments": [
     {
       "source_spec_id": "REC26_A2_070",
@@ -202,26 +202,6 @@
       "region": "US",
       "signal": "high",
       "production_id": "2026-07-30_US_01",
-      "baseline_max_same_date_region": 0,
-      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
-    },
-    {
-      "source_spec_id": "REC26_A2_042",
-      "lineage_key": "LGES_FINAL_Q2",
-      "date": "2026-07-30",
-      "region": "KR",
-      "signal": "high",
-      "production_id": "2026-07-30_KR_01",
-      "baseline_max_same_date_region": 0,
-      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
-    },
-    {
-      "source_spec_id": "REC26_A2_072",
-      "lineage_key": "VOLTA_CANADA_70M",
-      "date": "2026-07-30",
-      "region": "GL",
-      "signal": "high",
-      "production_id": "2026-07-30_GL_01",
       "baseline_max_same_date_region": 0,
       "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
     },

@@ -7,12 +7,12 @@
     "cards_full_blob_sha": "a52745170c70aa649323e346413615c5995b890b",
     "count": 1343
   },
-  "insert_count": 32,
-  "update_count": 1,
-  "related_add_count": 10,
+  "insert_count": 30,
+  "update_count": 3,
+  "related_add_count": 9,
   "related_remove_count": 0,
   "delete_count": 0,
-  "expected_after": 1375,
+  "expected_after": 1373,
   "runtime_engine_apply_verify_pending": false,
   "source_manifest_0_7c": {
     "stage": "post_0_7C_operation_assignment_before_prompt_0_8",
@@ -518,5 +518,21 @@
     "prompt_0_8_required_for_production_application": true
   },
   "runtime_verified": true,
-  "runtime_verified_kst": "2026-08-11T20:15:19+09:00"
+  "runtime_verified_kst": "2026-08-11T20:15:19+09:00",
+  "prompt_0_8_duplicate_reclassification": [
+    {
+      "source_spec_id": "REC26_A2_072",
+      "from": "insert",
+      "to": "update",
+      "target_card_id": "R14_05",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_042",
+      "from": "insert",
+      "to": "update",
+      "target_card_id": "2026-07-07_KR_01",
+      "status": "PASS"
+    }
+  ]
 }

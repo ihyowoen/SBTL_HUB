@@ -1,68 +1,43 @@
 # Prompt 0.8 — Canonical Incremental Merge Preparation
 
-Run: `20260809_BACKLOG_RECONCILIATION_R2`  
-Baseline main: `d3137945860664116b1bf90bbb7bee54d2a6c1d9`  
-Canonical blob: `a52745170c70aa649323e346413615c5995b890b`  
+Run: `20260809_BACKLOG_RECONCILIATION_R2`
+Baseline main: `d3137945860664116b1bf90bbb7bee54d2a6c1d9`
+Canonical blob: `a52745170c70aa649323e346413615c5995b890b`
 Baseline count: **1,343**
 
-## Result
+## Final result after PR review remediation
 
-**BLOCKED_RUNTIME_CANONICAL_APPLY_AND_PROJECTION_VERIFICATION_UNAVAILABLE_IN_CHAT_RUNTIME**
+**GITHUB_MERGE_READY**
 
-The Prompt 0.8 **declarative merge package is complete**, but `github_merge_ready` is intentionally **not** asserted.
+The current Prompt 0.8 package was rematerialized from the exact locked baseline after addressing Codex review `#issuecomment-5252539754`. No card selection was discarded: two candidates that duplicated already represented events were reclassified from new-card inserts to existing-card updates.
 
-### Prepared operations
+### Final operations
 
-- insert: **32**
-- update: **1** (`2026-06-26_EU_01`, Ofgem LDES)
-- related_add: **10**
+- insert: **30**
+- update: **3** (`2026-06-26_EU_01`, `R14_05`, `2026-07-07_KR_01`)
+- related_add: **9**
 - related_remove: **0**
 - delete: **0**
-- declarative expected count after apply: **1,375**
+- expected canonical count: **1,373**
 
-### Production IDs
+### Review corrections
 
-All **32** production IDs are allocated against the locked current-main date/region namespace.  
-No historical suffix gap is reused.
+- Source-derived audit metadata is persisted for every current insert and every updated target; strict recomputation is clean on the final merge scope.
+- All current inserts carry accepted/addable/publish/GitHub/PR readiness state and no runtime-pending flag.
+- `REC26_A2_072` is reinforcement/update of baseline `R14_05`, not a duplicate Volta card.
+- `REC26_A2_042` updates baseline `2026-07-07_KR_01` with the July 30 final Q2 ESS shipment/order detail; the former distinct-follow-up edge is removed.
+- The Korea–Argentina correction artifact is included in the bundle manifest.
+- Markdown hard-break trailing spaces were removed; PR-range `git diff --check` is part of the final gate.
 
-### 0.8 consumer-gate correction
+### Runtime verification
 
-`REC26_A2_036` contained a stale Related fresh-anchor string referring to 2026-08-02 while the card's representative event, visible fields and Reuters evidence are 2026-07-27.  
-The target (`2026-07-24_GL_01`) and `distinct_follow_up` decision are unchanged; only source-backed Related metadata was corrected.
-
-### Ofgem update
-
-`OFGEM_LDES_728` is an **existing-card update**, not a new insert.
-
-Target: `2026-06-26_EU_01`
-
-The update adds the 21 July revised minded-to special licence conditions / 28 July guidance and preserves the boundary that final decisions remain after autumn 2026 cap-and-floor awards.
-
-Because this adds a source URL, the repository runtime must recompute source-audit metadata before Evidence QC.
-
-## Why this is not yet github_merge_ready
-
-Prompt 0.8 requires the actual locked canonical full to be applied and validated, then the lean projection regenerated and checked exactly.  
-The GitHub connector verifies the canonical SHA/count and exposes its content, but the full git object is not mounted as local bytes in this chat runtime. Therefore the following have **not** been falsely claimed:
-
-- governed apply/verify against the complete 1,343-card canonical
-- source-audit recompute on the updated Ofgem card
-- repository Evidence QC on the merge-ID scope
-- Related lifecycle validator on the merge-ID scope
-- generated 1,375-card canonical file
-- regenerated lean projection exact match
-
-No GitHub write, branch or PR was created.
-
-## Exact next runtime sequence
-
-```text
-place this bundle at runs/2026-08-11/backlog-reconciliation-r2/
-→ node scripts/apply_card_run.mjs --run <card-run> --base-main-sha d3137945860664116b1bf90bbb7bee54d2a6c1d9 --check
-→ apply against canonical full
-→ recompute source-audit metadata
-→ run Evidence QC + Related lifecycle validators
-→ node scripts/lean_cards.mjs
-→ node scripts/lean_cards.mjs --check
-→ only if all pass: mark github_merge_ready / pr_candidate_ready
-```
+- governed materialization: **PASS**
+- source-audit recomputation strict check: **PASS**
+- date-role freshness on current inserts: **PASS**
+- Evidence QC on current merge scope: **PASS**
+- Related lifecycle contract on current inserts: **PASS**
+- Stage 0.8 artifact contract: **PASS**
+- canonical/lean validators and exact lean projection: **PASS**
+- run-level audit/operation binding: **PASS**
+- byte-exact governed output verify: **PASS**
+- PR-range `git diff --check`: **PASS**

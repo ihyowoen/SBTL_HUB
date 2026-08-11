@@ -1,6 +1,6 @@
 {
-  "updated": "2026-08-11T19:48:42+09:00",
-  "total": 1375,
+  "updated": "2026-08-11T22:26:31+09:00",
+  "total": 1373,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
   "cards": [
@@ -97,7 +97,28 @@
         "view.asiae.co.kr"
       ],
       "source_diversity_status": "PASS_MULTI_SOURCE",
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://ajunews.com/view/20260806092926284",
+          "https://view.asiae.co.kr/article/2026080609373262288"
+        ],
+        "canonical_domains": [
+          "ajunews.com",
+          "view.asiae.co.kr"
+        ],
+        "independent_owners": [
+          "ajunews.com",
+          "asiae.co.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": [
           "asiae.co.kr",
@@ -106,7 +127,7 @@
       },
       "single_source_exception": {
         "allowed": false,
-        "reason": "not applicable: two independent body-level owners"
+        "reason": "not applicable: multi-owner evidence"
       },
       "source_synthesis_applied": true,
       "source_synthesis_fields": [
@@ -142,43 +163,35 @@
       "needs_source_diversity_remediation": false,
       "source_discovery_ledger": [
         {
-          "attempt_order": 1,
-          "source_url": "https://view.asiae.co.kr/article/2026080609373262288",
-          "canonical_url": "https://view.asiae.co.kr/article/2026080609373262288",
-          "source_name": "아시아경제",
-          "canonical_domain": "view.asiae.co.kr",
-          "editorial_owner": "asiae.co.kr",
-          "source_role": "independent_event_confirmation",
-          "source_origin_type": "independent_body_reporting",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "8월 6일 펀드 10호 선정과 1,798억원·80MW/480MWh 프로젝트 규모, 상반기 착공·12월 준공 목표를 확인한다.",
-          "visible_fields_supported": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ],
-          "checked_at": "2026-08-11T03:42:00+09:00"
-        },
-        {
-          "attempt_order": 2,
           "source_url": "https://www.ajunews.com/view/20260806092926284",
           "canonical_url": "https://ajunews.com/view/20260806092926284",
           "source_name": "아주경제",
-          "canonical_domain": "ajunews.com",
-          "editorial_owner": "ajunews.com",
-          "source_role": "independent_event_confirmation",
-          "source_origin_type": "independent_body_reporting",
+          "source_owner": "ajunews.com",
+          "source_domain": "ajunews.com",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "전력거래소 15년 장기계약, 상반기 착공과 2027년 초 운영 목표를 독립적으로 확인한다.",
-          "visible_fields_supported": [
-            "sub",
-            "gate",
+          "visible_supports": [
             "fact",
-            "implication"
-          ],
-          "checked_at": "2026-08-11T03:42:00+09:00"
+            "gate",
+            "implication",
+            "sub"
+          ]
+        },
+        {
+          "source_url": "https://view.asiae.co.kr/article/2026080609373262288",
+          "canonical_url": "https://view.asiae.co.kr/article/2026080609373262288",
+          "source_name": "아시아경제",
+          "source_owner": "asiae.co.kr",
+          "source_domain": "view.asiae.co.kr",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "8월 6일 펀드 10호 선정과 1,798억원·80MW/480MWh 프로젝트 규모, 상반기 착공·12월 준공 목표를 확인한다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
         }
       ],
       "source_url_resolution": {
@@ -188,17 +201,17 @@
         "source_url_propagation_performed": false,
         "resolution_entries": [
           {
-            "source_url": "https://view.asiae.co.kr/article/2026080609373262288",
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "current-run body evidence + 0.7C direct body recheck; owner=asiae.co.kr",
-            "source_url_propagation_performed": false
-          },
-          {
             "source_url": "https://www.ajunews.com/view/20260806092926284",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "current-run body evidence + 0.7C direct body recheck; owner=ajunews.com",
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=ajunews.com",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://view.asiae.co.kr/article/2026080609373262288",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=asiae.co.kr",
             "source_url_propagation_performed": false
           }
         ]
@@ -286,7 +299,7 @@
         "The 15-year KPX contract and H1 construction start are prior project-state facts, not re-dated as August 6 events."
       ],
       "publish_ready": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "previous_state": "content_enriched_and_language_polished",
       "accepted_fact_safe": true,
       "stage_b_only": false,
@@ -381,8 +394,8 @@
         "foreign_visible_residue": false,
         "content_depth": "PASS"
       },
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -410,7 +423,8 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_032_R1",
@@ -647,7 +661,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_070",
@@ -1147,7 +1161,42 @@
         "reuters.com",
         "theguru.co.kr"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 7,
+        "source_unique_url_count": 7,
+        "source_unique_domain_count": 7,
+        "source_independent_owner_count": 6,
+        "visible_source_url_count": 7,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://bloomberg.com/news/articles/2026-08-05/us-bans-export-of-tungsten-battery-waste-to-protect-supplies",
+          "https://eenews.net/articles/trump-admin-moves-to-block-exports-of-battery-scraps-and-tungsten-waste",
+          "https://impacton.net/news/articleView.html?idxno=19857",
+          "https://mining.com/web/us-bans-export-of-tungsten-battery-waste-to-secure-supplies",
+          "https://northernminer.com/news/u-s-orders-black-mass-tungsten-scrap-kept-home/1003893726",
+          "https://reuters.com/world/asia-pacific/trump-admin-blocks-tungsten-battery-waste-exports-boost-us-minerals-supply-2026-08-06",
+          "https://theguru.co.kr/news/article.html?no=105427"
+        ],
+        "canonical_domains": [
+          "bloomberg.com",
+          "eenews.net",
+          "impacton.net",
+          "mining.com",
+          "northernminer.com",
+          "reuters.com",
+          "theguru.co.kr"
+        ],
+        "independent_owners": [
+          "bloomberg_syndication",
+          "eenews.net",
+          "glacier_media",
+          "impacton.net",
+          "reuters",
+          "theguru.co.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 7
       },
@@ -1397,8 +1446,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -1427,7 +1476,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_027_R1",
@@ -1494,7 +1545,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_061",
@@ -1951,7 +2002,25 @@
       "source_unique_domains": [
         "sneresearch.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 1,
+        "source_unique_url_count": 1,
+        "source_unique_domain_count": 1,
+        "source_independent_owner_count": 1,
+        "visible_source_url_count": 1,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://sneresearch.com/kr/insight/release_view/704/page/0"
+        ],
+        "canonical_domains": [
+          "sneresearch.com"
+        ],
+        "independent_owners": [
+          "sneresearch.com"
+        ],
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
+      },
       "source_diversity_roles": {
         "primary_event_evidence": 1
       },
@@ -1996,8 +2065,8 @@
       "execution_anchor_qc_status": "not_applicable",
       "structural_value_override_qc_status": "pass",
       "non_applicable_anchor_path_reason": "Stage A selected the complete V3 non-execution override path; the conventional execution route is not applicable.",
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -2026,7 +2095,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_021_R1",
@@ -2119,7 +2190,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_051",
@@ -2502,7 +2573,28 @@
         "energy-storage.news",
         "ess-news.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://energy-storage.news/european-multi-day-energy-storage-startup-ore-energy-raises-us43-million-in-series-a",
+          "https://ess-news.com/2026/08/05/iron-air-battery-startup-ore-energy-raises-43-million-series-a"
+        ],
+        "canonical_domains": [
+          "energy-storage.news",
+          "ess-news.com"
+        ],
+        "independent_owners": [
+          "pv_magazine_group",
+          "solar_media"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 2
       },
@@ -2591,8 +2683,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -2621,7 +2713,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_020_R1",
@@ -2744,7 +2838,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_046",
@@ -3308,7 +3402,31 @@
         "electimes.com",
         "mt.co.kr"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 3,
+        "source_independent_owner_count": 3,
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://ajunews.com/view/20260806081349013",
+          "https://electimes.com/news/articleView.html?idxno=371070",
+          "https://mt.co.kr/industry/2026/08/06/2026080609013373802"
+        ],
+        "canonical_domains": [
+          "ajunews.com",
+          "electimes.com",
+          "mt.co.kr"
+        ],
+        "independent_owners": [
+          "ajunews.com",
+          "electimes.com",
+          "mt.co.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 3
       },
@@ -3431,8 +3549,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -3461,7 +3579,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_011_R2",
@@ -3528,7 +3648,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_029",
@@ -3956,7 +4076,25 @@
       "source_unique_domains": [
         "ir.fluenceenergy.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 1,
+        "source_unique_url_count": 1,
+        "source_unique_domain_count": 1,
+        "source_independent_owner_count": 1,
+        "visible_source_url_count": 1,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-energy-inc-reports-third-fiscal-quarter-2026-results"
+        ],
+        "canonical_domains": [
+          "ir.fluenceenergy.com"
+        ],
+        "independent_owners": [
+          "fluence"
+        ],
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
+      },
       "source_diversity_roles": {
         "primary_event_evidence": 1
       },
@@ -4001,8 +4139,8 @@
       "execution_anchor_qc_status": "not_applicable",
       "structural_value_override_qc_status": "pass",
       "non_applicable_anchor_path_reason": "Stage A selected the complete V3 non-execution override path; the conventional execution route is not applicable.",
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -4031,7 +4169,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_009_R1",
@@ -4266,7 +4406,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_025",
@@ -5076,7 +5216,43 @@
         "insideevs.com",
         "stocktitan.net"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 7,
+        "source_unique_url_count": 7,
+        "source_unique_domain_count": 7,
+        "source_independent_owner_count": 7,
+        "visible_source_url_count": 7,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://arstechnica.com/cars/2026/08/evgo-starts-building-tesla-superchargers-under-license",
+          "https://automotiveworld.com/news/evgo-to-deploy-superchargers-across-its-us-network",
+          "https://electrek.co/2026/08/05/evgo-branded-tesla-superchargers-are-coming",
+          "https://electriccarsreport.com/2026/08/evgo-to-add-tesla-v4-superchargers-across-u-s-fast-charging-network",
+          "https://globenewswire.com/news-release/2026/08/05/3339124/0/en/evgo-expands-fast-charging-in-the-u-s-with-supercharger-deployment.html",
+          "https://insideevs.com/news/803934/evgo-tesla-superchargers-v4",
+          "https://stocktitan.net/news/EVGO/e-vgo-expands-fast-charging-in-the-u-s-with-supercharger-44t9yzptnu9l.html"
+        ],
+        "canonical_domains": [
+          "arstechnica.com",
+          "automotiveworld.com",
+          "electrek.co",
+          "electriccarsreport.com",
+          "globenewswire.com",
+          "insideevs.com",
+          "stocktitan.net"
+        ],
+        "independent_owners": [
+          "arstechnica.com",
+          "automotiveworld.com",
+          "electrek.co",
+          "electriccarsreport.com",
+          "insideevs.com",
+          "issuer_press_release_distribution",
+          "press_release_republisher"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 7
       },
@@ -5320,8 +5496,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -5350,7 +5526,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_007_R1",
@@ -5413,7 +5591,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_022",
@@ -5856,7 +6034,25 @@
       "source_unique_domains": [
         "investors.eose.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 1,
+        "source_unique_url_count": 1,
+        "source_unique_domain_count": 1,
+        "source_independent_owner_count": 1,
+        "visible_source_url_count": 1,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://investors.eose.com/news-releases/news-release-details/eos-energy-enterprises-reports-second-quarter-2026-financial"
+        ],
+        "canonical_domains": [
+          "investors.eose.com"
+        ],
+        "independent_owners": [
+          "eos_energy"
+        ],
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
+      },
       "source_diversity_roles": {
         "primary_event_evidence": 1
       },
@@ -5901,8 +6097,8 @@
       "execution_anchor_qc_status": "not_applicable",
       "structural_value_override_qc_status": "pass",
       "non_applicable_anchor_path_reason": "Stage A selected the complete V3 non-execution override path; the conventional execution route is not applicable.",
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -5931,7 +6127,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_016_R1",
@@ -6051,7 +6249,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_040",
@@ -6538,7 +6736,31 @@
         "electimes.com",
         "sedaily.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 3,
+        "source_independent_owner_count": 3,
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://ajunews.com/view/20260804142229347",
+          "https://electimes.com/news/articleView.html?idxno=370947",
+          "https://sedaily.com/article/20075658"
+        ],
+        "canonical_domains": [
+          "ajunews.com",
+          "electimes.com",
+          "sedaily.com"
+        ],
+        "independent_owners": [
+          "ajunews.com",
+          "electimes.com",
+          "sedaily.com"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 3
       },
@@ -6657,8 +6879,8 @@
       "execution_anchor_qc_status": "not_applicable",
       "structural_value_override_qc_status": "pass",
       "non_applicable_anchor_path_reason": "Stage A selected the complete V3 non-execution override path; the conventional execution route is not applicable.",
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -6687,7 +6909,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_028_R1",
@@ -6754,7 +6978,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_062",
@@ -7242,7 +7466,25 @@
       "source_unique_domains": [
         "sneresearch.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 1,
+        "source_unique_url_count": 1,
+        "source_unique_domain_count": 1,
+        "source_independent_owner_count": 1,
+        "visible_source_url_count": 1,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://sneresearch.com/kr/insight/release_view/702/page/0"
+        ],
+        "canonical_domains": [
+          "sneresearch.com"
+        ],
+        "independent_owners": [
+          "sneresearch.com"
+        ],
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
+      },
       "source_diversity_roles": {
         "primary_event_evidence": 1
       },
@@ -7287,8 +7529,8 @@
       "execution_anchor_qc_status": "not_applicable",
       "structural_value_override_qc_status": "pass",
       "non_applicable_anchor_path_reason": "Stage A selected the complete V3 non-execution override path; the conventional execution route is not applicable.",
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -7317,7 +7559,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_026_R1",
@@ -7408,7 +7652,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_060",
@@ -7808,7 +8052,28 @@
         "balkangreenenergynews.com",
         "energy-storage.news"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://balkangreenenergynews.com/slovenia-to-launch-first-state-aid-scheme-for-stand-alone-bess",
+          "https://energy-storage.news/european-commission-approves-scheme-to-support-370mwh-of-battery-storage-in-slovenia"
+        ],
+        "canonical_domains": [
+          "balkangreenenergynews.com",
+          "energy-storage.news"
+        ],
+        "independent_owners": [
+          "balkangreenenergynews.com",
+          "solar_media"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 2
       },
@@ -7897,8 +8162,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -7927,7 +8192,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_004_R2",
@@ -8018,7 +8285,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_009",
@@ -8396,7 +8663,28 @@
         "pv-magazine-usa.com",
         "reuters.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://pv-magazine-usa.com/2026/08/04/base-power-launches-39-2-kwh-u-s-made-base-core-home-battery-secures-1-billion-in-new-funding",
+          "https://reuters.com/legal/litigation/base-power-raises-1-billion-launches-us-made-home-battery-amid-surging-power-2026-08-03"
+        ],
+        "canonical_domains": [
+          "pv-magazine-usa.com",
+          "reuters.com"
+        ],
+        "independent_owners": [
+          "pv_magazine_group",
+          "reuters"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 2
       },
@@ -8488,8 +8776,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -8518,7 +8806,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_017_R1",
@@ -8610,7 +8900,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_041",
@@ -9020,7 +9310,28 @@
         "ajunews.com",
         "mt.co.kr"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://ajunews.com/view/20260803092008161",
+          "https://mt.co.kr/industry/2026/08/03/2026080309400017133"
+        ],
+        "canonical_domains": [
+          "ajunews.com",
+          "mt.co.kr"
+        ],
+        "independent_owners": [
+          "ajunews.com",
+          "mt.co.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 2
       },
@@ -9109,8 +9420,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -9139,7 +9450,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_015_R1_V3LINEAGE",
@@ -9241,7 +9554,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": false,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS_TARGETED_REMEDIATION",
         "source_spec_id": "REC26_A2_039",
@@ -9603,7 +9916,28 @@
         "2news.co.kr",
         "sideview.co.kr"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://2news.co.kr/news/articleView.html?idxno=19136",
+          "https://sideview.co.kr/news/articleView.html?idxno=20218"
+        ],
+        "canonical_domains": [
+          "2news.co.kr",
+          "sideview.co.kr"
+        ],
+        "independent_owners": [
+          "2news.co.kr",
+          "sideview.co.kr"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "secondary_event_evidence": 2
       },
@@ -9697,8 +10031,8 @@
       "changed_judgment": "양국 간 공식 핵심광물 협력 채널이 생겼다는 판단은 가능하지만, 실제 투자·공급계약·오프테이크 실행은 아직 입증되지 않았다.",
       "uncertainty_resolved": "MOU 서명일, 정부 당사자, 협력 프레임워크 성격을 body evidence로 확인했다.",
       "remaining_uncertainty": "후속 이행기구, 명명된 프로젝트, 투자규모, 오프테이크·장기공급계약 등 상업 실행은 미확정이다.",
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -9773,1454 +10107,8 @@
           }
         ],
         "reason": "Locked current-main and current-batch search found no same-event candidate; retain as new_unrelated_event."
-      }
-    },
-    {
-      "draft_id": "DRAFT_REC26_B_033_R1",
-      "source_spec_id": "REC26_A2_072",
-      "source_story_ids": [
-        "RECON_VOLTA_CANADA"
-      ],
-      "lineage_key": "VOLTA_CANADA_70M",
-      "region": "GL",
-      "date": "2026-07-30",
-      "cat": "Materials",
-      "sub_cat": "공급망투자",
-      "signal": "high",
-      "title": "캐나다, Volta Energy Solutions Canada에 최대 C$70m 지원",
-      "sub": "퀘벡 전지박 투자에 Strategic Response Fund 지원",
-      "gate": "연방 지원 발표와 실제 자금 집행·설비 전환은 구분해야 한다. 후속 집행과 퀘벡 생산설비 투자 진행이 정책효과의 핵심이다.",
-      "fact": "캐나다 정부는 7월 30일 Volta Energy Solutions Canada에 Strategic Response Fund를 통해 최대 C$70m을 지원한다고 발표했다. 정부 계약 데이터에는 C$70m 규모 기여금 계약이 기록돼 있다. 솔루스첨단소재의 한국거래소 공시는 퀘벡 전지박 투자에 대한 C$70m 규모 SRF 인센티브 대출 계획을 별도로 확인한다.",
-      "implication": [
-        "캐나다가 배터리 소재 제조투자에 연방 산업지원 자금을 배정한 사례다.",
-        "실제 효과는 지원금 집행과 퀘벡 생산설비 투자 진행에서 확인해야 한다."
-      ],
-      "urls": [
-        "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
-        "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
-        "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm"
-      ],
-      "related": [],
-      "related_candidate_spec_ids": [],
-      "fact_sources": [
-        {
-          "source_name": "Government of Canada Open Grants",
-          "source_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
-          "source_url_canonical": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
-          "source_owner_id": "government_of_canada",
-          "source_origin_type": "official_original_data",
-          "source_published_date": "2026-03-30",
-          "claim": "Canada recorded a C$70m contribution agreement for Volta Energy Solutions Canada.",
-          "source_quote": "Agreement Value: $70,000,000.00 Agreement Date: Mar 30, 2026 - Dec 31, 2046",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "fact",
-            "gate"
-          ],
-          "fetched_at": "2026-08-09T16:32:42+09:00",
-          "fetch_method": "stage_b_web_open_or_search_body",
-          "source_owner_id_normalized": "government_of_canada",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true,
-          "source_role": "primary_event_evidence",
-          "source_contribution": "Canada recorded a C$70m contribution agreement for Volta Energy Solutions Canada.",
-          "visible_quote_date": "2026-03-30",
-          "checked_at": "2026-08-11T02:37:00+09:00"
-        },
-        {
-          "source_name": "Innovation, Science and Economic Development Canada announcement republished by Mirage News",
-          "source_url": "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
-          "source_url_canonical": "https://miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270",
-          "source_owner_id": "innovation_science_and_economic_development_canada",
-          "source_origin_type": "official_release_republication",
-          "source_published_date": "2026-07-30",
-          "claim": "ISED publicly announced up to C$70m in funding for Volta Energy Solutions Canada in Granby.",
-          "source_quote": "announced up to $70 million in funding from the Strategic Response Fund to support Volta Energy Solutions Canada Inc.",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "fact",
-            "gate"
-          ],
-          "fetched_at": "2026-08-09T16:32:42+09:00",
-          "fetch_method": "stage_b_web_search_official_release_republication",
-          "source_owner_id_normalized": "innovation_science_and_economic_development_canada",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true,
-          "source_role": "primary_event_evidence",
-          "source_contribution": "ISED publicly announced up to C$70m in funding for Volta Energy Solutions Canada in Granby.",
-          "visible_quote_date": "2026-07-30",
-          "checked_at": "2026-08-11T02:37:00+09:00"
-        },
-        {
-          "source_name": "한국거래소 KIND — 솔루스첨단소재 공시",
-          "source_url": "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
-          "source_url_canonical": "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
-          "source_owner_id": "solus_advanced_materials_krx_filing",
-          "source_origin_type": "official_regulatory_filing",
-          "source_published_date": "2026-03-30",
-          "claim": "Solus filing independently confirms the Canadian federal SRF support structure and C$70m amount for VESC’s Quebec copper-foil investment.",
-          "source_quote": "캐나다 연방정부는 SRF 프로그램을 통해 VESC에 70M CAD 규모의 인센티브 차원의 대출을 제공할 예정입니다.",
-          "source_quote_status": "document_quote_verified",
-          "evidence_role": "secondary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "fact",
-            "gate"
-          ],
-          "checked_at": "2026-08-10T11:56:00+09:00",
-          "fetch_method": "prompt_0_5R_web_open_regulatory_filing",
-          "source_role": "independent_event_confirmation",
-          "source_contribution": "Confirms the same C$70m SRF support from the recipient’s parent-company regulatory filing and specifies that the incentive is structured as a loan.",
-          "source_owner_id_normalized": "solus_advanced_materials_krx_filing",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true,
-          "visible_quote_date": "2026-03-30"
-        }
-      ],
-      "writer_notes": [
-        "Stage B draft only; visible claims are bounded to the attached body/official evidence candidates.",
-        "Stage B revise r1: wording/quote mapping repaired with existing evidence only; no source augmentation."
-      ],
-      "needs_stage_c_attention": true,
-      "publish_ready": true,
-      "stage_b_only": true,
-      "state": "publish_ready",
-      "stage_b_lineage": {
-        "lineage_integrity_status": "PASS",
-        "source_spec_id": "REC26_A2_072",
-        "strict_gate_check": {
-          "lane_fit": "PASS",
-          "concrete_execution_or_complete_v3_override": "PASS",
-          "source_direction_path_viable": "PASS_STAGE_B_MUST_VERIFY",
-          "freshness_or_justified_prewindow": "PASS",
-          "baseline_duplicate_event_fingerprint_screen": "PASS_NO_UNRESOLVED_SAME_EVENT_NEW_CARD",
-          "independent_card_value_and_full_schema_viability": "PASS"
-        },
-        "strict_pass_gate": {
-          "status": "pass",
-          "all_six_conditions_passed": true,
-          "execution_anchor_type": "public_funding_or_program_implementation",
-          "execution_anchor_strength": "strong",
-          "format_risk_tags": [],
-          "reason": "Stage 0.0C event identity/date-role/canonical relation closed; current Stage A cardability gate passed.",
-          "notes": "Stage B must verify or replace every provided source candidate and may weaken/block the draft if fetched evidence does not support this stage.",
-          "anchor_supported_by_upstream_text": true,
-          "why_not_review_pool": "Event identity, date-role, source-candidate path and duplicate/relation prepass are sufficiently bounded for Stage B evidence packaging; no source claim is treated as verified at Stage A."
-        },
-        "execution_anchor_type": "public_funding_or_program_implementation",
-        "execution_anchor_strength": "strong",
-        "structural_value_override_applied": false,
-        "anchor_classes": [],
-        "baseline_relation": "new_unrelated_event_prewindow_gap",
-        "duplicate_risk": "screened_current_main_no_unresolved_same_event",
-        "staleness_decision": "fresh_or_justified_prewindow_material_gap"
       },
-      "related_evidence_review": {
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "earliest_same_event_date": "2026-03-30",
-        "earliest_same_event_source_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
-        "relation_type": "new_unrelated_event",
-        "matched_baseline_card_ids": [],
-        "matched_candidate_spec_ids": [],
-        "fresh_follow_up_anchor_class": null,
-        "fresh_follow_up_anchor": "",
-        "incremental_fact_vs_predecessor": "",
-        "changed_judgment_vs_predecessor": "",
-        "relation_reason": "Stage B body/official evidence review; no final production Related IDs are fabricated.",
-        "rejected_relation_candidates": [],
-        "reinforcement_transfer_ledger": [],
-        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
-      },
-      "date_role": {
-        "publication_dates": [
-          "2026-07-30"
-        ],
-        "event_date": "2026-07-30",
-        "representative_date": "2026-07-30",
-        "event_date_confidence": "high",
-        "stage_b_correction_applied": false,
-        "stage_b_date_note": "Representative event is the 2026-07-30 public federal funding announcement; the underlying contribution agreement starts 2026-03-30.",
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
-        "event_date_source_quote": "announced up to $70 million in funding from the Strategic Response Fund to support Volta Energy Solutions Canada Inc."
-      },
-      "source_diversity_status": "PASS_MULTI_SOURCE",
-      "source_independent_owner_count": 3,
-      "single_source_exception": {
-        "allowed": false,
-        "reason": "not applicable: multi-owner evidence"
-      },
-      "source_availability": "available",
-      "fetch_coverage": "core_event_covered",
-      "evidence_package_status": "evidence_package_ready_for_draft",
-      "single_source_reason": "official/original single-source exception candidate; Stage C attention required",
-      "event_fingerprint_search_profile": {
-        "actor": "Canada C$70m contribution for Volta Granby copper",
-        "secondary_actors": [],
-        "event_type": "public_funding_or_program_implementation",
-        "project_or_asset_name": "Canada C$70m contribution for Volta Granby copper-foil expansion",
-        "amount_or_capacity": [
-          "$70m"
-        ],
-        "location": "GL",
-        "event_date_or_window": "2026-07-30",
-        "date_window": "2026-07-30",
-        "source_owner_candidates": [
-          "government_of_canada",
-          "innovation_science_and_economic_development_canada"
-        ],
-        "official_source_domains_to_check": [
-          "miragenews.com",
-          "search.open.canada.ca"
-        ],
-        "cited_source_domains": [
-          "canada.ca",
-          "miragenews.com",
-          "search.open.canada.ca"
-        ],
-        "same_event_search_terms": [
-          "VOLTA_CANADA_70M",
-          "Canada C$70m contribution for Volta Granby copper-foil expansion"
-        ],
-        "same_event_disambiguators": [
-          "GL",
-          "2026-07-30",
-          "new_unrelated_event_prewindow_gap"
-        ],
-        "must_match_terms": [
-          "Canada C$70m contribution for Volta Granby copper",
-          "2026-07-30"
-        ],
-        "must_not_substitute_terms": [
-          "different project",
-          "different event stage",
-          "newer article date without fresh event anchor"
-        ]
-      },
-      "source_discovery_strategy": "bounded_same_event_ladder: provided/fallback -> cited/source-owner -> official/filing/document -> independent Tier1/Tier2 -> specialty body source",
-      "source_discovery_status": "completed_verified_source_found",
-      "source_discovery_ledger_reference": "evidence_packages[REC26_A2_072]",
-      "stage_a_support_sources_attempted": [
-        {
-          "url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/07/government-of-canada-invests-70-million-to-strengthen-the-ev-battery-supply-chain-in-quebec.html",
-          "attempted": true
-        }
-      ],
-      "source_independence_ledger": [
-        {
-          "source_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
-          "canonical_domain": "search.open.canada.ca",
-          "editorial_owner": "government_of_canada",
-          "independent_owner_key": "government_of_canada",
-          "role": "primary_event_evidence"
-        },
-        {
-          "source_url": "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
-          "canonical_domain": "miragenews.com",
-          "editorial_owner": "innovation_science_and_economic_development_canada",
-          "independent_owner_key": "innovation_science_and_economic_development_canada",
-          "role": "primary_event_evidence"
-        }
-      ],
-      "source_unique_url_count": 3,
-      "source_unique_domain_count": 3,
-      "source_role_coverage": [
-        "primary_event_evidence"
-      ],
-      "source_synthesis_plan": [
-        {
-          "source_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
-          "source_role": "primary_event_evidence",
-          "unique_contribution": "Canada recorded a C$70m contribution agreement for Volta Energy Solutions Canada.",
-          "intended_visible_fields": [
-            "title",
-            "sub",
-            "fact",
-            "gate"
-          ]
-        }
-      ],
-      "source_strength_caveat_routing_decision": "route_to_0_5R_source_strength_review",
-      "stage_b_self_check": {
-        "signal_canonical": true,
-        "cat_locked_12": true,
-        "sub_cat_korean_compound": true,
-        "region_allowed": true,
-        "id_format_valid": true,
-        "id_format_note": "Production ID is not allocated at Stage B; draft_id is a workflow identifier. CARD_ID_STANDARD will be applied at governed ID-allocation stage.",
-        "visible_fields_foreign_char_free": true,
-        "all_pass": true
-      },
-      "revision_pass": "r1",
-      "previous_draft_id": "DRAFT_REC26_B_033",
-      "revised_draft_id": "DRAFT_REC26_B_033_R1",
-      "stage_b_revise_only": true,
-      "needs_stage_c_recheck": true,
-      "spec_id": "REC26_A2_072",
-      "strict_gate_check": {
-        "lane_fit": "PASS",
-        "concrete_execution_or_complete_v3_override": "PASS",
-        "source_direction_path_viable": "PASS_STAGE_B_MUST_VERIFY",
-        "freshness_or_justified_prewindow": "PASS",
-        "baseline_duplicate_event_fingerprint_screen": "PASS_NO_UNRESOLVED_SAME_EVENT_NEW_CARD",
-        "independent_card_value_and_full_schema_viability": "PASS"
-      },
-      "selection_risk_flags": [],
-      "selection_risk_flags_provenance": "compatibility_metadata_repair: field not emitted by current Stage A prompt/schema; empty list added without changing selection, strict_gate_check, event anchor, or spec_id",
-      "stage_a_spec_id": "REC26_A2_072",
-      "anchor_path_resolution_action": "preserved",
-      "revision_change_log": [
-        {
-          "previous_draft_id": "DRAFT_REC26_B_033",
-          "revised_draft_id": "DRAFT_REC26_B_033_R1",
-          "field": "title",
-          "before": "캐나다, Volta Granby 동박시설에 최대 7,000만캐나다달러 지원",
-          "after": "캐나다, Volta Energy Solutions Canada에 최대 C$70m 지원",
-          "stage_c_issue_addressed": "Visible-field precision exceeded current source_quote/claim mapping, or reader-facing wording violated Stage C discipline.",
-          "source_lock_check": "existing evidence only; no new source/event added",
-          "introduced_new_claim": false,
-          "notes": "Narrowed or clarified within the already-authorized Stage B evidence scope."
-        },
-        {
-          "previous_draft_id": "DRAFT_REC26_B_033",
-          "revised_draft_id": "DRAFT_REC26_B_033_R1",
-          "field": "sub",
-          "before": "EV/ESS용 배터리급 동박 생산시설 개보수 프로젝트에 기여금",
-          "after": "Strategic Response Fund를 통한 연방 지원 발표",
-          "stage_c_issue_addressed": "Visible-field precision exceeded current source_quote/claim mapping, or reader-facing wording violated Stage C discipline.",
-          "source_lock_check": "existing evidence only; no new source/event added",
-          "introduced_new_claim": false,
-          "notes": "Narrowed or clarified within the already-authorized Stage B evidence scope."
-        },
-        {
-          "previous_draft_id": "DRAFT_REC26_B_033",
-          "revised_draft_id": "DRAFT_REC26_B_033_R1",
-          "field": "fact",
-          "before": "캐나다 산업부는 7월 30일 Volta Energy Solutions Canada의 Granby 동박시설 프로젝트에 Strategic Response Fund를 통해 최대 7,000만캐나다달러를 지원한다고 공개했다. 정부 공개 계약 데이터에는 같은 7,000만캐나다달러 기여금의 계약 시작일이 3월 30일로 기록돼 있다.",
-          "after": "캐나다 정부는 7월 30일 Volta Energy Solutions Canada에 Strategic Response Fund를 통해 최대 C$70m을 지원한다고 발표했다. 정부 계약 데이터에는 C$70m 규모 기여금 계약이 별도로 기록돼 있다.",
-          "stage_c_issue_addressed": "Visible-field precision exceeded current source_quote/claim mapping, or reader-facing wording violated Stage C discipline.",
-          "source_lock_check": "existing evidence only; no new source/event added",
-          "introduced_new_claim": false,
-          "notes": "Narrowed or clarified within the already-authorized Stage B evidence scope."
-        },
-        {
-          "previous_draft_id": "DRAFT_REC26_B_033",
-          "revised_draft_id": "DRAFT_REC26_B_033_R1",
-          "field": "gate",
-          "before": "7월 30일은 정부의 공개 지원 발표일이고 기여금 계약 시작일은 3월 30일이다. 공개 발표와 계약 체결시점을 구분해 후속 시설 개보수와 2027년 3월 작업단계 종료 일정을 확인해야 한다.",
-          "after": "카드는 7월 30일 공개된 지원 발표를 대표 사건으로 사용한다. 시설 세부범위와 후속 집행은 추가 공식 자료로 확인해야 한다.",
-          "stage_c_issue_addressed": "Visible-field precision exceeded current source_quote/claim mapping, or reader-facing wording violated Stage C discipline.",
-          "source_lock_check": "existing evidence only; no new source/event added",
-          "introduced_new_claim": false,
-          "notes": "Narrowed or clarified within the already-authorized Stage B evidence scope."
-        },
-        {
-          "previous_draft_id": "DRAFT_REC26_B_033",
-          "revised_draft_id": "DRAFT_REC26_B_033_R1",
-          "field": "implication",
-          "before": [
-            "캐나다 배터리 소재 현지화 지원이 셀뿐 아니라 동박으로 확대된 사례다.",
-            "기존 시설 전환이 실제 상업생산/고객계약으로 연결되는지를 확인해야 한다."
-          ],
-          "after": [
-            "캐나다가 배터리 공급망 기업에 대규모 연방 지원을 배정한 사례다.",
-            "후속 집행과 실제 생산설비 전환 여부가 정책효과의 핵심이다."
-          ],
-          "stage_c_issue_addressed": "Visible-field precision exceeded current source_quote/claim mapping, or reader-facing wording violated Stage C discipline.",
-          "source_lock_check": "existing evidence only; no new source/event added",
-          "introduced_new_claim": false,
-          "notes": "Narrowed or clarified within the already-authorized Stage B evidence scope."
-        }
-      ],
-      "remaining_risks": [
-        "Stage C revise must re-check every revised visible claim against fact_sources.",
-        "No evidence_complete, source_claim_covered, publish_ready, or production state is assigned in this pass.",
-        "Single-source exception, if retained, requires downstream Evidence QC review."
-      ],
-      "stage_c_revise_only": true,
-      "prior_issue_resolved": true,
-      "needs_post_acceptance_duplicate_review": true,
-      "needs_post_acceptance_evidence_qc": true,
-      "claim_repair_before_deletion_check": {
-        "required": true,
-        "affected_fields": [
-          "fact",
-          "gate",
-          "implication",
-          "sub",
-          "title"
-        ],
-        "repair_attempted_before_narrowing": true,
-        "repair_methods": [
-          "remap_to_existing_fact_source_quote",
-          "narrow_visible_wording_to_existing_evidence"
-        ],
-        "source_augmentation_used": false,
-        "result": "repaired_and_validated"
-      },
-      "strict_gate_acceptance_guard": "PASS",
-      "source_direction_check_stage_c_revise": "PASS",
-      "fact_source_alignment_stage_c_revise": "PASS",
-      "quote_quality_stage_c_revise": "PASS",
-      "language_tone_stage_c_revise": "PASS",
-      "related_lineage": {
-        "status": "PASS",
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
-        "related_candidate_spec_ids": [],
-        "reason": "Current-main baseline and current accepted batch contain no direct predecessor, same-event representative, or broader card that already represents this specific event.",
-        "fresh_follow_up_anchor_class": null,
-        "fresh_follow_up_anchor": "",
-        "incremental_fact_vs_predecessor": "",
-        "changed_judgment_vs_predecessor": "",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "follow_up_date_precedes_predecessor_justification": null,
-        "rejected_relation_candidates": [],
-        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
-      },
-      "stage_a_lineage_metadata": {
-        "enhanced_selector_precision_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-        "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-        "strict_pass_gate": {
-          "status": "pass",
-          "all_six_conditions_passed": true,
-          "execution_anchor_type": "public_funding_or_program_implementation",
-          "execution_anchor_strength": "strong",
-          "format_risk_tags": [],
-          "reason": "Stage 0.0C event identity/date-role/canonical relation closed; current Stage A cardability gate passed.",
-          "notes": "Stage B must verify or replace every provided source candidate and may weaken/block the draft if fetched evidence does not support this stage.",
-          "anchor_supported_by_upstream_text": true,
-          "why_not_review_pool": "Event identity, date-role, source-candidate path and duplicate/relation prepass are sufficiently bounded for Stage B evidence packaging; no source claim is treated as verified at Stage A."
-        },
-        "strict_gate_check": {
-          "lane_fit": "PASS",
-          "concrete_execution_or_complete_v3_override": "PASS",
-          "source_direction_path_viable": "PASS_STAGE_B_MUST_VERIFY",
-          "freshness_or_justified_prewindow": "PASS",
-          "baseline_duplicate_event_fingerprint_screen": "PASS_NO_UNRESOLVED_SAME_EVENT_NEW_CARD",
-          "independent_card_value_and_full_schema_viability": "PASS"
-        },
-        "format_risk_tags": [],
-        "execution_anchor_type": "public_funding_or_program_implementation",
-        "execution_anchor_strength": "strong",
-        "baseline_relation": "new_unrelated_event_prewindow_gap",
-        "duplicate_risk": "screened_current_main_no_unresolved_same_event",
-        "staleness_decision": "fresh_or_justified_prewindow_material_gap",
-        "source_access_risk": "low_to_moderate_stage_b_must_verify_or_replace"
-      },
-      "enhanced_selector_precision_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-      "strict_pass_gate": {
-        "status": "pass",
-        "all_six_conditions_passed": true,
-        "execution_anchor_type": "public_funding_or_program_implementation",
-        "execution_anchor_strength": "strong",
-        "format_risk_tags": [],
-        "reason": "Stage 0.0C event identity/date-role/canonical relation closed; current Stage A cardability gate passed.",
-        "notes": "Stage B must verify or replace every provided source candidate and may weaken/block the draft if fetched evidence does not support this stage.",
-        "anchor_supported_by_upstream_text": true,
-        "why_not_review_pool": "Event identity, date-role, source-candidate path and duplicate/relation prepass are sufficiently bounded for Stage B evidence packaging; no source claim is treated as verified at Stage A."
-      },
-      "format_risk_tags": [],
-      "execution_anchor_type": "public_funding_or_program_implementation",
-      "execution_anchor_strength": "strong",
-      "staleness_decision": "fresh_or_justified_prewindow_material_gap",
-      "source_access_risk": "low_to_moderate_stage_b_must_verify_or_replace",
-      "stage_a_baseline_relation": "new_unrelated_event_prewindow_gap",
-      "stage_a_duplicate_risk": "screened_current_main_no_unresolved_same_event",
-      "previous_state": "content_enriched_and_language_polished",
-      "event_fingerprint": {
-        "actor": "Government of Canada / Volta Energy Solutions Canada",
-        "asset_or_policy": "Volta battery-supply-chain project",
-        "location": "Granby, Quebec, Canada",
-        "event_type": "funding",
-        "event_date": "2026-07-30",
-        "source_url_cluster": [
-          "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
-          "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270"
-        ],
-        "factual_anchor": "up to C$70m Strategic Response Fund support announcement"
-      },
-      "baseline_relation": "new",
-      "duplicate_risk": "screened_current_main_no_unresolved_same_event",
-      "duplicate_screening": {
-        "exact_url_match": false,
-        "canonical_url_match": false,
-        "title_similarity_match": false,
-        "actor_asset_event_match": false,
-        "baseline_event_fingerprint_match": false,
-        "internal_batch_duplicate_match": false,
-        "already_covered_by_broader_card": false,
-        "top_normalized_title_similarity": 0.4634,
-        "top_title_similarity_baseline_card_id": "2026-06-26_US_03",
-        "top_title_similarity_baseline_title": "캐나다, 핵심광물·광업 12개 프로젝트에 최대 C$7,300만 지원",
-        "screening_note": "Top fuzzy-title match reviewed as non-same-event; exact/canonical URL and exact normalized title checks are negative."
-      },
-      "id_collision": false,
-      "id_collision_notes": "No final production ID assigned at 0.4; draft_id is not a baseline production ID. Final ID collision check remains for a later authorized ID/merge-prep gate.",
-      "evidence_complete": true,
-      "source_claim_covered": true,
-      "content_enriched": true,
-      "language_terminology_polished": true,
-      "needs_evidence_completeness_qc": true,
-      "needs_source_claim_coverage_qc": true,
-      "needs_content_enrichment": true,
-      "needs_language_terminology_polish": true,
-      "needs_publish_readiness_qc": true,
-      "publish_ready_reset": false,
-      "reset_reason": "publish_ready_was_already_false_and_0_4_reaffirmed_the_boundary",
-      "notes": "Prompt 0.4 baseline revalidation only. addable_merge_safe is not evidence_complete, not source_claim_covered, and not publish_ready. Next required gate: evidence completeness QC.",
-      "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802",
-      "lineage_integrity_status": "PASS",
-      "stage_a_validity_status": "PASS",
-      "artifact_consistency_status": "PASS",
-      "accepted_pool_lineage_status": "PASS",
-      "strict_gate_metadata_preserved": true,
-      "execution_anchor_metadata_preserved": true,
-      "superseded_lineage_mixed": false,
-      "manual_integrated_rule_mixed": false,
-      "previous_run_output_mixed": false,
-      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-      "baseline_revalidation_lineage_guard_status": "PASS",
-      "accepted_fact_safe_with_missing_strict_gate_count": 0,
-      "accepted_fact_safe_with_failed_strict_gate_count": 0,
-      "accepted_fact_safe_with_unresolved_execution_anchor_gap_count": 0,
-      "content_polish_lineage_status": "PASS",
-      "source_evidence_entry_count": 3,
-      "source_unique_domains": [
-        "kind.krx.co.kr",
-        "miragenews.com",
-        "search.open.canada.ca"
-      ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
-      "source_diversity_roles": {
-        "primary_event_evidence": 2,
-        "independent_event_confirmation": 1
-      },
-      "source_synthesis_applied": true,
-      "source_synthesis_fields": [
-        "fact",
-        "gate"
-      ],
-      "source_synthesis_audit": [
-        {
-          "source_domain": "search.open.canada.ca",
-          "source_role": "primary_event_evidence",
-          "unique_contribution": "Canada recorded a C$70m contribution agreement for Volta Energy Solutions Canada.",
-          "affected_visible_fields": [
-            "title",
-            "sub",
-            "fact",
-            "gate"
-          ]
-        },
-        {
-          "source_domain": "miragenews.com",
-          "source_role": "primary_event_evidence",
-          "unique_contribution": "ISED publicly announced up to C$70m in funding for Volta Energy Solutions Canada in Granby.",
-          "affected_visible_fields": [
-            "title",
-            "sub",
-            "fact",
-            "gate"
-          ]
-        },
-        {
-          "source_domain": "kind.krx.co.kr",
-          "source_role": "independent_event_confirmation",
-          "unique_contribution": "Confirms the same C$70m SRF support from the recipient’s parent-company regulatory filing and specifies that the incentive is structured as a loan.",
-          "affected_visible_fields": [
-            "title",
-            "sub",
-            "fact",
-            "gate"
-          ]
-        }
-      ],
-      "needs_source_diversity_remediation": false,
-      "source_url_resolution": {
-        "supporting_fact_source_count": 3,
-        "canonical_complete": true,
-        "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": false,
-        "resolution_entries": [
-          {
-            "source_url": "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "recomputed from current fact_sources; indices=2; owners=solus_advanced_materials_krx_filing",
-            "source_url_propagation_performed": false
-          },
-          {
-            "source_url": "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=innovation_science_and_economic_development_canada",
-            "source_url_propagation_performed": false
-          },
-          {
-            "source_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=government_of_canada",
-            "source_url_propagation_performed": false
-          }
-        ]
-      },
-      "source_discovery_ledger": [
-        {
-          "source_url": "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
-          "canonical_url": "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
-          "source_name": "한국거래소 KIND — 솔루스첨단소재 공시",
-          "source_owner": "solus_advanced_materials_krx_filing",
-          "source_domain": "kind.krx.co.kr",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "Confirms the same C$70m SRF support from the recipient’s parent-company regulatory filing and specifies that the incentive is structured as a loan.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "sub",
-            "title"
-          ]
-        },
-        {
-          "source_url": "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
-          "canonical_url": "https://miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270",
-          "source_name": "Innovation, Science and Economic Development Canada announcement republished by Mirage News",
-          "source_owner": "innovation_science_and_economic_development_canada",
-          "source_domain": "miragenews.com",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "ISED publicly announced up to C$70m in funding for Volta Energy Solutions Canada in Granby.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "sub",
-            "title"
-          ]
-        },
-        {
-          "source_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
-          "canonical_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
-          "source_name": "Government of Canada Open Grants",
-          "source_owner": "government_of_canada",
-          "source_domain": "search.open.canada.ca",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "Canada recorded a C$70m contribution agreement for Volta Energy Solutions Canada.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "sub",
-            "title"
-          ]
-        }
-      ],
-      "selected_anchor_path": "execution",
-      "anchor_path_qc_passed": true,
-      "execution_anchor_qc_status": "pass",
-      "structural_value_override_qc_status": "not_applicable",
-      "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
-      "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
-      "github_main_sync_required_later": false,
-      "final_qc_gates": {
-        "fact_safety": "PASS",
-        "merge_safety": "PASS",
-        "evidence_completeness": "PASS",
-        "claim_coverage": "PASS",
-        "content_depth": "PASS",
-        "language_tone": "PASS",
-        "schema_runtime": "PASS",
-        "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
-      },
-      "hard_fail_count": 0,
-      "ib_grade_final_qc": "A-",
-      "final_qc_notes": [
-        "GitHub main baseline unchanged at d3137945860664116b1bf90bbb7bee54d2a6c1d9.",
-        "Production ID allocation and merge preparation remain downstream work.",
-        "Prompt 0.7C independent completeness review is still required before Prompt 0.8."
-      ],
-      "id": "2026-07-30_GL_01",
-      "assigned_id": "2026-07-30_GL_01",
-      "proposed_production_id_0_8": "2026-07-30_GL_01",
-      "production_id_assigned_0_8": true,
-      "production_id_pending": false,
-      "id_assignment_preview_only": false,
-      "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
-      "production_verified": false,
-      "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
-    },
-    {
-      "draft_id": "DRAFT_REC26_B_018_R1",
-      "source_spec_id": "REC26_A2_042",
-      "source_story_ids": [
-        "CN_2026-07-31_C01"
-      ],
-      "lineage_key": "LGES_FINAL_Q2",
-      "region": "KR",
-      "date": "2026-07-30",
-      "cat": "Battery",
-      "sub_cat": "실적",
-      "signal": "high",
-      "title": "LG에너지솔루션 Q2, 매출 7.5602조원/영업익 1,133억원",
-      "sub": "ESS 출하 전분기 대비 30% 이상 성장",
-      "gate": "ESS 출하 성장과 신규수주가 확인됐지만 수주액과 당기 매출 인식은 구분해야 한다. 상반기 수주가 후속 출하·매출로 전환되는 속도가 다음 핵심 지표다.",
-      "fact": "LG에너지솔루션은 2분기 매출 7조5,602억원, 영업이익 1,133억원을 발표했다. ESS 출하는 전분기 대비 30% 이상 증가했고 상반기 신규수주는 3조원을 넘었다고 밝혔다.",
-      "implication": [
-        "ESS가 실적에서 성장축으로 확대되는 신호가 나타났다.",
-        "상반기 신규수주가 실제 출하와 매출로 이어지는 속도를 확인해야 한다."
-      ],
-      "urls": [
-        "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-        "https://www.newswire.co.kr/newsRead.php?no=1039662"
-      ],
-      "related": [
-        "2026-07-07_KR_01"
-      ],
-      "related_candidate_spec_ids": [],
-      "fact_sources": [
-        {
-          "source_name": "OFweek Li-Battery",
-          "source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-          "source_url_canonical": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-          "source_owner_id": "libattery.ofweek.com",
-          "source_origin_type": "independent_body_reporting",
-          "source_published_date": "2026-07-30",
-          "claim": "Core same-event evidence candidate from current-run hydrated article body.",
-          "source_quote": "原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。",
-          "source_quote_status": "body_quote_verified",
-          "evidence_role": "secondary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "fact"
-          ],
-          "fetched_at": "2026-08-09T16:32:42+09:00",
-          "fetch_method": "current_run_hydrated_article_body",
-          "source_owner_id_normalized": "libattery.ofweek.com",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true,
-          "source_role": "independent_event_confirmation",
-          "source_contribution": "검증된 동일사건 원문으로 title, sub, fact를 직접 뒷받침: 原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。",
-          "visible_quote_date": "2026-07-30",
-          "checked_at": "2026-08-11T02:37:00+09:00"
-        },
-        {
-          "source_name": "LG Energy Solution / Newswire",
-          "source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
-          "source_url_canonical": "https://newswire.co.kr/newsRead.php?no=1039662",
-          "source_owner_id": "lg_energy_solution",
-          "source_origin_type": "company_supplied_release",
-          "source_published_date": "2026-07-30",
-          "claim": "LGES reported Q2 revenue/operating profit, >30% QoQ ESS shipment growth and >KRW3tn H1 ESS new orders.",
-          "source_quote": "매출 7조5602억원, 영업이익 1133억원 ... ESS는 ... 전분기 대비 30% 이상 성장 ... 3조원 이상의 신규 수주 계약",
-          "source_quote_status": "official_material_quote_verified",
-          "evidence_role": "primary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "fact",
-            "gate"
-          ],
-          "fetched_at": "2026-08-09T16:32:42+09:00",
-          "fetch_method": "stage_b_web_open_or_search_body",
-          "revision_source_lock_note": "same existing company-supplied LGES release re-checked",
-          "source_owner_id_normalized": "lg_energy_solution",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true,
-          "source_role": "primary_event_evidence",
-          "source_contribution": "LGES reported Q2 revenue/operating profit, >30% QoQ ESS shipment growth and >KRW3tn H1 ESS new orders.",
-          "visible_quote_date": "2026-07-30",
-          "checked_at": "2026-08-11T02:37:00+09:00"
-        }
-      ],
-      "writer_notes": [
-        "Stage B draft only; visible claims are bounded to the attached body/official evidence candidates.",
-        "Stage B revise r1: wording/quote mapping repaired with existing evidence only; no source augmentation."
-      ],
-      "needs_stage_c_attention": true,
-      "publish_ready": true,
-      "stage_b_only": true,
-      "state": "publish_ready",
-      "stage_b_lineage": {
-        "lineage_integrity_status": "PASS",
-        "source_spec_id": "REC26_A2_042",
-        "strict_gate_check": {
-          "lane_fit": "PASS",
-          "concrete_execution_or_complete_v3_override": "PASS",
-          "source_direction_path_viable": "PASS_STAGE_B_MUST_VERIFY",
-          "freshness_or_justified_prewindow": "PASS",
-          "baseline_duplicate_event_fingerprint_screen": "PASS_NO_UNRESOLVED_SAME_EVENT_NEW_CARD",
-          "independent_card_value_and_full_schema_viability": "PASS"
-        },
-        "strict_pass_gate": {
-          "status": "pass",
-          "all_six_conditions_passed": true,
-          "execution_anchor_type": null,
-          "execution_anchor_strength": null,
-          "format_risk_tags": [],
-          "reason": "Stage 0.0C event identity/date-role/canonical relation closed; current Stage A cardability gate passed.",
-          "notes": "Stage B must verify or replace every provided source candidate and may weaken/block the draft if fetched evidence does not support this stage.",
-          "anchor_supported_by_upstream_text": true,
-          "why_not_review_pool": "Event identity, date-role, source-candidate path and duplicate/relation prepass are sufficiently bounded for Stage B evidence packaging; no source claim is treated as verified at Stage A."
-        },
-        "execution_anchor_type": null,
-        "execution_anchor_strength": null,
-        "structural_value_override_applied": true,
-        "anchor_classes": [
-          "data_financial_anchor"
-        ],
-        "baseline_relation": "distinct_follow_up",
-        "duplicate_risk": "screened_current_main_no_unresolved_same_event",
-        "staleness_decision": "fresh_or_justified_prewindow_material_gap"
-      },
-      "related_evidence_review": {
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "earliest_same_event_date": "2026-07-30",
-        "earliest_same_event_source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
-        "relation_type": "distinct_follow_up",
-        "matched_baseline_card_ids": [],
-        "matched_candidate_spec_ids": [],
-        "fresh_follow_up_anchor_class": "data_financial_anchor",
-        "fresh_follow_up_anchor": "Final Q2 issuer results supersede the preliminary disclosure.",
-        "incremental_fact_vs_predecessor": "Stage B confirms a later event/stage for LGES_FINAL_Q2; exact predecessor ID remains unresolved where not safely locked.",
-        "changed_judgment_vs_predecessor": "The predecessor state is advanced by the current data_financial_anchor event.",
-        "relation_reason": "Stage B body/official evidence review; no final production Related IDs are fabricated.",
-        "rejected_relation_candidates": [],
-        "reinforcement_transfer_ledger": [],
-        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
-      },
-      "date_role": {
-        "publication_dates": [
-          "2026-07-30"
-        ],
-        "event_date": "2026-07-30",
-        "representative_date": "2026-07-30",
-        "event_date_confidence": "high",
-        "stage_b_correction_applied": false,
-        "stage_b_date_note": null,
-        "earliest_same_event_date_checked": true,
-        "event_date_source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-        "event_date_source_quote": "原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。"
-      },
-      "source_diversity_status": "PASS_MULTI_SOURCE",
-      "source_independent_owner_count": 2,
-      "single_source_exception": {
-        "allowed": false,
-        "reason": "not applicable: multi-owner evidence"
-      },
-      "source_availability": "available",
-      "fetch_coverage": "core_event_covered",
-      "evidence_package_status": "evidence_package_ready_for_draft",
-      "single_source_reason": null,
-      "event_fingerprint_search_profile": {
-        "actor": "LG Energy Solution Q2 final results",
-        "secondary_actors": [],
-        "event_type": "data_financial_anchor",
-        "project_or_asset_name": "LG Energy Solution Q2 final results / ESS mix update",
-        "amount_or_capacity": [
-          "2"
-        ],
-        "location": "KR",
-        "event_date_or_window": "2026-07-30",
-        "date_window": "2026-07-30",
-        "source_owner_candidates": [
-          "lg_energy_solution",
-          "libattery.ofweek.com"
-        ],
-        "official_source_domains_to_check": [
-          "newswire.co.kr"
-        ],
-        "cited_source_domains": [
-          "libattery.ofweek.com",
-          "newswire.co.kr"
-        ],
-        "same_event_search_terms": [
-          "LGES_FINAL_Q2",
-          "LG Energy Solution Q2 final results / ESS mix update"
-        ],
-        "same_event_disambiguators": [
-          "KR",
-          "2026-07-30",
-          "distinct_follow_up"
-        ],
-        "must_match_terms": [
-          "LG Energy Solution Q2 final results",
-          "2026-07-30"
-        ],
-        "must_not_substitute_terms": [
-          "different project",
-          "different event stage",
-          "newer article date without fresh event anchor"
-        ]
-      },
-      "source_discovery_strategy": "bounded_same_event_ladder: provided/fallback -> cited/source-owner -> official/filing/document -> independent Tier1/Tier2 -> specialty body source",
-      "source_discovery_status": "completed_verified_source_found",
-      "source_discovery_ledger_reference": "evidence_packages[REC26_A2_042]",
-      "stage_a_support_sources_attempted": [
-        {
-          "url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-          "attempted": true
-        }
-      ],
-      "source_independence_ledger": [
-        {
-          "source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-          "canonical_domain": "libattery.ofweek.com",
-          "editorial_owner": "libattery.ofweek.com",
-          "independent_owner_key": "libattery.ofweek.com",
-          "role": "secondary_event_evidence"
-        },
-        {
-          "source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
-          "canonical_domain": "newswire.co.kr",
-          "editorial_owner": "lg_energy_solution",
-          "independent_owner_key": "lg_energy_solution",
-          "role": "primary_event_evidence"
-        }
-      ],
-      "source_unique_url_count": 2,
-      "source_unique_domain_count": 2,
-      "source_role_coverage": [
-        "primary_event_evidence",
-        "secondary_event_evidence"
-      ],
-      "source_synthesis_plan": [
-        {
-          "source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-          "source_role": "secondary_event_evidence",
-          "unique_contribution": "Core same-event evidence candidate from current-run hydrated article body.",
-          "intended_visible_fields": [
-            "title",
-            "sub",
-            "fact"
-          ]
-        },
-        {
-          "source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
-          "source_role": "primary_event_evidence",
-          "unique_contribution": "LGES reported final Q2 results and >30% QoQ ESS shipment growth.",
-          "intended_visible_fields": [
-            "title",
-            "sub",
-            "fact",
-            "gate"
-          ]
-        }
-      ],
-      "source_strength_caveat_routing_decision": "clean_no_0_5R_needed",
-      "stage_b_self_check": {
-        "signal_canonical": true,
-        "cat_locked_12": true,
-        "sub_cat_korean_compound": true,
-        "region_allowed": true,
-        "id_format_valid": true,
-        "id_format_note": "Production ID is not allocated at Stage B; draft_id is a workflow identifier. CARD_ID_STANDARD will be applied at governed ID-allocation stage.",
-        "visible_fields_foreign_char_free": true,
-        "all_pass": true
-      },
-      "revision_pass": "r1",
-      "previous_draft_id": "DRAFT_REC26_B_018",
-      "revised_draft_id": "DRAFT_REC26_B_018_R1",
-      "stage_b_revise_only": true,
-      "needs_stage_c_recheck": true,
-      "spec_id": "REC26_A2_042",
-      "strict_gate_check": {
-        "lane_fit": "PASS",
-        "concrete_execution_or_complete_v3_override": "PASS",
-        "source_direction_path_viable": "PASS_STAGE_B_MUST_VERIFY",
-        "freshness_or_justified_prewindow": "PASS",
-        "baseline_duplicate_event_fingerprint_screen": "PASS_NO_UNRESOLVED_SAME_EVENT_NEW_CARD",
-        "independent_card_value_and_full_schema_viability": "PASS"
-      },
-      "selection_risk_flags": [],
-      "selection_risk_flags_provenance": "compatibility_metadata_repair: field not emitted by current Stage A prompt/schema; empty list added without changing selection, strict_gate_check, event anchor, or spec_id",
-      "stage_a_spec_id": "REC26_A2_042",
-      "structural_value_override_applied": true,
-      "structural_value_override_reason": "LG Energy Solution's final Q2 results and ESS mix/guidance can materially update the profitability and EV-to-ESS pivot judgment beyond the preliminary disclosure.",
-      "anchor_classes": [
-        "data_financial_anchor"
-      ],
-      "evidence_needed_for_stage_b": [
-        {
-          "source_or_document_class": "official filing or dataset report",
-          "exact_claim_or_metric": "LGES_FINAL_Q2 event date 2026-07-30, stage status, approval status, capacity or revenue metric; LG Energy Solution Q2 2026 earnings release/IR deck dated 2026-07-30: verify final revenue, operating profit, AMPC contribution, segment or product-mix disclosures and guidance."
-        },
-        {
-          "source_or_document_class": "official filing or dataset report",
-          "exact_claim_or_metric": "LGES_FINAL_Q2 event date 2026-07-30, stage status, approval status, capacity or revenue metric; LGES earnings-call transcript/Q&A: verify management statements on ESS shipments/backlog, North American plant utilization, EV demand, product mix and second-half outlook."
-        }
-      ],
-      "why_execution_event_not_required": "A conventional execution event is not required because the data_financial_anchor itself changes a material market, policy, financial or strategic judgment; Stage B must verify the exact source-defined metric/stage before drafting.",
-      "prior_state": "LGES had a 2026-07-07 preliminary Q2 disclosure before the final results.",
-      "new_verified_fact": "Final Q2 results and an ESS mix update were identified on 2026-07-30.",
-      "changed_judgment": "The preliminary earnings judgment must be replaced by final metrics and management's ESS/EV mix outlook.",
-      "uncertainty_resolved": "Preliminary and final disclosure stages were separated.",
-      "remaining_uncertainty": "Official final metrics, call/Q&A statements and predecessor card target remain to be locked.",
-      "incremental_information": "Final Q2 results and an ESS mix update were identified on 2026-07-30.",
-      "baseline_expectation_changed": "The preliminary earnings judgment must be replaced by final metrics and management's ESS/EV mix outlook.",
-      "decision_relevance": "The preliminary earnings judgment must be replaced by final metrics and management's ESS/EV mix outlook.",
-      "next_confirmation_points": [
-        {
-          "measurable_event_or_metric": "LGES_FINAL_Q2 next official publication date, capacity metric, approval status or production stage; Q3 results show whether ESS shipments/utilization and ex-AMPC profitability improve as guided.",
-          "interpretation_effect": "The result would strengthen the current outlook; a reversal would weaken the outlook."
-        },
-        {
-          "measurable_event_or_metric": "LGES_FINAL_Q2 next official publication date, capacity metric, approval status or production stage; Management changes ESS backlog, capacity-conversion or EV-demand guidance relative to Q2.",
-          "interpretation_effect": "The result would strengthen the current outlook; a reversal would weaken the outlook."
-        }
-      ],
-      "anchor_path_validation": {
-        "selected_anchor_path": "v3_non_execution",
-        "anchor_path_qc_passed": true,
-        "execution_anchor_qc_status": "not_applicable",
-        "structural_value_override_qc_status": "pass",
-        "non_applicable_anchor_path_reason": "Stage A selected the complete V3 non-execution override path; the conventional execution route is not applicable."
-      },
-      "anchor_path_resolution_action": "preserved",
-      "revision_change_log": [
-        {
-          "previous_draft_id": "DRAFT_REC26_B_018",
-          "revised_draft_id": "DRAFT_REC26_B_018_R1",
-          "field": "sub",
-          "before": "ESS 출하 30% 이상 QoQ 성장...상반기 신규수주 3조원 이상",
-          "after": "ESS 출하 전분기 대비 30% 이상 성장",
-          "stage_c_issue_addressed": "Visible-field precision exceeded current source_quote/claim mapping, or reader-facing wording violated Stage C discipline.",
-          "source_lock_check": "existing evidence only; no new source/event added",
-          "introduced_new_claim": false,
-          "notes": "Narrowed or clarified within the already-authorized Stage B evidence scope."
-        },
-        {
-          "previous_draft_id": "DRAFT_REC26_B_018",
-          "revised_draft_id": "DRAFT_REC26_B_018_R1",
-          "field": "fact",
-          "before": "LG에너지솔루션은 2분기 매출 7조5,602억원, 영업이익 1,133억원을 발표했다. ESS 출하는 전분기 대비 30% 이상 늘었고 상반기 ESS 신규수주는 AI 데이터센터 프로젝트를 포함해 3조원을 넘었다.",
-          "after": "LG에너지솔루션은 2분기 매출 7조5,602억원, 영업이익 1,133억원을 발표했다. ESS 출하는 전분기 대비 30% 이상 성장했고 상반기 ESS 신규수주 계약은 3조원 이상이었다.",
-          "stage_c_issue_addressed": "Visible-field precision exceeded current source_quote/claim mapping, or reader-facing wording violated Stage C discipline.",
-          "source_lock_check": "existing evidence only; no new source/event added",
-          "introduced_new_claim": false,
-          "notes": "Narrowed or clarified within the already-authorized Stage B evidence scope."
-        },
-        {
-          "previous_draft_id": "DRAFT_REC26_B_018",
-          "revised_draft_id": "DRAFT_REC26_B_018_R1",
-          "field": "gate",
-          "before": "북미 생산보조금 2,410억원이 손익에 포함됐다. ESS 성장과 EV 부진 상쇄 효과를 볼 때 보조금 제외 수익성/가동률과 신규수주의 매출 전환을 함께 봐야 한다.",
-          "after": "ESS 성장 신호는 확인됐지만 신규수주와 실제 매출 인식은 구분해야 한다. 후속 분기에서 ESS 출하/매출 전환을 확인해야 한다.",
-          "stage_c_issue_addressed": "Visible-field precision exceeded current source_quote/claim mapping, or reader-facing wording violated Stage C discipline.",
-          "source_lock_check": "existing evidence only; no new source/event added",
-          "introduced_new_claim": false,
-          "notes": "Narrowed or clarified within the already-authorized Stage B evidence scope."
-        },
-        {
-          "previous_draft_id": "DRAFT_REC26_B_018",
-          "revised_draft_id": "DRAFT_REC26_B_018_R1",
-          "field": "implication",
-          "before": [
-            "ESS가 전기차 수요 둔화를 상쇄하는 실적 축으로 빠르게 커지고 있다.",
-            "북미 라인 전환/가동률과 데이터센터 수주 전환이 하반기 수익성의 핵심 변수다."
-          ],
-          "after": [
-            "ESS가 LG에너지솔루션의 실적 성장축으로 확대되고 있다.",
-            "상반기 수주가 후속 출하와 매출로 전환되는 속도가 다음 핵심 지표다."
-          ],
-          "stage_c_issue_addressed": "Visible-field precision exceeded current source_quote/claim mapping, or reader-facing wording violated Stage C discipline.",
-          "source_lock_check": "existing evidence only; no new source/event added",
-          "introduced_new_claim": false,
-          "notes": "Narrowed or clarified within the already-authorized Stage B evidence scope."
-        },
-        {
-          "previous_draft_id": "DRAFT_REC26_B_018",
-          "revised_draft_id": "DRAFT_REC26_B_018_R1",
-          "field": "fact_sources",
-          "before": [
-            {
-              "source_name": "OFweek Li-Battery",
-              "source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-              "source_url_canonical": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-              "source_owner_id": "libattery.ofweek.com",
-              "source_origin_type": "independent_body_reporting",
-              "source_published_date": null,
-              "claim": "Core same-event evidence candidate from current-run hydrated article body.",
-              "source_quote": "原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。",
-              "source_quote_status": "body_quote_verified",
-              "evidence_role": "secondary_event_evidence",
-              "supports": [
-                "title",
-                "sub",
-                "fact"
-              ],
-              "fetched_at": "2026-08-09T16:32:42+09:00",
-              "fetch_method": "current_run_hydrated_article_body"
-            },
-            {
-              "source_name": "LG Energy Solution / Newswire",
-              "source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
-              "source_url_canonical": "https://newswire.co.kr/newsRead.php?no=1039662",
-              "source_owner_id": "lg_energy_solution",
-              "source_origin_type": "company_supplied_release",
-              "source_published_date": "2026-07-30",
-              "claim": "LGES reported final Q2 results and >30% QoQ ESS shipment growth.",
-              "source_quote": "특히 ESS는 북미와 유럽을 중심으로 출하가 확대되며 전분기 대비 30% 이상 성장하며 큰 폭의 성장세를 이어갔다",
-              "source_quote_status": "official_material_quote_verified",
-              "evidence_role": "primary_event_evidence",
-              "supports": [
-                "title",
-                "sub",
-                "fact",
-                "gate"
-              ],
-              "fetched_at": "2026-08-09T16:32:42+09:00",
-              "fetch_method": "stage_b_web_open_or_search_body"
-            }
-          ],
-          "after": [
-            {
-              "source_name": "OFweek Li-Battery",
-              "source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-              "source_url_canonical": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-              "source_owner_id": "libattery.ofweek.com",
-              "source_origin_type": "independent_body_reporting",
-              "source_published_date": null,
-              "claim": "Core same-event evidence candidate from current-run hydrated article body.",
-              "source_quote": "原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。",
-              "source_quote_status": "body_quote_verified",
-              "evidence_role": "secondary_event_evidence",
-              "supports": [
-                "title",
-                "sub",
-                "fact"
-              ],
-              "fetched_at": "2026-08-09T16:32:42+09:00",
-              "fetch_method": "current_run_hydrated_article_body"
-            },
-            {
-              "source_name": "LG Energy Solution / Newswire",
-              "source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
-              "source_url_canonical": "https://newswire.co.kr/newsRead.php?no=1039662",
-              "source_owner_id": "lg_energy_solution",
-              "source_origin_type": "company_supplied_release",
-              "source_published_date": "2026-07-30",
-              "claim": "LGES reported Q2 revenue/operating profit, >30% QoQ ESS shipment growth and >KRW3tn H1 ESS new orders.",
-              "source_quote": "매출 7조5602억원, 영업이익 1133억원 ... ESS는 ... 전분기 대비 30% 이상 성장 ... 3조원 이상의 신규 수주 계약",
-              "source_quote_status": "official_material_quote_verified",
-              "evidence_role": "primary_event_evidence",
-              "supports": [
-                "title",
-                "sub",
-                "fact",
-                "gate"
-              ],
-              "fetched_at": "2026-08-09T16:32:42+09:00",
-              "fetch_method": "stage_b_web_open_or_search_body",
-              "revision_source_lock_note": "same existing company-supplied LGES release re-checked"
-            }
-          ],
-          "stage_c_issue_addressed": "Existing source body was re-checked to improve visible-claim-to-quote mapping.",
-          "source_lock_check": "same already-cited source URL only; no source augmentation",
-          "introduced_new_claim": false,
-          "notes": "same existing company-supplied LGES release re-checked"
-        }
-      ],
-      "remaining_risks": [
-        "Stage C revise must re-check every revised visible claim against fact_sources.",
-        "No evidence_complete, source_claim_covered, publish_ready, or production state is assigned in this pass."
-      ],
-      "stage_c_revise_only": true,
-      "prior_issue_resolved": true,
-      "needs_post_acceptance_duplicate_review": true,
-      "needs_post_acceptance_evidence_qc": true,
-      "claim_repair_before_deletion_check": {
-        "required": true,
-        "affected_fields": [
-          "fact",
-          "gate",
-          "implication",
-          "sub"
-        ],
-        "repair_attempted_before_narrowing": true,
-        "repair_methods": [
-          "remap_to_existing_fact_source_quote",
-          "narrow_visible_wording_to_existing_evidence"
-        ],
-        "source_augmentation_used": false,
-        "result": "repaired_and_validated"
-      },
-      "strict_gate_acceptance_guard": "PASS",
-      "source_direction_check_stage_c_revise": "PASS",
-      "fact_source_alignment_stage_c_revise": "PASS",
-      "quote_quality_stage_c_revise": "PASS",
-      "language_tone_stage_c_revise": "PASS",
-      "related_lineage": {
-        "status": "PASS",
-        "relation_type": "distinct_follow_up",
-        "related_ids": [
-          "2026-07-07_KR_01"
-        ],
-        "related_candidate_spec_ids": [],
-        "reason": "Direct earnings follow-up from preliminary Q2 results to the final Q2 disclosure with ESS operating detail.",
-        "fresh_follow_up_anchor_class": "data_financial_anchor",
-        "fresh_follow_up_anchor": "LG Energy Solution released final Q2 results on 2026-07-30, adding ESS shipment growth above 30% QoQ and more than KRW3 trillion of H1 ESS new orders.",
-        "incremental_fact_vs_predecessor": "Compared with preliminary 2026-07-07_KR_01, the final Q2 release adds ESS shipments growing above 30% QoQ and H1 ESS new orders above KRW3 trillion.",
-        "changed_judgment_vs_predecessor": "Judgment changes from preliminary consolidated earnings only to final operating disclosure showing ESS shipment and order momentum.",
-        "same_event_checked": true,
-        "earliest_same_event_date_checked": true,
-        "follow_up_date_precedes_predecessor_justification": null,
-        "rejected_relation_candidates": [],
-        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802",
-        "event_stage_relationship": "2026-07-07 preliminary Q2 earnings → 2026-07-30 final Q2 operating/ESS disclosure",
-        "direction": "directional"
-      },
-      "stage_a_lineage_metadata": {
-        "enhanced_selector_precision_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-        "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-        "strict_pass_gate": {
-          "status": "pass",
-          "all_six_conditions_passed": true,
-          "execution_anchor_type": null,
-          "execution_anchor_strength": null,
-          "format_risk_tags": [],
-          "reason": "Stage 0.0C event identity/date-role/canonical relation closed; current Stage A cardability gate passed.",
-          "notes": "Stage B must verify or replace every provided source candidate and may weaken/block the draft if fetched evidence does not support this stage.",
-          "anchor_supported_by_upstream_text": true,
-          "why_not_review_pool": "Event identity, date-role, source-candidate path and duplicate/relation prepass are sufficiently bounded for Stage B evidence packaging; no source claim is treated as verified at Stage A."
-        },
-        "strict_gate_check": {
-          "lane_fit": "PASS",
-          "concrete_execution_or_complete_v3_override": "PASS",
-          "source_direction_path_viable": "PASS_STAGE_B_MUST_VERIFY",
-          "freshness_or_justified_prewindow": "PASS",
-          "baseline_duplicate_event_fingerprint_screen": "PASS_NO_UNRESOLVED_SAME_EVENT_NEW_CARD",
-          "independent_card_value_and_full_schema_viability": "PASS"
-        },
-        "format_risk_tags": [],
-        "execution_anchor_type": null,
-        "execution_anchor_strength": null,
-        "baseline_relation": "distinct_follow_up",
-        "duplicate_risk": "screened_current_main_no_unresolved_same_event",
-        "staleness_decision": "fresh_or_justified_prewindow_material_gap",
-        "source_access_risk": "low_to_moderate_stage_b_must_verify_or_replace"
-      },
-      "enhanced_selector_precision_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-      "strict_pass_gate": {
-        "status": "pass",
-        "all_six_conditions_passed": true,
-        "execution_anchor_type": null,
-        "execution_anchor_strength": null,
-        "format_risk_tags": [],
-        "reason": "Stage 0.0C event identity/date-role/canonical relation closed; current Stage A cardability gate passed.",
-        "notes": "Stage B must verify or replace every provided source candidate and may weaken/block the draft if fetched evidence does not support this stage.",
-        "anchor_supported_by_upstream_text": true,
-        "why_not_review_pool": "Event identity, date-role, source-candidate path and duplicate/relation prepass are sufficiently bounded for Stage B evidence packaging; no source claim is treated as verified at Stage A."
-      },
-      "format_risk_tags": [],
-      "execution_anchor_type": null,
-      "execution_anchor_strength": null,
-      "staleness_decision": "fresh_or_justified_prewindow_material_gap",
-      "source_access_risk": "low_to_moderate_stage_b_must_verify_or_replace",
-      "stage_a_baseline_relation": "distinct_follow_up",
-      "stage_a_duplicate_risk": "screened_current_main_no_unresolved_same_event",
-      "previous_state": "content_enriched_and_language_polished",
-      "event_fingerprint": {
-        "actor": "LG Energy Solution",
-        "asset_or_policy": "Q2 2026 results and ESS operations",
-        "location": "Korea / Global",
-        "event_type": "earnings",
-        "event_date": "2026-07-30",
-        "source_url_cluster": [
-          "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-          "https://www.newswire.co.kr/newsRead.php?no=1039662"
-        ],
-        "factual_anchor": "Q2 final results with ESS shipments up >30% QoQ and >KRW3tn H1 ESS new orders"
-      },
-      "baseline_relation": "follow_up",
-      "duplicate_risk": "screened_current_main_no_unresolved_same_event",
-      "duplicate_screening": {
-        "exact_url_match": false,
-        "canonical_url_match": false,
-        "title_similarity_match": false,
-        "actor_asset_event_match": false,
-        "baseline_event_fingerprint_match": false,
-        "internal_batch_duplicate_match": false,
-        "already_covered_by_broader_card": false,
-        "top_normalized_title_similarity": 0.5676,
-        "top_title_similarity_baseline_card_id": "2026-07-07_KR_01",
-        "top_title_similarity_baseline_title": "LG에너지솔루션, 2분기 영업익 1133억원…AMPC 제외 1277억원 적자",
-        "screening_note": "Top fuzzy-title match reviewed as non-same-event; exact/canonical URL and exact normalized title checks are negative."
-      },
-      "id_collision": false,
-      "id_collision_notes": "No final production ID assigned at 0.4; draft_id is not a baseline production ID. Final ID collision check remains for a later authorized ID/merge-prep gate.",
-      "evidence_complete": true,
-      "source_claim_covered": true,
-      "content_enriched": true,
-      "language_terminology_polished": true,
-      "needs_evidence_completeness_qc": true,
-      "needs_source_claim_coverage_qc": true,
-      "needs_content_enrichment": true,
-      "needs_language_terminology_polish": true,
-      "needs_publish_readiness_qc": true,
-      "publish_ready_reset": false,
-      "reset_reason": "publish_ready_was_already_false_and_0_4_reaffirmed_the_boundary",
-      "notes": "Prompt 0.4 baseline revalidation only. addable_merge_safe is not evidence_complete, not source_claim_covered, and not publish_ready. Next required gate: evidence completeness QC.",
-      "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802",
-      "lineage_integrity_status": "PASS",
-      "stage_a_validity_status": "PASS",
-      "artifact_consistency_status": "PASS",
-      "accepted_pool_lineage_status": "PASS",
-      "strict_gate_metadata_preserved": true,
-      "execution_anchor_metadata_preserved": true,
-      "superseded_lineage_mixed": false,
-      "manual_integrated_rule_mixed": false,
-      "previous_run_output_mixed": false,
-      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-      "baseline_revalidation_lineage_guard_status": "PASS",
-      "accepted_fact_safe_with_missing_strict_gate_count": 0,
-      "accepted_fact_safe_with_failed_strict_gate_count": 0,
-      "accepted_fact_safe_with_unresolved_execution_anchor_gap_count": 0,
-      "content_polish_lineage_status": "PASS",
-      "source_evidence_entry_count": 2,
-      "source_unique_domains": [
-        "libattery.ofweek.com",
-        "newswire.co.kr"
-      ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
-      "source_diversity_roles": {
-        "independent_event_confirmation": 1,
-        "primary_event_evidence": 1
-      },
-      "source_synthesis_applied": true,
-      "source_synthesis_fields": [
-        "fact",
-        "gate"
-      ],
-      "source_synthesis_audit": [
-        {
-          "source_domain": "libattery.ofweek.com",
-          "source_role": "independent_event_confirmation",
-          "unique_contribution": "검증된 동일사건 원문으로 title, sub, fact를 직접 뒷받침: 原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。",
-          "affected_visible_fields": [
-            "title",
-            "sub",
-            "fact"
-          ]
-        },
-        {
-          "source_domain": "newswire.co.kr",
-          "source_role": "primary_event_evidence",
-          "unique_contribution": "LGES reported Q2 revenue/operating profit, >30% QoQ ESS shipment growth and >KRW3tn H1 ESS new orders.",
-          "affected_visible_fields": [
-            "title",
-            "sub",
-            "fact",
-            "gate"
-          ]
-        }
-      ],
-      "needs_source_diversity_remediation": false,
-      "source_url_resolution": {
-        "supporting_fact_source_count": 2,
-        "canonical_complete": true,
-        "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": false,
-        "resolution_entries": [
-          {
-            "source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=libattery.ofweek.com",
-            "source_url_propagation_performed": false
-          },
-          {
-            "source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=lg_energy_solution",
-            "source_url_propagation_performed": false
-          }
-        ]
-      },
-      "source_discovery_ledger": [
-        {
-          "source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-          "canonical_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-          "source_name": "OFweek Li-Battery",
-          "source_owner": "libattery.ofweek.com",
-          "source_domain": "libattery.ofweek.com",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "검증된 동일사건 원문으로 title, sub, fact를 직접 뒷받침: 原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。",
-          "visible_supports": [
-            "fact",
-            "sub",
-            "title"
-          ]
-        },
-        {
-          "source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
-          "canonical_url": "https://newswire.co.kr/newsRead.php?no=1039662",
-          "source_name": "LG Energy Solution / Newswire",
-          "source_owner": "lg_energy_solution",
-          "source_domain": "newswire.co.kr",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "LGES reported Q2 revenue/operating profit, >30% QoQ ESS shipment growth and >KRW3tn H1 ESS new orders.",
-          "visible_supports": [
-            "fact",
-            "gate",
-            "sub",
-            "title"
-          ]
-        }
-      ],
-      "selected_anchor_path": "v3_non_execution",
-      "anchor_path_qc_passed": true,
-      "execution_anchor_qc_status": "not_applicable",
-      "structural_value_override_qc_status": "pass",
-      "non_applicable_anchor_path_reason": "Stage A selected the complete V3 non-execution override path; the conventional execution route is not applicable.",
-      "github_ready": false,
-      "pr_candidate_ready": false,
-      "github_main_sync_required_later": false,
-      "final_qc_gates": {
-        "fact_safety": "PASS",
-        "merge_safety": "PASS",
-        "evidence_completeness": "PASS",
-        "claim_coverage": "PASS",
-        "content_depth": "PASS",
-        "language_tone": "PASS",
-        "schema_runtime": "PASS",
-        "sort_id_baseline_sync": "PASS",
-        "output_integrity": "PASS"
-      },
-      "hard_fail_count": 0,
-      "ib_grade_final_qc": "A-",
-      "final_qc_notes": [
-        "GitHub main baseline unchanged at d3137945860664116b1bf90bbb7bee54d2a6c1d9.",
-        "Production ID allocation and merge preparation remain downstream work.",
-        "Prompt 0.7C independent completeness review is still required before Prompt 0.8."
-      ],
-      "id": "2026-07-30_KR_01",
-      "assigned_id": "2026-07-30_KR_01",
-      "proposed_production_id_0_8": "2026-07-30_KR_01",
-      "production_id_assigned_0_8": true,
-      "production_id_pending": false,
-      "id_assignment_preview_only": false,
-      "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
-      "production_verified": false,
-      "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_003_R2",
@@ -11312,7 +10200,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_008",
@@ -11766,7 +10654,28 @@
         "axpo.com",
         "ess-news.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://axpo.com/de/en/newsroom/media-releases/2026/axpo-and-zelestra-join-forces-for-bess-project-to-strengthen-ita.html",
+          "https://ess-news.com/2026/08/04/battery-storage-outperforms-renewable-ppas-in-volatile-european-power-markets"
+        ],
+        "canonical_domains": [
+          "axpo.com",
+          "ess-news.com"
+        ],
+        "independent_owners": [
+          "axpo",
+          "pv_magazine_group"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 1,
         "primary_event_evidence": 1
@@ -11859,8 +10768,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -11889,7 +10798,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "id": "2026-07-30_US_01",
@@ -11962,7 +10873,28 @@
         "event_date_source_quote": "Antora Energy has closed a US$550 million Series C funding round to accelerate deployment of its thermal battery storage systems."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://energy-storage.news/antora-energy-closes-us550-million-series-c-to-scale-us-thermal-battery-deployment",
+          "https://energymonitor.ai/news/antora-raises-550m-deploy-storage"
+        ],
+        "canonical_domains": [
+          "energy-storage.news",
+          "energymonitor.ai"
+        ],
+        "independent_owners": [
+          "energymonitor.ai",
+          "solar_media"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 2
       },
@@ -12028,7 +10960,7 @@
           ]
         }
       ],
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "draft_id": "DRAFT_REC26_B_002",
       "region": "US",
       "date": "2026-07-30",
@@ -12273,8 +11205,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -12302,7 +11234,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_001_R2",
@@ -12393,7 +11327,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_004",
@@ -12816,7 +11750,28 @@
         "battery-news.de",
         "boerse-frankfurt.de"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://battery-news.de/en/2026/08/05/altech-discontinues-cerenergy-project-in-saxony",
+          "https://boerse-frankfurt.de/news/7da3e816-9fd2-42e6-8e3b-1cefd6944ec0"
+        ],
+        "canonical_domains": [
+          "battery-news.de",
+          "boerse-frankfurt.de"
+        ],
+        "independent_owners": [
+          "battery-news.de",
+          "deutsche_boerse"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 1,
         "primary_event_evidence": 1
@@ -12909,8 +11864,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -12939,7 +11894,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_022_R1",
@@ -13030,7 +11987,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_053",
@@ -13516,7 +12473,28 @@
         "inl.gov",
         "northernminer.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://inl.gov/news-release/inl-hosts-ribbon-cutting-for-pilot-plant-supporting-domestic-antimony-production",
+          "https://northernminer.com/news/perpetua-resources-us-army-and-idaho-national-laboratory-launch-antimony-pilot-plant/1003893592"
+        ],
+        "canonical_domains": [
+          "inl.gov",
+          "northernminer.com"
+        ],
+        "independent_owners": [
+          "glacier_media",
+          "idaho_national_laboratory"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 1,
         "primary_event_evidence": 1
@@ -13609,8 +12587,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -13650,7 +12628,9 @@
         "basis_source_url": "https://www.northernminer.com/news/perpetua-resources-us-army-and-idaho-national-laboratory-launch-antimony-pilot-plant/1003893592",
         "basis_source_quote": "Army and Idaho National Laboratory (INL), announced Thursday the opening of a new modular mineral processing plant designed to help establish an end-to-end domestic",
         "selection_or_factual_judgment_changed": false
-      }
+      },
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_012_R1",
@@ -13741,7 +12721,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_032",
@@ -14162,7 +13142,28 @@
         "energyglobal.com",
         "in.marketscreener.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://energyglobal.com/energy-storage/29072026/neoen-awarded-two-15-year-capacity-contracts-in-south-australia/amp",
+          "https://in.marketscreener.com/news/hochtief-cimica-s-ugl-to-deliver-stage-2-of-neoena-s-goyder-battery-with-tesla-in-south-australi-ce7f50dad98bf224"
+        ],
+        "canonical_domains": [
+          "energyglobal.com",
+          "in.marketscreener.com"
+        ],
+        "independent_owners": [
+          "cimic_ugl",
+          "palladian_publications"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "primary_event_evidence": 1,
         "independent_event_confirmation": 1
@@ -14257,8 +13258,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -14287,7 +13288,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_006_R2",
@@ -14379,7 +13382,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_021",
@@ -14763,7 +13766,28 @@
         "energy-storage.news",
         "prnewswire.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://energy-storage.news/eolian-begins-construction-on-1-06gwh-ohio-bess-largest-system-built-in-pjm",
+          "https://prnewswire.com/news-releases/eolian-announces-1-gwh-flint-grid-bess-pjms-largest-battery-energy-storage-project-now-under-construction-to-support-americas-fastest-growing-data-center-and-industrial-corridor-near-columbus-ohio-302837697.html"
+        ],
+        "canonical_domains": [
+          "energy-storage.news",
+          "prnewswire.com"
+        ],
+        "independent_owners": [
+          "eolian",
+          "solar_media"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "primary_event_evidence": 1,
         "independent_event_confirmation": 1
@@ -14858,8 +13882,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -14888,7 +13912,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "2026-07-28_GL_01",
@@ -15434,7 +14460,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_059",
@@ -15869,7 +14895,28 @@
         "aecon.com",
         "energy-storage.news"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://aecon.com/press-room/news/2026/07/28/simcoe-battery-energy-storage",
+          "https://energy-storage.news/aecon-executes-energy-storage-agreement-for-1200mwh-ontario-bess"
+        ],
+        "canonical_domains": [
+          "aecon.com",
+          "energy-storage.news"
+        ],
+        "independent_owners": [
+          "aecon",
+          "solar_media"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "primary_event_evidence": 1,
         "independent_event_confirmation": 1
@@ -15962,8 +15009,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -15992,7 +15039,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_013_R1",
@@ -16082,7 +15131,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_034",
@@ -16513,7 +15562,28 @@
         "bbtnews.com.cn",
         "cfi.cn"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://bbtnews.com.cn/2026/0728/600672.shtml",
+          "https://cfi.cn/p20260728001861.html"
+        ],
+        "canonical_domains": [
+          "bbtnews.com.cn",
+          "cfi.cn"
+        ],
+        "independent_owners": [
+          "beijing_business_today",
+          "cfi_cn"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "primary_event_evidence": 1,
         "independent_event_confirmation": 1
@@ -16607,8 +15677,8 @@
       "execution_anchor_qc_status": "not_applicable",
       "structural_value_override_qc_status": "pass",
       "non_applicable_anchor_path_reason": "Stage A selected the complete V3 non-execution override path; the conventional execution route is not applicable.",
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -16637,7 +15707,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_008_R1",
@@ -16759,7 +15831,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_023",
@@ -17291,7 +16363,29 @@
         "battery-news.de",
         "single-market-economy.ec.europa.eu"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://battery-news.de/en/2026/08/04/eu-launches-e1-5-billion-funding-call-for-battery-cell-manufacturing-projects",
+          "https://single-market-economy.ec.europa.eu/calls-proposals/battery-booster-facility-call-proposals_en",
+          "https://single-market-economy.ec.europa.eu/news/commission-seeks-projects-fund-under-battery-booster-facility-2026-07-28_en"
+        ],
+        "canonical_domains": [
+          "battery-news.de",
+          "single-market-economy.ec.europa.eu"
+        ],
+        "independent_owners": [
+          "battery-news.de",
+          "european_commission"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 1,
         "primary_event_evidence": 2
@@ -17417,8 +16511,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -17461,7 +16555,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_B_SA28R_011",
@@ -22529,7 +21625,37 @@
         "event_date_source_quote": "no rules have yet been set governing the proportion ... exporters had faced shipment delays"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 5,
+        "source_unique_url_count": 5,
+        "source_unique_domain_count": 5,
+        "source_independent_owner_count": 5,
+        "visible_source_url_count": 5,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://economies.com/commodities/steel-news/nickel-falls-after-indonesia-clarifies-new-export-rules-and-supply-concerns-ease-49411",
+          "https://jakartaglobe.id/business/indonesia-clarifies-rare-earth-export-rules-as-nickel-tin-shipments-resume",
+          "https://mining.com/web/indonesian-official-says-exports-of-minerals-with-rare-earth-byproducts-taking-place",
+          "https://reuters.com/world/asia-pacific/indonesia-seeks-resolve-mineral-export-bottlenecks-caused-by-rare-earth-content-2026-07-27",
+          "https://tradingview.com/news/reuters.com,2026:newsml_L1N44007N:0-nickel-slides-as-indonesia-eases-export-bottleneck"
+        ],
+        "canonical_domains": [
+          "economies.com",
+          "jakartaglobe.id",
+          "mining.com",
+          "reuters.com",
+          "tradingview.com"
+        ],
+        "independent_owners": [
+          "economies.com",
+          "glacier_media",
+          "jakartaglobe.id",
+          "reuters",
+          "reuters_syndication"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 5
       },
@@ -22673,7 +21799,7 @@
           ]
         }
       ],
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "draft_id": "DRAFT_REC26_B_014",
       "region": "GL",
       "date": "2026-07-27",
@@ -23030,8 +22156,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -23059,7 +22185,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_B_SA28_016",
@@ -33675,7 +32803,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_014",
@@ -34143,7 +33271,29 @@
         "ecns.cn",
         "ndrc.gov.cn"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://ecns.cn/cns-wire/2026-08-04/detail-ihfhziqh0059939.shtml",
+          "https://ndrc.gov.cn/xxgk/jd/jd/202607/t20260723_1406645_ext.html",
+          "https://ndrc.gov.cn/xxgk/zcfb/tz/202607/t20260723_1406641_ext.html"
+        ],
+        "canonical_domains": [
+          "ecns.cn",
+          "ndrc.gov.cn"
+        ],
+        "independent_owners": [
+          "ecns.cn",
+          "ndrc_gov_cn"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 1,
         "primary_event_evidence": 2
@@ -34268,8 +33418,8 @@
       "execution_anchor_qc_status": "not_applicable",
       "structural_value_override_qc_status": "pass",
       "non_applicable_anchor_path_reason": "Stage A selected the complete V3 non-execution override path; the conventional execution route is not applicable.",
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -34298,7 +33448,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_B_SA23N_021",
@@ -74776,7 +73928,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_027",
@@ -75279,7 +74431,28 @@
         "energy-storage.news",
         "fidraenergy.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://energy-storage.news/uk-engie-commissions-100mw-fidra-masdar-fids-eku-buys-big-consents-for-aura-starlight",
+          "https://fidraenergy.com/fidra-energy-reaches-financial-close-on-500mw-west-burton-c-battery-energy-storage-project"
+        ],
+        "canonical_domains": [
+          "energy-storage.news",
+          "fidraenergy.com"
+        ],
+        "independent_owners": [
+          "fidra_energy",
+          "solar_media"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 1,
         "primary_event_evidence": 1
@@ -75372,8 +74545,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -75402,7 +74575,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "state": "github_merge_ready",
@@ -123731,7 +122906,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_057",
@@ -124159,7 +123334,28 @@
         "aurapower.com",
         "energy-storage.news"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://aurapower.com/latest-news/planning-permission-secured-for-sandford-battery-energy-storage-system",
+          "https://energy-storage.news/uk-engie-commissions-100mw-fidra-masdar-fids-eku-buys-big-consents-for-aura-starlight"
+        ],
+        "canonical_domains": [
+          "aurapower.com",
+          "energy-storage.news"
+        ],
+        "independent_owners": [
+          "aura_power",
+          "solar_media"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 1,
         "primary_event_evidence": 1
@@ -124252,8 +123448,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -124282,7 +123478,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "draft_id": "DRAFT_REC26_B_019_R2",
@@ -124401,7 +123599,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_045",
@@ -124876,7 +124074,31 @@
         "energy-storage.news",
         "ensoenergy.co.uk"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 3,
+        "source_independent_owner_count": 3,
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://danskecommodities.com/media/press/cero-generation-and-danske-commodities-sign-agreement-for-140-mwh-battery-in-the-uk",
+          "https://energy-storage.news/uk-engie-commissions-100mw-fidra-masdar-fids-eku-buys-big-consents-for-aura-starlight",
+          "https://ensoenergy.co.uk/news/financial-close-reached-on-lower-larks-battery-storage-project"
+        ],
+        "canonical_domains": [
+          "danskecommodities.com",
+          "energy-storage.news",
+          "ensoenergy.co.uk"
+        ],
+        "independent_owners": [
+          "danske_commodities",
+          "enso_energy",
+          "solar_media"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 1,
         "primary_event_evidence": 2
@@ -125000,8 +124222,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -125030,7 +124252,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "state": "github_merge_ready",
@@ -137896,13 +137120,15 @@
       "sub_cat": "배터리 잠정실적 AMPC",
       "signal": "high",
       "title": "LG에너지솔루션, 2분기 영업익 1133억원…AMPC 제외 1277억원 적자",
-      "sub": "매출은 7조5602억원으로 전년 동기 대비 24.8% 늘었지만 영업이익은 77% 감소했고, AMPC를 제외한 영업손실은 1277억원이었다.",
-      "gate": "잠정실적은 AMPC 2410억원이 반영된 흑자와 이를 제외한 1277억원 적자를 동시에 보여준다. 사업부별 확정실적은 7월 30일 공개 예정이며, 보도는 북미 합작공장 가동률 저하와 고정비 부담을 수익성 약화 요인으로 지목했다.",
-      "fact": "LG에너지솔루션은 2026년 2분기 매출 7조5602억원과 영업이익 1133억원의 잠정실적을 공시했다. 매출은 전년 동기 대비 24.8% 증가했고 영업이익은 77% 감소했다. 실적에 반영된 AMPC 2410억원을 제외하면 영업손실은 1277억원이다.",
+      "sub": "2분기 잠정실적 수치 확정·ESS 출하 전분기 대비 30% 이상 증가",
+      "gate": "7월 30일 확정실적에서 ESS 출하와 신규수주 세부가 확인됐다. 다음 판단 지점은 상반기 수주가 실제 하반기 출하·매출로 전환되는 속도와 AMPC 제외 본업 수익성 회복이다.",
+      "fact": "LG에너지솔루션은 2026년 2분기 매출 7조5602억원과 영업이익 1133억원의 잠정실적을 공시했다. 매출은 전년 동기 대비 24.8% 증가했고 영업이익은 77% 감소했다. 실적에 반영된 AMPC 2410억원을 제외하면 영업손실은 1277억원이다. 7월 30일 확정 실적 설명에서 ESS 출하는 전분기 대비 30% 이상 증가했고 상반기 ESS 신규수주는 3조원을 넘었다고 밝혔다.",
       "implication": [
         "AMPC가 배터리 제조사의 분기 손익을 지지하는 구조가 다시 확인된다.",
         "EV 수요둔화와 북미 합작공장 고정비 부담이 본업 수익성 회복의 제약으로 관찰된다.",
-        "7월 30일 사업별 실적과 하반기 ESS 출하 전망이 실제 손익에 반영되는지가 후속 확인 기준이다."
+        "7월 30일 사업별 실적과 하반기 ESS 출하 전망이 실제 손익에 반영되는지가 후속 확인 기준이다.",
+        "ESS가 실적에서 성장축으로 확대되는 신호가 나타났다.",
+        "상반기 신규수주가 실제 출하와 매출로 이어지는 속도를 확인해야 한다."
       ],
       "urls": [
         "https://news.dealsitetv.com/articles/172933",
@@ -137910,7 +137136,9 @@
         "https://www.mt.co.kr/industry/2026/07/07/2026070713523621384",
         "https://www.sentv.co.kr/article/view/sentv202607070090",
         "https://www.bloomberg.com/news/articles/2026-07-06/lg-energy-profit-misses-estimates-amid-slow-ev-demand",
-        "https://www.reuters.com/business/energy/lg-energy-solution-flags-77-fall-q2-operating-profit-continued-weak-ev-demand-2026-07-07/"
+        "https://www.reuters.com/business/energy/lg-energy-solution-flags-77-fall-q2-operating-profit-continued-weak-ev-demand-2026-07-07/",
+        "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
+        "https://www.newswire.co.kr/newsRead.php?no=1039662"
       ],
       "related": [],
       "fact_sources": [
@@ -137939,7 +137167,8 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "source_url_prefix_promoted": false,
-          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection"
+          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection",
+          "source_owner_id_normalized": "딜사이트tv"
         },
         {
           "source_name": "딜사이트TV",
@@ -137966,7 +137195,8 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "source_url_prefix_promoted": false,
-          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection"
+          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection",
+          "source_owner_id_normalized": "딜사이트tv"
         },
         {
           "source_name": "전기신문",
@@ -137992,7 +137222,8 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "source_url_prefix_promoted": false,
-          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection"
+          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection",
+          "source_owner_id_normalized": "전기신문"
         },
         {
           "source_name": "딜사이트TV",
@@ -138018,7 +137249,8 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "source_url_prefix_promoted": false,
-          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection"
+          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection",
+          "source_owner_id_normalized": "딜사이트tv"
         },
         {
           "source_name": "전기신문",
@@ -138044,7 +137276,8 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "source_url_prefix_promoted": false,
-          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection"
+          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection",
+          "source_owner_id_normalized": "전기신문"
         },
         {
           "source_name": "딜사이트TV",
@@ -138070,7 +137303,8 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "source_url_prefix_promoted": false,
-          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection"
+          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection",
+          "source_owner_id_normalized": "딜사이트tv"
         },
         {
           "source_name": "딜사이트TV",
@@ -138096,7 +137330,8 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "source_url_prefix_promoted": false,
-          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection"
+          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection",
+          "source_owner_id_normalized": "딜사이트tv"
         },
         {
           "source_name": "Reuters",
@@ -138123,21 +137358,75 @@
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true,
           "source_url_prefix_promoted": false,
-          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection"
+          "source_resolution_verification_basis": "reused_current_run_body_or_official_material_inspection",
+          "source_owner_id_normalized": "reuters"
+        },
+        {
+          "source_name": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
+          "source_url_canonical": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
+          "source_owner_id": "libattery.ofweek.com",
+          "source_origin_type": "independent_body_reporting",
+          "source_published_date": "2026-07-30",
+          "claim": "Core same-event evidence candidate from current-run hydrated article body.",
+          "source_quote": "原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact"
+          ],
+          "fetched_at": "2026-08-09T16:32:42+09:00",
+          "fetch_method": "current_run_hydrated_article_body",
+          "source_owner_id_normalized": "libattery.ofweek.com",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "source_role": "independent_event_confirmation",
+          "source_contribution": "검증된 동일사건 원문으로 title, sub, fact를 직접 뒷받침: 原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。",
+          "visible_quote_date": "2026-07-30",
+          "checked_at": "2026-08-11T02:37:00+09:00"
+        },
+        {
+          "source_name": "LG Energy Solution / Newswire",
+          "source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
+          "source_url_canonical": "https://newswire.co.kr/newsRead.php?no=1039662",
+          "source_owner_id": "lg_energy_solution",
+          "source_origin_type": "company_supplied_release",
+          "source_published_date": "2026-07-30",
+          "claim": "LGES reported Q2 revenue/operating profit, >30% QoQ ESS shipment growth and >KRW3tn H1 ESS new orders.",
+          "source_quote": "매출 7조5602억원, 영업이익 1133억원 ... ESS는 ... 전분기 대비 30% 이상 성장 ... 3조원 이상의 신규 수주 계약",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-08-09T16:32:42+09:00",
+          "fetch_method": "stage_b_web_open_or_search_body",
+          "revision_source_lock_note": "same existing company-supplied LGES release re-checked",
+          "source_owner_id_normalized": "lg_energy_solution",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "source_role": "primary_event_evidence",
+          "source_contribution": "LGES reported Q2 revenue/operating profit, >30% QoQ ESS shipment growth and >KRW3tn H1 ESS new orders.",
+          "visible_quote_date": "2026-07-30",
+          "checked_at": "2026-08-11T02:37:00+09:00"
         }
       ],
-      "source_evidence_entry_count": 8,
-      "source_unique_url_count": 3,
-      "source_unique_domain_count": 3,
-      "source_independent_owner_count": 3,
+      "source_evidence_entry_count": 10,
+      "source_unique_url_count": 5,
+      "source_unique_domain_count": 5,
+      "source_independent_owner_count": 5,
       "source_availability": "single_owner_body_level_with_bounded_discovery",
       "fetch_coverage": "core_event_and_visible_claims_body_supported",
       "evidence_package_status": "evidence_package_partial_needs_stage_c_attention",
       "single_source_reason": "Only one editorially independent body-level source was retained after bounded official and alternate-source discovery; visible claims are limited to that source.",
       "single_source_exception": {
         "allowed": false,
-        "reason": null,
-        "limits": []
+        "reason": "not applicable: multi-owner evidence"
       },
       "needs_stage_c_attention": true,
       "writer_notes": {
@@ -138742,6 +138031,80 @@
         }
       ],
       "source_discovery_ledger": [
+        {
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=370000",
+          "canonical_url": "https://electimes.com/news/articleView.html?idxno=370000",
+          "source_name": "전기신문",
+          "source_owner": "전기신문",
+          "source_domain": "electimes.com",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "Stage C claim gap 복원: 매출은 전년 동기 대비 24.8% 증가했다. | Stage C claim gap 복원: 사업부별 상세 확정실적은 7월 30일 발표될 예정이다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub"
+          ]
+        },
+        {
+          "source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
+          "canonical_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
+          "source_name": "OFweek Li-Battery",
+          "source_owner": "libattery.ofweek.com",
+          "source_domain": "libattery.ofweek.com",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "검증된 동일사건 원문으로 title, sub, fact를 직접 뒷받침: 原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。",
+          "visible_supports": [
+            "fact",
+            "sub",
+            "title"
+          ]
+        },
+        {
+          "source_url": "https://news.dealsitetv.com/articles/172933",
+          "canonical_url": "https://news.dealsitetv.com/articles/172933",
+          "source_name": "딜사이트TV",
+          "source_owner": "딜사이트tv",
+          "source_domain": "news.dealsitetv.com",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "핵심 사건과 실행단계를 확인 | 규모·조건·일정 또는 후속 제약을 보완 | Stage C claim gap 복원: 영업이익은 전년 동기 대비 77% 감소했다. | Stage C claim gap 복원: 보도는 북미 합작공장 가동률 저하와 고정비 부담을 수익성 약화 요인으로 분석했다. | Stage C claim gap 복원: 시장에서는 하반기 ESS 배터리 출하량 증가를 예상했다.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "implication",
+            "sub",
+            "title"
+          ]
+        },
+        {
+          "source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
+          "canonical_url": "https://newswire.co.kr/newsRead.php?no=1039662",
+          "source_name": "LG Energy Solution / Newswire",
+          "source_owner": "lg_energy_solution",
+          "source_domain": "newswire.co.kr",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "LGES reported Q2 revenue/operating profit, >30% QoQ ESS shipment growth and >KRW3tn H1 ESS new orders.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "sub",
+            "title"
+          ]
+        },
+        {
+          "source_url": "https://www.reuters.com/business/energy/lg-energy-solution-flags-77-fall-q2-operating-profit-continued-weak-ev-demand-2026-07-07/",
+          "canonical_url": "https://reuters.com/business/energy/lg-energy-solution-flags-77-fall-q2-operating-profit-continued-weak-ev-demand-2026-07-07",
+          "source_name": "Reuters",
+          "source_owner": "reuters",
+          "source_domain": "reuters.com",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "2분기 영업이익 77% 감소와 1130억원 수준을 독립 확인",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "sub"
+          ]
+        },
         {
           "attempt_order": 1,
           "ledger_type": "official_source_search",
@@ -139439,6 +138802,91 @@
       },
       "related_lineage": {
         "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-07-07",
+        "event_date": "2026-07-07",
+        "publication_dates": [
+          "2026-07-07",
+          "2026-07-30"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://news.dealsitetv.com/articles/172933",
+        "event_date_source_quote": "7일 금융감독원 전자공시시스템에 따르면 LG에너지솔루션은 올해 2분기 연결 기준 매출 7조5602억원, 영업이익 1133억원의 잠정 실적을 기록했다."
+      },
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 10,
+        "source_unique_url_count": 5,
+        "source_unique_domain_count": 5,
+        "source_independent_owner_count": 5,
+        "visible_source_url_count": 5,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://electimes.com/news/articleView.html?idxno=370000",
+          "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
+          "https://news.dealsitetv.com/articles/172933",
+          "https://newswire.co.kr/newsRead.php?no=1039662",
+          "https://reuters.com/business/energy/lg-energy-solution-flags-77-fall-q2-operating-profit-continued-weak-ev-demand-2026-07-07"
+        ],
+        "canonical_domains": [
+          "electimes.com",
+          "libattery.ofweek.com",
+          "news.dealsitetv.com",
+          "newswire.co.kr",
+          "reuters.com"
+        ],
+        "independent_owners": [
+          "lg_energy_solution",
+          "libattery.ofweek.com",
+          "reuters",
+          "딜사이트tv",
+          "전기신문"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
+      "source_url_resolution": {
+        "supporting_fact_source_count": 10,
+        "canonical_complete": true,
+        "resolved_article_matches_quote": true,
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://www.electimes.com/news/articleView.html?idxno=370000",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=2,4; owners=전기신문",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=8; owners=libattery.ofweek.com",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://news.dealsitetv.com/articles/172933",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=0,1,3,5,6; owners=딜사이트tv",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.newswire.co.kr/newsRead.php?no=1039662",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=9; owners=lg_energy_solution",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.reuters.com/business/energy/lg-energy-solution-flags-77-fall-q2-operating-profit-continued-weak-ev-demand-2026-07-07/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=7; owners=reuters",
+            "source_url_propagation_performed": false
+          }
+        ]
       }
     },
     {
@@ -147403,7 +146851,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_063",
@@ -147849,7 +147297,28 @@
         "chamberbusinessnews.com",
         "south32hermosa.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
+        "source_unique_domain_count": 2,
+        "source_independent_owner_count": 2,
+        "visible_source_url_count": 2,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://chamberbusinessnews.com/2026/07/14/hermosa-critical-minerals-mining-project-reaches-major-federal-permitting-milestone",
+          "https://south32hermosa.com/en_us/news/u-s-forest-service-issues-final-record-of-decision-for-south32-hermosa"
+        ],
+        "canonical_domains": [
+          "chamberbusinessnews.com",
+          "south32hermosa.com"
+        ],
+        "independent_owners": [
+          "arizona_chamber_foundation",
+          "south32"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "primary_event_evidence": 1,
         "independent_event_confirmation": 1
@@ -147944,8 +147413,8 @@
       "structural_value_override_qc_status": "not_applicable",
       "non_applicable_anchor_path_reason": "Source-backed execution anchor is present; the V3 non-execution override path is not applicable.",
       "structural_value_override_applied": false,
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -147974,7 +147443,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "state": "publish_ready",
@@ -179706,7 +179177,7 @@
       "needs_stage_c_attention": true,
       "publish_ready": true,
       "stage_b_only": true,
-      "state": "publish_ready",
+      "state": "github_merge_ready",
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS",
         "source_spec_id": "REC26_A2_056",
@@ -180192,7 +179663,31 @@
         "news.samsung.com",
         "news.samsungsdi.com"
       ],
-      "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 3,
+        "source_independent_owner_count": 3,
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://battery-news.de/en/2026/08/03/samsung-sdi-plans-mass-production-of-solid-state-batteries-starting-in-2027",
+          "https://news.samsung.com/kr/%EC%82%BC%EC%84%B1-%EB%AF%B8%EB%9E%98-%EC%84%B1%EC%9E%A5-%EC%9C%84%ED%95%B4-%EC%B6%A9%EC%B2%AD%EC%97%90-140%EC%A1%B0%EC%9B%90-%ED%88%AC%EC%9E%90-%EA%B3%84%ED%9A%8D",
+          "https://news.samsungsdi.com/ko/articleView?seq=475"
+        ],
+        "canonical_domains": [
+          "battery-news.de",
+          "news.samsung.com",
+          "news.samsungsdi.com"
+        ],
+        "independent_owners": [
+          "battery-news.de",
+          "samsung",
+          "samsung_sdi"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
       "source_diversity_roles": {
         "independent_event_confirmation": 1,
         "primary_event_evidence": 2
@@ -180317,8 +179812,8 @@
       "execution_anchor_qc_status": "not_applicable",
       "structural_value_override_qc_status": "pass",
       "non_applicable_anchor_path_reason": "Stage A selected the complete V3 non-execution override path; the conventional execution route is not applicable.",
-      "github_ready": false,
-      "pr_candidate_ready": false,
+      "github_ready": true,
+      "pr_candidate_ready": true,
       "github_main_sync_required_later": false,
       "final_qc_gates": {
         "fact_safety": "PASS",
@@ -180347,7 +179842,9 @@
       "id_assignment_reason": "CARD_ID_STANDARD next unused date-region NN against locked current main; no historical gap reuse.",
       "production_verified": false,
       "prompt_0_8_runtime_engine_validation_pending": false,
-      "prompt_0_8_runtime_engine_validation_status": "PASS"
+      "prompt_0_8_runtime_engine_validation_status": "PASS",
+      "accepted_fact_safe": true,
+      "addable_merge_safe": true
     },
     {
       "id": "2026-07-01_US_03",
@@ -200351,7 +199848,7 @@
           "source_origin_type": "independent_media_or_trade_press",
           "source_contribution": "핵심 사건·정량·단계 근거",
           "source_role": "primary_event_evidence",
-          "source_owner_id_normalized": "ess-news.com"
+          "source_owner_id_normalized": "pv_magazine_group"
         },
         {
           "source_name": "Ofgem",
@@ -200698,8 +200195,8 @@
           "ofgem.gov.uk"
         ],
         "independent_owners": [
-          "ess-news.com",
-          "ofgem.gov.uk"
+          "ofgem.gov.uk",
+          "pv_magazine_group"
         ],
         "status": "PASS_MULTI_SOURCE"
       },
@@ -200738,13 +200235,12 @@
       "related_lineage": {
         "related_ids": []
       },
-      "source_discovery_ledger_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/ofgem-ldes-existing-card-update.json",
       "source_discovery_ledger": [
         {
           "source_url": "https://www.ess-news.com/2026/06/26/pumped-hydro-and-lithium-bess-top-uk-ldes-cap-and-floor",
           "canonical_url": "https://ess-news.com/2026/06/26/pumped-hydro-and-lithium-bess-top-uk-ldes-cap-and-floor",
           "source_name": "ESS News RSS",
-          "source_owner": "ess-news.com",
+          "source_owner": "pv_magazine_group",
           "source_domain": "ess-news.com",
           "outcome": "used_in_fact_sources",
           "unique_contribution": "핵심 사건·정량·단계 근거",
@@ -200787,6 +200283,7 @@
           ]
         }
       ],
+      "source_discovery_ledger_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/ofgem-ldes-existing-card-update.json",
       "source_independent_owner_count": 2,
       "source_url_resolution": {
         "supporting_fact_source_count": 3,
@@ -200798,7 +200295,7 @@
             "source_url": "https://www.ess-news.com/2026/06/26/pumped-hydro-and-lithium-bess-top-uk-ldes-cap-and-floor",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
-            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=ess-news.com",
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=pv_magazine_group",
             "source_url_propagation_performed": false
           },
           {
@@ -282051,11 +281548,217 @@
       ],
       "urls": [
         "https://zdnet.co.kr/view?no=20260330191036",
-        "https://www.asiae.co.kr/article/2026033008270677054"
+        "https://www.asiae.co.kr/article/2026033008270677054",
+        "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
+        "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
+        "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm"
       ],
       "related": [],
       "related_lineage": {
         "related_ids": []
+      },
+      "date_role": {
+        "representative_date": "2026-03-30",
+        "event_date": "2026-03-30",
+        "publication_dates": [
+          "2026-03-30",
+          "2026-07-30"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
+        "event_date_source_quote": "Agreement Value: $70,000,000.00 Agreement Date: Mar 30, 2026 - Dec 31, 2046"
+      },
+      "fact_sources": [
+        {
+          "source_name": "Government of Canada Open Grants",
+          "source_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
+          "source_url_canonical": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
+          "source_owner_id": "government_of_canada",
+          "source_origin_type": "official_original_data",
+          "source_published_date": "2026-03-30",
+          "claim": "Canada recorded a C$70m contribution agreement for Volta Energy Solutions Canada.",
+          "source_quote": "Agreement Value: $70,000,000.00 Agreement Date: Mar 30, 2026 - Dec 31, 2046",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-08-09T16:32:42+09:00",
+          "fetch_method": "stage_b_web_open_or_search_body",
+          "source_owner_id_normalized": "government_of_canada",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "source_role": "primary_event_evidence",
+          "source_contribution": "Canada recorded a C$70m contribution agreement for Volta Energy Solutions Canada.",
+          "visible_quote_date": "2026-03-30",
+          "checked_at": "2026-08-11T02:37:00+09:00"
+        },
+        {
+          "source_name": "Innovation, Science and Economic Development Canada announcement republished by Mirage News",
+          "source_url": "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
+          "source_url_canonical": "https://miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270",
+          "source_owner_id": "innovation_science_and_economic_development_canada",
+          "source_origin_type": "official_release_republication",
+          "source_published_date": "2026-07-30",
+          "claim": "ISED publicly announced up to C$70m in funding for Volta Energy Solutions Canada in Granby.",
+          "source_quote": "announced up to $70 million in funding from the Strategic Response Fund to support Volta Energy Solutions Canada Inc.",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "fetched_at": "2026-08-09T16:32:42+09:00",
+          "fetch_method": "stage_b_web_search_official_release_republication",
+          "source_owner_id_normalized": "innovation_science_and_economic_development_canada",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "source_role": "primary_event_evidence",
+          "source_contribution": "ISED publicly announced up to C$70m in funding for Volta Energy Solutions Canada in Granby.",
+          "visible_quote_date": "2026-07-30",
+          "checked_at": "2026-08-11T02:37:00+09:00"
+        },
+        {
+          "source_name": "한국거래소 KIND — 솔루스첨단소재 공시",
+          "source_url": "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
+          "source_url_canonical": "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
+          "source_owner_id": "solus_advanced_materials_krx_filing",
+          "source_origin_type": "official_regulatory_filing",
+          "source_published_date": "2026-03-30",
+          "claim": "Solus filing independently confirms the Canadian federal SRF support structure and C$70m amount for VESC’s Quebec copper-foil investment.",
+          "source_quote": "캐나다 연방정부는 SRF 프로그램을 통해 VESC에 70M CAD 규모의 인센티브 차원의 대출을 제공할 예정입니다.",
+          "source_quote_status": "document_quote_verified",
+          "evidence_role": "secondary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "fact",
+            "gate"
+          ],
+          "checked_at": "2026-08-10T11:56:00+09:00",
+          "fetch_method": "prompt_0_5R_web_open_regulatory_filing",
+          "source_role": "independent_event_confirmation",
+          "source_contribution": "Confirms the same C$70m SRF support from the recipient’s parent-company regulatory filing and specifies that the incentive is structured as a loan.",
+          "source_owner_id_normalized": "solus_advanced_materials_krx_filing",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true,
+          "visible_quote_date": "2026-03-30"
+        }
+      ],
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "not applicable: multi-owner evidence"
+      },
+      "source_discovery_ledger": [
+        {
+          "source_url": "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
+          "canonical_url": "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
+          "source_name": "한국거래소 KIND — 솔루스첨단소재 공시",
+          "source_owner": "solus_advanced_materials_krx_filing",
+          "source_domain": "kind.krx.co.kr",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "Confirms the same C$70m SRF support from the recipient’s parent-company regulatory filing and specifies that the incentive is structured as a loan.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "sub",
+            "title"
+          ]
+        },
+        {
+          "source_url": "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
+          "canonical_url": "https://miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270",
+          "source_name": "Innovation, Science and Economic Development Canada announcement republished by Mirage News",
+          "source_owner": "innovation_science_and_economic_development_canada",
+          "source_domain": "miragenews.com",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "ISED publicly announced up to C$70m in funding for Volta Energy Solutions Canada in Granby.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "sub",
+            "title"
+          ]
+        },
+        {
+          "source_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
+          "canonical_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
+          "source_name": "Government of Canada Open Grants",
+          "source_owner": "government_of_canada",
+          "source_domain": "search.open.canada.ca",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "Canada recorded a C$70m contribution agreement for Volta Energy Solutions Canada.",
+          "visible_supports": [
+            "fact",
+            "gate",
+            "sub",
+            "title"
+          ]
+        }
+      ],
+      "source_diversity_measure": {
+        "source_evidence_entry_count": 3,
+        "source_unique_url_count": 3,
+        "source_unique_domain_count": 3,
+        "source_independent_owner_count": 3,
+        "visible_source_url_count": 3,
+        "missing_source_url_count": 0,
+        "missing_visible_source_url_count": 0,
+        "canonical_urls": [
+          "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
+          "https://miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270",
+          "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent"
+        ],
+        "canonical_domains": [
+          "kind.krx.co.kr",
+          "miragenews.com",
+          "search.open.canada.ca"
+        ],
+        "independent_owners": [
+          "government_of_canada",
+          "innovation_science_and_economic_development_canada",
+          "solus_advanced_materials_krx_filing"
+        ],
+        "status": "PASS_MULTI_SOURCE"
+      },
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_evidence_entry_count": 3,
+      "source_independent_owner_count": 3,
+      "source_unique_domain_count": 3,
+      "source_unique_url_count": 3,
+      "source_url_resolution": {
+        "supporting_fact_source_count": 3,
+        "canonical_complete": true,
+        "resolved_article_matches_quote": true,
+        "source_url_propagation_performed": false,
+        "resolution_entries": [
+          {
+            "source_url": "https://kind.krx.co.kr/external/2026/03/30/001434/20260330003641/61314.htm",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=2; owners=solus_advanced_materials_krx_filing",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=innovation_science_and_economic_development_canada",
+            "source_url_propagation_performed": false
+          },
+          {
+            "source_url": "https://search.open.canada.ca/grants/record/ic%2C033-2025-2026-Q4-819815%2Ccurrent",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "recomputed from current fact_sources; indices=0; owners=government_of_canada",
+            "source_url_propagation_performed": false
+          }
+        ]
       }
     },
     {

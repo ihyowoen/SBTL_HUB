@@ -9,9 +9,9 @@
   "document_universe_manifest_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0d-engine-bridge.json",
   "coverage_discovery_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-engine-bridge.json",
   "independent_completeness_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-7c.json",
-  "reviewed_operations_sha256": "8ddfb3a41426ccf4f123f5f6a483c80d0f699eb3d27150bae4c2d2eebfb442c9",
+  "reviewed_operations_sha256": "09d2737d68d553be011206454d25557e2f8ad5f9463d8fe3678d002909cea849",
   "expected_before": 1343,
-  "expected_after": 1375,
+  "expected_after": 1373,
   "inserted_ids": [
     "2026-08-06_KR_01",
     "2026-08-06_US_01",
@@ -27,8 +27,6 @@
     "2026-08-03_US_01",
     "2026-07-31_KR_01",
     "2026-07-31_GL_01",
-    "2026-07-30_GL_01",
-    "2026-07-30_KR_01",
     "2026-07-30_EU_01",
     "2026-07-30_US_01",
     "2026-07-30_EU_02",
@@ -47,7 +45,9 @@
     "2026-07-02_KR_11"
   ],
   "updated_ids": [
-    "2026-06-26_EU_01"
+    "2026-06-26_EU_01",
+    "R14_05",
+    "2026-07-07_KR_01"
   ],
   "related_additions": [
     {
@@ -86,11 +86,6 @@
       "direction": "directional"
     },
     {
-      "source_id": "2026-07-30_KR_01",
-      "target_id": "2026-07-07_KR_01",
-      "direction": "directional"
-    },
-    {
       "source_id": "2026-07-28_EU_01",
       "target_id": "2026-04-27_EU_02",
       "direction": "directional"
@@ -103,8 +98,8 @@
   ],
   "zero_deletion_assertion": true,
   "zero_related_remove_assertion": true,
-  "full_output_sha256": "5c89018c3e5a6a5500cb781e14836f1452ec51107e18caa302fc2b29d00b6d47",
-  "lean_output_sha256": "3d80ce9bbf2f2ae073a2eaebc5e3a878095bae90188563c50056bd4a8706db3f",
+  "full_output_sha256": "b4cbd6742461a4da496889099484cbf27a5a3a8f78ea58baf83734dbdf493d67",
+  "lean_output_sha256": "07b3599f1074f64e223af074d34a4de05f547af0768b84fa3a6ef990804eda85",
   "supporting_audit_refs": [
     "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0d-engine-bridge.json",
     "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-engine-bridge.json",
@@ -121,7 +116,9 @@
     "runs/2026-08-11/backlog-reconciliation-r2/audit/ofgem-ldes-existing-card-update.json",
     "runs/2026-08-11/backlog-reconciliation-r2/audit/rec26-a2-075-rescue-summary.json",
     "runs/2026-08-11/backlog-reconciliation-r2/audit/prompt-0-8-static-validation.json",
-    "runs/2026-08-11/backlog-reconciliation-r2/audit/related-correction-rec26-a2-039.json"
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/related-correction-rec26-a2-039.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/duplicate-correction-rec26-a2-072.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/duplicate-correction-rec26-a2-042.json"
   ],
-  "runtime_note": "Governed apply completed; output hashes bind this audit to the committed canonical full and lean projection."
+  "runtime_note": "Governed apply completed after direct review remediation; exact hashes bind the corrected 30-insert / 3-update operation set."
 }

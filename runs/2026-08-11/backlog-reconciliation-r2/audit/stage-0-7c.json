@@ -455,5 +455,17 @@
   "base_full_blob_sha": "a52745170c70aa649323e346413615c5995b890b",
   "document_universe_manifest_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0d-engine-bridge.json",
   "coverage_discovery_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-engine-bridge.json",
-  "reviewed_operations_sha256": "8ddfb3a41426ccf4f123f5f6a483c80d0f699eb3d27150bae4c2d2eebfb442c9"
+  "reviewed_operations_sha256": "09d2737d68d553be011206454d25557e2f8ad5f9463d8fe3678d002909cea849",
+  "prompt_0_8_postreview_reclassification": {
+    "status": "PASS",
+    "insert_to_update_count": 2,
+    "source_spec_ids": [
+      "REC26_A2_072",
+      "REC26_A2_042"
+    ],
+    "final_insert_count": 30,
+    "final_update_count": 3,
+    "final_related_add_count": 9,
+    "selection_deleted": false
+  }
 }

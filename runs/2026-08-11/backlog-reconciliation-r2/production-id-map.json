@@ -1,7 +1,7 @@
 {
   "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
   "status": "PASS",
-  "count": 32,
+  "count": 30,
   "mapping": {
     "REC26_A2_070": "2026-08-06_US_01",
     "REC26_A2_075": "2026-08-06_KR_01",
@@ -18,8 +18,6 @@
     "REC26_A2_041": "2026-07-31_KR_01",
     "REC26_A2_039": "2026-07-31_GL_01",
     "REC26_A2_006": "2026-07-30_US_01",
-    "REC26_A2_042": "2026-07-30_KR_01",
-    "REC26_A2_072": "2026-07-30_GL_01",
     "REC26_A2_008": "2026-07-30_EU_01",
     "REC26_A2_004": "2026-07-30_EU_02",
     "REC26_A2_021": "2026-07-29_US_01",
@@ -184,26 +182,6 @@
       "region": "US",
       "signal": "high",
       "production_id": "2026-07-30_US_01",
-      "baseline_max_same_date_region": 0,
-      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
-    },
-    {
-      "source_spec_id": "REC26_A2_042",
-      "lineage_key": "LGES_FINAL_Q2",
-      "date": "2026-07-30",
-      "region": "KR",
-      "signal": "high",
-      "production_id": "2026-07-30_KR_01",
-      "baseline_max_same_date_region": 0,
-      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
-    },
-    {
-      "source_spec_id": "REC26_A2_072",
-      "lineage_key": "VOLTA_CANADA_70M",
-      "date": "2026-07-30",
-      "region": "GL",
-      "signal": "high",
-      "production_id": "2026-07-30_GL_01",
       "baseline_max_same_date_region": 0,
       "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
     },

@@ -23,7 +23,7 @@
     "REC26_A2_008": "2026-07-30_EU_01",
     "REC26_A2_004": "2026-07-30_EU_02",
     "REC26_A2_021": "2026-07-29_US_01",
-    "REC26_A2_053": "2026-07-29_US_02",
+    "REC26_A2_053": "2026-07-30_US_02",
     "REC26_A2_032": "2026-07-29_GL_01",
     "REC26_A2_059": "2026-07-28_GL_02",
     "REC26_A2_023": "2026-07-28_EU_01",
@@ -240,12 +240,13 @@
     {
       "source_spec_id": "REC26_A2_053",
       "lineage_key": "PERPETUA_PILOT",
-      "date": "2026-07-29",
+      "date": "2026-07-30",
       "region": "US",
       "signal": "high",
-      "production_id": "2026-07-29_US_02",
+      "production_id": "2026-07-30_US_02",
       "baseline_max_same_date_region": 0,
-      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse"
+      "allocation_rule": "next unused NN after current-main maximum; no historical-gap reuse",
+      "allocation_note": "Date corrected from unsupported 2026-07-29; 2026-07-30_US_01 is already allocated in this run, so next unused ID is _02."
     },
     {
       "source_spec_id": "REC26_A2_032",

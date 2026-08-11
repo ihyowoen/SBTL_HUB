@@ -1,0 +1,45 @@
+{
+  "stage": "B_related_evidence_review_correction",
+  "status": "PASS",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "source_spec_id": "REC26_A2_039",
+  "production_id": "2026-07-31_GL_01",
+  "baseline_main_sha": "d3137945860664116b1bf90bbb7bee54d2a6c1d9",
+  "correction_type": "bounded_missing_stage_b_related_evidence_review",
+  "selection_changed": false,
+  "factual_judgment_changed": false,
+  "related_evidence_review": {
+    "status": "PASS",
+    "reviewed_current_baseline": true,
+    "all_candidates_reviewed": true,
+    "same_event_checked": true,
+    "earliest_same_event_date_checked": true,
+    "earliest_same_event_date": "2026-07-31",
+    "earliest_same_event_source_url": "https://www.sideview.co.kr/news/articleView.html?idxno=20218",
+    "relation_type": "new_unrelated_event",
+    "matched_baseline_card_ids": [],
+    "matched_candidate_spec_ids": [],
+    "candidate_rejections": [],
+    "baseline_search": {
+      "baseline_main_sha": "d3137945860664116b1bf90bbb7bee54d2a6c1d9",
+      "search_terms": [
+        "Korea Argentina critical minerals MOU",
+        "한국 아르헨티나 핵심광물 MOU"
+      ],
+      "source_url_exact_match_count": 0,
+      "actor_plus_subject_candidate_count": 0,
+      "current_batch_actor_plus_subject_candidate_count": 0
+    },
+    "evidence_basis": [
+      {
+        "source_url": "https://www.sideview.co.kr/news/articleView.html?idxno=20218",
+        "source_quote": "김정관 산업부 장관은 7월 31일 산업통상부를 대표해 아르헨티나 경제부와 MOU에 정식 서명했다."
+      },
+      {
+        "source_url": "https://www.2news.co.kr/news/articleView.html?idxno=19136",
+        "source_quote": "양국은 이번 MOU를 통해 핵심광물 정책 및 투자 제도 정보 교환, 리튬 공급망 전반에 대한 공동 프로젝트 촉진"
+      }
+    ],
+    "reason": "Locked current-main and current-batch search found no same-event candidate; retain as new_unrelated_event."
+  }
+}

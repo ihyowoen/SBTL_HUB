@@ -9,7 +9,7 @@
   "document_universe_manifest_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0d-engine-bridge.json",
   "coverage_discovery_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-engine-bridge.json",
   "independent_completeness_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-7c.json",
-  "reviewed_operations_sha256": "3b0761aabd10dca6e93b8bb515a1849fb42c7dc6497f8aeb2a093e47459de44e",
+  "reviewed_operations_sha256": "8ddfb3a41426ccf4f123f5f6a483c80d0f699eb3d27150bae4c2d2eebfb442c9",
   "expected_before": 1343,
   "expected_after": 1375,
   "inserted_ids": [
@@ -32,7 +32,7 @@
     "2026-07-30_EU_01",
     "2026-07-30_US_01",
     "2026-07-30_EU_02",
-    "2026-07-29_US_02",
+    "2026-07-30_US_02",
     "2026-07-29_GL_01",
     "2026-07-29_US_01",
     "2026-07-28_GL_02",
@@ -103,8 +103,8 @@
   ],
   "zero_deletion_assertion": true,
   "zero_related_remove_assertion": true,
-  "full_output_sha256": "359d40f313d19ddbb9f1bb2618562fda4780194b20fa561f59ab5d5a58274142",
-  "lean_output_sha256": "8e0afe275999632adb4660d560380c0903bc3fdfabd756616043dd524e9fa1a3",
+  "full_output_sha256": "5c89018c3e5a6a5500cb781e14836f1452ec51107e18caa302fc2b29d00b6d47",
+  "lean_output_sha256": "3d80ce9bbf2f2ae073a2eaebc5e3a878095bae90188563c50056bd4a8706db3f",
   "supporting_audit_refs": [
     "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0d-engine-bridge.json",
     "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-engine-bridge.json",
@@ -120,7 +120,8 @@
     "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-provenance-defect.json",
     "runs/2026-08-11/backlog-reconciliation-r2/audit/ofgem-ldes-existing-card-update.json",
     "runs/2026-08-11/backlog-reconciliation-r2/audit/rec26-a2-075-rescue-summary.json",
-    "runs/2026-08-11/backlog-reconciliation-r2/audit/prompt-0-8-static-validation.json"
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/prompt-0-8-static-validation.json",
+    "runs/2026-08-11/backlog-reconciliation-r2/audit/related-correction-rec26-a2-039.json"
   ],
   "runtime_note": "Governed apply completed; output hashes bind this audit to the committed canonical full and lean projection."
 }

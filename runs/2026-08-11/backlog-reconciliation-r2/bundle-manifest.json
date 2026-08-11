@@ -1,18 +1,18 @@
 {
   "bundle": "SBTL Prompt 0.8 ready-to-PR runtime package",
   "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
-  "status": "STATIC_PREP_PASS_RUNTIME_VERIFICATION_PENDING",
+  "status": "RUNTIME_VERIFIED_PASS",
   "file_count": 19,
   "files": [
     {
       "path": "card-run.json",
-      "bytes": 1280352,
-      "sha256": "dc2e3b56f86b4571da1ec27ca98466aa42902db694a716081ad52a6f522ed7e3"
+      "bytes": 1308607,
+      "sha256": "97f037d0d0d4f53e44d7ee6568d2ff2767a52164357663eae4d05c099b94d979"
     },
     {
       "path": "production-id-map.json",
-      "bytes": 12454,
-      "sha256": "08bcefa4d5840d5dc1f9c4ac649a686c9474004e170efbb666dcf390ad79c7ec"
+      "bytes": 12604,
+      "sha256": "4bfd68b6e58494f46638843d93e93224cd131e4eaeb75893dd6cd4c65aedbe73"
     },
     {
       "path": "prompt-0-8-prep-report.md",
@@ -21,23 +21,23 @@
     },
     {
       "path": "prompt-0-8-prep-result.json",
-      "bytes": 2308,
-      "sha256": "a60a9e2316524420d91a2ec99ff3f6351537f78ef8abacdd93fe143e4b3f0a5f"
+      "bytes": 2683,
+      "sha256": "d4a323b4d7ddeaceeaa6a7774c23b135dc4ff5fe5193639074e64e3045c54652"
     },
     {
       "path": "audit/ofgem-ldes-existing-card-update.json",
-      "bytes": 743,
-      "sha256": "8ee11d9cf65ded82e2c09d2ed7316b8a85c66778a54625208c5f786ccfbdb383"
+      "bytes": 1140,
+      "sha256": "f25b3e708e4f1dbb48bf7b297a9f65b1380c599038633ade08faeb41a3baa2da"
     },
     {
       "path": "audit/operation-manifest.json",
-      "bytes": 26046,
-      "sha256": "4e7b737d97a951c6a5c7294a0397cfc3d5847c067ad96d6c97ecb764212e8ba4"
+      "bytes": 26119,
+      "sha256": "bf495bfd25a8f1983a580faffff1e2a43cf904f56c61859ecf48c30f8c7d9cbb"
     },
     {
       "path": "audit/production-id-assignment-ledger.json",
-      "bytes": 12279,
-      "sha256": "ee29b7f3c08bb4233f07c4ef0b761076e68472c3a91f9aed2b5f719fc5ab600f"
+      "bytes": 12429,
+      "sha256": "1cea8d7cb91394217d8aa4c05032fcd16735b10f13e8cd898c02fd601537774f"
     },
     {
       "path": "audit/prompt-0-8-static-validation.json",
@@ -46,8 +46,8 @@
     },
     {
       "path": "audit/publish-ready-32.json",
-      "bytes": 1157698,
-      "sha256": "2b08db16ccc422db7d03fe734e27e04612af5e37d9b3d80098f0ddc9ee514b88"
+      "bytes": 1161354,
+      "sha256": "a4efd7ef02cf109c0c16eb485ee9d6447b4074979f034a86e2321ace59e04e7d"
     },
     {
       "path": "audit/rec26-a2-075-rescue-summary.json",
@@ -92,12 +92,13 @@
     {
       "path": "audit/stage-0-7c.json",
       "bytes": 16466,
-      "sha256": "e49a12f8579fd5a39939432a7d4e2dd15b11022f95145836946235af55ae9a2b"
+      "sha256": "b01a7491c66c44b26b0270abe3ff6fbbc74b5eb490e5be38e9c4a3a3ed7f0d25"
     },
     {
       "path": "audit/stage-b-terminal-dispositions.json",
       "bytes": 18751,
       "sha256": "7f13fdc9cb1ab7229b6a4c009f40afee8a3ad5f541c42518f321a14fde332032"
     }
-  ]
+  ],
+  "regenerated_kst": "2026-08-11T20:15:19+09:00"
 }

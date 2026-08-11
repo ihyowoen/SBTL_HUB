@@ -41,7 +41,12 @@ jobs:
           new = '''        ("/source_evidence_entry_count", 3),\n        ("/source_unique_url_count", 3),\n        ("/source_diversity_status", "PASS_MULTI_SOURCE"),\n'''
           if old not in text:
               raise SystemExit('expected bounded Ofgem tuple not found')
-          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          text = text.replace(old, new, 1)
+          marker = '''            changes.append({"op": "replace", "path": path, "value": value})\n\n\ndef replace_exact'''
+          replacement = '''            changes.append({"op": "replace", "path": path, "value": value})\n\n    ledger_path = "/source_discovery_ledger_ref"\n    if not any(isinstance(change, dict) and change.get("path") == ledger_path for change in changes):\n        changes.append({\n            "op": "add",\n            "path": ledger_path,\n            "value": "runs/2026-08-11/backlog-reconciliation-r2/audit/ofgem-ldes-existing-card-update.json",\n        })\n\n\ndef replace_exact'''
+          if marker not in text:
+              raise SystemExit('expected Ofgem post-loop marker not found')
+          path.write_text(text.replace(marker, replacement, 1), encoding='utf-8')
           PY
 
       - name: Apply bounded PR256 remediation and validate

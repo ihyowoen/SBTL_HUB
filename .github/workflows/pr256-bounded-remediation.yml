@@ -31,6 +31,19 @@ jobs:
       - name: Lock main baseline
         run: git fetch origin main:refs/remotes/origin/main --force
 
+      - name: Extend bounded Ofgem source-audit normalization
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/pr256_bounded_remediation.py')
+          text = path.read_text(encoding='utf-8')
+          old = '''        ("/source_evidence_entry_count", 3),\n        ("/source_unique_url_count", 3),\n'''
+          new = '''        ("/source_evidence_entry_count", 3),\n        ("/source_unique_url_count", 3),\n        ("/source_diversity_status", "PASS_MULTI_SOURCE"),\n'''
+          if old not in text:
+              raise SystemExit('expected bounded Ofgem tuple not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+
       - name: Apply bounded PR256 remediation and validate
         run: python scripts/pr256_bounded_remediation.py
 

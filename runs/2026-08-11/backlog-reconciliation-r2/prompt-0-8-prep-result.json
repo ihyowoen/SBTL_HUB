@@ -52,5 +52,14 @@
     "run lean_cards.mjs --check and exact full-to-lean projection validation"
   ],
   "next_state_only_after_runtime_pass": "github_merge_ready / pr_candidate_ready",
-  "card_run_file": "runs/2026-08-11/backlog-reconciliation-r2/card-run.json"
+  "card_run_file": "runs/2026-08-11/backlog-reconciliation-r2/card-run.json",
+  "github_main_sync_gate": {
+    "status": "PASS",
+    "baseline_locked": true,
+    "declared_main_commit_sha": "d3137945860664116b1bf90bbb7bee54d2a6c1d9",
+    "observed_main_commit_sha": "d3137945860664116b1bf90bbb7bee54d2a6c1d9",
+    "canonical_full_blob_sha": "a52745170c70aa649323e346413615c5995b890b",
+    "main_unchanged_since_locked_preflight": true,
+    "silent_rebase_performed": false
+  }
 }

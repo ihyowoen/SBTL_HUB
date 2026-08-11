@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-11T04:36:00+09:00",
+  "updated": "2026-08-11T19:48:42+09:00",
   "total": 1375,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -223,7 +223,10 @@
         "representative_date": "2026-08-06",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": "Both body sources attribute the fund-project selection to August 6."
+        "stage_b_date_note": "Both body sources attribute the fund-project selection to August 6.",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://view.asiae.co.kr/article/2026080609373262288",
+        "event_date_source_quote": "10호 프로젝트인 영광 배터리 에너지저장장치 사업은 총사업비 1798억원을 들여 ... 80㎿, 저장용량 480㎿h 규모의 BESS를 구축하는 사업이다."
       },
       "stage_b_lineage": {
         "lineage_integrity_status": "PASS_TARGETED_0_7C_RESCUE",
@@ -694,12 +697,18 @@
         "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-08-05",
+          "2026-08-06"
+        ],
         "event_date": "2026-08-06",
         "representative_date": "2026-08-06",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.impacton.net/news/articleView.html?idxno=19857",
+        "event_date_source_quote": "美, 배터리 폐기물·텅스텐 스크랩 1년간 수출 금지 미국 상무부 산업안보국(BIS)이 배터리 폐기물인 블랙매스와 텅스텐 폐기물 및 스크랩의 해외 반출을 1년간 금지하는 수출 제한 조치를"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 6,
@@ -1534,12 +1543,17 @@
         "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-08-05"
+        ],
         "event_date": "2026-08-05",
         "representative_date": "2026-08-05",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.sneresearch.com/kr/insight/release_view/704/page/0",
+        "event_date_source_quote": "총 배터리 사용량은 약 608.5GWh로 전년 동기 대비 20.0% 성장했다 ... CATL ... 242.7GWh를 기록하며 1위를 유지했다."
       },
       "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_independent_owner_count": 1,
@@ -2153,12 +2167,18 @@
         "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-08-04",
+          "2026-08-05"
+        ],
         "event_date": "2026-08-05",
         "representative_date": "2026-08-05",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.ess-news.com/2026/08/05/iron-air-battery-startup-ore-energy-raises-43-million-series-a",
+        "event_date_source_quote": "Amsterdam-based Ore Energy has raised $43 million to build what it says will be Europe’s first iron-air battery manufacturing facility, aimed at storing renewable"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -2769,12 +2789,17 @@
         "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-08-06"
+        ],
         "event_date": "2026-08-05",
         "representative_date": "2026-08-05",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.ajunews.com/view/20260806081349013",
+        "event_date_source_quote": "LS일렉트릭은 지난 5일 충남 천안 DC팩토리에서 ... G2 초도 출하식을 개최했다고 6일 밝혔다."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 3,
@@ -3556,7 +3581,10 @@
         "representative_date": "2026-08-05",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://ir.fluenceenergy.com/news-releases/news-release-details/fluence-energy-inc-reports-third-fiscal-quarter-2026-results",
+        "event_date_source_quote": "Order intake of more than $1.44 billion ... Backlog ... approximately $6.4 billion ... $400.0 million in project deliveries will be delayed"
       },
       "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_independent_owner_count": 1,
@@ -4281,12 +4309,17 @@
         "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-08-05"
+        ],
         "event_date": "2026-08-05",
         "representative_date": "2026-08-05",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://arstechnica.com/cars/2026/08/evgo-starts-building-tesla-superchargers-under-license",
+        "event_date_source_quote": "The V4 Superchargers will show up in the Tesla nav app and have NACS and CCS1 plugs."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 7,
@@ -5431,7 +5464,10 @@
         "representative_date": "2026-08-05",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://investors.eose.com/news-releases/news-release-details/eos-energy-enterprises-reports-second-quarter-2026-financial",
+        "event_date_source_quote": "Backlog of $807 million, representing 3.4 GWh, up 25% sequentially"
       },
       "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_independent_owner_count": 1,
@@ -6058,12 +6094,18 @@
         "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-08-04",
+          "2026-08-05"
+        ],
         "event_date": "2026-08-04",
         "representative_date": "2026-08-04",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.ajunews.com/view/20260804142229347",
+        "event_date_source_quote": "그간 배터리 3사는 미국 IRA의 첨단제조생산세액공제(AMPC)를 통해 북미 생산량에 비례한 세액공제를 받아왔다."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 3,
@@ -6754,12 +6796,17 @@
         "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-08-03"
+        ],
         "event_date": "2026-08-03",
         "representative_date": "2026-08-03",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.sneresearch.com/kr/insight/release_view/702/page/0",
+        "event_date_source_quote": "ESS 출하량은 461.3GWh로, 전년 동기 269.7GWh 대비 71% 증가했다."
       },
       "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_independent_owner_count": 1,
@@ -7400,12 +7447,17 @@
         "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-08-03"
+        ],
         "event_date": "2026-08-03",
         "representative_date": "2026-08-03",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://balkangreenenergynews.com/slovenia-to-launch-first-state-aid-scheme-for-stand-alone-bess",
+        "event_date_source_quote": "Slovenia to launch first state-aid scheme for stand-alone BESS The purpose of the scheme is to increase the integration of renewables through the deployment"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -8011,7 +8063,10 @@
         "representative_date": "2026-08-03",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.reuters.com/legal/litigation/base-power-raises-1-billion-launches-us-made-home-battery-amid-surging-power-2026-08-03/",
+        "event_date_source_quote": "Energy startup Base Power said on Monday it has raised $1 billion at a $13 billion valuation"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -8592,12 +8647,17 @@
         "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-08-03"
+        ],
         "event_date": "2026-07-31",
         "representative_date": "2026-07-31",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.ajunews.com/view/20260803092008161",
+        "event_date_source_quote": "이차전지 소재 전문기업 엘앤에프는 자회사 엘앤에프플러스가 지난 7월 31일 국내 최초 LFP(리튬인산철) 양극재 양산라인에서 생산한 시생산품을 처음 출하했다고 3..."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -9235,7 +9295,10 @@
         "representative_date": "2026-07-31",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": "Both clean body sources explicitly identify the July 31 MOU signing."
+        "stage_b_date_note": "Both clean body sources explicitly identify the July 31 MOU signing.",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.sideview.co.kr/news/articleView.html?idxno=20218",
+        "event_date_source_quote": "김정관 산업부 장관은 7월 31일 산업통상부를 대표해 아르헨티나 경제부와 MOU에 정식 서명했다."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -9658,7 +9721,9 @@
         "related_candidate_spec_ids": [],
         "reason": "No direct event lineage.",
         "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
-        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true
       }
     },
     {
@@ -9833,7 +9898,10 @@
         "representative_date": "2026-07-30",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": "Representative event is the 2026-07-30 public federal funding announcement; the underlying contribution agreement starts 2026-03-30."
+        "stage_b_date_note": "Representative event is the 2026-07-30 public federal funding announcement; the underlying contribution agreement starts 2026-03-30.",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.miragenews.com/canada-pours-70m-into-quebec-ev-battery-chain-1719270/",
+        "event_date_source_quote": "announced up to $70 million in funding from the Strategic Response Fund to support Volta Energy Solutions Canada Inc."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 3,
@@ -10493,7 +10561,10 @@
         "representative_date": "2026-07-30",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
+        "event_date_source_quote": "原文：“LG Energy Solution will leverage its position as North America’s largest ESS manufacturer”，时隔一年，LGES已经占据了北美储能市场No.1的位置。"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -11248,7 +11319,10 @@
         "representative_date": "2026-07-30",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.axpo.com/de/en/newsroom/media-releases/2026/axpo-and-zelestra-join-forces-for-bess-project-to-strengthen-ita.html",
+        "event_date_source_quote": "Ten-year contract supports deployment of utility-scale 830 MWh energy storage"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -11823,12 +11897,17 @@
         "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-07-30"
+        ],
         "event_date": "2026-07-30",
         "representative_date": "2026-07-30",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.energy-storage.news/antora-energy-closes-us550-million-series-c-to-scale-us-thermal-battery-deployment",
+        "event_date_source_quote": "Antora Energy has closed a US$550 million Series C funding round to accelerate deployment of its thermal battery storage systems."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
@@ -12317,7 +12396,10 @@
         "representative_date": "2026-07-30",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.boerse-frankfurt.de/news/7da3e816-9fd2-42e6-8e3b-1cefd6944ec0",
+        "event_date_source_quote": "Altech Batteries Ltd has decided to discontinue its CERENERGY project in Saxony, Germany."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -12950,7 +13032,10 @@
         "representative_date": "2026-07-29",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.northernminer.com/news/perpetua-resources-us-army-and-idaho-national-laboratory-launch-antimony-pilot-plant/1003893592",
+        "event_date_source_quote": "Army and Idaho National Laboratory (INL), announced Thursday the opening of a new modular mineral processing plant designed to help establish an end-to-end domestic"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -13647,7 +13732,10 @@
         "representative_date": "2026-07-29",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": "Fresh Stage 2 execution-contract/BOP award is 2026-07-30; 7/29 construction-start wording is not used."
+        "stage_b_date_note": "Fresh Stage 2 execution-contract/BOP award is 2026-07-30; 7/29 construction-start wording is not used.",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.energyglobal.com/energy-storage/29072026/neoen-awarded-two-15-year-capacity-contracts-in-south-australia/amp/",
+        "event_date_source_quote": "Neoen has now executed contracts with both for an equally sized Stage 2."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -14281,7 +14369,10 @@
         "representative_date": "2026-07-29",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.prnewswire.com/news-releases/eolian-announces-1-gwh-flint-grid-bess-pjms-largest-battery-energy-storage-project-now-under-construction-to-support-americas-fastest-growing-data-center-and-industrial-corridor-near-columbus-ohio-302837697.html",
+        "event_date_source_quote": "Flint Grid, a 200 MW / 5.3-hour (1.06 GWh) battery energy storage project"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -15331,7 +15422,10 @@
         "representative_date": "2026-07-28",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.aecon.com/press-room/news/2026/07/28/simcoe-battery-energy-storage",
+        "event_date_source_quote": "executed an Energy Storage Facility Agreement ... 150 MW / 1,200 MWh ... through a 20-year agreement"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -15977,7 +16071,10 @@
         "representative_date": "2026-07-28",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.bbtnews.com.cn/2026/0728/600672.shtml",
+        "event_date_source_quote": "预计2026年上半年实现营业收入56亿元到69亿元"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -16648,7 +16745,10 @@
         "representative_date": "2026-07-28",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://single-market-economy.ec.europa.eu/calls-proposals/battery-booster-facility-call-proposals_en",
+        "event_date_source_quote": "Budget: €1.5 billion ... Interest-free loans ... Maximum support per project: €500 million ... planned annual production capacity of at least 10 GWh"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -22344,12 +22444,18 @@
         "direction": "directional"
       },
       "date_role": {
-        "publication_dates": [],
+        "publication_dates": [
+          "2026-07-27",
+          "2026-08-03"
+        ],
         "event_date": "2026-07-27",
         "representative_date": "2026-07-27",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.reuters.com/world/asia-pacific/indonesia-seeks-resolve-mineral-export-bottlenecks-caused-by-rare-earth-content-2026-07-27/",
+        "event_date_source_quote": "no rules have yet been set governing the proportion ... exporters had faced shipment delays"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": "canonical_unique_domain_and_editorial_independence",
@@ -33555,7 +33661,10 @@
         "representative_date": "2026-07-23",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": "Plan was dated 2026-07-06 and publicly released on 2026-07-23; representative disclosure date is 2026-07-23."
+        "stage_b_date_note": "Plan was dated 2026-07-06 and publicly released on 2026-07-23; representative disclosure date is 2026-07-23.",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "http://www.ecns.cn/cns-wire/2026-08-04/detail-ihfhziqh0059939.shtml",
+        "event_date_source_quote": "China aims to bring its new energy storage capacity to a new high by 2030, according to the 15th Five-Year Plan for New Power"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -74652,7 +74761,10 @@
         "representative_date": "2026-07-17",
         "event_date_confidence": "high",
         "stage_b_correction_applied": true,
-        "stage_b_date_note": "Official Fidra release fixes event date at 2026-07-17."
+        "stage_b_date_note": "Official Fidra release fixes event date at 2026-07-17.",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.energy-storage.news/uk-engie-commissions-100mw-fidra-masdar-fids-eku-buys-big-consents-for-aura-starlight",
+        "event_date_source_quote": "BESS developer Fidra Energy has reached financial close on its 500MW/1.1GWh West Burton C battery energy storage system project."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -123603,7 +123715,10 @@
         "representative_date": "2026-07-10",
         "event_date_confidence": "high",
         "stage_b_correction_applied": true,
-        "stage_b_date_note": "Aura Power official publication fixes event date at 2026-07-10."
+        "stage_b_date_note": "Aura Power official publication fixes event date at 2026-07-10.",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.energy-storage.news/uk-engie-commissions-100mw-fidra-masdar-fids-eku-buys-big-consents-for-aura-starlight",
+        "event_date_source_quote": "Developer and IPP Aura Power has secured planning permission for a 100MW/400MWh battery energy storage system (BESS) in Sandford, North Somerset."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -124269,7 +124384,10 @@
         "representative_date": "2026-07-10",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.energy-storage.news/uk-engie-commissions-100mw-fidra-masdar-fids-eku-buys-big-consents-for-aura-starlight",
+        "event_date_source_quote": "Cero Generation and its UK development partner Enso Energy have chosen Danske Commodities to optimise their 70MW/140MWh Lower Larks BESS."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 3,
@@ -147265,7 +147383,10 @@
         "representative_date": "2026-07-07",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": "South32/USFS Final ROD is dated 2026-07-07."
+        "stage_b_date_note": "South32/USFS Final ROD is dated 2026-07-07.",
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.south32hermosa.com/en_us/news/u-s-forest-service-issues-final-record-of-decision-for-south32-hermosa",
+        "event_date_source_quote": "completes the federal NEPA process needed for the project’s ancillary infrastructure development on National Forest Service land"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 2,
@@ -179567,7 +179688,10 @@
         "representative_date": "2026-07-02",
         "event_date_confidence": "high",
         "stage_b_correction_applied": false,
-        "stage_b_date_note": null
+        "stage_b_date_note": null,
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://news.samsung.com/kr/%EC%82%BC%EC%84%B1-%EB%AF%B8%EB%9E%98-%EC%84%B1%EC%9E%A5-%EC%9C%84%ED%95%B4-%EC%B6%A9%EC%B2%AD%EC%97%90-140%EC%A1%B0%EC%9B%90-%ED%88%AC%EC%9E%90-%EA%B3%84%ED%9A%8D",
+        "event_date_source_quote": "천안에는 마더라인에 투자해 차세대 배터리 기술을 검증할 예정이다."
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_independent_owner_count": 3,
@@ -200392,7 +200516,7 @@
       ],
       "resolved_article_matches_quote": true,
       "notes": "Enhanced red-team revision, evidence completeness, source-claim coverage, semantic revalidation and final publish-readiness QC passed.",
-      "source_diversity_status": "PASS_MULTI_DOMAIN_SYNTHESIS",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
       "evidence_qc_findings": {
         "quote_quality": "PASS",
         "fact_sources_schema": "PASS",
@@ -200473,8 +200597,8 @@
         "ess-news.com",
         "ofgem.gov.uk"
       ],
-      "source_unique_url_count": 2,
-      "source_evidence_entry_count": 2,
+      "source_unique_url_count": 3,
+      "source_evidence_entry_count": 3,
       "source_diversity_measure": "canonical_unique_domain_and_editorial_independence_not_fact_source_row_count",
       "source_diversity_remediated_at_kst": "2026-07-02T16:31:06.907730+09:00",
       "source_diversity_roles": {
@@ -200510,7 +200634,8 @@
       "needs_source_diversity_remediation": false,
       "related_lineage": {
         "related_ids": []
-      }
+      },
+      "source_discovery_ledger_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/ofgem-ldes-existing-card-update.json"
     },
     {
       "id": "2026-06-26_CN_01",

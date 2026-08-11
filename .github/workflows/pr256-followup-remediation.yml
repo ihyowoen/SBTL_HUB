@@ -1,0 +1,56 @@
+name: PR256 follow-up remediation
+
+on:
+  push:
+    branches:
+      - agent/backlog-reconciliation-r2-20260811
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/backlog-reconciliation-r2-20260811
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lock main baseline
+        run: git fetch origin main:refs/remotes/origin/main --force
+
+      - name: Apply and validate bounded follow-up remediation
+        run: python scripts/pr256_followup_remediation.py
+
+      - name: Remove temporary helper files
+        if: success()
+        run: |
+          rm -f scripts/pr256_followup_remediation.py
+          rm -f .github/workflows/pr256-followup-remediation.yml
+
+      - name: Commit final governed outputs
+        if: success()
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "No remediation changes to commit"
+            exit 0
+          fi
+          git commit -m "fix: clear PR #256 follow-up review gates"
+          git push origin HEAD:agent/backlog-reconciliation-r2-20260811

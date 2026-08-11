@@ -1,0 +1,58 @@
+{
+  "stage": "0.7C_targeted_related_metadata_correction",
+  "status": "PASS",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "source_spec_id": "REC26_A2_036",
+  "target_predecessor_id": "2026-07-24_GL_01",
+  "correction_type": "metadata_only_same_relation_same_target_same_evidence_universe",
+  "visible_fields_changed": false,
+  "fact_sources_changed": false,
+  "date_changed": false,
+  "relation_type_changed": false,
+  "related_target_changed": false,
+  "before": {
+    "status": "PASS",
+    "relation_type": "distinct_follow_up",
+    "related_ids": [
+      "2026-07-24_GL_01"
+    ],
+    "related_candidate_spec_ids": [],
+    "reason": "Direct regulatory follow-up: the July card captured inspection ambiguity and delays; the August event clarifies the rule and reports resumed shipments.",
+    "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+    "fresh_follow_up_anchor": "Indonesia clarified rare-earth-content export inspection rules on 2026-08-02 and nickel/tin shipments resumed after the July inspection disruption.",
+    "incremental_fact_vs_predecessor": "Compared with 2026-07-24_GL_01, the new fact is the 2026-08-02 rule clarification and resumption of nickel/tin shipments after delays.",
+    "changed_judgment_vs_predecessor": "Judgment changes from unresolved inspection ambiguity causing shipment delays to a clarified rule with shipments resuming.",
+    "same_event_checked": true,
+    "earliest_same_event_date_checked": true,
+    "follow_up_date_precedes_predecessor_justification": null,
+    "rejected_relation_candidates": [],
+    "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+    "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+  },
+  "after": {
+    "status": "PASS",
+    "relation_type": "distinct_follow_up",
+    "related_ids": [
+      "2026-07-24_GL_01"
+    ],
+    "related_candidate_spec_ids": [],
+    "reason": "Direct regulatory follow-up: 2026-07-24_GL_01 captured inspection-driven shipment delays; the 2026-07-27 Reuters evidence identified the unresolved rare-earth-byproduct content-rule gap and the official position that exports should not be blocked where no governing proportion rule exists.",
+    "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+    "fresh_follow_up_anchor": "On 2026-07-27 Indonesian officials identified the missing rule governing allowable rare-earth-byproduct proportions after exporters had faced alumina and nickel shipment delays.",
+    "incremental_fact_vs_predecessor": "Compared with 2026-07-24_GL_01, the new verified fact is that no proportion rule had yet been set for rare-earth by-products and officials said exports should not be obstructed in the absence of such a rule.",
+    "changed_judgment_vs_predecessor": "Judgment changes from an opaque inspection-driven shipping delay to a defined regulatory-gap problem with an official direction toward preventing blanket export blockage while the rule is resolved.",
+    "same_event_checked": true,
+    "earliest_same_event_date_checked": true,
+    "follow_up_date_precedes_predecessor_justification": null,
+    "rejected_relation_candidates": [],
+    "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+    "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+  },
+  "evidence_basis": {
+    "source_name": "Reuters",
+    "source_url": "https://www.reuters.com/world/asia-pacific/indonesia-seeks-resolve-mineral-export-bottlenecks-caused-by-rare-earth-content-2026-07-27/",
+    "source_published_date": "2026-07-27",
+    "claim": "Rule gap over allowable rare-earth by-product content caused shipment delays; officials said exports should not be blocked where no rule exists."
+  },
+  "reason": "Prompt 0.8 consumer gate found an 8/2 fresh-anchor string inconsistent with the 7/27 representative event and current visible/source-locked card. The relation decision remains a 7/27 distinct follow-up."
+}

@@ -1,0 +1,471 @@
+{
+  "stage": "0.7C",
+  "prompt_id": "Prompt 0.7C Independent Completeness and News-Value Review",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "generated_kst": "2026-08-11T04:36:00+09:00",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "governing_contracts_read": [
+    "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+    "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+    "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
+    "docs/RELATED_LIFECYCLE_CONTRACT.md"
+  ],
+  "governing_contracts_same_revision": true,
+  "governing_revision": "d3137945860664116b1bf90bbb7bee54d2a6c1d9",
+  "v3_contract_preflight_passed": true,
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "format_risk_anchor_path_review_complete": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "input_prompt_0_7_payload": "publish_ready_payload_32_CORRECTED_BEFORE_0_7C_RERUN_20260809_BACKLOG_RECONCILIATION_R2.json",
+  "prompt_0_7_publish_ready_count": 32,
+  "publish_ready_retained_count": 32,
+  "publish_ready_downgrade_count": 0,
+  "publish_ready_profile": {
+    "region": {
+      "KR": 6,
+      "US": 8,
+      "GL": 8,
+      "EU": 8,
+      "CN": 2
+    },
+    "category": {
+      "ESS": 15,
+      "Materials": 6,
+      "Battery": 6,
+      "Charging": 1,
+      "Policy": 4
+    },
+    "signal": {
+      "high": 30,
+      "top": 2
+    },
+    "related_lineage_relation_type": {
+      "new_unrelated_event": 22,
+      "distinct_follow_up": 9,
+      "unknown": 1
+    }
+  },
+  "source_universe_accounting": {
+    "raw_observations": 2204,
+    "window_8_2_to_8_6_observations": 801,
+    "window_8_2_to_8_6_exact_url_keys": 656,
+    "event_level_effective_decision_units": 215,
+    "stage_a_selective_candidates": 82,
+    "stage_a_strict": 76,
+    "stage_a_review_pool": 3,
+    "stage_b_draft_cards_original": 33,
+    "stage_b_draft_blocked_original": 43,
+    "stage_b_rescued_by_0_7C": 1,
+    "stage_b_terminal_identity_rejects_by_0_7C": 2,
+    "prompt_0_7_final_publish_ready": 32
+  },
+  "six_round_review": [
+    {
+      "round": 1,
+      "name": "source_universe_completeness",
+      "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+      "finding": "Recovered source/event universe and terminal pools are accounted; provenance debt is separately declared."
+    },
+    {
+      "round": 2,
+      "name": "existing_full_challenge",
+      "status": "PASS_AFTER_REMEDIATION",
+      "finding": "Ofgem 7/28 routed to existing-card update; Battery Booster direct predecessor added; no existing relation removed."
+    },
+    {
+      "round": 3,
+      "name": "event_stage_anchor_path",
+      "status": "PASS",
+      "finding": "32 publish-ready cards retain exactly one valid anchor route; Tesla FTZ remains deferred rather than inflated."
+    },
+    {
+      "round": 4,
+      "name": "fact_completeness",
+      "status": "PASS_WITH_KNOWN_UNKNOWNS",
+      "finding": "32 publish-ready cards remain fact-safe; evidence-blocked events are not substituted with adjacent events."
+    },
+    {
+      "round": 5,
+      "name": "news_value",
+      "status": "PASS",
+      "finding": "REC26_A2_075 was rescued as material; no current publish-ready card was independently downgraded."
+    },
+    {
+      "round": 6,
+      "name": "exclusion_red_team",
+      "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+      "finding": "High-value blocked candidates received explicit rescue/reject/hold dispositions; remaining evidence blocks are preserved as known unknowns."
+    }
+  ],
+  "anchor_path_review_results": [
+    {
+      "source_spec_id": "REC26_A2_075",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_070",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_061",
+      "selected_anchor_path": "v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "not_applicable",
+      "structural_value_override_qc_status": "pass",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_051",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_046",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_029",
+      "selected_anchor_path": "v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "not_applicable",
+      "structural_value_override_qc_status": "pass",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_025",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_022",
+      "selected_anchor_path": "v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "not_applicable",
+      "structural_value_override_qc_status": "pass",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_040",
+      "selected_anchor_path": "v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "not_applicable",
+      "structural_value_override_qc_status": "pass",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_062",
+      "selected_anchor_path": "v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "not_applicable",
+      "structural_value_override_qc_status": "pass",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_060",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_009",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_041",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_039",
+      "selected_anchor_path": "v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "not_applicable",
+      "structural_value_override_qc_status": "pass",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_072",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_042",
+      "selected_anchor_path": "v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "not_applicable",
+      "structural_value_override_qc_status": "pass",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_008",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_006",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_004",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_053",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_032",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_021",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_059",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_034",
+      "selected_anchor_path": "v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "not_applicable",
+      "structural_value_override_qc_status": "pass",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_023",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_036",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_014",
+      "selected_anchor_path": "v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "not_applicable",
+      "structural_value_override_qc_status": "pass",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_027",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_057",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_045",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_063",
+      "selected_anchor_path": "execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "pass",
+      "structural_value_override_qc_status": "not_applicable",
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "REC26_A2_056",
+      "selected_anchor_path": "v3_non_execution",
+      "anchor_path_qc_passed": true,
+      "execution_anchor_qc_status": "not_applicable",
+      "structural_value_override_qc_status": "pass",
+      "status": "PASS"
+    }
+  ],
+  "insert_decisions_reviewed": [
+    {
+      "count": 32,
+      "status": "PASS",
+      "note": "Includes rescued REC26_A2_075; no production IDs assigned."
+    }
+  ],
+  "update_decisions_reviewed": [
+    {
+      "source_event_key": "OFGEM_LDES_728",
+      "target_card_id": "2026-06-26_EU_01",
+      "operation": "existing_card_update_with_source_reinforcement",
+      "status": "PASS",
+      "new_card_created": false
+    }
+  ],
+  "related_add_decisions_reviewed": [
+    {
+      "source_spec_id": "REC26_A2_023",
+      "added_related_id": "2026-06-10_EU_01",
+      "preserved_related_id": "2026-04-27_EU_02",
+      "status": "PASS"
+    }
+  ],
+  "reopened_items": [
+    {
+      "item": "OFGEM_LDES_728",
+      "final_disposition": "EXISTING_CARD_UPDATE"
+    },
+    {
+      "item": "REC26_A2_075",
+      "final_disposition": "RESCUED_TO_PUBLISH_READY"
+    }
+  ],
+  "material_exclusions": [
+    {
+      "source_spec_id": "REC26_A2_007",
+      "disposition": "REJECT_EVENT_IDENTITY_SOURCE_OWNER_CONTAMINATION",
+      "red_team_complete": true
+    },
+    {
+      "source_spec_id": "REC26_A2_043",
+      "disposition": "REJECT_EVENT_STAGE_AMOUNT_IDENTITY_UNVERIFIED",
+      "red_team_complete": true
+    }
+  ],
+  "known_unknowns": [
+    "The V59 terminal existing_card_update count of one lacks a serialized member identity; it is preserved as provenance debt and no operation is fabricated from it.",
+    "LGES_HONDA_PRISMATIC remains in Stage A review because the exact prismatic event identity/scope is not locked.",
+    "LIDAO_WUHE_EIA remains in Stage A review because the exact same-event source/date is unresolved.",
+    "TESLA_FTZ18 remains deferred because the official FTZ item remains Review/proposed activity rather than authorization.",
+    "UFLPA_43 remains deferred pending satisfactory current official evidence.",
+    "Forty Stage B candidates remain evidence-blocked after one rescue and two identity rejects; their source gaps are explicitly retained rather than silently excluded."
+  ],
+  "residual_risks": [
+    "Open-source discovery cannot prove absolute global completeness; local-language, paywalled or later-corrected sources may remain outside the recovered universe.",
+    "Evidence-blocked items can become publishable only if future bounded source recovery resolves their exact event identity and claim coverage.",
+    "The anonymous V59 terminal-category member is an audit-provenance defect until an earlier artifact exposing its identity is recovered."
+  ],
+  "upstream_returns": [],
+  "terminal_pool_summary": {
+    "stage_b_original_blocked": 43,
+    "rescued": 1,
+    "rejected_after_identity_red_team": 2,
+    "remaining_evidence_holds": 40,
+    "stage_a_review_open": 2,
+    "stage_c_deferred": 2,
+    "accounting_status": "PASS"
+  },
+  "lineage_accounting_provenance": {
+    "v59_raw_existing_card_update_count": 1,
+    "identity_recovered": false,
+    "classification": "LINEAGE_ACCOUNTING_IDENTITY_MISSING_NOT_ACTIONABLE_OPERATION",
+    "hidden": false,
+    "blocks_prompt_0_8": false,
+    "reason": "No actionable member can be identified; the defect is preserved as declared provenance risk and no update is fabricated."
+  },
+  "prompt_0_8_authorized": true,
+  "authorization_scope": "Prompt 0.8 may begin only after explicit user authorization; this artifact does not itself execute merge preparation.",
+  "github_ready": false,
+  "pr_candidate_ready": false,
+  "related_lineage_corrections_reviewed": [
+    {
+      "source_spec_id": "REC26_A2_036",
+      "predecessor_id": "2026-07-24_GL_01",
+      "status": "PASS_METADATA_ONLY",
+      "reason": "Fresh-anchor text aligned to existing Reuters 2026-07-27 evidence; target/type unchanged."
+    }
+  ],
+  "consumer_gate_recheck_after_related_metadata_correction": "PASS",
+  "run_id": "20260811_backlog_reconciliation_r2_prompt_0_8_candidate_v1",
+  "base_main_commit_sha": "d3137945860664116b1bf90bbb7bee54d2a6c1d9",
+  "base_full_blob_sha": "a52745170c70aa649323e346413615c5995b890b",
+  "document_universe_manifest_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0d-engine-bridge.json",
+  "coverage_discovery_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-engine-bridge.json",
+  "reviewed_operations_sha256": "09d2737d68d553be011206454d25557e2f8ad5f9463d8fe3678d002909cea849",
+  "prompt_0_8_postreview_reclassification": {
+    "status": "PASS",
+    "insert_to_update_count": 2,
+    "source_spec_ids": [
+      "REC26_A2_072",
+      "REC26_A2_042"
+    ],
+    "final_insert_count": 30,
+    "final_update_count": 3,
+    "final_related_add_count": 9,
+    "selection_deleted": false
+  }
+}

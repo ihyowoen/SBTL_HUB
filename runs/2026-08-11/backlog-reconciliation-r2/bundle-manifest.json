@@ -1,0 +1,124 @@
+{
+  "bundle": "SBTL Prompt 0.8 ready-to-PR runtime package",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "status": "RUNTIME_VERIFIED_PASS",
+  "file_count": 23,
+  "files": [
+    {
+      "path": "card-run.json",
+      "bytes": 1354871,
+      "sha256": "7f613fe5c75fc16f8df76a3a008e982d750d24a59ddd77caecd3ae61ae7aaba3"
+    },
+    {
+      "path": "production-id-map.json",
+      "bytes": 11833,
+      "sha256": "db1c2436053ac0eb8c1463cbe553fb79df21b37ec10af8706db4d62514c93995"
+    },
+    {
+      "path": "prompt-0-8-prep-report.md",
+      "bytes": 2039,
+      "sha256": "aeb2951bdd0ff1366059c01a436b71682e388af95f22dc7044379e37e39dbef7"
+    },
+    {
+      "path": "prompt-0-8-prep-result.json",
+      "bytes": 3091,
+      "sha256": "e49e476251a24bab2e3f12433cfb6a0fb473dad52fc3a2f92e92e9ddef994c01"
+    },
+    {
+      "path": "audit/ofgem-ldes-existing-card-update.json",
+      "bytes": 1140,
+      "sha256": "f25b3e708e4f1dbb48bf7b297a9f65b1380c599038633ade08faeb41a3baa2da"
+    },
+    {
+      "path": "audit/operation-manifest.json",
+      "bytes": 26489,
+      "sha256": "a5a4e58c987a71629bc824eaeb374370c26aa37e2dc9f3023e4775ee35efce42"
+    },
+    {
+      "path": "audit/production-id-assignment-ledger.json",
+      "bytes": 11738,
+      "sha256": "0cb9793d04b08ba78abbc21a39138a51082c254624e195b7c28fa9f71695219c"
+    },
+    {
+      "path": "audit/prompt-0-8-static-validation.json",
+      "bytes": 1274,
+      "sha256": "a5df4ca9a33fb312a5e956d712cf5f49195a50bf2c612e31f69872363045c821"
+    },
+    {
+      "path": "audit/publish-ready-32.json",
+      "bytes": 1161354,
+      "sha256": "a4efd7ef02cf109c0c16eb485ee9d6447b4074979f034a86e2321ace59e04e7d"
+    },
+    {
+      "path": "audit/rec26-a2-075-rescue-summary.json",
+      "bytes": 499,
+      "sha256": "a947ca34b8272462ab8a6f606e2e088ae8cd7b76773411d19a83ec3b652d6079"
+    },
+    {
+      "path": "audit/related-correction-rec26-a2-023.json",
+      "bytes": 3818,
+      "sha256": "37272df8627b2081cf60ce259c8651c2f7e2f7f8f53a14e73981d7f3d1ab3dec"
+    },
+    {
+      "path": "audit/related-correction-rec26-a2-036.json",
+      "bytes": 3942,
+      "sha256": "f79202bd498981217407ca09cb1b222aeed0f46774003b6d463c96cf7dc2f828"
+    },
+    {
+      "path": "audit/related-id-resolution-ledger.json",
+      "bytes": 7700,
+      "sha256": "574df2e02fc66f3f95c2cdc3abbbe147cda72e234fd9281f5f2d5de34c6ca9d9"
+    },
+    {
+      "path": "audit/stage-0-0c-engine-bridge.json",
+      "bytes": 1231,
+      "sha256": "1703f959261b7b21809b7876abf91113f3d9caf2f71ff142108654e0f0372310"
+    },
+    {
+      "path": "audit/stage-0-0c-provenance-defect.json",
+      "bytes": 1319,
+      "sha256": "f33249ee606168ca558ca071c09a0b72401382ecb9cd646b6a8f711b9ff81e1d"
+    },
+    {
+      "path": "audit/stage-0-0d-engine-bridge.json",
+      "bytes": 820,
+      "sha256": "26dfbb8ef1d0d04a82088388398c8133ee8682ca679ddcc5cf73267c7692f38d"
+    },
+    {
+      "path": "audit/stage-0-7-pass.json",
+      "bytes": 416,
+      "sha256": "86444906de91aa61b3567a96b5a940693c1a39f9c7b14029d0dae66ef03a690d"
+    },
+    {
+      "path": "audit/stage-0-7c.json",
+      "bytes": 16771,
+      "sha256": "b73b006f4e9eedf99cf152d1bd809d0ab5177fc1407f041280fc0249b052a5a2"
+    },
+    {
+      "path": "audit/stage-b-terminal-dispositions.json",
+      "bytes": 18751,
+      "sha256": "7f13fdc9cb1ab7229b6a4c009f40afee8a3ad5f541c42518f321a14fde332032"
+    },
+    {
+      "path": "audit/related-correction-rec26-a2-039.json",
+      "bytes": 1980,
+      "sha256": "86dc083b45d7dfbb376e5c8b17ae016a4d4a7b28fa92d1872b322bb5b9b8fbe4"
+    },
+    {
+      "path": "audit/duplicate-correction-rec26-a2-072.json",
+      "bytes": 604,
+      "sha256": "50432603f604603f4182f9de4226caca3c8c63287a7f381eadd6d1a1afe4bdbe"
+    },
+    {
+      "path": "audit/duplicate-correction-rec26-a2-042.json",
+      "bytes": 612,
+      "sha256": "e91942a50dbf4cbf614f88d3c7c6ac8b6aa265765554b8ad2563e105be23f49b"
+    },
+    {
+      "path": "audit/card-run-runtime-audit.json",
+      "bytes": 4797,
+      "sha256": "55233427b4c1bf4589df3079d20617c03e9cc2dc75e2152854f383aae211510b"
+    }
+  ],
+  "regenerated_kst": "2026-08-11T22:26:33+09:00"
+}

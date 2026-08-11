@@ -1,0 +1,28 @@
+{
+  "stage": "0.7C_existing_card_update",
+  "status": "PASS",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "source_event_key": "OFGEM_LDES_728",
+  "target_card_id": "2026-06-26_EU_01",
+  "operation": "update",
+  "new_card_created": false,
+  "event_stage": "call_for_input_revised_minded_to_conditions_plus_guidance_not_final_decision",
+  "publication_date": "2026-07-21",
+  "last_updated": "2026-07-28",
+  "official_url": "https://www.ofgem.gov.uk/call-for-input/long-duration-electricity-storage-window-1-revised-special-licence-conditions",
+  "runtime_source_audit_recompute_required": false,
+  "why": "The update adds a new fact-source URL, so SOURCE_AUDIT_CONTRACT requires recomputation on the actual merged canonical candidate.",
+  "source_audit_recomputed": true,
+  "source_audit_recompute_status": "PASS",
+  "recomputed_fields": [
+    "fact_sources",
+    "single_source_exception",
+    "source_discovery_ledger",
+    "source_diversity_measure",
+    "source_independent_owner_count",
+    "source_url_resolution"
+  ],
+  "source_evidence_entry_count": 3,
+  "source_unique_url_count": 3,
+  "source_independent_owner_count": 2
+}

@@ -1,0 +1,111 @@
+{
+  "stage": "0.8_related_id_resolution",
+  "status": "PASS_STATIC_RESOLUTION",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "edge_count": 9,
+  "unresolved_candidate_spec_ids": 0,
+  "self_links": 0,
+  "duplicate_links": 0,
+  "related_remove_count": 0,
+  "edges": [
+    {
+      "source_spec_id": "REC26_A2_046",
+      "source_production_id": "2026-08-05_KR_01",
+      "target_production_id": "2026-07-02_KR_02",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "execution_event_anchor",
+      "lineage_reason": "Direct execution follow-up from Cheonan DC Factory operation/G2 production to first G2 shipment.",
+      "incremental_fact_vs_predecessor": "Compared with 2026-07-02_KR_02, the new fact is the first G2 PCS shipment from the Cheonan DC Factory.",
+      "changed_judgment_vs_predecessor": "Judgment changes from factory commissioning and planned G2 production to actual initial product shipment.",
+      "status": "RESOLVED_BASELINE_TARGET"
+    },
+    {
+      "source_spec_id": "REC26_A2_061",
+      "source_production_id": "2026-08-05_GL_01",
+      "target_production_id": "2026-07-03_GL_02",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "data_financial_anchor",
+      "lineage_reason": "Direct recurring-dataset follow-up from the January-May EV battery reading to the full H1 measurement.",
+      "incremental_fact_vs_predecessor": "Compared with 2026-07-03_GL_02, SNE Research H1 2026 EV battery usage increased from 469.2GWh through May to 608.5GWh through June.",
+      "changed_judgment_vs_predecessor": "Judgment changes from a five-month market reading to a complete H1 2026 EV-battery demand measurement.",
+      "status": "RESOLVED_BASELINE_TARGET"
+    },
+    {
+      "source_spec_id": "REC26_A2_051",
+      "source_production_id": "2026-08-05_EU_01",
+      "target_production_id": "2026-06-22_EU_02",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "execution_event_anchor",
+      "lineage_reason": "Direct commercialization follow-up from the June commercial offtake to funded manufacturing scale-up.",
+      "incremental_fact_vs_predecessor": "Compared with 2026-06-22_EU_02, the new fact is US$43 million Series A financing for manufacturing scale-up after the 1GWh offtake.",
+      "changed_judgment_vs_predecessor": "Judgment changes from customer offtake alone to funded manufacturing scale-up, increasing commercialization probability.",
+      "status": "RESOLVED_BASELINE_TARGET"
+    },
+    {
+      "source_spec_id": "REC26_A2_029",
+      "source_production_id": "2026-08-05_GL_02",
+      "target_production_id": "2026-05-06_GL_05",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "data_financial_anchor",
+      "lineage_reason": "Direct quarterly-results follow-up from FY26 Q2 to FY26 Q3 operating and delivery-timing data.",
+      "incremental_fact_vs_predecessor": "Compared with 2026-05-06_GL_05, the new Q3 facts are order intake above US$1.44 billion, backlog around US$6.4 billion and about US$400 million of project-delivery delay.",
+      "changed_judgment_vs_predecessor": "Judgment changes from Q2 record backlog and hyperscaler pipeline growth to Q3 evidence of strong orders alongside material delivery timing risk.",
+      "status": "RESOLVED_BASELINE_TARGET"
+    },
+    {
+      "source_spec_id": "REC26_A2_062",
+      "source_production_id": "2026-08-03_GL_01",
+      "target_production_id": "2026-06-08_GL_02",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "data_financial_anchor",
+      "lineage_reason": "Direct recurring-dataset follow-up from the Q1 ESS shipment reading to the full H1 shipment measurement.",
+      "incremental_fact_vs_predecessor": "Compared with Q1 195.5GWh, SNE Research H1 2026 ESS shipments increased to 461.3GWh, up 71% YoY.",
+      "changed_judgment_vs_predecessor": "Judgment changes from a Q1 ESS shipment snapshot to a complete H1 2026 shipment measurement showing sustained rapid growth.",
+      "status": "RESOLVED_BASELINE_TARGET"
+    },
+    {
+      "source_spec_id": "REC26_A2_036",
+      "source_production_id": "2026-07-27_GL_05",
+      "target_production_id": "2026-07-24_GL_01",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+      "lineage_reason": "Direct regulatory follow-up: 2026-07-24_GL_01 captured inspection-driven shipment delays; the 2026-07-27 Reuters evidence identified the unresolved rare-earth-byproduct content-rule gap and the official position that exports should not be blocked where no governing proportion rule exists.",
+      "incremental_fact_vs_predecessor": "Compared with 2026-07-24_GL_01, the new verified fact is that no proportion rule had yet been set for rare-earth by-products and officials said exports should not be obstructed in the absence of such a rule.",
+      "changed_judgment_vs_predecessor": "Judgment changes from an opaque inspection-driven shipping delay to a defined regulatory-gap problem with an official direction toward preventing blanket export blockage while the rule is resolved.",
+      "status": "RESOLVED_BASELINE_TARGET"
+    },
+    {
+      "source_spec_id": "REC26_A2_041",
+      "source_production_id": "2026-07-31_KR_01",
+      "target_production_id": "2026-05-18_KR_01",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "technology_commercialization_anchor",
+      "lineage_reason": "Direct commercialization follow-up from LFP plant completion to first trial-product shipment.",
+      "incremental_fact_vs_predecessor": "Compared with 2026-05-18_KR_01, the new fact is first shipment of LFP cathode trial-production material from the completed plant.",
+      "changed_judgment_vs_predecessor": "Judgment changes from completed plant with planned production to actual trial-product shipment and customer-validation stage.",
+      "status": "RESOLVED_BASELINE_TARGET"
+    },
+    {
+      "source_spec_id": "REC26_A2_023",
+      "source_production_id": "2026-07-28_EU_01",
+      "target_production_id": "2026-04-27_EU_02",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+      "lineage_reason": "Direct Battery Booster program lineage: 2026-04-27 advisory-strategy coverage, 2026-06-10 formal €1.5bn facility launch, and 2026-07-28 actual call opening.",
+      "incremental_fact_vs_predecessor": "Versus the direct 2026-06-10 predecessor, the facility moved from formal launch with a forthcoming call to an application call actually opened on 2026-07-28.",
+      "changed_judgment_vs_predecessor": "The policy instrument changed from announced financing architecture to an executable application window.",
+      "status": "RESOLVED_BASELINE_TARGET"
+    },
+    {
+      "source_spec_id": "REC26_A2_023",
+      "source_production_id": "2026-07-28_EU_01",
+      "target_production_id": "2026-06-10_EU_01",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+      "lineage_reason": "Direct Battery Booster program lineage: 2026-04-27 advisory-strategy coverage, 2026-06-10 formal €1.5bn facility launch, and 2026-07-28 actual call opening.",
+      "incremental_fact_vs_predecessor": "Versus the direct 2026-06-10 predecessor, the facility moved from formal launch with a forthcoming call to an application call actually opened on 2026-07-28.",
+      "changed_judgment_vs_predecessor": "The policy instrument changed from announced financing architecture to an executable application window.",
+      "status": "RESOLVED_BASELINE_TARGET"
+    }
+  ]
+}

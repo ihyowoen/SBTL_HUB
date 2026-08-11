@@ -1,0 +1,26 @@
+{
+  "stage": "0.0C",
+  "status": "PASS",
+  "bridge_type": "ENGINE_CONSUMER_CLOSURE_FROM_TERMINAL_LINEAGE_PLUS_0_7C_REMEDIATION",
+  "source_terminal_artifacts": [
+    "SBTL_STAGE_0_0C_TERMINAL_LINEAGE_CORRECTION_V56_20260809.json",
+    "SBTL_STAGE_0_0C_TERMINAL_LINEAGE_CORRECTION_V59_20260809.md",
+    "stage_0_0c_existing_card_update_provenance_defect_20260809_BACKLOG_RECONCILIATION_R2.json"
+  ],
+  "base_main_commit_sha": "d3137945860664116b1bf90bbb7bee54d2a6c1d9",
+  "base_full_blob_sha": "a52745170c70aa649323e346413615c5995b890b",
+  "document_universe_manifest_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0d-engine-bridge.json",
+  "original_input_accounted": true,
+  "stage_a_authorized": true,
+  "source_universe": {
+    "six_raw_observations": 2204,
+    "window_8_2_to_8_6_observations": 801,
+    "exact_url_first_pass_candidates": 656,
+    "source_keys_mapped": 656,
+    "source_keys_unmapped": 0,
+    "hard_anchor_unreviewed": 0
+  },
+  "terminal_provenance_defect_declared": true,
+  "terminal_provenance_defect_ref": "runs/2026-08-11/backlog-reconciliation-r2/audit/stage-0-0c-provenance-defect.json",
+  "note": "Metadata-only compatibility materialization. No candidate disposition is changed here."
+}

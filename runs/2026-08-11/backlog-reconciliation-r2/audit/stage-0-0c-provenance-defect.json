@@ -1,0 +1,27 @@
+{
+  "stage": "Stage 0.0C lineage-accounting provenance correction",
+  "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
+  "status": "PASS_WITH_DECLARED_PROVENANCE_DEFECT",
+  "raw_v59_existing_card_update_count": 1,
+  "identity_recovery_attempted": true,
+  "identity_recovery_sources": [
+    "SBTL_STAGE_0_0C_TERMINAL_LINEAGE_CORRECTION_V56_20260809.json",
+    "SBTL_STAGE_0_0C_TERMINAL_LINEAGE_CORRECTION_V59_20260809.md",
+    "interim policy_follow_up ledgers",
+    "0.7C upstream-return manifest"
+  ],
+  "identity_recovery_result": "NOT_RECOVERABLE_FROM_TERMINAL_ARTIFACTS",
+  "actionable_existing_card_update_identity_recovered": false,
+  "operation_created_from_anonymous_v59_count": false,
+  "accounting_treatment": "LINEAGE_ACCOUNTING_IDENTITY_MISSING_NOT_ACTIONABLE_OPERATION",
+  "audit_preserved": true,
+  "raw_terminal_count_not_silently_rewritten": true,
+  "separately_discovered_current_update_operations": [
+    {
+      "source_event_key": "OFGEM_LDES_728",
+      "target_card_id": "2026-06-26_EU_01",
+      "note": "This update was discovered independently in 0.7C and is NOT asserted to be the anonymous V59 member."
+    }
+  ],
+  "residual_risk": "One V59 terminal-category count lacks a serialized member identity. No card/update is invented to satisfy the count; the defect remains as provenance debt."
+}

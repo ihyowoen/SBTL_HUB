@@ -1,8 +1,8 @@
 {
   "stage": "0.8",
   "run_tag": "20260809_BACKLOG_RECONCILIATION_R2",
-  "generated_kst": "2026-08-11T04:36:00+09:00",
-  "status": "BLOCKED_RUNTIME_CANONICAL_APPLY_AND_PROJECTION_VERIFICATION_UNAVAILABLE_IN_CHAT_RUNTIME",
+  "generated_kst": "2026-08-11T19:48:42+09:00",
+  "status": "GITHUB_MERGE_READY",
   "base_main_commit_sha": "d3137945860664116b1bf90bbb7bee54d2a6c1d9",
   "base_full_blob_sha": "a52745170c70aa649323e346413615c5995b890b",
   "baseline_count": 1343,
@@ -22,7 +22,7 @@
     "execution_path_checked_count": 22,
     "v3_non_execution_path_checked_count": 10,
     "anchor_path_hold_count": 0,
-    "github_ready_allowed": false
+    "github_ready_allowed": true
   },
   "consumer_gate_defect_found_and_remediated": {
     "source_spec_id": "REC26_A2_036",
@@ -34,24 +34,30 @@
     "target_card_id": "2026-06-26_EU_01",
     "new_card_created": false,
     "official_source": "https://www.ofgem.gov.uk/call-for-input/long-duration-electricity-storage-window-1-revised-special-licence-conditions",
-    "source_audit_recompute_required": true
+    "source_audit_recompute_required": false,
+    "source_audit_recomputed": true,
+    "evidence_qc_status": "PASS"
   },
-  "github_merge_ready": false,
-  "pr_candidate_ready": false,
-  "github_write_performed": false,
-  "branch_created": false,
-  "pr_created": false,
+  "github_merge_ready": true,
+  "pr_candidate_ready": true,
+  "github_write_performed": true,
+  "branch_created": true,
+  "pr_created": true,
   "production_verified": false,
-  "runtime_pending": [
-    "materialize actual 1,343-card canonical from locked git object",
-    "run governed apply_card_run check/apply",
-    "recompute source audit metadata after Ofgem source addition",
-    "run evidence_qc_v8_check on merge scope",
-    "run related_lifecycle_check on merge scope",
-    "regenerate public/data/cards.json with lean_cards.mjs",
-    "run lean_cards.mjs --check and exact full-to-lean projection validation"
-  ],
-  "next_state_only_after_runtime_pass": "github_merge_ready / pr_candidate_ready",
+  "runtime_pending": [],
+  "runtime_verification": {
+    "governed_apply": "PASS",
+    "date_role_freshness": "PASS",
+    "evidence_qc_v8": "PASS",
+    "related_lifecycle_contract": "PASS",
+    "stage_0_8_artifact_contract": "PASS",
+    "canonical_full_validation": "PASS",
+    "lean_exact_projection": "PASS",
+    "card_run_audit_binding": "PASS",
+    "byte_exact_governed_output_verify": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "next_state": "review_and_merge_then_prompt_0_9_production_verification",
   "card_run_file": "runs/2026-08-11/backlog-reconciliation-r2/card-run.json",
   "github_main_sync_gate": {
     "status": "PASS",

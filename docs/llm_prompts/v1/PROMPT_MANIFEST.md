@@ -32,13 +32,14 @@ Static counts below are package inventory aids. Stage 0.0D is the authority for 
 → 1.1 Retrospective / Canonical Promotion
 ```
 
-## 2. Named stage prompts (17)
+## 2. Named stage prompts (18)
 
 | Stage | File | Role |
 |---|---|---|
 | 0.0D | `00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md` | complete docs-universe read, classification, and authority proof |
 | 0.0C | `00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md` | missing-news, follow-up, correction, and reinforcement discovery |
 | 0.1 | `01_PROMPT_0_1_Stage_A.md` | selector-only review of the expanded source universe |
+| 0.1S | `01A_PROMPT_0_1S_Structural_Value_Override.md` | structural-value override companion applied during Stage A selection |
 | 0.2 | `02_PROMPT_0_2_Stage_B_r0.md` | evidence package and card draft |
 | 0.3 | `03_PROMPT_0_3_Stage_C_r0.md` | fact-safe red-team validation |
 | 0.2R | `04_PROMPT_0_2R_Stage_B_Revise.md` | controlled rewrite |
@@ -54,12 +55,13 @@ Static counts below are package inventory aids. Stage 0.0D is the authority for 
 | 1.1 | `13_PROMPT_1_1_Retrospective.md` | retrospective and recurring-rule canonical promotion |
 | 0.1P | `14_PROMPT_0_1P_Review_Pool_Promotion.md` | explicitly authorized review-pool promotion |
 
-## 3. Permanent governance documents (15)
+## 3. Permanent governance documents (16)
 
 - `docs/FACT_DISCIPLINE.md`
 - `docs/RUN_GOVERNANCE_INDEX.md`
 - `docs/DOCUMENT_UNIVERSE_POLICY.md`
 - `docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md`
+- `docs/STRUCTURAL_NEWS_VALUE_SELECTION.md`
 - `docs/CARD_INCREMENTAL_RUN_CONTRACT.md`
 - `docs/PROMPT_ABC_DEFAULT_MODE.md`
 - `docs/PROMPT_ABC_SUPPORTING_RULES.md`

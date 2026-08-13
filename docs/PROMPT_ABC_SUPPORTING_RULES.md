@@ -1423,3 +1423,32 @@ github_ready = true
 ```
 
 Any waiver or exception must be explicit, bounded, and auditable.
+
+## 9. Export ledger field contract
+
+The bot-side export ledger (`state/final_export_ledger.jsonl`, 2026-08-12) may attach
+re-emission telemetry to `newsletter_clean` / `newsletter_expanded` inputs:
+
+- story-level (only when annotation is enabled): `ledger_state`
+  (`FIRST` | `REPEAT` | `REPUBLISH`), `ledger_emit_count`,
+  `ledger_hours_since_last_emit`, `ledger_republish_reason`;
+- file-level: `summary.ledger_*` counters and `newsletter_ledger_audit`
+  (every suppressed story is preserved there when suppression is active).
+
+Rules:
+
+1. All `ledger_*` values are upstream pre-filtering/observability signals only —
+   the same class as `newsletter_clean_score` under Stage A FIX-002. They are never
+   sufficient grounds for acceptance, evidence, strict-pass, rejection, or deletion.
+2. `ledger_state: REPEAT` means "this URL already appeared in an earlier LLM input
+   file". Treat it as duplicate-risk context feeding the normal Stage A baseline /
+   duplicate / follow-up screen — never as an automatic exclusion.
+3. `ledger_state: REPUBLISH` means the story was re-emitted because its evidence
+   materially improved (`ledger_republish_reason` records the trigger: triage
+   status upgrade or text-coverage upgrade). Treat it as a fresh candidate with
+   follow-up context, not as a duplicate.
+4. Missing `ledger_*` fields carry no signal (annotation may be off); absence must
+   not be read as `FIRST`.
+5. `newsletter_ledger_audit.suppressed_*` exists for audit and treasure-hunting;
+   Stage A treasure hunting may inspect it the same way it inspects DROPPED /
+   INPUT_ONLY stories.

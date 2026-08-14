@@ -142,6 +142,28 @@ class TestStageAV3RouteAlignment(unittest.TestCase):
         self.assertEqual(result, 0, output)
         self.assertIn("PASS_STAGE_A_SCHEMA_CONTRACT", output)
 
+    def test_execution_route_requires_every_shared_v3_field(self):
+        for field in lineage.STAGE_A_SHARED_STRICT_REQUIRED:
+            with self.subTest(field=field):
+                spec = self.execution_spec()
+                spec.pop(field)
+                result, output = self.run_stage_a(spec)
+                self.assertEqual(result, 1, output)
+                self.assertIn(
+                    f"execution route missing shared V3 field {field}",
+                    output,
+                )
+
+    def test_execution_route_requires_execution_event_anchor_class(self):
+        spec = self.execution_spec()
+        spec["anchor_classes"] = ["technology_commercialization_anchor"]
+        result, output = self.run_stage_a(spec)
+        self.assertEqual(result, 1, output)
+        self.assertIn(
+            "execution route anchor_classes must include execution_event_anchor",
+            output,
+        )
+
     def test_execution_route_rejects_true_override_only_metadata(self):
         spec = self.execution_spec()
         spec["structural_value_override_reason"] = (

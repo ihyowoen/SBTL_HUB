@@ -1467,4 +1467,8 @@ Rules:
    candidate worth rescuing via the Stage 0.0C / Stage A candidate flow, and let
    Stage B fetch evidence. A suppressed story must never leave the run without a
    ledgered disposition — otherwise `ledger_state` becomes a de-facto automatic
-   exclusion, which rules 1–2 forbid.
+   exclusion, which rules 1–2 forbid. Record these dispositions in a dedicated
+   `suppressed_review_ledger[]` (completeness: its entry count equals the
+   combined length of the suppressed lists), not in the Stage A story decision
+   ledger — the decision-ledger total must continue to equal the `stories[]`
+   count under the existing Stage A accounting invariant.

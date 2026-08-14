@@ -1424,7 +1424,7 @@ github_ready = true
 
 Any waiver or exception must be explicit, bounded, and auditable.
 
-## 9. Export ledger field contract
+## Operational integrated rule — EXPORT_LEDGER_FIELD_CONTRACT_20260812_V1
 
 The bot-side export ledger (`state/final_export_ledger.jsonl`, 2026-08-12) may attach
 re-emission telemetry to `newsletter_clean` / `newsletter_expanded` inputs:
@@ -1433,7 +1433,8 @@ re-emission telemetry to `newsletter_clean` / `newsletter_expanded` inputs:
   (`FIRST` | `REPEAT` | `REPUBLISH`), `ledger_emit_count`,
   `ledger_hours_since_last_emit`, `ledger_republish_reason`;
 - file-level: `summary.ledger_*` counters and `newsletter_ledger_audit`
-  (every suppressed story is preserved there when suppression is active).
+  (suppressed stories are preserved there as a metadata projection —
+  headline/URL/status/score, no body text — when suppression is active).
 
 Rules:
 
@@ -1448,7 +1449,10 @@ Rules:
    status upgrade or text-coverage upgrade). Treat it as a fresh candidate with
    follow-up context, not as a duplicate.
 4. Missing `ledger_*` fields carry no signal (annotation may be off); absence must
-   not be read as `FIRST`.
-5. `newsletter_ledger_audit.suppressed_*` exists for audit and treasure-hunting;
-   Stage A treasure hunting may inspect it the same way it inspects DROPPED /
-   INPUT_ONLY stories.
+   not be read as `FIRST`. Note: the file-level `summary.ledger_state_counts` may
+   tally un-annotated stories as `FIRST` — do not back-reference it for
+   story-level judgments.
+5. `newsletter_ledger_audit` holds the suppressed lists (clean: `suppressed`;
+   expanded: `suppressed_clean` / `suppressed_treasure`) for audit and
+   treasure-hunting; Stage A treasure hunting may inspect them by
+   headline/URL/status — the projection carries no body text.

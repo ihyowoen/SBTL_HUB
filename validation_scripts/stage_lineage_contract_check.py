@@ -6,8 +6,8 @@ with the canonical V3 policy hierarchy:
 
 - ordinary strict items may use a complete V3 non-execution route;
 - V3 non-execution routes must carry structural selector lineage;
-- execution routes may retain shared V3 before/after, evidence-target, and
-  changed-judgment metadata without being misclassified as dual-route output;
+- execution routes must retain and validate shared V3 before/after,
+  evidence-target, confirmation-point, and changed-judgment metadata;
 - truly override-only execution fields must remain empty.
 """
 from __future__ import annotations
@@ -81,6 +81,21 @@ _EXECUTION_ROUTE_OVERRIDE_ONLY_FIELDS = (
     "structural_value_override_reason",
     "why_execution_event_not_required",
 )
+_EXECUTION_ROUTE_SHARED_NARRATIVE_FIELDS = (
+    "incremental_information",
+    "decision_relevance",
+    "baseline_expectation_changed",
+    "prior_state",
+    "new_verified_fact",
+    "changed_judgment",
+    "uncertainty_resolved",
+    "remaining_uncertainty",
+)
+
+# Exported drift-check constants: these must stay aligned with the canonical
+# machine-readable V3 contract, not with any individual run artifact.
+STAGE_A_SHARED_STRICT_REQUIRED = _EXECUTION_ROUTE_SHARED_V3_FIELDS
+STAGE_A_OVERRIDE_ONLY_REQUIRED = _EXECUTION_ROUTE_OVERRIDE_ONLY_FIELDS
 
 
 def _is_temporal_noun_modifier(text, marker):
@@ -137,7 +152,7 @@ def _ordinary_override_candidate(spec):
 
 
 def _execution_route_candidate(spec):
-    """Identify a complete execution route before legacy residual-field checks."""
+    """Identify a complete execution identity before legacy residual-field checks."""
     if not isinstance(spec, dict):
         return False
     execution_type = spec.get("execution_anchor_type")
@@ -150,13 +165,82 @@ def _execution_route_candidate(spec):
     )
 
 
+def _validate_execution_shared_v3_metadata(spec, spec_id, messages):
+    """Enforce the route-neutral V3 metadata required on execution strict items."""
+    for field in _EXECUTION_ROUTE_SHARED_V3_FIELDS:
+        if _compat_module.missing_nonempty(spec, field):
+            messages.append(f"{spec_id}: execution route missing shared V3 field {field}")
+
+    classes = spec.get("anchor_classes")
+    allowed_classes = {
+        "execution_event_anchor",
+        *_compat_module.STAGE_A_NON_EXECUTION_ANCHOR_CLASSES,
+    }
+    if not isinstance(classes, list) or not classes:
+        messages.append(
+            f"{spec_id}: execution route anchor_classes must be a non-empty array"
+        )
+    else:
+        invalid_classes = [
+            value
+            for value in classes
+            if not isinstance(value, str) or value not in allowed_classes
+        ]
+        if invalid_classes:
+            messages.append(
+                f"{spec_id}: execution route invalid anchor_classes={invalid_classes}"
+            )
+        if "execution_event_anchor" not in classes:
+            messages.append(
+                f"{spec_id}: execution route anchor_classes must include execution_event_anchor"
+            )
+        if len(set(value for value in classes if isinstance(value, str))) != len(classes):
+            messages.append(
+                f"{spec_id}: execution route anchor_classes must be unique"
+            )
+
+    for field in _EXECUTION_ROUTE_SHARED_NARRATIVE_FIELDS:
+        if not _compat_module._item_specific_narrative(spec.get(field)):
+            messages.append(
+                f"{spec_id}: execution route {field} must be item-specific narrative text"
+            )
+
+    evidence_targets = spec.get("evidence_needed_for_stage_b")
+    if (
+        not isinstance(evidence_targets, list)
+        or not evidence_targets
+        or any(
+            not _compat_module._valid_evidence_target(value)
+            for value in evidence_targets
+        )
+    ):
+        messages.append(
+            f"{spec_id}: execution route evidence_needed_for_stage_b entries must identify both "
+            "a source/document class and an exact claim, metric, stage, or date"
+        )
+
+    confirmation_points = spec.get("next_confirmation_points")
+    if (
+        not isinstance(confirmation_points, list)
+        or not confirmation_points
+        or any(
+            not _compat_module._valid_confirmation_point(value)
+            for value in confirmation_points
+        )
+    ):
+        messages.append(
+            f"{spec_id}: execution route next_confirmation_points entries must identify measurable "
+            "events or metrics and an interpretation effect"
+        )
+
+
 def _execution_route_validation_view(spec):
     """Hide shared V3 metadata only from the legacy residual-override detector.
 
-    The canonical V3 policy requires these fields to survive on strict execution
-    items too. The older base validator treated every populated V3 field as an
-    override-only residue. Validate the execution route against a shallow copy
-    with only the shared fields neutralised; the original artifact is untouched.
+    Shared metadata is validated above against the corrected canonical contract.
+    The historical base interpreted every populated V3 field as override-only,
+    so a shallow compatibility view is used only to avoid that obsolete check.
+    The source artifact is never mutated.
     """
     routed_spec = dict(spec)
     for field in _EXECUTION_ROUTE_SHARED_V3_FIELDS:
@@ -183,6 +267,7 @@ def validate_stage_a_spec(spec, index, messages):
     _append_v3_lineage_errors(spec, spec_id, messages)
 
     if _execution_route_candidate(spec):
+        _validate_execution_shared_v3_metadata(spec, spec_id, messages)
         for field in _EXECUTION_ROUTE_OVERRIDE_ONLY_FIELDS:
             if spec.get(field) not in (None, "", [], {}):
                 messages.append(

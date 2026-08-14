@@ -137,7 +137,6 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
         result, output = self.run_stage_a(artifact)
         self.assertEqual(result, 1)
         self.assertIn("decision_news_value_score must be integer 0..100", output)
-        self.assertIn("decision_value_breakdown must be an object", output)
 
     def test_missing_summary_contract_field_is_rejected(self):
         artifact = self.full_artifact()

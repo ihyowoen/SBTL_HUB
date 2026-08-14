@@ -26,8 +26,11 @@ class TestLatestStageARouteReview(unittest.TestCase):
         spec["execution_anchor_type"] = "commercial_award"
         spec["execution_anchor_strength"] = "strong"
         spec["structural_value_override_applied"] = False
-        for field in lineage.STAGE_A_V3_OVERRIDE_REQUIRED:
-            spec[field] = [] if field in {"anchor_classes", "evidence_needed_for_stage_b", "next_confirmation_points"} else None
+        spec["structural_value_override_reason"] = None
+        spec["why_execution_event_not_required"] = None
+        spec["anchor_classes"] = ["execution_event_anchor"]
+        # Shared V3 decision metadata from the base fixture remains populated on
+        # the execution route; only true override rationale is empty.
         return spec
 
     def test_clean_execution_route_passes(self):
@@ -45,10 +48,12 @@ class TestLatestStageARouteReview(unittest.TestCase):
     def test_execution_route_rejects_residual_override_package(self):
         spec = self.clean_execution_spec()
         spec["structural_value_override_reason"] = "Residual strategic rationale must not remain on the execution path."
-        spec["anchor_classes"] = ["strategic_behavior_anchor"]
         result, output = self.run_stage_a(spec)
         self.assertEqual(result, 1)
-        self.assertIn("must leave override-only fields empty", output)
+        self.assertIn(
+            "execution route must leave override-only field structural_value_override_reason empty",
+            output,
+        )
 
     def test_exact_unlisted_and_korean_targets_pass(self):
         for target in ("SEC filing 2027 revenue", "금감원 공시 2027년 매출"):

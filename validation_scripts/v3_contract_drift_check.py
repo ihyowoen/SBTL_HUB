@@ -47,6 +47,12 @@ def alignment_errors(
         "STAGE_A_NON_EXECUTION_ANCHOR_CLASSES": projection[
             "allowed_non_execution_anchor_classes"
         ],
+        "STAGE_A_SHARED_STRICT_REQUIRED": projection[
+            "shared_strict_required_fields"
+        ],
+        "STAGE_A_OVERRIDE_ONLY_REQUIRED": projection[
+            "override_only_required_fields"
+        ],
         "STAGE_A_V3_OVERRIDE_REQUIRED": projection[
             "v3_override_required_fields"
         ],

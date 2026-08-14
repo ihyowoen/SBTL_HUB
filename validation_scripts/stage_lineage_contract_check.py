@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
-"""Review 4869541592 compatibility layer for ordinary V3 routes and clause modifiers."""
+"""Stage A V3 route-alignment compatibility layer.
+
+Keeps the existing validator chain, but aligns the Stage A strict-route consumer
+with the canonical V3 policy hierarchy:
+
+- ordinary strict items may use a complete V3 non-execution route;
+- V3 non-execution routes must carry structural selector lineage;
+- execution routes may retain shared V3 before/after, evidence-target, and
+  changed-judgment metadata without being misclassified as dual-route output;
+- truly override-only execution fields must remain empty.
+"""
 from __future__ import annotations
 
 import importlib.util
@@ -53,6 +63,25 @@ _WHEN_REDUCED_STATUS_PATTERN = (
     r"approved|ready|effective|released|disclosed)"
 )
 
+_CANONICAL_STRUCTURAL_SELECTOR_POLICY_VERSION = "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
+_EXECUTION_ROUTE_SHARED_V3_FIELDS = (
+    "anchor_classes",
+    "incremental_information",
+    "decision_relevance",
+    "baseline_expectation_changed",
+    "evidence_needed_for_stage_b",
+    "next_confirmation_points",
+    "prior_state",
+    "new_verified_fact",
+    "changed_judgment",
+    "uncertainty_resolved",
+    "remaining_uncertainty",
+)
+_EXECUTION_ROUTE_OVERRIDE_ONLY_FIELDS = (
+    "structural_value_override_reason",
+    "why_execution_event_not_required",
+)
+
 
 def _is_temporal_noun_modifier(text, marker):
     """Preserve narrow since/when noun modifiers without retaining real clauses."""
@@ -86,35 +115,89 @@ _compat_module._is_temporal_noun_modifier = _is_temporal_noun_modifier
 _prior_validate_stage_a_spec = _compat_module.validate_stage_a_spec
 
 
-def _ordinary_override_candidate(spec):
-    if not isinstance(spec, dict):
-        return False
-    tags = spec.get("format_risk_tags")
+def _normalized_format_risk_tags(spec):
+    tags = spec.get("format_risk_tags") if isinstance(spec, dict) else None
     if not isinstance(tags, list):
-        return False
-    normalized_tags = [
+        return None
+    return [
         value.strip().lower()
         for value in tags
         if isinstance(value, str) and value.strip()
     ]
+
+
+def _ordinary_override_candidate(spec):
+    """Identify a non-format-risk candidate that intentionally uses V3 override."""
+    if not isinstance(spec, dict):
+        return False
+    normalized_tags = _normalized_format_risk_tags(spec)
     if normalized_tags not in ([], ["none"]):
         return False
-    residual_override_fields = [
-        field
-        for field in _compat_module.STAGE_A_V3_OVERRIDE_REQUIRED
-        if spec.get(field) not in (None, "", [], {})
-    ]
+    return spec.get("structural_value_override_applied") is True
+
+
+def _execution_route_candidate(spec):
+    """Identify a complete execution route before legacy residual-field checks."""
+    if not isinstance(spec, dict):
+        return False
+    execution_type = spec.get("execution_anchor_type")
+    execution_strength = spec.get("execution_anchor_strength")
     return (
-        spec.get("structural_value_override_applied") is True
-        or bool(residual_override_fields)
+        isinstance(execution_type, str)
+        and bool(execution_type.strip())
+        and execution_strength in _compat_module.STAGE_A_ALLOWED_EXECUTION_ANCHOR_STRENGTH
+        and spec.get("structural_value_override_applied") is False
     )
 
 
+def _execution_route_validation_view(spec):
+    """Hide shared V3 metadata only from the legacy residual-override detector.
+
+    The canonical V3 policy requires these fields to survive on strict execution
+    items too. The older base validator treated every populated V3 field as an
+    override-only residue. Validate the execution route against a shallow copy
+    with only the shared fields neutralised; the original artifact is untouched.
+    """
+    routed_spec = dict(spec)
+    for field in _EXECUTION_ROUTE_SHARED_V3_FIELDS:
+        value = routed_spec.get(field)
+        routed_spec[field] = [] if isinstance(value, list) else None
+    return routed_spec
+
+
+def _append_v3_lineage_errors(spec, spec_id, messages):
+    if spec.get("structural_value_override_applied") is True:
+        if spec.get("structural_selector_policy_version") != _CANONICAL_STRUCTURAL_SELECTOR_POLICY_VERSION:
+            messages.append(
+                f"{spec_id}: structural_selector_policy_version must be "
+                f"{_CANONICAL_STRUCTURAL_SELECTOR_POLICY_VERSION} for v3_non_execution"
+            )
+
+
 def validate_stage_a_spec(spec, index, messages):
-    """Apply the same exactly-one route contract to ordinary V3 candidates."""
+    """Align strict-route validation with canonical Structural News Value V3."""
+    if not isinstance(spec, dict):
+        return _prior_validate_stage_a_spec(spec, index, messages)
+
+    spec_id = spec.get("spec_id", f"idx_{index}")
+    _append_v3_lineage_errors(spec, spec_id, messages)
+
+    if _execution_route_candidate(spec):
+        for field in _EXECUTION_ROUTE_OVERRIDE_ONLY_FIELDS:
+            if spec.get(field) not in (None, "", [], {}):
+                messages.append(
+                    f"{spec_id}: execution route must leave override-only field {field} empty"
+                )
+        return _prior_validate_stage_a_spec(
+            _execution_route_validation_view(spec), index, messages
+        )
+
     if not _ordinary_override_candidate(spec):
         return _prior_validate_stage_a_spec(spec, index, messages)
 
+    # The legacy base only runs V3 override validation in the format-risk branch.
+    # Route an ordinary non-execution candidate through that same contract without
+    # changing the source artifact or pretending it is actually format-risk.
     routed_spec = dict(spec)
     routed_spec["format_risk_tags"] = ["ordinary_v3_route_contract"]
     message_start = len(messages)

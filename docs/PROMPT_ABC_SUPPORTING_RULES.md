@@ -1423,3 +1423,52 @@ github_ready = true
 ```
 
 Any waiver or exception must be explicit, bounded, and auditable.
+
+## Operational integrated rule — EXPORT_LEDGER_FIELD_CONTRACT_V1
+
+The bot-side export ledger (`state/final_export_ledger.jsonl`) may attach
+re-emission telemetry to `newsletter_clean` / `newsletter_expanded` inputs
+(introduction history lives in the migration/audit record, not here):
+
+- story-level (only when annotation is enabled): `ledger_state`
+  (`FIRST` | `REPEAT` | `REPUBLISH`), `ledger_emit_count`,
+  `ledger_hours_since_last_emit`, `ledger_republish_reason`;
+- file-level: `summary.ledger_*` counters and `newsletter_ledger_audit`
+  (suppressed stories are preserved there as a metadata projection —
+  headline/URL/status/score, no body text — when suppression is active).
+
+Rules:
+
+1. All `ledger_*` values are upstream pre-filtering/observability signals only —
+   the same class as `newsletter_clean_score` under Stage A FIX-002. They are never
+   sufficient grounds for acceptance, evidence, strict-pass, rejection, or deletion.
+2. `ledger_state: REPEAT` means "this URL already appeared in an earlier LLM input
+   file". Treat it as duplicate-risk context feeding the normal Stage A baseline /
+   duplicate / follow-up screen — never as an automatic exclusion.
+3. `ledger_state: REPUBLISH` means the exporter re-emitted the story because its
+   evidence quality improved (`ledger_republish_reason` records the trigger:
+   triage status upgrade or text-coverage upgrade). This is an improved-evidence
+   review signal, **not** a duplicate-screen exemption: the story still passes
+   through the normal baseline / duplicate / incremental-information / follow-up
+   assessment. If it carries no new fact, classify it as reinforcement under the
+   V3 novelty caps (republication without new information); if it carries a new
+   stage, figure, legal status, or changed market judgment, it may qualify as a
+   material follow-up.
+4. Missing `ledger_*` fields carry no signal (annotation may be off); absence must
+   not be read as `FIRST`. Note: the file-level `summary.ledger_state_counts` may
+   tally un-annotated stories as `FIRST` — do not back-reference it for
+   story-level judgments.
+5. `newsletter_ledger_audit` holds the suppressed lists (clean: `suppressed`;
+   expanded: `suppressed_clean` / `suppressed_treasure`). When suppression is
+   active these stories are absent from the input `stories[]`, so the audit
+   entries **must** be included in the Stage A bounded accounting universe with
+   the same disposition discipline as DROPPED / INPUT_ONLY stories: review at
+   headline/URL/status level (the projection carries no body text), restore any
+   candidate worth rescuing via the Stage 0.0C / Stage A candidate flow, and let
+   Stage B fetch evidence. A suppressed story must never leave the run without a
+   ledgered disposition — otherwise `ledger_state` becomes a de-facto automatic
+   exclusion, which rules 1–2 forbid. Record these dispositions in a dedicated
+   `suppressed_review_ledger[]` (completeness: its entry count equals the
+   combined length of the suppressed lists), not in the Stage A story decision
+   ledger — the decision-ledger total must continue to equal the `stories[]`
+   count under the existing Stage A accounting invariant.

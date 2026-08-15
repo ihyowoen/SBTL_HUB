@@ -5,7 +5,8 @@ The canonical schema distinguishes:
 
 - shared strict decision metadata, required on execution and non-execution routes;
 - override-only rationale, required only on V3 non-execution routes;
-- execution-anchor identity, required only on execution routes.
+- execution-anchor identity, required only on execution routes;
+- structural-selector lineage, required on the V3 non-execution route.
 
 The historical base validator is retained for all unchanged checks. A normalized
 validation view lets it verify the legacy invariants while this module validates
@@ -39,10 +40,15 @@ _NONEMPTY_NARRATIVE_SCHEMA = {
     "pattern": _TRIMMED_NARRATIVE_PATTERN,
 }
 _EMPTY_REF = {"$ref": "#/$defs/empty_route_value"}
+_CANONICAL_SELECTOR_VERSION = "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
 _EXECUTION_IDENTITY_FIELDS = {
     "execution_anchor_type",
     "execution_anchor_strength",
     "structural_value_override_applied",
+}
+_NON_EXECUTION_IDENTITY_FIELDS = {
+    "structural_value_override_applied",
+    "structural_selector_policy_version",
 }
 
 
@@ -104,12 +110,15 @@ def _anchor_class_schema(values: list[str], require_execution: bool) -> dict[str
 
 
 def _legacy_validation_view(contract: Mapping[str, Any]) -> dict[str, Any]:
-    """Translate only the corrected route split into the historical checker shape."""
+    """Translate only corrected route/lineage additions into historical shape."""
     view = copy.deepcopy(dict(contract))
     metadata = view.get("x-sbtl-contract")
     definitions = view.get("$defs")
     if not isinstance(metadata, dict) or not isinstance(definitions, dict):
         return view
+
+    # The historical checker predates the selector-lineage metadata key.
+    metadata.pop("structural_selector_policy_version", None)
 
     override_required = metadata.get("v3_override_required_fields")
     if isinstance(override_required, list):
@@ -127,15 +136,24 @@ def _legacy_validation_view(contract: Mapping[str, Any]) -> dict[str, Any]:
 
     non_execution = definitions.get("v3_non_execution_route")
     if isinstance(non_execution, dict):
+        required = non_execution.get("required")
+        if isinstance(required, list):
+            non_execution["required"] = [
+                field
+                for field in required
+                if field != "structural_selector_policy_version"
+            ]
         properties = non_execution.get("properties")
         allowed = metadata.get("allowed_non_execution_anchor_classes")
-        if isinstance(properties, dict) and isinstance(allowed, list):
-            properties["anchor_classes"] = {
-                "type": "array",
-                "minItems": 1,
-                "uniqueItems": True,
-                "items": {"enum": list(allowed)},
-            }
+        if isinstance(properties, dict):
+            properties.pop("structural_selector_policy_version", None)
+            if isinstance(allowed, list):
+                properties["anchor_classes"] = {
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": True,
+                    "items": {"enum": list(allowed)},
+                }
     return view
 
 
@@ -145,6 +163,12 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
     definitions = contract.get("$defs")
     if not isinstance(metadata, Mapping) or not isinstance(definitions, Mapping):
         return errors
+
+    selector_version = metadata.get("structural_selector_policy_version")
+    if selector_version != _CANONICAL_SELECTOR_VERSION:
+        errors.append(
+            "structural_selector_policy_version metadata must equal STRUCTURAL_NEWS_VALUE_SELECTION_V3"
+        )
 
     shared = _unique_string_list(metadata.get("shared_strict_required_fields"))
     override_only = _unique_string_list(metadata.get("override_only_required_fields"))
@@ -195,14 +219,14 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
         )
 
     non_execution_required = non_execution.get("required")
-    expected_non_execution_required = {"structural_value_override_applied", *override_required}
+    expected_non_execution_required = _NON_EXECUTION_IDENTITY_FIELDS | set(override_required)
     if (
         not isinstance(non_execution_required, list)
         or len(non_execution_required) != len(expected_non_execution_required)
         or set(non_execution_required) != expected_non_execution_required
     ):
         errors.append(
-            "v3_non_execution_route required fields differ from shared-plus-override contract"
+            "v3_non_execution_route required fields differ from selector-lineage plus shared-and-override contract"
         )
 
     allowed_non_execution = _unique_string_list(
@@ -233,6 +257,12 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
         "$ref": "#/$defs/non_execution_anchor_classes"
     }:
         errors.append("v3_non_execution_route anchor_classes must reference non_execution_anchor_classes")
+    if non_execution_properties.get("structural_selector_policy_version") != {
+        "const": _CANONICAL_SELECTOR_VERSION
+    }:
+        errors.append(
+            "v3_non_execution_route structural_selector_policy_version must be the canonical constant"
+        )
 
     for field in override_only:
         if execution_properties.get(field) != _EMPTY_REF:
@@ -262,6 +292,9 @@ def contract_projection(contract: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "route_cardinality": metadata["route_cardinality"],
         "route_names": tuple(metadata["route_names"]),
+        "structural_selector_policy_version": metadata[
+            "structural_selector_policy_version"
+        ],
         "allowed_execution_anchor_strengths": frozenset(
             metadata["allowed_execution_anchor_strengths"]
         ),

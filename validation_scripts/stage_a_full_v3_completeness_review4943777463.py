@@ -81,12 +81,26 @@ def _candidate_label(item: Mapping[str, Any], fallback: str) -> str:
     return fallback
 
 
-def _append_nonstring_enum(
+def _is_hashable(value: Any) -> bool:
+    try:
+        hash(value)
+    except TypeError:
+        return False
+    return True
+
+
+def _append_unsafe_enum_operand(
     messages: list[str], label: str, field: str, value: Any
 ) -> None:
-    if value is not None and not isinstance(value, str):
+    """Preflight only values that can crash legacy set/dict membership.
+
+    Hashable but semantically invalid scalars are intentionally left to the
+    existing field/route validators so their more specific diagnostics remain
+    authoritative.
+    """
+    if value is not None and not _is_hashable(value):
         messages.append(
-            f"{label}: {field} must be string metadata before legacy enum validation"
+            f"{label}: {field} must be hashable scalar metadata before legacy enum validation"
         )
 
 
@@ -106,14 +120,14 @@ def prevalidate_full_stage_a_artifact(data: Any) -> list[str]:
             label = _candidate_label(item, f"{pool}[{index}]")
             for field in _DIRECT_ENUM_TEXT_FIELDS:
                 if field in item:
-                    _append_nonstring_enum(messages, label, field, item.get(field))
+                    _append_unsafe_enum_operand(messages, label, field, item.get(field))
             for field in _EARNINGS_ENUM_TEXT_FIELDS:
                 if field in item:
-                    _append_nonstring_enum(messages, label, field, item.get(field))
+                    _append_unsafe_enum_operand(messages, label, field, item.get(field))
 
             credibility = item.get("execution_credibility_gate")
             if isinstance(credibility, Mapping) and "anchor_strength" in credibility:
-                _append_nonstring_enum(
+                _append_unsafe_enum_operand(
                     messages,
                     label,
                     "execution_credibility_gate.anchor_strength",
@@ -122,7 +136,7 @@ def prevalidate_full_stage_a_artifact(data: Any) -> list[str]:
 
             urgency = item.get("publication_urgency")
             if isinstance(urgency, Mapping) and "level" in urgency:
-                _append_nonstring_enum(
+                _append_unsafe_enum_operand(
                     messages,
                     label,
                     "publication_urgency.level",
@@ -135,13 +149,13 @@ def prevalidate_full_stage_a_artifact(data: Any) -> list[str]:
             if not isinstance(item, Mapping) or "hard_reject_basis" not in item:
                 continue
             label = _candidate_label(item, f"rejected[{index}]")
-            _append_nonstring_enum(
+            _append_unsafe_enum_operand(
                 messages, label, "hard_reject_basis", item.get("hard_reject_basis")
             )
 
     summary = data.get("summary")
     if isinstance(summary, Mapping) and "earnings_call_qna_audit_status" in summary:
-        _append_nonstring_enum(
+        _append_unsafe_enum_operand(
             messages,
             "full Stage A summary",
             "earnings_call_qna_audit_status",

@@ -4,7 +4,7 @@
 Adds cross-object reconciliation that is not safely expressible as simple
 presence checks: usable strict source lineage, review workload accounting,
 review-resolution partition lineage, decision-ledger disposition lineage, and
-safe preflight of execution-strength types before legacy membership checks.
+safe preflight of unhashable execution strengths before legacy set membership.
 """
 from __future__ import annotations
 
@@ -61,8 +61,16 @@ def _candidate_label(item: Mapping[str, Any], fallback: str) -> str:
     return fallback
 
 
+def _is_hashable(value: Any) -> bool:
+    try:
+        hash(value)
+    except TypeError:
+        return False
+    return True
+
+
 def prevalidate_full_stage_a_artifact(data: Any) -> list[str]:
-    """Run prior container preflight plus type guards needed before legacy code."""
+    """Run prior container preflight plus guards required before legacy set checks."""
     messages = list(_previous.prevalidate_full_stage_a_artifact(data))
     if not isinstance(data, Mapping):
         return messages
@@ -72,17 +80,11 @@ def prevalidate_full_stage_a_artifact(data: Any) -> list[str]:
     for index, item in enumerate(strict):
         if not isinstance(item, Mapping):
             continue
-        anchor_type = item.get("execution_anchor_type")
         strength = item.get("execution_anchor_strength")
-        execution_shaped = not (
-            anchor_type is None or anchor_type == "" or anchor_type == [] or anchor_type == {}
-        ) or not (
-            strength is None or strength == "" or strength == [] or strength == {}
-        )
-        if execution_shaped and not isinstance(strength, str):
+        if not _is_hashable(strength):
             label = _candidate_label(item, f"strict_passed_spec[{index}]")
             messages.append(
-                f"{label}: execution_anchor_strength must be a string before execution-route validation"
+                f"{label}: execution_anchor_strength must be hashable scalar metadata before execution-route validation"
             )
     return messages
 

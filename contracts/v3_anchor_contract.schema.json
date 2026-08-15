@@ -16,6 +16,7 @@
       "ordinary_v3_with_override_metadata"
     ],
     "preservation": "byte_for_byte_across_stages",
+    "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
     "allowed_execution_anchor_strengths": [
       "strong",
       "moderate"
@@ -235,6 +236,7 @@
       "type": "object",
       "required": [
         "structural_value_override_applied",
+        "structural_selector_policy_version",
         "structural_value_override_reason",
         "anchor_classes",
         "incremental_information",
@@ -251,6 +253,7 @@
       ],
       "properties": {
         "structural_value_override_applied": {"const": true},
+        "structural_selector_policy_version": {"const": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"},
         "structural_value_override_reason": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
         "anchor_classes": {"$ref": "#/$defs/non_execution_anchor_classes"},
         "incremental_information": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},

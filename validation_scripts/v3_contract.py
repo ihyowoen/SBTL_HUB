@@ -50,6 +50,39 @@ _NON_EXECUTION_IDENTITY_FIELDS = {
     "structural_value_override_applied",
     "structural_selector_policy_version",
 }
+_CANONICAL_SHARED_STRICT_FIELDS = (
+    "anchor_classes",
+    "incremental_information",
+    "decision_relevance",
+    "baseline_expectation_changed",
+    "evidence_needed_for_stage_b",
+    "next_confirmation_points",
+    "prior_state",
+    "new_verified_fact",
+    "changed_judgment",
+    "uncertainty_resolved",
+    "remaining_uncertainty",
+)
+_CANONICAL_OVERRIDE_ONLY_FIELDS = (
+    "structural_value_override_reason",
+    "why_execution_event_not_required",
+)
+_CANONICAL_OVERRIDE_REQUIRED_FIELDS = (
+    *_CANONICAL_OVERRIDE_ONLY_FIELDS,
+    *_CANONICAL_SHARED_STRICT_FIELDS,
+)
+_CANONICAL_NARRATIVE_FIELDS = (
+    "structural_value_override_reason",
+    "incremental_information",
+    "decision_relevance",
+    "baseline_expectation_changed",
+    "why_execution_event_not_required",
+    "prior_state",
+    "new_verified_fact",
+    "changed_judgment",
+    "uncertainty_resolved",
+    "remaining_uncertainty",
+)
 
 
 def _expected_structured_text_definition(key_pairs):
@@ -90,10 +123,13 @@ def _unique_string_list(value: Any) -> list[str] | None:
         or any(not isinstance(item, str) or not item.strip() for item in value)
     ):
         return None
-    normalized = [item.strip() for item in value]
-    if len(set(normalized)) != len(normalized):
+    # Contract metadata is itself canonical data.  Do not validate a trimmed
+    # representation and then project the untrimmed source value downstream.
+    if any(item != item.strip() for item in value):
         return None
-    return normalized
+    if len(set(value)) != len(value):
+        return None
+    return list(value)
 
 
 def _anchor_class_schema(values: list[str], require_execution: bool) -> dict[str, Any]:
@@ -173,14 +209,28 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
     shared = _unique_string_list(metadata.get("shared_strict_required_fields"))
     override_only = _unique_string_list(metadata.get("override_only_required_fields"))
     override_required = _unique_string_list(metadata.get("v3_override_required_fields"))
+    narrative_fields = _unique_string_list(metadata.get("v3_narrative_fields"))
     if shared is None:
-        errors.append("shared_strict_required_fields must be a unique non-empty string array")
+        errors.append("shared_strict_required_fields must be a unique non-empty canonical string array")
         shared = []
     if override_only is None:
-        errors.append("override_only_required_fields must be a unique non-empty string array")
+        errors.append("override_only_required_fields must be a unique non-empty canonical string array")
         override_only = []
     if override_required is None:
+        errors.append("v3_override_required_fields must be a unique non-empty canonical string array")
         return errors
+    if narrative_fields is None:
+        errors.append("v3_narrative_fields must be a unique non-empty canonical string array")
+        narrative_fields = []
+
+    if set(shared) != set(_CANONICAL_SHARED_STRICT_FIELDS):
+        errors.append("shared_strict_required_fields must match the fixed V3 shared field set")
+    if set(override_only) != set(_CANONICAL_OVERRIDE_ONLY_FIELDS):
+        errors.append("override_only_required_fields must match the fixed V3 override-only field set")
+    if set(override_required) != set(_CANONICAL_OVERRIDE_REQUIRED_FIELDS):
+        errors.append("v3_override_required_fields must match the fixed V3 route field set")
+    if set(narrative_fields) != set(_CANONICAL_NARRATIVE_FIELDS):
+        errors.append("v3_narrative_fields must match the fixed V3 narrative field set")
 
     if set(shared) & set(override_only):
         errors.append("shared_strict_required_fields and override_only_required_fields must be disjoint")
@@ -195,10 +245,10 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
     execution_empty = empty_by_route.get("execution")
     if (
         not isinstance(execution_empty, list)
-        or any(not isinstance(item, str) or not item.strip() for item in execution_empty)
+        or any(not isinstance(item, str) or not item.strip() or item != item.strip() for item in execution_empty)
         or len(set(execution_empty)) != len(execution_empty)
     ):
-        errors.append("execution empty-only fields must be a unique string array")
+        errors.append("execution empty-only fields must be a unique canonical string array")
     elif set(execution_empty) != set(override_only):
         errors.append("execution empty-only fields must equal override_only_required_fields")
 

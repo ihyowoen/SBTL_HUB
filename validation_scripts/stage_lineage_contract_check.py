@@ -4,7 +4,7 @@
 The historical validator chain remains authoritative for unchanged lineage,
 source-diversity, review-pool, and downstream checks.  This layer aligns it with
 canonical Structural News Value V3 and delegates real-artifact completeness to
-``stage_a_full_v3_completeness_review4943777463``.
+``stage_a_full_v3_completeness_review4943878732``.
 """
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ for _import_path in (_ROOT_DIR, _VALIDATION_DIR):
     if _import_path_text not in sys.path:
         sys.path.insert(0, _import_path_text)
 
-from validation_scripts.stage_a_full_v3_completeness_review4943777463 import (  # noqa: E402
+from validation_scripts.stage_a_full_v3_completeness_review4943878732 import (  # noqa: E402
     CANONICAL_POLICY_VERSION,
     looks_like_full_stage_a_artifact,
     prevalidate_full_stage_a_artifact,

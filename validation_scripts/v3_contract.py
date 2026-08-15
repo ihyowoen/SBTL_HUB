@@ -168,7 +168,14 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
     empty_by_route = metadata.get("empty_only_fields_by_route")
     if not isinstance(empty_by_route, Mapping):
         return errors
-    if set(empty_by_route.get("execution", [])) != set(override_only):
+    execution_empty = empty_by_route.get("execution")
+    if (
+        not isinstance(execution_empty, list)
+        or any(not isinstance(item, str) or not item.strip() for item in execution_empty)
+        or len(set(execution_empty)) != len(execution_empty)
+    ):
+        errors.append("execution empty-only fields must be a unique string array")
+    elif set(execution_empty) != set(override_only):
         errors.append("execution empty-only fields must equal override_only_required_fields")
 
     execution = definitions.get("execution_route")
@@ -292,7 +299,6 @@ def contract_projection(contract: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-# The historical checker resolves these expectations through module globals.
 _base._NONEMPTY_NARRATIVE_SCHEMA = _NONEMPTY_NARRATIVE_SCHEMA
 _base._expected_structured_text_definition = _expected_structured_text_definition
 globals()["_NONEMPTY_NARRATIVE_SCHEMA"] = _NONEMPTY_NARRATIVE_SCHEMA

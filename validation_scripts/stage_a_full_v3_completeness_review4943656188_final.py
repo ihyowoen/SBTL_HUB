@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Final fail-closed surface for reviews through 4943695732.
+"""Final fail-closed surface for reviews through 4943729715.
 
 Completes the active Prompt 0.1 / Structural V3 Stage A contract without
 changing editorial decisions or introducing run-specific exceptions.
@@ -131,6 +131,47 @@ BASE_REJECTED_NONEMPTY_TEXT_FIELDS = (
     "why_not_review_pool",
     "staleness_decision",
 )
+REINFORCEMENT_REQUIRED_FIELDS = (
+    "reinforcement_type",
+    "reason_not_new_card",
+    "notes",
+)
+REINFORCEMENT_NONEMPTY_TEXT_FIELDS = (
+    "reinforcement_type",
+    "reason_not_new_card",
+)
+SUPPORT_SOURCE_REQUIRED_FIELDS = (
+    "potential_supported_topic",
+    "reason_not_independent_card",
+    "notes",
+)
+SUPPORT_SOURCE_NONEMPTY_TEXT_FIELDS = (
+    "potential_supported_topic",
+    "reason_not_independent_card",
+)
+REVIEW_RESOLUTION_REQUIRED_FIELDS = (
+    "review_pool_item_id",
+    "original_review_pool_partition",
+    "current_disposition",
+    "disposition_basis",
+    "carry_forward_policy",
+    "next_action_condition",
+    "whether_user_authorization_required",
+)
+REVIEW_RESOLUTION_NONEMPTY_TEXT_FIELDS = (
+    "review_pool_item_id",
+    "original_review_pool_partition",
+    "current_disposition",
+    "disposition_basis",
+    "carry_forward_policy",
+    "next_action_condition",
+)
+ALLOWED_REVIEW_RESOLUTION_PARTITIONS = {
+    "candidate_review_pool",
+    "watchlist_context_pool",
+    "reject_or_support_only_pool",
+    "review_pool",
+}
 
 
 def _nonempty_text(value: Any) -> bool:
@@ -218,6 +259,27 @@ def _validate_strict_nested_base_surface(data: Mapping[str, Any], messages: list
                     messages.append(f"{label}: staleness missing {field}")
 
 
+def _validate_strict_bucket_exclusions(data: Mapping[str, Any], messages: list[str]) -> None:
+    strict = data.get("strict_passed_spec")
+    if not isinstance(strict, list):
+        return
+    disqualifying = (
+        ("baseline_relation", "duplicate_of_main"),
+        ("duplicate_risk", "fatal"),
+        ("staleness_decision", "stale"),
+    )
+    for index, item in enumerate(strict):
+        if not isinstance(item, Mapping):
+            continue
+        label = _base._candidate_id(item, f"strict_passed_spec[{index}]")
+        for field, blocked_value in disqualifying:
+            value = item.get(field)
+            if isinstance(value, str) and value.strip().lower() == blocked_value:
+                messages.append(
+                    f"{label}: strict_passed_spec cannot use {field}={blocked_value}; route to a non-strict disposition"
+                )
+
+
 def _validate_required_docs_check(data: Mapping[str, Any], messages: list[str]) -> None:
     docs = data.get("required_docs_check")
     if not isinstance(docs, Mapping):
@@ -285,6 +347,42 @@ def _validate_review_base_contract(data: Mapping[str, Any], messages: list[str])
                     messages.append(f"{label}: base review field {field} must be non-empty text")
 
 
+def _validate_review_resolution_ledger(data: Mapping[str, Any], messages: list[str]) -> None:
+    review_items_present = any(
+        isinstance(data.get(pool), list) and bool(data.get(pool))
+        for pool in (*_base.REVIEW_POOLS, "review_pool")
+    )
+    ledger = data.get("review_pool_resolution_ledger")
+    if review_items_present and not isinstance(ledger, list):
+        messages.append("full Stage A artifact review_pool_resolution_ledger must be an array when review items exist")
+        return
+    if not isinstance(ledger, list):
+        return
+    for index, row in enumerate(ledger):
+        label = f"review_pool_resolution_ledger[{index}]"
+        if not isinstance(row, Mapping):
+            messages.append(f"{label} must be an object")
+            continue
+        _validate_story_identity(row, label, messages)
+        for field in REVIEW_RESOLUTION_REQUIRED_FIELDS:
+            if field not in row:
+                messages.append(f"{label}: missing required review-resolution field {field}")
+        for field in REVIEW_RESOLUTION_NONEMPTY_TEXT_FIELDS:
+            if field in row and not _nonempty_text(row.get(field)):
+                messages.append(f"{label}: review-resolution field {field} must be non-empty text")
+        partition = row.get("original_review_pool_partition")
+        if _nonempty_text(partition) and partition not in ALLOWED_REVIEW_RESOLUTION_PARTITIONS:
+            messages.append(
+                f"{label}: original_review_pool_partition must be a supported review partition"
+            )
+        if "whether_user_authorization_required" in row and not isinstance(
+            row.get("whether_user_authorization_required"), bool
+        ):
+            messages.append(
+                f"{label}: whether_user_authorization_required must be boolean"
+            )
+
+
 def _validate_rejected_base_contract(data: Mapping[str, Any], messages: list[str]) -> None:
     values = data.get("rejected")
     if not isinstance(values, list):
@@ -302,6 +400,37 @@ def _validate_rejected_base_contract(data: Mapping[str, Any], messages: list[str
                 messages.append(f"{label}: rejected field {field} must be non-empty text")
         if "hard_reject_positive_test_passed" in item and item.get("hard_reject_positive_test_passed") is not True:
             messages.append(f"{label}: hard_reject_positive_test_passed must be true")
+
+
+def _validate_nonreview_outcome_contracts(data: Mapping[str, Any], messages: list[str]) -> None:
+    configs = (
+        (
+            "existing_reinforcement",
+            REINFORCEMENT_REQUIRED_FIELDS,
+            REINFORCEMENT_NONEMPTY_TEXT_FIELDS,
+        ),
+        (
+            "support_source_only",
+            SUPPORT_SOURCE_REQUIRED_FIELDS,
+            SUPPORT_SOURCE_NONEMPTY_TEXT_FIELDS,
+        ),
+    )
+    for pool, required_fields, text_fields in configs:
+        values = data.get(pool)
+        if not isinstance(values, list):
+            continue
+        for index, item in enumerate(values):
+            label = f"{pool}[{index}]"
+            if not isinstance(item, Mapping):
+                messages.append(f"{label} must be an object")
+                continue
+            _validate_story_identity(item, label, messages)
+            for field in required_fields:
+                if field not in item:
+                    messages.append(f"{label}: missing required {pool} field {field}")
+            for field in text_fields:
+                if field in item and not _nonempty_text(item.get(field)):
+                    messages.append(f"{label}: {pool} field {field} must be non-empty text")
 
 
 def _validate_unique_dispositions(data: Mapping[str, Any], messages: list[str]) -> None:
@@ -332,10 +461,11 @@ def _validate_summary_id_arrays_unordered(data: Mapping[str, Any], messages: lis
             continue
         legacy_message = f"full Stage A summary {field} does not match emitted candidates"
         valid_strings = all(_nonempty_text(value) for value in actual)
-        unique = valid_strings and len(set(actual)) == len(actual)
         if not valid_strings:
             messages.append(f"full Stage A summary {field} must contain only non-empty story/spec IDs")
-        elif not unique:
+            continue
+        unique = len(set(actual)) == len(actual)
+        if not unique:
             messages.append(f"full Stage A summary {field} must not contain duplicate IDs")
         if unique and set(actual) == set(expected):
             while legacy_message in messages:
@@ -366,10 +496,13 @@ def validate_full_stage_a_artifact(
     messages = list(_previous.validate_full_stage_a_artifact(data, compat_module))
     _validate_remaining_top_level_surface(data, messages)
     _validate_strict_nested_base_surface(data, messages)
+    _validate_strict_bucket_exclusions(data, messages)
     _validate_required_docs_check(data, messages)
     _validate_application_markers(data, messages)
     _validate_review_base_contract(data, messages)
+    _validate_review_resolution_ledger(data, messages)
     _validate_rejected_base_contract(data, messages)
+    _validate_nonreview_outcome_contracts(data, messages)
     _validate_unique_dispositions(data, messages)
     _validate_summary_id_arrays_unordered(data, messages)
     _validate_denominator_gap_cap(data, messages)

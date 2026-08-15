@@ -4,7 +4,7 @@
 The historical validator chain remains authoritative for unchanged lineage,
 source-diversity, review-pool, and downstream checks.  This layer aligns it with
 canonical Structural News Value V3 and delegates real-artifact completeness to
-``stage_a_full_v3_completeness``.
+``stage_a_full_v3_completeness_review4943607439``.
 """
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ for _import_path in (_ROOT_DIR, _VALIDATION_DIR):
     if _import_path_text not in sys.path:
         sys.path.insert(0, _import_path_text)
 
-from validation_scripts.stage_a_full_v3_completeness import (  # noqa: E402
+from validation_scripts.stage_a_full_v3_completeness_review4943607439 import (  # noqa: E402
     CANONICAL_POLICY_VERSION,
     looks_like_full_stage_a_artifact,
     validate_full_stage_a_artifact,
@@ -53,12 +53,15 @@ _TEMPORAL_AUXILIARY_PATTERN = (
     r"(?:would|will|can|could|may|might|must|shall|should|is|are|was|were|"
     r"has|have|had)"
 )
-_SINCE_MODIFIER_HEAD_PATTERN = (
+_TEMPORAL_MODAL_PATTERN = r"(?:would|will|can|could|may|might|must|shall|should)"
+_SINCE_PERIOD_MODIFIER_HEAD_PATTERN = (
     r"(?:"
     r"(?:19|20)\d{2}|q[1-4]|[1-4]q|fy\d{2,4}|h[12]|[12]h|"
-    r"last\s+(?:year|quarter|month)|"
-    r"publication|filing|launch|approval|completion|release|disclosure"
+    r"last\s+(?:year|quarter|month)"
     r")"
+)
+_SINCE_EVENT_MODIFIER_HEAD_PATTERN = (
+    r"(?:publication|filing|launch|approval|completion|release|disclosure)"
 )
 _WHEN_REDUCED_STATUS_PATTERN = (
     r"(?:fully\s+|substantially\s+|formally\s+)?"
@@ -107,14 +110,22 @@ def _is_temporal_noun_modifier(text, marker):
     marker_text = marker.group(0).lower()
     remainder = text[marker.end():]
     if marker_text == "since":
-        return bool(
-            _re.match(
-                rf"\s+(?:the\s+)?{_SINCE_MODIFIER_HEAD_PATTERN}"
-                rf"(?:\s+(?:q[1-4]|[1-4]q|h[12]|[12]h))?"
-                rf"\s*,?\s+{_TEMPORAL_AUXILIARY_PATTERN}\b",
-                remainder,
-            )
+        # Period modifiers may be followed by the main-clause auxiliary.  Event
+        # nouns are narrower: only a modal may belong to the main clause.
+        # Finite forms such as "since publication was delayed" are causal
+        # dependent clauses and must be removed before effect binding.
+        period_modifier = _re.match(
+            rf"\s+(?:the\s+)?{_SINCE_PERIOD_MODIFIER_HEAD_PATTERN}"
+            rf"(?:\s+(?:q[1-4]|[1-4]q|h[12]|[12]h))?"
+            rf"\s*,?\s+{_TEMPORAL_AUXILIARY_PATTERN}\b",
+            remainder,
         )
+        event_modifier = _re.match(
+            rf"\s+(?:the\s+)?{_SINCE_EVENT_MODIFIER_HEAD_PATTERN}"
+            rf"\s*,?\s+{_TEMPORAL_MODAL_PATTERN}\b",
+            remainder,
+        )
+        return bool(period_modifier or event_modifier)
     if marker_text == "when":
         return bool(
             _re.match(

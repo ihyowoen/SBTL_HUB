@@ -4,7 +4,7 @@
 The historical validator chain remains authoritative for unchanged lineage,
 source-diversity, review-pool, and downstream checks.  This layer aligns it with
 canonical Structural News Value V3 and delegates real-artifact completeness to
-``stage_a_full_v3_completeness_review4943607439``.
+``stage_a_full_v3_completeness_review4943656188``.
 """
 from __future__ import annotations
 
@@ -22,9 +22,10 @@ for _import_path in (_ROOT_DIR, _VALIDATION_DIR):
     if _import_path_text not in sys.path:
         sys.path.insert(0, _import_path_text)
 
-from validation_scripts.stage_a_full_v3_completeness_review4943607439 import (  # noqa: E402
+from validation_scripts.stage_a_full_v3_completeness_review4943656188 import (  # noqa: E402
     CANONICAL_POLICY_VERSION,
     looks_like_full_stage_a_artifact,
+    prevalidate_full_stage_a_artifact,
     validate_full_stage_a_artifact,
 )
 from validation_scripts.v3_stage_contracts import (  # noqa: E402
@@ -53,15 +54,11 @@ _TEMPORAL_AUXILIARY_PATTERN = (
     r"(?:would|will|can|could|may|might|must|shall|should|is|are|was|were|"
     r"has|have|had)"
 )
-_TEMPORAL_MODAL_PATTERN = r"(?:would|will|can|could|may|might|must|shall|should)"
 _SINCE_PERIOD_MODIFIER_HEAD_PATTERN = (
     r"(?:"
     r"(?:19|20)\d{2}|q[1-4]|[1-4]q|fy\d{2,4}|h[12]|[12]h|"
     r"last\s+(?:year|quarter|month)"
     r")"
-)
-_SINCE_EVENT_MODIFIER_HEAD_PATTERN = (
-    r"(?:publication|filing|launch|approval|completion|release|disclosure)"
 )
 _WHEN_REDUCED_STATUS_PATTERN = (
     r"(?:fully\s+|substantially\s+|formally\s+)?"
@@ -104,28 +101,23 @@ STAGE_A_OVERRIDE_ONLY_REQUIRED = _EXECUTION_ROUTE_OVERRIDE_ONLY_FIELDS
 
 
 def _is_temporal_noun_modifier(text, marker):
-    """Preserve narrow since/when noun modifiers without retaining real clauses."""
+    """Preserve narrow period/reduced modifiers without retaining real clauses."""
     if _prior_is_temporal_noun_modifier(text, marker):
         return True
     marker_text = marker.group(0).lower()
     remainder = text[marker.end():]
     if marker_text == "since":
-        # Period modifiers may be followed by the main-clause auxiliary.  Event
-        # nouns are narrower: only a modal may belong to the main clause.
-        # Finite forms such as "since publication was delayed" are causal
-        # dependent clauses and must be removed before effect binding.
-        period_modifier = _re.match(
-            rf"\s+(?:the\s+)?{_SINCE_PERIOD_MODIFIER_HEAD_PATTERN}"
-            rf"(?:\s+(?:q[1-4]|[1-4]q|h[12]|[12]h))?"
-            rf"\s*,?\s+{_TEMPORAL_AUXILIARY_PATTERN}\b",
-            remainder,
+        # Only explicit period heads are safe noun modifiers. Event nouns followed
+        # by finite auxiliaries or modals (for example "since publication would
+        # strengthen ...") are dependent clauses and must not supply the effect.
+        return bool(
+            _re.match(
+                rf"\s+(?:the\s+)?{_SINCE_PERIOD_MODIFIER_HEAD_PATTERN}"
+                rf"(?:\s+(?:q[1-4]|[1-4]q|h[12]|[12]h))?"
+                rf"\s*,?\s+{_TEMPORAL_AUXILIARY_PATTERN}\b",
+                remainder,
+            )
         )
-        event_modifier = _re.match(
-            rf"\s+(?:the\s+)?{_SINCE_EVENT_MODIFIER_HEAD_PATTERN}"
-            rf"\s*,?\s+{_TEMPORAL_MODAL_PATTERN}\b",
-            remainder,
-        )
-        return bool(period_modifier or event_modifier)
     if marker_text == "when":
         return bool(
             _re.match(
@@ -320,7 +312,11 @@ def validate_stage_a_spec(spec, index, messages):
 
 
 def check_stage_a(data):
-    """Run legacy lineage checks, then fail-closed Prompt 0.1S completeness."""
+    """Preflight malformed containers, run legacy checks, then full completeness."""
+    preflight_messages = prevalidate_full_stage_a_artifact(data)
+    if preflight_messages:
+        return _compat_module.fail(preflight_messages)
+
     stream = io.StringIO()
     with redirect_stdout(stream):
         result = _prior_check_stage_a(data)

@@ -132,6 +132,7 @@ def build_stage_contract_document(
     }
     route_identity_fields = [
         "structural_value_override_applied",
+        "structural_selector_policy_version",
         "execution_anchor_type",
         "execution_anchor_strength",
     ]
@@ -219,7 +220,6 @@ def generated_stage_contract_errors(
     document: Mapping[str, Any] | None = None,
     contract: Mapping[str, Any] | None = None,
 ) -> list[str]:
-    """Return drift errors without replacing explicitly supplied falsey mappings."""
     actual = dict(
         load_generated_stage_contract() if document is None else document
     )
@@ -234,7 +234,6 @@ def generated_stage_contract_errors(
 def stage_a_validator_constants(
     document: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Return generated constants consumed by the public Stage A validator."""
     stage_document = dict(
         load_generated_stage_contract() if document is None else document
     )

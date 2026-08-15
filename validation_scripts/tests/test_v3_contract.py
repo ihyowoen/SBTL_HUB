@@ -95,7 +95,7 @@ class CanonicalV3ContractTests(unittest.TestCase):
             self.contract["$defs"]["execution_route"]["required"]
         )
         expected_fragment = (
-            "execution_route required fields must contain execution identity plus shared strict fields exactly"
+            "execution_route required fields must contain execution identity plus shared strict and materialized empty override-only fields exactly"
         )
         for field in required_fields:
             with self.subTest(field=field):

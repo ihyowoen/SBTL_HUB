@@ -137,6 +137,33 @@ class TestStageAV3RouteAlignment(unittest.TestCase):
         self.assertEqual(result, 1)
         self.assertIn("structural_selector_policy_version must be STRUCTURAL_NEWS_VALUE_SELECTION_V3", output)
 
+    def test_non_execution_route_rejects_duplicate_anchor_classes(self):
+        spec = self.base_non_execution_spec()
+        spec["anchor_classes"] = ["data_financial_anchor", "data_financial_anchor"]
+        result, output = self.run_stage_a(spec)
+        self.assertEqual(result, 1)
+        self.assertIn("anchor_classes must be unique", output)
+
+    def test_non_execution_route_rejects_falsey_noncanonical_execution_identity(self):
+        for field, value in (
+            ("execution_anchor_type", 0),
+            ("execution_anchor_strength", False),
+        ):
+            with self.subTest(field=field):
+                spec = self.base_non_execution_spec()
+                spec[field] = value
+                result, output = self.run_stage_a(spec)
+                self.assertEqual(result, 1, output)
+                self.assertIn(f"requires canonical empty {field}", output)
+
+    def test_malformed_format_risk_tags_are_not_sanitized(self):
+        for tags in ([None], [123], [""], ["none", None]):
+            with self.subTest(tags=tags):
+                spec = self.base_non_execution_spec()
+                spec["format_risk_tags"] = tags
+                result, output = self.run_stage_a(spec)
+                self.assertEqual(result, 1, output)
+
     def test_format_risk_execution_route_retains_shared_v3_metadata(self):
         result, output = self.run_stage_a(self.execution_spec())
         self.assertEqual(result, 0, output)
@@ -163,6 +190,18 @@ class TestStageAV3RouteAlignment(unittest.TestCase):
             "execution route anchor_classes must include execution_event_anchor",
             output,
         )
+
+    def test_execution_route_requires_explicit_false_marker(self):
+        for marker in (None, "false", 0):
+            with self.subTest(marker=marker):
+                spec = self.execution_spec()
+                if marker is None:
+                    spec.pop("structural_value_override_applied")
+                else:
+                    spec["structural_value_override_applied"] = marker
+                result, output = self.run_stage_a(spec)
+                self.assertEqual(result, 1, output)
+                self.assertIn("requires structural_value_override_applied=false", output)
 
     def test_execution_route_rejects_true_override_only_metadata(self):
         spec = self.execution_spec()

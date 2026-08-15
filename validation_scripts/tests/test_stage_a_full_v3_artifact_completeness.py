@@ -75,10 +75,53 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
         )
         return spec
 
+    def ledger_row(self, spec):
+        return {
+            "story_id": spec["source_story_ids"][0],
+            "anchor_classes": copy.deepcopy(spec["anchor_classes"]),
+            "news_value_basis": "Production start materially advances the named product beyond roadmap status.",
+            "structural_value_lenses": copy.deepcopy(spec["structural_value_lenses"]),
+            "structural_value_override_applied": spec["structural_value_override_applied"],
+            "structural_value_override_reason": spec["structural_value_override_reason"],
+            "evidence_needed_for_stage_b": copy.deepcopy(spec["evidence_needed_for_stage_b"]),
+            "why_execution_event_not_required": spec["why_execution_event_not_required"],
+            "incremental_information": spec["incremental_information"],
+            "decision_relevance": spec["decision_relevance"],
+            "baseline_expectation_changed": spec["baseline_expectation_changed"],
+            "follow_up_relation": spec["baseline_follow_up_relation"],
+            "next_confirmation_points": copy.deepcopy(spec["next_confirmation_points"]),
+            "portfolio_coverage_contribution": copy.deepcopy(spec["portfolio_coverage_contribution"]),
+            "earnings_deep_dive_required": spec["earnings_deep_dive_required"],
+            "qna_status": spec["qna_status"],
+            "review_pool_subtype": None,
+            "review_pool_repromotion_precondition": None,
+            "decision_news_value_score": spec["decision_news_value_score"],
+            "decision_value_breakdown": copy.deepcopy(spec["decision_value_breakdown"]),
+            "decision_value_classification": spec["decision_value_classification"],
+            "prior_state": spec["prior_state"],
+            "new_verified_fact": spec["new_verified_fact"],
+            "changed_judgment": spec["changed_judgment"],
+            "uncertainty_resolved": spec["uncertainty_resolved"],
+            "remaining_uncertainty": spec["remaining_uncertainty"],
+            "denominator_used": spec["denominator_used"],
+            "denominator_gap": spec["denominator_gap"],
+            "publication_urgency": copy.deepcopy(spec["publication_urgency"]),
+            "anti_bias_check": copy.deepcopy(spec["anti_bias_check"]),
+            "structural_rescue_required": spec["structural_rescue_required"],
+            "structural_rescue_question": spec["structural_rescue_question"],
+            "technology_validation_stage": spec["technology_validation_stage"],
+            "technology_score_cap_applied": spec["technology_score_cap_applied"],
+            "technology_validation_gap": spec["technology_validation_gap"],
+            "legal_policy_stage": "not_applicable",
+        }
+
     def full_artifact(self):
+        spec = self.full_spec()
         return {
             "stage": "stage_a",
             "run_tag": "SYNTHETIC_V3_FULL_ARTIFACT",
+            "source_universe": "synthetic one-story Stage A universe",
+            "story_count": 1,
             "summary": {
                 "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
                 "structural_selector_policy_file": "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
@@ -88,14 +131,17 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
                 "core_industrial_weight_total": 70,
                 "multi_anchor_class_model_applied": True,
                 "mandatory_structural_lenses_applied": True,
-                "anchor_class_counts": {"execution_event_anchor": 1},
+                "anchor_class_counts": {
+                    "execution_event_anchor": 1,
+                    "technology_commercialization_anchor": 1,
+                },
                 "structural_lens_coverage_counts": {"technology_transition_commercialization": 1},
                 "decision_value_classification_counts": {"material_industry_signal": 1},
                 "critical_structural_candidate_ids": [],
                 "high_decision_value_candidate_ids": [],
                 "high_value_review_pool_ids": [],
-                "structural_signal_review_ids": [],
-                "earnings_deep_dive_ids": [],
+                "structural_signal_review_pool_ids": [],
+                "earnings_deep_dive_pool_ids": [],
                 "follow_up_candidate_ids": [],
                 "zero_coverage_domains": [],
                 "execution_or_formality_bias_findings": [],
@@ -104,15 +150,17 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
                 "search_before_delete_applied": True,
                 "structural_value_selector_status": "PASS",
                 "portfolio_coverage_audit_status": "PASS",
-                "earnings_call_qna_audit_status": "PASS",
+                "earnings_call_qna_audit_status": "NOT_APPLICABLE",
                 "follow_up_repromotion_audit_status": "PASS",
                 "execution_event_bias_audit_status": "PASS",
                 "content_depth_audit_status": "PASS",
+                "decision_ledger_count": 1,
             },
-            "strict_passed_spec": [self.full_spec()],
+            "strict_passed_spec": [spec],
             "candidate_review_pool": [],
             "watchlist_context_pool": [],
             "reject_or_support_only_pool": [],
+            "decision_ledger": [self.ledger_row(spec)],
         }
 
     def run_stage_a(self, artifact):
@@ -125,6 +173,15 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
         result, output = self.run_stage_a(self.full_artifact())
         self.assertEqual(result, 0, output)
         self.assertIn("PASS_STAGE_A_SCHEMA_CONTRACT", output)
+
+    def test_full_artifact_markers_cannot_disable_completeness(self):
+        for field in ("stage", "run_tag", "summary"):
+            with self.subTest(field=field):
+                artifact = self.full_artifact()
+                artifact.pop(field)
+                result, output = self.run_stage_a(artifact)
+                self.assertEqual(result, 1, output)
+                self.assertNotIn("PASS_STAGE_A_SCHEMA_CONTRACT", output)
 
     def test_nested_score_object_is_rejected_for_full_artifact(self):
         artifact = self.full_artifact()
@@ -151,6 +208,70 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
         result, output = self.run_stage_a(artifact)
         self.assertEqual(result, 1)
         self.assertIn("missing Prompt 0.1S field anti_bias_check", output)
+
+    def test_strict_failed_gates_are_rejected(self):
+        mutations = (
+            ("execution_credibility_gate", "status"),
+            ("independent_cardability_gate", "status"),
+            ("independent_cardability_gate", "full_schema_viability"),
+        )
+        for outer, inner in mutations:
+            with self.subTest(field=f"{outer}.{inner}"):
+                artifact = self.full_artifact()
+                artifact["strict_passed_spec"][0][outer][inner] = "FAIL"
+                result, output = self.run_stage_a(artifact)
+                self.assertEqual(result, 1, output)
+
+    def test_technology_stage_cap_is_enforced(self):
+        artifact = self.full_artifact()
+        spec = artifact["strict_passed_spec"][0]
+        spec["technology_validation_stage"] = "concept_or_target"
+        spec["decision_value_breakdown"]["technology_performance_safety"] = 20
+        spec["decision_value_breakdown"]["market_structure_competition"] = 7
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("exceeds concept_or_target cap 4/20", output)
+
+    def test_anti_bias_metadata_must_be_object(self):
+        artifact = self.full_artifact()
+        artifact["strict_passed_spec"][0]["anti_bias_check"] = None
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("anti_bias_check must be an object", output)
+
+    def test_summary_counts_are_reconciled(self):
+        artifact = self.full_artifact()
+        artifact["summary"]["anchor_class_counts"] = {}
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("anchor_class_counts does not match emitted candidates", output)
+
+    def test_candidate_pool_container_must_be_array(self):
+        for pool in (
+            "strict_passed_spec",
+            "candidate_review_pool",
+            "watchlist_context_pool",
+            "reject_or_support_only_pool",
+        ):
+            with self.subTest(pool=pool):
+                artifact = self.full_artifact()
+                artifact[pool] = "corrupt"
+                result, output = self.run_stage_a(artifact)
+                self.assertEqual(result, 1, output)
+                self.assertIn(f"{pool} must be an array", output)
+
+    def test_decision_ledger_is_required_and_complete(self):
+        artifact = self.full_artifact()
+        artifact.pop("decision_ledger")
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("decision_ledger must be an array", output)
+
+        artifact = self.full_artifact()
+        artifact["decision_ledger"][0].pop("news_value_basis")
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("missing required V3 ledger field news_value_basis", output)
 
 
 if __name__ == "__main__":

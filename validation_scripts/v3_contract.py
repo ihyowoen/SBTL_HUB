@@ -41,6 +41,17 @@ _NONEMPTY_NARRATIVE_SCHEMA = {
 }
 _EMPTY_REF = {"$ref": "#/$defs/empty_route_value"}
 _CANONICAL_SELECTOR_VERSION = "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
+_CANONICAL_EXECUTION_ANCHOR_STRENGTHS = (
+    "strong",
+    "moderate",
+)
+_CANONICAL_NON_EXECUTION_ANCHOR_CLASSES = (
+    "policy_regulatory_anchor",
+    "data_financial_anchor",
+    "strategic_behavior_anchor",
+    "technology_commercialization_anchor",
+    "follow_up_probability_anchor",
+)
 _EXECUTION_IDENTITY_FIELDS = {
     "execution_anchor_type",
     "execution_anchor_strength",
@@ -206,6 +217,32 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
             "structural_selector_policy_version metadata must equal STRUCTURAL_NEWS_VALUE_SELECTION_V3"
         )
 
+    allowed_strengths = _unique_string_list(
+        metadata.get("allowed_execution_anchor_strengths")
+    )
+    if allowed_strengths is None:
+        errors.append(
+            "allowed_execution_anchor_strengths must be a unique non-empty canonical string array"
+        )
+        allowed_strengths = []
+    elif set(allowed_strengths) != set(_CANONICAL_EXECUTION_ANCHOR_STRENGTHS):
+        errors.append(
+            "allowed_execution_anchor_strengths must match the fixed V3 execution-strength set"
+        )
+
+    allowed_non_execution = _unique_string_list(
+        metadata.get("allowed_non_execution_anchor_classes")
+    )
+    if allowed_non_execution is None:
+        errors.append(
+            "allowed_non_execution_anchor_classes must be a unique non-empty canonical string array"
+        )
+        allowed_non_execution = []
+    elif set(allowed_non_execution) != set(_CANONICAL_NON_EXECUTION_ANCHOR_CLASSES):
+        errors.append(
+            "allowed_non_execution_anchor_classes must match the fixed V3 non-execution anchor set"
+        )
+
     shared = _unique_string_list(metadata.get("shared_strict_required_fields"))
     override_only = _unique_string_list(metadata.get("override_only_required_fields"))
     override_required = _unique_string_list(metadata.get("v3_override_required_fields"))
@@ -279,9 +316,6 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
             "v3_non_execution_route required fields differ from selector-lineage plus shared-and-override contract"
         )
 
-    allowed_non_execution = _unique_string_list(
-        metadata.get("allowed_non_execution_anchor_classes")
-    ) or []
     execution_anchor_values = ["execution_event_anchor", *allowed_non_execution]
     expected_execution_anchor_schema = _anchor_class_schema(
         execution_anchor_values, require_execution=True
@@ -298,6 +332,21 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
     non_execution_properties = non_execution.get("properties")
     if not isinstance(execution_properties, Mapping) or not isinstance(non_execution_properties, Mapping):
         return errors
+
+    execution_strength_schema = execution_properties.get("execution_anchor_strength")
+    execution_strength_values = (
+        execution_strength_schema.get("enum")
+        if isinstance(execution_strength_schema, Mapping)
+        else None
+    )
+    if (
+        not isinstance(execution_strength_values, list)
+        or len(execution_strength_values) != len(set(execution_strength_values))
+        or set(execution_strength_values) != set(_CANONICAL_EXECUTION_ANCHOR_STRENGTHS)
+    ):
+        errors.append(
+            "execution_route execution_anchor_strength must match the fixed V3 execution-strength set"
+        )
 
     if execution_properties.get("anchor_classes") != {
         "$ref": "#/$defs/execution_anchor_classes"

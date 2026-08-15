@@ -141,6 +141,8 @@ def _valid_structured_item(
         return len(value.strip()) >= minimum_text
     if not isinstance(value, Mapping):
         return False
+
+    complete_pairs = 0
     for pair in key_pairs:
         if len(pair) != 2:
             continue
@@ -151,8 +153,8 @@ def _valid_structured_item(
             and isinstance(value.get(second), str)
             and len(value[second].strip()) >= 2
         ):
-            return True
-    return False
+            complete_pairs += 1
+    return complete_pairs == 1
 
 
 def _projected_string_list(

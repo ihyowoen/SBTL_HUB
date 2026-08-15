@@ -12,6 +12,19 @@ from validation_scripts.tests.test_stage_a_v3_route_alignment import (
 
 
 class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
+    MANDATORY_DOCS = [
+        "docs/FACT_DISCIPLINE.md",
+        "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+        "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
+        "docs/PROMPT_ABC_DEFAULT_MODE.md",
+        "docs/PROMPT_ABC_SUPPORTING_RULES.md",
+        "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+        "docs/CARD_ID_STANDARD.md",
+        "docs/WORKFLOW.md",
+        "docs/OPERATIONS.md",
+        "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+    ]
+
     def full_spec(self):
         spec = copy.deepcopy(TestStageAV3RouteAlignment().execution_spec())
         spec.update(
@@ -201,8 +214,8 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
             "integrity_summary": {"status": "PASS"},
             "recommended_for": ["Stage B evidence package construction"],
             "required_docs_check": {
-                "docs_expected": ["docs/STRUCTURAL_NEWS_VALUE_SELECTION.md"],
-                "docs_read_from_github_main": ["docs/STRUCTURAL_NEWS_VALUE_SELECTION.md"],
+                "docs_expected": list(self.MANDATORY_DOCS),
+                "docs_read_from_github_main": list(self.MANDATORY_DOCS),
                 "docs_missing_or_unreadable": [],
                 "status": "PASS",
             },
@@ -255,6 +268,9 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
                 "technology_validation_gap_ids": ["SPEC_EXEC_ROUTE_001"],
                 "legal_policy_stage_gap_ids": [],
                 "search_before_delete_applied": True,
+                "earnings_call_qna_rule_applied": True,
+                "follow_up_probability_review_applied": True,
+                "portfolio_coverage_audit_applied": True,
                 "structural_value_selector_status": "PASS",
                 "portfolio_coverage_audit_status": "PASS",
                 "earnings_call_qna_audit_status": "NOT_APPLICABLE",

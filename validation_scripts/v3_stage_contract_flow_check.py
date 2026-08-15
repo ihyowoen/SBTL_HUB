@@ -28,32 +28,64 @@ EXPECTED_STAGE_ORDER = (
     "production_verification",
 )
 _PRESERVING_MODES = {"preserve", "byte_preserve", "verify"}
+_CANONICAL_SELECTOR_VERSION = "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
+_OVERRIDE_ONLY_NARRATIVES = {
+    "structural_value_override_reason",
+    "why_execution_event_not_required",
+}
+
+
+def _shared_sample_fields() -> dict[str, Any]:
+    return {
+        "anchor_classes": [
+            "execution_event_anchor",
+            "technology_commercialization_anchor",
+        ],
+        "incremental_information": (
+            "The named product moved from roadmap status to current production."
+        ),
+        "decision_relevance": (
+            "The production start changes commercialization and customer-availability judgment."
+        ),
+        "baseline_expectation_changed": (
+            "The baseline moves from a future roadmap to current manufacturing execution."
+        ),
+        "evidence_needed_for_stage_b": [
+            {
+                "source_or_document_class": "company filing",
+                "exact_claim_or_metric": "production start date and named product model",
+            }
+        ],
+        "next_confirmation_points": [
+            {
+                "measurable_event_or_metric": "named customer shipment volume",
+                "interpretation_effect": "strengthen or weaken the commercialization judgment",
+            }
+        ],
+        "prior_state": "The product had been presented as a future commercial offering.",
+        "new_verified_fact": "The company now reports production start for the named product.",
+        "changed_judgment": "Commercial availability is more advanced than previously assumed.",
+        "uncertainty_resolved": "The manufacturing stage is no longer only a roadmap claim.",
+        "remaining_uncertainty": "Customer shipments and production volume remain unverified.",
+    }
 
 
 def execution_route_sample() -> dict[str, Any]:
-    return {
+    sample = {
         "structural_value_override_applied": False,
         "execution_anchor_type": "signed supply agreement",
         "execution_anchor_strength": "strong",
         "structural_value_override_reason": None,
-        "anchor_classes": None,
-        "incremental_information": None,
-        "decision_relevance": None,
-        "baseline_expectation_changed": None,
-        "evidence_needed_for_stage_b": None,
-        "next_confirmation_points": None,
         "why_execution_event_not_required": None,
-        "prior_state": None,
-        "new_verified_fact": None,
-        "changed_judgment": None,
-        "uncertainty_resolved": None,
-        "remaining_uncertainty": None,
     }
+    sample.update(_shared_sample_fields())
+    return sample
 
 
 def non_execution_route_sample() -> dict[str, Any]:
     return {
         "structural_value_override_applied": True,
+        "structural_selector_policy_version": _CANONICAL_SELECTOR_VERSION,
         "execution_anchor_type": None,
         "execution_anchor_strength": None,
         "structural_value_override_reason": (
@@ -72,19 +104,13 @@ def non_execution_route_sample() -> dict[str, Any]:
         "evidence_needed_for_stage_b": [
             {
                 "source_or_document_class": "official final rule",
-                "exact_claim_or_metric": (
-                    "effective date and covered-entity threshold"
-                ),
+                "exact_claim_or_metric": "effective date and covered-entity threshold",
             }
         ],
         "next_confirmation_points": [
             {
-                "measurable_event_or_metric": (
-                    "first covered procurement after the effective date"
-                ),
-                "interpretation_effect": (
-                    "confirm or weaken the expected supplier-switching requirement"
-                ),
+                "measurable_event_or_metric": "first covered procurement after the effective date",
+                "interpretation_effect": "confirm or weaken the expected supplier-switching requirement",
             }
         ],
         "why_execution_event_not_required": (
@@ -133,31 +159,76 @@ def _valid_structured_item(
     return False
 
 
+def _validate_shared_route_values(
+    package: Mapping[str, Any],
+    canonical: Mapping[str, Any],
+    route: str,
+    errors: list[str],
+) -> None:
+    anchor_classes = package.get("anchor_classes")
+    allowed_non_execution = set(canonical.get("allowed_non_execution_anchor_classes", []))
+    allowed_classes = set(allowed_non_execution)
+    if route == "execution":
+        allowed_classes.add("execution_event_anchor")
+    if (
+        not isinstance(anchor_classes, list)
+        or not anchor_classes
+        or any(not isinstance(item, str) or item not in allowed_classes for item in anchor_classes)
+        or len(set(anchor_classes)) != len(anchor_classes)
+    ):
+        errors.append(f"{route} route requires unique allowed anchor classes")
+    elif route == "execution" and "execution_event_anchor" not in anchor_classes:
+        errors.append("execution route anchor_classes must include execution_event_anchor")
+
+    narrative_fields = [
+        field
+        for field in canonical.get("v3_narrative_fields", [])
+        if field not in _OVERRIDE_ONLY_NARRATIVES
+    ]
+    for field in narrative_fields:
+        value = package.get(field)
+        if not isinstance(value, str) or len(value.strip()) < 8:
+            errors.append(f"{route} route requires a substantive {field}")
+
+    evidence = package.get("evidence_needed_for_stage_b")
+    evidence_pairs = canonical.get("structured_evidence_target_key_pairs", [])
+    if (
+        not isinstance(evidence, list)
+        or not evidence
+        or any(not _valid_structured_item(item, evidence_pairs) for item in evidence)
+    ):
+        errors.append(f"{route} route requires concrete Stage B evidence targets")
+
+    confirmations = package.get("next_confirmation_points")
+    confirmation_pairs = canonical.get("structured_confirmation_point_key_pairs", [])
+    if (
+        not isinstance(confirmations, list)
+        or not confirmations
+        or any(not _valid_structured_item(item, confirmation_pairs) for item in confirmations)
+    ):
+        errors.append(f"{route} route requires measurable confirmation points")
+
+
 def route_package_errors(
     package: Mapping[str, Any],
     document: Mapping[str, Any] | None = None,
 ) -> list[str]:
-    stage_document = (
-        load_generated_stage_contract() if document is None else dict(document)
-    )
+    stage_document = load_generated_stage_contract() if document is None else dict(document)
     canonical = stage_document.get("canonical")
     if not isinstance(canonical, Mapping):
         return ["generated stage contract canonical projection is missing"]
 
     errors: list[str] = []
     marker = package.get("structural_value_override_applied")
-    route: str | None
     if marker is False:
         route = "execution"
     elif marker is True:
         route = "v3_non_execution"
     else:
-        return [
-            "structural_value_override_applied must select exactly one boolean route"
-        ]
+        return ["structural_value_override_applied must select exactly one boolean route"]
 
     required_by_route = canonical.get("route_required_fields", {})
-    required = required_by_route.get(route, [])
+    required = required_by_route.get(route, []) if isinstance(required_by_route, Mapping) else None
     if not isinstance(required, list):
         return [f"{route} required-field projection is malformed"]
     for field in required:
@@ -165,7 +236,7 @@ def route_package_errors(
             errors.append(f"{route} route missing required field {field}")
 
     empty_by_route = canonical.get("route_empty_only_fields", {})
-    empty_only = empty_by_route.get(route, [])
+    empty_only = empty_by_route.get(route, []) if isinstance(empty_by_route, Mapping) else None
     if not isinstance(empty_only, list):
         errors.append(f"{route} empty-only projection is malformed")
     else:
@@ -177,64 +248,20 @@ def route_package_errors(
         anchor_type = package.get("execution_anchor_type")
         if not isinstance(anchor_type, str) or not anchor_type.strip():
             errors.append("execution route requires a non-whitespace anchor type")
-        allowed_strengths = canonical.get(
-            "allowed_execution_anchor_strengths", []
-        )
+        allowed_strengths = canonical.get("allowed_execution_anchor_strengths", [])
         if package.get("execution_anchor_strength") not in allowed_strengths:
             errors.append("execution route has an unsupported anchor strength")
+        _validate_shared_route_values(package, canonical, route, errors)
     else:
-        anchor_classes = package.get("anchor_classes")
-        allowed_classes = set(
-            canonical.get("allowed_non_execution_anchor_classes", [])
-        )
-        if (
-            not isinstance(anchor_classes, list)
-            or not anchor_classes
-            or any(item not in allowed_classes for item in anchor_classes)
-            or len(set(anchor_classes)) != len(anchor_classes)
-        ):
+        if package.get("structural_selector_policy_version") != _CANONICAL_SELECTOR_VERSION:
             errors.append(
-                "v3_non_execution route requires unique allowed anchor classes"
+                "v3_non_execution route requires structural_selector_policy_version=STRUCTURAL_NEWS_VALUE_SELECTION_V3"
             )
-
-        for field in canonical.get("v3_narrative_fields", []):
+        _validate_shared_route_values(package, canonical, route, errors)
+        for field in _OVERRIDE_ONLY_NARRATIVES:
             value = package.get(field)
             if not isinstance(value, str) or len(value.strip()) < 8:
-                errors.append(
-                    f"v3_non_execution route requires a substantive {field}"
-                )
-
-        evidence = package.get("evidence_needed_for_stage_b")
-        evidence_pairs = canonical.get(
-            "structured_evidence_target_key_pairs", []
-        )
-        if (
-            not isinstance(evidence, list)
-            or not evidence
-            or any(
-                not _valid_structured_item(item, evidence_pairs)
-                for item in evidence
-            )
-        ):
-            errors.append(
-                "v3_non_execution route requires concrete Stage B evidence targets"
-            )
-
-        confirmations = package.get("next_confirmation_points")
-        confirmation_pairs = canonical.get(
-            "structured_confirmation_point_key_pairs", []
-        )
-        if (
-            not isinstance(confirmations, list)
-            or not confirmations
-            or any(
-                not _valid_structured_item(item, confirmation_pairs)
-                for item in confirmations
-            )
-        ):
-            errors.append(
-                "v3_non_execution route requires measurable confirmation points"
-            )
+                errors.append(f"v3_non_execution route requires a substantive {field}")
     return errors
 
 
@@ -245,11 +272,7 @@ def route_name(
     errors = route_package_errors(package, document)
     if errors:
         raise ValueError("; ".join(errors))
-    return (
-        "v3_non_execution"
-        if package["structural_value_override_applied"] is True
-        else "execution"
-    )
+    return "v3_non_execution" if package["structural_value_override_applied"] is True else "execution"
 
 
 def _preservation_snapshot(
@@ -259,19 +282,10 @@ def _preservation_snapshot(
     if not isinstance(fields, list) or not fields:
         raise ValueError("route_package_preserve_fields must be a non-empty array")
     snapshot = [
-        {
-            "field": field,
-            "present": field in package,
-            "value": package.get(field),
-        }
+        {"field": field, "present": field in package, "value": package.get(field)}
         for field in fields
     ]
-    return json.dumps(
-        snapshot,
-        ensure_ascii=False,
-        separators=(",", ":"),
-        sort_keys=True,
-    )
+    return json.dumps(snapshot, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
 
 
 def validate_stage_handoff(
@@ -280,9 +294,7 @@ def validate_stage_handoff(
     after: Mapping[str, Any],
     document: Mapping[str, Any] | None = None,
 ) -> None:
-    stage_document = (
-        load_generated_stage_contract() if document is None else dict(document)
-    )
+    stage_document = load_generated_stage_contract() if document is None else dict(document)
     stages = stage_document.get("stages")
     canonical = stage_document.get("canonical")
     if not isinstance(stages, Mapping) or stage_name not in stages:
@@ -293,27 +305,21 @@ def validate_stage_handoff(
     before_route = route_name(before, stage_document)
     after_route = route_name(after, stage_document)
     if before_route != after_route:
-        raise ValueError(
-            f"{stage_name} changed route from {before_route} to {after_route}"
-        )
+        raise ValueError(f"{stage_name} changed route from {before_route} to {after_route}")
 
     mode = stages[stage_name].get("preservation_mode")
     if mode in _PRESERVING_MODES:
         before_snapshot = _preservation_snapshot(before, canonical)
         after_snapshot = _preservation_snapshot(after, canonical)
         if before_snapshot != after_snapshot:
-            raise ValueError(
-                f"{stage_name} mutated the canonical route package"
-            )
+            raise ValueError(f"{stage_name} mutated the canonical route package")
 
 
 def simulate_stage_flow(
     package: Mapping[str, Any],
     document: Mapping[str, Any] | None = None,
 ) -> dict[str, dict[str, Any]]:
-    stage_document = (
-        load_generated_stage_contract() if document is None else dict(document)
-    )
+    stage_document = load_generated_stage_contract() if document is None else dict(document)
     stages = stage_document.get("stages")
     if not isinstance(stages, Mapping):
         raise ValueError("generated stage contract stages projection is missing")
@@ -325,9 +331,7 @@ def simulate_stage_flow(
     snapshots = {"stage_a": copy.deepcopy(current)}
     for stage_name in EXPECTED_STAGE_ORDER[1:]:
         next_package = copy.deepcopy(current)
-        validate_stage_handoff(
-            stage_name, current, next_package, stage_document
-        )
+        validate_stage_handoff(stage_name, current, next_package, stage_document)
         snapshots[stage_name] = copy.deepcopy(next_package)
         current = next_package
     return snapshots
@@ -336,9 +340,7 @@ def simulate_stage_flow(
 def end_to_end_flow_errors(
     document: Mapping[str, Any] | None = None,
 ) -> list[str]:
-    stage_document = (
-        load_generated_stage_contract() if document is None else dict(document)
-    )
+    stage_document = load_generated_stage_contract() if document is None else dict(document)
     errors: list[str] = []
     for label, sample in (
         ("execution", execution_route_sample()),
@@ -358,7 +360,6 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true", required=True)
     parser.parse_args()
-
     errors = end_to_end_flow_errors()
     if errors:
         print("RESULT: BLOCKED_V3_STAGE_CONTRACT_FLOW")

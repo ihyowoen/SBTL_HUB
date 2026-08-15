@@ -51,11 +51,14 @@ class V3StageContractFlowTests(unittest.TestCase):
                 self.document,
             )
 
-    def test_optional_preserved_field_presence_change_is_rejected(self):
+    def test_required_empty_execution_field_presence_change_is_rejected(self):
         before = flow.execution_route_sample()
         after = copy.deepcopy(before)
         del after["structural_value_override_reason"]
-        with self.assertRaisesRegex(ValueError, "mutated"):
+        with self.assertRaisesRegex(
+            ValueError,
+            "missing required field structural_value_override_reason",
+        ):
             flow.validate_stage_handoff(
                 "final_qc", before, after, self.document
             )

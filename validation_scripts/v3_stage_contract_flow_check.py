@@ -29,10 +29,6 @@ EXPECTED_STAGE_ORDER = (
 )
 _PRESERVING_MODES = {"preserve", "byte_preserve", "verify"}
 _CANONICAL_SELECTOR_VERSION = "STRUCTURAL_NEWS_VALUE_SELECTION_V3"
-_OVERRIDE_ONLY_NARRATIVES = {
-    "structural_value_override_reason",
-    "why_execution_event_not_required",
-}
 
 
 def _shared_sample_fields() -> dict[str, Any]:
@@ -159,12 +155,35 @@ def _valid_structured_item(
     return False
 
 
+def _projected_string_list(
+    canonical: Mapping[str, Any],
+    field: str,
+    errors: list[str],
+) -> list[str]:
+    value = canonical.get(field)
+    if (
+        not isinstance(value, list)
+        or any(not isinstance(item, str) or not item for item in value)
+        or len(set(value)) != len(value)
+    ):
+        errors.append(f"generated canonical {field} projection is malformed")
+        return []
+    return list(value)
+
+
 def _validate_shared_route_values(
     package: Mapping[str, Any],
     canonical: Mapping[str, Any],
     route: str,
     errors: list[str],
 ) -> None:
+    shared_fields = _projected_string_list(
+        canonical, "shared_strict_required_fields", errors
+    )
+    narrative_fields = set(
+        _projected_string_list(canonical, "v3_narrative_fields", errors)
+    )
+
     anchor_classes = package.get("anchor_classes")
     allowed_non_execution = set(canonical.get("allowed_non_execution_anchor_classes", []))
     allowed_classes = set(allowed_non_execution)
@@ -180,15 +199,13 @@ def _validate_shared_route_values(
     elif route == "execution" and "execution_event_anchor" not in anchor_classes:
         errors.append("execution route anchor_classes must include execution_event_anchor")
 
-    narrative_fields = [
-        field
-        for field in canonical.get("v3_narrative_fields", [])
-        if field not in _OVERRIDE_ONLY_NARRATIVES
-    ]
-    for field in narrative_fields:
-        value = package.get(field)
-        if not isinstance(value, str) or len(value.strip()) < 8:
-            errors.append(f"{route} route requires a substantive {field}")
+    for field in shared_fields:
+        if field in {"anchor_classes", "evidence_needed_for_stage_b", "next_confirmation_points"}:
+            continue
+        if field in narrative_fields:
+            value = package.get(field)
+            if not isinstance(value, str) or len(value.strip()) < 8:
+                errors.append(f"{route} route requires a substantive {field}")
 
     evidence = package.get("evidence_needed_for_stage_b")
     evidence_pairs = canonical.get("structured_evidence_target_key_pairs", [])
@@ -253,15 +270,31 @@ def route_package_errors(
             errors.append("execution route has an unsupported anchor strength")
         _validate_shared_route_values(package, canonical, route, errors)
     else:
-        if package.get("structural_selector_policy_version") != _CANONICAL_SELECTOR_VERSION:
+        selector_version = canonical.get("structural_selector_policy_version")
+        if not isinstance(selector_version, str) or not selector_version:
             errors.append(
-                "v3_non_execution route requires structural_selector_policy_version=STRUCTURAL_NEWS_VALUE_SELECTION_V3"
+                "generated canonical structural_selector_policy_version projection is missing"
+            )
+        elif package.get("structural_selector_policy_version") != selector_version:
+            errors.append(
+                f"v3_non_execution route requires structural_selector_policy_version={selector_version}"
             )
         _validate_shared_route_values(package, canonical, route, errors)
-        for field in _OVERRIDE_ONLY_NARRATIVES:
+        override_only = _projected_string_list(
+            canonical, "override_only_required_fields", errors
+        )
+        narrative_fields = set(
+            _projected_string_list(canonical, "v3_narrative_fields", errors)
+        )
+        for field in override_only:
             value = package.get(field)
-            if not isinstance(value, str) or len(value.strip()) < 8:
-                errors.append(f"v3_non_execution route requires a substantive {field}")
+            if field in narrative_fields:
+                if not isinstance(value, str) or len(value.strip()) < 8:
+                    errors.append(
+                        f"v3_non_execution route requires a substantive {field}"
+                    )
+            elif _is_empty_route_value(value):
+                errors.append(f"v3_non_execution route requires non-empty {field}")
     return errors
 
 

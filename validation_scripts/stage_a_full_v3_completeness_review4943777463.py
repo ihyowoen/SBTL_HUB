@@ -3,7 +3,8 @@
 
 Adds cross-object reconciliation that is not safely expressible as simple
 presence checks: usable strict source lineage, review workload accounting,
-review-resolution partition lineage, and decision-ledger disposition lineage.
+review-resolution partition lineage, decision-ledger disposition lineage, and
+safe preflight of execution-strength types before legacy membership checks.
 """
 from __future__ import annotations
 
@@ -15,7 +16,6 @@ from validation_scripts import stage_a_full_v3_completeness_review4943656188_fin
 CANONICAL_POLICY_VERSION = _previous.CANONICAL_POLICY_VERSION
 CANONICAL_POLICY_FILE = _previous.CANONICAL_POLICY_FILE
 looks_like_full_stage_a_artifact = _previous.looks_like_full_stage_a_artifact
-prevalidate_full_stage_a_artifact = _previous.prevalidate_full_stage_a_artifact
 
 _CANONICAL_REVIEW_POOLS = (
     "candidate_review_pool",
@@ -59,6 +59,32 @@ def _candidate_label(item: Mapping[str, Any], fallback: str) -> str:
         if _nonempty_text(value):
             return value.strip()
     return fallback
+
+
+def prevalidate_full_stage_a_artifact(data: Any) -> list[str]:
+    """Run prior container preflight plus type guards needed before legacy code."""
+    messages = list(_previous.prevalidate_full_stage_a_artifact(data))
+    if not isinstance(data, Mapping):
+        return messages
+    strict = data.get("strict_passed_spec")
+    if not isinstance(strict, list):
+        return messages
+    for index, item in enumerate(strict):
+        if not isinstance(item, Mapping):
+            continue
+        anchor_type = item.get("execution_anchor_type")
+        strength = item.get("execution_anchor_strength")
+        execution_shaped = not (
+            anchor_type is None or anchor_type == "" or anchor_type == [] or anchor_type == {}
+        ) or not (
+            strength is None or strength == "" or strength == [] or strength == {}
+        )
+        if execution_shaped and not isinstance(strength, str):
+            label = _candidate_label(item, f"strict_passed_spec[{index}]")
+            messages.append(
+                f"{label}: execution_anchor_strength must be a string before execution-route validation"
+            )
+    return messages
 
 
 def _story_ids(item: Mapping[str, Any], *, strict: bool = False) -> list[str]:

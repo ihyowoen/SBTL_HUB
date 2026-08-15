@@ -4,7 +4,7 @@
 The canonical schema distinguishes:
 
 - shared strict decision metadata, required on execution and non-execution routes;
-- override-only rationale, required only on V3 non-execution routes;
+- override-only rationale, materialized empty on execution and substantive on V3 non-execution;
 - execution-anchor identity, required only on execution routes;
 - structural-selector lineage, required on the V3 non-execution route.
 
@@ -97,45 +97,18 @@ _CANONICAL_NARRATIVE_FIELDS = (
 
 
 def _expected_structured_text_definition(key_pairs):
-    """Build exact schemas with minimum lengths applied after trimming."""
     structured_pattern = r"^\s*\S[\s\S]*\S\s*$"
     free_text_pattern = r"^\s*\S[\s\S]{2,}\S\s*$"
     options = []
     for first_key, second_key in key_pairs:
-        options.append(
-            {
-                "type": "object",
-                "required": [first_key, second_key],
-                "properties": {
-                    first_key: {
-                        "type": "string",
-                        "minLength": 2,
-                        "pattern": structured_pattern,
-                    },
-                    second_key: {
-                        "type": "string",
-                        "minLength": 2,
-                        "pattern": structured_pattern,
-                    },
-                },
-                "additionalProperties": True,
-            }
-        )
-    options.append(
-        {"type": "string", "minLength": 4, "pattern": free_text_pattern}
-    )
-    return {"oneOf": options}
+        options.append({"type":"object","required":[first_key,second_key],"properties":{first_key:{"type":"string","minLength":2,"pattern":structured_pattern},second_key:{"type":"string","minLength":2,"pattern":structured_pattern}},"additionalProperties":True})
+    options.append({"type":"string","minLength":4,"pattern":free_text_pattern})
+    return {"oneOf":options}
 
 
 def _unique_string_list(value: Any) -> list[str] | None:
-    if (
-        not isinstance(value, list)
-        or not value
-        or any(not isinstance(item, str) or not item.strip() for item in value)
-    ):
+    if not isinstance(value, list) or not value or any(not isinstance(item, str) or not item.strip() for item in value):
         return None
-    # Contract metadata is itself canonical data.  Do not validate a trimmed
-    # representation and then project the untrimmed source value downstream.
     if any(item != item.strip() for item in value):
         return None
     if len(set(value)) != len(value):
@@ -144,35 +117,25 @@ def _unique_string_list(value: Any) -> list[str] | None:
 
 
 def _anchor_class_schema(values: list[str], require_execution: bool) -> dict[str, Any]:
-    schema: dict[str, Any] = {
-        "type": "array",
-        "minItems": 1,
-        "uniqueItems": True,
-        "items": {"enum": values},
-    }
+    schema: dict[str, Any] = {"type":"array","minItems":1,"uniqueItems":True,"items":{"enum":values}}
     if require_execution:
-        schema["contains"] = {"const": "execution_event_anchor"}
+        schema["contains"] = {"const":"execution_event_anchor"}
         schema["minContains"] = 1
     return schema
 
 
 def _legacy_validation_view(contract: Mapping[str, Any]) -> dict[str, Any]:
-    """Translate only corrected route/lineage additions into historical shape."""
     view = copy.deepcopy(dict(contract))
     metadata = view.get("x-sbtl-contract")
     definitions = view.get("$defs")
     if not isinstance(metadata, dict) or not isinstance(definitions, dict):
         return view
-
-    # The historical checker predates the selector-lineage metadata key.
     metadata.pop("structural_selector_policy_version", None)
-
     override_required = metadata.get("v3_override_required_fields")
     if isinstance(override_required, list):
         empty_by_route = metadata.get("empty_only_fields_by_route")
         if isinstance(empty_by_route, dict):
             empty_by_route["execution"] = list(override_required)
-
     execution = definitions.get("execution_route")
     if isinstance(execution, dict):
         execution["required"] = sorted(_EXECUTION_IDENTITY_FIELDS)
@@ -180,27 +143,17 @@ def _legacy_validation_view(contract: Mapping[str, Any]) -> dict[str, Any]:
         if isinstance(properties, dict) and isinstance(override_required, list):
             for field in override_required:
                 properties[field] = copy.deepcopy(_EMPTY_REF)
-
     non_execution = definitions.get("v3_non_execution_route")
     if isinstance(non_execution, dict):
         required = non_execution.get("required")
         if isinstance(required, list):
-            non_execution["required"] = [
-                field
-                for field in required
-                if field != "structural_selector_policy_version"
-            ]
+            non_execution["required"] = [field for field in required if field != "structural_selector_policy_version"]
         properties = non_execution.get("properties")
         allowed = metadata.get("allowed_non_execution_anchor_classes")
         if isinstance(properties, dict):
             properties.pop("structural_selector_policy_version", None)
             if isinstance(allowed, list):
-                properties["anchor_classes"] = {
-                    "type": "array",
-                    "minItems": 1,
-                    "uniqueItems": True,
-                    "items": {"enum": list(allowed)},
-                }
+                properties["anchor_classes"] = {"type":"array","minItems":1,"uniqueItems":True,"items":{"enum":list(allowed)}}
     return view
 
 
@@ -210,170 +163,70 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
     definitions = contract.get("$defs")
     if not isinstance(metadata, Mapping) or not isinstance(definitions, Mapping):
         return errors
-
-    selector_version = metadata.get("structural_selector_policy_version")
-    if selector_version != _CANONICAL_SELECTOR_VERSION:
-        errors.append(
-            "structural_selector_policy_version metadata must equal STRUCTURAL_NEWS_VALUE_SELECTION_V3"
-        )
-
-    allowed_strengths = _unique_string_list(
-        metadata.get("allowed_execution_anchor_strengths")
-    )
+    if metadata.get("structural_selector_policy_version") != _CANONICAL_SELECTOR_VERSION:
+        errors.append("structural_selector_policy_version metadata must equal STRUCTURAL_NEWS_VALUE_SELECTION_V3")
+    allowed_strengths = _unique_string_list(metadata.get("allowed_execution_anchor_strengths"))
     if allowed_strengths is None:
-        errors.append(
-            "allowed_execution_anchor_strengths must be a unique non-empty canonical string array"
-        )
+        errors.append("allowed_execution_anchor_strengths must be a unique non-empty canonical string array")
         allowed_strengths = []
     elif set(allowed_strengths) != set(_CANONICAL_EXECUTION_ANCHOR_STRENGTHS):
-        errors.append(
-            "allowed_execution_anchor_strengths must match the fixed V3 execution-strength set"
-        )
-
-    allowed_non_execution = _unique_string_list(
-        metadata.get("allowed_non_execution_anchor_classes")
-    )
+        errors.append("allowed_execution_anchor_strengths must match the fixed V3 execution-strength set")
+    allowed_non_execution = _unique_string_list(metadata.get("allowed_non_execution_anchor_classes"))
     if allowed_non_execution is None:
-        errors.append(
-            "allowed_non_execution_anchor_classes must be a unique non-empty canonical string array"
-        )
+        errors.append("allowed_non_execution_anchor_classes must be a unique non-empty canonical string array")
         allowed_non_execution = []
     elif set(allowed_non_execution) != set(_CANONICAL_NON_EXECUTION_ANCHOR_CLASSES):
-        errors.append(
-            "allowed_non_execution_anchor_classes must match the fixed V3 non-execution anchor set"
-        )
-
+        errors.append("allowed_non_execution_anchor_classes must match the fixed V3 non-execution anchor set")
     shared = _unique_string_list(metadata.get("shared_strict_required_fields"))
     override_only = _unique_string_list(metadata.get("override_only_required_fields"))
     override_required = _unique_string_list(metadata.get("v3_override_required_fields"))
     narrative_fields = _unique_string_list(metadata.get("v3_narrative_fields"))
     if shared is None:
-        errors.append("shared_strict_required_fields must be a unique non-empty canonical string array")
-        shared = []
+        errors.append("shared_strict_required_fields must be a unique non-empty canonical string array"); shared=[]
     if override_only is None:
-        errors.append("override_only_required_fields must be a unique non-empty canonical string array")
-        override_only = []
+        errors.append("override_only_required_fields must be a unique non-empty canonical string array"); override_only=[]
     if override_required is None:
-        errors.append("v3_override_required_fields must be a unique non-empty canonical string array")
-        return errors
+        errors.append("v3_override_required_fields must be a unique non-empty canonical string array"); return errors
     if narrative_fields is None:
-        errors.append("v3_narrative_fields must be a unique non-empty canonical string array")
-        narrative_fields = []
-
-    if set(shared) != set(_CANONICAL_SHARED_STRICT_FIELDS):
-        errors.append("shared_strict_required_fields must match the fixed V3 shared field set")
-    if set(override_only) != set(_CANONICAL_OVERRIDE_ONLY_FIELDS):
-        errors.append("override_only_required_fields must match the fixed V3 override-only field set")
-    if set(override_required) != set(_CANONICAL_OVERRIDE_REQUIRED_FIELDS):
-        errors.append("v3_override_required_fields must match the fixed V3 route field set")
-    if set(narrative_fields) != set(_CANONICAL_NARRATIVE_FIELDS):
-        errors.append("v3_narrative_fields must match the fixed V3 narrative field set")
-
-    if set(shared) & set(override_only):
-        errors.append("shared_strict_required_fields and override_only_required_fields must be disjoint")
-    if set(shared) | set(override_only) != set(override_required):
-        errors.append(
-            "shared_strict_required_fields plus override_only_required_fields must equal v3_override_required_fields"
-        )
-
+        errors.append("v3_narrative_fields must be a unique non-empty canonical string array"); narrative_fields=[]
+    if set(shared) != set(_CANONICAL_SHARED_STRICT_FIELDS): errors.append("shared_strict_required_fields must match the fixed V3 shared field set")
+    if set(override_only) != set(_CANONICAL_OVERRIDE_ONLY_FIELDS): errors.append("override_only_required_fields must match the fixed V3 override-only field set")
+    if set(override_required) != set(_CANONICAL_OVERRIDE_REQUIRED_FIELDS): errors.append("v3_override_required_fields must match the fixed V3 route field set")
+    if set(narrative_fields) != set(_CANONICAL_NARRATIVE_FIELDS): errors.append("v3_narrative_fields must match the fixed V3 narrative field set")
+    if set(shared) & set(override_only): errors.append("shared_strict_required_fields and override_only_required_fields must be disjoint")
+    if set(shared) | set(override_only) != set(override_required): errors.append("shared_strict_required_fields plus override_only_required_fields must equal v3_override_required_fields")
     empty_by_route = metadata.get("empty_only_fields_by_route")
-    if not isinstance(empty_by_route, Mapping):
-        return errors
+    if not isinstance(empty_by_route, Mapping): return errors
     execution_empty = empty_by_route.get("execution")
-    if (
-        not isinstance(execution_empty, list)
-        or any(not isinstance(item, str) or not item.strip() or item != item.strip() for item in execution_empty)
-        or len(set(execution_empty)) != len(execution_empty)
-    ):
+    if not isinstance(execution_empty, list) or any(not isinstance(item,str) or not item.strip() or item != item.strip() for item in execution_empty) or len(set(execution_empty)) != len(execution_empty):
         errors.append("execution empty-only fields must be a unique canonical string array")
-    elif set(execution_empty) != set(override_only):
-        errors.append("execution empty-only fields must equal override_only_required_fields")
-
-    execution = definitions.get("execution_route")
-    non_execution = definitions.get("v3_non_execution_route")
-    if not isinstance(execution, Mapping) or not isinstance(non_execution, Mapping):
-        return errors
-
+    elif set(execution_empty) != set(override_only): errors.append("execution empty-only fields must equal override_only_required_fields")
+    execution = definitions.get("execution_route"); non_execution = definitions.get("v3_non_execution_route")
+    if not isinstance(execution, Mapping) or not isinstance(non_execution, Mapping): return errors
     execution_required = execution.get("required")
-    expected_execution_required = _EXECUTION_IDENTITY_FIELDS | set(shared)
-    if (
-        not isinstance(execution_required, list)
-        or len(execution_required) != len(expected_execution_required)
-        or set(execution_required) != expected_execution_required
-    ):
-        errors.append(
-            "execution_route required fields must contain execution identity plus shared strict fields exactly"
-        )
-
+    expected_execution_required = _EXECUTION_IDENTITY_FIELDS | set(shared) | set(override_only)
+    if not isinstance(execution_required,list) or len(execution_required)!=len(expected_execution_required) or set(execution_required)!=expected_execution_required:
+        errors.append("execution_route required fields must contain execution identity plus shared strict and materialized empty override-only fields exactly")
     non_execution_required = non_execution.get("required")
     expected_non_execution_required = _NON_EXECUTION_IDENTITY_FIELDS | set(override_required)
-    if (
-        not isinstance(non_execution_required, list)
-        or len(non_execution_required) != len(expected_non_execution_required)
-        or set(non_execution_required) != expected_non_execution_required
-    ):
-        errors.append(
-            "v3_non_execution_route required fields differ from selector-lineage plus shared-and-override contract"
-        )
-
-    execution_anchor_values = ["execution_event_anchor", *allowed_non_execution]
-    expected_execution_anchor_schema = _anchor_class_schema(
-        execution_anchor_values, require_execution=True
-    )
-    expected_non_execution_anchor_schema = _anchor_class_schema(
-        allowed_non_execution, require_execution=False
-    )
-    if definitions.get("execution_anchor_classes") != expected_execution_anchor_schema:
-        errors.append("execution_anchor_classes definition is not canonical")
-    if definitions.get("non_execution_anchor_classes") != expected_non_execution_anchor_schema:
-        errors.append("non_execution_anchor_classes definition is not canonical")
-
-    execution_properties = execution.get("properties")
-    non_execution_properties = non_execution.get("properties")
-    if not isinstance(execution_properties, Mapping) or not isinstance(non_execution_properties, Mapping):
-        return errors
-
-    execution_strength_schema = execution_properties.get("execution_anchor_strength")
-    execution_strength_values = (
-        execution_strength_schema.get("enum")
-        if isinstance(execution_strength_schema, Mapping)
-        else None
-    )
-    if (
-        not isinstance(execution_strength_values, list)
-        or len(execution_strength_values) != len(set(execution_strength_values))
-        or set(execution_strength_values) != set(_CANONICAL_EXECUTION_ANCHOR_STRENGTHS)
-    ):
-        errors.append(
-            "execution_route execution_anchor_strength must match the fixed V3 execution-strength set"
-        )
-
-    if execution_properties.get("anchor_classes") != {
-        "$ref": "#/$defs/execution_anchor_classes"
-    }:
-        errors.append("execution_route anchor_classes must reference execution_anchor_classes")
-    if non_execution_properties.get("anchor_classes") != {
-        "$ref": "#/$defs/non_execution_anchor_classes"
-    }:
-        errors.append("v3_non_execution_route anchor_classes must reference non_execution_anchor_classes")
-    if non_execution_properties.get("structural_selector_policy_version") != {
-        "const": _CANONICAL_SELECTOR_VERSION
-    }:
-        errors.append(
-            "v3_non_execution_route structural_selector_policy_version must be the canonical constant"
-        )
-
+    if not isinstance(non_execution_required,list) or len(non_execution_required)!=len(expected_non_execution_required) or set(non_execution_required)!=expected_non_execution_required:
+        errors.append("v3_non_execution_route required fields differ from selector-lineage plus shared-and-override contract")
+    execution_anchor_values=["execution_event_anchor",*allowed_non_execution]
+    if definitions.get("execution_anchor_classes") != _anchor_class_schema(execution_anchor_values, True): errors.append("execution_anchor_classes definition is not canonical")
+    if definitions.get("non_execution_anchor_classes") != _anchor_class_schema(allowed_non_execution, False): errors.append("non_execution_anchor_classes definition is not canonical")
+    execution_properties=execution.get("properties"); non_execution_properties=non_execution.get("properties")
+    if not isinstance(execution_properties, Mapping) or not isinstance(non_execution_properties, Mapping): return errors
+    execution_strength_schema=execution_properties.get("execution_anchor_strength")
+    execution_strength_values=execution_strength_schema.get("enum") if isinstance(execution_strength_schema, Mapping) else None
+    if not isinstance(execution_strength_values,list) or len(execution_strength_values)!=len(set(execution_strength_values)) or set(execution_strength_values)!=set(_CANONICAL_EXECUTION_ANCHOR_STRENGTHS): errors.append("execution_route execution_anchor_strength must match the fixed V3 execution-strength set")
+    if execution_properties.get("anchor_classes") != {"$ref":"#/$defs/execution_anchor_classes"}: errors.append("execution_route anchor_classes must reference execution_anchor_classes")
+    if non_execution_properties.get("anchor_classes") != {"$ref":"#/$defs/non_execution_anchor_classes"}: errors.append("v3_non_execution_route anchor_classes must reference non_execution_anchor_classes")
+    if non_execution_properties.get("structural_selector_policy_version") != {"const":_CANONICAL_SELECTOR_VERSION}: errors.append("v3_non_execution_route structural_selector_policy_version must be the canonical constant")
     for field in override_only:
-        if execution_properties.get(field) != _EMPTY_REF:
-            errors.append(f"execution_route {field} must remain override-only and empty")
-
+        if execution_properties.get(field) != _EMPTY_REF: errors.append(f"execution_route {field} must remain override-only and empty")
     for field in shared:
-        if field == "anchor_classes":
-            continue
-        if execution_properties.get(field) != non_execution_properties.get(field):
-            errors.append(
-                f"shared strict field {field} must use the same schema on both routes"
-            )
+        if field == "anchor_classes": continue
+        if execution_properties.get(field) != non_execution_properties.get(field): errors.append(f"shared strict field {field} must use the same schema on both routes")
     return errors
 
 
@@ -385,49 +238,23 @@ def validate_contract_document(contract: Mapping[str, Any]) -> list[str]:
 
 def contract_projection(contract: Mapping[str, Any]) -> dict[str, Any]:
     errors = validate_contract_document(contract)
-    if errors:
-        raise ValueError("invalid canonical V3 contract: " + "; ".join(errors))
+    if errors: raise ValueError("invalid canonical V3 contract: " + "; ".join(errors))
     metadata = contract["x-sbtl-contract"]
     return {
-        "route_cardinality": metadata["route_cardinality"],
-        "route_names": tuple(metadata["route_names"]),
-        "structural_selector_policy_version": metadata[
-            "structural_selector_policy_version"
-        ],
-        "allowed_execution_anchor_strengths": frozenset(
-            metadata["allowed_execution_anchor_strengths"]
-        ),
-        "allowed_non_execution_anchor_classes": frozenset(
-            metadata["allowed_non_execution_anchor_classes"]
-        ),
-        "shared_strict_required_fields": tuple(
-            metadata["shared_strict_required_fields"]
-        ),
-        "override_only_required_fields": tuple(
-            metadata["override_only_required_fields"]
-        ),
-        "v3_override_required_fields": tuple(
-            metadata["v3_override_required_fields"]
-        ),
-        "v3_narrative_fields": tuple(metadata["v3_narrative_fields"]),
-        "allowed_stage_a_evidence_statuses": frozenset(
-            metadata["allowed_stage_a_evidence_statuses"]
-        ),
-        "allowed_primary_url_semantics": frozenset(
-            metadata["allowed_primary_url_semantics"]
-        ),
-        "structured_evidence_target_key_pairs": tuple(
-            tuple(pair)
-            for pair in metadata["structured_evidence_target_key_pairs"]
-        ),
-        "structured_confirmation_point_key_pairs": tuple(
-            tuple(pair)
-            for pair in metadata["structured_confirmation_point_key_pairs"]
-        ),
-        "empty_only_fields_by_route": {
-            route: tuple(fields)
-            for route, fields in metadata["empty_only_fields_by_route"].items()
-        },
+        "route_cardinality":metadata["route_cardinality"],
+        "route_names":tuple(metadata["route_names"]),
+        "structural_selector_policy_version":metadata["structural_selector_policy_version"],
+        "allowed_execution_anchor_strengths":frozenset(metadata["allowed_execution_anchor_strengths"]),
+        "allowed_non_execution_anchor_classes":frozenset(metadata["allowed_non_execution_anchor_classes"]),
+        "shared_strict_required_fields":tuple(metadata["shared_strict_required_fields"]),
+        "override_only_required_fields":tuple(metadata["override_only_required_fields"]),
+        "v3_override_required_fields":tuple(metadata["v3_override_required_fields"]),
+        "v3_narrative_fields":tuple(metadata["v3_narrative_fields"]),
+        "allowed_stage_a_evidence_statuses":frozenset(metadata["allowed_stage_a_evidence_statuses"]),
+        "allowed_primary_url_semantics":frozenset(metadata["allowed_primary_url_semantics"]),
+        "structured_evidence_target_key_pairs":tuple(tuple(pair) for pair in metadata["structured_evidence_target_key_pairs"]),
+        "structured_confirmation_point_key_pairs":tuple(tuple(pair) for pair in metadata["structured_confirmation_point_key_pairs"]),
+        "empty_only_fields_by_route":{route:tuple(fields) for route,fields in metadata["empty_only_fields_by_route"].items()},
     }
 
 

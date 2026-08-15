@@ -56,6 +56,9 @@ class Review4943695732Contracts(unittest.TestCase):
                 "review_pool_subtype": "general_candidate",
                 "promotion_precondition": "Verify the exact current event stage from the provided source packet.",
                 "bounded_review_question": "Does the provided source packet support the claimed current event stage?",
+                "recommended_review_method": "Run a bounded source-packet and baseline duplicate review without external web search.",
+                "evidence_or_duplicate_question": "Does the source packet support the claimed stage, and is the event distinct from the baseline?",
+                "final_review_pool_disposition": "needs_user_decision_after_review",
             }
         )
         return item

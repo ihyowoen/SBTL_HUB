@@ -217,8 +217,10 @@ def _route_neutral_contract_errors(contract: Mapping[str, Any]) -> list[str]:
     execution_properties=execution.get("properties"); non_execution_properties=non_execution.get("properties")
     if not isinstance(execution_properties, Mapping) or not isinstance(non_execution_properties, Mapping): return errors
     execution_strength_schema=execution_properties.get("execution_anchor_strength")
-    execution_strength_values=execution_strength_schema.get("enum") if isinstance(execution_strength_schema, Mapping) else None
-    if not isinstance(execution_strength_values,list) or len(execution_strength_values)!=len(set(execution_strength_values)) or set(execution_strength_values)!=set(_CANONICAL_EXECUTION_ANCHOR_STRENGTHS): errors.append("execution_route execution_anchor_strength must match the fixed V3 execution-strength set")
+    execution_strength_values_raw=execution_strength_schema.get("enum") if isinstance(execution_strength_schema, Mapping) else None
+    execution_strength_values=_unique_string_list(execution_strength_values_raw)
+    if execution_strength_values is None or set(execution_strength_values)!=set(_CANONICAL_EXECUTION_ANCHOR_STRENGTHS):
+        errors.append("execution_route execution_anchor_strength must match the fixed V3 execution-strength set")
     if execution_properties.get("anchor_classes") != {"$ref":"#/$defs/execution_anchor_classes"}: errors.append("execution_route anchor_classes must reference execution_anchor_classes")
     if non_execution_properties.get("anchor_classes") != {"$ref":"#/$defs/non_execution_anchor_classes"}: errors.append("v3_non_execution_route anchor_classes must reference non_execution_anchor_classes")
     if non_execution_properties.get("structural_selector_policy_version") != {"const":_CANONICAL_SELECTOR_VERSION}: errors.append("v3_non_execution_route structural_selector_policy_version must be the canonical constant")

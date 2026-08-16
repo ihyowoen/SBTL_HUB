@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""Stage A hardening for Codex review 4945668766.
+"""Stage A hardening for Codex reviews 4945668766 and 4945805914.
 
 Adds fail-closed validation for strict Stage B evidence packaging, source-prompt
-provenance, and decision-ledger V3 mirror consistency without changing route-
-only compatibility semantics.
+provenance, decision-ledger V3 mirror consistency, preserved source-cluster
+coverage, strict review state, original-status accounting, and explicit hard
+block statuses without changing route-only compatibility semantics.
 """
 from __future__ import annotations
 
+import hashlib
+from collections import Counter
+from pathlib import Path
 from typing import Any, Mapping
 
 from validation_scripts import stage_a_full_v3_completeness_review4945466862 as _previous
@@ -25,6 +29,7 @@ _SOURCE_PROMPT_FIELDS = (
     "source_prompt_authority",
     "source_prompt_provenance_status",
 )
+_REPO_ROOT = Path(__file__).resolve().parents[1]
 
 _LEDGER_STRICT_MIRROR_FIELDS = {
     "anchor_classes": "anchor_classes",
@@ -73,6 +78,19 @@ def _valid_sha256(value: Any) -> bool:
     )
 
 
+def _repository_prompt_path(value: Any) -> Path | None:
+    """Return an in-repository prompt path when the declared file is available."""
+    if not _nonempty_text(value):
+        return None
+    raw = Path(value.strip())
+    candidate = raw.resolve() if raw.is_absolute() else (_REPO_ROOT / raw).resolve()
+    try:
+        candidate.relative_to(_REPO_ROOT)
+    except ValueError:
+        return None
+    return candidate if candidate.is_file() else None
+
+
 def _validate_source_prompt_provenance(
     data: Mapping[str, Any], messages: list[str]
 ) -> None:
@@ -94,6 +112,21 @@ def _validate_source_prompt_provenance(
     if "source_prompt_provenance_status" in data and data.get("source_prompt_provenance_status") != "PASS":
         messages.append("full Stage A artifact source_prompt_provenance_status must be PASS")
 
+    prompt_path = _repository_prompt_path(data.get("source_prompt_file"))
+    recorded_digest = data.get("source_prompt_sha256")
+    if prompt_path is not None and _valid_sha256(recorded_digest):
+        try:
+            actual_digest = hashlib.sha256(prompt_path.read_bytes()).hexdigest()
+        except OSError as exc:
+            messages.append(
+                f"full Stage A artifact repository source_prompt_file could not be hashed: {exc}"
+            )
+        else:
+            if recorded_digest.lower() != actual_digest:
+                messages.append(
+                    "full Stage A artifact source_prompt_sha256 must match the SHA-256 of the referenced repository source_prompt_file"
+                )
+
 
 def _validate_strict_stage_b_evidence_packaging(
     data: Mapping[str, Any], messages: list[str]
@@ -108,6 +141,10 @@ def _validate_strict_stage_b_evidence_packaging(
         if item.get("stage_b_evidence_package_required") is not True:
             messages.append(
                 f"{label}: stage_b_evidence_package_required must be true for strict_passed_spec"
+            )
+        if item.get("needs_review") is not False:
+            messages.append(
+                f"{label}: needs_review must be false for strict_passed_spec"
             )
 
 
@@ -155,6 +192,72 @@ def _validate_decision_ledger_v3_mirror(
                 )
 
 
+def _validate_preserved_cluster_story_coverage(
+    data: Mapping[str, Any], messages: list[str]
+) -> None:
+    strict = data.get("strict_passed_spec")
+    if not isinstance(strict, list):
+        return
+    for index, item in enumerate(strict):
+        if not isinstance(item, Mapping):
+            continue
+        source_ids = item.get("source_story_ids")
+        cluster = item.get("same_event_source_cluster")
+        if not isinstance(source_ids, list) or not isinstance(cluster, list):
+            continue
+        expected = {value.strip() for value in source_ids if _nonempty_text(value)}
+        observed = {
+            row.get("story_id").strip()
+            for row in cluster
+            if isinstance(row, Mapping) and _nonempty_text(row.get("story_id"))
+        }
+        missing = sorted(expected - observed)
+        if missing:
+            label = item.get("spec_id") if _nonempty_text(item.get("spec_id")) else f"strict_passed_spec[{index}]"
+            messages.append(
+                f"{label}: same_event_source_cluster must cover every strict source_story_id; missing {missing!r}"
+            )
+
+
+def _validate_original_status_counts_against_ledger(
+    data: Mapping[str, Any], messages: list[str]
+) -> None:
+    counts = data.get("original_status_counts")
+    ledger = data.get("decision_ledger")
+    if not isinstance(counts, Mapping) or not isinstance(ledger, list):
+        return
+    if not all(
+        _nonempty_text(key)
+        and isinstance(value, int)
+        and not isinstance(value, bool)
+        and value >= 0
+        for key, value in counts.items()
+    ):
+        return
+    expected: Counter[str] = Counter()
+    for row in ledger:
+        if not isinstance(row, Mapping):
+            continue
+        status = row.get("upstream_status")
+        if _nonempty_text(status):
+            expected[status.strip()] += 1
+    actual = {str(key).strip(): value for key, value in counts.items()}
+    if actual != dict(expected):
+        messages.append(
+            "full Stage A artifact original_status_counts must exactly match decision_ledger upstream_status counts"
+        )
+
+
+def _validate_explicit_blocked_status(
+    data: Mapping[str, Any], messages: list[str]
+) -> None:
+    status = data.get("status")
+    if isinstance(status, str) and status.strip().upper().startswith("BLOCKED"):
+        messages.append(
+            f"full Stage A artifact explicit blocked status {status.strip()} cannot be certified or routed to Stage B"
+        )
+
+
 def validate_full_stage_a_artifact(
     data: Mapping[str, Any], compat_module: Any
 ) -> list[str]:
@@ -162,4 +265,7 @@ def validate_full_stage_a_artifact(
     _validate_source_prompt_provenance(data, messages)
     _validate_strict_stage_b_evidence_packaging(data, messages)
     _validate_decision_ledger_v3_mirror(data, messages)
+    _validate_preserved_cluster_story_coverage(data, messages)
+    _validate_original_status_counts_against_ledger(data, messages)
+    _validate_explicit_blocked_status(data, messages)
     return messages

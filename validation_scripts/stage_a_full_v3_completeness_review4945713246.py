@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Stage A hardening for Codex review 4945713246.
+"""Stage A hardening for Codex reviews 4945713246 and 4945752093.
 
-Closes four remaining fail-open/false-negative gaps without weakening the
-historical validator chain: extended review-resolution audit rows, legacy_keep
-ledger/disposition reconciliation, fail-closed review gate enum preflight, and
-strict upstream-anchor support.
+Closes remaining fail-open/false-negative gaps without weakening the historical
+validator chain: extended review-resolution audit rows, legacy_keep
+ledger/disposition reconciliation, fail-closed enum preflight, strict upstream
+anchor support, preserved source-cluster validation, and canonical separation
+of ledger-decision vocabulary from editorial buckets.
 """
 from __future__ import annotations
 
@@ -47,6 +48,8 @@ _REVIEW_GATE_ENUM_FIELDS = (
     ("independent_cardability_gate", "status"),
     ("independent_cardability_gate", "full_schema_viability"),
 )
+_CANONICAL_STRICT_LEDGER_DECISIONS = {"passed", "merged"}
+_CANONICAL_LEGACY_KEEP_LEDGER_DECISIONS = {"passed", "merged"}
 
 
 def _nonempty_text(value: Any) -> bool:
@@ -69,8 +72,17 @@ def _candidate_label(item: Mapping[str, Any], fallback: str) -> str:
     return fallback
 
 
+def _append_unhashable_operand(
+    messages: list[str], label: str, field: str, value: Any
+) -> None:
+    if value is not None and not _is_hashable(value):
+        messages.append(
+            f"{label}: {field} must be hashable scalar metadata before enum validation"
+        )
+
+
 def prevalidate_full_stage_a_artifact(data: Any) -> list[str]:
-    """Guard review gate enum operands before legacy set membership is evaluated."""
+    """Guard all newly identified enum operands before legacy membership checks."""
     messages = list(_previous.prevalidate_full_stage_a_artifact(data))
     if not isinstance(data, Mapping):
         return messages
@@ -87,11 +99,54 @@ def prevalidate_full_stage_a_artifact(data: Any) -> list[str]:
                 gate = item.get(gate_name)
                 if not isinstance(gate, Mapping) or field not in gate:
                     continue
-                value = gate.get(field)
-                if value is not None and not _is_hashable(value):
-                    messages.append(
-                        f"{label}: {gate_name}.{field} must be hashable scalar metadata before enum validation"
+                _append_unhashable_operand(
+                    messages,
+                    label,
+                    f"{gate_name}.{field}",
+                    gate.get(field),
+                )
+
+    strict = data.get("strict_passed_spec")
+    if isinstance(strict, list):
+        for index, item in enumerate(strict):
+            if not isinstance(item, Mapping):
+                continue
+            gate = item.get("strict_pass_gate")
+            if not isinstance(gate, Mapping) or "anchor_supported_by_upstream_text" not in gate:
+                continue
+            label = _candidate_label(item, f"strict_passed_spec[{index}]")
+            _append_unhashable_operand(
+                messages,
+                label,
+                "strict_pass_gate.anchor_supported_by_upstream_text",
+                gate.get("anchor_supported_by_upstream_text"),
+            )
+
+    ledger = data.get("decision_ledger")
+    if isinstance(ledger, list):
+        for index, row in enumerate(ledger):
+            if not isinstance(row, Mapping):
+                continue
+            for field in ("ledger_decision", "editorial_bucket"):
+                if field in row:
+                    _append_unhashable_operand(
+                        messages,
+                        f"decision_ledger[{index}]",
+                        field,
+                        row.get(field),
                     )
+
+    resolution_ledger = data.get("review_pool_resolution_ledger")
+    if isinstance(resolution_ledger, list):
+        for index, row in enumerate(resolution_ledger):
+            if not isinstance(row, Mapping) or "carry_forward_policy" not in row:
+                continue
+            _append_unhashable_operand(
+                messages,
+                f"review_pool_resolution_ledger[{index}]",
+                "carry_forward_policy",
+                row.get("carry_forward_policy"),
+            )
     return messages
 
 
@@ -187,6 +242,7 @@ def _legacy_keep_story_ids(data: Mapping[str, Any], messages: list[str]) -> set[
         return result
     for index, item in enumerate(values):
         if not isinstance(item, Mapping):
+            messages.append(f"legacy_keep[{index}] must be an object")
             continue
         ids = _item_story_ids(item)
         if not ids:
@@ -214,6 +270,19 @@ def _filter_legacy_keep_reverse_false_positives(
             continue
         kept.append(message)
     messages[:] = kept
+
+
+def _filter_superseded_ledger_decision_messages(messages: list[str]) -> None:
+    """Remove historical bucket-as-decision diagnostics replaced below."""
+    messages[:] = [
+        message
+        for message in messages
+        if not (
+            "ledger_decision=" in message
+            and "contradicts emitted disposition strict_passed_spec" in message
+        )
+        and "ledger_decision must be legacy_keep for emitted legacy_keep" not in message
+    ]
 
 
 def _validate_legacy_keep_dispositions(
@@ -256,14 +325,77 @@ def _validate_legacy_keep_dispositions(
             )
             continue
         index, row = rows[0]
-        if row.get("ledger_decision") != "legacy_keep":
+        if row.get("ledger_decision") not in _CANONICAL_LEGACY_KEEP_LEDGER_DECISIONS:
             messages.append(
-                f"decision_ledger[{index}] story {story_id}: ledger_decision must be legacy_keep for emitted legacy_keep"
+                f"decision_ledger[{index}] story {story_id}: ledger_decision must be passed or merged for emitted legacy_keep"
             )
         if row.get("editorial_bucket") != "legacy_keep":
             messages.append(
                 f"decision_ledger[{index}] story {story_id}: editorial_bucket must be legacy_keep for emitted legacy_keep"
             )
+
+
+def _validate_canonical_strict_ledger_decisions(
+    data: Mapping[str, Any], messages: list[str]
+) -> None:
+    strict = data.get("strict_passed_spec")
+    ledger = data.get("decision_ledger")
+    if not isinstance(strict, list) or not isinstance(ledger, list):
+        return
+
+    rows_by_story: dict[str, list[tuple[int, Mapping[str, Any]]]] = defaultdict(list)
+    for index, row in enumerate(ledger):
+        if not isinstance(row, Mapping):
+            continue
+        story_id = row.get("story_id")
+        if _nonempty_text(story_id):
+            rows_by_story[story_id.strip()].append((index, row))
+
+    for item in strict:
+        if not isinstance(item, Mapping):
+            continue
+        for story_id in _item_story_ids(item, strict=True):
+            rows = rows_by_story.get(story_id, [])
+            if len(rows) != 1:
+                continue
+            index, row = rows[0]
+            if row.get("ledger_decision") not in _CANONICAL_STRICT_LEDGER_DECISIONS:
+                messages.append(
+                    f"decision_ledger[{index}] story {story_id}: ledger_decision must be passed or merged for emitted strict_passed_spec"
+                )
+            if row.get("editorial_bucket") != "strict_passed_spec":
+                messages.append(
+                    f"decision_ledger[{index}] story {story_id}: editorial_bucket must be strict_passed_spec for emitted strict_passed_spec"
+                )
+
+
+def _validate_preserved_source_cluster(
+    data: Mapping[str, Any], messages: list[str]
+) -> None:
+    strict = data.get("strict_passed_spec")
+    if not isinstance(strict, list):
+        return
+    for index, item in enumerate(strict):
+        if not isinstance(item, Mapping):
+            continue
+        label = _candidate_label(item, f"strict_passed_spec[{index}]")
+        cluster = item.get("same_event_source_cluster")
+        if not isinstance(cluster, list) or not cluster:
+            messages.append(
+                f"{label}: same_event_source_cluster must be a non-empty array for strict_passed_spec"
+            )
+            continue
+        for row_index, row in enumerate(cluster):
+            row_label = f"{label}: same_event_source_cluster[{row_index}]"
+            if not isinstance(row, Mapping):
+                messages.append(f"{row_label} must be an object")
+                continue
+            if not _nonempty_text(row.get("story_id")):
+                messages.append(f"{row_label}.story_id must be non-empty text")
+            if not _nonempty_text(row.get("url")):
+                messages.append(f"{row_label}.url must be non-empty text")
+            if row.get("preserve_for_stage_b") is not True:
+                messages.append(f"{row_label}.preserve_for_stage_b must be true")
 
 
 def _validate_strict_upstream_anchor_support(
@@ -294,7 +426,10 @@ def validate_full_stage_a_artifact(
     messages = list(_previous.validate_full_stage_a_artifact(data, compat_module))
     legacy_story_ids = _legacy_keep_story_ids(data, messages)
     _filter_legacy_keep_reverse_false_positives(messages, legacy_story_ids)
+    _filter_superseded_ledger_decision_messages(messages)
     _validate_extended_review_resolution_contract(data, messages)
     _validate_legacy_keep_dispositions(data, messages, legacy_story_ids)
+    _validate_canonical_strict_ledger_decisions(data, messages)
+    _validate_preserved_source_cluster(data, messages)
     _validate_strict_upstream_anchor_support(data, messages)
     return messages

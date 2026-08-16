@@ -2,9 +2,9 @@
 """Stage A V3 route and full-artifact contract alignment layer.
 
 The historical validator chain remains authoritative for unchanged lineage,
-source-diversity, review-pool, and downstream checks.  This layer aligns it with
+source-diversity, review-pool, and downstream checks. This layer aligns it with
 canonical Structural News Value V3 and delegates real-artifact completeness to
-``stage_a_full_v3_completeness_review4945466862``.
+``stage_a_full_v3_completeness_review4945668766``.
 """
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ for _import_path in (_ROOT_DIR, _VALIDATION_DIR):
     if _import_path_text not in sys.path:
         sys.path.insert(0, _import_path_text)
 
-from validation_scripts.stage_a_full_v3_completeness_review4945466862 import (  # noqa: E402
+from validation_scripts.stage_a_full_v3_completeness_review4945668766 import (  # noqa: E402
     CANONICAL_POLICY_VERSION,
     looks_like_full_stage_a_artifact,
     prevalidate_full_stage_a_artifact,
@@ -343,8 +343,15 @@ def check_stage_a(data):
 
 
 def check_stage_a_full(data):
-    """Production/CLI Stage A entry point: completeness is mandatory."""
+    """Explicit full-artifact API: completeness is mandatory."""
     return _check_stage_a_impl(data, require_full=True)
+
+
+def _check_stage_a_cli(data):
+    """CLI compatibility dispatcher: route fragments stay route-only; artifacts are full."""
+    if looks_like_full_stage_a_artifact(data):
+        return check_stage_a_full(data)
+    return check_stage_a(data)
 
 
 def _patch_module_chain(root, name, value):
@@ -371,10 +378,11 @@ _patch_module_chain(_compat_module, "validate_stage_a_spec", validate_stage_a_sp
 _patch_module_chain(_compat_module, "check_stage_a", check_stage_a)
 
 if __name__ == "__main__":
-    # The command-line Stage A mode validates an artifact, not a route fragment.
-    # Patch the historical main only for this invocation so its stage_a branch
-    # cannot use the public route-only compatibility path to bypass completeness.
-    _patch_module_chain(_compat_module, "check_stage_a", check_stage_a_full)
+    # The historical CLI supports route-only Stage A contract fixtures as well as
+    # real artifacts. Use the same discriminator as the public API so a route
+    # fragment keeps compatibility while recognizable Stage A output remains
+    # fail-closed under the explicit full-artifact validator.
+    _patch_module_chain(_compat_module, "check_stage_a", _check_stage_a_cli)
     _compat_module._base_layer._base.sys.exit(
         _compat_module._base_layer._base.main()
     )

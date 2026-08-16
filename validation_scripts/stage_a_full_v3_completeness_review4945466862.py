@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Stage A hardening for Codex reviews 4945466862 and 4945615067.
+"""Stage A hardening for Codex reviews 4945466862, 4945615067, and 4945643511.
 
 This layer preserves the supported public route-only ``check_stage_a`` shape
 while keeping real Stage A artifacts fail-closed. It closes reverse ledger-
 disposition coverage, strict source-URL usability, explicitly selected legal
 and technology stage applicability, pending follow-up routing, strict spec ID
-uniqueness, and strict source-diversity gate gaps.
+uniqueness, strict source-diversity gate gaps, unknown explicit stage values,
+treasure-hunt result identity, and review-partition summary reconciliation.
 """
 from __future__ import annotations
 
@@ -19,10 +20,6 @@ CANONICAL_POLICY_VERSION = _previous.CANONICAL_POLICY_VERSION
 CANONICAL_POLICY_FILE = _previous.CANONICAL_POLICY_FILE
 prevalidate_full_stage_a_artifact = _previous.prevalidate_full_stage_a_artifact
 
-# A single pool is a supported public route-only validation payload, especially
-# {"strict_passed_spec": [...]}. Real Stage A output materializes several
-# outcome/accounting pools, while the older strong provenance/accounting
-# markers remain unambiguous full-artifact signals.
 _STAGE_A_OUTPUT_POOL_KEYS = _previous._STAGE_A_OUTPUT_POOL_KEYS
 _CANONICAL_DISPOSITION_POOLS = (
     "strict_passed_spec",
@@ -32,6 +29,15 @@ _CANONICAL_DISPOSITION_POOLS = (
     "rejected",
     "existing_reinforcement",
     "support_source_only",
+)
+_REVIEW_POOLS = (
+    "candidate_review_pool",
+    "watchlist_context_pool",
+    "reject_or_support_only_pool",
+)
+_CANDIDATE_POOLS = (
+    "strict_passed_spec",
+    *_REVIEW_POOLS,
 )
 _PENDING_FOLLOWUP_EXPECTED = {
     "pending_parallel_or_followup_call": "review_pool/treasure triage",
@@ -45,13 +51,6 @@ _PENDING_FOLLOWUP_EXPECTED = {
 
 
 def looks_like_full_stage_a_artifact(data: Any) -> bool:
-    """Discriminate real/incomplete full output from supported route-only input.
-
-    Historical strong markers are sufficient on their own. If those markers
-    have been stripped, two or more Stage A outcome/accounting pool keys still
-    identify a generated Stage A artifact, without converting the longstanding
-    single-pool route-contract API into a full-artifact validator.
-    """
     if _historical.looks_like_full_stage_a_artifact(data):
         return True
     if not isinstance(data, Mapping):
@@ -94,7 +93,6 @@ def _emitted_story_ids(data: Mapping[str, Any]) -> set[str]:
 def _validate_reverse_ledger_disposition_coverage(
     data: Mapping[str, Any], messages: list[str]
 ) -> None:
-    """Every source-ledger story must appear in exactly one emitted disposition."""
     ledger = data.get("decision_ledger")
     if not isinstance(ledger, list):
         return
@@ -161,19 +159,55 @@ def _technology_inferred_from_anchor_or_lens(item: Mapping[str, Any]) -> bool:
 
 def _candidate_label(item: Mapping[str, Any], fallback: str) -> str:
     spec_id = item.get("spec_id")
-    return spec_id.strip() if _nonempty_text(spec_id) else fallback
+    if _nonempty_text(spec_id):
+        return spec_id.strip()
+    review_id = item.get("review_pool_item_id")
+    if _nonempty_text(review_id):
+        return review_id.strip()
+    return fallback
+
+
+def _explicit_stage_present(value: Any) -> bool:
+    if value is None:
+        return False
+    if isinstance(value, str):
+        return bool(value.strip())
+    return True
+
+
+def _validate_explicit_stage_enums(
+    data: Mapping[str, Any], messages: list[str]
+) -> None:
+    for pool in _CANDIDATE_POOLS:
+        values = data.get(pool)
+        if not isinstance(values, list):
+            continue
+        for index, item in enumerate(values):
+            if not isinstance(item, Mapping):
+                continue
+            label = _candidate_label(item, f"{pool}[{index}]")
+            legal_stage = item.get("legal_policy_stage")
+            if (
+                _explicit_stage_present(legal_stage)
+                and legal_stage not in _base_contract.LEGAL_POLICY_STAGES
+            ):
+                messages.append(
+                    f"{label}: legal_policy_stage must be one of the canonical legal-policy stages; got {legal_stage!r}"
+                )
+            technology_stage = item.get("technology_validation_stage")
+            if (
+                _explicit_stage_present(technology_stage)
+                and technology_stage not in _base_contract.TECH_STAGE_CAPS
+            ):
+                messages.append(
+                    f"{label}: technology_validation_stage must be one of the canonical technology stages; got {technology_stage!r}"
+                )
 
 
 def _validate_explicit_legal_stage_applicability(
     data: Mapping[str, Any], messages: list[str]
 ) -> None:
-    """A canonical legal stage is itself an applicability declaration."""
-    for pool in (
-        "strict_passed_spec",
-        "candidate_review_pool",
-        "watchlist_context_pool",
-        "reject_or_support_only_pool",
-    ):
+    for pool in _CANDIDATE_POOLS:
         values = data.get(pool)
         if not isinstance(values, list):
             continue
@@ -201,13 +235,7 @@ def _validate_explicit_legal_stage_applicability(
 def _validate_explicit_technology_stage_applicability(
     data: Mapping[str, Any], messages: list[str]
 ) -> None:
-    """A canonical technology stage is itself an applicability declaration."""
-    for pool in (
-        "strict_passed_spec",
-        "candidate_review_pool",
-        "watchlist_context_pool",
-        "reject_or_support_only_pool",
-    ):
+    for pool in _CANDIDATE_POOLS:
         values = data.get(pool)
         if not isinstance(values, list):
             continue
@@ -305,14 +333,90 @@ def _validate_strict_spec_identity_and_source_diversity(
             )
 
 
+def _treasure_result_row_story_ids(row: Mapping[str, Any]) -> set[str]:
+    result: set[str] = set()
+    story_id = row.get("story_id")
+    if _nonempty_text(story_id):
+        result.add(story_id.strip())
+    grouped = row.get("grouped_story_ids")
+    if isinstance(grouped, list):
+        result.update(value.strip() for value in grouped if _nonempty_text(value))
+    return result
+
+
+def _validate_treasure_result_row_identities(
+    data: Mapping[str, Any], messages: list[str]
+) -> None:
+    treasure = data.get("dropped_treasure_hunt")
+    result = data.get("dropped_treasure_hunt_result")
+    if not isinstance(treasure, Mapping) or not isinstance(result, list):
+        return
+    sampled = treasure.get("sampled_story_ids")
+    if not isinstance(sampled, list):
+        return
+    sampled_ids = {value.strip() for value in sampled if _nonempty_text(value)}
+    result_ids: set[str] = set()
+    complete = True
+    for index, row in enumerate(result):
+        if not isinstance(row, Mapping):
+            complete = False
+            continue
+        row_ids = _treasure_result_row_story_ids(row)
+        if not row_ids:
+            messages.append(
+                f"dropped_treasure_hunt_result[{index}] must identify its sampled story via story_id or grouped_story_ids"
+            )
+            complete = False
+            continue
+        result_ids.update(row_ids)
+    if complete and result_ids != sampled_ids:
+        messages.append(
+            "full Stage A artifact dropped_treasure_hunt_result story identities must match sampled_story_ids"
+        )
+
+
+def _validate_review_partition_summary(
+    data: Mapping[str, Any], messages: list[str]
+) -> None:
+    summary = data.get("review_pool_partition_summary")
+    if not isinstance(summary, Mapping):
+        return
+    expected: dict[str, int] = {}
+    for pool in _REVIEW_POOLS:
+        values = data.get(pool)
+        if not isinstance(values, list):
+            return
+        expected[pool] = len(values)
+    any_review_work = any(expected.values())
+    for pool, expected_count in expected.items():
+        if pool not in summary:
+            if any_review_work:
+                messages.append(
+                    f"review_pool_partition_summary missing canonical partition count {pool}"
+                )
+            continue
+        actual = summary.get(pool)
+        if isinstance(actual, bool) or not isinstance(actual, int) or actual < 0:
+            messages.append(
+                f"review_pool_partition_summary.{pool} must be a non-negative integer"
+            )
+        elif actual != expected_count:
+            messages.append(
+                f"review_pool_partition_summary.{pool} must equal emitted {pool} count {expected_count}; got {actual}"
+            )
+
+
 def validate_full_stage_a_artifact(
     data: Mapping[str, Any], compat_module: Any
 ) -> list[str]:
     messages = list(_previous.validate_full_stage_a_artifact(data, compat_module))
     _validate_reverse_ledger_disposition_coverage(data, messages)
     _validate_strict_source_urls(data, messages)
+    _validate_explicit_stage_enums(data, messages)
     _validate_explicit_legal_stage_applicability(data, messages)
     _validate_explicit_technology_stage_applicability(data, messages)
     _validate_pending_followup_routing(data, messages)
     _validate_strict_spec_identity_and_source_diversity(data, messages)
+    _validate_treasure_result_row_identities(data, messages)
+    _validate_review_partition_summary(data, messages)
     return messages

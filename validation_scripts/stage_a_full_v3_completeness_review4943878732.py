@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Final Stage A governance hardening through Codex review 4943904060.
+"""Final Stage A governance hardening through Codex review 4943980352.
 
 This layer keeps the three first-class review partitions authoritative, treats
 legacy ``review_pool[]`` as a mirror only, requires review audit metadata even
 for an empty workload, enforces exactly one resolution-ledger row per logical
-review item, validates the next-call safety gates, requires partition-specific
-review metadata, applies canonical V3 route validation to candidate review
-items, and restores legal-policy default caps unless an explicit documented
-exception is proven.
+review item, validates the next-call safety gates including zero-strict routing,
+requires partition-specific review metadata, applies canonical V3 route
+validation to candidate review items, restores legal-policy default caps unless
+an explicit documented exception is proven, and treats emitted Stage A outcome
+pools as full-artifact signals even when heuristic provenance markers are lost.
 """
 from __future__ import annotations
 
@@ -20,8 +21,20 @@ from validation_scripts.v3_stage_contract_flow_check import route_package_errors
 
 CANONICAL_POLICY_VERSION = _previous.CANONICAL_POLICY_VERSION
 CANONICAL_POLICY_FILE = _previous.CANONICAL_POLICY_FILE
-looks_like_full_stage_a_artifact = _previous.looks_like_full_stage_a_artifact
 prevalidate_full_stage_a_artifact = _previous.prevalidate_full_stage_a_artifact
+
+_STAGE_A_OUTPUT_POOL_KEYS = (
+    "legacy_keep",
+    "strict_passed_spec",
+    "review_pool",
+    "candidate_review_pool",
+    "watchlist_context_pool",
+    "reject_or_support_only_pool",
+    "rejected",
+    "existing_reinforcement",
+    "support_source_only",
+    "dropped_treasure_hunt_result",
+)
 
 _CANONICAL_REVIEW_POOLS = (
     "candidate_review_pool",
@@ -83,8 +96,22 @@ _LEGAL_EXCEPTION_BASES_BY_STAGE = {
 }
 
 
+def looks_like_full_stage_a_artifact(data: Any) -> bool:
+    """Treat any emitted Stage A outcome pool as a full-artifact attempt."""
+    if _previous.looks_like_full_stage_a_artifact(data):
+        return True
+    return isinstance(data, Mapping) and any(
+        field in data for field in _STAGE_A_OUTPUT_POOL_KEYS
+    )
+
+
 def _nonempty_text(value: Any) -> bool:
     return isinstance(value, str) and bool(value.strip())
+
+
+def _pool_count(data: Mapping[str, Any], pool: str) -> int:
+    value = data.get(pool)
+    return len(value) if isinstance(value, list) else 0
 
 
 def _story_id_set(item: Mapping[str, Any]) -> set[str]:
@@ -251,11 +278,21 @@ def _validate_next_call_safety(data: Mapping[str, Any], messages: list[str]) -> 
         elif not _nonempty_text(value):
             messages.append(f"next_call_recommendation.{field} must be non-empty text")
 
-    strict_count = summary.get("strict_passed_spec_count") if isinstance(summary, Mapping) else None
+    summary_strict_count = summary.get("strict_passed_spec_count") if isinstance(summary, Mapping) else None
+    emitted_strict_count = _pool_count(data, "strict_passed_spec")
+    candidate_review_count = _pool_count(data, "candidate_review_pool")
+    watchlist_count = _pool_count(data, "watchlist_context_pool")
     all_gates_pass = all(data.get(field) == "PASS" for field in _NEXT_CALL_PASS_FIELDS) and ledger_matches is True
     recommendation_name = recommendation.get("recommended_next_call")
+
     if recommendation_name == "Stage B r0":
-        if not all_gates_pass or not isinstance(strict_count, int) or isinstance(strict_count, bool) or strict_count <= 0:
+        if (
+            not all_gates_pass
+            or not isinstance(summary_strict_count, int)
+            or isinstance(summary_strict_count, bool)
+            or summary_strict_count <= 0
+            or emitted_strict_count <= 0
+        ):
             messages.append(
                 "next_call_recommendation may recommend Stage B r0 only when every Stage A safety gate passes and strict_passed_spec_count > 0"
             )
@@ -265,10 +302,53 @@ def _validate_next_call_safety(data: Mapping[str, Any], messages: list[str]) -> 
             messages.append(
                 "Stage B r0 recommendation must use recommended_input_universe=Stage A strict_passed_spec[] only"
             )
-    elif all_gates_pass and isinstance(strict_count, int) and not isinstance(strict_count, bool) and strict_count > 0:
+        return
+
+    if all_gates_pass and emitted_strict_count > 0:
         messages.append(
             "all Stage A safety gates PASS with strict candidates, so next_call_recommendation must be Stage B r0"
         )
+        return
+
+    if emitted_strict_count != 0:
+        return
+
+    if candidate_review_count > 0:
+        if recommendation_name != "candidate_review_pool triage":
+            messages.append(
+                "zero-strict Stage A with candidate_review_pool items must recommend candidate_review_pool triage"
+            )
+        if recommendation.get("recommended_prompt_id") != "separate review_pool promotion prompt, not Prompt 0.2":
+            messages.append(
+                "candidate_review_pool triage must use recommended_prompt_id=separate review_pool promotion prompt, not Prompt 0.2"
+            )
+        if recommendation.get("recommended_input_universe") != "Stage A candidate_review_pool[] only":
+            messages.append(
+                "candidate_review_pool triage must use recommended_input_universe=Stage A candidate_review_pool[] only"
+            )
+        return
+
+    if watchlist_count > 0:
+        if recommendation_name != "retrospective or watchlist context review":
+            messages.append(
+                "zero-strict Stage A with watchlist items must recommend retrospective or watchlist context review"
+            )
+        if recommendation.get("recommended_prompt_id") != "Prompt 1.1 or separate context review prompt":
+            messages.append(
+                "watchlist context review must use recommended_prompt_id=Prompt 1.1 or separate context review prompt"
+            )
+        if recommendation.get("recommended_input_universe") != "watchlist_context_pool[] only, not Stage B":
+            messages.append(
+                "watchlist context review must use recommended_input_universe=watchlist_context_pool[] only, not Stage B"
+            )
+        return
+
+    if recommendation_name != "retrospective":
+        messages.append(
+            "zero-strict Stage A without candidate-review or watchlist items must recommend retrospective"
+        )
+    if recommendation.get("recommended_prompt_id") != "Prompt 1.1":
+        messages.append("retrospective recommendation must use recommended_prompt_id=Prompt 1.1")
 
 
 def _validate_partition_specific_review_fields(

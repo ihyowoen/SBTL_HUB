@@ -324,3 +324,117 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
             "dropped_treasure_hunt_result": [],
             "decision_ledger": [self.ledger_row(spec)],
         }
+
+    def run_stage_a(self, artifact):
+        stream = io.StringIO()
+        with redirect_stdout(stream):
+            result = lineage.check_stage_a(artifact)
+        return result, stream.getvalue()
+
+    def test_complete_full_artifact_passes(self):
+        result, output = self.run_stage_a(self.full_artifact())
+        self.assertEqual(result, 0, output)
+        self.assertIn("PASS_STAGE_A_SCHEMA_CONTRACT", output)
+
+    def test_full_artifact_markers_cannot_disable_completeness(self):
+        for field in ("stage", "run_tag", "summary"):
+            with self.subTest(field=field):
+                artifact = self.full_artifact()
+                artifact.pop(field)
+                result, output = self.run_stage_a(artifact)
+                self.assertEqual(result, 1, output)
+                self.assertNotIn("PASS_STAGE_A_SCHEMA_CONTRACT", output)
+
+    def test_nested_score_object_is_rejected_for_full_artifact(self):
+        artifact = self.full_artifact()
+        spec = artifact["strict_passed_spec"][0]
+        spec["decision_news_value_score"] = {
+            "total": 58,
+            "breakdown": spec.pop("decision_value_breakdown"),
+            "classification": spec.pop("decision_value_classification"),
+        }
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("decision_news_value_score must be integer 0..100", output)
+
+    def test_missing_summary_contract_field_is_rejected(self):
+        artifact = self.full_artifact()
+        artifact["summary"].pop("mandatory_structural_lenses_applied")
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("mandatory_structural_lenses_applied must be true", output)
+
+    def test_missing_required_item_field_is_rejected(self):
+        artifact = self.full_artifact()
+        artifact["strict_passed_spec"][0].pop("anti_bias_check")
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("missing Prompt 0.1S field anti_bias_check", output)
+
+    def test_strict_failed_gates_are_rejected(self):
+        mutations = (
+            ("execution_credibility_gate", "status"),
+            ("independent_cardability_gate", "status"),
+            ("independent_cardability_gate", "full_schema_viability"),
+        )
+        for outer, inner in mutations:
+            with self.subTest(field=f"{outer}.{inner}"):
+                artifact = self.full_artifact()
+                artifact["strict_passed_spec"][0][outer][inner] = "FAIL"
+                result, output = self.run_stage_a(artifact)
+                self.assertEqual(result, 1, output)
+
+    def test_technology_stage_cap_is_enforced(self):
+        artifact = self.full_artifact()
+        spec = artifact["strict_passed_spec"][0]
+        spec["technology_validation_stage"] = "concept_or_target"
+        spec["decision_value_breakdown"]["technology_performance_safety"] = 20
+        spec["decision_value_breakdown"]["market_structure_competition"] = 7
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("exceeds concept_or_target cap 4/20", output)
+
+    def test_anti_bias_metadata_must_be_object(self):
+        artifact = self.full_artifact()
+        artifact["strict_passed_spec"][0]["anti_bias_check"] = None
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("anti_bias_check must be an object", output)
+
+    def test_summary_counts_are_reconciled(self):
+        artifact = self.full_artifact()
+        artifact["summary"]["anchor_class_counts"] = {}
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("anchor_class_counts does not match emitted candidates", output)
+
+    def test_candidate_pool_container_must_be_array(self):
+        for pool in (
+            "strict_passed_spec",
+            "candidate_review_pool",
+            "watchlist_context_pool",
+            "reject_or_support_only_pool",
+        ):
+            with self.subTest(pool=pool):
+                artifact = self.full_artifact()
+                artifact[pool] = "corrupt"
+                result, output = self.run_stage_a(artifact)
+                self.assertEqual(result, 1, output)
+                self.assertIn(f"{pool} must be an array", output)
+
+    def test_decision_ledger_is_required_and_complete(self):
+        artifact = self.full_artifact()
+        artifact.pop("decision_ledger")
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("decision_ledger must be an array", output)
+
+        artifact = self.full_artifact()
+        artifact["decision_ledger"][0].pop("news_value_basis")
+        result, output = self.run_stage_a(artifact)
+        self.assertEqual(result, 1)
+        self.assertIn("missing required V3 ledger field news_value_basis", output)
+
+
+if __name__ == "__main__":
+    unittest.main()

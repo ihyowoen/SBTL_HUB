@@ -38,8 +38,13 @@ class CanonicalV3ContractTests(unittest.TestCase):
     def test_route_residual_fields_are_empty_only(self):
         empty_only = self.projection["empty_only_fields_by_route"]
         self.assertEqual(
-            set(self.projection["v3_override_required_fields"]),
+            set(self.projection["override_only_required_fields"]),
             set(empty_only["execution"]),
+        )
+        self.assertTrue(
+            set(self.projection["shared_strict_required_fields"]).isdisjoint(
+                set(empty_only["execution"])
+            )
         )
         self.assertEqual(
             {"execution_anchor_type", "execution_anchor_strength"},
@@ -57,6 +62,16 @@ class CanonicalV3ContractTests(unittest.TestCase):
                 empty_ref,
                 definitions["v3_non_execution_route"]["properties"][field],
             )
+
+    def test_shared_strict_fields_are_required_on_both_routes(self):
+        definitions = self.contract["$defs"]
+        shared = set(self.projection["shared_strict_required_fields"])
+        self.assertTrue(
+            shared.issubset(set(definitions["execution_route"]["required"]))
+        )
+        self.assertTrue(
+            shared.issubset(set(definitions["v3_non_execution_route"]["required"]))
+        )
 
     def test_route_definitions_remain_object_only(self):
         route_names = ("execution_route", "v3_non_execution_route")
@@ -76,10 +91,11 @@ class CanonicalV3ContractTests(unittest.TestCase):
                     self.assertIn(expected, errors)
 
     def test_execution_route_required_fields_cannot_drift(self):
-        required_fields = (
-            "execution_anchor_type",
-            "execution_anchor_strength",
-            "structural_value_override_applied",
+        required_fields = tuple(
+            self.contract["$defs"]["execution_route"]["required"]
+        )
+        expected_fragment = (
+            "execution_route required fields must contain execution identity plus shared strict and materialized empty override-only fields exactly"
         )
         for field in required_fields:
             with self.subTest(field=field):
@@ -87,10 +103,7 @@ class CanonicalV3ContractTests(unittest.TestCase):
                 broken["$defs"]["execution_route"]["required"].remove(field)
                 errors = validate_contract_document(broken)
                 self.assertTrue(
-                    any(
-                        "execution_route required fields differ" in error
-                        for error in errors
-                    ),
+                    any(expected_fragment in error for error in errors),
                     errors,
                 )
 
@@ -100,10 +113,7 @@ class CanonicalV3ContractTests(unittest.TestCase):
         )
         errors = validate_contract_document(duplicate)
         self.assertTrue(
-            any(
-                "execution_route required fields differ" in error
-                for error in errors
-            ),
+            any(expected_fragment in error for error in errors),
             errors,
         )
 
@@ -153,7 +163,13 @@ class CanonicalV3ContractTests(unittest.TestCase):
                 "v3_non_execution_route",
                 "anchor_classes",
                 {"type": "array"},
-                "anchor_classes schema differs from canonical metadata",
+                "anchor_classes must reference non_execution_anchor_classes",
+            ),
+            (
+                "execution_route",
+                "anchor_classes",
+                {"type": "array"},
+                "anchor_classes must reference execution_anchor_classes",
             ),
             (
                 "v3_non_execution_route",

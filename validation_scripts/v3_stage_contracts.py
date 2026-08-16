@@ -132,6 +132,7 @@ def build_stage_contract_document(
     }
     route_identity_fields = [
         "structural_value_override_applied",
+        "structural_selector_policy_version",
         "execution_anchor_type",
         "execution_anchor_strength",
     ]
@@ -145,6 +146,9 @@ def build_stage_contract_document(
         "contract_version": source["contract_version"],
         "route_cardinality": projection["route_cardinality"],
         "route_names": _copy_list(metadata["route_names"]),
+        "structural_selector_policy_version": projection[
+            "structural_selector_policy_version"
+        ],
         "route_required_fields": route_required_fields,
         "route_empty_only_fields": {
             route: _copy_list(fields)
@@ -156,6 +160,12 @@ def build_stage_contract_document(
         ),
         "allowed_non_execution_anchor_classes": _copy_list(
             metadata["allowed_non_execution_anchor_classes"]
+        ),
+        "shared_strict_required_fields": _copy_list(
+            projection["shared_strict_required_fields"]
+        ),
+        "override_only_required_fields": _copy_list(
+            projection["override_only_required_fields"]
         ),
         "v3_override_required_fields": _copy_list(
             metadata["v3_override_required_fields"]
@@ -219,7 +229,6 @@ def generated_stage_contract_errors(
     document: Mapping[str, Any] | None = None,
     contract: Mapping[str, Any] | None = None,
 ) -> list[str]:
-    """Return drift errors without replacing explicitly supplied falsey mappings."""
     actual = dict(
         load_generated_stage_contract() if document is None else document
     )
@@ -234,7 +243,6 @@ def generated_stage_contract_errors(
 def stage_a_validator_constants(
     document: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Return generated constants consumed by the public Stage A validator."""
     stage_document = dict(
         load_generated_stage_contract() if document is None else document
     )
@@ -248,6 +256,12 @@ def stage_a_validator_constants(
         ),
         "STAGE_A_NON_EXECUTION_ANCHOR_CLASSES": set(
             canonical["allowed_non_execution_anchor_classes"]
+        ),
+        "STAGE_A_SHARED_STRICT_REQUIRED": tuple(
+            canonical["shared_strict_required_fields"]
+        ),
+        "STAGE_A_OVERRIDE_ONLY_REQUIRED": tuple(
+            canonical["override_only_required_fields"]
         ),
         "STAGE_A_V3_OVERRIDE_REQUIRED": list(
             canonical["v3_override_required_fields"]

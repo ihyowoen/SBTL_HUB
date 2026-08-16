@@ -72,10 +72,16 @@ class TestReview4845534152Contracts(unittest.TestCase):
         spec = self.base_v3_spec()
         spec["format_risk_tags"] = ["none"]
         spec["structural_value_override_applied"] = False
-        for field in lineage.STAGE_A_V3_OVERRIDE_REQUIRED:
-            spec[field] = [] if field in {"anchor_classes", "evidence_needed_for_stage_b", "next_confirmation_points"} else None
+        spec["structural_value_override_reason"] = None
+        spec["why_execution_event_not_required"] = None
         spec["execution_anchor_type"] = "production_start"
         spec["execution_anchor_strength"] = "strong"
+        spec["anchor_classes"] = [
+            "execution_event_anchor",
+            "technology_commercialization_anchor",
+        ]
+        # The V3 decision chain is route-neutral. Keep the base fixture's shared
+        # before/after, evidence-target, and confirmation metadata populated.
         result, output = self.run_stage_a(spec)
         self.assertEqual(result, 0, output)
 

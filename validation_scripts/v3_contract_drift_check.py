@@ -66,6 +66,20 @@ def alignment_errors(
             "structured_confirmation_point_key_pairs"
         ],
     }
+    # Explicit synthetic validator objects are used by historical unit tests to
+    # isolate one drift dimension. The real public-validator check additionally
+    # locks the new route-neutral field partition to the canonical schema.
+    if validator is None:
+        comparisons.update(
+            {
+                "STAGE_A_SHARED_STRICT_REQUIRED": projection[
+                    "shared_strict_required_fields"
+                ],
+                "STAGE_A_OVERRIDE_ONLY_REQUIRED": projection[
+                    "override_only_required_fields"
+                ],
+            }
+        )
 
     errors: list[str] = []
     for constant_name, expected in comparisons.items():

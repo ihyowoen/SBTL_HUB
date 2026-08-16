@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://sbtl-hub.local/contracts/v3_anchor_contract.schema.json",
   "title": "SBTL V3 Anchor Route Contract",
-  "description": "Canonical machine-readable definition of the exactly-one execution or V3 non-execution anchor route. Semantic prose validation remains in the existing validator until the dedicated semantic-validator reduction PR.",
+  "description": "Canonical machine-readable definition of the exactly-one execution or V3 non-execution anchor route. Shared V3 decision metadata is required on both routes; override-specific rationale fields are materialized but empty on execution routes and substantive on V3 non-execution routes.",
   "contract_version": "3.0.0",
   "type": "object",
   "x-sbtl-contract": {
@@ -16,6 +16,7 @@
       "ordinary_v3_with_override_metadata"
     ],
     "preservation": "byte_for_byte_across_stages",
+    "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
     "allowed_execution_anchor_strengths": [
       "strong",
       "moderate"
@@ -26,6 +27,23 @@
       "strategic_behavior_anchor",
       "technology_commercialization_anchor",
       "follow_up_probability_anchor"
+    ],
+    "shared_strict_required_fields": [
+      "anchor_classes",
+      "incremental_information",
+      "decision_relevance",
+      "baseline_expectation_changed",
+      "evidence_needed_for_stage_b",
+      "next_confirmation_points",
+      "prior_state",
+      "new_verified_fact",
+      "changed_judgment",
+      "uncertainty_resolved",
+      "remaining_uncertainty"
+    ],
+    "override_only_required_fields": [
+      "structural_value_override_reason",
+      "why_execution_event_not_required"
     ],
     "v3_override_required_fields": [
       "structural_value_override_reason",
@@ -83,18 +101,7 @@
     "empty_only_fields_by_route": {
       "execution": [
         "structural_value_override_reason",
-        "anchor_classes",
-        "incremental_information",
-        "decision_relevance",
-        "baseline_expectation_changed",
-        "evidence_needed_for_stage_b",
-        "next_confirmation_points",
-        "why_execution_event_not_required",
-        "prior_state",
-        "new_verified_fact",
-        "changed_judgment",
-        "uncertainty_resolved",
-        "remaining_uncertainty"
+        "why_execution_event_not_required"
       ],
       "v3_non_execution": [
         "execution_anchor_type",
@@ -110,28 +117,6 @@
         {"type": "array", "maxItems": 0},
         {"type": "object", "maxProperties": 0}
       ]
-    },
-    "execution_route": {
-      "type": "object",
-      "required": ["execution_anchor_type", "execution_anchor_strength", "structural_value_override_applied"],
-      "properties": {
-        "execution_anchor_type": {"type": "string", "minLength": 1, "pattern": "\\S"},
-        "execution_anchor_strength": {"enum": ["strong", "moderate"]},
-        "structural_value_override_applied": {"const": false},
-        "structural_value_override_reason": {"$ref": "#/$defs/empty_route_value"},
-        "anchor_classes": {"$ref": "#/$defs/empty_route_value"},
-        "incremental_information": {"$ref": "#/$defs/empty_route_value"},
-        "decision_relevance": {"$ref": "#/$defs/empty_route_value"},
-        "baseline_expectation_changed": {"$ref": "#/$defs/empty_route_value"},
-        "evidence_needed_for_stage_b": {"$ref": "#/$defs/empty_route_value"},
-        "next_confirmation_points": {"$ref": "#/$defs/empty_route_value"},
-        "why_execution_event_not_required": {"$ref": "#/$defs/empty_route_value"},
-        "prior_state": {"$ref": "#/$defs/empty_route_value"},
-        "new_verified_fact": {"$ref": "#/$defs/empty_route_value"},
-        "changed_judgment": {"$ref": "#/$defs/empty_route_value"},
-        "uncertainty_resolved": {"$ref": "#/$defs/empty_route_value"},
-        "remaining_uncertainty": {"$ref": "#/$defs/empty_route_value"}
-      }
     },
     "evidence_target": {
       "oneOf": [
@@ -179,9 +164,42 @@
         {"type": "string", "minLength": 4, "pattern": "^\\s*\\S[\\s\\S]{2,}\\S\\s*$"}
       ]
     },
-    "v3_non_execution_route": {
+    "execution_anchor_classes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "contains": {"const": "execution_event_anchor"},
+      "minContains": 1,
+      "items": {
+        "enum": [
+          "execution_event_anchor",
+          "policy_regulatory_anchor",
+          "data_financial_anchor",
+          "strategic_behavior_anchor",
+          "technology_commercialization_anchor",
+          "follow_up_probability_anchor"
+        ]
+      }
+    },
+    "non_execution_anchor_classes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "policy_regulatory_anchor",
+          "data_financial_anchor",
+          "strategic_behavior_anchor",
+          "technology_commercialization_anchor",
+          "follow_up_probability_anchor"
+        ]
+      }
+    },
+    "execution_route": {
       "type": "object",
       "required": [
+        "execution_anchor_type",
+        "execution_anchor_strength",
         "structural_value_override_applied",
         "structural_value_override_reason",
         "anchor_classes",
@@ -198,14 +216,48 @@
         "remaining_uncertainty"
       ],
       "properties": {
+        "execution_anchor_type": {"type": "string", "minLength": 1, "pattern": "\\S"},
+        "execution_anchor_strength": {"enum": ["strong", "moderate"]},
+        "structural_value_override_applied": {"const": false},
+        "structural_value_override_reason": {"$ref": "#/$defs/empty_route_value"},
+        "anchor_classes": {"$ref": "#/$defs/execution_anchor_classes"},
+        "incremental_information": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "decision_relevance": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "baseline_expectation_changed": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "evidence_needed_for_stage_b": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/evidence_target"}},
+        "next_confirmation_points": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/confirmation_point"}},
+        "why_execution_event_not_required": {"$ref": "#/$defs/empty_route_value"},
+        "prior_state": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "new_verified_fact": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "changed_judgment": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "uncertainty_resolved": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
+        "remaining_uncertainty": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"}
+      }
+    },
+    "v3_non_execution_route": {
+      "type": "object",
+      "required": [
+        "structural_value_override_applied",
+        "structural_selector_policy_version",
+        "structural_value_override_reason",
+        "anchor_classes",
+        "incremental_information",
+        "decision_relevance",
+        "baseline_expectation_changed",
+        "evidence_needed_for_stage_b",
+        "next_confirmation_points",
+        "why_execution_event_not_required",
+        "prior_state",
+        "new_verified_fact",
+        "changed_judgment",
+        "uncertainty_resolved",
+        "remaining_uncertainty"
+      ],
+      "properties": {
         "structural_value_override_applied": {"const": true},
+        "structural_selector_policy_version": {"const": "STRUCTURAL_NEWS_VALUE_SELECTION_V3"},
         "structural_value_override_reason": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
-        "anchor_classes": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {"enum": ["policy_regulatory_anchor", "data_financial_anchor", "strategic_behavior_anchor", "technology_commercialization_anchor", "follow_up_probability_anchor"]}
-        },
+        "anchor_classes": {"$ref": "#/$defs/non_execution_anchor_classes"},
         "incremental_information": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
         "decision_relevance": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},
         "baseline_expectation_changed": {"type": "string", "minLength": 8, "pattern": "^\\s*\\S[\\s\\S]{6,}\\S\\s*$"},

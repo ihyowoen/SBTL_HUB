@@ -131,8 +131,8 @@ def _legacy_validation_view(contract: Mapping[str, Any]) -> dict[str, Any]:
     if not isinstance(metadata, dict) or not isinstance(definitions, dict):
         return view
     metadata.pop("structural_selector_policy_version", None)
-    override_required = metadata.get("v3_override_required_fields")
-    if isinstance(override_required, list):
+    override_required = _unique_string_list(metadata.get("v3_override_required_fields"))
+    if override_required is not None:
         empty_by_route = metadata.get("empty_only_fields_by_route")
         if isinstance(empty_by_route, dict):
             empty_by_route["execution"] = list(override_required)
@@ -140,7 +140,7 @@ def _legacy_validation_view(contract: Mapping[str, Any]) -> dict[str, Any]:
     if isinstance(execution, dict):
         execution["required"] = sorted(_EXECUTION_IDENTITY_FIELDS)
         properties = execution.get("properties")
-        if isinstance(properties, dict) and isinstance(override_required, list):
+        if isinstance(properties, dict) and override_required is not None:
             for field in override_required:
                 properties[field] = copy.deepcopy(_EMPTY_REF)
     non_execution = definitions.get("v3_non_execution_route")

@@ -58,5 +58,18 @@ jobs:
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
+      - name: Capture ninth-batch diagnostic
+        if: always()
+        run: |
+          python -m unittest validation_scripts.tests.test_tmp_prompt_digest_diagnostic.NinthBatchCurrentMainDiagnostic.test_ninth_batch_candidate_current_main -v > ninth_batch_diagnostic.txt 2>&1 || true
+          cat ninth_batch_diagnostic.txt
+
+      - name: Upload ninth-batch diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ninth-batch-diagnostic
+          path: ninth_batch_diagnostic.txt
+
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check

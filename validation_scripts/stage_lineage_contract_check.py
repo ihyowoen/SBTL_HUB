@@ -4,7 +4,7 @@
 The historical validator chain remains authoritative for unchanged lineage,
 source-diversity, review-pool, and downstream checks.  This layer aligns it with
 canonical Structural News Value V3 and delegates real-artifact completeness to
-``stage_a_full_v3_completeness_review4943878732``.
+``stage_a_full_v3_completeness_review4945466862``.
 """
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ for _import_path in (_ROOT_DIR, _VALIDATION_DIR):
     if _import_path_text not in sys.path:
         sys.path.insert(0, _import_path_text)
 
-from validation_scripts.stage_a_full_v3_completeness_review4943878732 import (  # noqa: E402
+from validation_scripts.stage_a_full_v3_completeness_review4945466862 import (  # noqa: E402
     CANONICAL_POLICY_VERSION,
     looks_like_full_stage_a_artifact,
     prevalidate_full_stage_a_artifact,
@@ -312,8 +312,8 @@ def validate_stage_a_spec(spec, index, messages):
         )
 
 
-def check_stage_a(data):
-    """Preflight malformed containers, run legacy checks, then full completeness."""
+def _check_stage_a_impl(data, *, require_full):
+    """Preflight, run legacy route checks, then optionally force full completeness."""
     preflight_messages = prevalidate_full_stage_a_artifact(data)
     if preflight_messages:
         return _compat_module.fail(preflight_messages)
@@ -326,7 +326,7 @@ def check_stage_a(data):
         print(legacy_output, end="")
         return result
 
-    if not looks_like_full_stage_a_artifact(data):
+    if not require_full and not looks_like_full_stage_a_artifact(data):
         print(legacy_output, end="")
         return result
 
@@ -335,6 +335,16 @@ def check_stage_a(data):
         return _compat_module.fail(messages)
     print("RESULT: PASS_STAGE_A_SCHEMA_CONTRACT")
     return 0
+
+
+def check_stage_a(data):
+    """Public compatibility API: route-only payloads remain supported."""
+    return _check_stage_a_impl(data, require_full=False)
+
+
+def check_stage_a_full(data):
+    """Production/CLI Stage A entry point: completeness is mandatory."""
+    return _check_stage_a_impl(data, require_full=True)
 
 
 def _patch_module_chain(root, name, value):
@@ -361,6 +371,10 @@ _patch_module_chain(_compat_module, "validate_stage_a_spec", validate_stage_a_sp
 _patch_module_chain(_compat_module, "check_stage_a", check_stage_a)
 
 if __name__ == "__main__":
+    # The command-line Stage A mode validates an artifact, not a route fragment.
+    # Patch the historical main only for this invocation so its stage_a branch
+    # cannot use the public route-only compatibility path to bypass completeness.
+    _patch_module_chain(_compat_module, "check_stage_a", check_stage_a_full)
     _compat_module._base_layer._base.sys.exit(
         _compat_module._base_layer._base.main()
     )

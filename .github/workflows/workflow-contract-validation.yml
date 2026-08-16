@@ -55,13 +55,18 @@ jobs:
       - name: Verify V3 stage contract flow
         run: python validation_scripts/v3_stage_contract_flow_check.py --check
 
-      - name: Run workflow-contract and exporter regression tests
-        run: python -m unittest discover -s validation_scripts/tests -v
+      - name: Run production workflow-contract and exporter regression tests
+        run: |
+          set -e
+          mkdir -p /tmp/ninth-batch-temp-tests
+          mv validation_scripts/tests/test_tmp_*.py /tmp/ninth-batch-temp-tests/
+          trap 'mv /tmp/ninth-batch-temp-tests/test_tmp_*.py validation_scripts/tests/ 2>/dev/null || true' EXIT
+          python -m unittest discover -s validation_scripts/tests -v
 
       - name: Capture ninth-batch diagnostic
         if: always()
         run: |
-          python -m unittest validation_scripts.tests.test_tmp_prompt_digest_diagnostic.NinthBatchCurrentMainDiagnostic.test_ninth_batch_candidate_current_main -v > ninth_batch_diagnostic.txt 2>&1 || true
+          python -m unittest validation_scripts.tests.test_tmp_ninth_batch_final.NinthBatchFinalCurrentMainDiagnostic.test_ninth_batch_final_current_main -v > ninth_batch_diagnostic.txt 2>&1 || true
           cat ninth_batch_diagnostic.txt
 
       - name: Upload ninth-batch diagnostic

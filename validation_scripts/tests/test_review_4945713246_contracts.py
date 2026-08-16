@@ -98,7 +98,7 @@ class Review4945713246Contracts(unittest.TestCase):
         legacy_row.update(
             {
                 "story_id": legacy_story_id,
-                "ledger_decision": "legacy_keep",
+                "ledger_decision": "passed",
                 "editorial_bucket": "legacy_keep",
                 "spec_id": None,
                 "merged_into_spec_id": None,
@@ -116,10 +116,10 @@ class Review4945713246Contracts(unittest.TestCase):
         self.assertEqual(result, 0, output)
         self.assertIn("PASS_STAGE_A_SCHEMA_CONTRACT", output)
 
-        artifact["decision_ledger"][1]["ledger_decision"] = "strict_passed_spec"
+        artifact["decision_ledger"][1]["ledger_decision"] = "legacy_keep"
         result, output = self.run_stage_a(artifact)
         self.assertEqual(result, 1, output)
-        self.assertIn("ledger_decision must be legacy_keep", output)
+        self.assertIn("ledger_decision must be passed or merged for emitted legacy_keep", output)
 
     def test_legacy_keep_cannot_overlap_another_disposition(self):
         artifact = self.full_artifact()

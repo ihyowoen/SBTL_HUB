@@ -66,7 +66,7 @@ jobs:
       - name: Capture ninth-batch diagnostic
         if: always()
         run: |
-          python -m unittest validation_scripts.tests.test_tmp_ninth_batch_final.NinthBatchFinalCurrentMainDiagnostic.test_ninth_batch_final_current_main -v > ninth_batch_diagnostic.txt 2>&1 || true
+          python -m unittest validation_scripts.tests.test_tmp_ninth_batch_final2.NinthBatchFinal2CurrentMainDiagnostic.test_ninth_batch_final2_current_main -v > ninth_batch_diagnostic.txt 2>&1 || true
           cat ninth_batch_diagnostic.txt
 
       - name: Upload ninth-batch diagnostic

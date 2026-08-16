@@ -2,8 +2,13 @@ from __future__ import annotations
 
 import copy
 import io
+import json
+import subprocess
+import sys
+import tempfile
 import unittest
 from contextlib import redirect_stdout
+from pathlib import Path
 
 from validation_scripts import stage_a_full_v3_completeness_review4945668766 as latest
 from validation_scripts import stage_lineage_contract_check as lineage
@@ -29,6 +34,24 @@ class Review4945668766Contracts(unittest.TestCase):
             result = lineage._check_stage_a_cli({"strict_passed_spec": [spec]})
         self.assertEqual(result, 0, stream.getvalue())
         self.assertIn("PASS_STAGE_A_SCHEMA_CONTRACT", stream.getvalue())
+
+    def test_real_subprocess_cli_preserves_route_only_stage_a_compatibility(self):
+        repo_root = Path(__file__).resolve().parents[2]
+        script = repo_root / "validation_scripts" / "stage_lineage_contract_check.py"
+        payload = {"strict_passed_spec": [TestStageAV3RouteAlignment().execution_spec()]}
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "route_only_stage_a.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            completed = subprocess.run(
+                [sys.executable, str(script), "stage_a", str(path)],
+                cwd=repo_root,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        output = completed.stdout + completed.stderr
+        self.assertEqual(completed.returncode, 0, output)
+        self.assertIn("PASS_STAGE_A_SCHEMA_CONTRACT", output)
 
     def test_cli_routes_recognizable_full_artifact_to_full_validation(self):
         artifact = self.full_artifact()

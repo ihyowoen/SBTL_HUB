@@ -155,7 +155,7 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
             "url": "https://example.com/story",
             "integrity_group_id": "SYNTHETIC_GROUP_001",
             "integrity_is_best": True,
-            "ledger_decision": "strict_passed_spec",
+            "ledger_decision": "passed",
             "editorial_bucket": "strict_passed_spec",
             "reason": "The production-start event satisfies the strict current-change contract.",
             "spec_id": spec["spec_id"],

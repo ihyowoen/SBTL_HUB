@@ -51,6 +51,12 @@ class TestStageAFullV3ArtifactCompleteness(unittest.TestCase):
                     "anchor_supported_by_upstream_text": True,
                     "why_not_review_pool": "The upstream text identifies a current production-start event with bounded Stage B verification targets.",
                 },
+                "source_cluster_preserved": True,
+                "source_diversity_path": {
+                    "status": "viable",
+                    "reason": "The representative source and linked support candidates remain available for Stage B verification.",
+                },
+                "support_source_candidates_accounted": True,
                 "title_raw": "Synthetic production-start event",
                 "summary_hint": "A named product has moved from roadmap status to production start.",
                 "context_text": "Synthetic full-artifact regression context for a production-start event.",

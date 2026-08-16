@@ -1,14 +1,34 @@
-from pathlib import Path
-import hashlib
+from __future__ import annotations
+
+import base64
+import gzip
+import io
+import json
 import unittest
+from contextlib import redirect_stdout
+from pathlib import Path
+
+from validation_scripts import stage_lineage_contract_check as lineage
 
 
-class CurrentPromptDigestDiagnostic(unittest.TestCase):
-    def test_emit_current_stage_a_prompt_digest(self):
+class NinthBatchCurrentMainDiagnostic(unittest.TestCase):
+    def test_ninth_batch_candidate_current_main(self):
         repo_root = Path(__file__).resolve().parents[2]
-        prompt = repo_root / "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md"
-        digest = hashlib.sha256(prompt.read_bytes()).hexdigest()
-        self.fail(f"CURRENT_STAGE_A_PROMPT_SHA256={digest}")
+        parts = [
+            repo_root / ".diagnostics/ninth_batch_payload_0.txt",
+            repo_root / ".diagnostics/ninth_batch_payload_1.txt",
+            repo_root / ".diagnostics/ninth_batch_payload_2.txt",
+            repo_root / ".diagnostics/ninth_batch_payload_3a.txt",
+            repo_root / ".diagnostics/ninth_batch_payload_3b.txt",
+            repo_root / ".diagnostics/ninth_batch_payload_4.txt",
+        ]
+        payload = "".join(p.read_text() for p in parts)
+        artifact = json.loads(gzip.decompress(base64.b64decode(payload)).decode("utf-8"))
+        stream = io.StringIO()
+        with redirect_stdout(stream):
+            result = lineage.check_stage_a_full(artifact)
+        output = stream.getvalue()
+        self.assertEqual(result, 0, output)
 
 
 if __name__ == "__main__":

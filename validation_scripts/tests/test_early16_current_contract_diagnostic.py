@@ -40,13 +40,29 @@ class Early16CurrentContractDiagnostic(unittest.TestCase):
     def test_early16_current_contract(self):
         original=json.loads(gzip.decompress(base64.b64decode(PAYLOAD)))
         data=repair_targets(original)
-        print('EARLY16_LEDGER_PROVENANCE_BEGIN')
+        provenance=[]
         for spec in data['strict_passed_spec']:
             cluster={r.get('story_id'):r for r in spec.get('same_event_source_cluster',[]) if isinstance(r,dict)}
             for story_id in spec.get('source_story_ids',[]):
                 ledger=next((r for r in data['decision_ledger'] if r.get('story_id')==story_id),{})
-                print(json.dumps({'spec_id':spec.get('spec_id'),'story_id':story_id,'spec_headline':spec.get('headline'),'spec_site':spec.get('site'),'spec_primary_url':spec.get('primary_url'),'spec_urls':spec.get('urls'),'spec_baseline_match':spec.get('baseline_match'),'spec_baseline_relation':spec.get('baseline_relation'),'spec_duplicate_risk':spec.get('duplicate_risk'),'spec_staleness_decision':spec.get('staleness_decision'),'cluster_row':cluster.get(story_id),'ledger_existing':ledger},ensure_ascii=False,sort_keys=True))
-        print('EARLY16_LEDGER_PROVENANCE_END')
+                provenance.append({
+                    'spec_id':spec.get('spec_id'),
+                    'story_id':story_id,
+                    'spec_headline':spec.get('headline'),
+                    'spec_site':spec.get('site'),
+                    'spec_primary_url':spec.get('primary_url'),
+                    'spec_urls':spec.get('urls'),
+                    'spec_baseline_match':spec.get('baseline_match'),
+                    'spec_baseline_relation':spec.get('baseline_relation'),
+                    'spec_duplicate_risk':spec.get('duplicate_risk'),
+                    'spec_staleness_decision':spec.get('staleness_decision'),
+                    'cluster_row':cluster.get(story_id),
+                    'ledger_existing':ledger,
+                })
+        Path('early16_ledger_provenance.json').write_text(
+            json.dumps(provenance, ensure_ascii=False, indent=2), encoding='utf-8'
+        )
+        print(f'EARLY16_LEDGER_PROVENANCE_ROWS={len(provenance)}')
         out=io.StringIO()
         with redirect_stdout(out): rc=check_stage_a_full(data)
         self.assertEqual(rc,0,out.getvalue())

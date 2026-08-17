@@ -80,6 +80,18 @@ jobs:
           print('TEMP_EXACT10_TRANSPORT_PASS')
           print('TEMP_EXACT10_STRICT_COUNT', len(payload['strict_passed_spec']))
           print('TEMP_EXACT10_LEDGER_COUNT', len(payload['decision_ledger']))
+          for spec in payload['strict_passed_spec']:
+              sid = spec['spec_id']
+              for i, entry in enumerate(spec.get('evidence_needed_for_stage_b', [])):
+                  ok = validator._valid_evidence_target(entry)
+                  print(f'ENTRY_EVIDENCE {sid} {i} {ok} :: {entry}')
+              for i, entry in enumerate(spec.get('next_confirmation_points', [])):
+                  ok = validator._valid_confirmation_point(entry)
+                  print(f'ENTRY_CONFIRM {sid} {i} {ok} :: {entry}')
+              if spec.get('structural_value_override_applied') is True:
+                  messages = []
+                  ok = validator.validate_stage_a_v3_override(spec, sid, messages)
+                  print(f'ENTRY_V3_ROUTE {sid} {ok} :: {messages}')
           raise SystemExit(validator.check_stage_a_full(payload))
           PY
 

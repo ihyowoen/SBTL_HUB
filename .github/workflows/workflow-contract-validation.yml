@@ -63,6 +63,14 @@ jobs:
           trap 'mv /tmp/ninth-batch-temp-tests/test_tmp_*.py validation_scripts/tests/ 2>/dev/null || true' EXIT
           python -m unittest discover -s validation_scripts/tests -v
 
+      - name: Upload early16 ledger provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: early16-ledger-provenance
+          path: early16_ledger_provenance.json
+          if-no-files-found: warn
+
       - name: Upload repaired early16 diagnostic artifact
         if: always()
         uses: actions/upload-artifact@v4

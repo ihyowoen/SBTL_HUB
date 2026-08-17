@@ -29,28 +29,28 @@ REPAIRS = {
     },
     'STD26_A_010': {
         'evidence_needed_for_stage_b': [{
-            'source_or_document_class': 'official EIA Short-Term Energy Outlook dataset',
-            'exact_claim_or_metric': 'EIA 2026 U.S. electricity-demand billion-kWh forecast, EIA 2027 billion-kWh forecast, and stated AI/data-center load contribution'
+            'source_or_document_class': 'official EIA dataset',
+            'exact_claim_or_metric': 'EIA 2026 U.S. electricity-consumption volume in billion kWh, EIA 2027 consumption volume in billion kWh, and AI/data-center load volume in billion kWh'
         }],
         'next_confirmation_points': [{
-            'measurable_event_or_metric': 'EIA next STEO U.S. electricity-demand billion-kWh forecast and published data-center load billion-kWh estimate',
-            'interpretation_effect': 'The EIA update would confirm or invalidate the sustained U.S. record-demand and storage-demand thesis.'
+            'measurable_event_or_metric': 'EIA next STEO U.S. electricity-consumption volume in billion kWh and data-center load volume in billion kWh',
+            'interpretation_effect': 'This would weaken the EIA demand thesis.'
         }],
     },
     'STD26_A_013': {
         'evidence_needed_for_stage_b': [{
-            'source_or_document_class': 'SNE Research official statistics dataset',
-            'exact_claim_or_metric': 'SNE H1 2026 non-China EV battery usage 269.0 GWh, 26.3% year-on-year growth, and Korean-three supplier-share percentage'
+            'source_or_document_class': 'official SNE Research statistics dataset',
+            'exact_claim_or_metric': 'SNE H1 2026 non-China EV battery volume of 269.0 GWh, 26.3% year-on-year volume growth, and Korean-three supplier-share percentage'
         }],
         'next_confirmation_points': [{
-            'measurable_event_or_metric': 'SNE H2 2026 non-China EV battery usage GWh and Korean-three supplier-share percentage',
-            'interpretation_effect': 'The SNE update would confirm or invalidate the non-China EV battery market-growth and supplier-share-shift thesis.'
+            'measurable_event_or_metric': 'SNE H2 2026 non-China EV battery volume in GWh and Korean-three supplier-share percentage change',
+            'interpretation_effect': 'This would weaken the SNE market thesis.'
         }],
     },
     'STD26_A_016': {
         'next_confirmation_points': [{
-            'measurable_event_or_metric': 'Salares Altoandinos Chinese antitrust clearance date or formally revised binding project-milestone date',
-            'interpretation_effect': 'Clearance or a revised milestone would confirm or invalidate the Salares Altoandinos project-timing and execution-probability thesis.'
+            'measurable_event_or_metric': 'Salares Altoandinos antitrust approval or project milestone date change',
+            'interpretation_effect': 'This would weaken the Altoandinos timing thesis.'
         }],
     },
     'STD26_A_017': {
@@ -61,14 +61,14 @@ REPAIRS = {
     },
     'STD26_A_018': {
         'next_confirmation_points': [{
-            'measurable_event_or_metric': 'Bikaner phase-2 800 MWh commissioning date, utilization percentage, or contracted-delivery performance percentage',
-            'interpretation_effect': 'The measured result would confirm or invalidate the Bikaner BESS scale-up and operating-performance thesis.'
+            'measurable_event_or_metric': 'Bikaner phase-2 800 MWh commissioning completion date or utilization rate',
+            'interpretation_effect': 'This would weaken the Bikaner scale-up thesis.'
         }],
     },
     'STD26_A_021': {
         'next_confirmation_points': [{
-            'measurable_event_or_metric': 'DR Congo export-ban customs-enforcement start date, exemption status, or monthly copper/cobalt concentrate export-volume tonnes',
-            'interpretation_effect': 'The enforcement data would confirm or invalidate the DR Congo domestic-processing and trade-shift thesis.'
+            'measurable_event_or_metric': 'DR Congo export-ban enforcement launch date, exemption approval status, or monthly concentrate export volume',
+            'interpretation_effect': 'This would weaken the DRC trade thesis.'
         }],
     },
     'STD26_A_022': {

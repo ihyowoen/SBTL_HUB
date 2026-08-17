@@ -77,17 +77,15 @@ def _iso_day(value):
 
 def repair(data):
     repaired=deepcopy(data)
-
-    # Complete only certification/accounting metadata whose meaning is already
-    # established by this same-run rematerialization and the current-main checks.
     repaired['lane_sanity_rules_applied']=deepcopy(LANE_SANITY_RULES)
     repaired.setdefault('required_docs_check', {})['status']='PASS'
     repaired['csv_schema_status']='PASS'
     repaired['baseline_duplicate_screen_status']='PASS'
+    # With all six Stage A safety gates now PASS and strict candidates emitted,
+    # current-main routing requires this bounded handoff to point to Stage B r0.
+    repaired.setdefault('next_call_recommendation', {})['recommended_next_call']='Stage B r0'
 
     summary=repaired.setdefault('summary', {})
-    # earnings_deep_dive_pool_ids is defined by candidate_review_pool subtype,
-    # not by strict earnings_deep_dive_required items. Early16 has no review pool.
     summary['earnings_deep_dive_pool_ids']=[]
     summary['duplicate_or_reinforcement_count']=0
     summary['stale_discarded_count']=0
@@ -205,6 +203,7 @@ class Early16CurrentContractDiagnostic(unittest.TestCase):
         self.assertEqual(data['required_docs_check']['status'],'PASS')
         self.assertEqual(data['csv_schema_status'],'PASS')
         self.assertEqual(data['baseline_duplicate_screen_status'],'PASS')
+        self.assertEqual(data['next_call_recommendation']['recommended_next_call'],'Stage B r0')
         Path('early16_repaired_current_main.json').write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8')
         print('RESULT: PASS_EARLY16_CURRENT_MAIN_REPAIRED')
 

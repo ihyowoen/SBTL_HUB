@@ -14,7 +14,8 @@ BASE_COMMIT = "4a83213501925ffdd4b5e0107aa091e4d2e26d66"
 BASE_SHA = "fe6154824fa99a09755e4c2b3efe342abaa4043438adf2a91d3853e0d55a1cca"
 R2_SHA = "a452997389108de6c081faf59d45964c4a9d0b31f47f91322e0a0aa4b09bb338"
 R3_SHA = "b0052769450b275fca4989ee1d1d93fe9fb6615b16da33fc99b54c07834573a8"
-EXPECTED_SHA = "0840494aa4f7e1f7101f882c3a6379d887524920825d5d01705ec97a2b9fe66d"
+R4_SHA = "0840494aa4f7e1f7101f882c3a6379d887524920825d5d01705ec97a2b9fe66d"
+EXPECTED_SHA = "6aecf3e72234fbcbc27d3f3ab0758f9ade52bd3ed7587230483bd3de6f3eea91"
 
 R2_REPAIRS = {
     "STD26_A_001": (
@@ -168,6 +169,28 @@ class TestEarly16StageAArtifact(unittest.TestCase):
             for row in payload.get("decision_ledger", []):
                 if row.get("spec_id") == "STD26_A_010":
                     row["next_confirmation_points"] = [r4_confirmation]
+
+            self.assertEqual(hashlib.sha256(serialized(payload)).hexdigest(), R4_SHA)
+
+            payload["status"] = "PASS_STAGE_A_SCHEMA_CONTRACT_CURRENT_MAIN_VALIDATED"
+            payload["authoritative_stage_a"] = True
+            payload["stage_b_eligible"] = True
+            payload.setdefault("rematerialization_provenance", {})["stage_b_rerun_authorized"] = True
+            payload["recommended_for"] = [
+                "Stage B r0 / Prompt 0.2 using Stage A strict_passed_spec[] only"
+            ]
+            payload["repo_validation_contract"] = {
+                "current_main_sha": "d3bd43d0bdc0870bd0c81917f0e30b0fbb078542",
+                "stage_lineage_contract_check_blob_sha": "6564a15009dce9cfa0377a3b6f8e8656d20db62f",
+                "stage_artifact_contract_check_blob_sha": "6f49dad0db3ecc68d708d398a74beb3036e46308",
+                "workflow_contract_validation_file": ".github/workflows/workflow-contract-validation.yml",
+                "validation_mode": "current-main repository-native full Stage A lineage validation",
+                "temporary_validation_pr": 259,
+                "card_data_blob_sha": "0cc4e610f9c1ad105761d399be1cd0e316f95128",
+                "canonical_card_count": 1373,
+                "stage_b_c_evidence_imported": False,
+                "historical_editorial_outcomes_reopened": False,
+            }
 
             raw = serialized(payload)
             actual_sha = hashlib.sha256(raw).hexdigest()

@@ -37,66 +37,52 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Compile validators
         run: python -m compileall -q validation_scripts
-
       - name: Verify canonical V3 contract alignment
         run: python validation_scripts/v3_contract_drift_check.py
-
       - name: Verify generated V3 stage contracts
         run: python validation_scripts/v3_stage_contracts.py --check
-
       - name: Verify V3 stage contract flow
         run: python validation_scripts/v3_stage_contract_flow_check.py --check
-
       - name: TEMP exact10 Stage A validator diagnostic
         run: |
           python - <<'PY'
           import base64, hashlib, json, lzma
           from pathlib import Path
           from validation_scripts import stage_lineage_contract_check as validator
-
           root = Path('validation_scripts/tests/fixtures')
-          names = [
-              'temp_exact10_good_00.txt',
-              'temp_exact10_good_01.txt',
-              'temp_exact10_good_02.txt',
-              'temp_exact10_good_03.txt',
-              'temp_exact10_good_tail_a.txt',
-              'temp_exact10_good_tail_b.txt',
-          ]
+          names = ['temp_exact10_good_00.txt','temp_exact10_good_01.txt','temp_exact10_good_02.txt','temp_exact10_good_03.txt','temp_exact10_good_tail_a.txt','temp_exact10_good_tail_b.txt']
           encoded = ''.join((root / name).read_text(encoding='utf-8') for name in names)
-          assert len(encoded) == 28524, len(encoded)
+          assert len(encoded) == 28524
           assert hashlib.sha256(encoded.encode()).hexdigest() == '058d13fe9c8ee35e59436a10738b3f59435cfa25629b9f58f9b024c49ba361b8'
           raw = lzma.decompress(base64.b64decode(encoded, validate=True))
           assert hashlib.sha256(raw).hexdigest() == '724c7931d95ef55f107cc36b0bc13d9913fb72b6ca0d33ec88b4e583a9f5f9cc'
           payload = json.loads(raw.decode('utf-8'))
           print('TEMP_EXACT10_TRANSPORT_PASS')
-          print('TEMP_EXACT10_STRICT_COUNT', len(payload['strict_passed_spec']))
-          print('TEMP_EXACT10_LEDGER_COUNT', len(payload['decision_ledger']))
           for spec in payload['strict_passed_spec']:
               sid = spec['spec_id']
               for i, entry in enumerate(spec.get('evidence_needed_for_stage_b', [])):
-                  ok = validator._valid_evidence_target(entry)
-                  print(f'ENTRY_EVIDENCE {sid} {i} {ok} :: {entry}')
+                  source = entry.get('source_or_document_class','')
+                  target = entry.get('exact_claim_or_metric','')
+                  print('DETAIL_E', sid, i,
+                        'source=', validator._mentions_evidence_source_class(source),
+                        'target=', validator._structured_exact_target(target),
+                        'valid=', validator._valid_evidence_target(entry))
               for i, entry in enumerate(spec.get('next_confirmation_points', [])):
-                  ok = validator._valid_confirmation_point(entry)
-                  print(f'ENTRY_CONFIRM {sid} {i} {ok} :: {entry}')
-              if spec.get('structural_value_override_applied') is True:
-                  messages = []
-                  ok = validator.validate_stage_a_v3_override(spec, sid, messages)
-                  print(f'ENTRY_V3_ROUTE {sid} {ok} :: {messages}')
-          raise SystemExit(validator.check_stage_a_full(payload))
+                  metric = entry.get('measurable_event_or_metric','')
+                  effect = entry.get('interpretation_effect','')
+                  print('DETAIL_C', sid, i,
+                        'metric=', validator._structured_confirmation_metric(metric),
+                        'effect=', validator._has_bound_interpretation_effect(effect),
+                        'valid=', validator._valid_confirmation_point(entry))
+          raise SystemExit(1)
           PY
-
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
-
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check

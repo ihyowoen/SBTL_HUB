@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[2]
 BASE_COMMIT = "4a83213501925ffdd4b5e0107aa091e4d2e26d66"
 BASE_SHA = "fe6154824fa99a09755e4c2b3efe342abaa4043438adf2a91d3853e0d55a1cca"
 R2_SHA = "a452997389108de6c081faf59d45964c4a9d0b31f47f91322e0a0aa4b09bb338"
-EXPECTED_SHA = "b0052769450b275fca4989ee1d1d93fe9fb6615b16da33fc99b54c07834573a8"
+R3_SHA = "b0052769450b275fca4989ee1d1d93fe9fb6615b16da33fc99b54c07834573a8"
+EXPECTED_SHA = "0840494aa4f7e1f7101f882c3a6379d887524920825d5d01705ec97a2b9fe66d"
 
 R2_REPAIRS = {
     "STD26_A_001": (
@@ -154,6 +155,19 @@ class TestEarly16StageAArtifact(unittest.TestCase):
                 if spec_id in R3_REPAIRS:
                     row["evidence_needed_for_stage_b"] = [R3_REPAIRS[spec_id]["evidence"]]
                     row["next_confirmation_points"] = [R3_REPAIRS[spec_id]["confirmation"]]
+
+            self.assertEqual(hashlib.sha256(serialized(payload)).hexdigest(), R3_SHA)
+
+            r4_confirmation = {
+                "measurable_event_or_metric": "EIA 2026 electricity demand volume",
+                "interpretation_effect": "The record-demand thesis would strengthen",
+            }
+            for spec in payload["strict_passed_spec"]:
+                if spec.get("spec_id") == "STD26_A_010":
+                    spec["next_confirmation_points"] = [r4_confirmation]
+            for row in payload.get("decision_ledger", []):
+                if row.get("spec_id") == "STD26_A_010":
+                    row["next_confirmation_points"] = [r4_confirmation]
 
             raw = serialized(payload)
             actual_sha = hashlib.sha256(raw).hexdigest()

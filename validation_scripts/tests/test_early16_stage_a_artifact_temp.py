@@ -12,8 +12,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 BASE_COMMIT = "4a83213501925ffdd4b5e0107aa091e4d2e26d66"
 BASE_SHA = "fe6154824fa99a09755e4c2b3efe342abaa4043438adf2a91d3853e0d55a1cca"
-EXPECTED_SHA = "a452997389108de6c081faf59d45964c4a9d0b31f47f91322e0a0aa4b09bb338"
-REPAIRS = {
+R2_SHA = "a452997389108de6c081faf59d45964c4a9d0b31f47f91322e0a0aa4b09bb338"
+EXPECTED_SHA = "b0052769450b275fca4989ee1d1d93fe9fb6615b16da33fc99b54c07834573a8"
+
+R2_REPAIRS = {
     "STD26_A_001": (
         "Official presidential proclamation or tariff notice confirming the polysilicon tariff scope, the 120-day effective stage/date, and covered derivatives",
         "Publication of the final tariff schedule with covered HTS lines and the effective date would confirm or weaken the market-access and supply-chain impact interpretation",
@@ -56,6 +58,49 @@ REPAIRS = {
     ),
 }
 
+R3_REPAIRS = {
+    "STD26_A_001": {
+        "evidence": {"source_or_document_class": "Official presidential tariff notice", "exact_claim_or_metric": "Polysilicon final tariff schedule effective date and covered HTS lines"},
+        "confirmation": {"measurable_event_or_metric": "Polysilicon final tariff schedule effective date and covered HTS lines", "interpretation_effect": "This result would strengthen the market-access interpretation"},
+    },
+    "STD26_A_009": {
+        "evidence": {"source_or_document_class": "Official transaction filing or company notice", "exact_claim_or_metric": "GM Samsung SDI Indiana JV stake-transfer status and transaction closing date"},
+        "confirmation": {"measurable_event_or_metric": "GM Samsung SDI Indiana JV transaction closing date and ownership transfer", "interpretation_effect": "This result would strengthen the strategic-control assessment"},
+    },
+    "STD26_A_010": {
+        "evidence": {"source_or_document_class": "Official EIA dataset", "exact_claim_or_metric": "EIA 2026 and 2027 U.S. electricity demand volume forecast"},
+        "confirmation": {"measurable_event_or_metric": "EIA 2026 and 2027 U.S. electricity demand volume", "interpretation_effect": "This result would strengthen the record-demand thesis"},
+    },
+    "STD26_A_013": {
+        "evidence": {"source_or_document_class": "SNE Research dataset", "exact_claim_or_metric": "SNE H1 2026 non-China EV battery volume 269.0GWh and supplier share"},
+        "confirmation": {"measurable_event_or_metric": "SNE non-China EV battery volume and supplier share", "interpretation_effect": "This result would strengthen the market-growth thesis"},
+    },
+    "STD26_A_016": {
+        "evidence": {"source_or_document_class": "Official antitrust authority decision or transaction document", "exact_claim_or_metric": "Salares Altoandinos antitrust approval date and revised project schedule"},
+        "confirmation": {"measurable_event_or_metric": "Salares Altoandinos antitrust approval date", "interpretation_effect": "This result would strengthen the project-timing assessment"},
+    },
+    "STD26_A_017": {
+        "evidence": {"source_or_document_class": "Official demonstration program document", "exact_claim_or_metric": "KREST Lobros 2026 humanoid hot-swap field-test stage and test period"},
+        "confirmation": {"measurable_event_or_metric": "KREST Lobros field-test cycle reliability metric", "interpretation_effect": "This result would strengthen the technology-commercialization interpretation"},
+    },
+    "STD26_A_018": {
+        "evidence": {"source_or_document_class": "Official company commissioning notice or project document", "exact_claim_or_metric": "Bikaner phase-1 50MW/200MWh commissioning date and operating stage"},
+        "confirmation": {"measurable_event_or_metric": "Bikaner phase-2 800MWh commissioning date and utilization", "interpretation_effect": "This result would strengthen the scale-up assessment"},
+    },
+    "STD26_A_021": {
+        "evidence": {"source_or_document_class": "Official ministerial order or customs notice", "exact_claim_or_metric": "DR Congo copper cobalt concentrate export-ban effective date and enforcement stage"},
+        "confirmation": {"measurable_event_or_metric": "DR Congo post-rule concentrate export volume", "interpretation_effect": "This result would strengthen the domestic-processing interpretation"},
+    },
+    "STD26_A_022": {
+        "evidence": {"source_or_document_class": "Official Korea Zinc earnings release or filing", "exact_claim_or_metric": "Korea Zinc H1 2026 sales and operating profit and Q2 segment margin"},
+        "confirmation": {"measurable_event_or_metric": "Korea Zinc next-quarter segment margin and sales volume", "interpretation_effect": "This result would strengthen the profitability outlook"},
+    },
+    "STD26_A_023": {
+        "evidence": {"source_or_document_class": "Official Albemarle earnings release or filing", "exact_claim_or_metric": "Albemarle Q2 2026 net income lithium price sales volume and segment margin"},
+        "confirmation": {"measurable_event_or_metric": "Albemarle next-quarter lithium price sales volume and segment margin", "interpretation_effect": "This result would strengthen the earnings-recovery thesis"},
+    },
+}
+
 
 def gh_error(title, message):
     safe = str(message).replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
@@ -78,6 +123,10 @@ def load_exact_base():
     return json.loads(raw.decode("utf-8"))
 
 
+def serialized(payload):
+    return (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+
+
 class TestEarly16StageAArtifact(unittest.TestCase):
     def test_current_main_stage_lineage_validator(self):
         target = None
@@ -86,18 +135,33 @@ class TestEarly16StageAArtifact(unittest.TestCase):
             touched = set()
             for spec in payload["strict_passed_spec"]:
                 spec_id = spec.get("spec_id")
-                if spec_id in REPAIRS:
-                    evidence, confirmation = REPAIRS[spec_id]
+                if spec_id in R2_REPAIRS:
+                    evidence, confirmation = R2_REPAIRS[spec_id]
                     spec["evidence_needed_for_stage_b"] = [evidence]
                     spec["next_confirmation_points"] = [confirmation]
                     touched.add(spec_id)
-            self.assertEqual(touched, set(REPAIRS))
-            raw = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+            self.assertEqual(touched, set(R2_REPAIRS))
+            self.assertEqual(hashlib.sha256(serialized(payload)).hexdigest(), R2_SHA)
+
+            for spec in payload["strict_passed_spec"]:
+                spec_id = spec.get("spec_id")
+                if spec_id in R3_REPAIRS:
+                    spec["evidence_needed_for_stage_b"] = [R3_REPAIRS[spec_id]["evidence"]]
+                    spec["next_confirmation_points"] = [R3_REPAIRS[spec_id]["confirmation"]]
+
+            for row in payload.get("decision_ledger", []):
+                spec_id = row.get("spec_id")
+                if spec_id in R3_REPAIRS:
+                    row["evidence_needed_for_stage_b"] = [R3_REPAIRS[spec_id]["evidence"]]
+                    row["next_confirmation_points"] = [R3_REPAIRS[spec_id]["confirmation"]]
+
+            raw = serialized(payload)
             actual_sha = hashlib.sha256(raw).hexdigest()
             self.assertEqual(actual_sha, EXPECTED_SHA)
             with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as fh:
                 fh.write(raw)
                 target = Path(fh.name)
+
             proc = subprocess.run(
                 [
                     sys.executable,

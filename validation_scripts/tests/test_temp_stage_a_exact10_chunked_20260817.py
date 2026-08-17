@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import base64
+import contextlib
 import hashlib
+import io
 import json
 import lzma
 from pathlib import Path
@@ -22,6 +24,11 @@ FIXTURES = [
 ]
 
 
+def _emit_annotation(line):
+    message = line.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+    print(f"::error title=Exact10 Stage A validator::{message}")
+
+
 class Exact10StageAChunkedValidationTest(unittest.TestCase):
     def test_exact_stage_a_artifact_against_current_public_validator(self):
         chunks = []
@@ -39,7 +46,18 @@ class Exact10StageAChunkedValidationTest(unittest.TestCase):
         payload = json.loads(raw.decode("utf-8"))
         self.assertEqual(len(payload["strict_passed_spec"]), 10)
         self.assertEqual(len(payload["decision_ledger"]), 13)
-        self.assertEqual(validator.check_stage_a_full(payload), 0)
+
+        captured = io.StringIO()
+        with contextlib.redirect_stdout(captured), contextlib.redirect_stderr(captured):
+            rc = validator.check_stage_a_full(payload)
+        output = captured.getvalue()
+        if rc != 0:
+            error_lines = [line.strip() for line in output.splitlines() if "[ERROR]" in line]
+            if not error_lines:
+                error_lines = [line.strip() for line in output.splitlines() if line.strip()][-20:]
+            for line in error_lines[:50]:
+                _emit_annotation(line)
+        self.assertEqual(rc, 0, "current public Stage A validator rejected exact10 artifact")
 
 
 if __name__ == "__main__":

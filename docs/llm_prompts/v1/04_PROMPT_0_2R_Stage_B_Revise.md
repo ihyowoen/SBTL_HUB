@@ -340,9 +340,11 @@ If the prior Stage C issue is a Stage A selection defect — stale event, baseli
 
 It must not be rewritten into a stronger-looking card.
 
-Every revised_draft_card must preserve the original `strict_gate_check`, `selection_risk_flags`, and Stage A `spec_id`.
+Every revised_draft_card must preserve the original Stage A `strict_gate_check`, Stage A `spec_id`, and all other lineage fields required by `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`.
 
-If those fields are missing, block the revise item with `blocked_reason = "missing_stage_a_strict_gate_metadata"`.
+Do not add a revise-only prerequisite that is absent from the shared Stage A lineage contract, and do not synthesize missing upstream lineage.
+
+If `strict_gate_check`, Stage A `spec_id`, or any other field actually required by `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md` is missing, block the revise item with `blocked_reason = "missing_stage_a_strict_gate_metadata"`.
 
 ## Operational integrated rule — NO_UNVERIFIED_HOLD_OR_DELETE_RULE_20260507_V2
 

@@ -57,6 +57,11 @@ REPAIRS = {
 }
 
 
+def gh_error(title, message):
+    safe = str(message).replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+    print(f"::error title={title}::{safe}", flush=True)
+
+
 def load_exact_base():
     encoded_parts = []
     for i in range(1, 5):
@@ -67,29 +72,32 @@ def load_exact_base():
         with urllib.request.urlopen(url, timeout=30) as response:
             encoded_parts.append(response.read().decode("utf-8").strip())
     raw = gzip.decompress(base64.b64decode("".join(encoded_parts)))
-    if hashlib.sha256(raw).hexdigest() != BASE_SHA:
-        raise AssertionError("historical exact base SHA mismatch")
+    actual = hashlib.sha256(raw).hexdigest()
+    if actual != BASE_SHA:
+        raise AssertionError(f"historical exact base SHA mismatch: {actual}")
     return json.loads(raw.decode("utf-8"))
 
 
 class TestEarly16StageAArtifact(unittest.TestCase):
     def test_current_main_stage_lineage_validator(self):
-        payload = load_exact_base()
-        touched = set()
-        for spec in payload["strict_passed_spec"]:
-            spec_id = spec.get("spec_id")
-            if spec_id in REPAIRS:
-                evidence, confirmation = REPAIRS[spec_id]
-                spec["evidence_needed_for_stage_b"] = [evidence]
-                spec["next_confirmation_points"] = [confirmation]
-                touched.add(spec_id)
-        self.assertEqual(touched, set(REPAIRS))
-        raw = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-        self.assertEqual(hashlib.sha256(raw).hexdigest(), EXPECTED_SHA)
-        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as fh:
-            fh.write(raw)
-            target = Path(fh.name)
+        target = None
         try:
+            payload = load_exact_base()
+            touched = set()
+            for spec in payload["strict_passed_spec"]:
+                spec_id = spec.get("spec_id")
+                if spec_id in REPAIRS:
+                    evidence, confirmation = REPAIRS[spec_id]
+                    spec["evidence_needed_for_stage_b"] = [evidence]
+                    spec["next_confirmation_points"] = [confirmation]
+                    touched.add(spec_id)
+            self.assertEqual(touched, set(REPAIRS))
+            raw = (json.dumps(payload, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+            actual_sha = hashlib.sha256(raw).hexdigest()
+            self.assertEqual(actual_sha, EXPECTED_SHA)
+            with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as fh:
+                fh.write(raw)
+                target = Path(fh.name)
             proc = subprocess.run(
                 [
                     sys.executable,
@@ -101,10 +109,19 @@ class TestEarly16StageAArtifact(unittest.TestCase):
                 text=True,
                 capture_output=True,
             )
+            if proc.returncode != 0:
+                gh_error(
+                    "Early16 Stage A validator",
+                    f"target_sha={actual_sha}\nSTDOUT:\n{proc.stdout}\nSTDERR:\n{proc.stderr}",
+                )
             self.assertEqual(proc.returncode, 0, proc.stdout + "\n" + proc.stderr)
             self.assertIn("RESULT: PASS_STAGE_A_SCHEMA_CONTRACT", proc.stdout)
+        except Exception as exc:
+            gh_error("Early16 test harness", f"{type(exc).__name__}: {exc}")
+            raise
         finally:
-            target.unlink(missing_ok=True)
+            if target is not None:
+                target.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

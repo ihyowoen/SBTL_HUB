@@ -2157,7 +2157,7 @@ function useTrackerData(refreshKey = 0, hardRefresh = false) {
       if (!list.length) return null;
       return { code, flag: TRACKER_REGION[code].flag, name: TRACKER_REGION[code].name, total: list.length, ACTIVE: list.filter((i) => i.s === "ACTIVE").length };
     }).filter(Boolean);
-    const upcoming = items.filter((i) => i.s === "UPCOMING").sort((a, b) => String(a.dt || "").localeCompare(String(b.dt || ""))).slice(0, 8).map((i) => ({ date: fmtDate(i.dt), title: i.t, region: i.r }));
+    const upcoming = items.filter((i) => i.s === "UPCOMING").sort((a, b) => String(a.dt || "").localeCompare(String(b.dt || ""))).slice(0, 8).map((i) => ({ id: i.id, eff: i.effectiveDate, dt: i.dt, date: fmtDate(i.dt), title: i.t, region: i.r }));
     return { meta: { lastUpdated: raw.meta?.lastUpdated || "-", totalItems: Number(raw.meta?.totalItems ?? items.length) || items.length }, summary, regions, upcoming, items };
   }, [raw]);
 
@@ -2682,23 +2682,161 @@ function ChatBot({ dark, initialConsultation = null, initialConsultationNonce = 
   );
 }
 
-function TrackerItemCard({ item, dark, expanded, onToggle }) {
+// ── Tracker 파생 유틸 — 날짜 파생은 전부 렌더타임 (RUNBOOK 계약: D-day를 데이터에 굽지 않는다) ──
+const TRK_INSTRUMENT = { law: "법", decree: "령", notification: "고시", standard: "표준" };
+const clampLines = (n) => ({ display: "-webkit-box", WebkitBoxOrient: "vertical", WebkitLineClamp: n, overflow: "hidden" });
+// 날짜 산술은 전부 UTC 타임스탬프로 — 로컬 Date를 쓰면 (1) new Date("YYYY-MM-DD")가 UTC 자정 파싱이라 KST에서 ±1일,
+// (2) DST 경계를 지나는 구간이 23/25시간이 섞여 일수가 하루 어긋난다. 달력 성분만 뽑아 Date.UTC로 환산하면 둘 다 소멸.
+const trkYmdUTC = (y, m, dd) => Date.UTC(+y, +m - 1, +dd);
+const trkTodayUTC = () => { const n = kstNow(); return Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()); }; // 앱의 '오늘'은 KST 기준
+// 부분 ISO를 (상한 UTC, 정밀도)로 — YYYY-MM은 그 달 말일, YYYY는 12/31이 상한. 진행 중인 달·해를 조기에 '경과' 처리하지 않기 위함.
+function trkDateParts(v) {
+  const s = String(v || "").trim();
+  let m;
+  if ((m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/))) return { utc: trkYmdUTC(m[1], m[2], m[3]), prec: "d", label: `${m[1]}.${m[2]}.${m[3]}` };
+  if ((m = s.match(/^(\d{4})-(\d{2})$/))) return { utc: Date.UTC(+m[1], +m[2], 0), prec: "m", label: `${m[1].slice(2)}.${+m[2]}` };
+  if ((m = s.match(/^(\d{4})$/))) return { utc: Date.UTC(+m[1], 11, 31), prec: "y", label: m[1] };
+  return null;
+}
+// dt 선두 날짜 — RUNBOOK 규약상 UPCOMING의 dt 선두는 차기 마일스톤이다.
+function trkDtLead(dtRaw) {
+  const m = String(dtRaw || "").match(/^(\d{4})[.-](\d{2})[.-](\d{2})/);
+  return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
+}
+// 칩은 '언제'만 말한다 — 시행 여부는 status 배지의 몫. 날짜의 성격(시행·만료·기한)이 데이터에 없으므로 단정하지 않는다.
+function deriveDday(effectiveDate, status, supersededBy, dtRaw) {
+  if (status === "DONE" || supersededBy) return null; // 종결·대체는 임박 신호 없음
+  if (status === "ACTIVE") return null; // 이미 시행 중 — 카운트다운은 무의미하고 '시행중'은 상태 배지와 중복. 날짜는 dt 폴백이 그대로 보여준다
+  const p = trkDateParts(effectiveDate) || trkDateParts(trkDtLead(dtRaw));
+  if (!p) return null;
+  const diff = Math.round((p.utc - trkTodayUTC()) / 86400000);
+  // 지난 날짜를 시행 사실로 단정하지 않는다. UPCOMING은 전환 누락 가능성이라 amber, WATCH는 기한 경과가 정상이라 dim.
+  if (diff < 0) return { label: `${p.label} 경과`, tone: status === "UPCOMING" ? "amber" : "dim" };
+  if (status === "WATCH") return { label: p.label, tone: "dim" }; // 미제정 — 카운트다운을 붙이면 확정처럼 읽힌다
+  if (p.prec !== "d") return { label: `${p.label} 예정`, tone: "neutral" }; // 정밀도 부족 — D-day 산술 금지
+  if (diff === 0) return { label: "D-DAY", tone: "red" };
+  return { label: `D-${diff}`, tone: diff <= 7 ? "red" : diff <= 30 ? "amber" : "neutral" };
+}
+// 확장 카드의 effectiveDate 표기 — 칩과 같은 규약.
+function trkEffectiveLabel(effectiveDate, status) {
+  const v = String(effectiveDate || "").trim();
+  if (!v) return null;
+  const p = trkDateParts(v);
+  const past = p ? p.utc < trkTodayUTC() : false;
+  // 날짜 성격(시행·만료·기한)이 데이터에 없으므로, 시행으로 단정할 수 있는 건 ACTIVE이면서 그 날짜가 이미 지났을 때뿐이다.
+  if (status === "ACTIVE") return past ? `시행 ${v}` : `기준일 ${v}`;
+  if (status === "DONE" || status === "WATCH") return `기준일 ${v}`; // DONE은 만료·종료일인 경우가 많고, WATCH는 제안 기한일 수 있다
+  return past ? `${v} 경과 — 시행 미확인` : `시행 예정 ${v}`; // UPCOMING
+}
+function daysSinceChecked(lastChecked) {
+  const m = String(lastChecked || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return null;
+  return Math.round((trkTodayUTC() - trkYmdUTC(m[1], m[2], m[3])) / 86400000);
+}
+function trkVerifyLabel(verify) {
+  if (!verify) return "";
+  if (typeof verify === "string") return verify;
+  if (typeof verify === "object") return [verify.method, verify.basis, verify.date, verify.runId].filter(Boolean).join(" · ");
+  return String(verify);
+}
+function DdayChip({ info, dark, size = 9 }) {
+  if (!info) return null;
   const t = T(dark);
+  const c = info.tone === "red" ? "#F85149" : info.tone === "amber" ? "#D29922" : t.sub;
+  const hot = info.tone === "red" || info.tone === "amber";
+  return <span style={{ fontSize: size, fontWeight: 800, color: c, border: `1px solid ${hot ? c : t.brd}`, borderRadius: 999, padding: "2px 8px", fontFamily: "'JetBrains Mono',monospace", whiteSpace: "nowrap", flexShrink: 0, opacity: info.tone === "dim" ? 0.75 : 1 }}>{info.label}</span>;
+}
+
+function TrackerItemCard({ item, dark, expanded, initialNoteOpen, hiddenMatch, focusOnExpand, onToggle, onDeepOpen }) {
+  const t = T(dark);
+  const mono = "'JetBrains Mono',monospace";
   const flag = TRACKER_REGION[item.r]?.flag || "🌐";
   const regionName = TRACKER_REGION[item.r]?.name || item.r;
   const statusColor = SC[item.s] || t.tx;
   const statusLabel = SL[item.s] || item.s;
   const sources = Array.isArray(item.src) ? item.src : [];
   const hasDetail = item.detail && String(item.detail).trim().length > 0;
+  const isDone = item.s === "DONE";
+  const dday = deriveDday(item.effectiveDate, item.s, item.supersededBy, item.dt);
+  const checkedAgo = daysSinceChecked(item.lastChecked);
+  const staleTone = checkedAgo == null ? null : checkedAgo >= 90 ? "red" : checkedAgo > 30 ? "amber" : null;
+  const staleColor = staleTone === "red" ? "#F85149" : "#D29922";
+  const instShort = TRK_INSTRUMENT[item.instrumentType];
+  const [showDetail, setShowDetail] = useState(false);
+  const [showNote, setShowNote] = useState(false);
+  const cardRef = useRef(null);
+  const hdrRef = useRef(null);
+  const prevExpanded = useRef(false); // false 초기화 — 딥링크로 확장 상태로 신규 마운트된 카드도 스크롤되게 (접힘 마운트는 false===false라 스크롤 없음)
+  const scrollOnCollapse = useRef(false); // ▲접기 바로 접을 때만 접힘 스크롤 허용 — 아코디언 자동 접힘의 스크롤 경합 방지
+  // 접힘 시 서랍 리셋 · 딥오픈 진입 시 메모 서랍 자동 개방
+  useEffect(() => {
+    if (!expanded) { setShowDetail(false); setShowNote(false); }
+    else if (initialNoteOpen) setShowNote(true);
+  }, [expanded, initialNoteOpen]);
+  // 아코디언 전환 시 뷰포트 점프 흡수 — 마운트 시에는 스크롤하지 않는다
+  useEffect(() => {
+    if (prevExpanded.current === expanded) return;
+    prevExpanded.current = expanded;
+    const shouldScroll = expanded || scrollOnCollapse.current;
+    scrollOnCollapse.current = false;
+    if (shouldScroll) requestAnimationFrame(() => {
+      cardRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      // 선반 딥링크로 열렸을 때 포커스가 화면 밖 선반 행에 남는 것을 막는다 — 키보드/SR 사용자의 다음 Tab이 열린 카드에서 이어지도록.
+      if (expanded && focusOnExpand) hdrRef.current?.focus({ preventScroll: true });
+    });
+  }, [expanded]);
   return (
-    <div style={{ background: t.card2, borderRadius: 10, border: `1px solid ${t.brd}`, borderLeft: `3px solid ${statusColor}`, padding: "12px 14px" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap", marginBottom: 6 }}><span style={{ fontSize: 9, fontWeight: 800, color: statusColor, background: `${statusColor}22`, padding: "2px 7px", borderRadius: 999, fontFamily: "'JetBrains Mono',monospace" }}>{statusLabel}</span>{item.id && <span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>{item.id}</span>}<span style={{ fontSize: 12 }}>{flag}</span><span style={{ fontSize: 9, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{regionName}</span>{item.dt && <span style={{ fontSize: 9, color: t.sub, marginLeft: "auto", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700 }}>{fmtDate(item.dt)}</span>}</div>
-      <h3 style={{ fontSize: 13, fontWeight: 800, color: t.tx, margin: "0 0 6px", lineHeight: 1.4 }}>{item.t}</h3>
-      {item.d && <p style={{ fontSize: 11, color: t.sub, margin: "0 0 8px", lineHeight: 1.6 }}>{item.d}</p>}
-      {item.tip && <div style={{ background: dark ? "rgba(210,153,34,0.07)" : "rgba(210,153,34,0.05)", borderLeft: "2px solid #D29922", padding: "6px 10px", borderRadius: "0 6px 6px 0", marginBottom: 8 }}><span style={{ fontSize: 10, color: "#D29922", fontWeight: 800, fontFamily: "'JetBrains Mono',monospace" }}>💡 </span><span style={{ fontSize: 11, color: t.tx, lineHeight: 1.5 }}>{item.tip}</span></div>}
-      {sources.length > 0 && <div style={{ marginBottom: 8, display: "flex", flexWrap: "wrap", gap: 4 }}>{sources.map((s, i) => { const label = s.n || s.label || s.name || `source ${i + 1}`; const url = s.u || s.url || s.href; if (!url) return null; return <a key={i} href={url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 10, color: t.cyan, padding: "4px 9px", borderRadius: 999, background: dark ? "rgba(88,166,255,0.10)" : "rgba(88,166,255,0.06)", textDecoration: "none", fontFamily: "'JetBrains Mono',monospace", fontWeight: 700, border: `1px solid ${dark ? "rgba(88,166,255,0.2)" : "rgba(88,166,255,0.15)"}` }}>📎 {label} ↗</a>; })}</div>}
-      {hasDetail && <><button onClick={onToggle} style={{ fontSize: 10, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 6, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace", padding: "6px 10px", fontWeight: 700 }}>{expanded ? "△ 자세히 접기" : "▽ 자세히 보기"}</button>{expanded && <div style={{ marginTop: 8, padding: "10px 12px", background: dark ? "rgba(88,166,255,0.05)" : "rgba(88,166,255,0.03)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.12)" : "rgba(88,166,255,0.08)"}`, fontSize: 11, color: t.tx, lineHeight: 1.7, whiteSpace: "pre-line" }}>{item.detail}</div>}</>}
-      {(item.lastChecked || item.checkNote) && <div style={{ fontSize: 9, color: t.sub, marginTop: 10, paddingTop: 7, borderTop: `1px solid ${t.brd}`, fontFamily: "'JetBrains Mono',monospace", lineHeight: 1.5 }}>🔍 {item.lastChecked ? `last checked: ${fmtDate(item.lastChecked)}` : "check note"}{item.checkNote && <span> — {item.checkNote}</span>}</div>}
+    <div ref={cardRef} id={item.id ? `trkcard-${item.id}` : undefined} onClick={onToggle} style={{ background: t.card2, borderRadius: 10, borderTop: `1px solid ${expanded ? t.cyan : t.brd}`, borderRight: `1px solid ${expanded ? t.cyan : t.brd}`, borderBottom: `1px solid ${expanded ? t.cyan : t.brd}`, borderLeft: `3px solid ${statusColor}`, padding: expanded ? "12px 14px" : "10px 12px", cursor: "pointer", opacity: !expanded && isDone ? 0.65 : 1 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+        <span style={{ fontSize: 9, fontWeight: 800, color: statusColor, background: `${statusColor}22`, padding: "2px 7px", borderRadius: 999, fontFamily: mono }}>{statusLabel}</span>
+        {item.id && <span style={{ fontSize: 9, color: t.sub, fontFamily: mono, fontWeight: 700 }}>{item.id}</span>}
+        {instShort && <span style={{ fontSize: 8, color: t.sub, border: `1px solid ${t.brd}`, borderRadius: 4, padding: "1px 4px", fontFamily: mono }}>{instShort}</span>}
+        <span style={{ fontSize: 12 }}>{flag}</span>
+        <span style={{ fontSize: 9, color: t.sub, fontFamily: mono }}>{regionName}</span>
+        {item.supersededBy && <span style={{ fontSize: 8, color: t.sub, border: `1px solid ${t.brd}`, borderRadius: 4, padding: "1px 4px", fontFamily: mono }}>대체됨 → {item.supersededBy}</span>}
+        <span style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 6 }}>
+          <DdayChip info={dday} dark={dark} />
+          {!dday && item.dt && <span style={{ fontSize: 9, color: t.sub, fontFamily: mono, fontWeight: 700 }}>{fmtDate(item.dt)}</span>}
+        </span>
+      </div>
+      {/* heading을 유지한 채 그 안의 span만 토글 button — role=button은 후손 역할을 지우므로(Children Presentational)
+          h3를 button 안에 넣으면 122개 정책 제목이 헤딩 탐색에서 사라진다. 접근명은 제목 텍스트 그 자체가 된다. */}
+      <h3 style={{ margin: "6px 0 0" }}>
+        <span ref={hdrRef} role="button" tabIndex={0} aria-expanded={expanded} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(); } }}
+          style={{ display: "block", fontSize: 13, fontWeight: 800, color: t.tx, lineHeight: 1.4, cursor: "pointer", ...(expanded ? {} : clampLines(2)) }}>{item.t}</span>
+      </h3>
+      {!expanded && item.d && <p style={{ fontSize: 11, color: t.sub, margin: "4px 0 0", lineHeight: 1.5, ...clampLines(isDone ? 1 : 2) }}>{item.d}</p>}
+      {!expanded && <>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 8, fontSize: 9, color: t.sub, fontFamily: mono }}>
+          {item.tip && <span title="확장하면 💡 팁이 있습니다">💡</span>}
+          {sources.length > 0 && <span>📎 {sources.length}</span>}
+          {hiddenMatch && <span style={{ color: t.cyan, border: `1px solid ${t.brd}`, borderRadius: 999, padding: "1px 6px", fontSize: 8, fontWeight: 700 }}>🔎 상세 일치</span>}
+          {staleTone && <button onClick={(e) => { e.stopPropagation(); onDeepOpen(); }} aria-label="검증 메모 바로 열기" style={{ background: "transparent", border: "none", color: staleColor, fontSize: 9, fontFamily: mono, fontWeight: 700, cursor: "pointer", padding: "8px 4px", margin: "-8px 0" }}>{staleTone === "red" ? "⚠" : "🔍"} 점검 {checkedAgo}일 전</button>}
+          <span style={{ marginLeft: "auto" }}>▾</span>
+        </div>
+      </>}
+      {expanded && <div onClick={(e) => e.stopPropagation()} style={{ cursor: "default" }}>
+        {(item.effectiveDate || item.dt) && <div style={{ marginTop: 8, fontSize: 10, color: t.sub, fontFamily: mono, lineHeight: 1.6 }}>
+          {item.effectiveDate && <div style={{ fontWeight: 700 }}>{trkEffectiveLabel(item.effectiveDate, item.s)}</div>}
+          {item.dt && <div style={{ whiteSpace: "pre-line" }}>{item.dt}</div>}
+        </div>}
+        {item.d && <p style={{ fontSize: 11, color: t.tx, margin: "8px 0 0", lineHeight: 1.6 }}>{item.d}</p>}
+        {item.tip && <div style={{ background: dark ? "rgba(210,153,34,0.07)" : "rgba(210,153,34,0.05)", borderLeft: "2px solid #D29922", padding: "6px 10px", borderRadius: "0 6px 6px 0", marginTop: 8 }}><span style={{ fontSize: 10, color: "#D29922", fontWeight: 800, fontFamily: mono }}>💡 </span><span style={{ fontSize: 11, color: t.tx, lineHeight: 1.5 }}>{item.tip}</span></div>}
+        {sources.length > 0 && <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 6 }}>{sources.map((s, i) => { const label = s.n || s.label || s.name || `source ${i + 1}`; const url = s.u || s.url || s.href; if (!url) return null; return <a key={i} href={url} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} style={{ fontSize: 10, color: t.cyan, padding: "8px 10px", borderRadius: 999, background: dark ? "rgba(88,166,255,0.10)" : "rgba(88,166,255,0.06)", textDecoration: "none", fontFamily: mono, fontWeight: 700, border: `1px solid ${dark ? "rgba(88,166,255,0.2)" : "rgba(88,166,255,0.15)"}` }}>📎 {label} ↗</a>; })}</div>}
+        {hasDetail && <>
+          <button onClick={() => setShowDetail((v) => !v)} style={{ width: "100%", minHeight: 40, marginTop: 8, textAlign: "left", fontSize: 10, color: t.cyan, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 6, cursor: "pointer", fontFamily: mono, padding: "6px 10px", fontWeight: 700 }}>{showDetail ? "△ 자세히 접기" : "▽ 자세히 보기"}</button>
+          {showDetail && <div style={{ marginTop: 8, padding: "10px 12px", background: dark ? "rgba(88,166,255,0.05)" : "rgba(88,166,255,0.03)", borderRadius: 8, border: `1px solid ${dark ? "rgba(88,166,255,0.12)" : "rgba(88,166,255,0.08)"}`, fontSize: 11, color: t.tx, lineHeight: 1.7, whiteSpace: "pre-line" }}>{item.detail}</div>}
+        </>}
+        {(item.lastChecked || item.checkNote || item.verify) && <>
+          <button onClick={() => setShowNote((v) => !v)} style={{ width: "100%", minHeight: 40, marginTop: 8, display: "flex", alignItems: "center", gap: 6, fontSize: 9, color: t.sub, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 6, cursor: "pointer", fontFamily: mono, padding: "6px 10px" }}>
+            <span>🔍 last checked: {item.lastChecked ? fmtDate(item.lastChecked) : "-"}</span>
+            {staleTone && <span style={{ color: staleColor, fontWeight: 700 }}>{checkedAgo}일 전</span>}
+            <span style={{ marginLeft: "auto", color: t.cyan, fontWeight: 700 }}>{showNote ? "메모 △" : "메모 ▽"}</span>
+          </button>
+          {showNote && <div style={{ marginTop: 6, padding: "8px 10px", background: dark ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.03)", borderRadius: 6, fontSize: 9.5, color: t.sub, fontFamily: mono, lineHeight: 1.6, whiteSpace: "pre-line" }}>{item.checkNote}{item.verify ? `${item.checkNote ? "\n" : ""}verify: ${trkVerifyLabel(item.verify)}` : ""}</div>}
+        </>}
+        <button onClick={() => { scrollOnCollapse.current = true; onToggle(); }} style={{ width: "100%", minHeight: 44, marginTop: 10, background: "transparent", border: `1px solid ${t.brd}`, borderRadius: 8, color: t.sub, fontSize: 10, fontWeight: 700, cursor: "pointer", fontFamily: mono }}>▲ 접기</button>
+      </div>}
     </div>
   );
 }
@@ -2714,6 +2852,9 @@ function Tracker({ tracker, regionPolicy, dark }) {
   const [search, setSearch] = useState("");
   const [bookmarks, setBookmarks] = useStoredList("sbtl_bookmarks");
   const [copiedShelf, setCopiedShelf] = useState(false);
+  const [staleOnly, setStaleOnly] = useState(false); // ⚠ 90일↑ 미점검만 보기
+  const [deepNoteId, setDeepNoteId] = useState(null); // 낡음 칩 딥오픈 — 확장과 동시에 메모 서랍 개방
+  const [focusTargetId, setFocusTargetId] = useState(null); // 선반 딥링크 대상 — 확장 후 그 카드 헤더로 포커스 인계
   const copyShelf = () => {
     const text = [`★ SBTL 보고함 (${bookmarks.length}건)`, ...bookmarks.map((b) => `- [${b.date}] ${b.title}${b.url ? `\n  ${b.url}` : ""}`)].join("\n");
     const done = () => { setCopiedShelf(true); setTimeout(() => setCopiedShelf(false), 1600); };
@@ -2731,8 +2872,9 @@ function Tracker({ tracker, regionPolicy, dark }) {
     return (d.items || []).filter((it) => {
       if (statusFilter !== "all" && it.s !== statusFilter) return false;
       if (regionFilter !== "all" && it.r !== regionFilter) return false;
+      if (staleOnly && !((daysSinceChecked(it.lastChecked) ?? -1) >= 90)) return false;
       if (sw) {
-        const hay = [it.id, it.t, it.d, it.tip, it.detail].filter(Boolean).join(" ").toLowerCase();
+        const hay = [it.id, it.t, it.d, it.tip, it.detail, it.checkNote, ...(Array.isArray(it.src) ? it.src.map((s) => s && s.n) : [])].filter(Boolean).join(" ").toLowerCase();
         if (!hay.includes(sw)) return false;
       }
       return true;
@@ -2745,9 +2887,14 @@ function Tracker({ tracker, regionPolicy, dark }) {
       if (a.s === "UPCOMING") return da.localeCompare(db);
       return db.localeCompare(da);
     });
-  }, [d.items, statusFilter, regionFilter, search]);
+  }, [d.items, statusFilter, regionFilter, search, staleOnly]);
   const regionFilterOptions = ["all", ...Object.keys(TRACKER_REGION).filter((code) => (d.items || []).some((it) => it.r === code))];
   const statusFilterOptions = ["all", "ACTIVE", "UPCOMING", "WATCH", "DONE"];
+  // 필터·검색으로 리스트에서 사라진 카드의 유령 확장 방지
+  useEffect(() => {
+    if (expandedItemId && !filteredItems.some((it) => (it.id || `${it.r}-${it.t}`) === expandedItemId)) { setExpandedItemId(null); setDeepNoteId(null); }
+  }, [filteredItems, expandedItemId]);
+  const staleCount = useMemo(() => (d.items || []).filter((it) => (daysSinceChecked(it.lastChecked) ?? -1) >= 90).length, [d.items]);
 
   return (
     <div style={{ padding: "0 14px 110px", display: "flex", flexDirection: "column", gap: 12 }}>
@@ -2770,7 +2917,7 @@ function Tracker({ tracker, regionPolicy, dark }) {
         </div>
       )}
       <div style={{ background: t.card2, borderRadius: 10, padding: 14, border: `1px solid ${t.brd}` }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 10 }}><div><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>STATUS</div><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginTop: 4 }}>LAST CHECKED {updatedLabel}</div></div><span style={{ background: t.brd, borderRadius: 4, padding: "3px 10px", fontSize: 12, fontWeight: 800, color: t.tx, fontFamily: "'JetBrains Mono',monospace" }}>{d.meta.totalItems}</span></div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 10 }}><div><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>STATUS</div><div style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginTop: 4 }}>LAST CHECKED {updatedLabel}</div></div><div style={{ display: "flex", alignItems: "center", gap: 6 }}>{staleCount > 0 && <button onClick={() => setStaleOnly((v) => !v)} aria-pressed={staleOnly} aria-label="90일 이상 미점검 항목만 보기" style={{ background: staleOnly ? "#D29922" : "transparent", color: staleOnly ? "#000" : "#D29922", border: "1px solid #D29922", borderRadius: 999, padding: "4px 10px", minHeight: 28, fontSize: 9, fontWeight: 800, cursor: "pointer", fontFamily: "'JetBrains Mono',monospace" }}>⚠ 점검 90일↑ {staleCount}</button>}<span style={{ background: t.brd, borderRadius: 4, padding: "3px 10px", fontSize: 12, fontWeight: 800, color: t.tx, fontFamily: "'JetBrains Mono',monospace" }}>{d.meta.totalItems}</span></div></div>
         <div style={{ display: "flex", gap: 5 }}>{Object.entries(d.summary).map(([s, n]) => <div key={s} style={{ flex: 1, background: t.bg, borderRadius: 6, padding: "8px 6px", textAlign: "center" }}><div style={{ fontSize: 16, fontWeight: 900, color: SC[s] || t.tx }}>{n}</div><div style={{ fontSize: 8, color: t.sub, fontFamily: "'JetBrains Mono',monospace", marginTop: 2 }}>{SL[s] || s}</div></div>)}</div>
       </div>
       <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>REGIONS — 클릭하면 권역 개요</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>{d.regions.map((r) => { const isExpanded = expandedRegion === r.code; return <div key={r.code} onClick={() => setExpandedRegion((prev) => prev === r.code ? null : r.code)} style={{ background: isExpanded ? (dark ? "#1A2333" : "#EEF3FF") : t.card2, borderRadius: 8, padding: "10px 12px", border: `1px solid ${isExpanded ? t.cyan : t.brd}`, cursor: "pointer", transition: "border 0.2s" }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}><span style={{ fontSize: 14 }}>{r.flag}</span><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>{r.ACTIVE} ACTIVE</span></div><div style={{ fontSize: 13, fontWeight: 700, color: t.tx, marginTop: 4 }}>{r.name}</div><div style={{ marginTop: 6, height: 3, borderRadius: 2, background: t.brd }}><div style={{ height: "100%", borderRadius: 2, background: SC.ACTIVE, width: pct(r.ACTIVE, r.total) }} /></div><div style={{ fontSize: 9, color: isExpanded ? t.cyan : t.sub, marginTop: 4, fontFamily: "'JetBrains Mono',monospace", textAlign: "center" }}>{isExpanded ? "△ 접기" : "▽ 개요 보기"}</div></div>; })}</div></div>
@@ -2778,9 +2925,9 @@ function Tracker({ tracker, regionPolicy, dark }) {
       <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>POLICY ITEMS — {filteredItems.length} / {d.items.length}</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="🔍 정책 검색 (제목·설명·ID)..." aria-label="Search policy items" style={{ width: "100%", padding: "10px 14px", borderRadius: 10, border: `1px solid ${t.brd}`, fontSize: 12, outline: "none", fontFamily: "inherit", background: t.card2, color: t.tx, boxSizing: "border-box", marginBottom: 8 }} />
         <div style={{ position: "relative", marginBottom: 6 }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{statusFilterOptions.map((s) => { const active = statusFilter === s; const label = s === "all" ? `ALL ${d.items.length}` : `${SL[s] || s} ${d.summary[s] || 0}`; const color = s === "all" ? t.cyan : (SC[s] || t.cyan); return <button key={s} onClick={() => setStatusFilter(s)} style={{ background: active ? color : t.card2, color: active ? "#000" : t.sub, border: `1px solid ${active ? "transparent" : t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: 36, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div></div>
         <div style={{ position: "relative", marginBottom: 10 }}><div style={{ display: "flex", gap: 4, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "thin" }}>{regionFilterOptions.map((r) => { const active = regionFilter === r; const label = r === "all" ? "ALL REGIONS" : `${TRACKER_REGION[r]?.flag || "🌐"} ${TRACKER_REGION[r]?.name || r}`; return <button key={r} onClick={() => setRegionFilter(r)} style={{ background: active ? t.cyan : t.card2, color: active ? "#000" : t.sub, border: `1px solid ${active ? "transparent" : t.brd}`, borderRadius: 999, padding: "8px 12px", minHeight: 36, fontSize: 10, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "'JetBrains Mono',monospace" }}>{label}</button>; })}</div></div>
-        {filteredItems.length === 0 ? <div style={{ padding: 20, borderRadius: 10, background: t.card2, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}>조건에 맞는 정책이 없습니다.</div></div> : <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>{filteredItems.map((item) => { const key = item.id || `${item.r}-${item.t}`; return <TrackerItemCard key={key} item={item} dark={dark} expanded={expandedItemId === key} onToggle={() => setExpandedItemId((prev) => prev === key ? null : key)} />; })}</div>}
+        {filteredItems.length === 0 ? <div style={{ padding: 20, borderRadius: 10, background: t.card2, border: `1px solid ${t.brd}`, textAlign: "center" }}><div style={{ fontSize: 24, marginBottom: 8 }}>🔍</div><div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}>조건에 맞는 정책이 없습니다.</div></div> : <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>{filteredItems.map((item) => { const key = item.id || `${item.r}-${item.t}`; const sw = search.trim().toLowerCase(); const hiddenMatch = !!sw && ![item.id, item.t, item.d].filter(Boolean).join(" ").toLowerCase().includes(sw); return <TrackerItemCard key={key} item={item} dark={dark} expanded={expandedItemId === key} initialNoteOpen={deepNoteId === key} hiddenMatch={hiddenMatch} onToggle={() => { setDeepNoteId(null); setFocusTargetId(null); setExpandedItemId((prev) => prev === key ? null : key); }} focusOnExpand={focusTargetId === key} onDeepOpen={() => { setDeepNoteId(key); setExpandedItemId(key); }} />; })}</div>}
       </div>
-      <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>KEY DATES</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ background: t.card2, borderRadius: 8, padding: "4px 0", border: `1px solid ${t.brd}` }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px 6px", borderBottom: `1px solid ${t.brd}` }}><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>WATCHLIST — UPCOMING TOP 8</span><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>LAST CHECKED {updatedLabel}</span></div>{d.upcoming.map((ev, i) => <div key={i} style={{ padding: "8px 12px", display: "flex", alignItems: "center", gap: 8, borderTop: i > 0 ? `1px solid ${t.brd}` : "none" }}><span style={{ width: 72, fontSize: 10, fontWeight: 700, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexShrink: 0, lineHeight: 1.35, whiteSpace: "normal", wordBreak: "keep-all" }}>{ev.date}</span><span style={{ flex: 1, fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.45 }}>{ev.title}</span></div>)}</div></div>
+      <div><div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}><span style={{ fontSize: 10, color: "#3a6090", fontFamily: "'JetBrains Mono',monospace" }}>KEY DATES</span><div style={{ flex: 1, height: 1, background: t.brd }} /></div><div style={{ background: t.card2, borderRadius: 8, padding: "4px 0", border: `1px solid ${t.brd}` }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px 6px", borderBottom: `1px solid ${t.brd}` }}><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>WATCHLIST — UPCOMING TOP 8</span><span style={{ fontSize: 10, color: t.sub, fontFamily: "'JetBrains Mono',monospace" }}>LAST CHECKED {updatedLabel}</span></div>{d.upcoming.map((ev, i) => { const kdInfo = deriveDday(ev.eff, "UPCOMING", null, ev.dt); const kdWhen = (kdInfo ? kdInfo.label : String(ev.date || "")).replace(/\*+/g, "").replace(/\s+/g, " ").trim().slice(0, 40); return <div key={i} role={ev.id ? "button" : undefined} tabIndex={ev.id ? 0 : undefined} onKeyDown={(e) => { if (ev.id && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); e.currentTarget.click(); } }} aria-label={ev.id ? `${kdWhen ? `${kdWhen}, ` : ""}${ev.title} — 카드 열기` : undefined} onClick={() => { if (!ev.id) return; setStatusFilter("all"); setRegionFilter("all"); setSearch(""); setStaleOnly(false); setDeepNoteId(null); setFocusTargetId(ev.id); setExpandedItemId(ev.id); requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById(`trkcard-${ev.id}`)?.scrollIntoView({ block: "nearest", behavior: "smooth" }))); }} style={{ padding: "8px 12px", display: "flex", alignItems: "center", gap: 8, borderTop: i > 0 ? `1px solid ${t.brd}` : "none", cursor: ev.id ? "pointer" : "default" }}><span aria-hidden="true" style={{ width: 72, fontSize: 10, fontWeight: 700, color: t.sub, fontFamily: "'JetBrains Mono',monospace", flexShrink: 0, lineHeight: 1.35, whiteSpace: "normal", wordBreak: "keep-all" }}>{ev.date}</span><span style={{ flex: 1, fontSize: 12, fontWeight: 700, color: t.tx, lineHeight: 1.45 }}>{ev.title}</span>{kdInfo && /^D-/.test(kdInfo.label) && <DdayChip info={kdInfo} dark={dark} />}</div>; })}</div></div>
     </div>
   );
 }

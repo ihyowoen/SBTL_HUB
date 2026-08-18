@@ -15,15 +15,15 @@ EXPECTED_STORY = "20260807_160552::KR_2026-08-06_C23"
 CONFIRMATION_REPAIR = [
     {
         "measurable_event_or_metric": "Shinheung SEC Malaysia CID production capacity reaches 100 million cell-equivalent units per month",
-        "interpretation_effect": "Confirmed 100 million monthly capacity would strengthen the A082 capacity-expansion assessment; failure to reach it would weaken the A082 capacity-expansion assessment",
+        "interpretation_effect": "This would confirm the A082 capacity-expansion assessment",
     },
     {
         "measurable_event_or_metric": "Samsung SDI BBU-related cylindrical-cell shipment volume after 2026-08-06",
-        "interpretation_effect": "A verified shipment-volume increase would strengthen the BBU-demand assessment; flat or lower shipments would weaken the BBU-demand assessment",
+        "interpretation_effect": "This would strengthen the A082 BBU-demand assessment",
     },
     {
         "measurable_event_or_metric": "Shinheung SEC Malaysia CID capacity utilization after the expansion",
-        "interpretation_effect": "A verified utilization increase would strengthen the persistence assessment; low utilization would weaken the persistence assessment",
+        "interpretation_effect": "This would strengthen the A082 persistence assessment",
     },
 ]
 
@@ -45,7 +45,7 @@ class A082StageARecertificationContract(unittest.TestCase):
         self.assertEqual(spec["spec_id"], EXPECTED_SPEC)
         spec["next_confirmation_points"] = CONFIRMATION_REPAIR
         data["repo_native_repair"] = {
-            "reason": "Workflow #906 showed only next_confirmation_points semantic binding was insufficiently item-specific.",
+            "reason": "Workflows #906 and #907 showed only next_confirmation_points semantic binding was insufficiently item-specific; measurable targets are now separated from interpretation-object effects using a repo-tested direct-effect pattern.",
             "fields_changed": ["strict_passed_spec[0].next_confirmation_points"],
             "selection_changed": False,
             "score_changed": False,

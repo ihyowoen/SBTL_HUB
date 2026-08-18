@@ -14,8 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 FIX = Path(__file__).resolve().parent / "fixtures" / "exact10_accepted5"
 R1_ORIGINAL_SHA = "dc734fc714c297017130a3821cbe11190e5123153eac488b00ec7c1894240fe5"
 R2_ORIGINAL_SHA = "453a722a7f9b415a1e024f3f477ad0a0c1e3f9c93ecfe7b3818943931850e85f"
-R1_REPAIRED_SHA = "441eaac2cbced0783e711af11cbe2db31a73acaddf06d55f28bc7f07bb7bd8d8"
-R2_REPAIRED_SHA = "5f98001f954b77a3ea3a0da08890e88223ae759f83ac0aa28186dc7965be7228"
+R1_CANONICAL_REPAIRED_SHA = "f9afd21f3a7aba781f5f6e36521db360ec9beca6c262797588d5eab21b827fc5"
+R2_CANONICAL_REPAIRED_SHA = "f6624b3710970e9ef64aa1acffbccbfe26a64e9bbe6a3184c4ede3138ac884fe"
 STAGE_B_SHA = "0e28bab204751c7a31196c58b578e9f580ce259e0e0c109c6db18b8da23880d9"
 EXPECTED = ["STD26_A_052", "STD26_A_054", "STD26_A_058", "STD26_A_083", "STD26_A_084"]
 
@@ -67,6 +67,10 @@ def materialize_current_stage_c_contract(doc):
     return doc
 
 
+def canonical_bytes(doc):
+    return (json.dumps(doc, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
+
+
 class Exact10Accepted5Closure(unittest.TestCase):
     def _original(self, names, expected_sha):
         raw = lzma.decompress(base64.b64decode(payload(names)))
@@ -74,7 +78,7 @@ class Exact10Accepted5Closure(unittest.TestCase):
         return json.loads(raw.decode("utf-8"))
 
     def _write_repaired(self, td, name, doc, expected_sha):
-        raw = (json.dumps(doc, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+        raw = canonical_bytes(doc)
         self.assertEqual(hashlib.sha256(raw).hexdigest(), expected_sha)
         path = Path(td) / name
         path.write_bytes(raw)
@@ -101,8 +105,8 @@ class Exact10Accepted5Closure(unittest.TestCase):
         r2_doc = materialize_current_stage_c_contract(r2_doc)
 
         with tempfile.TemporaryDirectory() as td:
-            r1 = self._write_repaired(td, "stage_c_revise_r1_exact10_repaired.json", r1_doc, R1_REPAIRED_SHA)
-            r2 = self._write_repaired(td, "stage_c_revise_r2_exact10_repaired.json", r2_doc, R2_REPAIRED_SHA)
+            r1 = self._write_repaired(td, "stage_c_revise_r1_exact10_repo_native_canonical.json", r1_doc, R1_CANONICAL_REPAIRED_SHA)
+            r2 = self._write_repaired(td, "stage_c_revise_r2_exact10_repo_native_canonical.json", r2_doc, R2_CANONICAL_REPAIRED_SHA)
 
             for artifact in (r1, r2):
                 self._run(

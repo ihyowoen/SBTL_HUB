@@ -14,8 +14,8 @@ ROOT = Path(__file__).resolve().parents[2]
 FIX = Path(__file__).resolve().parent / "fixtures" / "exact10_accepted5"
 R1_ORIGINAL_SHA = "dc734fc714c297017130a3821cbe11190e5123153eac488b00ec7c1894240fe5"
 R2_ORIGINAL_SHA = "453a722a7f9b415a1e024f3f477ad0a0c1e3f9c93ecfe7b3818943931850e85f"
-R1_CANONICAL_REPAIRED_SHA = "f9afd21f3a7aba781f5f6e36521db360ec9beca6c262797588d5eab21b827fc5"
-R2_CANONICAL_REPAIRED_SHA = "f6624b3710970e9ef64aa1acffbccbfe26a64e9bbe6a3184c4ede3138ac884fe"
+R1_CANONICAL_REPAIRED_SHA = "fcf8b72b4b8021f5d311921f642f06ac3b5b08186a7dce3e85f82ed21f2f5a06"
+R2_CANONICAL_REPAIRED_SHA = "557f3f79b2dff4c4db85ca462f12f2dc25860f37698e17c760201b8e03a5d77a"
 STAGE_B_SHA = "0e28bab204751c7a31196c58b578e9f580ce259e0e0c109c6db18b8da23880d9"
 EXPECTED = ["STD26_A_052", "STD26_A_054", "STD26_A_058", "STD26_A_083", "STD26_A_084"]
 
@@ -33,21 +33,24 @@ def materialize_current_stage_c_contract(doc):
     for bucket in ("accepted_fact_safe", "revise_required_again"):
         for item in doc.get(bucket, []):
             sid = item.get("source_spec_id")
-            if sid not in mapping:
-                continue
-            upstream = mapping[sid]
-            item["related_evidence_review"] = copy.deepcopy(upstream["related_evidence_review"])
-            item["date_role"] = copy.deepcopy(upstream["date_role"])
-            item["related_lineage"] = {
-                "status": upstream["related_evidence_review"]["status"],
-                "stage_b_related_evidence_review": copy.deepcopy(upstream["related_evidence_review"]),
-                "production_related_modified": upstream["related_evidence_review"]["production_related_modified"],
-            }
-            item["single_source_exception"] = copy.deepcopy(upstream["single_source_exception"])
+            if sid in mapping:
+                upstream = mapping[sid]
+                item["related_evidence_review"] = copy.deepcopy(upstream["related_evidence_review"])
+                item["date_role"] = copy.deepcopy(upstream["date_role"])
+                item["related_lineage"] = {
+                    "status": upstream["related_evidence_review"]["status"],
+                    "stage_b_related_evidence_review": copy.deepcopy(upstream["related_evidence_review"]),
+                    "production_related_modified": upstream["related_evidence_review"]["production_related_modified"],
+                }
+                item["single_source_exception"] = copy.deepcopy(upstream["single_source_exception"])
+            if bucket == "accepted_fact_safe":
+                item["id"] = item.get("id") or item.get("previous_draft_id") or item.get("revised_draft_id")
+                item["draft_id"] = item.get("draft_id") or item.get("previous_draft_id") or item["id"]
+                item["stage_c_only"] = True
 
     doc["repo_native_artifact_contract_repair"] = {
         "repair_type": "CURRENT_MAIN_STAGE_C_ARTIFACT_CONTRACT_LINEAGE_MATERIALIZATION",
-        "reason": "repo-native Stage C artifact validator requires related_lineage and date_role",
+        "reason": "repo-native Stage C artifact/lineage validator requires related/date/source-diversity lineage and accepted-item identity/state surface",
         "source": "stage_b_exact10_r0_results_20260818_STANDARD_NEW_RUN_CURRENT_MAIN.json",
         "source_sha256": STAGE_B_SHA,
         "fields_materialized": [
@@ -55,6 +58,9 @@ def materialize_current_stage_c_contract(doc):
             "related_lineage",
             "date_role",
             "single_source_exception",
+            "id",
+            "draft_id",
+            "stage_c_only",
         ],
         "editorial_content_changed": False,
         "fact_sources_changed": False,
@@ -63,6 +69,7 @@ def materialize_current_stage_c_contract(doc):
         "prompt_0_4_started": False,
         "diversity_lineage_source": "stage_b_exact10_r0_results_20260818_STANDARD_NEW_RUN_CURRENT_MAIN.json",
         "single_source_exception_materialized_from_stage_b": True,
+        "accepted_identity_surface_materialized_from_existing_draft_lineage": True,
     }
     return doc
 
@@ -84,23 +91,18 @@ class Exact10Accepted5Closure(unittest.TestCase):
         path.write_bytes(raw)
         return path
 
-    def _run(self, *args):
+    def _run(self, label, *args):
         cp = subprocess.run(args, cwd=ROOT, text=True, capture_output=True)
         if cp.returncode != 0:
             self.fail(
+                f"EXACT10_DIAG_STAGE={label}\n"
                 f"command failed: {' '.join(map(str, args))}\n"
                 f"STDOUT:\n{cp.stdout}\nSTDERR:\n{cp.stderr}"
             )
 
     def test_exact10_accepted5_repo_native_closure(self):
-        r1_doc = self._original(
-            ["r1_00.b64", "r1_01_03.b64", "r1_04_05.b64"],
-            R1_ORIGINAL_SHA,
-        )
-        r2_doc = self._original(
-            ["r2_00.b64", "r2_01.b64", "r2_02.b64"],
-            R2_ORIGINAL_SHA,
-        )
+        r1_doc = self._original(["r1_00.b64", "r1_01_03.b64", "r1_04_05.b64"], R1_ORIGINAL_SHA)
+        r2_doc = self._original(["r2_00.b64", "r2_01.b64", "r2_02.b64"], R2_ORIGINAL_SHA)
         r1_doc = materialize_current_stage_c_contract(r1_doc)
         r2_doc = materialize_current_stage_c_contract(r2_doc)
 
@@ -108,19 +110,10 @@ class Exact10Accepted5Closure(unittest.TestCase):
             r1 = self._write_repaired(td, "stage_c_revise_r1_exact10_repo_native_canonical.json", r1_doc, R1_CANONICAL_REPAIRED_SHA)
             r2 = self._write_repaired(td, "stage_c_revise_r2_exact10_repo_native_canonical.json", r2_doc, R2_CANONICAL_REPAIRED_SHA)
 
-            for artifact in (r1, r2):
-                self._run(
-                    sys.executable,
-                    str(ROOT / "validation_scripts/stage_artifact_contract_check.py"),
-                    "C",
-                    str(artifact),
-                )
-                self._run(
-                    sys.executable,
-                    str(ROOT / "validation_scripts/stage_lineage_contract_check.py"),
-                    "stage_c",
-                    str(artifact),
-                )
+            self._run("R1_ARTIFACT", sys.executable, str(ROOT / "validation_scripts/stage_artifact_contract_check.py"), "C", str(r1))
+            self._run("R1_LINEAGE", sys.executable, str(ROOT / "validation_scripts/stage_lineage_contract_check.py"), "stage_c", str(r1))
+            self._run("R2_ARTIFACT", sys.executable, str(ROOT / "validation_scripts/stage_artifact_contract_check.py"), "C", str(r2))
+            self._run("R2_LINEAGE", sys.executable, str(ROOT / "validation_scripts/stage_lineage_contract_check.py"), "stage_c", str(r2))
 
             d1 = json.loads(r1.read_text(encoding="utf-8"))
             d2 = json.loads(r2.read_text(encoding="utf-8"))
@@ -138,6 +131,7 @@ class Exact10Accepted5Closure(unittest.TestCase):
                 self.assertFalse(item["publish_ready"])
                 self.assertTrue(item["needs_post_acceptance_duplicate_review"])
                 self.assertTrue(item["needs_post_acceptance_evidence_qc"])
+                self.assertTrue(item["stage_c_only"])
                 self.assertIn("related_lineage", item)
                 self.assertIn("date_role", item)
                 self.assertIn("single_source_exception", item)

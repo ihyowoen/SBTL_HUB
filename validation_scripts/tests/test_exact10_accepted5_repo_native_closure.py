@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 FIX = Path(__file__).resolve().parent / "fixtures" / "exact10_accepted5"
-R1_SHA = "dc734fc714c297017130a3821cbe11190e5123153eac488b00ec7c1894240fe5"
-R2_SHA = "453a722a7f9b415a1e024f3f477ad0a0c1e3f9c93ecfe7b3818943931850e85f"
+R1_SHA = "752c24b2309968318ea784e16ae79e97cc2f14c8c0dbab75557ab530f60629ff"
+R2_SHA = "10b6dff5bb9607174f627acdb6f06495c3218e4dc6238e13366542a564a7c34e"
 EXPECTED = ["STD26_A_052", "STD26_A_054", "STD26_A_058", "STD26_A_083", "STD26_A_084"]
 
 
@@ -41,8 +41,8 @@ class Exact10Accepted5Closure(unittest.TestCase):
 
     def test_exact10_accepted5_repo_native_closure(self):
         with tempfile.TemporaryDirectory() as td:
-            r1 = self._write(td, "stage_c_revise_r1_exact10.json", "r1_", R1_SHA)
-            r2 = self._write(td, "stage_c_revise_r2_exact10.json", "r2_", R2_SHA)
+            r1 = self._write(td, "stage_c_revise_r1_exact10_lineage_repaired.json", "r1_repaired_", R1_SHA)
+            r2 = self._write(td, "stage_c_revise_r2_exact10_lineage_repaired.json", "r2_repaired_", R2_SHA)
 
             for artifact in (r1, r2):
                 self._run(
@@ -79,6 +79,8 @@ class Exact10Accepted5Closure(unittest.TestCase):
                 self.assertFalse(item["publish_ready"])
                 self.assertTrue(item["needs_post_acceptance_duplicate_review"])
                 self.assertTrue(item["needs_post_acceptance_evidence_qc"])
+                self.assertIn("related_lineage", item)
+                self.assertIn("date_role", item)
 
 
 if __name__ == "__main__":

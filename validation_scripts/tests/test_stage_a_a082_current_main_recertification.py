@@ -14,20 +14,21 @@ BASE_FIXTURE = ROOT / "validation_scripts/tests/fixtures/stage_a_a082_current_ma
 EXPECTED_SPEC = "STD26_A_082"
 EXPECTED_STORY = "20260807_160552::KR_2026-08-06_C23"
 
-# Follow the repository's locked concise structured-confirmation pattern:
-# item-specific named metric + direct interpretation effect.
+# Current public validator accepts direct-transitive interpretation binding such as
+# "The milestone confirmed the adoption thesis". Keep measurable targets separate
+# and bind only the interpretation effect here.
 CONFIRMATION_REPAIR = [
     {
         "measurable_event_or_metric": "Shinheung SEC Malaysia CID 2026 production capacity",
-        "interpretation_effect": "confirm A082 capacity-expansion thesis",
+        "interpretation_effect": "The capacity milestone confirmed the A082 capacity-expansion thesis",
     },
     {
         "measurable_event_or_metric": "Samsung SDI BBU 2026 shipment volume",
-        "interpretation_effect": "strengthen A082 BBU-demand thesis",
+        "interpretation_effect": "The shipment result strengthened the A082 BBU-demand thesis",
     },
     {
         "measurable_event_or_metric": "Shinheung SEC Malaysia CID 2026 capacity utilization",
-        "interpretation_effect": "strengthen A082 persistence thesis",
+        "interpretation_effect": "The utilization result strengthened the A082 persistence thesis",
     },
 ]
 
@@ -49,8 +50,8 @@ class A082StageARecertificationContract(unittest.TestCase):
         self.assertEqual(spec["spec_id"], EXPECTED_SPEC)
         spec["next_confirmation_points"] = CONFIRMATION_REPAIR
         data["repo_native_repair"] = {
-            "reason": "Workflows #906-#908 showed only next_confirmation_points semantic binding remained blocked. This repair uses the repository-proven concise structured pair pattern with item-specific measurable targets and direct interpretation-object effects.",
-            "fields_changed": ["strict_passed_spec[0].next_confirmation_points"],
+            "reason": "Workflows #906-#909 isolated the only remaining block to interpretation_effect binding. The measurable targets already pass. Effects now use the current-repo direct-transitive pattern proven by test_review_4850532920_contracts.py.",
+            "fields_changed": ["strict_passed_spec[0].next_confirmation_points[*].interpretation_effect"],
             "selection_changed": False,
             "score_changed": False,
             "execution_route_changed": False,
@@ -66,14 +67,12 @@ class A082StageARecertificationContract(unittest.TestCase):
         return data
 
     def test_repo_native_contract_and_scope(self):
-        # Diagnose each structured pair directly before the full Stage A CLI.
         for index, point in enumerate(CONFIRMATION_REPAIR):
             measurable_ok = lineage._structured_exact_target(point["measurable_event_or_metric"])
             effect_ok = lineage._structured_interpretation_effect(point["interpretation_effect"])
-            self.assertTrue(
-                lineage._valid_confirmation_point(point),
-                f"confirmation[{index}] invalid: measurable_ok={measurable_ok} effect_ok={effect_ok} point={point!r}",
-            )
+            self.assertTrue(measurable_ok, f"confirmation[{index}] measurable target invalid: {point!r}")
+            self.assertTrue(effect_ok, f"confirmation[{index}] interpretation effect invalid: {point!r}")
+            self.assertTrue(lineage._valid_confirmation_point(point), f"confirmation[{index}] pair invalid: {point!r}")
 
         with tempfile.TemporaryDirectory() as td:
             repaired = Path(td) / "stage_a_a082_current_main_recertification_REPAIRED.json"

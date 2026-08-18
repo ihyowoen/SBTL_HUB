@@ -14,21 +14,20 @@ BASE_FIXTURE = ROOT / "validation_scripts/tests/fixtures/stage_a_a082_current_ma
 EXPECTED_SPEC = "STD26_A_082"
 EXPECTED_STORY = "20260807_160552::KR_2026-08-06_C23"
 
-# Current public validator accepts direct-transitive interpretation binding such as
-# "The milestone confirmed the adoption thesis". Keep measurable targets separate
-# and bind only the interpretation effect here.
+# Current semantic binder permits measurement context in the transitive subject,
+# but not in the bridge between the interpretation-effect verb and its object.
 CONFIRMATION_REPAIR = [
     {
         "measurable_event_or_metric": "Shinheung SEC Malaysia CID 2026 production capacity",
-        "interpretation_effect": "The capacity milestone confirmed the A082 capacity-expansion thesis",
+        "interpretation_effect": "The A082 capacity milestone confirmed the supplier-expansion thesis",
     },
     {
         "measurable_event_or_metric": "Samsung SDI BBU 2026 shipment volume",
-        "interpretation_effect": "The shipment result strengthened the A082 BBU-demand thesis",
+        "interpretation_effect": "The A082 shipment result strengthened the BBU-demand thesis",
     },
     {
         "measurable_event_or_metric": "Shinheung SEC Malaysia CID 2026 capacity utilization",
-        "interpretation_effect": "The utilization result strengthened the A082 persistence thesis",
+        "interpretation_effect": "The A082 utilization result strengthened the persistence thesis",
     },
 ]
 
@@ -50,7 +49,7 @@ class A082StageARecertificationContract(unittest.TestCase):
         self.assertEqual(spec["spec_id"], EXPECTED_SPEC)
         spec["next_confirmation_points"] = CONFIRMATION_REPAIR
         data["repo_native_repair"] = {
-            "reason": "Workflows #906-#909 isolated the only remaining block to interpretation_effect binding. The measurable targets already pass. Effects now use the current-repo direct-transitive pattern proven by test_review_4850532920_contracts.py.",
+            "reason": "Workflows #906-#910 isolated the only remaining block to interpretation-effect binding. The measurable targets already pass. Measurement/A082 context is now kept before the direct-effect verb so the effect-to-object bridge remains free of numeric and measurement tokens, matching the current public semantic contract.",
             "fields_changed": ["strict_passed_spec[0].next_confirmation_points[*].interpretation_effect"],
             "selection_changed": False,
             "score_changed": False,

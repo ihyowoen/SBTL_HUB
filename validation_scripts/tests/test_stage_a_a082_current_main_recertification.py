@@ -7,23 +7,27 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from validation_scripts import stage_lineage_contract_check as lineage
+
 ROOT = Path(__file__).resolve().parents[2]
 BASE_FIXTURE = ROOT / "validation_scripts/tests/fixtures/stage_a_a082_current_main_recertification_20260818.json"
 EXPECTED_SPEC = "STD26_A_082"
 EXPECTED_STORY = "20260807_160552::KR_2026-08-06_C23"
 
+# Follow the repository's locked concise structured-confirmation pattern:
+# item-specific named metric + direct interpretation effect.
 CONFIRMATION_REPAIR = [
     {
-        "measurable_event_or_metric": "Shinheung SEC Malaysia CID production capacity reaches 100 million cell-equivalent units per month",
-        "interpretation_effect": "This would confirm the A082 capacity-expansion assessment",
+        "measurable_event_or_metric": "Shinheung SEC Malaysia CID 2026 production capacity",
+        "interpretation_effect": "confirm A082 capacity-expansion thesis",
     },
     {
-        "measurable_event_or_metric": "Samsung SDI BBU-related cylindrical-cell shipment volume after 2026-08-06",
-        "interpretation_effect": "This would strengthen the A082 BBU-demand assessment",
+        "measurable_event_or_metric": "Samsung SDI BBU 2026 shipment volume",
+        "interpretation_effect": "strengthen A082 BBU-demand thesis",
     },
     {
-        "measurable_event_or_metric": "Shinheung SEC Malaysia CID capacity utilization after the expansion",
-        "interpretation_effect": "This would strengthen the A082 persistence assessment",
+        "measurable_event_or_metric": "Shinheung SEC Malaysia CID 2026 capacity utilization",
+        "interpretation_effect": "strengthen A082 persistence thesis",
     },
 ]
 
@@ -45,7 +49,7 @@ class A082StageARecertificationContract(unittest.TestCase):
         self.assertEqual(spec["spec_id"], EXPECTED_SPEC)
         spec["next_confirmation_points"] = CONFIRMATION_REPAIR
         data["repo_native_repair"] = {
-            "reason": "Workflows #906 and #907 showed only next_confirmation_points semantic binding was insufficiently item-specific; measurable targets are now separated from interpretation-object effects using a repo-tested direct-effect pattern.",
+            "reason": "Workflows #906-#908 showed only next_confirmation_points semantic binding remained blocked. This repair uses the repository-proven concise structured pair pattern with item-specific measurable targets and direct interpretation-object effects.",
             "fields_changed": ["strict_passed_spec[0].next_confirmation_points"],
             "selection_changed": False,
             "score_changed": False,
@@ -62,6 +66,15 @@ class A082StageARecertificationContract(unittest.TestCase):
         return data
 
     def test_repo_native_contract_and_scope(self):
+        # Diagnose each structured pair directly before the full Stage A CLI.
+        for index, point in enumerate(CONFIRMATION_REPAIR):
+            measurable_ok = lineage._structured_exact_target(point["measurable_event_or_metric"])
+            effect_ok = lineage._structured_interpretation_effect(point["interpretation_effect"])
+            self.assertTrue(
+                lineage._valid_confirmation_point(point),
+                f"confirmation[{index}] invalid: measurable_ok={measurable_ok} effect_ok={effect_ok} point={point!r}",
+            )
+
         with tempfile.TemporaryDirectory() as td:
             repaired = Path(td) / "stage_a_a082_current_main_recertification_REPAIRED.json"
             data = self._materialize_repaired_artifact(repaired)

@@ -1,0 +1,90 @@
+{
+  "schema": "sbtl_persistent_run_ledger_v1",
+  "workspace_id": "backlog-reconciliation-20260819",
+  "status": "CHECKPOINTED_NOT_YET_THREE_RUN_COMPLETENESS_AUDITED",
+  "accepted21_source_spec_ids": [
+    "REC26_A2_024",
+    "REC26_A2_028",
+    "REC26_A2_049",
+    "REC26_A2_050",
+    "STD26_A_001",
+    "STD26_A_009",
+    "STD26_A_013",
+    "STD26_A_015",
+    "STD26_A_019",
+    "STD26_A_024",
+    "STD26_A_025",
+    "STD26_A_026",
+    "STD26_A_028",
+    "STD26_A_030",
+    "STD26_A_037",
+    "STD26_A_043",
+    "STD26_A_052",
+    "STD26_A_054",
+    "STD26_A_058",
+    "STD26_A_083",
+    "STD26_A_084"
+  ],
+  "accepted21_relation_accounting": {
+    "new_unrelated_event": [
+      "REC26_A2_024",
+      "REC26_A2_028",
+      "REC26_A2_049",
+      "REC26_A2_050",
+      "STD26_A_001",
+      "STD26_A_009",
+      "STD26_A_013",
+      "STD26_A_019",
+      "STD26_A_025",
+      "STD26_A_026",
+      "STD26_A_028",
+      "STD26_A_030",
+      "STD26_A_037",
+      "STD26_A_043",
+      "STD26_A_052",
+      "STD26_A_054",
+      "STD26_A_058",
+      "STD26_A_083",
+      "STD26_A_084"
+    ],
+    "distinct_follow_up": {
+      "STD26_A_015": {
+        "predecessor_id": "2026-07-01_CN_02",
+        "fresh_follow_up_anchor_class": "follow_up_probability_anchor"
+      },
+      "STD26_A_024": {
+        "predecessor_id": "2026-07-21_US_01",
+        "fresh_follow_up_anchor_class": "execution_event_anchor"
+      }
+    }
+  },
+  "known_nonaccepted_accounting": {
+    "provenance_quarantine": {
+      "count": 23,
+      "source_spec_range": "STD26_A_059..STD26_A_081",
+      "reopen_status": "NOT_REOPENED_IN_ACCEPTED21_REPAIR"
+    },
+    "stage_b_blocked": {
+      "count": 42,
+      "item_level_mapping": "TO_BE_RECOVERED_DURING_THREE_RUN_RECONCILIATION",
+      "reopen_status": "NOT_REOPENED_IN_ACCEPTED21_REPAIR"
+    },
+    "rejected_known": {
+      "count": 2,
+      "item_level_mapping": "TO_BE_RECOVERED_DURING_THREE_RUN_RECONCILIATION"
+    },
+    "support_source_only_known": {
+      "count": 1,
+      "item_level_mapping": "TO_BE_RECOVERED_DURING_THREE_RUN_RECONCILIATION"
+    }
+  },
+  "known_total_across_checkpoint_buckets": 89,
+  "warning": "89 is only the sum of currently known checkpoint buckets. Do not treat it as proof of complete three-run universe accounting until item-level reconstruction/audit is finished.",
+  "future_reconciliation_rules": {
+    "three_runs_may_be_combined_for_completeness_review": true,
+    "prior_decisions_may_be_reopened": true,
+    "original_checkpoint_must_remain_immutable": true,
+    "new_revision_required_for_reclassification": true,
+    "do_not_force_final_survivor_count_to_21": true
+  }
+}

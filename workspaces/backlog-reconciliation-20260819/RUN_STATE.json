@@ -2,7 +2,7 @@
   "schema": "sbtl_persistent_run_state_v1",
   "workspace_id": "backlog-reconciliation-20260819",
   "branch": "state/backlog-reconciliation-20260819",
-  "updated_kst": "2026-08-19T11:29:00+09:00",
+  "updated_kst": "2026-08-19T11:45:00+09:00",
   "baseline": {
     "main_sha": "75e98148ae4c7af6234799cdd0852a181b11081b",
     "main_tree_sha": "b7cc7cd0e7c1d06191017aa3882586e0dbe8e976",
@@ -40,6 +40,13 @@
       "STD26_A_024": "2026-07-21_US_01"
     }
   },
+  "persistent_artifact_vault": {
+    "manifest_path": "workspaces/backlog-reconciliation-20260819/ARTIFACT_MANIFEST.json",
+    "google_drive_folder_id": "1cJi7XFtgIzHqpsHUqd5L8Y7-27VpC_aD",
+    "accepted21_checkpoint_bundle_file_id": "191z0Zm_bR7nfyI8zW8pVcBZDuon1KdSb",
+    "accepted21_checkpoint_bundle_sha256": "b68747aebdf4aa3f2ec8b738a8ad2ca035ca5e3273e23095bf45cd9c583bc57b",
+    "status": "PERSISTED_AND_ID_PINNED"
+  },
   "exact_repo_runtime_gate": {
     "executed": false,
     "publish_ready_allowed": false,
@@ -58,13 +65,15 @@
       "workspaces/backlog-reconciliation-20260819/ARTIFACT_MANIFEST.json"
     ],
     "do_not_reconstruct_from_chat_history_first": true,
+    "do_not_search_artifact_by_filename_first": true,
+    "restore_large_artifacts_by_fixed_drive_file_id": true,
     "preserve_prior_revisions": true,
     "full_three_run_reconciliation_allowed": true,
     "reentry_or_rewind_allowed_when_evidence_requires": true
   },
   "next_actions": [
-    "Persist accepted21 R1 artifact bundle in this workspace",
     "Finish exact repo-runtime validator gate when an executable repo runtime is available",
-    "Then perform three-run item-level completeness/reconciliation audit using a new revision without overwriting this checkpoint"
+    "Then perform three-run item-level completeness/reconciliation audit using a new revision without overwriting this checkpoint",
+    "Persist every new major stage checkpoint into the same GitHub state workspace and Drive vault before switching chats"
   ]
 }

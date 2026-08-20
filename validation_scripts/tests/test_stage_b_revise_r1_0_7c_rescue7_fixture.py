@@ -9,7 +9,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CHUNK_DIR = Path(__file__).resolve().parent / "fixtures"
-EXPECTED_SHA256 = "7597e6bb4716c0764081d4255b11d1b2b84733620cfcffad7d40ea4b3d7274e7"
+R2_SHA256 = "7597e6bb4716c0764081d4255b11d1b2b84733620cfcffad7d40ea4b3d7274e7"
+EXPECTED_SHA256 = "fb83ad4e70585f6cb704db0de6dccc08323ede90a5fcad1d8db8c8ff2b42bf56"
 EXPECTED_IDS = {
     "STD26_A_007", "STD26_A_011", "STD26_A_023", "STD26_A_035",
     "STD26_A_036", "STD26_A_049", "STD26_A_056",
@@ -48,10 +49,39 @@ DOWNSTREAM_FALSE = [
 
 def load_fixture():
     encoded = "".join((CHUNK_DIR / n).read_text(encoding="utf-8").strip() for n in CHUNK_NAMES)
-    raw = zlib.decompress(base64.b64decode(encoded))
+    r2_raw = zlib.decompress(base64.b64decode(encoded))
+    r2_actual = hashlib.sha256(r2_raw).hexdigest()
+    if r2_actual != R2_SHA256:
+        raise AssertionError(f"R2 transport SHA mismatch: expected {R2_SHA256}, got {r2_actual}")
+    d = json.loads(r2_raw.decode("utf-8"))
+    changes = []
+    for c in d["revised_draft_cards"]:
+        before = c["anchor_path_resolution_action"]
+        if before != "preserved":
+            c["anchor_path_resolution_action"] = "preserved"
+            changes.append({"source_spec_id": c["source_spec_id"], "before": before, "after": "preserved"})
+    d["schema"] = "sbtl_stage_b_revise_r1_0_7c_rescue7_v3_repo_validator_enum_repair"
+    d["status"] = "PASS_STAGE_B_REVISE_R1_LOCAL_CONTRACT_AFTER_ENUM_REPAIR_REPO_VALIDATION_PENDING"
+    d["generated_kst"] = "2026-08-20T16:22:38+09:00"
+    d["repo_validator_enum_repair"] = {
+        "repair_type": "PROMPT_0_2R_EXACT_ENUM_NORMALIZATION",
+        "field": "anchor_path_resolution_action",
+        "affected_count": len(changes),
+        "changes": changes,
+        "visible_fields_changed": False,
+        "fact_sources_changed": False,
+        "source_urls_changed": False,
+        "editorial_decision_changed": False,
+    }
+    d["stage_prompt_sha256"] = "2f5e4d090d1c6ad28e407c3d1f5484a8d5d60e1ce17e0563ee871d45a09a16b3"
+    d["stage_prompt_sha256_status"] = "PASS_REPO_CHECKOUT_SHA256_LOCKED"
+    d["stage_prompt_provenance_status"] = "PASS_GIT_BLOB_AND_SHA256_LOCKED"
+    d["local_contract_validation"]["repo_hosted_validation"] = "PENDING_R3"
+    d["local_contract_validation"]["R3_change_scope"] = "anchor_path_resolution_action exact enum normalization only"
+    raw = (json.dumps(d, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
     actual = hashlib.sha256(raw).hexdigest()
     if actual != EXPECTED_SHA256:
-        raise AssertionError(f"fixture SHA mismatch: expected {EXPECTED_SHA256}, got {actual}")
+        raise AssertionError(f"R3 fixture SHA mismatch: expected {EXPECTED_SHA256}, got {actual}")
     return json.loads(raw.decode("utf-8"))
 
 

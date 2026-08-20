@@ -11,7 +11,16 @@ import zlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-FIXTURE_B64 = Path(__file__).resolve().parent / "fixtures/stage_c_revise_r1_rescue7_R2_payload.b64"
+CHUNK_DIR = Path(__file__).resolve().parent / "fixtures"
+CHUNK_NAMES = [
+    "stage_c_revise_r1_rescue7_R2_payload_00.txt",
+    "stage_c_revise_r1_rescue7_R2_payload_01.txt",
+    "stage_c_revise_r1_rescue7_R2_payload_02.txt",
+    "stage_c_revise_r1_rescue7_R2_payload_03.txt",
+    "stage_c_revise_r1_rescue7_R2_payload_04.txt",
+    "stage_c_revise_r1_rescue7_R2_payload_05.txt",
+    "stage_c_revise_r1_rescue7_R2_payload_06.txt",
+]
 EXPECTED_ARTIFACT_SHA256 = "1ab37bcdf5e18b5fd099d8df463400e7bb747706dbd59c643d160f4d033a58e7"
 EXPECTED_PROMPT_SHA256 = "5079bd1f6c5c5160de965e69aa8a53167da4d33cda9e172768c8d8e55a992b94"
 PROMPT = ROOT / "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md"
@@ -25,7 +34,10 @@ V3_FIELDS = [
 
 
 def build_fixture_bytes() -> bytes:
-    encoded = FIXTURE_B64.read_text(encoding="utf-8").strip()
+    encoded = "".join(
+        (CHUNK_DIR / name).read_text(encoding="utf-8").strip()
+        for name in CHUNK_NAMES
+    )
     raw = zlib.decompress(base64.b64decode(encoded))
     actual = hashlib.sha256(raw).hexdigest()
     if actual != EXPECTED_ARTIFACT_SHA256:

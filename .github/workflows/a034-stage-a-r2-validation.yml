@@ -1,0 +1,65 @@
+name: A034 Stage A R2 validation
+
+on:
+  push:
+    branches:
+      - agent/stage-a-a034-stale-rereview-validator
+    paths:
+      - "validation_scripts/tests/test_stage_a_a034_targeted_rereview_r2_fixture.py"
+      - "validation_scripts/tests/fixtures/stage_a_a034_r2_*"
+      - ".github/workflows/a034-stage-a-r2-validation.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile validators
+        run: python -m compileall -q validation_scripts
+
+      - name: Validate exact A034 Stage A R2 fixture
+        id: fixture
+        shell: bash
+        run: |
+          mkdir -p validation_results
+          set +e
+          python -m unittest validation_scripts.tests.test_stage_a_a034_targeted_rereview_r2_fixture -v > validation_results/stage_a_a034_targeted_rereview_r2_validator_log.txt 2>&1
+          code=$?
+          cat validation_results/stage_a_a034_targeted_rereview_r2_validator_log.txt
+          exit $code
+
+      - name: Persist validation receipt
+        if: always()
+        env:
+          FIXTURE_OUTCOME: ${{ steps.fixture.outcome }}
+        run: |
+          mkdir -p validation_results
+          {
+            echo "workflow=A034 Stage A R2 validation"
+            echo "head_sha=${GITHUB_SHA}"
+            echo "branch=${GITHUB_REF_NAME}"
+            echo "fixture_outcome=${FIXTURE_OUTCOME}"
+            echo "artifact_sha256=1186ecbb1982b8497c56b3e0a9ceb6dde9fc3a700daf89f9cf7e3f5004c415e3"
+            echo "prompt_0_1_git_blob_sha=57719c5eae5e219d704baad708992df79f8721bb"
+            echo "prompt_0_1_sha256=0795fb16b89dc320a26e5ecb05965ffc67b73e06137e10a5c2a8132c01a846bc"
+            if [ "${FIXTURE_OUTCOME}" = "success" ]; then
+              echo "stage_a_a034_targeted_rereview_r2_validator=PASS"
+            else
+              echo "stage_a_a034_targeted_rereview_r2_validator=BLOCKED"
+            fi
+          } > validation_results/stage_a_a034_targeted_rereview_r2_validator_result.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "4189827+github-actions[bot]@users.noreply.github.com"
+          git add -- validation_results/stage_a_a034_targeted_rereview_r2_validator_result.txt validation_results/stage_a_a034_targeted_rereview_r2_validator_log.txt
+          git commit -m "ci: persist A034 Stage A R2 validator diagnostics" || exit 0
+          git push origin "HEAD:${GITHUB_REF_NAME}"

@@ -18,6 +18,7 @@ on:
       - agent/workflow-contract-related-source-audit
       - agent/canonical-v3-contract-schema
       - agent/stage-a-0-7c-six-validator
+      - agent/stage-b-revise-0-7c-rescue7-validator
     paths:
       - "contracts/**"
       - "docs/RELATED_LIFECYCLE_CONTRACT.md"
@@ -89,6 +90,17 @@ jobs:
           cat validation_results/stage_c_0_7c_rescue7_validator_log.txt
           exit $code
 
+      - name: Validate 0.7C rescue7 Stage B revise r1 fixture
+        id: stage_b_revise_fixture
+        shell: bash
+        run: |
+          mkdir -p validation_results
+          set +e
+          python -m unittest validation_scripts.tests.test_stage_b_revise_r1_0_7c_rescue7_fixture -v > validation_results/stage_b_revise_r1_0_7c_rescue7_validator_log.txt 2>&1
+          code=$?
+          cat validation_results/stage_b_revise_r1_0_7c_rescue7_validator_log.txt
+          exit $code
+
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
@@ -101,8 +113,10 @@ jobs:
           STAGE_A_OUTCOME: ${{ steps.stage_a_fixture.outcome }}
           STAGE_B_OUTCOME: ${{ steps.stage_b_fixture.outcome }}
           STAGE_C_OUTCOME: ${{ steps.stage_c_fixture.outcome }}
+          STAGE_B_REVISE_OUTCOME: ${{ steps.stage_b_revise_fixture.outcome }}
         run: |
           mkdir -p validation_results
+          prompt_sha=$(sha256sum docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md | awk '{print $1}')
           {
             echo "workflow=Workflow contract validation"
             echo "head_sha=${GITHUB_SHA}"
@@ -136,8 +150,22 @@ jobs:
               echo "stage_c_0_7c_rescue7_validator=BLOCKED"
             fi
           } > validation_results/stage_c_0_7c_rescue7_validator_result.txt
+          {
+            echo "workflow=Workflow contract validation"
+            echo "head_sha=${GITHUB_SHA}"
+            echo "branch=${GITHUB_REF_NAME}"
+            echo "fixture_outcome=${STAGE_B_REVISE_OUTCOME}"
+            echo "artifact_sha256=7597e6bb4716c0764081d4255b11d1b2b84733620cfcffad7d40ea4b3d7274e7"
+            echo "prompt_0_2r_git_blob_sha=536bb52f9389fde1ed8100c165c7c82d015fd3f6"
+            echo "prompt_0_2r_sha256=${prompt_sha}"
+            if [ "${STAGE_B_REVISE_OUTCOME}" = "success" ]; then
+              echo "stage_b_revise_r1_0_7c_rescue7_validator=PASS"
+            else
+              echo "stage_b_revise_r1_0_7c_rescue7_validator=BLOCKED"
+            fi
+          } > validation_results/stage_b_revise_r1_0_7c_rescue7_validator_result.txt
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- validation_results/stage_a_0_7c_six_validator_result.txt validation_results/stage_a_0_7c_six_validator_log.txt validation_results/stage_b_0_7c_six_validator_result.txt validation_results/stage_b_0_7c_six_validator_log.txt validation_results/stage_c_0_7c_rescue7_validator_result.txt validation_results/stage_c_0_7c_rescue7_validator_log.txt
-          git commit -m "ci: persist 0.7C Stage A/B/C validator diagnostics" || exit 0
+          git add -- validation_results/stage_a_0_7c_six_validator_result.txt validation_results/stage_a_0_7c_six_validator_log.txt validation_results/stage_b_0_7c_six_validator_result.txt validation_results/stage_b_0_7c_six_validator_log.txt validation_results/stage_c_0_7c_rescue7_validator_result.txt validation_results/stage_c_0_7c_rescue7_validator_log.txt validation_results/stage_b_revise_r1_0_7c_rescue7_validator_result.txt validation_results/stage_b_revise_r1_0_7c_rescue7_validator_log.txt
+          git commit -m "ci: persist 0.7C Stage A/B/C and Stage B revise diagnostics" || exit 0
           git push origin "HEAD:${GITHUB_REF_NAME}"

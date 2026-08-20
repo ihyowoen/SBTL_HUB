@@ -13,13 +13,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CHUNK_DIR = Path(__file__).resolve().parent / "fixtures"
 CHUNK_NAMES = [
-    "stage_c_revise_r1_rescue7_R2_payload_00.txt",
-    "stage_c_revise_r1_rescue7_R2_payload_01.txt",
-    "stage_c_revise_r1_rescue7_R2_payload_02.txt",
-    "stage_c_revise_r1_rescue7_R2_payload_03.txt",
-    "stage_c_revise_r1_rescue7_R2_payload_04.txt",
-    "stage_c_revise_r1_rescue7_R2_payload_05.txt",
-    "stage_c_revise_r1_rescue7_R2_payload_06.txt",
+    "stage_c_revise_r1_R2_payload_00.txt",
+    "stage_c_revise_r1_R2_payload_01.txt",
+    "stage_c_revise_r1_R2_payload_02.txt",
+    "stage_c_revise_r1_R2_payload_03.txt",
+    "stage_c_revise_r1_R2_payload_04.txt",
 ]
 EXPECTED_ARTIFACT_SHA256 = "1ab37bcdf5e18b5fd099d8df463400e7bb747706dbd59c643d160f4d033a58e7"
 EXPECTED_PROMPT_SHA256 = "5079bd1f6c5c5160de965e69aa8a53167da4d33cda9e172768c8d8e55a992b94"

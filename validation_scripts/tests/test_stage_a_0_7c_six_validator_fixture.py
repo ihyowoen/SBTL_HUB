@@ -1,33 +1,67 @@
 from __future__ import annotations
-import base64, subprocess, sys, tempfile, unittest, zlib
+
+import base64
+import hashlib
+import subprocess
+import sys
+import tempfile
+import unittest
+import zlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-PAYLOAD_B64 = """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[... truncated ...]Q=="""
+CHUNK_DIR = Path(__file__).resolve().parent / "fixtures"
+EXPECTED_SHA256 = "d301af14b9c03abc013fba446e3b8e6278834340e75411badeb9a63ac504efa7"
+CHUNK_NAMES = [f"stage_a_0_7c_six_payload_{index:02d}.txt" for index in range(7)]
+
 
 class TestStageA07CSixValidatorFixture(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        encoded = "".join((CHUNK_DIR / name).read_text(encoding="utf-8").strip() for name in CHUNK_NAMES)
+        decoded = zlib.decompress(base64.b64decode(encoded))
+        actual_sha256 = hashlib.sha256(decoded).hexdigest()
+        if actual_sha256 != EXPECTED_SHA256:
+            raise AssertionError(
+                f"fixture SHA256 mismatch: expected {EXPECTED_SHA256}, got {actual_sha256}"
+            )
         cls.tmp = tempfile.TemporaryDirectory()
         cls.fixture = Path(cls.tmp.name) / "stage_a_0_7c_six_validator_ready_r2.json"
-        cls.fixture.write_bytes(zlib.decompress(base64.b64decode(PAYLOAD_B64)))
+        cls.fixture.write_bytes(decoded)
 
     @classmethod
     def tearDownClass(cls):
-        cls.tmp.cleanup()
+        if hasattr(cls, "tmp"):
+            cls.tmp.cleanup()
 
     def _run(self, *args: str):
-        proc = subprocess.run([sys.executable, *args], cwd=ROOT, text=True, capture_output=True)
-        self.assertEqual(proc.returncode, 0, msg=f"STDOUT:\n{proc.stdout}\nSTDERR:\n{proc.stderr}")
+        proc = subprocess.run(
+            [sys.executable, *args], cwd=ROOT, text=True, capture_output=True
+        )
+        self.assertEqual(
+            proc.returncode,
+            0,
+            msg=f"STDOUT:\n{proc.stdout}\nSTDERR:\n{proc.stderr}",
+        )
         return proc
 
     def test_stage_artifact_contract_check(self):
-        proc = self._run("validation_scripts/stage_artifact_contract_check.py", "A", str(self.fixture))
-        self.assertIn("PASS", proc.stdout)
+        proc = self._run(
+            "validation_scripts/stage_artifact_contract_check.py",
+            "A",
+            str(self.fixture),
+        )
+        self.assertIn('"status": "PASS"', proc.stdout)
+        self.assertIn('"missing_count": 0', proc.stdout)
 
     def test_stage_lineage_contract_check(self):
-        proc = self._run("validation_scripts/stage_lineage_contract_check.py", "stage_a", str(self.fixture))
-        self.assertIn("PASS", proc.stdout)
+        proc = self._run(
+            "validation_scripts/stage_lineage_contract_check.py",
+            "stage_a",
+            str(self.fixture),
+        )
+        self.assertIn("RESULT: PASS_STAGE_A_SCHEMA_CONTRACT", proc.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,20 +1,9 @@
-test_card_contract_and_lineage (validation_scripts.tests.test_stage_b_revise_r1_0_7c_rescue7_fixture.StageBReviseR107CRescue7FixtureTest.test_card_contract_and_lineage) ... FAIL
+test_card_contract_and_lineage (validation_scripts.tests.test_stage_b_revise_r1_0_7c_rescue7_fixture.StageBReviseR107CRescue7FixtureTest.test_card_contract_and_lineage) ... ok
 test_revision_scope_and_next_call (validation_scripts.tests.test_stage_b_revise_r1_0_7c_rescue7_fixture.StageBReviseR107CRescue7FixtureTest.test_revision_scope_and_next_call) ... ok
 test_schema_repairs_and_source_audit (validation_scripts.tests.test_stage_b_revise_r1_0_7c_rescue7_fixture.StageBReviseR107CRescue7FixtureTest.test_schema_repairs_and_source_audit) ... ok
 test_top_level_prompt_02r_contract (validation_scripts.tests.test_stage_b_revise_r1_0_7c_rescue7_fixture.StageBReviseR107CRescue7FixtureTest.test_top_level_prompt_02r_contract) ... ok
 
-======================================================================
-FAIL: test_card_contract_and_lineage (validation_scripts.tests.test_stage_b_revise_r1_0_7c_rescue7_fixture.StageBReviseR107CRescue7FixtureTest.test_card_contract_and_lineage)
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_b_revise_r1_0_7c_rescue7_fixture.py", line 112, in test_card_contract_and_lineage
-    self.assertEqual(c["anchor_path_resolution_action"], "preserved")
-AssertionError: 'preserved_immediately_preceding_stage_c_anchor_path_validation_byte_equivalent' != 'preserved'
-- preserved_immediately_preceding_stage_c_anchor_path_validation_byte_equivalent
-+ preserved
+Ran 4 tests in 0.009s
 
-
-----------------------------------------------------------------------
-Ran 4 tests in 0.003s
-
-FAILED (failures=1)
+OK

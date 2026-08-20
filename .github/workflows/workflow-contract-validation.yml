@@ -30,7 +30,7 @@ on:
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -56,8 +56,35 @@ jobs:
       - name: Verify V3 stage contract flow
         run: python validation_scripts/v3_stage_contract_flow_check.py --check
 
+      - name: Validate 0.7C six-item Stage A fixture
+        id: stage_a_fixture
+        run: python -m unittest validation_scripts.tests.test_stage_a_0_7c_six_validator_fixture -v
+
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
       - name: Verify prompt overlays
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Persist 0.7C validator result on validation branch
+        if: always()
+        env:
+          FIXTURE_OUTCOME: ${{ steps.stage_a_fixture.outcome }}
+        run: |
+          mkdir -p validation_results
+          {
+            echo "workflow=Workflow contract validation"
+            echo "head_sha=${GITHUB_SHA}"
+            echo "branch=${GITHUB_REF_NAME}"
+            echo "fixture_outcome=${FIXTURE_OUTCOME}"
+            if [ "${FIXTURE_OUTCOME}" = "success" ]; then
+              echo "stage_a_0_7c_six_validator=PASS"
+            else
+              echo "stage_a_0_7c_six_validator=BLOCKED"
+            fi
+          } > validation_results/stage_a_0_7c_six_validator_result.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- validation_results/stage_a_0_7c_six_validator_result.txt
+          git commit -m "ci: persist 0.7C Stage A validator result" || exit 0
+          git push origin "HEAD:${GITHUB_REF_NAME}"

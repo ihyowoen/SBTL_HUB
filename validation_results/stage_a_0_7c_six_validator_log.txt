@@ -5,139 +5,41 @@ test_stage_lineage_contract_check (validation_scripts.tests.test_stage_a_0_7c_si
 FAIL: test_stage_lineage_contract_check (validation_scripts.tests.test_stage_a_0_7c_six_validator_fixture.TestStageA07CSixValidatorFixture.test_stage_lineage_contract_check)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_0_7c_six_validator_fixture.py", line 135, in test_stage_lineage_contract_check
+  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_0_7c_six_validator_fixture.py", line 243, in test_stage_lineage_contract_check
     proc = self._run(
            ^^^^^^^^^^
-  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_0_7c_six_validator_fixture.py", line 118, in _run
+  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_0_7c_six_validator_fixture.py", line 226, in _run
     self.assertEqual(
 AssertionError: 1 != 0 : STDOUT:
 RESULT: BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT
-- decision_ledger[0]: missing required base ledger field upstream_drop_reason
-- decision_ledger[0]: missing required base ledger field headline
-- decision_ledger[0]: missing required base ledger field site
-- decision_ledger[0]: missing required base ledger field url
-- decision_ledger[0]: missing required base ledger field integrity_group_id
-- decision_ledger[0]: missing required base ledger field integrity_is_best
-- decision_ledger[0]: missing required base ledger field merged_into_spec_id
-- decision_ledger[0]: missing required base ledger field baseline_match
-- decision_ledger[0]: missing required base ledger field treasure_hunt_sampled
-- decision_ledger[0]: missing required base ledger field notes
-- decision_ledger[1]: missing required base ledger field upstream_drop_reason
-- decision_ledger[1]: missing required base ledger field headline
-- decision_ledger[1]: missing required base ledger field site
-- decision_ledger[1]: missing required base ledger field url
-- decision_ledger[1]: missing required base ledger field integrity_group_id
-- decision_ledger[1]: missing required base ledger field integrity_is_best
-- decision_ledger[1]: missing required base ledger field merged_into_spec_id
-- decision_ledger[1]: missing required base ledger field baseline_match
-- decision_ledger[1]: missing required base ledger field treasure_hunt_sampled
-- decision_ledger[1]: missing required base ledger field notes
-- decision_ledger[2]: missing required base ledger field upstream_drop_reason
-- decision_ledger[2]: missing required base ledger field headline
-- decision_ledger[2]: missing required base ledger field site
-- decision_ledger[2]: missing required base ledger field url
-- decision_ledger[2]: missing required base ledger field integrity_group_id
-- decision_ledger[2]: missing required base ledger field integrity_is_best
-- decision_ledger[2]: missing required base ledger field merged_into_spec_id
-- decision_ledger[2]: missing required base ledger field baseline_match
-- decision_ledger[2]: missing required base ledger field treasure_hunt_sampled
-- decision_ledger[2]: missing required base ledger field notes
-- decision_ledger[3]: missing required base ledger field upstream_drop_reason
-- decision_ledger[3]: missing required base ledger field headline
-- decision_ledger[3]: missing required base ledger field site
-- decision_ledger[3]: missing required base ledger field url
-- decision_ledger[3]: missing required base ledger field integrity_group_id
-- decision_ledger[3]: missing required base ledger field integrity_is_best
-- decision_ledger[3]: missing required base ledger field merged_into_spec_id
-- decision_ledger[3]: missing required base ledger field baseline_match
-- decision_ledger[3]: missing required base ledger field treasure_hunt_sampled
-- decision_ledger[3]: missing required base ledger field notes
-- decision_ledger[4]: missing required base ledger field upstream_drop_reason
-- decision_ledger[4]: missing required base ledger field headline
-- decision_ledger[4]: missing required base ledger field site
-- decision_ledger[4]: missing required base ledger field url
-- decision_ledger[4]: missing required base ledger field integrity_group_id
-- decision_ledger[4]: missing required base ledger field integrity_is_best
-- decision_ledger[4]: missing required base ledger field merged_into_spec_id
-- decision_ledger[4]: missing required base ledger field baseline_match
-- decision_ledger[4]: missing required base ledger field treasure_hunt_sampled
-- decision_ledger[4]: missing required base ledger field notes
-- decision_ledger[5]: missing required base ledger field upstream_drop_reason
-- decision_ledger[5]: missing required base ledger field headline
-- decision_ledger[5]: missing required base ledger field site
-- decision_ledger[5]: missing required base ledger field url
-- decision_ledger[5]: missing required base ledger field integrity_group_id
-- decision_ledger[5]: missing required base ledger field integrity_is_best
-- decision_ledger[5]: missing required base ledger field merged_into_spec_id
-- decision_ledger[5]: missing required base ledger field baseline_match
-- decision_ledger[5]: missing required base ledger field treasure_hunt_sampled
-- decision_ledger[5]: missing required base ledger field notes
-- full Stage A artifact missing required top-level field lane_sanity_rules_applied
-- full Stage A artifact dropped_treasure_hunt missing non_sampled_ledger_policy
-- STD26_A_004: missing required base strict field title_raw
-- STD26_A_004: missing required base strict field summary_hint
-- STD26_A_004: missing required base strict field context_text
-- STD26_A_004: missing required base strict field why_now
-- STD26_A_004: missing required base strict field market_relevance
-- STD26_A_004: missing required base strict field source_priority_notes
-- STD26_A_004: missing required base strict field upstream_labels
-- STD26_A_004: missing required base strict field staleness
-- STD26_A_004: missing required base strict field review_reason
-- STD26_A_004: missing required base strict field stage_b_requirement_note
-- STD26_A_007: missing required base strict field title_raw
-- STD26_A_007: missing required base strict field summary_hint
-- STD26_A_007: missing required base strict field context_text
-- STD26_A_007: missing required base strict field why_now
-- STD26_A_007: missing required base strict field market_relevance
-- STD26_A_007: missing required base strict field source_priority_notes
-- STD26_A_007: missing required base strict field upstream_labels
-- STD26_A_007: missing required base strict field staleness
-- STD26_A_007: missing required base strict field review_reason
-- STD26_A_007: missing required base strict field stage_b_requirement_note
-- STD26_A_011: missing required base strict field title_raw
-- STD26_A_011: missing required base strict field summary_hint
-- STD26_A_011: missing required base strict field context_text
-- STD26_A_011: missing required base strict field why_now
-- STD26_A_011: missing required base strict field market_relevance
-- STD26_A_011: missing required base strict field source_priority_notes
-- STD26_A_011: missing required base strict field upstream_labels
-- STD26_A_011: missing required base strict field staleness
-- STD26_A_011: missing required base strict field review_reason
-- STD26_A_011: missing required base strict field stage_b_requirement_note
-- STD26_A_033: missing required base strict field title_raw
-- STD26_A_033: missing required base strict field summary_hint
-- STD26_A_033: missing required base strict field context_text
-- STD26_A_033: missing required base strict field why_now
-- STD26_A_033: missing required base strict field market_relevance
-- STD26_A_033: missing required base strict field source_priority_notes
-- STD26_A_033: missing required base strict field upstream_labels
-- STD26_A_033: missing required base strict field staleness
-- STD26_A_033: missing required base strict field review_reason
-- STD26_A_033: missing required base strict field stage_b_requirement_note
-- STD26_A_035: missing required base strict field title_raw
-- STD26_A_035: missing required base strict field summary_hint
-- STD26_A_035: missing required base strict field context_text
-- STD26_A_035: missing required base strict field why_now
-- STD26_A_035: missing required base strict field market_relevance
-- STD26_A_035: missing required base strict field source_priority_notes
-- STD26_A_035: missing required base strict field upstream_labels
-- STD26_A_035: missing required base strict field staleness
-- STD26_A_035: missing required base strict field review_reason
-- STD26_A_035: missing required base strict field stage_b_requirement_note
-- STD26_A_036: missing required base strict field title_raw
-- STD26_A_036: missing required base strict field summary_hint
-- STD26_A_036: missing required base strict field context_text
-- STD26_A_036: missing required base strict field why_now
-- STD26_A_036: missing required base strict field market_relevance
-- STD26_A_036: missing required base strict field source_priority_notes
-- STD26_A_036: missing required base strict field upstream_labels
-- STD26_A_036: missing required base strict field staleness
-... +29 more
+- STD26_A_004: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
+- STD26_A_007: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
+- STD26_A_011: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
+- STD26_A_033: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
+- STD26_A_035: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
+- STD26_A_036: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
+- next_call_recommendation missing required field recommended_prompt_id
+- next_call_recommendation missing required field recommended_input_universe
+- next_call_recommendation missing required field reason
+- next_call_recommendation missing required field blocked_items_summary
+- all Stage A safety gates PASS with strict candidates, so next_call_recommendation must be Stage B r0
+- STD26_A_004: legal_policy_stage must be one of the canonical legal-policy stages; got 'not_applicable'
+- STD26_A_004: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
+- STD26_A_007: legal_policy_stage must be one of the canonical legal-policy stages; got 'not_applicable'
+- STD26_A_007: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
+- STD26_A_011: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
+- STD26_A_033: legal_policy_stage must be one of the canonical legal-policy stages; got 'not_applicable'
+- STD26_A_033: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
+- STD26_A_035: legal_policy_stage must be one of the canonical legal-policy stages; got 'not_applicable'
+- STD26_A_035: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
+- STD26_A_036: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
+- STD26_A_036: source_diversity_path.status must be viable or uncertain for strict_passed_spec
+- full Stage A artifact source_prompt_authority must be uploaded_or_repo_source_file_prompt
 
 STDERR:
 
 
 ----------------------------------------------------------------------
-Ran 2 tests in 0.149s
+Ran 2 tests in 0.110s
 
 FAILED (failures=1)

@@ -89,6 +89,21 @@ jobs:
           cat validation_results/stage_c_0_7c_rescue7_validator_log.txt
           exit $code
 
+      - name: Probe Prompt 0.3R SHA256
+        shell: bash
+        run: |
+          mkdir -p validation_results
+          python - <<'PY' > validation_results/stage_c_revise_r1_prompt_hash.txt
+          import hashlib
+          from pathlib import Path
+          p = Path('docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md')
+          raw = p.read_bytes()
+          print(f'prompt_file={p.as_posix()}')
+          print(f'prompt_sha256={hashlib.sha256(raw).hexdigest()}')
+          print(f'prompt_bytes={len(raw)}')
+          PY
+          cat validation_results/stage_c_revise_r1_prompt_hash.txt
+
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
@@ -138,6 +153,6 @@ jobs:
           } > validation_results/stage_c_0_7c_rescue7_validator_result.txt
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- validation_results/stage_a_0_7c_six_validator_result.txt validation_results/stage_a_0_7c_six_validator_log.txt validation_results/stage_b_0_7c_six_validator_result.txt validation_results/stage_b_0_7c_six_validator_log.txt validation_results/stage_c_0_7c_rescue7_validator_result.txt validation_results/stage_c_0_7c_rescue7_validator_log.txt
+          git add -- validation_results/stage_a_0_7c_six_validator_result.txt validation_results/stage_a_0_7c_six_validator_log.txt validation_results/stage_b_0_7c_six_validator_result.txt validation_results/stage_b_0_7c_six_validator_log.txt validation_results/stage_c_0_7c_rescue7_validator_result.txt validation_results/stage_c_0_7c_rescue7_validator_log.txt validation_results/stage_c_revise_r1_prompt_hash.txt
           git commit -m "ci: persist 0.7C Stage A/B/C validator diagnostics" || exit 0
           git push origin "HEAD:${GITHUB_REF_NAME}"

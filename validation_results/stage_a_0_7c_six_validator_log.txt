@@ -5,25 +5,19 @@ test_stage_lineage_contract_check (validation_scripts.tests.test_stage_a_0_7c_si
 FAIL: test_stage_lineage_contract_check (validation_scripts.tests.test_stage_a_0_7c_six_validator_fixture.TestStageA07CSixValidatorFixture.test_stage_lineage_contract_check)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_0_7c_six_validator_fixture.py", line 70, in test_stage_lineage_contract_check
+  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_0_7c_six_validator_fixture.py", line 122, in test_stage_lineage_contract_check
     proc = self._run(
            ^^^^^^^^^^
-  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_0_7c_six_validator_fixture.py", line 53, in _run
+  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_0_7c_six_validator_fixture.py", line 105, in _run
     self.assertEqual(
 AssertionError: 1 != 0 : STDOUT:
 RESULT: BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT
-- STD26_A_004: execution route next_confirmation_points entries must identify measurable events or metrics and an interpretation effect
 - STD26_A_007: execution route next_confirmation_points entries must identify measurable events or metrics and an interpretation effect
-- STD26_A_011: next_confirmation_points entries must identify measurable events or metrics and an interpretation effect, not generic confirmation requests
-- STD26_A_011: strict_passed_spec requires exactly one complete execution or v3_non_execution path
-- STD26_A_033: execution route next_confirmation_points entries must identify measurable events or metrics and an interpretation effect
-- STD26_A_035: execution route next_confirmation_points entries must identify measurable events or metrics and an interpretation effect
-- STD26_A_036: execution route next_confirmation_points entries must identify measurable events or metrics and an interpretation effect
 
 STDERR:
 
 
 ----------------------------------------------------------------------
-Ran 2 tests in 0.140s
+Ran 2 tests in 0.155s
 
 FAILED (failures=1)

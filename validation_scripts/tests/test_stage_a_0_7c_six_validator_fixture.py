@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 import zlib
+from collections import Counter
 from datetime import date
 from pathlib import Path
 
@@ -15,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 CHUNK_DIR = Path(__file__).resolve().parent / "fixtures"
 R2_EXPECTED_SHA256 = "d301af14b9c03abc013fba446e3b8e6278834340e75411badeb9a63ac504efa7"
 R5_EXPECTED_SHA256 = "d8bf4392486e245187be52d3293cbfc265b3eb97fa0259e1cc477a0a7390c2a4"
+R6_EXPECTED_SHA256 = "70c0088f0ce01fe6e9a0fde0064878943236b91e105e78cdc11f41a6b647dbbb"
 CHUNK_NAMES = [
     "stage_a_0_7c_six_payload_00a.txt",
     "stage_a_0_7c_six_payload_00b.txt",
@@ -69,6 +71,20 @@ SOURCE_PRIORITY = (
 )
 
 
+def classify(score: int) -> str:
+    if score >= 85:
+        return "critical_structural"
+    if score >= 70:
+        return "high_decision_value"
+    if score >= 55:
+        return "material_industry_signal"
+    if score >= 40:
+        return "standard_monitoring"
+    if score >= 25:
+        return "context_or_reinforcement"
+    return "low_independent_value"
+
+
 def build_r5_bytes() -> bytes:
     encoded = "".join(
         (CHUNK_DIR / name).read_text(encoding="utf-8").strip()
@@ -83,7 +99,6 @@ def build_r5_bytes() -> bytes:
 
     data = json.loads(r2_bytes.decode("utf-8"))
 
-    # R3/R4 lineage semantic repairs: confirmation points only.
     for item in data["strict_passed_spec"]:
         item["next_confirmation_points"] = [CONFIRMATION_POINT_REPAIR[item["spec_id"]]]
     for row in data["decision_ledger"]:
@@ -110,7 +125,6 @@ def build_r5_bytes() -> bytes:
         "stage_b_c_evidence_imported": False,
     }
 
-    # R5 base transport closure: fields required by Prompt 0.1/current full-artifact validator.
     for item in data["strict_passed_spec"]:
         sid = item["spec_id"]
         cluster = item["same_event_source_cluster"][0]
@@ -201,18 +215,104 @@ def build_r5_bytes() -> bytes:
     return (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
 
 
+def build_r6_bytes() -> bytes:
+    r5_bytes = build_r5_bytes()
+    actual_r5_sha256 = hashlib.sha256(r5_bytes).hexdigest()
+    if actual_r5_sha256 != R5_EXPECTED_SHA256:
+        raise AssertionError(
+            f"R5 fixture SHA256 mismatch: expected {R5_EXPECTED_SHA256}, got {actual_r5_sha256}"
+        )
+
+    data = json.loads(r5_bytes.decode("utf-8"))
+
+    for item in data["strict_passed_spec"]:
+        if item["denominator_gap"] is True and item["decision_value_breakdown"]["systemic_scale"] > 2:
+            item["decision_value_breakdown"]["systemic_scale"] = 2
+            item["decision_news_value_score"] = sum(item["decision_value_breakdown"].values())
+            item["decision_value_classification"] = classify(item["decision_news_value_score"])
+
+        if item["spec_id"] not in {"STD26_A_011", "STD26_A_036"}:
+            item["legal_policy_stage"] = None
+        item["technology_validation_stage"] = None
+        item["technology_score_cap_applied"] = None
+        item["technology_validation_gap"] = None
+
+    a036 = next(item for item in data["strict_passed_spec"] if item["spec_id"] == "STD26_A_036")
+    a036["source_diversity_path"]["status"] = "uncertain"
+    data["source_prompt_authority"] = "uploaded_or_repo_source_file_prompt"
+
+    by_spec = {item["spec_id"]: item for item in data["strict_passed_spec"]}
+    for row in data["decision_ledger"]:
+        item = by_spec[row["spec_id"]]
+        row["decision_news_value_score"] = item["decision_news_value_score"]
+        row["decision_value_breakdown"] = item["decision_value_breakdown"]
+        row["decision_value_classification"] = item["decision_value_classification"]
+        row["technology_validation_stage"] = item["technology_validation_stage"]
+        row["technology_score_cap_applied"] = item["technology_score_cap_applied"]
+        row["technology_validation_gap"] = item["technology_validation_gap"]
+        row["legal_policy_stage"] = item["legal_policy_stage"]
+
+    classes = Counter(item["decision_value_classification"] for item in data["strict_passed_spec"])
+    data["summary"]["decision_value_classification_counts"] = dict(sorted(classes.items()))
+    data["summary"]["critical_structural_candidate_ids"] = [
+        item["spec_id"] for item in data["strict_passed_spec"]
+        if item["decision_value_classification"] == "critical_structural"
+    ]
+    data["summary"]["high_decision_value_candidate_ids"] = [
+        item["spec_id"] for item in data["strict_passed_spec"]
+        if item["decision_value_classification"] == "high_decision_value"
+    ]
+    data["summary"]["technology_validation_gap_ids"] = []
+    data["summary"]["legal_policy_stage_gap_ids"] = []
+
+    data["next_call_recommendation"] = {
+        "recommended_next_call": "Stage B r0",
+        "recommended_prompt_id": "Prompt 0.2",
+        "recommended_input_universe": "Stage A strict_passed_spec[] only",
+        "reason": "All Stage A safety gates are PASS with six preserved strict candidates; Prompt 0.7C separately authorizes bounded Stage B evidence rescue for this six-item subset.",
+        "blocked_items_summary": {
+            "stage_a_blocked_count": 0,
+            "strict_count": 6,
+            "scope": "A004, A007, A011, A033, A035, A036 only",
+        },
+    }
+
+    data["schema"] = "sbtl_stage_a_0_7c_six_lineage_rematerialization_v6"
+    data["generated_kst"] = "2026-08-20T12:14:00+09:00"
+    data["status"] = "PASS_CURRENT_CONTRACT_ENUM_SCORE_NEXTCALL_R6_REPO_EXECUTION_PENDING"
+    data["lineage_validator_repair_r6"] = {
+        "source_failure_log": "GitHub validation branch run at head f77d3c4298944349dfa87bb9a4fb346ba07a23ab",
+        "repair_scope": [
+            "denominator-gap systemic-scale cap and score/classification mirrors",
+            "nullable non-applicable legal/technology stage metadata",
+            "A036 strict source-diversity enum normalization",
+            "source_prompt_authority canonical enum",
+            "Stage B r0 next_call_recommendation contract",
+        ],
+        "historical_editorial_outcome_changed": False,
+        "strict_ids_changed": False,
+        "source_story_ids_changed": False,
+        "stage_b_c_evidence_imported": False,
+        "score_provenance": "current-contract rematerialization score normalization only; historical score emission is not claimed",
+    }
+    data["authoritative_stage_a"] = False
+    data["stage_b_eligible"] = False
+
+    return (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+
+
 class TestStageA07CSixValidatorFixture(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        r5_bytes = build_r5_bytes()
-        actual_r5_sha256 = hashlib.sha256(r5_bytes).hexdigest()
-        if actual_r5_sha256 != R5_EXPECTED_SHA256:
+        r6_bytes = build_r6_bytes()
+        actual_r6_sha256 = hashlib.sha256(r6_bytes).hexdigest()
+        if actual_r6_sha256 != R6_EXPECTED_SHA256:
             raise AssertionError(
-                f"R5 fixture SHA256 mismatch: expected {R5_EXPECTED_SHA256}, got {actual_r5_sha256}"
+                f"R6 fixture SHA256 mismatch: expected {R6_EXPECTED_SHA256}, got {actual_r6_sha256}"
             )
         cls.tmp = tempfile.TemporaryDirectory()
-        cls.fixture = Path(cls.tmp.name) / "stage_a_0_7c_six_validator_ready_r5.json"
-        cls.fixture.write_bytes(r5_bytes)
+        cls.fixture = Path(cls.tmp.name) / "stage_a_0_7c_six_validator_ready_r6.json"
+        cls.fixture.write_bytes(r6_bytes)
 
     @classmethod
     def tearDownClass(cls):

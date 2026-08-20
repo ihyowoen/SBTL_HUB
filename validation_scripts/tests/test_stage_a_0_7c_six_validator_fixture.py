@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CHUNK_DIR = Path(__file__).resolve().parent / "fixtures"
 R2_EXPECTED_SHA256 = "d301af14b9c03abc013fba446e3b8e6278834340e75411badeb9a63ac504efa7"
-R3_EXPECTED_SHA256 = "7280041523dccd53f5c3f304913247c1b3c8583afd8bcdd20950ccdd938b9fd7"
+R4_EXPECTED_SHA256 = "4fdc2b4a87006b91a469dcb212374cfe11c9c6a8c319d3f92091fb9ab4431e60"
 CHUNK_NAMES = [
     "stage_a_0_7c_six_payload_00a.txt",
     "stage_a_0_7c_six_payload_00b.txt",
@@ -30,8 +30,8 @@ CONFIRMATION_POINT_REPAIR = {
         "interpretation_effect": "This result would strengthen or weaken the Noblevale project-execution interpretation",
     },
     "STD26_A_007": {
-        "measurable_event_or_metric": "Puerto Rico BESS project capacity construction start date and financing status",
-        "interpretation_effect": "This result would strengthen or weaken the financing-to-construction interpretation",
+        "measurable_event_or_metric": "Amanecer Puerto Rico BESS construction start date",
+        "interpretation_effect": "This result would strengthen or weaken the Puerto Rico BESS execution interpretation",
     },
     "STD26_A_011": {
         "measurable_event_or_metric": "AEMC government adoption decision date and binding implementation status",
@@ -71,6 +71,7 @@ class TestStageA07CSixValidatorFixture(unittest.TestCase):
             item["next_confirmation_points"] = [CONFIRMATION_POINT_REPAIR[item["spec_id"]]]
         for row in data["decision_ledger"]:
             row["next_confirmation_points"] = [CONFIRMATION_POINT_REPAIR[row["spec_id"]]]
+
         data["schema"] = "sbtl_stage_a_0_7c_six_lineage_rematerialization_v3"
         data["generated_kst"] = "2026-08-20T11:58:04+09:00"
         data["status"] = "PASS_LOCAL_CURRENT_MAIN_VALIDATOR_MIRROR_LINEAGE_REPAIR_R3_REPO_EXECUTION_PENDING"
@@ -82,16 +83,28 @@ class TestStageA07CSixValidatorFixture(unittest.TestCase):
             "stage_b_c_evidence_imported": False,
             "A011_expected_effect": "Once the confirmation point passes semantic validation, the preserved V3 non-execution package should satisfy exactly-one-path cardinality; no route reselection was performed.",
         }
-        r3_bytes = (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-        actual_r3_sha256 = hashlib.sha256(r3_bytes).hexdigest()
-        if actual_r3_sha256 != R3_EXPECTED_SHA256:
+
+        data["schema"] = "sbtl_stage_a_0_7c_six_lineage_rematerialization_v4"
+        data["generated_kst"] = "2026-08-20T11:59:14+09:00"
+        data["status"] = "PASS_LOCAL_CURRENT_MAIN_VALIDATOR_MIRROR_LINEAGE_REPAIR_R4_REPO_EXECUTION_PENDING"
+        data["lineage_validator_repair_r4"] = {
+            "source_failure_log": "GitHub validation branch run at head 882d5a7bcb2a7b1f0f270fa247d3ce686bd06cf5",
+            "repair_scope": "STD26_A_007 next_confirmation_points only; same value mirrored into decision_ledger",
+            "repair_reason": "Five other R3 confirmation points passed; A007 measurable target is narrowed to one named project milestone plus explicit date.",
+            "historical_editorial_outcome_changed": False,
+            "stage_b_c_evidence_imported": False,
+        }
+
+        r4_bytes = (json.dumps(data, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+        actual_r4_sha256 = hashlib.sha256(r4_bytes).hexdigest()
+        if actual_r4_sha256 != R4_EXPECTED_SHA256:
             raise AssertionError(
-                f"R3 fixture SHA256 mismatch: expected {R3_EXPECTED_SHA256}, got {actual_r3_sha256}"
+                f"R4 fixture SHA256 mismatch: expected {R4_EXPECTED_SHA256}, got {actual_r4_sha256}"
             )
 
         cls.tmp = tempfile.TemporaryDirectory()
-        cls.fixture = Path(cls.tmp.name) / "stage_a_0_7c_six_validator_ready_r3.json"
-        cls.fixture.write_bytes(r3_bytes)
+        cls.fixture = Path(cls.tmp.name) / "stage_a_0_7c_six_validator_ready_r4.json"
+        cls.fixture.write_bytes(r4_bytes)
 
     @classmethod
     def tearDownClass(cls):

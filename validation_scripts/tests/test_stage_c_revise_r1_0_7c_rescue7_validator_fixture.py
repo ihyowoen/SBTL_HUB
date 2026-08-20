@@ -12,15 +12,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURE_DIR = Path(__file__).resolve().parent / "fixtures"
-EXPECTED_ARTIFACT_SHA256 = "1ab37bcdf5e18b5fd099d8df463400e7bb747706dbd59c643d160f4d033a58e7"
+EXPECTED_ARTIFACT_SHA256 = "cbaa813944a25bc8dea64757363341ee35f9ae7646e62eb9f8a80974abd5bc88"
 EXPECTED_PROMPT_SHA256 = "5079bd1f6c5c5160de965e69aa8a53167da4d33cda9e172768c8d8e55a992b94"
 PROMPT_PATH = ROOT / "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md"
 CHUNK_NAMES = [
-    "stage_c_revise_r1_R2_payload_00.txt",
-    "stage_c_revise_r1_R2_payload_01.txt",
-    "stage_c_revise_r1_R2_payload_02.txt",
-    "stage_c_revise_r1_R2_payload_03.txt",
-    "stage_c_revise_r1_R2_payload_04.txt",
+    "stage_c_revise_r1_R3_payload_00.txt",
+    "stage_c_revise_r1_R3_payload_01.txt",
+    "stage_c_revise_r1_R3_payload_02.txt",
+    "stage_c_revise_r1_R3_payload_03.txt",
+    "stage_c_revise_r1_R3_payload_04.txt",
 ]
 EXPECTED_IDS = {
     "STD26_A_007", "STD26_A_011", "STD26_A_023", "STD26_A_035",
@@ -71,7 +71,7 @@ class TestStageCReviseR107CRescue7ValidatorFixture(unittest.TestCase):
         raw = build_fixture_bytes()
         cls.data = json.loads(raw.decode("utf-8"))
         cls.tmp = tempfile.TemporaryDirectory()
-        cls.fixture = Path(cls.tmp.name) / "stage_c_revise_r1_rescue7_R2.json"
+        cls.fixture = Path(cls.tmp.name) / "stage_c_revise_r1_rescue7_R3.json"
         cls.fixture.write_bytes(raw)
 
     @classmethod
@@ -120,6 +120,7 @@ class TestStageCReviseR107CRescue7ValidatorFixture(unittest.TestCase):
         self.assertTrue(d["boundary"]["prompt_0_8_not_run"])
         self.assertFalse(d["boundary"]["main_write_performed"])
         self.assertFalse(d["boundary"]["pr_or_merge_performed"])
+        self.assertEqual(d["boundary"]["repo_hosted_stage_exit_validation"], "PENDING_EXACT_R3_FIXTURE")
 
     def test_02_accepted_item_schema_strict_gate_and_downstream_flags(self):
         items = self.data["accepted_fact_safe"]
@@ -130,7 +131,7 @@ class TestStageCReviseR107CRescue7ValidatorFixture(unittest.TestCase):
             "region", "date", "cat", "sub_cat", "signal", "title", "sub", "gate", "fact",
             "implication", "urls", "related", "fact_sources", "related_lineage", "date_role",
             "anchor_path_validation", "state", "revision_pass", "previous_draft_id", "revised_draft_id",
-            "stage_c_revise_only", "publish_ready", "prior_issue_resolved",
+            "stage_c_only", "stage_c_revise_only", "publish_ready", "prior_issue_resolved",
             "needs_post_acceptance_duplicate_review", "needs_post_acceptance_evidence_qc",
         }
         forbidden_true = {
@@ -141,6 +142,7 @@ class TestStageCReviseR107CRescue7ValidatorFixture(unittest.TestCase):
             self.assertFalse(required - set(item), msg=item["source_spec_id"])
             self.assertEqual(item["state"], "accepted_fact_safe")
             self.assertTrue(item["accepted_fact_safe"])
+            self.assertTrue(item["stage_c_only"])
             self.assertTrue(item["stage_c_revise_only"])
             self.assertTrue(item["prior_issue_resolved"])
             self.assertTrue(item["strict_gate_acceptance_guard_applied"])

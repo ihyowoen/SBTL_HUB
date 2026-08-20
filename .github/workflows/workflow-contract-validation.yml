@@ -58,7 +58,14 @@ jobs:
 
       - name: Validate 0.7C six-item Stage A fixture
         id: stage_a_fixture
-        run: python -m unittest validation_scripts.tests.test_stage_a_0_7c_six_validator_fixture -v
+        shell: bash
+        run: |
+          mkdir -p validation_results
+          set +e
+          python -m unittest validation_scripts.tests.test_stage_a_0_7c_six_validator_fixture -v > validation_results/stage_a_0_7c_six_validator_log.txt 2>&1
+          code=$?
+          cat validation_results/stage_a_0_7c_six_validator_log.txt
+          exit $code
 
       - name: Run workflow-contract and exporter regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
@@ -85,6 +92,6 @@ jobs:
           } > validation_results/stage_a_0_7c_six_validator_result.txt
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- validation_results/stage_a_0_7c_six_validator_result.txt
-          git commit -m "ci: persist 0.7C Stage A validator result" || exit 0
+          git add -- validation_results/stage_a_0_7c_six_validator_result.txt validation_results/stage_a_0_7c_six_validator_log.txt
+          git commit -m "ci: persist 0.7C Stage A validator diagnostics" || exit 0
           git push origin "HEAD:${GITHUB_REF_NAME}"

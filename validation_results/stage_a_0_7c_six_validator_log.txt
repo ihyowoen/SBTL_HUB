@@ -1,45 +1,7 @@
 test_stage_artifact_contract_check (validation_scripts.tests.test_stage_a_0_7c_six_validator_fixture.TestStageA07CSixValidatorFixture.test_stage_artifact_contract_check) ... ok
-test_stage_lineage_contract_check (validation_scripts.tests.test_stage_a_0_7c_six_validator_fixture.TestStageA07CSixValidatorFixture.test_stage_lineage_contract_check) ... FAIL
-
-======================================================================
-FAIL: test_stage_lineage_contract_check (validation_scripts.tests.test_stage_a_0_7c_six_validator_fixture.TestStageA07CSixValidatorFixture.test_stage_lineage_contract_check)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_0_7c_six_validator_fixture.py", line 243, in test_stage_lineage_contract_check
-    proc = self._run(
-           ^^^^^^^^^^
-  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_0_7c_six_validator_fixture.py", line 226, in _run
-    self.assertEqual(
-AssertionError: 1 != 0 : STDOUT:
-RESULT: BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT
-- STD26_A_004: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
-- STD26_A_007: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
-- STD26_A_011: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
-- STD26_A_033: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
-- STD26_A_035: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
-- STD26_A_036: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5
-- next_call_recommendation missing required field recommended_prompt_id
-- next_call_recommendation missing required field recommended_input_universe
-- next_call_recommendation missing required field reason
-- next_call_recommendation missing required field blocked_items_summary
-- all Stage A safety gates PASS with strict candidates, so next_call_recommendation must be Stage B r0
-- STD26_A_004: legal_policy_stage must be one of the canonical legal-policy stages; got 'not_applicable'
-- STD26_A_004: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
-- STD26_A_007: legal_policy_stage must be one of the canonical legal-policy stages; got 'not_applicable'
-- STD26_A_007: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
-- STD26_A_011: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
-- STD26_A_033: legal_policy_stage must be one of the canonical legal-policy stages; got 'not_applicable'
-- STD26_A_033: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
-- STD26_A_035: legal_policy_stage must be one of the canonical legal-policy stages; got 'not_applicable'
-- STD26_A_035: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
-- STD26_A_036: technology_validation_stage must be one of the canonical technology stages; got 'not_applicable'
-- STD26_A_036: source_diversity_path.status must be viable or uncertain for strict_passed_spec
-- full Stage A artifact source_prompt_authority must be uploaded_or_repo_source_file_prompt
-
-STDERR:
-
+test_stage_lineage_contract_check (validation_scripts.tests.test_stage_a_0_7c_six_validator_fixture.TestStageA07CSixValidatorFixture.test_stage_lineage_contract_check) ... ok
 
 ----------------------------------------------------------------------
-Ran 2 tests in 0.110s
+Ran 2 tests in 0.159s
 
-FAILED (failures=1)
+OK

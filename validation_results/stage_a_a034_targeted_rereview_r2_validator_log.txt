@@ -1,0 +1,141 @@
+test_00_exact_artifact_prompt_and_main_lock (validation_scripts.tests.test_stage_a_a034_targeted_rereview_r2_fixture.TestStageAA034TargetedRereviewR2.test_00_exact_artifact_prompt_and_main_lock) ... ok
+test_01_targeted_accounting_and_watchlist_routing (validation_scripts.tests.test_stage_a_a034_targeted_rereview_r2_fixture.TestStageAA034TargetedRereviewR2.test_01_targeted_accounting_and_watchlist_routing) ... ok
+test_02_stage_a_boundary_no_fetch_no_card_copy (validation_scripts.tests.test_stage_a_a034_targeted_rereview_r2_fixture.TestStageAA034TargetedRereviewR2.test_02_stage_a_boundary_no_fetch_no_card_copy) ... ok
+test_03_review_pool_resolution_ledger_complete (validation_scripts.tests.test_stage_a_a034_targeted_rereview_r2_fixture.TestStageAA034TargetedRereviewR2.test_03_review_pool_resolution_ledger_complete) ... ok
+test_04_csv_contract_and_report_boundary (validation_scripts.tests.test_stage_a_a034_targeted_rereview_r2_fixture.TestStageAA034TargetedRereviewR2.test_04_csv_contract_and_report_boundary) ... ok
+test_05_generic_stage_artifact_contract (validation_scripts.tests.test_stage_a_a034_targeted_rereview_r2_fixture.TestStageAA034TargetedRereviewR2.test_05_generic_stage_artifact_contract) ... ok
+test_06_generic_stage_lineage_contract (validation_scripts.tests.test_stage_a_a034_targeted_rereview_r2_fixture.TestStageAA034TargetedRereviewR2.test_06_generic_stage_lineage_contract) ... FAIL
+
+======================================================================
+FAIL: test_06_generic_stage_lineage_contract (validation_scripts.tests.test_stage_a_a034_targeted_rereview_r2_fixture.TestStageAA034TargetedRereviewR2.test_06_generic_stage_lineage_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_a034_targeted_rereview_r2_fixture.py", line 127, in test_06_generic_stage_lineage_contract
+    p = self.run_repo("validation_scripts/stage_lineage_contract_check.py", "stage_a", str(self.artifact))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_a_a034_targeted_rereview_r2_fixture.py", line 48, in run_repo
+    self.assertEqual(p.returncode, 0, msg=f"STDOUT:\n{p.stdout}\nSTDERR:\n{p.stderr}")
+AssertionError: 1 != 0 : STDOUT:
+RESULT: BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT
+- full Stage A artifact source_universe must be a non-empty string
+- STD26_A_034: execution_credibility_gate must be an object
+- STD26_A_034: independent_cardability_gate must be an object
+- STD26_A_034: decision_news_value_score must be integer 0..100
+- STD26_A_034: publication_urgency must be an object
+- STD26_A_034: structural_value_lenses must be array
+- STD26_A_034: missing Prompt 0.1S field structural_value_override_reason
+- STD26_A_034: missing Prompt 0.1S field why_execution_event_not_required
+- STD26_A_034: missing Prompt 0.1S field denominator_used
+- STD26_A_034: missing Prompt 0.1S field denominator_gap
+- STD26_A_034: missing Prompt 0.1S field baseline_follow_up_relation
+- STD26_A_034: missing Prompt 0.1S field portfolio_coverage_contribution
+- STD26_A_034: missing Prompt 0.1S field earnings_deep_dive_required
+- STD26_A_034: missing Prompt 0.1S field earnings_release_available
+- STD26_A_034: missing Prompt 0.1S field ir_deck_available
+- STD26_A_034: missing Prompt 0.1S field call_or_transcript_expected
+- STD26_A_034: missing Prompt 0.1S field qna_status
+- STD26_A_034: missing Prompt 0.1S field prior_period_comparison_required
+- STD26_A_034: missing Prompt 0.1S field earnings_rescue_questions
+- STD26_A_034: missing Prompt 0.1S field anti_bias_check
+- STD26_A_034: missing Prompt 0.1S field structural_rescue_required
+- STD26_A_034: missing Prompt 0.1S field structural_rescue_question
+- STD26_A_034: missing Prompt 0.1S field search_before_delete_status
+- STD26_A_034: anti_bias_check must be an object
+- STD26_A_034: search_before_delete_status must be applied
+- STD26_A_034: earnings_deep_dive_required must be boolean
+- full Stage A summary structural_selector_policy_version must be 'STRUCTURAL_NEWS_VALUE_SELECTION_V3'
+- full Stage A summary structural_selector_policy_file must be 'docs/STRUCTURAL_NEWS_VALUE_SELECTION.md'
+- full Stage A summary core_industrial_weight_total must be 70
+- full Stage A summary structural_selector_policy_sha must be populated
+- full Stage A summary credibility_cardability_value_urgency_separated must be true
+- full Stage A summary industry_first_weighting_applied must be true
+- full Stage A summary multi_anchor_class_model_applied must be true
+- full Stage A summary mandatory_structural_lenses_applied must be true
+- full Stage A summary search_before_delete_applied must be true
+- full Stage A summary anchor_class_counts must be an object
+- full Stage A summary structural_lens_coverage_counts must be an object
+- full Stage A summary decision_value_classification_counts must be an object
+- full Stage A summary critical_structural_candidate_ids must be an array
+- full Stage A summary high_decision_value_candidate_ids must be an array
+- full Stage A summary high_value_review_pool_ids must be an array
+- full Stage A summary structural_signal_review_pool_ids must be an array
+- full Stage A summary earnings_deep_dive_pool_ids must be an array
+- full Stage A summary follow_up_candidate_ids must be an array
+- full Stage A summary zero_coverage_domains must be an array
+- full Stage A summary execution_or_formality_bias_findings must be an array
+- full Stage A summary technology_validation_gap_ids must be an array
+- full Stage A summary legal_policy_stage_gap_ids must be an array
+- full Stage A summary structural_value_selector_status must be PASS
+- full Stage A summary portfolio_coverage_audit_status must be PASS
+- full Stage A summary follow_up_repromotion_audit_status must be PASS
+- full Stage A summary execution_event_bias_audit_status must be PASS
+- full Stage A summary content_depth_audit_status must be PASS
+- full Stage A summary earnings_call_qna_audit_status must be PASS or NOT_APPLICABLE
+- decision_ledger[0]: missing required V3 ledger field anchor_classes
+- decision_ledger[0]: missing required V3 ledger field news_value_basis
+- decision_ledger[0]: missing required V3 ledger field structural_value_lenses
+- decision_ledger[0]: missing required V3 ledger field structural_value_override_applied
+- decision_ledger[0]: missing required V3 ledger field structural_value_override_reason
+- decision_ledger[0]: missing required V3 ledger field evidence_needed_for_stage_b
+- decision_ledger[0]: missing required V3 ledger field why_execution_event_not_required
+- decision_ledger[0]: missing required V3 ledger field incremental_information
+- decision_ledger[0]: missing required V3 ledger field decision_relevance
+- decision_ledger[0]: missing required V3 ledger field baseline_expectation_changed
+- decision_ledger[0]: missing required V3 ledger field follow_up_relation
+- decision_ledger[0]: missing required V3 ledger field next_confirmation_points
+- decision_ledger[0]: missing required V3 ledger field portfolio_coverage_contribution
+- decision_ledger[0]: missing required V3 ledger field earnings_deep_dive_required
+- decision_ledger[0]: missing required V3 ledger field qna_status
+- decision_ledger[0]: missing required V3 ledger field review_pool_subtype
+- decision_ledger[0]: missing required V3 ledger field review_pool_repromotion_precondition
+- decision_ledger[0]: missing required V3 ledger field decision_news_value_score
+- decision_ledger[0]: missing required V3 ledger field decision_value_breakdown
+- decision_ledger[0]: missing required V3 ledger field decision_value_classification
+- decision_ledger[0]: missing required V3 ledger field prior_state
+- decision_ledger[0]: missing required V3 ledger field new_verified_fact
+- decision_ledger[0]: missing required V3 ledger field changed_judgment
+- decision_ledger[0]: missing required V3 ledger field uncertainty_resolved
+- decision_ledger[0]: missing required V3 ledger field remaining_uncertainty
+- decision_ledger[0]: missing required V3 ledger field denominator_used
+- decision_ledger[0]: missing required V3 ledger field denominator_gap
+- decision_ledger[0]: missing required V3 ledger field publication_urgency
+- decision_ledger[0]: missing required V3 ledger field anti_bias_check
+- decision_ledger[0]: missing required V3 ledger field structural_rescue_required
+- decision_ledger[0]: missing required V3 ledger field structural_rescue_question
+- decision_ledger[0]: missing required V3 ledger field technology_validation_stage
+- decision_ledger[0]: missing required V3 ledger field technology_score_cap_applied
+- decision_ledger[0]: missing required V3 ledger field technology_validation_gap
+- decision_ledger[0]: missing required V3 ledger field legal_policy_stage
+- STD26_A_034: watchlist_context_pool recommended_next_action must not recommend Stage B
+- full Stage A artifact required_docs_check.status must be PASS
+- full Stage A artifact required_docs_check.docs_read_from_github_main must contain unique non-empty paths
+- full Stage A summary earnings_call_qna_rule_applied must be true
+- full Stage A summary follow_up_probability_review_applied must be true
+- full Stage A summary portfolio_coverage_audit_applied must be true
+- review_pool_resolution_ledger[0]: original_review_pool_partition must be a supported review partition
+- review_pool_resolution_ledger[0]: original_review_pool_partition must match emitted partition watchlist_context_pool for REVIEW_0_7C_A034_STALE_REREVIEW_R2
+- decision_ledger[0] story 20260809_221256::TF_0012: ledger_decision='discarded' contradicts emitted disposition watchlist_context_pool
+- full Stage A artifact strict_pass_gate_metadata_status must be PASS before certification
+- full Stage A artifact baseline_duplicate_screen_status must be PASS before certification
+- next_call_recommendation missing required field recommended_prompt_id
+- next_call_recommendation missing required field recommended_input_universe
+- next_call_recommendation missing required field blocked_items_summary
+- zero-strict Stage A with watchlist items must recommend retrospective or watchlist context review
+- watchlist context review must use recommended_prompt_id=Prompt 1.1 or separate context review prompt
+- watchlist context review must use recommended_input_universe=watchlist_context_pool[] only, not Stage B
+- REVIEW_0_7C_A034_STALE_REREVIEW_R2: watchlist_context_pool requires non-empty why_context_only
+- REVIEW_0_7C_A034_STALE_REREVIEW_R2: watchlist_context_pool requires non-empty future_trigger_to_reopen
+- REVIEW_0_7C_A034_STALE_REREVIEW_R2: watchlist_context_pool requires non-empty recommended_monitoring_action
+- full Stage A artifact missing required source-prompt provenance field source_prompt_file
+- full Stage A artifact missing required source-prompt provenance field source_prompt_sha256
+- full Stage A artifact missing required source-prompt provenance field source_prompt_version
+- full Stage A artifact missing required source-prompt provenance field source_prompt_authority
+- full Stage A artifact missing required source-prompt provenance field source_prompt_provenance_status
+
+STDERR:
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.114s
+
+FAILED (failures=1)

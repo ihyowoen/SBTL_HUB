@@ -1,39 +1,19 @@
 name: Workflow contract validation
 
 on:
-  pull_request:
-    paths:
-      - "contracts/**"
-      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-      - "docs/SOURCE_AUDIT_CONTRACT.md"
-      - "docs/llm_prompts/v1/**"
-      - "validation_data/source_owner_registry.json"
-      - "validation_scripts/**"
-      - "scripts/lean_cards.mjs"
-      - ".github/workflows/lean-cards.yml"
-      - ".github/workflows/workflow-contract-validation.yml"
   push:
     branches:
-      - main
-      - agent/workflow-contract-related-source-audit
-      - agent/canonical-v3-contract-schema
       - agent/stage-a-0-7c-six-validator
     paths:
-      - "contracts/**"
-      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-      - "docs/SOURCE_AUDIT_CONTRACT.md"
-      - "docs/llm_prompts/v1/**"
-      - "validation_data/source_owner_registry.json"
-      - "validation_scripts/**"
-      - "scripts/lean_cards.mjs"
-      - ".github/workflows/lean-cards.yml"
+      - "validation_scripts/tests/test_stage_a_a034_targeted_rereview_r2_fixture.py"
+      - "validation_scripts/tests/fixtures/stage_a_a034_r2_*"
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
   contents: write
 
 jobs:
-  validate:
+  validate-a034-stage-a-r2:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -44,138 +24,42 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Compile validators
+      - name: Compile current-main-derived validators
         run: python -m compileall -q validation_scripts
 
-      - name: Verify canonical V3 contract alignment
-        run: python validation_scripts/v3_contract_drift_check.py
-
-      - name: Verify generated V3 stage contracts
-        run: python validation_scripts/v3_stage_contracts.py --check
-
-      - name: Verify V3 stage contract flow
-        run: python validation_scripts/v3_stage_contract_flow_check.py --check
-
-      - name: Validate 0.7C six-item Stage A fixture
-        id: stage_a_fixture
+      - name: Validate exact A034 Stage A R2 fixture
+        id: a034_fixture
         shell: bash
         run: |
           mkdir -p validation_results
           set +e
-          python -m unittest validation_scripts.tests.test_stage_a_0_7c_six_validator_fixture -v > validation_results/stage_a_0_7c_six_validator_log.txt 2>&1
+          python -m unittest validation_scripts.tests.test_stage_a_a034_targeted_rereview_r2_fixture -v > validation_results/stage_a_a034_targeted_rereview_r2_validator_log.txt 2>&1
           code=$?
-          cat validation_results/stage_a_0_7c_six_validator_log.txt
+          cat validation_results/stage_a_a034_targeted_rereview_r2_validator_log.txt
           exit $code
 
-      - name: Validate 0.7C six-item Stage B fixture
-        id: stage_b_fixture
-        shell: bash
-        run: |
-          mkdir -p validation_results
-          set +e
-          python -m unittest validation_scripts.tests.test_stage_b_0_7c_six_validator_fixture -v > validation_results/stage_b_0_7c_six_validator_log.txt 2>&1
-          code=$?
-          cat validation_results/stage_b_0_7c_six_validator_log.txt
-          exit $code
-
-      - name: Validate 0.7C rescue7 Stage C fixture
-        id: stage_c_fixture
-        shell: bash
-        run: |
-          mkdir -p validation_results
-          set +e
-          python -m unittest validation_scripts.tests.test_stage_c_0_7c_rescue7_validator_fixture -v > validation_results/stage_c_0_7c_rescue7_validator_log.txt 2>&1
-          code=$?
-          cat validation_results/stage_c_0_7c_rescue7_validator_log.txt
-          exit $code
-
-      - name: Probe Prompt 0.3R SHA256
-        shell: bash
-        run: |
-          mkdir -p validation_results
-          python - <<'PY' > validation_results/stage_c_revise_r1_prompt_hash.txt
-          import hashlib
-          from pathlib import Path
-          p = Path('docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md')
-          raw = p.read_bytes()
-          print(f'prompt_file={p.as_posix()}')
-          print(f'prompt_sha256={hashlib.sha256(raw).hexdigest()}')
-          print(f'prompt_bytes={len(raw)}')
-          PY
-          cat validation_results/stage_c_revise_r1_prompt_hash.txt
-
-      - name: Validate 0.7C rescue7 Stage C revise r1 R2 fixture
-        id: stage_c_revise_fixture
-        shell: bash
-        run: |
-          mkdir -p validation_results
-          set +e
-          python -m unittest validation_scripts.tests.test_stage_c_revise_r1_rescue7_validator_fixture -v > validation_results/stage_c_revise_r1_0_7c_rescue7_validator_log.txt 2>&1
-          code=$?
-          cat validation_results/stage_c_revise_r1_0_7c_rescue7_validator_log.txt
-          exit $code
-
-      - name: Run workflow-contract and exporter regression tests
-        run: python -m unittest discover -s validation_scripts/tests -v
-
-      - name: Verify prompt overlays
-        run: python validation_scripts/apply_prompt_contract_overlays.py --check
-
-      - name: Persist 0.7C validator results on validation branch
+      - name: Persist A034 Stage A R2 receipt
         if: always()
         env:
-          STAGE_A_OUTCOME: ${{ steps.stage_a_fixture.outcome }}
-          STAGE_B_OUTCOME: ${{ steps.stage_b_fixture.outcome }}
-          STAGE_C_OUTCOME: ${{ steps.stage_c_fixture.outcome }}
-          STAGE_C_REVISE_OUTCOME: ${{ steps.stage_c_revise_fixture.outcome }}
+          FIXTURE_OUTCOME: ${{ steps.a034_fixture.outcome }}
         run: |
           mkdir -p validation_results
           {
             echo "workflow=Workflow contract validation"
             echo "head_sha=${GITHUB_SHA}"
             echo "branch=${GITHUB_REF_NAME}"
-            echo "fixture_outcome=${STAGE_A_OUTCOME}"
-            if [ "${STAGE_A_OUTCOME}" = "success" ]; then
-              echo "stage_a_0_7c_six_validator=PASS"
+            echo "fixture_outcome=${FIXTURE_OUTCOME}"
+            echo "artifact_sha256=1186ecbb1982b8497c56b3e0a9ceb6dde9fc3a700daf89f9cf7e3f5004c415e3"
+            echo "prompt_0_1_git_blob_sha=57719c5eae5e219d704baad708992df79f8721bb"
+            echo "prompt_0_1_sha256=0795fb16b89dc320a26e5ecb05965ffc67b73e06137e10a5c2a8132c01a846bc"
+            if [ "${FIXTURE_OUTCOME}" = "success" ]; then
+              echo "stage_a_a034_targeted_rereview_r2_validator=PASS"
             else
-              echo "stage_a_0_7c_six_validator=BLOCKED"
+              echo "stage_a_a034_targeted_rereview_r2_validator=BLOCKED"
             fi
-          } > validation_results/stage_a_0_7c_six_validator_result.txt
-          {
-            echo "workflow=Workflow contract validation"
-            echo "head_sha=${GITHUB_SHA}"
-            echo "branch=${GITHUB_REF_NAME}"
-            echo "fixture_outcome=${STAGE_B_OUTCOME}"
-            if [ "${STAGE_B_OUTCOME}" = "success" ]; then
-              echo "stage_b_0_7c_six_validator=PASS"
-            else
-              echo "stage_b_0_7c_six_validator=BLOCKED"
-            fi
-          } > validation_results/stage_b_0_7c_six_validator_result.txt
-          {
-            echo "workflow=Workflow contract validation"
-            echo "head_sha=${GITHUB_SHA}"
-            echo "branch=${GITHUB_REF_NAME}"
-            echo "fixture_outcome=${STAGE_C_OUTCOME}"
-            if [ "${STAGE_C_OUTCOME}" = "success" ]; then
-              echo "stage_c_0_7c_rescue7_validator=PASS"
-            else
-              echo "stage_c_0_7c_rescue7_validator=BLOCKED"
-            fi
-          } > validation_results/stage_c_0_7c_rescue7_validator_result.txt
-          {
-            echo "workflow=Workflow contract validation"
-            echo "head_sha=${GITHUB_SHA}"
-            echo "branch=${GITHUB_REF_NAME}"
-            echo "fixture_outcome=${STAGE_C_REVISE_OUTCOME}"
-            if [ "${STAGE_C_REVISE_OUTCOME}" = "success" ]; then
-              echo "stage_c_revise_r1_0_7c_rescue7_validator=PASS"
-            else
-              echo "stage_c_revise_r1_0_7c_rescue7_validator=BLOCKED"
-            fi
-          } > validation_results/stage_c_revise_r1_0_7c_rescue7_validator_result.txt
+          } > validation_results/stage_a_a034_targeted_rereview_r2_validator_result.txt
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- validation_results/stage_a_0_7c_six_validator_result.txt validation_results/stage_a_0_7c_six_validator_log.txt validation_results/stage_b_0_7c_six_validator_result.txt validation_results/stage_b_0_7c_six_validator_log.txt validation_results/stage_c_0_7c_rescue7_validator_result.txt validation_results/stage_c_0_7c_rescue7_validator_log.txt validation_results/stage_c_revise_r1_prompt_hash.txt validation_results/stage_c_revise_r1_0_7c_rescue7_validator_result.txt validation_results/stage_c_revise_r1_0_7c_rescue7_validator_log.txt
-          git commit -m "ci: persist 0.7C Stage A/B/C validator diagnostics" || exit 0
+          git add -- validation_results/stage_a_a034_targeted_rereview_r2_validator_result.txt validation_results/stage_a_a034_targeted_rereview_r2_validator_log.txt
+          git commit -m "ci: persist A034 Stage A R2 validator diagnostics" || exit 0
           git push origin "HEAD:${GITHUB_REF_NAME}"

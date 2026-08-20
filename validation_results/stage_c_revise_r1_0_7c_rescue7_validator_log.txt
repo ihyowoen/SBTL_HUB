@@ -4,10 +4,10 @@ setUpClass (validation_scripts.tests.test_stage_c_revise_r1_rescue7_validator_fi
 ERROR: setUpClass (validation_scripts.tests.test_stage_c_revise_r1_rescue7_validator_fixture.TestStageCReviseR1Rescue7ValidatorFixture)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_c_revise_r1_rescue7_validator_fixture.py", line 39, in setUpClass
+  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_c_revise_r1_rescue7_validator_fixture.py", line 51, in setUpClass
     raw = build_fixture_bytes()
           ^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_c_revise_r1_rescue7_validator_fixture.py", line 29, in build_fixture_bytes
+  File "/home/runner/work/SBTL_HUB/SBTL_HUB/validation_scripts/tests/test_stage_c_revise_r1_rescue7_validator_fixture.py", line 41, in build_fixture_bytes
     raw = zlib.decompress(base64.b64decode(encoded))
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 zlib.error: Error -3 while decompressing data: invalid distance too far back

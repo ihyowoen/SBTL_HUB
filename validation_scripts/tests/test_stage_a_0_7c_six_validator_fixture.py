@@ -12,13 +12,25 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 CHUNK_DIR = Path(__file__).resolve().parent / "fixtures"
 EXPECTED_SHA256 = "d301af14b9c03abc013fba446e3b8e6278834340e75411badeb9a63ac504efa7"
-CHUNK_NAMES = [f"stage_a_0_7c_six_payload_{index:02d}.txt" for index in range(7)]
+CHUNK_NAMES = [
+    "stage_a_0_7c_six_payload_00a.txt",
+    "stage_a_0_7c_six_payload_00b.txt",
+    "stage_a_0_7c_six_payload_01.txt",
+    "stage_a_0_7c_six_payload_02.txt",
+    "stage_a_0_7c_six_payload_03.txt",
+    "stage_a_0_7c_six_payload_04.txt",
+    "stage_a_0_7c_six_payload_05.txt",
+    "stage_a_0_7c_six_payload_06.txt",
+]
 
 
 class TestStageA07CSixValidatorFixture(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        encoded = "".join((CHUNK_DIR / name).read_text(encoding="utf-8").strip() for name in CHUNK_NAMES)
+        encoded = "".join(
+            (CHUNK_DIR / name).read_text(encoding="utf-8").strip()
+            for name in CHUNK_NAMES
+        )
         decoded = zlib.decompress(base64.b64decode(encoded))
         actual_sha256 = hashlib.sha256(decoded).hexdigest()
         if actual_sha256 != EXPECTED_SHA256:

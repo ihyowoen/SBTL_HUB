@@ -155,7 +155,7 @@ jobs:
             echo "head_sha=${GITHUB_SHA}"
             echo "branch=${GITHUB_REF_NAME}"
             echo "fixture_outcome=${STAGE_B_REVISE_OUTCOME}"
-            echo "artifact_sha256=7597e6bb4716c0764081d4255b11d1b2b84733620cfcffad7d40ea4b3d7274e7"
+            echo "artifact_sha256=fb83ad4e70585f6cb704db0de6dccc08323ede90a5fcad1d8db8c8ff2b42bf56"
             echo "prompt_0_2r_git_blob_sha=536bb52f9389fde1ed8100c165c7c82d015fd3f6"
             echo "prompt_0_2r_sha256=${prompt_sha}"
             if [ "${STAGE_B_REVISE_OUTCOME}" = "success" ]; then

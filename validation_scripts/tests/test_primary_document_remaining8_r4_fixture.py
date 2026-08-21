@@ -3,7 +3,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[2]
 FIX=ROOT/"validation_scripts"/"tests"/"fixtures"
-PARTS=['primary_doc_remaining8_r4.part01.b64']
+PARTS=['primary_doc_remaining8_r4.part01.b64','primary_doc_remaining8_r4.part02.b64','primary_doc_remaining8_r4.part03.b64','primary_doc_remaining8_r4.part04.b64']
 EXPECTED_SHA="13441f8a6b035c53fe3c68efa4ca5a6e373340b2dd409a3a0e337f1283009ba8"
 EXPECTED_MAIN="75e98148ae4c7af6234799cdd0852a181b11081b"
 EXPECTED_TREE="b7cc7cd0e7c1d06191017aa3882586e0dbe8e976"

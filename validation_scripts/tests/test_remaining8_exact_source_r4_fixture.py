@@ -35,7 +35,11 @@ class RemainingEightExactSourceR4(unittest.TestCase):
     def test_05_r4_material_narrowing(self):
         _,d=load(); narrowed=set(d["summary"]["r4_materially_narrowed_ids"]); self.assertEqual(narrowed,{"STD26_A_014","STD26_A_016","STD26_A_021","STD26_A_057"})
         by={x["source_spec_id"]:x for x in d["draft_blocked"]}
-        self.assertIn("2026_07_24",by["STD26_A_014"]["blocked_source_reason"]); self.assertIn("chinese_review",by["STD26_A_016"]["blocked_source_reason"]); self.assertIn("ctcpm",by["STD26_A_021"]["blocked_source_reason"]); self.assertIn("gacc",by["STD26_A_057"]["blocked_source_reason"])
+        self.assertIn("2026_07_24",by["STD26_A_014"]["blocked_source_reason"])
+        self.assertIn("chinese_review",by["STD26_A_016"]["blocked_source_reason"])
+        self.assertIn("primary_repository",by["STD26_A_021"]["blocked_source_reason"])
+        self.assertIn("CTCPM",by["STD26_A_021"]["primary_findings"][0]["source"])
+        self.assertIn("gacc",by["STD26_A_057"]["blocked_source_reason"])
     def test_06_all_eight_have_rescue_and_direction_checks(self):
         _,d=load()
         for x in d["draft_blocked"]:

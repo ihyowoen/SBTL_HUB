@@ -12,15 +12,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 FIX = ROOT / "validation_scripts" / "tests" / "fixtures"
 B64_B = FIX / "a010_stage_b_r3.json.gz.b64"
-B64_C = FIX / "a010_stage_c_r1.json.gz.b64"
+B64_C_PARTS = [FIX / f"a010_stage_c_r1.part{i:02d}.b64" for i in range(1, 6)]
 
 EXPECTED_MAIN = "75e98148ae4c7af6234799cdd0852a181b11081b"
 EXPECTED_TREE = "b7cc7cd0e7c1d06191017aa3882586e0dbe8e976"
 EXPECTED_B_SHA = "5e978eb4872b50fd9b21fc69b764d9e25a84aafe988cc4e06922149cd75be500"
 EXPECTED_C_SHA = "24462f9a09301e41cc0beead044071464a5541b4f41ad99cbbc6e5b20020c6d8"
 
-def raw(path):
-    return gzip.decompress(base64.b64decode(path.read_text(encoding="utf-8").strip()))
+def raw(path_or_paths):
+    if isinstance(path_or_paths, (list, tuple)):
+        encoded = "".join(path.read_text(encoding="utf-8").strip() for path in path_or_paths)
+    else:
+        encoded = path_or_paths.read_text(encoding="utf-8").strip()
+    return gzip.decompress(base64.b64decode(encoded))
 
 def data(blob):
     return json.loads(blob.decode("utf-8"))
@@ -29,7 +33,7 @@ class A010StageBCClosure(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.br = raw(B64_B)
-        cls.cr = raw(B64_C)
+        cls.cr = raw(B64_C_PARTS)
         cls.b = data(cls.br)
         cls.c = data(cls.cr)
 

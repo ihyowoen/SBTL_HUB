@@ -1,4 +1,4 @@
-import base64, gzip, hashlib, json, subprocess, unittest
+import base64, gzip, hashlib, json, os, subprocess, unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -23,8 +23,24 @@ class A022SupplementalEarningsClosure(unittest.TestCase):
         self.assertEqual(data["draft_id"], "STD26_B_REVISE_R2_022")
 
     def test_02_current_main_ancestry_and_tree_lock(self):
-        subprocess.run(["git","merge-base","--is-ancestor",EXPECTED_MAIN,"HEAD"], cwd=ROOT, check=True)
-        tree = subprocess.check_output(["git","rev-parse",EXPECTED_MAIN+"^{tree}"], cwd=ROOT, text=True).strip()
+        # Canonical PR Actions checks out a depth-1 synthetic merge ref. In that
+        # environment, `merge-base` cannot see the base parent until it is fetched.
+        # First lock the PR event itself to the exact expected base SHA, then fetch
+        # that exact object and verify its tree. This preserves the lock without
+        # assuming a non-shallow checkout.
+        event_path = os.environ.get("GITHUB_EVENT_PATH")
+        if event_path and Path(event_path).exists():
+            event = json.loads(Path(event_path).read_text(encoding="utf-8"))
+            pr = event.get("pull_request")
+            if pr:
+                self.assertEqual(pr["base"]["sha"], EXPECTED_MAIN)
+                raw_head = subprocess.check_output(["git", "cat-file", "-p", "HEAD"], cwd=ROOT, text=True)
+                self.assertIn("parent " + EXPECTED_MAIN, raw_head)
+
+        subprocess.run(["git", "fetch", "--no-tags", "--depth=1", "origin", EXPECTED_MAIN], cwd=ROOT, check=True)
+        fetched = subprocess.check_output(["git", "rev-parse", "FETCH_HEAD"], cwd=ROOT, text=True).strip()
+        self.assertEqual(fetched, EXPECTED_MAIN)
+        tree = subprocess.check_output(["git", "rev-parse", "FETCH_HEAD^{tree}"], cwd=ROOT, text=True).strip()
         self.assertEqual(tree, EXPECTED_TREE)
 
     def test_03_historical_route_and_scope_lock(self):

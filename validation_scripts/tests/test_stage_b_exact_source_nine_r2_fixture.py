@@ -61,7 +61,10 @@ class StageBExactSourceNineR2(unittest.TestCase):
     def test_05_no_false_promotions(self):
         _, d=load_payload()
         blocked={x["source_spec_id"]:x for x in d["draft_blocked"]}
-        self.assertIn("exact",blocked["STD26_A_004"]["exact_missing_target"].lower())
+        a004=blocked["STD26_A_004"]["exact_missing_target"]
+        self.assertIn("EPBC referral/project record",a004)
+        self.assertIn("180MW/360MWh",a004)
+        self.assertIn("referral-not-approval",a004)
         self.assertIn("Oberbergamt",blocked["STD26_A_014"]["exact_missing_target"])
         self.assertIn("Chinese antitrust",blocked["STD26_A_016"]["exact_missing_target"])
         self.assertIn("KIRIA",blocked["STD26_A_017"]["exact_missing_target"])

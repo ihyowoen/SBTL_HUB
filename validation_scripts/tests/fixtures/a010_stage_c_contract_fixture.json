@@ -1,0 +1,56 @@
+{
+  "schema": "sbtl_stage_c_a010_contract_fixture_v1",
+  "accepted_fact_safe": [
+    {
+      "id": "STD26_B_0_7C_A010_R3",
+      "spec_id": "STD26_A_010",
+      "source_story_ids": [
+        "0.0C_DISCOVERY::REUTERS_2026-08-11_EIA_POWER"
+      ],
+      "stage_b_lineage": {
+        "lineage_integrity_status": "PASS",
+        "source_spec_id": "STD26_A_010",
+        "selected_anchor_path": "v3_non_execution",
+        "anchor_classes": [
+          "data_financial_anchor"
+        ]
+      },
+      "strict_gate_acceptance_guard_applied": true,
+      "accepted_pool_lineage_status": "PASS",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_measure": {
+        "unique_url_count": 4,
+        "unique_domain_count": 2,
+        "independent_owner_count": 2
+      },
+      "source_diversity_roles": [
+        "official_forecast_owner",
+        "independent_same_event_confirmation"
+      ],
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": [
+        "title",
+        "sub",
+        "fact",
+        "gate",
+        "implication"
+      ],
+      "source_synthesis_audit": {
+        "status": "PASS",
+        "no_single_source_conclusion": true
+      },
+      "single_source_exception": {
+        "allowed": false,
+        "reason": "EIA and Reuters are independent owners."
+      },
+      "source_published_date": "2026-08-11",
+      "visible_quote_date": "2026-08-11",
+      "state": "accepted_fact_safe",
+      "stage_c_only": true,
+      "publish_ready": false,
+      "addable_merge_safe": false,
+      "production_verified": false,
+      "prompt_0_4_required_later": true
+    }
+  ]
+}

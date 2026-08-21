@@ -1,0 +1,33 @@
+{
+  "schema": "sbtl_stage_c_a018_contract_fixture_v1",
+  "accepted_fact_safe": [
+    {
+      "id": "STD26_B_0_7C_A018_R1",
+      "spec_id": "STD26_A_018",
+      "source_story_ids": ["20260807_160552::GL_2026-08-06_C45"],
+      "stage_b_lineage": {
+        "lineage_integrity_status": "PASS",
+        "source_spec_id": "STD26_A_018",
+        "selected_anchor_path": "execution",
+        "anchor_classes": ["execution_event_anchor"]
+      },
+      "strict_gate_acceptance_guard_applied": true,
+      "accepted_pool_lineage_status": "PASS",
+      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_measure": {"unique_url_count": 3, "unique_domain_count": 2, "independent_owner_count": 2},
+      "source_diversity_roles": ["official_source_owner", "independent_same_event_confirmation"],
+      "source_synthesis_applied": true,
+      "source_synthesis_fields": ["title", "sub", "fact", "gate", "implication"],
+      "source_synthesis_audit": {"status": "PASS", "no_single_source_conclusion": true},
+      "single_source_exception": {"allowed": false, "reason": "Serentica and pv magazine are independent source owners."},
+      "source_published_date": "2026-08-06",
+      "visible_quote_date": "2026-08-06",
+      "state": "accepted_fact_safe",
+      "stage_c_only": true,
+      "publish_ready": false,
+      "addable_merge_safe": false,
+      "production_verified": false,
+      "prompt_0_4_required_later": true
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+name: pr283-materialize-once
+
+on:
+  push:
+    branches:
+      - agent/publish-batch1-35-20260825
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/publish-batch1-35-20260825
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Reconstruct corrected governed card-run
+        shell: bash
+        run: |
+          set -euo pipefail
+          d='runs/2026-08-25/publish-batch1-35'
+          out="$RUNNER_TEMP/pr283.corrected.b64"
+          : > "$out"
+          for f in \
+            "$d/.bootstrap.part00" \
+            "$d/.bootstrap.part01" \
+            "$d/.bootstrap.part02" \
+            "$d/.bootstrap.part03" \
+            "$d/.bootstrap.fix04.00" \
+            "$d/.bootstrap.fix04.01" \
+            "$d/.bootstrap.fix04.02" \
+            "$d/.bootstrap.fix04.03" \
+            "$d/.bootstrap.fix04.04" \
+            "$d/.bootstrap.fix04.05" \
+            "$d/.bootstrap.fix04.06" \
+            "$d/.bootstrap.fix04.07" \
+            "$d/.bootstrap.fix04.08" \
+            "$d/.bootstrap.part05" \
+            "$d/.bootstrap.part06"
+          do
+            test -s "$f"
+            tr -d '\r\n' < "$f" >> "$out"
+          done
+
+          python - "$out" <<'PY'
+          import base64, pathlib, re, sys
+          p = pathlib.Path(sys.argv[1])
+          s = p.read_text('ascii')
+          if not re.fullmatch(r'[A-Za-z0-9+/]*={0,2}', s):
+              raise SystemExit('FAIL: reconstructed stream contains non-base64 bytes')
+          try:
+              raw = base64.b64decode(s, validate=True)
+          except Exception as e:
+              raise SystemExit(f'FAIL: strict base64 decode: {e}')
+          pathlib.Path(str(p) + '.gz').write_bytes(raw)
+          PY
+
+          gzip -t "$out.gz"
+          gzip -dc "$out.gz" > "$d/card-run.json"
+          node - "$d/card-run.json" <<'NODE'
+          const fs = require('fs');
+          const p = process.argv[2];
+          const r = JSON.parse(fs.readFileSync(p, 'utf8'));
+          const fail = (m) => { throw new Error(m); };
+          if (r.schema !== 'card_run_v1') fail(`schema=${r.schema}`);
+          if (r.base_main_commit_sha !== '75e98148ae4c7af6234799cdd0852a181b11081b') fail(`base_main=${r.base_main_commit_sha}`);
+          if (r.base_full_blob_sha !== '0cc4e610f9c1ad105761d399be1cd0e316f95128') fail(`base_blob=${r.base_full_blob_sha}`);
+          if (r.expected_before !== 1373 || r.expected_after !== 1408) fail(`count=${r.expected_before}->${r.expected_after}`);
+          if (!r.operations || r.operations.insert?.length !== 35) fail(`insert=${r.operations?.insert?.length}`);
+          if (r.operations.update?.length !== 0) fail(`update=${r.operations?.update?.length}`);
+          if (r.operations.related_add?.length !== 3) fail(`related_add=${r.operations?.related_add?.length}`);
+          console.log('PASS reconstructed card-run contract', r.run_id);
+          NODE
+
+      - name: Materialize canonical full and lean outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          d='runs/2026-08-25/publish-batch1-35'
+          node scripts/apply_card_run.mjs \
+            --run "$d/card-run.json" \
+            --baseline data/cards.full.json \
+            --canonical-path data/cards.full.json \
+            --output data/cards.full.json \
+            --report "$d/apply-report.json" \
+            --lean-path public/data/cards.json \
+            --base-main-sha 75e98148ae4c7af6234799cdd0852a181b11081b \
+            --apply
+
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$d/card-run.json"
+          node scripts/validate_card_run_status_consistency.mjs --run "$d/card-run.json"
+          node scripts/validate_card_run_relations.mjs --run "$d/card-run.json"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$d/card-run.json" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits.mjs --run "$d/card-run.json" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/apply_card_run.mjs \
+            --run "$d/card-run.json" \
+            --baseline data/cards.full.json \
+            --canonical-path data/cards.full.json \
+            --output data/cards.full.json \
+            --report "$d/apply-report.json" \
+            --lean-path public/data/cards.json \
+            --base-main-sha 75e98148ae4c7af6234799cdd0852a181b11081b \
+            --verify
+
+      - name: Remove bootstrap transport and self-clean helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          d='runs/2026-08-25/publish-batch1-35'
+          rm -f "$d"/.bootstrap.*
+          rm -f "$d/apply-report.json"
+          rm -f .github/workflows/pr283-materialize.yml
+
+          test -s "$d/card-run.json"
+          test -s data/cards.full.json
+          test -s public/data/cards.json
+
+          node - <<'NODE'
+          const fs = require('fs');
+          const full = JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
+          const lean = JSON.parse(fs.readFileSync('public/data/cards.json','utf8'));
+          const count = (x) => Array.isArray(x) ? x.length : Array.isArray(x.cards) ? x.cards.length : null;
+          if (count(full) !== 1408) throw new Error(`full count ${count(full)}`);
+          if (count(lean) !== 1408) throw new Error(`lean count ${count(lean)}`);
+          console.log('PASS materialized counts 1408/1408');
+          NODE
+
+      - name: Commit materialized PR state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          mapfile -t changed < <(git diff --cached --name-only)
+          printf 'Final staged paths:\n'
+          printf ' - %s\n' "${changed[@]}"
+          for p in "${changed[@]}"; do
+            case "$p" in
+              runs/2026-08-25/publish-batch1-35/card-run.json|data/cards.full.json|public/data/cards.json|runs/2026-08-25/publish-batch1-35/.bootstrap.*|.github/workflows/pr283-materialize.yml) ;;
+              *) echo "FAIL: unexpected staged path $p" >&2; exit 1 ;;
+            esac
+          done
+          git diff --cached --check
+          git commit -m 'fix: materialize PR283 governed Batch 1 outputs'
+          git push origin HEAD:agent/publish-batch1-35-20260825

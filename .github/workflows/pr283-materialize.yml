@@ -1,4 +1,4 @@
-name: pr283-materialize-once
+name: pr283-bootstrap-forensics
 
 on:
   push:
@@ -6,10 +6,10 @@ on:
       - agent/publish-batch1-35-20260825
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  materialize:
+  inspect:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -18,244 +18,74 @@ jobs:
           ref: agent/publish-batch1-35-20260825
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Diagnose transports and recover governed card-run
+      - name: Compare recoverable DEFLATE outputs
         shell: bash
         run: |
           set -euo pipefail
-          d='runs/2026-08-25/publish-batch1-35'
-          python - "$d" <<'PY'
-          import base64, gzip, hashlib, json, pathlib, re, sys, zlib
-
-          d = pathlib.Path(sys.argv[1])
-          names = [
-              '.bootstrap.b64',
-              *[f'.bootstrap.part{i:02d}' for i in range(7)],
-              '.bootstrap.fix04a',
-              *[f'.bootstrap.fix04.{i:02d}' for i in range(9)],
-          ]
-          chunks = {}
-          b64_re = re.compile(r'^[A-Za-z0-9+/]*={0,2}$')
-          for name in names:
-              p = d / name
-              if not p.exists():
-                  continue
-              s = ''.join(p.read_text('utf-8', errors='replace').split())
-              chunks[name] = s
-              invalid = ''.join(sorted(set(ch for ch in s if ch not in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=')))
-              print(f'FILE {name} chars={len(s)} valid_b64={bool(b64_re.fullmatch(s))} invalid={invalid[:80]!r} head={s[:16]!r} tail={s[-32:]!r}')
-
-          def cat(seq):
-              return ''.join(chunks[n] for n in seq if n in chunks)
-
-          candidates = {
-              'whole_original': cat(['.bootstrap.b64']),
-              'parts_00_06': cat([f'.bootstrap.part{i:02d}' for i in range(7)]),
-              'parts_replace04_fix04a': cat([
-                  '.bootstrap.part00','.bootstrap.part01','.bootstrap.part02','.bootstrap.part03',
-                  '.bootstrap.fix04a','.bootstrap.part05','.bootstrap.part06'
-              ]),
-              'parts_replace04_splitfix': cat([
-                  '.bootstrap.part00','.bootstrap.part01','.bootstrap.part02','.bootstrap.part03',
-                  *[f'.bootstrap.fix04.{i:02d}' for i in range(9)],
-                  '.bootstrap.part05','.bootstrap.part06'
-              ]),
-              'splitfix_only': cat([f'.bootstrap.fix04.{i:02d}' for i in range(9)]),
-              'fix04a_plus_splitfix': cat(['.bootstrap.fix04a', *[f'.bootstrap.fix04.{i:02d}' for i in range(9)]]),
+          python - <<'PY'
+          import base64, pathlib, re, zlib
+          d=pathlib.Path('runs/2026-08-25/publish-batch1-35')
+          def rd(n): return ''.join((d/n).read_text(errors='replace').split())
+          chunks={n:rd(n) for n in [*[f'.bootstrap.part{i:02d}' for i in range(7)],'.bootstrap.fix04a',*[f'.bootstrap.fix04.{i:02d}' for i in range(9)]]}
+          seqs={
+            'orig': ''.join(chunks[f'.bootstrap.part{i:02d}'] for i in range(7)),
+            'fix04a': ''.join([chunks['.bootstrap.part00'],chunks['.bootstrap.part01'],chunks['.bootstrap.part02'],chunks['.bootstrap.part03'],chunks['.bootstrap.fix04a'],chunks['.bootstrap.part05'],chunks['.bootstrap.part06']]),
+            'splitfix': ''.join([chunks['.bootstrap.part00'],chunks['.bootstrap.part01'],chunks['.bootstrap.part02'],chunks['.bootstrap.part03'],*[chunks[f'.bootstrap.fix04.{i:02d}'] for i in range(9)],chunks['.bootstrap.part05'],chunks['.bootstrap.part06']]),
           }
+          outs={}
+          for name,s in seqs.items():
+            raw=base64.b64decode(s,validate=True)
+            pos=10
+            flg=raw[3]
+            if flg & 4:
+              xlen=int.from_bytes(raw[pos:pos+2],'little'); pos+=2+xlen
+            if flg & 8: pos=raw.index(b'\0',pos)+1
+            if flg & 16: pos=raw.index(b'\0',pos)+1
+            if flg & 2: pos+=2
+            out=zlib.decompress(raw[pos:-8],-zlib.MAX_WBITS)
+            outs[name]=out
+            print(f'OUT {name} len={len(out)} expected_isize={int.from_bytes(raw[-4:],"little")} crc={raw[-8:-4].hex()}')
 
-          expected = {
-              'schema': 'card_run_v1',
-              'base_main_commit_sha': '75e98148ae4c7af6234799cdd0852a181b11081b',
-              'base_full_blob_sha': '0cc4e610f9c1ad105761d399be1cd0e316f95128',
-              'expected_before': 1373,
-              'expected_after': 1408,
-          }
-
-          def contract_ok(obj):
-              if not isinstance(obj, dict): return False, 'not object'
-              for k,v in expected.items():
-                  if obj.get(k) != v: return False, f'{k}={obj.get(k)!r}'
-              ops = obj.get('operations') or {}
-              if len(ops.get('insert') or []) != 35: return False, f"insert={len(ops.get('insert') or [])}"
-              if len(ops.get('update') or []) != 0: return False, f"update={len(ops.get('update') or [])}"
-              if len(ops.get('related_add') or []) != 3: return False, f"related_add={len(ops.get('related_add') or [])}"
-              return True, obj.get('run_id')
-
-          def parse_json_bytes(payload, label):
+            bad=[]; start=0
+            while start < len(out):
               try:
-                  text = payload.decode('utf-8')
-              except Exception as e:
-                  print(f'  {label}: utf8 FAIL {e}; bytes={len(payload)} sha256={hashlib.sha256(payload).hexdigest()}')
-                  return None
-              print(f'  {label}: utf8 PASS bytes={len(payload)} head={text[:40]!r} tail={text[-40:]!r}')
-              try:
-                  obj = json.loads(text)
-              except Exception as e:
-                  print(f'  {label}: json FAIL {e}')
-                  return None
-              ok, detail = contract_ok(obj)
-              print(f'  {label}: json PASS contract={ok} detail={detail}')
-              return obj if ok else None
+                out[start:].decode('utf-8')
+                break
+              except UnicodeDecodeError as e:
+                a=start+e.start; b=start+e.end
+                bad.append((a,b,out[a:b].hex()))
+                start=b
+                if len(bad)>=50: break
+            print(f'UTF8_BAD {name} count_first50={len(bad)} ranges={bad[:20]}')
 
-          winner = None
-          winner_bytes = None
-          for label, s in candidates.items():
-              if not s:
-                  continue
-              print(f'CANDIDATE {label} chars={len(s)} valid_b64={bool(b64_re.fullmatch(s))}')
-              if not b64_re.fullmatch(s):
-                  continue
-              try:
-                  raw = base64.b64decode(s, validate=True)
-              except Exception as e:
-                  print(f'  base64 FAIL {e}')
-                  continue
-              print(f'  base64 PASS bytes={len(raw)} sha256={hashlib.sha256(raw).hexdigest()} magic={raw[:4].hex()} trailer={raw[-8:].hex()}')
+            txt=out.decode('utf-8',errors='replace')
+            specs=[]
+            pat=re.compile(r'"source_spec_id"\s*:\s*"([A-Z0-9_]+)"')
+            for m in pat.finditer(txt):
+              left=txt.rfind('{',max(0,m.start()-3000),m.start())
+              ctx=txt[max(0,m.start()-800):m.start()+1200]
+              mid=re.search(r'"id"\s*:\s*"([^"]+)"',ctx)
+              mt=re.search(r'"(?:title|headline)"\s*:\s*"([^"]{1,180})"',ctx)
+              specs.append((m.group(1),m.start(),mid.group(1) if mid else None,mt.group(1) if mt else None))
+            print(f'SPECS {name} count={len(specs)}')
+            for row in specs: print('SPEC',name,*row)
 
-              try:
-                  payload = gzip.decompress(raw)
-                  print('  gzip PASS')
-                  obj = parse_json_bytes(payload, 'gzip')
-                  if obj is not None:
-                      winner, winner_bytes = label, payload
-                      break
-              except Exception as e:
-                  print(f'  gzip FAIL {type(e).__name__}: {e}')
+          def cps(a,b):
+            n=min(len(a),len(b)); i=0
+            while i<n and a[i]==b[i]: i+=1
+            j=0
+            while j<n-i and a[-1-j]==b[-1-j]: j+=1
+            return i,j
+          for a,b in [('orig','fix04a'),('orig','splitfix'),('fix04a','splitfix')]:
+            p,s=cps(outs[a],outs[b]); print(f'COMMON {a} {b} prefix={p} suffix={s}')
 
-              # Ignore gzip trailer CRC/ISIZE if the DEFLATE member itself is intact.
-              if len(raw) > 18 and raw[:2] == b'\x1f\x8b':
-                  try:
-                      flg = raw[3]
-                      pos = 10
-                      if flg & 4:
-                          xlen = int.from_bytes(raw[pos:pos+2], 'little'); pos += 2 + xlen
-                      if flg & 8:
-                          pos = raw.index(b'\0', pos) + 1
-                      if flg & 16:
-                          pos = raw.index(b'\0', pos) + 1
-                      if flg & 2:
-                          pos += 2
-                      payload = zlib.decompress(raw[pos:-8], -zlib.MAX_WBITS)
-                      print(f'  raw-deflate PASS header={pos}')
-                      obj = parse_json_bytes(payload, 'raw-deflate')
-                      if obj is not None:
-                          winner, winner_bytes = label + ':raw-deflate', payload
-                          break
-                  except Exception as e:
-                      print(f'  raw-deflate FAIL {type(e).__name__}: {e}')
-
-              # Capture the longest output emitted before a zlib error for diagnosis.
-              try:
-                  dec = zlib.decompressobj(16 + zlib.MAX_WBITS)
-                  out = bytearray()
-                  for i in range(0, len(raw), 4096):
-                      try:
-                          out.extend(dec.decompress(raw[i:i+4096]))
-                      except Exception as e:
-                          print(f'  stream FAIL at compressed_offset={i}: {e}; emitted={len(out)}')
-                          break
-                  if out:
-                      parse_json_bytes(bytes(out), 'stream-partial')
-              except Exception as e:
-                  print(f'  stream setup FAIL {e}')
-
-          # Compare the two apparent correction transports for overlap diagnostics.
-          splitfix = candidates.get('splitfix_only','')
-          fix04a = candidates.get('parts_replace04_fix04a','')
-          part04 = chunks.get('.bootstrap.part04','')
-          if splitfix and part04:
-              p = 0
-              while p < min(len(splitfix),len(part04)) and splitfix[p] == part04[p]: p += 1
-              q = 0
-              while q < min(len(splitfix),len(part04)) and splitfix[-1-q] == part04[-1-q]: q += 1
-              print(f'OVERLAP splitfix_vs_part04 prefix={p} suffix={q} lens={len(splitfix)}/{len(part04)}')
-          if '.bootstrap.fix04a' in chunks and splitfix:
-              a = chunks['.bootstrap.fix04a']
-              p = 0
-              while p < min(len(splitfix),len(a)) and splitfix[p] == a[p]: p += 1
-              q = 0
-              while q < min(len(splitfix),len(a)) and splitfix[-1-q] == a[-1-q]: q += 1
-              print(f'OVERLAP splitfix_vs_fix04a prefix={p} suffix={q} lens={len(splitfix)}/{len(a)}')
-
-          if winner_bytes is None:
-              raise SystemExit('FAIL: no candidate produced contract-valid card-run JSON')
-          (d / 'card-run.json').write_bytes(winner_bytes)
-          print(f'WINNER {winner}; wrote {d / "card-run.json"}')
+          # Show context around every invalid UTF-8 position in original as escaped bytes.
+          o=outs['orig']; start=0; shown=0
+          while start<len(o) and shown<30:
+            try: o[start:].decode('utf-8'); break
+            except UnicodeDecodeError as e:
+              a=start+e.start; b=start+e.end
+              lo=max(0,a-240); hi=min(len(o),b+240)
+              print('BADCTX',a,b,repr(o[lo:hi]))
+              start=b; shown+=1
           PY
-
-      - name: Materialize canonical full and lean outputs
-        shell: bash
-        run: |
-          set -euo pipefail
-          d='runs/2026-08-25/publish-batch1-35'
-          node scripts/apply_card_run.mjs \
-            --run "$d/card-run.json" \
-            --baseline data/cards.full.json \
-            --canonical-path data/cards.full.json \
-            --output data/cards.full.json \
-            --report "$d/apply-report.json" \
-            --lean-path public/data/cards.json \
-            --base-main-sha 75e98148ae4c7af6234799cdd0852a181b11081b \
-            --apply
-
-          node scripts/validate.mjs
-          node scripts/validate_cards.mjs data/cards.full.json
-          node scripts/validate_cards.mjs public/data/cards.json
-          node scripts/lean_cards.mjs --check
-          node scripts/validate_card_run_stage_artifacts.mjs --run "$d/card-run.json"
-          node scripts/validate_card_run_status_consistency.mjs --run "$d/card-run.json"
-          node scripts/validate_card_run_relations.mjs --run "$d/card-run.json"
-          node scripts/validate_card_run_lineage_containers.mjs --run "$d/card-run.json" --canonical data/cards.full.json
-          node scripts/validate_card_run_audits.mjs --run "$d/card-run.json" --full data/cards.full.json --lean public/data/cards.json
-          node scripts/apply_card_run.mjs \
-            --run "$d/card-run.json" \
-            --baseline data/cards.full.json \
-            --canonical-path data/cards.full.json \
-            --output data/cards.full.json \
-            --report "$d/apply-report.json" \
-            --lean-path public/data/cards.json \
-            --base-main-sha 75e98148ae4c7af6234799cdd0852a181b11081b \
-            --verify
-
-      - name: Remove bootstrap transport and self-clean helper
-        shell: bash
-        run: |
-          set -euo pipefail
-          d='runs/2026-08-25/publish-batch1-35'
-          rm -f "$d"/.bootstrap.*
-          rm -f "$d/apply-report.json"
-          rm -f .github/workflows/pr283-materialize.yml
-
-          node - <<'NODE'
-          const fs = require('fs');
-          const full = JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
-          const lean = JSON.parse(fs.readFileSync('public/data/cards.json','utf8'));
-          const count = (x) => Array.isArray(x) ? x.length : Array.isArray(x.cards) ? x.cards.length : null;
-          if (count(full) !== 1408) throw new Error(`full count ${count(full)}`);
-          if (count(lean) !== 1408) throw new Error(`lean count ${count(lean)}`);
-          console.log('PASS materialized counts 1408/1408');
-          NODE
-
-      - name: Commit materialized PR state
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          mapfile -t changed < <(git diff --cached --name-only)
-          printf 'Final staged paths:\n'
-          printf ' - %s\n' "${changed[@]}"
-          for p in "${changed[@]}"; do
-            case "$p" in
-              runs/2026-08-25/publish-batch1-35/card-run.json|data/cards.full.json|public/data/cards.json|runs/2026-08-25/publish-batch1-35/.bootstrap.*|.github/workflows/pr283-materialize.yml) ;;
-              *) echo "FAIL: unexpected staged path $p" >&2; exit 1 ;;
-            esac
-          done
-          git diff --cached --check
-          git commit -m 'fix: materialize PR283 governed Batch 1 outputs'
-          git push origin HEAD:agent/publish-batch1-35-20260825

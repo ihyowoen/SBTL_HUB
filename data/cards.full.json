@@ -901,7 +901,9 @@
         "rejected_relation_candidates": [],
         "materialization_basis": "Prompt 0.4 current-main baseline revalidation decision materialized into current lifecycle contract; no editorial relation decision reopened.",
         "production_id_resolution_required_later": false,
-        "production_id_resolution_status": "PASS_BASELINE_TARGET_ALREADY_CANONICAL"
+        "production_id_resolution_status": "PASS_BASELINE_TARGET_ALREADY_CANONICAL",
+        "event_stage_relationship": "private_financing_to_conditional_government_financing",
+        "direction": "directional"
       },
       "related_candidate_spec_ids": [],
       "final_qc_gates": {
@@ -1114,7 +1116,9 @@
         "rejected_relation_candidates": [],
         "materialization_basis": "Prompt 0.4 current-main baseline revalidation decision materialized into current lifecycle contract; no editorial relation decision reopened.",
         "production_id_resolution_required_later": false,
-        "production_id_resolution_status": "PASS_BASELINE_TARGET_ALREADY_CANONICAL"
+        "production_id_resolution_status": "PASS_BASELINE_TARGET_ALREADY_CANONICAL",
+        "event_stage_relationship": "restart_milestone_to_environmental_approval_pending",
+        "direction": "directional"
       },
       "related_candidate_spec_ids": [],
       "selected_anchor_path": "v3_non_execution",
@@ -1553,7 +1557,9 @@
         "rejected_relation_candidates": [],
         "materialization_basis": "Prompt 0.4 exact current-main baseline revalidation",
         "production_id_resolution_required_later": false,
-        "production_id_resolution_status": "PASS_BASELINE_TARGET_ALREADY_CANONICAL"
+        "production_id_resolution_status": "PASS_BASELINE_TARGET_ALREADY_CANONICAL",
+        "event_stage_relationship": "policy_approval_to_interagency_implementation_coordination",
+        "direction": "directional"
       },
       "related_candidate_spec_ids": [],
       "final_qc_gates": {

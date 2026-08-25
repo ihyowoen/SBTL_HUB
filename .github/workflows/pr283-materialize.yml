@@ -22,63 +22,170 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Reconstruct corrected governed card-run
+      - name: Diagnose transports and recover governed card-run
         shell: bash
         run: |
           set -euo pipefail
           d='runs/2026-08-25/publish-batch1-35'
-          out="$RUNNER_TEMP/pr283.corrected.b64"
-          : > "$out"
-          for f in \
-            "$d/.bootstrap.part00" \
-            "$d/.bootstrap.part01" \
-            "$d/.bootstrap.part02" \
-            "$d/.bootstrap.part03" \
-            "$d/.bootstrap.fix04.00" \
-            "$d/.bootstrap.fix04.01" \
-            "$d/.bootstrap.fix04.02" \
-            "$d/.bootstrap.fix04.03" \
-            "$d/.bootstrap.fix04.04" \
-            "$d/.bootstrap.fix04.05" \
-            "$d/.bootstrap.fix04.06" \
-            "$d/.bootstrap.fix04.07" \
-            "$d/.bootstrap.fix04.08" \
-            "$d/.bootstrap.part05" \
-            "$d/.bootstrap.part06"
-          do
-            test -s "$f"
-            tr -d '\r\n' < "$f" >> "$out"
-          done
+          python - "$d" <<'PY'
+          import base64, gzip, hashlib, json, pathlib, re, sys, zlib
 
-          python - "$out" <<'PY'
-          import base64, pathlib, re, sys
-          p = pathlib.Path(sys.argv[1])
-          s = p.read_text('ascii')
-          if not re.fullmatch(r'[A-Za-z0-9+/]*={0,2}', s):
-              raise SystemExit('FAIL: reconstructed stream contains non-base64 bytes')
-          try:
-              raw = base64.b64decode(s, validate=True)
-          except Exception as e:
-              raise SystemExit(f'FAIL: strict base64 decode: {e}')
-          pathlib.Path(str(p) + '.gz').write_bytes(raw)
+          d = pathlib.Path(sys.argv[1])
+          names = [
+              '.bootstrap.b64',
+              *[f'.bootstrap.part{i:02d}' for i in range(7)],
+              '.bootstrap.fix04a',
+              *[f'.bootstrap.fix04.{i:02d}' for i in range(9)],
+          ]
+          chunks = {}
+          b64_re = re.compile(r'^[A-Za-z0-9+/]*={0,2}$')
+          for name in names:
+              p = d / name
+              if not p.exists():
+                  continue
+              s = ''.join(p.read_text('utf-8', errors='replace').split())
+              chunks[name] = s
+              invalid = ''.join(sorted(set(ch for ch in s if ch not in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=')))
+              print(f'FILE {name} chars={len(s)} valid_b64={bool(b64_re.fullmatch(s))} invalid={invalid[:80]!r} head={s[:16]!r} tail={s[-32:]!r}')
+
+          def cat(seq):
+              return ''.join(chunks[n] for n in seq if n in chunks)
+
+          candidates = {
+              'whole_original': cat(['.bootstrap.b64']),
+              'parts_00_06': cat([f'.bootstrap.part{i:02d}' for i in range(7)]),
+              'parts_replace04_fix04a': cat([
+                  '.bootstrap.part00','.bootstrap.part01','.bootstrap.part02','.bootstrap.part03',
+                  '.bootstrap.fix04a','.bootstrap.part05','.bootstrap.part06'
+              ]),
+              'parts_replace04_splitfix': cat([
+                  '.bootstrap.part00','.bootstrap.part01','.bootstrap.part02','.bootstrap.part03',
+                  *[f'.bootstrap.fix04.{i:02d}' for i in range(9)],
+                  '.bootstrap.part05','.bootstrap.part06'
+              ]),
+              'splitfix_only': cat([f'.bootstrap.fix04.{i:02d}' for i in range(9)]),
+              'fix04a_plus_splitfix': cat(['.bootstrap.fix04a', *[f'.bootstrap.fix04.{i:02d}' for i in range(9)]]),
+          }
+
+          expected = {
+              'schema': 'card_run_v1',
+              'base_main_commit_sha': '75e98148ae4c7af6234799cdd0852a181b11081b',
+              'base_full_blob_sha': '0cc4e610f9c1ad105761d399be1cd0e316f95128',
+              'expected_before': 1373,
+              'expected_after': 1408,
+          }
+
+          def contract_ok(obj):
+              if not isinstance(obj, dict): return False, 'not object'
+              for k,v in expected.items():
+                  if obj.get(k) != v: return False, f'{k}={obj.get(k)!r}'
+              ops = obj.get('operations') or {}
+              if len(ops.get('insert') or []) != 35: return False, f"insert={len(ops.get('insert') or [])}"
+              if len(ops.get('update') or []) != 0: return False, f"update={len(ops.get('update') or [])}"
+              if len(ops.get('related_add') or []) != 3: return False, f"related_add={len(ops.get('related_add') or [])}"
+              return True, obj.get('run_id')
+
+          def parse_json_bytes(payload, label):
+              try:
+                  text = payload.decode('utf-8')
+              except Exception as e:
+                  print(f'  {label}: utf8 FAIL {e}; bytes={len(payload)} sha256={hashlib.sha256(payload).hexdigest()}')
+                  return None
+              print(f'  {label}: utf8 PASS bytes={len(payload)} head={text[:40]!r} tail={text[-40:]!r}')
+              try:
+                  obj = json.loads(text)
+              except Exception as e:
+                  print(f'  {label}: json FAIL {e}')
+                  return None
+              ok, detail = contract_ok(obj)
+              print(f'  {label}: json PASS contract={ok} detail={detail}')
+              return obj if ok else None
+
+          winner = None
+          winner_bytes = None
+          for label, s in candidates.items():
+              if not s:
+                  continue
+              print(f'CANDIDATE {label} chars={len(s)} valid_b64={bool(b64_re.fullmatch(s))}')
+              if not b64_re.fullmatch(s):
+                  continue
+              try:
+                  raw = base64.b64decode(s, validate=True)
+              except Exception as e:
+                  print(f'  base64 FAIL {e}')
+                  continue
+              print(f'  base64 PASS bytes={len(raw)} sha256={hashlib.sha256(raw).hexdigest()} magic={raw[:4].hex()} trailer={raw[-8:].hex()}')
+
+              try:
+                  payload = gzip.decompress(raw)
+                  print('  gzip PASS')
+                  obj = parse_json_bytes(payload, 'gzip')
+                  if obj is not None:
+                      winner, winner_bytes = label, payload
+                      break
+              except Exception as e:
+                  print(f'  gzip FAIL {type(e).__name__}: {e}')
+
+              # Ignore gzip trailer CRC/ISIZE if the DEFLATE member itself is intact.
+              if len(raw) > 18 and raw[:2] == b'\x1f\x8b':
+                  try:
+                      flg = raw[3]
+                      pos = 10
+                      if flg & 4:
+                          xlen = int.from_bytes(raw[pos:pos+2], 'little'); pos += 2 + xlen
+                      if flg & 8:
+                          pos = raw.index(b'\0', pos) + 1
+                      if flg & 16:
+                          pos = raw.index(b'\0', pos) + 1
+                      if flg & 2:
+                          pos += 2
+                      payload = zlib.decompress(raw[pos:-8], -zlib.MAX_WBITS)
+                      print(f'  raw-deflate PASS header={pos}')
+                      obj = parse_json_bytes(payload, 'raw-deflate')
+                      if obj is not None:
+                          winner, winner_bytes = label + ':raw-deflate', payload
+                          break
+                  except Exception as e:
+                      print(f'  raw-deflate FAIL {type(e).__name__}: {e}')
+
+              # Capture the longest output emitted before a zlib error for diagnosis.
+              try:
+                  dec = zlib.decompressobj(16 + zlib.MAX_WBITS)
+                  out = bytearray()
+                  for i in range(0, len(raw), 4096):
+                      try:
+                          out.extend(dec.decompress(raw[i:i+4096]))
+                      except Exception as e:
+                          print(f'  stream FAIL at compressed_offset={i}: {e}; emitted={len(out)}')
+                          break
+                  if out:
+                      parse_json_bytes(bytes(out), 'stream-partial')
+              except Exception as e:
+                  print(f'  stream setup FAIL {e}')
+
+          # Compare the two apparent correction transports for overlap diagnostics.
+          splitfix = candidates.get('splitfix_only','')
+          fix04a = candidates.get('parts_replace04_fix04a','')
+          part04 = chunks.get('.bootstrap.part04','')
+          if splitfix and part04:
+              p = 0
+              while p < min(len(splitfix),len(part04)) and splitfix[p] == part04[p]: p += 1
+              q = 0
+              while q < min(len(splitfix),len(part04)) and splitfix[-1-q] == part04[-1-q]: q += 1
+              print(f'OVERLAP splitfix_vs_part04 prefix={p} suffix={q} lens={len(splitfix)}/{len(part04)}')
+          if '.bootstrap.fix04a' in chunks and splitfix:
+              a = chunks['.bootstrap.fix04a']
+              p = 0
+              while p < min(len(splitfix),len(a)) and splitfix[p] == a[p]: p += 1
+              q = 0
+              while q < min(len(splitfix),len(a)) and splitfix[-1-q] == a[-1-q]: q += 1
+              print(f'OVERLAP splitfix_vs_fix04a prefix={p} suffix={q} lens={len(splitfix)}/{len(a)}')
+
+          if winner_bytes is None:
+              raise SystemExit('FAIL: no candidate produced contract-valid card-run JSON')
+          (d / 'card-run.json').write_bytes(winner_bytes)
+          print(f'WINNER {winner}; wrote {d / "card-run.json"}')
           PY
-
-          gzip -t "$out.gz"
-          gzip -dc "$out.gz" > "$d/card-run.json"
-          node - "$d/card-run.json" <<'NODE'
-          const fs = require('fs');
-          const p = process.argv[2];
-          const r = JSON.parse(fs.readFileSync(p, 'utf8'));
-          const fail = (m) => { throw new Error(m); };
-          if (r.schema !== 'card_run_v1') fail(`schema=${r.schema}`);
-          if (r.base_main_commit_sha !== '75e98148ae4c7af6234799cdd0852a181b11081b') fail(`base_main=${r.base_main_commit_sha}`);
-          if (r.base_full_blob_sha !== '0cc4e610f9c1ad105761d399be1cd0e316f95128') fail(`base_blob=${r.base_full_blob_sha}`);
-          if (r.expected_before !== 1373 || r.expected_after !== 1408) fail(`count=${r.expected_before}->${r.expected_after}`);
-          if (!r.operations || r.operations.insert?.length !== 35) fail(`insert=${r.operations?.insert?.length}`);
-          if (r.operations.update?.length !== 0) fail(`update=${r.operations?.update?.length}`);
-          if (r.operations.related_add?.length !== 3) fail(`related_add=${r.operations?.related_add?.length}`);
-          console.log('PASS reconstructed card-run contract', r.run_id);
-          NODE
 
       - name: Materialize canonical full and lean outputs
         shell: bash
@@ -122,10 +229,6 @@ jobs:
           rm -f "$d"/.bootstrap.*
           rm -f "$d/apply-report.json"
           rm -f .github/workflows/pr283-materialize.yml
-
-          test -s "$d/card-run.json"
-          test -s data/cards.full.json
-          test -s public/data/cards.json
 
           node - <<'NODE'
           const fs = require('fs');

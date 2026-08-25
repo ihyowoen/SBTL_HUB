@@ -1,4 +1,4 @@
-name: pr283-reference-export
+name: pr283-recovery-export
 
 on:
   push:
@@ -18,21 +18,41 @@ jobs:
           ref: agent/publish-batch1-35-20260825
           fetch-depth: 0
 
-      - name: Export authoritative Batch 1 validator references
+      - name: Export baseline and all recoverable payload variants
         shell: bash
         run: |
           set -euo pipefail
-          out="$RUNNER_TEMP/pr283-reference"
-          mkdir -p "$out/0-7c" "$out/0-8"
-          git show origin/agent/batch1-35-0-7c-validator:validation_scripts/tests/fixtures/batch1_0_7c_r1.b64 > "$out/0-7c/batch1_0_7c_r1.b64"
-          git show origin/agent/batch1-35-0-7c-validator:validation_scripts/tests/test_batch1_prompt_0_7c_r1.py > "$out/0-7c/test_batch1_prompt_0_7c_r1.py"
-          git show origin/agent/batch1-35-0-8-runtime-gate:validation_scripts/tests/fixtures/batch1_35_runtime/independent-completeness-batch1-35.json > "$out/0-8/independent-completeness-batch1-35.json"
-          git show origin/agent/batch1-35-0-8-runtime-gate:validation_scripts/tests/test_batch1_prompt_0_8_runtime_gate.py > "$out/0-8/test_batch1_prompt_0_8_runtime_gate.py"
-          find "$out" -type f -maxdepth 3 -print -exec wc -c {} \;
+          out="$RUNNER_TEMP/pr283-recovery"
+          mkdir -p "$out"
+          git show 75e98148ae4c7af6234799cdd0852a181b11081b:data/cards.full.json > "$out/cards.full.baseline.1373.json"
+          python - <<'PY'
+          import base64, pathlib, zlib, os
+          d=pathlib.Path('runs/2026-08-25/publish-batch1-35')
+          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'pr283-recovery'
+          def rd(n): return ''.join((d/n).read_text(errors='replace').split())
+          chunks={n:rd(n) for n in [*[f'.bootstrap.part{i:02d}' for i in range(7)],'.bootstrap.fix04a',*[f'.bootstrap.fix04.{i:02d}' for i in range(9)]]}
+          seqs={
+            'orig': ''.join(chunks[f'.bootstrap.part{i:02d}'] for i in range(7)),
+            'fix04a': ''.join([chunks['.bootstrap.part00'],chunks['.bootstrap.part01'],chunks['.bootstrap.part02'],chunks['.bootstrap.part03'],chunks['.bootstrap.fix04a'],chunks['.bootstrap.part05'],chunks['.bootstrap.part06']]),
+            'splitfix': ''.join([chunks['.bootstrap.part00'],chunks['.bootstrap.part01'],chunks['.bootstrap.part02'],chunks['.bootstrap.part03'],*[chunks[f'.bootstrap.fix04.{i:02d}'] for i in range(9)],chunks['.bootstrap.part05'],chunks['.bootstrap.part06']]),
+          }
+          for name,s in seqs.items():
+            raw=base64.b64decode(s, validate=True)
+            pos=10; flg=raw[3]
+            if flg & 4:
+              xlen=int.from_bytes(raw[pos:pos+2],'little'); pos+=2+xlen
+            if flg & 8: pos=raw.index(b'\0',pos)+1
+            if flg & 16: pos=raw.index(b'\0',pos)+1
+            if flg & 2: pos+=2
+            data=zlib.decompress(raw[pos:-8],-zlib.MAX_WBITS)
+            (out/f'{name}.raw').write_bytes(data)
+            print(name,len(data),int.from_bytes(raw[-4:],'little'))
+          PY
+          sha256sum "$out"/*
 
       - uses: actions/upload-artifact@v4
         with:
-          name: pr283-authoritative-validator-references
-          path: ${{ runner.temp }}/pr283-reference
+          name: pr283-recovery-bundle
+          path: ${{ runner.temp }}/pr283-recovery
           if-no-files-found: error
           retention-days: 1

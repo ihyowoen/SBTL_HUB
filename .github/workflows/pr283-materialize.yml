@@ -1,4 +1,4 @@
-name: pr283-bootstrap-forensics
+name: pr283-bootstrap-export
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  inspect:
+  export:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -18,74 +18,31 @@ jobs:
           ref: agent/publish-batch1-35-20260825
           fetch-depth: 0
 
-      - name: Compare recoverable DEFLATE outputs
+      - name: Inflate original transport ignoring damaged gzip trailer
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/pr283"
           python - <<'PY'
-          import base64, pathlib, re, zlib
+          import base64, pathlib, zlib, os
           d=pathlib.Path('runs/2026-08-25/publish-batch1-35')
-          def rd(n): return ''.join((d/n).read_text(errors='replace').split())
-          chunks={n:rd(n) for n in [*[f'.bootstrap.part{i:02d}' for i in range(7)],'.bootstrap.fix04a',*[f'.bootstrap.fix04.{i:02d}' for i in range(9)]]}
-          seqs={
-            'orig': ''.join(chunks[f'.bootstrap.part{i:02d}'] for i in range(7)),
-            'fix04a': ''.join([chunks['.bootstrap.part00'],chunks['.bootstrap.part01'],chunks['.bootstrap.part02'],chunks['.bootstrap.part03'],chunks['.bootstrap.fix04a'],chunks['.bootstrap.part05'],chunks['.bootstrap.part06']]),
-            'splitfix': ''.join([chunks['.bootstrap.part00'],chunks['.bootstrap.part01'],chunks['.bootstrap.part02'],chunks['.bootstrap.part03'],*[chunks[f'.bootstrap.fix04.{i:02d}'] for i in range(9)],chunks['.bootstrap.part05'],chunks['.bootstrap.part06']]),
-          }
-          outs={}
-          for name,s in seqs.items():
-            raw=base64.b64decode(s,validate=True)
-            pos=10
-            flg=raw[3]
-            if flg & 4:
-              xlen=int.from_bytes(raw[pos:pos+2],'little'); pos+=2+xlen
-            if flg & 8: pos=raw.index(b'\0',pos)+1
-            if flg & 16: pos=raw.index(b'\0',pos)+1
-            if flg & 2: pos+=2
-            out=zlib.decompress(raw[pos:-8],-zlib.MAX_WBITS)
-            outs[name]=out
-            print(f'OUT {name} len={len(out)} expected_isize={int.from_bytes(raw[-4:],"little")} crc={raw[-8:-4].hex()}')
-
-            bad=[]; start=0
-            while start < len(out):
-              try:
-                out[start:].decode('utf-8')
-                break
-              except UnicodeDecodeError as e:
-                a=start+e.start; b=start+e.end
-                bad.append((a,b,out[a:b].hex()))
-                start=b
-                if len(bad)>=50: break
-            print(f'UTF8_BAD {name} count_first50={len(bad)} ranges={bad[:20]}')
-
-            txt=out.decode('utf-8',errors='replace')
-            specs=[]
-            pat=re.compile(r'"source_spec_id"\s*:\s*"([A-Z0-9_]+)"')
-            for m in pat.finditer(txt):
-              left=txt.rfind('{',max(0,m.start()-3000),m.start())
-              ctx=txt[max(0,m.start()-800):m.start()+1200]
-              mid=re.search(r'"id"\s*:\s*"([^"]+)"',ctx)
-              mt=re.search(r'"(?:title|headline)"\s*:\s*"([^"]{1,180})"',ctx)
-              specs.append((m.group(1),m.start(),mid.group(1) if mid else None,mt.group(1) if mt else None))
-            print(f'SPECS {name} count={len(specs)}')
-            for row in specs: print('SPEC',name,*row)
-
-          def cps(a,b):
-            n=min(len(a),len(b)); i=0
-            while i<n and a[i]==b[i]: i+=1
-            j=0
-            while j<n-i and a[-1-j]==b[-1-j]: j+=1
-            return i,j
-          for a,b in [('orig','fix04a'),('orig','splitfix'),('fix04a','splitfix')]:
-            p,s=cps(outs[a],outs[b]); print(f'COMMON {a} {b} prefix={p} suffix={s}')
-
-          # Show context around every invalid UTF-8 position in original as escaped bytes.
-          o=outs['orig']; start=0; shown=0
-          while start<len(o) and shown<30:
-            try: o[start:].decode('utf-8'); break
-            except UnicodeDecodeError as e:
-              a=start+e.start; b=start+e.end
-              lo=max(0,a-240); hi=min(len(o),b+240)
-              print('BADCTX',a,b,repr(o[lo:hi]))
-              start=b; shown+=1
+          s=''.join(''.join((d/f'.bootstrap.part{i:02d}').read_text(errors='replace').split()) for i in range(7))
+          raw=base64.b64decode(s, validate=True)
+          pos=10; flg=raw[3]
+          if flg & 4:
+              xlen=int.from_bytes(raw[pos:pos+2],'little'); pos += 2+xlen
+          if flg & 8: pos=raw.index(b'\0',pos)+1
+          if flg & 16: pos=raw.index(b'\0',pos)+1
+          if flg & 2: pos+=2
+          out=zlib.decompress(raw[pos:-8], -zlib.MAX_WBITS)
+          target=pathlib.Path(os.environ['RUNNER_TEMP'])/'pr283'/'corrupt-card-run.raw'
+          target.write_bytes(out)
+          print('wrote',target,'bytes',len(out),'expected_isize',int.from_bytes(raw[-4:],'little'))
           PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr283-corrupt-card-run-raw
+          path: ${{ runner.temp }}/pr283/corrupt-card-run.raw
+          if-no-files-found: error
+          retention-days: 1

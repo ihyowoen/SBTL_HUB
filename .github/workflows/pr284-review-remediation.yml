@@ -1,0 +1,288 @@
+name: pr284-review-remediation
+
+on:
+  push:
+    branches:
+      - ihyowoen-patch-64
+    paths:
+      - .github/workflows/pr284-review-remediation.yml
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ihyowoen-patch-64
+          fetch-depth: 0
+          persist-credentials: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Apply narrow PR284 evidence supplement
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BASE_SHA="75e98148ae4c7af6234799cdd0852a181b11081b"
+          RUN="runs/2026-08-25/publish-batch1-35/card-run.json"
+          RUN_DIR="$(dirname "$RUN")"
+          COMP="$RUN_DIR/audit/independent-completeness-batch1-35.json"
+          AUDIT="$RUN_DIR/audit/card-run-audit.json"
+          REPORT="$RUN_DIR/pr284-remediation-local-report.json"
+          NEW_URL="https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/"
+
+          python - <<'PY'
+          import hashlib
+          import json
+          from urllib.parse import urlparse
+
+          RUN = "runs/2026-08-25/publish-batch1-35/card-run.json"
+          COMP = "runs/2026-08-25/publish-batch1-35/audit/independent-completeness-batch1-35.json"
+          NEW_URL = "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/"
+          TS = "2026-08-25T17:32:00+09:00"
+
+          def load(path):
+              with open(path, "r", encoding="utf-8") as f:
+                  return json.load(f)
+
+          def write(path, obj):
+              with open(path, "w", encoding="utf-8", newline="\n") as f:
+                  json.dump(obj, f, ensure_ascii=False, indent=2)
+                  f.write("\n")
+
+          def stable(value):
+              if isinstance(value, list):
+                  return [stable(v) for v in value]
+              if isinstance(value, dict):
+                  return {k: stable(value[k]) for k in sorted(value)}
+              return value
+
+          def operations_sha(ops):
+              raw = json.dumps(stable(ops), ensure_ascii=False, separators=(",", ":"))
+              return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+          run = load(RUN)
+          op = next(
+              op for op in run["operations"]["insert"]
+              if op.get("card", {}).get("source_spec_id") == "STD26_A_054"
+          )
+          card = op["card"]
+
+          if NEW_URL not in card["urls"]:
+              card["urls"].append(NEW_URL)
+
+          if not any(src.get("source_url") == NEW_URL for src in card["fact_sources"]):
+              card["fact_sources"].append({
+                  "claim": "Kempower confirms the Astwick project was funded through a flexible finance agreement provided by its leasing partner DLL.",
+                  "evidence_role": "primary_event_evidence",
+                  "fetch_method": "web_body_or_official_material_direct_inspection_pr284_review_remediation",
+                  "fetched_at": TS,
+                  "source_name": "Kempower",
+                  "source_owner": "Kempower",
+                  "source_published_date": "2026-08-04",
+                  "source_quote": "The project has been funded through a flexible finance agreement provided by Kempower’s leasing partner, DLL.",
+                  "source_quote_status": "official_material_quote_verified",
+                  "source_url": NEW_URL,
+                  "supports": ["title", "gate", "implication"],
+                  "visible_quote_date": "2026-08-04",
+                  "checked_at": TS,
+                  "source_schema_qc": "PASS",
+                  "quote_verified_for_evidence_qc": True,
+                  "source_url_canonical_complete": True,
+                  "resolved_article_matches_quote": True,
+                  "source_url_prefix_promoted": False,
+              })
+
+          sdm = card["source_diversity_measure"]
+          if NEW_URL not in sdm["canonical_urls"]:
+              sdm["canonical_urls"].append(NEW_URL)
+          domain = urlparse(NEW_URL).hostname
+          if domain not in sdm["canonical_domains"]:
+              sdm["canonical_domains"].append(domain)
+          sdm["source_evidence_entry_count"] = len(card["fact_sources"])
+          sdm["source_unique_url_count"] = len(set(sdm["canonical_urls"]))
+          sdm["source_unique_domain_count"] = len(set(sdm["canonical_domains"]))
+          sdm["source_independent_owner_count"] = len({
+              src.get("source_owner") for src in card["fact_sources"] if src.get("source_owner")
+          })
+          sdm["visible_source_url_count"] = len(card["fact_sources"])
+          sdm["recomputed_at_kst"] = TS
+
+          if not any(row.get("source_url") == NEW_URL for row in card["source_discovery_ledger"]):
+              card["source_discovery_ledger"].append({
+                  "source_url": NEW_URL,
+                  "source_name": "Kempower",
+                  "source_owner": "Kempower",
+                  "source_role": "primary_event_evidence",
+                  "outcome": "used_in_fact_sources",
+                  "unique_contribution": "Astwick project was funded through a flexible finance agreement provided by Kempower’s leasing partner DLL.",
+              })
+
+          cluster = card["event_fingerprint"]["source_url_cluster"]
+          if NEW_URL not in cluster:
+              cluster.append(NEW_URL)
+
+          for key in ("source_publication_dates", "publication_dates"):
+              vals = card["date_role"][key]
+              if "2026-08-04" not in vals:
+                  vals.append("2026-08-04")
+                  vals.sort()
+
+          provenance = card["final_qc_provenance"]
+          provenance["post_lock_review_supplement"] = {
+              "applied": True,
+              "review_context": "PR284 Codex P2 site-specific DLL attribution review",
+              "supplemented_at_kst": TS,
+              "scope": "additive_site_specific_official_corroboration_only",
+              "source_url": NEW_URL,
+              "selection_change": False,
+              "event_date_change": False,
+              "title_or_gate_change": False,
+              "original_r5_object_hash_preserved_as_source_lineage": True,
+          }
+
+          if NEW_URL not in op["evidence_refs"]:
+              op["evidence_refs"].append(NEW_URL)
+
+          run["output_updated"] = TS
+          marker = "PR #284 review remediation adds one site-specific Kempower official source for STD26_A_054"
+          if marker not in run.get("notes", ""):
+              run["notes"] = run.get("notes", "") + " " + marker + " without changing selection, event date, title, gate, or relation decisions."
+
+          op_sha = operations_sha(run["operations"])
+          write(RUN, run)
+
+          comp = load(COMP)
+          comp["reviewed_operations_sha256"] = op_sha
+          comp["post_review_supplement"] = {
+              "status": "PASS",
+              "applied_at_kst": TS,
+              "pr_number": 284,
+              "source_spec_id": "STD26_A_054",
+              "review_issue": "DLL attribution required site-specific evidence",
+              "action": "ADDITIVE_OFFICIAL_SOURCE_CORROBORATION",
+              "source_url": NEW_URL,
+              "selection_change": False,
+              "event_date_change": False,
+              "title_or_gate_change": False,
+              "substantive_completeness_redecision_performed": False,
+              "zelestra_url_review_disposition": "NO_DATA_CHANGE_OFFICIAL_URL_VERIFIED_CANONICAL",
+          }
+          comp["runtime_binding"]["note"] = (
+              "Runtime binding fields attach the already-authorized independent 0.7C review to the exact Prompt 0.8 operation set. "
+              "PR #284 adds only site-specific official corroboration for STD26_A_054; no selection or event-date decision is reopened."
+          )
+          write(COMP, comp)
+          print("reviewed_operations_sha256", op_sha)
+          PY
+
+          # Rebuild from the declared current-main baseline so the engine, not hand editing,
+          # materializes canonical full and public lean bytes.
+          git show "${BASE_SHA}:data/cards.full.json" > data/cards.full.json
+          node scripts/apply_card_run.mjs \
+            --run "$RUN" \
+            --baseline data/cards.full.json \
+            --canonical-path data/cards.full.json \
+            --output data/cards.full.json \
+            --report "$REPORT" \
+            --lean-path public/data/cards.json \
+            --base-main-sha "$BASE_SHA" \
+            --apply
+
+          python - <<'PY'
+          import hashlib
+          import json
+
+          RUN = "runs/2026-08-25/publish-batch1-35/card-run.json"
+          AUDIT = "runs/2026-08-25/publish-batch1-35/audit/card-run-audit.json"
+          FULL = "data/cards.full.json"
+          LEAN = "public/data/cards.json"
+          NEW_URL = "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/"
+          TS = "2026-08-25T17:32:00+09:00"
+
+          def load(path):
+              with open(path, "r", encoding="utf-8") as f:
+                  return json.load(f)
+
+          def write(path, obj):
+              with open(path, "w", encoding="utf-8", newline="\n") as f:
+                  json.dump(obj, f, ensure_ascii=False, indent=2)
+                  f.write("\n")
+
+          def stable(value):
+              if isinstance(value, list):
+                  return [stable(v) for v in value]
+              if isinstance(value, dict):
+                  return {k: stable(value[k]) for k in sorted(value)}
+              return value
+
+          def sha256_file(path):
+              h = hashlib.sha256()
+              with open(path, "rb") as f:
+                  for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                      h.update(chunk)
+              return h.hexdigest()
+
+          run = load(RUN)
+          op_raw = json.dumps(stable(run["operations"]), ensure_ascii=False, separators=(",", ":"))
+          op_sha = hashlib.sha256(op_raw.encode("utf-8")).hexdigest()
+
+          audit = load(AUDIT)
+          audit["reviewed_operations_sha256"] = op_sha
+          audit["full_output_sha256"] = sha256_file(FULL)
+          audit["lean_output_sha256"] = sha256_file(LEAN)
+          audit["post_review_supplement"] = {
+              "status": "PASS",
+              "applied_at_kst": TS,
+              "source_spec_id": "STD26_A_054",
+              "source_url": NEW_URL,
+              "scope": "additive_site_specific_official_corroboration_only",
+              "zero_selection_change": True,
+              "zero_event_date_change": True,
+              "zero_relation_change": True,
+          }
+          write(AUDIT, audit)
+          print("full_output_sha256", audit["full_output_sha256"])
+          print("lean_output_sha256", audit["lean_output_sha256"])
+          PY
+
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          node scripts/validate_card_run_relations.mjs --run "$RUN"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits.mjs --run "$RUN" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          node scripts/apply_card_run.mjs \
+            --run "$RUN" \
+            --baseline data/cards.full.json \
+            --canonical-path data/cards.full.json \
+            --output data/cards.full.json \
+            --report "$REPORT" \
+            --lean-path public/data/cards.json \
+            --base-main-sha "$BASE_SHA" \
+            --verify
+          git diff --check
+
+          rm -f "$REPORT"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/cards.full.json \
+            public/data/cards.json \
+            "$RUN" \
+            "$COMP" \
+            "$AUDIT"
+
+          git diff --cached --quiet && { echo "No remediation changes to commit"; exit 0; }
+          git commit -m "fix: address PR284 evidence review"
+          git push origin HEAD:ihyowoen-patch-64

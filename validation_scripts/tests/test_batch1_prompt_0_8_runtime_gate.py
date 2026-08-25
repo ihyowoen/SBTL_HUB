@@ -99,9 +99,11 @@ class Batch1Prompt08RuntimeGate(unittest.TestCase):
             ],cwd=ROOT,text=True,capture_output=True)
             self.assertEqual(proc.returncode,0,msg=proc.stdout+"\n"+proc.stderr)
             payload=json.loads(report_path.read_text())
-            self.assertEqual(payload.get("status"),"PASS")
-            self.assertEqual(payload.get("before"),1373)
-            self.assertEqual(payload.get("after"),1373)
+            self.assertEqual(payload.get("status"),"VERIFIED")
+            self.assertEqual(payload.get("expected_before"),1373)
+            self.assertEqual(payload.get("expected_after"),1373)
+            self.assertTrue(payload.get("governance_refs_validated"))
+            self.assertTrue(payload.get("github_merge_ready"))
         finally:
             for p in (run_path,audit_path,report_path):
                 if p.exists(): p.unlink()

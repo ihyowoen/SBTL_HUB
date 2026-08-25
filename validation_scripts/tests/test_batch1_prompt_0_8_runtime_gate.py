@@ -50,6 +50,11 @@ class Batch1Prompt08RuntimeGate(unittest.TestCase):
         ).strip()
         self.assertEqual(actual_blob,BLOB)
 
+        baseline=json.loads((ROOT/"data/cards.full.json").read_text())
+        baseline_updated=baseline.get("updated")
+        self.assertIsInstance(baseline_updated,str)
+        self.assertTrue(baseline_updated.strip())
+
         ops={"insert":[],"update":[],"related_add":[]}
         run={
           "schema":"card_run_v1",
@@ -57,7 +62,9 @@ class Batch1Prompt08RuntimeGate(unittest.TestCase):
           "base_main_commit_sha":MAIN,
           "base_full_blob_sha":BLOB,
           "expected_before":1373,
-          "output_updated":"2026-08-25T13:02:00+09:00",
+          # A true zero-op must preserve the canonical top-level updated value;
+          # otherwise the engine correctly reports READY_TO_APPLY.
+          "output_updated":baseline_updated,
           "operations":ops,
           "expected_after":1373,
           "audit_refs":["validation_scripts/tests/fixtures/batch1_35_runtime/runtime-audit.generated.json"],

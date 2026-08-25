@@ -1,0 +1,29 @@
+{
+  "schema": "sbtl_stage_0_0d_engine_bridge_v1",
+  "stage": "0.0D",
+  "status": "PASS",
+  "run_tag": "20260812_STANDARD_NEW_RUN_PUBLISH_BATCH1_35",
+  "generated_kst": "2026-08-25T13:20:51+09:00",
+  "repository_head_sha": "75e98148ae4c7af6234799cdd0852a181b11081b",
+  "canonical_full_blob_sha": "0cc4e610f9c1ad105761d399be1cd0e316f95128",
+  "canonical_card_count": 1373,
+  "all_docs_files_read_or_parsed": true,
+  "stage_0_0c_authorized": true,
+  "unresolved_rule_conflicts": [],
+  "incomplete_universe_defects": [],
+  "source_authority": {
+    "artifact": "stage_0_0d_document_universe_20260814_STANDARD_NEW_RUN_CURRENT_MAIN_R0.json",
+    "source_status": "PASS",
+    "source_main_commit_sha": "75e98148ae4c7af6234799cdd0852a181b11081b",
+    "source_canonical_full_blob_sha": "0cc4e610f9c1ad105761d399be1cd0e316f95128",
+    "document_universe_complete": true,
+    "governance_revision_locked": true,
+    "materialization_type": "engine_consumer_alias_bridge_only"
+  },
+  "authority_guards": {
+    "substantive_governance_redecision_performed": false,
+    "document_universe_reenumerated": false,
+    "source_authority_changed": false,
+    "current_main_lock_preserved": true
+  }
+}

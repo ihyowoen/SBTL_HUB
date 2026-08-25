@@ -1,0 +1,338 @@
+{
+  "schema": "sbtl_prompt_0_7c_independent_completeness_publish_batch1_v1",
+  "stage": "0.7C",
+  "prompt_id": "Prompt 0.7C Independent Completeness and News-Value Review",
+  "run_tag": "20260812_STANDARD_NEW_RUN",
+  "run_label": "2026-08-25 KST — Publish Batch 1 / preserved publish-ready 35",
+  "generated_kst": "2026-08-25T13:07:16+09:00",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "current_main_sha": "75e98148ae4c7af6234799cdd0852a181b11081b",
+  "current_main_tree_sha": "b7cc7cd0e7c1d06191017aa3882586e0dbe8e976",
+  "baseline_file": "data/cards.full.json",
+  "baseline_count": 1373,
+  "baseline_blob_sha": "0cc4e610f9c1ad105761d399be1cd0e316f95128",
+  "governing_contracts_read": [
+    "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+    "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+    "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
+    "docs/RELATED_LIFECYCLE_CONTRACT.md"
+  ],
+  "governing_contract_git_blobs": {
+    "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md": "3836f173842409f72acab3698f35d98ed247a356",
+    "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md": "3024fd411b9df1c6c3369e46ed6b423e04a36ddf",
+    "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md": "8e5e9248abac44b40a39295f9de547a5e7601d9e",
+    "docs/RELATED_LIFECYCLE_CONTRACT.md": "6a0e487908c0f1a13a2ef2bc0a5513e0041f289c"
+  },
+  "governing_contracts_same_revision": true,
+  "v3_contract_preflight_passed": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "format_risk_anchor_path_review_complete": true,
+  "publish_batch": {
+    "batch_id": "PUBLISH_BATCH1_35_20260825",
+    "scope": "preserved Prompt 0.7 R5 publish_ready set only",
+    "publish_ready_count": 35,
+    "source_spec_ids": [
+      "REC26_A2_024",
+      "REC26_A2_028",
+      "REC26_A2_049",
+      "REC26_A2_050",
+      "STD26_A_001",
+      "STD26_A_002",
+      "STD26_A_003",
+      "STD26_A_006",
+      "STD26_A_009",
+      "STD26_A_013",
+      "STD26_A_015",
+      "STD26_A_019",
+      "STD26_A_020",
+      "STD26_A_022",
+      "STD26_A_024",
+      "STD26_A_025",
+      "STD26_A_026",
+      "STD26_A_028",
+      "STD26_A_029",
+      "STD26_A_030",
+      "STD26_A_037",
+      "STD26_A_039",
+      "STD26_A_040",
+      "STD26_A_041",
+      "STD26_A_042",
+      "STD26_A_043",
+      "STD26_A_045",
+      "STD26_A_046",
+      "STD26_A_048",
+      "STD26_A_050",
+      "STD26_A_052",
+      "STD26_A_054",
+      "STD26_A_058",
+      "STD26_A_083",
+      "STD26_A_084"
+    ],
+    "final_qc_artifact": "final_qc_results_20260819_ACCEPTED35_EXPANDED_R5.json",
+    "final_qc_publish_ready_count": 35,
+    "final_qc_all_nine_gates_passed": true,
+    "format_risk_checked_count": 13,
+    "execution_path_pass_count": 8,
+    "v3_non_execution_path_pass_count": 5,
+    "format_risk_hold_count": 0,
+    "duplicate_event_fingerprint_count": 0,
+    "current_35_downgrade_count": 0,
+    "batch_only_prompt_0_8_scope": true
+  },
+  "anchor_path_review_results": {
+    "checked_count": 13,
+    "execution_path_pass_count": 8,
+    "v3_non_execution_path_pass_count": 5,
+    "hold_count": 0,
+    "status": "PASS_PRESERVED_FINAL_QC_R5"
+  },
+  "insert_decisions_reviewed": {
+    "batch_count": 35,
+    "prompt_0_4_addable_merge_safe_count": 35,
+    "baseline_duplicate_hold_count": 0,
+    "status": "PASS"
+  },
+  "update_decisions_reviewed": [],
+  "related_add_decisions_reviewed": {
+    "status": "PASS_REQUIRES_FINAL_ID_RESOLUTION_AT_0_8",
+    "known_distinct_follow_up_specs": [
+      "STD26_A_002",
+      "STD26_A_015",
+      "STD26_A_024"
+    ],
+    "predecessor_baseline_ids": [
+      "2026-05-20_KR_01",
+      "2026-07-01_CN_02",
+      "2026-07-21_US_01"
+    ],
+    "related_edges_must_be_resolved_by_prompt_0_8": true
+  },
+  "reopened_items": [],
+  "material_exclusions": [
+    {
+      "class": "exact_primary_source_hold",
+      "count": 8,
+      "ids": [
+        "STD26_A_004",
+        "STD26_A_014",
+        "STD26_A_016",
+        "STD26_A_017",
+        "STD26_A_018",
+        "STD26_A_021",
+        "STD26_A_033",
+        "STD26_A_057"
+      ],
+      "disposition": "UPSTREAM_RETURN_EVIDENCE_HOLD_NOT_BATCH1",
+      "red_team_status": "PASS_BOUNDED_RESCUE_EXHAUSTED_NO_FALSE_PROMOTION",
+      "repo_native_locator_artifact": "prompt_0_7c_primary_document_locator_remaining8_20260821_R4.json",
+      "repo_native_locator_sha256": "13441f8a6b035c53fe3c68efa4ca5a6e373340b2dd409a3a0e337f1283009ba8",
+      "repo_native_tested_head": "51446326d27b0d99483aa408abbb2d37b80ac80d"
+    },
+    {
+      "class": "historical_ordinal_provenance_quarantine",
+      "count": 23,
+      "ids": [
+        "STD26_A_059",
+        "STD26_A_060",
+        "STD26_A_061",
+        "STD26_A_062",
+        "STD26_A_063",
+        "STD26_A_064",
+        "STD26_A_065",
+        "STD26_A_066",
+        "STD26_A_067",
+        "STD26_A_068",
+        "STD26_A_069",
+        "STD26_A_070",
+        "STD26_A_071",
+        "STD26_A_072",
+        "STD26_A_073",
+        "STD26_A_074",
+        "STD26_A_075",
+        "STD26_A_076",
+        "STD26_A_077",
+        "STD26_A_078",
+        "STD26_A_079",
+        "STD26_A_080",
+        "STD26_A_081"
+      ],
+      "disposition": "QUARANTINE_NO_SAFE_PROVENANCE_RECOVERY_NOT_BATCH1",
+      "red_team_status": "PASS_CURRENT_EVIDENCE_AND_REPO_SEARCH_EXHAUSTED_23_HELD_NO_FALSE_RECONSTRUCTION",
+      "false_ordinal_inference_prohibited": true
+    },
+    {
+      "class": "terminal_exclusion_or_reinforcement",
+      "count": 8,
+      "ids": [
+        "STD26_A_008",
+        "STD26_A_031",
+        "STD26_A_032",
+        "STD26_A_038",
+        "STD26_A_044",
+        "STD26_A_053",
+        "STD26_A_082",
+        "STD26_A_085"
+      ],
+      "disposition": "TERMINAL_AFTER_INDEPENDENT_27_ITEM_REDTEAM",
+      "red_team_status": "PASS"
+    }
+  ],
+  "known_unknowns": [
+    {
+      "id": "STD26_A_047",
+      "state": "candidate_review_pool",
+      "reason": "July 8 commissioning/first-brine milestone is source-supported; a distinct fresh August execution event is not proven.",
+      "treatment": "not excluded as false; not Batch 1; reopen only on distinct fresh execution evidence"
+    },
+    {
+      "id": "STD26_A_055",
+      "state": "watchlist_context_pool",
+      "reason": "scope corrected from claimed 1.5MW MCS certification to 700kW CCS certification; standalone current-run decision value reduced",
+      "treatment": "not Batch 1; reopen on verified MCS certification or named material North-American deployment"
+    },
+    {
+      "id": "STD26_A_034",
+      "state": "watchlist_context_pool_closed",
+      "reason": "Aug-8 republication adds no distinct post-Jul-22 transaction milestone; score 39 context/reinforcement",
+      "treatment": "authoritative watchlist closure; not Batch 1"
+    },
+    {
+      "id": "STD26_A_010",
+      "state": "accepted_fact_safe_later_lane",
+      "reason": "repo-native Stage C accepted_fact_safe but Prompt 0.4+ has not been performed",
+      "treatment": "explicitly excluded from Batch 1; later post-acceptance pipeline required"
+    }
+  ],
+  "closed_prior_blockers": [
+    {
+      "id": "STD26_A_022",
+      "status": "CLOSED_REPO_NATIVE_AUTHORITATIVE_EARNINGS_SUPPLEMENTAL",
+      "incoming_publish_ready_r5_preserved": true,
+      "tested_head": "36af843ccacc01f6e93da22386962cb4581b4bca"
+    },
+    {
+      "id": "STD26_A_010",
+      "status": "CLOSED_REPO_NATIVE_AUTHORITATIVE_STAGE_C_ACCEPTED_FACT_SAFE_NOT_BATCH1",
+      "publish_ready": false,
+      "tested_head": "734c4f6f0f8053b3260f4b0d28b1604818e7536c"
+    },
+    {
+      "id": "STD26_A_034",
+      "status": "CLOSED_REPO_NATIVE_AUTHORITATIVE_WATCHLIST_CONTEXT",
+      "tested_head": "ec0ac88529a4e8cffebf409a41dab0c1677f0f4c"
+    }
+  ],
+  "upstream_returns": [
+    {
+      "class": "exact_primary_source_hold",
+      "ids": [
+        "STD26_A_004",
+        "STD26_A_014",
+        "STD26_A_016",
+        "STD26_A_017",
+        "STD26_A_018",
+        "STD26_A_021",
+        "STD26_A_033",
+        "STD26_A_057"
+      ],
+      "count": 8
+    },
+    {
+      "class": "candidate_review",
+      "ids": [
+        "STD26_A_047"
+      ],
+      "count": 1
+    },
+    {
+      "class": "later_post_acceptance_lane",
+      "ids": [
+        "STD26_A_010"
+      ],
+      "count": 1
+    }
+  ],
+  "residual_risks": [
+    {
+      "code": "HISTORICAL_ORDINAL_PROVENANCE_UNRECOVERABLE",
+      "count": 23,
+      "classification": "declared_quarantine_not_batch1",
+      "mitigation": "Never infer or shift historical ordinals; fresh future selection must use new spec IDs."
+    },
+    {
+      "code": "EXACT_PRIMARY_DOCUMENTS_UNRECOVERED",
+      "count": 8,
+      "classification": "declared_evidence_hold_not_batch1",
+      "mitigation": "No secondary-source laundering; recover exact target before future promotion."
+    },
+    {
+      "code": "RAW_TO_STAGE_A_BUCKET_REPLAY_NOT_PHYSICALLY_REGENERATED",
+      "classification": "traceability_residual",
+      "mitigation": "Authoritative Stage 0.0C accounting remains preserved; no hidden item is promoted into Batch 1."
+    }
+  ],
+  "six_round_review": {
+    "round_1_source_universe": "PASS_WITH_DECLARED_PROVENANCE_QUARANTINE",
+    "round_2_existing_full": "PASS_BATCH1_35_NO_DUPLICATE_REMOVAL",
+    "round_3_event_stage_anchor_path": "PASS_BATCH1_35",
+    "round_4_fact_completeness": "PASS_BATCH1_35_A022_EARNINGS_RETURN_CLOSED",
+    "round_5_news_value": "PASS_BATCH1_35",
+    "round_6_exclusion_red_team": "PASS_ALL_NON_BATCH_POOLS_ACCOUNTED_AND_DECLARED"
+  },
+  "authorization": {
+    "prompt_0_8_authorized": true,
+    "authorized_scope": "PUBLISH_BATCH1_35_20260825_ONLY",
+    "unauthorized_scopes": [
+      "eight exact-primary-source holds",
+      "STD26_A_047 candidate review",
+      "STD26_A_010 accepted_fact_safe later lane",
+      "STD26_A_059–STD26_A_081 provenance quarantine",
+      "watchlist context items",
+      "terminal exclusions"
+    ],
+    "production_id_assignment_allowed_only_inside_prompt_0_8_for_batch1": true,
+    "main_write_not_yet_authorized_by_this_artifact": true
+  },
+  "prompt_0_8_authorized": true,
+  "boundary": {
+    "prompt_0_8_performed": false,
+    "production_ids_assigned": false,
+    "card_run_materialized": false,
+    "main_write_performed": false,
+    "data_pr_created": false,
+    "merge_performed": false
+  },
+  "run_id": "PUBLISH_BATCH1_35_20260825",
+  "base_main_commit_sha": "75e98148ae4c7af6234799cdd0852a181b11081b",
+  "base_full_blob_sha": "0cc4e610f9c1ad105761d399be1cd0e316f95128",
+  "document_universe_manifest_ref": "runs/2026-08-25/publish-batch1-35/audit/stage-0-0d-engine-bridge.json",
+  "coverage_discovery_ref": "runs/2026-08-25/publish-batch1-35/audit/stage-0-0c-engine-bridge.json",
+  "reviewed_operations_sha256": "b1d9255114708c2ed82bb6a9ce39dc5b3571ef67e9cb797ad56be391a0399c18",
+  "runtime_binding": {
+    "status": "PASS",
+    "binding_type": "engine_consumer_binding_only",
+    "substantive_completeness_redecision_performed": false,
+    "authoritative_0_7c_source_sha256": "7c37dac4b0ea574887ebb943029f1901fddd6cc828319a3d00ad1138af2104b6",
+    "note": "Runtime binding fields attach the already-authorized independent 0.7C review to the exact Prompt 0.8 operation set. PR #284 adds only site-specific official corroboration for STD26_A_054; no selection or event-date decision is reopened."
+  },
+  "post_review_supplement": {
+    "status": "PASS",
+    "applied_at_kst": "2026-08-25T17:32:00+09:00",
+    "pr_number": 284,
+    "source_spec_id": "STD26_A_054",
+    "review_issue": "DLL attribution required site-specific evidence",
+    "action": "ADDITIVE_OFFICIAL_SOURCE_CORROBORATION",
+    "source_url": "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/",
+    "selection_change": false,
+    "event_date_change": false,
+    "title_or_gate_change": false,
+    "substantive_completeness_redecision_performed": false,
+    "zelestra_url_review_disposition": "NO_DATA_CHANGE_OFFICIAL_URL_VERIFIED_CANONICAL"
+  }
+}

@@ -36,6 +36,15 @@ class Batch1Prompt08RuntimeGate(unittest.TestCase):
         self.assertEqual(i["status"],"PASS_WITH_DECLARED_RESIDUAL_RISK")
         self.assertTrue(i["prompt_0_8_authorized"])
 
+        # PR workflows use fetch-depth:1 and check out the synthetic merge ref.
+        # Fetch the exact declared base commit so git rev-parse/show in the real
+        # apply_card_run engine can verify that immutable baseline by SHA.
+        fetched=subprocess.run(
+            ["git","fetch","origin",MAIN,"--depth=1"],
+            cwd=ROOT,text=True,capture_output=True
+        )
+        self.assertEqual(fetched.returncode,0,msg=fetched.stdout+"\n"+fetched.stderr)
+
         actual_blob=subprocess.check_output(
             ["git","rev-parse",f"{MAIN}:data/cards.full.json"], cwd=ROOT, text=True
         ).strip()

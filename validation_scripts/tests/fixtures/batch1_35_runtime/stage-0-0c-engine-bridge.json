@@ -1,0 +1,26 @@
+{
+  "schema": "sbtl_stage_0_0c_engine_bridge_v1",
+  "stage": "0.0C",
+  "status": "PASS",
+  "run_tag": "20260812_STANDARD_NEW_RUN_PUBLISH_BATCH1_35",
+  "generated_kst": "2026-08-25T13:20:51+09:00",
+  "original_input_accounted": true,
+  "stage_a_authorized": true,
+  "document_universe_manifest_ref": "validation_scripts/tests/fixtures/batch1_35_runtime/stage-0-0d-engine-bridge.json",
+  "base_full_blob_sha": "0cc4e610f9c1ad105761d399be1cd0e316f95128",
+  "terminal_accounting": "654/654",
+  "source_authority": {
+    "artifact": "stage_0_0c_coverage_discovery_PASS_20260812_STANDARD_NEW_RUN_V5.json",
+    "status": "PASS_COMPLETED",
+    "terminal_accounting": "654/654",
+    "rerun_required": false,
+    "basis_artifact": "stage_1_8_AUTHORITATIVE_0_4_READINESS_SUPERSEDING_AUDIT_20260816.json",
+    "continuation_proof": "Later authoritative Stage A artifacts consume the PASS V5 654/654 universe; canonical card-data blob remains byte-identical at current main."
+  },
+  "authority_guards": {
+    "coverage_rediscovery_performed": false,
+    "editorial_reselection_performed": false,
+    "original_observation_accounting_changed": false,
+    "current_blob_lock_preserved": true
+  }
+}

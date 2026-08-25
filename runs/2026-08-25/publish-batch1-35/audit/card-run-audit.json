@@ -9,7 +9,7 @@
   "document_universe_manifest_ref": "runs/2026-08-25/publish-batch1-35/audit/stage-0-0d-engine-bridge.json",
   "coverage_discovery_ref": "runs/2026-08-25/publish-batch1-35/audit/stage-0-0c-engine-bridge.json",
   "independent_completeness_ref": "runs/2026-08-25/publish-batch1-35/audit/independent-completeness-batch1-35.json",
-  "reviewed_operations_sha256": "87070b5a0d30ac41997e0a5002e27f2ea189eab49274a1c7422648900ee3a85b",
+  "reviewed_operations_sha256": "b1d9255114708c2ed82bb6a9ce39dc5b3571ef67e9cb797ad56be391a0399c18",
   "expected_before": 1373,
   "expected_after": 1408,
   "inserted_ids": [
@@ -69,6 +69,16 @@
   ],
   "zero_deletion_assertion": true,
   "zero_related_remove_assertion": true,
-  "full_output_sha256": "e96fe53f2d2e23716376fca98fde2814aeae7271a40955b883b88e732cf5ea10",
-  "lean_output_sha256": "4b232f9198ce199b432c3b726a4698f0443a978911be82013c473c3bde99572c"
+  "full_output_sha256": "c829d92a5cc6647d644e6164cef69ddfcde9dbfca8fc23fb7f664b7669e8fdfc",
+  "lean_output_sha256": "2342b0f5b12aab5a72d9f71564b837ed4b938e6e5e8b17b811ea4efeffd93e75",
+  "post_review_supplement": {
+    "status": "PASS",
+    "applied_at_kst": "2026-08-25T17:32:00+09:00",
+    "source_spec_id": "STD26_A_054",
+    "source_url": "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/",
+    "scope": "additive_site_specific_official_corroboration_only",
+    "zero_selection_change": true,
+    "zero_event_date_change": true,
+    "zero_relation_change": true
+  }
 }

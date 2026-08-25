@@ -313,12 +313,26 @@
   "base_full_blob_sha": "0cc4e610f9c1ad105761d399be1cd0e316f95128",
   "document_universe_manifest_ref": "runs/2026-08-25/publish-batch1-35/audit/stage-0-0d-engine-bridge.json",
   "coverage_discovery_ref": "runs/2026-08-25/publish-batch1-35/audit/stage-0-0c-engine-bridge.json",
-  "reviewed_operations_sha256": "87070b5a0d30ac41997e0a5002e27f2ea189eab49274a1c7422648900ee3a85b",
+  "reviewed_operations_sha256": "b1d9255114708c2ed82bb6a9ce39dc5b3571ef67e9cb797ad56be391a0399c18",
   "runtime_binding": {
     "status": "PASS",
     "binding_type": "engine_consumer_binding_only",
     "substantive_completeness_redecision_performed": false,
     "authoritative_0_7c_source_sha256": "7c37dac4b0ea574887ebb943029f1901fddd6cc828319a3d00ad1138af2104b6",
-    "note": "Runtime binding fields attach the already-authorized independent 0.7C review to the exact Prompt 0.8 operation set."
+    "note": "Runtime binding fields attach the already-authorized independent 0.7C review to the exact Prompt 0.8 operation set. PR #284 adds only site-specific official corroboration for STD26_A_054; no selection or event-date decision is reopened."
+  },
+  "post_review_supplement": {
+    "status": "PASS",
+    "applied_at_kst": "2026-08-25T17:32:00+09:00",
+    "pr_number": 284,
+    "source_spec_id": "STD26_A_054",
+    "review_issue": "DLL attribution required site-specific evidence",
+    "action": "ADDITIVE_OFFICIAL_SOURCE_CORROBORATION",
+    "source_url": "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/",
+    "selection_change": false,
+    "event_date_change": false,
+    "title_or_gate_change": false,
+    "substantive_completeness_redecision_performed": false,
+    "zelestra_url_review_disposition": "NO_DATA_CHANGE_OFFICIAL_URL_VERIFIED_CANONICAL"
   }
 }

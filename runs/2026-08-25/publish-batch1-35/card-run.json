@@ -4,7 +4,7 @@
   "base_main_commit_sha": "75e98148ae4c7af6234799cdd0852a181b11081b",
   "base_full_blob_sha": "0cc4e610f9c1ad105761d399be1cd0e316f95128",
   "expected_before": 1373,
-  "output_updated": "2026-08-25T15:12:00+09:00",
+  "output_updated": "2026-08-25T17:32:00+09:00",
   "operations": {
     "insert": [
       {
@@ -7118,7 +7118,8 @@
           "urls": [
             "https://theenergyst.com/yunex-completes-ev-charging-station-for-hsrl/",
             "https://forecourttrader.co.uk/latest-news/highway-stops-charges-ahead-with-ev-installations/717321.article",
-            "https://investors.kempower.com/releases/dll-and-kempower-introduce-financing-solutions-to-support-ev-charging-deployment-and-affordability/"
+            "https://investors.kempower.com/releases/dll-and-kempower-introduce-financing-solutions-to-support-ev-charging-deployment-and-affordability/",
+            "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/"
           ],
           "fact_sources": [
             {
@@ -7191,6 +7192,30 @@
               "source_url_canonical_complete": true,
               "resolved_article_matches_quote": true,
               "source_url_prefix_promoted": false
+            },
+            {
+              "claim": "Kempower confirms the Astwick project was funded through a flexible finance agreement provided by its leasing partner DLL.",
+              "evidence_role": "primary_event_evidence",
+              "fetch_method": "web_body_or_official_material_direct_inspection_pr284_review_remediation",
+              "fetched_at": "2026-08-25T17:32:00+09:00",
+              "source_name": "Kempower",
+              "source_owner": "Kempower",
+              "source_published_date": "2026-08-04",
+              "source_quote": "The project has been funded through a flexible finance agreement provided by Kempower’s leasing partner, DLL.",
+              "source_quote_status": "official_material_quote_verified",
+              "source_url": "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/",
+              "supports": [
+                "title",
+                "gate",
+                "implication"
+              ],
+              "visible_quote_date": "2026-08-04",
+              "checked_at": "2026-08-25T17:32:00+09:00",
+              "source_schema_qc": "PASS",
+              "quote_verified_for_evidence_qc": true,
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true,
+              "source_url_prefix_promoted": false
             }
           ],
           "source_diversity_status": "PASS_MULTI_SOURCE",
@@ -7200,14 +7225,15 @@
             "reason": "Two or more editorially independent usable evidence owners are present."
           },
           "source_diversity_measure": {
-            "source_evidence_entry_count": 3,
-            "source_unique_url_count": 3,
-            "source_unique_domain_count": 3,
+            "source_evidence_entry_count": 4,
+            "source_unique_url_count": 4,
+            "source_unique_domain_count": 4,
             "source_independent_owner_count": 3,
             "canonical_urls": [
               "https://theenergyst.com/yunex-completes-ev-charging-station-for-hsrl/",
               "https://forecourttrader.co.uk/latest-news/highway-stops-charges-ahead-with-ev-installations/717321.article",
-              "https://investors.kempower.com/releases/dll-and-kempower-introduce-financing-solutions-to-support-ev-charging-deployment-and-affordability/"
+              "https://investors.kempower.com/releases/dll-and-kempower-introduce-financing-solutions-to-support-ev-charging-deployment-and-affordability/",
+              "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/"
             ],
             "independent_owners": [
               "The Energyst",
@@ -7215,13 +7241,14 @@
               "Kempower"
             ],
             "status": "PASS_MULTI_SOURCE",
-            "recomputed_at_kst": "2026-08-19T10:15:00+09:00",
+            "recomputed_at_kst": "2026-08-25T17:32:00+09:00",
             "canonical_domains": [
               "theenergyst.com",
               "forecourttrader.co.uk",
-              "investors.kempower.com"
+              "investors.kempower.com",
+              "kempower.com"
             ],
-            "visible_source_url_count": 3,
+            "visible_source_url_count": 4,
             "missing_source_url_count": 0,
             "missing_visible_source_url_count": 0
           },
@@ -7257,6 +7284,14 @@
               "source_role": "background_context",
               "outcome": "used_in_fact_sources",
               "unique_contribution": "Kempower and DLL financing includes financial and operational leasing structures."
+            },
+            {
+              "source_url": "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/",
+              "source_name": "Kempower",
+              "source_owner": "Kempower",
+              "source_role": "primary_event_evidence",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Astwick project was funded through a flexible finance agreement provided by Kempower’s leasing partner DLL."
             }
           ],
           "event_fingerprint": {
@@ -7268,7 +7303,8 @@
             "source_url_cluster": [
               "https://theenergyst.com/yunex-completes-ev-charging-station-for-hsrl/",
               "https://forecourttrader.co.uk/latest-news/highway-stops-charges-ahead-with-ev-installations/717321.article",
-              "https://investors.kempower.com/releases/dll-and-kempower-introduce-financing-solutions-to-support-ev-charging-deployment-and-affordability/"
+              "https://investors.kempower.com/releases/dll-and-kempower-introduce-financing-solutions-to-support-ev-charging-deployment-and-affordability/",
+              "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/"
             ],
             "factual_anchor": "Kempower·DLL 리스 모델, 영국 Astwick 충전소에 적용"
           },
@@ -7280,14 +7316,16 @@
             "source_publication_dates": [
               "2024-11-21",
               "2026-04-08",
-              "2026-07-08"
+              "2026-07-08",
+              "2026-08-04"
             ],
             "stage_c_date_recheck_required": false,
             "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
             "publication_dates": [
               "2024-11-21",
               "2026-04-08",
-              "2026-07-08"
+              "2026-07-08",
+              "2026-08-04"
             ],
             "earliest_same_event_date_checked": true,
             "event_date_source_url": "https://theenergyst.com/yunex-completes-ev-charging-station-for-hsrl/",
@@ -7343,7 +7381,18 @@
             "source_artifact_sha256": "80919fc0b8ae1f53df79c697da8177bf793a509d8ceb12a87368ebfe115760f5",
             "source_spec_id": "STD26_A_054",
             "r5_full_object_stable_sha256": "04363cd62a8a3637247febcf6561b63e6956055248b30ead96f4f763d382bf64",
-            "visible_evidence_locked": true
+            "visible_evidence_locked": true,
+            "post_lock_review_supplement": {
+              "applied": true,
+              "review_context": "PR284 Codex P2 site-specific DLL attribution review",
+              "supplemented_at_kst": "2026-08-25T17:32:00+09:00",
+              "scope": "additive_site_specific_official_corroboration_only",
+              "source_url": "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/",
+              "selection_change": false,
+              "event_date_change": false,
+              "title_or_gate_change": false,
+              "original_r5_object_hash_preserved_as_source_lineage": true
+            }
           }
         },
         "stage_artifacts": [
@@ -7352,7 +7401,8 @@
         "evidence_refs": [
           "https://theenergyst.com/yunex-completes-ev-charging-station-for-hsrl/",
           "https://forecourttrader.co.uk/latest-news/highway-stops-charges-ahead-with-ev-installations/717321.article",
-          "https://investors.kempower.com/releases/dll-and-kempower-introduce-financing-solutions-to-support-ev-charging-deployment-and-affordability/"
+          "https://investors.kempower.com/releases/dll-and-kempower-introduce-financing-solutions-to-support-ev-charging-deployment-and-affordability/",
+          "https://kempower.com/news/kempower-brings-more-flexible-ev-charging-finance-to-uk/"
         ]
       }
     ],
@@ -7526,5 +7576,5 @@
   "document_universe_manifest_ref": "runs/2026-08-25/publish-batch1-35/audit/stage-0-0d-engine-bridge.json",
   "coverage_discovery_ref": "runs/2026-08-25/publish-batch1-35/audit/stage-0-0c-engine-bridge.json",
   "independent_completeness_ref": "runs/2026-08-25/publish-batch1-35/audit/independent-completeness-batch1-35.json",
-  "notes": "Batch 1 governed publication: 35 inserts, 0 updates, 3 directional related_add operations, 0 deletions. Recovered from authoritative Prompt 0.7/0.7C artifacts after PR #283 bootstrap transport corruption; PR #284 submits byte-exact canonical full and generated lean projection."
+  "notes": "Batch 1 governed publication: 35 inserts, 0 updates, 3 directional related_add operations, 0 deletions. Recovered from authoritative Prompt 0.7/0.7C artifacts after PR #283 bootstrap transport corruption; PR #284 submits byte-exact canonical full and generated lean projection. PR #284 review remediation adds one site-specific Kempower official source for STD26_A_054 without changing selection, event date, title, gate, or relation decisions."
 }

@@ -1,4 +1,4 @@
-name: pr283-bootstrap-export
+name: pr283-reference-export
 
 on:
   push:
@@ -18,31 +18,21 @@ jobs:
           ref: agent/publish-batch1-35-20260825
           fetch-depth: 0
 
-      - name: Inflate original transport ignoring damaged gzip trailer
+      - name: Export authoritative Batch 1 validator references
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p "$RUNNER_TEMP/pr283"
-          python - <<'PY'
-          import base64, pathlib, zlib, os
-          d=pathlib.Path('runs/2026-08-25/publish-batch1-35')
-          s=''.join(''.join((d/f'.bootstrap.part{i:02d}').read_text(errors='replace').split()) for i in range(7))
-          raw=base64.b64decode(s, validate=True)
-          pos=10; flg=raw[3]
-          if flg & 4:
-              xlen=int.from_bytes(raw[pos:pos+2],'little'); pos += 2+xlen
-          if flg & 8: pos=raw.index(b'\0',pos)+1
-          if flg & 16: pos=raw.index(b'\0',pos)+1
-          if flg & 2: pos+=2
-          out=zlib.decompress(raw[pos:-8], -zlib.MAX_WBITS)
-          target=pathlib.Path(os.environ['RUNNER_TEMP'])/'pr283'/'corrupt-card-run.raw'
-          target.write_bytes(out)
-          print('wrote',target,'bytes',len(out),'expected_isize',int.from_bytes(raw[-4:],'little'))
-          PY
+          out="$RUNNER_TEMP/pr283-reference"
+          mkdir -p "$out/0-7c" "$out/0-8"
+          git show origin/agent/batch1-35-0-7c-validator:validation_scripts/tests/fixtures/batch1_0_7c_r1.b64 > "$out/0-7c/batch1_0_7c_r1.b64"
+          git show origin/agent/batch1-35-0-7c-validator:validation_scripts/tests/test_batch1_prompt_0_7c_r1.py > "$out/0-7c/test_batch1_prompt_0_7c_r1.py"
+          git show origin/agent/batch1-35-0-8-runtime-gate:validation_scripts/tests/fixtures/batch1_35_runtime/independent-completeness-batch1-35.json > "$out/0-8/independent-completeness-batch1-35.json"
+          git show origin/agent/batch1-35-0-8-runtime-gate:validation_scripts/tests/test_batch1_prompt_0_8_runtime_gate.py > "$out/0-8/test_batch1_prompt_0_8_runtime_gate.py"
+          find "$out" -type f -maxdepth 3 -print -exec wc -c {} \;
 
       - uses: actions/upload-artifact@v4
         with:
-          name: pr283-corrupt-card-run-raw
-          path: ${{ runner.temp }}/pr283/corrupt-card-run.raw
+          name: pr283-authoritative-validator-references
+          path: ${{ runner.temp }}/pr283-reference
           if-no-files-found: error
           retention-days: 1

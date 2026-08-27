@@ -1,0 +1,128 @@
+{
+  "run_tag": "20260825_MULTI_INPUT_20260810_20260825",
+  "generated_kst": "2026-08-27",
+  "baseline": {
+    "main_sha": "6c6109684ea25ec719d956960a40e3750329f709",
+    "cards_full_blob_sha": "6e373ed70a0bd659a34001dbcc45663ac5d7e265",
+    "card_count": 1408
+  },
+  "authorized_sequence": [
+    "Prompt 0.5R source publication-date / visible-quote-date metadata normalization",
+    "Prompt 0.6 supplemental metadata revalidation with no visible-copy change",
+    "Prompt 0.7 Final Publish-Readiness QC",
+    "manual replacement artifact preparation without modifying main"
+  ],
+  "normalization_rule": {
+    "event_date_unchanged": true,
+    "source_published_date_equals_actual_article_or_official_material_publication_date": true,
+    "visible_quote_date_equals_source_published_date": true,
+    "fetched_at_and_checked_at_remain_audit_timestamps_only": true,
+    "visible_copy_changed": false,
+    "source_quote_changed": false,
+    "source_url_changed": false
+  },
+  "source_dates_by_spec": {
+    "20260826_EARNINGS_FORMAL_PROMO_01": [
+      {"url":"https://www.investing.com/news/transcripts/earnings-call-transcript-sqm-beats-q2-2026-estimates-as-lithium-sales-hit-record-93CH-4867952","source_published_date":"2026-08-19","visible_quote_date":"2026-08-19"},
+      {"url":"https://earningsapi.io/transcripts/sociedad-qu-mica-y-minera-de-chile-s-a_sqm_earnings_call_transcript_2026-08-19","source_published_date":"2026-08-19","visible_quote_date":"2026-08-19"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_02": [
+      {"url":"https://www.pls.com/news/pls-fy26-results","source_published_date":"2026-08-24","visible_quote_date":"2026-08-24"},
+      {"url":"https://www.pls.com/news/pls-june-quarter-fy26","source_published_date":"2026-07-30","visible_quote_date":"2026-07-30"},
+      {"url":"https://www.investing.com/news/transcripts/earnings-call-transcript-pilbara-minerals-posts-record-h2-2026-results-shares-rise-41-93CH-4872510","source_published_date":"2026-08-23","visible_quote_date":"2026-08-23"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_03": [
+      {"url":"https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12510113&stockid=300014","source_published_date":"2026-08-20","visible_quote_date":"2026-08-20"},
+      {"url":"https://www.cfi.net.cn/p20260820002460.html","source_published_date":"2026-08-20","visible_quote_date":"2026-08-20"},
+      {"url":"https://www.yicai.com/news/103327293.html","source_published_date":"2026-08-20","visible_quote_date":"2026-08-20"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_04": [
+      {"url":"https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12540582&stockid=301358","source_published_date":"2026-08-25","visible_quote_date":"2026-08-25"},
+      {"url":"https://paper.cnstock.com/html/2026-08/20/content_2257067.htm","source_published_date":"2026-08-20","visible_quote_date":"2026-08-20"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_07": [
+      {"url":"https://www.sec.gov/Archives/edgar/data/1440972/000162828026055476/lar-20260630xexx995nr.htm","source_published_date":"2026-08-11","visible_quote_date":"2026-08-11"},
+      {"url":"https://www.fool.com/earnings/call-transcripts/2026/08/19/lithium-argentina-lar-q2-2026-earnings-call-transcript/","source_published_date":"2026-08-19","visible_quote_date":"2026-08-19"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_11": [
+      {"url":"https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12481524&stockid=688599","source_published_date":"2026-08-07","visible_quote_date":"2026-08-07"},
+      {"url":"https://news.10jqka.com.cn/20260812/c678872517.shtml","source_published_date":"2026-08-12","visible_quote_date":"2026-08-12"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_12": [
+      {"url":"https://roadshow.stockstar.com/RB2026082500051352.shtml","source_published_date":"2026-08-25","visible_quote_date":"2026-08-25"},
+      {"url":"https://finance.cnr.cn/ycbd/20260824/t20260824_527788450.shtml","source_published_date":"2026-08-24","visible_quote_date":"2026-08-24"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_14": [
+      {"url":"https://www.sec.gov/Archives/edgar/data/2049662/000162828026055695/factorialq22026sharehold.htm","source_published_date":"2026-08-11","visible_quote_date":"2026-08-11"},
+      {"url":"https://www.marketbeat.com/earnings/reports/2026-8-11-factorial-energy-stock/","source_published_date":"2026-08-11","visible_quote_date":"2026-08-11"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_15": [
+      {"url":"https://investors.sunrun.com/news-events/press-releases/detail/378/sunrun-reports-second-quarter-2026-financial-results","source_published_date":"2026-08-05","visible_quote_date":"2026-08-05"},
+      {"url":"https://www.marketbeat.com/earnings/reports/2026-8-5-sunrun-inc-stock/","source_published_date":"2026-08-05","visible_quote_date":"2026-08-05"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_17": [
+      {"url":"https://investor.gogoro.com/news-releases/news-release-details/gogoro-releases-second-quarter-financial-results-gogoro-0","source_published_date":"2026-08-24","visible_quote_date":"2026-08-24"},
+      {"url":"https://www.marketbeat.com/earnings/reports/2026-8-24-gogoro-inc-stock/","source_published_date":"2026-08-24","visible_quote_date":"2026-08-24"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_10": [
+      {"url":"https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12515538&stockid=300748","source_published_date":"2026-08-21","visible_quote_date":"2026-08-21"},
+      {"url":"https://cfi.net.cn/p20260820002296.html","source_published_date":"2026-08-20","visible_quote_date":"2026-08-20"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_13": [
+      {"url":"https://www.sec.gov/Archives/edgar/data/1819438/000181943826000072/a2026q2earningsrelease.htm","source_published_date":"2026-08-11","visible_quote_date":"2026-08-11"},
+      {"url":"https://www.fool.com/earnings/call-transcripts/2026/08/18/ess-tech-gwh-q2-2026-earnings-call-transcript/","source_published_date":"2026-08-18","visible_quote_date":"2026-08-18"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_18": [
+      {"url":"https://www.yna.co.kr/view/AKR20260806115851527","source_published_date":"2026-08-06","visible_quote_date":"2026-08-06"},
+      {"url":"https://zdnet.co.kr/view/?no=20260806180015","source_published_date":"2026-08-06","visible_quote_date":"2026-08-06"},
+      {"url":"https://www.newswire.co.kr/newsRead.php?no=1040082","source_published_date":"2026-08-06","visible_quote_date":"2026-08-06"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_20": [
+      {"url":"https://marketin.edaily.co.kr/News/ReadE?newsId=04946246645544040","source_published_date":"2026-08-04","visible_quote_date":"2026-08-04"},
+      {"url":"https://www.alphaspread.com/de/security/kosdaq/383310/investor-relations/earnings-call/q2-2026","source_published_date":"2026-08-04","visible_quote_date":"2026-08-04"},
+      {"url":"https://www.yna.co.kr/view/AKR20260804098002527","source_published_date":"2026-08-04","visible_quote_date":"2026-08-04"},
+      {"url":"https://www.ecopro.co.kr/sub0401/view/id/2140","source_published_date":"2026-07-20","visible_quote_date":"2026-07-20"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_06": [
+      {"url":"https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12521285&stockid=002709","source_published_date":"2026-08-22","visible_quote_date":"2026-08-22","event_date_note":"IR meeting/event date remains 2026-08-21"},
+      {"url":"https://www.yicai.com/news/103328701.html","source_published_date":"2026-08-21","visible_quote_date":"2026-08-21"},
+      {"url":"https://www.dzh.com.cn/index/detail?mod=txs&url=%2Fwap%2Fdata%2Fnews%2Ftxs%2F2026%2F08%2F541257.json","source_published_date":"2026-08-21","visible_quote_date":"2026-08-21"},
+      {"url":"https://yuanchuang.10jqka.com.cn/20260825/c679279284.shtml","source_published_date":"2026-08-25","visible_quote_date":"2026-08-25"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_08": [
+      {"url":"https://www.fool.com/earnings/call-transcripts/2026/08/14/sigma-lithium-sgml-q2-2026-earnings-call-transcript/","source_published_date":"2026-08-14","visible_quote_date":"2026-08-14"},
+      {"url":"https://sigmalithiumcorp.com/sigma-lithium-announces-record-2q-26-results-ebitda-margin-of-47-decrease-of-over-30-in-costs-tac-agreement-negotiations-underway/","source_published_date":"2026-08-14","visible_quote_date":"2026-08-14"}
+    ],
+    "20260826_EARNINGS_FORMAL_PROMO_16": [
+      {"url":"https://www.titanminingcorp.com/news/news-releases/-titan-mining-reports-57-revenue-growth-and-nearly-4x-adjusted-ebitda","source_published_date":"2026-08-12","visible_quote_date":"2026-08-12"},
+      {"url":"https://www.titanminingcorp.com/news/news-releases/titan-mining-to-start-shipping-first-graphite-product-and-feasibility-study-underway-for-40000-tpa-integrated-kilbourne-graphite-project","source_published_date":"2026-03-11","visible_quote_date":"2026-03-11"}
+    ]
+  },
+  "id_allocation_preview": {
+    "20260826_EARNINGS_FORMAL_PROMO_04":"2026-08-25_CN_01",
+    "20260826_EARNINGS_FORMAL_PROMO_12":"2026-08-25_CN_02",
+    "20260826_EARNINGS_FORMAL_PROMO_02":"2026-08-24_GL_01",
+    "20260826_EARNINGS_FORMAL_PROMO_17":"2026-08-24_GL_02",
+    "20260826_EARNINGS_FORMAL_PROMO_06":"2026-08-21_CN_01",
+    "20260826_EARNINGS_FORMAL_PROMO_10":"2026-08-21_CN_02",
+    "20260826_EARNINGS_FORMAL_PROMO_03":"2026-08-19_CN_01",
+    "20260826_EARNINGS_FORMAL_PROMO_01":"2026-08-19_GL_01",
+    "20260826_EARNINGS_FORMAL_PROMO_08":"2026-08-14_GL_01",
+    "20260826_EARNINGS_FORMAL_PROMO_16":"2026-08-12_US_01",
+    "20260826_EARNINGS_FORMAL_PROMO_13":"2026-08-11_US_02",
+    "20260826_EARNINGS_FORMAL_PROMO_14":"2026-08-11_US_03",
+    "20260826_EARNINGS_FORMAL_PROMO_07":"2026-08-11_GL_01",
+    "20260826_EARNINGS_FORMAL_PROMO_11":"2026-08-07_CN_02",
+    "20260826_EARNINGS_FORMAL_PROMO_18":"2026-08-06_KR_04",
+    "20260826_EARNINGS_FORMAL_PROMO_15":"2026-08-05_US_04",
+    "20260826_EARNINGS_FORMAL_PROMO_20":"2026-08-04_KR_02"
+  },
+  "id_allocation_basis": "CARD_ID_STANDARD next unused date-region NN against current main; same-date-region candidates ordered signal top>high>mid then editorial importance. This is a replacement-artifact ID preview, not a formal Prompt 0.8 github_merge_ready state assignment.",
+  "qc_target": {
+    "prompt_0_5R": "17/17 evidence_complete_and_source_claim_covered after date metadata normalization",
+    "prompt_0_6_supplemental": "17/17 content_enriched_and_language_polished with visible copy unchanged",
+    "prompt_0_7": "17/17 publish_ready if all date/source-diversity replay gates pass",
+    "github_ready": false,
+    "pr_candidate_ready": false
+  }
+}

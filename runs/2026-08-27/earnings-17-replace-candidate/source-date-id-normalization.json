@@ -1,0 +1,192 @@
+{
+  "schema": "sbtl_earnings_17_source_date_id_normalization_v1",
+  "run_tag": "20260825_MULTI_INPUT_20260810_20260825",
+  "base_main_commit_sha": "6c6109684ea25ec719d956960a40e3750329f709",
+  "base_full_blob_sha": "6e373ed70a0bd659a34001dbcc45663ac5d7e265",
+  "base_full_count": 1408,
+  "expected_candidate_count": 17,
+  "expected_after": 1425,
+  "source_date_rule": "source_published_date and visible_quote_date are the actual publication date of each retained source; fetched_at/checked_at remain audit timestamps only",
+  "id_rule": "YYYY-MM-DD_REGION_NN; allocate after the highest existing NN in the exact-current-main baseline and preserve current-run input order for multiple new cards in the same date-region group",
+  "items": {
+    "20260826_EARNINGS_FORMAL_PROMO_01": {
+      "production_id": "2026-08-19_GL_01",
+      "quality_grade": "A-",
+      "sources": [
+        {"source_name":"Investing.com earnings-call transcript","source_published_date":"2026-08-19","source_role":"independent_event_confirmation","source_origin_type":"earnings_transcript","owner":"investing.com"},
+        {"source_name":"EarningsAPI Q&A transcript","source_published_date":"2026-08-19","source_role":"independent_event_confirmation","source_origin_type":"earnings_transcript","owner":"earningsapi.io"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_02": {
+      "production_id": "2026-08-24_GL_01",
+      "quality_grade": "A-",
+      "sources": [
+        {"source_name":"PLS official FY26 results","source_published_date":"2026-08-24","source_role":"primary_event_evidence","source_origin_type":"issuer_release","owner":"pls.com"},
+        {"source_name":"PLS official June quarter update","source_published_date":"2026-07-30","source_role":"primary_event_evidence","source_origin_type":"issuer_release","owner":"pls.com"},
+        {"source_name":"Investing.com PLS FY26 call transcript","source_published_date":"2026-08-23","source_role":"independent_event_confirmation","source_origin_type":"earnings_transcript","owner":"investing.com"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_03": {
+      "production_id": "2026-08-19_CN_01",
+      "quality_grade": "A-",
+      "sources": [
+        {"source_name":"EVE investor-relations activity record 2026-003","source_published_date":"2026-08-20","source_role":"primary_event_evidence","source_origin_type":"issuer_ir_material_mirror","owner":"eve_issuer_material"},
+        {"source_name":"CFi reproduction of EVE IR record","source_published_date":"2026-08-20","source_role":"primary_event_evidence","source_origin_type":"issuer_ir_material_mirror","owner":"eve_issuer_material"},
+        {"source_name":"Yicai","source_published_date":"2026-08-20","source_role":"independent_event_confirmation","source_origin_type":"independent_financial_press","owner":"yicai.com"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_04": {
+      "production_id": "2026-08-25_CN_01",
+      "quality_grade": "A-",
+      "sources": [
+        {"source_name":"Hunan Yuneng 2026-08-25 IR activity record","source_published_date":"2026-08-26","source_role":"primary_event_evidence","source_origin_type":"issuer_ir_material_mirror","owner":"hunan_yuneng_issuer_material"},
+        {"source_name":"Shanghai Securities News","source_published_date":"2026-08-20","source_role":"independent_event_confirmation","source_origin_type":"independent_financial_press","owner":"cnstock"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_07": {
+      "production_id": "2026-08-11_GL_01",
+      "quality_grade": "B+",
+      "sources": [
+        {"source_name":"SEC filed Q2 release","source_published_date":"2026-08-11","source_role":"primary_event_evidence","source_origin_type":"regulatory_filing","owner":"sec.gov"},
+        {"source_name":"Q2 earnings call transcript","source_published_date":"2026-08-19","source_role":"independent_event_confirmation","source_origin_type":"earnings_transcript","owner":"fool.com"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_11": {
+      "production_id": "2026-08-07_CN_02",
+      "quality_grade": "A-",
+      "sources": [
+        {"source_name":"Trina 2026 action-plan H1 assessment","source_published_date":"2026-08-07","source_role":"primary_event_evidence","source_origin_type":"issuer_ir_material_mirror","owner":"trinasolar_issuer_material"},
+        {"source_name":"10jqka reproduction of Aug7 Trina Q&A","source_published_date":"2026-08-11","source_role":"independent_event_confirmation","source_origin_type":"independent_media_body","owner":"news.10jqka.com.cn","date_provenance_note":"publication date verified from the article page/index; URL path carries 20260812 but visible publication metadata is 2026-08-11"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_12": {
+      "production_id": "2026-08-25_CN_02",
+      "quality_grade": "B+",
+      "sources": [
+        {"source_name":"Zhiguang 2026-08-25 earnings briefing Q&A reproduction","source_published_date":"2026-08-25","source_role":"primary_event_evidence","source_origin_type":"issuer_earnings_material_mirror","owner":"zhiguang_issuer_material"},
+        {"source_name":"CNR","source_published_date":"2026-08-24","source_role":"independent_event_confirmation","source_origin_type":"independent_media_body","owner":"finance.cnr.cn"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_14": {
+      "production_id": "2026-08-11_US_02",
+      "quality_grade": "B+",
+      "sources": [
+        {"source_name":"Factorial SEC Q2 shareholder letter","source_published_date":"2026-08-11","source_role":"primary_event_evidence","source_origin_type":"regulatory_filing","owner":"sec.gov"},
+        {"source_name":"Factorial Q2 call transcript","source_published_date":"2026-08-11","source_role":"independent_event_confirmation","source_origin_type":"earnings_transcript","owner":"marketbeat.com"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_15": {
+      "production_id": "2026-08-05_US_04",
+      "quality_grade": "A-",
+      "sources": [
+        {"source_name":"Sunrun official Q2 release","source_published_date":"2026-08-05","source_role":"primary_event_evidence","source_origin_type":"issuer_release","owner":"sunrun"},
+        {"source_name":"Sunrun Q2 call transcript","source_published_date":"2026-08-05","source_role":"independent_event_confirmation","source_origin_type":"earnings_transcript","owner":"marketbeat.com"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_17": {
+      "production_id": "2026-08-24_GL_02",
+      "quality_grade": "B+",
+      "sources": [
+        {"source_name":"Gogoro official Q2 release","source_published_date":"2026-08-24","source_role":"primary_event_evidence","source_origin_type":"issuer_release","owner":"gogoro"},
+        {"source_name":"Gogoro Q2 full transcript","source_published_date":"2026-08-24","source_role":"independent_event_confirmation","source_origin_type":"earnings_transcript","owner":"marketbeat.com"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_10": {
+      "production_id": "2026-08-21_CN_01",
+      "quality_grade": "B+",
+      "single_owner_exception_required": true,
+      "sources": [
+        {"source_name":"JL Mag Aug21 earnings briefing record","source_published_date":"2026-08-21","source_role":"primary_event_evidence","source_origin_type":"issuer_earnings_material_mirror","owner":"jlmag_issuer_material"},
+        {"source_name":"JL Mag 2026 H1 report — CFi mirror","source_published_date":"2026-08-20","source_role":"primary_event_evidence","source_origin_type":"issuer_half_year_report_mirror","owner":"jlmag_issuer_material"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_13": {
+      "production_id": "2026-08-11_US_03",
+      "quality_grade": "A-",
+      "v3_non_execution": true,
+      "sources": [
+        {"source_name":"ESS Tech SEC Q2 release","source_published_date":"2026-08-11","source_role":"primary_event_evidence","source_origin_type":"regulatory_filing","owner":"sec.gov"},
+        {"source_name":"ESS Tech Q2 earnings-call transcript","source_published_date":"2026-08-18","source_role":"independent_event_confirmation","source_origin_type":"earnings_transcript","owner":"fool.com"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_18": {
+      "production_id": "2026-08-06_KR_04",
+      "quality_grade": "A-",
+      "v3_non_execution": true,
+      "sources": [
+        {"source_name":"Yonhap","source_published_date":"2026-08-06","source_role":"independent_event_confirmation","source_origin_type":"independent_media_body","owner":"yna.co.kr"},
+        {"source_name":"ZDNet Korea","source_published_date":"2026-08-06","source_role":"independent_event_confirmation","source_origin_type":"independent_media_body","owner":"zdnet.co.kr"},
+        {"source_name":"L&F issuer release via Newswire","source_published_date":"2026-08-06","source_role":"primary_event_evidence","source_origin_type":"issuer_release_via_newswire","owner":"landf_issuer_release"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_20": {
+      "production_id": "2026-08-04_KR_02",
+      "quality_grade": "A-",
+      "v3_non_execution": true,
+      "sources": [
+        {"source_name":"eDaily conference-call coverage","source_published_date":"2026-08-04","source_role":"independent_event_confirmation","source_origin_type":"independent_media_body","owner":"marketin.edaily.co.kr"},
+        {"source_name":"Alpha Spread — EcoPro group Q2 2026 transcript","source_published_date":"2026-08-04","source_role":"independent_event_confirmation","source_origin_type":"earnings_transcript","owner":"alphaspread.com","date_provenance_note":"same-call transcript date cross-checked against an independent 2026-08-04 transcript index because the retained AlphaSpread page did not expose stable publication metadata"},
+        {"source_name":"Yonhap","source_published_date":"2026-08-04","source_role":"independent_event_confirmation","source_origin_type":"independent_media_body","owner":"yna.co.kr"},
+        {"source_name":"EcoPro official news — next-generation battery materials","source_published_date":"2026-07-20","source_role":"policy_market_context","source_origin_type":"issuer_official_news","owner":"ecopro_group"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_06": {
+      "production_id": "2026-08-21_CN_02",
+      "quality_grade": "A-",
+      "sources": [
+        {"source_name":"Tinci 2026-08-21 IR activity record","source_published_date":"2026-08-22","source_role":"primary_event_evidence","source_origin_type":"issuer_ir_material_mirror","owner":"tinci_issuer_material"},
+        {"source_name":"Yicai","source_published_date":"2026-08-21","source_role":"independent_event_confirmation","source_origin_type":"independent_financial_press","owner":"yicai.com"},
+        {"source_name":"DZH","source_published_date":"2026-08-21","source_role":"independent_event_confirmation","source_origin_type":"independent_media_body","owner":"dzh.com.cn"},
+        {"source_name":"Tinci company investor answer — 10jqka","source_published_date":"2026-08-25","source_role":"primary_event_evidence","source_origin_type":"issuer_investor_answer_mirror","owner":"tinci_issuer_material"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_08": {
+      "production_id": "2026-08-14_GL_01",
+      "quality_grade": "B+",
+      "sources": [
+        {"source_name":"Sigma Q2 call transcript","source_published_date":"2026-08-14","source_role":"independent_event_confirmation","source_origin_type":"earnings_transcript","owner":"fool.com"},
+        {"source_name":"Sigma Lithium official Q2 2026 release","source_published_date":"2026-08-14","source_role":"primary_event_evidence","source_origin_type":"issuer_release","owner":"sigma_lithium"}
+      ]
+    },
+    "20260826_EARNINGS_FORMAL_PROMO_16": {
+      "production_id": "2026-08-12_US_01",
+      "quality_grade": "A-",
+      "single_owner_exception_required": true,
+      "sources": [
+        {"source_name":"Titan Mining official Q2 release","source_published_date":"2026-08-12","source_role":"primary_event_evidence","source_origin_type":"issuer_release","owner":"titan_mining"},
+        {"source_name":"Titan Mining official March graphite release","source_published_date":"2026-03-11","source_role":"primary_event_evidence","source_origin_type":"issuer_release","owner":"titan_mining"}
+      ]
+    }
+  },
+  "id_collision_basis": {
+    "existing_prefixes_verified": [
+      "2026-08-11_US_01",
+      "2026-08-07_CN_01",
+      "2026-08-05_US_01",
+      "2026-08-05_US_02",
+      "2026-08-05_US_03",
+      "2026-08-06_KR_01",
+      "2026-08-06_KR_02",
+      "2026-08-06_KR_03",
+      "2026-08-04_KR_01"
+    ],
+    "zero_existing_prefix_groups": [
+      "2026-08-19_GL",
+      "2026-08-24_GL",
+      "2026-08-19_CN",
+      "2026-08-25_CN",
+      "2026-08-11_GL",
+      "2026-08-21_CN",
+      "2026-08-14_GL",
+      "2026-08-12_US"
+    ]
+  },
+  "governance_status": {
+    "date_metadata_normalization_ready": true,
+    "prompt_0_7_replay_expected_to_clear_date_only_blocker": true,
+    "prompt_0_7c_status": "BLOCKED_EDITORIAL_COMPLETENESS_UNPROVEN_MISSING_ORIGINAL_0_0D_0_0C_ARTIFACTS",
+    "prompt_0_8_authorized": false,
+    "github_merge_ready": false,
+    "note": "Stage A preserves exact references and counts for SBTL_STAGE_0_0D_DOCUMENT_UNIVERSE_20260825_R1.json and SBTL_STAGE_0_0C_COVERAGE_DISCOVERY_20260825_R2.json, but the original referenced artifacts are not available as standalone files in current main or the searched conversation/library. This map is therefore a replacement candidate input, not a governed 0.8 merge ticket."
+  }
+}

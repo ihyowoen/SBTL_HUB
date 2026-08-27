@@ -1,0 +1,39 @@
+name: normalize-earnings17-crlf
+on:
+  push:
+    branches:
+      - chatgpt/direct-add-earnings17-20260827
+    paths:
+      - .github/workflows/normalize-earnings17-crlf.yml
+permissions:
+  contents: write
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore canonical CRLF without changing JSON content
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('data/cards.full.json')
+          b=p.read_bytes()
+          b=b.replace(b'\r\n',b'\n').replace(b'\n',b'\r\n')
+          p.write_bytes(b)
+          PY
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          git diff --check || true
+      - name: Commit CRLF normalization
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cards.full.json
+          git commit -m "Preserve canonical CRLF serialization"
+          git push origin HEAD:${GITHUB_REF_NAME}

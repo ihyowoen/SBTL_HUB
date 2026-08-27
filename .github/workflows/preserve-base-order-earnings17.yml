@@ -1,0 +1,75 @@
+name: preserve-base-order-earnings17
+on:
+  push:
+    branches:
+      - chatgpt/direct-add-earnings17-20260827
+    paths:
+      - .github/workflows/preserve-base-order-earnings17.yml
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Preserve exact baseline order and insert only new 17
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --force
+          git show origin/main:data/cards.full.json > "$RUNNER_TEMP/base.full.json"
+          node <<'NODE'
+          const fs=require('fs');
+          const base=JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP+'/base.full.json','utf8'));
+          const cur=JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
+          if(base.total!==1408 || base.cards.length!==1408) throw new Error('base not 1408');
+          const baseIds=new Set(base.cards.map(c=>c.id));
+          const added=cur.cards.filter(c=>!baseIds.has(c.id));
+          if(added.length!==17) throw new Error(`expected 17 new, got ${added.length}`);
+          const newIds=new Set(added.map(c=>c.id));
+          if(newIds.size!==17) throw new Error('new id duplicate');
+          const byDate=new Map();
+          for(const c of added){ if(!byDate.has(c.date)) byDate.set(c.date,[]); byDate.get(c.date).push(c); }
+          for(const a of byDate.values()) a.sort((x,y)=>y.id.localeCompare(x.id));
+          const out=[];
+          const emitted=new Set();
+          for(const c of base.cards){
+            if(!emitted.has(c.date) && byDate.has(c.date)){
+              out.push(...byDate.get(c.date)); emitted.add(c.date);
+            }
+            out.push(c);
+          }
+          const remaining=[...byDate.keys()].filter(d=>!emitted.has(d)).sort().reverse();
+          for(const d of remaining){
+            let idx=out.findIndex(c=>c.date<d);
+            if(idx<0) idx=out.length;
+            out.splice(idx,0,...byDate.get(d));
+          }
+          base.cards=out;
+          base.total=out.length;
+          base.updated='2026-08-27T15:45:00+09:00';
+          if(base.total!==1425 || new Set(out.map(c=>c.id)).size!==1425) throw new Error('result integrity failure');
+          const fullText=JSON.stringify(base,null,2).replace(/\n/g,'\r\n')+'\r\n';
+          fs.writeFileSync('data/cards.full.json',fullText);
+          const KEEP=['id','region','date','cat','sub_cat','signal','title','sub','gate','fact','implication','urls','related','fact_sources','source_tier','related_lineage'];
+          const projected={...Object.fromEntries(Object.entries(base).filter(([k])=>k!=='cards')),cards:base.cards.map(c=>Object.fromEntries(KEEP.filter(k=>c[k]!==undefined).map(k=>[k,c[k]])))};
+          fs.writeFileSync('public/data/cards.json',JSON.stringify(projected));
+          console.log(`preserved ${baseIds.size} baseline ids; inserted ${added.length}; total ${base.total}`);
+          NODE
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+      - name: Commit order-preserving data
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cards.full.json public/data/cards.json
+          git commit -m "Preserve baseline order for 17-card insert"
+          git push origin HEAD:${GITHUB_REF_NAME}

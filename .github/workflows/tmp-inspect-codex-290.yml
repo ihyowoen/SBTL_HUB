@@ -1,0 +1,55 @@
+name: tmp-inspect-codex-290
+
+on:
+  push:
+    branches:
+      - chatgpt/fix-codex-review-5051253059
+    paths:
+      - .github/workflows/tmp-inspect-codex-290.yml
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect target date groups and references
+        run: |
+          python <<'PY'
+          import json
+          p='data/cards.full.json'
+          d=json.load(open(p,encoding='utf-8'))
+          cards=d['cards']
+          print('TOTAL', d['total'], len(cards))
+          for dt in ['2026-07-31','2024-04-02','2024-04-03']:
+            print('\nGROUP', dt, 'KR')
+            for c in cards:
+              if c.get('date')==dt and c.get('region')=='KR':
+                print(json.dumps({k:c.get(k) for k in ['id','assigned_id','source_spec_id','signal','title','date']}, ensure_ascii=False))
+          targets={'2026-07-31_KR_02','2026-07-31_KR_03','2026-07-31_KR_04','2024-04-03_KR_01'}
+          print('\nRELATED REFERENCES')
+          for c in cards:
+            hits=[x for x in c.get('related',[]) if x in targets]
+            if hits:
+              print(c['id'], hits, c.get('title'))
+          print('\nTARGET DETAILS')
+          by={c['id']:c for c in cards}
+          for tid in sorted(targets):
+            c=by.get(tid)
+            if not c:
+              print(tid, 'MISSING')
+              continue
+            print('TARGET',tid)
+            print('title=',c.get('title'))
+            print('signal=',c.get('signal'))
+            print('date=',c.get('date'))
+            print('assigned_id=',c.get('assigned_id'))
+            print('source_spec_id=',c.get('source_spec_id'))
+            print('related=',c.get('related'))
+            print('date_role=',json.dumps(c.get('date_role'),ensure_ascii=False))
+            print('event_fingerprint=',json.dumps(c.get('event_fingerprint'),ensure_ascii=False))
+            for s in c.get('fact_sources',[]):
+              q=s.get('source_quote','')
+              if '출범' in q or '지난 2일' in q or tid.startswith('2026-07-31'):
+                print('source=',s.get('source_name'),s.get('source_url'))
+                print('quote=',q)
+          PY

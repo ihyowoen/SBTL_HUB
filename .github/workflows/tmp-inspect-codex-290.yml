@@ -1,4 +1,4 @@
-name: tmp-inspect-codex-290
+name: tmp-apply-codex-290-fixes
 
 on:
   push:
@@ -6,51 +6,123 @@ on:
       - chatgpt/fix-codex-review-5051253059
     paths:
       - .github/workflows/tmp-inspect-codex-290.yml
-  pull_request:
-    branches:
-      - main
-    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
 
 jobs:
-  inspect:
+  apply:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Inspect target date groups and references
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Apply reviewed ID and event-date corrections
         run: |
           python <<'PY'
           import json
-          p='data/cards.full.json'
-          d=json.load(open(p,encoding='utf-8'))
-          cards=d['cards']
-          print('TOTAL', d['total'], len(cards))
-          for dt in ['2026-07-31','2024-04-02','2024-04-03']:
-            print('\nGROUP', dt, 'KR')
-            for c in cards:
-              if c.get('date')==dt and c.get('region')=='KR':
-                print(json.dumps({k:c.get(k) for k in ['id','assigned_id','source_spec_id','signal','title','date']}, ensure_ascii=False))
-          targets={'2026-07-31_KR_02','2026-07-31_KR_03','2026-07-31_KR_04','2024-04-03_KR_01'}
-          print('\nRELATED REFERENCES')
-          for c in cards:
-            hits=[x for x in c.get('related',[]) if x in targets]
-            if hits:
-              print(c['id'], hits, c.get('title'))
-          by={c['id']:c for c in cards}
-          lotte=by['2024-04-03_KR_01']
-          print('\nLOTTE VISIBLE')
-          for k in ['title','sub','gate','fact','implication']:
-            print(k,'=',json.dumps(lotte.get(k),ensure_ascii=False))
-          print('\nLOTTE DATE_ROLE',json.dumps(lotte.get('date_role'),ensure_ascii=False))
-          print('LOTTE EVENT_FP',json.dumps(lotte.get('event_fingerprint'),ensure_ascii=False))
+          from datetime import datetime, timezone, timedelta
 
-          needles={'2024-04-03_KR_01','2024-04-03','2026-07-31_KR_02','2026-07-31_KR_03','2026-07-31_KR_04'}
-          print('\nEXACT STRING OCCURRENCES')
-          def walk(x,path='$'):
-            if isinstance(x,dict):
-              for k,v in x.items(): walk(v,f'{path}.{k}')
-            elif isinstance(x,list):
-              for i,v in enumerate(x): walk(v,f'{path}[{i}]')
-            elif isinstance(x,str) and x in needles:
-              print(x,path)
-          walk(d)
+          path='data/cards.full.json'
+          d=json.load(open(path,encoding='utf-8'))
+          cards=d['cards']
+          assert d['total']==len(cards)==1496
+          by={c['id']:c for c in cards}
+          assert len(by)==1496
+
+          # Codex P2 #1: signal-priority identity within 2026-07-31 KR.
+          lnf=by['2026-07-31_KR_01']
+          dong=by['2026-07-31_KR_02']
+          lg=by['2026-07-31_KR_03']
+          hyo=by['2026-07-31_KR_04']
+          assert lnf['signal']=='high' and lg['signal']=='high'
+          assert dong['signal']=='mid' and hyo['signal']=='mid'
+          assert '동원시스템즈' in dong['title']
+          assert 'LG화학' in lg['title']
+          assert '효성화학' in hyo['title']
+          dong['id']=dong['assigned_id']='2026-07-31_KR_03'
+          lg['id']=lg['assigned_id']='2026-07-31_KR_02'
+
+          # Put the same-date KR group in locked signal-priority order without disturbing other cards.
+          idx=[i for i,c in enumerate(cards) if c.get('date')=='2026-07-31' and c.get('region')=='KR']
+          assert len(idx)==4
+          desired=[lnf,lg,dong,hyo]
+          for i,c in zip(idx,desired): cards[i]=c
+
+          # Codex P2 #2: Lotte Infracell launched on Apr-2; Apr-3 is publication date.
+          lotte=by['2024-04-03_KR_01']
+          assert '롯데인프라셀' in lotte['title']
+          assert lotte['date']=='2024-04-03'
+          assert '지난 2일 공식 출범' in lotte['date_role']['event_date_source_quote']
+          assert not any(c.get('id')=='2024-04-02_KR_01' for c in cards)
+          lotte['id']=lotte['assigned_id']='2024-04-02_KR_01'
+          lotte['date']='2024-04-02'
+          lotte['event_fingerprint']['event_date']='2024-04-02'
+          dr=lotte['date_role']
+          dr['event_date']='2024-04-02'
+          dr['representative_date']='2024-04-02'
+          dr['stage_b_correction_applied']=True
+          dr['event_date_basis']='Representative event date is the Apr-2 2024 official launch stated in the Apr-3 Yonhap/Lotte Aluminum announcement; Apr-3 remains the source publication date. The current official product page is undated corroboration, not a synthetic later event date.'
+          assert dr['source_publication_dates']==['2024-04-03']
+          assert dr['publication_dates']==['2024-04-03']
+          assert lotte['fact_sources'][0]['source_published_date']=='2024-04-03'
+          assert lotte['fact_sources'][0]['visible_quote_date']=='2024-04-03'
+
+          # Re-establish global latest-first date ordering; stable sort preserves same-date order.
+          cards.sort(key=lambda c:c['date'], reverse=True)
+          d['cards']=cards
+          d['total']=len(cards)
+          d['updated']=datetime.now(timezone(timedelta(hours=9))).isoformat(timespec='seconds')
+          json.dump(d,open(path,'w',encoding='utf-8'),ensure_ascii=False,indent=2)
+          open(path,'a',encoding='utf-8').write('\n')
+          print('PASS applied Codex P2 corrections; total remains',d['total'])
           PY
+          node scripts/lean_cards.mjs
+          node scripts/lean_cards.mjs --check
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          git diff --check -- data/cards.full.json public/data/cards.json
+      - name: Final correction assertions
+        run: |
+          python <<'PY'
+          import json
+          f=json.load(open('data/cards.full.json',encoding='utf-8'))
+          l=json.load(open('public/data/cards.json',encoding='utf-8'))
+          assert f['total']==1496==len(f['cards'])==len(l['cards'])
+          assert [c['id'] for c in f['cards']]==[c['id'] for c in l['cards']]
+          assert len({c['id'] for c in f['cards']})==1496
+          assert all(f['cards'][i]['date']>=f['cards'][i+1]['date'] for i in range(len(f['cards'])-1))
+          by={c['id']:c for c in f['cards']}
+          group=[c for c in f['cards'] if c.get('date')=='2026-07-31' and c.get('region')=='KR']
+          assert [(c['id'],c['signal']) for c in group]==[
+            ('2026-07-31_KR_01','high'),
+            ('2026-07-31_KR_02','high'),
+            ('2026-07-31_KR_03','mid'),
+            ('2026-07-31_KR_04','mid')]
+          assert 'LG화학' in by['2026-07-31_KR_02']['title']
+          assert '동원시스템즈' in by['2026-07-31_KR_03']['title']
+          assert '효성화학' in by['2026-07-31_KR_04']['title']
+          assert '2024-04-03_KR_01' not in by
+          lotte=by['2024-04-02_KR_01']
+          assert lotte['date']=='2024-04-02'
+          assert lotte['event_fingerprint']['event_date']=='2024-04-02'
+          assert lotte['date_role']['event_date']=='2024-04-02'
+          assert lotte['date_role']['representative_date']=='2024-04-02'
+          assert lotte['date_role']['source_publication_dates']==['2024-04-03']
+          assert lotte['date_role']['publication_dates']==['2024-04-03']
+          allids=set(by)
+          assert all(r in allids for c in f['cards'] for r in c.get('related',[]))
+          print('PASS final: 1496 full/lean; signal-priority IDs fixed; Lotte Apr-2 event date fixed; no dangling related')
+          PY
+      - name: Commit data only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/cards.full.json public/data/cards.json
+          git diff --cached --quiet && { echo 'No data changes'; exit 1; }
+          git commit -m 'Fix Codex card ID priority and Lotte event date'
+          git push origin HEAD:chatgpt/fix-codex-review-5051253059

@@ -1,0 +1,64 @@
+name: Manual add combined 29 v3
+
+on:
+  push:
+    paths:
+      - '.github/workflows/manual-add-combined29-v3-20260828.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reassemble transport and run locked v2 materializer
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, re, textwrap
+
+          root = Path('runs/2026-08-28/manual-direct-add-29')
+          parts = [root / f'cards29.transport.part{i}' for i in range(1,5)]
+          assert all(p.exists() for p in parts)
+          b64 = ''.join(p.read_text(encoding='utf-8') for p in parts)
+          assert len(b64) == 39124, len(b64)
+          assert hashlib.sha256(b64.encode()).hexdigest() == 'bf08c68953da7b603ecc24d94e11b3ff847bfa3c2187a069e1ec5d9082f62f21'
+          (root / 'cards29.transport.b64').write_text(b64, encoding='utf-8')
+
+          wf = Path('.github/workflows/manual-add-combined29-v2-20260828.yml').read_text(encoding='utf-8')
+          m = re.search(r"          python - <<'PY'\n(.*?)\n          PY\n", wf, re.S)
+          assert m, 'locked v2 materializer python block not found'
+          script = textwrap.dedent(m.group(1))
+          Path('/tmp/materialize29.py').write_text(script, encoding='utf-8')
+          print('PASS transport reassembled and v2 materializer extracted')
+          PY
+          python /tmp/materialize29.py
+      - name: Validate generated data
+        shell: bash
+        run: |
+          git diff --check -- data/cards.full.json public/data/cards.json
+          python -m json.tool data/cards.full.json >/dev/null
+          python -m json.tool public/data/cards.json >/dev/null
+          python - <<'PY'
+          import json
+          f=json.load(open('data/cards.full.json',encoding='utf-8'))
+          l=json.load(open('public/data/cards.json',encoding='utf-8'))
+          assert f['total']==l['total']==1460
+          assert len(f['cards'])==len(l['cards'])==1460
+          assert [x['id'] for x in f['cards']]==[x['id'] for x in l['cards']]
+          print('PASS final 1460 full/lean structural validation')
+          PY
+      - name: Commit generated data only
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/cards.full.json public/data/cards.json
+          git diff --cached --check
+          git commit -m 'data: integrate 29 cards and resolve pre-merge QC'
+          git push

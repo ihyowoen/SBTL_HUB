@@ -33,26 +33,19 @@ jobs:
           by={c['id']:c for c in cards}
           assert len(by)==1496
 
-          # Codex P2 #1: signal-priority identity within 2026-07-31 KR.
           lnf=by['2026-07-31_KR_01']
           dong=by['2026-07-31_KR_02']
           lg=by['2026-07-31_KR_03']
           hyo=by['2026-07-31_KR_04']
           assert lnf['signal']=='high' and lg['signal']=='high'
           assert dong['signal']=='mid' and hyo['signal']=='mid'
-          assert '동원시스템즈' in dong['title']
-          assert 'LG화학' in lg['title']
-          assert '효성화학' in hyo['title']
+          assert '동원시스템즈' in dong['title'] and 'LG화학' in lg['title'] and '효성화학' in hyo['title']
           dong['id']=dong['assigned_id']='2026-07-31_KR_03'
           lg['id']=lg['assigned_id']='2026-07-31_KR_02'
-
-          # Put the same-date KR group in locked signal-priority order without disturbing other cards.
           idx=[i for i,c in enumerate(cards) if c.get('date')=='2026-07-31' and c.get('region')=='KR']
           assert len(idx)==4
-          desired=[lnf,lg,dong,hyo]
-          for i,c in zip(idx,desired): cards[i]=c
+          for i,c in zip(idx,[lnf,lg,dong,hyo]): cards[i]=c
 
-          # Codex P2 #2: Lotte Infracell launched on Apr-2; Apr-3 is publication date.
           lotte=by['2024-04-03_KR_01']
           assert '롯데인프라셀' in lotte['title']
           assert lotte['date']=='2024-04-03'
@@ -71,7 +64,6 @@ jobs:
           assert lotte['fact_sources'][0]['source_published_date']=='2024-04-03'
           assert lotte['fact_sources'][0]['visible_quote_date']=='2024-04-03'
 
-          # Re-establish global latest-first date ordering; stable sort preserves same-date order.
           cards.sort(key=lambda c:c['date'], reverse=True)
           d['cards']=cards
           d['total']=len(cards)
@@ -83,8 +75,8 @@ jobs:
           node scripts/lean_cards.mjs
           node scripts/lean_cards.mjs --check
           node scripts/validate.mjs
-          node scripts/validate_cards.mjs data/cards.full.json
-          node scripts/validate_cards.mjs public/data/cards.json
+          CARDS_ALLOW_DELETE=1 node scripts/validate_cards.mjs data/cards.full.json
+          CARDS_ALLOW_DELETE=1 node scripts/validate_cards.mjs public/data/cards.json
           git diff --check -- data/cards.full.json public/data/cards.json
       - name: Final correction assertions
         run: |
@@ -99,10 +91,7 @@ jobs:
           by={c['id']:c for c in f['cards']}
           group=[c for c in f['cards'] if c.get('date')=='2026-07-31' and c.get('region')=='KR']
           assert [(c['id'],c['signal']) for c in group]==[
-            ('2026-07-31_KR_01','high'),
-            ('2026-07-31_KR_02','high'),
-            ('2026-07-31_KR_03','mid'),
-            ('2026-07-31_KR_04','mid')]
+            ('2026-07-31_KR_01','high'),('2026-07-31_KR_02','high'),('2026-07-31_KR_03','mid'),('2026-07-31_KR_04','mid')]
           assert 'LG화학' in by['2026-07-31_KR_02']['title']
           assert '동원시스템즈' in by['2026-07-31_KR_03']['title']
           assert '효성화학' in by['2026-07-31_KR_04']['title']

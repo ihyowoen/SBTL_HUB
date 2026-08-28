@@ -4508,10 +4508,10 @@
       "cat": "ESS",
       "sub_cat": "BESS인수",
       "signal": "high",
-      "title": "BW ESS, Yanco BESS 인수",
-      "sub": "ACEnergy가 보유하던 Yanco BESS의 소유권이 BW ESS로 이전됐다.",
-      "gate": "8월 13일은 공개 발표일이며, ACEnergy는 실제 소유권 이전이 2026년 7월 이뤄졌다고 밝혔다. 정확한 이전일이 공개되지 않은 만큼 두 날짜를 구분할 필요가 있다.",
-      "fact": "BW ESS는 2026년 8월 13일 Yanco BESS를 ACEnergy로부터 인수했다고 발표했다. ACEnergy는 소유권을 2026년 7월 BW ESS로 이전했다고 밝혔다.",
+      "title": "BW ESS, Yanco BESS 인수 발표",
+      "sub": "BW ESS가 8월 13일 Yanco BESS 인수를 공식 발표했다. ACEnergy에 따르면 실제 소유권 이전은 2026년 7월 이뤄졌다.",
+      "gate": "이 카드의 대표 이벤트는 2026년 8월 13일 공개된 공식 인수 발표다. 실제 소유권 이전은 2026년 7월 이뤄졌지만 정확한 이전일이 공개되지 않아 7월의 임의 일자를 event date로 사용하지 않는다.",
+      "fact": "BW ESS는 2026년 8월 13일 Yanco BESS 인수를 공식 발표했다. ACEnergy는 소유권을 2026년 7월 BW ESS로 이전했다고 밝혔다.",
       "implication": [
         "Yanco BESS 프로젝트의 소유권 이전이 실행된 사례로 관찰된다.",
         "향후 건설과 운영 단계 진전은 후속 공식자료에서 확인할 필요가 있다."
@@ -4611,13 +4611,13 @@
         "asset_or_policy": "Yanco BESS",
         "location": "호주 New South Wales",
         "event_type": "investment",
-        "event_type_source_anchor": "project_acquisition",
+        "event_type_source_anchor": "project_acquisition_announcement",
         "event_date": "2026-08-13",
         "source_url_cluster": [
           "https://www.bw-ess.com/news/bw-ess-acquires-250mw-1000mwh-yanco-bess-from-acenergy",
           "https://acenergy.com.au/portfolio/yanco-bess/"
         ],
-        "factual_anchor": "BW ESS, Yanco BESS 인수"
+        "factual_anchor": "BW ESS, Yanco BESS 인수 발표"
       },
       "date_role": {
         "publication_date_candidate": "2026-08-13",
@@ -4642,7 +4642,7 @@
         "event_date_source_name": "BW ESS",
         "event_date_source_quote": "BW ESS, has acquired the Yanco Battery Energy Storage System (Yanco BESS) from leading Australian renewable energy developer ACEnergy.",
         "event_date_source_fact_source_index": 0,
-        "event_date_support_basis": "same_day_publication_plus_event_quote",
+        "event_date_support_basis": "official_public_acquisition_announcement_date",
         "event_date_quote_explicit_date": false,
         "event_date_same_as_supporting_source_publication_date": true,
         "earliest_same_event_date_checked": true,
@@ -4658,10 +4658,10 @@
         "date_role_status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
         "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
         "date_role_materialization_basis": "existing current-run event_fingerprint + fact_sources source_published_date/visible_quote_date + source_quote + related_lineage; no new source/search",
-        "representative_date_basis": "public acquisition announcement date",
+        "representative_date_basis": "2026-08-13 official public acquisition announcement date",
         "underlying_transaction_timing": "ownership transfer occurred in July 2026; exact transfer day not asserted because existing source gives month only",
         "underlying_transaction_day_precision": "month_only",
-        "date_ambiguity_resolved_by_scope": "PASS — representative event is the 2026-08-13 public announcement; July transfer month remains separately disclosed and is not converted to a fabricated day"
+        "date_ambiguity_resolved_by_scope": "PASS — representative event is the 2026-08-13 official public acquisition announcement; July ownership transfer remains separately disclosed with month-only precision and no fabricated day"
       },
       "related": [],
       "related_lineage": {

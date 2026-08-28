@@ -1,0 +1,21 @@
+{
+  "stage": "0.4",
+  "status": "ADDABLE_MERGE_SAFE",
+  "run_id": "pr289-review-remediation-1496-20260828",
+  "scope": "existing_card_corrective_update",
+  "target_card_count": 25,
+  "baseline_main_sha": "3732ad9460b44329f0856591c29f166a39ebf5f8",
+  "baseline_full_blob_sha": "3b2e86b320cac2b8ab9e9c1035aa026fc47fed2f",
+  "expected_count_before": 1496,
+  "expected_count_after": 1496,
+  "id_changes": 0,
+  "deletes": 0,
+  "related_edge_additions": 0,
+  "related_edge_removals": 0,
+  "later_main_changes_preserved": true,
+  "review_findings_addressed": [
+    "full Related lifecycle contract on all 25",
+    "supported distinct_follow_up enum on four existing follow-ups",
+    "no change to existing related[] edges"
+  ]
+}

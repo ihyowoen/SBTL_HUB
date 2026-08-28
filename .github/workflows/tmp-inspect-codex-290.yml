@@ -81,9 +81,10 @@ jobs:
       - name: Final correction assertions
         run: |
           python <<'PY'
-          import json
+          import json, subprocess
           f=json.load(open('data/cards.full.json',encoding='utf-8'))
           l=json.load(open('public/data/cards.json',encoding='utf-8'))
+          base=json.loads(subprocess.check_output(['git','show','origin/main:data/cards.full.json']))
           assert f['total']==1496==len(f['cards'])==len(l['cards'])
           assert [c['id'] for c in f['cards']]==[c['id'] for c in l['cards']]
           assert len({c['id'] for c in f['cards']})==1496
@@ -103,9 +104,11 @@ jobs:
           assert lotte['date_role']['representative_date']=='2024-04-02'
           assert lotte['date_role']['source_publication_dates']==['2024-04-03']
           assert lotte['date_role']['publication_dates']==['2024-04-03']
-          allids=set(by)
-          assert all(r in allids for c in f['cards'] for r in c.get('related',[]))
-          print('PASS final: 1496 full/lean; signal-priority IDs fixed; Lotte Apr-2 event date fixed; no dangling related')
+          def broken(doc):
+            ids={c['id'] for c in doc['cards']}
+            return {(c['id'],r) for c in doc['cards'] for r in c.get('related',[]) if r not in ids}
+          assert broken(f)==broken(base), (len(broken(base)),len(broken(f)),sorted(broken(f)-broken(base))[:5])
+          print('PASS final: 1496 full/lean; signal-priority IDs fixed; Lotte Apr-2 event date fixed; no new dangling related')
           PY
       - name: Commit data only
         run: |

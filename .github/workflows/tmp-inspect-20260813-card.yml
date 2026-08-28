@@ -22,8 +22,11 @@ jobs:
         run: |
           node <<'NODE'
           const fs = require('fs');
-          const cards = JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
-          const c = cards.find(x => x.id === '2026-08-13_GL_01');
+          const root = JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
+          console.log('ROOT_KEYS', Object.keys(root));
+          const cards = Array.isArray(root) ? root : (root.cards || root.items || root.data || []);
+          console.log('CARD_COUNT', Array.isArray(cards) ? cards.length : 'not-array');
+          const c = cards.find(x => x && (x.id === '2026-08-13_GL_01' || x.card_id === '2026-08-13_GL_01'));
           if (!c) throw new Error('target card not found');
           console.log('TARGET_CARD_BEGIN');
           console.log(JSON.stringify(c, null, 2));

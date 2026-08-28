@@ -1,0 +1,108 @@
+name: PR289 Review Remediation Materializer
+
+on:
+  push:
+    branches:
+      - chatgpt/pr289-review-remediation-1496
+    paths:
+      - .github/workflows/remediation-materialize-1496.yml
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: chatgpt/pr289-review-remediation-1496
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Lock exact 1496 baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse origin/main)" = "3732ad9460b44329f0856591c29f166a39ebf5f8"
+          test "$(git rev-parse 3732ad9460b44329f0856591c29f166a39ebf5f8:data/cards.full.json)" = "3b2e86b320cac2b8ab9e9c1035aa026fc47fed2f"
+          python - <<'PY'
+          import json
+          d=json.load(open('data/cards.full.json'))
+          cards=d if isinstance(d,list) else d['cards']
+          assert len(cards)==1496, len(cards)
+          print('baseline cards:', len(cards))
+          PY
+
+      - name: Generate governed corrective run
+        run: python tools/remediation_1496/materialize.py
+
+      - name: Apply corrective run
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUN=runs/2026-08-28/pr289-review-remediation-1496/card-run.json
+          REPORT=runs/2026-08-28/pr289-review-remediation-1496/apply-report.json
+          node scripts/apply_card_run.mjs --apply --run "$RUN" --baseline data/cards.full.json --canonical-path data/cards.full.json --output data/cards.full.json --report "$REPORT" --lean-path public/data/cards.json --base-main-sha 3732ad9460b44329f0856591c29f166a39ebf5f8
+          node scripts/apply_card_run.mjs --verify --run "$RUN" --baseline data/cards.full.json --canonical-path data/cards.full.json --output data/cards.full.json --report "$REPORT" --lean-path public/data/cards.json --base-main-sha 3732ad9460b44329f0856591c29f166a39ebf5f8
+
+      - name: Bind audit to actual outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json
+          p='runs/2026-08-28/pr289-review-remediation-1496/card-run-audit.json'
+          a=json.load(open(p))
+          a['full_output_sha256']=hashlib.sha256(open('data/cards.full.json','rb').read()).hexdigest()
+          a['lean_output_sha256']=hashlib.sha256(open('public/data/cards.json','rb').read()).hexdigest()
+          json.dump(a,open(p,'w'),ensure_ascii=False,indent=2); open(p,'a').write('\n')
+          print(a['full_output_sha256'], a['lean_output_sha256'])
+          PY
+
+      - name: Run remediation hard gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          IDS=runs/2026-08-28/pr289-review-remediation-1496/target-ids.json
+          RUN=runs/2026-08-28/pr289-review-remediation-1496/card-run.json
+          python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file "$IDS"
+          python validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file "$IDS"
+          python validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file "$IDS"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          node scripts/validate_card_run_relations.mjs --run "$RUN"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits.mjs --run "$RUN" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate.mjs
+          node scripts/lean_cards.mjs --check
+          git diff --check
+
+      - name: Canonicalize original PR289 apply report
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp runs/2026-08-26/apply-report-verified.json runs/2026-08-26/apply-report.json
+          rm runs/2026-08-26/apply-report-verified.json
+
+      - name: Remove temporary materializer
+        shell: bash
+        run: |
+          rm -rf tools/remediation_1496
+          rm -f .github/workflows/remediation-materialize-1496.yml
+
+      - name: Commit final governed remediation outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- data/cards.full.json public/data/cards.json runs/2026-08-26/apply-report.json runs/2026-08-26/apply-report-verified.json runs/2026-08-28/pr289-review-remediation-1496 tools/remediation_1496 .github/workflows/remediation-materialize-1496.yml
+          git diff --cached --check
+          git commit -m "Materialize governed PR289 review remediation on 1496 baseline"
+          git push origin HEAD:chatgpt/pr289-review-remediation-1496

@@ -6,6 +6,10 @@ on:
       - chatgpt/fix-codex-review-5051253059
     paths:
       - .github/workflows/tmp-inspect-codex-290.yml
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
 
 jobs:
   inspect:

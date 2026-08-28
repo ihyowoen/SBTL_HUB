@@ -1,6 +1,6 @@
 {
-  "updated": "2026-08-28T20:55:00+09:00",
-  "total": 1485,
+  "updated": "2026-08-28T21:46:50+09:00",
+  "total": 1496,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
   "cards": [
@@ -1568,6 +1568,152 @@
       }
     },
     {
+      "id": "2026-08-25_KR_04",
+      "assigned_id": "2026-08-25_KR_04",
+      "source_spec_id": "20260828_EARNINGS_POUCH_EXTRA7__SAM-A_ALUMINIUM",
+      "region": "KR",
+      "date": "2026-08-25",
+      "cat": "Materials",
+      "sub_cat": "알루미늄박·ESS",
+      "signal": "high",
+      "title": "삼아알미늄, 2Q 영업흑자 전환…북미 데이터센터 ESS향 출하 확대",
+      "sub": "2분기 영업이익 17억원으로 흑자 전환했고, 하나증권은 4월부터 본격화된 북미 데이터센터향 ESS 제품 출하와 수주 확대를 턴어라운드 핵심 동력으로 분석했다.",
+      "gate": "삼아알미늄의 이차전지용 알루미늄박은 양극 집전체로, 파우치필름의 알루미늄 배리어층과 다른 BOM이다. ESS 수요의 선행지표로 활용하되 직접 파우치필름 매출로 환산하면 안 된다.",
+      "fact": "8월 25일 하나증권 리포트 보도는 삼아알미늄의 2분기 영업이익 17억원 흑자전환과 4월부터 확대된 북미 데이터센터향 ESS 제품 출하를 실적 개선의 주요 배경으로 제시했다. 반기보고서 기반 자료도 2분기 영업이익 17억원을 확인한다.",
+      "implication": [
+        "북미 데이터센터 ESS 셀 생산 강도의 보조지표로 의미가 크며, 소재 병목과 가동률 상승 여부를 추적할 수 있다.",
+        "파우치필름과 동일한 알루미늄 소재로 오인하지 않고 양극 집전체 수요 신호로만 사용해야 한다."
+      ],
+      "urls": [
+        "https://m.newspim.com/news/view/20260825000069",
+        "https://www.awakeplus.co.kr/data/view/20260814003238"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "NewsPim / Hana Securities report",
+          "source_url": "https://m.newspim.com/news/view/20260825000069",
+          "claim": "2Q 영업이익 17억원 흑자전환과 북미 데이터센터 ESS향 출하·수주 확대를 확인한다.",
+          "source_quote": "2분기 ESS향 출하 확대와 가격 상승으로 흑자 전환",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "broker_research_coverage",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00",
+          "source_published_date": "2026-08-25",
+          "visible_quote_date": "2026-08-25"
+        },
+        {
+          "source_name": "Half-year filing reproduction (AwakePlus)",
+          "source_url": "https://www.awakeplus.co.kr/data/view/20260814003238",
+          "claim": "2Q 영업이익 17억원의 공시 기반 실적을 보강한다.",
+          "source_quote": "영업익 : 17억",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "supporting_financial_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "third_party_dart_reproduction",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00",
+          "source_published_date": "2026-08-14",
+          "visible_quote_date": "2026-08-14"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No exact same-event predecessor identified in the 1,464-card baseline.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "Sam-A Aluminium",
+        "asset_or_policy": "Q2 turnaround and North America data-center ESS foil demand",
+        "location": "KR",
+        "event_type": "earnings_demand_proxy",
+        "event_date": "2026-08-25",
+        "source_url_cluster": [
+          "https://m.newspim.com/news/view/20260825000069",
+          "https://www.awakeplus.co.kr/data/view/20260814003238"
+        ],
+        "factual_anchor": "Q2 operating-profit turnaround linked by broker research to ESS shipments"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2026-08-25",
+        "representative_date": "2026-08-25",
+        "source_publication_dates": [
+          "2026-08-25"
+        ],
+        "publication_dates": [
+          "2026-08-25"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://m.newspim.com/news/view/20260825000069",
+        "event_date_source_name": "NewsPim / Hana Securities report",
+        "event_date_source_quote": "2분기 ESS향 출하 확대와 가격 상승으로 흑자 전환",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Representative event is the Aug-25 earnings/read-through report; Aug-14 filing is supporting financial evidence."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_support_watch_companies_as_independent_cards",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_EXTRA7"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      }
+    },
+    {
       "draft_id": "20260827_EVENT_UNIVERSE_RECOVERY_P01P_SPEC_03_DRAFT_R0",
       "source_spec_id": "20260827_EVENT_UNIVERSE_RECOVERY_P01P_SPEC_03",
       "retired_source_spec_id": "EVU26_SA_014",
@@ -2723,6 +2869,174 @@
         "prompt_0_6": "content_enriched_and_language_terminology_polished",
         "prompt_0_7": "publish_ready",
         "run_tag": "20260826_CURRENT_MAIN_1460"
+      }
+    },
+    {
+      "id": "2026-08-24_CN_02",
+      "assigned_id": "2026-08-24_CN_02",
+      "source_spec_id": "20260828_EARNINGS_POUCH_DIRECT_PUTAILAI_U1743",
+      "source_spec_id_original": "E2_PUTAILAI_U1743",
+      "region": "CN",
+      "date": "2026-08-24",
+      "cat": "Materials",
+      "sub_cat": "분리막·기재",
+      "signal": "high",
+      "title": "Putailai, 분리막 기재 공급 타이트 지속 전망…자급률 확대",
+      "sub": "상반기 기재 판매가 94.7% 늘어난 가운데 경영진은 2027년에도 공급 여건이 타이트할 것으로 보고 기재 내재화를 확대하고 있다.",
+      "gate": "2027년 공급 타이트 전망은 8월 24일 실적설명회에서 나온 경영진 전망이다. 수요·증설 속도에 따라 달라질 수 있으며, 실제 자급률과 신규 기재 라인의 가동률이 후속 확인 지점이다.",
+      "fact": "Putailai는 2026년 상반기 매출 101.15억위안, 순이익 14.52억위안을 기록했다. 상반기 기재 판매량은 전년 대비 94.69% 증가한 10.27억㎡였다. 8월 24일 실적설명회에서 회사는 전체 기재 공급이 타이트하며 2027년에도 이 환경이 이어질 것으로 전망했고, 2028년까지 기재 생산능력과 내부 조달 비중을 단계적으로 높일 계획이라고 밝혔다.",
+      "implication": [
+        "분리막 기재 병목이 완화되지 않을 경우 배터리·ESS 증설 속도와 원가에 영향을 줄 수 있다.",
+        "Putailai의 기재 내재화는 코팅 중심 사업에서 원단까지 통합하는 방향으로 공급구조를 바꾸는 신호다."
+      ],
+      "urls": [
+        "https://www.stcn.com/article/detail/4106312.html",
+        "https://www.putailai.com/investor/",
+        "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12505314&stockid=603659"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "证券时报",
+          "source_url": "https://www.stcn.com/article/detail/4106312.html",
+          "claim": "8월 24일 실적설명회에서 경영진이 2027년 기재 공급 타이트 전망을 제시했다.",
+          "source_quote": "预计2027年基膜供需环境依然偏紧",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-08-24",
+          "visible_quote_date": "2026-08-24",
+          "source_origin_type": "news_media_body",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T20:52:00+09:00"
+        },
+        {
+          "source_name": "Putailai Investor Relations",
+          "source_url": "https://www.putailai.com/investor/",
+          "claim": "회사 공식 투자자 페이지에 2026년 반기보고서가 게시돼 있다.",
+          "source_quote": "璞泰来2026年半年度报告",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-08-20",
+          "visible_quote_date": "2026-08-20",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T20:52:00+09:00"
+        },
+        {
+          "source_name": "Putailai 2026 H1 report reproduction",
+          "source_url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12505314&stockid=603659",
+          "claim": "2026년 상반기 실적과 기재·코팅 분리막 물량을 확인한다.",
+          "source_quote": "营业收入101.15亿元，同比增长42.70%",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-08-20",
+          "visible_quote_date": "2026-08-20",
+          "source_origin_type": "exchange_filing_reproduction",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T20:52:00+09:00"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "Current 1,460-card baseline has no direct Putailai H1/base-film supply-tightness event.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "Putailai",
+        "asset_or_policy": "separator base film supply and self-supply expansion",
+        "location": "China",
+        "event_type": "earnings_strategy_update",
+        "event_date": "2026-08-24",
+        "source_url_cluster": [
+          "https://www.stcn.com/article/detail/4106312.html",
+          "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12505314&stockid=603659"
+        ],
+        "factual_anchor": "2027 base-film supply-tightness outlook and internal supply expansion"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2026-08-24",
+        "representative_date": "2026-08-24",
+        "source_publication_dates": [
+          "2026-08-24"
+        ],
+        "publication_dates": [
+          "2026-08-24"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.stcn.com/article/detail/4106312.html",
+        "event_date_source_name": "证券时报",
+        "event_date_source_quote": "预计2027年基膜供需环境依然偏紧",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Representative event is the Aug-24 H1 earnings briefing; Aug-20 H1 report is supporting financial context."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_without_further_process",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after current-source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_RECONCILIATION"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
       }
     },
     {
@@ -14248,6 +14562,156 @@
         "source_spec_id": "STD26_A_002",
         "r5_full_object_stable_sha256": "67ae20d107d2e375477a3ba86e160afcba713cfe4b8f58a9e9aabd2b47aa9850",
         "visible_evidence_locked": true
+      }
+    },
+    {
+      "id": "2026-08-07_JP_01",
+      "assigned_id": "2026-08-07_JP_01",
+      "source_spec_id": "20260828_EARNINGS_POUCH_DIRECT_DNP_OVERLAY",
+      "region": "JP",
+      "date": "2026-08-07",
+      "cat": "Materials",
+      "sub_cat": "배터리 파우치",
+      "signal": "high",
+      "title": "DNP, Q1 IT용 배터리 파우치 둔화…ESS용은 FY2026 양산 계획",
+      "sub": "8월 7일 Q1 자료에서 IT기기용 배터리 파우치 판매 감소가 확인됐고, 앞선 7월 13일 IR Q&A에서는 ESS용 샘플 평가 가속과 FY2026 양산 개시 계획이 제시됐다.",
+      "gate": "8월 7일의 신규 실적 신호는 IT기기용 배터리 파우치 판매 감소다. ESS 샘플 공급·FY2026 양산 계획은 7월 13일에 먼저 공개된 전략 맥락이며, 실제 양산 개시·고객·물량은 후속 확인이 필요하다.",
+      "fact": "DNP는 FY2026 1분기 자료에서 메모리 반도체 부족에 따른 모바일 기기 약세로 IT기기용 리튬이온 배터리 파우치 판매가 감소했다고 밝혔다. 별도로 7월 13일 IR-Day Q&A에서 ESS용 배터리 파우치 샘플이 이미 공급돼 평가가 가속 중이며 FY2026에 양산을 시작할 계획이라고 설명했다. 자동차용은 FY2026에도 어려운 환경으로 평가했다.",
+      "implication": [
+        "글로벌 파우치 경쟁사의 수요축이 IT·자동차에서 ESS까지 넓어지고 있어 SBTL의 경쟁 환경을 직접 바꾸는 신호다.",
+        "ESS 계획은 아직 양산 실적이 아니라 회사 계획이므로 실제 생산 개시와 고객 승인·물량을 확인해야 한다."
+      ],
+      "urls": [
+        "https://www.global.dnp/content/dam/dnp-global/pdf/en/ir/library/presentation/dnp_e_26Q1appx.pdf",
+        "https://www.global.dnp/content/dam/dnp-global/pdf/en/ir/library/presentation/dnp_e_26irday_qa.pdf"
+      ],
+      "related": [
+        "2025-02-03_JP_01"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "DNP FY2026 Q1",
+          "source_url": "https://www.global.dnp/content/dam/dnp-global/pdf/en/ir/library/presentation/dnp_e_26Q1appx.pdf",
+          "claim": "IT기기용 리튬이온 배터리 파우치 판매 감소를 확인한다.",
+          "source_quote": "battery pouches for lithium-ion batteries declined",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-08-07",
+          "visible_quote_date": "2026-08-07",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T20:52:00+09:00"
+        },
+        {
+          "source_name": "DNP IR-Day 2026 Q&A",
+          "source_url": "https://www.global.dnp/content/dam/dnp-global/pdf/en/ir/library/presentation/dnp_e_26irday_qa.pdf",
+          "claim": "ESS용 파우치 샘플 평가와 FY2026 양산 계획을 확인한다.",
+          "source_quote": "mass production scheduled to begin in FY2026",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-07-13",
+          "visible_quote_date": "2026-07-13",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T20:52:00+09:00"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2025-02-03_JP_01"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "DNP battery-pouch capability acquisition is a direct predecessor context to the later ESS commercialization plan.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": "earnings_or_strategy_update",
+        "fresh_follow_up_anchor": "2025-02-03_JP_01",
+        "incremental_fact_vs_predecessor": "See current card fact/gate for the incremental event.",
+        "changed_judgment_vs_predecessor": "Current event adds new execution/earnings evidence.",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "DNP",
+        "asset_or_policy": "battery pouch application mix",
+        "location": "Japan/global",
+        "event_type": "earnings_strategy_update",
+        "event_date": "2026-08-07",
+        "source_url_cluster": [
+          "https://www.global.dnp/content/dam/dnp-global/pdf/en/ir/library/presentation/dnp_e_26Q1appx.pdf",
+          "https://www.global.dnp/content/dam/dnp-global/pdf/en/ir/library/presentation/dnp_e_26irday_qa.pdf"
+        ],
+        "factual_anchor": "Q1 IT battery-pouch decline with earlier ESS FY2026 mass-production plan"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2026-08-07",
+        "representative_date": "2026-08-07",
+        "source_publication_dates": [
+          "2026-08-07"
+        ],
+        "publication_dates": [
+          "2026-08-07"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.global.dnp/content/dam/dnp-global/pdf/en/ir/library/presentation/dnp_e_26Q1appx.pdf",
+        "event_date_source_name": "DNP FY2026 Q1",
+        "event_date_source_quote": "battery pouches for lithium-ion batteries declined",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Representative event is the Aug-7 Q1 earnings disclosure. The ESS plan is explicitly labeled as earlier Jul-13 context."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_without_further_process",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after current-source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_RECONCILIATION"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
       }
     },
     {
@@ -29307,6 +29771,424 @@
       }
     },
     {
+      "id": "2026-07-31_KR_02",
+      "assigned_id": "2026-07-31_KR_02",
+      "source_spec_id": "20260828_EARNINGS_POUCH_EXTRA7__DONGWON_SYSTEMS",
+      "region": "KR",
+      "date": "2026-07-31",
+      "cat": "Materials",
+      "sub_cat": "배터리 소재·포장",
+      "signal": "mid",
+      "title": "동원시스템즈, 2Q 영업익 314억원…셀파우치는 공식 문구상 진입 계획 단계",
+      "sub": "2분기 연결 매출 4,022억원·영업이익 314억원을 기록했다. 현재 공식 사업 소개는 양극박·배터리 캔을 생산 중으로, 셀파우치는 향후 포트폴리오 진입 영역으로 구분한다.",
+      "gate": "공식 사이트 내 공주공장 제품 표기 등 셀파우치 관련 흔적이 있으나, 현재 사업 소개는 여전히 셀파우치 제조 진입을 미래형으로 표현한다. 고객 승인·양산 규모·파우치 매출이 확인되기 전에는 현재 대규모 상업생산으로 간주하지 않는다.",
+      "fact": "동원시스템즈의 2026년 2분기 잠정 연결실적은 매출 4,022억원, 영업이익 314억원, 순이익 201억원이다. 회사의 현재 이차전지 사업 페이지는 양극박과 원통형 배터리 캔을 생산한다고 설명하며, 셀파우치는 포트폴리오 다각화를 위해 진입할 분야로 제시한다.",
+      "implication": [
+        "국내 잠재 파우치 경쟁사의 손익 체력은 개선됐지만, 실제 경쟁 강도는 셀파우치 고객 승인과 양산 매출 확인 이후 평가해야 한다.",
+        "SBTL 관점에서는 공주 셀파우치 설비·제품 표기와 공식 사업 문구 사이의 상업화 수준 차이를 후속 공시로 확인할 필요가 있다."
+      ],
+      "urls": [
+        "https://www.awakeplus.co.kr/data/view/20260731800329",
+        "https://www.dongwonsystems.com/business/secondarybattery?lang=en&q="
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "DART filing reproduction (AwakePlus)",
+          "source_url": "https://www.awakeplus.co.kr/data/view/20260731800329",
+          "claim": "2Q26 잠정 연결실적 4,022억원 매출·314억원 영업이익을 확인한다.",
+          "source_quote": "2026.2Q 4,022억/ 314억/ 201억",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "third_party_dart_reproduction",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00",
+          "source_published_date": "2026-07-31",
+          "visible_quote_date": "2026-07-31"
+        },
+        {
+          "source_name": "Dongwon Systems official secondary-battery business",
+          "source_url": "https://www.dongwonsystems.com/business/secondarybattery?lang=en&q=",
+          "claim": "현재 양극박·원통형 캔을 생산하고 셀파우치는 포트폴리오 다각화 진입 계획으로 표현한다.",
+          "source_quote": "we will become a cell pouch maker soon",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "current_portfolio_context",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No exact same-event predecessor identified in the 1,464-card baseline.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "Dongwon Systems",
+        "asset_or_policy": "Q2 earnings and cell-pouch entry status",
+        "location": "KR",
+        "event_type": "earnings_competitor_watch",
+        "event_date": "2026-07-31",
+        "source_url_cluster": [
+          "https://www.awakeplus.co.kr/data/view/20260731800329",
+          "https://www.dongwonsystems.com/business/secondarybattery?lang=en&q="
+        ],
+        "factual_anchor": "Q2 profit improvement; official current wording keeps cell pouch as entry plan"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2026-07-31",
+        "representative_date": "2026-07-31",
+        "source_publication_dates": [
+          "2026-07-31"
+        ],
+        "publication_dates": [
+          "2026-07-31"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.awakeplus.co.kr/data/view/20260731800329",
+        "event_date_source_name": "DART filing reproduction (AwakePlus)",
+        "event_date_source_quote": "2026.2Q 4,022억/ 314억/ 201억",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Representative event is the Jul-31 Q2 earnings disclosure; current official business page is portfolio-status context."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_support_watch_companies_as_independent_cards",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_EXTRA7"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      }
+    },
+    {
+      "id": "2026-07-31_KR_03",
+      "assigned_id": "2026-07-31_KR_03",
+      "source_spec_id": "20260828_EARNINGS_POUCH_EXTRA7__LG_CHEM",
+      "region": "KR",
+      "date": "2026-07-31",
+      "cat": "Materials",
+      "sub_cat": "첨단소재·분리막",
+      "signal": "high",
+      "title": "LG화학 첨단소재, 2Q 영업흑자 전환…분리막 출하 확대·ESS 물량 증가 전망",
+      "sub": "첨단소재 부문은 2분기 매출 9,990억원, 영업이익 200억원으로 흑자 전환했다. 회사는 양극재 판가 상승과 분리막 출하 확대를 전지재료 개선 요인으로 제시했다.",
+      "gate": "ESS 분리막 확대는 배터리 소재 수요 신호이지 파우치필름 외장재 수요와 1:1로 연결되는 근거는 아니다. 셀 폼팩터와 고객별 ESS 채택 구조를 별도로 확인해야 한다.",
+      "fact": "LG화학 2분기 첨단소재 부문은 매출 9,990억원, 영업이익 200억원을 기록했다. 공식 실적자료는 양극재 판가 상승과 분리막 출하 확대에 따른 전지재료 매출 증가를 설명했고, 하반기에는 신규 양극재 고객 출하와 ESS향 분리막 물량 증가를 전망했다.",
+      "implication": [
+        "Q1 적자 카드 이후 첨단소재의 분기 흑자전환이 확인돼 배터리 소재 사이클의 개선 폭을 재평가할 근거가 생겼다.",
+        "ESS 분리막 증가는 ESS 셀 생산의 보조지표로 활용하되 파우치 폼팩터 채택 여부는 별도 추적해야 한다."
+      ],
+      "urls": [
+        "https://www.lgchem.com/upload/file/ir-events/2Q_2026_earnings_release_KOR.pdf",
+        "https://zdnet.co.kr/view/?no=20260731170300"
+      ],
+      "related": [
+        "2026-04-30_KR_14"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "LG Chem 2Q 2026 earnings release",
+          "source_url": "https://www.lgchem.com/upload/file/ir-events/2Q_2026_earnings_release_KOR.pdf",
+          "claim": "첨단소재 2Q 매출 9,990억원·영업이익 200억원 및 전지재료 흑자전환 동인을 확인한다.",
+          "source_quote": "양극재 판가 상승 및 분리막 출하량 확대로 전지재료 매출 증가",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00",
+          "source_published_date": "2026-07-31",
+          "visible_quote_date": "2026-07-31"
+        },
+        {
+          "source_name": "LG Chem Q2 conference-call coverage",
+          "source_url": "https://zdnet.co.kr/view/?no=20260731170300",
+          "claim": "하반기 ESS 분리막 물량 증가 전망을 확인한다.",
+          "source_quote": "ESS향 분리막 물량 증가",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "news_conference_call_coverage",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00",
+          "source_published_date": "2026-07-31",
+          "visible_quote_date": "2026-07-31"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-04-30_KR_14"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "2026-04-30_KR_14 is the Q1 loss/predecessor earnings card; Q2 profitability is a distinct follow-up.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": "earnings_follow_up",
+        "fresh_follow_up_anchor": "2026-04-30_KR_14",
+        "incremental_fact_vs_predecessor": "Current card adds a distinct later earnings/portfolio signal.",
+        "changed_judgment_vs_predecessor": "Current event adds later execution/earnings evidence.",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "LG Chem",
+        "asset_or_policy": "Advanced Materials Q2 profitability and separator ESS outlook",
+        "location": "KR",
+        "event_type": "earnings_follow_up",
+        "event_date": "2026-07-31",
+        "source_url_cluster": [
+          "https://www.lgchem.com/upload/file/ir-events/2Q_2026_earnings_release_KOR.pdf",
+          "https://zdnet.co.kr/view/?no=20260731170300"
+        ],
+        "factual_anchor": "Advanced Materials turned profitable as separator shipments expanded"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2026-07-31",
+        "representative_date": "2026-07-31",
+        "source_publication_dates": [
+          "2026-07-31"
+        ],
+        "publication_dates": [
+          "2026-07-31"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.lgchem.com/upload/file/ir-events/2Q_2026_earnings_release_KOR.pdf",
+        "event_date_source_name": "LG Chem 2Q 2026 earnings release",
+        "event_date_source_quote": "양극재 판가 상승 및 분리막 출하량 확대로 전지재료 매출 증가",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Jul-31 official Q2 earnings release is the representative event date."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_support_watch_companies_as_independent_cards",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_EXTRA7"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      }
+    },
+    {
+      "id": "2026-07-31_KR_04",
+      "assigned_id": "2026-07-31_KR_04",
+      "source_spec_id": "20260828_EARNINGS_POUCH_EXTRA7__HYOSUNG_CHEMICAL",
+      "region": "KR",
+      "date": "2026-07-31",
+      "cat": "Materials",
+      "sub_cat": "필름·수지 원가",
+      "signal": "mid",
+      "title": "효성화학, 2Q 영업익 1,708억원…필름 판가 인상으로 수익성 개선",
+      "sub": "2분기 매출 8,713억원, 영업이익 1,708억원을 기록했고 기타 부문 내 필름은 판가 인상과 스프레드 확대로 수익성이 개선됐다.",
+      "gate": "현재 확인된 공식 자료는 효성화학의 필름 수익성 개선을 보여주지만, 해당 필름·PP가 배터리 파우치용 내층재로 인증·공급된다는 근거는 없다. 배터리 파우치 원재료로 단정하지 않는다.",
+      "fact": "효성화학의 2026년 2분기 매출은 8,713억원, 영업이익은 1,708억원이다. 공식 실적자료는 기타 부문에서 필름의 판가 인상과 스프레드 확대에 따른 수익성 개선을 설명한다. 다만 현재 공개된 1차 자료에서 배터리 파우치급 필름 공급은 확인되지 않았다.",
+      "implication": [
+        "필름·PP 스프레드는 파우치 원가 환경을 보는 상류 지표가 될 수 있으나 제품 grade가 확인되기 전에는 직접 수요 신호로 쓰면 안 된다.",
+        "후속 게이트는 배터리 파우치용 grade, 고객 인증, 실제 공급계약의 공개 여부다."
+      ],
+      "urls": [
+        "https://www.hyosungchemical.com/upload/publicnotice/20260727/d919b861-f715-4998-98b3-0cdc5d1d91c3.pdf"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Hyosung Chemical 2Q 2026 results",
+          "source_url": "https://www.hyosungchemical.com/upload/publicnotice/20260727/d919b861-f715-4998-98b3-0cdc5d1d91c3.pdf",
+          "claim": "2Q 매출 8,713억원·영업이익 1,708억원 및 필름 수익성 개선을 확인한다.",
+          "source_quote": "판가 인상 및 스프레드 확대로 수익성 개선",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00",
+          "source_published_date": "2026-07-31",
+          "visible_quote_date": "2026-07-31"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No exact same-event predecessor identified in the 1,464-card baseline.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "Hyosung Chemical",
+        "asset_or_policy": "Q2 film profitability",
+        "location": "KR",
+        "event_type": "earnings_upstream_watch",
+        "event_date": "2026-07-31",
+        "source_url_cluster": [
+          "https://www.hyosungchemical.com/upload/publicnotice/20260727/d919b861-f715-4998-98b3-0cdc5d1d91c3.pdf"
+        ],
+        "factual_anchor": "Q2 operating profit surge with film margin improvement"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2026-07-31",
+        "representative_date": "2026-07-31",
+        "source_publication_dates": [
+          "2026-07-31"
+        ],
+        "publication_dates": [
+          "2026-07-31"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.hyosungchemical.com/upload/publicnotice/20260727/d919b861-f715-4998-98b3-0cdc5d1d91c3.pdf",
+        "event_date_source_name": "Hyosung Chemical 2Q 2026 results",
+        "event_date_source_quote": "판가 인상 및 스프레드 확대로 수익성 개선",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Jul-31 official Q2 results are the event anchor."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_support_watch_companies_as_independent_cards",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_EXTRA7"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      }
+    },
+    {
       "draft_id": "DRAFT_REC26_B_003_R2",
       "source_spec_id": "REC26_A2_008",
       "source_story_ids": [
@@ -32011,6 +32893,286 @@
         "source_spec_id": "STD26_A_028",
         "r5_full_object_stable_sha256": "80737e6e0c4f7149d2e35d1babc15e5390a4ee01ba5bc786dc2f8cee51e3e4af",
         "visible_evidence_locked": true
+      }
+    },
+    {
+      "id": "2026-07-30_KR_01",
+      "assigned_id": "2026-07-30_KR_01",
+      "source_spec_id": "20260828_EARNINGS_POUCH_DIRECT_POSCO_HOLDINGS_U0627",
+      "source_spec_id_original": "E2BF_POSCO_HOLDINGS_U0627",
+      "region": "KR",
+      "date": "2026-07-30",
+      "cat": "Materials",
+      "sub_cat": "리튬 실적",
+      "signal": "high",
+      "title": "포스코아르헨티나, 염수리튬 1공장 안정화로 첫 분기 흑자",
+      "sub": "포스코홀딩스 2분기 실적에서 아르헨티나 염수리튬 법인이 첫 분기 흑자를 기록해 리튬 사업의 손익 전환이 확인됐다.",
+      "gate": "첫 분기 흑자는 염수리튬 1공장 조업 안정화와 설비 개선에 기반한 공식 실적이다. 하반기 2공장 준공에 따른 초기 비용이 예상돼 흑자 지속 여부와 단계적 증산이 다음 판단 지점이다.",
+      "fact": "포스코홀딩스는 2026년 2분기 연결 매출 19조2590억원, 영업이익 8190억원, 순이익 7610억원을 발표했다. 포스코아르헨티나는 염수리튬 1공장 조업 안정화와 설비 개선으로 분기 기준 첫 흑자 전환에 성공했다. 회사는 하반기 2공장 준공으로 초기 비용 증가를 예상하면서도 단계적 증산과 판매 확대로 수익성을 높일 계획이라고 밝혔다.",
+      "implication": [
+        "포스코 리튬 사업이 적자 축소 단계에서 실제 분기 흑자로 넘어간 첫 확인 신호다.",
+        "하반기 2공장 램프업 비용과 판매 확대가 흑자 지속성을 가르는 핵심 변수다."
+      ],
+      "urls": [
+        "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/"
+      ],
+      "related": [
+        "2026-04-30_KR_13"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "포스코그룹 뉴스룸",
+          "source_url": "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/",
+          "claim": "포스코아르헨티나의 분기 기준 첫 흑자와 원인을 확인한다.",
+          "source_quote": "분기 기준 첫 흑자 전환",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-07-30",
+          "visible_quote_date": "2026-07-30",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T20:52:00+09:00"
+        }
+      ],
+      "single_source_exception": {
+        "allowed": true,
+        "type": "official_or_primary_source_exception",
+        "reason": "Quarterly earnings and subsidiary profit status are directly disclosed by POSCO Holdings."
+      },
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-04-30_KR_13"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "Q1 card recorded Argentina loss narrowing; Q2 official results establish the next earnings milestone, first quarterly profit.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": "earnings_or_strategy_update",
+        "fresh_follow_up_anchor": "2026-04-30_KR_13",
+        "incremental_fact_vs_predecessor": "See current card fact/gate for the incremental event.",
+        "changed_judgment_vs_predecessor": "Current event adds new execution/earnings evidence.",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "POSCO Holdings / POSCO Argentina",
+        "asset_or_policy": "Argentina brine lithium business",
+        "location": "Argentina",
+        "event_type": "earnings_turnaround",
+        "event_date": "2026-07-30",
+        "source_url_cluster": [
+          "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/"
+        ],
+        "factual_anchor": "POSCO Argentina first quarterly profit"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2026-07-30",
+        "representative_date": "2026-07-30",
+        "source_publication_dates": [
+          "2026-07-30"
+        ],
+        "publication_dates": [
+          "2026-07-30"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94%ED%99%80%EB%94%A9%EC%8A%A4-2026%EB%85%84-2%EB%B6%84%EA%B8%B0-%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C%EB%A6%AC%ED%8A%AC-lng-%EB%93%B1-%EC%9E%90%EC%9B%90-%EC%A4%91/",
+        "event_date_source_name": "포스코그룹 뉴스룸",
+        "event_date_source_quote": "분기 기준 첫 흑자 전환",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Official Q2 results published on Jul-30 establish the representative event date."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_without_further_process",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after current-source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_RECONCILIATION"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      }
+    },
+    {
+      "id": "2026-07-30_KR_02",
+      "assigned_id": "2026-07-30_KR_02",
+      "source_spec_id": "20260828_EARNINGS_POUCH_DIRECT_SK_ON_OVERLAY",
+      "region": "KR",
+      "date": "2026-07-30",
+      "cat": "Battery",
+      "sub_cat": "실적·ESS 전환",
+      "signal": "high",
+      "title": "SK온, 2Q 흑자전환…ESS 수주 확대·기존 라인 전환 검토",
+      "sub": "2분기 영업이익 8218억원으로 흑자 전환했고, 회사는 AI 하이퍼스케일러·전력회사 중심 ESS 추가 수주를 추진하면서 기존 라인의 ESS 활용도 검토하고 있다.",
+      "gate": "2분기 흑자에는 고객 보상금과 IRA 세액공제 등 일회성·지원 요인이 포함된다. ESS 수주 확대는 회사의 공식 계획이지만 기존 EV 라인의 ESS 전환은 Q&A 기준 검토 단계로, 실행된 전환으로 표현하면 안 된다.",
+      "fact": "SK온 배터리 사업은 2026년 2분기 매출 2조9460억원, 영업이익 8218억원을 기록해 흑자 전환했다. SK이노베이션은 아시아 판매 확대, 고객 보상금, IRA 세액공제 증가와 비용 절감이 손익 개선에 기여했다고 밝혔다. 하반기에는 AI 하이퍼스케일러와 전력회사 중심으로 ESS 추가 수주를 확대할 계획이다. 실적 Q&A에서는 북미와 서산의 기존 라인을 ESS용으로 전환하는 방안을 살펴보고 있지만 구체적인 재배치는 아직 결정되지 않았다고 설명했다.",
+      "implication": [
+        "SK온의 ESS 확대가 실제 수주와 기존 자산 활용으로 이어질 경우 파우치 기반 생산자산의 수요 경로가 EV에서 ESS까지 넓어질 수 있다.",
+        "다만 현재는 수주 확대와 전환 검토 단계이므로 계약 물량, 전환 라인, 양산 개시를 실행 게이트로 봐야 한다."
+      ],
+      "urls": [
+        "https://askinno.com/global/archives/156625",
+        "https://earningscalls.dev/transcripts/sk-innovation-co-ltd_a096770_earnings_call_transcript_2026-07-30"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "SK Innovation / Ask Inno",
+          "source_url": "https://askinno.com/global/archives/156625",
+          "claim": "SK온 Q2 매출·영업이익과 ESS 추가 수주 계획을 확인한다.",
+          "source_quote": "secure additional energy storage system (ESS) orders",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-07-30",
+          "visible_quote_date": "2026-07-30",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T20:52:00+09:00"
+        },
+        {
+          "source_name": "SK Innovation Q2 call transcript reproduction",
+          "source_url": "https://earningscalls.dev/transcripts/sk-innovation-co-ltd_a096770_earnings_call_transcript_2026-07-30",
+          "claim": "기존 북미·서산 라인의 ESS 전환은 검토 단계임을 확인한다.",
+          "source_quote": "nothing has been decided on repurposing",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-07-30",
+          "visible_quote_date": "2026-07-30",
+          "source_origin_type": "third_party_transcript_reproduction",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T20:52:00+09:00"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No exact same-event predecessor in the 1,460-card baseline; prior SK On cards cover plant start or broad industry strategy, not this Q2 earnings/ESS-order event.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "SK On",
+        "asset_or_policy": "Q2 profitability and ESS order/asset strategy",
+        "location": "KR / North America",
+        "event_type": "earnings_strategy_update",
+        "event_date": "2026-07-30",
+        "source_url_cluster": [
+          "https://askinno.com/global/archives/156625",
+          "https://earningscalls.dev/transcripts/sk-innovation-co-ltd_a096770_earnings_call_transcript_2026-07-30"
+        ],
+        "factual_anchor": "Q2 return to profit and ESS order expansion with line conversion under consideration"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2026-07-30",
+        "representative_date": "2026-07-30",
+        "source_publication_dates": [
+          "2026-07-30"
+        ],
+        "publication_dates": [
+          "2026-07-30"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://askinno.com/global/archives/156625",
+        "event_date_source_name": "SK Innovation / Ask Inno",
+        "event_date_source_quote": "secure additional energy storage system (ESS) orders",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Official Q2 results and same-day call establish Jul-30 as the representative event date."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_without_further_process",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after current-source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_RECONCILIATION"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
       }
     },
     {
@@ -42638,6 +43800,156 @@
       "prompt_0_8_runtime_engine_validation_status": "PASS",
       "accepted_fact_safe": true,
       "addable_merge_safe": true
+    },
+    {
+      "id": "2026-07-27_KR_03",
+      "assigned_id": "2026-07-27_KR_03",
+      "source_spec_id": "20260828_EARNINGS_POUCH_EXTRA7__SKC",
+      "region": "KR",
+      "date": "2026-07-27",
+      "cat": "Materials",
+      "sub_cat": "동박 ESS 침투",
+      "signal": "high",
+      "title": "SKC, 2Q 동박 분기 최대 매출…ESS 판매 확대가 회복축으로",
+      "sub": "2분기 연결 매출 6,454억원, 영업손실 144억원을 기록했으며 동박 사업은 분기 최대 매출을 냈다. ESS·EV용 판매 증가가 외형 회복에 기여했다.",
+      "gate": "동박은 음극 집전체로 파우치필름과 다른 BOM이다. ESS 동박 판매 확대는 셀 생산 강도의 선행지표이지 SBTL 파우치 수요를 그대로 의미하지 않는다.",
+      "fact": "SKC는 2026년 2분기 매출 6,454억원, 영업손실 144억원, EBITDA 291억원을 기록했다. 공식 자료는 동박 사업이 분기 최대 매출을 달성했다고 밝혔다. 실적 발표 보도에서는 ESS와 EV용 동박 판매 증가가 회복 흐름을 지지한 것으로 설명됐다.",
+      "implication": [
+        "1분기 ESS 동박 급증 카드에 이어 2분기 분기 최대 매출이 확인돼 ESS가 단발이 아닌 연속적 회복축인지 추적할 근거가 강화됐다.",
+        "향후 핵심 지표는 ESS 판매량·북미 비중·말레이시아 가동률과 동박 사업의 손익분기점 도달 여부다."
+      ],
+      "urls": [
+        "https://skc.kr/m/eng/Conmmunication/pr/newsDetail.do?seq=1740",
+        "https://zdnet.co.kr/view/?no=20260727154415"
+      ],
+      "related": [
+        "2026-04-27_KR_04"
+      ],
+      "fact_sources": [
+        {
+          "source_name": "SKC official Q2 results",
+          "source_url": "https://skc.kr/m/eng/Conmmunication/pr/newsDetail.do?seq=1740",
+          "claim": "2Q 연결 매출 6,454억원, 영업손실 144억원, 동박 분기 최대 매출을 확인한다.",
+          "source_quote": "Copper foil business achieves record quarterly sales",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00",
+          "source_published_date": "2026-07-27",
+          "visible_quote_date": "2026-07-27"
+        },
+        {
+          "source_name": "ZDNet Korea Q2 call coverage",
+          "source_url": "https://zdnet.co.kr/view/?no=20260727154415",
+          "claim": "ESS향 동박 판매량 증가와 북미 수요를 보강한다.",
+          "source_quote": "ESS용 판매량 증가",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "news_conference_call_coverage",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00",
+          "source_published_date": "2026-07-27",
+          "visible_quote_date": "2026-07-27"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-04-27_KR_04"
+        ],
+        "related_candidate_spec_ids": [],
+        "reason": "2026-04-27_KR_04 is the Q1 ESS copper-foil earnings predecessor; Q2 record sales is a distinct follow-up.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": "earnings_follow_up",
+        "fresh_follow_up_anchor": "2026-04-27_KR_04",
+        "incremental_fact_vs_predecessor": "Current card adds a distinct later earnings/portfolio signal.",
+        "changed_judgment_vs_predecessor": "Current event adds later execution/earnings evidence.",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "SKC",
+        "asset_or_policy": "Q2 copper-foil record sales and ESS mix",
+        "location": "KR",
+        "event_type": "earnings_follow_up",
+        "event_date": "2026-07-27",
+        "source_url_cluster": [
+          "https://skc.kr/m/eng/Conmmunication/pr/newsDetail.do?seq=1740",
+          "https://zdnet.co.kr/view/?no=20260727154415"
+        ],
+        "factual_anchor": "Q2 copper-foil record sales extends Q1 ESS-demand signal"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2026-07-27",
+        "representative_date": "2026-07-27",
+        "source_publication_dates": [
+          "2026-07-27"
+        ],
+        "publication_dates": [
+          "2026-07-27"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://skc.kr/m/eng/Conmmunication/pr/newsDetail.do?seq=1740",
+        "event_date_source_name": "SKC official Q2 results",
+        "event_date_source_quote": "Copper foil business achieves record quarterly sales",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Jul-27 official Q2 results are the event anchor."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_support_watch_companies_as_independent_cards",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_EXTRA7"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      }
     },
     {
       "draft_id": "DRAFT_B_SA28_016",
@@ -158146,15 +159458,16 @@
       "sub_cat": "배터리 잠정실적 AMPC",
       "signal": "high",
       "title": "LG에너지솔루션, 2분기 영업익 1133억원…AMPC 제외 1277억원 적자",
-      "sub": "2분기 잠정실적 수치 확정·ESS 출하 전분기 대비 30% 이상 증가",
-      "gate": "7월 30일 확정실적에서 ESS 출하와 신규수주 세부가 확인됐다. 다음 판단 지점은 상반기 수주가 실제 하반기 출하·매출로 전환되는 속도와 AMPC 제외 본업 수익성 회복이다.",
-      "fact": "LG에너지솔루션은 2026년 2분기 매출 7조5602억원과 영업이익 1133억원의 잠정실적을 공시했다. 매출은 전년 동기 대비 24.8% 증가했고 영업이익은 77% 감소했다. 실적에 반영된 AMPC 2410억원을 제외하면 영업손실은 1277억원이다. 7월 30일 확정 실적 설명에서 ESS 출하는 전분기 대비 30% 이상 증가했고 상반기 ESS 신규수주는 3조원을 넘었다고 밝혔다.",
+      "sub": "2분기 확정실적에서 상반기 ESS 매출 4.6배·전사 비중 20% 후반, 유럽 파우치형 EV 출하 증가가 확인됐다.",
+      "gate": "7월 30일 공식 확정실적에서 상반기 ESS 매출이 전년 대비 4.6배 증가해 전사 매출의 20% 후반까지 확대됐고, 유럽 파우치형 EV 배터리 출하 증가도 확인됐다. 다음 판단 지점은 ESS 수주가 실제 하반기 출하·매출로 전환되는 속도와 AMPC 제외 본업 수익성 회복이다.",
+      "fact": "LG에너지솔루션은 2026년 2분기 매출 7조5602억원과 영업이익 1133억원을 기록했다. 7월 30일 공식 확정실적에서 상반기 ESS 매출은 전년 대비 4.6배 증가해 전사 매출의 20% 후반을 차지했고, 신규 ESS 수주는 3조원을 넘었다. 분기 매출 증가는 유럽의 파우치형 EV 배터리 출하 증가와 북미 ESS 생산 확대가 함께 뒷받침했다.",
       "implication": [
         "AMPC가 배터리 제조사의 분기 손익을 지지하는 구조가 다시 확인된다.",
         "EV 수요둔화와 북미 합작공장 고정비 부담이 본업 수익성 회복의 제약으로 관찰된다.",
         "7월 30일 사업별 실적과 하반기 ESS 출하 전망이 실제 손익에 반영되는지가 후속 확인 기준이다.",
         "ESS가 실적에서 성장축으로 확대되는 신호가 나타났다.",
-        "상반기 신규수주가 실제 출하와 매출로 이어지는 속도를 확인해야 한다."
+        "상반기 신규수주가 실제 출하와 매출로 이어지는 속도를 확인해야 한다.",
+        "유럽 파우치형 EV 출하 회복과 북미 ESS 확대가 동시에 나타나 파우치 수요와 ESS 수요를 form factor별로 분리해 추적할 필요가 있다."
       ],
       "urls": [
         "https://news.dealsitetv.com/articles/172933",
@@ -158164,7 +159477,8 @@
         "https://www.bloomberg.com/news/articles/2026-07-06/lg-energy-profit-misses-estimates-amid-slow-ev-demand",
         "https://www.reuters.com/business/energy/lg-energy-solution-flags-77-fall-q2-operating-profit-continued-weak-ev-demand-2026-07-07/",
         "https://libattery.ofweek.com/2026-07/ART-36001-12003-30696520.html",
-        "https://www.newswire.co.kr/newsRead.php?no=1039662"
+        "https://www.newswire.co.kr/newsRead.php?no=1039662",
+        "https://inside.lgensol.com/en/2026/07/lg-energy-solution-releases-2026-second-quarter-financial-results/"
       ],
       "related": [],
       "fact_sources": [
@@ -158440,6 +159754,26 @@
           "source_contribution": "LGES reported Q2 revenue/operating profit, >30% QoQ ESS shipment growth and >KRW3tn H1 ESS new orders.",
           "visible_quote_date": "2026-07-30",
           "checked_at": "2026-08-11T02:37:00+09:00"
+        },
+        {
+          "source_name": "LG Energy Solution",
+          "source_url": "https://inside.lgensol.com/en/2026/07/lg-energy-solution-releases-2026-second-quarter-financial-results/",
+          "claim": "상반기 ESS 매출 4.6배·20% 후반 비중과 유럽 파우치형 EV 출하 증가를 확인한다.",
+          "source_quote": "ESS business achieved 4.6x year-on-year revenue growth",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-07-30",
+          "visible_quote_date": "2026-07-30",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T20:52:00+09:00"
         }
       ],
       "source_evidence_entry_count": 10,
@@ -159913,7 +161247,15 @@
             "source_url_propagation_performed": false
           }
         ]
-      }
+      },
+      "reinforcement_log": [
+        {
+          "date": "2026-08-28",
+          "type": "earnings_overlay_reinforcement",
+          "source": "LG Energy Solution official Q2 2026",
+          "note": "Added official final-results source and pouch/ESS mix context; no duplicate Jul-30 card created."
+        }
+      ]
     },
     {
       "region": "GL",
@@ -176366,16 +177708,18 @@
       "signal": "high",
       "title": "삼성SDI, 美 StarPlus 1공장 3개 라인 ESS용 전환·9월 LFP 생산 준비",
       "sub": "EV 둔화로 낮아진 활용도를 ESS와 신규 고객 물량으로 돌리는 라인 재배치이며, 첫 LFP 라인은 273Ah급 ESS 배터리 생산이 거론된다.",
-      "fact": "전자신문은 삼성SDI와 Stellantis의 미국 합작사 StarPlus Energy 1공장 4개 라인 중 3개 라인이 ESS용으로 전환되고 있으며, 첫 LFP 라인이 2026년 9월 생산을 시작할 예정이라고 보도했다. 해당 라인에서는 273Ah급 LFP ESS 배터리가 생산되는 것으로 파악됐다. Reuters는 앞서 Samsung SDI America가 미국 고객에 ESS용 LFP 배터리를 공급하는 계약을 체결했다고 보도했다.",
-      "gate": "StarPlus 라인 전환과 9월 일정은 업계보도 기준이다. 고객명, 계약물량, 라인별 CAPA, 수율, 실제 양산 개시와 매출인식은 아직 확인되지 않았다.",
+      "fact": "전자신문은 삼성SDI와 Stellantis의 미국 합작사 StarPlus Energy 1공장 4개 라인 중 3개 라인이 ESS용으로 전환되고 있으며 첫 LFP 라인이 2026년 9월 생산을 시작할 예정이라고 보도했다. 삼성SDI는 7월 30일 공식 Q2 실적에서 2분기 매출 3조7688억원, 영업이익 2038억원으로 7분기 만에 흑자 전환했다고 발표하고, 하반기 과제로 미국 각형 LFP 배터리의 적기 양산을 제시했다.",
+      "gate": "StarPlus 3개 라인 전환과 9월 일정은 업계보도 기준이다. 7월 30일 삼성SDI 공식 실적은 하반기 미국 각형 LFP 배터리 적기 양산을 핵심 과제로 재확인했다. 고객명, 계약물량, 라인별 CAPA, 실제 생산 개시와 수율은 후속 확인이 필요하다.",
       "implication": [
         "EV 전용 투자자산이 ESS 수요 대응으로 재배치되는 북미 생산전략 변화다.",
         "ESS용 LFP는 데이터센터·전력망 수요와 맞물리지만 기존 EV 라인 전환에는 공정·인증·수율 리스크가 있다.",
-        "후속 판단은 실제 9월 생산 여부, 고객·물량, 라인 가동률과 LFP ESS 수익성을 기준으로 해야 한다."
+        "후속 판단은 실제 9월 생산 여부, 고객·물량, 라인 가동률과 LFP ESS 수익성을 기준으로 해야 한다.",
+        "삼성SDI의 미국 ESS 성장축은 각형 LFP이므로 ESS 성장 전체를 파우치필름 수요로 환산하면 안 된다."
       ],
       "urls": [
         "https://www.etnews.com/20260703000207",
-        "https://www.reuters.com/world/asia-pacific/samsung-sdis-us-unit-signs-14-bln-lfp-battery-deal-us-customer-2025-12-09/"
+        "https://www.reuters.com/world/asia-pacific/samsung-sdis-us-unit-signs-14-bln-lfp-battery-deal-us-customer-2025-12-09/",
+        "https://www.samsungsdi.com/sdi-now/sdi-news/4942.html?idx=4942"
       ],
       "related": [],
       "fact_sources": [
@@ -176484,6 +177828,26 @@
           "resolved_article_matches_quote": true,
           "source_url_canonical_complete": true,
           "source_url_prefix_promoted": false
+        },
+        {
+          "source_name": "Samsung SDI",
+          "source_url": "https://www.samsungsdi.com/sdi-now/sdi-news/4942.html?idx=4942",
+          "claim": "Q2 흑자전환과 하반기 미국 각형 LFP 적기 양산 우선순위를 확인한다.",
+          "source_quote": "U.S. prismatic LFP battery production",
+          "source_quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_published_date": "2026-07-30",
+          "visible_quote_date": "2026-07-30",
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T20:52:00+09:00"
         }
       ],
       "source_evidence_entry_count": 4,
@@ -176729,7 +178093,15 @@
       "final_qc_checked_at_kst": "2026-07-07T16:19:27.447829+09:00",
       "related_lineage": {
         "related_ids": []
-      }
+      },
+      "reinforcement_log": [
+        {
+          "date": "2026-08-28",
+          "type": "earnings_overlay_reinforcement",
+          "source": "Samsung SDI official Q2 2026",
+          "note": "Added official Q2 confirmation and prismatic form-factor qualifier; no duplicate earnings card created."
+        }
+      ]
     },
     {
       "draft_id": "DRAFT_B_SA28_003",
@@ -308402,6 +309774,294 @@
       },
       "related_lineage": {
         "related_ids": []
+      }
+    },
+    {
+      "id": "2024-06-21_JP_01",
+      "assigned_id": "2024-06-21_JP_01",
+      "source_spec_id": "20260828_EARNINGS_POUCH_EXTRA7__TOPPAN_HOLDINGS_/_TANDT_ENERTECHNO",
+      "region": "JP",
+      "date": "2024-06-21",
+      "cat": "Materials",
+      "sub_cat": "배터리 파우치 경쟁",
+      "signal": "high",
+      "title": "TOPPAN·Toyo Seikan, 유럽 LIB 외장재 JV 추진…T&T는 알루미늄 라미네이트 소프트팩 공급",
+      "sub": "양사는 스웨덴 자동차용 LIB 외장재 JV를 추진하며 FY2026 이후 생산 개시를 목표로 제시했다. 기존 합작사 T&T Enertechno는 현재 알루미늄 라미네이트 필름 소프트팩을 공식 제품으로 공급한다.",
+      "gate": "2024 LOI의 유럽 JV가 실제 설립·양산에 들어갔는지는 별도 후속 확인이 필요하다. 다만 TOPPAN 51%의 T&T Enertechno가 알루미늄 라미네이트 소프트팩을 공식 판매한다는 점은 현재 1차 자료로 확인된다.",
+      "fact": "TOPPAN Holdings와 Toyo Seikan은 2024년 6월 스웨덴에서 자동차용 리튬이온배터리 외장재 제조·판매 JV를 추진하는 LOI를 발표하고 FY2026 이후 생산을 목표로 밝혔다. 양사가 기존에 설립한 T&T Enertechno의 현재 공식 제품 페이지는 소프트팩을 알루미늄 라미네이트 필름으로 명시하며 EV·HEV와 가정용 저장장치 용도를 제시한다.",
+      "implication": [
+        "일본 파우치 경쟁사 universe에서 TOPPAN 계열의 알루미늄 라미네이트 소프트팩 직접 공급을 1차 자료로 확정할 수 있다.",
+        "유럽 현지생산 계획은 LOI 단계였으므로 JV 설립, 공장 투자, 양산 개시를 별도 execution gate로 추적해야 한다."
+      ],
+      "urls": [
+        "https://www.holdings.toppan.com/en/news/2024/06/newsrelease240621_1.html",
+        "https://www.tt-enertechno.co.jp/en/products/index.html"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "TOPPAN Holdings / Toyo Seikan LOI",
+          "source_url": "https://www.holdings.toppan.com/en/news/2024/06/newsrelease240621_1.html",
+          "claim": "유럽 자동차용 LIB 외장재 JV LOI와 FY2026 이후 생산 목표를 확인한다.",
+          "source_quote": "aim to launch manufacturing operations in fiscal 2026 or later",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00",
+          "source_published_date": "2024-06-21",
+          "visible_quote_date": "2024-06-21"
+        },
+        {
+          "source_name": "T&T Enertechno official products",
+          "source_url": "https://www.tt-enertechno.co.jp/en/products/index.html",
+          "claim": "TOPPAN 51% JV가 알루미늄 라미네이트 필름 소프트팩을 현재 제조·판매함을 확인한다.",
+          "source_quote": "Soft packaging (aluminum laminated film)",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "current_portfolio_context",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No exact same-event predecessor identified; existing TOPPAN card covers a different packaging-carbon-footprint topic.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "TOPPAN Holdings / T&T Enertechno",
+        "asset_or_policy": "LIB packaging Europe JV and aluminum-laminated soft-pack portfolio",
+        "location": "JP",
+        "event_type": "competitor_expansion_anchor",
+        "event_date": "2024-06-21",
+        "source_url_cluster": [
+          "https://www.holdings.toppan.com/en/news/2024/06/newsrelease240621_1.html",
+          "https://www.tt-enertechno.co.jp/en/products/index.html"
+        ],
+        "factual_anchor": "Europe JV LOI plus current aluminum-laminated soft packaging proof"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2024-06-21",
+        "representative_date": "2024-06-21",
+        "source_publication_dates": [
+          "2024-06-21"
+        ],
+        "publication_dates": [
+          "2024-06-21"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.holdings.toppan.com/en/news/2024/06/newsrelease240621_1.html",
+        "event_date_source_name": "TOPPAN Holdings / Toyo Seikan LOI",
+        "event_date_source_quote": "aim to launch manufacturing operations in fiscal 2026 or later",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Representative date is the dated Jun-21 2024 JV LOI; current T&T product page is undated corroboration and is not used to fabricate a 2026 event date."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_support_watch_companies_as_independent_cards",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_EXTRA7"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
+      }
+    },
+    {
+      "id": "2024-04-03_KR_01",
+      "assigned_id": "2024-04-03_KR_01",
+      "source_spec_id": "20260828_EARNINGS_POUCH_EXTRA7__LOTTE_INFRACELL",
+      "region": "KR",
+      "date": "2024-04-03",
+      "cat": "Materials",
+      "sub_cat": "배터리 파우치 경쟁",
+      "signal": "high",
+      "title": "롯데인프라셀 출범…현재 공식 포트폴리오에 EV·ESS용 셀파우치 확인",
+      "sub": "롯데알미늄의 이차전지 소재 사업이 2024년 롯데인프라셀로 분할 출범했고, 현재 공식 제품 페이지는 알루미늄·플라스틱 복합 셀파우치를 EV·ESS용으로 명시한다.",
+      "gate": "현재 제품 존재와 직접 경쟁 관련성은 확인되지만, 셀파우치의 양산 규모·고객 인증·매출 기여도와 분할 후 정확한 생산 주체별 실적은 공개 근거가 부족하다. 규모를 추정하지 않는다.",
+      "fact": "롯데알미늄은 2024년 4월 이차전지 소재 전문회사 롯데인프라셀을 물적분할로 출범시켰다. 현재 롯데인프라셀 공식 제품 페이지는 셀파우치를 유연한 알루미늄·플라스틱 복합필름으로 설명하며 EV와 ESS 등에 사용된다고 명시한다.",
+      "implication": [
+        "국내 파우치 경쟁사 universe에서 롯데를 단순 양극박 인접업체가 아니라 직접 셀파우치 제품 보유 업체로 분류할 근거가 생긴다.",
+        "다만 경쟁 강도는 생산능력·고객·매출이 확인된 뒤 평가해야 하며, 현 단계에서는 제품 포트폴리오 확인 수준으로 제한한다."
+      ],
+      "urls": [
+        "https://www.yna.co.kr/view/AKR20240403040700003",
+        "https://www.lotteinfracell.co.kr/en/secondary-battery-materials/pouch-cell-battery"
+      ],
+      "related": [],
+      "fact_sources": [
+        {
+          "source_name": "Yonhap / Lotte Aluminum announcement",
+          "source_url": "https://www.yna.co.kr/view/AKR20240403040700003",
+          "claim": "롯데인프라셀의 공식 출범과 이차전지 소재 전문회사 역할을 확인한다.",
+          "source_quote": "신설법인은 지난 2일 공식 출범",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "company_announcement_news_reproduction",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00",
+          "source_published_date": "2024-04-03",
+          "visible_quote_date": "2024-04-03"
+        },
+        {
+          "source_name": "LOTTE Infracell official pouch product",
+          "source_url": "https://www.lotteinfracell.co.kr/en/secondary-battery-materials/pouch-cell-battery",
+          "claim": "현재 공식 포트폴리오가 EV·ESS용 셀파우치를 명시함을 확인한다.",
+          "source_quote": "widely used in EVs, ESS, and more",
+          "source_quote_status": "body_quote_verified",
+          "evidence_role": "current_portfolio_context",
+          "supports": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ],
+          "source_origin_type": "official_or_source_owner_material",
+          "fetch_method": "web_current_source_verification_20260828",
+          "checked_at": "2026-08-28T21:30:00+09:00"
+        }
+      ],
+      "related_lineage": {
+        "status": "PASS",
+        "relation_type": "new_unrelated_event",
+        "related_ids": [],
+        "related_candidate_spec_ids": [],
+        "reason": "No same-event predecessor; existing Lotte cards concern cathode foil and different assets.",
+        "same_event_checked": true,
+        "earliest_same_event_date_checked": true,
+        "fresh_follow_up_anchor_class": null,
+        "fresh_follow_up_anchor": "",
+        "incremental_fact_vs_predecessor": "",
+        "changed_judgment_vs_predecessor": "",
+        "rejected_relation_candidates": [],
+        "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+        "related_lifecycle_contract_version": "RELATED_LIFECYCLE_V2_20260802"
+      },
+      "event_fingerprint": {
+        "actor": "LOTTE Infracell",
+        "asset_or_policy": "company formation and current cell-pouch portfolio",
+        "location": "KR",
+        "event_type": "competitor_profile_anchor",
+        "event_date": "2024-04-03",
+        "source_url_cluster": [
+          "https://www.yna.co.kr/view/AKR20240403040700003",
+          "https://www.lotteinfracell.co.kr/en/secondary-battery-materials/pouch-cell-battery"
+        ],
+        "factual_anchor": "2024 formation plus current official EV/ESS cell-pouch product verification"
+      },
+      "date_role": {
+        "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
+        "event_date": "2024-04-03",
+        "representative_date": "2024-04-03",
+        "source_publication_dates": [
+          "2024-04-03"
+        ],
+        "publication_dates": [
+          "2024-04-03"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.yna.co.kr/view/AKR20240403040700003",
+        "event_date_source_name": "Yonhap / Lotte Aluminum announcement",
+        "event_date_source_quote": "신설법인은 지난 2일 공식 출범",
+        "event_date_confidence": "high",
+        "date_role_locked": true,
+        "stage_b_date_recheck_required": false,
+        "stage_b_correction_applied": false,
+        "event_date_basis": "Representative event date is the Apr-3 2024 formation announcement; the current official product page is undated corroboration, not a synthetic 2026 event date."
+      },
+      "manual_direct_add_authorization": {
+        "authorized": true,
+        "authorized_by": "user",
+        "authorized_at_kst": "2026-08-28",
+        "authorization_basis": "explicit_user_instruction_to_add_support_watch_companies_as_independent_cards",
+        "formal_prompt_0_7c_0_8_pass_claimed": false,
+        "note": "User-directed direct add after source verification; no retrospective claim of formal Stage C / Prompt 0.7C / Prompt 0.8 completion."
+      },
+      "final_qc_provenance": {
+        "manual_direct_add": true,
+        "formal_stage_c_completed": false,
+        "formal_prompt_0_7c_completed": false,
+        "formal_prompt_0_8_authorized": false,
+        "source_batch": "20260828_EARNINGS_POUCH_OVERLAY_EXTRA7"
+      },
+      "publish_ready": true,
+      "github_ready": true,
+      "pr_candidate_ready": true,
+      "state": "manual_direct_add_merge_ready",
+      "production_id_assigned_0_8": false,
+      "production_id_assigned_manual_direct_add": true,
+      "production_verified": true,
+      "final_qc_gates": {
+        "fact_safety": "PASS",
+        "merge_safety": "PASS",
+        "evidence_completeness": "PASS",
+        "claim_coverage": "PASS",
+        "content_depth": "PASS",
+        "language_tone": "PASS",
+        "schema_runtime": "PASS",
+        "sort_id_baseline_sync": "PASS",
+        "output_integrity": "PASS"
       }
     }
   ]

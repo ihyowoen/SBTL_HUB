@@ -1,0 +1,31 @@
+name: tmp-inspect-20260813-card
+
+on:
+  push:
+    branches:
+      - chatgpt/direct-add-earnings17-20260827
+    paths:
+      - .github/workflows/tmp-inspect-20260813-card.yml
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Print target card
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const cards = JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
+          const c = cards.find(x => x.id === '2026-08-13_GL_01');
+          if (!c) throw new Error('target card not found');
+          console.log('TARGET_CARD_BEGIN');
+          console.log(JSON.stringify(c, null, 2));
+          console.log('TARGET_CARD_END');
+          NODE

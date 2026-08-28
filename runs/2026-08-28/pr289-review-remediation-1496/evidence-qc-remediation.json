@@ -1,0 +1,18 @@
+{
+  "stage": "0.5",
+  "status": "EVIDENCE_COMPLETE_AND_SOURCE_CLAIM_COVERED",
+  "run_id": "pr289-review-remediation-1496-20260828",
+  "target_card_count": 25,
+  "date_role_freshness_check": {"status":"PASS","cards_checked":25,"finding_count":0},
+  "evidence_qc_v8": {"status":"PASS","cards_checked":25,"total_flags":0},
+  "related_lifecycle_check": {"status":"PASS","cards_checked":25,"error_count":0,"finding_count":0},
+  "source_binding_repairs": {
+    "2026-08-25_US_01": "event-specific pv magazine PG&E V2X body quote",
+    "2026-08-25_KR_01": "item-specific SK shareholder merger notice + independent Aug-25 event article",
+    "2026-08-24_US_01": "item-specific Ivanhoe Santa Cruz EXIM release permalink",
+    "2026-08-21_GL_02": "item-specific GE Vernova Supernode Stage 3 release permalink",
+    "2026-08-21_EU_01": "item-specific Morrow bankruptcy-estate preferred-bidder announcement"
+  },
+  "source_discovery_ledger_persisted_count": 25,
+  "single_source_exception_contract_recomputed": true
+}

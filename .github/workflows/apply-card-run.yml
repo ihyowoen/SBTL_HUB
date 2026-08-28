@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "runs/**/card-run.json"
+      - "direct-adds/**/direct-add.json"
       - "migrations/**/legacy-related-lineage-container-migration.json"
       - "data/cards.full.json"
       - "public/data/cards.json"
@@ -15,7 +16,9 @@ on:
       - "scripts/validate_card_run_lineage_containers.mjs"
       - "scripts/validate_card_run_audits.mjs"
       - "scripts/validate_legacy_related_lineage_migration.mjs"
+      - "scripts/validate_manual_direct_add.mjs"
       - "schemas/card-run.v1.schema.json"
+      - "schemas/manual-direct-add.v1.schema.json"
       - ".github/workflows/apply-card-run.yml"
       - ".github/workflows/legacy-related-lineage-migration.yml"
   workflow_dispatch:
@@ -55,7 +58,9 @@ jobs:
           node --check scripts/validate_card_run_lineage_containers.mjs
           node --check scripts/validate_card_run_audits.mjs
           node --check scripts/validate_legacy_related_lineage_migration.mjs
+          node --check scripts/validate_manual_direct_add.mjs
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
+          node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v1.schema.json", "utf8"))'
           node scripts/apply_card_run_test.mjs
           node scripts/validate_card_run_stage_artifacts.mjs --self-test
           node scripts/validate_card_run_status_consistency.mjs --self-test
@@ -63,6 +68,7 @@ jobs:
           node scripts/validate_card_run_lineage_containers.mjs --self-test
           node scripts/validate_card_run_audits.mjs --self-test
           node scripts/validate_legacy_related_lineage_migration.mjs --self-test
+          node scripts/validate_manual_direct_add.mjs --self-test
 
   verify-submitted-run:
     needs: validate-engine
@@ -79,7 +85,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Resolve exactly one governed run
+      - name: Resolve exactly one governed change path
         id: run
         shell: bash
         env:
@@ -92,50 +98,78 @@ jobs:
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             run_path="$DISPATCH_RUN_PATH"
             test -n "$run_path" && test -f "$run_path"
-          else
-            mapfile -t runs < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)runs/**/card-run.json')
-            mapfile -t migrations < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)migrations/**/legacy-related-lineage-container-migration.json')
-            mapfile -t canonical_data < <(git diff --name-only "origin/$BASE_REF...HEAD" -- data/cards.full.json public/data/cards.json)
-            if [[ ${#runs[@]} -gt 0 && ${#migrations[@]} -gt 0 ]]; then
-              echo "FAIL: ordinary card-run and legacy lineage migration may not share one PR" >&2
+            echo "has_run=true" >> "$GITHUB_OUTPUT"
+            echo "delegated_migration=false" >> "$GITHUB_OUTPUT"
+            echo "delegated_direct_add=false" >> "$GITHUB_OUTPUT"
+            echo "path=$run_path" >> "$GITHUB_OUTPUT"
+            echo "report_path=$(dirname "$run_path")/apply-report.json" >> "$GITHUB_OUTPUT"
+            echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          mapfile -t runs < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)runs/**/card-run.json')
+          mapfile -t migrations < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)migrations/**/legacy-related-lineage-container-migration.json')
+          mapfile -t direct_adds < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)direct-adds/**/direct-add.json')
+          mapfile -t canonical_data < <(git diff --name-only "origin/$BASE_REF...HEAD" -- data/cards.full.json public/data/cards.json)
+
+          declared_types=0
+          [[ ${#runs[@]} -eq 0 ]] || declared_types=$((declared_types + 1))
+          [[ ${#migrations[@]} -eq 0 ]] || declared_types=$((declared_types + 1))
+          [[ ${#direct_adds[@]} -eq 0 ]] || declared_types=$((declared_types + 1))
+          if [[ $declared_types -gt 1 ]]; then
+            echo "FAIL: card-run, legacy migration, and manual direct-add are mutually exclusive in one PR" >&2
+            exit 1
+          fi
+          [[ ${#runs[@]} -le 1 ]] || { echo "FAIL: found ${#runs[@]} card-run manifests; exactly one allowed" >&2; exit 1; }
+          [[ ${#migrations[@]} -le 1 ]] || { echo "FAIL: found ${#migrations[@]} legacy migration manifests; exactly one allowed" >&2; exit 1; }
+          [[ ${#direct_adds[@]} -le 1 ]] || { echo "FAIL: found ${#direct_adds[@]} direct-add manifests; exactly one allowed" >&2; exit 1; }
+
+          base_sha="$(git rev-parse "origin/$BASE_REF")"
+          echo "base_sha=$base_sha" >> "$GITHUB_OUTPUT"
+
+          if [[ ${#canonical_data[@]} -gt 0 ]]; then
+            [[ ${#canonical_data[@]} -eq 2 ]] || {
+              echo "FAIL: canonical card-data change must commit both data/cards.full.json and public/data/cards.json" >&2
+              printf ' - %s\n' "${canonical_data[@]}" >&2
               exit 1
-            fi
-            if [[ ${#runs[@]} -eq 0 ]]; then
-              if [[ ${#canonical_data[@]} -gt 0 ]]; then
-                if [[ ${#migrations[@]} -eq 1 ]]; then
-                  if [[ ${#canonical_data[@]} -ne 2 ]]; then
-                    echo "FAIL: legacy lineage migration must commit both data/cards.full.json and public/data/cards.json" >&2
-                    printf ' - %s\n' "${canonical_data[@]}" >&2
-                    exit 1
-                  fi
-                  echo "INFO: canonical change uses dedicated legacy-lineage migration path; validating inside apply-card-run gate as well"
-                  echo "has_run=false" >> "$GITHUB_OUTPUT"
-                  echo "delegated_migration=true" >> "$GITHUB_OUTPUT"
-                  echo "migration_path=${migrations[0]}" >> "$GITHUB_OUTPUT"
-                  echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
-                  exit 0
-                fi
-                echo "FAIL: canonical card-data changes require exactly one governed card-run or one dedicated legacy lineage migration manifest" >&2
-                printf ' - %s\n' "${canonical_data[@]}" >&2
-                exit 1
-              fi
-              [[ ${#migrations[@]} -eq 0 ]] || { echo "FAIL: migration manifest present without canonical outputs" >&2; exit 1; }
+            }
+            if [[ ${#migrations[@]} -eq 1 ]]; then
+              echo "INFO: canonical change uses dedicated legacy-lineage migration path"
               echo "has_run=false" >> "$GITHUB_OUTPUT"
-              echo "delegated_migration=false" >> "$GITHUB_OUTPUT"
+              echo "delegated_migration=true" >> "$GITHUB_OUTPUT"
+              echo "delegated_direct_add=false" >> "$GITHUB_OUTPUT"
+              echo "migration_path=${migrations[0]}" >> "$GITHUB_OUTPUT"
               exit 0
             fi
-            if [[ ${#runs[@]} -ne 1 ]]; then
-              echo "FAIL: one PR must contain exactly one card-run.json; found ${#runs[@]}" >&2
-              printf ' - %s\n' "${runs[@]}" >&2
+            if [[ ${#direct_adds[@]} -eq 1 ]]; then
+              echo "INFO: canonical change uses governed manual direct-add path"
+              echo "has_run=false" >> "$GITHUB_OUTPUT"
+              echo "delegated_migration=false" >> "$GITHUB_OUTPUT"
+              echo "delegated_direct_add=true" >> "$GITHUB_OUTPUT"
+              echo "direct_add_path=${direct_adds[0]}" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            if [[ ${#runs[@]} -eq 0 ]]; then
+              echo "FAIL: canonical card-data changes require exactly one governed card-run, manual direct-add manifest, or dedicated legacy lineage migration manifest" >&2
               exit 1
             fi
-            run_path="${runs[0]}"
+          else
+            if [[ $declared_types -gt 0 ]]; then
+              echo "FAIL: governed manifest present without committed canonical full/lean outputs" >&2
+              exit 1
+            fi
+            echo "has_run=false" >> "$GITHUB_OUTPUT"
+            echo "delegated_migration=false" >> "$GITHUB_OUTPUT"
+            echo "delegated_direct_add=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+
+          run_path="${runs[0]}"
           echo "has_run=true" >> "$GITHUB_OUTPUT"
           echo "delegated_migration=false" >> "$GITHUB_OUTPUT"
+          echo "delegated_direct_add=false" >> "$GITHUB_OUTPUT"
           echo "path=$run_path" >> "$GITHUB_OUTPUT"
           echo "report_path=$(dirname "$run_path")/apply-report.json" >> "$GITHUB_OUTPUT"
-          echo "base_sha=$(git rev-parse "origin/$BASE_REF")" >> "$GITHUB_OUTPUT"
 
       - name: Validate delegated legacy lineage migration inside card-run gate
         if: steps.run.outputs.delegated_migration == 'true'
@@ -163,6 +197,44 @@ jobs:
             case "$path" in
               data/cards.full.json|public/data/cards.json|"$MANIFEST") ;;
               *) echo "FAIL: migration data PR contains undeclared changed path $path" >&2; exit 1 ;;
+            esac
+          done
+          git diff --check
+
+      - name: Validate governed manual direct-add inside card-run gate
+        if: steps.run.outputs.delegated_direct_add == 'true'
+        shell: bash
+        env:
+          MANIFEST: ${{ steps.run.outputs.direct_add_path }}
+          BASE_SHA: ${{ steps.run.outputs.base_sha }}
+        run: |
+          set -euo pipefail
+          test -n "$MANIFEST" && test -f "$MANIFEST"
+          declared_main="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_main_commit_sha)' "$MANIFEST")"
+          declared_blob="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_full_blob_sha)' "$MANIFEST")"
+          actual_blob="$(git rev-parse "${BASE_SHA}:data/cards.full.json")"
+          [[ "$declared_main" == "$BASE_SHA" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED main $BASE_SHA != $declared_main" >&2; exit 1; }
+          [[ "$declared_blob" == "$actual_blob" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED blob $actual_blob != $declared_blob" >&2; exit 1; }
+          git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
+          [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
+
+          node scripts/validate_manual_direct_add.mjs --manifest "$MANIFEST" --base "$RUNNER_TEMP/cards.full.base.json" --full data/cards.full.json
+          node scripts/validate.mjs
+          migration_count="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String((r.operations?.id_migration||[]).length))' "$MANIFEST")"
+          if [[ "$migration_count" -gt 0 ]]; then
+            CARDS_ALLOW_DELETE=1 node scripts/validate_cards.mjs data/cards.full.json
+            CARDS_ALLOW_DELETE=1 node scripts/validate_cards.mjs public/data/cards.json
+          else
+            node scripts/validate_cards.mjs data/cards.full.json
+            node scripts/validate_cards.mjs public/data/cards.json
+          fi
+          node scripts/lean_cards.mjs --check
+
+          mapfile -t changed < <(git diff --name-only "$BASE_SHA...HEAD")
+          for path in "${changed[@]}"; do
+            case "$path" in
+              data/cards.full.json|public/data/cards.json|"$MANIFEST") ;;
+              *) echo "FAIL: manual direct-add data PR contains undeclared changed path $path" >&2; exit 1 ;;
             esac
           done
           git diff --check

@@ -14,6 +14,7 @@ on:
     paths:
       - "data/cards.full.json"
       - "public/data/cards.json"
+      - "direct-adds/**/direct-add.json"
       - "scripts/lean_cards.mjs"
       - ".github/workflows/lean-cards.yml"
 
@@ -34,14 +35,35 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+      - name: Resolve declared direct-add ID migration
+        id: direct_add
+        shell: bash
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
+          mapfile -t manifests < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)direct-adds/**/direct-add.json')
+          [[ ${#manifests[@]} -le 1 ]] || { echo "FAIL: more than one direct-add manifest" >&2; exit 1; }
+          allow_delete=0
+          if [[ ${#manifests[@]} -eq 1 ]]; then
+            test -f "${manifests[0]}"
+            migration_count="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String((r.operations?.id_migration||[]).length))' "${manifests[0]}")"
+            [[ "$migration_count" -eq 0 ]] || allow_delete=1
+          fi
+          echo "allow_delete=$allow_delete" >> "$GITHUB_OUTPUT"
       - name: Generate lean projection from canonical full
         run: node scripts/lean_cards.mjs
       # Validate the exact tree before any generated commit is pushed.
       - name: Validate tracker data
         run: node scripts/validate.mjs
       - name: Validate cards data
+        env:
+          CARDS_ALLOW_DELETE: ${{ steps.direct_add.outputs.allow_delete }}
         run: node scripts/validate_cards.mjs
       - name: Validate canonical full
+        env:
+          CARDS_ALLOW_DELETE: ${{ steps.direct_add.outputs.allow_delete }}
         run: node scripts/validate_cards.mjs data/cards.full.json
       - name: Check public projection matches canonical full
         run: node scripts/lean_cards.mjs --check

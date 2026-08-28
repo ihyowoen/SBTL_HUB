@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbtl-hub.local/schemas/manual-direct-add.v1.schema.json",
+  "title": "SBTL_HUB Manual Direct Add v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "direct_add_id",
+    "base_main_commit_sha",
+    "base_full_blob_sha",
+    "expected_before",
+    "expected_after",
+    "output_updated",
+    "operations"
+  ],
+  "properties": {
+    "schema": { "const": "manual_direct_add_v1" },
+    "status": { "const": "PASS" },
+    "direct_add_id": { "type": "string", "minLength": 1 },
+    "base_main_commit_sha": { "type": "string", "minLength": 1 },
+    "base_full_blob_sha": { "type": "string", "minLength": 1 },
+    "expected_before": { "type": "integer", "minimum": 0 },
+    "expected_after": { "type": "integer", "minimum": 0 },
+    "output_updated": { "type": "string", "format": "date-time" },
+    "operations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["add", "update", "id_migration"],
+      "properties": {
+        "add": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "update": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "id_migration": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["old_id", "new_id", "reason"],
+            "properties": {
+              "old_id": { "type": "string", "minLength": 1 },
+              "new_id": { "type": "string", "minLength": 1 },
+              "reason": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "stage": "0.7C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_id": "pr289-review-remediation-1496-20260828",
+  "base_main_commit_sha": "3732ad9460b44329f0856591c29f166a39ebf5f8",
+  "base_full_blob_sha": "3b2e86b320cac2b8ab9e9c1035aa026fc47fed2f",
+  "document_universe_manifest_ref": "runs/2026-08-28/pr289-review-remediation-1496/stage-0.0d.json",
+  "coverage_discovery_ref": "runs/2026-08-28/pr289-review-remediation-1496/stage-0.0c.json",
+  "reviewed_operations_sha256": "cf57c6e4f2fac5eb501c8de22314dfea73ed8e107393b1f3e7dcd80c876b0e54",
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "prompt_0_8_authorized": true,
+  "review_scope": "Post-merge corrective review of exactly 25 #289 cards; no new selection universe or rescue candidates are introduced.",
+  "declared_residual_risk": "Final external Codex PR review remains required on the cleanup head before merge; this artifact authorizes merge prep, not merge itself.",
+  "operation_counts": {"insert":0,"update":25,"related_add":0,"delete":0,"related_remove":0}
+}

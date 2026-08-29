@@ -1,0 +1,31 @@
+name: Inspect PR293 final SK derived metadata
+
+on:
+  push:
+    branches:
+      - chatgpt/pr289-review-remediation-1496
+    paths:
+      - .github/workflows/inspect-pr293-final-sk.yml
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/pr289-review-remediation-1496
+      - name: Print SK derived metadata
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/cards.full.json',encoding='utf-8'))
+          c={x['id']:x for x in d['cards']}['2026-08-25_KR_01']
+          for k in sorted(c):
+              if k.startswith('source_') or k in {'single_source_exception','urls','date_role'}:
+                  print('===',k,'===')
+                  print(json.dumps(c.get(k),ensure_ascii=False,indent=2))
+          PY

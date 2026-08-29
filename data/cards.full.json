@@ -1057,8 +1057,7 @@
         "주주승인·채권자보호 등 절차와 2027년 1월 합병 완료 여부가 다음 확인점이다."
       ],
       "urls": [
-        "https://www.skinnovation.com/ir/notice/105",
-        "https://www.seoul.co.kr/news/economy/industry/2026/08/25/20260825500185"
+        "https://www.skinnovation.com/ir/notice/105"
       ],
       "fact_sources": [
         {
@@ -1092,36 +1091,6 @@
           "source_owner_id_normalized": "skinnovation.com",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true
-        },
-        {
-          "source_name": "서울신문",
-          "source_owner": "서울신문",
-          "source_url": "https://www.seoul.co.kr/news/economy/industry/2026/08/25/20260825500185",
-          "url": "https://www.seoul.co.kr/news/economy/industry/2026/08/25/20260825500185",
-          "source_type": "independent_body_level_article",
-          "claim": "SK이노베이션·SKIET 합병 진행 독립 확인",
-          "source_quote": "SK이노베이션은 SK아이이테크놀로지(SKIET)를 흡수합병한다.",
-          "source_quote_status": "body_quote_verified",
-          "quote_status": "body_quote_verified",
-          "evidence_role": "secondary_event_evidence",
-          "supports": [
-            "title",
-            "sub",
-            "fact"
-          ],
-          "fetched_at": "2026-08-28T19:30:00+09:00",
-          "fetch_method": "bounded_web_body_search",
-          "fetch_status": "success",
-          "http_status": 200,
-          "body_level": true,
-          "source_role": "independent_event_confirmation",
-          "source_origin_type": "independent_body_level_article",
-          "source_contribution": "Independently confirms the merger event and parties on the current representative date.",
-          "source_published_date": "2026-08-25",
-          "visible_quote_date": "2026-08-25",
-          "source_owner_id_normalized": "seoul.co.kr",
-          "source_url_canonical_complete": true,
-          "resolved_article_matches_quote": true
         }
       ],
       "date_role": {
@@ -1144,7 +1113,7 @@
         "stage_b_date_recheck_required": false,
         "event_date_source_name": "서울신문"
       },
-      "source_diversity_status": "PASS_MULTI_SOURCE",
+      "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_diversity_measure": {
         "source_evidence_entry_count": 2,
         "source_unique_url_count": 2,
@@ -1169,7 +1138,7 @@
       },
       "source_diversity_roles": {
         "primary_event_evidence": true,
-        "independent_event_confirmation": true,
+        "independent_event_confirmation": false,
         "policy_market_context": false
       },
       "source_synthesis_applied": false,
@@ -1179,23 +1148,7 @@
           "source_domain": "www.skinnovation.com",
           "source_role": "primary_event_evidence",
           "unique_contribution": "Durable item-specific shareholder merger notice replacing the generic IR/FAQ listing endpoint.",
-          "affected_visible_fields": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
-          ]
-        },
-        {
-          "source_domain": "www.seoul.co.kr",
-          "source_role": "independent_event_confirmation",
-          "unique_contribution": "Independently confirms the merger event and parties on the current representative date.",
-          "affected_visible_fields": [
-            "title",
-            "sub",
-            "fact"
-          ]
+          "affected_visible_fields": []
         }
       ],
       "source_published_date": "2026-08-25",
@@ -1244,11 +1197,11 @@
           "outcome": "used_in_fact_sources",
           "unique_contribution": "Durable item-specific shareholder merger notice replacing the generic IR/FAQ listing endpoint.",
           "visible_supports": [
-            "fact",
-            "gate",
-            "implication",
+            "title",
             "sub",
-            "title"
+            "gate",
+            "fact",
+            "implication"
           ],
           "source_role": "primary_event_evidence",
           "source_origin_type": "company_primary_announcement",
@@ -1260,16 +1213,13 @@
           "source_name": "서울신문",
           "source_owner": "seoul.co.kr",
           "source_domain": "seoul.co.kr",
-          "outcome": "used_in_fact_sources",
-          "unique_contribution": "Independently confirms the merger event and parties on the current representative date.",
-          "visible_supports": [
-            "fact",
-            "sub",
-            "title"
-          ],
+          "outcome": "reviewed_not_used_for_visible_synthesis",
+          "unique_contribution": "Corroborates the merger event but adds no distinct visible-field contribution beyond the official SK Innovation notice.",
+          "visible_supports": [],
           "source_role": "independent_event_confirmation",
           "source_origin_type": "independent_body_level_article",
-          "checked_at": "2026-08-28T19:30:00+09:00"
+          "checked_at": "2026-08-28T19:30:00+09:00",
+          "reason": "Retained as checked corroboration; excluded from visible-source diversity because it does not add a distinct synthesized claim."
         },
         {
           "query_type": "provided_primary",
@@ -1301,26 +1251,20 @@
         }
       ],
       "single_source_exception": {
-        "allowed": false,
-        "reason": "not applicable: multi-owner evidence"
+        "allowed": true,
+        "reason": "The durable item-specific SK Innovation shareholder merger notice is the authoritative primary event source; the checked Seoul report only corroborates the already-visible merger event and adds no distinct visible-field contribution.",
+        "mitigation": "Visible claims remain bounded to the official SK Innovation notice. The Seoul article is retained in the discovery ledger as corroboration but is not counted as visible evidence or multi-source synthesis."
       },
-      "source_evidence_entry_count": 2,
-      "source_unique_url_count": 2,
-      "source_unique_domain_count": 2,
-      "source_independent_owner_count": 2,
+      "source_evidence_entry_count": 1,
+      "source_unique_url_count": 1,
+      "source_unique_domain_count": 1,
+      "source_independent_owner_count": 1,
       "source_url_resolution": {
-        "supporting_fact_source_count": 2,
+        "supporting_fact_source_count": 1,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
         "source_url_propagation_performed": true,
         "resolution_entries": [
-          {
-            "source_url": "https://www.seoul.co.kr/news/economy/industry/2026/08/25/20260825500185",
-            "canonical_complete": true,
-            "resolved_article_matches_quote": true,
-            "resolution_basis": "recomputed from current fact_sources; indices=1; owners=seoul.co.kr",
-            "source_url_propagation_performed": false
-          },
           {
             "source_url": "https://www.skinnovation.com/ir/notice/105",
             "canonical_complete": true,
@@ -2466,11 +2410,8 @@
           "source_role": "primary_event_evidence",
           "unique_contribution": "Directly confirms PG&E added dcbel and Wallbox bidirectional charging equipment to the V2X pilot; the body also enumerates the newly eligible vehicle/charger pairings.",
           "affected_visible_fields": [
-            "title",
-            "sub",
-            "gate",
             "fact",
-            "implication"
+            "gate"
           ]
         },
         {
@@ -2478,8 +2419,6 @@
           "source_role": "independent_event_confirmation",
           "unique_contribution": "Independently confirms the named counterparty/project action and execution status carried in the fact field: PG&E is opening its residential vehicle-to-everything programme to more electric cars and charging systems.",
           "affected_visible_fields": [
-            "title",
-            "sub",
             "fact"
           ]
         }
@@ -4050,11 +3989,8 @@
           "source_role": "primary_event_evidence",
           "unique_contribution": "Item-specific Ivanhoe release confirms the preliminary EXIM project letter and up-to-US$1.1bn potential debt package.",
           "affected_visible_fields": [
-            "title",
-            "sub",
-            "gate",
             "fact",
-            "implication"
+            "gate"
           ]
         },
         {
@@ -4062,8 +3998,6 @@
           "source_role": "independent_event_confirmation",
           "unique_contribution": "Independent outlet confirms the exact project, EXIM letter and financing scale.",
           "affected_visible_fields": [
-            "title",
-            "sub",
             "fact"
           ]
         }
@@ -5844,11 +5778,8 @@
           "source_role": "primary_event_evidence",
           "unique_contribution": "Item-specific GE Vernova release confirms Stage 3 at 260MW/1,216MWh and its role supporting all three Supernode stages.",
           "affected_visible_fields": [
-            "title",
-            "sub",
-            "gate",
             "fact",
-            "implication"
+            "gate"
           ]
         },
         {
@@ -5856,8 +5787,6 @@
           "source_role": "independent_event_confirmation",
           "unique_contribution": "Independently confirms the named counterparty/project action and execution status carried in the fact field: Quinbrook has selected GE Vernova and CATL for the third stage of the Supernode battery energy storage system.",
           "affected_visible_fields": [
-            "title",
-            "sub",
             "fact"
           ]
         }
@@ -6139,11 +6068,8 @@
           "source_role": "primary_event_evidence",
           "unique_contribution": "Item-specific release by counsel for the Morrow bankruptcy estates confirms the preferred-bidder decision and Aug-21 MOU.",
           "affected_visible_fields": [
-            "title",
-            "sub",
-            "gate",
             "fact",
-            "implication"
+            "gate"
           ]
         },
         {
@@ -6151,8 +6077,6 @@
           "source_role": "independent_event_confirmation",
           "unique_contribution": "Independently confirms the named counterparty/project action and execution status carried in the fact field: Lyten was selected as preferred bidder for Morrow Batteries under an MOU, with the acquisition not yet completed.",
           "affected_visible_fields": [
-            "title",
-            "sub",
             "fact"
           ]
         }

@@ -1115,26 +1115,23 @@
       },
       "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_diversity_measure": {
-        "source_evidence_entry_count": 2,
-        "source_unique_url_count": 2,
-        "source_unique_domain_count": 2,
-        "source_independent_owner_count": 2,
-        "visible_source_url_count": 2,
+        "source_evidence_entry_count": 1,
+        "source_unique_url_count": 1,
+        "source_unique_domain_count": 1,
+        "source_independent_owner_count": 1,
+        "visible_source_url_count": 1,
         "missing_source_url_count": 0,
         "missing_visible_source_url_count": 0,
         "canonical_urls": [
-          "https://seoul.co.kr/news/economy/industry/2026/08/25/20260825500185",
           "https://skinnovation.com/ir/notice/105"
         ],
         "canonical_domains": [
-          "seoul.co.kr",
           "skinnovation.com"
         ],
         "independent_owners": [
-          "seoul.co.kr",
           "skinnovation.com"
         ],
-        "status": "PASS_MULTI_SOURCE"
+        "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
       },
       "source_diversity_roles": {
         "primary_event_evidence": true,

@@ -38,8 +38,6 @@ jobs:
           const faq=(card.fact_sources||[]).find(s=>(s.source_url||s.url)===faqUrl);
           if(!faq) throw new Error('SK merger FAQ source missing');
 
-          // Body-level snippets from the official SK Innovation Merger FAQ.
-          // Keep the retained quote concise while directly covering rationale, ratio, board timing and effective date.
           faq.source_quote='"enhance the financial stability"; "proactively manage risks"; "improve overall operational efficiency"; "1 : 0.1174540"; "Board Resolution ... Aug 25, 2026"; "Effective Date ... Jan 1, 2027"';
           faq.claim='SK이노베이션-SKIET 합병의 재무안정성·위험관리·운영효율 목적, 1:0.1174540 합병비율, 8월 25일 이사회 결의 및 2027년 1월 1일 효력일';
           faq.source_contribution='Official merger FAQ directly supports the Aug. 25 board-resolution timing, 1:0.1174540 merger ratio, Jan. 1, 2027 effective date, and the stated rationale of financial stability, proactive risk management, and operational efficiency.';
@@ -47,19 +45,16 @@ jobs:
           faq.visible_quote_date='2026-08-25';
           faq.supports=['sub','fact','gate','implication'];
 
-          // Narrow the analytical follow-up to the dated merger execution point actually retained in evidence.
           if(Array.isArray(card.implication) && card.implication.length>=3){
             card.implication[2]='8월 25일 합병계약 이사회 의결 이후 2027년 1월 1일 합병 효력 발생 여부가 다음 확인점이다.';
           }
 
-          // Keep discovery ledger contribution synchronized with the retained FAQ evidence.
           const faqLedger=(card.source_discovery_ledger||[]).find(r=>r.source_url===faqUrl);
           if(faqLedger){
             faqLedger.unique_contribution=faq.source_contribution;
             faqLedger.visible_supports=[...faq.supports];
           }
 
-          // Card-level propagation remains true for the repaired notice URL; the newly added FAQ is not a propagated repair.
           const resolution=card.source_url_resolution;
           if(!resolution || !Array.isArray(resolution.resolution_entries)) throw new Error('SK source_url_resolution missing');
           const faqResolution=resolution.resolution_entries.find(r=>r.source_url===faqUrl);
@@ -67,13 +62,11 @@ jobs:
           faqResolution.source_url_propagation_performed=false;
           resolution.source_url_propagation_performed=true;
 
-          // Both retained official evidence URLs resolve to the same Aug. 25 event/publication date.
           if(card.date_role){
             card.date_role.publication_dates=['2026-08-25'];
             card.date_role.source_publication_dates=['2026-08-25'];
           }
 
-          // One final mutation timestamp shared by canonical, public projection and manifest.
           const now=new Date();
           const kst=new Date(now.getTime()+9*60*60*1000).toISOString().replace('Z','+09:00');
           full.updated=kst;
@@ -104,7 +97,7 @@ jobs:
           if(full.updated!==manifest.output_updated||lean.updated!==full.updated) throw new Error('output timestamps not synchronized');
           if(Date.parse(full.updated)<=Date.parse(faq.fetched_at)) throw new Error('output timestamp must postdate final evidence fetch');
           if((card.implication||[]).some(x=>/채권자보호|소규모합병/.test(x))) throw new Error('unsupported procedural implication remains');
-          if(card.evidence_resolution!=='PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION') throw new Error('SK evidence resolution changed unexpectedly');
+          if(card.source_diversity_measure?.status!=='PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION') throw new Error('SK evidence resolution changed unexpectedly');
           if(card.source_synthesis_applied!==false||!Array.isArray(card.source_synthesis_fields)||card.source_synthesis_fields.length) throw new Error('SK synthesis state changed unexpectedly');
           console.log('PASS: Codex review4 assertions');
           NODE

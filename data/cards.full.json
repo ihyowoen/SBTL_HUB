@@ -1048,16 +1048,17 @@
       "sub_cat": "핵심소재계열재편",
       "signal": "high",
       "title": "SK이노베이션, SKIET 흡수합병 결정",
-      "sub": "SK이노베이션과 SKIET가 8월 25일 각각 이사회에서 합병안을 의결했고, 합병기일은 2027년 1월 1일로 제시됐다.",
+      "sub": "SK이노베이션은 8월 25일 이사회에서 합병계약 체결안을 의결했고, 합병기일은 2027년 1월 1일로 제시됐다.",
       "gate": "분리막 사업을 모회사 안으로 재편해 재무·운영 구조를 통합하는 거래다. 합병 자체와 이후 사업 회복 목표는 구분해 볼 필요가 있다.",
       "fact": "SK이노베이션은 SKIET를 흡수합병하는 안을 의결했다. SK이노베이션은 존속회사, SKIET는 소멸회사로 추진되며 합병비율은 1대 0.1174540, 합병기일은 2027년 1월 1일이다. 회사는 분리막 사업의 재무안정성과 운영 효율성 제고를 합병 목적에 포함했다.",
       "implication": [
         "분리막 사업의 자금조달과 본사 기능 통합이 비용구조에 실제로 반영되는지가 핵심이다.",
         "분리막 수요 회복보다 조직·재무 구조 재편이 먼저 진행되는 만큼 합병 이후 가동률과 수익성 지표를 분리해 볼 필요가 있다.",
-        "주주승인·채권자보호 등 절차와 2027년 1월 합병 완료 여부가 다음 확인점이다."
+        "SK이노베이션의 소규모합병 이사회 승인·채권자보호 절차와 2027년 1월 합병 효력 발생 여부가 다음 확인점이다."
       ],
       "urls": [
-        "https://www.skinnovation.com/ir/notice/105"
+        "https://www.skinnovation.com/ir/notice/105",
+        "https://www.skinnovation.com/ir/faq?type=etc_ir"
       ],
       "fact_sources": [
         {
@@ -1072,11 +1073,7 @@
           "quote_status": "official_material_quote_verified",
           "evidence_role": "primary_event_evidence",
           "supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
+            "title"
           ],
           "fetched_at": "2026-08-28T19:30:00+09:00",
           "fetch_method": "web_official_body_fetch",
@@ -1085,9 +1082,38 @@
           "body_level": true,
           "source_role": "primary_event_evidence",
           "source_origin_type": "company_primary_announcement",
-          "source_contribution": "Durable item-specific shareholder merger notice replacing the generic IR/FAQ listing endpoint.",
+          "source_contribution": "Durable item-specific SK Innovation notice anchors the official merger announcement; substantive merger terms are covered by the official Merger FAQ.",
           "source_published_date": "2026-08-25",
           "visible_quote_date": "2026-08-25",
+          "source_owner_id_normalized": "skinnovation.com",
+          "source_url_canonical_complete": true,
+          "resolved_article_matches_quote": true
+        },
+        {
+          "source_name": "SK Innovation Merger FAQ",
+          "source_owner": "SK Innovation",
+          "source_url": "https://www.skinnovation.com/ir/faq?type=etc_ir",
+          "url": "https://www.skinnovation.com/ir/faq?type=etc_ir",
+          "source_type": "company_primary_faq",
+          "claim": "SK이노베이션-SKIET 합병의 이사회 일정, 합병비율, 효력일 및 재무·운영 목적",
+          "source_quote": "merger ratio was set at 1 : 0.1174540; Board Resolution on the Execution of Merger Agreement — Aug 25, 2026; Effective Date — Jan 1, 2027",
+          "source_quote_status": "official_material_quote_verified",
+          "quote_status": "official_material_quote_verified",
+          "evidence_role": "primary_event_evidence",
+          "supports": [
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "fetched_at": "2026-08-29T15:24:00+09:00",
+          "fetch_method": "web_official_body_fetch",
+          "fetch_status": "success",
+          "http_status": 200,
+          "body_level": true,
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_primary_faq",
+          "source_contribution": "Official merger FAQ confirms the Aug. 25 board-resolution timeline, 1:0.1174540 merger ratio, Jan. 1, 2027 effective date, and rationale of stronger financial stability, business-risk mitigation, and operational efficiency.",
           "source_owner_id_normalized": "skinnovation.com",
           "source_url_canonical_complete": true,
           "resolved_article_matches_quote": true
@@ -1115,14 +1141,15 @@
       },
       "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_diversity_measure": {
-        "source_evidence_entry_count": 1,
-        "source_unique_url_count": 1,
+        "source_evidence_entry_count": 2,
+        "source_unique_url_count": 2,
         "source_unique_domain_count": 1,
         "source_independent_owner_count": 1,
-        "visible_source_url_count": 1,
+        "visible_source_url_count": 2,
         "missing_source_url_count": 0,
         "missing_visible_source_url_count": 0,
         "canonical_urls": [
+          "https://skinnovation.com/ir/faq?type=etc_ir",
           "https://skinnovation.com/ir/notice/105"
         ],
         "canonical_domains": [
@@ -1140,14 +1167,7 @@
       },
       "source_synthesis_applied": false,
       "source_synthesis_fields": [],
-      "source_synthesis_audit": [
-        {
-          "source_domain": "www.skinnovation.com",
-          "source_role": "primary_event_evidence",
-          "unique_contribution": "Durable item-specific shareholder merger notice replacing the generic IR/FAQ listing endpoint.",
-          "affected_visible_fields": []
-        }
-      ],
+      "source_synthesis_audit": [],
       "source_published_date": "2026-08-25",
       "visible_quote_date": "2026-08-25",
       "id": "2026-08-25_KR_01",
@@ -1192,13 +1212,9 @@
           "source_owner": "skinnovation.com",
           "source_domain": "skinnovation.com",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "Durable item-specific shareholder merger notice replacing the generic IR/FAQ listing endpoint.",
+          "unique_contribution": "Durable item-specific SK Innovation notice anchors the official merger announcement; substantive merger terms are covered by the official Merger FAQ.",
           "visible_supports": [
-            "title",
-            "sub",
-            "gate",
-            "fact",
-            "implication"
+            "title"
           ],
           "source_role": "primary_event_evidence",
           "source_origin_type": "company_primary_announcement",
@@ -1245,19 +1261,37 @@
           "result": "checked",
           "accepted": true,
           "notes": "Post-merge Codex review finding reverified against an event-specific durable source and corrected before this remediation PR."
+        },
+        {
+          "source_url": "https://www.skinnovation.com/ir/faq?type=etc_ir",
+          "canonical_url": "https://skinnovation.com/ir/faq?type=etc_ir",
+          "source_name": "SK Innovation Merger FAQ",
+          "source_owner": "skinnovation.com",
+          "source_domain": "skinnovation.com",
+          "outcome": "used_in_fact_sources",
+          "unique_contribution": "Official merger FAQ confirms the Aug. 25 board-resolution timeline, 1:0.1174540 merger ratio, Jan. 1, 2027 effective date, and rationale of stronger financial stability, business-risk mitigation, and operational efficiency.",
+          "visible_supports": [
+            "sub",
+            "fact",
+            "gate",
+            "implication"
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_primary_faq",
+          "checked_at": "2026-08-29T15:24:00+09:00"
         }
       ],
       "single_source_exception": {
         "allowed": true,
-        "reason": "The durable item-specific SK Innovation shareholder merger notice is the authoritative primary event source; the checked Seoul report only corroborates the already-visible merger event and adds no distinct visible-field contribution.",
-        "mitigation": "Visible claims remain bounded to the official SK Innovation notice. The Seoul article is retained in the discovery ledger as corroboration but is not counted as visible evidence or multi-source synthesis."
+        "reason": "The visible evidence set uses two official SK Innovation URLs but remains one independent editorial owner; no independent source adds a distinct visible claim.",
+        "mitigation": "Retain the item-specific merger notice as the durable event anchor, add the official body-level Merger FAQ for substantive terms, and retain Seoul only as checked non-visible date corroboration."
       },
-      "source_evidence_entry_count": 1,
-      "source_unique_url_count": 1,
+      "source_evidence_entry_count": 2,
+      "source_unique_url_count": 2,
       "source_unique_domain_count": 1,
       "source_independent_owner_count": 1,
       "source_url_resolution": {
-        "supporting_fact_source_count": 1,
+        "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
         "source_url_propagation_performed": true,
@@ -1267,6 +1301,13 @@
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
             "resolution_basis": "recomputed from current fact_sources; indices=0; owners=skinnovation.com",
+            "source_url_propagation_performed": true
+          },
+          {
+            "source_url": "https://www.skinnovation.com/ir/faq?type=etc_ir",
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "resolution_basis": "official body-level Merger FAQ added as substantive same-owner primary evidence; indices=1; owners=skinnovation.com",
             "source_url_propagation_performed": true
           }
         ]

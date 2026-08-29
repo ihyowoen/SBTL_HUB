@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-29T18:33:46.858+09:00",
+  "updated": "2026-08-29T19:57:19.745+09:00",
   "total": 1496,
   "schema": "cards_v1",
   "sort": "date_desc_id_desc",
@@ -1126,8 +1126,8 @@
         "publication_date": "2026-08-25",
         "representative_date": "2026-08-25",
         "date_confidence": "high",
-        "event_date_source_url": "https://www.seoul.co.kr/news/economy/industry/2026/08/25/20260825500185",
-        "event_date_source_quote": "SK이노베이션은 SK아이이테크놀로지(SKIET)를 흡수합병한다.",
+        "event_date_source_url": "https://www.skinnovation.com/ir/faq?type=etc_ir",
+        "event_date_source_quote": "Board Resolution on the Execution of Merger Agreement — Aug 25, 2026",
         "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
         "publication_dates": [
           "2026-08-25"
@@ -1139,7 +1139,7 @@
         "event_date_confidence": "high",
         "date_role_locked": true,
         "stage_b_date_recheck_required": false,
-        "event_date_source_name": "서울신문"
+        "event_date_source_name": "SK Innovation Merger FAQ"
       },
       "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
       "source_diversity_measure": {
@@ -5733,15 +5733,15 @@
           "source_url": "https://www.energy-storage.news/quinbrook-taps-ge-vernova-and-catl-for-the-third-stage-of-australias-largest-battery-storage-system/",
           "url": "https://www.energy-storage.news/quinbrook-taps-ge-vernova-and-catl-for-the-third-stage-of-australias-largest-battery-storage-system/",
           "source_type": "independent_body_level_article",
-          "claim": "Quinbrook Supernode Stage 3 계약",
-          "source_quote": "Quinbrook has selected GE Vernova and CATL for the third stage of the Supernode battery energy storage system.",
+          "claim": "Supernode Stage 3 adds 260MW/1,216MWh and brings the full campus to 780MW/3,075MWh once complete",
+          "source_quote": "Stage 3 will add 260MW and 1,216MWh of 4-hour storage, bringing the full Supernode campus to 780MW/3,075MWh once complete.",
           "source_quote_status": "body_quote_verified",
           "quote_status": "body_quote_verified",
           "evidence_role": "secondary_event_evidence",
           "supports": [
-            "title",
             "sub",
-            "fact"
+            "fact",
+            "implication"
           ],
           "fetched_at": "2026-08-28T19:30:00+09:00",
           "fetch_method": "bounded_web_body_search",
@@ -5750,7 +5750,7 @@
           "body_level": true,
           "source_role": "independent_event_confirmation",
           "source_origin_type": "independent_body_level_article",
-          "source_contribution": "Independently confirms the named counterparty/project action and execution status carried in the fact field: Quinbrook has selected GE Vernova and CATL for the third stage of the Supernode battery energy storage system.",
+          "source_contribution": "Independent item-specific report directly supports Stage 3 capacity and the full-campus 780MW/3,075MWh total.",
           "source_published_date": "2026-08-24",
           "visible_quote_date": "2026-08-24",
           "source_owner_id_normalized": "solar_media",
@@ -5894,11 +5894,11 @@
           "source_owner": "solar_media",
           "source_domain": "energy-storage.news",
           "outcome": "used_in_fact_sources",
-          "unique_contribution": "Independently confirms the named counterparty/project action and execution status carried in the fact field: Quinbrook has selected GE Vernova and CATL for the third stage of the Supernode battery energy storage system.",
+          "unique_contribution": "Independent item-specific report directly supports Stage 3 capacity and the full-campus 780MW/3,075MWh total.",
           "visible_supports": [
-            "fact",
             "sub",
-            "title"
+            "fact",
+            "implication"
           ],
           "source_role": "independent_event_confirmation",
           "source_origin_type": "independent_body_level_article",

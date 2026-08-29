@@ -1,0 +1,64 @@
+{
+  "schema": "card_run_audit_v1",
+  "status": "PASS",
+  "audit_complete": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "zero_deletion_assertion": true,
+  "zero_related_remove_assertion": true,
+  "run_id": "card-run-2026-08-29-final-news-20260827-combined18",
+  "base_main_commit_sha": "937dce6429c8bf63535d8043c7f559c9f2001f5d",
+  "base_full_blob_sha": "9278233be67240aac1cdf7963e12d8e2878319f0",
+  "document_universe_manifest_ref": "runs/2026-08-29/stage_0_0d_document_universe_20260829_CURRENT_MAIN_1496.json",
+  "coverage_discovery_ref": "runs/2026-08-29/stage_0_0c_coverage_discovery_20260829_CURRENT_MAIN_1496.json",
+  "independent_completeness_ref": "runs/2026-08-29/stage_0_7c_independent_completeness_review_20260829_CURRENT_MAIN_1496_COMBINED18.json",
+  "expected_before": 1496,
+  "expected_after": 1514,
+  "reviewed_operations_sha256": "83122efdd04cd854302e654f611497033b8fa54abe568e659c69c8c57856ff6e",
+  "inserted_ids": [
+    "2026-08-26_CN_01",
+    "2026-08-26_GL_01",
+    "2026-08-26_GL_02",
+    "2026-08-27_KR_03",
+    "2026-08-26_KR_03",
+    "2026-08-27_KR_01",
+    "2026-08-25_CN_03",
+    "2026-08-27_EU_02",
+    "2026-08-14_US_01",
+    "2026-08-21_GL_03",
+    "2026-08-24_GL_04",
+    "2026-08-27_GL_02",
+    "2026-08-27_CN_01",
+    "2026-08-27_KR_02",
+    "2026-08-25_EU_02",
+    "2026-08-26_EU_01",
+    "2026-08-20_US_03",
+    "2026-08-27_EU_03"
+  ],
+  "updated_ids": [],
+  "related_additions": [
+    {
+      "source_id": "2026-08-26_CN_01",
+      "target_id": "2026-08-07_CN_01",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-08-26_GL_01",
+      "target_id": "2026-05-04_GL_01",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-08-27_EU_03",
+      "target_id": "2026-07-30_EU_03",
+      "direction": "directional"
+    }
+  ],
+  "full_output_sha256": "51cc3b1f5b87bc6c3598a61ce5eb4294cd7cc85048b5903b0affd7b078e60728",
+  "lean_output_sha256": "842dd628b6303d67e4ffb27fc38b621d08292fc7deb9160b60de4e93c3870cb4",
+  "existing_related_preserved": true,
+  "undeclared_existing_card_change_count": 0,
+  "new_dangling_related_count": 0,
+  "notes": [
+    "Independent run audit after materialization from exact 1,496-card baseline.",
+    "Prompt 0.9 production verification is intentionally not claimed here."
+  ]
+}

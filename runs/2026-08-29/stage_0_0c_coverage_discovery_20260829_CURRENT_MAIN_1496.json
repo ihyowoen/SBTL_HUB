@@ -1,0 +1,46 @@
+{
+  "stage": "0.0C",
+  "schema": "sbtl_stage_0_0c_coverage_v2",
+  "status": "PASS",
+  "run_tag": "card-run-2026-08-29-final-news-20260827-combined18",
+  "generated_kst": "2026-08-29T20:26:27+09:00",
+  "base_main_commit_sha": "937dce6429c8bf63535d8043c7f559c9f2001f5d",
+  "base_full_blob_sha": "9278233be67240aac1cdf7963e12d8e2878319f0",
+  "baseline_count": 1496,
+  "document_universe_manifest_ref": "runs/2026-08-29/stage_0_0d_document_universe_20260829_CURRENT_MAIN_1496.json",
+  "original_input_accounted": true,
+  "original_input_count": 443,
+  "stage_a_authorized": true,
+  "review_pool_accounting": {
+    "input": 15,
+    "terminal": 15,
+    "promoted": 2,
+    "unresolved": 0
+  },
+  "treasure_hunt_accounting": {
+    "input_treasure_accounted": 68,
+    "material_clean_exclusions_red_teamed": 52,
+    "promoted_to_strict": 8,
+    "unresolved": 0
+  },
+  "rescue_promotions_total": 10,
+  "final_publish_ready_candidate_count": 18,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "must_report_candidate_ledger_status": "PASS_ALL_ACCOUNTED",
+  "searched_but_no_material_event": [],
+  "source_universe_expansion_ledger": [
+    {
+      "source": "review_pool_rescue_closeout",
+      "promoted": 2
+    },
+    {
+      "source": "treasure_hunt_red_team",
+      "promoted": 8
+    }
+  ],
+  "notes": [
+    "Final coverage artifact supersedes the earlier provisional 0.0C for Prompt 0.8 binding only; it preserves the 443-story original-input accounting and records later mandatory review-pool/treasure rescue passes."
+  ]
+}

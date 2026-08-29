@@ -1,0 +1,142 @@
+{
+  "stage": "0.0D",
+  "schema": "sbtl_stage_0_0d_document_universe_v2",
+  "status": "PASS",
+  "run_tag": "card-run-2026-08-29-final-news-20260827-combined18",
+  "generated_kst": "2026-08-29T20:26:27+09:00",
+  "repository": "ihyowoen/SBTL_HUB",
+  "branch": "main",
+  "repository_head_sha": "937dce6429c8bf63535d8043c7f559c9f2001f5d",
+  "canonical_full_blob_sha": "9278233be67240aac1cdf7963e12d8e2878319f0",
+  "canonical_card_count": 1496,
+  "document_universe_status": "PASS",
+  "documents": [
+    {
+      "path": "docs/DOCUMENT_UNIVERSE_POLICY.md",
+      "sha256": "a103dcafd2167554ad41cc571b177645ffd07b7e359b7f7fa66f3127f9a8ada6",
+      "git_blob_sha": "1ffdffe3f07fa04d5080c5ed700f0cd7c3b10d80",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/CARD_INCREMENTAL_RUN_CONTRACT.md",
+      "sha256": "dab1d1c070f1968a13051e7e0bf6d7ebe8d48694abef17439951f71b35eeeeac",
+      "git_blob_sha": "0be84672da84d9696cf6a7bd33f1b82d3a47e188",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+      "sha256": "6d9853a3409b9a4a203248d84cf94c9ee1f8d67bf8be022de438aee66a479349",
+      "git_blob_sha": "3836f173842409f72acab3698f35d98ed247a356",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/FACT_DISCIPLINE.md",
+      "sha256": "3af8d0ecb82efab4e1841c1a06aa39e52bcb331937fc64f1e5d3868cc846e686",
+      "git_blob_sha": "b6b048f2c8a56d9dcdaa5073d802571ba6adf798",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+      "sha256": "7573c85d9c8188c794a47c1454e48a39b9de84148bb20a4130f4ca491fe1bf0d",
+      "git_blob_sha": "3024fd411b9df1c6c3369e46ed6b423e04a36ddf",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
+      "sha256": "4a8e738f0b9fb026f716bc5c63f1177fbf0993eb9ff84d7be158245c6b29f180",
+      "git_blob_sha": "8e5e9248abac44b40a39295f9de547a5e7601d9e",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/RELATED_LIFECYCLE_CONTRACT.md",
+      "sha256": "a66ed989d1565d312e709854d1ae302b594f66148238935a2cf7f69761869a78",
+      "git_blob_sha": "6a0e487908c0f1a13a2ef2bc0a5513e0041f289c",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/SOURCE_AUDIT_CONTRACT.md",
+      "sha256": "a7315a32526b73a234794a21b631f7c7323c69b45e686f68fbfb9f5ad3d61d8a",
+      "git_blob_sha": "f5c06fbff38a631b31a793d15d2bfa202334d0cd",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
+      "sha256": "ddb67e50cae7e913b0184d6548ae4842a108213642c4e7aaaa0ab24ac0c19308",
+      "git_blob_sha": "5cb9387dcb9a71bd4bd56d61ff1de1632d32df74",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/CARD_ID_STANDARD.md",
+      "sha256": "0b29fe17aeef893be47522b77262594cd041fac75d651715b5ff7ac8a3e8b723",
+      "git_blob_sha": "a25c136ab0f6ad5ca01bd965b9c6488cfc0c6fbc",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "sha256": "5497821c3260002d16687938acd211b4b31d46c8477eab85b00f392f5911c137",
+      "git_blob_sha": "fb3b9fbcb86879c117c71f818b14582264e8dc62",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/WORKFLOW.md",
+      "sha256": "bc4dd5c1918b438b2f78abd7573a3ff375e9b747d9bf1fb3c209901227b3950d",
+      "git_blob_sha": "bb11b55133e9223348358db0f23346c625fb7fe0",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/OPERATIONS.md",
+      "sha256": "daf6040a440460b052bc5b33eac01c13be1d85051d75deec37bf8ca5aa76f804",
+      "git_blob_sha": "ed86b15bef203701d39e36566ad02bd86a5ce321",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "sha256": "ffae1f9d98d781d1d3d833185991ed5697f388303d7f9ae29ce6538495f33e09",
+      "git_blob_sha": "e3927b0dcbf6304d4a807f2ec8d8f75a86d28f62",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "sha256": "696e4c141b7f845569ba1ad1c52066c1654a7ea63e91b370e8b4d57462073a2d",
+      "git_blob_sha": "4bd90c8f916e01ab8adb56f34a53ee1e6234e8e8",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
+      "sha256": "857c13c68a3475d269962156a9cec2576280b1c0c11cf33467d7ab7804311c3a",
+      "git_blob_sha": "94acec2db45db25a5dc90af1a7577034040681f5",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep_HARDENING_ADDENDUM_V1.md",
+      "sha256": "3515ea0fe9dd80419713b79f6ef3c8a12d82a9fdb5eb4640a4abdd546c00665f",
+      "git_blob_sha": "452ce543b602a67a5a413740b794fff6c8586860",
+      "read_status": "READ_COMPLETE",
+      "application_status": "APPLIED"
+    }
+  ],
+  "all_docs_files_read_or_parsed": true,
+  "stage_0_0c_authorized": true,
+  "unresolved_rule_conflicts": [],
+  "incomplete_universe_defects": [],
+  "notes": [
+    "Canonical card blob verified against user-provided current-main ZIP and GitHub contents blob.",
+    "PR #296 changed only historical apply-report artifacts and did not modify canonical, validators, or governance documents."
+  ]
+}

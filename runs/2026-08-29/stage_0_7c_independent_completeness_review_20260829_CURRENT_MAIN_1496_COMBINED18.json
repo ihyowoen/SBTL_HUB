@@ -1,0 +1,532 @@
+{
+  "stage": "0.7C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_tag": "card-run-2026-08-29-final-news-20260827-combined18",
+  "baseline_revision": "937dce6429c8bf63535d8043c7f559c9f2001f5d",
+  "baseline_count": 1496,
+  "canonical_blob": "9278233be67240aac1cdf7963e12d8e2878319f0",
+  "governing_contracts_read": [
+    "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+    "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+    "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
+    "docs/RELATED_LIFECYCLE_CONTRACT.md"
+  ],
+  "governing_contracts_same_revision": true,
+  "v3_contract_preflight_passed": true,
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "format_risk_anchor_path_review_complete": true,
+  "anchor_path_review_results": [
+    {
+      "source_spec_id": "NEW27_A_004",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "execution_event_anchor",
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_A_005",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "execution_event_anchor",
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_A_007",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_A_008",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_A_009",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_A_010",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_A_012",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_A_019",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_RP_001",
+      "selected_review_path": "v3_non_execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Source-backed V3 data/policy/structural anchor package retained."
+    },
+    {
+      "source_spec_id": "NEW27_RP_002",
+      "selected_review_path": "v3_non_execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Source-backed V3 data/policy/structural anchor package retained."
+    },
+    {
+      "source_spec_id": "NEW27_TH_001",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_TH_002",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_TH_003",
+      "selected_review_path": "v3_non_execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Source-backed V3 data/policy/structural anchor package retained."
+    },
+    {
+      "source_spec_id": "NEW27_TH_004",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_TH_005",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_TH_006",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_TH_007",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "new_unrelated_event",
+      "fresh_follow_up_anchor_class": null,
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    },
+    {
+      "source_spec_id": "NEW27_TH_008",
+      "selected_review_path": "execution",
+      "status": "PASS",
+      "relation_type": "distinct_follow_up",
+      "fresh_follow_up_anchor_class": "execution_event_anchor",
+      "note": "Execution anchor verified where applicable; otherwise item is not a format-risk route requiring dual-path metadata."
+    }
+  ],
+  "insert_decisions_reviewed": [
+    {
+      "source_spec_id": "NEW27_A_004",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "CATL 젠샤워 리튬광산, 환경평가 접수 공시 철회로 재가동 불확실성 확대"
+    },
+    {
+      "source_spec_id": "NEW27_A_005",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "Electra, 온타리오 C$1,750만 지원 최종계약…코발트 정제소 건설 자금 확정"
+    },
+    {
+      "source_spec_id": "NEW27_A_007",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "UNIGRID·현대차그룹, 나트륨이온 NCO 기술검증 완료…BESS 공동개발 단계로"
+    },
+    {
+      "source_spec_id": "NEW27_A_008",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "피엔티, 자체 LFP 셀 6C 고율성능 KTL 시험 확인"
+    },
+    {
+      "source_spec_id": "NEW27_A_009",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "코윈테크, 84.5억원 ESS 조립로봇·AMR 공급계약 체결"
+    },
+    {
+      "source_spec_id": "NEW27_A_010",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "정부·LG전자, 폐가전 희토류 영구자석 회수 시범사업 착수"
+    },
+    {
+      "source_spec_id": "NEW27_A_012",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "Sungrow PowerTitan 3.0, 중국 200MW·400MWh BESS 계통연계·운영 개시"
+    },
+    {
+      "source_spec_id": "NEW27_A_019",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "European Energy, 유럽 BESS 167MW·545MWh 운영 포트폴리오 구축"
+    },
+    {
+      "source_spec_id": "NEW27_RP_001",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "미국 유틸리티급 BESS 55.81GW…2분기 4.883GW 신규 가동·계통연계"
+    },
+    {
+      "source_spec_id": "NEW27_RP_002",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "대만, 대형 신규·증설 전력사용자에 자가발전 또는 저장설비 의무 법안 3독 통과"
+    },
+    {
+      "source_spec_id": "NEW27_TH_001",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "Tata Power Renewables, 라자스탄 190.5MW FDRE 상업가동…115MWh BESS 통합"
+    },
+    {
+      "source_spec_id": "NEW27_TH_002",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "ACME Suryodaya, 라자스탄 BESS 15MW/240.752MWh 추가 커미셔닝"
+    },
+    {
+      "source_spec_id": "NEW27_TH_003",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "CNESA, 중국 신형 ESS 누적 168.3GW/448.7GWh…상반기 신규 가동 21.81GW로 둔화"
+    },
+    {
+      "source_spec_id": "NEW27_TH_004",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "톱텍, 현대모비스 북미법인서 각형 REEV 배터리 조립라인 211억원 수주"
+    },
+    {
+      "source_spec_id": "NEW27_TH_005",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "COMAX France, 10개 사이트 57MW/114MWh BESS 포트폴리오 가동"
+    },
+    {
+      "source_spec_id": "NEW27_TH_006",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "METLEN, Pulse Clean Energy 129MW/362MWh Penn BESS BoP 계약 체결"
+    },
+    {
+      "source_spec_id": "NEW27_TH_007",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "Asahi Kasei, 샬럿 Hipore 습식 분리막 코팅라인 준공…북미 현지공급 기반 구축"
+    },
+    {
+      "source_spec_id": "NEW27_TH_008",
+      "decision": "approve_for_0_8_insert_subject_to_production_id_resolution",
+      "title": "Greenvolt, 폴란드 400MW/1.6GWh BESS 2곳에 UniCredit 2.18억유로 금융 확보"
+    }
+  ],
+  "update_decisions_reviewed": [],
+  "related_add_decisions_reviewed": [
+    {
+      "source_spec_id": "NEW27_A_004",
+      "relation_type": "distinct_follow_up",
+      "related_ids": [
+        "2026-08-07_CN_01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "NEW27_A_005",
+      "relation_type": "distinct_follow_up",
+      "related_ids": [
+        "2026-05-04_GL_01"
+      ],
+      "status": "PASS"
+    },
+    {
+      "source_spec_id": "NEW27_TH_008",
+      "relation_type": "distinct_follow_up",
+      "related_ids": [
+        "2026-07-30_EU_03"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "reopened_items": [
+    {
+      "origin": "review_pool",
+      "story_id": "KR_2026-08-27_C126",
+      "disposition": "rescued_to_publish_ready",
+      "reason": "Bounded review resolved the blocking question and promoted through the governed downstream pipeline."
+    },
+    {
+      "origin": "review_pool",
+      "story_id": "DISC_GL_2026-08-25_TW_AIDC_STORAGE_LAW",
+      "disposition": "rescued_to_publish_ready",
+      "reason": "Bounded review resolved the blocking question and promoted through the governed downstream pipeline."
+    },
+    {
+      "origin": "treasure_hunt",
+      "candidate_id": "TH27_001",
+      "source_spec_id": "NEW27_TH_001",
+      "disposition": "rescued_to_publish_ready"
+    },
+    {
+      "origin": "treasure_hunt",
+      "candidate_id": "TH27_002",
+      "source_spec_id": "NEW27_TH_002",
+      "disposition": "rescued_to_publish_ready"
+    },
+    {
+      "origin": "treasure_hunt",
+      "candidate_id": "TH27_003",
+      "source_spec_id": "NEW27_TH_003",
+      "disposition": "rescued_to_publish_ready"
+    },
+    {
+      "origin": "treasure_hunt",
+      "candidate_id": "TH27_004",
+      "source_spec_id": "NEW27_TH_004",
+      "disposition": "rescued_to_publish_ready"
+    },
+    {
+      "origin": "treasure_hunt",
+      "candidate_id": "TH27_005",
+      "source_spec_id": "NEW27_TH_005",
+      "disposition": "rescued_to_publish_ready"
+    },
+    {
+      "origin": "treasure_hunt",
+      "candidate_id": "TH27_006",
+      "source_spec_id": "NEW27_TH_006",
+      "disposition": "rescued_to_publish_ready"
+    },
+    {
+      "origin": "treasure_hunt",
+      "candidate_id": "TH27_007",
+      "source_spec_id": "NEW27_TH_007",
+      "disposition": "rescued_to_publish_ready"
+    },
+    {
+      "origin": "treasure_hunt",
+      "candidate_id": "TH27_008",
+      "source_spec_id": "NEW27_TH_008",
+      "disposition": "rescued_to_publish_ready"
+    }
+  ],
+  "review_pool_accounting": {
+    "reviewed": 15,
+    "promoted": 2,
+    "terminal_nonpromote": 13,
+    "unresolved": 0,
+    "status": "PASS"
+  },
+  "treasure_hunt_accounting": {
+    "input_treasure_accounted": 68,
+    "newsletter_clean_material_exclusions_red_teamed": 52,
+    "external_and_exclusion_rescue_candidates": 8,
+    "rescue_publish_ready": 8,
+    "rescue_unresolved": 0,
+    "historical_backlog_deferred": [
+      "TH27_H01"
+    ],
+    "status": "PASS"
+  },
+  "publish_ready_set_count": 18,
+  "material_exclusions": [
+    {
+      "story_id": "KR_2026-08-27_C182",
+      "disposition": "watchlist_only_after_review",
+      "reason": "Product launch and company-reported tests/certifications are verified, but no named paid customer shipment, deployment or binding commercial order was found.",
+      "next_action_condition": "Promote only after a named commercial deployment/order or independent field-performance evidence."
+    },
+    {
+      "story_id": "US_2026-08-26_C13",
+      "disposition": "watchlist_only_after_review",
+      "reason": "PSE&G officially launched GridSmart with $5,000 rebate, up to $25,000 0% financing and up to 100 dispatch events/year, but the total participant cap and aggregate MW target are not publicly fixed in the reviewed material.",
+      "next_action_condition": "Reassess when NJBPU/PSE&G publishes enrollment cap, aggregate MW, measured dispatch or scale-up decision."
+    },
+    {
+      "story_id": "US_2026-08-26_C01",
+      "disposition": "support_source_only_after_review",
+      "reason": "APM Terminals officially ordered 96 Orange EV terminal tractors, but the event is localized port-equipment electrification and does not materially change battery-industry supply/demand at portfolio level.",
+      "next_action_condition": "Use as commercial-vehicle/port LFP demand context; promote only if fleet-wide deployment data or broader standardized procurement changes the market view."
+    },
+    {
+      "story_id": "KR_2026-08-26_C80",
+      "disposition": "duplicate_or_reinforcement_after_review",
+      "reason": "Official Korea ministry material says the countries will accelerate administrative procedures toward construction of the critical-mineral supply-chain technology center; it does not establish a new construction-start anchor versus prior cooperation.",
+      "next_action_condition": "Reassess at actual groundbreaking/construction start, permitting completion or binding new critical-mineral supply arrangement."
+    },
+    {
+      "story_id": "TF_0067",
+      "disposition": "watchlist_only_after_review",
+      "reason": "The 1+ GW third ESS auction remains reported as a likely option under consideration; no final KPX/government tender notice fixing the capacity was found.",
+      "next_action_condition": "Promote when the third central-contract-market notice is officially published with confirmed MW/GWh and procurement terms."
+    },
+    {
+      "story_id": "CN_2026-08-26_C09",
+      "disposition": "watchlist_only_after_review",
+      "reason": "Gotion H1 report is official and confirms strong headline growth and ESS revenue, but the Stage-A earnings deep-dive requirement remains unresolved for call/Q&A, recurring-vs-one-off profit bridge and comparative guidance.",
+      "next_action_condition": "Reassess in a dedicated earnings deep dive with official report plus call/Q&A or equivalent management disclosure."
+    },
+    {
+      "story_id": "CN_2026-08-26_C17",
+      "disposition": "watchlist_only_after_review",
+      "reason": "MIIT officially states a power-battery digital-ID management system will be implemented during the 15th Five-Year Plan and regulations will be drafted, but operative rules, covered entities, required data and effective date are not yet fixed.",
+      "next_action_condition": "Promote on final administrative regulation/implementing measure or enforcement launch."
+    },
+    {
+      "story_id": "KR_2026-08-27_C129",
+      "disposition": "watchlist_only_after_review",
+      "reason": "California SB 913 passed both houses and Assembly amendments were concurred on Aug. 27, but gubernatorial action remains pending; it is not yet binding law.",
+      "next_action_condition": "Promote on governor signature/chaptering or a material implementation action."
+    },
+    {
+      "story_id": "TF_0180",
+      "disposition": "watchlist_only_after_review",
+      "reason": "Federal Register B-105-2026 is a notification of proposed FTZ production activity for Panasonic Sparks; authorization remains subsequent to Board review and comments close Oct. 5.",
+      "next_action_condition": "Promote only upon FTZ Board authorization or a material tariff/production consequence."
+    },
+    {
+      "story_id": "DISC_GL_2026-08-27_INDIA_COMPONENT_SCHEME",
+      "disposition": "watchlist_only_after_review",
+      "reason": "The Rs13,000 crore battery-component support programme is reported as a proposal nearing rollout; no enacted cabinet/ministerial scheme document or final budget/eligibility instrument was found.",
+      "next_action_condition": "Promote when India issues the official approved scheme, budget and eligibility/implementation terms."
+    },
+    {
+      "story_id": "DISC_US_2026-08-25_CA_SB501_BATTERY_EPR",
+      "disposition": "watchlist_only_after_review",
+      "reason": "California SB 501 is enrolled after both chambers passed it, but gubernatorial action remains pending; current law has not yet been amended by this bill.",
+      "next_action_condition": "Promote on governor signature/chaptering or final veto/correction if material."
+    },
+    {
+      "story_id": "DISC_JP_2026-08-25_MAXELL_ASSB_MODULE",
+      "disposition": "watchlist_only_after_review",
+      "reason": "Maxell confirms a wireless-charging-capable 1/2AA all-solid-state module and a House Foods feasibility study, but the product remains a development/feasibility-stage item without commercial order or deployment.",
+      "next_action_condition": "Promote on customer qualification, sample/commercial shipment, binding order or measured field-validation milestone."
+    },
+    {
+      "story_id": "GL_2026-08-24_C11",
+      "disposition": "duplicate_or_reinforcement_after_review",
+      "reason": "DOE officially selected seven projects for $500m on Aug. 20; the current canonical already contains a project-specific Princeton NuEnergy card from the same funding round, and the Aug.24 secondary article adds no fresh umbrella execution anchor.",
+      "next_action_condition": "Preserve DOE programme source as context/reinforcement; add a new card only for an unrepresented recipient with independently material project facts or a later funding stage."
+    },
+    {
+      "candidate_id": "TH27_W01",
+      "disposition": "support_or_watch",
+      "reason": "Early-stage R&D project-selection round; lower execution maturity and scale than current strict threshold."
+    },
+    {
+      "candidate_id": "TH27_W02",
+      "disposition": "support_or_watch",
+      "reason": "Useful logistics/localization execution context but does not independently move battery market supply/demand enough for current strict rescue."
+    },
+    {
+      "candidate_id": "TH27_W03",
+      "disposition": "candidate_watch",
+      "reason": "Binding project-right acquisition but modest size and pre-RTB/commissioning stage; monitor framework delivery."
+    },
+    {
+      "candidate_id": "TH27_W04",
+      "disposition": "candidate_watch_distinct_follow_up",
+      "reason": "Commercialization progression versus April first-order card is real but sample is only 30 packs and validation remains company-reported."
+    },
+    {
+      "candidate_id": "TH27_W05",
+      "disposition": "support_or_watch",
+      "reason": "Contract value ~SEK16m and project MWh undisclosed; insufficient denominator/materiality for strict rescue."
+    },
+    {
+      "candidate_id": "TH27_R01",
+      "disposition": "existing_card_reinforcement",
+      "reason": "Current canonical Aug6 card already records Aug27 effective date and one-year restriction; effectiveness itself adds no new implementation action."
+    },
+    {
+      "candidate_id": "TH27_R02",
+      "disposition": "already_canonical",
+      "reason": "Already represented in current 1,496 canonical with official and independent evidence."
+    },
+    {
+      "candidate_id": "TH27_R03",
+      "disposition": "already_canonical",
+      "reason": "Already represented in current 1,496 canonical."
+    },
+    {
+      "candidate_id": "TH27_R04",
+      "disposition": "already_canonical",
+      "reason": "Already represented via #289/current canonical."
+    },
+    {
+      "candidate_id": "TH27_H01",
+      "disposition": "historical_recovery_next_backlog",
+      "reason": "Republished/covered in current window but actual financing event predates Aug24 event window; do not launder publication date into current event date."
+    }
+  ],
+  "known_unknowns": [
+    "Public-source treasure hunting cannot prove absolute global completeness.",
+    "Some Asian exchange/company sources are accessible through filing reproductions or trade press and must be replaced or verified at Stage B where possible.",
+    "PR #293 remains an unmerged 25-card remediation overlay and is not treated as canonical baseline."
+  ],
+  "residual_risks": [
+    "Fast-moving Aug28-29 events are intentionally excluded from this run by event date and should enter the next run.",
+    "Absolute global completeness cannot be proven from public information; this status is bounded to the searched regions/topics and declared event window."
+  ],
+  "upstream_returns": [],
+  "reviewer_independence": "SEPARATE_PASS",
+  "prompt_0_8_authorized": true,
+  "six_round_review": {
+    "round_1_source_universe": "PASS",
+    "round_2_existing_full": "PASS",
+    "round_3_event_stage_anchor": "PASS",
+    "round_4_fact_completeness": "PASS",
+    "round_5_news_value": "PASS",
+    "round_6_exclusion_red_team": "PASS"
+  },
+  "run_id": "card-run-2026-08-29-final-news-20260827-combined18",
+  "base_main_commit_sha": "937dce6429c8bf63535d8043c7f559c9f2001f5d",
+  "base_full_blob_sha": "9278233be67240aac1cdf7963e12d8e2878319f0",
+  "document_universe_manifest_ref": "runs/2026-08-29/stage_0_0d_document_universe_20260829_CURRENT_MAIN_1496.json",
+  "coverage_discovery_ref": "runs/2026-08-29/stage_0_0c_coverage_discovery_20260829_CURRENT_MAIN_1496.json",
+  "reviewed_operations_sha256": "83122efdd04cd854302e654f611497033b8fa54abe568e659c69c8c57856ff6e",
+  "current_main_relock": {
+    "status": "PASS",
+    "head_sha": "937dce6429c8bf63535d8043c7f559c9f2001f5d",
+    "canonical_blob_sha": "9278233be67240aac1cdf7963e12d8e2878319f0",
+    "card_count": 1496,
+    "pr296_effect": "historical_run_artifacts_only_no_canonical_or_governance_change"
+  }
+}

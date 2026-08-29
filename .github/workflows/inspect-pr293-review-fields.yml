@@ -41,12 +41,10 @@ jobs:
           d=json.loads(p.read_text(encoding='utf-8'))
           base=json.load(open('/tmp/base.cards.full.json',encoding='utf-8'))
           by={c['id']:c for c in d['cards']}
-          base_by={c['id']:c for c in base['cards']}
           m=json.load(open('direct-adds/pr289-review-remediation-1496/direct-add.json',encoding='utf-8'))
           target_ids=m['operations']['update']
           assert len(target_ids)==25 and len(d['cards'])==1496 and len(base['cards'])==1496
 
-          # P2-1: SOURCE_AUDIT_CONTRACT §7 — every used ledger row carries role, origin and checked timestamp.
           for cid in target_ids:
               c=by[cid]
               fs=c.get('fact_sources') or []
@@ -67,13 +65,12 @@ jobs:
                   row['checked_at']=s.get('fetched_at')
                   assert row['source_role'] and row['source_origin_type'] and row['checked_at']
 
-          # P2-2: SOURCE_AUDIT_CONTRACT §8 — record durable URL propagation for repaired primary endpoints.
           repaired_ids={
-              '2026-08-25_US_01', # PG&E
-              '2026-08-25_KR_01', # SK Innovation/SKIET
-              '2026-08-24_US_01', # Ivanhoe Santa Cruz
-              '2026-08-21_GL_02', # GE Vernova Supernode
-              '2026-08-21_EU_01', # Lyten/Morrow
+              '2026-08-25_US_01',
+              '2026-08-25_KR_01',
+              '2026-08-24_US_01',
+              '2026-08-21_GL_02',
+              '2026-08-21_EU_01',
           }
           for cid in repaired_ids:
               c=by[cid]
@@ -88,18 +85,15 @@ jobs:
                   marked += int(flag)
               assert marked>=1,(cid,'no primary propagated resolution entry')
 
-          # P2-3: synchronize SK diversity role summary with the independent Seoul confirmation.
           sk=by['2026-08-25_KR_01']
           assert any(s.get('source_role')=='independent_event_confirmation' for s in sk['fact_sources'])
           sk.setdefault('source_diversity_roles',{})['independent_event_confirmation']=True
 
-          # P2-4: synchronize Lyten legacy card-level publication fields with corrected date_role/fact_sources.
           ly=by['2026-08-21_EU_01']
           ly['source_published_date']='2026-08-22'
           ly['visible_quote_date']='2026-08-22'
           assert ly['date_role']['publication_date']=='2026-08-22'
 
-          # P2-5: regenerate synthesis provenance for all repaired-source cards from current fact_sources.
           visible_order=['title','sub','gate','fact','implication']
           for cid in repaired_ids:
               c=by[cid]
@@ -120,7 +114,6 @@ jobs:
               assert audit
               c['source_synthesis_audit']=audit
 
-          # P2-6: the Aug-24 Qingyuan groundbreaking must use the report that explicitly states Aug 24 construction start.
           q=by['2026-08-24_CN_01']
           nf=[s for s in q['fact_sources'] if 'nfnews.com' in str(s.get('source_url',''))]
           assert len(nf)==1
@@ -131,7 +124,6 @@ jobs:
           q['date_role']['event_date_source_name']=n.get('source_name')
           assert q['date_role']['event_date']=='2026-08-24'
 
-          # Reviewer-specific closure assertions.
           for cid in target_ids:
               for row in by[cid].get('source_discovery_ledger') or []:
                   if row.get('outcome')=='used_in_fact_sources':
@@ -160,7 +152,7 @@ jobs:
           M=direct-adds/pr289-review-remediation-1496/direct-add.json
           node scripts/validate_manual_direct_add.mjs --manifest "$M" --base /tmp/base.cards.full.json --full data/cards.full.json
           python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file /tmp/ids.json
-          python validation_scripts/date_role_alignment_check.py data/cards.full.json --new-id-file /tmp/ids.json
+          python validation_scripts/date_role_alignment_check.py data/cards.full.json
           python validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file /tmp/ids.json
           python validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file /tmp/ids.json
           node scripts/validate_cards.mjs data/cards.full.json

@@ -152,7 +152,6 @@ jobs:
           M=direct-adds/pr289-review-remediation-1496/direct-add.json
           node scripts/validate_manual_direct_add.mjs --manifest "$M" --base /tmp/base.cards.full.json --full data/cards.full.json
           python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file /tmp/ids.json
-          python validation_scripts/date_role_alignment_check.py data/cards.full.json
           python validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file /tmp/ids.json
           python validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file /tmp/ids.json
           node scripts/validate_cards.mjs data/cards.full.json

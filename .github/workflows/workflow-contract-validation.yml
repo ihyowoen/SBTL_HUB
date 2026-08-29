@@ -4,28 +4,31 @@ on:
   pull_request:
     paths:
       - "contracts/**"
+      - "docs/WORKFLOW.md"
+      - "docs/OPERATIONS.md"
+      - "docs/DOCUMENT_UNIVERSE_POLICY.md"
+      - "docs/RUN_GOVERNANCE_INDEX.md"
+      - "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md"
       - "docs/RELATED_LIFECYCLE_CONTRACT.md"
       - "docs/SOURCE_AUDIT_CONTRACT.md"
+      - "docs/MANUAL_DIRECT_ADD_V*.md"
       - "docs/llm_prompts/v1/**"
+      - "schemas/manual-direct-add.v*.schema.json"
+      - "scripts/validate_manual_direct_add.mjs"
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
       - "scripts/lean_cards.mjs"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
+      - ".github/workflows/apply-card-run.yml"
   push:
-    branches:
-      - main
-      - agent/workflow-contract-related-source-audit
-      - agent/canonical-v3-contract-schema
+    branches: [main]
     paths:
       - "contracts/**"
-      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-      - "docs/SOURCE_AUDIT_CONTRACT.md"
-      - "docs/llm_prompts/v1/**"
-      - "validation_data/source_owner_registry.json"
+      - "docs/**"
+      - "schemas/manual-direct-add.v*.schema.json"
+      - "scripts/validate_manual_direct_add.mjs"
       - "validation_scripts/**"
-      - "scripts/lean_cards.mjs"
-      - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
 
 permissions:
@@ -43,20 +46,34 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
       - name: Compile validators
         run: python -m compileall -q validation_scripts
 
-      - name: Verify canonical V3 contract alignment
-        run: python validation_scripts/v3_contract_drift_check.py
+      - name: Verify clean V4 architecture
+        run: python validation_scripts/workflow_v4_architecture_check.py
 
-      - name: Verify generated V3 stage contracts
-        run: python validation_scripts/v3_stage_contracts.py --check
+      - name: Verify no legacy prompt overlay is active
+        run: python validation_scripts/apply_prompt_contract_overlays.py --check
 
-      - name: Verify V3 stage contract flow
-        run: python validation_scripts/v3_stage_contract_flow_check.py --check
-
-      - name: Run workflow-contract and exporter regression tests
+      - name: Run workflow-contract regression tests
         run: python -m unittest discover -s validation_scripts/tests -v
 
-      - name: Verify prompt overlays
-        run: python validation_scripts/apply_prompt_contract_overlays.py --check
+      - name: Validate direct-add V2 schema and validator
+        run: |
+          node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v2.schema.json","utf8"))'
+          node --check scripts/validate_manual_direct_add.mjs
+          node scripts/validate_manual_direct_add.mjs --self-test
+
+      - name: Verify V3 machine-contract compatibility
+        run: |
+          python validation_scripts/v3_contract_drift_check.py
+          python validation_scripts/v3_stage_contracts.py --check
+          python validation_scripts/v3_stage_contract_flow_check.py --check
+
+      - name: Verify lean projection contract
+        run: node scripts/lean_cards.mjs --check

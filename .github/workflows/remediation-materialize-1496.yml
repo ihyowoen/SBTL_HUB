@@ -94,6 +94,14 @@ jobs:
                       elif kind in ('replace','add'): parent[key]=change['value']
                       else: raise AssertionError(kind)
 
+          # Latest Related specificity gate requires a concrete named subject,
+          # not only a generic milestone phrase, for a distinct follow-up anchor.
+          walmart=by_id['2026-08-21_US_01']
+          assert walmart['related_lineage']['relation_type']=='distinct_follow_up'
+          walmart['related_lineage']['fresh_follow_up_anchor']=(
+              "Monument Supercenter became Walmart's 100th company-owned and operated EV fast-charging site"
+          )
+
           output_updated='2026-08-29T13:15:00+09:00'
           assert isinstance(full,dict), 'canonical top-level object required'
           full['updated']=output_updated

@@ -1,4 +1,4 @@
-name: Inspect PR293 final SK derived metadata
+name: Finalize PR293 SK derived metadata
 
 on:
   push:
@@ -8,24 +8,111 @@ on:
       - .github/workflows/inspect-pr293-final-sk.yml
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  inspect:
+  finalize:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: chatgpt/pr289-review-remediation-1496
-      - name: Print SK derived metadata
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Recompute SK derived source measure from current fact_sources
         shell: bash
         run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "3732ad9460b44329f0856591c29f166a39ebf5f8"
+          test "$(git rev-parse 3732ad9460b44329f0856591c29f166a39ebf5f8:data/cards.full.json)" = "3b2e86b320cac2b8ab9e9c1035aa026fc47fed2f"
+          git show origin/main:data/cards.full.json > /tmp/base.cards.full.json
           python - <<'PY'
-          import json
-          d=json.load(open('data/cards.full.json',encoding='utf-8'))
-          c={x['id']:x for x in d['cards']}['2026-08-25_KR_01']
-          for k in sorted(c):
-              if k.startswith('source_') or k in {'single_source_exception','urls','date_role'}:
-                  print('===',k,'===')
-                  print(json.dumps(c.get(k),ensure_ascii=False,indent=2))
+          import json,sys
+          from pathlib import Path
+          sys.path.insert(0,'validation_scripts')
+          from card_audit_utils import source_audit_measure, load_owner_registry, canonical_url
+
+          p=Path('data/cards.full.json')
+          d=json.loads(p.read_text(encoding='utf-8'))
+          by={c['id']:c for c in d['cards']}
+          m=json.load(open('direct-adds/pr289-review-remediation-1496/direct-add.json',encoding='utf-8'))
+          target_ids=m['operations']['update']
+          assert len(target_ids)==25 and len(d['cards'])==1496
+          sk=by['2026-08-25_KR_01']
+          assert sk['source_diversity_status']=='PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION'
+          assert len(sk.get('fact_sources') or [])==1
+          assert sk.get('source_synthesis_applied') is False and sk.get('source_synthesis_fields')==[]
+          registry=load_owner_registry(Path('validation_data/source_owner_registry.json'))
+          measure=source_audit_measure(sk,registry)
+          measure['status']=sk['source_diversity_status']
+          sk['source_diversity_measure']=measure
+
+          # Exact consistency against all declared source counters and current visible source set.
+          assert measure['source_evidence_entry_count']==sk['source_evidence_entry_count']==1
+          assert measure['source_unique_url_count']==sk['source_unique_url_count']==1
+          assert measure['source_unique_domain_count']==sk['source_unique_domain_count']==1
+          assert measure['source_independent_owner_count']==sk['source_independent_owner_count']==1
+          assert measure['visible_source_url_count']==1
+          assert measure['missing_source_url_count']==measure['missing_visible_source_url_count']==0
+          assert measure['canonical_urls']==[canonical_url(sk['fact_sources'][0]['source_url'])]
+          assert measure['canonical_domains']==['skinnovation.com']
+          assert measure['independent_owners']==['skinnovation.com']
+          assert measure['status']=='PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION'
+
+          # Seoul remains valid non-visible date/corroboration provenance only.
+          dr=sk['date_role']
+          assert 'seoul.co.kr' in dr['event_date_source_url']
+          assert dr['event_date']=='2026-08-25' and dr['date_role_locked'] is True
+          assert any('seoul.co.kr' in str(r.get('source_url','')) and r.get('outcome')=='reviewed_not_used_for_visible_synthesis' and not r.get('visible_supports') for r in sk['source_discovery_ledger'])
+          assert all('seoul.co.kr' not in str(s.get('source_url','')) for s in sk['fact_sources'])
+          assert all('seoul.co.kr' not in str(u) for u in sk['urls'])
+          assert all('seoul.co.kr' not in str(e.get('source_url','')) for e in sk['source_url_resolution']['resolution_entries'])
+
+          # Preserve closure of the second Codex provenance finding.
+          for cid in ['2026-08-25_US_01','2026-08-24_US_01','2026-08-21_GL_02','2026-08-21_EU_01']:
+              c=by[cid]
+              fields=set(c.get('source_synthesis_fields') or [])
+              assert fields=={'fact','gate'}
+              assert c.get('source_synthesis_applied') is True
+              assert all(set(a.get('affected_visible_fields') or []).issubset(fields) for a in c.get('source_synthesis_audit') or [])
+
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          Path('/tmp/ids.json').write_text(json.dumps({'ids':target_ids}),encoding='utf-8')
           PY
+          node scripts/lean_cards.mjs
+
+      - name: Re-run bounded governance gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          M=direct-adds/pr289-review-remediation-1496/direct-add.json
+          node scripts/validate_manual_direct_add.mjs --manifest "$M" --base /tmp/base.cards.full.json --full data/cards.full.json
+          python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file /tmp/ids.json
+          python validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file /tmp/ids.json
+          python validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file /tmp/ids.json
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate.mjs
+          node scripts/lean_cards.mjs --check
+          git diff --check
+
+      - name: Remove inspection workflow and commit exact three-file PR shape
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/inspect-pr293-final-sk.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "Synchronize PR293 SK derived source measure"
+          python - <<'PY'
+          import subprocess
+          expected={'data/cards.full.json','public/data/cards.json','direct-adds/pr289-review-remediation-1496/direct-add.json'}
+          actual=set(subprocess.check_output(['git','diff','--name-only','origin/main...HEAD'],text=True).splitlines())
+          assert actual==expected,(actual,expected)
+          PY
+          git push origin HEAD:chatgpt/pr289-review-remediation-1496

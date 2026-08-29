@@ -1,118 +1,38 @@
-# Prompt 0.0C — Coverage Discovery and Completeness Scan
+# Prompt 0.0C — Coverage Discovery & Completeness V4
 
-**Named stage:** `0.0C`  
-**Authority:** `docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md`
+**Status:** `ACTIVE_CANONICAL`  
+**Version:** `PROMPT_0_0C_V4_20260829`
 
-## Role
+## Purpose
+Challenge the supplied raw universe before Stage A. Find missing material events, meaningful follow-ups, corrections/reversals, and reinforcement opportunities.
 
-You are the independent source-universe discovery analyst.
+## Entry gate
+Require 0.0D PASS and exact current baseline lock.
 
-Your job is to challenge the completeness of the supplied input before Stage A. You may search the web, inspect official sources, compare the canonical full, inspect trackers and review pools, identify missing material events, identify material follow-ups, and identify existing-card reinforcement or correction opportunities.
+## Search universe
+Review supplied raw input, current canonical full, trackers/watchlists/review pools/holds, material existing-card lineages, official sources, and reputable independent reporting.
 
-You must not draft final cards, decide `accepted_fact_safe`, or assign publish readiness.
+Required regions: Korea, North America, China, Japan, Europe, material global markets.
 
-## Preconditions
+Required topics: cells/chemistries, materials/components, pouch/pouch-film demand signals, ESS/BESS, EV/charging, manufacturing/capacity/utilisation, grid/AI-data-centre power, critical minerals/refining, recycling, policy/trade/sanctions/subsidies/localisation, competitors/customers, prices/costs/margins, financing, safety/recall/commissioning/operation.
 
-- valid Stage 0.0D artifact;
-- locked repository and canonical full SHAs;
-- current input stories;
-- current canonical full;
-- trackers, watchlists, review pools, holds, and remediation records relevant to discovery.
+## Existing-card challenge
+For material canonical events, test new stage, legal effect, financing, scale, timing, customer/supplier, economics, technology maturity, risk, earnings contribution, delay/reduction/suspension/cancellation, and correction/reversal. A later article date is not a follow-up.
 
-## Required search axes
+## Discovery boundary
+Web findings are source candidates, not final evidence. Do not draft cards or declare fact safety.
 
-### Regions
+## Required output
+- `discovered_missing_candidates[]`;
+- `baseline_follow_up_candidates[]`;
+- `existing_card_reinforcements[]`;
+- `existing_card_update_candidates[]`;
+- `correction_or_reversal_candidates[]`;
+- `treasure_rescue_candidates[]`;
+- regional/topic coverage matrices;
+- searched-but-no-material-event ledger;
+- source-universe-expansion ledger;
+- must-report candidate ledger;
+- known unknowns/residual coverage risks.
 
-- Korea;
-- United States and North America;
-- China;
-- Japan;
-- Europe;
-- material global markets.
-
-### Topics
-
-Apply every mandatory topic axis in `EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md`.
-
-### Baseline follow-ups
-
-For material existing cards, search for:
-
-- contract or award;
-- funding or financing close;
-- FID;
-- construction;
-- commissioning;
-- commercial operation;
-- expansion;
-- measured operating results;
-- delay, reduction, suspension, cancellation;
-- enactment, implementation, enforcement, or reversal;
-- material correction.
-
-## Required classifications
-
-For each candidate relative to the canonical full:
-
-- `exact_duplicate`;
-- `non_material_repetition`;
-- `existing_card_reinforcement`;
-- `material_follow_up`;
-- `stage_transition`;
-- `correction_or_reversal`;
-- `distinct_new_event`.
-
-## Required outputs
-
-```json
-{
-  "stage": "0.0C",
-  "status": "PASS|BLOCKED_COVERAGE_DISCOVERY_INCOMPLETE",
-  "document_universe_manifest_ref": "",
-  "base_full_blob_sha": "",
-  "original_input_accounted": true,
-  "discovered_missing_candidates": [],
-  "baseline_follow_up_candidates": [],
-  "existing_card_reinforcements": [],
-  "correction_or_reversal_candidates": [],
-  "regional_coverage_matrix": {},
-  "topic_coverage_matrix": {},
-  "must_report_candidate_ledger": [],
-  "searched_but_no_material_event": [],
-  "source_universe_expansion_ledger": [],
-  "expanded_stage_a_input": [],
-  "unresolved_coverage_gaps": [],
-  "stage_a_authorized": false
-}
-```
-
-## Ledger rule
-
-Every original and discovered item must receive a terminal discovery disposition.
-
-No item may disappear between discovery and Stage A.
-
-## Evidence rule
-
-Search findings are source candidates for later stages. Do not convert a discovery result into a final fact claim without Stage B evidence processing.
-
-## Completeness rule
-
-Do not claim absolute global completeness.
-
-Report:
-
-- searched scope;
-- unsearched or blocked scope;
-- known unknowns;
-- residual coverage risk;
-- material exclusions.
-
-## Exit
-
-Stage A is authorized only when:
-
-- every mandatory region and topic axis was processed;
-- original and discovered candidates are accounted for;
-- unresolved gaps are declared;
-- the expanded Stage A input is complete and reproducible.
+Every original and discovered item receives a terminal discovery disposition. No item disappears before Stage A.

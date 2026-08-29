@@ -1,0 +1,38 @@
+name: Inspect PR293 review2 fields
+
+on:
+  push:
+    branches:
+      - chatgpt/pr289-review-remediation-1496
+    paths:
+      - .github/workflows/inspect-pr293-review2.yml
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/pr289-review-remediation-1496
+      - name: Print targeted synthesis metadata
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('data/cards.full.json',encoding='utf-8'))
+          by={c['id']:c for c in d['cards']}
+          ids=['2026-08-25_KR_01','2026-08-25_US_01','2026-08-24_US_01','2026-08-21_GL_02','2026-08-21_EU_01']
+          for cid in ids:
+              c=by[cid]
+              print('===',cid,'===')
+              print('diversity_status=',c.get('source_diversity_status'))
+              print('source_synthesis_applied=',c.get('source_synthesis_applied'))
+              print('source_synthesis_fields=',c.get('source_synthesis_fields'))
+              print('source_diversity_roles=',c.get('source_diversity_roles'))
+              print('visible=',json.dumps({k:c.get(k) for k in ['title','sub','gate','fact','implication']},ensure_ascii=False))
+              print('fact_sources=',json.dumps([{k:s.get(k) for k in ['source_name','source_url','source_role','source_origin_type','source_contribution','claim','supports','source_quote']} for s in c.get('fact_sources',[])],ensure_ascii=False))
+              print('synthesis_audit=',json.dumps(c.get('source_synthesis_audit'),ensure_ascii=False))
+          PY

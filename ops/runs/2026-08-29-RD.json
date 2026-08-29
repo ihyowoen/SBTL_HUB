@@ -1971,7 +1971,7 @@
     "**스탠딩 모니터 5/5 무변동**: CAFE $0 유지(SAFE III NPRM 의견기한 2.4 마감 후 최종규칙 대기), 30D 부활 입법 무, IRS PFE 지침 Notice 2026-15 유일(§7701(a)(52) 테이블 법정기한 12.31), GM/Tesla 국면 유지, 中 VAT 단계 무변동.",
     "**[2026-08-29 정정 1차 — PR#294 Codex 리뷰 11건]** 검증 사실을 checkNote·원장에만 기록하고 노출 필드(t·d·dt·effectiveDate)에 전파하지 않아 카드 내부 모순이 발생한 것을 일괄 해소: NA-026(8.19→8.22 전파)·EU-006(공모 개시·9.30 마감)·EU-009/EU-014(전제 행위 미채택 이연 — effectiveDate를 지어내지 않고 null)·EU-022(가이드라인 6.26 공표)·EU-024(Reg 2026/1738·OJ 7.24·적용 2028.09.01)·CN-032(미공포 초안 예정일을 effectiveDate에서 제거·과도기 통지와 구분)·NA-014(9월 R4)·KR-003(설계안 전 조건)·GL-004(발효 2026.12.16)·JP-004(구운 D-18 제거). coverage energy_market/GL은 각도 재시도 미실행이 확인돼 lastSwept를 환원 — '원장 근거 없으면 안 친 것'(정정 10차 규칙)을 이번 run이 스스로 어긴 사례로, na 재판정 대상에서도 제외. region_policy GL 구 발효일 watchpoint 정정.",
     "**[2026-08-29 정정 2차 — 오케스트레이터 자체 재검증]** 정정 1차로 노출 필드에 승격한 사실 중 구조화 날짜 3건과 행동 유발 날짜 2건을 하위 요원 보고에 의존하지 않고 직접 재확인. 결과: ①NA-026 유예 포고 서명일 오류 발견·정정(8.18→8.19, RVIA 원문+검색 교차 — 요원이 인용한 Barnes Richardson 8.18과 상충하므로 FR 게재본 대조를 이월) ②EU-024 적용일을 2차 출처에서 Art.59(2) 원문 근거로 승격 + 발효일 2026.08.13 신규 확정 ③GL-004 2026.12.16을 기탁통보 C.N.672.2025(2025.12.16)+협약 1년 규정으로 재확인(일부 2차 출처의 '2026.01.01' 서술은 오류) ④EU-006 공모 마감 2026.09.30·조건 전량 일치 확인 ⑤KR-003 신규 확인 2건 반영(통합투자세액공제 중복 배제·완성 EV 제외/양극재 등 핵심품목) 및 **파우치 필름 적용 여부는 시행령 품목 고시 전까지 미확정 — SBTL 직결 부채 등재**.",
-    "**[2026-08-29 정정 3차 — 전수 자체 재검증]** 사용자 요청으로 오케스트레이터가 요원 보고에 의존하지 않고 직접 재확인. (가) 증거 감사: 116건의 verify 등급 대 근거 정합성 기계 점검 — 초기 7건 이상 신호 중 5건은 감사 스크립트 자체의 오탐(bare-domain URL을 근거 없음으로, 다른 사실을 가리키는 '미확인'을 등급 자인으로 오판)이었고 실제 부실은 basis 빈약 2건(NA-031·CN-036)뿐 — NA-031 보강 완료, CN-036은 최저 등급 'search'라 표기 자체는 정직. (나) changed 23건 중 15건을 독립 웹 검증: EU-026(PPWR 8.12 적용)·EU-022(가이드라인 6.26·C(2026) 4386)·EU-011(Decision 2026/1736 7.14·Regulation 2026/1778 OJ 7.17·표준 6종)·CN-027(공고 20호·정확히 100개사)·JP-004(9.1 상한 10엔)·EU-009/EU-014(전제 행위 미채택·이연 확인 → effectiveDate null 판단 정당)·NA-032(11.10은 8.10에서 3개월 연기)·CN-032(과도기 통지 8.4 발포·8.15 시행)·JP-014(제7탄 결과 미발표)·KR-011(6.25 MOU·8종)·NA-026·EU-024·GL-004·EU-006·KR-003 전건 확인. EU-003·KR-008은 각각 EU-006·KR-003과 동일 사건이라 함께 확정. (다) 그 결과 신규 사실 5건 반영: EU-022 위험DB 가동 확정(소스 상충 해소), CN-027 100개사 확정, JP-004 EPRX 수수료 0.03→0.06엔, CN-032 외국 기업 직접 등록 제한(SBTL 대응 필요), KR-011 정식 시행 2027.05. 미재확인 잔여: EU-004·JP-007·JP-012 3건(모두 WATCH·마일스톤 메모 수준, 데이터 필드 무영향)."
+    "**[2026-08-29 정정 4차 — 승인 큐 구조화 누락]** 이번 run 발굴 후보가 pendingDecisions 산문에만 있고 structured approvalQueueCandidates에는 없어, 차기 run이 큐를 작업목록으로 읽으면 발굴분이 통째로 유실될 상태였다(8/2 run에서 지적됐던 결함 유형의 재발). 큐를 11→24행으로 정합화: 8/2 이월 11행 중 8행은 이번 재검증 결과로 basis 갱신·reverifiedRun 부여(중복 등재 대신 병합), 신규 13행 추가. 배제 3건 — NA-021 강제노동 301 기추적, BIS 동일 실체 2요원 보고 병합, EU 실사 가이드라인 감시(EU-012 소관·carryOver 담당). 각 행에 discoveredRun·dupChecked·**scopeGate**(enacted 12 / watch 9 / unverified 2 / existing-monitor 1) 부여 — 조사·법안·미검증 건이 '제정 확정군'에 섞이지 않도록 명시 분류. 기존 표기 정정 2건: IEC 63379 → IEC TS 63379:2026(TS·발간 2026-01-27), ESS 표준군 설계층 GB/T 51048-2025(2026.04.01 시행)."
   ],
   "newItems": [],
   "corrections": [
@@ -2042,8 +2042,8 @@
   ],
   "pendingDecisions": [
     "① status 전환 승인 5건: NA-026 UPCOMING→ACTIVE(8.22 발효) / EU-026 UPCOMING→ACTIVE(8.12 적용 개시) / EU-006 UPCOMING→ACTIVE(7.28 공모 개시) / KR-008 WATCH→DONE(8.3 설계안 공개 완료·KR-003 승계) / GL-004 ACTIVE→UPCOMING(국제 발효 12.16 미도래 — 전 필드 재작성 동반)",
-    "② 편입 승인 — 제정 확정군: CCC 충전설비(2024年第50号+CNCA-C11-19:2025, 8.1 발효, P1) / NDAA §842(P.L. 119-60, P1) / DPP 입법 2건(Decision 2026/1736·Regulation 2026/1778) / BIS DPAS 블랙매스·텅스텐(FR 2026-16078, 8.6) / KR 전기안전관리법 충전시설(2025.11.28 시행) / IEC TS 63379:2026(P2) / 23 CFR 680 NEVI(P3) / GB/T 47292.1~.4-2026(시행 2027.4.1) / 商务部公告2026年第26号(집행 인프라)",
-    "③ 편입 승인 — WATCH군: EU IAA(로컬콘텐츠, 3.4 제안·협상 중) / EPA TSCA SNUR(제안) / UL 2285(개발 중) / EU 여권 위임행위(기한 8.18) / IEA 각료선언 / CIAPS 电池护照指南 / USITC 337-TA-1513 / US Energy Bills Relief Act / JP 리튬이온전지 종합대책(존재만 포착) / USTR 과잉생산 301 조사 독립 승격 여부",
+    "② 편입 승인 — 제정 확정군 12건(스코프 게이트 통과·편입 적격): CN 전동차 공전설비 CCC 강제인증 / FY2026 NDAA §842 DoD FEOC 전지 조달 제한 / IEC TS 63379:2026 — MCS 메가와트 충전 커넥터·인렛·케이블 어셈블리 / KR 전기안전관리법 충전시설 신고·책임보험 의무 / 23 CFR 680 NEVI 최저기준 / GB 43854-2024 / ESS 표준군 4층 / 美 BIS black mass·텅스텐 스크랩 수출제한 임시최종규칙 — EO(2026.07.30) 위임,  / Commission Implementing Decision (EU) 2026/1736 — DPP 조화표준 / Commission Implementing Regulation (EU) 2026/1778 — DPP 레지 / 商务部公告2026年第26号 — 전략광산 양용물항 수출관제 위법행위 신고처리 완비 / GB/T 47292.1~.4-2026 锂离子电池生产质量管理 (전 4부 — 제1부 총체요구, 제2부 电池材",
+    "③ 편입 승인 — WATCH군 9건(미제정 제안·조사·개발·비구속): EU 배터리 로컬콘텐츠 입법(셀·CAM·BMS EU 원산) / EPA TSCA SNUR(CAM MMO) / UL 2285 전고체 안전표준 / US Energy Bills Relief Act — OBBBA 청정에너지 개정 롤백·30D 등 청정차량  / USTR Section 301 제조 과잉생산 조사 — 16개 경제(한국 포함), 배터리 명시 부문 / [WATCH] IEA 2026 각료선언 — Critical Minerals Security Program / [WATCH] EU 배터리 여권 위임행위(접근권한·정보 갱신 규칙) — 채택 기한 2026-08-18 / [WATCH] CIAPS 《电池护照指南》 단체표준 — 편제 중 / USITC 337-TA-1513 — Certain Anode Materials for Use in Bat || 1차 검증 미완 2건(차기 run 검증 후 판단): EO 14420 — 외국산 그리드 장비(배터리·인버터·변압기) 국가비상 선언 / JP 「リチウムイオン電池総合対策」 — 중대 화재사고 제로 + 리사이클 체제 구축 정부 종합대책 || 기존 모니터 1건: OBBBA §40006 CAFE",
     "④ GL 2셀(recycle·subsidy) na 재판정 — 2회 연속 무산출 완성. energy_market/GL은 재시도 미실행으로 스윕 미완이라 na 재판정 대상에서 제외(차기 run 재스윕 후 판단)",
     "⑤ RD-3 로테이션 설계(A 매일 전수/B 하이브리드/C 현행) — 기결정 대기 사항"
   ],
@@ -2057,58 +2057,200 @@
   "approvalQueueCandidates": [
     {
       "name": "CN 전동차 공전설비 CCC 강제인증",
-      "basis": "시감총국 2024 공고, 2026.08.01 기시행(스냅샷 기준 D+1) — 미인증 설비 출하·판매·수입·사용 금지 이미 발효",
-      "priority": "P1 — 기발효, 즉시 검증"
+      "basis": "시감총국 2024 공고, 2026.08.01 기시행(스냅샷 기준 D+1) — 미인증 설비 출하·판매·수입·사용 금지 이미 발효 || [2026-08-29 재검증] 제정·발효 확정(스코프 게이트 통과, 1차 출처 원문 확인). 명칭: 《市场监管总局关于对电动汽车供电设备实施强制性产品认证管理的公告》(2024年第50号, 2024.12.05 발표) + 실시규칙 CNCA-C25-01:2024(国家认监委 2024年第25号). 일정: 2025.03.01 인증위탁 접수 개시 → 2026.08.01부터 미인증 설비 出厂·판매·수입·기타 경영활동 사용 금지(현재 D+13 기발효 — 인민망·중신망이 8/1 실시 개시 보도, 총국 사후감독 강화 예고). 적용 범위: 정격출력 교류≤1000V(충전桩·고정식·IC-CPD, GB 39752·GB 44263)",
+      "priority": "P1 — 기발효, 즉시 검증",
+      "discoveredRun": "2026-08-02-RD",
+      "dupChecked": true,
+      "reverifiedRun": "2026-08-29-RD",
+      "scopeGate": "enacted"
     },
     {
       "name": "FY2026 NDAA §842 DoD FEOC 전지 조달 제한",
-      "basis": "2025.12 제정, 2028.1.1 신규계약부터 단계 시행",
-      "priority": "P1"
+      "basis": "2025.12 제정, 2028.1.1 신규계약부터 단계 시행 || [2026-08-29 재검증] 제정 확정(스코프 게이트 통과, 독립 2+소스). 2025.12.18 대통령 서명, Public Law 119-60(S.1071). §842: DoD는 advanced batteries·cells의 functional cell components and technology가 FEOC(테러지정·SDN·중러이북 covered nation 소유통제 등 5기준 + CATL·BYD·Envision·EVE·Gotion·Hithium 명시 지정) 소유·소싱·정제·생산이 아닌 경우만 조달 가능. 단계 시행: 신규계약 2028.1.1 / standard batteries 2029.1",
+      "priority": "P1",
+      "discoveredRun": "2026-08-02-RD",
+      "dupChecked": true,
+      "reverifiedRun": "2026-08-29-RD",
+      "scopeGate": "enacted"
     },
     {
-      "name": "IEC 63379:2026 MCS 메가와트 충전 커넥터",
-      "basis": "2026.02 v1.0 발포",
-      "priority": "P2"
+      "name": "IEC TS 63379:2026 — MCS 메가와트 충전 커넥터·인렛·케이블 어셈블리",
+      "basis": "2026.02 v1.0 발포 || [2026-08-29 재검증] 발간 확정(1차 출처 메타 확인 — IEC 웹스토어 publication 67975). 정확 명칭: IEC TS 63379:2026 'Vehicle connector, vehicle inlet and cable assembly for megawatt DC charging', Ed.1.0, 2026-01-28 발간(큐의 '2026.02'는 CharIN 발표일 02.09와 혼동 — 정정 필요), TC 23/SC 23H, stability date 2028. 범위: ≤1500V DC·최대 3000A MCS 커플러(핀·접촉관 표준 구성)·케이블 어셈블리, 열감지 시스템 요건",
+      "priority": "P2",
+      "discoveredRun": "2026-08-02-RD",
+      "dupChecked": true,
+      "reverifiedRun": "2026-08-29-RD",
+      "scopeGate": "enacted"
     },
     {
       "name": "KR 전기안전관리법 충전시설 신고·책임보험 의무",
-      "basis": "2025.11.28 시행(경과조치 2026.05.28 만료)",
-      "priority": "P2"
+      "basis": "2025.11.28 시행(경과조치 2026.05.28 만료) || [2026-08-29 재검증] 제정·기발효 — 시행령 개정 2025.11.28 시행(기후에너지환경부 보도자료 https://www.gov.kr/portal/ntnadmNews/4556628), 기존시설 경과조치 2026.05.27~28 만료로 전면 적용 중. 신고(50대 이상·13종)+책임보험(대인 1.5억/대물 10억)+과태료(50만/200만)",
+      "priority": "P2",
+      "discoveredRun": "2026-08-02-RD",
+      "dupChecked": true,
+      "reverifiedRun": "2026-08-29-RD",
+      "scopeGate": "enacted"
     },
     {
       "name": "23 CFR 680 NEVI 최저기준",
-      "basis": "제정 연방규정 + 2026.01 Washington v. DOT 판결",
-      "priority": "P3"
+      "basis": "제정 연방규정 + 2026.01 Washington v. DOT 판결 || [2026-08-29 재검증] 제정 연방규정(eCFR 현행 수록) + Washington v. DOT 2026.01.23 약식판결(NEVI 동결 위법·기금 유보 금지, https://enotrans.org/article/washington-v-u-s-department-of-transportation-and-nevi-progress-updates/). FY2026 세출법상 약 $879M 전용 리스크 병기 권고",
+      "priority": "P3",
+      "discoveredRun": "2026-08-02-RD",
+      "dupChecked": true,
+      "reverifiedRun": "2026-08-29-RD",
+      "scopeGate": "enacted"
     },
     {
       "name": "EU 배터리 로컬콘텐츠 입법(셀·CAM·BMS EU 원산)",
-      "basis": "제안 단계 추정 — 제정 여부·법안명 확인 필요. SBTL 직결성 높음",
-      "priority": "P2(확인 선행)"
+      "basis": "제안 단계 추정 — 제정 여부·법안명 확인 필요. SBTL 직결성 높음 || [2026-08-29 재검증] 미제정 — 2026.03.04 집행위 Regulation 제안(셀→2030 셀·CAM·BMS EU 원산), 의회·이사회 협상 중(https://www.twobirds.com/en/insights/2026/industrial-accelerator-act--new-eu-content-requirements-in-public-procurement-and-foreign-direct-inv)",
+      "priority": "P2(확인 선행)",
+      "discoveredRun": "2026-08-02-RD",
+      "dupChecked": true,
+      "reverifiedRun": "2026-08-29-RD",
+      "scopeGate": "watch"
     },
     {
       "name": "EPA TSCA SNUR(CAM MMO)",
-      "basis": "제안규칙 — WATCH 후보",
-      "priority": "P3"
+      "basis": "제안규칙 — WATCH 후보 || [2026-08-29 재검증] 미제정(제안규칙) — 2026.04.24 FR 공표(FR Doc 2026-08012), MMO CAM PMN/SNUN 약 25건 기반(BDLaw+REACH24H 독립 2소스). FR 원문 미정독 — 요건 수치는 원문 확보 후 기재",
+      "priority": "P3",
+      "discoveredRun": "2026-08-02-RD",
+      "dupChecked": true,
+      "reverifiedRun": "2026-08-29-RD",
+      "scopeGate": "watch"
     },
     {
       "name": "UL 2285 전고체 안전표준",
-      "basis": "개발 중 — WATCH 후보",
-      "priority": "P3"
+      "basis": "개발 중 — WATCH 후보 || [2026-08-29 재검증] 미발포(개발 중) — SCC Notice of Intent, ULSE 개발(https://scc-ccn.ca/standards/notices-of-intent/ul-standards-engagement/standard-safety-solid-state-batteries). 동반 성능·신뢰성 표준 NOI 별도 존재(번호 미확인)",
+      "priority": "P3",
+      "discoveredRun": "2026-08-02-RD",
+      "dupChecked": true,
+      "reverifiedRun": "2026-08-29-RD",
+      "scopeGate": "watch"
     },
     {
       "name": "GB 43854-2024",
       "basis": "기존 승인 큐 유지분 — 집계행 전개(2026-08-07 정정 9차, 내용 신설 없음)",
-      "priority": "기존"
+      "priority": "기존",
+      "discoveredRun": "2026-08-02-RD",
+      "scopeGate": "enacted"
     },
     {
       "name": "ESS 표준군 4층",
       "basis": "기존 승인 큐 유지분 — 집계행 전개(2026-08-07 정정 9차, 내용 신설 없음)",
-      "priority": "기존"
+      "priority": "기존",
+      "discoveredRun": "2026-08-02-RD",
+      "scopeGate": "enacted"
     },
     {
       "name": "OBBBA §40006 CAFE",
       "basis": "기존 승인 큐 유지분 — 집계행 전개(2026-08-07 정정 9차, 내용 신설 없음)",
-      "priority": "기존"
+      "priority": "기존",
+      "discoveredRun": "2026-08-02-RD",
+      "scopeGate": "existing-monitor"
+    },
+    {
+      "name": "US Energy Bills Relief Act — OBBBA 청정에너지 개정 롤백·30D 등 청정차량 크레딧 부활 법안 (H.R., 2026.03.18 발의)",
+      "basis": "2026.03.18 Casten/Levin 발의, 하원 민주 122인 서명, 419쪽 — OBBBA의 청정에너지 세액공제 개정을 전면 롤백하고 소비자·사업자 청정차량 크레딧 부활 포함. 근거: pv-magazine-usa.com/2026/03/23/energy-tax-credit-restoration-bill-submitted-to-congress/ + mikethompson.house.gov 보도자료. 공화당 의회에서 통과 전망 낮음 — 중간선거 후 재부상 시나리오 추적용",
+      "priority": "low",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "watch"
+    },
+    {
+      "name": "USTR Section 301 제조 과잉생산 조사 — 16개 경제(한국 포함), 배터리 명시 부문",
+      "basis": "2026.03.11 자체 개시, 4.15 서면의견·5.5-8 청문 완료, 결정 대기. 현재 NA-021·NA-024 dt에 부속 기재 중 — 결정 임박 시 독립 항목 승격이 추적에 유리. https://www.hklaw.com/en/insights/publications/2026/03/ustr-launches-awaited-section-301-investigations + https://www.whitecase.com/insight-alert/ustr-initiates-section-301-investigations-16-us-trade-partners-targeting-industrial",
+      "priority": "중(독립 승격 여부 운영자 판단)",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "watch"
+    },
+    {
+      "name": "EO 14420 — 외국산 그리드 장비(배터리·인버터·변압기) 국가비상 선언",
+      "basis": "단일 secondary(mgrid.org)가 2026.08.26 서명으로 보도 — run 기준일(08.14) 이후 날짜로 이번 검증 창 밖. 차기 run에서 백악관/FR 1차 출처로 실재·범위 검증 후 편입 판단. ESS 조달·수입에 직접 영향 가능성. https://mgrid.org/2026/08/26/trumps-grid-equipment-order-names-inverters-batteries-and-transformers-but-bans-nothing-yet/",
+      "priority": "높음(차기 run 1차 검증 조건부)",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "unverified"
+    },
+    {
+      "name": "美 BIS black mass·텅스텐 스크랩 수출제한 임시최종규칙 — EO(2026.07.30) 위임, 규칙 공고 2026.08.06, 발효 2026.08.27",
+      "basis": "제정 확인: Holland & Knight(https://www.hklaw.com/en/insights/publications/2026/08/bis-imposes-critical-minerals-export-restrictions-on-black-mass), Pillsbury, Thompson Hine 교차. 리튬이온 배터리 리사이클 black mass 수출 라이선스 의무화(최소 1년) — EU-013(EU black mass 수출금지)과 대칭 구도, 배터리 리사이클 원료 흐름에 영향. || [동일 실체 2요원 보고 병합] 제정(temporary final rule). Federal Register 2026-08-06 게재(문서 2026-16078), DPA/DPAS 근거, 블랙매스(리튬이온 배터리 파쇄 스크랩)·텅스텐 폐기물/스크랩 월간 판매 100%를 미국인에 할당 의무(2026-08-27 개시), docket BIS-2026-0364, 코멘트 마감 2026-11-04. ",
+      "priority": "P2",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "enacted"
+    },
+    {
+      "name": "JP 「リチウムイオン電池総合対策」 — 중대 화재사고 제로 + 리사이클 체제 구축 정부 종합대책",
+      "basis": "secondary 1건 명중으로 존재만 포착(https://www.seikou-consulting.com/リチウムイオン電池総合対策を策定-重大火災事/) — 책정 일자·주무부처·구속력 미검증. JP-005/JP-017의 資源法 리튬전지 특례와 부분 중복 가능성 있어 편입 전 원문 확인 필수",
+      "priority": "low",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "unverified"
+    },
+    {
+      "name": "Commission Implementing Decision (EU) 2026/1736 — DPP 조화표준 6종 (EN 18216·18219~18223:2026)",
+      "basis": "제정. 2026-07-14 채택, OJ 2026-07-15. ESPR(Regulation 2024/1781) 근거, 배터리 패스포트를 포함한 디지털 제품 여권의 데이터 교환·고유 식별자·데이터 캐리어·저장 지속성·API·상호운용성 조화표준 인용. 근거: https://eur-lex.europa.eu/eli/dec_impl/2026/1736/oj (EUR-Lex 원문). 축: data_dpp EU",
+      "priority": "high",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "enacted"
+    },
+    {
+      "name": "Commission Implementing Regulation (EU) 2026/1778 — DPP 레지스트리 이행 규정",
+      "basis": "제정. 2026-07-16 채택, OJ 2026-07-17, 발효 2026-08-06, 레지스트리 2026-07-20 개소. ESPR 제13조(5) 근거 — 경제운영자 신원확인(적격 전자서명/인장), DPP 등록·시맨틱 적합성 자동검증, 책임 분담. 배터리 여권(2027-02-18) 등록 인프라의 법적 기반. 근거: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ%3AL_202601778 (EUR-Lex 원문) + https://www.cleolabs.co/en/blog/eu-product-passport-registry-2026 (해설). 축: data_dpp EU",
+      "priority": "high",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "enacted"
+    },
+    {
+      "name": "商务部公告2026年第26号 — 전략광산 양용물항 수출관제 위법행위 신고처리 완비",
+      "basis": "제정(公告). 2026-06-24 공포 — 무허가 수출·허가 범위 초과·부품 분해 우회·제3국 우회 등 13류 위법행위 신고·처리 절차 규범화(집행 인프라 성격). 근거: https://aqygzj.mofcom.gov.cn/flzc/gzjgfxwj/art/2026/art_bebe67f8f9114426bf8275bd8ee1d9f7.html (상무부 원문 페이지) + https://www.thepaper.cn/newsDetail_forward_33444244 (보도). 축: supply_chain CN — CN-014·CN-033 인접이나 별개 공고",
+      "priority": "medium",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "enacted"
+    },
+    {
+      "name": "[WATCH] IEA 2026 각료선언 — Critical Minerals Security Programme 격상",
+      "basis": "미제정·비구속(각료선언). 공급 교란 대비·시장 모니터링·비축 가이던스의 국제 플랫폼화 — 구속 규범 전환 여부 관찰. 근거: https://www.iea.org/news/2026-iea-ministerial-declaration-supporting-the-iea-s-work-on-critical-minerals-security. 축: supply_chain GL",
+      "priority": "watch",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "watch"
+    },
+    {
+      "name": "[WATCH] EU 배터리 여권 위임행위(접근권한·정보 갱신 규칙) — 채택 기한 2026-08-18",
+      "basis": "미채택 추정(기한이 run 기준일 8/14 직후). Battery Regulation상 위원회 채택 의무 기한 — 다음 run 최우선 확인 대상. 근거: https://www.base-batterypassport.com/blog/regulations-4/battery-passport-delegated-acts-timeline-2026-and-beyond-what-still-needs-finalisation-before-go-live-117. 축: data_dpp EU",
+      "priority": "watch",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "watch"
+    },
+    {
+      "name": "[WATCH] CIAPS 《电池护照指南》 단체표준 — 편제 중",
+      "basis": "미제정(단체표준 초안·편제설명 단계, 자발적). 중국 배터리 여권 실무 지침 — 강제 규범 아님. 근거: https://www.ciaps.org.cn/file/down/dchzzn2.pdf. 축: data_dpp CN",
+      "priority": "watch",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "watch"
+    },
+    {
+      "name": "GB/T 47292.1~.4-2026 锂离子电池生产质量管理 (전 4부 — 제1부 총체요구, 제2부 电池材料管控, 제3부 셀 공정·성품시험, 제4부 팩 공정·성품시험)",
+      "basis": "제정 확인 — 발표 2026.03.31, 시행 2027.04.01 (전국표준정보공공서비스플랫폼 std.samr.gov.cn 상세페이지 메타 + 전문 PDF 노출: http://www.bofety.com/uploadfiles/2026/05/20260509150611604.pdf). 권장표준(GB/T)이나 리튬전지 생산품질·재료관리 전반을 규정 — 반내권 품질규율(CN-015)과 정합적 계열, upstream/CN 셀 직결.",
+      "priority": "medium",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "enacted"
+    },
+    {
+      "name": "USITC 337-TA-1513 — Certain Anode Materials for Use in Battery Cells and Batteries (Si-C 음극재 특허침해 조사)",
+      "basis": "조사개시 확인 — USITC 2026.07.21 표결·보도자료(https://www.usitc.gov/press_room/news_release/2026/er0721_68943.htm), FR 공고 2026.07.24. Sila Nanotechnologies+Georgia Tech Research(제소 06.18) v. Carbon ONE New Energy Group·Carbon One(Hangzhou)·Zhejiang Lichen — limited exclusion order+CDO 청구. 무역구제(NA-024, 종결)와 별개의 수입배제 트랙으로 미국 음극재 공급망 리스크.",
+      "priority": "low",
+      "dupChecked": true,
+      "discoveredRun": "2026-08-29-RD",
+      "scopeGate": "watch"
     }
   ],
   "existingItemReconciliation": [

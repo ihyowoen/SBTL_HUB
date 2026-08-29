@@ -1,0 +1,36 @@
+name: Inspect PR293 Review Fields
+
+on:
+  push:
+    branches:
+      - chatgpt/pr289-review-remediation-1496
+    paths:
+      - .github/workflows/inspect-pr293-review-fields.yml
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/pr289-review-remediation-1496
+      - name: Print review-relevant audit fields
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          ids=['2026-08-25_KR_01','2026-08-21_EU_01','2026-08-25_US_01','2026-08-24_US_01','2026-08-21_GL_02','2026-08-24_CN_01']
+          d=json.load(open('data/cards.full.json',encoding='utf-8'))
+          by={c['id']:c for c in d['cards']}
+          keys=['source_discovery_ledger','source_url_resolution','source_diversity_roles','source_synthesis_audit','source_published_date','visible_quote_date','date_role','urls','fact_sources']
+          for cid in ids:
+              c=by[cid]
+              print('===CARD',cid,'===')
+              for k in keys:
+                  if k in c:
+                      print('---',k,'---')
+                      print(json.dumps(c[k],ensure_ascii=False,indent=2))
+          PY

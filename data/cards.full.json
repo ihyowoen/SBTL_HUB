@@ -163,7 +163,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "government_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -376,7 +379,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "government_order",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -589,7 +595,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_official_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -849,7 +858,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://marketin.edaily.co.kr/News/ReadE?newsId=02860166645551256",
@@ -863,7 +875,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -1154,7 +1169,7 @@
       },
       "source_diversity_roles": {
         "primary_event_evidence": true,
-        "independent_event_confirmation": false,
+        "independent_event_confirmation": true,
         "policy_market_context": false
       },
       "source_synthesis_applied": false,
@@ -1163,8 +1178,22 @@
         {
           "source_domain": "www.skinnovation.com",
           "source_role": "primary_event_evidence",
-          "unique_contribution": "Locks the source-owner/official or body-level event stage and quantified core terms used in the fact field: Board Resolution on the Execution of Merger Agreement | Aug 25, 2026; Effective Date of Merger | Jan 1, 2027",
+          "unique_contribution": "Durable item-specific shareholder merger notice replacing the generic IR/FAQ listing endpoint.",
           "affected_visible_fields": [
+            "title",
+            "sub",
+            "gate",
+            "fact",
+            "implication"
+          ]
+        },
+        {
+          "source_domain": "www.seoul.co.kr",
+          "source_role": "independent_event_confirmation",
+          "unique_contribution": "Independently confirms the merger event and parties on the current representative date.",
+          "affected_visible_fields": [
+            "title",
+            "sub",
             "fact"
           ]
         }
@@ -1220,7 +1249,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_primary_announcement",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://www.seoul.co.kr/news/economy/industry/2026/08/25/20260825500185",
@@ -1234,7 +1266,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -1277,7 +1312,7 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": false,
+        "source_url_propagation_performed": true,
         "resolution_entries": [
           {
             "source_url": "https://www.seoul.co.kr/news/economy/industry/2026/08/25/20260825500185",
@@ -1291,7 +1326,7 @@
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
             "resolution_basis": "recomputed from current fact_sources; indices=0; owners=skinnovation.com",
-            "source_url_propagation_performed": false
+            "source_url_propagation_performed": true
           }
         ]
       }
@@ -1502,7 +1537,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://search.newspim.com/news/view/20260826000099",
@@ -1516,7 +1554,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -1777,7 +1818,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_official_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://www.ess-news.com/2026/08/25/alpiq-acquires-103-mw-238-mwh-bess-from-eco-stor",
@@ -1791,7 +1835,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -2005,7 +2052,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_official_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -2218,7 +2268,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_press_release_syndicated",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -2411,10 +2464,13 @@
         {
           "source_domain": "pv-magazine-usa.com",
           "source_role": "primary_event_evidence",
-          "unique_contribution": "Locks the source-owner/official or body-level event stage and quantified core terms used in the fact field: pv magazine USA, the leading solar and energy storage trade media platform. Industry news covering market trends, technological advancements, expert commentary, and more.",
+          "unique_contribution": "Directly confirms PG&E added dcbel and Wallbox bidirectional charging equipment to the V2X pilot; the body also enumerates the newly eligible vehicle/charger pairings.",
           "affected_visible_fields": [
+            "title",
+            "sub",
+            "gate",
             "fact",
-            "gate"
+            "implication"
           ]
         },
         {
@@ -2422,8 +2478,9 @@
           "source_role": "independent_event_confirmation",
           "unique_contribution": "Independently confirms the named counterparty/project action and execution status carried in the fact field: PG&E is opening its residential vehicle-to-everything programme to more electric cars and charging systems.",
           "affected_visible_fields": [
-            "fact",
-            "gate"
+            "title",
+            "sub",
+            "fact"
           ]
         }
       ],
@@ -2482,7 +2539,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://www.electrive.com/2026/08/25/pge-adds-to-its-v2x-programme/",
@@ -2496,7 +2556,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -2539,7 +2602,7 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": false,
+        "source_url_propagation_performed": true,
         "resolution_entries": [
           {
             "source_url": "https://www.electrive.com/2026/08/25/pge-adds-to-its-v2x-programme/",
@@ -2553,7 +2616,7 @@
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
             "resolution_basis": "recomputed from current fact_sources; indices=0; owners=pv-magazine-usa.com",
-            "source_url_propagation_performed": false
+            "source_url_propagation_performed": true
           }
         ]
       }
@@ -2764,7 +2827,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://en.sedaily.com/society/2026/08/25/chungnam-lands-135-million-from-germanys-webasto-for",
@@ -2778,7 +2844,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -3763,7 +3832,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_official_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://battery-news.de/en/2026/08/25/ecopro-bm-converts-hungary-plant-for-ncm-cathode-material",
@@ -3777,7 +3849,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -3973,19 +4048,23 @@
         {
           "source_domain": "ivanhoeelectric.com",
           "source_role": "primary_event_evidence",
-          "unique_contribution": "Locks the source-owner/official or body-level event stage and quantified core terms used in the fact field: Ivanhoe Electric Receives Preliminary Project Letter from the Export-Import Bank of the United States for $1.1 Billion in Potential Debt Financing for the Santa Cruz Copper Project",
+          "unique_contribution": "Item-specific Ivanhoe release confirms the preliminary EXIM project letter and up-to-US$1.1bn potential debt package.",
           "affected_visible_fields": [
+            "title",
+            "sub",
+            "gate",
             "fact",
-            "gate"
+            "implication"
           ]
         },
         {
           "source_domain": "www.mining.com",
           "source_role": "independent_event_confirmation",
-          "unique_contribution": "Independently confirms the named counterparty/project action and execution status carried in the fact field: The U.S. Export-Import Bank issued a preliminary project letter for up to $1.1 billion in potential debt financing for Santa Cruz.",
+          "unique_contribution": "Independent outlet confirms the exact project, EXIM letter and financing scale.",
           "affected_visible_fields": [
-            "fact",
-            "gate"
+            "title",
+            "sub",
+            "fact"
           ]
         }
       ],
@@ -4040,7 +4119,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_primary_announcement",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://www.mining.com/ivanhoe-electric-gets-1-1-billion-us-exim-interest-for-santa-cruz-copper-project/",
@@ -4054,7 +4136,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -4097,14 +4182,14 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": false,
+        "source_url_propagation_performed": true,
         "resolution_entries": [
           {
             "source_url": "https://ivanhoeelectric.com/news/ivanhoe-electric-receives-preliminary-project-letter-from-the-export-import-bank-of-the-united-states-for-1.1-billion-in/",
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
             "resolution_basis": "recomputed from current fact_sources; indices=0; owners=ivanhoeelectric.com",
-            "source_url_propagation_performed": false
+            "source_url_propagation_performed": true
           },
           {
             "source_url": "https://www.mining.com/ivanhoe-electric-gets-1-1-billion-us-exim-interest-for-santa-cruz-copper-project/",
@@ -4204,8 +4289,8 @@
         "publication_date": "2026-08-03",
         "representative_date": "2026-08-24",
         "date_confidence": "high",
-        "event_date_source_url": "https://www.liannan.gov.cn/zwgk/tzgg/content/post_2172467.html",
-        "event_date_source_quote": "主要建设一座200MW/400MWh电网侧独立储能电站，采用磷酸铁锂电池",
+        "event_date_source_url": "https://static.nfnews.com/content/202608/25/c12753428.html",
+        "event_date_source_quote": "8月24日，清远连南产业园内举行200MW/400MWh独立储能项目开工建设。",
         "publication_dates": [
           "2026-08-03",
           "2026-08-25"
@@ -4218,7 +4303,8 @@
         "status": "PASS_CURRENT_DATE_ROLE_CONTRACT",
         "event_date_confidence": "high",
         "date_role_locked": true,
-        "stage_b_date_recheck_required": false
+        "stage_b_date_recheck_required": false,
+        "event_date_source_name": "南方+"
       },
       "source_diversity_status": "PASS_MULTI_SOURCE",
       "source_diversity_measure": {
@@ -4324,7 +4410,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "government_project_notice",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://static.nfnews.com/content/202608/25/c12753428.html",
@@ -4338,7 +4427,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -4556,7 +4648,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_official_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -5549,7 +5644,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_official_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -5744,10 +5842,13 @@
         {
           "source_domain": "www.gevernova.com",
           "source_role": "primary_event_evidence",
-          "unique_contribution": "Locks the source-owner/official or body-level event stage and quantified core terms used in the fact field: Stage 3 will add a further 260 MW and 1,216 MWh of four-hour storage, bringing the full Supernode development to 780 MW and 3,075 MWh at a single site.",
+          "unique_contribution": "Item-specific GE Vernova release confirms Stage 3 at 260MW/1,216MWh and its role supporting all three Supernode stages.",
           "affected_visible_fields": [
+            "title",
+            "sub",
+            "gate",
             "fact",
-            "gate"
+            "implication"
           ]
         },
         {
@@ -5755,8 +5856,9 @@
           "source_role": "independent_event_confirmation",
           "unique_contribution": "Independently confirms the named counterparty/project action and execution status carried in the fact field: Quinbrook has selected GE Vernova and CATL for the third stage of the Supernode battery energy storage system.",
           "affected_visible_fields": [
-            "fact",
-            "gate"
+            "title",
+            "sub",
+            "fact"
           ]
         }
       ],
@@ -5811,7 +5913,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_primary_announcement",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://www.energy-storage.news/quinbrook-taps-ge-vernova-and-catl-for-the-third-stage-of-australias-largest-battery-storage-system/",
@@ -5825,7 +5930,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -5868,7 +5976,7 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": false,
+        "source_url_propagation_performed": true,
         "resolution_entries": [
           {
             "source_url": "https://www.energy-storage.news/quinbrook-taps-ge-vernova-and-catl-for-the-third-stage-of-australias-largest-battery-storage-system/",
@@ -5882,7 +5990,7 @@
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
             "resolution_basis": "recomputed from current fact_sources; indices=0; owners=gevernova.com",
-            "source_url_propagation_performed": false
+            "source_url_propagation_performed": true
           }
         ]
       }
@@ -6027,12 +6135,15 @@
       ],
       "source_synthesis_audit": [
         {
-          "source_domain": "lyten.com",
+          "source_domain": "svw.no",
           "source_role": "primary_event_evidence",
-          "unique_contribution": "Locks the source-owner/official or body-level event stage and quantified core terms used in the fact field: Lyten has been selected as preferred bidder for the business of Morrow Batteries ASA, Morrow Technologies AS and Morrow Industrialization Center AS, under a memorandum of understan",
+          "unique_contribution": "Item-specific release by counsel for the Morrow bankruptcy estates confirms the preferred-bidder decision and Aug-21 MOU.",
           "affected_visible_fields": [
+            "title",
+            "sub",
+            "gate",
             "fact",
-            "gate"
+            "implication"
           ]
         },
         {
@@ -6040,13 +6151,14 @@
           "source_role": "independent_event_confirmation",
           "unique_contribution": "Independently confirms the named counterparty/project action and execution status carried in the fact field: Lyten was selected as preferred bidder for Morrow Batteries under an MOU, with the acquisition not yet completed.",
           "affected_visible_fields": [
-            "fact",
-            "gate"
+            "title",
+            "sub",
+            "fact"
           ]
         }
       ],
-      "source_published_date": "2026-08-26",
-      "visible_quote_date": "2026-08-26",
+      "source_published_date": "2026-08-22",
+      "visible_quote_date": "2026-08-22",
       "id": "2026-08-21_EU_01",
       "related": [],
       "baseline_id_assignment": {
@@ -6096,7 +6208,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "court_appointed_bankruptcy_administrator_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://www.energy-storage.news/us-firm-lyten-sets-sights-on-norways-morrow-batteries-following-northvolt-acquisition",
@@ -6110,7 +6225,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -6153,7 +6271,7 @@
         "supporting_fact_source_count": 2,
         "canonical_complete": true,
         "resolved_article_matches_quote": true,
-        "source_url_propagation_performed": false,
+        "source_url_propagation_performed": true,
         "resolution_entries": [
           {
             "source_url": "https://www.energy-storage.news/us-firm-lyten-sets-sights-on-norways-morrow-batteries-following-northvolt-acquisition",
@@ -6167,7 +6285,7 @@
             "canonical_complete": true,
             "resolved_article_matches_quote": true,
             "resolution_basis": "recomputed from current fact_sources; indices=0; owners=svw.no",
-            "source_url_propagation_performed": false
+            "source_url_propagation_performed": true
           }
         ]
       }
@@ -7503,7 +7621,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "government_program_page",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://pv-magazine-usa.com/2026/08/25/princeton-nuenergy-secures-50-million-doe-grant-for-georgia-battery-recycling-plant",
@@ -7517,7 +7638,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -7780,7 +7904,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "regulated_company_announcement",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://www.ess-news.com/2026/08/25/gore-streets-eu-fund-acquires-390-mwh-of-bess-in-ireland",
@@ -7794,7 +7921,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -8008,7 +8138,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "government_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -8221,7 +8354,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "government_notice",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -8732,7 +8868,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "government_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://www.electrive.com/2026/08/24/anthro-energy-breaks-ground-on-electrolyte-factory-in-kentucky/",
@@ -8746,7 +8885,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -8960,7 +9102,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_official_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",
@@ -14578,7 +14723,10 @@
             "implication",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "primary_event_evidence",
+          "source_origin_type": "company_official_release",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "source_url": "https://equans.ch/de/news/flexbase",
@@ -14592,7 +14740,10 @@
             "fact",
             "sub",
             "title"
-          ]
+          ],
+          "source_role": "independent_event_confirmation",
+          "source_origin_type": "independent_body_level_article",
+          "checked_at": "2026-08-28T19:30:00+09:00"
         },
         {
           "query_type": "provided_primary",

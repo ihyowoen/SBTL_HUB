@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbtl-hub.local/schemas/manual-direct-add.v2.schema.json",
+  "title": "SBTL_HUB Manual Direct Add v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","status","direct_add_id","review_mode","formal_full_run_claimed","base_main_commit_sha","base_full_blob_sha","expected_before","expected_after","output_updated","operations","editorial_attestation"],
+  "properties": {
+    "schema": {"const":"manual_direct_add_v2"},
+    "status": {"const":"PASS"},
+    "direct_add_id": {"type":"string","minLength":1},
+    "review_mode": {"const":"already_reviewed_bounded_direct_add"},
+    "formal_full_run_claimed": {"const":false},
+    "base_main_commit_sha": {"type":"string","minLength":1},
+    "base_full_blob_sha": {"type":"string","minLength":1},
+    "expected_before": {"type":"integer","minimum":0},
+    "expected_after": {"type":"integer","minimum":0},
+    "output_updated": {"type":"string","format":"date-time"},
+    "operations": {
+      "type":"object","additionalProperties":false,"required":["add","update","id_migration"],
+      "properties": {
+        "add":{"type":"array","uniqueItems":true,"items":{"type":"string","minLength":1}},
+        "update":{"type":"array","uniqueItems":true,"items":{"type":"string","minLength":1}},
+        "id_migration":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["old_id","new_id","reason"],"properties":{"old_id":{"type":"string","minLength":1},"new_id":{"type":"string","minLength":1},"reason":{"type":"string","minLength":1}}}}
+      }
+    },
+    "editorial_attestation": {
+      "type":"object","additionalProperties":false,"required":["policy_version","additions","updates"],
+      "properties": {
+        "policy_version":{"const":"EMBEDDED_NEWS_VALUE_SELECTION_V4"},
+        "additions":{"type":"array","items":{"$ref":"#/$defs/addAttestation"}},
+        "updates":{"type":"array","items":{"$ref":"#/$defs/updateAttestation"}}
+      }
+    }
+  },
+  "$defs": {
+    "anchorClass":{"enum":["execution_event_anchor","policy_regulatory_anchor","data_financial_anchor","strategic_behavior_anchor","technology_commercialization_anchor","follow_up_probability_anchor"]},
+    "addAttestation": {
+      "type":"object","additionalProperties":false,
+      "required":["id","execution_credibility_gate","independent_cardability_gate","anchor_classes","selection_route","decision_news_value_score","decision_value_classification","publication_urgency","prior_state","new_verified_fact","changed_judgment","evidence_review_summary","next_confirmation_points","inclusion_decision","owner_override_reason","structural_non_execution_reason","why_execution_event_not_required"],
+      "properties": {
+        "id":{"type":"string","minLength":1},
+        "execution_credibility_gate":{"const":"PASS"},
+        "independent_cardability_gate":{"const":"PASS"},
+        "anchor_classes":{"type":"array","minItems":1,"uniqueItems":true,"items":{"$ref":"#/$defs/anchorClass"}},
+        "selection_route":{"enum":["execution_anchor_route","structural_non_execution_route"]},
+        "decision_news_value_score":{"type":"integer","minimum":0,"maximum":100},
+        "decision_value_classification":{"enum":["critical_structural","high_decision_value","material_industry_signal","standard_monitoring","context_or_reinforcement","low_independent_value"]},
+        "publication_urgency":{"enum":["immediate","near_term","monitor"]},
+        "prior_state":{"type":"string","minLength":1},
+        "new_verified_fact":{"type":"string","minLength":1},
+        "changed_judgment":{"type":"string","minLength":1},
+        "evidence_review_summary":{"type":"string","minLength":1},
+        "next_confirmation_points":{"type":"array","minItems":1,"items":{"type":"string","minLength":1}},
+        "inclusion_decision":{"enum":["standard_include","owner_override_include"]},
+        "owner_override_reason":{"type":["string","null"]},
+        "structural_non_execution_reason":{"type":["string","null"]},
+        "why_execution_event_not_required":{"type":["string","null"]}
+      }
+    },
+    "updateAttestation": {
+      "type":"object","additionalProperties":false,"required":["id","change_type","reason","evidence_review_summary"],
+      "properties": {
+        "id":{"type":"string","minLength":1},
+        "change_type":{"enum":["reinforcement","correction","evidence_update","content_correction"]},
+        "reason":{"type":"string","minLength":1},
+        "evidence_review_summary":{"type":"string","minLength":1}
+      }
+    }
+  }
+}

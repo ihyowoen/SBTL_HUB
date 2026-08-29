@@ -1,0 +1,39 @@
+name: Inspect PR293 SK evidence
+on:
+  push:
+    branches:
+      - chatgpt/pr289-review-remediation-1496
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/pr289-review-remediation-1496
+          fetch-depth: 0
+      - name: Print scoped SK evidence metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/cards.full.json').read_text(encoding='utf-8'))
+          c=next(x for x in d['cards'] if x.get('id')=='2026-08-25_KR_01')
+          keys=['id','title','sub','fact','gate','implication','source_diversity_status','source_diversity_roles','source_diversity_measure','source_synthesis_applied','source_synthesis_fields','fact_sources','source_discovery_ledger','source_url_resolution','date_role','urls','source_published_date','visible_quote_date']
+          out={k:c.get(k) for k in keys}
+          print('PR293_SK_SCOPE_BEGIN')
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          print('PR293_SK_SCOPE_END')
+          PY
+      - name: Remove temporary inspection workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/inspect-pr293-sk-evidence.yml
+          git commit -m 'Remove temporary PR293 SK inspection workflow'
+          git push origin HEAD:chatgpt/pr289-review-remediation-1496

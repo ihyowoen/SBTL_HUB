@@ -1,0 +1,46 @@
+name: tmp-export-canonical
+
+on:
+  push:
+    branches:
+      - chatgpt/tmp-export-canonical-20260829
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+      - name: Verify canonical metadata
+        run: |
+          python - <<'PY'
+          import json, hashlib
+          p='data/cards.full.json'
+          b=open(p,'rb').read()
+          d=json.loads(b)
+          git=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          print('total', d.get('total'))
+          print('len', len(d.get('cards', [])))
+          print('git_blob', git)
+          assert d.get('total') == 1496
+          assert len(d.get('cards', [])) == 1496
+          assert git == '3b2e86b320cac2b8ab9e9c1035aa026fc47fed2f'
+          PY
+      - name: Upload exact repository snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: current-main-cedf3dbd-export
+          path: |
+            data/
+            public/data/
+            validation_scripts/
+            scripts/
+            docs/
+            package.json
+            package-lock.json
+            pnpm-lock.yaml
+          if-no-files-found: warn
+          retention-days: 1

@@ -1968,7 +1968,8 @@
     "**KR-003/KR-008**: 8.3 세제개편안에서 국내생산세액공제 설계안 공개(6대 전략품목·생산량×기준공제액·일몰 2030) — KR-008 종결(WATCH→DONE·KR-003 승계) 승인 대기.",
     "**GL-004 오류 발견**: 스톡홀름 LC-PFCA Annex A 개정 국제 발효일 = 2026.12.16(CN.672.2025 원문·1차) — 기존 '2026.01.01 발효' 서술 오류. status 재분류(ACTIVE→UPCOMING) 포함 전 필드 재작성이 필요하므로 일괄 승인 대기.",
     "**승인 큐 표기 정정**: IEC 63379 → IEC TS 63379:2026(Technical Specification·발간 2026-01-27, IEC 웹스토어 1차 메타). ESS 표준군 4층의 설계표준 층 = GB/T 51048-2025(2026.04.01 시행)로 갱신 확인.",
-    "**스탠딩 모니터 5/5 무변동**: CAFE $0 유지(SAFE III NPRM 의견기한 2.4 마감 후 최종규칙 대기), 30D 부활 입법 무, IRS PFE 지침 Notice 2026-15 유일(§7701(a)(52) 테이블 법정기한 12.31), GM/Tesla 국면 유지, 中 VAT 단계 무변동."
+    "**스탠딩 모니터 5/5 무변동**: CAFE $0 유지(SAFE III NPRM 의견기한 2.4 마감 후 최종규칙 대기), 30D 부활 입법 무, IRS PFE 지침 Notice 2026-15 유일(§7701(a)(52) 테이블 법정기한 12.31), GM/Tesla 국면 유지, 中 VAT 단계 무변동.",
+    "**[2026-08-29 정정 1차 — PR#294 Codex 리뷰 11건]** 검증 사실을 checkNote·원장에만 기록하고 노출 필드(t·d·dt·effectiveDate)에 전파하지 않아 카드 내부 모순이 발생한 것을 일괄 해소: NA-026(8.19→8.22 전파)·EU-006(공모 개시·9.30 마감)·EU-009/EU-014(전제 행위 미채택 이연 — effectiveDate를 지어내지 않고 null)·EU-022(가이드라인 6.26 공표)·EU-024(Reg 2026/1738·OJ 7.24·적용 2028.09.01)·CN-032(미공포 초안 예정일을 effectiveDate에서 제거·과도기 통지와 구분)·NA-014(9월 R4)·KR-003(설계안 전 조건)·GL-004(발효 2026.12.16)·JP-004(구운 D-18 제거). coverage energy_market/GL은 각도 재시도 미실행이 확인돼 lastSwept를 환원 — '원장 근거 없으면 안 친 것'(정정 10차 규칙)을 이번 run이 스스로 어긴 사례로, na 재판정 대상에서도 제외. region_policy GL 구 발효일 watchpoint 정정."
   ],
   "newItems": [],
   "corrections": [
@@ -2012,15 +2013,14 @@
     "upstream/GL",
     "next_tech/JP",
     "subsidy/GL",
-    "recycle/GL",
-    "energy_market/GL"
+    "recycle/GL"
   ],
   "coverageBacklog": {
     "derivedFrom": "ops/coverage.json (스크립트 산출)",
     "totalCells": 90,
     "neverSwept": 0,
     "neverSweptCells": [],
-    "note": "재스윕 대상(10차 환원 3셀·GL 3셀) 전부 스윕 완료. GL 3셀은 2회 연속 무산출 — na 재판정 승인 대기(energy_market은 재시도 1건 미실행 명기)."
+    "note": "재스윕 대상(10차 환원 3셀·GL 3셀) 중 5셀 스윕 완료. GL recycle·subsidy는 2회 연속 무산출 — na 재판정 승인 대기. energy_market/GL은 각도 재시도 미실행으로 스윕 미완 — lastSwept 환원, 재스윕 대기(정정 1차)."
   },
   "carryOver": [
     "미커버 33건 재검증 최우선: CN-001, CN-003, CN-007, CN-009, CN-011, CN-012, CN-013, CN-016, CN-017, CN-021, CN-029, CN-031, CN-033, CN-034, CN-035, CN-037, EU-017, EU-023, EU-030, EU-031, EU-032, EU-033, KR-004, KR-006, KR-010, KR-014, KR-016, KR-020, KR-021, KR-022, KR-026, KR-027, KR-028",
@@ -2039,7 +2039,7 @@
     "① status 전환 승인 5건: NA-026 UPCOMING→ACTIVE(8.22 발효) / EU-026 UPCOMING→ACTIVE(8.12 적용 개시) / EU-006 UPCOMING→ACTIVE(7.28 공모 개시) / KR-008 WATCH→DONE(8.3 설계안 공개 완료·KR-003 승계) / GL-004 ACTIVE→UPCOMING(국제 발효 12.16 미도래 — 전 필드 재작성 동반)",
     "② 편입 승인 — 제정 확정군: CCC 충전설비(2024年第50号+CNCA-C11-19:2025, 8.1 발효, P1) / NDAA §842(P.L. 119-60, P1) / DPP 입법 2건(Decision 2026/1736·Regulation 2026/1778) / BIS DPAS 블랙매스·텅스텐(FR 2026-16078, 8.6) / KR 전기안전관리법 충전시설(2025.11.28 시행) / IEC TS 63379:2026(P2) / 23 CFR 680 NEVI(P3) / GB/T 47292.1~.4-2026(시행 2027.4.1) / 商务部公告2026年第26号(집행 인프라)",
     "③ 편입 승인 — WATCH군: EU IAA(로컬콘텐츠, 3.4 제안·협상 중) / EPA TSCA SNUR(제안) / UL 2285(개발 중) / EU 여권 위임행위(기한 8.18) / IEA 각료선언 / CIAPS 电池护照指南 / USITC 337-TA-1513 / US Energy Bills Relief Act / JP 리튬이온전지 종합대책(존재만 포착) / USTR 과잉생산 301 조사 독립 승격 여부",
-    "④ GL 3셀(recycle·subsidy·energy_market) na 재판정 — 2회 연속 무산출 완성. 단 energy_market은 각도 재시도 1건 미실행이라 보류 권고",
+    "④ GL 2셀(recycle·subsidy) na 재판정 — 2회 연속 무산출 완성. energy_market/GL은 재시도 미실행으로 스윕 미완이라 na 재판정 대상에서 제외(차기 run 재스윕 후 판단)",
     "⑤ RD-3 로테이션 설계(A 매일 전수/B 하이브리드/C 현행) — 기결정 대기 사항"
   ],
   "standingMonitor": [

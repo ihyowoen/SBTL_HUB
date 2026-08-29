@@ -325,13 +325,17 @@
     {
       "query": "Congress EV tax credit bill 2026 reinstate \"30D\" electric vehicle incentive legislation",
       "region": "NA",
-      "itemsCovered": [],
+      "itemsCovered": [
+        "NA-039"
+      ],
       "result": "30D는 2025.09.30 이후 취득분 종료 상태 유지·부활 입법 성립 무 (coltura.org/ev-tax-credit, jouleio.com/blog/ev-tax-credit-2026)"
     },
     {
       "query": "bill introduced Congress 2026 restore electric vehicle tax credit legislation Democrats",
       "region": "NA",
-      "itemsCovered": [],
+      "itemsCovered": [
+        "NA-039"
+      ],
       "result": "각도 변경 — Energy Bills Relief Act(2026.03.18, Casten/Levin, 하원 민주 122인 서명, 419쪽) 발견: OBBBA 청정에너지 개정 전면 롤백+청정차량 크레딧 부활 포함, 통과 전망 낮음 (pv-magazine-usa.com 2026.03.23, mikethompson.house.gov)"
     },
     {
@@ -523,13 +527,17 @@
     {
       "query": "EPA TSCA significant new use rule SNUR cathode active material mixed metal oxide proposed rule",
       "region": "US",
-      "itemsCovered": [],
+      "itemsCovered": [
+        "NA-038"
+      ],
       "result": "제안 단계 확인 — 2026.04.24 Federal Register 제안 SNUR 'Significant New Use Rules on Certain Chemical Substances (26-2)'(FR Doc 2026-08012), MMO CAM 대상(2022.12~2026.01 PMN/SNUN 약 25건 기반). FR 페이지 직접 페치는 봇월 차단 — 독립 2소스: https://www.bdlaw.com/publications/how-epa-reviews-mixed-metal-oxides-used-in-battery-cathode-active-materials/, https://en.reach24h.com/news/industry-news/chemical/tsca-snur-cathode-active-materials-battery-export + FR URL https://www.federalregister.gov/documents/2026/04/24/2026-08012/"
     },
     {
       "query": "\"UL 2285\" solid-state battery safety standard development",
       "region": "US/CA",
-      "itemsCovered": [],
+      "itemsCovered": [
+        "NA-040"
+      ],
       "result": "개발 중 확인 — SCC(캐나다표준협의회) Notice of Intent: ULSE가 미·캐 공동 신규 표준 UL 2285 'Standard for Safety for Solid-State Batteries' 개발 중(기존 UL 1642/2580이 액체전해질 전제라 별도 표준 필요). 동반 표준 'Performance and Reliability of Solid-State Batteries' NOI도 병행 존재(번호 미확인). SCC 페이지 직접 페치는 403 차단 — 검색 명중 기반. https://scc-ccn.ca/standards/notices-of-intent/ul-standards-engagement/standard-safety-solid-state-batteries"
     },
     {
@@ -674,7 +682,8 @@
       "query": "EPA TSCA PFAS reporting rule 8(a)(7) 40 CFR 705 deadline scope proposed rule August 2026",
       "region": "NA",
       "itemsCovered": [
-        "NA-029"
+        "NA-029",
+        "NA-038"
       ],
       "result": "제출개시 = 범위 축소 최종조치 발효 60일 후 또는 2027.01.31 중 이른 날, 소규모 물품수입자 2027.04.13. 범위 축소 제안규칙(2025.11) 최종화 소식 무. https://www.epa.gov/chemicals-under-tsca/update-reporting-deadline-tsca-pfas-reporting-rule / https://www.federalregister.gov/documents/2026/04/13/2026-07062/"
     },
@@ -733,7 +742,8 @@
       "query": "anode active material graphite AD CVD ITC negative determination appeal Court International Trade 2026",
       "region": "NA",
       "itemsCovered": [
-        "NA-024"
+        "NA-024",
+        "NA-041"
       ],
       "result": "ITC 3.12 부정(2-1: Karpel·Johanson 부정/Kearns 긍정) 재확인, AD/CVD 미부과 유지. Syrah '항소 검토' 단계 — CIT 제소 확인 안 됨. https://www.usitc.gov/press_room/news_release/2026/er0312_68281.htm / https://www.tradingview.com/news/smallcaps:cace07898094b:0-syrah-resources-left-to-navigate-us-itc-s-negative-ad-cvd-ruling-on-chinese-graphite-imports/"
     },
@@ -754,7 +764,8 @@
       "query": "\"impracticable-to-trace\" battery materials exemption graphite 2026 expiration section 30D 45X",
       "region": "NA",
       "itemsCovered": [
-        "NA-005"
+        "NA-005",
+        "NA-039"
       ],
       "result": "면제 구조 재확인(2026년 말까지 제외 허용, 1/1/2027 전 정기보고 제출 조건) — 연장·조기종료·신규 가이던스 신호 무. https://www.ecfr.gov/current/title-26/chapter-I/subchapter-A/part-1/subject-group-ECFRcb39f040b41b74b/section-1.30D-2 / https://www.hklaw.com/en/insights/publications/2024/05/treasury-department-irs-issue-final-rules-under-clean-vehicle"
     },
@@ -790,7 +801,8 @@
       "itemsCovered": [
         "NA-003",
         "NA-006",
-        "NA-007"
+        "NA-007",
+        "NA-037"
       ],
       "result": "클러스터 일반 sweep — DONE 3건 부활 신호 무산출. 신규 신호 1건: EO 14420(외국산 그리드 장비 국가비상, 배터리 포함) — 단일 소스가 2026.08.26 서명으로 보도, run 기준일(08.14) 이후 → newCandidates에 차기 검증 조건부 등재. https://mgrid.org/2026/08/26/trumps-grid-equipment-order-names-inverters-batteries-and-transformers-but-bans-nothing-yet/"
     },
@@ -1616,7 +1628,9 @@
     {
       "query": "US federal battery traceability rule",
       "region": "NA",
-      "itemsCovered": [],
+      "itemsCovered": [
+        "NA-039"
+      ],
       "result": "연방 배터리 이력추적·여권 의무 제정 규범 부재 재확인 — IRA 30D 핵심광물 추적(시리얼 넘버 배분) 가이던스 맥락만. https://home.treasury.gov/news/press-releases/jy1939"
     },
     {
@@ -1674,7 +1688,9 @@
     {
       "query": "电池 数字护照 标准",
       "region": "CN",
-      "itemsCovered": [],
+      "itemsCovered": [
+        "CN-042"
+      ],
       "result": "강제 표준 무산출 — CIAPS 《电池护照指南》 단체표준 편제 중(자발적)·CAICT DPP 기술보고서 등 비규범만. WATCH 회부. https://www.ciaps.org.cn/file/down/dchzzn2.pdf"
     },
     {
@@ -1822,13 +1838,17 @@
     {
       "query": "ITC Section 337 investigation certain anode materials battery cells complaint 2026 (federalregister.gov 직접 fetch는 redirect 차단 → usitc.gov 보도자료로 확인)",
       "region": "NA",
-      "itemsCovered": [],
+      "itemsCovered": [
+        "NA-041"
+      ],
       "result": "337-TA-1513 조사개시 확정: Sila Nanotechnologies+Georgia Tech Research(제소 2026.06.18) v. Carbon ONE New Energy Group 등 3개 중국사 — 실리콘-탄소 음극재 특허 4건 침해 주장, limited exclusion order+CDO 청구. USITC 표결 2026.07.21 보도자료. 부수 관측: FR 2026.08.24 원통형 이차전지 337 조사개시(EVE 등 — 명목 기준일 8/14 이후, 차기 run 소관). https://www.usitc.gov/press_room/news_release/2026/er0721_68943.htm"
     },
     {
       "query": "EPA TSCA significant new use rule cathode active materials final rule 2026",
       "region": "NA",
-      "itemsCovered": [],
+      "itemsCovered": [
+        "NA-038"
+      ],
       "result": "MMO CAM 대상 SNUR은 여전히 제안 단계(2026.04.24 제안, 코멘트 기한 연장 07.10 마감) — 최종화 안 됨, 후보 편입 불가. 인접: MWCNT(도전재 인접 물질) 최종 SNUR FR 2026.07.24, SNUR 26-4 FR 07.30. https://www.federalregister.gov/documents/2026/07/30/2026-15352/significant-new-use-rules-on-certain-chemical-substances-26-4"
     },
     {
@@ -2053,18 +2073,32 @@
         "GL-006"
       ],
       "note": "명칭·Ed.1.0·발간 2026-01-28·TC 23/SC 23H·stability 2028 메타 확인 → primary-meta"
+    },
+    {
+      "doc": "SCC — ULSE 전고체 배터리 안전표준 개발의향 통지",
+      "itemsCovered": [
+        "NA-040"
+      ],
+      "note": "SCC 공식 Notice of Intent 페이지에서 ULSE의 미·캐 공동 신규 표준 개발 착수를 확인. 표준 초안·발포 일정은 미공개."
+    },
+    {
+      "doc": "USITC 보도자료 — 337-TA-1513 조사 개시",
+      "itemsCovered": [
+        "NA-041"
+      ],
+      "note": "USITC 공식 보도자료에서 2026.07.21 조사개시 표결과 조사명(Certain Anode Materials…)을 확인, FR 공고일 2026.07.24 교차. 신청인·피신청인 상세 및 주장 특허는 미대조."
     }
   ],
   "verifyCounts": {
     "derivedFrom": "public/data/tracker_data.json (스크립트 산출)",
-    "totalItems": 159,
+    "totalItems": 165,
     "thisRun": {
       "search": 30,
-      "secondary": 73,
-      "primary-meta": 22,
+      "secondary": 77,
+      "primary-meta": 24,
       "primary-doc": 1
     },
-    "thisRunTotal": 126,
+    "thisRunTotal": 132,
     "carriedFromPriorRuns": 33,
     "note": "verify.date=2026-08-29 항목의 method별 분포. 수기 기입 금지 — 데이터셋에서 산출."
   },
@@ -2083,7 +2117,8 @@
     "**[2026-08-29 정정 2차 — 오케스트레이터 자체 재검증]** 정정 1차로 노출 필드에 승격한 사실 중 구조화 날짜 3건과 행동 유발 날짜 2건을 하위 요원 보고에 의존하지 않고 직접 재확인. 결과: ①NA-026 유예 포고 서명일 오류 발견·정정(8.18→8.19, RVIA 원문+검색 교차 — 요원이 인용한 Barnes Richardson 8.18과 상충하므로 FR 게재본 대조를 이월) ②EU-024 적용일을 2차 출처에서 Art.59(2) 원문 근거로 승격 + 발효일 2026.08.13 신규 확정 ③GL-004 2026.12.16을 기탁통보 C.N.672.2025(2025.12.16)+협약 1년 규정으로 재확인(일부 2차 출처의 '2026.01.01' 서술은 오류) ④EU-006 공모 마감 2026.09.30·조건 전량 일치 확인 ⑤KR-003 신규 확인 2건 반영(통합투자세액공제 중복 배제·완성 EV 제외/양극재 등 핵심품목) 및 **파우치 필름 적용 여부는 시행령 품목 고시 전까지 미확정 — SBTL 직결 부채 등재**.",
     "**[2026-08-29 정정 4차 — 승인 큐 구조화 누락]** 이번 run 발굴 후보가 pendingDecisions 산문에만 있고 structured approvalQueueCandidates에는 없어, 차기 run이 큐를 작업목록으로 읽으면 발굴분이 통째로 유실될 상태였다(8/2 run에서 지적됐던 결함 유형의 재발). 큐를 11→24행으로 정합화: 8/2 이월 11행 중 8행은 이번 재검증 결과로 basis 갱신·reverifiedRun 부여(중복 등재 대신 병합), 신규 13행 추가. 배제 3건 — NA-021 강제노동 301 기추적, BIS 동일 실체 2요원 보고 병합, EU 실사 가이드라인 감시(EU-012 소관·carryOver 담당). 각 행에 discoveredRun·dupChecked·**scopeGate**(enacted 12 / watch 9 / unverified 2 / existing-monitor 1) 부여 — 조사·법안·미검증 건이 '제정 확정군'에 섞이지 않도록 명시 분류. 기존 표기 정정 2건: IEC 63379 → IEC TS 63379:2026(TS·발간 2026-01-27), ESS 표준군 설계층 GB/T 51048-2025(2026.04.01 시행).",
     "**[2026-08-29 Claire 승인 — 신규 편입 10건]** 승인 큐 제정 확정군 승인에 따라 편입: CN-039(电动汽车供电设备 CCC 强制认证·2026.08.01 발효·ACTIVE) / NA-034(FY2026 NDAA §842 FEOC 조달 제한·2028.01.01·UPCOMING) / GL-006(IEC TS 63379:2026 MCS·자발 TS라 WATCH) / KR-029(전기안전관리법 충전시설 신고·책임보험·ACTIVE) / NA-035(23 CFR 680 NEVI·ACTIVE) / CN-040(GB 43854-2024 전기자전거 전지 강제국표·ACTIVE) / NA-036(BIS 블랙매스·텅스텐 수출제한 임시최종규칙·2026.08.27 발효·ACTIVE) / EU-034(Implementing Decision 2026/1736 DPP 조화표준 6종) / EU-035(Implementing Regulation 2026/1778 DPP 레지스트리) / CN-041(GB/T 47292.1~.4-2026·2027.04.01·UPCOMING). **편입 전 기존 149항목 전수 대조 수행** — 商务部公告2026年第26号이 CN-036 본문에 기추적 중임을 발견해 편입 제외(재등재 사고 5호 예방, 전례 CN-012·CN-016·NA-024·中 MoF/SAT). ESS 표준군 4층은 GB 44240=CN-025·GB/T 46261=CN-038 기추적 확인, 미항목 층 GB/T 51048-2025는 근거 2차 1건뿐이라 카드 작성 보류(FACT_DISCIPLINE). 총 항목 149→159, status ACTIVE 89·UPCOMING 26·WATCH 35·DONE 9.",
-    "**[2026-08-29 편입 후속 — 원장 근거 연결]** validate2가 신규 10건에 대해 '부분검증 금지 위반'(verify 갱신에 원장 근거 없음) ERROR 10건을 정확히 차단. 발굴 당시에는 ID가 없어 searches[].itemsCovered에 신규 ID가 없었던 것이 원인 — 각 항목을 실제로 다룬 검색에 신규 ID를 연결하고, primary-meta 7건은 primaryDocs에도 등재(RUNBOOK §80). 규칙을 우회하지 않고 근거를 실제로 잇는 방향으로 해소."
+    "**[2026-08-29 편입 후속 — 원장 근거 연결]** validate2가 신규 10건에 대해 '부분검증 금지 위반'(verify 갱신에 원장 근거 없음) ERROR 10건을 정확히 차단. 발굴 당시에는 ID가 없어 searches[].itemsCovered에 신규 ID가 없었던 것이 원인 — 각 항목을 실제로 다룬 검색에 신규 ID를 연결하고, primary-meta 7건은 primaryDocs에도 등재(RUNBOOK §80). 규칙을 우회하지 않고 근거를 실제로 잇는 방향으로 해소.",
+    "**[2026-08-29 Claire 전건 승인 — ①③④⑤ 처리]** ① status 전환 5건(NA-026·EU-026·EU-006→ACTIVE, KR-008→DONE·supersededBy=KR-003·전 필드 재작성, GL-004→UPCOMING) ③ WATCH군 6건 편입, 5건은 전수 대조로 기추적 확인해 제외(재등재 사고 6호 예방 — EU IAA·과잉생산 301·여권 위임행위·IEA 선언·JP 종합대책). unverified 2건은 편입 전 직접 검증(EO 14420 실재 확인→편입, JP 종합대책은 정책 패키지→제외·JP-017 보강) ④ GL 2셀 na 재판정 ⑤ RD-3 옵션 B 확정 — 고변동 3축 매일 스윕. 총 항목 159→165, status ACTIVE 92·UPCOMING 24·WATCH 39·DONE 10."
   ],
   "newItems": [
     {
@@ -2155,6 +2190,48 @@
       "s": "UPCOMING",
       "t": "GB/T 47292.1~.4-2026 리튬이온전지 생산품질관리 4부작 (2027.04.01 시행)",
       "method": "primary-meta"
+    },
+    {
+      "id": "NA-037",
+      "r": "NA",
+      "s": "ACTIVE",
+      "t": "EO 14420 — 벌크전력 설비 국가비상 선언 (외국산 배터리저장·인버터·변압기, 2026.08.26)",
+      "method": "secondary"
+    },
+    {
+      "id": "NA-038",
+      "r": "NA",
+      "s": "WATCH",
+      "t": "EPA TSCA SNUR 제안규칙 — 혼합금속산화물(MMO) 양극활물질 대상 (26-2, 미제정)",
+      "method": "secondary"
+    },
+    {
+      "id": "NA-039",
+      "r": "NA",
+      "s": "WATCH",
+      "t": "US Energy Bills Relief Act (법안) — OBBBA 청정에너지 개정 롤백·청정차량 크레딧 부활",
+      "method": "secondary"
+    },
+    {
+      "id": "NA-040",
+      "r": "NA",
+      "s": "WATCH",
+      "t": "UL 2285 전고체 배터리 안전표준 (미·캐 공동, 개발 중)",
+      "method": "primary-meta"
+    },
+    {
+      "id": "NA-041",
+      "r": "NA",
+      "s": "WATCH",
+      "t": "USITC 337-TA-1513 — 배터리 셀용 음극재 관세법 337조 조사 (2026.07 개시)",
+      "method": "primary-meta"
+    },
+    {
+      "id": "CN-042",
+      "r": "CN",
+      "s": "WATCH",
+      "t": "CIAPS 《电池护照指南》 단체표준 — 편제 중 (자발·미제정)",
+      "method": "secondary"
     }
   ],
   "corrections": [
@@ -2208,6 +2285,9 @@
     "note": "재스윕 대상(10차 환원 3셀·GL 3셀) 중 5셀 스윕 완료. GL recycle·subsidy는 2회 연속 무산출 — na 재판정 승인 대기. energy_market/GL은 각도 재시도 미실행으로 스윕 미완 — lastSwept 환원, 재스윕 대기(정정 1차)."
   },
   "carryOver": [
+    "energy_market/GL 재스윕(각도 전환 재시도) 후 na 재판정 여부 결정",
+    "USTR 과잉생산 301 결정 발표 시 NA-021에서 독립 항목 승격 검토",
+    "EO 14420 DOE 이행규칙(2026.12 하순 기한) 공표 시 NA-037 재검증 — ESS 금지 범위 확정 시점",
     "GB/T 51048-2025(ESS 설계표준 층) std.samr 원문 확인 후 편입 — GB/T 42288-2022 항목화 여부도 함께 판단",
     "신규 10건 잔여 부채: CNCA-C25-01 실시규칙 원문 / P.L. 119-60 §842 법문(단계 시행일 소스 상충) / 23 CFR 680 시행일 / FR 2026-16078 / GB 43854·GB/T 47292 표준 전문",
     "자체 재검증 미도달 3건(EU-004·JP-007·JP-012) 재확인 — WATCH 메모 수준이나 완결성 위해",
@@ -2226,11 +2306,11 @@
     "corrections 3건(JP-012·JP-014·NA-032) 필드 반영"
   ],
   "pendingDecisions": [
-    "① status 전환 승인 5건: NA-026 UPCOMING→ACTIVE(8.22 발효) / EU-026 UPCOMING→ACTIVE(8.12 적용 개시) / EU-006 UPCOMING→ACTIVE(7.28 공모 개시) / KR-008 WATCH→DONE(8.3 설계안 공개 완료·KR-003 승계) / GL-004 ACTIVE→UPCOMING(국제 발효 12.16 미도래 — 전 필드 재작성 동반)",
+    "① status 전환 — **처리 완료(2026-08-29 Claire 승인)**: NA-026·EU-026·EU-006 → ACTIVE / KR-008 → DONE(supersededBy=KR-003·전 필드 재작성) / GL-004 → UPCOMING",
     "② 편입 승인 — **처리 완료(2026-08-29 Claire 승인)**: 제정 확정군 12건 중 10건 편입(CN-039 CCC·NA-034 NDAA §842·GL-006 IEC TS 63379·KR-029 전기안전관리법·NA-035 NEVI·CN-040 GB 43854·NA-036 BIS 블랙매스·EU-034 DPP 조화표준·EU-035 DPP 레지스트리·CN-041 GB/T 47292). 미편입 2건 — 商务部公告2026年第26号은 CN-036 기추적(재등재 사고 5호 예방), ESS 표준군 4층은 미항목 층(GB/T 51048-2025)의 근거가 2차 1건뿐이라 원문 확인 후 차기 run.",
-    "③ 편입 승인 — WATCH군 9건(미제정 제안·조사·개발·비구속): EU 배터리 로컬콘텐츠 입법(셀·CAM·BMS EU 원산) / EPA TSCA SNUR(CAM MMO) / UL 2285 전고체 안전표준 / US Energy Bills Relief Act — OBBBA 청정에너지 개정 롤백·30D 등 청정차량  / USTR Section 301 제조 과잉생산 조사 — 16개 경제(한국 포함), 배터리 명시 부문 / [WATCH] IEA 2026 각료선언 — Critical Minerals Security Program / [WATCH] EU 배터리 여권 위임행위(접근권한·정보 갱신 규칙) — 채택 기한 2026-08-18 / [WATCH] CIAPS 《电池护照指南》 단체표준 — 편제 중 / USITC 337-TA-1513 — Certain Anode Materials for Use in Bat || 1차 검증 미완 2건(차기 run 검증 후 판단): EO 14420 — 외국산 그리드 장비(배터리·인버터·변압기) 국가비상 선언 / JP 「リチウムイオン電池総合対策」 — 중대 화재사고 제로 + 리사이클 체제 구축 정부 종합대책 || 기존 모니터 1건: OBBBA §40006 CAFE",
-    "④ GL 2셀(recycle·subsidy) na 재판정 — 2회 연속 무산출 완성. energy_market/GL은 재시도 미실행으로 스윕 미완이라 na 재판정 대상에서 제외(차기 run 재스윕 후 판단)",
-    "⑤ RD-3 로테이션 설계(A 매일 전수/B 하이브리드/C 현행) — 기결정 대기 사항"
+    "③ WATCH군 편입 — **처리 완료(2026-08-29 Claire 승인)**: 편입 6건(NA-037 EO 14420·NA-038 TSCA SNUR·NA-039 Energy Bills Relief·NA-040 UL 2285·NA-041 USITC 337-TA-1513·CN-042 CIAPS 电池护照指南). 편입 제외 5건은 전수 대조 결과 전부 기추적 — EU IAA(EU-002·EU-005)·과잉생산 301(NA-021)·여권 위임행위(EU-011)·IEA 각료선언(NA-018)·JP 종합대책(JP-017). unverified 2건은 편입 전 직접 검증 수행 — EO 14420은 실재 확인 후 편입, JP 종합대책은 정책 패키지로 판정해 제외.",
+    "④ GL na 재판정 — **처리 완료(2026-08-29 Claire 승인)**: recycle/GL·subsidy/GL 2셀 na 전환(2회 연속 무산출). energy_market/GL은 재시도 미실행으로 스윕 미완이라 제외 — 차기 run 재스윕 후 판단.",
+    "⑤ RD-3 로테이션 — **처리 완료(2026-08-29 Claire 승인, 옵션 B 하이브리드)**: trade·supply_chain·product_std 3축을 매일 6권역 스윕으로 전환하고 나머지 12축은 요일 슬라이스 유지. coverage._meta.sweepPolicy에 정본 기록. RUNBOOK §4 문서 반영은 구조 PR ④ 과제."
   ],
   "standingMonitor": [
     "1. CAFE §32912 — $0.00 유지, SAFE III NPRM 의견기한 2026.02.04 마감·최종규칙 대기 (변동 시 플래그)",
@@ -2303,7 +2383,7 @@
       "dupChecked": true,
       "reverifiedRun": "2026-08-29-RD",
       "scopeGate": "watch",
-      "decision": "미결 — scopeGate=watch, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "편입 제외 — EU-002(IAA 입법 절차)·EU-005(IAA Made-in-EU 배터리 요건)로 기추적. 재등재 사고 6호 예방"
     },
     {
       "name": "EPA TSCA SNUR(CAM MMO)",
@@ -2313,7 +2393,8 @@
       "dupChecked": true,
       "reverifiedRun": "2026-08-29-RD",
       "scopeGate": "watch",
-      "decision": "미결 — scopeGate=watch, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "승인·편입 완료 (2026-08-29) → NA-038",
+      "incorporatedAs": "NA-038"
     },
     {
       "name": "UL 2285 전고체 안전표준",
@@ -2323,7 +2404,8 @@
       "dupChecked": true,
       "reverifiedRun": "2026-08-29-RD",
       "scopeGate": "watch",
-      "decision": "미결 — scopeGate=watch, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "승인·편입 완료 (2026-08-29) → NA-040",
+      "incorporatedAs": "NA-040"
     },
     {
       "name": "GB 43854-2024",
@@ -2357,7 +2439,8 @@
       "dupChecked": true,
       "discoveredRun": "2026-08-29-RD",
       "scopeGate": "watch",
-      "decision": "미결 — scopeGate=watch, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "승인·편입 완료 (2026-08-29) → NA-039",
+      "incorporatedAs": "NA-039"
     },
     {
       "name": "USTR Section 301 제조 과잉생산 조사 — 16개 경제(한국 포함), 배터리 명시 부문",
@@ -2366,7 +2449,7 @@
       "dupChecked": true,
       "discoveredRun": "2026-08-29-RD",
       "scopeGate": "watch",
-      "decision": "미결 — scopeGate=watch, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "편입 제외 — NA-021 dt에 '[조사 중] 과잉생산 301(16국, 한국 포함) 결정 대기'로 기추적. 결정 발표 시 독립 승격 검토(carryOver)"
     },
     {
       "name": "EO 14420 — 외국산 그리드 장비(배터리·인버터·변압기) 국가비상 선언",
@@ -2375,7 +2458,8 @@
       "dupChecked": true,
       "discoveredRun": "2026-08-29-RD",
       "scopeGate": "unverified",
-      "decision": "미결 — scopeGate=unverified, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "승인·편입 완료 (2026-08-29) → NA-037",
+      "incorporatedAs": "NA-037"
     },
     {
       "name": "美 BIS black mass·텅스텐 스크랩 수출제한 임시최종규칙 — EO(2026.07.30) 위임, 규칙 공고 2026.08.06, 발효 2026.08.27",
@@ -2394,7 +2478,7 @@
       "dupChecked": true,
       "discoveredRun": "2026-08-29-RD",
       "scopeGate": "unverified",
-      "decision": "미결 — scopeGate=unverified, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "편입 제외 — 정책 패키지이며 구속 요소(改正資源法·지정재자원화제품)는 JP-017 기추적. JP-017 checkNote에 5省庁 포털·2030 목표 보강"
     },
     {
       "name": "Commission Implementing Decision (EU) 2026/1736 — DPP 조화표준 6종 (EN 18216·18219~18223:2026)",
@@ -2432,7 +2516,7 @@
       "dupChecked": true,
       "discoveredRun": "2026-08-29-RD",
       "scopeGate": "watch",
-      "decision": "미결 — scopeGate=watch, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "편입 제외 — NA-018 dt에 IEA Critical Minerals Security Program 기재, 비구속 각료선언이라 독립 항목화 실익 낮음"
     },
     {
       "name": "[WATCH] EU 배터리 여권 위임행위(접근권한·정보 갱신 규칙) — 채택 기한 2026-08-18",
@@ -2441,7 +2525,7 @@
       "dupChecked": true,
       "discoveredRun": "2026-08-29-RD",
       "scopeGate": "watch",
-      "decision": "미결 — scopeGate=watch, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "편입 제외 — EU-011이 Art.77 위임행위를 src·dt·checkNote에서 기추적"
     },
     {
       "name": "[WATCH] CIAPS 《电池护照指南》 단체표준 — 편제 중",
@@ -2450,7 +2534,8 @@
       "dupChecked": true,
       "discoveredRun": "2026-08-29-RD",
       "scopeGate": "watch",
-      "decision": "미결 — scopeGate=watch, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "승인·편입 완료 (2026-08-29) → CN-042",
+      "incorporatedAs": "CN-042"
     },
     {
       "name": "GB/T 47292.1~.4-2026 锂离子电池生产质量管理 (전 4부 — 제1부 총체요구, 제2부 电池材料管控, 제3부 셀 공정·성품시험, 제4부 팩 공정·성품시험)",
@@ -2469,7 +2554,8 @@
       "dupChecked": true,
       "discoveredRun": "2026-08-29-RD",
       "scopeGate": "watch",
-      "decision": "미결 — scopeGate=watch, 승인 대기(② 제정군 승인 범위 밖)"
+      "decision": "승인·편입 완료 (2026-08-29) → NA-041",
+      "incorporatedAs": "NA-041"
     }
   ],
   "existingItemReconciliation": [
@@ -2479,5 +2565,5 @@
       "action": "큐 제외 — 기추적(NA-021이 동일 조치·발효 반영 완료). NA-028 검증 중 부수 재발견분으로 dupChecked 미완이었음 — 재등재 사고 5호 예방"
     }
   ],
-  "newCount": 10
+  "newCount": 16
 }

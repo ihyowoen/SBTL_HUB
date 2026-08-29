@@ -78,9 +78,12 @@ if (process.env.RP_PATH) {
   try {
     const rp=JSON.parse(readFileSync(process.env.RP_PATH,'utf8'));
     const rpDate=(rp._meta?.lastUpdated||'').slice(0,10);
-    const tjDate=(tj.meta?.lastUpdated||'').slice(0,10);
+    // region_policy는 '현재 발행 상태'의 스냅샷이므로 부분 run에서도 갱신된다. 따라서 비교 대상은
+    // meta.lastUpdated(마지막 전수 검증일)가 아니라 스냅샷 날짜 — dataSnapshotDate가 있으면 그것이 정본.
+    const snapDate=(tj.meta?.dataSnapshotDate||'').slice(0,10);
+    const tjDate=snapDate||(tj.meta?.lastUpdated||'').slice(0,10);
     if (rpDate && tjDate && rpDate!==tjDate)
-      warn(`region_policy _meta.lastUpdated(${rpDate}) ≠ tracker meta.lastUpdated(${tjDate}) — RD-4 정합 위반`);
+      warn(`region_policy _meta.lastUpdated(${rpDate}) ≠ tracker ${snapDate?'meta.dataSnapshotDate':'meta.lastUpdated'}(${tjDate}) — RD-4 정합 위반`);
     for (const rg of ['NA','EU','CN','KR','JP','GL'])
       if (!rp[rg]) warn(`region_policy: ${rg} 권역 서술 누락`);
   } catch(e){ warn('region_policy 로드 실패: '+e.message); }

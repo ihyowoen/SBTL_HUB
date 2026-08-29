@@ -49,8 +49,8 @@ jobs:
           assert len(target_ids)==25 and len(d['cards'])==1496
           assert m['base_main_commit_sha']=='3732ad9460b44329f0856591c29f166a39ebf5f8'
           assert m['base_full_blob_sha']=='3b2e86b320cac2b8ab9e9c1035aa026fc47fed2f'
+          assert m['output_updated']==d['updated']
           m['base_main_commit_sha']='cedf3dbda66d8d3f9aeae7ef87e8e81f3da87396'
-          m['output_updated']='2026-08-29T14:07:00+09:00'
 
           sk=by['2026-08-25_KR_01']
           assert sk['source_diversity_status']=='PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION'
@@ -60,7 +60,6 @@ jobs:
           measure['status']=sk['source_diversity_status']
           sk['source_diversity_measure']=measure
 
-          # Derived summary must now describe the same one visible source as fact_sources/urls.
           for k in ('source_evidence_entry_count','source_unique_url_count','source_unique_domain_count','source_independent_owner_count'):
               assert measure[k]==sk[k]==1,(k,measure[k],sk[k])
           assert measure['visible_source_url_count']==1
@@ -71,7 +70,6 @@ jobs:
           assert sk['source_synthesis_applied'] is False and sk['source_synthesis_fields']==[]
           assert sk['source_diversity_roles']['independent_event_confirmation'] is False
 
-          # Seoul is retained only as non-visible date/corroboration provenance.
           dr=sk['date_role']
           assert 'seoul.co.kr' in dr['event_date_source_url'] and dr['event_date']=='2026-08-25' and dr['date_role_locked'] is True
           assert any('seoul.co.kr' in str(r.get('source_url','')) and r.get('outcome')=='reviewed_not_used_for_visible_synthesis' and not r.get('visible_supports') for r in sk['source_discovery_ledger'])
@@ -79,7 +77,6 @@ jobs:
           assert all('seoul.co.kr' not in str(u) for u in sk['urls'])
           assert all('seoul.co.kr' not in str(e.get('source_url','')) for e in sk['source_url_resolution']['resolution_entries'])
 
-          # Preserve the second Codex provenance closure.
           for cid in ['2026-08-25_US_01','2026-08-24_US_01','2026-08-21_GL_02','2026-08-21_EU_01']:
               c=by[cid]
               fields=set(c.get('source_synthesis_fields') or [])

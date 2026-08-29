@@ -1,0 +1,2116 @@
+{
+  "runId": "2026-08-29-RD",
+  "date": "2026-08-29",
+  "type": "RD",
+  "summary": "머지(PR#227 96ae4f3·PR#249 cedf3db) 후 첫 재개 run. 전수 검증 공백 31일(7/29 이후). RD-0에서 F12 실측 — 명목 준비일 2026-08-14로 슬라이스를 산출했으나 실제 오늘은 2026-08-29(date 확인): 원장 날짜는 실제일, 목요일 슬라이스 스윕은 실검색이므로 유효 기록하고 토요일 정기 슬라이스는 이월. 수행: 경계 9건 심층(8/12 PPWR 적용 개시·8/22 Section 338 발효 확인) + 스탠딩 모니터 5/5(전부 무변동) + 승인 큐 11행 전수 심사(CCC·NDAA 등 편입 적격 확정, IEC TS 표기 정정, ESS 표준군 GB/T 51048-2025 갱신 확인) + 권역 클러스터 재검증 + 셀 스윕 22(재스윕 4 포함, GL 3셀 2회차 무산출 도달). 실검색 237회, 검증 116/149, changed 23건. 신규 편입 0(전 후보 승인 대기) — status 전환 5건도 승인 대기.",
+  "partial": true,
+  "partialReason": "RD-2 전수 미달 — 검색 명중 116/149, 검증 확정 116/149. 미커버 33건: CN-001, CN-003, CN-007, CN-009, CN-011, CN-012, CN-013, CN-016, CN-017, CN-021, CN-029, CN-031, CN-033, CN-034, CN-035, CN-037, EU-017, EU-023, EU-030, EU-031, EU-032, EU-033, KR-004, KR-006, KR-010, KR-014, KR-016, KR-020, KR-021, KR-022, KR-026, KR-027, KR-028. 미검증분 verify는 이전 검증일 유지. 토요일 정기 슬라이스(transport·packaging) 미수행(이월).",
+  "searches": [
+    {
+      "query": "Section 338 Canada tariff proclamation August 19 effective 50%",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-026"
+      ],
+      "result": "기존 기재 사실 재확인: 7/20 3개 포고 서명·50%·8/19 12:01am ET 발효 예정·~$20B·USMCA 원산지 무관 적용·사상 첫 Section 338 발동. 근거: whitecase.com/insight-alert/trump-administration-imposes-50-tariffs-certain-canadian-products-first-use-section, chrobinson.com 7/21 advisory, federalregister.gov/documents/2026/07/23/2026-14997 (링크 확인)"
+    },
+    {
+      "query": "USTR Section 301 List 2 continuation request deadline August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-028"
+      ],
+      "result": "List 2 continuation 신청 창구 2026.06.24~08.22(포털 8/22 23:59 마감) 확인 — 기재와 일치. 근거: bipc.com/ustr-provides-opportunity-to-request-continuation-of-section-301-tariffs-on-china, federalregister.gov/documents/2026/05/06/2026-08806 (2차 리뷰 개시공고 링크)"
+    },
+    {
+      "query": "Canada tariffs August 19 negotiations Carney delay withdraw Section 338 news",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-026"
+      ],
+      "result": "중대 변동 발견: 발효 직전 8/19→8/22 3일 유예 → 협상 결렬(카니 협상 중단·대표단 소환) → 8/22 발효 보도 클러스터. 근거: npr.org/2026/08/19/g-s1-139156, cnn.com/2026/08/21/economy/us-canada-trade, axios.com/2026/08/22/us-canada-tariffs-trade-trump-carney, uhy-us.com 8월 인사이트"
+    },
+    {
+      "query": "Section 301 List 1 continuation requests received July 2026 tariffs remain",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-028"
+      ],
+      "result": "List 1 신청 창구 5/7~7/5 확인 + '7/19 시점 관세 전면 유지·continuation 결정 미공표' 주장 발견(이 시점엔 단일 출처라 미확정 — 후속 검증으로 이어감). 근거: thompsonhinesmartrade.com 5월 글, dorsey.com 6월 alert"
+    },
+    {
+      "query": "WebFetch: federalregister.gov 2026-14997 (자동차 포고 원문)",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-026"
+      ],
+      "result": "실패 — 302 리다이렉트(unblock.federalregister.gov) 봇차단. primary-doc 시도 무산, NA-026 근거는 전부 secondary로 유지"
+    },
+    {
+      "query": "\"Section 338\" Canada tariffs \"August 22\" effect proclamation delay Federal Register",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-026"
+      ],
+      "result": "유예 포고(8/18 발령·8/19→8/22)와 8/22 12:01am ET 발효를 복수 출처로 확인. 근거: troutman.com/insights/three-day-suspension-of-section-338-additional-duties-on-canadian-imports, barnesrichardson.com an=146665, chrobinson.com 08-22-26 advisory, rvia.org 3일 유예 공지"
+    },
+    {
+      "query": "WebFetch: chrobinson.com 08-22-26 client advisory (Section 338 발효 확인)",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-026"
+      ],
+      "result": "발효 확정 확인: \"The tariffs became effective on August 22, 2026, at 12:01 a.m. Eastern Time\". USMCA 특혜품도 비제외(명시), Section 232 대상·민간항공기·반도체·특허의약품 등 제외 목록 확인. 추가 유예·철회 언급 없음. URL: chrobinson.com/en-us/resources/insights-and-advisories/client-advisories/2026q3/08-22-26-client-advisory-new-50-percent-section-338-duties-on-select-canadian-products/"
+    },
+    {
+      "query": "WebFetch: ustr.gov four-year review 공식 페이지",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-028"
+      ],
+      "result": "USTR 공식 페이지의 2차 4년 리뷰 섹션에 등재 문서는 5/6 개시공고 단 1건 — 8월 신규 결정문 없음(문서 목록 메타 확인). URL: ustr.gov/trade-topics/enforcement/section-301-investigations/.../four-year-review"
+    },
+    {
+      "query": "WebFetch: troutman.com 3일 유예 상세",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-026"
+      ],
+      "result": "실패 — ETIMEOUT. barnesrichardson.com으로 대체"
+    },
+    {
+      "query": "WebFetch: barnesrichardson.com (유예 포고 상세)",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-026"
+      ],
+      "result": "유예 포고 발령일 2026.08.18, 8/19→8/22, 사유='캐나다가 문제 조치 철회 약속·협상 지속 중 공익상 유예', 8/22까지 미타결 시 발효 명시. URL: barnesrichardson.com/?t=40&an=146665"
+    },
+    {
+      "query": "USTR announcement continuation July 6 2018 action Section 301 tariffs July 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-028"
+      ],
+      "result": "표적 질문(List 1 continuation 접수·공표 여부)에 무산출 — 별건인 강제노동 Section 301(60개 경제권·7/24 발효 10~12.5%) 뉴스에 묻힘. 이 별건은 newCandidates로 편입 제안. 각도 전환 재시도로 이어감"
+    },
+    {
+      "query": "WebFetch: shapiro.com/tariffs/tariff-news (각도 전환 재시도 1)",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-028"
+      ],
+      "result": "무산출 — 해당 페이지의 對中 301 상세 타임라인은 2024.12까지, 2026년분은 강제노동 301만. 재시도 2(Tariff Sentinel)로 이어감"
+    },
+    {
+      "query": "Section 301 lithium-ion battery natural graphite 25% tariff exclusion change August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-028"
+      ],
+      "result": "SBTL 핵심 라인(비EV 리튬이온전지·천연흑연 25%, 2026.01.01 발효) 재확인, 2026년 8월 제외·변경 조치 무발견. 근거: wiley.law alert, ustr.gov 2024.09.12 Modification Determination PDF 링크"
+    },
+    {
+      "query": "WebFetch: tariffsentinel.com section-301-four-year-review-initiation-2026 (각도 전환 재시도 2)",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-028"
+      ],
+      "result": "핵심 확보: 2026.08.10 점검 기준 USTR의 List 1 continuation/termination 결정 미공표 상태이나 관세는 전면 유지(List 1~3 25%·4A 7.5%), 2022년 전례는 마감 후 65일 뒤 공표 — 침묵이 정상 경로. List 2 법정 종료일 2026.08.23(신청 없을 시). URL: tariffsentinel.com/changes/section-301-four-year-review-initiation-2026"
+    },
+    {
+      "query": "China Section 301 List 1 tariffs remain effect anniversary \"July 6, 2026\" continuation",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-028"
+      ],
+      "result": "교차 확인: 2026년 현재 301 관세 유지(배터리 25%·핵심광물 25% 포함) — 복수 관세 가이드 클러스터. 근거: ustariffrates.com/section-301-tariffs, gatewaylines.com, customsbrokerusa.com"
+    },
+    {
+      "query": "PPWR Regulation 2025/40 packaging \"12 August 2026\" application date guidance",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-026"
+      ],
+      "result": "적용일 2026.08.12 불변·직접적용 확인. EC 가이던스 문서 2026.03.30 발행+FAQ 병행 — https://www.packaginglaw.com/news/european-commission-publishes-final-ppwr-guidance-advance-august-2026-application-date, https://informait.com/news/ppwr-compliance-guide-2026"
+    },
+    {
+      "query": "PPWR \"August 2026\" applies delay postponement news packaging regulation enforcement started",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-026"
+      ],
+      "result": "연기 없음 확정적: 업계 연기 요청 서한(2026.04말, PFAS 방법론 관련)에도 공식 연기 신호 없음, 150+ 단체 반대 서한(5/13). EC FAQ 2026.08.03 갱신 — 적용일 불변, 집행 실무 명확화 — https://lappa.org/blog/ppwr/what-you-need-to-know-about-ppwr-2026-postponement/, https://www.packlab.gr/en/ppwr-enforcement-industry-pushes-for-delay/"
+    },
+    {
+      "query": "EU Battery Regulation 2023/1542 carbon footprint performance class labelling \"18 August 2026\" implementing act",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-009",
+        "EU-014"
+      ],
+      "result": "8/18은 '위임/이행행위 미채택 시 이연' 구조 확인(18개월 후행 조항) — https://www.tuvsud.com/en-gb/resource-centre/blogs/uk/testing-and-certification-blog/eu-battery-regulation-2023-1542-article-7, https://prodlaw.eu/2025/01/eu-battery-regulation-upcoming-deadlines-in-2025/"
+    },
+    {
+      "query": "EU battery regulation delegated act carbon footprint electric vehicle batteries adopted 2026 status delayed",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-009"
+      ],
+      "result": "상충 신호: psqr 'EV 방법론 draft 미확정→선언 의무 사실상 이연' vs Glassdome '2025.03 공표'. 추가 검증 필요로 판단해 tie-breaker 실행 — https://psqr.eu/publications-resources/carbon-footprint-batteries/"
+    },
+    {
+      "query": "EV battery carbon footprint declaration deferred \"not yet been adopted\" delegated act 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-009"
+      ],
+      "result": "tie-breaker: TÜV SÜD(2025.03 기준 draft)+Newcastle Univ 보도(2025.09, 'remains in draft form')+sphera(성능등급 draft·기술 쟁점 미해결) — EV CFP 방법론 위임행위 미채택 우세 확인, 2026 채택 보도 부재 — https://www.ncl.ac.uk/press/articles/latest/2025/09/eubatterycarbonfootprint, https://sphera.com/resources/blog/eu-battery-regulation-carbon-footprint-calculations-in-focus/"
+    },
+    {
+      "query": "battery labelling implementing regulation Article 13 harmonised specifications adoption 2026 Commission batteries QR code",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-014",
+        "EU-009"
+      ],
+      "result": "Art.13 라벨링: 2026.08.18 또는 Art.13(10) 이행행위 발효+18개월 중 늦은 날 적용 구조 재확인 — https://www.pryormarking.com/18-august-2026-and-the-eu-battery-regulation/"
+    },
+    {
+      "query": "[WebFetch] pryormarking.com/18-august-2026-and-the-eu-battery-regulation",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-014"
+      ],
+      "result": "Art.13(10) 이행행위 OJ 게재 미확인(기사일 2026.08.18 기준), draft 2025.12 공개·Q2 2026 채택 예상이 지연 — 채택 시점 따라 라벨링 시행 2027.09~2027.12+로 이연. 공백기간(7/27~8/14) 중 채택 없음이 a fortiori 성립 — https://www.pryormarking.com/18-august-2026-and-the-eu-battery-regulation/"
+    },
+    {
+      "query": "Battery Regulation Article 8 recycled content calculation methodology delegated act adopted August 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-019"
+      ],
+      "result": "JRC 지원 연구 2026.07.13 발간 — 'forthcoming delegated act' 지원 목적, 즉 7/13 기준 미채택. 방법론=플랜트 단위 mass balance 방향 — https://www.miningsee.eu/eu-moves-toward-auditable-recycled-content-rules-for-batteries-reshaping-lithium-nickel-cobalt-and-lead-supply-chains/, https://resourcemedia.eco/article/eu-sets-out-how-battery-makers-must-prove-recycled-metal-content"
+    },
+    {
+      "query": "Commission adopts delegated regulation recycled content batteries August 2026 cobalt lithium nickel lead",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-019"
+      ],
+      "result": "각도 변경 재검색: 8월 채택 확인 불가('expected/due by August 2026'만), 2028.08.18(또는 DA 발효+24개월 중 늦은 날) 문서화 의무·2031 목표(Co16/Li6/Ni6/Pb85%) 재확인 — https://www.greenli-ion.com/post/eu-recycled-content-targets-2026"
+    },
+    {
+      "query": "ECHA SVHC candidate list update June 2026 substances added REACH",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-029"
+      ],
+      "result": "2026.02.04 n-Hexane·BPAF 추가 253건 재확인(다수 소스). 검색 요약이 '2026.06.03 3종 추가' 주장 — 검증 필요 판단 — https://www.cirs-group.com/en/chemicals/eu-reach-officially-adds-2-new-substances-of-very-high-concern-svhc-list-updated-to-253-entries"
+    },
+    {
+      "query": "\"Candidate List\" SVHC \"June 2026\" three substances 256 entries ECHA added",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-029"
+      ],
+      "result": "empty-retry(각도 변경): '2026.06 3종 추가'는 2025.06.25 3종(247→250)과의 혼동으로 판명 — 2026.06 업데이트 근거 없음, 최신 확인치는 2026.02.04자 253건 유지 — https://www.sgs.com/en-hk/news/2025/06/three-substance-added-to-echa-svhc-candidate-list, https://www.tuvsud.com/en/knowledge-hub/technical-updates/consumer-products-and-retail-essentials/eu-reach---candidate-list-includes-253-svhcs-now"
+    },
+    {
+      "query": "REACH Annex XVII amendment 2026 restriction entries CMR substances draft regulation adopted status",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-029"
+      ],
+      "result": "22물질(Entry 28-30) 개정: draft 2026.01.09 공개→의견수렴 2/6 마감→REACH Committee 표결 2026.04.29 예정이었음 — https://www.cirs-group.com/en/chemicals/eu-drafts-update-to-reach-annex-xvii-to-further-regulate-cmr-substances"
+    },
+    {
+      "query": "\"Annex XVII\" REACH amendment 22 CMR substances \"Official Journal\" published July 2026 (+Foresight 기사 정독)",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-029"
+      ],
+      "result": "2026 중반까지 OJ 게재 미확인('final adoption expected later in 2026') — 항목의 '진행 중(미채택)' 기재 유지 타당. Foresight 기사(2026.04.17)도 표결 전 시점 — https://www.useforesight.io/news/reach-annex-xvii-cmr-restrictions-update-2026, https://www.certivo.com/blog-details/reach-annex-xvii-cmr-substances-update-2026-what-manufacturers-must-know-about-new-chemical-restrictions"
+    },
+    {
+      "query": "battery carbon footprint \"maximum threshold\" Article 7(3) delegated act 2027 study consultation 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-018"
+      ],
+      "result": "최대치 위임행위 2027.07.01 목표 유지, 영향평가·연구 진행 중, 조기 채택·일정 변경 신호 없음 — https://sphera.com/resources/blog/eu-battery-regulation-carbon-footprint-calculations-in-focus/, https://www.tuvsud.com/en-gb/resource-centre/blogs/uk/testing-and-certification-blog/eu-battery-regulation-2023-1542-article-7"
+    },
+    {
+      "query": "[WebFetch] eur-lex.europa.eu CELEX:32025R0040 (PPWR 원문)",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-026"
+      ],
+      "result": "OJ 게재 2025.01.22·채택 2024.12.19 확인(적용일 조문은 본문 절단으로 미도달 — 적용일 자체는 다수 secondary로 교차 확인) — https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0040"
+    },
+    {
+      "query": "[WebFetch] re-source.tech/battery-legislation/battery-3 (상충 소스 정독)",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-009"
+      ],
+      "result": "outlier 검증: 'DA 2024.04 공표·선언 2025.02.18 발효' 주장하나 자체 문면도 '성능등급은 EU가 class definitions 확정한 후'라고 인정 — 2024.04은 draft 공개를 채택으로 오독한 것으로 판단(TÜV·NCL·sphera 3개 독립 소스와 상충) — https://re-source.tech/battery-legislation/battery-3/"
+    },
+    {
+      "query": "新化学物质环境管理登记办法 修订 生态环境部 2026 施行",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-032"
+      ],
+      "result": "2026.06.11 의견수렴 함(mee.gov.cn/xxgk2018/xxgk/xxgk06/202606/t20260611_1159143.html)·법전 연계 8/15 시행 목표·판공청 통지 존재 확인. CIRS 해설 다수"
+    },
+    {
+      "query": "WebFetch: gdee.gd.gov.cn/bm6258/content/post_3643319.html (답기자문)",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-032"
+      ],
+      "result": "노이즈 — 2021.11.12 구 12호령 공포 당시 답기자문으로 판명, 2026 개정 근거로 불채택"
+    },
+    {
+      "query": "新化学物质环境管理登记办法 公布 生态环境部令 2026年8月15日 施行",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-032"
+      ],
+      "result": "개정 부령 공포 기록 무. 대신 판공청 통지·REACH24H '8/15 비안 중단 긴급제보'(reach24h.com/chemical/industry-news/filing-stops-august)·룽거 '8月15日有望施行(拟修订)' 확인"
+    },
+    {
+      "query": "WebFetch: policy.mofcom.gov.cn/claw/clawContent.shtml?id=106558 (통지 원문)",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-032"
+      ],
+      "result": "环办固体函〔2026〕301号(2026.07.31 인발) — 2026.08.15부터 신화학물질 备案 접수 중단·등록 신청 체제 전환, 생태환경법전 관철 배합 조치. 개정 부령 공포 언급 없음"
+    },
+    {
+      "query": "WebFetch: reach24h.com/chemical/industry-news/filing-stops-august",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-032"
+      ],
+      "result": "통지 발포 2026.08.04·비안 최종접수 8/14 24시·개정 판법은 여전히 征求意见稿, '개정 办法·배포 지침은 8/15 이후 발포 가능성' 명시. 등록 리드타임 1~2개월 예고"
+    },
+    {
+      "query": "\"新化学物质环境管理登记办法\" 正式发布 部令 2026年8月",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-032"
+      ],
+      "result": "각도 변경 재검색 — 최종 공포 기록 여전히 무(의견수렴안 PDF·통지만 명중). 미공포 결론 유지 (empty-retry)"
+    },
+    {
+      "query": "NHTSA CAFE civil penalty $0 32912 SAFE rule August 2026",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "OBBBA에 의한 CAFE 벌칙 폐지 해설(sidley 2025.07 environmentalhealthsafetybrief.sidley.com)·NHTSA 해석규칙 PDF·EELP 트래커 명중. 번복·부활 신호 무"
+    },
+    {
+      "query": "NHTSA proposed rule resetting fuel economy standards 2026 comment period status",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "SAFE III NPRM(MY2022-2031, NPRM PDF nhtsa.gov 2025-12) — 의견기한 2026.01.20→02.04 연장 후 마감(advocacy.sba.gov 2026.01.26, federalregister.gov/documents/2026/01/14/2026-00537), NHTSA 최종규칙 작업 중·미발표"
+    },
+    {
+      "query": "\"SAFE Vehicles Rule III\" final rule CAFE 2026",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "최종규칙 미발표 재확인 — 2026.02 업계 의견(Alliance·Toyota 등 지지, Honda 반대)까지만. DOT 2026.07.07 통일 규제의제에 후속 등재"
+    },
+    {
+      "query": "Congress EV tax credit bill 2026 reinstate \"30D\" electric vehicle incentive legislation",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "30D는 2025.09.30 이후 취득분 종료 상태 유지·부활 입법 성립 무 (coltura.org/ev-tax-credit, jouleio.com/blog/ev-tax-credit-2026)"
+    },
+    {
+      "query": "bill introduced Congress 2026 restore electric vehicle tax credit legislation Democrats",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "각도 변경 — Energy Bills Relief Act(2026.03.18, Casten/Levin, 하원 민주 122인 서명, 419쪽) 발견: OBBBA 청정에너지 개정 전면 롤백+청정차량 크레딧 부활 포함, 통과 전망 낮음 (pv-magazine-usa.com 2026.03.23, mikethompson.house.gov)"
+    },
+    {
+      "query": "IRS \"material assistance cost ratio\" safe harbor proposed regulations 45X 2026",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "Notice 2026-15(irs.gov/pub/irs-drop/n-26-15.pdf)가 여전히 유일 지침 — interim safe harbor·인증·domestic content 테이블 의존, 제안규칙 미공표 (novoco.com, morganlewis.com)"
+    },
+    {
+      "query": "Treasury \"prohibited foreign entity\" proposed regulations safe harbor tables August 2026",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "8월 신규 무 — §7701(a)(52) safe harbor 테이블 법정 공표기한 2026.12.31, 신뢰기간=제안규칙·테이블 공표+60일 (bracewell.com, hklaw.com)"
+    },
+    {
+      "query": "\"Notice 2026-15\" FEOC material assistance update proposed regulations released",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "각도 변경 재검색 — 2026.02~03 해설만 명중, 이후 제안규칙·테이블 공표 신호 무 (empty-retry)"
+    },
+    {
+      "query": "Tesla GM battery supply chain China sourcing decoupling August 2026",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "2025.11 국면 유지 — Tesla 미국산 차량 1~2년 내 탈중국 부품 지시(electrek.co 2025.11.17)·GM 공급사 2027 기한(gmauthority.com). 신규 전개 무"
+    },
+    {
+      "query": "Tesla GM battery sourcing China parts phase-out news August 2026",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "각도 변경 — 8월 신규 보도 무, GM의 CATL LFP 수입 과도기 병행(로이터 재인용)까지 기존 알려진 범위 (empty-retry)"
+    },
+    {
+      "query": "锂电池 出口退税率 6% 2026 财政部 税务总局 公告",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "2026年第2号公告 단계 무변동: 2026.04.01~12.31 6%·2027.01.01 폐지·전지 22항 (szs.mof.gov.cn/zhengcefabu/202601/t20260109_3981637.htm, fgk.chinatax.gov.cn). 부수 신호: 2026.07.17 배터리 소비세 신정 발견"
+    },
+    {
+      "query": "WebFetch: chinackts.com/policy/919.html (소비세 해설)",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "소비세 공고 2026年第20号 — 리튬이온 포함 5종 2026.09.01 과세 개시, 수출은 소비세 퇴(면)세 유지, VAT 환급 인하와 중첩 세부담 해설"
+    },
+    {
+      "query": "财政部 海关总署 税务总局 公告2026年第20号 电池 消费税",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "1차 출처 확인: 관어조정부분전지소비세정책적공고(szs.mof.gov.cn/zhengcefabu/202607/t20260717_3993743.htm, 2026.07.16) — 리튬이온 등 5종 2026.09.01부터 2%·2027.09.01부터 4%, 광복전지 2027.04.01 2%→2028.04.01 4%, 나트륨이온·고체·연료전지 등 2028.12.31까지 면제(국가표준 부합 조건). 레지스트리 대조 결과 CN-028로 기등재"
+    },
+    {
+      "query": "电动汽车供电设备 CCC认证 2026年8月1日 市场监管总局 公告",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "클러스터 명중: 2026.08.01 강제 실시 개시 보도 다수(人民网·中新网·新浪) + gov.cn 공고 게재본 확인. 2025.03.01 접수 개시, 2026.08.01부터 미인증 설비 출하·판매·수입·기타 경영활동 사용 금지. https://www.gov.cn/lianbo/bumen/202412/content_6992966.htm"
+    },
+    {
+      "query": "WebFetch gov.cn 공고 게재본 (content_6992966)",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "정부망 게재본에서 날짜 확정: 2024-12-16 게재, 접수 2025.03.01, 강제 2026.08.01, 금지문구 '不得出厂、销售、进口或者在其他经营活动中使用'. 공고번호·범위는 이 페이지에 없음. https://www.gov.cn/lianbo/bumen/202412/content_6992966.htm"
+    },
+    {
+      "query": "WebFetch 市场监管总局 원문 (samr.gov.cn art_f4e732318455444f9eb18e055125e395)",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "SAMR 원문 공고에서 확정: 공고번호 2024年第50号, 범위=정격출력전압 교류≤1000V·직류≤1500V 전동차 공전설비(환전식(배터리교환)·무선충전 설비 제외), 접수 2025.03.01·강제 2026.08.01, 금지문구 원문 일치. https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/rzjgs/art/2024/art_f4e732318455444f9eb18e055125e395.html"
+    },
+    {
+      "query": "《市场监管总局关于对电动汽车供电设备实施强制性产品认证管理的公告》 公告号 CNCA",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "공고번호 첫 시도(제34/40/47호 추정 쿼리)는 무산출 → 각도 전환 재검색에서 확정: 2024年第50号 + 실시규칙 《强制性产品认证实施细则 电动汽车供电设备》 CNCA-C25-01:2024(国家认监委 2024年第25号 공고, cnca.gov.cn 게재 확인). http://www.vscbcorp.com/NewsDetail.aspx?ID=403 · https://www.cnca.gov.cn/zwxx/gg/2024/art/2024/art_6f48162ff4c94c208d1cab4da8bb7aca.html"
+    },
+    {
+      "query": "WebFetch aqsiqauto.com 공고 재게재 + pantomsc.com",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "재게재본 2건 교차: 공고 발표 2024.12.05, 공고번호 2024年第50号, CNCA-C25-01:2024, 세부 범위 — 교류(2501): ≤1000V AC, 충전桩·고정식·IC-CPD(케이블 일체형 제어보호장치), 표준 GB 39752·GB 44263 / 직류(2502): ≤1500V DC, 일체식·분체식·휴대식·이동식. 고정 충전桩·이동식 충전설비·随车充 포함. https://www.aqsiqauto.com/newcars/info/14615.html · https://www.pantomsc.com/showinfo-82-5099-0.html"
+    },
+    {
+      "query": "WebFetch chinanews 2026-08-01 강제실시 기사",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "발효 당일(8/1) 실시 개시 확인: 미인증 설비 출하·판매·수입·경영활동 사용 금지 개시, 8/1 이전 기투입 운영 설비는 제품질량법·소비자권익보호법상 안전보장 의무로 관리, 총국은 무인증 출하·위조마크 단속 등 사후감독 강화 예고. https://www.chinanews.com.cn/cj/2026/08-01/10670440.shtml (人民网 동일 보도 http://finance.people.com.cn/n1/2026/0801/c1004-40772177.html)"
+    },
+    {
+      "query": "FY2026 NDAA Section 842 Department of Defense battery procurement foreign entity of concern prohibition",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "클러스터 명중: 로펌 해설 다수(Pillsbury·Crowell·Baker McKenzie·King&Spalding) + OFAC 게재 법문 PDF(S.1071). §842=DoD advanced battery FEOC 조달 제한, 2028/2029/2031 단계 시행. https://www.pillsburylaw.com/en/news-and-insights/fy2026-ndaa-sourcing-restrictions-critical-minerals-advanced-batteries.html"
+    },
+    {
+      "query": "WebFetch Pillsbury §842 해설",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "§842 상세: advanced batteries·cells의 functional cell components and technology가 FEOC 소유·소싱·정제·생산이 아닐 것. FEOC 5기준(테러지정·SDN·covered nation 소유통제·연방법 위반·장관 인정) + 명시 지정 6사(CATL·BYD·Envision·EVE·Gotion·Hithium). 일정: 신규계약 2028.1.1, standard batteries 2029.1.1, 기존 획득프로그램 2031.1.30. 예외: 비국방용·COTS(정비용)·RDT&E·최종조립 비FEOC+비FEOC 원가≥95%·1년 면제. 제정 2025.12.18, Pub.L. 119-60. https://www.pillsburylaw.com/en/news-and-insights/fy2026-ndaa-sourcing-restrictions-critical-minerals-advanced-batteries.html"
+    },
+    {
+      "query": "WebFetch Crowell FY2026 NDAA 알림",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "제2소스 교차: 서명 2025.12.18, P.L. 119-60, FEOC=중·러·이란·북 관할/통제, 신규계약 2028.1.1·표준배터리 2029.1.1 일치. 단 기존 프로그램은 2031.1.1로 표기(타 소스와 불일치). https://www.crowell.com/en/insights/client-alerts/the-fy-2026-national-defense-authorization-act"
+    },
+    {
+      "query": "OFAC 법문 PDF(S.1071)·kslaw·congress.gov 시도 → Baker McKenzie로 재각도",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "법문 PDF 타임아웃·kslaw ETIMEOUT·congress.gov 403 — 각도 전환하여 Baker McKenzie 확인: 서명 2025.12.18·P.L. 119-60·신규 2028.1.1·표준 2029.1.1·기존 프로그램 2031.1.30. 기존 프로그램 날짜는 Pillsbury+BakerMcKenzie 2소스=1.30 vs Crowell 1소스=1.1 → 1.30 채택(편입 시 법문 §842 원문 대조 권고 주석). https://sanctionsnews.bakermckenzie.com/us-president-signs-defense-policy-bill-significantly-expanding-authorities-over-sanctions-investment-security-and-supply-chain-restrictions/"
+    },
+    {
+      "query": "IEC 63379 megawatt charging system MCS standard published 2026",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "클러스터 명중: 정확 명칭은 IEC TS 63379(Technical Specification — IS 아님). CharIN 발표(2026.02.09) + IEC 웹스토어 게재. MCS 커넥터·차량 인렛·케이블 어셈블리, 최대 1500V DC·3000A. 관련: IEC 61851-23-3 개발 중(EVSE 요건), SAE J3271(북미). https://www.charin.global/news/iec-ts-63379-for-megawatt-charging-system-mcs/"
+    },
+    {
+      "query": "WebFetch IEC 웹스토어 publication/67975",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "IEC 공식 메타 확정: IEC TS 63379:2026 'Vehicle connector, vehicle inlet and cable assembly for megawatt DC charging', 발간 2026-01-28, Ed.1.0, TC 23/SC 23H, 정격 ≤1500V DC·최대 3000A, stability date 2028. 승인 큐의 '2026.02 발포'는 CharIN 발표일(02.09) 혼동 — 발간일은 01.28. https://webstore.iec.ch/en/publication/67975"
+    },
+    {
+      "query": "전기안전관리법 전기차 충전시설 신고 책임보험 의무 2025년 11월 28일 시행",
+      "region": "KR",
+      "itemsCovered": [],
+      "result": "시행 확인 — 시행령 개정 2025.11.18 국무회의 의결·11.28 시행, 신고대상=주차 50대 이상·13종 건축물, 책임보험 대인 1.5억/대물 10억, 과태료 신고 미이행 50만/보험 미가입 200만, 기존시설 경과조치 2026.05.28까지(언론 표기). 근거: https://www.gov.kr/portal/ntnadmNews/4556628, https://www.hankookilbo.com/News/Read/A2025111809560005574, https://www.energydaily.co.kr/news/articleView.html?idxno=161943"
+    },
+    {
+      "query": "gov.kr 정부24 기관소식 4556628 페치 — 기후에너지환경부 보도자료",
+      "region": "KR",
+      "itemsCovered": [],
+      "result": "1차 출처 직접 확인 — 기후에너지환경부 2025.11.18 보도자료: 시행 11.28, 신고대상 50대/13종, 보험한도 대인 1.5억·대물 10억, 과태료 50만/200만. 경과조치 기한은 이 보도자료에 미기재. https://www.gov.kr/portal/ntnadmNews/4556628"
+    },
+    {
+      "query": "세종시 공지 페치 — 전기자동차 충전시설 신고제도 및 책임보험 가입 안내",
+      "region": "KR",
+      "itemsCovered": [],
+      "result": "지자체 공식 안내: 기존 운영 중 시설은 '26.5.27.까지 신고·가입(전기안전관리법 일부개정 '25.11.28. 시행). 큐 basis(05.28)·언론(05.28)과 1일 불일치 — 부칙 원문 미확인이라 flag만. https://www.sejong.go.kr/bbs/R0071/view.do?nttId=B000000144433Ya1tY8k"
+    },
+    {
+      "query": "23 CFR 680 NEVI minimum standards rule status 2026 Washington v. Duffy FHWA ruling",
+      "region": "US",
+      "itemsCovered": [],
+      "result": "23 CFR Part 680 eCFR 현행 수록 확인(https://www.ecfr.gov/current/title-23/chapter-I/subchapter-G/part-680 — 직접 페치는 봇월 차단, 검색 명중으로만 확인), Washington v. DOT(2:25-cv-00848-TL, W.D. Wash.) 2026.01.23 약식판결 명중, FY2026 세출법으로 NEVI 기금 약 $879M 타 FHWA 프로그램 전용 언급"
+    },
+    {
+      "query": "Washington v. Department of Transportation NEVI summary judgment ruling January 2026 states win FHWA funds",
+      "region": "US",
+      "itemsCovered": [],
+      "result": "판결문 PDF(stateimpactcenter) 직접 페치 403 차단 후 각도 변경 재검색 — 2026.01.23 원고(20개 주+DC) 승소 약식판결: DOT/FHWA의 NEVI 동결 위법, 승인된 주 계획 취소·기금 유보 금지 명령. 다수 독립 소스 일치: https://enotrans.org/article/washington-v-u-s-department-of-transportation-and-nevi-progress-updates/, https://earthjustice.org/press/2026/judge-protects-billions-for-reliable-ev-charging-cleaner-air-and-lower-driving-costs-across-the-country, https://clearinghouse.net/case/46580/"
+    },
+    {
+      "query": "EU battery local content requirement legislation 2026 cell cathode active material \"made in EU\" Industrial Accelerator Act",
+      "region": "EU",
+      "itemsCovered": [],
+      "result": "미제정 확인 — 집행위가 2026.03.04 Industrial Accelerator Act(IAA) Regulation 제안 채택, made-in-EU 배터리=최소 3개 부품(셀 포함) EU 생산→2030년 5개 부품(셀·CAM·BMS 포함), 현재 의회·이사회 협상 중. 큐의 '셀·CAM·BMS EU 원산' 기술과 정확히 일치=동일 입법. https://www.twobirds.com/en/insights/2026/industrial-accelerator-act--new-eu-content-requirements-in-public-procurement-and-foreign-direct-inv, https://www.transportenvironment.org/articles/iaa-will-ensure-most-batteries-in-evs-across-europe-will-be-made-in-the-eu"
+    },
+    {
+      "query": "EPA TSCA significant new use rule SNUR cathode active material mixed metal oxide proposed rule",
+      "region": "US",
+      "itemsCovered": [],
+      "result": "제안 단계 확인 — 2026.04.24 Federal Register 제안 SNUR 'Significant New Use Rules on Certain Chemical Substances (26-2)'(FR Doc 2026-08012), MMO CAM 대상(2022.12~2026.01 PMN/SNUN 약 25건 기반). FR 페이지 직접 페치는 봇월 차단 — 독립 2소스: https://www.bdlaw.com/publications/how-epa-reviews-mixed-metal-oxides-used-in-battery-cathode-active-materials/, https://en.reach24h.com/news/industry-news/chemical/tsca-snur-cathode-active-materials-battery-export + FR URL https://www.federalregister.gov/documents/2026/04/24/2026-08012/"
+    },
+    {
+      "query": "\"UL 2285\" solid-state battery safety standard development",
+      "region": "US/CA",
+      "itemsCovered": [],
+      "result": "개발 중 확인 — SCC(캐나다표준협의회) Notice of Intent: ULSE가 미·캐 공동 신규 표준 UL 2285 'Standard for Safety for Solid-State Batteries' 개발 중(기존 UL 1642/2580이 액체전해질 전제라 별도 표준 필요). 동반 표준 'Performance and Reliability of Solid-State Batteries' NOI도 병행 존재(번호 미확인). SCC 페이지 직접 페치는 403 차단 — 검색 명중 기반. https://scc-ccn.ca/standards/notices-of-intent/ul-standards-engagement/standard-safety-solid-state-batteries"
+    },
+    {
+      "query": "GB 43854-2024 电动自行车用锂离子蓄电池安全技术规范 强制性国家标准 实施 2024年11月1日",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "시행 중 확인 — 2024.04.25 발포·2024.11.01 시행 강제국표, 적용범위 GB 17761-2018 정의 전기자전거용(정격 ≤48V·최대출력 ≤60V), 전기·기계·환경 안전+열폭주 시험. std.samr.gov.cn 및 지방정부 해설 다수 명중: https://std.samr.gov.cn/gb/search/gbDetailed?id=17489E630C565995E06397BE0A0ABE8E, https://scjgj.xinjiang.gov.cn/xjaic/myzcjd/202411/5a8742ea0f884d298dc9d101dca3f89b.shtml"
+    },
+    {
+      "query": "新型储能 电化学储能电站 安全标准体系 GB 44240-2024 GB/T 42288 电池 电站 消防 标准 2026",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "표준군 구성 확인 — 셀·전지층 GB 44240-2024(강제, 2025.08.01 시행), 전참(電站) 안전규정 GB/T 42288-2022 시행 중. CNESA 2026 주목 표준 기사 명중: http://en.cnesa.org/latest-news/2026/1/27/key-energy-storage-standards-to-watch-in-2026-highly-recommended-for-industry-reference"
+    },
+    {
+      "query": "CNESA 'Key Energy Storage Standards to Watch in 2026' 기사 페치",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "4층 스냅샷 보강 — GB 44240(2025.08.01 시행·최상위 강제 안전국표), GB/T 51048-2025 전화학저장전참 설계표준(2025.12.31 발포·2026.04.01 시행, 10년 만의 개정·나트륨전지/수소 경로 신설), GB/T 46261-2025 화재감시예경(2026.09.01 시행 예정 — 레지스트리 CN-038과 일치)"
+    },
+    {
+      "query": "GB/T 51048-2025 电化学储能电站设计标准 2025年12月31日 发布 2026年4月1日 实施",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "2소스째 확인 — GB/T 51048-2025: 2025.12.31 발포·2026.04.01 시행, GB 51048-2014 동시 폐지, 주택도시농촌건설부·시장감관총국 공동 발포, 500kW·500kWh 이상 전참 적용(리튬·나트륨·플로우·연축·수전해/연료전지). https://m.sohu.com/a/971229715_122014422, https://www.gongbiaoku.com/book/cej27156qll"
+    },
+    {
+      "query": "OBBBA section 40006 CAFE civil penalties zero NHTSA 2026 fuel economy standards",
+      "region": "US",
+      "itemsCovered": [],
+      "result": "유효 확인 — OBBBA(2025.07.04 제정) §40006이 CAFE 민사벌금 상한을 $0.00으로 개정, 미준수 무벌금화·크레딧 시장 사실상 무효화. 후속: NHTSA SAFE Rule III 제안(MY2022~2031 기준 전면 개편안) 진행 중. https://environmentalhealthsafetybrief.sidley.com/2025/07/08/congress-eliminates-corporate-average-fuel-economy-cafe-penalties-for-passenger-cars-and-light-trucks/, https://www.lexology.com/library/detail.aspx?g=a384db6a-0b3b-4e71-967f-6d426b37a2ec, https://www.gibsondunn.com/nhtsa-proposes-overhaul-of-fuel-economy-standards-safe-rule-iii-for-model-years-2022-2031-passenger-cars-light-trucks/"
+    },
+    {
+      "query": "Treasury IRS 45X FEOC material assistance cost ratio safe harbor guidance August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-001",
+        "NA-002",
+        "NA-009",
+        "NA-013"
+      ],
+      "result": "Notice 2026-15(2026.02.12)가 여전히 유일한 운영 프레임 — MACR=비PFE 직접제조비/총직접제조비, 3개 잠정 세이프하버. 8월 신규 가이던스 무발견. https://www.irs.gov/newsroom/treasury-irs-provide-guidance-for-certain-energy-tax-credits-regarding-material-assistance-provided-by-prohibited-foreign-entities-under-the-one-big-beautiful-bill / https://www.novoco.com/notes-from-novogradac/managing-the-interim-feoc-guidance-irs-notice-2026-15-addresses-material-assistance-for-sections-45y-48e-and-45x-deferring-on-broader-pfe-status-guidance"
+    },
+    {
+      "query": "USTR Section 301 China exclusions extension November 2026 forced labor tariffs August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-008",
+        "NA-021",
+        "NA-003"
+      ],
+      "result": "178개 exclusion 2026.11.10까지 연장 유지(신규 연장/종료 결정 무), 강제노동 301은 2026.07.24 발효 상태 그대로(10%/12.5% 계층). Section 122 대체·재발동 신호 무. https://ustr.gov/about/policy-offices/press-office/press-releases/2025/november/ustr-extends-exclusions-china-section-301-tariffs-related-forced-technology-transfer-investigation / https://www.internationaltradeinsights.com/2026/07/ustr-imposes-new-section-301-tariffs-targeting-forced-labor-concerns-across-60-economies/"
+    },
+    {
+      "query": "Section 232 aluminum steel derivatives proclamation CBP August 2026 inclusion process",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-017",
+        "NA-022"
+      ],
+      "result": "창 내 신규 포고·조정 무. 보강 사실: 2026.04.02 포고가 파생품 inclusions 절차를 종료했음을 확인(2소스). 6.1 포고→6.8 발효·CBP 6.5 가이던스 재확인. https://diaztradelaw.com/new-section-232-action-what-the-june-2026-aluminum-steel-copper-proclamation-means-for-your-imports/ / https://www.thompsonhinesmartrade.com/2026/04/president-trump-makes-major-changes-to-section-232-tariffs-on-aluminum-steel-and-copper/"
+    },
+    {
+      "query": "Proclamation 11001 Section 232 critical minerals tariffs price floor negotiations August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-015",
+        "NA-012"
+      ],
+      "result": "7.13 협상보고 기한 경과 후 공개 조치 무. 2026.02.26 FR 의견요청(plurilateral agreement 설계, 2026-03868) 확인. 주의: Covington은 발령일을 2026.01.15로 기술(트래커 01.14 — 단일 소스라 정정 미제안). https://www.cov.com/en/news-and-insights/insights/2026/01/trump-administration-announces-results-of-critical-minerals-investigation-under-section-232-and-directs-us-officials-to-initiate-negotiations / https://www.federalregister.gov/documents/2026/02/26/2026-03868/"
+    },
+    {
+      "query": "Section 232 medium heavy duty trucks parts 25% tariff proclamation 2026 update",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-016"
+      ],
+      "result": "창 내 변동 무. 보강: 2025.10.17 포고 서명→2025.11.01 발효, 2026.02.02 ITA USMCA 미국 콘텐츠 절차, 2026.06.29 CBP 수입조정 오프셋 MHDV 부품 확장. https://www.clarkhill.com/news-events/news/section-232-tariffs-expand-to-medium-and-heavy-duty-vehicles-parts-and-buses/ / https://mohawkglobal.com/word-from-the-white-house/what-to-know-us-tariffs-on-medium-heavy-duty-vehicles-parts/"
+    },
+    {
+      "query": "USMCA review Mexico bilateral negotiations fourth round August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-014"
+      ],
+      "result": "R3(7.20 주간, 멕시코시티) 종료 후 Greer·Ebrard가 4차 라운드 2026년 9월 워싱턴 개최 발표 — 트래커 미반영 신규 사실. https://www.as-coa.org/articles/tracking-us-mexico-talks-usmca-review / https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/united-states-and-mexico-convene-mexico-city-third-bilateral-negotiating-round-related-joint-review"
+    },
+    {
+      "query": "California SB 253 climate disclosure CARB reporting SB 261 Ninth Circuit injunction August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-032"
+      ],
+      "result": "Mayer Brown 2026.08 알럿 'CARB Finalizes Its Initial Rulemaking, Resets the 2026 Deadline' 발견 → 원문 정독으로 이관. SB261 가처분(2025.11.18) 유지, 1.9 구두변론 후 본안 대기. https://www.mayerbrown.com/en/insights/publications/2026/08/california-climate-disclosure-laws-carb-finalizes-its-initial-rulemaking-resets-the-2026-deadline-and-previews-the-2027-framework"
+    },
+    {
+      "query": "(WebFetch) Mayer Brown 2026.08 SB253 알럿 원문 정독",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-032"
+      ],
+      "result": "첫 보고기한 8.10→11.10 3개월 연기(7.27 수정규정), 의견마감 2026.08.11, 수수료 고지 9.10→12.10(고지 후 60일 납부), OAL 승인 대기. 수수료 12.10은 이 소스 단독. https://www.mayerbrown.com/en/insights/publications/2026/08/california-climate-disclosure-laws-carb-finalizes-its-initial-rulemaking-resets-the-2026-deadline-and-previews-the-2027-framework"
+    },
+    {
+      "query": "(WebFetch) https://ww2.arb.ca.gov/our-work/programs/climate-related-financial-disclosures",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-032"
+      ],
+      "result": "404 — CARB 1차 확인 실패. 각도 전환(Morgan Lewis 원문 + 별도 검색)으로 재시도 수행"
+    },
+    {
+      "query": "CARB SB 253 modified regulations July 27 fee notice December 10 2026 comment deadline",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-032"
+      ],
+      "result": "Linklaters·Davis Polk·Morgan Lewis가 7.27 15-Day Notice·의견마감 8.11·11.10 연례 보고기한 확정·엔티티 단위 적용판정 명문화 교차 확인. 12.10 수수료 고지는 이들 소스에서 미확인(Mayer Brown 단독 유지). https://sustainablefutures.linklaters.com/post/102nf1w/ / https://www.davispolk.com/insights/client-update/sb-253-update-carb-clarifies-scope-and-previews-rules-2027-and-beyond"
+    },
+    {
+      "query": "(WebFetch) Morgan Lewis 'CARB Extends SB 253 Deadline' 원문 정독",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-032"
+      ],
+      "result": "11.10(8.10에서 연기)·7.27 공표·의견 8.11 마감·초기규정 OAL 제출 5.20 확인. 수수료 일정 언급 없음 → 12.10 수수료 정정은 단일 소스로 플래그. https://www.morganlewis.com/pubs/2026/08/carb-extends-sb-253-deadline-and-previews-2027-reporting-rules"
+    },
+    {
+      "query": "California SB 283 battery storage safety implementation SB 1215 embedded battery fee 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-010",
+        "NA-011"
+      ],
+      "result": "SB283 시행 내용(NFPA 855·소방 사전협의·가동 전 검사) 재확인, SB1215 1.5% 판매시점 수수료 1.1 시행·CalRecycle 긴급규정 절차 확인. 창 내 신규 동향 무. https://calrecycle.ca.gov/electronics/embeddedbatteries/ / https://calmatters.org/environment/2026/01/battery-fee-product-stewardship/"
+    },
+    {
+      "query": "EPA TSCA PFAS reporting rule 8(a)(7) 40 CFR 705 deadline scope proposed rule August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-029"
+      ],
+      "result": "제출개시 = 범위 축소 최종조치 발효 60일 후 또는 2027.01.31 중 이른 날, 소규모 물품수입자 2027.04.13. 범위 축소 제안규칙(2025.11) 최종화 소식 무. https://www.epa.gov/chemicals-under-tsca/update-reporting-deadline-tsca-pfas-reporting-rule / https://www.federalregister.gov/documents/2026/04/13/2026-07062/"
+    },
+    {
+      "query": "NDAA Section 805 1260H DoD Chinese battery CATL BYD procurement ban 2026 CHARGE Act H.R. 7635",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-019",
+        "NA-020"
+      ],
+      "result": "§805 직접 금지 2026.06.30 발효 운영·간접 2027.06.30 예정 재확인, DoD 시행 가이던스 2026.07 발행(Federal News Network), 1260H 188개 실체 유지, 배터리 6사 금지 2027.10.01 개시 재확인. CHARGE Act는 이 검색에서 미확인 → 별도 검색. https://federalnewsnetwork.com/defense-main/2026/07/dod-issues-guidance-as-ban-on-chinese-companies-takes-effect/ / https://www.hklaw.com/en/insights/publications/2026/07/department-of-war-updates-section-1260h"
+    },
+    {
+      "query": "CHARGE Act H.R. 7635 Chinese battery energy storage import ban Congress status 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-004"
+      ],
+      "result": "2026.02.20 발의 후 Ways and Means 위원회 회부 상태 그대로, 공동발의 0, mid-2026 기준 진전 없음. https://www.congress.gov/bill/119th-congress/house-bill/7635/all-info / https://www.govtrack.us/congress/bills/119/hr7635"
+    },
+    {
+      "query": "FMVSS 305a NHTSA petitions reconsideration electric vehicle battery compliance date 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-030"
+      ],
+      "result": "준수기한 체계 변동 무. 신규 발굴: 2026.06.03 FR 최종규칙(2026-11072)이 305a 구조항 참조 정리 — 발효 2026.07.06, 재심청원 ~2026.07.20. https://www.federalregister.gov/documents/2026/06/03/2026-11072/"
+    },
+    {
+      "query": "Treasury outbound investment security program 31 CFR 850 new rulemaking COINS Act August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-025"
+      ],
+      "result": "COINS Act(2025.12.18, FY26 NDAA) 후 신규 이행규정 무 — Part 850 현행 유지, 신규 규정 기한 450일=~2027.03 재확인. https://www.pillsburylaw.com/en/news-and-insights/fy2026-ndaa-statutory-framework-outbound-investment-restrictions.html / https://www.skadden.com/insights/publications/2026/01/us-treasurys-reverse-cfius-authority"
+    },
+    {
+      "query": "FERC energy storage show cause order RTO ISO capacity accreditation interconnection August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-033"
+      ],
+      "result": "6.18 §206 show cause 재확인 + 신규: 6개 RTO/ISO 응답기한 2026.08.17(창 직후 임박), 발전충분성 보고 7.20 기제출. https://www.orrick.com/en/Insights/2026/07/FERC-Show-Cause-Orders-Signal-Broad-Reform-to-Large-Load-Interconnection-Policies / https://www.whitecase.com/insight-alert/ferc-orders-grid-operators-promptly-revise-or-justify-interconnection-rules-data"
+    },
+    {
+      "query": "California SB 54 packaging EPR source reduction plan August 1 2026 CalRecycle deadline",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-031"
+      ],
+      "result": "2026.08.01 개별 Source Reduction Plan 기한이 검증 창 내 경과. 후속: CAA 취합분 CalRecycle 제출 2027.01.01. https://www.bdlaw.com/publications/californias-packaging-epr-deadlines-are-approaching-what-producers-need-to-know-about-source-reduction-reporting/ / https://natlawreview.com/article/californias-packaging-epr-deadlines-are-approaching-what-producers-need-know-about"
+    },
+    {
+      "query": "anode active material graphite AD CVD ITC negative determination appeal Court International Trade 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-024"
+      ],
+      "result": "ITC 3.12 부정(2-1: Karpel·Johanson 부정/Kearns 긍정) 재확인, AD/CVD 미부과 유지. Syrah '항소 검토' 단계 — CIT 제소 확인 안 됨. https://www.usitc.gov/press_room/news_release/2026/er0312_68281.htm / https://www.tradingview.com/news/smallcaps:cace07898094b:0-syrah-resources-left-to-navigate-us-itc-s-negative-ad-cvd-ruling-on-chinese-graphite-imports/"
+    },
+    {
+      "query": "FEOC prohibited foreign entity proposed regulations 45X 48E safe harbor tables summer 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-009",
+        "NA-001",
+        "NA-002",
+        "NA-013",
+        "NA-006",
+        "NA-007"
+      ],
+      "result": "제안규정·신규 세이프하버 테이블 여전히 미공표 — Notice 2025-08 테이블·공급자 인증 잠정 의존, 테이블 기한 2026.12.31 유효. 청정에너지 세액공제 공간에서 30C 부활·착공기한 가이던스 변경 신호 무. https://www.novoco.com/notes-from-novogradac/managing-the-interim-feoc-guidance-irs-notice-2026-15-addresses-material-assistance-for-sections-45y-48e-and-45x-deferring-on-broader-pfe-status-guidance / https://www.bracewell.com/resources/feoc-material-assistance-rules-clean-energy-tax-credits/"
+    },
+    {
+      "query": "\"impracticable-to-trace\" battery materials exemption graphite 2026 expiration section 30D 45X",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-005"
+      ],
+      "result": "면제 구조 재확인(2026년 말까지 제외 허용, 1/1/2027 전 정기보고 제출 조건) — 연장·조기종료·신규 가이던스 신호 무. https://www.ecfr.gov/current/title-26/chapter-I/subchapter-A/part-1/subject-group-ECFRcb39f040b41b74b/section-1.30D-2 / https://www.hklaw.com/en/insights/publications/2024/05/treasury-department-irs-issue-final-rules-under-clean-vehicle"
+    },
+    {
+      "query": "Commerce aluminum smelter onshoring incentive program Section 232 tariff reduction application August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-027"
+      ],
+      "result": "7.20 포고 세부(승인 시 세율 1/2=25%, 착공기한 2029.01.20, 위반 시 소급 회수) 재확인 — 상무부 공모 개시 공고는 여전히 무. https://kpmg.com/us/en/taxnewsflash/news/2026/07/us-incentive-program-reduced-tariffs-aluminum-imports.html / https://www.gtlaw.com/en/insights/2026/7/section-232-aluminum-program-ties-reduced-duty-import-allowances-to-us-production-investments"
+    },
+    {
+      "query": "critical minerals plurilateral trade agreement negotiations Japan price floors G7 alliance August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-012",
+        "NA-018"
+      ],
+      "result": "미일 Action Plan → plurilateral 협정 기반 조성 지속, G7 연합은 비구속 틀 유지 — 창 내 신규 구속 조치 무. 참고: 백악관 8월 20억불+ 핵심광물·배터리 투자 발표 보도(정책투자, 규제 아님). https://ustr.gov/about/policy-offices/press-office/press-releases/2026/march/ambassador-jamieson-greer-announces-us-japan-action-plan-critical-minerals / https://www.climatechangenews.com/2026/06/18/warning-against-consumer-club-as-g7-forms-critical-minerals-alliance/"
+    },
+    {
+      "query": "Section 301 overcapacity non-market investigation 16 countries USTR determination August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-021",
+        "NA-024"
+      ],
+      "result": "과잉생산 301(16개 경제, 한국 포함, 배터리 명시 부문): 3.11 개시→4.15 서면의견→5.5-8 청문 완료, 결정 발표 무 — '결정 대기' 유지. https://www.hklaw.com/en/insights/publications/2026/03/ustr-launches-awaited-section-301-investigations / https://www.whitecase.com/insight-alert/ustr-initiates-section-301-investigations-16-us-trade-partners-targeting-industrial"
+    },
+    {
+      "query": "battery energy storage tariff regulation United States news August 2026 lithium pouch film supply chain",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-003",
+        "NA-006",
+        "NA-007"
+      ],
+      "result": "클러스터 일반 sweep — DONE 3건 부활 신호 무산출. 신규 신호 1건: EO 14420(외국산 그리드 장비 국가비상, 배터리 포함) — 단일 소스가 2026.08.26 서명으로 보도, run 기준일(08.14) 이후 → newCandidates에 차기 검증 조건부 등재. https://mgrid.org/2026/08/26/trumps-grid-equipment-order-names-inverters-batteries-and-transformers-but-bans-nothing-yet/"
+    },
+    {
+      "query": "EU Battery Regulation 2023/1542 delegated regulation removability portable batteries C(2026) 5031 Official Journal August 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-016"
+      ],
+      "result": "C(2026)5031 관련 배경·가이드라인 C/2025/214 확인, OJ 게재 여부는 미확인 → 표적 재검색으로 이관. https://environment.ec.europa.eu/publications/delegated-regulation-removability-and-replaceability-portable-batteries_en"
+    },
+    {
+      "query": "Battery Booster Facility call for proposals 2026 Innovation Fund battery manufacturing loan",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-006",
+        "EU-003"
+      ],
+      "result": "공모 2026.07.28 개시·2026.09.30 신청 마감 확인. €1.5B 무이자대출, 프로젝트당 최대 €500M·적격비용 60%, EEA 내 최소 10GWh·첫 상업규모·램프업 단계 요건. EC 공식 뉴스(2026-07-28): https://single-market-economy.ec.europa.eu/news/commission-seeks-projects-fund-under-battery-booster-facility-2026-07-28_en + https://battery-news.de/en/2026/08/04/eu-launches-e1-5-billion-funding-call-for-battery-cell-manufacturing-projects/"
+    },
+    {
+      "query": "CBAM downstream products extension European Parliament plenary vote September 2026 trilogue",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-028"
+      ],
+      "result": "ENVI 입장(7/6 지시적 투표) 후 EP 본회의 채택 9월 예정 유지·이후 3자협의, 최종 채택 late 2026~early 2027 전망. EP 입장은 457개 품목으로 확대(이사회 ~200 대비). https://www.europarl.europa.eu/legislative-train/theme-a-european-green-deal/file-carbon-border-adjustment-mechanism / https://www.esgtoday.com/eu-lawmakers-vote-to-expand-list-of-products-under-cbam-carbon-import-tax/"
+    },
+    {
+      "query": "ECHA universal PFAS restriction SEAC opinion 2026 fluoropolymers status August",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-025"
+      ],
+      "result": "일정 유지: 2026.03.26 SEAC 초안 협의 개시·05.25 마감, SEAC 최종의견 2026년 말 목표, 이후 집행위 송부. 불소중합체 범위 제외 요청은 SEAC이 불수용(파생 derogation 프레임만). https://echa.europa.eu/-/echa-to-launch-consultation-on-draft-seac-pfas-opinion / https://www.whitecase.com/insight-alert/europes-pfas-restriction-proposal-moving-forward"
+    },
+    {
+      "query": "EU Forced Labour Regulation 2024/3015 guidelines database Commission published 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-022"
+      ],
+      "result": "가이드라인 2026.06.26 공표(문서번호 C(2026) 4386로 보도 — 단일 소스)·Forced Labour Single Portal 개시·위험DB 공개 주장. 적용 2027.12.14 불변. https://globalimportblog.bakermckenzie.com/2026/08/24/ / https://www.sedex.com/blog/eu-forced-labour-regulation-guidelines-and-supply-chain-implications/ / EC have-your-say: https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16292"
+    },
+    {
+      "query": "End-of-life vehicles regulation circularity Council final adoption Official Journal publication July 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-024"
+      ],
+      "result": "이사회 최종 채택 2026.06.29, Regulation (EU) 2026/1738 OJ 게재 2026.07.24, 발효 2026.08, 적용 2028.09.01. https://public.cdxsystem.com/en/web/cdx/w/eu-formally-adopts-end-of-life-vehicles-regulation / https://www.noerr.com/en/insights/new-eu-end-of-life-vehicles-regulation-a-challenge-for-the-automotive-industry"
+    },
+    {
+      "query": "RESourceEU permanent magnet waste export restriction proposal aluminium scrap Commission 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-021",
+        "EU-007"
+      ],
+      "result": "계획 재확인(자석 스크랩 Q2 2026 발의 예정·알루미늄 스크랩 Spring 2026·CN/EWC 코드 개발)만 확인 — 실제 발의 뉴스 없음. https://chambers.com/articles/resourceeu-action-plan-accelerating-delivery-in-europe-s-critical-raw-materials-strategy / COM(2025)945 원문 링크 확인"
+    },
+    {
+      "query": "CSDDD due diligence guidelines Commission 26 July 2026 deadline missed general guidance",
+      "region": "EU",
+      "itemsCovered": [],
+      "result": "[오표적 확인용 기록] CSDDD 가이드라인은 미공표 — 2026.06.12~07.24 개발 협의 진행, Omnibus I(2026.02 OJ)로 기한 2027.07.26 이동. 이후 레지스트리 대조로 '실사 가이드라인 7.26 2회 도과'의 실체는 배터리규정 DD 가이드라인으로 판명 → 별도 검색 2회 수행. https://www.globalpolicywatch.com/2026/02/eu-csddd-csrd-omnibus-published-in-official-journal/"
+    },
+    {
+      "query": "\"C(2026) 5031\" OR \"removability and replaceability\" delegated regulation batteries Official Journal entry into force",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-016"
+      ],
+      "result": "C(2026)5031 final(2026.07.14) 원문 PDF·EC 뉴스(07.14 '6개 제품군 신규 면제 추가')·이사회 송부문서 ST-12056-2026(07.17) 확인. OJ 게재·발효는 아직 미확인 — EP·이사회 이의기간 중, OJ+20일 발효 예정. https://environment.ec.europa.eu/news/commission-adds-exemptions-portable-battery-removal-rules-2026-07-14_en / https://data.consilium.europa.eu/doc/document/ST-12056-2026-INIT/en/pdf"
+    },
+    {
+      "query": "Commission proposal export restriction permanent magnet scrap waste shipment August 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-007",
+        "EU-021"
+      ],
+      "result": "empty-retry(2차 각도): EU측 발의 뉴스 여전히 없음 → '미발의 지속' 결론. 부수 발굴: 미국 BIS가 black mass·텅스텐 스크랩 수출제한 임시최종규칙 공고(2026.08.06, EO 07.30 위임, 발효 08.27) — 타권역 신규후보로 보고. https://www.hklaw.com/en/insights/publications/2026/08/bis-imposes-critical-minerals-export-restrictions-on-black-mass"
+    },
+    {
+      "query": "Industrial Accelerator Act ITRE rapporteur draft report battery made in EU August 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-002",
+        "EU-005"
+      ],
+      "result": "ITRE·IMCO·INTA 합동위(Rule 59) 배정 유지, 보고관 임명·합동보고서 준비 단계 — 초안 보고서 미공표. made-in-EU 배터리 정의(셀 포함 3개 구성요소 역내 생산) 확인. https://www.europarl.europa.eu/legislative-train/theme-a-new-plan-for-europe-s-sustainable-prosperity-and-competitiveness/file-industrial-decarbonisation-accelerator-act / https://www.aoshearman.com/en/insights/the-eus-proposed-industrial-accelerator-act"
+    },
+    {
+      "query": "black mass lithium battery waste hazardous classification EU export ban November 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-013"
+      ],
+      "result": "유해폐기물 코드 19 14 02 신설·개정 폐기물목록(LoW) 2026.11.09 의무 적용·비OECD 수출금지(Basel Ban), 역내·OECD행은 사전통보동의 절차 확인 — 항목 dt와 일치. d_head의 '2026.12~'는 '2026.11.09~'로 정정 필요. https://www.euwid-recycling.com/news/policy/eu-classifies-black-mass-as-hazardous-waste-effectively-barring-exports-to-non-oecd-states-110325/ / https://www.bdlaw.com/publications/china-and-europe-diverge-on-classification-of-black-mass/"
+    },
+    {
+      "query": "[WebFetch] https://eur-lex.europa.eu/eli/reg/2026/1738/oj",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-024"
+      ],
+      "result": "EUR-Lex 원문 페이지: Regulation (EU) 2026/1738 (차량 설계 순환성·ELV 관리), 서명 2026.07.08, OJ L 2026.07.24. 재생 알루미늄·강철 최소 비율은 타당성조사 후 위임행위로 설정(수치 미정), 플라스틱은 재생 비율 목표 명시(그중 20%는 ELV 유래). 지침 2000/53·2005/64 대체."
+    },
+    {
+      "query": "[WebFetch] Dentons 2026-08-13 FLR guidelines article",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-022"
+      ],
+      "result": "HTTP 403 접근 불가 → Baker McKenzie로 대체 확인."
+    },
+    {
+      "query": "[WebFetch] https://globalimportblog.bakermckenzie.com/2026/08/24/eu-publishes-guidelines-on-the-application-of-the-eu-forced-labour-regulation/",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-022"
+      ],
+      "result": "가이드라인 공표일 2026.06.26 확정(70+쪽: 위험평가·조사절차·세관 역할·OECD 기반 실사·제재). 단, 위험DB·정보시스템은 '개발 중'으로 기술 — Sedex 등 'DB 공개' 주장과 상충, DB 상태는 추가 확인 필요. 적용 2027.12.14."
+    },
+    {
+      "query": "omnibus environment batteries regulation 2025/0397 European Parliament ENVI position trilogue August 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-027"
+      ],
+      "result": "EP 준비 단계 지속(2026.01.19 ENVI 의견교환 이후 보고관·입장 채택 뉴스 없음) — 3자협의 미개시. EPR 수권대표 의무 2035.1.1까지 정지 제안 등 패키지 구성 재확인. https://www.europarl.europa.eu/legislative-train/package-environmental-omnibus/file-omnibus-viii-industrial-emissions-reporting-batteries"
+    },
+    {
+      "query": "EU Circular Economy Act proposal 2026 Commission adoption timeline WEEE revision",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-010"
+      ],
+      "result": "제안 채택 목표 Q3~Q4 2026 유지, 9~10월 발표 관측. 3개 축(폐기물기본지침·매립지침 개정 / WEEE 개정 / 추가 조치) + WEEE 평가서 공표 확인. EPRS 브리핑 존재: https://www.europarl.europa.eu/RegData/etudes/BRIE/2026/782628/EPRS_BRI(2026)782628_EN.pdf / https://environment.ec.europa.eu/news/commission-launches-consultation-upcoming-circular-economy-act-2025-08-01_en"
+    },
+    {
+      "query": "CRMA amendment critical raw materials act revision trilogue Parliament position 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-004"
+      ],
+      "result": "ITRE가 Chahim 보고서·협상 mandate 2026.06.24 채택(66-11-4, 보고관 임명 02.10) — Agence Europe 보도. 검색 요약의 '잠정합의 도달' 문구는 2023년 원 CRMA와 혼동 소지 커서 채택하지 않음. https://agenceurope.eu/en/bulletin/article/13895/13/ / https://www.consilium.europa.eu/en/press/press-releases/2026/03/04/"
+    },
+    {
+      "query": "EU battery passport February 2027 delegated act technical specifications carbon footprint declaration 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-011",
+        "EU-001"
+      ],
+      "result": "여권 2027.02.18 의무 불변. 접근권한·데이터 관리 위임법 채택 법정기한 2026.08.18 — 채택 여부 미확인(업계 타임라인상 미완). 탄소발자국 신고: EV 2025.02·산업용 >2kWh 2026.02 적용 재확인. https://www.base-batterypassport.com/blog/regulations-4/battery-passport-delegated-acts-timeline-2026-and-beyond / https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/batteries_en"
+    },
+    {
+      "query": "CBAM definitive period 2026 certificates sale registry declarants news August",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-020"
+      ],
+      "result": "정식 단계 골격 불변(첫 연례신고 2027.09.30). 신규: 인증서 판매는 공동 중앙플랫폼서 2027.02.01 개시. EC가 2026.08.14 가이드 문서 10종 추가(배출계산·무상할당 조정 등), 08.21 신고인 포털 매뉴얼(8/14 이후 관측). https://www.dehst.de/EN/Topics/CBAM/CBAM-definitive-regime-2026/ / https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/cbam-registry_en"
+    },
+    {
+      "query": "[WebFetch] https://www.europarl.europa.eu/legislative-train/...file-amendments-to-the-critical-raw-materials-act",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-004"
+      ],
+      "result": "EP 공식 페이지(캐시 구버전 추정): 제안 2025.12.03·이사회 입장 2026.03.04·초안보고서 03.17(수정안 258건)·ITRE 표결 06.24 '예정'·잠정합의 없음. 표결 결과 자체는 이 페이지에서 미반영 — Agence Europe 보도와 병합해 판단."
+    },
+    {
+      "query": "IMERA internal market emergency resilience act Article 48 member states liaison office implementation 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-008"
+      ],
+      "result": "적용일 2026.05.29·회원국 central liaison office/단일접점 지정 의무 재확인. 검색 결과 대부분 2024~25 자료로 공백기(7/29~8/14) 신규 변동 신호 없음. https://single-market-economy.ec.europa.eu/single-market/internal-market-emergency-and-resilience-act_en / https://www.consilium.europa.eu/en/policies/internal-market-emergency-and-resilience-act/"
+    },
+    {
+      "query": "EU battery regulation due diligence guidelines Commission 26 July 2026 published Article 52 batteries",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-012",
+        "EU-015"
+      ],
+      "result": "[개별 확인 1차] 기한 구조 확정: 가이드라인 원기한 2025.02.18 → Reg 2025/1561로 2026.07.26 연장(의무 적용 2027.08.18) = '7.26 기한 2회 도과' 구조와 정합. 공표 발표는 미발견. https://infodpp.eu/en/blog/battery-due-diligence-delay-2025-1561/ / https://sustainablefutures.linklaters.com/post/102kymo/"
+    },
+    {
+      "query": "\"battery\" \"due diligence\" guidelines published Commission August 2026 news",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-012",
+        "EU-015"
+      ],
+      "result": "empty-retry(2차 각도): 배터리 DD 가이드라인 공표 증거 여전히 없음 → '미공표 지속(기한 2026.07.26 도과)' 결론. 의무 연기(2027.08.18) 번복·재연기 신호도 없음 → DONE 부활 신호 없음. https://www.consilium.europa.eu/en/press/press-releases/2025/07/18/simplification-council-adopts-law-to-stop-the-clock-on-due-diligence-rules-for-batteries/"
+    },
+    {
+      "query": "锂电池 消费税 2026年9月1日 财政部 海关总署 税务总局 公告2026年第20号",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-028"
+      ],
+      "result": "재정부·해관총서·세무총국 公告2026年第20号(발문 2026.07.16) 유효 확인 — 2026.9.1부터 무수은원전지·니켈수소·리튬원전지·리튬이온축전지·전바나듐液流 2%, 2027.9.1부터 4%; 나트륨이온·고체·연료전지+광복전지 중 페로브스카이트·탠덤·GaAs 면세 2026.9.1~2028.12.31; 국가표준 부합이 감면 전제. 변경·연기 무산출 — 9/1 발효 예정대로. 근거: https://szs.mof.gov.cn/zhengcefabu/202607/t20260717_3993743.htm, https://hainan.chinatax.gov.cn/xxgk_6_1/16166059.html"
+    },
+    {
+      "query": "GB/T 46261-2025 电化学储能电站火灾监测预警系统通用技术要求 2026年9月1日 实施",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-038"
+      ],
+      "result": "발포 2025.08.29·실시 2026.09.01(추천성, 심양소방연구소 기초) 재확인, std.samr.gov.cn 상세 페이지 명중. 근거: https://std.samr.gov.cn/gb/search/gbDetailedCNF?id=3DBA2132857B0D16E06397BE0A0A8119, https://www.fire114.cn/index/article/detail?i=138812"
+    },
+    {
+      "query": "[WebFetch] https://std.samr.gov.cn/gb/search/gbDetailedCNF?id=3DBA2132857B0D16E06397BE0A0A8119",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-038"
+      ],
+      "result": "전국표준정보공공서비스평태 상세 직접 정독: GB/T 46261-2025, 발포 2025-08-29, 실시 2026-09-01, 상태 '即将实施', 귀구 전국소방표준화기술위, 주관 국가소방구원국 — 트래커 기재와 전 필드 일치, 9/1 시행 예정대로"
+    },
+    {
+      "query": "电池 出口退税 取消 2027年1月1日 财政部 税务总局 公告2026年第2号 光伏",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-010",
+        "CN-018"
+      ],
+      "result": "公告2026年第2号 구조 재확인: 2026.4.1 광복 등 퇴세 취소, 전지 9%→6%(2026.4.1~12.31), 2027.1.1 전지 퇴세 전면 취소. 추가 확인: 소비세 징수 제품의 出口消费税 退(免)税 정책은 조정하지 않음(제20호 소비세와의 접점). 근거: https://fgk.chinatax.gov.cn/zcfgk/c102416/c5246745/content.html, https://szs.mof.gov.cn/zhengcefabu/202601/t20260109_3981637.htm"
+    },
+    {
+      "query": "商务部 锂电池 石墨 出口管制 公告58号 暂停 2026年8月 恢复",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-014",
+        "CN-004"
+      ],
+      "result": "58호 원공고(2025.10.09 발문, 당초 실시 2025.11.08) mofcom 원문 명중. '재개·복귀' 관련 2026년 8월 신규 동향 무산출 → 각도 전환 재검색(70호)으로 이행. 근거: https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_79646f0161564975a938fe00fee158d5.html"
+    },
+    {
+      "query": "新能源汽车废旧动力电池回收 管理暂行办法 73号令 2026年 执法 专项行动 8月",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-005",
+        "CN-020",
+        "CN-022"
+      ],
+      "result": "六部门 令 第73号(2025.12.31 공포·2026.4.1 시행) miit.gov.cn 원문 명중. 5부처 联合执法 전항행동 구조 확인(4월말 단서 수집→5월말 집법→6월말 전형 사례 공개, 6월말 종료). 7~8월 신규 후속조치 무산출 — 변동 없음. 근거: https://www.miit.gov.cn/gyhxxhb/jgsj/cyzcyfgs/bmgz/jdcjxl/art/2026/art_392462fdc40c415ea4a4129cac3028c2.html, https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2026/art_c5091ef89af5444c9cba59a41be29b4b.html"
+    },
+    {
+      "query": "商务部 公告2025年第70号 暂停实施 出口管制措施 2026年11月10日",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-014",
+        "CN-004"
+      ],
+      "result": "empty-retry 성공(58호 각도 빈 결과 후 70호 각도 전환): 70호(2025.11.07 발문) 정지 구조 재확인 — 즉일~2026.11.10, 대상 6개 공고(55·56·57·58·61·62호). 정지 조기종료·재개 공고 무산출, mofcom 2026.04 '중미 경무 磋商기제로 소통 유지' 대변인 답변 존재. 근거: https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_b1ec77dd3f0d4762952904df7cdaadec.html, https://exportcontrol.mofcom.gov.cn/article/gndt/202604/1219.html"
+    },
+    {
+      "query": "工信部 汽车动力电池碳足迹 申报 试运行 2026年 通知",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-002",
+        "CN-008"
+      ],
+      "result": "miit 통지 원문 링크 명중 + 보도 다수: 시운행 단계 ~2026년말(기업당 ≥5款 대표 전지팩 申报), 2027년부터 常态化(전 제품 型号 커버), 적용범위 중국내 판매 정격에너지 2kWh 초과 동력전지, 2026년말까지 핵산규칙·표준체계·배경데이터 기본 구축 + 국제 互通互认 지향. 트래커 기재와 전면 일치. 근거: https://www.miit.gov.cn/zwgk/zcwj/wjfb/tz/art/2025/art_4fcc7b031c434336abc328698de02f24.html, https://www.cnenergynews.cn/article/4Q2pvVw7Jbj"
+    },
+    {
+      "query": "新能源汽车废旧动力蓄电池综合利用行业规范条件 企业名单 第六批 公示 2026",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-027"
+      ],
+      "result": "6차 명단 공고 무산출(5차 68개사가 최신 기수로 재확인) → 각도 전환 재검색으로 이행"
+    },
+    {
+      "query": "工信部 废旧动力电池综合利用 规范条件 2024年本 申报 名单 公告 2026年",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-027"
+      ],
+      "result": "empty-retry 성공 — 중대 발견: 공신부 공고 2026년 제20호가 《규범조건(2024年本)》 중 '梯次利用' 관련 조항 폐지, 梯次利用 기업 공고관리 중단, 기공고 梯次利用 기업을 명단에서 제외, 재생이용 기업 명단은 계속 유효. 근거: https://hunan.gov.cn/zqt/zcsd/202607/t20260731_34037283.html (湖南성정부 포털 재게재)"
+    },
+    {
+      "query": "工业和信息化部公告2026年第20号 梯次利用 废止 再生利用 企业名单",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-027"
+      ],
+      "result": "교차 확인(독립 복수 소스): 7.30 발포, 梯次利用 전 조항 폐지·기공고 梯次利用 기업 약 100개사 전부 명단 제외·재생이용 명단 존속. 배경 = 令73号가 综合利用을 拆解·破碎·分选·冶炼 자원화로 재정의(梯次利用 개념 제외). 관련 梯次利用 정책·표준 폐지·개정 보도도 존재. 근거: https://m.sohu.com/a/1062431481_121925623, https://m.evpartner.com/news/detail-83693.html, https://m.sohu.com/a/1056856179_267106"
+    },
+    {
+      "query": "[WebFetch] https://hunan.gov.cn/zqt/zcsd/202607/t20260731_34037283.html",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-027"
+      ],
+      "result": "공신부 공고 2026년 제20호 전문(정부 포털 재게재) 정독: 발문일 2026.07.30, 梯次利用 조항 폐지·공고관리 중단, 기공고 梯次利用 기업 명단 제외(附件 PDF '移出…梯次利用企业名单' 첨부 확인), 재생이용 기업 명단 '继续有效' 원문 확인 — 결론 변경 근거 충족(1차 계열 1 + 독립 secondary 2+)"
+    },
+    {
+      "query": "车用动力电池拆解破碎安全要求 强制性国家标准 批准 发布 2026",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-026"
+      ],
+      "result": "std.samr 계획 상세 명중: 계획번호 20256766-Q-339, 제정(강제성), 下达 2025.12.31, 주기 22개월, 기초단위(邦普·中汽中心·中汽数据·宁德时代·格林美 등) 일치, 아직 批准·발포 단계 아님. 근거: https://std.samr.gov.cn/gb/search/gbDetailed?id=473DB2F0DC4DBDA1E06397BE0A0AB1B7"
+    },
+    {
+      "query": "[WebFetch] https://std.samr.gov.cn/gb/search/gbDetailed?id=473DB2F0DC4DBDA1E06397BE0A0AB1B7",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-026"
+      ],
+      "result": "표준포털 직접 정독: 상태 '正在征求意见', 拟实施 2028-01-01, 下达 2025-12-31, 22개월 주기, 귀구 전국자동차표준화기술위 전동차량분회, 강제성 제정 — 미발포 상태 유지 확인(트래커 '批准·발포 대기' 표기와 플랫폼 상태 간 뉘앙스 차이 있음)"
+    },
+    {
+      "query": "GB 44240-2024 电能存储系统用锂蓄电池和电池组 安全要求 实施日期",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-025"
+      ],
+      "result": "'확인要' 플래그 해소: 발포 2024-07-24 / 실시 2025-08-01, 강제성, 100kWh 이상 전지조·시스템 중심 적용 — openstd·std.samr·국가표준관 등 표준포털 계열 복수 명중으로 일치. 근거: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=8E520B1991C62DEBC55B46DE49C6F4F5, https://www.ndls.org.cn/standard/detail/d59670a8ca5a34ebda05b3747bfdfda8, https://std.samr.gov.cn/gb/search/gbDetailed?id=1E0A96CB22334BB4E06397BE0A0AA9ED"
+    },
+    {
+      "query": "GB 38031-2025 GB 18384-2025 2026年7月1日 实施 新申请车型 动力电池 安全",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-006",
+        "CN-019",
+        "CN-024"
+      ],
+      "result": "두 강제국표 2026.7.1 신규 형식승인 차종 시행 개시를 신화망·gov.cn·澎湃 등이 일제 확인. GB 38031-2025 핵심(열확산 '불기화불폭발'+보경 유지·바닥충격·300회 급속충전 후 안전시험) 트래커 기재와 일치. 업계 영향 보도: 전지당 개조비용 15~20% 증가, 약 8% 기업이 7/1 전 미충족. 근거: https://www.news.cn/fortune/20260629/ecdbb252acf842e7ac2b432d103471dd/c.html, https://m.thepaper.cn/newsDetail_forward_33458192, https://www.gov.cn/lianbo/bumen/202504/content_7018797.htm"
+    },
+    {
+      "query": "2026년 세법개정안 국내생산 세액공제 이차전지 배터리 기획재정부 발표",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-003",
+        "KR-008"
+      ],
+      "result": "2026 세제개편안(2026.08.03 발표)에 국내생산세액공제 신설 확인 — 6대 분야(태양광·풍력·이차전지·반도체·핵심소재·AI로봇부품), 생산량 기준, 2036.12.31까지. https://www.fnnews.com/news/202608031835042008 · https://view.asiae.co.kr/article/2026080313155882685"
+    },
+    {
+      "query": "[fetch] fnnews 202608031835042008 기사 정독",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-003",
+        "KR-008"
+      ],
+      "result": "2026.08.03 재정경제부(구윤철 부총리) 세제개편안: 국내생산세액공제 6대 전략품목에 이차전지·핵심소재 포함, 공제=생산량×품목별 기준공제액(단가는 시행령), 요건=핵심공정 국내 수행+국내지출 비율+국내 직접판매, 적용기한 2036.12.31·마지막 3년 점감. https://www.fnnews.com/news/202608031835042008"
+    },
+    {
+      "query": "[fetch] asiae 2026080313155882685 기사 정독(제2소스)",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-003",
+        "KR-008"
+      ],
+      "result": "제2소스 교차 확인: 공제 한도=적격 생산비용 50%와 투자 규모 중 작은 금액, 일몰 2036년 말·마지막 3년 75/50/25% 점감, 품목별 세부는 2027.2 시행령 개정으로 확정 예정. https://view.asiae.co.kr/article/2026080313155882685"
+    },
+    {
+      "query": "재정경제부 2026년 세제개편안 보도자료 국내생산세액공제 조세특례제한법 국회 제출 9월",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-003",
+        "KR-008"
+      ],
+      "result": "입법 일정 확인: 조특법 등 11개 세법개정안 입법예고 2026.8.4~8.20 → 국무회의 2026.9.1 → 정기국회 제출 2026.9.3 이전. 수도권과밀억제권역 생산분 적용배제 포함. https://mofe.go.kr/2026/taxlaw.do · https://www.taxtimes.co.kr/news/article.html?no=276258"
+    },
+    {
+      "query": "[fetch] mofe.go.kr 보도자료 MOSF_000000000078809",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-003",
+        "KR-008"
+      ],
+      "result": "재정경제부(구 기재부) 공식 보도자료 「2026년 세제개편안 발표」 게시일 2026.08.03 확인(상세본·개조식·문답 PDF 첨부 존재 — 본문은 첨부라 메타만 확인). https://mofe.go.kr/nw/nes/detailNesDtaView.do?searchBbsId1=MOSFBBS_000000000028&searchNttId1=MOSF_000000000078809&menuNo=4010100"
+    },
+    {
+      "query": "사용후 배터리 관리 및 산업육성에 관한 법률 시행령 입법예고 하위법령 2026년 8월",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-017",
+        "KR-005",
+        "KR-009"
+      ],
+      "result": "공포 2026.05.26 / 시행 2027.05.27 재확인(법률신문 김·장 해설, law.go.kr 법령 등재 확인). 시행령·하위법령 입법예고는 미출현. https://www.lawtimes.co.kr/news/articleView.html?idxno=222505"
+    },
+    {
+      "query": "\"사용후 배터리\" 시행령 제정안 산업통상자원부 입법예고 2026",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-017"
+      ],
+      "result": "각도 변경 재시도에서도 사용후배터리법 하위법령 입법예고 무산출 → '하위법령 제정 진행 중, 예고 전' 결론. 인접 자원순환법 시행령 예고 건은 fetch 결과 2024.09 환경부 예고(공고 제2024-605호)로 판명되어 무관. https://www.moleg.go.kr/lawinfo/makingInfo.mo?mid=a10104010000&lawSeq=79876&lawCd=2000000311718&lawType=TYPE5"
+    },
+    {
+      "query": "전기차 배터리 안전성인증 자동차관리법 배터리 정보공개 시행 2026년 8월 국토교통부",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-018",
+        "KR-023",
+        "KR-002",
+        "KR-007"
+      ],
+      "result": "신규 변동 미발견 — 기존 확인 사실 재현(인증제 2025.2.17 시행, 정보공개 6→10종·허위 과태료 최대 1,000만원, 시행규칙·자동차등록규칙 개정 경로). KR-018의 2차 시행 정확 일자(2026.12.○)는 이번에도 미해결. https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?lcmspage=1&id=95090683 · https://eiec.kdi.re.kr/policy/materialView.do?num=263273"
+    },
+    {
+      "query": "할당관세 2026 하반기 알루미늄 배터리 관세법 제71조 규정 개정",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-019"
+      ],
+      "result": "공백기(8/2~8/14 포함) 중 규정 추가 개정 흔적 없음 — moleg 최신 입법예고(lawSeq=84580)를 fetch로 확인하니 기존 기록과 동일한 공고 제2025-227호(예고 2025.12.2~12.12, 시행 2026.1.1, 84개 품목·58개 품목 0~3% ~2026.12.31). https://www.moleg.go.kr/lawinfo/makingInfo.mo?lawSeq=84580&lawType=TYPE5&mid=a10104010000"
+    },
+    {
+      "query": "할당관세 추천 공고 2026 알루미늄 \"7607\" 배터리용",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-019"
+      ],
+      "result": "'전기차 배터리용 알루미늄 합금 1개 품목 신규 추가'(자동차산업 지원, 영구자석 등 5개+1) 단서 확보 → kctdi·세정신문 fetch로 2소스 재확인. 산업통상부 추천요령 공고 페이지 발견. https://www.kctdi.or.kr/kctdi/research/research11.do?mode=view&articleNo=5072"
+    },
+    {
+      "query": "[fetch] motir.go.kr 추천요령 공고 70731 + kctdi 5072 + taxtimes 272644 (KR-019 별표 대조 시도)",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-019"
+      ],
+      "result": "산업통상부 공고 2026-001호(2026.01.02, 산업정책과, 관세법시행령 제92조제3항 근거) 메타 확인 — 트래커 기록과 일치. 그러나 품목 별표는 hwpx 첨부라 HS 코드 수준(7607류) 대조 실패. kctdi·세정신문에서 '전기차 배터리용 알루미늄 합금 1개 추가'·84개 품목·재자원화 원료 5개(폐배터리 등) 신규는 확인되나 HS 코드 미제시. https://www.motir.go.kr/kor/article/ATCLc01b2801b/70731/view · https://www.taxtimes.co.kr/news/article.html?no=272644"
+    },
+    {
+      "query": "배터리 순환이용 재생원료 인증 고철 비철금속 수출신고 고시 기후에너지환경부 2026년 8월",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-011",
+        "KR-025"
+      ],
+      "result": "KR-011 신규 진전 발굴: 기후에너지환경부 2026.06.25 배터리 재생원료 생산 인증 시범사업 착수(재활용 6개사+한국환경공단 MOU, 인증 대상 8종: 탄산리튬·수산화리튬·황산니켈·황산코발트·황산망간·흑연·복합금속침전물·양극활물질, 연말 시범 완료→2027년 초 세부 운영지침 고시·2027.5 제도화). KR-025는 행정예고 후 절차 진행 중 확인(단계 변화 없음). https://www.fnnews.com/news/202606251744526923 · https://zdnet.co.kr/view/?no=20260625133228 · https://www.ddaily.co.kr/page/view/2026062514454677263"
+    },
+    {
+      "query": "GX-ETS 排出量取引制度 届出 2026年9月30日 対象事業者 経済産業省",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-006",
+        "JP-008",
+        "JP-013"
+      ],
+      "result": "9.30까지 제도대상 届出(2023~25년도 3개년 평균 배출량)+이행계획 제출 마감 확인. 초년도 특례: 배출목표량 届出·할당은 2027년도로 이월, 2026년도 届出은 등록확인기관 확인 불요. METI 리플릿 명중(https://www.meti.go.jp/policy/energy_environment/global_warming/ets__leaflet.pdf), 해설 https://www.ey.com/ja_jp/technical/sustainability-standards-and-regulatory-trends/gx-ets-phase2"
+    },
+    {
+      "query": "需給調整市場 上限価格 10円 引き下げ 2026年9月 一次調整力",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-004"
+      ],
+      "result": "2026.7.14 제4회 전력안정공급WG에서 1차·2차①·복합상품 상한 15→10엔안, 2026.9.1 실수급분부터 적용. 경쟁 개선 없으면 7.21엔까지 단계 인하 시사. https://www.meti.go.jp/shingikai/enecho/denryoku_gas/jisedai_kiban/stable_power_supply_wg/pdf/001_08_00.pdf 외 다수"
+    },
+    {
+      "query": "蓄電池 供給確保計画 認定 経済安全保障 2026年8月 経済産業省",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-002",
+        "JP-014"
+      ],
+      "result": "인정 누계 42건(축전지7·부소재27·제조장치8)·사업총액 약 1조8,819억엔·조성 최대 약 6,682억엔 재확인. 2026.6.2 「蓄電池産業戦略」→「蓄電池・電源産業戦略」 개정 발표(METI 보도 https://www.meti.go.jp/press/2026/06/20260602001/20260602001.html), 제7탄은 2026.3.5 모집 개시"
+    },
+    {
+      "query": "化審法 第一種特定化学物質 LC-PFCA 政令 2026年11月22日 施行",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-016"
+      ],
+      "result": "2026.5.19 시행령 개정 각의결정(LC-PFCA·클로르피리포스·MCCP 제1종특정화학물질 지정), 2026.11.22 적용 확인. 신규: LC-PFCA 관련물질 156종 성령안 2026.6.1 의견모집 개시·2026.9월경 공포 예정·11.22 동시 시행. https://www.meti.go.jp/press/2026/05/20260519001/20260519001.html, https://www.envix.co.jp/region/asia-oceania/jp/clm-jp20260603/, https://sustainablejapan.jp/2026/05/22/chemical-regulation/125767"
+    },
+    {
+      "query": "供給確保計画 第7弾 認定 蓄電池 2026年 7月 8月",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-002",
+        "JP-014"
+      ],
+      "result": "7~8월 제7탄 인정 발표 무산출(1차 시도). 6.2 시점 누계 42건만 재확인. https://www.meti.go.jp/press/2026/06/20260602001/20260602001-2r.pdf"
+    },
+    {
+      "query": "資源有効利用促進法 改正 2026年4月1日 施行 再生プラスチック 利用計画 蓄電池 リサイクル",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-005",
+        "JP-017"
+      ],
+      "result": "2026.4.1 전면시행 확인. 재생플라스틱 이용계획(자동차·가전4품목·용기포장) 2027.6말 초회 제출·2028년도~ 정기보고, 리튬전지 지정재자원화(모바일배터리·스마트폰·가열식담배 3품목 추가·폐기물처리법 특례) 확인. https://brightinnovation.jp/carbon/4133/, https://www.dowa-ecoj.jp/ce/2026/20260603.html, https://www.jcpra.or.jp/Portals/0/resource/00oshirase/pdf/pla/li-msh20260226-6.pdf"
+    },
+    {
+      "query": "長期脱炭素電源オークション 第4回 蓄電池 募集 2026年度 OCCTO",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-007",
+        "JP-012"
+      ],
+      "result": "제4회(응찰년도 2026년도) 모집요강·용량확보계약약관 의견모집 2026.7.21~8.3 발견(https://www.occto.or.jp/iken/000606.html). 3차(응찰 2025년도) 약정결과 PDF 파일명·표제가 2026.5.13(260513_longauction_...pdf)"
+    },
+    {
+      "query": "CEV補助金 2026年度 評価基準 サプライチェーン 車両評価 経済産業省 4月",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-010"
+      ],
+      "result": "2026.4.1부터 신평가기준(공급망 포함 주요 부품·재료 공급 안정성에 100점 배점, 그린스틸 채용계획 가산) 적용, 2026.1.1 EV 상한 130만엔 인상 확인. https://www.aba-j.or.jp/info/industry/25471/, https://cube-linx.co.jp/column/subsidy_cev_2026/"
+    },
+    {
+      "query": "省エネ法 屋根置き太陽光 設置目標 特定事業者 2026年度 中長期計画書",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-015"
+      ],
+      "result": "특정사업자(원유환산 1,500kl↑·약 1.2만사) 대상 2026년도 중장기계획서 정성목표·2027년도 정기보고서 정량보고 2단계 확인, 허위보고 50만엔 이하 벌금. https://enetech.co.jp/guide/mandatory-rooftop-solar-targets-2026-japan/, https://www.enecho.meti.go.jp/category/saving_and_new/saving/enterprise/factory/support-tools/data/yochi_yane.pdf"
+    },
+    {
+      "query": "[WebFetch] https://www.occto.or.jp/iken/000606.html",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-007"
+      ],
+      "result": "OCCTO 페이지 정독: 의견모집 대상=長期脱炭素電源オークション募集要綱(応札年度:2026年度)+容量確保契約約款, 기간 2026.7.21~8.3(종료) 확정. 4차 응찰 일정·모집량은 본 페이지에 없음"
+    },
+    {
+      "query": "モバイルバッテリー 機内 使用禁止 国土交通省 2026年4月24日 座席上の収納棚",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-011"
+      ],
+      "result": "2026.4.24 탑승분부터 적용 확인: 수납선반 보관 금지(좌석 포켓 등 수중 보관), 160Wh 이하·1인 2개, 기내 전원으로 보조배터리 충전 금지, 위탁수하물 불가. ANA https://www.ana.co.jp/ja/jp/special-notice/001379.html, JAL https://www.jal.co.jp/jp/ja/info/2026/other/260330/"
+    },
+    {
+      "query": "化審法 PFHxS 関連物質 117物質 2026年6月17日 施行 輸入禁止",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-016"
+      ],
+      "result": "PFHxS 관련물질 117종 지정 성령 2026.4월 공포·2026.6.17 시행, 동일자 대상 제품 수입금지 적용 확인. https://www.boken.or.jp/news/news-42401/, https://jp.chemlinked.com/news/niyusu/cscl-designates-117-specific-pfhxs-related-substances, https://www.envix.co.jp/region/asia-oceania/jp/clm-jp20260508/"
+    },
+    {
+      "query": "[WebFetch] https://www.occto.or.jp/various/capacity-market/jitsujukyukanren/2025_boshuyoukou_long.html",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-012"
+      ],
+      "result": "OCCTO 공식 페이지의 약정결과 공표물 일자 = 2026.5.13(파일명 260513_longauction_youryouyakujokekka_kouhyou_ousatsu2025.pdf). BESS 낙찰용량 수치는 별지 PDF에만 있어 이번 run 미정독"
+    },
+    {
+      "query": "GX経済移行債 発行 2026年度 クライメート・トランジション利付国債 発行額",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-003"
+      ],
+      "result": "클라이밋 트랜지션 이부국채 제4회 2026.3 발행, 10년 20조엔 프레임 계속 확인. FY2026 단독 발행액은 미확인. https://www.dai-ichi-life.co.jp/company/news/pdf/2025_047.pdf, https://www.cas.go.jp/jp/seisaku/gx_jikkou_kaigi/ikousai/index.html"
+    },
+    {
+      "query": "家庭用蓄電池 余剰電力 売電 VPP 2026年度 制度 開始 ディマンドレスポンス",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-009"
+      ],
+      "result": "2026.4부터 수급조정시장에 저압 리소스(가정용 축전지·EV) 참여 개방 확인('저압 VPP 원년'). 단 DR 보조금 요건상 방전은 역조류 없이 시설내 소비라는 소스 존재 — 트래커의 '잉여전력 계통 판매 허용' 표현은 직접 확인 안 됨. https://solarjournal.jp/policy/61672/, https://climatetech-japan.com/balancing-market-low-voltage-der-2026/"
+    },
+    {
+      "query": "UN Regulation 100 05 series amendments thermal propagation 2027 new vehicle types GRSP GTR 20 amendment 2026",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-003"
+      ],
+      "result": "05시리즈(WP.29 195차 채택): 신차형식 2027.9.1·전 형식 2029.9.1 의무 확인, 열전파 시험 4개 대체법. GTR20 Amd.1은 Phase 2 정합용으로 GRSP 2026 문서 존재(https://unece.org/sites/default/files/2026-05/ECE-TRANS-WP.29-GRSP-2026-04e.pdf). https://www.interregs.com/articles/news/334/, https://www.ats-group.org/en/significant-amendments-to-un-ece-regulation-no-100/"
+    },
+    {
+      "query": "Basel Convention COP-17 2025 battery waste amendments lithium batteries black mass annex entry into force 2027",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-002"
+      ],
+      "result": "COP-17(2025.4.28~5.9): Annex I(Li·Co·Ni 추가 제안)·Annex III 개정 협상 우선순위 합의, 비납축 배터리 TG 초안(black mass='waste') 가속 — COP-18(2027.4.19~30 파나마) 채택 목표, Annex I EWG 2026.9.27~29 제네바 재개. https://www.bdlaw.com/publications/china-and-europe-diverge-on-classification-of-black-mass-from-recycling-of-lithium-ion-batteries/, https://natlawreview.com/article/new-us-restrictions-export-black-mass-recycling-lithium-ion-batteries-pose-major"
+    },
+    {
+      "query": "IATA DGR 2026 67th edition lithium battery changes sodium-ion state of charge",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-001"
+      ],
+      "result": "DGR 67판 2026.1.1 발효 확인. SOC 30%(장비 동봉·차량 탑재) 권고→의무화, 나트륨이온 UN3551/UN3564 분류·리튬-나트륨 하이브리드 분류 신설, 데이터로거 예외 확장. https://www.iata.org/contentassets/90f8038b0eea42069554b2f4530f49ea/dgr-67-en-significant-changes.pdf, https://www.lion.com/lion-news/august-2025/what-s-new-in-the-2026-iata-dgr"
+    },
+    {
+      "query": "Stockholm Convention long-chain PFCA amendment entry into force 2026 SC-12/12 depositary",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-004"
+      ],
+      "result": "SC-12/12(2025.5 COP-12) Annex A 등재 확인. EIF는 통보 후 1년 규칙 — 싱가포르 국내이행 2026.12.16 발견(트래커의 '2026.01.01 발효'와 불일치 → 원문 추적 개시). https://mdsksolutions.com/NewsRoom/?bmode=view&idx=171275641, https://www.pops.int/Implementation/IndustrialPOPs/PFAS/Overview/tabid/5221/Default.aspx"
+    },
+    {
+      "query": "IFRS S2 amendments 2025 effective 2027 ISSB jurisdictions adoption progress August 2026",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-005"
+      ],
+      "result": "IFRS S2 표적 개정(2025.12 발행) 2027.1.1 이후 개시 회계기간 발효·조기적용 허용 확인. https://www.ifrs.org/news-and-events/news/2025/12/issb-issues-targeted-amendments-ifrs-s2/, https://ccli.ubc.ca/resource/ifrs-s2-adoption-by-jurisdiction/"
+    },
+    {
+      "query": "経済安全保障推進法 蓄電池 供給確保計画 認定 発表 2026年7月",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-002",
+        "JP-014"
+      ],
+      "result": "각도 변경 재시도 — 2026.7월 제7탄 인정 발표 여전히 무산출. 최신 확인 가능 사실은 2.17 제6탄 인정·3.5 제7탄 모집 개시. 제7탄 결과 미발표로 결론"
+    },
+    {
+      "query": "Stockholm Convention COP-12 amendments depositary notification \"entry into force\" date 2026 chlorpyrifos MCCP LC-PFCA Annex A",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-004"
+      ],
+      "result": "기탁통보 CN.672.2025 명중(https://treaties.un.org/doc/Publication/CN/2025/CN.672.2025-Eng.pdf). 검색 요약은 'EIF 2026.10.9' 주장했으나 원문 정독으로 반증(아래 primary-doc 행)"
+    },
+    {
+      "query": "需給調整市場 上限価格 10円 決定 9月1日 適用 一般送配電事業者 公表",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-004"
+      ],
+      "result": "EPRX(電力需給調整力取引所) 2026.7.30 공표 상한가격표: 복합·1차·2차① 19.51엔(2024.4~)→15.00엔(2026.3.14~)→10.00엔(2026.9.1~) — 안이 아니라 확정 공표로 확인. https://www.eprx.or.jp/information/post.php, https://solarjournal.jp/news/67406/"
+    },
+    {
+      "query": "UN GTR No.20 Amendment 1 adoption WP.29 AC.3 2026 electric vehicle safety phase 2",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-003"
+      ],
+      "result": "Amd.1 정식 제안문서 2026.3 제출(https://unece.org/transport/documents/2026/03/working-documents/proposal-amendment-1-un-global-technical-regulation), GRSP 2026.5 심의. Phase 2 범위=열전파·수몰·진동. WP.29/AC.3 최종 채택 여부는 이번 run 미확인"
+    },
+    {
+      "query": "[WebFetch] https://treaties.un.org/doc/Publication/CN/2025/CN.672.2025-Eng.pdf",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-004"
+      ],
+      "result": "UN 기탁통보 CN.672.2025 원문 정독: 통보(communication)일 2025.12.16 — 협약 22조 규칙(통보 후 1년)에 따라 COP-12 Annex A 개정(LC-PFCA·클로르피리포스·MCCP) 발효 = 2026.12.16. 싱가포르 2026.12.16 이행과 정합"
+    },
+    {
+      "query": "[WebFetch] https://www.eprx.or.jp/information/post.php",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-004"
+      ],
+      "result": "EPRX 공식 페이지: '1차·2차①·복합상품은 제4회 전력안정공급WG 심의 결과 상한가격 갱신 결정' 명시, 상세 PDF 2026.7.30 갱신. 10엔·9.1 수치 자체는 PDF 내(미정독) — 수치는 secondary 다수로 교차"
+    },
+    {
+      "query": "[WebFetch] https://www.ifrs.org/news-and-events/news/2025/12/issb-issues-targeted-amendments-ifrs-s2/",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-005"
+      ],
+      "result": "ISSB 공식: 개정 발행일 2025.12.11, 내용=금융배출량 Scope3 Cat.15 한정·분류체계 유연화·관할권 측정 특례·GWP 최신 IPCC 값 의무 완화(+SASB 3개 기준 결과적 개정), 발효 2027.1.1 이후 개시 연차보고기간·조기적용 허용 — 트래커와 완전 일치"
+    },
+    {
+      "query": "GX-ETS 排出量取引 2026年8月 説明会 算定報告 ガイドライン 最新",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-006",
+        "JP-008",
+        "JP-013"
+      ],
+      "result": "8월 신규 마일스톤 무발견. 참고상한 4,300엔·조정기준 1,700엔/t-CO2 가격밴드, 초년도 특례 스케줄(할당 2027년도) 재확인. https://www.zeroboard.jp/column/5769, https://denki.marubeni.co.jp/column/gx-ets/"
+    },
+    {
+      "query": "長期脱炭素電源オークション 応札年度2026年度 スケジュール 応札受付 蓄電池 募集上限",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-007"
+      ],
+      "result": "4차 응찰 일정·모집상한 상세는 요강 문서 내로 검색 표면화 안 됨(요약의 '80MW'류 수치는 단위 혼선 의심으로 불채택). 3차 약정결과 2026.5.13 공표 재확인. https://www.occto.or.jp/assets/various/capacity-market/jitsujukyukanren/2025_boshuyoukou_long/260513_longauction_youryouyakujokekka_kouhyou_ousatsu2025.pdf"
+    },
+    {
+      "query": "critical minerals Section 232 proclamation battery supply chain August 2026",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-015"
+      ],
+      "result": "8월 신규 조치 미검출 — 1월 선포(협상 지시·180일 보고) 해설만 명중. https://www.cov.com/en/news-and-insights/insights/2026/01/trump-administration-announces-results-of-critical-minerals-investigation-under-section-232-and-directs-us-officials-to-initiate-negotiations"
+    },
+    {
+      "query": "battery supply chain final rule Federal Register August 2026",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "**신규 발굴**: BIS DPAS 임시최종규칙 — 블랙매스·텅스텐 폐기물/스크랩 할당명령(FR 2026-08-06 게재, 문서 2026-16078, 할당의무 2026-08-27 개시, docket BIS-2026-0364, 코멘트 2026-11-04). https://www.federalregister.gov/documents/2026/08/06/2026-16078/ + https://www.lawbc.com/commerce-publishes-temporary-final-rule-restricting-export-of-black-mass-from-shredded-battery-scrap/"
+    },
+    {
+      "query": "WebFetch: https://www.govinfo.gov/content/pkg/FR-2026-08-06/pdf/2026-16078.pdf",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "관보 PDF 원문에서 임시최종규칙 유형·대상(black mass, tungsten waste and scrap)·근거(DPA/DPAS 15 CFR 700) 확인. PDF 압축 스트림으로 세부 수치 일부는 미추출(할당 100%·마감일은 secondary 보강)"
+    },
+    {
+      "query": "Section 232 critical minerals 180-day report negotiations outcome July 2026 tariff proclamation",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-015"
+      ],
+      "result": "Proclamation 11001(2026-01-15) 180일 보고 기한 = 2026-07-13. 기한 경과 후 공개된 후속 보고·조치 미검출(명중 소스 전부 기한 이전 발행). https://www.pillsburylaw.com/en/news-and-insights/critical-mineral-negotiations.html"
+    },
+    {
+      "query": "EU Critical Raw Materials Act amendment adopted regulation August 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-004"
+      ],
+      "result": "CRMA 개정안 최종 제정 없음 — 이사회 입장(2026-03-04) + EP ITRE 보고서·협상 개시 결정(2026-06-24), 트라일로그 단계. https://www.consilium.europa.eu/en/press/press-releases/2026/03/04/ + https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1907865"
+    },
+    {
+      "query": "EU Industrial Accelerator Act battery made-in-EU requirement adopted 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-002",
+        "EU-005"
+      ],
+      "result": "IAA 여전히 제안 단계(2026-03-04 위원회 제안, EP·이사회 협상 중) — 제정 없음. https://www.cooley.com/news/insight/2026/2026-04-14-european-commission-proposes-eu-industrial-accelerator-act-including-made-in-eu-and-low-carbon-requirements-stricter-rules-for-fdi-in-strategic-sectors"
+    },
+    {
+      "query": "Official Journal EU July 2026 new regulation batteries raw materials adopted",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-012",
+        "EU-015"
+      ],
+      "result": "7월 관보 신규 제정 미검출(기존 2023/1542 체계 해설 위주). DD 가이드라인 기한 2026-07 언급 확인 → 후속 확인 검색 실행"
+    },
+    {
+      "query": "EU battery due diligence guidelines Commission published July 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-012",
+        "EU-015"
+      ],
+      "result": "Reg 2025/1561에 따른 DD 가이드라인 공표 기한 = 2026-07-26. 기한 자체는 복수 로펌 소스로 확인되나 실제 공표 사실은 미검출 — 다음 run 재확인 플래그. https://sustainablefutures.linklaters.com/post/102kymo/ + https://infodpp.eu/en/blog/battery-due-diligence-delay-2025-1561/"
+    },
+    {
+      "query": "战略性矿产资源 出口管制 公告 2026年8月 商务部",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-023",
+        "CN-036"
+      ],
+      "result": "**신규 발굴**: 商务部公告2026年第26号(2026-06-24) — 전략광산 양용물항 수출관제 위법행위 신고처리 완비(13류 위법행위 열거). 8월 신규 공고 없음. https://aqygzj.mofcom.gov.cn/flzc/gzjgfxwj/art/2026/art_bebe67f8f9114426bf8275bd8ee1d9f7.html + https://www.thepaper.cn/newsDetail_forward_33444244"
+    },
+    {
+      "query": "锂电池 石墨 出口管制 新公告 2026 商务部 稀土",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-023",
+        "CN-036"
+      ],
+      "result": "2026년 7~8월 신규 수출관제 공고 미검출 — 2025年第55~58号 체계(리튬전지·인조흑연 등) 해설 위주. 희토관리조례·광산자원법실시조례 개정 신호 없음. https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_79646f0161564975a938fe00fee158d5.html"
+    },
+    {
+      "query": "공급망안정화법 시행령 개정 고시 2026년 8월 기획재정부",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-013"
+      ],
+      "result": "7~8월 신규 개정·고시 미검출 — 검색 명중 최신 개정은 2025-12-30 타법개정(부처명 변경, 2026-01-02 시행)으로 KR-013(제36421호, 6/24 시행)보다 구간. https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=280785"
+    },
+    {
+      "query": "핵심광물 공급망 고시 제정 산업통상자원부 2026년 7월 8월",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-015"
+      ],
+      "result": "7~8월 신규 고시 미검출 — 핵심광물 재자원화 산업 특수분류 고시(2026-01-08, KR-015 기존 포섭분)가 최신. https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/171413/view"
+    },
+    {
+      "query": "経済安全保障推進法 特定重要物資 蓄電池 政令 改正 2026年7月 8月",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-014"
+      ],
+      "result": "7~8월 정령·성령 개정 미검출. 蓄電池·電源産業戦略 개정(2026-06-02, JP-014) METI 보도 페이지 재확인. https://www.meti.go.jp/press/2026/06/20260602001/20260602001.html"
+    },
+    {
+      "query": "重要鉱物 確保 省令 告示 2026年 経済産業省 蓄電池 サプライチェーン",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-014"
+      ],
+      "result": "각도 변경 재시도 — 신규 성령·고시 무산출. 重要鉱物 取組方針은 2026-03-30 갱신(정책문서·비규범)이 최신. https://www.meti.go.jp/policy/economy/economic_security/metal/index.html"
+    },
+    {
+      "query": "OECD critical minerals framework binding",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "OECD 구속 프레임 부재 재확인 — Critical Minerals Initiative는 모범관행·분석 지원 성격. https://www.oecd.org/en/topics/policy-issues/critical-minerals.html"
+    },
+    {
+      "query": "IEA minerals security program",
+      "region": "GL",
+      "itemsCovered": [
+        "GL-002"
+      ],
+      "result": "IEA Critical Minerals Security Programme 격상 + 2026 각료선언(비구속) 확인 — 제정 규범 아님, WATCH 후보로 회부. https://www.iea.org/news/2026-iea-ministerial-declaration-supporting-the-iea-s-work-on-critical-minerals-security"
+    },
+    {
+      "query": "US federal battery traceability rule",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "연방 배터리 이력추적·여권 의무 제정 규범 부재 재확인 — IRA 30D 핵심광물 추적(시리얼 넘버 배분) 가이던스 맥락만. https://home.treasury.gov/news/press-releases/jy1939"
+    },
+    {
+      "query": "DOE battery supply chain data requirement",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "DOE/NREL은 데이터베이스·평가 사업(비규범)만 — 의무적 데이터 제출 규범 무산출. https://www.nrel.gov/news/detail/program/2024/nrel-battery-supply-chain-database-maps-out-the-state-of-north-americas-manufacturing-base"
+    },
+    {
+      "query": "EU battery passport delegated act implementing regulation adopted 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-011"
+      ],
+      "result": "**신규 발굴 2건 단서**: 2026-07-15 Implementing Decision (EU) 2026/1736(DPP 조화표준 6종) + 7월 DPP Registry 시행법 채택. 배터리 여권 위임행위(접근권한 등)는 기한 2026-08-18로 미채택 추정. https://www.base-batterypassport.com/blog/regulations-4/battery-passport-delegated-acts-timeline-2026-and-beyond-what-still-needs-finalisation-before-go-live-117"
+    },
+    {
+      "query": "WebFetch: https://eur-lex.europa.eu/eli/dec_impl/2026/1736/oj",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-011"
+      ],
+      "result": "Commission Implementing Decision (EU) 2026/1736 (2026-07-14 채택, OJ 2026-07-15) — ESPR(Regulation 2024/1781) 근거, DPP 조화표준 6종 인용: EN 18216(데이터 교환 프로토콜)·18219(고유 식별자)·18220(데이터 캐리어)·18221(저장·지속성)·18222(API)·18223(상호운용성), 모두 :2026"
+    },
+    {
+      "query": "digital product passport registry implementing regulation July 2026 Commission adopted",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-011"
+      ],
+      "result": "Implementing Regulation (EU) 2026/1778 특정(7/16 채택·7/17 관보·8/6 발효, DPP 레지스트리 운영 규칙) + 레지스트리 2026-07-20 개소. https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ%3AL_202601778"
+    },
+    {
+      "query": "WebFetch: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ%3AL_202601778",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-011"
+      ],
+      "result": "Commission Implementing Regulation (EU) 2026/1778 of 16 July 2026 — DPP 레지스트리 이행 규정. ESPR 제13조(5) 근거, 관보 2026-07-17, 발효 2026-08-06. 경제운영자 신원확인(적격 전자서명/전자인장, 유효 3년), 등록 시 시맨틱 적합성 자동검증, 위원회-회원국-운영자 책임 분담"
+    },
+    {
+      "query": "动力电池 溯源 平台 编码 新规",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-020",
+        "CN-005"
+      ],
+      "result": "신규 규범 미검출 — 溯源平台 2026-04-01 정식 온라인 + 管理办法 4/1 시행(기존 CN-020/CN-005) 재확인, 一池一码·GB/T 34014 편码 체계. https://gxt.fujian.gov.cn/zwgk/xw/hydt/xydt/202604/t20260402_7118596.htm"
+    },
+    {
+      "query": "电池 数字护照 标准",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "강제 표준 무산출 — CIAPS 《电池护照指南》 단체표준 편제 중(자발적)·CAICT DPP 기술보고서 등 비규범만. WATCH 회부. https://www.ciaps.org.cn/file/down/dchzzn2.pdf"
+    },
+    {
+      "query": "배터리 이력관리 배터리 여권 법률 제정 고시 2026년 7월 8월",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-018",
+        "KR-002"
+      ],
+      "result": "7~8월 신규 제정 미검출 — 자동차관리법 배터리 인증제·이력관리제(2025-02 시행) 및 KR-018 체계 재확인. https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?lcmspage=1&id=95090683"
+    },
+    {
+      "query": "자동차관리법 시행규칙 전기차 배터리 정보공개 공포 2026",
+      "region": "KR",
+      "itemsCovered": [
+        "KR-007",
+        "KR-002"
+      ],
+      "result": "각도 변경 — 정보공개 6종→10종 하위법령 개정안 입법예고(2026-03-23~05-04, 과태료 50만→최대 1,000만원) 재확인. 공포·시행 사실은 미검출 → 다음 run 확인 플래그. https://www.korea.kr/news/policyNewsView.do?newsId=148933705"
+    },
+    {
+      "query": "蓄電池 トレーサビリティ 義務化 省令 告示",
+      "region": "JP",
+      "itemsCovered": [],
+      "result": "의무 트레이서빌리티 성령·고시 무산출 — 명중은 계통용 축전지 안전규제·ZEH 등 인접 영역뿐. gap 유지"
+    },
+    {
+      "query": "バッテリーパスポート 日本 制度化 施行",
+      "region": "JP",
+      "itemsCovered": [],
+      "result": "각도 변경 재시도 — 일본판 전지 패스포트는 상호인증 지향 구상 단계(우라노스/전지SC협의회 자료), 제정 규범 무산출. https://www.meti.go.jp/policy/mono_info_service/joho/conference/battery_strategy2/shiryo08.pdf"
+    },
+    {
+      "query": "GBA battery passport rulebook mandatory",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "GBA 룰북(GHG·아동노동·인권)은 자발적 민간 프레임 재확인 — 구속 규범 부재. https://www.globalbattery.org/battery-passport/"
+    },
+    {
+      "query": "battery passport international standard binding",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "구속력 있는 국제표준 무산출 — 구속은 EU 규정(2027-02-18)뿐, DIN DKE SPEC 99100·EPCIS 등은 자발적 사양. gap 유지. https://www.base-batterypassport.com/blog/technology-7/battery-passports-international-standards-and-industry-implications-48"
+    },
+    {
+      "query": "正极材料 负极材料 行业规范条件 2026 工信部 公告",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "《锂电池行业规范条件》 2026년 신규 개정판 없음(2024年本 유지). 工信部公告2026年第20号(7.30)는 梯次利用 기업 명단 이동(CN-027 인접, 타 셀). 富锂锰基·硅基负极은 R&D 방향 언급뿐. https://hunan.gov.cn/zqt/zcsd/202607/t20260731_34037283.html"
+    },
+    {
+      "query": "锂电池 电解液 隔膜 强制性国家标准 2026 发布",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "발굴: GB/T 47292.1~.4-2026 《锂离子电池生产质量管理》 4부작(제2부 电池材料管控 — 소재 관리 직결) 정식 발표 확인. 전해액·격막 전용 강제국표 신규는 없음. https://www.itdcw.com/news/hybz/1119144b52024.html"
+    },
+    {
+      "query": "GB/T 47292 锂离子电池生产质量管理 发布 实施日期",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "std.samr.gov.cn(전국표준정보공공서비스플랫폼) 상세페이지로 4부작 모두 발표 2026-03-31·시행 2027-04-01 확인. 전문 PDF도 노출. https://std.samr.gov.cn/gb/search/gbDetailed?id=4E64ADE7318D8554E06397BE0A0AB633"
+    },
+    {
+      "query": "锂电池 人造石墨 出口管制 公告58号 暂停 2026年8月",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-014"
+      ],
+      "result": "公告58号(2025.10.09) 내용 재확인, 暂停 정보 미노출 → 70号 표적 검색으로 전환. https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_79646f0161564975a938fe00fee158d5.html"
+    },
+    {
+      "query": "商务部 海关总署 公告2025年第70号 锂电池 石墨 出口管制 暂停 一年 + mofcom 원문 fetch",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-014"
+      ],
+      "result": "mofcom 원문 페이지 직접 확인: 公告70号(2025.11.07 발표)가 55/56/57/58号·61/62号를 즉일~2026.11.10 잠정중단. 연장·재개 언급 없음 — 8월 현재 변동 없음. https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_b1ec77dd3f0d4762952904df7cdaadec.html"
+    },
+    {
+      "query": "锂电池行业 反内卷 综合整治 四部门 2026年 7月 8月 新政策",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-015"
+      ],
+      "result": "4부처(工信部·发改委·市场监管总局·能源局) 3차 회의(16개 전지사 소집)·市场监管总局 内卷式 경쟁 10대 치리규칙(2026.01) 등 시리즈 지속 확인. 7~8월 신규 규범 문건은 미확인. https://www.thepaper.cn/newsDetail_forward_32935278"
+    },
+    {
+      "query": "固体废物污染环境防治 十五五 规划 废动力电池 回收 2026",
+      "region": "CN",
+      "itemsCovered": [
+        "CN-030"
+      ],
+      "result": "《固体废物污染防治\"十五五\"规划》 6부처 연합 인발 2026.07.08·공개 07.14 — mee.gov.cn 공식 페이지(통지·一图读懂·답기자문) 목록으로 확인. 폐동력전지 회수처리 오염통제 기술규범 제·개정 + EPR 방침 유지. https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202607/t20260714_1161736.html"
+    },
+    {
+      "query": "正極材 負極材 電池材料 規格 告示 制定 2026 経済産業省",
+      "region": "JP",
+      "itemsCovered": [],
+      "result": "전극재 전용 規格·告示 제정 없음 — 蓄電池·電源産業戦略(2026.06.02) 등 전략문서만 명중. https://www.meti.go.jp/press/2026/06/20260602001/20260602001-1r.pdf"
+    },
+    {
+      "query": "JIS 制定 改正 2026 電池 リチウム 規格 一覧 (각도 전환 재시도 — meti JIS 월별 공고 페이지는 403 차단)",
+      "region": "JP",
+      "itemsCovered": [],
+      "result": "기존 JIS C 8711/8714/8715-2 등 목록만 명중, 2026년 전지 재료 신규 JIS 제정 증거 없음. JIS 월별 제·개정 공고 원문은 meti.go.kr WebFetch 403으로 전수 확인 불가(한계 명기). https://www.meti.go.jp/policy/economy/hyojun-kijun/jis-joho.html"
+    },
+    {
+      "query": "全固体電池 JIS 規格 標準化 制定 2026",
+      "region": "JP",
+      "itemsCovered": [],
+      "result": "전고체 전용 JIS 제정 없음. IEC 62660계 전고체 시험요건 국제표준화 진행(2026 발행 목표, 위원회 단계) — 미제정. https://www.meti.go.jp/policy/economy/hyojun-kijun/jiskouji/20260622001.html"
+    },
+    {
+      "query": "次世代電池 安全基準 告示 省令 2026 / 全固体電池 保安基準 型式 国土交通省 改正 2026 (각도 전환 재시도)",
+      "region": "JP",
+      "itemsCovered": [],
+      "result": "차세대 전지 전용 안전기준 告示·省令 없음. NITE 蓄電池시스템 안전 가이드라인 초판(2026.05)은 비구속. MLIT 保安基準 개정은 배터리 화재·열폭주 일반(신차 2027.09~, GTR/R100 계열 — GL-003 기존 포섭)으로 전고체 특정 아님. https://www.mlit.go.jp/report/press/jidosha10_hh_000332.html"
+    },
+    {
+      "query": "양극재 음극재 국가표준 KS 제정 고시 2026 국가기술표준원 이차전지",
+      "region": "KR",
+      "itemsCovered": [],
+      "result": "기존 2023.06.29 「리튬 이차전지 양극재(NCM 삼원계) 화학 분석 방법」 KS 제정 재확인만. 2026년 신규 소재 표준 제정 증거 없음. https://www.kats.go.kr/content.do?cmsid=240&cid=23822&mode=view"
+    },
+    {
+      "query": "전해질 분리막 표준 제정 2026 배터리 소재 고시 산업부 / \"KS\" 고시 2026 이차전지 표준 제정 리튬 (각도 전환 재시도)",
+      "region": "KR",
+      "itemsCovered": [],
+      "result": "산업부 공고는 R&D 신규과제(2026-081·2026-105)뿐, 전해질·분리막 표준 제정 없음. KS고시 각도 재시도에서도 기존 KS C IEC 62619/62281/62660-2 목록만 — 신규 무산출. https://e-ks.kr/KSCI/ksNotification/getKsNotificationList.do?menuId=921&topMenuId=502"
+    },
+    {
+      "query": "cathode active material anode graphite US regulation rule 2026 enacted",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-024",
+        "NA-005"
+      ],
+      "result": "AAM 對中 AD/CVD: ITC 최종 부정 판정(FR 2026.04.03 Determinations)으로 관세명령 미발부·청산유예 해제·예치금 환급 재확인(NA-024 정합). 흑연 impracticable-to-trace 추적 면제는 2026년말까지 유지(NA-005 정합). 신규 발견: FR 2026.07.24 음극재 337 조사개시 공고. https://www.federalregister.gov/documents/2026/04/03/2026-06488/active-anode-material-from-china-determinations"
+    },
+    {
+      "query": "ITC Section 337 investigation certain anode materials battery cells complaint 2026 (federalregister.gov 직접 fetch는 redirect 차단 → usitc.gov 보도자료로 확인)",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "337-TA-1513 조사개시 확정: Sila Nanotechnologies+Georgia Tech Research(제소 2026.06.18) v. Carbon ONE New Energy Group 등 3개 중국사 — 실리콘-탄소 음극재 특허 4건 침해 주장, limited exclusion order+CDO 청구. USITC 표결 2026.07.21 보도자료. 부수 관측: FR 2026.08.24 원통형 이차전지 337 조사개시(EVE 등 — 명목 기준일 8/14 이후, 차기 run 소관). https://www.usitc.gov/press_room/news_release/2026/er0721_68943.htm"
+    },
+    {
+      "query": "EPA TSCA significant new use rule cathode active materials final rule 2026",
+      "region": "NA",
+      "itemsCovered": [],
+      "result": "MMO CAM 대상 SNUR은 여전히 제안 단계(2026.04.24 제안, 코멘트 기한 연장 07.10 마감) — 최종화 안 됨, 후보 편입 불가. 인접: MWCNT(도전재 인접 물질) 최종 SNUR FR 2026.07.24, SNUR 26-4 FR 07.30. https://www.federalregister.gov/documents/2026/07/30/2026-15352/significant-new-use-rules-on-certain-chemical-substances-26-4"
+    },
+    {
+      "query": "EU Industrial Accelerator Act battery local content requirement status August 2026",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-005"
+      ],
+      "result": "IAA는 여전히 입법 제안 단계(로펌 A&O Shearman·Bird&Bird 2026 해설, T&E 2026.03 분석 모두 'proposed') — 트랙션 배터리 3~5개 핵심부품(셀·CAM·BMS) EU 원산 요구 설계 확인, 제정 아님. 셀 노트의 '제정 여부 확인 필요' → 미제정으로 확정. https://www.aoshearman.com/en/insights/the-eus-proposed-industrial-accelerator-act-what-the-battery-industry-needs-to-know-and-do"
+    },
+    {
+      "query": "EU battery components standard harmonised 2026 cathode separator electrolyte regulation adopted",
+      "region": "EU",
+      "itemsCovered": [],
+      "result": "부품(양극재·분리막·전해질)별 조화표준 채택 없음 — CEN/CENELEC이 M/579(2021) 하에 EN 표준 작성 중. 2026년 발효분은 탄소발자국 신고(2월)·성능등급(8월) 등 기존 트래킹(EU-001·EU-009) 범위. https://eur-lex.europa.eu/EN/legal-content/summary/sustainability-rules-for-batteries-and-waste-batteries.html"
+    },
+    {
+      "query": "IEC ISO new standard 2026 battery cathode anode material specification published",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "전극재 전용 IEC/ISO 신규 제정 없음 — 2026년 5~7월 발행분은 IEC 60086-1(일차전지)·IEC 63066(도킹 커넥터)·EN IEC 60623(Ni-Cd) 등 인접뿐. https://standards.iteh.ai/articles/blog/electrical-engineering/electrical-standards-july-2026"
+    },
+    {
+      "query": "ISO standard cathode active material lithium secondary battery chemical analysis published 2025 2026 (각도 전환 재시도)",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "ISO/AWI 25156(리튬이온전지 CAM 탄소발자국 PCR)은 AWI(승인 작업항목) 단계 — 미제정, 워치 대상. prEN IEC 62620:2026은 초안(pr). 한국 제안 양극재 화학분석 ISO는 제정 확인 못함. https://www.iso.org/standard/89145.html"
+    },
+    {
+      "query": "ISO IEC battery recycling international standard published 2026 black mass",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "리사이클 GL 신규 ISO/IEC 강제·구속 표준 없음. 부수 관측(타 셀 소관): 美 BIS black mass 수출제한 2026.08.27 발효(NA recycle 소관), EU 비OECD black mass 수출금지 2026.11.09 개시(EU-013 정합). https://www.greenli-ion.com/post/bis-black-mass-export-restrictions-directive-allocation-order"
+    },
+    {
+      "query": "Basel Convention battery waste amendment COP 2026 adopted lithium (recycle/GL 각도 전환 재시도)",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "Li·Co·Ni(및 화합물) Annex I 편입은 제안 단계 — COP17 결정으로 기술지침 작업을 OEWG-15(2026) 검토→COP18(2027) 채택 가능성으로 이월. 신규 채택 규범 없음(GL-002 프레임 내 진행). https://www.basel.int/Implementation/Wastebatteries/Overview/tabid/9415/Default.aspx"
+    },
+    {
+      "query": "WTO multilateral subsidy rules clean energy battery agreement 2026",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "신규 다자 보조금 규범 제정 없음 — 기존 SCM 하 분쟁해결 활동만: 對美 IRA 세액공제 패널보고(2026.01.30, 금지보조금 판정)와 미국 상소(2026.02.24 DSB), 인도 배터리·EV 조치 패널, 中→印 최초 제소. https://www.wto.org/english/news_e/news26_e/dsb_24feb26_294_e.htm"
+    },
+    {
+      "query": "OECD plurilateral agreement subsidy disciplines critical minerals batteries 2026 signed (subsidy/GL 각도 전환 재시도)",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "서명·제정된 복수국 협정 없음 — USTR이 핵심광물 무역 복수국 협정 '설계'에 대한 의견수렴 단계(FR 2026.02.26, 최저가격·국경조정 가격하한 등 검토). 구속 규범 미성립. https://www.federalregister.gov/documents/2026/02/26/2026-03868/request-for-comments-on-the-design-of-a-plurilateral-agreement-on-trade-in-critical-minerals-and"
+    },
+    {
+      "query": "international binding rules electricity market energy storage treaty 2026 multilateral",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "글로벌 구속 규범 없음 — 명중물은 모두 EU 역내(REMIT II 2026.04.29 발효 — 저장사업자 투명성, EU 셀 소관)이거나 자발적 서약(EU 3자 저장 협약 2026.06.26 룩셈부르크 서명 — 자발적 물량 서약). 재시도 각도 1건은 세션 검색 예산 소진(200/200)으로 미실행 — notes 참조. https://www.bakermckenzie.com/en/insight/publications/2026/04/european-union-remit-ii-explained"
+    }
+  ],
+  "primaryDocs": [
+    {
+      "doc": "mofcom 원문 페이지 직접 확인: 公告70号(2025.11.07 발표)가 55/56/57/58号·61/62号를 즉일~2026.11.10 잠정중단. 연장·재개 언급 없음 — 8월 현재 변동 없음. https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_b1ec77dd3f0d47629529",
+      "itemsCovered": [
+        "CN-014"
+      ],
+      "note": "primary-meta — 商务部 海关总署 公告2025年第70号 锂电池 石墨 出口管制 暂停 一年 + mofcom 원문 fetch"
+    },
+    {
+      "doc": "표준포털 직접 정독: 상태 '正在征求意见', 拟实施 2028-01-01, 下达 2025-12-31, 22개월 주기, 귀구 전국자동차표준화기술위 전동차량분회, 강제성 제정 — 미발포 상태 유지 확인(트래커 '批准·발포 대기' 표기와 플랫폼 상태 간 뉘앙스 차이 있음)",
+      "itemsCovered": [
+        "CN-026"
+      ],
+      "note": "primary-meta — [WebFetch] https://std.samr.gov.cn/gb/search/gbDetailed?id=473DB2F0DC4DBDA1E0639"
+    },
+    {
+      "doc": "공신부 공고 2026년 제20호 전문(정부 포털 재게재) 정독: 발문일 2026.07.30, 梯次利用 조항 폐지·공고관리 중단, 기공고 梯次利用 기업 명단 제외(附件 PDF '移出…梯次利用企业名单' 첨부 확인), 재생이용 기업 명단 '继续有效' 원문 확인 — 결론 변경 근거 충족(1차 계열 1 + 독립 secondary ",
+      "itemsCovered": [
+        "CN-027"
+      ],
+      "note": "primary-meta — [WebFetch] https://hunan.gov.cn/zqt/zcsd/202607/t20260731_34037283.html"
+    },
+    {
+      "doc": "노이즈 — 2021.11.12 구 12호령 공포 당시 답기자문으로 판명, 2026 개정 근거로 불채택",
+      "itemsCovered": [
+        "CN-032"
+      ],
+      "note": "primary-meta — WebFetch: gdee.gd.gov.cn/bm6258/content/post_3643319.html (답기자문)"
+    },
+    {
+      "doc": "전국표준정보공공서비스평태 상세 직접 정독: GB/T 46261-2025, 발포 2025-08-29, 실시 2026-09-01, 상태 '即将实施', 귀구 전국소방표준화기술위, 주관 국가소방구원국 — 트래커 기재와 전 필드 일치, 9/1 시행 예정대로",
+      "itemsCovered": [
+        "CN-038"
+      ],
+      "note": "primary-meta — [WebFetch] https://std.samr.gov.cn/gb/search/gbDetailedCNF?id=3DBA2132857B0D16E0"
+    },
+    {
+      "doc": "공모 2026.07.28 개시·2026.09.30 신청 마감 확인. €1.5B 무이자대출, 프로젝트당 최대 €500M·적격비용 60%, EEA 내 최소 10GWh·첫 상업규모·램프업 단계 요건. EC 공식 뉴스(2026-07-28): https://single-market-economy.ec.europa.eu/news/c",
+      "itemsCovered": [
+        "EU-003"
+      ],
+      "note": "primary-meta — Battery Booster Facility call for proposals 2026 Innovation Fund battery manufac"
+    },
+    {
+      "doc": "공모 2026.07.28 개시·2026.09.30 신청 마감 확인. €1.5B 무이자대출, 프로젝트당 최대 €500M·적격비용 60%, EEA 내 최소 10GWh·첫 상업규모·램프업 단계 요건. EC 공식 뉴스(2026-07-28): https://single-market-economy.ec.europa.eu/news/c",
+      "itemsCovered": [
+        "EU-006"
+      ],
+      "note": "primary-meta — Battery Booster Facility call for proposals 2026 Innovation Fund battery manufac"
+    },
+    {
+      "doc": "Commission Implementing Decision (EU) 2026/1736 (2026-07-14 채택, OJ 2026-07-15) — ESPR(Regulation 2024/1781) 근거, DPP 조화표준 6종 인용: EN 18216(데이터 교환 프로토콜)·18219(고유 식별자)·18220(데이터 캐리어)·1",
+      "itemsCovered": [
+        "EU-011"
+      ],
+      "note": "primary-meta — WebFetch: https://eur-lex.europa.eu/eli/dec_impl/2026/1736/oj"
+    },
+    {
+      "doc": "C(2026)5031 final(2026.07.14) 원문 PDF·EC 뉴스(07.14 '6개 제품군 신규 면제 추가')·이사회 송부문서 ST-12056-2026(07.17) 확인. OJ 게재·발효는 아직 미확인 — EP·이사회 이의기간 중, OJ+20일 발효 예정. https://environment.ec.europa.",
+      "itemsCovered": [
+        "EU-016"
+      ],
+      "note": "primary-meta — \"C(2026) 5031\" OR \"removability and replaceability\" delegated regulation batteri"
+    },
+    {
+      "doc": "EUR-Lex 원문 페이지: Regulation (EU) 2026/1738 (차량 설계 순환성·ELV 관리), 서명 2026.07.08, OJ L 2026.07.24. 재생 알루미늄·강철 최소 비율은 타당성조사 후 위임행위로 설정(수치 미정), 플라스틱은 재생 비율 목표 명시(그중 20%는 ELV 유래). 지침 2000/",
+      "itemsCovered": [
+        "EU-024"
+      ],
+      "note": "primary-meta — [WebFetch] https://eur-lex.europa.eu/eli/reg/2026/1738/oj"
+    },
+    {
+      "doc": "UN 기탁통보 CN.672.2025 원문 정독: 통보(communication)일 2025.12.16 — 협약 22조 규칙(통보 후 1년)에 따라 COP-12 Annex A 개정(LC-PFCA·클로르피리포스·MCCP) 발효 = 2026.12.16. 싱가포르 2026.12.16 이행과 정합",
+      "itemsCovered": [
+        "GL-004"
+      ],
+      "note": "primary-doc — [WebFetch] https://treaties.un.org/doc/Publication/CN/2025/CN.672.2025-Eng.pdf"
+    },
+    {
+      "doc": "ISSB 공식: 개정 발행일 2025.12.11, 내용=금융배출량 Scope3 Cat.15 한정·분류체계 유연화·관할권 측정 특례·GWP 최신 IPCC 값 의무 완화(+SASB 3개 기준 결과적 개정), 발효 2027.1.1 이후 개시 연차보고기간·조기적용 허용 — 트래커와 완전 일치",
+      "itemsCovered": [
+        "GL-005"
+      ],
+      "note": "primary-meta — [WebFetch] https://www.ifrs.org/news-and-events/news/2025/12/issb-issues-targete"
+    },
+    {
+      "doc": "EPRX 공식 페이지: '1차·2차①·복합상품은 제4회 전력안정공급WG 심의 결과 상한가격 갱신 결정' 명시, 상세 PDF 2026.7.30 갱신. 10엔·9.1 수치 자체는 PDF 내(미정독) — 수치는 secondary 다수로 교차",
+      "itemsCovered": [
+        "JP-004"
+      ],
+      "note": "primary-meta — [WebFetch] https://www.eprx.or.jp/information/post.php"
+    },
+    {
+      "doc": "OCCTO 페이지 정독: 의견모집 대상=長期脱炭素電源オークション募集要綱(応札年度:2026年度)+容量確保契約約款, 기간 2026.7.21~8.3(종료) 확정. 4차 응찰 일정·모집량은 본 페이지에 없음",
+      "itemsCovered": [
+        "JP-007"
+      ],
+      "note": "primary-meta — [WebFetch] https://www.occto.or.jp/iken/000606.html"
+    },
+    {
+      "doc": "OCCTO 공식 페이지의 약정결과 공표물 일자 = 2026.5.13(파일명 260513_longauction_youryouyakujokekka_kouhyou_ousatsu2025.pdf). BESS 낙찰용량 수치는 별지 PDF에만 있어 이번 run 미정독",
+      "itemsCovered": [
+        "JP-012"
+      ],
+      "note": "primary-meta — [WebFetch] https://www.occto.or.jp/various/capacity-market/jitsujukyukanren/2025"
+    },
+    {
+      "doc": "federalregister.gov 문서 제목·일자 확인 — ITC 최종 부정 판정(FR 2026.04.03 'Active Anode Material from China; Determinations')으로 AD/CVD 명령 미발부·절차 종결 상태 유지. https://www.federalregister.gov/docume",
+      "itemsCovered": [
+        "NA-024"
+      ],
+      "note": "primary-meta — verify.basis 참조"
+    }
+  ],
+  "verifyCounts": {
+    "derivedFrom": "public/data/tracker_data.json (스크립트 산출)",
+    "totalItems": 149,
+    "thisRun": {
+      "secondary": 70,
+      "search": 30,
+      "primary-meta": 15,
+      "primary-doc": 1
+    },
+    "thisRunTotal": 116,
+    "carriedFromPriorRuns": 33,
+    "note": "verify.date=2026-08-29 항목의 method별 분포. 수기 기입 금지 — 데이터셋에서 산출."
+  },
+  "changes": [
+    "**[2026-08-29 RD-0/F12]** 명목 준비일(8/14)과 실제일(2026-08-29) 15일 괴리를 date 확인으로 정정 — RUNBOOK F12의 실측 사례. 검색 인덱스는 실시간이라 8/18~8/22 사건까지 검증에 포섭됨(각 기록에 날짜 명시).",
+    "**NA-026 Section 338**: 8.18 유예 포고(8.19→8.22) → 8.21 협상 결렬 → 8.22 12:01am ET 50% 발효(독립 2소스+). effectiveDate·dt 사실 반영, status 전환(UPCOMING→ACTIVE)은 승인 대기. FR 원문은 봇차단으로 primary-doc 미확보(이월).",
+    "**EU-026 PPWR**: 8.12 전면 적용 실개시 확인(연기 없음) — status 전환 승인 대기. EC 가이던스(3.30)+FAQ(8.3) 병행.",
+    "**EU-022 정정**: 강제노동규정 이행 가이드라인 6.26 공표+Single Portal 개시 — 기존 '후속 미공표' 기록을 뒤집는 결론 변경(독립 2+소스).",
+    "**EU-024 확정**: Regulation (EU) 2026/1738, OJ 2026.07.24 (EUR-Lex 직접 확인) — 기존 'OJ 미확인' 해소.",
+    "**CN-027**: 공신부 공고 2026年第20号(7.30)로 梯次利用 공고관리 중단·기공고 기업 제외(약 100개사) — 카드 서술 갱신은 성격 변경 수반이라 승인 대기.",
+    "**KR-003/KR-008**: 8.3 세제개편안에서 국내생산세액공제 설계안 공개(6대 전략품목·생산량×기준공제액·일몰 2030) — KR-008 종결(WATCH→DONE·KR-003 승계) 승인 대기.",
+    "**GL-004 오류 발견**: 스톡홀름 LC-PFCA Annex A 개정 국제 발효일 = 2026.12.16(CN.672.2025 원문·1차) — 기존 '2026.01.01 발효' 서술 오류. status 재분류(ACTIVE→UPCOMING) 포함 전 필드 재작성이 필요하므로 일괄 승인 대기.",
+    "**승인 큐 표기 정정**: IEC 63379 → IEC TS 63379:2026(Technical Specification·발간 2026-01-27, IEC 웹스토어 1차 메타). ESS 표준군 4층의 설계표준 층 = GB/T 51048-2025(2026.04.01 시행)로 갱신 확인.",
+    "**스탠딩 모니터 5/5 무변동**: CAFE $0 유지(SAFE III NPRM 의견기한 2.4 마감 후 최종규칙 대기), 30D 부활 입법 무, IRS PFE 지침 Notice 2026-15 유일(§7701(a)(52) 테이블 법정기한 12.31), GM/Tesla 국면 유지, 中 VAT 단계 무변동."
+  ],
+  "newItems": [],
+  "corrections": [
+    {
+      "id": "JP-012",
+      "r": "JP",
+      "s": "WATCH",
+      "note": "3차 약정결과 공표일 5.16→5.13 (OCCTO 1차+METI 교차) — dt 반영은 차기 run(이월)"
+    },
+    {
+      "id": "JP-014",
+      "r": "JP",
+      "s": "WATCH",
+      "note": "6.2=산업전략 개정 발표(제7탄 결과 아님·결과 미발표) — 서술 정정 이월"
+    },
+    {
+      "id": "NA-032",
+      "r": "NA",
+      "s": "UPCOMING",
+      "note": "11.10 첫 보고기한은 8.10에서 3개월 연기된 산물(CARB 7.27 수정규정) — '2.26 초기규정으로 확정' 서술 부정확, 정정 이월"
+    }
+  ],
+  "coverageCells": [
+    "supply_chain/NA",
+    "supply_chain/EU",
+    "supply_chain/CN",
+    "supply_chain/KR",
+    "supply_chain/JP",
+    "supply_chain/GL",
+    "data_dpp/NA",
+    "data_dpp/EU",
+    "data_dpp/CN",
+    "data_dpp/KR",
+    "data_dpp/JP",
+    "data_dpp/GL",
+    "upstream/NA",
+    "upstream/EU",
+    "upstream/CN",
+    "upstream/KR",
+    "upstream/JP",
+    "upstream/GL",
+    "next_tech/JP",
+    "subsidy/GL",
+    "recycle/GL",
+    "energy_market/GL"
+  ],
+  "coverageBacklog": {
+    "derivedFrom": "ops/coverage.json (스크립트 산출)",
+    "totalCells": 90,
+    "neverSwept": 0,
+    "neverSweptCells": [],
+    "note": "재스윕 대상(10차 환원 3셀·GL 3셀) 전부 스윕 완료. GL 3셀은 2회 연속 무산출 — na 재판정 승인 대기(energy_market은 재시도 1건 미실행 명기)."
+  },
+  "carryOver": [
+    "미커버 33건 재검증 최우선: CN-001, CN-003, CN-007, CN-009, CN-011, CN-012, CN-013, CN-016, CN-017, CN-021, CN-029, CN-031, CN-033, CN-034, CN-035, CN-037, EU-017, EU-023, EU-030, EU-031, EU-032, EU-033, KR-004, KR-006, KR-010, KR-014, KR-016, KR-020, KR-021, KR-022, KR-026, KR-027, KR-028",
+    "토요일 정기 슬라이스(transport·packaging 12셀) — F12로 이번 run은 목요일 슬라이스 수행",
+    "EU-030: WP.15/274 SP680 조문 원문 대조 + 2026.10.01 이의기간 경과 확인(D-33)",
+    "KR-019 별표 HS(7607류) 원문 대조 — 관보 PDF·국민참여입법센터(opinion.lawmaking.go.kr) 첨부 경로 시도, 실패 시 운영자 수동 확인",
+    "NA-026: 유예 포고·발효의 Federal Register 게재본 primary-doc 확보(봇차단 우회 필요)",
+    "EO 14420(외국산 그리드 장비 국가비상, 8.26 서명 보도) — 단일 secondary라 1차 검증 후 후보 판단",
+    "EU 배터리 여권 위임행위(접근권한·정보갱신) 채택 기한 8.18 경과 — 채택 여부 확인",
+    "EU 실사 가이드라인 공표 감시 지속(법정기한 7.26 2회 도과)",
+    "CN-027: 공고 2026年第20号 附件(제외 기업 명단) 원문 확보",
+    "NDAA §842 법문(P.L. 119-60) 원문 정독(ofac 타임아웃 재시도)",
+    "corrections 3건(JP-012·JP-014·NA-032) 필드 반영"
+  ],
+  "pendingDecisions": [
+    "① status 전환 승인 5건: NA-026 UPCOMING→ACTIVE(8.22 발효) / EU-026 UPCOMING→ACTIVE(8.12 적용 개시) / EU-006 UPCOMING→ACTIVE(7.28 공모 개시) / KR-008 WATCH→DONE(8.3 설계안 공개 완료·KR-003 승계) / GL-004 ACTIVE→UPCOMING(국제 발효 12.16 미도래 — 전 필드 재작성 동반)",
+    "② 편입 승인 — 제정 확정군: CCC 충전설비(2024年第50号+CNCA-C11-19:2025, 8.1 발효, P1) / NDAA §842(P.L. 119-60, P1) / DPP 입법 2건(Decision 2026/1736·Regulation 2026/1778) / BIS DPAS 블랙매스·텅스텐(FR 2026-16078, 8.6) / KR 전기안전관리법 충전시설(2025.11.28 시행) / IEC TS 63379:2026(P2) / 23 CFR 680 NEVI(P3) / GB/T 47292.1~.4-2026(시행 2027.4.1) / 商务部公告2026年第26号(집행 인프라)",
+    "③ 편입 승인 — WATCH군: EU IAA(로컬콘텐츠, 3.4 제안·협상 중) / EPA TSCA SNUR(제안) / UL 2285(개발 중) / EU 여권 위임행위(기한 8.18) / IEA 각료선언 / CIAPS 电池护照指南 / USITC 337-TA-1513 / US Energy Bills Relief Act / JP 리튬이온전지 종합대책(존재만 포착) / USTR 과잉생산 301 조사 독립 승격 여부",
+    "④ GL 3셀(recycle·subsidy·energy_market) na 재판정 — 2회 연속 무산출 완성. 단 energy_market은 각도 재시도 1건 미실행이라 보류 권고",
+    "⑤ RD-3 로테이션 설계(A 매일 전수/B 하이브리드/C 현행) — 기결정 대기 사항"
+  ],
+  "standingMonitor": [
+    "1. CAFE §32912 — $0.00 유지, SAFE III NPRM 의견기한 2026.02.04 마감·최종규칙 대기 (변동 시 플래그)",
+    "2. §30D 후속 — 2025.09.30 이후 종료 상태 유지, 부활·대체 입법 성립 무",
+    "3. IRS PFE/MACR — Notice 2026-15 유일 지침 유지, §7701(a)(52) 테이블 법정 공표기한 2026.12.31",
+    "4. GM/Tesla 탈중국 조달 — 2025.11 국면 유지(스코프 밖 관찰)",
+    "5. 中 배터리 수출 VAT — 22개 세칙호 6%(~12.31)·2027.1.1 폐지 단계 무변동(公告2026年第2号)"
+  ],
+  "approvalQueueCandidates": [
+    {
+      "name": "CN 전동차 공전설비 CCC 강제인증",
+      "basis": "시감총국 2024 공고, 2026.08.01 기시행(스냅샷 기준 D+1) — 미인증 설비 출하·판매·수입·사용 금지 이미 발효",
+      "priority": "P1 — 기발효, 즉시 검증"
+    },
+    {
+      "name": "FY2026 NDAA §842 DoD FEOC 전지 조달 제한",
+      "basis": "2025.12 제정, 2028.1.1 신규계약부터 단계 시행",
+      "priority": "P1"
+    },
+    {
+      "name": "IEC 63379:2026 MCS 메가와트 충전 커넥터",
+      "basis": "2026.02 v1.0 발포",
+      "priority": "P2"
+    },
+    {
+      "name": "KR 전기안전관리법 충전시설 신고·책임보험 의무",
+      "basis": "2025.11.28 시행(경과조치 2026.05.28 만료)",
+      "priority": "P2"
+    },
+    {
+      "name": "23 CFR 680 NEVI 최저기준",
+      "basis": "제정 연방규정 + 2026.01 Washington v. DOT 판결",
+      "priority": "P3"
+    },
+    {
+      "name": "EU 배터리 로컬콘텐츠 입법(셀·CAM·BMS EU 원산)",
+      "basis": "제안 단계 추정 — 제정 여부·법안명 확인 필요. SBTL 직결성 높음",
+      "priority": "P2(확인 선행)"
+    },
+    {
+      "name": "EPA TSCA SNUR(CAM MMO)",
+      "basis": "제안규칙 — WATCH 후보",
+      "priority": "P3"
+    },
+    {
+      "name": "UL 2285 전고체 안전표준",
+      "basis": "개발 중 — WATCH 후보",
+      "priority": "P3"
+    },
+    {
+      "name": "GB 43854-2024",
+      "basis": "기존 승인 큐 유지분 — 집계행 전개(2026-08-07 정정 9차, 내용 신설 없음)",
+      "priority": "기존"
+    },
+    {
+      "name": "ESS 표준군 4층",
+      "basis": "기존 승인 큐 유지분 — 집계행 전개(2026-08-07 정정 9차, 내용 신설 없음)",
+      "priority": "기존"
+    },
+    {
+      "name": "OBBBA §40006 CAFE",
+      "basis": "기존 승인 큐 유지분 — 집계행 전개(2026-08-07 정정 9차, 내용 신설 없음)",
+      "priority": "기존"
+    }
+  ],
+  "existingItemReconciliation": [
+    {
+      "candidate": "USTR 강제노동 Section 301 (60개 경제권 10~12.5%, 7.24 발효)",
+      "existingId": "NA-021",
+      "action": "큐 제외 — 기추적(NA-021이 동일 조치·발효 반영 완료). NA-028 검증 중 부수 재발견분으로 dupChecked 미완이었음 — 재등재 사고 5호 예방"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-name: Inspect PR293 Review Fields
+name: Address PR293 Codex Review
 
 on:
   push:
@@ -8,29 +8,180 @@ on:
       - .github/workflows/inspect-pr293-review-fields.yml
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  inspect:
+  remediate:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: chatgpt/pr289-review-remediation-1496
-      - name: Print review-relevant audit fields
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Lock exact baseline and apply review corrections
         shell: bash
         run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "3732ad9460b44329f0856591c29f166a39ebf5f8"
+          test "$(git rev-parse 3732ad9460b44329f0856591c29f166a39ebf5f8:data/cards.full.json)" = "3b2e86b320cac2b8ab9e9c1035aa026fc47fed2f"
+          git show origin/main:data/cards.full.json > /tmp/base.cards.full.json
           python - <<'PY'
-          import json
-          ids=['2026-08-25_KR_01','2026-08-21_EU_01','2026-08-25_US_01','2026-08-24_US_01','2026-08-21_GL_02','2026-08-24_CN_01']
-          d=json.load(open('data/cards.full.json',encoding='utf-8'))
+          import json, sys
+          from pathlib import Path
+          from urllib.parse import urlparse
+          sys.path.insert(0,'validation_scripts')
+          from card_audit_utils import canonical_url
+
+          p=Path('data/cards.full.json')
+          d=json.loads(p.read_text(encoding='utf-8'))
+          base=json.load(open('/tmp/base.cards.full.json',encoding='utf-8'))
           by={c['id']:c for c in d['cards']}
-          keys=['source_discovery_ledger','source_url_resolution','source_diversity_roles','source_synthesis_audit','source_published_date','visible_quote_date','date_role','urls','fact_sources']
-          for cid in ids:
+          base_by={c['id']:c for c in base['cards']}
+          m=json.load(open('direct-adds/pr289-review-remediation-1496/direct-add.json',encoding='utf-8'))
+          target_ids=m['operations']['update']
+          assert len(target_ids)==25 and len(d['cards'])==1496 and len(base['cards'])==1496
+
+          # P2-1: SOURCE_AUDIT_CONTRACT §7 — every used ledger row carries role, origin and checked timestamp.
+          for cid in target_ids:
               c=by[cid]
-              print('===CARD',cid,'===')
-              for k in keys:
-                  if k in c:
-                      print('---',k,'---')
-                      print(json.dumps(c[k],ensure_ascii=False,indent=2))
+              fs=c.get('fact_sources') or []
+              by_url={}
+              for s in fs:
+                  cu=canonical_url(str(s.get('source_url','')))
+                  if cu:
+                      by_url.setdefault(cu,[]).append(s)
+              for row in c.get('source_discovery_ledger') or []:
+                  if row.get('outcome')!='used_in_fact_sources':
+                      continue
+                  cu=canonical_url(str(row.get('source_url','')))
+                  matches=by_url.get(cu) or []
+                  assert matches, (cid,'ledger row has no current fact_source',row.get('source_url'))
+                  s=matches[0]
+                  row['source_role']=s.get('source_role') or s.get('evidence_role')
+                  row['source_origin_type']=s.get('source_origin_type') or s.get('source_type')
+                  row['checked_at']=s.get('fetched_at')
+                  assert row['source_role'] and row['source_origin_type'] and row['checked_at']
+
+          # P2-2: SOURCE_AUDIT_CONTRACT §8 — record durable URL propagation for repaired primary endpoints.
+          repaired_ids={
+              '2026-08-25_US_01', # PG&E
+              '2026-08-25_KR_01', # SK Innovation/SKIET
+              '2026-08-24_US_01', # Ivanhoe Santa Cruz
+              '2026-08-21_GL_02', # GE Vernova Supernode
+              '2026-08-21_EU_01', # Lyten/Morrow
+          }
+          for cid in repaired_ids:
+              c=by[cid]
+              resolution=c['source_url_resolution']
+              resolution['source_url_propagation_performed']=True
+              primary_urls={canonical_url(str(s.get('source_url',''))) for s in c.get('fact_sources',[]) if (s.get('source_role') or s.get('evidence_role'))=='primary_event_evidence'}
+              assert primary_urls
+              marked=0
+              for e in resolution.get('resolution_entries',[]):
+                  flag=canonical_url(str(e.get('source_url',''))) in primary_urls
+                  e['source_url_propagation_performed']=flag
+                  marked += int(flag)
+              assert marked>=1,(cid,'no primary propagated resolution entry')
+
+          # P2-3: synchronize SK diversity role summary with the independent Seoul confirmation.
+          sk=by['2026-08-25_KR_01']
+          assert any(s.get('source_role')=='independent_event_confirmation' for s in sk['fact_sources'])
+          sk.setdefault('source_diversity_roles',{})['independent_event_confirmation']=True
+
+          # P2-4: synchronize Lyten legacy card-level publication fields with corrected date_role/fact_sources.
+          ly=by['2026-08-21_EU_01']
+          ly['source_published_date']='2026-08-22'
+          ly['visible_quote_date']='2026-08-22'
+          assert ly['date_role']['publication_date']=='2026-08-22'
+
+          # P2-5: regenerate synthesis provenance for all repaired-source cards from current fact_sources.
+          visible_order=['title','sub','gate','fact','implication']
+          for cid in repaired_ids:
+              c=by[cid]
+              audit=[]
+              for s in c.get('fact_sources') or []:
+                  url=str(s.get('source_url',''))
+                  host=(urlparse(url).hostname or '').lower()
+                  role=s.get('source_role') or s.get('evidence_role') or ''
+                  contribution=s.get('source_contribution') or s.get('claim') or ''
+                  supports=set(s.get('supports') or [])
+                  affected=[f for f in visible_order if f in supports]
+                  audit.append({
+                      'source_domain':host,
+                      'source_role':role,
+                      'unique_contribution':contribution,
+                      'affected_visible_fields':affected,
+                  })
+              assert audit
+              c['source_synthesis_audit']=audit
+
+          # P2-6: the Aug-24 Qingyuan groundbreaking must use the report that explicitly states Aug 24 construction start.
+          q=by['2026-08-24_CN_01']
+          nf=[s for s in q['fact_sources'] if 'nfnews.com' in str(s.get('source_url',''))]
+          assert len(nf)==1
+          n=nf[0]
+          assert '8月24日' in n.get('source_quote','') and ('开工' in n.get('source_quote','') or '建设' in n.get('source_quote',''))
+          q['date_role']['event_date_source_url']=n['source_url']
+          q['date_role']['event_date_source_quote']=n['source_quote']
+          q['date_role']['event_date_source_name']=n.get('source_name')
+          assert q['date_role']['event_date']=='2026-08-24'
+
+          # Reviewer-specific closure assertions.
+          for cid in target_ids:
+              for row in by[cid].get('source_discovery_ledger') or []:
+                  if row.get('outcome')=='used_in_fact_sources':
+                      for k in ('source_role','source_origin_type','checked_at'):
+                          assert row.get(k),(cid,k,row)
+          for cid in repaired_ids:
+              c=by[cid]
+              assert c['source_url_resolution']['source_url_propagation_performed'] is True
+              current={(urlparse(str(s.get('source_url',''))).hostname or '').lower(): (s.get('source_role') or s.get('evidence_role'), s.get('source_contribution') or s.get('claim') or '') for s in c['fact_sources']}
+              for a in c['source_synthesis_audit']:
+                  assert a['source_domain'] in current,(cid,a)
+                  assert (a['source_role'],a['unique_contribution'])==current[a['source_domain']],(cid,a,current[a['source_domain']])
+          assert sk['source_diversity_roles']['independent_event_confirmation'] is True
+          assert ly['source_published_date']==ly['visible_quote_date']=='2026-08-22'
+          assert 'nfnews.com' in q['date_role']['event_date_source_url']
+
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          Path('/tmp/ids.json').write_text(json.dumps({'ids':target_ids}),encoding='utf-8')
           PY
+          node scripts/lean_cards.mjs
+
+      - name: Re-run governed hard gates and review-specific assertions
+        shell: bash
+        run: |
+          set -euo pipefail
+          M=direct-adds/pr289-review-remediation-1496/direct-add.json
+          node scripts/validate_manual_direct_add.mjs --manifest "$M" --base /tmp/base.cards.full.json --full data/cards.full.json
+          python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file /tmp/ids.json
+          python validation_scripts/date_role_alignment_check.py data/cards.full.json --new-id-file /tmp/ids.json
+          python validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file /tmp/ids.json
+          python validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file /tmp/ids.json
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate.mjs
+          node scripts/lean_cards.mjs --check
+          git diff --check
+
+      - name: Remove temporary workflow and commit exact three-file PR shape
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/inspect-pr293-review-fields.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "Address PR293 Codex audit review findings"
+          python - <<'PY'
+          import subprocess
+          expected={'data/cards.full.json','public/data/cards.json','direct-adds/pr289-review-remediation-1496/direct-add.json'}
+          actual=set(subprocess.check_output(['git','diff','--name-only','origin/main...HEAD'],text=True).splitlines())
+          assert actual==expected,(actual,expected)
+          PY
+          git push origin HEAD:chatgpt/pr289-review-remediation-1496

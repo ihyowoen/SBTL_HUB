@@ -1,326 +1,194 @@
-# Editorial Value and Completeness Standard
+# Editorial Value and Completeness Standard V2
 
 **Status:** `ACTIVE_CANONICAL`  
-**Stages:** `0.0C`, `0.6`, `0.7C`  
-**Version:** `EDITORIAL_VALUE_COMPLETENESS_V1`
+**Version:** `EDITORIAL_VALUE_COMPLETENESS_V2_20260829`  
+**Stages:** `0.0C`, `0.1`, `0.6`, `0.7`, `0.7C`, direct-add attestation
 
 ## 0. Purpose
 
-This contract prevents SBTL_HUB from becoming a pipeline that merely verifies facts already present in an input file.
+Accuracy, cardability, news value, and portfolio completeness are separate obligations. A factually correct subset can still be editorially weak or incomplete.
 
-Every run must independently challenge:
+This document is the canonical portfolio-level standard. Stage A contains the complete item-level operating implementation; there is no separate active Structural News Value or Structural Value Override document.
 
-- whether important news is missing from the input;
-- whether an existing card has a material follow-up;
-- whether an existing card should be reinforced or corrected;
-- whether a candidate represents a new execution stage;
-- whether the card contains the facts needed for a decision-useful understanding;
-- whether excluded or held candidates contain must-report events that can be rescued through further research.
+## 1. Four independent item judgments
 
-Accuracy and completeness are separate obligations. A factually correct subset can still be editorially incomplete.
+Never collapse:
 
-## 1. Stage separation
+1. `execution_credibility_gate` — is the claimed event/stage plausible and sufficiently current for further work?
+2. `independent_cardability_gate` — can this become a distinct full-schema event rather than duplicate/reinforcement/context?
+3. `decision_news_value_score` — how much can the verified change alter a professional judgment?
+4. `publication_urgency` — how quickly does a decision-maker need the signal?
 
-### Stage 0.0C — discovery and completeness
+A high score cannot cure weak evidence or same-event duplication.
 
-External search and source-universe expansion are allowed.
+## 2. Anchor classes
 
-Stage 0.0C does not draft cards or decide fact safety. It identifies and structures the authoritative expanded source universe for Stage A.
+Use one or more:
 
-### Stage A — selector-only
+- `execution_event_anchor`;
+- `policy_regulatory_anchor`;
+- `data_financial_anchor`;
+- `strategic_behavior_anchor`;
+- `technology_commercialization_anchor`;
+- `follow_up_probability_anchor`.
 
-Stage A evaluates the expanded universe. It does not perform external search or fetch article bodies.
+A conventional execution event is not required when another anchor independently changes a material decision-relevant judgment. This route must still prove incremental information, cardability, source path, and a before/after judgment chain.
 
-### Stage 0.7C — independent final challenge
+For active V4 outputs, the authoritative route field is:
 
-A separate prompt and artifact challenge the final publish-ready set, exclusions, baseline updates, and coverage completeness.
+- `selection_route = execution_anchor_route`; or
+- `selection_route = structural_non_execution_route`.
 
-The authoring pass must not mark its own output complete without this independent review.
+Legacy V3 validator aliases may be materialized for machine compatibility, but they do not create a separate governance layer.
 
-## 2. Required coverage universe
+## 3. Mandatory before/after chain
 
-Every run must review:
+Strict and high-potential review items state:
 
-- the current canonical full;
-- the new input stories;
-- trackers, watchlists, review pools, holds, and unresolved rescue candidates;
+- `prior_state`;
+- `new_verified_fact` (Stage A: fact to verify, not a body-level proof claim);
+- `changed_judgment`;
+- `uncertainty_resolved`;
+- `remaining_uncertainty`;
+- `incremental_information`;
+- `baseline_expectation_changed`;
+- `next_confirmation_points[]`.
+
+The controlling question is: **What previously reasonable judgment changes because this new fact is now known or is sufficiently plausible to justify verification?**
+
+## 4. Decision news-value score — 100 points
+
+Do not double-count the same transmission effect.
+
+### A. Market structure and competitive position — 0–25
+Concentration, bargaining power, entry barriers, switching cost, vertical integration, standards/data/channels/infrastructure/permits/input control, grid/site/customer/capital/procurement/subsidy access, recurring service models, dependence, market design, dispatch/revenue-stack access.
+
+### B. Supply, demand, price, and utilisation — 0–25
+Actual/expected supply and demand, inventory, trade flows, utilisation, shortage/surplus, price formation, cost curve, application/region/customer/chemistry mix. Planned/permitted/nameplate capacity is not production or utilisation.
+
+### C. Technology, performance, safety, operational validity — 0–20
+Cost, energy/power density, life, charging, temperature, degradation, yield, manufacturability, material intensity, field operation, safety/fire/defect/recall, maintenance/warranty/insurance/replacement, certification/qualification.
+
+Technology evidence caps:
+- company target/unsupported claim: max 4/20;
+- laboratory result without independent validation: max 7/20;
+- pilot without commercial-scale evidence: max 11/20;
+- independent test/customer qualification: max 15/20;
+- commercial-scale or long-duration field evidence: up to 20/20;
+- material recall/defect/fire/warranty/operating-failure evidence: up to 20/20.
+
+### D. Future cash flow and asset value — 0–10
+Revenue, volume, realised price, operating cost/margin, utilisation, warranty/remediation/recall, capex, tax/subsidy/grant/guarantee, financing cost, project economics, impairment/stranding/replacement risk.
+
+### E. Law, policy, rights, obligations, market access — 0–10
+Operative rights/duties, eligibility, tariff/quota/export control/import ban/FEOC/local content/customs, licensing/certification/registration/permitting, passport/traceability/recycling/due diligence, enforcement/liability, court interpretation, market-entry/continuation rights.
+
+### F. Systemic scale and coverage — 0–5
+Use a defensible denominator: share of supply/demand/storage, affected customers/products/assets, geography, pipeline, operators, revenue/capacity/capital exposure. No defensible denominator: max 2/5 and record `denominator_gap`.
+
+### G. Persistence and irreversibility — 0–3
+Multi-quarter/multi-year persistence, switching/compliance cost, geographic relocation, hard-to-reverse capex, standard/contract/network lock-in, stranded investment, durable assumption change.
+
+### H. Decision urgency and actionability — 0–2
+Immediate implication for valuation/forecast, contracts/covenants, sourcing/customer strategy, compliance, schedule, alternate supply, hedging/inventory, permit/warranty/litigation/enforcement risk.
+
+### Score bands
+
+| Score | Classification |
+|---:|---|
+| 85–100 | `critical_structural` |
+| 70–84 | `high_decision_value` |
+| 55–69 | `material_industry_signal` |
+| 40–54 | `standard_monitoring` |
+| 25–39 | `context_or_reinforcement` |
+| 0–24 | `low_independent_value` |
+
+## 5. Novelty caps — hard rule
+
+- repeated announcement/republication with no new fact: max 39;
+- routine stage progression resolving no material uncertainty: max 54;
+- company target without independent execution/validation/current observable market effect: max 54;
+- unsupported political rhetoric without operative authority/current verified market effect: max 39.
+
+Corporate prominence, headline amount, or formal legal shape cannot bypass a cap.
+
+## 6. Required structural lenses
+
+Coverage and selection must inspect, where applicable:
+
+1. AI/data-centre power and ESS demand;
+2. U.S. policy/supply-chain rules;
+3. EU policy/supply-chain rules;
+4. China policy/supply-chain rules;
+5. critical materials/rare earths/graphite economic security;
+6. price/earnings/profitability;
+7. competitor strategy;
+8. customer strategy;
+9. technology transition/commercialisation;
+10. existing-card follow-up;
+11. safety/quality/operating risk;
+12. regional core signals.
+
+These are discovery obligations, not card quotas.
+
+## 7. Earnings hard rule
+
+For listed-company results, inspect where available: release, regulator/exchange filing, IR deck, detailed statements/segments, prepared remarks, full call/transcript, analyst Q&A, corrections/supplements, and prior-period official language.
+
+Extract price/volume/mix/cost, utilisation, raw material, inventory, one-offs, subsidy/tax-credit contribution, cash flow, capex, backlog, customer/application/region demand, guidance change, analyst themes, answer avoidance, and next-quarter confirmation points.
+
+Without Q&A, do not make definitive claims about customer demand, inventory normalisation, utilisation recovery, profitability durability, capex strategy, or new-application revenue contribution. Record actual Q&A availability.
+
+## 8. Law/policy hard rule
+
+Classify legal-policy stage precisely:
+
+0 rhetoric/advocacy; 1 roadmap/consultation/draft standard; 2 bill/proposed rule/draft act; 3 enacted law/final rule/adopted standard/signed instrument; 4 implementation rule/budget/guidance/registry; 5 enforcement/payment/award/denial/penalty/recall/licence action; 6 judicial/tribunal interpretation.
+
+Default value caps: Stage 0 max 39, Stage 1 max 54, Stage 2 max 69; Stages 3–6 have no automatic floor/ceiling.
+
+Separate adoption, publication, effective date, mandatory application, transition/grandfathering, implementation, enforcement, appeal/reversal risk, covered entities/products/geographies, and economic transmission.
+
+## 9. Technology commercialisation ladder
+
+Classify concept/target → research → prototype → pilot → field demonstration → customer evaluation → qualification → certification → order/offtake → mass-production equipment → production start → commercial shipment → repeat order → profitability/field validation.
+
+Never upgrade pilot to commercialisation, MOU to supply contract, target yield to achieved yield, planned capacity to output, or customer evaluation to adoption.
+
+## 10. Existing-event and follow-up value
+
+A later article is not a follow-up by itself. A standalone follow-up may exist when a direct predecessor relationship is proven and stage, legal effect, financing, scale, timing, customer/supplier, price/economics, technical maturity, risk probability, earnings contribution, delay/suspension/reduction/cancellation, or other material judgment changes.
+
+Related lineage is governed separately by `RELATED_LIFECYCLE_CONTRACT.md`.
+
+## 11. Portfolio completeness
+
+Every ordinary full run challenges:
+
+- current canonical full;
+- supplied raw;
+- trackers/watchlists/review pools/holds;
 - related lineages;
-- official sources, company releases, regulators, exchanges, courts, project owners, and reputable independent reporting;
-- material corrections, reversals, delays, suspensions, cancellations, and operating results.
+- official and high-quality independent sources;
+- material corrections/reversals/delays/cancellations/operating results.
 
-The input file is a source candidate universe, not proof of editorial completeness.
+Required regions: Korea, North America, China, Japan, Europe, material global markets.
 
-## 3. Mandatory regional axes
+Required topics include cells/chemistries, materials/components, pouch/pouch-film demand, ESS/BESS, EV/charging, manufacturing/capacity/utilisation, grids/AI load, critical minerals, recycling, policy/trade/localisation, competitors/customers, substitute technology, price/cost/margin, financing, safety and operating validation.
 
-At minimum:
+## 12. IB-grade dimensions
 
-- Korea;
-- United States and North America;
-- China;
-- Japan;
-- Europe;
-- material global markets outside those regions.
+A publishable item must survive materiality, execution/stage precision, incremental information, decision usefulness, evidence quality, claim completeness, and strategic read-through. Evidence quality, stage precision, and claim completeness are hard gates.
 
-The global axis must explicitly examine material markets rather than treating them as an undifferentiated remainder.
+SBTL relevance is classified `direct`, `indirect`, `conditional`, `background_signal`, or `no_direct_link`. Never manufacture a direct pouch-film link.
 
-## 4. Mandatory topic axes
+## 13. Independent 0.7C completeness rounds
 
-At minimum:
+1. source-universe accounting;
+2. existing-full duplicate/update/follow-up/reinforcement challenge;
+3. event-stage and lineage challenge;
+4. fact/claim completeness challenge;
+5. news-value challenge;
+6. exclusion/rescue red-team.
 
-- battery cells and chemistries;
-- materials and components;
-- pouch-cell and pouch-film demand signals;
-- ESS and BESS;
-- EVs and charging;
-- manufacturing, investment, capacity, and utilization;
-- grids, data centers, and AI-related electricity demand;
-- critical minerals and refining;
-- recycling and circularity;
-- policy, regulation, subsidies, trade, sanctions, and enforcement;
-- supply-chain localization and diversification;
-- competitors, customers, and channel partners;
-- substitute technologies;
-- prices, costs, margins, and profitability;
-- financing and project finance;
-- safety, recalls, commissioning, and operating validation.
-
-A run may add more axes but must not silently omit a mandatory axis.
-
-## 5. Event-stage progression
-
-Every material event must be classified by its current execution stage.
-
-```text
-statement or plan
-→ preliminary discussion or MOU
-→ binding contract, order, or offtake
-→ financing or public-funding approval
-→ FID or final authorization
-→ construction start
-→ equipment installation
-→ commissioning
-→ commercial operation
-→ expansion or scaled production
-→ delay, reduction, suspension, or cancellation
-→ operating result or measured outcome
-```
-
-A later publication date does not create a follow-up.
-
-A follow-up requires a new material execution anchor, changed obligation, changed economics, changed schedule, changed scale, changed operating result, or material reversal.
-
-## 6. Existing-full challenge
-
-For every candidate that resembles an existing card, classify the relationship as one of:
-
-- `exact_duplicate`;
-- `non_material_repetition`;
-- `existing_card_reinforcement`;
-- `material_follow_up`;
-- `stage_transition`;
-- `correction_or_reversal`;
-- `distinct_new_event`.
-
-The review must ask whether the existing card lacks:
-
-- a new official source;
-- a confirmed amount or capacity;
-- a changed schedule;
-- a counterparty;
-- a binding status;
-- a funding or regulatory condition;
-- an implementation date;
-- an operating result;
-- a delay, cancellation, or reduction;
-- a source needed to support a visible claim.
-
-“Already in the full” is never a terminal reason without this comparison.
-
-## 7. IB-grade standard
-
-`IB-grade` means the item passes all seven dimensions below. It is not a stylistic label.
-
-### 7.1 Materiality
-
-The event changes or materially informs one or more of:
-
-- market size;
-- demand;
-- supply or capacity;
-- price, cost, margin, or profitability;
-- competitive position;
-- financing or bankability;
-- policy obligation or enforcement;
-- supply-chain risk;
-- technology adoption;
-- customer behavior;
-- execution probability.
-
-### 7.2 Execution maturity
-
-The card accurately distinguishes statement, MOU, contract, funding, FID, construction, commissioning, operation, and measured outcome.
-
-### 7.3 Incremental information
-
-The card identifies what is new relative to the canonical full and prior reporting.
-
-### 7.4 Decision usefulness
-
-The information could change or sharpen a professional reader’s view of market direction, execution risk, competitive dynamics, policy exposure, or commercial opportunity.
-
-### 7.5 Evidence quality
-
-Visible claims are supported by body-level or official-material evidence under `FACT_DISCIPLINE.md` and `SOURCE_AUDIT_CONTRACT.md`.
-
-### 7.6 Claim completeness
-
-The review checks for omitted facts that materially change interpretation, including:
-
-- amount;
-- capacity;
-- timing;
-- location;
-- counterparty;
-- ownership or share;
-- binding status;
-- policy condition;
-- effective date;
-- project stage;
-- source attribution;
-- distinction between a total project and one participant’s exposure.
-
-### 7.7 Strategic read-through
-
-The implication explains the decision-relevant meaning within the verified evidence boundary.
-
-SBTL relevance must be classified as:
-
-- `direct`;
-- `indirect`;
-- `conditional`;
-- `background_signal`;
-- `no_direct_link`.
-
-A weak direct link must not be manufactured to justify inclusion.
-
-### Hard gates
-
-Evidence quality, execution maturity, and claim completeness are hard gates. A candidate cannot compensate for a hard failure with a high score elsewhere.
-
-## 8. Stage 0.0C outputs
-
-Stage 0.0C must produce:
-
-- `discovered_missing_candidates[]`;
-- `baseline_follow_up_candidates[]`;
-- `existing_card_reinforcements[]`;
-- `correction_or_reversal_candidates[]`;
-- `regional_coverage_matrix`;
-- `topic_coverage_matrix`;
-- `must_report_candidate_ledger[]`;
-- `searched_but_no_material_event[]`;
-- `source_universe_expansion_ledger[]`.
-
-Every discovered candidate receives a terminal discovery disposition, such as:
-
-- `send_to_stage_a`;
-- `existing_update_candidate`;
-- `material_follow_up_candidate`;
-- `related_add_candidate`;
-- `support_source_only`;
-- `hold_for_evidence`;
-- `excluded_non_material`;
-- `exact_duplicate`.
-
-No discovered candidate may disappear between discovery and Stage A.
-
-## 9. Independent Stage 0.7C review
-
-The independent review must run six rounds.
-
-### Round 1 — source-universe completeness
-
-Confirm every input, discovered candidate, and terminal pool is accounted for.
-
-### Round 2 — existing-full challenge
-
-Reassess duplicates, reinforcement, updates, follow-ups, related links, and accidental loss of existing relations.
-
-### Round 3 — event-stage challenge
-
-Confirm the exact stage, new execution anchor, next milestone, and any contrary signal.
-
-### Round 4 — fact completeness
-
-Challenge missing amounts, capacities, timing, counterparties, effective dates, conditions, project stages, and original sources.
-
-### Round 5 — news-value challenge
-
-Ask:
-
-> Would excluding this item cause the reader to miss a material industry development?
-
-> Does including it add decision-useful information rather than promotional repetition?
-
-### Round 6 — exclusion red team
-
-Reopen material held or excluded candidates where:
-
-- source weakness may be curable;
-- a follow-up may have been misclassified as duplicate;
-- regional or specialist importance may have been underestimated;
-- an official implementation source may exist;
-- a correction, reversal, delay, or cancellation may have been overlooked.
-
-The default order is:
-
-```text
-search first
-verify second
-expand supported facts third
-narrow only when necessary
-delete or abandon last
-```
-
-## 10. Completeness status
-
-Absolute global completeness cannot be proved from public information.
-
-The valid final status is evidence-based and bounded:
-
-```json
-{
-  "completeness_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
-  "source_universe_accounted": true,
-  "regional_search_complete": true,
-  "topic_search_complete": true,
-  "baseline_follow_up_review_complete": true,
-  "review_pool_rescue_complete": true,
-  "must_report_candidates_accounted": true,
-  "material_exclusions": [],
-  "known_unknowns": [],
-  "residual_risks": [],
-  "reviewer_independence": "SEPARATE_PASS"
-}
-```
-
-A simple statement such as “no important news omitted,” “IB-grade,” or “complete” is invalid without the underlying ledgers and matrices.
-
-## 11. Hard blockers
-
-A run cannot enter Prompt 0.8 when:
-
-- a mandatory regional or topic axis was not searched;
-- a discovered candidate lacks a terminal disposition;
-- a must-report candidate is unaccounted for;
-- a likely follow-up lacks an event-stage comparison;
-- a material exclusion was not red-teamed;
-- a baseline reinforcement or correction was identified but not dispositioned;
-- known unknowns or residual risks were suppressed;
-- Stage 0.7C was not performed as a separate pass.
-
-Blocked status:
-
-```text
-BLOCKED_EDITORIAL_COMPLETENESS_UNPROVEN
-```
+Valid formal completion is bounded, e.g. `PASS_WITH_DECLARED_RESIDUAL_RISK`, with known unknowns and residual risks recorded. Absolute global completeness is not claimed.

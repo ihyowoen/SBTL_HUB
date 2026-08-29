@@ -16,23 +16,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: chatgpt/pr289-review-remediation-1496
-      - name: Print targeted synthesis metadata
+      - name: Compare SK source-audit metadata to exact main baseline
         shell: bash
         run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "3732ad9460b44329f0856591c29f166a39ebf5f8"
+          git show origin/main:data/cards.full.json > /tmp/base.json
           python - <<'PY'
           import json
-          d=json.load(open('data/cards.full.json',encoding='utf-8'))
-          by={c['id']:c for c in d['cards']}
-          ids=['2026-08-25_KR_01','2026-08-25_US_01','2026-08-24_US_01','2026-08-21_GL_02','2026-08-21_EU_01']
-          for cid in ids:
-              c=by[cid]
-              print('===',cid,'===')
-              print('diversity_status=',c.get('source_diversity_status'))
-              print('source_synthesis_applied=',c.get('source_synthesis_applied'))
-              print('source_synthesis_fields=',c.get('source_synthesis_fields'))
-              print('source_diversity_roles=',c.get('source_diversity_roles'))
-              print('visible=',json.dumps({k:c.get(k) for k in ['title','sub','gate','fact','implication']},ensure_ascii=False))
-              print('fact_sources=',json.dumps([{k:s.get(k) for k in ['source_name','source_url','source_role','source_origin_type','source_contribution','claim','supports','source_quote']} for s in c.get('fact_sources',[])],ensure_ascii=False))
-              print('synthesis_audit=',json.dumps(c.get('source_synthesis_audit'),ensure_ascii=False))
+          cur=json.load(open('data/cards.full.json',encoding='utf-8'))
+          base=json.load(open('/tmp/base.json',encoding='utf-8'))
+          C={c['id']:c for c in cur['cards']}['2026-08-25_KR_01']
+          B={c['id']:c for c in base['cards']}['2026-08-25_KR_01']
+          keys=['urls','fact_sources','source_diversity_status','single_source_exception','source_evidence_entry_count','source_unique_url_count','source_unique_domain_count','source_independent_owner_count','independent_owner_count','distinct_source_urls','source_diversity_roles','source_synthesis_applied','source_synthesis_fields','source_synthesis_audit','source_discovery_ledger','source_url_resolution']
+          for k in keys:
+              print('\n===',k,'BASE===')
+              print(json.dumps(B.get(k),ensure_ascii=False,indent=2))
+              print('===',k,'CURRENT===')
+              print(json.dumps(C.get(k),ensure_ascii=False,indent=2))
           PY

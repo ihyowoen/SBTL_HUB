@@ -1,0 +1,107 @@
+name: fix-pr297-codex-review-v2
+
+on:
+  push:
+    branches:
+      - chatgpt/20260829-combined18-governed-run
+
+permissions:
+  contents: write
+
+env:
+  RUN_PATH: runs/2026-08-29/card-run.json
+  BASE_SHA: 937dce6429c8bf63535d8043c7f559c9f2001f5d
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/20260829-combined18-governed-run
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Execute reviewed patch logic
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import textwrap
+          p=Path('.github/workflows/fix-pr297-codex-review-once.yml')
+          lines=p.read_text(encoding='utf-8').splitlines()
+          start=None
+          for i,line in enumerate(lines):
+            if "python - <<'PY'" in line:
+              start=i+1
+              break
+          if start is None:
+            raise SystemExit('patch block start not found')
+          body=[]
+          for line in lines[start:]:
+            if line.strip()=='PY':
+              break
+            body.append(line)
+          else:
+            raise SystemExit('patch block end not found')
+          code=textwrap.dedent('\n'.join(body))
+          exec(compile(code,'pr297_review_patch.py','exec'),{})
+          PY
+
+      - name: Re-materialize exact canonical
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main:refs/remotes/origin/main --force
+          [[ "$(git rev-parse origin/main)" == "$BASE_SHA" ]] || { echo "main moved; rebase required" >&2; exit 1; }
+          git show "$BASE_SHA:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
+          [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "9278233be67240aac1cdf7963e12d8e2878319f0" ]] || { echo "baseline blob mismatch" >&2; exit 1; }
+          node scripts/apply_card_run.mjs --apply --run "$RUN_PATH" --baseline "$RUNNER_TEMP/cards.full.base.json" --output data/cards.full.json --report "$RUNNER_TEMP/apply-pre.json" --base-main-sha "$BASE_SHA" --skip-lean
+          node scripts/lean_cards.mjs
+          node scripts/apply_card_run.mjs --verify --run "$RUN_PATH" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-08-29/apply-report.json --base-main-sha "$BASE_SHA" --lean-path public/data/cards.json
+
+      - name: Refresh hashes and validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, hashlib
+          from pathlib import Path
+          full=Path('data/cards.full.json').read_bytes(); lean=Path('public/data/cards.json').read_bytes()
+          fh=hashlib.sha256(full).hexdigest(); lh=hashlib.sha256(lean).hexdigest()
+          p=Path('runs/2026-08-29/card_run_audit_20260829_CURRENT_MAIN_1496_COMBINED18.json')
+          d=json.loads(p.read_text(encoding='utf-8')); d['full_output_sha256']=fh; d['lean_output_sha256']=lh
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          r=json.loads(Path('runs/2026-08-29/card-run.json').read_text(encoding='utf-8'))
+          cards=[x['card'] for x in r['operations']['insert']]
+          Path('.tmp-current-run-scope.json').write_text(json.dumps({'cards':cards},ensure_ascii=False,indent=2),encoding='utf-8')
+          Path('.tmp-current-run-ids.json').write_text(json.dumps({'ids':[c['id'] for c in cards]},ensure_ascii=False,indent=2),encoding='utf-8')
+          print('full',fh); print('lean',lh)
+          PY
+          python validation_scripts/evidence_qc_v8_check.py .tmp-current-run-scope.json --new-id-file .tmp-current-run-ids.json --json-report "$RUNNER_TEMP/evidence-qc-v8-review-fix.json"
+          rm -f .tmp-current-run-scope.json .tmp-current-run-ids.json
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN_PATH" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits.mjs --run "$RUN_PATH" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          git diff --check
+
+      - name: Commit repaired governed run
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/fix-pr297-codex-review-once.yml .github/workflows/fix-pr297-codex-review-v2.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cards.full.json public/data/cards.json runs/2026-08-29 .github/workflows/fix-pr297-codex-review-once.yml .github/workflows/fix-pr297-codex-review-v2.yml
+          git commit -m "Resolve Codex P2 findings on PR #297"
+          git push origin HEAD:chatgpt/20260829-combined18-governed-run

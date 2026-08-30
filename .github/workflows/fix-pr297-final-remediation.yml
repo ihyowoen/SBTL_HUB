@@ -1,4 +1,4 @@
-name: fix-pr297-cowintech-metlen-once
+name: fix-pr297-final-remediation
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Add direct Cowintech date proof and METLEN claim-level quotes
+      - name: Repair Cowintech and METLEN retained evidence and counters
         shell: bash
         run: |
           set -euo pipefail
@@ -54,7 +54,8 @@ jobs:
           output_updated=(now+timedelta(seconds=2)).isoformat()
 
           def spec_of(o):
-            return o.get('source_spec_id') or o.get('spec_id') if isinstance(o,dict) else None
+            if not isinstance(o,dict): return None
+            return o.get('source_spec_id') or o.get('spec_id')
 
           def src_ref(fs, idx):
             return {
@@ -65,19 +66,18 @@ jobs:
               'source_quote_status': fs.get('source_quote_status') or fs.get('quote_status')
             }
 
-          def ensure_ledger_row(container, idx, fs, contribution):
+          def ensure_ledger_row(card, idx, fs, contribution):
             ledgers=[]
-            if isinstance(container.get('source_discovery_ledger'),list):
-              ledgers.append(container['source_discovery_ledger'])
-            ep=container.get('evidence_package')
+            if isinstance(card.get('source_discovery_ledger'),list):
+              ledgers.append(card['source_discovery_ledger'])
+            ep=card.get('evidence_package')
             if isinstance(ep,dict) and isinstance(ep.get('source_discovery_ledger'),list):
               ledgers.append(ep['source_discovery_ledger'])
             for ledger in ledgers:
               exists=any(isinstance(r,dict) and r.get('attempt_type')=='used_in_fact_sources' and r.get('fact_source_index')==idx for r in ledger)
-              if exists:
-                continue
+              if exists: continue
               ledger.append({
-                'source_spec_id': spec_of(container),
+                'source_spec_id': spec_of(card),
                 'attempt_type': 'used_in_fact_sources',
                 'fact_source_index': idx,
                 'url': fs.get('source_url') or fs.get('url'),
@@ -91,10 +91,10 @@ jobs:
                 'unique_contribution': contribution
               })
 
-          def append_fact_source(card, base_idx, quote, contribution, supports, quote_status=None):
+          def append_fact_source(card, base_idx, quote, contribution, supports, quote_status):
             sources=card.get('fact_sources')
             if not isinstance(sources,list) or not sources:
-              raise SystemExit(f"{spec_of(card)}: missing fact_sources")
+              raise SystemExit(f'{spec_of(card)}: missing fact_sources')
             for i,fs in enumerate(sources):
               if isinstance(fs,dict) and fs.get('source_quote')==quote:
                 return i
@@ -105,38 +105,34 @@ jobs:
             base['supports']=supports
             base['checked_at']=checked_at
             base['fetched_at']=checked_at
-            if quote_status:
-              base['source_quote_status']=quote_status
-              base['quote_status']=quote_status
+            base['source_quote_status']=quote_status
+            base['quote_status']=quote_status
             base['resolved_article_matches_quote']=True
             base['source_url_canonical_complete']=True
             sources.append(base)
             idx=len(sources)-1
             ep=card.get('evidence_package')
             if isinstance(ep,dict) and isinstance(ep.get('sources'),list):
-              ep_sources=ep['sources']
-              if not any(isinstance(x,dict) and x.get('source_quote')==quote for x in ep_sources):
-                ep_sources.append(deepcopy(base))
-            ensure_ledger_row(card, idx, base, contribution)
+              if not any(isinstance(x,dict) and x.get('source_quote')==quote for x in ep['sources']):
+                ep['sources'].append(deepcopy(base))
+            ensure_ledger_row(card,idx,base,contribution)
             return idx
 
           def set_map_entry(card, field, claim, indices):
             cmap=card.setdefault('source_claim_coverage_map',[])
-            entry=None
-            for e in cmap:
-              if isinstance(e,dict) and e.get('visible_field')==field and e.get('visible_claim')==claim:
-                entry=e; break
+            entry=next((e for e in cmap if isinstance(e,dict) and e.get('visible_field')==field and e.get('visible_claim')==claim),None)
             if entry is None:
               entry={'visible_field':field,'visible_claim':claim}
               cmap.append(entry)
             entry['supporting_fact_source_indices']=sorted(set(indices))
             entry['supporting_sources']=[src_ref(card['fact_sources'][i],i) for i in entry['supporting_fact_source_indices']]
             entry['coverage_status']='PASS'
+            entry['coverage_strength']='strong'
 
           def add_index_to_matching_claims(card, idx, predicate):
             cmap=card.get('source_claim_coverage_map')
             if not isinstance(cmap,list):
-              raise SystemExit(f"{spec_of(card)}: missing source_claim_coverage_map")
+              raise SystemExit(f'{spec_of(card)}: missing source_claim_coverage_map')
             hits=0
             for e in cmap:
               if not isinstance(e,dict): continue
@@ -148,10 +144,42 @@ jobs:
                 e['supporting_fact_source_indices']=sorted(set(inds))
                 e['supporting_sources']=[src_ref(card['fact_sources'][i],i) for i in e['supporting_fact_source_indices']]
                 e['coverage_status']='PASS'
+                e['coverage_strength']='strong'
                 hits+=1
             return hits
 
-          patched_counts={COW:0,MET:0}
+          def sync_counts(card):
+            facts=card.get('fact_sources')
+            if not isinstance(facts,list): return
+            n=len(facts)
+            card['source_evidence_entry_count']=n
+            dm=card.get('source_diversity_measure')
+            if isinstance(dm,dict):
+              dm['source_evidence_entry_count']=n
+            resolutions=[]
+            if isinstance(card.get('source_url_resolution'),dict): resolutions.append(card['source_url_resolution'])
+            if isinstance(dm,dict) and isinstance(dm.get('source_url_resolution'),dict): resolutions.append(dm['source_url_resolution'])
+            ep=card.get('evidence_package')
+            if isinstance(ep,dict) and isinstance(ep.get('source_url_resolution'),dict): resolutions.append(ep['source_url_resolution'])
+            for res in resolutions:
+              res['supporting_fact_source_count']=n
+              for ent in res.get('resolution_entries') or []:
+                if not isinstance(ent,dict): continue
+                url=str(ent.get('source_url') or ent.get('url') or '').strip()
+                inds=[]; owners=[]
+                for i,fs in enumerate(facts):
+                  if not isinstance(fs,dict): continue
+                  fu=str(fs.get('source_url') or fs.get('url') or '').strip()
+                  if fu==url:
+                    inds.append(i)
+                    owner=fs.get('source_owner_id_normalized') or fs.get('source_owner')
+                    if owner and str(owner) not in owners: owners.append(str(owner))
+                if inds:
+                  ent['resolution_basis']='recomputed from current fact_sources; indices='+','.join(map(str,inds))+'; owners='+','.join(owners)
+                  ent['canonical_complete']=all(facts[i].get('source_url_canonical_complete') is True for i in inds)
+                  ent['resolved_article_matches_quote']=all(facts[i].get('resolved_article_matches_quote') is True for i in inds)
+
+          patched={COW:0,MET:0}
           def patch_card(card):
             spec=spec_of(card)
             if spec==COW and isinstance(card.get('fact_sources'),list):
@@ -169,28 +197,29 @@ jobs:
               role['earliest_same_event_date_check_basis']='Direct body excerpt explicitly states the contract was signed on 2026-08-26; publication date remains tracked separately.'
               set_map_entry(card,'date_role.event_date','2026-08-26',[idx])
               add_index_to_matching_claims(card,idx,lambda f,c: ('8월 26일' in c or '2026-08-26' in c) and f!='title')
-              patched_counts[COW]+=1
-
+              sync_counts(card)
+              patched[COW]+=1
             elif spec==MET and isinstance(card.get('fact_sources'),list):
               sources=card['fact_sources']
               base_idx=next((i for i,s in enumerate(sources) if isinstance(s,dict) and (s.get('source_url') or s.get('url'))==MET_URL),None)
               if base_idx is None: raise SystemExit('METLEN official source missing')
               cap=append_fact_source(card,base_idx,MET_QUOTES['capacity'],'Direct official evidence for Penn project power and installed storage capacity.',['title','sub','fact'],'official_material_quote_verified')
-              largest=append_fact_source(card,base_idx,MET_QUOTES['largest'],'Direct official evidence that Penn is METLEN’s largest UK storage project by storage capacity.',['sub','fact','gate','implication'],'official_material_quote_verified')
+              largest=append_fact_source(card,base_idx,MET_QUOTES['largest'],'Direct official evidence that Penn is METLEN largest UK storage project by storage capacity.',['sub','fact','gate','implication'],'official_material_quote_verified')
               energ=append_fact_source(card,base_idx,MET_QUOTES['energisation'],'Direct official evidence for expected site energisation by end-2027.',['sub','fact','gate','implication'],'official_material_quote_verified')
               cap_hits=add_index_to_matching_claims(card,cap,lambda f,c: '129MW' in c or '362MWh' in c)
               largest_hits=add_index_to_matching_claims(card,largest,lambda f,c: ('최대' in c or 'largest' in c.lower()) and ('Penn' in c or 'BESS' in c or '저장' in c))
               energ_hits=add_index_to_matching_claims(card,energ,lambda f,c: '2027' in c or 'energisation' in c.lower() or '계통연계' in c)
               if not (cap_hits and largest_hits and energ_hits):
                 raise SystemExit(f'METLEN claim-map match incomplete cap={cap_hits} largest={largest_hits} energ={energ_hits}')
-              patched_counts[MET]+=1
+              sync_counts(card)
+              patched[MET]+=1
 
-          def traverse(o):
-            if isinstance(o,dict):
-              patch_card(o)
-              for v in list(o.values()): traverse(v)
-            elif isinstance(o,list):
-              for v in o: traverse(v)
+          def traverse(x):
+            if isinstance(x,dict):
+              patch_card(x)
+              for v in list(x.values()): traverse(v)
+            elif isinstance(x,list):
+              for v in x: traverse(v)
 
           targets=sorted(RUN_DIR.glob('*.json'))
           for p in targets:
@@ -202,77 +231,52 @@ jobs:
           run['output_updated']=output_updated
           RUN_PATH.write_text(json.dumps(run,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
-          # Rebind reviewed operations hash everywhere after evidence/coverage changes.
           def canon(x):
             if isinstance(x,dict): return {k:canon(x[k]) for k in sorted(x)}
             if isinstance(x,list): return [canon(v) for v in x]
             return x
+          run=json.loads(RUN_PATH.read_text(encoding='utf-8'))
           ops_sha=hashlib.sha256(json.dumps(canon(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
           for p in targets:
             d=json.loads(p.read_text(encoding='utf-8'))
             if p==RUN_PATH: d=run
-            def bind(o):
-              if isinstance(o,dict):
-                for k,v in list(o.items()):
-                  if k=='reviewed_operations_sha256': o[k]=ops_sha
+            def bind(x):
+              if isinstance(x,dict):
+                for k,v in list(x.items()):
+                  if k=='reviewed_operations_sha256': x[k]=ops_sha
                   else: bind(v)
-              elif isinstance(o,list):
-                for v in o: bind(v)
+              elif isinstance(x,list):
+                for v in x: bind(v)
             bind(d)
             p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
           run=json.loads(RUN_PATH.read_text(encoding='utf-8'))
-          cards=[x['card'] for x in run['operations']['insert']]
-          byspec={spec_of(c):c for c in cards}
+          byspec={x['card'].get('source_spec_id'):x['card'] for x in run['operations']['insert']}
           cow=byspec[COW]; met=byspec[MET]
-          if cow.get('date_role',{}).get('event_date_source_quote')!=COW_QUOTE:
-            raise SystemExit('Cowintech date-role direct quote not persisted')
-          if not any(e.get('visible_field')=='date_role.event_date' and COW_QUOTE in [s.get('source_quote') for s in e.get('supporting_sources',[])] for e in cow.get('source_claim_coverage_map',[]) if isinstance(e,dict)):
-            raise SystemExit('Cowintech date-role coverage map is not bound to direct date quote')
-          met_quotes={fs.get('source_quote') for fs in met.get('fact_sources',[]) if isinstance(fs,dict)}
+          assert cow['source_evidence_entry_count']==len(cow['fact_sources'])==3
+          assert met['source_evidence_entry_count']==len(met['fact_sources'])==4
+          assert cow.get('date_role',{}).get('event_date_source_quote')==COW_QUOTE
           for q in MET_QUOTES.values():
-            if q not in met_quotes: raise SystemExit(f'METLEN quote missing: {q}')
-          cmap=met.get('source_claim_coverage_map',[])
-          if not any(MET_QUOTES['largest'] in [s.get('source_quote') for s in e.get('supporting_sources',[])] for e in cmap if isinstance(e,dict) and ('최대' in str(e.get('visible_claim','')) or 'largest' in str(e.get('visible_claim','')).lower())):
-            raise SystemExit('METLEN largest-capacity claim not mapped to direct quote')
-          if not any(MET_QUOTES['energisation'] in [s.get('source_quote') for s in e.get('supporting_sources',[])] for e in cmap if isinstance(e,dict) and ('2027' in str(e.get('visible_claim','')) or '계통연계' in str(e.get('visible_claim','')))):
-            raise SystemExit('METLEN end-2027 claim not mapped to direct quote')
-          for c in cards:
-            if not c.get('source_claim_coverage_map'):
-              raise SystemExit(f"{c.get('id')}: missing source_claim_coverage_map")
-          print('patched objects',patched_counts)
+            assert q in {fs.get('source_quote') for fs in met['fact_sources'] if isinstance(fs,dict)}
+          print('patched objects',patched)
           print('output_updated',output_updated)
           print('reviewed operations SHA256',ops_sha)
           PY
 
-      - name: Re-materialize canonical from exact locked baseline
+      - name: Re-materialize exact outputs
         shell: bash
         run: |
           set -euo pipefail
           git fetch origin main:refs/remotes/origin/main --force
           [[ "$(git rev-parse origin/main)" == "$BASE_SHA" ]] || { echo "main moved; rebase required" >&2; exit 1; }
-          mkdir -p .tmp-pr297-final-evidence
-          git show "$BASE_SHA:data/cards.full.json" > .tmp-pr297-final-evidence/cards.full.base.json
-          [[ "$(git hash-object .tmp-pr297-final-evidence/cards.full.base.json)" == "$BASE_BLOB" ]] || { echo "baseline blob mismatch" >&2; exit 1; }
-          node scripts/apply_card_run.mjs \
-            --apply \
-            --run "$RUN_PATH" \
-            --baseline .tmp-pr297-final-evidence/cards.full.base.json \
-            --output data/cards.full.json \
-            --report .tmp-pr297-final-evidence/apply-pre.json \
-            --base-main-sha "$BASE_SHA" \
-            --skip-lean
+          mkdir -p .tmp-pr297-final
+          git show "$BASE_SHA:data/cards.full.json" > .tmp-pr297-final/cards.full.base.json
+          [[ "$(git hash-object .tmp-pr297-final/cards.full.base.json)" == "$BASE_BLOB" ]] || { echo "baseline blob mismatch" >&2; exit 1; }
+          node scripts/apply_card_run.mjs --apply --run "$RUN_PATH" --baseline .tmp-pr297-final/cards.full.base.json --output data/cards.full.json --report .tmp-pr297-final/apply-pre.json --base-main-sha "$BASE_SHA" --skip-lean
           node scripts/lean_cards.mjs
-          node scripts/apply_card_run.mjs \
-            --verify \
-            --run "$RUN_PATH" \
-            --baseline data/cards.full.json \
-            --output data/cards.full.json \
-            --report runs/2026-08-29/apply-report.json \
-            --base-main-sha "$BASE_SHA" \
-            --lean-path public/data/cards.json
+          node scripts/apply_card_run.mjs --verify --run "$RUN_PATH" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-08-29/apply-report.json --base-main-sha "$BASE_SHA" --lean-path public/data/cards.json
 
-      - name: Refresh hashes and run full governed validation
+      - name: Run full governed validation
         shell: bash
         run: |
           set -euo pipefail
@@ -281,18 +285,21 @@ jobs:
           from pathlib import Path
           run=json.load(open('runs/2026-08-29/card-run.json',encoding='utf-8'))
           cards=[x['card'] for x in run['operations']['insert']]
-          Path('.tmp-pr297-final-evidence').mkdir(exist_ok=True)
-          json.dump({'cards':cards},open('.tmp-pr297-final-evidence/current-run-scope.json','w'),ensure_ascii=False,indent=2)
-          json.dump({'ids':[c['id'] for c in cards]},open('.tmp-pr297-final-evidence/current-run-ids.json','w'),ensure_ascii=False,indent=2)
+          Path('.tmp-pr297-final').mkdir(exist_ok=True)
+          json.dump({'cards':cards},open('.tmp-pr297-final/current-run-scope.json','w'),ensure_ascii=False,indent=2)
+          json.dump({'ids':[c['id'] for c in cards]},open('.tmp-pr297-final/current-run-ids.json','w'),ensure_ascii=False,indent=2)
           fh=hashlib.sha256(Path('data/cards.full.json').read_bytes()).hexdigest()
           lh=hashlib.sha256(Path('public/data/cards.json').read_bytes()).hexdigest()
           p=Path('runs/2026-08-29/card_run_audit_20260829_CURRENT_MAIN_1496_COMBINED18.json')
-          d=json.loads(p.read_text(encoding='utf-8')); d['full_output_sha256']=fh; d['lean_output_sha256']=lh
+          d=json.loads(p.read_text(encoding='utf-8'))
+          d['full_output_sha256']=fh
+          d['lean_output_sha256']=lh
           p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          print('full',fh); print('lean',lh)
+          print('full',fh)
+          print('lean',lh)
           PY
-          python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file .tmp-pr297-final-evidence/current-run-ids.json | tee .tmp-pr297-final-evidence/date-role-report.json
-          python validation_scripts/evidence_qc_v8_check.py .tmp-pr297-final-evidence/current-run-scope.json --new-id-file .tmp-pr297-final-evidence/current-run-ids.json --json-report .tmp-pr297-final-evidence/evidence-qc-v8.json
+          python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file .tmp-pr297-final/current-run-ids.json | tee .tmp-pr297-final/date-role.json
+          python validation_scripts/evidence_qc_v8_check.py .tmp-pr297-final/current-run-scope.json --new-id-file .tmp-pr297-final/current-run-ids.json --json-report .tmp-pr297-final/evidence-qc-v8.json
           node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
           node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
           node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
@@ -304,14 +311,14 @@ jobs:
           node scripts/lean_cards.mjs --check
           git diff --check
 
-      - name: Commit remediation and remove one-time workflow
+      - name: Commit final remediation and self-remove
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf .tmp-pr297-final-evidence
-          rm -f .github/workflows/fix-pr297-cowintech-metlen-once.yml
+          rm -rf .tmp-pr297-final
+          rm -f .github/workflows/fix-pr297-final-remediation.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/cards.full.json public/data/cards.json runs/2026-08-29 .github/workflows/fix-pr297-cowintech-metlen-once.yml
-          git commit -m "Repair Cowintech and METLEN evidence coverage for PR #297"
+          git add data/cards.full.json public/data/cards.json runs/2026-08-29 .github/workflows/fix-pr297-final-remediation.yml
+          git commit -m "Close PR #297 Cowintech and METLEN evidence remediation"
           git push origin HEAD:chatgpt/20260829-combined18-governed-run

@@ -1,0 +1,213 @@
+name: fix-pr297-date-role-once
+
+on:
+  push:
+    branches:
+      - chatgpt/20260829-combined18-governed-run
+
+permissions:
+  contents: write
+
+env:
+  RUN_PATH: runs/2026-08-29/card-run.json
+  BASE_SHA: 937dce6429c8bf63535d8043c7f559c9f2001f5d
+  BASE_BLOB: 9278233be67240aac1cdf7963e12d8e2878319f0
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/20260829-combined18-governed-run
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Populate date-role provenance from retained evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, hashlib, re
+          from datetime import date
+          from pathlib import Path
+
+          SPECS={
+            'NEW27_A_004','NEW27_A_005','NEW27_A_007','NEW27_A_008','NEW27_A_009','NEW27_A_010','NEW27_A_012','NEW27_A_019',
+            'NEW27_RP_001','NEW27_RP_002','NEW27_TH_001','NEW27_TH_002','NEW27_TH_003','NEW27_TH_004','NEW27_TH_005','NEW27_TH_006','NEW27_TH_007','NEW27_TH_008'
+          }
+          run_dir=Path('runs/2026-08-29')
+          targets=sorted(run_dir.glob('*.json'))
+          patched_by_file={}
+
+          def date_tokens(s):
+            try:
+              y,m,d=map(int,s.split('-'))
+            except Exception:
+              return []
+            months=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+            months_long=['','January','February','March','April','May','June','July','August','September','October','November','December']
+            return [s, f'{months[m]} {d}', f'{months_long[m]} {d}', f'{m}/{d}', f'{m}월 {d}일']
+
+          def source_score(fs,event_date):
+            text=' '.join(str(fs.get(k,'')) for k in ('source_quote','source_contribution','claim'))
+            score=0
+            for tok in date_tokens(event_date or ''):
+              if tok and tok.lower() in text.lower(): score += 8
+            spd=fs.get('source_published_date')
+            if spd==event_date: score += 5
+            try:
+              if spd and event_date:
+                delta=(date.fromisoformat(spd)-date.fromisoformat(event_date)).days
+                if delta==1: score += 3
+                elif delta==2: score += 1
+            except Exception:
+              pass
+            origin=str(fs.get('source_origin_type','')).lower()
+            role=str(fs.get('source_role','')).lower()
+            if 'official' in origin or 'primary' in origin or 'source_owner' in origin: score += 2
+            if 'primary' in role or 'official' in role: score += 2
+            if fs.get('resolved_article_matches_quote') is True: score += 1
+            return score
+
+          def patch_card(card, seen):
+            spec=card.get('source_spec_id') or card.get('spec_id')
+            if spec not in SPECS: return
+            role=card.get('date_role') or card.get('date_role_alignment')
+            sources=card.get('fact_sources')
+            if not isinstance(role,dict) or not isinstance(sources,list): return
+            candidates=[fs for fs in sources if isinstance(fs,dict) and fs.get('source_url') and fs.get('source_quote')]
+            if not candidates:
+              raise SystemExit(f'{spec}: no retained fact source with URL+quote for date-role proof')
+            event_date=role.get('event_date')
+            chosen=max(candidates,key=lambda fs: source_score(fs,event_date))
+            role['earliest_same_event_date_checked']=True
+            role['event_date_source_url']=chosen['source_url']
+            role['event_date_source_quote']=chosen['source_quote']
+            role['event_date_source_name']=chosen.get('source_name')
+            role['event_date_source_published_date']=chosen.get('source_published_date')
+            role['earliest_same_event_date_check_basis']='Stage B same-event source/date recheck retained the earliest verified event date; publication dates remain tracked separately.'
+            seen.add(spec)
+
+          def traverse(o,seen):
+            if isinstance(o,dict):
+              patch_card(o,seen)
+              for v in o.values(): traverse(v,seen)
+            elif isinstance(o,list):
+              for v in o: traverse(v,seen)
+
+          for p in targets:
+            d=json.loads(p.read_text(encoding='utf-8'))
+            seen=set(); traverse(d,seen)
+            if seen:
+              patched_by_file[p.name]=sorted(seen)
+              p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          run=json.loads(Path('runs/2026-08-29/card-run.json').read_text(encoding='utf-8'))
+          cards=[x['card'] for x in run['operations']['insert']]
+          run_specs={c.get('source_spec_id') or c.get('spec_id') for c in cards}
+          if run_specs != SPECS:
+            raise SystemExit(f'run spec scope mismatch: missing={sorted(SPECS-run_specs)} extra={sorted(run_specs-SPECS)}')
+          for c in cards:
+            role=c.get('date_role') or c.get('date_role_alignment')
+            if not isinstance(role,dict): raise SystemExit(f"{c.get('id')}: missing date_role")
+            for k in ('earliest_same_event_date_checked','event_date_source_url','event_date_source_quote'):
+              if not role.get(k): raise SystemExit(f"{c.get('id')}: missing {k}")
+
+          def canon(x):
+            if isinstance(x,dict): return {k:canon(x[k]) for k in sorted(x)}
+            if isinstance(x,list): return [canon(v) for v in x]
+            return x
+          ops_sha=hashlib.sha256(json.dumps(canon(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+
+          for p in targets:
+            d=json.loads(p.read_text(encoding='utf-8'))
+            def bind(o):
+              if isinstance(o,dict):
+                for k,v in o.items():
+                  if k=='reviewed_operations_sha256': o[k]=ops_sha
+                  else: bind(v)
+              elif isinstance(o,list):
+                for v in o: bind(v)
+            bind(d)
+            if p.name.startswith('card_run_audit'):
+              d['inserted_ids']=[x['card']['id'] for x in run['operations']['insert']]
+            p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          print('date-role proof patched files:',json.dumps(patched_by_file,ensure_ascii=False))
+          print('reviewed operations SHA256:',ops_sha)
+          PY
+
+      - name: Re-materialize canonical from exact locked baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main:refs/remotes/origin/main --force
+          [[ "$(git rev-parse origin/main)" == "$BASE_SHA" ]] || { echo "main moved; rebase required" >&2; exit 1; }
+          mkdir -p .tmp-pr297-date-role
+          git show "$BASE_SHA:data/cards.full.json" > .tmp-pr297-date-role/cards.full.base.json
+          [[ "$(git hash-object .tmp-pr297-date-role/cards.full.base.json)" == "$BASE_BLOB" ]] || { echo "baseline blob mismatch" >&2; exit 1; }
+          node scripts/apply_card_run.mjs \
+            --apply \
+            --run "$RUN_PATH" \
+            --baseline .tmp-pr297-date-role/cards.full.base.json \
+            --output data/cards.full.json \
+            --report .tmp-pr297-date-role/apply-pre.json \
+            --base-main-sha "$BASE_SHA" \
+            --skip-lean
+          node scripts/lean_cards.mjs
+          node scripts/apply_card_run.mjs \
+            --verify \
+            --run "$RUN_PATH" \
+            --baseline data/cards.full.json \
+            --output data/cards.full.json \
+            --report runs/2026-08-29/apply-report.json \
+            --base-main-sha "$BASE_SHA" \
+            --lean-path public/data/cards.json
+
+      - name: Refresh hashes and run required scoped date-role gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, hashlib
+          from pathlib import Path
+          r=json.load(open('runs/2026-08-29/card-run.json',encoding='utf-8'))
+          cards=[x['card'] for x in r['operations']['insert']]
+          Path('.tmp-pr297-date-role').mkdir(exist_ok=True)
+          json.dump({'cards':cards},open('.tmp-pr297-date-role/current-run-scope.json','w'),ensure_ascii=False,indent=2)
+          json.dump({'ids':[c['id'] for c in cards]},open('.tmp-pr297-date-role/current-run-ids.json','w'),ensure_ascii=False,indent=2)
+          full=Path('data/cards.full.json').read_bytes(); lean=Path('public/data/cards.json').read_bytes()
+          fh=hashlib.sha256(full).hexdigest(); lh=hashlib.sha256(lean).hexdigest()
+          p=Path('runs/2026-08-29/card_run_audit_20260829_CURRENT_MAIN_1496_COMBINED18.json')
+          d=json.loads(p.read_text(encoding='utf-8')); d['full_output_sha256']=fh; d['lean_output_sha256']=lh
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('full',fh); print('lean',lh)
+          PY
+          python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file .tmp-pr297-date-role/current-run-ids.json | tee .tmp-pr297-date-role/date-role-report.json
+          python validation_scripts/evidence_qc_v8_check.py .tmp-pr297-date-role/current-run-scope.json --new-id-file .tmp-pr297-date-role/current-run-ids.json --json-report .tmp-pr297-date-role/evidence-qc-v8.json
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN_PATH" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits.mjs --run "$RUN_PATH" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          git diff --check
+
+      - name: Commit date-role remediation and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .tmp-pr297-date-role
+          rm -f .github/workflows/fix-pr297-date-role-once.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cards.full.json public/data/cards.json runs/2026-08-29 .github/workflows/fix-pr297-date-role-once.yml
+          git commit -m "Add auditable date-role proof for PR #297"
+          git push origin HEAD:chatgpt/20260829-combined18-governed-run

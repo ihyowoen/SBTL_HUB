@@ -59,7 +59,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "Asian Metal"
+              "source_owner": "Asian Metal",
+              "source_owner_id_normalized": "asianmetal.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "South China Morning Post",
@@ -87,7 +90,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "South China Morning Post"
+              "source_owner": "South China Morning Post",
+              "source_owner_id_normalized": "scmp.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -185,7 +191,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -326,6 +332,38 @@
           "notes": "Rebased after PR #293 merge against exact 1,496-card canonical full; no same-event collision found.",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.asianmetal.com/news/2360464/Public-notice-of-EIA-withdrawn-for-Jianxiawo-lithium-mining-project/14",
+              "canonical_url": "https://asianmetal.com/news/2360464/Public-notice-of-EIA-withdrawn-for-Jianxiawo-lithium-mining-project/14",
+              "source_name": "Asian Metal",
+              "source_owner": "asianmetal.com",
+              "source_domain": "asianmetal.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Confirms the Aug-26 bureau withdrawal and re-notice condition.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.scmp.com/economy/china-economy/article/3365601/uncertainty-over-catl-lithium-mine-restart-could-fuel-price-volatility-analysts",
+              "canonical_url": "https://scmp.com/economy/china-economy/article/3365601/uncertainty-over-catl-lithium-mine-restart-could-fuel-price-volatility-analysts",
+              "source_name": "South China Morning Post",
+              "source_owner": "scmp.com",
+              "source_domain": "scmp.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent confirmation that the EIA acceptance notice was removed and restart timing became uncertain.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_A_004",
               "attempt_type": "provided_source_candidate_verification",
               "url": "https://www.theguru.co.kr/news/article.html?no=106327",
@@ -421,6 +459,54 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.asianmetal.com/news/2360464/Public-notice-of-EIA-withdrawn-for-Jianxiawo-lithium-mining-project/14",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=asianmetal.com",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://www.scmp.com/economy/china-economy/article/3365601/uncertainty-over-catl-lithium-mine-restart-could-fuel-price-volatility-analysts",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=scmp.com",
+                "source_url_propagation_performed": false
+              }
+            ]
+          },
+          "source_diversity_measure": {
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://asianmetal.com/news/2360464/Public-notice-of-EIA-withdrawn-for-Jianxiawo-lithium-mining-project/14",
+              "https://scmp.com/economy/china-economy/article/3365601/uncertainty-over-catl-lithium-mine-restart-could-fuel-price-volatility-analysts"
+            ],
+            "canonical_domains": [
+              "asianmetal.com",
+              "scmp.com"
+            ],
+            "independent_owners": [
+              "asianmetal.com",
+              "scmp.com"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           }
         },
         "stage_artifacts": [
@@ -487,7 +573,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "Electra Battery Materials"
+              "source_owner": "Electra Battery Materials",
+              "source_owner_id_normalized": "electrabmc.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "Northern Ontario Business",
@@ -515,7 +604,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "Northern Ontario Business"
+              "source_owner": "Northern Ontario Business",
+              "source_owner_id_normalized": "northernontariobusiness.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -612,7 +704,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -750,6 +842,38 @@
           "notes": "Rebased after PR #293 merge against exact 1,496-card canonical full; no same-event collision found.",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.electrabmc.com/news-releases/news/electra-and-ontario-advance-north-americas-critical-minerals-future-with-175-million-funding-agreement",
+              "canonical_url": "https://electrabmc.com/news-releases/news/electra-and-ontario-advance-north-americas-critical-minerals-future-with-175-million-funding-agreement",
+              "source_name": "Electra Battery Materials",
+              "source_owner": "electrabmc.com",
+              "source_domain": "electrabmc.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Primary source locks the definitive-agreement stage and C$17.5M amount.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.northernontariobusiness.com/industry-news/manufacturing/electra-secures-175-million-from-ontario-to-complete-cobalt-refinery-construction-12708137",
+              "canonical_url": "https://northernontariobusiness.com/industry-news/manufacturing/electra-secures-175-million-from-ontario-to-complete-cobalt-refinery-construction-12708137",
+              "source_name": "Northern Ontario Business",
+              "source_owner": "northernontariobusiness.com",
+              "source_domain": "northernontariobusiness.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent media confirmation of the finalized provincial funding.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_A_005",
               "attempt_type": "provided_source_candidate_verification",
               "url": "https://www.thecanadianpressnews.ca/globenewswire_press_releases/electra-and-ontario-advance-north-america-s-critical-minerals-future-with-17-5-million-funding/article_6c2c6aae-9b8b-53c9-a9f9-72c9b41ae229.html",
@@ -845,6 +969,54 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.electrabmc.com/news-releases/news/electra-and-ontario-advance-north-americas-critical-minerals-future-with-175-million-funding-agreement",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=electrabmc.com",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://www.northernontariobusiness.com/industry-news/manufacturing/electra-secures-175-million-from-ontario-to-complete-cobalt-refinery-construction-12708137",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=northernontariobusiness.com",
+                "source_url_propagation_performed": false
+              }
+            ]
+          },
+          "source_diversity_measure": {
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://electrabmc.com/news-releases/news/electra-and-ontario-advance-north-americas-critical-minerals-future-with-175-million-funding-agreement",
+              "https://northernontariobusiness.com/industry-news/manufacturing/electra-secures-175-million-from-ontario-to-complete-cobalt-refinery-construction-12708137"
+            ],
+            "canonical_domains": [
+              "electrabmc.com",
+              "northernontariobusiness.com"
+            ],
+            "independent_owners": [
+              "electrabmc.com",
+              "northernontariobusiness.com"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           }
         },
         "stage_artifacts": [
@@ -911,7 +1083,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "UNIGRID / GlobeNewswire"
+              "source_owner": "UNIGRID / GlobeNewswire",
+              "source_owner_id_normalized": "globenewswire.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "더구루",
@@ -939,7 +1114,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "더구루"
+              "source_owner": "더구루",
+              "source_owner_id_normalized": "theguru.co.kr",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -1037,7 +1215,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -1171,6 +1349,38 @@
           "notes": "Rebased after PR #293 merge against exact 1,496-card canonical full; no same-event collision found.",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.globenewswire.com/news-release/2026/08/26/3351415/0/en/unigrid-and-hyundai-motor-group-complete-technology-validation-of-sodium-ion-nco-through-zer01ne-accelerator.html",
+              "canonical_url": "https://globenewswire.com/news-release/2026/08/26/3351415/0/en/unigrid-and-hyundai-motor-group-complete-technology-validation-of-sodium-ion-nco-through-zer01ne-accelerator.html",
+              "source_name": "UNIGRID / GlobeNewswire",
+              "source_owner": "globenewswire.com",
+              "source_domain": "globenewswire.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Primary release locks completion of the validation program and future joint BESS-development wording.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.theguru.co.kr/news/article.html?no=106312",
+              "canonical_url": "https://theguru.co.kr/news/article.html?no=106312",
+              "source_name": "더구루",
+              "source_owner": "theguru.co.kr",
+              "source_domain": "theguru.co.kr",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent Korean article confirms the completed validation milestone and avoids treating future deployment as completed.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_A_007",
               "attempt_type": "provided_source_candidate_verification",
               "url": "https://www.globenewswire.com/news-release/2026/08/26/3351415/0/en/unigrid-and-hyundai-motor-group-complete-technology-validation-of-sodium-ion-nco-through-zer01ne-accelerator.html",
@@ -1266,6 +1476,54 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.globenewswire.com/news-release/2026/08/26/3351415/0/en/unigrid-and-hyundai-motor-group-complete-technology-validation-of-sodium-ion-nco-through-zer01ne-accelerator.html",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=globenewswire.com",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://www.theguru.co.kr/news/article.html?no=106312",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=theguru.co.kr",
+                "source_url_propagation_performed": false
+              }
+            ]
+          },
+          "source_diversity_measure": {
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://globenewswire.com/news-release/2026/08/26/3351415/0/en/unigrid-and-hyundai-motor-group-complete-technology-validation-of-sodium-ion-nco-through-zer01ne-accelerator.html",
+              "https://theguru.co.kr/news/article.html?no=106312"
+            ],
+            "canonical_domains": [
+              "globenewswire.com",
+              "theguru.co.kr"
+            ],
+            "independent_owners": [
+              "globenewswire.com",
+              "theguru.co.kr"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           }
         },
         "stage_artifacts": [
@@ -1331,7 +1589,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "뉴스핌"
+              "source_owner": "뉴스핌",
+              "source_owner_id_normalized": "newspim.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "디지털데일리 via Daum",
@@ -1359,7 +1620,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "디지털데일리 via Daum"
+              "source_owner": "디지털데일리 via Daum",
+              "source_owner_id_normalized": "v.daum.net",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -1457,7 +1721,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -1589,6 +1853,38 @@
           "notes": "Rebased after PR #293 merge against exact 1,496-card canonical full; no same-event collision found.",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.newspim.com/news/view/20260827000517",
+              "canonical_url": "https://newspim.com/news/view/20260827000517",
+              "source_name": "뉴스핌",
+              "source_owner": "newspim.com",
+              "source_domain": "newspim.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Confirms the KTL test-report basis and 6C high-rate result.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://v.daum.net/v/20260827142823694",
+              "canonical_url": "https://v.daum.net/v/20260827142823694",
+              "source_name": "디지털데일리 via Daum",
+              "source_owner": "v.daum.net",
+              "source_domain": "v.daum.net",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent body-level report confirms the test result and ISO certifications.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_A_008",
               "attempt_type": "provided_source_candidate_verification",
               "url": "https://www.ddaily.co.kr/page/view/2026082713431890972",
@@ -1684,6 +1980,54 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.newspim.com/news/view/20260827000517",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=newspim.com",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://v.daum.net/v/20260827142823694",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=v.daum.net",
+                "source_url_propagation_performed": false
+              }
+            ]
+          },
+          "source_diversity_measure": {
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://newspim.com/news/view/20260827000517",
+              "https://v.daum.net/v/20260827142823694"
+            ],
+            "canonical_domains": [
+              "newspim.com",
+              "v.daum.net"
+            ],
+            "independent_owners": [
+              "newspim.com",
+              "v.daum.net"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           }
         },
         "stage_artifacts": [
@@ -1749,7 +2093,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "한국경제 공시요약"
+              "source_owner": "한국경제 공시요약",
+              "source_owner_id_normalized": "hankyung.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "뉴스핌",
@@ -1777,7 +2124,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "뉴스핌"
+              "source_owner": "뉴스핌",
+              "source_owner_id_normalized": "newspim.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -1874,7 +2224,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -2005,6 +2355,38 @@
           "notes": "Rebased after PR #293 merge against exact 1,496-card canonical full; no same-event collision found.",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.hankyung.com/article/202608276691L",
+              "canonical_url": "https://hankyung.com/article/202608276691L",
+              "source_name": "한국경제 공시요약",
+              "source_owner": "hankyung.com",
+              "source_domain": "hankyung.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Disclosure-derived source locks 84.5억원, 5.5%, contract period, and Aug-26 signing date.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.newspim.com/news/view/20260827000783",
+              "canonical_url": "https://newspim.com/news/view/20260827000783",
+              "source_name": "뉴스핌",
+              "source_owner": "newspim.com",
+              "source_domain": "newspim.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent body-level report confirms the ESS robot/AMR contract and delivery scope.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_A_009",
               "attempt_type": "provided_source_candidate_verification",
               "url": "https://www.ddaily.co.kr/page/view/2026082713472783605",
@@ -2100,6 +2482,54 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.hankyung.com/article/202608276691L",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=hankyung.com",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://www.newspim.com/news/view/20260827000783",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=newspim.com",
+                "source_url_propagation_performed": false
+              }
+            ]
+          },
+          "source_diversity_measure": {
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://hankyung.com/article/202608276691L",
+              "https://newspim.com/news/view/20260827000783"
+            ],
+            "canonical_domains": [
+              "hankyung.com",
+              "newspim.com"
+            ],
+            "independent_owners": [
+              "hankyung.com",
+              "newspim.com"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           }
         },
         "stage_artifacts": [
@@ -2182,7 +2612,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "기후에너지환경부 정책브리핑"
+              "source_owner": "기후에너지환경부 정책브리핑",
+              "source_owner_id_normalized": "korea.kr",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "LG",
@@ -2210,7 +2643,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "LG"
+              "source_owner": "LG",
+              "source_owner_id_normalized": "lg.co.kr",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "연합뉴스",
@@ -2238,7 +2674,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "연합뉴스"
+              "source_owner": "연합뉴스",
+              "source_owner_id_normalized": "yna.co.kr",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -2355,7 +2794,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -2488,6 +2927,54 @@
           "notes": "Rebased after PR #293 merge against exact 1,496-card canonical full; no same-event collision found.",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775736&pageIndex=1&repCodeType=&repCode=&startDate=2025-08-27&endDate=2026-08-27&srchWord=&period=",
+              "canonical_url": "https://korea.kr/briefing/pressReleaseView.do?endDate=2026-08-27&newsId=156775736&pageIndex=1&period=&repCode=&repCodeType=&srchWord=&startDate=2025-08-27",
+              "source_name": "기후에너지환경부 정책브리핑",
+              "source_owner": "korea.kr",
+              "source_domain": "korea.kr",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Government source locks the MOU, pilot mechanism and 4만대/1,600kg target.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://lg.co.kr/media/release/30511",
+              "canonical_url": "https://lg.co.kr/media/release/30511",
+              "source_name": "LG",
+              "source_owner": "lg.co.kr",
+              "source_domain": "lg.co.kr",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Company source confirms the same pilot target and LG-developed recovery technology.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.yna.co.kr/view/AKR20260827079500003",
+              "canonical_url": "https://yna.co.kr/view/AKR20260827079500003",
+              "source_name": "연합뉴스",
+              "source_owner": "yna.co.kr",
+              "source_domain": "yna.co.kr",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent media confirmation of the MOU and target.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_A_010",
               "attempt_type": "provided_source_candidate_verification",
               "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775736&pageIndex=1&repCodeType=&repCode=&startDate=2025-08-27&endDate=2026-08-27&srchWord=&period=",
@@ -2593,6 +3080,64 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 3,
+          "source_unique_url_count": 3,
+          "source_unique_domain_count": 3,
+          "source_independent_owner_count": 3,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 3,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156775736&pageIndex=1&repCodeType=&repCode=&startDate=2025-08-27&endDate=2026-08-27&srchWord=&period=",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=korea.kr",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://lg.co.kr/media/release/30511",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=lg.co.kr",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://www.yna.co.kr/view/AKR20260827079500003",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=2; owners=yna.co.kr",
+                "source_url_propagation_performed": false
+              }
+            ]
+          },
+          "source_diversity_measure": {
+            "source_evidence_entry_count": 3,
+            "source_unique_url_count": 3,
+            "source_unique_domain_count": 3,
+            "source_independent_owner_count": 3,
+            "visible_source_url_count": 3,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://korea.kr/briefing/pressReleaseView.do?endDate=2026-08-27&newsId=156775736&pageIndex=1&period=&repCode=&repCodeType=&srchWord=&startDate=2025-08-27",
+              "https://lg.co.kr/media/release/30511",
+              "https://yna.co.kr/view/AKR20260827079500003"
+            ],
+            "canonical_domains": [
+              "korea.kr",
+              "lg.co.kr",
+              "yna.co.kr"
+            ],
+            "independent_owners": [
+              "korea.kr",
+              "lg.co.kr",
+              "yna.co.kr"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           }
         },
         "stage_artifacts": [
@@ -2659,7 +3204,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "Sungrow"
+              "source_owner": "Sungrow",
+              "source_owner_id_normalized": "sungrowpower.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "ESS News",
@@ -2687,7 +3235,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "ESS News"
+              "source_owner": "ESS News",
+              "source_owner_id_normalized": "pv_magazine_group",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -2785,7 +3336,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -2919,6 +3470,38 @@
           "notes": "Rebased after PR #293 merge against exact 1,496-card canonical full; no same-event collision found.",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.ess-news.com/2026/08/26/sungrow-connects-200-mw-400-mwh-powertitan-3-0-project",
+              "canonical_url": "https://ess-news.com/2026/08/26/sungrow-connects-200-mw-400-mwh-powertitan-3-0-project",
+              "source_name": "ESS News",
+              "source_owner": "pv_magazine_group",
+              "source_domain": "ess-news.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent trade-media confirmation while flagging company-sourced performance figures.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.sungrowpower.com/en/200-mw-400-mwh-energy-storage-project-accelerates-delivery-with-sungrows-full-chain-intelligent-delivery",
+              "canonical_url": "https://sungrowpower.com/en/200-mw-400-mwh-energy-storage-project-accelerates-delivery-with-sungrows-full-chain-intelligent-delivery",
+              "source_name": "Sungrow",
+              "source_owner": "sungrowpower.com",
+              "source_domain": "sungrowpower.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Primary source locks 200MW/400MWh, grid connection, operation start, PowerTitan 3.0, and 17-day claim.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_A_012",
               "attempt_type": "provided_source_candidate_verification",
               "url": "https://www.ess-news.com/2026/08/26/sungrow-connects-200-mw-400-mwh-powertitan-3-0-project",
@@ -3014,6 +3597,54 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.ess-news.com/2026/08/26/sungrow-connects-200-mw-400-mwh-powertitan-3-0-project",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=pv_magazine_group",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://www.sungrowpower.com/en/200-mw-400-mwh-energy-storage-project-accelerates-delivery-with-sungrows-full-chain-intelligent-delivery",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=sungrowpower.com",
+                "source_url_propagation_performed": false
+              }
+            ]
+          },
+          "source_diversity_measure": {
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://ess-news.com/2026/08/26/sungrow-connects-200-mw-400-mwh-powertitan-3-0-project",
+              "https://sungrowpower.com/en/200-mw-400-mwh-energy-storage-project-accelerates-delivery-with-sungrows-full-chain-intelligent-delivery"
+            ],
+            "canonical_domains": [
+              "ess-news.com",
+              "sungrowpower.com"
+            ],
+            "independent_owners": [
+              "pv_magazine_group",
+              "sungrowpower.com"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           }
         },
         "stage_artifacts": [
@@ -3042,7 +3673,7 @@
           "title": "European Energy, 유럽 BESS 167MW·545MWh 운영 포트폴리오 구축",
           "sub": "European Energy가 2026년 첫 8개월 동안 덴마크·리투아니아·라트비아에서 총 167MW·545MWh 배터리 저장설비를 운영 단계로 올렸다고 발표했다.",
           "gate": "8월 27일은 누적 운영 포트폴리오 공개일이며 개별 설비가 모두 이날 시운전된 것은 아니다. 사이트별 상업운전일은 별도 추적 대상이다.",
-          "fact": "European Energy는 8월 27일 2026년 첫 8개월 동안 167MW/545MWh의 배터리 저장 용량을 운영에 투입했다고 밝혔다. 가동 사이트는 덴마크 Kvosted·Agersted·Stouby·Kragerup·Måde, 리투아니아 Anykščiai, 라트비아 Saldus다.",
+          "fact": "European Energy는 8월 27일 2026년 첫 8개월 동안 167MW/545MWh의 배터리 저장 용량을 운영에 투입했다고 밝혔다. 가동 사이트는 덴마크 Kvosted·Agersted·Stouby·Kragerup·Made, 리투아니아 Anyksciai, 라트비아 Saldus다.",
           "implication": [
             "유럽 재생에너지 개발사가 단일 프로젝트를 넘어 다국가 운영 BESS 포트폴리오를 구축했다.",
             "co-location 중심 자산전략이 향후 독립형 BESS와 호주·유럽 추가 시장으로 확장되는지 확인할 필요가 있다."
@@ -3079,7 +3710,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "European Energy"
+              "source_owner": "European Energy",
+              "source_owner_id_normalized": "europeanenergy.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "Energy Global",
@@ -3107,7 +3741,10 @@
                 "gate",
                 "implication"
               ],
-              "source_owner": "Energy Global"
+              "source_owner": "Energy Global",
+              "source_owner_id_normalized": "energyglobal.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -3204,7 +3841,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -3337,6 +3974,38 @@
           "notes": "Rebased after PR #293 merge against exact 1,496-card canonical full; no same-event collision found.",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.energyglobal.com/energy-storage/28082026/european-energy-expands-battery-portfolio-with-545-mwh-now-operational/",
+              "canonical_url": "https://energyglobal.com/energy-storage/28082026/european-energy-expands-battery-portfolio-with-545-mwh-now-operational",
+              "source_name": "Energy Global",
+              "source_owner": "energyglobal.com",
+              "source_domain": "energyglobal.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent trade-media confirmation of the cumulative operational portfolio.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://europeanenergy.com/2026/08/27/european-energy-expands-battery-portfolio-with-545-mwh-now-operational/",
+              "canonical_url": "https://europeanenergy.com/2026/08/27/european-energy-expands-battery-portfolio-with-545-mwh-now-operational",
+              "source_name": "European Energy",
+              "source_owner": "europeanenergy.com",
+              "source_domain": "europeanenergy.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Primary source locks cumulative operating capacity and named countries/sites.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_A_019",
               "attempt_type": "provided_source_candidate_verification",
               "url": "https://europeanenergy.com/2026/08/27/european-energy-expands-battery-portfolio-with-545-mwh-now-operational/",
@@ -3432,6 +4101,54 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.energyglobal.com/energy-storage/28082026/european-energy-expands-battery-portfolio-with-545-mwh-now-operational/",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=energyglobal.com",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://europeanenergy.com/2026/08/27/european-energy-expands-battery-portfolio-with-545-mwh-now-operational/",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=europeanenergy.com",
+                "source_url_propagation_performed": false
+              }
+            ]
+          },
+          "source_diversity_measure": {
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://energyglobal.com/energy-storage/28082026/european-energy-expands-battery-portfolio-with-545-mwh-now-operational",
+              "https://europeanenergy.com/2026/08/27/european-energy-expands-battery-portfolio-with-545-mwh-now-operational"
+            ],
+            "canonical_domains": [
+              "energyglobal.com",
+              "europeanenergy.com"
+            ],
+            "independent_owners": [
+              "energyglobal.com",
+              "europeanenergy.com"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           }
         },
         "stage_artifacts": [
@@ -3497,7 +4214,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "spglobal.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "투데이에너지",
@@ -3524,7 +4244,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "todayenergy.kr",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -3623,7 +4346,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -3756,13 +4479,60 @@
           "notes": "Rebased after PR #293 merge against exact 1,496-card canonical full; no same-event collision found.",
           "source_diversity_status": "PASS_MULTI_SOURCE",
           "source_diversity_measure": {
-            "recomputed_unique_url_count": 2,
-            "recomputed_unique_domain_count": 2,
-            "recomputed_independent_owner_count": 2,
-            "false_multi_source_detected": false,
-            "single_source_exception_check": "NOT_APPLICABLE"
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://spglobal.com/energy/en/news-research/latest-news/electric-power/081426-us-battery-storage-wecc-leads-us-battery-storage-additions-with-22-gw-in-q2",
+              "https://todayenergy.kr/news/articleView.html?idxno=302045"
+            ],
+            "canonical_domains": [
+              "spglobal.com",
+              "todayenergy.kr"
+            ],
+            "independent_owners": [
+              "spglobal.com",
+              "todayenergy.kr"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           },
           "source_discovery_ledger": [
+            {
+              "source_url": "https://www.spglobal.com/energy/en/news-research/latest-news/electric-power/081426-us-battery-storage-wecc-leads-us-battery-storage-additions-with-22-gw-in-q2",
+              "canonical_url": "https://spglobal.com/energy/en/news-research/latest-news/electric-power/081426-us-battery-storage-wecc-leads-us-battery-storage-additions-with-22-gw-in-q2",
+              "source_name": "S&P Global",
+              "source_owner": "spglobal.com",
+              "source_domain": "spglobal.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Locks 55.81 GW Q2-end capacity, 4.883 GW quarterly additions, growth rates and the operating/grid-synchronized scope.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302045",
+              "canonical_url": "https://todayenergy.kr/news/articleView.html?idxno=302045",
+              "source_name": "투데이에너지",
+              "source_owner": "todayenergy.kr",
+              "source_domain": "todayenergy.kr",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independently reproduces the S&P metrics and adds the 6.7 GW expected versus 4.883 GW realized Q2 execution context.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
             {
               "source_spec_id": "NEW27_RP_001",
               "attempt_type": "provided_source_candidate_verification",
@@ -3824,6 +4594,32 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.spglobal.com/energy/en/news-research/latest-news/electric-power/081426-us-battery-storage-wecc-leads-us-battery-storage-additions-with-22-gw-in-q2",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=spglobal.com",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302045",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=todayenergy.kr",
+                "source_url_propagation_performed": false
+              }
+            ]
           }
         },
         "stage_artifacts": [
@@ -3889,7 +4685,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "moea.gov.tw",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "Taipei Times",
@@ -3916,7 +4715,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "taipeitimes.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -4027,7 +4829,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -4164,13 +4966,60 @@
           "notes": "Rebased after PR #293 merge against exact 1,496-card canonical full; no same-event collision found.",
           "source_diversity_status": "PASS_MULTI_SOURCE",
           "source_diversity_measure": {
-            "recomputed_unique_url_count": 2,
-            "recomputed_unique_domain_count": 2,
-            "recomputed_independent_owner_count": 2,
-            "false_multi_source_detected": false,
-            "single_source_exception_check": "NOT_APPLICABLE"
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://moea.gov.tw/MNS/Populace/news/News.aspx?kind=1&menu_id=40&news_id=123710",
+              "https://taipeitimes.com/News/taiwan/archives/2026/08/22/2003862939"
+            ],
+            "canonical_domains": [
+              "moea.gov.tw",
+              "taipeitimes.com"
+            ],
+            "independent_owners": [
+              "moea.gov.tw",
+              "taipeitimes.com"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           },
           "source_discovery_ledger": [
+            {
+              "source_url": "https://www.moea.gov.tw/MNS/Populace/news/News.aspx?kind=1&menu_id=40&news_id=123710",
+              "canonical_url": "https://moea.gov.tw/MNS/Populace/news/News.aspx?kind=1&menu_id=40&news_id=123710",
+              "source_name": "Taiwan Ministry of Economic Affairs",
+              "source_owner": "moea.gov.tw",
+              "source_domain": "moea.gov.tw",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Confirms Aug-21 third-reading passage, 15 amended provisions, and the self-generation-or-storage duty for qualifying new/expanded large users.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.taipeitimes.com/News/taiwan/archives/2026/08/22/2003862939",
+              "canonical_url": "https://taipeitimes.com/News/taiwan/archives/2026/08/22/2003862939",
+              "source_name": "Taipei Times",
+              "source_owner": "taipeitimes.com",
+              "source_domain": "taipeitimes.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independently confirms passage, narrows scope to new/expanding large users, and notes thresholds/capacity requirements are delegated to regulators.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
             {
               "source_spec_id": "NEW27_RP_002",
               "attempt_type": "provided_source_candidate_verification",
@@ -4240,6 +5089,32 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.moea.gov.tw/MNS/Populace/news/News.aspx?kind=1&menu_id=40&news_id=123710",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=moea.gov.tw",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://www.taipeitimes.com/News/taiwan/archives/2026/08/22/2003862939",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=taipeitimes.com",
+                "source_url_propagation_performed": false
+              }
+            ]
           }
         },
         "stage_artifacts": [
@@ -4303,7 +5178,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "tatapower.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -4473,6 +5351,22 @@
           "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.tatapower.com/news-and-media/media-releases/tata-power-renewables-marks-a-major-milestone-with-commissioning-of-190-5-mw-fdre-project-in-rajasthan",
+              "canonical_url": "https://tatapower.com/news-and-media/media-releases/tata-power-renewables-marks-a-major-milestone-with-commissioning-of-190-5-mw-fdre-project-in-rajasthan",
+              "source_name": "Tata Power",
+              "source_owner": "tatapower.com",
+              "source_domain": "tatapower.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "190.5MW FDRE commissioning with 115MWh BESS and named discom offtakers.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_TH_001",
               "attempt_type": "source_owner_or_primary_search",
               "url": "https://www.tatapower.com/news-and-media/media-releases/tata-power-renewables-marks-a-major-milestone-with-commissioning-of-190-5-mw-fdre-project-in-rajasthan",
@@ -4482,16 +5376,23 @@
             }
           ],
           "source_diversity_measure": {
-            "recomputed_unique_url_count": 1,
-            "recomputed_unique_domain_count": 1,
-            "recomputed_independent_owner_count": 1,
-            "false_multi_source_detected": false,
-            "source_role_coverage": {
-              "primary_event_evidence": true,
-              "independent_event_confirmation": false,
-              "policy_market_context": false
-            },
-            "single_source_exception_check": "PASS"
+            "source_evidence_entry_count": 1,
+            "source_unique_url_count": 1,
+            "source_unique_domain_count": 1,
+            "source_independent_owner_count": 1,
+            "visible_source_url_count": 1,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://tatapower.com/news-and-media/media-releases/tata-power-renewables-marks-a-major-milestone-with-commissioning-of-190-5-mw-fdre-project-in-rajasthan"
+            ],
+            "canonical_domains": [
+              "tatapower.com"
+            ],
+            "independent_owners": [
+              "tatapower.com"
+            ],
+            "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
           },
           "state": "github_merge_ready_candidate",
           "stage_c_only": true,
@@ -4591,6 +5492,25 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 1,
+          "source_unique_url_count": 1,
+          "source_unique_domain_count": 1,
+          "source_independent_owner_count": 1,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 1,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.tatapower.com/news-and-media/media-releases/tata-power-renewables-marks-a-major-milestone-with-commissioning-of-190-5-mw-fdre-project-in-rajasthan",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=tatapower.com",
+                "source_url_propagation_performed": false
+              }
+            ]
           }
         },
         "stage_artifacts": [
@@ -4616,7 +5536,7 @@
           "sub_cat": "인도BESS커미셔닝",
           "signal": "high",
           "title": "ACME Suryodaya, 라자스탄 BESS 15MW/240.752MWh 추가 커미셔닝",
-          "sub": "8월 27일 추가 커미셔닝으로 ACME Suryodaya의 누적 가동용량은 300MW/1,354.224MWh에 도달했다.",
+          "sub": "8월 27일 추가 커미셔닝으로 ACME Suryodaya의 누적 커미셔닝 용량은 300MW/1,354.224MWh에 도달했다.",
           "gate": "8월 27일은 해당 15MW/240.752MWh 구간의 커미셔닝일이고 공시상 상업운전일(COD)은 8월 29일이다. 두 날짜를 동일하게 취급하지 않는다.",
           "fact": "ACME Solar Holdings의 자회사 ACME Suryodaya는 Rajasthan Jaisalmer의 Sanwara·Mehar Nagar BESS에서 15MW/240.752MWh를 8월 27일 커미셔닝했다고 거래소 제출자료에서 밝혔다. 회사는 이로써 누적 커미셔닝 용량이 300MW/1,354.224MWh라고 밝혔다.",
           "implication": [
@@ -4625,7 +5545,7 @@
           ],
           "urls": [
             "https://bazaarwatch.com/announcement/94508/acme-solar-holdings-ltd-update-on-commissioning-of-battery-energy-storage-system-bess-project-in-raj",
-            "https://www.bnrsecurities.com/ajaxPages/HomeNewsPopGlobal.aspx?NewsID=&Option=sec&SecId=4&SubSecID=46"
+            "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan/"
           ],
           "related": [],
           "fact_sources": [
@@ -4654,34 +5574,40 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "bazaarwatch.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
-              "source_name": "BNR Securities market filing digest",
-              "source_url": "https://www.bnrsecurities.com/ajaxPages/HomeNewsPopGlobal.aspx?NewsID=&Option=sec&SecId=4&SubSecID=46",
-              "url": "https://www.bnrsecurities.com/ajaxPages/HomeNewsPopGlobal.aspx?NewsID=&Option=sec&SecId=4&SubSecID=46",
-              "source_quote": "commissioned 15 MW/240.752 MWh capacity",
+              "source_name": "BioEnergy Times",
+              "source_url": "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan/",
+              "url": "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan/",
+              "source_quote": "total commissioned BESS capacity has reached 300 MW/1354.224 MWh",
               "source_quote_status": "body_quote_verified",
               "quote_status": "body_quote_verified",
               "evidence_role": "secondary_event_evidence",
               "source_role": "independent_event_confirmation",
-              "source_origin_type": "independent_market_news",
+              "source_origin_type": "independent_body_level_article",
               "fetched": true,
-              "fetched_at": "2026-08-29T14:30:00+09:00",
-              "fetch_method": "bounded_web_body_search_treasure_rescue",
+              "fetched_at": "2026-08-30T17:05:00+09:00",
+              "fetch_method": "codex_review_source_repair_web_search",
               "fetch_status": "success",
               "body_level": true,
               "source_published_date": "2026-08-28",
               "visible_quote_date": "2026-08-28",
-              "source_contribution": "Independent reproduction of the same ACME commissioning facts.",
-              "claim": "Independent reproduction of the same ACME commissioning facts.",
+              "source_contribution": "Independent reporting confirms Aug-27 commissioning, Aug-29 COD, and cumulative commissioned capacity.",
+              "claim": "Independent reporting confirms Aug-27 commissioning, Aug-29 COD, and cumulative commissioned capacity.",
               "supports": [
                 "title",
                 "sub",
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "bioenergytimes.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -4710,8 +5636,8 @@
               },
               {
                 "source_name": "BNR Securities market filing digest",
-                "source_url": "https://www.bnrsecurities.com/ajaxPages/HomeNewsPopGlobal.aspx?NewsID=&Option=sec&SecId=4&SubSecID=46",
-                "url": "https://www.bnrsecurities.com/ajaxPages/HomeNewsPopGlobal.aspx?NewsID=&Option=sec&SecId=4&SubSecID=46",
+                "source_url": "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan/",
+                "url": "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan/",
                 "source_quote": "commissioned 15 MW/240.752 MWh capacity",
                 "source_quote_status": "body_quote_verified",
                 "quote_status": "body_quote_verified",
@@ -4740,7 +5666,7 @@
               {
                 "source_spec_id": "NEW27_TH_002",
                 "attempt_type": "source_owner_or_primary_search",
-                "url": "https://www.bnrsecurities.com/ajaxPages/HomeNewsPopGlobal.aspx?NewsID=&Option=sec&SecId=4&SubSecID=46",
+                "url": "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan/",
                 "status": "success",
                 "result": "independent_market_news",
                 "checked_at": "2026-08-29T14:30:00+09:00"
@@ -4772,7 +5698,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -4875,6 +5801,38 @@
           "source_diversity_status": "PASS_MULTI_SOURCE",
           "source_discovery_ledger": [
             {
+              "source_url": "https://bazaarwatch.com/announcement/94508/acme-solar-holdings-ltd-update-on-commissioning-of-battery-energy-storage-system-bess-project-in-raj",
+              "canonical_url": "https://bazaarwatch.com/announcement/94508/acme-solar-holdings-ltd-update-on-commissioning-of-battery-energy-storage-system-bess-project-in-raj",
+              "source_name": "ACME Solar exchange filing reproduction",
+              "source_owner": "bazaarwatch.com",
+              "source_domain": "bazaarwatch.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "ACME Suryodaya commissioning tranche and cumulative capacity.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan/",
+              "canonical_url": "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan",
+              "source_name": "BioEnergy Times",
+              "source_owner": "bioenergytimes.com",
+              "source_domain": "bioenergytimes.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent reporting confirms Aug-27 commissioning, Aug-29 COD, and cumulative commissioned capacity.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_TH_002",
               "attempt_type": "source_owner_or_primary_search",
               "url": "https://bazaarwatch.com/announcement/94508/acme-solar-holdings-ltd-update-on-commissioning-of-battery-energy-storage-system-bess-project-in-raj",
@@ -4886,22 +5844,34 @@
               "source_spec_id": "NEW27_TH_002",
               "attempt_type": "source_owner_or_primary_search",
               "url": "https://www.bnrsecurities.com/ajaxPages/HomeNewsPopGlobal.aspx?NewsID=&Option=sec&SecId=4&SubSecID=46",
-              "status": "success",
+              "status": "rejected_after_review",
               "result": "independent_market_news",
-              "checked_at": "2026-08-29T14:30:00+09:00"
+              "outcome": "rejected_incomplete_article_url",
+              "reason": "NewsID parameter empty; replaced during Codex P2 review repair.",
+              "checked_at": "2026-08-30T17:05:00+09:00"
             }
           ],
           "source_diversity_measure": {
-            "recomputed_unique_url_count": 2,
-            "recomputed_unique_domain_count": 2,
-            "recomputed_independent_owner_count": 2,
-            "false_multi_source_detected": false,
-            "source_role_coverage": {
-              "primary_event_evidence": true,
-              "independent_event_confirmation": true,
-              "policy_market_context": false
-            },
-            "single_source_exception_check": "PASS"
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://bazaarwatch.com/announcement/94508/acme-solar-holdings-ltd-update-on-commissioning-of-battery-energy-storage-system-bess-project-in-raj",
+              "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan"
+            ],
+            "canonical_domains": [
+              "bazaarwatch.com",
+              "bioenergytimes.com"
+            ],
+            "independent_owners": [
+              "bazaarwatch.com",
+              "bioenergytimes.com"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           },
           "state": "github_merge_ready_candidate",
           "stage_c_only": true,
@@ -4931,7 +5901,7 @@
             "event_date": "2026-08-27",
             "source_url_cluster": [
               "https://bazaarwatch.com/announcement/94508/acme-solar-holdings-ltd-update-on-commissioning-of-battery-energy-storage-system-bess-project-in-raj",
-              "https://www.bnrsecurities.com/ajaxPages/HomeNewsPopGlobal.aspx?NewsID=&Option=sec&SecId=4&SubSecID=46"
+              "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan/"
             ],
             "factual_anchor": "ACME Solar Holdings의 자회사 ACME Suryodaya는 Rajasthan Jaisalmer의 Sanwara·Mehar Nagar BESS에서 15MW/240.752MWh를 8월 27일 커미셔닝했다고 거래소 제출자료에서 밝혔다. 회사는 이로써 누적 커미셔닝 용량이 300MW/1,354.224MWh라고 밝혔다."
           },
@@ -4982,14 +5952,14 @@
           },
           "hard_fail_count": 0,
           "final_qc_notes": "All nine final gates pass on the current 1,496-card GitHub-main baseline; final production ID assignment remains Prompt 0.8 work.",
-          "id": "2026-08-27_GL_02",
-          "assigned_id": "2026-08-27_GL_02",
+          "id": "2026-08-27_GL_01",
+          "assigned_id": "2026-08-27_GL_01",
           "production_id_assigned_0_8": true,
           "production_verified": false,
           "baseline_id_assignment": {
             "basis": "CARD_ID_STANDARD current-main 1496; preserve existing IDs, allocate next unused NN after locked event date/region; same-run signal priority then decision-value/editorial importance.",
             "baseline_existing_max_for_date_region": 0,
-            "assigned_id": "2026-08-27_GL_02",
+            "assigned_id": "2026-08-27_GL_01",
             "stage_a_decision_value_score": 66
           },
           "pipeline_lineage": {
@@ -5002,6 +5972,32 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": true,
+            "resolution_entries": [
+              {
+                "source_url": "https://bazaarwatch.com/announcement/94508/acme-solar-holdings-ltd-update-on-commissioning-of-battery-energy-storage-system-bess-project-in-raj",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=bazaarwatch.com",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan/",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=bioenergytimes.com",
+                "source_url_propagation_performed": true
+              }
+            ]
           }
         },
         "stage_artifacts": [
@@ -5012,7 +6008,7 @@
         ],
         "evidence_refs": [
           "https://bazaarwatch.com/announcement/94508/acme-solar-holdings-ltd-update-on-commissioning-of-battery-energy-storage-system-bess-project-in-raj",
-          "https://www.bnrsecurities.com/ajaxPages/HomeNewsPopGlobal.aspx?NewsID=&Option=sec&SecId=4&SubSecID=46"
+          "https://bioenergytimes.com/acme-solar-arm-commissions-15-mw-bess-unit-in-rajasthan/"
         ]
       },
       {
@@ -5065,7 +6061,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "en.cnesa.org",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -5233,6 +6232,22 @@
           "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
           "source_discovery_ledger": [
             {
+              "source_url": "https://en.cnesa.org/china-market-update/2026/8/27/cnesa-releases-2026-h1-energy-storage-data-new-installations-down-18-sending-new-signals-for-the-industry",
+              "canonical_url": "https://en.cnesa.org/china-market-update/2026/8/27/cnesa-releases-2026-h1-energy-storage-data-new-installations-down-18-sending-new-signals-for-the-industry",
+              "source_name": "China Energy Storage Alliance",
+              "source_owner": "en.cnesa.org",
+              "source_domain": "en.cnesa.org",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "CNESA DataLink cumulative and H1 commissioned new-energy-storage metrics.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_TH_003",
               "attempt_type": "source_owner_or_primary_search",
               "url": "https://en.cnesa.org/china-market-update/2026/8/27/cnesa-releases-2026-h1-energy-storage-data-new-installations-down-18-sending-new-signals-for-the-industry",
@@ -5242,16 +6257,23 @@
             }
           ],
           "source_diversity_measure": {
-            "recomputed_unique_url_count": 1,
-            "recomputed_unique_domain_count": 1,
-            "recomputed_independent_owner_count": 1,
-            "false_multi_source_detected": false,
-            "source_role_coverage": {
-              "primary_event_evidence": true,
-              "independent_event_confirmation": false,
-              "policy_market_context": false
-            },
-            "single_source_exception_check": "PASS"
+            "source_evidence_entry_count": 1,
+            "source_unique_url_count": 1,
+            "source_unique_domain_count": 1,
+            "source_independent_owner_count": 1,
+            "visible_source_url_count": 1,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://en.cnesa.org/china-market-update/2026/8/27/cnesa-releases-2026-h1-energy-storage-data-new-installations-down-18-sending-new-signals-for-the-industry"
+            ],
+            "canonical_domains": [
+              "en.cnesa.org"
+            ],
+            "independent_owners": [
+              "en.cnesa.org"
+            ],
+            "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
           },
           "state": "github_merge_ready_candidate",
           "stage_c_only": true,
@@ -5351,6 +6373,25 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 1,
+          "source_unique_url_count": 1,
+          "source_unique_domain_count": 1,
+          "source_independent_owner_count": 1,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 1,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://en.cnesa.org/china-market-update/2026/8/27/cnesa-releases-2026-h1-energy-storage-data-new-installations-down-18-sending-new-signals-for-the-industry",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=en.cnesa.org",
+                "source_url_propagation_performed": false
+              }
+            ]
           }
         },
         "stage_artifacts": [
@@ -5414,7 +6455,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "dart.fss.or.kr",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "Edaily Marketin",
@@ -5441,7 +6485,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "marketin.edaily.co.kr",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -5532,7 +6579,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -5635,6 +6682,38 @@
           "source_diversity_status": "PASS_MULTI_SOURCE",
           "source_discovery_ledger": [
             {
+              "source_url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827900181",
+              "canonical_url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827900181",
+              "source_name": "DART filing / Toptec",
+              "source_owner": "dart.fss.or.kr",
+              "source_domain": "dart.fss.or.kr",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Toptec binding REEV assembly-line contract, counterparty, amount and term.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://marketin.edaily.co.kr/News/ReadE?newsId=04018006645551584",
+              "canonical_url": "https://marketin.edaily.co.kr/News/ReadE?newsId=04018006645551584",
+              "source_name": "Edaily Marketin",
+              "source_owner": "marketin.edaily.co.kr",
+              "source_domain": "marketin.edaily.co.kr",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent confirmation of Toptec REEV assembly-line order.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_TH_004",
               "attempt_type": "source_owner_or_primary_search",
               "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827900181",
@@ -5652,16 +6731,26 @@
             }
           ],
           "source_diversity_measure": {
-            "recomputed_unique_url_count": 2,
-            "recomputed_unique_domain_count": 2,
-            "recomputed_independent_owner_count": 2,
-            "false_multi_source_detected": false,
-            "source_role_coverage": {
-              "primary_event_evidence": true,
-              "independent_event_confirmation": true,
-              "policy_market_context": false
-            },
-            "single_source_exception_check": "PASS"
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827900181",
+              "https://marketin.edaily.co.kr/News/ReadE?newsId=04018006645551584"
+            ],
+            "canonical_domains": [
+              "dart.fss.or.kr",
+              "marketin.edaily.co.kr"
+            ],
+            "independent_owners": [
+              "dart.fss.or.kr",
+              "marketin.edaily.co.kr"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           },
           "state": "github_merge_ready_candidate",
           "stage_c_only": true,
@@ -5762,6 +6851,32 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827900181",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=dart.fss.or.kr",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://marketin.edaily.co.kr/News/ReadE?newsId=04018006645551584",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=marketin.edaily.co.kr",
+                "source_url_propagation_performed": false
+              }
+            ]
           }
         },
         "stage_artifacts": [
@@ -5826,7 +6941,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "met.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "pv magazine France",
@@ -5853,7 +6971,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "pv-magazine.fr",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -5944,7 +7065,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -6047,6 +7168,38 @@
           "source_diversity_status": "PASS_MULTI_SOURCE",
           "source_discovery_ledger": [
             {
+              "source_url": "https://met.com/en/media/press-releases/comax-france-quadruples-the-size-of-its-bess-portfolio/",
+              "canonical_url": "https://met.com/en/media/press-releases/comax-france-quadruples-the-size-of-its-bess-portfolio",
+              "source_name": "MET Group",
+              "source_owner": "met.com",
+              "source_domain": "met.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "COMAX 57MW/114MWh completion and >86MW/143MWh operating portfolio.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.pv-magazine.fr/2026/08/26/comax-france-quadruple-ses-capacites-de-stockage-par-batteries/",
+              "canonical_url": "https://pv-magazine.fr/2026/08/26/comax-france-quadruple-ses-capacites-de-stockage-par-batteries",
+              "source_name": "pv magazine France",
+              "source_owner": "pv-magazine.fr",
+              "source_domain": "pv-magazine.fr",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent confirmation of COMAX portfolio commissioning and total operating capacity.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_TH_005",
               "attempt_type": "source_owner_or_primary_search",
               "url": "https://met.com/en/media/press-releases/comax-france-quadruples-the-size-of-its-bess-portfolio/",
@@ -6064,16 +7217,26 @@
             }
           ],
           "source_diversity_measure": {
-            "recomputed_unique_url_count": 2,
-            "recomputed_unique_domain_count": 2,
-            "recomputed_independent_owner_count": 2,
-            "false_multi_source_detected": false,
-            "source_role_coverage": {
-              "primary_event_evidence": true,
-              "independent_event_confirmation": true,
-              "policy_market_context": false
-            },
-            "single_source_exception_check": "PASS"
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://met.com/en/media/press-releases/comax-france-quadruples-the-size-of-its-bess-portfolio",
+              "https://pv-magazine.fr/2026/08/26/comax-france-quadruple-ses-capacites-de-stockage-par-batteries"
+            ],
+            "canonical_domains": [
+              "met.com",
+              "pv-magazine.fr"
+            ],
+            "independent_owners": [
+              "met.com",
+              "pv-magazine.fr"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           },
           "state": "github_merge_ready_candidate",
           "stage_c_only": true,
@@ -6174,6 +7337,32 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://met.com/en/media/press-releases/comax-france-quadruples-the-size-of-its-bess-portfolio/",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=met.com",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://www.pv-magazine.fr/2026/08/26/comax-france-quadruple-ses-capacites-de-stockage-par-batteries/",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=pv-magazine.fr",
+                "source_url_propagation_performed": false
+              }
+            ]
           }
         },
         "stage_artifacts": [
@@ -6237,7 +7426,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "metlen.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -6407,6 +7599,22 @@
           "source_diversity_status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.metlen.com/news/company-news/metlen-expands-its-european-footprint-in-battery-energy-storage/",
+              "canonical_url": "https://metlen.com/news/company-news/metlen-expands-its-european-footprint-in-battery-energy-storage",
+              "source_name": "METLEN",
+              "source_owner": "metlen.com",
+              "source_domain": "metlen.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Penn 129MW/362MWh BoP contract and project location/timing.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_TH_006",
               "attempt_type": "source_owner_or_primary_search",
               "url": "https://www.metlen.com/news/company-news/metlen-expands-its-european-footprint-in-battery-energy-storage/",
@@ -6416,16 +7624,23 @@
             }
           ],
           "source_diversity_measure": {
-            "recomputed_unique_url_count": 1,
-            "recomputed_unique_domain_count": 1,
-            "recomputed_independent_owner_count": 1,
-            "false_multi_source_detected": false,
-            "source_role_coverage": {
-              "primary_event_evidence": true,
-              "independent_event_confirmation": false,
-              "policy_market_context": false
-            },
-            "single_source_exception_check": "PASS"
+            "source_evidence_entry_count": 1,
+            "source_unique_url_count": 1,
+            "source_unique_domain_count": 1,
+            "source_independent_owner_count": 1,
+            "visible_source_url_count": 1,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://metlen.com/news/company-news/metlen-expands-its-european-footprint-in-battery-energy-storage"
+            ],
+            "canonical_domains": [
+              "metlen.com"
+            ],
+            "independent_owners": [
+              "metlen.com"
+            ],
+            "status": "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION"
           },
           "state": "github_merge_ready_candidate",
           "stage_c_only": true,
@@ -6525,6 +7740,25 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 1,
+          "source_unique_url_count": 1,
+          "source_unique_domain_count": 1,
+          "source_independent_owner_count": 1,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 1,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.metlen.com/news/company-news/metlen-expands-its-european-footprint-in-battery-energy-storage/",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=metlen.com",
+                "source_url_propagation_performed": false
+              }
+            ]
           }
         },
         "stage_artifacts": [
@@ -6588,7 +7822,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "asahi-kasei.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "electrive",
@@ -6615,7 +7852,10 @@
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "electrive.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -6706,7 +7946,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -6809,6 +8049,38 @@
           "source_diversity_status": "PASS_MULTI_SOURCE",
           "source_discovery_ledger": [
             {
+              "source_url": "https://www.asahi-kasei.com/news/2026/e280826",
+              "canonical_url": "https://asahi-kasei.com/news/2026/e280826",
+              "source_name": "Asahi Kasei",
+              "source_owner": "asahi-kasei.com",
+              "source_domain": "asahi-kasei.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Charlotte Hipore coating-line opening, localization role and H2 FY2026 production plan.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.electrive.com/2026/08/26/asahi-kasei-opens-new-facility-for-wet-process-battery-separators/",
+              "canonical_url": "https://electrive.com/2026/08/26/asahi-kasei-opens-new-facility-for-wet-process-battery-separators",
+              "source_name": "electrive",
+              "source_owner": "electrive.com",
+              "source_domain": "electrive.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent confirmation of Charlotte line opening and production timing.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
               "source_spec_id": "NEW27_TH_007",
               "attempt_type": "source_owner_or_primary_search",
               "url": "https://www.asahi-kasei.com/news/2026/e280826",
@@ -6826,16 +8098,26 @@
             }
           ],
           "source_diversity_measure": {
-            "recomputed_unique_url_count": 2,
-            "recomputed_unique_domain_count": 2,
-            "recomputed_independent_owner_count": 2,
-            "false_multi_source_detected": false,
-            "source_role_coverage": {
-              "primary_event_evidence": true,
-              "independent_event_confirmation": true,
-              "policy_market_context": false
-            },
-            "single_source_exception_check": "PASS"
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://asahi-kasei.com/news/2026/e280826",
+              "https://electrive.com/2026/08/26/asahi-kasei-opens-new-facility-for-wet-process-battery-separators"
+            ],
+            "canonical_domains": [
+              "asahi-kasei.com",
+              "electrive.com"
+            ],
+            "independent_owners": [
+              "asahi-kasei.com",
+              "electrive.com"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           },
           "state": "github_merge_ready_candidate",
           "stage_c_only": true,
@@ -6936,6 +8218,32 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": false,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.asahi-kasei.com/news/2026/e280826",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=asahi-kasei.com",
+                "source_url_propagation_performed": false
+              },
+              {
+                "source_url": "https://www.electrive.com/2026/08/26/asahi-kasei-opens-new-facility-for-wet-process-battery-separators/",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=electrive.com",
+                "source_url_propagation_performed": false
+              }
+            ]
           }
         },
         "stage_artifacts": [
@@ -6962,45 +8270,48 @@
           "sub_cat": "폴란드BESS프로젝트파이낸스",
           "signal": "high",
           "title": "Greenvolt, 폴란드 400MW/1.6GWh BESS 2곳에 UniCredit 2.18억유로 금융 확보",
-          "sub": "Turośń·Ełk 각 200MW/800MWh를 대상으로 1.53억유로 브리지와 6,500만유로 보증 패키지를 조달했다.",
-          "gate": "Turośń은 이미 7월 개장 카드가 존재한다. 이번 사건의 신규성은 Turośń 단독 재보도가 아니라 Ełk까지 묶은 2.18억유로 금융 패키지와 금융조달 가능성의 진전이다.",
-          "fact": "Greenvolt는 UniCredit으로부터 폴란드 Turośń Kościelna와 Ełk BESS 두 곳, 합계 400MW/1.6GWh를 지원하는 2.18억유로 금융 패키지를 확보했다. 패키지는 1.53억유로 브리지 금융과 6,500만유로 보증시설로 구성된다. Turośń은 7월 개장했고 Ełk은 2026년 4분기 상업운전을 목표로 한다.",
+          "sub": "투로신·엘크 각 200MW/800MWh를 대상으로 1.53억유로 브리지와 6,500만유로 보증 패키지를 조달했다.",
+          "gate": "투로신은 이미 7월 개장 카드가 존재한다. 이번 사건의 신규성은 투로신 단독 재보도가 아니라 엘크까지 묶은 2.18억유로 금융 패키지와 금융조달 가능성의 진전이다.",
+          "fact": "Greenvolt는 UniCredit으로부터 폴란드 투로신 코시치엘나와 엘크 BESS 두 곳, 합계 400MW/1.6GWh를 지원하는 2.18억유로 금융 패키지를 확보했다. 패키지는 1.53억유로 브리지 금융과 6,500만유로 보증시설로 구성된다. 투로신은 7월 개장했고 엘크은 2026년 4분기 상업운전을 목표로 한다.",
           "implication": [
             "폴란드 대형 BESS가 개발·개장뿐 아니라 대형 은행금융을 확보하면서 자산군의 금융조달 가능성이 높아지고 있다.",
-            "기존 Turośń 카드의 후속으로 보되 Ełk의 COD와 장기 수익계약 구조가 실제 금융회수성을 결정한다."
+            "기존 투로신 카드의 후속으로 보되 엘크의 COD와 장기 수익계약 구조가 실제 금융회수성을 결정한다."
           ],
           "urls": [
-            "https://www.linkedin.com/company/greenvolt-power",
+            "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
             "https://www.ess-news.com/2026/08/27/greenvolt-secures-e218-million-unicredit-package-for-polish-bess-pair/"
           ],
           "related": [],
           "fact_sources": [
             {
-              "source_name": "Greenvolt Power",
-              "source_url": "https://www.linkedin.com/company/greenvolt-power",
-              "url": "https://www.linkedin.com/company/greenvolt-power",
-              "source_quote": "secured a €218 million financing package from UniCredit",
-              "source_quote_status": "official_material_quote_verified",
-              "quote_status": "official_material_quote_verified",
-              "evidence_role": "primary_event_evidence",
-              "source_role": "primary_event_evidence",
-              "source_origin_type": "source_owner_social_release",
+              "source_name": "Energy Global",
+              "source_url": "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
+              "url": "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
+              "source_quote": "Greenvolt Group has secured a financing package from UniCredit comprising €153 million in bridge facilities and a €65 million guarantee facility.",
+              "source_quote_status": "body_quote_verified",
+              "quote_status": "body_quote_verified",
+              "evidence_role": "secondary_event_evidence",
+              "source_role": "independent_event_confirmation",
+              "source_origin_type": "independent_body_level_article",
               "fetched": true,
-              "fetched_at": "2026-08-29T14:30:00+09:00",
-              "fetch_method": "bounded_web_body_search_treasure_rescue",
+              "fetched_at": "2026-08-30T17:05:00+09:00",
+              "fetch_method": "codex_review_source_repair_web_search",
               "fetch_status": "success",
               "body_level": true,
-              "source_published_date": "2026-08-28",
-              "visible_quote_date": "2026-08-28",
-              "source_contribution": "Greenvolt source-owner announcement of €218m financing and 400MW/1.6GWh scope.",
-              "claim": "Greenvolt source-owner announcement of €218m financing and 400MW/1.6GWh scope.",
+              "source_published_date": "2026-08-27",
+              "visible_quote_date": "2026-08-27",
+              "source_contribution": "Independent trade-media confirmation of the €218m package breakdown and 400MW/1.6GWh Polish BESS scope.",
+              "claim": "Independent trade-media confirmation of the 2.18억유로 package breakdown and 400MW/1.6GWh Polish BESS scope.",
               "supports": [
                 "title",
                 "sub",
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "energyglobal.com",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             },
             {
               "source_name": "ESS News",
@@ -7020,14 +8331,17 @@
               "source_published_date": "2026-08-27",
               "visible_quote_date": "2026-08-27",
               "source_contribution": "Independent details of bridge/guarantee facilities and Turośń/Ełk project status.",
-              "claim": "Independent details of bridge/guarantee facilities and Turośń/Ełk project status.",
+              "claim": "Independent details of bridge/guarantee facilities and 투로신/엘크 project status.",
               "supports": [
                 "title",
                 "sub",
                 "gate",
                 "fact",
                 "implication"
-              ]
+              ],
+              "source_owner_id_normalized": "pv_magazine_group",
+              "source_url_canonical_complete": true,
+              "resolved_article_matches_quote": true
             }
           ],
           "evidence_package": {
@@ -7037,8 +8351,8 @@
             "sources": [
               {
                 "source_name": "Greenvolt Power",
-                "source_url": "https://www.linkedin.com/company/greenvolt-power",
-                "url": "https://www.linkedin.com/company/greenvolt-power",
+                "source_url": "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
+                "url": "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
                 "source_quote": "secured a €218 million financing package from UniCredit",
                 "source_quote_status": "official_material_quote_verified",
                 "quote_status": "official_material_quote_verified",
@@ -7078,7 +8392,7 @@
               {
                 "source_spec_id": "NEW27_TH_008",
                 "attempt_type": "source_owner_or_primary_search",
-                "url": "https://www.linkedin.com/company/greenvolt-power",
+                "url": "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
                 "status": "success",
                 "result": "source_owner_social_release",
                 "checked_at": "2026-08-29T14:30:00+09:00"
@@ -7119,7 +8433,7 @@
           "source_discovery_status": "completed_verified_source_found",
           "single_source_exception": {
             "allowed": false,
-            "reason": "not_applicable_multi_source"
+            "reason": "not applicable: multi-owner evidence"
           },
           "related_evidence_review": {
             "status": "PASS_STAGE_B_PREPASS",
@@ -7229,12 +8543,36 @@
           "source_diversity_status": "PASS_MULTI_SOURCE",
           "source_discovery_ledger": [
             {
-              "source_spec_id": "NEW27_TH_008",
-              "attempt_type": "source_owner_or_primary_search",
-              "url": "https://www.linkedin.com/company/greenvolt-power",
-              "status": "success",
-              "result": "source_owner_social_release",
-              "checked_at": "2026-08-29T14:30:00+09:00"
+              "source_url": "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
+              "canonical_url": "https://energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp",
+              "source_name": "Energy Global",
+              "source_owner": "energyglobal.com",
+              "source_domain": "energyglobal.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent trade-media confirmation of the €218m package breakdown and 400MW/1.6GWh Polish BESS scope.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
+            },
+            {
+              "source_url": "https://www.ess-news.com/2026/08/27/greenvolt-secures-e218-million-unicredit-package-for-polish-bess-pair/",
+              "canonical_url": "https://ess-news.com/2026/08/27/greenvolt-secures-e218-million-unicredit-package-for-polish-bess-pair",
+              "source_name": "ESS News",
+              "source_owner": "pv_magazine_group",
+              "source_domain": "ess-news.com",
+              "outcome": "used_in_fact_sources",
+              "unique_contribution": "Independent details of bridge/guarantee facilities and Turośń/Ełk project status.",
+              "visible_supports": [
+                "fact",
+                "gate",
+                "implication",
+                "sub",
+                "title"
+              ]
             },
             {
               "source_spec_id": "NEW27_TH_008",
@@ -7243,19 +8581,39 @@
               "status": "success",
               "result": "independent_body_level_article",
               "checked_at": "2026-08-29T14:30:00+09:00"
+            },
+            {
+              "source_spec_id": "NEW27_TH_008",
+              "attempt_type": "source_owner_or_primary_search",
+              "url": "https://www.linkedin.com/company/greenvolt-power",
+              "status": "rejected_after_review",
+              "result": "source_owner_social_release",
+              "outcome": "rejected_landing_page",
+              "reason": "Company profile is not an event-specific durable permalink; replaced during Codex P2 review repair.",
+              "checked_at": "2026-08-30T17:05:00+09:00"
             }
           ],
           "source_diversity_measure": {
-            "recomputed_unique_url_count": 2,
-            "recomputed_unique_domain_count": 2,
-            "recomputed_independent_owner_count": 2,
-            "false_multi_source_detected": false,
-            "source_role_coverage": {
-              "primary_event_evidence": true,
-              "independent_event_confirmation": true,
-              "policy_market_context": false
-            },
-            "single_source_exception_check": "PASS"
+            "source_evidence_entry_count": 2,
+            "source_unique_url_count": 2,
+            "source_unique_domain_count": 2,
+            "source_independent_owner_count": 2,
+            "visible_source_url_count": 2,
+            "missing_source_url_count": 0,
+            "missing_visible_source_url_count": 0,
+            "canonical_urls": [
+              "https://energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp",
+              "https://ess-news.com/2026/08/27/greenvolt-secures-e218-million-unicredit-package-for-polish-bess-pair"
+            ],
+            "canonical_domains": [
+              "energyglobal.com",
+              "ess-news.com"
+            ],
+            "independent_owners": [
+              "energyglobal.com",
+              "pv_magazine_group"
+            ],
+            "status": "PASS_MULTI_SOURCE"
           },
           "state": "github_merge_ready_candidate",
           "stage_c_only": true,
@@ -7284,7 +8642,7 @@
             "event_type": "funding",
             "event_date": "2026-08-27",
             "source_url_cluster": [
-              "https://www.linkedin.com/company/greenvolt-power",
+              "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
               "https://www.ess-news.com/2026/08/27/greenvolt-secures-e218-million-unicredit-package-for-polish-bess-pair/"
             ],
             "factual_anchor": "Greenvolt는 UniCredit으로부터 폴란드 Turośń Kościelna와 Ełk BESS 두 곳, 합계 400MW/1.6GWh를 지원하는 2.18억유로 금융 패키지를 확보했다. 패키지는 1.53억유로 브리지 금융과 6,500만유로 보증시설로 구성된다. Turośń은 7월 개장했고 Ełk은 2026년 4분기 상업운전을 목표로 한다."
@@ -7356,6 +8714,32 @@
             "prompt_0_7": "publish_ready",
             "prompt_0_7c": "PASS_WITH_DECLARED_RESIDUAL_RISK",
             "run_tag": "card-run-2026-08-29-final-news-20260827-combined18"
+          },
+          "source_evidence_entry_count": 2,
+          "source_unique_url_count": 2,
+          "source_unique_domain_count": 2,
+          "source_independent_owner_count": 2,
+          "source_url_resolution": {
+            "supporting_fact_source_count": 2,
+            "canonical_complete": true,
+            "resolved_article_matches_quote": true,
+            "source_url_propagation_performed": true,
+            "resolution_entries": [
+              {
+                "source_url": "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=0; owners=energyglobal.com",
+                "source_url_propagation_performed": true
+              },
+              {
+                "source_url": "https://www.ess-news.com/2026/08/27/greenvolt-secures-e218-million-unicredit-package-for-polish-bess-pair/",
+                "canonical_complete": true,
+                "resolved_article_matches_quote": true,
+                "resolution_basis": "recomputed from current fact_sources; indices=1; owners=pv_magazine_group",
+                "source_url_propagation_performed": false
+              }
+            ]
           }
         },
         "stage_artifacts": [
@@ -7365,7 +8749,7 @@
           "runs/2026-08-29/final_publish_readiness_qc_results_20260829_CURRENT_MAIN_1496_COMBINED18.json"
         ],
         "evidence_refs": [
-          "https://www.linkedin.com/company/greenvolt-power",
+          "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
           "https://www.ess-news.com/2026/08/27/greenvolt-secures-e218-million-unicredit-package-for-polish-bess-pair/"
         ]
       }
@@ -7498,7 +8882,7 @@
           "runs/2026-08-29/final_publish_readiness_qc_results_20260829_CURRENT_MAIN_1496_COMBINED18.json"
         ],
         "evidence_refs": [
-          "https://www.linkedin.com/company/greenvolt-power",
+          "https://www.energyglobal.com/energy-storage/27082026/greenvolt-secures-financing-package-from-unicredit-for-bess-projects-in-poland/amp/",
           "https://www.ess-news.com/2026/08/27/greenvolt-secures-e218-million-unicredit-package-for-polish-bess-pair/"
         ],
         "patches": [

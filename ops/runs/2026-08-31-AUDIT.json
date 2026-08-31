@@ -552,5 +552,74 @@
     "carriedOver": 164,
     "note": "2026-08-31 재산출. 완전성 감사로 21건이 편입되며 총 항목이 165→186으로 늘었는데 이 블록이 감사 이전 수치에 머물러 있어 run이 자기 산출량을 과소보고하고 있었다(Codex 2차 리뷰 지적). 감사 신규분은 2026-08-31-AUDIT 원장 소관이므로 두 원장 모두 재계산했다."
   },
-  "newCount": 21
+  "newCount": 21,
+  "selfAudit": {
+    "date": "2026-08-31",
+    "trigger": "Claire 지시 — 라운드마다 결함이 나오는 것은 자랑이 아니므로 지적받기 전에 스스로 심층 검증할 것",
+    "method": "지금까지 지적받은 결함 유형 + 아직 지적받지 않은 유형을 10개 항목으로 정리해 신규 21건과 손댄 12건에 기계적으로 적용했다. 유형: 자발표준 status 관례 / region_policy stale / 워치포인트 마크다운 / 항목 내부 날짜 정합 / d 길이 / 원장 교차정합 / coverage 축 배정 / 상호참조 무결성 / instrumentType 적정성 / 산문 D-day.",
+    "findings": [
+      {
+        "id": "GL-008",
+        "type": "status 관례 위반",
+        "severity": "P2",
+        "detail": "자발 국제표준을 ACTIVE로 편입. 저장소 관례는 GL-006(IEC TS)·GL-005(ISSB)·CN-042(단체표준) 전부 WATCH이고 스코프 게이트도 사적 표준을 '관찰 기록'으로 규정한다. 발행 사실(enacted)과 구속력을 등치한 오류.",
+        "fix": "WATCH 전환 + coverage GL/upstream 셀에 'covered의 의미가 구속 규범 실재가 아님'을 명시"
+      },
+      {
+        "id": "KR-030",
+        "type": "effectiveDate 의미 오류 + 사실 오류",
+        "severity": "P1",
+        "detail": "eff에 무관한 타법개정 시행일(2025-10-01)을 넣어 3분류 체계가 그때 시행된 것처럼 표시. 아울러 제20231호를 '전부개정'으로 적었으나 법제처 정본은 '일부개정'.",
+        "fix": "eff 2025-08-07로 정정(법제처 lawService 직접 확인), 제개정구분 정정, verify를 primary-doc로 재작성"
+      },
+      {
+        "id": "KR-031",
+        "type": "effectiveDate 의미 오류 + 제목 부적절",
+        "severity": "P1",
+        "detail": "eff에 최신 판본 시행일(2026-05-12)을 넣어 등록기준 규범의 발효일과 어긋남. 제목이 판본 번호 중심이라 무엇을 규율하는지 드러나지 않았다.",
+        "fix": "eff 2025-08-07로 정정, 제목·d 재구성, 제10조 축어('연간 1톤 이상')를 정본에서 확보해 verify 승격. 다만 '0.1톤→1톤 상향'은 개정 전 판본 미대조로 미확정 명시"
+      },
+      {
+        "id": "NA-045",
+        "type": "instrumentType 불일치",
+        "severity": "P2",
+        "detail": "제목이 'DHS 고시'이고 추적 대상이 FR Notice인데 instrumentType이 law였다.",
+        "fix": "notification으로 정정 (NA-046 Commerce Notice와 동일 취급)"
+      },
+      {
+        "id": "region_policy/NA",
+        "type": "내 워치포인트 stale",
+        "severity": "P2",
+        "detail": "내가 쓴 워치포인트가 'NA-048은 8.31 공표 대기라 UPCOMING'이라고 적혀 있는데 같은 날 공표돼 ACTIVE로 전환됐다.",
+        "fix": "공표 확인·ACTIVE 전환으로 갱신"
+      },
+      {
+        "id": "CN-046",
+        "type": "근거 미명시",
+        "severity": "P3",
+        "detail": "eff 2025-03-21은 通知의 印发일이며 '印发일 = 발효일'은 내 추론인데 그 사실을 기록하지 않았다.",
+        "fix": "checkNote에 추론임을 명시하고 시행 조항 대조를 잔여 과제로"
+      },
+      {
+        "id": "src accessedDate",
+        "type": "링크 부패 추적 미비",
+        "severity": "P3",
+        "detail": "검증기가 src마다 accessedDate를 요구하나 저장소 447개 src 중 0개가 보유. 1차 출처 검증을 주장하는 항목이라면 접근 시점 기록이 그 주장을 뒷받침한다.",
+        "fix": "신규 21건의 src 40개에 accessedDate 부여. 기존 407개는 원문 재확인 없이 날짜를 지어낼 수 없으므로 손대지 않는다."
+      }
+    ],
+    "myScanFalsePositives": [
+      "region_policy 정합 정규식이 NA-045·CN-046·GL-004를 오탐했다 — 한 워치포인트에 여러 항목 ID와 여러 status 단어가 섞여 있어 인접 status를 잘못 귀속했다. 앞선 세션의 3글자 약어 오탐과 같은 계열이며, 스캔 결과는 항상 원문을 열어 판정해야 한다."
+    ],
+    "clean": [
+      "항목 내부 날짜 정합 (t·dt의 날짜 vs effectiveDate) — 위반 0",
+      "산문 내 D-day·휘발성 표현 — 0",
+      "상호 참조 무결성 (미존재 항목 ID 참조) — 0",
+      "워치포인트 마크다운 (plain text 렌더) — 0",
+      "원장 primaryDocs ↔ 항목 verify 교차 — 22/22 일치, newCount 정확",
+      "d 길이 — 신규분 중앙값 90자 (전 항목 중앙값 192자) 로 R30 압축 취지에 부합",
+      "coverage 축 배정 — 21건 전부 축 정의와 정합",
+      "effectiveDate 를 보고기한으로 쓴 NA-047 — NA-032·CN-002·NA-029 선례가 있어 관례 부합(내 초기 의심을 기각)"
+    ]
+  }
 }

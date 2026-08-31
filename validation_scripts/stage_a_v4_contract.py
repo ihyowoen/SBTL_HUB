@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Machine-enforced Stage A V4 selection contract.
 
-This module owns only the V4 editorial-selection metadata introduced by the
+This module owns the V4 editorial-selection metadata introduced by the
 embedded Stage A news-value policy. Historical V3 lineage/source/format checks
 remain separate compatibility layers and may impose additional constraints.
 """
@@ -73,6 +73,39 @@ NARRATIVE_FIELDS = (
     "baseline_expectation_changed",
     "decision_relevance",
 )
+RELATED_PREPASS_REQUIRED = (
+    "status",
+    "same_event_checked",
+    "matched_baseline_candidate_ids",
+    "matched_current_batch_candidate_ids",
+    "relation_candidates",
+    "duplicate_disposition",
+    "earliest_same_event_check_status",
+    "fresh_anchor_questions",
+)
+RELATED_RELATION_TYPES = {
+    "same_event_duplicate",
+    "existing_card_reinforcement",
+    "distinct_follow_up",
+    "program_lineage",
+    "new_unrelated_event",
+    "uncertain_needs_review",
+}
+RELATED_DUPLICATE_DISPOSITIONS = {
+    "no_duplicate_found",
+    "same_event_duplicate",
+    "existing_card_reinforcement",
+    "uncertain_needs_review",
+}
+RELATED_CONFIDENCE = {"low", "medium", "high"}
+RELATED_CANDIDATE_REQUIRED = (
+    "target_candidate_id",
+    "proposed_relation_type",
+    "confidence",
+    "reason",
+    "anchor_class_to_verify",
+    "incremental_anchor_question",
+)
 
 
 def _identifier(spec: dict[str, Any], index: int) -> str:
@@ -112,6 +145,138 @@ def _expected_class(score: float) -> str:
         if score >= minimum:
             return classification
     return "low_independent_value"
+
+
+def _string_array(value: Any, *, nonempty: bool = False) -> bool:
+    return (
+        isinstance(value, list)
+        and (not nonempty or bool(value))
+        and all(_nonempty_text(item) for item in value)
+        and len(value) == len(set(value))
+    )
+
+
+def _valid_confidence(value: Any) -> bool:
+    if isinstance(value, str):
+        return value.strip().lower() in RELATED_CONFIDENCE
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and 0 <= float(value) <= 1
+    )
+
+
+def _validate_related_prepass(
+    related: Any,
+    spec_id: str,
+    messages: list[str],
+) -> None:
+    if not isinstance(related, dict):
+        messages.append(f"{spec_id}: related_prepass must be an object")
+        return
+
+    for field in RELATED_PREPASS_REQUIRED:
+        if field not in related:
+            messages.append(f"{spec_id}: related_prepass missing {field}")
+
+    status = related.get("status")
+    if status not in {"PASS", "HOLD"}:
+        messages.append(f"{spec_id}: related_prepass.status must be PASS|HOLD")
+
+    if not isinstance(related.get("same_event_checked"), bool):
+        messages.append(f"{spec_id}: related_prepass.same_event_checked must be boolean")
+    elif status == "PASS" and related.get("same_event_checked") is not True:
+        messages.append(f"{spec_id}: related_prepass PASS requires same_event_checked=true")
+
+    for field in (
+        "matched_baseline_candidate_ids",
+        "matched_current_batch_candidate_ids",
+    ):
+        value = related.get(field)
+        if not _string_array(value):
+            messages.append(
+                f"{spec_id}: related_prepass.{field} must be a unique array of non-empty IDs"
+            )
+
+    earliest_status = related.get("earliest_same_event_check_status")
+    if earliest_status not in {"PASS", "HOLD"}:
+        messages.append(
+            f"{spec_id}: related_prepass.earliest_same_event_check_status must be PASS|HOLD"
+        )
+    elif status == "PASS" and earliest_status != "PASS":
+        messages.append(
+            f"{spec_id}: related_prepass PASS requires earliest_same_event_check_status=PASS"
+        )
+
+    disposition = related.get("duplicate_disposition")
+    if disposition not in RELATED_DUPLICATE_DISPOSITIONS:
+        messages.append(
+            f"{spec_id}: related_prepass.duplicate_disposition must be one of "
+            f"{sorted(RELATED_DUPLICATE_DISPOSITIONS)}"
+        )
+    elif status == "PASS" and disposition == "uncertain_needs_review":
+        messages.append(
+            f"{spec_id}: related_prepass PASS cannot retain uncertain_needs_review disposition"
+        )
+
+    fresh_questions = related.get("fresh_anchor_questions")
+    if not _string_array(fresh_questions, nonempty=True):
+        messages.append(
+            f"{spec_id}: related_prepass.fresh_anchor_questions must be a non-empty unique text array"
+        )
+
+    candidates = related.get("relation_candidates")
+    if not isinstance(candidates, list):
+        messages.append(f"{spec_id}: related_prepass.relation_candidates must be an array")
+        return
+
+    seen_targets: set[tuple[str, str]] = set()
+    for index, candidate in enumerate(candidates):
+        label = f"{spec_id}: related_prepass.relation_candidates[{index}]"
+        if not isinstance(candidate, dict):
+            messages.append(f"{label} must be an object")
+            continue
+        for field in RELATED_CANDIDATE_REQUIRED:
+            if field not in candidate:
+                messages.append(f"{label} missing {field}")
+
+        target = candidate.get("target_candidate_id")
+        relation_type = candidate.get("proposed_relation_type")
+        if not _nonempty_text(target):
+            messages.append(f"{label}.target_candidate_id must be non-empty")
+        if relation_type not in RELATED_RELATION_TYPES:
+            messages.append(
+                f"{label}.proposed_relation_type must be one of {sorted(RELATED_RELATION_TYPES)}"
+            )
+        if _nonempty_text(target) and relation_type in RELATED_RELATION_TYPES:
+            marker = (target.strip(), relation_type)
+            if marker in seen_targets:
+                messages.append(f"{label} duplicates target/relation pair {marker}")
+            seen_targets.add(marker)
+
+        if not _valid_confidence(candidate.get("confidence")):
+            messages.append(f"{label}.confidence must be low|medium|high or numeric 0..1")
+        if not _nonempty_text(candidate.get("reason")):
+            messages.append(f"{label}.reason must be non-empty")
+
+        anchor = candidate.get("anchor_class_to_verify")
+        question = candidate.get("incremental_anchor_question")
+        if relation_type in {"distinct_follow_up", "program_lineage"}:
+            if anchor not in ANCHOR_CLASSES:
+                messages.append(
+                    f"{label}.anchor_class_to_verify must be a valid anchor for {relation_type}"
+                )
+            if not _nonempty_text(question):
+                messages.append(
+                    f"{label}.incremental_anchor_question must be non-empty for {relation_type}"
+                )
+        else:
+            if anchor is not None and anchor not in ANCHOR_CLASSES:
+                messages.append(f"{label}.anchor_class_to_verify is invalid")
+            if question is not None and not _nonempty_text(question):
+                messages.append(
+                    f"{label}.incremental_anchor_question must be null or non-empty text"
+                )
 
 
 def validate_stage_a_v4_spec(
@@ -154,14 +319,19 @@ def validate_stage_a_v4_spec(
         messages.append(f"{spec_id}: anchor_classes must be a non-empty array")
         anchor_set: set[str] = set()
     else:
-        if any(not _nonempty_text(value) for value in anchors):
+        valid_string_anchors = [
+            value.strip()
+            for value in anchors
+            if isinstance(value, str) and bool(value.strip())
+        ]
+        if len(valid_string_anchors) != len(anchors):
             messages.append(f"{spec_id}: anchor_classes must contain non-empty strings")
-        if len(set(anchors)) != len(anchors):
+        if len(valid_string_anchors) != len(set(valid_string_anchors)):
             messages.append(f"{spec_id}: anchor_classes must be unique")
-        invalid = [value for value in anchors if value not in ANCHOR_CLASSES]
+        invalid = [value for value in valid_string_anchors if value not in ANCHOR_CLASSES]
         if invalid:
             messages.append(f"{spec_id}: invalid Stage A V4 anchor_classes={invalid}")
-        anchor_set = {value for value in anchors if isinstance(value, str)}
+        anchor_set = set(valid_string_anchors)
 
     if route == "execution_anchor_route":
         if "execution_event_anchor" not in anchor_set:
@@ -243,12 +413,10 @@ def validate_stage_a_v4_spec(
 
     for field in ("evidence_needed_for_stage_b", "next_confirmation_points"):
         value = spec.get(field)
-        if not isinstance(value, list) or not value or any(not _nonempty_text(item) for item in value):
-            messages.append(f"{spec_id}: {field} must be a non-empty array of text")
+        if not _string_array(value, nonempty=True):
+            messages.append(f"{spec_id}: {field} must be a non-empty unique array of text")
 
-    related = spec.get("related_prepass")
-    if not isinstance(related, dict) or not related:
-        messages.append(f"{spec_id}: related_prepass must be a non-empty object")
+    _validate_related_prepass(spec.get("related_prepass"), spec_id, messages)
 
 
 def validate_stage_a_v4_payload(

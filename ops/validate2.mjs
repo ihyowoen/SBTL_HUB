@@ -146,5 +146,50 @@ if (process.env.RP_PATH) {
   } catch(e){ warn('region_policy 스키마 검사 실패: '+e.message); }
 }
 
+// 13) coverage.lastSwept ↔ 원장 스윕 근거 대조 (스윕 위장 차단)
+//     lastSwept 를 run 날짜로 찍었는데 그 run 원장에 해당 (region, axis) 근거가 없으면 ERROR.
+//     근거 인정 경로 — ① searches[].axis + region 일치  ② searches[]/primaryDocs[].itemsCovered 가 그 셀 items 에 포함.
+//     gap/na 셀은 items 가 비어 있어 ②로는 근거를 댈 수 없다: 무산출 스윕은 searches[].axis 를 반드시 적어야 한다.
+//     도입 계기(2026-08-31) — RD-3 에서 subsidy 6셀 전부에 lastSwept 를 찍었으나 실검색은 1권역뿐이었고,
+//     원장 searches 와 coverage.lastSwept 가 서로 대조되지 않아 기존 게이트를 전부 통과했다.
+if (runPath) {
+  try {
+    const run2 = JSON.parse(readFileSync(runPath,'utf8'));
+    const cov2 = JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8'));
+    const rd2 = run2.date;
+    // 도입 시점 임계 — 이전 원장은 searches[].axis 스키마가 없어 gap/na 셀 근거를 남길 방법이 없었다.
+    // 소급 적용하면 고칠 수 없는 과거 데이터로 ERROR가 나고 그 원장을 손대는 PR이 전부 막힌다.
+    // 임계는 날짜이므로 앞으로만 움직이고 우회되지 않는다.
+    const SWEEP_FROM = '2026-08-31';
+    if (!rd2 || rd2 < SWEEP_FROM) {
+      warn(`스윕 근거 대조 건너뜀 — 원장 날짜(${rd2 ?? '없음'})가 검사 도입일(${SWEEP_FROM}) 이전. searches[].axis 스키마 부재로 소급 검증 불가`);
+    } else {
+    const i2c = new Map();
+    for (const c of cov2.cells ?? []) for (const x of c.items ?? []) {
+      if (!i2c.has(x)) i2c.set(x, []);
+      i2c.get(x).push(`${c.region}/${c.axis}`);
+    }
+    const ev = new Set();
+    for (const s of run2.searches ?? []) {
+      if (s.region && s.axis) ev.add(`${s.region}/${s.axis}`);
+      for (const x of s.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+    }
+    for (const p of run2.primaryDocs ?? [])
+      for (const x of p.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+    let stamped = 0, missing = 0;
+    for (const c of cov2.cells ?? []) {
+      if (c.lastSwept !== rd2) continue;
+      stamped++;
+      const k = `${c.region}/${c.axis}`;
+      if (!ev.has(k)) {
+        missing++;
+        err(`coverage ${k}: lastSwept=${rd2} 인데 원장(${run2.runId})에 스윕 근거 없음 — 검색을 돌리지 않고 스윕 표기만 전진했거나, 무산출 스윕에 searches[].axis 가 없다`);
+      }
+    }
+    if (stamped && !missing) console.log(`INFO : 스윕 근거 대조 — lastSwept=${rd2} 셀 ${stamped}개 전부 원장 근거 확인`);
+    }
+  } catch(e){ warn('스윕 근거 대조 실패: '+e.message); }
+}
+
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);
 process.exit(E?1:0);

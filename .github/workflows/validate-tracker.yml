@@ -4,6 +4,11 @@ name: validate-tracker
 # (dup id, bad status/region, banned emoji, dangling canonicalId, broken JSON).
 # Migration WARNINGs (missing effectiveDate / instrumentType / accessedDate) do NOT block.
 #
+# validate2.mjs 게이트: v2 검사(verify↔원장 대조·coverage↔트래커 ID 동기·meta.totalItems·
+# dt D-day 스테일·region_policy 스키마·스윕 근거 대조)를 CI에서 강제한다. 종전에는 수동
+# 실행 전용이라 사람이 잊으면 무검사 통과였다. ops/** 를 paths 에 넣어 원장·coverage 변경도
+# CI를 트리거한다.
+#
 # cards.json 게이트(validate_cards.mjs): 카드 PR이 무검사로 머지되던 위장 통과를
 # 차단한다 — 파싱·크기 하한·수량 감소·중복 id·필수 필드·깨진 related(신규 무관용,
 # 레거시 동결)·id접두↔date. fetch-depth 0은 origin/main 기준본 비교(수량 감소·신규
@@ -13,6 +18,7 @@ on:
   pull_request:
     paths:
       - "public/data/**"
+      - "ops/**"
       - "data/cards.full.json"
       - "direct-adds/**/direct-add.json"
       - "scripts/validate.mjs"
@@ -23,6 +29,7 @@ on:
     branches: [main]
     paths:
       - "public/data/**"
+      - "ops/**"
       - "data/cards.full.json"
       - "scripts/validate.mjs"
       - "scripts/validate_cards.mjs"
@@ -59,6 +66,39 @@ jobs:
           echo "allow_delete=$allow_delete" >> "$GITHUB_OUTPUT"
       - name: Validate tracker data
         run: node scripts/validate.mjs
+      # v2 게이트 — 운영 규약은 validate.mjs 와 validate2.mjs 둘 다 ERROR 0을 요구하지만
+      # 지금까지 CI가 v2를 돌리지 않아 수동 실행에 의존했다(사람이 잊으면 무검사 통과).
+      # PR이 원장(ops/runs/*.json)을 건드리면 그중 date 가 가장 최신인 원장을 넘긴다 —
+      # 원장을 넘겨야 verify↔원장 대조(#6)와 스윕 근거 대조(#13)가 작동한다.
+      - name: Validate tracker data (v2)
+        shell: bash
+        env:
+          RP_PATH: public/data/region_policy.json
+          COV_PATH: ops/coverage.json
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+          LEDGER=""
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
+            mapfile -t changed < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)ops/runs/*.json' || true)
+            if [[ ${#changed[@]} -gt 0 ]]; then
+              LEDGER="$(node -e '
+                const fs=require("fs");
+                const fl=process.argv.slice(1).filter(f=>fs.existsSync(f));
+                let best=null;
+                for (const f of fl){ try{ const d=JSON.parse(fs.readFileSync(f,"utf8")).date; if(d&&(!best||d>best.d)) best={f,d}; }catch(e){} }
+                process.stdout.write(best?best.f:"");
+              ' "${changed[@]}")"
+            fi
+          fi
+          if [[ -n "$LEDGER" ]]; then
+            echo "validate2 — 원장 대조: $LEDGER"
+            node ops/validate2.mjs public/data/tracker_data.json "$LEDGER"
+          else
+            echo "validate2 — 원장 미변경, 구조 검사만"
+            node ops/validate2.mjs public/data/tracker_data.json
+          fi
       - name: Validate cards data
         env:
           CARDS_ALLOW_DELETE: ${{ steps.direct_add.outputs.allow_delete || '0' }}

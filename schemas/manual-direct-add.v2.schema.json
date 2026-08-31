@@ -35,6 +35,7 @@
   },
   "$defs": {
     "anchorClass":{"enum":["execution_event_anchor","policy_regulatory_anchor","data_financial_anchor","strategic_behavior_anchor","technology_commercialization_anchor","follow_up_probability_anchor"]},
+    "nonExecutionAnchorClass":{"enum":["policy_regulatory_anchor","data_financial_anchor","strategic_behavior_anchor","technology_commercialization_anchor","follow_up_probability_anchor"]},
     "addAttestation": {
       "type":"object","additionalProperties":false,
       "required":["id","execution_credibility_gate","independent_cardability_gate","anchor_classes","selection_route","decision_news_value_score","decision_value_classification","publication_urgency","prior_state","new_verified_fact","changed_judgment","evidence_review_summary","next_confirmation_points","inclusion_decision","owner_override_reason","structural_non_execution_reason","why_execution_event_not_required"],
@@ -56,7 +57,26 @@
         "owner_override_reason":{"type":["string","null"]},
         "structural_non_execution_reason":{"type":["string","null"]},
         "why_execution_event_not_required":{"type":["string","null"]}
-      }
+      },
+      "allOf": [
+        {
+          "if": {"properties":{"selection_route":{"const":"execution_anchor_route"}},"required":["selection_route"]},
+          "then": {"properties":{"anchor_classes":{"contains":{"const":"execution_event_anchor"}}}}
+        },
+        {
+          "if": {"properties":{"selection_route":{"const":"structural_non_execution_route"}},"required":["selection_route"]},
+          "then": {
+            "properties": {
+              "anchor_classes": {
+                "not":{"contains":{"const":"execution_event_anchor"}},
+                "contains":{"$ref":"#/$defs/nonExecutionAnchorClass"}
+              },
+              "structural_non_execution_reason":{"type":"string","minLength":1},
+              "why_execution_event_not_required":{"type":"string","minLength":1}
+            }
+          }
+        }
+      ]
     },
     "updateAttestation": {
       "type":"object","additionalProperties":false,"required":["id","change_type","reason","evidence_review_summary"],

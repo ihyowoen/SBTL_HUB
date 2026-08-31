@@ -1,0 +1,727 @@
+{
+  "runId": "2026-08-31-AUDIT",
+  "date": "2026-08-31",
+  "partial": true,
+  "type": "completeness-audit + review-fix",
+  "basisRun": "2026-08-29-RD",
+  "note": "2026-08-29-RD가 산출한 권역 전수 스윕 후보 82건을 Claude가 전건 재검수한 run. 요원 신뢰도 0% 전제이므로 요원 보고를 근거로 쓰지 않고 1차 출처를 직접 조회했다. 편입은 내가 1차 출처로 확정한 21건(Tier A)만 했고, 요원 근거만 있는 건은 FACT_DISCIPLINE상 미편입하고 승인 큐에 유지한다.",
+  "primaryDocs": [
+    {
+      "n": "Federal Register 공식 API — 문서 2026-03157 (EPA 엔댄저먼트 폐지 최종규칙)",
+      "u": "https://www.federalregister.gov/api/v1/documents/2026-03157.json",
+      "itemsCovered": [
+        "NA-042"
+      ],
+      "basis": "type=Rule / action=Final rule. / 공포 2026-02-18 / effective_on 2026-04-20 / 91 FR 7686",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "Federal Register 공식 API — PRESDOCU 검색(문서 2026-16979, Proclamation 11055)",
+      "u": "https://www.federalregister.gov/api/v1/documents/2026-16979.json",
+      "itemsCovered": [
+        "NA-043"
+      ],
+      "basis": "presidential_document_number=11055 / signing_date 2026-08-13 / 공포 2026-08-19 / 91 FR 53699 (검색 총 1건 일치)",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "govinfo — Public Law 119-16 (H.J.Res.88) 정본",
+      "u": "https://www.govinfo.gov/content/pkg/PLAW-119publ16/html/PLAW-119publ16.htm",
+      "itemsCovered": [
+        "NA-044"
+      ],
+      "basis": "approved June 12, 2025 / ACC II 웨이버(90 FR 642) 대상 / 'such rule shall have no force or effect' 축어 확인",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "Federal Register 공식 API — 문서 2026-15628 (UFLPA Entity List 고시)",
+      "u": "https://www.federalregister.gov/api/v1/documents/2026-15628.json",
+      "itemsCovered": [
+        "NA-045"
+      ],
+      "basis": "type=Notice / 게재 2026-08-03 / 91 FR 48913 / DHS",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "Federal Register 공식 API — 문서 2023-26030 (알루미늄박 韓·泰 우회 최종긍정판정)",
+      "u": "https://www.federalregister.gov/api/v1/documents/2023-26030.json",
+      "itemsCovered": [
+        "NA-046"
+      ],
+      "basis": "type=Notice / 게재 2023-11-27 / 88 FR 82824 / Commerce·ITA",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "MN Revisor 법문 116.943 + MPCA 공식 안내 (미네소타 PFAS 보고)",
+      "u": "https://www.revisor.mn.gov/statutes/cite/116.943",
+      "itemsCovered": [
+        "NA-047"
+      ],
+      "basis": "법문 기한 2026-01-01 대비 MPCA 운용 기한 2026-09-15 / 연장신청 소인마감 2026-08-16 / 승인분 2026-12-14",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "Federal Register 공식 API — 문서 2026-17756 (NHTSA 연비 리셋 해석규칙)",
+      "u": "https://www.federalregister.gov/api/v1/documents/2026-17756.json",
+      "itemsCovered": [
+        "NA-048"
+      ],
+      "basis": "type=Rule / action=Interpretive rule. / publication_date 2026-08-31(조회일보다 미래) / effective_on=null / 91 FR 55788",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "EUR-Lex OJ 원문 전문 — Regulation (EU) 2024/1252 부속서 대조",
+      "u": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401252",
+      "itemsCovered": [
+        "EU-036"
+      ],
+      "basis": "ANNEX I §1 (a) bauxite/alumina/aluminium (전략원자재) · ANNEX II §1 (c) 동일 항목(핵심원자재) — 원문 직접 내려받아 대조",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "EUR-Lex ELI — Directive (EU) 2026/470 (Omnibus I)",
+      "u": "https://eur-lex.europa.eu/eli/dir/2026/470/oj/eng",
+      "itemsCovered": [
+        "EU-037"
+      ],
+      "basis": "채택 2026-02-24 / OJ 2026-02-26 / 개정 대상에 (EU) 2024/1760 포함 축어 확인 / In force",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "国家税务总局 法规库 정본 — 财政部 税务总局公告2024年第15号",
+      "u": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5235887/content.html",
+      "itemsCovered": [
+        "CN-043"
+      ],
+      "basis": "成文 2024-11-15 / '本公告自2024年12月1日起实施' / 제1조 '取消铝材、铜材⋯出口退税' 축어 확인",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "全国标准信息公共服务平台 — 국가표준계획 20184230-T-339 (锂离子电池用铝塑复合膜)",
+      "u": "https://std.samr.gov.cn/gb/search/gbDetailed?id=E116673EC91EA3B7E05397BE0A0AC6BF",
+      "itemsCovered": [
+        "CN-044"
+      ],
+      "basis": "标准性质 推荐性 / 状态 正在批准 / 下达 2018-12-29 / 拟实施 发布即实施 / 归口 全国碱性蓄电池标准化技术委员会",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "SAMR 国家标准全文公开系统 — GB 26572-2025 목록 조회",
+      "u": "https://openstd.samr.gov.cn/bzgk/gb/std_list?p.p1=0&p.p90=circulation_date&p.p91=desc&p.p2=26572",
+      "itemsCovered": [
+        "CN-045"
+      ],
+      "basis": "类别 强制性国家标准 / 发布 2025-08-01 / 实施 2027-08-01 / 状态 即将实施. 대체 대상 GB/T 26572-2011은 推荐性",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "生态环境部 — 环气候〔2025〕23号 통지 원문",
+      "u": "https://www.mee.gov.cn/xxgk2018/xxgk/xxgk03/202503/t20250326_1104736.html",
+      "itemsCovered": [
+        "CN-046"
+      ],
+      "basis": "发文字号 环气候〔2025〕23号 / 印发 2025-03-21 / '钢铁、水泥、铝冶炼三个行业纳入全国碳排放权交易市场管理' 축어 확인",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "全国标准信息公共服务平台 — 국가표준계획 20241666-T-339 (钠离子电池 安全技术规范)",
+      "u": "https://std.samr.gov.cn/gb/search/gbDetailed?id=19BC836AFB83831DE06397BE0A0ACA4F",
+      "itemsCovered": [
+        "CN-047"
+      ],
+      "basis": "状态 正在征求意见 / 下达 2024-05-31 / 归口 339-1 工信部(电子) — 요원이 已发布로 읽어 유보했던 쟁점을 미제정으로 확정",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "법제처 국가법령정보 공동활용 OpenAPI — 화학물질관리법 현행",
+      "u": "https://www.law.go.kr/DRF/lawSearch.do",
+      "itemsCovered": [
+        "KR-030"
+      ],
+      "basis": "본법 공포번호 제21065호 / 공포·시행 2025-10-01 / 타법개정. 시행령 제35940호(2025-12-23), 시행규칙 2025-10-01",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "법제처 국가법령정보 공동활용 OpenAPI — 화평법 현행",
+      "u": "https://www.law.go.kr/DRF/lawSearch.do",
+      "itemsCovered": [
+        "KR-031"
+      ],
+      "basis": "본법 공포번호 제21132호 / 공포 2025-11-11 / 시행 2026-05-12 / 일부개정. 시행령 제36304호(2026-05-06 공포·2026-05-12 시행) — 요원이 보지 못한 최신 개정",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "参議院 제221회 국회 의안명세 — 電気事業法の一部を改正する法律案",
+      "u": "https://www.sangiin.go.jp/japanese/joho1/kousei/gian/221/meisai/m221080221036.htm",
+      "itemsCovered": [
+        "JP-018"
+      ],
+      "basis": "議案番号 36 / 提出 令和8年3月24日 / 可決 令和8年7月17日 / 公布 令和8年7月24日 / 公布番号 法律第68号 / 施行 公布から9月以内 정령일",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "財務省·税関 — 関税定率法等の一部を改正する法律 (令和8年法律第5号)",
+      "u": "https://www.customs.go.jp/kaisei/seirei.htm",
+      "itemsCovered": [
+        "JP-019"
+      ],
+      "basis": "2026-03-31 성립·공포 / 시행 2026-04-01 / 不当廉売関税 迂回防止制度 창설 / 동일자 関税法基本通達 개정(財関第386·387号). 官報 정본 미취득 → tier=secondary",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "消防庁 — 危険物の規制に関する政令 개정 공포 자료 (令和7年政令第191号)",
+      "u": "https://www.soumu.go.jp/menu_news/s-news/01shoubo01_02001038.html",
+      "itemsCovered": [
+        "JP-020"
+      ],
+      "basis": "公布 令和7年5月14日 / 施行 令和7年5月15日 / 屋内貯蔵所·一般取扱所·消火設備 특례의 성령 위임 근거. 官報 정본 미취득 → tier=secondary",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "WCO — HS 2028 Amendments 공식 발표 및 HS Nomenclature 2028 Edition",
+      "u": "https://www.wcoomd.org/en/media/newsroom/2026/january/hs-2028-amendments-adapting-the-harmonized-system-to-global-priorities-and-trade-evolution.aspx",
+      "itemsCovered": [
+        "GL-007"
+      ],
+      "basis": "HSC 제75차(2025.03) 잠정채택 → 2025.12 말 정식채택 → 2026.01 공표 → 2028-01-01 발효 / 299개 개정군 / 1,229 호·5,852 소호 / 플라스틱 소호 신설 별도 발표",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "ISO 공식 카탈로그 — ISO 7819:2025 Lithium — Vocabulary (ISO/TC 333)",
+      "u": "https://www.iso.org/standard/83727.html",
+      "itemsCovered": [
+        "GL-008"
+      ],
+      "basis": "2025-11 발행된 International Standard / 소관 ISO/TC 333 — 요원의 enacted=false 플래그 오류를 정정하는 근거",
+      "checkedBy": "Claude (완전성 감사 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "Federal Register 공식 API — 문서 2026-16078 (DPAS Directive Allocation Order)",
+      "u": "https://www.federalregister.gov/api/v1/documents/2026-16078.json",
+      "itemsCovered": [
+        "NA-036"
+      ],
+      "basis": "표제 = DPAS Directive Allocation Order and Additional Requirements for Recoverable Critical Minerals and Materials / type=Rule / action=Temporary final rule; Request for comments / 게재 2026-08-06 / 발효 2026-08-27 / 91 FR 50701. 핵심 의무 = 월간 판매 100%의 미국인 할당이며 BIS 사전 조정·예외 승인 시에만 면제. 종전 항목의 수출허가 요건 서술이 오기임을 확정.",
+      "checkedBy": "Claude (PR #294 리뷰 대응 자체검증)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "财政部 税务总局公告2024年第15号 附件1 《取消出口退税的产品清单》 관보 첨부 PDF 전문",
+      "u": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5235887/5235887/files/取消出口退税的产品清单.pdf",
+      "itemsCovered": [
+        "CN-043"
+      ],
+      "basis": "PDF의 ToUnicode CMap을 직접 파싱해 전문 복호(2페이지·CID 1985개·미매핑 0%). 세번 59개 구성 = 序号1 화학개성유지 / 2~35 銅材 / 36~59 铝材 24개. 7607 계열 5개(76071110·76071120·76071190·76071900·76072000) 전부 취소 대상. 铝塑复合 표기는 序号39 76061121 등 7606(두께 0.2mm 초과 판·편·대) 소속으로 파우치 필름과 두께 구간이 다름.",
+      "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "govinfo — Public Law 119-15 / 119-17 정본",
+      "u": "https://www.govinfo.gov/content/pkg/PLAW-119publ15/html/PLAW-119publ15.htm",
+      "itemsCovered": [
+        "NA-044"
+      ],
+      "basis": "P.L.119-15 = H.J.Res.87 (88 FR 20688, Advanced Clean Trucks 계열) / P.L.119-17 = H.J.Res.89 (90 FR 643, Omnibus Low NOx). 둘 다 approved June 12, 2025. P.L.119-16(ACC II, 90 FR 642)과 합쳐 3건 전수 확인.",
+      "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "법제처 lawService — 화관법 제20231호 부칙·제20조 / 화평법 제21132호 개정 조문",
+      "u": "https://www.law.go.kr/DRF/lawService.do",
+      "itemsCovered": [
+        "KR-030",
+        "KR-031"
+      ],
+      "basis": "화관법 부칙 <제20231호> 제1조 '공포 후 1년 6개월이 경과한 날부터 시행'(→2025-08-07), 부칙 6개조 구성에 혼합물 함량기준 유예 조항 부존재 확인, 제20조 제명 '인체급성유해성물질 등의 수입신고'. 화평법 제21132호 = 제15조 협의체 명문화·제16조의2(비용분담 3원칙)·제16조의3(분쟁조정 90일)·제16조의4 신설, 부칙 공포 후 6개월.",
+      "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "European Commission — Critical Raw Materials Act 페이지 (2030 벤치마크)",
+      "u": "https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials/critical-raw-materials-act_en",
+      "itemsCovered": [
+        "EU-036"
+      ],
+      "basis": "채굴 at least 10% / 가공 at least 40% / 재활용 at least 25% / 단일 제3국 no more than 65% (EU 연간 소비량 기준). EUR-Lex 원문 재조회가 차단돼 집행위 공표본으로 확보.",
+      "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "Federal Register API — 문서 2026-14066 (알루미늄박 AD 행정재심 예비결과)",
+      "u": "https://www.federalregister.gov/api/v1/documents/2026-14066.json",
+      "itemsCovered": [
+        "NA-046"
+      ],
+      "basis": "Notice / 게재 2026-07-13 / 91 FR 42932 / 심사기간 2024-04-01~2025-03-31 예비판정. 요원이 제시한 '91 FR 31423 Amended Final Results'는 검색·조회로 확인 불가.",
+      "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
+    }
+  ],
+  "completenessAudit": {
+    "date": "2026-08-29",
+    "trigger": "Claire 지시 — '누락없는지 다시한번 권역별로 나누어 심층 분석 검색 후 완전성' / '권역별로 따로 심층적으로 검수해줘'",
+    "method": "축 로테이션 밖 권역 전수 스윕(6권역) → 요원 적대적 검증 → **Claude 전건 재검수(요원 신뢰도 0% 전제)**",
+    "workflowStatus": "워크플로는 종합 단계 직전 중단. 권역 스윕 6/6 완료, 적대적 검증 64/82에서 끊김(GL 14건 전부 + JP 4건 미검증). 저널에서 전량 복구해 Claude가 미검증분을 직접 판정.",
+    "candidates": 82,
+    "agentVerdicts": {
+      "real": 44,
+      "refuted": 20,
+      "unverified": 18
+    },
+    "claudeReverifiedAll": true,
+    "incorporated": 21,
+    "incorporationPolicy": "Tier A(Claude가 1차 출처로 확정한 건)만 편입. Tier B(요원 근거만 있는 건)는 FACT_DISCIPLINE상 미편입하고 승인 큐에 유지 — 요원 신뢰도 0% 전제와 정합.",
+    "agentVerdictsOverturned": [
+      {
+        "cand": "NHTSA CAFE 리셋(중대형·워크트럭)",
+        "agent": "제정된 해석규칙",
+        "claude": "FR API상 publication_date가 조회일보다 미래이고 effective_on=null → 미제정. UPCOMING(NA-048)으로 강등 편입"
+      },
+      {
+        "cand": "독일 VerpackDG",
+        "agent": "신규 누락(real=true)",
+        "claude": "EU-026 본문에 BGBl I 2026 Nr.207까지 기재돼 있음 → 누락 아님. 미편입"
+      },
+      {
+        "cand": "商务部公告 2026年第26号",
+        "agent": "신규 누락(real=true)",
+        "claude": "CN-036 본문에 이미 기재 → 재등재 시도 8호로 차단"
+      },
+      {
+        "cand": "ISO 7819:2025",
+        "agent": "enacted=false (동시에 상태를 60.60 Standard published로 표기 — 자기모순)",
+        "claude": "2025-11 발행된 International Standard → enacted=true로 정정 편입(GL-008)"
+      }
+    ],
+    "agentMissesFoundByClaude": [
+      {
+        "finding": "화평법 최신 개정 제21132호(2025-11-11 공포·2026-05-12 시행)",
+        "note": "요원은 2024년 개정(제20232호)까지만 봄. 편입 정본을 최신본으로 교체(KR-031)"
+      },
+      {
+        "finding": "주(州) 배터리 EPR ↔ NA-011(CA SB1215) 부분 중복",
+        "note": "요원 dupNote에 CA 언급 없음. 편입 보류 후 NA-011에 관계 기록"
+      },
+      {
+        "finding": "QC/T 1247-2025 ↔ CN-002 부분 중복",
+        "note": "CN-002 본문에 축어 존재. 편입 보류 후 CN-002에 관계 기록"
+      },
+      {
+        "finding": "GL-001 판본 갱신 오탐 구조",
+        "note": "IMDG 43-26·UN Rev.24 등 4건이 기존 GL-001/002/004의 판본 갱신 또는 부분 기재였음"
+      }
+    ],
+    "claudeSelfCorrections": [
+      "GB 26572-2025 첫 조회에서 성질을 推荐性으로 잘못 읽어 요원 주장과 충돌시킴 → 표준 목록 페이지의 类别 필드로 强制性 확정. 틀린 쪽은 요원이 아니라 내 첫 조회였다.",
+      "미네소타 PFAS 보고기한을 법문(2026-01-01)만 보고 요원이 틀렸다고 의심 → MPCA 운용 기한(2026-09-15)이 맞음을 확인해 내 의심을 기각. 법령 정보만으로 판단하면 안 된다.",
+      "토큰 스캔 오탐 기록: 'RCRA'가 ai[rcra]ft에, 'ECT'가 PROJECT·ELECTRIC에, 'waiver'가 URL 문자열에, '1247'이 openstd URL 해시에 매칭. 3글자 약어는 단독 토큰으로 쓰지 않는다.",
+      "'2026年第11号'는 工信部·税务·商务部 세 부처가 같은 번호를 사용 — 공고 번호 일치만으로 중복을 판정하면 안 된다."
+    ],
+    "structuralDefects": [
+      {
+        "id": "D1",
+        "name": "모법 결손",
+        "scope": "EU·CN 2개 권역 확인",
+        "evidence": "CRMA 약칭은 7개 항목에 등장하나 (EU) 2024/1252는 0건. CSDDD 약칭은 3개 항목에 등장하나 (EU) 2024/1760은 0건. NZIA (EU) 2024/1735는 EU-002의 개정 대상 목록에만 존재. 中 《两用物项出口管制条例》 국무원령 제792호는 CN-014의 근거 법령으로 인용될 뿐 항목이 아님.",
+        "cause": "로테이션이 '새 뉴스 표면'을 쫓아 자식 규범(위임행위·이행규정·公告)만 잡고 모법은 구조적으로 잡지 못함.",
+        "action": "CRMA·CSDDD는 이번에 편입(EU-036·EU-037). NZIA·792호는 Claude 1차 출처 미확인이라 승인 큐 유지."
+      },
+      {
+        "id": "D2",
+        "name": "자국 규제 공백",
+        "scope": "KR",
+        "evidence": "화관법·화평법·화평법 시행령이 KR 26개 항목 전체에 0건. KR/chemicals 셀은 gap 상태였음.",
+        "cause": "해외 규범은 촘촘한데 SBTL을 직접 수범자로 삼는 국내 화학규제만 부재 — '자국 건은 이미 알 것'이라는 암묵 전제로 추정.",
+        "action": "KR-030·KR-031 편입으로 해소 착수. 다른 국내 축(전기안전·산업안전·폐기물)도 같은 전제가 작동했는지 다음 run에서 점검."
+      },
+      {
+        "id": "D3",
+        "name": "판본 갱신 오탐 구조",
+        "scope": "GL",
+        "evidence": "GL-001 하나가 UN38.3 + ICAO TI + IATA DGR + IMDG 전체를 담고 있어, 판본이 올라갈 때마다 신규 누락으로 오탐. 이번에 IMDG 43-26과 UN Rev.24 계열 2건 발생.",
+        "cause": "한 항목의 포괄 범위가 과도. GL 항목이 6개뿐인 것은 결과이지 원인이 아님.",
+        "action": "GL-001 checkNote에 판본 전환 일정을 관측 대상으로 명시. 분할 여부는 Claire 판단."
+      },
+      {
+        "id": "D4",
+        "name": "축 쿼리 설계 실패",
+        "scope": "NA carbon 실증",
+        "evidence": "NA/carbon 셀의 lastSwept는 2026-07-29로 최신이었으나 사용 쿼리가 'California SB 253 SB 261 CARB'와 'SEC climate disclosure rescind' 2건뿐이어서 연방 EPA 규범이 표면화될 수 없었음. 결과로 91 FR 7686이 4개월 넘게 미검출.",
+        "cause": "스윕을 '돌았다'는 사실이 '커버했다'로 등치됨. 셀의 queries 배열이 감사 대상이 아니었음.",
+        "action": "coverage 셀의 queries 배열을 RD-3 점검 대상에 포함할 것 — 구조 PR 후보."
+      },
+      {
+        "id": "D5",
+        "name": "gap 판정 = 탐색 실패",
+        "scope": "7개 셀 실증",
+        "evidence": "NA/upstream·NA/downstream·EU/upstream·KR/chemicals·JP/trade·GL/trade·GL/upstream이 gap이었으나 전부 제정 규범이 실재했다. NA/upstream과 EU/upstream은 lastSwept가 2026-08-29(당일)였는데도 미검출.",
+        "cause": "gap 을 '규범 부재'로 읽어 왔으나 실제로는 '현재 쿼리로 못 찾음'이었다.",
+        "action": "7개 셀 covered 전환 완료. na 판정 요건(2회 연속 무산출 + Claire 승인)에 '쿼리 설계 적정성 확인'을 추가할지 검토 — 구조 PR 후보."
+      },
+      {
+        "id": "D6",
+        "name": "소스 링크가 문서에 도달하지 못함",
+        "scope": "전 권역 22건",
+        "evidence": "src의 u가 경로 없이 도메인 루트로 끝나는 항목이 22건이다. 카드에 '원문'이라 라벨된 칩을 눌러도 기관 홈페이지만 나온다.",
+        "cause": "등재 시 URL 유효성을 문서 도달 기준으로 점검하지 않았다. Codex가 CN-039·NA-039를 한 건씩 지적했으나 기계적으로 훑으니 전 권역 문제였다.",
+        "action": "CN-039·NA-039는 이번에 교체했다. 나머지는 원문 URL 확보가 필요하므로 후속 과제로 남긴다. 검증기에 'src.u의 path가 비어 있으면 경고' 규칙 추가를 권고한다.",
+        "list": [
+          "NA-011 src[2] https://calrecycle.ca.gov/",
+          "NA-017 src[1] https://www.whitehouse.gov/",
+          "NA-019 src[1] https://www.csis.org/",
+          "EU-014 src[1] https://commission.europa.eu/",
+          "CN-001 src[0] https://www.miit.gov.cn/",
+          "CN-002 src[0] https://www.miit.gov.cn/",
+          "CN-003 src[0] https://www.miit.gov.cn/",
+          "CN-004 src[0] http://exportcontrol.mofcom.gov.cn/",
+          "CN-004 src[1] https://www.mofcom.gov.cn/",
+          "CN-009 src[1] https://www.sac.gov.cn/",
+          "CN-011 src[1] https://www.miit.gov.cn/",
+          "CN-013 src[2] https://www.ndrc.gov.cn/",
+          "CN-029 src[1] https://std.samr.gov.cn/",
+          "KR-005 src[2] https://www.me.go.kr/",
+          "KR-010 src[2] https://www.molit.go.kr/",
+          "JP-010 src[2] https://www.cev-pc.or.jp/",
+          "GL-002 src[0] https://www.basel.int/",
+          "NA-034 src[0] https://www.pillsburylaw.com/",
+          "NA-034 src[1] https://www.crowell.com/",
+          "CN-040 src[0] https://std.samr.gov.cn/",
+          "CN-041 src[0] https://std.samr.gov.cn/",
+          "GL-006 src[0] https://webstore.iec.ch/"
+        ]
+      }
+    ],
+    "approvalQueue_TierB": {
+      "note": "Claude가 1차 출처로 확인하지 못해 이번에 편입하지 않은 건. 요원 보고는 원장에 남아 있으며 다음 run에서 1차 출처 확인 후 편입 여부를 판정한다.",
+      "principleDecisionsPending": [
+        "① 회원국·주(州) 이행법을 독립 항목으로 둘 것인가 — 미정 시 EU 27개국·미국 50개 주 법이 매 스윕마다 '누락'으로 재등장. 해당 후보: 독일 VerpackDG, 미국 주 배터리 EPR 법군.",
+        "③ SBTL 직접 노출이 없는 규범의 편입 기준(F14 적용 강도) — 해당 후보: EU 철강 2026/1384, SOLAS II-2/20, 미나마타 수은첨가 전지. 요원 스스로 SBTL 경로에 닿지 않음을 명시한 건들."
+      ],
+      "pendingItems": [
+        "NA: 멕시코 비FTA 관세 인상, HMR 리튬전지 운송 규범군(49 CFR 173.185), RCRA 40 CFR 262 Subpart H, CARB 13 CCR 1962.6, 주(州) 배터리 EPR 법군, 캐나다 EVAS SOR/2023-275, NYC LL39·LL95, PHMSA HM-215R(미제정), CPSC 마이크로모빌리티(미제정), 캐나다 EVAS 폐지안(미제정)",
+        "EU: NZIA (EU) 2024/1735(모법 결손), CO2 (EU) 2025/1214, ADR 위임지침 (EU) 2025/149, CLP (EU) 2024/2865+2025/2439, 철강 (EU) 2026/1384(스코프 판단), 알루미늄 스크랩 수출제한(미제정·SBTL 최대 리스크)",
+        "CN: 《两用物项出口管制条例》 국무원령 792호(모법 결손), GB/T 47591-2026, 达标管理目录 2026년판, 发改价格〔2025〕136号, QC/T 1247-2025(CN-002 관계 명시 조건), 锂离子电池行业规范条件 2024年本, 2026年关税调整方案(세율 기재 불가)",
+        "KR: 산업부 온실가스 목표관리업체 지정고시 2026-071, 블랙매스 HS 2620 품목분류 변경고시, 특수가연물 리튬금속전지(미제정)",
+        "JP: 経済安保推進法 개정(令和8年法律第38号), 危険物規則 屋外貯蔵所 특례(총무성령 제60호 — 1차 출처 미확보로 문서번호 기재 불가), 電気用品安全法 모바일배터리(미제정)",
+        "GL: UN GTR 배터리 내구성(1차 출처 미확인), 미나마타 Annex A(스코프 판단), 바젤 부속서IV BC-17/15(GL-002 하위 갱신), IEC 전고체 프로젝트(미제정), ISO/IEC JTC 5 DPP(미제정), IMO Net-Zero Framework(미제정·2026.10 재소집), 바젤 폐전지 기술지침(미제정·COP-18 2027.04), ECT(스코프 탈락 권고)"
+      ]
+    },
+    "unresolved_factDiscipline": [
+      "JP 危険物規則 屋外貯蔵所 특례 — 消防庁 1차 자료로 총무성령 번호·공포일 미확정. 확정 전 문서번호 기재 금지.",
+      "CN 2026年关税调整方案 재생 黑粉 잠정세율 6.5%→3% — 요원이 검증한 4개 출처 어디에도 수치 없음. 세율 기재 금지.",
+      "NA UFLPA 부록의 '탄산리튬' 품목 명시 여부 — 법인명까지만 축어 확인. '배터리 소재 등재' 문구 기재 금지.",
+      "GL UN GTR 배터리 내구성 — GL-003(R100 05시리즈+GTR20)과 주제가 다르나 WP.29 1차 문서 미확인."
+    ]
+  },
+  "reviewFixes": {
+    "source": "PR #294 Codex Review (reviewed commit 00510f0fee, 2026-08-30 제출)",
+    "note": "지적 4건을 그대로 수용하지 않고 데이터·원장·1차 출처로 직접 확인한 뒤 반영했다. 4건 모두 실재 결함으로 확인됐다. 공통 원인: 8/29 run이 정정 사항을 원장에만 적고 '차기 run 이월'로 미뤄, 사용자 화면 필드는 틀린 값을 계속 노출했다.",
+    "items": [
+      {
+        "id": "NA-036",
+        "severity": "P1",
+        "finding": "규제 메커니즘 오기 — 수출허가 요건으로 서술했으나 실제는 DPAS 할당명령",
+        "verification": "Federal Register 공식 API 문서 2026-16078 직접 조회 — 표제 'DPAS Directive Allocation Order and Additional Requirements for Recoverable Critical Minerals and Materials', action='Temporary final rule; Request for comments', 게재 2026-08-06, 발효 2026-08-27, 91 FR 50701. 핵심 의무는 월간 판매 100%의 미국인 할당이며 BIS 사전 조정·예외 승인이 있어야 예외.",
+        "action": "t·d·dt·detail 전면 재작성. src를 로펌 해설 1건(secondary) → 관보 원문·API(primary-doc)로 승격.",
+        "impact": "허가제 서술은 '신청하면 수출 경로가 열린다'는 잘못된 함의를 주고 국내 할당 의무를 통째로 누락시킨다."
+      },
+      {
+        "id": "JP-012",
+        "severity": "P2",
+        "finding": "검증된 정정의 미전파 — 공표일 5.16→5.13이 원장에만 기록",
+        "verification": "8/29 원장 corrections에 '3차 약정결과 공표일 5.16→5.13 (OCCTO 1차+METI 교차) — dt 반영은 차기 run(이월)' 기재, primaryDocs에 OCCTO 파일명 260513_longauction_... 확인 기록 존재. 그러나 t·d·dt·detail·effectiveDate가 모두 5.16 유지.",
+        "action": "전 필드에 2026-05-13 전파, effectiveDate 포함.",
+        "impact": "run이 스스로 반증한 날짜를 사용자가 계속 봤고 날짜 파생 표시도 그 값을 썼다."
+      },
+      {
+        "id": "CN-039",
+        "severity": "P2",
+        "finding": "소스 링크가 기관 맨 홈페이지 — samr.gov.cn / people.com.cn 루트",
+        "verification": "항목 src 직접 확인. 8/29 원장에는 SAMR 공고 원문·정부망 게재본·CNCA 실시규칙 URL이 모두 기록돼 있었음.",
+        "action": "src 3건을 원장의 실제 문서 URL로 교체.",
+        "impact": "'SAMR 원문'이라 라벨된 칩이 공고에 도달하지 못해 인증 범위·시행일 확인에 쓸 수 없었다.",
+        "rule": "src의 u가 경로 없이 도메인 루트로 끝나면 원문 링크가 아니다 — 등재 전 점검 규칙으로 채택."
+      },
+      {
+        "id": "EU-013",
+        "severity": "P2",
+        "finding": "검증된 정정의 미전파 — black mass 수출금지 개시가 d/detail에만 12월로 잔존",
+        "verification": "8/29 원장에 \"d_head의 '2026.12~'는 '2026.11.09~'로 정정 필요\" 명시. dt·effectiveDate는 2026-11-09로 이미 정확했고 d·detail만 12월.",
+        "action": "d·detail을 2026.11.09로 정정하고 유해폐기물 코드 19 14 02 명시.",
+        "impact": "카드에서 가장 크게 보이는 서술이 실제 준수 시한보다 약 한 달 늦게 표시됐다."
+      }
+    ],
+    "lessonForRunbook": "검증한 정정을 원장에만 적고 '차기 run 이월'로 미루면, 그 사이 사용자는 run이 이미 반증한 값을 계속 본다. JP-012·EU-013이 같은 유형이고 8/29 run 한 번에 두 건이 발생했다. 정정은 발견한 run에서 항목 본문까지 함께 착지시키는 것을 원칙으로 할 것 — 이월은 '추가 확인이 필요한 미확정 사실'에만 허용.",
+    "round2": {
+      "source": "PR #294 Codex Review (reviewed commit 86f6d776, 2026-08-31 제출)",
+      "note": "지적 7건 전건을 데이터·1차 출처로 확인한 결과 모두 실재 결함. 6건은 내 감사 커밋의 오류다.",
+      "pattern": "7건 중 3건(CN-043·CN-045·GL-008)이 같은 유형이다 — checkNote에 '기재 보류'라고 명시해 놓고 d·tip 같은 사용자 화면 필드에는 그 주장을 그대로 실었다. 보류 선언이 본문에 강제되지 않으면 checkNote는 면책 문구로만 기능하고 사용자는 미검증 주장을 그대로 읽는다.",
+      "items": [
+        {
+          "id": "NA-043",
+          "severity": "P2",
+          "fix": "ACTIVE → UPCOMING (발효 2026-09-03 미도래, 카운트다운 억제·워치리스트 누락 유발)"
+        },
+        {
+          "id": "KR-031",
+          "severity": "P2",
+          "fix": "UPCOMING → ACTIVE (시행 2026-05-12 경과, 렌더러가 '경과 — 시행 미확인'으로 표시)"
+        },
+        {
+          "id": "GL-008",
+          "severity": "P2",
+          "fix": "effectiveDate 삭제 (ISO는 발행 월만 공표하는데 일자를 근사 기재)"
+        },
+        {
+          "id": "NA-048",
+          "severity": "P2",
+          "fix": "effectiveDate 삭제(공표일을 발효일로 저장) + 오늘 공표 확인으로 ACTIVE 전환"
+        },
+        {
+          "id": "CN-043",
+          "severity": "P2",
+          "fix": "d·tip에서 铝箔 특정·13%→0 수치 제거, 附件1 확인 여부에 조건부 서술"
+        },
+        {
+          "id": "CN-045",
+          "severity": "P2",
+          "fix": "d·tip의 프탈레이트 4종 단정을 2차 출처 기준 미확정 사실로 명시"
+        },
+        {
+          "id": "ledger",
+          "severity": "P2",
+          "fix": "verifyCounts 재산출 — 두 원장 모두 스크립트 산출로 갱신"
+        }
+      ],
+      "lessonForRunbook": "checkNote의 '기재 보류' 선언과 d·tip 본문의 정합을 검증기에서 잡을 수 있는지 검토할 것. 보류 대상 키워드가 checkNote에 있는데 같은 키워드가 d·tip에 단정형으로 나타나면 경고 후보."
+    },
+    "round3": {
+      "source": "PR #294 Codex Review (reviewed commit 901d53c0, 2026-08-31 제출)",
+      "note": "지적 8건 전건 확인 후 반영. 아울러 같은 결함 유형을 신규 21건 전체에 기계적으로 훑어 4건을 추가 발견했다.",
+      "codexFindings": [
+        {
+          "id": "NA-037",
+          "fix": "발효한 비상선언과 DOE 이행규칙 대기 중인 금지를 d에서 분리 — detail은 '현재 금지 설비 없음'인데 d는 금지가 작동 중으로 읽혔다"
+        },
+        {
+          "id": "region_policy/NA",
+          "fix": "NA-026 'status 전환 승인 대기' 잔존 문구를 승인·반영 완료로 교체 — 같은 패널의 상위 워치포인트와 충돌"
+        },
+        {
+          "id": "NA-039",
+          "fix": "src 홈페이지 → 실제 기사·의원실 보도자료·진보코커스 페이지. H.R. 797 확보(2차, congress.gov 대조 잔여)"
+        },
+        {
+          "id": "NA-047",
+          "fix": "ACTIVE → UPCOMING — 2026-09-15 보고기한이 카운트다운·워치리스트 양쪽에서 사라지고 있었다"
+        },
+        {
+          "id": "NA-048",
+          "fix": "detail이 공표 전 서술로 남아 카드 안에서 공표됨·미공표가 동시 표시 — detail 갱신"
+        },
+        {
+          "id": "JP-018",
+          "fix": "d·tip의 계통 투자·수익 개선 효과 주장을 조건부로 — 확인된 것은 의안 메타데이터뿐"
+        },
+        {
+          "id": "coverage NA/carbon",
+          "fix": "쿼리를 고치지 않고 lastSwept만 전진시켜 다음 스윕이 같은 사각을 반복할 상태였다 — EPA·CAA·차량GHG·CAFE 각도 추가"
+        },
+        {
+          "id": "GL-007",
+          "fix": "d의 'SBTL 수출품 분류 일괄 재편' 단정을 상관표 확인 조건부로"
+        }
+      ],
+      "myOwnSweepFindings": [
+        {
+          "id": "NA-043",
+          "fix": "d가 'Annex 부품 목록에 리튬이온전지 포함'을 단정 — checkNote는 미확인이라 적혀 있었다"
+        },
+        {
+          "id": "NA-045",
+          "fix": "d·tip이 알루미늄의 UFLPA 고위험 부문 지정을 단정 — 집행전략 원문 미확인"
+        },
+        {
+          "id": "EU-037",
+          "fix": "d가 Omnibus I의 적용 시점·대상 조정 내용을 단정 — 조문 대조 미실시"
+        },
+        {
+          "id": "src 도메인 루트",
+          "fix": "전 권역 22건을 기계적으로 적발해 구조 결함 D6으로 등재"
+        }
+      ],
+      "lesson": "checkNote 보류 ↔ d·tip 단정 충돌이 3차에 걸쳐 8건 나왔다(CN-043·CN-045·GL-008·JP-018·GL-007·NA-043·NA-045·EU-037). 한 건씩 지적받는 대신 기계적 스윕으로 전수를 훑는 것이 빨랐다. 보류 선언은 면책 문구가 아니라 본문 작성의 제약으로 강제돼야 한다 — 검증기 규칙 후보."
+    }
+  },
+  "f12Correction": {
+    "what": "완전성 감사 신규 21건의 verify.date/runId를 2026-08-29-RD로 찍고 primaryDocs도 8/29 원장에 붙였던 것을 2026-08-31로 정정.",
+    "why": "요원 권역 스윕은 2026-08-29에 수행됐으나 Claude의 1차 출처 재검증은 2026-08-30~31에 수행됐다. 수행하지 않은 날짜로 검증을 주장한 셈이라 F12(세션 날짜 표류)에 해당한다.",
+    "how": "신규 21건과 리뷰 정정 4건의 verify.date/lastChecked를 2026-08-31로, verify.runId를 2026-08-31-AUDIT로 변경. primaryDocs 21건을 이 원장으로 이관. coverage lastSwept·region_policy 표기도 동일 정정.",
+    "detectedBy": "Claude 자체 점검 — CI 실행 시각(2026-08-31T04:23Z)과 세션 스탬프 불일치를 확인."
+  },
+  "carryOver": [
+    "완전성 감사 Tier B 승인 큐 — 다음 run에서 1차 출처 확인 후 편입 판정(completenessAudit.approvalQueue_TierB 참조)",
+    "Claire 원칙 결정 2건 대기 — ① 회원국·주(州) 이행법 항목화 원칙 ③ F14 노출도 무관 편입 기준",
+    "구조 PR 후보 2건 — coverage 셀의 queries 배열을 RD-3 점검 대상에 포함 / na 판정 요건에 쿼리 설계 적정성 확인 추가",
+    "CN-044 铝塑复合膜 국가표준 — 发布即实施라 유예 0. 통상 WATCH와 별도로 발포 여부를 짧은 주기로 확인(Claire 승인 예외)",
+    "NA-047 미네소타 PFAS — 보고기한 2026-09-15 임박, 연장신청 창구 2026-08-16 마감 경과. SBTL/고객사 보고 의무 해당 여부 확인 선행",
+    "NA-048 NHTSA 해석규칙 — **종결(2026-08-31)**: FR API 재조회로 관보 공표 도래 확인(91 FR 55788), UPCOMING → ACTIVE 전환 완료. effective_on은 여전히 null이므로 effectiveDate 미기재.",
+    "KR-031 화평법 — 2026-05-12 시행 상태 확인 후 UPCOMING→ACTIVE 판정",
+    "RUNBOOK 개정 후보 — 정정의 '차기 run 이월' 금지 원칙(JP-012·EU-013 사례)",
+    "RUNBOOK 개정 후보 — src URL 도메인 루트 금지 점검(CN-039 사례)"
+  ],
+  "verifyCounts": {
+    "derivedFrom": "public/data/tracker_data.json (스크립트 산출, 2026-08-31 재계산)",
+    "totalItems": 186,
+    "thisRun": {
+      "primary-doc": 18,
+      "secondary": 2,
+      "primary-meta": 2
+    },
+    "thisRunTotal": 22,
+    "carriedOver": 164,
+    "note": "2026-08-31 재산출. 완전성 감사로 21건이 편입되며 총 항목이 165→186으로 늘었는데 이 블록이 감사 이전 수치에 머물러 있어 run이 자기 산출량을 과소보고하고 있었다(Codex 2차 리뷰 지적). 감사 신규분은 2026-08-31-AUDIT 원장 소관이므로 두 원장 모두 재계산했다."
+  },
+  "newCount": 21,
+  "selfAudit": {
+    "date": "2026-08-31",
+    "trigger": "Claire 지시 — 라운드마다 결함이 나오는 것은 자랑이 아니므로 지적받기 전에 스스로 심층 검증할 것",
+    "method": "지금까지 지적받은 결함 유형 + 아직 지적받지 않은 유형을 10개 항목으로 정리해 신규 21건과 손댄 12건에 기계적으로 적용했다. 유형: 자발표준 status 관례 / region_policy stale / 워치포인트 마크다운 / 항목 내부 날짜 정합 / d 길이 / 원장 교차정합 / coverage 축 배정 / 상호참조 무결성 / instrumentType 적정성 / 산문 D-day.",
+    "findings": [
+      {
+        "id": "GL-008",
+        "type": "status 관례 위반",
+        "severity": "P2",
+        "detail": "자발 국제표준을 ACTIVE로 편입. 저장소 관례는 GL-006(IEC TS)·GL-005(ISSB)·CN-042(단체표준) 전부 WATCH이고 스코프 게이트도 사적 표준을 '관찰 기록'으로 규정한다. 발행 사실(enacted)과 구속력을 등치한 오류.",
+        "fix": "WATCH 전환 + coverage GL/upstream 셀에 'covered의 의미가 구속 규범 실재가 아님'을 명시"
+      },
+      {
+        "id": "KR-030",
+        "type": "effectiveDate 의미 오류 + 사실 오류",
+        "severity": "P1",
+        "detail": "eff에 무관한 타법개정 시행일(2025-10-01)을 넣어 3분류 체계가 그때 시행된 것처럼 표시. 아울러 제20231호를 '전부개정'으로 적었으나 법제처 정본은 '일부개정'.",
+        "fix": "eff 2025-08-07로 정정(법제처 lawService 직접 확인), 제개정구분 정정, verify를 primary-doc로 재작성"
+      },
+      {
+        "id": "KR-031",
+        "type": "effectiveDate 의미 오류 + 제목 부적절",
+        "severity": "P1",
+        "detail": "eff에 최신 판본 시행일(2026-05-12)을 넣어 등록기준 규범의 발효일과 어긋남. 제목이 판본 번호 중심이라 무엇을 규율하는지 드러나지 않았다.",
+        "fix": "eff 2025-08-07로 정정, 제목·d 재구성, 제10조 축어('연간 1톤 이상')를 정본에서 확보해 verify 승격. 다만 '0.1톤→1톤 상향'은 개정 전 판본 미대조로 미확정 명시"
+      },
+      {
+        "id": "NA-045",
+        "type": "instrumentType 불일치",
+        "severity": "P2",
+        "detail": "제목이 'DHS 고시'이고 추적 대상이 FR Notice인데 instrumentType이 law였다.",
+        "fix": "notification으로 정정 (NA-046 Commerce Notice와 동일 취급)"
+      },
+      {
+        "id": "region_policy/NA",
+        "type": "내 워치포인트 stale",
+        "severity": "P2",
+        "detail": "내가 쓴 워치포인트가 'NA-048은 8.31 공표 대기라 UPCOMING'이라고 적혀 있는데 같은 날 공표돼 ACTIVE로 전환됐다.",
+        "fix": "공표 확인·ACTIVE 전환으로 갱신"
+      },
+      {
+        "id": "CN-046",
+        "type": "근거 미명시",
+        "severity": "P3",
+        "detail": "eff 2025-03-21은 通知의 印发일이며 '印发일 = 발효일'은 내 추론인데 그 사실을 기록하지 않았다.",
+        "fix": "checkNote에 추론임을 명시하고 시행 조항 대조를 잔여 과제로"
+      },
+      {
+        "id": "src accessedDate",
+        "type": "링크 부패 추적 미비",
+        "severity": "P3",
+        "detail": "검증기가 src마다 accessedDate를 요구하나 저장소 447개 src 중 0개가 보유. 1차 출처 검증을 주장하는 항목이라면 접근 시점 기록이 그 주장을 뒷받침한다.",
+        "fix": "신규 21건의 src 40개에 accessedDate 부여. 기존 407개는 원문 재확인 없이 날짜를 지어낼 수 없으므로 손대지 않는다."
+      }
+    ],
+    "myScanFalsePositives": [
+      "region_policy 정합 정규식이 NA-045·CN-046·GL-004를 오탐했다 — 한 워치포인트에 여러 항목 ID와 여러 status 단어가 섞여 있어 인접 status를 잘못 귀속했다. 앞선 세션의 3글자 약어 오탐과 같은 계열이며, 스캔 결과는 항상 원문을 열어 판정해야 한다."
+    ],
+    "clean": [
+      "항목 내부 날짜 정합 (t·dt의 날짜 vs effectiveDate) — 위반 0",
+      "산문 내 D-day·휘발성 표현 — 0",
+      "상호 참조 무결성 (미존재 항목 ID 참조) — 0",
+      "워치포인트 마크다운 (plain text 렌더) — 0",
+      "원장 primaryDocs ↔ 항목 verify 교차 — 22/22 일치, newCount 정확",
+      "d 길이 — 신규분 중앙값 90자 (전 항목 중앙값 192자) 로 R30 압축 취지에 부합",
+      "coverage 축 배정 — 21건 전부 축 정의와 정합",
+      "effectiveDate 를 보고기한으로 쓴 NA-047 — NA-032·CN-002·NA-029 선례가 있어 관례 부합(내 초기 의심을 기각)"
+    ]
+  },
+  "remainingTaskResolution": {
+    "date": "2026-08-31",
+    "trigger": "Claire 지시 — 잔여 확인 붙은 항목들 원문 재조회",
+    "scope": "신규 21건 중 잔여 확인·기재 보류가 붙은 20건",
+    "resolved": [
+      {
+        "id": "CN-043",
+        "task": "附件1의 파우치용 알루미늄박(7607) 포함 여부",
+        "result": "**종결·확정**. 관보 첨부 PDF를 ToUnicode CMap 직접 복호(미매핑 0%)해 전문 확인 — 铝材 24개(序号 36~59), 7607 계열 5개 세번 전부 취소 대상, 有衬背铝箔 포함. 요원 보고의 '24개 税号'와 일치. SBTL 원자재 노출이 미확정→확정으로 승격.",
+        "caveat": "附件1의 铝塑复合 표기는 7606(두께 0.2mm 초과 판·편·대) 소속이라 파우치 필름과 두께 구간이 다르다 — 동일 품목으로 단정하지 않는다."
+      },
+      {
+        "id": "NA-044",
+        "task": "P.L.119-15/17 정본 조문 확인",
+        "result": "**종결**. govinfo 3건 전수 확인 — 119-15(H.J.Res.87, 88 FR 20688 ACT 계열), 119-17(H.J.Res.89, 90 FR 643 Omnibus Low NOx), 119-16(H.J.Res.88, 90 FR 642 ACC II). 전부 2025-06-12 성립."
+      },
+      {
+        "id": "KR-030",
+        "task": "부칙 유예 조항·제20조 적용 범위",
+        "result": "**종결 + 요원 주장 반증**. 부칙 <제20231호>는 6개조뿐이고 혼합물 함량기준 유예 조항이 부존재. 시행일 근거 조문('공포 후 1년 6개월')과 제20조 제명('인체급성유해성물질 등의 수입신고') 확정."
+      },
+      {
+        "id": "KR-031",
+        "task": "제21132호 개정 내용·시행 상태",
+        "result": "**종결 + 내 오귀속 정정**. 개정 내용은 본법 제16조의2(비용분담 3원칙)·제16조의3(분쟁조정 90일 이내 조정안)·제16조의4 신설. 종전 tip이 이를 시행령 제36304호 소관으로 적었던 층위 오귀속을 바로잡았다."
+      },
+      {
+        "id": "EU-036",
+        "task": "2030 벤치마크 수치",
+        "result": "**부분 종결**. 집행위 공표본으로 채굴 10%/가공 40%/재활용 25%/단일 제3국 65% 확보해 기재. EUR-Lex 원문이 차단돼(응답 2KB) 제5조 축어 대조와 2029-05-24 부분 적용 범위는 유지."
+      },
+      {
+        "id": "NA-046",
+        "task": "후속 행정재심 정본 대조",
+        "result": "**요원 주장 미확인**. '91 FR 31423 Amended Final Results'를 확인하지 못했고, 실제 확인된 것은 2024-2025 행정재심 예비결과(91 FR 42932, 2026-07-13)와 CVD 예비결과(2026-14294)다. 예비 단계이므로 세율 계속 미기재."
+      }
+    ],
+    "stillOpen": [
+      "NA-042 폐지 대상 MY 범위 조문 단위 확인",
+      "NA-043 Annex I/III 부품 목록의 리튬이온전지 세번 — 세율 구조·국가별 상한도 원문 확인 전까지 미기재 유지",
+      "NA-045 FR 부록의 추가 법인 수·품목 기술자 축어 (탄산리튬 기재 불가 유지)",
+      "NA-047 2026년 개정(2023-07-01 이전 제조분 제외) 조문 단위 확인",
+      "EU-036 제5조 축어 대조 / EU-037 2024/1760 본체 조문·Omnibus I 제5(1)조 이행기한 — EUR-Lex 접근 회복 후",
+      "CN-044 표준 초안 본문 미공개 / CN-045 표준 본문 물질 목록·达标管理目录 리튬전지 포함 여부 / CN-046 배출권 할당방안 원문",
+      "CN-047 의견수렴 종료 시점·강제성 여부",
+      "JP-018 개정 조문 내용 / JP-019 官報 정본·제8조의2 조문 / JP-020 총무성령 특례 기준·2026년 屋外貯蔵所 개정 정본",
+      "GL-008 ISO/CD 25158 진행 상태",
+      "NA-044 채택 주(캘리포니아 외) 목록"
+    ],
+    "toolNote": "PDF 추출: WSL·Windows 양쪽에 poppler·pypdf·pdfminer가 없고 Word COM은 PDF 변환 대화상자에서 멈췄다. PDF의 ToUnicode CMap(bfchar/bfrange)을 직접 파싱해 CID를 유니코드로 복호하는 방식이 통했고 미매핑 0%였다 — 중국 관보 첨부 PDF에 재사용 가능한 경로다(scratchpad/pdfdec.py). EUR-Lex는 이번 세션에서 WebFetch·curl 모두 빈 응답을 반환했다(초기 1회는 791KB 성공) — 접근 제한으로 추정."
+  }
+}

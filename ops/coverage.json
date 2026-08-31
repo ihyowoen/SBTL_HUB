@@ -75,10 +75,13 @@
         "NA-014",
         "NA-026",
         "NA-027",
-        "NA-028"
+        "NA-028",
+        "NA-036",
+        "NA-041",
+        "NA-043"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-22",
+      "lastSwept": "2026-08-31",
       "queries": [],
       "sweepDay": "Mon"
     },
@@ -102,10 +105,11 @@
         "CN-013",
         "CN-014",
         "CN-018",
-        "CN-033"
+        "CN-033",
+        "CN-043"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-31",
       "queries": [],
       "sweepDay": "Mon"
     },
@@ -123,15 +127,17 @@
     {
       "axis": "trade",
       "region": "JP",
-      "items": [],
-      "status": "gap",
-      "lastSwept": "2026-07-29",
+      "items": [
+        "JP-019"
+      ],
+      "status": "covered",
+      "lastSwept": "2026-08-31",
       "queries": [
         "経済安保 輸出管理 電池 材料 改正",
         "日本 関税 電池 アルミ"
       ],
       "sweepDay": "Mon",
-      "note": "일본 자체 관세·수출관제 축 무변동. 令和8년 関税定率法 개정(暫定税率 404품목 2027.3.31 연장, 保税制度 2026.6.1) 확인 — 배터리·알루미늄 직결 없음. 中 대일 수출관제(商务部公告2026年第1号 등)는 CN 축 귀속으로 승인 큐 이관",
+      "note": "일본 자체 관세·수출관제 축 무변동. 令和8년 関税定率法 개정(暫定税率 404품목 2027.3.31 연장, 保税制度 2026.6.1) 확인 — 배터리·알루미늄 직결 없음. 中 대일 수출관제(商务部公告2026年第1号 등)는 CN 축 귀속으로 승인 큐 이관 | 2026-08-31 완전성 감사: gap 판정이 규범 부재가 아니라 탐색 실패였음이 확인돼 covered로 전환.",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
@@ -140,15 +146,17 @@
     {
       "axis": "trade",
       "region": "GL",
-      "items": [],
-      "status": "gap",
-      "lastSwept": "2026-07-29",
+      "items": [
+        "GL-007"
+      ],
+      "status": "covered",
+      "lastSwept": "2026-08-31",
       "queries": [
         "WTO dispute battery subsidies",
         "critical minerals trade agreement multilateral"
       ],
       "sweepDay": "Mon",
-      "note": "제정 규범 신규 없음. WTO DS 印 배터리·EV 조치 패널(2026.02.24 DSB 설치)·USTR 핵심광물 복수국간협정 설계 의견수렴(FR 2026.02.26, 마감 3.19) 모두 미제정 — 스코프 제외, 관측점만",
+      "note": "제정 규범 신규 없음. WTO DS 印 배터리·EV 조치 패널(2026.02.24 DSB 설치)·USTR 핵심광물 복수국간협정 설계 의견수렴(FR 2026.02.26, 마감 3.19) 모두 미제정 — 스코프 제외, 관측점만 | 2026-08-31 완전성 감사: gap 판정이 규범 부재가 아니라 탐색 실패였음이 확인돼 covered로 전환.",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
@@ -166,7 +174,8 @@
         "NA-009",
         "NA-013",
         "NA-008",
-        "NA-027"
+        "NA-027",
+        "NA-039"
       ],
       "status": "covered",
       "lastSwept": "2026-07-17",
@@ -234,12 +243,12 @@
       "axis": "subsidy",
       "region": "GL",
       "items": [],
-      "status": "gap",
-      "lastSwept": "2026-07-29",
+      "status": "na",
+      "lastSwept": "2026-08-29",
       "queries": [],
       "naReason": "다자 보조금 규범은 WTO 분쟁 외 부재 — trade/GL에서 커버",
       "sweepDay": "Mon",
-      "note": "제정 다자 규범 부재 확인 — WTO SCM 협정 외 신규 없음. 화석연료 보조금 규율은 G20·APEC 자발적 동료검토, OECD/IEA 지원조치 인벤토리 수준. WTO 지역내용요건 금지(GATT 제3조·TRIMs)가 청정산업 보조의 제약으로 논의되나 신규 규범 아님 [정정 12차 2026-08-07] na 판정은 1회 빈 스윕(7/29, 7/17 원장 부재 실측) 직후·승인 기록 없음 — RUNBOOK §3(2회 연속 빈 스윕 + Claire 승인) 미충족으로 gap 환원. 2회차 빈 스윕 + 승인 시 na 재판정",
+      "note": "제정 다자 규범 부재 확인 — WTO SCM 협정 외 신규 없음. 화석연료 보조금 규율은 G20·APEC 자발적 동료검토, OECD/IEA 지원조치 인벤토리 수준. WTO 지역내용요건 금지(GATT 제3조·TRIMs)가 청정산업 보조의 제약으로 논의되나 신규 규범 아님 [정정 12차 2026-08-07] na 판정은 1회 빈 스윕(7/29, 7/17 원장 부재 실측) 직후·승인 기록 없음 — RUNBOOK §3(2회 연속 빈 스윕 + Claire 승인) 미충족으로 gap 환원. 2회차 빈 스윕 + 승인 시 na 재판정 [2026-08-29 2회차 스윕] 무산출 — na 재판정 재료 완성(승인 대기). [2026-08-29 Claire 승인] 2회 연속 무산출(2026-07-29·2026-08-29) 확인 후 na 재판정. 분기 1회 재확인 대상.",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
@@ -294,10 +303,13 @@
         "CN-012",
         "CN-006",
         "CN-011",
-        "CN-029"
+        "CN-029",
+        "CN-039",
+        "CN-040",
+        "CN-044"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-31",
       "queries": [],
       "sweepDay": "Tue"
     },
@@ -338,7 +350,8 @@
       "axis": "product_std",
       "region": "GL",
       "items": [
-        "GL-003"
+        "GL-003",
+        "GL-006"
       ],
       "status": "covered",
       "lastSwept": "2026-07-17",
@@ -349,10 +362,12 @@
       "axis": "chemicals",
       "region": "NA",
       "items": [
-        "NA-029"
+        "NA-029",
+        "NA-038",
+        "NA-047"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-31",
       "queries": [
         "TSCA lithium battery chemicals restriction",
         "EPA PFAS rule battery"
@@ -385,10 +400,11 @@
       "region": "CN",
       "items": [
         "CN-031",
-        "CN-032"
+        "CN-032",
+        "CN-045"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-31",
       "queries": [
         "新化学物质 环境管理 登记 电池 材料",
         "危险化学品 目录 修订 电池"
@@ -403,14 +419,18 @@
     {
       "axis": "chemicals",
       "region": "KR",
-      "items": [],
-      "status": "gap",
-      "lastSwept": "2026-07-28",
+      "items": [
+        "KR-030",
+        "KR-031"
+      ],
+      "status": "covered",
+      "lastSwept": "2026-08-31",
       "queries": [
         "화평법 화관법 개정 시행 배터리 소재",
         "유해화학물질 지정 고시 이차전지"
       ],
-      "sweepDay": "Tue"
+      "sweepDay": "Tue",
+      "note": "2026-08-31 완전성 감사: gap 판정이 규범 부재가 아니라 탐색 실패였음이 확인돼 covered로 전환."
     },
     {
       "axis": "chemicals",
@@ -537,14 +557,14 @@
       "axis": "recycle",
       "region": "GL",
       "items": [],
-      "status": "gap",
-      "lastSwept": "2026-07-29",
+      "status": "na",
+      "lastSwept": "2026-08-29",
       "queries": [
         "global battery recycling standard ISO",
         "international battery circularity rules"
       ],
       "sweepDay": "Wed",
-      "note": "제정 다자 규범 부재 — GBA 배터리 패스포트는 자율 이니셔티브, IEA Battery Circularity(2026)는 분석보고서. ISO/IEC 강제표준 신규 없음. na 판정 [정정 12차 2026-08-07] na 판정은 1회 빈 스윕(7/29, 7/17 원장 부재 실측) 직후·승인 기록 없음 — RUNBOOK §3(2회 연속 빈 스윕 + Claire 승인) 미충족으로 gap 환원. 2회차 빈 스윕 + 승인 시 na 재판정",
+      "note": "제정 다자 규범 부재 — GBA 배터리 패스포트는 자율 이니셔티브, IEA Battery Circularity(2026)는 분석보고서. ISO/IEC 강제표준 신규 없음. na 판정 [정정 12차 2026-08-07] na 판정은 1회 빈 스윕(7/29, 7/17 원장 부재 실측) 직후·승인 기록 없음 — RUNBOOK §3(2회 연속 빈 스윕 + Claire 승인) 미충족으로 gap 환원. 2회차 빈 스윕 + 승인 시 na 재판정 [2026-08-29 2회차 스윕] 무산출 — na 재판정 재료 완성(승인 대기). [2026-08-29 Claire 승인] 2회 연속 무산출(2026-07-29·2026-08-29) 확인 후 na 재판정. 분기 1회 재확인 대상.",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
@@ -559,10 +579,12 @@
         "NA-020",
         "NA-025",
         "NA-015",
-        "NA-018"
+        "NA-018",
+        "NA-034",
+        "NA-045"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-31",
       "queries": [],
       "sweepDay": "Thu"
     },
@@ -579,10 +601,11 @@
         "EU-022",
         "EU-003",
         "EU-005",
-        "EU-015"
+        "EU-015",
+        "EU-037"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-31",
       "queries": [],
       "sweepDay": "Thu"
     },
@@ -594,7 +617,7 @@
         "CN-036"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-29",
       "queries": [],
       "sweepDay": "Thu",
       "note": "**대형 미포섭 확보** — 《矿产资源法实施条例》 국무원령(8장 79조), **2026.06.15 시행**. 리튬·코발트·희토류·텅스텐·갈륨·게르마늄 등 **36종을 국가급 전략성 광산자원 목록**에 편입, 제품+생산능력+산지 3위일체 비축제도 최초 행정법규화, 심사권한 상향·총량지표 강성관리. 商务部 2026年第26号(2026.07.01 시행) 전략광산 수출관제 신고포상제. 승인 큐 이관",
@@ -614,7 +637,7 @@
         "KR-022"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-29",
       "queries": [],
       "sweepDay": "Thu"
     },
@@ -625,7 +648,7 @@
         "JP-014"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-29",
       "queries": [],
       "sweepDay": "Thu"
     },
@@ -636,7 +659,7 @@
         "GL-002"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-29",
       "queries": [
         "OECD critical minerals framework binding",
         "IEA minerals security program"
@@ -718,10 +741,11 @@
       "axis": "transport",
       "region": "JP",
       "items": [
-        "JP-011"
+        "JP-011",
+        "JP-020"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-31",
       "queries": [
         "消防法 リチウム蓄電池 政令 改正 施行",
         "危険物 貯蔵 リチウム 規制"
@@ -743,16 +767,20 @@
       "axis": "carbon",
       "region": "NA",
       "items": [
-        "NA-032"
+        "NA-032",
+        "NA-042"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-31",
       "queries": [
         "California SB 253 SB 261 CARB regulation deadline",
+        "Clean Air Act section 202 vehicle GHG standards final rule repeal",
+        "EPA endangerment finding rescission motor vehicle greenhouse gas standards Federal Register",
+        "NHTSA CAFE fuel economy program reset Federal Register",
         "SEC climate disclosure rescind status"
       ],
       "sweepDay": "Fri",
-      "note": "**미포섭 제정 법률 확보** — CA SB 253/SB 261 + CARB Initial Regulation(2026.02.26 채택). SB253 Scope1·2 보고 2026.11.10(연기). 승인 큐 이관. SEC 기후공시 규칙은 폐지 제안 중(2026.06) [2026-07-29] 본 셀에서 확보한 신규 표면이 항목으로 편입돼 gap 해소.",
+      "note": "**미포섭 제정 법률 확보** — CA SB 253/SB 261 + CARB Initial Regulation(2026.02.26 채택). SB253 Scope1·2 보고 2026.11.10(연기). 승인 큐 이관. SEC 기후공시 규칙은 폐지 제안 중(2026.06) [2026-07-29] 본 셀에서 확보한 신규 표면이 항목으로 편입돼 gap 해소. | 2026-08-31: 완전성 감사가 이 셀의 쿼리(캘리포니아·SEC 2건)로는 연방 EPA 규범이 표면화될 수 없음을 실증했다(91 FR 7686이 4개월 넘게 미검출). lastSwept만 전진시키면 다음 스윕이 같은 사각을 반복하므로 EPA·청정대기법·차량 GHG·CAFE 각도를 쿼리에 추가했다.",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
@@ -776,10 +804,11 @@
       "region": "CN",
       "items": [
         "CN-002",
-        "CN-007"
+        "CN-007",
+        "CN-046"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-31",
       "queries": [],
       "sweepDay": "Fri"
     },
@@ -1044,7 +1073,7 @@
       "region": "NA",
       "items": [],
       "status": "gap",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-29",
       "queries": [
         "US federal battery traceability rule",
         "DOE battery supply chain data requirement"
@@ -1061,10 +1090,12 @@
       "region": "EU",
       "items": [
         "EU-011",
-        "EU-014"
+        "EU-014",
+        "EU-034",
+        "EU-035"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-29",
       "queries": [],
       "sweepDay": "Thu"
     },
@@ -1073,10 +1104,11 @@
       "region": "CN",
       "items": [
         "CN-020",
-        "CN-005"
+        "CN-005",
+        "CN-042"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-29",
       "queries": [
         "动力电池 溯源 平台 编码 新规",
         "电池 数字护照 标准"
@@ -1097,7 +1129,7 @@
         "KR-007"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-29",
       "queries": [],
       "sweepDay": "Thu",
       "note": "KR-018 귀속 확인 — 2024년말 정부 합의로 **2025.02부터 BMS 내 고유 배터리 ID 생성 의무화**, 자동차 제조사의 EV 탑재 배터리 식별. EU 배터리 패스포트(2027.02.18) 대응 입법이 국회에서 다수 발의 진행 중(미제정)",
@@ -1111,7 +1143,7 @@
       "region": "JP",
       "items": [],
       "status": "gap",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-29",
       "queries": [
         "蓄電池 トレーサビリティ 義務化 省令 告示",
         "バッテリーパスポート 日本 制度化 施行"
@@ -1128,7 +1160,7 @@
       "region": "GL",
       "items": [],
       "status": "gap",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-29",
       "queries": [
         "GBA battery passport rulebook mandatory",
         "battery passport international standard binding"
@@ -1144,7 +1176,9 @@
       "axis": "energy_market",
       "region": "NA",
       "items": [
-        "NA-033"
+        "NA-033",
+        "NA-035",
+        "NA-037"
       ],
       "status": "covered",
       "lastSwept": "2026-07-29",
@@ -1204,7 +1238,8 @@
       "items": [
         "KR-006",
         "KR-016",
-        "KR-028"
+        "KR-028",
+        "KR-029"
       ],
       "status": "covered",
       "lastSwept": "2026-07-29",
@@ -1222,10 +1257,11 @@
       "items": [
         "JP-004",
         "JP-007",
-        "JP-012"
+        "JP-012",
+        "JP-018"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-31",
       "queries": [],
       "sweepDay": "Fri"
     },
@@ -1237,7 +1273,7 @@
       "lastSwept": "2026-07-29",
       "queries": [],
       "sweepDay": "Fri",
-      "note": "제정 다자 규범 부재 확인 — 전력시장·ESS는 국내 규제 영역이며 구속적 국제 규범이 성립하지 않음. IEA 보고서·프로그램은 분석·권고 수준 [정정 12차 2026-08-07] na 판정은 1회 빈 스윕(7/29, 7/17 원장 부재 실측) 직후·승인 기록 없음 — RUNBOOK §3(2회 연속 빈 스윕 + Claire 승인) 미충족으로 gap 환원. 2회차 빈 스윕 + 승인 시 na 재판정",
+      "note": "제정 다자 규범 부재 확인 — 전력시장·ESS는 국내 규제 영역이며 구속적 국제 규범이 성립하지 않음. IEA 보고서·프로그램은 분석·권고 수준 [정정 12차 2026-08-07] na 판정은 1회 빈 스윕(7/29, 7/17 원장 부재 실측) 직후·승인 기록 없음 — RUNBOOK §3(2회 연속 빈 스윕 + Claire 승인) 미충족으로 gap 환원. 2회차 빈 스윕 + 승인 시 na 재판정 [2026-08-29] 2회차 스윕 미완 — 각도 전환 재시도가 검색 예산 소진으로 미실행돼 '2회 연속 무산출' 요건 미충족. 원장 근거 없으면 안 친 것(정정 10차 규칙) → lastSwept 환원, 재스윕 대기·na 재판정 대상 아님.",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
@@ -1246,15 +1282,17 @@
     {
       "axis": "next_tech",
       "region": "NA",
-      "items": [],
-      "status": "gap",
+      "items": [
+        "NA-040"
+      ],
+      "status": "covered",
       "lastSwept": "2026-08-02",
       "queries": [
         "DOE solid state battery standard rule",
         "UL 2580 next generation battery certification"
       ],
       "sweepDay": "Tue",
-      "note": "**2026-07-29 스코프 확장으로 신설** — 미스윕 [2026-08-02 스윕] UL 2285(전고체 전지 안전표준) 美·加 공동 신규 개발 중(ULSE·SCC 의향공고) — 미제정. UL 2580은 기존 EV팩 안전표준(제정, 3판 2020/개정 2022). 후보: UL 2285(개발 중→WATCH 후보) — 발견분은 승인 큐 경유, 직접 편입 없음."
+      "note": "**2026-07-29 스코프 확장으로 신설** — 미스윕 [2026-08-02 스윕] UL 2285(전고체 전지 안전표준) 美·加 공동 신규 개발 중(ULSE·SCC 의향공고) — 미제정. UL 2580은 기존 EV팩 안전표준(제정, 3판 2020/개정 2022). 후보: UL 2285(개발 중→WATCH 후보) — 발견분은 승인 큐 경유, 직접 편입 없음. [2026-08-29] 신규 편입으로 gap→covered."
     },
     {
       "axis": "next_tech",
@@ -1276,10 +1314,11 @@
         "CN-012",
         "CN-003",
         "CN-006",
-        "CN-019"
+        "CN-019",
+        "CN-047"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-31",
       "queries": [
         "固态电池 国家标准 制定 实施",
         "钠离子电池 标准 强制"
@@ -1305,7 +1344,7 @@
       "region": "JP",
       "items": [],
       "status": "gap",
-      "lastSwept": null,
+      "lastSwept": "2026-08-29",
       "queries": [
         "全固体電池 規格 標準 制定",
         "次世代電池 安全基準 告示"
@@ -1329,28 +1368,32 @@
     {
       "axis": "upstream",
       "region": "NA",
-      "items": [],
-      "status": "gap",
-      "lastSwept": "2026-08-02",
+      "items": [
+        "NA-046"
+      ],
+      "status": "covered",
+      "lastSwept": "2026-08-31",
       "queries": [
         "cathode anode material rule US standard",
         "battery precursor import regulation"
       ],
       "sweepDay": "Thu",
-      "note": "**2026-07-29 스코프 확장으로 신설** — 미스윕 [2026-08-02 스윕] FY2026 NDAA §842 DoD FEOC 전지 조달제한(제정, 2028.1.1 신규계약 단계시행) / EPA TSCA SNUR 제안(CAM 대상 MMO) / AAM(인조흑연 음극재) AD 최대 102%·CVD 6.5~11.6%. 후보 2: NDAA §842(제정), TSCA SNUR(제안→WATCH). AAM AD/CVD는 NA-024 기추적(ITC 최종 부정판정·관세 미부과) — 큐 제외 — 발견분은 승인 큐 경유, 직접 편입 없음."
+      "note": "**2026-07-29 스코프 확장으로 신설** — 미스윕 [2026-08-02 스윕] FY2026 NDAA §842 DoD FEOC 전지 조달제한(제정, 2028.1.1 신규계약 단계시행) / EPA TSCA SNUR 제안(CAM 대상 MMO) / AAM(인조흑연 음극재) AD 최대 102%·CVD 6.5~11.6%. 후보 2: NDAA §842(제정), TSCA SNUR(제안→WATCH). AAM AD/CVD는 NA-024 기추적(ITC 최종 부정판정·관세 미부과) — 큐 제외 — 발견분은 승인 큐 경유, 직접 편입 없음. | 2026-08-31 완전성 감사: gap 판정이 규범 부재가 아니라 탐색 실패였음이 확인돼 covered로 전환."
     },
     {
       "axis": "upstream",
       "region": "EU",
-      "items": [],
-      "status": "gap",
-      "lastSwept": "2026-08-02",
+      "items": [
+        "EU-036"
+      ],
+      "status": "covered",
+      "lastSwept": "2026-08-31",
       "queries": [
         "EU cathode active material regulation",
         "battery component standard EU"
       ],
       "sweepDay": "Thu",
-      "note": "**2026-07-29 스코프 확장으로 신설** — 미스윕 [2026-08-02 스윕] EU 배터리 로컬콘텐츠 입법 드라이브 — 트랙션 배터리에 셀·CAM·BMS 등 5개 핵심부품 EU 원산 요구+BESS 공공조달(제안 단계 추정, 제정 여부 확인 필요). 2023/1542 마일스톤은 기추적. 후보 1: EU 로컬콘텐츠 입법(확인 필요·SBTL 직결성 높음) — 발견분은 승인 큐 경유, 직접 편입 없음."
+      "note": "**2026-07-29 스코프 확장으로 신설** — 미스윕 [2026-08-02 스윕] EU 배터리 로컬콘텐츠 입법 드라이브 — 트랙션 배터리에 셀·CAM·BMS 등 5개 핵심부품 EU 원산 요구+BESS 공공조달(제안 단계 추정, 제정 여부 확인 필요). 2023/1542 마일스톤은 기추적. 후보 1: EU 로컬콘텐츠 입법(확인 필요·SBTL 직결성 높음) — 발견분은 승인 큐 경유, 직접 편입 없음. | 2026-08-31 완전성 감사: gap 판정이 규범 부재가 아니라 탐색 실패였음이 확인돼 covered로 전환."
     },
     {
       "axis": "upstream",
@@ -1358,23 +1401,24 @@
       "items": [
         "CN-014",
         "CN-015",
-        "CN-030"
+        "CN-030",
+        "CN-041"
       ],
       "status": "covered",
-      "lastSwept": null,
+      "lastSwept": "2026-08-29",
       "queries": [
         "正极材料 负极材料 行业规范条件",
         "电解液 隔膜 标准 强制"
       ],
       "sweepDay": "Thu",
-      "note": "**소재·부품 표준체계 확인** — 《国家锂电池产业标准体系建设指南(2024版)》의 「材料与部件」 표준체계가 5개 영역으로 구성: ①正极材料(코발트산리튬·망간산리튬·NCM, 도전성·자성물질 함량·전기화학 성능) ②负极材料(흑연·연탄·경탄·규소기) ③电解液(전해질염·용제, 수분·금속불순물·유리산) ④隔膜(폴리올레핀·세라믹, 도복강도·열천자강도·침윤성) ⑤**关键部件 — 集流体·外壳·极耳·热保护器·管理系统·热阻隔材料·冷却介质·阻燃材料**. **外壳(외장재)·热阻隔材料·阻燃材料가 표준 대상에 명시**돼 있어 파우치 외장재가 표준화 범위에 포함됨. CN-015(규범조건 2024년본이 정극·부극·격막·전해액 성능요건 규율)로 상위 포섭. 개별 소재 표준은 2026년까지 100항 목표로 계속 제정 중. [정정 10차 2026-08-07] 7/29 lastSwept 스탬프는 당일 원장에 스윕 기록 부재 — 미스윕 환원(재스윕 대기)"
+      "note": "**소재·부품 표준체계 확인** — 《国家锂电池产业标准体系建设指南(2024版)》의 「材料与部件」 표준체계가 5개 영역으로 구성: ①正极材料(코발트산리튬·망간산리튬·NCM, 도전성·자성물질 함량·전기화학 성능) ②负极材料(흑연·연탄·경탄·규소기) ③电解液(전해질염·용제, 수분·금속불순물·유리산) ④隔膜(폴리올레핀·세라믹, 도복강도·열천자강도·침윤성) ⑤**关键部件 — 集流体·外壳·极耳·热保护器·管理系统·热阻隔材料·冷却介质·阻燃材料**. **外壳(외장재)·热阻隔材料·阻燃材料가 표준 대상에 명시**돼 있어 파우치 외장재가 표준화 범위에 포함됨. CN-015(규범조건 2024년본이 정극·부극·격막·전해액 성능요건 규율)로 상위 포섭. 개별 소재 표준은 2026년까지 100항 목표로 계속 제정 중. [정정 10차 2026-08-07] 7/29 lastSwept 스탬프는 당일 원장에 스윕 기록 부재 — 미스윕 환원(재스윕 대기) [2026-08-29 스윕] 신규 발굴: GB/T 47292.1~.4-2026 锂离子电池生产质量管理(발표 2026.03.31·시행 2027.04.01, std.samr 메타) — 승인 큐 회부."
     },
     {
       "axis": "upstream",
       "region": "KR",
       "items": [],
       "status": "gap",
-      "lastSwept": null,
+      "lastSwept": "2026-08-29",
       "queries": [
         "양극재 음극재 소재 인증 고시",
         "전해질 분리막 표준 제정"
@@ -1389,7 +1433,7 @@
       "region": "JP",
       "items": [],
       "status": "gap",
-      "lastSwept": "2026-08-02",
+      "lastSwept": "2026-08-29",
       "queries": [
         "正極材 負極材 規格 告示",
         "電池材料 品質基準 省令"
@@ -1400,28 +1444,33 @@
     {
       "axis": "upstream",
       "region": "GL",
-      "items": [],
-      "status": "gap",
-      "lastSwept": "2026-08-02",
+      "items": [
+        "GL-008"
+      ],
+      "status": "covered",
+      "lastSwept": "2026-08-31",
       "queries": [
         "IEC battery material standard",
         "ISO cathode anode specification"
       ],
       "sweepDay": "Thu",
-      "note": "**2026-07-29 스코프 확장으로 신설** — 미스윕 [2026-08-02 스윕] 소재 전용 신규 IEC/ISO 제정 없음 — EN IEC 62902:2025(화학표기 마킹)는 인접 경미. 후보 없음 — 발견분은 승인 큐 경유, 직접 편입 없음."
+      "note": "**2026-07-29 스코프 확장으로 신설** — 미스윕 [2026-08-02 스윕] 소재 전용 신규 IEC/ISO 제정 없음 — EN IEC 62902:2025(화학표기 마킹)는 인접 경미. 후보 없음 — 발견분은 승인 큐 경유, 직접 편입 없음. | 2026-08-31 완전성 감사: gap 판정이 규범 부재가 아니라 탐색 실패였음이 확인돼 covered로 전환. | 2026-08-31 정직화: 이 셀을 covered로 바꾼 근거는 GL-008(ISO 7819:2025) 하나이고, 이는 사적 표준기구의 자발 표준으로 WATCH 층이다. 따라서 '구속 규범이 실재한다'는 뜻이 아니라 '관측 대상이 실재한다'는 의미의 covered다. 구속 규범 부재 여부는 여전히 열린 질문이다."
     },
     {
       "axis": "downstream",
       "region": "NA",
-      "items": [],
-      "status": "gap",
-      "lastSwept": "2026-08-02",
+      "items": [
+        "NA-044",
+        "NA-048"
+      ],
+      "status": "covered",
+      "lastSwept": "2026-08-31",
       "queries": [
         "NEVI charging infrastructure rule",
         "EV charger minimum standards federal"
       ],
       "sweepDay": "Fri",
-      "note": "**2026-07-29 스코프 확장으로 신설** — 미스윕 [2026-08-02 스윕] 23 CFR 680(NEVI 최저기준, 제정 연방규정) + 2026.01 Washington v. DOT 최종판결로 자금 전면 해제·2025.09 가이던스 개정(NACS/J3400 확산·OCPP 2.0.1·ISO 15118). 후보 1: 23 CFR 680 NEVI — 발견분은 승인 큐 경유, 직접 편입 없음."
+      "note": "**2026-07-29 스코프 확장으로 신설** — 미스윕 [2026-08-02 스윕] 23 CFR 680(NEVI 최저기준, 제정 연방규정) + 2026.01 Washington v. DOT 최종판결로 자금 전면 해제·2025.09 가이던스 개정(NACS/J3400 확산·OCPP 2.0.1·ISO 15118). 후보 1: 23 CFR 680 NEVI — 발견분은 승인 큐 경유, 직접 편입 없음. | 2026-08-31 완전성 감사: gap 판정이 규범 부재가 아니라 탐색 실패였음이 확인돼 covered로 전환."
     },
     {
       "axis": "downstream",
@@ -1493,16 +1542,16 @@
   ],
   "_meta": {
     "created": "2026-07-17",
-    "note": "2026-07-29 스코프 확장: 12축→15축(next_tech·upstream·downstream 신설), 섹터 차원 신설. 72셀→90셀. 신설 18셀 중 5셀은 07-29 스윕, 잔여 13셀은 2026-08-02 전수 스윕 완료(neverSwept 0). 기존 45셀의 섹터 확인은 우선순위 하(기존 항목 적용범위 확인용). 뉴스/트래커 분리 규칙 및 섹터 처리 원칙을 _meta.scope에 명문화. [2026-08-02] 13개 신설축 셀 실스윕·승인 큐 후보 11건 도출 — 상세는 ops/runs/2026-08-02-RD.json. [정정 10차 2026-08-07] 07-29 스윕 5셀 중 3셀(next_tech/JP·upstream/CN·upstream/KR)은 7/29 원장 근거 부재로 미스윕 환원 — 확정 상태: 신설 18셀 중 15셀 스윕(07-29 유효 2 + 08-02 13), neverSwept 3(재스윕 대기, 8/2 원장 carryOver 등재). 승인 큐는 정정 9~11차로 신규 8 + 기존 유지 3 = 총 11행(中 MoF/SAT=CN-018 기추적 제외). [정정 15차 2026-08-07] sliceSchedule에 신규 3축 편입(next_tech=Tue·upstream=Thu·downstream=Fri) — 셀의 sweepDay에는 이미 배정돼 있었으나 스케줄 표에 빠져 이중 정본 상태였다. RD-3 로테이션 정책 자체의 재검토(매일 전수 vs 하이브리드)는 운영자 결정 대기 — 본 수정은 기존 상태의 문서화일 뿐 정책 변경이 아니다.",
+    "note": "2026-07-29 스코프 확장: 12축→15축(next_tech·upstream·downstream 신설), 섹터 차원 신설. 72셀→90셀. 신설 18셀 중 5셀은 07-29 스윕, 잔여 13셀은 2026-08-02 전수 스윕 완료(neverSwept 0). 기존 45셀의 섹터 확인은 우선순위 하(기존 항목 적용범위 확인용). 뉴스/트래커 분리 규칙 및 섹터 처리 원칙을 _meta.scope에 명문화. [2026-08-02] 13개 신설축 셀 실스윕·승인 큐 후보 11건 도출 — 상세는 ops/runs/2026-08-02-RD.json. [정정 10차 2026-08-07] 07-29 스윕 5셀 중 3셀(next_tech/JP·upstream/CN·upstream/KR)은 7/29 원장 근거 부재로 미스윕 환원 — 확정 상태: 신설 18셀 중 15셀 스윕(07-29 유효 2 + 08-02 13), neverSwept 3(재스윕 대기, 8/2 원장 carryOver 등재). 승인 큐는 정정 9~11차로 신규 8 + 기존 유지 3 = 총 11행(中 MoF/SAT=CN-018 기추적 제외). [정정 15차 2026-08-07] sliceSchedule에 신규 3축 편입(next_tech=Tue·upstream=Thu·downstream=Fri) — 셀의 sweepDay에는 이미 배정돼 있었으나 스케줄 표에 빠져 이중 정본 상태였다. RD-3 로테이션 정책 자체의 재검토(매일 전수 vs 하이브리드)는 운영자 결정 대기 — 본 수정은 기존 상태의 문서화일 뿐 정책 변경이 아니다. [2026-08-29 재개 run] 목요일 슬라이스 18셀+재스윕 4셀 실스윕(명목일 8/14 오류를 RD-0 날짜 확인이 정정 — F12 실측), neverSwept 0. GL 2셀(recycle·subsidy)만 2회 연속 무산출 — na 재판정 승인 대기. energy_market/GL은 재시도 미실행으로 스윕 미완(정정 1차 환원). 토요일 정기 슬라이스(transport·packaging)는 carryOver. [2026-08-29 Claire 승인] GL recycle·subsidy na 재판정(2회 연속 무산출), RD-3 로테이션 옵션 B(하이브리드) 확정 — trade·supply_chain·product_std 3축 매일 스윕.",
     "cadence": "daily-full (RD) — 전 항목 매일 재검증(RD-2), 신규발굴은 7일 요일 로테이션(RD-3), 매일 배포",
     "sliceSchedule": {
-      "trade": "Mon",
+      "trade": "Daily",
       "subsidy": "Mon",
-      "product_std": "Tue",
+      "product_std": "Daily",
       "chemicals": "Tue",
       "recycle": "Wed",
       "waste_ship": "Wed",
-      "supply_chain": "Thu",
+      "supply_chain": "Daily",
       "data_dpp": "Thu",
       "carbon": "Fri",
       "energy_market": "Fri",
@@ -1512,7 +1561,7 @@
       "upstream": "Thu",
       "downstream": "Fri"
     },
-    "lastRun": "2026-08-02-RD",
+    "lastRun": "2026-08-31",
     "scope": {
       "definedAt": "2026-07-29",
       "industry": "Battery / EV / ESS / 에너지 / 광물 / 신기술·전고체의 ecosystem 전체 — upstream(소재·부품·제련) 및 downstream(수요·인프라·응용) 포함",
@@ -1521,6 +1570,48 @@
       "gate": "**ACTIVE/UPCOMING 편입은 제정 여부 단일 기준.** 제정된 법률·시행령·고시·강제표준·조약만 ACTIVE/UPCOMING으로 편입. 미제정 제안·법안·전략·로드맵·정책패키지·비구속 프레임은 **폐기하지 않고 WATCH 후보로 승인 큐에 회부**한다(RUNBOOK status 규칙: WATCH = 미제정 제안·전략·조사 중·referent 미확인 — RD-3 스캔이 이 부류를 버리면 WATCH 뷰에 신흥 리스크가 공급되지 않는다). 민간 자율 이니셔티브(사적 표준)만 트래커 대상 외(관찰 기록). 산업 관련성만 충족하면 SBTL 노출도와 무관하게 편입(F14).",
       "newsSeparation": "**뉴스와 트래커는 분리한다.** 트래커의 값은 '제정된 것만 담는다'는 규율에서 나온다. 동향·논의·업계 뉴스를 섞으면 매 사이클마다 '시행 중인가'를 다시 판정해야 하고, 지금까지 잡아낸 오류(NA-024 ITC 판정, EU-021 제안단계, CN-012 진전)가 전부 그 경계에서 나왔다. 응용처 동향·업계 움직임은 별도 항목으로 세우지 않고 **관련 기존 항목의 tip에 한 줄로 기술**한다.",
       "sectorHandling": "드론·방산·로봇·모빌리티는 **셀로 만들지 않는다.** 배터리 규제는 수평적(용량·화학·운송 기준)이라 응용처별로 갈리지 않으며, 갈리는 것은 기체·기기 규제로 본 트래커 대상이 아니다. 실측 결과 모빌리티(LMT)는 EU-001/011/014/016·CN-009·KR-023에, 방산은 NA-019/020·CN-033에 이미 포섭돼 있고, 드론·로봇 배터리는 고유 제정 규범이 거의 없어 GL-001 등 수평 규범이 적용된다. 따라서 섹터는 축 스윕 시 **기존 항목의 적용범위 확인용 쿼리 태그**로만 쓴다."
+    },
+    "sweepPolicy": {
+      "decidedAt": "2026-08-29",
+      "decidedBy": "Claire 승인 — 옵션 B(하이브리드)",
+      "daily": [
+        "trade",
+        "supply_chain",
+        "product_std"
+      ],
+      "rotation": {
+        "subsidy": "Mon",
+        "chemicals": "Tue",
+        "recycle": "Wed",
+        "waste_ship": "Wed",
+        "data_dpp": "Thu",
+        "carbon": "Fri",
+        "energy_market": "Fri",
+        "transport": "Sat",
+        "packaging": "Sat",
+        "next_tech": "Tue",
+        "upstream": "Thu",
+        "downstream": "Fri"
+      },
+      "rationale": "기존 항목 감시(RD-2)는 매일 전수인데 신규 발굴(RD-3)만 요일 로테이션이라 신규 규범 발견이 최대 6일 지연되던 괴리를 해소. 변동이 잦고 SBTL 직결성이 높은 3축(trade·supply_chain·product_std)은 매일 6권역 스윕, 나머지 12축은 기존 요일 슬라이스 유지. 매일 부하 = 18셀 + 당일 로테이션 축.",
+      "note": "RUNBOOK §4 RD-3 개정 필요 — 구조 PR ④에서 문서 반영(현재는 coverage가 정본)."
+    },
+    "completenessAudit": {
+      "date": "2026-08-31",
+      "method": "축 로테이션 밖 권역 전수 스윕 + Claude 전건 재검수",
+      "candidates": 82,
+      "incorporated": 21,
+      "gapCellsProvenWrong": [
+        "NA/upstream (당일 스윕에도 88 FR 82824 미검출)",
+        "NA/downstream (2025년 성립 공법 3건 미검출)",
+        "EU/upstream (당일 스윕에도 CRMA 미검출)",
+        "KR/chemicals (화관법·화평법 미검출)",
+        "JP/trade (関税定率法 개정 미검출)",
+        "GL/trade (WCO HS 2028 미검출)",
+        "GL/upstream (ISO 7819:2025 미검출)"
+      ],
+      "note": "gap 은 '규범이 없다'가 아니라 '지금 쿼리로는 못 찾았다'였다. 셀의 queries 배열 자체가 감사 대상이어야 한다.",
+      "basisSweep": "2026-08-29 (요원 권역 전수 스윕)"
     }
   },
   "sectors": {

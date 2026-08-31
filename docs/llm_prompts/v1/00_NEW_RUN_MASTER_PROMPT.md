@@ -20,8 +20,9 @@ current GitHub main baseline lock
 → complete canonical reconciliation + event clustering
 → Stage A Integrated Selector
 → Stage B
+   ↔ 0.2R only for bounded Stage-B repair
 → Stage C
-→ authorized revise loops
+   ↔ 0.3R only for controlled Stage-C revalidation
 → 0.4 Addability Revalidation
 → 0.5
 → 0.6
@@ -31,6 +32,8 @@ current GitHub main baseline lock
 → validators / PR / merge
 → 0.9 production verification
 ```
+
+0.2R/0.3R are conditional loops, not mandatory stages. A downstream defect routes to the earliest responsible stage and all affected downstream gates are rerun.
 
 Current main governance outranks this launcher if a later canonical version explicitly replaces it.
 
@@ -81,9 +84,13 @@ For each strict/high-potential candidate preserve the four independent judgments
 
 No web/body fetch in Stage A.
 
-## 8. B/C and lineage
+## 8. B/C, R, and lineage
 
 Stage B verifies evidence and resolves relation/date/source questions before drafting. Stage C fact-safe red-teams and locks lineage for accepted new cards.
+
+Use 0.2R only to repair a bounded Stage-B-owned defect, then re-establish B validity and return to C. Use 0.3R only to revalidate an authorized repaired item at Stage C and re-lock fact-safe lineage.
+
+Do not use R to hide a coverage, selection, duplicate, staleness, or material event-identity defect. Route those defects to 0.0C/A/B/C as owned, then rerun all affected downstream gates.
 
 `accepted_fact_safe` is not addable or publish-ready.
 
@@ -95,6 +102,8 @@ Recheck Stage C accepted cards against the exact latest canonical and current ba
 
 Run evidence completeness, content polish, final publish readiness, then a separate completeness/news-value red team. A formal full run cannot enter 0.8 without 0.7C authorization.
 
+A defect found here is routed to its earliest responsible stage. Do not create new ordinary 0.4R/0.5R/0.6R/0.7R prompt families.
+
 ## 11. 0.8 and merge
 
 Use only declared `insert`, `update`, and `related_add` operations. Re-lock baseline, resolve provisional relation IDs, apply canonical mutation, regenerate lean from full, run active validators, inspect diff, and merge only after required checks/review.
@@ -105,7 +114,7 @@ Verify new main and production counts/data/rendering/Related/deployment surfaces
 
 ## 13. Direct-add boundary
 
-If the user intentionally chooses an already-reviewed bounded direct add instead of a formal full run, stop claiming the formal stage ladder and use the active manual-direct-add governance path. New direct-added cards still require explicit news-value/editorial attestation and evidence review provenance.
+If the user intentionally chooses an already-reviewed bounded direct add instead of a formal full run, stop claiming the formal stage ladder and use `MANUAL_DIRECT_ADD_V2`. New direct-added cards still require explicit news-value/editorial attestation and evidence review provenance.
 
 ## 14. First report before Stage A
 

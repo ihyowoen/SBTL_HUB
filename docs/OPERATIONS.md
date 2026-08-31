@@ -86,13 +86,17 @@ For every strict or high-potential review candidate emit:
 
 No separate news-value override prompt is loaded.
 
-## 7. Stage B / C
+## 7. Stage B / C and conditional revise loops
 
 Stage B verifies body-level/official evidence, date role, source owner independence, and Related evidence before drafting.
 
+If a bounded B-owned defect is identified, use 0.2R. Typical cases are quote/source repair, date evidence repair, source augmentation, or evidence-bounded draft narrowing. Re-establish Stage B validity, then return the item to Stage C.
+
 Stage C independently red-teams visible claims and locks `related_lineage` for accepted new cards. Acceptance means fact-safe only.
 
-Revise loops repair bounded defects; selection/staleness defects return upstream.
+If an authorized revision requires C-level revalidation, use 0.3R. Revalidate the repaired item and re-lock fact-safe lineage before 0.4.
+
+0.2R and 0.3R are conditional; they are not mandatory stages. Selection, staleness, duplicate, or material event-identity defects return to their earliest responsible upstream stage rather than being laundered through R.
 
 ## 8. 0.4 Addability
 
@@ -120,32 +124,34 @@ All surviving new cards remain not publish-ready.
 
 0.7C independently challenges completeness and exclusions. Formal 0.8 requires `PASS_WITH_DECLARED_RESIDUAL_RISK` and explicit authorization.
 
-## 10. Formal 0.8 merge path
+## 10. Backward routing
+
+Route a defect to the earliest responsible stage, then rerun all affected downstream gates:
+
+- discovery/coverage → 0.0C;
+- selection/news value/cardability → A or authorized 0.1P;
+- evidence/date/source → B, using 0.2R only for a bounded B-owned repair;
+- fact safety/lineage lock → C, using 0.3R only for controlled C revalidation;
+- latest-baseline collision/addability → 0.4 or farther upstream when identity itself changed;
+- claim coverage → 0.5 unless the gap changes fact/date/identity;
+- copy/terminology → 0.6;
+- final QC finding → whichever earlier stage owns the defect, not an ad-hoc 0.7 fix;
+- completeness omission → 0.0C/A/B/C as required;
+- mutation/ID resolution → 0.8;
+- live deployment → 0.9/1.0.
+
+There are no ordinary 0.4R/0.5R/0.6R/0.7R prompt families. Do not multiply repair prompts when backward routing is sufficient.
+
+## 11. Formal 0.8 merge path
 
 Lock current main and full blob again. Generate declared `insert`, `update`, and `related_add` operations only. Resolve provisional candidate relations to final production IDs. Apply the card-run engine, generate lean from full, run all validators, inspect diff, open one PR, and merge only after required checks/review.
 
-## 11. Manual direct add
+## 12. Manual direct add
 
-Use the current active manual-direct-add schema for already-reviewed bounded changes. A direct add must be one PR and must declare all mutation scope. New direct-added cards carry editorial/news-value attestation. ID correction is an explicit one-to-one migration. Direct add is never reported as a formal full-run pass.
+Use `MANUAL_DIRECT_ADD_V2` for already-reviewed bounded changes. A direct add must be one PR and must declare all mutation scope. New direct-added cards carry editorial/news-value attestation. ID correction is an explicit one-to-one migration. Direct add is never reported as a formal full-run pass.
 
-## 12. After merge
+## 13. After merge
 
 Run 0.9 against new main and production. Verify counts, endpoint data, introduced/updated IDs, rendering, Related resolution, deployment, and available UI/mobile surfaces. Record limitations rather than claiming an untested surface passed.
-
-## 13. Failure routing
-
-Route a defect to the earliest responsible stage:
-
-- discovery/coverage → 0.0C;
-- selection/news value → A;
-- evidence/date/source → B;
-- fact safety/lineage lock → C;
-- latest-baseline collision → 0.4;
-- claim coverage → 0.5;
-- copy/terminology → 0.6;
-- final publish gate → 0.7;
-- completeness → 0.7C;
-- mutation/ID resolution → 0.8;
-- live deployment → 0.9/1.0.
 
 Never weaken a validator merely to make a known defect green.

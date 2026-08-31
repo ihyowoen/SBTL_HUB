@@ -27,8 +27,9 @@ New Run Master Prompt
 → pre-Stage-A canonical reconciliation and event clustering
 → 0.1 Stage A Integrated Selector
 → 0.2 Stage B Evidence + Draft
+   ↔ 0.2R Stage B Controlled Revise, only when a bounded B-owned defect requires repair
 → 0.3 Stage C Fact-Safe + Lineage Lock
-→ authorized 0.2R / 0.3R revise loop when needed
+   ↔ 0.3R Stage C Controlled Revalidation, only when a bounded C-owned defect requires repair
 → 0.4 Current-Baseline Addability Revalidation
 → 0.5 Evidence / Source-Claim QC
 → 0.6 Content / Terminology Polish
@@ -42,7 +43,7 @@ New Run Master Prompt
 → 1.1 retrospective / rule promotion
 ```
 
-No named stage is silently substituted by an ad-hoc review.
+0.2R and 0.3R are **conditional repair loops**, not mandatory sequential stages. No named stage is silently substituted by an ad-hoc review.
 
 ## 3. State ladder
 
@@ -122,8 +123,14 @@ Selector-only. No external body fetch, no `fact_sources`, no source quotes, no c
 ### 0.2 Stage B
 Fetches and verifies evidence, resolves Stage A relation questions, establishes date roles, and drafts only strict Stage A candidates. Evidence gaps may block a draft.
 
+### 0.2R Stage B Controlled Revise
+Repairs a bounded B-owned defect such as quote/source repair, date evidence repair, evidence augmentation, or evidence-bounded draft narrowing. After repair, Stage B exit validity is re-established before Stage C. A selection, staleness, duplicate, or material event-identity defect is not a 0.2R wording fix and returns upstream.
+
 ### 0.3 Stage C
 Independent fact-safe red-team. Locks lineage for accepted new cards. Same-event duplicate, reinforcement-only, or unresolved relation candidates cannot be accepted as new cards.
+
+### 0.3R Stage C Controlled Revalidation
+Rechecks an authorized revised item after the identified C-owned defect is repaired. It may re-lock fact-safe lineage, return the item for another bounded repair when allowed, reject/defer it, or route a selection/event-identity defect upstream. Accepted output then continues to 0.4.
 
 ### 0.4 Addability
 Rechecks accepted cards against the exact current canonical full and current batch. Outcomes distinguish addable new event/follow-up/program lineage from duplicate, reinforcement, conflict, and deferred relation uncertainty.
@@ -140,7 +147,26 @@ Creates declared incremental operations against a locked current baseline.
 ### 0.9
 Verifies merged main and production. Merge is not run completion.
 
-## 8. Ordinary canonical operations
+## 8. Repair and backward-routing rule
+
+R is a repair mechanism, not a second editorial pipeline.
+
+- B-owned evidence/date/source/draft defect → 0.2R, then restore B exit validity and return to C.
+- C-owned fact-safe/lineage validation defect after an authorized repair → 0.3R, then continue to 0.4 only if accepted again.
+- coverage omission → 0.0C.
+- selection/news-value/cardability defect → A or authorized 0.1P where applicable.
+- material evidence/date/source defect that changes the represented event → B and then C again.
+- fact-safety/lineage-lock defect → C after required upstream repair.
+- latest-baseline collision/addability defect → 0.4 or the earlier stage that owns the underlying identity defect.
+- claim-coverage defect → 0.5 unless it changes facts/date/identity, in which case route farther upstream.
+- copy/terminology-only defect → 0.6.
+- completeness omission discovered at 0.7C → re-enter at 0.0C/A/B/C as required by the newly discovered event.
+
+After any upstream re-entry, rerun every affected downstream gate. Do not repair a lower-stage defect inside 0.7 merely to obtain a green result.
+
+There are no separate ordinary `0.4R`, `0.5R`, `0.6R`, or `0.7R` prompt families. Those stages route defects to the earliest responsible named stage instead of accumulating more repair prompts.
+
+## 9. Ordinary canonical operations
 
 Formal ordinary run operations are:
 
@@ -152,13 +178,13 @@ related_add
 
 Existing IDs and existing related edges are preserved by default. `delete` and `related_remove` require separately authorized remediation. Rescue, repair, reinforcement, and update precede deletion.
 
-## 9. Governed direct-add lane
+## 10. Governed direct-add lane
 
 A bounded direct add is a separate governed mutation lane for changes whose editorial/evidence review is already complete. It does not fabricate Stage A/B/C, 0.7C, or 0.8 completion.
 
-Future direct adds use the active manual-direct-add contract and must include machine-readable editorial/news-value attestation for new cards, exact baseline locking, declared mutation scope, and full-to-lean verification.
+Future direct adds use `MANUAL_DIRECT_ADD_V2` and must include machine-readable editorial/news-value attestation for new cards, exact baseline locking, declared mutation scope, and full-to-lean verification.
 
-## 10. Per-stage prompt-read gate
+## 11. Per-stage prompt-read gate
 
 Before each named stage:
 
@@ -169,12 +195,12 @@ Before each named stage:
 
 A stage executed from memory is invalid.
 
-## 11. Governance architecture rule
+## 12. Governance architecture rule
 
 Active ordinary-run governance must be complete at stage entry. No active rule may depend on a later-applied override, overlay, hardening addendum, or patch stub.
 
 Historical override/addendum files may remain only as `SUPERSEDED` or `REFERENCE_ONLY` audit records and must not be applied.
 
-## 12. Completion rule
+## 13. Completion rule
 
 Do not claim `PASS`, `clean`, `complete`, `merge-ready`, or `production_verified` without the executed item-level or repository-level checks that create that state.

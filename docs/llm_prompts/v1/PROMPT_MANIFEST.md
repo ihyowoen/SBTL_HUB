@@ -13,9 +13,13 @@ Ordinary new-news runs start with:
 
 ```text
 0.0D → Input Audit → 0.0C → expanded event universe lock → canonical/event reconciliation
-→ 0.1 A → 0.2 B → 0.3 C → authorized revise loops
+→ 0.1 A
+→ 0.2 B ⇄ 0.2R bounded B repair when needed
+→ 0.3 C ⇄ 0.3R controlled C revalidation when needed
 → 0.4 → 0.5 → 0.6 → 0.7 → 0.7C → 0.8 → merge → 0.9 → optional 1.0 → 1.1
 ```
+
+0.2R and 0.3R are conditional repair loops. Downstream defects route to the earliest responsible stage; there are no ordinary 0.4R/0.5R/0.6R/0.7R prompt families.
 
 ## 3. Active named-stage prompts
 
@@ -25,9 +29,9 @@ Ordinary new-news runs start with:
 | 0.0C | `00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md` | missing-news/follow-up/reinforcement/correction discovery |
 | 0.1 | `01_PROMPT_0_1_Stage_A.md` | integrated news-value selector + Related pre-pass |
 | 0.2 | `02_PROMPT_0_2_Stage_B_r0.md` | evidence/date/source/Related resolution + draft |
+| 0.2R | `04_PROMPT_0_2R_Stage_B_Revise.md` | bounded B-owned evidence/date/source/draft repair, then return to C |
 | 0.3 | `03_PROMPT_0_3_Stage_C_r0.md` | fact-safe red-team + lineage lock |
-| 0.2R | `04_PROMPT_0_2R_Stage_B_Revise.md` | bounded evidence/draft repair |
-| 0.3R | `05_PROMPT_0_3R_Stage_C_Revise.md` | bounded fact-safe revalidation |
+| 0.3R | `05_PROMPT_0_3R_Stage_C_Revise.md` | controlled fact-safe revalidation + lineage re-lock |
 | 0.4 | `06_PROMPT_0_4_Baseline_Revalidation.md` | latest-baseline addability revalidation |
 | 0.5 | `07_PROMPT_0_5_Evidence_QC.md` | evidence/source-claim completeness and freshness backstop |
 | 0.6 | `08_PROMPT_0_6_Content_Polish.md` | content/terminology/strategic read-through |
@@ -56,10 +60,10 @@ Existing V3 machine schemas/validators may remain to validate historical and cur
 ## 7. Mutation modes
 
 - formal 0.8 card-run;
-- governed manual direct add for already-reviewed bounded changes.
+- governed `MANUAL_DIRECT_ADD_V2` for already-reviewed bounded changes.
 
 These modes are mutually exclusive within one data PR.
 
 ## 8. Package validity
 
-Invalid when an active prompt depends on a later overlay/addendum, Stage A lacks embedded news value/Related pre-pass, 0.4 is treated as first lineage creation, raw is treated as complete without 0.0C, 0.8 is authorized without 0.7C in a formal run, baseline is not current canonical full, or direct add fabricates full-run states.
+Invalid when an active prompt depends on a later overlay/addendum, Stage A lacks embedded news value/Related pre-pass, R is used to launder a selection/event-identity defect, 0.4 is treated as first lineage creation, raw is treated as complete without 0.0C, 0.8 is authorized without 0.7C in a formal run, baseline is not current canonical full, or direct add fabricates full-run states.

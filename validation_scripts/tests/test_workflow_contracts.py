@@ -16,6 +16,8 @@ class WorkflowV4ArchitectureTests(unittest.TestCase):
         self.assertEqual(registry["active_override_or_addendum_count"], 0)
         self.assertEqual(len(registry["active_named_prompts"]), 17)
         self.assertFalse(any("01A_PROMPT_0_1S" in x for x in registry["active_named_prompts"]))
+        self.assertIn("docs/MANUAL_DIRECT_ADD_V2.md", registry["active_canonical"])
+        self.assertIn("docs/MANUAL_DIRECT_ADD_V1.md", registry["superseded"])
 
     def test_stage_a_embeds_news_value_and_related(self):
         text = (P / "01_PROMPT_0_1_Stage_A.md").read_text(encoding="utf-8")
@@ -30,6 +32,17 @@ class WorkflowV4ArchitectureTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
         self.assertNotIn("01A_PROMPT_0_1S_Structural_Value_Override.md", text)
+
+    def test_revise_loops_are_conditional_and_bounded(self):
+        master = (P / "00_NEW_RUN_MASTER_PROMPT.md").read_text(encoding="utf-8")
+        manifest = (P / "PROMPT_MANIFEST.md").read_text(encoding="utf-8")
+        workflow = (ROOT / "docs" / "WORKFLOW.md").read_text(encoding="utf-8")
+        self.assertIn("0.2R only for bounded Stage-B repair", master)
+        self.assertIn("0.3R only for controlled Stage-C revalidation", master)
+        self.assertIn("0.2 B ⇄ 0.2R", manifest)
+        self.assertIn("0.3 C ⇄ 0.3R", manifest)
+        self.assertIn("There are no separate ordinary `0.4R`, `0.5R`, `0.6R`, or `0.7R`", workflow)
+        self.assertIn("earliest responsible stage", workflow)
 
     def test_addability_is_not_lineage_origin(self):
         text = (P / "06_PROMPT_0_4_Baseline_Revalidation.md").read_text(encoding="utf-8")

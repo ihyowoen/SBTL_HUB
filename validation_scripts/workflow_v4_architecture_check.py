@@ -11,9 +11,11 @@ REGISTRY = P / "GOVERNANCE_LIFECYCLE_REGISTRY.json"
 PROMPT_MANIFEST = P / "PROMPT_MANIFEST.md"
 MACHINE_MANIFEST = P / "LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json"
 UPLOAD_MANIFEST = P / "UPLOAD_MANIFEST.json"
+WORKFLOW = ROOT / "docs" / "WORKFLOW.md"
 STAGE_A = P / "01_PROMPT_0_1_Stage_A.md"
 ADDABILITY = P / "06_PROMPT_0_4_Baseline_Revalidation.md"
 MASTER = P / "00_NEW_RUN_MASTER_PROMPT.md"
+DIRECT_V1_DOC = ROOT / "docs" / "MANUAL_DIRECT_ADD_V1.md"
 DIRECT_DOC = ROOT / "docs" / "MANUAL_DIRECT_ADD_V2.md"
 DIRECT_SCHEMA = ROOT / "schemas" / "manual-direct-add.v2.schema.json"
 DIRECT_VALIDATOR = ROOT / "scripts" / "validate_manual_direct_add.mjs"
@@ -21,6 +23,7 @@ DIRECT_VALIDATOR = ROOT / "scripts" / "validate_manual_direct_add.mjs"
 SUPERSEDED = [
     ROOT / "docs" / "STRUCTURAL_NEWS_VALUE_SELECTION.md",
     ROOT / "docs" / "PROMPT_ABC_SUPPORTING_RULES.md",
+    DIRECT_V1_DOC,
     P / "00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md",
     P / "00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
     P / "00_MANDATORY_SEARCH_BEFORE_DELETE_OVERRIDE.md",
@@ -63,7 +66,13 @@ def main() -> int:
         if any("01A_PROMPT_0_1S" in str(x) for x in prompts or []):
             errors.append("retired 0.1S is still registered active")
         for rel in prompts or []:
-            if not (ROOT / rel).exists(): errors.append(f"registered active prompt missing: {rel}")
+            if not (ROOT / rel).exists():
+                errors.append(f"registered active prompt missing: {rel}")
+        active_canonical = reg.get("active_canonical", [])
+        if "docs/MANUAL_DIRECT_ADD_V2.md" not in active_canonical:
+            errors.append("Manual Direct Add V2 is not registered active")
+        if "docs/MANUAL_DIRECT_ADD_V1.md" not in reg.get("superseded", []):
+            errors.append("Manual Direct Add V1 is not registered superseded")
 
     need(STAGE_A, "EMBEDDED_NEWS_VALUE_SELECTION_V4", errors)
     need(STAGE_A, "related_prepass", errors)
@@ -72,7 +81,12 @@ def main() -> int:
     need(ADDABILITY, "Addability Revalidation", errors)
     need(ADDABILITY, "not the first Related audit", errors)
     need(MASTER, "EMBEDDED_NEWS_VALUE_SELECTION_V4", errors)
+    need(MASTER, "0.2R only for bounded Stage-B repair", errors)
+    need(MASTER, "0.3R only for controlled Stage-C revalidation", errors)
+    need(WORKFLOW, "There are no separate ordinary `0.4R`, `0.5R`, `0.6R`, or `0.7R`", errors)
     need(PROMPT_MANIFEST, "There is **no active 0.1S", errors)
+    need(PROMPT_MANIFEST, "0.2 B ⇄ 0.2R", errors)
+    need(PROMPT_MANIFEST, "0.3 C ⇄ 0.3R", errors)
 
     for path in SUPERSEDED:
         if not path.exists():
@@ -89,21 +103,24 @@ def main() -> int:
         if schema.get("properties", {}).get("schema", {}).get("const") != "manual_direct_add_v2":
             errors.append("manual-direct-add.v2 schema const missing")
 
-    active_text = "\n".join((ROOT / rel).read_text(encoding="utf-8") for rel in json.loads(REGISTRY.read_text(encoding="utf-8")).get("active_named_prompts", []) if (ROOT / rel).exists())
+    reg = json.loads(REGISTRY.read_text(encoding="utf-8")) if REGISTRY.exists() else {}
+    active_text = "\n".join((ROOT / rel).read_text(encoding="utf-8") for rel in reg.get("active_named_prompts", []) if (ROOT / rel).exists())
     for token in ["WORKFLOW_CONTRACT_OVERLAY_", "01A_PROMPT_0_1S_Structural_Value_Override.md", "00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md", "00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md"]:
         if token in active_text:
             errors.append(f"active named prompt dependency graph contains retired token: {token}")
 
     if errors:
         print("RESULT: BLOCKED_WORKFLOW_V4_ARCHITECTURE")
-        for e in errors: print(f"- {e}")
+        for e in errors:
+            print(f"- {e}")
         return 1
     print("RESULT: PASS_WORKFLOW_V4_ARCHITECTURE")
     print("- active named prompts: 17")
     print("- active override/addendum runtime dependencies: 0")
     print("- Stage A news value + Related pre-pass embedded: PASS")
+    print("- conditional 0.2R/0.3R + backward routing: PASS")
     print("- Prompt 0.4 addability distinction: PASS")
-    print("- Manual Direct Add V2 registered: PASS")
+    print("- Manual Direct Add V2 lifecycle registration: PASS")
     return 0
 
 

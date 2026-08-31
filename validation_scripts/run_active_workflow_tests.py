@@ -1,29 +1,25 @@
 #!/usr/bin/env python3
-"""Run active semantic/machine workflow tests without reactivating historical prompt snapshots.
+"""Run the complete workflow machine/semantic regression suite fail-closed.
 
-Historical PR/review-specific test modules are retained in Git for audit but are not
-ordinary active governance. New active tests must use domain/contract names rather than
-`test_review_*` or `test_structural_v3_review_*` snapshot naming.
+Every ``validation_scripts/tests/test_*.py`` module is imported independently.
+Import errors are fatal. Review-numbered filenames are not treated as legacy by
+name: many of them are durable machine-regression tests. Any genuinely retired
+prompt snapshot must be excluded later by an explicit test-method identity with
+an audit reason, never by a broad filename pattern.
 """
 from __future__ import annotations
 
 import argparse
-import fnmatch
+import importlib.util
+import sys
+import traceback
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TEST_DIR = ROOT / "validation_scripts" / "tests"
-
-LEGACY_PROMPT_SNAPSHOT_PATTERNS = (
-    "test_review_*.py",
-    "test_structural_v3_review_*.py",
-    "test_pr233_latest_review_contracts.py",
-)
-
-
-def is_legacy_snapshot(path: Path) -> bool:
-    return any(fnmatch.fnmatch(path.name, pattern) for pattern in LEGACY_PROMPT_SNAPSHOT_PATTERNS)
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 
 def flatten(suite: unittest.TestSuite):
@@ -34,64 +30,72 @@ def flatten(suite: unittest.TestSuite):
             yield item
 
 
-def build_active_suite() -> tuple[unittest.TestSuite, list[Path], list[Path], int]:
-    loader = unittest.TestLoader()
-    active_files: list[Path] = []
-    legacy_files: list[Path] = []
-    active_suite = unittest.TestSuite()
-    filtered_imported_cases = 0
+def load_test_file(path: Path, ordinal: int) -> tuple[unittest.TestSuite, int]:
+    """Import one test file under a unique name; any import error propagates."""
+    module_name = f"_sbtl_workflow_test_{ordinal}_{path.stem}"
+    spec = importlib.util.spec_from_file_location(module_name, path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"cannot create import spec for {path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    try:
+        spec.loader.exec_module(module)
+    except Exception:
+        sys.modules.pop(module_name, None)
+        raise
 
-    for path in sorted(TEST_DIR.glob("test_*.py")):
-        if is_legacy_snapshot(path):
-            legacy_files.append(path)
+    loaded = unittest.TestLoader().loadTestsFromModule(module)
+    owned = unittest.TestSuite()
+    imported_cases = 0
+    for case in flatten(loaded):
+        # Modules sometimes import TestCase classes from another regression file.
+        # Run those classes only in the file that actually defines them so there
+        # is no duplicate execution, but never suppress loader/import failures.
+        if case.__class__.__module__ != module_name:
+            imported_cases += 1
             continue
-        active_files.append(path)
-        # Match the repository's historical working discovery semantics:
-        # validation_scripts/tests is not a Python package, so do not force a
-        # top_level_dir that would require __init__.py.
-        discovered = loader.discover(
-            str(TEST_DIR),
-            pattern=path.name,
-        )
-        for case in flatten(discovered):
-            owner_module = case.__class__.__module__.split(".")[-1]
-            if owner_module != path.stem:
-                # Some historical tests import TestCase classes from another
-                # module. Keep those modules in Git, but do not execute an
-                # imported case under the wrong active file.
-                filtered_imported_cases += 1
-                continue
-            active_suite.addTest(case)
+        owned.addTest(case)
+    return owned, imported_cases
 
-    return active_suite, active_files, legacy_files, filtered_imported_cases
+
+def build_active_suite() -> tuple[unittest.TestSuite, list[Path], int]:
+    files = sorted(TEST_DIR.glob("test_*.py"))
+    suite = unittest.TestSuite()
+    imported_cases = 0
+    for ordinal, path in enumerate(files):
+        loaded, imported = load_test_file(path, ordinal)
+        suite.addTests(loaded)
+        imported_cases += imported
+    return suite, files, imported_cases
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--list", action="store_true", help="classify files without running tests")
+    parser.add_argument("--list", action="store_true", help="list every active test module")
     args = parser.parse_args()
 
-    suite, active_files, legacy_files, filtered = build_active_suite()
+    try:
+        suite, files, imported = build_active_suite()
+    except Exception as exc:
+        print("WORKFLOW_TEST_IMPORT_FAILURE")
+        print(f"- error: {type(exc).__name__}: {exc}")
+        traceback.print_exc()
+        return 1
+
     count = suite.countTestCases()
-
     print("WORKFLOW_TEST_CLASSIFICATION_V4")
-    print(f"- active_test_files: {len(active_files)}")
-    print(f"- legacy_prompt_snapshot_files: {len(legacy_files)}")
+    print(f"- active_test_files: {len(files)}")
+    print("- broad_legacy_filename_exclusions: 0")
     print(f"- active_test_cases: {count}")
-    print(f"- imported_test_cases_filtered: {filtered}")
-    print("- legacy_patterns:")
-    for pattern in LEGACY_PROMPT_SNAPSHOT_PATTERNS:
-        print(f"  - {pattern}")
+    print(f"- imported_test_cases_deduplicated: {imported}")
 
-    if not active_files or count == 0:
+    if not files or count == 0:
         print("FAIL: active workflow test suite is empty")
         return 1
 
     if args.list:
-        for path in active_files:
+        for path in files:
             print(f"ACTIVE {path.relative_to(ROOT)}")
-        for path in legacy_files:
-            print(f"LEGACY_PROMPT_SNAPSHOT {path.relative_to(ROOT)}")
         return 0
 
     result = unittest.TextTestRunner(verbosity=2).run(suite)

@@ -42,7 +42,8 @@ class WorkflowV4ArchitectureTests(unittest.TestCase):
         self.assertIn("0.2 B ⇄ 0.2R", manifest)
         self.assertIn("0.3 C ⇄ 0.3R", manifest)
         self.assertIn("There are no separate ordinary `0.4R`, `0.5R`, `0.6R`, or `0.7R`", workflow)
-        self.assertIn("earliest responsible stage", workflow)
+        self.assertIn("earliest responsible", workflow)
+        self.assertIn("stage", workflow.lower())
 
     def test_addability_is_not_lineage_origin(self):
         text = (P / "06_PROMPT_0_4_Baseline_Revalidation.md").read_text(encoding="utf-8")

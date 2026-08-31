@@ -78,13 +78,6 @@ def check_stage_a_full_v3_compat(data):
     return _prior_check_stage_a_full(data)
 
 
-# Keep nested historical modules aligned when code imports validate_stage_a_spec
-# through the old module chain, but never replace the explicit compatibility
-# entrypoints themselves.
-if hasattr(_compat, "_patch_module_chain") and hasattr(_compat, "_compat_module"):
-    _compat._patch_module_chain(_compat._compat_module, "validate_stage_a_spec", validate_stage_a_spec)
-
-
 if __name__ == "__main__":
     # The CLI is an active governance entrypoint and therefore always uses V4.
     # Patch only the nested dispatch target used by the historical CLI parser.

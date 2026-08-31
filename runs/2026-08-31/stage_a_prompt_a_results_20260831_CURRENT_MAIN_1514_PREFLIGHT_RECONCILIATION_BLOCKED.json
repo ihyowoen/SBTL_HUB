@@ -1,0 +1,270 @@
+{
+  "schema": "stage_a_selector_checkpoint_v1",
+  "stage": "Prompt 0.1 + Prompt 0.1S V3",
+  "status": "BLOCKED_ITEM_LEVEL_ACCOUNTING_INCOMPLETE",
+  "run_id": "card-run-2026-08-31-preflight-reconciliation-current-main-1514",
+  "run_tag": "20260831_PREFLIGHT_RECONCILIATION",
+  "generated_kst": "2026-08-31T21:03:00+09:00",
+  "repository_head_sha": "324461288e49e4578e06d590fa2422999ae09b34",
+  "canonical_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "canonical_card_count": 1514,
+  "source_stage_0_0d": "runs/2026-08-31/stage_0_0d_document_universe_20260831_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION.json",
+  "source_stage_0_0c": "runs/2026-08-31/stage_0_0c_coverage_discovery_20260831_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION.json",
+  "input_file": "final_news_llm_input_newsletter_expanded_20260831_143419.json",
+  "source_prompt": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+  "structural_value_prompt": "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
+  "stage_a_boundary": {
+    "external_web_search_performed": false,
+    "article_body_fetch_performed": false,
+    "fact_sources_created": false,
+    "card_copy_created": false,
+    "publish_ready_decision_performed": false,
+    "production_ids_assigned": false,
+    "canonical_cards_modified": false,
+    "stage_b_authorized": false
+  },
+  "expanded_universe": {
+    "original_input_observations": 264,
+    "stage_0_0c_discovered_observations": 4,
+    "total_stage_a_observations": 268,
+    "original_status_counts": {
+      "KEEP": 209,
+      "REVIEW": 1,
+      "TRIAGE_FILTERED": 54
+    },
+    "ledger_state_counts": {
+      "FIRST": 168,
+      "REPEAT": 96
+    },
+    "region_counts": {
+      "KR": 121,
+      "CN": 43,
+      "GL": 41,
+      "EU": 22,
+      "US": 19,
+      "JP": 18
+    }
+  },
+  "hard_blocker": {
+    "code": "ITEM_LEVEL_TERMINAL_LEDGER_NOT_RECONSTRUCTED_268_OF_268",
+    "detail": "The exact uploaded 2026-08-31 input is available through indexed File Library search but not byte-mounted in the execution runtime, and multimodal/full-file open is unavailable. Searchable chunks allowed recovery of material candidates and many obvious exclusions, but do not prove an exhaustive 268-observation item-level Stage A terminal ledger. V3 governance forbids treating a subset of recovered rows as full Stage A completion.",
+    "why_not_bypassed": "Stage 0.0C may preserve all 264 original observations for selector review as a uniform discovery disposition, but Stage A must itself terminally classify the expanded universe. Aggregate counts and keyword recovery are not a substitute for exact item-level accounting.",
+    "required_to_clear": [
+      "Obtain byte-readable or complete structured access to final_news_llm_input_newsletter_expanded_20260831_143419.json, or an exact machine-derived 264-row story ledger from that file.",
+      "Append the four Stage-0.0C discoveries to that ledger.",
+      "Run Stage A selector-only classification over all 268 observations and prove exactly-one terminal disposition per observation.",
+      "Recheck current main before Stage B authorization."
+    ]
+  },
+  "recovered_material_candidate_decisions": [
+    {
+      "candidate_key": "A31_REC_SKON_NEOVOLTA",
+      "source_story_ids": ["KR_2026-08-31_C49", "KR_2026-08-31_C50"],
+      "event": "SK On–NeoVolta Power signed LFP ESS cell supply agreement",
+      "region": "KR",
+      "provisional_bucket": "strict_candidate_cluster",
+      "anchor_classes": ["execution_event_anchor", "strategic_behavior_anchor"],
+      "baseline_relation": "distinct_new_event_or_material_follow_up_to_company_ESS_strategy",
+      "stage_a_guardrail": "Signed supply amount is 9GWh over five years from 2027; any additional 9GWh cooperation is not to be represented as part of the signed supply amount.",
+      "next_stage_requirement": "Stage B official/primary contract evidence and exact event-date/source-owner lock."
+    },
+    {
+      "candidate_key": "A31_REC_CORNEX_XIANGYANG",
+      "event": "CORNEX Xiangyang 70GWh lithium-battery industrial park enters production",
+      "region": "CN",
+      "provisional_bucket": "strict_candidate_cluster",
+      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
+      "baseline_relation": "distinct_asset_stage_transition",
+      "stage_a_guardrail": "Keep Xiangyang asset separate from CORNEX Yichang 80GWh and do not expose daily-cell-output claims before Stage B verification."
+    },
+    {
+      "candidate_key": "A31_REC_CN_C01",
+      "source_story_ids": ["CN_2026-08-31_C01"],
+      "event": "Sichuan Electric Power Construction–Sungrow consortium wins overseas 200MW/400MWh ESS order",
+      "region": "CN",
+      "provisional_bucket": "strict_candidate_pending_stage_b_identity_lock",
+      "anchor_classes": ["execution_event_anchor"],
+      "baseline_relation": "no_exact_current_canonical_match_found_in_stage_a_repo_screen",
+      "next_stage_requirement": "Stage B must resolve project location, contracting party, award date, binding scope and primary-source path."
+    },
+    {
+      "candidate_key": "A31_REC_CN_C02",
+      "source_story_ids": ["CN_2026-08-31_C02"],
+      "event": "Guozong Green Energy Dashiqiao Huguan 200MW/800MWh grid-side independent BESS construction start",
+      "region": "CN",
+      "provisional_bucket": "strict_candidate_pending_stage_b_identity_lock",
+      "anchor_classes": ["execution_event_anchor"],
+      "baseline_relation": "no_exact_current_canonical_match_found_in_stage_a_repo_screen"
+    },
+    {
+      "candidate_key": "A31_REC_CN_C13",
+      "source_story_ids": ["CN_2026-08-31_C13"],
+      "event": "Xincheng County 200MW/400MWh shared BESS grid connection",
+      "region": "CN",
+      "provisional_bucket": "strict_candidate_pending_stage_b_identity_lock",
+      "anchor_classes": ["execution_event_anchor"],
+      "stage_a_guardrail": "Grid-connection/operation wording must be verified at Stage B and kept distinct from similarly sized Chinese BESS projects."
+    },
+    {
+      "candidate_key": "A31_REC_PENGHUI_H1",
+      "source_story_ids": ["CN_2026-08-31_C11"],
+      "event": "Penghui Energy publishes 2026 H1 actual results",
+      "region": "CN",
+      "provisional_bucket": "candidate_review_earnings_deep_dive",
+      "anchor_classes": ["data_financial_anchor", "strategic_behavior_anchor"],
+      "stage_a_guardrail": "Do not promote from secondary headline metrics alone. Stage B earnings-deep-dive must use the official half-year report/IR and separate operating drivers from headline profit growth."
+    },
+    {
+      "candidate_key": "A31_REC_SUNGROW_H1",
+      "event": "Sungrow 2026 H1 storage shipment/revenue signal",
+      "region": "CN",
+      "provisional_bucket": "candidate_review_earnings_deep_dive",
+      "anchor_classes": ["data_financial_anchor", "strategic_behavior_anchor"],
+      "recovered_input_signal": "Current-file context references H1 storage shipment of 25GWh and storage revenue of RMB15.4bn, but an exact current-input story ID was not fully reconstructed.",
+      "stage_a_guardrail": "No visible metric may survive without official H1 report/IR verification and exact story identity."
+    },
+    {
+      "candidate_key": "A31_REC_MARUBENI_BLUE_SKY",
+      "event": "Marubeni New Power / Blue Sky FIP co-located battery enters balancing market",
+      "region": "JP",
+      "provisional_bucket": "strict_candidate_cluster",
+      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
+      "baseline_relation": "market_participation_stage_transition"
+    },
+    {
+      "candidate_key": "A31_REC_GAWARA_BAYA",
+      "source_story_ids": ["GL_2026-08-31_C01"],
+      "event": "CIP Gawara Baya 408MW wind + 104MW grid-forming BESS reaches FID/financial close and construction",
+      "region": "GL",
+      "provisional_bucket": "strict_candidate_cluster",
+      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"]
+    },
+    {
+      "candidate_key": "A31_DISC_RETURN_SIRIUS",
+      "source_story_ids": ["DISC31_EU_RETURN_SIRIUS"],
+      "event": "Return–Vattenfall Sirius 200MW/800MWh BESS long-term tolling and financial close",
+      "region": "EU",
+      "provisional_bucket": "strict_candidate_cluster",
+      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"]
+    },
+    {
+      "candidate_key": "A31_DISC_NEXEON_100M",
+      "source_story_ids": ["DISC31_EU_NEXEON_100M"],
+      "event": "Nexeon completes £100m investment round",
+      "region": "EU",
+      "provisional_bucket": "strict_candidate_cluster",
+      "anchor_classes": ["execution_event_anchor", "technology_commercialization_anchor"],
+      "baseline_relation": "material_follow_up_to_prior_Honda_investment"
+    },
+    {
+      "candidate_key": "A31_DISC_NEO_CARESTER",
+      "source_story_ids": ["DISC31_EU_NEO_CARESTER"],
+      "event": "Neo Performance Materials–Carester binding term sheet for heavy-rare-earth supply/recycling/toll separation",
+      "region": "EU",
+      "provisional_bucket": "strict_or_candidate_review_pending_binding_scope_check",
+      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
+      "baseline_relation": "material_follow_up_to_prior_rare_earth_separation_execution"
+    },
+    {
+      "candidate_key": "A31_DISC_GS_YUASA_IBARAKI",
+      "source_story_ids": ["DISC31_JP_GS_YUASA_IBARAKI"],
+      "event": "GS Yuasa decides Ibaraki manufacturing plant for next-generation domestic stationary storage systems",
+      "region": "JP",
+      "provisional_bucket": "strict_candidate_cluster",
+      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
+      "baseline_relation": "stage_transition_from_METI_supply_assurance_plan"
+    }
+  ],
+  "recovered_non_strict_decisions": [
+    {
+      "candidate": "Korea passenger-ferry lithium-battery carriage rules",
+      "provisional_bucket": "candidate_review_or_watchlist",
+      "reason": "Concrete safety/transport rule with 2027 implementation path, but direct structural battery/ESS industry decision value is weaker than core supply, manufacturing, project-finance or market-access events."
+    },
+    {
+      "candidate": "BYD–Ulaanbaatar strategic cooperation MOU",
+      "provisional_bucket": "watchlist_context_pool",
+      "reason": "Same event was previously evaluated under V3 at 34/100 context_or_reinforcement; no new binding execution anchor recovered."
+    },
+    {
+      "candidate": "CN_2026-08-31_C08 Guangdong 600MWh storage + 300MW VPP zero-carbon project filing",
+      "provisional_bucket": "candidate_review_or_watchlist",
+      "reason": "备案/plan-authorization stage is materially earlier than construction/financing/operation."
+    },
+    {
+      "candidate": "CN_2026-08-31_C14 Shanxi 19 storage-charging stations filing",
+      "provisional_bucket": "candidate_review_or_watchlist",
+      "reason": "备案 stage; implementation not yet established."
+    },
+    {
+      "candidate": "JP Suzuka Storage 1.995MW/8.358MWh construction start",
+      "provisional_bucket": "watchlist_or_support_source_only",
+      "reason": "Execution is concrete but project scale is small and no broader structural change is established at Stage A."
+    },
+    {
+      "candidate": "JP_2026-08-31_C19 Apple Tree/Forval Kakegawa grid-storage joint development",
+      "provisional_bucket": "candidate_review_pool",
+      "reason": "Early-development headline is insufficient to establish financing, construction, capacity or market-operation maturity."
+    },
+    {
+      "candidate": "JP_2026-08-31_C07 JFE Engineering AI-enabled LIB collection/resource-recovery demonstration",
+      "provisional_bucket": "candidate_review_or_watchlist",
+      "reason": "Pilot/demonstration stage; scale and measured recovery economics are not established at Stage A."
+    },
+    {
+      "candidate": "CN_2026-08-31_C12 CATL/state shareholder Hunan Yuneng stake reduction",
+      "provisional_bucket": "context_or_reject",
+      "reason": "Equity-sale event does not by itself establish a material battery supply, capacity, technology, customer or market-access change."
+    },
+    {
+      "candidate": "CN_2026-08-31_C10 300MW pumped-hydro construction milestone",
+      "provisional_bucket": "rejected_out_of_primary_battery_lane",
+      "reason": "Pumped hydro is not a battery/ESS project signal for this card lane absent a substitution or market-structure thesis."
+    },
+    {
+      "candidate": "JP_2026-08-31_C24 JAPEX Norway gas-field production",
+      "provisional_bucket": "rejected_out_of_primary_battery_lane",
+      "reason": "Oil/gas production event lacks a direct battery/ESS/materials/supply-chain anchor."
+    }
+  ],
+  "duplicate_reinforcement_notes": [
+    {
+      "candidate": "POSCO Argentina $700m credit facility republication",
+      "disposition": "source_reinforcement_for_prior_carry_forward_event",
+      "reason": "The underlying financing event already belongs to the prior authorized carry-forward lane; later article presence in the 8/31 input does not create another card."
+    },
+    {
+      "candidate": "Sandrini 92MW/368MWh commissioning republication",
+      "disposition": "non_material_repetition_or_support",
+      "reason": "Underlying event date is 2026-08-19 and had already entered an earlier Stage A lineage; later republication is not a fresh execution event."
+    },
+    {
+      "candidate": "Aug-26 U.S. grid-security executive-order analysis/republication",
+      "disposition": "existing_card_reinforcement_or_context",
+      "reason": "The operative Aug-26 policy event is already represented; later analysis does not create a new policy action."
+    }
+  ],
+  "prior_publish_ready_lane": {
+    "carry_forward_count": 37,
+    "status": "PRESERVED_SEPARATELY_NOT_RESTAGED",
+    "stage_a_effect": "NONE",
+    "next_allowed_step": "current-baseline addability revalidation only after the fresh Stage A accounting blocker is cleared or as a separately governed carry-forward-only run",
+    "canonical_write_performed": false
+  },
+  "accounting": {
+    "expanded_observations_expected": 268,
+    "complete_item_level_ledger_reconstructed": false,
+    "exactly_one_terminal_disposition_proven_for_all_observations": false,
+    "recovered_material_candidate_decision_count": 13,
+    "recovered_non_strict_decision_count": 10,
+    "duplicate_reinforcement_note_count": 3,
+    "unaccounted_observation_count": null,
+    "unaccounted_observation_count_reason": "A numeric remainder would be misleading because recovered event clusters can contain multiple source observations and the inaccessible full file prevents exact source-row membership reconstruction."
+  },
+  "next_transition": {
+    "stage_b_authorized": false,
+    "prompt_0_4_authorized_for_combined_run": false,
+    "canonical_mutation_authorized": false,
+    "required_action": "Clear the item-level accounting blocker, rerun/complete Stage A over all 268 observations, then send only strict_passed_spec to Stage B."
+  }
+}

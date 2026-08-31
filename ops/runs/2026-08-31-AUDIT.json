@@ -327,6 +327,38 @@
         "evidence": "NA/upstream·NA/downstream·EU/upstream·KR/chemicals·JP/trade·GL/trade·GL/upstream이 gap이었으나 전부 제정 규범이 실재했다. NA/upstream과 EU/upstream은 lastSwept가 2026-08-29(당일)였는데도 미검출.",
         "cause": "gap 을 '규범 부재'로 읽어 왔으나 실제로는 '현재 쿼리로 못 찾음'이었다.",
         "action": "7개 셀 covered 전환 완료. na 판정 요건(2회 연속 무산출 + Claire 승인)에 '쿼리 설계 적정성 확인'을 추가할지 검토 — 구조 PR 후보."
+      },
+      {
+        "id": "D6",
+        "name": "소스 링크가 문서에 도달하지 못함",
+        "scope": "전 권역 22건",
+        "evidence": "src의 u가 경로 없이 도메인 루트로 끝나는 항목이 22건이다. 카드에 '원문'이라 라벨된 칩을 눌러도 기관 홈페이지만 나온다.",
+        "cause": "등재 시 URL 유효성을 문서 도달 기준으로 점검하지 않았다. Codex가 CN-039·NA-039를 한 건씩 지적했으나 기계적으로 훑으니 전 권역 문제였다.",
+        "action": "CN-039·NA-039는 이번에 교체했다. 나머지는 원문 URL 확보가 필요하므로 후속 과제로 남긴다. 검증기에 'src.u의 path가 비어 있으면 경고' 규칙 추가를 권고한다.",
+        "list": [
+          "NA-011 src[2] https://calrecycle.ca.gov/",
+          "NA-017 src[1] https://www.whitehouse.gov/",
+          "NA-019 src[1] https://www.csis.org/",
+          "EU-014 src[1] https://commission.europa.eu/",
+          "CN-001 src[0] https://www.miit.gov.cn/",
+          "CN-002 src[0] https://www.miit.gov.cn/",
+          "CN-003 src[0] https://www.miit.gov.cn/",
+          "CN-004 src[0] http://exportcontrol.mofcom.gov.cn/",
+          "CN-004 src[1] https://www.mofcom.gov.cn/",
+          "CN-009 src[1] https://www.sac.gov.cn/",
+          "CN-011 src[1] https://www.miit.gov.cn/",
+          "CN-013 src[2] https://www.ndrc.gov.cn/",
+          "CN-029 src[1] https://std.samr.gov.cn/",
+          "KR-005 src[2] https://www.me.go.kr/",
+          "KR-010 src[2] https://www.molit.go.kr/",
+          "JP-010 src[2] https://www.cev-pc.or.jp/",
+          "GL-002 src[0] https://www.basel.int/",
+          "NA-034 src[0] https://www.pillsburylaw.com/",
+          "NA-034 src[1] https://www.crowell.com/",
+          "CN-040 src[0] https://std.samr.gov.cn/",
+          "CN-041 src[0] https://std.samr.gov.cn/",
+          "GL-006 src[0] https://webstore.iec.ch/"
+        ]
       }
     ],
     "approvalQueue_TierB": {
@@ -432,6 +464,63 @@
         }
       ],
       "lessonForRunbook": "checkNote의 '기재 보류' 선언과 d·tip 본문의 정합을 검증기에서 잡을 수 있는지 검토할 것. 보류 대상 키워드가 checkNote에 있는데 같은 키워드가 d·tip에 단정형으로 나타나면 경고 후보."
+    },
+    "round3": {
+      "source": "PR #294 Codex Review (reviewed commit 901d53c0, 2026-08-31 제출)",
+      "note": "지적 8건 전건 확인 후 반영. 아울러 같은 결함 유형을 신규 21건 전체에 기계적으로 훑어 4건을 추가 발견했다.",
+      "codexFindings": [
+        {
+          "id": "NA-037",
+          "fix": "발효한 비상선언과 DOE 이행규칙 대기 중인 금지를 d에서 분리 — detail은 '현재 금지 설비 없음'인데 d는 금지가 작동 중으로 읽혔다"
+        },
+        {
+          "id": "region_policy/NA",
+          "fix": "NA-026 'status 전환 승인 대기' 잔존 문구를 승인·반영 완료로 교체 — 같은 패널의 상위 워치포인트와 충돌"
+        },
+        {
+          "id": "NA-039",
+          "fix": "src 홈페이지 → 실제 기사·의원실 보도자료·진보코커스 페이지. H.R. 797 확보(2차, congress.gov 대조 잔여)"
+        },
+        {
+          "id": "NA-047",
+          "fix": "ACTIVE → UPCOMING — 2026-09-15 보고기한이 카운트다운·워치리스트 양쪽에서 사라지고 있었다"
+        },
+        {
+          "id": "NA-048",
+          "fix": "detail이 공표 전 서술로 남아 카드 안에서 공표됨·미공표가 동시 표시 — detail 갱신"
+        },
+        {
+          "id": "JP-018",
+          "fix": "d·tip의 계통 투자·수익 개선 효과 주장을 조건부로 — 확인된 것은 의안 메타데이터뿐"
+        },
+        {
+          "id": "coverage NA/carbon",
+          "fix": "쿼리를 고치지 않고 lastSwept만 전진시켜 다음 스윕이 같은 사각을 반복할 상태였다 — EPA·CAA·차량GHG·CAFE 각도 추가"
+        },
+        {
+          "id": "GL-007",
+          "fix": "d의 'SBTL 수출품 분류 일괄 재편' 단정을 상관표 확인 조건부로"
+        }
+      ],
+      "myOwnSweepFindings": [
+        {
+          "id": "NA-043",
+          "fix": "d가 'Annex 부품 목록에 리튬이온전지 포함'을 단정 — checkNote는 미확인이라 적혀 있었다"
+        },
+        {
+          "id": "NA-045",
+          "fix": "d·tip이 알루미늄의 UFLPA 고위험 부문 지정을 단정 — 집행전략 원문 미확인"
+        },
+        {
+          "id": "EU-037",
+          "fix": "d가 Omnibus I의 적용 시점·대상 조정 내용을 단정 — 조문 대조 미실시"
+        },
+        {
+          "id": "src 도메인 루트",
+          "fix": "전 권역 22건을 기계적으로 적발해 구조 결함 D6으로 등재"
+        }
+      ],
+      "lesson": "checkNote 보류 ↔ d·tip 단정 충돌이 3차에 걸쳐 8건 나왔다(CN-043·CN-045·GL-008·JP-018·GL-007·NA-043·NA-045·EU-037). 한 건씩 지적받는 대신 기계적 스윕으로 전수를 훑는 것이 빨랐다. 보류 선언은 면책 문구가 아니라 본문 작성의 제약으로 강제돼야 한다 — 검증기 규칙 후보."
     }
   },
   "f12Correction": {

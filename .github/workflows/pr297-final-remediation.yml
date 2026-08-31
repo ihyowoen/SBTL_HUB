@@ -56,7 +56,7 @@ jobs:
           us = by_spec['NEW27_RP_001']
           cnesa = by_spec['NEW27_TH_003']
 
-          assert tata.get('sub_cat') == '커미셔닝', tata.get('sub_cat')
+          assert tata.get('sub_cat') == '인도FDRE·BESS커미셔닝', tata.get('sub_cat')
           quotes = [str(x.get('source_quote') or '') for x in tata.get('fact_sources', []) if isinstance(x, dict)]
           for q in ('contractual capacity of 460 MW', '115 MWHr advanced Battery Energy Storage System (BESS)', 'HPPC, MSEDCL and NPCL discoms'):
               assert q in quotes, q
@@ -162,15 +162,22 @@ jobs:
           node scripts/lean_cards.mjs --check
           git diff --check
 
-      - name: Commit remediation and self-remove
+      - name: Commit remediation and remove temporary remediation files
         shell: bash
         run: |
           set -euo pipefail
           rm -rf .tmp-pr297-final
-          rm -f .github/workflows/pr297-final-remediation.yml
+          rm -f \
+            .github/workflows/pr297-final-remediation.yml \
+            .github/workflows/pr297-direct-remediation.yml \
+            .github/workflows/pr297-direct-remediation-r2.yml \
+            .github/workflows/pr297-remediation-bootstrap-v2.yml \
+            scripts/tmp_pr297_final_remediation.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/cards.full.json public/data/cards.json runs/2026-08-29 .github/workflows/pr297-final-remediation.yml
+          git add -A
           git diff --cached --check
+          git fetch origin chatgpt/20260829-combined18-governed-run
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/chatgpt/20260829-combined18-governed-run)" || { echo 'branch advanced during validation; rerun required' >&2; exit 1; }
           git commit -m 'Close PR #297 Codex findings 5473947179'
           git push origin HEAD:chatgpt/20260829-combined18-governed-run

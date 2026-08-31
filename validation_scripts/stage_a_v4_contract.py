@@ -7,6 +7,7 @@ remain separate compatibility layers and may impose additional constraints.
 """
 from __future__ import annotations
 
+import math
 from typing import Any
 
 POLICY_VERSION = "EMBEDDED_NEWS_VALUE_SELECTION_V4"
@@ -162,6 +163,7 @@ def _valid_confidence(value: Any) -> bool:
     return (
         isinstance(value, (int, float))
         and not isinstance(value, bool)
+        and math.isfinite(float(value))
         and 0 <= float(value) <= 1
     )
 
@@ -214,9 +216,9 @@ def _validate_related_prepass(
             f"{spec_id}: related_prepass.duplicate_disposition must be one of "
             f"{sorted(RELATED_DUPLICATE_DISPOSITIONS)}"
         )
-    elif status == "PASS" and disposition == "uncertain_needs_review":
+    elif status == "PASS" and disposition != "no_duplicate_found":
         messages.append(
-            f"{spec_id}: related_prepass PASS cannot retain uncertain_needs_review disposition"
+            f"{spec_id}: related_prepass PASS requires duplicate_disposition=no_duplicate_found"
         )
 
     fresh_questions = related.get("fresh_anchor_questions")
@@ -359,8 +361,14 @@ def validate_stage_a_v4_spec(
                 )
 
     score = spec.get("decision_news_value_score")
-    if not isinstance(score, (int, float)) or isinstance(score, bool) or score < 0 or score > 100:
-        messages.append(f"{spec_id}: decision_news_value_score must be numeric 0..100")
+    if (
+        not isinstance(score, (int, float))
+        or isinstance(score, bool)
+        or not math.isfinite(float(score))
+        or score < 0
+        or score > 100
+    ):
+        messages.append(f"{spec_id}: decision_news_value_score must be finite numeric 0..100")
         numeric_score = None
     else:
         numeric_score = float(score)
@@ -379,9 +387,15 @@ def validate_stage_a_v4_spec(
         valid_total = not missing and not extra
         for key, maximum in BREAKDOWN_MAX.items():
             value = breakdown.get(key)
-            if not isinstance(value, (int, float)) or isinstance(value, bool) or value < 0 or value > maximum:
+            if (
+                not isinstance(value, (int, float))
+                or isinstance(value, bool)
+                or not math.isfinite(float(value))
+                or value < 0
+                or value > maximum
+            ):
                 messages.append(
-                    f"{spec_id}: decision_value_breakdown.{key} must be numeric 0..{maximum}"
+                    f"{spec_id}: decision_value_breakdown.{key} must be finite numeric 0..{maximum}"
                 )
                 valid_total = False
             else:

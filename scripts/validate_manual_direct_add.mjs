@@ -8,6 +8,7 @@ const same = (a,b) => JSON.stringify(a) === JSON.stringify(b);
 const uniq = (x) => new Set(x).size === x.length;
 const RFC3339 = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
 const ANCHORS = new Set(["execution_event_anchor","policy_regulatory_anchor","data_financial_anchor","strategic_behavior_anchor","technology_commercialization_anchor","follow_up_probability_anchor"]);
+const NON_EXECUTION_ANCHORS = new Set(["policy_regulatory_anchor","data_financial_anchor","strategic_behavior_anchor","technology_commercialization_anchor","follow_up_probability_anchor"]);
 const CLASSES = [
   [85,"critical_structural"],[70,"high_decision_value"],[55,"material_industry_signal"],[40,"standard_monitoring"],[25,"context_or_reinforcement"],[0,"low_independent_value"]
 ];
@@ -36,6 +37,11 @@ function validateV2Editorial(m,ops){
    if(a.execution_credibility_gate!=="PASS"||a.independent_cardability_gate!=="PASS") fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: credibility/cardability must PASS`);
    const anchors=strArr(a.anchor_classes,`${id}.anchor_classes`,{nonempty:true}); if(anchors.some(x=>!ANCHORS.has(x))) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: invalid anchor class`);
    if(!["execution_anchor_route","structural_non_execution_route"].includes(a.selection_route)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: invalid selection route`);
+   if(a.selection_route==="execution_anchor_route"&&!anchors.includes("execution_event_anchor")) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: execution_anchor_route requires execution_event_anchor`);
+   if(a.selection_route==="structural_non_execution_route"){
+     if(anchors.includes("execution_event_anchor")) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: structural_non_execution_route cannot attest execution_event_anchor`);
+     if(!anchors.some(x=>NON_EXECUTION_ANCHORS.has(x))) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: structural_non_execution_route requires a non-execution anchor class`);
+   }
    if(!Number.isInteger(a.decision_news_value_score)||a.decision_news_value_score<0||a.decision_news_value_score>100) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: score must be integer 0..100`);
    const expected=scoreClass(a.decision_news_value_score); if(a.decision_value_classification!==expected) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: classification ${a.decision_value_classification} != ${expected}`);
    if(!["immediate","near_term","monitor"].includes(a.publication_urgency)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: invalid urgency`);
@@ -51,11 +57,11 @@ function validateV2Editorial(m,ops){
 }
 
 function validate(manifest,base,full){
- if(!["manual_direct_add_v1","manual_direct_add_v2"].includes(manifest?.schema)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID","unsupported manifest schema");
+ if(manifest?.schema!=="manual_direct_add_v2") fail("BLOCKED_MANUAL_DIRECT_ADD_V1_RETIRED","active manual direct-add validation accepts manual_direct_add_v2 only; V1 is historical/audit-only");
  if(manifest.status!=="PASS") fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID","manifest status must be PASS");
  str(manifest.direct_add_id,"direct_add_id");str(manifest.base_main_commit_sha,"base_main_commit_sha");str(manifest.base_full_blob_sha,"base_full_blob_sha");timestamp(manifest.output_updated);
  if(!Number.isInteger(manifest.expected_before)||!Number.isInteger(manifest.expected_after)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID","expected counts must be integers");
- const ops=parseOps(manifest); if(manifest.schema==="manual_direct_add_v2") validateV2Editorial(manifest,ops);
+ const ops=parseOps(manifest); validateV2Editorial(manifest,ops);
  const bm=cardMap(base?.cards,"base"),fm=cardMap(full?.cards,"full");
  if(base.cards.length!==manifest.expected_before||full.cards.length!==manifest.expected_after) fail("BLOCKED_MANUAL_DIRECT_ADD_COUNT",`card count mismatch base=${base.cards.length}/${manifest.expected_before} full=${full.cards.length}/${manifest.expected_after}`);
  if(manifest.expected_after!==manifest.expected_before+ops.adds.length) fail("BLOCKED_MANUAL_DIRECT_ADD_COUNT","expected_after must equal expected_before + adds; migrations are count-neutral");
@@ -78,11 +84,13 @@ function selfTest(){
  const base=fixture(),full=structuredClone(base);full.updated="2026-08-29T22:30:00+09:00";full.total=3;full.cards[0].title="A updated";full.cards[1].id="2025-12-31_KR_01";full.cards[1].date="2025-12-31";full.cards.push({id:"2026-01-03_KR_01",date:"2026-01-03",title:"C",urls:["https://c.example"],related:[]});
  const operations={add:["2026-01-03_KR_01"],update:["2026-01-02_KR_01"],id_migration:[{old_id:"2026-01-01_KR_01",new_id:"2025-12-31_KR_01",reason:"event date correction"}]};
  const common={status:"PASS",direct_add_id:"TEST",base_main_commit_sha:"a",base_full_blob_sha:"b",expected_before:2,expected_after:3,output_updated:full.updated,operations};
- validate({schema:"manual_direct_add_v1",...common},base,full);
+ let v1Blocked=false;try{validate({schema:"manual_direct_add_v1",...common},base,full);}catch(e){v1Blocked=e instanceof ValidationError&&e.code==="BLOCKED_MANUAL_DIRECT_ADD_V1_RETIRED";}if(!v1Blocked) throw new Error("self-test failed to reject retired V1");
  const v2={schema:"manual_direct_add_v2",...common,review_mode:"already_reviewed_bounded_direct_add",formal_full_run_claimed:false,editorial_attestation:{policy_version:"EMBEDDED_NEWS_VALUE_SELECTION_V4",additions:[{id:"2026-01-03_KR_01",execution_credibility_gate:"PASS",independent_cardability_gate:"PASS",anchor_classes:["data_financial_anchor"],selection_route:"structural_non_execution_route",decision_news_value_score:60,decision_value_classification:"material_industry_signal",publication_urgency:"near_term",prior_state:"old",new_verified_fact:"new",changed_judgment:"changed",evidence_review_summary:"official evidence reviewed",next_confirmation_points:["next metric"],inclusion_decision:"standard_include",owner_override_reason:null,structural_non_execution_reason:"material data change",why_execution_event_not_required:"decision-useful without transaction"}],updates:[{id:"2026-01-02_KR_01",change_type:"evidence_update",reason:"better source",evidence_review_summary:"verified"}]}};validate(v2,base,full);
  const low=structuredClone(v2);low.editorial_attestation.additions[0].decision_news_value_score=40;low.editorial_attestation.additions[0].decision_value_classification="standard_monitoring";let blocked=false;try{validate(low,base,full);}catch(e){blocked=e instanceof ValidationError;}if(!blocked) throw new Error("self-test failed to block low standard inclusion");
  low.editorial_attestation.additions[0].inclusion_decision="owner_override_include";low.editorial_attestation.additions[0].owner_override_reason="intentional strategic watch card";validate(low,base,full);
- console.log("PASS: validate_manual_direct_add v1 historical + v2 editorial self-test");
+ const badExecution=structuredClone(v2);badExecution.editorial_attestation.additions[0].selection_route="execution_anchor_route";let badExecutionBlocked=false;try{validate(badExecution,base,full);}catch(e){badExecutionBlocked=e instanceof ValidationError&&/execution_event_anchor/.test(e.message);}if(!badExecutionBlocked) throw new Error("self-test failed to block execution route without execution_event_anchor");
+ const badStructural=structuredClone(v2);badStructural.editorial_attestation.additions[0].anchor_classes=["execution_event_anchor"];let badStructuralBlocked=false;try{validate(badStructural,base,full);}catch(e){badStructuralBlocked=e instanceof ValidationError&&/structural_non_execution_route/.test(e.message);}if(!badStructuralBlocked) throw new Error("self-test failed to block structural route with execution_event_anchor");
+ console.log("PASS: validate_manual_direct_add V2-only editorial and route-anchor self-test");
 }
 
 const args=process.argv.slice(2);if(args.includes("--self-test")){selfTest();process.exit(0);}const get=f=>{const i=args.indexOf(f);return i>=0?args[i+1]:null;};

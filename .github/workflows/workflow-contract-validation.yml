@@ -4,15 +4,7 @@ on:
   pull_request:
     paths:
       - "contracts/**"
-      - "docs/WORKFLOW.md"
-      - "docs/OPERATIONS.md"
-      - "docs/DOCUMENT_UNIVERSE_POLICY.md"
-      - "docs/RUN_GOVERNANCE_INDEX.md"
-      - "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md"
-      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-      - "docs/SOURCE_AUDIT_CONTRACT.md"
-      - "docs/MANUAL_DIRECT_ADD_V*.md"
-      - "docs/llm_prompts/v1/**"
+      - "docs/**"
       - "schemas/manual-direct-add.v*.schema.json"
       - "scripts/validate_manual_direct_add.mjs"
       - "validation_data/source_owner_registry.json"

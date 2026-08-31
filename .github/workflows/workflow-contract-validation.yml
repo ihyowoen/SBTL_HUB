@@ -51,7 +51,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Compile validators
+      - name: Compile validators and historical snapshots
         run: python -m compileall -q validation_scripts
 
       - name: Verify clean V4 architecture
@@ -60,8 +60,8 @@ jobs:
       - name: Verify no legacy prompt overlay is active
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
 
-      - name: Run workflow-contract regression tests
-        run: python -m unittest discover -s validation_scripts/tests -v
+      - name: Run active semantic and machine regression tests
+        run: python validation_scripts/run_active_workflow_tests.py
 
       - name: Validate direct-add V2 schema and validator
         run: |

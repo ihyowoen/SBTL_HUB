@@ -7,6 +7,8 @@ import json
 import sys
 from pathlib import Path
 
+from validation_scripts.stage_a_v4_contract import validate_stage_a_v4_spec
+
 STAGE_TOP_LEVEL = {
     "A": [
         "stage_a_validity_status", "artifact_consistency_status", "csv_schema_status",
@@ -43,7 +45,15 @@ BUCKETS = {
 ITEM_REQUIRED = {
     "A": [
         "spec_id", "strict_pass_gate", "execution_anchor_type", "baseline_relation",
-        "related_prepass", "date_role",
+        "related_prepass", "date_role", "selection_policy_version", "selection_route",
+        "execution_credibility_gate", "independent_cardability_gate", "anchor_classes",
+        "decision_news_value_score", "decision_value_breakdown",
+        "decision_value_classification", "publication_urgency", "prior_state",
+        "new_verified_fact", "changed_judgment", "uncertainty_resolved",
+        "remaining_uncertainty", "incremental_information",
+        "baseline_expectation_changed", "decision_relevance",
+        "evidence_needed_for_stage_b", "next_confirmation_points",
+        "structural_non_execution_reason", "why_execution_event_not_required",
     ],
     "B": ["source_spec_id", "fact_sources", "related_evidence_review", "date_role"],
     "C": ["source_spec_id", "fact_sources", "related_lineage", "date_role"],
@@ -111,11 +121,20 @@ def main() -> int:
             findings.append({"scope": "top_level", "field": field})
 
     items = collect_items(payload, args.stage)
-    for item in items:
+    for index, item in enumerate(items):
         item_id = item.get("id") or item.get("source_spec_id") or item.get("spec_id")
         for field in ITEM_REQUIRED.get(args.stage, []):
             if field not in item:
                 findings.append({"scope": item_id, "field": field})
+        if args.stage == "A":
+            v4_messages: list[str] = []
+            validate_stage_a_v4_spec(item, index, v4_messages, require_contract=True)
+            for message in v4_messages:
+                findings.append({
+                    "scope": item_id,
+                    "contract": "stage_a_v4",
+                    "message": message,
+                })
 
     result = {
         "status": "PASS" if not findings else "BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT",

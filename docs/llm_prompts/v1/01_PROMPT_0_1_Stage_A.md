@@ -1,7 +1,7 @@
 # Prompt 0.1 — Stage A Integrated Editorial Selector V4
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `STAGE_A_INTEGRATED_SELECTOR_V4_20260829`  
+**Version:** `STAGE_A_INTEGRATED_SELECTOR_V4_20260831`  
 **selection_policy_version:** `EMBEDDED_NEWS_VALUE_SELECTION_V4`
 
 ## 0. Role
@@ -53,6 +53,32 @@ Every strict/high-potential review item emits `prior_state`, `new_verified_fact`
 ## 7. Related pre-pass — mandatory before draft
 Every strict and bounded-review candidate emits `related_prepass` per `RELATED_LIFECYCLE_CONTRACT.md`: same-event checked; matched baseline/current candidates; proposed relation type/confidence/reason; fresh anchor class/question to verify; duplicate disposition; candidate-to-candidate edges preserved.
 
+The active Stage A machine shape is:
+
+```json
+{
+  "status": "PASS|HOLD",
+  "same_event_checked": true,
+  "matched_baseline_candidate_ids": [],
+  "matched_current_batch_candidate_ids": [],
+  "relation_candidates": [
+    {
+      "target_candidate_id": "",
+      "proposed_relation_type": "same_event_duplicate|existing_card_reinforcement|distinct_follow_up|program_lineage|new_unrelated_event|uncertain_needs_review",
+      "confidence": "low|medium|high or numeric 0..1",
+      "reason": "",
+      "anchor_class_to_verify": null,
+      "incremental_anchor_question": null
+    }
+  ],
+  "duplicate_disposition": "no_duplicate_found|same_event_duplicate|existing_card_reinforcement|uncertain_needs_review",
+  "earliest_same_event_check_status": "PASS|HOLD",
+  "fresh_anchor_questions": []
+}
+```
+
+For `distinct_follow_up` or `program_lineage`, `anchor_class_to_verify` must be one active anchor class and `incremental_anchor_question` must be non-empty. `status: PASS` requires `same_event_checked: true`, `earliest_same_event_check_status: PASS`, and no unresolved duplicate disposition. `fresh_anchor_questions[]` is non-empty for strict/high-potential items.
+
 Clear same-event duplicates do not enter normal Stage B new-card queue. Probable follow-ups carry exact predecessor and evidence questions forward. Stage A does not lock final `related[]`.
 
 ## 8. Earnings handling
@@ -103,4 +129,4 @@ Strict requires lane fit, at least one valid anchor class, incremental informati
 The eight score components sum exactly to total.
 
 ## 15. Stage exit
-Account for every input event. Emit strict specs, partitioned review/watch/support/reject pools, duplicate/reinforcement/update dispositions, summary counts, selection-route counts, score-band counts, anchor/lens coverage, high-value review IDs, follow-up IDs, and zero-coverage domains. Record current prompt path/SHA provenance. A missing Related pre-pass or missing integrated news-value core blocks Stage B recommendation.
+Account for every input event. Emit strict specs, partitioned review/watch/support/reject pools, duplicate/reinforcement/update dispositions, summary counts, selection-route counts, score-band counts, anchor/lens coverage, high-value review IDs, follow-up IDs, and zero-coverage domains. Record current prompt path/SHA provenance. A missing or malformed Related pre-pass or missing integrated news-value core blocks Stage B recommendation.

@@ -1,0 +1,144 @@
+name: PR 297 final remediation v3
+
+on:
+  push:
+    branches:
+      - chatgpt/20260829-combined18-governed-run
+    paths:
+      - .github/workflows/pr297-final-remediation-v3.yml
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Patch governed run artifacts
+        run: |
+          set -euo pipefail
+          python scripts/tmp_pr297_final_remediation.py
+
+      - name: Rematerialize exact canonical and lean outputs
+        run: |
+          set -euo pipefail
+          RUN="runs/2026-08-29/card-run.json"
+          BASE_SHA="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_main_commit_sha)' "$RUN")"
+          git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
+          cp "$RUNNER_TEMP/cards.full.base.json" data/cards.full.json
+          node scripts/apply_card_run.mjs \
+            --apply \
+            --run "$RUN" \
+            --baseline data/cards.full.json \
+            --canonical-path data/cards.full.json \
+            --output data/cards.full.json \
+            --report runs/2026-08-29/apply-report.json \
+            --lean-path public/data/cards.json \
+            --base-main-sha "$BASE_SHA"
+          node scripts/apply_card_run.mjs \
+            --verify \
+            --run "$RUN" \
+            --baseline data/cards.full.json \
+            --canonical-path data/cards.full.json \
+            --output data/cards.full.json \
+            --report runs/2026-08-29/apply-report.json \
+            --lean-path public/data/cards.json \
+            --base-main-sha "$BASE_SHA"
+
+      - name: Rebind output hashes
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          run_dir = Path("runs/2026-08-29")
+          audit_path = next(run_dir.glob("card_run_audit_*.json"))
+          audit = json.loads(audit_path.read_text(encoding="utf-8"))
+          audit["full_output_sha256"] = hashlib.sha256(Path("data/cards.full.json").read_bytes()).hexdigest()
+          audit["lean_output_sha256"] = hashlib.sha256(Path("public/data/cards.json").read_bytes()).hexdigest()
+          audit_path.write_text(json.dumps(audit, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print("full_output_sha256=" + audit["full_output_sha256"])
+          print("lean_output_sha256=" + audit["lean_output_sha256"])
+          PY
+
+      - name: Assert five Codex findings are closed
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          run = json.loads(Path("runs/2026-08-29/card-run.json").read_text(encoding="utf-8"))
+          inserts = run["operations"]["insert"]
+
+          def spec_of(card):
+              if isinstance(card, dict):
+                  if card.get("source_spec_id"):
+                      return card["source_spec_id"]
+                  lineage = card.get("pipeline_lineage")
+                  if isinstance(lineage, dict):
+                      return lineage.get("source_spec_id")
+              return None
+
+          by_spec = {spec_of(card): card for card in inserts}
+          tata = by_spec["NEW27_TH_001"]
+          us = by_spec["NEW27_RP_001"]
+          cnesa = by_spec["NEW27_TH_003"]
+
+          tata_text = json.dumps(tata, ensure_ascii=False)
+          assert "상업가동" not in tata_text, "Tata commercial-operation wording remains"
+          for quote in (
+              "commissioned its 190.5 MW Solar FDRE project",
+              "contractual capacity of 460 MW",
+              "115 MWHr advanced Battery Energy Storage System (BESS)",
+              "HPPC, MSEDCL and NPCL discoms",
+          ):
+              assert any(src.get("source_quote") == quote for src in tata.get("fact_sources", [])), f"missing Tata quote: {quote}"
+          assert tata.get("source_claim_coverage_map"), "Tata claim coverage map missing"
+
+          us_text = json.dumps(us, ensure_ascii=False)
+          assert "operating/grid-synchronized" not in us_text, "US operating/grid-synchronized wording remains"
+
+          assert cnesa.get("event_fingerprint", {}).get("event_type") == "market_data_release", "CNESA fingerprint is not market_data_release"
+
+          assert len(inserts) == 18
+          for card in inserts:
+              assert card.get("publish_ready") is True, f"publish_ready not true: {card.get('id')}"
+              assert card.get("needs_publish_readiness_qc") is False, f"needs_publish_readiness_qc not cleared: {card.get('id')}"
+              assert card.get("publish_ready_reset") is False, f"publish_ready_reset not cleared: {card.get('id')}"
+          print("PASS: five Codex findings closed on all governed insert operations")
+          PY
+
+      - name: Validate remediated run
+        run: |
+          set -euo pipefail
+          RUN="runs/2026-08-29/card-run.json"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          node scripts/validate_card_run_relations.mjs --run "$RUN"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits.mjs --run "$RUN" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          git diff --check
+
+      - name: Commit remediated data only
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cards.full.json public/data/cards.json runs/2026-08-29
+          git diff --cached --check
+          git status --short
+          git commit -m "Fix PR 297 final Codex review findings"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

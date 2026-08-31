@@ -57,7 +57,27 @@
       "why": "조특법 개정안이며 2026.09.03 이전 정기국회 제출 예정으로 국회에 제출조차 되지 않았다. 스코프 게이트는 미제정 제안·법안을 WATCH로 규정한다. effectiveDate 2025-12-19는 기재부 업무보고 발표일이지 발효일이 아니다 — NA-048의 공표일 오용과 같은 유형.",
       "validatorGap": "validate2 검사 #4의 제안 키워드 정규식에 '개정안'·'법률안'·'세제개편안'이 없어 통과했다. 패턴 추가 권고."
     },
-    "sbtlRelevance": "국내생산세액공제 이차전지 대상은 고성능 양극재 등 핵심 부품·소재로 보도되며 알루미늄 파우치 필름은 아직 명시되지 않았다. 적격 품목이 2027.02 시행령에서 확정되므로 그 고시가 분기점이다."
+    "sbtlRelevance": "국내생산세액공제 이차전지 대상은 고성능 양극재 등 핵심 부품·소재로 보도되며 알루미늄 파우치 필름은 아직 명시되지 않았다. 적격 품목이 2027.02 시행령에서 확정되므로 그 고시가 분기점이다.",
+    "realSweepCorrection": {
+      "problem": "최초 RD-3 반영 시 subsidy 6셀 전부에 lastSwept=2026-08-31을 찍었으나 실제 검색은 KR 2회뿐이었다. NA·EU·CN·JP·GL은 쿼리를 기록만 하고 돌리지 않은 채 lastSwept를 전진시켰다.",
+      "why_it_matters": "이것은 이 run이 스스로 지적한 D4(축 쿼리 설계 실패)·Codex 3차 지적('쿼리를 고치지 않고 lastSwept만 전진시키면 다음 스윕이 같은 사각을 반복한다')과 동일한 결함이다. 쿼리가 기록돼 있어 '이걸로 돌렸다'고 읽히므로 형태는 더 나쁘다. Claire 지적으로 적발됐다.",
+      "fix": "5권역 subsidy를 실제로 검색해 원장 searches에 근거를 남겼다. 결과는 무변화 3권역(NA·EU·JP)·신규 후보 2건(CN)·무산출 1권역(GL).",
+      "outcome": {
+        "무변화확인": [
+          "NA (Notice 2026-15 → NA-002 기추적)",
+          "EU (Battery Booster → EU-006 기추적)",
+          "JP (供給確保計画 제6·7탄·누적 42건 → JP-002 기추적)"
+        ],
+        "신규후보": [
+          "CN 《2026年汽车以旧换新补贴实施细则》",
+          "CN 《关于延续新能源汽车推广应用财政补贴政策的通知》"
+        ],
+        "무산출": [
+          "GL — 다자 구속 규범 부재 확인, na 유지"
+        ]
+      },
+      "lesson": "lastSwept 는 '검색을 실행한 날'이어야 하고, queries 는 '실제로 던진 쿼리'여야 한다. 쿼리를 설계해 적어두는 것과 돌리는 것은 다르다 — 적어두기만 하면 다음 run이 '이미 커버됨'으로 읽는다."
+    }
   },
   "searches": [
     {
@@ -91,6 +111,43 @@
         "KR-003"
       ],
       "result": "6대 분야(태양광·풍력·이차전지·반도체·핵심소재·AI로봇부품). 이차전지 대상은 고성능 양극재 등 핵심 부품·소재. 적격 품목은 2027.02 시행령 개정에서 확정. 알루미늄 파우치·필름은 현재 명시 없음."
+    },
+    {
+      "query": "45X advanced manufacturing production credit final regulations Federal Register 2026 prohibited foreign entity material assistance",
+      "region": "NA",
+      "itemsCovered": [
+        "NA-002",
+        "NA-013"
+      ],
+      "result": "무변화 확인. Treasury/IRS Notice 2026-15(2026-02-12)가 PFE(§7701(a)(51)·(52)) 초기 가이던스와 45X·45Y·48E의 material assistance cost ratio 잠정 세이프하버를 제공하며, 2025-07-04 이후 개시 과세연도 판매분부터 제안규칙 관보 게재 후 60일까지 의거 가능. PFE 요건 본체는 향후 제안규칙 소관. → NA-002가 이미 이 Notice를 항목으로 추적 중이고 dt 2026.02.12~ 로 정합. NA-013의 '추가 가이던스 필요' 서술도 이 Notice로 해소된 상태가 반영돼 있다. 신규 0건."
+    },
+    {
+      "query": "Battery Booster Facility Innovation Fund call 2026 award EU state aid battery gigafactory decision",
+      "region": "EU",
+      "itemsCovered": [
+        "EU-006"
+      ],
+      "result": "무변화 확인. Battery Booster Facility 2026-06-09 채택, €1.5B ETS/Innovation Fund 재원 무이자 대출, 프로젝트당 최대 €500M, EEA 내 생산·최소 10GWh, 공모 2026-07-28 개시·신청 마감 2026-09-30, 2026년말 이전 첫 수여·지급 목표. → EU-006이 Decision C(2026) 3828/2까지 포함해 전부 담고 있다. 신규 0건. **마감 2026-09-30은 D+30 관측점**."
+    },
+    {
+      "query": "工信部 锂电池 财政补贴 专项资金 2026 新能源汽车 以旧换新 补贴 政策 调整",
+      "region": "CN",
+      "itemsCovered": [],
+      "result": "**신규 후보 2건 발굴**. ①《2026年汽车以旧换新补贴实施细则》 — 商务部 등 8부처 판공청 인발(2026-01-08 NDRC 게재), 폐차갱신 신에너지 승용차 차값·세금 합계 12%·최대 2만元 / 치환갱신 판매가 8%·최대 1.5만元, 2026-03-03부터 전국 통일 세칙 신청 개방, 초장기특별국채 자금 배정. ②《关于延续新能源汽车推广应用财政补贴政策的通知》 — 财政部·工信部, 2026년 국보 연속·유효기간 2027년말. 트래커 전문 대조에서 '以旧换新'·'延续新能源汽车推广应用财政补贴' 모두 0건. 스코프: 신에너지차 구매보조금은 downstream 수요 규범이고 SBTL 노출은 간접(EV 판매 → 셀 수요)이나 F14(산업 관련성 충족 시 노출도 무관 편입)상 편입 자격 있음. 1차 출처 미대조 → 승인 큐 회부."
+    },
+    {
+      "query": "蓄電池 供給確保計画 認定 経済産業省 2026年 経済安全保障推進法 補助金 採択",
+      "region": "JP",
+      "itemsCovered": [
+        "JP-002"
+      ],
+      "result": "무변화 확인. 2026-02-17 제6탄 인정(전지 1·부소재 5·제조장치 2 = 8건, 총 사업액 1,167억엔·보조 상한 444억엔), 2026-03-05 제7탄 모집 개시, 누적 전지 7·부소재 27·제조장치 8 = 42건. 보조율 설비투자 1/3·기술개발 1/2(중소 설비투자 1/2). → JP-002가 제6탄·제7탄·누적 42건까지 담고 있다. 신규 0건. **수치 미세 차이 기록**: 보조 상한 누계가 항목은 6,682억엔, 이번 2차 출처는 약 6,711억엔 — 집계 시점 차이로 보이나 1차 출처(METI 자료) 대조 전까지 항목 값을 유지한다."
+    },
+    {
+      "query": "multilateral binding agreement battery manufacturing subsidy discipline WTO 2026 industrial subsidy rules negotiation",
+      "region": "GL",
+      "itemsCovered": [],
+      "result": "무산출 확인 — na 유지 근거. 배터리 제조 보조금에 대한 신규 다자 구속 규범 협상은 확인되지 않는다. 확인된 것은 기존 WTO SCM 협정 프레임 하의 분쟁뿐이다(DS630 EU-중국 BEV 상계관세, 2025-10-13 패널 구성, 2026-04-01 제출기한 연장 요청). 미국이 SCM상 초국경 보조금 해석 쟁점을 제기한 것도 협정 해석 문제이며 신규 규범 제정이 아니다. subsidy/GL na 판정의 1회 무산출로 기록."
     }
   ],
   "verifyCounts": {
@@ -112,6 +169,9 @@
     "UPCOMING": 29
   },
   "carryOver": [
+    "EU-006 Battery Booster 신청 마감 2026-09-30 (D+30) — 첫 선정·지급이 2026년말 목표",
+    "CN 신규 후보 2건 1차 출처 대조 — 以旧换新 실시세칙 발문번호·延续 통지 발문일",
+    "JP-002 보조 상한 누계 수치 차이(항목 6,682억엔 vs 2차 출처 6,711억엔) — METI 1차 자료 대조",
     "09.01 도래 — CN-028·CN-038 UPCOMING→ACTIVE 전환 판정, JP-004 10엔 적용 확인",
     "09.03 도래 — NA-043 UAS 232 발효 확인 후 UPCOMING→ACTIVE 판정 / KR-003 국회 제출 여부 확인",
     "NA-043 Annex I/III 부품 목록의 리튬이온전지 세번 확인 — 세율 구조·국가별 상한은 원문 확인 전까지 미기재 유지",
@@ -827,5 +887,37 @@
     "toolNote": "PDF 추출: WSL·Windows 양쪽에 poppler·pypdf·pdfminer가 없고 Word COM은 PDF 변환 대화상자에서 멈췄다. PDF의 ToUnicode CMap(bfchar/bfrange)을 직접 파싱해 CID를 유니코드로 복호하는 방식이 통했고 미매핑 0%였다 — 중국 관보 첨부 PDF에 재사용 가능한 경로다(scratchpad/pdfdec.py). EUR-Lex는 이번 세션에서 WebFetch·curl 모두 빈 응답을 반환했다(초기 1회는 791KB 성공) — 접근 제한으로 추정."
   },
   "basisRun": "2026-08-29-RD",
-  "type": "completeness-audit + review-fix + regular RD"
+  "type": "completeness-audit + review-fix + regular RD",
+  "approvalQueueCandidates": [
+    {
+      "name": "《2026年汽车以旧换新补贴实施细则》 — 商务部 등 8부처 판공청 (2026-01-08)",
+      "region": "CN",
+      "axis": "subsidy",
+      "basis": "NDRC·국가세무총국 법규고 게재본으로 존재 확인(2차). 폐차갱신 신에너지 승용차 차값·세금 합계 12%·최대 2만元, 치환갱신 판매가 8%·최대 1.5만元, 2026-03-03 전국 통일 세칙 신청 개방, 초장기특별국채 자금 배정. 발문번호·원문 조문 미대조.",
+      "enacted": true,
+      "instrument": "notification",
+      "priority": "P3",
+      "sbtlRelevance": "간접 — 중국 신에너지차 판매 수요를 통해 셀 수요에 후행 반영. F14상 편입 자격 있음.",
+      "dupChecked": true,
+      "dupNote": "트래커 전문에서 '以旧换新' 0건",
+      "discoveredRun": "2026-08-31-RD",
+      "scopeGate": "enacted",
+      "decision": "승인 대기"
+    },
+    {
+      "name": "《关于延续新能源汽车推广应用财政补贴政策的通知》 — 财政部·工业和信息化部",
+      "region": "CN",
+      "axis": "subsidy",
+      "basis": "2026년 신에너지차 국가보조금 연속·유효기간 2027년말까지(2차 출처). 발문번호·발문일·조문 미대조.",
+      "enacted": true,
+      "instrument": "notification",
+      "priority": "P3",
+      "sbtlRelevance": "간접 — 중국 EV 수요 견인. 2026년 국보 자금 규모 보도치(5,000억元)는 미검증이라 기재 불가.",
+      "dupChecked": true,
+      "dupNote": "트래커 전문에서 '延续新能源汽车推广应用财政补贴' 0건",
+      "discoveredRun": "2026-08-31-RD",
+      "scopeGate": "enacted",
+      "decision": "승인 대기"
+    }
+  ]
 }

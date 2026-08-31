@@ -233,7 +233,8 @@
     "UPCOMING": 29
   },
   "carryOver": [
-    "**EU 2021/2170 컨버터 포일 반덤핑 — 일몰재심 신청 창구 2026.09. SBTL 직결이므로 승인·편입 우선순위 최상위**",
+    "**EU-038 일몰재심 창구 2026.09 — 관보 일몰 예고 공고(C/2026/499·C/2026/1920 후보)로 만료일 확정 및 재심 개시 여부 추적**",
+    "EUR-Lex WAF 차단 — 접근 회복 시 EU-036 제5조·EU-037 이행기한·EU-038 만료일 조문 대조 일괄 처리",
     "EUR-Lex 접근 회복 시 2021/2170·2026/114 1차 대조 후 편입 판정",
     "validate2 검사 #13 도입에 따라 다음 run부터 searches[].axis 기재 필수 — 특히 무산출(itemsCovered 빈) 검색",
     "EU-006 Battery Booster 신청 마감 2026-09-30 (D+30) — 첫 선정·지급이 2026년말 목표",
@@ -528,6 +529,16 @@
       ],
       "basis": "Notice / 게재 2026-07-13 / 91 FR 42932 / 심사기간 2024-04-01~2025-03-31 예비판정. 요원이 제시한 '91 FR 31423 Amended Final Results'는 검색·조회로 확인 불가.",
       "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "집행위 통상총국 보도 — 중국산 알루미늄 컨버터 포일 반덤핑 부과 (2021.12.08)",
+      "u": "https://policy.trade.ec.europa.eu/news/commission-imposes-anti-dumping-duties-chinese-aluminium-converter-foil-imports-2021-12-08_en",
+      "itemsCovered": [
+        "EU-038"
+      ],
+      "basis": "규정 32021R2170, 발효 2021-12-08, 반덤핑 15.4~28.5%, 용도 축어 \"It serves, in particular, the packaging and electric car battery industries.\" 확인. 두께·배접·롤 중량 등 품목 문언과 기간은 이 페이지에 없음.",
+      "checkedBy": "Claude (RD-2 신규 편입 검증)",
       "date": "2026-08-31"
     }
   ],
@@ -999,23 +1010,24 @@
       "dupNote": "트래커 전문에서 2021/2170·converter foil 0건",
       "discoveredRun": "2026-08-31-RD",
       "scopeGate": "enacted",
-      "decision": "승인 대기",
-      "urgency": "일몰재심 신청 창구가 2026.09 중 — 만료 여부가 이번 가을에 갈린다"
+      "decision": "승인·편입 완료 (2026-08-31) → EU-038",
+      "urgency": "일몰재심 신청 창구가 2026.09 중 — 만료 여부가 이번 가을에 갈린다",
+      "incorporatedAs": "EU-038"
     },
     {
       "name": "Commission Implementing Regulation (EU) 2026/114 — 중국산 용융 알루미나 확정 반덤핑 (2026-01-15)",
       "region": "EU",
       "axis": "trade",
-      "basis": "EUR-Lex ELI reg_impl/2026/114 존재 확인(검색 결과 기준). 확정 반덤핑 + 잠정관세 확정징수. 세율·대상 세번 미대조.",
+      "basis": "집행위 통상총국 보도(2026.01.16 'Commission acts against unfairly traded imports of fused alumina') + EUR-Lex 메타 확인: **fused alumina**(인공 커런덤) 확정 반덤핑 **88.7~110.6%**, CN 2818 10 11·2818 10 19·ex 2818 10 91·2818 10 99, 무관세 관세쿼터(TRQ) 병설.",
       "enacted": true,
       "instrument": "law",
-      "priority": "P2",
-      "sbtlRelevance": "간접 — 용융 알루미나는 알루미늄 전구체. EU 역내 알루미늄 원가 구조에 작용.",
+      "priority": "P3",
+      "sbtlRelevance": "**내 최초 서술 정정** — 처음에 '용융 알루미나 = 알루미늄 전구체'로 적었으나 부정확하다. CN 2818 10은 인공 커런덤(fused alumina)으로 연마재·내화재용이며, 1차 알루미늄 제련의 원료인 제련용 알루미나(CN 2818 20 계열)와 다르다. SBTL 노출은 희박하다 — 내화재가 알루미늄 제련 설비에 쓰이는 원거리 연결뿐이다.",
       "dupChecked": true,
       "dupNote": "트래커 전문에서 2026/114·molten alumina 0건",
       "discoveredRun": "2026-08-31-RD",
       "scopeGate": "enacted",
-      "decision": "승인 대기"
+      "decision": "승인 대기 — 다만 SBTL 노출 희박(연마재·내화재)으로 스코프 판단 필요"
     }
   ],
   "schemaNote": "searches[].axis 필드 추가(2026-08-31) — validate2 검사 #13이 coverage.lastSwept 와 원장 스윕 근거를 대조한다. gap/na 셀은 items 가 비어 itemsCovered 로 근거를 댈 수 없으므로 무산출 스윕은 axis 를 반드시 적는다.",
@@ -1093,6 +1105,11 @@
       "trade/EU (45일 방치 → 실스윕)",
       "trade/KR (45일 방치 → 실스윕)"
     ],
-    "highlight": "EU 컨버터 포일 반덤핑이 이번 run 최대 소득이다. 두께 0.021mm 미만 알루미늄 박은 파우치 필름용 박 영역이고, 중국산에 걸린 15.4~28.5% 관세가 2026-12-09 만료되면 중국산 박의 EU 유입이 늘어 SBTL의 EU 경쟁 환경이 직접 바뀐다. 더구나 일몰재심 신청 창구가 이번 9월이라 신속성 측면에서도 임박하다. 축 스윕(8/29 감사)이 이것을 놓친 이유는 EU/trade 셀이 45일 방치 상태였고 감사가 축 단위로만 돌았기 때문이다."
+    "highlight": "EU 컨버터 포일 반덤핑이 이번 run 최대 소득이다. 두께 0.021mm 미만 알루미늄 박은 파우치 필름용 박 영역이고, 중국산에 걸린 15.4~28.5% 관세가 2026-12-09 만료되면 중국산 박의 EU 유입이 늘어 SBTL의 EU 경쟁 환경이 직접 바뀐다. 더구나 일몰재심 신청 창구가 이번 9월이라 신속성 측면에서도 임박하다. 축 스윕(8/29 감사)이 이것을 놓친 이유는 EU/trade 셀이 45일 방치 상태였고 감사가 축 단위로만 돌았기 때문이다.",
+    "incorporation": {
+      "EU-038": "중국산 알루미늄 컨버터 포일 반덤핑 편입 완료. primary-meta 계층으로 규정번호·발효일·품목 문언·CN/TARIC·세율까지 확정했고, 만료일 2026-12-09은 2차 출처뿐이라 본문에 기재하지 않고 '부과 후 5년' 구조만 적었다.",
+      "scopeContrast": "EU-038과 CN-043의 스코프가 배접 여부에서 정확히 갈린다 — CN 附件1은 76072000 有衬背铝箔(배접)까지 환급취소, EU 2021/2170은 not backed(비배접)만 반덤핑. 같은 7607 계열인데 반대 방향이다. 양쪽 tip에 명시했다.",
+      "eurlexBlocked": "EUR-Lex가 AWS WAF 봇 차단 페이지를 반환한다(curl·WebFetch 모두 약 2KB). 우회하지 않고 집행위 통상총국 보도자료 + 도메인 제한 검색으로 대체했다. 이 제약이 EU 항목의 조문 단위 대조를 계속 막고 있다 — EU-036 제5조·EU-037 이행기한·EU-038 만료일이 모두 이 때문에 미확정이다."
+    }
   }
 }

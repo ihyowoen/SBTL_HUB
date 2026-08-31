@@ -389,7 +389,50 @@
         "impact": "카드에서 가장 크게 보이는 서술이 실제 준수 시한보다 약 한 달 늦게 표시됐다."
       }
     ],
-    "lessonForRunbook": "검증한 정정을 원장에만 적고 '차기 run 이월'로 미루면, 그 사이 사용자는 run이 이미 반증한 값을 계속 본다. JP-012·EU-013이 같은 유형이고 8/29 run 한 번에 두 건이 발생했다. 정정은 발견한 run에서 항목 본문까지 함께 착지시키는 것을 원칙으로 할 것 — 이월은 '추가 확인이 필요한 미확정 사실'에만 허용."
+    "lessonForRunbook": "검증한 정정을 원장에만 적고 '차기 run 이월'로 미루면, 그 사이 사용자는 run이 이미 반증한 값을 계속 본다. JP-012·EU-013이 같은 유형이고 8/29 run 한 번에 두 건이 발생했다. 정정은 발견한 run에서 항목 본문까지 함께 착지시키는 것을 원칙으로 할 것 — 이월은 '추가 확인이 필요한 미확정 사실'에만 허용.",
+    "round2": {
+      "source": "PR #294 Codex Review (reviewed commit 86f6d776, 2026-08-31 제출)",
+      "note": "지적 7건 전건을 데이터·1차 출처로 확인한 결과 모두 실재 결함. 6건은 내 감사 커밋의 오류다.",
+      "pattern": "7건 중 3건(CN-043·CN-045·GL-008)이 같은 유형이다 — checkNote에 '기재 보류'라고 명시해 놓고 d·tip 같은 사용자 화면 필드에는 그 주장을 그대로 실었다. 보류 선언이 본문에 강제되지 않으면 checkNote는 면책 문구로만 기능하고 사용자는 미검증 주장을 그대로 읽는다.",
+      "items": [
+        {
+          "id": "NA-043",
+          "severity": "P2",
+          "fix": "ACTIVE → UPCOMING (발효 2026-09-03 미도래, 카운트다운 억제·워치리스트 누락 유발)"
+        },
+        {
+          "id": "KR-031",
+          "severity": "P2",
+          "fix": "UPCOMING → ACTIVE (시행 2026-05-12 경과, 렌더러가 '경과 — 시행 미확인'으로 표시)"
+        },
+        {
+          "id": "GL-008",
+          "severity": "P2",
+          "fix": "effectiveDate 삭제 (ISO는 발행 월만 공표하는데 일자를 근사 기재)"
+        },
+        {
+          "id": "NA-048",
+          "severity": "P2",
+          "fix": "effectiveDate 삭제(공표일을 발효일로 저장) + 오늘 공표 확인으로 ACTIVE 전환"
+        },
+        {
+          "id": "CN-043",
+          "severity": "P2",
+          "fix": "d·tip에서 铝箔 특정·13%→0 수치 제거, 附件1 확인 여부에 조건부 서술"
+        },
+        {
+          "id": "CN-045",
+          "severity": "P2",
+          "fix": "d·tip의 프탈레이트 4종 단정을 2차 출처 기준 미확정 사실로 명시"
+        },
+        {
+          "id": "ledger",
+          "severity": "P2",
+          "fix": "verifyCounts 재산출 — 두 원장 모두 스크립트 산출로 갱신"
+        }
+      ],
+      "lessonForRunbook": "checkNote의 '기재 보류' 선언과 d·tip 본문의 정합을 검증기에서 잡을 수 있는지 검토할 것. 보류 대상 키워드가 checkNote에 있는데 같은 키워드가 d·tip에 단정형으로 나타나면 경고 후보."
+    }
   },
   "f12Correction": {
     "what": "완전성 감사 신규 21건의 verify.date/runId를 2026-08-29-RD로 찍고 primaryDocs도 8/29 원장에 붙였던 것을 2026-08-31로 정정.",
@@ -403,9 +446,22 @@
     "구조 PR 후보 2건 — coverage 셀의 queries 배열을 RD-3 점검 대상에 포함 / na 판정 요건에 쿼리 설계 적정성 확인 추가",
     "CN-044 铝塑复合膜 국가표준 — 发布即实施라 유예 0. 통상 WATCH와 별도로 발포 여부를 짧은 주기로 확인(Claire 승인 예외)",
     "NA-047 미네소타 PFAS — 보고기한 2026-09-15 임박, 연장신청 창구 2026-08-16 마감 경과. SBTL/고객사 보고 의무 해당 여부 확인 선행",
-    "NA-048 NHTSA 해석규칙 — 2026-08-31 관보 공표 확인 후 ACTIVE 전환 판정",
+    "NA-048 NHTSA 해석규칙 — **종결(2026-08-31)**: FR API 재조회로 관보 공표 도래 확인(91 FR 55788), UPCOMING → ACTIVE 전환 완료. effective_on은 여전히 null이므로 effectiveDate 미기재.",
     "KR-031 화평법 — 2026-05-12 시행 상태 확인 후 UPCOMING→ACTIVE 판정",
     "RUNBOOK 개정 후보 — 정정의 '차기 run 이월' 금지 원칙(JP-012·EU-013 사례)",
     "RUNBOOK 개정 후보 — src URL 도메인 루트 금지 점검(CN-039 사례)"
-  ]
+  ],
+  "verifyCounts": {
+    "derivedFrom": "public/data/tracker_data.json (스크립트 산출, 2026-08-31 재계산)",
+    "totalItems": 186,
+    "thisRun": {
+      "primary-doc": 18,
+      "secondary": 2,
+      "primary-meta": 2
+    },
+    "thisRunTotal": 22,
+    "carriedOver": 164,
+    "note": "2026-08-31 재산출. 완전성 감사로 21건이 편입되며 총 항목이 165→186으로 늘었는데 이 블록이 감사 이전 수치에 머물러 있어 run이 자기 산출량을 과소보고하고 있었다(Codex 2차 리뷰 지적). 감사 신규분은 2026-08-31-AUDIT 원장 소관이므로 두 원장 모두 재계산했다."
+  },
+  "newCount": 21
 }

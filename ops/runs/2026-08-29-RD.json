@@ -2090,17 +2090,17 @@
     }
   ],
   "verifyCounts": {
-    "derivedFrom": "public/data/tracker_data.json (스크립트 산출)",
-    "totalItems": 165,
+    "derivedFrom": "public/data/tracker_data.json (스크립트 산출, 2026-08-31 재계산)",
+    "totalItems": 186,
     "thisRun": {
       "search": 30,
-      "secondary": 77,
+      "secondary": 76,
       "primary-meta": 24,
       "primary-doc": 1
     },
-    "thisRunTotal": 132,
-    "carriedFromPriorRuns": 33,
-    "note": "verify.date=2026-08-29 항목의 method별 분포. 수기 기입 금지 — 데이터셋에서 산출."
+    "thisRunTotal": 131,
+    "carriedOver": 55,
+    "note": "2026-08-31 재산출. 완전성 감사로 21건이 편입되며 총 항목이 165→186으로 늘었는데 이 블록이 감사 이전 수치에 머물러 있어 run이 자기 산출량을 과소보고하고 있었다(Codex 2차 리뷰 지적). 감사 신규분은 2026-08-31-AUDIT 원장 소관이므로 두 원장 모두 재계산했다."
   },
   "changes": [
     "**[2026-08-29 RD-0/F12]** 명목 준비일(8/14)과 실제일(2026-08-29) 15일 괴리를 date 확인으로 정정 — RUNBOOK F12의 실측 사례. 검색 인덱스는 실시간이라 8/18~8/22 사건까지 검증에 포섭됨(각 기록에 날짜 명시).",

@@ -7,6 +7,14 @@ import json
 import sys
 from pathlib import Path
 
+# Direct execution (`python validation_scripts/stage_artifact_contract_check.py`)
+# starts with validation_scripts/ rather than the repository root on sys.path.
+# Add the root before absolute package imports so the documented 0.7/0.8 CLI
+# works exactly like module/unittest execution.
+_REPO_ROOT = str(Path(__file__).resolve().parent.parent)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
 from validation_scripts.stage_a_v4_contract import validate_stage_a_v4_spec
 
 STAGE_TOP_LEVEL = {

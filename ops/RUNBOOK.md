@@ -24,6 +24,7 @@
 | F12 | 대화가 여러 날 걸치며 D-day가 5일 밀림(스탬프≠실제일) | 세션 실제 날짜 미확인 | §6.1 실제 날짜 확인 → RD-0 재계산 |
 | F13 | ops/가 데이터보다 먼저 착지 → coverage가 미존재 ID를 covered로 표시(gap 은폐) | 두 계층 착지 순서 미규정 | validate2 검사 #9 + 동시 착지 규칙(G2) |
 | F15 | 검색을 돌리지 않고 coverage.lastSwept 만 전진 → 다음 run이 '이미 커버됨'으로 읽어 사각이 영구화 | 원장 searches 와 coverage.lastSwept 가 서로 대조되지 않았음 | validate2 검사 #13 + searches[].axis 스키마 |
+| F16 | 노출 필드를 정규식 substring 삭제로 편집해 문장·볼드 마커가 파손된 채 사용자 화면에 렌더 | 편집 후 렌더 기준 재검사 부재 | validate2 검사 #14 + 문장 단위 재작성 원칙 |
 
 ---
 
@@ -177,7 +178,7 @@ run {
 **G3 정합 게이트 — validator v1 + v2 (커밋 전 필수):**
 - **CI 강제(2026-08-31~)**: validate2 는 종전 수동 전용이었으나 이제 워크플로 `validate-tracker.yml` 의 `Validate tracker data (v2)` 스텝이 실행한다. PR이 `ops/runs/*.json` 을 건드리면 그중 `date` 가 최신인 원장을 넘기므로 검사 #6·#13이 작동한다. `paths` 에 `ops/**` 를 넣어 원장·coverage 변경만으로도 CI가 트리거된다.
 - **검사 #13 스윕 근거 대조(ERROR, 2026-08-31 도입)**: `coverage.lastSwept == run.date` 인 셀은 그 원장에 근거가 있어야 한다. 근거 인정 경로는 ①`searches[].axis` + region 일치 ②`searches[]`/`primaryDocs[].itemsCovered` 가 그 셀 `items` 에 포함. **gap/na 셀은 `items` 가 비어 있어 ②로 근거를 댈 수 없으므로 무산출 스윕은 `searches[].axis` 를 반드시 적는다.** 도입일 이전 원장은 스키마 부재로 소급 검증이 불가하므로 WARN 후 건너뛴다(임계는 날짜라 우회 불가).
-- v1(scripts/validate.mjs) 기존 검사 + v2(ops/validate2.mjs) 검사 10종: 산문 D-day(WARN) / refs dangling(ERROR)·미등재(WARN) / 동일 법령번호 중복 후보(WARN) / 제안 키워드+ACTIVE·DONE(WARN) / **watch due 경과(ERROR)** / **verify↔원장 대조(ERROR)** / pending 미이관(WARN) / region_policy 정합(WARN) / **coverage↔tracker ID 동기(ERROR)** / **스윕 근거 대조(ERROR)**
+- v1(scripts/validate.mjs) 기존 검사 + v2(ops/validate2.mjs) 검사 12종: 산문 D-day(WARN) / refs dangling(ERROR)·미등재(WARN) / 동일 법령번호 중복 후보(WARN) / 제안 키워드+ACTIVE·DONE(WARN) / **watch due 경과(ERROR)** / **verify↔원장 대조(ERROR)** / pending 미이관(WARN) / region_policy 정합(WARN) / **coverage↔tracker ID 동기(ERROR)** / **스윕 근거 대조(ERROR)** / **노출 필드 마크다운 파손(ERROR)**
 - 실행(**리포 루트 기준**):
   ```
   node scripts/validate.mjs public/data/tracker_data.json public/data/region_policy.json

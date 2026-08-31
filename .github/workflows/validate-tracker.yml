@@ -96,7 +96,19 @@ jobs:
             echo "validate2 — 원장 대조: $LEDGER"
             node ops/validate2.mjs public/data/tracker_data.json "$LEDGER"
           else
-            echo "validate2 — 원장 미변경, 구조 검사만"
+            # 원장이 안 바뀌었는데 tracker 의 verify 스탬프가 바뀌었다면, 원장 없이 통과시키면
+            # 검사 #6(verify↔원장 대조)과 #13(스윕 근거)이 둘 다 꺼진다 — 근거 없는 검증 표기가
+            # 그대로 머지된다. 이 조합을 실패로 만든다.
+            if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+              if git diff -U0 "origin/$BASE_REF...HEAD" -- public/data/tracker_data.json \
+                   | grep -E '^\+.*"(verify|lastChecked)"' >/dev/null 2>&1; then
+                echo "FAIL: tracker 의 verify/lastChecked 가 변경됐는데 ops/runs/*.json 원장이 없다." >&2
+                echo "      원장 없이는 검사 #6·#13이 꺼져 근거 없는 검증 표기가 통과한다." >&2
+                echo "      해당 run 의 원장을 같은 PR 에 착지시킬 것(F13)." >&2
+                exit 1
+              fi
+            fi
+            echo "validate2 — 원장 미변경·verify 스탬프 변경 없음, 구조 검사만"
             node ops/validate2.mjs public/data/tracker_data.json
           fi
       - name: Validate cards data

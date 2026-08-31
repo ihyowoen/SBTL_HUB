@@ -102,7 +102,12 @@ if (process.env.RP_PATH) {
     const mapped=new Set((cov.cells??[]).flatMap(c=>c.items??[]));
     const unmapped=[...ids].filter(x=>!mapped.has(x));
     if (unmapped.length) warn(`coverage 미매핑 항목 ${unmapped.length}개: ${unmapped.slice(0,8).join(', ')}${unmapped.length>8?' …':''}`);
-  } catch(e){ if (process.env.COV_PATH) warn('coverage 로드 실패: '+e.message); }
+  } catch(e){
+    // COV_PATH 를 명시했다는 것은 그 파일을 검사하라는 요청이다 — 파싱 실패를 경고로 흘리면
+    // 손상·삭제된 coverage.json 이 게이트를 통과한다(검사 #13은 원장 미전달 시 건너뛰므로 이중 사각).
+    if (process.env.COV_PATH) err('coverage 로드 실패(COV_PATH 명시됨): '+e.message);
+    else warn('coverage 로드 실패: '+e.message);
+  }
 }
 
 // 10) meta.totalItems ↔ items.length 동기 (앱이 totalItems를 우선 표시)
@@ -171,7 +176,10 @@ if (runPath) {
     }
     const ev = new Set();
     for (const s of run2.searches ?? []) {
-      if (s.region && s.axis) ev.add(`${s.region}/${s.axis}`);
+      // 축을 명시한 검색은 **그 (region, axis) 만** 근거가 된다.
+      // itemsCovered 로 파생시키면 다중 셀 소속 항목이 다른 축까지 근거를 만들어(예: NA-027 은
+      // NA/trade·NA/subsidy 양쪽 소속) 무근거 lastSwept 전진을 다시 허용한다 — 이 검사가 막으려던 바로 그것.
+      if (s.region && s.axis) { ev.add(`${s.region}/${s.axis}`); continue; }
       for (const x of s.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
     }
     for (const p of run2.primaryDocs ?? [])
@@ -189,6 +197,21 @@ if (runPath) {
     if (stamped && !missing) console.log(`INFO : 스윕 근거 대조 — lastSwept=${rd2} 셀 ${stamped}개 전부 원장 근거 확인`);
     }
   } catch(e){ warn('스윕 근거 대조 실패: '+e.message); }
+}
+
+
+// 14) 노출 필드 마크다운 파손 (ERROR)
+//     d·tip·detail 은 App.jsx 가 사용자에게 직접 렌더한다. 볼드 마커가 홀수 개면 강조가 문장 끝까지
+//     번지고, 별표 3개 이상은 그대로 출력되며, 내부 필드명 잔재(…ckNote)는 편집 사고의 흔적이다.
+//     도입 계기(2026-08-31): 감사화법을 정규식 substring 삭제로 지우다 4개 항목의 tip 문장이 깨졌고
+//     Codex 리뷰가 지적할 때까지 사용자 화면에 렌더되고 있었다.
+for (const i of items) for (const f of ['d','tip','detail']) {
+  const v = i[f]; if (typeof v !== 'string' || !v) continue;
+  const stars = v.match(/[*]{3,}/g);
+  if (stars) err(`${i.id}.${f}: 별표 3개 이상 ${stars.length}건 — 마크다운 파손이 사용자 화면에 렌더됨`);
+  const bolds = v.match(/[*][*]/g);
+  if (bolds && bolds.length % 2) err(`${i.id}.${f}: 볼드 마커 홀수 개(${bolds.length}) — 강조가 문장 끝까지 번짐`);
+  if (/[가-힣]ckNote/.test(v)) err(`${i.id}.${f}: 내부 필드명 잔재(…ckNote) — 편집 사고 흔적`);
 }
 
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);

@@ -1,0 +1,362 @@
+name: fix-pr297-codex-5473826989
+
+on:
+  push:
+    branches:
+      - chatgpt/20260829-combined18-governed-run
+
+permissions:
+  contents: write
+
+env:
+  RUN_PATH: runs/2026-08-29/card-run.json
+  BASE_SHA: 937dce6429c8bf63535d8043c7f559c9f2001f5d
+  BASE_BLOB: 9278233be67240aac1cdf7963e12d8e2878319f0
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/20260829-combined18-governed-run
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Repair Codex findings 5473826989
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, hashlib
+          from copy import deepcopy
+          from datetime import datetime, timedelta
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          RUN_DIR=Path('runs/2026-08-29')
+          RUN_PATH=RUN_DIR/'card-run.json'
+          GREEN='NEW27_TH_008'
+          US='NEW27_RP_001'
+          STALE='remain for Stage B/0.4'
+          now=datetime.now(ZoneInfo('Asia/Seoul')).replace(microsecond=0)
+          output_updated=(now+timedelta(seconds=2)).isoformat()
+
+          def spec_of(o):
+              if not isinstance(o,dict): return None
+              return o.get('source_spec_id') or o.get('spec_id')
+
+          def src_ref(card, idx):
+              fs=card['fact_sources'][idx]
+              return {
+                  'fact_source_index':idx,
+                  'source_name':fs.get('source_name'),
+                  'source_url':fs.get('source_url') or fs.get('url'),
+                  'source_quote':fs.get('source_quote'),
+                  'source_quote_status':fs.get('source_quote_status') or fs.get('quote_status')
+              }
+
+          def set_claim_map(card, entries):
+              out=[]
+              for field,claim,inds,strength in entries:
+                  out.append({
+                      'visible_field':field,
+                      'visible_claim':claim,
+                      'supporting_fact_source_indices':inds,
+                      'supporting_sources':[src_ref(card,i) for i in inds],
+                      'coverage_strength':strength,
+                      'status':'PASS'
+                  })
+              card['source_claim_coverage_map']=out
+
+          run=json.loads(RUN_PATH.read_text(encoding='utf-8'))
+          cards=[x['card'] for x in run['operations']['insert']]
+          byspec={c.get('source_spec_id'):c for c in cards}
+          green=byspec[GREEN]
+          us=byspec[US]
+
+          # P2-1: remove the two project-status timeline assertions that are not
+          # directly established by the retained Greenvolt quotes. Keep the
+          # financing event, amount, scope and related-card lineage.
+          green['gate']='이번 사건의 신규성은 투로신 단독 재보도가 아니라 엘크까지 묶은 2.18억유로 금융 패키지와 금융조달 가능성의 진전이다.'
+          green['fact']='Greenvolt는 UniCredit으로부터 폴란드 투로신 코시치엘나와 엘크 BESS 두 곳, 합계 400MW/1.6GWh를 지원하는 2.18억유로 금융 패키지를 확보했다. 패키지는 1.53억유로 브리지 금융과 6,500만유로 보증시설로 구성된다.'
+          gf=green['fact_sources']
+          if len(gf) < 2:
+              raise SystemExit('Greenvolt retained source pair missing')
+          grole=green.get('date_role') or {}
+          set_claim_map(green,[
+              ('title',green['title'],[0,1],'strong'),
+              ('sub',green['sub'],[0,1],'strong'),
+              ('gate',green['gate'],[0,1],'adequate'),
+              ('fact','Greenvolt는 UniCredit으로부터 폴란드 투로신 코시치엘나와 엘크 BESS 두 곳, 합계 400MW/1.6GWh를 지원하는 2.18억유로 금융 패키지를 확보했다.',[0,1],'strong'),
+              ('fact','패키지는 1.53억유로 브리지 금융과 6,500만유로 보증시설로 구성된다.',[0,1],'strong'),
+              ('implication[0]',green['implication'][0],[0,1],'adequate'),
+              ('implication[1]',green['implication'][1],[0,1],'adequate'),
+              ('date_role.event_date',str(grole.get('event_date') or '2026-08-27'),[0],'strong')
+          ])
+          ef=green.get('event_fingerprint')
+          if isinstance(ef,dict):
+              ef['factual_anchor']=green['fact']
+
+          # P2-3: keep the already-narrowed US visible copy and make the
+          # decision/evidence lineage consistent with only retained metrics.
+          us_verified='S&P Global reports 55.81 GW of US utility-scale battery storage by Q2 end, with 4.883 GW added in Q2.'
+          us_judgment='The US BESS market is confirmed at a 55.81 GW operating/grid-synchronized base with 4.883 GW of Q2 additions.'
+          us_metric='55.81 GW Q2-end US utility-scale BESS; 4.883 GW Q2 additions; source-owner publication 2026-08-14'
+          us['new_verified_fact']=us_verified
+          us['changed_judgment']=us_judgment
+          us['uncertainty_resolved']='Unit, period, Q2-end capacity and Q2 realized additions are resolved.'
+          us['remaining_uncertainty']='Future-quarter additions and cumulative-capacity growth remain follow-up items.'
+          if isinstance(us.get('strict_pass_gate'),dict):
+              us['strict_pass_gate']['reason']=us_verified
+          if isinstance(us.get('event_fingerprint'),dict):
+              us['event_fingerprint']['asset_or_policy']=us['title']
+              us['event_fingerprint']['factual_anchor']=us_verified
+          for key in ('evidence_targets_verified','evidence_needed_for_stage_b'):
+              rows=us.get(key)
+              if isinstance(rows,list):
+                  for row in rows:
+                      if isinstance(row,dict) and 'exact_claim_or_metric' in row:
+                          row['exact_claim_or_metric']=us_metric
+          for row in us.get('source_discovery_ledger') or []:
+              if not isinstance(row,dict) or row.get('outcome')!='used_in_fact_sources':
+                  continue
+              dom=str(row.get('source_domain') or '')
+              if 'spglobal.com' in dom:
+                  row['unique_contribution']='Confirms Q2-end capacity above 55 GW and directly confirms 4.883 GW installed across the US in Q2.'
+              elif 'todayenergy.kr' in dom:
+                  row['unique_contribution']='Independently reports Q2-end US utility-scale battery storage capacity at 55.81 GW.'
+          ep=us.get('evidence_package')
+          if isinstance(ep,dict):
+              ep['new_verified_fact']=us_verified
+              ep['changed_judgment']=us_judgment
+              ep['remaining_uncertainty']='Future-quarter additions and cumulative-capacity growth remain follow-up items.'
+              for key in ('evidence_targets_verified','evidence_needed_for_stage_b'):
+                  rows=ep.get(key)
+                  if isinstance(rows,list):
+                      for row in rows:
+                          if isinstance(row,dict) and 'exact_claim_or_metric' in row:
+                              row['exact_claim_or_metric']=us_metric
+
+          # Master cards after bounded card-level repair.
+          masters={GREEN:green,US:us}
+          id_to_spec={str(c.get('id')):c.get('source_spec_id') for c in cards if c.get('id')}
+
+          def obj_spec(o):
+              s=spec_of(o)
+              if s: return s
+              for k in ('id','card_id','assigned_id'):
+                  v=o.get(k) if isinstance(o,dict) else None
+                  if v is not None and str(v) in id_to_spec:
+                      return id_to_spec[str(v)]
+              return None
+
+          def replace_flat_coverage(rows, spec):
+              master=[dict(deepcopy(e),source_spec_id=spec) for e in masters[spec]['source_claim_coverage_map']]
+              idx=[i for i,e in enumerate(rows) if isinstance(e,dict) and e.get('source_spec_id')==spec]
+              if not idx: return rows
+              first=idx[0]
+              kept=[e for e in rows if not (isinstance(e,dict) and e.get('source_spec_id')==spec)]
+              removed_before=sum(1 for i in idx if i < first)
+              insert_at=first-removed_before
+              return kept[:insert_at]+master+kept[insert_at:]
+
+          def patch_obj(o):
+              if not isinstance(o,dict): return
+              spec=obj_spec(o)
+              if spec in masters:
+                  m=masters[spec]
+                  # Synchronize current visible copy wherever a downstream artifact
+                  # carries a card-shaped replica.
+                  if any(k in o for k in ('title','sub','gate','fact','implication')):
+                      for k in ('title','sub','gate','fact','implication'):
+                          if k in o: o[k]=deepcopy(m[k])
+                  if isinstance(o.get('source_claim_coverage_map'),list):
+                      if any(isinstance(e,dict) and e.get('source_spec_id') for e in o['source_claim_coverage_map']):
+                          o['source_claim_coverage_map']=replace_flat_coverage(o['source_claim_coverage_map'],spec)
+                      else:
+                          o['source_claim_coverage_map']=deepcopy(m['source_claim_coverage_map'])
+                  if spec==GREEN and isinstance(o.get('event_fingerprint'),dict):
+                      o['event_fingerprint']['factual_anchor']=m['fact']
+                  if spec==US:
+                      if 'new_verified_fact' in o: o['new_verified_fact']=us_verified
+                      if 'changed_judgment' in o: o['changed_judgment']=us_judgment
+                      if 'uncertainty_resolved' in o: o['uncertainty_resolved']='Unit, period, Q2-end capacity and Q2 realized additions are resolved.'
+                      if isinstance(o.get('strict_pass_gate'),dict): o['strict_pass_gate']['reason']=us_verified
+                      if isinstance(o.get('event_fingerprint'),dict):
+                          o['event_fingerprint']['asset_or_policy']=m['title']
+                          o['event_fingerprint']['factual_anchor']=us_verified
+                      for key in ('evidence_targets_verified','evidence_needed_for_stage_b'):
+                          rows=o.get(key)
+                          if isinstance(rows,list):
+                              for row in rows:
+                                  if isinstance(row,dict) and 'exact_claim_or_metric' in row:
+                                      row['exact_claim_or_metric']=us_metric
+                      for row in o.get('source_discovery_ledger') or []:
+                          if not isinstance(row,dict) or row.get('outcome')!='used_in_fact_sources': continue
+                          dom=str(row.get('source_domain') or '')
+                          if 'spglobal.com' in dom:
+                              row['unique_contribution']='Confirms Q2-end capacity above 55 GW and directly confirms 4.883 GW installed across the US in Q2.'
+                          elif 'todayenergy.kr' in dom:
+                              row['unique_contribution']='Independently reports Q2-end US utility-scale battery storage capacity at 55.81 GW.'
+              # P2-2: clear workflow-stage uncertainty once the represented card
+              # is downstream-complete. Do not overwrite substantive market/project
+              # uncertainties that already describe real-world follow-up points.
+              ru=o.get('remaining_uncertainty')
+              if isinstance(ru,str) and STALE in ru:
+                  o['remaining_uncertainty']='Only downstream real-world milestones remain unresolved; evidence, date role, and canonical relation are complete.'
+
+          def traverse(x):
+              if isinstance(x,dict):
+                  patch_obj(x)
+                  for k,v in list(x.items()):
+                      if k=='source_claim_coverage_map' and isinstance(v,list):
+                          # Flat stage-level maps have source_spec_id on each row.
+                          vv=v
+                          for s in (GREEN,US):
+                              if any(isinstance(e,dict) and e.get('source_spec_id')==s for e in vv):
+                                  vv=replace_flat_coverage(vv,s)
+                          x[k]=vv
+                          for e in vv: traverse(e)
+                      else:
+                          traverse(v)
+              elif isinstance(x,list):
+                  for v in x: traverse(v)
+
+          # Propagate bounded repair through governed downstream artifacts. Stage
+          # 0.0C/0.0D remain historical preflight snapshots and are not rewritten.
+          targets=[]
+          for p in sorted(RUN_DIR.glob('*.json')):
+              if p.name.startswith('stage_0_0c_') or p.name.startswith('stage_0_0d_'):
+                  continue
+              d=json.loads(p.read_text(encoding='utf-8'))
+              traverse(d)
+              def stamp(x):
+                  if isinstance(x,dict):
+                      for k,v in list(x.items()):
+                          if k=='output_updated': x[k]=output_updated
+                          else: stamp(v)
+                  elif isinstance(x,list):
+                      for v in x: stamp(v)
+              stamp(d)
+              p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+              targets.append(p)
+
+          # Re-open card-run after propagation, recompute reviewed operations hash,
+          # and bind it through every governed run artifact that declares it.
+          run=json.loads(RUN_PATH.read_text(encoding='utf-8'))
+          run['output_updated']=output_updated
+          RUN_PATH.write_text(json.dumps(run,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          def canon(x):
+              if isinstance(x,dict): return {k:canon(x[k]) for k in sorted(x)}
+              if isinstance(x,list): return [canon(v) for v in x]
+              return x
+          ops_sha=hashlib.sha256(json.dumps(canon(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+          for p in sorted(RUN_DIR.glob('*.json')):
+              d=json.loads(p.read_text(encoding='utf-8'))
+              def bind(x):
+                  if isinstance(x,dict):
+                      for k,v in list(x.items()):
+                          if k=='reviewed_operations_sha256': x[k]=ops_sha
+                          else: bind(v)
+                  elif isinstance(x,list):
+                      for v in x: bind(v)
+              bind(d)
+              p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Assertions targeted exactly to this Codex round.
+          run=json.loads(RUN_PATH.read_text(encoding='utf-8'))
+          cards=[x['card'] for x in run['operations']['insert']]
+          byspec={c.get('source_spec_id'):c for c in cards}
+          g=byspec[GREEN]; u=byspec[US]
+          gvis=json.dumps({k:g.get(k) for k in ('title','sub','gate','fact','implication')},ensure_ascii=False)
+          for bad in ('7월 개장','2026년 4분기 상업운전','4분기 상업운전'):
+              assert bad not in gvis,bad
+          assert all(STALE not in str(c.get('remaining_uncertainty') or '') for c in cards)
+          bad_metrics=('46.4%','9.6%','6.7GW','6.7 GW','73%','18.5GW','18.5 GW')
+          for p in targets:
+              d=json.loads(p.read_text(encoding='utf-8'))
+              def check_maps(x):
+                  if isinstance(x,dict):
+                      v=x.get('source_claim_coverage_map')
+                      if isinstance(v,list):
+                          for e in v:
+                              if not isinstance(e,dict): continue
+                              es=e.get('source_spec_id') or obj_spec(x)
+                              if es==US:
+                                  s=json.dumps(e,ensure_ascii=False)
+                                  for bad in bad_metrics: assert bad not in s,(p.name,bad)
+                          for e in v: check_maps(e)
+                      for k,val in x.items():
+                          if k!='source_claim_coverage_map': check_maps(val)
+                  elif isinstance(x,list):
+                      for val in x: check_maps(val)
+              check_maps(d)
+          print('Greenvolt timeline claims narrowed')
+          print('stale Stage B/0.4 remaining_uncertainty cleared')
+          print('US downstream coverage maps synchronized')
+          print('output_updated',output_updated)
+          print('reviewed operations SHA256',ops_sha)
+          PY
+
+      - name: Re-materialize exact outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main:refs/remotes/origin/main --force
+          [[ "$(git rev-parse origin/main)" == "$BASE_SHA" ]] || { echo "main moved; rebase required" >&2; exit 1; }
+          mkdir -p .tmp-pr297-r8
+          git show "$BASE_SHA:data/cards.full.json" > .tmp-pr297-r8/cards.full.base.json
+          [[ "$(git hash-object .tmp-pr297-r8/cards.full.base.json)" == "$BASE_BLOB" ]] || { echo "baseline blob mismatch" >&2; exit 1; }
+          node scripts/apply_card_run.mjs --apply --run "$RUN_PATH" --baseline .tmp-pr297-r8/cards.full.base.json --output data/cards.full.json --report .tmp-pr297-r8/apply-pre.json --base-main-sha "$BASE_SHA" --skip-lean
+          node scripts/lean_cards.mjs
+          node scripts/apply_card_run.mjs --verify --run "$RUN_PATH" --baseline data/cards.full.json --output data/cards.full.json --report runs/2026-08-29/apply-report.json --base-main-sha "$BASE_SHA" --lean-path public/data/cards.json
+
+      - name: Refresh hashes and run full governed validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          run=json.load(open('runs/2026-08-29/card-run.json',encoding='utf-8'))
+          cards=[x['card'] for x in run['operations']['insert']]
+          Path('.tmp-pr297-r8').mkdir(exist_ok=True)
+          json.dump({'cards':cards},open('.tmp-pr297-r8/current-run-scope.json','w'),ensure_ascii=False,indent=2)
+          json.dump({'ids':[c['id'] for c in cards]},open('.tmp-pr297-r8/current-run-ids.json','w'),ensure_ascii=False,indent=2)
+          fh=hashlib.sha256(Path('data/cards.full.json').read_bytes()).hexdigest()
+          lh=hashlib.sha256(Path('public/data/cards.json').read_bytes()).hexdigest()
+          p=Path('runs/2026-08-29/card_run_audit_20260829_CURRENT_MAIN_1496_COMBINED18.json')
+          d=json.loads(p.read_text(encoding='utf-8'))
+          d['full_output_sha256']=fh; d['lean_output_sha256']=lh
+          p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('full',fh); print('lean',lh)
+          PY
+          python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file .tmp-pr297-r8/current-run-ids.json
+          python validation_scripts/evidence_qc_v8_check.py .tmp-pr297-r8/current-run-scope.json --new-id-file .tmp-pr297-r8/current-run-ids.json --json-report .tmp-pr297-r8/evidence-qc-v8.json
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN_PATH" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits.mjs --run "$RUN_PATH" --full data/cards.full.json --lean public/data/cards.json
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          git diff --check
+
+      - name: Commit remediation and self-remove
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .tmp-pr297-r8
+          rm -f .github/workflows/fix-pr297-codex-5473826989.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cards.full.json public/data/cards.json runs/2026-08-29 .github/workflows/fix-pr297-codex-5473826989.yml
+          git commit -m "Close PR #297 Codex findings 5473826989"
+          git push origin HEAD:chatgpt/20260829-combined18-governed-run

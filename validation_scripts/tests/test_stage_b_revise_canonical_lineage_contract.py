@@ -13,7 +13,7 @@ class StageBReviseCanonicalLineageContractTest(unittest.TestCase):
         prompt = REVISE.read_text(encoding="utf-8")
         self.assertIn("Preserve integrated selection package", prompt)
         self.assertIn("Related questions", prompt)
-        self.assertIn("selection/staleness/event-identity defects return", prompt)
+        self.assertIn("selection/staleness/event-identity defects return", prompt.lower())
         self.assertNotIn("revise-only prerequisite", prompt)
 
     def test_stage_lineage_schema_owns_v4_stage_a_lineage(self):

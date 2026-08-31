@@ -46,14 +46,19 @@ def build_active_suite() -> tuple[unittest.TestSuite, list[Path], list[Path], in
             legacy_files.append(path)
             continue
         active_files.append(path)
+        # Match the repository's historical working discovery semantics:
+        # validation_scripts/tests is not a Python package, so do not force a
+        # top_level_dir that would require __init__.py.
         discovered = loader.discover(
             str(TEST_DIR),
             pattern=path.name,
-            top_level_dir=str(ROOT),
         )
         for case in flatten(discovered):
             owner_module = case.__class__.__module__.split(".")[-1]
             if owner_module != path.stem:
+                # Some historical tests import TestCase classes from another
+                # module. Keep those modules in Git, but do not execute an
+                # imported case under the wrong active file.
                 filtered_imported_cases += 1
                 continue
             active_suite.addTest(case)

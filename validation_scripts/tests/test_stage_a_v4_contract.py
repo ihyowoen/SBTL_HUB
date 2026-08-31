@@ -32,9 +32,16 @@ class StageAV4MachineContractTest(unittest.TestCase):
                 "decision_value_classification": "material_industry_signal",
                 "publication_urgency": "near_term",
                 "related_prepass": {
-                    "status": "reviewed",
-                    "candidate_relations": [],
-                    "questions_for_stage_b": ["Confirm whether a prior roadmap card is direct lineage."],
+                    "status": "PASS",
+                    "same_event_checked": True,
+                    "matched_baseline_candidate_ids": [],
+                    "matched_current_batch_candidate_ids": [],
+                    "relation_candidates": [],
+                    "duplicate_disposition": "no_duplicate_found",
+                    "earliest_same_event_check_status": "PASS",
+                    "fresh_anchor_questions": [
+                        "Confirm whether a prior roadmap card becomes direct lineage if execution evidence changes."
+                    ],
                 },
                 "structural_non_execution_reason": None,
                 "why_execution_event_not_required": None,
@@ -69,6 +76,13 @@ class StageAV4MachineContractTest(unittest.TestCase):
         self.assertEqual(result, 1)
         self.assertIn("execution_anchor_route requires execution_event_anchor", output)
 
+    def test_non_string_anchor_is_blocked_without_type_error(self):
+        spec = self.valid_execution_spec()
+        spec["anchor_classes"] = ["execution_event_anchor", {"malformed": True}]
+        result, output = self.run_active(spec)
+        self.assertEqual(result, 1)
+        self.assertIn("anchor_classes must contain non-empty strings", output)
+
     def test_score_breakdown_must_sum_to_total(self):
         spec = self.valid_execution_spec()
         spec["decision_value_breakdown"]["systemic_scale"] = 2
@@ -84,6 +98,31 @@ class StageAV4MachineContractTest(unittest.TestCase):
         result, output = self.run_active(spec)
         self.assertEqual(result, 1)
         self.assertIn("structural_non_execution_route cannot carry execution_event_anchor", output)
+
+    def test_arbitrary_related_prepass_object_is_blocked(self):
+        spec = self.valid_execution_spec()
+        spec["related_prepass"] = {"junk": True}
+        result, output = self.run_active(spec)
+        self.assertEqual(result, 1)
+        self.assertIn("related_prepass missing status", output)
+        self.assertIn("related_prepass missing same_event_checked", output)
+
+    def test_follow_up_relation_requires_fresh_anchor_evidence_question(self):
+        spec = self.valid_execution_spec()
+        spec["related_prepass"]["relation_candidates"] = [
+            {
+                "target_candidate_id": "2026-01-01_KR_01",
+                "proposed_relation_type": "distinct_follow_up",
+                "confidence": "high",
+                "reason": "Same named program with a later material stage.",
+                "anchor_class_to_verify": None,
+                "incremental_anchor_question": None,
+            }
+        ]
+        result, output = self.run_active(spec)
+        self.assertEqual(result, 1)
+        self.assertIn("anchor_class_to_verify must be a valid anchor", output)
+        self.assertIn("incremental_anchor_question must be non-empty", output)
 
     def test_valid_v4_execution_spec_reaches_v3_compatibility_and_passes(self):
         result, output = self.run_active(self.valid_execution_spec())

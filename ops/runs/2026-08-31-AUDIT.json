@@ -225,6 +225,57 @@
       "basis": "표제 = DPAS Directive Allocation Order and Additional Requirements for Recoverable Critical Minerals and Materials / type=Rule / action=Temporary final rule; Request for comments / 게재 2026-08-06 / 발효 2026-08-27 / 91 FR 50701. 핵심 의무 = 월간 판매 100%의 미국인 할당이며 BIS 사전 조정·예외 승인 시에만 면제. 종전 항목의 수출허가 요건 서술이 오기임을 확정.",
       "checkedBy": "Claude (PR #294 리뷰 대응 자체검증)",
       "date": "2026-08-31"
+    },
+    {
+      "n": "财政部 税务总局公告2024年第15号 附件1 《取消出口退税的产品清单》 관보 첨부 PDF 전문",
+      "u": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5235887/5235887/files/取消出口退税的产品清单.pdf",
+      "itemsCovered": [
+        "CN-043"
+      ],
+      "basis": "PDF의 ToUnicode CMap을 직접 파싱해 전문 복호(2페이지·CID 1985개·미매핑 0%). 세번 59개 구성 = 序号1 화학개성유지 / 2~35 銅材 / 36~59 铝材 24개. 7607 계열 5개(76071110·76071120·76071190·76071900·76072000) 전부 취소 대상. 铝塑复合 표기는 序号39 76061121 등 7606(두께 0.2mm 초과 판·편·대) 소속으로 파우치 필름과 두께 구간이 다름.",
+      "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "govinfo — Public Law 119-15 / 119-17 정본",
+      "u": "https://www.govinfo.gov/content/pkg/PLAW-119publ15/html/PLAW-119publ15.htm",
+      "itemsCovered": [
+        "NA-044"
+      ],
+      "basis": "P.L.119-15 = H.J.Res.87 (88 FR 20688, Advanced Clean Trucks 계열) / P.L.119-17 = H.J.Res.89 (90 FR 643, Omnibus Low NOx). 둘 다 approved June 12, 2025. P.L.119-16(ACC II, 90 FR 642)과 합쳐 3건 전수 확인.",
+      "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "법제처 lawService — 화관법 제20231호 부칙·제20조 / 화평법 제21132호 개정 조문",
+      "u": "https://www.law.go.kr/DRF/lawService.do",
+      "itemsCovered": [
+        "KR-030",
+        "KR-031"
+      ],
+      "basis": "화관법 부칙 <제20231호> 제1조 '공포 후 1년 6개월이 경과한 날부터 시행'(→2025-08-07), 부칙 6개조 구성에 혼합물 함량기준 유예 조항 부존재 확인, 제20조 제명 '인체급성유해성물질 등의 수입신고'. 화평법 제21132호 = 제15조 협의체 명문화·제16조의2(비용분담 3원칙)·제16조의3(분쟁조정 90일)·제16조의4 신설, 부칙 공포 후 6개월.",
+      "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "European Commission — Critical Raw Materials Act 페이지 (2030 벤치마크)",
+      "u": "https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials/critical-raw-materials-act_en",
+      "itemsCovered": [
+        "EU-036"
+      ],
+      "basis": "채굴 at least 10% / 가공 at least 40% / 재활용 at least 25% / 단일 제3국 no more than 65% (EU 연간 소비량 기준). EUR-Lex 원문 재조회가 차단돼 집행위 공표본으로 확보.",
+      "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
+    },
+    {
+      "n": "Federal Register API — 문서 2026-14066 (알루미늄박 AD 행정재심 예비결과)",
+      "u": "https://www.federalregister.gov/api/v1/documents/2026-14066.json",
+      "itemsCovered": [
+        "NA-046"
+      ],
+      "basis": "Notice / 게재 2026-07-13 / 91 FR 42932 / 심사기간 2024-04-01~2025-03-31 예비판정. 요원이 제시한 '91 FR 31423 Amended Final Results'는 검색·조회로 확인 불가.",
+      "checkedBy": "Claude (잔여 확인 해소)",
+      "date": "2026-08-31"
     }
   ],
   "completenessAudit": {
@@ -621,5 +672,56 @@
       "coverage 축 배정 — 21건 전부 축 정의와 정합",
       "effectiveDate 를 보고기한으로 쓴 NA-047 — NA-032·CN-002·NA-029 선례가 있어 관례 부합(내 초기 의심을 기각)"
     ]
+  },
+  "remainingTaskResolution": {
+    "date": "2026-08-31",
+    "trigger": "Claire 지시 — 잔여 확인 붙은 항목들 원문 재조회",
+    "scope": "신규 21건 중 잔여 확인·기재 보류가 붙은 20건",
+    "resolved": [
+      {
+        "id": "CN-043",
+        "task": "附件1의 파우치용 알루미늄박(7607) 포함 여부",
+        "result": "**종결·확정**. 관보 첨부 PDF를 ToUnicode CMap 직접 복호(미매핑 0%)해 전문 확인 — 铝材 24개(序号 36~59), 7607 계열 5개 세번 전부 취소 대상, 有衬背铝箔 포함. 요원 보고의 '24개 税号'와 일치. SBTL 원자재 노출이 미확정→확정으로 승격.",
+        "caveat": "附件1의 铝塑复合 표기는 7606(두께 0.2mm 초과 판·편·대) 소속이라 파우치 필름과 두께 구간이 다르다 — 동일 품목으로 단정하지 않는다."
+      },
+      {
+        "id": "NA-044",
+        "task": "P.L.119-15/17 정본 조문 확인",
+        "result": "**종결**. govinfo 3건 전수 확인 — 119-15(H.J.Res.87, 88 FR 20688 ACT 계열), 119-17(H.J.Res.89, 90 FR 643 Omnibus Low NOx), 119-16(H.J.Res.88, 90 FR 642 ACC II). 전부 2025-06-12 성립."
+      },
+      {
+        "id": "KR-030",
+        "task": "부칙 유예 조항·제20조 적용 범위",
+        "result": "**종결 + 요원 주장 반증**. 부칙 <제20231호>는 6개조뿐이고 혼합물 함량기준 유예 조항이 부존재. 시행일 근거 조문('공포 후 1년 6개월')과 제20조 제명('인체급성유해성물질 등의 수입신고') 확정."
+      },
+      {
+        "id": "KR-031",
+        "task": "제21132호 개정 내용·시행 상태",
+        "result": "**종결 + 내 오귀속 정정**. 개정 내용은 본법 제16조의2(비용분담 3원칙)·제16조의3(분쟁조정 90일 이내 조정안)·제16조의4 신설. 종전 tip이 이를 시행령 제36304호 소관으로 적었던 층위 오귀속을 바로잡았다."
+      },
+      {
+        "id": "EU-036",
+        "task": "2030 벤치마크 수치",
+        "result": "**부분 종결**. 집행위 공표본으로 채굴 10%/가공 40%/재활용 25%/단일 제3국 65% 확보해 기재. EUR-Lex 원문이 차단돼(응답 2KB) 제5조 축어 대조와 2029-05-24 부분 적용 범위는 유지."
+      },
+      {
+        "id": "NA-046",
+        "task": "후속 행정재심 정본 대조",
+        "result": "**요원 주장 미확인**. '91 FR 31423 Amended Final Results'를 확인하지 못했고, 실제 확인된 것은 2024-2025 행정재심 예비결과(91 FR 42932, 2026-07-13)와 CVD 예비결과(2026-14294)다. 예비 단계이므로 세율 계속 미기재."
+      }
+    ],
+    "stillOpen": [
+      "NA-042 폐지 대상 MY 범위 조문 단위 확인",
+      "NA-043 Annex I/III 부품 목록의 리튬이온전지 세번 — 세율 구조·국가별 상한도 원문 확인 전까지 미기재 유지",
+      "NA-045 FR 부록의 추가 법인 수·품목 기술자 축어 (탄산리튬 기재 불가 유지)",
+      "NA-047 2026년 개정(2023-07-01 이전 제조분 제외) 조문 단위 확인",
+      "EU-036 제5조 축어 대조 / EU-037 2024/1760 본체 조문·Omnibus I 제5(1)조 이행기한 — EUR-Lex 접근 회복 후",
+      "CN-044 표준 초안 본문 미공개 / CN-045 표준 본문 물질 목록·达标管理目录 리튬전지 포함 여부 / CN-046 배출권 할당방안 원문",
+      "CN-047 의견수렴 종료 시점·강제성 여부",
+      "JP-018 개정 조문 내용 / JP-019 官報 정본·제8조의2 조문 / JP-020 총무성령 특례 기준·2026년 屋外貯蔵所 개정 정본",
+      "GL-008 ISO/CD 25158 진행 상태",
+      "NA-044 채택 주(캘리포니아 외) 목록"
+    ],
+    "toolNote": "PDF 추출: WSL·Windows 양쪽에 poppler·pypdf·pdfminer가 없고 Word COM은 PDF 변환 대화상자에서 멈췄다. PDF의 ToUnicode CMap(bfchar/bfrange)을 직접 파싱해 CID를 유니코드로 복호하는 방식이 통했고 미매핑 0%였다 — 중국 관보 첨부 PDF에 재사용 가능한 경로다(scratchpad/pdfdec.py). EUR-Lex는 이번 세션에서 WebFetch·curl 모두 빈 응답을 반환했다(초기 1회는 791KB 성공) — 접근 제한으로 추정."
   }
 }

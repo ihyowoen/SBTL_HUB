@@ -31,6 +31,8 @@ class StageAV4MachineContractTest(unittest.TestCase):
                 },
                 "decision_value_classification": "material_industry_signal",
                 "publication_urgency": "near_term",
+                "systemic_scale_denominator": "Share of the named market/capacity denominator described in Stage A metadata.",
+                "denominator_gap": None,
                 "related_prepass": {
                     "status": "PASS",
                     "same_event_checked": True,
@@ -90,6 +92,23 @@ class StageAV4MachineContractTest(unittest.TestCase):
         self.assertEqual(result, 1)
         self.assertIn("decision_value_breakdown sum", output)
 
+    def test_systemic_scale_above_two_requires_denominator(self):
+        spec = self.valid_execution_spec()
+        spec["systemic_scale_denominator"] = None
+        spec["denominator_gap"] = "No defensible denominator is available yet."
+        result, output = self.run_active(spec)
+        self.assertEqual(result, 1)
+        self.assertIn("systemic_scale must be <=2", output)
+
+    def test_no_denominator_with_two_points_and_gap_is_allowed_by_v4_gate(self):
+        spec = self.valid_execution_spec()
+        spec["systemic_scale_denominator"] = None
+        spec["denominator_gap"] = "No defensible denominator is available yet."
+        spec["decision_value_breakdown"]["systemic_scale"] = 2
+        spec["decision_value_breakdown"]["market_structure_competition"] = 16
+        result, output = self.run_active(spec)
+        self.assertEqual(result, 0, output)
+
     def test_structural_route_cannot_claim_execution_event_anchor(self):
         spec = self.valid_execution_spec()
         spec["selection_route"] = "structural_non_execution_route"
@@ -107,6 +126,23 @@ class StageAV4MachineContractTest(unittest.TestCase):
         self.assertIn("related_prepass missing status", output)
         self.assertIn("related_prepass missing same_event_checked", output)
 
+    def test_strict_related_prepass_hold_is_blocked(self):
+        spec = self.valid_execution_spec()
+        spec["related_prepass"]["status"] = "HOLD"
+        spec["related_prepass"]["same_event_checked"] = False
+        spec["related_prepass"]["earliest_same_event_check_status"] = "HOLD"
+        spec["related_prepass"]["duplicate_disposition"] = "uncertain_needs_review"
+        result, output = self.run_active(spec)
+        self.assertEqual(result, 1)
+        self.assertIn("strict related_prepass.status must be PASS", output)
+
+    def test_strict_duplicate_disposition_is_blocked(self):
+        spec = self.valid_execution_spec()
+        spec["related_prepass"]["duplicate_disposition"] = "same_event_duplicate"
+        result, output = self.run_active(spec)
+        self.assertEqual(result, 1)
+        self.assertIn("duplicate_disposition=no_duplicate_found", output)
+
     def test_follow_up_relation_requires_fresh_anchor_evidence_question(self):
         spec = self.valid_execution_spec()
         spec["related_prepass"]["relation_candidates"] = [
@@ -123,6 +159,20 @@ class StageAV4MachineContractTest(unittest.TestCase):
         self.assertEqual(result, 1)
         self.assertIn("anchor_class_to_verify must be a valid anchor", output)
         self.assertIn("incremental_anchor_question must be non-empty", output)
+
+    def test_non_finite_total_score_is_blocked(self):
+        spec = self.valid_execution_spec()
+        spec["decision_news_value_score"] = float("nan")
+        result, output = self.run_active(spec)
+        self.assertEqual(result, 1)
+        self.assertIn("finite numeric 0..100", output)
+
+    def test_non_finite_breakdown_score_is_blocked(self):
+        spec = self.valid_execution_spec()
+        spec["decision_value_breakdown"]["systemic_scale"] = float("nan")
+        result, output = self.run_active(spec)
+        self.assertEqual(result, 1)
+        self.assertIn("systemic_scale must be finite numeric", output)
 
     def test_valid_v4_execution_spec_reaches_v3_compatibility_and_passes(self):
         result, output = self.run_active(self.valid_execution_spec())

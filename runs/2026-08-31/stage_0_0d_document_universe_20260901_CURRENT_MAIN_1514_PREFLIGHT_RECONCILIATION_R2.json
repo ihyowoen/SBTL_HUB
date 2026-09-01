@@ -1,22 +1,22 @@
 {
   "schema": "stage_0_0d_document_universe_manifest_v1",
   "stage": "0.0D",
-  "status": "PASS",
+  "status": "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE",
   "run_id": "card-run-2026-08-31-preflight-reconciliation-current-main-1514-r2",
   "run_tag": "20260831_PREFLIGHT_RECONCILIATION_R2",
-  "generated_kst": "2026-09-01T12:34:00+09:00",
+  "generated_kst": "2026-09-01T12:45:00+09:00",
   "repository": "ihyowoen/SBTL_HUB",
   "branch": "main",
   "repository_head_sha": "71371c841f7fe18bf97bf500aa537b6f1975d5dc",
   "canonical_full_path": "data/cards.full.json",
   "canonical_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
   "canonical_full_count": 1514,
-  "document_universe_status": "PASS",
+  "document_universe_status": "FAIL",
   "docs_file_count": 88,
-  "all_docs_files_read_or_parsed": true,
-  "stage_0_0c_authorized": true,
-  "supersedes_run_artifact": "runs/2026-08-31/stage_0_0d_document_universe_20260831_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION.json",
-  "supersession_reason": "main advanced from 324461288e49e4578e06d590fa2422999ae09b34 to 71371c841f7fe18bf97bf500aa537b6f1975d5dc when PR #299 merged on 2026-09-01; current-run repository lock is regenerated as required.",
+  "all_docs_files_read_or_parsed": false,
+  "stage_0_0c_authorized": false,
+  "supersedes_run_artifact": "a07ccbf35319008a251649065df9cfbc91139bde:runs/2026-08-31/stage_0_0d_document_universe_20260831_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION.json",
+  "supersession_reason": "main advanced from 324461288e49e4578e06d590fa2422999ae09b34 to 71371c841f7fe18bf97bf500aa537b6f1975d5dc when PR #299 merged on 2026-09-01. The prior blocker artifact remains immutable history; it does not authorize reuse of prior read evidence.",
   "repository_drift_review": {
     "old_head": "324461288e49e4578e06d590fa2422999ae09b34",
     "new_head": "71371c841f7fe18bf97bf500aa537b6f1975d5dc",
@@ -38,12 +38,25 @@
     ]
   },
   "read_proof_method": {
-    "mode": "CONTENT_ADDRESSED_DOC_CACHE_PLUS_CURRENT_HEAD_DRIFT_REVIEW",
+    "mode": "CURRENT_RUN_FULL_DOC_READ_PROOF_INCOMPLETE",
     "authorization_reused_from_prior_run": false,
-    "cache_source_docs_read_count": 88,
-    "all_cached_docs_blob_identical": true,
-    "note": "The 88/88 complete docs parse is retained only as a blob-identity cache. Current head, authority, non-doc dependency drift, open PR state and Stage 0.0C dependency impact are re-evaluated for this manifest."
+    "current_run_direct_full_reads_proven": 2,
+    "required_current_run_docs_read_count": 88,
+    "current_run_full_read_proof_missing_for_at_least": 86,
+    "note": "Blob identity and drift review are audit aids only. docs/DOCUMENT_UNIVERSE_POLICY.md requires every subsequent run to fully reread or parse every docs/** file; the current R2 artifact does not prove 88/88 current-run reads and therefore cannot authorize Stage 0.0C."
   },
+  "direct_current_high_authority_rereads": [
+    {
+      "path": "docs/DOCUMENT_UNIVERSE_POLICY.md",
+      "git_blob_sha": "1ffdffe3f07fa04d5080c5ed700f0cd7c3b10d80",
+      "read_status": "READ_FULL_CURRENT_HEAD"
+    },
+    {
+      "path": "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
+      "git_blob_sha": "6b64061b78cccad0fdb807e299df7b7460fd0d06",
+      "read_status": "READ_FULL_CURRENT_HEAD"
+    }
+  ],
   "changed_non_docs_dependency_classification": [
     {
       "path": ".github/workflows/validate-tracker.yml",
@@ -63,17 +76,17 @@
     {
       "path": "ops/coverage.json",
       "classification": "CURRENT_DISCOVERY_INPUT",
-      "news_card_stage_contract_impact": "STAGE_0_0C_INCREMENTAL_REVIEW_REQUIRED"
+      "news_card_stage_contract_impact": "STAGE_0_0C_REVIEW_REQUIRED_AFTER_0_0D_PASS"
     },
     {
       "path": "public/data/tracker_data.json",
       "classification": "CURRENT_DISCOVERY_INPUT",
-      "news_card_stage_contract_impact": "STAGE_0_0C_INCREMENTAL_REVIEW_REQUIRED"
+      "news_card_stage_contract_impact": "STAGE_0_0C_REVIEW_REQUIRED_AFTER_0_0D_PASS"
     },
     {
       "path": "public/data/region_policy.json",
       "classification": "CURRENT_DISCOVERY_CONTEXT",
-      "news_card_stage_contract_impact": "STAGE_0_0C_INCREMENTAL_REVIEW_REQUIRED"
+      "news_card_stage_contract_impact": "STAGE_0_0C_REVIEW_REQUIRED_AFTER_0_0D_PASS"
     }
   ],
   "open_unmerged_repository_changes_checked": [
@@ -89,7 +102,15 @@
   "missing_or_stale_components": [],
   "missing_content_identity_documents": [],
   "unclassified_documents": [],
-  "unread_documents": [],
+  "unread_documents": [
+    {
+      "scope": "docs/**",
+      "expected_document_count": 88,
+      "current_run_direct_full_reads_proven": 2,
+      "current_run_full_read_proof_missing_for_at_least": 86,
+      "detail": "The R2 manifest does not contain current-run full-read/parse evidence for every governed document. Prior cache/blob identity cannot substitute for the required read."
+    }
+  ],
   "unread_active_documents": [],
   "unresolved_dependencies": [],
   "unresolved_rule_conflicts": [],
@@ -97,9 +118,15 @@
   "unchecked_open_remediations": [],
   "unauthorized_migration_applications": [],
   "inactive_document_contamination": [],
-  "incomplete_universe_defects": [],
+  "incomplete_universe_defects": [
+    {
+      "type": "UNREAD_DOCUMENT",
+      "path": "docs/**",
+      "detail": "At least 86 of 88 docs/** files lack current-run full-read/parse proof in this R2 artifact."
+    }
+  ],
   "active_migrations": [],
-  "selected_blocker_reason": "",
+  "selected_blocker_reason": "Current-run full-read/parse proof is incomplete for docs/**; Stage 0.0C is not authorized until a manifest proves full 88/88 enumeration and reads/parsing.",
   "blocker_precedence": [
     "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
     "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE"
@@ -107,6 +134,6 @@
   "governance_decision": {
     "ordinary_run_contract": "CURRENT_MAIN_V3",
     "v4_pr_298_applied": false,
-    "stage_0_0c_authorized": true
+    "stage_0_0c_authorized": false
   }
 }

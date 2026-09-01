@@ -3,6 +3,7 @@ import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync
 import { dirname, join, resolve, sep } from "node:path";
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
+import { loadWorkflowV4CoverageAxes } from "./workflow_v4_coverage_axes.mjs";
 
 class ValidationError extends Error {
   constructor(code, message) { super(message); this.code = code; }
@@ -81,30 +82,16 @@ const PREFLIGHT_PATH_ARRAYS = [
   "applicable_remediation_or_migration",
   "superseded_or_reference_paths",
 ];
-const REQUIRED_REGION_AXES = [
-  "korea",
-  "north_america",
-  "china",
-  "japan",
-  "europe",
-  "material_global_markets",
-];
-const REQUIRED_TOPIC_AXES = [
-  "cells_chemistries",
-  "materials_components",
-  "pouch_pouch_film_demand",
-  "ess_bess",
-  "ev_charging",
-  "manufacturing_capacity_utilisation",
-  "grid_ai_data_centre_power",
-  "critical_minerals_refining",
-  "recycling",
-  "policy_trade_sanctions_subsidies_localisation",
-  "competitors_customers",
-  "prices_costs_margins",
-  "financing",
-  "safety_recall_commissioning_operation",
-];
+let cachedCoverageAxes = null;
+function requiredCoverageAxes() {
+  if (cachedCoverageAxes) return cachedCoverageAxes;
+  try {
+    cachedCoverageAxes = loadWorkflowV4CoverageAxes();
+    return cachedCoverageAxes;
+  } catch (error) {
+    fail("BLOCKED_COVERAGE_AXIS_CONTRACT", error.message);
+  }
+}
 
 function lifecycleSets(root) {
   const registryPath = resolve(root, REGISTRY_PATH);
@@ -248,8 +235,9 @@ function validateCoverage(run, root) {
   if (artifact.document_universe_manifest_ref !== run.document_universe_manifest_ref) fail("BLOCKED_COVERAGE_BINDING", "0.0C document_universe_manifest_ref must match the card run");
   if (artifact.base_full_blob_sha !== run.base_full_blob_sha) fail("BLOCKED_COVERAGE_BINDING", "0.0C base_full_blob_sha must match the card run");
   for (const field of COVERAGE_ARRAY_FIELDS) requireArray(artifact, field, "BLOCKED_COVERAGE_LEDGER", label);
-  validateCoverageAxes(artifact.regional_coverage_matrix, REQUIRED_REGION_AXES, "0.0C regional_coverage_matrix");
-  validateCoverageAxes(artifact.topic_coverage_matrix, REQUIRED_TOPIC_AXES, "0.0C topic_coverage_matrix");
+  const axes = requiredCoverageAxes();
+  validateCoverageAxes(artifact.regional_coverage_matrix, axes.regions, "0.0C regional_coverage_matrix");
+  validateCoverageAxes(artifact.topic_coverage_matrix, axes.topics, "0.0C topic_coverage_matrix");
 
   const expansionIds = requireCandidateIds(artifact.source_universe_expansion_ledger, `${label}.source_universe_expansion_ledger`);
   const expansionSet = new Set(expansionIds);
@@ -487,12 +475,13 @@ function selfTest() {
       active_override_or_addendum_count: 0, stage_a_embedded_news_value_verified: true,
       all_docs_files_read_or_parsed: true, stage_0_0c_authorized: true,
     });
+    const axes = requiredCoverageAxes();
     const coverageRef = write("0.0c.json", {
       stage: "0.0C", status: "PASS", original_input_accounted: true, stage_a_authorized: true,
       document_universe_manifest_ref: documentUniverseRef, base_full_blob_sha: baseFullBlobSha,
       original_input_ledger: [{ candidate_id: "CAND_1" }], discovered_missing_candidates: [], baseline_follow_up_candidates: [],
       existing_card_reinforcements: [], existing_card_update_candidates: [], correction_or_reversal_candidates: [], treasure_rescue_candidates: [],
-      regional_coverage_matrix: searchedMatrix(REQUIRED_REGION_AXES), topic_coverage_matrix: searchedMatrix(REQUIRED_TOPIC_AXES),
+      regional_coverage_matrix: searchedMatrix(axes.regions), topic_coverage_matrix: searchedMatrix(axes.topics),
       searched_but_no_material_event_ledger: [], source_universe_expansion_ledger: [{ candidate_id: "CAND_1", origin: "original_input" }],
       must_report_candidate_ledger: [], known_unknowns: [], residual_coverage_risks: [],
       terminal_discovery_disposition_ledger: [{ candidate_id: "CAND_1", disposition: "stage_a_universe" }],
@@ -559,7 +548,7 @@ function selfTest() {
     catch (error) { registryBlocked = error instanceof ValidationError && error.code === "BLOCKED_DOCUMENT_UNIVERSE_REGISTRY"; }
     if (!registryBlocked) throw new Error("self-test failed to bind 0.0D authority set to registry");
 
-    console.log("PASS: formal V4 card-run hardening binds explicit A→0.7 stages, exact run/baseline envelope, non-empty 0.7C residual risk, 0.0D registry closure, current 0.0C axes, and candidate identity");
+    console.log("PASS: formal V4 card-run hardening binds explicit A→0.7 stages, exact run/baseline envelope, non-empty 0.7C residual risk, 0.0D registry closure, shared 0.0C axes, and candidate identity");
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -576,5 +565,6 @@ try {
   console.log(`PASS: formal V4 hardening; stage artifacts validated=${result.stage_artifacts_validated}; operations=${result.operations_with_complete_stage_chain}`);
 } catch (error) {
   if (error instanceof ValidationError) { console.error(`FAIL [${error.code}]: ${error.message}`); process.exit(1); }
-  throw error;
+  console.error(`FAIL [BLOCKED_V4_HARDENING_INTERNAL]: ${error?.message || String(error)}`);
+  process.exit(1);
 }

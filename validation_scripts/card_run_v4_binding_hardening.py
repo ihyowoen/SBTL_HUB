@@ -5,8 +5,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"
-REGIONS = {"korea","north_america","china","japan","europe","material_global_markets"}
-TOPICS = {"cells_chemistries","materials_components","pouch_pouch_film_demand","ess_bess","ev_charging","manufacturing_capacity_utilisation","grid_ai_data_centre_power","critical_minerals_refining","recycling","policy_trade_sanctions_subsidies_localisation","competitors_customers","prices_costs_margins","financing","safety_recall_commissioning_operation"}
+COVERAGE_AXES_PATH = ROOT / "schemas/workflow-v4-coverage-axes.json"
+_AXES = json.loads(COVERAGE_AXES_PATH.read_text(encoding="utf-8"))
+if _AXES.get("schema") != "workflow_v4_coverage_axes_v1":
+    raise RuntimeError("invalid workflow-v4 coverage axes contract")
+REGIONS = set(_AXES.get("regions", []))
+TOPICS = set(_AXES.get("topics", []))
+if not REGIONS or not TOPICS:
+    raise RuntimeError("workflow-v4 coverage axes contract must contain non-empty regions/topics")
 ALIASES = {"a":"A","stage_a":"A","0.1":"A","b":"B","stage_b":"B","0.2":"B","c":"C","stage_c":"C","0.3":"C","0.4":"0.4","0.5":"0.5","0.6":"0.6","0.7":"0.7"}
 BUCKETS = {"A":["strict_passed_spec"],"B":["draft_cards","draft_card"],"C":["accepted_fact_safe"],"0.4":["addable_merge_safe"],"0.5":["evidence_complete_and_source_claim_covered"],"0.6":["content_enriched_and_language_polished"],"0.7":["publish_ready"]}
 STAGES = tuple(BUCKETS)

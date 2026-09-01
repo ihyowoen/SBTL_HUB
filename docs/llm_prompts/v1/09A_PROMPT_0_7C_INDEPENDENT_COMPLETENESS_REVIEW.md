@@ -13,7 +13,7 @@ Recheck mandatory regions/topics and zero-coverage structural lenses. Do not for
 
 Before authorizing Prompt 0.8, prepare the exact proposed current-run operation set (`insert`, `update`, `related_add`) **without mutating canonical data** and calculate its stable SHA-256 using the same canonical operation serialization as the card-run engine. The independent reviewer must review that exact operation set, not a later silently changed set.
 
-The formal 0.7C artifact used as `independent_completeness_ref` must contain the machine-required envelope and exact run bindings:
+The formal 0.7C artifact used as `independent_completeness_ref` must contain the machine-required envelope and exact run bindings. Because this workflow explicitly does **not** claim absolute global completeness, the canonical passing state is `PASS_WITH_DECLARED_RESIDUAL_RISK` and `residual_risks[]` must contain at least one concrete residual-risk statement. An empty `residual_risks[]` is inconsistent with that status and is merge-blocking.
 
 ```json
 {
@@ -34,13 +34,15 @@ The formal 0.7C artifact used as `independent_completeness_ref` must contain the
   "must_report_candidates_accounted": true,
   "material_exclusions": [],
   "known_unknowns": [],
-  "residual_risks": [],
+  "residual_risks": [
+    "Absolute global completeness beyond the registry-bound search universe is not claimed."
+  ],
   "reviewer_independence": "SEPARATE_PASS",
   "prompt_0_8_authorized": true
 }
 ```
 
-`status` is the machine stage status. `completeness_status` is the editorial completeness conclusion and must not conflict with `status`.
+`status` is the machine stage status. `completeness_status` is the editorial completeness conclusion and must exactly equal `status`. `PASS_WITH_DECLARED_RESIDUAL_RISK` is valid only when `residual_risks[]` is non-empty and each entry is a concrete non-empty residual-risk statement.
 
 The following bindings must exactly equal the subsequent formal card-run fields:
 
@@ -53,4 +55,4 @@ The following bindings must exactly equal the subsequent formal card-run fields:
 
 If Prompt 0.8 changes any proposed operation after this review, the operation SHA changes and the prior 0.7C authorization becomes stale. Re-run the affected completeness review and emit a newly bound 0.7C artifact before merge preparation may continue.
 
-Absolute global completeness is not claimed. Any unaccounted must-report candidate, mandatory coverage gap, unresolved material exclusion, missing independent pass, binding mismatch, or operation-set drift blocks 0.8.
+Absolute global completeness is not claimed. Any unaccounted must-report candidate, mandatory coverage gap, unresolved material exclusion, missing independent pass, empty/false residual-risk declaration, binding mismatch, or operation-set drift blocks 0.8.

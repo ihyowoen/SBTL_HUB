@@ -106,6 +106,16 @@ PROMPT_04_ROUTE_PASS_BUCKETS = (
     "addable_merge_safe_program_lineage",
 )
 PROMPT_04_OUTCOMES = set(PROMPT_04_ROUTE_PASS_BUCKETS)
+PASS_SOURCE_DIVERSITY = {
+    "PASS_MULTI_SOURCE",
+    "PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION",
+}
+PASS_RELATION_TYPES = {
+    "new_unrelated_event",
+    "distinct_follow_up",
+    "program_lineage",
+}
+FAIL_STATUS_TOKENS = ("BLOCKED", "FAIL", "HOLD", "REJECT", "INVALID", "PENDING")
 
 ITEM_REQUIRED = {
     "A": [
@@ -151,18 +161,20 @@ def item_marker(item):
     return ("value", json.dumps(item, ensure_ascii=False, sort_keys=True))
 
 
+def _bucket_items(payload, bucket):
+    value = payload.get(bucket)
+    if isinstance(value, dict):
+        return [value]
+    if isinstance(value, list):
+        return [item for item in value if isinstance(item, dict)]
+    return []
+
+
 def collect_items(payload, stage):
     items = []
     seen = set()
     for bucket in BUCKETS.get(stage, []):
-        value = payload.get(bucket)
-        if isinstance(value, dict):
-            candidates = [value]
-        elif isinstance(value, list):
-            candidates = [item for item in value if isinstance(item, dict)]
-        else:
-            candidates = []
-        for item in candidates:
+        for item in _bucket_items(payload, bucket):
             marker = item_marker(item)
             if marker in seen:
                 continue
@@ -172,12 +184,7 @@ def collect_items(payload, stage):
 
 
 def bucket_item_count(payload, bucket):
-    value = payload.get(bucket)
-    if isinstance(value, dict):
-        return 1
-    if isinstance(value, list):
-        return sum(1 for item in value if isinstance(item, dict))
-    return 0
+    return len(_bucket_items(payload, bucket))
 
 
 def _pass_marker(value):
@@ -186,6 +193,18 @@ def _pass_marker(value):
     if isinstance(value, dict):
         return value.get("status") == "PASS"
     return False
+
+
+def _explicit_failure(value):
+    return isinstance(value, str) and any(token in value.upper() for token in FAIL_STATUS_TOKENS)
+
+
+def _non_empty_object(value):
+    return isinstance(value, dict) and bool(value)
+
+
+def _non_empty_string(value):
+    return isinstance(value, str) and bool(value.strip())
 
 
 def _top_level_gate_finding(stage, field, value):
@@ -239,6 +258,119 @@ def _top_level_gate_finding(stage, field, value):
     return None
 
 
+def _field_finding(scope, field, expected, actual, message):
+    return {
+        "scope": scope,
+        "field": field,
+        "expected": expected,
+        "actual": actual,
+        "message": message,
+    }
+
+
+def _related_lineage_findings(item, scope):
+    findings = []
+    lineage = item.get("related_lineage")
+    if not _non_empty_object(lineage):
+        return [_field_finding(scope, "related_lineage", "non-empty object with status=PASS", lineage,
+                               "passing downstream item requires a concrete Related lineage decision")]
+    if lineage.get("status") != "PASS":
+        findings.append(_field_finding(scope, "related_lineage.status", "PASS", lineage.get("status"),
+                                       "passing downstream item cannot carry blocked/unresolved Related lineage"))
+    relation_type = lineage.get("relation_type")
+    if relation_type not in PASS_RELATION_TYPES:
+        findings.append(_field_finding(scope, "related_lineage.relation_type", sorted(PASS_RELATION_TYPES), relation_type,
+                                       "passing new-card lineage must use a publishable canonical relation type"))
+    related_ids = lineage.get("related_ids")
+    if not isinstance(related_ids, list) or any(not _non_empty_string(value) for value in related_ids):
+        findings.append(_field_finding(scope, "related_lineage.related_ids", "array of production/candidate IDs", related_ids,
+                                       "Related lineage targets must use an array representation"))
+    elif relation_type == "new_unrelated_event" and related_ids:
+        findings.append(_field_finding(scope, "related_lineage.related_ids", [], related_ids,
+                                       "new_unrelated_event must not carry Related targets"))
+    elif relation_type in {"distinct_follow_up", "program_lineage"} and not related_ids:
+        findings.append(_field_finding(scope, "related_lineage.related_ids", "non-empty predecessor/program target array", related_ids,
+                                       "follow-up/program lineage requires a direct target"))
+    return findings
+
+
+def _item_value_findings(stage, item, scope):
+    findings = []
+    if stage != "A" and not _non_empty_string(item.get("source_spec_id")):
+        findings.append(_field_finding(scope, "source_spec_id", "non-empty string", item.get("source_spec_id"),
+                                       "passing downstream item must preserve candidate identity"))
+
+    if stage in {"B", "C"}:
+        fact_sources = item.get("fact_sources")
+        if not isinstance(fact_sources, list) or not fact_sources or any(not isinstance(row, dict) for row in fact_sources):
+            findings.append(_field_finding(scope, "fact_sources", "non-empty array of source objects", fact_sources,
+                                           "passing evidence/fact-safe item requires body-level evidence records"))
+
+    if stage == "B":
+        review = item.get("related_evidence_review")
+        if not _non_empty_object(review):
+            findings.append(_field_finding(scope, "related_evidence_review", "non-empty object", review,
+                                           "Stage B passing draft requires resolved Related evidence review"))
+        elif _explicit_failure(review.get("status")):
+            findings.append(_field_finding(scope, "related_evidence_review.status", "non-failing resolved status", review.get("status"),
+                                           "Stage B passing draft cannot carry a failing Related review"))
+        if not _non_empty_object(item.get("date_role")):
+            findings.append(_field_finding(scope, "date_role", "non-empty object", item.get("date_role"),
+                                           "Stage B passing draft requires a concrete date-role decision"))
+
+    if stage in {"C", "0.4", "0.5", "0.6", "0.7", "0.8"}:
+        findings.extend(_related_lineage_findings(item, scope))
+
+    if stage in {"C", "0.5", "0.6", "0.7", "0.8"} and not _non_empty_object(item.get("date_role")):
+        findings.append(_field_finding(scope, "date_role", "non-empty object", item.get("date_role"),
+                                       "passing downstream item requires a concrete date-role decision"))
+
+    if stage == "0.4":
+        fingerprint = item.get("event_fingerprint")
+        if not (_non_empty_object(fingerprint) or _non_empty_string(fingerprint)):
+            findings.append(_field_finding(scope, "event_fingerprint", "non-empty object or string", fingerprint,
+                                           "0.4 addability PASS requires a concrete event fingerprint"))
+
+    if stage in {"0.5", "0.6", "0.7", "0.8"}:
+        source_status = item.get("source_diversity_status")
+        if source_status not in PASS_SOURCE_DIVERSITY:
+            findings.append(_field_finding(scope, "source_diversity_status", sorted(PASS_SOURCE_DIVERSITY), source_status,
+                                           "passing downstream bucket cannot carry HOLD/FAIL source-diversity state"))
+
+    if stage == "0.5" and not isinstance(item.get("source_discovery_ledger"), list):
+        findings.append(_field_finding(scope, "source_discovery_ledger", "array", item.get("source_discovery_ledger"),
+                                       "0.5 passing item must preserve the source-discovery ledger"))
+
+    if stage == "0.6":
+        for field in ("content_enriched", "language_terminology_polished"):
+            if item.get(field) is not True:
+                findings.append(_field_finding(scope, field, True, item.get(field),
+                                               "combined 0.6 passing bucket requires both component attestations=true"))
+
+    if stage == "0.7":
+        gates = item.get("final_qc_gates")
+        if not _non_empty_object(gates):
+            findings.append(_field_finding(scope, "final_qc_gates", "non-empty object", gates,
+                                           "publish_ready requires recorded Final-QC gate results"))
+        elif "status" in gates and not _pass_marker(gates.get("status")):
+            findings.append(_field_finding(scope, "final_qc_gates.status", "PASS", gates.get("status"),
+                                           "publish_ready cannot carry a non-passing final_qc_gates status"))
+
+    if stage == "0.8":
+        if not _non_empty_string(item.get("id")):
+            findings.append(_field_finding(scope, "id", "final production ID", item.get("id"),
+                                           "github_merge_ready item requires its final production ID"))
+        merge_prep = item.get("merge_prep")
+        if not _non_empty_object(merge_prep):
+            findings.append(_field_finding(scope, "merge_prep", "non-empty object", merge_prep,
+                                           "github_merge_ready item requires concrete merge-prep results"))
+        elif "status" in merge_prep and not _pass_marker(merge_prep.get("status")):
+            findings.append(_field_finding(scope, "merge_prep.status", "PASS", merge_prep.get("status"),
+                                           "github_merge_ready item cannot carry a failing merge-prep status"))
+
+    return findings
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("stage", choices=sorted(STAGE_TOP_LEVEL))
@@ -262,6 +394,10 @@ def main() -> int:
                 "message": "declared repair/revise or mismatched stage cannot substitute for the requested ordinary stage exit",
             })
 
+    if args.stage == "0.8" and payload.get("status") not in {"PASS", "GITHUB_MERGE_READY"}:
+        findings.append(_field_finding("top_level", "status", ["PASS", "GITHUB_MERGE_READY"], payload.get("status"),
+                                       "0.8 merge-prep artifact must itself be passing"))
+
     for field in STAGE_TOP_LEVEL[args.stage]:
         if field not in payload:
             findings.append({"scope": "top_level", "field": field})
@@ -283,6 +419,7 @@ def main() -> int:
                 "message": "route-specific passing buckets cannot substitute for addable_merge_safe[]",
             })
 
+    accepted_c_markers = {item_marker(item) for item in _bucket_items(payload, "accepted_fact_safe")}
     for index, item in enumerate(items):
         item_id = item.get("id") or item.get("source_spec_id") or item.get("spec_id")
         for field in ITEM_REQUIRED.get(args.stage, []):
@@ -304,6 +441,12 @@ def main() -> int:
                 "field": "addability_outcome",
                 "message": "must be a validator-bound addable_merge_safe route",
             })
+
+        # Stage C artifacts also contain revise/rejected rows. Only
+        # accepted_fact_safe is a passing bucket; every other stage bucket here
+        # is itself the passing bucket consumed by the formal chain.
+        if args.stage != "A" and (args.stage != "C" or item_marker(item) in accepted_c_markers):
+            findings.extend(_item_value_findings(args.stage, item, item_id))
 
     result = {
         "status": "PASS" if not findings else "BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT",

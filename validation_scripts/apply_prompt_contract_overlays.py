@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +20,7 @@ FORBIDDEN_ACTIVE_TOKENS = [
     "_CANONICAL_PROMOTION_ADDENDUM_V1.md",
     "_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md",
 ]
+STATUS_RE = re.compile(r"^\*\*Status:\*\*\s*`?([A-Z_]+)`?\s*$", re.MULTILINE)
 
 
 def active_prompt_paths() -> tuple[list[Path], list[str]]:
@@ -44,8 +46,7 @@ def active_prompt_paths() -> tuple[list[Path], list[str]]:
         if not isinstance(entry, str) or not entry.strip():
             errors.append(f"invalid active prompt registry entry: {entry!r}")
             continue
-        path = ROOT / entry
-        paths.append(path)
+        paths.append(ROOT / entry)
     return paths, errors
 
 
@@ -56,11 +57,13 @@ def check() -> list[str]:
             errors.append(f"missing active prompt: {path.relative_to(ROOT)}")
             continue
         text = path.read_text(encoding="utf-8")
-        head = text[:1200]
-        if "ACTIVE_CANONICAL" not in head:
-            errors.append(f"registered active prompt lacks ACTIVE_CANONICAL header: {path.relative_to(ROOT)}")
-        if "SUPERSEDED" in head or "REFERENCE_ONLY" in head:
-            errors.append(f"retired/reference prompt registered active: {path.relative_to(ROOT)}")
+        match = STATUS_RE.search(text[:1600])
+        if not match:
+            errors.append(f"registered active prompt lacks parseable Status header: {path.relative_to(ROOT)}")
+        elif match.group(1) != "ACTIVE_CANONICAL":
+            errors.append(
+                f"registered active prompt status is {match.group(1)}, not ACTIVE_CANONICAL: {path.relative_to(ROOT)}"
+            )
         for token in FORBIDDEN_ACTIVE_TOKENS:
             if token in text:
                 errors.append(

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "docs" / "llm_prompts" / "v1"
@@ -48,16 +49,28 @@ def need(path: Path, token: str, errors: list[str]) -> None:
         errors.append(f"{path.relative_to(ROOT)} missing token {token!r}")
 
 
+def load_json(path: Path, errors: list[str]) -> Any | None:
+    if not path.exists():
+        errors.append(f"missing {path.relative_to(ROOT)}")
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        errors.append(f"invalid JSON {path.relative_to(ROOT)}: {exc}")
+        return None
+
+
 def main() -> int:
     errors: list[str] = []
-    for path in (REGISTRY, MACHINE_MANIFEST, UPLOAD_MANIFEST, DIRECT_SCHEMA):
-        try:
-            json.loads(path.read_text(encoding="utf-8"))
-        except Exception as exc:
-            errors.append(f"invalid JSON {path.relative_to(ROOT)}: {exc}")
+    parsed = {
+        REGISTRY: load_json(REGISTRY, errors),
+        MACHINE_MANIFEST: load_json(MACHINE_MANIFEST, errors),
+        UPLOAD_MANIFEST: load_json(UPLOAD_MANIFEST, errors),
+        DIRECT_SCHEMA: load_json(DIRECT_SCHEMA, errors),
+    }
 
-    if REGISTRY.exists():
-        reg = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    reg = parsed[REGISTRY]
+    if isinstance(reg, dict):
         if reg.get("active_override_or_addendum_count") != 0:
             errors.append("registry active_override_or_addendum_count must be 0")
         prompts = reg.get("active_named_prompts")
@@ -106,26 +119,26 @@ def main() -> int:
         if "SUPERSEDED" not in head and "REFERENCE_ONLY" not in head:
             errors.append(f"retired governance path not lifecycle-marked: {path.relative_to(ROOT)}")
 
-    # Direct-add checks are semantic, not pinned to a date-stamped document version.
     need(DIRECT_DOC, "# Manual Direct Add V2", errors)
     need(DIRECT_DOC, "Only `manual_direct_add_v2` is accepted", errors)
     need(DIRECT_DOC, "changed_fields[]", errors)
     need(DIRECT_VALIDATOR, "manual_direct_add_v2", errors)
     need(DIRECT_VALIDATOR, "validateUpdateScope", errors)
-    if DIRECT_SCHEMA.exists():
-        schema = json.loads(DIRECT_SCHEMA.read_text(encoding="utf-8"))
+    schema = parsed[DIRECT_SCHEMA]
+    if isinstance(schema, dict):
         if schema.get("properties", {}).get("schema", {}).get("const") != "manual_direct_add_v2":
             errors.append("manual-direct-add.v2 schema const missing")
         update_required = schema.get("$defs", {}).get("updateAttestation", {}).get("required", [])
         if "changed_fields" not in update_required:
             errors.append("manual-direct-add.v2 update attestation must require changed_fields")
 
-    reg = json.loads(REGISTRY.read_text(encoding="utf-8")) if REGISTRY.exists() else {}
-    active_text = "\n".join(
-        (ROOT / rel).read_text(encoding="utf-8")
-        for rel in reg.get("active_named_prompts", [])
-        if (ROOT / rel).exists()
-    )
+    active_text = ""
+    if isinstance(reg, dict):
+        active_text = "\n".join(
+            (ROOT / rel).read_text(encoding="utf-8")
+            for rel in reg.get("active_named_prompts", [])
+            if isinstance(rel, str) and (ROOT / rel).exists()
+        )
     for token in [
         "WORKFLOW_CONTRACT_OVERLAY_",
         "01A_PROMPT_0_1S_Structural_Value_Override.md",

@@ -20,17 +20,22 @@ on:
       - "scripts/validate_legacy_related_lineage_migration.mjs"
       - "scripts/validate_manual_direct_add.mjs"
       - "scripts/validate_manual_direct_add_v4_hardening.mjs"
+      - "scripts/workflow_v4_coverage_axes.mjs"
       - "validation_scripts/card_run_v4_binding_hardening.py"
       - "validation_scripts/stage_artifact_contract_check.py"
       - "validation_scripts/stage_a_v4_contract.py"
       - "validation_scripts/stage_a_v4_hardening.py"
       - "validation_scripts/stage_lineage_contract_check.py"
       - "validation_scripts/stage_lineage_contract_check_v3_compat.py"
+      - "validation_scripts/related_lifecycle_check.py"
+      - "validation_scripts/evidence_qc_v8_check.py"
+      - "validation_scripts/date_role_freshness_check.py"
       - "validation_scripts/stage_a_full_v3_completeness_review4945713246.py"
       - "validation_scripts/stage_lineage_contract_check_review4869324626_base.py"
       - "validation_scripts/v3_stage_contracts.py"
       - "schemas/card-run.v1.schema.json"
       - "schemas/manual-direct-add.v2.schema.json"
+      - "schemas/workflow-v4-coverage-axes.json"
       - ".github/workflows/apply-card-run.yml"
       - ".github/workflows/legacy-related-lineage-migration.yml"
   workflow_dispatch:
@@ -74,6 +79,7 @@ jobs:
           node --check scripts/validate_legacy_related_lineage_migration.mjs
           node --check scripts/validate_manual_direct_add.mjs
           node --check scripts/validate_manual_direct_add_v4_hardening.mjs
+          node --check scripts/workflow_v4_coverage_axes.mjs
           python3 -m py_compile \
             validation_scripts/card_run_v4_binding_hardening.py \
             validation_scripts/stage_artifact_contract_check.py \
@@ -81,11 +87,15 @@ jobs:
             validation_scripts/stage_a_v4_hardening.py \
             validation_scripts/stage_lineage_contract_check.py \
             validation_scripts/stage_lineage_contract_check_v3_compat.py \
+            validation_scripts/related_lifecycle_check.py \
+            validation_scripts/evidence_qc_v8_check.py \
+            validation_scripts/date_role_freshness_check.py \
             validation_scripts/stage_a_full_v3_completeness_review4945713246.py \
             validation_scripts/stage_lineage_contract_check_review4869324626_base.py \
             validation_scripts/v3_stage_contracts.py
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
           node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v2.schema.json", "utf8"))'
+          node -e 'JSON.parse(require("fs").readFileSync("schemas/workflow-v4-coverage-axes.json", "utf8"))'
           node scripts/validate_json_schema_subset.mjs --self-test
           node scripts/apply_card_run_test.mjs
           node scripts/validate_card_run_stage_artifacts.mjs --self-test
@@ -271,6 +281,7 @@ jobs:
           actual_blob="$(git rev-parse "${BASE_SHA}:data/cards.full.json")"
           [[ "$declared_main" == "$BASE_SHA" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED main $BASE_SHA != $declared_main" >&2; exit 1; }
           [[ "$declared_blob" == "$actual_blob" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED blob $actual_blob != $declared_blob" >&2; exit 1; }
+          git show "${BASE_SHA}:data/cards.full.base.json" > /dev/null 2>&1 || true
           git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
           [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
 
@@ -339,6 +350,90 @@ jobs:
           [[ "$declared_blob" == "$actual_blob" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED blob $actual_blob != $declared_blob" >&2; exit 1; }
           git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
           [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
+
+      - name: Enforce post-resolution Prompt 0.8 semantic gate
+        if: steps.run.outputs.has_run == 'true'
+        shell: bash
+        env:
+          RUN_PATH: ${{ steps.run.outputs.path }}
+        run: |
+          set -euo pipefail
+          ID_LEDGER="$RUNNER_TEMP/prompt-0-8-id-ledger.txt"
+          MERGE_PREP_REF="$(
+            node - "$RUN_PATH" "$ID_LEDGER" <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const [runPath, ledgerPath] = process.argv.slice(2);
+          const root = path.resolve('.');
+          const run = JSON.parse(fs.readFileSync(runPath, 'utf8').replace(/^\uFEFF/, ''));
+          const touched = [];
+          for (const op of run.operations?.insert || []) if (typeof op?.card?.id === 'string' && op.card.id.trim()) touched.push(op.card.id.trim());
+          for (const op of run.operations?.update || []) if (typeof op?.id === 'string' && op.id.trim()) touched.push(op.id.trim());
+          for (const op of run.operations?.related_add || []) {
+            for (const patch of op?.patches || []) if (typeof patch?.card_id === 'string' && patch.card_id.trim()) touched.push(patch.card_id.trim());
+          }
+          const ids = [...new Set(touched)];
+          if (!ids.length) {
+            console.error('FAIL: BLOCKED_PROMPT_0_8_EMPTY_ID_LEDGER no inserted/materially-updated production IDs');
+            process.exit(1);
+          }
+          const full = JSON.parse(fs.readFileSync('data/cards.full.json', 'utf8').replace(/^\uFEFF/, ''));
+          if (!Array.isArray(full.cards)) {
+            console.error('FAIL: BLOCKED_PROMPT_0_8_ID_LEDGER candidate canonical full has no cards array');
+            process.exit(1);
+          }
+          for (const id of ids) {
+            const matches = full.cards.filter((card) => card && card.id === id).length;
+            if (matches !== 1) {
+              console.error(`FAIL: BLOCKED_PROMPT_0_8_ID_LEDGER ${id} resolves ${matches} times in candidate canonical full`);
+              process.exit(1);
+            }
+          }
+          fs.writeFileSync(ledgerPath, `${ids.join('\n')}\n`);
+
+          const mergePrep = [];
+          for (const ref of run.audit_refs || []) {
+            if (typeof ref !== 'string' || !ref.trim() || !ref.endsWith('.json')) continue;
+            const absolute = path.resolve(root, ref);
+            if (absolute !== root && !absolute.startsWith(`${root}${path.sep}`)) {
+              console.error(`FAIL: BLOCKED_PROMPT_0_8_ARTIFACT invalid audit ref ${ref}`);
+              process.exit(1);
+            }
+            if (!fs.existsSync(absolute)) continue;
+            let artifact;
+            try { artifact = JSON.parse(fs.readFileSync(absolute, 'utf8').replace(/^\uFEFF/, '')); }
+            catch { continue; }
+            if (artifact?.stage === '0.8') mergePrep.push({ ref, artifact });
+          }
+          if (mergePrep.length !== 1) {
+            console.error(`FAIL: BLOCKED_PROMPT_0_8_ARTIFACT expected exactly one stage=0.8 audit artifact, found ${mergePrep.length}`);
+            process.exit(1);
+          }
+          const selected = mergePrep[0];
+          if (!['GITHUB_MERGE_READY', 'PASS'].includes(selected.artifact.status)) {
+            console.error(`FAIL: BLOCKED_PROMPT_0_8_ARTIFACT non-passing status ${String(selected.artifact.status)}`);
+            process.exit(1);
+          }
+          for (const field of ['run_id', 'base_main_commit_sha', 'base_full_blob_sha']) {
+            if (selected.artifact[field] !== run[field]) {
+              console.error(`FAIL: BLOCKED_PROMPT_0_8_ARTIFACT ${field} is not bound to the card run`);
+              process.exit(1);
+            }
+          }
+          process.stdout.write(selected.ref);
+          NODE
+          )"
+          test -s "$ID_LEDGER"
+          test -n "$MERGE_PREP_REF" && test -f "$MERGE_PREP_REF"
+          python3 validation_scripts/related_lifecycle_check.py \
+            data/cards.full.json --require-contract --new-id-file "$ID_LEDGER"
+          python3 validation_scripts/evidence_qc_v8_check.py \
+            data/cards.full.json --new-id-file "$ID_LEDGER"
+          python3 validation_scripts/date_role_freshness_check.py \
+            data/cards.full.json --require-date-role --new-id-file "$ID_LEDGER"
+          python3 validation_scripts/stage_artifact_contract_check.py \
+            0.8 "$MERGE_PREP_REF"
+          echo "PASS: Prompt 0.8 post-resolution semantic gate; id_ledger=$(wc -l < "$ID_LEDGER") artifact=$MERGE_PREP_REF"
 
       - name: Validate submitted canonical outputs
         if: steps.run.outputs.has_run == 'true'

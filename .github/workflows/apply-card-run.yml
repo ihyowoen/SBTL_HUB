@@ -16,6 +16,7 @@ on:
       - "scripts/validate_card_run_lineage_containers.mjs"
       - "scripts/validate_card_run_audits.mjs"
       - "scripts/validate_card_run_v4_hardening.mjs"
+      - "scripts/validate_json_schema_subset.mjs"
       - "scripts/validate_legacy_related_lineage_migration.mjs"
       - "scripts/validate_manual_direct_add.mjs"
       - "scripts/validate_manual_direct_add_v4_hardening.mjs"
@@ -24,6 +25,10 @@ on:
       - "validation_scripts/stage_a_v4_contract.py"
       - "validation_scripts/stage_a_v4_hardening.py"
       - "validation_scripts/stage_lineage_contract_check.py"
+      - "validation_scripts/stage_lineage_contract_check_v3_compat.py"
+      - "validation_scripts/stage_a_full_v3_completeness_review4945713246.py"
+      - "validation_scripts/stage_lineage_contract_check_review4869324626_base.py"
+      - "validation_scripts/v3_stage_contracts.py"
       - "schemas/card-run.v1.schema.json"
       - "schemas/manual-direct-add.v2.schema.json"
       - ".github/workflows/apply-card-run.yml"
@@ -65,12 +70,23 @@ jobs:
           node --check scripts/validate_card_run_lineage_containers.mjs
           node --check scripts/validate_card_run_audits.mjs
           node --check scripts/validate_card_run_v4_hardening.mjs
+          node --check scripts/validate_json_schema_subset.mjs
           node --check scripts/validate_legacy_related_lineage_migration.mjs
           node --check scripts/validate_manual_direct_add.mjs
           node --check scripts/validate_manual_direct_add_v4_hardening.mjs
-          python3 -m py_compile validation_scripts/card_run_v4_binding_hardening.py validation_scripts/stage_artifact_contract_check.py validation_scripts/stage_a_v4_contract.py validation_scripts/stage_a_v4_hardening.py validation_scripts/stage_lineage_contract_check.py
+          python3 -m py_compile \
+            validation_scripts/card_run_v4_binding_hardening.py \
+            validation_scripts/stage_artifact_contract_check.py \
+            validation_scripts/stage_a_v4_contract.py \
+            validation_scripts/stage_a_v4_hardening.py \
+            validation_scripts/stage_lineage_contract_check.py \
+            validation_scripts/stage_lineage_contract_check_v3_compat.py \
+            validation_scripts/stage_a_full_v3_completeness_review4945713246.py \
+            validation_scripts/stage_lineage_contract_check_review4869324626_base.py \
+            validation_scripts/v3_stage_contracts.py
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
           node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v2.schema.json", "utf8"))'
+          node scripts/validate_json_schema_subset.mjs --self-test
           node scripts/apply_card_run_test.mjs
           node scripts/validate_card_run_stage_artifacts.mjs --self-test
           node scripts/validate_card_run_status_consistency.mjs --self-test
@@ -231,6 +247,9 @@ jobs:
           git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
           [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
 
+          node scripts/validate_json_schema_subset.mjs \
+            --schema schemas/manual-direct-add.v2.schema.json \
+            --instance "$MANIFEST"
           node scripts/validate_manual_direct_add.mjs --manifest "$MANIFEST" --base "$RUNNER_TEMP/cards.full.base.json" --full data/cards.full.json
           node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest "$MANIFEST" --base "$RUNNER_TEMP/cards.full.base.json" --full data/cards.full.json
           node scripts/validate.mjs
@@ -257,6 +276,9 @@ jobs:
         if: steps.run.outputs.has_run == 'true'
         run: |
           set -euo pipefail
+          node scripts/validate_json_schema_subset.mjs \
+            --schema schemas/card-run.v1.schema.json \
+            --instance "${{ steps.run.outputs.path }}"
           node scripts/validate_card_run_stage_artifacts.mjs \
             --run "${{ steps.run.outputs.path }}"
           node scripts/validate_card_run_v4_hardening.mjs \

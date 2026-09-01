@@ -102,7 +102,12 @@ if (process.env.RP_PATH) {
     const mapped=new Set((cov.cells??[]).flatMap(c=>c.items??[]));
     const unmapped=[...ids].filter(x=>!mapped.has(x));
     if (unmapped.length) warn(`coverage 미매핑 항목 ${unmapped.length}개: ${unmapped.slice(0,8).join(', ')}${unmapped.length>8?' …':''}`);
-  } catch(e){ if (process.env.COV_PATH) warn('coverage 로드 실패: '+e.message); }
+  } catch(e){
+    // COV_PATH 를 명시했다는 것은 그 파일을 검사하라는 요청이다 — 파싱 실패를 경고로 흘리면
+    // 손상·삭제된 coverage.json 이 게이트를 통과한다(검사 #13은 원장 미전달 시 건너뛰므로 이중 사각).
+    if (process.env.COV_PATH) err('coverage 로드 실패(COV_PATH 명시됨): '+e.message);
+    else warn('coverage 로드 실패: '+e.message);
+  }
 }
 
 // 10) meta.totalItems ↔ items.length 동기 (앱이 totalItems를 우선 표시)
@@ -144,6 +149,74 @@ if (process.env.RP_PATH) {
       if (typeof e.title!=='string') warn(`region_policy ${rg}: title 없음 — 카드 헤더 빈칸`);
     }
   } catch(e){ warn('region_policy 스키마 검사 실패: '+e.message); }
+}
+
+// 13) coverage.lastSwept ↔ 원장 스윕 근거 대조 (스윕 위장 차단)
+//     lastSwept 를 run 날짜로 찍었는데 그 run 원장에 해당 (region, axis) 근거가 없으면 ERROR.
+//     근거 인정 경로 — ① searches[].axis + region 일치  ② searches[]/primaryDocs[].itemsCovered 가 그 셀 items 에 포함.
+//     gap/na 셀은 items 가 비어 있어 ②로는 근거를 댈 수 없다: 무산출 스윕은 searches[].axis 를 반드시 적어야 한다.
+//     도입 계기(2026-08-31) — RD-3 에서 subsidy 6셀 전부에 lastSwept 를 찍었으나 실검색은 1권역뿐이었고,
+//     원장 searches 와 coverage.lastSwept 가 서로 대조되지 않아 기존 게이트를 전부 통과했다.
+if (runPath) {
+  try {
+    const run2 = JSON.parse(readFileSync(runPath,'utf8'));
+    const cov2 = JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8'));
+    const rd2 = run2.date;
+    // 도입 시점 임계 — 이전 원장은 searches[].axis 스키마가 없어 gap/na 셀 근거를 남길 방법이 없었다.
+    // 소급 적용하면 고칠 수 없는 과거 데이터로 ERROR가 나고 그 원장을 손대는 PR이 전부 막힌다.
+    // 임계는 날짜이므로 앞으로만 움직이고 우회되지 않는다.
+    const SWEEP_FROM = '2026-08-31';
+    if (!rd2 || rd2 < SWEEP_FROM) {
+      warn(`스윕 근거 대조 건너뜀 — 원장 날짜(${rd2 ?? '없음'})가 검사 도입일(${SWEEP_FROM}) 이전. searches[].axis 스키마 부재로 소급 검증 불가`);
+    } else {
+    const i2c = new Map();
+    for (const c of cov2.cells ?? []) for (const x of c.items ?? []) {
+      if (!i2c.has(x)) i2c.set(x, []);
+      i2c.get(x).push(`${c.region}/${c.axis}`);
+    }
+    const ev = new Set();
+    for (const s of run2.searches ?? []) {
+      // 축을 명시한 검색은 **그 (region, axis) 만** 근거가 된다.
+      // itemsCovered 로 파생시키면 다중 셀 소속 항목이 다른 축까지 근거를 만들어(예: NA-027 은
+      // NA/trade·NA/subsidy 양쪽 소속) 무근거 lastSwept 전진을 다시 허용한다 — 이 검사가 막으려던 바로 그것.
+      if (s.region && s.axis) { ev.add(`${s.region}/${s.axis}`); continue; }
+      for (const x of s.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+    }
+    for (const p of run2.primaryDocs ?? [])
+      for (const x of p.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+    let stamped = 0, missing = 0;
+    for (const c of cov2.cells ?? []) {
+      if (c.lastSwept !== rd2) continue;
+      stamped++;
+      const k = `${c.region}/${c.axis}`;
+      if (!ev.has(k)) {
+        missing++;
+        err(`coverage ${k}: lastSwept=${rd2} 인데 원장(${run2.runId})에 스윕 근거 없음 — 검색을 돌리지 않고 스윕 표기만 전진했거나, 무산출 스윕에 searches[].axis 가 없다`);
+      }
+    }
+    if (stamped && !missing) console.log(`INFO : 스윕 근거 대조 — lastSwept=${rd2} 셀 ${stamped}개 전부 원장 근거 확인`);
+    }
+  } catch(e){ warn('스윕 근거 대조 실패: '+e.message); }
+}
+
+
+// 14) 노출 필드 마크다운 파손 (ERROR)
+//     d·tip·detail 은 App.jsx 가 사용자에게 직접 렌더한다. 볼드 마커가 홀수 개면 강조가 문장 끝까지
+//     번지고, 별표 3개 이상은 그대로 출력되며, 내부 필드명 잔재(…ckNote)는 편집 사고의 흔적이다.
+//     도입 계기(2026-08-31): 감사화법을 정규식 substring 삭제로 지우다 4개 항목의 tip 문장이 깨졌고
+//     Codex 리뷰가 지적할 때까지 사용자 화면에 렌더되고 있었다.
+for (const i of items) for (const f of ['d','tip','detail']) {
+  const v = i[f]; if (typeof v !== 'string' || !v) continue;
+  const stars = v.match(/[*]{3,}/g);
+  if (stars) err(`${i.id}.${f}: 별표 3개 이상 ${stars.length}건 — 마크다운 파손이 사용자 화면에 렌더됨`);
+  const bolds = v.match(/[*][*]/g);
+  if (bolds && bolds.length % 2) err(`${i.id}.${f}: 볼드 마커 홀수 개(${bolds.length}) — 강조가 문장 끝까지 번짐`);
+  if (/[가-힣]ckNote/.test(v)) err(`${i.id}.${f}: 내부 필드명 잔재(…ckNote) — 편집 사고 흔적`);
+  // 의미 파편 — 마커 짝은 맞아도 문장 앞이 잘리면 조사·어미로 시작한다.
+  // 마커 기반 검사로는 잡히지 않아 Codex 6차에서 JP-004 tip 이 이 형태로 남아 있었다.
+  const head = v.replace(/^[*\s]+/, '');
+  if (/^(짜리|이며|하고|으로써|에서는|에게는|보다는|까지는|부터는|라는|이라는|되며|되고|인데|지만|면서)/.test(head))
+    err(`${i.id}.${f}: 조사·어미로 시작 — 문장 앞이 잘린 의미 파편("${head.slice(0,24)}…")`);
 }
 
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);

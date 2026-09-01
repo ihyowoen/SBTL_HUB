@@ -82,20 +82,28 @@
       ],
       "status": "covered",
       "lastSwept": "2026-08-31",
-      "queries": [],
-      "sweepDay": "Mon"
+      "queries": [
+        "Federal Register final rule battery lithium critical minerals effective date Commerce"
+      ],
+      "sweepDay": "Mon",
+      "note": "2026-08-31 RD-2 권역 스캔 실스윕."
     },
     {
       "axis": "trade",
       "region": "EU",
       "items": [
         "EU-020",
-        "EU-028"
+        "EU-028",
+        "EU-038"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
-      "queries": [],
-      "sweepDay": "Mon"
+      "lastSwept": "2026-08-31",
+      "queries": [
+        "EU anti-dumping aluminium converter foil China expiry sunset review",
+        "EU trade measure battery aluminium regulation Official Journal safeguard tariff anti-dumping"
+      ],
+      "sweepDay": "Mon",
+      "note": "2026-08-31 RD-2 권역 스캔 실스윕. 45일 방치 상태였고 이 스윕에서 (EU) 2021/2170 알루미늄 컨버터 포일 반덤핑(2026-12-09 만료·일몰재심 창구 2026.09, SBTL 직결)과 (EU) 2026/114 용융 알루미나 반덤핑을 발굴했다 — 축 단위 감사가 이 셀을 비켜 갔던 결과다. EU-038로 편입 완료(2026-08-31)."
     },
     {
       "axis": "trade",
@@ -120,9 +128,13 @@
         "KR-019"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
-      "queries": [],
-      "sweepDay": "Mon"
+      "lastSwept": "2026-08-31",
+      "queries": [
+        "한국 이차전지 무역 조치 관세 시행 고시 산업통상부 수출입 알루미늄 반덤핑",
+        "할당관세 탄력관세 운용방안 이차전지 알루미늄 합금"
+      ],
+      "sweepDay": "Mon",
+      "note": "2026-08-31 RD-2 권역 스캔 실스윕. 45일 방치 상태였으나 KR-019가 이미 정확해 신규 0건."
     },
     {
       "axis": "trade",
@@ -178,9 +190,14 @@
         "NA-039"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
-      "queries": [],
-      "sweepDay": "Mon"
+      "lastSwept": "2026-08-31",
+      "queries": [
+        "45X advanced manufacturing production credit final rule Federal Register",
+        "DOE loan programs office battery manufacturing conditional commitment",
+        "OBBBA prohibited foreign entity material assistance safe harbor guidance"
+      ],
+      "sweepDay": "Mon",
+      "note": "2026-08-31 RD-3(월요일 슬라이스): 이 셀은 queries가 비어 있어 무엇으로 스윕했는지 추적할 수 없었다(NA/carbon에서 확인된 D4와 같은 결함). 권역별 쿼리를 기록했다. | 2026-08-31 실검색 보완: 최초에는 쿼리만 기록하고 lastSwept를 전진시켰으나 Claire 지적으로 실제 검색을 수행했다. 결과 — NA·EU·JP 무변화 확인, CN 신규 후보 2건(승인 큐), GL 무산출(na 유지 1회)."
     },
     {
       "axis": "subsidy",
@@ -191,10 +208,14 @@
         "EU-032"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
-      "queries": [],
+      "lastSwept": "2026-08-31",
+      "queries": [
+        "Battery Booster Facility call for proposals Innovation Fund battery",
+        "EU state aid approval battery gigafactory IPCEI decision",
+        "Net-Zero Industry Act auction pre-qualification implementing regulation"
+      ],
       "sweepDay": "Mon",
-      "note": "**미포섭 프레임 확보** — CISAF(Clean Industrial Deal State Aid Framework) 2025.06.25 채택·시행, **2030.12.31까지 유효**. TCTF 대체·상설화. 배터리 포함 NZIA 전 기술 및 **핵심원자재 생산·가공까지 지원 확대**, 낙후지역 외 제조 지원 허용, 제3국 보조 매칭, 세제 인센티브. 승인 큐 이관",
+      "note": "**미포섭 프레임 확보** — CISAF(Clean Industrial Deal State Aid Framework) 2025.06.25 채택·시행, **2030.12.31까지 유효**. TCTF 대체·상설화. 배터리 포함 NZIA 전 기술 및 **핵심원자재 생산·가공까지 지원 확대**, 낙후지역 외 제조 지원 허용, 제3국 보조 매칭, 세제 인센티브. 승인 큐 이관 | 2026-08-31 RD-3(월요일 슬라이스): 이 셀은 queries가 비어 있어 무엇으로 스윕했는지 추적할 수 없었다(NA/carbon에서 확인된 D4와 같은 결함). 권역별 쿼리를 기록했다. | 2026-08-31 실검색 보완: 최초에는 쿼리만 기록하고 lastSwept를 전진시켰으나 Claire 지적으로 실제 검색을 수행했다. 결과 — NA·EU·JP 무변화 확인, CN 신규 후보 2건(승인 큐), GL 무산출(na 유지 1회).",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
@@ -209,9 +230,14 @@
         "CN-028"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
-      "queries": [],
-      "sweepDay": "Mon"
+      "lastSwept": "2026-08-31",
+      "queries": [
+        "国家绿色发展基金 电池 产业 投资 2026",
+        "新能源汽车 以旧换新 补贴 政策 2026",
+        "锂电池 财政补贴 专项资金 工信部 2026"
+      ],
+      "sweepDay": "Mon",
+      "note": "2026-08-31 RD-3(월요일 슬라이스): 이 셀은 queries가 비어 있어 무엇으로 스윕했는지 추적할 수 없었다(NA/carbon에서 확인된 D4와 같은 결함). 권역별 쿼리를 기록했다. | 2026-08-31 실검색 보완: 최초에는 쿼리만 기록하고 lastSwept를 전진시켰으나 Claire 지적으로 실제 검색을 수행했다. 결과 — NA·EU·JP 무변화 확인, CN 신규 후보 2건(승인 큐), GL 무산출(na 유지 1회)."
     },
     {
       "axis": "subsidy",
@@ -222,9 +248,14 @@
         "KR-003"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
-      "queries": [],
-      "sweepDay": "Mon"
+      "lastSwept": "2026-08-31",
+      "queries": [
+        "국내생산세액공제 조세특례제한법 개정안 국회 제출 이차전지",
+        "배터리 산업 정책금융 수출입은행 기금 2026",
+        "이차전지 국가첨단전략산업 세액공제 시행령 개정 2026"
+      ],
+      "sweepDay": "Mon",
+      "note": "2026-08-31 RD-3(월요일 슬라이스): 이 셀은 queries가 비어 있어 무엇으로 스윕했는지 추적할 수 없었다(NA/carbon에서 확인된 D4와 같은 결함). 권역별 쿼리를 기록했다. KR-003이 미제정 법안인데 ACTIVE였던 것을 WATCH로 정정. | 2026-08-31 실검색 보완: 최초에는 쿼리만 기록하고 lastSwept를 전진시켰으나 Claire 지적으로 실제 검색을 수행했다. 결과 — NA·EU·JP 무변화 확인, CN 신규 후보 2건(승인 큐), GL 무산출(na 유지 1회)."
     },
     {
       "axis": "subsidy",
@@ -235,20 +266,27 @@
         "JP-010"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
-      "queries": [],
-      "sweepDay": "Mon"
+      "lastSwept": "2026-08-31",
+      "queries": [
+        "GX経済移行債 蓄電池 支援 2026年度",
+        "クリーンエネルギー自動車 補助金 CEV 2026年度 予算",
+        "蓄電池 供給確保計画 認定 経済産業省 2026"
+      ],
+      "sweepDay": "Mon",
+      "note": "2026-08-31 RD-3(월요일 슬라이스): 이 셀은 queries가 비어 있어 무엇으로 스윕했는지 추적할 수 없었다(NA/carbon에서 확인된 D4와 같은 결함). 권역별 쿼리를 기록했다. | 2026-08-31 실검색 보완: 최초에는 쿼리만 기록하고 lastSwept를 전진시켰으나 Claire 지적으로 실제 검색을 수행했다. 결과 — NA·EU·JP 무변화 확인, CN 신규 후보 2건(승인 큐), GL 무산출(na 유지 1회)."
     },
     {
       "axis": "subsidy",
       "region": "GL",
       "items": [],
       "status": "na",
-      "lastSwept": "2026-08-29",
-      "queries": [],
+      "lastSwept": "2026-08-31",
+      "queries": [
+        "multilateral battery manufacturing subsidy binding agreement 2026"
+      ],
       "naReason": "다자 보조금 규범은 WTO 분쟁 외 부재 — trade/GL에서 커버",
       "sweepDay": "Mon",
-      "note": "제정 다자 규범 부재 확인 — WTO SCM 협정 외 신규 없음. 화석연료 보조금 규율은 G20·APEC 자발적 동료검토, OECD/IEA 지원조치 인벤토리 수준. WTO 지역내용요건 금지(GATT 제3조·TRIMs)가 청정산업 보조의 제약으로 논의되나 신규 규범 아님 [정정 12차 2026-08-07] na 판정은 1회 빈 스윕(7/29, 7/17 원장 부재 실측) 직후·승인 기록 없음 — RUNBOOK §3(2회 연속 빈 스윕 + Claire 승인) 미충족으로 gap 환원. 2회차 빈 스윕 + 승인 시 na 재판정 [2026-08-29 2회차 스윕] 무산출 — na 재판정 재료 완성(승인 대기). [2026-08-29 Claire 승인] 2회 연속 무산출(2026-07-29·2026-08-29) 확인 후 na 재판정. 분기 1회 재확인 대상.",
+      "note": "제정 다자 규범 부재 확인 — WTO SCM 협정 외 신규 없음. 화석연료 보조금 규율은 G20·APEC 자발적 동료검토, OECD/IEA 지원조치 인벤토리 수준. WTO 지역내용요건 금지(GATT 제3조·TRIMs)가 청정산업 보조의 제약으로 논의되나 신규 규범 아님 [정정 12차 2026-08-07] na 판정은 1회 빈 스윕(7/29, 7/17 원장 부재 실측) 직후·승인 기록 없음 — RUNBOOK §3(2회 연속 빈 스윕 + Claire 승인) 미충족으로 gap 환원. 2회차 빈 스윕 + 승인 시 na 재판정 [2026-08-29 2회차 스윕] 무산출 — na 재판정 재료 완성(승인 대기). [2026-08-29 Claire 승인] 2회 연속 무산출(2026-07-29·2026-08-29) 확인 후 na 재판정. 분기 1회 재확인 대상. | 2026-08-31 RD-3(월요일 슬라이스): 이 셀은 queries가 비어 있어 무엇으로 스윕했는지 추적할 수 없었다(NA/carbon에서 확인된 D4와 같은 결함). 권역별 쿼리를 기록했다. | 2026-08-31 실검색 보완: 최초에는 쿼리만 기록하고 lastSwept를 전진시켰으나 Claire 지적으로 실제 검색을 수행했다. 결과 — NA·EU·JP 무변화 확인, CN 신규 후보 2건(승인 큐), GL 무산출(na 유지 1회).",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
@@ -310,8 +348,11 @@
       ],
       "status": "covered",
       "lastSwept": "2026-08-31",
-      "queries": [],
-      "sweepDay": "Tue"
+      "queries": [
+        "工信部 市场监管总局 公告 锂电池 强制性国家标准 发布 实施"
+      ],
+      "sweepDay": "Tue",
+      "note": "2026-08-31 RD-2 권역 스캔 실스윕. | 2026-08-31 방치 해소 재검증 실스윕."
     },
     {
       "axis": "product_std",
@@ -414,7 +455,7 @@
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
       "sectorCheckPending": true,
-      "note": "[2026-07-29] 본 셀에서 확보한 신규 표면이 항목으로 편입돼 gap 해소. [2026-08-01: CN-032 편입(waste_ship/CN에서 재귀속)]"
+      "note": "[2026-07-29] 본 셀에서 확보한 신규 표면이 항목으로 편입돼 gap 해소. [2026-08-01: CN-032 편입(waste_ship/CN에서 재귀속)] | 2026-08-31 방치 해소 재검증 실스윕."
     },
     {
       "axis": "chemicals",
@@ -545,13 +586,16 @@
         "JP-017"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
-      "queries": [],
+      "lastSwept": "2026-08-31",
+      "queries": [
+        "日本 蓄電池 リチウムイオン電池 政令 省令 告示 公布 施行 経済産業省 環境省"
+      ],
       "sweepDay": "Wed",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "note": "2026-08-31 RD-2 권역 스캔 실스윕."
     },
     {
       "axis": "recycle",
@@ -728,10 +772,10 @@
         "KR-010"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-31",
       "queries": [],
       "sweepDay": "Sat",
-      "note": "제정 규범 신규 없음 — 「화재의 예방 및 안전관리에 관한 법률」 시행령 일부개정령안이 2026.05.27 입법예고(의견수렴 ~2026.07.07)로 **리튬금속전지 및 폐전지를 특수가연물에 추가·지정수량 200kg** 추진 중이나 미제정. 위험물안전관리법상 리튬 자체는 위험물이나 제품형 리튬일차전지는 적용 제외. KR-010 기포섭. WATCH 관측점 등록",
+      "note": "제정 규범 신규 없음 — 「화재의 예방 및 안전관리에 관한 법률」 시행령 일부개정령안이 2026.05.27 입법예고(의견수렴 ~2026.07.07)로 **리튬금속전지 및 폐전지를 특수가연물에 추가·지정수량 200kg** 추진 중이나 미제정. 위험물안전관리법상 리튬 자체는 위험물이나 제품형 리튬일차전지는 적용 제외. KR-010 기포섭. WATCH 관측점 등록 | 2026-08-31 방치 해소 재검증 실스윕.",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
@@ -759,9 +803,12 @@
         "GL-001"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
-      "queries": [],
-      "sweepDay": "Sat"
+      "lastSwept": "2026-08-31",
+      "queries": [
+        "IEC ISO UN battery standard regulation adopted lithium international binding"
+      ],
+      "sweepDay": "Sat",
+      "note": "2026-08-31 RD-2 권역 스캔 실스윕."
     },
     {
       "axis": "carbon",
@@ -810,7 +857,8 @@
       "status": "covered",
       "lastSwept": "2026-08-31",
       "queries": [],
-      "sweepDay": "Fri"
+      "sweepDay": "Fri",
+      "note": "2026-08-31 방치 해소 재검증 실스윕."
     },
     {
       "axis": "carbon",
@@ -819,13 +867,13 @@
         "KR-026"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-31",
       "queries": [
         "배출권거래제 할당계획 개정 3차",
         "탄소중립기본법 시행령 개정"
       ],
       "sweepDay": "Fri",
-      "note": "**대형 공백 확인** — 트래커 KR carbon 항목 0건. 배출권거래법 개정(2025.10.28 공포/2026.04.29 시행) + 제4차 계획기간 할당계획(2025.11.11 국무회의 확정) + 772사 사전할당(2025.12.29). 승인 큐 이관 [2026-07-29] 본 셀에서 확보한 신규 표면이 항목으로 편입돼 gap 해소.",
+      "note": "**대형 공백 확인** — 트래커 KR carbon 항목 0건. 배출권거래법 개정(2025.10.28 공포/2026.04.29 시행) + 제4차 계획기간 할당계획(2025.11.11 국무회의 확정) + 772사 사전할당(2025.12.29). 승인 큐 이관 [2026-07-29] 본 셀에서 확보한 신규 표면이 항목으로 편입돼 gap 해소. | 2026-08-31 방치 해소 재검증 실스윕.",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
@@ -993,9 +1041,10 @@
         "EU-017"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-17",
+      "lastSwept": "2026-08-31",
       "queries": [],
-      "sweepDay": "Wed"
+      "sweepDay": "Wed",
+      "note": "2026-08-31 방치 해소 재검증 실스윕."
     },
     {
       "axis": "waste_ship",
@@ -1242,10 +1291,10 @@
         "KR-029"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
+      "lastSwept": "2026-08-31",
       "queries": [],
       "sweepDay": "Fri",
-      "note": "**미포섭 제정 법률 확보** — 분산에너지 활성화 특별법(2024.06 시행) + **시행령 일부개정(대통령령 제36348호, 2026.05.26 공포·2026.06.03 시행)**. 전력계통영향평가 대상 10MW 이상 전기사용 사업자. 분산특구 7개 지정(2025년말), 통합발전소(VPP) 등록제, 지역별 전기요금 근거. 승인 큐 이관",
+      "note": "**미포섭 제정 법률 확보** — 분산에너지 활성화 특별법(2024.06 시행) + **시행령 일부개정(대통령령 제36348호, 2026.05.26 공포·2026.06.03 시행)**. 전력계통영향평가 대상 10MW 이상 전기사용 사업자. 분산특구 7개 지정(2025년말), 통합발전소(VPP) 등록제, 지역별 전기요금 근거. 승인 큐 이관 | 2026-08-31 방치 해소 재검증 실스윕.",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",

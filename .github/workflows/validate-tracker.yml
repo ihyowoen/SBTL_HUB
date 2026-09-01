@@ -4,6 +4,11 @@ name: validate-tracker
 # (dup id, bad status/region, banned emoji, dangling canonicalId, broken JSON).
 # Migration WARNINGs (missing effectiveDate / instrumentType / accessedDate) do NOT block.
 #
+# validate2.mjs 게이트: v2 검사(verify↔원장 대조·coverage↔트래커 ID 동기·meta.totalItems·
+# dt D-day 스테일·region_policy 스키마·스윕 근거 대조)를 CI에서 강제한다. 종전에는 수동
+# 실행 전용이라 사람이 잊으면 무검사 통과였다. ops/** 를 paths 에 넣어 원장·coverage 변경도
+# CI를 트리거한다.
+#
 # cards.json 게이트(validate_cards.mjs): 카드 PR이 무검사로 머지되던 위장 통과를
 # 차단한다 — 파싱·크기 하한·수량 감소·중복 id·필수 필드·깨진 related(신규 무관용,
 # 레거시 동결)·id접두↔date. fetch-depth 0은 origin/main 기준본 비교(수량 감소·신규
@@ -13,6 +18,7 @@ on:
   pull_request:
     paths:
       - "public/data/**"
+      - "ops/**"
       - "data/cards.full.json"
       - "direct-adds/**/direct-add.json"
       - "scripts/validate.mjs"
@@ -23,6 +29,7 @@ on:
     branches: [main]
     paths:
       - "public/data/**"
+      - "ops/**"
       - "data/cards.full.json"
       - "scripts/validate.mjs"
       - "scripts/validate_cards.mjs"
@@ -59,6 +66,62 @@ jobs:
           echo "allow_delete=$allow_delete" >> "$GITHUB_OUTPUT"
       - name: Validate tracker data
         run: node scripts/validate.mjs
+      # v2 게이트 — 운영 규약은 validate.mjs 와 validate2.mjs 둘 다 ERROR 0을 요구하지만
+      # 지금까지 CI가 v2를 돌리지 않아 수동 실행에 의존했다(사람이 잊으면 무검사 통과).
+      # PR이 원장(ops/runs/*.json)을 건드리면 그중 date 가 가장 최신인 원장을 넘긴다 —
+      # 원장을 넘겨야 verify↔원장 대조(#6)와 스윕 근거 대조(#13)가 작동한다.
+      # v2 게이트 — 운영 규약은 validate.mjs 와 validate2.mjs 둘 다 ERROR 0을 요구하지만
+      # 지금까지 CI가 v2를 돌리지 않아 수동 실행에 의존했다(사람이 잊으면 무검사 통과).
+      # 원장을 넘겨야 검사 #6(verify↔원장)과 #13(스윕 근거)이 작동하므로:
+      #   · 변경된 ops/runs/*.json 이 있으면 **전부** 각각 검증한다. 최신 하나만 고르면
+      #     나머지 원장 날짜에 걸린 스탬프가 영영 검사되지 않는다(#6·#13은 run.date 로 대조).
+      #   · 원장이 없는데 tracker 의 verify/lastChecked 나 coverage 의 lastSwept 가 바뀌었다면
+      #     실패시킨다. 그 조합은 검사 #6·#13을 끈 채 근거 없는 스탬프를 머지시키는 경로다.
+      - name: Validate tracker data (v2)
+        shell: bash
+        env:
+          RP_PATH: public/data/region_policy.json
+          COV_PATH: ops/coverage.json
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+          changed=()
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
+            mapfile -t changed < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)ops/runs/*.json' || true)
+          fi
+          ledgers=()
+          for f in ${changed[@]+"${changed[@]}"}; do
+            [[ -f "$f" ]] && ledgers+=("$f")
+          done
+          if [[ ${#ledgers[@]} -gt 0 ]]; then
+            for L in "${ledgers[@]}"; do
+              echo "::group::validate2 — 원장 대조: $L"
+              node ops/validate2.mjs public/data/tracker_data.json "$L"
+              echo "::endgroup::"
+            done
+          else
+            if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+              bad=0
+              if git diff -U0 "origin/$BASE_REF...HEAD" -- public/data/tracker_data.json \
+                   | grep -E '^\+.*"(verify|lastChecked)"' >/dev/null 2>&1; then
+                echo "FAIL: tracker 의 verify/lastChecked 가 변경됐는데 ops/runs/*.json 원장이 없다." >&2
+                bad=1
+              fi
+              if git diff -U0 "origin/$BASE_REF...HEAD" -- ops/coverage.json \
+                   | grep -E '^\+.*"lastSwept"' >/dev/null 2>&1; then
+                echo "FAIL: coverage 의 lastSwept 가 전진했는데 ops/runs/*.json 원장이 없다." >&2
+                bad=1
+              fi
+              if [[ $bad -eq 1 ]]; then
+                echo "      원장이 없으면 검사 #6·#13이 꺼져 근거 없는 검증·스윕 표기가 통과한다." >&2
+                echo "      해당 run 의 원장을 같은 PR 에 착지시킬 것(F13)." >&2
+                exit 1
+              fi
+            fi
+            echo "validate2 — 원장·스탬프 변경 없음, 구조 검사만"
+            node ops/validate2.mjs public/data/tracker_data.json
+          fi
       - name: Validate cards data
         env:
           CARDS_ALLOW_DELETE: ${{ steps.direct_add.outputs.allow_delete || '0' }}

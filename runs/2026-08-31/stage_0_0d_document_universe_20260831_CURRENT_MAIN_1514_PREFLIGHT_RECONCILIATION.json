@@ -45,6 +45,7 @@
       "classification": "UNCLASSIFIED_CURRENT_RUN",
       "authority": "NOT_FINALIZED_CURRENT_RUN",
       "applicability": "NOT_FINALIZED_CURRENT_RUN",
+      "content_identity_status": "ITEM_LEVEL_PATH_SHA_LEDGER_MISSING",
       "application_status": "NOT_AUTHORIZING",
       "note": "This synthetic scope row is not a substitute for the required 88 item-level document ledger. A genuine rerun must enumerate every discovered docs/** path and SHA."
     }
@@ -139,7 +140,16 @@
       "detail": "Referenced as the 88-document cache source, but a repository-wide search did not recover this manifest. Its per-document path/SHA/classification/authority/dependency ledger is therefore not reproducible from the PR."
     }
   ],
-  "missing_content_identity_documents": [],
+  "missing_content_identity_documents": [
+    {
+      "scope": "docs/**",
+      "expected_document_count": 88,
+      "direct_reread_identity_records_outside_documents_ledger": 7,
+      "item_level_path_sha_rows_in_documents_ledger": 0,
+      "missing_item_level_identity_rows": 88,
+      "detail": "The current-run `documents[]` ledger contains only a synthetic scope row and therefore does not provide the required per-document path/SHA identity for any of the 88 discovered docs/** files. Seven direct rereads carry blob SHAs outside that ledger, but they do not cure the missing 88-row document identity ledger."
+    }
+  ],
   "unclassified_documents": [
     {
       "scope": "docs/**",
@@ -158,21 +168,77 @@
     }
   ],
   "unread_active_documents": [
-    {
-      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
-      "git_blob_sha": "1a130ab35ce9cf73e7152b33a956634214a0eb6e",
-      "reason": "Open remediation manifest exists at the locked repository state but was not part of the seven current-run full rereads."
-    },
-    {
-      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md",
-      "git_blob_sha": "5d16a73041abdb74e800abc6e6f1e03c697f67f0",
-      "reason": "Companion open remediation document exists at the locked repository state but was not part of the seven current-run full rereads."
-    }
+    {"path":"docs/CARD_ID_STANDARD.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/FACT_DISCIPLINE.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/OPERATIONS.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/PROMPT_ABC_DEFAULT_MODE.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/PROMPT_ABC_SUPPORTING_RULES.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/WORKFLOW.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/RELATED_LIFECYCLE_CONTRACT.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/SOURCE_AUDIT_CONTRACT.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/CARD_INCREMENTAL_RUN_CONTRACT.md","registration_source":"UPLOAD_MANIFEST.governance_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md","registration_source":"UPLOAD_MANIFEST.stage_prompts","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md","registration_source":"UPLOAD_MANIFEST.integrity_overrides","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json","registration_source":"UPLOAD_MANIFEST.integrity_overrides","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A_HARDENING_ADDENDUM_V1.md","registration_source":"UPLOAD_MANIFEST.integrity_overrides","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC_HARDENING_ADDENDUM_V1.md","registration_source":"UPLOAD_MANIFEST.integrity_overrides","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish_HARDENING_ADDENDUM_V1.md","registration_source":"UPLOAD_MANIFEST.integrity_overrides","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC_HARDENING_ADDENDUM_V1.md","registration_source":"UPLOAD_MANIFEST.integrity_overrides","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep_HARDENING_ADDENDUM_V1.md","registration_source":"UPLOAD_MANIFEST.integrity_overrides","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md","registration_source":"UPLOAD_MANIFEST.integrity_overrides","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md","registration_source":"UPLOAD_MANIFEST.integrity_overrides","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json","registration_source":"UPLOAD_MANIFEST.integrity_overrides","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/01_PROMPT_0_1_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md","registration_source":"UPLOAD_MANIFEST.dynamic_governance_stage_addenda","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md","registration_source":"UPLOAD_MANIFEST.dynamic_governance_stage_addenda","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md","registration_source":"UPLOAD_MANIFEST.dynamic_governance_stage_addenda","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/legacy/10_PROMPT_0_8_GitHub_Merge_Prep_LEGACY_BODY.md","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/README_LLM_PROMPT_GITHUB_CANONICAL_V1.md","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/SOURCE_DIVERSITY_V10_MASTER_RULE.md","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/SOURCE_DIVERSITY_V1_IB_CODEX_20260708_MASTER_RULE.md","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/UPLOAD_INSTRUCTIONS.md","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/UPLOAD_MANIFEST.json","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/llm_prompts/v1/entity_alias_map.json","registration_source":"UPLOAD_MANIFEST.package_docs","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/WORKFLOW_GAP_REMEDIATION_20260723.md","git_blob_sha":"c378a6b3deec6c4ec05828dd5510370c075687f7","registration_source":"UPLOAD_MANIFEST.open_remediations","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json","git_blob_sha":"1a130ab35ce9cf73e7152b33a956634214a0eb6e","registration_source":"UPLOAD_MANIFEST.open_remediations","read_status":"NOT_READ_CURRENT_RUN"},
+    {"path":"docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md","git_blob_sha":"5d16a73041abdb74e800abc6e6f1e03c697f67f0","registration_source":"UPLOAD_MANIFEST.open_remediations","read_status":"NOT_READ_CURRENT_RUN"}
   ],
+  "unread_active_documents_summary": {
+    "known_registered_active_paths_not_in_direct_rereads": 55,
+    "registration_basis": "docs/llm_prompts/v1/UPLOAD_MANIFEST.json at locked repository head, cross-checked with PROMPT_MANIFEST.md and mandatory override manifests",
+    "note": "This is a known-active repair set, not the complete 88-document universe. The remaining docs/** files still require fresh read/parse and classification during the genuine Stage 0.0D rerun."
+  },
   "unresolved_dependencies": [],
   "unresolved_rule_conflicts": [],
   "misapplied_non_authoritative_documents": [],
   "unchecked_open_remediations": [
+    {
+      "path": "docs/WORKFLOW_GAP_REMEDIATION_20260723.md",
+      "git_blob_sha": "c378a6b3deec6c4ec05828dd5510370c075687f7",
+      "check_status": "NOT_CHECKED_CURRENT_RUN",
+      "detail": "UPLOAD_MANIFEST registers this as an open remediation. It was not part of the seven current-run full rereads and was not reconciled for applicability in this run."
+    },
     {
       "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
       "git_blob_sha": "1a130ab35ce9cf73e7152b33a956634214a0eb6e",
@@ -198,6 +264,11 @@
       "detail": "Referenced prior 88/88 manifest is absent, so the cached document ledger cannot be audited or reproduced."
     },
     {
+      "type": "MISSING_CONTENT_IDENTITY",
+      "path": "docs/**",
+      "detail": "The required 88-row current-run document ledger with per-document path/SHA identity is absent. Seven blob identities exist only in the separate direct-reread list and do not satisfy the item-level document ledger contract."
+    },
+    {
       "type": "UNREAD_DOCUMENT",
       "path": "docs/**",
       "detail": "At least 81 of 88 docs/** files lack current-run full-read/parse proof in this artifact; a prior manifest/cache cannot substitute for the required current-run read."
@@ -206,6 +277,11 @@
       "type": "UNCLASSIFIED_DOCUMENT",
       "path": "docs/**",
       "detail": "No complete per-document current-run classification/authority/applicability ledger was produced; classification remediation is therefore incomplete."
+    },
+    {
+      "type": "UNCHECKED_OPEN_REMEDIATION",
+      "path": "docs/WORKFLOW_GAP_REMEDIATION_20260723.md",
+      "detail": "The registered workflow-gap remediation was not fully read and checked for current-run applicability."
     },
     {
       "type": "UNCHECKED_OPEN_REMEDIATION",
@@ -221,7 +297,7 @@
   "superseded_documents_read": [],
   "archived_documents_read": [],
   "excluded_migrations": [],
-  "selected_blocker_reason": "Current-run full-read/parse proof and per-document classification are incomplete for docs/**; the referenced prior 88-document manifest is not recoverable; and an open legacy Related remediation was not checked. Stage 0.0C is not authorized.",
+  "selected_blocker_reason": "Current-run full-read/parse proof, per-document path/SHA content identity, and per-document classification are incomplete for docs/**; 55 already-registered active docs are known unread; the referenced prior 88-document manifest is not recoverable; and three registered open-remediation documents were not checked. Stage 0.0C is not authorized.",
   "blocker_precedence": [
     "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
     "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE"

@@ -35,6 +35,7 @@ const SUPPORTED_KEYWORDS = new Set([
   "required", "properties", "additionalProperties",
   "allOf", "anyOf", "oneOf", "not", "if", "then", "else",
 ]);
+const SUPPORTED_FORMATS = new Set(["date", "date-time"]);
 const SCHEMA_MAP_KEYS = new Set(["$defs", "properties"]);
 const SCHEMA_SINGLE_KEYS = new Set(["items", "contains", "additionalProperties", "not", "if", "then", "else"]);
 const SCHEMA_ARRAY_KEYS = new Set(["allOf", "anyOf", "oneOf"]);
@@ -47,6 +48,11 @@ function assertSupportedSchema(schema, path = "$") {
   for (const key of Object.keys(schema)) {
     if (!SUPPORTED_KEYWORDS.has(key)) {
       throw new SchemaValidationError(`${path}: unsupported JSON Schema keyword ${key}`);
+    }
+  }
+  if (schema.format !== undefined) {
+    if (typeof schema.format !== "string" || !SUPPORTED_FORMATS.has(schema.format)) {
+      throw new SchemaValidationError(`${path}: unsupported format ${String(schema.format)}`);
     }
   }
   for (const key of SCHEMA_MAP_KEYS) {
@@ -218,6 +224,10 @@ function runSelfTest() {
   try { assertSupportedSchema({ type: "string", dependentRequired: {} }); }
   catch (error) { unknownBlocked = error instanceof SchemaValidationError; }
   if (!unknownBlocked) throw new Error("self-test failed to block unsupported schema keyword");
+  let formatBlocked = false;
+  try { assertSupportedSchema({ type: "object", properties: { url: { type: "string", format: "uri" } } }); }
+  catch (error) { formatBlocked = error instanceof SchemaValidationError && error.message.includes("unsupported format uri"); }
+  if (!formatBlocked) throw new Error("self-test failed to reject unsupported format at schema-load time");
   console.log("PASS: fail-closed JSON Schema subset validator self-test");
 }
 
@@ -239,5 +249,6 @@ try {
   console.log(JSON.stringify({ status: "PASS", schema: schemaPath, instance: instancePath }, null, 2));
 } catch (error) {
   if (error instanceof SchemaValidationError) { console.error(`FAIL [BLOCKED_JSON_SCHEMA_INVALID]: ${error.message}`); process.exit(1); }
-  throw error;
+  console.error(`FAIL [BLOCKED_JSON_SCHEMA_INTERNAL]: ${error?.message || String(error)}`);
+  process.exit(1);
 }

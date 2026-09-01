@@ -51,7 +51,10 @@ def _nonempty_text(value: Any) -> bool:
 
 
 def _empty(value: Any) -> bool:
-    return value is None or value == ""
+    # Keep the hardening layer byte-for-byte aligned with the active V4
+    # contract's canonical empty semantics so the two mandatory validators
+    # cannot disagree on [], {}, null, or empty-string placeholders.
+    return value is None or value == "" or value == [] or value == {}
 
 
 def validate_stage_a_v4_hardening(

@@ -40,6 +40,41 @@ STAGE_TOP_LEVEL = {
     "0.8": ["github_main_sync_gate", "lineage_merge_gate"],
 }
 
+# Presence is not enough for a production stage exit. These are the positive
+# values required when an artifact is used to authorize a downstream formal
+# operation. A batch carrying a blocked/false guard cannot be counted merely
+# because its top-level `status` marker says PASS.
+STAGE_TOP_LEVEL_EXPECTED = {
+    "A": {
+        "stage_a_validity_status": "PASS",
+        "artifact_consistency_status": "PASS",
+        "csv_schema_status": "PASS",
+        "review_pool_partition_status": "PASS",
+        "strict_pass_gate_metadata_status": "PASS",
+        "baseline_duplicate_screen_status": "PASS",
+    },
+    "B": {
+        "lineage_integrity_status": "PASS",
+        "stage_a_validity_guard_applied": True,
+        "strict_gate_metadata_preserved": True,
+        "execution_anchor_metadata_preserved": True,
+        "superseded_lineage_mixed": False,
+        "manual_integrated_rule_mixed": False,
+        "previous_run_output_mixed": False,
+    },
+    "C": {
+        "strict_gate_acceptance_guard_applied": True,
+        "accepted_pool_lineage_status": "PASS",
+    },
+    "0.4": {"lineage_guard": "PASS"},
+    "0.5": {"lineage_integrity_status": "PASS"},
+    "0.6": {
+        "upstream_lineage_integrity": "PASS",
+        "lineage_and_anchor_guard": "PASS",
+    },
+    "0.7": {"lineage_and_anchor_guard": "PASS"},
+}
+
 # A declared stage is authoritative. In particular, repair/revise artifacts such
 # as 0.2R/0.3R may not masquerade as the re-established ordinary B/C exits just
 # because they happen to carry a similarly named bucket.
@@ -145,6 +180,65 @@ def bucket_item_count(payload, bucket):
     return 0
 
 
+def _pass_marker(value):
+    if value == "PASS" or value is True:
+        return True
+    if isinstance(value, dict):
+        return value.get("status") == "PASS"
+    return False
+
+
+def _top_level_gate_finding(stage, field, value):
+    expected = STAGE_TOP_LEVEL_EXPECTED.get(stage, {}).get(field)
+    if expected is not None:
+        if expected == "PASS":
+            if _pass_marker(value):
+                return None
+        elif value == expected:
+            return None
+        return {
+            "scope": "top_level",
+            "field": field,
+            "expected": expected,
+            "actual": value,
+            "message": "stage-specific production gate must carry its passing value",
+        }
+
+    if stage == "0.8" and field == "github_main_sync_gate":
+        if isinstance(value, dict) and value.get("status") == "PASS" \
+                and value.get("baseline_locked") is True \
+                and value.get("main_unchanged_since_locked_preflight") is True \
+                and value.get("silent_rebase_performed") is False:
+            return None
+        if value == "PASS":
+            return None
+        return {
+            "scope": "top_level",
+            "field": field,
+            "expected": "PASS with baseline_locked/main_unchanged true and silent_rebase false",
+            "actual": value,
+            "message": "0.8 github/main synchronization gate is not passing",
+        }
+
+    if stage == "0.8" and field == "lineage_merge_gate":
+        if isinstance(value, dict) \
+                and value.get("final_qc_lineage_passed") is True \
+                and value.get("anchor_path_lineage_passed") is True \
+                and value.get("github_ready_allowed") is True \
+                and value.get("anchor_path_hold_count") == 0:
+            return None
+        if value == "PASS":
+            return None
+        return {
+            "scope": "top_level",
+            "field": field,
+            "expected": "passing lineage merge gate with zero holds",
+            "actual": value,
+            "message": "0.8 lineage merge gate is not passing",
+        }
+    return None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("stage", choices=sorted(STAGE_TOP_LEVEL))
@@ -171,22 +265,10 @@ def main() -> int:
     for field in STAGE_TOP_LEVEL[args.stage]:
         if field not in payload:
             findings.append({"scope": "top_level", "field": field})
-        elif args.stage == "A" and payload[field] != "PASS":
-            findings.append({
-                "scope": "top_level",
-                "field": field,
-                "expected": "PASS",
-                "actual": payload[field],
-            })
-
-    if args.stage == "0.4" and payload.get("lineage_guard") != "PASS":
-        findings.append({
-            "scope": "top_level",
-            "field": "lineage_guard",
-            "expected": "PASS",
-            "actual": payload.get("lineage_guard"),
-            "message": "0.4 addability cannot pass while the mandatory lineage guard is blocked",
-        })
+            continue
+        gate_finding = _top_level_gate_finding(args.stage, field, payload[field])
+        if gate_finding:
+            findings.append(gate_finding)
 
     items = collect_items(payload, args.stage)
     if args.stage in {"A", "0.5", "0.6", "0.7", "0.8"} and not items:

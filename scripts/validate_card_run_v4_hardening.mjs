@@ -81,19 +81,29 @@ const PREFLIGHT_PATH_ARRAYS = [
   "applicable_remediation_or_migration",
   "superseded_or_reference_paths",
 ];
-const REQUIRED_REGION_AXES = ["korea", "north_america", "china", "japan", "europe"];
+const REQUIRED_REGION_AXES = [
+  "korea",
+  "north_america",
+  "china",
+  "japan",
+  "europe",
+  "material_global_markets",
+];
 const REQUIRED_TOPIC_AXES = [
-  "supply",
-  "demand",
-  "policy",
-  "technology",
-  "safety",
-  "transport",
-  "h2_economics",
-  "auction_offtake_subsidy",
-  "baseline_cards_needing_follow_up",
-  "known_gaps",
-  "treasure_deep_search_rescue",
+  "cells_chemistries",
+  "materials_components",
+  "pouch_pouch_film_demand",
+  "ess_bess",
+  "ev_charging",
+  "manufacturing_capacity_utilisation",
+  "grid_ai_data_centre_power",
+  "critical_minerals_refining",
+  "recycling",
+  "policy_trade_sanctions_subsidies_localisation",
+  "competitors_customers",
+  "prices_costs_margins",
+  "financing",
+  "safety_recall_commissioning_operation",
 ];
 
 function lifecycleSets(root) {
@@ -154,8 +164,8 @@ function validateDocumentUniverse(run, root) {
     ...registry.activeValidators,
     ...registry.applicable,
   ]);
-  if (artifact.active_full_read_count < requiredFullReadPaths.size) {
-    fail("BLOCKED_DOCUMENT_UNIVERSE_DETAIL", "0.0D active_full_read_count is smaller than the registry-bound active/dependency set");
+  if (artifact.active_full_read_count !== requiredFullReadPaths.size) {
+    fail("BLOCKED_DOCUMENT_UNIVERSE_DETAIL", `0.0D active_full_read_count must exactly equal the registry-bound active/dependency closure (${requiredFullReadPaths.size})`);
   }
   if (artifact.active_full_read_count > artifact.docs_inventory_count) {
     fail("BLOCKED_DOCUMENT_UNIVERSE_DETAIL", "0.0D active_full_read_count cannot exceed docs_inventory_count");
@@ -526,7 +536,7 @@ function selfTest() {
     catch (error) { registryBlocked = error instanceof ValidationError && error.code === "BLOCKED_DOCUMENT_UNIVERSE_REGISTRY"; }
     if (!registryBlocked) throw new Error("self-test failed to bind 0.0D authority set to registry");
 
-    console.log("PASS: formal V4 card-run hardening binds 0.0D registry, exact 0.0C axes, baseline-sensitive stages, and candidate identity");
+    console.log("PASS: formal V4 card-run hardening binds exact 0.0D registry closure, current battery/ESS 0.0C axes, baseline-sensitive stages, and candidate identity");
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

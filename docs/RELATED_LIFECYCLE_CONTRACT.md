@@ -1,7 +1,7 @@
 # Related Event Lifecycle Contract V3
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `RELATED_LIFECYCLE_V3_20260829`
+**Version:** `RELATED_LIFECYCLE_V3_20260901`
 
 ## 0. Purpose
 
@@ -46,6 +46,15 @@ Stage A is metadata-only. Every strict and bounded-review candidate emits `relat
 - duplicate disposition;
 - preliminary earliest-same-event check status;
 - proposed fresh follow-up anchor class/question.
+
+**Queue rule:** `strict_passed_spec[]` accepts only `related_prepass.status = PASS`. A `HOLD` pre-pass belongs in the bounded review/hold pool and must not enter the normal Stage B strict queue.
+
+For a strict PASS pre-pass:
+
+- `same_event_checked = true`;
+- `earliest_same_event_check_status = PASS`;
+- `duplicate_disposition = no_duplicate_found`;
+- clear same-event duplicate, reinforcement-only, or unresolved relation dispositions are forbidden.
 
 Hard rules:
 

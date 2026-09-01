@@ -1,7 +1,7 @@
 {
   "schema": "stage_0_0d_document_universe_manifest_v1",
   "stage": "0.0D",
-  "status": "PASS",
+  "status": "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE",
   "run_id": "card-run-2026-08-31-preflight-reconciliation-current-main-1514",
   "run_tag": "20260831_PREFLIGHT_RECONCILIATION",
   "generated_kst": "2026-08-31T21:03:00+09:00",
@@ -11,17 +11,17 @@
   "canonical_full_path": "data/cards.full.json",
   "canonical_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
   "canonical_full_count": 1514,
-  "document_universe_status": "PASS",
+  "document_universe_status": "FAIL",
   "docs_file_count": 88,
-  "all_docs_files_read_or_parsed": true,
-  "stage_0_0c_authorized": true,
+  "all_docs_files_read_or_parsed": false,
+  "stage_0_0c_authorized": false,
   "read_proof_method": {
-    "mode": "FRESH_CURRENT_RUN_CONTENT_ADDRESSED_REVALIDATION_PLUS_DIRECT_REREAD",
-    "authorization_reused_from_prior_run": false,
+    "mode": "PRIOR_MANIFEST_CACHE_INSUFFICIENT_FOR_CURRENT_RUN_FULL_READ",
+    "authorization_reused_from_prior_run": true,
     "cache_source_manifest": "stage_0_0d_document_universe_20260828_175013_CURRENT_MAIN.json",
     "cache_source_repository_head_sha": "3732ad9460b44329f0856591c29f166a39ebf5f8",
     "cache_source_docs_read_count": 88,
-    "cache_source_status": "PASS_88_OF_88_READ_OR_PARSED",
+    "cache_source_status": "REFERENCED_BUT_NOT_REPOSITORY_RECOVERABLE",
     "current_compare_result": {
       "base": "3732ad9460b44329f0856591c29f166a39ebf5f8",
       "head": "324461288e49e4578e06d590fa2422999ae09b34",
@@ -32,15 +32,16 @@
       "docs_deleted": 0,
       "all_cached_docs_blob_identical": true
     },
-    "rule": "The prior 88/88 complete parse is used only as a content-addressed read cache. Current-run repository lock, current authority rereads, dependency-drift review, open-PR authority exclusion, and Stage 0.0C authorization are performed afresh."
+    "rule": "SHA comparison and a prior manifest may support drift analysis, but docs/DOCUMENT_UNIVERSE_POLICY.md requires a fresh full read or parse of every docs/** file on each run. The current artifact proves only seven direct rereads and cannot use the prior manifest to authorize Stage 0.0C."
   },
   "documents": [
     {
-      "path": "<content-addressed-cache:stage_0_0d_document_universe_20260828_175013_CURRENT_MAIN.json>",
-      "cached_document_count": 88,
-      "git_identity_status": "ALL_88_UNCHANGED_FROM_CACHE_HEAD_TO_CURRENT_HEAD",
-      "read_status": "READ_COMPLETE_CONTENT_ADDRESSED_CACHE",
-      "application_status": "RECLASSIFIED_FOR_CURRENT_RUN_BY_UNCHANGED_IDENTITY_AND_CURRENT_AUTHORITY_REVIEW"
+      "path": "<incomplete-current-run-document-ledger>",
+      "expected_docs_file_count": 88,
+      "current_run_direct_full_reads_proven": 7,
+      "current_run_full_read_proof_missing_for_at_least": 81,
+      "read_status": "INCOMPLETE_CURRENT_RUN_PROOF",
+      "application_status": "NOT_AUTHORIZING"
     }
   ],
   "direct_current_high_authority_rereads": [
@@ -106,10 +107,23 @@
     }
   ],
   "repository_state_defects": [],
-  "missing_or_stale_components": [],
+  "missing_or_stale_components": [
+    {
+      "path": "stage_0_0d_document_universe_20260828_175013_CURRENT_MAIN.json",
+      "detail": "Referenced as the 88-document cache source, but a repository-wide search did not recover this manifest. Its per-document path/SHA/classification/authority/dependency ledger is therefore not reproducible from the PR."
+    }
+  ],
   "missing_content_identity_documents": [],
   "unclassified_documents": [],
-  "unread_documents": [],
+  "unread_documents": [
+    {
+      "scope": "docs/**",
+      "expected_document_count": 88,
+      "direct_current_run_full_reads_proven": 7,
+      "current_run_full_read_proof_missing_for_at_least": 81,
+      "detail": "The remaining documents were represented only through a prior-run cache placeholder, which the active policy explicitly says is insufficient."
+    }
+  ],
   "unread_active_documents": [],
   "unresolved_dependencies": [],
   "unresolved_rule_conflicts": [],
@@ -117,9 +131,20 @@
   "unchecked_open_remediations": [],
   "unauthorized_migration_applications": [],
   "inactive_document_contamination": [],
-  "incomplete_universe_defects": [],
+  "incomplete_universe_defects": [
+    {
+      "type": "MISSING_COMPONENT",
+      "path": "stage_0_0d_document_universe_20260828_175013_CURRENT_MAIN.json",
+      "detail": "Referenced prior 88/88 manifest is absent, so the cached document ledger cannot be audited or reproduced."
+    },
+    {
+      "type": "UNREAD_DOCUMENT",
+      "path": "docs/**",
+      "detail": "At least 81 of 88 docs/** files lack current-run full-read/parse proof in this artifact; a prior manifest/cache cannot substitute for the required current-run read."
+    }
+  ],
   "active_migrations": [],
-  "selected_blocker_reason": "",
+  "selected_blocker_reason": "Current-run full-read/parse proof is incomplete for docs/** and the referenced prior 88-document manifest is not recoverable; Stage 0.0C is not authorized.",
   "blocker_precedence": [
     "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
     "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE"
@@ -142,6 +167,6 @@
     "ordinary_run_contract": "CURRENT_MAIN_V3",
     "manual_direct_add_v1_replaces_full_pipeline": false,
     "v4_pr_298_applied": false,
-    "stage_0_0c_authorized": true
+    "stage_0_0c_authorized": false
   }
 }

@@ -37,7 +37,7 @@ class Review4945668766Contracts(unittest.TestCase):
 
     def test_real_subprocess_cli_preserves_route_only_stage_a_compatibility(self):
         repo_root = Path(__file__).resolve().parents[2]
-        script = repo_root / "validation_scripts" / "stage_lineage_contract_check.py"
+        script = repo_root / "validation_scripts" / "stage_lineage_contract_check_v3_compat.py"
         payload = {"strict_passed_spec": [TestStageAV3RouteAlignment().execution_spec()]}
         with tempfile.TemporaryDirectory() as tmpdir:
             path = Path(tmpdir) / "route_only_stage_a.json"

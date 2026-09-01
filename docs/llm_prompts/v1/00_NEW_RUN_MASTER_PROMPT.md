@@ -37,6 +37,23 @@ current GitHub main baseline lock
 
 Current main governance outranks this launcher if a later canonical version explicitly replaces it.
 
+### 1.1 Mandatory formal stage-artifact envelope
+
+For a **formal card run**, every ordinary candidate artifact emitted by Stage A, B, C, 0.4, 0.5, 0.6, and 0.7 must declare these top-level bindings in addition to its stage-specific payload:
+
+```json
+{
+  "stage": "A|B|C|0.4|0.5|0.6|0.7",
+  "run_id": "<exact card-run run_id>",
+  "base_main_commit_sha": "<exact locked main SHA>",
+  "base_full_blob_sha": "<exact locked data/cards.full.json blob SHA>"
+}
+```
+
+The three run/baseline values must exactly equal the subsequent `card-run.json`. `stage` is explicit and authoritative; bucket-name inference is not a production substitute. `0.2R`/`0.3R` never substitute for re-established B/C outputs. If any ordinary stage artifact lacks or mismatches these bindings, stop and regenerate/revalidate the affected stage chain before 0.8.
+
+This envelope is the shared producer contract for the seven ordinary stage prompts and is machine-enforced by the formal card-run hardeners.
+
 ## 2. Baseline lock
 
 Report and lock:

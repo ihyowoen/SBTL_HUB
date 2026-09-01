@@ -14,6 +14,15 @@ Checks: exact/canonical URL, normalized title and source-story collision, event 
 
 ## Machine-bound output contract
 
+The artifact envelope must declare:
+
+- `stage: "0.4"`
+- a passing `status`
+- `base_main_commit_sha` equal to the exact current run `base_main_commit_sha`
+- `base_full_blob_sha` equal to the exact current run `base_full_blob_sha`
+
+A prior 0.4 artifact from an older canonical baseline is invalid even when its candidate identity and prior result are otherwise unchanged. Re-run baseline addability after any canonical baseline movement.
+
 The single passing production bucket is **`addable_merge_safe[]`**. Do not emit passing cards only under route-specific top-level bucket names.
 
 Every item in `addable_merge_safe[]` must contain at least:

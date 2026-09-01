@@ -17,7 +17,8 @@
   "stage_0_0c_authorized": false,
   "read_proof_method": {
     "mode": "PRIOR_MANIFEST_CACHE_INSUFFICIENT_FOR_CURRENT_RUN_FULL_READ",
-    "authorization_reused_from_prior_run": true,
+    "authorization_reused_from_prior_run": false,
+    "authorization_reuse_attempted": true,
     "cache_source_manifest": "stage_0_0d_document_universe_20260828_175013_CURRENT_MAIN.json",
     "cache_source_repository_head_sha": "3732ad9460b44329f0856591c29f166a39ebf5f8",
     "cache_source_docs_read_count": 88,
@@ -143,7 +144,14 @@
       "detail": "At least 81 of 88 docs/** files lack current-run full-read/parse proof in this artifact; a prior manifest/cache cannot substitute for the required current-run read."
     }
   ],
+  "open_remediations_checked": [],
   "active_migrations": [],
+  "inactive_migrations_read": [],
+  "completed_references_read": [],
+  "reference_only_documents_read": [],
+  "superseded_documents_read": [],
+  "archived_documents_read": [],
+  "excluded_migrations": [],
   "selected_blocker_reason": "Current-run full-read/parse proof is incomplete for docs/** and the referenced prior 88-document manifest is not recoverable; Stage 0.0C is not authorized.",
   "blocker_precedence": [
     "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",

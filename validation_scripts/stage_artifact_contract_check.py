@@ -51,6 +51,13 @@ BUCKETS = {
     "0.8": ["github_merge_ready"],
 }
 
+PROMPT_04_ROUTE_PASS_BUCKETS = (
+    "addable_merge_safe_new_unrelated",
+    "addable_merge_safe_distinct_follow_up",
+    "addable_merge_safe_program_lineage",
+)
+PROMPT_04_OUTCOMES = set(PROMPT_04_ROUTE_PASS_BUCKETS)
+
 ITEM_REQUIRED = {
     "A": [
         "spec_id", "strict_pass_gate", "execution_anchor_type", "baseline_relation",
@@ -68,7 +75,7 @@ ITEM_REQUIRED = {
     ],
     "B": ["source_spec_id", "fact_sources", "related_evidence_review", "date_role"],
     "C": ["source_spec_id", "fact_sources", "related_lineage", "date_role"],
-    "0.4": ["source_spec_id", "event_fingerprint", "related_lineage"],
+    "0.4": ["source_spec_id", "event_fingerprint", "related_lineage", "addability_outcome"],
     "0.5": [
         "source_spec_id", "source_diversity_status", "source_discovery_ledger",
         "related_lineage", "date_role",
@@ -115,6 +122,15 @@ def collect_items(payload, stage):
     return items
 
 
+def bucket_item_count(payload, bucket):
+    value = payload.get(bucket)
+    if isinstance(value, dict):
+        return 1
+    if isinstance(value, list):
+        return sum(1 for item in value if isinstance(item, dict))
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("stage", choices=sorted(STAGE_TOP_LEVEL))
@@ -130,10 +146,26 @@ def main() -> int:
     for field in STAGE_TOP_LEVEL[args.stage]:
         if field not in payload:
             findings.append({"scope": "top_level", "field": field})
+        elif args.stage == "A" and payload[field] != "PASS":
+            findings.append({
+                "scope": "top_level",
+                "field": field,
+                "expected": "PASS",
+                "actual": payload[field],
+            })
 
     items = collect_items(payload, args.stage)
     if args.stage in {"A", "0.5", "0.6", "0.7", "0.8"} and not items:
         findings.append({"scope": "top_level", "field": f"non_empty_{BUCKETS[args.stage][0]}"})
+
+    if args.stage == "0.4":
+        route_specific_count = sum(bucket_item_count(payload, bucket) for bucket in PROMPT_04_ROUTE_PASS_BUCKETS)
+        if route_specific_count and not items:
+            findings.append({
+                "scope": "top_level",
+                "field": "addable_merge_safe",
+                "message": "route-specific passing buckets cannot substitute for addable_merge_safe[]",
+            })
 
     for index, item in enumerate(items):
         item_id = item.get("id") or item.get("source_spec_id") or item.get("spec_id")
@@ -150,6 +182,12 @@ def main() -> int:
                     "contract": "stage_a_v4",
                     "message": message,
                 })
+        if args.stage == "0.4" and item.get("addability_outcome") not in PROMPT_04_OUTCOMES:
+            findings.append({
+                "scope": item_id,
+                "field": "addability_outcome",
+                "message": "must be a validator-bound addable_merge_safe route",
+            })
 
     result = {
         "status": "PASS" if not findings else "BLOCKED_STAGE_OUTPUT_SCHEMA_NONCOMPLIANT",

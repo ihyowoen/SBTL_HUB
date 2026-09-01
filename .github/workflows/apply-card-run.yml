@@ -15,8 +15,12 @@ on:
       - "scripts/validate_card_run_relations.mjs"
       - "scripts/validate_card_run_lineage_containers.mjs"
       - "scripts/validate_card_run_audits.mjs"
+      - "scripts/validate_card_run_v4_hardening.mjs"
       - "scripts/validate_legacy_related_lineage_migration.mjs"
       - "scripts/validate_manual_direct_add.mjs"
+      - "scripts/validate_manual_direct_add_v4_hardening.mjs"
+      - "validation_scripts/stage_artifact_contract_check.py"
+      - "validation_scripts/stage_a_v4_contract.py"
       - "schemas/card-run.v1.schema.json"
       - "schemas/manual-direct-add.v1.schema.json"
       - ".github/workflows/apply-card-run.yml"
@@ -57,8 +61,11 @@ jobs:
           node --check scripts/validate_card_run_relations.mjs
           node --check scripts/validate_card_run_lineage_containers.mjs
           node --check scripts/validate_card_run_audits.mjs
+          node --check scripts/validate_card_run_v4_hardening.mjs
           node --check scripts/validate_legacy_related_lineage_migration.mjs
           node --check scripts/validate_manual_direct_add.mjs
+          node --check scripts/validate_manual_direct_add_v4_hardening.mjs
+          python3 -m py_compile validation_scripts/stage_artifact_contract_check.py validation_scripts/stage_a_v4_contract.py
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
           node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v1.schema.json", "utf8"))'
           node scripts/apply_card_run_test.mjs
@@ -67,8 +74,10 @@ jobs:
           node scripts/validate_card_run_relations.mjs --self-test
           node scripts/validate_card_run_lineage_containers.mjs --self-test
           node scripts/validate_card_run_audits.mjs --self-test
+          node scripts/validate_card_run_v4_hardening.mjs --self-test
           node scripts/validate_legacy_related_lineage_migration.mjs --self-test
           node scripts/validate_manual_direct_add.mjs --self-test
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --self-test
 
   verify-submitted-run:
     needs: validate-engine
@@ -215,10 +224,12 @@ jobs:
           actual_blob="$(git rev-parse "${BASE_SHA}:data/cards.full.json")"
           [[ "$declared_main" == "$BASE_SHA" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED main $BASE_SHA != $declared_main" >&2; exit 1; }
           [[ "$declared_blob" == "$actual_blob" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED blob $actual_blob != $declared_blob" >&2; exit 1; }
+          git show "${BASE_SHA}:data/cards.full.base.json" >/dev/null 2>&1 || true
           git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
           [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
 
           node scripts/validate_manual_direct_add.mjs --manifest "$MANIFEST" --base "$RUNNER_TEMP/cards.full.base.json" --full data/cards.full.json
+          node scripts/validate_manual_direct_add_v4_hardening.mjs --manifest "$MANIFEST" --base "$RUNNER_TEMP/cards.full.base.json" --full data/cards.full.json
           node scripts/validate.mjs
           migration_count="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String((r.operations?.id_migration||[]).length))' "$MANIFEST")"
           if [[ "$migration_count" -gt 0 ]]; then
@@ -244,6 +255,8 @@ jobs:
         run: |
           set -euo pipefail
           node scripts/validate_card_run_stage_artifacts.mjs \
+            --run "${{ steps.run.outputs.path }}"
+          node scripts/validate_card_run_v4_hardening.mjs \
             --run "${{ steps.run.outputs.path }}"
           node scripts/validate_card_run_status_consistency.mjs \
             --run "${{ steps.run.outputs.path }}"

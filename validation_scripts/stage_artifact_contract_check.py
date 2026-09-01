@@ -16,6 +16,7 @@ if _REPO_ROOT not in sys.path:
     sys.path.insert(0, _REPO_ROOT)
 
 from validation_scripts.stage_a_v4_contract import validate_stage_a_v4_spec
+from validation_scripts.stage_a_v4_hardening import validate_stage_a_v4_hardening
 
 STAGE_TOP_LEVEL = {
     "A": [
@@ -63,6 +64,7 @@ ITEM_REQUIRED = {
         "baseline_expectation_changed", "decision_relevance",
         "evidence_needed_for_stage_b", "next_confirmation_points",
         "structural_non_execution_reason", "why_execution_event_not_required",
+        "technology_evidence_level", "policy_stage", "novelty_cap_basis",
     ],
     "B": ["source_spec_id", "fact_sources", "related_evidence_review", "date_role"],
     "C": ["source_spec_id", "fact_sources", "related_lineage", "date_role"],
@@ -141,6 +143,7 @@ def main() -> int:
         if args.stage == "A":
             v4_messages: list[str] = []
             validate_stage_a_v4_spec(item, index, v4_messages, require_contract=True)
+            validate_stage_a_v4_hardening(item, index, v4_messages, require_contract=True)
             for message in v4_messages:
                 findings.append({
                     "scope": item_id,

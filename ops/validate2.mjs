@@ -174,16 +174,18 @@ if (runPath) {
       if (!i2c.has(x)) i2c.set(x, []);
       i2c.get(x).push(`${c.region}/${c.axis}`);
     }
+    // 스윕 근거는 **셀의 사전 정의 queries 를 실제로 돌린 검색**만 인정한다(RUNBOOK §셀 운영 — 쿼리는
+    // 현 항목과 무관하게 셀에 사전 정의). 종전에는 region+axis 를 선언하기만 하면 근거가 됐고
+    // itemsCovered 로도 파생시켜서, 특정 항목을 지목한 재검증 쿼리로 lastSwept 가 전진했다
+    // (2026-09-01 실측 19셀). 훑지 않은 셀이 최신으로 찍히면 RD-3 로테이션에서 뒤로 밀려 공백이 굳는다.
+    const predef = new Map();
+    for (const c of cov2.cells ?? []) predef.set(`${c.region}/${c.axis}`, new Set(c.queries ?? []));
     const ev = new Set();
     for (const s of run2.searches ?? []) {
-      // 축을 명시한 검색은 **그 (region, axis) 만** 근거가 된다.
-      // itemsCovered 로 파생시키면 다중 셀 소속 항목이 다른 축까지 근거를 만들어(예: NA-027 은
-      // NA/trade·NA/subsidy 양쪽 소속) 무근거 lastSwept 전진을 다시 허용한다 — 이 검사가 막으려던 바로 그것.
-      if (s.region && s.axis) { ev.add(`${s.region}/${s.axis}`); continue; }
-      for (const x of s.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+      if (!s.region || !s.axis) continue;
+      const key = `${s.region}/${s.axis}`;
+      if ((predef.get(key) ?? new Set()).has(s.query)) ev.add(key);
     }
-    for (const p of run2.primaryDocs ?? [])
-      for (const x of p.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
     let stamped = 0, missing = 0;
     for (const c of cov2.cells ?? []) {
       if (c.lastSwept !== rd2) continue;
@@ -194,6 +196,8 @@ if (runPath) {
         err(`coverage ${k}: lastSwept=${rd2} 인데 원장(${run2.runId})에 스윕 근거 없음 — 검색을 돌리지 않고 스윕 표기만 전진했거나, 무산출 스윕에 searches[].axis 가 없다`);
       }
     }
+    const noQ = (cov2.cells ?? []).filter(c => !(c.queries ?? []).length);
+    if (noQ.length) warn(`사전 정의 쿼리가 없는 coverage 셀 ${noQ.length}개 — 이 셀들은 정당하게 스윕될 수 없다(검사 #13이 사전 정의 쿼리 실행을 요구)`);
     if (stamped && !missing) console.log(`INFO : 스윕 근거 대조 — lastSwept=${rd2} 셀 ${stamped}개 전부 원장 근거 확인`);
     }
   } catch(e){ warn('스윕 근거 대조 실패: '+e.message); }
@@ -301,6 +305,9 @@ if (runPath) {
     const r3 = JSON.parse(readFileSync(runPath,'utf8'));
     const byId = new Map(items.map(i => [i.id, i]));
     for (const a of r3.approvalQueueCandidates ?? []) {
+      // 이 검사는 **아직 대기 중인** 큐 항목이 실제 status 와 어긋나는지를 본다.
+      // 승인·반영이 끝난 항목은 status 가 목표값인 것이 정상이므로 대상에서 뺀다.
+      if (/반영\s*완료|적용\s*완료|applied/i.test(a.decision ?? '')) continue;
       const m = /\[status\]\s*([A-Z]{2}-\d{3})\s+(\w+)\s*(?:→|->)\s*(\w+)/.exec(a.name ?? '');
       if (!m) continue;
       const [, id, from, to] = m;
@@ -332,10 +339,19 @@ if (runPath) {
       if (!s.region || !s.axis) continue;
       const its = s.itemsCovered ?? [];
       if (!its.length) continue;                       // 순수 발굴 검색은 대상 아님
-      const cells = new Set(its.flatMap(x => home.get(x) ?? []));
-      if (!cells.size) continue;                       // coverage 미매핑 항목
-      if (!cells.has(`${s.region}/${s.axis}`))
-        err(`원장 검색 축 불일치: ${its.join(',')} 는 ${[...cells].join(' | ')} 에 속하는데 검색은 ${s.region}/${s.axis} 로 선언 — 훑지 않은 셀이 스윕으로 올라간다`);
+      // **항목별로** 대조한다. 합집합으로 보면 여러 항목을 덮는 검색에서 한 항목만 맞아도 통과해
+      // 나머지 항목의 축 오류가 묻힌다(4차 리뷰 지적).
+      const decl = `${s.region}/${s.axis}`;
+      const mapped = its.filter(x => (home.get(x) ?? []).length);
+      if (!mapped.length) continue;
+      const hit = mapped.filter(x => home.get(x).includes(decl));
+      const missIt = mapped.filter(x => !home.get(x).includes(decl));
+      if (!hit.length)
+        err(`원장 검색 축 불일치: ${mapped.join(',')} 는 ${[...new Set(mapped.flatMap(x=>home.get(x)))].join(' | ')} 에 속하는데 검색은 ${decl} 로 선언 — 훑지 않은 셀이 스윕으로 올라간다`);
+      else if (missIt.length)
+        // RUNBOOK 이 다항목 검색을 허용하므로 축이 갈리는 것 자체는 오류가 아니다. 다만 선언 축 밖의
+        // 항목은 그 항목의 셀에 대한 근거가 아니라는 점을 남긴다.
+        warn(`원장 검색 축 부분 불일치: ${missIt.join(',')} 는 ${decl} 밖(${[...new Set(missIt.flatMap(x=>home.get(x)))].join(' | ')}) — 해당 셀의 스윕 근거로는 쓰이지 않는다`);
     }
   } catch(e){ err('검색 축 정합 대조 실패: '+e.message); }
 }
@@ -352,6 +368,9 @@ if (runPath) {
       try {
         const j = JSON.parse(readFileSync(`${dir}/${f}`,'utf8'));
         if (!j.runId) continue;
+        // date 가 없으면 맵에 넣지 않는다. 넣으면 undefined 가 되어 이 runId 를 가리키는 스탬프가
+        // if (d0 && ...) 에서 조용히 통과하고, #15는 runId 를 known 으로 보아 존재 검사까지 빠져나간다.
+        if (!j.date) { err(`ops/runs/${f}: date 필드 없음 — 이 원장을 가리키는 스탬프가 날짜 대조를 통째로 빠져나간다`); continue; }
         if (dateOf.has(j.runId)) err(`ops/runs: runId ${j.runId} 가 파일 여럿에 중복 — 날짜 대조가 모호해진다`);
         dateOf.set(j.runId, j.date);
       } catch(e) { /* #15가 이미 ERROR 로 보고한다 */ }

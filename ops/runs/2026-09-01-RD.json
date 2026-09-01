@@ -109,9 +109,12 @@
       "query": "PFHxA restriction EU Regulation 2024/2462 April 2026 application scope fluoropolymer textiles Annex XVII entry 79",
       "region": "EU",
       "axis": "chemicals",
-      "itemsCovered": [],
-      "result": "**신규 후보**. Commission Regulation (EU) 2024/2462 of 19 September 2024 가 REACH 부속서 XVII 에 entry 79 신설 — PFHxA·그 염·PFHxA 관련물질 제한. 용도 차등 유예: 소방포말(훈련·시험·공공소방) 18개월 → 2026-04-10 적용, 직물·가죽·모피·의류·신발 24개월. 주요 용도는 종이·판지 식품접촉재·직물·소방포말이며 6:2 아크릴레이트 등 저분자 관련물질이 직물에 연 약 65,000톤. 트래커 0건.",
-      "sweepKind": "discovery"
+      "itemsCovered": [
+        "EU-039"
+      ],
+      "result": "**신규 후보**. Commission Regulation (EU) 2024/2462 of 19 September 2024 가 REACH 부속서 XVII 에 entry 79 신설 — PFHxA·그 염·PFHxA 관련물질 제한. 용도 차등 유예: 소방포말(훈련·시험·공공소방) 18개월 → 2026-04-10 적용, 직물·가죽·모피·의류·신발 24개월. 주요 용도는 종이·판지 식품접촉재·직물·소방포말이며 6:2 아크릴레이트 등 저분자 관련물질이 직물에 연 약 65,000톤. 트래커 0건. **[09/01 승인] EU-039 로 편입.** 발견 시점에는 신규 후보라 itemsCovered 가 비어 있었고, 승인 후 항목이 생겨 여기에 연결한다.",
+      "sweepKind": "verify",
+      "axisNote": "이 검색은 셀의 사전 정의 쿼리가 아니므로 EU/chemicals 의 스윕 근거가 아니다 — 후보를 지목한 후속 확인이다. coverage 에는 adhocDiscovery-2026-09-01 로만 기록했다."
     },
     {
       "query": "solid state battery sodium ion standard regulation 2026 EU Korea adopted next generation battery technical requirement",
@@ -381,7 +384,7 @@
       "basis": "오늘 시행 개시를 실검색으로 확인. effectiveDate 2026-09-01 도래.",
       "recommendation": "ACTIVE 전환",
       "discoveredRun": "2026-09-01-RD",
-      "decision": "승인 대기"
+      "decision": "승인·반영 완료 (2026-09-01, Claire)"
     },
     {
       "name": "[status] CN-038 UPCOMING → ACTIVE (2026-09-01 GB/T 46261-2025 시행 도래)",
@@ -391,7 +394,7 @@
       "basis": "SAMR 표준정보로 실시일 2026-09-01 도래 확인.",
       "recommendation": "ACTIVE 전환",
       "discoveredRun": "2026-09-01-RD",
-      "decision": "승인 대기"
+      "decision": "승인·반영 완료 (2026-09-01, Claire)"
     },
     {
       "name": "Commission Regulation (EU) 2024/2462 — PFHxA 제한 (REACH 부속서 XVII entry 79)",
@@ -406,7 +409,7 @@
       "dupNote": "트래커 전문에서 PFHxA·2024/2462 0건",
       "discoveredRun": "2026-09-01-RD",
       "scopeGate": "enacted",
-      "decision": "승인 대기"
+      "decision": "승인·반영 완료 (2026-09-01, Claire)"
     },
     {
       "name": "[정책판단] KR-020 WATCH 유지 여부 — 제정·시행 중인 고시를 관련성 낮음으로 WATCH 에 두는 문제",
@@ -416,7 +419,7 @@
       "basis": "2026.01.05 개정 고시가 시행 중임을 확인했다. 다만 이 항목의 기록된 WATCH 사유는 제정 여부가 아니라 \"수요측 규제라 SBTL 직접 관련 낮음\"(2026.07.01 승인)이고, 재평가 조건은 \"목표비율 고시·이행연도 도래 시\"였다. 이번 확인은 그 조건의 충족이다.",
       "recommendation": "ACTIVE 전환 권고. 단 같은 유형의 다른 항목이 있는지 함께 볼 것(정책 일관성)",
       "discoveredRun": "2026-09-01-RD",
-      "decision": "승인 대기",
+      "decision": "승인·반영 완료 (2026-09-01, Claire)",
       "question": "제정·시행 중인 규범을 관련성 낮음을 이유로 WATCH 에 두는 것이 맞는가. 스코프 게이트는 WATCH 를 미제정 규범 자리로 정의하고 F14 는 관련성 충족 시 노출도 무관 편입을 정한다 — 두 규칙대로면 ACTIVE 가 맞고, 지금 배치는 편입 여부 문제를 status 로 다룬 셈이다."
     },
     {
@@ -427,7 +430,7 @@
       "basis": "이번 run 에서 원문 메타를 확정했다 — 발문자호 工信厅联节函〔2026〕134号, 발문 2026-03-28, 발문기관 工业和信息化部办公厅 + 供销合作总社办公厅. 발문된 행정규범이므로 scope gate 상 제정 요건을 충족하고 WATCH 사유였던 미제정이 소멸한다. 조문이 引导 문언이라 강제 의무가 없다는 점은 의무 강도의 문제이지 제정 여부의 문제가 아니다(GL-008 같은 민간 자율 이니셔티브와 다름 — 이쪽은 부처 발문 통지다).",
       "recommendation": "ACTIVE 전환",
       "discoveredRun": "2026-09-01-RD",
-      "decision": "승인 대기",
+      "decision": "승인·반영 완료 (2026-09-01, Claire)",
       "note": "8/31 원장에서 이미 큐에 있었으나 당시엔 문서번호·발문일이 비어 있었다. 이번에 근거를 확정해 다시 올린다."
     }
   ],
@@ -466,6 +469,7 @@
     }
   },
   "carryOver": [
+    "**정책 일관성 — WATCH 인데 제정 신호가 있는 22건 판정** (KR-020 승인의 파급). 민간 자율 표준은 정당한 WATCH 이므로 항목별 배치 근거 확인이 선행",
     "**검사 #16 초회 적출 5건** — NA-024(발효일 있는데 dt 는 미발효라고 서술, 의심 높음)·NA-016·CN-015·CN-004·KR-005",
     "**CN-028·CN-038·CN-011·KR-020 status 전환 승인 대기** — 4건 모두 제정·발효 근거 확보 완료",
     "**(EU) 2024/2462 PFHxA 제한 신규 편입 승인 대기** — SBTL 라미네이션 접착제·표면처리제의 6:2 아크릴레이트 사용 여부 확인 후 판정",
@@ -534,6 +538,15 @@
       ],
       "finding": "현행본 = 환경부고시 제2023-46호(2023.03.06 일부개정), 시행 2024.01.01. 트래커는 제정본만 담고 있었다.",
       "note": "과태료 조문은 law.go.kr 본문이 JS 렌더라 미확인 — 제재 금액은 기재하지 않았다."
+    },
+    {
+      "doc": "Commission Regulation (EU) 2024/2462 — REACH 부속서 XVII entry 79 (2024-09-19 채택)",
+      "method": "primary-meta",
+      "itemsCovered": [
+        "EU-039"
+      ],
+      "finding": "PFHxA·염·관련물질 제한. 용도별 차등 유예 — 소방포말(훈련·시험·공공소방) 18개월 → 2026.04.10 적용, 직물·가죽·모피·수피(의류·부속품·신발) 24개월. 주요 사용처는 식품접촉 종이·판지, 직물, 소방포말이며 6:2 아크릴레이트 등 저분자 관련물질이 직물에 연 약 65,000톤.",
+      "note": "**조문 전문 미대조** — EUR-Lex 본문이 WAF 로 차단돼 메타·집행위 보도자료 수준에서 확정했다."
     }
   ],
   "selfCaught": {
@@ -914,6 +927,211 @@
         "sev": "낮음",
         "detail": "dt 가 `진행 중` 한 마디라 effectiveDate=2024-07-10 의 근거가 dt 에 없다.",
         "action": "dt 에 시행일 명시"
+      }
+    ]
+  },
+  "policyConsistencyScan": {
+    "trigger": "KR-020 정책 판단 승인 — 제정·시행 중인 규범을 관련성 낮음을 이유로 WATCH 에 두지 않는다",
+    "question": "같은 유형이 더 있는가 (WATCH 인데 제정 신호가 있는 항목)",
+    "method": "status=WATCH 이면서 (effectiveDate 가 오늘 이전) 또는 (instrumentType 이 지정됨) 인 항목 전수",
+    "found": [
+      {
+        "id": "CN-008",
+        "r": "CN",
+        "eff": null,
+        "instrumentType": "law",
+        "t": "탄소발자국 시범 → 2027 본격 보고 전환 준비",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "CN-023",
+        "r": "CN",
+        "eff": "2024-10-01",
+        "instrumentType": "decree",
+        "t": "稀土管理条例 (国务院令 제785호) — 2024.10.1 시행, 희토류 산업 최초 行政法规",
+        "signal": "과거 발효일 · instrumentType 지정"
+      },
+      {
+        "id": "CN-026",
+        "r": "CN",
+        "eff": null,
+        "instrumentType": "standard",
+        "t": "车用动力电池 拆解破碎 安全要求 — 재활용 拆解破碎 안전 강제국표 (제정 중)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "CN-030",
+        "r": "CN",
+        "eff": "2026",
+        "instrumentType": "decree",
+        "t": "《固体废物污染防治\"十五五\"规划》 — 폐동력전지 회수처리 오염통제 기술규범 제·개정 및 EPR 이행",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "CN-032",
+        "r": "CN",
+        "eff": null,
+        "instrumentType": "decree",
+        "t": "《新化学物质环境管理登记办法》 개정 — 생태환경부령 제12호 개정안 (미공포 — 의견수렴稿 단계)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "CN-044",
+        "r": "CN",
+        "eff": null,
+        "instrumentType": "standard",
+        "t": "《锂离子电池用铝塑复合膜》 중국 국가표준 — 계획번호 20184230-T-339 (승인 단계, 发布即实施)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "CN-047",
+        "r": "CN",
+        "eff": null,
+        "instrumentType": "standard",
+        "t": "《电能存储系统用钠离子电池和电池组 安全技术规范》 — 계획번호 20241666-T-339 (의견수렴 단계)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "EU-010",
+        "r": "EU",
+        "eff": "2025-12",
+        "instrumentType": "law",
+        "t": "Circular Economy Act — WEEE 개정 포함",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "EU-021",
+        "r": "EU",
+        "eff": "2026-06-30",
+        "instrumentType": "law",
+        "t": "RESourceEU — 영구자석 폐기물 수출 제한 (Q2 2026 발의)",
+        "signal": "과거 발효일 · instrumentType 지정"
+      },
+      {
+        "id": "EU-023",
+        "r": "EU",
+        "eff": "2025",
+        "instrumentType": "law",
+        "t": "EU 배터리규정 재활용 효율·회수율 산정 methodology (Delegated Reg (EU) 2025/606)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "GL-005",
+        "r": "GL",
+        "eff": "2027-01-01",
+        "instrumentType": "standard",
+        "t": "ISSB IFRS S1·S2 지속가능성 공시기준 — 28개 관할권 채택, IFRS S2 개정 2027 회계연도 발효",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "GL-006",
+        "r": "GL",
+        "eff": null,
+        "instrumentType": "standard",
+        "t": "IEC TS 63379:2026 — 메가와트 DC 충전(MCS) 커넥터·인렛·케이블 어셈블리 (자발 기술사양)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "GL-008",
+        "r": "GL",
+        "eff": null,
+        "instrumentType": "standard",
+        "t": "ISO 7819:2025 — Lithium 용어표준 (ISO/TC 333)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "JP-007",
+        "r": "JP",
+        "eff": "2026-01-26",
+        "instrumentType": null,
+        "t": "제3회 LTDA 응찰 마감 (METI 1차 source 검증)",
+        "signal": "과거 발효일"
+      },
+      {
+        "id": "JP-012",
+        "r": "JP",
+        "eff": "2026-05-13",
+        "instrumentType": null,
+        "t": "JP LTDA 3차 — BESS 1.25 GW (2026.05.13 결과)",
+        "signal": "과거 발효일"
+      },
+      {
+        "id": "JP-014",
+        "r": "JP",
+        "eff": "2026-06-02",
+        "instrumentType": null,
+        "t": "METI 蓄電池·電源産業戦略 + 제7차 인정 (6.02)",
+        "signal": "과거 발효일"
+      },
+      {
+        "id": "KR-011",
+        "r": "KR",
+        "eff": "2025-05-14",
+        "instrumentType": null,
+        "t": "환경부 배터리 순환이용 활성화 방안 (관계부처 합동, 2025.05.14)",
+        "signal": "과거 발효일"
+      },
+      {
+        "id": "KR-016",
+        "r": "KR",
+        "eff": "2026-02-05",
+        "instrumentType": "notification",
+        "t": "산업통상자원부 「희토류 공급망 종합대책」 발표",
+        "signal": "과거 발효일 · instrumentType 지정"
+      },
+      {
+        "id": "KR-021",
+        "r": "KR",
+        "eff": "2022-08-04",
+        "instrumentType": "law",
+        "t": "국가첨단전략산업법 (특별조치법) — 이차전지 국가첨단전략기술 지정·기술보호",
+        "signal": "과거 발효일 · instrumentType 지정"
+      },
+      {
+        "id": "KR-025",
+        "r": "KR",
+        "eff": "2026",
+        "instrumentType": "notification",
+        "t": "폐기물 수출입 관리 고시 2건 개정 — 고철·비철금속 수출신고 전면 전환 (행정예고 2026.07.15)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "NA-004",
+        "r": "NA",
+        "eff": null,
+        "instrumentType": "law",
+        "t": "CHARGE Act — 중국산 ESS 수입 금지 법안",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "NA-019",
+        "r": "NA",
+        "eff": "2027-10",
+        "instrumentType": "law",
+        "t": "NDAA 2027.10 — DoD 중국 배터리 6사 구매 금지",
+        "signal": " · instrumentType 지정"
+      }
+    ],
+    "count": 22,
+    "note": "**이번 승인 범위 밖이라 어느 것도 건드리지 않았다.** 각 항목의 WATCH 배치 근거가 무엇이었는지 checkNote 로 개별 확인해야 하고, 그중 일부는 정당한 WATCH 일 수 있다 — 예컨대 민간 자율 표준(GL-005·GL-006·GL-008 관례)은 발행됐어도 WATCH 가 맞다. 다음 run 의 판정 대상으로 올린다."
+  },
+  "gateCaughtOnApproval": {
+    "note": "승인을 반영하자 내가 만든 게이트가 세 가지를 잡았다. 전부 타당했다.",
+    "items": [
+      {
+        "check": "#18",
+        "finding": "승인 큐 3건이 decision=승인 대기 인 채 status 만 ACTIVE 로 바뀌어 있었다 — 검사가 보기엔 승인 없이 반영된 것과 구별되지 않는다",
+        "fix": "반영된 항목의 decision 을 '승인·반영 완료 (2026-09-01, Claire)' 로 갱신하고, 검사 #18은 반영 완료 표기가 있는 항목을 대상에서 뺀다(이 검사는 **대기 중인** 큐의 낡음을 보는 것이다)"
+      },
+      {
+        "check": "#6",
+        "finding": "신규 편입 EU-039 의 verify 가 오늘 원장을 가리키는데 원장에 그 항목을 덮는 근거가 없었다",
+        "fix": "PFHxA 검색의 itemsCovered 에 EU-039 를 넣고 primaryDocs 에 (EU) 2024/2462 를 추가했다. **신규 항목은 승인 시점에 원장 근거를 함께 걸어야 한다** — 발견 시점에는 항목 ID 가 없어 비어 있었다"
+      },
+      {
+        "check": "#16",
+        "finding": "CN-011 에 effectiveDate=2026-03-28 을 새로 넣었는데 dt 에 그 날짜가 없었다",
+        "fix": "dt 앞에 발문일을 명시. **오늘 도입한 검사가 오늘 내 편집을 바로 잡은 사례**"
       }
     ]
   }

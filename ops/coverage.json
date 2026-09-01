@@ -448,13 +448,12 @@
       "region": "EU",
       "items": [
         "EU-025",
-        "EU-029"
+        "EU-029",
+        "EU-039"
       ],
       "status": "covered",
-      "lastSwept": "2026-09-01",
-      "queries": [
-        "PFHxA restriction EU Regulation 2024/2462 April 2026 application scope fluoropolymer textiles Annex XVII entry 79"
-      ],
+      "lastSwept": "2026-07-29",
+      "queries": [],
       "sweepDay": "Tue",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
@@ -463,7 +462,9 @@
       "itemVerifyQueries2026-09-01": [
         "EU REACH restriction PFAS battery chemicals 2026 August September new regulation adopted ECHA"
       ],
-      "note": "2026-09-01 RD 발굴 스윕."
+      "adhocDiscovery2026-09-01": [
+        "PFHxA restriction EU Regulation 2024/2462 April 2026 application scope fluoropolymer textiles Annex XVII entry 79"
+      ]
     },
     {
       "axis": "chemicals",
@@ -1732,7 +1733,41 @@
       "note": "gap 은 '규범이 없다'가 아니라 '지금 쿼리로는 못 찾았다'였다. 셀의 queries 배열 자체가 감사 대상이어야 한다.",
       "basisSweep": "2026-08-29 (요원 권역 전수 스윕)"
     },
-    "sweepVsVerify": "lastSwept 는 그 셀을 훑은 날이다. 판정 기준은 원장 검색의 itemsCovered 다 — **비어 있으면 발굴(그 축에 무엇이 있는지 찾은 것), 차 있으면 항목 재검증(이미 아는 규범을 확인한 것)**. 재검증은 lastSwept 를 전진시키지 않고 itemVerifyQueries-<날짜> 에만 기록한다. 재검증으로 lastSwept 를 밀면 실제로 훑지 않은 셀이 RD-3 로테이션(오래된 순 + gap 우선)에서 뒤로 밀려 커버리지 공백이 굳는다."
+    "sweepVsVerify": "lastSwept 는 **셀의 사전 정의 queries 를 실제로 돌린 날**이다(RUNBOOK §셀 운영). 특정 항목·특정 후보를 지목한 쿼리는 그 규범을 확인한 것이지 셀을 훑은 것이 아니므로 lastSwept 를 전진시키지 않는다 — itemVerifyQueries-<날짜> 또는 adhocDiscovery-<날짜> 에만 기록한다.\n2026-09-01 도입 계기: 항목 재검증 쿼리로 19셀을 스탬프했다가 원복했고, 남은 1셀(EU/chemicals)도 근거가 PFHxA 후보를 지목한 후속 쿼리여서 함께 철회했다. **오늘 발굴 스윕은 0셀이다.** 실제로 훑지 않은 셀이 lastSwept 로 최신이 되면 RD-3 로테이션(오래된 순 + gap 우선)에서 뒤로 밀려 커버리지 공백이 굳는다.",
+    "cellsWithoutPredefinedQueries": {
+      "count": 27,
+      "cells": [
+        "CN/trade",
+        "EU/product_std",
+        "KR/product_std",
+        "GL/product_std",
+        "EU/chemicals",
+        "NA/recycle",
+        "EU/recycle",
+        "CN/recycle",
+        "KR/recycle",
+        "NA/supply_chain",
+        "EU/supply_chain",
+        "CN/supply_chain",
+        "KR/supply_chain",
+        "JP/supply_chain",
+        "KR/transport",
+        "EU/carbon",
+        "CN/carbon",
+        "JP/carbon",
+        "EU/packaging",
+        "EU/waste_ship",
+        "GL/waste_ship",
+        "EU/data_dpp",
+        "KR/data_dpp",
+        "CN/energy_market",
+        "KR/energy_market",
+        "JP/energy_market",
+        "GL/energy_market"
+      ],
+      "impact": "사전 정의 쿼리가 없으면 그 셀은 **정당하게 스윕될 수 없다**. 검사 #13이 이제 이를 요구한다.",
+      "action": "RD-3 전에 셀당 3~6개 사전 정의 쿼리를 채우는 것이 선행 과제다."
+    }
   },
   "sectors": {
     "battery": {

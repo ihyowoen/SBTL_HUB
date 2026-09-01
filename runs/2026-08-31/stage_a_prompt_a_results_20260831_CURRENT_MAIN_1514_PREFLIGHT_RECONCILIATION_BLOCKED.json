@@ -36,34 +36,59 @@
       "FIRST": 168,
       "REPEAT": 96
     },
-    "region_counts": {
+    "original_region_counts": {
       "KR": 121,
       "CN": 43,
       "GL": 41,
       "EU": 22,
       "US": 19,
       "JP": 18
+    },
+    "discovered_region_counts": {
+      "EU": 3,
+      "JP": 1
+    },
+    "expanded_region_counts": {
+      "KR": 121,
+      "CN": 43,
+      "GL": 41,
+      "EU": 25,
+      "US": 19,
+      "JP": 19
+    },
+    "region_count_sum_check": {
+      "original_sum": 264,
+      "discovered_sum": 4,
+      "expanded_sum": 268,
+      "matches_total_stage_a_observations": true
     }
   },
   "hard_blocker": {
-    "code": "ITEM_LEVEL_TERMINAL_LEDGER_NOT_RECONSTRUCTED_268_OF_268",
-    "detail": "The exact uploaded 2026-08-31 input is available through indexed File Library search but not byte-mounted in the execution runtime, and multimodal/full-file open is unavailable. Searchable chunks allowed recovery of material candidates and many obvious exclusions, but do not prove an exhaustive 268-observation item-level Stage A terminal ledger. V3 governance forbids treating a subset of recovered rows as full Stage A completion.",
-    "why_not_bypassed": "Stage 0.0C may preserve all 264 original observations for selector review as a uniform discovery disposition, but Stage A must itself terminally classify the expanded universe. Aggregate counts and keyword recovery are not a substitute for exact item-level accounting.",
+    "code": "UPSTREAM_PREFLIGHT_BLOCKED_AND_ITEM_LEVEL_TERMINAL_LEDGER_NOT_RECONSTRUCTED",
+    "detail": "Stage 0.0D is blocked because current-run docs/** full-read proof is incomplete; Stage 0.0C is blocked because the exact 264-row input, the 37-item carry-forward lineage, and the material-global-market search axis are not reproducibly complete. Independently, this Stage A checkpoint also cannot prove an exhaustive 268-observation terminal ledger.",
+    "why_not_bypassed": "Stage A cannot cure failed Stage 0.0D/0.0C preconditions. Even after those are repaired, aggregate counts and partial indexed recovery are not a substitute for exact item-level Stage A classification.",
     "required_to_clear": [
-      "Obtain byte-readable or complete structured access to final_news_llm_input_newsletter_expanded_20260831_143419.json, or an exact machine-derived 264-row story ledger from that file.",
-      "Append the four Stage-0.0C discoveries to that ledger.",
-      "Run Stage A selector-only classification over all 268 observations and prove exactly-one terminal disposition per observation.",
+      "Rerun Stage 0.0D with a fresh full read/parse and per-document current-run ledger for all docs/** files.",
+      "Rerun Stage 0.0C from the exact readable 264-row input, restore or replace the missing 37-item carry-forward artifact with an immutable item-level ledger, and itemize material global-market searches.",
+      "Append the four Stage-0.0C discoveries only after 0.0C is reproducibly complete.",
+      "Run Stage A selector-only classification over the resulting exact expanded universe and prove exactly one terminal disposition per observation.",
       "Recheck current main before Stage B authorization."
     ]
   },
   "recovered_material_candidate_decisions": [
     {
       "candidate_key": "A31_REC_SKON_NEOVOLTA",
-      "source_story_ids": ["KR_2026-08-31_C49", "KR_2026-08-31_C50"],
+      "source_story_ids": [
+        "KR_2026-08-31_C49",
+        "KR_2026-08-31_C50"
+      ],
       "event": "SK On–NeoVolta Power signed LFP ESS cell supply agreement",
       "region": "KR",
       "provisional_bucket": "strict_candidate_cluster",
-      "anchor_classes": ["execution_event_anchor", "strategic_behavior_anchor"],
+      "anchor_classes": [
+        "execution_event_anchor",
+        "strategic_behavior_anchor"
+      ],
       "baseline_relation": "distinct_new_event_or_material_follow_up_to_company_ESS_strategy",
       "stage_a_guardrail": "Signed supply amount is 9GWh over five years from 2027; any additional 9GWh cooperation is not to be represented as part of the signed supply amount.",
       "next_stage_requirement": "Stage B official/primary contract evidence and exact event-date/source-owner lock."
@@ -73,45 +98,65 @@
       "event": "CORNEX Xiangyang 70GWh lithium-battery industrial park enters production",
       "region": "CN",
       "provisional_bucket": "strict_candidate_cluster",
-      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
+      "anchor_classes": [
+        "execution_event_anchor",
+        "follow_up_probability_anchor"
+      ],
       "baseline_relation": "distinct_asset_stage_transition",
       "stage_a_guardrail": "Keep Xiangyang asset separate from CORNEX Yichang 80GWh and do not expose daily-cell-output claims before Stage B verification."
     },
     {
       "candidate_key": "A31_REC_CN_C01",
-      "source_story_ids": ["CN_2026-08-31_C01"],
+      "source_story_ids": [
+        "CN_2026-08-31_C01"
+      ],
       "event": "Sichuan Electric Power Construction–Sungrow consortium wins overseas 200MW/400MWh ESS order",
       "region": "CN",
       "provisional_bucket": "strict_candidate_pending_stage_b_identity_lock",
-      "anchor_classes": ["execution_event_anchor"],
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
       "baseline_relation": "no_exact_current_canonical_match_found_in_stage_a_repo_screen",
       "next_stage_requirement": "Stage B must resolve project location, contracting party, award date, binding scope and primary-source path."
     },
     {
       "candidate_key": "A31_REC_CN_C02",
-      "source_story_ids": ["CN_2026-08-31_C02"],
+      "source_story_ids": [
+        "CN_2026-08-31_C02"
+      ],
       "event": "Guozong Green Energy Dashiqiao Huguan 200MW/800MWh grid-side independent BESS construction start",
       "region": "CN",
       "provisional_bucket": "strict_candidate_pending_stage_b_identity_lock",
-      "anchor_classes": ["execution_event_anchor"],
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
       "baseline_relation": "no_exact_current_canonical_match_found_in_stage_a_repo_screen"
     },
     {
       "candidate_key": "A31_REC_CN_C13",
-      "source_story_ids": ["CN_2026-08-31_C13"],
+      "source_story_ids": [
+        "CN_2026-08-31_C13"
+      ],
       "event": "Xincheng County 200MW/400MWh shared BESS grid connection",
       "region": "CN",
       "provisional_bucket": "strict_candidate_pending_stage_b_identity_lock",
-      "anchor_classes": ["execution_event_anchor"],
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
       "stage_a_guardrail": "Grid-connection/operation wording must be verified at Stage B and kept distinct from similarly sized Chinese BESS projects."
     },
     {
       "candidate_key": "A31_REC_PENGHUI_H1",
-      "source_story_ids": ["CN_2026-08-31_C11"],
+      "source_story_ids": [
+        "CN_2026-08-31_C11"
+      ],
       "event": "Penghui Energy publishes 2026 H1 actual results",
       "region": "CN",
       "provisional_bucket": "candidate_review_earnings_deep_dive",
-      "anchor_classes": ["data_financial_anchor", "strategic_behavior_anchor"],
+      "anchor_classes": [
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
       "stage_a_guardrail": "Do not promote from secondary headline metrics alone. Stage B earnings-deep-dive must use the official half-year report/IR and separate operating drivers from headline profit growth."
     },
     {
@@ -119,7 +164,10 @@
       "event": "Sungrow 2026 H1 storage shipment/revenue signal",
       "region": "CN",
       "provisional_bucket": "candidate_review_earnings_deep_dive",
-      "anchor_classes": ["data_financial_anchor", "strategic_behavior_anchor"],
+      "anchor_classes": [
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
       "recovered_input_signal": "Current-file context references H1 storage shipment of 25GWh and storage revenue of RMB15.4bn, but an exact current-input story ID was not fully reconstructed.",
       "stage_a_guardrail": "No visible metric may survive without official H1 report/IR verification and exact story identity."
     },
@@ -128,50 +176,78 @@
       "event": "Marubeni New Power / Blue Sky FIP co-located battery enters balancing market",
       "region": "JP",
       "provisional_bucket": "strict_candidate_cluster",
-      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
+      "anchor_classes": [
+        "execution_event_anchor",
+        "follow_up_probability_anchor"
+      ],
       "baseline_relation": "market_participation_stage_transition"
     },
     {
       "candidate_key": "A31_REC_GAWARA_BAYA",
-      "source_story_ids": ["GL_2026-08-31_C01"],
+      "source_story_ids": [
+        "GL_2026-08-31_C01"
+      ],
       "event": "CIP Gawara Baya 408MW wind + 104MW grid-forming BESS reaches FID/financial close and construction",
       "region": "GL",
       "provisional_bucket": "strict_candidate_cluster",
-      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"]
+      "anchor_classes": [
+        "execution_event_anchor",
+        "follow_up_probability_anchor"
+      ]
     },
     {
       "candidate_key": "A31_DISC_RETURN_SIRIUS",
-      "source_story_ids": ["DISC31_EU_RETURN_SIRIUS"],
+      "source_story_ids": [
+        "DISC31_EU_RETURN_SIRIUS"
+      ],
       "event": "Return–Vattenfall Sirius 200MW/800MWh BESS long-term tolling and financial close",
       "region": "EU",
       "provisional_bucket": "strict_candidate_cluster",
-      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"]
+      "anchor_classes": [
+        "execution_event_anchor",
+        "follow_up_probability_anchor"
+      ]
     },
     {
       "candidate_key": "A31_DISC_NEXEON_100M",
-      "source_story_ids": ["DISC31_EU_NEXEON_100M"],
+      "source_story_ids": [
+        "DISC31_EU_NEXEON_100M"
+      ],
       "event": "Nexeon completes £100m investment round",
       "region": "EU",
       "provisional_bucket": "strict_candidate_cluster",
-      "anchor_classes": ["execution_event_anchor", "technology_commercialization_anchor"],
+      "anchor_classes": [
+        "execution_event_anchor",
+        "technology_commercialization_anchor"
+      ],
       "baseline_relation": "material_follow_up_to_prior_Honda_investment"
     },
     {
       "candidate_key": "A31_DISC_NEO_CARESTER",
-      "source_story_ids": ["DISC31_EU_NEO_CARESTER"],
+      "source_story_ids": [
+        "DISC31_EU_NEO_CARESTER"
+      ],
       "event": "Neo Performance Materials–Carester binding term sheet for heavy-rare-earth supply/recycling/toll separation",
       "region": "EU",
       "provisional_bucket": "strict_or_candidate_review_pending_binding_scope_check",
-      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
+      "anchor_classes": [
+        "execution_event_anchor",
+        "follow_up_probability_anchor"
+      ],
       "baseline_relation": "material_follow_up_to_prior_rare_earth_separation_execution"
     },
     {
       "candidate_key": "A31_DISC_GS_YUASA_IBARAKI",
-      "source_story_ids": ["DISC31_JP_GS_YUASA_IBARAKI"],
+      "source_story_ids": [
+        "DISC31_JP_GS_YUASA_IBARAKI"
+      ],
       "event": "GS Yuasa decides Ibaraki manufacturing plant for next-generation domestic stationary storage systems",
       "region": "JP",
       "provisional_bucket": "strict_candidate_cluster",
-      "anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
+      "anchor_classes": [
+        "execution_event_anchor",
+        "follow_up_probability_anchor"
+      ],
       "baseline_relation": "stage_transition_from_METI_supply_assurance_plan"
     }
   ],
@@ -230,8 +306,8 @@
   "duplicate_reinforcement_notes": [
     {
       "candidate": "POSCO Argentina $700m credit facility republication",
-      "disposition": "source_reinforcement_for_prior_carry_forward_event",
-      "reason": "The underlying financing event already belongs to the prior authorized carry-forward lane; later article presence in the 8/31 input does not create another card."
+      "disposition": "provisional_possible_source_reinforcement_pending_carry_forward_lineage_restore",
+      "reason": "This may reinforce a prior carry-forward financing event, but the referenced carry-forward artifact is missing, so the relationship is provisional and cannot be used as a terminal duplicate/reinforcement decision."
     },
     {
       "candidate": "Sandrini 92MW/368MWh commissioning republication",
@@ -245,10 +321,11 @@
     }
   ],
   "prior_publish_ready_lane": {
-    "carry_forward_count": 37,
-    "status": "PRESERVED_SEPARATELY_NOT_RESTAGED",
+    "carry_forward_count_claimed": 37,
+    "status": "BLOCKED_LINEAGE_ARTIFACT_MISSING",
     "stage_a_effect": "NONE",
-    "next_allowed_step": "current-baseline addability revalidation only after the fresh Stage A accounting blocker is cleared or as a separately governed carry-forward-only run",
+    "reproducibly_preserved": false,
+    "next_allowed_step": "Restore the named prior Prompt 0.8 artifact or an immutable item-level 37-card ledger before any carry-forward-only revalidation.",
     "canonical_write_performed": false
   },
   "accounting": {
@@ -265,6 +342,12 @@
     "stage_b_authorized": false,
     "prompt_0_4_authorized_for_combined_run": false,
     "canonical_mutation_authorized": false,
-    "required_action": "Clear the item-level accounting blocker, rerun/complete Stage A over all 268 observations, then send only strict_passed_spec to Stage B."
+    "required_action": "Repair and PASS Stage 0.0D and 0.0C first; then reconstruct the exact expanded Stage A universe and complete item-level terminal accounting before any Stage B authorization."
+  },
+  "upstream_preconditions": {
+    "stage_0_0d_status": "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE",
+    "stage_0_0c_status": "BLOCKED_COVERAGE_DISCOVERY_INCOMPLETE",
+    "stage_a_authorized_by_upstream": false,
+    "effect": "This checkpoint is retained only as a non-authoritative recovery note. No Stage A result may authorize Stage B until 0.0D and 0.0C are rerun to PASS."
   }
 }

@@ -76,7 +76,16 @@ def main() -> int:
 
     need(STAGE_A, "EMBEDDED_NEWS_VALUE_SELECTION_V4", errors)
     need(STAGE_A, "related_prepass", errors)
-    for token in ["execution_credibility_gate", "independent_cardability_gate", "decision_news_value_score", "publication_urgency", "structural_non_execution_route"]:
+    for token in [
+        "execution_credibility_gate",
+        "independent_cardability_gate",
+        "decision_news_value_score",
+        "publication_urgency",
+        "structural_non_execution_route",
+        "systemic_scale_denominator",
+        "denominator_gap",
+        "strict_passed_spec[] must have `related_prepass.status = PASS`",
+    ]:
         need(STAGE_A, token, errors)
     need(ADDABILITY, "Addability Revalidation", errors)
     need(ADDABILITY, "not the first Related audit", errors)
@@ -96,16 +105,32 @@ def main() -> int:
         if "SUPERSEDED" not in head and "REFERENCE_ONLY" not in head:
             errors.append(f"retired governance path not lifecycle-marked: {path.relative_to(ROOT)}")
 
-    need(DIRECT_DOC, "MANUAL_DIRECT_ADD_V2_20260829", errors)
+    # Direct-add checks are semantic, not pinned to a date-stamped document version.
+    need(DIRECT_DOC, "# Manual Direct Add V2", errors)
+    need(DIRECT_DOC, "Only `manual_direct_add_v2` is accepted", errors)
+    need(DIRECT_DOC, "changed_fields[]", errors)
     need(DIRECT_VALIDATOR, "manual_direct_add_v2", errors)
+    need(DIRECT_VALIDATOR, "validateUpdateScope", errors)
     if DIRECT_SCHEMA.exists():
         schema = json.loads(DIRECT_SCHEMA.read_text(encoding="utf-8"))
         if schema.get("properties", {}).get("schema", {}).get("const") != "manual_direct_add_v2":
             errors.append("manual-direct-add.v2 schema const missing")
+        update_required = schema.get("$defs", {}).get("updateAttestation", {}).get("required", [])
+        if "changed_fields" not in update_required:
+            errors.append("manual-direct-add.v2 update attestation must require changed_fields")
 
     reg = json.loads(REGISTRY.read_text(encoding="utf-8")) if REGISTRY.exists() else {}
-    active_text = "\n".join((ROOT / rel).read_text(encoding="utf-8") for rel in reg.get("active_named_prompts", []) if (ROOT / rel).exists())
-    for token in ["WORKFLOW_CONTRACT_OVERLAY_", "01A_PROMPT_0_1S_Structural_Value_Override.md", "00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md", "00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md"]:
+    active_text = "\n".join(
+        (ROOT / rel).read_text(encoding="utf-8")
+        for rel in reg.get("active_named_prompts", [])
+        if (ROOT / rel).exists()
+    )
+    for token in [
+        "WORKFLOW_CONTRACT_OVERLAY_",
+        "01A_PROMPT_0_1S_Structural_Value_Override.md",
+        "00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md",
+        "00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
+    ]:
         if token in active_text:
             errors.append(f"active named prompt dependency graph contains retired token: {token}")
 
@@ -118,9 +143,10 @@ def main() -> int:
     print("- active named prompts: 17")
     print("- active override/addendum runtime dependencies: 0")
     print("- Stage A news value + Related pre-pass embedded: PASS")
+    print("- Stage A systemic denominator cap contract: PASS")
     print("- conditional 0.2R/0.3R + backward routing: PASS")
     print("- Prompt 0.4 addability distinction: PASS")
-    print("- Manual Direct Add V2 lifecycle registration: PASS")
+    print("- Manual Direct Add V2 lifecycle/update identity registration: PASS")
     return 0
 
 

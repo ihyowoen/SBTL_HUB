@@ -53,7 +53,27 @@ jobs:
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
 
       - name: Run active semantic and machine regression tests
-        run: python validation_scripts/run_active_workflow_tests.py
+        id: active-tests
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          python validation_scripts/run_active_workflow_tests.py 2>&1 | tee workflow-active-tests.log
+
+      - name: Upload exact active-test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-active-test-log-${{ github.run_id }}
+          path: workflow-active-tests.log
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Fail closed on active-test failure
+        if: steps.active-tests.outcome == 'failure'
+        run: |
+          echo "Active workflow regression suite failed; exact FAIL_ID/ERROR_ID values are in the uploaded diagnostic artifact." >&2
+          exit 1
 
       - name: Validate direct-add V2 schema and validator
         run: |

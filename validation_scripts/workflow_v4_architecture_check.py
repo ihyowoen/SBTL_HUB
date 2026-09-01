@@ -74,9 +74,9 @@ def main() -> int:
         if "docs/MANUAL_DIRECT_ADD_V1.md" not in reg.get("superseded", []):
             errors.append("Manual Direct Add V1 is not registered superseded")
 
-    need(STAGE_A, "EMBEDDED_NEWS_VALUE_SELECTION_V4", errors)
-    need(STAGE_A, "related_prepass", errors)
     for token in [
+        "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+        "related_prepass",
         "execution_credibility_gate",
         "independent_cardability_gate",
         "decision_news_value_score",
@@ -84,7 +84,8 @@ def main() -> int:
         "structural_non_execution_route",
         "systemic_scale_denominator",
         "denominator_gap",
-        "strict_passed_spec[] must have `related_prepass.status = PASS`",
+        "related_prepass.status = PASS",
+        "duplicate_disposition = no_duplicate_found",
     ]:
         need(STAGE_A, token, errors)
     need(ADDABILITY, "Addability Revalidation", errors)

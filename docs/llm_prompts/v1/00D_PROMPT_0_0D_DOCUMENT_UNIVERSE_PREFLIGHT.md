@@ -1,13 +1,14 @@
 # Prompt 0.0D — Active Governance Preflight V4
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `PROMPT_0_0D_V4_20260829`
+**Version:** `PROMPT_0_0D_V4_20260901`
 
 ## Purpose
 Establish the complete active rule universe before discovery or selection. Inventory every document, but do not treat historical/reference content as active authority.
 
 ## Required input
 - current GitHub `main` HEAD;
+- current `data/cards.full.json` blob identity;
 - current repository tree under `docs/**`;
 - `RUN_GOVERNANCE_INDEX.md`;
 - `DOCUMENT_UNIVERSE_POLICY.md`;
@@ -15,7 +16,7 @@ Establish the complete active rule universe before discovery or selection. Inven
 - lifecycle registry and active validator/workflow registration.
 
 ## Procedure
-1. Lock `main` SHA.
+1. Lock `main` SHA and the canonical `data/cards.full.json` blob SHA used by this run.
 2. Inventory every `docs/**` path.
 3. Classify every path from registry + authoritative header.
 4. Fully read/parse all active canonical documents, active validator contracts required by the intended run path, applicable open remediation/migration, and direct dependency closure.
@@ -30,13 +31,27 @@ Establish the complete active rule universe before discovery or selection. Inven
 - Do not apply a historical override/addendum merely because it exists.
 - Do not start 0.0C with unread active authority.
 - Do not allow a later-read reference document to change an already-started run.
+- Do not set compatibility fields to PASS by pretending every historical/reference body was deep-read. Their V4 meaning is defined below.
+
+## Production artifact compatibility semantics
+The production card-run engine consumes several legacy-named fields. They remain mandatory compatibility fields, but their V4 semantics are applicability-driven:
+
+- `repository_head_sha`: exact locked `main` commit SHA for the run.
+- `canonical_full_blob_sha`: exact blob SHA of the locked `data/cards.full.json` baseline.
+- `all_docs_files_read_or_parsed`: `true` only when every document that **V4 requires to be fully read/parsed** has been fully read/parsed and every other `docs/**` path has been lifecycle-classified. It does **not** mean that `SUPERSEDED`, `REFERENCE_ONLY`, `COMPLETED_REFERENCE`, or `ARCHIVED` bodies were unnecessarily deep-read.
+- `unresolved_rule_conflicts`: compatibility mirror of unresolved active-authority conflicts; it must be empty on PASS.
+- `incomplete_universe_defects`: aggregate blocker ledger for any unclassified path, unread required active/dependency path, unresolved dependency, unregistered active-looking file, or other incomplete-universe defect; it must be empty on PASS.
+- `stage_0_0c_authorized`: `true` only when all V4 preflight exit conditions are satisfied.
+
+These compatibility fields must agree with the detailed V4 ledgers below. Any contradiction is BLOCKED, never normalized to PASS.
 
 ## Required output
 ```json
 {
   "stage": "0.0D",
   "status": "PASS|BLOCKED",
-  "baseline_main_sha": "",
+  "repository_head_sha": "",
+  "canonical_full_blob_sha": "",
   "docs_inventory_count": 0,
   "classified_count": 0,
   "active_full_read_count": 0,
@@ -51,7 +66,11 @@ Establish the complete active rule universe before discovery or selection. Inven
   "unregistered_active_looking_paths": [],
   "active_override_or_addendum_count": 0,
   "stage_a_embedded_news_value_verified": true,
+  "all_docs_files_read_or_parsed": true,
+  "unresolved_rule_conflicts": [],
+  "incomplete_universe_defects": [],
   "stage_0_0c_authorized": true
 }
 ```
-PASS requires all defect arrays empty and `active_override_or_addendum_count = 0`.
+
+PASS requires all detailed defect arrays and both compatibility blocker arrays to be empty, `active_override_or_addendum_count = 0`, `classified_count = docs_inventory_count`, `all_docs_files_read_or_parsed = true`, and `stage_0_0c_authorized = true`.

@@ -84,11 +84,22 @@ def check_stage_a_full_v3_compat(data):
     return _prior_check_stage_a_full(data)
 
 
+def _install_active_cli_gate() -> None:
+    """Install the V4 Stage A gate into the historical CLI dispatcher or fail closed."""
+    patcher = getattr(_compat, "_patch_module_chain", None)
+    compat_module = getattr(_compat, "_compat_module", None)
+    if not callable(patcher) or compat_module is None:
+        raise RuntimeError(
+            "Stage A V4 CLI cannot install the compatibility dispatch hook; refusing V3-only fallback"
+        )
+    patcher(compat_module, "check_stage_a", check_stage_a)
+
+
 if __name__ == "__main__":
     # The CLI is an active governance entrypoint and therefore always uses V4.
-    # Patch only the nested dispatch target used by the historical CLI parser.
-    if hasattr(_compat, "_patch_module_chain") and hasattr(_compat, "_compat_module"):
-        _compat._patch_module_chain(_compat._compat_module, "check_stage_a", check_stage_a)
+    # Private compatibility-hook drift must stop the gate instead of silently
+    # falling back to the historical V3-only dispatcher.
+    _install_active_cli_gate()
     _compat._compat_module._base_layer._base.sys.exit(
         _compat._compat_module._base_layer._base.main()
     )

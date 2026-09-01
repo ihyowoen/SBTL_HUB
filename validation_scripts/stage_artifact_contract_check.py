@@ -56,7 +56,8 @@ ITEM_REQUIRED = {
         "related_prepass", "date_role", "selection_policy_version", "selection_route",
         "execution_credibility_gate", "independent_cardability_gate", "anchor_classes",
         "decision_news_value_score", "decision_value_breakdown",
-        "decision_value_classification", "publication_urgency", "prior_state",
+        "decision_value_classification", "publication_urgency",
+        "systemic_scale_denominator", "denominator_gap", "prior_state",
         "new_verified_fact", "changed_judgment", "uncertainty_resolved",
         "remaining_uncertainty", "incremental_information",
         "baseline_expectation_changed", "decision_relevance",
@@ -129,6 +130,9 @@ def main() -> int:
             findings.append({"scope": "top_level", "field": field})
 
     items = collect_items(payload, args.stage)
+    if args.stage in {"A", "0.5", "0.6", "0.7", "0.8"} and not items:
+        findings.append({"scope": "top_level", "field": f"non_empty_{BUCKETS[args.stage][0]}"})
+
     for index, item in enumerate(items):
         item_id = item.get("id") or item.get("source_spec_id") or item.get("spec_id")
         for field in ITEM_REQUIRED.get(args.stage, []):

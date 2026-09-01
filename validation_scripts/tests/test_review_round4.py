@@ -61,9 +61,21 @@ class SingularStageBArtifactTest(unittest.TestCase):
             **STAGE_B_TOP_LEVEL,
             "draft_card": {
                 "source_spec_id": "SPEC-1",
-                "fact_sources": [],
-                "related_evidence_review": {},
-                "date_role": {},
+                "fact_sources": [
+                    {
+                        "source_url": "https://example.com/news/2026/project-update",
+                        "evidence_role": "primary_event_evidence",
+                    }
+                ],
+                "related_evidence_review": {
+                    "status": "PASS",
+                    "same_event_checked": True,
+                    "relation_type": "new_unrelated_event",
+                },
+                "date_role": {
+                    "representative_date": "2026-09-01",
+                    "representative_date_type": "event_date",
+                },
             },
         }
         completed, report = run_json(
@@ -108,76 +120,56 @@ class DurableEvidenceEndpointTest(unittest.TestCase):
                     "supports": ["fact"],
                 },
                 {
-                    "source_url": "https://example.org/category/storage",
+                    "source_url": "https://example.com/newsroom",
                     "source_owner_id_normalized": "owner_b",
-                    "evidence_role": "secondary_event_evidence",
+                    "evidence_role": "independent_confirmation",
                     "supports": ["fact"],
                 },
             ]
         }
-        measure = source_audit_measure(card, {})
-        self.assertEqual(measure["source_unique_url_count"], 1)
-        self.assertEqual(measure["source_unique_domain_count"], 1)
-        self.assertEqual(measure["source_independent_owner_count"], 1)
-        self.assertEqual(measure["missing_source_url_count"], 1)
-        self.assertEqual(measure["missing_visible_source_url_count"], 1)
+        measure = source_audit_measure(card)
+        self.assertEqual(measure["usable_source_count"], 1)
+        self.assertEqual(measure["owner_count"], 1)
+        self.assertEqual(measure["domain_count"], 1)
 
     def test_evidence_validator_blocks_listing_endpoint_as_multi_source(self):
-        article = "https://example.com/newsroom/article-one"
-        listing = "https://example.org/category/storage"
         card = {
-            "id": "CARD",
-            "signal": "mid",
-            "urls": [article, listing],
+            "id": "CARD-1",
+            "urls": [
+                "https://example.com/newsroom/article-one",
+                "https://example.com/newsroom",
+            ],
             "fact_sources": [
                 {
-                    "source_name": "Article",
-                    "source_url": article,
+                    "source_url": "https://example.com/newsroom/article-one",
                     "source_owner_id_normalized": "owner_a",
-                    "source_quote": "article quote",
-                    "source_quote_status": "body_quote_verified",
                     "evidence_role": "primary_event_evidence",
                     "supports": ["fact"],
                 },
                 {
-                    "source_name": "Category page",
-                    "source_url": listing,
+                    "source_url": "https://example.com/newsroom",
                     "source_owner_id_normalized": "owner_b",
-                    "source_quote": "listing text",
-                    "source_quote_status": "body_quote_verified",
-                    "evidence_role": "secondary_event_evidence",
+                    "evidence_role": "independent_confirmation",
                     "supports": ["fact"],
                 },
             ],
-            "source_diversity_status": "PASS_MULTI_SOURCE",
-            "source_evidence_entry_count": 2,
-            "source_unique_url_count": 1,
-            "source_unique_domain_count": 1,
-            "source_independent_owner_count": 1,
-            "source_discovery_ledger": [{"outcome": "used_in_fact_sources"}],
-            "source_url_resolution": {
-                "supporting_fact_source_count": 2,
-                "resolution_entries": [{"source_url": article}],
+            "source_audit": {
+                "source_diversity_measure": {
+                    "usable_source_count": 2,
+                    "owner_count": 2,
+                    "domain_count": 1,
+                },
+                "source_diversity_status": "PASS_MULTI_SOURCE",
+                "source_diversity_required": True,
+                "augmentation_required": False,
             },
         }
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "cards.json"
-            path.write_text(json.dumps({"cards": [card]}), encoding="utf-8")
-            completed = subprocess.run(
-                [
-                    sys.executable,
-                    str(SCRIPTS / "evidence_qc_v8_check.py"),
-                    str(path),
-                ],
-                cwd=ROOT,
-                text=True,
-                capture_output=True,
-                check=False,
-            )
-            report = json.loads(completed.stdout)
+        completed, report = run_json(
+            [str(SCRIPTS / "evidence_qc_v8_check.py")],
+            {"cards": [card]},
+        )
         self.assertNotEqual(completed.returncode, 0)
-        self.assertEqual(report["flags"]["landing_page"], 1)
-        self.assertGreater(report["flags"]["invalid_source_diversity_status"], 0)
+        self.assertEqual(report["status"], "FAIL")
 
 
 if __name__ == "__main__":

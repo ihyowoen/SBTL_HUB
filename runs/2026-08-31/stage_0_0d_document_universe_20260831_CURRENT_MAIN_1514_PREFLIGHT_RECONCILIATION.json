@@ -42,44 +42,69 @@
       "current_run_direct_full_reads_proven": 7,
       "current_run_full_read_proof_missing_for_at_least": 81,
       "read_status": "INCOMPLETE_CURRENT_RUN_PROOF",
-      "application_status": "NOT_AUTHORIZING"
+      "classification": "UNCLASSIFIED_CURRENT_RUN",
+      "authority": "NOT_FINALIZED_CURRENT_RUN",
+      "applicability": "NOT_FINALIZED_CURRENT_RUN",
+      "application_status": "NOT_AUTHORIZING",
+      "note": "This synthetic scope row is not a substitute for the required 88 item-level document ledger. A genuine rerun must enumerate every discovered docs/** path and SHA."
     }
   ],
   "direct_current_high_authority_rereads": [
     {
       "path": "docs/DOCUMENT_UNIVERSE_POLICY.md",
       "git_blob_sha": "1ffdffe3f07fa04d5080c5ed700f0cd7c3b10d80",
-      "read_status": "READ_FULL_CURRENT_HEAD"
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification": "UNCLASSIFIED_CURRENT_RUN",
+      "authority": "NOT_FINALIZED_CURRENT_RUN",
+      "applicability": "NOT_FINALIZED_CURRENT_RUN"
     },
     {
       "path": "docs/RUN_GOVERNANCE_INDEX.md",
       "git_blob_sha": "403f31e7c88b7de6861c74c51e9668bc254ff72e",
-      "read_status": "READ_FULL_CURRENT_HEAD"
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification": "UNCLASSIFIED_CURRENT_RUN",
+      "authority": "NOT_FINALIZED_CURRENT_RUN",
+      "applicability": "NOT_FINALIZED_CURRENT_RUN"
     },
     {
       "path": "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
       "git_blob_sha": "1701c60139363678da3b2d7cdc09947b78268357",
-      "read_status": "READ_FULL_CURRENT_HEAD"
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification": "UNCLASSIFIED_CURRENT_RUN",
+      "authority": "NOT_FINALIZED_CURRENT_RUN",
+      "applicability": "NOT_FINALIZED_CURRENT_RUN"
     },
     {
       "path": "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
       "git_blob_sha": "6b64061b78cccad0fdb807e299df7b7460fd0d06",
-      "read_status": "READ_FULL_CURRENT_HEAD"
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification": "UNCLASSIFIED_CURRENT_RUN",
+      "authority": "NOT_FINALIZED_CURRENT_RUN",
+      "applicability": "NOT_FINALIZED_CURRENT_RUN"
     },
     {
       "path": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
       "git_blob_sha": "854605068c78633d99ae32d8c635e12ff34b5a35",
-      "read_status": "READ_FULL_CURRENT_HEAD"
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification": "UNCLASSIFIED_CURRENT_RUN",
+      "authority": "NOT_FINALIZED_CURRENT_RUN",
+      "applicability": "NOT_FINALIZED_CURRENT_RUN"
     },
     {
       "path": "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
       "git_blob_sha": "3836f173842409f72acab3698f35d98ed247a356",
-      "read_status": "READ_FULL_CURRENT_HEAD"
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification": "UNCLASSIFIED_CURRENT_RUN",
+      "authority": "NOT_FINALIZED_CURRENT_RUN",
+      "applicability": "NOT_FINALIZED_CURRENT_RUN"
     },
     {
       "path": "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
       "git_blob_sha": "3024fd411b9df1c6c3369e46ed6b423e04a36ddf",
-      "read_status": "READ_FULL_CURRENT_HEAD"
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification": "UNCLASSIFIED_CURRENT_RUN",
+      "authority": "NOT_FINALIZED_CURRENT_RUN",
+      "applicability": "NOT_FINALIZED_CURRENT_RUN"
     }
   ],
   "changed_external_dependencies_reviewed": [
@@ -115,7 +140,14 @@
     }
   ],
   "missing_content_identity_documents": [],
-  "unclassified_documents": [],
+  "unclassified_documents": [
+    {
+      "scope": "docs/**",
+      "expected_document_count": 88,
+      "finalized_current_run_classification_count": 0,
+      "detail": "The required per-document current-run classification/authority/applicability ledger was not produced. Even the seven directly reread documents were not assigned finalized governance classes in this run, so classification completeness remains unproven."
+    }
+  ],
   "unread_documents": [
     {
       "scope": "docs/**",
@@ -125,11 +157,38 @@
       "detail": "The remaining documents were represented only through a prior-run cache placeholder, which the active policy explicitly says is insufficient."
     }
   ],
-  "unread_active_documents": [],
+  "unread_active_documents": [
+    {
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
+      "git_blob_sha": "1a130ab35ce9cf73e7152b33a956634214a0eb6e",
+      "reason": "Open remediation manifest exists at the locked repository state but was not part of the seven current-run full rereads."
+    },
+    {
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md",
+      "git_blob_sha": "5d16a73041abdb74e800abc6e6f1e03c697f67f0",
+      "reason": "Companion open remediation document exists at the locked repository state but was not part of the seven current-run full rereads."
+    }
+  ],
   "unresolved_dependencies": [],
   "unresolved_rule_conflicts": [],
   "misapplied_non_authoritative_documents": [],
-  "unchecked_open_remediations": [],
+  "unchecked_open_remediations": [
+    {
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
+      "git_blob_sha": "1a130ab35ce9cf73e7152b33a956634214a0eb6e",
+      "declared_status": "LEGACY_REMEDIATION_REQUIRED",
+      "declared_affected_card_count": 13,
+      "declared_dangling_edge_count": 14,
+      "check_status": "NOT_CHECKED_CURRENT_RUN",
+      "detail": "The remediation manifest declares 13 affected baseline cards and 14 dangling Related edges. Its applicability to the locked 1514-card baseline was not fully checked in this run and therefore must remain an open blocker."
+    },
+    {
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md",
+      "git_blob_sha": "5d16a73041abdb74e800abc6e6f1e03c697f67f0",
+      "check_status": "NOT_CHECKED_CURRENT_RUN",
+      "detail": "Companion remediation guidance was not fully read and reconciled in this run."
+    }
+  ],
   "unauthorized_migration_applications": [],
   "inactive_document_contamination": [],
   "incomplete_universe_defects": [
@@ -142,6 +201,16 @@
       "type": "UNREAD_DOCUMENT",
       "path": "docs/**",
       "detail": "At least 81 of 88 docs/** files lack current-run full-read/parse proof in this artifact; a prior manifest/cache cannot substitute for the required current-run read."
+    },
+    {
+      "type": "UNCLASSIFIED_DOCUMENT",
+      "path": "docs/**",
+      "detail": "No complete per-document current-run classification/authority/applicability ledger was produced; classification remediation is therefore incomplete."
+    },
+    {
+      "type": "UNCHECKED_OPEN_REMEDIATION",
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.*",
+      "detail": "The legacy dangling-Related remediation family exists at the locked repository state and was not fully checked against the current canonical baseline."
     }
   ],
   "open_remediations_checked": [],
@@ -152,24 +221,30 @@
   "superseded_documents_read": [],
   "archived_documents_read": [],
   "excluded_migrations": [],
-  "selected_blocker_reason": "Current-run full-read/parse proof is incomplete for docs/** and the referenced prior 88-document manifest is not recoverable; Stage 0.0C is not authorized.",
+  "selected_blocker_reason": "Current-run full-read/parse proof and per-document classification are incomplete for docs/**; the referenced prior 88-document manifest is not recoverable; and an open legacy Related remediation was not checked. Stage 0.0C is not authorized.",
   "blocker_precedence": [
     "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
     "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE"
   ],
   "required_stage_contracts": {
+    "0.0D": "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
     "0.0C": "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
     "0.1": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
     "0.1S": "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
     "0.2": "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
     "0.3": "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
+    "0.2R": "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
+    "0.3R": "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
     "0.4": "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md",
     "0.5": "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
     "0.6": "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
     "0.7": "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
     "0.7C": "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md",
     "0.8": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
-    "0.9": "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md"
+    "0.9": "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
+    "1.0": "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
+    "1.1": "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
+    "0.1P": "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md"
   },
   "governance_decision": {
     "ordinary_run_contract": "CURRENT_MAIN_V3",

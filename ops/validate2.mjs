@@ -283,8 +283,12 @@ for (const i of items) for (const f of ['d','tip','detail']) {
   // 기준 집합이 부분적으로 깨진 경우(파싱 실패 일부)에는 대조를 계속한다 — 위에서 이미 ERROR 를 올렸다.
   // 기준 집합이 통째로 없는 경우에는 전 항목 오탐이 되므로 대조를 건너뛴다(이미 ERROR 로 끊긴 상태).
   if (baseUsable) for (const i of items) {
-    const rid = i.verify?.runId;
-    if (rid && !known.has(rid))
+    if (!i.verify) continue;                     // verify 자체가 없는 항목은 다른 검사 관할
+    const rid = i.verify.runId;
+    // **runId 가 비면 건너뛰지 않는다.** 현 188건 전부 runId 를 갖고 있어 하위호환 사유가 없고,
+    // 건너뛰면 필드를 지우는 것만으로 #15·#20 을 동시에 우회할 수 있다(6차 리뷰 지적).
+    if (!rid) { err(`${i.id}: verify 에 runId 없음 — 근거 추적 불가(필드 제거로 #15·#20 을 동시에 우회할 수 있다)`); continue; }
+    if (!known.has(rid))
       err(`${i.id}: verify.runId(${rid}) 에 해당하는 원장이 ops/runs 에 없음 — 근거 추적 불가(검사 #6이 날짜 불일치로 건너뛰는 사각)`);
   }
 }
@@ -331,9 +335,16 @@ if (runPath) {
     for (const a of r3.approvalQueueCandidates ?? []) {
       // **완료·대기를 모두 파싱한다.** 종전에는 완료 항목을 파싱 전에 건너뛰어, 승인된 목표값에서
       // status 를 다시 바꿔도 통과했다(5차 리뷰 지적). 완료는 to, 대기는 from 이 현재 status 여야 한다.
-      const m = /\[status\]\s*([A-Z]{2}-\d{3})\s+(\w+)\s*(?:→|->)\s*(\w+)/.exec(a.name ?? '');
-      if (!m) continue;
-      const [, id, from, to] = m;
+      // **표시명이 아니라 필드를 본다.** 종전에는 [status] 접두를 파싱해서, KR-020 처럼 [정책판단] 으로
+      // 적히고도 실제로는 WATCH → ACTIVE 를 수행하는 항목이 검사에서 통째로 빠졌다(6차 리뷰 지적).
+      let id, from, to;
+      const sc = a.statusChange;
+      if (sc?.id && sc?.from && sc?.to) { id = sc.id; from = sc.from; to = sc.to; }
+      else {
+        const m = /\[[^\]]*\]\s*([A-Z]{2}-\d{3})\s+(\w+)\s*(?:→|->)\s*(\w+)/.exec(a.name ?? '');
+        if (!m) continue;
+        [, id, from, to] = m;
+      }
       const it = byId.get(id);
       if (!it) { err(`원장 승인 큐: ${id} 가 tracker 에 없음`); continue; }
       const done = /반영\s*완료|적용\s*완료|applied/i.test(a.decision ?? '');
@@ -405,7 +416,9 @@ if (runPath) {
     }
   } catch(e) { /* #15가 이미 ERROR 로 보고한다 */ }
   if (dateOf.size) for (const i of items) {
-    const v = i.verify; if (!v?.runId || !v?.date) continue;
+    const v = i.verify; if (!v?.runId) continue;  // runId 부재는 #15가 ERROR 로 보고한다
+    // **date 가 없으면 건너뛰지 않는다.** #6은 lastChecked 로 폴백하므로 date 를 지우면 이 대조만 빠져나간다.
+    if (!v.date) { err(`${i.id}: verify 에 date 없음 — 원장 날짜 대조를 빠져나간다(#6은 lastChecked 로 폴백)`); continue; }
     const d0 = dateOf.get(v.runId);
     if (d0 && d0 !== v.date)
       err(`${i.id}: verify.date(${v.date}) ≠ 원장 ${v.runId} 의 date(${d0}) — 실재하지만 무관한 원장을 가리킨다`);
@@ -432,18 +445,24 @@ if (runPath) {
         if (rid === r5.runId && mth) realRun[mth] = (realRun[mth] ?? 0) + 1;
       }
       const vcTotal = Object.values(realRun).reduce((a,b)=>a+b,0);
+      // **필드 부재를 통과로 두지 않는다.** 조건부 비교만 하면 현 스냅샷 원장이 필드를 지우는 것만으로
+      // 이 게이트를 통째로 우회한다(6차 리뷰 지적).
       const vc = r5.verifyCounts ?? {};
-      if (vc.totalItems !== undefined && vc.totalItems !== realTotal)
+      if (vc.totalItems === undefined) err('원장 verifyCounts.totalItems 없음 — 파생값 정합 대조를 우회한다');
+      else if (vc.totalItems !== realTotal)
         err(`원장 verifyCounts.totalItems(${vc.totalItems}) ≠ tracker 실측(${realTotal}) — 파생값이 낡았다`);
-      if (vc.thisRunTotal !== undefined && vc.thisRunTotal !== vcTotal)
+      if (vc.thisRunTotal === undefined) err('원장 verifyCounts.thisRunTotal 없음 — 파생값 정합 대조를 우회한다');
+      else if (vc.thisRunTotal !== vcTotal)
         err(`원장 verifyCounts.thisRunTotal(${vc.thisRunTotal}) ≠ tracker 실측(${vcTotal}) — 파생값이 낡았다`);
       const sd = r5.statusDistribution;
+      if (!sd) err('원장 statusDistribution 없음 — 파생값 정합 대조를 우회한다');
       if (sd) {
         const keys = new Set([...Object.keys(sd), ...Object.keys(realStatus)]);
         for (const k of keys) if ((sd[k] ?? 0) !== (realStatus[k] ?? 0))
           err(`원장 statusDistribution.${k}(${sd[k] ?? 0}) ≠ tracker 실측(${realStatus[k] ?? 0}) — 파생값이 낡았다`);
       }
       const cs = r5.coverageStamped?.count;
+      if (cs === undefined) err('원장 coverageStamped.count 없음 — 스윕 셀 수 대조를 우회한다');
       if (cs !== undefined) {
         const realStamp = (JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8')).cells ?? [])
           .filter(c => c.lastSwept === r5.date).length;

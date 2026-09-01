@@ -45,8 +45,8 @@
     "axes": "chemicals(Tue) · next_tech(Tue) + Daily(trade·product_std·supply_chain)",
     "sweptCells": [],
     "findings": {
-      "EU/chemicals": "34일 방치 해소. EU-025 무변화(RAC 최종의견 2026.03.02 기수록). **신규 후보 1건 — PFHxA 제한**",
-      "CN/next_tech": "무변화 — GB/T 43568-2026(CN-012) 2026.07.01 시행 기추적. IEC 전고체 국제표준 프로젝트는 8/29 승인 큐 기등재"
+      "EU/chemicals": "**셀 스윕이 아니라 EU-025 항목 재검증이다.** EU-025 무변화 확인(RAC 최종의견 2026.03.02 기수록)이 결과이고, 그 과정에서 PFHxA 제한을 **부수 발굴**해 EU-039 로 편입했다. **EU/chemicals 셀 자체는 스윕하지 않았다** — 사전 정의 쿼리가 0개이고 lastSwept 는 2026-07-29 그대로다.",
+      "CN/next_tech": "**셀 스윕이 아니라 CN-012·CN-003 항목 재검증이다.** GB/T 43568-2026 무변화, IEC 전고체 국제표준 프로젝트는 8/29 승인 큐 기등재. CN/next_tech 셀은 스윕하지 않았다."
     },
     "notSwept": [
       "chemicals — CN(1일) · EU(34일) · GL(34일) · JP(34일) · KR(1일) · NA(1일)",
@@ -382,7 +382,12 @@
       "basis": "오늘 시행 개시를 실검색으로 확인. effectiveDate 2026-09-01 도래.",
       "recommendation": "ACTIVE 전환",
       "discoveredRun": "2026-09-01-RD",
-      "decision": "승인·반영 완료 (2026-09-01, Claire)"
+      "decision": "승인·반영 완료 (2026-09-01, Claire)",
+      "statusChange": {
+        "id": "CN-028",
+        "from": "UPCOMING",
+        "to": "ACTIVE"
+      }
     },
     {
       "name": "[status] CN-038 UPCOMING → ACTIVE (2026-09-01 GB/T 46261-2025 시행 도래)",
@@ -392,7 +397,12 @@
       "basis": "SAMR 표준정보로 실시일 2026-09-01 도래 확인.",
       "recommendation": "ACTIVE 전환",
       "discoveredRun": "2026-09-01-RD",
-      "decision": "승인·반영 완료 (2026-09-01, Claire)"
+      "decision": "승인·반영 완료 (2026-09-01, Claire)",
+      "statusChange": {
+        "id": "CN-038",
+        "from": "UPCOMING",
+        "to": "ACTIVE"
+      }
     },
     {
       "name": "Commission Regulation (EU) 2024/2462 — PFHxA 제한 (REACH 부속서 XVII entry 79)",
@@ -418,7 +428,12 @@
       "recommendation": "ACTIVE 전환 권고. 단 같은 유형의 다른 항목이 있는지 함께 볼 것(정책 일관성)",
       "discoveredRun": "2026-09-01-RD",
       "decision": "승인·반영 완료 (2026-09-01, Claire)",
-      "question": "제정·시행 중인 규범을 관련성 낮음을 이유로 WATCH 에 두는 것이 맞는가. 스코프 게이트는 WATCH 를 미제정 규범 자리로 정의하고 F14 는 관련성 충족 시 노출도 무관 편입을 정한다 — 두 규칙대로면 ACTIVE 가 맞고, 지금 배치는 편입 여부 문제를 status 로 다룬 셈이다."
+      "question": "제정·시행 중인 규범을 관련성 낮음을 이유로 WATCH 에 두는 것이 맞는가. 스코프 게이트는 WATCH 를 미제정 규범 자리로 정의하고 F14 는 관련성 충족 시 노출도 무관 편입을 정한다 — 두 규칙대로면 ACTIVE 가 맞고, 지금 배치는 편입 여부 문제를 status 로 다룬 셈이다.",
+      "statusChange": {
+        "id": "KR-020",
+        "from": "WATCH",
+        "to": "ACTIVE"
+      }
     },
     {
       "name": "[status] CN-011 WATCH → ACTIVE (工信厅联节函〔2026〕134号 2026-03-28 발문 확인)",
@@ -429,7 +444,12 @@
       "recommendation": "ACTIVE 전환",
       "discoveredRun": "2026-09-01-RD",
       "decision": "승인·반영 완료 (2026-09-01, Claire)",
-      "note": "8/31 원장에서 이미 큐에 있었으나 당시엔 문서번호·발문일이 비어 있었다. 이번에 근거를 확정해 다시 올린다."
+      "note": "8/31 원장에서 이미 큐에 있었으나 당시엔 문서번호·발문일이 비어 있었다. 이번에 근거를 확정해 다시 올린다.",
+      "statusChange": {
+        "id": "CN-011",
+        "from": "WATCH",
+        "to": "ACTIVE"
+      }
     }
   ],
   "verifyCounts": {
@@ -469,8 +489,7 @@
   "carryOver": [
     "**정책 일관성 — WATCH 인데 제정 신호가 있는 22건 판정** (KR-020 승인의 파급). 민간 자율 표준은 정당한 WATCH 이므로 항목별 배치 근거 확인이 선행",
     "**검사 #16 초회 적출 5건** — NA-024(발효일 있는데 dt 는 미발효라고 서술, 의심 높음)·NA-016·CN-015·CN-004·KR-005",
-    "**CN-028·CN-038·CN-011·KR-020 status 전환 승인 대기** — 4건 모두 제정·발효 근거 확보 완료",
-    "**(EU) 2024/2462 PFHxA 제한 신규 편입 승인 대기** — SBTL 라미네이션 접착제·표면처리제의 6:2 아크릴레이트 사용 여부 확인 후 판정",
+    "**EU-039 노출 판정 미완** — SBTL 라미네이션 접착제·표면처리제의 6:2 아크릴레이트 사용 여부 확인 후 우선순위 재판정(현재 P3). 편입 자체는 09/01 승인 완료",
     "**NA-043 부속서 세번표 미확정** — 관보 PDF 에 이미지로만 실려 8507 계열 포함 여부를 못 봤다. USITC HTS 개정본 또는 CBP CSMS 로 재시도. SBTL 직접 노출이 여기 달려 있다",
     "**KR-014 시행일 불일치 미해소** — 트래커 2026.06.24 vs 2차 출처 시행령 2026.07.01. 관보·법령 연혁 대조 필요. 날짜는 원문 없이 바꾸지 않는다",
     "**KR-020 연도별 수치 미확정** — 2차 출처 자체 모순 + law.go.kr 별표 미렌더. 관보 또는 고시 별표 원문 필요",
@@ -872,6 +891,89 @@
         }
       ],
       "lesson": "**승인 반영은 status 한 필드로 끝나지 않는다.** 같은 사실이 tip·detail·region_policy watchpoint·원장 파생값·meta 서술에 흩어져 있고, 오늘 이 유형을 다섯 번 만났다. 그래서 이번엔 개별 수정에 더해 **파생값을 마감 때 재생성하고 검사 #21이 그 정합을 강제**하도록 했다 — 손으로 적는 한 반드시 다시 낡는다."
+    },
+    "round6": {
+      "source": "PR #302 Copilot Review 6차 (reviewed commit 9776e06, 2026-09-01 05:04Z, 지적 5건 + suppressed 3건)",
+      "note": "8건 전부 실재. **fail-open 3건이 핵심이다** — 같은 형태를 세 번 반복했다.",
+      "items": [
+        {
+          "id": "validate2 #18 표시명 파싱",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "[status] 접두만 인식해서, KR-020 처럼 [정책판단] 으로 적히고 실제로는 WATCH → ACTIVE 를 수행하는 항목이 검사에서 통째로 빠진다 — 승인 대기 중 status 변경 우회가 그 부류에 그대로 남는다",
+          "root": "검사가 **사람이 읽는 표시명**에 의존했다. 표시명은 자유 서술이라 언제든 바뀐다",
+          "fix": "큐 항목에 statusChange {id, from, to} 를 명시하고 검사는 그 필드를 우선한다. 표시명 파싱은 폴백으로만 남기고 접두를 임의 태그로 완화"
+        },
+        {
+          "id": "validate2 #21 fail-open",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "모든 비교가 필드 존재 조건부라, 현 스냅샷 원장이 totalItems·thisRunTotal·statusDistribution·coverageStamped.count 를 지우면 게이트를 통째로 우회한다",
+          "root": "**#15 catch 층위 → #20 값 층위 → #21 필드 존재 층위.** 같은 형태를 세 번째 반복했다",
+          "fix": "네 필드 모두 부재 자체를 ERROR 로 올린다"
+        },
+        {
+          "id": "validate2 #15 runId 부재",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "runId 가 비면 건너뛴다. 현 188건 전부 갖고 있어 하위호환 사유가 없고, 필드를 지우면 #15·#20 을 동시에 우회할 수 있다",
+          "fix": "verify 객체가 있는데 runId 가 없으면 ERROR"
+        },
+        {
+          "id": "validate2 #20 date 부재",
+          "sev": "P2",
+          "verdict": "실재 (suppressed)",
+          "finding": "date 가 비면 건너뛴다. #6은 lastChecked 로 폴백하므로 date 만 지우면 이 대조만 정확히 빠져나간다",
+          "fix": "verify 에 date 가 없으면 ERROR"
+        },
+        {
+          "id": "원장 rd3.findings",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "EU/chemicals 를 '34일 방치 해소' 라고 적었는데 같은 원장의 sweptCells 는 비어 있고 notSwept 는 그 셀을 34일로 유지한다",
+          "fix": "EU-025 항목 재검증 + 부수 발굴로 다시 썼다. CN/next_tech 도 같이 정정"
+        },
+        {
+          "id": "region_policy EU",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "사용자에게 보이는 문구가 'chemicals 축 34일 방치를 실스윕했다' 라고 주장해 0셀 결과와 어긋난다 — 거짓 커버리지 이력을 노출한다",
+          "fix": "항목 재검증임을 명시하고 셀 자체는 스윕하지 않았음을 함께 적었다"
+        },
+        {
+          "id": "원장 carryOver",
+          "sev": "P2",
+          "verdict": "실재 (suppressed)",
+          "finding": "승인 5건이 모두 승인·반영 완료 로 기록됐는데 carryOver 는 여전히 승인 대기 로 남겨 다음 run 이 미결로 취급한다",
+          "fix": "완료 4건 제거, EU-039 는 편입 완료·노출 판정 미완으로 다시 적었다"
+        },
+        {
+          "id": "원장 감사 기록 #18",
+          "sev": "P2",
+          "verdict": "실재 (suppressed)",
+          "finding": "'검사 #18은 반영 완료 항목을 대상에서 뺀다' 는 기록이 남았는데 구현은 정반대다(완료는 to 를 요구). 미래 독자가 이 기록을 보고 우회를 되살릴 수 있다",
+          "fix": "기록을 현 구현으로 갱신하고 5차 지적으로 바뀐 경위를 남겼다"
+        }
+      ],
+      "negativeTests": [
+        {
+          "case": "#15 — verify 에서 runId 삭제",
+          "result": "ERROR. 종전에는 조용히 통과"
+        },
+        {
+          "case": "#20 — verify 에서 date 삭제",
+          "result": "ERROR. 종전에는 조용히 통과(#6은 lastChecked 로 폴백해 못 잡는다)"
+        },
+        {
+          "case": "#18 — 큐 표시명에서 [status] 를 통째로 지우고 status 를 되돌림",
+          "result": "ERROR. **statusChange 필드로 잡았다** — 표시명 의존을 끊은 효과를 실측 확인"
+        },
+        {
+          "case": "#21 — totalItems·statusDistribution·coverageStamped.count 삭제",
+          "result": "ERROR 3건. 종전에는 전부 통과"
+        }
+      ],
+      "lesson": "**fail-open 을 세 번 반복했다** — catch(#15) → 값(#20) → 필드 존재(#21). 형태는 매번 달랐지만 뿌리는 같다: 정상 경로만 보고 '없을 때'를 안 봤다. 새 검사에 체크리스트를 고정한다 — ①소스를 못 읽으면 ②값이 비면 ③필드가 없으면 ④과거 데이터면. 그리고 **검사는 사람이 읽는 표시명이 아니라 필드를 봐야 한다**(#18)."
     }
   },
   "selfAudit": {
@@ -1162,7 +1264,7 @@
       {
         "check": "#18",
         "finding": "승인 큐 3건이 decision=승인 대기 인 채 status 만 ACTIVE 로 바뀌어 있었다 — 검사가 보기엔 승인 없이 반영된 것과 구별되지 않는다",
-        "fix": "반영된 항목의 decision 을 '승인·반영 완료 (2026-09-01, Claire)' 로 갱신하고, 검사 #18은 반영 완료 표기가 있는 항목을 대상에서 뺀다(이 검사는 **대기 중인** 큐의 낡음을 보는 것이다)"
+        "fix": "반영된 항목의 decision 을 '승인·반영 완료 (2026-09-01, Claire)' 로 갱신했다. **검사는 완료 항목을 제외하지 않는다** — 한때 제외하도록 만들었으나 5차 리뷰에서 '완료 항목의 status 를 되돌려도 통과한다'는 지적을 받아, 지금은 완료는 to 를 대기는 from 을 현재 status 로 요구한다. 이 기록이 구 설명을 남기고 있어 6차 리뷰가 다시 짚었다."
       },
       {
         "check": "#6",
@@ -1192,7 +1294,7 @@
     "regressionCheck": "2026-08-02·08-29·08-31 원장 전부 재검증해 통과 확인(아래 ledgerRegression)"
   },
   "ledgerRegression": {
-    "ranAt": "2026-09-01",
+    "ranAt": "2026-09-01 (6차 리뷰 반영 후 재실행)",
     "note": "검사 7종을 새로 넣은 뒤 과거 원장 전부에 회귀 검증을 돌렸다. 처음엔 2026-08-31 원장이 34 ERROR 였고 경계를 넣어 해소했다.",
     "results": {
       "2026-07-17-R1R3.json": "RESULT: PASS (errors 0, warnings 9)",
@@ -1206,5 +1308,6 @@
       "2026-08-31-RD.json": "RESULT: PASS (errors 0, warnings 12)",
       "2026-09-01-RD.json": "RESULT: PASS (errors 0, warnings 9)"
     }
-  }
+  },
+  "approvalQueueSchema": "status 를 바꾸는 큐 항목은 **statusChange {id, from, to}** 를 명시한다. 종전에는 검사 #18이 표시명의 `[status]` 접두를 파싱했는데, KR-020 처럼 `[정책판단]` 으로 적히면서 실제로는 WATCH → ACTIVE 를 수행하는 항목이 검사에서 통째로 빠졌다(6차 리뷰 지적). 표시명은 사람이 읽는 것이고 검사는 필드를 본다."
 }

@@ -212,6 +212,11 @@ for (const i of items) for (const f of ['d','tip','detail']) {
   const bolds = v.match(/[*][*]/g);
   if (bolds && bolds.length % 2) err(`${i.id}.${f}: 볼드 마커 홀수 개(${bolds.length}) — 강조가 문장 끝까지 번짐`);
   if (/[가-힣]ckNote/.test(v)) err(`${i.id}.${f}: 내부 필드명 잔재(…ckNote) — 편집 사고 흔적`);
+  // 의미 파편 — 마커 짝은 맞아도 문장 앞이 잘리면 조사·어미로 시작한다.
+  // 마커 기반 검사로는 잡히지 않아 Codex 6차에서 JP-004 tip 이 이 형태로 남아 있었다.
+  const head = v.replace(/^[*\s]+/, '');
+  if (/^(짜리|이며|하고|으로써|에서는|에게는|보다는|까지는|부터는|라는|이라는|되며|되고|인데|지만|면서)/.test(head))
+    err(`${i.id}.${f}: 조사·어미로 시작 — 문장 앞이 잘린 의미 파편("${head.slice(0,24)}…")`);
 }
 
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);

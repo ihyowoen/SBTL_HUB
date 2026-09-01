@@ -13,7 +13,7 @@ Use for:
 
 - one or more intentionally direct-added, already-reviewed cards;
 - bounded evidence/reinforcement/correction updates to existing cards;
-- one-to-one Story ID / representative-event-date correction.
+- one-to-one Story ID / representative-event-date / region identity correction.
 
 ## 2. Required PR shape
 
@@ -70,6 +70,12 @@ A deliberately included lower-value card is allowed only as `owner_override_incl
 
 `structural_non_execution_route` must not claim `execution_event_anchor`; it requires at least one non-execution anchor plus non-empty `structural_non_execution_reason` and `why_execution_event_not_required`.
 
+### Direct-add provenance and Related boundary
+
+A direct-added card must start with `related[]` empty (and `related_ids[]` empty when that compatibility field exists). A direct-add manifest does not carry the predecessor evidence, relation type, fresh-anchor review, and lineage lock required to create a production Related edge. Establish any new relation through the formal Related lifecycle after the card exists.
+
+A direct-added card must not contain formal-run state/provenance fields such as `stage_a_validity_status`, `stage_b_validity_status`, `stage_c_validity_status`, `final_qc_status`, `merge_status`, or `pipeline_lineage`. `formal_full_run_claimed=false` and the published card must tell the same audit story.
+
 ## 5. Update attestation and identity guard
 
 Every `operations.update` ID has exactly one bounded update attestation with:
@@ -79,7 +85,7 @@ Every `operations.update` ID has exactly one bounded update attestation with:
 - item-specific reason;
 - evidence-review summary.
 
-The validator recomputes the actual before/after top-level changed fields and requires exact equality with `changed_fields[]`. An update must preserve the existing card ID, representative date, region, and production `related[]`; date/ID correction uses `id_migration`, and relation changes use the governed relation path.
+The validator recomputes the actual before/after top-level changed fields and requires exact equality with `changed_fields[]`. An update must preserve the existing card ID, representative date, region, and production `related[]`; date/ID/region correction uses `id_migration`, and relation changes use the governed relation path.
 
 Every update must preserve both stable event identity and at least one durable event anchor from the existing title/source URL/fact-source URL/event fingerprint set. A declaration cannot reuse an old ID while replacing the represented event.
 
@@ -96,9 +102,11 @@ Updates do not require an artificial new-card news-value score.
 
 `id_migration` is one-to-one and count-neutral. The validator requires the old ID to disappear, the new ID to appear, and stable identity evidence to remain. Migration reason must be explicit.
 
+A migration is an **identity correction, not a content-update bypass**. The replacement card may differ only in `id`, `date`, and `region`. URLs, facts, title, taxonomy, evidence, event fingerprint, Related state, and every other top-level content/audit field must remain byte-equivalent at the JSON-value level. If content also needs correction, perform that as a separately governed operation rather than hiding it inside `id_migration`.
+
 ## 7. What CI proves
 
-The validator proves:
+The production direct-add gate proves:
 
 1. manifest baseline equals the PR base main/full blob;
 2. lost and introduced IDs exactly match declared migration/add scope;
@@ -107,10 +115,12 @@ The validator proves:
 5. no undeclared existing card changed;
 6. each added/updated card has exactly one required V2 attestation;
 7. score/classification/route/override rules are internally coherent;
-8. ID migration keeps stable identity evidence;
-9. no new dangling Related edge is introduced;
-10. counts and output timestamp match;
-11. lean is the deterministic projection of full through the existing repository checks.
+8. ID migration is restricted to `id`/`date`/`region` identity correction and cannot replace event content;
+9. direct-added cards contain no unaudited Related edge;
+10. direct-added cards contain no fabricated formal-run state/provenance;
+11. no new dangling Related edge is introduced;
+12. counts and output timestamp match;
+13. lean is the deterministic projection of full through the existing repository checks.
 
 For a declared ID migration only, the existing card-deletion guard may be enabled after the direct-add validator proves the exact one-to-one migration.
 

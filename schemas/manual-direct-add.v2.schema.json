@@ -22,7 +22,12 @@
         "add":{"type":"array","uniqueItems":true,"items":{"type":"string","minLength":1}},
         "update":{"type":"array","uniqueItems":true,"items":{"type":"string","minLength":1}},
         "id_migration":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["old_id","new_id","reason"],"properties":{"old_id":{"type":"string","minLength":1},"new_id":{"type":"string","minLength":1},"reason":{"type":"string","minLength":1}}}}
-      }
+      },
+      "anyOf": [
+        {"properties":{"add":{"minItems":1}}},
+        {"properties":{"update":{"minItems":1}}},
+        {"properties":{"id_migration":{"minItems":1}}}
+      ]
     },
     "editorial_attestation": {
       "type":"object","additionalProperties":false,"required":["policy_version","additions","updates"],

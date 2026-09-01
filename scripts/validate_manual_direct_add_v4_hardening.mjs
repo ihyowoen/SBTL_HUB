@@ -70,6 +70,17 @@ function validateStrictRfc3339(value) {
   if (Number.isNaN(Date.parse(value))) fail("BLOCKED_MANUAL_DIRECT_ADD_TIMESTAMP", `output_updated is not parseable — ${value}`);
 }
 
+function validateDeclaredOperationPresence(manifest) {
+  const operations = manifest?.operations;
+  if (!isObject(operations)) fail("BLOCKED_MANUAL_DIRECT_ADD_EMPTY_OPERATION", "operations object is required");
+  const add = Array.isArray(operations.add) ? operations.add.length : 0;
+  const update = Array.isArray(operations.update) ? operations.update.length : 0;
+  const migration = Array.isArray(operations.id_migration) ? operations.id_migration.length : 0;
+  if (add + update + migration === 0) {
+    fail("BLOCKED_MANUAL_DIRECT_ADD_EMPTY_OPERATION", "manual direct-add must declare at least one add, update, or id_migration operation");
+  }
+}
+
 function validateMigrationContent(manifest, baseMap, fullMap) {
   for (const migration of manifest.operations?.id_migration || []) {
     const before = baseMap.get(migration.old_id);
@@ -170,6 +181,7 @@ function validate(manifest, base, full) {
   if (manifest.formal_full_run_claimed !== false) {
     fail("BLOCKED_MANUAL_DIRECT_ADD_FORMAL_PROVENANCE", "manual direct-add must declare formal_full_run_claimed=false");
   }
+  validateDeclaredOperationPresence(manifest);
   validateStrictRfc3339(manifest.output_updated);
   const baseMap = cardMap(base, "base");
   const fullMap = cardMap(full, "full");
@@ -204,6 +216,13 @@ function selfTest() {
     { id: "2026-01-02_KR_01", date: "2026-01-02", region: "KR", title: "B", related: [], related_ids: [], related_lineage: { relation_type: "new_unrelated_event", related_ids: [] } },
   ] };
   validate(manifest, base, good);
+
+  const emptyManifest = structuredClone(manifest);
+  emptyManifest.operations = { add: [], update: [], id_migration: [] };
+  let emptyBlocked = false;
+  try { validate(emptyManifest, base, base); }
+  catch (error) { emptyBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_EMPTY_OPERATION"; }
+  if (!emptyBlocked) throw new Error("self-test failed to reject empty direct-add operation set");
 
   const contentSwap = structuredClone(good);
   contentSwap.cards[0].title = "Different event";
@@ -257,7 +276,7 @@ function selfTest() {
   catch (error) { invalidDateBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_TIMESTAMP"; }
   if (!invalidDateBlocked) throw new Error("self-test failed to reject nonexistent calendar date");
 
-  console.log("PASS: manual direct-add V4 hardening closes migration, Related add/update, publication-state, duplicate-id, and timestamp bypasses");
+  console.log("PASS: manual direct-add V4 hardening closes empty-operation, migration, Related add/update, publication-state, duplicate-id, and timestamp bypasses");
 }
 
 const args = process.argv.slice(2);

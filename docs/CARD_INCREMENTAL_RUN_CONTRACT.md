@@ -51,25 +51,26 @@ Every formal `insert`, `update`, and `related_add` operation must prove the comp
 
 `A → B → C → 0.4 → 0.5 → 0.6 → 0.7`
 
-`0.2R` and `0.3R` are conditional repair artifacts and never substitute for the re-established B/C outputs. Run-level 0.0D, 0.0C, and 0.7C remain separately bound governance artifacts.
+`0.2R` and `0.3R` are conditional repair artifacts and never substitute for the re-established B/C outputs. A formal stage artifact must declare its ordinary `stage`; an unknown or repair/revise stage marker may not be reclassified from a bucket name. Run-level 0.0D, 0.0C, and 0.7C remain separately bound governance artifacts.
 
 For each operation:
 
 - every mandatory stage must be represented in that operation's own `stage_artifacts[]`;
+- every A/B/C/0.4/0.5/0.6/0.7 artifact must carry exact `run_id`, `base_main_commit_sha`, and `base_full_blob_sha` equal to the card run; stale artifacts from another run/baseline are invalid even if their candidate ID matches;
 - Stage A must pass both the V4 Stage A contract and the authoritative lineage/compatibility gate;
 - B/C/0.4/0.5/0.6/0.7 artifacts must pass their stage-output machine contract;
 - all seven stage outputs must contain the operation's same `source_spec_id` (`spec_id` at Stage A, `source_spec_id` downstream);
-- an insert binds to `card.source_spec_id`;
-- an update binds to the existing canonical card's `source_spec_id` for `operation.id`;
-- a Related addition binds to a governed endpoint identity resolved from its source/target production IDs, preferring the source endpoint when available.
+- an insert binds to required `card.source_spec_id`;
+- an update normally binds to the existing canonical card's `source_spec_id`. If a legacy canonical card predates that field, the operation must declare `source_spec_id`; if both canonical and operation values exist they must match exactly;
+- a Related addition normally binds to a governed endpoint `source_spec_id`. If neither legacy endpoint carries one, the operation must declare both `source_spec_id` and `identity_card_id`, where `identity_card_id` equals `source_id` or `target_id`; the declared candidate identity must then be present in every A→0.7 artifact. If an endpoint identity exists, any declared `source_spec_id` must match one of the governed endpoints.
 
-A passing artifact for another candidate cannot authorize an operation. A global Stage A count cannot satisfy another operation. Missing stage, missing candidate identity, or cross-candidate artifact reuse is merge-blocking.
+A passing artifact for another candidate cannot authorize an operation. A global Stage A count cannot satisfy another operation. Missing stage, stale run/baseline binding, missing candidate identity, or cross-candidate artifact reuse is merge-blocking.
 
 ### 6.2 0.0D/0.0C production reconciliation
 The formal gate must validate—not merely trust—the detailed preflight/discovery conclusions:
 
-- 0.0D exact main/full SHA bindings; classified count equals inventory count; required active/dependency paths are fully read; all defect/conflict/unread/unclassified ledgers are empty on PASS; active override/addendum count is zero; embedded Stage A news-value verification is true; compatibility booleans agree with the detailed ledgers.
-- 0.0C exact 0.0D/full bindings; required regional/topic matrices and discovery ledgers exist; every original/discovered candidate is present in the expanded-universe ledger; every expanded candidate has exactly one terminal disposition; terminal rows for unknown candidates are forbidden; only then may `original_input_accounted=true` and `stage_a_authorized=true` authorize Stage A.
+- 0.0D exact main/full SHA bindings; `active_canonical_paths` must exactly equal the current lifecycle registry's `active_canonical + active_named_prompts`; `active_validator_contract_paths` must exactly equal `active_validator_contracts`; applicable remediation/migration must exactly equal `open_remediations + activation_required_migrations`; `active_full_read_count` must equal that exact unique active/dependency closure; classified count equals inventory count; all defect/conflict/unread/unclassified ledgers are empty on PASS; active override/addendum count is zero; embedded Stage A news-value verification is true; compatibility booleans agree with the detailed ledgers.
+- 0.0C exact 0.0D/full bindings; regional matrix must include `korea`, `north_america`, `china`, `japan`, `europe`, `material_global_markets`; topic matrix must include all canonical topic axes defined by Prompt 0.0C; each required axis must terminate as `searched` or `blocked` (with reason when blocked); every original/discovered candidate is present in the expanded-universe ledger; every expanded candidate has exactly one terminal disposition; terminal rows for unknown candidates are forbidden; only then may `original_input_accounted=true` and `stage_a_authorized=true` authorize Stage A.
 
 ## 7. Baseline moved
 
@@ -87,7 +88,7 @@ Default formal run: one governed card-run manifest plus the committed canonical 
 
 ## 10. Apply order
 
-`re-lock baseline → validate 0.0D/0.0C detail → validate candidate-bound A→0.7 operation chains → validate 0.7C → validate operations → apply inserts → apply updates → resolve/apply Related additions → validate declared diff → write full → generate lean → run validators → PR review → merge → 0.9`.
+`re-lock baseline → validate registry-bound 0.0D → validate mandatory-axis 0.0C → validate current-run/baseline-bound candidate A→0.7 chains → validate 0.7C → validate operations → apply inserts → apply updates → resolve/apply Related additions → validate declared diff → write full → generate lean → run validators → PR review → merge → 0.9`.
 
 ## 11. Manual direct-add boundary
 

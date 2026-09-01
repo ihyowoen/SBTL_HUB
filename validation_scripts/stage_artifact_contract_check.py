@@ -40,6 +40,20 @@ STAGE_TOP_LEVEL = {
     "0.8": ["github_main_sync_gate", "lineage_merge_gate"],
 }
 
+# A declared stage is authoritative. In particular, repair/revise artifacts such
+# as 0.2R/0.3R may not masquerade as the re-established ordinary B/C exits just
+# because they happen to carry a similarly named bucket.
+DECLARED_STAGE_ALIASES = {
+    "A": {"a", "stage_a", "0.1"},
+    "B": {"b", "stage_b", "0.2"},
+    "C": {"c", "stage_c", "0.3"},
+    "0.4": {"0.4"},
+    "0.5": {"0.5"},
+    "0.6": {"0.6"},
+    "0.7": {"0.7"},
+    "0.8": {"0.8"},
+}
+
 BUCKETS = {
     "A": ["strict_passed_spec"],
     "B": ["draft_cards", "draft_card"],
@@ -143,6 +157,17 @@ def main() -> int:
         return 2
 
     findings = []
+    declared_stage = payload.get("stage")
+    if declared_stage is not None:
+        if not isinstance(declared_stage, str) or declared_stage.strip().lower() not in DECLARED_STAGE_ALIASES[args.stage]:
+            findings.append({
+                "scope": "top_level",
+                "field": "stage",
+                "expected": sorted(DECLARED_STAGE_ALIASES[args.stage]),
+                "actual": declared_stage,
+                "message": "declared repair/revise or mismatched stage cannot substitute for the requested ordinary stage exit",
+            })
+
     for field in STAGE_TOP_LEVEL[args.stage]:
         if field not in payload:
             findings.append({"scope": "top_level", "field": field})
@@ -153,6 +178,15 @@ def main() -> int:
                 "expected": "PASS",
                 "actual": payload[field],
             })
+
+    if args.stage == "0.4" and payload.get("lineage_guard") != "PASS":
+        findings.append({
+            "scope": "top_level",
+            "field": "lineage_guard",
+            "expected": "PASS",
+            "actual": payload.get("lineage_guard"),
+            "message": "0.4 addability cannot pass while the mandatory lineage guard is blocked",
+        })
 
     items = collect_items(payload, args.stage)
     if args.stage in {"A", "0.5", "0.6", "0.7", "0.8"} and not items:

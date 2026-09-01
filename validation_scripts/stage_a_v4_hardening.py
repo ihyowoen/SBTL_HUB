@@ -46,6 +46,14 @@ def _finite_number(value: Any) -> float | None:
     return value if math.isfinite(value) else None
 
 
+def _nonempty_text(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def _empty(value: Any) -> bool:
+    return value is None or value == ""
+
+
 def validate_stage_a_v4_hardening(
     spec: Any,
     index: int,
@@ -90,17 +98,20 @@ def validate_stage_a_v4_hardening(
 
     denominator_gap = spec.get("denominator_gap")
     denominator = spec.get("systemic_scale_denominator")
-    if not isinstance(denominator_gap, bool):
-        messages.append(f"{spec_id}: denominator_gap must be boolean")
-    elif denominator_gap:
+    if _nonempty_text(denominator):
+        if not _empty(denominator_gap):
+            messages.append(
+                f"{spec_id}: denominator_gap must be empty when systemic_scale_denominator is supplied"
+            )
+    else:
+        if not _nonempty_text(denominator_gap):
+            messages.append(
+                f"{spec_id}: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+            )
         if systemic_score is not None and systemic_score > 2:
             messages.append(
-                f"{spec_id}: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5"
+                f"{spec_id}: systemic_scale must be <=2 when no defensible denominator is supplied"
             )
-    elif not isinstance(denominator, str) or not denominator.strip():
-        messages.append(
-            f"{spec_id}: denominator_gap=false requires a non-empty systemic_scale_denominator"
-        )
 
     raw_anchors = spec.get("anchor_classes")
     anchors: set[str] = set()

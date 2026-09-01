@@ -156,6 +156,26 @@ jobs:
           base_sha="$(git rev-parse "origin/$BASE_REF")"
           echo "base_sha=$base_sha" >> "$GITHUB_OUTPUT"
 
+          historical_v1_audit_only() {
+            local rows=0
+            while IFS=$'\t' read -r status path1 path2; do
+              [[ -n "$status" ]] || continue
+              rows=$((rows + 1))
+              local base_manifest manifest
+              case "$status" in
+                R*) base_manifest="$path1"; manifest="$path2" ;;
+                C*) return 1 ;; # a copy is a new manifest, never grandfathered
+                *) base_manifest="$path1"; manifest="$path1" ;;
+              esac
+              [[ -f "$manifest" ]] || return 1
+              local schema_name
+              schema_name="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String(r.schema||""))' "$manifest")"
+              [[ "$schema_name" == "manual_direct_add_v1" ]] || return 1
+              git cat-file -e "${base_sha}:${base_manifest}" 2>/dev/null || return 1
+            done < <(git diff -M --diff-filter=ACMR --name-status "origin/$BASE_REF...HEAD" -- ':(glob)direct-adds/**/direct-add.json')
+            [[ $rows -eq 1 ]]
+          }
+
           if [[ ${#canonical_data[@]} -gt 0 ]]; then
             [[ ${#canonical_data[@]} -eq 2 ]] || {
               echo "FAIL: canonical card-data change must commit both data/cards.full.json and public/data/cards.json" >&2
@@ -183,6 +203,13 @@ jobs:
               exit 1
             fi
           else
+            if [[ ${#direct_adds[@]} -eq 1 && ${#runs[@]} -eq 0 && ${#migrations[@]} -eq 0 ]] && historical_v1_audit_only; then
+              echo "INFO: existing manual_direct_add_v1 audit manifest changed without canonical data; historical preservation path only"
+              echo "has_run=false" >> "$GITHUB_OUTPUT"
+              echo "delegated_migration=false" >> "$GITHUB_OUTPUT"
+              echo "delegated_direct_add=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
             if [[ $declared_types -gt 0 ]]; then
               echo "FAIL: governed manifest present without committed canonical full/lean outputs" >&2
               exit 1

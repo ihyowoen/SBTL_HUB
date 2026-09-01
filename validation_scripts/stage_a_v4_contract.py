@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Machine-enforced Stage A V4 selection contract.
 
-This module owns the V4 editorial-selection metadata introduced by the
+This module owns only the V4 editorial-selection metadata introduced by the
 embedded Stage A news-value policy. Historical V3 lineage/source/format checks
 remain separate compatibility layers and may impose additional constraints.
 """
@@ -50,6 +50,8 @@ REQUIRED_FIELDS = (
     "decision_value_breakdown",
     "decision_value_classification",
     "publication_urgency",
+    "systemic_scale_denominator",
+    "denominator_gap",
     "prior_state",
     "new_verified_fact",
     "changed_judgment",
@@ -181,14 +183,14 @@ def _validate_related_prepass(
         if field not in related:
             messages.append(f"{spec_id}: related_prepass missing {field}")
 
+    # This validator is called only for strict_passed_spec. HOLD belongs in the
+    # review/hold pool and may not advance in the strict Stage B queue.
     status = related.get("status")
-    if status not in {"PASS", "HOLD"}:
-        messages.append(f"{spec_id}: related_prepass.status must be PASS|HOLD")
+    if status != "PASS":
+        messages.append(f"{spec_id}: strict related_prepass.status must be PASS")
 
-    if not isinstance(related.get("same_event_checked"), bool):
-        messages.append(f"{spec_id}: related_prepass.same_event_checked must be boolean")
-    elif status == "PASS" and related.get("same_event_checked") is not True:
-        messages.append(f"{spec_id}: related_prepass PASS requires same_event_checked=true")
+    if related.get("same_event_checked") is not True:
+        messages.append(f"{spec_id}: strict related_prepass requires same_event_checked=true")
 
     for field in (
         "matched_baseline_candidate_ids",
@@ -201,13 +203,9 @@ def _validate_related_prepass(
             )
 
     earliest_status = related.get("earliest_same_event_check_status")
-    if earliest_status not in {"PASS", "HOLD"}:
+    if earliest_status != "PASS":
         messages.append(
-            f"{spec_id}: related_prepass.earliest_same_event_check_status must be PASS|HOLD"
-        )
-    elif status == "PASS" and earliest_status != "PASS":
-        messages.append(
-            f"{spec_id}: related_prepass PASS requires earliest_same_event_check_status=PASS"
+            f"{spec_id}: strict related_prepass requires earliest_same_event_check_status=PASS"
         )
 
     disposition = related.get("duplicate_disposition")
@@ -216,9 +214,9 @@ def _validate_related_prepass(
             f"{spec_id}: related_prepass.duplicate_disposition must be one of "
             f"{sorted(RELATED_DUPLICATE_DISPOSITIONS)}"
         )
-    elif status == "PASS" and disposition != "no_duplicate_found":
+    elif disposition != "no_duplicate_found":
         messages.append(
-            f"{spec_id}: related_prepass PASS requires duplicate_disposition=no_duplicate_found"
+            f"{spec_id}: strict related_prepass requires duplicate_disposition=no_duplicate_found"
         )
 
     fresh_questions = related.get("fresh_anchor_questions")
@@ -374,6 +372,7 @@ def validate_stage_a_v4_spec(
         numeric_score = float(score)
 
     breakdown = spec.get("decision_value_breakdown")
+    systemic_value: float | None = None
     if not isinstance(breakdown, dict):
         messages.append(f"{spec_id}: decision_value_breakdown must be an object")
     else:
@@ -399,10 +398,30 @@ def validate_stage_a_v4_spec(
                 )
                 valid_total = False
             else:
-                total += float(value)
+                numeric_value = float(value)
+                total += numeric_value
+                if key == "systemic_scale":
+                    systemic_value = numeric_value
         if valid_total and numeric_score is not None and abs(total - numeric_score) > 1e-9:
             messages.append(
                 f"{spec_id}: decision_value_breakdown sum {total:g} != decision_news_value_score {numeric_score:g}"
+            )
+
+    denominator = spec.get("systemic_scale_denominator")
+    denominator_gap = spec.get("denominator_gap")
+    if _nonempty_text(denominator):
+        if not _empty(denominator_gap):
+            messages.append(
+                f"{spec_id}: denominator_gap must be empty when systemic_scale_denominator is supplied"
+            )
+    else:
+        if not _nonempty_text(denominator_gap):
+            messages.append(
+                f"{spec_id}: missing defensible systemic_scale_denominator requires non-empty denominator_gap"
+            )
+        if systemic_value is not None and systemic_value > 2:
+            messages.append(
+                f"{spec_id}: systemic_scale must be <=2 when no defensible denominator is supplied"
             )
 
     classification = spec.get("decision_value_classification")

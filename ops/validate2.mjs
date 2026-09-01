@@ -153,8 +153,11 @@ if (process.env.RP_PATH) {
 
 // 13) coverage.lastSwept ↔ 원장 스윕 근거 대조 (스윕 위장 차단)
 //     lastSwept 를 run 날짜로 찍었는데 그 run 원장에 해당 (region, axis) 근거가 없으면 ERROR.
-//     근거 인정 경로 — ① searches[].axis + region 일치  ② searches[]/primaryDocs[].itemsCovered 가 그 셀 items 에 포함.
-//     gap/na 셀은 items 가 비어 있어 ②로는 근거를 댈 수 없다: 무산출 스윕은 searches[].axis 를 반드시 적어야 한다.
+//     **근거 인정 경로(2026-09-01 개정, 단일)** — searches[] 중 region·axis 가 그 셀이고 **query 가 그 셀의
+//     사전 정의 queries 에 있는 것**만 근거다. 종전의 두 경로(axis 선언만으로 인정 / itemsCovered 파생)는
+//     폐지했다. 그 경로들은 특정 항목을 지목한 재검증 쿼리로도 lastSwept 를 전진시켰고(2026-09-01 실측 19셀),
+//     훑지 않은 셀이 최신으로 찍히면 RD-3 로테이션(오래된 순 + gap 우선)에서 뒤로 밀려 공백이 굳는다.
+//     따라서 **사전 정의 queries 가 없는 셀은 스윕될 수 없다** — 별도 집계 경고로 표면화한다.
 //     도입 계기(2026-08-31) — RD-3 에서 subsidy 6셀 전부에 lastSwept 를 찍었으나 실검색은 1권역뿐이었고,
 //     원장 searches 와 coverage.lastSwept 가 서로 대조되지 않아 기존 게이트를 전부 통과했다.
 if (runPath) {
@@ -178,13 +181,29 @@ if (runPath) {
     // 현 항목과 무관하게 셀에 사전 정의). 종전에는 region+axis 를 선언하기만 하면 근거가 됐고
     // itemsCovered 로도 파생시켜서, 특정 항목을 지목한 재검증 쿼리로 lastSwept 가 전진했다
     // (2026-09-01 실측 19셀). 훑지 않은 셀이 최신으로 찍히면 RD-3 로테이션에서 뒤로 밀려 공백이 굳는다.
+    // **도입일 경계** — 이 근거 규칙은 2026-09-01 부터다. 그 이전 원장은 구 규칙(axis 선언 / itemsCovered
+    // 파생)으로 작성됐으므로 소급 적용하면 과거 원장이 전부 FAIL 한다(실측: 2026-08-31 원장 33셀).
+    // CI 는 변경된 원장 전부를 검증하므로, 소급 적용은 과거 원장을 건드리는 모든 PR 을 막아버린다.
+    const EVIDENCE_RULE_FROM = '2026-09-01';
+    const strict = rd2 >= EVIDENCE_RULE_FROM;
     const predef = new Map();
     for (const c of cov2.cells ?? []) predef.set(`${c.region}/${c.axis}`, new Set(c.queries ?? []));
     const ev = new Set();
     for (const s of run2.searches ?? []) {
-      if (!s.region || !s.axis) continue;
-      const key = `${s.region}/${s.axis}`;
-      if ((predef.get(key) ?? new Set()).has(s.query)) ev.add(key);
+      if (s.region && s.axis) {
+        const key = `${s.region}/${s.axis}`;
+        // 신규 규칙: 셀의 사전 정의 queries 를 실제로 돌린 검색만 근거.
+        if (!strict || (predef.get(key) ?? new Set()).has(s.query)) ev.add(key);
+        if (strict) continue;
+      }
+      if (strict) continue;
+      // 구 규칙(2026-09-01 이전 원장 한정): itemsCovered 파생도 근거로 인정했다.
+      for (const x of s.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+    }
+    if (!strict) {
+      for (const p of run2.primaryDocs ?? [])
+        for (const x of p.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+      warn(`스윕 근거 규칙 — 원장 날짜(${rd2})가 신규 규칙 도입일(${EVIDENCE_RULE_FROM}) 이전이라 구 규칙(axis 선언·itemsCovered 파생)으로 대조했다`);
     }
     let stamped = 0, missing = 0;
     for (const c of cov2.cells ?? []) {
@@ -303,22 +322,31 @@ for (const i of items) {
 if (runPath) {
   try {
     const r3 = JSON.parse(readFileSync(runPath,'utf8'));
+    // **현 스냅샷을 서술하는 원장만 대조한다.** 과거 원장의 승인 큐는 이력이다 — 그때 대기였던 항목이
+    // 이후 run 에서 승인·반영됐으면 현재 status 와 어긋나는 것이 정상이고, 소급 대조하면 오탐이 된다
+    // (실측: 2026-08-31 원장의 CN-011 대기 항목).
+    const snap3 = (tj.meta?.dataSnapshotDate ?? '').slice(0,10);
+    if (!snap3 || r3.date !== snap3) throw { skip: true };
     const byId = new Map(items.map(i => [i.id, i]));
     for (const a of r3.approvalQueueCandidates ?? []) {
-      // 이 검사는 **아직 대기 중인** 큐 항목이 실제 status 와 어긋나는지를 본다.
-      // 승인·반영이 끝난 항목은 status 가 목표값인 것이 정상이므로 대상에서 뺀다.
-      if (/반영\s*완료|적용\s*완료|applied/i.test(a.decision ?? '')) continue;
+      // **완료·대기를 모두 파싱한다.** 종전에는 완료 항목을 파싱 전에 건너뛰어, 승인된 목표값에서
+      // status 를 다시 바꿔도 통과했다(5차 리뷰 지적). 완료는 to, 대기는 from 이 현재 status 여야 한다.
       const m = /\[status\]\s*([A-Z]{2}-\d{3})\s+(\w+)\s*(?:→|->)\s*(\w+)/.exec(a.name ?? '');
       if (!m) continue;
       const [, id, from, to] = m;
       const it = byId.get(id);
       if (!it) { err(`원장 승인 큐: ${id} 가 tracker 에 없음`); continue; }
-      if (it.s === to)
-        err(`원장 승인 큐: ${id} 가 이미 ${to} 인데 큐에 ${from} → ${to} 로 남아 있음 — 승인 없이 반영됐거나 큐가 낡았다`);
-      else if (it.s !== from)
+      const done = /반영\s*완료|적용\s*완료|applied/i.test(a.decision ?? '');
+      if (done) {
+        if (it.s !== to)
+          err(`원장 승인 큐: ${id} 는 ${to} 로 승인·반영 완료로 기록됐는데 현재 status 가 ${it.s} — 승인 결과가 되돌려졌다`);
+      } else if (it.s === to) {
+        err(`원장 승인 큐: ${id} 가 이미 ${to} 인데 큐에 ${from} → ${to} 대기로 남아 있음 — 승인 없이 반영됐거나 큐가 낡았다`);
+      } else if (it.s !== from) {
         err(`원장 승인 큐: ${id} 현재 status(${it.s})가 큐 기재(${from} → ${to})와 불일치`);
+      }
     }
-  } catch(e){ err('승인 큐 정합 대조 실패: '+e.message); }
+  } catch(e){ if (!e?.skip) err('승인 큐 정합 대조 실패: '+e.message); }
 }
 
 
@@ -382,6 +410,48 @@ if (runPath) {
     if (d0 && d0 !== v.date)
       err(`${i.id}: verify.date(${v.date}) ≠ 원장 ${v.runId} 의 date(${d0}) — 실재하지만 무관한 원장을 가리킨다`);
   }
+}
+
+
+// 21) 원장 파생값 ↔ tracker 실측 정합 (ERROR, 스냅샷 날짜가 일치하는 원장에 한해)
+//     verifyCounts·statusDistribution 은 데이터에서 파생되는 값인데 손으로 적히면 반드시 낡는다.
+//     2026-09-01 도입 계기: 승인 5건을 반영하고 파생값을 재생성하지 않아 187/28/구 status 분포가 남았고,
+//     같은 run 안에서 이 유형이 두 번 났다. 과거 원장은 그때의 상태를 담으므로 대조 대상이 아니다 —
+//     tracker 의 dataSnapshotDate 와 run.date 가 같은, 즉 **현 스냅샷을 서술하는 원장**만 검사한다.
+if (runPath) {
+  try {
+    const r5 = JSON.parse(readFileSync(runPath,'utf8'));
+    const snap = (tj.meta?.dataSnapshotDate ?? '').slice(0,10);
+    if (snap && r5.date === snap) {
+      const realTotal = items.length;
+      const realStatus = {};
+      for (const i of items) realStatus[i.s] = (realStatus[i.s] ?? 0) + 1;
+      const realRun = {};
+      for (const i of items) {
+        const rid = i.verify?.runId, mth = i.verify?.method;
+        if (rid === r5.runId && mth) realRun[mth] = (realRun[mth] ?? 0) + 1;
+      }
+      const vcTotal = Object.values(realRun).reduce((a,b)=>a+b,0);
+      const vc = r5.verifyCounts ?? {};
+      if (vc.totalItems !== undefined && vc.totalItems !== realTotal)
+        err(`원장 verifyCounts.totalItems(${vc.totalItems}) ≠ tracker 실측(${realTotal}) — 파생값이 낡았다`);
+      if (vc.thisRunTotal !== undefined && vc.thisRunTotal !== vcTotal)
+        err(`원장 verifyCounts.thisRunTotal(${vc.thisRunTotal}) ≠ tracker 실측(${vcTotal}) — 파생값이 낡았다`);
+      const sd = r5.statusDistribution;
+      if (sd) {
+        const keys = new Set([...Object.keys(sd), ...Object.keys(realStatus)]);
+        for (const k of keys) if ((sd[k] ?? 0) !== (realStatus[k] ?? 0))
+          err(`원장 statusDistribution.${k}(${sd[k] ?? 0}) ≠ tracker 실측(${realStatus[k] ?? 0}) — 파생값이 낡았다`);
+      }
+      const cs = r5.coverageStamped?.count;
+      if (cs !== undefined) {
+        const realStamp = (JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8')).cells ?? [])
+          .filter(c => c.lastSwept === r5.date).length;
+        if (cs !== realStamp)
+          err(`원장 coverageStamped.count(${cs}) ≠ coverage 실측(${realStamp}) — 스윕 셀 수가 낡았다`);
+      }
+    }
+  } catch(e){ err('원장 파생값 정합 대조 실패: '+e.message); }
 }
 
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);

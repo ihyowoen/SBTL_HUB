@@ -43,15 +43,13 @@
   },
   "rd3_tuesdaySlice": {
     "axes": "chemicals(Tue) · next_tech(Tue) + Daily(trade·product_std·supply_chain)",
-    "sweptCells": [
-      "EU/chemicals"
-    ],
+    "sweptCells": [],
     "findings": {
       "EU/chemicals": "34일 방치 해소. EU-025 무변화(RAC 최종의견 2026.03.02 기수록). **신규 후보 1건 — PFHxA 제한**",
       "CN/next_tech": "무변화 — GB/T 43568-2026(CN-012) 2026.07.01 시행 기추적. IEC 전고체 국제표준 프로젝트는 8/29 승인 큐 기등재"
     },
     "notSwept": [
-      "chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일)",
+      "chemicals — CN(1일) · EU(34일) · GL(34일) · JP(34일) · KR(1일) · NA(1일)",
       "next_tech — CN(1일) · EU(30일) · GL(30일) · JP(3일) · KR(30일) · NA(30일)"
     ],
     "notSweptDaily": [
@@ -60,7 +58,7 @@
       "trade — CN(1일) · EU(1일) · GL(1일) · JP(1일) · KR(1일) · NA(1일)"
     ],
     "notSweptDerived": "coverage.json 의 lastSwept 에서 파생한다(하드코딩 금지). 종전에는 손으로 적어 EU/next_tech·KR/next_tech 를 실제로 스윕했는데도 미스윕으로 남겨, 다음 run 의 잔여 목록을 부풀리고 있었다.",
-    "honestSummary": "오늘은 발굴 스윕이 EU/chemicals 한 셀뿐이고 나머지는 전부 항목 재검증이었다. 방치 24건 회수가 중심이었으므로 이것이 실제 성격이다 — RD-3 슬라이스를 돌았다고 적을 수 없다."
+    "honestSummary": "**오늘 정당한 발굴 스윕은 0셀이다.** 방치 24건 회수(항목 재검증)가 중심이었고 RD-3 슬라이스는 돌지 않았다. EU/chemicals 를 한때 1셀로 적었으나, 근거가 PFHxA 후보를 지목한 후속 쿼리였고 그 셀은 사전 정의 쿼리가 0개여서 철회했다."
   },
   "searches": [
     {
@@ -435,28 +433,28 @@
     }
   ],
   "verifyCounts": {
-    "derivedFrom": "public/data/tracker_data.json (스크립트 산출, 하드코딩 금지)",
-    "totalItems": 187,
+    "derivedFrom": "public/data/tracker_data.json (마감 시 재생성, 하드코딩 금지)",
+    "totalItems": 188,
     "thisRun": {
       "secondary": 17,
-      "primary-meta": 6,
+      "primary-meta": 7,
       "search": 2,
       "primary-doc": 3
     },
-    "thisRunTotal": 28,
+    "thisRunTotal": 29,
     "carriedOver": 159
   },
   "statusDistribution": {
-    "ACTIVE": 105,
+    "ACTIVE": 110,
     "DONE": 10,
-    "WATCH": 43,
-    "UPCOMING": 29
+    "WATCH": 41,
+    "UPCOMING": 27
   },
   "partialReason": {
     "why": "전수 재검증 미완. 이번 run 은 RD-1 도래 3건, D-2 2건, 방치 24건 중 22건 회수에 집중했고 나머지 축의 정기 스윕은 부분만 수행했다.",
     "incompleteStages": [
       "RD-2 권역 클러스터 미실시",
-      "RD-3 화요일 슬라이스 — 발굴 스윕은 EU/chemicals 1셀뿐. 미스윕 chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일) / next_tech — CN(1일) · EU(30일) · GL(30일) · JP(3일) · KR(30일) · NA(30일)",
+      "**RD-3 화요일 슬라이스 미실시 — 정당한 발굴 스윕 0셀.** 미스윕 chemicals — CN(1일) · EU(34일) · GL(34일) · JP(34일) · KR(1일) · NA(1일) / next_tech — CN(1일) · EU(30일) · GL(30일) · JP(3일) · KR(30일) · NA(30일)",
       "Daily 축 미스윕 — product_std — CN(1일) · EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일) / supply_chain — CN(3일) · EU(1일) · GL(3일) · JP(3일) · KR(3일) · NA(1일) / trade — CN(1일) · EU(1일) · GL(1일) · JP(1일) · KR(1일) · NA(1일)"
     ],
     "unverifiedScope": {
@@ -559,7 +557,8 @@
     "check15": "verify.runId ↔ 원장 파일 실재 대조 (ERROR). 검사 #6이 날짜 불일치로 건너뛴 스탬프를 잡는다.",
     "check16": "effectiveDate ↔ dt 등장 대조 (WARN). dt 전면 재작성 시 시행일 유실을 잡는다. 도입 계기 = KR-022 유실을 게이트 4종이 전부 통과시켰다.",
     "check17": "checkNote 같은 run 단락 중복 부착 (ERROR).",
-    "check18": "원장 승인 큐 ↔ 실제 status 정합 (ERROR). status 를 먼저 바꿔놓고 큐에만 남기면 승인 게이트가 우회되는데 지금까지 이를 보는 검사가 없었다."
+    "check18": "원장 승인 큐 ↔ 실제 status 정합 (ERROR). status 를 먼저 바꿔놓고 큐에만 남기면 승인 게이트가 우회되는데 지금까지 이를 보는 검사가 없었다.",
+    "check21": "원장 파생값(verifyCounts·statusDistribution·coverageStamped.count) ↔ tracker/coverage 실측 정합 (ERROR). tracker 의 dataSnapshotDate 와 run.date 가 같은 원장만 대조한다 — 과거 원장은 그때의 상태를 담으므로 대상이 아니다. **손으로 적힌 파생값은 반드시 낡는다는 것을 오늘만 두 번 확인했다.**"
   },
   "gapsFound": [
     {
@@ -618,32 +617,10 @@
     }
   },
   "coverageStamped": {
-    "cells": [
-      "EU/chemicals"
-    ],
-    "count": 1,
-    "criterion": "원장 검색의 itemsCovered 가 비어 있는 발굴형 검색이 실행된 셀만 스탬프한다.",
-    "revertedItemVerifyOnly": [
-      "NA/trade",
-      "CN/trade",
-      "EU/subsidy",
-      "CN/subsidy",
-      "KR/subsidy",
-      "CN/product_std",
-      "CN/recycle",
-      "KR/supply_chain",
-      "EU/transport",
-      "CN/transport",
-      "CN/packaging",
-      "KR/packaging",
-      "EU/energy_market",
-      "CN/energy_market",
-      "KR/energy_market",
-      "JP/energy_market",
-      "CN/next_tech",
-      "EU/downstream"
-    ],
-    "note": "항목 재검증만 이뤄진 18셀은 lastSwept 를 되돌리고 itemVerifyQueries-2026-09-01 로만 남겼다."
+    "cells": [],
+    "count": 0,
+    "criterion": "셀의 사전 정의 queries 를 실제로 돌린 검색만 스윕 근거(RUNBOOK §셀 운영). 검사 #13이 강제한다.",
+    "note": "**오늘 정당한 발굴 스윕은 0셀이다.** 항목 재검증 30건은 itemVerifyQueries-2026-09-01 에만 기록했다."
   },
   "selfCaught2": {
     "finding": "KR-004·KR-006 의 verify.date 를 오늘로 밀었으나 원장에 이 두 항목을 덮는 검색 근거가 없었다.",
@@ -831,6 +808,70 @@
         }
       ],
       "lesson": "**리뷰가 두 건을 짚었을 때 그 두 건만 고치면 안 된다** — 같은 유형을 전수로 훑으니 10건이었다. 그리고 오늘 네 번째로 같은 뿌리를 만났다: 한 곳을 고치고 같은 사실을 담은 다른 곳을 안 본다(CN-021 d↔detail, CN-003·EU-031·KR-020 detail만, meta snapshotNote, 그리고 JP policies desc)."
+    },
+    "round5": {
+      "source": "PR #302 Copilot Review 5차 (reviewed commit 342bb13, 2026-09-01 04:50Z, 지적 8건)",
+      "note": "8건 전부 실재. **전부 같은 뿌리다 — 승인을 status 필드에만 반영하고 파생값·서술로 전파하지 않았다.** 다만 리뷰가 적은 현재 status 분포(WATCH 27 / UPCOMING 41)는 실제와 뒤바뀌어 있다(실제 WATCH 41 / UPCOMING 27) — 원장이 낡았다는 핵심 지적은 맞다.",
+      "items": [
+        {
+          "id": "region_policy watchpoints 3곳",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "EU-039 를 승인 대기 후보로, CN-028·CN-038 을 UPCOMING·승인 필요로, KR-020 을 승인 큐로 적은 문구가 남았다. App.jsx 가 그대로 렌더한다",
+          "fix": "세 항목을 승인·반영 완료 상태로 다시 썼다"
+        },
+        {
+          "id": "KR-020 tip·detail",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "status 는 ACTIVE 인데 tip 이 'SBTL 관련도 낮음(WATCH)' 으로 시작하고 detail 이 WATCH 사유를 서술한다 — 카드가 자기모순",
+          "fix": "노출도 낮음은 우선순위 문제이지 status 문제가 아님을 명시하고 상태 절을 추가. instrumentType(law) ↔ effectiveDate(고시일) 긴장은 이월"
+        },
+        {
+          "id": "원장 verifyCounts·statusDistribution",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "187건·28검증·구 status 분포로 남아 실제(188·29·ACTIVE 110/DONE 10/WATCH 41/UPCOMING 27)와 어긋난다",
+          "root": "승인 적용 전에 파생값을 계산하고 이후 재생성하지 않았다 — **오늘만 두 번째다**",
+          "fix": "마감 시 재생성. **검사 #21 신설** — 원장 파생값이 tracker 와 다르면 ERROR(스냅샷 날짜가 일치하는 원장에 한해)"
+        },
+        {
+          "id": "원장 스윕 0셀 정규화",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "coverage 는 EU/chemicals 스탬프를 철회했는데 원장의 sweptCells·honestSummary·incompleteStages·coverageStamped 는 1셀로 남았다",
+          "fix": "전부 0셀로 정규화하고 철회 경위를 honestSummary 에 남겼다"
+        },
+        {
+          "id": "validate2 #18",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "반영 완료 항목을 파싱 전에 건너뛰므로, 완료된 항목의 status 를 승인된 목표값에서 다시 바꿔도 통과한다",
+          "fix": "모든 status 항목을 파싱한다. 완료 항목은 status == to 를, 대기 항목은 status == from 을 요구"
+        },
+        {
+          "id": "문서 ↔ 구현 불일치",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "검사 #13 헤더와 RUNBOOK G3 절이 여전히 itemsCovered/primaryDocs 를 스윕 근거로 문서화한다. 문서를 따르면 CI 가 거부하는 원장이 나온다",
+          "fix": "검사 헤더와 RUNBOOK 을 새 규칙(사전 정의 쿼리 실행)으로 갱신"
+        },
+        {
+          "id": "meta.snapshotNote",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "187 / 185 / 28 로 남아 실제 188 / 186 / 29 와 어긋난다. 이 필드는 provenance 로 노출된다",
+          "fix": "데이터에서 재생성. 손으로 적어 두 번 낡았다는 사실을 필드 안에 명시"
+        },
+        {
+          "id": "EU-039 출처 서술",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "EU/chemicals 스윕에서 발굴했다고 적었으나 그 셀은 사전 정의 쿼리 0개이고 그날 정당한 스윕은 0셀이다 — 철회된 주장이 항목 이력에 남는다",
+          "fix": "EU-025 재검증 중 부수 발굴로 다시 적고 셀 스윕의 산물이 아님을 명시"
+        }
+      ],
+      "lesson": "**승인 반영은 status 한 필드로 끝나지 않는다.** 같은 사실이 tip·detail·region_policy watchpoint·원장 파생값·meta 서술에 흩어져 있고, 오늘 이 유형을 다섯 번 만났다. 그래서 이번엔 개별 수정에 더해 **파생값을 마감 때 재생성하고 검사 #21이 그 정합을 강제**하도록 했다 — 손으로 적는 한 반드시 다시 낡는다."
     }
   },
   "selfAudit": {
@@ -1134,5 +1175,36 @@
         "fix": "dt 앞에 발문일을 명시. **오늘 도입한 검사가 오늘 내 편집을 바로 잡은 사례**"
       }
     ]
+  },
+  "docSync": {
+    "files": [
+      "ops/validate2.mjs 검사 #13 헤더",
+      "ops/RUNBOOK.md G3 절"
+    ],
+    "why": "구현은 사전 정의 쿼리만 근거로 인정하도록 바꿨는데 문서는 종전 두 경로를 그대로 안내하고 있었다. 문서를 따르면 CI 가 거부하는 원장이 나온다.",
+    "added": "RUNBOOK 에 '항목 재검증은 스윕이 아니다' 규칙과 사전 정의 쿼리 선행 과제를 명문화. 검사 수 12종 → 21종 갱신."
+  },
+  "selfCaught3": {
+    "finding": "5차 리뷰 반영 후 **과거 원장을 검증해보니 2026-08-31 원장이 34 ERROR** 였다 — #13의 새 근거 규칙(사전 정의 쿼리 실행)을 소급 적용해 33셀이 근거를 잃고, #18이 그 원장의 대기 큐(CN-011)를 현재 status 와 대조해 오탐을 냈다.",
+    "why": "규칙을 바꿀 때 **그 규칙으로 작성되지 않은 과거 데이터**를 생각하지 않았다. CI 는 변경된 원장 전부를 검증하므로(내가 #299에서 넣은 개선이다) 과거 원장을 건드리는 PR 이 전부 막힌다.",
+    "fix": "#13에 EVIDENCE_RULE_FROM='2026-09-01' 경계를 넣어 이전 원장은 구 규칙으로 대조하고 WARN 을 남긴다(#13 자체의 SWEEP_FROM 과 같은 패턴). #18은 tracker.dataSnapshotDate 와 run.date 가 같은 **현 스냅샷 원장만** 대조한다 — 과거 큐는 이력이다.",
+    "lesson": "**검사를 강화할 때는 과거 데이터로 회귀 검증을 돌려야 한다.** 오늘 도입한 검사 7종을 전부 과거 원장 3개에 돌려봤어야 했는데 현재 원장만 봤다. 이번엔 내가 만든 음성 테스트가 잡았지만 리뷰가 잡을 수도 있었고, 안 잡혔으면 다음 PR 에서 CI 가 막혔을 것이다.",
+    "regressionCheck": "2026-08-02·08-29·08-31 원장 전부 재검증해 통과 확인(아래 ledgerRegression)"
+  },
+  "ledgerRegression": {
+    "ranAt": "2026-09-01",
+    "note": "검사 7종을 새로 넣은 뒤 과거 원장 전부에 회귀 검증을 돌렸다. 처음엔 2026-08-31 원장이 34 ERROR 였고 경계를 넣어 해소했다.",
+    "results": {
+      "2026-07-17-R1R3.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-07-22-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-07-23-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-07-27-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-07-28-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-07-29-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-08-02-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-08-29-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-08-31-RD.json": "RESULT: PASS (errors 0, warnings 12)",
+      "2026-09-01-RD.json": "RESULT: PASS (errors 0, warnings 9)"
+    }
   }
 }

@@ -1,0 +1,112 @@
+{
+  "schema": "stage_0_0d_document_universe_manifest_v1",
+  "stage": "0.0D",
+  "status": "PASS",
+  "run_id": "card-run-2026-08-31-preflight-reconciliation-current-main-1514-r2",
+  "run_tag": "20260831_PREFLIGHT_RECONCILIATION_R2",
+  "generated_kst": "2026-09-01T12:34:00+09:00",
+  "repository": "ihyowoen/SBTL_HUB",
+  "branch": "main",
+  "repository_head_sha": "71371c841f7fe18bf97bf500aa537b6f1975d5dc",
+  "canonical_full_path": "data/cards.full.json",
+  "canonical_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "canonical_full_count": 1514,
+  "document_universe_status": "PASS",
+  "docs_file_count": 88,
+  "all_docs_files_read_or_parsed": true,
+  "stage_0_0c_authorized": true,
+  "supersedes_run_artifact": "runs/2026-08-31/stage_0_0d_document_universe_20260831_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION.json",
+  "supersession_reason": "main advanced from 324461288e49e4578e06d590fa2422999ae09b34 to 71371c841f7fe18bf97bf500aa537b6f1975d5dc when PR #299 merged on 2026-09-01; current-run repository lock is regenerated as required.",
+  "repository_drift_review": {
+    "old_head": "324461288e49e4578e06d590fa2422999ae09b34",
+    "new_head": "71371c841f7fe18bf97bf500aa537b6f1975d5dc",
+    "commit_count": 10,
+    "docs_changed": 0,
+    "canonical_full_changed": false,
+    "canonical_blob_before": "53219907cdb435c3822c41d097b23e475662aa8a",
+    "canonical_blob_after": "53219907cdb435c3822c41d097b23e475662aa8a",
+    "changed_paths": [
+      ".github/workflows/validate-tracker.yml",
+      "ops/RUNBOOK.md",
+      "ops/coverage.json",
+      "ops/runs/2026-08-29-RD.json",
+      "ops/runs/2026-08-31-AUDIT.json",
+      "ops/runs/2026-08-31-RD.json",
+      "ops/validate2.mjs",
+      "public/data/region_policy.json",
+      "public/data/tracker_data.json"
+    ]
+  },
+  "read_proof_method": {
+    "mode": "CONTENT_ADDRESSED_DOC_CACHE_PLUS_CURRENT_HEAD_DRIFT_REVIEW",
+    "authorization_reused_from_prior_run": false,
+    "cache_source_docs_read_count": 88,
+    "all_cached_docs_blob_identical": true,
+    "note": "The 88/88 complete docs parse is retained only as a blob-identity cache. Current head, authority, non-doc dependency drift, open PR state and Stage 0.0C dependency impact are re-evaluated for this manifest."
+  },
+  "changed_non_docs_dependency_classification": [
+    {
+      "path": ".github/workflows/validate-tracker.yml",
+      "classification": "RD_TRACKER_VALIDATION_WORKFLOW",
+      "news_card_stage_contract_impact": "NONE"
+    },
+    {
+      "path": "ops/RUNBOOK.md",
+      "classification": "RD_TRACKER_OPERATIONS_GUIDE",
+      "news_card_stage_contract_impact": "NONE"
+    },
+    {
+      "path": "ops/validate2.mjs",
+      "classification": "RD_TRACKER_VALIDATOR",
+      "news_card_stage_contract_impact": "NONE"
+    },
+    {
+      "path": "ops/coverage.json",
+      "classification": "CURRENT_DISCOVERY_INPUT",
+      "news_card_stage_contract_impact": "STAGE_0_0C_INCREMENTAL_REVIEW_REQUIRED"
+    },
+    {
+      "path": "public/data/tracker_data.json",
+      "classification": "CURRENT_DISCOVERY_INPUT",
+      "news_card_stage_contract_impact": "STAGE_0_0C_INCREMENTAL_REVIEW_REQUIRED"
+    },
+    {
+      "path": "public/data/region_policy.json",
+      "classification": "CURRENT_DISCOVERY_CONTEXT",
+      "news_card_stage_contract_impact": "STAGE_0_0C_INCREMENTAL_REVIEW_REQUIRED"
+    }
+  ],
+  "open_unmerged_repository_changes_checked": [
+    {
+      "pr": 298,
+      "state": "OPEN_UNMERGED",
+      "head_sha": "8d9605ec7c77f421ccf2095b793e3acef3ce1999",
+      "application_status": "NOT_CURRENT_MAIN_AUTHORITY",
+      "note": "V4 governance remains excluded until merge."
+    }
+  ],
+  "repository_state_defects": [],
+  "missing_or_stale_components": [],
+  "missing_content_identity_documents": [],
+  "unclassified_documents": [],
+  "unread_documents": [],
+  "unread_active_documents": [],
+  "unresolved_dependencies": [],
+  "unresolved_rule_conflicts": [],
+  "misapplied_non_authoritative_documents": [],
+  "unchecked_open_remediations": [],
+  "unauthorized_migration_applications": [],
+  "inactive_document_contamination": [],
+  "incomplete_universe_defects": [],
+  "active_migrations": [],
+  "selected_blocker_reason": "",
+  "blocker_precedence": [
+    "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
+    "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE"
+  ],
+  "governance_decision": {
+    "ordinary_run_contract": "CURRENT_MAIN_V3",
+    "v4_pr_298_applied": false,
+    "stage_0_0c_authorized": true
+  }
+}

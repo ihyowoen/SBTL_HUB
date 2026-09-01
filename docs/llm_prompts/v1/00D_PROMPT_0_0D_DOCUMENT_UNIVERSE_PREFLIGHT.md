@@ -45,6 +45,18 @@ The production card-run engine consumes several legacy-named fields. They remain
 
 These compatibility fields must agree with the detailed V4 ledgers below. Any contradiction is BLOCKED, never normalized to PASS.
 
+## Machine reconciliation rules
+The production gate validates the detailed conclusions rather than trusting the summary booleans:
+
+- `docs_inventory_count`, `classified_count`, `active_full_read_count`, and `active_override_or_addendum_count` are non-negative integers.
+- PASS requires `classified_count == docs_inventory_count`.
+- `active_canonical_paths`, `active_validator_contract_paths`, `applicable_remediation_or_migration`, and `superseded_or_reference_paths` are arrays of unique non-empty repository paths.
+- `active_full_read_count` must be at least the number of unique paths in the union of active canonical + active validator + applicable remediation/migration paths, and may not exceed `docs_inventory_count`.
+- `unclassified_paths`, `unread_active_paths`, `unresolved_dependencies`, `unresolved_conflicts`, `unregistered_active_looking_paths`, `unresolved_rule_conflicts`, and `incomplete_universe_defects` are arrays and all are empty on PASS.
+- `active_override_or_addendum_count == 0` and `stage_a_embedded_news_value_verified == true` on PASS.
+- `repository_head_sha` and `canonical_full_blob_sha` must match the exact card-run baseline bindings.
+- `all_docs_files_read_or_parsed == true` and `stage_0_0c_authorized == true` are accepted only when all detailed rules above also pass.
+
 ## Required output
 ```json
 {
@@ -73,4 +85,4 @@ These compatibility fields must agree with the detailed V4 ledgers below. Any co
 }
 ```
 
-PASS requires all detailed defect arrays and both compatibility blocker arrays to be empty, `active_override_or_addendum_count = 0`, `classified_count = docs_inventory_count`, `all_docs_files_read_or_parsed = true`, and `stage_0_0c_authorized = true`.
+PASS requires all detailed defect arrays and both compatibility blocker arrays to be empty, `active_override_or_addendum_count = 0`, `classified_count = docs_inventory_count`, `active_full_read_count` to cover the unique active/dependency path union, `stage_a_embedded_news_value_verified = true`, `all_docs_files_read_or_parsed = true`, exact SHA bindings, and `stage_0_0c_authorized = true`.

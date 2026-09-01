@@ -67,7 +67,7 @@
         "policy_stage":{"type":["integer","null"],"minimum":0,"maximum":6},
         "novelty_cap_basis":{"enum":["none","repeated_announcement_no_new_fact","routine_progression_no_material_uncertainty","company_target_without_validation_or_effect","unsupported_political_rhetoric"]},
         "systemic_scale_denominator":{"type":["string","null"]},
-        "denominator_gap":{"type":"boolean"},
+        "denominator_gap":{"type":["string","null"]},
         "prior_state":{"type":"string","minLength":1},
         "new_verified_fact":{"type":"string","minLength":1},
         "changed_judgment":{"type":"string","minLength":1},
@@ -101,10 +101,6 @@
               "why_execution_event_not_required":{"type":"string","minLength":1}
             }
           }
-        },
-        {
-          "if": {"properties":{"denominator_gap":{"const":true}},"required":["denominator_gap"]},
-          "then": {"properties":{"decision_value_breakdown":{"properties":{"systemic_scale":{"maximum":2}}}}}
         }
       ]
     },

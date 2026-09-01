@@ -337,6 +337,11 @@ function validateStageArtifact(path, payload, stage, run, label) {
   if (stage === "A") runPythonChecker("validation_scripts/stage_lineage_contract_check.py", ["stage_a", path], label);
 }
 
+// This working-tree map is only an early structural aid. The CLI always runs the
+// authoritative Python binding checker afterward, which reconstructs identities
+// from run.base_main_commit_sha/base_full_blob_sha. Update changes are also
+// forbidden from mutating source_spec_id below, so a PR cannot self-authorize by
+// rewriting identity before the baseline-bound checker runs.
 function loadCanonicalSpecMap(root) {
   const path = resolve(root, "data/cards.full.json");
   if (!existsSync(path)) return new Map();
@@ -357,6 +362,12 @@ function operationSpecId(kind, operation, canonicalSpecMap, insertedSpecMap, lab
   }
   if (kind === "update") {
     if (!nonEmptyText(operation.id)) fail("BLOCKED_OPERATION_IDENTITY", `${label}.id required`);
+    for (const [changeIndex, change] of (Array.isArray(operation.changes) ? operation.changes : []).entries()) {
+      if (isObject(change) && nonEmptyText(change.path)
+        && (change.path === "/source_spec_id" || change.path.startsWith("/source_spec_id/"))) {
+        fail("BLOCKED_OPERATION_IDENTITY", `${label}.changes[${changeIndex}] cannot mutate source_spec_id; operation.source_spec_id is binding metadata only`);
+      }
+    }
     const id = operation.id.trim();
     const canonicalSpec = canonicalSpecMap.get(id) || insertedSpecMap.get(id) || null;
     const declaredSpec = declaredOperationSpec(operation, label);
@@ -395,9 +406,17 @@ function validateRun(run, root = ".") {
   validateCompleteness(run, root);
 
   const canonicalSpecMap = loadCanonicalSpecMap(root);
+  const baselineSpecIds = new Set(canonicalSpecMap.values());
   const insertedSpecMap = new Map();
-  for (const operation of run.operations?.insert || []) {
-    if (nonEmptyText(operation?.card?.id) && nonEmptyText(operation?.card?.source_spec_id)) insertedSpecMap.set(operation.card.id.trim(), operation.card.source_spec_id.trim());
+  const insertedSpecIds = new Set();
+  for (const [insertIndex, operation] of (run.operations?.insert || []).entries()) {
+    if (!nonEmptyText(operation?.card?.id) || !nonEmptyText(operation?.card?.source_spec_id)) continue;
+    const cardId = operation.card.id.trim();
+    const specId = operation.card.source_spec_id.trim();
+    if (insertedSpecIds.has(specId)) fail("BLOCKED_OPERATION_IDENTITY", `insert[${insertIndex}] reuses source_spec_id=${specId} within the same run`);
+    if (baselineSpecIds.has(specId)) fail("BLOCKED_OPERATION_IDENTITY", `insert[${insertIndex}] reuses source_spec_id=${specId} already present in canonical inventory`);
+    insertedSpecIds.add(specId);
+    insertedSpecMap.set(cardId, specId);
   }
 
   let validatedStageArtifacts = 0;
@@ -520,6 +539,15 @@ function selfTest() {
     catch (error) { missingStageBlocked = error instanceof ValidationError && error.code === "BLOCKED_OPERATION_STAGE_SUBSTITUTION"; }
     if (!missingStageBlocked) throw new Error("self-test failed to reject stage-less bucket inference");
 
+    const duplicateSpecRun = { ...common, operations: { insert: [
+      { card: { id: "CARD_1", source_spec_id: "SPEC_DUP" }, stage_artifacts: [malformedStageA] },
+      { card: { id: "CARD_2", source_spec_id: "SPEC_DUP" }, stage_artifacts: [malformedStageA] },
+    ], update: [], related_add: [] } };
+    let duplicateSpecBlocked = false;
+    try { validateRun(duplicateSpecRun, root); }
+    catch (error) { duplicateSpecBlocked = error instanceof ValidationError && error.code === "BLOCKED_OPERATION_IDENTITY"; }
+    if (!duplicateSpecBlocked) throw new Error("self-test failed to reject duplicate insert source_spec_id");
+
     const badCompleteness = readJson(join(root, completenessRef), "completeness");
     badCompleteness.residual_risks = [];
     writeFileSync(join(root, completenessRef), `${JSON.stringify(badCompleteness, null, 2)}\n`);
@@ -548,7 +576,7 @@ function selfTest() {
     catch (error) { registryBlocked = error instanceof ValidationError && error.code === "BLOCKED_DOCUMENT_UNIVERSE_REGISTRY"; }
     if (!registryBlocked) throw new Error("self-test failed to bind 0.0D authority set to registry");
 
-    console.log("PASS: formal V4 card-run hardening binds explicit A→0.7 stages, exact run/baseline envelope, non-empty 0.7C residual risk, 0.0D registry closure, shared 0.0C axes, and candidate identity");
+    console.log("PASS: formal V4 card-run hardening binds explicit A→0.7 stages, exact run/baseline envelope, non-empty 0.7C residual risk, 0.0D registry closure, shared 0.0C axes, immutable candidate identity, and unique insert source identity");
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -561,8 +589,13 @@ try {
   const runPath = index >= 0 ? args[index + 1] : null;
   if (!runPath) fail("INVALID_ARGUMENT", "--run PATH required");
   const result = validateRun(readJson(resolve(runPath), "card run"), ".");
-  console.log(JSON.stringify({ status: "PASS", ...result }, null, 2));
-  console.log(`PASS: formal V4 hardening; stage artifacts validated=${result.stage_artifacts_validated}; operations=${result.operations_with_complete_stage_chain}`);
+  // The Python binding checker is the authoritative second layer for declared-
+  // baseline identity reconstruction and semantic Related-edge reconciliation.
+  // Running it here makes this JS production gate fail-closed even when invoked
+  // outside the GitHub workflow that also calls the checker explicitly.
+  runPythonChecker("validation_scripts/card_run_v4_binding_hardening.py", ["--run", runPath], "authoritative baseline/Related binding");
+  console.log(JSON.stringify({ status: "PASS", ...result, authoritative_binding: "PASS" }, null, 2));
+  console.log(`PASS: formal V4 hardening; stage artifacts validated=${result.stage_artifacts_validated}; operations=${result.operations_with_complete_stage_chain}; baseline/Related binding=PASS`);
 } catch (error) {
   if (error instanceof ValidationError) { console.error(`FAIL [${error.code}]: ${error.message}`); process.exit(1); }
   console.error(`FAIL [BLOCKED_V4_HARDENING_INTERNAL]: ${error?.message || String(error)}`);

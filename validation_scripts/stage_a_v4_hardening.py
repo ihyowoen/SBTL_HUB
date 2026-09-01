@@ -72,8 +72,10 @@ def validate_stage_a_v4_hardening(
         )
     breakdown = spec.get("decision_value_breakdown")
     technology_score = None
+    systemic_score = None
     if isinstance(breakdown, dict):
         technology_score = _finite_number(breakdown.get("technology_performance_safety"))
+        systemic_score = _finite_number(breakdown.get("systemic_scale"))
     if tech_level in TECHNOLOGY_EVIDENCE_CAPS and technology_score is not None:
         tech_cap = TECHNOLOGY_EVIDENCE_CAPS[tech_level]
         if technology_score > tech_cap:
@@ -85,6 +87,20 @@ def validate_stage_a_v4_hardening(
             messages.append(
                 f"{spec_id}: technology_evidence_level=not_applicable requires technology score 0"
             )
+
+    denominator_gap = spec.get("denominator_gap")
+    denominator = spec.get("systemic_scale_denominator")
+    if not isinstance(denominator_gap, bool):
+        messages.append(f"{spec_id}: denominator_gap must be boolean")
+    elif denominator_gap:
+        if systemic_score is not None and systemic_score > 2:
+            messages.append(
+                f"{spec_id}: denominator_gap=true caps decision_value_breakdown.systemic_scale at 2/5"
+            )
+    elif not isinstance(denominator, str) or not denominator.strip():
+        messages.append(
+            f"{spec_id}: denominator_gap=false requires a non-empty systemic_scale_denominator"
+        )
 
     anchors = set(spec.get("anchor_classes") or []) if isinstance(spec.get("anchor_classes"), list) else set()
     policy_stage = spec.get("policy_stage")

@@ -172,11 +172,17 @@ if (runPath) {
     if (!rd2 || rd2 < SWEEP_FROM) {
       warn(`스윕 근거 대조 건너뜀 — 원장 날짜(${rd2 ?? '없음'})가 검사 도입일(${SWEEP_FROM}) 이전. searches[].axis 스키마 부재로 소급 검증 불가`);
     } else {
-    const i2c = new Map();
-    for (const c of cov2.cells ?? []) for (const x of c.items ?? []) {
-      if (!i2c.has(x)) i2c.set(x, []);
-      i2c.get(x).push(`${c.region}/${c.axis}`);
-    }
+    // i2c(항목→셀)는 **구 규칙 분기에서만** 쓴다. strict(2026-09-01 이후) 원장에서는 만들고 버리게 된다.
+    let i2c = null;
+    const buildI2c = () => {
+      if (i2c) return i2c;
+      i2c = new Map();
+      for (const c of cov2.cells ?? []) for (const x of c.items ?? []) {
+        if (!i2c.has(x)) i2c.set(x, []);
+        i2c.get(x).push(`${c.region}/${c.axis}`);
+      }
+      return i2c;
+    };
     // 스윕 근거는 **셀의 사전 정의 queries 를 실제로 돌린 검색**만 인정한다(RUNBOOK §셀 운영 — 쿼리는
     // 현 항목과 무관하게 셀에 사전 정의). 종전에는 region+axis 를 선언하기만 하면 근거가 됐고
     // itemsCovered 로도 파생시켜서, 특정 항목을 지목한 재검증 쿼리로 lastSwept 가 전진했다
@@ -194,15 +200,18 @@ if (runPath) {
         const key = `${s.region}/${s.axis}`;
         // 신규 규칙: 셀의 사전 정의 queries 를 실제로 돌린 검색만 근거.
         if (!strict || (predef.get(key) ?? new Set()).has(s.query)) ev.add(key);
-        if (strict) continue;
+        // **축을 선언한 검색은 그 셀만 근거다.** 구 규칙에서도 그랬다 — 여기서 continue 하지 않으면
+        // 아래 itemsCovered 파생으로 흘러가 다중 셀 소속 항목이 다른 축까지 근거를 만든다
+        // (실측: 2026-08-31 원장 33셀 → 35셀, CN/upstream·EU/recycle 추가). 재작성 때 잃은 continue 다.
+        continue;
       }
       if (strict) continue;
       // 구 규칙(2026-09-01 이전 원장 한정): itemsCovered 파생도 근거로 인정했다.
-      for (const x of s.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+      for (const x of s.itemsCovered ?? []) for (const k of buildI2c().get(x) ?? []) ev.add(k);
     }
     if (!strict) {
       for (const p of run2.primaryDocs ?? [])
-        for (const x of p.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+        for (const x of p.itemsCovered ?? []) for (const k of buildI2c().get(x) ?? []) ev.add(k);
       warn(`스윕 근거 규칙 — 원장 날짜(${rd2})가 신규 규칙 도입일(${EVIDENCE_RULE_FROM}) 이전이라 구 규칙(axis 선언·itemsCovered 파생)으로 대조했다`);
     }
     let stamped = 0, missing = 0;
@@ -210,13 +219,20 @@ if (runPath) {
       if (c.lastSwept !== rd2) continue;
       stamped++;
       const k = `${c.region}/${c.axis}`;
+      // 사전 정의 쿼리가 RUNBOOK 최소치(3개) 미만인 셀은 스탬프 자체를 인정하지 않는다.
+      // #13의 근거 규칙은 "셀의 queries 에 있는 쿼리"인데 queries 는 같은 커밋에서 덧붙일 수 있어
+      // 자기인증이 가능하다(리뷰 실측: 재검증 쿼리 30개를 셀에 밀어넣으면 철회했던 19셀이 초록불 복귀).
+      // 최소 3개를 요구하면 스탬프를 세우려면 셀 단위 쿼리 세트를 실제로 설계해야 한다.
+      if (strict && (predef.get(k) ?? new Set()).size < 3) {
+        missing++;
+        err(`coverage ${k}: lastSwept=${rd2} 인데 사전 정의 queries 가 ${(predef.get(k) ?? new Set()).size}개 — RUNBOOK 은 셀당 3~6개를 요구한다(쿼리를 스탬프와 같은 커밋에 끼워 넣는 자기인증 차단)`);
+        continue;
+      }
       if (!ev.has(k)) {
         missing++;
         err(`coverage ${k}: lastSwept=${rd2} 인데 원장(${run2.runId})에 스윕 근거 없음 — 검색을 돌리지 않고 스윕 표기만 전진했거나, 무산출 스윕에 searches[].axis 가 없다`);
       }
     }
-    const noQ = (cov2.cells ?? []).filter(c => !(c.queries ?? []).length);
-    if (noQ.length) warn(`사전 정의 쿼리가 없는 coverage 셀 ${noQ.length}개 — 이 셀들은 정당하게 스윕될 수 없다(검사 #13이 사전 정의 쿼리 실행을 요구)`);
     if (stamped && !missing) console.log(`INFO : 스윕 근거 대조 — lastSwept=${rd2} 셀 ${stamped}개 전부 원장 근거 확인`);
     }
   } catch(e){ warn('스윕 근거 대조 실패: '+e.message); }
@@ -314,10 +330,16 @@ for (const i of items) {
   const cn = i.checkNote;
   if (typeof cn !== 'string') continue;
   const seen = new Map();
-  for (const m of cn.matchAll(/\*\*(\d{4}-\d{2}-\d{2}) RD\*\*/g))
-    seen.set(m[1], (seen.get(m[1]) ?? 0) + 1);
-  for (const [dstr, n] of seen)
-    if (n > 1) err(`${i.id}.checkNote: ${dstr} RD 단락이 ${n}번 붙음 — 같은 run 에서 중복 부착됐다`);
+  // **날짜가 아니라 헤더 문자열로 센다.** 종전 패턴(`**YYYY-MM-DD RD**` 정확형)은 실제 표기의
+  // 6.8%(29/428)만 덮었다. 그렇다고 날짜 단위로 넓히면 안 된다 — 하루에 여러 단락이 붙는 것은
+  // 정상 이력이다(`**2026-08-29 재개 run:**` `**2026-08-29 정정 1차:**` `**2026-08-29 Claire 승인:**`).
+  // 날짜로 넓힌 시안은 실측 59건이 전부 오탐이었다. 중복의 신호는 같은 헤더가 두 번 나오는 것이다.
+  for (const m of cn.matchAll(/\*\*\s*(\d{4}-\d{2}-\d{2}[^*]{0,60}?)\s*\*\*/g)) {
+    const key = m[1].trim().replace(/[:\uFF1A\-\u2014\s]+$/, '');
+    seen.set(key, (seen.get(key) ?? 0) + 1);
+  }
+  for (const [hdr, n] of seen)
+    if (n > 1) err(`${i.id}.checkNote: 단락 헤더 "${hdr}" 가 ${n}번 붙음 — 같은 run 에서 중복 부착됐다`);
 }
 
 // 18) 원장 승인 큐 ↔ 실제 status 정합 (ERROR, 원장 있을 때만)
@@ -347,7 +369,13 @@ if (runPath) {
       }
       const it = byId.get(id);
       if (!it) { err(`원장 승인 큐: ${id} 가 tracker 에 없음`); continue; }
-      const done = /반영\s*완료|적용\s*완료|applied/i.test(a.decision ?? '');
+      // **판별 축을 구조화한다.** 종전에는 자유 서술 decision 에 대한 정규식이라,
+      // "승인 완료" 나 "반영함" 으로 적거나 필드를 빼면 완료 건이 대기 분기로 떨어져 오탐을 냈다.
+      if (a.applied !== undefined && typeof a.applied !== 'boolean')
+        err(`원장 승인 큐 ${id}: applied 는 boolean 이어야 한다(현재 ${typeof a.applied})`);
+      const done = typeof a.applied === 'boolean'
+        ? a.applied
+        : /반영\s*완료|적용\s*완료|승인\s*완료|applied/i.test(a.decision ?? '');
       if (done) {
         if (it.s !== to)
           err(`원장 승인 큐: ${id} 는 ${to} 로 승인·반영 완료로 기록됐는데 현재 status 가 ${it.s} — 승인 결과가 되돌려졌다`);
@@ -454,6 +482,18 @@ if (runPath) {
       if (vc.thisRunTotal === undefined) err('원장 verifyCounts.thisRunTotal 없음 — 파생값 정합 대조를 우회한다');
       else if (vc.thisRunTotal !== vcTotal)
         err(`원장 verifyCounts.thisRunTotal(${vc.thisRunTotal}) ≠ tracker 실측(${vcTotal}) — 파생값이 낡았다`);
+      // **축별 집계와 carriedOver 도 대조한다.** 종전에는 합만 봐서 thisRun 의 method 분포를
+      // {secondary:29} 로 바꿔도, carriedOver 를 아무 값으로 적어도 통과했다.
+      const tr = vc.thisRun;
+      if (!tr) err('원장 verifyCounts.thisRun 없음 — 축별 집계 대조를 우회한다');
+      else {
+        for (const m of new Set([...Object.keys(tr), ...Object.keys(realRun)]))
+          if ((tr[m] ?? 0) !== (realRun[m] ?? 0))
+            err(`원장 verifyCounts.thisRun.${m}(${tr[m] ?? 0}) ≠ tracker 실측(${realRun[m] ?? 0}) — 파생값이 낡았다`);
+      }
+      if (vc.carriedOver === undefined) err('원장 verifyCounts.carriedOver 없음 — 파생값 정합 대조를 우회한다');
+      else if (vc.carriedOver !== realTotal - vcTotal)
+        err(`원장 verifyCounts.carriedOver(${vc.carriedOver}) ≠ 실측(${realTotal - vcTotal}) — 파생값이 낡았다`);
       const sd = r5.statusDistribution;
       if (!sd) err('원장 statusDistribution 없음 — 파생값 정합 대조를 우회한다');
       if (sd) {
@@ -472,6 +512,34 @@ if (runPath) {
     }
   } catch(e){ err('원장 파생값 정합 대조 실패: '+e.message); }
 }
+
+
+// 22) meta.dataSnapshotDate 필수 + coverage 사전 정의 쿼리 분포 (ERROR / WARN)
+//     #18·#21 은 tj.meta.dataSnapshotDate === run.date 를 자기 실행 조건으로 삼는데, 그 필드의
+//     존재를 요구하는 게이트가 어디에도 없었다. 필드 한 줄을 지우면 두 검사가 통째로 꺼진다
+//     (리뷰 실측: 승인 결과를 되돌린 상태에서 FAIL 3 → 필드 삭제 시 PASS 0).
+//     #21 이 스스로 세운 원칙(필드 부재를 통과로 두지 않는다)을 tracker 쪽에도 적용한다.
+{
+  const snap = tj.meta?.dataSnapshotDate;
+  if (!snap) err('meta.dataSnapshotDate 없음 — 이 필드가 없으면 검사 #18·#21 이 조용히 꺼진다');
+  else if (!/^\d{4}-\d{2}-\d{2}$/.test(String(snap)))
+    err(`meta.dataSnapshotDate(${snap}) 형식 불량 — YYYY-MM-DD 여야 #18·#21 이 작동한다`);
+}
+//     coverage 쿼리 분포 — RUNBOOK 은 셀당 3~6개를 요구한다. 종전 경고는 0개 셀만 세어
+//     실제 미달 규모를 축소 보고했고(27 vs 84), 원장이 있을 때만 나왔다.
+try {
+  const cv6 = JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8'));
+  const cells = cv6.cells ?? [];
+  const dist = new Map();
+  for (const c of cells) { const n = (c.queries ?? []).length; dist.set(n, (dist.get(n) ?? 0) + 1); }
+  const under = cells.filter(c => (c.queries ?? []).length < 3).length;
+  const zero  = cells.filter(c => !(c.queries ?? []).length).length;
+  if (under) warn(`coverage 사전 정의 쿼리 미달 ${under}/${cells.length}셀 (0개 ${zero}셀 포함) — RUNBOOK 은 셀당 3~6개를 요구하며, 미달 셀은 검사 #13이 스탬프를 거부한다. 분포 ${[...dist].sort((a,b)=>a[0]-b[0]).map(([k,v])=>`${k}개:${v}셀`).join(' ')}`);
+  // _meta 에 손으로 적힌 집계가 있으면 실측과 대조한다(이 PR 이 금지한 하드코딩 파생값).
+  const hard = cv6._meta?.cellsWithoutPredefinedQueries?.count;
+  if (hard !== undefined && hard !== zero)
+    err(`coverage _meta.cellsWithoutPredefinedQueries.count(${hard}) ≠ 실측(${zero}) — 손으로 적힌 파생값이 낡았다`);
+} catch(e){ err('coverage 쿼리 분포 대조 실패: '+e.message); }
 
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);
 process.exit(E?1:0);

@@ -247,6 +247,11 @@ for (const i of items) for (const f of ['d','tip','detail']) {
     if (!scanned) {
       baseUsable = false;
       err(`${dir}: 원장 파일 0개 — runId 실재 대조를 수행할 수 없다(검사가 조용히 꺼진 상태)`);
+    } else if (!known.size) {
+      // 파일은 있는데 전부 깨졌거나 runId 가 없는 경우. scanned>0 만 보면 baseUsable 이 true 로 남아
+      // 전 항목이 고아로 걸린다(실측 187줄). 기준 집합이 비었다는 것 자체가 '못 만든 것'이다.
+      baseUsable = false;
+      err(`${dir}: 유효한 runId 를 하나도 수집하지 못함 — 기준 집합이 비어 항목별 대조가 전부 오탐이 된다`);
     }
   } catch(e) {
     baseUsable = false;

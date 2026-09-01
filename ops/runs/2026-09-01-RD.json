@@ -55,11 +55,15 @@
       "CN/next_tech": "무변화 — GB/T 43568-2026(CN-012) 2026.07.01 시행 기추적. IEC 전고체 국제표준 프로젝트는 8/29 승인 큐 기등재"
     },
     "notSwept": [
-      "chemicals/GL·JP(34일)",
-      "next_tech/EU·GL·KR·NA(30일)",
-      "product_std/EU·GL·JP·KR·NA(34~46일)",
-      "supply_chain 전 권역(1~3일 — 최근이라 후순위)"
-    ]
+      "chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일)",
+      "next_tech — GL(30일) · JP(3일) · NA(30일)"
+    ],
+    "notSweptDaily": [
+      "product_std — EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일)",
+      "supply_chain — EU(1일) · GL(3일) · JP(3일) · NA(1일)",
+      "trade — EU(1일) · GL(1일) · JP(1일) · KR(1일)"
+    ],
+    "notSweptDerived": "coverage.json 의 lastSwept 에서 파생한다(하드코딩 금지). 종전에는 손으로 적어 EU/next_tech·KR/next_tech 를 실제로 스윕했는데도 미스윕으로 남겨, 다음 run 의 잔여 목록을 부풀리고 있었다."
   },
   "searches": [
     {
@@ -368,14 +372,15 @@
       "decision": "승인 대기"
     },
     {
-      "name": "[status] KR-020 WATCH → ACTIVE (2026.01.05 보급목표 개정 고시 시행 중)",
+      "name": "[정책판단] KR-020 WATCH 유지 여부 — 제정·시행 중인 고시를 관련성 낮음으로 WATCH 에 두는 문제",
       "region": "KR",
       "axis": "next_tech",
-      "type": "status",
-      "basis": "기후에너지환경부가 2026-01-05 개정 고시를 발령했고 제조·수입사에 적용 중이다. WATCH 사유였던 미제정이 소멸한다.",
-      "recommendation": "ACTIVE 전환",
+      "type": "policy",
+      "basis": "2026.01.05 개정 고시가 시행 중임을 확인했다. 다만 이 항목의 기록된 WATCH 사유는 제정 여부가 아니라 \"수요측 규제라 SBTL 직접 관련 낮음\"(2026.07.01 승인)이고, 재평가 조건은 \"목표비율 고시·이행연도 도래 시\"였다. 이번 확인은 그 조건의 충족이다.",
+      "recommendation": "ACTIVE 전환 권고. 단 같은 유형의 다른 항목이 있는지 함께 볼 것(정책 일관성)",
       "discoveredRun": "2026-09-01-RD",
-      "decision": "승인 대기"
+      "decision": "승인 대기",
+      "question": "제정·시행 중인 규범을 관련성 낮음을 이유로 WATCH 에 두는 것이 맞는가. 스코프 게이트는 WATCH 를 미제정 규범 자리로 정의하고 F14 는 관련성 충족 시 노출도 무관 편입을 정한다 — 두 규칙대로면 ACTIVE 가 맞고, 지금 배치는 편입 여부 문제를 status 로 다룬 셈이다."
     },
     {
       "name": "[status] CN-011 WATCH → ACTIVE (工信厅联节函〔2026〕134号 2026-03-28 발문 확인)",
@@ -411,7 +416,8 @@
     "why": "전수 재검증 미완. 이번 run 은 RD-1 도래 3건, D-2 2건, 방치 24건 중 22건 회수에 집중했고 나머지 축의 정기 스윕은 부분만 수행했다.",
     "incompleteStages": [
       "RD-2 권역 클러스터 미실시",
-      "RD-3 화요일 슬라이스 중 chemicals/GL·JP, next_tech/GL·NA, product_std/EU·GL·JP·NA 미스윕"
+      "RD-3 화요일 슬라이스 미스윕 — chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일) / next_tech — GL(30일) · JP(3일) · NA(30일)",
+      "Daily 축 미스윕 — product_std — EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일) / supply_chain — EU(1일) · GL(3일) · JP(3일) · NA(1일) / trade — EU(1일) · GL(1일) · JP(1일) · KR(1일)"
     ],
     "unverifiedScope": {
       "staleCount": 2,
@@ -435,7 +441,7 @@
     "d·detail 숫자 불일치 전수 점검 — CN-021(5부처 vs 六部门) 유형",
     "EU-038 일몰재심 창구 2026.09 — 관보 일몰 예고 공고 확인. EUR-Lex WAF 차단 상태",
     "EU-033 — 2026.01.01 집행위 NPF 평가 보고서 공표 여부",
-    "미스윕 축 — chemicals/GL·JP, next_tech/GL·NA, product_std/EU·GL·JP·NA"
+    "미스윕 축(coverage 파생) — chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일) / next_tech — GL(30일) · JP(3일) · NA(30일) / product_std — EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일) / supply_chain — EU(1일) · GL(3일) · JP(3일) · NA(1일) / trade — EU(1일) · GL(1일) · JP(1일) · KR(1일)"
   ],
   "primaryDocs": [
     {
@@ -663,6 +669,61 @@
           "after": "파일 ERROR 1건 + 그 원장을 가리키는 2건 ERROR + FAIL. **부분 파손에서도 나머지 기준으로 대조가 계속됨을 실측 확인**"
         }
       ]
+    },
+    "round2": {
+      "source": "PR #302 Copilot Review 2차 (reviewed commit e833fcd, 2026-09-01 04:13Z, 지적 5건 + suppressed 1건)",
+      "note": "6건 중 5건 실재, 1건(CN-021 detail)은 직후 커밋 7b740ff 에서 이미 자체 점검으로 고친 상태였다.",
+      "items": [
+        {
+          "id": "validate2 #15",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "원장 파일이 전부 깨지거나 runId 가 없으면 scanned>0 이라 baseUsable 이 true 로 남아 전 항목이 고아로 걸린다 — 어제 없앤 연쇄가 이 경로로 되살아난다",
+          "root": "음성 테스트를 원장 1개 파손으로만 돌려 전부 파손 경로를 안 봤다. **예외 경로를 하나만 시험한 것**",
+          "fix": "known.size 가 0이면 baseUsable=false 로 내린다. 파일 존재가 아니라 기준 집합 확보가 판정 기준이다"
+        },
+        {
+          "id": "ledger rd3.notSwept",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "EU/next_tech·KR/next_tech 를 실제로 스윕하고 스탬프까지 했는데 미스윕 목록에 남겨 다음 run 의 잔여를 부풀렸다",
+          "root": "미스윕 목록을 run 초반에 손으로 적고 이후 스윕 결과를 반영하지 않았다 — 파생 가능한 값을 하드코딩한 전형",
+          "fix": "coverage.lastSwept 에서 파생하도록 교체. incompleteStages·carryOver 도 같은 소스에서 생성"
+        },
+        {
+          "id": "KR-020 승인 근거",
+          "sev": "P1",
+          "verdict": "실재 — 추론 오류",
+          "finding": "승인 큐에 \"WATCH 사유(제정 전)가 소멸\"이라 적었으나 기록된 WATCH 사유는 \"수요측 규제라 SBTL 직접 관련 낮음\"이다. 새 고시는 그 사유를 해소하지 않는다",
+          "root": "**항목의 기록된 판단 근거를 읽지 않고 일반 규칙(스코프 게이트)만 적용했다.** 근거가 실제로 무엇이었는지 확인했어야 했다",
+          "fix": "승인 큐 항목을 [status] 에서 [정책판단] 으로 바꾸고 질문을 명시했다 — 제정·시행 중인 규범을 관련성 낮음으로 WATCH 에 두는 것이 맞는가. 자동 전환을 권하지 않는다"
+        },
+        {
+          "id": "region_policy NA",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "같은 권역 watchpoints 에 \"세율·국가상한 미기재 유지\"와 \"원문으로 확정\"이 나란히 남아 사용자에게 모순된 상태를 보인다",
+          "root": "run 중간 상태를 적은 항목을 나중에 갱신하지 않고 새 항목만 얹었다",
+          "fix": "선행 항목에서 해소된 부분을 지우고 미해결(부속서 8507)만 남긴다"
+        },
+        {
+          "id": "region_policy GL",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "GL watchpoint 가 \"next_tech 스윕에서 재확인\"이라 적었으나 해당 검색은 region=CN 이고 GL/next_tech 는 스윕되지 않았다(coverage lastSwept 2026-08-02)",
+          "root": "인접 권역 검색의 부수 산출을 그 권역의 스윕처럼 적었다 — 오늘 KR-004·KR-006 에서 잡은 것과 같은 유형(F15 완화판)",
+          "fix": "CN 검색의 부수 산출임을 명시하고 GL/next_tech 는 미스윕임을 함께 적는다"
+        },
+        {
+          "id": "CN-021 detail",
+          "sev": "P2",
+          "verdict": "리뷰 시점 유효 · 현재 해소",
+          "finding": "d 는 6부처인데 detail 은 5부처로 남아 있다는 지적",
+          "root": "리뷰 대상 커밋(e833fcd)에서는 맞는 지적이었다",
+          "fix": "직후 커밋 7b740ff 에서 자체 기계 점검이 같은 것을 잡아 이미 수정. 현재 5부처 잔존 0건 확인"
+        }
+      ],
+      "lesson": "**항목에 기록된 판단 근거를 읽지 않고 일반 규칙만 적용하면 근거가 어긋난다**(KR-020). 그리고 예외 경로 시험은 하나로 끝내면 안 된다 — 원장 1개 파손은 봤고 전부 파손은 안 봤다. 파생 가능한 값을 손으로 적으면 반드시 어긋난다는 것도 또 확인했다(미스윕 목록)."
     }
   },
   "selfAudit": {

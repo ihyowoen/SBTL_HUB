@@ -27,6 +27,10 @@ from validation_scripts.stage_a_v4_contract import (  # noqa: E402
     validate_stage_a_v4_payload,
     validate_stage_a_v4_spec,
 )
+from validation_scripts.stage_a_v4_hardening import (  # noqa: E402
+    validate_stage_a_v4_hardening,
+    validate_stage_a_v4_hardening_payload,
+)
 
 # Preserve the historical public constants/helpers for downstream imports, then
 # override only the active Stage A entrypoints below.
@@ -40,20 +44,22 @@ _prior_check_stage_a_full = _compat.check_stage_a_full
 
 
 def validate_stage_a_spec(spec, index, messages):
-    """Active per-spec validator: V4 first, then frozen V3 compatibility."""
+    """Active per-spec validator: V4 + hardening first, then frozen V3 compatibility."""
     validate_stage_a_v4_spec(spec, index, messages, require_contract=True)
+    validate_stage_a_v4_hardening(spec, index, messages, require_contract=True)
     return _prior_validate_stage_a_spec(spec, index, messages)
 
 
 def _v4_gate(data):
     messages = validate_stage_a_v4_payload(data, require_contract=True)
+    messages.extend(validate_stage_a_v4_hardening_payload(data, require_contract=True))
     if messages:
         return _compat._compat_module.fail(messages)
     return None
 
 
 def check_stage_a(data):
-    """Active Stage A API. V4 metadata is mandatory for every strict item."""
+    """Active Stage A API. V4 metadata and conditional hard caps are mandatory."""
     blocked = _v4_gate(data)
     if blocked is not None:
         return blocked

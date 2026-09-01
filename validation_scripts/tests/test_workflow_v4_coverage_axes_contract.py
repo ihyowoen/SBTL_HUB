@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -10,6 +11,9 @@ AXES = ROOT / "schemas/workflow-v4-coverage-axes.json"
 SHARED = ROOT / "scripts/workflow_v4_coverage_axes.mjs"
 HARDENER = ROOT / "scripts/validate_card_run_v4_hardening.mjs"
 STATUS = ROOT / "scripts/validate_card_run_status_consistency.mjs"
+SCHEMA_VALIDATOR = ROOT / "scripts/validate_json_schema_subset.mjs"
+CARD_RUN_SCHEMA = ROOT / "schemas/card-run.v1.schema.json"
+HISTORICAL_RUN = ROOT / "runs/2026-08-26/card-run.json"
 PY_BINDING = ROOT / "validation_scripts/card_run_v4_binding_hardening.py"
 
 
@@ -45,6 +49,47 @@ class WorkflowV4CoverageAxesContractTest(unittest.TestCase):
         self.assertIn("def coverage_axes():", text)
         self.assertNotIn("_AXES = json.loads", text)
         self.assertIn("FAIL [BLOCKED_V4_BINDING]", text)
+
+    def test_corrupt_shared_axes_contract_is_normalized_without_traceback(self):
+        original = AXES.read_bytes()
+        try:
+            AXES.write_text('{"schema":"broken","regions":[],"topics":[]}', encoding="utf-8")
+            cases = [
+                (["node", str(STATUS), "--self-test"], "FAIL [BLOCKED_COVERAGE_AXIS_CONTRACT]"),
+                (["node", str(HARDENER), "--self-test"], "FAIL [BLOCKED_COVERAGE_AXIS_CONTRACT]"),
+                (["python", str(PY_BINDING), "--self-test"], "FAIL [BLOCKED_V4_BINDING]"),
+            ]
+            for command, marker in cases:
+                result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True, check=False)
+                combined = f"{result.stdout}\n{result.stderr}"
+                self.assertNotEqual(result.returncode, 0, command)
+                self.assertIn(marker, combined, command)
+                self.assertNotIn("Traceback", combined, command)
+        finally:
+            AXES.write_bytes(original)
+
+    def test_2026_08_26_historical_run_remains_card_run_v1_schema_compatible(self):
+        result = subprocess.run(
+            [
+                "node",
+                str(SCHEMA_VALIDATOR),
+                "--schema",
+                str(CARD_RUN_SCHEMA),
+                "--instance",
+                str(HISTORICAL_RUN),
+            ],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, f"stdout={result.stdout}\nstderr={result.stderr}")
+
+    def test_v4_production_binding_still_requires_insert_source_spec_id(self):
+        js_text = HARDENER.read_text(encoding="utf-8")
+        py_text = PY_BINDING.read_text(encoding="utf-8")
+        self.assertIn("card.source_spec_id is required to bind the formal stage chain", js_text)
+        self.assertIn("card.source_spec_id required", py_text)
 
 
 if __name__ == "__main__":

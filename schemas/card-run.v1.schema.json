@@ -115,7 +115,8 @@
           "type": "object",
           "required": [
             "id",
-            "date"
+            "date",
+            "source_spec_id"
           ],
           "properties": {
             "id": {
@@ -125,6 +126,10 @@
             "date": {
               "type": "string",
               "format": "date"
+            },
+            "source_spec_id": {
+              "type": "string",
+              "minLength": 1
             },
             "related": {
               "type": "array",
@@ -231,6 +236,10 @@
           "type": "string",
           "minLength": 1
         },
+        "source_spec_id": {
+          "type": "string",
+          "minLength": 1
+        },
         "changes": {
           "type": "array",
           "minItems": 1,
@@ -297,6 +306,14 @@
           "minLength": 1
         },
         "target_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_spec_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "identity_card_id": {
           "type": "string",
           "minLength": 1
         },

@@ -1,7 +1,7 @@
 {
   "schema": "stage_a_entry_blocker_v1",
   "stage": "Prompt 0.1 + Prompt 0.1S V3",
-  "status": "BLOCKED_LEDGER_INCOMPLETE",
+  "status": "BLOCKED_STAGE_A_EXPANDED_SOURCE_UNIVERSE_MISSING",
   "run_id": "card-run-2026-08-31-preflight-reconciliation-current-main-1514",
   "run_tag": "20260831_PREFLIGHT_RECONCILIATION",
   "generated_kst": "2026-08-31T21:03:00+09:00",
@@ -13,6 +13,7 @@
   "input_file": "final_news_llm_input_newsletter_expanded_20260831_143419.json",
   "source_prompt": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
   "structural_value_prompt": "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
+  "status_precedence_reason": "Stage A never started because no passing, complete, reproducible expanded source-universe ledger exists. The active dynamic-source addendum therefore requires BLOCKED_STAGE_A_EXPANDED_SOURCE_UNIVERSE_MISSING before any exactly-once Stage A ledger accounting rule can apply.",
   "entry_preconditions": {
     "stage_0_0d_pass": false,
     "stage_0_0c_pass": false,
@@ -31,16 +32,17 @@
     },
     {
       "code": "BLOCKED_STAGE_A_EXPANDED_SOURCE_UNIVERSE_MISSING",
-      "detail": "No passing, complete, reproducible expanded Stage A input ledger exists."
+      "detail": "No passing, complete, reproducible expanded Stage A input ledger exists; this is the selected top-level Stage A blocker."
     }
   ],
   "ledger_contract": {
     "required_status_on_incomplete_exactly_once_accounting": "BLOCKED_LEDGER_INCOMPLETE",
+    "applicable_now": false,
     "story_count": null,
     "total_ledger_count": 0,
     "exactly_one_terminal_disposition_proven": false,
     "decision_ledger": [],
-    "reason": "Stage A was not authorized to begin. The exact expanded source universe is unknown, so an exactly-once Stage A ledger cannot be generated."
+    "reason": "BLOCKED_LEDGER_INCOMPLETE applies only after a known Stage A story universe exists and exactly-once accounting then fails. Here Stage A was never authorized to begin because the expanded source universe itself is missing."
   },
   "stage_a_boundary": {
     "external_web_search_performed": false,

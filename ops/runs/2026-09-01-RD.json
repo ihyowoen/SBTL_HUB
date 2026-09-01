@@ -1,0 +1,209 @@
+{
+  "runId": "2026-09-01-RD",
+  "date": "2026-09-01",
+  "partial": true,
+  "note": "PR #299 머지 직후 개시한 정규 RD run(화요일). 어제 D-1로 잡았던 3건이 오늘 도래해 RD-1이 중심이 됐다.",
+  "rd0": {
+    "todayKST": "2026-09-01 (화요일)",
+    "ddayRollover": "0건 — R30이 렌더 시점 파생. dt 전수 스캔 결과 마커 0.",
+    "ddaySignConvention": "미래=D-N, 과거=D+N (validate2 검사 #11 관례)",
+    "boundaryItems": [
+      "D-DAY 2026-09-01 — CN-028 소비세 2% / CN-038 GB/T 46261-2025 / JP-004 상한 10엔 / KR-003 국무회의",
+      "D-2 2026-09-03 — NA-043 UAS Section 232 발효 / KR-003 정기국회 제출 기한",
+      "D+1 2026-08-31 — NA-048 관보 공표(어제 처리 완료)",
+      "D+2 2026-08-30 — CN-032 WTO/TBT 평의 마감",
+      "D+5·D+6 — NA-036(08.27)·NA-037(08.26) 발효 상태 유지"
+    ]
+  },
+  "rd1_arrivals": {
+    "verified": [
+      {
+        "id": "CN-028",
+        "event": "리튬전지 소비세 2% 부과 개시",
+        "result": "도래 확인. 2015년부터의 장기 면세 종료. status 전환 승인 큐"
+      },
+      {
+        "id": "CN-038",
+        "event": "GB/T 46261-2025 시행",
+        "result": "도래 확인(발포 2025-08-29·실시 2026-09-01). status 전환 승인 큐"
+      },
+      {
+        "id": "JP-004",
+        "event": "需給調整市場 상한 10엔 적용",
+        "result": "적용 확인(15엔 대비 약 33% 인하). 이미 ACTIVE 이므로 제목·d 사실 갱신만 수행"
+      }
+    ],
+    "pending": [
+      {
+        "id": "KR-003",
+        "event": "국무회의(오늘)·정기국회 제출(D-2)",
+        "note": "제출 확인 시 WATCH 유지 사유 소멸 — 재판정 대상"
+      }
+    ]
+  },
+  "rd3_tuesdaySlice": {
+    "axes": "chemicals(Tue) · next_tech(Tue) + Daily(trade·product_std·supply_chain)",
+    "sweptCells": [
+      "CN/trade",
+      "CN/product_std",
+      "JP/energy_market",
+      "EU/chemicals",
+      "CN/next_tech"
+    ],
+    "findings": {
+      "EU/chemicals": "34일 방치 해소. EU-025 무변화(RAC 최종의견 2026.03.02 기수록). **신규 후보 1건 — PFHxA 제한**",
+      "CN/next_tech": "무변화 — GB/T 43568-2026(CN-012) 2026.07.01 시행 기추적. IEC 전고체 국제표준 프로젝트는 8/29 승인 큐 기등재"
+    },
+    "notSwept": [
+      "chemicals/GL·JP(34일)",
+      "next_tech/EU·GL·KR·NA(30일)",
+      "product_std/EU·GL·JP·KR·NA(34~46일)",
+      "supply_chain 전 권역(1~3일 — 최근이라 후순위)"
+    ]
+  },
+  "searches": [
+    {
+      "query": "电池消费税 2026年9月1日 正式实施 锂离子蓄电池 2% 征收 开始 首日",
+      "region": "CN",
+      "axis": "trade",
+      "itemsCovered": [
+        "CN-028"
+      ],
+      "result": "도래 확인. 9.1부터 5종 전지 2%(2027.9.1 4%), 光伏 2027.4.1 2%·2028.4.1 4%, 나트륨이온·고체·연료전지 및 페로브스카이트·적층·비화갈륨 2028.12.31까지 면세. 2015년 장기 면세 정책 종료. 국가세무총국 법규고 게재본 c5251171 확인."
+    },
+    {
+      "query": "GB/T 46261-2025 电化学储能电站 火灾监测预警系统 2026年9月1日 实施",
+      "region": "CN",
+      "axis": "product_std",
+      "itemsCovered": [
+        "CN-038"
+      ],
+      "result": "도래 확인. 발포 2025-08-29·실시 2026-09-01, 제품표준, ICS 13.220.20, 귀구 전국소방표준화기술위원회. 가스·온도·연무·압력 다중 파라미터 감시와 EMC·환경 내구성 요건."
+    },
+    {
+      "query": "需給調整市場 2026年9月1日 上限価格 10円 適用開始 一次調整力 実需給",
+      "region": "JP",
+      "axis": "energy_market",
+      "itemsCovered": [
+        "JP-004"
+      ],
+      "result": "적용 확인. 1차·2차①·복합 상한 10.00엔/ΔkW·30분, 15엔 대비 약 33% 인하. 자원에너지청 2026-07-14 방침. 7.21엔 단계안 잔존."
+    },
+    {
+      "query": "EU REACH restriction PFAS battery chemicals 2026 August September new regulation adopted ECHA",
+      "region": "EU",
+      "axis": "chemicals",
+      "itemsCovered": [
+        "EU-025"
+      ],
+      "result": "EU-025 무변화 확인 — 유니버설 PFAS 제한 갱신 제안 2025-08-20 공표, RAC 최종의견 2026-03-02 채택, SEAC 최종의견 2026년말 목표, 범위는 모든 PFAS·모든 용도(소방포말 제외)+8개 부문 추가. 항목이 이미 담고 있다. **부수 발굴** — PFHxA 제한 2026.04 적용, 소방포말 PFAS 제한 2026.10 적용."
+    },
+    {
+      "query": "PFHxA restriction EU Regulation 2024/2462 April 2026 application scope fluoropolymer textiles Annex XVII entry 79",
+      "region": "EU",
+      "axis": "chemicals",
+      "itemsCovered": [],
+      "result": "**신규 후보**. Commission Regulation (EU) 2024/2462 of 19 September 2024 가 REACH 부속서 XVII 에 entry 79 신설 — PFHxA·그 염·PFHxA 관련물질 제한. 용도 차등 유예: 소방포말(훈련·시험·공공소방) 18개월 → 2026-04-10 적용, 직물·가죽·모피·의류·신발 24개월. 주요 용도는 종이·판지 식품접촉재·직물·소방포말이며 6:2 아크릴레이트 등 저분자 관련물질이 직물에 연 약 65,000톤. 트래커 0건."
+    },
+    {
+      "query": "solid state battery sodium ion standard regulation 2026 EU Korea adopted next generation battery technical requirement",
+      "region": "CN",
+      "axis": "next_tech",
+      "itemsCovered": [
+        "CN-012"
+      ],
+      "result": "무변화. GB/T 43568-2026 2026.07.01 시행(CN-012 기추적). 중국 주도 IEC 전고체 국제표준 프로젝트에 프랑스·한국·일본 참여 — 8/29 감사에서 이미 승인 큐 등재. EU EV-26 표준 언급은 1차 확인 실패로 기재하지 않는다."
+    }
+  ],
+  "approvalQueueCandidates": [
+    {
+      "name": "[status] CN-028 UPCOMING → ACTIVE (2026-09-01 소비세 부과 개시 도래)",
+      "region": "CN",
+      "axis": "trade",
+      "type": "status",
+      "basis": "오늘 시행 개시를 실검색으로 확인. effectiveDate 2026-09-01 도래.",
+      "recommendation": "ACTIVE 전환",
+      "discoveredRun": "2026-09-01-RD",
+      "decision": "승인 대기"
+    },
+    {
+      "name": "[status] CN-038 UPCOMING → ACTIVE (2026-09-01 GB/T 46261-2025 시행 도래)",
+      "region": "CN",
+      "axis": "product_std",
+      "type": "status",
+      "basis": "SAMR 표준정보로 실시일 2026-09-01 도래 확인.",
+      "recommendation": "ACTIVE 전환",
+      "discoveredRun": "2026-09-01-RD",
+      "decision": "승인 대기"
+    },
+    {
+      "name": "Commission Regulation (EU) 2024/2462 — PFHxA 제한 (REACH 부속서 XVII entry 79)",
+      "region": "EU",
+      "axis": "chemicals",
+      "basis": "2024-09-19 채택. REACH Annex XVII entry 79 신설. PFHxA·염·관련물질 제한. 용도별 차등 유예 — 소방포말(훈련·시험) 2026-04-10 적용, 직물·가죽·의류·신발 24개월. ECHA·EUR-Lex 메타 확인, 조문 미대조.",
+      "enacted": true,
+      "instrument": "law",
+      "priority": "P3",
+      "sbtlRelevance": "간접. 규제 중심 용도는 식품접촉 종이·직물·소방포말로 파우치 필름과 직접 겹치지 않는다. 다만 6:2 아크릴레이트류가 발수·표면처리에 쓰이므로 라미네이션 접착제·표면처리제 공급망 접점 가능성이 있어 확인이 필요하다. EU-025 유니버설 PFAS 제한과 층위가 다르다(이쪽은 이미 제정·적용).",
+      "dupChecked": true,
+      "dupNote": "트래커 전문에서 PFHxA·2024/2462 0건",
+      "discoveredRun": "2026-09-01-RD",
+      "scopeGate": "enacted",
+      "decision": "승인 대기"
+    }
+  ],
+  "verifyCounts": {
+    "derivedFrom": "public/data/tracker_data.json (스크립트 산출)",
+    "totalItems": 187,
+    "thisRun": {
+      "search": 2,
+      "primary-meta": 1
+    },
+    "thisRunTotal": 3,
+    "carriedOver": 184
+  },
+  "statusDistribution": {
+    "ACTIVE": 105,
+    "DONE": 10,
+    "WATCH": 43,
+    "UPCOMING": 29
+  },
+  "partialReason": {
+    "why": "전수 재검증·전 축 스윕 미완. RD-1 도래 3건 검증과 화요일 슬라이스 일부에 집중했다.",
+    "incompleteStages": [
+      "RD-2 권역 클러스터 미실시",
+      "RD-3 화요일 슬라이스 중 chemicals/GL·JP, next_tech/EU·GL·KR·NA, product_std 5권역 미스윕"
+    ],
+    "unverifiedScope": {
+      "note": "전일 원장 2026-08-31-RD 의 staleRecovery 잔여 25건을 승계한다"
+    }
+  },
+  "carryOver": [
+    "**CN-028·CN-038 status 전환 승인 대기 — 오늘 발효했는데 데이터는 UPCOMING**",
+    "KR-003 — 오늘 국무회의·D-2 정기국회 제출. 제출 확인 시 WATCH 유지 사유 소멸",
+    "NA-043 — D-2 발효. Annex 부품 목록의 리튬이온전지 세번 확인이 발효 전 과제",
+    "PFHxA 제한 — SBTL 라미네이션 접착제·표면처리제에 6:2 아크릴레이트류 사용 여부 확인 후 편입 판정",
+    "전일 승계 — 방치 25건(진짜 방치 24 + CN-013 병합 대기), EU-038 일몰재심 창구 2026.09, EUR-Lex WAF 차단",
+    "미스윕 축 — chemicals/GL·JP, next_tech/EU·GL·KR·NA, product_std/EU·GL·JP·KR·NA"
+  ],
+  "primaryDocs": [
+    {
+      "doc": "Commission Implementing Regulation (EU) 2021/2170 — OJ L 438, 8.12.2021, p. 46",
+      "method": "primary-meta",
+      "itemsCovered": [
+        "EU-038"
+      ],
+      "finding": "제3조 enters into force on the day following that of its publication 확인 → 발효 2021-12-09. 종전 effectiveDate 2021-12-08 은 집행위 보도자료 날짜였다. 발효일 확정으로 규정 (EU) 2016/1036 제11조 제2항 5년 일몰이 2026-12-09 로 떨어져 2차 출처 만료일과 일치한다.",
+      "note": "PR #299에서 수행한 검증이나 runId 를 실재하지 않는 원장에 걸어 추적이 끊겨 있었다. 오늘 원장으로 이관."
+    }
+  ],
+  "selfCaught": {
+    "finding": "EU-038 verify.runId = 2026-09-01-FIX — 어느 원장에도 없는 이름. 오늘 원장을 만들자 검사 #6이 즉시 잡았다. PR #299 CI 는 통과시켰다.",
+    "why": "검사 #6은 verify.date == run.date 인 항목만 대조한다. PR #299가 검증한 원장은 08-29·08-31 이고 EU-038의 verify.date 는 09-01 이라 어느 대조 대상에도 들어가지 않았다. 원장이 아예 없는 날짜의 스탬프는 영영 검사되지 않는 사각이었다.",
+    "fix": "EU-038을 오늘 원장으로 이관(primaryDocs). 검사 #15 신설 — verify.runId 는 ops/runs/*.json 에 실재하는 runId 여야 한다. 187건 전수 스캔에서 고아는 이 1건뿐이라 예외 없이 ERROR 로 건다.",
+    "lesson": "검사 #6의 대조 축이 날짜라서 날짜가 어긋나면 검사 자체를 빠져나간다. 게이트를 만들 때 무엇을 막는가뿐 아니라 대조 키가 없으면 어떻게 되는가를 봐야 한다 — 5차 리뷰 교훈과 같은 형태다."
+  },
+  "validatorHardening": {
+    "check15": "verify.runId ↔ 원장 파일 실재 대조 (ERROR). 검사 #6이 날짜 불일치로 건너뛴 스탬프를 잡는다."
+  }
+}

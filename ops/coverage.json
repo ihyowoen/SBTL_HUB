@@ -117,9 +117,12 @@
         "CN-043"
       ],
       "status": "covered",
-      "lastSwept": "2026-08-31",
-      "queries": [],
-      "sweepDay": "Mon"
+      "lastSwept": "2026-09-01",
+      "queries": [
+        "电池消费税 2026年9月1日 正式实施 锂离子蓄电池 2% 征收"
+      ],
+      "sweepDay": "Mon",
+      "note": "2026-09-01 RD 실스윕."
     },
     {
       "axis": "trade",
@@ -347,12 +350,13 @@
         "CN-044"
       ],
       "status": "covered",
-      "lastSwept": "2026-08-31",
+      "lastSwept": "2026-09-01",
       "queries": [
+        "GB/T 46261-2025 电化学储能电站 火灾监测预警系统 实施",
         "工信部 市场监管总局 公告 锂电池 强制性国家标准 发布 实施"
       ],
       "sweepDay": "Tue",
-      "note": "2026-08-31 RD-2 권역 스캔 실스윕. | 2026-08-31 방치 해소 재검증 실스윕."
+      "note": "2026-08-31 RD-2 권역 스캔 실스윕. | 2026-08-31 방치 해소 재검증 실스윕. | 2026-09-01 RD 실스윕."
     },
     {
       "axis": "product_std",
@@ -428,13 +432,17 @@
         "EU-029"
       ],
       "status": "covered",
-      "lastSwept": "2026-07-29",
-      "queries": [],
+      "lastSwept": "2026-09-01",
+      "queries": [
+        "EU REACH restriction PFAS battery chemicals ECHA adopted",
+        "PFHxA restriction Regulation 2024/2462 Annex XVII entry 79 application"
+      ],
       "sweepDay": "Tue",
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "note": "2026-09-01 RD 실스윕."
     },
     {
       "axis": "chemicals",
@@ -1310,9 +1318,12 @@
         "JP-018"
       ],
       "status": "covered",
-      "lastSwept": "2026-08-31",
-      "queries": [],
-      "sweepDay": "Fri"
+      "lastSwept": "2026-09-01",
+      "queries": [
+        "需給調整市場 2026年9月1日 上限価格 10円 適用開始 一次調整力"
+      ],
+      "sweepDay": "Fri",
+      "note": "2026-09-01 RD 실스윕."
     },
     {
       "axis": "energy_market",
@@ -1367,13 +1378,14 @@
         "CN-047"
       ],
       "status": "covered",
-      "lastSwept": "2026-08-31",
+      "lastSwept": "2026-09-01",
       "queries": [
+        "solid state battery sodium ion standard regulation adopted next generation",
         "固态电池 国家标准 制定 实施",
         "钠离子电池 标准 强制"
       ],
       "sweepDay": "Tue",
-      "note": "**CN-012 시행일 확정 + 나트륨이온 신규 표면** — GB/T 43568-2026 전고체 국가표준 **2026.07.01 시행**(정량 분류: 액체전해액 >20% 액태 / 5~20% 혼합고액(반고체) / <5% + 120℃ 진공건조 6h 실중률 ≤0.5% = 전고체). 허위표시 시 허위선전 처벌. 동일자 GB 38031-2025 강제국표 시행으로 고체류 전지도 침자·열확산·저부충격·침수 등 차규시험 무면제. 공신부 2026년을 고체전지 장차검증 원년 정의. 나트륨이온은 공신부가 《电能存储系统用钠离子电池和电池组 安全技术规范》 등 197항 추천성 국표 보고비준 공시(2026.01.29) — 제정 진행 중"
+      "note": "**CN-012 시행일 확정 + 나트륨이온 신규 표면** — GB/T 43568-2026 전고체 국가표준 **2026.07.01 시행**(정량 분류: 액체전해액 >20% 액태 / 5~20% 혼합고액(반고체) / <5% + 120℃ 진공건조 6h 실중률 ≤0.5% = 전고체). 허위표시 시 허위선전 처벌. 동일자 GB 38031-2025 강제국표 시행으로 고체류 전지도 침자·열확산·저부충격·침수 등 차규시험 무면제. 공신부 2026년을 고체전지 장차검증 원년 정의. 나트륨이온은 공신부가 《电能存储系统用钠离子电池和电池组 安全技术规范》 등 197항 추천성 국표 보고비준 공시(2026.01.29) — 제정 진행 중 | 2026-09-01 RD 실스윕."
     },
     {
       "axis": "next_tech",
@@ -1610,7 +1622,7 @@
       "upstream": "Thu",
       "downstream": "Fri"
     },
-    "lastRun": "2026-08-31",
+    "lastRun": "2026-09-01",
     "scope": {
       "definedAt": "2026-07-29",
       "industry": "Battery / EV / ESS / 에너지 / 광물 / 신기술·전고체의 ecosystem 전체 — upstream(소재·부품·제련) 및 downstream(수요·인프라·응용) 포함",

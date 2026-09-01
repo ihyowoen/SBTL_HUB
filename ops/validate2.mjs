@@ -2,7 +2,7 @@
 // validator v2 신규 검사 (RUNBOOK G3) — 기존 validate.mjs에 추가 예정, 우선 독립 실행
 // 사용: node ops/validate2.mjs public/data/tracker_data.json [ops/runs/RUN.json]
 //       env: RP_PATH=public/data/region_policy.json  COV_PATH=ops/coverage.json
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 const tj = JSON.parse(readFileSync(process.argv[2] ?? 'tracker_data.json','utf8'));
 const runPath = process.argv[3];
 const items = tj.items; const ids = new Set(items.map(i=>i.id));
@@ -218,6 +218,26 @@ for (const i of items) for (const f of ['d','tip','detail']) {
   if (/^(짜리|이며|하고|으로써|에서는|에게는|보다는|까지는|부터는|라는|이라는|되며|되고|인데|지만|면서)/.test(head))
     err(`${i.id}.${f}: 조사·어미로 시작 — 문장 앞이 잘린 의미 파편("${head.slice(0,24)}…")`);
 }
+
+
+// 15) verify.runId ↔ 원장 파일 실재 대조 (ERROR)
+//     검사 #6은 verify.date === run.date 인 항목만 본다. 그래서 **원장이 존재하지 않는 날짜**의 스탬프는
+//     어느 대조 대상에도 들어가지 않고 영영 검사되지 않는다. 2026-09-01 도입 계기: EU-038이
+//     runId "2026-09-01-FIX"(실재하지 않는 원장)로 머지됐고 CI 가 통과시켰다.
+try {
+  const dir = 'ops/runs';
+  const known = new Set();
+  for (const f of readdirSync(dir)) {
+    if (!f.endsWith('.json')) continue;
+    const id = JSON.parse(readFileSync(`${dir}/${f}`,'utf8')).runId;
+    if (id) known.add(id);
+  }
+  if (known.size) for (const i of items) {
+    const rid = i.verify?.runId;
+    if (rid && !known.has(rid))
+      err(`${i.id}: verify.runId(${rid}) 에 해당하는 원장이 ops/runs 에 없음 — 근거 추적 불가(검사 #6이 날짜 불일치로 건너뛰는 사각)`);
+  }
+} catch(e){ warn('runId 실재 대조 실패: '+e.message); }
 
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);
 process.exit(E?1:0);

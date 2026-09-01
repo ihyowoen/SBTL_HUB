@@ -285,10 +285,18 @@ function validateCompleteness(run, root) {
   if (artifact.reviewer_independence !== "SEPARATE_PASS") fail("BLOCKED_COMPLETENESS_ENVELOPE", "0.7C reviewer_independence must be SEPARATE_PASS");
   if (artifact.prompt_0_8_authorized !== true) fail("BLOCKED_COMPLETENESS_ENVELOPE", "0.7C prompt_0_8_authorized must be true");
   for (const field of ["material_exclusions", "known_unknowns", "residual_risks"]) if (!Array.isArray(artifact[field])) fail("BLOCKED_COMPLETENESS_ENVELOPE", `0.7C ${field} must be an array`);
+  if (artifact.residual_risks.length === 0 || artifact.residual_risks.some((risk) => !nonEmptyText(risk))) {
+    fail("BLOCKED_COMPLETENESS_ENVELOPE", "0.7C PASS_WITH_DECLARED_RESIDUAL_RISK requires at least one concrete non-empty residual risk");
+  }
+  for (const field of ["run_id", "base_main_commit_sha", "base_full_blob_sha"]) {
+    if (artifact[field] !== run[field]) fail("BLOCKED_COMPLETENESS_ENVELOPE", `0.7C ${field} must match the current card run`);
+  }
+  if (artifact.document_universe_manifest_ref !== run.document_universe_manifest_ref || artifact.coverage_discovery_ref !== run.coverage_discovery_ref) {
+    fail("BLOCKED_COMPLETENESS_ENVELOPE", "0.7C governance refs must match the current card run");
+  }
 }
 
 const REQUIRED_OPERATION_STAGES = ["A", "B", "C", "0.4", "0.5", "0.6", "0.7"];
-const BASELINE_SENSITIVE_STAGES = new Set(["A", "0.4"]);
 const STAGE_BUCKETS = {
   A: ["strict_passed_spec"],
   B: ["draft_cards", "draft_card"],
@@ -299,19 +307,15 @@ const STAGE_BUCKETS = {
   "0.7": ["publish_ready"],
 };
 const normalizeStage = (payload) => {
-  const hasDeclared = typeof payload?.stage === "string" && Boolean(payload.stage.trim());
-  const raw = hasDeclared ? payload.stage.trim().toLowerCase() : "";
+  if (typeof payload?.stage !== "string" || !payload.stage.trim()) return null;
+  const raw = payload.stage.trim().toLowerCase();
   const explicit = new Map([
     ["a", "A"], ["stage_a", "A"], ["0.1", "A"],
     ["b", "B"], ["stage_b", "B"], ["0.2", "B"],
     ["c", "C"], ["stage_c", "C"], ["0.3", "C"],
     ["0.4", "0.4"], ["0.5", "0.5"], ["0.6", "0.6"], ["0.7", "0.7"],
   ]);
-  if (hasDeclared) return explicit.get(raw) || null;
-  for (const stage of REQUIRED_OPERATION_STAGES) {
-    if (STAGE_BUCKETS[stage].some((bucket) => Object.prototype.hasOwnProperty.call(payload || {}, bucket))) return stage;
-  }
-  return null;
+  return explicit.get(raw) || null;
 };
 const stageItems = (payload, stage) => {
   const items = [];
@@ -336,9 +340,9 @@ function runPythonChecker(checker, args, label) {
   }
 }
 function validateStageArtifact(path, payload, stage, run, label) {
-  if (BASELINE_SENSITIVE_STAGES.has(stage)) {
-    if (payload.base_main_commit_sha !== run.base_main_commit_sha || payload.base_full_blob_sha !== run.base_full_blob_sha) {
-      fail("BLOCKED_STAGE_BASELINE_BINDING", `${label}: ${stage} artifact must match current run base_main_commit_sha and base_full_blob_sha`);
+  for (const field of ["run_id", "base_main_commit_sha", "base_full_blob_sha"]) {
+    if (!nonEmptyText(payload[field]) || payload[field] !== run[field]) {
+      fail("BLOCKED_STAGE_BASELINE_BINDING", `${label}: ${stage} artifact ${field} must exactly match the current card run`);
     }
   }
   runPythonChecker("validation_scripts/stage_artifact_contract_check.py", [stage, path], label);
@@ -426,8 +430,7 @@ function validateRun(run, root = ".") {
         const payload = readJson(path, label);
         const stage = normalizeStage(payload);
         if (!stage || !REQUIRED_OPERATION_STAGES.includes(stage)) {
-          if (nonEmptyText(payload?.stage)) fail("BLOCKED_OPERATION_STAGE_SUBSTITUTION", `${label}: declared stage ${payload.stage} cannot substitute for a mandatory ordinary stage`);
-          continue;
+          fail("BLOCKED_OPERATION_STAGE_SUBSTITUTION", `${label}: explicit ordinary stage is required; declared=${String(payload?.stage ?? "<missing>")}`);
         }
         presentStages.add(stage);
         validateStageArtifact(path, payload, stage, run, label);
@@ -468,6 +471,7 @@ function selfTest() {
     }, null, 2)}\n`);
     writeFileSync(join(root, "data/cards.full.json"), `${JSON.stringify({ cards: [] })}\n`);
 
+    const runId = "run-self-test";
     const baseMainCommitSha = "b".repeat(40);
     const baseFullBlobSha = "a".repeat(40);
     const documentUniverseRef = write("0.0d.json", {
@@ -495,15 +499,18 @@ function selfTest() {
     });
     const completenessRef = write("0.7c.json", {
       stage: "0.7C", status: "PASS_WITH_DECLARED_RESIDUAL_RISK", completeness_status: "PASS_WITH_DECLARED_RESIDUAL_RISK",
+      run_id: runId, base_main_commit_sha: baseMainCommitSha, base_full_blob_sha: baseFullBlobSha,
+      document_universe_manifest_ref: documentUniverseRef, coverage_discovery_ref: coverageRef,
       source_universe_accounted: true, regional_search_complete: true, topic_search_complete: true,
       baseline_follow_up_review_complete: true, review_pool_rescue_complete: true, must_report_candidates_accounted: true,
-      material_exclusions: [], known_unknowns: [], residual_risks: [], reviewer_independence: "SEPARATE_PASS", prompt_0_8_authorized: true,
+      material_exclusions: [], known_unknowns: [], residual_risks: ["Absolute global completeness beyond the bound universe is not claimed."], reviewer_independence: "SEPARATE_PASS", prompt_0_8_authorized: true,
     });
     const malformedStageA = write("stage-a.json", {
-      stage: "A", status: "PASS", base_main_commit_sha: baseMainCommitSha, base_full_blob_sha: baseFullBlobSha, strict_passed_spec: [{}],
+      stage: "A", status: "PASS", run_id: runId, base_main_commit_sha: baseMainCommitSha, base_full_blob_sha: baseFullBlobSha, strict_passed_spec: [{}],
     });
     const revise = write("stage-0.2r.json", { stage: "0.2R", status: "PASS", draft_cards: [{ source_spec_id: "SPEC_1" }] });
     const common = {
+      run_id: runId,
       base_main_commit_sha: baseMainCommitSha, base_full_blob_sha: baseFullBlobSha,
       document_universe_manifest_ref: documentUniverseRef, coverage_discovery_ref: coverageRef, independent_completeness_ref: completenessRef,
     };
@@ -517,6 +524,22 @@ function selfTest() {
     try { validateRun({ ...common, operations: { insert: [{ card: { id: "CARD_1", source_spec_id: "SPEC_1" }, stage_artifacts: [revise] }], update: [], related_add: [] } }, root); }
     catch (error) { reviseBlocked = error instanceof ValidationError && error.code === "BLOCKED_OPERATION_STAGE_SUBSTITUTION"; }
     if (!reviseBlocked) throw new Error("self-test failed to reject revise-stage substitution");
+
+    const missingStage = write("stage-missing.json", { status: "PASS", run_id: runId, base_main_commit_sha: baseMainCommitSha, base_full_blob_sha: baseFullBlobSha, draft_cards: [{ source_spec_id: "SPEC_1" }] });
+    let missingStageBlocked = false;
+    try { validateRun({ ...common, operations: { insert: [{ card: { id: "CARD_1", source_spec_id: "SPEC_1" }, stage_artifacts: [missingStage] }], update: [], related_add: [] } }, root); }
+    catch (error) { missingStageBlocked = error instanceof ValidationError && error.code === "BLOCKED_OPERATION_STAGE_SUBSTITUTION"; }
+    if (!missingStageBlocked) throw new Error("self-test failed to reject stage-less bucket inference");
+
+    const badCompleteness = readJson(join(root, completenessRef), "completeness");
+    badCompleteness.residual_risks = [];
+    writeFileSync(join(root, completenessRef), `${JSON.stringify(badCompleteness, null, 2)}\n`);
+    let residualRiskBlocked = false;
+    try { validateRun({ ...common, operations: { insert: [], update: [], related_add: [] } }, root); }
+    catch (error) { residualRiskBlocked = error instanceof ValidationError && error.code === "BLOCKED_COMPLETENESS_ENVELOPE"; }
+    if (!residualRiskBlocked) throw new Error("self-test failed to reject empty declared residual-risk list");
+    badCompleteness.residual_risks = ["Absolute global completeness beyond the bound universe is not claimed."];
+    writeFileSync(join(root, completenessRef), `${JSON.stringify(badCompleteness, null, 2)}\n`);
 
     const badCoverage = readJson(join(root, coverageRef), "coverage");
     delete badCoverage.regional_coverage_matrix.korea;
@@ -536,7 +559,7 @@ function selfTest() {
     catch (error) { registryBlocked = error instanceof ValidationError && error.code === "BLOCKED_DOCUMENT_UNIVERSE_REGISTRY"; }
     if (!registryBlocked) throw new Error("self-test failed to bind 0.0D authority set to registry");
 
-    console.log("PASS: formal V4 card-run hardening binds exact 0.0D registry closure, current battery/ESS 0.0C axes, baseline-sensitive stages, and candidate identity");
+    console.log("PASS: formal V4 card-run hardening binds explicit A→0.7 stages, exact run/baseline envelope, non-empty 0.7C residual risk, 0.0D registry closure, current 0.0C axes, and candidate identity");
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

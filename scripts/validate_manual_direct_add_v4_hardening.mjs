@@ -28,6 +28,7 @@ const FORMAL_RUN_FIELDS = new Set([
   "github_merge_ready",
   "production_verified",
 ]);
+const GOVERNED_PUBLISH_STATES = new Set(["publish_ready", "github_merge_ready", "production_verified"]);
 const RFC3339 = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:Z|[+-](\d{2}):(\d{2}))$/;
 
 function changedTopLevelFields(before, after) {
@@ -69,7 +70,9 @@ function validateMigrationContent(manifest, baseMap, fullMap) {
 }
 
 function fabricatedFormalFields(card) {
-  return [...FORMAL_RUN_FIELDS].filter((field) => Object.prototype.hasOwnProperty.call(card, field));
+  const fields = [...FORMAL_RUN_FIELDS].filter((field) => Object.prototype.hasOwnProperty.call(card, field));
+  if (GOVERNED_PUBLISH_STATES.has(card?.state)) fields.push(`state=${card.state}`);
+  return fields;
 }
 
 function validateAddedCards(manifest, baseMap, fullMap) {
@@ -114,6 +117,9 @@ function validateUpdatedCards(manifest, baseMap, fullMap) {
       }
     }
     const changedFormal = [...FORMAL_RUN_FIELDS].filter((field) => !same(before?.[field], after?.[field]));
+    if (!same(before?.state, after?.state) && (GOVERNED_PUBLISH_STATES.has(before?.state) || GOVERNED_PUBLISH_STATES.has(after?.state))) {
+      changedFormal.push("state");
+    }
     if (changedFormal.length) {
       fail(
         "BLOCKED_MANUAL_DIRECT_ADD_FORMAL_PROVENANCE",
@@ -199,6 +205,13 @@ function selfTest() {
   catch (error) { provenanceBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_FORMAL_PROVENANCE"; }
   if (!provenanceBlocked) throw new Error("self-test failed to reject fabricated publication state");
 
+  const withStateAlias = structuredClone(good);
+  withStateAlias.cards[2].state = "github_merge_ready";
+  let stateAliasBlocked = false;
+  try { validate(manifest, base, withStateAlias); }
+  catch (error) { stateAliasBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_FORMAL_PROVENANCE"; }
+  if (!stateAliasBlocked) throw new Error("self-test failed to reject governed publication state alias");
+
   const invalidDate = structuredClone(manifest);
   invalidDate.output_updated = "2026-02-30T12:00:00Z";
   let invalidDateBlocked = false;
@@ -206,7 +219,7 @@ function selfTest() {
   catch (error) { invalidDateBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_TIMESTAMP"; }
   if (!invalidDateBlocked) throw new Error("self-test failed to reject nonexistent calendar date");
 
-  console.log("PASS: manual direct-add V4 hardening closes migration, Related, publication-state, and timestamp bypasses");
+  console.log("PASS: manual direct-add V4 hardening closes migration, Related, publication-state aliases, and timestamp bypasses");
 }
 
 const args = process.argv.slice(2);

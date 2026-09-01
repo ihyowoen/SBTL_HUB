@@ -1,7 +1,7 @@
 # Card Incremental Run Contract V2
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `CARD_INCREMENTAL_RUN_V2_20260829`
+**Version:** `CARD_INCREMENTAL_RUN_V2_20260901`
 
 ## 1. Scope
 
@@ -46,6 +46,31 @@ Use insert for a distinct material event or direct follow-up that passed lineage
 
 The formal card-run records run ID, exact base SHAs/count, declared operations, expected after count, stage/audit references including 0.0D/0.0C/0.7C, Related ID-resolution ledger, and apply/validator results required by current machine schema.
 
+### 6.1 Per-operation stage-chain binding
+Every formal `insert`, `update`, and `related_add` operation must prove the complete ordinary editorial chain for the same governed candidate identity:
+
+`A → B → C → 0.4 → 0.5 → 0.6 → 0.7`
+
+`0.2R` and `0.3R` are conditional repair artifacts and never substitute for the re-established B/C outputs. Run-level 0.0D, 0.0C, and 0.7C remain separately bound governance artifacts.
+
+For each operation:
+
+- every mandatory stage must be represented in that operation's own `stage_artifacts[]`;
+- Stage A must pass both the V4 Stage A contract and the authoritative lineage/compatibility gate;
+- B/C/0.4/0.5/0.6/0.7 artifacts must pass their stage-output machine contract;
+- all seven stage outputs must contain the operation's same `source_spec_id` (`spec_id` at Stage A, `source_spec_id` downstream);
+- an insert binds to `card.source_spec_id`;
+- an update binds to the existing canonical card's `source_spec_id` for `operation.id`;
+- a Related addition binds to a governed endpoint identity resolved from its source/target production IDs, preferring the source endpoint when available.
+
+A passing artifact for another candidate cannot authorize an operation. A global Stage A count cannot satisfy another operation. Missing stage, missing candidate identity, or cross-candidate artifact reuse is merge-blocking.
+
+### 6.2 0.0D/0.0C production reconciliation
+The formal gate must validate—not merely trust—the detailed preflight/discovery conclusions:
+
+- 0.0D exact main/full SHA bindings; classified count equals inventory count; required active/dependency paths are fully read; all defect/conflict/unread/unclassified ledgers are empty on PASS; active override/addendum count is zero; embedded Stage A news-value verification is true; compatibility booleans agree with the detailed ledgers.
+- 0.0C exact 0.0D/full bindings; required regional/topic matrices and discovery ledgers exist; every original/discovered candidate is present in the expanded-universe ledger; every expanded candidate has exactly one terminal disposition; terminal rows for unknown candidates are forbidden; only then may `original_input_accounted=true` and `stage_a_authorized=true` authorize Stage A.
+
 ## 7. Baseline moved
 
 If current main/full differs from the declared baseline, stop with `BLOCKED_BASELINE_MOVED_REBASE_REQUIRED`. Revalidate duplicate/update/follow-up/Related/addability against the new baseline before applying.
@@ -62,7 +87,7 @@ Default formal run: one governed card-run manifest plus the committed canonical 
 
 ## 10. Apply order
 
-`re-lock baseline → validate run/artifacts → validate operations → apply inserts → apply updates → resolve/apply Related additions → validate declared diff → write full → generate lean → run validators → PR review → merge → 0.9`.
+`re-lock baseline → validate 0.0D/0.0C detail → validate candidate-bound A→0.7 operation chains → validate 0.7C → validate operations → apply inserts → apply updates → resolve/apply Related additions → validate declared diff → write full → generate lean → run validators → PR review → merge → 0.9`.
 
 ## 11. Manual direct-add boundary
 

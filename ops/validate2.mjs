@@ -261,5 +261,53 @@ for (const i of items) for (const f of ['d','tip','detail']) {
   }
 }
 
+
+// 16) effectiveDate ↔ dt 등장 대조 (WARN)
+//     dt 를 통째로 재작성하면서 원래 시행일을 지우는 사고가 있다. 2026-09-01 도입 계기: KR-022 의
+//     연혁을 보강하다 dt 를 새로 써서 `2020.04.01 시행`(effectiveDate 와 짝) 과 기본계획 항목을 지웠고,
+//     게이트 4종이 전부 통과시켰다. **보강은 덧붙이는 것이지 덮어쓰는 것이 아니다.**
+//     dt 는 자유 서술이라 표기가 갈릴 수 있어 ERROR 가 아니라 WARN 으로 둔다.
+for (const i of items) {
+  const eff = i.effectiveDate, dt = i.dt;
+  if (typeof eff !== 'string' || eff.length !== 10 || typeof dt !== 'string' || !dt) continue;
+  const [y,m,d] = eff.split('-');
+  const forms = [eff, `${y}.${m}.${d}`, `${y}.${+m}.${+d}`, `${y}년 ${+m}월 ${+d}일`];
+  if (!forms.some(f => dt.includes(f)))
+    warn(`${i.id}: effectiveDate(${eff})가 dt 에 없음 — dt 재작성 중 시행일이 지워졌을 수 있다`);
+}
+
+// 17) checkNote 같은 run 단락 중복 부착 (ERROR)
+//     한 run 안에서 항목을 두 번 손대면 `**YYYY-MM-DD RD**` 단락이 겹쳐 붙어 감사 이력이 중복된다.
+for (const i of items) {
+  const cn = i.checkNote;
+  if (typeof cn !== 'string') continue;
+  const seen = new Map();
+  for (const m of cn.matchAll(/\*\*(\d{4}-\d{2}-\d{2}) RD\*\*/g))
+    seen.set(m[1], (seen.get(m[1]) ?? 0) + 1);
+  for (const [dstr, n] of seen)
+    if (n > 1) err(`${i.id}.checkNote: ${dstr} RD 단락이 ${n}번 붙음 — 같은 run 에서 중복 부착됐다`);
+}
+
+// 18) 원장 승인 큐 ↔ 실제 status 정합 (ERROR, 원장 있을 때만)
+//     `[status] XX-000 A → B` 형태의 큐 항목은 데이터가 아직 A 여야 한다. 이미 B 로 바꿔놓고 큐에만
+//     남겨두면 승인 없이 반영된 것을 큐가 가려준다(승인 게이트 우회).
+if (runPath) {
+  try {
+    const r3 = JSON.parse(readFileSync(runPath,'utf8'));
+    const byId = new Map(items.map(i => [i.id, i]));
+    for (const a of r3.approvalQueueCandidates ?? []) {
+      const m = /\[status\]\s*([A-Z]{2}-\d{3})\s+(\w+)\s*(?:→|->)\s*(\w+)/.exec(a.name ?? '');
+      if (!m) continue;
+      const [, id, from, to] = m;
+      const it = byId.get(id);
+      if (!it) { err(`원장 승인 큐: ${id} 가 tracker 에 없음`); continue; }
+      if (it.s === to)
+        err(`원장 승인 큐: ${id} 가 이미 ${to} 인데 큐에 ${from} → ${to} 로 남아 있음 — 승인 없이 반영됐거나 큐가 낡았다`);
+      else if (it.s !== from)
+        err(`원장 승인 큐: ${id} 현재 status(${it.s})가 큐 기재(${from} → ${to})와 불일치`);
+    }
+  } catch(e){ err('승인 큐 정합 대조 실패: '+e.message); }
+}
+
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);
 process.exit(E?1:0);

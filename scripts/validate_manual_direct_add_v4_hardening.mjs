@@ -12,11 +12,12 @@ const readJson = (path, label) => {
 };
 const same = (a, b) => isDeepStrictEqual(a, b);
 const isObject = (value) => Boolean(value) && typeof value === "object" && !Array.isArray(value);
-const finiteNumber = (value) => typeof value === "number" && Number.isFinite(value);
-const cardMap = (doc, label) => {
-  if (!Array.isArray(doc?.cards)) fail("BLOCKED_MANUAL_DIRECT_ADD_V4_HARDENING", `${label}.cards must be an array`);
-  return new Map(doc.cards.map((card) => [card.id, card]));
-};
+
+// This layer is deliberately complementary to validate_manual_direct_add.mjs.
+// The base validator is the single owner of V4 editorial scoring/route caps;
+// this hardener owns mutation scope, publication-state, Related, migration, and
+// strict timestamp protections. Keeping one score engine removes contradictory
+// double-validation of floating totals / empty values / object key ordering.
 const MIGRATION_MUTABLE_FIELDS = new Set(["id", "date", "region"]);
 const RELATED_CONTAINERS = ["related", "related_ids", "related_lineage"];
 const FORMAL_RUN_FIELDS = new Set([
@@ -31,38 +32,25 @@ const FORMAL_RUN_FIELDS = new Set([
   "production_verified",
 ]);
 const GOVERNED_PUBLISH_STATES = new Set(["publish_ready", "github_merge_ready", "production_verified"]);
-const BREAKDOWN_MAX = {
-  market_structure_competition: 25,
-  supply_demand_price_utilisation: 25,
-  technology_performance_safety: 20,
-  cashflow_asset_value: 10,
-  law_policy_market_access: 10,
-  systemic_scale: 5,
-  persistence_irreversibility: 3,
-  decision_urgency_actionability: 2,
-};
-const TECHNOLOGY_EVIDENCE_CAPS = {
-  not_applicable: 0,
-  company_target_or_unsupported_claim: 4,
-  laboratory_unvalidated: 7,
-  pilot_precommercial: 11,
-  independent_test_or_customer_qualification: 15,
-  commercial_scale_or_long_duration_field: 20,
-  material_failure_evidence: 20,
-};
-const POLICY_STAGE_TOTAL_CAPS = new Map([[0, 39], [1, 54], [2, 69]]);
-const NOVELTY_TOTAL_CAPS = new Map([
-  ["none", null],
-  ["repeated_announcement_no_new_fact", 39],
-  ["routine_progression_no_material_uncertainty", 54],
-  ["company_target_without_validation_or_effect", 54],
-  ["unsupported_political_rhetoric", 39],
-]);
 const RFC3339 = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:Z|[+-](\d{2}):(\d{2}))$/;
 
 function changedTopLevelFields(before, after) {
   const keys = new Set([...Object.keys(before || {}), ...Object.keys(after || {})]);
   return [...keys].filter((key) => !same(before?.[key], after?.[key])).sort();
+}
+
+function cardMap(doc, label) {
+  if (!Array.isArray(doc?.cards)) fail("BLOCKED_MANUAL_DIRECT_ADD_V4_HARDENING", `${label}.cards must be an array`);
+  const map = new Map();
+  for (const [index, card] of doc.cards.entries()) {
+    if (!isObject(card) || typeof card.id !== "string" || !card.id.trim()) {
+      fail("BLOCKED_MANUAL_DIRECT_ADD_V4_HARDENING", `${label}.cards[${index}].id must be a non-empty string`);
+    }
+    const id = card.id.trim();
+    if (map.has(id)) fail("BLOCKED_MANUAL_DIRECT_ADD_DUPLICATE_ID", `${label} duplicate id ${id}`);
+    map.set(id, card);
+  }
+  return map;
 }
 
 function validateStrictRfc3339(value) {
@@ -80,102 +68,6 @@ function validateStrictRfc3339(value) {
     fail("BLOCKED_MANUAL_DIRECT_ADD_TIMESTAMP", `output_updated contains a nonexistent calendar date — ${value}`);
   }
   if (Number.isNaN(Date.parse(value))) fail("BLOCKED_MANUAL_DIRECT_ADD_TIMESTAMP", `output_updated is not parseable — ${value}`);
-}
-
-function validateEditorialHardCaps(manifest) {
-  const additions = manifest?.editorial_attestation?.additions;
-  if (!Array.isArray(additions)) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", "editorial_attestation.additions must be an array");
-  }
-  for (const [index, attestation] of additions.entries()) {
-    if (!isObject(attestation)) fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `addition[${index}] must be an object`);
-    const id = typeof attestation.id === "string" && attestation.id.trim() ? attestation.id.trim() : `addition[${index}]`;
-    const breakdown = attestation.decision_value_breakdown;
-    if (!isObject(breakdown)) fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: decision_value_breakdown is required`);
-    const keys = Object.keys(breakdown).sort();
-    const requiredKeys = Object.keys(BREAKDOWN_MAX).sort();
-    if (!same(keys, requiredKeys)) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: decision_value_breakdown must contain exactly the V4 eight components`);
-    }
-    let sum = 0;
-    for (const [field, maximum] of Object.entries(BREAKDOWN_MAX)) {
-      const value = breakdown[field];
-      if (!finiteNumber(value) || value < 0 || value > maximum) {
-        fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: ${field} must be finite 0..${maximum}`);
-      }
-      sum += value;
-    }
-    if (!Number.isInteger(attestation.decision_news_value_score) || attestation.decision_news_value_score < 0 || attestation.decision_news_value_score > 100) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: decision_news_value_score must be integer 0..100`);
-    }
-    if (sum !== attestation.decision_news_value_score) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: breakdown sum ${sum} != total ${attestation.decision_news_value_score}`);
-    }
-
-    const techLevel = attestation.technology_evidence_level;
-    if (!Object.prototype.hasOwnProperty.call(TECHNOLOGY_EVIDENCE_CAPS, techLevel)) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: invalid technology_evidence_level`);
-    }
-    const techCap = TECHNOLOGY_EVIDENCE_CAPS[techLevel];
-    if (breakdown.technology_performance_safety > techCap) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: technology score ${breakdown.technology_performance_safety} exceeds ${techLevel} cap ${techCap}/20`);
-    }
-
-    const anchors = Array.isArray(attestation.anchor_classes) ? attestation.anchor_classes : [];
-    const policyStage = attestation.policy_stage;
-    if (policyStage !== null && (!Number.isInteger(policyStage) || policyStage < 0 || policyStage > 6)) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: policy_stage must be null or integer 0..6`);
-    }
-    if (anchors.includes("policy_regulatory_anchor") && policyStage === null) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: policy_regulatory_anchor requires policy_stage`);
-    }
-    if (POLICY_STAGE_TOTAL_CAPS.has(policyStage) && attestation.decision_news_value_score > POLICY_STAGE_TOTAL_CAPS.get(policyStage)) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: total score exceeds policy_stage=${policyStage} cap ${POLICY_STAGE_TOTAL_CAPS.get(policyStage)}`);
-    }
-
-    const noveltyBasis = attestation.novelty_cap_basis;
-    if (!NOVELTY_TOTAL_CAPS.has(noveltyBasis)) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: invalid novelty_cap_basis`);
-    }
-    const noveltyCap = NOVELTY_TOTAL_CAPS.get(noveltyBasis);
-    if (noveltyCap !== null && attestation.decision_news_value_score > noveltyCap) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: total score exceeds novelty_cap_basis=${noveltyBasis} cap ${noveltyCap}`);
-    }
-
-    const denominator = attestation.systemic_scale_denominator;
-    const denominatorGap = attestation.denominator_gap;
-    if (typeof denominator === "string" && denominator.trim()) {
-      if (denominatorGap !== null && denominatorGap !== "") {
-        fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: denominator_gap must be null/empty when a defensible denominator is supplied`);
-      }
-    } else {
-      if (typeof denominatorGap !== "string" || !denominatorGap.trim()) {
-        fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: missing defensible denominator requires a non-empty denominator_gap narrative`);
-      }
-      if (breakdown.systemic_scale > 2) {
-        fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: missing denominator caps systemic_scale at 2/5`);
-      }
-    }
-
-    if (attestation.selection_route === "execution_anchor_route") {
-      if (!anchors.includes("execution_event_anchor")) {
-        fail("BLOCKED_MANUAL_DIRECT_ADD_ROUTE", `${id}: execution_anchor_route requires execution_event_anchor`);
-      }
-      if (attestation.structural_non_execution_reason !== null || attestation.why_execution_event_not_required !== null) {
-        fail("BLOCKED_MANUAL_DIRECT_ADD_ROUTE", `${id}: execution_anchor_route requires structural-only reason fields to be null`);
-      }
-    } else if (attestation.selection_route === "structural_non_execution_route") {
-      if (anchors.includes("execution_event_anchor")) {
-        fail("BLOCKED_MANUAL_DIRECT_ADD_ROUTE", `${id}: structural_non_execution_route cannot carry execution_event_anchor`);
-      }
-      if (typeof attestation.structural_non_execution_reason !== "string" || !attestation.structural_non_execution_reason.trim()
-        || typeof attestation.why_execution_event_not_required !== "string" || !attestation.why_execution_event_not_required.trim()) {
-        fail("BLOCKED_MANUAL_DIRECT_ADD_ROUTE", `${id}: structural route requires both structural-only reason fields`);
-      }
-    } else {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_ROUTE", `${id}: invalid selection_route`);
-    }
-  }
 }
 
 function validateMigrationContent(manifest, baseMap, fullMap) {
@@ -200,6 +92,29 @@ function fabricatedFormalFields(card) {
   return fields;
 }
 
+function validateUnrelatedLineage(lineage, id) {
+  if (lineage === null) return;
+  if (!isObject(lineage)) {
+    fail("BLOCKED_MANUAL_DIRECT_ADD_RELATED", `${id}: related_lineage must be null or a non-targeting object`);
+  }
+  if (Object.prototype.hasOwnProperty.call(lineage, "related_ids")) {
+    if (!Array.isArray(lineage.related_ids) || lineage.related_ids.length !== 0) {
+      fail("BLOCKED_MANUAL_DIRECT_ADD_RELATED", `${id}: related_lineage.related_ids must be an empty array`);
+    }
+  }
+  if (Object.prototype.hasOwnProperty.call(lineage, "relation_type") && lineage.relation_type !== "new_unrelated_event") {
+    fail("BLOCKED_MANUAL_DIRECT_ADD_RELATED", `${id}: direct-add may only describe new_unrelated_event lineage`);
+  }
+  for (const targetField of ["target_id", "target_ids", "predecessor_id", "successor_id", "related_candidate_spec_ids"]) {
+    if (Object.prototype.hasOwnProperty.call(lineage, targetField)) {
+      const value = lineage[targetField];
+      if (value !== null && value !== "" && !(Array.isArray(value) && value.length === 0)) {
+        fail("BLOCKED_MANUAL_DIRECT_ADD_RELATED", `${id}: related_lineage.${targetField} may not establish a target`);
+      }
+    }
+  }
+}
+
 function validateAddedCards(manifest, baseMap, fullMap) {
   for (const id of manifest.operations?.add || []) {
     if (baseMap.has(id) || !fullMap.has(id)) fail("BLOCKED_MANUAL_DIRECT_ADD_V4_HARDENING", `invalid added card ${id}`);
@@ -214,13 +129,7 @@ function validateAddedCards(manifest, baseMap, fullMap) {
         fail("BLOCKED_MANUAL_DIRECT_ADD_RELATED", `${id}: direct-added card must leave related_ids empty`);
       }
     }
-    if (Object.prototype.hasOwnProperty.call(card, "related_lineage")) {
-      const lineage = card.related_lineage;
-      if (lineage !== null && (!lineage || typeof lineage !== "object" || Array.isArray(lineage)
-        || (Array.isArray(lineage.related_ids) && lineage.related_ids.length !== 0))) {
-        fail("BLOCKED_MANUAL_DIRECT_ADD_RELATED", `${id}: direct-added related_lineage may not establish targets`);
-      }
-    }
+    if (Object.prototype.hasOwnProperty.call(card, "related_lineage")) validateUnrelatedLineage(card.related_lineage, id);
     const fabricated = fabricatedFormalFields(card);
     if (fabricated.length) {
       fail(
@@ -262,7 +171,6 @@ function validate(manifest, base, full) {
     fail("BLOCKED_MANUAL_DIRECT_ADD_FORMAL_PROVENANCE", "manual direct-add must declare formal_full_run_claimed=false");
   }
   validateStrictRfc3339(manifest.output_updated);
-  validateEditorialHardCaps(manifest);
   const baseMap = cardMap(base, "base");
   const fullMap = cardMap(full, "full");
   validateMigrationContent(manifest, baseMap, fullMap);
@@ -272,44 +180,8 @@ function validate(manifest, base, full) {
     migrations_checked: (manifest.operations?.id_migration || []).length,
     additions_checked: (manifest.operations?.add || []).length,
     updates_checked: (manifest.operations?.update || []).length,
-    editorial_score_caps_checked: (manifest.editorial_attestation?.additions || []).length,
   };
 }
-
-const goodAttestation = () => ({
-  id: "2026-01-02_KR_01",
-  execution_credibility_gate: "PASS",
-  independent_cardability_gate: "PASS",
-  anchor_classes: ["data_financial_anchor"],
-  selection_route: "structural_non_execution_route",
-  decision_news_value_score: 60,
-  decision_value_breakdown: {
-    market_structure_competition: 20,
-    supply_demand_price_utilisation: 20,
-    technology_performance_safety: 0,
-    cashflow_asset_value: 8,
-    law_policy_market_access: 5,
-    systemic_scale: 2,
-    persistence_irreversibility: 3,
-    decision_urgency_actionability: 2,
-  },
-  decision_value_classification: "material_industry_signal",
-  publication_urgency: "near_term",
-  technology_evidence_level: "not_applicable",
-  policy_stage: null,
-  novelty_cap_basis: "none",
-  systemic_scale_denominator: "named market/program denominator",
-  denominator_gap: null,
-  prior_state: "old",
-  new_verified_fact: "new",
-  changed_judgment: "changed",
-  evidence_review_summary: "official evidence reviewed",
-  next_confirmation_points: ["next metric"],
-  inclusion_decision: "standard_include",
-  owner_override_reason: null,
-  structural_non_execution_reason: "material data change",
-  why_execution_event_not_required: "decision-useful without transaction",
-});
 
 function selfTest() {
   const base = { cards: [
@@ -325,12 +197,11 @@ function selfTest() {
       update: ["2026-01-03_KR_01"],
       id_migration: [{ old_id: "2026-01-01_KR_01", new_id: "2025-12-31_KR_01" }],
     },
-    editorial_attestation: { additions: [goodAttestation()], updates: [] },
   };
   const good = { cards: [
     { id: "2025-12-31_KR_01", date: "2025-12-31", region: "KR", title: "A", urls: ["https://a.example"], related: [], related_ids: [], related_lineage: { relation_type: "new_unrelated_event", related_ids: [] } },
     { id: "2026-01-03_KR_01", date: "2026-01-03", region: "KR", title: "U corrected", urls: ["https://u.example"], related: [], related_ids: [], related_lineage: { relation_type: "new_unrelated_event", related_ids: [] } },
-    { id: "2026-01-02_KR_01", date: "2026-01-02", region: "KR", title: "B", related: [], related_ids: [] },
+    { id: "2026-01-02_KR_01", date: "2026-01-02", region: "KR", title: "B", related: [], related_ids: [], related_lineage: { relation_type: "new_unrelated_event", related_ids: [] } },
   ] };
   validate(manifest, base, good);
 
@@ -348,26 +219,26 @@ function selfTest() {
   catch (error) { relatedBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_RELATED"; }
   if (!relatedBlocked) throw new Error("self-test failed to reject direct-add Related edge");
 
-  const updateLineage = structuredClone(good);
-  updateLineage.cards[1].related_lineage = { relation_type: "direct_follow_up", related_ids: ["2026-01-02_KR_01"] };
-  let updateRelatedBlocked = false;
-  try { validate(manifest, base, updateLineage); }
-  catch (error) { updateRelatedBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_RELATED"; }
-  if (!updateRelatedBlocked) throw new Error("self-test failed to reject direct update Related mutation");
+  const malformedLineage = structuredClone(good);
+  malformedLineage.cards[2].related_lineage = { relation_type: "direct_follow_up", related_ids: "2025-12-31_KR_01" };
+  let malformedLineageBlocked = false;
+  try { validate(manifest, base, malformedLineage); }
+  catch (error) { malformedLineageBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_RELATED"; }
+  if (!malformedLineageBlocked) throw new Error("self-test failed to reject non-array related_lineage.related_ids bypass");
 
   const withFormalState = structuredClone(good);
-  withFormalState.cards[2].publish_ready = true;
+  withFormalState.cards[2].state = "github_merge_ready";
   let provenanceBlocked = false;
   try { validate(manifest, base, withFormalState); }
   catch (error) { provenanceBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_FORMAL_PROVENANCE"; }
-  if (!provenanceBlocked) throw new Error("self-test failed to reject fabricated publication state");
+  if (!provenanceBlocked) throw new Error("self-test failed to reject governed publication state");
 
-  const withStateAlias = structuredClone(good);
-  withStateAlias.cards[2].state = "github_merge_ready";
-  let stateAliasBlocked = false;
-  try { validate(manifest, base, withStateAlias); }
-  catch (error) { stateAliasBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_FORMAL_PROVENANCE"; }
-  if (!stateAliasBlocked) throw new Error("self-test failed to reject governed publication state alias");
+  const duplicate = structuredClone(good);
+  duplicate.cards.push(structuredClone(duplicate.cards[2]));
+  let duplicateBlocked = false;
+  try { validate(manifest, base, duplicate); }
+  catch (error) { duplicateBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_DUPLICATE_ID"; }
+  if (!duplicateBlocked) throw new Error("self-test failed to reject duplicate card ids");
 
   const invalidDate = structuredClone(manifest);
   invalidDate.output_updated = "2026-02-30T12:00:00Z";
@@ -376,35 +247,7 @@ function selfTest() {
   catch (error) { invalidDateBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_TIMESTAMP"; }
   if (!invalidDateBlocked) throw new Error("self-test failed to reject nonexistent calendar date");
 
-  const inflatedTech = structuredClone(manifest);
-  inflatedTech.editorial_attestation.additions[0].technology_evidence_level = "company_target_or_unsupported_claim";
-  inflatedTech.editorial_attestation.additions[0].decision_value_breakdown.technology_performance_safety = 10;
-  inflatedTech.editorial_attestation.additions[0].decision_value_breakdown.market_structure_competition = 10;
-  let techBlocked = false;
-  try { validate(inflatedTech, base, good); }
-  catch (error) { techBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP"; }
-  if (!techBlocked) throw new Error("self-test failed to enforce technology evidence cap");
-
-  const denominatorGap = structuredClone(manifest);
-  denominatorGap.editorial_attestation.additions[0].denominator_gap = "no defensible denominator";
-  denominatorGap.editorial_attestation.additions[0].systemic_scale_denominator = null;
-  denominatorGap.editorial_attestation.additions[0].decision_value_breakdown.systemic_scale = 5;
-  denominatorGap.editorial_attestation.additions[0].decision_value_breakdown.market_structure_competition = 17;
-  let denominatorBlocked = false;
-  try { validate(denominatorGap, base, good); }
-  catch (error) { denominatorBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP"; }
-  if (!denominatorBlocked) throw new Error("self-test failed to enforce systemic denominator cap");
-
-  const contradictoryExecution = structuredClone(manifest);
-  const execution = contradictoryExecution.editorial_attestation.additions[0];
-  execution.selection_route = "execution_anchor_route";
-  execution.anchor_classes = ["execution_event_anchor"];
-  let routeBlocked = false;
-  try { validate(contradictoryExecution, base, good); }
-  catch (error) { routeBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_ROUTE"; }
-  if (!routeBlocked) throw new Error("self-test failed to reject structural-only reasons on execution route");
-
-  console.log("PASS: manual direct-add V4 hardening closes score-cap, route, migration, Related, publication-state, and timestamp bypasses");
+  console.log("PASS: manual direct-add V4 hardening closes migration, Related, publication-state, duplicate-id, and timestamp bypasses");
 }
 
 const args = process.argv.slice(2);
@@ -417,7 +260,7 @@ try {
   if (!manifestPath || !basePath || !fullPath) fail("INVALID_ARGUMENT", "--manifest --base --full required");
   const result = validate(readJson(manifestPath, "manifest"), readJson(basePath, "base"), readJson(fullPath, "full"));
   console.log(JSON.stringify({ status: "PASS", ...result }, null, 2));
-  console.log(`PASS: manual direct-add V4 hardening; add=${result.additions_checked}; update=${result.updates_checked}; migration=${result.migrations_checked}; score_caps=${result.editorial_score_caps_checked}`);
+  console.log(`PASS: manual direct-add V4 hardening; add=${result.additions_checked}; update=${result.updates_checked}; migration=${result.migrations_checked}`);
 } catch (error) {
   if (error instanceof ValidationError) { console.error(`FAIL [${error.code}]: ${error.message}`); process.exit(1); }
   throw error;

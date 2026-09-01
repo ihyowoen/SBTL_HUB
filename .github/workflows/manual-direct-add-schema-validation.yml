@@ -47,15 +47,41 @@ jobs:
           set -euo pipefail
           if [[ "$EVENT_NAME" == "pull_request" ]]; then
             git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
-            range="origin/$BASE_REF...HEAD"
+            base_commit="origin/$BASE_REF"
+            range="$base_commit...HEAD"
           else
+            base_commit="$BEFORE_SHA"
             range="$BEFORE_SHA...HEAD"
           fi
-          mapfile -t manifests < <(git diff --name-only "$range" -- ':(glob)direct-adds/**/direct-add.json')
+
+          # Deletions are valid lifecycle operations and are intentionally not
+          # fed to an instance validator. Added/modified/renamed manifests are
+          # inspected by their declared schema version.
+          mapfile -t manifests < <(git diff --diff-filter=ACMR --name-only "$range" -- ':(glob)direct-adds/**/direct-add.json')
+          validated=0
+          historical=0
           for manifest in "${manifests[@]}"; do
-            [[ -f "$manifest" ]] || { echo "FAIL: direct-add manifest deleted or missing: $manifest" >&2; exit 1; }
-            node scripts/validate_json_schema_subset.mjs \
-              --schema schemas/manual-direct-add.v2.schema.json \
-              --instance "$manifest"
+            [[ -f "$manifest" ]] || { echo "FAIL: changed direct-add manifest missing: $manifest" >&2; exit 1; }
+            schema_name="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String(r.schema||""))' "$manifest")"
+            if [[ "$schema_name" == "manual_direct_add_v2" ]]; then
+              node scripts/validate_json_schema_subset.mjs \
+                --schema schemas/manual-direct-add.v2.schema.json \
+                --instance "$manifest"
+              validated=$((validated + 1))
+              continue
+            fi
+            if [[ "$schema_name" == "manual_direct_add_v1" ]]; then
+              # V1 is historical/audit-only. Existing V1 records may be moved or
+              # annotated, but a PR may not introduce a brand-new V1 manifest.
+              if git cat-file -e "${base_commit}:${manifest}" 2>/dev/null; then
+                echo "INFO: historical V1 audit manifest preserved without V2 coercion: $manifest"
+                historical=$((historical + 1))
+                continue
+              fi
+              echo "FAIL: new manual_direct_add_v1 manifests are retired: $manifest" >&2
+              exit 1
+            fi
+            echo "FAIL: unsupported direct-add schema '$schema_name' in $manifest" >&2
+            exit 1
           done
-          echo "PASS: ${#manifests[@]} changed direct-add manifest(s) satisfy canonical V2 JSON schema"
+          echo "PASS: validated $validated V2 manifest(s); preserved $historical existing historical V1 audit manifest(s)"

@@ -6,13 +6,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"
 COVERAGE_AXES_PATH = ROOT / "schemas/workflow-v4-coverage-axes.json"
-_AXES = json.loads(COVERAGE_AXES_PATH.read_text(encoding="utf-8"))
-if _AXES.get("schema") != "workflow_v4_coverage_axes_v1":
-    raise RuntimeError("invalid workflow-v4 coverage axes contract")
-REGIONS = set(_AXES.get("regions", []))
-TOPICS = set(_AXES.get("topics", []))
-if not REGIONS or not TOPICS:
-    raise RuntimeError("workflow-v4 coverage axes contract must contain non-empty regions/topics")
 ALIASES = {"a":"A","stage_a":"A","0.1":"A","b":"B","stage_b":"B","0.2":"B","c":"C","stage_c":"C","0.3":"C","0.4":"0.4","0.5":"0.5","0.6":"0.6","0.7":"0.7"}
 BUCKETS = {"A":["strict_passed_spec"],"B":["draft_cards","draft_card"],"C":["accepted_fact_safe"],"0.4":["addable_merge_safe"],"0.5":["evidence_complete_and_source_claim_covered"],"0.6":["content_enriched_and_language_polished"],"0.7":["publish_ready"]}
 STAGES = tuple(BUCKETS)
@@ -27,10 +20,21 @@ def repo_json(ref: str) -> Path:
     return p
 
 def strings(v,label):
-    if not isinstance(v,list) or any(not isinstance(x,str) or not x.strip() for x in v): raise Blocked(f"{label} must be non-empty string array")
+    if not isinstance(v,list) or not v or any(not isinstance(x,str) or not x.strip() for x in v): raise Blocked(f"{label} must be non-empty string array")
     out=[x.strip() for x in v]
     if len(out)!=len(set(out)): raise Blocked(f"{label} contains duplicates")
     return set(out)
+
+def coverage_axes():
+    try:
+        payload=json.loads(COVERAGE_AXES_PATH.read_text(encoding="utf-8-sig"))
+    except Exception as exc:
+        raise Blocked(f"workflow-v4 coverage axes contract is unreadable: {exc}") from exc
+    if not isinstance(payload,dict) or payload.get("schema")!="workflow_v4_coverage_axes_v1":
+        raise Blocked("workflow-v4 coverage axes contract has unexpected schema id")
+    regions=strings(payload.get("regions"),"workflow-v4 coverage axes regions")
+    topics=strings(payload.get("topics"),"workflow-v4 coverage axes topics")
+    return regions,topics
 
 def validate_preflight(run):
     a=load(repo_json(run["document_universe_manifest_ref"])); r=load(REGISTRY)
@@ -53,7 +57,8 @@ def axis_matrix(v,required,label):
         if row["status"]=="blocked" and (not isinstance(row.get("reason"),str) or not row["reason"].strip()): raise Blocked(f"{label}.{key}.reason required when blocked")
 
 def validate_coverage(run):
-    a=load(repo_json(run["coverage_discovery_ref"])); axis_matrix(a.get("regional_coverage_matrix"),REGIONS,"0.0C.regional_coverage_matrix"); axis_matrix(a.get("topic_coverage_matrix"),TOPICS,"0.0C.topic_coverage_matrix")
+    regions,topics=coverage_axes()
+    a=load(repo_json(run["coverage_discovery_ref"])); axis_matrix(a.get("regional_coverage_matrix"),regions,"0.0C.regional_coverage_matrix"); axis_matrix(a.get("topic_coverage_matrix"),topics,"0.0C.topic_coverage_matrix")
 
 def validate_completeness(run):
     a=load(repo_json(run["independent_completeness_ref"]))
@@ -144,10 +149,12 @@ def main():
         try: validate_stage_binding({"base_main_commit_sha":"a"*40,"base_full_blob_sha":"b"*40},sample_run,"artifact")
         except Blocked: pass
         else: raise RuntimeError("missing stage run_id binding not blocked")
-        axis_matrix({k:{"status":"searched"} for k in REGIONS},REGIONS,"regions")
+        regions,_=coverage_axes(); axis_matrix({k:{"status":"searched"} for k in regions},regions,"regions")
         print("PASS: V4 binding hardening self-test"); return 0
+    if not args.run: raise Blocked("--run PATH required")
     run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_completeness(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS"})); return 0
 
 if __name__=="__main__":
     try: raise SystemExit(main())
     except Blocked as e: print(f"FAIL [BLOCKED_V4_BINDING]: {e}",file=sys.stderr); raise SystemExit(1)
+    except Exception as e: print(f"FAIL [BLOCKED_V4_BINDING_INTERNAL]: {e}",file=sys.stderr); raise SystemExit(1)

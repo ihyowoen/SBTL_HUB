@@ -10,7 +10,7 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve, sep } from "node:path";
-import { REQUIRED_REGION_AXES, REQUIRED_TOPIC_AXES } from "./workflow_v4_coverage_axes.mjs";
+import { loadWorkflowV4CoverageAxes } from "./workflow_v4_coverage_axes.mjs";
 
 class ValidationError extends Error {
   constructor(code, message) { super(message); this.code = code; }
@@ -21,7 +21,7 @@ const PASSING_STAGE_STATUSES = new Set([
   "PASS","PASSED","PASS_WITH_DECLARED_RESIDUAL_RISK","PASS_WITH_NOTES","PASS_WITH_WARNINGS",
   "VERIFIED","ACCEPTED_FACT_SAFE","ACCEPTED_FACT_SAFE_AFTER_CONTROLLED_RESCUE","ADDABLE_MERGE_SAFE",
   "EVIDENCE_COMPLETE","SOURCE_CLAIM_COVERED","EVIDENCE_COMPLETE_AND_SOURCE_CLAIM_COVERED",
-  "CONTENT_ENRICHED","LANGUAGE_TERMINOLOGY_POLISHED","CONTENT_ENRICHED_AND_LANGUAGE_POLISHED",
+  "CONTENT_ENRICHED","LANGUAGE_TERMINOLOGY_POLISHED","CONTENT_ENRICHED_AND_LANGUAGE_TERMINOLOGY_POLISHED",
   "PUBLISH_READY","GITHUB_MERGE_READY",
 ]);
 const STATUS_FIELDS = ["status", "artifact_status", "validation_status", "state", "result"];
@@ -38,6 +38,17 @@ const OPERATION_STAGE_ALIASES = new Map([
 ]);
 const normalizeStatus = (value) => String(value).trim().toUpperCase();
 const nonEmptyText = (value) => typeof value === "string" && Boolean(value.trim());
+let cachedCoverageAxes = null;
+
+const requiredCoverageAxes = () => {
+  if (cachedCoverageAxes) return cachedCoverageAxes;
+  try {
+    cachedCoverageAxes = loadWorkflowV4CoverageAxes();
+    return cachedCoverageAxes;
+  } catch (error) {
+    fail("BLOCKED_COVERAGE_AXIS_CONTRACT", error.message);
+  }
+};
 
 const readJson = (path, label) => {
   let raw;
@@ -115,8 +126,9 @@ const validateCoverageMatrix = (matrix, requiredAxes, label) => {
 };
 
 const validateCoverageAxes = (payload, label, reference) => {
-  validateCoverageMatrix(payload.regional_coverage_matrix, REQUIRED_REGION_AXES, `${label}.regional_coverage_matrix`);
-  validateCoverageMatrix(payload.topic_coverage_matrix, REQUIRED_TOPIC_AXES, `${label}.topic_coverage_matrix`);
+  const axes = requiredCoverageAxes();
+  validateCoverageMatrix(payload.regional_coverage_matrix, axes.regions, `${label}.regional_coverage_matrix`);
+  validateCoverageMatrix(payload.topic_coverage_matrix, axes.topics, `${label}.topic_coverage_matrix`);
 };
 
 const validateReference = (root, reference, label, kind, run, expectedStage = null) => {
@@ -163,18 +175,20 @@ const runSelfTest = () => {
     const mainSha = "b".repeat(40), blobSha = "a".repeat(40);
     const governance = write("0.0d.json", { stage: "0.0D", status: "PASS" });
     const completeness = write("0.7c.json", { stage: "0.7C", status: "PASS_WITH_DECLARED_RESIDUAL_RISK" });
-    const matrix = (axes) => Object.fromEntries(axes.map((axis) => [axis, { status: "searched" }]));
+    const axes = requiredCoverageAxes();
+    const matrix = (requiredAxes) => Object.fromEntries(requiredAxes.map((axis) => [axis, { status: "searched" }]));
     const coveragePass = write("coverage.json", {
       stage: "0.0C", status: "PASS",
-      regional_coverage_matrix: matrix(REQUIRED_REGION_AXES),
-      topic_coverage_matrix: matrix(REQUIRED_TOPIC_AXES),
+      regional_coverage_matrix: matrix(axes.regions),
+      topic_coverage_matrix: matrix(axes.topics),
     });
     const coverageMissing = write("coverage-missing.json", {
       stage: "0.0C", status: "PASS",
-      regional_coverage_matrix: matrix(REQUIRED_REGION_AXES),
+      regional_coverage_matrix: matrix(axes.regions),
       topic_coverage_matrix: { ess_bess: { status: "searched" } },
     });
     const baselinePass = write("0.4.json", { stage: "0.4", status: "PASS", base_main_commit_sha: mainSha, base_full_blob_sha: blobSha });
+    const stage06Pass = write("0.6.json", { stage: "0.6", status: "CONTENT_ENRICHED_AND_LANGUAGE_TERMINOLOGY_POLISHED" });
     const stale = write("0.4-stale.json", { stage: "0.4", status: "PASS", base_main_commit_sha: "c".repeat(40), base_full_blob_sha: blobSha });
     const stageMissing = write("stage-missing.json", { status: "PASS", addable_merge_safe: [] });
     const conflict = write("conflict.json", { stage: "0.4", status: "PASS", validation_status: "FAIL", result: "HOLD", base_main_commit_sha: mainSha, base_full_blob_sha: blobSha });
@@ -186,6 +200,7 @@ const runSelfTest = () => {
       operations: { insert: [{ stage_artifacts: [operationReference] }], update: [], related_add: [] },
     });
     validateRun(makeRun(), root);
+    validateRun(makeRun(stage06Pass), root);
     const expectCode = (run, code, label) => { let caught = null; try { validateRun(run, root); } catch (error) { caught = error; } if (!(caught instanceof ValidationError) || caught.code !== code) throw new Error(`${label}: expected ${code}, got ${caught?.code || "PASS"}`); };
     expectCode(makeRun(conflict), "BLOCKED_STAGE_ARTIFACT_CONFLICTING_STATUS", "operation status conflict");
     const badGovernance = write("bad-0.0d.json", { stage: "0.0C", status: "PASS" });
@@ -193,7 +208,7 @@ const runSelfTest = () => {
     expectCode(makeRun(stale), "BLOCKED_STAGE_ARTIFACT_BASELINE_BINDING", "stale 0.4 baseline");
     expectCode(makeRun(stageMissing), "BLOCKED_STAGE_ARTIFACT_STAGE_INVALID", "stage-less 0.4 cannot skip baseline binding");
     expectCode(makeRun(baselinePass, governance, coverageMissing), "BLOCKED_COVERAGE_AXIS_INCOMPLETE", "missing mandatory coverage axis");
-    console.log("PASS: explicit stage identity, run-level stage identity, status markers, 0.4 baseline, and shared mandatory 0.0C axes are fail-closed");
+    console.log("PASS: explicit stage identity, run-level stage identity, status markers, 0.4 baseline, canonical 0.6 status, and shared mandatory 0.0C axes are fail-closed");
   } finally { rmSync(root, { recursive: true, force: true }); }
 };
 
@@ -217,5 +232,6 @@ try {
   console.log(`PASS: ${validated.length} artifacts have passing status markers and explicit current-run stage/baseline bindings`);
 } catch (error) {
   if (error instanceof ValidationError) { console.error(`FAIL [${error.code}]: ${error.message}`); process.exit(1); }
-  throw error;
+  console.error(`FAIL [BLOCKED_STAGE_ARTIFACT_INTERNAL]: ${error?.message || String(error)}`);
+  process.exit(1);
 }

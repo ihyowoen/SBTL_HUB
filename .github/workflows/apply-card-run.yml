@@ -21,8 +21,10 @@ on:
       - "scripts/validate_manual_direct_add_v4_hardening.mjs"
       - "validation_scripts/stage_artifact_contract_check.py"
       - "validation_scripts/stage_a_v4_contract.py"
+      - "validation_scripts/stage_a_v4_hardening.py"
+      - "validation_scripts/stage_lineage_contract_check.py"
       - "schemas/card-run.v1.schema.json"
-      - "schemas/manual-direct-add.v1.schema.json"
+      - "schemas/manual-direct-add.v2.schema.json"
       - ".github/workflows/apply-card-run.yml"
       - ".github/workflows/legacy-related-lineage-migration.yml"
   workflow_dispatch:
@@ -65,9 +67,9 @@ jobs:
           node --check scripts/validate_legacy_related_lineage_migration.mjs
           node --check scripts/validate_manual_direct_add.mjs
           node --check scripts/validate_manual_direct_add_v4_hardening.mjs
-          python3 -m py_compile validation_scripts/stage_artifact_contract_check.py validation_scripts/stage_a_v4_contract.py
+          python3 -m py_compile validation_scripts/stage_artifact_contract_check.py validation_scripts/stage_a_v4_contract.py validation_scripts/stage_a_v4_hardening.py validation_scripts/stage_lineage_contract_check.py
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
-          node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v1.schema.json", "utf8"))'
+          node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v2.schema.json", "utf8"))'
           node scripts/apply_card_run_test.mjs
           node scripts/validate_card_run_stage_artifacts.mjs --self-test
           node scripts/validate_card_run_status_consistency.mjs --self-test
@@ -224,7 +226,6 @@ jobs:
           actual_blob="$(git rev-parse "${BASE_SHA}:data/cards.full.json")"
           [[ "$declared_main" == "$BASE_SHA" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED main $BASE_SHA != $declared_main" >&2; exit 1; }
           [[ "$declared_blob" == "$actual_blob" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED blob $actual_blob != $declared_blob" >&2; exit 1; }
-          git show "${BASE_SHA}:data/cards.full.base.json" >/dev/null 2>&1 || true
           git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
           [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
 

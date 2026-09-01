@@ -224,20 +224,42 @@ for (const i of items) for (const f of ['d','tip','detail']) {
 //     검사 #6은 verify.date === run.date 인 항목만 본다. 그래서 **원장이 존재하지 않는 날짜**의 스탬프는
 //     어느 대조 대상에도 들어가지 않고 영영 검사되지 않는다. 2026-09-01 도입 계기: EU-038이
 //     runId "2026-09-01-FIX"(실재하지 않는 원장)로 머지됐고 CI 가 통과시켰다.
-try {
+//     **fail-open 금지** — 원장 디렉터리를 못 읽거나 원장 하나가 파싱되지 않으면 검사 전체가 건너뛰어진다.
+//     그 경우 경고로 넘기면 이 검사가 막으려던 무검증 통과 경로가 그대로 되살아나므로 ERROR 로 끊는다.
+//     다만 **기준 집합을 아예 만들지 못한 경우와 일부만 깨진 경우를 가른다** — 전자에서 항목별 대조까지
+//     돌리면 전 항목이 오탐으로 걸려(실측 185줄) 진짜 원인이 묻힌다. 실패는 한 줄로, 종료코드는 그대로 1.
+{
   const dir = 'ops/runs';
   const known = new Set();
-  for (const f of readdirSync(dir)) {
-    if (!f.endsWith('.json')) continue;
-    const id = JSON.parse(readFileSync(`${dir}/${f}`,'utf8')).runId;
-    if (id) known.add(id);
+  let scanned = 0, baseUsable = true;
+  try {
+    for (const f of readdirSync(dir)) {
+      if (!f.endsWith('.json')) continue;
+      scanned++;
+      try {
+        const id = JSON.parse(readFileSync(`${dir}/${f}`,'utf8')).runId;
+        if (id) known.add(id);
+        else err(`ops/runs/${f}: runId 필드 없음 — 이 원장을 가리키는 스탬프가 미검사로 통과한다`);
+      } catch(e) {
+        err(`ops/runs/${f}: 파싱 실패(${e.message}) — 원장 하나가 깨지면 그 원장을 가리키는 스탬프가 전부 미검사로 통과한다`);
+      }
+    }
+    if (!scanned) {
+      baseUsable = false;
+      err(`${dir}: 원장 파일 0개 — runId 실재 대조를 수행할 수 없다(검사가 조용히 꺼진 상태)`);
+    }
+  } catch(e) {
+    baseUsable = false;
+    err(`${dir} 스캔 실패(${e.message}) — runId 실재 대조를 수행할 수 없다. 저장소 루트에서 실행할 것`);
   }
-  if (known.size) for (const i of items) {
+  // 기준 집합이 부분적으로 깨진 경우(파싱 실패 일부)에는 대조를 계속한다 — 위에서 이미 ERROR 를 올렸다.
+  // 기준 집합이 통째로 없는 경우에는 전 항목 오탐이 되므로 대조를 건너뛴다(이미 ERROR 로 끊긴 상태).
+  if (baseUsable) for (const i of items) {
     const rid = i.verify?.runId;
     if (rid && !known.has(rid))
       err(`${i.id}: verify.runId(${rid}) 에 해당하는 원장이 ops/runs 에 없음 — 근거 추적 불가(검사 #6이 날짜 불일치로 건너뛰는 사각)`);
   }
-} catch(e){ warn('runId 실재 대조 실패: '+e.message); }
+}
 
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);
 process.exit(E?1:0);

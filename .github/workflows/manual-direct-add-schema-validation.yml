@@ -1,0 +1,61 @@
+name: Manual direct-add schema validation
+
+on:
+  pull_request:
+    paths:
+      - "direct-adds/**/direct-add.json"
+      - "schemas/manual-direct-add.v2.schema.json"
+      - "scripts/validate_json_schema_subset.mjs"
+      - ".github/workflows/manual-direct-add-schema-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "direct-adds/**/direct-add.json"
+      - "schemas/manual-direct-add.v2.schema.json"
+      - "scripts/validate_json_schema_subset.mjs"
+      - ".github/workflows/manual-direct-add-schema-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-v2-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate schema engine
+        run: |
+          set -euo pipefail
+          node --check scripts/validate_json_schema_subset.mjs
+          node scripts/validate_json_schema_subset.mjs --self-test
+          node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v2.schema.json","utf8"))'
+
+      - name: Validate submitted V2 manifests
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REF: ${{ github.event.pull_request.base.ref || github.event.repository.default_branch }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
+            range="origin/$BASE_REF...HEAD"
+          else
+            range="$BEFORE_SHA...HEAD"
+          fi
+          mapfile -t manifests < <(git diff --name-only "$range" -- ':(glob)direct-adds/**/direct-add.json')
+          for manifest in "${manifests[@]}"; do
+            [[ -f "$manifest" ]] || { echo "FAIL: direct-add manifest deleted or missing: $manifest" >&2; exit 1; }
+            node scripts/validate_json_schema_subset.mjs \
+              --schema schemas/manual-direct-add.v2.schema.json \
+              --instance "$manifest"
+          done
+          echo "PASS: ${#manifests[@]} changed direct-add manifest(s) satisfy canonical V2 JSON schema"

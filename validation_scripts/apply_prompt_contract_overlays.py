@@ -3,29 +3,11 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PROMPT_DIR = ROOT / "docs" / "llm_prompts" / "v1"
-ACTIVE_PROMPTS = [
-    "00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
-    "00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
-    "01_PROMPT_0_1_Stage_A.md",
-    "02_PROMPT_0_2_Stage_B_r0.md",
-    "03_PROMPT_0_3_Stage_C_r0.md",
-    "04_PROMPT_0_2R_Stage_B_Revise.md",
-    "05_PROMPT_0_3R_Stage_C_Revise.md",
-    "06_PROMPT_0_4_Baseline_Revalidation.md",
-    "07_PROMPT_0_5_Evidence_QC.md",
-    "08_PROMPT_0_6_Content_Polish.md",
-    "09_PROMPT_0_7_Final_QC.md",
-    "09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md",
-    "10_PROMPT_0_8_GitHub_Merge_Prep.md",
-    "11_PROMPT_0_9_Production_Verification.md",
-    "12_PROMPT_1_0_Remediation.md",
-    "13_PROMPT_1_1_Retrospective.md",
-    "14_PROMPT_0_1P_Review_Pool_Promotion.md",
-]
+REGISTRY = ROOT / "docs" / "llm_prompts" / "v1" / "GOVERNANCE_LIFECYCLE_REGISTRY.json"
 FORBIDDEN_ACTIVE_TOKENS = [
     "WORKFLOW_CONTRACT_OVERLAY_",
     "01A_PROMPT_0_1S_Structural_Value_Override.md",
@@ -39,17 +21,51 @@ FORBIDDEN_ACTIVE_TOKENS = [
 ]
 
 
-def check() -> list[str]:
+def active_prompt_paths() -> tuple[list[Path], list[str]]:
     errors: list[str] = []
-    for name in ACTIVE_PROMPTS:
-        path = PROMPT_DIR / name
+    try:
+        registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return [], [f"cannot read lifecycle registry: {exc}"]
+
+    raw = registry.get("active_named_prompts")
+    if not isinstance(raw, list) or not raw:
+        return [], ["lifecycle registry active_named_prompts must be a non-empty array"]
+    expected_count = registry.get("active_named_prompt_count")
+    if expected_count != len(raw):
+        errors.append(
+            f"registry active_named_prompt_count={expected_count} != actual {len(raw)}"
+        )
+    if len(raw) != len(set(raw)):
+        errors.append("registry active_named_prompts contains duplicate paths")
+
+    paths: list[Path] = []
+    for entry in raw:
+        if not isinstance(entry, str) or not entry.strip():
+            errors.append(f"invalid active prompt registry entry: {entry!r}")
+            continue
+        path = ROOT / entry
+        paths.append(path)
+    return paths, errors
+
+
+def check() -> list[str]:
+    paths, errors = active_prompt_paths()
+    for path in paths:
         if not path.exists():
             errors.append(f"missing active prompt: {path.relative_to(ROOT)}")
             continue
         text = path.read_text(encoding="utf-8")
+        head = text[:1200]
+        if "ACTIVE_CANONICAL" not in head:
+            errors.append(f"registered active prompt lacks ACTIVE_CANONICAL header: {path.relative_to(ROOT)}")
+        if "SUPERSEDED" in head or "REFERENCE_ONLY" in head:
+            errors.append(f"retired/reference prompt registered active: {path.relative_to(ROOT)}")
         for token in FORBIDDEN_ACTIVE_TOKENS:
             if token in text:
-                errors.append(f"{path.relative_to(ROOT)} contains retired runtime dependency token: {token}")
+                errors.append(
+                    f"{path.relative_to(ROOT)} contains retired runtime dependency token: {token}"
+                )
     return errors
 
 
@@ -68,8 +84,9 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
+    paths, _ = active_prompt_paths()
     print("RESULT: PASS_V4_NO_ACTIVE_PROMPT_OVERLAYS")
-    print(f"- active named prompts checked: {len(ACTIVE_PROMPTS)}")
+    print(f"- active named prompts checked from registry: {len(paths)}")
     return 0
 
 

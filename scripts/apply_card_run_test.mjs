@@ -244,6 +244,18 @@ relationViaUpdate.operations.update[0].changes = [
 ];
 mustFail(invoke(relationViaUpdate), "RELATION_UPDATE_FORBIDDEN", "relation via update");
 
+const identityMetadata = structuredClone(validRun);
+identityMetadata.operations.update[0].source_spec_id = "LEGACY_UPDATE_SPEC";
+identityMetadata.operations.related_add[0].source_spec_id = "LEGACY_RELATED_SPEC";
+identityMetadata.operations.related_add[0].identity_card_id = "2026-08-01_KR_01";
+mustPass(invoke(identityMetadata, ["--check"]), "metadata-only legacy identities accepted by low-level engine");
+
+const identityMutation = structuredClone(validRun);
+identityMutation.operations.update[0].changes = [
+  { op: "add", path: "/source_spec_id", value: "FORGED_SPEC" }
+];
+mustFail(invoke(identityMutation), "IMMUTABLE_SOURCE_SPEC_ID", "source identity mutation forbidden");
+
 const missingTarget = structuredClone(validRun);
 missingTarget.operations.related_add[0].target_id = "MISSING";
 missingTarget.operations.related_add[0].patches[0].value = "MISSING";
@@ -298,4 +310,4 @@ mustFail(invoke(invalidEvidence), "BLOCKED_EVIDENCE_REFERENCE_INVALID", "invalid
 writeFileSync(fullPath, JSON.stringify({ ...baseline, cards: baseline.cards.map((card, i) => i ? card : { ...card, title: "silent edit" }) }));
 mustFail(invoke(validRun), "BLOCKED_UNDECLARED_CARD_DIFF", "undeclared working diff");
 
-console.log("PASS: apply_card_run_test — positive, idempotent, CRLF format, governance + 14 blockers");
+console.log("PASS: apply_card_run_test — positive, idempotent, CRLF format, governance, metadata-only legacy identities, and identity-mutation blocking");

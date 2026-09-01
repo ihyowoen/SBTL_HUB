@@ -102,7 +102,18 @@ def validate_stage_a_v4_hardening(
             f"{spec_id}: denominator_gap=false requires a non-empty systemic_scale_denominator"
         )
 
-    anchors = set(spec.get("anchor_classes") or []) if isinstance(spec.get("anchor_classes"), list) else set()
+    raw_anchors = spec.get("anchor_classes")
+    anchors: set[str] = set()
+    if isinstance(raw_anchors, list):
+        invalid_anchor_type = False
+        for anchor in raw_anchors:
+            if not isinstance(anchor, str):
+                invalid_anchor_type = True
+                continue
+            anchors.add(anchor)
+        if invalid_anchor_type:
+            messages.append(f"{spec_id}: anchor_classes must contain only strings")
+
     policy_stage = spec.get("policy_stage")
     if policy_stage is not None:
         if isinstance(policy_stage, bool) or not isinstance(policy_stage, int) or not 0 <= policy_stage <= 6:

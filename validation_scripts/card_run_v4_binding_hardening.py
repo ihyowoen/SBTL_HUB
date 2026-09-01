@@ -49,12 +49,29 @@ def axis_matrix(v,required,label):
 def validate_coverage(run):
     a=load(repo_json(run["coverage_discovery_ref"])); axis_matrix(a.get("regional_coverage_matrix"),REGIONS,"0.0C.regional_coverage_matrix"); axis_matrix(a.get("topic_coverage_matrix"),TOPICS,"0.0C.topic_coverage_matrix")
 
+def validate_completeness(run):
+    a=load(repo_json(run["independent_completeness_ref"]))
+    if a.get("stage")!="0.7C": raise Blocked("0.7C stage must be explicit")
+    if a.get("status")!="PASS_WITH_DECLARED_RESIDUAL_RISK" or a.get("completeness_status")!=a.get("status"): raise Blocked("0.7C status/completeness_status must both be PASS_WITH_DECLARED_RESIDUAL_RISK")
+    risks=a.get("residual_risks")
+    if not isinstance(risks,list) or not risks or any(not isinstance(x,str) or not x.strip() for x in risks): raise Blocked("0.7C PASS_WITH_DECLARED_RESIDUAL_RISK requires non-empty residual_risks strings")
+    for field in ("run_id","base_main_commit_sha","base_full_blob_sha"):
+        if a.get(field)!=run.get(field): raise Blocked(f"0.7C {field} must match card run")
+    if a.get("document_universe_manifest_ref")!=run.get("document_universe_manifest_ref"): raise Blocked("0.7C document_universe_manifest_ref must match card run")
+    if a.get("coverage_discovery_ref")!=run.get("coverage_discovery_ref"): raise Blocked("0.7C coverage_discovery_ref must match card run")
+
 def stage(payload,label):
     raw=payload.get("stage")
     if not isinstance(raw,str) or not raw.strip(): raise Blocked(f"{label}.stage required")
     s=ALIASES.get(raw.strip().lower())
     if not s: raise Blocked(f"{label}.stage={raw} is not an ordinary stage; 0.2R/0.3R cannot substitute")
     return s
+
+def validate_stage_binding(payload,run,label):
+    for field in ("run_id","base_main_commit_sha","base_full_blob_sha"):
+        value=payload.get(field)
+        if not isinstance(value,str) or not value.strip(): raise Blocked(f"{label}.{field} required")
+        if value!=run.get(field): raise Blocked(f"{label}.{field} stale or mismatched")
 
 def spec_ids(payload,s):
     ids=set()
@@ -71,7 +88,7 @@ def canonical_map():
 
 def op_spec(kind,op,known,inserted,label):
     if kind=="insert":
-        x=(op.get("card") or {}).get("source_spec_id");
+        x=(op.get("card") or {}).get("source_spec_id")
         if not isinstance(x,str) or not x.strip(): raise Blocked(f"{label}.card.source_spec_id required")
         return x.strip()
     if kind=="update":
@@ -101,8 +118,8 @@ def validate_operations(run):
             refs=op.get("stage_artifacts")
             if not isinstance(refs,list) or not refs: raise Blocked(f"{label}.stage_artifacts required")
             for j,ref in enumerate(refs):
-                p=load(repo_json(ref)); s=stage(p,f"{label}.stage_artifacts[{j}]")
-                if p.get("run_id")!=run.get("run_id") or p.get("base_main_commit_sha")!=run.get("base_main_commit_sha") or p.get("base_full_blob_sha")!=run.get("base_full_blob_sha"): raise Blocked(f"{label}.stage_artifacts[{j}] stale run/baseline binding")
+                p=load(repo_json(ref)); artifact_label=f"{label}.stage_artifacts[{j}]"; s=stage(p,artifact_label)
+                validate_stage_binding(p,run,artifact_label)
                 if expected in spec_ids(p,s): matched.add(s)
             missing=[s for s in STAGES if s not in matched]
             if missing: raise Blocked(f"{label} missing current-run candidate binding at stages {missing}")
@@ -113,9 +130,17 @@ def main():
         try: stage({"stage":"0.2R"},"x")
         except Blocked: pass
         else: raise RuntimeError("revise stage substitution not blocked")
+        try: stage({},"x")
+        except Blocked: pass
+        else: raise RuntimeError("missing declared stage not blocked")
+        sample_run={"run_id":"r","base_main_commit_sha":"a"*40,"base_full_blob_sha":"b"*40}
+        validate_stage_binding({"run_id":"r","base_main_commit_sha":"a"*40,"base_full_blob_sha":"b"*40},sample_run,"artifact")
+        try: validate_stage_binding({"base_main_commit_sha":"a"*40,"base_full_blob_sha":"b"*40},sample_run,"artifact")
+        except Blocked: pass
+        else: raise RuntimeError("missing stage run_id binding not blocked")
         axis_matrix({k:{"status":"searched"} for k in REGIONS},REGIONS,"regions")
         print("PASS: V4 binding hardening self-test"); return 0
-    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","stage_baseline_binding":"PASS"})); return 0
+    run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_completeness(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS"})); return 0
 
 if __name__=="__main__":
     try: raise SystemExit(main())

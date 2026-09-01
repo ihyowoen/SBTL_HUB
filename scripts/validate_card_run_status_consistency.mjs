@@ -25,11 +25,31 @@ const PASSING_STAGE_STATUSES = new Set([
 ]);
 const STATUS_FIELDS = ["status", "artifact_status", "validation_status", "state", "result"];
 const RUN_LEVEL_ARTIFACTS = [
-  ["document_universe_manifest_ref", "Stage 0.0D manifest"],
-  ["coverage_discovery_ref", "Stage 0.0C artifact"],
-  ["independent_completeness_ref", "Stage 0.7C artifact"],
+  ["document_universe_manifest_ref", "Stage 0.0D manifest", "0.0D"],
+  ["coverage_discovery_ref", "Stage 0.0C artifact", "0.0C"],
+  ["independent_completeness_ref", "Stage 0.7C artifact", "0.7C"],
+];
+const REQUIRED_REGION_AXES = [
+  "korea", "north_america", "china", "japan", "europe", "material_global_markets",
+];
+const REQUIRED_TOPIC_AXES = [
+  "cells_chemistries",
+  "materials_components",
+  "pouch_pouch_film_demand",
+  "ess_bess",
+  "ev_charging",
+  "manufacturing_capacity_utilisation",
+  "grid_ai_data_centre_power",
+  "critical_minerals_refining",
+  "recycling",
+  "policy_trade_sanctions_subsidies_localisation",
+  "competitors_customers",
+  "prices_costs_margins",
+  "financing",
+  "safety_recall_commissioning_operation",
 ];
 const normalizeStatus = (value) => String(value).trim().toUpperCase();
+const nonEmptyText = (value) => typeof value === "string" && Boolean(value.trim());
 
 const readJson = (path, label) => {
   let raw;
@@ -80,10 +100,37 @@ const validateBaselineBinding = (payload, run, label, reference) => {
   }
 };
 
-const validateReference = (root, reference, label, kind, run) => {
+const validateCoverageMatrix = (matrix, requiredAxes, label) => {
+  if (!matrix || typeof matrix !== "object" || Array.isArray(matrix)) {
+    fail("BLOCKED_COVERAGE_AXIS_INCOMPLETE", `${label} must be an object`);
+  }
+  for (const axis of requiredAxes) {
+    const row = matrix[axis];
+    if (!row || typeof row !== "object" || Array.isArray(row)) {
+      fail("BLOCKED_COVERAGE_AXIS_INCOMPLETE", `${label}.${axis} is required`);
+    }
+    if (!new Set(["searched", "blocked"]).has(row.status)) {
+      fail("BLOCKED_COVERAGE_AXIS_INCOMPLETE", `${label}.${axis}.status must be searched or blocked`);
+    }
+    if (row.status === "blocked" && !nonEmptyText(row.reason)) {
+      fail("BLOCKED_COVERAGE_AXIS_INCOMPLETE", `${label}.${axis}: blocked requires a non-empty reason`);
+    }
+  }
+};
+
+const validateCoverageAxes = (payload, label, reference) => {
+  if (payload.stage !== "0.0C") {
+    fail("BLOCKED_COVERAGE_AXIS_INCOMPLETE", `${label}: artifact must declare stage=0.0C — ${reference}`);
+  }
+  validateCoverageMatrix(payload.regional_coverage_matrix, REQUIRED_REGION_AXES, `${label}.regional_coverage_matrix`);
+  validateCoverageMatrix(payload.topic_coverage_matrix, REQUIRED_TOPIC_AXES, `${label}.topic_coverage_matrix`);
+};
+
+const validateReference = (root, reference, label, kind, run, expectedStage = null) => {
   const absolute = resolveRepoJson(root, reference, label), payload = readJson(absolute, label);
   const markers = validateAllPresentStatusMarkers(payload, label, reference);
   if (kind === "operation_stage") validateBaselineBinding(payload, run, label, reference);
+  if (expectedStage === "0.0C") validateCoverageAxes(payload, label, reference);
   return { kind, reference, markers };
 };
 
@@ -91,7 +138,9 @@ const validateRun = (run, root = ".") => {
   if (!run || typeof run !== "object" || Array.isArray(run)) fail("INVALID_RUN", "card-run 최상위 객체 필요");
   if (!run.operations || typeof run.operations !== "object" || Array.isArray(run.operations)) fail("INVALID_RUN", "operations 객체 필요");
   const validated = [];
-  for (const [field, label] of RUN_LEVEL_ARTIFACTS) validated.push(validateReference(root, run[field], label, "run_level_governance", run));
+  for (const [field, label, expectedStage] of RUN_LEVEL_ARTIFACTS) {
+    validated.push(validateReference(root, run[field], label, "run_level_governance", run, expectedStage));
+  }
   for (const kind of ["insert", "update", "related_add"]) {
     const operations = run.operations[kind];
     if (!Array.isArray(operations)) fail("INVALID_RUN", `operations.${kind} 배열 필요`);
@@ -113,12 +162,25 @@ const runSelfTest = () => {
     const write = (name, payload) => { const path = join(root, "artifacts", name); mkdirSync(dirname(path), { recursive: true }); writeFileSync(path, `${JSON.stringify(payload, null, 2)}\n`); return `artifacts/${name}`; };
     const mainSha = "b".repeat(40), blobSha = "a".repeat(40);
     const pass = write("pass.json", { status: "PASS", validation_status: "VERIFIED" });
+    const matrix = (axes) => Object.fromEntries(axes.map((axis) => [axis, { status: "searched" }]));
+    const coveragePass = write("coverage.json", {
+      stage: "0.0C", status: "PASS",
+      regional_coverage_matrix: matrix(REQUIRED_REGION_AXES),
+      topic_coverage_matrix: matrix(REQUIRED_TOPIC_AXES),
+    });
+    const coverageMissing = write("coverage-missing.json", {
+      stage: "0.0C", status: "PASS",
+      regional_coverage_matrix: matrix(REQUIRED_REGION_AXES),
+      topic_coverage_matrix: { ess_bess: { status: "searched" } },
+    });
     const baselinePass = write("0.4.json", { stage: "0.4", status: "PASS", base_main_commit_sha: mainSha, base_full_blob_sha: blobSha });
     const stale = write("0.4-stale.json", { stage: "0.4", status: "PASS", base_main_commit_sha: "c".repeat(40), base_full_blob_sha: blobSha });
     const conflict = write("conflict.json", { status: "PASS", validation_status: "FAIL", result: "HOLD" });
-    const makeRun = (operationReference = baselinePass, governanceReference = pass) => ({
+    const makeRun = (operationReference = baselinePass, governanceReference = pass, coverageReference = coveragePass) => ({
       base_main_commit_sha: mainSha, base_full_blob_sha: blobSha,
-      document_universe_manifest_ref: governanceReference, coverage_discovery_ref: pass, independent_completeness_ref: pass,
+      document_universe_manifest_ref: governanceReference,
+      coverage_discovery_ref: coverageReference,
+      independent_completeness_ref: pass,
       operations: { insert: [{ stage_artifacts: [operationReference] }], update: [], related_add: [] },
     });
     validateRun(makeRun(), root);
@@ -126,7 +188,8 @@ const runSelfTest = () => {
     expectCode(makeRun(conflict, pass), "BLOCKED_STAGE_ARTIFACT_CONFLICTING_STATUS", "operation status conflict");
     expectCode(makeRun(pass, conflict), "BLOCKED_STAGE_ARTIFACT_CONFLICTING_STATUS", "run-level governance status conflict");
     expectCode(makeRun(stale, pass), "BLOCKED_STAGE_ARTIFACT_BASELINE_BINDING", "stale 0.4 baseline");
-    console.log("PASS: stage status markers and 0.4 baseline binding are fail-closed");
+    expectCode(makeRun(baselinePass, pass, coverageMissing), "BLOCKED_COVERAGE_AXIS_INCOMPLETE", "missing mandatory coverage axis");
+    console.log("PASS: stage status, 0.4 baseline, and mandatory 0.0C coverage axes are fail-closed");
   } finally { rmSync(root, { recursive: true, force: true }); }
 };
 
@@ -147,7 +210,7 @@ try {
   if (!options.run) fail("INVALID_ARGUMENT", "--run PATH가 필요함");
   const absolute = resolveRepoJson(".", options.run, "card run"), run = readJson(absolute, "card run"), validated = validateRun(run, ".");
   console.log(JSON.stringify({ status: "PASS", run_path: options.run, validated_artifact_count: validated.length, artifacts: validated }, null, 2));
-  console.log(`PASS: ${validated.length} artifacts have passing status markers and current-run baseline bindings where required`);
+  console.log(`PASS: ${validated.length} artifacts have passing status markers and current-run coverage/baseline bindings`);
 } catch (error) {
   if (error instanceof ValidationError) { console.error(`FAIL [${error.code}]: ${error.message}`); process.exit(1); }
   throw error;

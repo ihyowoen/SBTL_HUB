@@ -314,5 +314,56 @@ if (runPath) {
   } catch(e){ err('승인 큐 정합 대조 실패: '+e.message); }
 }
 
+
+// 19) 검색 선언 축 ↔ coverage 항목 매핑 정합 (ERROR, 원장 있을 때만)
+//     검사 #13은 검색이 선언한 (region, axis) 를 그대로 믿는다. 그래서 축을 잘못 적으면 훑지 않은 셀이
+//     스윕된 것으로 올라간다. 2026-09-01 도입 계기: 항목 재검증 30건 중 10건의 축이 그 항목이 실제로
+//     속한 셀과 달랐고, KR/next_tech·EU/next_tech 같은 gap 셀이 허위로 전진했다.
+if (runPath) {
+  try {
+    const r4 = JSON.parse(readFileSync(runPath,'utf8'));
+    const cv4 = JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8'));
+    const home = new Map();
+    for (const c of cv4.cells ?? []) for (const it of c.items ?? []) {
+      if (!home.has(it)) home.set(it, []);
+      home.get(it).push(`${c.region}/${c.axis}`);
+    }
+    for (const s of r4.searches ?? []) {
+      if (!s.region || !s.axis) continue;
+      const its = s.itemsCovered ?? [];
+      if (!its.length) continue;                       // 순수 발굴 검색은 대상 아님
+      const cells = new Set(its.flatMap(x => home.get(x) ?? []));
+      if (!cells.size) continue;                       // coverage 미매핑 항목
+      if (!cells.has(`${s.region}/${s.axis}`))
+        err(`원장 검색 축 불일치: ${its.join(',')} 는 ${[...cells].join(' | ')} 에 속하는데 검색은 ${s.region}/${s.axis} 로 선언 — 훑지 않은 셀이 스윕으로 올라간다`);
+    }
+  } catch(e){ err('검색 축 정합 대조 실패: '+e.message); }
+}
+
+// 20) verify.runId 의 원장 날짜 ↔ verify.date 일치 (ERROR)
+//     #15는 runId 가 실재하는지만 본다. 실재하는 다른 날짜의 원장을 가리켜도 통과하므로,
+//     검사 #6이 건너뛰는 날짜 불일치 경로에서 여전히 근거 없는 스탬프가 살아남는다.
+{
+  const dir = 'ops/runs';
+  const dateOf = new Map();
+  try {
+    for (const f of readdirSync(dir)) {
+      if (!f.endsWith('.json')) continue;
+      try {
+        const j = JSON.parse(readFileSync(`${dir}/${f}`,'utf8'));
+        if (!j.runId) continue;
+        if (dateOf.has(j.runId)) err(`ops/runs: runId ${j.runId} 가 파일 여럿에 중복 — 날짜 대조가 모호해진다`);
+        dateOf.set(j.runId, j.date);
+      } catch(e) { /* #15가 이미 ERROR 로 보고한다 */ }
+    }
+  } catch(e) { /* #15가 이미 ERROR 로 보고한다 */ }
+  if (dateOf.size) for (const i of items) {
+    const v = i.verify; if (!v?.runId || !v?.date) continue;
+    const d0 = dateOf.get(v.runId);
+    if (d0 && d0 !== v.date)
+      err(`${i.id}: verify.date(${v.date}) ≠ 원장 ${v.runId} 의 date(${d0}) — 실재하지만 무관한 원장을 가리킨다`);
+  }
+}
+
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);
 process.exit(E?1:0);

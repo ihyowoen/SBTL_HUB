@@ -44,11 +44,7 @@
   "rd3_tuesdaySlice": {
     "axes": "chemicals(Tue) · next_tech(Tue) + Daily(trade·product_std·supply_chain)",
     "sweptCells": [
-      "CN/trade",
-      "CN/product_std",
-      "JP/energy_market",
-      "EU/chemicals",
-      "CN/next_tech"
+      "EU/chemicals"
     ],
     "findings": {
       "EU/chemicals": "34일 방치 해소. EU-025 무변화(RAC 최종의견 2026.03.02 기수록). **신규 후보 1건 — PFHxA 제한**",
@@ -56,33 +52,38 @@
     },
     "notSwept": [
       "chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일)",
-      "next_tech — GL(30일) · JP(3일) · NA(30일)"
+      "next_tech — CN(1일) · EU(30일) · GL(30일) · JP(3일) · KR(30일) · NA(30일)"
     ],
     "notSweptDaily": [
-      "product_std — EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일)",
-      "supply_chain — EU(1일) · GL(3일) · JP(3일) · NA(1일)",
-      "trade — EU(1일) · GL(1일) · JP(1일) · KR(1일)"
+      "product_std — CN(1일) · EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일)",
+      "supply_chain — CN(3일) · EU(1일) · GL(3일) · JP(3일) · KR(3일) · NA(1일)",
+      "trade — CN(1일) · EU(1일) · GL(1일) · JP(1일) · KR(1일) · NA(1일)"
     ],
-    "notSweptDerived": "coverage.json 의 lastSwept 에서 파생한다(하드코딩 금지). 종전에는 손으로 적어 EU/next_tech·KR/next_tech 를 실제로 스윕했는데도 미스윕으로 남겨, 다음 run 의 잔여 목록을 부풀리고 있었다."
+    "notSweptDerived": "coverage.json 의 lastSwept 에서 파생한다(하드코딩 금지). 종전에는 손으로 적어 EU/next_tech·KR/next_tech 를 실제로 스윕했는데도 미스윕으로 남겨, 다음 run 의 잔여 목록을 부풀리고 있었다.",
+    "honestSummary": "오늘은 발굴 스윕이 EU/chemicals 한 셀뿐이고 나머지는 전부 항목 재검증이었다. 방치 24건 회수가 중심이었으므로 이것이 실제 성격이다 — RD-3 슬라이스를 돌았다고 적을 수 없다."
   },
   "searches": [
     {
       "query": "电池消费税 2026年9月1日 正式实施 锂离子蓄电池 2% 征收 开始 首日",
       "region": "CN",
-      "axis": "trade",
+      "axis": "subsidy",
       "itemsCovered": [
         "CN-028"
       ],
-      "result": "도래 확인. 9.1부터 5종 전지 2%(2027.9.1 4%), 光伏 2027.4.1 2%·2028.4.1 4%, 나트륨이온·고체·연료전지 및 페로브스카이트·적층·비화갈륨 2028.12.31까지 면세. 2015년 장기 면세 정책 종료. 국가세무총국 법규고 게재본 c5251171 확인."
+      "result": "도래 확인. 9.1부터 5종 전지 2%(2027.9.1 4%), 光伏 2027.4.1 2%·2028.4.1 4%, 나트륨이온·고체·연료전지 및 페로브스카이트·적층·비화갈륨 2028.12.31까지 면세. 2015년 장기 면세 정책 종료. 국가세무총국 법규고 게재본 c5251171 확인.",
+      "axisRelabeled": "선언 CN/trade → coverage 매핑 CN/subsidy",
+      "sweepKind": "verify"
     },
     {
       "query": "GB/T 46261-2025 电化学储能电站 火灾监测预警系统 2026年9月1日 实施",
       "region": "CN",
-      "axis": "product_std",
+      "axis": "energy_market",
       "itemsCovered": [
         "CN-038"
       ],
-      "result": "도래 확인. 발포 2025-08-29·실시 2026-09-01, 제품표준, ICS 13.220.20, 귀구 전국소방표준화기술위원회. 가스·온도·연무·압력 다중 파라미터 감시와 EMC·환경 내구성 요건."
+      "result": "도래 확인. 발포 2025-08-29·실시 2026-09-01, 제품표준, ICS 13.220.20, 귀구 전국소방표준화기술위원회. 가스·온도·연무·압력 다중 파라미터 감시와 EMC·환경 내구성 요건.",
+      "axisRelabeled": "선언 CN/product_std → coverage 매핑 CN/energy_market",
+      "sweepKind": "verify"
     },
     {
       "query": "需給調整市場 2026年9月1日 上限価格 10円 適用開始 一次調整力 実需給",
@@ -91,7 +92,8 @@
       "itemsCovered": [
         "JP-004"
       ],
-      "result": "적용 확인. 1차·2차①·복합 상한 10.00엔/ΔkW·30분, 15엔 대비 약 33% 인하. 자원에너지청 2026-07-14 방침. 7.21엔 단계안 잔존."
+      "result": "적용 확인. 1차·2차①·복합 상한 10.00엔/ΔkW·30분, 15엔 대비 약 33% 인하. 자원에너지청 2026-07-14 방침. 7.21엔 단계안 잔존.",
+      "sweepKind": "verify"
     },
     {
       "query": "EU REACH restriction PFAS battery chemicals 2026 August September new regulation adopted ECHA",
@@ -100,14 +102,16 @@
       "itemsCovered": [
         "EU-025"
       ],
-      "result": "EU-025 무변화 확인 — 유니버설 PFAS 제한 갱신 제안 2025-08-20 공표, RAC 최종의견 2026-03-02 채택, SEAC 최종의견 2026년말 목표, 범위는 모든 PFAS·모든 용도(소방포말 제외)+8개 부문 추가. 항목이 이미 담고 있다. **부수 발굴** — PFHxA 제한 2026.04 적용, 소방포말 PFAS 제한 2026.10 적용."
+      "result": "EU-025 무변화 확인 — 유니버설 PFAS 제한 갱신 제안 2025-08-20 공표, RAC 최종의견 2026-03-02 채택, SEAC 최종의견 2026년말 목표, 범위는 모든 PFAS·모든 용도(소방포말 제외)+8개 부문 추가. 항목이 이미 담고 있다. **부수 발굴** — PFHxA 제한 2026.04 적용, 소방포말 PFAS 제한 2026.10 적용.",
+      "sweepKind": "verify"
     },
     {
       "query": "PFHxA restriction EU Regulation 2024/2462 April 2026 application scope fluoropolymer textiles Annex XVII entry 79",
       "region": "EU",
       "axis": "chemicals",
       "itemsCovered": [],
-      "result": "**신규 후보**. Commission Regulation (EU) 2024/2462 of 19 September 2024 가 REACH 부속서 XVII 에 entry 79 신설 — PFHxA·그 염·PFHxA 관련물질 제한. 용도 차등 유예: 소방포말(훈련·시험·공공소방) 18개월 → 2026-04-10 적용, 직물·가죽·모피·의류·신발 24개월. 주요 용도는 종이·판지 식품접촉재·직물·소방포말이며 6:2 아크릴레이트 등 저분자 관련물질이 직물에 연 약 65,000톤. 트래커 0건."
+      "result": "**신규 후보**. Commission Regulation (EU) 2024/2462 of 19 September 2024 가 REACH 부속서 XVII 에 entry 79 신설 — PFHxA·그 염·PFHxA 관련물질 제한. 용도 차등 유예: 소방포말(훈련·시험·공공소방) 18개월 → 2026-04-10 적용, 직물·가죽·모피·의류·신발 24개월. 주요 용도는 종이·판지 식품접촉재·직물·소방포말이며 6:2 아크릴레이트 등 저분자 관련물질이 직물에 연 약 65,000톤. 트래커 0건.",
+      "sweepKind": "discovery"
     },
     {
       "query": "solid state battery sodium ion standard regulation 2026 EU Korea adopted next generation battery technical requirement",
@@ -116,7 +120,8 @@
       "itemsCovered": [
         "CN-012"
       ],
-      "result": "무변화. GB/T 43568-2026 2026.07.01 시행(CN-012 기추적). 중국 주도 IEC 전고체 국제표준 프로젝트에 프랑스·한국·일본 참여 — 8/29 감사에서 이미 승인 큐 등재. EU EV-26 표준 언급은 1차 확인 실패로 기재하지 않는다."
+      "result": "무변화. GB/T 43568-2026 2026.07.01 시행(CN-012 기추적). 중국 주도 IEC 전고체 국제표준 프로젝트에 프랑스·한국·일본 참여 — 8/29 감사에서 이미 승인 큐 등재. EU EV-26 표준 언급은 1차 확인 실패로 기재하지 않는다.",
+      "sweepKind": "verify"
     },
     {
       "query": "국무회의 2026년 9월 1일 조세특례제한법 개정안 국내생산 세액공제 의결 정기국회 제출",
@@ -125,7 +130,8 @@
       "itemsCovered": [
         "KR-003"
       ],
-      "result": "일정만 재확인(08.03 발표→08.04~20 입법예고→08.27 차관회의→09.01 국무회의→09.03 이전 제출). 6대 분야에 이차전지 포함. **오늘 의결의 실제 실행은 미확인** — 근거 링크가 전부 8월 공표 일정표다. WATCH 유지."
+      "result": "일정만 재확인(08.03 발표→08.04~20 입법예고→08.27 차관회의→09.01 국무회의→09.03 이전 제출). 6대 분야에 이차전지 포함. **오늘 의결의 실제 실행은 미확인** — 근거 링크가 전부 8월 공표 일정표다. WATCH 유지.",
+      "sweepKind": "verify"
     },
     {
       "query": "Section 232 unmanned aircraft systems tariff September 3 2026 annex components lithium-ion battery HTS subheading",
@@ -134,7 +140,8 @@
       "itemsCovered": [
         "NA-043"
       ],
-      "result": "세율·발효·국가상한 확인 후 관보 원문으로 승격 검증. 2차 해설의 Blue UAS 유예일(2027.03.03)이 본문 문언(포고일 기산 180일=2027.02.09)과 어긋나 본문을 따랐다."
+      "result": "세율·발효·국가상한 확인 후 관보 원문으로 승격 검증. 2차 해설의 Blue UAS 유예일(2027.03.03)이 본문 문언(포고일 기산 180일=2027.02.09)과 어긋나 본문을 따랐다.",
+      "sweepKind": "verify"
     },
     {
       "query": "GB 47372-2026 移动电源 安全技术规范 实施日期 强制性国家标准",
@@ -143,16 +150,19 @@
       "itemsCovered": [
         "CN-016"
       ],
-      "result": "무변화. 발포 2026-03-31·실시 2027-04-01·12개월 경과기간 일치. 신규 사실 — 순환노화 후 석리 검출 신설."
+      "result": "무변화. 발포 2026-03-31·실시 2027-04-01·12개월 경과기간 일치. 신규 사실 — 순환노화 후 석리 검출 신설.",
+      "sweepKind": "verify"
     },
     {
       "query": "工信部 电动自行车 锂离子电池 回收利用 通知 2026 小型锂电池 回收 政策 进展",
       "region": "CN",
-      "axis": "recycle",
+      "axis": "product_std",
       "itemsCovered": [
         "CN-011"
       ],
-      "result": "통지 실재 확인 후 원문 메타로 승격. 工信厅联节函〔2026〕134号(2026-03-28). 별건으로 电动自行车锂离子电池回收和综合利用管理办法 제정 진행 중."
+      "result": "통지 실재 확인 후 원문 메타로 승격. 工信厅联节函〔2026〕134号(2026-03-28). 별건으로 电动自行车锂离子电池回收和综合利用管理办法 제정 진행 중.",
+      "axisRelabeled": "선언 CN/recycle → coverage 매핑 CN/product_std",
+      "sweepKind": "verify"
     },
     {
       "query": "ADR 2027 special provision SP680 damaged defective lithium batteries CN.252.2026 objection period 1 October 2026",
@@ -161,7 +171,8 @@
       "itemsCovered": [
         "EU-030"
       ],
-      "result": "무변화. SP680 실질 요건 특정 — P911 연계, 탁송인이 포장 사용 주위조건 설명을 하역자·운송인에 제공하고 운송서류에 첨부. CN.252.2026 이의기간은 이번 검색으로는 재확인 못 함(기록 유지)."
+      "result": "무변화. SP680 실질 요건 특정 — P911 연계, 탁송인이 포장 사용 주위조건 설명을 하역자·운송인에 제공하고 운송서류에 첨부. CN.252.2026 이의기간은 이번 검색으로는 재확인 못 함(기록 유지).",
+      "sweepKind": "verify"
     },
     {
       "query": "자원재활용법 포장재 재질구조 등급표시 2026 개정 시행 환경부 평가 결과 표시 의무",
@@ -170,16 +181,19 @@
       "itemsCovered": [
         "KR-027"
       ],
-      "result": "평가·표시 절차 일치 확인. 신규 — 현행 고시가 제2023-46호(시행 2024.01.01)임을 확인해 제정본만 담긴 기재를 보정. 과태료 300만원 이하는 2차 출처뿐이라 미기재."
+      "result": "평가·표시 절차 일치 확인. 신규 — 현행 고시가 제2023-46호(시행 2024.01.01)임을 확인해 제정본만 담긴 기재를 보정. 과태료 300만원 이하는 2차 출처뿐이라 미기재.",
+      "sweepKind": "verify"
     },
     {
       "query": "GB 43352-2023 快递包装 重金属与特定物质限量 实施 2026 复合材料 检测 执行情况",
       "region": "CN",
-      "axis": "product_std",
+      "axis": "packaging",
       "itemsCovered": [
         "CN-034"
       ],
-      "result": "무변화. 2024-06-01 시행·복합재료 선언의무 일치. 신규 — 식품 직접접촉 쾌체포장 비적용."
+      "result": "무변화. 2024-06-01 시행·복합재료 선언의무 일치. 신규 — 식품 직접접촉 쾌체포장 비적용.",
+      "axisRelabeled": "선언 CN/product_std → coverage 매핑 CN/packaging",
+      "sweepKind": "verify"
     },
     {
       "query": "商务部 对日本 两用物项 出口管制 2026 公告 最新 管制清单 更新",
@@ -188,7 +202,8 @@
       "itemsCovered": [
         "CN-033"
       ],
-      "result": "**누락 발견** — 公告2026年第27号(2026-06-29, 20사 추가)이 트래커에 없었다. 원문으로 승격 검증 후 반영, 관공명단 누계 60사."
+      "result": "**누락 발견** — 公告2026年第27号(2026-06-29, 20사 추가)이 트래커에 없었다. 원문으로 승격 검증 후 반영, 관공명단 누계 60사.",
+      "sweepKind": "verify"
     },
     {
       "query": "发改价格 2026 114号 容量电价 新型储能 独立储能 后续 细则 省级 落实 2026年8月",
@@ -197,16 +212,19 @@
       "itemsCovered": [
         "CN-037"
       ],
-      "result": "발개위 원문으로 승격 검증. 성급 이행 — 吉林·新疆·辽宁·陕西·青海 5개 성 세칙 출범, 陕西 165元/kW·年(2차 출처)."
+      "result": "발개위 원문으로 승격 검증. 성급 이행 — 吉林·新疆·辽宁·陕西·青海 5개 성 세칙 출범, 陕西 165元/kW·年(2차 출처).",
+      "sweepKind": "verify"
     },
     {
       "query": "再生黑粉 进口管理 公告 锂电池 2026 实施 情况 海关 固体废物 再生原料",
       "region": "CN",
-      "axis": "supply_chain",
+      "axis": "recycle",
       "itemsCovered": [
         "CN-021"
       ],
-      "result": "무변화. **오기 1건 정정** — 발포 주체가 6부처인데 d가 5부처로 적혀 있었다(detail은 六部门, 항목 내 불일치). 신규 — 64항 행업표준으로 수입 검사규정 표준화."
+      "result": "무변화. **오기 1건 정정** — 발포 주체가 6부처인데 d가 5부처로 적혀 있었다(detail은 六部门, 항목 내 불일치). 신규 — 64항 행업표준으로 수입 검사규정 표준화.",
+      "axisRelabeled": "선언 CN/supply_chain → coverage 매핑 CN/recycle",
+      "sweepKind": "verify"
     },
     {
       "query": "GB/T 43568-2026 电动汽车用固态电池 术语和分类 实施 2026年7月1日 液态电解质 5%",
@@ -215,7 +233,8 @@
       "itemsCovered": [
         "CN-012"
       ],
-      "result": "무변화. 분류 임계값·120℃ 진공 6h 실중률 ≤0.5% 일치. 오늘 CN-028 소비세 면세 판정선과 직결."
+      "result": "무변화. 분류 임계값·120℃ 진공 6h 실중률 ≤0.5% 일치. 오늘 CN-028 소비세 면세 판정선과 직결.",
+      "sweepKind": "verify"
     },
     {
       "query": "CISAF Clean Industrial Deal State Aid Framework 2026 amendment decisions approved battery manufacturing aid",
@@ -224,7 +243,8 @@
       "itemsCovered": [
         "EU-032"
       ],
-      "result": "무변화. 첫 승인 SA.115764가 프랑스 해상풍력 110억 유로임을 확인. 신규 신호 — 업계가 제6.2조 개정(생산량 연동 지원)을 요구 중이나 집행위 개정안 없음."
+      "result": "무변화. 첫 승인 SA.115764가 프랑스 해상풍력 110억 유로임을 확인. 신규 신호 — 업계가 제6.2조 개정(생산량 연동 지원)을 요구 중이나 집행위 개정안 없음.",
+      "sweepKind": "verify"
     },
     {
       "query": "국가첨단전략산업 특별법 2026 개정 시행 이차전지 국가첨단전략기술 지정 고시 변경",
@@ -233,7 +253,8 @@
       "itemsCovered": [
         "KR-021"
       ],
-      "result": "무변화. 고시 제2023-108호·17개 기술 유지, 2026년 이차전지 지정 변경 미확인. 시행규칙 개정은 입법예고 단계."
+      "result": "무변화. 고시 제2023-108호·17개 기술 유지, 2026년 이차전지 지정 변경 미확인. 시행규칙 개정은 입법예고 단계.",
+      "sweepKind": "verify"
     },
     {
       "query": "GB/T 46991.1-2025 电动汽车车载动力电池耐久性 要求及试验方法 轻型汽车 实施日期",
@@ -242,7 +263,8 @@
       "itemsCovered": [
         "CN-029"
       ],
-      "result": "무변화. 발포 2025-12-31·실시 2026-07-01 일치. 신규 — 적용 범위 N1류 및 3500kg 이하 M1·M2류, 3500kg 초과 M1은 参照执行."
+      "result": "무변화. 발포 2025-12-31·실시 2026-07-01 일치. 신규 — 적용 범위 N1류 및 3500kg 이하 M1·M2류, 3500kg 초과 M1은 参照执行.",
+      "sweepKind": "verify"
     },
     {
       "query": "GB 36980.1-2025 电动汽车能量消耗量限值 M1 实施 2026 强制性 国家标准 进展",
@@ -251,43 +273,52 @@
       "itemsCovered": [
         "CN-017"
       ],
-      "result": "무변화. 발포 2025-05-30·실시 2026-01-01·GB/T 36980-2018 전부 대체 일치."
+      "result": "무변화. 발포 2025-05-30·실시 2026-01-01·GB/T 36980-2018 전부 대체 일치.",
+      "sweepKind": "verify"
     },
     {
       "query": "중소벤처기업부 산업통상자원부 무공해차 보급목표제 2026 저공해차 판매비중 고시 개정",
       "region": "KR",
-      "axis": "next_tech",
+      "axis": "subsidy",
       "itemsCovered": [
         "KR-020"
       ],
-      "result": "**누락 발견** — 2026.01.05 기후에너지환경부 보급목표 개정 고시가 트래커에 없었다. 무공해차 2028년 36%·2029년 43%·2030년 50% 확인. 2026년도 수치는 2차 출처 자체 모순 + 원문 별표 미렌더로 미확정."
+      "result": "**누락 발견** — 2026.01.05 기후에너지환경부 보급목표 개정 고시가 트래커에 없었다. 무공해차 2028년 36%·2029년 43%·2030년 50% 확인. 2026년도 수치는 2차 출처 자체 모순 + 원문 별표 미렌더로 미확정.",
+      "axisRelabeled": "선언 KR/next_tech → coverage 매핑 KR/subsidy",
+      "sweepKind": "verify"
     },
     {
       "query": "한국수출입은행법 시행령 일부개정 대통령령 제36420호 직접투자 연계의무 폐지 시행",
       "region": "KR",
-      "axis": "subsidy",
+      "axis": "supply_chain",
       "itemsCovered": [
         "KR-014"
       ],
-      "result": "내용 보강 3건(간접투자 대상 확대·25% 한도 삭제·15% 지분한도 예외). **시행일 불일치** — 2차 출처가 시행령 2026.07.01 / 모법 2026.06.24로 구분. 원문 대조 전까지 기존 기재 유지."
+      "result": "내용 보강 3건(간접투자 대상 확대·25% 한도 삭제·15% 지분한도 예외). **시행일 불일치** — 2차 출처가 시행령 2026.07.01 / 모법 2026.06.24로 구분. 원문 대조 전까지 기존 기재 유지.",
+      "axisRelabeled": "선언 KR/subsidy → coverage 매핑 KR/supply_chain",
+      "sweepKind": "verify"
     },
     {
       "query": "산업통상자원부 희토류 공급망 종합대책 2026 후속 추진 상황 영구자석 비축",
       "region": "KR",
-      "axis": "supply_chain",
+      "axis": "energy_market",
       "itemsCovered": [
         "KR-016"
       ],
-      "result": "무변화 + 후속 보강. HSK 코드 신설·세분화, P턴 기업 공급망기금 현지 시설투자 지원, 영구자석 재자원화·공공비축 확대."
+      "result": "무변화 + 후속 보강. HSK 코드 신설·세분화, P턴 기업 공급망기금 현지 시설투자 지원, 영구자석 재자원화·공공비축 확대.",
+      "axisRelabeled": "선언 KR/supply_chain → coverage 매핑 KR/energy_market",
+      "sweepKind": "verify"
     },
     {
       "query": "新能源汽车 车辆购置税 减免 2026年 减半 政策 执行情况 15000元 上限",
       "region": "CN",
-      "axis": "subsidy",
+      "axis": "trade",
       "itemsCovered": [
         "CN-001"
       ],
-      "result": "무변화 + 구조 보강. 집행기간 2026.01.01~2027.12.31, 실효 5%, 상한 ¥15,000(직전 ¥30,000의 절반), 목록 등재·减免税标识 요건."
+      "result": "무변화 + 구조 보강. 집행기간 2026.01.01~2027.12.31, 실효 5%, 상한 ¥15,000(직전 ¥30,000의 절반), 목록 등재·减免税标识 요건.",
+      "axisRelabeled": "선언 CN/subsidy → coverage 매핑 CN/trade",
+      "sweepKind": "verify"
     },
     {
       "query": "GB/T 45915-2025 动力锂电池 运输安全 多式联运 技术要求 2026年2月1日 实施",
@@ -296,7 +327,8 @@
       "itemsCovered": [
         "CN-035"
       ],
-      "result": "무변화. 발포 2025-08-01·실시 2026-02-01·분급·폐구전지 포장요건 일치."
+      "result": "무변화. 발포 2025-08-01·실시 2026-02-01·분급·폐구전지 포장요건 일치.",
+      "sweepKind": "verify"
     },
     {
       "query": "Regulation EU 2024/1747 electricity market design implementation 2026 deadline PPA CfD member states transposition",
@@ -305,7 +337,8 @@
       "itemsCovered": [
         "EU-031"
       ],
-      "result": "**신규 1건** — 2026.01.01부터 일중 존간 게이트 클로저 타임 60분→30분 단축이 기재에 없었다. 올해 초 발효한 시장규칙 변경."
+      "result": "**신규 1건** — 2026.01.01부터 일중 존간 게이트 클로저 타임 60분→30분 단축이 기재에 없었다. 올해 초 발효한 시장규칙 변경.",
+      "sweepKind": "verify"
     },
     {
       "query": "工信部 十五五 全固态电池 L3 自动驾驶 路线图 2026 进展 政策",
@@ -314,7 +347,8 @@
       "itemsCovered": [
         "CN-003"
       ],
-      "result": "**내용 대폭 보강** — 2025.12.15 첫 L3 진입허가 명단(长安·北汽极狐, 베이징·충칭, 2026 1분기 시범), 2026.01.14 工信部 전고체 중점 공관 명시."
+      "result": "**내용 대폭 보강** — 2025.12.15 첫 L3 진입허가 명단(长安·北汽极狐, 베이징·충칭, 2026 1분기 시범), 2026.01.14 工信部 전고체 중점 공관 명시.",
+      "sweepKind": "verify"
     },
     {
       "query": "소재부품장비 특별조치법 2026 개정 시행 공급망 안정화 산업통상자원부 소부장",
@@ -323,16 +357,19 @@
       "itemsCovered": [
         "KR-022"
       ],
-      "result": "무변화 + 연혁 보강. 현행 법률 제21065호(2025.10.01 공포·2026.01.02 시행). 시행령 4개 골자, 시행규칙 입법예고 중. **지난 run에서 묶음 쿼리로 못 덮었던 항목이 규범별 쿼리로 산출됐다.**"
+      "result": "무변화 + 연혁 보강. 현행 법률 제21065호(2025.10.01 공포·2026.01.02 시행). 시행령 4개 골자, 시행규칙 입법예고 중. **지난 run에서 묶음 쿼리로 못 덮었던 항목이 규범별 쿼리로 산출됐다.**",
+      "sweepKind": "verify"
     },
     {
       "query": "AFIR Regulation 2023/1804 alternative fuels infrastructure 2026 targets deadline recharging pools heavy duty",
       "region": "EU",
-      "axis": "next_tech",
+      "axis": "downstream",
       "itemsCovered": [
         "EU-033"
       ],
-      "result": "무변화. 발효 2023-10-12·적용 2024-04-13. 2026.01.01까지 집행위 NPF 평가 보고 시한이 올해 확인점."
+      "result": "무변화. 발효 2023-10-12·적용 2024-04-13. 2026.01.01까지 집행위 NPF 평가 보고 시한이 올해 확인점.",
+      "axisRelabeled": "선언 EU/next_tech → coverage 매핑 EU/downstream",
+      "sweepKind": "verify"
     }
   ],
   "approvalQueueCandidates": [
@@ -416,8 +453,8 @@
     "why": "전수 재검증 미완. 이번 run 은 RD-1 도래 3건, D-2 2건, 방치 24건 중 22건 회수에 집중했고 나머지 축의 정기 스윕은 부분만 수행했다.",
     "incompleteStages": [
       "RD-2 권역 클러스터 미실시",
-      "RD-3 화요일 슬라이스 미스윕 — chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일) / next_tech — GL(30일) · JP(3일) · NA(30일)",
-      "Daily 축 미스윕 — product_std — EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일) / supply_chain — EU(1일) · GL(3일) · JP(3일) · NA(1일) / trade — EU(1일) · GL(1일) · JP(1일) · KR(1일)"
+      "RD-3 화요일 슬라이스 — 발굴 스윕은 EU/chemicals 1셀뿐. 미스윕 chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일) / next_tech — CN(1일) · EU(30일) · GL(30일) · JP(3일) · KR(30일) · NA(30일)",
+      "Daily 축 미스윕 — product_std — CN(1일) · EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일) / supply_chain — CN(3일) · EU(1일) · GL(3일) · JP(3일) · KR(3일) · NA(1일) / trade — CN(1일) · EU(1일) · GL(1일) · JP(1일) · KR(1일) · NA(1일)"
     ],
     "unverifiedScope": {
       "staleCount": 2,
@@ -441,7 +478,7 @@
     "d·detail 숫자 불일치 전수 점검 — CN-021(5부처 vs 六部门) 유형",
     "EU-038 일몰재심 창구 2026.09 — 관보 일몰 예고 공고 확인. EUR-Lex WAF 차단 상태",
     "EU-033 — 2026.01.01 집행위 NPF 평가 보고서 공표 여부",
-    "미스윕 축(coverage 파생) — chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일) / next_tech — GL(30일) · JP(3일) · NA(30일) / product_std — EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일) / supply_chain — EU(1일) · GL(3일) · JP(3일) · NA(1일) / trade — EU(1일) · GL(1일) · JP(1일) · KR(1일)"
+    "미스윕 축(coverage 파생) — chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일) / next_tech — CN(1일) · EU(30일) · GL(30일) · JP(3일) · KR(30일) · NA(30일) / product_std — CN(1일) · EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일) / supply_chain — CN(3일) · EU(1일) · GL(3일) · JP(3일) · KR(3일) · NA(1일) / trade — CN(1일) · EU(1일) · GL(1일) · JP(1일) · KR(1일) · NA(1일)"
   ],
   "primaryDocs": [
     {
@@ -569,29 +606,31 @@
   },
   "coverageStamped": {
     "cells": [
-      "CN/energy_market",
-      "CN/next_tech",
+      "EU/chemicals"
+    ],
+    "count": 1,
+    "criterion": "원장 검색의 itemsCovered 가 비어 있는 발굴형 검색이 실행된 셀만 스탬프한다.",
+    "revertedItemVerifyOnly": [
+      "NA/trade",
+      "CN/trade",
+      "EU/subsidy",
+      "CN/subsidy",
+      "KR/subsidy",
       "CN/product_std",
       "CN/recycle",
-      "CN/subsidy",
-      "CN/supply_chain",
-      "CN/trade",
-      "CN/transport",
-      "EU/chemicals",
-      "EU/energy_market",
-      "EU/next_tech",
-      "EU/subsidy",
-      "EU/transport",
-      "JP/energy_market",
-      "KR/next_tech",
-      "KR/packaging",
-      "KR/subsidy",
       "KR/supply_chain",
-      "NA/trade"
+      "EU/transport",
+      "CN/transport",
+      "CN/packaging",
+      "KR/packaging",
+      "EU/energy_market",
+      "CN/energy_market",
+      "KR/energy_market",
+      "JP/energy_market",
+      "CN/next_tech",
+      "EU/downstream"
     ],
-    "count": 19,
-    "orphanAxes": [],
-    "note": "원장 searches 의 (region, axis) 근거가 있는 셀에만 스탬프. coverage 에 없는 축은 orphanAxes."
+    "note": "항목 재검증만 이뤄진 18셀은 lastSwept 를 되돌리고 itemVerifyQueries-2026-09-01 로만 남겼다."
   },
   "selfCaught2": {
     "finding": "KR-004·KR-006 의 verify.date 를 오늘로 밀었으나 원장에 이 두 항목을 덮는 검색 근거가 없었다.",
@@ -724,6 +763,61 @@
         }
       ],
       "lesson": "**항목에 기록된 판단 근거를 읽지 않고 일반 규칙만 적용하면 근거가 어긋난다**(KR-020). 그리고 예외 경로 시험은 하나로 끝내면 안 된다 — 원장 1개 파손은 봤고 전부 파손은 안 봤다. 파생 가능한 값을 손으로 적으면 반드시 어긋난다는 것도 또 확인했다(미스윕 목록)."
+    },
+    "round3": {
+      "source": "PR #302 Copilot Review 3차 (reviewed commit aef117f, 2026-09-01 04:22Z, 지적 6건)",
+      "note": "6건 전부 실재. **그중 축 라벨 건은 지적이 2건이었으나 전수 감사하니 10건이었다.**",
+      "items": [
+        {
+          "id": "원장 검색 축",
+          "sev": "P1",
+          "verdict": "실재 — 지적보다 넓음",
+          "finding": "KR-020 은 KR/subsidy, EU-033 은 EU/downstream 인데 둘 다 next_tech 로 선언해 빈 gap 셀을 허위 전진시켰다는 지적. 전수 감사 결과 **30건 중 10건**이 같은 문제였다",
+          "root": "축을 coverage 매핑이 아니라 쿼리의 주제 인상으로 달았다. 검사 #13이 선언 축을 그대로 믿으므로 이 경로로 스윕 위장이 통과한다",
+          "fix": "10건 전부 coverage 매핑으로 재분류. **검사 #19 신설** — itemsCovered 가 속한 셀과 선언 축이 다르면 ERROR"
+        },
+        {
+          "id": "스윕 vs 재검증",
+          "sev": "P1",
+          "verdict": "리뷰가 연 문제 — 자체 확장",
+          "finding": "리뷰의 지적을 확인하다 더 근본적인 것이 드러났다. RUNBOOK 은 셀 queries 를 현 항목과 무관한 **사전 정의**로 규정하고 lastSwept 는 그 셀을 훑은 날이다. 오늘 나는 특정 규범을 지목한 항목 재검증 쿼리로 19셀을 스탬프했다",
+          "root": "재검증과 발굴을 같은 것으로 다뤘다. 실제로 훑지 않은 셀이 lastSwept 로 최신이 되면 RD-3 로테이션(오래된 순 + gap 우선)에서 뒤로 밀린다 — 커버리지 공백이 이렇게 굳는다",
+          "fix": "판정 기준을 객관화했다 — **원장 검색의 itemsCovered 가 비어 있으면 발굴, 차 있으면 항목 재검증**이다. 발굴 셀만 lastSwept 를 전진시킨다. 처음에는 쿼리에 규범 식별자가 있는지로 갈랐으나 `电池消费税 2026年9月1日 正式实施` 처럼 식별자 없이도 특정 항목을 지목한 쿼리를 걸러내지 못해 13셀이 남았다. 기준을 바꾸니 오늘 발굴 스윕은 **EU/chemicals 한 셀**뿐이고 나머지 18셀을 원복했다. 셀 queries 도 사전 정의본으로 원복해 RUNBOOK 3~6 범위를 회복했다."
+        },
+        {
+          "id": "validate2 #15",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "runId 만 보고 원장의 date 를 버려, 실재하지만 무관한 원장(예: verify.date=09-01 인데 runId=2026-07-27-RD)을 가리켜도 통과한다",
+          "root": "#15를 '실재하는가'로만 설계했다. #6이 건너뛰는 경로를 막으려던 검사인데 같은 경로가 남았다",
+          "fix": "**검사 #20 신설** — runId→원장 date 맵을 만들어 verify.date 와 대조하고 runId 중복도 ERROR. 실측 불일치 0건이라 예외 없이 건다"
+        },
+        {
+          "id": "JP policies desc",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "watchpoint 는 10엔 적용을 알리는데 같은 패널의 policies desc 는 19.51→15엔에 머물러 한 화면에 모순된 현재값이 보인다",
+          "root": "tracker 항목과 region_policy watchpoint 는 고쳤으나 region_policy 의 policies 배열을 안 봤다 — **오늘 네 번째 같은 유형**",
+          "fix": "policies desc 를 10엔 단계로 동기화"
+        },
+        {
+          "id": "PR 본문 승인 목록",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "PR 본문은 승인 대기 3건만 적는데 원장에는 5건(+CN-011 +KR-020 정책판단)이다. 리뷰어가 전체 승인 범위를 못 보고 승인할 수 있다",
+          "root": "PR 본문을 첫 커밋 시점에 쓰고 이후 갱신하지 않았다",
+          "fix": "PR 본문의 승인 절을 5건으로 갱신(별도 수행)"
+        },
+        {
+          "id": "coverage queries 개수",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "CN/product_std 가 7개로 RUNBOOK 의 3~6 범위를 넘고 GB/T 46261 쿼리 2건이 특정도만 다른 중복이다",
+          "root": "항목 재검증 쿼리를 셀의 사전 정의 queries 에 덧붙였다 — 위 '스윕 vs 재검증'과 같은 뿌리",
+          "fix": "queries 를 사전 정의본으로 원복해 해소. 재검증 쿼리는 별도 필드로 분리"
+        }
+      ],
+      "lesson": "**리뷰가 두 건을 짚었을 때 그 두 건만 고치면 안 된다** — 같은 유형을 전수로 훑으니 10건이었다. 그리고 오늘 네 번째로 같은 뿌리를 만났다: 한 곳을 고치고 같은 사실을 담은 다른 곳을 안 본다(CN-021 d↔detail, CN-003·EU-031·KR-020 detail만, meta snapshotNote, 그리고 JP policies desc)."
     }
   },
   "selfAudit": {

@@ -42,6 +42,19 @@ For systemic scale/coverage, state `systemic_scale_denominator` when a defensibl
 
 Bands: 85–100 critical structural; 70–84 high decision value; 55–69 material industry signal; 40–54 standard monitoring; 25–39 context/reinforcement; 0–24 low independent value. Do not double-count transmission effects.
 
+### 4.1 Machine-required cap metadata
+Every strict item must emit all three fields below so the hard caps are machine-verifiable rather than prose-only:
+
+- `technology_evidence_level`: `not_applicable|company_target_or_unsupported_claim|laboratory_unvalidated|pilot_precommercial|independent_test_or_customer_qualification|commercial_scale_or_long_duration_field|material_failure_evidence`;
+- `policy_stage`: `null` or integer `0..6`; a `policy_regulatory_anchor` requires `0..6`;
+- `novelty_cap_basis`: `none|repeated_announcement_no_new_fact|routine_progression_no_material_uncertainty|company_target_without_validation_or_effect|unsupported_political_rhetoric`.
+
+Technology component ceilings are hard: `not_applicable` 0/20, company target/unsupported 4/20, laboratory-unvalidated 7/20, pilot/precommercial 11/20, independent test/customer qualification 15/20, commercial-scale/long-duration field or material failure evidence up to 20/20.
+
+Policy-stage total ceilings are hard: stage 0 max 39, stage 1 max 54, stage 2 max 69; stages 3–6 have no automatic total ceiling.
+
+Novelty total ceilings are hard: repeated announcement/no new fact max 39; routine progression/no material uncertainty max 54; company target without independent validation/current observable effect max 54; unsupported political rhetoric max 39. Use `none` only when none of those cap conditions applies.
+
 ## 5. Novelty caps
 - repeated announcement/republication no new fact: max 39;
 - routine stage progression resolving no material uncertainty: max 54;
@@ -81,6 +94,8 @@ The active Stage A machine shape is:
 
 **Strict queue rule:** every object placed in `strict_passed_spec[]` must have `related_prepass.status = PASS`, `same_event_checked = true`, `earliest_same_event_check_status = PASS`, and `duplicate_disposition = no_duplicate_found`. `HOLD`, `same_event_duplicate`, `existing_card_reinforcement`, and `uncertain_needs_review` belong outside the strict Stage B queue.
 
+When `duplicate_disposition = no_duplicate_found`, `relation_candidates[]` must not contain `same_event_duplicate`, `existing_card_reinforcement`, or `uncertain_needs_review`; those are semantic contradictions and block strict passage.
+
 For `distinct_follow_up` or `program_lineage`, `anchor_class_to_verify` must be one active anchor class and `incremental_anchor_question` must be non-empty. `fresh_anchor_questions[]` is non-empty for strict/high-potential items.
 
 Clear same-event duplicates do not enter normal Stage B new-card queue. Probable follow-ups carry exact predecessor and evidence questions forward. Stage A does not lock final `related[]`.
@@ -101,7 +116,7 @@ Tag applicable lenses: AI/data-centre power/ESS; US/EU/CN policy; critical mater
 Non-strict items are explicitly partitioned into `candidate_review_pool` with subtype `general_candidate|structural_signal_review|earnings_deep_dive`, `watchlist_context_pool`, `reject_or_support_only_pool`, plus separate duplicate/reinforcement/update outcomes where supported. Each review item records reason, promotion precondition, bounded review question, and recommended action. Only 0.1P may promote a review item.
 
 ## 13. Strict eligibility
-Strict requires lane fit, at least one valid anchor class, incremental information, decision value, plausible source direction/path, freshness, acceptable duplicate/follow-up treatment, independent cardability/full-schema viability, a **PASS** Related pre-pass, and item-specific Stage B evidence targets.
+Strict requires lane fit, at least one valid anchor class, incremental information, decision value, plausible source direction/path, freshness, acceptable duplicate/follow-up treatment, independent cardability/full-schema viability, a **PASS** Related pre-pass, item-specific Stage B evidence targets, and machine-valid score-cap metadata.
 
 ## 14. Required strict object core
 ```json
@@ -115,6 +130,9 @@ Strict requires lane fit, at least one valid anchor class, incremental informati
   "decision_value_breakdown": {},
   "decision_value_classification": "",
   "publication_urgency": {},
+  "technology_evidence_level": "not_applicable",
+  "policy_stage": null,
+  "novelty_cap_basis": "none",
   "systemic_scale_denominator": null,
   "denominator_gap": "required when systemic_scale_denominator is null",
   "prior_state": "",
@@ -132,7 +150,7 @@ Strict requires lane fit, at least one valid anchor class, incremental informati
   "why_execution_event_not_required": null
 }
 ```
-The eight score components sum exactly to total. `systemic_scale_denominator` and `denominator_gap` must obey the 2/5 cap rule above.
+The eight score components sum exactly to total. `systemic_scale_denominator` and `denominator_gap` must obey the 2/5 cap rule above. The three cap-metadata fields must obey §4.1 and the resulting component/total ceiling is machine-enforced.
 
 ## 15. Stage exit
-Account for every input event. Emit strict specs, partitioned review/watch/support/reject pools, duplicate/reinforcement/update dispositions, summary counts, selection-route counts, score-band counts, anchor/lens coverage, high-value review IDs, follow-up IDs, and zero-coverage domains. Record current prompt path/SHA provenance. A missing or malformed Related pre-pass, denominator attestation, or integrated news-value core blocks Stage B recommendation.
+Account for every input event. Emit strict specs, partitioned review/watch/support/reject pools, duplicate/reinforcement/update dispositions, summary counts, selection-route counts, score-band counts, anchor/lens coverage, high-value review IDs, follow-up IDs, and zero-coverage domains. Record current prompt path/SHA provenance. A missing or malformed Related pre-pass, denominator attestation, score-cap metadata, or integrated news-value core blocks Stage B recommendation.

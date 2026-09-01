@@ -142,15 +142,18 @@ function validateEditorialHardCaps(manifest) {
       fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: total score exceeds novelty_cap_basis=${noveltyBasis} cap ${noveltyCap}`);
     }
 
-    if (typeof attestation.denominator_gap !== "boolean") {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: denominator_gap must be boolean`);
-    }
-    if (attestation.denominator_gap === true && breakdown.systemic_scale > 2) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: denominator_gap=true caps systemic_scale at 2/5`);
-    }
-    if (attestation.denominator_gap === false) {
-      if (typeof attestation.systemic_scale_denominator !== "string" || !attestation.systemic_scale_denominator.trim()) {
-        fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: denominator_gap=false requires a defensible systemic_scale_denominator`);
+    const denominator = attestation.systemic_scale_denominator;
+    const denominatorGap = attestation.denominator_gap;
+    if (typeof denominator === "string" && denominator.trim()) {
+      if (denominatorGap !== null && denominatorGap !== "") {
+        fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: denominator_gap must be null/empty when a defensible denominator is supplied`);
+      }
+    } else {
+      if (typeof denominatorGap !== "string" || !denominatorGap.trim()) {
+        fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: missing defensible denominator requires a non-empty denominator_gap narrative`);
+      }
+      if (breakdown.systemic_scale > 2) {
+        fail("BLOCKED_MANUAL_DIRECT_ADD_SCORE_CAP", `${id}: missing denominator caps systemic_scale at 2/5`);
       }
     }
 
@@ -296,7 +299,7 @@ const goodAttestation = () => ({
   policy_stage: null,
   novelty_cap_basis: "none",
   systemic_scale_denominator: "named market/program denominator",
-  denominator_gap: false,
+  denominator_gap: null,
   prior_state: "old",
   new_verified_fact: "new",
   changed_judgment: "changed",
@@ -383,7 +386,7 @@ function selfTest() {
   if (!techBlocked) throw new Error("self-test failed to enforce technology evidence cap");
 
   const denominatorGap = structuredClone(manifest);
-  denominatorGap.editorial_attestation.additions[0].denominator_gap = true;
+  denominatorGap.editorial_attestation.additions[0].denominator_gap = "no defensible denominator";
   denominatorGap.editorial_attestation.additions[0].systemic_scale_denominator = null;
   denominatorGap.editorial_attestation.additions[0].decision_value_breakdown.systemic_scale = 5;
   denominatorGap.editorial_attestation.additions[0].decision_value_breakdown.market_structure_competition = 17;

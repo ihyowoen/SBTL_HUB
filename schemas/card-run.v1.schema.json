@@ -96,7 +96,7 @@
     "update": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "source_spec_id", "changes", "reason", "stage_artifacts", "evidence_refs"],
+      "required": ["id", "changes", "reason", "stage_artifacts", "evidence_refs"],
       "properties": {
         "id": {"type": "string", "minLength": 1},
         "source_spec_id": {"type": "string", "minLength": 1},
@@ -123,8 +123,6 @@
       "required": [
         "source_id",
         "target_id",
-        "source_spec_id",
-        "identity_card_id",
         "relation_type",
         "lineage_reason",
         "event_stage_relationship",

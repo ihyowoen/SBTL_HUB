@@ -1,7 +1,7 @@
 {
   "schema": "stage_0_0c_coverage_discovery_v1",
   "stage": "0.0C",
-  "status": "PASS",
+  "status": "BLOCKED_COVERAGE_DISCOVERY_INCOMPLETE",
   "run_id": "card-run-2026-08-31-preflight-reconciliation-current-main-1514",
   "run_tag": "20260831_PREFLIGHT_RECONCILIATION",
   "generated_kst": "2026-08-31T21:03:00+09:00",
@@ -21,34 +21,59 @@
     "dropped_count": 0,
     "integrity_excluded_upstream_count": 2
   },
-  "original_input_accounted": true,
+  "original_input_accounted": false,
   "original_input_terminal_ledger": {
-    "scope": "ALL_264_ROWS_IN_EXACT_INPUT_FILE",
-    "terminal_disposition": "preserved_for_stage_a_selector",
-    "reason": "Stage 0.0C discovers and reconciles the source universe but does not perform Stage A selection. FIRST and REPEAT are ledger states, not editorial acceptance/rejection states. All 264 rows remain reproducibly addressable by the exact input file and are passed to Stage A for item-level terminal editorial disposition.",
+    "scope": "264_EXPECTED_ROWS_BUT_EXACT_ROW_LEVEL_MEMBERSHIP_NOT_REPRODUCIBLY_READABLE",
+    "terminal_disposition": "NOT_PROVEN",
+    "reason": "The exact source file was not byte-readable/fully structured in this run. Indexed chunks do not prove exhaustive membership or exactly-once terminal discovery disposition for all 264 rows.",
     "story_count": 264,
     "ledger_first": 168,
     "ledger_repeat": 96,
-    "no_silent_drop": true
+    "no_silent_drop": false
   },
   "prior_authorized_unmerged_lane": {
     "source_run_tag": "20260828_175013",
     "source_artifact": "prompt_0_8_baseline_drift_reconciliation_CURRENT_MAIN_1514_20260828_175013.json",
-    "prior_publish_ready_count": 44,
-    "same_event_now_in_main_count": 5,
-    "controlled_stale_republication_withdrawal_count": 2,
-    "carry_forward_publish_ready_count": 37,
-    "treatment": "DO_NOT_RESTAGE_A_B_C; preserve reviewed payload/evidence/lineage and re-enter at current-baseline addability/merge-prep revalidation after fresh lane is independently processed.",
-    "same_event_reinforcements": [
-      {"source_spec_id":"STD28_A_005","main_id":"2026-08-20_US_03"},
-      {"source_spec_id":"STD28_A_013","main_id":"2026-08-27_EU_03"},
-      {"source_spec_id":"STD28_A_014","main_id":"2026-08-26_GL_01"},
-      {"source_spec_id":"STD28_A_018","main_id":"2026-08-27_CN_01"},
-      {"source_spec_id":"STD28_A_019","main_id":"2026-08-26_EU_01"}
+    "source_artifact_repository_search_status": "NOT_FOUND",
+    "prior_publish_ready_count_claimed": 44,
+    "same_event_now_in_main_count_claimed": 5,
+    "controlled_stale_republication_withdrawal_count_claimed": 2,
+    "carry_forward_publish_ready_count_claimed": 37,
+    "carry_forward_reproducibility_status": "BLOCKED_SOURCE_ARTIFACT_AND_ITEM_LEVEL_LEDGER_MISSING",
+    "treatment": "DO_NOT_RESTAGE_OR_REVALIDATE_AS_PRESERVED. The claimed 37-item lane may be reconsidered only after the named source artifact or an immutable item-level ledger with IDs, payload/evidence lineage and content identity is restored.",
+    "unverified_same_event_reinforcements": [
+      {
+        "source_spec_id": "STD28_A_005",
+        "main_id": "2026-08-20_US_03"
+      },
+      {
+        "source_spec_id": "STD28_A_013",
+        "main_id": "2026-08-27_EU_03"
+      },
+      {
+        "source_spec_id": "STD28_A_014",
+        "main_id": "2026-08-26_GL_01"
+      },
+      {
+        "source_spec_id": "STD28_A_018",
+        "main_id": "2026-08-27_CN_01"
+      },
+      {
+        "source_spec_id": "STD28_A_019",
+        "main_id": "2026-08-26_EU_01"
+      }
     ],
-    "controlled_withdrawals": [
-      {"source_spec_id":"STD28_A_021","disposition":"republication_no_fresh_followup_v3_cap_39","earliest_event_date":"2026-08-06"},
-      {"source_spec_id":"STD28_A_022","disposition":"republication_no_fresh_followup_v3_cap_39","earliest_event_date":"2026-08-06"}
+    "unverified_controlled_withdrawals": [
+      {
+        "source_spec_id": "STD28_A_021",
+        "disposition": "republication_no_fresh_followup_v3_cap_39",
+        "earliest_event_date": "2026-08-06"
+      },
+      {
+        "source_spec_id": "STD28_A_022",
+        "disposition": "republication_no_fresh_followup_v3_cap_39",
+        "earliest_event_date": "2026-08-06"
+      }
     ]
   },
   "discovered_missing_candidates": [
@@ -59,8 +84,13 @@
       "headline": "Return and Vattenfall sign long-term agreement for Sirius as project reaches financial close",
       "canonical_relation": "distinct_new_event",
       "terminal_disposition": "send_to_stage_a",
-      "provisional_anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
-      "source_urls": ["https://return.energy/news/return-and-vattenfall-sign-long-term-agreement-for-sirius-as-project-reaches-financial-close"],
+      "provisional_anchor_classes": [
+        "execution_event_anchor",
+        "follow_up_probability_anchor"
+      ],
+      "source_urls": [
+        "https://return.energy/news/return-and-vattenfall-sign-long-term-agreement-for-sirius-as-project-reaches-financial-close"
+      ],
       "discovery_basis": "200MW/800MWh Sirius BESS; long-term fixed-price tolling with Vattenfall; financing in place; commercial operations expected Q4 2027.",
       "input_membership": "NOT_FOUND_IN_264_INPUT_SEARCH"
     },
@@ -71,8 +101,13 @@
       "headline": "Nexeon completes £100m investment round with National Wealth Fund, KDB and Honda Xcelerator Ventures",
       "canonical_relation": "material_follow_up",
       "terminal_disposition": "send_to_stage_a",
-      "provisional_anchor_classes": ["execution_event_anchor", "technology_commercialization_anchor"],
-      "source_urls": ["https://www.nationalwealthfund.org.uk/news-and-publications/news/national-wealth-fund-backs-uk-battery-innovator-nexeon-in-100m-investment-round/"],
+      "provisional_anchor_classes": [
+        "execution_event_anchor",
+        "technology_commercialization_anchor"
+      ],
+      "source_urls": [
+        "https://www.nationalwealthfund.org.uk/news-and-publications/news/national-wealth-fund-backs-uk-battery-innovator-nexeon-in-100m-investment-round/"
+      ],
       "discovery_basis": "£52.6m NWF commitment completes a £100m round and funds UK pilot manufacturing/advanced manufacturing scale-up; prior Honda investment alone did not establish this completed financing round.",
       "input_membership": "NOT_FOUND_IN_264_INPUT_SEARCH"
     },
@@ -83,8 +118,13 @@
       "headline": "Neo Performance Materials and Carester enter binding term sheet for European heavy-rare-earth supply, recycling and tolling",
       "canonical_relation": "material_follow_up",
       "terminal_disposition": "send_to_stage_a",
-      "provisional_anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
-      "source_urls": ["https://www.cantechletter.com/newswires/neo-performance-materials-partners-with-carester-to-advance-its-european-rare-earth-supply-chain/"],
+      "provisional_anchor_classes": [
+        "execution_event_anchor",
+        "follow_up_probability_anchor"
+      ],
+      "source_urls": [
+        "https://www.cantechletter.com/newswires/neo-performance-materials-partners-with-carester-to-advance-its-european-rare-earth-supply-chain/"
+      ],
       "discovery_basis": "Binding term sheet links Dy/Tb oxide supply, Neo magnet-swarf recycling and Silmet toll separation; distinct from Neo's earlier small-scale heavy-rare-earth separation commissioning.",
       "input_membership": "NOT_FOUND_IN_264_INPUT_SEARCH"
     },
@@ -95,8 +135,13 @@
       "headline": "GS Yuasa to establish Ibaraki manufacturing plant for next-generation domestically produced stationary energy storage systems",
       "canonical_relation": "material_follow_up",
       "terminal_disposition": "send_to_stage_a",
-      "provisional_anchor_classes": ["execution_event_anchor", "follow_up_probability_anchor"],
-      "source_urls": ["https://newsroom.gs-yuasa.com/en/news-release/428"],
+      "provisional_anchor_classes": [
+        "execution_event_anchor",
+        "follow_up_probability_anchor"
+      ],
+      "source_urls": [
+        "https://newsroom.gs-yuasa.com/en/news-release/428"
+      ],
       "discovery_basis": "Factory location/establishment decision operationalizes the METI-approved Stable Supply Assurance Plan; supply start targeted for October 2028.",
       "input_membership": "NOT_FOUND_IN_264_INPUT_SEARCH"
     }
@@ -134,12 +179,42 @@
     }
   ],
   "regional_coverage_matrix": {
-    "KR": {"searched": true, "input_present": true, "new_missing_material_candidate_found": false, "notes": "Input contains SK On–NeoVolta and ferry lithium-battery rule coverage; no additional post-cutoff must-report candidate established."},
-    "US_NA": {"searched": true, "input_present": true, "new_missing_material_candidate_found": false, "notes": "Recent DOE critical-mineral/battery funding was already an earlier event and not a new 31 Aug execution anchor."},
-    "CN": {"searched": true, "input_present": true, "new_missing_material_candidate_found": false, "notes": "CORNEX Xiangyang production-start and Penghui actual-results signals are already in the input."},
-    "JP": {"searched": true, "input_present": true, "new_missing_material_candidate_found": true, "notes": "GS Yuasa Ibaraki stationary-storage manufacturing plant decision discovered outside input."},
-    "EU": {"searched": true, "input_present": true, "new_missing_material_candidate_found": true, "notes": "Return Sirius, Nexeon £100m financing round, and Neo–Carester binding term sheet discovered outside input."},
-    "GLOBAL_OTHER": {"searched": true, "input_present": true, "new_missing_material_candidate_found": false, "notes": "Gawara Baya financial-close/FID/construction event is already in input; no additional material global event required for Stage A from the bounded sweep."}
+    "KR": {
+      "searched": true,
+      "input_present": true,
+      "new_missing_material_candidate_found": false,
+      "notes": "Input contains SK On–NeoVolta and ferry lithium-battery rule coverage; no additional post-cutoff must-report candidate established."
+    },
+    "US_NA": {
+      "searched": true,
+      "input_present": true,
+      "new_missing_material_candidate_found": false,
+      "notes": "Recent DOE critical-mineral/battery funding was already an earlier event and not a new 31 Aug execution anchor."
+    },
+    "CN": {
+      "searched": true,
+      "input_present": true,
+      "new_missing_material_candidate_found": false,
+      "notes": "CORNEX Xiangyang production-start and Penghui actual-results signals are already in the input."
+    },
+    "JP": {
+      "searched": true,
+      "input_present": true,
+      "new_missing_material_candidate_found": true,
+      "notes": "GS Yuasa Ibaraki stationary-storage manufacturing plant decision discovered outside input."
+    },
+    "EU": {
+      "searched": true,
+      "input_present": true,
+      "new_missing_material_candidate_found": true,
+      "notes": "Return Sirius, Nexeon £100m financing round, and Neo–Carester binding term sheet discovered outside input."
+    },
+    "GLOBAL_OTHER": {
+      "searched": false,
+      "input_present": true,
+      "new_missing_material_candidate_found": false,
+      "notes": "The input contains the Australia Gawara Baya event, but the artifact does not itemize which material markets outside KR/US-NA/CN/JP/EU were searched. The mandatory global-market axis is therefore unproven rather than PASS."
+    }
   },
   "topic_coverage_matrix": {
     "battery_cells_and_chemistries": true,
@@ -160,26 +235,91 @@
     "safety_recalls_commissioning_operating_validation": true
   },
   "must_report_candidate_ledger": [
-    {"candidate":"SK On–NeoVolta 9GWh signed LFP ESS supply","origin":"original_input","disposition":"stage_a_required_review"},
-    {"candidate":"CORNEX Xiangyang 70GWh production start","origin":"original_input","disposition":"stage_a_required_review"},
-    {"candidate":"Penghui H1 actual results","origin":"original_input","disposition":"stage_a_required_review"},
-    {"candidate":"Marubeni/Blue Sky balancing-market entry","origin":"original_input","disposition":"stage_a_required_review"},
-    {"candidate":"CIP Gawara Baya FID/financial close/construction","origin":"original_input","disposition":"stage_a_required_review"},
-    {"candidate":"Return/Vattenfall Sirius 200MW/800MWh tolling + financial close","origin":"coverage_discovery","disposition":"send_to_stage_a"},
-    {"candidate":"Nexeon £100m completed financing round","origin":"coverage_discovery","disposition":"send_to_stage_a"},
-    {"candidate":"Neo–Carester binding rare-earth term sheet","origin":"coverage_discovery","disposition":"send_to_stage_a"},
-    {"candidate":"GS Yuasa Ibaraki stationary-storage manufacturing plant","origin":"coverage_discovery","disposition":"send_to_stage_a"}
+    {
+      "candidate": "SK On–NeoVolta 9GWh signed LFP ESS supply",
+      "origin": "original_input",
+      "disposition": "stage_a_required_review"
+    },
+    {
+      "candidate": "CORNEX Xiangyang 70GWh production start",
+      "origin": "original_input",
+      "disposition": "stage_a_required_review"
+    },
+    {
+      "candidate": "Penghui H1 actual results",
+      "origin": "original_input",
+      "disposition": "stage_a_required_review"
+    },
+    {
+      "candidate": "Marubeni/Blue Sky balancing-market entry",
+      "origin": "original_input",
+      "disposition": "stage_a_required_review"
+    },
+    {
+      "candidate": "CIP Gawara Baya FID/financial close/construction",
+      "origin": "original_input",
+      "disposition": "stage_a_required_review"
+    },
+    {
+      "candidate": "Return/Vattenfall Sirius 200MW/800MWh tolling + financial close",
+      "origin": "coverage_discovery",
+      "disposition": "send_to_stage_a"
+    },
+    {
+      "candidate": "Nexeon £100m completed financing round",
+      "origin": "coverage_discovery",
+      "disposition": "send_to_stage_a"
+    },
+    {
+      "candidate": "Neo–Carester binding rare-earth term sheet",
+      "origin": "coverage_discovery",
+      "disposition": "send_to_stage_a"
+    },
+    {
+      "candidate": "GS Yuasa Ibaraki stationary-storage manufacturing plant",
+      "origin": "coverage_discovery",
+      "disposition": "send_to_stage_a"
+    }
   ],
   "searched_but_no_material_event": [
-    {"axis":"US_NA_post_cutoff_new_battery_policy_or_project_execution","status":"NO_ADDITIONAL_MUST_REPORT_EVENT_ESTABLISHED"},
-    {"axis":"KR_post_cutoff_new_battery_ESS_execution","status":"NO_ADDITIONAL_MUST_REPORT_EVENT_ESTABLISHED"},
-    {"axis":"CN_post_cutoff_new_battery_ESS_execution","status":"NO_ADDITIONAL_MUST_REPORT_EVENT_ESTABLISHED"}
+    {
+      "axis": "US_NA_post_cutoff_new_battery_policy_or_project_execution",
+      "status": "NO_ADDITIONAL_MUST_REPORT_EVENT_ESTABLISHED"
+    },
+    {
+      "axis": "KR_post_cutoff_new_battery_ESS_execution",
+      "status": "NO_ADDITIONAL_MUST_REPORT_EVENT_ESTABLISHED"
+    },
+    {
+      "axis": "CN_post_cutoff_new_battery_ESS_execution",
+      "status": "NO_ADDITIONAL_MUST_REPORT_EVENT_ESTABLISHED"
+    }
   ],
   "source_universe_expansion_ledger": [
-    {"candidate_id":"DISC31_EU_RETURN_SIRIUS","source_owner":"Return","source_role":"project_owner_official_release","outcome":"added_to_expanded_stage_a_input"},
-    {"candidate_id":"DISC31_EU_NEXEON_100M","source_owner":"UK National Wealth Fund","source_role":"public_financier_official_release","outcome":"added_to_expanded_stage_a_input"},
-    {"candidate_id":"DISC31_EU_NEO_CARESTER","source_owner":"Neo Performance Materials syndicated release","source_role":"company_primary_release_candidate","outcome":"added_to_expanded_stage_a_input"},
-    {"candidate_id":"DISC31_JP_GS_YUASA_IBARAKI","source_owner":"GS Yuasa","source_role":"company_official_release","outcome":"added_to_expanded_stage_a_input"}
+    {
+      "candidate_id": "DISC31_EU_RETURN_SIRIUS",
+      "source_owner": "Return",
+      "source_role": "project_owner_official_release",
+      "outcome": "added_to_expanded_stage_a_input"
+    },
+    {
+      "candidate_id": "DISC31_EU_NEXEON_100M",
+      "source_owner": "UK National Wealth Fund",
+      "source_role": "public_financier_official_release",
+      "outcome": "added_to_expanded_stage_a_input"
+    },
+    {
+      "candidate_id": "DISC31_EU_NEO_CARESTER",
+      "source_owner": "Neo Performance Materials syndicated release",
+      "source_role": "company_primary_release_candidate",
+      "outcome": "added_to_expanded_stage_a_input"
+    },
+    {
+      "candidate_id": "DISC31_JP_GS_YUASA_IBARAKI",
+      "source_owner": "GS Yuasa",
+      "source_role": "company_official_release",
+      "outcome": "added_to_expanded_stage_a_input"
+    }
   ],
   "expanded_stage_a_input": {
     "original_input_story_count": 264,
@@ -192,16 +332,43 @@
       "DISC31_EU_NEO_CARESTER",
       "DISC31_JP_GS_YUASA_IBARAKI"
     ],
-    "carry_forward_publish_ready_37_is_not_stage_a_input": true
+    "carry_forward_publish_ready_37_is_not_stage_a_input": true,
+    "reproducible": false,
+    "authorization_status": "BLOCKED",
+    "blocker": "Exact original 264-row input membership is not reproducibly readable, so the 268-observation expanded universe cannot be proven complete."
   },
-  "unresolved_coverage_gaps": [],
+  "unresolved_coverage_gaps": [
+    {
+      "code": "BLOCKED_BY_DOCUMENT_UNIVERSE_PREFLIGHT",
+      "detail": "Stage 0.0D is not PASS; Stage 0.0C precondition is unmet."
+    },
+    {
+      "code": "ORIGINAL_INPUT_ITEM_LEVEL_ACCOUNTING_UNPROVEN",
+      "detail": "The exact 264-row source file was available only through partial indexed chunks; exhaustive row membership and no-silent-drop accounting are not reproducible."
+    },
+    {
+      "code": "CARRY_FORWARD_LINEAGE_UNRECOVERABLE",
+      "detail": "The named prior Prompt 0.8 artifact is absent from repository search and no immutable 37-item carry-forward ledger is included."
+    },
+    {
+      "code": "MATERIAL_GLOBAL_MARKETS_NOT_ITEMIZED",
+      "detail": "The artifact does not enumerate the material markets outside KR/US-NA/CN/JP/EU that were actually searched, so the GLOBAL_OTHER axis remains incomplete."
+    }
+  ],
   "known_unknowns": [
-    "Absolute global completeness is not claimed; the sweep is bounded to mandatory regions/topics and the current run time window.",
-    "Discovery-source claims are not publishable evidence until Stage B processes body-level/official evidence under FACT_DISCIPLINE and SOURCE_AUDIT_CONTRACT.",
-    "The 264 original observations have a uniform Stage-0.0C terminal disposition of preserved_for_stage_a_selector; item-level editorial acceptance/rejection is intentionally deferred to Stage A."
+    "Absolute global completeness is not claimed.",
+    "The exact 264-row input cannot be exhaustively reconstructed from the indexed chunks available to this run.",
+    "The claimed 37-item carry-forward lane is not reproducible until its source artifact or immutable item-level ledger is restored.",
+    "Material global markets outside the five named regional axes were not itemized in the search record.",
+    "Discovery-source claims are not publishable evidence until Stage B processes body-level/official evidence under FACT_DISCIPLINE and SOURCE_AUDIT_CONTRACT."
   ],
   "residual_coverage_risks": [
+    "Because Stage 0.0D is blocked and Stage 0.0C input/global accounting is incomplete, this artifact is non-authorizing and must not be used to start Stage A.",
     "Late-evening 31 Aug releases can continue after this bounded discovery pass; Prompt 0.7C must re-run an independent last-mile coverage challenge before Prompt 0.8."
   ],
-  "stage_a_authorized": true
+  "stage_a_authorized": false,
+  "document_universe_precondition": {
+    "status": "BLOCKED",
+    "reason": "Referenced Stage 0.0D artifact is BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE and does not authorize Stage 0.0C."
+  }
 }

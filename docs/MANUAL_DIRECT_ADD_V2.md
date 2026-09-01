@@ -1,7 +1,7 @@
 # Manual Direct Add V2
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `MANUAL_DIRECT_ADD_V2_20260829`
+**Version:** `MANUAL_DIRECT_ADD_V2_20260901`
 
 ## 1. Purpose
 
@@ -37,6 +37,8 @@ The manifest locks:
 - `review_mode = already_reviewed_bounded_direct_add`;
 - `formal_full_run_claimed = false`.
 
+Only `manual_direct_add_v2` is accepted by the active production validator. V1 manifests are historical/audit-only.
+
 ## 4. Editorial attestation for every direct-added card
 
 Every `operations.add` ID has exactly one attestation containing:
@@ -62,17 +64,31 @@ This is an attestation that the review occurred; it is not a fabricated Stage A 
 
 A deliberately included lower-value card is allowed only as `owner_override_include` with a non-empty item-specific `owner_override_reason`. This preserves user editorial authority without hiding that the standard score threshold was overridden.
 
-### Structural non-execution route
+### Route/anchor correlation
 
-When no conventional execution event is required, both `structural_non_execution_reason` and `why_execution_event_not_required` are mandatory and must explain why the verified policy/data/financial/strategic/technology/follow-up change is independently decision-useful.
+`execution_anchor_route` requires `execution_event_anchor`.
 
-## 5. Update attestation
+`structural_non_execution_route` must not claim `execution_event_anchor`; it requires at least one non-execution anchor plus non-empty `structural_non_execution_reason` and `why_execution_event_not_required`.
+
+## 5. Update attestation and identity guard
 
 Every `operations.update` ID has exactly one bounded update attestation with:
 
-- update type;
+- `change_type = reinforcement|correction|evidence_update|content_correction`;
+- exact `changed_fields[]`;
 - item-specific reason;
 - evidence-review summary.
+
+The validator recomputes the actual before/after top-level changed fields and requires exact equality with `changed_fields[]`. An update must preserve the existing card ID, representative date, region, and production `related[]`; date/ID correction uses `id_migration`, and relation changes use the governed relation path.
+
+Every update must preserve both stable event identity and at least one durable event anchor from the existing title/source URL/fact-source URL/event fingerprint set. A declaration cannot reuse an old ID while replacing the represented event.
+
+Additional update-type boundaries:
+
+- `evidence_update` may not change visible event fields or `event_fingerprint`;
+- `reinforcement` may add/strengthen evidence and bounded fact/context, but may not change title/taxonomy/signal/event fingerprint;
+- `content_correction` may repair visible wording but may not change taxonomy/event fingerprint;
+- `correction` is the broadest update type, but the immutable-field and stable-event-anchor checks still apply.
 
 Updates do not require an artificial new-card news-value score.
 
@@ -86,14 +102,15 @@ The validator proves:
 
 1. manifest baseline equals the PR base main/full blob;
 2. lost and introduced IDs exactly match declared migration/add scope;
-3. declared updates exist before/after and actually changed;
-4. no undeclared existing card changed;
-5. each added/updated card has exactly one required V2 attestation;
-6. score/classification/route/override rules are internally coherent;
-7. ID migration keeps stable identity evidence;
-8. no new dangling Related edge is introduced;
-9. counts and output timestamp match;
-10. lean is the deterministic projection of full through the existing repository checks.
+3. declared updates exist before/after and their actual changed fields exactly match the attestation;
+4. update identity/immutable-field/type-specific boundaries are preserved;
+5. no undeclared existing card changed;
+6. each added/updated card has exactly one required V2 attestation;
+7. score/classification/route/override rules are internally coherent;
+8. ID migration keeps stable identity evidence;
+9. no new dangling Related edge is introduced;
+10. counts and output timestamp match;
+11. lean is the deterministic projection of full through the existing repository checks.
 
 For a declared ID migration only, the existing card-deletion guard may be enabled after the direct-add validator proves the exact one-to-one migration.
 

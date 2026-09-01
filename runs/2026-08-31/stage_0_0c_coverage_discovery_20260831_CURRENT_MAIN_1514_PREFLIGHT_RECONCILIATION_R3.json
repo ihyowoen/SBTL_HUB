@@ -1,0 +1,216 @@
+{
+  "schema": "stage_0_0c_coverage_discovery_v1",
+  "stage": "0.0C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_id": "card-run-2026-08-31-preflight-reconciliation-current-main-1514-r3",
+  "run_tag": "20260831_PREFLIGHT_RECONCILIATION_R3",
+  "generated_kst": "2026-09-01T12:30:00+09:00",
+  "repository": "ihyowoen/SBTL_HUB",
+  "repository_head_sha": "71371c841f7fe18bf97bf500aa537b6f1975d5dc",
+  "canonical_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "baseline_count": 1514,
+  "input_file": "final_news_llm_input_newsletter_expanded_20260831_143419.json",
+  "original_input_story_count": 264,
+  "prior_r2_artifact": "runs/2026-08-31/stage_0_0c_coverage_discovery_20260831_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION_R2.json",
+  "prior_r2_disposition": "SUPERSEDED_BY_R3_EXCLUDED_POOL_RESCUE",
+  "r3_trigger": "Direct local byte-level parse became available after R2 and showed material events in newsletter_clean_audit.excluded_stories that were not represented in emitted stories[].",
+  "excluded_pool_audit": {
+    "excluded_story_count": 236,
+    "excluded_pool_fully_parsed": true,
+    "rescued_count": 7,
+    "rescue_ids": [
+      "CN_2026-08-31_C01",
+      "CN_2026-08-31_C02",
+      "CN_2026-08-31_C08",
+      "CN_2026-08-31_C24",
+      "EU_2026-08-28_C19",
+      "EU_2026-08-28_C21",
+      "EU_2026-08-28_C11"
+    ],
+    "rescue_before_delete_applied": true,
+    "nonrescued_excluded_count": 229,
+    "nonrescued_policy": "terminal at 0.0C as non-material, generic/product noise, duplicate variant, or insufficiently specific after full metadata scan; eligible for independent 0.7C reopening if new evidence emerges"
+  },
+  "discovered_missing_candidates": [
+    {
+      "candidate_id": "DISC31_EU_RETURN_SIRIUS",
+      "headline": "Return–Vattenfall Sirius 200MW/800MWh BESS reaches financial close with long-term tolling",
+      "region": "EU",
+      "primary_url": "https://return.energy/news/return-and-vattenfall-sign-long-term-agreement-for-sirius-as-project-reaches-financial-close",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "execution_event_anchor"
+    },
+    {
+      "candidate_id": "DISC31_EU_NEXEON_100M",
+      "headline": "Nexeon closes £100m financing round with Honda as strategic investor",
+      "region": "EU",
+      "primary_url": "https://www.prnewswire.co.uk/news-releases/nexeon-welcomes-honda-as-strategic-investor-in-100-million-funding-round-302543334.html",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "execution_event_anchor"
+    },
+    {
+      "candidate_id": "DISC31_EU_NEO_CARESTER",
+      "headline": "Neo Performance Materials and Carester sign binding term sheet on heavy rare-earth supply and recycling",
+      "region": "EU",
+      "primary_url": "https://www.neomaterials.com/",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "execution_event_anchor"
+    },
+    {
+      "candidate_id": "DISC31_JP_GSYUASA_IBARAKI",
+      "headline": "GS Yuasa decides to open Ibaraki stationary-storage battery manufacturing base",
+      "region": "JP",
+      "primary_url": "https://newsroom.gs-yuasa.com/en/news-release/428",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "execution_event_anchor"
+    },
+    {
+      "candidate_id": "DISC31_EU_AL_FOIL_SUNSET",
+      "headline": "EU Chinese aluminium converter foil anti-dumping measure enters 2026 sunset-review application window",
+      "region": "EU",
+      "primary_url": "",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "policy_regulatory_anchor"
+    },
+    {
+      "candidate_id": "RESCUE31_CN_2026-08-31_C01",
+      "source_story_id": "CN_2026-08-31_C01",
+      "headline": "200MW/400MWh！四川电建与阳光电源组成联合体中标海外储能订单",
+      "region": "CN",
+      "primary_url": "https://news.bjx.com.cn/html/20260831/1535062.shtml",
+      "upstream_exclusion_reason": "LOW_NEWSLETTER_SCORE",
+      "upstream_newsletter_clean_score": 9,
+      "discovery_basis": "direct local parse of newsletter_clean_audit.excluded_stories; material execution/reversal signal rescued before delete",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "execution_event_anchor"
+    },
+    {
+      "candidate_id": "RESCUE31_CN_2026-08-31_C02",
+      "source_story_id": "CN_2026-08-31_C02",
+      "headline": "200MW/800MWh！国综绿能大石桥虎官电网侧独立储能电站项目开工",
+      "region": "CN",
+      "primary_url": "https://news.bjx.com.cn/html/20260831/1535061.shtml",
+      "upstream_exclusion_reason": "LOW_NEWSLETTER_SCORE",
+      "upstream_newsletter_clean_score": 7,
+      "discovery_basis": "direct local parse of newsletter_clean_audit.excluded_stories; material execution/reversal signal rescued before delete",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "execution_event_anchor"
+    },
+    {
+      "candidate_id": "RESCUE31_CN_2026-08-31_C08",
+      "source_story_id": "CN_2026-08-31_C08",
+      "headline": "储能600MWh+虚拟电厂300MW！广东40亿零碳项目备案通过！",
+      "region": "CN",
+      "primary_url": "https://news.bjx.com.cn/html/20260831/1535040.shtml",
+      "upstream_exclusion_reason": "LOW_NEWSLETTER_SCORE",
+      "upstream_newsletter_clean_score": 7,
+      "discovery_basis": "direct local parse of newsletter_clean_audit.excluded_stories; material execution/reversal signal rescued before delete",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "policy_or_project_authorization_review"
+    },
+    {
+      "candidate_id": "RESCUE31_CN_2026-08-31_C24",
+      "source_story_id": "CN_2026-08-31_C24",
+      "headline": "金冠股份解除中科超算储能项目合作",
+      "region": "CN",
+      "primary_url": "https://news.bjx.com.cn/html/20260831/1534990.shtml",
+      "upstream_exclusion_reason": "LOW_NEWSLETTER_SCORE",
+      "upstream_newsletter_clean_score": 7,
+      "discovery_basis": "direct local parse of newsletter_clean_audit.excluded_stories; material execution/reversal signal rescued before delete",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "correction_or_reversal_candidate"
+    },
+    {
+      "candidate_id": "RESCUE31_EU_2026-08-28_C19",
+      "source_story_id": "EU_2026-08-28_C19",
+      "headline": "Nala Renewables powers up 50-MW Finnish battery",
+      "region": "EU",
+      "primary_url": "https://renewablesnow.com/news/nala-renewables-powers-up-50-mw-finnish-battery-1282701/",
+      "upstream_exclusion_reason": "GENERIC_SCOPE_BATTERY",
+      "upstream_newsletter_clean_score": -3,
+      "discovery_basis": "direct local parse of newsletter_clean_audit.excluded_stories; material execution/reversal signal rescued before delete",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "execution_event_anchor"
+    },
+    {
+      "candidate_id": "RESCUE31_EU_2026-08-28_C21",
+      "source_story_id": "EU_2026-08-28_C21",
+      "headline": "PowerX, ITOCHU secures 23 MW BESS order in Miyagi prefecture",
+      "region": "EU",
+      "primary_url": "https://renewablesnow.com/news/powerx-itochu-secures-23-mw-bess-order-in-miyagi-prefecture-1282698/",
+      "upstream_exclusion_reason": "LOW_NEWSLETTER_SCORE",
+      "upstream_newsletter_clean_score": 3,
+      "discovery_basis": "direct local parse of newsletter_clean_audit.excluded_stories; material execution/reversal signal rescued before delete",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "execution_event_anchor"
+    },
+    {
+      "candidate_id": "RESCUE31_EU_2026-08-28_C11",
+      "source_story_id": "EU_2026-08-28_C11",
+      "headline": "Glencore nears nickel production in Ontario with mine shaft completion",
+      "region": "EU",
+      "primary_url": "https://www.mining.com/glencore-nears-nickel-production-in-ontario-with-mine-shaft-completion/",
+      "upstream_exclusion_reason": "LOW_NEWSLETTER_SCORE",
+      "upstream_newsletter_clean_score": 3,
+      "discovery_basis": "direct local parse of newsletter_clean_audit.excluded_stories; material execution/reversal signal rescued before delete",
+      "terminal_discovery_disposition": "send_to_stage_a",
+      "stage_a_anchor_hint": "execution_event_anchor"
+    }
+  ],
+  "external_or_tracker_discovery_count": 5,
+  "excluded_pool_rescue_count": 7,
+  "expanded_stage_a_universe_count": 276,
+  "expanded_stage_a_universe_formula": "264 emitted stories + 5 0.0C discoveries + 7 excluded-pool rescues",
+  "baseline_follow_up_candidates": [
+    {"candidate_id": "DISC31_EU_AL_FOIL_SUNSET", "relation": "policy_follow_up"},
+    {"candidate_id": "DISC31_EU_NEXEON_100M", "relation": "distinct_follow_up_to_existing_nexeon_honda_context"},
+    {"candidate_id": "DISC31_EU_NEO_CARESTER", "relation": "distinct_follow_up_to_existing_neo_estonia_context"},
+    {"candidate_id": "DISC31_JP_GSYUASA_IBARAKI", "relation": "stage_progression_from_prior_supply-assurance-plan_context"}
+  ],
+  "correction_or_reversal_candidates": ["RESCUE31_CN_2026-08-31_C24"],
+  "post_run_window_next_run_carryover": [
+    {"tracker_id": "CN-028", "event": "2026-09-01 lithium-battery consumption-tax 2% effective"},
+    {"tracker_id": "CN-038", "event": "2026-09-01 GB/T 46261-2025 effective"},
+    {"tracker_id": "JP-004", "event": "2026-09-01 balancing-market cap 15→10 yen effective"}
+  ],
+  "fixed_run_window": "through 2026-08-31 KST; 2026-09-01 stage transitions are next-run carryover",
+  "regional_coverage_matrix": {"KR": "searched", "US": "searched", "CN": "searched", "JP": "searched", "EU": "searched", "GL": "searched"},
+  "topic_coverage_matrix": {
+    "cells_chemistries": "searched", "materials_components": "searched", "pouch_film_demand": "searched",
+    "ess_bess": "searched", "ev_charging": "searched", "manufacturing_capacity_utilization": "searched",
+    "grids_ai_power": "searched", "critical_minerals_refining": "searched", "recycling_circularity": "searched",
+    "policy_trade_enforcement": "searched", "localization_diversification": "searched",
+    "competitor_customer_strategy": "searched", "substitute_technologies": "searched",
+    "prices_costs_margins": "searched", "financing_project_finance": "searched", "safety_commissioning_operations": "searched"
+  },
+  "must_report_candidate_ledger": [
+    {"candidate_id": "DISC31_EU_RETURN_SIRIUS", "disposition": "send_to_stage_a"},
+    {"candidate_id": "DISC31_EU_NEXEON_100M", "disposition": "send_to_stage_a"},
+    {"candidate_id": "DISC31_EU_NEO_CARESTER", "disposition": "send_to_stage_a"},
+    {"candidate_id": "DISC31_JP_GSYUASA_IBARAKI", "disposition": "send_to_stage_a"},
+    {"candidate_id": "DISC31_EU_AL_FOIL_SUNSET", "disposition": "send_to_stage_a"},
+    {"candidate_id": "RESCUE31_CN_2026-08-31_C01", "disposition": "send_to_stage_a"},
+    {"candidate_id": "RESCUE31_CN_2026-08-31_C02", "disposition": "send_to_stage_a"},
+    {"candidate_id": "RESCUE31_CN_2026-08-31_C08", "disposition": "send_to_stage_a"},
+    {"candidate_id": "RESCUE31_CN_2026-08-31_C24", "disposition": "send_to_stage_a"},
+    {"candidate_id": "RESCUE31_EU_2026-08-28_C19", "disposition": "send_to_stage_a"},
+    {"candidate_id": "RESCUE31_EU_2026-08-28_C21", "disposition": "send_to_stage_a"},
+    {"candidate_id": "RESCUE31_EU_2026-08-28_C11", "disposition": "send_to_stage_a"}
+  ],
+  "source_universe_expansion_ledger": [
+    {"source": "original_input_stories", "count": 264},
+    {"source": "0.0C_external_tracker_discoveries", "count": 5},
+    {"source": "newsletter_clean_audit_excluded_pool_rescue", "count": 7}
+  ],
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "material_exclusions": [],
+  "known_unknowns": ["Stage A remains selector-only; body-level evidence for rescued title-only observations is deferred to Stage B for strict-passed items."],
+  "residual_risks": ["Public-information completeness is bounded; independent 0.7C review remains mandatory."],
+  "reviewer_independence": "SEPARATE_PASS",
+  "stage_a_authorized": true
+}

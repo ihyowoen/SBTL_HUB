@@ -13,7 +13,10 @@ def make_spec(**overrides):
         "decision_news_value_score": 60,
         "decision_value_breakdown": {
             "technology_performance_safety": 0,
+            "systemic_scale": 2,
         },
+        "systemic_scale_denominator": "Named program denominator.",
+        "denominator_gap": None,
         "related_prepass": {
             "status": "PASS",
             "same_event_checked": True,
@@ -38,7 +41,7 @@ class StageAV4HardeningTests(unittest.TestCase):
     def test_technology_evidence_cap_blocks_over_scoring(self):
         spec = make_spec(
             technology_evidence_level="company_target_or_unsupported_claim",
-            decision_value_breakdown={"technology_performance_safety": 5},
+            decision_value_breakdown={"technology_performance_safety": 5, "systemic_scale": 2},
         )
         messages = self.messages_for(spec)
         self.assertTrue(any("exceeds" in message and "cap 4/20" in message for message in messages))
@@ -59,6 +62,15 @@ class StageAV4HardeningTests(unittest.TestCase):
         )
         messages = self.messages_for(spec)
         self.assertTrue(any("cap 39" in message for message in messages))
+
+    def test_missing_denominator_caps_systemic_scale(self):
+        spec = make_spec(
+            systemic_scale_denominator=None,
+            denominator_gap="No defensible denominator is available yet.",
+            decision_value_breakdown={"technology_performance_safety": 0, "systemic_scale": 5},
+        )
+        messages = self.messages_for(spec)
+        self.assertTrue(any("systemic_scale must be <=2" in message for message in messages))
 
     def test_no_duplicate_disposition_cannot_hide_duplicate_candidate(self):
         spec = make_spec(

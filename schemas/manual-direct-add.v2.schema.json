@@ -36,9 +36,23 @@
   "$defs": {
     "anchorClass":{"enum":["execution_event_anchor","policy_regulatory_anchor","data_financial_anchor","strategic_behavior_anchor","technology_commercialization_anchor","follow_up_probability_anchor"]},
     "nonExecutionAnchorClass":{"enum":["policy_regulatory_anchor","data_financial_anchor","strategic_behavior_anchor","technology_commercialization_anchor","follow_up_probability_anchor"]},
+    "decisionBreakdown": {
+      "type":"object","additionalProperties":false,
+      "required":["market_structure_competition","supply_demand_price_utilisation","technology_performance_safety","cashflow_asset_value","law_policy_market_access","systemic_scale","persistence_irreversibility","decision_urgency_actionability"],
+      "properties": {
+        "market_structure_competition":{"type":"number","minimum":0,"maximum":25},
+        "supply_demand_price_utilisation":{"type":"number","minimum":0,"maximum":25},
+        "technology_performance_safety":{"type":"number","minimum":0,"maximum":20},
+        "cashflow_asset_value":{"type":"number","minimum":0,"maximum":10},
+        "law_policy_market_access":{"type":"number","minimum":0,"maximum":10},
+        "systemic_scale":{"type":"number","minimum":0,"maximum":5},
+        "persistence_irreversibility":{"type":"number","minimum":0,"maximum":3},
+        "decision_urgency_actionability":{"type":"number","minimum":0,"maximum":2}
+      }
+    },
     "addAttestation": {
       "type":"object","additionalProperties":false,
-      "required":["id","execution_credibility_gate","independent_cardability_gate","anchor_classes","selection_route","decision_news_value_score","decision_value_classification","publication_urgency","prior_state","new_verified_fact","changed_judgment","evidence_review_summary","next_confirmation_points","inclusion_decision","owner_override_reason","structural_non_execution_reason","why_execution_event_not_required"],
+      "required":["id","execution_credibility_gate","independent_cardability_gate","anchor_classes","selection_route","decision_news_value_score","decision_value_breakdown","decision_value_classification","publication_urgency","technology_evidence_level","policy_stage","novelty_cap_basis","systemic_scale_denominator","denominator_gap","prior_state","new_verified_fact","changed_judgment","evidence_review_summary","next_confirmation_points","inclusion_decision","owner_override_reason","structural_non_execution_reason","why_execution_event_not_required"],
       "properties": {
         "id":{"type":"string","minLength":1},
         "execution_credibility_gate":{"const":"PASS"},
@@ -46,8 +60,14 @@
         "anchor_classes":{"type":"array","minItems":1,"uniqueItems":true,"items":{"$ref":"#/$defs/anchorClass"}},
         "selection_route":{"enum":["execution_anchor_route","structural_non_execution_route"]},
         "decision_news_value_score":{"type":"integer","minimum":0,"maximum":100},
+        "decision_value_breakdown":{"$ref":"#/$defs/decisionBreakdown"},
         "decision_value_classification":{"enum":["critical_structural","high_decision_value","material_industry_signal","standard_monitoring","context_or_reinforcement","low_independent_value"]},
         "publication_urgency":{"enum":["immediate","near_term","monitor"]},
+        "technology_evidence_level":{"enum":["not_applicable","company_target_or_unsupported_claim","laboratory_unvalidated","pilot_precommercial","independent_test_or_customer_qualification","commercial_scale_or_long_duration_field","material_failure_evidence"]},
+        "policy_stage":{"type":["integer","null"],"minimum":0,"maximum":6},
+        "novelty_cap_basis":{"enum":["none","repeated_announcement_no_new_fact","routine_progression_no_material_uncertainty","company_target_without_validation_or_effect","unsupported_political_rhetoric"]},
+        "systemic_scale_denominator":{"type":["string","null"]},
+        "denominator_gap":{"type":"boolean"},
         "prior_state":{"type":"string","minLength":1},
         "new_verified_fact":{"type":"string","minLength":1},
         "changed_judgment":{"type":"string","minLength":1},
@@ -61,7 +81,13 @@
       "allOf": [
         {
           "if": {"properties":{"selection_route":{"const":"execution_anchor_route"}},"required":["selection_route"]},
-          "then": {"properties":{"anchor_classes":{"contains":{"const":"execution_event_anchor"}}}}
+          "then": {
+            "properties": {
+              "anchor_classes":{"contains":{"const":"execution_event_anchor"}},
+              "structural_non_execution_reason":{"type":"null"},
+              "why_execution_event_not_required":{"type":"null"}
+            }
+          }
         },
         {
           "if": {"properties":{"selection_route":{"const":"structural_non_execution_route"}},"required":["selection_route"]},
@@ -75,6 +101,10 @@
               "why_execution_event_not_required":{"type":"string","minLength":1}
             }
           }
+        },
+        {
+          "if": {"properties":{"denominator_gap":{"const":true}},"required":["denominator_gap"]},
+          "then": {"properties":{"decision_value_breakdown":{"properties":{"systemic_scale":{"maximum":2}}}}}
         }
       ]
     },

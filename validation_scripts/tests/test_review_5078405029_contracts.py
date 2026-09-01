@@ -90,7 +90,7 @@ class Review5078405029ContractsTest(unittest.TestCase):
             "date_role_freshness_check.py",
             "--require-date-role --new-id-file",
             "stage_artifact_contract_check.py",
-            'artifact?.stage === \'0.8\'',
+            "artifact?.stage === '0.8'",
             "expected exactly one stage=0.8 audit artifact",
         ):
             self.assertIn(required, text)
@@ -118,7 +118,7 @@ class Review5078405029ContractsTest(unittest.TestCase):
 
     def test_prompt_08_requires_bound_audit_artifact(self):
         text = PROMPT_08.read_text(encoding="utf-8")
-        self.assertIn('audit_refs[] must contain **exactly one** JSON artifact with `stage: "0.8"`', text)
+        self.assertIn('`audit_refs[]` must contain **exactly one** JSON artifact with `stage: "0.8"`', text)
         self.assertIn('"run_id": "<exact card-run run_id>"', text)
         self.assertIn('"github_merge_ready": [', text)
         self.assertIn("repository workflow reconstructs the final `ID_LEDGER`", text)

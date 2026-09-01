@@ -226,6 +226,16 @@ function selfTest() {
   catch (error) { malformedLineageBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_RELATED"; }
   if (!malformedLineageBlocked) throw new Error("self-test failed to reject non-array related_lineage.related_ids bypass");
 
+  const updateLineageMutation = structuredClone(good);
+  updateLineageMutation.cards[1].related_lineage = {
+    relation_type: "direct_follow_up",
+    related_ids: ["2025-12-31_KR_01"],
+  };
+  let updateLineageBlocked = false;
+  try { validate(manifest, base, updateLineageMutation); }
+  catch (error) { updateLineageBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_RELATED"; }
+  if (!updateLineageBlocked) throw new Error("self-test failed to reject related_lineage mutation on declared direct update");
+
   const withFormalState = structuredClone(good);
   withFormalState.cards[2].state = "github_merge_ready";
   let provenanceBlocked = false;
@@ -247,7 +257,7 @@ function selfTest() {
   catch (error) { invalidDateBlocked = error instanceof ValidationError && error.code === "BLOCKED_MANUAL_DIRECT_ADD_TIMESTAMP"; }
   if (!invalidDateBlocked) throw new Error("self-test failed to reject nonexistent calendar date");
 
-  console.log("PASS: manual direct-add V4 hardening closes migration, Related, publication-state, duplicate-id, and timestamp bypasses");
+  console.log("PASS: manual direct-add V4 hardening closes migration, Related add/update, publication-state, duplicate-id, and timestamp bypasses");
 }
 
 const args = process.argv.slice(2);

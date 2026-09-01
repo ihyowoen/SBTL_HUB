@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
+import { isDeepStrictEqual } from "node:util";
 
 class ValidationError extends Error {
   constructor(code, message) { super(message); this.code = code; }
@@ -9,7 +10,7 @@ const readJson = (path, label) => {
   try { return JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, "")); }
   catch (error) { fail("BLOCKED_MANUAL_DIRECT_ADD_V4_HARDENING", `${label}: ${error.message}`); }
 };
-const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+const same = (a, b) => isDeepStrictEqual(a, b);
 const cardMap = (doc, label) => {
   if (!Array.isArray(doc?.cards)) fail("BLOCKED_MANUAL_DIRECT_ADD_V4_HARDENING", `${label}.cards must be an array`);
   return new Map(doc.cards.map((card) => [card.id, card]));
@@ -98,6 +99,13 @@ function selfTest() {
     { id: "2026-01-02_KR_01", date: "2026-01-02", region: "KR", title: "B", related: [] },
   ] };
   validate(manifest, base, good);
+
+  // Property order is not part of JSON value identity and must not cause a false reject.
+  const reordered = { cards: [
+    { title: "A", related: [], urls: ["https://a.example"], region: "KR", date: "2025-12-31", id: "2025-12-31_KR_01" },
+    { id: "2026-01-02_KR_01", date: "2026-01-02", region: "KR", title: "B", related: [] },
+  ] };
+  validate(manifest, base, reordered);
 
   const contentSwap = structuredClone(good);
   contentSwap.cards[0].title = "Different event";

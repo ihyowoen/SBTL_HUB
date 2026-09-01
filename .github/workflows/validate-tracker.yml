@@ -122,6 +122,25 @@ jobs:
             echo "validate2 — 원장·스탬프 변경 없음, 구조 검사만"
             node ops/validate2.mjs public/data/tracker_data.json
           fi
+      # coverage 쿼리 선행성 — validator 는 git 이력을 못 보므로 여기서 본다.
+      # 검사 #13은 셀의 사전 정의 queries 에 있는 쿼리만 스윕 근거로 인정하는데, queries 는 작성자
+      # 소유라 **스탬프와 같은 PR 에서 쿼리를 끼워 넣으면 자기인증**이 된다(실측: 철회한 19셀 복귀).
+      # 판정은 diff 라인이 아니라 두 스냅샷의 **셀 단위 비교**다 — 라인 휴리스틱은 itemVerifyQueries
+      # 같은 다른 문자열 배열의 원소 추가까지 세어 오탐을 낸다(실측 27행).
+      - name: Coverage query precedence
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
+          if ! git cat-file -e "origin/$BASE_REF:ops/coverage.json" 2>/dev/null; then
+            echo "base 에 ops/coverage.json 없음 — 선행성 대조 생략"; exit 0
+          fi
+          git show "origin/$BASE_REF:ops/coverage.json" > /tmp/cov_base.json
+          node ops/check_query_precedence.mjs /tmp/cov_base.json ops/coverage.json
+
       - name: Validate cards data
         env:
           CARDS_ALLOW_DELETE: ${{ steps.direct_add.outputs.allow_delete || '0' }}

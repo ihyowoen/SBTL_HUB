@@ -222,7 +222,10 @@ if (runPath) {
       // 사전 정의 쿼리가 RUNBOOK 최소치(3개) 미만인 셀은 스탬프 자체를 인정하지 않는다.
       // #13의 근거 규칙은 "셀의 queries 에 있는 쿼리"인데 queries 는 같은 커밋에서 덧붙일 수 있어
       // 자기인증이 가능하다(리뷰 실측: 재검증 쿼리 30개를 셀에 밀어넣으면 철회했던 19셀이 초록불 복귀).
-      // 최소 3개를 요구하면 스탬프를 세우려면 셀 단위 쿼리 세트를 실제로 설계해야 한다.
+      // **완전 차단이 아니다.** 실측 — 오늘 원장이 축을 선언한 19셀 중 16셀이 이 장벽에 걸리고
+      // 3셀은 이미 2개 이상을 갖고 있어 통과한다. 그리고 같은 커밋에서 더미 문자열로 최소치를
+      // 채우면 16셀도 뚫린다. 장벽은 "아무것도 아님"에서 "쿼리 세트를 적어야 함"으로 올라간 정도다.
+      // 쿼리 선행성 자체는 워크플로의 coveragePrecedence 스텝이 본다(validator 는 git 이력을 못 본다).
       if (strict && (predef.get(k) ?? new Set()).size < 3) {
         missing++;
         err(`coverage ${k}: lastSwept=${rd2} 인데 사전 정의 queries 가 ${(predef.get(k) ?? new Set()).size}개 — RUNBOOK 은 셀당 3~6개를 요구한다(쿼리를 스탬프와 같은 커밋에 끼워 넣는 자기인증 차단)`);
@@ -535,10 +538,28 @@ try {
   const under = cells.filter(c => (c.queries ?? []).length < 3).length;
   const zero  = cells.filter(c => !(c.queries ?? []).length).length;
   if (under) warn(`coverage 사전 정의 쿼리 미달 ${under}/${cells.length}셀 (0개 ${zero}셀 포함) — RUNBOOK 은 셀당 3~6개를 요구하며, 미달 셀은 검사 #13이 스탬프를 거부한다. 분포 ${[...dist].sort((a,b)=>a[0]-b[0]).map(([k,v])=>`${k}개:${v}셀`).join(' ')}`);
-  // _meta 에 손으로 적힌 집계가 있으면 실측과 대조한다(이 PR 이 금지한 하드코딩 파생값).
-  const hard = cv6._meta?.cellsWithoutPredefinedQueries?.count;
-  if (hard !== undefined && hard !== zero)
-    err(`coverage _meta.cellsWithoutPredefinedQueries.count(${hard}) ≠ 실측(${zero}) — 손으로 적힌 파생값이 낡았다`);
+  // _meta 에 손으로 적힌 집계를 실측과 대조한다(이 PR 이 금지한 하드코딩 파생값).
+  // **필드 부재를 통과로 두지 않는다.** 종전에는 `hard !== undefined &&` 조건부라 count 를 지우면
+  // 대조가 통째로 빠졌다 — #1(meta.dataSnapshotDate)과 정확히 같은 형태이고, fail-open 네 번째
+  // 반복이다(catch → 값 → 필드 존재 → 여기). #21 이 세운 원칙을 바로 옆 검사에서 안 지켰다.
+  // **규약: 파생값 대조는 대조 대상 필드의 부재를 ERROR 로 끊는다.**
+  const meta6 = cv6._meta?.cellsWithoutPredefinedQueries;
+  if (!meta6) err('coverage _meta.cellsWithoutPredefinedQueries 없음 — 하드코딩 파생값 대조를 우회한다');
+  else {
+    if (meta6.count === undefined) err('coverage _meta.cellsWithoutPredefinedQueries.count 없음 — 대조를 우회한다');
+    else if (meta6.count !== zero)
+      err(`coverage _meta.cellsWithoutPredefinedQueries.count(${meta6.count}) ≠ 실측(${zero}) — 손으로 적힌 파생값이 낡았다`);
+    // count 만 보면 개수가 같고 목록만 틀린 드리프트(한 셀을 채우고 다른 셀을 비움)를 놓친다.
+    const zeroSet = new Set(cells.filter(c => !(c.queries ?? []).length).map(c => `${c.region}/${c.axis}`));
+    if (!Array.isArray(meta6.cells)) err('coverage _meta.cellsWithoutPredefinedQueries.cells 배열 없음 — 목록 대조를 우회한다');
+    else {
+      const listed = new Set(meta6.cells);
+      const only = [...listed].filter(x => !zeroSet.has(x));
+      const miss = [...zeroSet].filter(x => !listed.has(x));
+      if (only.length || miss.length)
+        err(`coverage _meta.cellsWithoutPredefinedQueries.cells 불일치 — 목록에만 있음 [${only.join(', ')}] / 실측에만 있음 [${miss.join(', ')}]`);
+    }
+  }
 } catch(e){ err('coverage 쿼리 분포 대조 실패: '+e.message); }
 
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);

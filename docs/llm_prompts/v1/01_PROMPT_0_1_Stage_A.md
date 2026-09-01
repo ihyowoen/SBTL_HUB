@@ -1,7 +1,7 @@
 # Prompt 0.1 — Stage A Integrated Editorial Selector V4
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `STAGE_A_INTEGRATED_SELECTOR_V4_20260831`  
+**Version:** `STAGE_A_INTEGRATED_SELECTOR_V4_20260901`  
 **selection_policy_version:** `EMBEDDED_NEWS_VALUE_SELECTION_V4`
 
 ## 0. Role
@@ -37,6 +37,8 @@ For compatibility with current machine V3 validators, materialize corresponding 
 
 ## 4. 100-point decision value
 Score exactly: market structure/competition 0–25; supply/demand/price/utilisation 0–25; technology/performance/safety/operational validity 0–20; future cash flow/asset value 0–10; law/policy/rights/market access 0–10; systemic scale/coverage 0–5; persistence/irreversibility 0–3; decision urgency/actionability 0–2.
+
+For systemic scale/coverage, state `systemic_scale_denominator` when a defensible denominator exists. If no defensible denominator exists, set `systemic_scale_denominator = null`, record a non-empty `denominator_gap`, and cap `decision_value_breakdown.systemic_scale` at **2/5**. A 3–5 point systemic score without a defensible denominator is invalid.
 
 Bands: 85–100 critical structural; 70–84 high decision value; 55–69 material industry signal; 40–54 standard monitoring; 25–39 context/reinforcement; 0–24 low independent value. Do not double-count transmission effects.
 
@@ -77,7 +79,9 @@ The active Stage A machine shape is:
 }
 ```
 
-For `distinct_follow_up` or `program_lineage`, `anchor_class_to_verify` must be one active anchor class and `incremental_anchor_question` must be non-empty. `status: PASS` requires `same_event_checked: true`, `earliest_same_event_check_status: PASS`, and no unresolved duplicate disposition. `fresh_anchor_questions[]` is non-empty for strict/high-potential items.
+**Strict queue rule:** every object placed in `strict_passed_spec[]` must have `related_prepass.status = PASS`, `same_event_checked = true`, `earliest_same_event_check_status = PASS`, and `duplicate_disposition = no_duplicate_found`. `HOLD`, `same_event_duplicate`, `existing_card_reinforcement`, and `uncertain_needs_review` belong outside the strict Stage B queue.
+
+For `distinct_follow_up` or `program_lineage`, `anchor_class_to_verify` must be one active anchor class and `incremental_anchor_question` must be non-empty. `fresh_anchor_questions[]` is non-empty for strict/high-potential items.
 
 Clear same-event duplicates do not enter normal Stage B new-card queue. Probable follow-ups carry exact predecessor and evidence questions forward. Stage A does not lock final `related[]`.
 
@@ -97,7 +101,7 @@ Tag applicable lenses: AI/data-centre power/ESS; US/EU/CN policy; critical mater
 Non-strict items are explicitly partitioned into `candidate_review_pool` with subtype `general_candidate|structural_signal_review|earnings_deep_dive`, `watchlist_context_pool`, `reject_or_support_only_pool`, plus separate duplicate/reinforcement/update outcomes where supported. Each review item records reason, promotion precondition, bounded review question, and recommended action. Only 0.1P may promote a review item.
 
 ## 13. Strict eligibility
-Strict requires lane fit, at least one valid anchor class, incremental information, decision value, plausible source direction/path, freshness, acceptable duplicate/follow-up treatment, independent cardability/full-schema viability, Related pre-pass, and item-specific Stage B evidence targets.
+Strict requires lane fit, at least one valid anchor class, incremental information, decision value, plausible source direction/path, freshness, acceptable duplicate/follow-up treatment, independent cardability/full-schema viability, a **PASS** Related pre-pass, and item-specific Stage B evidence targets.
 
 ## 14. Required strict object core
 ```json
@@ -111,6 +115,8 @@ Strict requires lane fit, at least one valid anchor class, incremental informati
   "decision_value_breakdown": {},
   "decision_value_classification": "",
   "publication_urgency": {},
+  "systemic_scale_denominator": null,
+  "denominator_gap": "required when systemic_scale_denominator is null",
   "prior_state": "",
   "new_verified_fact": "",
   "changed_judgment": "",
@@ -126,7 +132,7 @@ Strict requires lane fit, at least one valid anchor class, incremental informati
   "why_execution_event_not_required": null
 }
 ```
-The eight score components sum exactly to total.
+The eight score components sum exactly to total. `systemic_scale_denominator` and `denominator_gap` must obey the 2/5 cap rule above.
 
 ## 15. Stage exit
-Account for every input event. Emit strict specs, partitioned review/watch/support/reject pools, duplicate/reinforcement/update dispositions, summary counts, selection-route counts, score-band counts, anchor/lens coverage, high-value review IDs, follow-up IDs, and zero-coverage domains. Record current prompt path/SHA provenance. A missing or malformed Related pre-pass or missing integrated news-value core blocks Stage B recommendation.
+Account for every input event. Emit strict specs, partitioned review/watch/support/reject pools, duplicate/reinforcement/update dispositions, summary counts, selection-route counts, score-band counts, anchor/lens coverage, high-value review IDs, follow-up IDs, and zero-coverage domains. Record current prompt path/SHA provenance. A missing or malformed Related pre-pass, denominator attestation, or integrated news-value core blocks Stage B recommendation.

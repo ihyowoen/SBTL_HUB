@@ -10,6 +10,7 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve, sep } from "node:path";
+import { REQUIRED_REGION_AXES, REQUIRED_TOPIC_AXES } from "./workflow_v4_coverage_axes.mjs";
 
 class ValidationError extends Error {
   constructor(code, message) { super(message); this.code = code; }
@@ -35,25 +36,6 @@ const OPERATION_STAGE_ALIASES = new Map([
   ["c", "C"], ["stage_c", "C"], ["0.3", "C"],
   ["0.4", "0.4"], ["0.5", "0.5"], ["0.6", "0.6"], ["0.7", "0.7"],
 ]);
-const REQUIRED_REGION_AXES = [
-  "korea", "north_america", "china", "japan", "europe", "material_global_markets",
-];
-const REQUIRED_TOPIC_AXES = [
-  "cells_chemistries",
-  "materials_components",
-  "pouch_pouch_film_demand",
-  "ess_bess",
-  "ev_charging",
-  "manufacturing_capacity_utilisation",
-  "grid_ai_data_centre_power",
-  "critical_minerals_refining",
-  "recycling",
-  "policy_trade_sanctions_subsidies_localisation",
-  "competitors_customers",
-  "prices_costs_margins",
-  "financing",
-  "safety_recall_commissioning_operation",
-];
 const normalizeStatus = (value) => String(value).trim().toUpperCase();
 const nonEmptyText = (value) => typeof value === "string" && Boolean(value.trim());
 
@@ -211,7 +193,7 @@ const runSelfTest = () => {
     expectCode(makeRun(stale), "BLOCKED_STAGE_ARTIFACT_BASELINE_BINDING", "stale 0.4 baseline");
     expectCode(makeRun(stageMissing), "BLOCKED_STAGE_ARTIFACT_STAGE_INVALID", "stage-less 0.4 cannot skip baseline binding");
     expectCode(makeRun(baselinePass, governance, coverageMissing), "BLOCKED_COVERAGE_AXIS_INCOMPLETE", "missing mandatory coverage axis");
-    console.log("PASS: explicit stage identity, run-level stage identity, status markers, 0.4 baseline, and mandatory 0.0C axes are fail-closed");
+    console.log("PASS: explicit stage identity, run-level stage identity, status markers, 0.4 baseline, and shared mandatory 0.0C axes are fail-closed");
   } finally { rmSync(root, { recursive: true, force: true }); }
 };
 

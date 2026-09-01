@@ -33,7 +33,7 @@ Authoritative active route:
 
 A conventional execution event is not mandatory. A non-execution route must state `structural_non_execution_reason` and `why_execution_event_not_required` and still pass cardability, incremental-information, source-path plausibility, freshness, duplicate/lineage, and full-schema viability gates.
 
-For compatibility with current machine V3 validators, materialize corresponding legacy route aliases where required by schema; those aliases are machine compatibility only and are not a second policy layer.
+For compatibility with current machine V3 validators, materialize the explicit compatibility aliases defined in §14.1. Those aliases are machine compatibility only and are not a second policy layer.
 
 ## 4. 100-point decision value
 Score exactly: market structure/competition 0–25; supply/demand/price/utilisation 0–25; technology/performance/safety/operational validity 0–20; future cash flow/asset value 0–10; law/policy/rights/market access 0–10; systemic scale/coverage 0–5; persistence/irreversibility 0–3; decision urgency/actionability 0–2.
@@ -121,6 +121,8 @@ Strict requires lane fit, at least one valid anchor class, incremental informati
 ## 14. Required strict object core
 ```json
 {
+  "spec_id": "",
+  "source_story_ids": [],
   "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
   "selection_route": "execution_anchor_route|structural_non_execution_route",
   "execution_credibility_gate": {},
@@ -146,11 +148,82 @@ Strict requires lane fit, at least one valid anchor class, incremental informati
   "evidence_needed_for_stage_b": [],
   "next_confirmation_points": [],
   "related_prepass": {},
+  "date_role": {},
   "structural_non_execution_reason": null,
   "why_execution_event_not_required": null
 }
 ```
 The eight score components sum exactly to total. `systemic_scale_denominator` and `denominator_gap` must obey the 2/5 cap rule above. The three cap-metadata fields must obey §4.1 and the resulting component/total ceiling is machine-enforced.
 
+### 14.1 Machine compatibility envelope — mandatory until V3 compatibility is separately migrated
+The active production validator executes the V4 contract **and** the frozen V3 compatibility layer. Therefore the following fields are not optional hidden implementation details; they are part of the Stage A machine artifact until a separate atomic validator migration removes them.
+
+#### Top-level artifact fields
+Emit:
+
+```json
+{
+  "stage": "A",
+  "stage_a_validity_status": "PASS",
+  "artifact_consistency_status": "PASS",
+  "csv_schema_status": "PASS",
+  "review_pool_partition_status": "PASS",
+  "strict_pass_gate_metadata_status": "PASS",
+  "baseline_duplicate_screen_status": "PASS",
+  "run_tag": "",
+  "run_label": "",
+  "source_prompt_file": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+  "source_prompt_sha256": "",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "source_prompt_authority": "uploaded_or_repo_source_file_prompt",
+  "source_prompt_provenance_status": "PASS",
+  "input_file": "",
+  "baseline_file": "data/cards.full.json",
+  "baseline_source_declaration": "",
+  "baseline_count": 0,
+  "github_main_sync_required_later": false,
+  "source_universe": "",
+  "story_count": 0,
+  "original_status_counts": {},
+  "integrity_summary": {},
+  "recommended_for": [],
+  "next_call_recommendation": {},
+  "required_docs_check": {},
+  "lane_sanity_rules_applied": [],
+  "dropped_treasure_hunt": {},
+  "summary": {},
+  "legacy_keep": [],
+  "strict_passed_spec": [],
+  "review_pool": [],
+  "candidate_review_pool": [],
+  "watchlist_context_pool": [],
+  "reject_or_support_only_pool": [],
+  "review_pool_partition_summary": {},
+  "review_pool_carry_forward_ledger_status": "PASS",
+  "review_pool_resolution_ledger": [],
+  "rejected": [],
+  "existing_reinforcement": [],
+  "support_source_only": [],
+  "dropped_treasure_hunt_result": [],
+  "decision_ledger": []
+}
+```
+
+`story_count`, the emitted disposition pools, `summary` counts, and `decision_ledger` must reconcile exactly. Every supplied story must have one canonical disposition/ledger outcome. `required_docs_check` records the active V4 authority/dependency set actually required by the run; it must not resurrect superseded prompt/addendum bodies as active authority.
+
+#### Strict-item compatibility aliases
+Every `strict_passed_spec[]` item must additionally carry these compatibility fields with V4-consistent semantics:
+
+- identity/source: `spec_id`, non-empty unique `source_story_ids[]`, `source_origin`, `primary_url`, `urls[]`, `same_event_source_cluster[]` with `story_id`, `url`, `preserve_for_stage_b=true`;
+- selector aliases: `enhanced_selector_precision_version="v3"`, `selector_policy_version="STRUCTURAL_NEWS_VALUE_SELECTION_V3"`, `strict_gate_check="pass"`, `format_risk_tags[]`;
+- strict gate: `strict_pass_gate.status="pass"`, non-empty `reason`, `all_six_conditions_passed=true`, `anchor_supported_by_upstream_text=true`, and non-empty `why_not_review_pool`;
+- execution-route aliases: `execution_anchor_type`, `execution_anchor_strength`, `structural_value_override_applied`, `structural_value_override_reason`; execution route uses non-empty execution type/strength, `structural_value_override_applied=false`, and empty override reason; structural non-execution route uses canonical empty execution type/strength, `structural_value_override_applied=true`, non-empty compatibility override reason, and `structural_selector_policy_version="STRUCTURAL_NEWS_VALUE_SELECTION_V3"`;
+- baseline/risk: `baseline_relation`, `duplicate_risk`, `staleness_decision`, `source_access_risk`;
+- selector-only evidence boundary: `stage_a_evidence_status="not_evidence_complete_no_fetch"`, `stage_b_evidence_package_required=true`, `primary_url_semantics="provided_source_candidate_not_evidence"`;
+- source preservation/diversity: `support_source_candidates[]`, `source_domain_candidates[]`, `source_cluster_preserved=true`, `source_diversity_path` with a valid status and candidate-owner availability metadata, and `support_source_candidates_accounted=true`;
+- full-artifact carry fields used by the compatibility checker: `region`, `representative_date`, `representative_source`, `source_tier_estimate`, `cat`, `sub_cat`, `signal_estimate`, `signal_rubric_estimate`, `strategic_lens[]`, `event_anchor`, `title_raw`, `summary_hint`, `context_text`, `why_now`, `market_relevance`, `source_priority_notes`, `upstream_labels`, `staleness`, `needs_review`, `review_reason`, `stage_b_requirement_note`, `structural_value_lenses[]`, `denominator_used`, `baseline_follow_up_relation`, `portfolio_coverage_contribution[]`, earnings availability/Q&A fields, `anti_bias_check`, `structural_rescue_required`, `structural_rescue_question`, `search_before_delete_status`, `technology_validation_stage`, `technology_score_cap_applied`, and `technology_validation_gap`.
+
+These compatibility fields may mirror V4 judgments, but they may not contradict them. `selection_policy_version` and `selection_route` remain authoritative V4 policy identity; the V3-named fields exist only so the current machine checker can preserve historical source/lineage/completeness protections. A contradiction between V4 and compatibility aliases is BLOCKED.
+
 ## 15. Stage exit
-Account for every input event. Emit strict specs, partitioned review/watch/support/reject pools, duplicate/reinforcement/update dispositions, summary counts, selection-route counts, score-band counts, anchor/lens coverage, high-value review IDs, follow-up IDs, and zero-coverage domains. Record current prompt path/SHA provenance. A missing or malformed Related pre-pass, denominator attestation, score-cap metadata, or integrated news-value core blocks Stage B recommendation.
+Account for every input event. Emit strict specs, partitioned review/watch/support/reject pools, duplicate/reinforcement/update dispositions, summary counts, selection-route counts, score-band counts, anchor/lens coverage, high-value review IDs, follow-up IDs, and zero-coverage domains. Record current prompt path/SHA provenance. A missing or malformed Related pre-pass, denominator attestation, score-cap metadata, V4→V3 compatibility envelope, or integrated news-value core blocks Stage B recommendation.

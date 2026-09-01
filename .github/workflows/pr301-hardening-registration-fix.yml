@@ -1,0 +1,111 @@
+name: PR301 hardening registration fix
+
+on:
+  push:
+    branches:
+      - chatgpt/20260831-preflight-reconciliation-r2
+    paths:
+      - ".github/workflows/pr301-hardening-registration-fix.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-r3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/20260831-preflight-reconciliation-r2
+          fetch-depth: 0
+      - name: Patch Stage 0.0D R3 fail-closed registration evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          P='runs/2026-08-31/stage_0_0d_document_universe_20260901_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION_R3.json'
+          python - <<'PY'
+          import json
+          from collections import Counter
+          p='runs/2026-08-31/stage_0_0d_document_universe_20260901_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION_R3.json'
+          d=json.load(open(p,encoding='utf-8'))
+          manifest='docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json'
+          hardening={
+            'docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A_HARDENING_ADDENDUM_V1.md',
+            'docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC_HARDENING_ADDENDUM_V1.md',
+            'docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish_HARDENING_ADDENDUM_V1.md',
+            'docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC_HARDENING_ADDENDUM_V1.md',
+            'docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep_HARDENING_ADDENDUM_V1.md',
+            'docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md',
+          }
+          for x in d['documents']:
+            if x['path'] in hardening:
+              x['last_known_registration_source']='UNRESOLVED_PENDING_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST_FULL_READ'
+              x['apparent_lifecycle_markers']=['HARDENING_ADDENDUM_CANDIDATE_EXACT_REGISTRATION_UNRESOLVED']
+              x['manifest_references']=[manifest]
+          for x in d['unread_active_documents']:
+            if x['path'] in hardening:
+              x['known_required_or_active_basis']='PROMPT_MANIFEST §4.1 HARDENING_FAMILY_ONLY; exact path registration unresolved pending DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json full read'
+          deps=d['unresolved_dependencies']
+          def depkey(x): return x.get('dependency_path') or x.get('dependency_family')
+          if not any(depkey(x)=='REGISTERED_STAGE_HARDENING_ADDENDA' for x in deps):
+            deps.insert(2,{
+              'dependency_kind':'family',
+              'source_path':'docs/llm_prompts/v1/PROMPT_MANIFEST.md',
+              'dependency_path':None,
+              'dependency_family':'REGISTERED_STAGE_HARDENING_ADDENDA',
+              'registration_manifest_path':manifest,
+              'dependency_status':'UNRESOLVED_PENDING_MANIFEST_FULL_READ_AND_EXACT_PATH_REGISTRATION',
+              'detail':'PROMPT_MANIFEST establishes only the hardening-addendum family. Exact active paths/registration evidence remain unresolved until DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json is fully read.'
+            })
+          if not any(depkey(x)=='ops/validate2.mjs' for x in deps):
+            deps.append({
+              'dependency_kind':'path',
+              'source_path':'.github/workflows/validate-tracker.yml',
+              'dependency_path':'ops/validate2.mjs',
+              'dependency_family':None,
+              'registration_manifest_path':None,
+              'dependency_status':'UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY',
+              'detail':'validate-tracker.yml explicitly executes ops/validate2.mjs; preserve fail-closed until content identity/read/applicability closure.'
+            })
+          defects=d['incomplete_universe_defects']
+          existing=[x['path'] for x in defects if x['type']=='MISSING_DEPENDENCY']
+          for k in ['REGISTERED_STAGE_HARDENING_ADDENDA','ops/validate2.mjs']:
+            if k not in existing:
+              defects.append({'type':'MISSING_DEPENDENCY','path':k,'detail':'Mirrors unresolved dependency exactly once.'})
+          for w in d['governed_external_inventory']:
+            wp=w['path']
+            vals=[]
+            for x in deps:
+              sources=(x.get('source_path') or '').split(';')
+              if wp in sources:
+                vals.append(depkey(x))
+            w['dependencies']=sorted(set(vals))
+          d['selected_blocker_reason']='83 of 88 docs/** files remain formally unread/unclassified in the current run; 27 governed dependencies remain unresolved after workflow and hardening-registration expansion; and the independently open legacy Related remediation remains unchecked. Stage 0.0C is not authorized.'
+          d.setdefault('review_resolution',{})['5077963071']='all governed workflows represented; additional hardening-registration P2 corrected fail-closed; workflow dependencies explicitly linked'
+          d['review_resolution']['3904044802']='exact hardening registration deferred pending DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json full read'
+          assert len(d['documents'])==88
+          assert sum(x['read_status']=='READ_FULL_CURRENT_HEAD' for x in d['documents'])==5
+          assert sum(x['read_status']=='UNREAD_CURRENT_RUN' for x in d['documents'])==83
+          assert d['stage_0_0c_authorized'] is False and d['status']=='BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE'
+          assert len(deps)==27
+          depkeys=[depkey(x) for x in deps]
+          missing=[x['path'] for x in defects if x['type']=='MISSING_DEPENDENCY']
+          assert len(depkeys)==len(set(depkeys))==27
+          assert len(missing)==27 and set(missing)==set(depkeys)
+          assert Counter(x['type'] for x in defects)==Counter({'MISSING_DEPENDENCY':27,'UNREAD_DOCUMENT':1,'UNCLASSIFIED_DOCUMENT':1,'MISSING_COMPONENT':1,'UNCHECKED_OPEN_REMEDIATION':1})
+          assert all(next(x for x in d['documents'] if x['path']==h)['last_known_registration_source'].startswith('UNRESOLVED_PENDING_') for h in hardening)
+          assert all(next(x for x in d['documents'] if x['path']==h)['manifest_references']==[manifest] for h in hardening)
+          assert any(depkey(x)=='REGISTERED_STAGE_HARDENING_ADDENDA' for x in deps)
+          assert any(depkey(x)=='ops/validate2.mjs' for x in deps)
+          with open(p,'w',encoding='utf-8') as f:
+            json.dump(d,f,ensure_ascii=False,separators=(',',':'))
+            f.write('\n')
+          PY
+          python -m json.tool "$P" >/dev/null
+          git rm .github/workflows/pr301-hardening-registration-fix.yml
+          git add "$P"
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Close remaining Stage 0.0D review gaps'
+          git push origin HEAD:chatgpt/20260831-preflight-reconciliation-r2

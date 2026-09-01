@@ -33,6 +33,9 @@ class StageAV4MachineContractTest(unittest.TestCase):
                 "publication_urgency": "near_term",
                 "systemic_scale_denominator": "Share of the named market/capacity denominator described in Stage A metadata.",
                 "denominator_gap": None,
+                "technology_evidence_level": "independent_test_or_customer_qualification",
+                "policy_stage": None,
+                "novelty_cap_basis": "none",
                 "related_prepass": {
                     "status": "PASS",
                     "same_event_checked": True,

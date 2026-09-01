@@ -54,14 +54,11 @@ jobs:
             range="$BEFORE_SHA...HEAD"
           fi
 
-          # Deletions are valid lifecycle operations and are intentionally not
-          # fed to an instance validator. For renames, preserve the old/base
-          # path so a historical V1 audit manifest is not misclassified as a
-          # newly introduced V1 merely because its repository path changed.
-          validated=0
-          historical=0
-          while IFS=$'\t' read -r status path1 path2; do
-            [[ -n "$status" ]] || continue
+          resolve_manifest_paths() {
+            local status="$1"
+            local path1="$2"
+            local path2="${3:-}"
+            local base_manifest manifest
             case "$status" in
               R*)
                 base_manifest="$path1"
@@ -78,6 +75,27 @@ jobs:
                 base_manifest="$path1"
                 ;;
             esac
+            printf '%s\t%s\n' "$base_manifest" "$manifest"
+          }
+
+          # Regression: a git rename must check historical existence at the old
+          # base path while validating the manifest at the new current path.
+          IFS=$'\t' read -r test_base test_current < <(resolve_manifest_paths \
+            "R100" \
+            "direct-adds/legacy/direct-add.json" \
+            "direct-adds/moved/direct-add.json")
+          [[ "$test_base" == "direct-adds/legacy/direct-add.json" ]]
+          [[ "$test_current" == "direct-adds/moved/direct-add.json" ]]
+
+          # Deletions are valid lifecycle operations and are intentionally not
+          # fed to an instance validator. For renames, preserve the old/base
+          # path so a historical V1 audit manifest is not misclassified as a
+          # newly introduced V1 merely because its repository path changed.
+          validated=0
+          historical=0
+          while IFS=$'\t' read -r status path1 path2; do
+            [[ -n "$status" ]] || continue
+            IFS=$'\t' read -r base_manifest manifest < <(resolve_manifest_paths "$status" "$path1" "${path2:-}")
 
             [[ -f "$manifest" ]] || { echo "FAIL: changed direct-add manifest missing: $manifest" >&2; exit 1; }
             schema_name="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String(r.schema||""))' "$manifest")"

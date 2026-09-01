@@ -323,6 +323,9 @@ const applyUpdateChange = (card, change) => {
   const tokens = parsePointer(change.path);
   const root = tokens[0];
   if (root === "id") FAIL("IMMUTABLE_ID", "기존 카드 id 변경은 허용되지 않음");
+  if (root === "source_spec_id") {
+    FAIL("IMMUTABLE_SOURCE_SPEC_ID", "source_spec_id는 formal binding metadata이며 card update로 변경할 수 없음");
+  }
   if (relationRoots.has(root)) {
     FAIL("RELATION_UPDATE_FORBIDDEN", `${change.path}는 related_add에서만 변경 가능`);
   }
@@ -501,10 +504,14 @@ const validateInsert = (operation) => {
 
 const validateUpdate = (operation) => {
   assertObject(operation, "update operation");
-  const allowedKeys = new Set(["id", "changes", "reason", "stage_artifacts", "evidence_refs"]);
+  const allowedKeys = new Set(["id", "source_spec_id", "changes", "reason", "stage_artifacts", "evidence_refs"]);
   const extras = Object.keys(operation).filter((key) => !allowedKeys.has(key));
   if (extras.length) FAIL("INVALID_UPDATE", `지원하지 않는 update 필드: ${extras.join(", ")}`);
   if (typeof operation.id !== "string" || !operation.id.trim()) FAIL("INVALID_UPDATE", "update.id 누락");
+  if (operation.source_spec_id !== undefined
+    && (typeof operation.source_spec_id !== "string" || !operation.source_spec_id.trim())) {
+    FAIL("INVALID_UPDATE", `${operation.id}: source_spec_id는 비어 있지 않은 binding metadata여야 함`);
+  }
   if (!Array.isArray(operation.changes) || !operation.changes.length) FAIL("INVALID_UPDATE", `${operation.id}: changes가 비어 있음`);
   if (typeof operation.reason !== "string" || !operation.reason.trim()) FAIL("INVALID_UPDATE", `${operation.id}: reason 누락`);
   assertStringArray(operation.stage_artifacts, `${operation.id}.stage_artifacts`);
@@ -516,13 +523,19 @@ const validateUpdate = (operation) => {
 const validateRelatedAdd = (operation) => {
   assertObject(operation, "related_add operation");
   const allowedKeys = new Set([
-    "source_id", "target_id", "relation_type", "lineage_reason",
-    "event_stage_relationship", "direction", "stage_artifacts", "evidence_refs", "patches",
+    "source_id", "target_id", "source_spec_id", "identity_card_id",
+    "relation_type", "lineage_reason", "event_stage_relationship", "direction",
+    "stage_artifacts", "evidence_refs", "patches",
   ]);
   const extras = Object.keys(operation).filter((key) => !allowedKeys.has(key));
   if (extras.length) FAIL("INVALID_RELATED_ADD", `지원하지 않는 related_add 필드: ${extras.join(", ")}`);
   for (const key of ["source_id", "target_id", "relation_type", "lineage_reason", "event_stage_relationship"]) {
     if (typeof operation[key] !== "string" || !operation[key].trim()) FAIL("INVALID_RELATED_ADD", `${key} 누락`);
+  }
+  for (const key of ["source_spec_id", "identity_card_id"]) {
+    if (operation[key] !== undefined && (typeof operation[key] !== "string" || !operation[key].trim())) {
+      FAIL("INVALID_RELATED_ADD", `${key}는 비어 있지 않은 binding metadata여야 함`);
+    }
   }
   if (operation.source_id === operation.target_id) FAIL("SELF_RELATED_EDGE", `${operation.source_id}: self relation`);
   if (!new Set(["directional", "reciprocal"]).has(operation.direction)) FAIL("INVALID_RELATED_ADD", "direction 오류");

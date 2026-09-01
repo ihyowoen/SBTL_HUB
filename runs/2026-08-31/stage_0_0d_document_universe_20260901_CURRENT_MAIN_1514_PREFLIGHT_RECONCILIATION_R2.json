@@ -196,6 +196,7 @@
   "incomplete_universe_defects":[
     {"type":"UNREAD_DOCUMENT","path":"docs/**","detail":"83 explicitly enumerated documents in documents[] remain UNREAD_CURRENT_RUN; 44 are already known required or active and are listed in unread_active_documents[]."},
     {"type":"UNCLASSIFIED_DOCUMENT","path":"docs/**","detail":"The same 83 explicitly enumerated unread documents cannot receive final governance classification before full read/parse."},
+    {"type":"MISSING_COMPONENT","path":"stage_0_0d_document_universe_manifest_v1 schema definition","detail":"Mirrors missing_or_stale_components[0] exactly once: the compatibility schema identifier has no registered repository schema definition or validator."},
     {"type":"MISSING_DEPENDENCY","path":"docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md","detail":"The explicit Stage 0.0C authority dependency exists with locked identity but remains UNREAD_CURRENT_RUN; this mirrors unresolved_dependencies[0] exactly once."},
     {"type":"MISSING_DEPENDENCY","path":"REGISTERED_DATE_STORYID_RELATED_VALIDATORS","detail":"Exact external date/story-ID/related validator files are not yet dependency-expanded with content identity/read evidence because DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json remains UNREAD_CURRENT_RUN."},
     {"type":"MISSING_DEPENDENCY","path":"REGISTERED_SOURCE_DIVERSITY_RULES","detail":"Exact active source-diversity rule paths and applicability are not yet dependency-expanded with finalized registration/identity/read evidence."},

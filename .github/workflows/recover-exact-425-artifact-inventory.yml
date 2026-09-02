@@ -1,4 +1,4 @@
-name: Recover historical 290 residual 44 mapping
+name: Build residual 44 occurrence matrix
 
 on:
   push:
@@ -11,28 +11,41 @@ permissions:
   contents: write
 
 jobs:
-  recover:
+  matrix:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Search all reachable Git text blobs for historical 290 residual 44 evidence
+      - name: Build item-level occurrence matrix for residual 44
         shell: bash
         run: |
           set -euo pipefail
+          git fetch origin chatgpt/v4-crossrun-20260831-20260901 main
           python3 - <<'PY'
-          import subprocess,re,json
-          needles=[
-            re.compile(r'historical.{0,80}290',re.I|re.S),
-            re.compile(r'290.{0,80}historical',re.I|re.S),
-            re.compile(r'residual.{0,80}44',re.I|re.S),
-            re.compile(r'44.{0,80}residual',re.I|re.S),
-            re.compile(r'37.{0,40}5.{0,40}2',re.I|re.S),
-            re.compile(r'carry[-_ ]forward.{0,80}(290|44|37)',re.I|re.S),
-          ]
+          import subprocess,json,re,hashlib
+          from pathlib import Path
+
+          src_ref='origin/chatgpt/v4-crossrun-20260831-20260901'
+          src_path='runs/2026-09-02/historical_governed_residual_44_rebuild_20260902_R1.json'
+          src=json.loads(subprocess.check_output(['git','show',f'{src_ref}:{src_path}']).decode('utf-8-sig'))
+          items=src['items']
+          ids=[x['historical_id'] for x in items]
+          assert len(ids)==44 and len(set(ids))==44
+          id_bytes={i:i.encode() for i in ids}
+
+          # Current canonical direct binding check.
+          current_raw=subprocess.check_output(['git','show','origin/main:data/cards.full.json'])
+          current_text=current_raw.decode('utf-8','ignore')
+          current_hits={i:[] for i in ids}
+          for i in ids:
+            for m in re.finditer(re.escape(i),current_text):
+              s=max(0,m.start()-300); e=min(len(current_text),m.end()+600)
+              current_hits[i].append(re.sub(r'\s+',' ',current_text[s:e]))
+
+          # Reachable blob occurrence scan, de-duplicated by blob SHA.
           objs=subprocess.check_output(['git','rev-list','--objects','--all'],text=True,errors='replace').splitlines()
-          seen=set(); hits=[]
+          seen=set(); occurrences={i:[] for i in ids}
           for line in objs:
             parts=line.split(' ',1); sha=parts[0]; path=parts[1] if len(parts)>1 else ''
             if sha in seen: continue
@@ -40,19 +53,76 @@ jobs:
             try:
               if subprocess.check_output(['git','cat-file','-t',sha],text=True,stderr=subprocess.DEVNULL).strip()!='blob': continue
               size=int(subprocess.check_output(['git','cat-file','-s',sha],text=True).strip())
-              if size>2_000_000: continue
-              raw=subprocess.check_output(['git','cat-file','blob',sha])
-              text=raw.decode('utf-8','ignore')
+              if size>25_000_000: continue
+              data=subprocess.check_output(['git','cat-file','blob',sha])
             except Exception:
               continue
-            matched=[]
-            for pat in needles:
-              m=pat.search(text)
-              if m:
-                s=max(0,m.start()-240); e=min(len(text),m.end()+600)
-                matched.append(re.sub(r'\s+',' ',text[s:e]))
-            if matched:
-              hits.append({'blob_sha':sha,'path':path,'size':size,'snippets':matched[:4]})
-          print('HIT_COUNT=',len(hits))
-          for h in hits[:100]: print(json.dumps(h,ensure_ascii=False))
+            matched=[i for i,b in id_bytes.items() if b in data]
+            if not matched: continue
+            text=data.decode('utf-8','ignore')
+            for i in matched:
+              loc=text.find(i)
+              s=max(0,loc-350); e=min(len(text),loc+len(i)+900)
+              snippet=re.sub(r'\s+',' ',text[s:e])
+              occurrences[i].append({'blob_sha':sha,'path':path,'size':size,'snippet':snippet})
+
+          # Compact signals useful for reconstructing 37/5/2.
+          rows=[]
+          reinforcement_terms=re.compile(r'reinforcement|same_event|duplicate|already[_ -]?canonical|existing[_ -]?card',re.I)
+          stale_terms=re.compile(r'stale|withdraw|terminal_reject|reject|no[_ -]?fresh|re-report',re.I)
+          stagea_terms=re.compile(r'stage.?a|revalidation|reopen_stage_a|candidate_review',re.I)
+          for item in items:
+            i=item['historical_id']; occ=occurrences[i]
+            signals=[]
+            for o in occ:
+              sn=o['snippet']
+              if reinforcement_terms.search(sn): signals.append({'kind':'reinforcement_like','path':o['path'],'blob_sha':o['blob_sha'],'snippet':sn[:900]})
+              if stale_terms.search(sn): signals.append({'kind':'stale_or_reject_like','path':o['path'],'blob_sha':o['blob_sha'],'snippet':sn[:900]})
+              if stagea_terms.search(sn): signals.append({'kind':'stage_a_like','path':o['path'],'blob_sha':o['blob_sha'],'snippet':sn[:900]})
+            # de-dupe signal identity
+            uniq=[]; keys=set()
+            for s in signals:
+              k=(s['kind'],s['blob_sha'])
+              if k in keys: continue
+              keys.add(k); uniq.append(s)
+            rows.append({
+              **item,
+              'current_main_exact_token_occurrence_count':len(current_hits[i]),
+              'current_main_contexts':current_hits[i][:5],
+              'reachable_blob_occurrence_count':len(occ),
+              'signal_count':len(uniq),
+              'signals':uniq[:20],
+              'occurrences':occ[:30],
+            })
+
+          summary={
+            'schema':'residual_44_occurrence_matrix_v1',
+            'status':'PASS_OCCURRENCE_SCAN',
+            'source_ref':f'{src_ref}:{src_path}',
+            'source_blob_sha':subprocess.check_output(['git','rev-parse',f'{src_ref}:{src_path}'],text=True).strip(),
+            'item_count':44,
+            'current_main_sha':subprocess.check_output(['git','rev-parse','origin/main'],text=True).strip(),
+            'current_main_token_hit_items':sum(bool(r['current_main_exact_token_occurrence_count']) for r in rows),
+            'reachable_occurrence_hit_items':sum(bool(r['reachable_blob_occurrence_count']) for r in rows),
+            'rows':rows,
+          }
+          dest=Path('runs/2026-09-03/residual_44_occurrence_matrix_R1.json')
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          text=json.dumps(summary,ensure_ascii=False,indent=2)+'\n'
+          dest.write_text(text,encoding='utf-8')
+          print('CURRENT_MAIN_SHA=',summary['current_main_sha'])
+          print('CURRENT_MAIN_TOKEN_HIT_ITEMS=',summary['current_main_token_hit_items'])
+          print('REACHABLE_OCCURRENCE_HIT_ITEMS=',summary['reachable_occurrence_hit_items'])
+          print('OUTPUT_SHA256=',hashlib.sha256(text.encode()).hexdigest())
+          for r in rows:
+            kinds=sorted({s['kind'] for s in r['signals']})
+            print(r['historical_id'],'origin=',r['origin_state'],'r3=',r['r3_first_pass'],'main_hits=',r['current_main_exact_token_occurrence_count'],'blob_hits=',r['reachable_blob_occurrence_count'],'signals=',','.join(kinds))
           PY
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/residual_44_occurrence_matrix_R1.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: materialize residual 44 occurrence matrix'
+            git push
+          fi

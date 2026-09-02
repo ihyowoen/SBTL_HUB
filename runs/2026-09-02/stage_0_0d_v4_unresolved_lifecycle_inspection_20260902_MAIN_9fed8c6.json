@@ -1,0 +1,2382 @@
+{
+  "schema": "stage_0_0d_v4_unresolved_lifecycle_inspection_v1",
+  "locked_main_sha": "9fed8c67816dc0582061438e7dba38d164648176",
+  "unresolved_input_count": 25,
+  "full_read_completed_count": 25,
+  "all_full_read": true,
+  "authority_source_count_for_inbound_reference_scan": 57,
+  "documents": [
+    {
+      "path": "docs/AI_CHATBOT_IMPLEMENTATION_CHECKLIST.md",
+      "git_blob_sha": "e7110a495f0cff981d648863e4bc9678a2e335f3",
+      "sha256": "ef6665556d77193c5cd59b750a6463e6183e4de64ef8a505892fb2602e519b6b",
+      "byte_count": 9729,
+      "line_count": 404,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# AI Chatbot Implementation Checklist"
+        },
+        {
+          "line": 3,
+          "text": "## 목적"
+        },
+        {
+          "line": 13,
+          "text": "## 최종 목표"
+        },
+        {
+          "line": 33,
+          "text": "## Phase 0 — 구현 전 원칙 고정"
+        },
+        {
+          "line": 35,
+          "text": "### must keep"
+        },
+        {
+          "line": 41,
+          "text": "### must avoid"
+        },
+        {
+          "line": 49,
+          "text": "## Phase 1 — `/api/chat.js` 신설"
+        },
+        {
+          "line": 51,
+          "text": "## 목표"
+        },
+        {
+          "line": 54,
+          "text": "### 작업 항목"
+        },
+        {
+          "line": 61,
+          "text": "### request 권장 shape"
+        },
+        {
+          "line": 75,
+          "text": "### response 권장 shape"
+        },
+        {
+          "line": 92,
+          "text": "### acceptance criteria"
+        },
+        {
+          "line": 99,
+          "text": "## Phase 2 — intent / scope 분리"
+        },
+        {
+          "line": 101,
+          "text": "## 목표"
+        },
+        {
+          "line": 104,
+          "text": "### helper module 권장"
+        },
+        {
+          "line": 108,
+          "text": "### intent categories"
+        },
+        {
+          "line": 116,
+          "text": "### scope extraction 항목"
+        },
+        {
+          "line": 123,
+          "text": "### acceptance criteria"
+        },
+        {
+          "line": 130,
+          "text": "## Phase 3 — internal retrieval 서버 이동"
+        },
+        {
+          "line": 132,
+          "text": "## 목표"
+        },
+        {
+          "line": 135,
+          "text": "### helper module 권장"
+        },
+        {
+          "line": 139,
+          "text": "### retrieval input"
+        },
+        {
+          "line": 145,
+          "text": "### ranking factors (first pass)"
+        },
+        {
+          "line": 156,
+          "text": "### acceptance criteria"
+        },
+        {
+          "line": 163,
+          "text": "## Phase 4 — confidence scoring 추가"
+        },
+        {
+          "line": 165,
+          "text": "## 목표"
+        },
+        {
+          "line": 168,
+          "text": "### helper module 권장"
+        },
+        {
+          "line": 171,
+          "text": "### score inputs"
+        },
+        {
+          "line": 179,
+          "text": "### recommended buckets"
+        },
+        {
+          "line": 184,
+          "text": "### acceptance criteria"
+        },
+        {
+          "line": 191,
+          "text": "## Phase 5 — automatic fallback"
+        },
+        {
+          "line": 193,
+          "text": "## 목표"
+        },
+        {
+          "line": 196,
+          "text": "### helper module 권장"
+        },
+        {
+          "line": 199,
+          "text": "### fallback trigger conditions"
+        },
+        {
+          "line": 205,
+          "text": "### modes"
+        },
+        {
+          "line": 210,
+          "text": "### acceptance criteria"
+        },
+        {
+          "line": 217,
+          "text": "## Phase 6 — answer composition 고정"
+        },
+        {
+          "line": 219,
+          "text": "## 목표"
+        },
+        {
+          "line": 222,
+          "text": "### helper module 권장"
+        },
+        {
+          "line": 226,
+          "text": "### formats"
+        },
+        {
+          "line": 227,
+          "text": "#### news"
+        },
+        {
+          "line": 233,
+          "text": "#### policy"
+        },
+        {
+          "line": 239,
+          "text": "#### compare"
+        },
+        {
+          "line": 245,
+          "text": "#### summary"
+        },
+        {
+          "line": 249,
+          "text": "#### follow_up"
+        },
+        {
+          "line": 253,
+          "text": "### acceptance criteria"
+        },
+        {
+          "line": 260,
+          "text": "## Phase 7 — frontend ChatBot slimming"
+        },
+        {
+          "line": 262,
+          "text": "## 목표"
+        },
+        {
+          "line": 265,
+          "text": "### 프론트가 남겨야 할 것"
+        },
+        {
+          "line": 273,
+          "text": "### 프론트에서 제거해야 할 것"
+        },
+        {
+          "line": 280,
+          "text": "### acceptance criteria"
+        },
+        {
+          "line": 287,
+          "text": "## Phase 8 — policy context 분리"
+        },
+        {
+          "line": 289,
+          "text": "## 목표"
+        },
+        {
+          "line": 292,
+          "text": "### 새 파일 제안"
+        },
+        {
+          "line": 295,
+          "text": "### 권장 필드"
+        },
+        {
+          "line": 305,
+          "text": "### acceptance criteria"
+        },
+        {
+          "line": 312,
+          "text": "## Phase 9 — `/api/analysis.js` 다음 단계"
+        },
+        {
+          "line": 314,
+          "text": "## 목표"
+        },
+        {
+          "line": 317,
+          "text": "### next input shape"
+        },
+        {
+          "line": 328,
+          "text": "### 개선 포인트"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# AI Chatbot Implementation Checklist\n\n## 목적\n\n이 문서는 `docs/AI_CHATBOT_REFACTOR_PLAN.md`를 실제 구현 단계로 옮길 때,\n무엇을 어떤 순서로 바꿔야 하는지에 대한 실전 체크리스트다.\n\n이 문서는 아이디어 문서가 아니라 **실행 문서**다.\n즉, 구현자는 아래 항목을 위에서부터 차례대로 처리하면 된다.\n\n---\n\n## 최종 목표\n\n현재 프론트에 과도하게 몰려 있는 챗봇 로직을 줄이고,\n새로운 `api/chat.js`를 중심으로 아래 흐름을 서버 오케스트레이션으로 재구성한다.\n\n```text\nuser question\n-> api/chat\n-> intent detection\n-> scope extraction\n-> internal retrieval\n-> confidence scoring\n-> fallback decision\n-> evidence bundle\n-> response composition\n-> frontend rendering\n```\n\n---\n\n## Phase 0 — 구현 전 원칙 고정\n\n### must keep\n- 현재 UI 렌더링 경험은 가능한 유지\n- 카드 렌더링 형식은 되도록 깨지지 않게 유지\n- 전체 앱을 한 번에 갈아엎지 않기\n- incremental refactor 우선\n\n### must avoid\n- 프론트/백엔드에 동일한 판단 로직 중복\n- low-confidence internal answer를 단정적으로 출력\n- Brave 검색을 계속 수동 옵션으로만 두기\n- answer shape를 매 응답마다 흔들리게 두기\n\n---\n\n## Phase 1 — `/api/chat.js` 신설\n\n## 목표\n프론트에 있던 챗봇 판단 로직을 서버로 옮길 첫 진입점을 만든다.\n\n### 작업 항목\n- [ ] `api/chat.js` 파일 생성\n- [ ] POST request만 허용\n- [ ] request body 기본 shape 정의\n- [ ] response shape 고정\n- [ ] 에러 응답 shape 통일\n\n### request 권장 shape\n```json\n{\n  \"message\": \"사용자 입력\",\n  \"context\": {\n    \"last_answer_type\": \"news\",\n    \"selected_item_id\": \"card-123\",\n    \"last_result_ids\": [\"card-123\", \"card-456\"],\n    \"region\": \"US\",\n    \"date\": \"2026-04-06\"\n  }\n}\n```\n\n### response 권장 shape\n```json\n{\n  \"answer\": \"최종 답변\",\n  \"answer_type\": \"news|policy|compare|summary|follow_up|general\",\n  \"source_mode\": \"internal|external|hybrid\",\n  \"confidence\": 0.0,\n  \"cards\": [],\n  \"external_links\": [],\n  \"suggestions\": [],\n  \"debug\": {\n    \"fallback_triggered\": false,\n    \"confidence_bucket\": \"high\"\n  }\n}\n```\n\n### acceptance criteria\n- [ ] frontend가 이 응답만 받아도 렌더링 가능\n- [ ] `answer_type`, `source_mode`, `confidence`가 항상 내려옴\n- [ ] error response도 일관적임\n\n---\n\n## Phase 2 — intent / scope 분리\n\n## 목표\n질문 분류와 검색 준비 단계를 분리한다.\n\n### helper module 권장\n- `lib/chat/intent.js`\n- `lib/chat/scope.js`\n\n### intent categories\n- [ ] news\n- [ ] policy\n- [ ] compare\n- [ ] summary\n- [ ] follow_up\n- [ ] general\n\n### scope extraction 항목\n- [ ] region\n- [ ] date\n- [ ] entity/company\n- [ ] topic\n- [ ] explicit external-search intent\n\n### acceptance criteria\n- [ ] intent 로직이 App.jsx 밖에 있음\n- [ ] scope extraction이 retrieval과 독립적으로 동작\n- [ ] 디버그 시",
+      "closing_excerpt": "ack 템플릿도 evidence-aware하게 개선\n\n---\n\n## 테스트 체크리스트\n\n### retrieval\n- [ ] 표현만 바꾼 같은 질문에도 유사 결과가 나온다\n- [ ] region/date 언급 시 더 정확한 카드가 올라온다\n- [ ] 약한 카드가 강한 카드보다 앞서지 않는다\n\n### fallback\n- [ ] 최신 기사 요청 시 필요하면 external/hybrid로 간다\n- [ ] internal 근거가 약하면 hedge 또는 fallback이 작동한다\n\n### follow-up\n- [ ] “그 기사” / “두 번째” / “아까 그거” 문맥이 개선된다\n- [ ] ambiguity 있을 때 잘못 단정하지 않고 좁혀준다\n\n### UX\n- [ ] source_mode가 이해 가능하다\n- [ ] cards / external_links / suggestions가 안정적으로 렌더링된다\n- [ ] answer style이 덜 흔들린다\n\n---\n\n## red-team failure cases\n\n다음 실패 케이스가 남아 있으면 구현이 아직 덜 된 것이다.\n\n- [ ] internal 결과가 약한데 자신있게 답한다\n- [ ] Brave fallback이 수동일 때만 된다\n- [ ] 질문 타입에 따라 answer shape가 들쭉날쭉하다\n- [ ] App.jsx와 api/chat.js에 비슷한 로직이 동시에 남아 있다\n- [ ] policy 답변이 stale data를 확신형으로 말한다\n- [ ] analysis가 여전히 카드 한 장 문구 재가공 수준이다\n\n---\n\n## Copilot에 바로 줄 구현 지시 요약\n\n```text\nImplement the chatbot refactor in safe phases.\n\nPhase 1:\n- create `api/chat.js`\n- define stable request/response contracts\n- move intent/scope/retrieval/confidence/fallback/composition out of `src/App.jsx`\n- keep frontend as rendering shell\n\nPhase 2:\n- add hybrid internal retrieval scoring\n- add automatic Brave fallback on low confidence\n- stabilize answer templates by question type\n\nPhase 3:\n- move policy knowledge out of App.jsx into data file\n- prepare `/api/analysis.js` for evidence-bundle input\n\nImportant:\n- do not rewrite everything at once\n- do not duplicate backend and frontend logic\n- do not return low-confidence internal results as authoritative\n- keep response shape stable for UI rendering\n```\n\n---\n\n## 최종 한 줄\n\n이 구현의 핵심은 더 좋은 문장을 뽑는 것이 아니라,\n\n**더 좋은 답변 파이프라인을 만드는 것**이다.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/AI_CHATBOT_REFACTOR_PLAN.md",
+      "git_blob_sha": "bf931d60c52afd7931b5d8c3a233e799b22f41c9",
+      "sha256": "eedb9d041a847fb68671fb344b453d27b6b5cf8a93eb6875b2a6485381648dec",
+      "byte_count": 15890,
+      "line_count": 585,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# AI Chatbot Refactor Plan (Enhanced Red-Team Version)"
+        },
+        {
+          "line": 3,
+          "text": "## 0. 문서 목적"
+        },
+        {
+          "line": 18,
+          "text": "## 1. 현재 상태 한 줄 진단"
+        },
+        {
+          "line": 40,
+          "text": "## 2. Enhanced Red-Team Audit"
+        },
+        {
+          "line": 42,
+          "text": "## 2-1. 가장 큰 구조적 문제"
+        },
+        {
+          "line": 44,
+          "text": "### 문제 A. 오케스트레이션이 프론트에 있다"
+        },
+        {
+          "line": 54,
+          "text": "### 문제 B. Retrieval 품질이 낮다"
+        },
+        {
+          "line": 63,
+          "text": "### 문제 C. Confidence layer가 없다"
+        },
+        {
+          "line": 74,
+          "text": "### 문제 D. External fallback이 약하다"
+        },
+        {
+          "line": 83,
+          "text": "### 문제 E. analysis API가 single-card 기반이다"
+        },
+        {
+          "line": 92,
+          "text": "### 문제 F. 정책 지식이 코드 내부에 하드코딩되어 있다"
+        },
+        {
+          "line": 98,
+          "text": "## 2-2. 제품 관점에서 체감되는 증상"
+        },
+        {
+          "line": 114,
+          "text": "## 3. 리팩터링 목표"
+        },
+        {
+          "line": 116,
+          "text": "## Goal 1. 프론트는 renderer, 서버는 orchestrator"
+        },
+        {
+          "line": 120,
+          "text": "## Goal 2. retrieval 품질 향상"
+        },
+        {
+          "line": 124,
+          "text": "## Goal 3. low-confidence 답변 금지"
+        },
+        {
+          "line": 128,
+          "text": "## Goal 4. single-card 답변에서 evidence-bundle 답변으로 이동"
+        },
+        {
+          "line": 131,
+          "text": "## Goal 5. answer shape 고정"
+        },
+        {
+          "line": 136,
+          "text": "## 4. Target Architecture"
+        },
+        {
+          "line": 155,
+          "text": "### 프론트 역할"
+        },
+        {
+          "line": 163,
+          "text": "### 서버 역할"
+        },
+        {
+          "line": 172,
+          "text": "## 5. 권장 파일 구조"
+        },
+        {
+          "line": 205,
+          "text": "## 6. `/api/chat` 응답 스키마"
+        },
+        {
+          "line": 232,
+          "text": "## 7. Core Logic Design"
+        },
+        {
+          "line": 234,
+          "text": "## 7-1. Intent classification"
+        },
+        {
+          "line": 249,
+          "text": "## 7-2. Scope extraction"
+        },
+        {
+          "line": 263,
+          "text": "## 7-3. Internal retrieval"
+        },
+        {
+          "line": 276,
+          "text": "## 7-4. Confidence scoring"
+        },
+        {
+          "line": 284,
+          "text": "## 7-5. Fallback decision"
+        },
+        {
+          "line": 294,
+          "text": "## 7-6. Evidence bundle"
+        },
+        {
+          "line": 304,
+          "text": "## 7-7. Response composition"
+        },
+        {
+          "line": 309,
+          "text": "## 8. Answer Templates"
+        },
+        {
+          "line": 311,
+          "text": "### A. News"
+        },
+        {
+          "line": 318,
+          "text": "### B. Policy"
+        },
+        {
+          "line": 325,
+          "text": "### C. Compare"
+        },
+        {
+          "line": 332,
+          "text": "### D. Summary"
+        },
+        {
+          "line": 338,
+          "text": "### E. Follow-up"
+        },
+        {
+          "line": 349,
+          "text": "## 9. `/api/analysis` 개선 방향"
+        },
+        {
+          "line": 354,
+          "text": "### 현재 입력"
+        },
+        {
+          "line": 362,
+          "text": "### 목표 입력"
+        },
+        {
+          "line": 380,
+          "text": "## 10. Policy knowledge 분리"
+        },
+        {
+          "line": 402,
+          "text": "## 11. Retrieval 강화 제안"
+        },
+        {
+          "line": 407,
+          "text": "### Phase 1 hybrid scoring"
+        },
+        {
+          "line": 415,
+          "text": "### Phase 2 richer ranking"
+        },
+        {
+          "line": 427,
+          "text": "## 12. Follow-up state redesign"
+        },
+        {
+          "line": 453,
+          "text": "## 13. Implementation Priority"
+        },
+        {
+          "line": 455,
+          "text": "## P0 — must do first"
+        },
+        {
+          "line": 461,
+          "text": "## P1 — high impact"
+        },
+        {
+          "line": 467,
+          "text": "## P2 — next wave"
+        },
+        {
+          "line": 475,
+          "text": "## 14. What NOT to do"
+        },
+        {
+          "line": 479,
+          "text": "### 금지 1. 프론트 로직에 기능을 더 덧대기"
+        },
+        {
+          "line": 482,
+          "text": "### 금지 2. 모델만 바꾸고 구조는 그대로 두기"
+        },
+        {
+          "line": 485,
+          "text": "### 금지 3. Brave 검색을 계속 수동 모드에만 묶어두기"
+        },
+        {
+          "line": 488,
+          "text": "### 금지 4. single-card 분석을 AI 고도화라고 착각하기"
+        },
+        {
+          "line": 491,
+          "text": "### 금지 5. 정책 지식을 계속 App.jsx 안에 두기"
+        },
+        {
+          "line": 496,
+          "text": "## 15. Success Criteria"
+        },
+        {
+          "line": 509,
+          "text": "## 16. Copilot Prompt (Implementation)"
+        },
+        {
+          "line": 574,
+          "text": "## 17. Final Recommendation"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# AI Chatbot Refactor Plan (Enhanced Red-Team Version)\n\n## 0. 문서 목적\n\n이 문서는 SBTL_HUB의 AI 챗봇이 왜 아직도 \"바보같이\" 느껴지는지 냉정하게 해부하고,\n무엇을 어떤 순서로 바꿔야 실제로 더 똑똑한 제품처럼 느껴지게 되는지를 정리한 설계 문서다.\n\n이 문서는 단순 아이디어 모음이 아니다.\n아래 네 가지를 동시에 다룬다.\n\n1. 현재 구조의 핵심 결함\n2. 목표 아키텍처\n3. 단계별 구현 우선순위\n4. Copilot/구현자에게 줄 수 있는 명시적 작업 지시\n\n---\n\n## 1. 현재 상태 한 줄 진단\n\n현재 SBTL_HUB의 챗봇은 **AI 비서**라기보다,\n**프론트엔드에 많은 규칙이 박혀 있는 카드 검색기 + 단일 카드 해설기**에 가깝다.\n\n즉, 겉으로는 챗봇처럼 보이지만,\n실제로는 아래가 섞여 있다.\n\n- 질문 분류\n- 지역/날짜 감지\n- 내부 카드 검색\n- 외부 기사 검색\n- 후속 질문 처리\n- 정책 설명\n- 카드 기반 응답 조립\n- suggestion 생성\n\n이 모든 것이 프론트의 `ChatBot` 내부에 과도하게 몰려 있으면,\n부분 개선을 할수록 전체 로직은 더 꼬인다.\n\n---\n\n## 2. Enhanced Red-Team Audit\n\n## 2-1. 가장 큰 구조적 문제\n\n### 문제 A. 오케스트레이션이 프론트에 있다\n현재 챗봇의 핵심 두뇌가 `src/App.jsx` 안에 과도하게 집중되어 있다.\n\n이 구조의 문제:\n- intent / retrieval / fallback / answer composition이 강하게 결합됨\n- 디버깅이 어려움\n- 테스트가 어려움\n- 개선할수록 회귀(regression) 위험이 커짐\n- 같은 판단 로직이 여러 군데에서 암묵적으로 중복되기 쉬움\n\n### 문제 B. Retrieval 품질이 낮다\n현재 내부 검색은 카드 title/sub/gist/keywords에 대한 문자열 기반 매칭 비중이 높다.\n\n이 구조의 문제:\n- 같은 뜻 다른 표현을 잘 못 잡음\n- entity 정규화가 약함\n- relevance보다 keyword hit 수가 더 크게 작동할 수 있음\n- 강한 카드가 묻히고, 쉬운 카드가 과대 노출될 수 있음\n\n### 문제 C. Confidence layer가 없다\n현재 답변 파이프라인에는\n\"내가 이 질문을 얼마나 잘 이해했는가\"\n\"지금 찾은 카드가 충분히 강한가\"\n를 평가하는 explicit confidence gate가 없다.\n\n이 구조의 문제:\n- 애매한 internal 결과를 자신 있게 말함\n- बाह부 검색으로 넘어가야 하는데 내부 카드 몇 개를 대충 보여줌\n- 사용자는 \"모르는 걸 아는 척한다\"고 느끼게 됨\n\n### 문제 D. External fallback이 약하다\n현재 Brave 검색은 수동 전환의 비중이 높고,\n외부 결과를 단순히 보여주는 성격이 강하다.\n\n이 구조의 문제:\n- internal retrieval이 약해도 자동 구제가 안 됨\n- external results를 relevance/신뢰도 기준으로 재정렬하지 않음\n- 사용자 입장에서는 \"찾을 수 있는 것도 못 찾는 봇\"처럼 느껴짐\n\n### 문제 E. analysis API가 single-card 기반이다\n현재 `/api/analysis`는 본질적으로 카드 1장만 보고 why/summary/analysis를 생성한다.\n\n이 구조의 문제:\n- cross-card reasoning이 안 됨\n- 맥락 연결이 약함\n- 카드 문안 품질에 지나치게 의존함\n- fallback 시 상투적인 지역별 설명문이 나오기 쉬움\n\n### 문제 F. 정책 지식이 코드 내부에 하드코딩되어 있다\n정책 설명용 region policy 지식이 앱 코드 안에 있으면,\n업데이트 누락 시 오래된 설명이 자신 있게 출력될 위험이 크다.\n\n---\n\n## 2-2. 제품 관점에서 체감되는 증상\n\n사용자는 아래와 같은 순간에 \"바보같다\"고 느낀다.\n\n1. 질문을 조금만 다르게 표현해도 못 알아듣는다.\n2. 관련은 있지만 정답은 아닌 카드들을 보여준다.\n3. 최신 이슈를 물었는데 내부 카드만 고집한다.\n4. 후속 질문에서 문맥을 안정적으로 못 이어간다.\n5. AI 해설이 깊이 있는 분석이 아니라 문장 재가공처럼 느껴진다.\n6. 정책 설명이 깔끔해 보여도 실제론 고정문구처럼 느껴진다.\n\n즉 문제는 모델 성능 이전에,\n**오케스트레이션 + retrieval + confidence + state management**에 있다.\n\n-",
+      "closing_excerpt": "r / policy context\n   - confidence scoring\n   - automatic Brave fallback on low confidence\n   - response composition\n   - suggestions generation\n3. Keep the frontend ChatBot as a rendering shell only.\n4. Preserve current rendering format where possible.\n5. Return a stable response shape:\n\n{\n  \"answer\": \"...\",\n  \"answer_type\": \"news|policy|compare|summary|follow_up|general\",\n  \"source_mode\": \"internal|external|hybrid\",\n  \"confidence\": 0.0,\n  \"cards\": [],\n  \"external_links\": [],\n  \"suggestions\": []\n}\n\nImplementation requirements:\n- Refactor incrementally.\n- Do not rewrite the whole app at once.\n- Do not duplicate logic in frontend and backend.\n- Prefer deterministic logic first.\n- Make fallback explicit and debuggable.\n- Keep code modular and readable.\n- Add helper modules if useful.\n- Preserve backward compatibility where reasonable.\n\nEnhanced red-team requirements:\n- Isolate brittle logic currently embedded in App.jsx.\n- Do not keep Brave search manual-only.\n- Do not return low-confidence internal answers as authoritative.\n- Make answer shape stable so UI can render consistently.\n- Add clear comments explaining orchestration flow.\n\nDeliverables:\n1. `api/chat.js`\n2. minimal frontend changes in `src/App.jsx`\n3. helper modules if added\n4. short architecture explanation\n5. explicit note on next follow-up work for `/api/analysis.js`\n```\n\n---\n\n## 17. Final Recommendation\n\n지금 가장 효과 큰 개선은 모델 교체가 아니라,\n\n**프론트 규칙봇 -> 서버 오케스트레이터 전환**\n\n이다.\n\n즉 다음 스프린트의 핵심 목표는 아래 한 줄로 정리된다.\n\n> `App.jsx` 안의 챗봇 두뇌를 `/api/chat`으로 분리하고,\n> retrieval + confidence + fallback + answer composition을 독립 레이어로 재구성한다.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/APP_JSX_PATCH.md",
+      "git_blob_sha": "4e240b99cce3b3dcd0b9370a025dfc3f13fff539",
+      "sha256": "a144446fa6d57ecb89657a532f8f703efe68d550e7f2b5fe6f396e902e0db4c9",
+      "byte_count": 31488,
+      "line_count": 754,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# App.jsx Patch Spec — 배터리 상담소 Phase 1"
+        },
+        {
+          "line": 9,
+          "text": "## Section 1 — import 추가"
+        },
+        {
+          "line": 11,
+          "text": "### 위치"
+        },
+        {
+          "line": 14,
+          "text": "### Before"
+        },
+        {
+          "line": 20,
+          "text": "### After"
+        },
+        {
+          "line": 36,
+          "text": "## Section 2 — ReceiptBubble 컴포넌트 신규"
+        },
+        {
+          "line": 38,
+          "text": "### 위치"
+        },
+        {
+          "line": 41,
+          "text": "### Insert (신규)"
+        },
+        {
+          "line": 97,
+          "text": "## Section 3 — ChatBot 전체 교체"
+        },
+        {
+          "line": 99,
+          "text": "### 위치"
+        },
+        {
+          "line": 102,
+          "text": "### After (전체 교체)"
+        },
+        {
+          "line": 505,
+          "text": "## Section 4 — AppContent 내부 변경"
+        },
+        {
+          "line": 507,
+          "text": "### 4-A. state 변경"
+        },
+        {
+          "line": 509,
+          "text": "#### Before"
+        },
+        {
+          "line": 514,
+          "text": "#### After"
+        },
+        {
+          "line": 522,
+          "text": "### 4-B. handler 변경"
+        },
+        {
+          "line": 524,
+          "text": "#### Before"
+        },
+        {
+          "line": 533,
+          "text": "#### After"
+        },
+        {
+          "line": 574,
+          "text": "### 4-C. main render — ChatBot 호출 변경"
+        },
+        {
+          "line": 576,
+          "text": "#### Before"
+        },
+        {
+          "line": 581,
+          "text": "#### After"
+        },
+        {
+          "line": 586,
+          "text": "### 4-D. Home/NewsDesk prop 전달 변경"
+        },
+        {
+          "line": 588,
+          "text": "#### Before"
+        },
+        {
+          "line": 594,
+          "text": "#### After"
+        },
+        {
+          "line": 602,
+          "text": "## Section 5 — Home / NewsDesk 내부 StoryNewsItem 호출 변경"
+        },
+        {
+          "line": 604,
+          "text": "### 5-A. Home component 시그니처"
+        },
+        {
+          "line": 606,
+          "text": "#### Before"
+        },
+        {
+          "line": 611,
+          "text": "#### After"
+        },
+        {
+          "line": 616,
+          "text": "### 5-B. Home 내부 StoryNewsItem 호출 2곳"
+        },
+        {
+          "line": 618,
+          "text": "#### Before (Lead — `picks[0]`)"
+        },
+        {
+          "line": 629,
+          "text": "#### After"
+        },
+        {
+          "line": 641,
+          "text": "#### Before (rest map)"
+        },
+        {
+          "line": 654,
+          "text": "#### After"
+        },
+        {
+          "line": 668,
+          "text": "### 5-C. NewsDesk component 시그니처"
+        },
+        {
+          "line": 670,
+          "text": "#### Before"
+        },
+        {
+          "line": 675,
+          "text": "#### After"
+        },
+        {
+          "line": 680,
+          "text": "### 5-D. NewsDesk 내부 StoryNewsItem 호출 2곳"
+        },
+        {
+          "line": 682,
+          "text": "#### Before (highlights map — EDITOR'S PICKS)"
+        },
+        {
+          "line": 694,
+          "text": "#### After"
+        },
+        {
+          "line": 707,
+          "text": "#### Before (date별 map)"
+        },
+        {
+          "line": 719,
+          "text": "#### After"
+        },
+        {
+          "line": 734,
+          "text": "## 검증 체크리스트"
+        },
+        {
+          "line": 750,
+          "text": "## 주의"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# App.jsx Patch Spec — 배터리 상담소 Phase 1\n\n**대상 파일:** `src/App.jsx`\n**최소 침투 원칙:** Home/NewsDesk/Tracker/WebtoonLibrary/Header/Nav는 건드리지 않음.\n**변경 범위:** import 2개 추가, ReceiptBubble 신규, ChatBot 전체 교체, AppContent 4개 지점 수정, StoryNewsItem 호출 지점 3곳 prop 치환.\n\n---\n\n## Section 1 — import 추가\n\n### 위치\n파일 최상단 기존 import 바로 아래.\n\n### Before\n```jsx\nimport { useEffect, useMemo, useRef, useState, Component } from \"react\";\nimport StoryNewsItem from \"./story/StoryNewsItem\";\n```\n\n### After\n```jsx\nimport { useEffect, useMemo, useRef, useState, Component } from \"react\";\nimport StoryNewsItem from \"./story/StoryNewsItem\";\nimport { buildCardConsultContext } from \"./story/buildCardConsultContext\";\nimport { getCardId } from \"./story/normalizeCard\";\nimport {\n  createConsultation,\n  appendMessage,\n  getAllCardConsultationSummaries,\n  getRecentOpenerIds,\n} from \"./consultation/consultationStorage\";\n```\n\n---\n\n## Section 2 — ReceiptBubble 컴포넌트 신규\n\n### 위치\n`ChatBot` function 바로 **위**에 삽입. 기존 `NewsItem` function 끝 이후.\n\n### Insert (신규)\n```jsx\n// 배터리 상담소 — 접수증 A안 (미니카드 + 받음 stamp)\nfunction ReceiptBubble({ meta, openedAt, dark }) {\n  const t = T(dark);\n  const d = openedAt ? new Date(openedAt) : null;\n  const dateLabel = d && !isNaN(d.getTime()) ? `${d.getMonth() + 1}/${d.getDate()}` : \"\";\n  const metaParts = [];\n  if (meta?.region) metaParts.push(meta.region);\n  const sigShort = (meta?.signal || \"i\").toString().slice(0, 1).toLowerCase();\n  metaParts.push((SIG_L[sigShort] || \"INFO\"));\n  if (meta?.date) metaParts.push(fmtDate(meta.date));\n  const metaLine = metaParts.join(\" · \");\n\n  return (\n    <div\n      role=\"note\"\n      aria-label=\"상담 접수증\"\n      style={{\n        margin: \"10px auto\",\n        maxWidth: \"92%\",\n        padding: \"10px 14px\",\n        background: dark ? \"rgba(88,166,255,0.07)\" : \"rgba(88,166,255,0.05)\",\n        border: `1px dashed ${t.cyan}`,\n        borderRadius: 10,\n      }}\n    >\n      <div style={{\n        fontSize: 10, color: t.cyan, fontWeight: 800, marginBottom: 6,\n        fontFamily: \"'JetBrains Mono',monospace\",\n        display: \"flex\", alignItems: \"center\", gap: 6,\n      }}>\n        <span aria-hidden=\"true\">📥</span>\n        <span>받음{dateLabel ? ` · ${dateLabel}` : \"\"}</span>\n      <",
+      "closing_excerpt": "kChatbot={onAskChatbot}\n  />\n))}\n```\n\n#### After\n```jsx\n{highlights.map((card, i) => (\n  <StoryNewsItem\n    key={`${card.id || card.T || card.title}-${i}`}\n    card={card}\n    dark={dark}\n    onSubmitConsultation={onSubmitConsultation}\n    consultationHint={consultSummaries[getCardId(card)] || null}\n  />\n))}\n```\n\n#### Before (date별 map)\n```jsx\n{visible.filter((c) => c.d === date).map((card, i) => (\n  <StoryNewsItem\n    key={`${card.id || date}-${i}`}\n    card={card}\n    dark={dark}\n    onAskChatbot={onAskChatbot}\n  />\n))}\n```\n\n#### After\n```jsx\n{visible.filter((c) => c.d === date).map((card, i) => (\n  <StoryNewsItem\n    key={`${card.id || date}-${i}`}\n    card={card}\n    dark={dark}\n    onSubmitConsultation={onSubmitConsultation}\n    consultationHint={consultSummaries[getCardId(card)] || null}\n  />\n))}\n```\n\n---\n\n## 검증 체크리스트\n\n패치 적용 후 확인:\n\n- [ ] `npm run dev` (또는 `pnpm dev`) 에서 에러 없이 빌드\n- [ ] 뉴스 탭에서 `📋 상담카드 제출` 버튼 상시 노출 (브리프 안 펴도 보임)\n- [ ] 버튼 클릭 → chatbot 탭 전환 + 접수증 bubble + 강차장 opener 등장\n- [ ] Groq 응답 도착 시점에 ceremony (min 500ms) 유지되어 typing이 튀지 않음\n- [ ] opener 이후 유저 텍스트 입력 → consultation followup으로 전송\n- [ ] 두 번째 상담 접수 시: 같은 카드 뉴스 탭 footer에 `↘ 2번 상담 · 최근 X/Y` 표시\n- [ ] `localStorage.getItem(\"sbtl_consult_v1\")`로 저장 구조 육안 확인\n- [ ] 일반 chat (carousel 버튼 / 직접 타이핑)은 기존과 동일하게 작동\n- [ ] 외부 검색 모드도 기존 동작 유지\n\n---\n\n## 주의\n\n- `getCardId` import 안 하면 `consultSummaries[getCardId(card)]` 부분에서 에러. Section 1 import 블록 누락 없이 반영.\n- Section 3 ChatBot 교체 시 반드시 기존 함수 **전체**를 덮어써야 함 (부분 edit 시 unused import / ref 충돌 가능).\n- 기존 `onAskChatbot` prop 사용처가 이 3곳 외 더 있는지 패치 전 `grep onAskChatbot src/` 로 확인 권장.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/APP_STORY_UI_PHASE1_BRIEF.md",
+      "git_blob_sha": "7b4c4969da3add73063e6db4938f2b612af8ee4e",
+      "sha256": "8e8f37887b418eccbf4a6cb55b8608f790231dcf6c396d5d5b23acad8af7c412",
+      "byte_count": 1918,
+      "line_count": 57,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# App Story UI — Phase 1 Brief"
+        },
+        {
+          "line": 3,
+          "text": "## Goal"
+        },
+        {
+          "line": 8,
+          "text": "## Locked Principles"
+        },
+        {
+          "line": 16,
+          "text": "## What Phase 1 Does"
+        },
+        {
+          "line": 23,
+          "text": "## Normalized Story Mapping"
+        },
+        {
+          "line": 33,
+          "text": "## First Safe Integration Order"
+        },
+        {
+          "line": 41,
+          "text": "## Explicit Non-Goals for Phase 1"
+        },
+        {
+          "line": 49,
+          "text": "## Why This Order"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# App Story UI — Phase 1 Brief\n\n## Goal\n\nPhase 1 does **not** replace the current runtime data layer.\nIt keeps the current deploy app as the runtime base and only begins the story-UI migration safely.\n\n## Locked Principles\n\n- brand must remain `강차장의 배터리상담소`\n- `kang.png` avatar must remain\n- current `cards.json` / `tracker_data.json` fetch layer remains the source of truth\n- current chatbot API flow remains the source of truth\n- story UI should read normalized card fields, not hard-code legacy compact field names everywhere\n\n## What Phase 1 Does\n\n1. Add a normalization layer for cards\n2. Use that layer when introducing story-style cards\n3. Keep the current chatbot logic and only improve handoff later\n4. Avoid mock reactions / consensus / audio in the first implementation step\n\n## Normalized Story Mapping\n\n- `title` -> story headline\n- `sub` -> short support line\n- `fact` -> `무슨 일이야?`\n- `gate` -> `그래서 어떻게 돼?`\n- `implicationText` -> `강차장 코멘트`\n- `primaryUrl` -> source open action\n- `id` -> storage / scrap / chatbot handoff key\n\n## First Safe Integration Order\n\n1. keep `src/App.jsx` as the base\n2. import `src/story/normalizeCard.js`\n3. introduce a story-style card shell in `Home` first\n4. only after that expand the same shell to `NewsDesk`\n5. keep `Tracker` and `ChatBot` runtime logic intact during phase 1\n\n## Explicit Non-Goals for Phase 1\n\n- no replacement of chatbot runtime with mock UI logic\n- no fake `Industry Consensus`\n- no reaction counters without trusted backing data\n- no TTS/audio layer\n- no full `cards.json` schema migration in the same step\n\n## Why This Order\n\nThe uploaded redesign is visually stronger, but it still carries assumptions that can regress the current app if copied wholesale.\nThe safe path is:\n- preserve current runtime\n- add normalization\n- migrate presentation gradually\n\nThat is the purpose of this phase.\n",
+      "closing_excerpt": "`kang.png` avatar must remain\n- current `cards.json` / `tracker_data.json` fetch layer remains the source of truth\n- current chatbot API flow remains the source of truth\n- story UI should read normalized card fields, not hard-code legacy compact field names everywhere\n\n## What Phase 1 Does\n\n1. Add a normalization layer for cards\n2. Use that layer when introducing story-style cards\n3. Keep the current chatbot logic and only improve handoff later\n4. Avoid mock reactions / consensus / audio in the first implementation step\n\n## Normalized Story Mapping\n\n- `title` -> story headline\n- `sub` -> short support line\n- `fact` -> `무슨 일이야?`\n- `gate` -> `그래서 어떻게 돼?`\n- `implicationText` -> `강차장 코멘트`\n- `primaryUrl` -> source open action\n- `id` -> storage / scrap / chatbot handoff key\n\n## First Safe Integration Order\n\n1. keep `src/App.jsx` as the base\n2. import `src/story/normalizeCard.js`\n3. introduce a story-style card shell in `Home` first\n4. only after that expand the same shell to `NewsDesk`\n5. keep `Tracker` and `ChatBot` runtime logic intact during phase 1\n\n## Explicit Non-Goals for Phase 1\n\n- no replacement of chatbot runtime with mock UI logic\n- no fake `Industry Consensus`\n- no reaction counters without trusted backing data\n- no TTS/audio layer\n- no full `cards.json` schema migration in the same step\n\n## Why This Order\n\nThe uploaded redesign is visually stronger, but it still carries assumptions that can regress the current app if copied wholesale.\nThe safe path is:\n- preserve current runtime\n- add normalization\n- migrate presentation gradually\n\nThat is the purpose of this phase.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/CHATBOT_ARCHITECTURE.md",
+      "git_blob_sha": "0bcd5fb781512041c397a9bb0ba2c2d98cf655f0",
+      "sha256": "a1f0670c8768dd1c4d9292ddf490396335665a2819debf333316a161c0145cd6",
+      "byte_count": 17671,
+      "line_count": 422,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# Chatbot Architecture — Redesign Spec"
+        },
+        {
+          "line": 8,
+          "text": "## 1. 관찰된 결함 (payload 실측 기반)"
+        },
+        {
+          "line": 10,
+          "text": "### 1A. Turn 1 — \"미국 FEOC 쉽게 설명해줘\" (새 세션)"
+        },
+        {
+          "line": 45,
+          "text": "### 1B. Turn 2 — \"방금 답변을 더 쉽게 설명해줘\" (Turn 1에 이어서)"
+        },
+        {
+          "line": 73,
+          "text": "### 1C. Backend가 기대하는 context (코드상)"
+        },
+        {
+          "line": 83,
+          "text": "### 결함 목록 (확정)"
+        },
+        {
+          "line": 101,
+          "text": "### D11 상세: `follow_up`의 진짜 문제"
+        },
+        {
+          "line": 114,
+          "text": "## 2. 사용자 행동 분류 — 3축 모델"
+        },
+        {
+          "line": 118,
+          "text": "### Axis A: Action"
+        },
+        {
+          "line": 126,
+          "text": "### Axis B: Topic"
+        },
+        {
+          "line": 135,
+          "text": "### Axis C: Scope"
+        },
+        {
+          "line": 142,
+          "text": "## 3. Pipeline 재설계"
+        },
+        {
+          "line": 172,
+          "text": "## 4. Context Protocol (신규 규약)"
+        },
+        {
+          "line": 199,
+          "text": "### 기존 필드 → 신규 매핑"
+        },
+        {
+          "line": 211,
+          "text": "## 5. Action별 세부 사양"
+        },
+        {
+          "line": 213,
+          "text": "### new_query"
+        },
+        {
+          "line": 218,
+          "text": "### rephrase (D11 해결)"
+        },
+        {
+          "line": 226,
+          "text": "### analyze_card (D3, D11 해결)"
+        },
+        {
+          "line": 233,
+          "text": "### follow_up (축소 재정의)"
+        },
+        {
+          "line": 242,
+          "text": "## 6. Topic별 Retrieve 사양"
+        },
+        {
+          "line": 244,
+          "text": "### faq_concept"
+        },
+        {
+          "line": 249,
+          "text": "### news"
+        },
+        {
+          "line": 253,
+          "text": "### policy"
+        },
+        {
+          "line": 258,
+          "text": "### comparison"
+        },
+        {
+          "line": 262,
+          "text": "### general"
+        },
+        {
+          "line": 267,
+          "text": "## 7. 기존 코드 → 신규 매핑"
+        },
+        {
+          "line": 284,
+          "text": "## 8. Frontend 변경 사항 (App.jsx)"
+        },
+        {
+          "line": 288,
+          "text": "### 필수"
+        },
+        {
+          "line": 301,
+          "text": "## 9. 실행 순서"
+        },
+        {
+          "line": 303,
+          "text": "### Phase 1 (완료): 이 문서"
+        },
+        {
+          "line": 305,
+          "text": "### Phase 2 (다음 세션, backend-only, ~2시간)"
+        },
+        {
+          "line": 317,
+          "text": "### Phase 3 (다음 세션, frontend, ~1시간)"
+        },
+        {
+          "line": 322,
+          "text": "### Phase 4 (선택)"
+        },
+        {
+          "line": 328,
+          "text": "## 10. 테스트 시나리오 (Phase 2 검증용)"
+        },
+        {
+          "line": 345,
+          "text": "## 11. 결론"
+        },
+        {
+          "line": 353,
+          "text": "## Appendix A: Turn 1 payload (FAQ 정상 케이스)"
+        },
+        {
+          "line": 393,
+          "text": "## Appendix B: Turn 2 payload (D11 재현)"
+        },
+        {
+          "line": 415,
+          "text": "## Appendix C: diag로 확인된 환경 사실"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# Chatbot Architecture — Redesign Spec\n\n작성: 2026-04-14  \n목적: 현재 `api/chat.js` + `lib/chat/*`가 누적된 fallback/휴리스틱으로 엉킨 상태를 구조적으로 재설계.\n\n---\n\n## 1. 관찰된 결함 (payload 실측 기반)\n\n### 1A. Turn 1 — \"미국 FEOC 쉽게 설명해줘\" (새 세션)\n\n**Request:**\n```json\n{\n  \"message\": \"미국 FEOC 쉽게 설명해줘\",\n  \"context\": {\n    \"date\": null, \"region\": null,\n    \"last_answer_type\": null,\n    \"last_result_ids\": [],\n    \"selected_item_id\": null\n  }\n}\n```\n\n**Response:**\n```json\n{\n  \"answer\": \"FEOC는 중국이나 러시아나 북한이나 이란 정부가...\",\n  \"answer_type\": \"general\",\n  \"confidence\": 0.92,\n  \"cards\": [],\n  \"debug\": {\n    \"llm\": null,\n    \"faq_tone_rewrite\": { \"used\": true, \"skipped\": false, \"latency_ms\": 843 },\n    \"policy_tone_rewrite\": { \"used\": true, \"skipped\": false, \"latency_ms\": 505 }\n  }\n}\n```\n\n**분석:** Turn 1은 **정상 작동**. 단 3가지 관찰:\n- `answer_type: \"general\"` — FAQ 매치인데 compose.js가 general로 마스킹 (D12)\n- FAQ rewrite + Policy rewrite **둘 다** 돌아감 → 중복 latency 1.3s. intent가 policy와 FAQ 양쪽에 걸려 두 번 LLM 호출\n- LLM chat synthesis는 null (FAQ 모드이므로 shouldTryLLM 조건 실패 — 설계상 의도)\n\n### 1B. Turn 2 — \"방금 답변을 더 쉽게 설명해줘\" (Turn 1에 이어서)\n\n**Request:**\n```json\n{\n  \"message\": \"방금 답변을 더 쉽게 설명해줘\",\n  \"context\": {\n    \"last_answer_type\": \"general\",\n    \"last_result_ids\": [],\n    \"date\": null, \"region\": null, \"selected_item_id\": null\n  }\n}\n```\n\n**Response (추정):** FAQ 답변이 다시 와야 하는데 **최신 뉴스 카드들 + follow_up 답변**이 옴.\n\n**분석 — 실행 흐름:**\n1. intent.js 처음부터 정렬:\n   - `/왜\\s*중요|...|의미|...|영향|.../` → X (match 없음)\n   - `/심층|분석|해설|.../` → X\n   - `/그\\s*기사|방금|직전|.../` + `hasCtx` → **O** (`방금` 매치 + last_answer_type=\"general\"로 hasCtx=true)\n   - → intent = `follow_up`\n2. retrieve(`follow_up`) → `retrieveInternal` → FAQ 매치 실패 → intent.follow_up 분기 → `lexicalSearchCards(message, scope)`\n3. message 토큰: `\"방금\", \"답변을\", \"더\", \"쉽게\", \"설명해줘\"` → 전부 stopword → 빈 결과\n4. fallback → `cardsOnLatestAvailableDate()` → 최신 날짜 카드 4장\n5. LLM synthesize(`follow_up`) → 카드들 넘기고 \"직전 맥락을 이어받아...\" instruction\n6. 결과: \"이번에 나온 카드들은 이전에 논의했던 내용의 후속 근거야...\" — **FAQ 재설명이 아니라 뉴스 맥락 답변**\n\n### 1C. Backend가 기대하는 context (코드상)\n\n```js\ncontext.last_cards[0]        // 카드 객체 배열 — frontend는 URL만 보냄\ncontext.last_answer_type     // 직전 intent — 원본 의도 아님 (D12)\ncontext.last_answer          // 직전 답변 텍스트 — 존재 안 함 (D2)\n// con",
+      "closing_excerpt": " },\n    { \"label\": \"관련 카드 더 보여줘\" },\n    { \"label\": \"정책 일정만 따로 정리해줘\" }\n  ],\n  \"debug\": {\n    \"fallback_triggered\": false,\n    \"confidence_bucket\": \"high\",\n    \"fallback_reason\": \"internal_confident\",\n    \"llm\": null,\n    \"faq_tone_rewrite\": { \"used\": true, \"skipped\": false, \"latency_ms\": 843 },\n    \"policy_tone_rewrite\": { \"used\": true, \"skipped\": false, \"latency_ms\": 505 }\n  }\n}\n```\n\n관찰:\n- answer는 반말 정상 (rewrite 작동)\n- answer_type=general (D12: FAQ 마스킹)\n- FAQ rewrite + Policy rewrite 중복 호출 (D13: 총 1.35s 추가 latency)\n- Suggestion 버튼이 \"조금 더 쉽게 설명해줘\" 포함 → 누르면 Turn 2의 재앙 시작\n\n## Appendix B: Turn 2 payload (D11 재현)\n\n**Request:**\n```json\n{\n  \"message\": \"방금 답변을 더 쉽게 설명해줘\",\n  \"context\": {\n    \"last_answer_type\": \"general\",\n    \"last_result_ids\": [],\n    \"date\": null, \"region\": null, \"selected_item_id\": null\n  }\n}\n```\n\nBackend 실행 흐름:\n1. `classifyIntent` → \"방금\" 매치 + hasCtx=true → **follow_up**\n2. `retrieveInternal(follow_up)` → matchFaq 실패 → cards 분기 → lexicalSearchCards → empty (전부 stopword) → latestCards fallback\n3. LLM synthesize(follow_up) → \"직전 맥락을 이어받아...\" instruction + 최신 카드 4장\n4. **결과: FAQ 답변 재작성이 아니라 최신 뉴스 맥락 답변**\n\n**근본 원인:** D11 — follow_up intent는 rephrase 기능을 포함하지 않음. 직전이 FAQ였어도 최신 카드 검색으로 대체됨.\n\n## Appendix C: diag로 확인된 환경 사실\n\n- `cwd: /var/task` → Vercel serverless 표준\n- `sources: { cards: \"fs\", faq: \"fs\", tracker: \"fs\" }` → public/data가 번들에 포함됨, S1 fetch는 안 쓰임 (안전장치로만)\n- `cards_len: 337, faq_len: 38, tracker_len: 59`\n- `faq_len: 38` → 이전 40에서 2 감소. Phase 2 시작 시 `git log public/data/faq.json` 확인\n- `tracker_len: 59` → 이전 50에서 9 증가. tracker 업데이트 확인\n- `load_ms: 6` → fs 읽기 극히 빠름\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/CHATBOT_TESTS.md",
+      "git_blob_sha": "a6be72611fa2b47a37ff7c054cd668046e845362",
+      "sha256": "cd98504d526562a560ff5dc33e4686f4ac614c34be14a288c4e042618fc4bd70",
+      "byte_count": 6244,
+      "line_count": 106,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# Chatbot Test Scenarios — Phase 2 Before/After"
+        },
+        {
+          "line": 10,
+          "text": "## 선결 조사 요약"
+        },
+        {
+          "line": 12,
+          "text": "### D9 — \"왜 중요한지\" → follow_up 분류 미스터리"
+        },
+        {
+          "line": 18,
+          "text": "### D10 — `fallback_triggered` 의미 정의"
+        },
+        {
+          "line": 24,
+          "text": "### D13 — FAQ + Policy rewrite 중복 호출 근본 원인"
+        },
+        {
+          "line": 32,
+          "text": "## 10개 시나리오 Before/After"
+        },
+        {
+          "line": 49,
+          "text": "## Mock 검증 로그 (parseRequest → retrieve)"
+        },
+        {
+          "line": 75,
+          "text": "## Production 실측 체크리스트 (배포 후)"
+        },
+        {
+          "line": 87,
+          "text": "## Phase 3 의존성"
+        },
+        {
+          "line": 101,
+          "text": "## 결론"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# Chatbot Test Scenarios — Phase 2 Before/After\n\n작성: 2026-04-15\n대상: Phase 2 5-layer pipeline (`parseRequest → resolveContext → retrieve → synthesize → respond`)\n\n검증 방식: 로컬 mock 데이터 기반 smoke test (parseRequest~retrieve까지) + production 실측 예정.\n\n---\n\n## 선결 조사 요약\n\n### D9 — \"왜 중요한지\" → follow_up 분류 미스터리\n\n**원인:** 구 `intent.js` regex 우선순위가 시점에 따라 상이. 현재 코드는 `analysis_why` 먼저 매치 → 실제로는 follow_up으로 가지 않음. 그러나 **D1 버그(frontend가 카드 객체 대신 URL만 전송)**로 `context.last_cards[0]` 부재 → 400 에러.\n\n**Phase 2 해결:** `action=analyze_card`로 명시화. resolveContext가 `selected_item_id > last_turn.cards[0]` 우선순위로 단일 카드 확정. 없으면 clarification.\n\n### D10 — `fallback_triggered` 의미 정의\n\n**조사 결과:** `fallback.js::decideFallback`의 boolean. 의미: **\"Brave 외부 링크도 같이 조회했다\"**. LLM fallback/graceful degrade와 무관. 이름이 오해를 유발.\n\n**Phase 2 해결:** flag 자체 제거. 새 아키텍처는 source_mode가 action+topic으로 결정론적.\n\n### D13 — FAQ + Policy rewrite 중복 호출 근본 원인\n\n**조사 결과:** `api/chat.js`에 독립 if 블록 2개 (`retrieval.mode === \"faq\"` AND `intent === \"policy\"` 동시 만족 가능). \"미국 FEOC 쉽게 설명해줘\"에서 intent=policy + retrieval.mode=faq 동시 성립 → rewriteToCasual 2회 → 1.35s 중복.\n\n**Phase 2 해결:** parseRequest에서 `topic`을 단일 결정. synthesize.js에서 topic별 XOR 경로 — faq_concept만 FAQ rewrite, policy만 policy rewrite. 둘 동시 발생 구조적 불가능.\n\n---\n\n## 10개 시나리오 Before/After\n\n| # | 시나리오 | Before (Phase 1) | After (Phase 2) | 검증 상태 |\n|---|---|---|---|---|\n| 1 | \"FEOC 뭐야\" | intent=policy + retrieval.mode=faq → FAQ rewrite + Policy rewrite 둘 다 (D13) | topic=faq_concept 단일, rewrite 1회 | ✅ mock OK |\n| 2 | \"오늘 미국 뉴스\" | intent=news, scope 정상 | action=new_query, topic=news, scope=US — 동일 동작 | ✅ mock OK |\n| 3 | \"LG vs SK 비교\" | intent=compare, lexical 검색 | topic=comparison, entity별 분리 수집 | ✅ mock OK (3 entities) |\n| 4 | \"미국 정책 알려줘\" | intent=policy, REGION_POLICY 템플릿 | topic=policy, 동일 + rewrite 1회만 | ✅ mock OK |\n| 5 | 빈 컨텍스트 \"더 쉽게\" | intent=general, lexical 검색 → 엉뚱 | action=rephrase but no last_turn → downgrade to new_query general | ✅ mock OK (graceful) |\n| 6 | (news후) \"더 쉽게\" | intent=follow_up → 뉴스 재검색 (D11 치명적) | **action=rephrase, topic=news 계승, last_turn.answer_text 재작성** | ✅ **D11 해결 확인** |\n| 7 | (news후) \"왜 중요\" | intent=analysis_why → 400 (D1 카드 누락) | **action=analyze_card, last_turn.car",
+      "closing_excerpt": "_skipped_analyze_card (target_card 1장)\n\n=== 8. (FAQ후) '더 쉽게' (rephrase FAQ) ===\n  action=rephrase topic=faq_concept      ← D11 재앙 시나리오가 정상 경로로 라우팅됨!\n  retrieve.source=rephrase cards=0        ← FAQ는 카드 없음, answer_text 재작성만\n\n=== 9. (news후) 'SK온 관련' (follow_up) ===\n  action=follow_up topic=news            ← topic_inherited_from_root:news\n  retrieve.source=news cards=3           ← SK온 lexical 재검색 성공\n```\n\n---\n\n## Production 실측 체크리스트 (배포 후)\n\n배포 확인 후 실제 Vercel에서 돌려볼 경로:\n\n- [ ] Turn 1 \"FEOC 뭐야\" — `debug.synthesize_meta.path === \"faq_rewrite\"` (단일 rewrite 확인)\n- [ ] Turn 1 \"미국 FEOC 쉽게 설명해줘\" — `debug.synthesize_meta.path === \"faq_rewrite\"` **단일** (D13 해결)\n- [ ] Turn 2 (news후) \"더 쉽게\" — `answer_type === \"rephrase\"` + LLM latency 관측\n- [ ] Turn 2 (FAQ후) \"더 쉽게\" — 뉴스 카드가 아니라 **FAQ 답변이 재작성됨** (D11 핵심)\n- [ ] analyze_card — frontend Phase 3 이후 `last_turn.cards` 객체 배열 전송 시 검증\n\n---\n\n## Phase 3 의존성\n\n**Phase 2만으로는 완전히 동작하지 않는 시나리오:**\n\n- **Case 6, 7, 8**: frontend가 `last_turn.answer_text`와 `last_turn.cards` (객체 배열)를 전송해야 함. 현재 frontend는 `last_answer_type` + `last_result_ids`(URL만)만 전송.\n- **Case 9**: frontend가 `root_turn` 유지 필요.\n- **Case 10**: Suggestion 버튼이 `hint_action`/`hint_topic` 추가해야 함.\n\nPhase 3 App.jsx 수정 완료 전까지 Phase 2는 구 context protocol과 **호환 모드**로 동작:\n- `context.last_turn`이 없으면 rephrase/analyze_card/follow_up은 `new_query`로 downgrade\n- 사용자는 Phase 1보다 악화되지 않고, Phase 3 이후 개선 체감.\n\n---\n\n## 결론\n\nPhase 2 backend 재작성으로 **D5/D7/D9/D10/D11/D12/D13 7개 구조적 결함**이 동시 해결됐다.\n특히 **D11 (follow_up intent가 3개 연산 삼킴)**은 아키텍처 재설계가 아니면 해결 불가였던 핵심 결함.\n\nPhase 3 App.jsx 수정 후 Case 6/7/8 production 실측에서 체감 개선 확인 예정.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/CONSULTATION_3STAGE_DESIGN.md",
+      "git_blob_sha": "ddfb05cd2429d8dc0ceeec9fef84fd353bec5f16",
+      "sha256": "c9f306cd2f06d548ff223a13ff0776e79e93483f621e2959adaae8907829cafc",
+      "byte_count": 14699,
+      "line_count": 498,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# 배터리 상담소 — 3차 상담 구조 설계 v0.1"
+        },
+        {
+          "line": 9,
+          "text": "## 1. 왜 이 구조로 가는가"
+        },
+        {
+          "line": 11,
+          "text": "### 지금까지의 문제"
+        },
+        {
+          "line": 18,
+          "text": "### 3단계가 해결하는 것"
+        },
+        {
+          "line": 31,
+          "text": "## 2. 각 단계 Role 정의"
+        },
+        {
+          "line": 33,
+          "text": "### 1차 — 정찰병 강차장 (Scout)"
+        },
+        {
+          "line": 56,
+          "text": "### 2차 — 분석가 강차장 (Analyst)"
+        },
+        {
+          "line": 90,
+          "text": "### 3차 — 빨간펜 강차장 (Red Team)"
+        },
+        {
+          "line": 119,
+          "text": "## 3. 유저 플로우"
+        },
+        {
+          "line": 140,
+          "text": "### 유저 선택권"
+        },
+        {
+          "line": 146,
+          "text": "### 추천 정책 — 순차 강제"
+        },
+        {
+          "line": 154,
+          "text": "## 4. Rendering (UI)"
+        },
+        {
+          "line": 156,
+          "text": "### ReceiptBubble (유지)"
+        },
+        {
+          "line": 160,
+          "text": "### 1차 bubble — Scout"
+        },
+        {
+          "line": 181,
+          "text": "### 2차 bubble — Analyst"
+        },
+        {
+          "line": 197,
+          "text": "### 3차 bubble — Red Team"
+        },
+        {
+          "line": 221,
+          "text": "## 5. 데이터 흐름 / API"
+        },
+        {
+          "line": 223,
+          "text": "### consultation payload 확장"
+        },
+        {
+          "line": 241,
+          "text": "### api/chat.js 라우팅"
+        },
+        {
+          "line": 249,
+          "text": "### Response"
+        },
+        {
+          "line": 262,
+          "text": "## 6. Prompts (draft v0.1)"
+        },
+        {
+          "line": 264,
+          "text": "### SYSTEM_SCOUT"
+        },
+        {
+          "line": 286,
+          "text": "### SYSTEM_ANALYST"
+        },
+        {
+          "line": 313,
+          "text": "### SYSTEM_REDTEAM"
+        },
+        {
+          "line": 343,
+          "text": "## 7. Gold regression test 전략"
+        },
+        {
+          "line": 345,
+          "text": "### MVP: 15 test cases (5 카테고리 × 3 stages)"
+        },
+        {
+          "line": 350,
+          "text": "### Test schema"
+        },
+        {
+          "line": 368,
+          "text": "### Run command"
+        },
+        {
+          "line": 380,
+          "text": "## 8. 삭제할 것 / 유지할 것"
+        },
+        {
+          "line": 382,
+          "text": "### 삭제"
+        },
+        {
+          "line": 393,
+          "text": "### 유지"
+        },
+        {
+          "line": 405,
+          "text": "## 9. 구현 순서 (Phase 2)"
+        },
+        {
+          "line": 407,
+          "text": "### Step 1 — Backend (llm.js + api/chat.js)"
+        },
+        {
+          "line": 412,
+          "text": "### Step 2 — Frontend (App.jsx)"
+        },
+        {
+          "line": 418,
+          "text": "### Step 3 — Gold test"
+        },
+        {
+          "line": 424,
+          "text": "### Step 4 — Production merge"
+        },
+        {
+          "line": 433,
+          "text": "## 10. Claire 결정 필요 — 열린 질문"
+        },
+        {
+          "line": 435,
+          "text": "### Q1. 단계 건너뛰기?"
+        },
+        {
+          "line": 444,
+          "text": "### Q2. 3차 자동 시작 vs 수동?"
+        },
+        {
+          "line": 453,
+          "text": "### Q3. LLM 호출 비용 3배"
+        },
+        {
+          "line": 464,
+          "text": "### Q4. 캐릭터 분리 수준?"
+        },
+        {
+          "line": 473,
+          "text": "### Q5. Stage 간 데이터 전달"
+        },
+        {
+          "line": 482,
+          "text": "### Q6. 세션 persistence"
+        },
+        {
+          "line": 491,
+          "text": "## 11. 다음 액션"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# 배터리 상담소 — 3차 상담 구조 설계 v0.1\n\n**작성일**: 2026-04-20\n**브랜치**: phase1-consult-redesign\n**상태**: 설계 리뷰 대기 (구현 전)\n\n---\n\n## 1. 왜 이 구조로 가는가\n\n### 지금까지의 문제\n\n- 단일 prompt에 opener + hook + 말투 + JSON + coverage + SBTL Chain 다 담음 → Flash가 섞어버림\n- 두더지잡기 루프: \"이 카드는\" 금지 → Flash 무시 → regex로 잡음 → 새 이상 패턴 → 또 추가\n- 품질 측정 불가능: \"opener가 잘 됐는지\"의 기준이 모호. 291개 카드 중 사람 눈 검증은 매 commit마다 1~2개만.\n- 재방문 동인은 있으나 **종료점이 없어** followup 루프가 끝없이 이어짐\n\n### 3단계가 해결하는 것\n\n| 문제 | 3단계가 해결하는 방식 |\n|---|---|\n| 단일 prompt 과부하 | 각 stage가 한 가지만 함. Flash 부담 ↓ |\n| 품질 측정 불가 | 각 stage 독립적 gold test 가능 (JSON schema 검증) |\n| 종료점 없음 | 3차 = 명시적 상담 종료 |\n| 재방문 동인 약함 | 레벨업 구조 자체가 보상. 3차 도달이 \"깊이 판 증거\" |\n| 없는 사실 만들기 | 1차에서 팩트 확정 → 2차는 1차 facts 내에서만 해석 → 3차는 2차 검증 |\n| Claire 애널리스트 사고 흐름 재현 | \"무슨 일이야 → 왜 중요해 → 잠깐, 놓친 거 없나\" |\n\n---\n\n## 2. 각 단계 Role 정의\n\n### 1차 — 정찰병 강차장 (Scout)\n\n**역할**: 사실 확인. 카드 내용을 정확히 정리.\n**금지**: 해석, 추측, 함의 언급, SBTL 관점 언급.\n**허용**: 팩트 나열, 숫자/날짜/주체 추출, 카드에 없어서 모르는 것 명시.\n\n**Input**:\n- `card`: { title, sub, gate, fact, implication[], region, date, category, source }\n\n**Output (JSON only)**:\n```json\n{\n  \"summary\": \"무슨 일인지 2~3문장 반말\",\n  \"facts\": [\"핵심 숫자/주체/일정 3~5개\"],\n  \"unknowns\": [\"카드에 없어서 모르는 것 0~2개\"]\n}\n```\n\n**말투**: 팩트 정리 톤. \"~했어\", \"~돼\", \"~야\"\n**금지 표현**: \"~일 것 같아\", \"~로 볼 수 있어\", \"~인 듯해\", \"~할 가능성이 있어\"\n\n---\n\n### 2차 — 분석가 강차장 (Analyst)\n\n**역할**: 왜 중요한지 해석. 한 각도 잡아서 깊이.\n**제약**: 1차에서 정리된 facts 내에서만 해석. 새 사실 추가 금지.\n\n**Input**:\n- `card`\n- `stage1_output` (1차 JSON 통째)\n- `related_cards[]`\n\n**Output (JSON only)**:\n```json\n{\n  \"angle\": \"어떤 각도인지 한 줄 (예: '타이밍', '숫자 규모', '구조 의도')\",\n  \"interpretation\": \"해석 2~3문장\",\n  \"sbtl_link\": \"Chain 3경로 중 하나에 해당하면 짧게, 아니면 null\",\n  \"key_tension\": \"핵심 쟁점 1개 한 줄\"\n}\n```\n\n**각도 선택지** (한 개만):\n- 타이밍 — 발표/거래/규제 시점이 다른 움직임과 어떻게 연결되는지\n- 숫자 — 금액/규모가 업계 기준 대비 의미\n- 대비 — 이전 조치·경쟁사와 다른 점\n- 구조 — 거래/지분/계약 구조의 회계·전략 의도\n\n**SBTL Chain 언급 조건**:\n- (1) K-3사 수요 / (2) 파우치형 점유율 / (3) 알루미늄 원가 중 하나에 **명확히** 해당할 때만\n- 애매하면 `sbtl_link: null`\n\n**말투**: 판단 톤. \"여기서 걸리는 건\", \"~가 핵심이야\"\n\n---\n\n### 3차 — 빨간펜 강차장 (Red Team)\n\n**역할**: 1차+2차 자기 검증. 구멍 찾기.\n**출력 의무**: 4개 필수 항목 모두 채워야 함.\n\n**Input**:\n- `card`\n- `stage1_output` (1차)\n- `stage2_output` (2차)\n\n**Output (JSON only)**:\n```json\n{\n  \"premature_interpretations\": [\"2차 해석 중 성급할 수 있는 부분 1~2개\"],\n  ",
+      "closing_excerpt": "드로 가는 CTA만\n\n### Step 3 — Gold test\n1. `scripts/test_consultation_stages.js` 작성\n2. 5개 카테고리 대표 카드 3 stage씩 돌려서 결과 수동 리뷰\n3. Forbidden phrase / must-contain 기준 확정\n4. CI에 넣을지는 별도 결정 (지금은 수동 trigger)\n\n### Step 4 — Production merge\n1. Gold test 13/15 pass 확인\n2. PR 정리\n3. main merge + vercel 배포\n\n**예상 시간**: Step 1~2가 4~6시간. Step 3이 2~3시간. 합쳐서 1~1.5일 작업.\n\n---\n\n## 10. Claire 결정 필요 — 열린 질문\n\n### Q1. 단계 건너뛰기?\n\n**옵션 A (추천)**: 순차 강제. 1차 → 2차 → 3차 고정.\n**옵션 B**: 2차 직행 버튼 allow (빠른 답 필요한 날).\n\n내 의견: **A**. 컨셉 일관성 + Flash 부담 ↓.\n\n---\n\n### Q2. 3차 자동 시작 vs 수동?\n\n**옵션 A (추천)**: 수동. 2차 끝나면 `[최종 판단 받기]` 버튼.\n**옵션 B**: 2차 완료 직후 자동 3차.\n\n내 의견: **A**. 유저가 3차 필요한지 스스로 판단. Red team 자체가 \"더 파고 싶은 사람\"의 보상.\n\n---\n\n### Q3. LLM 호출 비용 3배\n\n- 현재 평균 세션당 opener 1 + followup 1~2 = 2~3 호출\n- 3단계 풀 시: 3 호출\n- **실질 차이 거의 없음**. Flash 무료 tier는 RPM 10 기준으로 여유 있음.\n- Groq fallback도 그대로 작동\n\n내 의견: **문제 없음**.\n\n---\n\n### Q4. 캐릭터 분리 수준?\n\n**옵션 A (추천)**: 같은 강차장. 모드만 다르게 (정찰병 모드 / 분석가 모드 / 빨간펜 모드).\n**옵션 B**: 3명의 다른 캐릭터 (예: \"정차장 / 강차장 / 박차장\").\n\n내 의견: **A**. 캐릭터 일관성. SBTL 세계관 복잡해지는 거 방지. 단, bubble 아이콘은 다르게 (📋 / 🔍 / 🧪).\n\n---\n\n### Q5. Stage 간 데이터 전달\n\n**옵션 A (추천)**: 이전 stage JSON 통째로 다음 prompt에 주입.\n**옵션 B**: 정제해서 요약만 전달.\n\n내 의견: **A**. 구현 간단. Token 늘어도 3 stage 합쳐 ~2K tokens 수준.\n\n---\n\n### Q6. 세션 persistence\n\n**옵션 A (추천)**: 세션 내에서만 유지. 새 세션이면 1차부터.\n**옵션 B**: localStorage에 stage 진행도 저장 → 다음에 이어서.\n\n내 의견: **A**. 이어서 가는 건 복잡도 대비 가치 낮음. 3 stage 합쳐 최대 30초면 다시 돌릴 수 있음.\n\n---\n\n## 11. 다음 액션\n\n이 문서 읽고 Claire가 결정할 것:\n1. Q1~Q6 답변 (추천값 다 OK면 \"ㅇㅋ\" 한 줄로도 됨)\n2. 구현 시작 시점 (내일 / 이번 주말 / 언제)\n3. 빠진 것 / 수정할 것\n\n구현 시작 전에 이 문서에 Claire의 입장 추가로 커밋하고, 그 다음 Phase 2 Step 1부터 진행.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/ENHANCED_RED_TEAM_FULLSTACK_AUDIT_20260414.md",
+      "git_blob_sha": "a6c9a06bf8f4d1032abd9ff740973816b7432289",
+      "sha256": "0e2036ca38cabd11c5903d22421dbb0541235fe2d61439d02ba36795d34f6027",
+      "byte_count": 2190,
+      "line_count": 35,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# SBTL_HUB 풀스택 Red Team Audit (Line-by-Line)"
+        },
+        {
+          "line": 9,
+          "text": "## Executive Summary"
+        },
+        {
+          "line": 17,
+          "text": "## P0 — Operational Emergencies"
+        },
+        {
+          "line": 19,
+          "text": "### BUG #1: cards.json 9 days stale"
+        },
+        {
+          "line": 24,
+          "text": "### BUG #2: tracker_data.json 9 days stale"
+        },
+        {
+          "line": 29,
+          "text": "### BUG #3: lib/chat/common.js uses `process.cwd()` in serverless"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# SBTL_HUB 풀스택 Red Team Audit (Line-by-Line)\n\n**Date:** 2026-04-14\n**Scope:** App.jsx, lib/chat/* (8 modules), api/* (4 endpoints), public/data/* (cards.json, faq.json, tracker_data.json), docs/* (7 files), merge_cards.py, vercel.json, package.json, env.example\n**Method:** Line-by-line read of every file except public/webtoon/*.html (4 files) and full cards.json content (sampled ~50 cards from 337)\n\n---\n\n## Executive Summary\n\n25 distinct bugs/issues found, grouped by severity. 3 of them are P0 operational emergencies (data is 9+ days stale, potential chatbot infrastructure failure). The architecture documents (`AI_CHATBOT_REFACTOR_PLAN.md`, `AI_CHATBOT_IMPLEMENTATION_CHECKLIST.md`) are excellent — the chatbot audit here confirms the docs' own diagnosis and pinpoints which of the listed P0/P1 items are still unfinished.\n\nThe single biggest finding is **BUG #3 (lib/chat/common.js uses `process.cwd()`)** — if this breaks in Vercel's serverless environment, the chatbot silently returns empty results for every query, which matches the user-reported \"stupid chatbot\" symptom better than any other single cause.\n\n---\n\n## P0 — Operational Emergencies\n\n### BUG #1: cards.json 9 days stale\n- `updated: \"2026.04.13\"` in cards.json; today is 2026.04.14. No cards dated 2026.04.14.\n- The 11-day gap between today and the latest card breaks the app's \"live feed\" value proposition.\n- Fix: run W6 merge pipeline. Verify merge_cards.py output.\n\n### BUG #2: tracker_data.json 9 days stale\n- `lastUpdated: \"2026-04-05T15:00:00+09:00\"`; all 50 items have `lastChecked: \"2026-04-05\"`.\n- App.jsx Tracker shows \"LAST CHECKED 2026.04.05\" in the header — users see an 8-day-old policy tracker and may act on stale data.\n- Fix: daily 2A+2B protocol on tracker_data.json per SKILL.md.\n\n### BUG #3: lib/chat/common.js uses `process.cwd()` in serverless\n```js\nfunction projectRoot() { return process.cwd(); }\n```\n- In Vercel serverless functions, `cwd()` is typically `/var/task` or `/var/runtime`.\n- `public/` is static-hosted; NOT automatically bundled into function output.\n- If chat API cannot read cards.json/faq.json/tracker_data.json, `loadKnowledge()` returns empty arrays → ret",
+      "closing_excerpt": "cture failure). The architecture documents (`AI_CHATBOT_REFACTOR_PLAN.md`, `AI_CHATBOT_IMPLEMENTATION_CHECKLIST.md`) are excellent — the chatbot audit here confirms the docs' own diagnosis and pinpoints which of the listed P0/P1 items are still unfinished.\n\nThe single biggest finding is **BUG #3 (lib/chat/common.js uses `process.cwd()`)** — if this breaks in Vercel's serverless environment, the chatbot silently returns empty results for every query, which matches the user-reported \"stupid chatbot\" symptom better than any other single cause.\n\n---\n\n## P0 — Operational Emergencies\n\n### BUG #1: cards.json 9 days stale\n- `updated: \"2026.04.13\"` in cards.json; today is 2026.04.14. No cards dated 2026.04.14.\n- The 11-day gap between today and the latest card breaks the app's \"live feed\" value proposition.\n- Fix: run W6 merge pipeline. Verify merge_cards.py output.\n\n### BUG #2: tracker_data.json 9 days stale\n- `lastUpdated: \"2026-04-05T15:00:00+09:00\"`; all 50 items have `lastChecked: \"2026-04-05\"`.\n- App.jsx Tracker shows \"LAST CHECKED 2026.04.05\" in the header — users see an 8-day-old policy tracker and may act on stale data.\n- Fix: daily 2A+2B protocol on tracker_data.json per SKILL.md.\n\n### BUG #3: lib/chat/common.js uses `process.cwd()` in serverless\n```js\nfunction projectRoot() { return process.cwd(); }\n```\n- In Vercel serverless functions, `cwd()` is typically `/var/task` or `/var/runtime`.\n- `public/` is static-hosted; NOT automatically bundled into function output.\n- If chat API cannot read cards.json/faq.json/tracker_data.json, `loadKnowledge()` returns empty arrays → ret",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/PROMPT_ABC_DEFAULT_MODE_v1_legacy.md",
+      "git_blob_sha": "c2cba3055f0a7354fbb88f46ed93998c5fec6e7b",
+      "sha256": "c2d6708332f07dfa72c1e70fe790e6800483dcd3aab246b7ba7fa155d1373d36",
+      "byte_count": 24892,
+      "line_count": 959,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# PROMPT ABC — Default Mode (Enhanced / Full-Schema Lock)"
+        },
+        {
+          "line": 3,
+          "text": "## 0. Purpose"
+        },
+        {
+          "line": 29,
+          "text": "## 1. Operating Declaration — Locked"
+        },
+        {
+          "line": 50,
+          "text": "## 2. Document Priority / Source of Truth"
+        },
+        {
+          "line": 69,
+          "text": "## 3. Shared Stage Rules — Apply to A / B / C"
+        },
+        {
+          "line": 71,
+          "text": "### 3.1 No Silent Loss"
+        },
+        {
+          "line": 81,
+          "text": "### 3.2 Main Baseline Rule"
+        },
+        {
+          "line": 94,
+          "text": "### 3.3 Full-Schema Rule"
+        },
+        {
+          "line": 128,
+          "text": "### 3.4 Traceability Rule"
+        },
+        {
+          "line": 141,
+          "text": "### 3.5 Memory / Hallucination Rule"
+        },
+        {
+          "line": 149,
+          "text": "### 3.6 Region Rule — Locked"
+        },
+        {
+          "line": 172,
+          "text": "## 4. Stage Map"
+        },
+        {
+          "line": 174,
+          "text": "### Prompt A — Card Spec Builder"
+        },
+        {
+          "line": 186,
+          "text": "### Prompt B — Card Writer"
+        },
+        {
+          "line": 198,
+          "text": "### Prompt C — Card Reviewer / QC Gate"
+        },
+        {
+          "line": 212,
+          "text": "# Prompt A — Card Spec Builder"
+        },
+        {
+          "line": 214,
+          "text": "## A.1 System / Role Prompt"
+        },
+        {
+          "line": 230,
+          "text": "## A.2 Mission"
+        },
+        {
+          "line": 251,
+          "text": "## A.3 Authority Boundary"
+        },
+        {
+          "line": 253,
+          "text": "### Prompt A MAY"
+        },
+        {
+          "line": 264,
+          "text": "### Prompt A MUST NOT"
+        },
+        {
+          "line": 272,
+          "text": "### Hard Lock"
+        },
+        {
+          "line": 278,
+          "text": "## A.4 Input Contract"
+        },
+        {
+          "line": 301,
+          "text": "## A.5 Decision Taxonomy"
+        },
+        {
+          "line": 310,
+          "text": "### Meaning"
+        },
+        {
+          "line": 317,
+          "text": "## A.6 Merge Rule — Strict"
+        },
+        {
+          "line": 330,
+          "text": "## A.7 Discard Rule — Explicit Only"
+        },
+        {
+          "line": 345,
+          "text": "## A.8 Baseline Comparison Rule"
+        },
+        {
+          "line": 356,
+          "text": "## A.9 Representative Source / Date Rule"
+        },
+        {
+          "line": 358,
+          "text": "### Representative Source Priority"
+        },
+        {
+          "line": 366,
+          "text": "### Representative Date"
+        },
+        {
+          "line": 371,
+          "text": "## A.10 Required Spec Fields"
+        },
+        {
+          "line": 408,
+          "text": "## A.11 Output Contract"
+        },
+        {
+          "line": 464,
+          "text": "## A.12 Failure Rule"
+        },
+        {
+          "line": 472,
+          "text": "# Prompt B — Card Writer"
+        },
+        {
+          "line": 474,
+          "text": "## B.1 System / Role Prompt"
+        },
+        {
+          "line": 491,
+          "text": "## B.2 Mission"
+        },
+        {
+          "line": 504,
+          "text": "## B.3 Authority Boundary"
+        },
+        {
+          "line": 506,
+          "text": "### Prompt B MAY"
+        },
+        {
+          "line": 514,
+          "text": "### Prompt B MUST NOT"
+        },
+        {
+          "line": 523,
+          "text": "## B.4 Input Contract"
+        },
+        {
+          "line": 534,
+          "text": "## B.5 Writing Rule — Every Passed Spec Must Be Drafted"
+        },
+        {
+          "line": 545,
+          "text": "## B.6 Full-Schema Draft Rule"
+        },
+        {
+          "line": 566,
+          "text": "## B.7 Field Discipline"
+        },
+        {
+          "line": 568,
+          "text": "### title"
+        },
+        {
+          "line": 574,
+          "text": "### sub"
+        },
+        {
+          "line": 579,
+          "text": "### gate"
+        },
+        {
+          "line": 586,
+          "text": "### fact"
+        },
+        {
+          "line": 593,
+          "text": "### implication"
+        },
+        {
+          "line": 601,
+          "text": "### urls"
+        },
+        {
+          "line": 606,
+          "text": "### id / date / region / cat / signal"
+        },
+        {
+          "line": 611,
+          "text": "## B.8 Separation Rule"
+        },
+        {
+          "line": 621,
+          "text": "## B.9 Traceability Rule"
+        },
+        {
+          "line": 633,
+          "text": "## B.10 Output Contract"
+        },
+        {
+          "line": 694,
+          "text": "## B.11 Failure Rule"
+        },
+        {
+          "line": 707,
+          "text": "# Prompt C — Card Reviewer / QC Gate"
+        },
+        {
+          "line": 709,
+          "text": "## C.1 System / Role Prompt"
+        },
+        {
+          "line": 725,
+          "text": "## C.2 Mission"
+        },
+        {
+          "line": 738,
+          "text": "## C.3 Authority Boundary"
+        },
+        {
+          "line": 740,
+          "text": "### Prompt C MAY"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# PROMPT ABC — Default Mode (Enhanced / Full-Schema Lock)\n\n## 0. Purpose\n\nThis document defines the reusable Prompt A / Prompt B / Prompt C set for the **default operating mode**.\n\nThis version locks the operating path to one default mode only:\n\n- default input set = `triage_output` + `rescue` + `dropped`\n- baseline for duplicate / reinforcement judgment = GitHub `main` `public/data/cards.json`\n- helper payloads are **working artifacts only**, never the baseline\n- discard / merge authority exists **only in Prompt A**\n- Prompt B must draft **every passed spec**\n- Prompt C must review **every drafted card**\n- final production payload = **full schema only**\n- silent drop is prohibited in all stages\n\nThis document strengthens the uploaded baseline by making the following explicit:\n\n1. stage ownership\n2. authority boundary\n3. input / output contract\n4. traceability ledger\n5. failure handling\n6. QC pass / revise / reject criteria\n\n---\n\n## 1. Operating Declaration — Locked\n\nOperating mode is fixed to:\n\n`triage_output + rescue + dropped`\n\nInterpretation:\n\n- `triage_output` = primary input universe\n- `rescue` = rescue-only auxiliary pool\n- `dropped` = treasure-hunt / salvage pool\n- `kept_clusters[]` from `triage_output` = primary candidate unit\n- baseline cards = GitHub `main` `public/data/cards.json`\n- uploaded payloads / helper payloads / prior run payloads = reference artifacts only, never baseline\n- region = direct stage of the event, not publisher country and not company nationality\n- final production output = full schema only\n\nThese rules are not optional.\n\n---\n\n## 2. Document Priority / Source of Truth\n\nWhen rules conflict, apply this order:\n\n1. `docs/FACT_DISCIPLINE.md`\n2. this document (`PROMPT_ABC_DEFAULT_MODE.md`)\n3. `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md`\n4. `docs/CARD_ID_STANDARD.md`\n5. `docs/WORKFLOW.md`\n6. `docs/OPERATIONS.md`\n\nImplication:\n\n- Prompt A/B/C may not relax fact discipline.\n- Prompt B may not fill gaps with memory, prior knowledge, or plausible industry assumptions.\n- Prompt C must fail cards that violate fact discipline even if prose quality is high.\n\n---\n\n## 3. Shared Stage Rules — Apply to A / B / C\n\n### 3.1 No Silent Loss\n\nEvery input u",
+      "closing_excerpt": "review_ledger`, and\n- either `revise_required` or `rejected`\n\nA missing draft entry is itself a QC failure.\n\n---\n\n## 5. Minimal Cross-Stage Invariants\n\nThese must remain true across A → B → C:\n\n1. `spec_id` is preserved end-to-end\n2. every Prompt A `passed_spec` appears in Prompt B output\n3. every Prompt B draft appears in Prompt C output\n4. no stage silently changes the baseline rule\n5. no stage silently changes the region rule\n6. no stage silently changes the schema rule\n7. no stage silently drops a unit\n\n---\n\n## 6. What This Version Strengthens vs. the Uploaded Baseline\n\nThis enhanced version keeps the uploaded operating mode lock intact, but hardens the weak points:\n\n- Prompt A / B / C now have explicit ownership instead of uneven density\n- discard / merge authority is clearly locked to Prompt A only\n- Prompt B now has a formal no-silent-drop write contract\n- Prompt C now has an explicit `accepted / revise_required / rejected` QC contract\n- full-schema compliance is enforced at draft and final stages\n- baseline rule is hardened against helper-payload confusion\n- traceability ledgers are mandatory at every stage\n- region/date/category/signal review is formalized\n- duplicate vs reinforcement ambiguity is reviewable rather than implicit\n\n---\n\n## 7. Final Principle\n\nThe operating mode is locked.\nThe role boundaries are locked.\nThe schema is locked.\nWhat improves is not the mode itself, but the **clarity, traceability, and QC strength** of A / B / C.\n\n**Default mode remains:**\n- `triage_output + rescue + dropped`\n- `main public/data/cards.json baseline`\n- `full schema only`\n",
+      "heuristic_hint_not_authoritative": "SUPERSEDED"
+    },
+    {
+      "path": "docs/SESSION_HANDOFF_20260424_W8_promptB.md",
+      "git_blob_sha": "0d9c8cda6eabf3f7d416cc140ec8b4ce6065f4dd",
+      "sha256": "cc92027917e5195bf546f51b33fcbb51292b019a0eb0b1bb21f8d23141654983",
+      "byte_count": 12303,
+      "line_count": 252,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# SESSION HANDOFF — W8 Prompt B 재개 (2026-04-24)"
+        },
+        {
+          "line": 8,
+          "text": "## 0. 현재 상태"
+        },
+        {
+          "line": 27,
+          "text": "## 1. 새 세션 시작 순서 (필수)"
+        },
+        {
+          "line": 29,
+          "text": "### 1-A. 규칙 문서 로드 — GitHub MCP, `ihyowoen/SBTL_HUB` main 브랜치"
+        },
+        {
+          "line": 39,
+          "text": "### 1-B. A 산출물 + baseline 로드"
+        },
+        {
+          "line": 47,
+          "text": "### 1-C. 이 문서 (§2~§5) 정독"
+        },
+        {
+          "line": 51,
+          "text": "## 2. B 실행 방식"
+        },
+        {
+          "line": 53,
+          "text": "### 2-A. 각 passed_spec에 대한 표준 루프"
+        },
+        {
+          "line": 104,
+          "text": "### 2-B. fact_sources 스키마 (필수)"
+        },
+        {
+          "line": 119,
+          "text": "### 2-C. Card ID 넘버링"
+        },
+        {
+          "line": 143,
+          "text": "## 3. needs_review=True 20건 (B가 특별 검증)"
+        },
+        {
+          "line": 170,
+          "text": "## 4. DROPPED override 3건 (추가 주의)"
+        },
+        {
+          "line": 180,
+          "text": "## 5. 알려진 제약·함정"
+        },
+        {
+          "line": 182,
+          "text": "### 5-A. Paywalled sources (fetch 실패 가능성 높음)"
+        },
+        {
+          "line": 191,
+          "text": "### 5-B. web_fetch URL 거부 문제"
+        },
+        {
+          "line": 199,
+          "text": "### 5-C. upstream `context_text` 의존 금지"
+        },
+        {
+          "line": 203,
+          "text": "### 5-D. 이전 세션에서 이미 수집된 verbatim (참조만, 재fetch 필수)"
+        },
+        {
+          "line": 211,
+          "text": "## 6. Output 기대"
+        },
+        {
+          "line": 213,
+          "text": "### 6-A. 파일"
+        },
+        {
+          "line": 217,
+          "text": "### 6-B. 예상 분포"
+        },
+        {
+          "line": 221,
+          "text": "### 6-C. B.6 Output Contract 구조"
+        },
+        {
+          "line": 241,
+          "text": "## 7. 새 채팅 오프닝 프롬프트 (Claire 복붙용)"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# SESSION HANDOFF — W8 Prompt B 재개 (2026-04-24)\n\n> 이 문서는 **뉴스 파이프라인** 핸드오프. SBTL_HUB PWA 코드 핸드오프 아님.\n> W8 run (`run_tag=20260423_134635`) Prompt B가 도구 제약으로 중단됨. 새 세션에서 이어받기 위한 context.\n\n---\n\n## 0. 현재 상태\n\n| Stage | 상태 | 산출물 |\n|---|---|---|\n| **Prompt A (Selector)** | ✅ 완료 | `/mnt/user-data/outputs/PromptA_output_20260423_134635.json` (2.84MB) |\n| **Prompt B (Writer)** | ❌ 미완 | — (이 문서가 재개 가이드) |\n| **Prompt C (QC)** | ❌ 미시작 | — |\n\nA output 요약:\n- 40 passed_specs (`new` 32 + `follow_up` 4 + `reinforcement_of_main` 4)\n- 20건 `needs_review: true`\n- 3건 `source_origin: DROPPED` override\n- `decision_ledger` 6,906 stories 전체 커버 (silent drop 없음)\n- Cat: Battery 6 / Materials 10 / ESS 14 / PowerGrid 2 / Charging 1 / Policy 2 / Manufacturing 2 / Robotics 1 / SupplyChain 1 / EV 1\n- Region: CN 15 / US 8 / KR 7 / EU 4 / GL 4 / JP 2\n- Signal: top 2 / high 19 / mid 19\n\n---\n\n## 1. 새 세션 시작 순서 (필수)\n\n### 1-A. 규칙 문서 로드 — GitHub MCP, `ihyowoen/SBTL_HUB` main 브랜치\n\n우선순위 순서:\n\n1. `docs/FACT_DISCIPLINE.md` — **최상위 철칙**, 다른 모든 문서보다 우선\n2. `docs/PROMPT_ABC_DEFAULT_MODE.md` — B.1~B.7 규칙 (§Prompt B 전체)\n3. `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md` — card schema\n4. `docs/CARD_ID_STANDARD.md` — id 규칙\n5. `docs/PROMPT_ABC_SUPPORTING_RULES.md` — 보조 규칙\n\n### 1-B. A 산출물 + baseline 로드\n\n- A output: `/mnt/user-data/outputs/PromptA_output_20260423_134635.json`\n  - `$.passed_specs` (40건) — B 입력\n  - `$.decision_ledger` (6906건) — C가 쓰므로 B는 참고만\n- Baseline: GitHub MCP → `ihyowoen/SBTL_HUB:public/data/cards.json` (317 cards, updated 2026-04-20)\n  - B는 baseline_relation 재판정 안 함 (A 권한). 단 card id 넘버링 시 기존 카드 id 충돌 확인용\n\n### 1-C. 이 문서 (§2~§5) 정독\n\n---\n\n## 2. B 실행 방식\n\n### 2-A. 각 passed_spec에 대한 표준 루프\n\n```\nfor spec in a_output.passed_specs:\n    # 1. primary_url web_fetch (B.4 의무)\n    try:\n        content = web_fetch(spec.primary_url)\n        web_fetch_status = \"ok\"\n    except fetch_rejected:\n        # 폴백 1: web_search로 headline/entity 검색하여 URL을 results pool에 등록 후 재fetch\n        # 폴백 2: search 결과 excerpt 자체를 원문으로 간주 (단 이 경우도 verbatim 기준 유지)\n        content = try_search_then_fetch(spec)\n        web_fetch_status = \"partial_fallback\"\n\n    if content is None:\n        # 폴백 3: spec.urls[] 다른 URL 시도\n        for url in spec.urls[1",
+      "closing_excerpt": "earch verbatim 일부 확보됨. 하지만:\n- `fetched_at`은 **새 세션의 실제 fetch 시점**이어야 함 → 재실행\n- FACT_DISCIPLINE §2.1에 예외 없음 → 새 세션에서 web_search/fetch 반복\n\n---\n\n## 6. Output 기대\n\n### 6-A. 파일\n- `/mnt/user-data/outputs/PromptB_output_20260423_134635.json` (canonical, valid JSON)\n- `/mnt/user-data/outputs/PromptB_output_20260423_134635.response.json` (response-size 버전, 있으면)\n\n### 6-B. 예상 분포\n- drafted: 30~38건 (paywall 일부 draft_blocked 예상)\n- draft_blocked: 2~10건 (paywall 원문 확보 실패 시)\n\n### 6-C. B.6 Output Contract 구조\n```json\n{\n  \"stage\": \"PromptB\",\n  \"version\": \"v2_final_input\",\n  \"summary\": {\"input_passed_specs\": 40, \"drafted\": N, \"blocked\": M},\n  \"write_ledger\": [{\"spec_id\", \"source_story_ids\", \"draft_status\", \"reason\"}],\n  \"drafts\": [{\n    \"spec_id\", \"source_story_ids\", \"draft_status\": \"drafted\",\n    \"web_fetch_status\": \"ok|partial_fallback|unverified_exception\",\n    \"web_fetch_url_used\", \"evidence_citations_count\",\n    \"needs_review\", \"review_reason\", \"writer_notes\",\n    \"card\": { ... full schema ... }\n  }],\n  \"blocked\": [{\"spec_id\", \"source_story_ids\", \"draft_status\": \"draft_blocked\", \"reason\"}]\n}\n```\n\n---\n\n## 7. 새 채팅 오프닝 프롬프트 (Claire 복붙용)\n\n```\nSBTL_HUB W8 run (run_tag=20260423_134635) Prompt B 수행해줘.\n\n시작 순서:\n1. ihyowoen/SBTL_HUB main에서 docs/SESSION_HANDOFF_20260424_W8_promptB.md 를 먼저 읽고\n2. 거기 §1에 나온 규칙 문서들(FACT_DISCIPLINE / PROMPT_ABC_DEFAULT_MODE / FUTURE_CARD_STANDARD_FULL_SCHEMA / CARD_ID_STANDARD) 로드\n3. /mnt/user-data/outputs/PromptA_output_20260423_134635.json 의 passed_specs 40건을 입력으로\n4. public/data/cards.json (baseline) 참조\n5. 핸드오프 §2 실행 방식대로 web_fetch 의무 + B.5 schema 카드 작성 + B.6 output\n```\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/STRENGTHENING_PLAN.md",
+      "git_blob_sha": "180459a20537eecfaf9e59bc2d96a0a05dc12cf4",
+      "sha256": "340ac45c96d28c429316916887f4614677d4d396a6a09e700c347796fec686f0",
+      "byte_count": 691,
+      "line_count": 22,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# SBTL_HUB 강화 우선순위 요약"
+        },
+        {
+          "line": 3,
+          "text": "## 지금 바로 해야 할 것"
+        },
+        {
+          "line": 10,
+          "text": "## 왜 이 순서인가"
+        },
+        {
+          "line": 18,
+          "text": "## 추천 다음 작업"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# SBTL_HUB 강화 우선순위 요약\n\n## 지금 바로 해야 할 것\n1. README를 실제 구조에 맞게 수정\n2. WORKFLOW / OPERATIONS 문서 추가\n3. merge_cards.py 안전장치 보강\n4. cards/payload data contract 문서화\n5. 배포 기준을 main + production으로 고정\n\n## 왜 이 순서인가\n현재 문제의 본질은 기능 부족보다 운영 혼선이다.\n문서를 먼저 고정해야:\n- merge 실수 감소\n- 브랜치/배포 혼동 감소\n- 카드 품질 기준 통일\n- future automation 설계 기준 확보\n\n## 추천 다음 작업\n- README replace-all 초안 작성\n- docs/WORKFLOW.md 추가\n- docs/OPERATIONS.md 추가\n- merge_cards.py red-team 개선안 작성\n",
+      "closing_excerpt": "# SBTL_HUB 강화 우선순위 요약\n\n## 지금 바로 해야 할 것\n1. README를 실제 구조에 맞게 수정\n2. WORKFLOW / OPERATIONS 문서 추가\n3. merge_cards.py 안전장치 보강\n4. cards/payload data contract 문서화\n5. 배포 기준을 main + production으로 고정\n\n## 왜 이 순서인가\n현재 문제의 본질은 기능 부족보다 운영 혼선이다.\n문서를 먼저 고정해야:\n- merge 실수 감소\n- 브랜치/배포 혼동 감소\n- 카드 품질 기준 통일\n- future automation 설계 기준 확보\n\n## 추천 다음 작업\n- README replace-all 초안 작성\n- docs/WORKFLOW.md 추가\n- docs/OPERATIONS.md 추가\n- merge_cards.py red-team 개선안 작성\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/TRIAGE_INPUT_MODE_DEFAULT.md",
+      "git_blob_sha": "b9e5573c718affe540b22bb1476e68b47f83b33c",
+      "sha256": "de2081787eb6fe3f222795ab3261ef89e4e4973ba5aa2318563e92dfd90e4c53",
+      "byte_count": 5369,
+      "line_count": 177,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# TRIAGE Input Mode Default"
+        },
+        {
+          "line": 11,
+          "text": "## Purpose"
+        },
+        {
+          "line": 27,
+          "text": "## 1. Legacy Input Set"
+        },
+        {
+          "line": 35,
+          "text": "### Interpretation"
+        },
+        {
+          "line": 44,
+          "text": "## 2. Candidate Unit"
+        },
+        {
+          "line": 57,
+          "text": "## 3. Why `dropped` Is Included in Legacy Mode"
+        },
+        {
+          "line": 75,
+          "text": "## 4. Why `rescue` Is Included in Legacy Mode"
+        },
+        {
+          "line": 86,
+          "text": "## 5. Debugging-Only Exception Inputs"
+        },
+        {
+          "line": 104,
+          "text": "## 6. Baseline Rule"
+        },
+        {
+          "line": 109,
+          "text": "### Hard rules"
+        },
+        {
+          "line": 116,
+          "text": "## 7. A/B/C Structure Remains Unchanged"
+        },
+        {
+          "line": 121,
+          "text": "### Prompt A = Card Spec Builder"
+        },
+        {
+          "line": 128,
+          "text": "### Prompt B = Insight Writer"
+        },
+        {
+          "line": 134,
+          "text": "### Prompt C = Enhanced Red Team + Cross-Functional Validator + Formatter"
+        },
+        {
+          "line": 143,
+          "text": "## 8. Zero Omission Rule"
+        },
+        {
+          "line": 159,
+          "text": "## 9. Short Operating Declaration"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# TRIAGE Input Mode Default\n\n> **Status: Legacy / exception mode.**\n>\n> The current default card-generation workflow is governed by `docs/PROMPT_ABC_DEFAULT_MODE.md`, which uses `final_news_llm_input.stories[]` as the primary input universe for the Final-input era.\n>\n> Use this document only when the user explicitly invokes the legacy `triage_output + rescue + dropped` mode or when processing older runs that were produced before the Final-input era workflow.\n>\n> If this document conflicts with `docs/PROMPT_ABC_DEFAULT_MODE.md`, follow `docs/PROMPT_ABC_DEFAULT_MODE.md` and the higher-level governance hierarchy defined there.\n\n## Purpose\n\nThis document locks the legacy/exception input mode for older or explicitly requested card-generation runs.\nIt is not a one-off PR instruction.\nIt is an operating rule for recurring editorial workflow only when the legacy input mode is explicitly active.\n\nThis document locks **input discipline only**.\nIt does not redefine card field semantics or final production schema.\nThose are governed by:\n- `docs/PROMPT_ABC_DEFAULT_MODE.md`\n- `docs/WORKFLOW.md`\n- `docs/OPERATIONS.md`\n- `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md`\n\n---\n\n## 1. Legacy Input Set\n\nWhen the legacy mode is explicitly invoked, the input set is:\n\n- `triage_output`\n- `rescue`\n- `dropped`\n\n### Interpretation\n- `triage_output` = primary working input\n- `rescue` = rescue-only auxiliary input\n- `dropped` = treasure-hunt / salvage pool\n\nThis is not the current Final-input era default. It is the legacy/exception operating set.\n\n---\n\n## 2. Candidate Unit\n\nIn legacy mode, the primary candidate unit remains:\n- `kept_clusters[]` from `triage_output`\n\nThis means the legacy workflow follows the original direct-input logic:\n- primary source = `triage_output`\n- primary candidate unit = `kept_cluster`\n\n`rescue` and `dropped` are auxiliary review pools, not replacements for the main working unit.\n\n---\n\n## 3. Why `dropped` Is Included in Legacy Mode\n\n`dropped` must not be treated as a dead bin.\n\nIt is a treasure-hunt / salvage pool used to recover:\n- wrongly excluded candidates\n- parser-damaged candidates\n- date-contaminated candidates\n- under-selected candidates\n- weak-gate false negati",
+      "closing_excerpt": "egory / signal / representative source / representative date\n- compares candidates against GitHub `main` `public/data/cards.json`\n\n### Prompt B = Insight Writer\n- writes every passed spec\n- does not discard\n- does not merge\n- does not change category / signal / representative date\n\n### Prompt C = Enhanced Red Team + Cross-Functional Validator + Formatter\n- reviews every card draft\n- tightens / validates / formats\n- must not silently discard\n- must not silently merge\n- final production output is **full schema only**\n\n---\n\n## 8. Zero Omission Rule\n\nZero Omission is enforced at:\n- cluster level\n- spec level\n- card level\n\nMeaning in legacy mode:\n- Prompt A must process every `kept_cluster`\n- Prompt B must write every passed spec\n- Prompt C must review every card draft\n\nNo silent loss is allowed.\n\n---\n\n## 9. Short Operating Declaration\n\n```text\nOperating Mode: legacy triage_output + rescue + dropped mode\n\n- current default is governed by docs/PROMPT_ABC_DEFAULT_MODE.md\n- use this mode only when explicitly invoked or processing older runs\n- triage_output = primary working input\n- rescue = rescue-only auxiliary input\n- dropped = treasure-hunt / salvage pool\n- kept_clusters[] from triage_output = primary candidate unit\n- cards baseline = GitHub main public/data/cards.json\n- helper payloads = working artifacts, not baseline\n- collector/refined = debugging-only exception inputs\n- discard/merge allowed only in Prompt A\n- Prompt B must write every passed spec\n- Prompt C must review every card draft and must not silently discard\n- Prompt C final production output = full schema only\n```\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY_OR_ACTIVE_REVIEW_REQUIRED"
+    },
+    {
+      "path": "docs/archive/PROMPT_ABC_DEFAULT_MODE_v4.md",
+      "git_blob_sha": "a4571899125d2f0a7c3766626df69bbef95f9a0e",
+      "sha256": "2e0dff9ebd239241968928072a45408c7eb3088e8be9ac4c17ecc2e1a22e99b1",
+      "byte_count": 9949,
+      "line_count": 249,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# PROMPT ABC — Default Mode (v4)"
+        },
+        {
+          "line": 7,
+          "text": "## 0. 이 문서의 역할"
+        },
+        {
+          "line": 26,
+          "text": "## 1. Operating Declaration"
+        },
+        {
+          "line": 44,
+          "text": "## 2. Region Label Rule"
+        },
+        {
+          "line": 50,
+          "text": "## 3. Baseline Audit Protocol — Enhanced Red-team Deep-dive"
+        },
+        {
+          "line": 54,
+          "text": "### Layer 1 — URL 일치"
+        },
+        {
+          "line": 57,
+          "text": "### Layer 2 — Entity overlap"
+        },
+        {
+          "line": 62,
+          "text": "### Layer 3 — 서사 축 검사"
+        },
+        {
+          "line": 68,
+          "text": "### Layer 4 — 후속성 체인 (양방향)"
+        },
+        {
+          "line": 72,
+          "text": "### Layer 5 — 편집 red-team"
+        },
+        {
+          "line": 79,
+          "text": "### Layer 6 — Zero-omission 증적"
+        },
+        {
+          "line": 85,
+          "text": "## 4. Prompt A — Card Spec Builder"
+        },
+        {
+          "line": 91,
+          "text": "## 5. Shared Rubrics — Signal & Source (동일 v3)"
+        },
+        {
+          "line": 97,
+          "text": "## 6. Prompt B — Insight Writer (v4 강화)"
+        },
+        {
+          "line": 99,
+          "text": "### Mission"
+        },
+        {
+          "line": 102,
+          "text": "### 6.1 작성 절차 (strict sequence)"
+        },
+        {
+          "line": 129,
+          "text": "### 6.2 fact 필드 제약"
+        },
+        {
+          "line": 137,
+          "text": "### 6.3 implication 필드 제약"
+        },
+        {
+          "line": 146,
+          "text": "### 6.4 본문 텍스트 위생 (hard rule)"
+        },
+        {
+          "line": 151,
+          "text": "### 6.5 금지"
+        },
+        {
+          "line": 157,
+          "text": "### 6.6 Output"
+        },
+        {
+          "line": 163,
+          "text": "## 7. Prompt C — Red-team Reviewer (v4 강화)"
+        },
+        {
+          "line": 165,
+          "text": "### Mission"
+        },
+        {
+          "line": 168,
+          "text": "### 7.1 금지"
+        },
+        {
+          "line": 173,
+          "text": "### 7.2 적용 절차"
+        },
+        {
+          "line": 190,
+          "text": "### 7.3 Output"
+        },
+        {
+          "line": 197,
+          "text": "## 8. 산출물 표준"
+        },
+        {
+          "line": 213,
+          "text": "## 9. Never / Always 체크리스트"
+        },
+        {
+          "line": 215,
+          "text": "### NEVER"
+        },
+        {
+          "line": 228,
+          "text": "### ALWAYS"
+        },
+        {
+          "line": 245,
+          "text": "## 10. 최종 원칙"
+        }
+      ],
+      "lifecycle_mentions": [
+        {
+          "line": 3,
+          "text": "> **⚠️ ARCHIVED 2026-04-17**"
+        }
+      ],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# PROMPT ABC — Default Mode (v4)\n\n> **⚠️ ARCHIVED 2026-04-17**\n> 이 문서는 v5로 대체되었다. 현재 운용 버전: `docs/PROMPT_ABC_DEFAULT_MODE.md`\n> 백업 목적으로만 보존. 참조 금지.\n\n## 0. 이 문서의 역할\n\nSBTL_HUB 주간 run의 재사용 prompt 템플릿. Stage A · Stage B · Stage C + Enhanced Red-team Deep-dive Audit + Fact Discipline Verification.\n\nv4 변경점 (정확성 사고 대응):\n- **Prompt B에 web_fetch 의무화** — fact 작성 전 원문 fetch\n- **fact_sources 필드 의무화** — 모든 숫자·인용의 원문 트레이스 필수\n- **Prompt C에 fact verification 레이어 추가** — 출처 미검증 카드 배제\n\n이 문서는 다음과 같이 읽는다:\n- **최상위 철칙:** `docs/FACT_DISCIPLINE.md` — 정확성 절대 기준 (충돌 시 이 문서보다 우선)\n- `docs/WORKFLOW.md` — 파이프라인 전체 흐름\n- `docs/OPERATIONS.md` — 실무 운영 매뉴얼\n- `docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md` — 스키마·Region 판례·Category taxonomy·fact_sources·related 필드\n- `docs/CARD_ID_STANDARD.md` — `YYYY-MM-DD_REGION_NN` 포맷\n- `docs/TRIAGE_INPUT_MODE_DEFAULT.md` — 입력 모드\n\n---\n\n## 1. Operating Declaration\n\nOperating Mode: **triage_output + rescue + dropped default mode**\n\n- `triage_output` = primary working input\n- `rescue` = rescue-only auxiliary input\n- `dropped` = treasure-hunt / salvage pool\n- `kept_clusters[]` from `triage_output` = primary candidate unit\n- cards baseline = GitHub `main` `public/data/cards.json`\n- helper payloads = working artifacts, not baseline\n- discard / merge allowed only in Prompt A\n- Prompt B must write every passed spec **with web_fetch-verified fact**\n- Prompt C must review every card draft, must not silently discard, **and must verify fact_sources**\n- final production schema = full schema only (see `FUTURE_CARD_STANDARD_FULL_SCHEMA.md`)\n- **`fact_sources` 없는 카드는 payload 포함 불가**\n\n---\n\n## 2. Region Label Rule\n\n`docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md` §2 + 엣지케이스 판례 A~E를 따른다.\n\n---\n\n## 3. Baseline Audit Protocol — Enhanced Red-team Deep-dive\n\n**핵심 원칙:** baseline 240+장은 **인덱싱만** 하고 **본문 재출력 금지**.\n\n### Layer 1 — URL 일치\n- 신규 cluster URL ∩ baseline URL 집합 → 자동 `duplicate_of_existing_main_card`\n\n### Layer 2 — Entity overlap\n- 3+ 공유 → dup 후보\n- 2 공유 + 같은 cat + ±3일 → follow-up\n- 2 공유 + 다른 cat → related 후보\n\n### Layer 3 — 서사 축 검사\n1. 반복 / 진전 / 반전 판정\n2. baseline X장으로 같은 결론 가능한가\n3. 3개월 뒤에도 유의미한가\n4. supersedes 후보인가\n\n### Layer 4 — 후속성 체인 (양방향)\n- 신규 → 기존: `related`\n- 기존 → 신규: `related_inverse_repor",
+      "closing_excerpt": "·5 + Fact Discipline 검증 로그\n- `W7Rx_rejected_cards.json` — Fact Discipline 검증에 fail해서 제외된 카드 목록 (사유가 기예)\n\n---\n\n## 8. 산출물 표준\n\n| 파일 | 역할 | baseline 본문 포함? |\n|---|---|---|\n| `W7Rx_payload.json` | 신규 N장 최종 (fact_sources 포함) | ❌ |\n| `W7Rx_prompt_a_output.json` | spec 단계 | ❌ |\n| `W7Rx_prompt_a_audit.json` | cluster zero-omission | ❌ |\n| `W7Rx_prompt_b_output.json` | draft 스냅샷 | ❌ |\n| `W7Rx_unverified_specs.json` | fetch 실패 spec (NEW v4) | ❌ |\n| `baseline_match_audit.json` | Layer 1-2 매칭 | ❌ |\n| `related_inverse_report.json` | 역참조 제안 | ❌ |\n| `W7Rx_redteam_report.md` | Layer 3·5 + Fact 검증 로그 | ❌ |\n| `W7Rx_rejected_cards.json` | Fact 검증 fail 카드 (NEW v4) | ❌ |\n\n---\n\n## 9. Never / Always 체크리스트\n\n### NEVER\n- baseline 본문 재출력\n- 파이프라인 단계 표식을 production ID에 포함\n- 본문에 다른 카드 ID 하드코딩\n- 단독 소스(Tier 3) 또는 익명 보도를 `top`으로\n- 매체 국적으로 region 배정\n- `cat`을 taxonomy 밖 값으로\n- **기억·추론·상식으로 fact 필드 메우기** — v4 핵심\n- **출처 fetch 없는 숫자·인용·비교 기재** — v4 핵심\n- **`fact_sources` 없는 카드를 payload에 포함** — v4 핵심\n- kept_cluster silent loss\n- cards.json 통합본 발행\n\n### ALWAYS\n- 모든 kept_cluster에 disposition 기록\n- Layer 1-2 baseline audit 자동 수행\n- **Prompt B 시 passed_spec 전수 primary_url web_fetch** — v4 핵심\n- **fact·implication 내 숫자·인용·고유명사·일자는 `fact_sources`에 1:1 대응** — v4 핵심\n- **환산 수치는 환율 원문 또는 기준 날짜 명시** — v4 핵심\n- Signal Rubric 3축 점수 기록\n- Source Tier 기록\n- `_needs_review` 자동 플래그\n- `related` 필드 채움\n- signal 소문자, ID = `YYYY-MM-DD_REGION_NN`\n- `cat` ∈ taxonomy\n- Region 판례 A-E\n- fact에 \"~에 따르면\" attribution\n\n---\n\n## 10. 최종 원칙\n\n**A 단계는 선별·분류, B 단계는 원문 검증 계적 작성, C 단계는 인용 검증·이중 red-team.**\n**Baseline은 인덱싱만, 인용은 원문만.**\n**정확성은 taste가 아니라 방화벽이다.**\n",
+      "heuristic_hint_not_authoritative": "ARCHIVED"
+    },
+    {
+      "path": "docs/llm_prompts/v1/SEARCH_BEFORE_DELETE_OVERRIDE_MANIFEST.json",
+      "git_blob_sha": "18376471c13bcefb45c0bcec873378259faa8f05",
+      "sha256": "12f84cb1bbdde517fd72319faeed572995fa3c73223f220ce0ace5bc197a6fbf",
+      "byte_count": 1218,
+      "line_count": 26,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "{\n  \"override_id\": \"SEARCH_BEFORE_DELETE_20260712_V1\",\n  \"authority\": \"mandatory_conflict_override\",\n  \"effective_date_kst\": \"2026-07-12\",\n  \"override_file\": \"docs/llm_prompts/v1/00_MANDATORY_SEARCH_BEFORE_DELETE_OVERRIDE.md\",\n  \"validator\": \"validation_scripts/validate_search_before_delete.py\",\n  \"applies_to\": [\n    \"docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md\",\n    \"docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md\",\n    \"docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md\",\n    \"docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md\",\n    \"docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md\",\n    \"docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md\",\n    \"docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md\",\n    \"docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md\",\n    \"docs/OPERATIONS.md\",\n    \"docs/WORKFLOW.md\"\n  ],\n  \"supersedes_conflicting_rules\": [\n    \"Default: source augmentation is not authorized.\",\n    \"Do not perform source augmentation automatically.\",\n    \"Any rule allowing claim deletion or narrowing before bounded same-event search.\"\n  ],\n  \"required_failure_status\": \"BLOCKED_SEARCH_BEFORE_DELETE_AUDIT_MISSING\",\n  \"principle\": \"Find first. Verify second. Integrate third. Delete only last.\"\n}\n",
+      "closing_excerpt": "{\n  \"override_id\": \"SEARCH_BEFORE_DELETE_20260712_V1\",\n  \"authority\": \"mandatory_conflict_override\",\n  \"effective_date_kst\": \"2026-07-12\",\n  \"override_file\": \"docs/llm_prompts/v1/00_MANDATORY_SEARCH_BEFORE_DELETE_OVERRIDE.md\",\n  \"validator\": \"validation_scripts/validate_search_before_delete.py\",\n  \"applies_to\": [\n    \"docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md\",\n    \"docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md\",\n    \"docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md\",\n    \"docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md\",\n    \"docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md\",\n    \"docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md\",\n    \"docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md\",\n    \"docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md\",\n    \"docs/OPERATIONS.md\",\n    \"docs/WORKFLOW.md\"\n  ],\n  \"supersedes_conflicting_rules\": [\n    \"Default: source augmentation is not authorized.\",\n    \"Do not perform source augmentation automatically.\",\n    \"Any rule allowing claim deletion or narrowing before bounded same-event search.\"\n  ],\n  \"required_failure_status\": \"BLOCKED_SEARCH_BEFORE_DELETE_AUDIT_MISSING\",\n  \"principle\": \"Find first. Verify second. Integrate third. Delete only last.\"\n}\n",
+      "heuristic_hint_not_authoritative": "SUPERSEDED"
+    },
+    {
+      "path": "docs/llm_prompts/v1/SOURCE_DIVERSITY_V10_MASTER_RULE.md",
+      "git_blob_sha": "3a31ec64b830d3d0467884bad54499a44bb7dd64",
+      "sha256": "9bd34001384679922b86027602e1841571de1f67e0bea11c9653824461bac288",
+      "byte_count": 5150,
+      "line_count": 139,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# SBTL_HUB Source Diversity source-diversity Master Rule"
+        },
+        {
+          "line": 9,
+          "text": "### 1. Diversity unit"
+        },
+        {
+          "line": 34,
+          "text": "### 2. Preferred evidence-role structure"
+        },
+        {
+          "line": 51,
+          "text": "### 3. Source contribution requirement"
+        },
+        {
+          "line": 68,
+          "text": "### 4. Visible-field synthesis requirement"
+        },
+        {
+          "line": 97,
+          "text": "### 5. Publication date and audit timestamps"
+        },
+        {
+          "line": 108,
+          "text": "### 6. Rescue-before-delete rule"
+        },
+        {
+          "line": 126,
+          "text": "### 7. Single-source exception"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# SBTL_HUB Source Diversity source-diversity Master Rule\n\n    This integrated rule is authoritative for source-diversity, source-preservation, synthesis,\n    visible-source-date and same-source grouping rules. Earlier language that conflicts with this\n    integrated rule is superseded only to the extent of that conflict.\n\n    ## Source Diversity source-diversity — common definitions\n\n### 1. Diversity unit\n\nSource diversity is measured by **canonical source identity and editorial independence**, not by\n`fact_sources[]` row count.\n\nThe following count as one source:\n\n- multiple claims or quotes from the same canonical article URL;\n- print/mobile/AMP/RSS mirrors of the same article;\n- the same press release copied by multiple syndication sites without independent reporting;\n- multiple pages controlled by the same editorial owner that merely repeat the same source text;\n- one article split into several `fact_sources[]` entries.\n\nRequired calculations:\n\n```text\nsource_evidence_entry_count = count(fact_sources[])\nsource_unique_url_count = count(unique canonical article URLs)\nsource_unique_domain_count = count(unique canonical domains after ownership/syndication review)\nsource_independent_owner_count = count(editorially independent source owners)\n```\n\n`PASS_MULTI_SOURCE` or any equivalent status is prohibited when\n`source_independent_owner_count < 2`.\n\n### 2. Preferred evidence-role structure\n\nFor each independently cardable event, target three complementary roles:\n\n1. `primary_event_evidence`\n   - official notice, regulator, filing, contracting party, project owner, research institution,\n     original dataset or source owner;\n2. `independent_event_confirmation`\n   - independent news agency, financial press, trade press or local reporting that confirms the\n     event and identifies omissions, conditions or execution status;\n3. `policy_market_context`\n   - policy, market, operational, comparable-project or system-impact evidence that materially\n     improves `gate` or `implication`.\n\nTwo independent source owners are the minimum default. Three complementary roles are preferred.\nA source does not satisfy diversity merely by existing; it must make a distinct contribution.",
+      "closing_excerpt": "stamps only. They must be preserved but must never be\nused as the visible news date.\n\n### 6. Rescue-before-delete rule\n\nA weak, blocked or duplicate source must not be silently discarded when it contains unique useful\ninformation.\n\nUse this order:\n\n1. refetch or locate the source owner/original material;\n2. find an independent same-event source;\n3. narrow unsupported wording;\n4. move unique information into an existing card as reinforcement;\n5. place unresolved items in `needs_source_augmentation` or a controlled remediation queue;\n6. use hard rejection only when the item is false, irrelevant, irreparable, promotional noise or\n   lacks any defensible decision value.\n\nDuplicate-event articles are not separate cards, but their unique facts and quotes must follow the\nrepresentative event as support-source candidates.\n\n### 7. Single-source exception\n\nA single-source exception is narrow and rare. It may pass only when all conditions are true:\n\n- the source is official, regulatory, a filing, original dataset, court decision, contracting-party\n  release, or original research institution;\n- bounded discovery was performed and no independent body-level source was available;\n- the card contains only claims supported by that source;\n- no broad causal, comparative, first/largest, market-impact or strategic implication is asserted\n  unless the source explicitly supports it;\n- the exception reason, search ledger and scope limitation are recorded;\n- downstream Evidence QC and Final QC separately approve the exception.\n\nA media article alone does not qualify merely because it is detailed.\n",
+      "heuristic_hint_not_authoritative": "SUPERSEDED"
+    },
+    {
+      "path": "docs/llm_prompts/v1/SOURCE_DIVERSITY_V1_IB_CODEX_20260708_MASTER_RULE.md",
+      "git_blob_sha": "34e119fdf4e6fe4ccebe0c1bc5bf79571aa0c22c",
+      "sha256": "ff479edf6b82a3d577d9b8fc10e7ef84e4e445222fad93de4d50c565b4319a93",
+      "byte_count": 1899,
+      "line_count": 59,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# SBTL_HUB Prompt Package — Source Diversity IB/Codex Master Rule"
+        },
+        {
+          "line": 6,
+          "text": "## Purpose"
+        },
+        {
+          "line": 18,
+          "text": "## Non-negotiables"
+        },
+        {
+          "line": 28,
+          "text": "## Applies to"
+        },
+        {
+          "line": 34,
+          "text": "## Required scans before merge"
+        },
+        {
+          "line": 49,
+          "text": "## Authoritative status"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# SBTL_HUB Prompt Package — Source Diversity IB/Codex Master Rule\n\nVersion: `GITHUB_CANONICAL_V1_SOURCE_DIVERSITY_IB_CODEX`  \nGenerated KST: `2026-07-08T21:18:40.089502+09:00`\n\n## Purpose\n\nThis GitHub canonical v1 rule upgrades Source Diversity source-diversity with lessons from the 20260706_130022 run and PR #148:\n\n1. IB-grade / near-IB card tiering.\n2. B+ publishable-signal upgrade boundaries.\n3. Single-source publish-ready waiver hard gate.\n4. Stale `do_not_publish_until` hard gate.\n5. Deferred/watchlist retention instead of deletion.\n6. Codex review response protocol.\n7. PR/production verification against exact PR head.\n\n## Non-negotiables\n\n- Do not overstate weak evidence.\n- Do not delete high-value deferred cards merely because evidence is not complete.\n- Do not count `fact_sources[]` rows as independent sources.\n- Do not leave active blockers on publish-ready cards.\n- Do not leave single-source publish-ready cards without a valid waiver.\n- Do not use fetch/check dates as visible source dates.\n- Do not expand visible claims during metadata-only fixes.\n\n## Applies to\n\n- 14 stage prompts\n- 9 governance documents\n- downstream card JSON validation scripts\n\n## Required scans before merge\n\n```text\njson_parse\ntotal_count\nduplicate_id\nbaseline_url_overlap\nsingle_source_waiver\npublish_ready_active_blocker\nvisible_internal_terms\nsource_date_rendering\nsource_grouping\ndeferred_exclusion\n```\n\n## Authoritative status\n\nThis document is a GitHub canonical v1 master rule. If it conflicts with an earlier source-diversity integrated rule, GitHub canonical v1 governs only on:\n\n- IB-grade tiering\n- Codex response protocol\n- single-source waiver metadata\n- stale publish blocker metadata\n- PR head verification\n\nSource Diversity source-diversity remains authoritative for source grouping, editorial independence, quote/date discipline, and source preservation unless superseded above.\n",
+      "closing_excerpt": "22 run and PR #148:\n\n1. IB-grade / near-IB card tiering.\n2. B+ publishable-signal upgrade boundaries.\n3. Single-source publish-ready waiver hard gate.\n4. Stale `do_not_publish_until` hard gate.\n5. Deferred/watchlist retention instead of deletion.\n6. Codex review response protocol.\n7. PR/production verification against exact PR head.\n\n## Non-negotiables\n\n- Do not overstate weak evidence.\n- Do not delete high-value deferred cards merely because evidence is not complete.\n- Do not count `fact_sources[]` rows as independent sources.\n- Do not leave active blockers on publish-ready cards.\n- Do not leave single-source publish-ready cards without a valid waiver.\n- Do not use fetch/check dates as visible source dates.\n- Do not expand visible claims during metadata-only fixes.\n\n## Applies to\n\n- 14 stage prompts\n- 9 governance documents\n- downstream card JSON validation scripts\n\n## Required scans before merge\n\n```text\njson_parse\ntotal_count\nduplicate_id\nbaseline_url_overlap\nsingle_source_waiver\npublish_ready_active_blocker\nvisible_internal_terms\nsource_date_rendering\nsource_grouping\ndeferred_exclusion\n```\n\n## Authoritative status\n\nThis document is a GitHub canonical v1 master rule. If it conflicts with an earlier source-diversity integrated rule, GitHub canonical v1 governs only on:\n\n- IB-grade tiering\n- Codex response protocol\n- single-source waiver metadata\n- stale publish blocker metadata\n- PR head verification\n\nSource Diversity source-diversity remains authoritative for source grouping, editorial independence, quote/date discipline, and source preservation unless superseded above.\n",
+      "heuristic_hint_not_authoritative": "SUPERSEDED"
+    },
+    {
+      "path": "docs/llm_prompts/v1/entity_alias_map.json",
+      "git_blob_sha": "a0f2d478cf618316e3d49ab102447ffa803e0318",
+      "sha256": "fcac8ac153ca68e4f6c61dd4c05cf24f73fb1c24dd2ab140a184616e80b73074",
+      "byte_count": 26995,
+      "line_count": 1213,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "{\n  \"_meta\": {\n    \"schema_version\": \"1.0\",\n    \"created_at\": \"2026-05-14T22:00:00+09:00\",\n    \"purpose\": \"Cross-language entity normalization authority for Stage A event-fingerprint computation (P_010 patch).\",\n    \"policy\": \"canonical form defaults to English; fallback Korean if no English form exists. Lookup is case-insensitive and whitespace-tolerant. ASCII alias matching uses word-boundary matching, NOT raw substring (e.g. 'Energy' inside 'Envision Energy' is not a match). CJK aliases use substring matching since CJK has no word boundaries. Generic tokens (Energy, Power, Battery, BESS, ESS, New Energy, Solar, Grid, Storage, Tech, Materials, Group, Holdings) are excluded from entity-overlap scoring on their own. See PROMPT_ABC_SUPPORTING_RULES.md P_010 매칭 정책 (R3C_P07).\",\n    \"consumers\": [\n      \"01_PROMPT_0_1_Stage_A.md (P_010)\",\n      \"PROMPT_ABC_SUPPORTING_RULES.md (P_010 companion)\"\n    ],\n    \"maintenance\": \"Update via retrospective when new cross-language pair detected. PR-reviewed.\",\n    \"seed_origin\": {\n      \"run_20260513_083924\": [\n        \"Ford Energy\"\n      ],\n      \"run_20260513_165421_codex_p2\": [\n        \"SoftBank\",\n        \"Sakai\",\n        \"BloombergNEF\"\n      ],\n      \"run_20260513_165421_stage_b_supplemental\": [\n        \"Zhongke Xingcheng (中科星城)\",\n        \"Alsym Energy\"\n      ],\n      \"baseline_analysis\": [\n        \"BYD\",\n        \"CATL\",\n        \"XPeng\",\n        \"Geely\",\n        \"NIO\",\n        \"Zeekr\",\n        \"Xiaomi\",\n        \"Tesla\",\n        \"Toyota\",\n        \"Hyundai\",\n        \"Volkswagen\",\n        \"Stellantis\"\n      ],\n      \"run_20260516_012728_retrospective\": [\n        \"CORNEX (楚能新能源)\",\n        \"Do-Fluoride (多氟多)\",\n        \"Rept Battero (瑞浦兰钧)\"\n      ]\n    }\n  },\n  \"entities\": {\n    \"SoftBank\": {\n      \"canonical\": \"SoftBank\",\n      \"aliases\": [\n        \"소프트뱅크\",\n        \"ソフトバンク\",\n        \"软银\",\n        \"SoftBank Corp\",\n        \"SoftBank Group\",\n        \"소프트뱅크그룹\"\n      ],\n      \"type\": \"company\",\n      \"notes\": \"Parent SoftBank Group; SoftBank Corp is telecom subsidiary\"\n    },\n    \"BloombergNEF\": {\n      \"canonical\": \"BloombergNEF\",\n      \"aliases\": [\n        \"BNEF\",\n        \"블룸버그NEF\",\n        \"블룸버그 NEF\",\n        \"Bloomberg New Energy",
+      "closing_excerpt": "l\": \"MOTIE\",\n      \"aliases\": [\n        \"산업통상자원부\",\n        \"Ministry of Trade Industry and Energy\",\n        \"산자부\"\n      ],\n      \"type\": \"government_agency\",\n      \"parent_region\": \"Korea\"\n    },\n    \"CABIA\": {\n      \"canonical\": \"CABIA\",\n      \"aliases\": [\n        \"中国汽车动力电池产业创新联盟\",\n        \"중국자동차동력전지산업혁신연맹\"\n      ],\n      \"type\": \"industry_org\",\n      \"parent_region\": \"China\"\n    },\n    \"BIS\": {\n      \"canonical\": \"BIS\",\n      \"aliases\": [\n        \"美·中 무역투자위원회\",\n        \"Bilateral Investment Treaty\"\n      ],\n      \"type\": \"policy_term\"\n    },\n    \"CORNEX\": {\n      \"canonical\": \"CORNEX\",\n      \"aliases\": [\n        \"楚能新能源\",\n        \"楚能\",\n        \"CORNEX New Energy\"\n      ],\n      \"type\": \"company\",\n      \"notes\": \"Run 20260516_012728 retrospective PV_003/EFP_002: 楚能 was wrongly written as 'CHN Energy' from memory. Correct entity is CORNEX (楚能新能源). Do NOT confuse with CHN Energy / China Energy Investment.\"\n    },\n    \"Do-Fluoride\": {\n      \"canonical\": \"Do-Fluoride\",\n      \"aliases\": [\n        \"多氟多\",\n        \"多氟多新材料\",\n        \"DFD\",\n        \"Do-Fluoride New Materials\"\n      ],\n      \"type\": \"company\",\n      \"notes\": \"Run 20260516_012728 retrospective EFP_002 entity-name error. 多氟多新材料 battery / materials maker.\"\n    },\n    \"Rept Battero\": {\n      \"canonical\": \"Rept Battero\",\n      \"aliases\": [\n        \"瑞浦兰钧\",\n        \"瑞浦兰钧能源\",\n        \"REPT BATTERO\",\n        \"REPT\",\n        \"Battero\"\n      ],\n      \"type\": \"company\",\n      \"notes\": \"Run 20260516_012728 retrospective PV_003/EFP_002: CN_02 / GL_02 wrote 瑞浦兰钧 and Rept Battero as two separate entities — same company.\"\n    }\n  }\n}\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY"
+    },
+    {
+      "path": "docs/validation/CARD_RUN_ENGINE_V1_VALIDATION_20260802.md",
+      "git_blob_sha": "4c009127448933d12c543448ce81103c2bc81043",
+      "sha256": "1539e68717aeeb302c29be96e8d5d452c99e1e9f4f26c13e9f9ec2756b058fc2",
+      "byte_count": 8643,
+      "line_count": 165,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# Card Run Engine V1 Validation — 2026-08-02"
+        },
+        {
+          "line": 3,
+          "text": "## Scope"
+        },
+        {
+          "line": 21,
+          "text": "## Enforced invariants"
+        },
+        {
+          "line": 43,
+          "text": "## Pull-request security model"
+        },
+        {
+          "line": 54,
+          "text": "## Related lifecycle contract"
+        },
+        {
+          "line": 86,
+          "text": "## Independent run audit contract"
+        },
+        {
+          "line": 117,
+          "text": "## Regression result"
+        },
+        {
+          "line": 146,
+          "text": "## Workflow behavior"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# Card Run Engine V1 Validation — 2026-08-02\n\n## Scope\n\nThis record validates the executable ordinary-run path required by `CARD_INCREMENTAL_RUN_CONTRACT.md` and the Prompt 0.8 incremental addendum.\n\nImplemented files:\n\n- `scripts/apply_card_run.mjs`\n- `scripts/apply_card_run_test.mjs`\n- `scripts/validate_card_run_stage_artifacts.mjs`\n- `scripts/validate_card_run_status_consistency.mjs`\n- `scripts/validate_card_run_relations.mjs`\n- `scripts/validate_card_run_lineage_containers.mjs`\n- `scripts/validate_card_run_audits.mjs`\n- `schemas/card-run.v1.schema.json`\n- `.github/workflows/apply-card-run.yml`\n\nThis code PR does not modify `data/cards.full.json` or `public/data/cards.json`.\n\n## Enforced invariants\n\n- `data/cards.full.json` is the only canonical full inventory.\n- The declared main commit, its canonical full blob, and `expected_before` must all match.\n- Ordinary operations are limited to `insert`, `update`, and `related_add`; deletion and `related_remove` are rejected.\n- Inserted cards may not carry relationship edges. All new relations pass through `related_add`.\n- Canonical cards use the app-visible `related` array and `related_lineage`; the current 1,343-card baseline does not use a top-level `related_ids` mirror.\n- Every `related_add` must include `/related/-`, `/related_lineage/related_ids/-`, and matching lineage relation type, reason, event-stage relationship, and direction.\n- A top-level `/related_ids/-` patch is blocked and is no longer permitted by the JSON schema.\n- Directional relations require the complete source-side patch set. Reciprocal relations require the same complete patch set on both sides.\n- A required relation side must already contain `related: []` and `related_lineage.related_ids: []` array containers.\n- Missing or malformed relation containers fail closed before the apply engine runs. The engine never creates `related_ids: {\"-\": target}` objects from absent parents.\n- Existing cards without an initialized lineage container are not eligible for ordinary `related_add` until a separately reviewed canonical-data migration initializes those containers.\n- Every present status marker among `status`, `artifact_status`, `validation_status`, `",
+      "closing_excerpt": "S: read-only checkout and workflow execution\n```\n\nExisting engine blocker coverage continues to include moved main, stale full binding, forged blob, forbidden delete, relation smuggling, missing target, count mismatch, prelinked insert, missing governance references, invalid evidence references, and undeclared working-full modification.\n\n## Workflow behavior\n\nA canonical-data PR must contain exactly one `runs/**/card-run.json`. A code-only PR may contain no run.\n\n```text\ntrigger on run, engine, schema, workflow, canonical full, or lean projection changes\n→ execute PR-controlled code with contents:read only and no persisted credentials\n→ fetch and lock the base branch and canonical full blob\n→ validate all run-level, operation-level, and audit status markers\n→ validate each independent audit against run, baseline, operations, counts, IDs, relations, and committed output hashes\n→ validate complete canonical related + related_lineage patches\n→ fail closed when required relation containers are missing or malformed\n→ require RFC3339 output_updated and run-bound Stage 0.7C\n→ require submitted full/lean outputs to already equal the declared expected result\n→ run full/public validators and byte-exact lean check\n→ permit only the ephemeral apply-report working-tree change\n→ never commit or push from the PR workflow\n```\n\nThe first governed data PR remains a separate follow-up after this engine PR is independently reviewed and merged. A separate lineage-container migration must precede ordinary `related_add` for legacy cards that do not yet carry `related_lineage.related_ids` arrays.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY"
+    },
+    {
+      "path": "docs/validation/DYNAMIC_GOVERNANCE_COMPLETENESS_VALIDATION_20260801.md",
+      "git_blob_sha": "38f1b1f10c897550ed974facd2de93683676dc07",
+      "sha256": "054872b018e3358e2f55447d2f798595184b5bede84c9adab318979c5db47abe",
+      "byte_count": 9525,
+      "line_count": 240,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# Dynamic Governance and Editorial Completeness — Validation Record"
+        },
+        {
+          "line": 11,
+          "text": "## 1. Validated scope"
+        },
+        {
+          "line": 36,
+          "text": "## 2. Canonical data contract"
+        },
+        {
+          "line": 58,
+          "text": "## 3. Runtime, workflow, upload, and regression-test changes"
+        },
+        {
+          "line": 70,
+          "text": "### Exporter modes"
+        },
+        {
+          "line": 80,
+          "text": "### Regression tests"
+        },
+        {
+          "line": 89,
+          "text": "### Regression trigger contract"
+        },
+        {
+          "line": 101,
+          "text": "### Upload workflow"
+        },
+        {
+          "line": 115,
+          "text": "## 4. Document-universe closure"
+        },
+        {
+          "line": 119,
+          "text": "## 5. Editorial completeness closure"
+        },
+        {
+          "line": 133,
+          "text": "## 6. Incremental operation contract"
+        },
+        {
+          "line": 157,
+          "text": "## 7. Review findings addressed"
+        },
+        {
+          "line": 177,
+          "text": "## 8. CI evidence"
+        },
+        {
+          "line": 181,
+          "text": "### Workflow contract validation — run #87"
+        },
+        {
+          "line": 188,
+          "text": "### validate-tracker — run #239"
+        },
+        {
+          "line": 195,
+          "text": "### lean-cards — run #34"
+        },
+        {
+          "line": 205,
+          "text": "## 9. One-time migration isolation"
+        },
+        {
+          "line": 215,
+          "text": "## 10. Remaining implementation work"
+        },
+        {
+          "line": 231,
+          "text": "## 11. Conclusion"
+        }
+      ],
+      "lifecycle_mentions": [
+        {
+          "line": 213,
+          "text": "It requires explicit activation, does not define ordinary-run governance, and becomes `COMPLETED_REFERENCE` after completion."
+        }
+      ],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# Dynamic Governance and Editorial Completeness — Validation Record\n\n**Status:** `PASS_GOVERNANCE_AND_FULL_TO_LEAN_RUNTIME_WITH_INCREMENTAL_ENGINE_PENDING`  \n**Branch:** `agent/dynamic-governance-completeness`  \n**Base main commit:** `27385027c94f83e060cbee2af964f6f45edd67f5`  \n**Validated PR:** `#231`  \n**Runtime, workflow-trigger, upload, and regression-test package validated through:** `c48f049eaccac831a6d09ac45162b0c48763cb80`\n\nLater commits that only synchronize this validation record do not alter the validated exporter, workflows, upload instructions, manifests, or regression-test behavior; their own CI must still pass before merge.\n\n## 1. Validated scope\n\nThis record validates:\n\n- permanent governance and one-time migration separation;\n- complete `docs/**` document-universe preflight requirements;\n- coverage discovery and independent completeness review contracts;\n- canonical full ownership and Stage A baseline requirements;\n- Prompt 0.8 canonical-full merge preparation contract;\n- full-to-lean exporter implementation and workflow write boundaries;\n- malformed-public self-healing and byte-exact public serialization;\n- direct-path, symlink-alias, and hard-link full/public collision protection;\n- exporter regression tests triggered by exporter-only and workflow-only changes;\n- upload instructions and manifests that include all registered runtime contracts, trigger workflows, and tests;\n- repository validators, prompt-overlay checks, and 35 unit/regression tests;\n- Codex findings addressed through the validated head.\n\nThis record does not claim completion of:\n\n- the generic incremental apply engine for `insert`, `update`, and `related_add`;\n- executable Stage 0.0D manifest generation;\n- executable coverage-completeness validation;\n- the first governed migration execution;\n- production verification after a future card-data merge.\n\n## 2. Canonical data contract\n\n```text\ndata/cards.full.json      sole canonical inventory and full metadata source\npublic/data/cards.json    generated lean application projection only\n```\n\nEnforced rules:\n\n- Stage A performs duplicate, reinforcement, follow-up, correction, stage-transition, and related-lineage screening against the ",
+      "closing_excerpt": "ation: PASS\n- canonical full validation: PASS\n- public projection equals canonical full exact projection: PASS\n\n### lean-cards — run #34\n\n- full-to-lean generation: PASS\n- tracker/public/full validation: PASS\n- exact value and byte projection check: PASS\n- generated-commit step: PASS\n- canonical full write boundary: PASS\n\nVercel preview also reported ready during the PR review cycle.\n\n## 9. One-time migration isolation\n\nThe date-specific consolidation remains isolated in:\n\n```text\ndocs/migrations/BOOTSTRAP_CONSOLIDATION_20260801.md\n```\n\nIt requires explicit activation, does not define ordinary-run governance, and becomes `COMPLETED_REFERENCE` after completion.\n\n## 10. Remaining implementation work\n\nA subsequent code-focused PR should implement, at minimum:\n\n```text\nscripts/build_run_doc_manifest.py\nscripts/validate_run_doc_manifest.py\nscripts/validate_coverage_completeness.py\nschemas/card-run.v1.schema.json\nscripts/validate_incremental_card_run.py\nscripts/apply_incremental_card_run.py\nscripts/validate_declared_card_diff.py\n```\n\nIt should also add CI gates requiring Stage 0.0D, Stage 0.0C, and Stage 0.7C artifacts for governed card runs.\n\n## 11. Conclusion\n\n```text\ngoverned incremental operations\n→ data/cards.full.json\n→ scripts/lean_cards.mjs\n→ public/data/cards.json\n```\n\nThe canonical full remains the sole source of truth. The public file is a reproducible, byte-deterministic application artifact. Runtime protection, package completeness, regression-trigger coverage, and tests pass, while the not-yet-implemented generic incremental apply engine remains explicitly pending.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY"
+    },
+    {
+      "path": "docs/validation/LEGACY_RELATED_LINEAGE_CONTAINER_AUDIT_20260808.md",
+      "git_blob_sha": "db4d1bf02733d6def0f91c4fe869cc2f5ce2c0b6",
+      "sha256": "6808332ab261a88a9fdcf7613aeb46149ec4317feaac0808e8a7917c4a7ef2bb",
+      "byte_count": 3345,
+      "line_count": 78,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# Legacy Related Lineage Container Audit — 2026-08-08"
+        },
+        {
+          "line": 3,
+          "text": "## Baseline"
+        },
+        {
+          "line": 13,
+          "text": "## Full inventory result"
+        },
+        {
+          "line": 33,
+          "text": "## Dry-run migration tested"
+        },
+        {
+          "line": 56,
+          "text": "## Dry-run validation"
+        },
+        {
+          "line": 74,
+          "text": "## Conclusion"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# Legacy Related Lineage Container Audit — 2026-08-08\n\n## Baseline\n\n- repository: `ihyowoen/SBTL_HUB`\n- main commit audited: `33068a273dc4fb6585b62ce99c29d7a792532662`\n- canonical: `data/cards.full.json`\n- canonical card count: `1,343`\n- canonical full blob: `ba7e680c9a3c3425f212ef29bcfd9055113cbdb0`\n\nThe audit was executed on a non-main audit branch with a read-only GitHub Actions token. No canonical data was modified.\n\n## Full inventory result\n\n| Check | Result |\n|---|---:|\n| total cards | 1,343 |\n| duplicate card IDs | 0 |\n| cards with non-empty `related[]` | 212 |\n| cards already carrying valid `related[]` + `related_lineage.related_ids` containers | 94 |\n| cards missing/invalid `related_lineage.related_ids` | 1,249 |\n| non-empty `related[]` but missing lineage container | 200 |\n| empty `related[]` and missing lineage container | 1,049 |\n| published dangling Related edges | 14 |\n| cards carrying those dangling edges | 13 |\n| new dangling cards beyond the 2026-07-23 legacy manifest | 0 |\n| self-links | 0 |\n| duplicate Related links | 0 |\n| mismatch between `related[]` and already-present `related_lineage.related_ids` | 0 |\n\nThe historical 2026-07-23 snapshot remains exact for dangling relations: all 13 previously identified cards still carry the same 14 missing targets, and no additional dangling edge was found in the current 1,343-card baseline.\n\n## Dry-run migration tested\n\nA neutral initialization candidate was generated without touching main:\n\n- already ready: 94 cards\n- newly initialized in dry-run: 1,236 cards\n- initialized cards with pre-existing non-empty `related[]`: 187\n- skipped: exactly the 13 dangling-remediation cards\n- final ready after dry-run: 1,330 / 1,343\n- remaining missing lineage containers: exactly 13 / 1,343\n\nFor each initialized card, the candidate added only:\n\n```json\n{\n  \"related_lineage\": {\n    \"related_ids\": [\"<exact existing related[] values in existing order>\"]\n  }\n}\n```\n\nNo relation type, reason, direction, event stage, fresh anchor, new edge, deletion, or removal was inferred.\n\n## Dry-run validation\n\nThe dry-run candidate passed:\n\n- `scripts/validate_cards.mjs` on full candidate: PASS, errors 0\n- generated lean projection vali",
+      "closing_excerpt": "s: exactly 13 / 1,343\n\nFor each initialized card, the candidate added only:\n\n```json\n{\n  \"related_lineage\": {\n    \"related_ids\": [\"<exact existing related[] values in existing order>\"]\n  }\n}\n```\n\nNo relation type, reason, direction, event stage, fresh anchor, new edge, deletion, or removal was inferred.\n\n## Dry-run validation\n\nThe dry-run candidate passed:\n\n- `scripts/validate_cards.mjs` on full candidate: PASS, errors 0\n- generated lean projection validation: PASS, errors 0\n- post-migration relation-container re-audit: PASS\n- card count remained 1,343\n- published dangling edges remained the frozen 14 legacy edges only\n- no lineage dangling edge was introduced because the 13 dangling cards were excluded\n\nProjected lean impact:\n\n- changed lean cards: 1,236\n- lean size delta: +53,092 bytes\n\nThe full candidate serialization used by the dry-run was regenerated with pretty JSON and therefore is not used as a byte-size comparison for the eventual PR; the semantic validator compares card fields and the final PR must be generated from the actual canonical bytes/output procedure.\n\n## Conclusion\n\nA broad but mechanically bounded migration is justified for the 1,236 non-dangling legacy cards. The 13 cards with dangling published edges must remain untouched and continue through separate item-specific remediation.\n\nThe ordinary card-run engine intentionally cannot create missing parent lineage containers. A dedicated, separately reviewed migration path is therefore required before the data migration can be submitted without weakening ordinary `insert / update / related_add` governance.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY"
+    },
+    {
+      "path": "docs/validation/PR233_REVIEW_20260803_RUN3.md",
+      "git_blob_sha": "ffbf4121ccb2ebea3587830d538a6b242ac84b53",
+      "sha256": "6b3eccaf024a8759d41523384149bb92e398fbcd67e18ab8d04c291cac5216df",
+      "byte_count": 503,
+      "line_count": 9,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# PR 233 review validation — 2026-08-03"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# PR 233 review validation — 2026-08-03\n\nVerified fixes:\n\n- Earnings deep-dive review candidates route through `candidate_review_pool[]` with `review_pool_subtype: earnings_deep_dive`.\n- Baseline Revalidation preserves the complete V3 non-execution override package for format-risk items selecting `v3_non_execution`.\n- Stage C Related overlay and its generator use the canonical `execution_event_anchor` class name.\n\nAutomated coverage: `validation_scripts/tests/test_review_4839334318_followup.py`.\n",
+      "closing_excerpt": "# PR 233 review validation — 2026-08-03\n\nVerified fixes:\n\n- Earnings deep-dive review candidates route through `candidate_review_pool[]` with `review_pool_subtype: earnings_deep_dive`.\n- Baseline Revalidation preserves the complete V3 non-execution override package for format-risk items selecting `v3_non_execution`.\n- Stage C Related overlay and its generator use the canonical `execution_event_anchor` class name.\n\nAutomated coverage: `validation_scripts/tests/test_review_4839334318_followup.py`.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY"
+    },
+    {
+      "path": "docs/validation/PR233_REVIEW_4842822807.md",
+      "git_blob_sha": "af68ba784d2f3684bccfa3b4633a0223326f3e7f",
+      "sha256": "e716fd246971dd729153525e49b7fbb72fc36549488c8db4f6fd16c99e2652c7",
+      "byte_count": 1150,
+      "line_count": 27,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# PR #233 Review 4842822807 Validation"
+        },
+        {
+          "line": 3,
+          "text": "## Findings closed"
+        },
+        {
+          "line": 8,
+          "text": "## Regression coverage"
+        },
+        {
+          "line": 19,
+          "text": "## Validation"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# PR #233 Review 4842822807 Validation\n\n## Findings closed\n\n1. Final `related[]` and provisional `related_candidate_spec_ids[]` are deduplicated against one shared resolved-target identity space. Distinct aliases resolving to the same card now fail before Prompt 0.8 can materialize a duplicate final edge.\n2. Stage A generic evidence-target matching now applies Unicode NFKC normalization and removes Unicode punctuation, symbols, paired quotes, and bracket wrappers from both edges before placeholder matching.\n\n## Regression coverage\n\n`validation_scripts/tests/test_review_4842822807.py` covers:\n\n- final/provisional aliases resolving to the same target;\n- CJK terminal punctuation;\n- Unicode ellipsis;\n- curly quotation marks;\n- CJK and full-width bracket wrappers;\n- preservation of a concrete target carrying Unicode terminal punctuation.\n\n## Validation\n\n- Python compile: PASS\n- focused review tests: PASS\n- existing workflow-contract tests: PASS\n- prompt contract overlay check: PASS\n- generated `__pycache__/*.pyc`: absent from final diff\n- temporary patch workflows/helpers: absent from final diff\n- card data and production IDs: unchanged\n",
+      "closing_excerpt": "# PR #233 Review 4842822807 Validation\n\n## Findings closed\n\n1. Final `related[]` and provisional `related_candidate_spec_ids[]` are deduplicated against one shared resolved-target identity space. Distinct aliases resolving to the same card now fail before Prompt 0.8 can materialize a duplicate final edge.\n2. Stage A generic evidence-target matching now applies Unicode NFKC normalization and removes Unicode punctuation, symbols, paired quotes, and bracket wrappers from both edges before placeholder matching.\n\n## Regression coverage\n\n`validation_scripts/tests/test_review_4842822807.py` covers:\n\n- final/provisional aliases resolving to the same target;\n- CJK terminal punctuation;\n- Unicode ellipsis;\n- curly quotation marks;\n- CJK and full-width bracket wrappers;\n- preservation of a concrete target carrying Unicode terminal punctuation.\n\n## Validation\n\n- Python compile: PASS\n- focused review tests: PASS\n- existing workflow-contract tests: PASS\n- prompt contract overlay check: PASS\n- generated `__pycache__/*.pyc`: absent from final diff\n- temporary patch workflows/helpers: absent from final diff\n- card data and production IDs: unchanged\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY"
+    },
+    {
+      "path": "docs/validation/STRUCTURAL_NEWS_VALUE_V3_VALIDATION_20260802.md",
+      "git_blob_sha": "2b3dab52b5dbf989d9b43a7a44817f6ebf1034a4",
+      "sha256": "16d41ec0260541e696a52292106504f3506f50915930baa7286f8ff24b46dcba",
+      "byte_count": 15922,
+      "line_count": 247,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# Structural News Value V3 Validation — 2026-08-02"
+        },
+        {
+          "line": 3,
+          "text": "## Scope"
+        },
+        {
+          "line": 21,
+          "text": "## V2 framework preservation"
+        },
+        {
+          "line": 46,
+          "text": "## V3 additions"
+        },
+        {
+          "line": 61,
+          "text": "## Related lifecycle alignment"
+        },
+        {
+          "line": 85,
+          "text": "## Conflict resolution"
+        },
+        {
+          "line": 91,
+          "text": "## Validation checklist"
+        },
+        {
+          "line": 117,
+          "text": "## Executable alignment completed in this PR"
+        },
+        {
+          "line": 134,
+          "text": "## Review 4837529388 closure"
+        },
+        {
+          "line": 145,
+          "text": "## Review 4837763004 downstream residual closure"
+        },
+        {
+          "line": 152,
+          "text": "## Review 4838008669 full-pipeline closure"
+        },
+        {
+          "line": 161,
+          "text": "## Latest verified head"
+        },
+        {
+          "line": 168,
+          "text": "## Review 4838068572 end-to-end lineage closure"
+        },
+        {
+          "line": 177,
+          "text": "## Review 4838143604 closure"
+        },
+        {
+          "line": 184,
+          "text": "## REVIEW_4838187744_ADDRESSING"
+        },
+        {
+          "line": 195,
+          "text": "## REVIEW_4838372817_ADDRESSING"
+        },
+        {
+          "line": 204,
+          "text": "## Review 4838393180 follow-up"
+        },
+        {
+          "line": 212,
+          "text": "## Review 4839991362"
+        },
+        {
+          "line": 220,
+          "text": "## Review 4839991362 follow-up: current-run strict scope"
+        },
+        {
+          "line": 229,
+          "text": "## Review 4840119588"
+        },
+        {
+          "line": 235,
+          "text": "## Review 4840844831"
+        },
+        {
+          "line": 243,
+          "text": "## Review 4842822807 closure"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# Structural News Value V3 Validation — 2026-08-02\n\n## Scope\n\nThis rollout upgrades the canonical structural-value policy and aligns the executable selector, evidence, content-polish, final-QC, and Related contracts:\n\n- `docs/STRUCTURAL_NEWS_VALUE_SELECTION.md`\n- `docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md`\n- `docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md`\n- `docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md`\n- `docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md`\n- `docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md`\n- `docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md`\n- `docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md`\n- `docs/RELATED_LIFECYCLE_CONTRACT.md`\n- `validation_scripts/related_lifecycle_check.py`\n- `validation_scripts/tests/test_workflow_contracts.py`\n\nIt does not modify card data, the card-run engine, or any production ID.\n\n## V2 framework preservation\n\nV3 preserves and explicitly restates the governing V2 framework:\n\n- credibility, cardability, decision value, and urgency remain separate;\n- the before–after and novelty tests remain mandatory;\n- V2 novelty classification caps remain enforceable at the total score/classification level;\n- the Stage A routing matrix remains explicit;\n- `signal = top | high | mid` remains assigned only after the four judgments;\n- the narrow `mid` fallback for a credible independently cardable execution event remains available when all other gates pass;\n- the 100-point industry-first model remains 25/25/20/10/10/5/3/2;\n- the three core industrial dimensions remain 70 points;\n- denominator discipline remains mandatory;\n- technology-evidence score caps remain mandatory;\n- legal-policy Stage 0–6 remains mandatory;\n- the twelve mandatory legal-policy questions remain explicit;\n- missing instrument, authority, or procedural status and lifecycle-stage conflation are hard blockers in Prompt 0.1S;\n- proposal, adoption, effectiveness, implementation, enforcement, and judicial review remain distinct;\n- the twelve-question IB-grade decision-useful content test remains explicit;\n- blocker output fields remain explicit;\n- search-before-delete remains mandatory;\n- Stage A remains selector-only and no-fetch;\n- high decisi",
+      "closing_excerpt": "ed unscoped strict invocation.\n\n\n## Review 4840119588\n\n- Related lifecycle scope recognizes final `id` / `card_id` and pre-merge `draft_id` / `source_spec_id` aliases in the merged artifact.\n- Final QC retains `CURRENT_RUN_ID_FILE` while allowing validator-recognized provisional identifiers before Prompt 0.8 production-ID assignment.\n- Evidence QC, Content Polish, Production Verification, and Remediation upstream lineage gates require exactly one supported execution or V3 non-execution path rather than execution-only fields.\n\n## Review 4840844831\n\n- Stage A `strict_passed_spec[]` producer schema now enumerates the complete canonical V3 non-execution package and the same exactly-one route contract enforced by the lineage validator.\n- Stage A V3 evidence targets must encode both a source/document class and an exact claim, metric, stage, or date; substring variants of generic placeholders fail closed.\n- `next_confirmation_points[]` must identify measurable events or metrics; generic future-confirmation wording is rejected.\n- Focused regression covers complete-route PASS, generic-evidence FAIL, non-measurable-confirmation FAIL, and missing uncertainty-chain FAIL.\n\n\n## Review 4842822807 closure\n\n- final `related[]` and provisional `related_candidate_spec_ids[]` aliases are deduplicated against one shared resolved target identity map;\n- Unicode terminal punctuation, ellipsis, quotes, and bracket wrappers are normalized before generic V3 evidence-target matching;\n- focused regressions cover cross-namespace Related duplicates and multilingual punctuation-only placeholder variants.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY"
+    },
+    {
+      "path": "docs/validation/WORKFLOW_CONTRACT_VALIDATION_20260723.md",
+      "git_blob_sha": "c5b0b43a5bd3c6109b4f09b3fb6c99e61e5d92ae",
+      "sha256": "e21e26dbedea8b6eaa08606b018cc51004dd58a2f9f098b02bbbc63f8dae5b8f",
+      "byte_count": 6938,
+      "line_count": 150,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# Workflow Contract Validation — 2026-07-23"
+        },
+        {
+          "line": 3,
+          "text": "## Scope"
+        },
+        {
+          "line": 9,
+          "text": "## Current-run hard checks"
+        },
+        {
+          "line": 23,
+          "text": "## PR #207 review remediation"
+        },
+        {
+          "line": 27,
+          "text": "### First review round"
+        },
+        {
+          "line": 44,
+          "text": "### Second review round"
+        },
+        {
+          "line": 61,
+          "text": "### Third review round"
+        },
+        {
+          "line": 75,
+          "text": "### Early-head observation"
+        },
+        {
+          "line": 79,
+          "text": "## GitHub Actions proof"
+        },
+        {
+          "line": 92,
+          "text": "## Legacy inventory"
+        },
+        {
+          "line": 105,
+          "text": "## Source-audit regression"
+        },
+        {
+          "line": 127,
+          "text": "## Prompt coverage"
+        },
+        {
+          "line": 145,
+          "text": "## Remaining acceptance step"
+        }
+      ],
+      "lifecycle_mentions": [],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# Workflow Contract Validation — 2026-07-23\n\n## Scope\n\nValidated against the 20260721 run outputs and the PR #206 final 1,250-card file.\n\nCurrent-run and legacy scopes are intentionally separated.\n\n## Current-run hard checks\n\n| Check | Result |\n|---|---|\n| Python compile | PASS |\n| Unit tests | **31/31 PASS** |\n| Evidence QC — new 35 ID scope | PASS, 0 flags |\n| Related structure — new 35 ID scope | PASS, 0 findings |\n| Date-role legacy compatibility — new 35 ID scope | PASS, 0 findings |\n| New-35 durable-endpoint regression | PASS, 0 listing/search false positives |\n| Prompt overlays present | **11/11 named prompt files changed** |\n| Overlay application idempotence | PASS |\n| GitHub Actions workflow-contract validation | PASS |\n\n## PR #207 review remediation\n\nCodex review produced eight actionable validator findings across three review rounds and one early-head observation.\n\n### First review round\n\n1. **Current-run ID scope could match zero cards and still pass the suite**\n   - Added explicit suite-level current-run scope validation.\n   - Empty scope, zero matches, or any requested ID absent from `cards[]` fails the suite.\n   - Requested, matched, and missing ID counts are recorded.\n\n2. **Blank source URLs could count as diversity**\n   - `canonical_url` and `canonical_domain` return an empty value for blank, malformed, or non-HTTP(S) endpoints.\n   - Empty canonical URLs, domains, and owners are excluded from diversity sets.\n   - Missing usable-source and visible-source URL counts are measured separately.\n   - A real source plus a URL-less visible row cannot satisfy `PASS_MULTI_SOURCE`.\n\n3. **Non-cardable Related states could survive before publish flags existed**\n   - With `--require-contract`, `same_event_duplicate`, `existing_card_reinforcement`, and `uncertain_needs_review` fail immediately.\n   - The validator does not wait for `publish_ready` or a publish state.\n\n### Second review round\n\n4. **Direct validator calls could still bypass a stale ID scope**\n   - Evidence QC, Related, and date-role validators now each enforce the exact ID scope themselves.\n   - Empty, zero-match, and partial-match scopes return non-zero even when the combined suite is not used.\n ",
+      "closing_excerpt": "ion\n\nThe PR #206 cases and Codex review cases were used as regressions for:\n\n- evidence rows versus canonical URL counts;\n- canonical hostname count versus editorial-owner count;\n- multiple independent owners sharing one hostname;\n- conditional Bloomberg/Bernama syndication grouping;\n- source-discovery ledger preservation;\n- home/landing-page detection;\n- search, newsroom, category, tag, topic and pagination endpoint rejection;\n- preservation of durable article paths below collection roots;\n- preservation of SEC EDGAR document paths below `/Archives/edgar/`;\n- blank or malformed source-URL exclusion;\n- bounded single-source exception validation;\n- resolution URL synchronization;\n- exact current merge-ID scoping in each validator;\n- empty, zero-match, and partially missing scope rejection;\n- singular and plural Stage B artifact collection.\n\nResult for the new 35 fixture: **0 Evidence QC flags and 0 listing/search false positives**.\n\n## Prompt coverage\n\nThe overlay generator updated:\n\n1. Stage A\n2. Stage B r0\n3. Stage C r0\n4. Stage B Revise\n5. Stage C Revise\n6. Prompt 0.4\n7. Prompt 0.5\n8. Prompt 0.6\n9. Prompt 0.7\n10. Prompt 0.8\n11. Prompt 0.9\n\nThe one-time generation and review-patching workflows were removed after their changes were produced. The idempotent overlay tool remains for future controlled updates.\n\n## Remaining acceptance step\n\n- rerun Codex review against the latest head;\n- address any new findings;\n- keep legacy Related remediation as a separate audited change;\n- merge only after the latest review is clean or all remaining comments are explicitly dispositioned.\n",
+      "heuristic_hint_not_authoritative": "REFERENCE_ONLY"
+    },
+    {
+      "path": "docs/migrations/LEGACY_RELATED_LINEAGE_CONTAINER_INIT_20260808.md",
+      "git_blob_sha": "7582c4f58d4c992b3e30c9ccd35e3cbcf4cca273",
+      "sha256": "08c7d6e996041988268274f1678bbc687ac7de33b36f755382c314912c8f1fd2",
+      "byte_count": 3972,
+      "line_count": 93,
+      "full_read_status": "READ_FULL_LOCKED_MAIN",
+      "headings": [
+        {
+          "line": 1,
+          "text": "# Legacy Related Lineage Container Initialization — bounded migration contract"
+        },
+        {
+          "line": 7,
+          "text": "## Purpose"
+        },
+        {
+          "line": 13,
+          "text": "## Activation"
+        },
+        {
+          "line": 23,
+          "text": "## Allowed transformation"
+        },
+        {
+          "line": 47,
+          "text": "## Mandatory exclusions"
+        },
+        {
+          "line": 53,
+          "text": "## Immutable data guarantees"
+        },
+        {
+          "line": 69,
+          "text": "## Canonical and lean outputs"
+        },
+        {
+          "line": 75,
+          "text": "## Baseline lock"
+        },
+        {
+          "line": 89,
+          "text": "## Completion"
+        }
+      ],
+      "lifecycle_mentions": [
+        {
+          "line": 3,
+          "text": "**Classification:** `ACTIVE_MIGRATION`  "
+        }
+      ],
+      "inbound_authority_references": [],
+      "opening_excerpt": "# Legacy Related Lineage Container Initialization — bounded migration contract\n\n**Classification:** `ACTIVE_MIGRATION`  \n**Migration family:** `LEGACY_RELATED_LINEAGE_CONTAINER_INIT_V1`  \n**Ordinary-run applicability:** `NONE`\n\n## Purpose\n\nThis contract permits one separately reviewed canonical-data migration to initialize missing legacy `related_lineage.related_ids` containers that the ordinary card-run engine intentionally refuses to create.\n\nIt does not change the ordinary `insert / update / related_add` contract and must not become a general bypass for canonical-data changes.\n\n## Activation\n\nThe migration is active only when a pull request contains exactly one repository-relative manifest matching:\n\n`migrations/**/legacy-related-lineage-container-migration.json`\n\nand the dedicated migration validator confirms the declared baseline and exact transformation.\n\nMere presence of this document does not activate the migration.\n\n## Allowed transformation\n\nFor a legacy card whose `related_lineage.related_ids` container is missing or malformed, and whose existing published `related[]` contains no dangling target, the migration may add exactly:\n\n```json\n{\n  \"related_lineage\": {\n    \"related_ids\": [\"<exact existing related[] values in existing order>\"]\n  }\n}\n```\n\nThe migration may not invent or infer:\n\n- `relation_type`;\n- `reason`;\n- `event_stage_relationship`;\n- `direction`;\n- fresh-follow-up anchors;\n- predecessor/successor meaning;\n- any new or removed `related[]` edge.\n\nThis is neutral container materialization only. It mirrors the already-published `related[]` values so that future separately evidenced `related_add` operations have a valid parent container.\n\n## Mandatory exclusions\n\nA card with any dangling published `related[]` target must not be initialized by this migration. It remains under the dedicated legacy dangling-edge remediation until separately resolved with item-specific evidence and approval.\n\nA card that already has a valid `related_lineage.related_ids` array must remain semantically identical at parsed JSON object level. The validator does not promise preservation of insignificant JSON serialization details such as whitespace or escape spelling.\n\n",
+      "closing_excerpt": "ialization;\n- every existing `related[]` value and order;\n- all already-valid `related_lineage` objects;\n- all dangling legacy cards unchanged;\n- zero card deletion;\n- zero `related_remove`;\n- zero new relation edge.\n\nThe document-level `updated` timestamp may change only to the manifest-declared `output_updated` value. Other top-level fields remain unchanged.\n\n## Canonical and lean outputs\n\n`data/cards.full.json` remains the sole canonical inventory. `public/data/cards.json` must be regenerated byte-exactly from the migrated canonical using `scripts/lean_cards.mjs` and must pass the standard full/public validators.\n\nBecause `related_lineage` is part of the lean KEEP set, the public projection is expected to change for every initialized card even though visible relation semantics do not change.\n\n## Baseline lock\n\nThe manifest must declare:\n\n- `base_main_commit_sha`;\n- `base_full_blob_sha`;\n- `expected_before`;\n- `expected_after`;\n- `expected_initialized_count`;\n- exact `expected_skipped_dangling_card_ids`;\n- `output_updated`.\n\nThe PR workflow must compare the declared baseline to the PR base commit and the actual canonical blob. A moved baseline blocks and requires regeneration.\n\n## Completion\n\nThis migration is complete only after the canonical full and lean outputs are merged, validators pass, production data remains readable, and the resulting main SHA is recorded in the migration audit/history.\n\nAfter completion, ordinary runs continue to use the existing card-run engine. Remaining excluded dangling cards stay in separate remediation and are not silently repaired here.\n",
+      "heuristic_hint_not_authoritative": "SUPERSEDED"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-name: Recover current 632 observation ledger
+name: Materialize current 632 replay manifest
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  extract:
+  manifest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
         shell: bash
         run: |
           git fetch origin chatgpt/v4-run-20260831 chatgpt/v4-run-20260901
-      - name: Inspect and materialize source-bound observation ledger
+      - name: Materialize exact 632 candidate replay manifest
         shell: bash
         run: |
           python3 - <<'PY'
@@ -29,94 +29,163 @@ jobs:
           from pathlib import Path
 
           specs=[
-            ('20260831','origin/chatgpt/v4-run-20260831','runs/2026-09-02/stage_0_0c_coverage_discovery_20260831_143419_V4.json',270),
-            ('20260901','origin/chatgpt/v4-run-20260901','runs/2026-09-02/stage_0_0c_coverage_discovery_20260901_123511_V4.json',362),
+            {
+              'run':'20260831','ref':'origin/chatgpt/v4-run-20260831',
+              'coverage':'runs/2026-09-02/stage_0_0c_coverage_discovery_20260831_143419_V4.json',
+              'raw_filename':'final_news_llm_input_newsletter_expanded_20260831_143419.json',
+              'raw_sha256':'40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8',
+              'raw_bytes':7265646,'raw_story_count':264,'expanded_count':270,
+            },
+            {
+              'run':'20260901','ref':'origin/chatgpt/v4-run-20260901',
+              'coverage':'runs/2026-09-02/stage_0_0c_coverage_discovery_20260901_123511_V4.json',
+              'raw_filename':'final_news_llm_input_newsletter_expanded_20260901_123511(1).json',
+              'raw_sha256':'28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452',
+              'raw_bytes':9604884,'raw_story_count':357,'expanded_count':362,
+            },
           ]
 
-          def load(ref,path):
+          def git_json(ref,path):
             raw=subprocess.check_output(['git','show',f'{ref}:{path}'])
             return raw,json.loads(raw.decode('utf-8-sig'))
 
-          def walk_lists(x,path='$'):
-            out=[]
-            if isinstance(x,list):
-              keys=set()
-              for v in x[:20]:
-                if isinstance(v,dict): keys |= set(v)
-              out.append((path,len(x),sorted(keys)))
-              for i,v in enumerate(x[:3]): out += walk_lists(v,f'{path}[{i}]')
-            elif isinstance(x,dict):
-              for k,v in x.items(): out += walk_lists(v,f'{path}.{k}')
+          def collect_candidate_objects(x,path='$',out=None):
+            if out is None: out=[]
+            if isinstance(x,dict):
+              if isinstance(x.get('candidate_id'),str): out.append((path,x))
+              for k,v in x.items(): collect_candidate_objects(v,f'{path}.{k}',out)
+            elif isinstance(x,list):
+              for i,v in enumerate(x): collect_candidate_objects(v,f'{path}[{i}]',out)
             return out
 
-          all_runs=[]
-          for label,ref,path,expected in specs:
-            raw,obj=load(ref,path)
-            print(f'=== {label} TOP KEYS ===')
-            print(sorted(obj.keys()))
-            candidates=[]
-            for p,n,keys in walk_lists(obj):
-              if n>=3:
-                print('LIST',p,'len=',n,'keys=',keys[:30])
-              if n==expected:
-                candidates.append((p,n,keys))
-            print('EXPECTED_COUNT_LIST_CANDIDATES=',candidates)
-            all_runs.append((label,ref,path,expected,raw,obj))
+          all_entries=[]; run_summaries=[]
+          for s in specs:
+            raw,obj=git_json(s['ref'],s['coverage'])
+            expansion=obj.get('source_universe_expansion_ledger')
+            original=obj.get('original_input_ledger')
+            terminal=obj.get('terminal_discovery_disposition_ledger')
+            assert isinstance(expansion,list) and len(expansion)==s['expanded_count']
+            assert isinstance(original,list) and len(original)==s['raw_story_count']
+            assert isinstance(terminal,list) and len(terminal)==s['expanded_count']
+            exp_ids=[x['candidate_id'] for x in expansion]
+            assert len(exp_ids)==len(set(exp_ids))==s['expanded_count']
+            terminal_by={x['candidate_id']:x for x in terminal}
+            assert set(terminal_by)==set(exp_ids)
+            original_ids={x['candidate_id'] for x in original}
+            assert original_ids <= set(exp_ids)
 
-          # Fail closed: only inspect/materialize once exact authoritative observation paths are known.
-          # Candidate extraction supports the explicit V4 authoritative_source_expansion list shape.
-          extracted=[]
-          source_meta=[]
-          for label,ref,path,expected,raw,obj in all_runs:
-            source_meta.append({'run':label,'ref':ref,'path':path,'sha256':hashlib.sha256(raw).hexdigest(),'expected_authoritative_observations':expected})
-            possible=[]
-            # enumerate likely exact observation arrays without guessing from original_input_ledger IDs
-            for key in ('authoritative_observations','observations','source_observations'):
-              v=obj.get(key)
-              if isinstance(v,list) and len(v)==expected: possible.append((key,v))
-            ase=obj.get('authoritative_source_expansion')
-            if isinstance(ase,dict):
-              for key in ('authoritative_observations','observations','source_observations','items'):
-                v=ase.get(key)
-                if isinstance(v,list) and len(v)==expected: possible.append((f'authoritative_source_expansion.{key}',v))
-            if len(possible)!=1:
-              print('STATUS=BLOCKED_AMBIGUOUS_AUTHORITATIVE_OBSERVATION_PATH',label,[p for p,_ in possible])
-              continue
-            p,arr=possible[0]
-            print('AUTHORITATIVE_PATH',label,p,'COUNT',len(arr))
-            for idx,item in enumerate(arr,1):
-              if not isinstance(item,dict): raise AssertionError((label,idx,'non-dict observation'))
-              extracted.append({'source_run':label,'source_index':idx,'source_path':p,'observation':item})
+            occurrences={}
+            for p,d in collect_candidate_objects(obj):
+              occurrences.setdefault(d['candidate_id'],[]).append({'json_path':p,'payload':d})
 
-          if len(extracted)!=632:
-            print('STATUS=INSPECTION_ONLY_EXTRACTED_COUNT',len(extracted))
-            raise SystemExit(0)
+            extra_count=0
+            origin_counts={}
+            for idx,e in enumerate(expansion,1):
+              cid=e['candidate_id']; origin=e.get('origin') or 'UNKNOWN'
+              origin_counts[origin]=origin_counts.get(origin,0)+1
+              is_original=cid in original_ids
+              if not is_original: extra_count+=1
+              # Preserve detail-bearing occurrences but exclude the two pure accounting ledgers.
+              detail=[]
+              for occ in occurrences.get(cid,[]):
+                p=occ['json_path']
+                if p.startswith('$.source_universe_expansion_ledger[') or p.startswith('$.terminal_discovery_disposition_ledger['):
+                  continue
+                detail.append(occ)
+              all_entries.append({
+                'observation_key':f"{s['run']}::{cid}",
+                'source_run':s['run'],
+                'source_index':idx,
+                'candidate_id':cid,
+                'story_id':e.get('story_id'),
+                'origin':origin,
+                'is_original_raw_story':is_original,
+                'raw_input_lookup_story_id':e.get('story_id') if is_original else None,
+                'terminal_0_0c_disposition':terminal_by[cid].get('disposition'),
+                'detail_occurrences':detail,
+              })
+
+            expected_extra=s['expanded_count']-s['raw_story_count']
+            assert extra_count==expected_extra
+            run_summaries.append({
+              'run':s['run'],
+              'coverage_ref':f"{s['ref']}:{s['coverage']}",
+              'coverage_sha256':hashlib.sha256(raw).hexdigest(),
+              'raw_input':{
+                'filename':s['raw_filename'],'sha256':s['raw_sha256'],'byte_count':s['raw_bytes'],
+                'story_count':s['raw_story_count'],'repo_bound':False,'file_library_located':True,
+              },
+              'source_universe_expansion_count':s['expanded_count'],
+              'original_raw_story_count':s['raw_story_count'],
+              'coverage_discovery_or_rescue_count':expected_extra,
+              'origin_counts':origin_counts,
+            })
+
+          assert len(all_entries)==632
+          keys=[x['observation_key'] for x in all_entries]
+          assert len(keys)==len(set(keys))==632
+          assert sum(1 for x in all_entries if x['is_original_raw_story'])==621
+          assert sum(1 for x in all_entries if not x['is_original_raw_story'])==11
 
           out={
-            'schema':'current_authoritative_observation_ledger_v1',
-            'status':'PASS_SOURCE_BOUND_632_MATERIALIZED',
-            'generated_from':'two V4 Stage 0.0C coverage discovery artifacts',
+            'schema':'current_authoritative_632_replay_manifest_v1',
+            'status':'BLOCKED_RAW_INPUT_BYTES_NOT_REPO_BOUND',
+            'generated_date':'2026-09-03',
+            'purpose':'Rebuild a replayable current event universe from all authoritative 2026-08-31 and 2026-09-01 observations without forcing the unrecoverable historical 425 count.',
             'current_main_rebind_target':'df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4',
             'canonical_card_count':1514,
             'canonical_blob_sha':'53219907cdb435c3822c41d097b23e475662aa8a',
-            'source_artifacts':source_meta,
-            'observation_count':len(extracted),
-            'observations':extracted,
+            'superseded_non_replayable_current_summary':{
+              'reported_event_count':425,
+              'reported_observation_count':632,
+              'expected_membership_sha256':'90719eb1067241df6b201c2722cca5280f89ea69d0e3fd3e7865b9e91d9e8c13',
+              'expected_handoff_sha256':'ff58d295d0d2360fdb053d18aea1921de29397f891db4d957ecf7140a49ac119',
+              'full_ledger_recovered':False,
+              'policy':'Do not reconstruct bytes to match these hashes and do not force the rebuilt event count to 425.'
+            },
+            'clustering_contract':{
+              'version':'XRUN_EVENT_FINGERPRINT_V4_20260902_R2',
+              'rules':[
+                'canonicalize URL without dropping article-id/query parameters; remove tracking parameters only',
+                'merge exact canonical URL or exact normalized headline observations',
+                'merge bounded high-confidence near-duplicate headlines within <=3 days',
+                'apply explicit high-confidence event fingerprints for multi-source/multilingual events',
+                'separate market-reaction consequences from the underlying corporate event',
+                'retain ambiguous topical similarity as separate events for Stage A review'
+              ]
+            },
+            'accounting':{
+              'raw_input_observations':621,
+              'coverage_discovery_or_rescue_observations':11,
+              'authoritative_observations_total':632,
+              'manifest_observation_keys_unique':True,
+            },
+            'source_runs':run_summaries,
+            'observations':all_entries,
+            'authorization':{
+              'event_reconciliation_authorized':False,
+              'formal_stage_a_authorized':False,
+              'next_gate':'REPO_BIND_AND_SHA_VERIFY_TWO_RAW_INPUT_FILES_THEN_MATERIALIZE_FULL_632_OBSERVATION_PAYLOADS'
+            }
           }
-          dest=Path('runs/2026-09-03/current_authoritative_observations_632_rebuild_R1.json')
+          dest=Path('runs/2026-09-03/current_authoritative_632_replay_manifest_R1.json')
           dest.parent.mkdir(parents=True,exist_ok=True)
           text=json.dumps(out,ensure_ascii=False,indent=2)+'\n'
           dest.write_text(text,encoding='utf-8')
-          print('OUTPUT',dest,'BYTES',len(text.encode()),'SHA256',hashlib.sha256(text.encode()).hexdigest())
-          print('STATUS=PASS_SOURCE_BOUND_632_MATERIALIZED')
+          print('raw_original=',621,'extras=',11,'total=',632)
+          print('run_summaries=',json.dumps(run_summaries,ensure_ascii=False))
+          print('extra_entries=')
+          for x in all_entries:
+            if not x['is_original_raw_story']:
+              print(json.dumps(x,ensure_ascii=False))
+          print('OUTPUT',dest,'bytes=',len(text.encode()),'sha256=',hashlib.sha256(text.encode()).hexdigest())
+          print('STATUS=BLOCKED_RAW_INPUT_BYTES_NOT_REPO_BOUND')
           PY
 
-          if [ -f runs/2026-09-03/current_authoritative_observations_632_rebuild_R1.json ]; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add runs/2026-09-03/current_authoritative_observations_632_rebuild_R1.json
-            if ! git diff --cached --quiet; then
-              git commit -m 'audit: materialize replayable current 632 observation ledger'
-              git push
-            fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/current_authoritative_632_replay_manifest_R1.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'audit: lock replay manifest for all 632 current observations'
+            git push
           fi

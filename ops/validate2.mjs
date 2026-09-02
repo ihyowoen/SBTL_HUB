@@ -247,6 +247,33 @@ if (runPath) {
 //     번지고, 별표 3개 이상은 그대로 출력되며, 내부 필드명 잔재(…ckNote)는 편집 사고의 흔적이다.
 //     도입 계기(2026-08-31): 감사화법을 정규식 substring 삭제로 지우다 4개 항목의 tip 문장이 깨졌고
 //     Codex 리뷰가 지적할 때까지 사용자 화면에 렌더되고 있었다.
+// **2026-09-02 확장 — region_policy 산문도 본다.** main 이 마크다운 렌더러(src/MdText.jsx)를
+//   머지한 뒤로 짝이 안 맞는 마커는 사용자 화면에 별표로 그대로 보인다. 종전 #14는 항목 필드만
+//   봐서 region_policy watchpoint 10줄의 홀수 마커가 게이트 밖에 있었다(실측 NA2·CN3·KR2·JP2·headline1).
+//   렌더러가 없던 시절 주석이 적은 '강조가 문장 끝까지 번진다'는 이 앱에서 성립하지 않았고,
+//   렌더러가 들어온 지금은 홀수 마커가 실제로 번지므로 검사가 의미를 갖는다.
+if (process.env.RP_PATH) {
+  try {
+    const rp8 = JSON.parse(readFileSync(process.env.RP_PATH,'utf8'));
+    for (const [rg, v] of Object.entries(rp8)) {
+      if (!v || typeof v !== 'object') continue;
+      const fields = [
+        ...((v.watchpoints ?? []).map((w, n) => [`watchpoints[${n}]`, w])),
+        ...(v.headline ? [['headline', v.headline]] : []),
+        ...((v.policies ?? []).map((p, n) => [`policies[${n}].desc`, p?.desc ?? ''])),
+        ...(v.why ? [['why', v.why]] : []),
+      ];
+      for (const [where, text] of fields) {
+        if (typeof text !== 'string' || !text) continue;
+        const b = text.match(/[*][*]/g);
+        if (b && b.length % 2) err(`region_policy ${rg}.${where}: 볼드 마커 홀수 개(${b.length}) — 렌더러가 짝을 못 맞춰 별표가 화면에 남는다`);
+        const st = text.match(/[*]{3,}/g);
+        if (st) err(`region_policy ${rg}.${where}: 별표 3개 이상 ${st.length}건`);
+      }
+    }
+  } catch(e){ warn('region_policy 마커 대조 실패: '+e.message); }
+}
+
 for (const i of items) for (const f of ['d','tip','detail']) {
   const v = i[f]; if (typeof v !== 'string' || !v) continue;
   const stars = v.match(/[*]{3,}/g);
@@ -538,29 +565,52 @@ try {
   const under = cells.filter(c => (c.queries ?? []).length < 3).length;
   const zero  = cells.filter(c => !(c.queries ?? []).length).length;
   if (under) warn(`coverage 사전 정의 쿼리 미달 ${under}/${cells.length}셀 (0개 ${zero}셀 포함) — RUNBOOK 은 셀당 3~6개를 요구하며, 미달 셀은 검사 #13이 스탬프를 거부한다. 분포 ${[...dist].sort((a,b)=>a[0]-b[0]).map(([k,v])=>`${k}개:${v}셀`).join(' ')}`);
-  // _meta 에 손으로 적힌 집계를 실측과 대조한다(이 PR 이 금지한 하드코딩 파생값).
-  // **필드 부재를 통과로 두지 않는다.** 종전에는 `hard !== undefined &&` 조건부라 count 를 지우면
-  // 대조가 통째로 빠졌다 — #1(meta.dataSnapshotDate)과 정확히 같은 형태이고, fail-open 네 번째
-  // 반복이다(catch → 값 → 필드 존재 → 여기). #21 이 세운 원칙을 바로 옆 검사에서 안 지켰다.
-  // **규약: 파생값 대조는 대조 대상 필드의 부재를 ERROR 로 끊는다.**
-  const meta6 = cv6._meta?.cellsWithoutPredefinedQueries;
-  if (!meta6) err('coverage _meta.cellsWithoutPredefinedQueries 없음 — 하드코딩 파생값 대조를 우회한다');
-  else {
-    if (meta6.count === undefined) err('coverage _meta.cellsWithoutPredefinedQueries.count 없음 — 대조를 우회한다');
-    else if (meta6.count !== zero)
-      err(`coverage _meta.cellsWithoutPredefinedQueries.count(${meta6.count}) ≠ 실측(${zero}) — 손으로 적힌 파생값이 낡았다`);
-    // count 만 보면 개수가 같고 목록만 틀린 드리프트(한 셀을 채우고 다른 셀을 비움)를 놓친다.
-    const zeroSet = new Set(cells.filter(c => !(c.queries ?? []).length).map(c => `${c.region}/${c.axis}`));
-    if (!Array.isArray(meta6.cells)) err('coverage _meta.cellsWithoutPredefinedQueries.cells 배열 없음 — 목록 대조를 우회한다');
-    else {
-      const listed = new Set(meta6.cells);
-      const only = [...listed].filter(x => !zeroSet.has(x));
-      const miss = [...zeroSet].filter(x => !listed.has(x));
-      if (only.length || miss.length)
-        err(`coverage _meta.cellsWithoutPredefinedQueries.cells 불일치 — 목록에만 있음 [${only.join(', ')}] / 실측에만 있음 [${miss.join(', ')}]`);
-    }
-  }
+  // _meta 에 손으로 적던 집계(cellsWithoutPredefinedQueries)는 **삭제했다.** 소비자가
+  // coverage.json 자신과 이 검증 코드뿐이었고, 같은 값을 여기서 런타임에 계산해 위 경고로
+  // 내보낸다. 손으로 적힌 파생값을 지키는 것보다 없애는 쪽이 단순하고 드리프트가 사라진다
+  // — 이 PR 이 세운 '파생값 하드코딩 금지' 규칙을 스스로에게 적용한 것이다.
 } catch(e){ err('coverage 쿼리 분포 대조 실패: '+e.message); }
+
+
+// 23) coverage 셀 키 유일성 (ERROR)
+//     검사 #13·#19 와 check_query_precedence 는 모두 `region/axis` 를 Map 키로 쓴다. 중복 키가
+//     있으면 **마지막 것만 남고 앞의 셀이 조용히 사라진다** — 그 셀의 스윕 게이트가 꺼진다.
+//     coverage.json 은 손편집 파일이라 셀 복붙 하나면 재현된다(실측: NA/trade 를 복제하면
+//     검사 전체가 PASS 로 통과했다). region·axis 결손도 undefined/undefined 로 충돌한다.
+try {
+  const cv7 = JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8'));
+  const seen7 = new Map();
+  for (const [n, c] of (cv7.cells ?? []).entries()) {
+    if (!c.region || !c.axis) { err(`coverage cells[${n}]: region/axis 결손(${c.region}/${c.axis}) — Map 키가 충돌해 셀이 조용히 사라진다`); continue; }
+    const k = `${c.region}/${c.axis}`;
+    if (seen7.has(k)) err(`coverage ${k}: 셀이 ${seen7.get(k)}번·${n}번에 중복 — 앞의 셀이 Map 에서 덮여 스윕 게이트가 꺼진다`);
+    else seen7.set(k, n);
+  }
+} catch(e){ err('coverage 셀 키 유일성 대조 실패: '+e.message); }
+
+// 24) region_policy 산문 — 상대 D-day 금지 (ERROR)
+//     항목 필드의 D-day 는 렌더 시점에 파생되지만 region_policy 산문은 그런 장치가 없어
+//     다음 날 곧바로 낡는다(실측: 2026-09-01 에 적은 D-2(2026.09.03) 가 09-02 에 D-1).
+//     절대일자만 쓴다. 검사 #1(항목 산문 D-day)의 대응물이다.
+if (process.env.RP_PATH) {
+  try {
+    const rp9 = JSON.parse(readFileSync(process.env.RP_PATH,'utf8'));
+    for (const [rg, v] of Object.entries(rp9)) {
+      if (!v || typeof v !== 'object') continue;
+      const proseFields = [
+        ...((v.watchpoints ?? []).map((w, n) => [`watchpoints[${n}]`, w])),
+        ...(v.headline ? [['headline', v.headline]] : []),
+        ...((v.policies ?? []).map((p, n) => [`policies[${n}].desc`, p?.desc ?? ''])),
+        ...(v.why ? [['why', v.why]] : []),
+      ];
+      for (const [where, text] of proseFields) {
+        if (typeof text !== 'string') continue;
+        for (const m of text.matchAll(/D[+-]\d+\s*\(/g))
+          err(`region_policy ${rg}.${where}: 상대 D-day 표기(${m[0].trim()}…) — 다음 날 낡는다. 절대일자만 쓸 것`);
+      }
+    }
+  } catch(e){ warn('region_policy 산문 D-day 대조 실패: '+e.message); }
+}
 
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);
 process.exit(E?1:0);

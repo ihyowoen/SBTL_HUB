@@ -46,6 +46,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+      # base ref 를 한 번만 가져온다. 종전에는 direct-add·validate2·precedence 세 스텝이
+      # 각각 fetch 를 돌렸다. checkout 이 fetch-depth: 0 이지만 원격 추적 ref 는 없으므로
+      # 한 번은 필요하다 — 세 번은 아니다.
+      - name: Fetch base ref
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
+          echo "merge-base: $(git merge-base "origin/$BASE_REF" HEAD)"
+
       - name: Resolve declared direct-add ID migration
         id: direct_add
         if: github.event_name == 'pull_request'
@@ -54,7 +67,6 @@ jobs:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
         run: |
           set -euo pipefail
-          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
           mapfile -t manifests < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)direct-adds/**/direct-add.json')
           [[ ${#manifests[@]} -le 1 ]] || { echo "FAIL: more than one direct-add manifest" >&2; exit 1; }
           allow_delete=0
@@ -87,7 +99,6 @@ jobs:
           set -euo pipefail
           changed=()
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
             mapfile -t changed < <(git diff --name-only "origin/$BASE_REF...HEAD" -- ':(glob)ops/runs/*.json' || true)
           fi
           ledgers=()
@@ -134,11 +145,15 @@ jobs:
           BASE_REF: ${{ github.event.pull_request.base.ref }}
         run: |
           set -euo pipefail
-          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
-          if ! git cat-file -e "origin/$BASE_REF:ops/coverage.json" 2>/dev/null; then
-            echo "base 에 ops/coverage.json 없음 — 선행성 대조 생략"; exit 0
+          # **merge-base 기준이다.** origin/$BASE_REF 는 main 의 현재 tip 이라, 브랜치가 뒤처진
+          # PR 에서 main 쪽 변경까지 "이 PR 이 추가한 쿼리"로 잡혀 근거 없는 실패가 난다.
+          # 같은 job 의 다른 스텝들이 쓰는 세점 표기(origin/$BASE_REF...HEAD)와 기준을 맞춘다.
+          MB=$(git merge-base "origin/$BASE_REF" HEAD)
+          echo "merge-base $MB (main tip $(git rev-parse --short "origin/$BASE_REF"))"
+          if ! git cat-file -e "$MB:ops/coverage.json" 2>/dev/null; then
+            echo "merge-base 에 ops/coverage.json 없음 — 선행성 대조 생략"; exit 0
           fi
-          git show "origin/$BASE_REF:ops/coverage.json" > /tmp/cov_base.json
+          git show "$MB:ops/coverage.json" > /tmp/cov_base.json
           node ops/check_query_precedence.mjs /tmp/cov_base.json ops/coverage.json
 
       - name: Validate cards data

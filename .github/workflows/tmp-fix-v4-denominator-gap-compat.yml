@@ -80,7 +80,8 @@ jobs:
       - name: Run targeted regressions
         run: |
           python -m unittest validation_scripts.tests.test_stage_a_v4_denominator_gap_compat -v
-          python -m unittest validation_scripts.tests.test_stage_a_v4_contract validation_scripts.tests.test_stage_a_v4_hardening -v
+          python -m unittest validation_scripts.tests.test_stage_a_v4_contract.StageAV4MachineContractTest -v
+          python -m unittest validation_scripts.tests.test_stage_a_v4_hardening.StageAV4HardeningTests -v
           python -m py_compile validation_scripts/stage_a_full_v3_completeness.py
       - name: Commit fix and remove temporary workflow
         shell: bash

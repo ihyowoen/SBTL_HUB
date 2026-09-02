@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { createHash } from "node:crypto";
 import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
@@ -118,7 +119,6 @@ const runSelfTest = () => {
       if (!value || typeof value !== "object") return value;
       return Object.fromEntries(Object.keys(value).sort().map((key) => [key, stable(value[key])]));
     };
-    const { createHash } = await import("node:crypto");
     const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
     const operationsHash = hash(Buffer.from(JSON.stringify(stable(operations))));
     const fullHash = hash(readFileSync(join(root, "data/cards.full.json")));
@@ -167,6 +167,7 @@ const runSelfTest = () => {
     if (mergePrep !== "runs/merge-prep.json") throw new Error("Prompt 0.8 ref was not dispatched");
     const leftovers = readFileSync(join(root, "runs/run.json"), "utf8");
     if (!leftovers.includes("merge-prep.json")) throw new Error("original run fixture was modified");
+    if (existsSync(join(root, "runs/.audit-only.json"))) throw new Error("ephemeral audit-only run leaked");
     console.log("PASS: card-run audit dispatch validates only card_run_audit_v1 refs using a repository-relative ephemeral run and cleans it afterward");
   } finally {
     rmSync(root, { recursive: true, force: true });
@@ -176,7 +177,7 @@ const runSelfTest = () => {
 try {
   const options = parseArgs(process.argv.slice(2));
   if (options.selfTest) {
-    await runSelfTest();
+    runSelfTest();
     process.exit(0);
   }
   if (!options.run) fail("INVALID_ARGUMENT", "--run PATH required");

@@ -108,8 +108,7 @@
     "docs/validation/PR233_REVIEW_20260803_RUN3.md",
     "docs/validation/PR233_REVIEW_4842822807.md",
     "docs/validation/STRUCTURAL_NEWS_VALUE_V3_VALIDATION_20260802.md",
-    "docs/validation/WORKFLOW_CONTRACT_VALIDATION_20260723.md",
-    "docs/workflow_gaps/WG_016_RELATED_LIFECYCLE.json"
+    "docs/validation/WORKFLOW_CONTRACT_VALIDATION_20260723.md"
   ],
   "unclassified_paths": [],
   "unread_active_paths": [],
@@ -130,10 +129,8 @@
     "separate_structural_override_applied": false
   },
   "classification_reconciliation": {
-    "required_active_dependency_union_count": 43,
-    "nonoperative_superseded_or_reference_count": 47,
-    "total": 90,
-    "registry_classified_path_count": 89,
+    "registry_required_active_dependency_count": 43,
+    "registry_superseded_or_reference_count": 46,
     "authoritative_header_classified_outside_registry_count": 1,
     "authoritative_header_classified_paths": [
       {
@@ -143,7 +140,8 @@
         "superseded_by": "docs/RELATED_LIFECYCLE_CONTRACT.md",
         "git_blob_sha": "92b485648105d0e2d16cdd277b970ca52e82ae4c"
       }
-    ]
+    ],
+    "total_classified": 90
   },
   "full_read_reconciliation": {
     "prior_probe_repository_head_sha": "9fed8c67816dc0582061438e7dba38d164648176",
@@ -152,13 +150,6 @@
     "prior_probe_unread_active_paths": [],
     "prior_probe_unresolved_dependencies": [],
     "prior_probe_unresolved_conflicts": [],
-    "current_head_delta_from_prior_probe": {
-      "docs_required_content_changed_paths": [
-        "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"
-      ],
-      "newly_registered_required_path": "docs/migrations/LEGACY_RELATED_LINEAGE_CONTAINER_INIT_20260808.md",
-      "other_previously_read_required_paths_byte_identity_preserved": true
-    },
     "current_head_direct_rereads": [
       {
         "path": "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
@@ -196,6 +187,7 @@
     "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json": "OPEN_SEPARATE_REMEDIATION_NO_SILENT_REPAIR_IN_THIS_RUN",
     "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md": "OPEN_SEPARATE_REMEDIATION_NO_SILENT_REPAIR_IN_THIS_RUN"
   },
+  "machine_compatibility_note": "superseded_or_reference_paths intentionally mirrors only registry.superseded + registry.reference_only. WG_016 is counted in docs_inventory/classified via its authoritative SUPERSEDED header and is recorded separately in classification_reconciliation.",
   "governance_decision": "CURRENT_MAIN_V4",
   "next_stage": "0.0C"
 }

@@ -1,0 +1,226 @@
+name: Stage 0.0D full docs parse evidence
+
+on:
+  push:
+    branches:
+      - chatgpt/stage-0-0d-closure-20260902
+    paths:
+      - ".github/workflows/stage-0-0d-full-parse-20260902.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  full-parse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout closure branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify locked main
+        shell: bash
+        run: |
+          set -euo pipefail
+          LOCKED="1fd5485de7554e2ecaabce3b5de103ec4715ce0c"
+          git fetch origin main
+          ACTUAL="$(git rev-parse origin/main)"
+          test "$ACTUAL" = "$LOCKED" || { echo "main moved: $ACTUAL"; exit 1; }
+          git merge-base --is-ancestor "$LOCKED" HEAD
+
+      - name: Full-read and parse every docs file
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib
+          import json
+          import re
+          import subprocess
+          from pathlib import Path
+
+          LOCKED = "1fd5485de7554e2ecaabce3b5de103ec4715ce0c"
+          OUT = Path("runs/2026-09-02/stage_0_0d_full_parse_evidence_20260902_MAIN_1fd5485.json")
+          OUT.parent.mkdir(parents=True, exist_ok=True)
+
+          allowed_classes = [
+              "ACTIVE_CANONICAL",
+              "ACTIVE_MANDATORY_ADDENDUM",
+              "ACTIVE_VALIDATOR_CONTRACT",
+              "OPEN_REMEDIATION",
+              "ACTIVE_MIGRATION",
+              "COMPLETED_REFERENCE",
+              "REFERENCE_ONLY",
+              "SUPERSEDED",
+              "ARCHIVED",
+          ]
+          class_re = re.compile(r"\b(" + "|".join(map(re.escape, allowed_classes)) + r")\b")
+          repo_ref_re = re.compile(
+              r"(?<![A-Za-z0-9_.-])"
+              r"((?:docs|scripts|schemas|contracts|validation_scripts|validation_data|ops|\.github/workflows|data|public/data)/"
+              r"[A-Za-z0-9_./*() -]+?"
+              r"(?:\.md|\.json|\.ya?ml|\.mjs|\.js|\.jsx|\.py|\.sh|/\*\*|/\*))"
+          )
+
+          registry_path = Path("docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json")
+          registry = json.loads(registry_path.read_text(encoding="utf-8"))
+          registry_map = {
+              e["path"]: {
+                  "classification": e.get("classification"),
+                  "ordinary_run_applies": e.get("ordinary_run_applies"),
+                  "authority_scope": e.get("authority_scope"),
+                  "activation_required": e.get("activation_required"),
+                  "completion_classification": e.get("completion_classification"),
+                  "note": e.get("note"),
+              }
+              for e in registry.get("entries", [])
+              if isinstance(e, dict) and isinstance(e.get("path"), str)
+          }
+
+          files = sorted(p for p in Path("docs").rglob("*") if p.is_file())
+          if len(files) != 88:
+              raise SystemExit(f"expected 88 docs files, found {len(files)}")
+
+          records = []
+          json_count = 0
+          json_parse_failures = []
+          utf8_failures = []
+          blob_mismatches = []
+
+          def collect_structured_markers(value, prefix="$", out=None):
+              if out is None:
+                  out = []
+              if isinstance(value, dict):
+                  for k, v in value.items():
+                      kp = f"{prefix}.{k}"
+                      kl = str(k).lower()
+                      if any(token in kl for token in ("classification", "status", "authority", "supersed", "archive", "migration", "remediation", "ordinary_run", "activation")):
+                          if isinstance(v, (str, int, float, bool)) or v is None:
+                              out.append({"json_path": kp, "value": v})
+                      collect_structured_markers(v, kp, out)
+              elif isinstance(value, list):
+                  for i, v in enumerate(value):
+                      collect_structured_markers(v, f"{prefix}[{i}]", out)
+              return out
+
+          for p in files:
+              raw = p.read_bytes()  # mandatory complete byte read
+              sha256 = hashlib.sha256(raw).hexdigest()
+              git_blob = subprocess.check_output(["git", "hash-object", str(p)], text=True).strip()
+              locked_blob = subprocess.check_output(["git", "rev-parse", f"{LOCKED}:{p.as_posix()}"], text=True).strip()
+              if git_blob != locked_blob:
+                  blob_mismatches.append({"path": p.as_posix(), "git_blob_sha": git_blob, "locked_blob_sha": locked_blob})
+
+              try:
+                  text = raw.decode("utf-8")
+                  utf8 = True
+              except UnicodeDecodeError as exc:
+                  utf8 = False
+                  text = ""
+                  utf8_failures.append({"path": p.as_posix(), "error": str(exc)})
+
+              structured = None
+              structured_markers = []
+              if p.suffix.lower() == ".json":
+                  json_count += 1
+                  try:
+                      structured = json.loads(text)
+                      structured_markers = collect_structured_markers(structured)
+                  except Exception as exc:
+                      json_parse_failures.append({"path": p.as_posix(), "error": repr(exc)})
+
+              lines = text.splitlines()
+              explicit_metadata_lines = []
+              headings = []
+              for i, line in enumerate(lines, start=1):
+                  s = line.strip()
+                  if s.startswith("#"):
+                      headings.append({"line": i, "text": s[:300]})
+                  if (
+                      class_re.search(line)
+                      or re.search(r"(?i)\b(status|classification|authority|version|superseded_by|supersedes|migration|remediation|archive|ordinary_run_applies|activation_required)\b", line)
+                  ):
+                      explicit_metadata_lines.append({"line": i, "text": line[:600]})
+
+              class_occurrences = []
+              for m in class_re.finditer(text):
+                  line_no = text.count("\n", 0, m.start()) + 1
+                  class_occurrences.append({"classification": m.group(1), "line": line_no})
+
+              refs = sorted(set(m.group(1).strip() for m in repo_ref_re.finditer(text)))
+              path = p.as_posix()
+              reg = registry_map.get(path)
+              candidate_classes = sorted(set(
+                  [x["classification"] for x in class_occurrences]
+                  + ([reg["classification"]] if reg and reg.get("classification") else [])
+              ))
+
+              records.append({
+                  "path": path,
+                  "git_blob_sha": git_blob,
+                  "locked_main_blob_sha": locked_blob,
+                  "sha256": sha256,
+                  "byte_count": len(raw),
+                  "line_count": len(lines),
+                  "utf8_decode_status": "PASS" if utf8 else "FAIL",
+                  "structured_parse": {
+                      "kind": "json" if p.suffix.lower() == ".json" else "text",
+                      "status": "PASS" if (p.suffix.lower() != ".json" or structured is not None) else "FAIL",
+                  },
+                  "read_status": "READ_FULL_LOCKED_MAIN",
+                  "registry_seed": reg,
+                  "classification_candidates_only_not_final": candidate_classes,
+                  "explicit_classification_occurrences": class_occurrences,
+                  "explicit_metadata_lines": explicit_metadata_lines,
+                  "structured_lifecycle_markers": structured_markers,
+                  "headings": headings,
+                  "repo_path_references": refs,
+              })
+
+          evidence = {
+              "schema": "stage_0_0d_full_parse_evidence_v1",
+              "stage": "0.0D",
+              "purpose": "FULL_BYTE_READ_AND_STRUCTURED_PARSE_EVIDENCE_ONLY_NOT_FINAL_CLASSIFICATION",
+              "repository": "ihyowoen/SBTL_HUB",
+              "locked_main_sha": LOCKED,
+              "docs_file_count": len(files),
+              "full_byte_reads_completed": len(records),
+              "utf8_decode_failures": utf8_failures,
+              "json_file_count": json_count,
+              "json_parse_failures": json_parse_failures,
+              "git_blob_identity_mismatches": blob_mismatches,
+              "all_docs_full_read_or_parsed": (
+                  len(records) == 88
+                  and not utf8_failures
+                  and not json_parse_failures
+                  and not blob_mismatches
+              ),
+              "classification_finalized": False,
+              "documents": records,
+          }
+          OUT.write_text(json.dumps(evidence, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps({
+              "docs": len(records),
+              "json": json_count,
+              "utf8_failures": len(utf8_failures),
+              "json_parse_failures": len(json_parse_failures),
+              "blob_mismatches": len(blob_mismatches),
+              "all_docs_full_read_or_parsed": evidence["all_docs_full_read_or_parsed"],
+              "output": str(OUT),
+          }, indent=2))
+          if not evidence["all_docs_full_read_or_parsed"]:
+              raise SystemExit(1)
+          PY
+
+      - name: Commit evidence and remove temporary workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add runs/2026-09-02/stage_0_0d_full_parse_evidence_20260902_MAIN_1fd5485.json
+          git rm .github/workflows/stage-0-0d-full-parse-20260902.yml
+          git commit -m "audit: full-parse 88 docs for Stage 0.0D closure"
+          git push origin HEAD:chatgpt/stage-0-0d-closure-20260902

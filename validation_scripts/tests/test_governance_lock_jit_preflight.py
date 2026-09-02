@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY = ROOT / "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"
 HELPER = ROOT / "scripts/governance_lock_v4.mjs"
+AUDIT_DISPATCH = ROOT / "scripts/validate_card_run_audits_dispatch.mjs"
 MASTER = ROOT / "docs/llm_prompts/v1/00_NEW_RUN_MASTER_PROMPT.md"
 PREFLIGHT = ROOT / "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md"
 POLICY = ROOT / "docs/DOCUMENT_UNIVERSE_POLICY.md"
@@ -53,10 +54,31 @@ class GovernanceLockJitPreflightTests(unittest.TestCase):
         self.assertIn("Do **not** pre-load all 17 named-stage prompts", master)
         self.assertIn("jit_before_stage", preflight)
 
+    def test_machine_pass_does_not_claim_cognitive_bootstrap_read(self) -> None:
+        preflight = PREFLIGHT.read_text(encoding="utf-8")
+        policy = POLICY.read_text(encoding="utf-8")
+        self.assertIn("not something the 0.0D machine artifact claims to prove", preflight)
+        self.assertIn("It is **not** a read counter", preflight)
+        self.assertIn("not represented as a machine-proven read attestation", preflight)
+        self.assertIn("not whether a model cognitively consumed", policy)
+        self.assertIn("No machine PASS field claims", policy)
+
     def test_helper_self_test_rejects_legacy_count_only_artifact(self) -> None:
         result = run("node", str(HELPER), "--self-test")
         combined = result.stdout + result.stderr
         self.assertIn("legacy count-only attestation rejected", combined)
+
+    def test_formal_audit_dispatch_replays_governance_lock(self) -> None:
+        source = AUDIT_DISPATCH.read_text(encoding="utf-8")
+        self.assertIn('from "./governance_lock_v4.mjs"', source)
+        self.assertIn("verifyGovernanceArtifactFromGit", source)
+        self.assertIn("BLOCKED_RUN_GOVERNANCE_LOCK", source)
+        self.assertLess(
+            source.index("governanceVerifier(root, run)"),
+            source.index("splitAuditRefs(root, run)"),
+        )
+        result = run("node", str(AUDIT_DISPATCH), "--self-test")
+        self.assertIn("replays governance lock", result.stdout)
 
     def test_emitted_lock_is_replayable_and_registry_bound(self) -> None:
         head = run("git", "rev-parse", "HEAD").stdout.strip()

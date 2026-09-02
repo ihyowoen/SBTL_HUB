@@ -156,9 +156,12 @@ class Review5077744200Contracts(unittest.TestCase):
     def test_apply_gate_has_historical_v1_audit_only_exception(self):
         text = APPLY_WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("historical_v1_audit_only()", text)
-        self.assertIn("git diff -M --diff-filter=ACMR --name-status", text)
+        self.assertIn("git diff -M --diff-filter=ACMRD --name-status", text)
         self.assertIn('schema_name" == "manual_direct_add_v1"', text)
         self.assertIn('git cat-file -e "${base_sha}:${base_manifest}"', text)
+        self.assertIn('git show "${base_sha}:${base_manifest}"', text)
+        self.assertIn('base_schema_name" == "manual_direct_add_v1"', text)
+        self.assertIn('if [[ "$status" == D* ]]; then', text)
         self.assertIn("historical preservation path only", text)
 
 

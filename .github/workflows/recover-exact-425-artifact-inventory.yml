@@ -1,0 +1,37 @@
+name: Recover exact 425 artifact inventory
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.github/workflows/recover-exact-425-artifact-inventory.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inventory Actions artifacts around exact 425 recovery window
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== ALL NON-EXPIRED ARTIFACTS CREATED 2026-09-02 ==='
+          gh api --paginate 'repos/${{ github.repository }}/actions/artifacts?per_page=100' \
+            --jq '.artifacts[] | select(.expired==false and (.created_at|startswith("2026-09-02"))) | [.id,.name,.size_in_bytes,.created_at,.updated_at,.workflow_run.id,.workflow_run.head_branch,.workflow_run.head_sha] | @tsv' \
+            | tee /tmp/artifacts_20260902.tsv
+
+          echo '=== 425/CROSSRUN/HANDOFF/PRESELECT/MEMBERSHIP CANDIDATES ==='
+          grep -Ei '425|cross|handoff|preselect|membership|event|stage.?a|20260831|20260901' /tmp/artifacts_20260902.tsv || true
+
+          echo '=== R4 BRANCH ARTIFACTS ==='
+          awk -F '\t' '$8=="chatgpt/v4-run-baseline-20260831-20260901-r4" {print}' /tmp/artifacts_20260902.tsv || true
+
+          echo '=== COUNTS ==='
+          echo -n 'artifact_count_20260902='; wc -l < /tmp/artifacts_20260902.tsv
+          echo -n 'candidate_count='; grep -Eic '425|cross|handoff|preselect|membership|event|stage.?a|20260831|20260901' /tmp/artifacts_20260902.tsv || true

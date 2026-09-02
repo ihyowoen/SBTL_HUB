@@ -101,7 +101,7 @@ run {
 
 - 축 12종 × 권역 6 = 72셀. 초판 기준 gap 32셀 — ELV·PFAS·PPWR이 전부 gap 셀에서 나왔음.
 - 축: trade(통상·관세) / subsidy(보조금·세제) / product_std(제품표준·안전) / chemicals(화학물질) / recycle(재활용·순환) / supply_chain(공급망·자원안보) / transport(운송·물류·저장) / carbon(탄소·ESG) / packaging(포장) / waste_ship(폐기물 이동) / data_dpp(정보·여권) / energy_market(전력시장·ESS)
-- 각 셀: { items[], status: covered|gap|na, lastSwept, sweepDay, queries[3~6] } — 쿼리는 셀에 **사전 정의**(현 항목과 무관하게), 언어 규칙 적용(CN=간체, JP=일본어)
+- 각 셀: { items[], status: covered|gap|na, lastSwept, sweepDay, queries[3~6], itemVerifyQueries[{date,query}]?, adhocDiscovery[{date,query}]? } — 쿼리는 셀에 **사전 정의**(현 항목과 무관하게), 언어 규칙 적용(CN=간체, JP=일본어)
 - 셀 운영 규칙:
   - RD-3에서 요일 슬라이스별 로테이션(§4), **lastSwept 오래된 순 + gap 셀 우선**
   - 전 셀 주 1회 스윕 보장 (일요일에 미스윕 보충)
@@ -177,8 +177,9 @@ run {
 
 **G3 정합 게이트 — validator v1 + v2 (커밋 전 필수):**
 - **CI 강제(2026-08-31~)**: validate2 는 종전 수동 전용이었으나 이제 워크플로 `validate-tracker.yml` 의 `Validate tracker data (v2)` 스텝이 실행한다. PR이 `ops/runs/*.json` 을 건드리면 그중 `date` 가 최신인 원장을 넘기므로 검사 #6·#13이 작동한다. `paths` 에 `ops/**` 를 넣어 원장·coverage 변경만으로도 CI가 트리거된다.
-- **검사 #13 스윕 근거 대조(ERROR, 2026-08-31 도입)**: `coverage.lastSwept == run.date` 인 셀은 그 원장에 근거가 있어야 한다. 근거 인정 경로는 ①`searches[].axis` + region 일치 ②`searches[]`/`primaryDocs[].itemsCovered` 가 그 셀 `items` 에 포함. **gap/na 셀은 `items` 가 비어 있어 ②로 근거를 댈 수 없으므로 무산출 스윕은 `searches[].axis` 를 반드시 적는다.** 도입일 이전 원장은 스키마 부재로 소급 검증이 불가하므로 WARN 후 건너뛴다(임계는 날짜라 우회 불가).
-- v1(scripts/validate.mjs) 기존 검사 + v2(ops/validate2.mjs) 검사 12종: 산문 D-day(WARN) / refs dangling(ERROR)·미등재(WARN) / 동일 법령번호 중복 후보(WARN) / 제안 키워드+ACTIVE·DONE(WARN) / **watch due 경과(ERROR)** / **verify↔원장 대조(ERROR)** / pending 미이관(WARN) / region_policy 정합(WARN) / **coverage↔tracker ID 동기(ERROR)** / **스윕 근거 대조(ERROR)** / **노출 필드 마크다운 파손(ERROR)**
+- **검사 #13 스윕 근거 대조(ERROR, 2026-08-31 도입 / 2026-09-01 근거 규칙 개정)**: `coverage.lastSwept == run.date` 인 셀은 그 원장에 근거가 있어야 한다. **근거는 하나뿐이다 — `searches[]` 중 region·axis 가 그 셀이고 `query` 가 그 셀의 사전 정의 `queries` 에 있는 것.** 종전의 두 경로(`searches[].axis` 선언만으로 인정 / `itemsCovered` 파생)는 폐지했다. 그 경로들은 특정 항목을 지목한 **재검증 쿼리로도 lastSwept 를 전진**시켰고(2026-09-01 실측 19셀), 훑지 않은 셀이 최신으로 찍히면 RD-3 로테이션에서 뒤로 밀려 커버리지 공백이 굳는다. **따라서 사전 정의 `queries` 가 없는 셀은 스윕될 수 없다** — 셀에 3~6개 쿼리를 먼저 채우는 것이 선행 과제이며, validator 가 그런 셀 수를 집계 경고로 낸다. 무산출 스윕도 사전 정의 쿼리를 실제로 돌리고 `searches[]` 에 `query`·`region`·`axis` 를 적어야 근거가 된다. **근거 규칙은 2026-09-01 부터 적용**하고 그 이전 원장은 구 규칙(axis 선언·`itemsCovered` 파생)으로 대조한다(WARN 표기) — 소급 적용하면 과거 원장을 건드리는 모든 PR 이 CI 에서 막힌다(실측: 2026-08-31 원장 33셀). 검사 #13 자체의 도입일(2026-08-31) 이전 원장은 스키마 부재로 검증 불가하므로 WARN 후 건너뛴다.
+- **항목 재검증은 스윕이 아니다**: 특정 규범을 지목한 확인 검색은 `coverage.lastSwept` 를 전진시키지 않고 셀의 `itemVerifyQueries[{date, query}]` 에만 기록한다. 우연히 발굴된 후보는 `adhocDiscovery[{date, query}]` 에 남긴다.
+- v1(scripts/validate.mjs) 기존 검사 + v2(ops/validate2.mjs) 검사 21종 (2026-09-01 에 #15~#21 추가 — runId 실재 / effectiveDate↔dt(WARN) / checkNote 단락 중복 / 승인 큐↔status / 검색 축↔coverage 매핑 / runId 원장 날짜↔verify.date / 원장 파생값↔실측): 산문 D-day(WARN) / refs dangling(ERROR)·미등재(WARN) / 동일 법령번호 중복 후보(WARN) / 제안 키워드+ACTIVE·DONE(WARN) / **watch due 경과(ERROR)** / **verify↔원장 대조(ERROR)** / pending 미이관(WARN) / region_policy 정합(WARN) / **coverage↔tracker ID 동기(ERROR)** / **스윕 근거 대조(ERROR)** / **노출 필드 마크다운 파손(ERROR)**
 - 실행(**리포 루트 기준**):
   ```
   node scripts/validate.mjs public/data/tracker_data.json public/data/region_policy.json

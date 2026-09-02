@@ -137,12 +137,12 @@ describe("실데이터 전수", () => {
     }
   });
 
-  it("watchpoint 홀수 10줄은 리터럴이 남는다 — 데이터 결함으로 드러난다", () => {
+  it("watchpoint — 홀수 마커 데이터가 남아 있지 않다", () => {
     const wps = Object.values(rp).filter((v) => v && typeof v === "object")
       .flatMap((v) => v.watchpoints ?? []);
     const odd = wps.filter((w) => (w.match(/\*\*/g) || []).length % 2);
-    // 개수를 하드코딩하지 않는다 — 데이터가 바뀌면 브리틀해진다. 존재와 동작만 본다.
-    expect(odd.length).toBeGreaterThan(0);
-    for (const w of odd) expect(html({ text: w })).toContain("**");
+    // 짝 없는 마커의 렌더 동작은 위 단위 테스트에서 별도로 검증한다.
+    // 실데이터에서는 데이터 결함 자체가 0건이어야 한다.
+    expect(odd).toEqual([]);
   });
 });

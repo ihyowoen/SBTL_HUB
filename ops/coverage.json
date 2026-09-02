@@ -86,7 +86,13 @@
         "Federal Register final rule battery lithium critical minerals effective date Commerce"
       ],
       "sweepDay": "Mon",
-      "note": "2026-08-31 RD-2 권역 스캔 실스윕."
+      "note": "2026-08-31 RD-2 권역 스캔 실스윕.",
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "Section 232 unmanned aircraft systems tariff September 3 2026 annex components lithium-ion battery HTS subheading"
+        }
+      ]
     },
     {
       "axis": "trade",
@@ -119,7 +125,17 @@
       "status": "covered",
       "lastSwept": "2026-08-31",
       "queries": [],
-      "sweepDay": "Mon"
+      "sweepDay": "Mon",
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "商务部 对日本 两用物项 出口管制 2026 公告 最新 管制清单 更新"
+        },
+        {
+          "date": "2026-09-01",
+          "query": "新能源汽车 车辆购置税 减免 2026年 减半 政策 执行情况 15000元 上限"
+        }
+      ]
     },
     {
       "axis": "trade",
@@ -219,7 +235,13 @@
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "CISAF Clean Industrial Deal State Aid Framework 2026 amendment decisions approved battery manufacturing aid"
+        }
+      ]
     },
     {
       "axis": "subsidy",
@@ -237,7 +259,13 @@
         "锂电池 财政补贴 专项资金 工信部 2026"
       ],
       "sweepDay": "Mon",
-      "note": "2026-08-31 RD-3(월요일 슬라이스): 이 셀은 queries가 비어 있어 무엇으로 스윕했는지 추적할 수 없었다(NA/carbon에서 확인된 D4와 같은 결함). 권역별 쿼리를 기록했다. | 2026-08-31 실검색 보완: 최초에는 쿼리만 기록하고 lastSwept를 전진시켰으나 Claire 지적으로 실제 검색을 수행했다. 결과 — NA·EU·JP 무변화 확인, CN 신규 후보 2건(승인 큐), GL 무산출(na 유지 1회)."
+      "note": "2026-08-31 RD-3(월요일 슬라이스): 이 셀은 queries가 비어 있어 무엇으로 스윕했는지 추적할 수 없었다(NA/carbon에서 확인된 D4와 같은 결함). 권역별 쿼리를 기록했다. | 2026-08-31 실검색 보완: 최초에는 쿼리만 기록하고 lastSwept를 전진시켰으나 Claire 지적으로 실제 검색을 수행했다. 결과 — NA·EU·JP 무변화 확인, CN 신규 후보 2건(승인 큐), GL 무산출(na 유지 1회).",
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "电池消费税 2026年9月1日 正式实施 锂离子蓄电池 2% 征收 开始 首日"
+        }
+      ]
     },
     {
       "axis": "subsidy",
@@ -255,7 +283,17 @@
         "이차전지 국가첨단전략산업 세액공제 시행령 개정 2026"
       ],
       "sweepDay": "Mon",
-      "note": "2026-08-31 RD-3(월요일 슬라이스): 이 셀은 queries가 비어 있어 무엇으로 스윕했는지 추적할 수 없었다(NA/carbon에서 확인된 D4와 같은 결함). 권역별 쿼리를 기록했다. KR-003이 미제정 법안인데 ACTIVE였던 것을 WATCH로 정정. | 2026-08-31 실검색 보완: 최초에는 쿼리만 기록하고 lastSwept를 전진시켰으나 Claire 지적으로 실제 검색을 수행했다. 결과 — NA·EU·JP 무변화 확인, CN 신규 후보 2건(승인 큐), GL 무산출(na 유지 1회)."
+      "note": "2026-08-31 RD-3(월요일 슬라이스): 이 셀은 queries가 비어 있어 무엇으로 스윕했는지 추적할 수 없었다(NA/carbon에서 확인된 D4와 같은 결함). 권역별 쿼리를 기록했다. KR-003이 미제정 법안인데 ACTIVE였던 것을 WATCH로 정정. | 2026-08-31 실검색 보완: 최초에는 쿼리만 기록하고 lastSwept를 전진시켰으나 Claire 지적으로 실제 검색을 수행했다. 결과 — NA·EU·JP 무변화 확인, CN 신규 후보 2건(승인 큐), GL 무산출(na 유지 1회).",
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "국무회의 2026년 9월 1일 조세특례제한법 개정안 국내생산 세액공제 의결 정기국회 제출"
+        },
+        {
+          "date": "2026-09-01",
+          "query": "중소벤처기업부 산업통상자원부 무공해차 보급목표제 2026 저공해차 판매비중 고시 개정"
+        }
+      ]
     },
     {
       "axis": "subsidy",
@@ -352,7 +390,25 @@
         "工信部 市场监管总局 公告 锂电池 强制性国家标准 发布 实施"
       ],
       "sweepDay": "Tue",
-      "note": "2026-08-31 RD-2 권역 스캔 실스윕. | 2026-08-31 방치 해소 재검증 실스윕."
+      "note": "2026-08-31 RD-2 권역 스캔 실스윕. | 2026-08-31 방치 해소 재검증 실스윕.",
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "GB 36980.1-2025 电动汽车能量消耗量限值 M1 实施 2026 强制性 国家标准 进展"
+        },
+        {
+          "date": "2026-09-01",
+          "query": "GB 47372-2026 移动电源 安全技术规范 实施日期 强制性国家标准"
+        },
+        {
+          "date": "2026-09-01",
+          "query": "GB/T 46991.1-2025 电动汽车车载动力电池耐久性 要求及试验方法 轻型汽车 实施日期"
+        },
+        {
+          "date": "2026-09-01",
+          "query": "工信部 电动自行车 锂离子电池 回收利用 通知 2026 小型锂电池 回收 政策 进展"
+        }
+      ]
     },
     {
       "axis": "product_std",
@@ -425,7 +481,8 @@
       "region": "EU",
       "items": [
         "EU-025",
-        "EU-029"
+        "EU-029",
+        "EU-039"
       ],
       "status": "covered",
       "lastSwept": "2026-07-29",
@@ -434,7 +491,19 @@
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "EU REACH restriction PFAS battery chemicals 2026 August September new regulation adopted ECHA"
+        }
+      ],
+      "adhocDiscovery": [
+        {
+          "date": "2026-09-01",
+          "query": "PFHxA restriction EU Regulation 2024/2462 April 2026 application scope fluoropolymer textiles Annex XVII entry 79"
+        }
+      ]
     },
     {
       "axis": "chemicals",
@@ -562,7 +631,13 @@
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "再生黑粉 进口管理 公告 锂电池 2026 实施 情况 海关 固体废物 再生原料"
+        }
+      ]
     },
     {
       "axis": "recycle",
@@ -683,7 +758,21 @@
       "status": "covered",
       "lastSwept": "2026-08-29",
       "queries": [],
-      "sweepDay": "Thu"
+      "sweepDay": "Thu",
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "국가첨단전략산업 특별법 2026 개정 시행 이차전지 국가첨단전략기술 지정 고시 변경"
+        },
+        {
+          "date": "2026-09-01",
+          "query": "소재부품장비 특별조치법 2026 개정 시행 공급망 안정화 산업통상자원부 소부장"
+        },
+        {
+          "date": "2026-09-01",
+          "query": "한국수출입은행법 시행령 일부개정 대통령령 제36420호 직접투자 연계의무 폐지 시행"
+        }
+      ]
     },
     {
       "axis": "supply_chain",
@@ -744,7 +833,13 @@
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "ADR 2027 special provision SP680 damaged defective lithium batteries CN.252.2026 objection period 1 October 2026"
+        }
+      ]
     },
     {
       "axis": "transport",
@@ -763,7 +858,13 @@
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "GB/T 45915-2025 动力锂电池 运输安全 多式联运 技术要求 2026年2月1日 实施"
+        }
+      ]
     },
     {
       "axis": "transport",
@@ -966,7 +1067,13 @@
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "GB 43352-2023 快递包装 重金属与特定物质限量 实施 2026 复合材料 检测 执行情况"
+        }
+      ]
     },
     {
       "axis": "packaging",
@@ -985,7 +1092,13 @@
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "자원재활용법 포장재 재질구조 등급표시 2026 개정 시행 환경부 평가 결과 표시 의무"
+        }
+      ]
     },
     {
       "axis": "packaging",
@@ -1259,7 +1372,13 @@
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "Regulation EU 2024/1747 electricity market design implementation 2026 deadline PPA CfD member states transposition"
+        }
+      ]
     },
     {
       "axis": "energy_market",
@@ -1279,7 +1398,17 @@
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "GB/T 46261-2025 电化学储能电站 火灾监测预警系统 2026年9月1日 实施"
+        },
+        {
+          "date": "2026-09-01",
+          "query": "发改价格 2026 114号 容量电价 新型储能 独立储能 后续 细则 省级 落实 2026年8月"
+        }
+      ]
     },
     {
       "axis": "energy_market",
@@ -1298,7 +1427,13 @@
       "sectorCoverage": "battery/ev/ess/energy/minerals only",
       "resweepRequired": false,
       "resweepReason": "응용처(드론·방산·로봇·모빌리티) 쿼리 미실시 — 단 해당 섹터는 고유 제정 규범이 희소하고 대부분 기존 항목에 이미 포섭됨. **신규 항목 발굴이 아니라 기존 항목 적용범위 확인용**이므로 우선순위 하. 본 스윕의 '신규 없음' 판정은 유효",
-      "sectorCheckPending": true
+      "sectorCheckPending": true,
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "산업통상자원부 희토류 공급망 종합대책 2026 후속 추진 상황 영구자석 비축"
+        }
+      ]
     },
     {
       "axis": "energy_market",
@@ -1312,7 +1447,13 @@
       "status": "covered",
       "lastSwept": "2026-08-31",
       "queries": [],
-      "sweepDay": "Fri"
+      "sweepDay": "Fri",
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "需給調整市場 2026年9月1日 上限価格 10円 適用開始 一次調整力 実需給"
+        }
+      ]
     },
     {
       "axis": "energy_market",
@@ -1373,7 +1514,21 @@
         "钠离子电池 标准 强制"
       ],
       "sweepDay": "Tue",
-      "note": "**CN-012 시행일 확정 + 나트륨이온 신규 표면** — GB/T 43568-2026 전고체 국가표준 **2026.07.01 시행**(정량 분류: 액체전해액 >20% 액태 / 5~20% 혼합고액(반고체) / <5% + 120℃ 진공건조 6h 실중률 ≤0.5% = 전고체). 허위표시 시 허위선전 처벌. 동일자 GB 38031-2025 강제국표 시행으로 고체류 전지도 침자·열확산·저부충격·침수 등 차규시험 무면제. 공신부 2026년을 고체전지 장차검증 원년 정의. 나트륨이온은 공신부가 《电能存储系统用钠离子电池和电池组 安全技术规范》 등 197항 추천성 국표 보고비준 공시(2026.01.29) — 제정 진행 중"
+      "note": "**CN-012 시행일 확정 + 나트륨이온 신규 표면** — GB/T 43568-2026 전고체 국가표준 **2026.07.01 시행**(정량 분류: 액체전해액 >20% 액태 / 5~20% 혼합고액(반고체) / <5% + 120℃ 진공건조 6h 실중률 ≤0.5% = 전고체). 허위표시 시 허위선전 처벌. 동일자 GB 38031-2025 강제국표 시행으로 고체류 전지도 침자·열확산·저부충격·침수 등 차규시험 무면제. 공신부 2026년을 고체전지 장차검증 원년 정의. 나트륨이온은 공신부가 《电能存储系统用钠离子电池和电池组 安全技术规范》 등 197항 추천성 국표 보고비준 공시(2026.01.29) — 제정 진행 중",
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "GB/T 43568-2026 电动汽车用固态电池 术语和分类 实施 2026年7月1日 液态电解质 5%"
+        },
+        {
+          "date": "2026-09-01",
+          "query": "solid state battery sodium ion standard regulation 2026 EU Korea adopted next generation battery technical requirement"
+        },
+        {
+          "date": "2026-09-01",
+          "query": "工信部 十五五 全固态电池 L3 自动驾驶 路线图 2026 进展 政策"
+        }
+      ]
     },
     {
       "axis": "next_tech",
@@ -1534,7 +1689,13 @@
         "EU charging infrastructure obligation"
       ],
       "sweepDay": "Fri",
-      "note": "**신설 축 첫 스윕에서 대형 미포섭 확보** — AFIR Regulation (EU) 2023/1804(2024.04.13 적용) + 보충 Regulation (EU) 2025/656(ISO 15118 의무, 2026.01.08/2027.01.01). 승인 큐 이관 [2026-07-29] 본 셀에서 확보한 신규 표면이 항목으로 편입돼 gap 해소."
+      "note": "**신설 축 첫 스윕에서 대형 미포섭 확보** — AFIR Regulation (EU) 2023/1804(2024.04.13 적용) + 보충 Regulation (EU) 2025/656(ISO 15118 의무, 2026.01.08/2027.01.01). 승인 큐 이관 [2026-07-29] 본 셀에서 확보한 신규 표면이 항목으로 편입돼 gap 해소.",
+      "itemVerifyQueries": [
+        {
+          "date": "2026-09-01",
+          "query": "AFIR Regulation 2023/1804 alternative fuels infrastructure 2026 targets deadline recharging pools heavy duty"
+        }
+      ]
     },
     {
       "axis": "downstream",
@@ -1610,7 +1771,7 @@
       "upstream": "Thu",
       "downstream": "Fri"
     },
-    "lastRun": "2026-08-31",
+    "lastRun": "2026-09-01",
     "scope": {
       "definedAt": "2026-07-29",
       "industry": "Battery / EV / ESS / 에너지 / 광물 / 신기술·전고체의 ecosystem 전체 — upstream(소재·부품·제련) 및 downstream(수요·인프라·응용) 포함",
@@ -1661,7 +1822,9 @@
       ],
       "note": "gap 은 '규범이 없다'가 아니라 '지금 쿼리로는 못 찾았다'였다. 셀의 queries 배열 자체가 감사 대상이어야 한다.",
       "basisSweep": "2026-08-29 (요원 권역 전수 스윕)"
-    }
+    },
+    "sweepVsVerify": "lastSwept 는 **셀의 사전 정의 queries 를 실제로 돌린 날**이다(RUNBOOK §셀 운영). 특정 항목·특정 후보를 지목한 쿼리는 그 규범을 확인한 것이지 셀을 훑은 것이 아니므로 lastSwept 를 전진시키지 않는다 — itemVerifyQueries[{date, query}] 또는 adhocDiscovery[{date, query}] 에만 기록한다.\n2026-09-01 도입 계기: 항목 재검증 쿼리로 19셀을 스탬프했다가 원복했고, 남은 1셀(EU/chemicals)도 근거가 PFHxA 후보를 지목한 후속 쿼리여서 함께 철회했다. **오늘 발굴 스윕은 0셀이다.** 실제로 훑지 않은 셀이 lastSwept 로 최신이 되면 RD-3 로테이션(오래된 순 + gap 우선)에서 뒤로 밀려 커버리지 공백이 굳는다.",
+    "queriesNote": "셀당 사전 정의 queries 는 RUNBOOK 상 3~6개다. **미달 셀 집계를 이 파일에 손으로 적지 않는다** — validate2 검사 #22 가 런타임에 세어 분포와 함께 경고한다. 종전에 적어 두었던 cellsWithoutPredefinedQueries(count·cells)는 소비자가 이 파일 자신과 그것을 검증하는 코드뿐이어서 삭제했다. 파생값 하드코딩 금지 규칙을 스스로에게 적용한 것이다."
   },
   "sectors": {
     "battery": {

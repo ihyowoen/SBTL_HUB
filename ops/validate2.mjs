@@ -2,7 +2,7 @@
 // validator v2 신규 검사 (RUNBOOK G3) — 기존 validate.mjs에 추가 예정, 우선 독립 실행
 // 사용: node ops/validate2.mjs public/data/tracker_data.json [ops/runs/RUN.json]
 //       env: RP_PATH=public/data/region_policy.json  COV_PATH=ops/coverage.json
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 const tj = JSON.parse(readFileSync(process.argv[2] ?? 'tracker_data.json','utf8'));
 const runPath = process.argv[3];
 const items = tj.items; const ids = new Set(items.map(i=>i.id));
@@ -153,8 +153,11 @@ if (process.env.RP_PATH) {
 
 // 13) coverage.lastSwept ↔ 원장 스윕 근거 대조 (스윕 위장 차단)
 //     lastSwept 를 run 날짜로 찍었는데 그 run 원장에 해당 (region, axis) 근거가 없으면 ERROR.
-//     근거 인정 경로 — ① searches[].axis + region 일치  ② searches[]/primaryDocs[].itemsCovered 가 그 셀 items 에 포함.
-//     gap/na 셀은 items 가 비어 있어 ②로는 근거를 댈 수 없다: 무산출 스윕은 searches[].axis 를 반드시 적어야 한다.
+//     **근거 인정 경로(2026-09-01 개정, 단일)** — searches[] 중 region·axis 가 그 셀이고 **query 가 그 셀의
+//     사전 정의 queries 에 있는 것**만 근거다. 종전의 두 경로(axis 선언만으로 인정 / itemsCovered 파생)는
+//     폐지했다. 그 경로들은 특정 항목을 지목한 재검증 쿼리로도 lastSwept 를 전진시켰고(2026-09-01 실측 19셀),
+//     훑지 않은 셀이 최신으로 찍히면 RD-3 로테이션(오래된 순 + gap 우선)에서 뒤로 밀려 공백이 굳는다.
+//     따라서 **사전 정의 queries 가 없는 셀은 스윕될 수 없다** — 별도 집계 경고로 표면화한다.
 //     도입 계기(2026-08-31) — RD-3 에서 subsidy 6셀 전부에 lastSwept 를 찍었으나 실검색은 1권역뿐이었고,
 //     원장 searches 와 coverage.lastSwept 가 서로 대조되지 않아 기존 게이트를 전부 통과했다.
 if (runPath) {
@@ -169,26 +172,65 @@ if (runPath) {
     if (!rd2 || rd2 < SWEEP_FROM) {
       warn(`스윕 근거 대조 건너뜀 — 원장 날짜(${rd2 ?? '없음'})가 검사 도입일(${SWEEP_FROM}) 이전. searches[].axis 스키마 부재로 소급 검증 불가`);
     } else {
-    const i2c = new Map();
-    for (const c of cov2.cells ?? []) for (const x of c.items ?? []) {
-      if (!i2c.has(x)) i2c.set(x, []);
-      i2c.get(x).push(`${c.region}/${c.axis}`);
-    }
+    // i2c(항목→셀)는 **구 규칙 분기에서만** 쓴다. strict(2026-09-01 이후) 원장에서는 만들고 버리게 된다.
+    let i2c = null;
+    const buildI2c = () => {
+      if (i2c) return i2c;
+      i2c = new Map();
+      for (const c of cov2.cells ?? []) for (const x of c.items ?? []) {
+        if (!i2c.has(x)) i2c.set(x, []);
+        i2c.get(x).push(`${c.region}/${c.axis}`);
+      }
+      return i2c;
+    };
+    // 스윕 근거는 **셀의 사전 정의 queries 를 실제로 돌린 검색**만 인정한다(RUNBOOK §셀 운영 — 쿼리는
+    // 현 항목과 무관하게 셀에 사전 정의). 종전에는 region+axis 를 선언하기만 하면 근거가 됐고
+    // itemsCovered 로도 파생시켜서, 특정 항목을 지목한 재검증 쿼리로 lastSwept 가 전진했다
+    // (2026-09-01 실측 19셀). 훑지 않은 셀이 최신으로 찍히면 RD-3 로테이션에서 뒤로 밀려 공백이 굳는다.
+    // **도입일 경계** — 이 근거 규칙은 2026-09-01 부터다. 그 이전 원장은 구 규칙(axis 선언 / itemsCovered
+    // 파생)으로 작성됐으므로 소급 적용하면 과거 원장이 전부 FAIL 한다(실측: 2026-08-31 원장 33셀).
+    // CI 는 변경된 원장 전부를 검증하므로, 소급 적용은 과거 원장을 건드리는 모든 PR 을 막아버린다.
+    const EVIDENCE_RULE_FROM = '2026-09-01';
+    const strict = rd2 >= EVIDENCE_RULE_FROM;
+    const predef = new Map();
+    for (const c of cov2.cells ?? []) predef.set(`${c.region}/${c.axis}`, new Set(c.queries ?? []));
     const ev = new Set();
     for (const s of run2.searches ?? []) {
-      // 축을 명시한 검색은 **그 (region, axis) 만** 근거가 된다.
-      // itemsCovered 로 파생시키면 다중 셀 소속 항목이 다른 축까지 근거를 만들어(예: NA-027 은
-      // NA/trade·NA/subsidy 양쪽 소속) 무근거 lastSwept 전진을 다시 허용한다 — 이 검사가 막으려던 바로 그것.
-      if (s.region && s.axis) { ev.add(`${s.region}/${s.axis}`); continue; }
-      for (const x of s.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+      if (s.region && s.axis) {
+        const key = `${s.region}/${s.axis}`;
+        // 신규 규칙: 셀의 사전 정의 queries 를 실제로 돌린 검색만 근거.
+        if (!strict || (predef.get(key) ?? new Set()).has(s.query)) ev.add(key);
+        // **축을 선언한 검색은 그 셀만 근거다.** 구 규칙에서도 그랬다 — 여기서 continue 하지 않으면
+        // 아래 itemsCovered 파생으로 흘러가 다중 셀 소속 항목이 다른 축까지 근거를 만든다
+        // (실측: 2026-08-31 원장 33셀 → 35셀, CN/upstream·EU/recycle 추가). 재작성 때 잃은 continue 다.
+        continue;
+      }
+      if (strict) continue;
+      // 구 규칙(2026-09-01 이전 원장 한정): itemsCovered 파생도 근거로 인정했다.
+      for (const x of s.itemsCovered ?? []) for (const k of buildI2c().get(x) ?? []) ev.add(k);
     }
-    for (const p of run2.primaryDocs ?? [])
-      for (const x of p.itemsCovered ?? []) for (const k of i2c.get(x) ?? []) ev.add(k);
+    if (!strict) {
+      for (const p of run2.primaryDocs ?? [])
+        for (const x of p.itemsCovered ?? []) for (const k of buildI2c().get(x) ?? []) ev.add(k);
+      warn(`스윕 근거 규칙 — 원장 날짜(${rd2})가 신규 규칙 도입일(${EVIDENCE_RULE_FROM}) 이전이라 구 규칙(axis 선언·itemsCovered 파생)으로 대조했다`);
+    }
     let stamped = 0, missing = 0;
     for (const c of cov2.cells ?? []) {
       if (c.lastSwept !== rd2) continue;
       stamped++;
       const k = `${c.region}/${c.axis}`;
+      // 사전 정의 쿼리가 RUNBOOK 최소치(3개) 미만인 셀은 스탬프 자체를 인정하지 않는다.
+      // #13의 근거 규칙은 "셀의 queries 에 있는 쿼리"인데 queries 는 같은 커밋에서 덧붙일 수 있어
+      // 자기인증이 가능하다(리뷰 실측: 재검증 쿼리 30개를 셀에 밀어넣으면 철회했던 19셀이 초록불 복귀).
+      // **완전 차단이 아니다.** 실측 — 오늘 원장이 축을 선언한 19셀 중 16셀이 이 장벽에 걸리고
+      // 3셀은 이미 2개 이상을 갖고 있어 통과한다. 그리고 같은 커밋에서 더미 문자열로 최소치를
+      // 채우면 16셀도 뚫린다. 장벽은 "아무것도 아님"에서 "쿼리 세트를 적어야 함"으로 올라간 정도다.
+      // 쿼리 선행성 자체는 워크플로의 coveragePrecedence 스텝이 본다(validator 는 git 이력을 못 본다).
+      if (strict && (predef.get(k) ?? new Set()).size < 3) {
+        missing++;
+        err(`coverage ${k}: lastSwept=${rd2} 인데 사전 정의 queries 가 ${(predef.get(k) ?? new Set()).size}개 — RUNBOOK 은 셀당 3~6개를 요구한다(쿼리를 스탬프와 같은 커밋에 끼워 넣는 자기인증 차단)`);
+        continue;
+      }
       if (!ev.has(k)) {
         missing++;
         err(`coverage ${k}: lastSwept=${rd2} 인데 원장(${run2.runId})에 스윕 근거 없음 — 검색을 돌리지 않고 스윕 표기만 전진했거나, 무산출 스윕에 searches[].axis 가 없다`);
@@ -205,6 +247,33 @@ if (runPath) {
 //     번지고, 별표 3개 이상은 그대로 출력되며, 내부 필드명 잔재(…ckNote)는 편집 사고의 흔적이다.
 //     도입 계기(2026-08-31): 감사화법을 정규식 substring 삭제로 지우다 4개 항목의 tip 문장이 깨졌고
 //     Codex 리뷰가 지적할 때까지 사용자 화면에 렌더되고 있었다.
+// **2026-09-02 확장 — region_policy 산문도 본다.** main 이 마크다운 렌더러(src/MdText.jsx)를
+//   머지한 뒤로 짝이 안 맞는 마커는 사용자 화면에 별표로 그대로 보인다. 종전 #14는 항목 필드만
+//   봐서 region_policy watchpoint 10줄의 홀수 마커가 게이트 밖에 있었다(실측 NA2·CN3·KR2·JP2·headline1).
+//   렌더러가 없던 시절 주석이 적은 '강조가 문장 끝까지 번진다'는 이 앱에서 성립하지 않았고,
+//   렌더러가 들어온 지금은 홀수 마커가 실제로 번지므로 검사가 의미를 갖는다.
+if (process.env.RP_PATH) {
+  try {
+    const rp8 = JSON.parse(readFileSync(process.env.RP_PATH,'utf8'));
+    for (const [rg, v] of Object.entries(rp8)) {
+      if (!v || typeof v !== 'object') continue;
+      const fields = [
+        ...((v.watchpoints ?? []).map((w, n) => [`watchpoints[${n}]`, w])),
+        ...(v.headline ? [['headline', v.headline]] : []),
+        ...((v.policies ?? []).map((p, n) => [`policies[${n}].desc`, p?.desc ?? ''])),
+        ...(v.why ? [['why', v.why]] : []),
+      ];
+      for (const [where, text] of fields) {
+        if (typeof text !== 'string' || !text) continue;
+        const b = text.match(/[*][*]/g);
+        if (b && b.length % 2) err(`region_policy ${rg}.${where}: 볼드 마커 홀수 개(${b.length}) — 렌더러가 짝을 못 맞춰 별표가 화면에 남는다`);
+        const st = text.match(/[*]{3,}/g);
+        if (st) err(`region_policy ${rg}.${where}: 별표 3개 이상 ${st.length}건`);
+      }
+    }
+  } catch(e){ warn('region_policy 마커 대조 실패: '+e.message); }
+}
+
 for (const i of items) for (const f of ['d','tip','detail']) {
   const v = i[f]; if (typeof v !== 'string' || !v) continue;
   const stars = v.match(/[*]{3,}/g);
@@ -217,6 +286,333 @@ for (const i of items) for (const f of ['d','tip','detail']) {
   const head = v.replace(/^[*\s]+/, '');
   if (/^(짜리|이며|하고|으로써|에서는|에게는|보다는|까지는|부터는|라는|이라는|되며|되고|인데|지만|면서)/.test(head))
     err(`${i.id}.${f}: 조사·어미로 시작 — 문장 앞이 잘린 의미 파편("${head.slice(0,24)}…")`);
+}
+
+
+// 15) verify.runId ↔ 원장 파일 실재 대조 (ERROR)
+//     검사 #6은 verify.date === run.date 인 항목만 본다. 그래서 **원장이 존재하지 않는 날짜**의 스탬프는
+//     어느 대조 대상에도 들어가지 않고 영영 검사되지 않는다. 2026-09-01 도입 계기: EU-038이
+//     runId "2026-09-01-FIX"(실재하지 않는 원장)로 머지됐고 CI 가 통과시켰다.
+//     **fail-open 금지** — 원장 디렉터리를 못 읽거나 원장 하나가 파싱되지 않으면 검사 전체가 건너뛰어진다.
+//     그 경우 경고로 넘기면 이 검사가 막으려던 무검증 통과 경로가 그대로 되살아나므로 ERROR 로 끊는다.
+//     다만 **기준 집합을 아예 만들지 못한 경우와 일부만 깨진 경우를 가른다** — 전자에서 항목별 대조까지
+//     돌리면 전 항목이 오탐으로 걸려(실측 185줄) 진짜 원인이 묻힌다. 실패는 한 줄로, 종료코드는 그대로 1.
+{
+  const dir = 'ops/runs';
+  const known = new Set();
+  let scanned = 0, baseUsable = true;
+  try {
+    for (const f of readdirSync(dir)) {
+      if (!f.endsWith('.json')) continue;
+      scanned++;
+      try {
+        const id = JSON.parse(readFileSync(`${dir}/${f}`,'utf8')).runId;
+        if (id) known.add(id);
+        else err(`ops/runs/${f}: runId 필드 없음 — 이 원장을 가리키는 스탬프가 미검사로 통과한다`);
+      } catch(e) {
+        err(`ops/runs/${f}: 파싱 실패(${e.message}) — 원장 하나가 깨지면 그 원장을 가리키는 스탬프가 전부 미검사로 통과한다`);
+      }
+    }
+    if (!scanned) {
+      baseUsable = false;
+      err(`${dir}: 원장 파일 0개 — runId 실재 대조를 수행할 수 없다(검사가 조용히 꺼진 상태)`);
+    } else if (!known.size) {
+      // 파일은 있는데 전부 깨졌거나 runId 가 없는 경우. scanned>0 만 보면 baseUsable 이 true 로 남아
+      // 전 항목이 고아로 걸린다(실측 187줄). 기준 집합이 비었다는 것 자체가 '못 만든 것'이다.
+      baseUsable = false;
+      err(`${dir}: 유효한 runId 를 하나도 수집하지 못함 — 기준 집합이 비어 항목별 대조가 전부 오탐이 된다`);
+    }
+  } catch(e) {
+    baseUsable = false;
+    err(`${dir} 스캔 실패(${e.message}) — runId 실재 대조를 수행할 수 없다. 저장소 루트에서 실행할 것`);
+  }
+  // 기준 집합이 부분적으로 깨진 경우(파싱 실패 일부)에는 대조를 계속한다 — 위에서 이미 ERROR 를 올렸다.
+  // 기준 집합이 통째로 없는 경우에는 전 항목 오탐이 되므로 대조를 건너뛴다(이미 ERROR 로 끊긴 상태).
+  if (baseUsable) for (const i of items) {
+    if (!i.verify) continue;                     // verify 자체가 없는 항목은 다른 검사 관할
+    const rid = i.verify.runId;
+    // **runId 가 비면 건너뛰지 않는다.** 현 188건 전부 runId 를 갖고 있어 하위호환 사유가 없고,
+    // 건너뛰면 필드를 지우는 것만으로 #15·#20 을 동시에 우회할 수 있다(6차 리뷰 지적).
+    if (!rid) { err(`${i.id}: verify 에 runId 없음 — 근거 추적 불가(필드 제거로 #15·#20 을 동시에 우회할 수 있다)`); continue; }
+    if (!known.has(rid))
+      err(`${i.id}: verify.runId(${rid}) 에 해당하는 원장이 ops/runs 에 없음 — 근거 추적 불가(검사 #6이 날짜 불일치로 건너뛰는 사각)`);
+  }
+}
+
+
+// 16) effectiveDate ↔ dt 등장 대조 (WARN)
+//     dt 를 통째로 재작성하면서 원래 시행일을 지우는 사고가 있다. 2026-09-01 도입 계기: KR-022 의
+//     연혁을 보강하다 dt 를 새로 써서 `2020.04.01 시행`(effectiveDate 와 짝) 과 기본계획 항목을 지웠고,
+//     게이트 4종이 전부 통과시켰다. **보강은 덧붙이는 것이지 덮어쓰는 것이 아니다.**
+//     dt 는 자유 서술이라 표기가 갈릴 수 있어 ERROR 가 아니라 WARN 으로 둔다.
+for (const i of items) {
+  const eff = i.effectiveDate, dt = i.dt;
+  if (typeof eff !== 'string' || eff.length !== 10 || typeof dt !== 'string' || !dt) continue;
+  const [y,m,d] = eff.split('-');
+  const forms = [eff, `${y}.${m}.${d}`, `${y}.${+m}.${+d}`, `${y}년 ${+m}월 ${+d}일`];
+  if (!forms.some(f => dt.includes(f)))
+    warn(`${i.id}: effectiveDate(${eff})가 dt 에 없음 — dt 재작성 중 시행일이 지워졌을 수 있다`);
+}
+
+// 17) checkNote 같은 run 단락 중복 부착 (ERROR)
+//     한 run 안에서 항목을 두 번 손대면 `**YYYY-MM-DD RD**` 단락이 겹쳐 붙어 감사 이력이 중복된다.
+for (const i of items) {
+  const cn = i.checkNote;
+  if (typeof cn !== 'string') continue;
+  const seen = new Map();
+  // **날짜가 아니라 헤더 문자열로 센다.** 종전 패턴(`**YYYY-MM-DD RD**` 정확형)은 실제 표기의
+  // 6.8%(29/428)만 덮었다. 그렇다고 날짜 단위로 넓히면 안 된다 — 하루에 여러 단락이 붙는 것은
+  // 정상 이력이다(`**2026-08-29 재개 run:**` `**2026-08-29 정정 1차:**` `**2026-08-29 Claire 승인:**`).
+  // 날짜로 넓힌 시안은 실측 59건이 전부 오탐이었다. 중복의 신호는 같은 헤더가 두 번 나오는 것이다.
+  for (const m of cn.matchAll(/\*\*\s*(\d{4}-\d{2}-\d{2}[^*]{0,60}?)\s*\*\*/g)) {
+    const key = m[1].trim().replace(/[:\uFF1A\-\u2014\s]+$/, '');
+    seen.set(key, (seen.get(key) ?? 0) + 1);
+  }
+  for (const [hdr, n] of seen)
+    if (n > 1) err(`${i.id}.checkNote: 단락 헤더 "${hdr}" 가 ${n}번 붙음 — 같은 run 에서 중복 부착됐다`);
+}
+
+// 18) 원장 승인 큐 ↔ 실제 status 정합 (ERROR, 원장 있을 때만)
+//     `[status] XX-000 A → B` 형태의 큐 항목은 데이터가 아직 A 여야 한다. 이미 B 로 바꿔놓고 큐에만
+//     남겨두면 승인 없이 반영된 것을 큐가 가려준다(승인 게이트 우회).
+if (runPath) {
+  try {
+    const r3 = JSON.parse(readFileSync(runPath,'utf8'));
+    // **현 스냅샷을 서술하는 원장만 대조한다.** 과거 원장의 승인 큐는 이력이다 — 그때 대기였던 항목이
+    // 이후 run 에서 승인·반영됐으면 현재 status 와 어긋나는 것이 정상이고, 소급 대조하면 오탐이 된다
+    // (실측: 2026-08-31 원장의 CN-011 대기 항목).
+    const snap3 = (tj.meta?.dataSnapshotDate ?? '').slice(0,10);
+    if (!snap3 || r3.date !== snap3) throw { skip: true };
+    const byId = new Map(items.map(i => [i.id, i]));
+    for (const a of r3.approvalQueueCandidates ?? []) {
+      // **완료·대기를 모두 파싱한다.** 종전에는 완료 항목을 파싱 전에 건너뛰어, 승인된 목표값에서
+      // status 를 다시 바꿔도 통과했다(5차 리뷰 지적). 완료는 to, 대기는 from 이 현재 status 여야 한다.
+      // **표시명이 아니라 필드를 본다.** 종전에는 [status] 접두를 파싱해서, KR-020 처럼 [정책판단] 으로
+      // 적히고도 실제로는 WATCH → ACTIVE 를 수행하는 항목이 검사에서 통째로 빠졌다(6차 리뷰 지적).
+      let id, from, to;
+      const sc = a.statusChange;
+      if (sc?.id && sc?.from && sc?.to) { id = sc.id; from = sc.from; to = sc.to; }
+      else {
+        const m = /\[[^\]]*\]\s*([A-Z]{2}-\d{3})\s+(\w+)\s*(?:→|->)\s*(\w+)/.exec(a.name ?? '');
+        if (!m) continue;
+        [, id, from, to] = m;
+      }
+      const it = byId.get(id);
+      if (!it) { err(`원장 승인 큐: ${id} 가 tracker 에 없음`); continue; }
+      // **판별 축을 구조화한다.** 종전에는 자유 서술 decision 에 대한 정규식이라,
+      // "승인 완료" 나 "반영함" 으로 적거나 필드를 빼면 완료 건이 대기 분기로 떨어져 오탐을 냈다.
+      if (a.applied !== undefined && typeof a.applied !== 'boolean')
+        err(`원장 승인 큐 ${id}: applied 는 boolean 이어야 한다(현재 ${typeof a.applied})`);
+      const done = typeof a.applied === 'boolean'
+        ? a.applied
+        : /반영\s*완료|적용\s*완료|승인\s*완료|applied/i.test(a.decision ?? '');
+      if (done) {
+        if (it.s !== to)
+          err(`원장 승인 큐: ${id} 는 ${to} 로 승인·반영 완료로 기록됐는데 현재 status 가 ${it.s} — 승인 결과가 되돌려졌다`);
+      } else if (it.s === to) {
+        err(`원장 승인 큐: ${id} 가 이미 ${to} 인데 큐에 ${from} → ${to} 대기로 남아 있음 — 승인 없이 반영됐거나 큐가 낡았다`);
+      } else if (it.s !== from) {
+        err(`원장 승인 큐: ${id} 현재 status(${it.s})가 큐 기재(${from} → ${to})와 불일치`);
+      }
+    }
+  } catch(e){ if (!e?.skip) err('승인 큐 정합 대조 실패: '+e.message); }
+}
+
+
+// 19) 검색 선언 축 ↔ coverage 항목 매핑 정합 (ERROR, 원장 있을 때만)
+//     검사 #13은 검색이 선언한 (region, axis) 를 그대로 믿는다. 그래서 축을 잘못 적으면 훑지 않은 셀이
+//     스윕된 것으로 올라간다. 2026-09-01 도입 계기: 항목 재검증 30건 중 10건의 축이 그 항목이 실제로
+//     속한 셀과 달랐고, KR/next_tech·EU/next_tech 같은 gap 셀이 허위로 전진했다.
+if (runPath) {
+  try {
+    const r4 = JSON.parse(readFileSync(runPath,'utf8'));
+    const cv4 = JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8'));
+    const home = new Map();
+    for (const c of cv4.cells ?? []) for (const it of c.items ?? []) {
+      if (!home.has(it)) home.set(it, []);
+      home.get(it).push(`${c.region}/${c.axis}`);
+    }
+    for (const s of r4.searches ?? []) {
+      if (!s.region || !s.axis) continue;
+      const its = s.itemsCovered ?? [];
+      if (!its.length) continue;                       // 순수 발굴 검색은 대상 아님
+      // **항목별로** 대조한다. 합집합으로 보면 여러 항목을 덮는 검색에서 한 항목만 맞아도 통과해
+      // 나머지 항목의 축 오류가 묻힌다(4차 리뷰 지적).
+      const decl = `${s.region}/${s.axis}`;
+      const mapped = its.filter(x => (home.get(x) ?? []).length);
+      if (!mapped.length) continue;
+      const hit = mapped.filter(x => home.get(x).includes(decl));
+      const missIt = mapped.filter(x => !home.get(x).includes(decl));
+      if (!hit.length)
+        err(`원장 검색 축 불일치: ${mapped.join(',')} 는 ${[...new Set(mapped.flatMap(x=>home.get(x)))].join(' | ')} 에 속하는데 검색은 ${decl} 로 선언 — 훑지 않은 셀이 스윕으로 올라간다`);
+      else if (missIt.length)
+        // RUNBOOK 이 다항목 검색을 허용하므로 축이 갈리는 것 자체는 오류가 아니다. 다만 선언 축 밖의
+        // 항목은 그 항목의 셀에 대한 근거가 아니라는 점을 남긴다.
+        warn(`원장 검색 축 부분 불일치: ${missIt.join(',')} 는 ${decl} 밖(${[...new Set(missIt.flatMap(x=>home.get(x)))].join(' | ')}) — 해당 셀의 스윕 근거로는 쓰이지 않는다`);
+    }
+  } catch(e){ err('검색 축 정합 대조 실패: '+e.message); }
+}
+
+// 20) verify.runId 의 원장 날짜 ↔ verify.date 일치 (ERROR)
+//     #15는 runId 가 실재하는지만 본다. 실재하는 다른 날짜의 원장을 가리켜도 통과하므로,
+//     검사 #6이 건너뛰는 날짜 불일치 경로에서 여전히 근거 없는 스탬프가 살아남는다.
+{
+  const dir = 'ops/runs';
+  const dateOf = new Map();
+  try {
+    for (const f of readdirSync(dir)) {
+      if (!f.endsWith('.json')) continue;
+      try {
+        const j = JSON.parse(readFileSync(`${dir}/${f}`,'utf8'));
+        if (!j.runId) continue;
+        // date 가 없으면 맵에 넣지 않는다. 넣으면 undefined 가 되어 이 runId 를 가리키는 스탬프가
+        // if (d0 && ...) 에서 조용히 통과하고, #15는 runId 를 known 으로 보아 존재 검사까지 빠져나간다.
+        if (!j.date) { err(`ops/runs/${f}: date 필드 없음 — 이 원장을 가리키는 스탬프가 날짜 대조를 통째로 빠져나간다`); continue; }
+        if (dateOf.has(j.runId)) err(`ops/runs: runId ${j.runId} 가 파일 여럿에 중복 — 날짜 대조가 모호해진다`);
+        dateOf.set(j.runId, j.date);
+      } catch(e) { /* #15가 이미 ERROR 로 보고한다 */ }
+    }
+  } catch(e) { /* #15가 이미 ERROR 로 보고한다 */ }
+  if (dateOf.size) for (const i of items) {
+    const v = i.verify; if (!v?.runId) continue;  // runId 부재는 #15가 ERROR 로 보고한다
+    // **date 가 없으면 건너뛰지 않는다.** #6은 lastChecked 로 폴백하므로 date 를 지우면 이 대조만 빠져나간다.
+    if (!v.date) { err(`${i.id}: verify 에 date 없음 — 원장 날짜 대조를 빠져나간다(#6은 lastChecked 로 폴백)`); continue; }
+    const d0 = dateOf.get(v.runId);
+    if (d0 && d0 !== v.date)
+      err(`${i.id}: verify.date(${v.date}) ≠ 원장 ${v.runId} 의 date(${d0}) — 실재하지만 무관한 원장을 가리킨다`);
+  }
+}
+
+
+// 21) 원장 파생값 ↔ tracker 실측 정합 (ERROR, 스냅샷 날짜가 일치하는 원장에 한해)
+//     verifyCounts·statusDistribution 은 데이터에서 파생되는 값인데 손으로 적히면 반드시 낡는다.
+//     2026-09-01 도입 계기: 승인 5건을 반영하고 파생값을 재생성하지 않아 187/28/구 status 분포가 남았고,
+//     같은 run 안에서 이 유형이 두 번 났다. 과거 원장은 그때의 상태를 담으므로 대조 대상이 아니다 —
+//     tracker 의 dataSnapshotDate 와 run.date 가 같은, 즉 **현 스냅샷을 서술하는 원장**만 검사한다.
+if (runPath) {
+  try {
+    const r5 = JSON.parse(readFileSync(runPath,'utf8'));
+    const snap = (tj.meta?.dataSnapshotDate ?? '').slice(0,10);
+    if (snap && r5.date === snap) {
+      const realTotal = items.length;
+      const realStatus = {};
+      for (const i of items) realStatus[i.s] = (realStatus[i.s] ?? 0) + 1;
+      const realRun = {};
+      for (const i of items) {
+        const rid = i.verify?.runId, mth = i.verify?.method;
+        if (rid === r5.runId && mth) realRun[mth] = (realRun[mth] ?? 0) + 1;
+      }
+      const vcTotal = Object.values(realRun).reduce((a,b)=>a+b,0);
+      // **필드 부재를 통과로 두지 않는다.** 조건부 비교만 하면 현 스냅샷 원장이 필드를 지우는 것만으로
+      // 이 게이트를 통째로 우회한다(6차 리뷰 지적).
+      const vc = r5.verifyCounts ?? {};
+      if (vc.totalItems === undefined) err('원장 verifyCounts.totalItems 없음 — 파생값 정합 대조를 우회한다');
+      else if (vc.totalItems !== realTotal)
+        err(`원장 verifyCounts.totalItems(${vc.totalItems}) ≠ tracker 실측(${realTotal}) — 파생값이 낡았다`);
+      if (vc.thisRunTotal === undefined) err('원장 verifyCounts.thisRunTotal 없음 — 파생값 정합 대조를 우회한다');
+      else if (vc.thisRunTotal !== vcTotal)
+        err(`원장 verifyCounts.thisRunTotal(${vc.thisRunTotal}) ≠ tracker 실측(${vcTotal}) — 파생값이 낡았다`);
+      // **축별 집계와 carriedOver 도 대조한다.** 종전에는 합만 봐서 thisRun 의 method 분포를
+      // {secondary:29} 로 바꿔도, carriedOver 를 아무 값으로 적어도 통과했다.
+      const tr = vc.thisRun;
+      if (!tr) err('원장 verifyCounts.thisRun 없음 — 축별 집계 대조를 우회한다');
+      else {
+        for (const m of new Set([...Object.keys(tr), ...Object.keys(realRun)]))
+          if ((tr[m] ?? 0) !== (realRun[m] ?? 0))
+            err(`원장 verifyCounts.thisRun.${m}(${tr[m] ?? 0}) ≠ tracker 실측(${realRun[m] ?? 0}) — 파생값이 낡았다`);
+      }
+      if (vc.carriedOver === undefined) err('원장 verifyCounts.carriedOver 없음 — 파생값 정합 대조를 우회한다');
+      else if (vc.carriedOver !== realTotal - vcTotal)
+        err(`원장 verifyCounts.carriedOver(${vc.carriedOver}) ≠ 실측(${realTotal - vcTotal}) — 파생값이 낡았다`);
+      const sd = r5.statusDistribution;
+      if (!sd) err('원장 statusDistribution 없음 — 파생값 정합 대조를 우회한다');
+      if (sd) {
+        const keys = new Set([...Object.keys(sd), ...Object.keys(realStatus)]);
+        for (const k of keys) if ((sd[k] ?? 0) !== (realStatus[k] ?? 0))
+          err(`원장 statusDistribution.${k}(${sd[k] ?? 0}) ≠ tracker 실측(${realStatus[k] ?? 0}) — 파생값이 낡았다`);
+      }
+      const cs = r5.coverageStamped?.count;
+      if (cs === undefined) err('원장 coverageStamped.count 없음 — 스윕 셀 수 대조를 우회한다');
+      if (cs !== undefined) {
+        const realStamp = (JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8')).cells ?? [])
+          .filter(c => c.lastSwept === r5.date).length;
+        if (cs !== realStamp)
+          err(`원장 coverageStamped.count(${cs}) ≠ coverage 실측(${realStamp}) — 스윕 셀 수가 낡았다`);
+      }
+    }
+  } catch(e){ err('원장 파생값 정합 대조 실패: '+e.message); }
+}
+
+
+// 22) meta.dataSnapshotDate 필수 + coverage 사전 정의 쿼리 분포 (ERROR / WARN)
+//     #18·#21 은 tj.meta.dataSnapshotDate === run.date 를 자기 실행 조건으로 삼는데, 그 필드의
+//     존재를 요구하는 게이트가 어디에도 없었다. 필드 한 줄을 지우면 두 검사가 통째로 꺼진다
+//     (리뷰 실측: 승인 결과를 되돌린 상태에서 FAIL 3 → 필드 삭제 시 PASS 0).
+//     #21 이 스스로 세운 원칙(필드 부재를 통과로 두지 않는다)을 tracker 쪽에도 적용한다.
+{
+  const snap = tj.meta?.dataSnapshotDate;
+  if (!snap) err('meta.dataSnapshotDate 없음 — 이 필드가 없으면 검사 #18·#21 이 조용히 꺼진다');
+  else if (!/^\d{4}-\d{2}-\d{2}$/.test(String(snap)))
+    err(`meta.dataSnapshotDate(${snap}) 형식 불량 — YYYY-MM-DD 여야 #18·#21 이 작동한다`);
+}
+//     coverage 쿼리 분포 — RUNBOOK 은 셀당 3~6개를 요구한다. 종전 경고는 0개 셀만 세어
+//     실제 미달 규모를 축소 보고했고(27 vs 84), 원장이 있을 때만 나왔다.
+try {
+  const cv6 = JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8'));
+  const cells = cv6.cells ?? [];
+  const dist = new Map();
+  for (const c of cells) { const n = (c.queries ?? []).length; dist.set(n, (dist.get(n) ?? 0) + 1); }
+  const under = cells.filter(c => (c.queries ?? []).length < 3).length;
+  const zero  = cells.filter(c => !(c.queries ?? []).length).length;
+  if (under) warn(`coverage 사전 정의 쿼리 미달 ${under}/${cells.length}셀 (0개 ${zero}셀 포함) — RUNBOOK 은 셀당 3~6개를 요구하며, 미달 셀은 검사 #13이 스탬프를 거부한다. 분포 ${[...dist].sort((a,b)=>a[0]-b[0]).map(([k,v])=>`${k}개:${v}셀`).join(' ')}`);
+  // _meta 에 손으로 적던 집계(cellsWithoutPredefinedQueries)는 **삭제했다.** 소비자가
+  // coverage.json 자신과 이 검증 코드뿐이었고, 같은 값을 여기서 런타임에 계산해 위 경고로
+  // 내보낸다. 손으로 적힌 파생값을 지키는 것보다 없애는 쪽이 단순하고 드리프트가 사라진다
+  // — 이 PR 이 세운 '파생값 하드코딩 금지' 규칙을 스스로에게 적용한 것이다.
+} catch(e){ err('coverage 쿼리 분포 대조 실패: '+e.message); }
+
+
+// 23) coverage 셀 키 유일성 (ERROR)
+//     검사 #13·#19 와 check_query_precedence 는 모두 `region/axis` 를 Map 키로 쓴다. 중복 키가
+//     있으면 **마지막 것만 남고 앞의 셀이 조용히 사라진다** — 그 셀의 스윕 게이트가 꺼진다.
+//     coverage.json 은 손편집 파일이라 셀 복붙 하나면 재현된다(실측: NA/trade 를 복제하면
+//     검사 전체가 PASS 로 통과했다). region·axis 결손도 undefined/undefined 로 충돌한다.
+try {
+  const cv7 = JSON.parse(readFileSync(process.env.COV_PATH ?? 'ops/coverage.json','utf8'));
+  const seen7 = new Map();
+  for (const [n, c] of (cv7.cells ?? []).entries()) {
+    if (!c.region || !c.axis) { err(`coverage cells[${n}]: region/axis 결손(${c.region}/${c.axis}) — Map 키가 충돌해 셀이 조용히 사라진다`); continue; }
+    const k = `${c.region}/${c.axis}`;
+    if (seen7.has(k)) err(`coverage ${k}: 셀이 ${seen7.get(k)}번·${n}번에 중복 — 앞의 셀이 Map 에서 덮여 스윕 게이트가 꺼진다`);
+    else seen7.set(k, n);
+  }
+} catch(e){ err('coverage 셀 키 유일성 대조 실패: '+e.message); }
+
+// 24) region_policy 산문 — 상대 D-day 금지 (ERROR)
+//     항목 필드의 D-day 는 렌더 시점에 파생되지만 region_policy 산문은 그런 장치가 없어
+//     다음 날 곧바로 낡는다(실측: 2026-09-01 에 적은 D-2(2026.09.03) 가 09-02 에 D-1).
+//     절대일자만 쓴다. 검사 #1(항목 산문 D-day)의 대응물이다.
+if (process.env.RP_PATH) {
+  try {
+    const rp9 = JSON.parse(readFileSync(process.env.RP_PATH,'utf8'));
+    for (const [rg, v] of Object.entries(rp9)) {
+      if (!v || typeof v !== 'object') continue;
+      const proseFields = [
+        ...((v.watchpoints ?? []).map((w, n) => [`watchpoints[${n}]`, w])),
+        ...(v.headline ? [['headline', v.headline]] : []),
+        ...((v.policies ?? []).map((p, n) => [`policies[${n}].desc`, p?.desc ?? ''])),
+        ...(v.why ? [['why', v.why]] : []),
+      ];
+      for (const [where, text] of proseFields) {
+        if (typeof text !== 'string') continue;
+        // **괄호를 요구하지 않는다.** 처음엔 /D[+-]\d+\s*\(/ 로 썼는데, 그건 이 검사를 만든 계기가
+        // 마침 괄호형(D-2(2026.09.03))이었던 것을 그대로 규칙으로 굳힌 것이다. 검사 #1(항목 산문
+        // D-day)이 쓰는 패턴과 맞춘다 — 맨몸 D-3·D-32 가 같은 파일에 살아 있었고 구 패턴은 둘 다 놓쳤다.
+        for (const m of text.matchAll(/\(?D[-+]{1,2}\d+/g))
+          err(`region_policy ${rg}.${where}: 상대 D-day 표기(${m[0]}) — 다음 날 낡는다. 절대일자만 쓸 것`);
+      }
+    }
+  } catch(e){ warn('region_policy 산문 D-day 대조 실패: '+e.message); }
 }
 
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);

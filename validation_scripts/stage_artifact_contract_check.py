@@ -171,15 +171,12 @@ def _bucket_items(payload, bucket):
 
 
 def collect_items(payload, stage):
+    # Preserve every emitted row. Duplicate candidate identities are not a
+    # normalization concern: they are contradictory stage outcomes and must be
+    # surfaced by the production checker rather than silently discarded.
     items = []
-    seen = set()
     for bucket in BUCKETS.get(stage, []):
-        for item in _bucket_items(payload, bucket):
-            marker = item_marker(item)
-            if marker in seen:
-                continue
-            seen.add(marker)
-            items.append(item)
+        items.extend(_bucket_items(payload, bucket))
     return items
 
 
@@ -229,14 +226,12 @@ def _top_level_gate_finding(stage, field, value):
                 and value.get("main_unchanged_since_locked_preflight") is True \
                 and value.get("silent_rebase_performed") is False:
             return None
-        if value == "PASS":
-            return None
         return {
             "scope": "top_level",
             "field": field,
-            "expected": "PASS with baseline_locked/main_unchanged true and silent_rebase false",
+            "expected": "structured PASS with baseline_locked/main_unchanged true and silent_rebase false",
             "actual": value,
-            "message": "0.8 github/main synchronization gate is not passing",
+            "message": "0.8 github/main synchronization gate requires the structured production proof",
         }
 
     if stage == "0.8" and field == "lineage_merge_gate":
@@ -246,14 +241,12 @@ def _top_level_gate_finding(stage, field, value):
                 and value.get("github_ready_allowed") is True \
                 and value.get("anchor_path_hold_count") == 0:
             return None
-        if value == "PASS":
-            return None
         return {
             "scope": "top_level",
             "field": field,
-            "expected": "passing lineage merge gate with zero holds",
+            "expected": "structured passing lineage merge gate with zero holds",
             "actual": value,
-            "message": "0.8 lineage merge gate is not passing",
+            "message": "0.8 lineage merge gate requires the structured zero-hold production proof",
         }
     return None
 
@@ -407,6 +400,19 @@ def main() -> int:
             findings.append(gate_finding)
 
     items = collect_items(payload, args.stage)
+    marker_counts = {}
+    for item in items:
+        marker = item_marker(item)
+        marker_counts[marker] = marker_counts.get(marker, 0) + 1
+    for marker, count in marker_counts.items():
+        if count > 1:
+            findings.append({
+                "scope": marker[1],
+                "field": "duplicate_stage_item_identity",
+                "actual": count,
+                "message": "the same candidate/item identity cannot appear more than once in a stage artifact",
+            })
+
     if args.stage in {"A", "0.5", "0.6", "0.7", "0.8"} and not items:
         findings.append({"scope": "top_level", "field": f"non_empty_{BUCKETS[args.stage][0]}"})
 

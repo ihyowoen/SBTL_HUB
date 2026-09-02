@@ -103,8 +103,8 @@ run {
 - 축: trade(통상·관세) / subsidy(보조금·세제) / product_std(제품표준·안전) / chemicals(화학물질) / recycle(재활용·순환) / supply_chain(공급망·자원안보) / transport(운송·물류·저장) / carbon(탄소·ESG) / packaging(포장) / waste_ship(폐기물 이동) / data_dpp(정보·여권) / energy_market(전력시장·ESS)
 - 각 셀: { items[], status: covered|gap|na, lastSwept, sweepDay, queries[3~6], itemVerifyQueries[{date,query}]?, adhocDiscovery[{date,query}]? } — 쿼리는 셀에 **사전 정의**(현 항목과 무관하게), 언어 규칙 적용(CN=간체, JP=일본어)
 - 셀 운영 규칙:
-  - RD-3에서 요일 슬라이스별 로테이션(§4), **lastSwept 오래된 순 + gap 셀 우선**
-  - 전 셀 주 1회 스윕 보장 (일요일에 미스윕 보충)
+  - RD-3 는 **전수 스윕**(요일 슬라이스 폐기, §4). 우선순위는 **lastSwept 오래된 순 + gap 셀 우선**
+  - 전 셀 **매일** 스윕이 목표. 예산 미달분은 다음 run 우선(일요일 보충 규칙도 폐기 — 매일 전수다)
   - gap 셀에서 2회 연속 아무것도 안 나오면 status를 na(해당 규범 부재) 후보로 — Claire 승인 후 na 처리, 분기 1회 재확인
   - **items에 적는 ID는 tracker에 실재해야 함**(검사 #9 ERROR). 신규 항목을 셀에 넣을 땐 데이터 파일과 **같은 PR**로 착지 (F13)
 
@@ -137,19 +137,20 @@ run {
 - `_meta.lastUpdated`는 tracker `meta.lastUpdated`와 **동일 날짜** 유지(불일치 시 G3 WARN — validator v2 검사 #8)
 - 무변화일도 `_meta.lastUpdated`만 갱신(tracker와 동기)
 
-### 7일 신규발굴 로테이션 (RD-3) — 72셀을 요일 슬라이스로
-전 항목 재검증(RD-2)은 매일이지만, **신규 표면 발굴**은 셀이 많아 요일 분산. 각 셀 주 1회 스윕 보장.
-| 요일 | 슬라이스 (축) |
-|------|--------------|
-| 월 | trade + subsidy (전 권역) |
-| 화 | product_std + chemicals |
-| 수 | recycle + waste_ship |
-| 목 | supply_chain + data_dpp |
-| 금 | carbon + energy_market |
-| 토 | transport + packaging |
-| 일 | gap 셀 전량 재확인 + na 후보 판정 + 지난주 미스윕 보충 |
-- 급변 이벤트(관세 발효일 등)는 요일 무관 RD-1에서 당일 처리.
-- lastSwept 7일 초과 셀이 생기면 일요일에 강제 보충.
+### 신규발굴 스윕 (RD-3) — **전수. 요일 슬라이스 없음**
+**운영 결정: 스윕은 매일 전 셀 전수다.** 종전에 요일별로 축을 쪼개던 로테이션 표(월 trade+subsidy, 화
+product_std+chemicals, …)는 **폐기했다** — 이 문서가 폐기된 규칙을 계속 담고 있어 2026-09-02 run 이
+그걸 읽고 수요일 슬라이스로 출발했다. 문서가 낡으면 운영이 낡은 대로 굴러간다.
+
+- 90셀 전 축·전 권역을 매일 훑는다. 요일에 따라 대상이 달라지지 않는다.
+- 스윕 근거는 **셀의 사전 정의 `queries` 를 실제로 돌린 검색**만 인정한다(검사 #13). 셀당 3~6개가
+  전제이고, 미달 셀은 스탬프가 거부된다 — 2026-09-02 에 90셀 중 84셀이 미달이라 전 축이 막혀 있었고
+  같은 날 백필했다.
+- 쿼리는 **현 항목과 무관하게** 축 영역을 훑는 형태로 쓰고 언어 규칙을 적용한다(CN=간체·JP=일본어·
+  KR=한국어·NA·EU·GL=영어).
+- 검색 예산이 전수를 못 받치는 날은 **부분 run 으로 명시 기록**하고 미명중 셀을 다음 run 우선으로 올린다.
+  전수를 목표로 하되 덮은 만큼만 스탬프한다 — 목표와 실측을 섞지 않는다.
+- 급변 이벤트(관세 발효일 등)는 RD-1 에서 당일 처리한다.
 
 ### 배포 정책 (매일)
 - **매일 PR — tracker_data.json + region_policy.json 2파일.** 변화 있으면 변경분, 무변화일은 두 파일 verify/lastUpdated 갱신 커밋("YYYY-MM-DD RD 무변화 확인").

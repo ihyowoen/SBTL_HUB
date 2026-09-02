@@ -1,0 +1,131 @@
+{
+  "runId": "2026-09-02-RD",
+  "date": "2026-09-02",
+  "partial": true,
+  "note": "PR #302 머지(1fd5485) 직후 개시한 정규 RD run. **전수 체제** — 요일 슬라이스는 폐기됐다.",
+  "rd0": {
+    "todayKST": "2026-09-02",
+    "ddayRollover": "dt 산문 D-day 마커 0건 — 롤오버 대상 없음",
+    "boundary": [
+      "D-1 2026-09-03 — NA-043 UAS Section 232 발효 (UPCOMING, 전환은 내일 승인 대상)",
+      "D+1 2026-09-01 — CN-028 소비세 2%·CN-038 GB/T 46261 (어제 ACTIVE 전환 완료)"
+    ]
+  },
+  "operatingModelCorrection": {
+    "what": "RUNBOOK 의 요일 슬라이스 로테이션 표를 폐기하고 **전수**를 명문화했다.",
+    "why": "운영 결정은 이미 전수였는데 RUNBOOK 이 폐기된 표를 계속 담고 있었다. 이 run 이 그 문서를 읽고 수요일 슬라이스(recycle+waste_ship)로 출발했다 — **문서가 낡으면 운영이 낡은 대로 굴러간다.**",
+    "alsoRemoved": "일요일 미스윕 보충 규칙(전수면 불필요)"
+  },
+  "coverageQueryBackfill": {
+    "problem": "검사 #13 이 스윕 근거로 셀의 사전 정의 queries 실행을 요구하는데 **90셀 중 84셀이 3개 미만**이라 정당한 스탬프가 불가능했다. 전수 체제에서는 이게 전 축을 막는다.",
+    "action": "축별 주제어 + 권역 언어 규칙(CN=간체·JP=일본어·KR=한국어·NA·EU·GL=영어)으로 84셀에 셀당 3개를 채웠다. 쿼리는 RUNBOOK 대로 현 항목과 무관하게 축 영역을 훑는 형태다.",
+    "distributionAfter": {
+      "3": 32,
+      "4": 5,
+      "5": 53
+    },
+    "notStampedToday": "**이 PR 은 lastSwept 를 전진시키지 않는다** — 워크플로의 Coverage query precedence 스텝이 같은 PR 에서 queries 추가와 스탬프가 겹치는 것을 막는다(자기인증 차단). 스윕 스탬프는 다음 run 부터 유효하다. 이 순서가 설계 의도대로 작동한 첫 사례다."
+  },
+  "searches": [
+    {
+      "query": "CBP CSMS Section 232 unmanned aircraft systems September 3 2026 HTS 9903 subheadings Annex I guidance",
+      "region": "NA",
+      "axis": "trade",
+      "itemsCovered": [
+        "NA-043"
+      ],
+      "sweepKind": "verify",
+      "result": "부속서 세번 미확정. CBP CSMS 에 해당 안내 미발견. 다섯 경로 전부 실패(백악관 본문·관보 PDF·FR 차단·CSMS·해설). 신규 — CBP 룰링 NY N269396 이 드론 배터리를 HTSUS 8507.60.0020 으로 분류(등재 증거는 아님)."
+    },
+    {
+      "query": "삼각벨트 이차전지 ESS 확대 배터리 리스 사업 2026 추진 현황 산업통상자원부",
+      "region": "KR",
+      "axis": "recycle",
+      "itemsCovered": [
+        "KR-004"
+      ],
+      "sweepKind": "verify",
+      "result": "37일 방치 해소. 삼각벨트=충청·영남·호남. ESS 입찰 규모 2배·3차 다음 달 예정, 2차 낙찰가 30원/kWh대→20원대 하락. 배터리 리스는 진전 미확인.",
+      "axisRelabeled": "선언 KR/energy_market → coverage 매핑 KR/recycle (검사 #19 적출)"
+    },
+    {
+      "query": "차세대 배터리 R&D 2800억원 2029 전고체 리튬메탈 산업부 예산 2026 진행",
+      "region": "KR",
+      "axis": "energy_market",
+      "itemsCovered": [
+        "KR-006"
+      ],
+      "sweepKind": "verify",
+      "result": "37일 방치 해소. 근거=2025.11.28 제8차 국가첨단전략산업위 「K-배터리 경쟁력 강화 방안」. 전고체·리튬금속·리튬황, 2035 로드맵 연내. **신규 — 2026.02 국민성장펀드 전고체 소재 공장 1,000억원 저리대출 의결.**",
+      "axisRelabeled": "선언 KR/next_tech → coverage 매핑 KR/energy_market (검사 #19 적출)"
+    },
+    {
+      "query": "\"9903\" unmanned aircraft systems tariff Annex I HTSUS 8507.60 drone battery classification Federal Register annex list",
+      "region": "NA",
+      "axis": "trade",
+      "itemsCovered": [
+        "NA-043"
+      ],
+      "sweepKind": "verify",
+      "result": "부속서 목록 미발견. Annex I 이 열화상 탑재 기종을 250g 이하부터 25kg까지 전 중량대에 걸쳐 포함한다는 서술만 추가 확인."
+    }
+  ],
+  "primaryDocs": [],
+  "verifyCounts": {
+    "derivedFrom": "public/data/tracker_data.json (마감 시 재생성)",
+    "totalItems": 188,
+    "thisRun": {
+      "secondary": 2,
+      "search": 1
+    },
+    "thisRunTotal": 3,
+    "carriedOver": 185
+  },
+  "statusDistribution": {
+    "ACTIVE": 110,
+    "DONE": 10,
+    "WATCH": 41,
+    "UPCOMING": 27
+  },
+  "coverageStamped": {
+    "cells": [],
+    "count": 0,
+    "criterion": "셀의 사전 정의 queries 를 실제로 돌린 검색만 스윕 근거(검사 #13).",
+    "note": "**오늘 스탬프 0셀** — 쿼리 백필과 같은 PR 이라 선행성 스텝이 스탬프를 막는다(설계 의도)."
+  },
+  "partialReason": {
+    "why": "전수 재검증 미완. 오늘은 D-1 항목(NA-043)과 방치 2건(KR-004·KR-006) 회수, 그리고 **전수 스윕의 구조적 병목(셀 쿼리 84개 미달) 해소**에 집중했다.",
+    "arithmetic": "전수 체제와 검색 예산이 아직 맞지 않는다 — 188항목을 하루에 실검증하려면 검색이 항목당 최소 1회여도 188회다. 어제 30회, 오늘 4회였다. **목표(전수)와 실측을 섞지 않기 위해 부분으로 기록한다.** 예산·주기·범위 중 하나를 조정하는 판단이 필요하다.",
+    "unverifiedScope": {
+      "staleCount": 0,
+      "staleIds": [],
+      "note": "검증 후 7일 초과 항목. 오늘 KR-004·KR-006 을 회수해 0이 됐다."
+    }
+  },
+  "carryOver": [
+    "**NA-043 부속서 8507.60.0020 등재 여부 — 내일 발효. CBP CSMS 안내가 나오면 세번을 나열할 가능성이 가장 높다. SBTL 직접 노출이 여기 달려 있다**",
+    "NA-043 status UPCOMING → ACTIVE — 내일(09-03) 발효 도래 시 승인 대상",
+    "**셀 스윕 스탬프 — 쿼리 백필이 착지한 다음 run 부터 유효**. 90셀 전수 스윕을 실제로 돌릴 것",
+    "KR-006 파생 — 2026.02 국민성장펀드 전고체 소재 공장 1,000억원 저리대출을 별건 항목으로 세울지 판단(정책자금 집행은 제정 규범이 아니라 관찰 대상)",
+    "전수 체제 대 검색 예산 — 188항목/일을 받칠 수 없다. 예산·주기·범위 중 조정 필요",
+    "정책 일관성 — WATCH 인데 제정 신호가 있는 22건 판정(KR-020 승인의 파급)",
+    "검사 #16 초회 적출 5건 — NA-024(발효일 있는데 dt 는 미발효라고 서술)·NA-016·CN-015·CN-004·KR-005",
+    "KR-027 과태료 조문 미확인 · KR-014 시행일 불일치 · EU-038 일몰 예고 공고"
+  ],
+  "mergedLeftovers": {
+    "what": "PR #302 머지 후에 브랜치로 간 커밋 3건을 이 run 에 실었다.",
+    "items": [
+      "unit-tests.yml 근거 주석(왜 별도 워크플로인지 + 0바이트 사고 기록)",
+      "__tests__/mdText.test.jsx 단언 범위를 검사 #14 와 정렬(watchpoints 만 → headline·policies.desc·why 포함)",
+      "2026-09-01 원장에 0바이트 사고 기록"
+    ],
+    "why": "2번은 게이트와 테스트의 커버리지가 어긋난 문제라 남겨두면 한쪽이 놓친다."
+  },
+  "selfCaught": {
+    "finding": "원장 검색의 축 라벨 2건이 coverage 매핑과 달랐다 — KR-004 는 KR/recycle, KR-006 은 KR/energy_market 인데 각각 energy_market·next_tech 로 선언했다.",
+    "caughtBy": "검사 #19(어제 신설). 게이트가 FAIL 로 끊어 커밋 전에 잡혔다.",
+    "root": "축을 쿼리의 주제 인상(ESS→energy_market, 차세대전지→next_tech)으로 달았다. 어제 10건을 같은 이유로 재분류하고도 반복했다.",
+    "fix": "coverage 매핑으로 재분류. 스윕 근거로는 쓰이지 않지만(오늘 스탬프 0셀) 라벨이 틀리면 다음 run 의 근거 판정이 어긋난다.",
+    "note": "**어제 만든 검사가 오늘 나를 잡은 첫 사례다.**"
+  }
+}

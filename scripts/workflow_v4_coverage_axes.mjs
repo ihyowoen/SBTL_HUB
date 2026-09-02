@@ -3,7 +3,9 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-export const WORKFLOW_V4_COVERAGE_AXES_PATH = resolve(HERE, "../schemas/workflow-v4-coverage-axes.json");
+export const WORKFLOW_V4_COVERAGE_AXES_PATH = process.env.WORKFLOW_V4_COVERAGE_AXES_PATH
+  ? resolve(process.env.WORKFLOW_V4_COVERAGE_AXES_PATH)
+  : resolve(HERE, "../schemas/workflow-v4-coverage-axes.json");
 
 export class CoverageAxesContractError extends Error {
   constructor(message) {

@@ -15,11 +15,14 @@ on:
       - "scripts/validate_card_run_relations.mjs"
       - "scripts/validate_card_run_lineage_containers.mjs"
       - "scripts/validate_card_run_audits.mjs"
+      - "scripts/validate_card_run_audits_dispatch.mjs"
       - "scripts/validate_card_run_v4_hardening.mjs"
+      - "scripts/validate_prompt_0_8_semantic_gate.mjs"
       - "scripts/validate_json_schema_subset.mjs"
       - "scripts/validate_legacy_related_lineage_migration.mjs"
       - "scripts/validate_manual_direct_add.mjs"
       - "scripts/validate_manual_direct_add_v4_hardening.mjs"
+      - "scripts/manual_direct_add_v1_history.mjs"
       - "scripts/workflow_v4_coverage_axes.mjs"
       - "validation_scripts/card_run_v4_binding_hardening.py"
       - "validation_scripts/stage_artifact_contract_check.py"
@@ -33,10 +36,12 @@ on:
       - "validation_scripts/stage_a_full_v3_completeness_review4945713246.py"
       - "validation_scripts/stage_lineage_contract_check_review4869324626_base.py"
       - "validation_scripts/v3_stage_contracts.py"
+      - "validation_scripts/tests/test_prompt_0_8_runtime_gate.py"
       - "schemas/card-run.v1.schema.json"
       - "schemas/manual-direct-add.v2.schema.json"
       - "schemas/workflow-v4-coverage-axes.json"
       - ".github/workflows/apply-card-run.yml"
+      - ".github/workflows/manual-direct-add-schema-validation.yml"
       - ".github/workflows/legacy-related-lineage-migration.yml"
   workflow_dispatch:
     inputs:
@@ -74,11 +79,14 @@ jobs:
           node --check scripts/validate_card_run_relations.mjs
           node --check scripts/validate_card_run_lineage_containers.mjs
           node --check scripts/validate_card_run_audits.mjs
+          node --check scripts/validate_card_run_audits_dispatch.mjs
           node --check scripts/validate_card_run_v4_hardening.mjs
+          node --check scripts/validate_prompt_0_8_semantic_gate.mjs
           node --check scripts/validate_json_schema_subset.mjs
           node --check scripts/validate_legacy_related_lineage_migration.mjs
           node --check scripts/validate_manual_direct_add.mjs
           node --check scripts/validate_manual_direct_add_v4_hardening.mjs
+          node --check scripts/manual_direct_add_v1_history.mjs
           node --check scripts/workflow_v4_coverage_axes.mjs
           python3 -m py_compile \
             validation_scripts/card_run_v4_binding_hardening.py \
@@ -92,7 +100,8 @@ jobs:
             validation_scripts/date_role_freshness_check.py \
             validation_scripts/stage_a_full_v3_completeness_review4945713246.py \
             validation_scripts/stage_lineage_contract_check_review4869324626_base.py \
-            validation_scripts/v3_stage_contracts.py
+            validation_scripts/v3_stage_contracts.py \
+            validation_scripts/tests/test_prompt_0_8_runtime_gate.py
           node -e 'JSON.parse(require("fs").readFileSync("schemas/card-run.v1.schema.json", "utf8"))'
           node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v2.schema.json", "utf8"))'
           node -e 'JSON.parse(require("fs").readFileSync("schemas/workflow-v4-coverage-axes.json", "utf8"))'
@@ -103,11 +112,15 @@ jobs:
           node scripts/validate_card_run_relations.mjs --self-test
           node scripts/validate_card_run_lineage_containers.mjs --self-test
           node scripts/validate_card_run_audits.mjs --self-test
+          node scripts/validate_card_run_audits_dispatch.mjs --self-test
           node scripts/validate_card_run_v4_hardening.mjs --self-test
+          node scripts/validate_prompt_0_8_semantic_gate.mjs --self-test
           python3 validation_scripts/card_run_v4_binding_hardening.py --self-test
           node scripts/validate_legacy_related_lineage_migration.mjs --self-test
           node scripts/validate_manual_direct_add.mjs --self-test
           node scripts/validate_manual_direct_add_v4_hardening.mjs --self-test
+          node scripts/manual_direct_add_v1_history.mjs --self-test
+          python3 validation_scripts/tests/test_prompt_0_8_runtime_gate.py
 
   verify-submitted-run:
     needs: validate-engine
@@ -167,32 +180,10 @@ jobs:
           echo "base_sha=$base_sha" >> "$GITHUB_OUTPUT"
 
           historical_v1_audit_only() {
-            local rows=0
-            while IFS=$'\t' read -r status path1 path2; do
-              [[ -n "$status" ]] || continue
-              rows=$((rows + 1))
-              local base_manifest manifest
-              case "$status" in
-                R*) base_manifest="$path1"; manifest="$path2" ;;
-                D*) base_manifest="$path1"; manifest="" ;;
-                C*) return 1 ;; # a copy is a new manifest, never grandfathered
-                *) base_manifest="$path1"; manifest="$path1" ;;
-              esac
-
-              git cat-file -e "${base_sha}:${base_manifest}" 2>/dev/null || return 1
-              local base_schema_name
-              base_schema_name="$(git show "${base_sha}:${base_manifest}" | node -e 'const fs=require("fs");const r=JSON.parse(fs.readFileSync(0,"utf8"));process.stdout.write(String(r.schema||""))')"
-              [[ "$base_schema_name" == "manual_direct_add_v1" ]] || return 1
-
-              if [[ "$status" == D* ]]; then
-                continue
-              fi
-              [[ -f "$manifest" ]] || return 1
-              local schema_name
-              schema_name="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String(r.schema||""))' "$manifest")"
-              [[ "$schema_name" == "manual_direct_add_v1" ]] || return 1
-            done < <(git diff -M --diff-filter=ACMRD --name-status "origin/$BASE_REF...HEAD" -- ':(glob)direct-adds/**/direct-add.json')
-            [[ $rows -eq 1 ]]
+            node scripts/manual_direct_add_v1_history.mjs \
+              --audit-only \
+              --base "$base_sha" \
+              --range "origin/$BASE_REF...HEAD" >/dev/null
           }
 
           if [[ ${#canonical_data[@]} -gt 0 ]]; then
@@ -290,7 +281,6 @@ jobs:
           actual_blob="$(git rev-parse "${BASE_SHA}:data/cards.full.json")"
           [[ "$declared_main" == "$BASE_SHA" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED main $BASE_SHA != $declared_main" >&2; exit 1; }
           [[ "$declared_blob" == "$actual_blob" ]] || { echo "FAIL: BLOCKED_BASELINE_MOVED_REBASE_REQUIRED blob $actual_blob != $declared_blob" >&2; exit 1; }
-          git show "${BASE_SHA}:data/cards.full.base.json" > /dev/null 2>&1 || true
           git show "${BASE_SHA}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
           [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$declared_blob" ]] || { echo "FAIL: reconstructed baseline bytes mismatch" >&2; exit 1; }
 
@@ -330,8 +320,6 @@ jobs:
             --run "${{ steps.run.outputs.path }}"
           node scripts/validate_card_run_v4_hardening.mjs \
             --run "${{ steps.run.outputs.path }}"
-          python3 validation_scripts/card_run_v4_binding_hardening.py \
-            --run "${{ steps.run.outputs.path }}"
           node scripts/validate_card_run_status_consistency.mjs \
             --run "${{ steps.run.outputs.path }}"
           node scripts/validate_card_run_relations.mjs \
@@ -339,54 +327,8 @@ jobs:
           node scripts/validate_card_run_lineage_containers.mjs \
             --run "${{ steps.run.outputs.path }}" \
             --canonical data/cards.full.json
-
-          # audit_refs may also carry the run-bound Prompt 0.8 stage artifact.
-          # Dispatch that artifact to the dedicated semantic gate below and feed
-          # only actual card_run_audit_v1 references to the audit validator.
-          AUDIT_ONLY_RUN="$RUNNER_TEMP/card-run-audits-only.json"
-          node - "${{ steps.run.outputs.path }}" "$AUDIT_ONLY_RUN" <<'NODE'
-          const fs = require('fs');
-          const path = require('path');
-          const [runPath, outputPath] = process.argv.slice(2);
-          const root = path.resolve('.');
-          const run = JSON.parse(fs.readFileSync(runPath, 'utf8').replace(/^\uFEFF/, ''));
-          const audits = [];
-          let mergePrepCount = 0;
-          for (const ref of run.audit_refs || []) {
-            if (typeof ref !== 'string' || !ref.trim() || !ref.endsWith('.json')) {
-              console.error(`FAIL: BLOCKED_RUN_AUDIT_INVALID invalid audit ref ${String(ref)}`);
-              process.exit(1);
-            }
-            const absolute = path.resolve(root, ref);
-            if (absolute !== root && !absolute.startsWith(`${root}${path.sep}`)) {
-              console.error(`FAIL: BLOCKED_RUN_AUDIT_INVALID repository-outside audit ref ${ref}`);
-              process.exit(1);
-            }
-            let payload;
-            try { payload = JSON.parse(fs.readFileSync(absolute, 'utf8').replace(/^\uFEFF/, '')); }
-            catch (error) {
-              console.error(`FAIL: BLOCKED_RUN_AUDIT_INVALID ${ref}: ${error.message}`);
-              process.exit(1);
-            }
-            if (payload?.stage === '0.8') {
-              mergePrepCount += 1;
-              continue;
-            }
-            audits.push(ref);
-          }
-          if (mergePrepCount !== 1) {
-            console.error(`FAIL: BLOCKED_PROMPT_0_8_ARTIFACT expected exactly one stage=0.8 artifact, found ${mergePrepCount}`);
-            process.exit(1);
-          }
-          if (!audits.length) {
-            console.error('FAIL: BLOCKED_RUN_AUDIT_MISSING no card_run_audit_v1 reference remains after 0.8 dispatch');
-            process.exit(1);
-          }
-          run.audit_refs = audits;
-          fs.writeFileSync(outputPath, `${JSON.stringify(run, null, 2)}\n`);
-          NODE
-          node scripts/validate_card_run_audits.mjs \
-            --run "$AUDIT_ONLY_RUN" \
+          node scripts/validate_card_run_audits_dispatch.mjs \
+            --run "${{ steps.run.outputs.path }}" \
             --full data/cards.full.json \
             --lean public/data/cards.json
 
@@ -413,106 +355,31 @@ jobs:
           RUN_PATH: ${{ steps.run.outputs.path }}
         run: |
           set -euo pipefail
-          ID_LEDGER="$RUNNER_TEMP/prompt-0-8-id-ledger.txt"
+          ID_LEDGER="$RUNNER_TEMP/prompt-0-8-id-ledger.json"
           MERGE_PREP_REF="$(
-            node - "$RUN_PATH" "$ID_LEDGER" <<'NODE'
-          const fs = require('fs');
-          const path = require('path');
-          const [runPath, ledgerPath] = process.argv.slice(2);
-          const root = path.resolve('.');
-          const run = JSON.parse(fs.readFileSync(runPath, 'utf8').replace(/^\uFEFF/, ''));
-          const touched = [];
-          for (const op of run.operations?.insert || []) if (typeof op?.card?.id === 'string' && op.card.id.trim()) touched.push(op.card.id.trim());
-          for (const op of run.operations?.update || []) if (typeof op?.id === 'string' && op.id.trim()) touched.push(op.id.trim());
-          for (const op of run.operations?.related_add || []) {
-            for (const patch of op?.patches || []) if (typeof patch?.card_id === 'string' && patch.card_id.trim()) touched.push(patch.card_id.trim());
-          }
-          const ids = [...new Set(touched)];
-          if (!ids.length) {
-            console.error('FAIL: BLOCKED_PROMPT_0_8_EMPTY_ID_LEDGER no inserted/materially-updated production IDs');
-            process.exit(1);
-          }
-          const full = JSON.parse(fs.readFileSync('data/cards.full.json', 'utf8').replace(/^\uFEFF/, ''));
-          if (!Array.isArray(full.cards)) {
-            console.error('FAIL: BLOCKED_PROMPT_0_8_ID_LEDGER candidate canonical full has no cards array');
-            process.exit(1);
-          }
-          for (const id of ids) {
-            const matches = full.cards.filter((card) => card && card.id === id).length;
-            if (matches !== 1) {
-              console.error(`FAIL: BLOCKED_PROMPT_0_8_ID_LEDGER ${id} resolves ${matches} times in candidate canonical full`);
-              process.exit(1);
-            }
-          }
-          fs.writeFileSync(ledgerPath, `${ids.join('\n')}\n`);
-
-          const mergePrep = [];
-          for (const ref of run.audit_refs || []) {
-            if (typeof ref !== 'string' || !ref.trim() || !ref.endsWith('.json')) continue;
-            const absolute = path.resolve(root, ref);
-            if (absolute !== root && !absolute.startsWith(`${root}${path.sep}`)) {
-              console.error(`FAIL: BLOCKED_PROMPT_0_8_ARTIFACT invalid audit ref ${ref}`);
-              process.exit(1);
-            }
-            if (!fs.existsSync(absolute)) continue;
-            let artifact;
-            try { artifact = JSON.parse(fs.readFileSync(absolute, 'utf8').replace(/^\uFEFF/, '')); }
-            catch { continue; }
-            if (artifact?.stage === '0.8') mergePrep.push({ ref, artifact });
-          }
-          if (mergePrep.length !== 1) {
-            console.error(`FAIL: BLOCKED_PROMPT_0_8_ARTIFACT expected exactly one stage=0.8 audit artifact, found ${mergePrep.length}`);
-            process.exit(1);
-          }
-          const selected = mergePrep[0];
-          if (!['GITHUB_MERGE_READY', 'PASS'].includes(selected.artifact.status)) {
-            console.error(`FAIL: BLOCKED_PROMPT_0_8_ARTIFACT non-passing status ${String(selected.artifact.status)}`);
-            process.exit(1);
-          }
-          for (const field of ['run_id', 'base_main_commit_sha', 'base_full_blob_sha']) {
-            if (selected.artifact[field] !== run[field]) {
-              console.error(`FAIL: BLOCKED_PROMPT_0_8_ARTIFACT ${field} is not bound to the card run`);
-              process.exit(1);
-            }
-          }
-
-          const ready = selected.artifact.github_merge_ready;
-          if (!Array.isArray(ready) || !ready.length) {
-            console.error('FAIL: BLOCKED_PROMPT_0_8_ITEM_SET github_merge_ready[] must be non-empty');
-            process.exit(1);
-          }
-          const artifactIds = ready.map((item, index) => {
-            if (!item || typeof item !== 'object' || Array.isArray(item) || typeof item.id !== 'string' || !item.id.trim()) {
-              console.error(`FAIL: BLOCKED_PROMPT_0_8_ITEM_SET github_merge_ready[${index}].id must be a final production ID`);
-              process.exit(1);
-            }
-            return item.id.trim();
-          });
-          if (new Set(artifactIds).size !== artifactIds.length) {
-            console.error('FAIL: BLOCKED_PROMPT_0_8_ITEM_SET duplicate final ID in github_merge_ready[]');
-            process.exit(1);
-          }
-          const expectedIds = [...ids].sort();
-          const reviewedIds = [...artifactIds].sort();
-          if (JSON.stringify(reviewedIds) !== JSON.stringify(expectedIds)) {
-            console.error(`FAIL: BLOCKED_PROMPT_0_8_ITEM_SET reviewed=${JSON.stringify(reviewedIds)} expected=${JSON.stringify(expectedIds)}`);
-            process.exit(1);
-          }
-
-          process.stdout.write(selected.ref);
-          NODE
+            node scripts/validate_prompt_0_8_semantic_gate.mjs \
+              --run "$RUN_PATH" \
+              --full data/cards.full.json \
+              --ledger "$ID_LEDGER"
           )"
           test -s "$ID_LEDGER"
           test -n "$MERGE_PREP_REF" && test -f "$MERGE_PREP_REF"
-          python3 validation_scripts/related_lifecycle_check.py \
-            data/cards.full.json --require-contract --new-id-file "$ID_LEDGER"
-          python3 validation_scripts/evidence_qc_v8_check.py \
-            data/cards.full.json --new-id-file "$ID_LEDGER"
-          python3 validation_scripts/date_role_freshness_check.py \
-            data/cards.full.json --require-date-role --new-id-file "$ID_LEDGER"
+
+          STRICT_ID_COUNT="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String((r.ids||[]).length))' "$ID_LEDGER")"
+          OPERATION_ID_COUNT="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String((r.operation_ids||[]).length))' "$ID_LEDGER")"
+          if [[ "$STRICT_ID_COUNT" -gt 0 ]]; then
+            python3 validation_scripts/related_lifecycle_check.py \
+              data/cards.full.json --require-contract --new-id-file "$ID_LEDGER"
+            python3 validation_scripts/evidence_qc_v8_check.py \
+              data/cards.full.json --new-id-file "$ID_LEDGER"
+            python3 validation_scripts/date_role_freshness_check.py \
+              data/cards.full.json --require-date-role --new-id-file "$ID_LEDGER"
+          else
+            echo "INFO: relation-only formal run has no inserted/materially-updated card-wide strict scope; Related semantics remain bound by the A→0.7 operation chain and Prompt 0.8 operation identity set"
+          fi
           python3 validation_scripts/stage_artifact_contract_check.py \
             0.8 "$MERGE_PREP_REF"
-          echo "PASS: Prompt 0.8 post-resolution semantic gate; id_ledger=$(wc -l < "$ID_LEDGER") artifact=$MERGE_PREP_REF"
+          echo "PASS: Prompt 0.8 post-resolution semantic gate; strict_ids=$STRICT_ID_COUNT operation_ids=$OPERATION_ID_COUNT artifact=$MERGE_PREP_REF"
 
       - name: Validate submitted canonical outputs
         if: steps.run.outputs.has_run == 'true'

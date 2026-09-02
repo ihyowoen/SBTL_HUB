@@ -1,77 +1,107 @@
-# Document Universe Policy V2
+# Document Universe Policy V2.1
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `DOCUMENT_UNIVERSE_POLICY_V2_20260829`
+**Version:** `DOCUMENT_UNIVERSE_POLICY_V2_1_20260902`
 
 ## 0. Goal
 
 Prevent both failures:
 
-- missing an active rule because only a remembered core list was read;
-- allowing historical/reference material to override a run because every old document was treated as equally operative.
+- missing an active rule because only a remembered core list was used;
+- forcing an LLM to pre-load the entire active governance universe and then self-attest that it read everything.
 
-## 1. Inventory is universal; deep-read is applicability-driven
+The repository, not model memory, defines the authority universe.
 
-Stage 0.0D must inventory **every** path under `docs/**` from the locked repository state.
+## 1. Inventory is universal; authority is machine-locked
 
-For each file determine lifecycle from the governance registry and authoritative header. Permitted lifecycle classes include:
+Stage 0.0D must inventory every path under `docs/**` from the locked repository state.
 
-- `ACTIVE_CANONICAL`
-- `ACTIVE_VALIDATOR_CONTRACT`
-- `OPEN_REMEDIATION`
-- `ACTIVE_MIGRATION`
-- `SUPERSEDED`
-- `REFERENCE_ONLY`
-- `COMPLETED_REFERENCE`
-- `ARCHIVED`
+Lifecycle is derived from the locked lifecycle registry. Permitted classes include:
 
-Every file is classified; no file silently disappears.
+- `ACTIVE_CANONICAL`;
+- `ACTIVE_NAMED_PROMPT`;
+- `ACTIVE_VALIDATOR_CONTRACT`;
+- `OPEN_REMEDIATION`;
+- `ACTIVE_MIGRATION`;
+- `SUPERSEDED`;
+- `REFERENCE_ONLY`;
+- completed/archived non-operative classes when explicitly registered.
 
-## 2. Mandatory full-read set
+Every path is classified; no file silently disappears.
 
-Before 0.0C, fully read or completely parse:
+For every active authority, the deterministic governance-lock helper records the exact git blob SHA. This is the authority proof for the run.
 
-- every `ACTIVE_CANONICAL` file;
-- every `ACTIVE_VALIDATOR_CONTRACT` required by the run path;
-- every applicable `OPEN_REMEDIATION`;
-- every explicitly activated migration;
-- every direct dependency referenced by those active files;
-- the current named-stage prompt immediately before executing that stage.
+## 2. Bootstrap context before 0.0C
 
-## 3. Historical/reference treatment
+The lifecycle registry contains `bootstrap_read[]`.
 
-When a file is authoritatively registered/header-marked `SUPERSEDED`, `REFERENCE_ONLY`, `COMPLETED_REFERENCE`, or `ARCHIVED`, 0.0D may classify it from lifecycle metadata without deep-reading its historical body. It remains discoverable for audit but is non-operative.
+Before 0.0C, fully read only that exact small set after `scripts/governance_lock_v4.mjs --verify` succeeds. The bootstrap set contains the workflow/index/policy/launcher/preflight documents needed to begin safely.
 
-If lifecycle metadata is missing, contradictory, or the file appears to contain an active instruction, block and inspect the file rather than guessing.
+Do not convert the entire locked authority set into a pre-0.0C context requirement.
 
-## 4. No late authority
+## 3. Just-in-time named-stage prompts
 
-After 0.0D PASS, a historical/reference file cannot later become an ordinary-run rule merely because it was opened. New active authority requires a repository governance change and a new preflight/rebase as applicable.
+Every active named-stage prompt is locked at 0.0D but is loaded immediately before its stage executes.
 
-## 5. No active patch assembly
+The operator/model must:
 
-Ordinary active governance must not require:
+1. use the path registered in the lock;
+2. load it from the locked `repository_head_sha`;
+3. verify its git blob equals the lock entry;
+4. execute that prompt as the complete stage contract.
+
+A future-stage prompt is not required context for an earlier stage merely because it is active.
+
+## 4. Other active canonical/validator authority
+
+Active canonical domain contracts, validator contracts, open remediations, and activated migrations are also blob-locked at 0.0D.
+
+They are loaded on demand when the current stage explicitly requires them, when a validator invokes them, or when a conflict/remediation question requires inspection. Their authority is fixed from the start even when their bodies are not all placed in the model context at once.
+
+## 5. Historical/reference treatment
+
+When a file is authoritatively registered `SUPERSEDED`, `REFERENCE_ONLY`, completed, or archived, 0.0D classifies it without deep-reading its historical body. It remains auditable but non-operative.
+
+If lifecycle registration is missing, duplicated, contradictory, or a registered path is missing from the locked tree, block rather than guess.
+
+## 6. No late authority
+
+After 0.0D PASS, no later-read document may become a different authority version during the run. All operative loads must reproduce the locked path/blob.
+
+If `main` changes and the run intentionally adopts the new governance state, re-lock the baseline and re-run 0.0D plus every affected downstream gate.
+
+## 7. No active patch assembly
+
+Ordinary active governance must not require runtime assembly of:
 
 - append-this-override-later;
 - hardening addenda;
 - prompt overlay injection;
-- patch stubs that supersede a portion of a named prompt at runtime.
+- patch stubs that supersede a portion of a named prompt.
 
-Recurring rules are integrated into clean active canonical/named-stage documents.
+Recurring rules belong in clean active canonical/named-stage documents.
 
-## 6. 0.0D exit
+## 8. Read-attestation prohibition
+
+A model-generated count is not evidence that a document was read.
+
+New V4.1 runs must not authorize 0.0C using `active_full_read_count`, a handwritten list of claimed reads, or an excerpt/hash ledger generated solely from self-report. The authorization object is the deterministic `governance_lock` replayed against the locked git tree.
+
+Legacy-named compatibility fields may remain in the generated artifact, but they describe machine inventory/classification state and must not be interpreted as cognitive-read proof.
+
+## 9. 0.0D exit
 
 Required:
 
-- repository SHA locked;
-- all `docs/**` paths inventoried;
-- lifecycle classification complete;
-- active dependency closure fully read/parsed;
-- unread active files = 0;
-- unclassified files = 0;
-- unresolved dependencies/conflicts = 0;
-- unregistered active-looking files = 0;
-- applicable remediation/migration dispositioned;
+- repository SHA and canonical full blob locked;
+- deterministic governance lock generated and replay-verified;
+- every `docs/**` path classified;
+- every active authority bound to its exact blob SHA;
+- bootstrap-read set fixed and loaded;
+- active override/addendum count zero;
+- Stage A embedded policy verified;
+- no unclassified/missing/duplicate lifecycle entry;
+- no unresolved active-authority blocker;
 - Stage 0.0C authorized.
 
 Otherwise stop with `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE_OR_CONFLICTED`.

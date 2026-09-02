@@ -35,7 +35,9 @@ For every active authority, the deterministic governance-lock helper records the
 
 The lifecycle registry contains `bootstrap_read[]`.
 
-Before 0.0C, fully read only that exact small set after `scripts/governance_lock_v4.mjs --verify` succeeds. The bootstrap set contains the workflow/index/policy/launcher/preflight documents needed to begin safely.
+After deterministic 0.0D verification and before executing 0.0C, load only that exact small set. The bootstrap set contains the workflow/index/policy/launcher/preflight documents needed to begin safely.
+
+The machine artifact proves the bootstrap **path set and locked versions**, not whether a model cognitively consumed those files. Bootstrap loading is an operator/model transition obligation and must not be represented as a machine-proven read count.
 
 Do not convert the entire locked authority set into a pre-0.0C context requirement.
 
@@ -85,23 +87,27 @@ Recurring rules belong in clean active canonical/named-stage documents.
 
 A model-generated count is not evidence that a document was read.
 
-New V4.1 runs must not authorize 0.0C using `active_full_read_count`, a handwritten list of claimed reads, or an excerpt/hash ledger generated solely from self-report. The authorization object is the deterministic `governance_lock` replayed against the locked git tree.
+New V4.1 runs must not authorize 0.0C using `active_full_read_count`, a handwritten list of claimed reads, or an excerpt/hash ledger generated solely from self-report. The machine authorization object is the deterministic `governance_lock` replayed against the locked git tree.
 
 Legacy-named compatibility fields may remain in the generated artifact, but they describe machine inventory/classification state and must not be interpreted as cognitive-read proof.
 
+No machine PASS field claims that bootstrap or JIT prompt content was cognitively read. Those loads are explicit execution steps.
+
 ## 9. 0.0D exit
 
-Required:
+Machine 0.0D PASS requires:
 
 - repository SHA and canonical full blob locked;
 - deterministic governance lock generated and replay-verified;
 - every `docs/**` path classified;
 - every active authority bound to its exact blob SHA;
-- bootstrap-read set fixed and loaded;
+- exact bootstrap-context path set fixed in the lock;
 - active override/addendum count zero;
 - Stage A embedded policy verified;
 - no unclassified/missing/duplicate lifecycle entry;
 - no unresolved active-authority blocker;
-- Stage 0.0C authorized.
+- repository-state preflight eligible for Stage 0.0C.
+
+After machine PASS, the operator/model must load the declared bootstrap context before actually executing 0.0C. That transition is required behavior, not a machine read-attestation.
 
 Otherwise stop with `BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE_OR_CONFLICTED`.

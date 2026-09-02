@@ -174,15 +174,24 @@ jobs:
               local base_manifest manifest
               case "$status" in
                 R*) base_manifest="$path1"; manifest="$path2" ;;
+                D*) base_manifest="$path1"; manifest="" ;;
                 C*) return 1 ;; # a copy is a new manifest, never grandfathered
                 *) base_manifest="$path1"; manifest="$path1" ;;
               esac
+
+              git cat-file -e "${base_sha}:${base_manifest}" 2>/dev/null || return 1
+              local base_schema_name
+              base_schema_name="$(git show "${base_sha}:${base_manifest}" | node -e 'const fs=require("fs");const r=JSON.parse(fs.readFileSync(0,"utf8"));process.stdout.write(String(r.schema||""))')"
+              [[ "$base_schema_name" == "manual_direct_add_v1" ]] || return 1
+
+              if [[ "$status" == D* ]]; then
+                continue
+              fi
               [[ -f "$manifest" ]] || return 1
               local schema_name
               schema_name="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String(r.schema||""))' "$manifest")"
               [[ "$schema_name" == "manual_direct_add_v1" ]] || return 1
-              git cat-file -e "${base_sha}:${base_manifest}" 2>/dev/null || return 1
-            done < <(git diff -M --diff-filter=ACMR --name-status "origin/$BASE_REF...HEAD" -- ':(glob)direct-adds/**/direct-add.json')
+            done < <(git diff -M --diff-filter=ACMRD --name-status "origin/$BASE_REF...HEAD" -- ':(glob)direct-adds/**/direct-add.json')
             [[ $rows -eq 1 ]]
           }
 
@@ -214,7 +223,7 @@ jobs:
             fi
           else
             if [[ ${#direct_adds[@]} -eq 1 && ${#runs[@]} -eq 0 && ${#migrations[@]} -eq 0 ]] && historical_v1_audit_only; then
-              echo "INFO: existing manual_direct_add_v1 audit manifest changed without canonical data; historical preservation path only"
+              echo "INFO: existing manual_direct_add_v1 audit manifest changed/deleted without canonical data; historical preservation path only"
               echo "has_run=false" >> "$GITHUB_OUTPUT"
               echo "delegated_migration=false" >> "$GITHUB_OUTPUT"
               echo "delegated_direct_add=false" >> "$GITHUB_OUTPUT"
@@ -330,8 +339,54 @@ jobs:
           node scripts/validate_card_run_lineage_containers.mjs \
             --run "${{ steps.run.outputs.path }}" \
             --canonical data/cards.full.json
+
+          # audit_refs may also carry the run-bound Prompt 0.8 stage artifact.
+          # Dispatch that artifact to the dedicated semantic gate below and feed
+          # only actual card_run_audit_v1 references to the audit validator.
+          AUDIT_ONLY_RUN="$RUNNER_TEMP/card-run-audits-only.json"
+          node - "${{ steps.run.outputs.path }}" "$AUDIT_ONLY_RUN" <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const [runPath, outputPath] = process.argv.slice(2);
+          const root = path.resolve('.');
+          const run = JSON.parse(fs.readFileSync(runPath, 'utf8').replace(/^\uFEFF/, ''));
+          const audits = [];
+          let mergePrepCount = 0;
+          for (const ref of run.audit_refs || []) {
+            if (typeof ref !== 'string' || !ref.trim() || !ref.endsWith('.json')) {
+              console.error(`FAIL: BLOCKED_RUN_AUDIT_INVALID invalid audit ref ${String(ref)}`);
+              process.exit(1);
+            }
+            const absolute = path.resolve(root, ref);
+            if (absolute !== root && !absolute.startsWith(`${root}${path.sep}`)) {
+              console.error(`FAIL: BLOCKED_RUN_AUDIT_INVALID repository-outside audit ref ${ref}`);
+              process.exit(1);
+            }
+            let payload;
+            try { payload = JSON.parse(fs.readFileSync(absolute, 'utf8').replace(/^\uFEFF/, '')); }
+            catch (error) {
+              console.error(`FAIL: BLOCKED_RUN_AUDIT_INVALID ${ref}: ${error.message}`);
+              process.exit(1);
+            }
+            if (payload?.stage === '0.8') {
+              mergePrepCount += 1;
+              continue;
+            }
+            audits.push(ref);
+          }
+          if (mergePrepCount !== 1) {
+            console.error(`FAIL: BLOCKED_PROMPT_0_8_ARTIFACT expected exactly one stage=0.8 artifact, found ${mergePrepCount}`);
+            process.exit(1);
+          }
+          if (!audits.length) {
+            console.error('FAIL: BLOCKED_RUN_AUDIT_MISSING no card_run_audit_v1 reference remains after 0.8 dispatch');
+            process.exit(1);
+          }
+          run.audit_refs = audits;
+          fs.writeFileSync(outputPath, `${JSON.stringify(run, null, 2)}\n`);
+          NODE
           node scripts/validate_card_run_audits.mjs \
-            --run "${{ steps.run.outputs.path }}" \
+            --run "$AUDIT_ONLY_RUN" \
             --full data/cards.full.json \
             --lean public/data/cards.json
 
@@ -420,6 +475,30 @@ jobs:
               process.exit(1);
             }
           }
+
+          const ready = selected.artifact.github_merge_ready;
+          if (!Array.isArray(ready) || !ready.length) {
+            console.error('FAIL: BLOCKED_PROMPT_0_8_ITEM_SET github_merge_ready[] must be non-empty');
+            process.exit(1);
+          }
+          const artifactIds = ready.map((item, index) => {
+            if (!item || typeof item !== 'object' || Array.isArray(item) || typeof item.id !== 'string' || !item.id.trim()) {
+              console.error(`FAIL: BLOCKED_PROMPT_0_8_ITEM_SET github_merge_ready[${index}].id must be a final production ID`);
+              process.exit(1);
+            }
+            return item.id.trim();
+          });
+          if (new Set(artifactIds).size !== artifactIds.length) {
+            console.error('FAIL: BLOCKED_PROMPT_0_8_ITEM_SET duplicate final ID in github_merge_ready[]');
+            process.exit(1);
+          }
+          const expectedIds = [...ids].sort();
+          const reviewedIds = [...artifactIds].sort();
+          if (JSON.stringify(reviewedIds) !== JSON.stringify(expectedIds)) {
+            console.error(`FAIL: BLOCKED_PROMPT_0_8_ITEM_SET reviewed=${JSON.stringify(reviewedIds)} expected=${JSON.stringify(expectedIds)}`);
+            process.exit(1);
+          }
+
           process.stdout.write(selected.ref);
           NODE
           )"

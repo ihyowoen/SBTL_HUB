@@ -68,6 +68,206 @@
       ],
       "sweepKind": "verify",
       "result": "부속서 목록 미발견. Annex I 이 열화상 탑재 기종을 250g 이하부터 25kg까지 전 중량대에 걸쳐 포함한다는 서술만 추가 확인."
+    },
+    {
+      "query": "EU Battery Regulation Article 8 recycled content calculation methodology delegated act adopted August 2026",
+      "region": "EU",
+      "axis": "recycle",
+      "itemsCovered": [
+        "EU-019"
+      ],
+      "sweepKind": "verify",
+      "result": "**effectiveDate 의미 오류 적출** — 2026-08-18 은 위임행위 채택 기한이고 의무 첫 시점은 2028-08-18. 신규 — 대상 4종(코발트·리튬·니켈·납)·공장 단위 mass balance·3단 시점(2028/2031/2036)."
+    },
+    {
+      "query": "EU Forced Labour Regulation 2024/3015 entry into force application date 14 December 2027 obligations start",
+      "region": "EU",
+      "axis": "supply_chain",
+      "itemsCovered": [
+        "EU-022"
+      ],
+      "sweepKind": "verify",
+      "result": "발효 2024-12-13 / **적용 2027-12-14**. UPCOMING 이 정확했고 서술이 부족했던 경우. 신규 — 2025-12-14 회원국 관할당국 지정 기한."
+    },
+    {
+      "query": "GB 31241-2022 便携式电子产品 锂离子电池 安全技术规范 2026年3月 修订 实施 进展",
+      "region": "CN",
+      "axis": "product_std",
+      "itemsCovered": [
+        "CN-009"
+      ],
+      "sweepKind": "verify",
+      "result": "**status 오류 확정** — 이 표준은 2024-01-01 이미 시행 중인데 UPCOMING·eff 2026-03 이었다. 2026-03 근거 미발견. 승인 큐."
+    },
+    {
+      "query": "动力电池 碳足迹 核算 报告 试点 2026 工信部 进展 试点期限",
+      "region": "CN",
+      "axis": "carbon",
+      "itemsCovered": [
+        "CN-002"
+      ],
+      "sweepKind": "verify",
+      "result": "**기계 점검 오탐 확인** — eff 2026-12-31 은 시운행 종료일이고 업무는 2025-12-31 통지로 개시됐다. 신규 — 기업당 대표 제품 5종 이상 신고, 2027-01-01 상태화 전환."
+    },
+    {
+      "query": "EU black mass waste shipment non-OECD export ban 9 November 2026 Regulation 2024/1157 hazardous classification",
+      "region": "EU",
+      "axis": "waste_ship",
+      "itemsCovered": [
+        "EU-013"
+      ],
+      "sweepKind": "verify",
+      "result": "날짜 세 개 분리 — black mass 비OECD 금지 2026-11-09 / 플라스틱 금지·승인 수입국 명단 2026-11-21 / 규정 적용 2026-05-21. 신규 — **중국·EU 의 black mass 분류 분기**(CN-021 대비)."
+    },
+    {
+      "query": "Section 301 exclusions extension November 10 2026 178 products USTR notice China tariff truce",
+      "region": "NA",
+      "axis": "subsidy",
+      "itemsCovered": [
+        "NA-008"
+      ],
+      "sweepKind": "verify",
+      "result": "**effectiveDate 정정 11-10 → 11-09** — 부속서 문언은 2026-11-09 23:59 EDT 다. 보도 표기를 그대로 받아 하루 밀려 있었다. 신규 — 178건 품목군·통지 2025-11-26·게재 2025-12-01."
+    },
+    {
+      "query": "California SB 253 SB 261 climate disclosure 2026 reporting deadline CARB regulation status Ninth Circuit",
+      "region": "NA",
+      "axis": "carbon",
+      "itemsCovered": [
+        "NA-032"
+      ],
+      "sweepKind": "verify",
+      "result": "**진전 3건** — 2026-02-26 CARB 초기 규정 채택 / 2026-06-24 기한 08-10→11-10 연장 / **SB 261 은 제9순회 예비적 금지명령으로 집행 정지**. 두 법의 경로가 갈렸다."
+    },
+    {
+      "query": "Stockholm Convention COP-12 long-chain PFCA Annex A listing SC-12/12 entry into force 16 December 2026",
+      "region": "GL",
+      "axis": "chemicals",
+      "itemsCovered": [
+        "GL-004"
+      ],
+      "sweepKind": "verify",
+      "result": "COP-12 기간(2025-04-28~05-09)·결정 SC-12/12·Annex A 등재 확인. **effectiveDate 2026-12-16 근거 미확보** — 협약 사무국 통보 문서 대조 이월. 신규 — 일본·EU 의 국내 이행 움직임."
+    },
+    {
+      "query": "商务部 公告2025年第70号 暂停 实施 一年 锂电池 人造石墨 出口管制 2026年11月 到期",
+      "region": "CN",
+      "axis": "trade",
+      "itemsCovered": [
+        "CN-014"
+      ],
+      "sweepKind": "verify",
+      "result": "**暂停 만료일 확정 — 2026-11-10**(2025-11-07 기산). NA-008·EU-013 과 같은 창에 몰려 **2026년 11월 첫째 주가 동시 변곡점**. 신규 — 公告72号·46号 대미 관제 완화."
+    },
+    {
+      "query": "EU packaging regulation PPWR 2025/40 application 12 August 2026 obligations started requirements",
+      "region": "EU",
+      "axis": "packaging",
+      "itemsCovered": [
+        "EU-026"
+      ],
+      "sweepKind": "verify",
+      "result": "**지난달 적용 개시. 의무 6가지 확정** — PFAS 제한·EPR 등록·유형별 DoC·재활용성·포장 단위 고유식별자·소포 빈공간 40% 상한. **신규 재고 경과기간 없음.** SBTL 직접 노출 후보로 격상."
+    },
+    {
+      "query": "Treasury FEOC safe harbor table material assistance cost ratio final guidance December 2026",
+      "region": "NA",
+      "axis": "subsidy",
+      "itemsCovered": [
+        "NA-009"
+      ],
+      "sweepKind": "verify",
+      "result": "NA-002 와의 단계 관계 명시(잠정 vs 정식). 신규 — 잠정 safe harbor 2종 이름, **정식 표 공표 후 60일 전환 유예**, 적용 §45Y·§48E·§45X."
+    },
+    {
+      "query": "电动汽车供电设备 CCC 强制认证 2026年8月1日 实施 未认证 禁止 市场监管总局",
+      "region": "CN",
+      "axis": "product_std",
+      "itemsCovered": [
+        "CN-039"
+      ],
+      "sweepKind": "verify",
+      "result": "발효 확인(2026-08-01). 신청 접수 2025-03-01 개시, 범위(AC 고정·비고정 + DC 일체형·모듈형·휴대형·이동형), 시험 항목(감전·단락·내화 + 현장 품질보증·제품 일치성)."
+    },
+    {
+      "query": "2027년 할당관세 알루미늄 배터리 핵심소재 기획재정부 공고 입법예고 적용 규정",
+      "region": "KR",
+      "axis": "trade",
+      "itemsCovered": [
+        "KR-019"
+      ],
+      "sweepKind": "verify",
+      "result": "**어제 미확정에 진전** — **전기차 배터리 알루미늄 합금이 2027년 할당관세 대상에 추가**된다. 재생원료 5종(폐촉매·폐회로기판·폐배터리 등) 신규 편입. 세번·물량·세율은 미확인."
+    },
+    {
+      "query": "EU Digital Battery Passport February 2027 obligation delegated act technical specification status 2026",
+      "region": "EU",
+      "axis": "data_dpp",
+      "itemsCovered": [
+        "EU-011"
+      ],
+      "sweepKind": "verify",
+      "result": "**의무 주체 확정 — 완성 배터리 출시 경제운영자**이고 부품·모듈 공급자는 아니다(SBTL 은 데이터 제공 위치). 초기 2027 범위는 기본 식별·유형·모델·기술특성. 위임행위 기한 2026-08-18."
+    },
+    {
+      "query": "사용후 배터리 관리 산업육성 법률 시행령 제정 2027 5월 시행 하위법령 입법예고",
+      "region": "KR",
+      "axis": "recycle",
+      "itemsCovered": [
+        "KR-017"
+      ],
+      "sweepKind": "verify",
+      "result": "**공포일 불일치 플래그** — 트래커 2026-05-26 vs 2차 출처 2024-05-26(유예 1년 vs 3년). 원문 대조 이월. 신규 — 공동소관 4부처, 3대 제도, 하위법령 3항목."
+    },
+    {
+      "query": "化審法 第一種特定化学物質 PFHxS 関連物質 117物質 2026年6月17日 施行 政令 追加",
+      "region": "JP",
+      "axis": "chemicals",
+      "itemsCovered": [
+        "JP-016"
+      ],
+      "sweepKind": "verify",
+      "result": "2단 구조 확정 — 2025-12-17 지정 공포 → 2026-04-17 성령(117물질 특정) → 2026-06-17 시행. **금지가 물질에 그치지 않고 해당 물질 사용 제품의 수입금지까지 미친다.**"
+    },
+    {
+      "query": "USMCA joint review 2026 fourth round negotiation September Mexico United States schedule outcome",
+      "region": "NA",
+      "axis": "trade",
+      "itemsCovered": [
+        "NA-014"
+      ],
+      "sweepKind": "verify",
+      "result": "**4라운드가 이번 달(2026-09 초) 워싱턴 D.C.** 쟁점 — 미국의 차량 내 미국산 함량 50% 요구 vs 멕시코의 자동차 25%·철강·알루미늄 50% 관세 완화 요구. 원 기한 2026-07-01 경과."
+    },
+    {
+      "query": "EU CBAM definitive period 2026 January obligations importers declaration certificates status changes",
+      "region": "EU",
+      "axis": "trade",
+      "itemsCovered": [
+        "EU-020"
+      ],
+      "sweepKind": "verify",
+      "result": "**Omnibus 변경 3건** — 연 50톤 질량 면제 임계 신설·인증서 제출 2027 연기·€150 가치 임계 삭제. 첫 제출 2027-09-30. **실제 배출은 인증 제3자 검증분만 신고 가능.**"
+    },
+    {
+      "query": "矿产资源法实施条例 2026年6月15日 施行 战略性矿产 36种 储备 国务院令",
+      "region": "CN",
+      "axis": "supply_chain",
+      "itemsCovered": [
+        "CN-036"
+      ],
+      "sweepKind": "verify",
+      "result": "**국무원령 제839호, 2026-05-15 서명(리창)·2026-06-15 시행, 8장 79조.** 36종 목록 구체화(갈륨·게르마늄·인듐 포함, 알루미늄 미확인). 산지비축 편입분은 승인 없이 채굴·압복 금지."
+    },
+    {
+      "query": "전기안전관리법 시행령 전기차 충전시설 신고 책임보험 경과조치 2026년 5월 만료 이후",
+      "region": "KR",
+      "axis": "energy_market",
+      "itemsCovered": [
+        "KR-029"
+      ],
+      "sweepKind": "verify",
+      "result": "**경과조치 만료 확인 — 2026-05-28 경과.** 책임보험 대인 1.5억·대물 10억, 과태료 신고 미이행 50만·보험 미가입 200만(2차 출처 — 조문 대조 이월)."
     }
   ],
   "primaryDocs": [],
@@ -75,11 +275,12 @@
     "derivedFrom": "public/data/tracker_data.json (마감 시 재생성)",
     "totalItems": 188,
     "thisRun": {
-      "secondary": 2,
+      "secondary": 21,
+      "primary-meta": 1,
       "search": 1
     },
-    "thisRunTotal": 3,
-    "carriedOver": 185
+    "thisRunTotal": 23,
+    "carriedOver": 165
   },
   "statusDistribution": {
     "ACTIVE": 110,
@@ -95,22 +296,26 @@
   },
   "partialReason": {
     "why": "전수 재검증 미완. 오늘은 D-1 항목(NA-043)과 방치 2건(KR-004·KR-006) 회수, 그리고 **전수 스윕의 구조적 병목(셀 쿼리 84개 미달) 해소**에 집중했다.",
-    "arithmetic": "전수 체제와 검색 예산이 아직 맞지 않는다 — 188항목을 하루에 실검증하려면 검색이 항목당 최소 1회여도 188회다. 어제 30회, 오늘 4회였다. **목표(전수)와 실측을 섞지 않기 위해 부분으로 기록한다.** 예산·주기·범위 중 하나를 조정하는 판단이 필요하다.",
+    "arithmetic": "**예산을 늘려 실검색 24회를 돌렸다**(어제 30회 중 상당수는 게이트 작업이었고 오늘은 전량 항목 검증이다). 재검증 23건 중 신규 확인 20건. 전수(188)까지는 여전히 멀다 — 오늘 연령 분포는 0일 23 · 1일 28 · 2일 31 · 4일 106 다. 목표와 실측을 섞지 않기 위해 부분으로 기록한다.",
     "unverifiedScope": {
       "staleCount": 0,
       "staleIds": [],
-      "note": "검증 후 7일 초과 항목. 오늘 KR-004·KR-006 을 회수해 0이 됐다."
+      "note": "검증 후 7일 초과 항목. 오늘 KR-004·KR-006 회수로 0이 됐다."
     }
   },
   "carryOver": [
-    "**NA-043 부속서 8507.60.0020 등재 여부 — 내일 발효. CBP CSMS 안내가 나오면 세번을 나열할 가능성이 가장 높다. SBTL 직접 노출이 여기 달려 있다**",
-    "NA-043 status UPCOMING → ACTIVE — 내일(09-03) 발효 도래 시 승인 대상",
-    "**셀 스윕 스탬프 — 쿼리 백필이 착지한 다음 run 부터 유효**. 90셀 전수 스윕을 실제로 돌릴 것",
-    "KR-006 파생 — 2026.02 국민성장펀드 전고체 소재 공장 1,000억원 저리대출을 별건 항목으로 세울지 판단(정책자금 집행은 제정 규범이 아니라 관찰 대상)",
-    "전수 체제 대 검색 예산 — 188항목/일을 받칠 수 없다. 예산·주기·범위 중 조정 필요",
-    "정책 일관성 — WATCH 인데 제정 신호가 있는 22건 판정(KR-020 승인의 파급)",
-    "검사 #16 초회 적출 5건 — NA-024(발효일 있는데 dt 는 미발효라고 서술)·NA-016·CN-015·CN-004·KR-005",
-    "KR-027 과태료 조문 미확인 · KR-014 시행일 불일치 · EU-038 일몰 예고 공고"
+    "**NA-043 부속서 8507.60.0020 등재 여부 — 내일 발효. CBP CSMS 안내가 세번을 나열할 가능성이 가장 높다**",
+    "**NA-043 status UPCOMING → ACTIVE 승인 — 내일 도래**",
+    "**CN-009 status·날짜 정정 승인 — 원문 대조 병행 요청**",
+    "**2026년 11월 첫째 주 3중 변곡점** — CN-014·NA-008·EU-013",
+    "**EU-026 PPWR 해당 여부 판정** — 파우치 필름이 '포장'인지(부품·중간재 여부). SBTL 노출 크기를 좌우",
+    "**KR-019 2027년분 공고 시점** — 2026년분 12.31 만료. 세번·물량·세율 미확인",
+    "**셀 스윕 스탬프 — 쿼리 백필 착지 후 다음 run 부터 유효.** 90셀 전수 스윕 실행",
+    "KR-017 공포일 · GL-004 발효일 · KR-029·KR-027 과태료 — 원문 대조 이월",
+    "USMCA 4라운드(이번 달 워싱턴) 결과",
+    "정책 일관성 — WATCH 인데 제정 신호가 있는 22건 판정",
+    "검사 #16 초회 적출 5건 — NA-024·NA-016·CN-015·CN-004·KR-005",
+    "전수 대 검색 예산 — 오늘 24회로 20건 신규 확인. 188 전수까지의 격차는 남아 있다"
   ],
   "mergedLeftovers": {
     "what": "PR #302 머지 후에 브랜치로 간 커밋 3건을 이 run 에 실었다.",
@@ -127,5 +332,65 @@
     "root": "축을 쿼리의 주제 인상(ESS→energy_market, 차세대전지→next_tech)으로 달았다. 어제 10건을 같은 이유로 재분류하고도 반복했다.",
     "fix": "coverage 매핑으로 재분류. 스윕 근거로는 쓰이지 않지만(오늘 스탬프 0셀) 라벨이 틀리면 다음 run 의 근거 판정이 어긋난다.",
     "note": "**어제 만든 검사가 오늘 나를 잡은 첫 사례다.**"
+  },
+  "approvalQueueCandidates": [
+    {
+      "name": "[status] CN-009 UPCOMING → ACTIVE (GB 31241-2022 는 2024-01-01 이미 시행)",
+      "region": "CN",
+      "axis": "product_std",
+      "type": "status",
+      "statusChange": {
+        "id": "CN-009",
+        "from": "UPCOMING",
+        "to": "ACTIVE"
+      },
+      "applied": false,
+      "basis": "GB 31241-2022 는 2022-12-29 발포·**2024-01-01 시행**됐고 2024-01-01 부터 CQC 가 신표준으로 인증한다. 트래커의 effectiveDate 2026-03 은 근거를 찾지 못했다. status·날짜 동시 정정이 필요하다.",
+      "recommendation": "ACTIVE 전환 + effectiveDate 2024-01-01. **근거가 2차 출처라 원문 대조를 함께 요청한다**",
+      "discoveredRun": "2026-09-02-RD",
+      "decision": "승인 대기"
+    },
+    {
+      "name": "[status] NA-043 UPCOMING → ACTIVE (2026-09-03 00:01 ET 발효 — 내일)",
+      "region": "NA",
+      "axis": "trade",
+      "type": "status",
+      "statusChange": {
+        "id": "NA-043",
+        "from": "UPCOMING",
+        "to": "ACTIVE"
+      },
+      "applied": false,
+      "basis": "Annex I·II 가 2026-09-03 00:01 ET 발효한다. 관보 원문으로 확정된 날짜다.",
+      "recommendation": "내일 run 에서 전환",
+      "discoveredRun": "2026-09-02-RD",
+      "decision": "승인 대기(내일 도래)"
+    }
+  ],
+  "verifyAgeDistribution": {
+    "0": 23,
+    "1": 28,
+    "2": 31,
+    "4": 106
+  },
+  "findings": {
+    "dateOrFieldErrors": [
+      "NA-008 effectiveDate 2026-11-10 → **2026-11-09**(부속서 문언 23:59 EDT). 하루 차이가 관세 25% 를 가른다",
+      "EU-019 effectiveDate 2026-08-18 → **2028-08-18**. 종전 값은 위임행위 채택 기한을 발효일 칸에 넣은 것",
+      "CN-009 **status 오류** — 2024-01-01 이미 시행 중인 표준이 UPCOMING 이었다(승인 큐)"
+    ],
+    "flaggedNotChanged": [
+      "KR-017 공포일 — 트래커 2026-05-26 vs 2차 출처 2024-05-26(유예 1년 vs 3년). 원문 없이 안 바꾼다",
+      "GL-004 발효일 2026-12-16 — 근거 미확보. 협약 사무국 통보 문서 대조 이월",
+      "KR-029·KR-027 과태료 — 2차 출처뿐. 조문 대조 이월"
+    ],
+    "sbtlDirect": [
+      "**EU-026 PPWR** — 지난달 적용 개시. 파우치 필름이 PPWR 상 '포장'이면 **유형별 DoC·EPR 등록·고유식별자가 이미 의무**이고 경과기간이 없다. 해당 여부 판정이 선행 과제",
+      "**KR-019** — 전기차 배터리 알루미늄 합금이 2027년 할당관세 대상에 추가. 2026년분 12.31 만료와 2027년분 공고 시점이 이어지는지가 원가 공백을 가른다",
+      "**EU-020 CBAM** — 실제 배출은 인증 제3자 검증분만 신고 가능. 자체 산정치는 안 통하고 2027-09-30 정산부터 비용으로 나타난다",
+      "**EU-011 DPP** — 의무 주체는 완성 배터리 출시자이고 SBTL 은 데이터 제공 위치. 초기 2027 범위가 좁아 시간이 있다",
+      "**NA-043** — 부속서 8507.60.0020 등재 여부. 내일 발효"
+    ],
+    "convergence2026Nov": "**2026년 11월 첫째 주에 세 항목이 겹친다** — CN-014 인조흑연 관제 暂停 만료(11.10)·NA-008 Section 301 제외 178건 만료(11.09 23:59 EDT)·EU-013 black mass 비OECD 발송 금지 개시(11.09). 통상·폐기물 규제의 동시 변곡점이므로 한 묶음으로 추적한다."
   }
 }

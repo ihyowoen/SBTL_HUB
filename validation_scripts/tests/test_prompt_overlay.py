@@ -1,44 +1,43 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import subprocess
 import sys
-import tempfile
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
-
-from apply_prompt_contract_overlays import BEGIN, END, apply_one, overlay
+ROOT = Path(__file__).resolve().parents[2]
+PROMPT_DIR = ROOT / "docs" / "llm_prompts" / "v1"
 
 
-class PromptOverlayTest(unittest.TestCase):
-    def test_apply_is_idempotent(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "prompt.md"
-            path.write_text("# Prompt\n\nOriginal rule.\n", encoding="utf-8")
-            block = "Stage-specific contract."
-            self.assertTrue(apply_one(path, block))
-            first = path.read_text(encoding="utf-8")
-            self.assertIn(BEGIN, first)
-            self.assertIn(END, first)
-            self.assertEqual(first.count(BEGIN), 1)
-            self.assertFalse(apply_one(path, block))
-            second = path.read_text(encoding="utf-8")
-            self.assertEqual(first, second)
+class PromptOverlayRetirementTest(unittest.TestCase):
+    def test_overlay_guard_passes_for_clean_v4_prompts(self):
+        completed = subprocess.run(
+            [sys.executable, "validation_scripts/apply_prompt_contract_overlays.py", "--check"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+        self.assertIn("PASS_V4_NO_ACTIVE_PROMPT_OVERLAYS", completed.stdout)
 
-    def test_existing_overlay_is_replaced_not_duplicated(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "prompt.md"
-            path.write_text(
-                "# Prompt\n\n" + overlay("Old rule.").strip() + "\n",
-                encoding="utf-8",
-            )
-            self.assertTrue(apply_one(path, "New rule."))
-            text = path.read_text(encoding="utf-8")
-            self.assertEqual(text.count(BEGIN), 1)
-            self.assertNotIn("Old rule.", text)
-            self.assertIn("New rule.", text)
+    def test_overlay_application_is_retired(self):
+        completed = subprocess.run(
+            [sys.executable, "validation_scripts/apply_prompt_contract_overlays.py", "--apply"],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertNotEqual(completed.returncode, 0)
+        self.assertIn("BLOCKED_V4_OVERLAY_APPLICATION_RETIRED", completed.stdout)
+
+    def test_stage_a_has_no_retired_runtime_dependency(self):
+        text = (PROMPT_DIR / "01_PROMPT_0_1_Stage_A.md").read_text(encoding="utf-8")
+        self.assertNotIn("WORKFLOW_CONTRACT_OVERLAY_", text)
+        self.assertNotIn("01A_PROMPT_0_1S_Structural_Value_Override.md", text)
+        self.assertIn("EMBEDDED_NEWS_VALUE_SELECTION_V4", text)
 
 
 if __name__ == "__main__":

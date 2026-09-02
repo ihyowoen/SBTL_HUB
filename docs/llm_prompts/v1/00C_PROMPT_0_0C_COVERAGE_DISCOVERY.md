@@ -1,69 +1,74 @@
-# Prompt 0.0C — Coverage Discovery and Completeness Scan
+# Prompt 0.0C — Coverage Discovery & Completeness V4
 
-**Named stage:** `0.0C`  
-**Authority:** `docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md`
+**Status:** `ACTIVE_CANONICAL`  
+**Version:** `PROMPT_0_0C_V4_20260901`
 
-## Role
+## Purpose
+Challenge the supplied raw universe before Stage A. Find missing material events, meaningful follow-ups, corrections/reversals, and reinforcement opportunities.
 
-You are the independent source-universe discovery analyst.
+## Entry gate
+Require 0.0D PASS and exact current baseline lock. Bind this artifact to the exact 0.0D manifest and canonical full blob used by the run.
 
-Your job is to challenge the completeness of the supplied input before Stage A. You may search the web, inspect official sources, compare the canonical full, inspect trackers and review pools, identify missing material events, identify material follow-ups, and identify existing-card reinforcement or correction opportunities.
+## Search universe
+Review supplied raw input, current canonical full, trackers/watchlists/review pools/holds, material existing-card lineages, official sources, and reputable independent reporting.
 
-You must not draft final cards, decide `accepted_fact_safe`, or assign publish readiness.
+Required regional axes and exact machine keys:
 
-## Preconditions
+- Korea → `korea`
+- North America → `north_america`
+- China → `china`
+- Japan → `japan`
+- Europe → `europe`
+- material global markets → `material_global_markets`
 
-- valid Stage 0.0D artifact;
-- locked repository and canonical full SHAs;
-- current input stories;
-- current canonical full;
-- trackers, watchlists, review pools, holds, and remediation records relevant to discovery.
+Required topic axes and exact machine keys:
 
-## Required search axes
+- cells/chemistries → `cells_chemistries`
+- materials/components → `materials_components`
+- pouch/pouch-film demand signals → `pouch_pouch_film_demand`
+- ESS/BESS → `ess_bess`
+- EV/charging → `ev_charging`
+- manufacturing/capacity/utilisation → `manufacturing_capacity_utilisation`
+- grid/AI-data-centre power → `grid_ai_data_centre_power`
+- critical minerals/refining → `critical_minerals_refining`
+- recycling → `recycling`
+- policy/trade/sanctions/subsidies/localisation → `policy_trade_sanctions_subsidies_localisation`
+- competitors/customers → `competitors_customers`
+- prices/costs/margins → `prices_costs_margins`
+- financing → `financing`
+- safety/recall/commissioning/operation → `safety_recall_commissioning_operation`
 
-### Regions
+Every required regional/topic axis must terminate with an object whose `status` is exactly `searched` or `blocked`. A `blocked` row must contain a non-empty `reason`. Missing axes, arbitrary substitute keys, or non-terminal statuses block Stage A. Additional scoped axes are allowed but do not replace the mandatory keys.
 
-- Korea;
-- United States and North America;
-- China;
-- Japan;
-- Europe;
-- material global markets.
+## Existing-card challenge
+For material canonical events, test new stage, legal effect, financing, scale, timing, customer/supplier, economics, technology maturity, risk, earnings contribution, delay/reduction/suspension/cancellation, and correction/reversal. A later article date is not a follow-up.
 
-### Topics
+## Discovery boundary
+Web findings are source candidates, not final evidence. Do not draft cards or declare fact safety.
 
-Apply every mandatory topic axis in `EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md`.
+## Production artifact bindings
+The output artifact must be directly consumable by the production card-run engine:
 
-### Baseline follow-ups
+- `document_universe_manifest_ref`: exact repository path to the passing 0.0D artifact used for this run.
+- `base_full_blob_sha`: exact canonical `data/cards.full.json` blob SHA locked for this run.
+- `original_input_accounted`: `true` only when every supplied input item has a terminal discovery disposition and none silently disappears.
+- `stage_a_authorized`: `true` only when coverage discovery is complete enough to hand the resulting universe to Stage A.
 
-For material existing cards, search for:
+If any binding is missing/stale, any mandatory coverage axis lacks a terminal searched/blocked disposition, any original input is unaccounted, or residual coverage defects still block Stage A, emit BLOCKED and set `stage_a_authorized = false`.
 
-- contract or award;
-- funding or financing close;
-- FID;
-- construction;
-- commissioning;
-- commercial operation;
-- expansion;
-- measured operating results;
-- delay, reduction, suspension, cancellation;
-- enactment, implementation, enforcement, or reversal;
-- material correction.
+## Machine ledger identity and reconciliation
+Every row that represents an original or discovered candidate must carry a stable non-empty `candidate_id`. A pre-existing governed identity such as `story_id`, `source_story_id`, `spec_id`, `source_spec_id`, or production `id` may be retained as an alias, but `candidate_id` is the canonical 0.0C reconciliation key for newly generated artifacts.
 
-## Required classifications
+The ledgers have distinct roles:
 
-For each candidate relative to the canonical full:
+- `original_input_ledger[]`: every supplied input item exactly once.
+- candidate buckets (`discovered_missing_candidates`, `baseline_follow_up_candidates`, `existing_card_reinforcements`, `existing_card_update_candidates`, `correction_or_reversal_candidates`, `treasure_rescue_candidates`, `must_report_candidate_ledger`) retain their governed candidate identity.
+- `source_universe_expansion_ledger[]`: the complete expanded event universe, including every original-input candidate and every discovered candidate retained for terminal accounting.
+- `terminal_discovery_disposition_ledger[]`: exactly one terminal row for every `source_universe_expansion_ledger` candidate, with non-empty `disposition`.
 
-- `exact_duplicate`;
-- `non_material_repetition`;
-- `existing_card_reinforcement`;
-- `material_follow_up`;
-- `stage_transition`;
-- `correction_or_reversal`;
-- `distinct_new_event`.
+On PASS, every candidate in the original/candidate ledgers must be present in `source_universe_expansion_ledger`, and the set of candidate identities in `terminal_discovery_disposition_ledger` must equal the expanded-universe identity set exactly. Duplicate identities, missing terminal rows, terminal rows for unknown candidates, missing mandatory coverage axes, or non-terminal matrix rows are BLOCKED.
 
-## Required outputs
-
+## Required output
 ```json
 {
   "stage": "0.0C",
@@ -71,48 +76,51 @@ For each candidate relative to the canonical full:
   "document_universe_manifest_ref": "",
   "base_full_blob_sha": "",
   "original_input_accounted": true,
+  "original_input_ledger": [
+    {"candidate_id": "", "story_id": null, "discovery_origin": "original_input"}
+  ],
   "discovered_missing_candidates": [],
   "baseline_follow_up_candidates": [],
   "existing_card_reinforcements": [],
+  "existing_card_update_candidates": [],
   "correction_or_reversal_candidates": [],
-  "regional_coverage_matrix": {},
-  "topic_coverage_matrix": {},
+  "treasure_rescue_candidates": [],
+  "regional_coverage_matrix": {
+    "korea": {"status": "searched"},
+    "north_america": {"status": "searched"},
+    "china": {"status": "searched"},
+    "japan": {"status": "searched"},
+    "europe": {"status": "searched"},
+    "material_global_markets": {"status": "searched"}
+  },
+  "topic_coverage_matrix": {
+    "cells_chemistries": {"status": "searched"},
+    "materials_components": {"status": "searched"},
+    "pouch_pouch_film_demand": {"status": "searched"},
+    "ess_bess": {"status": "searched"},
+    "ev_charging": {"status": "searched"},
+    "manufacturing_capacity_utilisation": {"status": "searched"},
+    "grid_ai_data_centre_power": {"status": "searched"},
+    "critical_minerals_refining": {"status": "searched"},
+    "recycling": {"status": "searched"},
+    "policy_trade_sanctions_subsidies_localisation": {"status": "searched"},
+    "competitors_customers": {"status": "searched"},
+    "prices_costs_margins": {"status": "searched"},
+    "financing": {"status": "searched"},
+    "safety_recall_commissioning_operation": {"status": "searched"}
+  },
+  "searched_but_no_material_event_ledger": [],
+  "source_universe_expansion_ledger": [
+    {"candidate_id": "", "origin": "original_input|discovered"}
+  ],
   "must_report_candidate_ledger": [],
-  "searched_but_no_material_event": [],
-  "source_universe_expansion_ledger": [],
-  "expanded_stage_a_input": [],
-  "unresolved_coverage_gaps": [],
-  "stage_a_authorized": false
+  "known_unknowns": [],
+  "residual_coverage_risks": [],
+  "terminal_discovery_disposition_ledger": [
+    {"candidate_id": "", "disposition": ""}
+  ],
+  "stage_a_authorized": true
 }
 ```
 
-## Ledger rule
-
-Every original and discovered item must receive a terminal discovery disposition.
-
-No item may disappear between discovery and Stage A.
-
-## Evidence rule
-
-Search findings are source candidates for later stages. Do not convert a discovery result into a final fact claim without Stage B evidence processing.
-
-## Completeness rule
-
-Do not claim absolute global completeness.
-
-Report:
-
-- searched scope;
-- unsearched or blocked scope;
-- known unknowns;
-- residual coverage risk;
-- material exclusions.
-
-## Exit
-
-Stage A is authorized only when:
-
-- every mandatory region and topic axis was processed;
-- original and discovered candidates are accounted for;
-- unresolved gaps are declared;
-- the expanded Stage A input is complete and reproducible.
+PASS requires exact 0.0D/baseline bindings, `original_input_accounted = true`, all mandatory regional/topic keys with terminal searched/blocked status, exact expanded-universe/terminal-ledger reconciliation, a terminal discovery disposition for every original and discovered item, and `stage_a_authorized = true`. No item or mandatory coverage axis disappears before Stage A.

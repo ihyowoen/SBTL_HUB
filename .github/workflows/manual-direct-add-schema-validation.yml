@@ -1,0 +1,66 @@
+name: Manual direct-add schema validation
+
+on:
+  pull_request:
+    paths:
+      - "direct-adds/**/direct-add.json"
+      - "schemas/manual-direct-add.v2.schema.json"
+      - "scripts/validate_json_schema_subset.mjs"
+      - "scripts/manual_direct_add_v1_history.mjs"
+      - ".github/workflows/manual-direct-add-schema-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "direct-adds/**/direct-add.json"
+      - "schemas/manual-direct-add.v2.schema.json"
+      - "scripts/validate_json_schema_subset.mjs"
+      - "scripts/manual_direct_add_v1_history.mjs"
+      - ".github/workflows/manual-direct-add-schema-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-v2-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate schema engine and historical-manifest classifier
+        run: |
+          set -euo pipefail
+          node --check scripts/validate_json_schema_subset.mjs
+          node --check scripts/manual_direct_add_v1_history.mjs
+          node scripts/validate_json_schema_subset.mjs --self-test
+          node scripts/manual_direct_add_v1_history.mjs --self-test
+          node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v2.schema.json","utf8"))'
+
+      - name: Validate submitted direct-add manifests
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REF: ${{ github.event.pull_request.base.ref || github.event.repository.default_branch }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF" --force
+            base_commit="origin/$BASE_REF"
+            range="$base_commit...HEAD"
+          else
+            base_commit="$BEFORE_SHA"
+            range="$BEFORE_SHA...HEAD"
+          fi
+
+          node scripts/manual_direct_add_v1_history.mjs \
+            --validate-changed \
+            --base "$base_commit" \
+            --range "$range" \
+            --schema schemas/manual-direct-add.v2.schema.json \
+            --validator scripts/validate_json_schema_subset.mjs

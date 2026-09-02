@@ -1,179 +1,75 @@
 #!/usr/bin/env python3
-"""Idempotently append the 2026-07-23 workflow contracts to named prompts.
-
-Run from the repository root:
-  python validation_scripts/apply_prompt_contract_overlays.py --check
-  python validation_scripts/apply_prompt_contract_overlays.py --apply
-"""
+"""V4 guard: active prompt overlays are retired and must not reappear."""
 from __future__ import annotations
 
 import argparse
+import json
 import re
-import sys
 from pathlib import Path
 
-BEGIN = "<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:BEGIN -->"
-END = "<!-- WORKFLOW_CONTRACT_OVERLAY_20260723:END -->"
-
-COMMON = """
-Mandatory shared contracts for this stage:
-
-- `docs/RELATED_LIFECYCLE_CONTRACT.md`
-- `docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md`
-- `docs/SOURCE_AUDIT_CONTRACT.md`
-- `validation_data/source_owner_registry.json` when source-owner counting is performed
-
-The shared contracts supersede conflicting wording only for Related lifecycle, date-role/freshness,
-source-audit metadata derivation, stage-exit artifact conformance, and production-verification proof.
-""".strip()
-
-BLOCKS = {
-    "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md": """
-Stage A Related/date overlay:
-
-- Perform the metadata-only Related pre-pass required by `RELATED_LIFECYCLE_CONTRACT.md`.
-- Every strict or bounded-review item must emit `related_prepass`.
-- Clear same-event duplicates may not enter the normal Stage B full-draft queue.
-- Candidate-to-candidate relation edges must be preserved.
-- Emit preliminary `date_role` with publication/event/representative date candidates; do not invent dates.
-- Stage exit must satisfy:
-  `python validation_scripts/stage_artifact_contract_check.py A <STAGE_A_JSON>`.
-  `python validation_scripts/stage_lineage_contract_check.py stage_a <STAGE_A_JSON>`.
-""",
-    "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md": """
-Stage B Related/date/source overlay:
-
-- Resolve every `related_prepass` using body-level or official evidence and emit `related_evidence_review`.
-- Emit `date_role` with event-date URL/quote and `earliest_same_event_date_checked=true`.
-- A newer article date is not a fresh follow-up anchor.
-- After any source add/remove/URL repair, run `recompute_source_audit_metadata.py` and then
-  `evidence_qc_v8_check.py`; do not hand-maintain derived counters.
-- Stage exit must satisfy:
-  `python validation_scripts/stage_artifact_contract_check.py B <STAGE_B_JSON>`.
-""",
-    "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md": """
-Stage C Related/source overlay:
-
-- Lock `related_lineage` for every accepted card.
-- `same_event_duplicate`, `existing_card_reinforcement`, and `uncertain_needs_review` may not enter
-  `accepted_fact_safe` as new cards.
-- `distinct_follow_up` requires a valid non-empty `fresh_follow_up_anchor`, a valid `fresh_follow_up_anchor_class` under `docs/RELATED_LIFECYCLE_CONTRACT.md`, and non-empty `incremental_fact_vs_predecessor` plus `changed_judgment_vs_predecessor`. A conventional execution anchor is required only when the selected anchor class is `execution_event_anchor`; valid policy, financial, strategic, technology, or probability anchors are permitted by the shared contract.
-- Recompute source independence from current `fact_sources`; do not trust stale counters.
-- Stage exit must satisfy:
-  `python validation_scripts/stage_artifact_contract_check.py C <STAGE_C_JSON>`.
-""",
-    "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md": """
-Stage B revise defect routing overlay:
-
-Classify every defect as one of:
-`same_url_quote_repair`, `date_only_repair`, `metadata_only_materialization`,
-`new_source_augmentation`, `visible_claim_change`, `selection_or_staleness_defect`.
-
-- Same-URL quote repair and verified metadata materialization do not consume a full revise-loop count.
-- Date-only repair is allowed only when all other visible/evidence fields remain byte-stable.
-- Selection/staleness defects return upstream; they are not repaired as draft wording issues.
-- Any source change must trigger source-audit recomputation and Related/date recheck.
-""",
-    "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md": """
-Stage C revise bounded-repair overlay:
-
-- Same-URL body/official quote repair is allowed when URL, event scope and visible claim are unchanged.
-- Record before/after quote and status; numbers, dates or event stage changes require the normal B revise path.
-- A deterministic date-only repair requires direct date evidence plus Related/story-ID impact revalidation.
-- Preserve or re-lock `related_lineage`; do not accept a same-event duplicate as a new card.
-""",
-    "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md": """
-Prompt 0.4 Related baseline overlay:
-
-- Re-run Related and duplicate screening against current main and the current candidate batch.
-- Classify candidates as new unrelated, distinct follow-up, program lineage, same-event duplicate,
-  existing reinforcement, or Related-uncertain hold.
-- Preserve candidate-to-candidate edges for production-ID resolution.
-- Strong evidence does not override a stale or duplicate selection defect.
-- Run `related_lifecycle_check.py` structurally before emitting addable candidates.
-""",
-    "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md": """
-Prompt 0.5 source/date/Related overlay:
-
-- Recompute all source counters, domains, owners, diversity status, discovery ledger and URL-resolution
-  from current `fact_sources` before deciding evidence completeness.
-- Run landing-page detection and reject non-durable article endpoints from evidence counts.
-- When an earlier source is found, re-run earliest-same-event and fresh-anchor checks; return stale
-  republications upstream instead of allowing evidence strength to launder selection.
-- Run `evidence_qc_v8_check.py` before advancing a card.
-""",
-    "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md": """
-Prompt 0.6 lineage overlay:
-
-- Preserve `related_lineage`, `date_role`, source-audit fields and all evidence verbatim.
-- Emit the exact top-level lineage fields and `lineage_and_anchor_guard` required by Prompt 0.7;
-  do not rely only on nested aliases.
-- Content polish may not create or remove Related edges.
-""",
-    "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md": """
-Prompt 0.7 final-gate overlay:
-
-- Build a merged baseline/candidate validation artifact so every current-run card and every referenced Related target is resolvable.
-- Build `CURRENT_RUN_ID_FILE` containing only identifiers introduced or materially updated by the current run. Use final `id` / `card_id` when assigned; before Prompt 0.8 production-ID resolution, the file may contain the exact carried `draft_id` or `source_spec_id` present on the merged candidate artifact.
-- The Related lifecycle validator must match scope entries against `id`, `card_id`, `draft_id`, or `source_spec_id`; unmatched, empty, partial, ambiguous, or zero-match scope remains a hard failure.
-- Before Prompt 0.8 assigns production IDs, a current-run `distinct_follow_up` or `program_lineage` may carry candidate-to-candidate edges in `related_candidate_spec_ids` while `related[]` remains empty. Every provisional target must resolve uniquely within the current-run scope; dangling, ambiguous, duplicate, or self-referential provisional edges are hard failures.
-- Run all four validators against `<MERGED_BASELINE_CANDIDATE_ARTIFACT>` before `publish_ready=true`:
-  `python validation_scripts/evidence_qc_v8_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --new-id-file <CURRENT_RUN_ID_FILE>`,
-  `python validation_scripts/related_lifecycle_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-contract --allow-provisional-related --new-id-file <CURRENT_RUN_ID_FILE>`,
-  `python validation_scripts/date_role_freshness_check.py <MERGED_BASELINE_CANDIDATE_ARTIFACT> --require-date-role --new-id-file <CURRENT_RUN_ID_FILE>`, and
-  `python validation_scripts/stage_artifact_contract_check.py 0.7 <MERGED_BASELINE_CANDIDATE_ARTIFACT>`.
-- Do not apply `--require-contract` unscoped to the full legacy inventory; strict V3 fields are current-run obligations while legacy rows remain under the legacy-compatible check.
-- Reapprove bounded single-source exceptions without weakening Related proof.
-- Output filename must be `publish_ready_PENDING_MERGE_PREP_<RUN_TAG>.json`;
-  reserve `pr_candidate_payload` for Prompt 0.8.
-""",
-    "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md": """
-Prompt 0.8 merge overlay:
-
-- Resolve all `related_candidate_spec_ids` to final production IDs and record
-  `related_id_resolution_ledger`.
-- Fail on dangling, self, duplicate, unexplained, or unresolved Related links.
-- Recompute source-audit metadata after every source URL change and run the repository Evidence QC.
-- Run `related_lifecycle_check.py --require-contract --new-id-file <ID_LEDGER>` and
-  `evidence_qc_v8_check.py --new-id-file <ID_LEDGER>` against the merged candidate/current merge-ID scope.
-- Only Prompt 0.8 may emit `pr_candidate_payload` and the authoritative replace-all file.
-""",
-    "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md": """
-Prompt 0.9 verification overlay:
-
-Allowed overall states:
-
-- `PASS`
-- `PASS_WITH_LIMITATIONS`
-- `FAIL`
-
-Record separately:
-`production_data_verified`, `production_deployment_verified`,
-`production_html_shell_verified`, `production_interactive_ui_verified`, and
-`production_mobile_verified`.
-
-Never set `production_verified=true` while any mandatory surface is untested. Verify live Related IDs
-and, when browser access exists, Related-card navigation/rendering.
-""",
-}
+ROOT = Path(__file__).resolve().parents[1]
+REGISTRY = ROOT / "docs" / "llm_prompts" / "v1" / "GOVERNANCE_LIFECYCLE_REGISTRY.json"
+FORBIDDEN_ACTIVE_TOKENS = [
+    "WORKFLOW_CONTRACT_OVERLAY_",
+    "01A_PROMPT_0_1S_Structural_Value_Override.md",
+    "00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md",
+    "00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
+    "00_MANDATORY_SEARCH_BEFORE_DELETE_OVERRIDE.md",
+    "_HARDENING_ADDENDUM_V1.md",
+    "_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
+    "_CANONICAL_PROMOTION_ADDENDUM_V1.md",
+    "_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md",
+]
+STATUS_RE = re.compile(r"^\*\*Status:\*\*\s*`?([A-Z_]+)`?\s*$", re.MULTILINE)
 
 
-def overlay(block: str) -> str:
-    return f"\n\n{BEGIN}\n{COMMON}\n\n{block.strip()}\n{END}\n"
+def active_prompt_paths() -> tuple[list[Path], list[str]]:
+    errors: list[str] = []
+    try:
+        registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return [], [f"cannot read lifecycle registry: {exc}"]
+
+    raw = registry.get("active_named_prompts")
+    if not isinstance(raw, list) or not raw:
+        return [], ["lifecycle registry active_named_prompts must be a non-empty array"]
+    expected_count = registry.get("active_named_prompt_count")
+    if expected_count != len(raw):
+        errors.append(
+            f"registry active_named_prompt_count={expected_count} != actual {len(raw)}"
+        )
+    if len(raw) != len(set(raw)):
+        errors.append("registry active_named_prompts contains duplicate paths")
+
+    paths: list[Path] = []
+    for entry in raw:
+        if not isinstance(entry, str) or not entry.strip():
+            errors.append(f"invalid active prompt registry entry: {entry!r}")
+            continue
+        paths.append(ROOT / entry)
+    return paths, errors
 
 
-def apply_one(path: Path, block: str) -> bool:
-    text = path.read_text(encoding="utf-8")
-    replacement = overlay(block)
-    pattern = re.compile(re.escape(BEGIN) + r".*?" + re.escape(END), re.S)
-    if pattern.search(text):
-        updated = pattern.sub(replacement.strip(), text)
-    else:
-        updated = text.rstrip() + replacement
-    if updated == text:
-        return False
-    path.write_text(updated, encoding="utf-8")
-    return True
+def check() -> list[str]:
+    paths, errors = active_prompt_paths()
+    for path in paths:
+        if not path.exists():
+            errors.append(f"missing active prompt: {path.relative_to(ROOT)}")
+            continue
+        text = path.read_text(encoding="utf-8")
+        match = STATUS_RE.search(text[:1600])
+        if not match:
+            errors.append(f"registered active prompt lacks parseable Status header: {path.relative_to(ROOT)}")
+        elif match.group(1) != "ACTIVE_CANONICAL":
+            errors.append(
+                f"registered active prompt status is {match.group(1)}, not ACTIVE_CANONICAL: {path.relative_to(ROOT)}"
+            )
+        for token in FORBIDDEN_ACTIVE_TOKENS:
+            if token in text:
+                errors.append(
+                    f"{path.relative_to(ROOT)} contains retired runtime dependency token: {token}"
+                )
+    return errors
 
 
 def main() -> int:
@@ -182,34 +78,20 @@ def main() -> int:
     mode.add_argument("--check", action="store_true")
     mode.add_argument("--apply", action="store_true")
     args = parser.parse_args()
-
-    missing = []
-    changed = []
-    for name, block in BLOCKS.items():
-        path = Path(name)
-        if not path.exists():
-            missing.append(name)
-            continue
-        text = path.read_text(encoding="utf-8")
-        expected = overlay(block).strip()
-        if BEGIN not in text or expected not in text:
-            changed.append(name)
-            if args.apply:
-                apply_one(path, block)
-
-    print(f"prompt files checked: {len(BLOCKS)}")
-    print(f"missing files: {len(missing)}")
-    for name in missing:
-        print(f"  MISSING {name}")
-    print(f"overlay updates required: {len(changed)}")
-    for name in changed:
-        print(f"  {'UPDATED' if args.apply else 'NEEDS_UPDATE'} {name}")
-    if missing:
+    if args.apply:
+        print("BLOCKED_V4_OVERLAY_APPLICATION_RETIRED: recurring rules must be integrated into clean named prompts")
         return 2
-    if args.check and changed:
+    errors = check()
+    if errors:
+        print("RESULT: BLOCKED_V4_LEGACY_PROMPT_OVERLAY_PRESENT")
+        for error in errors:
+            print(f"- {error}")
         return 1
+    paths, _ = active_prompt_paths()
+    print("RESULT: PASS_V4_NO_ACTIVE_PROMPT_OVERLAYS")
+    print(f"- active named prompts checked from registry: {len(paths)}")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

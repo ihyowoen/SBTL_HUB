@@ -1,249 +1,148 @@
-# Card Incremental Run Contract
+# Card Incremental Run Contract V2
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `CARD_INCREMENTAL_RUN_V1`
+**Version:** `CARD_INCREMENTAL_RUN_V2_20260902_R3`
 
-## 0. Purpose
+## 1. Scope
 
-This contract governs how a completed editorial run changes the canonical SBTL_HUB card inventory.
+This contract owns **formal Prompt 0.8 card-run mutation** after a completed formal editorial workflow. Manual direct-add is a separate governed mutation mode and is not a card-run impersonation.
 
-An incremental run is not limited to adding new cards. It may add new events, reinforce or correct existing cards, and add verified event-lineage relations while preserving the canonical full as the sole source of truth.
+## 2. Canonical ownership
 
-## 1. Canonical files
+- `data/cards.full.json` = sole canonical inventory;
+- `public/data/cards.json` = deterministic lean projection;
+- every mutation locks exact base main commit SHA, full blob SHA, and before count;
+- stale local/downloaded copies are never mutation baselines.
 
-```text
-data/cards.full.json      canonical full inventory
-public/data/cards.json    generated lean application projection
-```
+## 3. Formal ordinary operations
 
-Rules:
+Allowed:
 
-- only `data/cards.full.json` is canonical;
-- `public/data/cards.json` must be reproducibly generated from the full;
-- a run must not use a downloaded replacement file or stale branch copy as the baseline;
-- every run records the current main commit SHA and canonical full blob SHA.
+- `insert` — independently cardable new event/follow-up/program-lineage card;
+- `update` — bounded declared field changes to an existing represented event;
+- `related_add` — verified direct lineage edge.
 
-## 2. Ordinary operation types
-
-An ordinary governed run may declare:
-
-- `insert`;
-- `update`;
-- `related_add`.
-
-An ordinary run must not perform:
+Not ordinary:
 
 - card deletion;
 - `related_remove`;
-- silent replacement of an existing card;
-- undeclared modification of an existing card;
-- automatic cleanup of legacy dangling relations.
+- silent replacement;
+- undeclared existing-card modification;
+- legacy dangling-edge cleanup.
 
-Deletion and relation removal require a separate remediation contract, item-specific evidence, explicit approval, a declared diff, and an independently reviewed PR.
+Those require separately scoped remediation/migration and explicit approval.
 
-## 3. Operation meanings
+## 4. Insert/update distinction
 
-### 3.1 `insert`
+Use update when the represented event remains the same and new evidence corrects/completes it without independent follow-up cardability.
 
-Use for:
+Use insert for a distinct material event or direct follow-up that passed lineage/cardability/addability. A newer article alone is reinforcement, not insert.
 
-- a distinct new event;
-- a material follow-up;
-- a new execution-stage transition;
-- a material correction or reversal that is independently newsworthy.
+## 5. Related
 
-An insert requires a new production ID and full schema.
+`related_add` requires source/target production IDs or a pre-0.8 provisional mapping that is resolved before canonical write, relation type, direct-lineage reason, and evidence. Shared actor/topic/chemistry/geography is insufficient. Existing edges are preserved by default.
 
-### 3.2 `update`
+## 6. Run artifact
 
-Use for the same represented event when new evidence:
+The formal card-run records run ID, exact base SHAs/count, declared operations, expected after count, stage/audit references including 0.0D/0.0C/0.7C, Related ID-resolution ledger, and apply/validator results required by current machine schema.
 
-- corrects a factual error;
-- confirms or refines an amount, capacity, timing, counterparty, or condition;
-- adds a durable official or independent source;
-- improves claim coverage;
-- strengthens strategic context without creating a separate event.
+Its `audit_refs[]` must also contain **exactly one** Prompt 0.8 JSON artifact with `stage: "0.8"`. That artifact must carry exact `run_id`, `base_main_commit_sha`, and `base_full_blob_sha` bindings, passing `github_main_sync_gate` and `lineage_merge_gate`, and the final `github_merge_ready[]` item set. An unreferenced, duplicate, stale, or prose-only 0.8 result cannot authorize merge.
 
-An update must declare every changed field and preserve all undeclared fields.
+### 6.1 Per-operation stage-chain binding
+Every formal `insert`, `update`, and `related_add` operation must prove the complete ordinary editorial chain for the same governed candidate identity:
 
-### 3.3 `related_add`
+`A → B → C → 0.4 → 0.5 → 0.6 → 0.7`
 
-Use only for a verified direct event lineage under `RELATED_LIFECYCLE_CONTRACT.md`.
+`0.2R` and `0.3R` are conditional repair artifacts and never substitute for the re-established B/C outputs. A formal stage artifact must declare its ordinary `stage`; an unknown or repair/revise stage marker may not be reclassified from a bucket name. Run-level 0.0D, 0.0C, and 0.7C remain separately bound governance artifacts.
 
-A related addition must declare:
+For each operation:
 
-- source card ID;
-- target card ID;
-- relation type;
-- evidence;
-- lineage reason;
-- event-stage relationship;
-- whether the link is reciprocal or directional.
+- every mandatory stage must be represented in that operation's own `stage_artifacts[]`;
+- every A/B/C/0.4/0.5/0.6/0.7 artifact must carry exact `run_id`, `base_main_commit_sha`, and `base_full_blob_sha` equal to the card run; stale artifacts from another run/baseline are invalid even if their candidate ID matches;
+- Stage A must pass both the V4 Stage A contract and the authoritative lineage/compatibility gate;
+- B/C/0.4/0.5/0.6/0.7 artifacts must pass their stage-output machine contract, including required **values**, not merely the presence of field names;
+- all seven stage outputs must contain the operation's same `source_spec_id` (`spec_id` at Stage A, `source_spec_id` downstream);
+- an insert binds to required `card.source_spec_id`;
+- an update normally binds to the existing canonical card's `source_spec_id`. If a legacy canonical card predates that field, the operation must declare `source_spec_id`; if both canonical and operation values exist they must match exactly. `source_spec_id` is binding metadata and may not itself be mutated by an update;
+- a Related addition normally binds to a governed endpoint `source_spec_id`. If neither legacy endpoint carries one, the operation must declare both `source_spec_id` and `identity_card_id`, where `identity_card_id` equals `source_id` or `target_id`; the declared candidate identity must then be present in every A→0.7 artifact. If an endpoint identity exists, any declared `source_spec_id` must match one of the governed endpoints;
+- the Related operation's target/type/reason and declared semantic metadata must agree with the same candidate's Related decisions preserved through the stage chain.
 
-Shared topic, actor, chemistry, geography, or keyword is insufficient.
+A passing artifact for another candidate cannot authorize an operation. A global Stage A count cannot satisfy another operation. Missing stage, stale run/baseline binding, missing candidate identity, cross-candidate artifact reuse, or Related-semantic mismatch is merge-blocking.
 
-## 4. Update versus follow-up
+### 6.2 0.0D/0.0C production reconciliation
+The formal gate must validate—not merely trust—the detailed preflight/discovery conclusions:
 
-Use an update when the same event is being corrected or completed.
+- 0.0D exact main/full SHA bindings; `active_canonical_paths` must exactly equal the current lifecycle registry's `active_canonical + active_named_prompts`; `active_validator_contract_paths` must exactly equal `active_validator_contracts`; applicable remediation/migration must exactly equal `open_remediations + activation_required_migrations`; `active_full_read_count` must equal that exact unique active/dependency closure; classified count equals inventory count; all defect/conflict/unread/unclassified ledgers are empty on PASS; active override/addendum count is zero; embedded Stage A news-value verification is true; compatibility booleans agree with the detailed ledgers.
+- 0.0C exact 0.0D/full bindings; regional matrix and topic matrix must include every axis in `schemas/workflow-v4-coverage-axes.json`; each required axis must terminate as `searched` or `blocked` (with reason when blocked); every original/discovered candidate is present in the expanded-universe ledger; every expanded candidate has exactly one terminal disposition; terminal rows for unknown candidates are forbidden; only then may `original_input_accounted=true` and `stage_a_authorized=true` authorize Stage A.
 
-Use `insert + related_add` when a separate material stage occurs, including:
+### 6.3 Post-resolution Prompt 0.8 semantic gate
 
-```text
-plan → contract
-contract → financing close
-financing → FID
-FID → construction
-construction → commissioning
-commissioning → commercial operation
-operation → expansion or measured result
-active project → delay, suspension, reduction, or cancellation
-proposal → enactment, final rule, implementation, or enforcement
-```
-
-A newer article about the same facts is reinforcement, not a follow-up.
-
-## 5. Required run artifact
+Before byte-exact apply verification, the production workflow constructs a JSON Prompt 0.8 identity ledger with two explicit sets:
 
 ```json
 {
-  "schema": "card_run_v1",
-  "run_id": "",
-  "base_main_commit_sha": "",
-  "base_full_blob_sha": "",
-  "expected_before": 0,
-  "operations": {
-    "insert": [],
-    "update": [],
-    "related_add": []
-  },
-  "expected_after": 0,
-  "audit_refs": [],
-  "document_universe_manifest_ref": "",
-  "coverage_discovery_ref": "",
-  "independent_completeness_ref": ""
+  "schema": "prompt_0_8_current_run_id_ledger_v1",
+  "ids": ["<inserted-or-materially-updated-final-ID>"],
+  "operation_ids": ["<all-governed-operation-final-IDs>"]
 }
 ```
 
-Each operation must include its governing stage artifacts and source/evidence references.
+- `ids[]` is the **strict card-wide current-run QC scope**: final inserted IDs and materially updated IDs only.
+- `operation_ids[]` is the **formal operation identity set**: `ids[]` plus the single governed identity endpoint for each `related_add`.
+- every ID in both sets must resolve exactly once in `data/cards.full.json`;
+- `github_merge_ready[]` in the single bound Prompt 0.8 artifact must equal `operation_ids[]` exactly;
+- for Related operations the governed endpoint is resolved from `identity_card_id`, canonical/declared `source_spec_id`, or another unambiguous current-run identity rule.
 
-## 6. Baseline lock
+A reciprocal Related patch to an unchanged legacy predecessor/program card does **not** add that legacy mirror endpoint to `ids[]` merely because its canonical Related representation is patched. The Related edge itself is still validated through the operation-bound A→0.7 semantic chain and the exact `operation_ids[]`/`github_merge_ready[]` identity proof. This prevents pre-V3 legacy cards from being falsely treated as newly authored current-run cards solely because they receive a reciprocal mirror patch.
 
-Before applying operations:
-
-1. fetch current `main`;
-2. verify `base_main_commit_sha`;
-3. verify `base_full_blob_sha`;
-4. verify `expected_before`;
-5. stop if any value differs.
-
-Blocked status:
+When `ids[]` is non-empty, the workflow executes against the materialized final graph:
 
 ```text
-BLOCKED_BASELINE_MOVED_REBASE_REQUIRED
+python validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file <ID_LEDGER_JSON>
+python validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file <ID_LEDGER_JSON>
+python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file <ID_LEDGER_JSON>
 ```
 
-The run must be rebased and all duplicate, follow-up, update, and related decisions rerun against the new full.
+A relation-only formal run may have empty `ids[]` but must still have a non-empty governed `operation_ids[]`; in that narrow case the three card-wide strict current-run validators are not run over unchanged legacy patch-only endpoints. The Prompt 0.8 artifact checker always runs:
 
-## 7. Declared-diff contract
+```text
+python validation_scripts/stage_artifact_contract_check.py 0.8 <BOUND_STAGE_0_8_AUDIT_ARTIFACT>
+```
 
-The apply process must prove:
+The 0.8 gate must not use `--allow-provisional-related`. All current-run relation targets are final production IDs at merge prep. The repository workflow—not prompt prose alone—must enforce this sequence.
 
-- all inserted IDs are new;
-- every update targets an existing ID;
-- every changed existing field was declared;
-- no existing card disappeared;
-- no existing related edge disappeared;
-- every related addition resolves;
-- no new dangling relation exists;
-- no self-link or duplicate link exists;
-- counts reconcile;
-- the resulting full regenerates the lean projection exactly.
+The runtime logic is implemented in executable helpers rather than untested inline workflow heredocs:
+
+- `scripts/validate_prompt_0_8_semantic_gate.mjs` — derives JSON identity scopes and binds the exact Prompt 0.8 item set;
+- `scripts/validate_card_run_audits_dispatch.mjs` — dispatches the single `stage: "0.8"` artifact away from true `card_run_audit_v1` references and validates the latter using a repository-relative ephemeral run;
+- both helpers provide `--self-test` and are exercised by durable semantic regression tests.
+
+## 7. Baseline moved
+
+If current main/full differs from the declared baseline, stop with `BLOCKED_BASELINE_MOVED_REBASE_REQUIRED`. Revalidate duplicate/update/follow-up/Related/addability against the new baseline before applying.
+
+## 8. Declared diff
+
+Prove all inserts are new, updates target existing IDs and only declared fields change, no existing card/Related edge disappears, all new relations resolve, no new dangling/self/duplicate relation appears, counts reconcile, canonical remains latest-first, and lean regenerates exactly.
+
+Each formal insert must also use a `source_spec_id` that is unique within the run and absent from the declared-baseline canonical inventory. One reviewed source identity cannot materialize as multiple canonical cards.
 
 Any undeclared change blocks merge.
 
-## 8. Existing relation preservation
+## 9. One PR boundary
 
-Ordinary runs obey:
+Default formal run: one governed card-run manifest plus the committed canonical full/lean outputs and required audit artifacts under the current workflow contract. Do not mix formal card-run with manual direct-add or a dedicated migration in one data PR.
 
-```text
-existing related edges   preserve
-verified new relation    related_add
-missing valid relation   related_add
-relation removal         separate remediation only
-card deletion            separate remediation only
-```
+## 10. Apply order
 
-Legacy dangling relations remain visible as open remediation until resolved through the separate audited process. They are not silently deleted or retargeted.
+`re-lock baseline → validate registry-bound 0.0D → validate mandatory-axis 0.0C → validate current-run/baseline-bound candidate A→0.7 chains → validate 0.7C → validate operations → apply inserts → apply updates → resolve/apply Related additions → construct JSON strict-ID ledger + operation identity set → run post-resolution 0.8 semantic gate → validate declared diff → write/verify full → generate/verify lean → PR review → merge → 0.9`.
 
-## 9. Run audit
+## 11. Manual direct-add boundary
 
-Every run retains an independent audit containing:
+Already-reviewed bounded changes may instead use `MANUAL_DIRECT_ADD_V2`. That mode declares its own editorial attestation and mutation scope and explicitly states `formal_full_run_claimed=false`. It does not require fake Stage A/B/C/0.7C/0.8 artifacts. A V2 manifest must declare at least one actual `add`, `update`, or `id_migration`; a timestamp-only/no-op direct-add is invalid.
 
-- input universe;
-- Stage 0.0D manifest;
-- Stage 0.0C discovery ledger;
-- Stage A/B/C and post-acceptance artifacts;
-- inserted IDs;
-- updated IDs and field-level diffs;
-- related additions;
-- zero deletion assertion for ordinary runs;
-- count reconciliation;
-- full and lean output hashes;
-- production verification result.
+Historical `MANUAL_DIRECT_ADD_V1` records are audit-only. Rename/delete/preservation grandfathering is based on the **base revision already being V1**; a V2 record may not be downgraded into V1. This lifecycle rule is implemented once in `scripts/manual_direct_add_v1_history.mjs` and consumed by both direct-add workflows.
 
-The audit is not embedded as uncontrolled top-level fields in every card. Card-level durable provenance may reference the run audit.
+## 12. Completion
 
-## 10. One run, one governed operation
-
-Default operation:
-
-```text
-one editorial run → one governed incremental run artifact
-```
-
-Multiple unmerged runs may be consolidated only as an exceptional recovery or transition procedure with explicit approval.
-
-An exceptional consolidation must:
-
-- preserve each original run’s inputs, decisions, and audit separately;
-- re-evaluate cross-run duplicates;
-- re-evaluate existing-card reinforcement;
-- re-evaluate material follow-ups and event-stage transitions;
-- re-evaluate related additions;
-- use a bounded migration document;
-- return to ordinary one-run operation after completion.
-
-Consolidation is not the default workflow and must not be encoded as a permanent date-specific rule.
-
-## 11. Apply order
-
-```text
-validate document universe
-→ validate coverage and completeness artifacts
-→ lock canonical baseline
-→ validate operations
-→ apply inserts
-→ apply updates
-→ apply related additions
-→ validate declared diff
-→ write canonical full
-→ regenerate lean projection
-→ run schema, lineage, evidence, and relation validators
-→ verify main
-→ verify production
-```
-
-The canonical full must be written and validated before the lean projection is published.
-
-## 12. Production completion
-
-A run is complete only when:
-
-- the intended canonical full is on `main`;
-- the lean projection matches the full;
-- the application endpoint serves the expected count and IDs;
-- inserted and updated cards render correctly;
-- related links resolve;
-- production verification is recorded.
-
-`github_merge_ready` is not `production_verified`.
+`github_merge_ready` is not `production_verified`. A formal run ends only after Prompt 0.9 verifies intended main and required production surfaces.

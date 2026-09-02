@@ -4,29 +4,37 @@ on:
   pull_request:
     paths:
       - "contracts/**"
-      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-      - "docs/SOURCE_AUDIT_CONTRACT.md"
-      - "docs/llm_prompts/v1/**"
+      - "docs/**"
+      - "schemas/manual-direct-add.v*.schema.json"
+      - "schemas/workflow-v4-coverage-axes.json"
+      - "scripts/workflow_v4_coverage_axes.mjs"
+      - "scripts/validate_manual_direct_add.mjs"
+      - "scripts/manual_direct_add_v1_history.mjs"
+      - "scripts/validate_card_run_audits_dispatch.mjs"
+      - "scripts/validate_prompt_0_8_semantic_gate.mjs"
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
       - "scripts/lean_cards.mjs"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
+      - ".github/workflows/apply-card-run.yml"
+      - ".github/workflows/manual-direct-add-schema-validation.yml"
   push:
-    branches:
-      - main
-      - agent/workflow-contract-related-source-audit
-      - agent/canonical-v3-contract-schema
+    branches: [main]
     paths:
       - "contracts/**"
-      - "docs/RELATED_LIFECYCLE_CONTRACT.md"
-      - "docs/SOURCE_AUDIT_CONTRACT.md"
-      - "docs/llm_prompts/v1/**"
-      - "validation_data/source_owner_registry.json"
+      - "docs/**"
+      - "schemas/manual-direct-add.v*.schema.json"
+      - "schemas/workflow-v4-coverage-axes.json"
+      - "scripts/workflow_v4_coverage_axes.mjs"
+      - "scripts/validate_manual_direct_add.mjs"
+      - "scripts/manual_direct_add_v1_history.mjs"
+      - "scripts/validate_card_run_audits_dispatch.mjs"
+      - "scripts/validate_prompt_0_8_semantic_gate.mjs"
       - "validation_scripts/**"
-      - "scripts/lean_cards.mjs"
-      - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
+      - ".github/workflows/apply-card-run.yml"
+      - ".github/workflows/manual-direct-add-schema-validation.yml"
 
 permissions:
   contents: read
@@ -43,20 +51,65 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Compile validators
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Compile validators and historical snapshots
         run: python -m compileall -q validation_scripts
 
-      - name: Verify canonical V3 contract alignment
-        run: python validation_scripts/v3_contract_drift_check.py
+      - name: Verify clean V4 architecture
+        run: python validation_scripts/workflow_v4_architecture_check.py
 
-      - name: Verify generated V3 stage contracts
-        run: python validation_scripts/v3_stage_contracts.py --check
-
-      - name: Verify V3 stage contract flow
-        run: python validation_scripts/v3_stage_contract_flow_check.py --check
-
-      - name: Run workflow-contract and exporter regression tests
-        run: python -m unittest discover -s validation_scripts/tests -v
-
-      - name: Verify prompt overlays
+      - name: Verify no legacy prompt overlay is active
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
+
+      - name: Run active semantic and machine regression tests
+        id: active-tests
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          python validation_scripts/run_active_workflow_tests.py 2>&1 | tee workflow-active-tests.log
+
+      - name: Upload exact active-test diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-active-test-log-${{ github.run_id }}
+          path: workflow-active-tests.log
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Fail closed on active-test failure
+        if: steps.active-tests.outcome == 'failure'
+        run: |
+          echo "Active workflow regression suite failed; exact FAIL_ID/ERROR_ID values are in the uploaded diagnostic artifact." >&2
+          exit 1
+
+      - name: Validate executable V4 runtime helpers
+        run: |
+          set -euo pipefail
+          node --check scripts/manual_direct_add_v1_history.mjs
+          node --check scripts/validate_card_run_audits_dispatch.mjs
+          node --check scripts/validate_prompt_0_8_semantic_gate.mjs
+          node scripts/manual_direct_add_v1_history.mjs --self-test
+          node scripts/validate_card_run_audits_dispatch.mjs --self-test
+          node scripts/validate_prompt_0_8_semantic_gate.mjs --self-test
+          python validation_scripts/tests/test_prompt_0_8_runtime_gate.py
+
+      - name: Validate direct-add V2 schema and validator
+        run: |
+          node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v2.schema.json","utf8"))'
+          node --check scripts/validate_manual_direct_add.mjs
+          node scripts/validate_manual_direct_add.mjs --self-test
+
+      - name: Verify V3 machine-contract compatibility
+        run: |
+          python validation_scripts/v3_contract_drift_check.py
+          python validation_scripts/v3_stage_contracts.py --check
+          python validation_scripts/v3_stage_contract_flow_check.py --check
+
+      - name: Verify lean projection contract
+        run: node scripts/lean_cards.mjs --check

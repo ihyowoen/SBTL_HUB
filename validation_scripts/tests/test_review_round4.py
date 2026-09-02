@@ -61,9 +61,21 @@ class SingularStageBArtifactTest(unittest.TestCase):
             **STAGE_B_TOP_LEVEL,
             "draft_card": {
                 "source_spec_id": "SPEC-1",
-                "fact_sources": [],
-                "related_evidence_review": {},
-                "date_role": {},
+                "fact_sources": [
+                    {
+                        "source_url": "https://example.com/news/2026/project-update",
+                        "evidence_role": "primary_event_evidence",
+                    }
+                ],
+                "related_evidence_review": {
+                    "status": "PASS",
+                    "same_event_checked": True,
+                    "relation_type": "new_unrelated_event",
+                },
+                "date_role": {
+                    "representative_date": "2026-09-01",
+                    "representative_date_type": "event_date",
+                },
             },
         }
         completed, report = run_json(

@@ -1,273 +1,123 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
 
-class ValidationError extends Error {
-  constructor(code, message) { super(message); this.code = code; }
-}
-
+class ValidationError extends Error { constructor(code, message) { super(message); this.code = code; } }
 const fail = (code, message) => { throw new ValidationError(code, message); };
-const readJson = (path, label) => {
-  try { return JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, "")); }
-  catch (error) { fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", `${label}: ${error.message}`); }
-};
-const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-const uniq = (items) => new Set(items).size === items.length;
+const readJson = (path, label) => { try { return JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, "")); } catch (e) { fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", `${label}: ${e.message}`); } };
+const same = (a,b) => JSON.stringify(a) === JSON.stringify(b);
+const uniq = (x) => new Set(x).size === x.length;
 const RFC3339 = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
+const ANCHORS = new Set(["execution_event_anchor","policy_regulatory_anchor","data_financial_anchor","strategic_behavior_anchor","technology_commercialization_anchor","follow_up_probability_anchor"]);
+const NON_EXECUTION_ANCHORS = new Set(["policy_regulatory_anchor","data_financial_anchor","strategic_behavior_anchor","technology_commercialization_anchor","follow_up_probability_anchor"]);
+const CLASSES = [[85,"critical_structural"],[70,"high_decision_value"],[55,"material_industry_signal"],[40,"standard_monitoring"],[25,"context_or_reinforcement"],[0,"low_independent_value"]];
+const BREAKDOWN_MAX={market_structure_competition:25,supply_demand_price_utilisation:25,technology_performance_safety:20,cashflow_asset_value:10,law_policy_market_access:10,systemic_scale:5,persistence_irreversibility:3,decision_urgency_actionability:2};
+const TECHNOLOGY_EVIDENCE_CAPS={not_applicable:0,company_target_or_unsupported_claim:4,laboratory_unvalidated:7,pilot_precommercial:11,independent_test_or_customer_qualification:15,commercial_scale_or_long_duration_field:20,material_failure_evidence:20};
+const POLICY_STAGE_TOTAL_CAPS={0:39,1:54,2:69};
+const NOVELTY_TOTAL_CAPS={none:null,repeated_announcement_no_new_fact:39,routine_progression_no_material_uncertainty:54,company_target_without_validation_or_effect:54,unsupported_political_rhetoric:39};
+const MANIFEST_KEYS=["schema","status","direct_add_id","review_mode","formal_full_run_claimed","base_main_commit_sha","base_full_blob_sha","expected_before","expected_after","output_updated","operations","editorial_attestation"];
+const OPERATION_KEYS=["add","update","id_migration"];
+const MIGRATION_KEYS=["old_id","new_id","reason"];
+const EDITORIAL_KEYS=["policy_version","additions","updates"];
+const ADDITION_KEYS=["id","execution_credibility_gate","independent_cardability_gate","anchor_classes","selection_route","decision_news_value_score","decision_value_breakdown","decision_value_classification","publication_urgency","systemic_scale_denominator","denominator_gap","technology_evidence_level","policy_stage","novelty_cap_basis","prior_state","new_verified_fact","changed_judgment","evidence_review_summary","next_confirmation_points","inclusion_decision","owner_override_reason","structural_non_execution_reason","why_execution_event_not_required"];
+const UPDATE_KEYS=["id","change_type","changed_fields","reason","evidence_review_summary"];
+const UPDATE_IMMUTABLE_FIELDS=new Set(["id","date","region","related"]);
+const VISIBLE_EVENT_FIELDS=new Set(["title","sub","gate","fact","implication","cat","sub_cat","signal"]);
 
-function requireString(value, label) {
-  if (typeof value !== "string" || !value.trim()) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", `${label} must be a non-empty string`);
-  return value.trim();
+function str(v,l){ if(typeof v!=="string"||!v.trim()) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID",`${l} must be a non-empty string`); return v.trim(); }
+function strArr(v,l,{nonempty=false}={}){ if(!Array.isArray(v)||v.some(x=>typeof x!=="string"||!x.trim())||(nonempty&&v.length===0)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID",`${l} must be ${nonempty?"a non-empty ":"an "}array of non-empty strings`); if(!uniq(v)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID",`${l} contains duplicates`); return v; }
+function exactKeys(v,l,required){ if(!v||typeof v!=="object"||Array.isArray(v)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID",`${l} must be an object`); const keys=Object.keys(v),allowed=new Set(required),missing=required.filter(k=>!Object.prototype.hasOwnProperty.call(v,k)),extra=keys.filter(k=>!allowed.has(k)); if(missing.length||extra.length) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID",`${l} schema mismatch; missing=[${missing.join(",")}] extra=[${extra.join(",")}]`); return v; }
+function timestamp(v){ str(v,"output_updated"); if(!RFC3339.test(v)||Number.isNaN(Date.parse(v))) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID",`output_updated must be RFC3339 — ${v}`); }
+function cardMap(cards,label){ if(!Array.isArray(cards)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID",`${label}.cards must be an array`); const m=new Map(); for(const c of cards){const id=str(c?.id,`${label} card id`); if(m.has(id)) fail("BLOCKED_MANUAL_DIRECT_ADD_DUPLICATE_ID",`${label} duplicate id ${id}`); m.set(id,c);} return m; }
+function topStable(d){ const c={...d}; delete c.cards; delete c.updated; delete c.total; return c; }
+function identityTokens(card){ const s=new Set(); for(const k of ["source_spec_id","origin_source_spec_id","original_source_spec_id"]){ if(typeof card?.[k]==="string"&&card[k].trim()) s.add(`spec:${card[k].trim()}`); if(typeof card?.provenance?.[k]==="string"&&card.provenance[k].trim()) s.add(`spec:${card.provenance[k].trim()}`); } for(const u of Array.isArray(card?.urls)?card.urls:[]) if(typeof u==="string"&&u.trim()) s.add(`url:${u.trim()}`); for(const x of Array.isArray(card?.fact_sources)?card.fact_sources:[]) if(typeof x?.source_url==="string"&&x.source_url.trim()) s.add(`url:${x.source_url.trim()}`); if(typeof card?.title==="string"&&card.title.trim()) s.add(`title:${card.title.trim()}`); return s; }
+function eventAnchorTokens(card){ const s=new Set(); for(const u of Array.isArray(card?.urls)?card.urls:[]) if(typeof u==="string"&&u.trim()) s.add(`url:${u.trim()}`); for(const x of Array.isArray(card?.fact_sources)?card.fact_sources:[]) if(typeof x?.source_url==="string"&&x.source_url.trim()) s.add(`url:${x.source_url.trim()}`); if(typeof card?.title==="string"&&card.title.trim()) s.add(`title:${card.title.trim()}`); if(card?.event_fingerprint&&typeof card.event_fingerprint==="object"&&!Array.isArray(card.event_fingerprint)) s.add(`event:${JSON.stringify(card.event_fingerprint)}`); return s; }
+function stableIdentity(a,b){ const l=identityTokens(a),r=identityTokens(b); for(const t of l) if(r.has(t)) return true; return false; }
+function stableEventAnchor(a,b){ const l=eventAnchorTokens(a),r=eventAnchorTokens(b); for(const t of l) if(r.has(t)) return true; return false; }
+function changedTopLevelFields(a,b){ const keys=new Set([...Object.keys(a||{}),...Object.keys(b||{})]); return [...keys].filter(k=>!same(a?.[k],b?.[k])).sort(); }
+function brokenPairs(doc,migrate=new Map()){ const ids=new Set(doc.cards.map(c=>c.id)),out=new Set(); for(const c of doc.cards){for(const t of Array.isArray(c.related)?c.related:[]){if(!ids.has(t)) out.add(`${migrate.get(c.id)||c.id}→${migrate.get(t)||t}`);}} return out; }
+function scoreClass(score){ for(const [min,c] of CLASSES) if(score>=min) return c; }
+function empty(v){ return v===null||v===undefined||v===""; }
+function finite(v){ return typeof v==="number"&&!Number.isNaN(v)&&Number.isFinite(v); }
+
+function validateScoreCaps(a,id,anchors){
+ const b=exactKeys(a.decision_value_breakdown,`${id}.decision_value_breakdown`,Object.keys(BREAKDOWN_MAX)); let total=0;
+ for(const [k,max] of Object.entries(BREAKDOWN_MAX)){const v=b[k]; if(!finite(v)||v<0||v>max) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: decision_value_breakdown.${k} must be finite 0..${max}`); total+=v;}
+ if(Math.abs(total-a.decision_news_value_score)>1e-9) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: breakdown sum ${total} != score ${a.decision_news_value_score}`);
+ if(typeof a.systemic_scale_denominator==="string"&&a.systemic_scale_denominator.trim()){
+   if(!empty(a.denominator_gap)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: denominator_gap must be empty when systemic_scale_denominator is supplied`);
+ }else{
+   str(a.denominator_gap,`${id}.denominator_gap`);
+   if(b.systemic_scale>2) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: systemic_scale >2 without defensible denominator`);
+ }
+ if(!Object.prototype.hasOwnProperty.call(TECHNOLOGY_EVIDENCE_CAPS,a.technology_evidence_level)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: invalid technology_evidence_level`);
+ if(b.technology_performance_safety>TECHNOLOGY_EVIDENCE_CAPS[a.technology_evidence_level]) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: technology score exceeds evidence-level hard cap`);
+ if(a.policy_stage!==null&&(typeof a.policy_stage!=="number"||!Number.isInteger(a.policy_stage)||a.policy_stage<0||a.policy_stage>6)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: policy_stage must be null or integer 0..6`);
+ if(anchors.includes("policy_regulatory_anchor")&&a.policy_stage===null) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: policy anchor requires policy_stage`);
+ if(Object.prototype.hasOwnProperty.call(POLICY_STAGE_TOTAL_CAPS,a.policy_stage)&&a.decision_news_value_score>POLICY_STAGE_TOTAL_CAPS[a.policy_stage]) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: score exceeds policy-stage hard cap`);
+ if(!Object.prototype.hasOwnProperty.call(NOVELTY_TOTAL_CAPS,a.novelty_cap_basis)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: invalid novelty_cap_basis`);
+ const noveltyCap=NOVELTY_TOTAL_CAPS[a.novelty_cap_basis]; if(noveltyCap!==null&&a.decision_news_value_score>noveltyCap) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: score exceeds novelty hard cap`);
 }
 
-function requireStringArray(value, label) {
-  if (!Array.isArray(value) || value.some((item) => typeof item !== "string" || !item.trim())) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", `${label} must be an array of non-empty strings`);
-  }
-  if (!uniq(value)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", `${label} contains duplicates`);
-  return value;
+function parseOps(manifest){
+ const o=exactKeys(manifest.operations,"operations",OPERATION_KEYS),adds=strArr(o.add,"operations.add"),updates=strArr(o.update,"operations.update");
+ if(!Array.isArray(o.id_migration)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID","operations.id_migration must be an array");
+ const migrations=o.id_migration,oldIds=[],newIds=[],map=new Map();
+ for(const [i,x] of migrations.entries()){exactKeys(x,`id_migration[${i}]`,MIGRATION_KEYS); const oldId=str(x.old_id,`id_migration[${i}].old_id`),newId=str(x.new_id,`id_migration[${i}].new_id`); str(x.reason,`id_migration[${i}].reason`); if(oldId===newId||map.has(oldId)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID",`invalid/duplicate migration ${oldId}`); map.set(oldId,newId); oldIds.push(oldId); newIds.push(newId);}
+ if(!uniq(newIds)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID","duplicate migration new_id"); const sets=[adds,updates,oldIds,newIds]; for(let i=0;i<sets.length;i++) for(let j=i+1;j<sets.length;j++){const b=new Set(sets[j]); if(sets[i].some(x=>b.has(x))) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID","add/update/id_migration identities must be disjoint");} return {adds,updates,migrations,oldIds,newIds,migrationMap:map};
 }
 
-function validateTimestamp(value) {
-  requireString(value, "output_updated");
-  if (!RFC3339.test(value) || Number.isNaN(Date.parse(value))) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", `output_updated must be RFC3339 date-time — ${value}`);
-  }
+function validateV2Editorial(m,ops){
+ if(m.review_mode!=="already_reviewed_bounded_direct_add"||m.formal_full_run_claimed!==false) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL","V2 must declare bounded review mode and formal_full_run_claimed=false");
+ const e=exactKeys(m.editorial_attestation,"editorial_attestation",EDITORIAL_KEYS); if(e.policy_version!=="EMBEDDED_NEWS_VALUE_SELECTION_V4") fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL","V2 editorial policy attestation missing/invalid");
+ const adds=Array.isArray(e.additions)?e.additions:fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL","editorial_attestation.additions required"),ups=Array.isArray(e.updates)?e.updates:fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL","editorial_attestation.updates required"),addMap=new Map(),upMap=new Map();
+ for(const [i,a] of adds.entries()){
+   exactKeys(a,`addition[${i}]`,ADDITION_KEYS); const id=str(a.id,`addition[${i}].id`); if(addMap.has(id)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`duplicate addition attestation ${id}`); addMap.set(id,a);
+   if(a.execution_credibility_gate!=="PASS"||a.independent_cardability_gate!=="PASS") fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: credibility/cardability must PASS`);
+   const anchors=strArr(a.anchor_classes,`${id}.anchor_classes`,{nonempty:true}); if(anchors.some(x=>!ANCHORS.has(x))) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: invalid anchor class`);
+   if(!["execution_anchor_route","structural_non_execution_route"].includes(a.selection_route)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: invalid selection route`);
+   if(a.selection_route==="execution_anchor_route"){
+     if(!anchors.includes("execution_event_anchor")) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: execution_anchor_route requires execution_event_anchor`);
+     if(!empty(a.structural_non_execution_reason)||!empty(a.why_execution_event_not_required)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: execution route must leave structural-only reasons empty`);
+   }
+   if(a.selection_route==="structural_non_execution_route"){
+     if(anchors.includes("execution_event_anchor")) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: structural_non_execution_route cannot attest execution_event_anchor`);
+     if(!anchors.some(x=>NON_EXECUTION_ANCHORS.has(x))) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: structural_non_execution_route requires a non-execution anchor class`);
+     str(a.structural_non_execution_reason,`${id}.structural_non_execution_reason`); str(a.why_execution_event_not_required,`${id}.why_execution_event_not_required`);
+   }
+   if(!Number.isInteger(a.decision_news_value_score)||a.decision_news_value_score<0||a.decision_news_value_score>100) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: score must be integer 0..100`);
+   validateScoreCaps(a,id,anchors);
+   const expected=scoreClass(a.decision_news_value_score); if(a.decision_value_classification!==expected) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: classification ${a.decision_value_classification} != ${expected}`);
+   if(!["immediate","near_term","monitor"].includes(a.publication_urgency)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: invalid urgency`);
+   for(const k of ["prior_state","new_verified_fact","changed_judgment","evidence_review_summary"]) str(a[k],`${id}.${k}`); strArr(a.next_confirmation_points,`${id}.next_confirmation_points`,{nonempty:true});
+   if(a.inclusion_decision==="standard_include"){if(a.decision_news_value_score<55) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: standard_include requires score >=55`);} else if(a.inclusion_decision==="owner_override_include"){str(a.owner_override_reason,`${id}.owner_override_reason`);} else fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: invalid inclusion_decision`);
+ }
+ for(const [i,u] of ups.entries()){exactKeys(u,`update[${i}]`,UPDATE_KEYS); const id=str(u.id,`update[${i}].id`); if(upMap.has(id)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`duplicate update attestation ${id}`); upMap.set(id,u); if(!["reinforcement","correction","evidence_update","content_correction"].includes(u.change_type)) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL",`${id}: invalid change_type`); strArr(u.changed_fields,`${id}.changed_fields`,{nonempty:true}); str(u.reason,`${id}.reason`); str(u.evidence_review_summary,`${id}.evidence_review_summary`);}
+ if(!same([...addMap.keys()].sort(),[...ops.adds].sort())) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL","addition attestations must exactly match operations.add"); if(!same([...upMap.keys()].sort(),[...ops.updates].sort())) fail("BLOCKED_MANUAL_DIRECT_ADD_EDITORIAL","update attestations must exactly match operations.update"); return {addMap,upMap};
 }
 
-function cardMap(cards, label) {
-  if (!Array.isArray(cards)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", `${label}.cards must be an array`);
-  const map = new Map();
-  for (const card of cards) {
-    const id = requireString(card?.id, `${label} card id`);
-    if (map.has(id)) fail("BLOCKED_MANUAL_DIRECT_ADD_DUPLICATE_ID", `${label} duplicate id ${id}`);
-    map.set(id, card);
-  }
-  return map;
+function validateUpdateScope(att,before,after){const id=att.id,actual=changedTopLevelFields(before,after),declared=[...att.changed_fields].sort(); if(!same(actual,declared)) fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE",`${id}: actual changed fields [${actual.join(",")}] != declared changed_fields [${declared.join(",")}]`); for(const field of actual) if(UPDATE_IMMUTABLE_FIELDS.has(field)) fail("BLOCKED_MANUAL_DIRECT_ADD_IDENTITY",`${id}: update cannot change immutable event field ${field}; use the governed relation/migration path`); if(!stableIdentity(before,after)||!stableEventAnchor(before,after)) fail("BLOCKED_MANUAL_DIRECT_ADD_IDENTITY",`${id}: update must preserve stable event identity and at least one durable event anchor`); const forbidden=new Set(); if(att.change_type==="evidence_update") for(const f of [...VISIBLE_EVENT_FIELDS,"event_fingerprint"]) forbidden.add(f); if(att.change_type==="reinforcement") for(const f of ["title","cat","sub_cat","signal","event_fingerprint"]) forbidden.add(f); if(att.change_type==="content_correction") for(const f of ["cat","sub_cat","event_fingerprint"]) forbidden.add(f); for(const field of actual) if(forbidden.has(field)) fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE",`${id}: ${att.change_type} may not change ${field}`);}
+
+function validate(manifest,base,full){
+ if(manifest?.schema!=="manual_direct_add_v2") fail("BLOCKED_MANUAL_DIRECT_ADD_V1_RETIRED","active manual direct-add validation accepts manual_direct_add_v2 only; V1 is historical/audit-only"); exactKeys(manifest,"manifest",MANIFEST_KEYS); if(manifest.status!=="PASS") fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID","manifest status must be PASS"); str(manifest.direct_add_id,"direct_add_id"); str(manifest.base_main_commit_sha,"base_main_commit_sha"); str(manifest.base_full_blob_sha,"base_full_blob_sha"); timestamp(manifest.output_updated); if(!Number.isInteger(manifest.expected_before)||!Number.isInteger(manifest.expected_after)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID","expected counts must be integers");
+ const ops=parseOps(manifest),editorial=validateV2Editorial(manifest,ops),bm=cardMap(base?.cards,"base"),fm=cardMap(full?.cards,"full"); if(base.cards.length!==manifest.expected_before||full.cards.length!==manifest.expected_after) fail("BLOCKED_MANUAL_DIRECT_ADD_COUNT",`card count mismatch base=${base.cards.length}/${manifest.expected_before} full=${full.cards.length}/${manifest.expected_after}`); if(manifest.expected_after!==manifest.expected_before+ops.adds.length) fail("BLOCKED_MANUAL_DIRECT_ADD_COUNT","expected_after must equal expected_before + adds; migrations are count-neutral"); if(full.total!==full.cards.length||base.total!==base.cards.length) fail("BLOCKED_MANUAL_DIRECT_ADD_COUNT","total must equal cards.length"); if(full.updated!==manifest.output_updated) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID","full.updated must equal manifest.output_updated"); if(!same(topStable(base),topStable(full))) fail("BLOCKED_MANUAL_DIRECT_ADD_UNDECLARED_CHANGE","top-level fields other than total/updated/cards changed");
+ const lost=[...bm.keys()].filter(x=>!fm.has(x)).sort(),introduced=[...fm.keys()].filter(x=>!bm.has(x)).sort(); if(!same(lost,[...ops.oldIds].sort())) fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE","lost IDs mismatch migration old_ids"); if(!same(introduced,[...ops.adds,...ops.newIds].sort())) fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE","introduced IDs mismatch add + migration new_ids"); for(const id of ops.adds) if(bm.has(id)||!fm.has(id)) fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE",`declared add invalid ${id}`); for(const id of ops.updates){if(!bm.has(id)||!fm.has(id)||same(bm.get(id),fm.get(id))) fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE",`declared update invalid/unchanged ${id}`); validateUpdateScope(editorial.upMap.get(id),bm.get(id),fm.get(id));} for(const x of ops.migrations){const before=bm.get(x.old_id),after=fm.get(x.new_id); if(!before||!after||fm.has(x.old_id)||bm.has(x.new_id)||!stableIdentity(before,after)) fail("BLOCKED_MANUAL_DIRECT_ADD_IDENTITY",`invalid/stable identity missing ${x.old_id} → ${x.new_id}`);}
+ const mutable=new Set(ops.updates); for(const [id,before] of bm.entries()){if(ops.migrationMap.has(id)) continue; const after=fm.get(id); if(after&&!mutable.has(id)&&!same(before,after)) fail("BLOCKED_MANUAL_DIRECT_ADD_UNDECLARED_CHANGE",`${id}: undeclared card change`);} const baseBroken=brokenPairs(base,ops.migrationMap),fullBroken=brokenPairs(full),newBroken=[...fullBroken].filter(x=>!baseBroken.has(x)); if(newBroken.length) fail("BLOCKED_MANUAL_DIRECT_ADD_RELATED",`new dangling related: ${newBroken.slice(0,5).join(", ")}`); return {schema:manifest.schema,before:base.cards.length,after:full.cards.length,added_ids:ops.adds,updated_ids:ops.updates,id_migrations:ops.migrations,new_dangling_related:0};
 }
 
-function topWithoutMutableFields(doc) {
-  const copy = { ...doc };
-  delete copy.cards;
-  delete copy.updated;
-  delete copy.total;
-  return copy;
+function fixture(){return {total:2,updated:"2026-01-01T00:00:00Z",cards:[{id:"2026-01-02_KR_01",date:"2026-01-02",region:"KR",title:"A",urls:["https://a.example"],related:[]},{id:"2026-01-01_KR_01",date:"2026-01-01",region:"KR",title:"B",urls:["https://b.example"],related:[]}]};}
+function additionFixture(){return {id:"2026-01-03_KR_01",execution_credibility_gate:"PASS",independent_cardability_gate:"PASS",anchor_classes:["data_financial_anchor"],selection_route:"structural_non_execution_route",decision_news_value_score:60,decision_value_breakdown:{market_structure_competition:20,supply_demand_price_utilisation:20,technology_performance_safety:5,cashflow_asset_value:5,law_policy_market_access:5,systemic_scale:2,persistence_irreversibility:2,decision_urgency_actionability:1},decision_value_classification:"material_industry_signal",publication_urgency:"near_term",systemic_scale_denominator:"defined affected program universe",denominator_gap:null,technology_evidence_level:"independent_test_or_customer_qualification",policy_stage:null,novelty_cap_basis:"none",prior_state:"old",new_verified_fact:"new",changed_judgment:"changed",evidence_review_summary:"official evidence reviewed",next_confirmation_points:["next metric"],inclusion_decision:"standard_include",owner_override_reason:null,structural_non_execution_reason:"material data change",why_execution_event_not_required:"decision-useful without transaction"};}
+function selfTest(){
+ const base=fixture(),full=structuredClone(base); full.updated="2026-08-29T22:30:00+09:00"; full.total=3; full.cards[0].title="A updated"; full.cards[1].id="2025-12-31_KR_01"; full.cards[1].date="2025-12-31"; full.cards.push({id:"2026-01-03_KR_01",date:"2026-01-03",region:"KR",title:"C",urls:["https://c.example"],related:[]}); const operations={add:["2026-01-03_KR_01"],update:["2026-01-02_KR_01"],id_migration:[{old_id:"2026-01-01_KR_01",new_id:"2025-12-31_KR_01",reason:"event date correction"}]}; const common={status:"PASS",direct_add_id:"TEST",base_main_commit_sha:"a",base_full_blob_sha:"b",expected_before:2,expected_after:3,output_updated:full.updated,operations};
+ let v1Blocked=false; try{validate({schema:"manual_direct_add_v1",...common},base,full);}catch(e){v1Blocked=e instanceof ValidationError&&e.code==="BLOCKED_MANUAL_DIRECT_ADD_V1_RETIRED";} if(!v1Blocked) throw new Error("self-test failed to reject retired V1");
+ const v2={schema:"manual_direct_add_v2",...common,review_mode:"already_reviewed_bounded_direct_add",formal_full_run_claimed:false,editorial_attestation:{policy_version:"EMBEDDED_NEWS_VALUE_SELECTION_V4",additions:[additionFixture()],updates:[{id:"2026-01-02_KR_01",change_type:"content_correction",changed_fields:["title"],reason:"clarify verified wording",evidence_review_summary:"verified"}]}}; validate(v2,base,full);
+ const missingMigration=structuredClone(v2); delete missingMigration.operations.id_migration; let missingMigrationBlocked=false; try{validate(missingMigration,base,full);}catch(e){missingMigrationBlocked=e instanceof ValidationError&&/id_migration/.test(e.message);} if(!missingMigrationBlocked) throw new Error("self-test failed to reject missing required operations.id_migration");
+ const low=structuredClone(v2); low.editorial_attestation.additions[0].decision_news_value_score=40; low.editorial_attestation.additions[0].decision_value_breakdown.market_structure_competition=0; low.editorial_attestation.additions[0].decision_value_classification="standard_monitoring"; let blocked=false; try{validate(low,base,full);}catch(e){blocked=e instanceof ValidationError;} if(!blocked) throw new Error("self-test failed to block low standard inclusion"); low.editorial_attestation.additions[0].inclusion_decision="owner_override_include"; low.editorial_attestation.additions[0].owner_override_reason="intentional strategic watch card"; validate(low,base,full);
+ const badExecution=structuredClone(v2); badExecution.editorial_attestation.additions[0].selection_route="execution_anchor_route"; badExecution.editorial_attestation.additions[0].anchor_classes=["execution_event_anchor"]; let badExecutionBlocked=false; try{validate(badExecution,base,full);}catch(e){badExecutionBlocked=e instanceof ValidationError&&/structural-only reasons empty/.test(e.message);} if(!badExecutionBlocked) throw new Error("self-test failed to block execution route with structural-only reasons");
+ const badDenominator=structuredClone(v2); badDenominator.editorial_attestation.additions[0].systemic_scale_denominator=null; badDenominator.editorial_attestation.additions[0].denominator_gap="no defensible denominator"; badDenominator.editorial_attestation.additions[0].decision_value_breakdown.systemic_scale=5; badDenominator.editorial_attestation.additions[0].decision_value_breakdown.market_structure_competition=17; let denominatorBlocked=false; try{validate(badDenominator,base,full);}catch(e){denominatorBlocked=e instanceof ValidationError&&/systemic_scale >2/.test(e.message);} if(!denominatorBlocked) throw new Error("self-test failed to enforce denominator cap");
+ const badPolicy=structuredClone(v2); badPolicy.editorial_attestation.additions[0].anchor_classes=["policy_regulatory_anchor"]; badPolicy.editorial_attestation.additions[0].policy_stage=0; let policyBlocked=false; try{validate(badPolicy,base,full);}catch(e){policyBlocked=e instanceof ValidationError&&/policy-stage hard cap/.test(e.message);} if(!policyBlocked) throw new Error("self-test failed to enforce policy-stage cap");
+ const evidenceChangingTitle=structuredClone(v2); evidenceChangingTitle.editorial_attestation.updates[0].change_type="evidence_update"; let evidenceTitleBlocked=false; try{validate(evidenceChangingTitle,base,full);}catch(e){evidenceTitleBlocked=e instanceof ValidationError&&/evidence_update may not change title/.test(e.message);} if(!evidenceTitleBlocked) throw new Error("self-test failed to restrict evidence_update field scope");
+ const unrelated=structuredClone(full); unrelated.cards[0].title="Unrelated event"; unrelated.cards[0].urls=["https://unrelated.example"]; const unrelatedManifest=structuredClone(v2); unrelatedManifest.editorial_attestation.updates[0].change_type="correction"; unrelatedManifest.editorial_attestation.updates[0].changed_fields=["title","urls"]; let unrelatedBlocked=false; try{validate(unrelatedManifest,base,unrelated);}catch(e){unrelatedBlocked=e instanceof ValidationError&&e.code==="BLOCKED_MANUAL_DIRECT_ADD_IDENTITY";} if(!unrelatedBlocked) throw new Error("self-test failed to reject unrelated event replacement under update");
+ console.log("PASS: validate_manual_direct_add V2 schema/editorial hard-cap/route/update-identity self-test");
 }
 
-function sourceIdentityTokens(card) {
-  const tokens = new Set();
-  for (const key of ["source_spec_id", "origin_source_spec_id", "original_source_spec_id"]) {
-    if (typeof card?.[key] === "string" && card[key].trim()) tokens.add(`spec:${card[key].trim()}`);
-  }
-  const provenance = card?.provenance;
-  if (provenance && typeof provenance === "object") {
-    for (const key of ["source_spec_id", "origin_source_spec_id", "original_source_spec_id"]) {
-      if (typeof provenance[key] === "string" && provenance[key].trim()) tokens.add(`spec:${provenance[key].trim()}`);
-    }
-  }
-  for (const url of Array.isArray(card?.urls) ? card.urls : []) {
-    if (typeof url === "string" && url.trim()) tokens.add(`url:${url.trim()}`);
-  }
-  for (const source of Array.isArray(card?.fact_sources) ? card.fact_sources : []) {
-    if (typeof source?.source_url === "string" && source.source_url.trim()) tokens.add(`url:${source.source_url.trim()}`);
-  }
-  if (typeof card?.title === "string" && card.title.trim()) tokens.add(`title:${card.title.trim()}`);
-  return tokens;
-}
-
-function hasStableIdentity(before, after) {
-  const left = sourceIdentityTokens(before);
-  const right = sourceIdentityTokens(after);
-  for (const token of left) if (right.has(token)) return true;
-  return false;
-}
-
-function brokenPairs(doc, migrate = new Map()) {
-  const ids = new Set(doc.cards.map((card) => card.id));
-  const pairs = new Set();
-  for (const card of doc.cards) {
-    for (const target of Array.isArray(card.related) ? card.related : []) {
-      if (!ids.has(target)) {
-        const owner = migrate.get(card.id) || card.id;
-        const mappedTarget = migrate.get(target) || target;
-        pairs.add(`${owner}→${mappedTarget}`);
-      }
-    }
-  }
-  return pairs;
-}
-
-function validate(manifest, base, full) {
-  if (manifest?.schema !== "manual_direct_add_v1") fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", "unsupported manifest schema");
-  if (manifest?.status !== "PASS") fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", "manifest status must be PASS");
-  requireString(manifest.direct_add_id, "direct_add_id");
-  requireString(manifest.base_main_commit_sha, "base_main_commit_sha");
-  requireString(manifest.base_full_blob_sha, "base_full_blob_sha");
-  validateTimestamp(manifest.output_updated);
-  if (!Number.isInteger(manifest.expected_before) || !Number.isInteger(manifest.expected_after)) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", "expected_before/expected_after must be integers");
-  }
-
-  const operations = manifest.operations;
-  if (!operations || typeof operations !== "object" || Array.isArray(operations)) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", "operations object required");
-  }
-  const adds = requireStringArray(operations.add ?? [], "operations.add");
-  const updates = requireStringArray(operations.update ?? [], "operations.update");
-  const migrations = operations.id_migration ?? [];
-  if (!Array.isArray(migrations)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", "operations.id_migration must be an array");
-
-  const oldIds = [], newIds = [];
-  const migrationMap = new Map();
-  for (const [index, migration] of migrations.entries()) {
-    if (!migration || typeof migration !== "object" || Array.isArray(migration)) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", `operations.id_migration[${index}] must be an object`);
-    }
-    const oldId = requireString(migration.old_id, `operations.id_migration[${index}].old_id`);
-    const newId = requireString(migration.new_id, `operations.id_migration[${index}].new_id`);
-    requireString(migration.reason, `operations.id_migration[${index}].reason`);
-    if (oldId === newId) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", `id migration must change id — ${oldId}`);
-    if (migrationMap.has(oldId)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", `duplicate migration old_id ${oldId}`);
-    migrationMap.set(oldId, newId);
-    oldIds.push(oldId); newIds.push(newId);
-  }
-  if (!uniq(newIds)) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", "duplicate migration new_id");
-
-  const overlap = (a, b) => a.filter((id) => new Set(b).has(id));
-  if (overlap(adds, updates).length || overlap(adds, oldIds).length || overlap(adds, newIds).length || overlap(updates, oldIds).length || overlap(updates, newIds).length) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", "add/update/id_migration identities must be disjoint");
-  }
-
-  if (!base || !full) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", "base/full documents required");
-  const baseMap = cardMap(base.cards, "base");
-  const fullMap = cardMap(full.cards, "full");
-  if (base.cards.length !== manifest.expected_before || full.cards.length !== manifest.expected_after) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_COUNT", `card count mismatch base=${base.cards.length}/${manifest.expected_before} full=${full.cards.length}/${manifest.expected_after}`);
-  }
-  if (manifest.expected_after !== manifest.expected_before + adds.length) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_COUNT", "expected_after must equal expected_before + declared adds; id migrations are count-neutral");
-  }
-  if (full.total !== full.cards.length || base.total !== base.cards.length) fail("BLOCKED_MANUAL_DIRECT_ADD_COUNT", "total field must equal cards.length");
-  if (full.updated !== manifest.output_updated) fail("BLOCKED_MANUAL_DIRECT_ADD_INVALID", "full.updated must equal manifest.output_updated");
-  if (!same(topWithoutMutableFields(base), topWithoutMutableFields(full))) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_UNDECLARED_CHANGE", "top-level fields other than total/updated/cards changed");
-  }
-
-  const lost = [...baseMap.keys()].filter((id) => !fullMap.has(id)).sort();
-  const introduced = [...fullMap.keys()].filter((id) => !baseMap.has(id)).sort();
-  const expectedLost = [...oldIds].sort();
-  const expectedIntroduced = [...adds, ...newIds].sort();
-  if (!same(lost, expectedLost)) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE", `lost id set does not match id_migration old_ids — actual ${JSON.stringify(lost)} expected ${JSON.stringify(expectedLost)}`);
-  }
-  if (!same(introduced, expectedIntroduced)) {
-    fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE", `introduced id set does not match add + migration new_ids — actual ${JSON.stringify(introduced)} expected ${JSON.stringify(expectedIntroduced)}`);
-  }
-
-  for (const id of adds) {
-    if (baseMap.has(id) || !fullMap.has(id)) fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE", `declared add invalid ${id}`);
-  }
-  for (const id of updates) {
-    if (!baseMap.has(id) || !fullMap.has(id)) fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE", `declared update must exist before and after — ${id}`);
-    if (same(baseMap.get(id), fullMap.get(id))) fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE", `declared update did not change — ${id}`);
-  }
-  for (const { old_id: oldId, new_id: newId } of migrations) {
-    const before = baseMap.get(oldId), after = fullMap.get(newId);
-    if (!before || !after || fullMap.has(oldId) || baseMap.has(newId)) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_SCOPE", `invalid one-to-one id migration ${oldId} → ${newId}`);
-    }
-    if (!hasStableIdentity(before, after)) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_IDENTITY", `id migration lacks stable identity evidence ${oldId} → ${newId}`);
-    }
-  }
-
-  const declaredMutable = new Set(updates);
-  for (const [id, before] of baseMap.entries()) {
-    if (migrationMap.has(id)) continue;
-    const after = fullMap.get(id);
-    if (!after) continue;
-    if (!declaredMutable.has(id) && !same(before, after)) {
-      fail("BLOCKED_MANUAL_DIRECT_ADD_UNDECLARED_CHANGE", `${id}: card changed but is not declared in operations.update`);
-    }
-  }
-
-  const baseBroken = brokenPairs(base, migrationMap);
-  const fullBroken = brokenPairs(full);
-  const newBroken = [...fullBroken].filter((pair) => !baseBroken.has(pair));
-  if (newBroken.length) fail("BLOCKED_MANUAL_DIRECT_ADD_RELATED", `new dangling related edges: ${newBroken.slice(0, 5).join(", ")}`);
-
-  return {
-    before: base.cards.length,
-    after: full.cards.length,
-    added_ids: [...adds],
-    updated_ids: [...updates],
-    id_migrations: migrations.map(({ old_id, new_id, reason }) => ({ old_id, new_id, reason })),
-    new_dangling_related: 0,
-  };
-}
-
-function selfTest() {
-  const base = {
-    total: 2,
-    updated: "2026-01-01T00:00:00Z",
-    cards: [
-      { id: "2026-01-02_KR_01", date: "2026-01-02", title: "A", urls: ["https://a.example"], related: [] },
-      { id: "2026-01-01_KR_01", date: "2026-01-01", title: "B", urls: ["https://b.example"], related: [] },
-    ],
-  };
-  const full = structuredClone(base);
-  full.updated = "2026-08-28T22:30:00+09:00";
-  full.total = 3;
-  full.cards[0].title = "A updated";
-  full.cards[1].id = "2025-12-31_KR_01";
-  full.cards[1].date = "2025-12-31";
-  full.cards.push({ id: "2026-01-03_KR_01", date: "2026-01-03", title: "C", urls: ["https://c.example"], related: [] });
-  const manifest = {
-    schema: "manual_direct_add_v1",
-    status: "PASS",
-    direct_add_id: "TEST",
-    base_main_commit_sha: "a",
-    base_full_blob_sha: "b",
-    expected_before: 2,
-    expected_after: 3,
-    output_updated: full.updated,
-    operations: {
-      add: ["2026-01-03_KR_01"],
-      update: ["2026-01-02_KR_01"],
-      id_migration: [{ old_id: "2026-01-01_KR_01", new_id: "2025-12-31_KR_01", reason: "event date correction" }],
-    },
-  };
-  validate(manifest, base, full);
-
-  const undeclared = structuredClone(full);
-  undeclared.cards[1].title = "unrelated replacement";
-  undeclared.cards[1].urls = ["https://other.example"];
-  let blocked = false;
-  try { validate(manifest, base, undeclared); } catch (error) { blocked = error instanceof ValidationError; }
-  if (!blocked) throw new Error("self-test failed to block unrelated id replacement");
-
-  const hiddenChange = structuredClone(full);
-  hiddenChange.cards[0].title = base.cards[0].title;
-  hiddenChange.cards.push();
-  const badManifest = structuredClone(manifest);
-  badManifest.operations.update = [];
-  let hiddenBlocked = false;
-  try { validate(badManifest, base, full); } catch (error) { hiddenBlocked = error instanceof ValidationError; }
-  if (!hiddenBlocked) throw new Error("self-test failed to block undeclared update");
-
-  console.log("PASS: validate_manual_direct_add self-test");
-}
-
-const args = process.argv.slice(2);
-if (args.includes("--self-test")) { selfTest(); process.exit(0); }
-const get = (flag) => { const index = args.indexOf(flag); return index >= 0 ? args[index + 1] : null; };
-
-try {
-  const manifestPath = get("--manifest"), basePath = get("--base"), fullPath = get("--full");
-  if (!manifestPath || !basePath || !fullPath) fail("INVALID_ARGUMENT", "--manifest --base --full required");
-  const result = validate(readJson(manifestPath, "manifest"), readJson(basePath, "base"), readJson(fullPath, "full"));
-  console.log(JSON.stringify({ status: "PASS", ...result }, null, 2));
-  console.log(`PASS: manual direct-add ${result.before} → ${result.after}; add ${result.added_ids.length}; update ${result.updated_ids.length}; id migration ${result.id_migrations.length}`);
-} catch (error) {
-  if (error instanceof ValidationError) { console.error(`FAIL [${error.code}]: ${error.message}`); process.exit(1); }
-  throw error;
-}
+const args=process.argv.slice(2); if(args.includes("--self-test")){selfTest();process.exit(0);} const get=f=>{const i=args.indexOf(f);return i>=0?args[i+1]:null;}; try{const manifestPath=get("--manifest"),basePath=get("--base"),fullPath=get("--full"); if(!manifestPath||!basePath||!fullPath) fail("INVALID_ARGUMENT","--manifest --base --full required"); const r=validate(readJson(manifestPath,"manifest"),readJson(basePath,"base"),readJson(fullPath,"full")); console.log(JSON.stringify({status:"PASS",...r},null,2)); console.log(`PASS: ${r.schema} ${r.before} → ${r.after}; add ${r.added_ids.length}; update ${r.updated_ids.length}; migration ${r.id_migrations.length}`);}catch(e){if(e instanceof ValidationError){console.error(`FAIL [${e.code}]: ${e.message}`);process.exit(1);}throw e;}

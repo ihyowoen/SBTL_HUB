@@ -5,9 +5,9 @@ import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { verifyGovernanceArtifactFromGit } from "./governance_lock_v4.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const SELF = fileURLToPath(import.meta.url);
 const AUDIT_VALIDATOR = resolve(HERE, "validate_card_run_audits.mjs");
 
 class ValidationError extends Error {
@@ -88,27 +88,54 @@ const runAuditValidator = (root, runReference, fullReference, leanReference) => 
   return result.status ?? 1;
 };
 
+const verifyRunGovernanceLock = (root, run) => {
+  const reference = run?.document_universe_manifest_ref;
+  const absolute = repoPath(root, reference, "document_universe_manifest_ref");
+  const artifact = readJson(absolute, "Stage 0.0D governance artifact");
+  try {
+    verifyGovernanceArtifactFromGit(artifact, {
+      root,
+      baseMainSha: run?.base_main_commit_sha,
+      baseFullBlobSha: run?.base_full_blob_sha,
+    });
+  } catch (error) {
+    const nested = error?.code ? `${error.code}: ${error.message}` : (error?.message || String(error));
+    fail("BLOCKED_RUN_GOVERNANCE_LOCK", nested);
+  }
+};
+
 const auditOnlyLeftovers = (runDir) => (
   readdirSync(runDir).filter((name) => name.startsWith(".audit-only-") && name.endsWith(".json"))
 );
 
-const execute = (root, options) => {
+const execute = (
+  root,
+  options,
+  {
+    governanceVerifier = verifyRunGovernanceLock,
+    auditValidator = runAuditValidator,
+  } = {},
+) => {
   const runAbsolute = repoPath(root, options.run, "card run");
   const run = readJson(runAbsolute, "card run");
-  const { audits, mergePrep } = splitAuditRefs(root, run);
 
+  // Formal card-run production path must replay the machine-generated 0.0D lock.
+  // This is intentionally inside an existing required apply-card-run validator so
+  // branch-protection configuration cannot turn governance-lock validation optional.
+  governanceVerifier(root, run);
+
+  const { audits, mergePrep } = splitAuditRefs(root, run);
   const runDir = dirname(runAbsolute);
   const tempAbsolute = join(runDir, `.audit-only-${process.pid}-${Date.now()}.json`);
   const tempReference = relative(resolve(root), tempAbsolute).replaceAll("\\", "/");
   let auditStatus = 1;
   try {
     writeFileSync(tempAbsolute, `${JSON.stringify({ ...run, audit_refs: audits }, null, 2)}\n`);
-    auditStatus = runAuditValidator(root, tempReference, options.full, options.lean);
+    auditStatus = auditValidator(root, tempReference, options.full, options.lean);
   } finally {
     rmSync(tempAbsolute, { force: true });
   }
-  if (auditStatus !== 0) process.exit(auditStatus);
-  return mergePrep;
+  return { mergePrep, auditStatus };
 };
 
 const runSelfTest = () => {
@@ -167,30 +194,54 @@ const runSelfTest = () => {
       lean_output_sha256: leanHash,
     };
     writeFileSync(join(root, "runs/run.json"), `${JSON.stringify(run)}\n`);
+    writeFileSync(join(root, "runs/0.0d.json"), '{"stage":"0.0D","status":"PASS"}\n');
     writeFileSync(join(root, "runs/audit.json"), `${JSON.stringify(audit)}\n`);
     writeFileSync(join(root, "runs/merge-prep.json"), '{"stage":"0.8","status":"PASS"}\n');
 
-    const mergePrep = execute(root, { run: "runs/run.json", full: "data/cards.full.json", lean: "public/data/cards.json" });
-    if (mergePrep !== "runs/merge-prep.json") throw new Error("Prompt 0.8 ref was not dispatched");
+    let governanceCalls = 0;
+    const governanceVerifier = (_root, actualRun) => {
+      governanceCalls += 1;
+      if (actualRun.run_id !== run.run_id) throw new Error("governance verifier received wrong run");
+    };
+
+    const success = execute(
+      root,
+      { run: "runs/run.json", full: "data/cards.full.json", lean: "public/data/cards.json" },
+      { governanceVerifier },
+    );
+    if (success.auditStatus !== 0) throw new Error(`success audit dispatch returned ${success.auditStatus}`);
+    if (success.mergePrep !== "runs/merge-prep.json") throw new Error("Prompt 0.8 ref was not dispatched");
+    if (governanceCalls !== 1) throw new Error("governance verifier did not execute exactly once");
     const originalRun = readFileSync(join(root, "runs/run.json"), "utf8");
     if (!originalRun.includes("merge-prep.json")) throw new Error("original run fixture was modified");
     const successLeftovers = auditOnlyLeftovers(join(root, "runs"));
     if (successLeftovers.length) throw new Error(`ephemeral audit-only run leaked after success: ${successLeftovers.join(", ")}`);
 
-    const failingAudit = { ...audit };
-    delete failingAudit.audit_complete;
-    writeFileSync(join(root, "runs/audit.json"), `${JSON.stringify(failingAudit)}\n`);
-    const failed = spawnSync(
-      process.execPath,
-      [SELF, "--run", "runs/run.json", "--full", "data/cards.full.json", "--lean", "public/data/cards.json"],
-      { cwd: root, text: true, encoding: "utf8" },
+    const failure = execute(
+      root,
+      { run: "runs/run.json", full: "data/cards.full.json", lean: "public/data/cards.json" },
+      {
+        governanceVerifier,
+        auditValidator: () => 1,
+      },
     );
-    if (failed.error) throw failed.error;
-    if (failed.status === 0) throw new Error("failing audit fixture unexpectedly passed dispatch");
+    if (failure.auditStatus === 0) throw new Error("failing audit fixture unexpectedly passed dispatch");
     const failureLeftovers = auditOnlyLeftovers(join(root, "runs"));
     if (failureLeftovers.length) throw new Error(`ephemeral audit-only run leaked after failure: ${failureLeftovers.join(", ")}`);
 
-    console.log("PASS: card-run audit dispatch validates repository-relative audit refs and cleans ephemeral runs after both success and failure");
+    let governanceBlocked = false;
+    try {
+      execute(
+        root,
+        { run: "runs/run.json", full: "data/cards.full.json", lean: "public/data/cards.json" },
+        { governanceVerifier: () => fail("BLOCKED_RUN_GOVERNANCE_LOCK", "synthetic invalid governance lock") },
+      );
+    } catch (error) {
+      governanceBlocked = error instanceof ValidationError && error.code === "BLOCKED_RUN_GOVERNANCE_LOCK";
+    }
+    if (!governanceBlocked) throw new Error("invalid governance lock was not fail-closed before audit dispatch");
+
+    console.log("PASS: card-run audit dispatch replays governance lock, validates repository-relative audit refs, and cleans ephemeral runs after success/failure");
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -203,7 +254,8 @@ try {
     process.exit(0);
   }
   if (!options.run) fail("INVALID_ARGUMENT", "--run PATH required");
-  execute(resolve("."), options);
+  const result = execute(resolve("."), options);
+  if (result.auditStatus !== 0) process.exit(result.auditStatus);
 } catch (error) {
   if (error instanceof ValidationError) {
     console.error(`FAIL [${error.code}]: ${error.message}`);

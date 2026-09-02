@@ -1,0 +1,54 @@
+name: Search all refs for remaining handoff425 chunks
+
+on:
+  push:
+    branches:
+      - chatgpt/v4-run-baseline-20260831-20260901-r4
+    paths:
+      - '.github/workflows/tmp-recover-handoff425-chunk.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Search all reachable Git objects for handoff425 parts
+        shell: bash
+        run: |
+          set +e
+          echo '=== REACHABLE PATHS ==='
+          git rev-list --objects --all | grep -E '\.tmp/handoff425/part_[0-9]+\.txt$' | sort -u || true
+
+          echo '=== BLOB DETAILS ==='
+          python3 - <<'PY'
+          import subprocess
+          rows=[]
+          for line in subprocess.check_output(['git','rev-list','--objects','--all'],text=True,errors='replace').splitlines():
+              parts=line.split(' ',1)
+              if len(parts)!=2: continue
+              sha,path=parts
+              if '.tmp/handoff425/part_' not in path or not path.endswith('.txt'): continue
+              try:
+                  typ=subprocess.check_output(['git','cat-file','-t',sha],text=True).strip()
+                  size=int(subprocess.check_output(['git','cat-file','-s',sha],text=True).strip())
+              except Exception:
+                  continue
+              rows.append((path,sha,typ,size))
+          for r in sorted(set(rows)):
+              print('\t'.join(map(str,r)))
+          print('reachable_part_blob_count=',len(set(rows)))
+          PY
+
+          echo '=== COMMITS TOUCHING PART PATH ==='
+          git log --all --oneline --decorate --name-status -- '.tmp/handoff425/*' | head -500 || true
+
+          echo '=== ALL OBJECT/PATH HITS CONTAINING HANDOFF425 ==='
+          git rev-list --objects --all | grep -i 'handoff425' | sort -u | head -500 || true
+
+          echo '=== FSCK UNREACHABLE HINTS ==='
+          git fsck --full --no-reflogs --unreachable 2>/dev/null | head -200 || true

@@ -1,4 +1,4 @@
-name: Recover cross-run clustering generator
+name: Inspect 0.0C observation structure
 
 on:
   push:
@@ -17,57 +17,32 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Search historical blobs and commits for clustering implementation
+      - name: Inspect both source 0.0C payloads
         shell: bash
         run: |
-          set +e
-          echo '=== PICKAXE COMMITS ==='
-          for needle in \
-            'XRUN_EVENT_FINGERPRINT_V4_20260902_R2' \
-            'prior_provisional_event_count' \
-            'canonicalize URL without dropping article-id/query parameters' \
-            'query-preserving' \
-            'multilingual event reconciliation'
-          do
-            echo "--- $needle ---"
-            git log --all --oneline --decorate --name-status -S"$needle" -- . | head -250
-          done
-
-          echo '=== BLOB CONTENT HITS ==='
+          git fetch origin chatgpt/v4-run-20260831 chatgpt/v4-run-20260901
           python3 - <<'PY'
-          import subprocess
-          needles=[
-            b'XRUN_EVENT_FINGERPRINT_V4_20260902_R2',
-            b'prior_provisional_event_count',
-            b'canonicalize URL without dropping article-id/query parameters',
-            b'query-preserving',
-            b'multilingual event reconciliation',
+          import json, subprocess
+          sources=[
+            ('20260831','origin/chatgpt/v4-run-20260831','runs/2026-09-02/stage_0_0c_coverage_discovery_20260831_143419_V4.json'),
+            ('20260901','origin/chatgpt/v4-run-20260901','runs/2026-09-02/stage_0_0c_coverage_discovery_20260901_123511_V4.json'),
           ]
-          objs=subprocess.check_output(['git','rev-list','--objects','--all'],text=True,errors='replace').splitlines()
-          rows=[]; seen=set()
-          for line in objs:
-              parts=line.split(' ',1); sha=parts[0]; path=parts[1] if len(parts)>1 else ''
-              if sha in seen: continue
-              seen.add(sha)
-              try:
-                  if subprocess.check_output(['git','cat-file','-t',sha],text=True).strip()!='blob': continue
-                  size=int(subprocess.check_output(['git','cat-file','-s',sha],text=True).strip())
-                  if size>2_000_000: continue
-                  data=subprocess.check_output(['git','cat-file','blob',sha])
-              except Exception:
-                  continue
-              hits=[n.decode('utf-8',errors='replace') for n in needles if n.lower() in data.lower()]
-              if hits: rows.append((sha,path,size,hits,data.decode('utf-8',errors='replace')))
-          print('hit_count=',len(rows))
-          for sha,path,size,hits,text in rows:
-              print('=== HIT',sha,path,size,hits)
-              ls=text.splitlines()
-              printed=set()
-              for i,line in enumerate(ls,1):
-                  if any(n.lower() in line.lower() for n in ['XRUN_EVENT_FINGERPRINT','prior_provisional_event_count','canonicalize URL','query-preserving','multilingual event reconciliation']):
-                      lo=max(1,i-18); hi=min(len(ls),i+40)
-                      key=(lo,hi)
-                      if key in printed: continue
-                      printed.add(key)
-                      print('\n'.join(f'{j}:{ls[j-1]}' for j in range(lo,hi+1)))
+          for tag,ref,path in sources:
+              raw=subprocess.check_output(['git','show',f'{ref}:{path}'])
+              o=json.loads(raw.decode('utf-8-sig'))
+              print('=== SOURCE',tag,'bytes',len(raw),'===')
+              print('TOP_KEYS',sorted(o.keys()))
+              for k,v in o.items():
+                  if isinstance(v,list):
+                      print('LIST',k,'count',len(v))
+                      if v:
+                          first=v[0]
+                          print(' FIRST_TYPE',type(first).__name__)
+                          if isinstance(first,dict):
+                              print(' FIRST_KEYS',sorted(first.keys()))
+                              print(' FIRST_SAMPLE',json.dumps(first,ensure_ascii=False)[:5000])
+                  elif isinstance(v,dict):
+                      print('DICT',k,'keys',sorted(v.keys())[:80])
+                  elif k in ('run_id','status','story_count','candidate_count','event_count','observation_count','base_main_commit_sha'):
+                      print('SCALAR',k,repr(v))
           PY

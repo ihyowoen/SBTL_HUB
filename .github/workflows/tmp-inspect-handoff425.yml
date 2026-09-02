@@ -1,0 +1,36 @@
+name: Inspect handoff425 prefix
+
+on:
+  push:
+    branches:
+      - chatgpt/v4-run-baseline-20260831-20260901-r4
+    paths:
+      - '.github/workflows/tmp-inspect-handoff425.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode partial gzip prefix
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, zlib, hashlib
+          p = Path('.tmp/handoff425/part_00.txt')
+          s = p.read_text(encoding='utf-8').strip()
+          raw = base64.b64decode(s)
+          d = zlib.decompressobj(16 + zlib.MAX_WBITS)
+          out = d.decompress(raw)
+          print('part_text_bytes=', len(s.encode()))
+          print('compressed_prefix_bytes=', len(raw))
+          print('decompressed_prefix_bytes=', len(out))
+          print('compressed_prefix_sha256=', hashlib.sha256(raw).hexdigest())
+          print('--- DECOMPRESSED PREFIX START ---')
+          print(out[:24000].decode('utf-8', errors='replace'))
+          print('--- DECOMPRESSED PREFIX END ---')
+          PY

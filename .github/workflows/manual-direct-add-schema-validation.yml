@@ -6,6 +6,7 @@ on:
       - "direct-adds/**/direct-add.json"
       - "schemas/manual-direct-add.v2.schema.json"
       - "scripts/validate_json_schema_subset.mjs"
+      - "scripts/manual_direct_add_v1_history.mjs"
       - ".github/workflows/manual-direct-add-schema-validation.yml"
   push:
     branches: [main]
@@ -13,6 +14,7 @@ on:
       - "direct-adds/**/direct-add.json"
       - "schemas/manual-direct-add.v2.schema.json"
       - "scripts/validate_json_schema_subset.mjs"
+      - "scripts/manual_direct_add_v1_history.mjs"
       - ".github/workflows/manual-direct-add-schema-validation.yml"
 
 permissions:
@@ -30,14 +32,16 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Validate schema engine
+      - name: Validate schema engine and historical-manifest classifier
         run: |
           set -euo pipefail
           node --check scripts/validate_json_schema_subset.mjs
+          node --check scripts/manual_direct_add_v1_history.mjs
           node scripts/validate_json_schema_subset.mjs --self-test
+          node scripts/manual_direct_add_v1_history.mjs --self-test
           node -e 'JSON.parse(require("fs").readFileSync("schemas/manual-direct-add.v2.schema.json","utf8"))'
 
-      - name: Validate submitted V2 manifests
+      - name: Validate submitted direct-add manifests
         shell: bash
         env:
           EVENT_NAME: ${{ github.event_name }}
@@ -54,102 +58,9 @@ jobs:
             range="$BEFORE_SHA...HEAD"
           fi
 
-          resolve_manifest_paths() {
-            local status="$1"
-            local path1="$2"
-            local path2="${3:-}"
-            local base_manifest manifest
-            case "$status" in
-              R*)
-                base_manifest="$path1"
-                manifest="$path2"
-                ;;
-              D*)
-                base_manifest="$path1"
-                manifest=""
-                ;;
-              C*)
-                # A copy is a new manifest. Deliberately do not inherit the
-                # source path's historical V1 grandfathering.
-                manifest="$path2"
-                base_manifest="$path2"
-                ;;
-              *)
-                manifest="$path1"
-                base_manifest="$path1"
-                ;;
-            esac
-            printf '%s\t%s\n' "$base_manifest" "$manifest"
-          }
-
-          base_schema() {
-            local path="$1"
-            git cat-file -e "${base_commit}:${path}" 2>/dev/null || return 1
-            git show "${base_commit}:${path}" | node -e 'const fs=require("fs");const r=JSON.parse(fs.readFileSync(0,"utf8"));process.stdout.write(String(r.schema||""))'
-          }
-
-          # Regression: a git rename must check historical existence at the old
-          # base path while validating the manifest at the new current path.
-          IFS=$'\t' read -r test_base test_current < <(resolve_manifest_paths \
-            "R100" \
-            "direct-adds/legacy/direct-add.json" \
-            "direct-adds/moved/direct-add.json")
-          [[ "$test_base" == "direct-adds/legacy/direct-add.json" ]]
-          [[ "$test_current" == "direct-adds/moved/direct-add.json" ]]
-          IFS=$'\t' read -r test_delete_base test_delete_current < <(resolve_manifest_paths \
-            "D" \
-            "direct-adds/legacy/direct-add.json" \
-            "")
-          [[ "$test_delete_base" == "direct-adds/legacy/direct-add.json" ]]
-          [[ -z "$test_delete_current" ]]
-
-          # Historical V1 records may be annotated, renamed, or deleted, but the
-          # grandfathering decision is bound to the base revision. A current V1
-          # file is accepted only when the exact base path was already V1; an
-          # active V2 manifest cannot be downgraded into the retired schema.
-          validated=0
-          historical=0
-          while IFS=$'\t' read -r status path1 path2; do
-            [[ -n "$status" ]] || continue
-            IFS=$'\t' read -r base_manifest manifest < <(resolve_manifest_paths "$status" "$path1" "${path2:-}")
-
-            if [[ "$status" == D* ]]; then
-              base_schema_name="$(base_schema "$base_manifest")" || {
-                echo "FAIL: deleted direct-add manifest has no base revision: $base_manifest" >&2
-                exit 1
-              }
-              [[ "$base_schema_name" == "manual_direct_add_v1" ]] || {
-                echo "FAIL: only historical manual_direct_add_v1 audit manifests may use the audit-only deletion path: $base_manifest" >&2
-                exit 1
-              }
-              echo "INFO: deleted historical V1 audit manifest: $base_manifest"
-              historical=$((historical + 1))
-              continue
-            fi
-
-            [[ -f "$manifest" ]] || { echo "FAIL: changed direct-add manifest missing: $manifest" >&2; exit 1; }
-            schema_name="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String(r.schema||""))' "$manifest")"
-            if [[ "$schema_name" == "manual_direct_add_v2" ]]; then
-              node scripts/validate_json_schema_subset.mjs \
-                --schema schemas/manual-direct-add.v2.schema.json \
-                --instance "$manifest"
-              validated=$((validated + 1))
-              continue
-            fi
-            if [[ "$schema_name" == "manual_direct_add_v1" ]]; then
-              base_schema_name="$(base_schema "$base_manifest")" || {
-                echo "FAIL: new manual_direct_add_v1 manifests are retired: $manifest" >&2
-                exit 1
-              }
-              [[ "$base_schema_name" == "manual_direct_add_v1" ]] || {
-                echo "FAIL: cannot downgrade non-V1 base manifest to retired manual_direct_add_v1: $base_manifest -> $manifest" >&2
-                exit 1
-              }
-              echo "INFO: historical V1 audit manifest preserved without V2 coercion: $base_manifest -> $manifest"
-              historical=$((historical + 1))
-              continue
-            fi
-            echo "FAIL: unsupported direct-add schema '$schema_name' in $manifest" >&2
-            exit 1
-          done < <(git diff -M --diff-filter=ACMRD --name-status "$range" -- ':(glob)direct-adds/**/direct-add.json')
-          echo "PASS: validated $validated V2 manifest(s); preserved/deleted $historical existing historical V1 audit manifest(s)"
+          node scripts/manual_direct_add_v1_history.mjs \
+            --validate-changed \
+            --base "$base_commit" \
+            --range "$range" \
+            --schema schemas/manual-direct-add.v2.schema.json \
+            --validator scripts/validate_json_schema_subset.mjs

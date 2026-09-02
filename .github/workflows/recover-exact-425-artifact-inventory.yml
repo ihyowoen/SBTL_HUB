@@ -1,4 +1,4 @@
-name: Recover exact raw input blobs
+name: Recover historical 290 residual 44 mapping
 
 on:
   push:
@@ -17,54 +17,42 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Search all reachable Git blobs for exact raw inputs
+      - name: Search all reachable Git text blobs for historical 290 residual 44 evidence
         shell: bash
         run: |
           set -euo pipefail
           python3 - <<'PY'
-          import subprocess, hashlib
-          from pathlib import Path
-
-          targets={
-            7265646:('20260831','40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8','final_news_llm_input_newsletter_expanded_20260831_143419.json'),
-            9604884:('20260901','28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452','final_news_llm_input_newsletter_expanded_20260901_123511.json'),
-          }
+          import subprocess,re,json
+          needles=[
+            re.compile(r'historical.{0,80}290',re.I|re.S),
+            re.compile(r'290.{0,80}historical',re.I|re.S),
+            re.compile(r'residual.{0,80}44',re.I|re.S),
+            re.compile(r'44.{0,80}residual',re.I|re.S),
+            re.compile(r'37.{0,40}5.{0,40}2',re.I|re.S),
+            re.compile(r'carry[-_ ]forward.{0,80}(290|44|37)',re.I|re.S),
+          ]
           objs=subprocess.check_output(['git','rev-list','--objects','--all'],text=True,errors='replace').splitlines()
-          seen=set(); matches=[]; size_candidates=[]
+          seen=set(); hits=[]
           for line in objs:
             parts=line.split(' ',1); sha=parts[0]; path=parts[1] if len(parts)>1 else ''
             if sha in seen: continue
             seen.add(sha)
             try:
-              if subprocess.check_output(['git','cat-file','-t',sha],text=True).strip()!='blob': continue
+              if subprocess.check_output(['git','cat-file','-t',sha],text=True,stderr=subprocess.DEVNULL).strip()!='blob': continue
               size=int(subprocess.check_output(['git','cat-file','-s',sha],text=True).strip())
+              if size>2_000_000: continue
+              raw=subprocess.check_output(['git','cat-file','blob',sha])
+              text=raw.decode('utf-8','ignore')
             except Exception:
               continue
-            if size not in targets: continue
-            label,want,name=targets[size]
-            data=subprocess.check_output(['git','cat-file','blob',sha])
-            got=hashlib.sha256(data).hexdigest()
-            size_candidates.append((label,sha,path,size,got))
-            if got==want:
-              matches.append((label,sha,path,size,got,name,data))
-
-          print('SIZE_CANDIDATES=',[(a,b,c,d,e) for a,b,c,d,e in size_candidates])
-          print('EXACT_MATCHES=',[(a,b,c,d,e,f) for a,b,c,d,e,f,_ in matches])
-          found={m[0] for m in matches}
-          for label,sha,path,size,got,name,data in matches:
-            dest=Path('recovery_inputs')/name
-            dest.parent.mkdir(parents=True,exist_ok=True)
-            dest.write_bytes(data)
-            print('RECOVERED',label,'git_blob',sha,'historical_path',path,'dest',dest,'bytes',len(data),'sha256',got)
-          print('STATUS=' + ('PASS_BOTH_RAW_INPUTS_RECOVERED' if found=={'20260831','20260901'} else 'BLOCKED_RAW_INPUTS_NOT_FOUND_IN_REACHABLE_GIT_HISTORY'))
+            matched=[]
+            for pat in needles:
+              m=pat.search(text)
+              if m:
+                s=max(0,m.start()-240); e=min(len(text),m.end()+600)
+                matched.append(re.sub(r'\s+',' ',text[s:e]))
+            if matched:
+              hits.append({'blob_sha':sha,'path':path,'size':size,'snippets':matched[:4]})
+          print('HIT_COUNT=',len(hits))
+          for h in hits[:100]: print(json.dumps(h,ensure_ascii=False))
           PY
-
-          if [ -d recovery_inputs ] && find recovery_inputs -type f | grep -q .; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add recovery_inputs
-            if ! git diff --cached --quiet; then
-              git commit -m 'chore: recover exact raw inputs from git history'
-              git push
-            fi
-          fi

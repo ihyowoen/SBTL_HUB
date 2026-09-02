@@ -1,5 +1,22 @@
 name: unit-tests
 
+# 유닛 테스트 게이트.
+#
+# 도입 계기(2026-09-02) — __tests__/ 에 테스트가 여러 파일 있는데 **어느 워크플로도 돌리지
+# 않았다**(npm test/vitest 호출 0건). PR #302 가 CI 게이트 ops/check_query_precedence.mjs 의
+# 부정 케이스 10건을 붙였지만 로컬 전용이었고, PR #303 이 넣은 마크다운 렌더러 계약
+# (__tests__/mdText.test.jsx)도 게이트 밖이었다 — validate2 검사 #14 의 region_policy
+# 확장이 그 렌더러 동작에 의존하는데도 그렇다.
+#
+# validate-tracker.yml 에 스텝으로 넣지 않고 분리한 이유 두 가지:
+#   · 그쪽 paths 에 src/** 가 없어 src 전용 PR(예: #303)은 트리거조차 되지 않는다.
+#   · 그쪽 validate job 은 node_modules 없이 node 스크립트만 부르는 구조라, npm ci 를
+#     끼워 넣으면 게이트 전체가 설치 시간에 묶인다. 별도 job 이면 병렬로 돈다.
+#
+# 이 파일은 한 번 **0바이트로 커밋돼** startup failure 를 냈다(run 33596699406, jobs=0).
+# 워크트리에서 YAML 을 검증하고 커밋된 blob 을 확인하지 않은 탓이다. 착지 확인은
+# `git show HEAD:<path> | wc -c` 로 한다.
+
 on:
   pull_request:
     paths:

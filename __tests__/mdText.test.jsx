@@ -137,12 +137,30 @@ describe("실데이터 전수", () => {
     }
   });
 
-  it("watchpoint — 홀수 마커 데이터가 남아 있지 않다", () => {
-    const wps = Object.values(rp).filter((v) => v && typeof v === "object")
-      .flatMap((v) => v.watchpoints ?? []);
-    const odd = wps.filter((w) => (w.match(/\*\*/g) || []).length % 2);
-    // 짝 없는 마커의 렌더 동작은 위 단위 테스트에서 별도로 검증한다.
-    // 실데이터에서는 데이터 결함 자체가 0건이어야 한다.
-    expect(odd).toEqual([]);
+  // 두 세션이 같은 단언을 독립적으로 뒤집었다(a60255d · 이 커밋). validate2 검사 #14 가
+  // watchpoints·headline·policies.desc·why 넷을 보므로 테스트도 같은 범위로 맞춘다 —
+  // 한쪽 구현은 watchpoints 만 봤다.
+  // **단언을 불변식으로 뒤집었다.** 종전에는 "홀수 마커가 존재한다"(toBeGreaterThan(0))를
+  // 단언했는데, 그건 **결함 데이터가 있어야 통과하는 테스트**였다. 개수 하드코딩을 피하려고
+  // 조건으로 바꿨지만 데이터 의존은 그대로였고, PR #302 가 홀수 10건을 정정하자 곧바로 깨졌다
+  // (실측 expected 0 to be greater than 0). 짝 없는 마커가 리터럴로 남는 **동작**은 위쪽
+  // describe 의 합성 문자열 케이스가 이미 본다 — 여기서는 데이터가 깨끗한지만 본다.
+  // validate2 검사 #14 가 같은 불변식을 CI 에서 강제한다.
+  it("region_policy 산문에 홀수 볼드 마커가 없다", () => {
+    const bad = [];
+    for (const [rg, v] of Object.entries(rp)) {
+      if (!v || typeof v !== "object") continue;
+      const fields = [
+        ...((v.watchpoints ?? []).map((w, n) => [`watchpoints[${n}]`, w])),
+        ...(v.headline ? [["headline", v.headline]] : []),
+        ...((v.policies ?? []).map((p, n) => [`policies[${n}].desc`, p?.desc ?? ""])),
+        ...(v.why ? [["why", v.why]] : []),
+      ];
+      for (const [where, text] of fields) {
+        if (typeof text !== "string" || !text) continue;
+        if ((text.match(/\*\*/g) || []).length % 2) bad.push(`${rg}.${where}`);
+      }
+    }
+    expect(bad).toEqual([]);
   });
 });

@@ -1,4 +1,4 @@
-name: Recover exact 425 artifact inventory
+name: Recover current 632 observation ledger
 
 on:
   push:
@@ -8,36 +8,115 @@ on:
       - '.github/workflows/recover-exact-425-artifact-inventory.yml'
 
 permissions:
-  contents: read
-  actions: read
+  contents: write
 
 jobs:
-  inventory:
+  extract:
     runs-on: ubuntu-latest
     steps:
-      - name: Inventory exact 425 recovery surfaces
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fetch authoritative current-run branches
         shell: bash
         run: |
-          set -euo pipefail
-          echo '=== R4 BRANCH WORKFLOW RUNS ==='
-          gh api --paginate 'repos/${{ github.repository }}/actions/runs?branch=chatgpt%2Fv4-run-baseline-20260831-20260901-r4&per_page=100' \
-            --jq '.workflow_runs[] | [.id,.name,.created_at,.updated_at,.head_sha,.path,.display_title,.conclusion] | @tsv' \
-            | tee /tmp/r4_runs.tsv
-          echo -n 'r4_run_count='; wc -l < /tmp/r4_runs.tsv
+          git fetch origin chatgpt/v4-run-20260831 chatgpt/v4-run-20260901
+      - name: Inspect and materialize source-bound observation ledger
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, subprocess, hashlib
+          from pathlib import Path
 
-          echo '=== ALL NON-EXPIRED ARTIFACTS CREATED 2026-09-02 ==='
-          gh api --paginate 'repos/${{ github.repository }}/actions/artifacts?per_page=100' \
-            --jq '.artifacts[] | select(.expired==false and (.created_at|startswith("2026-09-02"))) | [.id,.name,.size_in_bytes,.created_at,.updated_at,.workflow_run.id,.workflow_run.head_branch,.workflow_run.head_sha] | @tsv' \
-            | tee /tmp/artifacts_20260902.tsv
+          specs=[
+            ('20260831','origin/chatgpt/v4-run-20260831','runs/2026-09-02/stage_0_0c_coverage_discovery_20260831_143419_V4.json',270),
+            ('20260901','origin/chatgpt/v4-run-20260901','runs/2026-09-02/stage_0_0c_coverage_discovery_20260901_123511_V4.json',362),
+          ]
 
-          echo '=== 425/CROSSRUN/HANDOFF/PRESELECT/MEMBERSHIP ARTIFACT CANDIDATES ==='
-          grep -Ei '425|cross|handoff|preselect|membership|event|stage.?a|20260831|20260901' /tmp/artifacts_20260902.tsv || true
+          def load(ref,path):
+            raw=subprocess.check_output(['git','show',f'{ref}:{path}'])
+            return raw,json.loads(raw.decode('utf-8-sig'))
 
-          echo '=== R4 BRANCH ARTIFACTS ==='
-          awk -F '\t' '$7=="chatgpt/v4-run-baseline-20260831-20260901-r4" {print}' /tmp/artifacts_20260902.tsv || true
+          def walk_lists(x,path='$'):
+            out=[]
+            if isinstance(x,list):
+              keys=set()
+              for v in x[:20]:
+                if isinstance(v,dict): keys |= set(v)
+              out.append((path,len(x),sorted(keys)))
+              for i,v in enumerate(x[:3]): out += walk_lists(v,f'{path}[{i}]')
+            elif isinstance(x,dict):
+              for k,v in x.items(): out += walk_lists(v,f'{path}.{k}')
+            return out
 
-          echo '=== COUNTS ==='
-          echo -n 'artifact_count_20260902='; wc -l < /tmp/artifacts_20260902.tsv
-          echo -n 'candidate_count='; grep -Eic '425|cross|handoff|preselect|membership|event|stage.?a|20260831|20260901' /tmp/artifacts_20260902.tsv || true
+          all_runs=[]
+          for label,ref,path,expected in specs:
+            raw,obj=load(ref,path)
+            print(f'=== {label} TOP KEYS ===')
+            print(sorted(obj.keys()))
+            candidates=[]
+            for p,n,keys in walk_lists(obj):
+              if n>=3:
+                print('LIST',p,'len=',n,'keys=',keys[:30])
+              if n==expected:
+                candidates.append((p,n,keys))
+            print('EXPECTED_COUNT_LIST_CANDIDATES=',candidates)
+            all_runs.append((label,ref,path,expected,raw,obj))
+
+          # Fail closed: only inspect/materialize once exact authoritative observation paths are known.
+          # Candidate extraction supports the explicit V4 authoritative_source_expansion list shape.
+          extracted=[]
+          source_meta=[]
+          for label,ref,path,expected,raw,obj in all_runs:
+            source_meta.append({'run':label,'ref':ref,'path':path,'sha256':hashlib.sha256(raw).hexdigest(),'expected_authoritative_observations':expected})
+            possible=[]
+            # enumerate likely exact observation arrays without guessing from original_input_ledger IDs
+            for key in ('authoritative_observations','observations','source_observations'):
+              v=obj.get(key)
+              if isinstance(v,list) and len(v)==expected: possible.append((key,v))
+            ase=obj.get('authoritative_source_expansion')
+            if isinstance(ase,dict):
+              for key in ('authoritative_observations','observations','source_observations','items'):
+                v=ase.get(key)
+                if isinstance(v,list) and len(v)==expected: possible.append((f'authoritative_source_expansion.{key}',v))
+            if len(possible)!=1:
+              print('STATUS=BLOCKED_AMBIGUOUS_AUTHORITATIVE_OBSERVATION_PATH',label,[p for p,_ in possible])
+              continue
+            p,arr=possible[0]
+            print('AUTHORITATIVE_PATH',label,p,'COUNT',len(arr))
+            for idx,item in enumerate(arr,1):
+              if not isinstance(item,dict): raise AssertionError((label,idx,'non-dict observation'))
+              extracted.append({'source_run':label,'source_index':idx,'source_path':p,'observation':item})
+
+          if len(extracted)!=632:
+            print('STATUS=INSPECTION_ONLY_EXTRACTED_COUNT',len(extracted))
+            raise SystemExit(0)
+
+          out={
+            'schema':'current_authoritative_observation_ledger_v1',
+            'status':'PASS_SOURCE_BOUND_632_MATERIALIZED',
+            'generated_from':'two V4 Stage 0.0C coverage discovery artifacts',
+            'current_main_rebind_target':'df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4',
+            'canonical_card_count':1514,
+            'canonical_blob_sha':'53219907cdb435c3822c41d097b23e475662aa8a',
+            'source_artifacts':source_meta,
+            'observation_count':len(extracted),
+            'observations':extracted,
+          }
+          dest=Path('runs/2026-09-03/current_authoritative_observations_632_rebuild_R1.json')
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          text=json.dumps(out,ensure_ascii=False,indent=2)+'\n'
+          dest.write_text(text,encoding='utf-8')
+          print('OUTPUT',dest,'BYTES',len(text.encode()),'SHA256',hashlib.sha256(text.encode()).hexdigest())
+          print('STATUS=PASS_SOURCE_BOUND_632_MATERIALIZED')
+          PY
+
+          if [ -f runs/2026-09-03/current_authoritative_observations_632_rebuild_R1.json ]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add runs/2026-09-03/current_authoritative_observations_632_rebuild_R1.json
+            if ! git diff --cached --quiet; then
+              git commit -m 'audit: materialize replayable current 632 observation ledger'
+              git push
+            fi
+          fi

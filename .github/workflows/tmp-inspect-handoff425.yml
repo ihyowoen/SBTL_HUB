@@ -1,4 +1,4 @@
-name: Search history for handoff425 source
+name: Search Actions artifacts for handoff425 source
 
 on:
   push:
@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   inspect:
@@ -17,50 +18,48 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Search all reachable history with pickaxe
+      - name: Search artifact inventory and historical workflow blobs
+        env:
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set +e
-          for needle in \
-            'stage_a_event_handoff_425_v1' \
-            'XRUN_20260831_20260901_R3_E0001' \
-            '90719eb1067241df6b201c2722cca5280f89ea69d0e3fd3e7865b9e91d9e8c13' \
-            '휴가철에도 전력수요 95.3GW'
-          do
-            echo "=== PICKAXE: $needle ==="
-            git log --all --oneline --decorate --name-status -S"$needle" -- . | head -400
-          done
-          echo '=== HISTORICAL BLOBS CONTAINING EXACT SCHEMA/EVENT PREFIX ==='
+          echo '=== ACTIONS ARTIFACT INVENTORY ==='
+          gh api --paginate 'repos/${{ github.repository }}/actions/artifacts?per_page=100' \
+            --jq '.artifacts[] | [.id,.name,.size_in_bytes,.expired,.created_at,.updated_at,.workflow_run.id,.workflow_run.head_branch,.workflow_run.head_sha] | @tsv' \
+            | grep -Ei 'cross|stage.?a|event|handoff|preselect|membership|2026-09-02|20260831|20260901' \
+            | head -500
+
+          echo '=== ALL NON-EXPIRED ARTIFACTS AROUND 2026-09-02 ==='
+          gh api --paginate 'repos/${{ github.repository }}/actions/artifacts?per_page=100' \
+            --jq '.artifacts[] | select(.expired==false and (.created_at|startswith("2026-09-02"))) | [.id,.name,.size_in_bytes,.created_at,.workflow_run.id,.workflow_run.head_branch,.workflow_run.head_sha] | @tsv' \
+            | head -500
+
+          echo '=== HISTORICAL WORKFLOW BLOBS WITH UPLOAD/CROSSRUN TERMS ==='
           python3 - <<'PY'
           import subprocess
-          needles=[b'stage_a_event_handoff_425_v1',b'XRUN_20260831_20260901_R3_E0001']
-          raw=subprocess.check_output(['git','rev-list','--objects','--all'],text=True,errors='replace').splitlines()
-          seen=set(); hits=[]
-          for line in raw:
-              sha=line.split(' ',1)[0]
-              if sha in seen: continue
-              seen.add(sha)
-              try:
-                  meta=subprocess.check_output(['git','cat-file','-t',sha],text=True).strip()
-              except subprocess.CalledProcessError:
+          needles=[b'upload-artifact',b'crossrun_event_membership',b'v4-crossrun-preselection-artifacts',b'event_membership_425',b'crossrun_event_membership_425.json']
+          objs=subprocess.check_output(['git','rev-list','--objects','--all'],text=True,errors='replace').splitlines()
+          rows=[]
+          for line in objs:
+              parts=line.split(' ',1); sha=parts[0]; path=parts[1] if len(parts)>1 else ''
+              if path and not (path.startswith('.github/workflows/') or 'workflow' in path.lower()):
                   continue
-              if meta!='blob': continue
               try:
+                  if subprocess.check_output(['git','cat-file','-t',sha],text=True).strip()!='blob': continue
                   size=int(subprocess.check_output(['git','cat-file','-s',sha],text=True).strip())
+                  if size>500000: continue
+                  data=subprocess.check_output(['git','cat-file','blob',sha])
               except Exception:
                   continue
-              if size>5_000_000: continue
-              try:
-                  data=subprocess.check_output(['git','cat-file','blob',sha])
-              except subprocess.CalledProcessError:
-                  continue
-              matched=[n.decode('utf-8',errors='replace') for n in needles if n in data]
-              if matched:
-                  hits.append((sha,size,matched))
-          print('hit_count=',len(hits))
-          for sha,size,matched in hits:
-              print('HIT',sha,size,matched)
-              paths=subprocess.run(['git','rev-list','--objects','--all'],capture_output=True,text=True).stdout.splitlines()
-              for line in paths:
-                  if line.startswith(sha+' '): print('PATH',line)
+              hits=[n.decode() for n in needles if n in data]
+              if hits: rows.append((sha,path,size,hits,data.decode('utf-8',errors='replace')))
+          print('workflow_blob_hits=',len(rows))
+          for sha,path,size,hits,text in rows:
+              print('--- HIT',sha,path,size,hits)
+              for i,line in enumerate(text.splitlines(),1):
+                  if any(h.lower() in line.lower() for h in ['upload-artifact','crossrun_event_membership','v4-crossrun-preselection-artifacts','event_membership_425']):
+                      lo=max(1,i-6); hi=min(len(text.splitlines()),i+12)
+                      ls=text.splitlines()
+                      print('\n'.join(f'{j}:{ls[j-1]}' for j in range(lo,hi+1)))
           PY

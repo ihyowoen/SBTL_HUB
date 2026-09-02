@@ -1,0 +1,102 @@
+name: Reconcile historical 246 exact IDs against current main
+
+on:
+  push:
+    branches:
+      - chatgpt/v4-run-baseline-20260831-20260901-r4
+    paths:
+      - '.github/workflows/tmp-reconcile-historical-246-main.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Exact provenance intersection
+        shell: bash
+        run: |
+          git fetch origin main chatgpt/v4-crossrun-20260831-20260901
+          python3 - <<'PY'
+          import json, re, subprocess
+          from collections import defaultdict
+
+          CROSS='origin/chatgpt/v4-crossrun-20260831-20260901'
+          MAIN='origin/main'
+          LEDGER='runs/2026-09-02/historical_governed_carry_forward_20260825_active246_R1.json'
+
+          def show(ref,path):
+              return subprocess.check_output(['git','show',f'{ref}:{path}'])
+
+          ledger=json.loads(show(CROSS,LEDGER).decode('utf-8-sig'))
+          ids=list(ledger['source_augmentation_story_ids'])+list(ledger['earnings_deep_dive_story_ids'])
+          assert len(ids)==246 and len(set(ids))==246
+          idset=set(ids)
+
+          cards=json.loads(show(MAIN,'data/cards.full.json').decode('utf-8-sig'))
+          cardlist=cards if isinstance(cards,list) else cards.get('cards',[])
+          canonical_hits=defaultdict(list)
+
+          def scan_value(v,path=''):
+              if isinstance(v,dict):
+                  for k,x in v.items():
+                      yield from scan_value(x, f'{path}.{k}' if path else k)
+              elif isinstance(v,list):
+                  for i,x in enumerate(v):
+                      yield from scan_value(x, f'{path}[{i}]')
+              elif isinstance(v,str):
+                  for m in re.finditer(r'(?<![A-Za-z0-9])U\d{4}(?![A-Za-z0-9])',v):
+                      yield m.group(0),path,v
+
+          for c in cardlist:
+              cid=c.get('id') or c.get('assigned_id') or '<unknown>'
+              for uid,path,val in scan_value(c):
+                  if uid in idset:
+                      canonical_hits[uid].append({'card_id':cid,'field_path':path,'value':val[:300]})
+
+          # Search current-main run/docs artifacts for exact U-ID references, excluding canonical/lean card files.
+          p=subprocess.run(['git','grep','-n','-E',r'(^|[^A-Za-z0-9])U[0-9]{4}([^A-Za-z0-9]|$)',MAIN,'--','runs','docs','ops'],capture_output=True,text=True)
+          evidence=defaultdict(set)
+          if p.returncode in (0,1):
+              for line in p.stdout.splitlines():
+                  # origin/main:path:line:text
+                  try:
+                      prefix,lineno,text=line.rsplit(':',2)
+                  except ValueError:
+                      continue
+                  path=prefix.split(':',1)[1] if ':' in prefix else prefix
+                  for uid in re.findall(r'(?<![A-Za-z0-9])U\d{4}(?![A-Za-z0-9])',text):
+                      if uid in idset:
+                          evidence[uid].add(path)
+          else:
+              raise SystemExit(p.stderr)
+
+          canonical_ids=set(canonical_hits)
+          evidence_ids=set(evidence)
+          no_exact=idset-canonical_ids-evidence_ids
+          result={
+            'historical_246_count':len(ids),
+            'current_main_sha':subprocess.check_output(['git','rev-parse',MAIN],text=True).strip(),
+            'canonical_direct_u_id_match_count':len(canonical_ids),
+            'canonical_direct_u_id_matches':{k:canonical_hits[k] for k in sorted(canonical_ids)},
+            'noncanonical_repo_evidence_match_count':len(evidence_ids-canonical_ids),
+            'noncanonical_repo_evidence_matches':{k:sorted(evidence[k]) for k in sorted(evidence_ids-canonical_ids)},
+            'no_exact_u_id_match_count':len(no_exact),
+            'no_exact_u_id_matches':sorted(no_exact),
+          }
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          assert len(canonical_ids | evidence_ids | no_exact)==246
+          PY
+      - name: Remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git rm .github/workflows/tmp-reconcile-historical-246-main.yml
+          git commit -m 'chore: remove temporary historical 246 reconciler'
+          git push origin HEAD:chatgpt/v4-run-baseline-20260831-20260901-r4

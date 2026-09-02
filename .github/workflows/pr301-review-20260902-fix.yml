@@ -1,0 +1,157 @@
+name: PR301 review 20260902 fix
+
+on:
+  push:
+    branches:
+      - chatgpt/20260831-preflight-reconciliation-r2
+    paths:
+      - .github/workflows/pr301-review-20260902-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chatgpt/20260831-preflight-reconciliation-r2
+          fetch-depth: 0
+      - name: Patch R3 manifest with latest Codex review fixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          p = Path('runs/2026-08-31/stage_0_0d_document_universe_20260901_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION_R3.json')
+          d = json.loads(p.read_text(encoding='utf-8'))
+
+          assert d['docs_file_count'] == 88
+          assert d['current_run_full_reads_or_parses_completed'] == 5
+          assert d['current_run_full_reads_or_parses_missing'] == 83
+          assert d['status'] == 'BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE'
+          assert d['stage_0_0c_authorized'] is False
+
+          # P2-1: governance classification for all fully-read governed workflows.
+          ext = d['governed_external_inventory']
+          assert len(ext) == 5
+          expected = {
+              '.github/workflows/apply-card-run.yml',
+              '.github/workflows/lean-cards.yml',
+              '.github/workflows/legacy-related-lineage-migration.yml',
+              '.github/workflows/validate-tracker.yml',
+              '.github/workflows/workflow-contract-validation.yml',
+          }
+          assert {x['path'] for x in ext} == expected
+          for x in ext:
+              assert x['read_status'] == 'READ_FULL_CURRENT_HEAD'
+              x['classification'] = 'ACTIVE_VALIDATOR_CONTRACT'
+              x['authority_level'] = 6
+              x['applicable_stages'] = ['ALL_GOVERNED_STAGES']
+              x['application_status'] = 'APPLIED_WITHIN_SCOPE'
+              x['application_scope'] = "Repository CI enforcement when this workflow's event/path trigger matches; not every workflow executes in every named stage."
+              x['dependency_expansion_status'] = 'OPEN'
+              x['reader_notes'] = 'Full-read at the locked head and classified as ACTIVE_VALIDATOR_CONTRACT because this workflow machine-enforces card, prompt, document, projection, migration, or production contracts. Validator-contract authority is order 6 under RUN_GOVERNANCE_INDEX §4.'
+
+          # P2-2: preserve the companion remediation record as a separate unchecked blocker.
+          json_path = 'docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json'
+          md_path = 'docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md'
+          plan_path = 'docs/WORKFLOW_GAP_REMEDIATION_20260723.md'
+          canon_manifest = 'docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json'
+
+          rems = d['unchecked_open_remediations']
+          by_path = {r['path']: r for r in rems}
+          assert json_path in by_path
+          by_path[json_path]['companion_remediation_record_path'] = md_path
+          by_path[json_path]['required_validator'] = 'validation_scripts/related_lifecycle_check.py'
+
+          companion = {
+              'path': md_path,
+              'registry_evidence_path': plan_path,
+              'canonical_registration_evidence_path': canon_manifest,
+              'review_verified_status': 'OPEN_REMEDIATION_COMPANION_REQUIRED',
+              'affected_card_count': 13,
+              'dangling_edge_count': 14,
+              'scope': 'pre-existing baseline only; current PR new cards excluded',
+              'required_procedure': 'Per-edge history/lineage reconciliation with item-specific audit disposition; no title-similarity retargeting, invented replacement ID, or unaudited deletion.',
+              'required_validator': 'validation_scripts/related_lifecycle_check.py',
+              'current_run_check_status': 'UNCHECKED_PENDING_FORMAL_STAGE_0_0D_READ_AND_PER_EDGE_RECONCILIATION',
+              'note': 'The companion remediation record is separately registered as open and remains independently required alongside the JSON manifest until the bounded legacy Related defects are resolved.'
+          }
+          if md_path in by_path:
+              by_path[md_path].update(companion)
+          else:
+              rems.append(companion)
+
+          # Strengthen inventory metadata without claiming a formal Stage 0.0D full read/classification.
+          doc = next(x for x in d['documents'] if x['path'] == md_path)
+          assert doc['read_status'] == 'UNREAD_CURRENT_RUN'
+          doc['last_known_registration_source'] = canon_manifest + ' canonical_paths.open_remediations'
+          doc['apparent_lifecycle_markers'] = ['KNOWN_OPEN_REMEDIATION_PENDING_FULL_READ']
+          refs = list(dict.fromkeys((doc.get('manifest_references') or []) + [canon_manifest, plan_path]))
+          doc['manifest_references'] = refs
+          doc['open_remediation_applicability'] = 'UNRESOLVED_PENDING_FULL_READ_AND_BOUNDED_RECONCILIATION'
+
+          ua = d['unread_active_documents']
+          if not any(x['path'] == md_path for x in ua):
+              ua.append({
+                  'path': md_path,
+                  'read_status': 'UNREAD_CURRENT_RUN',
+                  'known_required_or_active_basis': 'CANONICAL_PACKAGE_MANIFEST_OPEN_REMEDIATION_REGISTRATION_AND_WORKFLOW_GAP_PLAN_COMPANION_REQUIREMENT',
+                  'final_document_classification': 'PENDING_REQUIRED_FULL_READ'
+              })
+
+          # Normalize the companion open-remediation blocker exactly once.
+          defects = d['incomplete_universe_defects']
+          companion_defects = [x for x in defects if x.get('type') == 'UNCHECKED_OPEN_REMEDIATION' and x.get('path') == md_path]
+          assert len(companion_defects) <= 1
+          if not companion_defects:
+              defects.append({
+                  'type': 'UNCHECKED_OPEN_REMEDIATION',
+                  'path': md_path,
+                  'detail': 'Companion legacy Related remediation record is separately registered open and remains unchecked; it carries the per-edge remediation procedure and required related_lifecycle_check.py validation.'
+              })
+
+          # Preserve all prior dependency invariants.
+          def dep_key(x):
+              return x.get('dependency_path') or x.get('dependency_family')
+          deps = [dep_key(x) for x in d['unresolved_dependencies']]
+          miss = [x['path'] for x in d['incomplete_universe_defects'] if x['type'] == 'MISSING_DEPENDENCY']
+          assert len(deps) == 27 and len(set(deps)) == 27
+          assert len(miss) == 27 and set(miss) == set(deps)
+
+          # Exactly one normalized unchecked defect for each bounded remediation record currently carried.
+          assert sum(1 for x in d['incomplete_universe_defects'] if x['type'] == 'UNCHECKED_OPEN_REMEDIATION' and x['path'] == json_path) == 1
+          assert sum(1 for x in d['incomplete_universe_defects'] if x['type'] == 'UNCHECKED_OPEN_REMEDIATION' and x['path'] == md_path) == 1
+          assert {x['path'] for x in d['unchecked_open_remediations']} >= {json_path, md_path}
+
+          d['selected_blocker_reason'] = '83 of 88 docs/** files remain formally unread/unclassified in the current run; 27 governed dependencies remain unresolved after workflow and hardening-registration expansion; and both separately required legacy Related remediation records (JSON manifest plus companion per-edge remediation record) remain unchecked. Stage 0.0C is not authorized.'
+          d.setdefault('review_resolution', {})['3910312686'] = 'five governed workflows classified ACTIVE_VALIDATOR_CONTRACT with authority level 6 and explicit trigger-scoped application across governed stages'
+          d['review_resolution']['3910312692'] = 'companion legacy Related remediation markdown preserved as a separate unchecked open-remediation blocker with required per-edge procedure/validator'
+          d['review_resolution']['stage_0_0c_authorized'] = False
+          d['generated_kst'] = datetime.now(ZoneInfo('Asia/Seoul')).isoformat(timespec='seconds')
+
+          # Final assertions.
+          assert all(x['classification'] == 'ACTIVE_VALIDATOR_CONTRACT' for x in ext)
+          assert all(x['authority_level'] == 6 for x in ext)
+          assert all(x['applicable_stages'] == ['ALL_GOVERNED_STAGES'] for x in ext)
+          assert len(d['documents']) == 88
+          assert sum(1 for x in d['documents'] if x['read_status'] == 'READ_FULL_CURRENT_HEAD') == 5
+          assert sum(1 for x in d['documents'] if x['read_status'] == 'UNREAD_CURRENT_RUN') == 83
+          assert d['stage_0_0c_authorized'] is False
+          assert d['status'] == 'BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE'
+
+          p.write_text(json.dumps(d, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+          PY
+
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git rm .github/workflows/pr301-review-20260902-fix.yml
+          git add runs/2026-08-31/stage_0_0d_document_universe_20260901_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION_R3.json
+          git commit -m "Address latest Codex Stage 0.0D review"
+          git push origin HEAD:chatgpt/20260831-preflight-reconciliation-r2

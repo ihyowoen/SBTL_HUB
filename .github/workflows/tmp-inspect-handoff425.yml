@@ -1,4 +1,4 @@
-name: Search all refs for handoff425 source
+name: Search history for handoff425 source
 
 on:
   push:
@@ -17,20 +17,50 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Search every remote branch for source fingerprints
+      - name: Search all reachable history with pickaxe
         shell: bash
         run: |
           set +e
-          mapfile -t REFS < <(git for-each-ref --format='%(refname)' refs/remotes/origin | grep -v '/HEAD$')
-          echo "remote_ref_count=${#REFS[@]}"
           for needle in \
-            '90719eb1067241df6b201c2722cca5280f89ea69d0e3fd3e7865b9e91d9e8c13' \
+            'stage_a_event_handoff_425_v1' \
             'XRUN_20260831_20260901_R3_E0001' \
-            '휴가철에도 전력수요 95.3GW' \
-            'stage_a_event_handoff_425_v1'
+            '90719eb1067241df6b201c2722cca5280f89ea69d0e3fd3e7865b9e91d9e8c13' \
+            '휴가철에도 전력수요 95.3GW'
           do
-            echo "=== NEEDLE: $needle ==="
-            git grep -n -I -F "$needle" "${REFS[@]}" 2>/dev/null | head -200
+            echo "=== PICKAXE: $needle ==="
+            git log --all --oneline --decorate --name-status -S"$needle" -- . | head -400
           done
-          echo '=== ALL FILES CONTAINING R3 EVENT PREFIX ==='
-          git grep -l -I -F 'XRUN_20260831_20260901_R3_E0' "${REFS[@]}" 2>/dev/null | head -500
+          echo '=== HISTORICAL BLOBS CONTAINING EXACT SCHEMA/EVENT PREFIX ==='
+          python3 - <<'PY'
+          import subprocess
+          needles=[b'stage_a_event_handoff_425_v1',b'XRUN_20260831_20260901_R3_E0001']
+          raw=subprocess.check_output(['git','rev-list','--objects','--all'],text=True,errors='replace').splitlines()
+          seen=set(); hits=[]
+          for line in raw:
+              sha=line.split(' ',1)[0]
+              if sha in seen: continue
+              seen.add(sha)
+              try:
+                  meta=subprocess.check_output(['git','cat-file','-t',sha],text=True).strip()
+              except subprocess.CalledProcessError:
+                  continue
+              if meta!='blob': continue
+              try:
+                  size=int(subprocess.check_output(['git','cat-file','-s',sha],text=True).strip())
+              except Exception:
+                  continue
+              if size>5_000_000: continue
+              try:
+                  data=subprocess.check_output(['git','cat-file','blob',sha])
+              except subprocess.CalledProcessError:
+                  continue
+              matched=[n.decode('utf-8',errors='replace') for n in needles if n in data]
+              if matched:
+                  hits.append((sha,size,matched))
+          print('hit_count=',len(hits))
+          for sha,size,matched in hits:
+              print('HIT',sha,size,matched)
+              paths=subprocess.run(['git','rev-list','--objects','--all'],capture_output=True,text=True).stdout.splitlines()
+              for line in paths:
+                  if line.startswith(sha+' '): print('PATH',line)
+          PY

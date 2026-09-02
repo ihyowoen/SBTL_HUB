@@ -1,4 +1,4 @@
-name: Inspect handoff425 reconstruction inputs
+name: Search all refs for handoff425 source
 
 on:
   push:
@@ -17,33 +17,20 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Fetch source branches
-        run: |
-          git fetch origin \
-            chatgpt/v4-crossrun-20260831-20260901 \
-            chatgpt/v4-run-20260831 \
-            chatgpt/v4-run-20260901
-      - name: Inspect transfer prefix and repository history
+      - name: Search every remote branch for source fingerprints
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import base64, zlib, hashlib
-          p=Path('.tmp/handoff425/part_00.txt')
-          s=p.read_text(encoding='utf-8').strip()
-          raw=base64.b64decode(s)
-          d=zlib.decompressobj(16+zlib.MAX_WBITS)
-          out=d.decompress(raw)
-          print('part_text_bytes=',len(s.encode()))
-          print('compressed_prefix_bytes=',len(raw))
-          print('decompressed_prefix_bytes=',len(out))
-          print('--- PREFIX ---')
-          print(out.decode('utf-8',errors='replace'))
-          print('--- END PREFIX ---')
-          PY
-          echo '--- RELEVANT PATHS IN ALL REACHABLE HISTORY ---'
-          git log --all --name-only --pretty=format: | sort -u | grep -Ei 'crossrun|event_universe|membership|handoff|cluster|fingerprint' || true
-          echo '--- RELEVANT COMMIT SUBJECTS ---'
-          git log --all --oneline --decorate --grep='cross\|event\|handoff\|cluster\|fingerprint' -i -n 100 || true
-          echo '--- SOURCE BRANCH TOP-LEVEL RUN FILES ---'
-          git ls-tree -r --name-only origin/chatgpt/v4-crossrun-20260831-20260901 | grep -Ei '2026-09-02|crossrun|event|cluster|fingerprint' || true
+          set +e
+          mapfile -t REFS < <(git for-each-ref --format='%(refname)' refs/remotes/origin | grep -v '/HEAD$')
+          echo "remote_ref_count=${#REFS[@]}"
+          for needle in \
+            '90719eb1067241df6b201c2722cca5280f89ea69d0e3fd3e7865b9e91d9e8c13' \
+            'XRUN_20260831_20260901_R3_E0001' \
+            '휴가철에도 전력수요 95.3GW' \
+            'stage_a_event_handoff_425_v1'
+          do
+            echo "=== NEEDLE: $needle ==="
+            git grep -n -I -F "$needle" "${REFS[@]}" 2>/dev/null | head -200
+          done
+          echo '=== ALL FILES CONTAINING R3 EVENT PREFIX ==='
+          git grep -l -I -F 'XRUN_20260831_20260901_R3_E0' "${REFS[@]}" 2>/dev/null | head -500

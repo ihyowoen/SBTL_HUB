@@ -1,5 +1,5 @@
 {
-  "registry_version": "GOVERNANCE_LIFECYCLE_REGISTRY_V4_20260829",
+  "registry_version": "GOVERNANCE_LIFECYCLE_REGISTRY_V4_20260902",
   "status": "ACTIVE_VALIDATOR_CONTRACT",
   "classification_policy": "INVENTORY_ALL_DOCS_DEEP_READ_ACTIVE_DEPENDENCY_CLOSURE",
   "active_override_or_addendum_count": 0,
@@ -53,11 +53,15 @@
     "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
     "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md"
   ],
-  "activation_required_migrations": ["docs/migrations/BOOTSTRAP_CONSOLIDATION_20260801.md"],
+  "activation_required_migrations": [
+    "docs/migrations/BOOTSTRAP_CONSOLIDATION_20260801.md",
+    "docs/migrations/LEGACY_RELATED_LINEAGE_CONTAINER_INIT_20260808.md"
+  ],
   "superseded": [
     "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
     "docs/PROMPT_ABC_SUPPORTING_RULES.md",
     "docs/MANUAL_DIRECT_ADD_V1.md",
+    "docs/PROMPT_ABC_DEFAULT_MODE_v1_legacy.md",
     "docs/llm_prompts/v1/00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md",
     "docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
     "docs/llm_prompts/v1/00_MANDATORY_SEARCH_BEFORE_DELETE_OVERRIDE.md",
@@ -70,14 +74,37 @@
     "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep_HARDENING_ADDENDUM_V1.md",
     "docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
     "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md",
-    "docs/llm_prompts/v1/13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md"
+    "docs/llm_prompts/v1/13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md",
+    "docs/llm_prompts/v1/SEARCH_BEFORE_DELETE_OVERRIDE_MANIFEST.json",
+    "docs/llm_prompts/v1/SOURCE_DIVERSITY_V10_MASTER_RULE.md",
+    "docs/llm_prompts/v1/SOURCE_DIVERSITY_V1_IB_CODEX_20260708_MASTER_RULE.md"
   ],
   "reference_only": [
     "docs/WORKFLOW_GAP_REMEDIATION_20260723.md",
+    "docs/AI_CHATBOT_IMPLEMENTATION_CHECKLIST.md",
+    "docs/AI_CHATBOT_REFACTOR_PLAN.md",
+    "docs/APP_JSX_PATCH.md",
+    "docs/APP_STORY_UI_PHASE1_BRIEF.md",
+    "docs/CHATBOT_ARCHITECTURE.md",
+    "docs/CHATBOT_TESTS.md",
+    "docs/CONSULTATION_3STAGE_DESIGN.md",
+    "docs/ENHANCED_RED_TEAM_FULLSTACK_AUDIT_20260414.md",
+    "docs/SESSION_HANDOFF_20260424_W8_promptB.md",
+    "docs/STRENGTHENING_PLAN.md",
+    "docs/TRIAGE_INPUT_MODE_DEFAULT.md",
+    "docs/archive/PROMPT_ABC_DEFAULT_MODE_v4.md",
     "docs/llm_prompts/v1/legacy/10_PROMPT_0_8_GitHub_Merge_Prep_LEGACY_BODY.md",
     "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json",
     "docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json",
     "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
-    "docs/llm_prompts/v1/QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md"
+    "docs/llm_prompts/v1/QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+    "docs/llm_prompts/v1/entity_alias_map.json",
+    "docs/validation/CARD_RUN_ENGINE_V1_VALIDATION_20260802.md",
+    "docs/validation/DYNAMIC_GOVERNANCE_COMPLETENESS_VALIDATION_20260801.md",
+    "docs/validation/LEGACY_RELATED_LINEAGE_CONTAINER_AUDIT_20260808.md",
+    "docs/validation/PR233_REVIEW_20260803_RUN3.md",
+    "docs/validation/PR233_REVIEW_4842822807.md",
+    "docs/validation/STRUCTURAL_NEWS_VALUE_V3_VALIDATION_20260802.md",
+    "docs/validation/WORKFLOW_CONTRACT_VALIDATION_20260723.md"
   ]
 }

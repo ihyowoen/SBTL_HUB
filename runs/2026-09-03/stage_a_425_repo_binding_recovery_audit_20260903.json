@@ -1,8 +1,8 @@
 {
   "schema": "stage_a_425_repo_binding_recovery_audit_v1",
-  "status": "LOCAL_FULL_SOURCE_REPORTED_RECOVERED_REPO_BINDING_PENDING",
+  "status": "EXACT_LOCAL_ARTIFACT_TRANSFER_REQUIRED_FORMAL_STAGE_A_BLOCKED",
   "generated_at_kst": "2026-09-03T00:11:00+09:00",
-  "updated_at_kst": "2026-09-03T00:17:00+09:00",
+  "updated_at_kst": "2026-09-03T03:00:00+09:00",
   "repository": "ihyowoen/SBTL_HUB",
   "branch": "chatgpt/v4-run-baseline-20260831-20260901-r4",
   "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
@@ -44,7 +44,10 @@
       }
     ],
     "reachable_part_01_or_later_found": false,
-    "fsck_unreachable_recoverable_part_found": false
+    "fsck_unreachable_recoverable_part_found": false,
+    "stage_a_partition_commit_item_level_payload_found": false,
+    "stage_a_partition_commit_checked": "fb06349fb05618bbdbba71b8d25a5947f3145220",
+    "stage_a_partition_commit_result": "Only the preselection summary was committed; no 393+32 item-level partition payload was present."
   },
   "local_recovery_update": {
     "operator_reported_full_item_level_artifacts_recovered": true,
@@ -59,6 +62,12 @@
     "schema_verified_after_recovery": false,
     "repo_bound": false,
     "interpretation": "Repository/history recovery remains exhausted, but that is no longer evidence that the exact source is lost: the operator reports the original full local artifacts recovered. The next step is exact byte transfer and fail-closed verification, not reconstruction."
+  },
+  "cleanup": {
+    "incomplete_transfer_fragment_present_in_current_pr_diff": false,
+    "temporary_recovery_workflow_present_in_current_pr_diff": false,
+    "temporary_recovery_workflow_removed_by_commit": "922c7ab78bd72ff759280d091043c75d7765ba88",
+    "cleanup_status": "PASS_NO_TEMP_RECOVERY_FILES_INTENDED_IN_FINAL_PR_DIFF"
   },
   "governance_decision": {
     "approximate_reconstruction_permitted": false,
@@ -80,7 +89,8 @@
       "stage_a_event_handoff_425_20260902.json"
     ],
     "required_validation": "Exact SHA256 + 425 event count + 632 observation count + schema + lossless event-membership equality + no event-id duplicates + no observation reuse",
-    "validator_workflow": ".github/workflows/tmp-inspect-handoff425.yml",
+    "validator_workflow": null,
+    "validator_rearm_policy": "After the exact files are repo-bound, run a fail-closed exact SHA/count/schema/lossless-membership validator before authorizing formal Stage A. Temporary recovery diagnostics must not be retained in the final PR diff.",
     "stage_a_must_remain_blocked_until_pass": true
   }
 }

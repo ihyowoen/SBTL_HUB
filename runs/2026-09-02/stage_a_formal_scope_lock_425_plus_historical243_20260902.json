@@ -1,0 +1,54 @@
+{
+  "schema": "stage_a_formal_scope_lock_v1",
+  "status": "READY_PENDING_EXACT_425_REPO_BINDING",
+  "generated_date": "2026-09-02",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_card_count": 1514,
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "document_universe_manifest_ref": "runs/2026-09-02/stage_0_0d_v4_document_universe_20260902_MAIN_df6fccc.json",
+  "current_event_handoff": {
+    "repo_target": "runs/2026-09-02/stage_a_event_handoff_425_20260902.json",
+    "expected_sha256": "ff58d295d0d2360fdb053d18aea1921de29397f891db4d957ecf7140a49ac119",
+    "source_membership_repo_target": "runs/2026-09-02/crossrun_event_membership_425.json",
+    "source_membership_expected_sha256": "90719eb1067241df6b201c2722cca5280f89ea69d0e3fd3e7865b9e91d9e8c13",
+    "formal_stage_a_event_count": 425,
+    "source_observation_count": 632,
+    "event_id_duplicate_count_expected": 0,
+    "observation_reuse_across_events_expected": 0,
+    "all_observations_accounted_expected": true
+  },
+  "historical_sidecar": {
+    "ref": "runs/2026-09-02/stage_0_0c_historical_carry_forward_terminal_reconciliation_20260902_R3.json",
+    "historical_gross": 290,
+    "historical_246": {
+      "already_canonicalized_exact": 3,
+      "watchlist_provenance_hold": 243,
+      "formal_stage_a_input": 0
+    },
+    "residual_44": {
+      "formal_stage_a_input": 0,
+      "terminally_accounted": 44
+    },
+    "policy": "Historical 243 rows remain reopenable provenance holds. They are attached as a watchlist/provenance sidecar only and are not scored, promoted, rejected, or admitted to the current strict Stage B queue until exact per-row source metadata is materialized and each row re-enters current V4 0.0C/Stage A independently."
+  },
+  "formal_stage_a_boundary": {
+    "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+    "current_source_bound_events_only": true,
+    "formal_input_count": 425,
+    "historical_selection_judgment_reused": false,
+    "historical_provenance_identity_reused": true,
+    "external_web_search_at_stage_a": false,
+    "article_body_fetch_at_stage_a": false,
+    "strict_stage_b_queue_source": "formal current V4 strict_passed_spec only",
+    "same_event_and_related_prepass_required": true,
+    "v4_contract_validator": "validation_scripts/stage_a_v4_contract.py",
+    "v4_hardening_validator": "validation_scripts/stage_a_v4_hardening.py",
+    "lineage_validator": "validation_scripts/stage_lineage_contract_check.py"
+  },
+  "authorization": {
+    "handoff_hash_count_schema_validation_required": true,
+    "formal_stage_a_authorized_after_handoff_validation_pass": true,
+    "formal_stage_a_authorized_now": false,
+    "reason": "The exact local full artifacts have been recovered, but the two full files are not yet repository-bound on this PR branch. A fail-closed validation gate is armed and will authorize formal Stage A only after exact SHA/count/schema/lossless-transfer checks pass."
+  }
+}

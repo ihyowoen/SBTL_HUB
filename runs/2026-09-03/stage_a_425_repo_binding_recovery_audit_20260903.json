@@ -1,7 +1,8 @@
 {
   "schema": "stage_a_425_repo_binding_recovery_audit_v1",
-  "status": "RECOVERY_EXHAUSTED_EXACT_SOURCE_BYTES_REQUIRED",
+  "status": "LOCAL_FULL_SOURCE_REPORTED_RECOVERED_REPO_BINDING_PENDING",
   "generated_at_kst": "2026-09-03T00:11:00+09:00",
+  "updated_at_kst": "2026-09-03T00:17:00+09:00",
   "repository": "ihyowoen/SBTL_HUB",
   "branch": "chatgpt/v4-run-baseline-20260831-20260901-r4",
   "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
@@ -19,7 +20,7 @@
       "observation_count": 632
     }
   },
-  "recovery_checks": {
+  "repository_recovery_checks_completed_before_local_recovery_report": {
     "current_branch_exact_targets_present": false,
     "repository_code_search_exact_membership_hash_hit": false,
     "reachable_git_history_exact_full_artifact_found": false,
@@ -45,12 +46,26 @@
     "reachable_part_01_or_later_found": false,
     "fsck_unreachable_recoverable_part_found": false
   },
+  "local_recovery_update": {
+    "operator_reported_full_item_level_artifacts_recovered": true,
+    "reported_files": [
+      "crossrun_event_membership_425.json",
+      "stage_a_event_handoff_425_20260902.json"
+    ],
+    "local_bytes_visible_to_repo_or_current_chat_runtime": false,
+    "exact_sha256_verified_after_recovery": false,
+    "event_count_verified_after_recovery": false,
+    "observation_count_verified_after_recovery": false,
+    "schema_verified_after_recovery": false,
+    "repo_bound": false,
+    "interpretation": "Repository/history recovery remains exhausted, but that is no longer evidence that the exact source is lost: the operator reports the original full local artifacts recovered. The next step is exact byte transfer and fail-closed verification, not reconstruction."
+  },
   "governance_decision": {
     "approximate_reconstruction_permitted": false,
     "incomplete_prefix_may_be_relocked_as_authoritative": false,
     "exact_hash_claim_may_be_inferred": false,
     "formal_stage_a_authorized_now": false,
-    "formal_stage_a_blocker": "Exact full 425 membership and handoff source bytes are not repository-bound and cannot be recovered losslessly from reachable Git/Actions history. Transfer of the exact source bytes is required before the armed validation gate may authorize Stage A."
+    "formal_stage_a_blocker": "Recovered local full artifacts have not yet crossed the local-to-repository boundary and therefore have not passed exact SHA/count/schema/lossless-transfer validation on the PR branch."
   },
   "historical_sidecar_state_unchanged": {
     "historical_gross": 290,

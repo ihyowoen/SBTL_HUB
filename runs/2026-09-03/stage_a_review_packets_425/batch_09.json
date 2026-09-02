@@ -1,0 +1,1777 @@
+{
+  "schema": "stage_a_review_packet_v1",
+  "batch": 9,
+  "ordinal_start": 201,
+  "ordinal_end": 225,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "events": [
+    {
+      "ordinal": 201,
+      "event_id": "XRUN_REPLAY_20260903_E0360",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C06",
+        "story_id": "CN_2026-09-01_C06",
+        "date": "2026-09-01",
+        "title": "E Weekly Highlights | Leapmotor and FAW Deepen Cooperation; Dreame Addresses Business Changes",
+        "site": "Gasgoo RSS - Class 2",
+        "url": "https://autonews.gasgoo.com/articles/news/e-weekly-highlights-leapmotor-and-faw-deepen-cooperation-dreame-addresses-business-changes-2094613216700481537",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "935c85fa58bc127d149c852f9e6231d8c788d512f0e723ae88c7576ffeca21a5"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C06"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C06",
+          "source_run": "20260901",
+          "source_index": 250,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C06",
+          "story_id": "CN_2026-09-01_C06",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "E Weekly Highlights | Leapmotor and FAW Deepen Cooperation; Dreame Addresses Business Changes",
+          "site": "Gasgoo RSS - Class 2",
+          "source_url": "https://autonews.gasgoo.com/articles/news/e-weekly-highlights-leapmotor-and-faw-deepen-cooperation-dreame-addresses-business-changes-2094613216700481537",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "935c85fa58bc127d149c852f9e6231d8c788d512f0e723ae88c7576ffeca21a5"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 202,
+      "event_id": "XRUN_REPLAY_20260903_E0365",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C29",
+        "story_id": "CN_2026-09-01_C29",
+        "date": "2026-09-01",
+        "title": "逸飞激光斩获2.22亿元锂电设备订单",
+        "site": "OFweek Li-Battery",
+        "url": "https://libattery.ofweek.com/2026-09/ART-36005-8120-30701023.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "acb57d3c55d3076ccaf0a6a27fb92c815ad51d9417d3929479a9a9b580a3aa48"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C29"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C29",
+          "source_run": "20260901",
+          "source_index": 255,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C29",
+          "story_id": "CN_2026-09-01_C29",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "逸飞激光斩获2.22亿元锂电设备订单",
+          "site": "OFweek Li-Battery",
+          "source_url": "https://libattery.ofweek.com/2026-09/ART-36005-8120-30701023.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "acb57d3c55d3076ccaf0a6a27fb92c815ad51d9417d3929479a9a9b580a3aa48"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 203,
+      "event_id": "XRUN_REPLAY_20260903_E0368",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C11",
+        "story_id": "CN_2026-09-01_C11",
+        "date": "2026-09-01",
+        "title": "“小农场”撬动“大储能”，海安储能电站项目顺利签约",
+        "site": "中国能源网",
+        "url": "https://www.china5e.com/news/news-1208556-1.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "79b1c85bf87e1267ad3cab7726406b21f916de8c810de7f6182edfe65989289e"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C11"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-09-01_C11",
+          "source_run": "20260901",
+          "source_index": 258,
+          "candidate_id": "orig:20260901_123511:CN_2026-09-01_C11",
+          "story_id": "CN_2026-09-01_C11",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "“小农场”撬动“大储能”，海安储能电站项目顺利签约",
+          "site": "中国能源网",
+          "source_url": "https://www.china5e.com/news/news-1208556-1.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "79b1c85bf87e1267ad3cab7726406b21f916de8c810de7f6182edfe65989289e"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "储能"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 204,
+      "event_id": "XRUN_REPLAY_20260903_E0381",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C16",
+        "story_id": "CN_2026-08-31_C16",
+        "date": "2026-08-31",
+        "title": "博主再谈磷酸铁锂技术路线可能第一个被淘汰：我有逻辑支撑",
+        "site": "第一电动 企业",
+        "url": "http://www.d1ev.com/news/qiye/311951",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "61778b55319122b5efff48aeaf9483e0f60f30cd6311686ce36ddcf2ada8b6cc"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:CN_2026-08-31_C16"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:CN_2026-08-31_C16",
+          "source_run": "20260901",
+          "source_index": 285,
+          "candidate_id": "orig:20260901_123511:CN_2026-08-31_C16",
+          "story_id": "CN_2026-08-31_C16",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "博主再谈磷酸铁锂技术路线可能第一个被淘汰：我有逻辑支撑",
+          "site": "第一电动 企业",
+          "source_url": "http://www.d1ev.com/news/qiye/311951",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "61778b55319122b5efff48aeaf9483e0f60f30cd6311686ce36ddcf2ada8b6cc"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "锂"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 205,
+      "event_id": "XRUN_REPLAY_20260903_E0385",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0181",
+        "story_id": "TF_0181",
+        "date": "2026-08-31",
+        "title": "60 years of Notting Hill Carnival: 10 essential songs chosen by its veterans",
+        "site": "Euronews RSS",
+        "url": "http://www.euronews.com/culture/2026/08/31/60-years-of-notting-hill-carnival-10-essential-songs-chosen-by-its-veterans",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "c390c1e891c66ebe30fc33a716d03ab0ef02a222094cd1677e885c2cd6f38990"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0181"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0181",
+          "source_run": "20260901",
+          "source_index": 291,
+          "candidate_id": "orig:20260901_123511:TF_0181",
+          "story_id": "TF_0181",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "60 years of Notting Hill Carnival: 10 essential songs chosen by its veterans",
+          "site": "Euronews RSS",
+          "source_url": "http://www.euronews.com/culture/2026/08/31/60-years-of-notting-hill-carnival-10-essential-songs-chosen-by-its-veterans",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "c390c1e891c66ebe30fc33a716d03ab0ef02a222094cd1677e885c2cd6f38990"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 206,
+      "event_id": "XRUN_REPLAY_20260903_E0407",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0040",
+        "story_id": "TF_0040",
+        "date": "2026-08-31",
+        "title": "Nova Minerals Attends Roundtable with U.S. Department of Energy - markets.businessinsider.com",
+        "site": "G7 Critical Minerals Multilateral (via Google News)",
+        "url": "https://markets.businessinsider.com/news/stocks/nova-minerals-attends-roundtable-with-u-s-department-of-energy-1036507074",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "00289b132df51e3dec01a65ca162b5f4f47d794e8106d8bf7cb966d7d8703e2f"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0040"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0040",
+          "source_run": "20260901",
+          "source_index": 337,
+          "candidate_id": "orig:20260901_123511:TF_0040",
+          "story_id": "TF_0040",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Nova Minerals Attends Roundtable with U.S. Department of Energy - markets.businessinsider.com",
+          "site": "G7 Critical Minerals Multilateral (via Google News)",
+          "source_url": "https://markets.businessinsider.com/news/stocks/nova-minerals-attends-roundtable-with-u-s-department-of-energy-1036507074",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "00289b132df51e3dec01a65ca162b5f4f47d794e8106d8bf7cb966d7d8703e2f"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 207,
+      "event_id": "XRUN_REPLAY_20260903_E0410",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0039",
+        "story_id": "TF_0039",
+        "date": "2026-08-31",
+        "title": "Nickel Archives - Page 164 of 164 - The Northern Miner",
+        "site": "Northern Miner (via Google News)",
+        "url": "https://www.northernminer.com/commodity/nickel/page/164",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "45dc4174bece97c48a7dae3b4abb0e35f50a1fe92f39e61386eb08073da9d1d6"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0039"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0039",
+          "source_run": "20260901",
+          "source_index": 340,
+          "candidate_id": "orig:20260901_123511:TF_0039",
+          "story_id": "TF_0039",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Nickel Archives - Page 164 of 164 - The Northern Miner",
+          "site": "Northern Miner (via Google News)",
+          "source_url": "https://www.northernminer.com/commodity/nickel/page/164",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "45dc4174bece97c48a7dae3b4abb0e35f50a1fe92f39e61386eb08073da9d1d6"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "nickel"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 208,
+      "event_id": "XRUN_REPLAY_20260903_E0417",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0009",
+        "story_id": "TF_0009",
+        "date": "2026-08-31",
+        "title": "BYD’s new Denza N8 SUV with 1,008 km EV range revealed interior in China",
+        "site": "CarNewsChina RSS",
+        "url": "https://carnewschina.com/2026/08/31/byds-new-denza-n8-suv-with-1008-km-ev-range-revealed-interior-in-china",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b6d2b417997ee362f629a3bcd9e3a13b9cbf64af9d41c2fb5dd0cc3b5c40e8d4"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0009"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0009",
+          "source_run": "20260901",
+          "source_index": 349,
+          "candidate_id": "orig:20260901_123511:TF_0009",
+          "story_id": "TF_0009",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "BYD’s new Denza N8 SUV with 1,008 km EV range revealed interior in China",
+          "site": "CarNewsChina RSS",
+          "source_url": "https://carnewschina.com/2026/08/31/byds-new-denza-n8-suv-with-1008-km-ev-range-revealed-interior-in-china",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b6d2b417997ee362f629a3bcd9e3a13b9cbf64af9d41c2fb5dd0cc3b5c40e8d4"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ev "
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 209,
+      "event_id": "XRUN_REPLAY_20260903_E0418",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0008",
+        "story_id": "TF_0008",
+        "date": "2026-08-31",
+        "title": "149.16亿元营收，归母净利润暴增1177%！瑞浦兰钧用业绩表明不卷低价也能增长",
+        "site": "OFweek储能网",
+        "url": "https://chuneng.ofweek.com/news/2026-08/ART-180220-12003-30700678.html",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "d159a10f9f31e1d4daa6ed0d5f5b7ce086b0f57e4a42bee13e47bba56fb12eed"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0008"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0008",
+          "source_run": "20260901",
+          "source_index": 350,
+          "candidate_id": "orig:20260901_123511:TF_0008",
+          "story_id": "TF_0008",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "149.16亿元营收，归母净利润暴增1177%！瑞浦兰钧用业绩表明不卷低价也能增长",
+          "site": "OFweek储能网",
+          "source_url": "https://chuneng.ofweek.com/news/2026-08/ART-180220-12003-30700678.html",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "d159a10f9f31e1d4daa6ed0d5f5b7ce086b0f57e4a42bee13e47bba56fb12eed"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [
+          "利润",
+          "营收"
+        ],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "weak ambiguity retained upward",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 210,
+      "event_id": "XRUN_REPLAY_20260903_E0424",
+      "representative": {
+        "observation_key": "20260901::disc:20260901:us-data-center-ghost-demand",
+        "story_id": null,
+        "date": "2026-09-01",
+        "title": "Texas halts new data-center grid connections and audits speculative ghost demand",
+        "site": "www.reuters.com",
+        "url": "https://www.reuters.com/business/texas-halt-powering-data-centers-reflects-us-reckoning-over-ghost-demand-2026-09-01/",
+        "binding": {
+          "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+          "coverage_payload_sha256": "f5fb6ba145ecf32bfe7d910e002386108fafa8ed8d0c63084574b73a54d413eb"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::disc:20260901:us-data-center-ghost-demand"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::disc:20260901:us-data-center-ghost-demand",
+          "source_run": "20260901",
+          "source_index": 359,
+          "candidate_id": "disc:20260901:us-data-center-ghost-demand",
+          "story_id": null,
+          "origin": "discovered",
+          "event_date": "2026-09-01",
+          "title": "Texas halts new data-center grid connections and audits speculative ghost demand",
+          "site": "www.reuters.com",
+          "source_url": "https://www.reuters.com/business/texas-halt-powering-data-centers-reflects-us-reckoning-over-ghost-demand-2026-09-01/",
+          "binding": {
+            "kind": "stage_0_0c_discovery_or_rescue_payload_sha256",
+            "coverage_payload_sha256": "f5fb6ba145ecf32bfe7d910e002386108fafa8ed8d0c63084574b73a54d413eb"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "grid"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 211,
+      "event_id": "XRUN_REPLAY_20260903_E0010",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C09",
+        "story_id": "US_2026-08-31_C09",
+        "date": "2026-08-31",
+        "title": "K-12 school solar tops 2.4 GW, while battery storage emerges as next growth market",
+        "site": "PV Magazine USA RSS",
+        "url": "https://pv-magazine-usa.com/2026/08/31/k-12-school-solar-tops-2-4-gw-while-battery-storage-emerges-as-next-growth-market",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "cadd0df4a411edcf2c331e03ca1f0d4b5ffaf0bf9facc186eaee4c2a033ba5f7"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C01",
+        "20260901::orig:20260901_123511:US_2026-08-31_C09"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C01",
+          "source_run": "20260831",
+          "source_index": 10,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C01",
+          "story_id": "US_2026-08-28_C01",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "1 in 7 US students now goes to a solar-powered school",
+          "site": "Electrek RSS",
+          "source_url": "https://electrek.co/2026/08/28/1-in-7-us-students-now-goes-to-a-solar-powered-school",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "4a342f35839bd0582958b62e6454a3712edbd75c480320e75b2323958c70b331"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C09",
+          "source_run": "20260901",
+          "source_index": 6,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C09",
+          "story_id": "US_2026-08-31_C09",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "K-12 school solar tops 2.4 GW, while battery storage emerges as next growth market",
+          "site": "PV Magazine USA RSS",
+          "source_url": "https://pv-magazine-usa.com/2026/08/31/k-12-school-solar-tops-2-4-gw-while-battery-storage-emerges-as-next-growth-market",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "cadd0df4a411edcf2c331e03ca1f0d4b5ffaf0bf9facc186eaee4c2a033ba5f7"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "school solar"
+        ],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 212,
+      "event_id": "XRUN_REPLAY_20260903_E0132",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C01",
+        "story_id": "EU_2026-08-28_C01",
+        "date": "2026-08-28",
+        "title": "BESS Industry Buzz: hot takes, analysis and unofficial news from across the sector",
+        "site": "Energy-Storage.News Europe",
+        "url": "https://www.energy-storage.news/bess-industry-buzz-hot-takes-analysis-and-unofficial-news-from-across-the-sector",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6403d878508d0c8a970153008d423b2c12a23cd8eb289320b6d967e0f1114255"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:EU_2026-08-28_C01"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:EU_2026-08-28_C01",
+          "source_run": "20260831",
+          "source_index": 168,
+          "candidate_id": "orig:20260831_143419:EU_2026-08-28_C01",
+          "story_id": "EU_2026-08-28_C01",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "BESS Industry Buzz: hot takes, analysis and unofficial news from across the sector",
+          "site": "Energy-Storage.News Europe",
+          "source_url": "https://www.energy-storage.news/bess-industry-buzz-hot-takes-analysis-and-unofficial-news-from-across-the-sector",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "6403d878508d0c8a970153008d423b2c12a23cd8eb289320b6d967e0f1114255"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [
+          "bess",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "analysis"
+        ]
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 213,
+      "event_id": "XRUN_REPLAY_20260903_E0208",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0038",
+        "story_id": "TF_0038",
+        "date": "2026-08-28",
+        "title": "Lithium price: Fitch raises forecast, warns rally has outrun fundamentals - The Northern Miner",
+        "site": "Northern Miner (via Google News)",
+        "url": "https://www.northernminer.com/news/lithium-price-fitch-raises-forecast-warns-rally-has-outrun-fundamentals/1003894418",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "ab00773a8972f7b72e8e3eda02542e554df9446e4b70a43713e6805b7a515b94"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0038"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0038",
+          "source_run": "20260831",
+          "source_index": 246,
+          "candidate_id": "orig:20260831_143419:TF_0038",
+          "story_id": "TF_0038",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "Lithium price: Fitch raises forecast, warns rally has outrun fundamentals - The Northern Miner",
+          "site": "Northern Miner (via Google News)",
+          "source_url": "https://www.northernminer.com/news/lithium-price-fitch-raises-forecast-warns-rally-has-outrun-fundamentals/1003894418",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "ab00773a8972f7b72e8e3eda02542e554df9446e4b70a43713e6805b7a515b94"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [
+          "lithium"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": [
+          "forecast"
+        ]
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 214,
+      "event_id": "XRUN_REPLAY_20260903_E0065",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C04",
+        "story_id": "KR_2026-08-31_C04",
+        "date": "2026-08-31",
+        "title": "\"脫중국 공급망 구축\"… 美, 유일한 자국 정제소 '애틀랜틱 알루미나'에 8억 달러 투입 - 글로벌이코노믹",
+        "site": "핵심광물 다자·G7 (via Google News)",
+        "url": "https://www.g-enews.com/article/Global-Biz/2026/08/202608301709378750c8c1c064d_1",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "3cdbdf0524c9c0beecb4bdc2e34fd800f0d811eb40af35c45e22ce31ec3a690b"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C04",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C04",
+          "source_run": "20260831",
+          "source_index": 92,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C04",
+          "story_id": "KR_2026-08-31_C04",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "\"脫중국 공급망 구축\"… 美, 유일한 자국 정제소 '애틀랜틱 알루미나'에 8억 달러 투입 - 글로벌이코노믹",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "source_url": "https://www.g-enews.com/article/Global-Biz/2026/08/202608301709378750c8c1c064d_1",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "3cdbdf0524c9c0beecb4bdc2e34fd800f0d811eb40af35c45e22ce31ec3a690b"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C02",
+          "source_run": "20260901",
+          "source_index": 159,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C02",
+          "story_id": "KR_2026-08-31_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "\"脫중국 공급망 구축\"… 美, 유일한 자국 정제소 '애틀랜틱 알루미나'에 8억 달러 투입 - 글로벌이코노믹",
+          "site": "핵심광물 다자·G7 (via Google News)",
+          "source_url": "https://www.g-enews.com/article/Global-Biz/2026/08/202608301709378750c8c1c064d_1",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "334de50f4dba67900a05615ba47f593e5591b688bec269c32f82007557586997"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 215,
+      "event_id": "XRUN_REPLAY_20260903_E0006",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C02",
+        "story_id": "US_2026-08-28_C02",
+        "date": "2026-08-28",
+        "title": "A new solution for flame-retardant tapes in EVs and energy storage applications: CleanTape® FR (Webinar)",
+        "site": "Charged EVs RSS",
+        "url": "https://chargedevs.com/newswire/a-new-solution-for-flame-retardant-tapes-in-evs-and-energy-storage-applications-cleantape-fr-webinar",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "2f158d4b341dd35b4ba75da19e690cd5875a01394157eff19a0d8324cf8f92bc"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:US_2026-08-28_C02",
+          "source_run": "20260831",
+          "source_index": 6,
+          "candidate_id": "orig:20260831_143419:US_2026-08-28_C02",
+          "story_id": "US_2026-08-28_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "A new solution for flame-retardant tapes in EVs and energy storage applications: CleanTape® FR (Webinar)",
+          "site": "Charged EVs RSS",
+          "source_url": "https://chargedevs.com/newswire/a-new-solution-for-flame-retardant-tapes-in-evs-and-energy-storage-applications-cleantape-fr-webinar",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "2f158d4b341dd35b4ba75da19e690cd5875a01394157eff19a0d8324cf8f92bc"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [
+          "energy storage"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "webinar"
+        ],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 216,
+      "event_id": "XRUN_REPLAY_20260903_E0055",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C69",
+        "story_id": "KR_2026-08-31_C69",
+        "date": "2026-08-31",
+        "title": "[미리보는 2026 국정감사(1)] 석유공급망 위기 대응",
+        "site": "투데이에너지",
+        "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302183",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "6eeddd96a697779bcc3b235537ed1cf275a0da8d4946a5366258a3b28191f0cf"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C69"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C69",
+          "source_run": "20260831",
+          "source_index": 80,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C69",
+          "story_id": "KR_2026-08-31_C69",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[미리보는 2026 국정감사(1)] 석유공급망 위기 대응",
+          "site": "투데이에너지",
+          "source_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302183",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "6eeddd96a697779bcc3b235537ed1cf275a0da8d4946a5366258a3b28191f0cf"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 217,
+      "event_id": "XRUN_REPLAY_20260903_E0178",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:TF_0147",
+        "story_id": "TF_0147",
+        "date": "2026-08-28",
+        "title": "New report warns AI data center boom squeezes memory-chip supply, could raise everyday tech costs",
+        "site": "Fox Business Latest RSS",
+        "url": "https://www.foxbusiness.com/economy/new-report-warns-ai-data-center-boom-squeezes-memory-chip-supply-could-raise-everyday-tech-costs",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "1316deb62d1d951eddd247592698109764ef24127512eae60959cd5ef0feec63"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:TF_0147"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:TF_0147",
+          "source_run": "20260831",
+          "source_index": 214,
+          "candidate_id": "orig:20260831_143419:TF_0147",
+          "story_id": "TF_0147",
+          "origin": "original_input",
+          "event_date": "2026-08-28",
+          "title": "New report warns AI data center boom squeezes memory-chip supply, could raise everyday tech costs",
+          "site": "Fox Business Latest RSS",
+          "source_url": "https://www.foxbusiness.com/economy/new-report-warns-ai-data-center-boom-squeezes-memory-chip-supply-could-raise-everyday-tech-costs",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "1316deb62d1d951eddd247592698109764ef24127512eae60959cd5ef0feec63"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "data center"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 218,
+      "event_id": "XRUN_REPLAY_20260903_E0414",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:TF_0021",
+        "story_id": "TF_0021",
+        "date": "2026-09-01",
+        "title": "Building Cars 2.0: Supply Chains Take Center Stage as New Book Is Published",
+        "site": "Gasgoo RSS - Class 19",
+        "url": "https://autonews.gasgoo.com/articles/news/building-cars-20-supply-chains-take-center-stage-as-new-book-is-published-2094629104724041728",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "25e4ce8d4fffb99a3dbd993f67124018a822f0b8a56cec8b947f16ae21a8ec7b"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:TF_0021"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:TF_0021",
+          "source_run": "20260901",
+          "source_index": 346,
+          "candidate_id": "orig:20260901_123511:TF_0021",
+          "story_id": "TF_0021",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "Building Cars 2.0: Supply Chains Take Center Stage as New Book Is Published",
+          "site": "Gasgoo RSS - Class 19",
+          "source_url": "https://autonews.gasgoo.com/articles/news/building-cars-20-supply-chains-take-center-stage-as-new-book-is-published-2094629104724041728",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "25e4ce8d4fffb99a3dbd993f67124018a822f0b8a56cec8b947f16ae21a8ec7b"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "supply chain"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "scope-positive ambiguity retained under rescue-before-delete",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 219,
+      "event_id": "XRUN_REPLAY_20260903_E0020",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C82",
+        "story_id": "KR_2026-08-31_C82",
+        "date": "2026-08-31",
+        "title": "[특징주] SK이노베이션, SK온의 美 ESS 공급계약 소식에 6%대 강세",
+        "site": "아주경제",
+        "url": "https://www.ajunews.com/view/20260831095734109",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "3c218ad829257e65718e5c78658346eaa4bf25af6a5990f6a2a9bf6f18ed4b81"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C82",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C40"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:KR_2026-08-31_C82",
+          "source_run": "20260831",
+          "source_index": 22,
+          "candidate_id": "orig:20260831_143419:KR_2026-08-31_C82",
+          "story_id": "KR_2026-08-31_C82",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[특징주] SK이노베이션, SK온의 美 ESS 공급계약 소식에 6%대 강세",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831095734109",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "3c218ad829257e65718e5c78658346eaa4bf25af6a5990f6a2a9bf6f18ed4b81"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-08-31_C40",
+          "source_run": "20260901",
+          "source_index": 119,
+          "candidate_id": "orig:20260901_123511:KR_2026-08-31_C40",
+          "story_id": "KR_2026-08-31_C40",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "[특징주] SK이노베이션, SK온의 美 ESS 공급계약 소식에 6%대 강세",
+          "site": "아주경제",
+          "source_url": "https://www.ajunews.com/view/20260831095734109",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "d2f14b4ae0fe29a1e12c3f700f2c5930889af59bd4bbaeadcc740d26d8446dfa"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 7,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [
+          "계약",
+          "공급계약"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "explicit market-reaction/analyst support-source pattern",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 220,
+      "event_id": "XRUN_REPLAY_20260903_E0252",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C11",
+        "story_id": "KR_2026-09-01_C11",
+        "date": "2026-09-01",
+        "title": "'11% 급락' 개미 충격 만회했다…강력 수주 모멘텀에 '급등' SK이노베이션이 자회사 SK온의 미국 에너지저장장치(ESS)용 배터리셀 수주 소식에 강세다.1일 오전 10시 현재 유가증권시장에서 SK이노베이션은 전날보다 1만400원(8.29%) 오른 13만5,900원에 거래되고 있다. 장 초반 10% 이상 뛰어올라 13만8,500원을 터치했다. 전체 업종 가운데 '에너지'가 SK이노베이션 강세에 힘입어 가장 큰 폭으로 오른다. SK온은 지난달 27일 미국 ESS 제조기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 전날 밝혔다.계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9기가와트시(GWh) 규모의 리튬인산철(LFP) 파우치 배터리 셀을 공급한다.이는 SK온이 올해 미국 시장에서 처음 따낸 대규모 배터리 셀 수주로 업계에서는 공급계약 규모를 약 1조5천억원으로 추산한다.SK온은 이와 별도로 연내 네오볼타 파워와 9GWh 규모의 추가 협력 계약도 추진하고 있다. 추가 계약까지 성사되면 양사의 협력 규모는 총 18GWh로 확대될 전망이다.전유진 iM증권 연구원은 \"SK온은 올해 수주 가이던스(전망치)를 20GWh로 제시했는데 이번 계약으로 목표치의 45%를 채웠고, 연내 추가로 추진하는 9GWh까지 감안하면 사실상 올해 수주 목표 대부분을 달성하게 된다\"고 설명했다.그는 \"찬물을 끼얹었던 SK이노베이션과 SK아이이테크놀로지(SKIET) 합병에 대한 실망감을 조금은 덜어내는 이벤트\"라고 평가했다.다만 \"이번 계약만으로 SK온과 SKIET 지원에 대한 시장의 불만과 불안을 해소하기에는 역부족\"이라면서도 \"미국 ESS 시장 진출의 첫걸음을 뗐다는 점은 긍정적\"이라고 말했다.앞서 SK이노베이션은 지난달 25일 분리막 사업 자회사 SKIET를 흡수합병한다고 공시했는데 다음 날인 26일 주가가 11.04% 급락한 바 있다.이후 27일부터 이날까지 4거래일 연속 반등 시세를 보이는 가운데 전날 8.04% 급등에 이어 2거래일 동안에만 20% 가까이 상승, 급락 분을 만회하는 모습이다.",
+        "site": "한국경제TV",
+        "url": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609010432",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "76af5d4b1de8346a6a2abcdc2337210a9df165f9530801333b726d37f6eafe44"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C76",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C11",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C17"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C76",
+          "source_run": "20260901",
+          "source_index": 46,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C76",
+          "story_id": "KR_2026-09-01_C76",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "[ET특징주] SK온 美 ESS 수주 소식에… SK이노베이션 주가 8%↑",
+          "site": "전자신문",
+          "source_url": "https://www.etnews.com/20260901000178",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "ddd70010f2282247236ea667c84f22735100714a752bbf025e7d50a7aa132b41"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C11",
+          "source_run": "20260901",
+          "source_index": 47,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C11",
+          "story_id": "KR_2026-09-01_C11",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "'11% 급락' 개미 충격 만회했다…강력 수주 모멘텀에 '급등' SK이노베이션이 자회사 SK온의 미국 에너지저장장치(ESS)용 배터리셀 수주 소식에 강세다.1일 오전 10시 현재 유가증권시장에서 SK이노베이션은 전날보다 1만400원(8.29%) 오른 13만5,900원에 거래되고 있다. 장 초반 10% 이상 뛰어올라 13만8,500원을 터치했다. 전체 업종 가운데 '에너지'가 SK이노베이션 강세에 힘입어 가장 큰 폭으로 오른다. SK온은 지난달 27일 미국 ESS 제조기업 네오볼타 파워와 ESS용 배터리 셀 공급계약을 체결했다고 전날 밝혔다.계약에 따라 SK온은 2027년부터 2031년까지 5년간 총 9기가와트시(GWh) 규모의 리튬인산철(LFP) 파우치 배터리 셀을 공급한다.이는 SK온이 올해 미국 시장에서 처음 따낸 대규모 배터리 셀 수주로 업계에서는 공급계약 규모를 약 1조5천억원으로 추산한다.SK온은 이와 별도로 연내 네오볼타 파워와 9GWh 규모의 추가 협력 계약도 추진하고 있다. 추가 계약까지 성사되면 양사의 협력 규모는 총 18GWh로 확대될 전망이다.전유진 iM증권 연구원은 \"SK온은 올해 수주 가이던스(전망치)를 20GWh로 제시했는데 이번 계약으로 목표치의 45%를 채웠고, 연내 추가로 추진하는 9GWh까지 감안하면 사실상 올해 수주 목표 대부분을 달성하게 된다\"고 설명했다.그는 \"찬물을 끼얹었던 SK이노베이션과 SK아이이테크놀로지(SKIET) 합병에 대한 실망감을 조금은 덜어내는 이벤트\"라고 평가했다.다만 \"이번 계약만으로 SK온과 SKIET 지원에 대한 시장의 불만과 불안을 해소하기에는 역부족\"이라면서도 \"미국 ESS 시장 진출의 첫걸음을 뗐다는 점은 긍정적\"이라고 말했다.앞서 SK이노베이션은 지난달 25일 분리막 사업 자회사 SKIET를 흡수합병한다고 공시했는데 다음 날인 26일 주가가 11.04% 급락한 바 있다.이후 27일부터 이날까지 4거래일 연속 반등 시세를 보이는 가운데 전날 8.04% 급등에 이어 2거래일 동안에만 20% 가까이 상승, 급락 분을 만회하는 모습이다.",
+          "site": "한국경제TV",
+          "source_url": "https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202609010432",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "76af5d4b1de8346a6a2abcdc2337210a9df165f9530801333b726d37f6eafe44"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C17",
+          "source_run": "20260901",
+          "source_index": 55,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C17",
+          "story_id": "KR_2026-09-01_C17",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "2차전지株 살아나나...SK온 수주 소식에 SK이노베이 급등",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202609011013191193",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "5b3a86f16dfc9e2d06887678109c94dd58ffd538ec3cf17379bda3d304326809"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "lfp",
+          "리튬",
+          "배터리",
+          "분리막",
+          "전지"
+        ],
+        "execution": [
+          "계약",
+          "공급계약",
+          "수주",
+          "합병"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "%",
+          "gwh",
+          "억원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [
+          "급등",
+          "급락",
+          "주가"
+        ],
+        "context": [
+          "연구",
+          "전망"
+        ]
+      },
+      "preselection_reason": "explicit market-reaction/analyst support-source pattern",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 221,
+      "event_id": "XRUN_REPLAY_20260903_E0231",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C20",
+        "story_id": "US_2026-08-31_C20",
+        "date": "2026-08-31",
+        "title": "Section 232 tariffs push U.S. module prices to 2023 levels, but analysts see a path back to 30 cents per watt",
+        "site": "PV Magazine USA RSS",
+        "url": "https://pv-magazine-usa.com/2026/08/31/section-232-tariffs-push-u-s-module-prices-to-2023-levels-but-analysts-see-a-path-back-to-30-cents-per-watt",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "e70045b8dc8011d8bd6b6a48e502a752c21488e63fdad802acb731478eb3cc64"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C20"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:US_2026-08-31_C20",
+          "source_run": "20260901",
+          "source_index": 5,
+          "candidate_id": "orig:20260901_123511:US_2026-08-31_C20",
+          "story_id": "US_2026-08-31_C20",
+          "origin": "original_input",
+          "event_date": "2026-08-31",
+          "title": "Section 232 tariffs push U.S. module prices to 2023 levels, but analysts see a path back to 30 cents per watt",
+          "site": "PV Magazine USA RSS",
+          "source_url": "https://pv-magazine-usa.com/2026/08/31/section-232-tariffs-push-u-s-module-prices-to-2023-levels-but-analysts-see-a-path-back-to-30-cents-per-watt",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "e70045b8dc8011d8bd6b6a48e502a752c21488e63fdad802acb731478eb3cc64"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "tariff"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "explicit market-reaction/analyst support-source pattern",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 222,
+      "event_id": "XRUN_REPLAY_20260903_E0102",
+      "representative": {
+        "observation_key": "20260831::orig:20260831_143419:GL_2026-08-30_C02",
+        "story_id": "GL_2026-08-30_C02",
+        "date": "2026-08-30",
+        "title": "Business Analyst Mining Operations at Vale - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/jobs/653090190-business-analyst-mining-operations",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+          "raw_file_bytes": 7265646,
+          "raw_row_sha256": "8234e4ce46edb0cfa8dc06dedd4a31cf2de0904ce1b487628fbea2cea08754ad"
+        }
+      },
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260831::orig:20260831_143419:GL_2026-08-30_C02",
+        "20260901::orig:20260901_123511:GL_2026-08-30_C03"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260831::orig:20260831_143419:GL_2026-08-30_C02",
+          "source_run": "20260831",
+          "source_index": 131,
+          "candidate_id": "orig:20260831_143419:GL_2026-08-30_C02",
+          "story_id": "GL_2026-08-30_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "Business Analyst Mining Operations at Vale - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/jobs/653090190-business-analyst-mining-operations",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8",
+            "raw_file_bytes": 7265646,
+            "raw_row_sha256": "8234e4ce46edb0cfa8dc06dedd4a31cf2de0904ce1b487628fbea2cea08754ad"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-30_C03",
+          "source_run": "20260901",
+          "source_index": 220,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-30_C03",
+          "story_id": "GL_2026-08-30_C03",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "Business Analyst Mining Operations at Vale - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/jobs/653090190-business-analyst-mining-operations",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "0b1eb3e2f12c9de1612415a54ca3d1d9c982c41703eea74e56e68d1880e20286"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "explicit market-reaction/analyst support-source pattern",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 223,
+      "event_id": "XRUN_REPLAY_20260903_E0341",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-30_C04",
+        "story_id": "GL_2026-08-30_C04",
+        "date": "2026-08-30",
+        "title": "Business Analyst Support Commercial at Vale - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/jobs/653090186-business-analyst-support-commercial",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "1b6aa2a0fb32942d52e9376bfca06ae97f7d96d80efeeeb2abdff85b340a3aff"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-30_C04"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-30_C04",
+          "source_run": "20260901",
+          "source_index": 219,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-30_C04",
+          "story_id": "GL_2026-08-30_C04",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "Business Analyst Support Commercial at Vale - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/jobs/653090186-business-analyst-support-commercial",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "1b6aa2a0fb32942d52e9376bfca06ae97f7d96d80efeeeb2abdff85b340a3aff"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "explicit market-reaction/analyst support-source pattern",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 224,
+      "event_id": "XRUN_REPLAY_20260903_E0342",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:GL_2026-08-30_C02",
+        "story_id": "GL_2026-08-30_C02",
+        "date": "2026-08-30",
+        "title": "Business Analyst Controlling Global at Vale - Mining.com",
+        "site": "Mining.com Battery Minerals (via Google News)",
+        "url": "https://www.mining.com/jobs/653090188-business-analyst-controlling-global",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "b40e708cfe0b6e261fee534ae1e1d4fd3010c459fdbca3d02956cba7e3d5dfb2"
+        }
+      },
+      "observation_count": 1,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:GL_2026-08-30_C02"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:GL_2026-08-30_C02",
+          "source_run": "20260901",
+          "source_index": 221,
+          "candidate_id": "orig:20260901_123511:GL_2026-08-30_C02",
+          "story_id": "GL_2026-08-30_C02",
+          "origin": "original_input",
+          "event_date": "2026-08-30",
+          "title": "Business Analyst Controlling Global at Vale - Mining.com",
+          "site": "Mining.com Battery Minerals (via Google News)",
+          "source_url": "https://www.mining.com/jobs/653090188-business-analyst-controlling-global",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "b40e708cfe0b6e261fee534ae1e1d4fd3010c459fdbca3d02956cba7e3d5dfb2"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "explicit market-reaction/analyst support-source pattern",
+      "formal_stage_a_judgment_required": true
+    },
+    {
+      "ordinal": 225,
+      "event_id": "XRUN_REPLAY_20260903_E0277",
+      "representative": {
+        "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C118",
+        "story_id": "KR_2026-09-01_C118",
+        "date": "2026-09-01",
+        "title": "기후부, 내년 예산 역대 최대 25.7조 편성…'3대 메가' 전력·용수에 1.9조[2027 예산안]",
+        "site": "뉴시스 RSS",
+        "url": "https://www.newsis.com/view/NISX20260831_0003770149",
+        "binding": {
+          "kind": "uploaded_raw_story_canonical_json_sha256",
+          "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+          "raw_file_bytes": 9604884,
+          "raw_row_sha256": "232810acdfd90ce89ffa0c0ba0bb723ca7aceb858b87b945cd0f272c16f48135"
+        }
+      },
+      "observation_count": 3,
+      "source_runs": [
+        "20260901"
+      ],
+      "observation_keys": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C117",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C15",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C118"
+      ],
+      "observations": [
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C117",
+          "source_run": "20260901",
+          "source_index": 86,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C117",
+          "story_id": "KR_2026-09-01_C117",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "기후부 내년 예산 25.7조 편성 ‘최대 규모’…첨단산업·E 대전환에 ‘집중’",
+          "site": "전기신문",
+          "source_url": "https://www.electimes.com/news/articleView.html?idxno=371875",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "1bb4613daabad11d33eff10a8c24f0699f5817c5390d2f47a5feacd6b97779b2"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C15",
+          "source_run": "20260901",
+          "source_index": 88,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C15",
+          "story_id": "KR_2026-09-01_C15",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "2027년 기후부 예산안 25조 7319억 원…역대 최대 규모 편성",
+          "site": "파이낸셜뉴스 RSS",
+          "source_url": "https://www.fnnews.com/news/202609010931383429",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "3654564e0268735e903b5caac8f013c0274bb86fb3bee240b69dd5e6df8ddb51"
+          }
+        },
+        {
+          "observation_key": "20260901::orig:20260901_123511:KR_2026-09-01_C118",
+          "source_run": "20260901",
+          "source_index": 112,
+          "candidate_id": "orig:20260901_123511:KR_2026-09-01_C118",
+          "story_id": "KR_2026-09-01_C118",
+          "origin": "original_input",
+          "event_date": "2026-09-01",
+          "title": "기후부, 내년 예산 역대 최대 25.7조 편성…'3대 메가' 전력·용수에 1.9조[2027 예산안]",
+          "site": "뉴시스 RSS",
+          "source_url": "https://www.newsis.com/view/NISX20260831_0003770149",
+          "binding": {
+            "kind": "uploaded_raw_story_canonical_json_sha256",
+            "raw_file_sha256": "28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452",
+            "raw_file_bytes": 9604884,
+            "raw_row_sha256": "232810acdfd90ce89ffa0c0ba0bb723ca7aceb858b87b945cd0f272c16f48135"
+          }
+        }
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "reject_or_support_only",
+      "routing_hint_score": 0,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [
+          "억 원"
+        ],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "preselection_reason": "no in-scope/policy/technology/strategic anchor or positive material routing signal",
+      "formal_stage_a_judgment_required": true
+    }
+  ]
+}

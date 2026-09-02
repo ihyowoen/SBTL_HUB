@@ -1,0 +1,161 @@
+name: Generate V4 0.0D for main d631fcc
+
+on:
+  push:
+    branches:
+      - chatgpt/v4-run-baseline-20260831-20260901-r4
+    paths:
+      - '.github/workflows/v4-formal-0-0d-main-d631fcc.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  preflight:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Generate fail-closed V4 0.0D
+        shell: bash
+        run: |
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "d631fccee308d7334095f843208517d5f3e11ef1"
+          python3 - <<'PY'
+          import hashlib, json, re, subprocess
+          from pathlib import Path
+
+          LOCKED='d631fccee308d7334095f843208517d5f3e11ef1'
+          OUT=Path('runs/2026-09-02/stage_0_0d_v4_document_universe_20260902_MAIN_d631fcc.json')
+          REG='docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json'
+          MAN='docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json'
+          STAGE_A='docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md'
+          ALLOWED={'ACTIVE_CANONICAL','ACTIVE_VALIDATOR_CONTRACT','OPEN_REMEDIATION','ACTIVE_MIGRATION','SUPERSEDED','REFERENCE_ONLY','COMPLETED_REFERENCE','ARCHIVED'}
+
+          def raw(path): return subprocess.check_output(['git','show',f'{LOCKED}:{path}'])
+          def text(path): return raw(path).decode('utf-8-sig')
+          def blob(path): return subprocess.check_output(['git','rev-parse',f'{LOCKED}:{path}'],text=True).strip()
+          def h256(b): return hashlib.sha256(b).hexdigest()
+
+          docs=[p.strip() for p in subprocess.check_output(['git','ls-tree','-r','--name-only',LOCKED,'--','docs'],text=True).splitlines() if p.strip()]
+          reg=json.loads(text(REG)); man=json.loads(text(MAN))
+          active_canonical=sorted(set(reg['active_canonical'])|set(reg['active_named_prompts']))
+          active_validators=sorted(set(reg['active_validator_contracts']))
+          applicable=sorted(set(reg['open_remediations'])|set(reg['activation_required_migrations']))
+          superseded_reference=sorted(set(reg['superseded'])|set(reg['reference_only']))
+          required=sorted(set(active_canonical)|set(active_validators)|set(applicable))
+          mapping={}
+          for p in reg['active_canonical']+reg['active_named_prompts']: mapping[p]='ACTIVE_CANONICAL'
+          for p in reg['active_validator_contracts']: mapping[p]='ACTIVE_VALIDATOR_CONTRACT'
+          for p in reg['open_remediations']: mapping[p]='OPEN_REMEDIATION'
+          for p in reg['activation_required_migrations']: mapping[p]='ACTIVE_MIGRATION'
+          for p in reg['superseded']: mapping[p]='SUPERSEDED'
+          for p in reg['reference_only']: mapping[p]='REFERENCE_ONLY'
+
+          def header_class(path,s):
+              if path.endswith('.json'):
+                  try:o=json.loads(s)
+                  except Exception:return None
+                  for k in ('classification','status'):
+                      v=o.get(k)
+                      if isinstance(v,str) and v in ALLOWED:return v
+                  return None
+              head='\n'.join(s.splitlines()[:140])
+              for pat in (r'\*\*Status:\*\*\s*`([A-Z_]+)`',r'^Status:\s*`?([A-Z_]+)`?\s*$',r'\*\*Classification:\*\*\s*`([A-Z_]+)`'):
+                  m=re.search(pat,head,re.M)
+                  if m and m.group(1) in ALLOWED:return m.group(1)
+              return None
+
+          inventory=[]; unclassified=[]; conflicts=[]; unregistered=[]; parse_failures=[]
+          for p in docs:
+              b=raw(p); s=b.decode('utf-8-sig'); hc=header_class(p,s); rc=mapping.get(p); c=rc or hc
+              if not c: unclassified.append(p)
+              if rc and hc and rc!=hc: conflicts.append({'path':p,'registry':rc,'header':hc})
+              if not rc and hc in {'ACTIVE_CANONICAL','ACTIVE_VALIDATOR_CONTRACT','OPEN_REMEDIATION','ACTIVE_MIGRATION'}: unregistered.append(p)
+              if p.endswith('.json'):
+                  try: json.loads(s)
+                  except Exception as e: parse_failures.append({'path':p,'error':str(e)})
+              inventory.append({'path':p,'classification':c,'registry_classification':rc,'header_classification':hc,'git_blob_sha':blob(p),'sha256':h256(b)})
+
+          full_read=[]; unread=[]
+          for p in required:
+              try:
+                  b=raw(p); s=b.decode('utf-8-sig'); parse='TEXT_PASS'
+                  if p.endswith('.json'): json.loads(s); parse='JSON_PARSE_PASS'
+                  full_read.append({'path':p,'read_status':'READ_FULL_LOCKED_MAIN','structured_parse_status':parse,'byte_count':len(b),'git_blob_sha':blob(p),'sha256':h256(b)})
+              except Exception as e: unread.append({'path':p,'error':str(e)})
+
+          cp=man.get('canonical_paths',{})
+          runtime=[]
+          for k in ('manual_direct_add_schema','manual_direct_add_validator'):
+              if isinstance(cp.get(k),str): runtime.append(cp[k])
+          runtime += cp.get('runtime_contract_files',[])
+          runtime += cp.get('validation_scripts',[])
+          runtime=sorted(set(runtime)); runtime_evidence=[]; runtime_missing=[]
+          for p in runtime:
+              try:
+                  b=raw(p); runtime_evidence.append({'path':p,'read_status':'READ_FULL_LOCKED_MAIN','byte_count':len(b),'git_blob_sha':blob(p),'sha256':h256(b)})
+              except Exception as e: runtime_missing.append({'path':p,'error':str(e)})
+
+          sa=text(STAGE_A)
+          stagea_ok='**selection_policy_version:** `EMBEDDED_NEWS_VALUE_SELECTION_V4`' in sa and 'Related pre-pass' in sa and 'No separate Structural News Value' in sa
+          cards_b=raw('data/cards.full.json'); cards=json.loads(cards_b.decode('utf-8-sig'))
+          card_count=len(cards if isinstance(cards,list) else cards.get('cards',[])); full_blob=blob('data/cards.full.json')
+
+          defects=[]
+          if unclassified: defects.append({'type':'UNCLASSIFIED_PATHS','paths':unclassified})
+          if conflicts: defects.append({'type':'LIFECYCLE_CONFLICTS','items':conflicts})
+          if unregistered: defects.append({'type':'UNREGISTERED_ACTIVE_LOOKING','paths':unregistered})
+          if unread: defects.append({'type':'UNREAD_ACTIVE_PATHS','items':unread})
+          if parse_failures: defects.append({'type':'DOC_JSON_PARSE_FAILURE','items':parse_failures})
+          if runtime_missing: defects.append({'type':'RUNTIME_DEPENDENCY_MISSING','items':runtime_missing})
+          if reg.get('active_override_or_addendum_count')!=0: defects.append({'type':'ACTIVE_OVERRIDE_OR_ADDENDUM_NONZERO'})
+          if not stagea_ok: defects.append({'type':'STAGE_A_EMBEDDED_POLICY_NOT_VERIFIED'})
+          if len(docs)!=len(inventory): defects.append({'type':'DOC_INVENTORY_MISMATCH'})
+          if len(full_read)!=len(required): defects.append({'type':'REQUIRED_FULL_READ_COUNT_MISMATCH'})
+
+          artifact={
+            'schema':'stage_0_0d_v4_document_universe_manifest_v1','stage':'0.0D','status':'PASS' if not defects else 'BLOCKED',
+            'repository_head_sha':LOCKED,'canonical_full_blob_sha':full_blob,'canonical_card_count':card_count,'registry_version':reg.get('registry_version'),
+            'docs_inventory_count':len(docs),'classified_count':len(docs)-len(unclassified),'active_full_read_count':len(full_read),
+            'active_canonical_paths':active_canonical,'active_validator_contract_paths':active_validators,'applicable_remediation_or_migration':applicable,
+            'superseded_or_reference_paths':superseded_reference,'unclassified_paths':unclassified,'unread_active_paths':unread,'unresolved_dependencies':runtime_missing,
+            'unresolved_conflicts':conflicts,'unregistered_active_looking_paths':unregistered,'active_override_or_addendum_count':reg.get('active_override_or_addendum_count'),
+            'stage_a_embedded_news_value_verified':stagea_ok,'all_docs_files_read_or_parsed':not defects,'unresolved_rule_conflicts':conflicts,
+            'incomplete_universe_defects':defects,'stage_0_0c_authorized':not defects,'required_active_dependency_paths':required,'full_read_evidence':full_read,
+            'runtime_dependency_paths_from_machine_manifest':runtime,'runtime_dependency_evidence':runtime_evidence,'documents_inventory':inventory,
+            'provenance':{'governance_launcher':'docs/llm_prompts/v1/00_NEW_RUN_MASTER_PROMPT.md','document_universe_prompt':'docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md','lifecycle_registry':REG,'machine_manifest':MAN,'baseline_rule':'locked GitHub main + data/cards.full.json','reconciles_prior_baseline':'6f689e0e01e3c7829cfcd99af26b4deea9b61e4e','main_change_reason':'#319 registers the complete active Stage A validator runtime closure','intended_reuse':'shared governance baseline for 2026-08-31 and 2026-09-01 cross-run Stage A'}
+          }
+          assert artifact['status']=='PASS', defects
+          assert artifact['docs_inventory_count']==90 and artifact['classified_count']==90
+          assert artifact['active_full_read_count']==len(required)==43
+          assert not artifact['incomplete_universe_defects'] and artifact['stage_0_0c_authorized'] is True
+          assert artifact['canonical_card_count']==1514 and artifact['canonical_full_blob_sha']=='53219907cdb435c3822c41d097b23e475662aa8a'
+          required_stage_a_runtime={
+            'validation_scripts/stage_lineage_contract_check.py',
+            'validation_scripts/stage_lineage_contract_check_v3_compat.py',
+            'validation_scripts/stage_a_v4_contract.py',
+            'validation_scripts/stage_a_v4_hardening.py',
+            'validation_scripts/stage_a_full_v3_completeness_review4945668766.py',
+            'validation_scripts/stage_a_full_v3_completeness_review4945713246.py',
+          }
+          assert required_stage_a_runtime <= set(runtime), sorted(required_stage_a_runtime-set(runtime))
+          rt={x['path']:x for x in runtime_evidence}
+          for p in required_stage_a_runtime:
+              assert rt[p]['git_blob_sha']==blob(p) and rt[p]['sha256']==h256(raw(p))
+          OUT.parent.mkdir(parents=True,exist_ok=True); OUT.write_text(json.dumps(artifact,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'status':artifact['status'],'head':LOCKED,'docs':len(docs),'classified':artifact['classified_count'],'required_full_reads':len(required),'runtime_dependencies':len(runtime),'registered_validation_scripts':len(cp.get('validation_scripts',[])),'canonical_count':card_count,'canonical_blob':full_blob,'stage_0_0c_authorized':artifact['stage_0_0c_authorized']},indent=2))
+          PY
+          python3 validation_scripts/workflow_v4_architecture_check.py
+          python3 -m unittest validation_scripts.tests.test_v4_runtime_manifest_stage_a_closure -v
+      - name: Commit lock and remove workflow
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add runs/2026-09-02/stage_0_0d_v4_document_universe_20260902_MAIN_d631fcc.json
+          git rm .github/workflows/v4-formal-0-0d-main-d631fcc.yml
+          git commit -m 'audit: lock V4 Stage 0.0D after #319'
+          git push origin HEAD:chatgpt/v4-run-baseline-20260831-20260901-r4

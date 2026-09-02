@@ -1,78 +1,134 @@
-# Prompt 0.0D — Active Governance Preflight V4
+# Prompt 0.0D — Deterministic Governance Lock + Bootstrap Preflight V4.1
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `PROMPT_0_0D_V4_20260901`
+**Version:** `PROMPT_0_0D_V4_1_20260902`
 
 ## Purpose
-Establish the complete active rule universe before discovery or selection. Inventory every document, but do not treat historical/reference content as active authority.
+
+Bind the run to the complete governance universe at the locked GitHub `main` commit **without asking the LLM to pretend it has deep-read every active file**.
+
+0.0D has two separate responsibilities:
+
+1. **machine lock** — deterministically inventory/classify `docs/**`, lock every active authority to a git blob SHA, and prove the registry/baseline is internally consistent;
+2. **bootstrap context** — read only the small registry-declared `bootstrap_read[]` set needed to begin the run safely.
+
+All other active authority remains locked and auditable but is loaded only when the current stage explicitly needs it. Every named-stage prompt is loaded **just in time from the locked commit**, never from a later moving `main`.
 
 ## Required input
-- current GitHub `main` HEAD;
-- current `data/cards.full.json` blob identity;
-- current repository tree under `docs/**`;
-- `RUN_GOVERNANCE_INDEX.md`;
-- `DOCUMENT_UNIVERSE_POLICY.md`;
-- `PROMPT_MANIFEST.md`;
-- `docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json`;
-- active validator/workflow registration.
 
-## Procedure
-1. Lock `main` SHA and the canonical `data/cards.full.json` blob SHA used by this run.
-2. Inventory every `docs/**` path.
-3. Classify every path from registry + authoritative header.
-4. Derive the required active/dependency closure directly from the **current lifecycle registry**: `active_canonical + active_named_prompts`, `active_validator_contracts`, and `open_remediations + activation_required_migrations`.
-5. Fully read/parse every path in that exact required closure. Do not allow the artifact to self-select a smaller active set.
-6. Confirm `SUPERSEDED`, `REFERENCE_ONLY`, archived, and completed-migration files are non-operative.
-7. Verify every active named prompt is a complete prompt and does not require a later override/addendum/overlay.
-8. Verify Stage A declares `selection_policy_version = EMBEDDED_NEWS_VALUE_SELECTION_V4` and contains both news-value selection and Related pre-pass.
-9. Verify the current manual-direct-add governance path is registered if available.
-10. Detect missing dependencies, duplicate active authorities, unresolved conflicts, or unregistered active-looking files.
+- current GitHub `main` HEAD SHA;
+- current `data/cards.full.json` blob SHA;
+- current repository git history/tree;
+- `docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json` at that locked SHA.
 
-## Hard prohibitions
-- Do not use remembered document lists as authority.
-- Do not apply a historical override/addendum merely because it exists.
-- Do not start 0.0C with unread active authority.
-- Do not allow a later-read reference document to change an already-started run.
-- Do not set compatibility fields to PASS by pretending every historical/reference body was deep-read. Their V4 meaning is defined below.
-- Do not emit empty/self-selected `active_canonical_paths` or `active_validator_contract_paths`; they are registry-derived machine bindings.
+## 1. Mandatory machine-generated 0.0D artifact
 
-## Production artifact compatibility semantics
-The production card-run engine consumes several legacy-named fields. They remain mandatory compatibility fields, but their V4 semantics are applicability-driven:
+Do **not** hand-author the PASS artifact and do not calculate counts from memory.
 
-- `repository_head_sha`: exact locked `main` commit SHA for the run.
-- `canonical_full_blob_sha`: exact blob SHA of the locked `data/cards.full.json` baseline.
-- `all_docs_files_read_or_parsed`: `true` only when every document that V4 requires to be fully read/parsed has been fully read/parsed and every other `docs/**` path has been lifecycle-classified. It does not mean that superseded/reference-only bodies were unnecessarily deep-read.
-- `unresolved_rule_conflicts`: compatibility mirror of unresolved active-authority conflicts; it must be empty on PASS.
-- `incomplete_universe_defects`: aggregate blocker ledger for any unclassified path, unread required active/dependency path, unresolved dependency, unregistered active-looking file, registry mismatch, or other incomplete-universe defect; it must be empty on PASS.
-- `stage_0_0c_authorized`: `true` only when all V4 preflight exit conditions are satisfied.
+Generate it from the locked git tree:
 
-These compatibility fields must agree with the detailed V4 ledgers below. Any contradiction is BLOCKED, never normalized to PASS.
+```bash
+node scripts/governance_lock_v4.mjs \
+  --emit \
+  --base-main-sha <LOCKED_MAIN_SHA> \
+  --base-full-blob-sha <LOCKED_FULL_BLOB_SHA> \
+  --output <RUN_DIR>/stage_0_0d.json
+```
 
-## Machine reconciliation rules
-The production gate validates the detailed conclusions rather than trusting the summary booleans:
+Then verify the exact artifact by replaying the locked commit:
 
-- `docs_inventory_count`, `classified_count`, `active_full_read_count`, and `active_override_or_addendum_count` are non-negative integers.
-- PASS requires `classified_count == docs_inventory_count`.
-- `active_canonical_paths` must exactly equal the current registry's unique `active_canonical + active_named_prompts` set.
-- `active_validator_contract_paths` must exactly equal the current registry's `active_validator_contracts` set.
-- `applicable_remediation_or_migration` must exactly equal the current registry's unique `open_remediations + activation_required_migrations` set.
-- `superseded_or_reference_paths` is a unique non-empty-path array used for classification/audit; it does not reduce the required active set.
-- `active_full_read_count` must equal the size of the exact unique union of the three required sets above; a self-reported smaller closure is invalid.
-- `unclassified_paths`, `unread_active_paths`, `unresolved_dependencies`, `unresolved_conflicts`, `unregistered_active_looking_paths`, `unresolved_rule_conflicts`, and `incomplete_universe_defects` are arrays and all are empty on PASS.
-- `active_override_or_addendum_count == 0` and `stage_a_embedded_news_value_verified == true` on PASS.
-- `repository_head_sha` and `canonical_full_blob_sha` must match the exact card-run baseline bindings.
-- `all_docs_files_read_or_parsed == true` and `stage_0_0c_authorized == true` are accepted only when all detailed and registry-binding rules above also pass.
+```bash
+node scripts/governance_lock_v4.mjs \
+  --verify \
+  --base-main-sha <LOCKED_MAIN_SHA> \
+  --base-full-blob-sha <LOCKED_FULL_BLOB_SHA> \
+  --artifact <RUN_DIR>/stage_0_0d.json
+```
 
-## Required output
+A count-only artifact, including one that merely states `active_full_read_count = <registry closure size>`, is not valid evidence and must not authorize 0.0C.
+
+## 2. What the machine lock proves
+
+The deterministic helper derives these facts from the exact locked commit:
+
+- complete `docs/**` inventory;
+- one lifecycle classification for every `docs/**` path registered by the current lifecycle registry;
+- exact active-authority set;
+- exact git blob SHA for every locked active authority;
+- exact registry blob SHA;
+- classification digest;
+- exact bootstrap-read set;
+- active named prompts marked `jit_before_stage` unless they belong to bootstrap;
+- no active override/addendum runtime dependency;
+- Stage A contains `EMBEDDED_NEWS_VALUE_SELECTION_V4` and `related_prepass`;
+- exact `data/cards.full.json` baseline blob binding.
+
+`governance_lock.lock_sha256` binds the complete lock payload. Changing a path, blob SHA, lifecycle, load policy, baseline SHA, or registry state requires a new lock.
+
+## 3. Bootstrap read — the only mandatory pre-0.0C LLM read set
+
+After the machine lock verifies, fully read the exact `bootstrap_read_paths` emitted in the artifact. That list is registry-derived and intentionally much smaller than the full locked authority set.
+
+The bootstrap set must include:
+
+- `docs/WORKFLOW.md`;
+- `docs/OPERATIONS.md`;
+- `docs/DOCUMENT_UNIVERSE_POLICY.md`;
+- `docs/RUN_GOVERNANCE_INDEX.md`;
+- `docs/llm_prompts/v1/PROMPT_MANIFEST.md`;
+- `docs/llm_prompts/v1/00_NEW_RUN_MASTER_PROMPT.md`;
+- this 0.0D prompt;
+- the lifecycle registry.
+
+Do not pre-load every future Stage B/C/0.4/0.5/0.6/0.7/0.8/0.9 prompt merely to satisfy a count.
+
+## 4. Just-in-time named-stage rule
+
+Before executing a named stage:
+
+1. locate that prompt in `governance_lock.locked_authorities`;
+2. require its `load_policy` to be `jit_before_stage` or `bootstrap`;
+3. load the prompt from `repository_head_sha`, not from a later branch tip;
+4. verify the loaded file's git blob SHA equals the locked `blob_sha`;
+5. only then execute the stage.
+
+If the prompt path/blob cannot be reproduced from the lock, stop and re-run 0.0D against the intended baseline.
+
+A later `main` change never silently changes an in-progress run.
+
+## 5. Historical/reference treatment
+
+`SUPERSEDED`, `REFERENCE_ONLY`, archived, and completed historical material is inventory/classification evidence, not an ordinary-run rule. It is not deep-read merely because it exists.
+
+If the deterministic inventory finds an unclassified path, a missing registered path, duplicate lifecycle registration, non-zero active override/addendum count, or other registry inconsistency, 0.0D is BLOCKED.
+
+## 6. Compatibility field semantics
+
+Several legacy-named fields remain in the machine-generated artifact for current engine compatibility. In V4.1 they are **machine-state fields, not cognitive-read attestations**:
+
+- `all_docs_files_read_or_parsed = true` means the deterministic helper completed the required git-tree inventory/classification/blob-lock parse. It does **not** claim that an LLM deep-read every active body.
+- `unread_active_paths = []` is a compatibility mirror for active authority omitted from the deterministic lock. It is not evidence of LLM reading.
+- `active_full_read_count` is no longer an authorization field and should not be emitted by new V4.1 artifacts.
+- `locked_authority_count` is the number of active authorities cryptographically bound to the run.
+- `bootstrap_read_count` is the small context set the operator/model reads before 0.0C.
+
+The production gate requires a valid `governance_lock`; legacy count-only self-attestation is rejected.
+
+## 7. Required output
+
+The canonical 0.0D artifact is generated by `scripts/governance_lock_v4.mjs`. Its essential shape is:
+
 ```json
 {
   "stage": "0.0D",
-  "status": "PASS|BLOCKED",
-  "repository_head_sha": "",
-  "canonical_full_blob_sha": "",
+  "status": "PASS",
+  "repository_head_sha": "<locked main>",
+  "canonical_full_blob_sha": "<locked full blob>",
   "docs_inventory_count": 0,
   "classified_count": 0,
-  "active_full_read_count": 0,
+  "locked_authority_count": 0,
+  "bootstrap_read_count": 0,
+  "bootstrap_read_paths": [],
   "active_canonical_paths": [],
   "active_validator_contract_paths": [],
   "applicable_remediation_or_migration": [],
@@ -87,8 +143,31 @@ The production gate validates the detailed conclusions rather than trusting the 
   "all_docs_files_read_or_parsed": true,
   "unresolved_rule_conflicts": [],
   "incomplete_universe_defects": [],
-  "stage_0_0c_authorized": true
+  "stage_0_0c_authorized": true,
+  "governance_lock": {
+    "schema": "governance_lock_v1",
+    "registry_blob_sha": "",
+    "classification_digest_sha256": "",
+    "locked_authority_count": 0,
+    "bootstrap_read_count": 0,
+    "bootstrap_read_paths": [],
+    "locked_authorities": [],
+    "lock_sha256": ""
+  }
 }
 ```
 
-PASS requires exact registry-set reconciliation, all detailed defect arrays and compatibility blocker arrays empty, `active_override_or_addendum_count = 0`, `classified_count = docs_inventory_count`, exact required active/dependency full-read count, `stage_a_embedded_news_value_verified = true`, `all_docs_files_read_or_parsed = true`, exact SHA bindings, and `stage_0_0c_authorized = true`.
+## 8. PASS / BLOCKED rule
+
+PASS requires:
+
+- deterministic `--verify` success against the exact locked `main` and canonical full blob;
+- complete docs classification with no missing/unclassified registered paths;
+- exact active authority/blob lock;
+- exact registry bootstrap set;
+- zero active override/addendum runtime dependencies;
+- Stage A embedded news-value/Related contract verified;
+- all blocker arrays empty;
+- the bootstrap set actually loaded before 0.0C.
+
+The machine artifact proves repository state. The model must never manufacture a larger read count as a substitute for repository evidence.

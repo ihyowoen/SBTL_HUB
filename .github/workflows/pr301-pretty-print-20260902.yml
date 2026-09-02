@@ -1,0 +1,59 @@
+name: PR301 pretty-print R3 manifest
+
+on:
+  push:
+    branches:
+      - chatgpt/20260831-preflight-reconciliation-r2
+    paths:
+      - .github/workflows/pr301-pretty-print-20260902.yml
+
+permissions:
+  contents: write
+
+jobs:
+  pretty-print:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/20260831-preflight-reconciliation-r2
+          fetch-depth: 0
+
+      - name: Pretty-print without semantic changes
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import hashlib
+          from pathlib import Path
+
+          p = Path('runs/2026-08-31/stage_0_0d_document_universe_20260901_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION_R3.json')
+          raw = p.read_text(encoding='utf-8')
+          before = json.loads(raw)
+          canonical_before = json.dumps(before, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8')
+
+          pretty = json.dumps(before, ensure_ascii=False, indent=2) + '\n'
+          p.write_text(pretty, encoding='utf-8')
+
+          after = json.loads(p.read_text(encoding='utf-8'))
+          canonical_after = json.dumps(after, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8')
+          assert canonical_before == canonical_after, 'semantic JSON content changed during pretty-print'
+          assert before == after, 'parsed JSON differs after pretty-print'
+
+          print('semantic_sha256=', hashlib.sha256(canonical_after).hexdigest())
+          print('lines=', pretty.count('\n'))
+          print('bytes=', len(pretty.encode('utf-8')))
+          print('status=', after.get('status'))
+          print('stage_0_0c_authorized=', after.get('stage_0_0c_authorized'))
+          PY
+
+      - name: Commit pretty-print and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add runs/2026-08-31/stage_0_0d_document_universe_20260901_CURRENT_MAIN_1514_PREFLIGHT_RECONCILIATION_R3.json
+          git rm .github/workflows/pr301-pretty-print-20260902.yml
+          git commit -m "chore: pretty-print Stage 0.0D R3 manifest"
+          git push origin HEAD:chatgpt/20260831-preflight-reconciliation-r2

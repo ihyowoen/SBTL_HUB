@@ -1,0 +1,71 @@
+{
+  "schema": "stage_a_425_repo_binding_recovery_audit_v1",
+  "status": "RECOVERY_EXHAUSTED_EXACT_SOURCE_BYTES_REQUIRED",
+  "generated_at_kst": "2026-09-03T00:11:00+09:00",
+  "repository": "ihyowoen/SBTL_HUB",
+  "branch": "chatgpt/v4-run-baseline-20260831-20260901-r4",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "scope_lock_ref": "runs/2026-09-02/stage_a_formal_scope_lock_425_plus_historical243_20260902.json",
+  "exact_targets": {
+    "membership": {
+      "repo_target": "runs/2026-09-02/crossrun_event_membership_425.json",
+      "expected_sha256": "90719eb1067241df6b201c2722cca5280f89ea69d0e3fd3e7865b9e91d9e8c13"
+    },
+    "handoff": {
+      "repo_target": "runs/2026-09-02/stage_a_event_handoff_425_20260902.json",
+      "expected_sha256": "ff58d295d0d2360fdb053d18aea1921de29397f891db4d957ecf7140a49ac119",
+      "schema": "stage_a_event_handoff_425_v1",
+      "event_count": 425,
+      "observation_count": 632
+    }
+  },
+  "recovery_checks": {
+    "current_branch_exact_targets_present": false,
+    "repository_code_search_exact_membership_hash_hit": false,
+    "reachable_git_history_exact_full_artifact_found": false,
+    "actions_artifact_inventory_exact_full_artifact_found": false,
+    "historical_generator_recovered_from_git_history": false,
+    "reachable_handoff_transfer_part_blob_count": 1,
+    "reachable_handoff_transfer_parts": [
+      {
+        "path": ".tmp/handoff425/part_00.txt",
+        "blob_sha": "8cbebb4d393a6cf2be6b6bda239017ccd99e74b7",
+        "introduced_by_commit": "4ccc0da28306585cb9373f05ef482d697283a23b",
+        "removed_by_commit": "c2f1d445eec4e99e61e8e2a962770b9de3e69de4",
+        "base64_text_bytes": 11000,
+        "decoded_gzip_bytes": 8250,
+        "gzip_complete": false,
+        "gzip_error": "unexpected end of file",
+        "partial_decompressed_bytes": 25803,
+        "partial_json_parse_pass": false,
+        "partial_json_error": "Unterminated string starting at line 1 column 17698",
+        "decoded_prefix_schema": "stage_a_event_handoff_425_v1"
+      }
+    ],
+    "reachable_part_01_or_later_found": false,
+    "fsck_unreachable_recoverable_part_found": false
+  },
+  "governance_decision": {
+    "approximate_reconstruction_permitted": false,
+    "incomplete_prefix_may_be_relocked_as_authoritative": false,
+    "exact_hash_claim_may_be_inferred": false,
+    "formal_stage_a_authorized_now": false,
+    "formal_stage_a_blocker": "Exact full 425 membership and handoff source bytes are not repository-bound and cannot be recovered losslessly from reachable Git/Actions history. Transfer of the exact source bytes is required before the armed validation gate may authorize Stage A."
+  },
+  "historical_sidecar_state_unchanged": {
+    "historical_gross": 290,
+    "already_canonicalized_exact": 3,
+    "watchlist_provenance_hold": 243,
+    "residual_44_terminally_accounted": 44,
+    "historical_formal_stage_a_input": 0
+  },
+  "next_gate": {
+    "required_files": [
+      "crossrun_event_membership_425.json",
+      "stage_a_event_handoff_425_20260902.json"
+    ],
+    "required_validation": "Exact SHA256 + 425 event count + 632 observation count + schema + lossless event-membership equality + no event-id duplicates + no observation reuse",
+    "validator_workflow": ".github/workflows/tmp-inspect-handoff425.yml",
+    "stage_a_must_remain_blocked_until_pass": true
+  }
+}

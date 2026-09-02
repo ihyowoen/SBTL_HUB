@@ -605,8 +605,11 @@ if (process.env.RP_PATH) {
       ];
       for (const [where, text] of proseFields) {
         if (typeof text !== 'string') continue;
-        for (const m of text.matchAll(/D[+-]\d+\s*\(/g))
-          err(`region_policy ${rg}.${where}: 상대 D-day 표기(${m[0].trim()}…) — 다음 날 낡는다. 절대일자만 쓸 것`);
+        // **괄호를 요구하지 않는다.** 처음엔 /D[+-]\d+\s*\(/ 로 썼는데, 그건 이 검사를 만든 계기가
+        // 마침 괄호형(D-2(2026.09.03))이었던 것을 그대로 규칙으로 굳힌 것이다. 검사 #1(항목 산문
+        // D-day)이 쓰는 패턴과 맞춘다 — 맨몸 D-3·D-32 가 같은 파일에 살아 있었고 구 패턴은 둘 다 놓쳤다.
+        for (const m of text.matchAll(/\(?D[-+]{1,2}\d+/g))
+          err(`region_policy ${rg}.${where}: 상대 D-day 표기(${m[0]}) — 다음 날 낡는다. 절대일자만 쓸 것`);
       }
     }
   } catch(e){ warn('region_policy 산문 D-day 대조 실패: '+e.message); }

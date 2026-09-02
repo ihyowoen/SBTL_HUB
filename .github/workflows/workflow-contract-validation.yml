@@ -9,12 +9,16 @@ on:
       - "schemas/workflow-v4-coverage-axes.json"
       - "scripts/workflow_v4_coverage_axes.mjs"
       - "scripts/validate_manual_direct_add.mjs"
+      - "scripts/manual_direct_add_v1_history.mjs"
+      - "scripts/validate_card_run_audits_dispatch.mjs"
+      - "scripts/validate_prompt_0_8_semantic_gate.mjs"
       - "validation_data/source_owner_registry.json"
       - "validation_scripts/**"
       - "scripts/lean_cards.mjs"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
       - ".github/workflows/apply-card-run.yml"
+      - ".github/workflows/manual-direct-add-schema-validation.yml"
   push:
     branches: [main]
     paths:
@@ -24,8 +28,13 @@ on:
       - "schemas/workflow-v4-coverage-axes.json"
       - "scripts/workflow_v4_coverage_axes.mjs"
       - "scripts/validate_manual_direct_add.mjs"
+      - "scripts/manual_direct_add_v1_history.mjs"
+      - "scripts/validate_card_run_audits_dispatch.mjs"
+      - "scripts/validate_prompt_0_8_semantic_gate.mjs"
       - "validation_scripts/**"
       - ".github/workflows/workflow-contract-validation.yml"
+      - ".github/workflows/apply-card-run.yml"
+      - ".github/workflows/manual-direct-add-schema-validation.yml"
 
 permissions:
   contents: read
@@ -78,6 +87,17 @@ jobs:
         run: |
           echo "Active workflow regression suite failed; exact FAIL_ID/ERROR_ID values are in the uploaded diagnostic artifact." >&2
           exit 1
+
+      - name: Validate executable V4 runtime helpers
+        run: |
+          set -euo pipefail
+          node --check scripts/manual_direct_add_v1_history.mjs
+          node --check scripts/validate_card_run_audits_dispatch.mjs
+          node --check scripts/validate_prompt_0_8_semantic_gate.mjs
+          node scripts/manual_direct_add_v1_history.mjs --self-test
+          node scripts/validate_card_run_audits_dispatch.mjs --self-test
+          node scripts/validate_prompt_0_8_semantic_gate.mjs --self-test
+          python validation_scripts/tests/test_prompt_0_8_runtime_gate.py
 
       - name: Validate direct-add V2 schema and validator
         run: |

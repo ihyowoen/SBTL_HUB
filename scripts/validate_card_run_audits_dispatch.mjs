@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 import { createHash } from "node:crypto";
-import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
+const SELF = fileURLToPath(import.meta.url);
 const AUDIT_VALIDATOR = resolve(HERE, "validate_card_run_audits.mjs");
 
 class ValidationError extends Error {
@@ -84,8 +85,12 @@ const runAuditValidator = (root, runReference, fullReference, leanReference) => 
   if (result.stdout) process.stdout.write(result.stdout);
   if (result.stderr) process.stderr.write(result.stderr);
   if (result.error) fail("BLOCKED_RUN_AUDIT_INVALID", `audit validator launch failed: ${result.error.message}`);
-  if (result.status !== 0) process.exit(result.status ?? 1);
+  return result.status ?? 1;
 };
+
+const auditOnlyLeftovers = (runDir) => (
+  readdirSync(runDir).filter((name) => name.startsWith(".audit-only-") && name.endsWith(".json"))
+);
 
 const execute = (root, options) => {
   const runAbsolute = repoPath(root, options.run, "card run");
@@ -95,12 +100,14 @@ const execute = (root, options) => {
   const runDir = dirname(runAbsolute);
   const tempAbsolute = join(runDir, `.audit-only-${process.pid}-${Date.now()}.json`);
   const tempReference = relative(resolve(root), tempAbsolute).replaceAll("\\", "/");
+  let auditStatus = 1;
   try {
     writeFileSync(tempAbsolute, `${JSON.stringify({ ...run, audit_refs: audits }, null, 2)}\n`);
-    runAuditValidator(root, tempReference, options.full, options.lean);
+    auditStatus = runAuditValidator(root, tempReference, options.full, options.lean);
   } finally {
     rmSync(tempAbsolute, { force: true });
   }
+  if (auditStatus !== 0) process.exit(auditStatus);
   return mergePrep;
 };
 
@@ -165,10 +172,25 @@ const runSelfTest = () => {
 
     const mergePrep = execute(root, { run: "runs/run.json", full: "data/cards.full.json", lean: "public/data/cards.json" });
     if (mergePrep !== "runs/merge-prep.json") throw new Error("Prompt 0.8 ref was not dispatched");
-    const leftovers = readFileSync(join(root, "runs/run.json"), "utf8");
-    if (!leftovers.includes("merge-prep.json")) throw new Error("original run fixture was modified");
-    if (existsSync(join(root, "runs/.audit-only.json"))) throw new Error("ephemeral audit-only run leaked");
-    console.log("PASS: card-run audit dispatch validates only card_run_audit_v1 refs using a repository-relative ephemeral run and cleans it afterward");
+    const originalRun = readFileSync(join(root, "runs/run.json"), "utf8");
+    if (!originalRun.includes("merge-prep.json")) throw new Error("original run fixture was modified");
+    const successLeftovers = auditOnlyLeftovers(join(root, "runs"));
+    if (successLeftovers.length) throw new Error(`ephemeral audit-only run leaked after success: ${successLeftovers.join(", ")}`);
+
+    const failingAudit = { ...audit };
+    delete failingAudit.audit_complete;
+    writeFileSync(join(root, "runs/audit.json"), `${JSON.stringify(failingAudit)}\n`);
+    const failed = spawnSync(
+      process.execPath,
+      [SELF, "--run", "runs/run.json", "--full", "data/cards.full.json", "--lean", "public/data/cards.json"],
+      { cwd: root, text: true, encoding: "utf8" },
+    );
+    if (failed.error) throw failed.error;
+    if (failed.status === 0) throw new Error("failing audit fixture unexpectedly passed dispatch");
+    const failureLeftovers = auditOnlyLeftovers(join(root, "runs"));
+    if (failureLeftovers.length) throw new Error(`ephemeral audit-only run leaked after failure: ${failureLeftovers.join(", ")}`);
+
+    console.log("PASS: card-run audit dispatch validates repository-relative audit refs and cleans ephemeral runs after both success and failure");
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

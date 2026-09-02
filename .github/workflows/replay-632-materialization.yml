@@ -1,0 +1,66 @@
+name: Materialize replayable 632 event universe
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/replay632/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reconstruct and verify replay payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .tmp/replay632/part_*.txt | tr -d '\n\r ' | base64 -d > /tmp/replay632.tar.xz
+          echo 'bf53f952a2c9372f520c679879a6eed119d34ce352c8b13cb75e737c9489da59  /tmp/replay632.tar.xz' | sha256sum -c -
+          tar -xJf /tmp/replay632.tar.xz
+          echo 'fc370b89cab373a2fd0078940ea304c5d7ccb28affa762d4a382f34a6ce0ee56  runs/2026-09-03/current_authoritative_632_source_bound_20260831_A_R1.json' | sha256sum -c -
+          echo '6ac4f6f789e007b9e91e2e914531900c057f29b0ef00333ae503f0c9b1df5e0a  runs/2026-09-03/current_authoritative_632_source_bound_20260831_B_R1.json' | sha256sum -c -
+          echo '4f5db4a9b1878591c12f7264063dae9e261723a31174eb4f7b468c147367fc7c  runs/2026-09-03/current_authoritative_632_source_bound_20260901_A_R1.json' | sha256sum -c -
+          echo '783d7b85ef438513973e647af13b230a1c6900732ba24ba34a50191428352f59  runs/2026-09-03/current_authoritative_632_source_bound_20260901_B_R1.json' | sha256sum -c -
+          echo '75a1052d84812f7ce42caa0b0f22a1a96c490ecdce326d5cf0b5885e4bc06b0f  runs/2026-09-03/xrun_event_reconciliation_merge_decisions_20260903_R1.json' | sha256sum -c -
+          echo '9b3f08201bbea0bab987d6ceb9c626aa30b3b90097cb699d51e314decaa06adb  runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R1.json' | sha256sum -c -
+          echo '422f076881f7ea27635a6f9dd446e362c0cf5c6488b405f173a6ab0c701ea0c2  runs/2026-09-03/raw_input_chat_attachment_binding_20260831_20260901_R2.json' | sha256sum -c -
+          echo '5328778e5d0fee7a2497b7792d627adf3a787f2ed9efcd88f3a571d452c4a8e3  runs/2026-09-03/current_event_universe_replay_gate_20260903_R3.json' | sha256sum -c -
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R1.json')
+          x=json.loads(p.read_text())
+          assert x['accounting']['observation_count']==632
+          assert x['accounting']['event_count']==425
+          keys=[k for e in x['events'] for k in e['observation_keys']]
+          assert len(keys)==632 and len(set(keys))==632
+          assert len(x['events'])==425
+          gate=json.loads(Path('runs/2026-09-03/current_event_universe_replay_gate_20260903_R3.json').read_text())
+          assert gate['status']=='PASS_REPLAYABLE_CURRENT_EVENT_UNIVERSE_STAGE_A_STILL_BLOCKED'
+          assert gate['authorization']['formal_stage_a_authorized'] is False
+          print('PASS_REPLAYABLE_632_TO_425')
+          PY
+      - name: Commit materialized replay artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/current_authoritative_632_source_bound_20260831_A_R1.json \
+                  runs/2026-09-03/current_authoritative_632_source_bound_20260831_B_R1.json \
+                  runs/2026-09-03/current_authoritative_632_source_bound_20260901_A_R1.json \
+                  runs/2026-09-03/current_authoritative_632_source_bound_20260901_B_R1.json \
+                  runs/2026-09-03/xrun_event_reconciliation_merge_decisions_20260903_R1.json \
+                  runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R1.json \
+                  runs/2026-09-03/raw_input_chat_attachment_binding_20260831_20260901_R2.json \
+                  runs/2026-09-03/current_event_universe_replay_gate_20260903_R3.json
+          git rm -r .tmp/replay632
+          git commit -m 'audit: materialize replayable 632-to-425 event universe'
+          git push

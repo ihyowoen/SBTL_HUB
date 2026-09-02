@@ -79,21 +79,23 @@ class Review5078405029ContractsTest(unittest.TestCase):
         result = self.run_stage("0.6", payload)
         self.assertEqual(result.returncode, 0, f"stdout={result.stdout}\nstderr={result.stderr}")
 
-    def test_apply_workflow_enforces_post_resolution_08_gate(self):
+    def test_apply_workflow_delegates_post_resolution_08_gate_to_executable_runtime(self):
         text = APPLY_WORKFLOW.read_text(encoding="utf-8")
         for required in (
             "Enforce post-resolution Prompt 0.8 semantic gate",
-            "prompt-0-8-id-ledger.txt",
+            "prompt-0-8-id-ledger.json",
+            "scripts/validate_prompt_0_8_semantic_gate.mjs",
+            "scripts/validate_card_run_audits_dispatch.mjs",
             "related_lifecycle_check.py",
             "--require-contract --new-id-file",
             "evidence_qc_v8_check.py",
             "date_role_freshness_check.py",
             "--require-date-role --new-id-file",
             "stage_artifact_contract_check.py",
-            "artifact?.stage === '0.8'",
-            "expected exactly one stage=0.8 audit artifact",
         ):
             self.assertIn(required, text)
+        self.assertNotIn("prompt-0-8-id-ledger.txt", text)
+        self.assertNotIn('AUDIT_ONLY_RUN="$RUNNER_TEMP/card-run-audits-only.json"', text)
         self.assertNotIn("--allow-provisional-related", text)
 
     def test_shared_coverage_contract_changes_trigger_both_workflows(self):
@@ -116,12 +118,14 @@ class Review5078405029ContractsTest(unittest.TestCase):
         self.assertIn("BLOCKED_MANUAL_DIRECT_ADD_EMPTY_OPERATION", hardener)
         self.assertIn("validateDeclaredOperationPresence(manifest)", hardener)
 
-    def test_prompt_08_requires_bound_audit_artifact(self):
+    def test_prompt_08_requires_bound_audit_artifact_and_json_scope(self):
         text = PROMPT_08.read_text(encoding="utf-8")
         self.assertIn('`audit_refs[]` must contain **exactly one** JSON artifact with `stage: "0.8"`', text)
         self.assertIn('"run_id": "<exact card-run run_id>"', text)
         self.assertIn('"github_merge_ready": [', text)
-        self.assertIn("repository workflow reconstructs the final `ID_LEDGER`", text)
+        self.assertIn('"schema": "prompt_0_8_current_run_id_ledger_v1"', text)
+        self.assertIn('"operation_ids":', text)
+        self.assertIn("scripts/validate_prompt_0_8_semantic_gate.mjs", text)
 
 
 if __name__ == "__main__":

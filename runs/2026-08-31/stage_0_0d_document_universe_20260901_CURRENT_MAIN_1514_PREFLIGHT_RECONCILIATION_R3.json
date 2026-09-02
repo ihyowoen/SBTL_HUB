@@ -1,0 +1,3438 @@
+{
+  "schema": "stage_0_0d_document_universe_manifest_v1",
+  "schema_definition_status": "UNREGISTERED_COMPATIBILITY_IDENTIFIER",
+  "stage": "0.0D",
+  "status": "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE",
+  "run_id": "card-run-2026-08-31-preflight-reconciliation-current-main-1514-r3",
+  "run_tag": "20260831_PREFLIGHT_RECONCILIATION_R3",
+  "artifact_date_basis": "2026-08-31 run reconciled through 2026-09-02 KST; R3 regenerated after proving PR #303 UI-only main-head change irrelevant to the governed Stage 0.0D universe",
+  "generated_kst": "2026-09-02T12:17:06+09:00",
+  "repository": "ihyowoen/SBTL_HUB",
+  "branch": "main",
+  "repository_head_sha": "48e46b1cd635163666aa05465a193b7c74342691",
+  "head_lock": {
+    "locked_main_sha": "48e46b1cd635163666aa05465a193b7c74342691",
+    "invalidates_on_main_change": true,
+    "current_main_sha_at_last_recheck": "48e46b1cd635163666aa05465a193b7c74342691",
+    "known_open_head_change_risk_prs": [
+      302
+    ]
+  },
+  "canonical_full_path": "data/cards.full.json",
+  "canonical_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "canonical_full_count": 1514,
+  "prompt_package_manifest_path": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+  "prompt_package_manifest_blob_sha": "854605068c78633d99ae32d8c635e12ff34b5a35",
+  "document_universe_status": "FAIL",
+  "docs_file_count": 88,
+  "documents_inventory_count": 88,
+  "governed_external_workflow_inventory_count": 5,
+  "all_docs_files_read_or_parsed": false,
+  "current_run_full_reads_or_parses_completed": 5,
+  "current_run_full_reads_or_parses_missing": 83,
+  "governed_external_workflow_full_reads_completed": 5,
+  "stage_0_0c_authorized": false,
+  "repository_state_lock": {
+    "repository_head_sha": "48e46b1cd635163666aa05465a193b7c74342691",
+    "canonical_full_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+    "prompt_package_manifest_path": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+    "prompt_package_manifest_blob_sha": "854605068c78633d99ae32d8c635e12ff34b5a35"
+  },
+  "documents": [
+    {
+      "path": "docs/AI_CHATBOT_IMPLEMENTATION_CHECKLIST.md",
+      "git_blob_sha": "e7110a495f0cff981d648863e4bc9678a2e335f3",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/AI_CHATBOT_REFACTOR_PLAN.md",
+      "git_blob_sha": "bf931d60c52afd7931b5d8c3a233e799b22f41c9",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/APP_JSX_PATCH.md",
+      "git_blob_sha": "4e240b99cce3b3dcd0b9370a025dfc3f13fff539",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/APP_STORY_UI_PHASE1_BRIEF.md",
+      "git_blob_sha": "7b4c4969da3add73063e6db4938f2b612af8ee4e",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/CARD_ID_STANDARD.md",
+      "git_blob_sha": "a25c136ab0f6ad5ca01bd965b9c6488cfc0c6fbc",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/CARD_INCREMENTAL_RUN_CONTRACT.md",
+      "git_blob_sha": "0be84672da84d9696cf6a7bd33f1b82d3a47e188",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/CHATBOT_ARCHITECTURE.md",
+      "git_blob_sha": "0bcd5fb781512041c397a9bb0ba2c2d98cf655f0",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/CHATBOT_TESTS.md",
+      "git_blob_sha": "a6be72611fa2b47a37ff7c054cd668046e845362",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/CONSULTATION_3STAGE_DESIGN.md",
+      "git_blob_sha": "ddfb05cd2429d8dc0ceeec9fef84fd353bec5f16",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/DOCUMENT_UNIVERSE_POLICY.md",
+      "git_blob_sha": "1ffdffe3f07fa04d5080c5ed700f0cd7c3b10d80",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "FULL_READ_FINALIZED_CURRENT_RUN"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": "ACTIVE_CANONICAL",
+      "authority_level": "CANONICAL_POLICY",
+      "applicable_stages": [
+        "0.0D",
+        "ALL_GOVERNED_STAGES"
+      ],
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "application_status": "APPLIED",
+      "rule_ids": [
+        "DU-POLICY-ENUMERATE-DOCS",
+        "DU-POLICY-FULL-READ-BEFORE-CLASSIFICATION",
+        "DU-POLICY-DEPENDENCY-EXPANSION",
+        "DU-POLICY-DEFECT-NORMALIZATION",
+        "DU-POLICY-HEAD-CHANGE-INVALIDATES"
+      ],
+      "rule_evidence": [
+        {
+          "rule_id": "DU-POLICY-ENUMERATE-DOCS",
+          "evidence": "lines 88-99 §4.2 Inventory enumerates required inventory metadata"
+        },
+        {
+          "rule_id": "DU-POLICY-FULL-READ-BEFORE-CLASSIFICATION",
+          "evidence": "lines 101-112 §4.3 requires full read/parse before classification"
+        },
+        {
+          "rule_id": "DU-POLICY-DEPENDENCY-EXPANSION",
+          "evidence": "lines 114-116 §4.4 requires recursive dependency expansion"
+        },
+        {
+          "rule_id": "DU-POLICY-DEFECT-NORMALIZATION",
+          "evidence": "lines 132-150 §4.6 requires dedicated-ledger plus exactly-once normalized defect preservation"
+        },
+        {
+          "rule_id": "DU-POLICY-HEAD-CHANGE-INVALIDATES",
+          "evidence": "lines 80-85 repository-state lock; head change invalidates unless irrelevance is proved and manifest regenerated"
+        }
+      ],
+      "dependencies": [
+        "docs/RUN_GOVERNANCE_INDEX.md",
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "NONE_IDENTIFIED",
+      "migration_activation_status": "NOT_APPLICABLE"
+    },
+    {
+      "path": "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+      "git_blob_sha": "3836f173842409f72acab3698f35d98ed247a356",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/ENHANCED_RED_TEAM_FULLSTACK_AUDIT_20260414.md",
+      "git_blob_sha": "a6c9a06bf8f4d1032abd9ff740973816b7432289",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/FACT_DISCIPLINE.md",
+      "git_blob_sha": "b6b048f2c8a56d9dcdaa5073d802571ba6adf798",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "git_blob_sha": "fb3b9fbcb86879c117c71f818b14582264e8dc62",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/MANUAL_DIRECT_ADD_V1.md",
+      "git_blob_sha": "4c7336b1430538131dd9df00e56408958d7a9819",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/OPERATIONS.md",
+      "git_blob_sha": "ed86b15bef203701d39e36566ad02bd86a5ce321",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "git_blob_sha": "e3927b0dcbf6304d4a807f2ec8d8f75a86d28f62",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "git_blob_sha": "2b44894a2e379cc5e26c91069187812b616ea84e",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/PROMPT_ABC_DEFAULT_MODE_v1_legacy.md",
+      "git_blob_sha": "c2cba3055f0a7354fbb88f46ed93998c5fec6e7b",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/PROMPT_ABC_SUPPORTING_RULES.md",
+      "git_blob_sha": "a1463225de26d90f9b1f861c6169fd58d9cde1c8",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/RELATED_LIFECYCLE_CONTRACT.md",
+      "git_blob_sha": "6a0e487908c0f1a13a2ef2bc0a5513e0041f289c",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/RUN_GOVERNANCE_INDEX.md",
+      "git_blob_sha": "403f31e7c88b7de6861c74c51e9668bc254ff72e",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "FULL_READ_FINALIZED_CURRENT_RUN"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": "ACTIVE_CANONICAL",
+      "authority_level": "GOVERNANCE_INDEX",
+      "applicable_stages": [
+        "0.0D",
+        "ALL_GOVERNED_STAGES"
+      ],
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "application_status": "APPLIED",
+      "rule_ids": [
+        "RUN-INDEX-0D-FIRST",
+        "RUN-INDEX-REGISTERED-DEPENDENCIES",
+        "RUN-INDEX-DOCUMENT-UNIVERSE-PROOF"
+      ],
+      "rule_evidence": [
+        {
+          "rule_id": "RUN-INDEX-0D-FIRST",
+          "evidence": "line 12 prohibits Stage 0.0C, Stage A, or later stages before valid Stage 0.0D"
+        },
+        {
+          "rule_id": "RUN-INDEX-REGISTERED-DEPENDENCIES",
+          "evidence": "lines 47-82 require registered source-diversity/source-resolution, date/story/Related, declared-diff, schema, production-verification, and Prompt 0.4-0.9 validator/contract families"
+        },
+        {
+          "rule_id": "RUN-INDEX-DOCUMENT-UNIVERSE-PROOF",
+          "evidence": "lines 128-146 define required Stage 0.0D proof and blocking conditions"
+        }
+      ],
+      "dependencies": [
+        "docs/DOCUMENT_UNIVERSE_POLICY.md",
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+        "data/cards.full.json",
+        "REGISTERED_SOURCE_DIVERSITY_RULES",
+        "REGISTERED_SOURCE_RESOLUTION_RULES",
+        "APPLICABLE_DECLARED_DIFF_VALIDATORS",
+        "APPLICABLE_SCHEMA_VALIDATORS",
+        "APPLICABLE_PRODUCTION_VERIFICATION_VALIDATORS",
+        "APPLICABLE_PROMPT_0_4_TO_0_9_VALIDATORS"
+      ],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "NONE_IDENTIFIED",
+      "migration_activation_status": "NOT_APPLICABLE"
+    },
+    {
+      "path": "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
+      "git_blob_sha": "5cb9387dcb9a71bd4bd56d61ff1de1632d32df74",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/SESSION_HANDOFF_20260424_W8_promptB.md",
+      "git_blob_sha": "0d9c8cda6eabf3f7d416cc140ec8b4ce6065f4dd",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/SOURCE_AUDIT_CONTRACT.md",
+      "git_blob_sha": "f5c06fbff38a631b31a793d15d2bfa202334d0cd",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/STRENGTHENING_PLAN.md",
+      "git_blob_sha": "180459a20537eecfaf9e59bc2d96a0a05dc12cf4",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+      "git_blob_sha": "3024fd411b9df1c6c3369e46ed6b423e04a36ddf",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/TRIAGE_INPUT_MODE_DEFAULT.md",
+      "git_blob_sha": "b9e5573c718affe540b22bb1476e68b47f83b33c",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/WORKFLOW.md",
+      "git_blob_sha": "bb11b55133e9223348358db0f23346c625fb7fe0",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/WORKFLOW_GAP_REMEDIATION_20260723.md",
+      "git_blob_sha": "c378a6b3deec6c4ec05828dd5510370c075687f7",
+      "file_type": "markdown",
+      "directory": "docs",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md §7 open remediation discovery requirement",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/archive/PROMPT_ABC_DEFAULT_MODE_v4.md",
+      "git_blob_sha": "a4571899125d2f0a7c3766626df69bbef95f9a0e",
+      "file_type": "markdown",
+      "directory": "docs/archive",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/migrations/BOOTSTRAP_CONSOLIDATION_20260801.md",
+      "git_blob_sha": "6346a59ee5af729111b45a5eceeb4ce425d480e0",
+      "file_type": "markdown",
+      "directory": "docs/migrations",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/migrations/LEGACY_RELATED_LINEAGE_CONTAINER_INIT_20260808.md",
+      "git_blob_sha": "7582c4f58d4c992b3e30c9ccd35e3cbcf4cca273",
+      "file_type": "markdown",
+      "directory": "docs/migrations",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
+      "git_blob_sha": "1a130ab35ce9cf73e7152b33a956634214a0eb6e",
+      "file_type": "json",
+      "directory": "docs/remediation",
+      "last_known_registration_source": "docs/WORKFLOW_GAP_REMEDIATION_20260723.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/WORKFLOW_GAP_REMEDIATION_20260723.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md",
+      "git_blob_sha": "5d16a73041abdb74e800abc6e6f1e03c697f67f0",
+      "file_type": "markdown",
+      "directory": "docs/remediation",
+      "last_known_registration_source": "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json canonical_paths.open_remediations",
+      "apparent_lifecycle_markers": [
+        "KNOWN_OPEN_REMEDIATION_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
+        "docs/WORKFLOW_GAP_REMEDIATION_20260723.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ_AND_BOUNDED_RECONCILIATION",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/validation/CARD_RUN_ENGINE_V1_VALIDATION_20260802.md",
+      "git_blob_sha": "4c009127448933d12c543448ce81103c2bc81043",
+      "file_type": "markdown",
+      "directory": "docs/validation",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/validation/DYNAMIC_GOVERNANCE_COMPLETENESS_VALIDATION_20260801.md",
+      "git_blob_sha": "38f1b1f10c897550ed974facd2de93683676dc07",
+      "file_type": "markdown",
+      "directory": "docs/validation",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/validation/LEGACY_RELATED_LINEAGE_CONTAINER_AUDIT_20260808.md",
+      "git_blob_sha": "db4d1bf02733d6def0f91c4fe869cc2f5ce2c0b6",
+      "file_type": "markdown",
+      "directory": "docs/validation",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/validation/PR233_REVIEW_20260803_RUN3.md",
+      "git_blob_sha": "ffbf4121ccb2ebea3587830d538a6b242ac84b53",
+      "file_type": "markdown",
+      "directory": "docs/validation",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/validation/PR233_REVIEW_4842822807.md",
+      "git_blob_sha": "af68ba784d2f3684bccfa3b4633a0223326f3e7f",
+      "file_type": "markdown",
+      "directory": "docs/validation",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/validation/STRUCTURAL_NEWS_VALUE_V3_VALIDATION_20260802.md",
+      "git_blob_sha": "2b3dab52b5dbf989d9b43a7a44817f6ebf1034a4",
+      "file_type": "markdown",
+      "directory": "docs/validation",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/validation/WORKFLOW_CONTRACT_VALIDATION_20260723.md",
+      "git_blob_sha": "c5b0b43a5bd3c6109b4f09b3fb6c99e61e5d92ae",
+      "file_type": "markdown",
+      "directory": "docs/validation",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/workflow_gaps/WG_016_RELATED_LIFECYCLE.json",
+      "git_blob_sha": "92b485648105d0e2d16cdd277b970ca52e82ae4c",
+      "file_type": "json",
+      "directory": "docs/workflow_gaps",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
+      "git_blob_sha": "6b64061b78cccad0fdb807e299df7b7460fd0d06",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "FULL_READ_FINALIZED_CURRENT_RUN"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": "ACTIVE_CANONICAL",
+      "authority_level": "NAMED_STAGE_CONTRACT",
+      "applicable_stages": [
+        "0.0C"
+      ],
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "application_status": "APPLIED",
+      "rule_ids": [
+        "00C-VALID-0D-REQUIRED",
+        "00C-EDITORIAL-AUTHORITY",
+        "00C-REPRODUCIBLE-STAGE-A"
+      ],
+      "rule_evidence": [
+        {
+          "rule_id": "00C-VALID-0D-REQUIRED",
+          "evidence": "lines 14-20 Preconditions require a valid Stage 0.0D artifact and locked repository/canonical full SHAs"
+        },
+        {
+          "rule_id": "00C-EDITORIAL-AUTHORITY",
+          "evidence": "lines 3-4 declare Stage 0.0C authority as docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md"
+        },
+        {
+          "rule_id": "00C-REPRODUCIBLE-STAGE-A",
+          "evidence": "lines 111-118 Exit authorizes Stage A only after complete, reproducible expanded input and declared unresolved gaps"
+        }
+      ],
+      "dependencies": [
+        "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+        "valid Stage 0.0D artifact",
+        "data/cards.full.json"
+      ],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "NONE_IDENTIFIED",
+      "migration_activation_status": "NOT_APPLICABLE"
+    },
+    {
+      "path": "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
+      "git_blob_sha": "1701c60139363678da3b2d7cdc09947b78268357",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "FULL_READ_FINALIZED_CURRENT_RUN"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": "ACTIVE_CANONICAL",
+      "authority_level": "NAMED_STAGE_CONTRACT",
+      "applicable_stages": [
+        "0.0D"
+      ],
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "application_status": "APPLIED",
+      "rule_ids": [
+        "00D-ALL-DOCS-READ-GATE",
+        "00D-DEFECT-EXACTLY-ONCE",
+        "00D-0C-AUTH-GATE"
+      ],
+      "rule_evidence": [
+        {
+          "rule_id": "00D-ALL-DOCS-READ-GATE",
+          "evidence": "Procedure steps 2-6 and Hard rules require every docs/** file plus governed external dependencies to be inventoried/read or parsed as required"
+        },
+        {
+          "rule_id": "00D-DEFECT-EXACTLY-ONCE",
+          "evidence": "lines 92-97 Defect recording contract requires each non-conflict hard blocker in its dedicated field and exactly once in incomplete_universe_defects[]"
+        },
+        {
+          "rule_id": "00D-0C-AUTH-GATE",
+          "evidence": "Exit permits Stage 0.0C only when status=PASS, all reads complete, conflicts/defects empty, and stage_0_0c_authorized=true"
+        }
+      ],
+      "dependencies": [
+        "docs/DOCUMENT_UNIVERSE_POLICY.md",
+        "docs/RUN_GOVERNANCE_INDEX.md",
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "NONE_IDENTIFIED",
+      "migration_activation_status": "NOT_APPLICABLE"
+    },
+    {
+      "path": "docs/llm_prompts/v1/00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md",
+      "git_blob_sha": "454214c14596c694a2f38b39f2eebb3031cc37a0",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
+      "git_blob_sha": "acdaf998949d5cba4b24b5850bf253b66418f261",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/00_MANDATORY_SEARCH_BEFORE_DELETE_OVERRIDE.md",
+      "git_blob_sha": "6f17d262b914f83a46daf4c46ae0b8773d867aa2",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
+      "git_blob_sha": "8e5e9248abac44b40a39295f9de547a5e7601d9e",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/01_PROMPT_0_1_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md",
+      "git_blob_sha": "61ff1c602a845a5895f3b9d2a0ab8af2ad63c233",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "git_blob_sha": "57719c5eae5e219d704baad708992df79f8721bb",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A_HARDENING_ADDENDUM_V1.md",
+      "git_blob_sha": "30a34a598f942da33022051bf3ef38f47f0f54c7",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "UNRESOLVED_PENDING_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST_FULL_READ",
+      "apparent_lifecycle_markers": [
+        "HARDENING_ADDENDUM_CANDIDATE_EXACT_REGISTRATION_UNRESOLVED"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
+      "git_blob_sha": "2c81502d379d8896de3e07ea0189df62d19d57c7",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
+      "git_blob_sha": "b641c8dbc17c755fefdf5451efb05476b648707d",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
+      "git_blob_sha": "536bb52f9389fde1ed8100c165c7c82d015fd3f6",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
+      "git_blob_sha": "04c6b54e15f66d26904df29abe1630c9463c974d",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md",
+      "git_blob_sha": "4e9d73df2a694f5e8d07224093a494c71c17c8ad",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+      "git_blob_sha": "a7113f8c45c9332289b75a6a8539c195e7f6dd95",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC_HARDENING_ADDENDUM_V1.md",
+      "git_blob_sha": "d05dd6589ac67f06e4b70d65fb694ed94e9f8141",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "UNRESOLVED_PENDING_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST_FULL_READ",
+      "apparent_lifecycle_markers": [
+        "HARDENING_ADDENDUM_CANDIDATE_EXACT_REGISTRATION_UNRESOLVED"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
+      "git_blob_sha": "74d3815b6c4b6a4d6ca31e91ebe2d80bb57d8a9d",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish_HARDENING_ADDENDUM_V1.md",
+      "git_blob_sha": "f0180899ccde46cd677f3007b97a4af8cbe3c0df",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "UNRESOLVED_PENDING_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST_FULL_READ",
+      "apparent_lifecycle_markers": [
+        "HARDENING_ADDENDUM_CANDIDATE_EXACT_REGISTRATION_UNRESOLVED"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md",
+      "git_blob_sha": "0ed4ac1f717c5b4c74ed5ef45792d28a46a5b65f",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+      "git_blob_sha": "aaba7776a8ec2d90dd576d5b2cc0b0e68615e0e0",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC_HARDENING_ADDENDUM_V1.md",
+      "git_blob_sha": "f45a8c1095a6c39113bf3da6a97c470e2344a1b5",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "UNRESOLVED_PENDING_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST_FULL_READ",
+      "apparent_lifecycle_markers": [
+        "HARDENING_ADDENDUM_CANDIDATE_EXACT_REGISTRATION_UNRESOLVED"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "git_blob_sha": "4bd90c8f916e01ab8adb56f34a53ee1e6234e8e8",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep_HARDENING_ADDENDUM_V1.md",
+      "git_blob_sha": "452ce543b602a67a5a413740b794fff6c8586860",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "UNRESOLVED_PENDING_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST_FULL_READ",
+      "apparent_lifecycle_markers": [
+        "HARDENING_ADDENDUM_CANDIDATE_EXACT_REGISTRATION_UNRESOLVED"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
+      "git_blob_sha": "94acec2db45db25a5dc90af1a7577034040681f5",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
+      "git_blob_sha": "bca73143022bf3942db1d0c27962e40d84fb791f",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md",
+      "git_blob_sha": "182e36f00ef758af4c72ae369701d11ea574c587",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "UNRESOLVED_PENDING_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST_FULL_READ",
+      "apparent_lifecycle_markers": [
+        "HARDENING_ADDENDUM_CANDIDATE_EXACT_REGISTRATION_UNRESOLVED"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
+      "git_blob_sha": "92eea89977e85636713724a993a8998188796767",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md",
+      "git_blob_sha": "c68cf9fb7625f2e7bb77af36a60c01f5c8635c4f",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
+      "git_blob_sha": "536a0e26cac030b5ed9a70408fac675cbd1d7eb1",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md",
+      "git_blob_sha": "65cd44cfc6156bf3f17926b73e5ab6a1a4f6070b",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json",
+      "git_blob_sha": "2888cf323ec5adba187b444a6e932cb32b272fa9",
+      "file_type": "json",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json",
+      "git_blob_sha": "705f7730bbc1a72c9e12a700fa1d7f23ea91408b",
+      "file_type": "json",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
+      "git_blob_sha": "37e15fb97cab6cd7f30e08757b3f7aed04e1e52a",
+      "file_type": "json",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "apparent_lifecycle_markers": [
+        "KNOWN_REGISTERED_PENDING_FULL_READ"
+      ],
+      "manifest_references": [
+        "docs/llm_prompts/v1/PROMPT_MANIFEST.md"
+      ],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_FULL_PRESERVED_MANIFEST.json",
+      "git_blob_sha": "744eb7f77d7ab565e78bde39259461ecca8b74db",
+      "file_type": "json",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
+      "git_blob_sha": "5e10afde571818bff23f8588b5679a250bbfbe57",
+      "file_type": "json",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "git_blob_sha": "854605068c78633d99ae32d8c635e12ff34b5a35",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": "SELF_CANONICAL_MANIFEST",
+      "apparent_lifecycle_markers": [
+        "FULL_READ_FINALIZED_CURRENT_RUN"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": "ACTIVE_CANONICAL",
+      "authority_level": "PROMPT_PACKAGE_MANIFEST",
+      "applicable_stages": [
+        "0.0D",
+        "ALL_GOVERNED_STAGES"
+      ],
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "application_status": "APPLIED",
+      "rule_ids": [
+        "PROMPT-MANIFEST-NAMED-STAGES",
+        "PROMPT-MANIFEST-PERMANENT-GOVERNANCE",
+        "PROMPT-MANIFEST-HARDENING-AND-VALIDATORS",
+        "PROMPT-MANIFEST-OPEN-REMEDIATION"
+      ],
+      "rule_evidence": [
+        {
+          "rule_id": "PROMPT-MANIFEST-NAMED-STAGES",
+          "evidence": "§2 registers 18 named stage prompts"
+        },
+        {
+          "rule_id": "PROMPT-MANIFEST-PERMANENT-GOVERNANCE",
+          "evidence": "§3 registers 16 permanent governance documents"
+        },
+        {
+          "rule_id": "PROMPT-MANIFEST-HARDENING-AND-VALIDATORS",
+          "evidence": "§4.1-4.3 registers mandatory override families, stage hardening addenda, and date/story-ID/Related validators"
+        },
+        {
+          "rule_id": "PROMPT-MANIFEST-OPEN-REMEDIATION",
+          "evidence": "§7 requires applicable open remediation manifests to be discovered and carried into the governed run"
+        }
+      ],
+      "dependencies": [
+        "docs/RUN_GOVERNANCE_INDEX.md",
+        "docs/DOCUMENT_UNIVERSE_POLICY.md",
+        "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json",
+        "REGISTERED_STAGE_HARDENING_ADDENDA",
+        "REGISTERED_DATE_STORYID_RELATED_VALIDATORS",
+        "APPLICABLE_OPEN_REMEDIATIONS"
+      ],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "NONE_IDENTIFIED",
+      "migration_activation_status": "NOT_APPLICABLE"
+    },
+    {
+      "path": "docs/llm_prompts/v1/QC_REPORT_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+      "git_blob_sha": "7a770eb8aff23e823ffa375e81f915f385f23127",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/README_LLM_PROMPT_GITHUB_CANONICAL_V1.md",
+      "git_blob_sha": "5f1edafbabd4cf74f4f4a43620e8d320ac121de9",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/SEARCH_BEFORE_DELETE_OVERRIDE_MANIFEST.json",
+      "git_blob_sha": "18376471c13bcefb45c0bcec873378259faa8f05",
+      "file_type": "json",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/SOURCE_DIVERSITY_V10_MASTER_RULE.md",
+      "git_blob_sha": "3a31ec64b830d3d0467884bad54499a44bb7dd64",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/SOURCE_DIVERSITY_V1_IB_CODEX_20260708_MASTER_RULE.md",
+      "git_blob_sha": "34e119fdf4e6fe4ccebe0c1bc5bf79571aa0c22c",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/UPLOAD_INSTRUCTIONS.md",
+      "git_blob_sha": "c91aacc541c510aa87263ff474f47a91249c3902",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/UPLOAD_MANIFEST.json",
+      "git_blob_sha": "3dd89b47935efe472b73a80549800e3633b8b467",
+      "file_type": "json",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/entity_alias_map.json",
+      "git_blob_sha": "a0f2d478cf618316e3d49ab102447ffa803e0318",
+      "file_type": "json",
+      "directory": "docs/llm_prompts/v1",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/legacy/10_PROMPT_0_8_GitHub_Merge_Prep_LEGACY_BODY.md",
+      "git_blob_sha": "f0a5c2a3d775f0bd9807264abe664d267875a1dd",
+      "file_type": "markdown",
+      "directory": "docs/llm_prompts/v1/legacy",
+      "last_known_registration_source": null,
+      "apparent_lifecycle_markers": [
+        "UNRESOLVED"
+      ],
+      "manifest_references": [],
+      "validator_references": [],
+      "replacement_or_archive_references": [],
+      "classification": null,
+      "authority_level": null,
+      "applicable_stages": [],
+      "read_status": "UNREAD_CURRENT_RUN",
+      "application_status": null,
+      "rule_ids": [],
+      "rule_evidence": [],
+      "dependencies": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "open_remediation_applicability": "UNRESOLVED_PENDING_FULL_READ",
+      "migration_activation_status": "UNRESOLVED_PENDING_FULL_READ"
+    }
+  ],
+  "governed_external_inventory": [
+    {
+      "path": ".github/workflows/apply-card-run.yml",
+      "git_blob_sha": "8cfca96d1307044d273c87472c559af1226a6417",
+      "file_type": "yaml",
+      "directory": ".github/workflows",
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification_status": "FINALIZED_AFTER_FULL_READ",
+      "governance_scope": "GOVERNED_EXTERNAL_WORKFLOW",
+      "application_status": "APPLIED_WITHIN_SCOPE",
+      "dependencies": [
+        "schemas/card-run.v1.schema.json",
+        "schemas/manual-direct-add.v1.schema.json",
+        "scripts/apply_card_run.mjs",
+        "scripts/apply_card_run_test.mjs",
+        "scripts/lean_cards.mjs",
+        "scripts/validate.mjs",
+        "scripts/validate_card_run_audits.mjs",
+        "scripts/validate_card_run_lineage_containers.mjs",
+        "scripts/validate_card_run_relations.mjs",
+        "scripts/validate_card_run_stage_artifacts.mjs",
+        "scripts/validate_card_run_status_consistency.mjs",
+        "scripts/validate_cards.mjs",
+        "scripts/validate_legacy_related_lineage_migration.mjs",
+        "scripts/validate_manual_direct_add.mjs"
+      ],
+      "classification": "ACTIVE_VALIDATOR_CONTRACT",
+      "authority_level": 6,
+      "applicable_stages": [
+        "ALL_GOVERNED_STAGES"
+      ],
+      "application_scope": "Repository CI enforcement when this workflow's event/path trigger matches; not every workflow executes in every named stage.",
+      "dependency_expansion_status": "OPEN",
+      "reader_notes": "Full-read at the locked head and classified as ACTIVE_VALIDATOR_CONTRACT because this workflow machine-enforces card, prompt, document, projection, migration, or production contracts. Validator-contract authority is order 6 under RUN_GOVERNANCE_INDEX §4."
+    },
+    {
+      "path": ".github/workflows/lean-cards.yml",
+      "git_blob_sha": "1f6a4e0d13df4c69cabcc727ea5b7702fa60be84",
+      "file_type": "yaml",
+      "directory": ".github/workflows",
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification_status": "FINALIZED_AFTER_FULL_READ",
+      "governance_scope": "GOVERNED_EXTERNAL_WORKFLOW",
+      "application_status": "APPLIED_WITHIN_SCOPE",
+      "dependencies": [
+        "scripts/lean_cards.mjs",
+        "scripts/validate.mjs",
+        "scripts/validate_cards.mjs"
+      ],
+      "classification": "ACTIVE_VALIDATOR_CONTRACT",
+      "authority_level": 6,
+      "applicable_stages": [
+        "ALL_GOVERNED_STAGES"
+      ],
+      "application_scope": "Repository CI enforcement when this workflow's event/path trigger matches; not every workflow executes in every named stage.",
+      "dependency_expansion_status": "OPEN",
+      "reader_notes": "Full-read at the locked head and classified as ACTIVE_VALIDATOR_CONTRACT because this workflow machine-enforces card, prompt, document, projection, migration, or production contracts. Validator-contract authority is order 6 under RUN_GOVERNANCE_INDEX §4."
+    },
+    {
+      "path": ".github/workflows/legacy-related-lineage-migration.yml",
+      "git_blob_sha": "fbe1652d097d47500e4758988b2cbdac608311ec",
+      "file_type": "yaml",
+      "directory": ".github/workflows",
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification_status": "FINALIZED_AFTER_FULL_READ",
+      "governance_scope": "GOVERNED_EXTERNAL_WORKFLOW",
+      "application_status": "APPLIED_WITHIN_SCOPE",
+      "dependencies": [
+        "scripts/lean_cards.mjs",
+        "scripts/validate.mjs",
+        "scripts/validate_cards.mjs",
+        "scripts/validate_legacy_related_lineage_migration.mjs"
+      ],
+      "classification": "ACTIVE_VALIDATOR_CONTRACT",
+      "authority_level": 6,
+      "applicable_stages": [
+        "ALL_GOVERNED_STAGES"
+      ],
+      "application_scope": "Repository CI enforcement when this workflow's event/path trigger matches; not every workflow executes in every named stage.",
+      "dependency_expansion_status": "OPEN",
+      "reader_notes": "Full-read at the locked head and classified as ACTIVE_VALIDATOR_CONTRACT because this workflow machine-enforces card, prompt, document, projection, migration, or production contracts. Validator-contract authority is order 6 under RUN_GOVERNANCE_INDEX §4."
+    },
+    {
+      "path": ".github/workflows/validate-tracker.yml",
+      "git_blob_sha": "c288682f0468e67058d4b01883e67892afa3772d",
+      "file_type": "yaml",
+      "directory": ".github/workflows",
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification_status": "FINALIZED_AFTER_FULL_READ",
+      "governance_scope": "GOVERNED_EXTERNAL_WORKFLOW",
+      "application_status": "APPLIED_WITHIN_SCOPE",
+      "dependencies": [
+        "ops/validate2.mjs",
+        "scripts/lean_cards.mjs",
+        "scripts/validate.mjs",
+        "scripts/validate_cards.mjs"
+      ],
+      "classification": "ACTIVE_VALIDATOR_CONTRACT",
+      "authority_level": 6,
+      "applicable_stages": [
+        "ALL_GOVERNED_STAGES"
+      ],
+      "application_scope": "Repository CI enforcement when this workflow's event/path trigger matches; not every workflow executes in every named stage.",
+      "dependency_expansion_status": "OPEN",
+      "reader_notes": "Full-read at the locked head and classified as ACTIVE_VALIDATOR_CONTRACT because this workflow machine-enforces card, prompt, document, projection, migration, or production contracts. Validator-contract authority is order 6 under RUN_GOVERNANCE_INDEX §4."
+    },
+    {
+      "path": ".github/workflows/workflow-contract-validation.yml",
+      "git_blob_sha": "c035eece6001169e80ab57ff1ccef00f529db93a",
+      "file_type": "yaml",
+      "directory": ".github/workflows",
+      "read_status": "READ_FULL_CURRENT_HEAD",
+      "classification_status": "FINALIZED_AFTER_FULL_READ",
+      "governance_scope": "GOVERNED_EXTERNAL_WORKFLOW",
+      "application_status": "APPLIED_WITHIN_SCOPE",
+      "dependencies": [
+        "contracts/**",
+        "scripts/lean_cards.mjs",
+        "validation_data/source_owner_registry.json",
+        "validation_scripts/**"
+      ],
+      "classification": "ACTIVE_VALIDATOR_CONTRACT",
+      "authority_level": 6,
+      "applicable_stages": [
+        "ALL_GOVERNED_STAGES"
+      ],
+      "application_scope": "Repository CI enforcement when this workflow's event/path trigger matches; not every workflow executes in every named stage.",
+      "dependency_expansion_status": "OPEN",
+      "reader_notes": "Full-read at the locked head and classified as ACTIVE_VALIDATOR_CONTRACT because this workflow machine-enforces card, prompt, document, projection, migration, or production contracts. Validator-contract authority is order 6 under RUN_GOVERNANCE_INDEX §4."
+    }
+  ],
+  "repository_state_defects": [],
+  "repository_state_risks": [
+    {
+      "type": "HEAD_LOCK_RISK",
+      "detail": "Open PR #302 or this PR's eventual merge can advance main. Before any later governed stage consumes Stage 0.0D, the repository-state lock must be rechecked and regenerated if main changed."
+    }
+  ],
+  "missing_or_stale_components": [
+    {
+      "component": "stage_0_0d_document_universe_manifest_v1 schema definition",
+      "status": "UNREGISTERED",
+      "detail": "Schema identifier retained for compatibility; no repository schema definition or validator is registered."
+    }
+  ],
+  "missing_content_identity_documents": [],
+  "unclassified_documents": [
+    {
+      "count": 83,
+      "detail": "Exact records are the documents[] entries with read_status=UNREAD_CURRENT_RUN."
+    }
+  ],
+  "unread_documents": [
+    {
+      "count": 83,
+      "detail": "Exact records are the documents[] entries with read_status=UNREAD_CURRENT_RUN."
+    }
+  ],
+  "unread_active_documents": [
+    {
+      "path": "docs/CARD_ID_STANDARD.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/CARD_INCREMENTAL_RUN_CONTRACT.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/FACT_DISCIPLINE.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/OPERATIONS.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/PROMPT_ABC_SUPPORTING_RULES.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/RELATED_LIFECYCLE_CONTRACT.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/SCHEMA_CONTRACT_STAGE_LINEAGE.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/SOURCE_AUDIT_CONTRACT.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/WORKFLOW.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §3 PERMANENT_GOVERNANCE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/WORKFLOW_GAP_REMEDIATION_20260723.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "REVIEW_VERIFIED_OPEN_REMEDIATION_AT_LOCKED_HEAD",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4 MANDATORY_OVERRIDE_OR_ADDENDUM_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4 MANDATORY_OVERRIDE_OR_ADDENDUM_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/01_PROMPT_0_1_DYNAMIC_SOURCE_UNIVERSE_ADDENDUM_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4 MANDATORY_OVERRIDE_OR_ADDENDUM_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A_HARDENING_ADDENDUM_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4.1 HARDENING_FAMILY_ONLY; exact path registration unresolved pending DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json full read",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC_HARDENING_ADDENDUM_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4.1 HARDENING_FAMILY_ONLY; exact path registration unresolved pending DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json full read",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish_HARDENING_ADDENDUM_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4.1 HARDENING_FAMILY_ONLY; exact path registration unresolved pending DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json full read",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC_HARDENING_ADDENDUM_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4.1 HARDENING_FAMILY_ONLY; exact path registration unresolved pending DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json full read",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep_HARDENING_ADDENDUM_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4.1 HARDENING_FAMILY_ONLY; exact path registration unresolved pending DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json full read",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/10_PROMPT_0_8_INCREMENTAL_OPERATION_ADDENDUM_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4 MANDATORY_OVERRIDE_OR_ADDENDUM_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification_HARDENING_ADDENDUM_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4.1 HARDENING_FAMILY_ONLY; exact path registration unresolved pending DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json full read",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/13_PROMPT_1_1_CANONICAL_PROMOTION_ADDENDUM_V1.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4 MANDATORY_OVERRIDE_OR_ADDENDUM_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §2 NAMED_STAGE_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4 MANDATORY_OVERRIDE_OR_ADDENDUM_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_MANIFEST.json",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4 MANDATORY_OVERRIDE_OR_ADDENDUM_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "PROMPT_MANIFEST §4 MANDATORY_OVERRIDE_OR_ADDENDUM_REGISTRATION",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "REVIEW_VERIFIED_BOUNDED_OPEN_REMEDIATION_AT_LOCKED_HEAD",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    },
+    {
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md",
+      "read_status": "UNREAD_CURRENT_RUN",
+      "known_required_or_active_basis": "CANONICAL_PACKAGE_MANIFEST_OPEN_REMEDIATION_REGISTRATION_AND_WORKFLOW_GAP_PLAN_COMPANION_REQUIREMENT",
+      "final_document_classification": "PENDING_REQUIRED_FULL_READ"
+    }
+  ],
+  "unresolved_dependencies": [
+    {
+      "dependency_kind": "path",
+      "source_path": "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
+      "dependency_path": "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNREAD_CURRENT_RUN",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "family",
+      "source_path": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "dependency_path": null,
+      "dependency_family": "REGISTERED_DATE_STORYID_RELATED_VALIDATORS",
+      "registration_manifest_path": "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json",
+      "dependency_status": "UNRESOLVED_PENDING_MANIFEST_FULL_READ_AND_EXTERNAL_DEPENDENCY_EXPANSION",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "family",
+      "source_path": "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+      "dependency_path": null,
+      "dependency_family": "REGISTERED_STAGE_HARDENING_ADDENDA",
+      "registration_manifest_path": "docs/llm_prompts/v1/DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json",
+      "dependency_status": "UNRESOLVED_PENDING_MANIFEST_FULL_READ_AND_EXACT_PATH_REGISTRATION",
+      "detail": "PROMPT_MANIFEST establishes only the hardening-addendum family. Exact active paths/registration evidence remain unresolved until DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json is fully read."
+    },
+    {
+      "dependency_kind": "family",
+      "source_path": "docs/RUN_GOVERNANCE_INDEX.md",
+      "dependency_path": null,
+      "dependency_family": "REGISTERED_SOURCE_DIVERSITY_RULES",
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_ACTIVE_REGISTRATION_AND_DEPENDENCY_EXPANSION",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "family",
+      "source_path": "docs/RUN_GOVERNANCE_INDEX.md",
+      "dependency_path": null,
+      "dependency_family": "REGISTERED_SOURCE_RESOLUTION_RULES",
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_ACTIVE_REGISTRATION_AND_DEPENDENCY_EXPANSION",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "family",
+      "source_path": "docs/RUN_GOVERNANCE_INDEX.md",
+      "dependency_path": null,
+      "dependency_family": "APPLICABLE_DECLARED_DIFF_VALIDATORS",
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_VALIDATOR_REGISTRATION_AND_DEPENDENCY_EXPANSION",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "family",
+      "source_path": "docs/RUN_GOVERNANCE_INDEX.md",
+      "dependency_path": null,
+      "dependency_family": "APPLICABLE_SCHEMA_VALIDATORS",
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_VALIDATOR_REGISTRATION_AND_DEPENDENCY_EXPANSION",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "family",
+      "source_path": "docs/RUN_GOVERNANCE_INDEX.md",
+      "dependency_path": null,
+      "dependency_family": "APPLICABLE_PRODUCTION_VERIFICATION_VALIDATORS",
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_VALIDATOR_REGISTRATION_AND_DEPENDENCY_EXPANSION",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "family",
+      "source_path": "docs/RUN_GOVERNANCE_INDEX.md",
+      "dependency_path": null,
+      "dependency_family": "APPLICABLE_PROMPT_0_4_TO_0_9_VALIDATORS",
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_VALIDATOR_REGISTRATION_AND_DEPENDENCY_EXPANSION",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "family",
+      "source_path": ".github/workflows/workflow-contract-validation.yml",
+      "dependency_path": null,
+      "dependency_family": "contracts/**",
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml",
+      "dependency_path": "schemas/card-run.v1.schema.json",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml",
+      "dependency_path": "schemas/manual-direct-add.v1.schema.json",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml",
+      "dependency_path": "scripts/apply_card_run.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml",
+      "dependency_path": "scripts/apply_card_run_test.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml;.github/workflows/lean-cards.yml;.github/workflows/legacy-related-lineage-migration.yml;.github/workflows/validate-tracker.yml;.github/workflows/workflow-contract-validation.yml",
+      "dependency_path": "scripts/lean_cards.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml;.github/workflows/lean-cards.yml;.github/workflows/legacy-related-lineage-migration.yml;.github/workflows/validate-tracker.yml",
+      "dependency_path": "scripts/validate.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml",
+      "dependency_path": "scripts/validate_card_run_audits.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml",
+      "dependency_path": "scripts/validate_card_run_lineage_containers.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml",
+      "dependency_path": "scripts/validate_card_run_relations.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml",
+      "dependency_path": "scripts/validate_card_run_stage_artifacts.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml",
+      "dependency_path": "scripts/validate_card_run_status_consistency.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml;.github/workflows/lean-cards.yml;.github/workflows/legacy-related-lineage-migration.yml;.github/workflows/validate-tracker.yml",
+      "dependency_path": "scripts/validate_cards.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml;.github/workflows/legacy-related-lineage-migration.yml",
+      "dependency_path": "scripts/validate_legacy_related_lineage_migration.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/apply-card-run.yml",
+      "dependency_path": "scripts/validate_manual_direct_add.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/workflow-contract-validation.yml",
+      "dependency_path": "validation_data/source_owner_registry.json",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "family",
+      "source_path": ".github/workflows/workflow-contract-validation.yml",
+      "dependency_path": null,
+      "dependency_family": "validation_scripts/**",
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "Locked-main identity/read/applicability/dependency closure pending."
+    },
+    {
+      "dependency_kind": "path",
+      "source_path": ".github/workflows/validate-tracker.yml",
+      "dependency_path": "ops/validate2.mjs",
+      "dependency_family": null,
+      "registration_manifest_path": null,
+      "dependency_status": "UNRESOLVED_PENDING_CONTENT_IDENTITY_READ_AND_APPLICABILITY",
+      "detail": "validate-tracker.yml explicitly executes ops/validate2.mjs; preserve fail-closed until content identity/read/applicability closure."
+    }
+  ],
+  "unresolved_rule_conflicts": [],
+  "misapplied_non_authoritative_documents": [],
+  "unchecked_open_remediations": [
+    {
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
+      "registry_evidence_path": "docs/WORKFLOW_GAP_REMEDIATION_20260723.md",
+      "review_verified_status": "LEGACY_REMEDIATION_REQUIRED",
+      "affected_card_count": 13,
+      "dangling_edge_count": 14,
+      "scope": "pre-existing baseline only; current PR new cards excluded",
+      "current_run_check_status": "UNCHECKED_PENDING_FORMAL_STAGE_0_0D_READ_AND_BOUNDED_REMEDIATION_RECONCILIATION",
+      "note": "Independent legacy Related data remediation; do not conflate with completed/superseded WG_016 workflow implementation.",
+      "companion_remediation_record_path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md",
+      "required_validator": "validation_scripts/related_lifecycle_check.py"
+    },
+    {
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md",
+      "registry_evidence_path": "docs/WORKFLOW_GAP_REMEDIATION_20260723.md",
+      "canonical_registration_evidence_path": "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json",
+      "review_verified_status": "OPEN_REMEDIATION_COMPANION_REQUIRED",
+      "affected_card_count": 13,
+      "dangling_edge_count": 14,
+      "scope": "pre-existing baseline only; current PR new cards excluded",
+      "required_procedure": "Per-edge history/lineage reconciliation with item-specific audit disposition; no title-similarity retargeting, invented replacement ID, or unaudited deletion.",
+      "required_validator": "validation_scripts/related_lifecycle_check.py",
+      "current_run_check_status": "UNCHECKED_PENDING_FORMAL_STAGE_0_0D_READ_AND_PER_EDGE_RECONCILIATION",
+      "note": "The companion remediation record is separately registered as open and remains independently required alongside the JSON manifest until the bounded legacy Related defects are resolved."
+    }
+  ],
+  "unauthorized_migration_applications": [],
+  "inactive_document_contamination": [],
+  "incomplete_universe_defects": [
+    {
+      "type": "UNREAD_DOCUMENT",
+      "path": "docs/**",
+      "detail": "83 of 88 docs/** records remain UNREAD_CURRENT_RUN; exact paths are the documents[] entries with read_status=UNREAD_CURRENT_RUN."
+    },
+    {
+      "type": "UNCLASSIFIED_DOCUMENT",
+      "path": "docs/**",
+      "detail": "The same 83 unread docs/** records cannot receive final classification before formal current-run full read/parse."
+    },
+    {
+      "type": "MISSING_COMPONENT",
+      "path": "stage_0_0d_document_universe_manifest_v1 schema definition",
+      "detail": "Compatibility schema identifier has no registered repository schema definition or validator."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "docs/EDITORIAL_VALUE_AND_COMPLETENESS_STANDARD.md",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "REGISTERED_DATE_STORYID_RELATED_VALIDATORS",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "REGISTERED_SOURCE_DIVERSITY_RULES",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "REGISTERED_SOURCE_RESOLUTION_RULES",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "APPLICABLE_DECLARED_DIFF_VALIDATORS",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "APPLICABLE_SCHEMA_VALIDATORS",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "APPLICABLE_PRODUCTION_VERIFICATION_VALIDATORS",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "APPLICABLE_PROMPT_0_4_TO_0_9_VALIDATORS",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "contracts/**",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "schemas/card-run.v1.schema.json",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "schemas/manual-direct-add.v1.schema.json",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/apply_card_run.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/apply_card_run_test.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/lean_cards.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/validate.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/validate_card_run_audits.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/validate_card_run_lineage_containers.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/validate_card_run_relations.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/validate_card_run_stage_artifacts.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/validate_card_run_status_consistency.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/validate_cards.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/validate_legacy_related_lineage_migration.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "scripts/validate_manual_direct_add.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "validation_data/source_owner_registry.json",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "validation_scripts/**",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "UNCHECKED_OPEN_REMEDIATION",
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.json",
+      "detail": "Review-verified bounded legacy Related remediation remains independently open: LEGACY_REMEDIATION_REQUIRED, 13 affected cards, 14 dangling edges; formal Stage 0.0D remediation check remains incomplete."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "REGISTERED_STAGE_HARDENING_ADDENDA",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "MISSING_DEPENDENCY",
+      "path": "ops/validate2.mjs",
+      "detail": "Mirrors unresolved dependency exactly once."
+    },
+    {
+      "type": "UNCHECKED_OPEN_REMEDIATION",
+      "path": "docs/remediation/RELATED_LEGACY_DANGLING_MANIFEST_20260723.md",
+      "detail": "Companion legacy Related remediation record is separately registered open and remains unchecked; it carries the per-edge remediation procedure and required related_lifecycle_check.py validation."
+    }
+  ],
+  "open_remediations_checked": [],
+  "active_migrations": [],
+  "inactive_migrations_read": [],
+  "completed_references_read": [],
+  "reference_only_documents_read": [],
+  "superseded_documents_read": [],
+  "archived_documents_read": [],
+  "excluded_migrations": [],
+  "required_stage_contracts": {
+    "0.0D": "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
+    "0.0C": "docs/llm_prompts/v1/00C_PROMPT_0_0C_COVERAGE_DISCOVERY.md",
+    "0.1": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+    "0.1S": "docs/llm_prompts/v1/01A_PROMPT_0_1S_Structural_Value_Override.md",
+    "0.2": "docs/llm_prompts/v1/02_PROMPT_0_2_Stage_B_r0.md",
+    "0.3": "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
+    "0.2R": "docs/llm_prompts/v1/04_PROMPT_0_2R_Stage_B_Revise.md",
+    "0.3R": "docs/llm_prompts/v1/05_PROMPT_0_3R_Stage_C_Revise.md",
+    "0.4": "docs/llm_prompts/v1/06_PROMPT_0_4_Baseline_Revalidation.md",
+    "0.5": "docs/llm_prompts/v1/07_PROMPT_0_5_Evidence_QC.md",
+    "0.6": "docs/llm_prompts/v1/08_PROMPT_0_6_Content_Polish.md",
+    "0.7": "docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md",
+    "0.7C": "docs/llm_prompts/v1/09A_PROMPT_0_7C_INDEPENDENT_COMPLETENESS_REVIEW.md",
+    "0.8": "docs/llm_prompts/v1/10_PROMPT_0_8_GitHub_Merge_Prep.md",
+    "0.9": "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
+    "1.0": "docs/llm_prompts/v1/12_PROMPT_1_0_Remediation.md",
+    "1.1": "docs/llm_prompts/v1/13_PROMPT_1_1_Retrospective.md",
+    "0.1P": "docs/llm_prompts/v1/14_PROMPT_0_1P_Review_Pool_Promotion.md"
+  },
+  "blocker_precedence": [
+    "BLOCKED_DOCUMENT_AUTHORITY_CONFLICT",
+    "BLOCKED_DOCUMENT_UNIVERSE_INCOMPLETE"
+  ],
+  "selected_blocker_reason": "83 of 88 docs/** files remain formally unread/unclassified in the current run; 27 governed dependencies remain unresolved after workflow and hardening-registration expansion; and both separately required legacy Related remediation records (JSON manifest plus companion per-edge remediation record) remain unchecked. Stage 0.0C is not authorized.",
+  "governance_decision": {
+    "governance_mode": "DYNAMIC_RUN_GOVERNANCE_V1",
+    "governance_mode_source": "docs/RUN_GOVERNANCE_INDEX.md and docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+    "stage_0_0c_authorized": false,
+    "pr_300_r1_is_main_authority": false,
+    "v4_pr_298_applied": false,
+    "relock_required_before_later_stage_if_main_changes": true
+  },
+  "review_resolution": {
+    "5077609171": "all four P2 findings represented in R3",
+    "5077963071": "all governed workflows represented; additional hardening-registration P2 corrected fail-closed; workflow dependencies explicitly linked",
+    "stage_0_0c_authorized": false,
+    "3904044802": "exact hardening registration deferred pending DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_MANIFEST.json full read",
+    "3910312686": "five governed workflows classified ACTIVE_VALIDATOR_CONTRACT with authority level 6 and explicit trigger-scoped application across governed stages",
+    "3910312692": "companion legacy Related remediation markdown preserved as a separate unchecked open-remediation blocker with required per-edge procedure/validator",
+    "main_head_relock_20260902": "main advanced to 48e46b1c via PR #303; four UI/test-only changed files proved outside Stage 0.0D governance scope; canonical cards/prompt blobs unchanged; manifest regenerated and relocked"
+  },
+  "head_change_reconciliation": {
+    "previous_locked_main_sha": "71371c841f7fe18bf97bf500aa537b6f1975d5dc",
+    "current_locked_main_sha": "48e46b1cd635163666aa05465a193b7c74342691",
+    "change_source": "PR #303 md-renderer merge",
+    "changed_files": [
+      "__tests__/mdText.test.jsx",
+      "src/App.jsx",
+      "src/MdText.jsx",
+      "src/mdParse.js"
+    ],
+    "relevance_decision": "PROVED_IRRELEVANT_TO_STAGE_0_0D_GOVERNANCE_SCOPE_AND_RELOCKED",
+    "proof_basis": [
+      "71371c...48e46b compare contains only UI renderer source/test files listed above",
+      "no docs/** files changed",
+      "no .github/workflows/** files changed",
+      "no validator/registry/schema/contract files changed",
+      "data/cards.full.json blob remains 53219907cdb435c3822c41d097b23e475662aa8a",
+      "docs/llm_prompts/v1/PROMPT_MANIFEST.md blob remains 854605068c78633d99ae32d8c635e12ff34b5a35"
+    ],
+    "manifest_regenerated_after_irrelevance_proof": true
+  }
+}

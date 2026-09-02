@@ -1,7 +1,7 @@
 # Card Incremental Run Contract V2
 
 **Status:** `ACTIVE_CANONICAL`  
-**Version:** `CARD_INCREMENTAL_RUN_V2_20260901_R2`
+**Version:** `CARD_INCREMENTAL_RUN_V2_20260902_R3`
 
 ## 1. Scope
 
@@ -77,18 +77,45 @@ The formal gate must validate—not merely trust—the detailed preflight/discov
 
 ### 6.3 Post-resolution Prompt 0.8 semantic gate
 
-Before byte-exact apply verification, the production workflow reconstructs an exact `ID_LEDGER` from the formal operations and submitted candidate canonical full. It includes final inserted IDs, materially updated IDs, and Related endpoints whose canonical relation representation is changed by declared patches. Every ledger ID must resolve exactly once in `data/cards.full.json`.
+Before byte-exact apply verification, the production workflow constructs a JSON Prompt 0.8 identity ledger with two explicit sets:
 
-Against that materialized final graph, the workflow must execute:
+```json
+{
+  "schema": "prompt_0_8_current_run_id_ledger_v1",
+  "ids": ["<inserted-or-materially-updated-final-ID>"],
+  "operation_ids": ["<all-governed-operation-final-IDs>"]
+}
+```
+
+- `ids[]` is the **strict card-wide current-run QC scope**: final inserted IDs and materially updated IDs only.
+- `operation_ids[]` is the **formal operation identity set**: `ids[]` plus the single governed identity endpoint for each `related_add`.
+- every ID in both sets must resolve exactly once in `data/cards.full.json`;
+- `github_merge_ready[]` in the single bound Prompt 0.8 artifact must equal `operation_ids[]` exactly;
+- for Related operations the governed endpoint is resolved from `identity_card_id`, canonical/declared `source_spec_id`, or another unambiguous current-run identity rule.
+
+A reciprocal Related patch to an unchanged legacy predecessor/program card does **not** add that legacy mirror endpoint to `ids[]` merely because its canonical Related representation is patched. The Related edge itself is still validated through the operation-bound A→0.7 semantic chain and the exact `operation_ids[]`/`github_merge_ready[]` identity proof. This prevents pre-V3 legacy cards from being falsely treated as newly authored current-run cards solely because they receive a reciprocal mirror patch.
+
+When `ids[]` is non-empty, the workflow executes against the materialized final graph:
 
 ```text
-python validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file <ID_LEDGER>
-python validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file <ID_LEDGER>
-python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file <ID_LEDGER>
+python validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file <ID_LEDGER_JSON>
+python validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file <ID_LEDGER_JSON>
+python validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file <ID_LEDGER_JSON>
+```
+
+A relation-only formal run may have empty `ids[]` but must still have a non-empty governed `operation_ids[]`; in that narrow case the three card-wide strict current-run validators are not run over unchanged legacy patch-only endpoints. The Prompt 0.8 artifact checker always runs:
+
+```text
 python validation_scripts/stage_artifact_contract_check.py 0.8 <BOUND_STAGE_0_8_AUDIT_ARTIFACT>
 ```
 
 The 0.8 gate must not use `--allow-provisional-related`. All current-run relation targets are final production IDs at merge prep. The repository workflow—not prompt prose alone—must enforce this sequence.
+
+The runtime logic is implemented in executable helpers rather than untested inline workflow heredocs:
+
+- `scripts/validate_prompt_0_8_semantic_gate.mjs` — derives JSON identity scopes and binds the exact Prompt 0.8 item set;
+- `scripts/validate_card_run_audits_dispatch.mjs` — dispatches the single `stage: "0.8"` artifact away from true `card_run_audit_v1` references and validates the latter using a repository-relative ephemeral run;
+- both helpers provide `--self-test` and are exercised by durable semantic regression tests.
 
 ## 7. Baseline moved
 
@@ -108,11 +135,13 @@ Default formal run: one governed card-run manifest plus the committed canonical 
 
 ## 10. Apply order
 
-`re-lock baseline → validate registry-bound 0.0D → validate mandatory-axis 0.0C → validate current-run/baseline-bound candidate A→0.7 chains → validate 0.7C → validate operations → apply inserts → apply updates → resolve/apply Related additions → construct final ID ledger → run post-resolution 0.8 semantic gate → validate declared diff → write/verify full → generate/verify lean → PR review → merge → 0.9`.
+`re-lock baseline → validate registry-bound 0.0D → validate mandatory-axis 0.0C → validate current-run/baseline-bound candidate A→0.7 chains → validate 0.7C → validate operations → apply inserts → apply updates → resolve/apply Related additions → construct JSON strict-ID ledger + operation identity set → run post-resolution 0.8 semantic gate → validate declared diff → write/verify full → generate/verify lean → PR review → merge → 0.9`.
 
 ## 11. Manual direct-add boundary
 
 Already-reviewed bounded changes may instead use `MANUAL_DIRECT_ADD_V2`. That mode declares its own editorial attestation and mutation scope and explicitly states `formal_full_run_claimed=false`. It does not require fake Stage A/B/C/0.7C/0.8 artifacts. A V2 manifest must declare at least one actual `add`, `update`, or `id_migration`; a timestamp-only/no-op direct-add is invalid.
+
+Historical `MANUAL_DIRECT_ADD_V1` records are audit-only. Rename/delete/preservation grandfathering is based on the **base revision already being V1**; a V2 record may not be downgraded into V1. This lifecycle rule is implemented once in `scripts/manual_direct_add_v1_history.mjs` and consumed by both direct-add workflows.
 
 ## 12. Completion
 

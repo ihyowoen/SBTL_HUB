@@ -117,31 +117,29 @@ class LatestPrompt08AndHistoricalV1Review(unittest.TestCase):
         self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
         self.assertEqual(report["status"], "PASS")
 
-    def test_apply_workflow_dispatches_08_and_binds_exact_touched_id_set(self):
+    def test_apply_workflow_delegates_audit_dispatch_and_exact_operation_item_set(self):
         text = APPLY_WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn('AUDIT_ONLY_RUN="$RUNNER_TEMP/card-run-audits-only.json"', text)
-        self.assertIn("if (payload?.stage === '0.8')", text)
-        self.assertIn("no card_run_audit_v1 reference remains after 0.8 dispatch", text)
-        self.assertIn("BLOCKED_PROMPT_0_8_ITEM_SET", text)
-        self.assertIn("const expectedIds = [...ids].sort();", text)
-        self.assertIn("const reviewedIds = [...artifactIds].sort();", text)
-        self.assertIn("JSON.stringify(reviewedIds) !== JSON.stringify(expectedIds)", text)
+        self.assertIn("scripts/validate_card_run_audits_dispatch.mjs", text)
+        self.assertIn("scripts/validate_prompt_0_8_semantic_gate.mjs", text)
+        self.assertIn("prompt-0-8-id-ledger.json", text)
+        self.assertIn("OPERATION_ID_COUNT", text)
+        self.assertNotIn('AUDIT_ONLY_RUN="$RUNNER_TEMP/card-run-audits-only.json"', text)
+        self.assertNotIn("const expectedIds = [...ids].sort();", text)
 
-    def test_apply_workflow_historical_v1_exception_is_base_bound_and_deletion_aware(self):
+    def test_apply_workflow_historical_v1_exception_uses_shared_classifier(self):
         text = APPLY_WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("--diff-filter=ACMRD", text)
-        self.assertIn('D*) base_manifest="$path1"; manifest=""', text)
-        self.assertIn('git show "${base_sha}:${base_manifest}"', text)
-        self.assertIn('[[ "$base_schema_name" == "manual_direct_add_v1" ]] || return 1', text)
-        self.assertIn('if [[ "$status" == D* ]]; then', text)
+        self.assertIn("scripts/manual_direct_add_v1_history.mjs", text)
+        self.assertIn("--audit-only", text)
+        self.assertIn('historical_v1_audit_only()', text)
+        self.assertNotIn('D*) base_manifest="$path1"; manifest=""', text)
+        self.assertNotIn('git show "${BASE_SHA}:data/cards.full.base.json"', text)
 
-    def test_schema_workflow_cannot_downgrade_v2_to_v1_and_allows_historical_v1_delete(self):
+    def test_schema_workflow_uses_same_shared_v1_classifier(self):
         text = DIRECT_ADD_WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("--diff-filter=ACMRD", text)
-        self.assertIn("base_schema()", text)
-        self.assertIn("only historical manual_direct_add_v1 audit manifests may use the audit-only deletion path", text)
-        self.assertIn("cannot downgrade non-V1 base manifest to retired manual_direct_add_v1", text)
-        self.assertIn('[[ "$base_schema_name" == "manual_direct_add_v1" ]]', text)
+        self.assertIn("scripts/manual_direct_add_v1_history.mjs", text)
+        self.assertIn("--validate-changed", text)
+        self.assertNotIn("base_schema()", text)
+        self.assertNotIn("resolve_manifest_paths()", text)
 
 
 if __name__ == "__main__":

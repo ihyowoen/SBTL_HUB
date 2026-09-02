@@ -1,0 +1,166 @@
+name: Fix V4 runtime manifest Stage A closure
+
+on:
+  push:
+    branches:
+      - chatgpt/fix-v4-runtime-manifest-closure
+    paths:
+      - '.github/workflows/tmp-fix-v4-runtime-manifest-closure.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Materialize Stage A validator dependency closure
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import ast, json
+          from pathlib import Path
+
+          ROOT=Path('.')
+          MANIFEST=Path('docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json')
+          START='validation_scripts/stage_lineage_contract_check.py'
+
+          def module_path(module):
+              if not isinstance(module,str) or not module.startswith('validation_scripts'):
+                  return None
+              p=ROOT/(module.replace('.','/')+'.py')
+              return p.as_posix() if p.is_file() else None
+
+          def direct_deps(path):
+              p=ROOT/path
+              tree=ast.parse(p.read_text(encoding='utf-8'), filename=path)
+              out=set()
+              for node in ast.walk(tree):
+                  if isinstance(node,ast.Import):
+                      for alias in node.names:
+                          q=module_path(alias.name)
+                          if q: out.add(q)
+                  elif isinstance(node,ast.ImportFrom):
+                      mod=node.module or ''
+                      q=module_path(mod)
+                      if q: out.add(q)
+                      if mod=='validation_scripts':
+                          for alias in node.names:
+                              q=module_path(f'validation_scripts.{alias.name}')
+                              if q: out.add(q)
+                  elif isinstance(node,ast.Call) and isinstance(node.func,ast.Attribute) and node.func.attr=='with_name' and node.args:
+                      arg=node.args[0]
+                      if isinstance(arg,ast.Constant) and isinstance(arg.value,str) and arg.value.endswith('.py'):
+                          q=(p.parent/arg.value)
+                          if q.is_file(): out.add(q.as_posix())
+              return out
+
+          closure=set(); stack=[START]
+          while stack:
+              path=stack.pop()
+              if path in closure: continue
+              if not (ROOT/path).is_file():
+                  raise AssertionError(f'missing validator dependency: {path}')
+              closure.add(path)
+              for dep in sorted(direct_deps(path)):
+                  if dep not in closure: stack.append(dep)
+
+          manifest=json.loads(MANIFEST.read_text(encoding='utf-8'))
+          current=manifest['canonical_paths']['validation_scripts']
+          missing=sorted(closure-set(current))
+          manifest['canonical_paths']['validation_scripts']=current+missing
+          MANIFEST.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          test=Path('validation_scripts/tests/test_v4_runtime_manifest_stage_a_closure.py')
+          test.write_text(r'''from __future__ import annotations
+
+import ast
+import json
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+MANIFEST = ROOT / "docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json"
+START = "validation_scripts/stage_lineage_contract_check.py"
+
+
+def module_path(module: str):
+    if not isinstance(module, str) or not module.startswith("validation_scripts"):
+        return None
+    path = ROOT / (module.replace(".", "/") + ".py")
+    return path.relative_to(ROOT).as_posix() if path.is_file() else None
+
+
+def direct_deps(relative: str):
+    path = ROOT / relative
+    tree = ast.parse(path.read_text(encoding="utf-8"), filename=relative)
+    out = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                resolved = module_path(alias.name)
+                if resolved:
+                    out.add(resolved)
+        elif isinstance(node, ast.ImportFrom):
+            module = node.module or ""
+            resolved = module_path(module)
+            if resolved:
+                out.add(resolved)
+            if module == "validation_scripts":
+                for alias in node.names:
+                    resolved = module_path(f"validation_scripts.{alias.name}")
+                    if resolved:
+                        out.add(resolved)
+        elif isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute) and node.func.attr == "with_name" and node.args:
+            arg = node.args[0]
+            if isinstance(arg, ast.Constant) and isinstance(arg.value, str) and arg.value.endswith(".py"):
+                resolved_path = path.parent / arg.value
+                if resolved_path.is_file():
+                    out.add(resolved_path.relative_to(ROOT).as_posix())
+    return out
+
+
+def stage_a_closure():
+    closure = set()
+    stack = [START]
+    while stack:
+        relative = stack.pop()
+        if relative in closure:
+            continue
+        if not (ROOT / relative).is_file():
+            raise AssertionError(f"missing validator dependency: {relative}")
+        closure.add(relative)
+        stack.extend(sorted(direct_deps(relative) - closure))
+    return closure
+
+
+class TestV4RuntimeManifestStageAClosure(unittest.TestCase):
+    def test_active_stage_a_validator_closure_is_machine_registered(self):
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        registered = set(manifest["canonical_paths"]["validation_scripts"])
+        missing = sorted(stage_a_closure() - registered)
+        self.assertEqual(missing, [], f"unregistered active Stage A validator dependencies: {missing}")
+
+
+if __name__ == "__main__":
+    unittest.main()
+''',encoding='utf-8')
+          print(json.dumps({'stage_a_validator_closure_count':len(closure),'new_manifest_paths':missing,'closure':sorted(closure)},indent=2))
+          PY
+      - name: Run fail-closed regressions
+        run: |
+          python -m unittest validation_scripts.tests.test_v4_runtime_manifest_stage_a_closure -v
+          python validation_scripts/workflow_v4_architecture_check.py
+          python validation_scripts/run_active_workflow_tests.py
+      - name: Commit fix and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git rm .github/workflows/tmp-fix-v4-runtime-manifest-closure.yml
+          git add docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json validation_scripts/tests/test_v4_runtime_manifest_stage_a_closure.py
+          git commit -m 'fix: register active Stage A validator runtime closure'
+          git push origin HEAD:chatgpt/fix-v4-runtime-manifest-closure

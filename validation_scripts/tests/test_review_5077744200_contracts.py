@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 APPLY_ENGINE = ROOT / "scripts/apply_card_run.mjs"
 JS_HARDENER = ROOT / "scripts/validate_card_run_v4_hardening.mjs"
 APPLY_WORKFLOW = ROOT / ".github/workflows/apply-card-run.yml"
+V1_HISTORY = ROOT / "scripts/manual_direct_add_v1_history.mjs"
 
 
 class Review5077744200Contracts(unittest.TestCase):
@@ -154,15 +155,16 @@ class Review5077744200Contracts(unittest.TestCase):
         self.assertIn("card_run_v4_binding_hardening.py", text)
 
     def test_apply_gate_has_historical_v1_audit_only_exception(self):
-        text = APPLY_WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("historical_v1_audit_only()", text)
-        self.assertIn("git diff -M --diff-filter=ACMRD --name-status", text)
-        self.assertIn('schema_name" == "manual_direct_add_v1"', text)
-        self.assertIn('git cat-file -e "${base_sha}:${base_manifest}"', text)
-        self.assertIn('git show "${base_sha}:${base_manifest}"', text)
-        self.assertIn('base_schema_name" == "manual_direct_add_v1"', text)
-        self.assertIn('if [[ "$status" == D* ]]; then', text)
-        self.assertIn("historical preservation path only", text)
+        workflow = APPLY_WORKFLOW.read_text(encoding="utf-8")
+        helper = V1_HISTORY.read_text(encoding="utf-8")
+        self.assertIn("historical_v1_audit_only()", workflow)
+        self.assertIn("scripts/manual_direct_add_v1_history.mjs", workflow)
+        self.assertIn("--audit-only", workflow)
+        self.assertIn("--diff-filter=ACMRD", helper)
+        self.assertIn('baseSchema === "manual_direct_add_v1"', helper)
+        self.assertIn('current === "manual_direct_add_v1"', helper)
+        self.assertIn("downgradeToV1", helper)
+        self.assertIn("historical preservation path only", workflow)
 
 
 if __name__ == "__main__":

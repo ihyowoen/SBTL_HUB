@@ -1,0 +1,249 @@
+name: V4 Stage 0.0D preflight probe
+
+on:
+  push:
+    branches:
+      - chatgpt/v4-preflight-20260902
+    paths:
+      - '.github/workflows/v4-preflight-probe-20260902.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify locked merged main
+        run: |
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "9fed8c67816dc0582061438e7dba38d164648176"
+      - name: Build V4 preflight evidence
+        run: |
+          python3 - <<'PY'
+          import json, re, subprocess, hashlib
+          from pathlib import Path
+
+          LOCKED = '9fed8c67816dc0582061438e7dba38d164648176'
+          OUT = Path('runs/2026-09-02/stage_0_0d_v4_preflight_probe_20260902_MAIN_9fed8c6.json')
+          REG = 'docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json'
+          MAN = 'docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json'
+          STAGE_A = 'docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md'
+          ALLOWED = {
+              'ACTIVE_CANONICAL','ACTIVE_VALIDATOR_CONTRACT','OPEN_REMEDIATION','ACTIVE_MIGRATION',
+              'SUPERSEDED','REFERENCE_ONLY','COMPLETED_REFERENCE','ARCHIVED'
+          }
+
+          def git_bytes(path):
+              return subprocess.check_output(['git','show',f'{LOCKED}:{path}'])
+
+          def git_text(path):
+              return git_bytes(path).decode('utf-8-sig')
+
+          docs = subprocess.check_output(
+              ['git','ls-tree','-r','--name-only',LOCKED,'--','docs'], text=True
+          ).splitlines()
+          docs = [p.strip() for p in docs if p.strip()]
+          registry = json.loads(git_text(REG))
+          manifest = json.loads(git_text(MAN))
+
+          sets = {
+              'active_canonical': sorted(set(registry['active_canonical']) | set(registry['active_named_prompts'])),
+              'active_validators': sorted(set(registry['active_validator_contracts'])),
+              'applicable': sorted(set(registry['open_remediations']) | set(registry['activation_required_migrations'])),
+              'superseded_reference': sorted(set(registry['superseded']) | set(registry['reference_only'])),
+          }
+          reg_class = {}
+          for p in registry['active_canonical'] + registry['active_named_prompts']:
+              reg_class[p] = 'ACTIVE_CANONICAL'
+          for p in registry['active_validator_contracts']:
+              reg_class[p] = 'ACTIVE_VALIDATOR_CONTRACT'
+          for p in registry['open_remediations']:
+              reg_class[p] = 'OPEN_REMEDIATION'
+          for p in registry['activation_required_migrations']:
+              reg_class[p] = 'ACTIVE_MIGRATION'
+          for p in registry['superseded']:
+              reg_class[p] = 'SUPERSEDED'
+          for p in registry['reference_only']:
+              reg_class[p] = 'REFERENCE_ONLY'
+
+          def authoritative_header(path, text):
+              if path.endswith('.json'):
+                  try:
+                      obj = json.loads(text)
+                  except Exception:
+                      return None
+                  for key in ('classification','status'):
+                      v = obj.get(key)
+                      if isinstance(v, str) and v in ALLOWED:
+                          return v
+                  return None
+              head = '\n'.join(text.splitlines()[:120])
+              patterns = [
+                  r'\*\*Status:\*\*\s*`([A-Z_]+)`',
+                  r'^Status:\s*`?([A-Z_]+)`?\s*$',
+                  r'\*\*Classification:\*\*\s*`([A-Z_]+)`',
+              ]
+              for pat in patterns:
+                  m = re.search(pat, head, re.M)
+                  if m and m.group(1) in ALLOWED:
+                      return m.group(1)
+              return None
+
+          inventory = []
+          unclassified = []
+          conflicts = []
+          unregistered_active = []
+          decode_failures = []
+          parse_failures = []
+          for p in docs:
+              raw = git_bytes(p)
+              sha256 = hashlib.sha256(raw).hexdigest()
+              blob = subprocess.check_output(['git','rev-parse',f'{LOCKED}:{p}'], text=True).strip()
+              try:
+                  text = raw.decode('utf-8-sig')
+              except Exception as e:
+                  text = ''
+                  decode_failures.append({'path':p,'error':str(e)})
+              header = authoritative_header(p, text) if text else None
+              registered = reg_class.get(p)
+              classification = registered or header
+              if not classification:
+                  unclassified.append(p)
+              if registered and header and registered != header:
+                  conflicts.append({'path':p,'registry':registered,'header':header})
+              if not registered and header in {'ACTIVE_CANONICAL','ACTIVE_VALIDATOR_CONTRACT','OPEN_REMEDIATION','ACTIVE_MIGRATION'}:
+                  unregistered_active.append(p)
+              if p.endswith('.json') and text:
+                  try: json.loads(text)
+                  except Exception as e: parse_failures.append({'path':p,'error':str(e)})
+              inventory.append({
+                  'path':p,'git_blob_sha':blob,'sha256':sha256,
+                  'registry_classification':registered,
+                  'authoritative_header_classification':header,
+                  'classification':classification,
+              })
+
+          required = sorted(set(sets['active_canonical']) | set(sets['active_validators']) | set(sets['applicable']))
+          unread_active = []
+          missing_dependencies = []
+          full_read_evidence = []
+          for p in required:
+              if p not in docs:
+                  missing_dependencies.append(p)
+                  continue
+              try:
+                  raw = git_bytes(p)
+                  text = raw.decode('utf-8-sig')
+                  structured = 'TEXT_PASS'
+                  if p.endswith('.json'):
+                      json.loads(text)
+                      structured = 'JSON_PARSE_PASS'
+                  full_read_evidence.append({
+                      'path':p,
+                      'byte_count':len(raw),
+                      'sha256':hashlib.sha256(raw).hexdigest(),
+                      'git_blob_sha':subprocess.check_output(['git','rev-parse',f'{LOCKED}:{p}'], text=True).strip(),
+                      'read_status':'READ_FULL_LOCKED_MAIN',
+                      'structured_parse_status':structured,
+                  })
+              except Exception as e:
+                  unread_active.append({'path':p,'error':str(e)})
+
+          stage_a = git_text(STAGE_A)
+          stage_a_ok = (
+              '**selection_policy_version:** `EMBEDDED_NEWS_VALUE_SELECTION_V4`' in stage_a
+              and 'Related pre-pass' in stage_a
+              and 'No separate Structural News Value' in stage_a
+          )
+
+          runtime_paths = []
+          cp = manifest.get('canonical_paths', {})
+          for key in ('manual_direct_add_schema','manual_direct_add_validator'):
+              v = cp.get(key)
+              if isinstance(v,str): runtime_paths.append(v)
+          runtime_paths += cp.get('runtime_contract_files', [])
+          runtime_paths += cp.get('validation_scripts', [])
+          runtime_paths = sorted(set(runtime_paths))
+          runtime_evidence = []
+          runtime_missing = []
+          for p in runtime_paths:
+              try:
+                  raw = git_bytes(p)
+                  runtime_evidence.append({
+                      'path':p,
+                      'byte_count':len(raw),
+                      'sha256':hashlib.sha256(raw).hexdigest(),
+                      'git_blob_sha':subprocess.check_output(['git','rev-parse',f'{LOCKED}:{p}'], text=True).strip(),
+                      'read_status':'READ_FULL_LOCKED_MAIN',
+                  })
+              except Exception as e:
+                  runtime_missing.append({'path':p,'error':str(e)})
+
+          full_raw = git_bytes('data/cards.full.json')
+          full_blob = subprocess.check_output(['git','rev-parse',f'{LOCKED}:data/cards.full.json'], text=True).strip()
+          full_json = json.loads(full_raw.decode('utf-8-sig'))
+          card_count = len(full_json if isinstance(full_json,list) else full_json.get('cards',[]))
+
+          defects = []
+          if unclassified: defects.append({'type':'UNCLASSIFIED_DOCUMENTS','paths':unclassified})
+          if conflicts: defects.append({'type':'LIFECYCLE_CONFLICTS','items':conflicts})
+          if unregistered_active: defects.append({'type':'UNREGISTERED_ACTIVE_LOOKING','paths':unregistered_active})
+          if unread_active: defects.append({'type':'UNREAD_ACTIVE','items':unread_active})
+          if missing_dependencies: defects.append({'type':'MISSING_REGISTRY_DEPENDENCY','paths':missing_dependencies})
+          if runtime_missing: defects.append({'type':'MISSING_RUNTIME_CONTRACT','items':runtime_missing})
+          if decode_failures: defects.append({'type':'DOC_UTF8_DECODE_FAILURE','items':decode_failures})
+          if parse_failures: defects.append({'type':'DOC_JSON_PARSE_FAILURE','items':parse_failures})
+          if not stage_a_ok: defects.append({'type':'STAGE_A_EMBEDDED_POLICY_NOT_VERIFIED'})
+
+          report = {
+              'schema':'stage_0_0d_v4_preflight_probe_v1',
+              'stage':'0.0D',
+              'purpose':'MERGED_V4_MAIN_PREFLIGHT_EVIDENCE_AND_BLOCKER_PROBE',
+              'repository_head_sha':LOCKED,
+              'canonical_full_blob_sha':full_blob,
+              'canonical_card_count':card_count,
+              'registry_version':registry.get('registry_version'),
+              'registry_active_override_or_addendum_count':registry.get('active_override_or_addendum_count'),
+              'docs_inventory_count':len(docs),
+              'classified_count':len(docs)-len(unclassified),
+              'required_registry_full_read_count':len(required),
+              'completed_registry_full_read_count':len(full_read_evidence),
+              'active_canonical_paths':sets['active_canonical'],
+              'active_validator_contract_paths':sets['active_validators'],
+              'applicable_remediation_or_migration':sets['applicable'],
+              'superseded_or_reference_paths':sets['superseded_reference'],
+              'unclassified_paths':unclassified,
+              'unread_active_paths':unread_active,
+              'unresolved_dependencies':missing_dependencies + runtime_missing,
+              'unresolved_conflicts':conflicts,
+              'unregistered_active_looking_paths':unregistered_active,
+              'active_override_or_addendum_count':registry.get('active_override_or_addendum_count'),
+              'stage_a_embedded_news_value_verified':stage_a_ok,
+              'runtime_contract_paths_from_machine_manifest':runtime_paths,
+              'runtime_contract_evidence':runtime_evidence,
+              'full_read_evidence':full_read_evidence,
+              'documents_inventory':inventory,
+              'defects':defects,
+              'probe_result':'PASS_CANDIDATE' if not defects else 'BLOCKED_REQUIRES_REMEDIATION',
+          }
+          OUT.parent.mkdir(parents=True, exist_ok=True)
+          OUT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps({k:report[k] for k in (
+              'repository_head_sha','canonical_full_blob_sha','canonical_card_count','docs_inventory_count',
+              'classified_count','required_registry_full_read_count','completed_registry_full_read_count',
+              'unclassified_paths','unregistered_active_looking_paths','probe_result'
+          )}, ensure_ascii=False, indent=2))
+          PY
+      - name: Commit probe and remove temporary workflow
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add runs/2026-09-02/stage_0_0d_v4_preflight_probe_20260902_MAIN_9fed8c6.json
+          git rm .github/workflows/v4-preflight-probe-20260902.yml
+          git commit -m "audit: probe merged V4 Stage 0.0D"
+          git push origin HEAD:chatgpt/v4-preflight-20260902

@@ -115,7 +115,6 @@ PASS_RELATION_TYPES = {
     "distinct_follow_up",
     "program_lineage",
 }
-FAIL_STATUS_TOKENS = ("BLOCKED", "FAIL", "HOLD", "REJECT", "INVALID", "PENDING")
 
 ITEM_REQUIRED = {
     "A": [
@@ -190,10 +189,6 @@ def _pass_marker(value):
     if isinstance(value, dict):
         return value.get("status") == "PASS"
     return False
-
-
-def _explicit_failure(value):
-    return isinstance(value, str) and any(token in value.upper() for token in FAIL_STATUS_TOKENS)
 
 
 def _non_empty_object(value):
@@ -302,11 +297,11 @@ def _item_value_findings(stage, item, scope):
     if stage == "B":
         review = item.get("related_evidence_review")
         if not _non_empty_object(review):
-            findings.append(_field_finding(scope, "related_evidence_review", "non-empty object", review,
+            findings.append(_field_finding(scope, "related_evidence_review", "non-empty object with status=PASS", review,
                                            "Stage B passing draft requires resolved Related evidence review"))
-        elif _explicit_failure(review.get("status")):
-            findings.append(_field_finding(scope, "related_evidence_review.status", "non-failing resolved status", review.get("status"),
-                                           "Stage B passing draft cannot carry a failing Related review"))
+        elif review.get("status") != "PASS":
+            findings.append(_field_finding(scope, "related_evidence_review.status", "PASS", review.get("status"),
+                                           "Stage B passing draft requires the canonical resolved Related review status"))
         if not _non_empty_object(item.get("date_role")):
             findings.append(_field_finding(scope, "date_role", "non-empty object", item.get("date_role"),
                                            "Stage B passing draft requires a concrete date-role decision"))

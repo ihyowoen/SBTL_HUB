@@ -615,5 +615,31 @@ if (process.env.RP_PATH) {
   } catch(e){ warn('region_policy 산문 D-day 대조 실패: '+e.message); }
 }
 
+
+// 25) 당일 원장 미명중 항목 계측 (WARN — 규약상 ERROR 후보)
+//     RUNBOOK RD-2 는 "전 항목이 당일 원장에 최소 1회 명중"을 기준으로 두고 미명중 잔존을 run 미완으로
+//     규정한다. 그런데 **그 규칙을 강제하는 검사가 없었다** — 검사 #6은 반대 방향(스탬프된 항목에 근거가
+//     있는가)만 본다. 그래서 원장은 자체 임계(검증 후 7일 초과)로 "방치 N건"을 보고해 왔고, 그 임계는
+//     규약이 아니라 2026-08-31 run 이 임의로 정한 것이다. 규약보다 느슨하다.
+//     여기서는 **규약 기준 수치를 드러내기만 한다.** ERROR 로 올리면 검색 예산이 전수를 받치기 전까지
+//     모든 PR 이 막히므로, 승격은 예산 결정과 함께 판단할 사항이다(운영자 판단).
+if (runPath) {
+  try {
+    const r6 = JSON.parse(readFileSync(runPath,'utf8'));
+    const snap6 = (tj.meta?.dataSnapshotDate ?? '').slice(0,10);
+    if (snap6 && r6.date === snap6) {
+      const hit = items.filter(i => i.verify?.runId === r6.runId).length;
+      const miss = items.length - hit;
+      if (miss) {
+        warn(`당일 원장 미명중 ${miss}/${items.length}항목 (명중 ${hit}) — RUNBOOK RD-2 기준으로는 run 미완이다. 원장에 partial: true 와 사유가 있어야 한다`);
+        if (r6.partial !== true)
+          err(`미명중 ${miss}항목인데 원장 partial 이 true 가 아니다 — 전수 완주로 기록되면 안 된다`);
+        if (!r6.partialReason)
+          err(`미명중 ${miss}항목인데 원장에 partialReason 이 없다`);
+      }
+    }
+  } catch(e){ warn('당일 미명중 계측 실패: '+e.message); }
+}
+
 console.log(`\nRESULT: ${E?'FAIL':'PASS'} (errors ${E}, warnings ${W})`);
 process.exit(E?1:0);

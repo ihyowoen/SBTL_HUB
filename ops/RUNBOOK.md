@@ -53,7 +53,15 @@ item {
   ]
   verify: {                            // lastChecked 대체 (F8)
     date: "YYYY-MM-DD",
-    method: "search"|"primary-doc"|"cross-ref"|"mechanical",  // mechanical은 검증으로 안 침
+    method: "primary-doc"|"primary-meta"|"secondary"|"search"|"mechanical",
+    //   primary-doc   원문 조문·관보 본문을 직접 읽음 (최상위)
+    //   primary-meta  발행기관의 메타(표준정보·법령정보센터 연혁·OJ 게재정보) 확인 — 조문 본문은 미대조
+    //   secondary     2차 출처(로펌 해설·업계 보도·정부 보도자료) 교차 확인
+    //   search        검색으로 변화 없음/무산출 확인 (가장 약함)
+    //   mechanical    기계적 정정·D-day 롤오버 — **검증으로 집계하지 않는다**
+    // 2026-09-02 정정: 종전 enum 은 search|primary-doc|cross-ref|mechanical 이었는데
+    // 실제 데이터는 secondary 103건·primary-meta 29건을 쓰고 cross-ref 는 0건이었다.
+    // 규약이 관행을 못 따라가면 검증 강도를 읽을 수 없다.
     runId: "2026-07-17-R1"             // 런 원장 참조
   }
   dt: string                           // [이행기] milestones에서 빌드 스크립트가 자동 생성. 손편집 금지
@@ -115,9 +123,17 @@ run {
 운영 결정(2026-07-17): **매일 전 항목 실검색 + 매일 배포.** 목표 = 누락 제로·오정보 제로·최신성. 부하 감수.
 사람이 수동으로 굴릴 볼륨이 아님(아래) → **자동 스케줄 태스크로 실행** 전제. (스케줄: 매일 13:00 KST)
 
-### 일일 부하 (실측 기반)
-- 클러스터 검색 1회 ≈ 3항목 커버(원장 실측) → 115항목 1회 명중에 **≈38 클러스터 검색**
-- + 신규발굴 셀 슬라이스 6~10 + 경계 표적 3~5 = **약 30~50 검색/일** (주간 환산 기존의 4~5배)
+### 일일 부하 — **요구량과 실적을 따로 적는다**
+- **수율 실측**: 근거 규칙을 조인 뒤(2026-08-29~) **검색 1회당 0.66항목**이다. 그 전(~2026-08-02)은 1.69 였다 —
+  `itemsCovered` 를 넉넉히 적던 시기의 수치다. 규칙을 조이면 수율이 떨어진다(한 검색이 여러 항목을 대신하지 못한다).
+- **요구량**: 항목 188 ÷ 0.66 ≈ **286 검색** + 셀 전수 **90**(요일 슬라이스 폐기, §4) + 경계 표적 3~5
+  = **약 379~381 검색/일**.
+- **실적은 그 근처에 못 간다.** 2026-09-02 는 24 검색·당일 명중 23/188 — 요구량의 약 6% 다.
+  따라서 원장은 `partial: true` + `partialReason` 을 적고 미검증 항목의 `verify` 는 이전 검증일을 유지한다.
+  검사 #25 가 미명중 수를 매 run 드러낸다.
+- **종전 기재는 '검색 1회 ≈ 3항목 → 115항목에 ≈38 검색 + 셀 슬라이스 6~10 = 30~50/일' 이었다.**
+  세 전제가 모두 낡았다 — 수율은 어느 원장에서도 3 이 아니었고(조인 후 0.66), 항목은 188 로 늘었고,
+  슬라이스는 폐기됐다. **결과적으로 부하를 8~13배 과소평가한 산식으로 '매일 전수'를 규약에 올려둔 상태였다.**
 - 이 볼륨 때문에 "무변화" 유혹이 매일 옴 → **G2(원장 대조)가 매일 강제**되는 게 핵심 안전장치
 
 ### RD (일일 전수) 구성 — 매일 순서
@@ -125,8 +141,8 @@ run {
 |------|------|
 | RD-0 롤오버 | **실제 날짜 확인**(§6.1) → milestones→dt 재생성(`ops/build_dt.mjs`) + 오늘 기준 D-day 재계산 |
 | RD-1 경계 우선 | D≤10·D+≤7 항목 먼저 실검증(변화 확률 최고) + watch 큐 due 순 전수 처리 |
-| RD-2 항목 전수 | 6권역 클러스터 검색으로 **전 항목이 당일 원장에 최소 1회 명중**. 미명중 잔존 = run 미완(G2가 차단) |
-| RD-3 신규발굴 | 오늘의 **커버리지 슬라이스**(아래 7일 로테이션)만 신규 스캔 — 전 셀 매일은 과부하, 7일 완주 |
+| RD-2 항목 전수 | **전 항목이 당일 원장에 최소 1회 명중**이 기준. 미명중 잔존 = run 미완. **현재 이 규칙은 게이트로 강제되지 않는다** — 검사 #25가 미명중 수를 WARN 으로 계측하고 원장이 `partial: true` 로 기록한다. ERROR 승격은 검색 예산 결정과 함께 판단할 사항이다(2026-09-02 확인: 명중 23/188) |
+| RD-3 신규발굴 | **전 셀 전수 스윕**(요일 슬라이스·7일 로테이션 폐기, §4). 근거는 셀의 사전 정의 `queries` 를 실제로 돌린 검색만(검사 #13) |
 | RD-4 region_policy | tracker 당일 변화(신규·status·경계 진전·정정)를 **region_policy.json**에 전파: 권역별 headline·summary·watchpoints 재작성, `_meta.lastUpdated`·cycleNote 갱신. **두 파일 정합 필수** (§4a) |
 | RD-5 게이트·배포 | G2→G3→present→G4. tracker + region_policy **2파일 동시** 배포. **무변화일도 verify 날짜 갱신분 커밋**(매일 배포 결정) |
 
@@ -151,6 +167,15 @@ product_std+chemicals, …)는 **폐기했다** — 이 문서가 폐기된 규�
 - 검색 예산이 전수를 못 받치는 날은 **부분 run 으로 명시 기록**하고 미명중 셀을 다음 run 우선으로 올린다.
   전수를 목표로 하되 덮은 만큼만 스탬프한다 — 목표와 실측을 섞지 않는다.
 - 급변 이벤트(관세 발효일 등)는 RD-1 에서 당일 처리한다.
+
+### 검증 연령 — 기준의 출처를 구분한다
+- **규약 기준은 '당일 명중'이다** — 전 항목이 당일 원장에 최소 1회 명중해야 하고 미명중 잔존은 run 미완이다(RD-2).
+- **'검증 후 7일 초과 = 방치'는 규약이 아니다.** 2026-08-31 run 에서 오케스트레이터가 "방치는 있을 수 없다"는
+  Claire 지적을 계측 가능한 형태로 바꾸려고 **임의로 정한 임계**이고, 이후 원장이 그 기준으로 보고해 왔다.
+  규약보다 느슨하다 — 4일 지난 항목을 '방치 아님'으로 분류한다.
+- **따라서 보고는 두 수치를 함께 적는다** — ①당일 미명중 수(규약 기준) ②7일 초과 수(운영 임계, 심각도 표시용).
+  ①을 생략하고 ②만 적으면 "방치 0건"이 규약 충족처럼 읽힌다.
+- 임계를 규약으로 올리거나 내리는 것은 Claire 판단 사항이다. 검색 예산과 함께 정해야 한다.
 
 ### 배포 정책 (매일)
 - **매일 PR — tracker_data.json + region_policy.json 2파일.** 변화 있으면 변경분, 무변화일은 두 파일 verify/lastUpdated 갱신 커밋("YYYY-MM-DD RD 무변화 확인").
@@ -180,7 +205,7 @@ product_std+chemicals, …)는 **폐기했다** — 이 문서가 폐기된 규�
 - **CI 강제(2026-08-31~)**: validate2 는 종전 수동 전용이었으나 이제 워크플로 `validate-tracker.yml` 의 `Validate tracker data (v2)` 스텝이 실행한다. PR이 `ops/runs/*.json` 을 건드리면 그중 `date` 가 최신인 원장을 넘기므로 검사 #6·#13이 작동한다. `paths` 에 `ops/**` 를 넣어 원장·coverage 변경만으로도 CI가 트리거된다.
 - **검사 #13 스윕 근거 대조(ERROR, 2026-08-31 도입 / 2026-09-01 근거 규칙 개정)**: `coverage.lastSwept == run.date` 인 셀은 그 원장에 근거가 있어야 한다. **근거는 하나뿐이다 — `searches[]` 중 region·axis 가 그 셀이고 `query` 가 그 셀의 사전 정의 `queries` 에 있는 것.** 종전의 두 경로(`searches[].axis` 선언만으로 인정 / `itemsCovered` 파생)는 폐지했다. 그 경로들은 특정 항목을 지목한 **재검증 쿼리로도 lastSwept 를 전진**시켰고(2026-09-01 실측 19셀), 훑지 않은 셀이 최신으로 찍히면 RD-3 로테이션에서 뒤로 밀려 커버리지 공백이 굳는다. **따라서 사전 정의 `queries` 가 없는 셀은 스윕될 수 없다** — 셀에 3~6개 쿼리를 먼저 채우는 것이 선행 과제이며, validator 가 그런 셀 수를 집계 경고로 낸다. 무산출 스윕도 사전 정의 쿼리를 실제로 돌리고 `searches[]` 에 `query`·`region`·`axis` 를 적어야 근거가 된다. **근거 규칙은 2026-09-01 부터 적용**하고 그 이전 원장은 구 규칙(axis 선언·`itemsCovered` 파생)으로 대조한다(WARN 표기) — 소급 적용하면 과거 원장을 건드리는 모든 PR 이 CI 에서 막힌다(실측: 2026-08-31 원장 33셀). 검사 #13 자체의 도입일(2026-08-31) 이전 원장은 스키마 부재로 검증 불가하므로 WARN 후 건너뛴다.
 - **항목 재검증은 스윕이 아니다**: 특정 규범을 지목한 확인 검색은 `coverage.lastSwept` 를 전진시키지 않고 셀의 `itemVerifyQueries[{date, query}]` 에만 기록한다. 우연히 발굴된 후보는 `adhocDiscovery[{date, query}]` 에 남긴다.
-- v1(scripts/validate.mjs) 기존 검사 + v2(ops/validate2.mjs) 검사 21종 (2026-09-01 에 #15~#21 추가 — runId 실재 / effectiveDate↔dt(WARN) / checkNote 단락 중복 / 승인 큐↔status / 검색 축↔coverage 매핑 / runId 원장 날짜↔verify.date / 원장 파생값↔실측): 산문 D-day(WARN) / refs dangling(ERROR)·미등재(WARN) / 동일 법령번호 중복 후보(WARN) / 제안 키워드+ACTIVE·DONE(WARN) / **watch due 경과(ERROR)** / **verify↔원장 대조(ERROR)** / pending 미이관(WARN) / region_policy 정합(WARN) / **coverage↔tracker ID 동기(ERROR)** / **스윕 근거 대조(ERROR)** / **노출 필드 마크다운 파손(ERROR)**
+- v1(scripts/validate.mjs) 기존 검사 + v2(ops/validate2.mjs) 검사 24종 (2026-09-01 에 #15~#21, 2026-09-02 에 #22~#24 추가 — runId 실재 / effectiveDate↔dt(WARN) / checkNote 단락 중복 / 승인 큐↔status / 검색 축↔coverage 매핑 / runId 원장 날짜↔verify.date / 원장 파생값↔실측 / dataSnapshotDate 필수·쿼리 분포 / coverage 셀 키 유일성 / region_policy 상대 D-day 금지): 산문 D-day(WARN) / refs dangling(ERROR)·미등재(WARN) / 동일 법령번호 중복 후보(WARN) / 제안 키워드+ACTIVE·DONE(WARN) / **watch due 경과(ERROR)** / **verify↔원장 대조(ERROR)** / pending 미이관(WARN) / region_policy 정합(WARN) / **coverage↔tracker ID 동기(ERROR)** / **스윕 근거 대조(ERROR)** / **노출 필드 마크다운 파손(ERROR)**
 - 실행(**리포 루트 기준**):
   ```
   node scripts/validate.mjs public/data/tracker_data.json public/data/region_policy.json

@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, json, subprocess, sys
+import argparse, json, os, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"
-COVERAGE_AXES_PATH = ROOT / "schemas/workflow-v4-coverage-axes.json"
+COVERAGE_AXES_PATH = Path(os.environ.get(
+    "WORKFLOW_V4_COVERAGE_AXES_PATH",
+    str(ROOT / "schemas/workflow-v4-coverage-axes.json"),
+)).resolve()
 ALIASES = {"a":"A","stage_a":"A","0.1":"A","b":"B","stage_b":"B","0.2":"B","c":"C","stage_c":"C","0.3":"C","0.4":"0.4","0.5":"0.5","0.6":"0.6","0.7":"0.7"}
 BUCKETS = {"A":["strict_passed_spec"],"B":["draft_cards","draft_card"],"C":["accepted_fact_safe"],"0.4":["addable_merge_safe"],"0.5":["evidence_complete_and_source_claim_covered"],"0.6":["content_enriched_and_language_polished"],"0.7":["publish_ready"]}
 STAGES = tuple(BUCKETS)
@@ -316,7 +319,11 @@ def main():
         try: validate_related_semantics(op,"SPEC_NEW",bad_rows,known,{"NEW":"SPEC_NEW"},"related_add[0]")
         except Blocked: pass
         else: raise RuntimeError("Related target mismatch not blocked")
-        print("PASS: V4 binding hardening self-test; empty remediation allowed, baseline identities immutable, insert identities unique, and Related semantics bound"); return 0
+        bad_status={**rows,"B":[{"source_spec_id":"SPEC_NEW","related_evidence_review":{"status":"PASS_WITH_NOTES","target_id":"OLD","final_relation_type":"distinct_follow_up"}}]}
+        try: validate_related_semantics(op,"SPEC_NEW",bad_status,known,{"NEW":"SPEC_NEW"},"related_add[0]")
+        except Blocked: pass
+        else: raise RuntimeError("non-canonical Stage B Related review status not blocked")
+        print("PASS: V4 binding hardening self-test; empty remediation allowed, baseline identities immutable, insert identities unique, Related semantics/status bound, and coverage contract override supported"); return 0
     if not args.run: raise Blocked("--run PATH required")
     run=load(repo_json(args.run)); validate_preflight(run); validate_coverage(run); validate_completeness(run); validate_operations(run); print(json.dumps({"status":"PASS","registry_binding":"PASS","coverage_axes":"PASS","completeness_residual_risk":"PASS","stage_baseline_binding":"PASS","identity_binding":"PASS","related_semantics":"PASS"})); return 0
 

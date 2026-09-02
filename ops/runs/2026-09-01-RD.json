@@ -1,0 +1,1601 @@
+{
+  "runId": "2026-09-01-RD",
+  "date": "2026-09-01",
+  "partial": true,
+  "note": "PR #299 머지 직후 개시한 정규 RD run(화요일). 어제 D-1로 잡았던 3건이 오늘 도래해 RD-1이 중심이 됐다.",
+  "rd0": {
+    "todayKST": "2026-09-01 (화요일)",
+    "ddayRollover": "0건 — R30이 렌더 시점 파생. dt 전수 스캔 결과 마커 0.",
+    "ddaySignConvention": "미래=D-N, 과거=D+N (validate2 검사 #11 관례)",
+    "boundaryItems": [
+      "D-DAY 2026-09-01 — CN-028 소비세 2% / CN-038 GB/T 46261-2025 / JP-004 상한 10엔 / KR-003 국무회의",
+      "D-2 2026-09-03 — NA-043 UAS Section 232 발효 / KR-003 정기국회 제출 기한",
+      "D+1 2026-08-31 — NA-048 관보 공표(어제 처리 완료)",
+      "D+2 2026-08-30 — CN-032 WTO/TBT 평의 마감",
+      "D+5·D+6 — NA-036(08.27)·NA-037(08.26) 발효 상태 유지"
+    ]
+  },
+  "rd1_arrivals": {
+    "verified": [
+      {
+        "id": "CN-028",
+        "event": "리튬전지 소비세 2% 부과 개시",
+        "result": "도래 확인. 2015년부터의 장기 면세 종료. status 전환 승인 큐"
+      },
+      {
+        "id": "CN-038",
+        "event": "GB/T 46261-2025 시행",
+        "result": "도래 확인(발포 2025-08-29·실시 2026-09-01). status 전환 승인 큐"
+      },
+      {
+        "id": "JP-004",
+        "event": "需給調整市場 상한 10엔 적용",
+        "result": "적용 확인(15엔 대비 약 33% 인하). 이미 ACTIVE 이므로 제목·d 사실 갱신만 수행"
+      }
+    ],
+    "pending": [
+      {
+        "id": "KR-003",
+        "event": "국무회의(오늘)·정기국회 제출(D-2)",
+        "note": "일정만 재확인. 의결 실행 미확인이라 WATCH 유지. 09.03 제출 기한을 다음 run에서 재확인"
+      }
+    ]
+  },
+  "rd3_tuesdaySlice": {
+    "axes": "chemicals(Tue) · next_tech(Tue) + Daily(trade·product_std·supply_chain)",
+    "sweptCells": [],
+    "findings": {
+      "EU/chemicals": "**셀 스윕이 아니라 EU-025 항목 재검증이다.** EU-025 무변화 확인(RAC 최종의견 2026.03.02 기수록)이 결과이고, 그 과정에서 PFHxA 제한을 **부수 발굴**해 EU-039 로 편입했다. **EU/chemicals 셀 자체는 스윕하지 않았다** — 사전 정의 쿼리가 0개이고 lastSwept 는 2026-07-29 그대로다.",
+      "CN/next_tech": "**셀 스윕이 아니라 CN-012·CN-003 항목 재검증이다.** GB/T 43568-2026 무변화, IEC 전고체 국제표준 프로젝트는 8/29 승인 큐 기등재. CN/next_tech 셀은 스윕하지 않았다."
+    },
+    "notSwept": [
+      "chemicals — CN(1일) · EU(34일) · GL(34일) · JP(34일) · KR(1일) · NA(1일)",
+      "next_tech — CN(1일) · EU(30일) · GL(30일) · JP(3일) · KR(30일) · NA(30일)"
+    ],
+    "notSweptDaily": [
+      "product_std — CN(1일) · EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일)",
+      "supply_chain — CN(3일) · EU(1일) · GL(3일) · JP(3일) · KR(3일) · NA(1일)",
+      "trade — CN(1일) · EU(1일) · GL(1일) · JP(1일) · KR(1일) · NA(1일)"
+    ],
+    "notSweptDerived": "coverage.json 의 lastSwept 에서 파생한다(하드코딩 금지). 종전에는 손으로 적어 EU/next_tech·KR/next_tech 를 실제로 스윕했는데도 미스윕으로 남겨, 다음 run 의 잔여 목록을 부풀리고 있었다.",
+    "honestSummary": "**오늘 정당한 발굴 스윕은 0셀이다.** 방치 24건 회수(항목 재검증)가 중심이었고 RD-3 슬라이스는 돌지 않았다. EU/chemicals 를 한때 1셀로 적었으나, 근거가 PFHxA 후보를 지목한 후속 쿼리였고 그 셀은 사전 정의 쿼리가 0개여서 철회했다."
+  },
+  "searches": [
+    {
+      "query": "电池消费税 2026年9月1日 正式实施 锂离子蓄电池 2% 征收 开始 首日",
+      "region": "CN",
+      "axis": "subsidy",
+      "itemsCovered": [
+        "CN-028"
+      ],
+      "result": "도래 확인. 9.1부터 5종 전지 2%(2027.9.1 4%), 光伏 2027.4.1 2%·2028.4.1 4%, 나트륨이온·고체·연료전지 및 페로브스카이트·적층·비화갈륨 2028.12.31까지 면세. 2015년 장기 면세 정책 종료. 국가세무총국 법규고 게재본 c5251171 확인.",
+      "axisRelabeled": "선언 CN/trade → coverage 매핑 CN/subsidy",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "GB/T 46261-2025 电化学储能电站 火灾监测预警系统 2026年9月1日 实施",
+      "region": "CN",
+      "axis": "energy_market",
+      "itemsCovered": [
+        "CN-038"
+      ],
+      "result": "도래 확인. 발포 2025-08-29·실시 2026-09-01, 제품표준, ICS 13.220.20, 귀구 전국소방표준화기술위원회. 가스·온도·연무·압력 다중 파라미터 감시와 EMC·환경 내구성 요건.",
+      "axisRelabeled": "선언 CN/product_std → coverage 매핑 CN/energy_market",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "需給調整市場 2026年9月1日 上限価格 10円 適用開始 一次調整力 実需給",
+      "region": "JP",
+      "axis": "energy_market",
+      "itemsCovered": [
+        "JP-004"
+      ],
+      "result": "적용 확인. 1차·2차①·복합 상한 10.00엔/ΔkW·30분, 15엔 대비 약 33% 인하. 자원에너지청 2026-07-14 방침. 7.21엔 단계안 잔존.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "EU REACH restriction PFAS battery chemicals 2026 August September new regulation adopted ECHA",
+      "region": "EU",
+      "axis": "chemicals",
+      "itemsCovered": [
+        "EU-025"
+      ],
+      "result": "EU-025 무변화 확인 — 유니버설 PFAS 제한 갱신 제안 2025-08-20 공표, RAC 최종의견 2026-03-02 채택, SEAC 최종의견 2026년말 목표, 범위는 모든 PFAS·모든 용도(소방포말 제외)+8개 부문 추가. 항목이 이미 담고 있다. **부수 발굴** — PFHxA 제한 2026.04 적용, 소방포말 PFAS 제한 2026.10 적용.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "PFHxA restriction EU Regulation 2024/2462 April 2026 application scope fluoropolymer textiles Annex XVII entry 79",
+      "region": "EU",
+      "axis": "chemicals",
+      "itemsCovered": [
+        "EU-039"
+      ],
+      "result": "**신규 후보**. Commission Regulation (EU) 2024/2462 of 19 September 2024 가 REACH 부속서 XVII 에 entry 79 신설 — PFHxA·그 염·PFHxA 관련물질 제한. 용도 차등 유예: 소방포말(훈련·시험·공공소방) 18개월 → 2026-04-10 적용, 직물·가죽·모피·의류·신발 24개월. 주요 용도는 종이·판지 식품접촉재·직물·소방포말이며 6:2 아크릴레이트 등 저분자 관련물질이 직물에 연 약 65,000톤. 트래커 0건. **[09/01 승인] EU-039 로 편입.** 발견 시점에는 신규 후보라 itemsCovered 가 비어 있었고, 승인 후 항목이 생겨 여기에 연결한다.",
+      "sweepKind": "verify",
+      "axisNote": "이 검색은 셀의 사전 정의 쿼리가 아니므로 EU/chemicals 의 스윕 근거가 아니다 — 후보를 지목한 후속 확인이다. coverage 에는 adhocDiscovery-2026-09-01 로만 기록했다."
+    },
+    {
+      "query": "solid state battery sodium ion standard regulation 2026 EU Korea adopted next generation battery technical requirement",
+      "region": "CN",
+      "axis": "next_tech",
+      "itemsCovered": [
+        "CN-012"
+      ],
+      "result": "무변화. GB/T 43568-2026 2026.07.01 시행(CN-012 기추적). 중국 주도 IEC 전고체 국제표준 프로젝트에 프랑스·한국·일본 참여 — 8/29 감사에서 이미 승인 큐 등재. EU EV-26 표준 언급은 1차 확인 실패로 기재하지 않는다.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "국무회의 2026년 9월 1일 조세특례제한법 개정안 국내생산 세액공제 의결 정기국회 제출",
+      "region": "KR",
+      "axis": "subsidy",
+      "itemsCovered": [
+        "KR-003"
+      ],
+      "result": "일정만 재확인(08.03 발표→08.04~20 입법예고→08.27 차관회의→09.01 국무회의→09.03 이전 제출). 6대 분야에 이차전지 포함. **오늘 의결의 실제 실행은 미확인** — 근거 링크가 전부 8월 공표 일정표다. WATCH 유지.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "Section 232 unmanned aircraft systems tariff September 3 2026 annex components lithium-ion battery HTS subheading",
+      "region": "NA",
+      "axis": "trade",
+      "itemsCovered": [
+        "NA-043"
+      ],
+      "result": "세율·발효·국가상한 확인 후 관보 원문으로 승격 검증. 2차 해설의 Blue UAS 유예일(2027.03.03)이 본문 문언(포고일 기산 180일=2027.02.09)과 어긋나 본문을 따랐다.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "GB 47372-2026 移动电源 安全技术规范 实施日期 强制性国家标准",
+      "region": "CN",
+      "axis": "product_std",
+      "itemsCovered": [
+        "CN-016"
+      ],
+      "result": "무변화. 발포 2026-03-31·실시 2027-04-01·12개월 경과기간 일치. 신규 사실 — 순환노화 후 석리 검출 신설.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "工信部 电动自行车 锂离子电池 回收利用 通知 2026 小型锂电池 回收 政策 进展",
+      "region": "CN",
+      "axis": "product_std",
+      "itemsCovered": [
+        "CN-011"
+      ],
+      "result": "통지 실재 확인 후 원문 메타로 승격. 工信厅联节函〔2026〕134号(2026-03-28). 별건으로 电动自行车锂离子电池回收和综合利用管理办法 제정 진행 중.",
+      "axisRelabeled": "선언 CN/recycle → coverage 매핑 CN/product_std",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "ADR 2027 special provision SP680 damaged defective lithium batteries CN.252.2026 objection period 1 October 2026",
+      "region": "EU",
+      "axis": "transport",
+      "itemsCovered": [
+        "EU-030"
+      ],
+      "result": "무변화. SP680 실질 요건 특정 — P911 연계, 탁송인이 포장 사용 주위조건 설명을 하역자·운송인에 제공하고 운송서류에 첨부. CN.252.2026 이의기간은 이번 검색으로는 재확인 못 함(기록 유지).",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "자원재활용법 포장재 재질구조 등급표시 2026 개정 시행 환경부 평가 결과 표시 의무",
+      "region": "KR",
+      "axis": "packaging",
+      "itemsCovered": [
+        "KR-027"
+      ],
+      "result": "평가·표시 절차 일치 확인. 신규 — 현행 고시가 제2023-46호(시행 2024.01.01)임을 확인해 제정본만 담긴 기재를 보정. 과태료 300만원 이하는 2차 출처뿐이라 미기재.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "GB 43352-2023 快递包装 重金属与特定物质限量 实施 2026 复合材料 检测 执行情况",
+      "region": "CN",
+      "axis": "packaging",
+      "itemsCovered": [
+        "CN-034"
+      ],
+      "result": "무변화. 2024-06-01 시행·복합재료 선언의무 일치. 신규 — 식품 직접접촉 쾌체포장 비적용.",
+      "axisRelabeled": "선언 CN/product_std → coverage 매핑 CN/packaging",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "商务部 对日本 两用物项 出口管制 2026 公告 最新 管制清单 更新",
+      "region": "CN",
+      "axis": "trade",
+      "itemsCovered": [
+        "CN-033"
+      ],
+      "result": "**누락 발견** — 公告2026年第27号(2026-06-29, 20사 추가)이 트래커에 없었다. 원문으로 승격 검증 후 반영, 관공명단 누계 60사.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "发改价格 2026 114号 容量电价 新型储能 独立储能 后续 细则 省级 落实 2026年8月",
+      "region": "CN",
+      "axis": "energy_market",
+      "itemsCovered": [
+        "CN-037"
+      ],
+      "result": "발개위 원문으로 승격 검증. 성급 이행 — 吉林·新疆·辽宁·陕西·青海 5개 성 세칙 출범, 陕西 165元/kW·年(2차 출처).",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "再生黑粉 进口管理 公告 锂电池 2026 实施 情况 海关 固体废物 再生原料",
+      "region": "CN",
+      "axis": "recycle",
+      "itemsCovered": [
+        "CN-021"
+      ],
+      "result": "무변화. **오기 1건 정정** — 발포 주체가 6부처인데 d가 5부처로 적혀 있었다(detail은 六部门, 항목 내 불일치). 신규 — 64항 행업표준으로 수입 검사규정 표준화.",
+      "axisRelabeled": "선언 CN/supply_chain → coverage 매핑 CN/recycle",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "GB/T 43568-2026 电动汽车用固态电池 术语和分类 实施 2026年7月1日 液态电解质 5%",
+      "region": "CN",
+      "axis": "next_tech",
+      "itemsCovered": [
+        "CN-012"
+      ],
+      "result": "무변화. 분류 임계값·120℃ 진공 6h 실중률 ≤0.5% 일치. 오늘 CN-028 소비세 면세 판정선과 직결.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "CISAF Clean Industrial Deal State Aid Framework 2026 amendment decisions approved battery manufacturing aid",
+      "region": "EU",
+      "axis": "subsidy",
+      "itemsCovered": [
+        "EU-032"
+      ],
+      "result": "무변화. 첫 승인 SA.115764가 프랑스 해상풍력 110억 유로임을 확인. 신규 신호 — 업계가 제6.2조 개정(생산량 연동 지원)을 요구 중이나 집행위 개정안 없음.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "국가첨단전략산업 특별법 2026 개정 시행 이차전지 국가첨단전략기술 지정 고시 변경",
+      "region": "KR",
+      "axis": "supply_chain",
+      "itemsCovered": [
+        "KR-021"
+      ],
+      "result": "무변화. 고시 제2023-108호·17개 기술 유지, 2026년 이차전지 지정 변경 미확인. 시행규칙 개정은 입법예고 단계.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "GB/T 46991.1-2025 电动汽车车载动力电池耐久性 要求及试验方法 轻型汽车 实施日期",
+      "region": "CN",
+      "axis": "product_std",
+      "itemsCovered": [
+        "CN-029"
+      ],
+      "result": "무변화. 발포 2025-12-31·실시 2026-07-01 일치. 신규 — 적용 범위 N1류 및 3500kg 이하 M1·M2류, 3500kg 초과 M1은 参照执行.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "GB 36980.1-2025 电动汽车能量消耗量限值 M1 实施 2026 强制性 国家标准 进展",
+      "region": "CN",
+      "axis": "product_std",
+      "itemsCovered": [
+        "CN-017"
+      ],
+      "result": "무변화. 발포 2025-05-30·실시 2026-01-01·GB/T 36980-2018 전부 대체 일치.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "중소벤처기업부 산업통상자원부 무공해차 보급목표제 2026 저공해차 판매비중 고시 개정",
+      "region": "KR",
+      "axis": "subsidy",
+      "itemsCovered": [
+        "KR-020"
+      ],
+      "result": "**누락 발견** — 2026.01.05 기후에너지환경부 보급목표 개정 고시가 트래커에 없었다. 무공해차 2028년 36%·2029년 43%·2030년 50% 확인. 2026년도 수치는 2차 출처 자체 모순 + 원문 별표 미렌더로 미확정.",
+      "axisRelabeled": "선언 KR/next_tech → coverage 매핑 KR/subsidy",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "한국수출입은행법 시행령 일부개정 대통령령 제36420호 직접투자 연계의무 폐지 시행",
+      "region": "KR",
+      "axis": "supply_chain",
+      "itemsCovered": [
+        "KR-014"
+      ],
+      "result": "내용 보강 3건(간접투자 대상 확대·25% 한도 삭제·15% 지분한도 예외). **시행일 불일치** — 2차 출처가 시행령 2026.07.01 / 모법 2026.06.24로 구분. 원문 대조 전까지 기존 기재 유지.",
+      "axisRelabeled": "선언 KR/subsidy → coverage 매핑 KR/supply_chain",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "산업통상자원부 희토류 공급망 종합대책 2026 후속 추진 상황 영구자석 비축",
+      "region": "KR",
+      "axis": "energy_market",
+      "itemsCovered": [
+        "KR-016"
+      ],
+      "result": "무변화 + 후속 보강. HSK 코드 신설·세분화, P턴 기업 공급망기금 현지 시설투자 지원, 영구자석 재자원화·공공비축 확대.",
+      "axisRelabeled": "선언 KR/supply_chain → coverage 매핑 KR/energy_market",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "新能源汽车 车辆购置税 减免 2026年 减半 政策 执行情况 15000元 上限",
+      "region": "CN",
+      "axis": "trade",
+      "itemsCovered": [
+        "CN-001"
+      ],
+      "result": "무변화 + 구조 보강. 집행기간 2026.01.01~2027.12.31, 실효 5%, 상한 ¥15,000(직전 ¥30,000의 절반), 목록 등재·减免税标识 요건.",
+      "axisRelabeled": "선언 CN/subsidy → coverage 매핑 CN/trade",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "GB/T 45915-2025 动力锂电池 运输安全 多式联运 技术要求 2026年2月1日 实施",
+      "region": "CN",
+      "axis": "transport",
+      "itemsCovered": [
+        "CN-035"
+      ],
+      "result": "무변화. 발포 2025-08-01·실시 2026-02-01·분급·폐구전지 포장요건 일치.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "Regulation EU 2024/1747 electricity market design implementation 2026 deadline PPA CfD member states transposition",
+      "region": "EU",
+      "axis": "energy_market",
+      "itemsCovered": [
+        "EU-031"
+      ],
+      "result": "**신규 1건** — 2026.01.01부터 일중 존간 게이트 클로저 타임 60분→30분 단축이 기재에 없었다. 올해 초 발효한 시장규칙 변경.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "工信部 十五五 全固态电池 L3 自动驾驶 路线图 2026 进展 政策",
+      "region": "CN",
+      "axis": "next_tech",
+      "itemsCovered": [
+        "CN-003"
+      ],
+      "result": "**내용 대폭 보강** — 2025.12.15 첫 L3 진입허가 명단(长安·北汽极狐, 베이징·충칭, 2026 1분기 시범), 2026.01.14 工信部 전고체 중점 공관 명시.",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "소재부품장비 특별조치법 2026 개정 시행 공급망 안정화 산업통상자원부 소부장",
+      "region": "KR",
+      "axis": "supply_chain",
+      "itemsCovered": [
+        "KR-022"
+      ],
+      "result": "무변화 + 연혁 보강. 현행 법률 제21065호(2025.10.01 공포·2026.01.02 시행). 시행령 4개 골자, 시행규칙 입법예고 중. **지난 run에서 묶음 쿼리로 못 덮었던 항목이 규범별 쿼리로 산출됐다.**",
+      "sweepKind": "verify"
+    },
+    {
+      "query": "AFIR Regulation 2023/1804 alternative fuels infrastructure 2026 targets deadline recharging pools heavy duty",
+      "region": "EU",
+      "axis": "downstream",
+      "itemsCovered": [
+        "EU-033"
+      ],
+      "result": "무변화. 발효 2023-10-12·적용 2024-04-13. 2026.01.01까지 집행위 NPF 평가 보고 시한이 올해 확인점.",
+      "axisRelabeled": "선언 EU/next_tech → coverage 매핑 EU/downstream",
+      "sweepKind": "verify"
+    }
+  ],
+  "approvalQueueCandidates": [
+    {
+      "name": "[status] CN-028 UPCOMING → ACTIVE (2026-09-01 소비세 부과 개시 도래)",
+      "region": "CN",
+      "axis": "trade",
+      "type": "status",
+      "basis": "오늘 시행 개시를 실검색으로 확인. effectiveDate 2026-09-01 도래.",
+      "recommendation": "ACTIVE 전환",
+      "discoveredRun": "2026-09-01-RD",
+      "decision": "승인·반영 완료 (2026-09-01, Claire)",
+      "statusChange": {
+        "id": "CN-028",
+        "from": "UPCOMING",
+        "to": "ACTIVE"
+      },
+      "applied": true
+    },
+    {
+      "name": "[status] CN-038 UPCOMING → ACTIVE (2026-09-01 GB/T 46261-2025 시행 도래)",
+      "region": "CN",
+      "axis": "product_std",
+      "type": "status",
+      "basis": "SAMR 표준정보로 실시일 2026-09-01 도래 확인.",
+      "recommendation": "ACTIVE 전환",
+      "discoveredRun": "2026-09-01-RD",
+      "decision": "승인·반영 완료 (2026-09-01, Claire)",
+      "statusChange": {
+        "id": "CN-038",
+        "from": "UPCOMING",
+        "to": "ACTIVE"
+      },
+      "applied": true
+    },
+    {
+      "name": "Commission Regulation (EU) 2024/2462 — PFHxA 제한 (REACH 부속서 XVII entry 79)",
+      "region": "EU",
+      "axis": "chemicals",
+      "basis": "2024-09-19 채택. REACH Annex XVII entry 79 신설. PFHxA·염·관련물질 제한. 용도별 차등 유예 — 소방포말(훈련·시험) 2026-04-10 적용, 직물·가죽·의류·신발 24개월. ECHA·EUR-Lex 메타 확인, 조문 미대조.",
+      "enacted": true,
+      "instrument": "law",
+      "priority": "P3",
+      "sbtlRelevance": "간접. 규제 중심 용도는 식품접촉 종이·직물·소방포말로 파우치 필름과 직접 겹치지 않는다. 다만 6:2 아크릴레이트류가 발수·표면처리에 쓰이므로 라미네이션 접착제·표면처리제 공급망 접점 가능성이 있어 확인이 필요하다. EU-025 유니버설 PFAS 제한과 층위가 다르다(이쪽은 이미 제정·적용).",
+      "dupChecked": true,
+      "dupNote": "트래커 전문에서 PFHxA·2024/2462 0건",
+      "discoveredRun": "2026-09-01-RD",
+      "scopeGate": "enacted",
+      "decision": "승인·반영 완료 (2026-09-01, Claire)",
+      "applied": true
+    },
+    {
+      "name": "[정책판단] KR-020 WATCH 유지 여부 — 제정·시행 중인 고시를 관련성 낮음으로 WATCH 에 두는 문제",
+      "region": "KR",
+      "axis": "next_tech",
+      "type": "policy",
+      "basis": "2026.01.05 개정 고시가 시행 중임을 확인했다. 다만 이 항목의 기록된 WATCH 사유는 제정 여부가 아니라 \"수요측 규제라 SBTL 직접 관련 낮음\"(2026.07.01 승인)이고, 재평가 조건은 \"목표비율 고시·이행연도 도래 시\"였다. 이번 확인은 그 조건의 충족이다.",
+      "recommendation": "ACTIVE 전환 권고. 단 같은 유형의 다른 항목이 있는지 함께 볼 것(정책 일관성)",
+      "discoveredRun": "2026-09-01-RD",
+      "decision": "승인·반영 완료 (2026-09-01, Claire)",
+      "question": "제정·시행 중인 규범을 관련성 낮음을 이유로 WATCH 에 두는 것이 맞는가. 스코프 게이트는 WATCH 를 미제정 규범 자리로 정의하고 F14 는 관련성 충족 시 노출도 무관 편입을 정한다 — 두 규칙대로면 ACTIVE 가 맞고, 지금 배치는 편입 여부 문제를 status 로 다룬 셈이다.",
+      "statusChange": {
+        "id": "KR-020",
+        "from": "WATCH",
+        "to": "ACTIVE"
+      },
+      "applied": true
+    },
+    {
+      "name": "[status] CN-011 WATCH → ACTIVE (工信厅联节函〔2026〕134号 2026-03-28 발문 확인)",
+      "region": "CN",
+      "axis": "recycle",
+      "type": "status",
+      "basis": "이번 run 에서 원문 메타를 확정했다 — 발문자호 工信厅联节函〔2026〕134号, 발문 2026-03-28, 발문기관 工业和信息化部办公厅 + 供销合作总社办公厅. 발문된 행정규범이므로 scope gate 상 제정 요건을 충족하고 WATCH 사유였던 미제정이 소멸한다. 조문이 引导 문언이라 강제 의무가 없다는 점은 의무 강도의 문제이지 제정 여부의 문제가 아니다(GL-008 같은 민간 자율 이니셔티브와 다름 — 이쪽은 부처 발문 통지다).",
+      "recommendation": "ACTIVE 전환",
+      "discoveredRun": "2026-09-01-RD",
+      "decision": "승인·반영 완료 (2026-09-01, Claire)",
+      "note": "8/31 원장에서 이미 큐에 있었으나 당시엔 문서번호·발문일이 비어 있었다. 이번에 근거를 확정해 다시 올린다.",
+      "statusChange": {
+        "id": "CN-011",
+        "from": "WATCH",
+        "to": "ACTIVE"
+      },
+      "applied": true
+    }
+  ],
+  "verifyCounts": {
+    "derivedFrom": "public/data/tracker_data.json (마감 시 재생성, 하드코딩 금지)",
+    "totalItems": 188,
+    "thisRun": {
+      "secondary": 17,
+      "primary-meta": 7,
+      "search": 2,
+      "primary-doc": 3
+    },
+    "thisRunTotal": 29,
+    "carriedOver": 159
+  },
+  "statusDistribution": {
+    "ACTIVE": 110,
+    "DONE": 10,
+    "WATCH": 41,
+    "UPCOMING": 27
+  },
+  "partialReason": {
+    "why": "전수 재검증 미완. 이번 run 은 RD-1 도래 3건, D-2 2건, 방치 24건 중 22건 회수에 집중했고 나머지 축의 정기 스윕은 부분만 수행했다.",
+    "incompleteStages": [
+      "RD-2 권역 클러스터 미실시",
+      "**RD-3 화요일 슬라이스 미실시 — 정당한 발굴 스윕 0셀.** 미스윕 chemicals — CN(1일) · EU(34일) · GL(34일) · JP(34일) · KR(1일) · NA(1일) / next_tech — CN(1일) · EU(30일) · GL(30일) · JP(3일) · KR(30일) · NA(30일)",
+      "Daily 축 미스윕 — product_std — CN(1일) · EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일) / supply_chain — CN(3일) · EU(1일) · GL(3일) · JP(3일) · KR(3일) · NA(1일) / trade — CN(1일) · EU(1일) · GL(1일) · JP(1일) · KR(1일) · NA(1일)"
+    ],
+    "unverifiedScope": {
+      "staleCount": 2,
+      "staleIds": [
+        "KR-004",
+        "KR-006"
+      ],
+      "note": "검증 후 7일 초과 항목. KR-004·KR-006 은 전용 쿼리 미실시로 이전 검증일을 유지했다."
+    }
+  },
+  "carryOver": [
+    "**정책 일관성 — WATCH 인데 제정 신호가 있는 22건 판정** (KR-020 승인의 파급). 민간 자율 표준은 정당한 WATCH 이므로 항목별 배치 근거 확인이 선행",
+    "**검사 #16 초회 적출 5건** — NA-024(발효일 있는데 dt 는 미발효라고 서술, 의심 높음)·NA-016·CN-015·CN-004·KR-005",
+    "**EU-039 노출 판정 미완** — SBTL 라미네이션 접착제·표면처리제의 6:2 아크릴레이트 사용 여부 확인 후 우선순위 재판정(현재 P3). 편입 자체는 09/01 승인 완료",
+    "**NA-043 부속서 세번표 미확정** — 관보 PDF 에 이미지로만 실려 8507 계열 포함 여부를 못 봤다. USITC HTS 개정본 또는 CBP CSMS 로 재시도. SBTL 직접 노출이 여기 달려 있다",
+    "**KR-014 시행일 불일치 미해소** — 트래커 2026.06.24 vs 2차 출처 시행령 2026.07.01. 관보·법령 연혁 대조 필요. 날짜는 원문 없이 바꾸지 않는다",
+    "**KR-020 연도별 수치 미확정** — 2차 출처 자체 모순 + law.go.kr 별표 미렌더. 관보 또는 고시 별표 원문 필요",
+    "**KR-027 과태료 조문 미확인** — 2차 출처의 300만원 이하를 기재하지 않았다. SBTL 은 포장재 제조자라 직접 노출",
+    "KR-003 — D-2(09.03) 정기국회 제출 확인. 제출되면 WATCH 유지 사유 소멸",
+    "商务部公告 2026년 전 호수 훑기 — CN-033 제27호 누락 유형이 CN-036 에도 있는지",
+    "d·detail 숫자 불일치 전수 점검 — CN-021(5부처 vs 六部门) 유형",
+    "EU-038 일몰재심 창구 2026.09 — 관보 일몰 예고 공고 확인. EUR-Lex WAF 차단 상태",
+    "EU-033 — 2026.01.01 집행위 NPF 평가 보고서 공표 여부",
+    "미스윕 축(coverage 파생) — chemicals — CN(1일) · GL(34일) · JP(34일) · KR(1일) · NA(1일) / next_tech — CN(1일) · EU(30일) · GL(30일) · JP(3일) · KR(30일) · NA(30일) / product_std — CN(1일) · EU(34일) · GL(46일) · JP(34일) · KR(34일) · NA(34일) / supply_chain — CN(3일) · EU(1일) · GL(3일) · JP(3일) · KR(3일) · NA(1일) / trade — CN(1일) · EU(1일) · GL(1일) · JP(1일) · KR(1일) · NA(1일)"
+  ],
+  "primaryDocs": [
+    {
+      "doc": "Commission Implementing Regulation (EU) 2021/2170 — OJ L 438, 8.12.2021, p. 46",
+      "method": "primary-meta",
+      "itemsCovered": [
+        "EU-038"
+      ],
+      "finding": "제3조 enters into force on the day following that of its publication 확인 → 발효 2021-12-09. 종전 effectiveDate 2021-12-08 은 집행위 보도자료 날짜였다. 발효일 확정으로 규정 (EU) 2016/1036 제11조 제2항 5년 일몰이 2026-12-09 로 떨어져 2차 출처 만료일과 일치한다.",
+      "note": "PR #299에서 수행한 검증이나 runId 를 실재하지 않는 원장에 걸어 추적이 끊겨 있었다. 오늘 원장으로 이관."
+    },
+    {
+      "doc": "Proclamation 11055 of August 13, 2026 — 91 FR 53699 (Vol.91 No.159, 2026-08-19)",
+      "method": "primary-doc",
+      "itemsCovered": [
+        "NA-043"
+      ],
+      "finding": "세율 Annex I 100% / Annex II 25% / Annex III 25%(2027-02-09). 국가 상한 15%(일·한·대만·스위스·리히텐슈타인·EU)·10%(영국)는 HTSUS Column 1 을 포함한 상한이며 증명 조건부. Blue UAS 등재분은 포고일 기산 180일. 상무부 조사가 lithium-ion batteries 를 과도 의존 핵심부품으로 명시.",
+      "note": "federalregister.gov 는 unblock 리다이렉트로 차단돼 govinfo PDF 를 받아 텍스트 층을 직접 추출했다. 기존 ToUnicode CMap 디코더는 이 PDF 가 Type1 폰트라 실패해 Tj 리터럴 추출기를 새로 만들었다. **부속서 세번표는 이미지라 8507 포함 여부 미확정.**"
+    },
+    {
+      "doc": "工信厅联节函〔2026〕134号 — 关于进一步加强电动自行车锂离子电池回收利用体系建设的通知 (2026-03-28)",
+      "method": "primary-meta",
+      "itemsCovered": [
+        "CN-011"
+      ],
+      "finding": "발문자호·발문일·발문기관 확정. 3급 회수체계 활용, 생산기업 共建·委托建设 유도. 수치 목표 없음, 강제 의무 없음.",
+      "note": "50일 방치 항목. status 판정에 필요한 제정 사실을 확보했다."
+    },
+    {
+      "doc": "商务部公告2026年第27号 — 公布将20家日本实体列入出口管制管控名单 (2026-06-29)",
+      "method": "primary-doc",
+      "itemsCovered": [
+        "CN-033"
+      ],
+      "finding": "공포 즉일 시행. 防卫研究所 등 20사 관공명단 추가로 누계 60사. 금지·예외 문언은 제11호와 동일. 품목 특정 없음(양용물항 일반).",
+      "note": "**트래커 누락 보정** — 6월 29일 발표건이 두 달 넘게 미반영이었다. 전수 스캔에서 第27号 0건 확인."
+    },
+    {
+      "doc": "发改价格〔2026〕114号 —《关于完善发电侧容量电价机制的通知》 (발문 2026-01-27, 공개 2026-01-30)",
+      "method": "primary-doc",
+      "itemsCovered": [
+        "CN-037"
+      ],
+      "finding": "산식 원문 확정 — 折算比例为满功率连续放电时长除以全年最长净负荷高峰持续时长，最高不超过1. 수준은 以当地煤电容量电价标准为基础. 성별 시행 시한 미규정, 양수저장 每3—5年 재핵가.",
+      "note": "종전 기재(방전시간·첨두 기여 반영)를 원문 산식으로 승격."
+    },
+    {
+      "doc": "국가법령정보센터 — 「포장재 재질·구조 등급표시 기준」 행정규칙 메타",
+      "method": "primary-meta",
+      "itemsCovered": [
+        "KR-027"
+      ],
+      "finding": "현행본 = 환경부고시 제2023-46호(2023.03.06 일부개정), 시행 2024.01.01. 트래커는 제정본만 담고 있었다.",
+      "note": "과태료 조문은 law.go.kr 본문이 JS 렌더라 미확인 — 제재 금액은 기재하지 않았다."
+    },
+    {
+      "doc": "Commission Regulation (EU) 2024/2462 — REACH 부속서 XVII entry 79 (2024-09-19 채택)",
+      "method": "primary-meta",
+      "itemsCovered": [
+        "EU-039"
+      ],
+      "finding": "PFHxA·염·관련물질 제한. 용도별 차등 유예 — 소방포말(훈련·시험·공공소방) 18개월 → 2026.04.10 적용, 직물·가죽·모피·수피(의류·부속품·신발) 24개월. 주요 사용처는 식품접촉 종이·판지, 직물, 소방포말이며 6:2 아크릴레이트 등 저분자 관련물질이 직물에 연 약 65,000톤.",
+      "note": "**조문 전문 미대조** — EUR-Lex 본문이 WAF 로 차단돼 메타·집행위 보도자료 수준에서 확정했다."
+    }
+  ],
+  "selfCaught": {
+    "finding": "EU-038 verify.runId = 2026-09-01-FIX — 어느 원장에도 없는 이름. 오늘 원장을 만들자 검사 #6이 즉시 잡았다. PR #299 CI 는 통과시켰다.",
+    "why": "검사 #6은 verify.date == run.date 인 항목만 대조한다. PR #299가 검증한 원장은 08-29·08-31 이고 EU-038의 verify.date 는 09-01 이라 어느 대조 대상에도 들어가지 않았다. 원장이 아예 없는 날짜의 스탬프는 영영 검사되지 않는 사각이었다.",
+    "fix": "EU-038을 오늘 원장으로 이관(primaryDocs). 검사 #15 신설 — verify.runId 는 ops/runs/*.json 에 실재하는 runId 여야 한다. 187건 전수 스캔에서 고아는 이 1건뿐이라 예외 없이 ERROR 로 건다.",
+    "lesson": "검사 #6의 대조 축이 날짜라서 날짜가 어긋나면 검사 자체를 빠져나간다. 게이트를 만들 때 무엇을 막는가뿐 아니라 대조 키가 없으면 어떻게 되는가를 봐야 한다 — 5차 리뷰 교훈과 같은 형태다."
+  },
+  "validatorHardening": {
+    "check15": "verify.runId ↔ 원장 파일 실재 대조 (ERROR). 검사 #6이 날짜 불일치로 건너뛴 스탬프를 잡는다.",
+    "check16": "effectiveDate ↔ dt 등장 대조 (WARN). dt 전면 재작성 시 시행일 유실을 잡는다. 도입 계기 = KR-022 유실을 게이트 4종이 전부 통과시켰다.",
+    "check17": "checkNote 같은 run 단락 중복 부착 (ERROR).",
+    "check18": "원장 승인 큐 ↔ 실제 status 정합 (ERROR). status 를 먼저 바꿔놓고 큐에만 남기면 승인 게이트가 우회되는데 지금까지 이를 보는 검사가 없었다.",
+    "check21": "원장 파생값(verifyCounts·statusDistribution·coverageStamped.count) ↔ tracker/coverage 실측 정합 (ERROR). tracker 의 dataSnapshotDate 와 run.date 가 같은 원장만 대조한다 — 과거 원장은 그때의 상태를 담으므로 대상이 아니다. **손으로 적힌 파생값은 반드시 낡는다는 것을 오늘만 두 번 확인했다.**"
+  },
+  "gapsFound": [
+    {
+      "id": "CN-033",
+      "kind": "계열 공고 후속 호수 누락",
+      "detail": "商务部公告2026年第27号(2026-06-29)이 두 달 넘게 미반영. 항목 제목에 호수를 나열하는 방식은 후속 호수가 빠져도 표면에 드러나지 않는다.",
+      "action": "반영 완료. 다음 run에서 商务部公告 2026년 전 호수를 훑어 CN-033·CN-036의 추가 누락 여부를 본다."
+    },
+    {
+      "id": "CN-021",
+      "kind": "노출 필드 수치 오기",
+      "detail": "d 가 발포 주체를 5부처로 적었으나 실제는 6부처이고, 같은 항목의 detail 에는 六部门으로 적혀 있어 항목 내부가 어긋나 있었다.",
+      "action": "d 를 6부처로 정정. **같은 사실이 d 와 detail 에 다르게 적힌 유형** — 다음 run 에서 숫자 표현이 두 필드에 갈라져 있는 항목을 전수로 훑는다."
+    },
+    {
+      "id": "KR-020",
+      "kind": "고시 개정 누락",
+      "detail": "2026.01.05 기후에너지환경부 「연간 저공해자동차 및 무공해자동차 보급 목표」 개정 고시가 여덟 달간 미반영. 전수 스캔에서 2026.01.05·기후에너지환경부 0건.",
+      "action": "반영 완료. status ACTIVE 전환을 승인 큐에 올림. 연도별 수치는 원문 별표 확보 후 기재."
+    },
+    {
+      "id": "KR-014",
+      "kind": "시행일 불일치(미해소)",
+      "detail": "트래커 시행일 2026.06.24 vs 2차 출처의 시행령 2026.07.01(모법이 06.24). 모법과 시행령의 시행일이 갈리는 구성일 수 있다.",
+      "action": "**미해소.** 날짜는 원문 없이 바꾸지 않는다. 관보·국가법령정보센터 연혁 대조를 이월."
+    },
+    {
+      "id": "EU-031",
+      "kind": "발효한 하위 규칙 누락",
+      "detail": "2026.01.01 일중 존간 게이트 클로저 60분→30분 단축이 기재에 없었다. 상위 기재가 2026년 소비자보호·장기계약 전면 이행뿐이라 올해 초 발효한 구체 규칙이 가려졌다.",
+      "action": "반영 완료. **상위 문구가 하위 시한을 가리는 유형** — 연도 단위로만 적힌 이행 문구는 그 해의 개별 시한을 놓친다."
+    },
+    {
+      "id": "CN-003",
+      "kind": "내용 공동화",
+      "detail": "36일간 두 문장(부처간 회의 선언 + 규획 대기)만 유지돼 L3 진입허가·전고체 중점 공관 같은 실제 진전이 전부 빠져 있었다.",
+      "action": "반영 완료. 정책 방향 항목은 진전이 개별 처분·명단으로 나타나므로 선언문이 아니라 집행 산물을 찾아야 한다."
+    }
+  ],
+  "staleRecovery": {
+    "scopeAtRunStart": 24,
+    "coveredWithDedicatedQuery": 22,
+    "notCovered": [
+      "KR-004",
+      "KR-006"
+    ],
+    "notCoveredReason": "전용 쿼리를 돌리지 못했다. 인접 한국 축 스윕의 무산출은 확인이 아니므로 verify 를 밀지 않고 **이전 검증일을 그대로 유지**했다(RUNBOOK). 다음 run 전용 쿼리 대상.",
+    "queryDesign": "지난 run 실패(한 쿼리에 규범 다수)를 반영해 **규범 1개당 쿼리 1개**로 돌렸다. KR-022 처럼 지난번 묶음 쿼리에서 누락됐던 항목이 이번에 산출됐다.",
+    "outcome": {
+      "무변화": 12,
+      "내용보강": 6,
+      "누락발견": 3,
+      "오기정정": 1,
+      "불일치플래그": 1,
+      "미검증": 2
+    }
+  },
+  "coverageStamped": {
+    "cells": [],
+    "count": 0,
+    "criterion": "셀의 사전 정의 queries 를 실제로 돌린 검색만 스윕 근거(RUNBOOK §셀 운영). 검사 #13이 강제한다.",
+    "note": "**오늘 정당한 발굴 스윕은 0셀이다.** 항목 재검증 30건은 itemVerifyQueries[{date, query}] 에만 기록했다."
+  },
+  "selfCaught2": {
+    "finding": "KR-004·KR-006 의 verify.date 를 오늘로 밀었으나 원장에 이 두 항목을 덮는 검색 근거가 없었다.",
+    "why": "인접 한국 축 스윕에서 무산출이었다는 사실을 확인으로 착각했다. 무산출은 '그 항목을 찾아봤는데 없었다'가 아니라 '다른 것을 찾다가 안 걸렸다'이다.",
+    "fix": "검사 #6이 잡아 스탬프를 철회하고 이전 검증일로 되돌렸다. 방치 0건이 아니라 2건으로 정직하게 남는다.",
+    "lesson": "스윕 위장(F15)의 완화판 — 위조는 아니지만 검증 강도를 부풀린 것이다. 검사 #6이 원장 근거를 요구하는 설계라 자동으로 막혔다. **게이트가 내 낙관을 잡은 사례**다."
+  },
+  "axisLabelFix": {
+    "finding": "CN-011·KR-027 검색의 axis 를 recycling 으로 적었으나 coverage 의 실제 축 이름은 recycle 이다.",
+    "impact": "검사 #13은 축이 coverage 에 없으면 그 셀을 스탬프하지 않으므로 두 셀이 근거를 잃고 고아로 남았다.",
+    "fix": "CN-011 → recycle, KR-027 → packaging 으로 정정하고 재스탬프했다. 축 이름은 coverage 의 15개 열거값에서만 고른다."
+  },
+  "visibleFieldFix": {
+    "items": [
+      "CN-003",
+      "EU-031",
+      "KR-020"
+    ],
+    "finding": "detail 은 채우고 d 를 그대로 둔 항목이 3건 있었다. d 는 App.jsx 가 항상 노출하는 요약이고 detail 은 펼쳐야 보이므로, detail 만 채우면 **화면에서는 여전히 낡은 요약이 보인다.**",
+    "fix": "CN-003 은 두 문장짜리 d 를 전면 재작성, EU-031 은 게이트 클로저 단축을 추가, KR-020 은 개정 고시를 추가했다.",
+    "lesson": "내용 보강은 d·detail 두 곳을 함께 봐야 한다. 오늘 CN-021 에서 나온 d↔detail 불일치와 같은 뿌리다."
+  },
+  "approvalQueueNote": "status 전환 4건(CN-028·CN-038·KR-020·CN-011)은 모두 제정·발효 근거를 원문 또는 원문 메타로 확보한 상태다. 신규 편입 1건(PFHxA)은 SBTL 노출 확인이 선행돼야 한다.",
+  "reviewFixes": {
+    "round1": {
+      "source": "PR #302 Copilot Review (reviewed commit cbd4360, 2026-09-01 03:46Z, 지적 3건)",
+      "note": "3건 중 2건 실재, 1건은 이후 커밋에서 이미 해소된 상태였다. 확인 과정에서 더 큰 결함 1건을 추가로 찾았다.",
+      "items": [
+        {
+          "id": "meta.snapshotNote",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "dataSnapshotDate 를 2026-09-01 로 올렸으나 snapshotNote 는 여전히 2026-08-02 부분 run 을 설명해 provenance 가 어긋난다",
+          "root": "validate2 의 RD-4 정합 경고를 없애려고 dataSnapshotDate 만 건드리고 그것을 설명하는 필드를 방치했다 — 오늘 CN-003·EU-031 에서 잡은 'd 만 고치고 detail 방치'와 같은 뿌리",
+          "fix": "snapshotNote 를 실제 검증 분포로 다시 썼다(185/187 이 08-29~09-01, 나머지 2건은 07-27 유지)"
+        },
+        {
+          "id": "meta.lastUpdated",
+          "sev": "P1",
+          "verdict": "실재 — 리뷰 지적을 확인하다 추가 발견",
+          "finding": "**App.jsx:2847 이 헤더에 표시하는 meta.lastUpdated 가 2026-07-29 로 34일 낡아 있었다.** 실제로는 187건 중 185건이 08-29~09-01 사흘간 검증됐다",
+          "root": "lastUpdated 를 '최근 대규모 검증 run' 기준으로 수동 관리했는데, 그보다 큰 08-29 run(125건)이 지나간 뒤에도 갱신되지 않았다. 수동 관리 필드가 갱신 규칙 없이 방치된 전형",
+          "fix": "2026-09-01 로 갱신. 사용자 화면의 날짜가 데이터 실상과 어긋나 있었다는 점에서 리뷰가 지적한 것보다 무겁다"
+        },
+        {
+          "id": "ops/validate2.mjs #15",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "catch 가 warn 만 올려 fail-open. ops/runs 를 못 읽거나 원장 하나가 깨지면 검사 전체가 건너뛰어지고 validator 는 성공으로 종료한다",
+          "root": "검사를 넣으면서 '무엇을 막는가'만 보고 '기준 집합을 못 만들면 어떻게 되는가'를 안 봤다 — 어제 5차 리뷰에서 얻은 교훈과 같은 형태를 하루 만에 반복했다",
+          "fix": "디렉터리 스캔 실패·원장 파싱 실패·원장 0개·runId 필드 부재를 모두 ERROR 로 승격했다. 다만 **기준 집합을 통째로 못 만든 경우와 일부만 깨진 경우를 갈랐다** — 전자에서 항목별 대조까지 돌리면 전 항목이 오탐으로 걸려(음성 테스트 실측 185줄) 진짜 원인이 묻힌다. 실패는 한 줄로 보고하고 종료코드는 1을 유지한다. 일부 원장만 깨진 경우에는 나머지 기준으로 대조를 계속한다."
+        },
+        {
+          "id": "verifyCounts",
+          "sev": "P2",
+          "verdict": "리뷰 시점 유효 · 현재 해소",
+          "finding": "원장 파생 카운트가 EU-038 을 빠뜨려 이 run 을 과소보고한다는 지적",
+          "root": "리뷰 대상 커밋(cbd4360)에서는 맞는 지적이었다 — verifyCounts 를 EU-038 runId 이관 전에 계산했다",
+          "fix": "이후 커밋에서 파생 재계산으로 이미 해소. 현재 원장 28건 = 실제 28건(EU-038 포함) 대조 확인"
+        }
+      ],
+      "lesson": "**한 필드를 고치면 그 필드를 설명하는 필드를 같이 봐야 한다.** 오늘만 세 번 같은 유형을 만났다 — CN-021(d↔detail 숫자), CN-003·EU-031·KR-020(detail 만 채우고 d 방치), 그리고 이번 dataSnapshotDate↔snapshotNote. 그리고 **fail-open 은 어제 배운 것을 하루 만에 반복했다** — 새 검사를 넣을 때는 정상 경로가 아니라 예외 경로부터 본다.",
+      "negativeTests": [
+        {
+          "case": "저장소 밖에서 실행 → ops/runs 스캔 실패",
+          "before": "WARN 한 줄 후 PASS(fail-open)",
+          "after": "ERROR 1건 + FAIL. 항목별 오탐 0건(재정비 전에는 185줄 연쇄였다)"
+        },
+        {
+          "case": "참조되지 않는 원장 1개 파손(2026-08-02-RD)",
+          "after": "해당 파일 ERROR 1건 + FAIL. 오탐 0건"
+        },
+        {
+          "case": "참조되는 원장 1개 파손(2026-07-27-RD ← KR-004·KR-006)",
+          "after": "파일 ERROR 1건 + 그 원장을 가리키는 2건 ERROR + FAIL. **부분 파손에서도 나머지 기준으로 대조가 계속됨을 실측 확인**"
+        }
+      ]
+    },
+    "round2": {
+      "source": "PR #302 Copilot Review 2차 (reviewed commit e833fcd, 2026-09-01 04:13Z, 지적 5건 + suppressed 1건)",
+      "note": "6건 중 5건 실재, 1건(CN-021 detail)은 직후 커밋 7b740ff 에서 이미 자체 점검으로 고친 상태였다.",
+      "items": [
+        {
+          "id": "validate2 #15",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "원장 파일이 전부 깨지거나 runId 가 없으면 scanned>0 이라 baseUsable 이 true 로 남아 전 항목이 고아로 걸린다 — 어제 없앤 연쇄가 이 경로로 되살아난다",
+          "root": "음성 테스트를 원장 1개 파손으로만 돌려 전부 파손 경로를 안 봤다. **예외 경로를 하나만 시험한 것**",
+          "fix": "known.size 가 0이면 baseUsable=false 로 내린다. 파일 존재가 아니라 기준 집합 확보가 판정 기준이다"
+        },
+        {
+          "id": "ledger rd3.notSwept",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "EU/next_tech·KR/next_tech 를 실제로 스윕하고 스탬프까지 했는데 미스윕 목록에 남겨 다음 run 의 잔여를 부풀렸다",
+          "root": "미스윕 목록을 run 초반에 손으로 적고 이후 스윕 결과를 반영하지 않았다 — 파생 가능한 값을 하드코딩한 전형",
+          "fix": "coverage.lastSwept 에서 파생하도록 교체. incompleteStages·carryOver 도 같은 소스에서 생성"
+        },
+        {
+          "id": "KR-020 승인 근거",
+          "sev": "P1",
+          "verdict": "실재 — 추론 오류",
+          "finding": "승인 큐에 \"WATCH 사유(제정 전)가 소멸\"이라 적었으나 기록된 WATCH 사유는 \"수요측 규제라 SBTL 직접 관련 낮음\"이다. 새 고시는 그 사유를 해소하지 않는다",
+          "root": "**항목의 기록된 판단 근거를 읽지 않고 일반 규칙(스코프 게이트)만 적용했다.** 근거가 실제로 무엇이었는지 확인했어야 했다",
+          "fix": "승인 큐 항목을 [status] 에서 [정책판단] 으로 바꾸고 질문을 명시했다 — 제정·시행 중인 규범을 관련성 낮음으로 WATCH 에 두는 것이 맞는가. 자동 전환을 권하지 않는다"
+        },
+        {
+          "id": "region_policy NA",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "같은 권역 watchpoints 에 \"세율·국가상한 미기재 유지\"와 \"원문으로 확정\"이 나란히 남아 사용자에게 모순된 상태를 보인다",
+          "root": "run 중간 상태를 적은 항목을 나중에 갱신하지 않고 새 항목만 얹었다",
+          "fix": "선행 항목에서 해소된 부분을 지우고 미해결(부속서 8507)만 남긴다"
+        },
+        {
+          "id": "region_policy GL",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "GL watchpoint 가 \"next_tech 스윕에서 재확인\"이라 적었으나 해당 검색은 region=CN 이고 GL/next_tech 는 스윕되지 않았다(coverage lastSwept 2026-08-02)",
+          "root": "인접 권역 검색의 부수 산출을 그 권역의 스윕처럼 적었다 — 오늘 KR-004·KR-006 에서 잡은 것과 같은 유형(F15 완화판)",
+          "fix": "CN 검색의 부수 산출임을 명시하고 GL/next_tech 는 미스윕임을 함께 적는다"
+        },
+        {
+          "id": "CN-021 detail",
+          "sev": "P2",
+          "verdict": "리뷰 시점 유효 · 현재 해소",
+          "finding": "d 는 6부처인데 detail 은 5부처로 남아 있다는 지적",
+          "root": "리뷰 대상 커밋(e833fcd)에서는 맞는 지적이었다",
+          "fix": "직후 커밋 7b740ff 에서 자체 기계 점검이 같은 것을 잡아 이미 수정. 현재 5부처 잔존 0건 확인"
+        }
+      ],
+      "lesson": "**항목에 기록된 판단 근거를 읽지 않고 일반 규칙만 적용하면 근거가 어긋난다**(KR-020). 그리고 예외 경로 시험은 하나로 끝내면 안 된다 — 원장 1개 파손은 봤고 전부 파손은 안 봤다. 파생 가능한 값을 손으로 적으면 반드시 어긋난다는 것도 또 확인했다(미스윕 목록)."
+    },
+    "round3": {
+      "source": "PR #302 Copilot Review 3차 (reviewed commit aef117f, 2026-09-01 04:22Z, 지적 6건)",
+      "note": "6건 전부 실재. **그중 축 라벨 건은 지적이 2건이었으나 전수 감사하니 10건이었다.**",
+      "items": [
+        {
+          "id": "원장 검색 축",
+          "sev": "P1",
+          "verdict": "실재 — 지적보다 넓음",
+          "finding": "KR-020 은 KR/subsidy, EU-033 은 EU/downstream 인데 둘 다 next_tech 로 선언해 빈 gap 셀을 허위 전진시켰다는 지적. 전수 감사 결과 **30건 중 10건**이 같은 문제였다",
+          "root": "축을 coverage 매핑이 아니라 쿼리의 주제 인상으로 달았다. 검사 #13이 선언 축을 그대로 믿으므로 이 경로로 스윕 위장이 통과한다",
+          "fix": "10건 전부 coverage 매핑으로 재분류. **검사 #19 신설** — itemsCovered 가 속한 셀과 선언 축이 다르면 ERROR"
+        },
+        {
+          "id": "스윕 vs 재검증",
+          "sev": "P1",
+          "verdict": "리뷰가 연 문제 — 자체 확장",
+          "finding": "리뷰의 지적을 확인하다 더 근본적인 것이 드러났다. RUNBOOK 은 셀 queries 를 현 항목과 무관한 **사전 정의**로 규정하고 lastSwept 는 그 셀을 훑은 날이다. 오늘 나는 특정 규범을 지목한 항목 재검증 쿼리로 19셀을 스탬프했다",
+          "root": "재검증과 발굴을 같은 것으로 다뤘다. 실제로 훑지 않은 셀이 lastSwept 로 최신이 되면 RD-3 로테이션(오래된 순 + gap 우선)에서 뒤로 밀린다 — 커버리지 공백이 이렇게 굳는다",
+          "fix": "판정 기준을 객관화했다 — **원장 검색의 itemsCovered 가 비어 있으면 발굴, 차 있으면 항목 재검증**이다. 발굴 셀만 lastSwept 를 전진시킨다. 처음에는 쿼리에 규범 식별자가 있는지로 갈랐으나 `电池消费税 2026年9月1日 正式实施` 처럼 식별자 없이도 특정 항목을 지목한 쿼리를 걸러내지 못해 13셀이 남았다. 기준을 바꾸니 오늘 발굴 스윕은 **EU/chemicals 한 셀**뿐이고 나머지 18셀을 원복했다. 셀 queries 도 사전 정의본으로 원복해 RUNBOOK 3~6 범위를 회복했다."
+        },
+        {
+          "id": "validate2 #15",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "runId 만 보고 원장의 date 를 버려, 실재하지만 무관한 원장(예: verify.date=09-01 인데 runId=2026-07-27-RD)을 가리켜도 통과한다",
+          "root": "#15를 '실재하는가'로만 설계했다. #6이 건너뛰는 경로를 막으려던 검사인데 같은 경로가 남았다",
+          "fix": "**검사 #20 신설** — runId→원장 date 맵을 만들어 verify.date 와 대조하고 runId 중복도 ERROR. 실측 불일치 0건이라 예외 없이 건다"
+        },
+        {
+          "id": "JP policies desc",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "watchpoint 는 10엔 적용을 알리는데 같은 패널의 policies desc 는 19.51→15엔에 머물러 한 화면에 모순된 현재값이 보인다",
+          "root": "tracker 항목과 region_policy watchpoint 는 고쳤으나 region_policy 의 policies 배열을 안 봤다 — **오늘 네 번째 같은 유형**",
+          "fix": "policies desc 를 10엔 단계로 동기화"
+        },
+        {
+          "id": "PR 본문 승인 목록",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "PR 본문은 승인 대기 3건만 적는데 원장에는 5건(+CN-011 +KR-020 정책판단)이다. 리뷰어가 전체 승인 범위를 못 보고 승인할 수 있다",
+          "root": "PR 본문을 첫 커밋 시점에 쓰고 이후 갱신하지 않았다",
+          "fix": "PR 본문의 승인 절을 5건으로 갱신(별도 수행)"
+        },
+        {
+          "id": "coverage queries 개수",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "CN/product_std 가 7개로 RUNBOOK 의 3~6 범위를 넘고 GB/T 46261 쿼리 2건이 특정도만 다른 중복이다",
+          "root": "항목 재검증 쿼리를 셀의 사전 정의 queries 에 덧붙였다 — 위 '스윕 vs 재검증'과 같은 뿌리",
+          "fix": "queries 를 사전 정의본으로 원복해 해소. 재검증 쿼리는 별도 필드로 분리"
+        }
+      ],
+      "lesson": "**리뷰가 두 건을 짚었을 때 그 두 건만 고치면 안 된다** — 같은 유형을 전수로 훑으니 10건이었다. 그리고 오늘 네 번째로 같은 뿌리를 만났다: 한 곳을 고치고 같은 사실을 담은 다른 곳을 안 본다(CN-021 d↔detail, CN-003·EU-031·KR-020 detail만, meta snapshotNote, 그리고 JP policies desc)."
+    },
+    "round5": {
+      "source": "PR #302 Copilot Review 5차 (reviewed commit 342bb13, 2026-09-01 04:50Z, 지적 8건)",
+      "note": "8건 전부 실재. **전부 같은 뿌리다 — 승인을 status 필드에만 반영하고 파생값·서술로 전파하지 않았다.** 다만 리뷰가 적은 현재 status 분포(WATCH 27 / UPCOMING 41)는 실제와 뒤바뀌어 있다(실제 WATCH 41 / UPCOMING 27) — 원장이 낡았다는 핵심 지적은 맞다.",
+      "items": [
+        {
+          "id": "region_policy watchpoints 3곳",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "EU-039 를 승인 대기 후보로, CN-028·CN-038 을 UPCOMING·승인 필요로, KR-020 을 승인 큐로 적은 문구가 남았다. App.jsx 가 그대로 렌더한다",
+          "fix": "세 항목을 승인·반영 완료 상태로 다시 썼다"
+        },
+        {
+          "id": "KR-020 tip·detail",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "status 는 ACTIVE 인데 tip 이 'SBTL 관련도 낮음(WATCH)' 으로 시작하고 detail 이 WATCH 사유를 서술한다 — 카드가 자기모순",
+          "fix": "노출도 낮음은 우선순위 문제이지 status 문제가 아님을 명시하고 상태 절을 추가. instrumentType(law) ↔ effectiveDate(고시일) 긴장은 이월"
+        },
+        {
+          "id": "원장 verifyCounts·statusDistribution",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "187건·28검증·구 status 분포로 남아 실제(188·29·ACTIVE 110/DONE 10/WATCH 41/UPCOMING 27)와 어긋난다",
+          "root": "승인 적용 전에 파생값을 계산하고 이후 재생성하지 않았다 — **오늘만 두 번째다**",
+          "fix": "마감 시 재생성. **검사 #21 신설** — 원장 파생값이 tracker 와 다르면 ERROR(스냅샷 날짜가 일치하는 원장에 한해)"
+        },
+        {
+          "id": "원장 스윕 0셀 정규화",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "coverage 는 EU/chemicals 스탬프를 철회했는데 원장의 sweptCells·honestSummary·incompleteStages·coverageStamped 는 1셀로 남았다",
+          "fix": "전부 0셀로 정규화하고 철회 경위를 honestSummary 에 남겼다"
+        },
+        {
+          "id": "validate2 #18",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "반영 완료 항목을 파싱 전에 건너뛰므로, 완료된 항목의 status 를 승인된 목표값에서 다시 바꿔도 통과한다",
+          "fix": "모든 status 항목을 파싱한다. 완료 항목은 status == to 를, 대기 항목은 status == from 을 요구"
+        },
+        {
+          "id": "문서 ↔ 구현 불일치",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "검사 #13 헤더와 RUNBOOK G3 절이 여전히 itemsCovered/primaryDocs 를 스윕 근거로 문서화한다. 문서를 따르면 CI 가 거부하는 원장이 나온다",
+          "fix": "검사 헤더와 RUNBOOK 을 새 규칙(사전 정의 쿼리 실행)으로 갱신"
+        },
+        {
+          "id": "meta.snapshotNote",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "187 / 185 / 28 로 남아 실제 188 / 186 / 29 와 어긋난다. 이 필드는 provenance 로 노출된다",
+          "fix": "데이터에서 재생성. 손으로 적어 두 번 낡았다는 사실을 필드 안에 명시"
+        },
+        {
+          "id": "EU-039 출처 서술",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "EU/chemicals 스윕에서 발굴했다고 적었으나 그 셀은 사전 정의 쿼리 0개이고 그날 정당한 스윕은 0셀이다 — 철회된 주장이 항목 이력에 남는다",
+          "fix": "EU-025 재검증 중 부수 발굴로 다시 적고 셀 스윕의 산물이 아님을 명시"
+        }
+      ],
+      "lesson": "**승인 반영은 status 한 필드로 끝나지 않는다.** 같은 사실이 tip·detail·region_policy watchpoint·원장 파생값·meta 서술에 흩어져 있고, 오늘 이 유형을 다섯 번 만났다. 그래서 이번엔 개별 수정에 더해 **파생값을 마감 때 재생성하고 검사 #21이 그 정합을 강제**하도록 했다 — 손으로 적는 한 반드시 다시 낡는다."
+    },
+    "round6": {
+      "source": "PR #302 Copilot Review 6차 (reviewed commit 9776e06, 2026-09-01 05:04Z, 지적 5건 + suppressed 3건)",
+      "note": "8건 전부 실재. **fail-open 3건이 핵심이다** — 같은 형태를 세 번 반복했다.",
+      "items": [
+        {
+          "id": "validate2 #18 표시명 파싱",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "[status] 접두만 인식해서, KR-020 처럼 [정책판단] 으로 적히고 실제로는 WATCH → ACTIVE 를 수행하는 항목이 검사에서 통째로 빠진다 — 승인 대기 중 status 변경 우회가 그 부류에 그대로 남는다",
+          "root": "검사가 **사람이 읽는 표시명**에 의존했다. 표시명은 자유 서술이라 언제든 바뀐다",
+          "fix": "큐 항목에 statusChange {id, from, to} 를 명시하고 검사는 그 필드를 우선한다. 표시명 파싱은 폴백으로만 남기고 접두를 임의 태그로 완화"
+        },
+        {
+          "id": "validate2 #21 fail-open",
+          "sev": "P1",
+          "verdict": "실재",
+          "finding": "모든 비교가 필드 존재 조건부라, 현 스냅샷 원장이 totalItems·thisRunTotal·statusDistribution·coverageStamped.count 를 지우면 게이트를 통째로 우회한다",
+          "root": "**#15 catch 층위 → #20 값 층위 → #21 필드 존재 층위.** 같은 형태를 세 번째 반복했다",
+          "fix": "네 필드 모두 부재 자체를 ERROR 로 올린다"
+        },
+        {
+          "id": "validate2 #15 runId 부재",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "runId 가 비면 건너뛴다. 현 188건 전부 갖고 있어 하위호환 사유가 없고, 필드를 지우면 #15·#20 을 동시에 우회할 수 있다",
+          "fix": "verify 객체가 있는데 runId 가 없으면 ERROR"
+        },
+        {
+          "id": "validate2 #20 date 부재",
+          "sev": "P2",
+          "verdict": "실재 (suppressed)",
+          "finding": "date 가 비면 건너뛴다. #6은 lastChecked 로 폴백하므로 date 만 지우면 이 대조만 정확히 빠져나간다",
+          "fix": "verify 에 date 가 없으면 ERROR"
+        },
+        {
+          "id": "원장 rd3.findings",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "EU/chemicals 를 '34일 방치 해소' 라고 적었는데 같은 원장의 sweptCells 는 비어 있고 notSwept 는 그 셀을 34일로 유지한다",
+          "fix": "EU-025 항목 재검증 + 부수 발굴로 다시 썼다. CN/next_tech 도 같이 정정"
+        },
+        {
+          "id": "region_policy EU",
+          "sev": "P2",
+          "verdict": "실재",
+          "finding": "사용자에게 보이는 문구가 'chemicals 축 34일 방치를 실스윕했다' 라고 주장해 0셀 결과와 어긋난다 — 거짓 커버리지 이력을 노출한다",
+          "fix": "항목 재검증임을 명시하고 셀 자체는 스윕하지 않았음을 함께 적었다"
+        },
+        {
+          "id": "원장 carryOver",
+          "sev": "P2",
+          "verdict": "실재 (suppressed)",
+          "finding": "승인 5건이 모두 승인·반영 완료 로 기록됐는데 carryOver 는 여전히 승인 대기 로 남겨 다음 run 이 미결로 취급한다",
+          "fix": "완료 4건 제거, EU-039 는 편입 완료·노출 판정 미완으로 다시 적었다"
+        },
+        {
+          "id": "원장 감사 기록 #18",
+          "sev": "P2",
+          "verdict": "실재 (suppressed)",
+          "finding": "'검사 #18은 반영 완료 항목을 대상에서 뺀다' 는 기록이 남았는데 구현은 정반대다(완료는 to 를 요구). 미래 독자가 이 기록을 보고 우회를 되살릴 수 있다",
+          "fix": "기록을 현 구현으로 갱신하고 5차 지적으로 바뀐 경위를 남겼다"
+        }
+      ],
+      "negativeTests": [
+        {
+          "case": "#15 — verify 에서 runId 삭제",
+          "result": "ERROR. 종전에는 조용히 통과"
+        },
+        {
+          "case": "#20 — verify 에서 date 삭제",
+          "result": "ERROR. 종전에는 조용히 통과(#6은 lastChecked 로 폴백해 못 잡는다)"
+        },
+        {
+          "case": "#18 — 큐 표시명에서 [status] 를 통째로 지우고 status 를 되돌림",
+          "result": "ERROR. **statusChange 필드로 잡았다** — 표시명 의존을 끊은 효과를 실측 확인"
+        },
+        {
+          "case": "#21 — totalItems·statusDistribution·coverageStamped.count 삭제",
+          "result": "ERROR 3건. 종전에는 전부 통과"
+        }
+      ],
+      "lesson": "**fail-open 을 세 번 반복했다** — catch(#15) → 값(#20) → 필드 존재(#21). 형태는 매번 달랐지만 뿌리는 같다: 정상 경로만 보고 '없을 때'를 안 봤다. 새 검사에 체크리스트를 고정한다 — ①소스를 못 읽으면 ②값이 비면 ③필드가 없으면 ④과거 데이터면. 그리고 **검사는 사람이 읽는 표시명이 아니라 필드를 봐야 한다**(#18)."
+    },
+    "deepReview14": {
+      "source": "PR #302 코멘트 심층 리뷰 (2026-09-01 07:41, xhigh 10각도, 14건)",
+      "verification": "14건 전부 자체 재현·정적 확인했다. 별도 워크트리(origin/rd-20260901-run)에서 validate2 직접 실행.",
+      "confirmed": [
+        {
+          "n": 1,
+          "id": "meta.dataSnapshotDate fail-open",
+          "sev": "P1",
+          "verdict": "재현 확정",
+          "measured": "승인 결과를 되돌린 상태에서 필드 유지 → FAIL(errors 3), 필드 삭제 → PASS(errors 0). #18·#21 이 통째로 꺼진다",
+          "fix": "검사 #22 신설 — 필드 부재·형식 불량을 ERROR. #21 이 원장에만 적용하던 원칙을 tracker 에도 적용"
+        },
+        {
+          "n": 2,
+          "id": "#13 근거 규칙 자기인증",
+          "sev": "P1",
+          "verdict": "확정 · 부분 완화",
+          "measured": "coverage.queries 는 작성자 소유라 스탬프와 같은 커밋에 쿼리를 끼워 넣으면 철회했던 19셀이 초록불 복귀",
+          "fix": "완전 차단은 validator 로 불가(쿼리가 run 보다 선행함을 증명할 수단이 없다). 대신 **RUNBOOK 최소치(3개) 미만 셀은 스탬프를 거부**하도록 했다 — 자기인증하려면 셀 단위 쿼리 세트를 실제로 설계해야 한다. 현 90셀 중 84셀이 미달이라 실효 장벽이 된다",
+          "residual": "쿼리 선행성 자체는 여전히 미검증. git 이력을 보는 별도 도구가 필요하다"
+        },
+        {
+          "n": 3,
+          "id": "구 규칙 분기 itemsCovered 파생 회귀",
+          "sev": "P1",
+          "verdict": "재현 확정 — 내 회귀",
+          "measured": "8/31 원장 근거 셀 33 → 35 (CN/upstream·EU/recycle 추가). 재작성 때 continue 를 잃었다",
+          "fix": "축 선언 검색은 그 셀만 근거라는 원 규칙을 복원(continue)"
+        },
+        {
+          "n": 4,
+          "id": "#17 정규식 커버리지",
+          "sev": "P2",
+          "verdict": "관측 확정 · 제안된 수정은 오류",
+          "measured": "엄격 패턴 29건 / 볼드 날짜 표기 428건 = 6.8%. 콜론 표기 중복은 미검출",
+          "fix": "**날짜 단위로 넓히면 안 된다** — 그 시안을 실제로 적용해보니 59건이 나왔고 전부 오탐이었다. 하루에 여러 단락이 붙는 것은 정상 이력이다(`2026-08-29 재개 run` / `정정 1차` / `Claire 승인`). 중복의 신호는 **같은 헤더 문자열의 반복**이라 그 기준으로 교체했고, 진짜 중복 5건이 남았다",
+          "note": "리뷰의 분모(428)가 이 검사의 대상이 아니다. 관측은 유효하고 처방은 재설계했다"
+        },
+        {
+          "n": 5,
+          "id": "27셀 경고가 원장 없이는 안 나옴",
+          "sev": "P2",
+          "verdict": "재현 확정",
+          "measured": "원장 없음 0회 · 8/02 원장 0회 · 9/01 원장 1회. 워크플로가 원장 없을 때 타는 분기에서 침묵",
+          "fix": "검사 #22 로 분리해 원장과 무관하게 항상 보고"
+        },
+        {
+          "n": 6,
+          "id": "_meta 하드코딩 파생값",
+          "sev": "P2",
+          "verdict": "확정",
+          "fix": "실측으로 갱신하고 **검사 #22가 count 를 실측과 대조**한다. 손으로 적은 파생값 금지 규칙을 스스로 어긴 건이었다"
+        },
+        {
+          "n": 7,
+          "id": "문서 키 이름 불일치",
+          "sev": "P2",
+          "verdict": "확정",
+          "measured": "문서 4곳은 `itemVerifyQueries-<날짜>`, 실제 키는 `itemVerifyQueries2026-09-01`",
+          "fix": "키 스키마를 고정 이름 + 배열(`itemVerifyQueries[{date,query}]`)로 바꾸고 RUNBOOK·coverage._meta·원장 표기를 일치시켰다"
+        },
+        {
+          "n": 8,
+          "id": "#18 완료/대기 판별이 자유 서술",
+          "sev": "P2",
+          "verdict": "확정",
+          "fix": "큐 항목에 `applied: boolean` 을 두고 그것을 우선한다. decision 정규식은 폴백이며 '승인 완료' 표기도 인식하도록 넓혔다"
+        },
+        {
+          "n": 9,
+          "id": "ops/runs 이중 스캔·중복 파싱",
+          "sev": "P3",
+          "verdict": "확정 · 미조치",
+          "note": "#15·#20 이 각각 디렉터리를 훑는다. 원장 10개 규모에서 체감 영향이 없어 이번엔 손대지 않았다 — 구조 변경이라 별도 PR 이 낫다"
+        },
+        {
+          "n": 10,
+          "id": "날짜 박힌 키 스키마",
+          "sev": "P2",
+          "verdict": "확정",
+          "fix": "`itemVerifyQueries[{date,query}]` / `adhocDiscovery[{date,query}]` 고정 키로 이관. RUNBOOK 셀 스키마 정의에도 추가"
+        },
+        {
+          "n": 11,
+          "id": "#21 이 합만 비교",
+          "sev": "P2",
+          "verdict": "확정",
+          "fix": "thisRun 축별 집계와 carriedOver 도 대조한다. 비교에 필요한 객체를 이미 만들어 놓고 접어버리고 있었다"
+        },
+        {
+          "n": 12,
+          "id": "마크다운 렌더러 부재",
+          "sev": "P1",
+          "verdict": "확정 — 앱 전체 영향",
+          "measured": "src 전수 확인: 마크다운 패키지 0개, 콘텐츠용 dangerouslySetInnerHTML 0(2건 모두 <style> CSS), `**` 처리 0. App.jsx 는 {item.d}·{item.tip}·{item.detail}·{wp} 를 React 생 텍스트로 렌더한다. **노출 필드의 ** 마커 — d 464 · tip 344 · detail 1,694 = 2,502개(188항목 중 117항목), watchpoints 299개.**",
+          "impact": "사용자 화면에 별표가 리터럴로 보인다. 오늘 내가 추가한 문구도 전부 여기 포함된다. 그리고 **검사 #14 의 전제('강조가 문장 끝까지 번진다')가 이 앱에서 성립하지 않는다** — 실제 증상은 번짐이 아니라 별표 노출이다",
+          "decision": "**미조치 — Claire 판단 필요.** 앱 렌더링 변경(경량 볼드 렌더러 추가)이거나 데이터에서 마커 제거인데, 둘 다 이 run 의 범위를 넘고 전 항목에 걸린다"
+        },
+        {
+          "n": 13,
+          "id": "i2c 무조건 생성",
+          "sev": "P3",
+          "verdict": "확정",
+          "fix": "지연 생성으로 바꿔 구 규칙 분기에서만 만든다"
+        },
+        {
+          "n": 14,
+          "id": "경고 임계 0 vs RUNBOOK 3~6",
+          "sev": "P2",
+          "verdict": "확정",
+          "measured": "분포 0개:27셀 1개:5 2개:52 3개:5 5개:1 — RUNBOOK 3~6 충족은 **90셀 중 6셀**",
+          "fix": "검사 #22 가 3개 미만 84셀을 분포와 함께 보고한다. _meta.action 도 84셀 규모로 정정"
+        }
+      ],
+      "duplicateHeadersFixed": [
+        "CN-014 / 2026-08-31 Codex 4차 리뷰 반영 ×2",
+        "CN-016 / 2026-08-31 Codex 4차 리뷰 반영 ×2",
+        "CN-033 / 2026-08-31 Codex 4차 리뷰 반영 ×2",
+        "KR-017 / 2026-08-31 Codex 4차 리뷰 반영 ×2",
+        "KR-027 / 2026-08-31 RD-1 ×2"
+      ],
+      "lesson": "**리뷰의 관측과 처방을 분리해서 받아야 한다.** #4 는 관측(정규식이 6.8%만 덮는다)은 정확했지만 제안된 방향(날짜 단위로 넓히기)을 그대로 적용하니 59건 전부 오탐이었다. 관측을 확인하고 처방은 다시 설계했다. 그리고 #3 은 내가 5차 반영 때 만든 회귀다 — **코드를 재작성하면 삭제된 주석이 경고하던 것을 다시 밟는다.**"
+    },
+    "deepReview14_followup": {
+      "source": "PR #302 후속 코멘트 (2026-09-01 12:51, 재현 검증 · 잔여 4건)",
+      "note": "4건 전부 자체 재현. 3건 실재, 1건은 실재하나 리뷰의 수치가 틀렸다.",
+      "items": [
+        {
+          "n": 2,
+          "id": "검사 #22 fail-open",
+          "sev": "P1",
+          "verdict": "재현 확정 — 신규",
+          "measured": "_meta…count 필드 삭제 + cells 를 엉터리로 교체 → PASS(errors 0). 조건부 비교라 부재가 통과였다",
+          "root": "**fail-open 네 번째 반복**(catch #15 → 값 #20 → 필드 존재 #21 → 대조 대상 부재 #22). #21 이 세운 원칙을 바로 옆 #22 에서 안 지켰다 — dataSnapshotDate 부재는 #22 가 ERROR 로 끊는데 #22 자신의 대조 대상은 부재가 통과였다",
+          "fix": "_meta 블록·count·cells 부재를 각각 ERROR. **규약으로 명문화 — 파생값 대조는 대조 대상 필드의 부재를 ERROR 로 끊는다**"
+        },
+        {
+          "n": 3,
+          "id": "#22 가 cells 목록 미검사",
+          "sev": "P2",
+          "verdict": "재현 확정",
+          "measured": "count 27 유지 + cells[0] 을 ZZ/nonexistent 로 교체 → PASS",
+          "fix": "실측 0개 셀 집합과 목록을 양방향 대조(목록에만 / 실측에만)"
+        },
+        {
+          "n": 1,
+          "id": "3쿼리 장벽 효과 크기",
+          "sev": "P2",
+          "verdict": "지적 타당 · **리뷰 수치는 오류**",
+          "measured": "리뷰는 '19셀 중 7셀만 막는다'고 적었으나 실측은 **19셀 중 16셀**이 장벽에 걸린다(3셀만 이미 2개 이상 보유해 통과). 장벽 효과가 리뷰가 말한 것보다 크다",
+          "accepted": "더미 문자열로 최소치를 채우면 16셀도 뚫린다는 본질은 맞다. 문안이 '차단'으로 읽히던 것을 실측 효과 크기로 정정했다",
+          "fix": "**선행성 강제를 워크플로로 구현했다**(리뷰 제안 채택) — 같은 PR 에서 coverage 의 queries 추가와 lastSwept 전진이 동시에 일어나면 실패. validator 는 git 이력을 못 보므로 CI 층위가 맞다"
+        },
+        {
+          "n": 4,
+          "id": "EU-039 구 키 잔재",
+          "sev": "P3",
+          "verdict": "확정",
+          "measured": "adhocDiscovery-2026-09-01 — 이관 후 어느 표기에도 없는 이름 1건",
+          "fix": "adhocDiscovery[{date, query}] 로 정정"
+        }
+      ],
+      "lesson": "**fail-open 을 네 번 반복했다.** 매번 층위만 달랐다 — catch / 값 / 필드 존재 / 대조 대상 부재. 개별 발견을 반복하는 대신 규약으로 못 박았다: 조건부 비교(`x !== undefined && x !== y`)를 쓰는 순간 그 조건이 곧 우회 경로다. **그리고 리뷰 수치도 검증해야 한다** — 이번 7 vs 16 은 결론을 바꾸지 않았지만 효과 크기 판단을 바꿀 수 있었다."
+    },
+    "review20260902": {
+      "source": "PR #302 심층 리뷰 (2026-09-02, 지적 7건)",
+      "verification": "7건 전부 자체 재현. 6건 실재, 1건은 지적이 맞고 **내 앞선 검증이 틀렸다**.",
+      "items": [
+        {
+          "n": 1,
+          "id": "선행성 검사 기준이 merge-base 가 아니라 main tip",
+          "sev": "P1",
+          "verdict": "실재",
+          "measured": "같은 job 이 세점 표기를 4회 쓰는데 선행성 스텝만 `git show origin/$BASE_REF:` 로 tip 을 본다. 실측 merge-base 71371c8 ≠ main tip 48e46b1(#303 렌더러 머지로 2커밋 앞섬). 오늘은 두 지점의 coverage.json 이 동일해 무증상이지만, main 에서 쿼리가 지워진 뒤 이 PR 이 그 셀 스탬프만 전진시키면 건드리지도 않은 쿼리를 신규 추가로 지목하며 FAIL 한다",
+          "fix": "MB=$(git merge-base origin/$BASE_REF HEAD) 기준으로 교체. 이웃 스텝들과 기준을 맞췄다"
+        },
+        {
+          "n": 2,
+          "id": "_meta.cellsWithoutPredefinedQueries 는 소비자가 없다",
+          "sev": "P2",
+          "verdict": "실재",
+          "measured": "전수 grep — 참조가 coverage.json 자신과 그것을 검증하는 validate2.mjs 뿐. validator 가 같은 값을 런타임에 세어 WARN 으로 낸다",
+          "fix": "블록과 검증 코드(ERROR 분기 4 + 양방향 집합 대조 ~18줄)를 함께 삭제했다. **이 PR 이 세운 파생값 하드코딩 금지 규칙을 스스로에게 적용한 것이다.** 다만 순서가 있었다 — 삭제 전에 #23(셀 키 유일성)을 넣어야 했다(아래 4번)",
+          "note": "queriesNote 로 '여기 적지 않는다'는 규칙만 남겼다"
+        },
+        {
+          "n": 3,
+          "id": "이 PR 이 넣은 D-day 가 이미 스테일",
+          "sev": "P2",
+          "verdict": "실재",
+          "measured": "region_policy NA.watchpoints 의 D-2(2026.09.03) 가 오늘(09-02) 기준 D-1. 항목 필드의 같은 표기는 0건 — 규율이 항목에만 닿아 있었다",
+          "fix": "해당 표기를 절대일자로 바꾸고 **검사 #24 신설** — region_policy 산문에 상대 D-day 금지. 항목 D-day 는 렌더 시점 파생이지만 이 파일 산문은 그런 장치가 없어 다음 날 곧바로 낡는다"
+        },
+        {
+          "n": 4,
+          "id": "셀 키 유일성 미검증",
+          "sev": "P1",
+          "verdict": "실재 — **내 앞선 검증이 틀렸다**",
+          "measured": "처음에 region/axis 결손 셀로 시험해 FAIL 이 나오자 '중복을 잡는다'고 판단했는데, 잡은 것은 _meta 하드코딩 대조가 '0쿼리 셀 수 증가'로 우연히 걸린 것이었다. **실무에서 나올 형태(기존 셀 NA/trade 복제)로 다시 시험하니 PASS(errors 0)** — 완전히 조용히 통과한다",
+          "fix": "**검사 #23 신설** — 셀 키 중복과 region/axis 결손을 각각 ERROR. 중복 키는 Map 에서 앞의 셀을 덮어 그 셀의 스윕 게이트를 끈다(#13·#19·check_query_precedence 전부 해당)",
+          "lesson": "**부정 케이스는 실무에서 나올 형태로 만들어야 한다.** 결손 셀은 인위적이었고, 복붙이 진짜 경로였다"
+        },
+        {
+          "n": 5,
+          "id": "region_policy 산문이 검사 #14 밖",
+          "sev": "P2",
+          "verdict": "실재 · 긴급도 상승",
+          "measured": "홀수 마커 10건(NA2·CN3·KR2·JP2·headline1). 이 PR 신규 watchpoint 중 홀수는 0건이라 새로 나빠지지는 않았다. **다만 main 이 #303 렌더러를 머지해 이제 별표가 실제로 화면에 남는다**",
+          "fix": "데이터 10건 정정(닫는 마커 누락 — 7건은 제목 콜론 뒤, 3건은 여는/닫는 한쪽 누락) + **검사 #14 를 region_policy 로 확장**(watchpoints·headline·policies.desc·why). 렌더러가 없던 시절 #14 주석이 적은 '강조가 번진다'는 성립하지 않았고, 이제 성립한다"
+        },
+        {
+          "n": 6,
+          "id": "같은 job 에서 base ref 를 여러 번 fetch",
+          "sev": "P3",
+          "verdict": "실재",
+          "measured": "실측 4회(리뷰는 3회로 셌다 — 스텝 하나를 더 세지 못한 것으로 보인다)",
+          "fix": "공용 'Fetch base ref' 스텝 1개로 통합해 4회 → 1회"
+        },
+        {
+          "n": 7,
+          "id": "새 게이트에 테스트 없음",
+          "sev": "P2",
+          "verdict": "실재",
+          "fix": "__tests__/queryPrecedence.test.mjs — 통과 경로 4 · 차단 경로 4 · fail-closed 2, 총 10건. 스크립트를 자식 프로세스로 실행해 종료코드와 출력을 본다"
+        }
+      ],
+      "negativeTests": [
+        {
+          "case": "#23 — 기존 셀(NA/trade) 복제",
+          "result": "ERROR '셀이 0번·90번에 중복'. 반영 전에는 PASS 였다"
+        },
+        {
+          "case": "#23 — region/axis 결손",
+          "result": "ERROR. _meta 삭제 후에도 이 경로가 살아 있음을 확인"
+        },
+        {
+          "case": "#24 — region_policy 에 D-2(2026.09.05) 주입",
+          "result": "ERROR"
+        },
+        {
+          "case": "#14 확장 — region_policy 에 홀수 마커 주입",
+          "result": "ERROR '볼드 마커 홀수 개(3)'"
+        },
+        {
+          "case": "queryPrecedence 10건",
+          "result": "vitest 10 passed"
+        }
+      ],
+      "botCommits": {
+        "range": "b6b4b90..e0cba26 (0bd214f·194c131·4bf72f1·e0cba26)",
+        "verified": "직접 diff 확인 — 순 변경은 tracker_data.json 1줄, KR-020 detail 의 `## WATCH 사유` 섹션을 `## 우선순위 판단`으로 교체했다. **내가 5차 반영에서 tip 은 고치고 detail 의 섹션 헤더를 놓친 것**이라 타당한 수정이다. 일회성 워크플로는 스스로 삭제됐고 .github 순 변경 0."
+      },
+      "lesson": "**부정 케이스는 실무에서 나올 형태로 만들어야 한다**(4번) — 인위적 픽스처로 통과를 확인하고 '검사가 있다'고 판단했다. 그리고 **검사를 지우기 전에 그 검사가 우연히 덮고 있던 것을 먼저 대체해야 한다** — 2번(_meta 삭제)의 전제가 4번(#23 신설)이었다."
+    },
+    "review20260902_followup": {
+      "source": "PR #302 후속 코멘트 (2026-09-02 05:48Z, c2a10b6 재현 검증 · 잔여 2건 + 수치 정정)",
+      "verification": "3건 전부 자체 재현. 잔여 2건 실재, 그리고 **내 수치가 틀렸다**.",
+      "myError": {
+        "claim": "base ref fetch 실측 4회 (리뷰는 3회로 셌다)",
+        "truth": "e0cba26 의 validate-tracker.yml 에 fetch 는 **3회**다(57·90·137행). 내 '4회'는 **공용 스텝을 삽입한 뒤에 센 것** — 스크립트가 wf.replace(FIRST, FETCH+FIRST) 다음 줄에서 n_before 를 계산했다. 리뷰가 맞고 내가 틀렸다. 4번째 fetch 는 다른 워크플로 3개에 각 1회씩 있는 것이고 별개 job 이라 중복이 아니다.",
+        "lesson": "**측정 시점이 변경 전인지 확인해야 한다.** 변경을 적용한 코드에서 '변경 전 값'을 세면 자기 변경이 섞인다."
+      },
+      "items": [
+        {
+          "n": 1,
+          "id": "#24 정규식이 괄호 있는 D-day 만 잡는다",
+          "sev": "P2",
+          "verdict": "재현 확정",
+          "measured": "구 패턴 /D[+-]\\d+\\s*\\(/g 은 여는 괄호를 요구한다. 스스로 '검사 #1 의 대응물'이라 적었으나 #1 은 /\\(?D[-+]{1,2}\\d+/g 로 괄호가 선택적이다. 맨몸 'D-2 앞두고 있다 · D+5 경과분' 주입 → PASS(못 잡음). 그리고 **#24 가 막으려던 결함이 같은 파일에 2건 살아 있었다** — JP.watchpoints[3](08/29 작성)의 D-3(=2026-09-01, 오늘 기준 이미 지남)·D-32(=2026-09-30)",
+          "root": "검사를 만든 계기가 마침 괄호형(D-2(2026.09.03))이었던 것을 그대로 규칙으로 굳혔다. **부정 케이스를 실무에서 나올 형태로 만들어야 한다는 교훈이 여기에도 걸렸다** — 같은 라운드에서 셀 키 유일성(④)으로 배운 것을 바로 옆 검사에서 반복했다.",
+          "fix": "#24 를 #1 과 같은 패턴으로 정렬. JP.watchpoints[3] 의 맨몸 2건은 문장에 절대일자(9.1·9.30)가 이미 있어 상대 표기만 걷어냈다. 음성 테스트 — 맨몸 D-2·D+5 주입 시 ERROR 2건"
+        },
+        {
+          "n": 2,
+          "id": "추가한 테스트가 CI 에서 돌지 않는다",
+          "sev": "P2",
+          "verdict": "재현 확정",
+          "measured": "워크플로 5개 전수 — npm test/vitest 호출 **0건**. __tests__ 에 6파일 93 테스트가 있는데 게이트 밖이었다. validate-tracker.yml 의 paths 에 src/** 가 없어 **#303 같은 src 전용 PR 은 트리거조차 되지 않는다** — #14 의 region_policy 확장이 그 렌더러 계약에 의존하는데도 그렇다.",
+          "fix": ".github/workflows/unit-tests.yml 신설 — paths 는 src·__tests__·ops·scripts·package(-lock). **validate-tracker.yml 에 스텝으로 넣지 않은 이유 두 가지**: ①그쪽 paths 에 src/** 가 없다 ②그쪽 validate job 은 node_modules 없이 node 스크립트만 부르는 구조라 npm ci 를 끼우면 게이트 전체가 설치 시간에 묶인다. 별도 job 이면 병렬로 돈다."
+        }
+      ],
+      "lesson": "이번 라운드에서 **같은 교훈을 두 번 밟았다** — ④(셀 키)에서 '부정 케이스는 실무 형태로'를 배우고, 바로 옆 #24 에서 계기가 된 형태만 규칙으로 굳혔다. 그리고 수치는 **측정 시점**까지 확인해야 한다."
+    }
+  },
+  "selfAudit": {
+    "why": "Codex 가 사용량 한도로 이 PR 에 리뷰를 붙이지 못했다. 외부 게이트가 하나 빠진 상태라 diff 전체에 기계 스윕을 직접 돌렸다.",
+    "sweeps": [
+      {
+        "n": 1,
+        "name": "검증 스탬프 ↔ 원장 근거",
+        "result": "근거 없는 스탬프 0건. EU-025 는 근거만 있고 스탬프 없음 — 무변화 확인이라 정상"
+      },
+      {
+        "n": 2,
+        "name": "d ↔ detail 숫자 불일치",
+        "result": "2건 적출 — CN-021 실재(아래), CN-015 오탐(서로 다른 座谈会의 참여 부처 수라 불일치가 정상)"
+      },
+      {
+        "n": 3,
+        "name": "checkNote 단락 중복 부착",
+        "result": "0건"
+      },
+      {
+        "n": 4,
+        "name": "effectiveDate 가 dt 에 등장하는지",
+        "result": "1건 적출 — KR-022 실재(아래)"
+      },
+      {
+        "n": 5,
+        "name": "노출 필드 마크다운·의미 파편",
+        "result": "0건"
+      },
+      {
+        "n": 6,
+        "name": "diff 삭제 편향",
+        "result": "tracker +192/-182 — 필드 교체 비율로 정상. 재직렬화 사고(수천 줄)가 아니다"
+      },
+      {
+        "n": 7,
+        "name": "승인 큐 ↔ 실제 status 정합",
+        "result": "CN-011 이 !! 로 걸렸으나 점검기 오탐 — 원장에 화살표를 -> 로 적어 → 패턴에 안 걸렸다. 표기를 → 로 통일"
+      }
+    ],
+    "found": [
+      {
+        "id": "CN-021",
+        "sev": "P2",
+        "finding": "d 를 6부처로 고치면서 detail 의 `生态环境부 등 5부처` 를 놓쳤다 — 같은 항목 안에 오기가 남았다",
+        "note": "**오늘 세 번째 같은 유형**(CN-021 d↔detail, CN-003·EU-031·KR-020 detail 만 채움, meta dataSnapshotDate↔snapshotNote). 자체 점검을 안 돌렸으면 이 상태로 머지됐다"
+      },
+      {
+        "id": "KR-022",
+        "sev": "P1",
+        "finding": "연혁 보강 시 dt 를 통째로 재작성해 `2020.04.01 시행`(effectiveDate 짝)과 `소부장 기본계획(26~30) 2025.10.23 심의·의결`을 지웠다",
+        "note": "**보강이 유실을 낳았다.** 필드 전면 재작성은 기존 항목 전수 대조 없이 하지 않는다. 복원 완료"
+      }
+    ],
+    "falsePositives": [
+      {
+        "id": "CN-015",
+        "why": "d 의 `4부처 연합`과 detail 의 5부처(PV 座谈会)·3부처(NEV 座谈会)는 서로 다른 회의체다. 숫자 대조 스윕은 항목 단위라 이런 경우를 가르지 못한다 — 경고로만 읽을 것"
+      }
+    ],
+    "lesson": "외부 리뷰가 없을 때 기계 스윕이 대체재가 된다. 다만 스윕은 오탐을 낸다(CN-015) — 적출은 자동으로, 판정은 원문을 보고 수동으로 한다. 이번엔 2건 실재 / 1건 오탐이었다.",
+    "promotedToGate": "자체 점검 7축 중 3축을 validate2 로 승격했다(#16·#17·#18). ②(d↔detail 숫자)는 CN-015 오탐이 있어 승격하지 않고 수동 스윕으로 남긴다 — **오탐 있는 휴리스틱을 ERROR 로 걸면 게이트를 믿지 않게 된다.** ①⑤는 기존 #6·#14 가 이미 덮고, ⑥은 git diff 기반이라 validator 범위 밖이다."
+  },
+  "check16FirstRun": {
+    "note": "검사 #16 도입 즉시 기존 5건이 WARN 으로 걸렸다. 오늘 편집분이 아니라 선존 상태다. WARN 이라 차단하지 않으며 개별 원문 확인이 필요하다.",
+    "items": [
+      {
+        "id": "NA-024",
+        "sev": "의심 높음",
+        "detail": "effectiveDate=2026-03-12 인데 dt 는 `2026.03 ITC 부정 → AD/CVD 미발효` 라고 적는다. **발효하지 않았다고 서술하면서 발효일이 박혀 있다** — 둘 중 하나가 틀렸다.",
+        "action": "원문 확인 후 effectiveDate 삭제 또는 dt 정정. status 영향 가능성이 있어 승인 대상이 될 수 있다"
+      },
+      {
+        "id": "NA-016",
+        "sev": "중",
+        "detail": "effectiveDate=2025-11-01 이 dt(2025.04.22 개시 / 2025.10 보고서 예상)에 근거가 없다.",
+        "action": "232 조사 일정 원문으로 발효일 근거 확인"
+      },
+      {
+        "id": "CN-015",
+        "sev": "낮음",
+        "detail": "effectiveDate=2026-01-07 은 detail 의 `2026.01.07 4부처 연합 2차` 를 가리키는 것으로 보이나 dt 에는 없다.",
+        "action": "dt 에 해당 일자를 넣거나 effectiveDate 의 의미를 재검토"
+      },
+      {
+        "id": "CN-004",
+        "sev": "낮음",
+        "detail": "dt 가 `진행 중` 한 마디라 effectiveDate=2025-10-09 의 근거가 dt 에 없다.",
+        "action": "dt 에 시행일 명시"
+      },
+      {
+        "id": "KR-005",
+        "sev": "낮음",
+        "detail": "dt 가 `진행 중` 한 마디라 effectiveDate=2024-07-10 의 근거가 dt 에 없다.",
+        "action": "dt 에 시행일 명시"
+      }
+    ]
+  },
+  "policyConsistencyScan": {
+    "trigger": "KR-020 정책 판단 승인 — 제정·시행 중인 규범을 관련성 낮음을 이유로 WATCH 에 두지 않는다",
+    "question": "같은 유형이 더 있는가 (WATCH 인데 제정 신호가 있는 항목)",
+    "method": "status=WATCH 이면서 (effectiveDate 가 오늘 이전) 또는 (instrumentType 이 지정됨) 인 항목 전수",
+    "found": [
+      {
+        "id": "CN-008",
+        "r": "CN",
+        "eff": null,
+        "instrumentType": "law",
+        "t": "탄소발자국 시범 → 2027 본격 보고 전환 준비",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "CN-023",
+        "r": "CN",
+        "eff": "2024-10-01",
+        "instrumentType": "decree",
+        "t": "稀土管理条例 (国务院令 제785호) — 2024.10.1 시행, 희토류 산업 최초 行政法规",
+        "signal": "과거 발효일 · instrumentType 지정"
+      },
+      {
+        "id": "CN-026",
+        "r": "CN",
+        "eff": null,
+        "instrumentType": "standard",
+        "t": "车用动力电池 拆解破碎 安全要求 — 재활용 拆解破碎 안전 강제국표 (제정 중)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "CN-030",
+        "r": "CN",
+        "eff": "2026",
+        "instrumentType": "decree",
+        "t": "《固体废物污染防治\"十五五\"规划》 — 폐동력전지 회수처리 오염통제 기술규범 제·개정 및 EPR 이행",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "CN-032",
+        "r": "CN",
+        "eff": null,
+        "instrumentType": "decree",
+        "t": "《新化学物质环境管理登记办法》 개정 — 생태환경부령 제12호 개정안 (미공포 — 의견수렴稿 단계)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "CN-044",
+        "r": "CN",
+        "eff": null,
+        "instrumentType": "standard",
+        "t": "《锂离子电池用铝塑复合膜》 중국 국가표준 — 계획번호 20184230-T-339 (승인 단계, 发布即实施)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "CN-047",
+        "r": "CN",
+        "eff": null,
+        "instrumentType": "standard",
+        "t": "《电能存储系统用钠离子电池和电池组 安全技术规范》 — 계획번호 20241666-T-339 (의견수렴 단계)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "EU-010",
+        "r": "EU",
+        "eff": "2025-12",
+        "instrumentType": "law",
+        "t": "Circular Economy Act — WEEE 개정 포함",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "EU-021",
+        "r": "EU",
+        "eff": "2026-06-30",
+        "instrumentType": "law",
+        "t": "RESourceEU — 영구자석 폐기물 수출 제한 (Q2 2026 발의)",
+        "signal": "과거 발효일 · instrumentType 지정"
+      },
+      {
+        "id": "EU-023",
+        "r": "EU",
+        "eff": "2025",
+        "instrumentType": "law",
+        "t": "EU 배터리규정 재활용 효율·회수율 산정 methodology (Delegated Reg (EU) 2025/606)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "GL-005",
+        "r": "GL",
+        "eff": "2027-01-01",
+        "instrumentType": "standard",
+        "t": "ISSB IFRS S1·S2 지속가능성 공시기준 — 28개 관할권 채택, IFRS S2 개정 2027 회계연도 발효",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "GL-006",
+        "r": "GL",
+        "eff": null,
+        "instrumentType": "standard",
+        "t": "IEC TS 63379:2026 — 메가와트 DC 충전(MCS) 커넥터·인렛·케이블 어셈블리 (자발 기술사양)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "GL-008",
+        "r": "GL",
+        "eff": null,
+        "instrumentType": "standard",
+        "t": "ISO 7819:2025 — Lithium 용어표준 (ISO/TC 333)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "JP-007",
+        "r": "JP",
+        "eff": "2026-01-26",
+        "instrumentType": null,
+        "t": "제3회 LTDA 응찰 마감 (METI 1차 source 검증)",
+        "signal": "과거 발효일"
+      },
+      {
+        "id": "JP-012",
+        "r": "JP",
+        "eff": "2026-05-13",
+        "instrumentType": null,
+        "t": "JP LTDA 3차 — BESS 1.25 GW (2026.05.13 결과)",
+        "signal": "과거 발효일"
+      },
+      {
+        "id": "JP-014",
+        "r": "JP",
+        "eff": "2026-06-02",
+        "instrumentType": null,
+        "t": "METI 蓄電池·電源産業戦略 + 제7차 인정 (6.02)",
+        "signal": "과거 발효일"
+      },
+      {
+        "id": "KR-011",
+        "r": "KR",
+        "eff": "2025-05-14",
+        "instrumentType": null,
+        "t": "환경부 배터리 순환이용 활성화 방안 (관계부처 합동, 2025.05.14)",
+        "signal": "과거 발효일"
+      },
+      {
+        "id": "KR-016",
+        "r": "KR",
+        "eff": "2026-02-05",
+        "instrumentType": "notification",
+        "t": "산업통상자원부 「희토류 공급망 종합대책」 발표",
+        "signal": "과거 발효일 · instrumentType 지정"
+      },
+      {
+        "id": "KR-021",
+        "r": "KR",
+        "eff": "2022-08-04",
+        "instrumentType": "law",
+        "t": "국가첨단전략산업법 (특별조치법) — 이차전지 국가첨단전략기술 지정·기술보호",
+        "signal": "과거 발효일 · instrumentType 지정"
+      },
+      {
+        "id": "KR-025",
+        "r": "KR",
+        "eff": "2026",
+        "instrumentType": "notification",
+        "t": "폐기물 수출입 관리 고시 2건 개정 — 고철·비철금속 수출신고 전면 전환 (행정예고 2026.07.15)",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "NA-004",
+        "r": "NA",
+        "eff": null,
+        "instrumentType": "law",
+        "t": "CHARGE Act — 중국산 ESS 수입 금지 법안",
+        "signal": " · instrumentType 지정"
+      },
+      {
+        "id": "NA-019",
+        "r": "NA",
+        "eff": "2027-10",
+        "instrumentType": "law",
+        "t": "NDAA 2027.10 — DoD 중국 배터리 6사 구매 금지",
+        "signal": " · instrumentType 지정"
+      }
+    ],
+    "count": 22,
+    "note": "**이번 승인 범위 밖이라 어느 것도 건드리지 않았다.** 각 항목의 WATCH 배치 근거가 무엇이었는지 checkNote 로 개별 확인해야 하고, 그중 일부는 정당한 WATCH 일 수 있다 — 예컨대 민간 자율 표준(GL-005·GL-006·GL-008 관례)은 발행됐어도 WATCH 가 맞다. 다음 run 의 판정 대상으로 올린다."
+  },
+  "gateCaughtOnApproval": {
+    "note": "승인을 반영하자 내가 만든 게이트가 세 가지를 잡았다. 전부 타당했다.",
+    "items": [
+      {
+        "check": "#18",
+        "finding": "승인 큐 3건이 decision=승인 대기 인 채 status 만 ACTIVE 로 바뀌어 있었다 — 검사가 보기엔 승인 없이 반영된 것과 구별되지 않는다",
+        "fix": "반영된 항목의 decision 을 '승인·반영 완료 (2026-09-01, Claire)' 로 갱신했다. **검사는 완료 항목을 제외하지 않는다** — 한때 제외하도록 만들었으나 5차 리뷰에서 '완료 항목의 status 를 되돌려도 통과한다'는 지적을 받아, 지금은 완료는 to 를 대기는 from 을 현재 status 로 요구한다. 이 기록이 구 설명을 남기고 있어 6차 리뷰가 다시 짚었다."
+      },
+      {
+        "check": "#6",
+        "finding": "신규 편입 EU-039 의 verify 가 오늘 원장을 가리키는데 원장에 그 항목을 덮는 근거가 없었다",
+        "fix": "PFHxA 검색의 itemsCovered 에 EU-039 를 넣고 primaryDocs 에 (EU) 2024/2462 를 추가했다. **신규 항목은 승인 시점에 원장 근거를 함께 걸어야 한다** — 발견 시점에는 항목 ID 가 없어 비어 있었다"
+      },
+      {
+        "check": "#16",
+        "finding": "CN-011 에 effectiveDate=2026-03-28 을 새로 넣었는데 dt 에 그 날짜가 없었다",
+        "fix": "dt 앞에 발문일을 명시. **오늘 도입한 검사가 오늘 내 편집을 바로 잡은 사례**"
+      }
+    ]
+  },
+  "docSync": {
+    "files": [
+      "ops/validate2.mjs 검사 #13 헤더",
+      "ops/RUNBOOK.md G3 절"
+    ],
+    "why": "구현은 사전 정의 쿼리만 근거로 인정하도록 바꿨는데 문서는 종전 두 경로를 그대로 안내하고 있었다. 문서를 따르면 CI 가 거부하는 원장이 나온다.",
+    "added": "RUNBOOK 에 '항목 재검증은 스윕이 아니다' 규칙과 사전 정의 쿼리 선행 과제를 명문화. 검사 수 12종 → 21종 갱신."
+  },
+  "selfCaught3": {
+    "finding": "5차 리뷰 반영 후 **과거 원장을 검증해보니 2026-08-31 원장이 34 ERROR** 였다 — #13의 새 근거 규칙(사전 정의 쿼리 실행)을 소급 적용해 33셀이 근거를 잃고, #18이 그 원장의 대기 큐(CN-011)를 현재 status 와 대조해 오탐을 냈다.",
+    "why": "규칙을 바꿀 때 **그 규칙으로 작성되지 않은 과거 데이터**를 생각하지 않았다. CI 는 변경된 원장 전부를 검증하므로(내가 #299에서 넣은 개선이다) 과거 원장을 건드리는 PR 이 전부 막힌다.",
+    "fix": "#13에 EVIDENCE_RULE_FROM='2026-09-01' 경계를 넣어 이전 원장은 구 규칙으로 대조하고 WARN 을 남긴다(#13 자체의 SWEEP_FROM 과 같은 패턴). #18은 tracker.dataSnapshotDate 와 run.date 가 같은 **현 스냅샷 원장만** 대조한다 — 과거 큐는 이력이다.",
+    "lesson": "**검사를 강화할 때는 과거 데이터로 회귀 검증을 돌려야 한다.** 오늘 도입한 검사 7종을 전부 과거 원장 3개에 돌려봤어야 했는데 현재 원장만 봤다. 이번엔 내가 만든 음성 테스트가 잡았지만 리뷰가 잡을 수도 있었고, 안 잡혔으면 다음 PR 에서 CI 가 막혔을 것이다.",
+    "regressionCheck": "2026-08-02·08-29·08-31 원장 전부 재검증해 통과 확인(아래 ledgerRegression)"
+  },
+  "ledgerRegression": {
+    "ranAt": "2026-09-01 (6차 리뷰 반영 후 재실행)",
+    "note": "검사 7종을 새로 넣은 뒤 과거 원장 전부에 회귀 검증을 돌렸다. 처음엔 2026-08-31 원장이 34 ERROR 였고 경계를 넣어 해소했다.",
+    "results": {
+      "2026-07-17-R1R3.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-07-22-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-07-23-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-07-27-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-07-28-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-07-29-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-08-02-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-08-29-RD.json": "RESULT: PASS (errors 0, warnings 9)",
+      "2026-08-31-RD.json": "RESULT: PASS (errors 0, warnings 12)",
+      "2026-09-01-RD.json": "RESULT: PASS (errors 0, warnings 9)"
+    }
+  },
+  "approvalQueueSchema": "status 를 바꾸는 큐 항목은 **statusChange {id, from, to}** 를 명시한다. 종전에는 검사 #18이 표시명의 `[status]` 접두를 파싱했는데, KR-020 처럼 `[정책판단]` 으로 적히면서 실제로는 WATCH → ACTIVE 를 수행하는 항목이 검사에서 통째로 빠졌다(6차 리뷰 지적). 표시명은 사람이 읽는 것이고 검사는 필드를 본다."
+}

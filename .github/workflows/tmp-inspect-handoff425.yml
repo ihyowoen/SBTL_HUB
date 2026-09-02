@@ -1,4 +1,4 @@
-name: Inspect handoff425 prefix
+name: Inspect handoff425 reconstruction inputs
 
 on:
   push:
@@ -15,22 +15,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Decode partial gzip prefix
+        with:
+          fetch-depth: 0
+      - name: Fetch source branches
+        run: |
+          git fetch origin \
+            chatgpt/v4-crossrun-20260831-20260901 \
+            chatgpt/v4-run-20260831 \
+            chatgpt/v4-run-20260901
+      - name: Inspect transfer prefix and repository history
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
           import base64, zlib, hashlib
-          p = Path('.tmp/handoff425/part_00.txt')
-          s = p.read_text(encoding='utf-8').strip()
-          raw = base64.b64decode(s)
-          d = zlib.decompressobj(16 + zlib.MAX_WBITS)
-          out = d.decompress(raw)
-          print('part_text_bytes=', len(s.encode()))
-          print('compressed_prefix_bytes=', len(raw))
-          print('decompressed_prefix_bytes=', len(out))
-          print('compressed_prefix_sha256=', hashlib.sha256(raw).hexdigest())
-          print('--- DECOMPRESSED PREFIX START ---')
-          print(out[:24000].decode('utf-8', errors='replace'))
-          print('--- DECOMPRESSED PREFIX END ---')
+          p=Path('.tmp/handoff425/part_00.txt')
+          s=p.read_text(encoding='utf-8').strip()
+          raw=base64.b64decode(s)
+          d=zlib.decompressobj(16+zlib.MAX_WBITS)
+          out=d.decompress(raw)
+          print('part_text_bytes=',len(s.encode()))
+          print('compressed_prefix_bytes=',len(raw))
+          print('decompressed_prefix_bytes=',len(out))
+          print('--- PREFIX ---')
+          print(out.decode('utf-8',errors='replace'))
+          print('--- END PREFIX ---')
           PY
+          echo '--- RELEVANT PATHS IN ALL REACHABLE HISTORY ---'
+          git log --all --name-only --pretty=format: | sort -u | grep -Ei 'crossrun|event_universe|membership|handoff|cluster|fingerprint' || true
+          echo '--- RELEVANT COMMIT SUBJECTS ---'
+          git log --all --oneline --decorate --grep='cross\|event\|handoff\|cluster\|fingerprint' -i -n 100 || true
+          echo '--- SOURCE BRANCH TOP-LEVEL RUN FILES ---'
+          git ls-tree -r --name-only origin/chatgpt/v4-crossrun-20260831-20260901 | grep -Ei '2026-09-02|crossrun|event|cluster|fingerprint' || true

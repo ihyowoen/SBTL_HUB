@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 import { createHash } from "node:crypto";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { readFileSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { spawnSync } from "node:child_process";
-import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
 
 export const GOVERNANCE_LOCK_SCHEMA = "governance_lock_v1";
@@ -22,7 +21,6 @@ const fail = (code, message) => { throw new GovernanceLockError(code, message); 
 const isObject = (value) => Boolean(value) && typeof value === "object" && !Array.isArray(value);
 const nonEmptyText = (value) => typeof value === "string" && Boolean(value.trim());
 const sortedUnique = (values) => [...new Set(values)].sort();
-const stableJson = (value) => JSON.stringify(value, Object.keys(value).sort());
 const sha256 = (text) => createHash("sha256").update(text).digest("hex");
 const canonicalJson = (value) => {
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
@@ -238,6 +236,7 @@ export function emitGovernanceArtifact({ root = ".", baseMainSha, baseFullBlobSh
     unresolved_rule_conflicts: [],
     incomplete_universe_defects: [],
     stage_0_0c_authorized: true,
+    active_full_read_count: lock.locked_authority_count,
     governance_lock: lock,
   };
 }
@@ -280,10 +279,13 @@ export function validateGovernanceLockStructure(artifact, registryPayload) {
     || !exactJson(artifact.bootstrap_read_paths, registry.bootstrapRead)
     || lock.bootstrap_read_count !== registry.bootstrapRead.length
     || artifact.bootstrap_read_count !== registry.bootstrapRead.length) {
-    fail("BLOCKED_GOVERNANCE_LOCK_BOOTSTRAP", "bootstrap_read paths/count must exactly match registry bootstrap_read");
+    fail("BLOCKED_GOVERNANCE_LOCK_BOOTSTRAP", "bootstrap_read paths/count must exactly match registry.bootstrap_read");
   }
   if (artifact.repository_head_sha !== lock.repository_head_sha || artifact.canonical_full_blob_sha !== lock.canonical_full_blob_sha) {
     fail("BLOCKED_GOVERNANCE_LOCK_BINDING", "top-level 0.0D baseline bindings must match governance_lock");
+  }
+  if (artifact.active_full_read_count !== lock.locked_authority_count) {
+    fail("BLOCKED_GOVERNANCE_LOCK_COMPAT", "legacy active_full_read_count compatibility mirror must equal locked_authority_count; it is not read evidence");
   }
   return true;
 }
@@ -305,6 +307,7 @@ export function verifyGovernanceArtifactFromGit(artifact, { root = ".", baseMain
     "superseded_or_reference_paths",
     "active_override_or_addendum_count",
     "stage_a_embedded_news_value_verified",
+    "active_full_read_count",
     "governance_lock",
   ];
   for (const key of deterministicKeys) {

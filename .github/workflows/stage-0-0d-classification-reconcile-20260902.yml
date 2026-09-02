@@ -1,0 +1,131 @@
+name: Stage 0.0D classification reconciliation
+
+on:
+  push:
+    branches:
+      - chatgpt/stage-0-0d-closure-20260902
+    paths:
+      - ".github/workflows/stage-0-0d-classification-reconcile-20260902.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout closure branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify locked main
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "1fd5485de7554e2ecaabce3b5de103ec4715ce0c"
+
+      - name: Reconcile explicit classification authority
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+
+          EVIDENCE = Path("runs/2026-09-02/stage_0_0d_full_parse_evidence_20260902_MAIN_1fd5485.json")
+          OUT = Path("runs/2026-09-02/stage_0_0d_classification_reconciliation_20260902_MAIN_1fd5485.json")
+          evidence = json.loads(EVIDENCE.read_text(encoding="utf-8"))
+          canonical = json.loads(Path("docs/llm_prompts/v1/LLM_PROMPT_GITHUB_CANONICAL_V1_MANIFEST.json").read_text(encoding="utf-8"))
+          lifecycle = json.loads(Path("docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json").read_text(encoding="utf-8"))
+
+          allowed = {
+            "ACTIVE_CANONICAL","ACTIVE_MANDATORY_ADDENDUM","ACTIVE_VALIDATOR_CONTRACT",
+            "OPEN_REMEDIATION","ACTIVE_MIGRATION","COMPLETED_REFERENCE","REFERENCE_ONLY",
+            "SUPERSEDED","ARCHIVED"
+          }
+          authoritative = {}
+          def add(path, cls, source):
+              if path not in authoritative: authoritative[path] = []
+              authoritative[path].append({"classification": cls, "source": source})
+
+          cp = canonical["canonical_paths"]
+          for p in cp.get("governance_docs", []): add(p, "ACTIVE_CANONICAL", "canonical_manifest:governance_docs")
+          for p in cp.get("stage_prompts", []): add(p, "ACTIVE_CANONICAL", "canonical_manifest:stage_prompts")
+          for p in cp.get("integrity_overrides", []): add(p, "ACTIVE_MANDATORY_ADDENDUM", "canonical_manifest:integrity_overrides")
+          for p in cp.get("dynamic_governance_stage_addenda", []): add(p, "ACTIVE_MANDATORY_ADDENDUM", "canonical_manifest:dynamic_governance_stage_addenda")
+          for p in cp.get("open_remediations", []): add(p, "OPEN_REMEDIATION", "canonical_manifest:open_remediations")
+          for e in lifecycle.get("entries", []):
+              p=e.get("path"); cls=e.get("classification")
+              if p and cls in allowed: add(p, cls, "lifecycle_registry")
+
+          # Exact self-declaration only: markdown metadata form or top-level JSON classification/status
+          md_cls = re.compile(r"(?im)^\s*(?:\*\*)?(?:classification|status)(?:\*\*)?\s*:\s*`?([A-Z][A-Z0-9_]+)`?\s*(?:\*\*)?\s*$")
+          records=[]; unresolved=[]; conflicts=[]
+          for d in evidence["documents"]:
+              p=d["path"]
+              text=Path(p).read_text(encoding="utf-8")
+              self_declarations=[]
+              for m in md_cls.finditer(text[:12000]):
+                  if m.group(1) in allowed:
+                      self_declarations.append({"classification":m.group(1),"source":"document_self_declaration"})
+              if p.endswith(".json"):
+                  obj=json.loads(text)
+                  if isinstance(obj,dict):
+                      for k in ("classification","status"):
+                          v=obj.get(k)
+                          if v in allowed:
+                              self_declarations.append({"classification":v,"source":f"document_top_level_json:{k}"})
+              sources=authoritative.get(p,[])+self_declarations
+              classes=sorted(set(x["classification"] for x in sources))
+              if len(classes)==1:
+                  state="RESOLVED_BY_EXPLICIT_AUTHORITY_OR_SELF_DECLARATION"
+                  final=classes[0]
+              elif len(classes)>1:
+                  state="CONFLICT_REQUIRES_AUTHORITY_RESOLUTION"
+                  final=None
+                  conflicts.append({"path":p,"classes":classes,"sources":sources})
+              else:
+                  state="UNRESOLVED_REQUIRES_CONTENT_LIFECYCLE_REVIEW"
+                  final=None
+                  # bounded excerpts for human semantic disposition after full-byte parse
+                  lines=text.splitlines()
+                  unresolved.append({
+                    "path":p,
+                    "title_or_first_line": next((x.strip() for x in lines if x.strip()),""),
+                    "byte_count":d["byte_count"],
+                    "headings":d["headings"][:20],
+                    "explicit_metadata_lines":d["explicit_metadata_lines"][:30],
+                    "repo_path_references":d["repo_path_references"],
+                    "opening_excerpt":"\n".join(lines[:60]),
+                    "closing_excerpt":"\n".join(lines[-30:]),
+                  })
+              records.append({
+                "path":p,"classification_state":state,"classification":final,
+                "classification_sources":sources,
+                "read_status":d["read_status"],"git_blob_sha":d["git_blob_sha"],"sha256":d["sha256"]
+              })
+
+          out={
+            "schema":"stage_0_0d_classification_reconciliation_v1",
+            "locked_main_sha":"1fd5485de7554e2ecaabce3b5de103ec4715ce0c",
+            "docs_count":len(records),
+            "resolved_count":sum(1 for r in records if r["classification"]),
+            "unresolved_count":len(unresolved),
+            "conflict_count":len(conflicts),
+            "conflicts":conflicts,
+            "unresolved_content_review":unresolved,
+            "documents":records,
+          }
+          OUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps({k:out[k] for k in ("docs_count","resolved_count","unresolved_count","conflict_count")},indent=2))
+          PY
+
+      - name: Commit report and remove temporary workflow
+        run: |
+          set -euo pipefail
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add runs/2026-09-02/stage_0_0d_classification_reconciliation_20260902_MAIN_1fd5485.json
+          git rm .github/workflows/stage-0-0d-classification-reconcile-20260902.yml
+          git commit -m "audit: reconcile Stage 0.0D document classifications"
+          git push origin HEAD:chatgpt/stage-0-0d-closure-20260902

@@ -45,11 +45,12 @@ jobs:
           )
           p.write_text(s, encoding='utf-8')
           PY
+          python3 scripts/patch_stage_c_r6_eu_lineage.py
           if ! git diff --quiet -- scripts/stage_c_r6_accepted7.py; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git add scripts/stage_c_r6_accepted7.py
-            git commit -m 'fix: align Stage C with production artifact contract'
+            git commit -m 'fix: align Stage C with production artifact contract and R6 lineage'
             git push
           fi
       - name: Build and validate Stage C fact-safe output

@@ -1,0 +1,894 @@
+{
+  "schema": "stage_a_compact_review_packet_r6_v1",
+  "batch": 4,
+  "ordinal_start": 76,
+  "ordinal_end": 100,
+  "event_count": 25,
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "r6_membership_sha256": "e60cdde682c3b5029002adf87e7b43ac3c02bdc0e3119745af979590a1ba5702",
+  "r6_preselection_sha256": "d0151e92f872bb2e34f2b3b30edc3b51c3c00d50d6876f958b69db256d1aebdf",
+  "r6_relation_sha256": "790a0d001d2d39934b4cfdaefc9d8384efbb02dd19d90a85ea9d6a4156c17581",
+  "events": [
+    {
+      "ordinal": 76,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0039",
+      "title": "산업부, 한·영 FTA 협정문 한글본 초안 공개…내달 11일까지 의견 수렴",
+      "date": "2026-08-31",
+      "site": "아주경제",
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "산업부, 한·영 FTA 협정문 한글본 초안 공개…내달 11일까지 의견 수렴",
+        "車·배터리 장벽 낮춘 '한-영 FTA' 개정안⋯내일부터 국민 의견 접수",
+        "산업부, 한·영 FTA 협정문 한글본 초안 공개…내달 11일까지 의견 수렴"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0042",
+        "XRUN_REPLAY_20260903_E0063"
+      ]
+    },
+    {
+      "ordinal": 77,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0040",
+      "title": "헝가리 노조 \"SK온 벌금은 솜방망이\"…배터리 업계 전체로 이슈 확산 조짐",
+      "date": "2026-08-31",
+      "site": "더구루",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "헝가리 노조 \"SK온 벌금은 솜방망이\"…배터리 업계 전체로 이슈 확산 조짐",
+        "헝가리 노조 \"SK온 벌금은 솜방망이\"…배터리 업계 전체로 이슈 확산 조짐"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0043"
+      ]
+    },
+    {
+      "ordinal": 78,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0045",
+      "title": "박수현 지사 유럽 순방…교황 충남 초청·1350만 달러 투자유치",
+      "date": "2026-08-31",
+      "site": "아주경제",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "박수현 지사 유럽 순방…교황 충남 초청·1350만 달러 투자유치",
+        "박수현 지사 유럽 순방…교황 충남 초청·1350만 달러 투자유치"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [],
+        "execution": [
+          "투자"
+        ],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0050"
+      ]
+    },
+    {
+      "ordinal": 79,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0048",
+      "title": "[사설] 7개 법안 재생에너지 대전환 기틀 기대",
+      "date": "2026-08-31",
+      "site": "투데이에너지",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "[사설] 7개 법안 재생에너지 대전환 기틀 기대"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [
+          "법안"
+        ],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0054"
+      ]
+    },
+    {
+      "ordinal": 80,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0049",
+      "title": "[미리보는 2026 국정감사(1)] 석유공급망 위기 대응",
+      "date": "2026-08-31",
+      "site": "투데이에너지",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "[미리보는 2026 국정감사(1)] 석유공급망 위기 대응"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -2,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0055"
+      ]
+    },
+    {
+      "ordinal": 81,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0057",
+      "title": "[ENTECH 2026 참가기업] 화동뉴텍 - 33년 정밀가공 노하우로 전기차 부품 국산화 선도",
+      "date": "2026-08-31",
+      "site": "투데이에너지",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "[ENTECH 2026 참가기업] 화동뉴텍 - 33년 정밀가공 노하우로 전기차 부품 국산화 선도",
+        "[ENTECH 2026 참가기업] 화동뉴텍 - 33년 정밀가공 노하우로 전기차 부품 국산화 선도"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "전기차"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0064"
+      ]
+    },
+    {
+      "ordinal": 82,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0058",
+      "title": "\"脫중국 공급망 구축\"… 美, 유일한 자국 정제소 '애틀랜틱 알루미나'에 8억 달러 투입 - 글로벌이코노믹",
+      "date": "2026-08-31",
+      "site": "핵심광물 다자·G7 (via Google News)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "\"脫중국 공급망 구축\"… 美, 유일한 자국 정제소 '애틀랜틱 알루미나'에 8억 달러 투입 - 글로벌이코노믹",
+        "\"脫중국 공급망 구축\"… 美, 유일한 자국 정제소 '애틀랜틱 알루미나'에 8억 달러 투입 - 글로벌이코노믹"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": -1,
+      "matched_features": {
+        "scope": [],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0065"
+      ]
+    },
+    {
+      "ordinal": 83,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0065",
+      "title": "이철규 의원, 광업협회 법적 근거·광업인 공제조합 도입 추진",
+      "date": "2026-08-31",
+      "site": "아주경제",
+      "observation_count": 3,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "이철규 의원, 광업협회 법적 근거·광업인 공제조합 도입 추진",
+        "이철규 의원, 광업협회 법적 근거·광업인 공제조합 도입 추진",
+        "핵심광물 시대 맞아 광업계 대표조직·공제조합 법제화 추진 - 에너지데일리"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0072",
+        "XRUN_REPLAY_20260903_E0310"
+      ]
+    },
+    {
+      "ordinal": 84,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0066",
+      "title": "美 배터리 수입 다시 살아났다…삼성SDI·LG엔솔 ESS 공략 탄력",
+      "date": "2026-08-30",
+      "site": "더구루",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "美 배터리 수입 다시 살아났다…삼성SDI·LG엔솔 ESS 공략 탄력"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0073"
+      ]
+    },
+    {
+      "ordinal": 85,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0068",
+      "title": "[ESG칼럼] 핵심광물 공급망 '폐전자스크랩' - 전자신문",
+      "date": "2026-08-30",
+      "site": "핵심광물 다자·G7 (via Google News)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "[ESG칼럼] 핵심광물 공급망 '폐전자스크랩' - 전자신문",
+        "[ESG칼럼] 핵심광물 공급망 '폐전자스크랩' - 전자신문"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망",
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0075"
+      ]
+    },
+    {
+      "ordinal": 86,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0069",
+      "title": "3차 ESS 시장 커지나…배터리 업계 셈법도 바뀐다",
+      "date": "2026-08-30",
+      "site": "전자신문",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "3차 ESS 시장 커지나…배터리 업계 셈법도 바뀐다"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "배터리"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0076"
+      ]
+    },
+    {
+      "ordinal": 87,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0070",
+      "title": "美 매체, 고려아연 경영 분쟁 조명...반도체 핵심광물 공급망 안보로 거론 - 지디넷코리아",
+      "date": "2026-08-30",
+      "site": "핵심광물 다자·G7 (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "美 매체, 고려아연 경영 분쟁 조명...반도체 핵심광물 공급망 안보로 거론 - 지디넷코리아"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "핵심광물"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망",
+          "핵심광물"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0077"
+      ]
+    },
+    {
+      "ordinal": 88,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0074",
+      "title": "'희토류' 공급망 중요성 커진다…핵심 광물 확보 속도전 - 아시아타임즈",
+      "date": "2026-08-29",
+      "site": "핵심광물 다자·G7 (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "'희토류' 공급망 중요성 커진다…핵심 광물 확보 속도전 - 아시아타임즈"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "희토류"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "공급망"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0081"
+      ]
+    },
+    {
+      "ordinal": 89,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0075",
+      "title": "美ESS시장 진출 확대…이차전지株 기지개 - 매일경제TV",
+      "date": "2026-08-28",
+      "site": "L&F (via Google News)",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "美ESS시장 진출 확대…이차전지株 기지개 - 매일경제TV"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "전지"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0083"
+      ]
+    },
+    {
+      "ordinal": 90,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0077",
+      "title": "FIP太陽光併設型蓄電池の需給調整市場への参入について",
+      "date": "2026-08-31",
+      "site": "PR TIMES 蓄電池",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "FIP太陽光併設型蓄電池の需給調整市場への参入について"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0085"
+      ]
+    },
+    {
+      "ordinal": 91,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0083",
+      "title": "Tensor Energyと系統用蓄電池事業に関する包括的な業務提携を締結",
+      "date": "2026-08-31",
+      "site": "PR TIMES 蓄電池",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "Tensor Energyと系統用蓄電池事業に関する包括的な業務提携を締結"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0091"
+      ]
+    },
+    {
+      "ordinal": 92,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0084",
+      "title": "太陽光＋蓄電池に最大6千万円補助 ペロブスカイト併用で蓄電池単独申請も可",
+      "date": "2026-08-31",
+      "site": "Kankyo Business Online Energy News",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "太陽光＋蓄電池に最大6千万円補助 ペロブスカイト併用で蓄電池単独申請も可"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0092"
+      ]
+    },
+    {
+      "ordinal": 93,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0085",
+      "title": "JALのいちご農園、消費電力6割が太陽光 パワーエックスと蓄電池活用",
+      "date": "2026-08-31",
+      "site": "Nikkei (日本経済新聞)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "JALのいちご農園、消費電力6割が太陽光 パワーエックスと蓄電池活用",
+        "JALのいちご農園、消費電力6割が太陽光 パワーエックスと蓄電池活用"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0093"
+      ]
+    },
+    {
+      "ordinal": 94,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0086",
+      "title": "【工場実習/現地開催】「電池工場を活用しての電池技術者養成講座：第3回 リチウムイオン電池の製造技術－応用編」2026年10月5日（月）～10月9日（金）主催：(株)シーエムシー・リサーチ",
+      "date": "2026-08-28",
+      "site": "PR TIMES 蓄電池",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "【工場実習/現地開催】「電池工場を活用しての電池技術者養成講座：第3回 リチウムイオン電池の製造技術－応用編」2026年10月5日（月）～10月9日（金）主催：(株)シーエムシー・リサーチ",
+        "【工場実習/現地開催】「電池工場を活用しての電池技術者養成講座：第3回 リチウムイオン電池の製造技術－応用編」2026年10月5日（月）～10月9日（金）主催：(株)シーエムシー・リサーチ"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "リチウム"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0094"
+      ]
+    },
+    {
+      "ordinal": 95,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0087",
+      "title": "東急不動産と共同で宮城県白石市に系統用蓄電所を新設",
+      "date": "2026-08-28",
+      "site": "PR TIMES 蓄電池",
+      "observation_count": 1,
+      "source_runs": [
+        "20260831"
+      ],
+      "observation_titles": [
+        "東急不動産と共同で宮城県白石市に系統用蓄電所を新設"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 1,
+      "matched_features": {
+        "scope": [
+          "蓄電"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0095"
+      ]
+    },
+    {
+      "ordinal": 96,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0089",
+      "title": "‘Australia is a market made for batteries’: Wärtsilä strategy lead on volatility and the business case for energy storage",
+      "date": "2026-08-31",
+      "site": "Energy-Storage.news RSS",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "‘Australia is a market made for batteries’: Wärtsilä strategy lead on volatility and the business case for energy storage",
+        "‘Australia is a market made for batteries’: Wärtsilä strategy lead on volatility and the business case for energy storage"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "batteries",
+          "energy storage",
+          "ess"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0097"
+      ]
+    },
+    {
+      "ordinal": 97,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0092",
+      "title": "‘You’re buying a liability’: panel warns developers on buying ageing battery storage assets in Australia",
+      "date": "2026-08-31",
+      "site": "Energy-Storage.news RSS",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "‘You’re buying a liability’: panel warns developers on buying ageing battery storage assets in Australia",
+        "‘You’re buying a liability’: panel warns developers on buying ageing battery storage assets in Australia"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0100"
+      ]
+    },
+    {
+      "ordinal": 98,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0093",
+      "title": "EU must work with South Korea battery makers to cut China risk, experts say",
+      "date": "2026-08-31",
+      "site": "Nikkei Asia NAR RSS",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "EU must work with South Korea battery makers to cut China risk, experts say",
+        "EU must work with South Korea battery makers to cut China risk, experts say"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 2,
+      "matched_features": {
+        "scope": [
+          "battery"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0101"
+      ]
+    },
+    {
+      "ordinal": 99,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0095",
+      "title": "The Guardian view on rare earths: it’s common sense to secure essential supply chains | Editorial",
+      "date": "2026-08-30",
+      "site": "The Guardian US News RSS",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "The Guardian view on rare earths: it’s common sense to secure essential supply chains | Editorial",
+        "The Guardian view on rare earths: it’s common sense to secure essential supply chains | Editorial"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "ess",
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "supply chain"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0103"
+      ]
+    },
+    {
+      "ordinal": 100,
+      "event_id": "XRUN_REPLAY_20260903_R6_E0099",
+      "title": "China Africa Digital Center Critical Minerals Strategy - rareearthexchanges.com",
+      "date": "2026-08-29",
+      "site": "G7 Critical Minerals Multilateral (via Google News)",
+      "observation_count": 2,
+      "source_runs": [
+        "20260831",
+        "20260901"
+      ],
+      "observation_titles": [
+        "China Africa Digital Center Critical Minerals Strategy - Rare Earth Exchanges",
+        "China Africa Digital Center Critical Minerals Strategy - rareearthexchanges.com"
+      ],
+      "canonical_relation": null,
+      "preselection_bucket": "watchlist_context",
+      "routing_hint_score": 3,
+      "matched_features": {
+        "scope": [
+          "critical mineral",
+          "rare earth"
+        ],
+        "execution": [],
+        "policy": [],
+        "data_financial": [],
+        "scale": [],
+        "technology": [],
+        "strategic": [
+          "critical mineral"
+        ],
+        "negative": [],
+        "context": []
+      },
+      "r6_source_event_ids": [
+        "XRUN_REPLAY_20260903_E0107"
+      ]
+    }
+  ]
+}

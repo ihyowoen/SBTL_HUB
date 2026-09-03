@@ -1,0 +1,49 @@
+name: Stage B R6 EU Relation Rereview
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/stage-b-r6-eu-relation-rereview/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  validate-stage-b-eu-relation-rereview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Lock exact current main baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4"
+          test "$(git rev-parse origin/main:data/cards.full.json)" = "53219907cdb435c3822c41d097b23e475662aa8a"
+      - name: Build Stage B EU relation rereview ordinary exit
+        run: python3 scripts/stage_b_r6_eu_relation_rereview.py
+      - name: Validate Stage B evidence gate
+        run: python3 validation_scripts/stage_b_evidence_gate.py runs/2026-09-04/stage_b_r6_strict7_eu_relation_rereview_R2.json
+      - name: Validate Stage B lineage contract
+        run: python3 validation_scripts/stage_lineage_contract_check.py stage_b runs/2026-09-04/stage_b_r6_strict7_eu_relation_rereview_R2.json
+      - name: Validate Stage B production artifact contract
+        run: |
+          python3 validation_scripts/stage_artifact_contract_check.py B \
+            runs/2026-09-04/stage_b_r6_strict7_eu_relation_rereview_R2.json \
+            | tee runs/2026-09-04/stage_b_r6_strict7_eu_relation_rereview_R2_contract.json
+      - name: Commit validated Stage B EU relation rereview
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-04/stage_b_r6_strict7_eu_relation_rereview_R2.json \
+                  runs/2026-09-04/stage_b_r6_strict7_eu_relation_rereview_R2_validation.json \
+                  runs/2026-09-04/stage_b_r6_strict7_eu_relation_rereview_R2_contract.json
+          git rm -r .tmp/stage-b-r6-eu-relation-rereview
+          git commit -m 'audit: close Stage B EU distinct-follow-up rereview'
+          git push

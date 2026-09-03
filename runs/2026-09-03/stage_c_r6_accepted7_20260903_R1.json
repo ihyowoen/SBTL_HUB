@@ -1,6 +1,8 @@
 {
   "stage": "stage_c",
   "status": "PASS",
+  "strict_gate_acceptance_guard_applied": true,
+  "accepted_pool_lineage_status": "PASS",
   "run_tag": "20260903_R6_STAGE_C_ACCEPTED7_R1",
   "source_prompt_file": "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
   "source_prompt_version": "STAGE_C_V4_20260829",
@@ -75,6 +77,7 @@
       "stage_b_fact_safety_not_declared": true,
       "stage_b_publish_readiness_not_declared": true,
       "spec_id": "STD26_R6_B01_002",
+      "source_spec_id": "STD26_R6_B01_002",
       "source_story_ids": [
         "20260831::orig:20260831_143419:KR_2026-08-31_C25",
         "20260831::orig:20260831_143419:KR_2026-08-31_C41",
@@ -318,6 +321,7 @@
       "stage_b_fact_safety_not_declared": true,
       "stage_b_publish_readiness_not_declared": true,
       "spec_id": "STD26_R6_B01_003",
+      "source_spec_id": "STD26_R6_B01_003",
       "source_story_ids": [
         "20260831::orig:20260831_143419:GL_2026-08-31_C01",
         "20260901::orig:20260901_123511:GL_2026-08-31_C12",
@@ -548,6 +552,7 @@
       "stage_b_fact_safety_not_declared": true,
       "stage_b_publish_readiness_not_declared": true,
       "spec_id": "STD26_R6_B01_004",
+      "source_spec_id": "STD26_R6_B01_004",
       "source_story_ids": [
         "20260831::orig:20260831_143419:GL_2026-08-28_C01",
         "20260831::orig:20260831_143419:GL_2026-08-28_C13",
@@ -788,6 +793,7 @@
       "stage_b_fact_safety_not_declared": true,
       "stage_b_publish_readiness_not_declared": true,
       "spec_id": "STD26_R6_B01_005",
+      "source_spec_id": "STD26_R6_B01_005",
       "source_story_ids": [
         "20260831::disc:20260831:lg-es-smackover-lithium-offtake",
         "20260901::orig:20260901_123511:GL_2026-08-31_C27",
@@ -1041,6 +1047,7 @@
       "stage_b_fact_safety_not_declared": true,
       "stage_b_publish_readiness_not_declared": true,
       "spec_id": "STD26_R6_B01_008",
+      "source_spec_id": "STD26_R6_B01_008",
       "source_story_ids": [
         "20260831::disc:20260831:eu-battery-passport-71-data-points",
         "20260901::disc:20260901:eu-battery-passport-71-data-points"
@@ -1271,6 +1278,7 @@
       "stage_b_fact_safety_not_declared": true,
       "stage_b_publish_readiness_not_declared": true,
       "spec_id": "STD26_R6_B01_009",
+      "source_spec_id": "STD26_R6_B01_009",
       "source_story_ids": [
         "20260831::disc:20260831:china-battery-consumption-tax-qa",
         "20260901::disc:20260901:china-battery-consumption-tax-qa"
@@ -1508,6 +1516,7 @@
       "stage_b_fact_safety_not_declared": true,
       "stage_b_publish_readiness_not_declared": true,
       "spec_id": "STD26_R6_B01_010",
+      "source_spec_id": "STD26_R6_B01_010",
       "source_story_ids": [
         "20260901::disc:20260901:china-battery-consumption-tax-effective"
       ],
@@ -1658,7 +1667,9 @@
       "related_lineage": {
         "status": "PASS",
         "relation_type": "program_lineage",
-        "related_ids": [],
+        "related_ids": [
+          "2026-08-27_CN_02"
+        ],
         "provisional_current_batch_candidate_ids": [
           "2026-08-27_CN_02"
         ],

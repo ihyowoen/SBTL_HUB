@@ -419,6 +419,11 @@ def decide(event: dict) -> dict:
     ) and m["score"] >= 40:
         pool = "candidate_review_pool"
 
+    # A source-bound observation without any supplied fetchable URL may never enter the strict Stage B queue.
+    # Rescue-before-delete keeps relevant rows in candidate review for authorized source recovery.
+    if not source_urls(event):
+        pool = "candidate_review_pool" if m["relevant"] else "reject_or_support_only_pool"
+
     route = "execution_anchor_route" if m["binding_exec"] else "structural_non_execution_route"
     anchors = []
     if route == "execution_anchor_route":
@@ -640,7 +645,8 @@ def common_item(event: dict, j: dict, strict: bool, batch: int) -> dict:
     obs = event["observations"]
     source_ids = [o["observation_key"] for o in obs]
     urls = source_urls(event)
-    primary = event["representative"].get("url") or urls[0]
+    source_url_missing = not urls
+    primary = event["representative"].get("url") or (urls[0] if urls else f"source-bound-observation:{event['representative']['observation_key']}")
     if primary not in urls:
         urls.insert(0, primary)
     d = domains(urls)
@@ -674,7 +680,7 @@ def common_item(event: dict, j: dict, strict: bool, batch: int) -> dict:
         "execution_anchor_type": j["exec_type"] if j["route"] == "execution_anchor_route" else None,
         "execution_anchor_strength": j["exec_strength"] if j["route"] == "execution_anchor_route" else None,
         "staleness_decision": "current",
-        "source_access_risk": "low" if len(urls) > 1 else "moderate",
+        "source_access_risk": "high" if source_url_missing else ("low" if len(urls) > 1 else "moderate"),
         "stage_a_evidence_status": "not_evidence_complete_no_fetch",
         "stage_b_evidence_package_required": True,
         "primary_url_semantics": "provided_source_candidate_not_evidence",
@@ -1062,7 +1068,7 @@ def build_batch(batch: int) -> tuple[dict, dict]:
         "high_decision_value_candidate_ids": [cid(i) for i in all_candidates if i["decision_value_classification"] == "high_decision_value"],
         "high_value_review_pool_ids": [i["review_pool_item_id"] for i in review_items if i["decision_news_value_score"] >= 70],
         "structural_signal_review_pool_ids": [i["review_pool_item_id"] for i in pools["candidate_review_pool"] if i.get("review_pool_subtype") == "structural_signal_review"],
-        "earnings_deep_dive_pool_ids": [i["review_pool_item_id"] for i in review_items if i.get("earnings_deep_dive_required")],
+        "earnings_deep_dive_pool_ids": [i["review_pool_item_id"] for i in pools["candidate_review_pool"] if i.get("review_pool_subtype") == "earnings_deep_dive"],
         "follow_up_candidate_ids": [cid(i) for i in all_candidates if i["baseline_follow_up_relation"] not in {"new", "new_unrelated_event", "unrelated", "not_applicable", "none", ""}],
         "zero_coverage_domains": [],
         "execution_or_formality_bias_findings": [],
@@ -1200,6 +1206,31 @@ def build_batch(batch: int) -> tuple[dict, dict]:
             "adjudication_method": "source_bound_prompt_0_1_v4_rule_encoded_item_level_judgment_no_preselection_score_reuse",
         },
     }
+
+    # Zero-strict batches must not claim a Stage B handoff. Follow the canonical next-call safety contract.
+    if not pools["strict_passed_spec"]:
+        rec = artifact["next_call_recommendation"]
+        if pools["candidate_review_pool"]:
+            rec.update({
+                "recommended_next_call": "candidate_review_pool triage",
+                "recommended_prompt_id": "separate review_pool promotion prompt, not Prompt 0.2",
+                "recommended_input_universe": "Stage A candidate_review_pool[] only",
+                "reason": f"Formal Batch {batch:02d} has zero strict Stage A inputs; candidate-review items remain bounded and may not enter Stage B without authorized promotion.",
+            })
+        elif pools["watchlist_context_pool"]:
+            rec.update({
+                "recommended_next_call": "retrospective or watchlist context review",
+                "recommended_prompt_id": "Prompt 1.1 or separate context review prompt",
+                "recommended_input_universe": "watchlist_context_pool[] only, not Stage B",
+                "reason": f"Formal Batch {batch:02d} has zero strict/candidate inputs; watchlist context remains outside Stage B.",
+            })
+        else:
+            rec.update({
+                "recommended_next_call": "retrospective",
+                "recommended_prompt_id": "Prompt 1.1",
+                "recommended_input_universe": "reject_or_support_only_pool[] terminal accounting only",
+                "reason": f"Formal Batch {batch:02d} has no strict, candidate-review or watchlist inputs for downstream Stage B.",
+            })
 
     from validation_scripts import stage_lineage_contract_check as lineage
     from validation_scripts.stage_a_v4_contract import validate_stage_a_v4_payload

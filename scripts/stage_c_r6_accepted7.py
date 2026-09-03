@@ -38,6 +38,7 @@ for pkg in packages:
     item = draft
     item.update({
         "spec_id": pkg["spec_id"],
+        "source_spec_id": pkg["spec_id"],
         "source_story_ids": pkg["source_story_ids"],
         "state": "accepted_fact_safe",
         "stage_c_only": True,
@@ -149,7 +150,7 @@ for pkg in packages:
         lineage = {
             "status": "PASS",
             "relation_type": "program_lineage",
-            "related_ids": [],
+            "related_ids": [qna_id],
             "provisional_current_batch_candidate_ids": [qna_id],
             "reason": "The Sep. 1 statutory effective-date event and the Aug. 27 administration Q&A are distinct events in the same Notice No.20 battery-consumption-tax program; the later effective-date card links back to the earlier implementation clarification.",
             "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
@@ -188,6 +189,8 @@ for pkg in packages:
 artifact = {
     "stage": "stage_c",
     "status": "PASS" if not revisions else "PARTIAL_REVISE_REQUIRED",
+    "strict_gate_acceptance_guard_applied": True,
+    "accepted_pool_lineage_status": "PASS",
     "run_tag": "20260903_R6_STAGE_C_ACCEPTED7_R1",
     "source_prompt_file": "docs/llm_prompts/v1/03_PROMPT_0_3_Stage_C_r0.md",
     "source_prompt_version": "STAGE_C_V4_20260829",

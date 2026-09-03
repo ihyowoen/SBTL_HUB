@@ -1,0 +1,17 @@
+name: prompt-0-1p-r6-candidates16
+
+on:
+  push:
+    branches: [chatgpt/recover-exact-425-artifacts-20260903]
+    paths:
+      - '.tmp/promotion-r6/TRIGGER'
+  workflow_dispatch:
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail closed until promotion runner is bound
+        run: |
+          echo 'Promotion workflow scaffold created; runner binding required before execution.'
+          exit 1

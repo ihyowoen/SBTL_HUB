@@ -30,7 +30,7 @@ jobs:
           test "$(git rev-parse origin/main:data/cards.full.json)" = "53219907cdb435c3822c41d097b23e475662aa8a"
 
       - name: Prepare operation-bound 0.7C, 0.8 and card-run package
-        run: python3 scripts/prompt_0_7c_0_8_r6_combined9.py prepare
+        run: python3 scripts/prompt_0_7c_0_8_r6_combined9_v2.py prepare
 
       - name: Validate exact ordinary stage bridges
         shell: bash
@@ -76,7 +76,7 @@ jobs:
             --lean-path "$D/candidate.cards.json" \
             --base-main-sha df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4 \
             --apply
-          python3 scripts/prompt_0_7c_0_8_r6_combined9.py finalize-audit
+          python3 scripts/prompt_0_7c_0_8_r6_combined9_v2.py finalize-audit
 
       - name: Validate independent audit and exact Prompt 0.8 operation set
         shell: bash

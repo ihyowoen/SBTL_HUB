@@ -25,24 +25,50 @@ jobs:
           from pathlib import Path
           p=Path('scripts/formal_stage_a_r6_batch01.py')
           s=p.read_text()
-          old="score=54, breakdown=b(17,14,7,8,4,2,3,2)"
-          new="score=54, breakdown=b(16,13,7,7,4,2,3,2)"
-          if old in s:
-              assert s.count(old)==1
-              s=s.replace(old,new)
-          assert new in s
+          def repl(old,new):
+              global s
+              if old in s:
+                  assert s.count(old)==1, (old, s.count(old))
+                  s=s.replace(old,new)
+              assert new in s, new
+
+          repl("score=54, breakdown=b(17,14,7,8,4,2,3,2)", "score=54, breakdown=b(16,13,7,7,4,2,3,2)")
           marker="ROOT = Path(__file__).resolve().parents[1]\n"
           pathfix="import sys\nsys.path.insert(0, str(ROOT))\n"
           if pathfix not in s:
               assert s.count(marker)==1
               s=s.replace(marker, marker+pathfix)
+          assert pathfix in s
+
+          repl("baseline_follow=rel['relation_type'] if rel else 'new_unrelated_event'", "baseline_follow=rel['relation_type'] if rel else 'new'")
+          repl("'stage_b_requirement_note':'Stage A is selector-only. No fact_sources, source quotes or card copy were created; strict items still require a Stage B evidence package.'", "'stage_b_requirement_note':'Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.'")
+          repl("'high_value_review_pool_ids':[i['review_pool_item_id'] for i in review_items if i['decision_news_value_score']>=55]", "'high_value_review_pool_ids':[i['review_pool_item_id'] for i in review_items if i['decision_news_value_score']>=70]")
+          repl("'original_status_counts':{'r6_batch_events':25,'source_bound_observations':len(ledger)}", "'original_status_counts':{'kept':len(ledger)}")
+
+          old_resolution="review_resolution.append({'review_pool_item_id':item['review_pool_item_id'],'story_id':item['story_id'],'grouped_story_ids':item['grouped_story_ids'],'review_pool_partition':pool,'resolution_status':'open','carry_forward_policy':cf,'upstream_status':item['upstream_status'],'final_review_pool_disposition':item['final_review_pool_disposition'],'reviewed_by_stage_or_pass':'Formal Stage A V4 R6 Batch 01','review_artifact_id':'stage_a_formal_r6_batch01_20260903_R1'})"
+          new_resolution="review_resolution.append({'review_pool_item_id':item['review_pool_item_id'],'story_id':item['story_id'],'grouped_story_ids':item['grouped_story_ids'],'review_pool_partition':pool,'original_review_pool_partition':pool,'current_disposition':pool,'disposition_basis':f\"Formal Stage A V4 Batch 01 retains {item['review_pool_item_id']} in {pool}; no review-pool promotion is performed in this batch.\",'resolution_status':'open','carry_forward_policy':cf,'next_action_condition':item['next_action_condition'],'whether_user_authorization_required':False,'upstream_status':item['upstream_status'],'final_review_pool_disposition':item['final_review_pool_disposition'],'reviewed_by_stage_or_pass':'Formal Stage A V4 R6 Batch 01','review_artifact_id':'stage_a_formal_r6_batch01_20260903_R1'})"
+          repl(old_resolution,new_resolution)
+
+          old_next="'next_call_recommendation':{'recommended_next_call':'Stage B r0','recommended_prompt_id':'Prompt 0.2','recommended_input_universe':'Stage A strict_passed_spec[] only','reason':'Formal Batch 01 has seven strict Stage A V4 specs and all Stage A safety/accounting gates pass; review pools are explicitly excluded from Stage B.','blocked_items_summary':[{'pool':k,'count':len(v)} for k,v in pools.items() if k!='strict_passed_spec']}"
+          new_next="'next_call_recommendation':{'recommended_next_call':'Stage B r0','recommended_prompt_id':'Prompt 0.2','recommended_input_universe':'Stage A strict_passed_spec[] only','reason':'Formal Batch 01 has seven strict Stage A V4 specs and all Stage A safety/accounting gates pass; review pools are explicitly excluded from Stage B.','pending_parallel_or_followup_call':'review_pool/treasure triage','pending_prompt_id':'authorized review_pool/treasure promotion protocol, not Prompt 0.2','pending_input_universe':'candidate_review_pool[] + eligible treasure/review-only universe','pending_reason':'Stage B may process strict_passed_spec[] only; review_pool/treasure remains open and must not be treated as exhausted.','blocked_items_summary':[{'pool':k,'count':len(v)} for k,v in pools.items() if k!='strict_passed_spec']}"
+          repl(old_next,new_next)
+
+          old_docs="'required_docs_check':{'docs_expected':['docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md','docs/FACT_DISCIPLINE.md','docs/PROMPT_ABC_DEFAULT_MODE.md','docs/PROMPT_ABC_SUPPORTING_RULES.md','docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md','docs/CARD_ID_STANDARD.md','docs/WORKFLOW.md','docs/OPERATIONS.md','docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md','docs/RELATED_LIFECYCLE_CONTRACT.md'],'docs_read_from_github_main':['docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md','docs/FACT_DISCIPLINE.md','docs/PROMPT_ABC_DEFAULT_MODE.md','docs/PROMPT_ABC_SUPPORTING_RULES.md','docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md','docs/CARD_ID_STANDARD.md','docs/WORKFLOW.md','docs/OPERATIONS.md','docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md','docs/RELATED_LIFECYCLE_CONTRACT.md'],'docs_missing_or_unreadable':[],'status':'PASS','authority_note':'V4 integrated prompt is authoritative; superseded structural override prompt bodies are not activated.'}"
+          new_docs="'required_docs_check':{'docs_expected':['docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md','docs/FACT_DISCIPLINE.md','docs/PROMPT_ABC_DEFAULT_MODE.md','docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md','docs/CARD_ID_STANDARD.md','docs/WORKFLOW.md','docs/OPERATIONS.md','docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md','docs/RELATED_LIFECYCLE_CONTRACT.md'],'docs_read_from_github_main':['docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md','docs/FACT_DISCIPLINE.md','docs/PROMPT_ABC_DEFAULT_MODE.md','docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md','docs/CARD_ID_STANDARD.md','docs/WORKFLOW.md','docs/OPERATIONS.md','docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md','docs/RELATED_LIFECYCLE_CONTRACT.md'],'docs_missing_or_unreadable':[],'status':'PASS','authority_note':'The integrated V4 Stage A prompt is the sole active selection authority. Superseded Structural V3 policy/addendum and PROMPT_ABC_SUPPORTING_RULES are not persisted as active authority; the current main validator supplies any frozen V3 document-presence aliases only in its private compatibility projection.'}"
+          repl(old_docs,new_docs)
+
+          old_validation="full_errors=validate_full_stage_a_artifact(artifact,lineage._compat_module)\nrc=lineage.check_stage_a(artifact)\nreport={'schema':'formal_stage_a_r6_batch01_validation_v1','status':'PASS' if not(pre_errors or v4_errors or hard_errors or full_errors) and rc==0 else 'FAIL'"
+          new_validation="authority_errors=lineage._validate_active_required_docs(artifact)\ncompat_payload=lineage._project_full_stage_a_for_v3_compat(artifact) if not authority_errors else artifact\nfull_errors=validate_full_stage_a_artifact(compat_payload,lineage._compat_module)\nrc=lineage.check_stage_a(artifact)\nreport={'schema':'formal_stage_a_r6_batch01_validation_v1','status':'PASS' if not(pre_errors or v4_errors or hard_errors or authority_errors or full_errors) and rc==0 else 'FAIL'"
+          repl(old_validation,new_validation)
+          repl("'v4_hardening_errors':hard_errors,'full_completeness_errors':full_errors", "'v4_hardening_errors':hard_errors,'active_authority_errors':authority_errors,'full_completeness_errors':full_errors")
+
           p.write_text(s)
           PY
           if ! git diff --quiet -- scripts/formal_stage_a_r6_batch01.py; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git add scripts/formal_stage_a_r6_batch01.py
-            git commit -m 'fix: make Formal Stage A Batch 01 runner repo-root aware'
+            git commit -m 'fix: align Formal Stage A Batch 01 with active authority contract'
             git push
           fi
       - name: Materialize and validate Formal Stage A Batch 01

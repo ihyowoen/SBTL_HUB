@@ -7,9 +7,11 @@ ROOT=Path(__file__).resolve().parents[1]
 RUN=ROOT/'runs/2026-09-03'
 IN=RUN/'prompt_0_6_r6_evidence7_20260903_R1.json'
 OUT=RUN/'prompt_0_7_r6_polished7_20260903_R1.json'
+MERGED=RUN/'prompt_0_7_r6_merged_baseline_candidate_20260903_R1.json'
 REP=RUN/'prompt_0_7_r6_polished7_validation_20260903_R1.json'
 IDS=RUN/'prompt_0_7_r6_current_run_ids_20260903_R1.json'
 PROMPT=ROOT/'docs/llm_prompts/v1/09_PROMPT_0_7_Final_QC.md'
+CANON=ROOT/'data/cards.full.json'
 MAIN='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
 BLOB='53219907cdb435c3822c41d097b23e475662aa8a'
 
@@ -82,9 +84,23 @@ artifact={
  'next_authorized_stage':'Prompt 0.7C Independent Completeness Review' if len(passed)==7 and not holds else 'RETURN_EARLIEST_RESPONSIBLE_STAGE',
 }
 OUT.write_text(json.dumps(artifact,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+# Strict 0.7 validators receive the exact current main inventory plus the current-run
+# candidate bucket. CURRENT_RUN_ID_FILE scopes strict requirements to only the seven
+# newly authored cards while preserving canonical predecessor visibility for Related.
+canon=json.loads(CANON.read_text(encoding='utf-8'))
+canon_cards=canon if isinstance(canon,list) else canon.get('cards',[])
+assert len(canon_cards)==1514
+merged=copy.deepcopy(artifact)
+merged['cards']=canon_cards
+merged['merged_baseline_candidate_card_count']=1514+len(passed)
+merged['canonical_inventory_sha256']=hashlib.sha256(CANON.read_bytes()).hexdigest()
+MERGED.write_text(json.dumps(merged,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
 rep={
  'schema':'prompt_0_7_r6_polished7_validation_v1','status':'PASS' if len(passed)==7 and not holds else 'FAIL',
  'artifact':str(OUT.relative_to(ROOT)),'artifact_sha256':hashlib.sha256(OUT.read_bytes()).hexdigest(),
+ 'merged_baseline_candidate':str(MERGED.relative_to(ROOT)),'merged_baseline_candidate_sha256':hashlib.sha256(MERGED.read_bytes()).hexdigest(),
  'current_run_id_file':str(IDS.relative_to(ROOT)),'current_run_id_sha256':hashlib.sha256(IDS.read_bytes()).hexdigest(),
  'input_count':7,'publish_ready_count':len(passed),'hold_count':len(holds),
  'prompt_0_8_authorized':False,'holds':holds,

@@ -32,7 +32,7 @@ jobs:
           BASE_SHA='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
           BASE_BLOB='53219907cdb435c3822c41d097b23e475662aa8a'
           RECOVERY_BRANCH='chatgpt/recover-exact-425-artifacts-20260903'
-          RECOVERY_COMMIT='621c753f9910e6243a3065d8054e8849894067a3'
+          RECOVERY_COMMIT='621c753f32f8713bce25a02efc363a4bb437a68b'
           git fetch origin main "$RECOVERY_BRANCH"
           test "$(git rev-parse origin/main)" = "$BASE_SHA"
           test "$(git merge-base origin/main HEAD)" = "$BASE_SHA"
@@ -44,7 +44,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          RECOVERY_COMMIT='621c753f9910e6243a3065d8054e8849894067a3'
+          RECOVERY_COMMIT='621c753f32f8713bce25a02efc363a4bb437a68b'
           D='runs/2026-09-04/r6-combined9-production-r1'
           mapfile -t source_files < <(git ls-tree -r --name-only "$RECOVERY_COMMIT" -- "$D" | sort)
           test "${#source_files[@]}" -eq 20

@@ -1,0 +1,135 @@
+{
+  "schema": "prompt_0_9_combined9_postmerge_verification_v2_final",
+  "stage": "0.9",
+  "status": "PASS",
+  "production_verified": true,
+  "source_prompt_file": "docs/llm_prompts/v1/11_PROMPT_0_9_Production_Verification.md",
+  "source_prompt_version": "PROMPT_0_9_V4_20260829",
+  "verification_date_kst": "2026-09-04",
+  "production": {
+    "repository": "ihyowoen/SBTL_HUB",
+    "merged_pr": 325,
+    "main_commit_sha": "dff7349272013757e08c87b37754ec996156059a",
+    "main_parent_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+    "canonical_git_blob_sha": "81243ad6ca7e88b703d2eeb31c08ed60f8d6853d",
+    "public_git_blob_sha": "d0527fa9f3df67225ee6eec216d5b3cc6237f355",
+    "canonical_count_before": 1514,
+    "canonical_count_after": 1523,
+    "production_url": "https://sbtl-hub.vercel.app",
+    "vercel_deployment_id": "dpl_12NbeAYqsFKcq8eMFvSKYZ6zToLa",
+    "vercel_deployment_state": "READY",
+    "vercel_target": "production",
+    "vercel_github_commit_sha": "dff7349272013757e08c87b37754ec996156059a",
+    "github_merge_commit_deployment_status": "success"
+  },
+  "sealed_run": {
+    "run_id": "card-run-2026-09-04-r6-combined9-production-r1",
+    "operation_sha256": "94ba16582bbd8ec13db59713a4b463976cbaf97dba0ae6f1cc396adafd852e8b",
+    "full_output_sha256": "e3f90efefbee6c5ab5c81d36ab7549dd2ee0de25a0e2b12927464b894c350ef4",
+    "lean_output_sha256": "7bca42fe064f430c7fe5dc9ca57eea2531d72e782e3b259488899f2b7a37a71c",
+    "insert_count": 9,
+    "related_add_count": 2,
+    "delete_count": 0,
+    "related_remove_count": 0
+  },
+  "introduced_ids": [
+    "2026-08-31_US_01",
+    "2026-08-31_GL_01",
+    "2026-08-28_GL_01",
+    "2026-08-31_US_02",
+    "2026-08-21_EU_02",
+    "2026-08-27_CN_02",
+    "2026-09-01_CN_01",
+    "2026-08-31_GL_02",
+    "2026-08-31_GL_03"
+  ],
+  "related_edges": [
+    {
+      "source_id": "2026-08-21_EU_02",
+      "target_id": "2026-07-20_EU_06",
+      "relation_type": "distinct_follow_up",
+      "direction": "directional",
+      "target_exists_in_live_canonical": true
+    },
+    {
+      "source_id": "2026-09-01_CN_01",
+      "target_id": "2026-08-27_CN_02",
+      "relation_type": "program_lineage",
+      "direction": "directional",
+      "target_exists_in_live_canonical": true
+    }
+  ],
+  "verification": {
+    "data": {
+      "status": "PASS",
+      "actions_run_id": 33789722351,
+      "artifact_ref": "runs/2026-09-04/prompt_0_9_combined9_postmerge_20260904_R1.json",
+      "canonical_count": 1523,
+      "introduced_ids_unique_and_present": true,
+      "live_related_targets_exist": true,
+      "provisional_relation_ids": 0,
+      "date_role_exact9": "PASS",
+      "related_lifecycle_exact9": "PASS",
+      "evidence_qc_exact9": "PASS",
+      "canonical_validate": "PASS",
+      "lean_validate": "PASS",
+      "lean_consistency": "PASS",
+      "sealed_output_hashes_match_merged_main": true
+    },
+    "deployment": {
+      "status": "PASS",
+      "production_deployment_ready": true,
+      "production_target_verified": true,
+      "deployment_commit_matches_main": true,
+      "github_deployment_status_success": true
+    },
+    "production_endpoint": {
+      "status": "PASS",
+      "http_status": 200,
+      "live_card_count": 1523,
+      "introduced_ids_live_count": 9
+    },
+    "html": {
+      "status": "PASS",
+      "desktop_meaningful_html": true,
+      "mobile_meaningful_html": true,
+      "react_error_boundary_visible": false,
+      "page_error_count": 0
+    },
+    "interactive": {
+      "status": "PASS",
+      "actions_run_id": 33790017879,
+      "artifact_ref": "runs/2026-09-04/prompt_0_9_combined9_live_browser_20260904_R1.json",
+      "feed_navigation_clicked": true,
+      "card_search_control_used": true,
+      "introduced_card_rendered": "2026-09-01_CN_01",
+      "introduced_card_title": "중국 배터리 소비세 2% 시행…리튬이온·바나듐 레독스 플로우 전지 대상"
+    },
+    "mobile": {
+      "status": "PASS",
+      "viewport_width": 390,
+      "viewport_height": 844,
+      "horizontal_overflow": false,
+      "scroll_width": 390,
+      "inner_width": 390,
+      "introduced_card_rendered": true
+    },
+    "related_navigation": {
+      "status": "NOT_APPLICABLE_STANDARD_CARD_SURFACE",
+      "reason": "The current standard card surface does not directly expose a Related navigation control. Related data is consumed by connection/pin graph surfaces, so Prompt 0.9's 'when available' direct-navigation check is not a mandatory failing surface for this release. Data-side Related targets and lineage are independently verified PASS."
+    }
+  },
+  "governance": {
+    "prompt_0_7c_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+    "prompt_0_8_binding_status": "PASS",
+    "recovery_pr_322_must_not_merge": true,
+    "audit_pr_326_must_not_merge": true,
+    "clean_production_pr_325_merged": true
+  },
+  "closure": {
+    "mandatory_surfaces_verified": true,
+    "untested_mandatory_surfaces": [],
+    "blocking_findings": [],
+    "final_decision": "PASS_PRODUCTION_VERIFIED"
+  }
+}

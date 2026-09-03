@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Build validator-bound Prompt 0.1P promotion artifact
-        run: python3 scripts/prompt_0_1p_r6_promotion.py
+        run: python3 scripts/prompt_0_1p_r6_promotion_fixup.py
       - name: Production Stage A contract
         run: python3 validation_scripts/stage_artifact_contract_check.py A runs/2026-09-03/stage_a_prompt_0_1p_r6_promotion16_20260903_R1.json
       - name: Production Stage A lineage contract

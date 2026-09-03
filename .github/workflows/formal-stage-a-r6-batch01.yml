@@ -62,13 +62,21 @@ jobs:
           repl(old_validation,new_validation)
           repl("'v4_hardening_errors':hard_errors,'full_completeness_errors':full_errors", "'v4_hardening_errors':hard_errors,'active_authority_errors':authority_errors,'full_completeness_errors':full_errors")
 
+          old_strict="def strict_item(event,j):\n    item=common_item(event,j,True)\n    item['spec_id']=f\"STD26_R6_B01_{event['ordinal']:03d}\""
+          new_strict="STRICT_STAGE_B_TARGETS={\n  2:(\"Signed contract document confirming 9GWh volume, 2027-2031 supply schedule, Georgia production status and NeoVolta counterparty\",\"2027 first shipment volume to NeoVolta would confirm the U.S. ESS execution thesis; missing the shipment deadline would weaken that thesis\"),\n  3:(\"Acquisition contract document confirming CIP ownership transfer, 104MW BESS capacity, 408MW wind capacity and financial-close status\",\"Financial-close decision and construction-start schedule for the 104MW BESS would confirm the Gawara Baya execution thesis; a delayed schedule would weaken that thesis\"),\n  4:(\"IDB financing contract or filing confirming US$700 million facility size, commitment status, draw conditions and Argentina project allocation\",\"First financing draw and project capex filing under the US$700 million facility would confirm the Argentina funding thesis; cancellation would invalidate that thesis\"),\n  5:(\"Binding offtake contract document confirming 80,000-ton volume, 10-year term, 2029 start date, Smackover project production status and pricing mechanism\",\"2029 first shipment volume under the 80,000-ton offtake would confirm the U.S. lithium supply thesis; project delay would weaken that thesis\"),\n  8:(\"European Commission guidance document confirming 71 Battery Passport data points, mandatory status and implementation date\",\"Official guidance publication and first compliance filing on the stated implementation date would confirm the Battery Passport market-access thesis; delayed adoption would weaken that thesis\"),\n  9:(\"Chinese tax authority guidance document confirming the tax stage for ESS clusters, semi-solid batteries, exemptions and effective date\",\"First tax filing or guidance publication applying the ESS and semi-solid scope would confirm the implementation judgment; contradictory filing practice would weaken that judgment\"),\n 10:(\"Chinese tax notice or regulation confirming the 2% rate, covered lithium-ion battery categories and 2026-09-01 effective date\",\"The 2026-09-01 effective date and first 2% tax filing would confirm the battery cost-transmission thesis; deferred application would weaken that thesis\"),\n}\n\ndef strict_item(event,j):\n    item=common_item(event,j,True)\n    evidence_target,confirmation_target=STRICT_STAGE_B_TARGETS[event['ordinal']]\n    item['evidence_needed_for_stage_b']=[evidence_target]\n    item['next_confirmation_points']=[confirmation_target]\n    item['spec_id']=f\"STD26_R6_B01_{event['ordinal']:03d}\""
+          repl(old_strict,new_strict)
+
+          old_follow="'follow_up_candidate_ids':[i.get('spec_id') or i.get('review_pool_item_id') for i in all_candidates if i['baseline_follow_up_relation'] in {'distinct_follow_up','program_lineage'}]"
+          new_follow="'follow_up_candidate_ids':[i.get('spec_id') or i.get('review_pool_item_id') for i in all_candidates if ('follow_up_probability_anchor' in i.get('anchor_classes',[]) or (isinstance(i.get('baseline_follow_up_relation'),str) and i.get('baseline_follow_up_relation').strip().lower() not in {'','new','new_unrelated','unrelated','not_applicable','none'}))]"
+          repl(old_follow,new_follow)
+
           p.write_text(s)
           PY
           if ! git diff --quiet -- scripts/formal_stage_a_r6_batch01.py; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git add scripts/formal_stage_a_r6_batch01.py
-            git commit -m 'fix: align Formal Stage A Batch 01 with active authority contract'
+            git commit -m 'fix: harden Formal Stage A Batch 01 strict evidence targets'
             git push
           fi
       - name: Materialize and validate Formal Stage A Batch 01

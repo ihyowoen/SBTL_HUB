@@ -1,0 +1,144 @@
+name: Regenerate R6 canonical relations and V4 preselection
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/r6-relation-preselection/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Re-anchor relations and aggregate fail-safe preselection
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, hashlib, copy
+          from pathlib import Path
+          MAIN='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
+          BLOB='53219907cdb435c3822c41d097b23e475662aa8a'
+          mp=Path('runs/2026-09-03/current_crossrun_event_membership_replay_corrected_395_20260903_R6.json')
+          gp=Path('runs/2026-09-03/current_event_universe_replay_gate_20260903_R6.json')
+          oldrelp=Path('runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json')
+          oldprep=Path('runs/2026-09-03/stage_a_v4_preselection_replay_425_20260903_R2.json')
+          oldprepassp=Path('runs/2026-09-03/canonical_relation_prepass_425_20260903_R1.json')
+          canonp=Path('data/cards.full.json')
+          m=json.loads(mp.read_text()); gate=json.loads(gp.read_text()); oldrel=json.loads(oldrelp.read_text()); oldpre=json.loads(oldprep.read_text()); oldprepass=json.loads(oldprepassp.read_text()); canon=json.loads(canonp.read_text())['cards']
+          assert gate['status']=='PASS_CORRECTED_632_TO_395_RELATION_PRESELECTION_REGEN_REQUIRED'
+          assert m['accounting']['event_count']==395 and m['accounting']['observation_count']==632
+          assert len(canon)==1514
+          def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+          def dump(o): return json.dumps(o,ensure_ascii=False,indent=2)+'\n'
+          event_by={e['event_id']:e for e in m['events']}
+          old_to_new=m['old_to_new_event_mapping']
+          # Exact canonical collision proof: old 425 prepass was zero; R6 only unions old events.
+          old_exact=oldprepass.get('accounting',{}).get('exact_canonical_collision_events')
+          if old_exact is None:
+              old_exact=oldprepass.get('summary',{}).get('exact_canonical_collision_events',0)
+          assert old_exact==0, old_exact
+          prepass={
+            'schema':'canonical_relation_prepass_r6_v1','status':'PASS_ZERO_EXACT_COLLISIONS_PRESERVED_UNDER_EVENT_UNION','generated_date':'2026-09-03','current_main_sha':MAIN,'canonical_blob_sha':BLOB,'canonical_card_count':1514,
+            'event_membership_ref':str(mp),'prior_exact_prepass_ref':str(oldprepassp),
+            'proof':{'prior_425_exact_canonical_collision_events':0,'r6_operation':'union_old_event_components_only','new_observations_added':0,'observation_urls_or_titles_mutated':0,'therefore_r6_exact_collision_events':0},
+            'accounting':{'event_count':395,'exact_canonical_collision_events':0,'manual_relation_review_events':395}
+          }
+          prepassp=Path('runs/2026-09-03/canonical_relation_prepass_395_20260903_R6.json'); prepassp.write_text(dump(prepass))
+          # Re-anchor previously vetted 10 non-new relations through deterministic R6 old->new mapping.
+          canon_ids={c.get('id') for c in canon}
+          rr=[]
+          for r in oldrel['reanchored_relations']:
+              oldid=r['replay_event_id']; assert oldid in old_to_new
+              nr=copy.deepcopy(r); nr['r5_replay_event_id']=oldid; nr['replay_event_id']=old_to_new[oldid]; nr['r6_mapping_method']='deterministic_old_event_component_union'
+              assert all(t in canon_ids for t in nr['target_ids'])
+              rr.append(nr)
+          assert len(rr)==10 and len({r['replay_event_id'] for r in rr})==10
+          rel_counts={'new_unrelated_event':385,'distinct_follow_up':0,'program_lineage':0,'same_event_reinforcement':0}
+          for r in rr: rel_counts[r['relation_type']]+=1
+          assert rel_counts=={'new_unrelated_event':385,'distinct_follow_up':4,'program_lineage':2,'same_event_reinforcement':4}
+          rel={
+            'schema':'canonical_relation_replay_closure_r6_v1','stage':'CANONICAL_RELATION_RECLASSIFICATION','status':'PASS_R6_REANCHORED_RELATION_CLOSURE_PRESELECTION_AUTHORIZED','generated_date':'2026-09-03','current_main_sha':MAIN,'canonical_blob_sha':BLOB,'canonical_card_count':1514,
+            'event_membership_ref':str(mp),'event_universe_gate_ref':str(gp),'exact_canonical_prepass_ref':str(prepassp),'prior_relation_closure_ref':str(oldrelp),
+            'policy':{'historical_relation_targets_preserved_only_after_r6_component_mapping':True,'exact_collision_zero_proved_under_union':True,'stage_a_related_prepass_must_recheck_relation':True,'final_related_array_not_locked_here':True},
+            'accounting':{'event_count':395,'exact_canonical_collision_events':0,'reanchored_non_new_relation_events':10,'provisional_new_unrelated_events_for_preselection':385,'relation_counts':rel_counts,'all_relation_targets_exist_current_canonical':True},
+            'reanchored_relations':rr,
+            'authorization':{'canonical_relation_reclassification_pass':True,'preselection_regeneration_authorized':True,'formal_stage_a_authorized':False,'next_gate':'REGENERATE_V4_PRESELECTION_ITEM_LEVEL_FROM_R6'}
+          }
+          relp=Path('runs/2026-09-03/canonical_relation_replay_closure_395_20260903_R6.json'); relp.write_text(dump(rel))
+          rel_by={r['replay_event_id']:r for r in rr}
+          # Fail-safe aggregation of old preselection within each corrected component.
+          oldpre_by={e['event_id']:e for e in oldpre['events']}
+          new_to_old={}
+          for oldid,nid in old_to_new.items(): new_to_old.setdefault(nid,[]).append(oldid)
+          priority={'reject_or_support_only':0,'watchlist_context':1,'candidate_review':2,'high_potential_review':3,'existing_reinforcement':4}
+          feature_keys=['scope','execution','policy','data_financial','scale','technology','strategic','negative','context']
+          rows=[]; conflicts=[]
+          for ev in m['events']:
+              nid=ev['event_id']; olds=sorted(new_to_old[nid]); srcrows=[oldpre_by[o] for o in olds]
+              old_buckets=[x['preselection_bucket'] for x in srcrows]
+              if nid in rel_by and rel_by[nid]['relation_type']=='same_event_reinforcement': bucket='existing_reinforcement'
+              else: bucket=max(old_buckets,key=lambda x:priority[x])
+              if len(set(old_buckets))>1: conflicts.append({'r6_event_id':nid,'source_event_ids':olds,'source_buckets':old_buckets,'resolved_bucket':bucket,'policy':'rescue_before_delete_max_review_priority_with_relation_override'})
+              feats={k:sorted({v for x in srcrows for v in x.get('matched_features',{}).get(k,[])}) for k in feature_keys}
+              score=max(int(x.get('routing_hint_score',0)) for x in srcrows)
+              relation={'relation_type':'new_unrelated_event','target_ids':[],'confidence':None}
+              if nid in rel_by:
+                  r=rel_by[nid]; relation={'relation_type':r['relation_type'],'target_ids':r['target_ids'],'confidence':r['confidence']}
+              rows.append({
+                'event_id':nid,'representative':ev['representative'],'observation_count':ev['observation_count'],'source_runs':ev['source_runs'],'relation':relation,
+                'preselection_bucket':bucket,'routing_hint_score':score,'matched_features':feats,
+                'routing_reason':'R6 fail-safe component aggregation; routing hint is not Formal Stage A 100-point decision-value score.',
+                'formal_stage_a_judgment':False,'recommended_action':'exclude_from_new_card_queue_related_reinforcement' if bucket=='existing_reinforcement' else ('full_stage_a_item_review' if bucket in ('high_potential_review','candidate_review') else ('stage_a_watchlist_review' if bucket=='watchlist_context' else 'stage_a_support_or_reject_review')),
+                'r6_source_event_ids':olds,'r6_source_preselection_buckets':old_buckets,'r6_aggregation_policy':'rescue_before_delete_max_review_priority_with_relation_override'
+              })
+          assert len(rows)==395 and len({r['event_id'] for r in rows})==395
+          counts={k:0 for k in priority}
+          for r in rows: counts[r['preselection_bucket']]+=1
+          assert counts=={'reject_or_support_only':186,'watchlist_context':144,'candidate_review':51,'high_potential_review':10,'existing_reinforcement':4}, counts
+          newrow={r['event_id']:r for r in rows}
+          probes=[]
+          for p in oldpre.get('sanity_probes',[]):
+              mapped={}
+              for hit in p.get('matches',[]):
+                  nid=old_to_new[hit['event_id']]
+                  mapped[nid]=max(mapped.get(nid,0),int(hit.get('score',0)))
+              hits=[{'event_id':nid,'title':event_by[nid]['representative']['title'],'bucket':newrow[nid]['preselection_bucket'],'score':score} for nid,score in sorted(mapped.items())]
+              probes.append({'probe':p['probe'],'match_count':len(hits),'matches':hits,'all_matches_outside_reject':all(h['bucket']!='reject_or_support_only' for h in hits)})
+          assert all(p['match_count']>=1 and p['all_matches_outside_reject'] for p in probes)
+          preout={
+            'schema':'stage_a_v4_preselection_replay_r6_v1','status':'PASS_FAIL_SAFE_R6_ITEM_LEVEL_PRESELECTION_FORMAL_STAGE_A_NOT_YET_RUN','generated_date':'2026-09-03','current_main_sha':MAIN,'canonical_blob_sha':BLOB,'selection_policy_version':'EMBEDDED_NEWS_VALUE_SELECTION_V4',
+            'supersedes_preselection_ref':str(oldprep),'event_membership_ref':str(mp),'relation_closure_ref':str(relp),
+            'policy':{'preselection_only_not_formal_stage_a':True,'routing_hint_score_is_not_decision_news_value_score':True,'rescue_before_delete':True,'merged_components_preserve_highest_review_priority':True,'same_event_reinforcement_relation_override':True,'historical_partition_counts_not_targeted':True},
+            'accounting':{'event_count':395,'bucket_counts':counts,'merged_component_bucket_conflict_count':len(conflicts),'formal_stage_a_authorized':False},
+            'merged_component_bucket_conflicts':conflicts,'sanity_probes':probes,'sanity_missing_probes':[],'sanity_reject_probes':[],
+            'events':rows,
+            'authorization':{'preselection_pass':True,'formal_stage_a_authorized':False,'next_gate':'REGENERATE_R6_STAGE_A_REVIEW_PACKETS_THEN_FORMAL_STAGE_A_V4'}
+          }
+          prep=Path('runs/2026-09-03/stage_a_v4_preselection_replay_395_20260903_R6.json'); prep.write_text(dump(preout))
+          summary={
+            'schema':'r6_relation_preselection_regen_summary_v1','status':'PASS','event_count':395,'relation_counts':rel_counts,'preselection_bucket_counts':counts,'merged_component_bucket_conflict_count':len(conflicts),'sanity_probe_count':len(probes),'sanity_probes_all_outside_reject':all(p['all_matches_outside_reject'] for p in probes),'formal_stage_a_authorized':False,
+            'refs':{'membership':str(mp),'gate':str(gp),'relation_prepass':str(prepassp),'relation_closure':str(relp),'preselection':str(prep)},
+            'sha256':{'relation_prepass':sha(prepassp),'relation_closure':sha(relp),'preselection':sha(prep)},
+            'next_gate':'R6_STAGE_A_REVIEW_PACKET_REGEN'
+          }
+          Path('runs/2026-09-03/r6_relation_preselection_regen_summary_20260903_R1.json').write_text(dump(summary))
+          print(json.dumps(summary,ensure_ascii=False))
+          PY
+      - name: Commit R6 relation and preselection outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/canonical_relation_prepass_395_20260903_R6.json runs/2026-09-03/canonical_relation_replay_closure_395_20260903_R6.json runs/2026-09-03/stage_a_v4_preselection_replay_395_20260903_R6.json runs/2026-09-03/r6_relation_preselection_regen_summary_20260903_R1.json
+          git rm -r .tmp/r6-relation-preselection
+          git commit -m 'audit: regenerate R6 relations and V4 preselection'
+          git push

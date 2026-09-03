@@ -1,0 +1,78 @@
+{
+  "schema": "prompt_0_9_combined9_live_browser_v1",
+  "status": "PASS",
+  "production_url": "https://sbtl-hub.vercel.app",
+  "main_commit_sha": "dff7349272013757e08c87b37754ec996156059a",
+  "production_endpoint_verification": "PASS",
+  "html_verification": "PASS",
+  "interactive_verification": "PASS",
+  "mobile_verification": "PASS",
+  "card_rendering_verification": "PASS",
+  "related_navigation_verification": "NOT_DIRECTLY_EXPOSED_ON_STANDARD_CARD_SURFACE",
+  "desktop": {
+    "label": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "homepage_http": 200,
+    "meaningful_html": true,
+    "react_error_boundary": false,
+    "page_errors": [],
+    "production_endpoint_http": 200,
+    "production_endpoint_count": 1523,
+    "introduced_ids_live": [
+      "2026-08-31_US_01",
+      "2026-08-31_GL_01",
+      "2026-08-28_GL_01",
+      "2026-08-31_US_02",
+      "2026-08-21_EU_02",
+      "2026-08-27_CN_02",
+      "2026-09-01_CN_01",
+      "2026-08-31_GL_02",
+      "2026-08-31_GL_03"
+    ],
+    "feed_navigation_clicked": true,
+    "search_control_used": true,
+    "introduced_card_rendered": "2026-09-01_CN_01",
+    "introduced_card_title": "중국 배터리 소비세 2% 시행…리튬이온·바나듐 레독스 플로우 전지 대상",
+    "horizontal_overflow": {
+      "scrollWidth": 1440,
+      "innerWidth": 1440
+    },
+    "status": "PASS"
+  },
+  "mobile": {
+    "label": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "homepage_http": 200,
+    "meaningful_html": true,
+    "react_error_boundary": false,
+    "page_errors": [],
+    "production_endpoint_http": 200,
+    "production_endpoint_count": 1523,
+    "introduced_ids_live": [
+      "2026-08-31_US_01",
+      "2026-08-31_GL_01",
+      "2026-08-28_GL_01",
+      "2026-08-31_US_02",
+      "2026-08-21_EU_02",
+      "2026-08-27_CN_02",
+      "2026-09-01_CN_01",
+      "2026-08-31_GL_02",
+      "2026-08-31_GL_03"
+    ],
+    "feed_navigation_clicked": true,
+    "search_control_used": true,
+    "introduced_card_rendered": "2026-09-01_CN_01",
+    "introduced_card_title": "중국 배터리 소비세 2% 시행…리튬이온·바나듐 레독스 플로우 전지 대상",
+    "horizontal_overflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390
+    },
+    "status": "PASS"
+  }
+}

@@ -1,0 +1,32 @@
+name: Formal Stage A V4 R6 Batch 01
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/formal-stage-a-r6-b01/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  formal-stage-a-b01:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Materialize and validate Formal Stage A Batch 01
+        run: python3 scripts/formal_stage_a_r6_batch01.py
+      - name: Commit validated Batch 01 outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_a_formal_r6_batch01_20260903_R1.json \
+                  runs/2026-09-03/stage_a_formal_r6_batch01_validation_20260903_R1.json
+          git rm -r .tmp/formal-stage-a-r6-b01
+          git commit -m 'audit: formal Stage A V4 R6 batch 01'
+          git push

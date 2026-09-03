@@ -81,9 +81,22 @@ for x in accepted:
     batch_title_hits=sorted({y for y in batch_titles.get(nt,[]) if y!=cid})
     id_collision=cid in canon_ids
     lin=copy.deepcopy(x['related_lineage'])
+    relation=lin['relation_type']
     targets=lin.get('related_ids',[])
+    target_set=set(targets)
     missing_targets=[t for t in targets if t not in canon_ids and t not in batch_ids]
     self_link=cid in targets
+
+    # A distinct follow-up/program-lineage card may legitimately preserve a shared
+    # program/framework URL from its explicitly declared canonical predecessor.
+    # This exception is intentionally narrow: every canonical URL hit must resolve
+    # only to declared related_ids; title/ID/undeclared URL collisions still block.
+    allowed_lineage_url_hits=[]
+    if relation in {'distinct_follow_up','program_lineage'} and exact_url_hits \
+            and set(exact_url_hits).issubset(target_set):
+        allowed_lineage_url_hits=list(exact_url_hits)
+    blocking_url_hits=sorted(set(exact_url_hits)-set(allowed_lineage_url_hits))
+
     # Event fingerprint uses current Stage C locked identity, not thematic similarity.
     fp={
       'candidate_id':cid,
@@ -98,19 +111,21 @@ for x in accepted:
       'date_role':x['date_role'].get('role'),
       'fact_anchor':x['fact'][:300],
     }
-    collision=bool(exact_url_hits or title_hits or batch_url_hits or batch_title_hits or id_collision or missing_targets or self_link)
+    collision=bool(blocking_url_hits or title_hits or batch_url_hits or batch_title_hits or id_collision or missing_targets or self_link)
     if collision:
         holds.append({
           'source_spec_id':sid,'id':cid,'event_fingerprint':fp,'related_lineage':lin,
-          'disposition':'baseline_conflict' if (exact_url_hits or title_hits or id_collision) else 'review_pool_deferred_related_uncertain',
+          'disposition':'baseline_conflict' if (blocking_url_hits or title_hits or id_collision) else 'review_pool_deferred_related_uncertain',
           'findings':{
-            'canonical_url_hits':exact_url_hits,'canonical_title_hits':title_hits,'canonical_id_collision':id_collision,
+            'canonical_url_hits':exact_url_hits,
+            'allowed_declared_predecessor_shared_url_hits':allowed_lineage_url_hits,
+            'blocking_canonical_url_hits':blocking_url_hits,
+            'canonical_title_hits':title_hits,'canonical_id_collision':id_collision,
             'current_batch_url_hits':batch_url_hits,'current_batch_title_hits':batch_title_hits,
             'missing_related_targets':missing_targets,'self_link':self_link,
           }
         })
         continue
-    relation=lin['relation_type']
     outcome={
       'new_unrelated_event':'addable_merge_safe_new_unrelated',
       'distinct_follow_up':'addable_merge_safe_distinct_follow_up',
@@ -122,10 +137,13 @@ for x in accepted:
       'addability_outcome':outcome,
       'baseline_revalidation':{
         'status':'PASS','base_main_commit_sha':MAIN,'base_full_blob_sha':BLOB,'canonical_card_count':1514,
-        'exact_canonical_url_collision_count':0,'normalized_title_collision_count':0,'card_id_collision':False,
+        'exact_canonical_url_collision_count':len(blocking_url_hits),
+        'declared_predecessor_shared_url_hit_count':len(allowed_lineage_url_hits),
+        'declared_predecessor_shared_url_hits':allowed_lineage_url_hits,
+        'normalized_title_collision_count':0,'card_id_collision':False,
         'current_batch_url_collision_count':0,'current_batch_title_collision_count':0,
         'related_target_existence':'PASS','stale_republication_check':'PASS','broader_representative_coverage_check':'PASS',
-        'update_or_reinforcement_opportunity':'none_found'
+        'update_or_reinforcement_opportunity':'declared_predecessor_shared_source_context_only' if allowed_lineage_url_hits else 'none_found'
       },
       'addable_merge_safe':True,'evidence_complete':False,'source_claim_covered':False,
       'content_enriched':False,'language_terminology_polished':False,'publish_ready':False,'github_merge_ready':False,

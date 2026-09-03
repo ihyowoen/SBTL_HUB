@@ -1198,15 +1198,17 @@
       "github_merge_ready": false,
       "related_lineage": {
         "status": "PASS",
-        "relation_type": "new_unrelated_event",
-        "related_ids": [],
+        "relation_type": "distinct_follow_up",
+        "related_ids": [
+          "2026-07-20_EU_06"
+        ],
         "provisional_current_batch_candidate_ids": [],
-        "reason": "R6 baseline/current-batch evidence did not identify a direct auditable predecessor or same-event representative card for this event.",
-        "fresh_follow_up_anchor_class": null,
-        "fresh_follow_up_anchor": null,
-        "incremental_fact": null,
-        "changed_judgment": null,
-        "same_event_check": "PASS",
+        "reason": "R6 canonical-relation closure independently re-anchors the 2026-08-21 European Commission Battery Passport guidance to canonical predecessor 2026-07-20_EU_06. The later guidance is not a republication: it adds a current policy-preparation anchor by enumerating the 71 passport data points and their mandatory, optional or conditional applicability.",
+        "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+        "fresh_follow_up_anchor": "On 2026-08-21 the European Commission published updated Digital Batteries Passport preparation guidance that operationalizes the compliance-preparation layer around 71 data points ahead of the 2027-02-18 passport obligation.",
+        "incremental_fact": "The Commission guidance moves the July-level Battery Passport framework into field-level preparation detail by identifying 71 data points and their applicability/legal basis for covered battery categories.",
+        "changed_judgment": "Battery Passport readiness can now be assessed against a materially more specific Commission data-field checklist rather than only the earlier framework-level obligation.",
+        "same_event_check": "PASS_DISTINCT_STAGE",
         "earliest_date_check": "PASS",
         "rejected_relation_candidates": [],
         "chronology_exception": null

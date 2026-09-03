@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Build and validate Stage B promotion evidence packages
-        run: python3 scripts/stage_b_r6_promotion2.py
+        run: python3 scripts/stage_b_r6_promotion2_fixup.py
       - name: Commit validated Stage B promotion outputs
         shell: bash
         run: |

@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Re-anchor relations and aggregate fail-safe preselection
-        run: python3 scripts/r6_relation_preselection_regen.py
+        run: python3 scripts/r6_relation_preselection_regen_v2.py
       - name: Commit R6 relation and preselection outputs
         shell: bash
         run: |

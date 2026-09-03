@@ -24,6 +24,7 @@ B_SHA = hashlib.sha256(B_PATH.read_bytes()).hexdigest()
 pkg_by_spec = {p["spec_id"]: p for p in packages}
 qna_spec = "STD26_R6_B01_009"
 tax_spec = "STD26_R6_B01_010"
+eu_passport_spec = "STD26_R6_B01_008"
 qna_id = pkg_by_spec[qna_spec]["draft"]["id"]
 
 canon = json.loads(CANON.read_text(encoding="utf-8"))
@@ -162,6 +163,22 @@ for pkg in packages:
             "rejected_relation_candidates": [],
             "chronology_exception": None,
         }
+    elif pkg["spec_id"] == eu_passport_spec:
+        lineage = {
+            "status": "PASS",
+            "relation_type": "distinct_follow_up",
+            "related_ids": ["2026-07-20_EU_06"],
+            "provisional_current_batch_candidate_ids": [],
+            "reason": "R6 canonical-relation closure independently re-anchors the 2026-08-21 European Commission Battery Passport guidance to canonical predecessor 2026-07-20_EU_06. The later guidance is not a republication: it adds a current policy-preparation anchor by enumerating the 71 passport data points and their mandatory, optional or conditional applicability.",
+            "fresh_follow_up_anchor_class": "policy_regulatory_anchor",
+            "fresh_follow_up_anchor": "On 2026-08-21 the European Commission published updated Digital Batteries Passport preparation guidance that operationalizes the compliance-preparation layer around 71 data points ahead of the 2027-02-18 passport obligation.",
+            "incremental_fact": "The Commission guidance moves the July-level Battery Passport framework into field-level preparation detail by identifying 71 data points and their applicability/legal basis for covered battery categories.",
+            "changed_judgment": "Battery Passport readiness can now be assessed against a materially more specific Commission data-field checklist rather than only the earlier framework-level obligation.",
+            "same_event_check": "PASS_DISTINCT_STAGE",
+            "earliest_date_check": "PASS",
+            "rejected_relation_candidates": [],
+            "chronology_exception": None,
+        }
     else:
         lineage = {
             "status": "PASS",
@@ -189,6 +206,8 @@ for pkg in packages:
 artifact = {
     "stage": "stage_c",
     "status": "PASS" if not revisions else "PARTIAL_REVISE_REQUIRED",
+    "strict_gate_acceptance_guard_applied": True,
+    "accepted_pool_lineage_status": "PASS",
     "strict_gate_acceptance_guard_applied": True,
     "accepted_pool_lineage_status": "PASS",
     "run_tag": "20260903_R6_STAGE_C_ACCEPTED7_R1",

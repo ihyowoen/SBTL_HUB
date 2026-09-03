@@ -8,6 +8,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 RUN = ROOT / "runs/2026-09-03"
 BASE = ROOT / "scripts/stage_b_r6_promotion2.py"
 OUT = RUN / "stage_b_r6_promotion2_20260903_R1.json"

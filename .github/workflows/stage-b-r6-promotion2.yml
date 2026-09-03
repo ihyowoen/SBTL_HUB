@@ -1,0 +1,40 @@
+name: Stage B R6 Promotion 2
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/stage-b-r6-promotion2/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  stage-b-promotion2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build and validate Stage B promotion evidence packages
+        run: python3 scripts/stage_b_r6_promotion2.py
+      - name: Commit validated Stage B promotion outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          p='runs/2026-09-03/stage_b_r6_promotion2_validation_20260903_R1.json'
+          r=json.load(open(p,encoding='utf-8'))
+          assert r['status']=='PASS', r
+          assert r['input_strict_count']==2 and r['draft_count']==2 and r['draft_blocked_count']==0
+          assert r['stage_b_lineage_check_rc']==0 and r['stage_b_evidence_gate_rc']==0 and r['stage_b_production_contract_rc']==0
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_b_r6_promotion2_20260903_R1.json \
+                  runs/2026-09-03/stage_b_r6_promotion2_validation_20260903_R1.json
+          git rm -r .tmp/stage-b-r6-promotion2
+          git commit -m 'audit: Stage B R6 Prompt 0.1P promotion2 evidence packages'
+          git push

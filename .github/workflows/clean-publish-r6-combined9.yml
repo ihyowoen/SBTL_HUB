@@ -148,7 +148,7 @@ jobs:
           test "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" = "$BASE_BLOB"
           node scripts/apply_card_run.mjs \
             --run "$D/card-run.json" \
-            --baseline "$RUNNER_TEMP/cards.full.base.json" \
+            --baseline data/cards.full.json \
             --canonical-path data/cards.full.json \
             --output data/cards.full.json \
             --report "$RUNNER_TEMP/verify-report.json" \

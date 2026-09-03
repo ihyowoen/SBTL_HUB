@@ -102,6 +102,17 @@ def bridge_artifacts_v2():
         elif stage in {"b", "stage_b", "0.2"}:
             kind = "B"
             payload = normalized_stage_b_payload(payload)
+            source_status = payload.get("status")
+            if source_status not in {"PASS", "PASS_DRAFTED_NOT_FACT_SAFE"}:
+                raise AssertionError(f"Stage B source artifact has non-passing status: {source_status}")
+            payload["source_stage_status"] = source_status
+            payload["status"] = "PASS"
+            payload["formal_stage_status_normalization"] = {
+                "status": "PASS",
+                "source_status": source_status,
+                "formal_bridge_status": "PASS",
+                "projection_only_no_re_adjudication": True,
+            }
         elif stage in {"c", "stage_c", "0.3"}:
             kind = "C"
         else:

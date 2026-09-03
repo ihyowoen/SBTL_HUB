@@ -1,0 +1,61 @@
+name: fix-v4-hardening-postapply
+
+on:
+  push:
+    branches:
+      - chatgpt/publish-combined9-20260904
+    paths:
+      - '.github/workflows/fix-v4-hardening-postapply.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Patch only post-apply structural self-match handling
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('scripts/validate_card_run_v4_hardening.mjs')
+          s = p.read_text()
+          old1 = '  const baselineSpecIds = new Set(canonicalSpecMap.values());\n'
+          new1 = '''  const workingTreeSpecCardIds = new Map();\n  for (const [existingCardId, existingSpecId] of canonicalSpecMap.entries()) {\n    if (!workingTreeSpecCardIds.has(existingSpecId)) workingTreeSpecCardIds.set(existingSpecId, new Set());\n    workingTreeSpecCardIds.get(existingSpecId).add(existingCardId);\n  }\n'''
+          old2 = '    if (baselineSpecIds.has(specId)) fail("BLOCKED_OPERATION_IDENTITY", `insert[${insertIndex}] reuses source_spec_id=${specId} already present in canonical inventory`);\n'
+          new2 = '''    const workingTreeCardIds = workingTreeSpecCardIds.get(specId);\n    if (workingTreeCardIds && [...workingTreeCardIds].some((existingCardId) => existingCardId !== cardId)) {\n      fail("BLOCKED_OPERATION_IDENTITY", `insert[${insertIndex}] reuses source_spec_id=${specId} already present on a different canonical card`);\n    }\n'''
+          if s.count(old1) != 1 or s.count(old2) != 1:
+              raise SystemExit('exact target lines not found exactly once')
+          s = s.replace(old1, new1).replace(old2, new2)
+          p.write_text(s)
+          PY
+          git diff --check
+
+      - name: Validate self-test and actual post-apply governed run
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/validate_card_run_v4_hardening.mjs --self-test
+          node scripts/validate_card_run_v4_hardening.mjs --run runs/2026-09-04/r6-combined9-production-r1/card-run.json
+          python3 validation_scripts/card_run_v4_binding_hardening.py --run runs/2026-09-04/r6-combined9-production-r1/card-run.json
+
+      - name: Commit narrow validator fix and remove temporary workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/validate_card_run_v4_hardening.mjs
+          git rm .github/workflows/fix-v4-hardening-postapply.yml
+          git diff --cached --check
+          git commit -m 'fix: avoid post-apply source identity self-collision'
+          git push

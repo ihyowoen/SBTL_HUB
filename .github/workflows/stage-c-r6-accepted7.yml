@@ -1,0 +1,32 @@
+name: Stage C R6 Accepted 7
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/stage-c-r6-accepted7/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  stage-c-accepted7:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build and validate Stage C fact-safe output
+        run: python3 scripts/stage_c_r6_accepted7.py
+      - name: Commit validated Stage C outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_c_r6_accepted7_20260903_R1.json \
+                  runs/2026-09-03/stage_c_r6_accepted7_validation_20260903_R1.json
+          git rm -r .tmp/stage-c-r6-accepted7
+          git commit -m 'audit: Stage C R6 accepted7 fact-safe red team'
+          git push

@@ -9,6 +9,8 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+sys.path.insert(0, str(ROOT))
 PACKET = ROOT / 'runs/2026-09-03/stage_a_review_packets_395_r6/batch_01.json'
 PROMPT = ROOT / 'docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md'
 STRUCTURAL_POLICY = ROOT / 'docs/STRUCTURAL_NEWS_VALUE_SELECTION.md'

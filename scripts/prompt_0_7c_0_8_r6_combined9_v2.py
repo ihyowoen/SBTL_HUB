@@ -19,6 +19,8 @@ def normalized_stage_b_payload(payload: dict) -> dict:
 
     This is a shape-only adapter. Candidate identity, evidence, date-role and Related review are
     copied byte-semantically from the persisted Stage-B package; no adjudication is changed.
+    The strict7 package predates the canonical related_evidence_review.status marker, so PASS is
+    added only when its persisted same-event and earliest-date checks are both already PASS.
     """
     if payload.get("draft_cards") or payload.get("draft_card"):
         return payload
@@ -29,31 +31,61 @@ def normalized_stage_b_payload(payload: dict) -> dict:
     for index, package in enumerate(packages):
         if not isinstance(package, dict):
             raise AssertionError(f"Stage B evidence_packages[{index}] must be object")
-        source_spec_id = package.get("spec_id")
-        fact_sources = package.get("fact_sources")
-        related_review = package.get("related_evidence_review")
-        date_role = package.get("date_role")
+        source_spec_id = package.get("spec_id") or package.get("source_spec_id")
         draft = package.get("draft")
         if not isinstance(source_spec_id, str) or not source_spec_id:
             raise AssertionError(f"Stage B evidence_packages[{index}].spec_id missing")
+        if not isinstance(draft, dict):
+            raise AssertionError(f"{source_spec_id}: Stage B draft missing")
+
+        fact_sources = draft.get("fact_sources")
+        if not isinstance(fact_sources, list) or not fact_sources:
+            fact_sources = package.get("fact_sources")
         if not isinstance(fact_sources, list) or not fact_sources:
             raise AssertionError(f"{source_spec_id}: Stage B fact_sources missing")
-        if not isinstance(related_review, dict) or related_review.get("status") != "PASS":
+
+        related_review = copy.deepcopy(
+            draft.get("related_evidence_review")
+            if isinstance(draft.get("related_evidence_review"), dict)
+            else package.get("related_evidence_review")
+        )
+        if not isinstance(related_review, dict):
+            raise AssertionError(f"{source_spec_id}: Stage B Related review missing")
+        if related_review.get("status") is None:
+            package_review = package.get("related_evidence_review") if isinstance(package.get("related_evidence_review"), dict) else {}
+            if (
+                package_review.get("same_event_check") == "PASS"
+                and package_review.get("earliest_event_date_check") == "PASS"
+            ):
+                related_review["status"] = "PASS"
+            else:
+                raise AssertionError(f"{source_spec_id}: Stage B legacy Related review lacks resolved PASS checks")
+        if related_review.get("status") != "PASS":
             raise AssertionError(f"{source_spec_id}: Stage B Related review is not canonical PASS")
+
+        date_role = copy.deepcopy(
+            draft.get("date_role") if isinstance(draft.get("date_role"), dict) else package.get("date_role")
+        )
         if not isinstance(date_role, dict) or date_role.get("status") != "PASS":
             raise AssertionError(f"{source_spec_id}: Stage B date_role is not PASS")
-        row = copy.deepcopy(draft) if isinstance(draft, dict) else {}
+
+        row = copy.deepcopy(draft)
         row["source_spec_id"] = source_spec_id
         row["fact_sources"] = copy.deepcopy(fact_sources)
-        row["related_evidence_review"] = copy.deepcopy(related_review)
-        row["date_role"] = copy.deepcopy(date_role)
+        row["related_evidence_review"] = related_review
+        row["date_role"] = date_role
         row["legacy_stage_b_projection"] = {
             "status": "PASS",
             "source_container": "evidence_packages",
             "source_spec_id_field": "spec_id",
             "projection_only_no_re_adjudication": True,
+            "related_status_normalization": "legacy_missing_status_only_after_same_event_and_earliest_date_PASS",
         }
         draft_cards.append(row)
+    if isinstance(payload.get("draft_count"), int) and len(draft_cards) != payload["draft_count"]:
+        raise AssertionError(
+            f"Stage B projected draft count {len(draft_cards)} != declared {payload['draft_count']}"
+        )
     payload["draft_cards"] = draft_cards
     payload["formal_stage_b_projection_status"] = "PASS"
     return payload

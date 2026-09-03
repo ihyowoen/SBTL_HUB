@@ -274,8 +274,21 @@ def common_item(event, j, strict=False):
     item.update(legal_fields(j,event['representative']['date']))
     return item
 
+STRICT_STAGE_B_TARGETS={
+  2:("Signed contract document confirming 9GWh volume, 2027-2031 supply schedule, Georgia production status and NeoVolta counterparty","2027 first shipment volume to NeoVolta would confirm the U.S. ESS execution thesis; missing the shipment deadline would weaken that thesis"),
+  3:("Acquisition contract document confirming CIP ownership transfer, 104MW BESS capacity, 408MW wind capacity and financial-close status","Financial-close decision and construction-start schedule for the 104MW BESS would confirm the Gawara Baya execution thesis; a delayed schedule would weaken that thesis"),
+  4:("IDB financing contract or filing confirming US$700 million facility size, commitment status, draw conditions and Argentina project allocation","First financing draw and project capex filing under the US$700 million facility would confirm the Argentina funding thesis; cancellation would invalidate that thesis"),
+  5:("Binding offtake contract document confirming 80,000-ton volume, 10-year term, 2029 start date, Smackover project production status and pricing mechanism","2029 first shipment volume under the 80,000-ton offtake would confirm the U.S. lithium supply thesis; project delay would weaken that thesis"),
+  8:("European Commission guidance document confirming 71 Battery Passport data points, mandatory status and implementation date","Official guidance publication and first compliance filing on the stated implementation date would confirm the Battery Passport market-access thesis; delayed adoption would weaken that thesis"),
+  9:("Chinese tax authority guidance document confirming the tax stage for ESS clusters, semi-solid batteries, exemptions and effective date","First tax filing or guidance publication applying the ESS and semi-solid scope would confirm the implementation judgment; contradictory filing practice would weaken that judgment"),
+ 10:("Chinese tax notice or regulation confirming the 2% rate, covered lithium-ion battery categories and 2026-09-01 effective date","The 2026-09-01 effective date and first 2% tax filing would confirm the battery cost-transmission thesis; deferred application would weaken that thesis"),
+}
+
 def strict_item(event,j):
     item=common_item(event,j,True)
+    evidence_target,confirmation_target=STRICT_STAGE_B_TARGETS[event['ordinal']]
+    item['evidence_needed_for_stage_b']=[evidence_target]
+    item['next_confirmation_points']=[confirmation_target]
     item['spec_id']=f"STD26_R6_B01_{event['ordinal']:03d}"
     item['strict_pass_gate']={'status':'pass','reason':f"{j['short']} passes lane, anchor, incremental-information, decision-value, freshness, duplicate and full-schema viability checks within the source-bound packet.",'all_six_conditions_passed':True,'anchor_supported_by_upstream_text':True,'why_not_review_pool':f"The supplied packet supports a current and independently cardable anchor for {j['short']} with bounded Stage B verification targets."}
     item['execution_credibility_gate']={'status':'PASS','anchor_type':item['execution_anchor_type'] or ('policy_or_structural_change' if 'policy_regulatory_anchor' in j['anchors'] else 'structural_change'),'anchor_strength':item['execution_anchor_strength'] or 'strong','stage_precision_note':f"The current stage for {j['short']} is explicit enough for strict Stage A selection, while body-level evidence remains Stage B work."}
@@ -359,7 +372,7 @@ summary={
  'high_decision_value_candidate_ids':[i.get('spec_id') or i.get('review_pool_item_id') for i in all_candidates if i['decision_value_classification']=='high_decision_value'],
  'high_value_review_pool_ids':[i['review_pool_item_id'] for i in review_items if i['decision_news_value_score']>=70],
  'structural_signal_review_pool_ids':[],'earnings_deep_dive_pool_ids':[i['review_pool_item_id'] for i in review_items if i.get('earnings_deep_dive_required')],
- 'follow_up_candidate_ids':[i.get('spec_id') or i.get('review_pool_item_id') for i in all_candidates if i['baseline_follow_up_relation'] in {'distinct_follow_up','program_lineage'}],
+ 'follow_up_candidate_ids':[i.get('spec_id') or i.get('review_pool_item_id') for i in all_candidates if ('follow_up_probability_anchor' in i.get('anchor_classes',[]) or (isinstance(i.get('baseline_follow_up_relation'),str) and i.get('baseline_follow_up_relation').strip().lower() not in {'','new','new_unrelated','unrelated','not_applicable','none'}))],
  'zero_coverage_domains':[],'execution_or_formality_bias_findings':[],'technology_validation_gap_ids':[i.get('spec_id') or i.get('review_pool_item_id') for i in all_candidates if 'technology_commercialization_anchor' in i['anchor_classes']],
  'legal_policy_stage_gap_ids':[],'search_before_delete_applied':True,'earnings_call_qna_rule_applied':True,'follow_up_probability_review_applied':True,'portfolio_coverage_audit_applied':True,
  'structural_value_selector_status':'PASS','portfolio_coverage_audit_status':'PASS','earnings_call_qna_audit_status':'PASS','follow_up_repromotion_audit_status':'PASS','execution_event_bias_audit_status':'PASS','content_depth_audit_status':'PASS','decision_ledger_count':len(ledger),

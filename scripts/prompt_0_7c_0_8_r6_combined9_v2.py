@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CORE_PATH = ROOT / "scripts/prompt_0_7c_0_8_r6_combined9.py"
+REGISTRY_PATH = ROOT / "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"
 spec = importlib.util.spec_from_file_location("r6_combined9_core", CORE_PATH)
 core = importlib.util.module_from_spec(spec)
 assert spec and spec.loader
@@ -133,6 +134,77 @@ def bridge_artifacts_v2():
     return refs, stage_kinds
 
 
+def normalize_document_universe_bridge() -> None:
+    """Rebind the formal 0.0D bridge to the exact current lifecycle registry.
+
+    The source preflight remains immutable and is cited in provenance. The formal card-run bridge
+    must, however, equal the current registry sets exactly; stale self-classified superseded paths
+    cannot be carried forward into a new production authorization envelope.
+    """
+    registry = core.load(REGISTRY_PATH)
+    if registry.get("status") != "ACTIVE_VALIDATOR_CONTRACT":
+        raise AssertionError("current lifecycle registry is not ACTIVE_VALIDATOR_CONTRACT")
+
+    active_canonical = list(registry.get("active_canonical", [])) + list(registry.get("active_named_prompts", []))
+    active_validators = list(registry.get("active_validator_contracts", []))
+    applicable = list(registry.get("open_remediations", [])) + list(registry.get("activation_required_migrations", []))
+    superseded_reference = list(registry.get("superseded", [])) + list(registry.get("reference_only", []))
+
+    for label, values in {
+        "active_canonical": active_canonical,
+        "active_validators": active_validators,
+        "applicable": applicable,
+        "superseded_reference": superseded_reference,
+    }.items():
+        if any(not isinstance(value, str) or not value.strip() for value in values):
+            raise AssertionError(f"current registry {label} contains invalid path")
+        if len(values) != len(set(values)):
+            raise AssertionError(f"current registry {label} contains duplicate path")
+
+    required_full_read = list(dict.fromkeys(active_canonical + active_validators + applicable))
+    doc_path = ROOT / core.DOC_REF
+    payload = core.load(doc_path)
+    source_snapshot = {
+        "registry_version": payload.get("registry_version"),
+        "registry_sha256": payload.get("registry_sha256"),
+        "active_full_read_count": payload.get("active_full_read_count"),
+        "superseded_or_reference_count": len(payload.get("superseded_or_reference_paths", []))
+        if isinstance(payload.get("superseded_or_reference_paths"), list) else None,
+    }
+
+    evidence = payload.get("active_full_read_evidence")
+    if isinstance(evidence, list):
+        by_path = {
+            row.get("path"): row
+            for row in evidence
+            if isinstance(row, dict) and isinstance(row.get("path"), str)
+        }
+        missing = [path for path in required_full_read if path not in by_path]
+        if missing:
+            raise AssertionError(f"0.0D source preflight lacks current required full-read evidence: {missing}")
+        payload["active_full_read_evidence"] = [copy.deepcopy(by_path[path]) for path in required_full_read]
+
+    payload["registry_version"] = registry.get("registry_version")
+    payload["registry_sha256"] = core.sha256_file(REGISTRY_PATH)
+    payload["active_canonical_paths"] = active_canonical
+    payload["active_validator_contract_paths"] = active_validators
+    payload["applicable_remediation_or_migration"] = applicable
+    payload["superseded_or_reference_paths"] = superseded_reference
+    payload["active_full_read_count"] = len(required_full_read)
+    payload["active_override_or_addendum_count"] = 0
+    payload["formal_registry_rebind"] = {
+        "status": "PASS",
+        "source_document_universe": core.rel(core.DOC_SOURCE),
+        "source_document_universe_sha256": core.sha256_file(core.DOC_SOURCE),
+        "current_registry": core.rel(REGISTRY_PATH),
+        "current_registry_sha256": core.sha256_file(REGISTRY_PATH),
+        "source_snapshot": source_snapshot,
+        "formal_sets_derived_from_current_registry": True,
+        "fact_or_selection_re_adjudication": False,
+    }
+    core.write(doc_path, payload)
+
+
 core.bridge_artifacts = bridge_artifacts_v2
 
 
@@ -142,6 +214,7 @@ def main():
     args = parser.parse_args()
     if args.phase == "prepare":
         core.prepare()
+        normalize_document_universe_bridge()
     else:
         core.finalize_audit()
 

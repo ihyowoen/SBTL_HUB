@@ -47,19 +47,31 @@ jobs:
           RECOVERY_COMMIT='621c753f32f8713bce25a02efc363a4bb437a68b'
           D='runs/2026-09-04/r6-combined9-production-r1'
           mapfile -t source_files < <(git ls-tree -r --name-only "$RECOVERY_COMMIT" -- "$D" | sort)
-          test "${#source_files[@]}" -eq 21
+          test "${#source_files[@]}" -eq 19
+          printf '%s\n' "${source_files[@]}" | grep -qx "$D/card-run-audit.json"
           printf '%s\n' "${source_files[@]}" | grep -qx "$D/card-run.json"
+          printf '%s\n' "${source_files[@]}" | grep -qx "$D/output-hash-binding.json"
+          printf '%s\n' "${source_files[@]}" | grep -qx "$D/prepare-report.json"
+          printf '%s\n' "${source_files[@]}" | grep -qx "$D/prompt-0-8-id-ledger.json"
+          printf '%s\n' "${source_files[@]}" | grep -qx "$D/stage-0-0c.json"
+          printf '%s\n' "${source_files[@]}" | grep -qx "$D/stage-0-0d.json"
           printf '%s\n' "${source_files[@]}" | grep -qx "$D/stage-0-7c.json"
           printf '%s\n' "${source_files[@]}" | grep -qx "$D/stage-0-8.json"
-          printf '%s\n' "${source_files[@]}" | grep -qx "$D/status-consistency-report.json"
-          printf '%s\n' "${source_files[@]}" | grep -qx "$D/v4-binding-hardening-report.json"
+          for stage in \
+            stage-0-4-combined9.json stage-0-5-combined9.json \
+            stage-0-6-combined9.json stage-0-7-combined9.json \
+            stage-a-promotion2.json stage-a-strict7.json \
+            stage-b-promotion2.json stage-b-strict7.json \
+            stage-c-promotion2.json stage-c-strict7.json; do
+            printf '%s\n' "${source_files[@]}" | grep -qx "$D/stages/$stage"
+          done
           if printf '%s\n' "${source_files[@]}" | grep -E 'candidate\.cards|apply-report|verify-report|\.tmp' ; then
             echo 'FAIL: recovery production package contains transient candidate output' >&2
             exit 1
           fi
           git checkout "$RECOVERY_COMMIT" -- "$D"
           mapfile -t copied_files < <(find "$D" -type f | sort)
-          test "${#copied_files[@]}" -eq 21
+          test "${#copied_files[@]}" -eq 19
           diff -u <(printf '%s\n' "${source_files[@]}") <(printf '%s\n' "${copied_files[@]}")
 
       - name: Validate governed run before canonical materialization
@@ -167,6 +179,6 @@ jobs:
               *) echo "FAIL: undeclared final production path $path" >&2; exit 1 ;;
             esac
           done
-          test "${#changed[@]}" -eq 23
+          test "${#changed[@]}" -eq 21
           git commit -m 'data: publish governed R6 combined9 cards'
           git push origin HEAD:chatgpt/publish-r6-combined9-20260904

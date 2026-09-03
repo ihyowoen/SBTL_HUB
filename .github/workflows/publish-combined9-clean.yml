@@ -1,0 +1,126 @@
+name: publish-combined9-clean
+
+on:
+  push:
+    branches:
+      - chatgpt/publish-combined9-20260904
+    paths:
+      - '.github/workflows/publish-combined9-clean.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply-validated-card-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lock main and exact recovery package
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
+          BLOB='53219907cdb435c3822c41d097b23e475662aa8a'
+          RECOVERY='621c753f32f8713bce25a02efc363a4bb437a68b'
+          git fetch origin main chatgpt/recover-exact-425-artifacts-20260903
+          test "$(git rev-parse origin/main)" = "$BASE"
+          test "$(git rev-parse origin/main:data/cards.full.json)" = "$BLOB"
+          test "$(git rev-parse origin/chatgpt/recover-exact-425-artifacts-20260903)" = "$RECOVERY"
+          test "$(git merge-base HEAD origin/main)" = "$BASE"
+
+      - name: Copy only validated production run package
+        shell: bash
+        run: |
+          set -euo pipefail
+          RECOVERY='621c753f32f8713bce25a02efc363a4bb437a68b'
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          git checkout "$RECOVERY" -- "$D"
+          test -f "$D/card-run.json"
+          test -f "$D/card-run-audit.json"
+          test -f "$D/stage-0-7c.json"
+          test -f "$D/stage-0-8.json"
+          test -f "$D/prompt-0-8-id-ledger.json"
+          test ! -f "$D/candidate.cards.full.json"
+          test ! -f "$D/candidate.cards.json"
+
+      - name: Validate sealed run before canonical apply
+        shell: bash
+        run: |
+          set -euo pipefail
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          RUN="$D/card-run.json"
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          node scripts/validate_card_run_relations.mjs --run "$RUN"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN" --canonical data/cards.full.json
+
+      - name: Apply exact operations to canonical outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          node scripts/apply_card_run.mjs \
+            --run "$D/card-run.json" \
+            --baseline data/cards.full.json \
+            --canonical-path data/cards.full.json \
+            --output data/cards.full.json \
+            --report "$D/apply-report.json" \
+            --lean-path public/data/cards.json \
+            --base-main-sha "$BASE" \
+            --apply
+          test "$(sha256sum data/cards.full.json | awk '{print $1}')" = 'e3f90efefbee6c5ab5c81d36ab7549dd2ee0de25a0e2b12927464b894c350ef4'
+          test "$(sha256sum public/data/cards.json | awk '{print $1}')" = '7bca42fe064f430c7fe5dc9ca57eea2531d72e782e3b259488899f2b7a37a71c'
+
+      - name: Run production semantic and canonical QC
+        shell: bash
+        run: |
+          set -euo pipefail
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          RUN="$D/card-run.json"
+          LEDGER="$D/prompt-0-8-id-ledger.json"
+          node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN" --full data/cards.full.json --lean public/data/cards.json
+          MERGE_PREP_REF="$(node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN" --full data/cards.full.json --ledger "$LEDGER")"
+          test "$MERGE_PREP_REF" = "$D/stage-0-8.json"
+          python3 validation_scripts/stage_artifact_contract_check.py 0.8 "$D/stage-0-8.json"
+          python3 validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file "$LEDGER"
+          python3 validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file "$LEDGER"
+          python3 validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file "$LEDGER"
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+
+      - name: Verify byte-exact replay and commit clean production tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          node scripts/apply_card_run.mjs \
+            --run "$D/card-run.json" \
+            --baseline data/cards.full.json \
+            --canonical-path data/cards.full.json \
+            --output data/cards.full.json \
+            --report "$D/verify-report.json" \
+            --lean-path public/data/cards.json \
+            --base-main-sha "$BASE" \
+            --verify
+          rm -f "$D/apply-report.json" "$D/verify-report.json"
+          test "$(sha256sum data/cards.full.json | awk '{print $1}')" = 'e3f90efefbee6c5ab5c81d36ab7549dd2ee0de25a0e2b12927464b894c350ef4'
+          test "$(sha256sum public/data/cards.json | awk '{print $1}')" = '7bca42fe064f430c7fe5dc9ca57eea2531d72e782e3b259488899f2b7a37a71c'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/cards.full.json public/data/cards.json "$D"
+          git rm .github/workflows/publish-combined9-clean.yml
+          git diff --cached --check
+          git commit -m 'publish: apply governed combined9 card run'
+          git push

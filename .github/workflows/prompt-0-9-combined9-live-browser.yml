@@ -1,0 +1,162 @@
+name: Prompt 0.9 Combined9 Live Browser Verification
+
+on:
+  push:
+    branches:
+      - chatgpt/postmerge-0-9-combined9-20260904
+    paths:
+      - '.github/workflows/prompt-0-9-combined9-live-browser.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify-live-surfaces:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lock production main and prior Prompt 0.9 data PASS
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "dff7349272013757e08c87b37754ec996156059a"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('runs/2026-09-04/prompt_0_9_combined9_postmerge_20260904_R1.json')
+          j=json.loads(p.read_text(encoding='utf-8'))
+          assert j['status']=='PASS_DATA_MAIN'
+          assert j['main_commit_sha']=='dff7349272013757e08c87b37754ec996156059a'
+          assert j['canonical_count']==1523
+          assert j['production_verified'] is False
+          PY
+
+      - name: Install ephemeral Chromium verifier
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install chromium
+
+      - name: Verify production endpoint desktop interaction and mobile rendering
+        shell: bash
+        env:
+          PROD_URL: https://sbtl-hub.vercel.app
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import { chromium } from 'playwright';
+
+          const base = process.env.PROD_URL;
+          const ids = [
+            '2026-08-31_US_01','2026-08-31_GL_01','2026-08-28_GL_01',
+            '2026-08-31_US_02','2026-08-21_EU_02','2026-08-27_CN_02',
+            '2026-09-01_CN_01','2026-08-31_GL_02','2026-08-31_GL_03'
+          ];
+          const browser = await chromium.launch({headless:true});
+
+          async function verify(viewport, label) {
+            const context = await browser.newContext({viewport});
+            const page = await context.newPage();
+            const pageErrors = [];
+            page.on('pageerror', e => pageErrors.push(String(e)));
+            const resp = await page.goto(base + '/', {waitUntil:'networkidle', timeout:90000});
+            if (!resp || resp.status() >= 400) throw new Error(`${label}: homepage HTTP ${resp?.status()}`);
+            await page.waitForTimeout(1000);
+            const bodyText = await page.locator('body').innerText();
+            if (bodyText.trim().length < 100) throw new Error(`${label}: blank/insufficient body`);
+            if (bodyText.includes('앗, 문제가 발생했습니다')) throw new Error(`${label}: React error boundary visible`);
+            if (pageErrors.length) throw new Error(`${label}: pageerror ${pageErrors.join(' | ')}`);
+
+            const live = await page.evaluate(async (ids) => {
+              const r = await fetch('/data/cards.json', {cache:'no-store'});
+              if (!r.ok) return {ok:false,status:r.status};
+              const j = await r.json();
+              const cards = Array.isArray(j) ? j : j.cards;
+              const rows = ids.map(id => cards.find(c => c.id === id) || null);
+              return {ok:true,status:r.status,count:cards.length,rows};
+            }, ids);
+            if (!live.ok || live.status !== 200) throw new Error(`${label}: cards endpoint failed ${live.status}`);
+            if (live.count !== 1523) throw new Error(`${label}: live count ${live.count} != 1523`);
+            if (live.rows.some(x => !x)) throw new Error(`${label}: one or more introduced IDs missing live`);
+
+            // Interaction: navigate to Feed, use the repo-defined card-search control, and
+            // require a newly merged card to render by its exact live title.
+            const feed = page.getByText('피드', {exact:true}).first();
+            await feed.click();
+            await page.waitForTimeout(500);
+            const target = live.rows.find(x => x.id === '2026-09-01_CN_01') || live.rows[0];
+            const search = page.getByLabel('카드 검색');
+            await search.fill(target.title);
+            await page.waitForTimeout(500);
+            const rendered = page.getByText(target.title, {exact:false}).first();
+            if (!(await rendered.isVisible())) throw new Error(`${label}: introduced card title did not render after feed search`);
+
+            const overflow = await page.evaluate(() => ({scrollWidth:document.documentElement.scrollWidth, innerWidth:window.innerWidth}));
+            if (label === 'mobile' && overflow.scrollWidth > overflow.innerWidth + 4) {
+              throw new Error(`mobile: horizontal overflow ${overflow.scrollWidth} > ${overflow.innerWidth}`);
+            }
+
+            const result = {
+              label,
+              viewport,
+              homepage_http: resp.status(),
+              meaningful_html: true,
+              react_error_boundary: false,
+              page_errors: pageErrors,
+              production_endpoint_http: live.status,
+              production_endpoint_count: live.count,
+              introduced_ids_live: live.rows.map(x => x.id),
+              feed_navigation_clicked: true,
+              search_control_used: true,
+              introduced_card_rendered: target.id,
+              introduced_card_title: target.title,
+              horizontal_overflow: overflow,
+              status:'PASS'
+            };
+            await context.close();
+            return result;
+          }
+
+          try {
+            const desktop = await verify({width:1440,height:1000}, 'desktop');
+            const mobile = await verify({width:390,height:844}, 'mobile');
+            const result = {
+              schema:'prompt_0_9_combined9_live_browser_v1',
+              status:'PASS',
+              production_url:base,
+              main_commit_sha:'dff7349272013757e08c87b37754ec996156059a',
+              production_endpoint_verification:'PASS',
+              html_verification:'PASS',
+              interactive_verification:'PASS',
+              mobile_verification:'PASS',
+              card_rendering_verification:'PASS',
+              related_navigation_verification:'NOT_DIRECTLY_EXPOSED_ON_STANDARD_CARD_SURFACE',
+              desktop,
+              mobile
+            };
+            fs.writeFileSync('runs/2026-09-04/prompt_0_9_combined9_live_browser_20260904_R1.json', JSON.stringify(result,null,2)+'\n');
+            console.log(JSON.stringify(result,null,2));
+          } finally {
+            await browser.close();
+          }
+          JS
+
+      - name: Commit audit-only live browser result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-04/prompt_0_9_combined9_live_browser_20260904_R1.json
+          git diff --cached --check
+          git commit -m 'audit: Prompt 0.9 live production browser verification'
+          git push

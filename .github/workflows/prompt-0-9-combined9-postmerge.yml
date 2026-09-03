@@ -1,0 +1,193 @@
+name: Prompt 0.9 Combined9 Post-Merge Verification
+
+on:
+  push:
+    branches:
+      - chatgpt/postmerge-0-9-combined9-20260904
+    paths:
+      - '.github/workflows/prompt-0-9-combined9-postmerge.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify-main-production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lock exact merged main and canonical blobs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "dff7349272013757e08c87b37754ec996156059a"
+          test "$(git merge-base HEAD origin/main)" = "dff7349272013757e08c87b37754ec996156059a"
+          test "$(git rev-parse origin/main:data/cards.full.json)" = "81243ad6ca7e88b703d2eeb31c08ed60f8d6853d"
+          test "$(git rev-parse origin/main:public/data/cards.json)" = "d0527fa9f3df67225ee6eec216d5b3cc6237f355"
+          git diff --quiet origin/main -- data/cards.full.json public/data/cards.json runs/2026-09-04/r6-combined9-production-r1 validation_scripts scripts schemas
+
+      - name: Revalidate sealed card-run and 0.8 bindings against merged outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          RUN="$D/card-run.json"
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          node scripts/validate_card_run_relations.mjs --run "$RUN"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN" --full data/cards.full.json --lean public/data/cards.json
+          MERGE_PREP_REF="$(node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN" --full data/cards.full.json --ledger "$D/prompt-0-8-id-ledger.json")"
+          test "$MERGE_PREP_REF" = "$D/stage-0-8.json"
+          python3 validation_scripts/stage_artifact_contract_check.py 0.8 "$D/stage-0-8.json"
+
+      - name: Re-run current-run semantic QC on merged main data
+        shell: bash
+        run: |
+          set -euo pipefail
+          D='runs/2026-09-04/r6-combined9-production-r1'
+          IDS="$D/prompt-0-8-id-ledger.json"
+          python3 validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file "$IDS"
+          python3 validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file "$IDS"
+          python3 validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file "$IDS"
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          CARDS_FULL_PATH=data/cards.full.json CARDS_PUBLIC_PATH=public/data/cards.json node scripts/lean_cards.mjs --check
+
+      - name: Verify count IDs relations dates hashes and live targets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+
+          MAIN='dff7349272013757e08c87b37754ec996156059a'
+          FULL_SHA='e3f90efefbee6c5ab5c81d36ab7549dd2ee0de25a0e2b12927464b894c350ef4'
+          LEAN_SHA='7bca42fe064f430c7fe5dc9ca57eea2531d72e782e3b259488899f2b7a37a71c'
+          OP_SHA='94ba16582bbd8ec13db59713a4b463976cbaf97dba0ae6f1cc396adafd852e8b'
+          D=Path('runs/2026-09-04/r6-combined9-production-r1')
+
+          def load(path):
+              return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+          def sha(path):
+              return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+          def cards(payload):
+              if isinstance(payload, list): return payload
+              if isinstance(payload, dict) and isinstance(payload.get('cards'), list): return payload['cards']
+              raise AssertionError('canonical card container not recognized')
+          def related_ids(card):
+              out=[]
+              for x in card.get('related') or []:
+                  if isinstance(x,str): out.append(x)
+                  elif isinstance(x,dict):
+                      v=x.get('id') or x.get('target_id') or x.get('card_id')
+                      if v: out.append(str(v))
+              return out
+
+          full_path=Path('data/cards.full.json')
+          lean_path=Path('public/data/cards.json')
+          full_cards=cards(load(full_path))
+          lean_cards=cards(load(lean_path))
+          ledger=load(D/'prompt-0-8-id-ledger.json')
+          ids=ledger['ids']
+          assert len(ids)==9 and len(set(ids))==9
+          assert len(full_cards)==1523, len(full_cards)
+          by_id={}
+          for c in full_cards:
+              cid=c.get('id')
+              by_id.setdefault(cid,[]).append(c)
+          for cid in ids:
+              assert len(by_id.get(cid,[]))==1, (cid,len(by_id.get(cid,[])))
+          all_ids=set(by_id)
+
+          expected_rel={
+              '2026-08-21_EU_02':('2026-07-20_EU_06','distinct_follow_up'),
+              '2026-09-01_CN_01':('2026-08-27_CN_02','program_lineage'),
+          }
+          for src,(dst,rtype) in expected_rel.items():
+              card=by_id[src][0]
+              assert dst in related_ids(card), (src,dst,card.get('related'))
+              assert dst in all_ids, (src,dst,'missing live target')
+              lin=card.get('related_lineage') or {}
+              assert lin.get('relation_type')==rtype, (src,lin.get('relation_type'))
+              assert lin.get('direction')=='directional', (src,lin.get('direction'))
+              assert dst in (lin.get('related_ids') or []), (src,lin.get('related_ids'))
+              if rtype=='distinct_follow_up':
+                  assert lin.get('fresh_follow_up_anchor'), (src,'missing fresh_follow_up_anchor')
+
+          for cid in ids:
+              card=by_id[cid][0]
+              role=card.get('date_role') or card.get('date_role_alignment') or {}
+              assert role.get('representative_date')==card.get('date'), (cid,'representative_date')
+              assert role.get('event_date'), (cid,'event_date')
+              assert isinstance(role.get('publication_dates') or role.get('source_publication_dates'),list) and (role.get('publication_dates') or role.get('source_publication_dates')), (cid,'publication_dates')
+              assert role.get('earliest_same_event_date_checked') is True, (cid,'earliest_same_event_date_checked')
+              assert str(role.get('event_date_source_url','')).startswith(('http://','https://')), (cid,'event_date_source_url')
+              assert str(role.get('event_date_source_quote','')).strip(), (cid,'event_date_source_quote')
+              for rid in related_ids(card):
+                  assert rid in all_ids, (cid,rid,'provisional-or-missing related target')
+
+          binding=load(D/'output-hash-binding.json')
+          audit=load(D/'card-run-audit.json')
+          assert binding['status']=='PASS' and audit['status']=='PASS'
+          assert binding['reviewed_operations_sha256']==OP_SHA==audit['reviewed_operations_sha256']
+          assert sha(full_path)==FULL_SHA==binding['full_output_sha256']==audit['full_output_sha256']
+          assert sha(lean_path)==LEAN_SHA==binding['lean_output_sha256']==audit['lean_output_sha256']
+
+          report={
+              'schema':'prompt_0_9_combined9_postmerge_verification_v1',
+              'status':'PASS_DATA_MAIN',
+              'production_verified':False,
+              'main_commit_sha':MAIN,
+              'canonical_git_blob_sha':'81243ad6ca7e88b703d2eeb31c08ed60f8d6853d',
+              'public_git_blob_sha':'d0527fa9f3df67225ee6eec216d5b3cc6237f355',
+              'canonical_count':len(full_cards),
+              'introduced_ids':ids,
+              'introduced_ids_unique_and_present':True,
+              'related_edges_verified':[
+                  {'source_id':'2026-08-21_EU_02','target_id':'2026-07-20_EU_06','relation_type':'distinct_follow_up','direction':'directional'},
+                  {'source_id':'2026-09-01_CN_01','target_id':'2026-08-27_CN_02','relation_type':'program_lineage','direction':'directional'},
+              ],
+              'live_related_targets_exist':True,
+              'provisional_relation_ids':0,
+              'date_role_exact9':'PASS',
+              'related_lifecycle_exact9':'PASS',
+              'evidence_qc_exact9':'PASS',
+              'canonical_validate':'PASS',
+              'lean_validate':'PASS',
+              'lean_consistency':'PASS',
+              'reviewed_operations_sha256':OP_SHA,
+              'full_output_sha256':FULL_SHA,
+              'lean_output_sha256':LEAN_SHA,
+              'data_verification':'PASS',
+              'deployment_verification':'UNTESTED_IN_THIS_JOB',
+              'production_endpoint_verification':'UNTESTED_IN_THIS_JOB',
+              'html_verification':'UNTESTED_IN_THIS_JOB',
+              'interactive_verification':'UNTESTED_IN_THIS_JOB',
+              'mobile_verification':'UNTESTED_IN_THIS_JOB',
+              'note':'Prompt 0.9 V4 forbids setting production_verified=true until mandatory live surfaces are separately verified.'
+          }
+          out=Path('runs/2026-09-04/prompt_0_9_combined9_postmerge_20260904_R1.json')
+          out.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Commit audit-only Prompt 0.9 data result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-04/prompt_0_9_combined9_postmerge_20260904_R1.json
+          git diff --cached --check
+          git commit -m 'audit: Prompt 0.9 combined9 merged-main data verification'
+          git push

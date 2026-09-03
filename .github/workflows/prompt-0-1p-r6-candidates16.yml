@@ -7,11 +7,86 @@ on:
       - '.tmp/promotion-r6/TRIGGER'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  placeholder:
+  promotion-input:
     runs-on: ubuntu-latest
     steps:
-      - name: Fail closed until promotion runner is bound
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Materialize exact candidate-16 promotion input
+        shell: bash
         run: |
-          echo 'Promotion workflow scaffold created; runner binding required before execution.'
-          exit 1
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+
+          run_dir = Path('runs/2026-09-03')
+          items=[]
+          provenance=[]
+          for b in range(1,17):
+              p=run_dir/f'stage_a_formal_r6_batch{b:02d}_20260903_R1.json'
+              a=json.loads(p.read_text(encoding='utf-8'))
+              assert a.get('status') == 'PASS', p
+              pool=a.get('candidate_review_pool',[])
+              for row in pool:
+                  r=dict(row)
+                  r['_formal_batch']=b
+                  r['_source_artifact']=str(p)
+                  items.append(r)
+              provenance.append({'batch':b,'candidate_count':len(pool),'artifact':str(p)})
+          assert len(items)==16, len(items)
+          ids=[]
+          for r in items:
+              rid=r.get('review_pool_item_id') or r.get('spec_id') or r.get('event_id')
+              assert rid and rid not in ids, rid
+              ids.append(rid)
+          def sha_obj(x):
+              raw=json.dumps(x,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()
+              return hashlib.sha256(raw).hexdigest()
+          full={
+              'schema':'prompt_0_1p_candidate_input_v1',
+              'status':'PASS_INPUT_LOCK',
+              'prompt_version':'PROMPT_0_1P_V4_20260829',
+              'main_sha':'df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4',
+              'canonical_blob_sha':'53219907cdb435c3822c41d097b23e475662aa8a',
+              'candidate_count':16,
+              'candidate_ids':ids,
+              'batch_provenance':provenance,
+              'items':items,
+          }
+          full['candidate_set_sha256']=sha_obj(items)
+          (run_dir/'prompt_0_1p_r6_candidates16_input_20260903_R1.json').write_text(json.dumps(full,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          preferred=['review_pool_item_id','event_id','r6_event_id','source_event_id','title','representative_title','decision_value_score','decision_value_classification','review_pool_subtype','promotion_question','review_question','why_review','reason','source_access_risk','primary_source_candidate','source_urls','related_prepass','canonical_relation','selection_route']
+          digest=[]
+          for r in items:
+              d={'formal_batch':r['_formal_batch']}
+              for k in preferred:
+                  if k in r:
+                      d[k]=r[k]
+              for k,v in r.items():
+                  kl=k.lower()
+                  if k.startswith('_') or k in d: continue
+                  if any(t in kl for t in ('question','reason','score','class','title','url','source','event_id','route','subtype','gap','stage','anchor')):
+                      if isinstance(v,(str,int,float,bool,list,dict)):
+                          d[k]=v
+              digest.append(d)
+          summary={'schema':'prompt_0_1p_candidate_digest_v1','status':'PASS_INPUT_LOCK','candidate_count':16,'candidate_set_sha256':full['candidate_set_sha256'],'items':digest}
+          (run_dir/'prompt_0_1p_r6_candidates16_digest_20260903_R1.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'candidate_count':16,'candidate_set_sha256':full['candidate_set_sha256'],'candidate_ids':ids},ensure_ascii=False,indent=2))
+          PY
+      - name: Commit locked promotion input only
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/prompt_0_1p_r6_candidates16_input_20260903_R1.json \
+                  runs/2026-09-03/prompt_0_1p_r6_candidates16_digest_20260903_R1.json
+          git commit -m 'audit: lock Prompt 0.1P R6 candidate-16 input'
+          git push

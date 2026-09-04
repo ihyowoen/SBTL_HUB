@@ -1,0 +1,127 @@
+{
+  "schema": "prompt_0_9_current13_production_verification_v1",
+  "stage": "0.9",
+  "status": "ALL_STAGES_COMPLETE_AND_PRODUCTION_VERIFIED",
+  "main_commit_sha": "5317bec055b88a26cffb136e7844eb488ae4db0d",
+  "production_url": "https://sbtl-hub.vercel.app",
+  "vercel_deployment_id": "dpl_BsoJEUkDgcykDEzMNRHqvHmXZFyc",
+  "vercel_source_commit_sha": "5317bec055b88a26cffb136e7844eb488ae4db0d",
+  "published_count": 13,
+  "canonical_count": 1536,
+  "expected_full_sha256": "d120feebcea3f73ecdfee33348675466e6bbe1d6d1d3560d009a50d36f48757f",
+  "expected_lean_sha256": "9290c223b19e7c6e50019ede695b36c0b2368713d218092baae84a6a8929d428",
+  "checklist": {
+    "data_parity_pass": true,
+    "deployment_pass": true,
+    "html_render_pass": true,
+    "interactive_render_pass": true,
+    "responsive_pass": true
+  },
+  "introduced_ids": [
+    "2026-08-29_CN_01",
+    "2026-08-31_EU_01",
+    "2026-08-30_CN_01",
+    "2026-08-31_CN_01",
+    "2026-09-02_US_01",
+    "2026-08-26_CN_02",
+    "2026-08-21_GL_04",
+    "2026-08-28_GL_02",
+    "2026-08-31_EU_02",
+    "2026-09-01_GL_01",
+    "2026-08-30_CN_02",
+    "2026-08-21_CN_03",
+    "2026-08-28_CN_01"
+  ],
+  "related_edge": {
+    "source": "2026-08-26_CN_02",
+    "target": "2026-08-07_CN_01"
+  },
+  "desktop": {
+    "label": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "homepage_http": 200,
+    "meaningful_html": true,
+    "page_errors": [],
+    "server_5xx": [],
+    "production_endpoint_http": 200,
+    "production_endpoint_count": 1536,
+    "production_endpoint_sha256": "9290c223b19e7c6e50019ede695b36c0b2368713d218092baae84a6a8929d428",
+    "introduced_ids_live": [
+      "2026-08-29_CN_01",
+      "2026-08-31_EU_01",
+      "2026-08-30_CN_01",
+      "2026-08-31_CN_01",
+      "2026-09-02_US_01",
+      "2026-08-26_CN_02",
+      "2026-08-21_GL_04",
+      "2026-08-28_GL_02",
+      "2026-08-31_EU_02",
+      "2026-09-01_GL_01",
+      "2026-08-30_CN_02",
+      "2026-08-21_CN_03",
+      "2026-08-28_CN_01"
+    ],
+    "catl_directional_related_live": true,
+    "feed_navigation_clicked": true,
+    "search_control_used": true,
+    "introduced_card_rendered": "2026-09-02_US_01",
+    "introduced_card_title": "두산퓨얼셀, 미국 AI 데이터센터용 PAFC 5,014억원 공급계약",
+    "public_content_fields_rendered": [
+      "sub"
+    ],
+    "detail_surface_mode": "STANDARD_FEED_CARD_SURFACE_NO_SEPARATE_TITLE_CLICK_ROUTE",
+    "card_surface_scrolled": true,
+    "horizontal_overflow": {
+      "scrollWidth": 1440,
+      "innerWidth": 1440
+    },
+    "status": "PASS"
+  },
+  "mobile": {
+    "label": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "homepage_http": 200,
+    "meaningful_html": true,
+    "page_errors": [],
+    "server_5xx": [],
+    "production_endpoint_http": 200,
+    "production_endpoint_count": 1536,
+    "production_endpoint_sha256": "9290c223b19e7c6e50019ede695b36c0b2368713d218092baae84a6a8929d428",
+    "introduced_ids_live": [
+      "2026-08-29_CN_01",
+      "2026-08-31_EU_01",
+      "2026-08-30_CN_01",
+      "2026-08-31_CN_01",
+      "2026-09-02_US_01",
+      "2026-08-26_CN_02",
+      "2026-08-21_GL_04",
+      "2026-08-28_GL_02",
+      "2026-08-31_EU_02",
+      "2026-09-01_GL_01",
+      "2026-08-30_CN_02",
+      "2026-08-21_CN_03",
+      "2026-08-28_CN_01"
+    ],
+    "catl_directional_related_live": true,
+    "feed_navigation_clicked": true,
+    "search_control_used": true,
+    "introduced_card_rendered": "2026-09-02_US_01",
+    "introduced_card_title": "두산퓨얼셀, 미국 AI 데이터센터용 PAFC 5,014억원 공급계약",
+    "public_content_fields_rendered": [
+      "sub"
+    ],
+    "detail_surface_mode": "STANDARD_FEED_CARD_SURFACE_NO_SEPARATE_TITLE_CLICK_ROUTE",
+    "card_surface_scrolled": true,
+    "horizontal_overflow": {
+      "scrollWidth": 390,
+      "innerWidth": 390
+    },
+    "status": "PASS"
+  }
+}

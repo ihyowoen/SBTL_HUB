@@ -1,0 +1,196 @@
+name: Prompt 0.9 Current13 Live Browser Verification
+
+on:
+  push:
+    branches:
+      - chatgpt/postmerge-0-9-current13-20260904
+    paths:
+      - '.github/workflows/prompt-0-9-current13-live-browser.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify-live-surfaces:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lock merged production baseline and repository outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "5317bec055b88a26cffb136e7844eb488ae4db0d"
+          test "$(sha256sum data/cards.full.json | cut -d' ' -f1)" = "d120feebcea3f73ecdfee33348675466e6bbe1d6d1d3560d009a50d36f48757f"
+          test "$(sha256sum public/data/cards.json | cut -d' ' -f1)" = "9290c223b19e7c6e50019ede695b36c0b2368713d218092baae84a6a8929d428"
+          node - <<'JS'
+          const fs=require('fs');
+          const full=JSON.parse(fs.readFileSync('data/cards.full.json','utf8'));
+          const lean=JSON.parse(fs.readFileSync('public/data/cards.json','utf8'));
+          const f=Array.isArray(full)?full:full.cards;
+          const l=Array.isArray(lean)?lean:lean.cards;
+          if(f.length!==1536 || l.length!==1536) throw new Error(`repo count mismatch full=${f.length} lean=${l.length}`);
+          JS
+
+      - name: Install ephemeral Chromium verifier
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install chromium
+
+      - name: Verify production data, desktop interaction, detail surface, and mobile rendering
+        shell: bash
+        env:
+          PROD_URL: https://sbtl-hub.vercel.app
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import { chromium } from 'playwright';
+
+          const base = process.env.PROD_URL;
+          const expectedLeanSha = '9290c223b19e7c6e50019ede695b36c0b2368713d218092baae84a6a8929d428';
+          const ids = [
+            '2026-08-29_CN_01','2026-08-31_EU_01','2026-08-30_CN_01',
+            '2026-08-31_CN_01','2026-09-02_US_01','2026-08-26_CN_02',
+            '2026-08-21_GL_04','2026-08-28_GL_02','2026-08-31_EU_02',
+            '2026-09-01_GL_01','2026-08-30_CN_02','2026-08-21_CN_03',
+            '2026-08-28_CN_01'
+          ];
+          const relation = {source:'2026-08-26_CN_02', target:'2026-08-07_CN_01'};
+          const browser = await chromium.launch({headless:true});
+
+          async function sha256(text) {
+            const buf = new TextEncoder().encode(text);
+            const dig = await crypto.subtle.digest('SHA-256', buf);
+            return [...new Uint8Array(dig)].map(b=>b.toString(16).padStart(2,'0')).join('');
+          }
+
+          async function verify(viewport, label) {
+            const context = await browser.newContext({viewport});
+            const page = await context.newPage();
+            const pageErrors = [];
+            const badResponses = [];
+            page.on('pageerror', e => pageErrors.push(String(e)));
+            page.on('response', r => { if (r.status() >= 500) badResponses.push(`${r.status()} ${r.url()}`); });
+            const resp = await page.goto(base + '/', {waitUntil:'networkidle', timeout:90000});
+            if (!resp || resp.status() >= 400) throw new Error(`${label}: homepage HTTP ${resp?.status()}`);
+            await page.waitForTimeout(1000);
+            const bodyText = await page.locator('body').innerText();
+            if (bodyText.trim().length < 100) throw new Error(`${label}: blank/insufficient body`);
+            if (bodyText.includes('앗, 문제가 발생했습니다')) throw new Error(`${label}: React error boundary visible`);
+            if (pageErrors.length) throw new Error(`${label}: pageerror ${pageErrors.join(' | ')}`);
+            if (badResponses.length) throw new Error(`${label}: 5xx responses ${badResponses.join(' | ')}`);
+
+            const live = await page.evaluate(async ({ids, expectedLeanSha, relation}) => {
+              const r = await fetch('/data/cards.json', {cache:'no-store'});
+              const text = await r.text();
+              const buf = new TextEncoder().encode(text);
+              const dig = await crypto.subtle.digest('SHA-256', buf);
+              const hash = [...new Uint8Array(dig)].map(b=>b.toString(16).padStart(2,'0')).join('');
+              const j = JSON.parse(text);
+              const cards = Array.isArray(j) ? j : j.cards;
+              const rows = ids.map(id => cards.find(c => c.id === id) || null);
+              const relCard = cards.find(c => c.id === relation.source) || null;
+              const relationVisibleInData = !!relCard && JSON.stringify(relCard).includes(relation.target);
+              return {ok:r.ok,status:r.status,count:cards.length,hash,rows,relationVisibleInData};
+            }, {ids, expectedLeanSha, relation});
+            if (!live.ok || live.status !== 200) throw new Error(`${label}: cards endpoint failed ${live.status}`);
+            if (live.count !== 1536) throw new Error(`${label}: live count ${live.count} != 1536`);
+            if (live.hash !== expectedLeanSha) throw new Error(`${label}: live lean sha ${live.hash} != ${expectedLeanSha}`);
+            if (live.rows.some(x => !x)) throw new Error(`${label}: one or more introduced IDs missing live`);
+            if (!live.relationVisibleInData) throw new Error(`${label}: CATL directional Related target missing from live lean card`);
+
+            const feed = page.getByText('피드', {exact:true}).first();
+            await feed.click();
+            await page.waitForTimeout(500);
+            const target = live.rows.find(x => x.id === '2026-09-02_US_01') || live.rows[0];
+            const search = page.getByLabel('카드 검색');
+            await search.fill(target.title);
+            await page.waitForTimeout(500);
+            const rendered = page.getByText(target.title, {exact:false}).first();
+            if (!(await rendered.isVisible())) throw new Error(`${label}: introduced card title did not render after feed search`);
+
+            const beforeUrl = page.url();
+            const beforeText = await page.locator('body').innerText();
+            await rendered.click();
+            await page.waitForTimeout(700);
+            await page.mouse.wheel(0, 900);
+            await page.waitForTimeout(200);
+            const afterText = await page.locator('body').innerText();
+            const dialogVisible = await page.locator('[role="dialog"]').count().then(async n => n > 0 && await page.locator('[role="dialog"]').first().isVisible()).catch(()=>false);
+            const detailSignal = page.url() !== beforeUrl || dialogVisible || afterText.length > beforeText.length + 80;
+            if (!detailSignal) throw new Error(`${label}: card click did not expose a distinguishable detail surface`);
+            if (!afterText.includes(target.title)) throw new Error(`${label}: target title absent after detail interaction`);
+
+            const overflow = await page.evaluate(() => ({scrollWidth:document.documentElement.scrollWidth, innerWidth:window.innerWidth}));
+            if (label === 'mobile' && overflow.scrollWidth > overflow.innerWidth + 4) {
+              throw new Error(`mobile: horizontal overflow ${overflow.scrollWidth} > ${overflow.innerWidth}`);
+            }
+
+            const result = {
+              label, viewport, homepage_http:resp.status(), meaningful_html:true,
+              page_errors:pageErrors, server_5xx:badResponses,
+              production_endpoint_http:live.status, production_endpoint_count:live.count,
+              production_endpoint_sha256:live.hash,
+              introduced_ids_live:live.rows.map(x=>x.id),
+              catl_directional_related_live:true,
+              feed_navigation_clicked:true, search_control_used:true,
+              introduced_card_rendered:target.id, introduced_card_title:target.title,
+              detail_surface_opened:true, detail_scrolled:true,
+              horizontal_overflow:overflow, status:'PASS'
+            };
+            await context.close();
+            return result;
+          }
+
+          try {
+            const desktop = await verify({width:1440,height:1000}, 'desktop');
+            const mobile = await verify({width:390,height:844}, 'mobile');
+            const result = {
+              schema:'prompt_0_9_current13_production_verification_v1',
+              stage:'0.9',
+              status:'ALL_STAGES_COMPLETE_AND_PRODUCTION_VERIFIED',
+              main_commit_sha:'5317bec055b88a26cffb136e7844eb488ae4db0d',
+              production_url:base,
+              vercel_deployment_id:'dpl_BsoJEUkDgcykDEzMNRHqvHmXZFyc',
+              vercel_source_commit_sha:'5317bec055b88a26cffb136e7844eb488ae4db0d',
+              published_count:13,
+              canonical_count:1536,
+              expected_full_sha256:'d120feebcea3f73ecdfee33348675466e6bbe1d6d1d3560d009a50d36f48757f',
+              expected_lean_sha256:expectedLeanSha,
+              checklist:{
+                data_parity_pass:true,
+                deployment_pass:true,
+                html_render_pass:true,
+                interactive_render_pass:true,
+                responsive_pass:true
+              },
+              introduced_ids:ids,
+              related_edge:relation,
+              desktop, mobile
+            };
+            fs.writeFileSync('runs/2026-09-04/prompt_0_9_current13_production_verification_20260904_R1.json', JSON.stringify(result,null,2)+'\n');
+            console.log(JSON.stringify(result,null,2));
+          } finally {
+            await browser.close();
+          }
+          JS
+
+      - name: Commit audit-only Prompt 0.9 result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-04/prompt_0_9_current13_production_verification_20260904_R1.json
+          git diff --cached --check
+          git commit -m 'audit: close Prompt 0.9 current13 production verification'
+          git push

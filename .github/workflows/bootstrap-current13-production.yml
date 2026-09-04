@@ -1,0 +1,152 @@
+name: bootstrap-current13-production
+
+on:
+  push:
+    branches:
+      - chatgpt/publish-20260902-current13-r1
+    paths:
+      - '.github/workflows/bootstrap-current13-production.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bootstrap-current13-production
+  cancel-in-progress: false
+
+jobs:
+  apply-and-seal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Restore full governed payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s .tmp/current13_payload.b64
+          base64 -d .tmp/current13_payload.b64 > "$RUNNER_TEMP/current13_payload.tar.gz"
+          tar -xzf "$RUNNER_TEMP/current13_payload.tar.gz"
+          test -s runs/2026-09-04/input-20260902-current13-production-r1/card-run.json
+
+      - name: Lock exact baseline
+        id: lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUN='runs/2026-09-04/input-20260902-current13-production-r1/card-run.json'
+          BASE_MAIN="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_main_commit_sha)' "$RUN")"
+          BASE_BLOB="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.base_full_blob_sha)' "$RUN")"
+          git fetch origin main:refs/remotes/origin/main --force
+          ACTUAL_MAIN="$(git rev-parse origin/main)"
+          ACTUAL_BLOB="$(git rev-parse "${ACTUAL_MAIN}:data/cards.full.json")"
+          [[ "$BASE_MAIN" == "$ACTUAL_MAIN" ]] || { echo "FAIL: main moved $ACTUAL_MAIN != $BASE_MAIN" >&2; exit 1; }
+          [[ "$BASE_BLOB" == "$ACTUAL_BLOB" ]] || { echo "FAIL: canonical blob moved $ACTUAL_BLOB != $BASE_BLOB" >&2; exit 1; }
+          git show "${BASE_MAIN}:data/cards.full.json" > "$RUNNER_TEMP/cards.full.base.json"
+          [[ "$(git hash-object "$RUNNER_TEMP/cards.full.base.json")" == "$BASE_BLOB" ]] || { echo 'FAIL: reconstructed baseline hash mismatch' >&2; exit 1; }
+          echo "run=$RUN" >> "$GITHUB_OUTPUT"
+          echo "base_main=$BASE_MAIN" >> "$GITHUB_OUTPUT"
+
+      - name: Validate governed inputs before mutation
+        shell: bash
+        env:
+          RUN_PATH: ${{ steps.lock.outputs.run }}
+        run: |
+          set -euo pipefail
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN_PATH"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN_PATH"
+          node scripts/validate_card_run_relations.mjs --run "$RUN_PATH"
+
+      - name: Apply exact card run
+        shell: bash
+        env:
+          RUN_PATH: ${{ steps.lock.outputs.run }}
+          BASE_MAIN: ${{ steps.lock.outputs.base_main }}
+        run: |
+          set -euo pipefail
+          REPORT="$(dirname "$RUN_PATH")/apply-report.json"
+          node scripts/apply_card_run.mjs \
+            --run "$RUN_PATH" \
+            --baseline "$RUNNER_TEMP/cards.full.base.json" \
+            --canonical-path data/cards.full.json \
+            --output data/cards.full.json \
+            --report "$REPORT" \
+            --lean-path public/data/cards.json \
+            --base-main-sha "$BASE_MAIN" \
+            --apply
+
+      - name: Validate final canonical and governed run
+        shell: bash
+        env:
+          RUN_PATH: ${{ steps.lock.outputs.run }}
+          BASE_MAIN: ${{ steps.lock.outputs.base_main }}
+        run: |
+          set -euo pipefail
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN_PATH" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN_PATH" --full data/cards.full.json --lean public/data/cards.json
+
+          ID_LEDGER="$RUNNER_TEMP/prompt-0-8-id-ledger.json"
+          MERGE_PREP_REF="$(node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN_PATH" --full data/cards.full.json --ledger "$ID_LEDGER")"
+          test -s "$ID_LEDGER"
+          test -n "$MERGE_PREP_REF" && test -f "$MERGE_PREP_REF"
+          STRICT_ID_COUNT="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(String((r.ids||[]).length))' "$ID_LEDGER")"
+          if [[ "$STRICT_ID_COUNT" -gt 0 ]]; then
+            python3 validation_scripts/related_lifecycle_check.py data/cards.full.json --require-contract --new-id-file "$ID_LEDGER"
+            python3 validation_scripts/evidence_qc_v8_check.py data/cards.full.json --new-id-file "$ID_LEDGER"
+            python3 validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file "$ID_LEDGER"
+          fi
+          python3 validation_scripts/stage_artifact_contract_check.py 0.8 "$MERGE_PREP_REF"
+
+          node scripts/apply_card_run.mjs \
+            --run "$RUN_PATH" \
+            --baseline data/cards.full.json \
+            --canonical-path data/cards.full.json \
+            --output data/cards.full.json \
+            --report "$(dirname "$RUN_PATH")/apply-report.json" \
+            --lean-path public/data/cards.json \
+            --base-main-sha "$BASE_MAIN" \
+            --verify
+          git diff --check
+
+      - name: Verify output hashes
+        shell: bash
+        env:
+          RUN_PATH: ${{ steps.lock.outputs.run }}
+        run: |
+          set -euo pipefail
+          BINDING="$(dirname "$RUN_PATH")/output-hash-binding.json"
+          test -s "$BINDING"
+          EXPECT_FULL="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.candidate_full_sha256||r.full_sha256||r.output_full_sha256||"")' "$BINDING")"
+          EXPECT_LEAN="$(node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1],"utf8"));process.stdout.write(r.candidate_lean_sha256||r.lean_sha256||r.output_lean_sha256||"")' "$BINDING")"
+          ACTUAL_FULL="$(sha256sum data/cards.full.json | awk '{print $1}')"
+          ACTUAL_LEAN="$(sha256sum public/data/cards.json | awk '{print $1}')"
+          if [[ -n "$EXPECT_FULL" ]]; then [[ "$EXPECT_FULL" == "$ACTUAL_FULL" ]] || { echo "FAIL full sha $ACTUAL_FULL != $EXPECT_FULL" >&2; exit 1; }; fi
+          if [[ -n "$EXPECT_LEAN" ]]; then [[ "$EXPECT_LEAN" == "$ACTUAL_LEAN" ]] || { echo "FAIL lean sha $ACTUAL_LEAN != $EXPECT_LEAN" >&2; exit 1; }; fi
+          echo "PASS full=$ACTUAL_FULL lean=$ACTUAL_LEAN"
+
+      - name: Remove bootstrap transport and commit sealed production output
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f runs/2026-09-04/input-20260902-current13-production-r1/apply-report.json
+          git rm -f .tmp/current13_payload.b64
+          git rm -f .github/workflows/bootstrap-current13-production.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/cards.full.json public/data/cards.json runs/2026-09-04/input-20260902-current13-production-r1
+          git diff --cached --check
+          git status --short
+          git commit -m 'Publish governed Sep 2 current13 cards'
+          git push origin HEAD:chatgpt/publish-20260902-current13-r1

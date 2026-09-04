@@ -1,0 +1,1595 @@
+{
+  "schema": "prompt_0_1p_candidate_digest_v1",
+  "status": "PASS_INPUT_LOCK",
+  "candidate_count": 16,
+  "candidate_set_sha256": "3594d79cf12f04e68f3ba7e3d683690cdabc7a73d505e857851e46bc871e8bf6",
+  "items": [
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_001",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "low",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for Asahi Kasei silicon-anode lithium pre-doping technology before drafting."
+        ]
+      },
+      "selection_route": "structural_non_execution_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C03",
+        "20260901::orig:20260901_123511:EU_2026-08-31_C01"
+      ],
+      "representative_source": "Charged EVs RSS",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://chargedevs.com/newswire/asahi-kaseis-pre-doping-technology-cuts-first-cycle-capacity-loss-in-silicon-rich-cells",
+      "urls": [
+        "https://chargedevs.com/newswire/asahi-kaseis-pre-doping-technology-cuts-first-cycle-capacity-loss-in-silicon-rich-cells",
+        "https://www.electrive.com/2026/08/31/asahi-kasei-develops-novel-pre-doping-lithium-technology-for-silicon-anodes"
+      ],
+      "event_anchor": "structural_signal",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260831::orig:20260831_143419:US_2026-08-28_C03",
+          "url": "https://chargedevs.com/newswire/asahi-kaseis-pre-doping-technology-cuts-first-cycle-capacity-loss-in-silicon-rich-cells",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:EU_2026-08-31_C01",
+          "url": "https://www.electrive.com/2026/08/31/asahi-kasei-develops-novel-pre-doping-lithium-technology-for-silicon-anodes",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.electrive.com/2026/08/31/asahi-kasei-develops-novel-pre-doping-lithium-technology-for-silicon-anodes"
+      ],
+      "source_domain_candidates": [
+        "chargedevs.com",
+        "electrive.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 2,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "structural_value_override_reason": "Asahi Kasei silicon-anode lithium pre-doping technology changes the decision baseline without requiring a conventional corporate execution event.",
+      "anchor_classes": [
+        "technology_commercialization_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of Asahi Kasei silicon-anode lithium pre-doping technology.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for Asahi Kasei silicon-anode lithium pre-doping technology."
+      ],
+      "structural_non_execution_reason": "The supplied source package establishes a decision-useful policy, data, strategic or follow-up change for Asahi Kasei silicon-anode lithium pre-doping technology even without conventional execution.",
+      "decision_news_value_score": 54,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "Asahi Kasei’s pre-doping technology cuts first-cycle capacity loss in silicon-rich cells",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "Independent cell validation, cycle-life impact, manufacturability and commercial adoption are not established in the source-bound packet.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "research_or_paper",
+      "technology_score_cap_applied": true,
+      "technology_validation_gap": "Independent cell validation, cycle-life impact, manufacturability and commercial adoption are not established in the source-bound packet.",
+      "reason_for_review": "Independent cell validation, cycle-life impact, manufacturability and commercial adoption are not established in the source-bound packet.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place Asahi Kasei silicon-anode lithium pre-doping technology in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for Asahi Kasei silicon-anode lithium pre-doping technology than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for Asahi Kasei silicon-anode lithium pre-doping technology be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_006",
+      "decision_value_classification": "material_industry_signal",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "low",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for Liontown farm-in agreement for the Centenario Argentina lithium-brine project with an earn-in path up to 100% before drafting."
+        ]
+      },
+      "selection_route": "execution_anchor_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260901::orig:20260901_123511:GL_2026-08-31_C19",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C20",
+        "20260901::orig:20260901_123511:GL_2026-09-01_C05",
+        "20260901::orig:20260901_123511:GL_2026-09-01_C07",
+        "20260901::orig:20260901_123511:GL_2026-09-01_C08"
+      ],
+      "representative_source": "Chile/Argentina Lithium (via Google News)",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://www.marketscreener.com/news/liontown-resources-executes-farm-in-agreement-for-argentina-lithium-brine-project-ce7858ddda8af521",
+      "urls": [
+        "https://kalkine.com.au/news/announcements/liontown-enters-farm-in-agreement-to-earn-up-to-100-of-centenario-lithium-brine-project-in-argentina",
+        "https://www.marketscreener.com/news/liontown-resources-executes-farm-in-agreement-for-argentina-lithium-brine-project-ce7858ddda8af521",
+        "https://kalkine.com.au/news/mining/liontown-asxltr-strengthens-its-lithium-growth-pipeline-with-strategic-entry-into-argentina",
+        "https://www.fool.com.au/2026/09/01/liontown-enters-argentina-lithium-brine-farm-in-diversifying-future-growth",
+        "https://australianminingreview.com.au/news/liontown-to-acquire-argentina-lithium-brine-project"
+      ],
+      "event_anchor": "farm_in_agreement",
+      "execution_anchor_type": "farm_in_agreement",
+      "execution_anchor_strength": "moderate",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260901::orig:20260901_123511:GL_2026-08-31_C19",
+          "url": "https://kalkine.com.au/news/announcements/liontown-enters-farm-in-agreement-to-earn-up-to-100-of-centenario-lithium-brine-project-in-argentina",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:GL_2026-08-31_C20",
+          "url": "https://www.marketscreener.com/news/liontown-resources-executes-farm-in-agreement-for-argentina-lithium-brine-project-ce7858ddda8af521",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:GL_2026-09-01_C05",
+          "url": "https://kalkine.com.au/news/mining/liontown-asxltr-strengthens-its-lithium-growth-pipeline-with-strategic-entry-into-argentina",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:GL_2026-09-01_C07",
+          "url": "https://www.fool.com.au/2026/09/01/liontown-enters-argentina-lithium-brine-farm-in-diversifying-future-growth",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:GL_2026-09-01_C08",
+          "url": "https://australianminingreview.com.au/news/liontown-to-acquire-argentina-lithium-brine-project",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.marketscreener.com/news/liontown-resources-executes-farm-in-agreement-for-argentina-lithium-brine-project-ce7858ddda8af521",
+        "https://kalkine.com.au/news/mining/liontown-asxltr-strengthens-its-lithium-growth-pipeline-with-strategic-entry-into-argentina",
+        "https://www.fool.com.au/2026/09/01/liontown-enters-argentina-lithium-brine-farm-in-diversifying-future-growth",
+        "https://australianminingreview.com.au/news/liontown-to-acquire-argentina-lithium-brine-project"
+      ],
+      "source_domain_candidates": [
+        "kalkine.com.au",
+        "marketscreener.com",
+        "fool.com.au",
+        "australianminingreview.com.au"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 4,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of Liontown farm-in agreement for the Centenario Argentina lithium-brine project with an earn-in path up to 100%.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for Liontown farm-in agreement for the Centenario Argentina lithium-brine project with an earn-in path up to 100%."
+      ],
+      "decision_news_value_score": 58,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "Liontown Resources Executes Farm-In Agreement for Argentina Lithium Brine Project - marketscreener.com",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The executed farm-in is clear, but Stage A does not yet establish earn-in milestones, consideration, resource scale or whether the option path materially changes near-term supply.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "reason_for_review": "The executed farm-in is clear, but Stage A does not yet establish earn-in milestones, consideration, resource scale or whether the option path materially changes near-term supply.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place Liontown farm-in agreement for the Centenario Argentina lithium-brine project with an earn-in path up to 100% in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for Liontown farm-in agreement for the Centenario Argentina lithium-brine project with an earn-in path up to 100% than the present material_industry_signal classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for Liontown farm-in agreement for the Centenario Argentina lithium-brine project with an earn-in path up to 100% be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_011",
+      "decision_value_classification": "material_industry_signal",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "moderate",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for California bill allowing customer-owned clean energy to compete for grid-reliability procurement before drafting."
+        ]
+      },
+      "selection_route": "structural_non_execution_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C06"
+      ],
+      "representative_source": "PV Magazine USA RSS",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://pv-magazine-usa.com/2026/08/28/california-passes-bill-allowing-customer-owned-clean-energy-to-compete-with-traditional-power-sources-for-grid-reliability",
+      "urls": [
+        "https://pv-magazine-usa.com/2026/08/28/california-passes-bill-allowing-customer-owned-clean-energy-to-compete-with-traditional-power-sources-for-grid-reliability"
+      ],
+      "event_anchor": "policy_implementation",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260831::orig:20260831_143419:US_2026-08-28_C06",
+          "url": "https://pv-magazine-usa.com/2026/08/28/california-passes-bill-allowing-customer-owned-clean-energy-to-compete-with-traditional-power-sources-for-grid-reliability",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "pv-magazine-usa.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": false,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "structural_value_override_reason": "California bill allowing customer-owned clean energy to compete for grid-reliability procurement changes the decision baseline without requiring a conventional corporate execution event.",
+      "anchor_classes": [
+        "policy_regulatory_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of California bill allowing customer-owned clean energy to compete for grid-reliability procurement.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for California bill allowing customer-owned clean energy to compete for grid-reliability procurement."
+      ],
+      "structural_non_execution_reason": "The supplied source package establishes a decision-useful policy, data, strategic or follow-up change for California bill allowing customer-owned clean energy to compete for grid-reliability procurement even without conventional execution.",
+      "decision_news_value_score": 61,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "policy_stage": 2,
+      "title_raw": "California passes bill allowing customer-owned clean energy to compete with traditional power sources for grid reliability",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The source establishes legislative passage but the exact chamber/final-enactment status, governor action, operative date and procurement implementation remain unresolved.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "legal_policy_stage": "stage_2_bill_or_proposed_rule",
+      "budget_or_funding_source": "not_established_in_stage_a_source_packet",
+      "legal_policy_score_cap_exception": {
+        "applied": false,
+        "basis": null,
+        "evidence": null
+      },
+      "reason_for_review": "The source establishes legislative passage but the exact chamber/final-enactment status, governor action, operative date and procurement implementation remain unresolved.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place California bill allowing customer-owned clean energy to compete for grid-reliability procurement in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for California bill allowing customer-owned clean energy to compete for grid-reliability procurement than the present material_industry_signal classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for California bill allowing customer-owned clean energy to compete for grid-reliability procurement be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_012",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "moderate",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [
+          "2026-05-01_JP_01",
+          "2026-04-27_US_03"
+        ],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [
+          {
+            "target_candidate_id": "2026-05-01_JP_01",
+            "proposed_relation_type": "distinct_follow_up",
+            "confidence": "high",
+            "reason": "R6 canonical-relation closure maps Critical Metals Corp. update on its proposed acquisition of European Lithium to 2026-05-01_JP_01 as distinct_follow_up.",
+            "anchor_class_to_verify": "follow_up_probability_anchor",
+            "incremental_anchor_question": "What new verified fact in Critical Metals Corp. update on its proposed acquisition of European Lithium changes the judgment beyond canonical target 2026-05-01_JP_01?"
+          },
+          {
+            "target_candidate_id": "2026-04-27_US_03",
+            "proposed_relation_type": "distinct_follow_up",
+            "confidence": "high",
+            "reason": "R6 canonical-relation closure maps Critical Metals Corp. update on its proposed acquisition of European Lithium to 2026-04-27_US_03 as distinct_follow_up.",
+            "anchor_class_to_verify": "follow_up_probability_anchor",
+            "incremental_anchor_question": "What new verified fact in Critical Metals Corp. update on its proposed acquisition of European Lithium changes the judgment beyond canonical target 2026-04-27_US_03?"
+          }
+        ],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for Critical Metals Corp. update on its proposed acquisition of European Lithium before drafting."
+        ]
+      },
+      "selection_route": "structural_non_execution_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:US_2026-08-28_C08"
+      ],
+      "representative_source": "GlobeNewswire M&A",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://www.globenewswire.com/news-release/2026/08/28/3352685/0/en/critical-metals-corp-provides-update-on-proposed-acquisition-of-european-lithium.html",
+      "urls": [
+        "https://www.globenewswire.com/news-release/2026/08/28/3352685/0/en/critical-metals-corp-provides-update-on-proposed-acquisition-of-european-lithium.html"
+      ],
+      "event_anchor": "structural_signal",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260831::orig:20260831_143419:US_2026-08-28_C08",
+          "url": "https://www.globenewswire.com/news-release/2026/08/28/3352685/0/en/critical-metals-corp-provides-update-on-proposed-acquisition-of-european-lithium.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "globenewswire.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": false,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "structural_value_override_reason": "Critical Metals Corp. update on its proposed acquisition of European Lithium changes the decision baseline without requiring a conventional corporate execution event.",
+      "anchor_classes": [
+        "follow_up_probability_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of Critical Metals Corp. update on its proposed acquisition of European Lithium.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for Critical Metals Corp. update on its proposed acquisition of European Lithium."
+      ],
+      "structural_non_execution_reason": "The supplied source package establishes a decision-useful policy, data, strategic or follow-up change for Critical Metals Corp. update on its proposed acquisition of European Lithium even without conventional execution.",
+      "decision_news_value_score": 50,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "Critical Metals Corp. Provides Update on Proposed Acquisition of European Lithium",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The item is a proposed-transaction progress update; Stage A does not yet establish closing, binding consideration changes or a new irreversible milestone.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "reason_for_review": "The item is a proposed-transaction progress update; Stage A does not yet establish closing, binding consideration changes or a new irreversible milestone.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place Critical Metals Corp. update on its proposed acquisition of European Lithium in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for Critical Metals Corp. update on its proposed acquisition of European Lithium than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for Critical Metals Corp. update on its proposed acquisition of European Lithium be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_013",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "low",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for Wonjun–Silvatex strategic partnership for a U.S. LFP cathode-material production base before drafting."
+        ]
+      },
+      "selection_route": "execution_anchor_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C176",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C177",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C178",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C72"
+      ],
+      "representative_source": "전기신문",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://www.electimes.com/news/articleView.html?idxno=371895",
+      "urls": [
+        "https://www.thelec.kr/news/articleView.html?idxno=61510",
+        "https://view.asiae.co.kr/article/2026083108102292990",
+        "https://www.electimes.com/news/articleView.html?idxno=371895"
+      ],
+      "event_anchor": "strategic_partnership",
+      "execution_anchor_type": "strategic_partnership",
+      "execution_anchor_strength": "moderate",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C176",
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=61510",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C177",
+          "url": "https://view.asiae.co.kr/article/2026083108102292990",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C178",
+          "url": "https://www.electimes.com/news/articleView.html?idxno=371895",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-08-31_C72",
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=61510",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://view.asiae.co.kr/article/2026083108102292990",
+        "https://www.electimes.com/news/articleView.html?idxno=371895"
+      ],
+      "source_domain_candidates": [
+        "thelec.kr",
+        "view.asiae.co.kr",
+        "electimes.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 3,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of Wonjun–Silvatex strategic partnership for a U.S. LFP cathode-material production base.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for Wonjun–Silvatex strategic partnership for a U.S. LFP cathode-material production base."
+      ],
+      "decision_news_value_score": 48,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "원준, 美 실바텍스와 파트너십 체결...미국 내 독자적 LFP 생산 기반 구축 나선다",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "A partnership is signed, but capacity, capex, ownership, site, customer/offtake and production-start commitments are not established in the source-bound packet.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "reason_for_review": "A partnership is signed, but capacity, capex, ownership, site, customer/offtake and production-start commitments are not established in the source-bound packet.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place Wonjun–Silvatex strategic partnership for a U.S. LFP cathode-material production base in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for Wonjun–Silvatex strategic partnership for a U.S. LFP cathode-material production base than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for Wonjun–Silvatex strategic partnership for a U.S. LFP cathode-material production base be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_015",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "low",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for Korea passenger-ferry restriction on batteries above 160Wh scheduled for next year before drafting."
+        ]
+      },
+      "selection_route": "structural_non_execution_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C115",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C116",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C117",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C215",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C04"
+      ],
+      "representative_source": "투데이에너지",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://www.todayenergy.kr/news/articleView.html?idxno=302236",
+      "urls": [
+        "https://www.etoday.co.kr/news/view/2619774",
+        "https://www.yna.co.kr/view/AKR20260831021600051",
+        "https://www.newsis.com/view/NISX20260831_0003768806",
+        "https://www.fnnews.com/news/202608311358437052",
+        "https://www.todayenergy.kr/news/articleView.html?idxno=302236"
+      ],
+      "event_anchor": "policy_implementation",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C115",
+          "url": "https://www.etoday.co.kr/news/view/2619774",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C116",
+          "url": "https://www.yna.co.kr/view/AKR20260831021600051",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C117",
+          "url": "https://www.newsis.com/view/NISX20260831_0003768806",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C215",
+          "url": "https://www.fnnews.com/news/202608311358437052",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-08-31_C04",
+          "url": "https://www.todayenergy.kr/news/articleView.html?idxno=302236",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.yna.co.kr/view/AKR20260831021600051",
+        "https://www.newsis.com/view/NISX20260831_0003768806",
+        "https://www.fnnews.com/news/202608311358437052",
+        "https://www.todayenergy.kr/news/articleView.html?idxno=302236"
+      ],
+      "source_domain_candidates": [
+        "etoday.co.kr",
+        "yna.co.kr",
+        "newsis.com",
+        "fnnews.com",
+        "todayenergy.kr"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 5,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "structural_value_override_reason": "Korea passenger-ferry restriction on batteries above 160Wh scheduled for next year changes the decision baseline without requiring a conventional corporate execution event.",
+      "anchor_classes": [
+        "policy_regulatory_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of Korea passenger-ferry restriction on batteries above 160Wh scheduled for next year.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for Korea passenger-ferry restriction on batteries above 160Wh scheduled for next year."
+      ],
+      "structural_non_execution_reason": "The supplied source package establishes a decision-useful policy, data, strategic or follow-up change for Korea passenger-ferry restriction on batteries above 160Wh scheduled for next year even without conventional execution.",
+      "decision_news_value_score": 48,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "policy_stage": 3,
+      "title_raw": "\"내년부터 여객선 대용량 리튬배터리 반입 제한\"...160Wh 초과 배터리 통제",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The threshold and future implementation are clear in reporting, but Stage B must verify the exact legal instrument, covered routes/operators, exceptions and enforcement mechanics.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "legal_policy_stage": "stage_3_enacted_law_final_rule_or_adopted_standard",
+      "budget_or_funding_source": "not_established_in_stage_a_source_packet",
+      "legal_policy_score_cap_exception": {
+        "applied": false,
+        "basis": null,
+        "evidence": null
+      },
+      "reason_for_review": "The threshold and future implementation are clear in reporting, but Stage B must verify the exact legal instrument, covered routes/operators, exceptions and enforcement mechanics.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place Korea passenger-ferry restriction on batteries above 160Wh scheduled for next year in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for Korea passenger-ferry restriction on batteries above 160Wh scheduled for next year than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for Korea passenger-ferry restriction on batteries above 160Wh scheduled for next year be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_016",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "low",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for EcoPro BM government-backed all-solid-state materials consortium kickoff with a 2027 commercialization target before drafting."
+        ]
+      },
+      "selection_route": "execution_anchor_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C166",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C167",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C168",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C169",
+        "20260831::orig:20260831_143419:KR_2026-08-31_C171",
+        "20260831::orig:20260831_143419:TF_0112",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C69",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C70"
+      ],
+      "representative_source": "머니투데이",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://www.mt.co.kr/industry/2026/08/31/2026083114361840347",
+      "urls": [
+        "https://view.asiae.co.kr/article/2026083115055732491",
+        "https://www.pressian.com/pages/articles/2026083115522015199&amp;ref=rss",
+        "https://www.etoday.co.kr/news/view/2620056",
+        "https://www.yna.co.kr/view/AKR20260831120800003",
+        "https://www.mt.co.kr/industry/2026/08/31/2026083114361840347",
+        "https://www.ddaily.co.kr/page/view/2026083115014189543",
+        "https://www.ajunews.com/view/20260831155424138",
+        "https://www.thelec.kr/news/articleView.html?idxno=61579"
+      ],
+      "event_anchor": "research_consortium_kickoff",
+      "execution_anchor_type": "research_consortium_kickoff",
+      "execution_anchor_strength": "moderate",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C166",
+          "url": "https://view.asiae.co.kr/article/2026083115055732491",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C167",
+          "url": "https://www.pressian.com/pages/articles/2026083115522015199&amp;ref=rss",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C168",
+          "url": "https://www.etoday.co.kr/news/view/2620056",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C169",
+          "url": "https://www.yna.co.kr/view/AKR20260831120800003",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C171",
+          "url": "https://www.mt.co.kr/industry/2026/08/31/2026083114361840347",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260831::orig:20260831_143419:TF_0112",
+          "url": "https://www.ddaily.co.kr/page/view/2026083115014189543",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-08-31_C69",
+          "url": "https://www.ajunews.com/view/20260831155424138",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-08-31_C70",
+          "url": "https://www.thelec.kr/news/articleView.html?idxno=61579",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.pressian.com/pages/articles/2026083115522015199&amp;ref=rss",
+        "https://www.etoday.co.kr/news/view/2620056",
+        "https://www.yna.co.kr/view/AKR20260831120800003",
+        "https://www.mt.co.kr/industry/2026/08/31/2026083114361840347",
+        "https://www.ddaily.co.kr/page/view/2026083115014189543",
+        "https://www.ajunews.com/view/20260831155424138",
+        "https://www.thelec.kr/news/articleView.html?idxno=61579"
+      ],
+      "source_domain_candidates": [
+        "view.asiae.co.kr",
+        "pressian.com",
+        "etoday.co.kr",
+        "yna.co.kr",
+        "mt.co.kr",
+        "ddaily.co.kr",
+        "ajunews.com",
+        "thelec.kr"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 8,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "technology_commercialization_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of EcoPro BM government-backed all-solid-state materials consortium kickoff with a 2027 commercialization target.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for EcoPro BM government-backed all-solid-state materials consortium kickoff with a 2027 commercialization target."
+      ],
+      "decision_news_value_score": 54,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "에코프로비엠, 전고체 핵심 소재 개발·셀 검증 위한 '원팀' 출범 에코프로비엠은 지난 26일 정부의 '슈퍼을 프로젝트' 추진을 위한 관련 기업 및 연구소 등과 킥오프 미팅을 갖고 본격 활동에 착수했다고 31일 밝혔다. 슈퍼을 프로젝트는 세계 최고, 최초 수준의 기술을 확보해 글로벌 공급망을 선도할 소부장 핵심 기업을 육성하기 위한 정부의 연구개발(R&D) 지원 사업이다. 산업통상부는 이달 초 에코프로비엠을 비롯한 5개 회사를 슈퍼을 기업으로 선정했다. 전고체 배터리는 기존 액체 전해질을 고체로 대체해 안정성을 높이고 에너지 밀도를 획기적으로 높인 차세대 배터리다. 전기차는 물론 휴머노이드 로봇 등 차세대 플랫폼에 적합한 배터리로 평가된다. 2026.08.31 14:52 김지현 기자",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The consortium kickoff is executed, but the 2027 commercialization target is not validated by independent cell qualification, pilot performance or customer adoption.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": true,
+      "technology_validation_gap": "The consortium kickoff is executed, but the 2027 commercialization target is not validated by independent cell qualification, pilot performance or customer adoption.",
+      "reason_for_review": "The consortium kickoff is executed, but the 2027 commercialization target is not validated by independent cell qualification, pilot performance or customer adoption.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place EcoPro BM government-backed all-solid-state materials consortium kickoff with a 2027 commercialization target in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for EcoPro BM government-backed all-solid-state materials consortium kickoff with a 2027 commercialization target than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for EcoPro BM government-backed all-solid-state materials consortium kickoff with a 2027 commercialization target be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_018",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "moderate",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for reported Japanese policy allowing direct government investment or mine acquisition for critical minerals before drafting."
+        ]
+      },
+      "selection_route": "structural_non_execution_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:KR_2026-08-31_C111",
+        "20260901::orig:20260901_123511:KR_2026-08-31_C50"
+      ],
+      "representative_source": "핵심광물 다자·G7 (via Google News)",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://www.energyprosumer.info/6235",
+      "urls": [
+        "https://www.energyprosumer.info/6235"
+      ],
+      "event_anchor": "structural_signal",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260831::orig:20260831_143419:KR_2026-08-31_C111",
+          "url": "https://www.energyprosumer.info/6235",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-08-31_C50",
+          "url": "https://www.energyprosumer.info/6235",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "energyprosumer.info"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "structural_value_override_reason": "reported Japanese policy allowing direct government investment or mine acquisition for critical minerals changes the decision baseline without requiring a conventional corporate execution event.",
+      "anchor_classes": [
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of reported Japanese policy allowing direct government investment or mine acquisition for critical minerals.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for reported Japanese policy allowing direct government investment or mine acquisition for critical minerals."
+      ],
+      "structural_non_execution_reason": "The supplied source package establishes a decision-useful policy, data, strategic or follow-up change for reported Japanese policy allowing direct government investment or mine acquisition for critical minerals even without conventional execution.",
+      "decision_news_value_score": 52,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "기업 안나서도 정부가 광산 매입…日, 핵심광물 '직접 투자' - 에너지프로슈머",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The potential state-capital shift is material, but the source packet lacks an official instrument, effective date, budget authority and first transaction proving current implementation.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "reason_for_review": "The potential state-capital shift is material, but the source packet lacks an official instrument, effective date, budget authority and first transaction proving current implementation.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place reported Japanese policy allowing direct government investment or mine acquisition for critical minerals in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for reported Japanese policy allowing direct government investment or mine acquisition for critical minerals than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for reported Japanese policy allowing direct government investment or mine acquisition for critical minerals be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_023",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "moderate",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for July 2026 construction start of the Suzuka grid-scale battery storage project in Mie, Japan before drafting."
+        ]
+      },
+      "selection_route": "execution_anchor_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:JP_2026-08-31_C22"
+      ],
+      "representative_source": "PR TIMES 蓄電池",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://prtimes.jp/main/html/rd/p/000000122.000096742.html",
+      "urls": [
+        "https://prtimes.jp/main/html/rd/p/000000122.000096742.html"
+      ],
+      "event_anchor": "construction_start",
+      "execution_anchor_type": "construction_start",
+      "execution_anchor_strength": "strong",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260831::orig:20260831_143419:JP_2026-08-31_C22",
+          "url": "https://prtimes.jp/main/html/rd/p/000000122.000096742.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "prtimes.jp"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": false,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of July 2026 construction start of the Suzuka grid-scale battery storage project in Mie, Japan.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for July 2026 construction start of the Suzuka grid-scale battery storage project in Mie, Japan."
+      ],
+      "decision_news_value_score": 49,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "系統用蓄電池「鈴鹿蓄電所」、三重県鈴鹿市で2026年7月に着工",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "Construction start is a real execution milestone, but the Stage A packet title does not establish MW/MWh scale, duration, owner economics, interconnection or commissioning date.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "reason_for_review": "Construction start is a real execution milestone, but the Stage A packet title does not establish MW/MWh scale, duration, owner economics, interconnection or commissioning date.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place July 2026 construction start of the Suzuka grid-scale battery storage project in Mie, Japan in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for July 2026 construction start of the Suzuka grid-scale battery storage project in Mie, Japan than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for July 2026 construction start of the Suzuka grid-scale battery storage project in Mie, Japan be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_024",
+      "decision_value_classification": "material_industry_signal",
+      "review_pool_subtype": "earnings_deep_dive",
+      "source_access_risk": "low",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for lithium miners reporting stronger profits as battery-storage demand lifts lithium demand before drafting."
+        ]
+      },
+      "selection_route": "structural_non_execution_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:GL_2026-08-31_C04",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C21",
+        "20260901::orig:20260901_123511:GL_2026-08-31_C22"
+      ],
+      "representative_source": "Mining.com Battery Minerals (via Google News)",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://www.mining.com/web/lithium-miners-post-big-profits-as-battery-storage-demand-surges",
+      "urls": [
+        "https://www.bloomberg.com/news/articles/2026-08-31/lithium-miners-post-big-profits-as-battery-storage-demand-surges",
+        "https://www.miningmx.com/trending/66863-lithium-miners-cash-in-as-battery-storage-lifts-demand",
+        "https://www.mining.com/web/lithium-miners-post-big-profits-as-battery-storage-demand-surges"
+      ],
+      "event_anchor": "structural_signal",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260831::orig:20260831_143419:GL_2026-08-31_C04",
+          "url": "https://www.bloomberg.com/news/articles/2026-08-31/lithium-miners-post-big-profits-as-battery-storage-demand-surges",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:GL_2026-08-31_C21",
+          "url": "https://www.miningmx.com/trending/66863-lithium-miners-cash-in-as-battery-storage-lifts-demand",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:GL_2026-08-31_C22",
+          "url": "https://www.mining.com/web/lithium-miners-post-big-profits-as-battery-storage-demand-surges",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.miningmx.com/trending/66863-lithium-miners-cash-in-as-battery-storage-lifts-demand",
+        "https://www.mining.com/web/lithium-miners-post-big-profits-as-battery-storage-demand-surges"
+      ],
+      "source_domain_candidates": [
+        "bloomberg.com",
+        "miningmx.com",
+        "mining.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 3,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "structural_value_override_reason": "lithium miners reporting stronger profits as battery-storage demand lifts lithium demand changes the decision baseline without requiring a conventional corporate execution event.",
+      "anchor_classes": [
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of lithium miners reporting stronger profits as battery-storage demand lifts lithium demand.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for lithium miners reporting stronger profits as battery-storage demand lifts lithium demand."
+      ],
+      "structural_non_execution_reason": "The supplied source package establishes a decision-useful policy, data, strategic or follow-up change for lithium miners reporting stronger profits as battery-storage demand lifts lithium demand even without conventional execution.",
+      "decision_news_value_score": 60,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "Lithium miners post big profits as battery storage demand surges - Mining.com",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The direction is decision-useful, but Stage A requires issuer-level filings, price-volume-cost decomposition and prior-period comparison before treating the article as a durable sector earnings signal.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [
+        "Which named lithium miners, reporting periods and primary filings support the profit signal in lithium miners reporting stronger profits as battery-storage demand lifts lithium demand?",
+        "What are the price-volume-mix-cost, inventory, utilisation, guidance and Q&A drivers versus the prior period?"
+      ],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "reason_for_review": "The direction is decision-useful, but Stage A requires issuer-level filings, price-volume-cost decomposition and prior-period comparison before treating the article as a durable sector earnings signal.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place lithium miners reporting stronger profits as battery-storage demand lifts lithium demand in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for lithium miners reporting stronger profits as battery-storage demand lifts lithium demand than the present material_industry_signal classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for lithium miners reporting stronger profits as battery-storage demand lifts lithium demand be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 1,
+      "review_pool_item_id": "R6_B01_REVIEW_025",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "moderate",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for expected bidding process for Rio’s reported US$300 million lithium operation before drafting."
+        ]
+      },
+      "selection_route": "structural_non_execution_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260831::orig:20260831_143419:GL_2026-08-30_C01",
+        "20260901::orig:20260901_123511:GL_2026-08-30_C01"
+      ],
+      "representative_source": "Australia Critical Minerals (via Google News)",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://www.theaustralian.com.au/business/dataroom/mining-rivals-circle-as-rio-tinto-puts-300m-mt-cattlin-lithium-mine-on-the-market/news-story/99f5b98dfc46eb62d5c8faa0f52b63ef",
+      "urls": [
+        "https://www.theaustralian.com.au/business/dataroom/mining-rivals-circle-as-rio-tinto-puts-300m-mt-cattlin-lithium-mine-on-the-market/news-story/99f5b98dfc46eb62d5c8faa0f52b63ef"
+      ],
+      "event_anchor": "structural_signal",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260831::orig:20260831_143419:GL_2026-08-30_C01",
+          "url": "https://www.theaustralian.com.au/business/dataroom/mining-rivals-circle-as-rio-tinto-puts-300m-mt-cattlin-lithium-mine-on-the-market/news-story/99f5b98dfc46eb62d5c8faa0f52b63ef",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:GL_2026-08-30_C01",
+          "url": "https://www.theaustralian.com.au/business/dataroom/mining-rivals-circle-as-rio-tinto-puts-300m-mt-cattlin-lithium-mine-on-the-market/news-story/99f5b98dfc46eb62d5c8faa0f52b63ef",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "theaustralian.com.au"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "structural_value_override_reason": "expected bidding process for Rio’s reported US$300 million lithium operation changes the decision baseline without requiring a conventional corporate execution event.",
+      "anchor_classes": [
+        "follow_up_probability_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Primary or official source confirming the exact current stage, date, actor, scope and operative terms of expected bidding process for Rio’s reported US$300 million lithium operation.",
+        "Independent or second-owner source where available to confirm the material claim and rule out announcement-only interpretation for expected bidding process for Rio’s reported US$300 million lithium operation."
+      ],
+      "structural_non_execution_reason": "The supplied source package establishes a decision-useful policy, data, strategic or follow-up change for expected bidding process for Rio’s reported US$300 million lithium operation even without conventional execution.",
+      "decision_news_value_score": 46,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "Bids tipped to start rolling in for Rio’s $300m lithium operation - The Australian",
+      "source_priority_notes": "Stage B must verify provided source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The source describes expected bids rather than a completed sale, signed mandate or selected buyer; execution and strategic consequences remain unresolved.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "reason_for_review": "The source describes expected bids rather than a completed sale, signed mandate or selected buyer; execution and strategic consequences remain unresolved.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place expected bidding process for Rio’s reported US$300 million lithium operation in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for expected bidding process for Rio’s reported US$300 million lithium operation than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for expected bidding process for Rio’s reported US$300 million lithium operation be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 2,
+      "review_pool_item_id": "R6_B02_REVIEW_045",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "earnings_deep_dive",
+      "source_access_risk": "moderate",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue before drafting."
+        ]
+      },
+      "selection_route": "execution_anchor_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260901::orig:20260901_123511:US_2026-08-31_C23"
+      ],
+      "representative_source": "GlobeNewswire Energy Industry",
+      "source_tier_estimate": "single_source_candidate",
+      "primary_url": "https://www.globenewswire.com/news-release/2026/08/31/3353345/0/en/sunscout-signs-definitive-agreement-for-first-philippine-solar-plus-storage-project-expected-to-add-us-25-million-in-construction-revenue.html",
+      "urls": [
+        "https://www.globenewswire.com/news-release/2026/08/31/3353345/0/en/sunscout-signs-definitive-agreement-for-first-philippine-solar-plus-storage-project-expected-to-add-us-25-million-in-construction-revenue.html"
+      ],
+      "event_anchor": "signed_agreement",
+      "execution_anchor_type": "signed_agreement",
+      "execution_anchor_strength": "moderate",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260901::orig:20260901_123511:US_2026-08-31_C23",
+          "url": "https://www.globenewswire.com/news-release/2026/08/31/3353345/0/en/sunscout-signs-definitive-agreement-for-first-philippine-solar-plus-storage-project-expected-to-add-us-25-million-in-construction-revenue.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "globenewswire.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": false,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Official document or independent report confirming the exact stage, date, capacity, status or market metric for SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue"
+      ],
+      "decision_news_value_score": 52,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue",
+      "source_priority_notes": "Stage B must verify supplied source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The source-bound packet supports material relevance for SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue, but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [
+        "Which primary filings and reporting period support the financial signal in SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue?",
+        "What are the price-volume-mix-cost, inventory, utilisation, guidance and Q&A drivers versus the prior period?"
+      ],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "reason_for_review": "The source-bound packet supports material relevance for SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue, but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for SunScout Signs Definitive Agreement for First Philippine Solar-Plus-Storage Project, Expected to Add US$25 Million in Construction Revenue be verified while preserving the R6 duplicate/lineage decision?"
+    },
+    {
+      "formal_batch": 2,
+      "review_pool_item_id": "R6_B02_REVIEW_046",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "low",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for 정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고... before drafting."
+        ]
+      },
+      "selection_route": "execution_anchor_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C153",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C154",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C188",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C195",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C196",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C197"
+      ],
+      "representative_source": "헬로티",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://www.hellot.net/news/article.html?no=114678",
+      "urls": [
+        "https://www.electimes.com/news/articleView.html?idxno=371941",
+        "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172147/view",
+        "https://www.hellot.net/news/article.html?no=114678",
+        "https://www.ajunews.com/view/20260901104237501",
+        "https://www.yna.co.kr/view/AKR20260901061000003",
+        "https://www.energy-news.co.kr/news/articleView.html?idxno=227804"
+      ],
+      "event_anchor": "binding_or_executed_industrial_milestone",
+      "execution_anchor_type": "binding_or_executed_industrial_milestone",
+      "execution_anchor_strength": "moderate",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-09-01_C153",
+          "url": "https://www.electimes.com/news/articleView.html?idxno=371941",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-09-01_C154",
+          "url": "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172147/view",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-09-01_C188",
+          "url": "https://www.hellot.net/news/article.html?no=114678",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-09-01_C195",
+          "url": "https://www.ajunews.com/view/20260901104237501",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-09-01_C196",
+          "url": "https://www.yna.co.kr/view/AKR20260901061000003",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-09-01_C197",
+          "url": "https://www.energy-news.co.kr/news/articleView.html?idxno=227804",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://www.motir.go.kr/kor/article/ATCL3f49a5a8c/172147/view",
+        "https://www.hellot.net/news/article.html?no=114678",
+        "https://www.ajunews.com/view/20260901104237501",
+        "https://www.yna.co.kr/view/AKR20260901061000003",
+        "https://www.energy-news.co.kr/news/articleView.html?idxno=227804"
+      ],
+      "source_domain_candidates": [
+        "electimes.com",
+        "motir.go.kr",
+        "hellot.net",
+        "ajunews.com",
+        "yna.co.kr",
+        "energy-news.co.kr"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 6,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "policy_regulatory_anchor",
+        "strategic_behavior_anchor",
+        "technology_commercialization_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Official document or independent report confirming the exact stage, date, capacity, status or market metric for 정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고..."
+      ],
+      "decision_news_value_score": 54,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "policy_stage": 2,
+      "title_raw": "정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고 밝혔다. 배터리 삼각벨트는 충청권의 셀과 영남권의 핵심소재, 호남권의 원료 제조 거점을 유기적으로 연결해 국내 배터리 공급망을 다변화하고 수급 안정화를 꾀하는 산업 생태계다. 이번 간담회는 지역별 타운홀 미팅과 삼각벨트 협의체 등을 통해 접수한 애로사항을 종합적으로 점검하고, 지역별 맞춤형 지원 정책을 통해 실효성 있는 인프라 구축 방안을 논의하기 위해 마련됐다. 산업부는 이를 바탕으로 각 지자체가 제출한 신규사업을 적극 검토해 추진하기로 했다. 검토 대상에는 전고체 배터리 성능 평가 인프라와 나트륨 배터리 상용화를 위한 실증 센터, 재활용 소재가 적용된 배터리 안전성 평가 인프라, 국가첨단전략산업 특화단지 내 전력 공급시설 구축 등이 포함됐다. 구체화가 필요한 사업은 올해 12월까지 세부 기획을 보완한 뒤 재검토할 예정이다. 산업부는 지방정 이동재 기자 2026-09-01 11:24",
+      "source_priority_notes": "Stage B must verify supplied source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The source-bound packet supports material relevance for 정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고..., but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "pilot",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "The source-bound packet supports material relevance for 정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고..., but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "reason_for_review": "The source-bound packet supports material relevance for 정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고..., but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place 정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고... in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for 정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고... than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for 정책 산업부, 배터리 삼각벨트 구축 속도…전고체·나트륨 인프라 검토 산업통상부가 충청·영남·호남을 잇는 ‘배터리 삼각벨트’ 구축을 위해 전고체 배터리 성능 평가와 나트륨 배터리 실증 등 지역별 신규 인프라 사업을 검토한다. 산업부는 1일 세종 메리어트 호텔에서 충청북도와 경상북도, 전라북도 등 주요 지자체 및 유관기관과 함께 ‘배터리 삼각벨트의 혁신 인프라 구축’을 위한 간담회를 연다고... be verified while preserving the R6 duplicate/lineage decision?",
+      "legal_policy_stage": "stage_2_bill_or_proposed_rule",
+      "budget_or_funding_source": "not_established_in_stage_a_source_packet",
+      "legal_policy_score_cap_exception": {
+        "applied": false,
+        "basis": null,
+        "evidence": null
+      }
+    },
+    {
+      "formal_batch": 3,
+      "review_pool_item_id": "R6_B03_REVIEW_055",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "moderate",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新 before drafting."
+        ]
+      },
+      "selection_route": "execution_anchor_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C07"
+      ],
+      "representative_source": "中国能源网",
+      "source_tier_estimate": "single_source_candidate",
+      "primary_url": "https://www.china5e.com/news/news-1208582-1.html",
+      "urls": [
+        "https://www.china5e.com/news/news-1208582-1.html"
+      ],
+      "event_anchor": "production_start",
+      "execution_anchor_type": "production_start",
+      "execution_anchor_strength": "moderate",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260901::orig:20260901_123511:CN_2026-09-01_C07",
+          "url": "https://www.china5e.com/news/news-1208582-1.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "china5e.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": false,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "policy_regulatory_anchor",
+        "strategic_behavior_anchor",
+        "technology_commercialization_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Official document or independent report confirming the exact stage, date, capacity, status or market metric for IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新"
+      ],
+      "decision_news_value_score": 52,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "policy_stage": 4,
+      "title_raw": "IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新",
+      "source_priority_notes": "Stage B must verify supplied source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The source-bound packet supports material relevance for IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新, but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "production_start",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "The source-bound packet supports material relevance for IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新, but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "reason_for_review": "The source-bound packet supports material relevance for IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新, but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新 in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新 than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for IEC立项、国标实施、消费税免征——先导智能复合转印设备领跑固态电池量产装备创新 be verified while preserving the R6 duplicate/lineage decision?",
+      "legal_policy_stage": "stage_4_implementation_budget_guidance_or_registry",
+      "budget_or_funding_source": "not_established_in_stage_a_source_packet",
+      "legal_policy_score_cap_exception": {
+        "applied": false,
+        "basis": null,
+        "evidence": null
+      }
+    },
+    {
+      "formal_batch": 7,
+      "review_pool_item_id": "R6_B07_REVIEW_159",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "low",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for [2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자 before drafting."
+        ]
+      },
+      "selection_route": "structural_non_execution_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260901::orig:20260901_123511:KR_2026-09-01_C73",
+        "20260901::orig:20260901_123511:KR_2026-09-01_C75"
+      ],
+      "representative_source": "아시아경제",
+      "source_tier_estimate": "multi_source_candidate_set",
+      "primary_url": "https://view.asiae.co.kr/article/2026083117352114101",
+      "urls": [
+        "https://www.newspim.com/news/view/20260831000709",
+        "https://view.asiae.co.kr/article/2026083117352114101"
+      ],
+      "event_anchor": "policy_implementation",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-09-01_C73",
+          "url": "https://www.newspim.com/news/view/20260831000709",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "20260901::orig:20260901_123511:KR_2026-09-01_C75",
+          "url": "https://view.asiae.co.kr/article/2026083117352114101",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [
+        "https://view.asiae.co.kr/article/2026083117352114101"
+      ],
+      "source_domain_candidates": [
+        "newspim.com",
+        "view.asiae.co.kr"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 2,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "structural_value_override_reason": "[2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자 changes the decision baseline without requiring a conventional corporate execution event.",
+      "anchor_classes": [
+        "policy_regulatory_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Official document or independent report confirming the exact stage, date, capacity, status or market metric for [2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자"
+      ],
+      "structural_non_execution_reason": "The supplied source package establishes a decision-useful policy, data, strategic, technology or follow-up change for [2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자 without requiring conventional execution.",
+      "decision_news_value_score": 45,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "policy_stage": 2,
+      "title_raw": "[2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자",
+      "source_priority_notes": "Stage B must verify supplied source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The source-bound packet supports material relevance for [2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자, but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "reason_for_review": "The source-bound packet supports material relevance for [2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자, but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place [2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자 in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for [2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자 than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for [2027 예산안]북극항로 개척하고 석유 비축 확대…공급망 안정화에 2.5조 투자 be verified while preserving the R6 duplicate/lineage decision?",
+      "legal_policy_stage": "stage_2_bill_or_proposed_rule",
+      "budget_or_funding_source": "not_established_in_stage_a_source_packet",
+      "legal_policy_score_cap_exception": {
+        "applied": false,
+        "basis": null,
+        "evidence": null
+      }
+    },
+    {
+      "formal_batch": 8,
+      "review_pool_item_id": "R6_B08_REVIEW_193",
+      "decision_value_classification": "standard_monitoring",
+      "review_pool_subtype": "general_candidate",
+      "source_access_risk": "moderate",
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Verify the current-stage fact and incremental decision effect for 逸飞激光斩获2.22亿元锂电设备订单 before drafting."
+        ]
+      },
+      "selection_route": "execution_anchor_route",
+      "source_origin": "R6 corrected source-bound event membership",
+      "source_story_ids": [
+        "20260901::orig:20260901_123511:CN_2026-09-01_C29"
+      ],
+      "representative_source": "OFweek Li-Battery",
+      "source_tier_estimate": "single_source_candidate",
+      "primary_url": "https://libattery.ofweek.com/2026-09/ART-36005-8120-30701023.html",
+      "urls": [
+        "https://libattery.ofweek.com/2026-09/ART-36005-8120-30701023.html"
+      ],
+      "event_anchor": "binding_or_executed_industrial_milestone",
+      "execution_anchor_type": "binding_or_executed_industrial_milestone",
+      "execution_anchor_strength": "moderate",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "same_event_source_cluster": [
+        {
+          "story_id": "20260901::orig:20260901_123511:CN_2026-09-01_C29",
+          "url": "https://libattery.ofweek.com/2026-09/ART-36005-8120-30701023.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "libattery.ofweek.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": false,
+        "reason": "All supplied source candidates are preserved for Stage B; Stage A performed no external fetch."
+      },
+      "source_cluster_preserved": true,
+      "support_source_candidates_accounted": true,
+      "anchor_classes": [
+        "execution_event_anchor",
+        "data_financial_anchor",
+        "strategic_behavior_anchor"
+      ],
+      "evidence_needed_for_stage_b": [
+        "Official document or independent report confirming the exact stage, date, capacity, status or market metric for 逸飞激光斩获2.22亿元锂电设备订单"
+      ],
+      "decision_news_value_score": 45,
+      "denominator_gap": "No defensible market-wide denominator is available in the Stage A source packet; systemic_scale is capped at 2/5.",
+      "title_raw": "逸飞激光斩获2.22亿元锂电设备订单",
+      "source_priority_notes": "Stage B must verify supplied source candidates; Stage A performed zero external web search and zero article-body fetch.",
+      "review_reason": "The source-bound packet supports material relevance for 逸飞激光斩获2.22亿元锂电设备订单, but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "earnings_rescue_questions": [],
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item.",
+      "reason_for_review": "The source-bound packet supports material relevance for 逸飞激光斩获2.22亿元锂电设备订单, but at least one execution, legal-stage, denominator, source-strength, technology-validation or incremental-value question remains unresolved before strict promotion.",
+      "review_pool_partition_reason": "Formal Stage A score/gates place 逸飞激光斩获2.22亿元锂电设备订单 in candidate_review_pool rather than the strict Stage B queue.",
+      "bounded_review_question": "Does the source packet support a stronger current-stage and decision-value judgment for 逸飞激光斩获2.22亿元锂电设备订单 than the present standard_monitoring classification?",
+      "evidence_or_duplicate_question": "Can the unresolved fact for 逸飞激光斩获2.22亿元锂电设备订单 be verified while preserving the R6 duplicate/lineage decision?"
+    }
+  ]
+}

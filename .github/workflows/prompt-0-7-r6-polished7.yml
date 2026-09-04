@@ -1,0 +1,72 @@
+name: Prompt 0.7 R6 Polished 7
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/prompt-0-7-r6-polished7/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  prompt-0-7:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Assert current main baseline has not moved
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4"
+          test "$(git rev-parse origin/main:data/cards.full.json)" = "53219907cdb435c3822c41d097b23e475662aa8a"
+      - name: Build Prompt 0.7 final QC candidate artifact
+        run: python3 scripts/prompt_0_7_r6_polished7.py
+      - name: Run scoped Evidence QC
+        run: |
+          python3 validation_scripts/evidence_qc_v8_check.py \
+            runs/2026-09-03/prompt_0_7_r6_merged_baseline_candidate_20260903_R1.json \
+            --new-id-file runs/2026-09-03/prompt_0_7_r6_current_run_ids_20260903_R1.json \
+            --json-report runs/2026-09-03/prompt_0_7_r6_evidence_qc_v8_20260903_R1.json
+      - name: Run scoped Related lifecycle check
+        run: |
+          python3 validation_scripts/related_lifecycle_check.py \
+            runs/2026-09-03/prompt_0_7_r6_merged_baseline_candidate_20260903_R1.json \
+            --require-contract --allow-provisional-related \
+            --new-id-file runs/2026-09-03/prompt_0_7_r6_current_run_ids_20260903_R1.json \
+            | tee runs/2026-09-03/prompt_0_7_r6_related_check_20260903_R1.txt
+      - name: Run scoped date-role freshness check
+        run: |
+          python3 validation_scripts/date_role_freshness_check.py \
+            runs/2026-09-03/prompt_0_7_r6_merged_baseline_candidate_20260903_R1.json \
+            --require-date-role \
+            --new-id-file runs/2026-09-03/prompt_0_7_r6_current_run_ids_20260903_R1.json \
+            | tee runs/2026-09-03/prompt_0_7_r6_date_role_check_20260903_R1.txt
+      - name: Run content audit coverage checker
+        run: python3 validation_scripts/content_audit_check.py runs/2026-09-03/prompt_0_7_r6_polished7_20260903_R1.json
+      - name: Validate Prompt 0.7 production artifact contract
+        run: |
+          python3 validation_scripts/stage_artifact_contract_check.py 0.7 \
+            runs/2026-09-03/prompt_0_7_r6_merged_baseline_candidate_20260903_R1.json \
+            | tee runs/2026-09-03/prompt_0_7_r6_contract_20260903_R1.json
+      - name: Commit validated Prompt 0.7 outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/prompt_0_7_r6_polished7_20260903_R1.json \
+                  runs/2026-09-03/prompt_0_7_r6_merged_baseline_candidate_20260903_R1.json \
+                  runs/2026-09-03/prompt_0_7_r6_polished7_validation_20260903_R1.json \
+                  runs/2026-09-03/prompt_0_7_r6_current_run_ids_20260903_R1.json \
+                  runs/2026-09-03/prompt_0_7_r6_evidence_qc_v8_20260903_R1.json \
+                  runs/2026-09-03/prompt_0_7_r6_related_check_20260903_R1.txt \
+                  runs/2026-09-03/prompt_0_7_r6_date_role_check_20260903_R1.txt \
+                  runs/2026-09-03/prompt_0_7_r6_contract_20260903_R1.json
+          git rm -r .tmp/prompt-0-7-r6-polished7
+          git commit -m 'audit: Prompt 0.7 R6 final publish-readiness closure'
+          git push

@@ -1,0 +1,182 @@
+{
+  "schema": "canonical_relation_replay_closure_r6_v1",
+  "stage": "CANONICAL_RELATION_RECLASSIFICATION",
+  "status": "PASS_R6_REANCHORED_RELATION_CLOSURE_PRESELECTION_AUTHORIZED",
+  "generated_date": "2026-09-03",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "canonical_card_count": 1514,
+  "event_membership_ref": "runs/2026-09-03/current_crossrun_event_membership_replay_corrected_395_20260903_R6.json",
+  "event_universe_gate_ref": "runs/2026-09-03/current_event_universe_replay_gate_20260903_R6.json",
+  "exact_canonical_prepass_ref": "runs/2026-09-03/canonical_relation_prepass_395_20260903_R6.json",
+  "prior_relation_closure_ref": "runs/2026-09-03/canonical_relation_replay_closure_425_20260903_R3.json",
+  "policy": {
+    "historical_relation_targets_preserved_only_after_r6_component_mapping": true,
+    "exact_collision_zero_proved_under_union": true,
+    "stage_a_related_prepass_must_recheck_relation": true,
+    "final_related_array_not_locked_here": true
+  },
+  "accounting": {
+    "event_count": 395,
+    "exact_canonical_collision_events": 0,
+    "reanchored_non_new_relation_events": 10,
+    "provisional_new_unrelated_events_for_preselection": 385,
+    "relation_counts": {
+      "new_unrelated_event": 385,
+      "distinct_follow_up": 4,
+      "program_lineage": 2,
+      "same_event_reinforcement": 4
+    },
+    "all_relation_targets_exist_current_canonical": true
+  },
+  "reanchored_relations": [
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0092",
+      "replay_event_id": "XRUN_REPLAY_20260903_R6_E0216",
+      "relation_type": "program_lineage",
+      "target_ids": [
+        "2026-04-22_US_04"
+      ],
+      "confidence": "medium",
+      "historical_title": "LG Energy Solution–Smackover Lithium 10-year binding U.S. lithium carbonate offtake",
+      "reanchor_score": 1.0,
+      "top_margin": 0.533742,
+      "r5_replay_event_id": "XRUN_REPLAY_20260903_E0227",
+      "r6_mapping_method": "deterministic_old_event_component_union"
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0103",
+      "replay_event_id": "XRUN_REPLAY_20260903_R6_E0395",
+      "relation_type": "distinct_follow_up",
+      "target_ids": [
+        "2026-07-16_CN_01"
+      ],
+      "confidence": "high",
+      "historical_title": "China 2% consumption tax on lithium-ion and specified batteries takes effect",
+      "reanchor_score": 1.0,
+      "top_margin": 0.465909,
+      "r5_replay_event_id": "XRUN_REPLAY_20260903_E0425",
+      "r6_mapping_method": "deterministic_old_event_component_union"
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0217",
+      "replay_event_id": "XRUN_REPLAY_20260903_R6_E0028",
+      "relation_type": "same_event_reinforcement",
+      "target_ids": [
+        "2026-08-26_US_01"
+      ],
+      "confidence": "high",
+      "historical_title": "미국 대형 전력망 국가 비상 사태 선포 후속 보도",
+      "reanchor_score": 1.0,
+      "top_margin": 0.483871,
+      "r5_replay_event_id": "XRUN_REPLAY_20260903_E0298",
+      "r6_mapping_method": "deterministic_old_event_component_union"
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0233",
+      "replay_event_id": "XRUN_REPLAY_20260903_R6_E0307",
+      "relation_type": "same_event_reinforcement",
+      "target_ids": [
+        "2026-08-26_US_01"
+      ],
+      "confidence": "high",
+      "historical_title": "U.S. inverter/BESS/transformer executive-order follow-up report",
+      "reanchor_score": 0.625,
+      "top_margin": 0.233392,
+      "r5_replay_event_id": "XRUN_REPLAY_20260903_E0328",
+      "r6_mapping_method": "deterministic_old_event_component_union"
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0246",
+      "replay_event_id": "XRUN_REPLAY_20260903_R6_E0019",
+      "relation_type": "program_lineage",
+      "target_ids": [
+        "2026-06-22_US_04",
+        "2026-07-30_KR_02"
+      ],
+      "confidence": "medium",
+      "historical_title": "SK온 미국 9GWh ESS용 LFP 공급계약",
+      "reanchor_score": 1.0,
+      "top_margin": 0.166667,
+      "r5_replay_event_id": "XRUN_REPLAY_20260903_E0019",
+      "r6_mapping_method": "deterministic_old_event_component_union"
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0263",
+      "replay_event_id": "XRUN_REPLAY_20260903_R6_E0030",
+      "relation_type": "same_event_reinforcement",
+      "target_ids": [
+        "2026-08-27_KR_01"
+      ],
+      "confidence": "high",
+      "historical_title": "LG전자 폐가전 희토류 영구자석 회수",
+      "reanchor_score": 0.8,
+      "top_margin": 0.453846,
+      "r5_replay_event_id": "XRUN_REPLAY_20260903_E0031",
+      "r6_mapping_method": "deterministic_old_event_component_union"
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0399",
+      "replay_event_id": "XRUN_REPLAY_20260903_R6_E0011",
+      "relation_type": "distinct_follow_up",
+      "target_ids": [
+        "2026-05-01_JP_01",
+        "2026-04-27_US_03"
+      ],
+      "confidence": "high",
+      "historical_title": "Critical Metals–European Lithium acquisition scheme progress",
+      "reanchor_score": 0.714286,
+      "top_margin": 0.255027,
+      "r5_replay_event_id": "XRUN_REPLAY_20260903_E0011",
+      "r6_mapping_method": "deterministic_old_event_component_union"
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0427",
+      "replay_event_id": "XRUN_REPLAY_20260903_R6_E0391",
+      "relation_type": "distinct_follow_up",
+      "target_ids": [
+        "2026-07-16_CN_01"
+      ],
+      "confidence": "high",
+      "historical_title": "China battery consumption-tax scope clarification",
+      "reanchor_score": 0.833333,
+      "top_margin": 0.301075,
+      "r5_replay_event_id": "XRUN_REPLAY_20260903_E0421",
+      "r6_mapping_method": "deterministic_old_event_component_union"
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0433",
+      "replay_event_id": "XRUN_REPLAY_20260903_R6_E0390",
+      "relation_type": "distinct_follow_up",
+      "target_ids": [
+        "2026-07-20_EU_06"
+      ],
+      "confidence": "high",
+      "historical_title": "EU Battery Passport guidance covering 71 data points",
+      "reanchor_score": 0.875,
+      "top_margin": 0.401718,
+      "r5_replay_event_id": "XRUN_REPLAY_20260903_E0420",
+      "r6_mapping_method": "deterministic_old_event_component_union"
+    },
+    {
+      "legacy_event_id": "XRUN_20260831_20260901_E0437",
+      "replay_event_id": "XRUN_REPLAY_20260903_R6_E0189",
+      "relation_type": "same_event_reinforcement",
+      "target_ids": [
+        "2026-08-18_US_01"
+      ],
+      "confidence": "high",
+      "historical_title": "LG Energy Solution Lansing production start",
+      "reanchor_score": 1.0,
+      "top_margin": 0.4375,
+      "r5_replay_event_id": "XRUN_REPLAY_20260903_E0200",
+      "r6_mapping_method": "deterministic_old_event_component_union"
+    }
+  ],
+  "authorization": {
+    "canonical_relation_reclassification_pass": true,
+    "preselection_regeneration_authorized": true,
+    "formal_stage_a_authorized": false,
+    "next_gate": "REGENERATE_V4_PRESELECTION_ITEM_LEVEL_FROM_R6"
+  }
+}

@@ -1,0 +1,63 @@
+name: Materialize Stage A review digests for replayable 425
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/stagea425digest/TRIGGER'
+
+permissions:
+  contents: write
+
+jobs:
+  digests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build human-readable digests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          srcdir=Path('runs/2026-09-03/stage_a_review_packets_425_compact')
+          out=Path('runs/2026-09-03/stage_a_review_digests_425'); out.mkdir(parents=True,exist_ok=True)
+          for bi in range(1,18):
+              p=json.loads((srcdir/f'batch_{bi:02d}.json').read_text())
+              lines=[f'BATCH {bi:02d} | {len(p["events"])} events']
+              for e in p['events']:
+                  r=e['representative']; rel=e.get('canonical_relation')
+                  lines += [
+                    '',
+                    f'[{e["ordinal"]:03d}] {e["event_id"]}',
+                    f'TITLE: {r.get("title")}',
+                    f'DATE/SITE: {r.get("date")} | {r.get("site")}',
+                    f'SOURCES: {e.get("observation_count")} | STORY_IDS: {", ".join(e.get("source_story_ids",[])[:8])}',
+                    f'PRE: {e.get("preselection_bucket")} | HINT: {e.get("routing_hint_score")}',
+                    f'REL: {"none" if not rel else rel.get("relation_type")+" -> "+",".join(rel.get("target_ids",[]))}',
+                    'FEATURES: '+json.dumps(e.get('matched_features') or {},ensure_ascii=False,separators=(',',':')),
+                  ]
+                  seen={r.get('title')}; alts=[]
+                  for s in e.get('source_titles',[]):
+                      t=s.get('title')
+                      if t and t not in seen:
+                          seen.add(t); alts.append(t)
+                      if len(alts)>=3: break
+                  for j,t in enumerate(alts,1): lines.append(f'ALT{j}: {t}')
+              (out/f'batch_{bi:02d}.txt').write_text('\n'.join(lines)+'\n')
+          print('PASS 17 digests')
+          PY
+      - name: Commit digests
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/stage_a_review_digests_425
+          git rm -r .tmp/stagea425digest
+          git commit -m 'audit: materialize Stage A review digests for replayable 425'
+          git push

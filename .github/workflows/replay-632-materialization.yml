@@ -1,0 +1,98 @@
+name: Materialize replayable 632 event universe
+
+on:
+  push:
+    branches:
+      - chatgpt/recover-exact-425-artifacts-20260903
+    paths:
+      - '.tmp/replay632/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reconstruct and verify replay payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .tmp/replay632/part_*.txt | tr -d '\n\r ' | base64 -d > /tmp/replay632.tar.xz
+          # The archive wrapper hash is diagnostic only. Authority is the five exact
+          # extracted artifact SHA256 values plus the row-level 632/425 assertions below.
+          # This keeps the gate fail-closed on substantive payload identity while avoiding
+          # a stale compression-container hash from blocking byte-identical artifacts.
+          echo "replay632_tar_sha256=$(sha256sum /tmp/replay632.tar.xz | awk '{print $1}')"
+          tar -xJf /tmp/replay632.tar.xz
+          echo '49359afb0f4cb6a1065e8cd8e3c2f27365c686e22148e6870bb38cceb8888550  runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json' | sha256sum -c -
+          echo '75a1052d84812f7ce42caa0b0f22a1a96c490ecdce326d5cf0b5885e4bc06b0f  runs/2026-09-03/xrun_event_reconciliation_merge_decisions_20260903_R1.json' | sha256sum -c -
+          echo '9d4922dac8ac622e95fccdf915abf6807546fbb502863799855039fc6b2fd38b  runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json' | sha256sum -c -
+          echo '422f076881f7ea27635a6f9dd446e362c0cf5c6488b405f173a6ab0c701ea0c2  runs/2026-09-03/raw_input_chat_attachment_binding_20260831_20260901_R2.json' | sha256sum -c -
+          echo '491c895429fc8b55f5f7f2a43fdf64b122b21e3c1f8ba8a07c7f159dfe3c3485  runs/2026-09-03/current_event_universe_replay_gate_20260903_R4.json' | sha256sum -c -
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          src=json.loads(Path('runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json').read_text())
+          assert src['status']=='PASS_SOURCE_BOUND_EVENT_IDENTITY_INDEX'
+          assert src['accounting']['total']==632
+          assert src['accounting']['raw_input']==621
+          assert src['accounting']['coverage_discovery_or_rescue']==11
+          assert src['accounting']['raw_rows_sha256_verified']==621
+          assert src['accounting']['unique_observation_keys']==632
+          assert src['raw_input_bindings']['20260831']['sha256']=='40c308cfe4ca067bb0d93a57475ee0ea359bfaf1332e895dcf35591dc6ceafb8'
+          assert src['raw_input_bindings']['20260831']['byte_count']==7265646
+          assert src['raw_input_bindings']['20260901']['sha256']=='28fcb692c1782bebc06f8f8816cdee8ce3bef80f703aab7eddab4df837df3452'
+          assert src['raw_input_bindings']['20260901']['byte_count']==9604884
+
+          dec=json.loads(Path('runs/2026-09-03/xrun_event_reconciliation_merge_decisions_20260903_R1.json').read_text())
+          assert dec['phase_accounting']['authoritative_observations']==632
+          assert dec['phase_accounting']['exact_url_or_normalized_headline_event_count']==532
+          assert dec['phase_accounting']['first_pass_fingerprint_event_count']==437
+          assert dec['phase_accounting']['final_event_count']==425
+
+          x=json.loads(Path('runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json').read_text())
+          assert x['status']=='PASS_REPLAYABLE_CURRENT_EVENT_UNIVERSE_SOURCE_INDEX_BOUND'
+          assert x['accounting']['observation_count']==632
+          assert x['accounting']['event_count']==425
+          assert len(x['events'])==425
+          keys=[k for e in x['events'] for k in e['observation_keys']]
+          assert len(keys)==632 and len(set(keys))==632
+          assert set(keys)=={o['observation_key'] for o in src['observations']}
+          src_by_key={o['observation_key']:o for o in src['observations']}
+          for e in x['events']:
+              r=e['representative']
+              assert r['observation_key'] in e['observation_keys']
+              s=src_by_key[r['observation_key']]
+              assert r['title']==s['title'] and r['date']==s['event_date'] and r['url']==s['source_url']
+
+          gate=json.loads(Path('runs/2026-09-03/current_event_universe_replay_gate_20260903_R4.json').read_text())
+          assert gate['status']=='PASS_REPLAYABLE_CURRENT_EVENT_UNIVERSE_STAGE_A_STILL_BLOCKED'
+          assert gate['current_main_sha']=='df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4'
+          assert gate['accounting']['final_event_count']==425
+          assert gate['historical_governed_carry_forward']['terminally_accounted']==290
+          assert gate['historical_governed_carry_forward']['current_stage_a_entries']==0
+          assert gate['authorization']['event_universe_reconciliation_pass'] is True
+          assert gate['authorization']['canonical_relation_reclassification_authorized'] is True
+          assert gate['authorization']['preselection_regeneration_authorized'] is True
+          assert gate['authorization']['formal_stage_a_authorized'] is False
+          print('PASS_REPLAYABLE_632_TO_425_R4')
+          PY
+      - name: Commit materialized replay artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add runs/2026-09-03/current_authoritative_632_event_identity_source_index_R1.json \
+                  runs/2026-09-03/xrun_event_reconciliation_merge_decisions_20260903_R1.json \
+                  runs/2026-09-03/current_crossrun_event_membership_replay_425_20260903_R2.json \
+                  runs/2026-09-03/raw_input_chat_attachment_binding_20260831_20260901_R2.json \
+                  runs/2026-09-03/current_event_universe_replay_gate_20260903_R4.json
+          git rm -f runs/2026-09-03/current_authoritative_632_source_bound_20260831_A_R1.json || true
+          git rm -r .tmp/replay632
+          git commit -m 'audit: materialize replayable 632-to-425 event universe R4'
+          git push

@@ -1,0 +1,22 @@
+{
+  "schema": "canonical_relation_prepass_r6_v1",
+  "status": "PASS_ZERO_EXACT_COLLISIONS_PRESERVED_UNDER_EVENT_UNION",
+  "generated_date": "2026-09-03",
+  "current_main_sha": "df6fcccf3a69464ff0a43a8ba5897d71b6a4d9c4",
+  "canonical_blob_sha": "53219907cdb435c3822c41d097b23e475662aa8a",
+  "canonical_card_count": 1514,
+  "event_membership_ref": "runs/2026-09-03/current_crossrun_event_membership_replay_corrected_395_20260903_R6.json",
+  "prior_exact_prepass_ref": "runs/2026-09-03/canonical_relation_prepass_425_20260903_R1.json",
+  "proof": {
+    "prior_425_exact_canonical_collision_events": 0,
+    "r6_operation": "union_old_event_components_only",
+    "new_observations_added": 0,
+    "observation_urls_or_titles_mutated": 0,
+    "therefore_r6_exact_collision_events": 0
+  },
+  "accounting": {
+    "event_count": 395,
+    "exact_canonical_collision_events": 0,
+    "manual_relation_review_events": 395
+  }
+}

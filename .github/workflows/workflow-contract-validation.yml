@@ -8,6 +8,7 @@ on:
       - "schemas/manual-direct-add.v*.schema.json"
       - "schemas/workflow-v4-coverage-axes.json"
       - "scripts/workflow_v4_coverage_axes.mjs"
+      - "scripts/governance_lock_v4.mjs"
       - "scripts/validate_manual_direct_add.mjs"
       - "scripts/manual_direct_add_v1_history.mjs"
       - "scripts/validate_card_run_audits_dispatch.mjs"
@@ -17,6 +18,7 @@ on:
       - "scripts/lean_cards.mjs"
       - ".github/workflows/lean-cards.yml"
       - ".github/workflows/workflow-contract-validation.yml"
+      - ".github/workflows/governance-lock-validation.yml"
       - ".github/workflows/apply-card-run.yml"
       - ".github/workflows/manual-direct-add-schema-validation.yml"
   push:
@@ -27,12 +29,14 @@ on:
       - "schemas/manual-direct-add.v*.schema.json"
       - "schemas/workflow-v4-coverage-axes.json"
       - "scripts/workflow_v4_coverage_axes.mjs"
+      - "scripts/governance_lock_v4.mjs"
       - "scripts/validate_manual_direct_add.mjs"
       - "scripts/manual_direct_add_v1_history.mjs"
       - "scripts/validate_card_run_audits_dispatch.mjs"
       - "scripts/validate_prompt_0_8_semantic_gate.mjs"
       - "validation_scripts/**"
       - ".github/workflows/workflow-contract-validation.yml"
+      - ".github/workflows/governance-lock-validation.yml"
       - ".github/workflows/apply-card-run.yml"
       - ".github/workflows/manual-direct-add-schema-validation.yml"
 
@@ -45,6 +49,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -61,6 +67,13 @@ jobs:
 
       - name: Verify clean V4 architecture
         run: python validation_scripts/workflow_v4_architecture_check.py
+
+      - name: Verify deterministic governance lock
+        run: |
+          set -euo pipefail
+          node --check scripts/governance_lock_v4.mjs
+          node scripts/governance_lock_v4.mjs --self-test
+          python validation_scripts/tests/test_governance_lock_jit_preflight.py
 
       - name: Verify no legacy prompt overlay is active
         run: python validation_scripts/apply_prompt_contract_overlays.py --check
@@ -91,9 +104,11 @@ jobs:
       - name: Validate executable V4 runtime helpers
         run: |
           set -euo pipefail
+          node --check scripts/governance_lock_v4.mjs
           node --check scripts/manual_direct_add_v1_history.mjs
           node --check scripts/validate_card_run_audits_dispatch.mjs
           node --check scripts/validate_prompt_0_8_semantic_gate.mjs
+          node scripts/governance_lock_v4.mjs --self-test
           node scripts/manual_direct_add_v1_history.mjs --self-test
           node scripts/validate_card_run_audits_dispatch.mjs --self-test
           node scripts/validate_prompt_0_8_semantic_gate.mjs --self-test

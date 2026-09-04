@@ -1,9 +1,19 @@
 {
-  "registry_version": "GOVERNANCE_LIFECYCLE_REGISTRY_V4_20260902",
+  "registry_version": "GOVERNANCE_LIFECYCLE_REGISTRY_V4_20260902_JIT_LOCK",
   "status": "ACTIVE_VALIDATOR_CONTRACT",
-  "classification_policy": "INVENTORY_ALL_DOCS_DEEP_READ_ACTIVE_DEPENDENCY_CLOSURE",
+  "classification_policy": "INVENTORY_ALL_DOCS_LOCK_ACTIVE_AUTHORITY_JIT_STAGE_LOAD",
   "active_override_or_addendum_count": 0,
   "active_named_prompt_count": 17,
+  "bootstrap_read": [
+    "docs/WORKFLOW.md",
+    "docs/OPERATIONS.md",
+    "docs/DOCUMENT_UNIVERSE_POLICY.md",
+    "docs/RUN_GOVERNANCE_INDEX.md",
+    "docs/llm_prompts/v1/PROMPT_MANIFEST.md",
+    "docs/llm_prompts/v1/00_NEW_RUN_MASTER_PROMPT.md",
+    "docs/llm_prompts/v1/00D_PROMPT_0_0D_DOCUMENT_UNIVERSE_PREFLIGHT.md",
+    "docs/llm_prompts/v1/GOVERNANCE_LIFECYCLE_REGISTRY.json"
+  ],
   "active_canonical": [
     "docs/WORKFLOW.md",
     "docs/OPERATIONS.md",
@@ -62,6 +72,7 @@
     "docs/PROMPT_ABC_SUPPORTING_RULES.md",
     "docs/MANUAL_DIRECT_ADD_V1.md",
     "docs/PROMPT_ABC_DEFAULT_MODE_v1_legacy.md",
+    "docs/workflow_gaps/WG_016_RELATED_LIFECYCLE.json",
     "docs/llm_prompts/v1/00_DATE_STORYID_RELATED_INTEGRITY_OVERRIDE_V1.md",
     "docs/llm_prompts/v1/00_DYNAMIC_GOVERNANCE_COMPLETENESS_OVERRIDE_V1.md",
     "docs/llm_prompts/v1/00_MANDATORY_SEARCH_BEFORE_DELETE_OVERRIDE.md",

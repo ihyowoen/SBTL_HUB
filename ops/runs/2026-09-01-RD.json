@@ -1262,6 +1262,13 @@
         }
       ],
       "lesson": "이번 라운드에서 **같은 교훈을 두 번 밟았다** — ④(셀 키)에서 '부정 케이스는 실무 형태로'를 배우고, 바로 옆 #24 에서 계기가 된 형태만 규칙으로 굳혔다. 그리고 수치는 **측정 시점**까지 확인해야 한다."
+    },
+    "review20260902_zerobyte": {
+      "source": "PR #302 후속 코멘트 (2026-09-02 06:17Z) — 잔여2 미반영 적출",
+      "finding": "신설했다고 보고한 .github/workflows/unit-tests.yml 이 **0바이트**로 커밋됐다. git blob 이 e69de29(빈 파일 해시)이고 GitHub 이 실행을 시도해 run 33596699406 이 jobs=0 · duration=0s 로 startup failure 했다. 워크플로가 등록되지 않아 __tests__ 는 게이트 밖이었고 push 마다 failure 가 쌓였다.",
+      "whyMyCheckPassed": "YAML 검증을 **워크트리 파일**로 돌렸고 그 시점에는 내용이 있었다. 커밋된 결과물을 다시 확인하지 않았다. 0바이트는 이 환경에서 WSL 비정상 종료의 알려진 서명인데도 쓰는 즉시 크기를 확인하지 않았다. 원인은 확정하지 못했다.",
+      "processFix": "검증 대상을 **커밋된 blob** 으로 바꾼다 — git show HEAD:<path> | wc -c 로 착지 확인, push 후 run success 와 PR 체크 행 등장까지 본다. 워크트리 검증은 착지 확인이 아니다.",
+      "resolution": "다른 세션이 85438fe 로 먼저 고쳤고 a60255d 에서 테스트 단언도 뒤집었다. #302 는 1fd5485 로 squash 머지됐다."
     }
   },
   "selfAudit": {

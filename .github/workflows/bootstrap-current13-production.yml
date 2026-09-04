@@ -26,13 +26,29 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Restore full governed payload
+      - name: Restore exact governed payload
         shell: bash
         run: |
           set -euo pipefail
-          test -s .tmp/current13_payload.b64
-          base64 -d .tmp/current13_payload.b64 > "$RUNNER_TEMP/current13_payload.tar.gz"
-          tar -xzf "$RUNNER_TEMP/current13_payload.tar.gz"
+          cat \
+            .tmp/current13-payload/part-000 \
+            .tmp/current13-payload/part-001 \
+            .tmp/current13-payload-fix/part-002a \
+            .tmp/current13-payload-fix/part-002b \
+            .tmp/current13-payload/part-003 \
+            .tmp/current13-payload-fix/part-004a \
+            .tmp/current13-payload-fix/part-004b \
+            .tmp/current13-payload-fix/part-005a \
+            .tmp/current13-payload-fix/part-005b0 \
+            .tmp/current13-payload-fix/part-005b1 \
+            .tmp/current13-payload/part-006 \
+            .tmp/current13-payload/part-007 \
+            > "$RUNNER_TEMP/current13_payload.b64"
+          [[ "$(wc -c < "$RUNNER_TEMP/current13_payload.b64")" -eq 125752 ]]
+          echo '857b6a160eb59c4a80555fddf45af96de6b42850feeb2b75590da2dab6694b16  '"$RUNNER_TEMP/current13_payload.b64" | sha256sum -c -
+          base64 -d "$RUNNER_TEMP/current13_payload.b64" > "$RUNNER_TEMP/current13_payload.tar.xz"
+          echo '2caee9a18860a14dc8a31e0ea346617adc1b85bb07a01ba5dc0d1e024932f011  '"$RUNNER_TEMP/current13_payload.tar.xz" | sha256sum -c -
+          tar -xJf "$RUNNER_TEMP/current13_payload.tar.xz"
           test -s runs/2026-09-04/input-20260902-current13-production-r1/card-run.json
 
       - name: Lock exact baseline
@@ -96,7 +112,6 @@ jobs:
           node scripts/lean_cards.mjs --check
           node scripts/validate_card_run_lineage_containers.mjs --run "$RUN_PATH" --canonical data/cards.full.json
           node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN_PATH" --full data/cards.full.json --lean public/data/cards.json
-
           ID_LEDGER="$RUNNER_TEMP/prompt-0-8-id-ledger.json"
           MERGE_PREP_REF="$(node scripts/validate_prompt_0_8_semantic_gate.mjs --run "$RUN_PATH" --full data/cards.full.json --ledger "$ID_LEDGER")"
           test -s "$ID_LEDGER"
@@ -108,7 +123,6 @@ jobs:
             python3 validation_scripts/date_role_freshness_check.py data/cards.full.json --require-date-role --new-id-file "$ID_LEDGER"
           fi
           python3 validation_scripts/stage_artifact_contract_check.py 0.8 "$MERGE_PREP_REF"
-
           node scripts/apply_card_run.mjs \
             --run "$RUN_PATH" \
             --baseline data/cards.full.json \
@@ -141,7 +155,7 @@ jobs:
         run: |
           set -euo pipefail
           rm -f runs/2026-09-04/input-20260902-current13-production-r1/apply-report.json
-          git rm -f .tmp/current13_payload.b64
+          git rm -rf .tmp/current13_payload.b64 .tmp/current13-payload .tmp/current13-payload-r3 .tmp/current13-payload-fix || true
           git rm -f .github/workflows/bootstrap-current13-production.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

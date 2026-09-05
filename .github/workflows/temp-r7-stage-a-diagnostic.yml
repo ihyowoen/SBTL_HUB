@@ -92,17 +92,15 @@ jobs:
           set +e
           : > /tmp/r7-validation/targeted-tests.txt
           failed=0
-          for test_file in \
-            validation_scripts/tests/test_stage_a_v3_route_alignment.py \
-            validation_scripts/tests/test_stage_a_v4_required_docs_authority.py \
-            validation_scripts/tests/test_stage_a_v4_source_prompt_version_compat.py; do
-            if [ -f "$test_file" ]; then
-              echo "===== $test_file =====" >> /tmp/r7-validation/targeted-tests.txt
-              python "$test_file" >> /tmp/r7-validation/targeted-tests.txt 2>&1
-              rc=$?
-              echo "exit=$rc" >> /tmp/r7-validation/targeted-tests.txt
-              if [ "$rc" -ne 0 ]; then failed=1; fi
-            fi
+          for module in \
+            validation_scripts.tests.test_stage_a_v3_route_alignment \
+            validation_scripts.tests.test_stage_a_v4_required_docs_authority \
+            validation_scripts.tests.test_stage_a_v4_source_prompt_version_compat; do
+            echo "===== $module =====" >> /tmp/r7-validation/targeted-tests.txt
+            PYTHONPATH=. python -m unittest "$module" >> /tmp/r7-validation/targeted-tests.txt 2>&1
+            rc=$?
+            echo "exit=$rc" >> /tmp/r7-validation/targeted-tests.txt
+            if [ "$rc" -ne 0 ]; then failed=1; fi
           done
           cat /tmp/r7-validation/targeted-tests.txt
           exit "$failed"

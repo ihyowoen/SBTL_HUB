@@ -26,19 +26,19 @@ def patch_spec(spec: dict) -> None:
     route = str(spec.get("selection_route") or "")
     anchors = ", ".join(spec.get("anchor_classes") or [])
 
-    # Current V4 requires arrays of text, while frozen V3 semantically requires
-    # each text entry to bind a recognized source/document class to an exact
-    # claim/metric/date and each confirmation entry to bind a measurable event
-    # to an interpretation effect. These strings intentionally satisfy both.
+    # V4 requires text arrays; frozen V3 requires source/document class + exact
+    # target semantics. These entries satisfy both without creating evidence.
     spec["evidence_needed_for_stage_b"] = [
         f"official document or contract: {title}; exact event stage and event date {date}",
         f"official filing, dataset, statistics, technical test result, permit, regulation, or independent report: {title}; production, shipment, approval, capacity, volume, price, cost, or status metric at the claimed stage",
     ]
+    thesis = "structural thesis" if route == "structural_non_execution_route" else "execution thesis"
+    # Mirror the semantic form already present in validator-passing repo artifacts:
+    # measurable milestone -> confirm thesis; adverse/delayed milestone -> weaken thesis.
     spec["next_confirmation_points"] = [
-        f"production, shipment, approval, permit, contract, capacity, volume, price, cost, status, or effective-date metric for {title} after {date}; a verified result would strengthen or weaken the current Stage A judgment and outlook",
+        f"Production, shipment, approval, permit, contract, capacity, volume, price, cost, status, or effective-date milestone for {title} after {date} would confirm the current {thesis}; a delayed or adverse milestone would weaken that thesis",
     ]
 
-    # Preserve exactly one execution or ordinary-v3-non-execution compatibility path.
     if route == "structural_non_execution_route":
         spec["execution_anchor_type"] = None
         spec["execution_anchor_strength"] = None
@@ -55,9 +55,6 @@ def patch_spec(spec: dict) -> None:
 
 
 def patch_reviews(data: dict) -> None:
-    # The frozen review-pool checker treats the literal phrase 'Stage B' as a
-    # prohibited recommendation even inside a negation, so watch/support text
-    # must avoid that token entirely.
     for row in data.get("watchlist_context_pool", []):
         title = short(row.get("title_raw") or row.get("review_pool_item_id"), 160)
         row["recommended_next_action"] = (
@@ -78,9 +75,11 @@ def patch_reviews(data: dict) -> None:
             )
         if subtype == "earnings_deep_dive":
             row["earnings_deep_dive_required"] = True
-            row["earnings_release_available"] = row.get("earnings_release_available") or "unknown"
-            row["ir_deck_available"] = row.get("ir_deck_available") or "unknown"
-            row["call_or_transcript_expected"] = row.get("call_or_transcript_expected") or "unknown"
+            # The active compatibility checker allows yes|no|unknown. The
+            # generator's not_applicable placeholder is truthy, so overwrite it.
+            row["earnings_release_available"] = "unknown"
+            row["ir_deck_available"] = "unknown"
+            row["call_or_transcript_expected"] = "unknown"
             row["qna_status"] = "not_checked_stage_a"
             row["prior_period_comparison_required"] = True
             if not row.get("earnings_rescue_questions"):

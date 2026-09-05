@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - chatgpt/validate-20260903-r7-stage-a
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:

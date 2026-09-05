@@ -3,7 +3,8 @@
 
 No disposition, score, route, event identity, source membership, or canonical relation
 is changed. The patch only materializes machine-compatible Stage-B evidence targets,
-measurable confirmation points, and review-subtype metadata required by current main.
+measurable confirmation points, review-subtype metadata, and exact decision-ledger
+carry fields required by current main.
 """
 from __future__ import annotations
 
@@ -26,17 +27,16 @@ def patch_spec(spec: dict) -> None:
     route = str(spec.get("selection_route") or "")
     anchors = ", ".join(spec.get("anchor_classes") or [])
 
-    # V4 requires text arrays; frozen V3 requires source/document class + exact
-    # target semantics. These entries satisfy both without creating evidence.
     spec["evidence_needed_for_stage_b"] = [
         f"official document or contract: {title}; exact event stage and event date {date}",
         f"official filing, dataset, statistics, technical test result, permit, regulation, or independent report: {title}; production, shipment, approval, capacity, volume, price, cost, or status metric at the claimed stage",
     ]
     thesis = "structural thesis" if route == "structural_non_execution_route" else "execution thesis"
-    # Mirror the semantic form already present in validator-passing repo artifacts:
-    # measurable milestone -> confirm thesis; adverse/delayed milestone -> weaken thesis.
+    # Separate the measurable target from the semantic interpretation clauses.
+    # This avoids a measured noun in a long title being mistaken for the object
+    # of strengthen/weaken by the current semantic binder.
     spec["next_confirmation_points"] = [
-        f"Production, shipment, approval, permit, contract, capacity, volume, price, cost, status, or effective-date milestone for {title} after {date} would confirm the current {thesis}; a delayed or adverse milestone would weaken that thesis",
+        f"{title}: production, shipment, approval, permit, contract, capacity, volume, price, cost, status, or effective-date milestone after {date}. The {thesis} would strengthen on confirmation; the {thesis} would weaken on reversal",
     ]
 
     if route == "structural_non_execution_route":
@@ -75,8 +75,6 @@ def patch_reviews(data: dict) -> None:
             )
         if subtype == "earnings_deep_dive":
             row["earnings_deep_dive_required"] = True
-            # The active compatibility checker allows yes|no|unknown. The
-            # generator's not_applicable placeholder is truthy, so overwrite it.
             row["earnings_release_available"] = "unknown"
             row["ir_deck_available"] = "unknown"
             row["call_or_transcript_expected"] = "unknown"
@@ -86,6 +84,17 @@ def patch_reviews(data: dict) -> None:
                 row["earnings_rescue_questions"] = [
                     f"Check the official earnings release or filing for {title}: revenue, profit, margin, volume, cost, capacity/utilisation, guidance, capex, prior-period comparison, and call/Q&A availability."
                 ]
+
+
+def sync_decision_ledger(data: dict) -> None:
+    specs = {row.get("spec_id"): row for row in data.get("strict_passed_spec", []) if row.get("spec_id")}
+    for row in data.get("decision_ledger", []):
+        sid = row.get("spec_id") or row.get("merged_into_spec_id")
+        spec = specs.get(sid)
+        if not spec:
+            continue
+        row["evidence_needed_for_stage_b"] = list(spec["evidence_needed_for_stage_b"])
+        row["next_confirmation_points"] = list(spec["next_confirmation_points"])
 
 
 def main() -> int:
@@ -103,6 +112,7 @@ def main() -> int:
             patch_spec(spec)
             total += 1
         patch_reviews(data)
+        sync_decision_ledger(data)
         path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"patched strict specs: {total}")
     if total != 43:

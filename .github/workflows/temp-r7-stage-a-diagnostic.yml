@@ -1,0 +1,48 @@
+name: TEMP R7 Stage A diagnostic
+
+on:
+  push:
+    branches:
+      - chatgpt/validate-20260903-r7-stage-a
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect-generator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct temporary validation payloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat tmp/r7-stage-a-validation/generator.part* | tr -d '\r\n' | base64 -d | gzip -dc > /tmp/r7_stage_a_generator.py
+          cat tmp/r7-stage-a-validation/manifest.part* | tr -d '\r\n' | base64 -d | gzip -dc > /tmp/r7_stage_a_manifest.json
+          python - <<'PY'
+          import hashlib, json, pathlib
+          for path in [pathlib.Path('/tmp/r7_stage_a_generator.py'), pathlib.Path('/tmp/r7_stage_a_manifest.json')]:
+              raw=path.read_bytes()
+              print(path, 'bytes=',len(raw),'sha256=',hashlib.sha256(raw).hexdigest())
+          m=json.loads(pathlib.Path('/tmp/r7_stage_a_manifest.json').read_text())
+          print('manifest schema=',m.get('schema'))
+          print('manifest event count=',len(m.get('events',[])))
+          print('manifest story count=',sum(len(e.get('s',[])) for e in m.get('events',[])))
+          PY
+
+      - name: Inspect generator entrypoint
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '--- first 80 generator lines ---'
+          sed -n '1,80p' /tmp/r7_stage_a_generator.py
+          echo '--- entrypoint markers ---'
+          grep -nE 'argparse|sys\.argv|__main__|def main|MANIFEST|OUTPUT|out_dir|output' /tmp/r7_stage_a_generator.py | head -120 || true
+
+      - name: Probe generator help
+        continue-on-error: true
+        shell: bash
+        run: |
+          python /tmp/r7_stage_a_generator.py --help

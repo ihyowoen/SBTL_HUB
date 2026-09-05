@@ -1,9 +1,6 @@
-name: TEMP R7 Stage A diagnostic
+name: TEMP R7 Stage A repo-native validation
 
 on:
-  push:
-    branches:
-      - chatgpt/validate-20260903-r7-stage-a
   pull_request:
     branches:
       - main
@@ -13,71 +10,96 @@ permissions:
   contents: read
 
 jobs:
-  inspect-generator:
+  validate-stage-a:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Diagnose temporary validation payload reconstruction
+      - name: Reconstruct deterministic generator and manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/r7-stage-a /tmp/r7-validation
+          cat tmp/r7-stage-a-validation/generator.part* | tr -d '\r\n' | base64 -d | gzip -dc > /tmp/r7_stage_a_generator.py
+          cat tmp/r7-stage-a-validation/manifest.part* | tr -d '\r\n' > /tmp/r7_stage_a_manifest.b64
+          python - <<'PY'
+          import base64,gzip,hashlib,json,pathlib
+          b64=pathlib.Path('/tmp/r7_stage_a_manifest.b64').read_text().strip()
+          raw=gzip.decompress(base64.b64decode(b64,validate=True))
+          p=pathlib.Path('/tmp/r7_stage_a_manifest.json'); p.write_bytes(raw)
+          m=json.loads(raw)
+          assert m['schema']=='r7_stage_a_adjudication_compact_v1'
+          assert m['main']=='5317bec055b88a26cffb136e7844eb488ae4db0d'
+          assert m['r7']=='650cc0abd32df06abd50b07fa4b6b9f00ea441d24011a3ec66feb071118acdd7'
+          assert len(m['events'])==333
+          assert sum(len(e['s']) for e in m['events'])==449
+          print('manifest_sha256',hashlib.sha256(raw).hexdigest())
+          print('events',len(m['events']),'stories',sum(len(e['s']) for e in m['events']))
+          PY
+          test "$(sha256sum docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md | awk '{print $1}')" = "617b775d8ce711b7631073f4a335d385ee6e474efa80d6948435d2434af8461e"
+
+      - name: Generate Stage A batches
+        shell: bash
+        run: |
+          set -euo pipefail
+          python /tmp/r7_stage_a_generator.py --b64 /tmp/r7_stage_a_manifest.b64 --outdir /tmp/r7-stage-a --batch-size 25
+          python - <<'PY'
+          import glob,json
+          files=sorted(glob.glob('/tmp/r7-stage-a/stage-a-b*.json'))
+          assert len(files)==14, files
+          ev=obs=strict=cand=watch=reject=0
+          for f in files:
+              d=json.load(open(f))
+              ev += d['event_count']; obs += d['story_count']
+              strict += len(d['strict_passed_spec'])
+              cand += len(d['candidate_review_pool'])
+              watch += len(d['watchlist_context_pool'])
+              reject += len(d['reject_or_support_only_pool'])
+              assert len(d['decision_ledger'])==d['story_count']
+          assert (ev,obs,strict,cand,watch,reject)==(333,449,43,52,140,98),(ev,obs,strict,cand,watch,reject)
+          print('generated',len(files),'batches',ev,'events',obs,'observations','strict',strict,'candidate',cand,'watch',watch,'reject_support',reject)
+          PY
+
+      - name: Run current-main Stage A validators
         shell: bash
         run: |
           set +e
-          LOG=/tmp/r7-diagnostic.txt
-          : > "$LOG"
-          {
-            echo '== source files =='
-            ls -l tmp/r7-stage-a-validation
-            echo '== encoded lengths =='
-            wc -c tmp/r7-stage-a-validation/generator.part* tmp/r7-stage-a-validation/manifest.part*
+          REPORT=/tmp/r7-validation/validator-report.txt
+          : > "$REPORT"
+          failed=0
+          for f in /tmp/r7-stage-a/stage-a-b*.json; do
+            echo "===== $f =====" | tee -a "$REPORT"
+            echo "--- stage_lineage_contract_check.py ---" | tee -a "$REPORT"
+            python validation_scripts/stage_lineage_contract_check.py stage_a "$f" >> "$REPORT" 2>&1
+            rc=$?
+            echo "lineage_exit=$rc" | tee -a "$REPORT"
+            if [ "$rc" -ne 0 ]; then failed=1; fi
+            echo "--- stage_artifact_contract_check.py ---" | tee -a "$REPORT"
+            python validation_scripts/stage_artifact_contract_check.py A "$f" >> "$REPORT" 2>&1
+            rc=$?
+            echo "artifact_exit=$rc" | tee -a "$REPORT"
+            if [ "$rc" -ne 0 ]; then failed=1; fi
+          done
+          echo "aggregate_failed=$failed" | tee -a "$REPORT"
+          exit "$failed"
 
-            cat tmp/r7-stage-a-validation/generator.part* | tr -d '\r\n' > /tmp/generator.b64
-            echo "generator-b64-bytes=$(wc -c < /tmp/generator.b64)"
-            base64 -d /tmp/generator.b64 > /tmp/generator.gz 2>/tmp/generator.base64.err
-            echo "generator-base64-exit=$?"
-            cat /tmp/generator.base64.err
-            gzip -t /tmp/generator.gz 2>/tmp/generator.gzip.err
-            echo "generator-gzip-test-exit=$?"
-            cat /tmp/generator.gzip.err
-            gzip -dc /tmp/generator.gz > /tmp/r7_stage_a_generator.py 2>/tmp/generator.decompress.err
-            echo "generator-decompress-exit=$?"
-            cat /tmp/generator.decompress.err
-            wc -c /tmp/r7_stage_a_generator.py
+      - name: Run Stage A contract regression suite
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          python -m unittest discover -s validation_scripts/tests -p 'test_stage_a_v4*.py' > /tmp/r7-validation/stage-a-v4-tests.txt 2>&1
+          rc=$?
+          echo "unittest_exit=$rc" >> /tmp/r7-validation/stage-a-v4-tests.txt
+          cat /tmp/r7-validation/stage-a-v4-tests.txt
+          exit "$rc"
 
-            cat tmp/r7-stage-a-validation/manifest.part* | tr -d '\r\n' > /tmp/manifest.b64
-            echo "manifest-b64-bytes=$(wc -c < /tmp/manifest.b64)"
-            base64 -d /tmp/manifest.b64 > /tmp/manifest.gz 2>/tmp/manifest.base64.err
-            echo "manifest-base64-exit=$?"
-            cat /tmp/manifest.base64.err
-            gzip -t /tmp/manifest.gz 2>/tmp/manifest.gzip.err
-            echo "manifest-gzip-test-exit=$?"
-            cat /tmp/manifest.gzip.err
-            gzip -dc /tmp/manifest.gz > /tmp/r7_stage_a_manifest.json 2>/tmp/manifest.decompress.err
-            echo "manifest-decompress-exit=$?"
-            cat /tmp/manifest.decompress.err
-            wc -c /tmp/r7_stage_a_manifest.json
-
-            echo '== generator entrypoint markers =='
-            grep -nE 'argparse|sys\.argv|__main__|def main|MANIFEST|OUTPUT|out_dir|output' /tmp/r7_stage_a_generator.py | head -160
-
-            echo '== manifest parse =='
-            python - <<'PY'
-          import json, pathlib, hashlib, traceback
-          try:
-              p=pathlib.Path('/tmp/r7_stage_a_manifest.json')
-              m=json.loads(p.read_text())
-              print('manifest-sha256',hashlib.sha256(p.read_bytes()).hexdigest())
-              print('schema',m.get('schema'))
-              print('events',len(m.get('events',[])))
-              print('stories',sum(len(e.get('s',[])) for e in m.get('events',[])))
-          except Exception:
-              traceback.print_exc()
-          PY
-          } >> "$LOG" 2>&1
-          cat "$LOG"
-
-      - name: Upload diagnostic log
+      - name: Upload generated artifacts and validator report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r7-stage-a-diagnostic
-          path: /tmp/r7-diagnostic.txt
+          name: r7-stage-a-repo-native-validation
+          path: |
+            /tmp/r7-stage-a
+            /tmp/r7-validation
           if-no-files-found: error

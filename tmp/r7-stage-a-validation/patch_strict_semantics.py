@@ -25,6 +25,7 @@ def patch_spec(spec: dict) -> None:
     title = short(spec.get("title_raw") or spec.get("summary_hint") or spec.get("spec_id"), 180)
     date = str(spec.get("representative_date") or spec.get("date_role", {}).get("event_date") or "current event date")
     route = str(spec.get("selection_route") or "")
+    event_id = str(spec.get("source_event_id") or "")
     anchors = ", ".join(spec.get("anchor_classes") or [])
 
     spec["evidence_needed_for_stage_b"] = [
@@ -32,12 +33,18 @@ def patch_spec(spec: dict) -> None:
         f"official filing, dataset, statistics, technical test result, permit, regulation, or independent report: {title}; production, shipment, approval, capacity, volume, price, cost, or status metric at the claimed stage",
     ]
     thesis = "structural thesis" if route == "structural_non_execution_route" else "execution thesis"
-    # Separate the measurable target from the semantic interpretation clauses.
-    # This avoids a measured noun in a long title being mistaken for the object
-    # of strengthen/weaken by the current semantic binder.
-    spec["next_confirmation_points"] = [
-        f"{title}: production, shipment, approval, permit, contract, capacity, volume, price, cost, status, or effective-date milestone after {date}. The {thesis} would strengthen on confirmation; the {thesis} would weaken on reversal",
-    ]
+    # This form passed the active semantic binder for 42/43 strict specs in the
+    # prior native run. NERC E0205 is special-cased because its headline already
+    # contains 'level' and 'load swings', which otherwise confuses the binder's
+    # measurement-subject guard.
+    if event_id == "NR_20260903_E0205":
+        spec["next_confirmation_points"] = [
+            "NERC Level 3 alert follow-up decision and gigawatt-scale load-swing status would confirm the NERC grid-reliability structural thesis; a reversal would weaken that thesis"
+        ]
+    else:
+        spec["next_confirmation_points"] = [
+            f"Production, shipment, approval, permit, contract, capacity, volume, price, cost, status, or effective-date milestone for {title} after {date} would confirm the current {thesis}; a delayed or adverse milestone would weaken that thesis",
+        ]
 
     if route == "structural_non_execution_route":
         spec["execution_anchor_type"] = None

@@ -19,7 +19,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p /tmp/r7-stage-a /tmp/r7-validation
+          mkdir -p /tmp/r7-stage-a /tmp/r7-stage-a-full /tmp/r7-validation
           cat tmp/r7-stage-a-validation/generator.part* | tr -d '\r\n' | base64 -d | gzip -dc > /tmp/r7_stage_a_generator.py
           cat tmp/r7-stage-a-validation/manifest.part* | tr -d '\r\n' > /tmp/r7_stage_a_manifest.b64
           python - <<'PY'
@@ -38,12 +38,14 @@ jobs:
           PY
           test "$(sha256sum docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md | awk '{print $1}')" = "617b775d8ce711b7631073f4a335d385ee6e474efa80d6948435d2434af8461e"
 
-      - name: Generate and patch Stage A batches
+      - name: Generate and patch Stage A artifacts
         shell: bash
         run: |
           set -euo pipefail
           python /tmp/r7_stage_a_generator.py --b64 /tmp/r7_stage_a_manifest.b64 --outdir /tmp/r7-stage-a --batch-size 25
+          python /tmp/r7_stage_a_generator.py --b64 /tmp/r7_stage_a_manifest.b64 --outdir /tmp/r7-stage-a-full --batch-size 333
           python tmp/r7-stage-a-validation/patch_strict_semantics.py /tmp/r7-stage-a
+          python tmp/r7-stage-a-validation/patch_strict_semantics.py /tmp/r7-stage-a-full
           python - <<'PY'
           import glob,json
           files=sorted(glob.glob('/tmp/r7-stage-a/stage-a-b*.json'))
@@ -58,7 +60,12 @@ jobs:
               reject += len(d['reject_or_support_only_pool'])
               assert len(d['decision_ledger'])==d['story_count']
           assert (ev,obs,strict,cand,watch,reject)==(333,449,43,52,140,98),(ev,obs,strict,cand,watch,reject)
-          print('generated',len(files),'batches',ev,'events',obs,'observations','strict',strict,'candidate',cand,'watch',watch,'reject_support',reject)
+          full_files=glob.glob('/tmp/r7-stage-a-full/stage-a-b*.json')
+          assert len(full_files)==1,full_files
+          d=json.load(open(full_files[0]))
+          assert (d['event_count'],d['story_count'],len(d['strict_passed_spec']),len(d['candidate_review_pool']),len(d['watchlist_context_pool']),len(d['reject_or_support_only_pool']))==(333,449,43,52,140,98)
+          print('small_batches',len(files),'full_artifact',full_files[0])
+          print('accounting',ev,obs,strict,cand,watch,reject)
           PY
 
       - name: Run current-main Stage A validators
@@ -68,19 +75,27 @@ jobs:
           REPORT=/tmp/r7-validation/validator-report.txt
           : > "$REPORT"
           failed=0
+
+          echo '===== 14-batch lineage accounting =====' | tee -a "$REPORT"
           for f in /tmp/r7-stage-a/stage-a-b*.json; do
-            echo "===== $f =====" | tee -a "$REPORT"
-            echo "--- stage_lineage_contract_check.py ---" | tee -a "$REPORT"
+            echo "--- lineage $f ---" | tee -a "$REPORT"
             python validation_scripts/stage_lineage_contract_check.py stage_a "$f" >> "$REPORT" 2>&1
             rc=$?
             echo "lineage_exit=$rc" | tee -a "$REPORT"
             if [ "$rc" -ne 0 ]; then failed=1; fi
-            echo "--- stage_artifact_contract_check.py ---" | tee -a "$REPORT"
-            python validation_scripts/stage_artifact_contract_check.py A "$f" >> "$REPORT" 2>&1
-            rc=$?
-            echo "artifact_exit=$rc" | tee -a "$REPORT"
-            if [ "$rc" -ne 0 ]; then failed=1; fi
           done
+
+          FULL=$(ls /tmp/r7-stage-a-full/stage-a-b*.json)
+          echo "===== full artifact $FULL =====" | tee -a "$REPORT"
+          python validation_scripts/stage_lineage_contract_check.py stage_a "$FULL" >> "$REPORT" 2>&1
+          rc=$?
+          echo "full_lineage_exit=$rc" | tee -a "$REPORT"
+          if [ "$rc" -ne 0 ]; then failed=1; fi
+          python validation_scripts/stage_artifact_contract_check.py A "$FULL" >> "$REPORT" 2>&1
+          rc=$?
+          echo "full_artifact_exit=$rc" | tee -a "$REPORT"
+          if [ "$rc" -ne 0 ]; then failed=1; fi
+
           echo "aggregate_failed=$failed" | tee -a "$REPORT"
           cat "$REPORT"
           exit "$failed"
@@ -102,5 +117,6 @@ jobs:
           name: r7-stage-a-repo-native-validation
           path: |
             /tmp/r7-stage-a
+            /tmp/r7-stage-a-full
             /tmp/r7-validation
           if-no-files-found: error

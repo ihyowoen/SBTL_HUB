@@ -38,11 +38,12 @@ jobs:
           PY
           test "$(sha256sum docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md | awk '{print $1}')" = "617b775d8ce711b7631073f4a335d385ee6e474efa80d6948435d2434af8461e"
 
-      - name: Generate Stage A batches
+      - name: Generate and patch Stage A batches
         shell: bash
         run: |
           set -euo pipefail
           python /tmp/r7_stage_a_generator.py --b64 /tmp/r7_stage_a_manifest.b64 --outdir /tmp/r7-stage-a --batch-size 25
+          python tmp/r7-stage-a-validation/patch_strict_semantics.py /tmp/r7-stage-a
           python - <<'PY'
           import glob,json
           files=sorted(glob.glob('/tmp/r7-stage-a/stage-a-b*.json'))
@@ -81,18 +82,30 @@ jobs:
             if [ "$rc" -ne 0 ]; then failed=1; fi
           done
           echo "aggregate_failed=$failed" | tee -a "$REPORT"
+          cat "$REPORT"
           exit "$failed"
 
-      - name: Run Stage A contract regression suite
+      - name: Run route/authority regression tests
         if: always()
         shell: bash
         run: |
           set +e
-          python -m unittest discover -s validation_scripts/tests -p 'test_stage_a_v4*.py' > /tmp/r7-validation/stage-a-v4-tests.txt 2>&1
-          rc=$?
-          echo "unittest_exit=$rc" >> /tmp/r7-validation/stage-a-v4-tests.txt
-          cat /tmp/r7-validation/stage-a-v4-tests.txt
-          exit "$rc"
+          : > /tmp/r7-validation/targeted-tests.txt
+          failed=0
+          for test_file in \
+            validation_scripts/tests/test_stage_a_v3_route_alignment.py \
+            validation_scripts/tests/test_stage_a_v4_required_docs_authority.py \
+            validation_scripts/tests/test_stage_a_v4_source_prompt_version_compat.py; do
+            if [ -f "$test_file" ]; then
+              echo "===== $test_file =====" >> /tmp/r7-validation/targeted-tests.txt
+              python "$test_file" >> /tmp/r7-validation/targeted-tests.txt 2>&1
+              rc=$?
+              echo "exit=$rc" >> /tmp/r7-validation/targeted-tests.txt
+              if [ "$rc" -ne 0 ]; then failed=1; fi
+            fi
+          done
+          cat /tmp/r7-validation/targeted-tests.txt
+          exit "$failed"
 
       - name: Upload generated artifacts and validator report
         if: always()

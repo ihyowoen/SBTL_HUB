@@ -1,0 +1,36 @@
+name: Validate R7 Stage C r0 temp
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct and verify Stage C r0 artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          base64 -d validation_temp/20260903-r7-stage-c-r0/stage-c-r0.json.gz.b64 | gzip -d > /tmp/stage-c-r0.json
+          test "$(sha256sum /tmp/stage-c-r0.json | awk '{print $1}')" = "c81a8bf873425f75a74745dd116d7d2f426ae58c6d49191e30c3d79b1c692ec6"
+          python - <<'PY'
+          import json
+          p=json.load(open('/tmp/stage-c-r0.json', encoding='utf-8'))
+          a=p['accounting']
+          assert p['input_draft_count']==38
+          assert len(p['accepted_fact_safe'])==0
+          assert len(p['revise_required'])==38
+          assert a=={'input':38,'accepted_fact_safe':0,'revise_required':38,'controlled_stage_b_revise':34,'upstream_return':4,'unaccounted':0}
+          assert sorted(p['upstream_return_event_ids'])==['E0115','E0171','E0225','E0246']
+          assert sum(1 for x in p['revise_required'] if x['repair_lane']=='stage_b_0_2R')==34
+          assert sum(1 for x in p['revise_required'] if x['repair_lane']=='upstream_return')==4
+          print('RESULT: PASS_STAGE_C_R0_ACCOUNTING')
+          PY
+      - name: Stage C lineage contract
+        run: python validation_scripts/stage_lineage_contract_check.py stage_c /tmp/stage-c-r0.json
+      - name: Stage C artifact contract
+        run: python validation_scripts/stage_artifact_contract_check.py C /tmp/stage-c-r0.json
+      - name: Active workflow regression suite
+        run: python validation_scripts/run_active_workflow_tests.py

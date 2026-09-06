@@ -1,0 +1,62 @@
+name: Validate R7 operations dry-run temp
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-operations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify locked baseline
+        run: |
+          set -euo pipefail
+          test "${{ github.event.pull_request.base.sha }}" = "5317bec055b88a26cffb136e7844eb488ae4db0d"
+          test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+      - name: Materialize final IDs and exact operation set
+        run: |
+          set -euo pipefail
+          python validation_temp/20260903-r7-operations/materialize_operations.py | tee /tmp/operation-materialization.txt
+          test "$(wc -l < /tmp/r7-operations-sha.txt)" = "1"
+          python - <<'PY'
+          import json,re
+          r=json.load(open('/tmp/r7-card-run-draft.json',encoding='utf-8'))
+          alloc=json.load(open('/tmp/r7-id-allocation.json',encoding='utf-8'))
+          assert len(r['operations']['insert'])==33
+          assert len(r['operations']['update'])==0
+          assert len(r['operations']['related_add'])==3
+          assert r['expected_before']==1536 and r['expected_after']==1569
+          assert len(alloc['allocations'])==33
+          assert len({x['id'] for x in alloc['allocations']})==33
+          assert all(re.match(r'^\d{4}-\d{2}-\d{2}_(KR|US|CN|JP|EU|GL)_\d{2}$',x['id']) for x in alloc['allocations'])
+          print('RESULT: PASS_OPERATION_DRY_RUN_ACCOUNTING')
+          PY
+      - name: Validate card-run JSON schema
+        run: node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance /tmp/r7-card-run-draft.json
+      - name: Validate declared Related operation shape
+        run: node scripts/validate_card_run_relations.mjs --run /tmp/r7-card-run-draft.json
+      - name: Cross-check stable operations SHA with engine serialization
+        run: |
+          node --input-type=module - <<'JS'
+          import {readFileSync} from 'node:fs'; import {createHash} from 'node:crypto';
+          const run=JSON.parse(readFileSync('/tmp/r7-card-run-draft.json','utf8'));
+          const stable=v=>Array.isArray(v)?v.map(stable):(!v||typeof v!=='object'?v:Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])));
+          const actual=createHash('sha256').update(Buffer.from(JSON.stringify(stable(run.operations)))).digest('hex');
+          const expected=readFileSync('/tmp/r7-operations-sha.txt','utf8').trim();
+          if(actual!==expected) throw new Error(`${actual} != ${expected}`);
+          console.log('RESULT: PASS_STABLE_OPERATIONS_SHA',actual);
+          JS
+      - name: Active workflow regression suite
+        run: python validation_scripts/run_active_workflow_tests.py
+      - name: Upload exact reviewed operation set
+        uses: actions/upload-artifact@v4
+        with:
+          name: r7-operations-dry-run
+          path: |
+            /tmp/r7-operations.json
+            /tmp/r7-operations-sha.txt
+            /tmp/r7-id-allocation.json
+            /tmp/r7-card-run-draft.json
+            /tmp/r7-id-ledger.json
+            /tmp/operation-materialization.txt

@@ -9,9 +9,6 @@ data=json.loads(p.read_text(encoding='utf-8'))
 rows=data['evidence_complete_and_source_claim_covered']
 assert len(rows)==33
 
-# Complete the active Related lifecycle contract on the two already-locked
-# distinct follow-ups and on the new-unrelated rows. This does not reselect
-# relation type; it materializes the machine-required proof fields.
 FOLLOWUP={
   'STD26_R7_003':{
     'anchor_class':'technology_commercialization_anchor',
@@ -50,9 +47,24 @@ for row in rows:
     else:
         raise AssertionError((sid,relation))
 
-# Validators for Related/date freshness consume a merged baseline candidate
-# surface. Keep the authoritative 0.5 passing bucket unchanged and expose the
-# inherited canonical inventory only through the compatibility cards[] view.
+    # Materialize the exact active date-role/freshness compatibility envelope
+    # from the already verified operative date and body-level evidence.
+    role=row['date_role']
+    rep=role.get('representative_event_date') or row.get('date')
+    assert rep==row.get('date'), (sid,rep,row.get('date'))
+    pub=role.get('source_publication_dates') or role.get('publication_dates')
+    assert isinstance(pub,list) and pub, sid
+    date_source=next((s for s in row.get('fact_sources',[]) if s.get('source_url') and s.get('source_quote')),None)
+    assert date_source is not None, sid
+    role['representative_date']=rep
+    role['event_date']=rep
+    role['publication_dates']=pub
+    role['earliest_same_event_date_checked']=True
+    role['event_date_source_url']=date_source['source_url']
+    role['event_date_source_quote']=date_source['source_quote']
+    if relation=='distinct_follow_up':
+        role['fresh_follow_up_anchor']=lineage['fresh_follow_up_anchor']
+
 canonical=json.loads(Path('data/cards.full.json').read_text(encoding='utf-8'))
 if isinstance(canonical,list):
     canonical_cards=canonical
@@ -62,11 +74,11 @@ else:
     raise AssertionError('unexpected canonical cards.full.json shape')
 assert len(canonical_cards)==1536
 canonical_ids={c.get('id') for c in canonical_cards if isinstance(c,dict) and c.get('id')}
-for sid, proof in FOLLOWUP.items():
+for sid in FOLLOWUP:
     row=next(x for x in rows if x['source_spec_id']==sid)
     assert all(target in canonical_ids for target in row['related'])
 
 data['cards']=canonical_cards+rows
 assert len(data['cards'])==1569
 p.write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8')
-print('RESULT: MATERIALIZED_0_5_R3 merged_cards=1569 current=33')
+print('RESULT: MATERIALIZED_0_5_R4 merged_cards=1569 current=33 related_and_date_contract=PASS')

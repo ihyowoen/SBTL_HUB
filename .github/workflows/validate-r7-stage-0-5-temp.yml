@@ -18,14 +18,16 @@ jobs:
       - name: Materialize Prompt 0.5
         run: |
           set -euo pipefail
-          python validation_temp/20260903-r7-stage-0-5/materialize_0_5.py
+          python validation_temp/20260903-r7-stage-0-5/materialize_0_5_r2.py
           sha256sum /tmp/stage-0-5-r7.json
           python - <<'PY'
           import json
           p=json.load(open('/tmp/stage-0-5-r7.json',encoding='utf-8'))
           assert p['accounting']=={'input':33,'pass':33,'hold':0,'unaccounted':0}
           assert len(p['evidence_complete_and_source_claim_covered'])==33
-          print('RESULT: PASS_0_5_ACCOUNTING')
+          assert len(p['cards'])==33
+          assert [x['source_spec_id'] for x in p['cards']]==[x['source_spec_id'] for x in p['evidence_complete_and_source_claim_covered']]
+          print('RESULT: PASS_0_5_ACCOUNTING_AND_COMPAT_PROJECTION')
           PY
       - name: Evidence QC source audit
         run: python validation_scripts/evidence_qc_v8_check.py /tmp/stage-0-5-r7.json --new-id-file /tmp/current-run-ids-0-5.json --json-report /tmp/evidence-qc-0-5.json

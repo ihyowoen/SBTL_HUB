@@ -1,0 +1,45 @@
+name: Validate R7 Stage B temp
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'validation_temp/20260903-r7-stage-b/**'
+      - '.github/workflows/validate-r7-stage-b-temp.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct and verify Stage B artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat validation_temp/20260903-r7-stage-b/stage-b.part* > /tmp/stage-b.json.gz.b64
+          base64 -d /tmp/stage-b.json.gz.b64 | gzip -d > /tmp/stage-b.json
+          ACTUAL="$(sha256sum /tmp/stage-b.json | awk '{print $1}')"
+          test "$ACTUAL" = "016987404810cdb067afd6a07b0c451f0bd33ce6c178eadcef0a16c440be9cd6"
+          python - <<'PY'
+          import json
+          p=json.load(open('/tmp/stage-b.json', encoding='utf-8'))
+          assert p['strict_passed_spec_count'] == 56
+          assert len(p['draft_cards']) == 38
+          assert len(p['draft_blocked']) == 18
+          assert len(p.get('draft_blocked_schema', [])) == 0
+          assert p['stage_b_accounting_matches_strict_passed_spec_count'] is True
+          print('Stage B transport/accounting: PASS')
+          PY
+
+      - name: Stage B evidence gate
+        run: python validation_scripts/stage_b_evidence_gate.py /tmp/stage-b.json
+
+      - name: Stage B lineage contract
+        run: python validation_scripts/stage_lineage_contract_check.py stage_b /tmp/stage-b.json
+
+      - name: Stage B artifact contract
+        run: python validation_scripts/stage_artifact_contract_check.py B /tmp/stage-b.json

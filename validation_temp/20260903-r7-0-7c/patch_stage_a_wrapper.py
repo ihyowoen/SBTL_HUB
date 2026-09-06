@@ -5,8 +5,15 @@ RUN_ID='card-run-2026-09-06-r7-20260903-production-r1'
 MAIN='5317bec055b88a26cffb136e7844eb488ae4db0d'
 BLOB='8b3d96b5c1fd779567ef8512f7123fc4310093ec'
 TEMPLATE_SHA='a94521812453d18a7036f15296d246eb1d0a45902a3f5a8bb2e5dcab5391987b'
-src=Path('validation_temp/20260903-r7-0-7c/stage-a-production33-template.zlib.b64')
-raw=zlib.decompress(base64.b64decode(src.read_text(encoding='utf-8').strip()))
+base=Path('validation_temp/20260903-r7-0-7c')
+parts=[base/f'stage-a-prod33.part{i:02d}' for i in range(1,8)]
+assert all(p.is_file() for p in parts), [str(p) for p in parts if not p.is_file()]
+chunks=[p.read_text(encoding='utf-8').strip() for p in parts]
+assert [len(x) for x in chunks]==[9000,9000,9000,9000,9000,9000,4388], [len(x) for x in chunks]
+b64=''.join(chunks)
+assert len(b64)==58388 and len(b64)%4==0
+raw=zlib.decompress(base64.b64decode(b64))
+assert len(raw)==684842
 assert hashlib.sha256(raw).hexdigest()==TEMPLATE_SHA
 d=json.loads(raw)
 d['run_id']=RUN_ID
@@ -14,7 +21,6 @@ d['base_main_commit_sha']=MAIN
 d['base_full_blob_sha']=BLOB
 d['stage']='stage_a'
 d['status']='PASS'
-# Current authority envelope is explicit and must remain identical to current-main V4 authority.
 required_docs=[
     'docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md','docs/FACT_DISCIPLINE.md','docs/PROMPT_ABC_DEFAULT_MODE.md',
     'docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md','docs/CARD_ID_STANDARD.md','docs/WORKFLOW.md','docs/OPERATIONS.md',

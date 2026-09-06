@@ -29,7 +29,7 @@ jobs:
           src=pathlib.Path('/tmp/r7-p01p/stage-a-promotion13-prepatch.json')
           out=pathlib.Path('/tmp/r7-p01p/stage-a-promotion13.json')
           d=json.loads(src.read_text(encoding='utf-8'))
-          patches={
+          evidence_patches={
             'STD26_R7_P01P_005': {
               'evidence_needed_for_stage_b': ['Official regulator dataset confirming Q2 2026 rooftop solar capacity of 1 GW, large-scale solar FID capacity of 1.8 GW, and more than 500,000 household battery applications in Australia.'],
               'next_confirmation_points': ['Q3 2026 household battery application count and installed battery capacity would confirm the Australian distributed-storage acceleration thesis; a material decline would weaken that thesis.'],
@@ -47,23 +47,64 @@ jobs:
               'next_confirmation_points': ['New customer contract, additional field energy volume, independent uptime result or battery-health metric for Xos Hub would confirm the commercial-durability thesis; material degradation or reliability failure would weaken that thesis.'],
             },
           }
+          warning='Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.'
+          denom='Named event/program only; no market-wide denominator claimed.'
           byid={s['spec_id']:s for s in d['strict_passed_spec']}
-          assert set(patches) <= set(byid)
-          for sid, patch in patches.items(): byid[sid].update(patch)
+          assert set(evidence_patches) <= set(byid)
+          for sid, patch in evidence_patches.items(): byid[sid].update(patch)
+          for s in d['strict_passed_spec']:
+              s['denominator_used']=denom
+              s['stage_b_requirement_note']=warning
+              s['technology_validation_stage']='field_demonstration' if s['spec_id']=='STD26_R7_P01P_011' else 'concept_or_target'
+          byid['STD26_R7_P01P_009'].update({
+            'legal_instrument_type':'federal_bill',
+            'competent_authority':'Brazilian National Congress; approved by the Federal Senate and remitted to the President of the Republic for sanction or veto.',
+            'procedural_status':'PL 278/2026 approved by the Senate on 2026-09-01 and remitted to presidential sanction on 2026-09-04; sanction/veto period remains open through 2026-09-25.',
+            'adoption_date':'2026-09-01 Senate approval; final presidential enactment not yet completed.',
+            'publication_date':'not_yet_applicable_bill_pending_presidential_sanction',
+            'effective_date':'not_yet_applicable_bill_pending_presidential_sanction',
+            'mandatory_application_date':'not_yet_applicable_bill_pending_presidential_sanction_and_regulation',
+            'affected_entities':['Brazilian legal entities implementing or expanding datacenter services and seeking qualification for REDATA tax benefits.'],
+            'affected_products_or_activities':['Datacenter installation or expansion and qualifying ICT-equipment purchases/imports under REDATA; associated clean-energy procurement and R&D-investment obligations.'],
+            'geographic_scope':'Brazil',
+            'extraterritorial_effect':'No direct extraterritorial obligation identified in bounded Stage A review; foreign suppliers may be indirectly affected through Brazilian datacenter procurement.',
+            'budget_or_funding_source':'Federal tax expenditure through suspended or reduced import, IPI and PIS/Cofins-related taxes; official Senate coverage cited an estimated R$5.2 billion impact in 2026 and R$1 billion in each of the following two years.',
+            'implementation_mechanism':'If sanctioned, qualifying datacenter entities would seek REDATA habilitation and tax treatment subject to statutory conditions and implementing regulation, including clean/renewable-energy supply and R&D-investment requirements.',
+            'administrative_readiness':'Not operationally complete at Stage A: presidential sanction/veto is pending and implementing regulation/habilitation mechanics remain to be verified.',
+            'exemptions_and_thresholds':['Draft text requires conditions including domestic-service availability, clean/renewable-energy sourcing, water-efficiency limits and 2% R&D investment; Stage B must verify the final autógrafo and any thresholds before drafting.'],
+            'transition_and_grandfathering':['Not resolved in bounded Stage A review; Stage B must inspect the final autógrafo and later implementing regulation for transition or grandfathering rules.'],
+            'noncompliance_consequences':['Not yet enforceable before enactment; Stage B must verify whether the final law or regulation provides loss of tax benefits, clawback, fines or other consequences.'],
+            'appeal_or_litigation_risk':'Not yet assessed; the measure remains a bill pending presidential sanction or veto.',
+            'reversibility_risk':'High before enactment because presidential veto can alter or block provisions; after sanction, implementation details may still change through regulation.',
+            'precedent_scope':'Brazilian federal datacenter tax-incentive framework; no broader legal precedent is assumed at Stage A.',
+            'legal_policy_transmission_chain':['Congressional approval of PL 278/2026','Presidential sanction or veto','Official publication if sanctioned','Implementing regulation and REDATA habilitation','Tax-benefit eligibility plus clean-energy/R&D compliance','Datacenter investment and power-procurement response'],
+            'next_implementation_trigger':'Presidential sanction or veto by 2026-09-25; if sanctioned, official publication and implementing regulation/habilitation rules are the next measurable triggers.'
+          })
           for row in d['decision_ledger']:
-              sid=row.get('spec_id') or row.get('source_spec_id')
-              if sid in patches: row.update(patches[sid])
-          out.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+              sid=row.get('spec_id')
+              if sid in byid:
+                  ss=byid[sid]
+                  row['denominator_used']=ss['denominator_used']
+                  row['technology_validation_stage']=ss['technology_validation_stage']
+                  row['technology_score_cap_applied']=ss.get('technology_score_cap_applied',False)
+                  row['technology_validation_gap']=ss.get('technology_validation_gap')
+                  row['legal_policy_stage']=ss.get('legal_policy_stage')
+                  if sid in evidence_patches: row.update(evidence_patches[sid])
+          d['next_call_recommendation']['recommended_next_call']='Stage B r0'
+          d['next_call_recommendation']['recommended_prompt_id']='Prompt 0.2'
+          d['next_call_recommendation']['recommended_input_universe']='Stage A strict_passed_spec[] only'
+          d['next_call_recommendation']['reason']='Thirteen of 52 authorized Prompt 0.1P candidates are re-emitted through the ordinary Stage A V4 strict_passed_spec contract; 39 remain outside Stage B.'
           c=d['candidate_promotion_contract']
           assert len(d['strict_passed_spec'])==13 and len(d['decision_ledger'])==13
           assert (c['candidate_count'],c['promoted_count'],c['retained_count'])==(52,13,39)
           assert len(c['promotion_ledger'])==52
           assert sum(1 for r in c['promotion_ledger'] if r.get('disposition')=='promoted_to_strict_passed_spec')==13
           assert sum(1 for r in c['promotion_ledger'] if r.get('disposition')=='retain_candidate_review_pool')==39
+          out.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           PY
-          test "$(sha256sum /tmp/r7-p01p/stage-a-promotion13.json | awk '{print $1}')" = "3a0f74e297ff7b420b92c825272374bd5e2ec405c77bc935b1607f52d1ff13aa"
-          echo 'prepatch_sha=6eb124e52bdf8e2396a52b2367a4571612a5a095ec58c243dec2cdb9f3de85b0'
-          echo 'patched_sha=3a0f74e297ff7b420b92c825272374bd5e2ec405c77bc935b1607f52d1ff13aa'
+          test "$(sha256sum /tmp/r7-p01p/stage-a-promotion13.json | awk '{print $1}')" = "d3f9e12d165d14006283bc8dc1c9b1278f24c664927e29309ddbfd73cd562f8b"
+          echo 'source_sha=6eb124e52bdf8e2396a52b2367a4571612a5a095ec58c243dec2cdb9f3de85b0'
+          echo 'r3_sha=d3f9e12d165d14006283bc8dc1c9b1278f24c664927e29309ddbfd73cd562f8b'
           echo 'accounting=candidate52 promoted13 retained39 strict13'
 
       - name: Run current-main Stage A machine gates

@@ -1,0 +1,53 @@
+name: Validate R7 Prompt 0.7C temp
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-0-7c:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify frozen baseline
+        run: |
+          set -euo pipefail
+          test "${{ github.event.pull_request.base.sha }}" = "5317bec055b88a26cffb136e7844eb488ae4db0d"
+          test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+      - name: Materialize exact operation-bound 0.7C package
+        run: |
+          set -euo pipefail
+          python validation_temp/20260903-r7-0-7c/materialize_0_7c.py
+          python - <<'PY'
+          import json,hashlib
+          root='runs/2026-09-06/r7-20260903-production-r1'
+          c=json.load(open(root+'/stage-0-7c.json',encoding='utf-8'))
+          r=json.load(open(root+'/card-run.json',encoding='utf-8'))
+          assert c['status']=='PASS_WITH_DECLARED_RESIDUAL_RISK'
+          assert c['reviewed_operations_sha256']=='a810e964e298a627b7edc65d28805b03f29a371a016b0aece5053f4589c87407'
+          assert c['operation_freeze']['insert']==33 and c['operation_freeze']['related_add']==3
+          assert len(c['residual_risks'])>=1 and c['prompt_0_8_authorized'] is True
+          print('RESULT: PASS_0_7C_ENVELOPE_AND_OPERATION_FREEZE')
+          PY
+      - name: Validate card-run schema
+        run: node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance runs/2026-09-06/r7-20260903-production-r1/card-run.json
+      - name: Validate operation Related shape
+        run: node scripts/validate_card_run_relations.mjs --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+      - name: Validate exact 0.7C operation binding and ordinary stage chain
+        run: node scripts/validate_card_run_stage_artifacts.mjs --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+      - name: Validate V4 document universe coverage completeness and stage bindings
+        run: node scripts/validate_card_run_v4_hardening.mjs --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+      - name: Validate authoritative Python V4 operation binding
+        run: python validation_scripts/card_run_v4_binding_hardening.py --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+      - name: Active workflow regression suite
+        run: python validation_scripts/run_active_workflow_tests.py
+      - name: Upload independently reviewed 0.7C package
+        uses: actions/upload-artifact@v4
+        with:
+          name: r7-stage-0-7c-validated
+          path: |
+            runs/2026-09-06/r7-20260903-production-r1/stage-0-0d.json
+            runs/2026-09-06/r7-20260903-production-r1/stage-0-0c.json
+            runs/2026-09-06/r7-20260903-production-r1/stage-0-7c.json
+            runs/2026-09-06/r7-20260903-production-r1/card-run.json
+            runs/2026-09-06/r7-20260903-production-r1/stages/*.json

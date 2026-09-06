@@ -1,0 +1,42 @@
+name: Validate R7 Stage C 0.3R temp
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-0-3r:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Materialize 0.3R Stage C
+        run: |
+          set -euo pipefail
+          python validation_temp/20260903-r7-stage-c-0-3r/materialize_0_3r.py
+          sha256sum /tmp/stage-c-0.3r-accepted33.json
+      - name: Verify 0.3R accounting and relation lock
+        run: |
+          python - <<'PY'
+          import json,re
+          p=json.load(open('/tmp/stage-c-0.3r-accepted33.json',encoding='utf-8'))
+          assert p['accounting']=={'input':34,'accepted_fact_safe':33,'support_source_only':1,'revise_required':0,'rejected':0,'deferred':0,'unaccounted':0}
+          assert len(p['accepted_fact_safe'])==33 and len(p['support_source_only'])==1
+          assert p['support_source_only'][0]['source_event_id']=='E0157'
+          follow={x['source_event_id']:x['related_lineage'] for x in p['accepted_fact_safe'] if x['source_event_id'] in {'E0005','E0167'}}
+          assert follow['E0005']['related_ids']==['2026-05-27_GL_01']
+          assert follow['E0167']['related_ids']==['2026-07-02_GL_08','2026-04-16_GL_02']
+          assert all(x['route_validation']['exactly_one_active_route'] for x in p['accepted_fact_safe'])
+          assert all(x['visible_field_fact_safe']['unsupported_visible_claim_count']==0 for x in p['accepted_fact_safe'])
+          print('RESULT: PASS_0_3R_ACCOUNTING_AND_RELATION_LOCK')
+          PY
+      - name: Stage C lineage contract
+        run: python validation_scripts/stage_lineage_contract_check.py stage_c /tmp/stage-c-0.3r-accepted33.json
+      - name: Stage C artifact contract
+        run: python validation_scripts/stage_artifact_contract_check.py C /tmp/stage-c-0.3r-accepted33.json
+      - name: Active workflow regression suite
+        run: python validation_scripts/run_active_workflow_tests.py
+      - name: Upload validated 0.3R artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: r7-stage-c-0-3r-validated
+          path: /tmp/stage-c-0.3r-accepted33.json

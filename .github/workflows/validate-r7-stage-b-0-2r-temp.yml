@@ -1,0 +1,52 @@
+name: Validate R7 Stage B 0.2R temp
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-0-2r:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Materialize controlled 0.2R repair
+        run: |
+          set -euo pipefail
+          python validation_temp/20260903-r7-stage-b-0-2r/materialize_0_2r_r2.py
+          sha256sum /tmp/stage-b-0.2r-reestablished34.json /tmp/stage-b-0.2r-audit.json
+      - name: Verify repair scope and visible-copy hygiene
+        run: |
+          python - <<'PY'
+          import json,re
+          p=json.load(open('/tmp/stage-b-0.2r-reestablished34.json',encoding='utf-8'))
+          a=json.load(open('/tmp/stage-b-0.2r-audit.json',encoding='utf-8'))
+          assert p['strict_passed_spec_count']==34
+          assert len(p['draft_cards'])==34 and len(p.get('draft_blocked',[]))==0 and len(p.get('draft_blocked_schema',[]))==0
+          assert a['controlled_repair_count']==34 and a['upstream_return_count']==4 and a['unaccounted']==0
+          assert sorted(a['upstream_return_count'] for _ in [0])==[4]
+          bad=[]
+          pat=re.compile(r'supplied R7 packet|Stage B must verify|Stage C|current[- ]run|pipeline',re.I)
+          for d in p['draft_cards']:
+              for f in ('title','sub','gate','fact'):
+                  if pat.search(str(d.get(f,''))): bad.append((d.get('source_spec_id'),f,d.get(f)))
+              for v in d.get('implication',[]):
+                  if pat.search(str(v)): bad.append((d.get('source_spec_id'),'implication',v))
+          assert not bad,bad
+          assert p['upstream_return_event_ids']==['E0115','E0171','E0225','E0246']
+          print('RESULT: PASS_0_2R_SCOPE_AND_VISIBLE_COPY')
+          PY
+      - name: Re-established Stage B evidence gate
+        run: python validation_scripts/stage_b_evidence_gate.py /tmp/stage-b-0.2r-reestablished34.json
+      - name: Re-established Stage B lineage contract
+        run: python validation_scripts/stage_lineage_contract_check.py stage_b /tmp/stage-b-0.2r-reestablished34.json
+      - name: Re-established Stage B artifact contract
+        run: python validation_scripts/stage_artifact_contract_check.py B /tmp/stage-b-0.2r-reestablished34.json
+      - name: Active workflow regression suite
+        run: python validation_scripts/run_active_workflow_tests.py
+      - name: Upload validated 0.2R artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: r7-stage-b-0-2r-validated
+          path: |
+            /tmp/stage-b-0.2r-reestablished34.json
+            /tmp/stage-b-0.2r-audit.json

@@ -18,6 +18,7 @@ jobs:
         run: |
           set -euo pipefail
           python validation_temp/20260903-r7-operations/materialize_operations.py | tee /tmp/operation-materialization.txt
+          cp /tmp/r7-card-run-draft.json validation_temp/20260903-r7-operations/runtime-card-run.json
           test "$(wc -l < /tmp/r7-operations-sha.txt)" = "1"
           python - <<'PY'
           import json,re
@@ -35,7 +36,7 @@ jobs:
       - name: Validate card-run JSON schema
         run: node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance /tmp/r7-card-run-draft.json
       - name: Validate declared Related operation shape
-        run: node scripts/validate_card_run_relations.mjs --run /tmp/r7-card-run-draft.json
+        run: node scripts/validate_card_run_relations.mjs --run validation_temp/20260903-r7-operations/runtime-card-run.json
       - name: Cross-check stable operations SHA with engine serialization
         run: |
           node --input-type=module - <<'JS'

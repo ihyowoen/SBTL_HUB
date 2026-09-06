@@ -1,0 +1,48 @@
+name: Validate R7 Prompt 0.6 temp
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-0-6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify locked current baseline
+        run: |
+          set -euo pipefail
+          test "${{ github.event.pull_request.base.sha }}" = "5317bec055b88a26cffb136e7844eb488ae4db0d"
+          test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+      - name: Materialize Prompt 0.6
+        run: |
+          set -euo pipefail
+          python validation_temp/20260903-r7-stage-0-6/materialize_0_6.py
+          sha256sum /tmp/stage-0-6-r7.json
+          python - <<'PY'
+          import json
+          p=json.load(open('/tmp/stage-0-6-r7.json',encoding='utf-8'))
+          assert p['accounting']=={'input':33,'pass':33,'return_evidence':0,'return_upstream':0,'unaccounted':0}
+          assert len(p['content_enriched_and_language_polished'])==33
+          assert all(x['content_enriched'] is True and x['language_terminology_polished'] is True for x in p['content_enriched_and_language_polished'])
+          print('RESULT: PASS_0_6_ACCOUNTING')
+          PY
+      - name: Evidence QC preservation
+        run: python validation_scripts/evidence_qc_v8_check.py /tmp/stage-0-6-r7.json --new-id-file /tmp/current-run-ids-0-6.json --json-report /tmp/evidence-qc-0-6.json
+      - name: Related lifecycle preservation
+        run: python validation_scripts/related_lifecycle_check.py /tmp/stage-0-6-r7.json --require-contract --allow-provisional-related --new-id-file /tmp/current-run-ids-0-6.json --report /tmp/related-0-6.json
+      - name: Date-role freshness preservation
+        run: python validation_scripts/date_role_freshness_check.py /tmp/stage-0-6-r7.json --require-date-role --new-id-file /tmp/current-run-ids-0-6.json
+      - name: Prompt 0.6 artifact contract
+        run: python validation_scripts/stage_artifact_contract_check.py 0.6 /tmp/stage-0-6-r7.json
+      - name: Active workflow regression suite
+        run: python validation_scripts/run_active_workflow_tests.py
+      - name: Upload validated 0.6 artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: r7-stage-0-6-validated
+          path: |
+            /tmp/stage-0-6-r7.json
+            /tmp/evidence-qc-0-6.json
+            /tmp/related-0-6.json
+            /tmp/current-run-ids-0-6.json

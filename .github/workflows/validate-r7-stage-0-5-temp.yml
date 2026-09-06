@@ -23,16 +23,17 @@ jobs:
           python - <<'PY'
           import json
           p=json.load(open('/tmp/stage-0-5-r7.json',encoding='utf-8'))
+          current=p['evidence_complete_and_source_claim_covered']
           assert p['accounting']=={'input':33,'pass':33,'hold':0,'unaccounted':0}
-          assert len(p['evidence_complete_and_source_claim_covered'])==33
-          assert len(p['cards'])==33
-          assert [x['source_spec_id'] for x in p['cards']]==[x['source_spec_id'] for x in p['evidence_complete_and_source_claim_covered']]
-          print('RESULT: PASS_0_5_ACCOUNTING_AND_COMPAT_PROJECTION')
+          assert len(current)==33
+          assert len(p['cards'])==1536+33
+          assert [x['source_spec_id'] for x in p['cards'][-33:]]==[x['source_spec_id'] for x in current]
+          print('RESULT: PASS_0_5_ACCOUNTING_AND_MERGED_BASELINE_PROJECTION')
           PY
       - name: Evidence QC source audit
         run: python validation_scripts/evidence_qc_v8_check.py /tmp/stage-0-5-r7.json --new-id-file /tmp/current-run-ids-0-5.json --json-report /tmp/evidence-qc-0-5.json
       - name: Related lifecycle recheck
-        run: python validation_scripts/related_lifecycle_check.py /tmp/stage-0-5-r7.json --require-contract --allow-provisional-related --new-id-file /tmp/current-run-ids-0-5.json
+        run: python validation_scripts/related_lifecycle_check.py /tmp/stage-0-5-r7.json --require-contract --allow-provisional-related --new-id-file /tmp/current-run-ids-0-5.json --report /tmp/related-0-5.json
       - name: Date-role freshness recheck
         run: python validation_scripts/date_role_freshness_check.py /tmp/stage-0-5-r7.json --require-date-role --new-id-file /tmp/current-run-ids-0-5.json
       - name: Prompt 0.5 artifact contract
@@ -46,4 +47,5 @@ jobs:
           path: |
             /tmp/stage-0-5-r7.json
             /tmp/evidence-qc-0-5.json
+            /tmp/related-0-5.json
             /tmp/current-run-ids-0-5.json

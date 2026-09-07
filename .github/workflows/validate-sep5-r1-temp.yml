@@ -35,10 +35,10 @@ jobs:
           print('RESULT: PASS_FROZEN_SEP5_BASELINE')
           PY
 
-      - name: Materialize operation-bound Sep5 chain R8
+      - name: Materialize operation-bound Sep5 chain R9 Codex remediation
         run: |
           set -euo pipefail
-          python validation_temp/20260905-r1/materialize_r8.py
+          python validation_temp/20260905-r1/materialize_r9.py
 
       - name: Validate Stage A full contract
         run: |
@@ -77,7 +77,7 @@ jobs:
           dst=Path('/tmp/sep5-related-cards.json')
           p=json.loads(src.read_text(encoding='utf-8'))
           cards=p.get('publish_ready')
-          assert isinstance(cards,list) and cards, 'publish_ready[] missing for Related projection'
+          assert isinstance(cards,list) and cards
           dst.write_text(json.dumps({'cards':cards},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print('RESULT: PASS_RELATED_INPUT_PROJECTION',len(cards))
           PY
@@ -94,7 +94,7 @@ jobs:
           node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
           node scripts/validate_card_run_relations.mjs --run "$RUN"
 
-      - name: Verify exact operation and stage-byte freeze
+      - name: Verify exact operation and stage-byte freeze including nested certification binding
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -109,23 +109,26 @@ jobs:
             return v
           def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
           ops=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-          assert q['reviewed_operations_sha256']==ops
-          assert q['operation_freeze']['operations_sha256']==ops
           expected={
-            'stage_a':sha(root/'stages/stage-a.json'),
-            'stage_b':sha(root/'stages/stage-b.json'),
-            'stage_c':sha(root/'stages/stage-c.json'),
-            'stage_0_4':sha(root/'stages/stage-0-4.json'),
-            'stage_0_5':sha(root/'stages/stage-0-5.json'),
-            'stage_0_6':sha(root/'stages/stage-0-6.json'),
+            'stage_a':sha(root/'stages/stage-a.json'),'stage_b':sha(root/'stages/stage-b.json'),
+            'stage_c':sha(root/'stages/stage-c.json'),'stage_0_4':sha(root/'stages/stage-0-4.json'),
+            'stage_0_5':sha(root/'stages/stage-0-5.json'),'stage_0_6':sha(root/'stages/stage-0-6.json'),
             'stage_0_7':sha(root/'stages/stage-0-7.json'),
           }
+          assert q['reviewed_operations_sha256']==ops
+          assert q['operation_freeze']['operations_sha256']==ops
           assert q['hash_chain']==expected
+          assert q['round_6_operation_binding']['reviewed_operations_sha256']==ops
+          assert q['round_6_operation_binding']['stage_hashes']==expected
           assert json.load(open(root/'stages/stage-0-4.json'))['stage_c_artifact_sha256']==expected['stage_c']
           assert json.load(open(root/'stages/stage-0-5.json'))['stage_0_4_artifact_sha256']==expected['stage_0_4']
           assert json.load(open(root/'stages/stage-0-6.json'))['input_0_5_sha256']==expected['stage_0_5']
           assert json.load(open(root/'stages/stage-0-7.json'))['input_0_6_sha256']==expected['stage_0_6']
-          print('RESULT: PASS_EXACT_SEP5_OPERATION_AND_STAGE_FREEZE')
+          inserts=run['operations']['insert']
+          eng=[x['card'] for x in inserts if x.get('card',{}).get('spec_id')=='STD26_R8_005']
+          assert len(eng)==1 and eng[0]['region']=='GL' and eng[0]['id']=='2026-09-04_GL_01'
+          assert q['codex_p2_remediation']['status']=='PASS'
+          print('RESULT: PASS_EXACT_SEP5_R9_OPERATION_AND_STAGE_FREEZE')
           print('OPS_SHA',ops)
           print('HASH_CHAIN',json.dumps(expected,sort_keys=True))
           PY
@@ -135,10 +138,10 @@ jobs:
           set -euo pipefail
           python validation_scripts/run_active_workflow_tests.py
 
-      - name: Upload validated Sep5 package
+      - name: Upload validated Sep5 R9 package
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sep5-r1-stage-0-7c-validated
+          name: sep5-r1-stage-0-7c-validated-r9
           path: runs/2026-09-07/r7-20260905-production-r1/**
           if-no-files-found: error

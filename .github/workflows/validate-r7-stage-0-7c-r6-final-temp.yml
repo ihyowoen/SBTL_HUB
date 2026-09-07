@@ -1,0 +1,135 @@
+name: Validate R7 Prompt 0.7C R6 final temp
+
+on:
+  pull_request:
+    types: [synchronize]
+    branches: [main]
+    paths:
+      - .github/workflows/validate-r7-stage-0-7c-r6-final-temp.yml
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  certify-0-7c-r6:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify frozen baseline
+        run: |
+          set -euo pipefail
+          test "${{ github.event.pull_request.base.sha }}" = "5317bec055b88a26cffb136e7844eb488ae4db0d"
+          test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+          test "$(git rev-parse 5317bec055b88a26cffb136e7844eb488ae4db0d:data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+
+      - name: Download certified Stage A and 0.1P source artifacts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/9970708388/zip \
+            -o /tmp/r7-stage-a.zip
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/9983121313/zip \
+            -o /tmp/r7-p01p.zip
+          echo "cf3e1a39c8586f35a34ce61a8e9d954b65e9c1beb7f5549e7aab12f728e8f993  /tmp/r7-stage-a.zip" | sha256sum -c -
+          echo "6017129d695afb128c82b990d6d2654f7e028a7b229ed56f0db6d5e66c630b5f  /tmp/r7-p01p.zip" | sha256sum -c -
+          mkdir -p /tmp/r7-stage-a-src /tmp/r7-p01p-src
+          unzip -q /tmp/r7-stage-a.zip -d /tmp/r7-stage-a-src
+          unzip -q /tmp/r7-p01p.zip -d /tmp/r7-p01p-src
+          test -s /tmp/r7-stage-a-src/r7-stage-a-full/stage-a-b01.json
+          test -s /tmp/r7-p01p-src/r7-p01p/stage-a-promotion13.json
+
+      - name: Deterministically materialize exact R6 package
+        run: |
+          set -euo pipefail
+          python validation_temp/20260903-r7-0-7c/materialize_0_7c.py
+          python validation_temp/20260903-r7-0-7c/patch_operation_runtime_conflict_r2.py
+          python validation_temp/20260903-r7-0-7c/patch_followup_contract_projection_r3.py
+          python validation_temp/20260903-r7-0-7c/patch_stage_a_wrapper.py
+          python validation_temp/20260903-r7-0-7c/patch_codex_review_r5.py
+          python validation_temp/20260903-r7-0-7c/patch_codex_review_r5_stagea_sync.py
+          python validation_temp/20260903-r7-0-7c/run_patch_codex_review_r6.py
+
+      - name: Freeze exact R6 operation and stage hashes
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('runs/2026-09-06/r7-20260903-production-r1')
+          p=root/'stages'
+          def load(path): return json.load(open(path,encoding='utf-8'))
+          def stable(v):
+            if isinstance(v,list): return [stable(x) for x in v]
+            if isinstance(v,dict): return {k:stable(v[k]) for k in sorted(v)}
+            return v
+          def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+          run=load(root/'card-run.json'); c=load(root/'stage-0-7c.json')
+          op_sha=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+          expected={
+            'op':'82b5055b8410525fc2246b898bedf43cf0a6169c00828036e289576c020f54ab',
+            'c':'cf908afe889ed5a93566017d1000654e53c977261e1f3296a50c0101fe5452c6',
+            '04':'d7a6d79e624f6cbfe63b456b7139e1022e90ba52f817f194435bb3e39e6011d2',
+            '05':'c30c50934f29ff7a8dd960fc7c64fb0e66263e49a5a066485f6e6329e431f55c',
+            '06':'8a52693ecf8da9cf6ef1c8d4ca320e82781f2cd393fd34c5285a59d05c677cf9',
+            '07':'462b4720786f1ead62b7a6ea4f9ed3bf5a35f9697c9f7edbea2c97b9a12a2ec9',
+          }
+          assert op_sha==expected['op']
+          assert c['reviewed_operations_sha256']==expected['op']
+          assert c['operation_freeze']['operations_sha256']==expected['op']
+          assert c['operation_freeze']['insert']==33 and c['operation_freeze']['update']==0 and c['operation_freeze']['related_add']==4
+          assert sha(p/'stage-c.json')==expected['c']
+          assert sha(p/'stage-0-4.json')==expected['04']
+          assert sha(p/'stage-0-5.json')==expected['05']
+          assert sha(p/'stage-0-6.json')==expected['06']
+          assert sha(p/'stage-0-7.json')==expected['07']
+          s4=load(p/'stage-0-4.json'); s5=load(p/'stage-0-5.json'); s6=load(p/'stage-0-6.json'); s7=load(p/'stage-0-7.json')
+          assert s4['stage_c_artifact_sha256']==expected['c']
+          assert s5['stage_0_4_artifact_sha256']==expected['04']
+          assert s6['input_0_5_sha256']==expected['05']
+          assert s7['input_0_6_sha256']==expected['06']
+          assert c['review_corrections_r6']['status']=='PASS'
+          assert c['hash_chain_rebinding_r6']['status']=='PASS'
+          print('RESULT: R6_EXACT_FREEZE_PASS', expected)
+          PY
+
+      - name: Validate card-run schema
+        run: node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance runs/2026-09-06/r7-20260903-production-r1/card-run.json
+
+      - name: Validate operation Related shape
+        run: node scripts/validate_card_run_relations.mjs --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+
+      - name: Validate exact 0.7C operation binding and ordinary stage chain
+        run: node scripts/validate_card_run_stage_artifacts.mjs --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+
+      - name: Validate V4 document universe coverage completeness and stage bindings
+        run: node scripts/validate_card_run_v4_hardening.mjs --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+
+      - name: Validate authoritative Python V4 operation binding
+        run: python validation_scripts/card_run_v4_binding_hardening.py --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+
+      - name: Active workflow regression suite
+        run: python validation_scripts/run_active_workflow_tests.py
+
+      - name: Upload exact certified R6 package
+        uses: actions/upload-artifact@v4
+        with:
+          name: r7-stage-0-7c-validated-r6
+          path: |
+            runs/2026-09-06/r7-20260903-production-r1/stage-0-0d.json
+            runs/2026-09-06/r7-20260903-production-r1/stage-0-0c.json
+            runs/2026-09-06/r7-20260903-production-r1/stage-0-7c.json
+            runs/2026-09-06/r7-20260903-production-r1/card-run.json
+            runs/2026-09-06/r7-20260903-production-r1/stages/*.json

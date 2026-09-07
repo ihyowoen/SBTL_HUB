@@ -35,16 +35,17 @@ jobs:
           print('RESULT: PASS_FROZEN_SEP5_BASELINE')
           PY
 
-      - name: Materialize operation-bound Sep5 chain R3
+      - name: Materialize operation-bound Sep5 chain R4
         run: |
           set -euo pipefail
-          python validation_temp/20260905-r1/materialize_r3.py
+          python validation_temp/20260905-r1/materialize_r4.py
 
-      - name: Validate Stage A contract
+      - name: Validate Stage A full contract
         run: |
           set -euo pipefail
           ROOT=runs/2026-09-07/r7-20260905-production-r1/stages
           python validation_scripts/stage_artifact_contract_check.py A "$ROOT/stage-a.json"
+          python validation_scripts/stage_lineage_contract_check.py stage_a "$ROOT/stage-a.json"
 
       - name: Validate Stage B evidence and contract
         run: |

@@ -1,0 +1,108 @@
+name: Materialize R7 production Prompt 0.8 temp
+
+on:
+  push:
+    branches:
+      - chatgpt/validate-20260903-r7-operations-0-7c
+    paths:
+      - .github/workflows/materialize-r7-production-0-8-temp.yml
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: r7-production-0-8-materialization
+  cancel-in-progress: false
+
+jobs:
+  materialize-and-push-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout builder source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: builder
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Checkout clean production branch
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/production-20260903-r7-33
+          path: work
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Verify production branch is exact frozen main
+        working-directory: work
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "5317bec055b88a26cffb136e7844eb488ae4db0d"
+          test "$(git rev-parse 5317bec055b88a26cffb136e7844eb488ae4db0d:data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+          test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+          test -z "$(git status --porcelain)"
+
+      - name: Download exact machine-PASS 0.7C package
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/9999939415/zip \
+            -o /tmp/r7-stage-0-7c-validated.zip
+          echo "6602cf747a2c7a8ea58e85a76c47e7731de6216cb7f354c4342c24a95f723d4c  /tmp/r7-stage-0-7c-validated.zip" | sha256sum -c -
+          mkdir -p work/runs/2026-09-06/r7-20260903-production-r1
+          unzip -q /tmp/r7-stage-0-7c-validated.zip -d work/runs/2026-09-06/r7-20260903-production-r1
+          test -s work/runs/2026-09-06/r7-20260903-production-r1/card-run.json
+          test -s work/runs/2026-09-06/r7-20260903-production-r1/stage-0-7c.json
+          echo "RESULT: PASS_EXACT_0_7C_ARTIFACT_IMPORT"
+
+      - name: Materialize and fully validate Prompt 0.8 production result
+        working-directory: work
+        run: |
+          set -euo pipefail
+          python ../builder/validation_temp/20260903-r7-0-8/materialize_production_0_8.py
+
+      - name: Active workflow regression suite
+        working-directory: work
+        run: |
+          set -euo pipefail
+          python validation_scripts/run_active_workflow_tests.py
+
+      - name: Enforce production diff allowlist
+        working-directory: work
+        run: |
+          set -euo pipefail
+          git diff --check
+          mapfile -t changed < <(git status --porcelain=v1 | sed -E 's/^.. //')
+          test ${#changed[@]} -gt 0
+          printf 'Changed paths:\n'
+          printf ' - %s\n' "${changed[@]}"
+          for path in "${changed[@]}"; do
+            case "$path" in
+              data/cards.full.json|public/data/cards.json|runs/2026-09-06/r7-20260903-production-r1/*) ;;
+              *) echo "FAIL: undeclared production path $path" >&2; exit 1 ;;
+            esac
+          done
+          test -f data/cards.full.json
+          test -f public/data/cards.json
+          test -f runs/2026-09-06/r7-20260903-production-r1/card-run.json
+          test -f runs/2026-09-06/r7-20260903-production-r1/stage-0-8.json
+          test -f runs/2026-09-06/r7-20260903-production-r1/card-run-audit.json
+
+      - name: Commit validated production package only after all gates pass
+        working-directory: work
+        run: |
+          set -euo pipefail
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add data/cards.full.json public/data/cards.json runs/2026-09-06/r7-20260903-production-r1
+          git diff --cached --check
+          git commit -m "Publish governed Sep 3 R7 33 cards"
+          git push origin HEAD:chatgpt/production-20260903-r7-33
+          echo "RESULT: PRODUCTION_BRANCH_PUSHED $(git rev-parse HEAD)"

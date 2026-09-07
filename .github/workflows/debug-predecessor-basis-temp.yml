@@ -1,4 +1,4 @@
-name: Debug predecessor_basis contract temp
+name: Debug R7 Prompt 0.8 Related failure temp
 
 on:
   pull_request:
@@ -6,30 +6,101 @@ on:
     paths:
       - .github/workflows/debug-predecessor-basis-temp.yml
 
+permissions:
+  contents: read
+  actions: read
+
 jobs:
-  inspect:
+  diagnose:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout builder source
+        uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: builder
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Checkout frozen production baseline
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/production-20260903-r7-33
+          path: work
           fetch-depth: 0
-      - name: Inspect validation_temp and runtime Related contract
+          persist-credentials: false
+
+      - name: Verify frozen baseline
+        working-directory: work
         run: |
           set -euo pipefail
-          echo '=== validation_temp predecessor/basis ==='
-          grep -R -n -C 8 --exclude-dir=.git -E 'predecessor_basis|basis mapping|mapping per related_id' validation_temp | head -n 500 || true
-          echo '=== all repo predecessor/basis ==='
-          grep -R -n -C 6 --exclude-dir=.git -E 'predecessor_basis|basis mapping|mapping per related_id' validation_scripts docs schemas scripts data/cards.full.json | head -n 500 || true
-          echo '=== R3 builder relevant commands ==='
-          grep -R -n -C 5 -E 'related_lifecycle|predecessor|basis|check_card' validation_temp/20260903-r7-0-8 validation_temp/20260903-r7-0-7c | head -n 500 || true
-          echo '=== runtime callable provenance/constants ==='
-          python - <<'PY'
-          import inspect, types
-          import validation_scripts.related_lifecycle_check as m
-          print('module_file',m.__file__)
-          print('check_card_module',m.check_card.__module__)
-          print('check_card_sourcefile',inspect.getsourcefile(m.check_card))
-          print('check_card_firstlineno',m.check_card.__code__.co_firstlineno)
-          const=' | '.join(str(x) for x in m.check_card.__code__.co_consts if isinstance(x,str))
-          print('public_check_card_consts',const[:12000])
+          test "$(git rev-parse HEAD)" = "5317bec055b88a26cffb136e7844eb488ae4db0d"
+          test "$(git rev-parse 5317bec055b88a26cffb136e7844eb488ae4db0d:data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+          test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+
+      - name: Download authoritative 0.7C R3 artifact
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10002885342/zip \
+            -o /tmp/r7-stage-0-7c-validated-r3.zip
+          echo "cae88924b7735e0810e69b8d9e8b543cda1fe71af3ec19c521238e365702d170  /tmp/r7-stage-0-7c-validated-r3.zip" | sha256sum -c -
+          mkdir -p work/runs/2026-09-06/r7-20260903-production-r1
+          unzip -q /tmp/r7-stage-0-7c-validated-r3.zip -d work/runs/2026-09-06/r7-20260903-production-r1
+
+      - name: Reproduce 0.8 failure without pushing
+        working-directory: work
+        run: |
+          set -u
+          set +e
+          python ../builder/validation_temp/20260903-r7-0-8/materialize_production_0_8_r3.py > /tmp/materializer.out 2>&1
+          rc=$?
+          echo "$rc" > /tmp/materializer.rc
+          cat /tmp/materializer.out
+          echo "materializer_rc=$rc"
+          test "$rc" -ne 0
+
+      - name: Capture exact Related contract report from failed candidate
+        if: always()
+        working-directory: work
+        run: |
+          set -u
+          ROOT=runs/2026-09-06/r7-20260903-production-r1
+          if test -s "$ROOT/prompt-0-8-id-ledger.json"; then
+            set +e
+            python validation_scripts/related_lifecycle_check.py data/cards.full.json \
+              --require-contract \
+              --new-id-file "$ROOT/prompt-0-8-id-ledger.json" \
+              --report /tmp/related-report.json > /tmp/related.out 2>&1
+            echo "$?" > /tmp/related.rc
+            cat /tmp/related.out
+          else
+            echo "ledger_missing" > /tmp/related.out
+            echo "99" > /tmp/related.rc
+          fi
+          python - <<'PY' > /tmp/followup-cards.json
+          import json
+          d=json.load(open('data/cards.full.json',encoding='utf-8-sig'))
+          ids={'2026-09-02_GL_01','2026-09-02_GL_02'}
+          print(json.dumps([c for c in d['cards'] if c.get('id') in ids],ensure_ascii=False,indent=2))
           PY
+
+      - name: Upload diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r7-0-8-related-diagnostic
+          path: |
+            /tmp/materializer.out
+            /tmp/materializer.rc
+            /tmp/related.out
+            /tmp/related.rc
+            /tmp/related-report.json
+            /tmp/followup-cards.json
+          if-no-files-found: warn
+          retention-days: 2

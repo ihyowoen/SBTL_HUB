@@ -1,0 +1,188 @@
+name: Materialize Sep5 R10 Codex remediation temp
+
+on:
+  push:
+    branches: [chatgpt/validate-20260905-r1]
+    paths:
+      - .github/workflows/materialize-sep5-production-r10-remediation-temp.yml
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: sep5-r10-production-remediation
+  cancel-in-progress: false
+
+jobs:
+  remediate-production-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout R10 builder
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: builder
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Checkout exact frozen base
+        uses: actions/checkout@v4
+        with:
+          ref: eb1a311ed378fcdf547b52ad5da0652cb9f1fc62
+          path: basework
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify live main is still frozen
+        working-directory: basework
+        run: |
+          set -euo pipefail
+          git fetch origin main --quiet
+          test "$(git rev-parse HEAD)" = "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62"
+          test "$(git rev-parse origin/main)" = "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62"
+          test "$(git rev-parse HEAD:data/cards.full.json)" = "707fe5ea9836a0c2341771397da32c818a95cbed"
+          echo "RESULT: PASS_R10_FROZEN_MAIN"
+
+      - name: Download exact R10 independent 0.7C artifact
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10015551124/zip \
+            -o /tmp/sep5-r10-0-7c.zip
+          echo "327cebb645625d7590365916c0452b025865d4b34037d52bb1c9a45156ee579e  /tmp/sep5-r10-0-7c.zip" | sha256sum -c -
+          mkdir -p basework/runs/2026-09-07/r7-20260905-production-r1
+          unzip -q /tmp/sep5-r10-0-7c.zip -d basework/runs/2026-09-07/r7-20260905-production-r1
+          mkdir -p basework/validation_temp/20260905-r1
+          cp builder/validation_temp/20260905-r1/materialize_production_0_8.py basework/validation_temp/20260905-r1/
+          cp builder/validation_temp/20260905-r1/materialize_production_0_8_r10.py basework/validation_temp/20260905-r1/
+
+      - name: Materialize exact R10 Prompt 0.8 from frozen base
+        working-directory: basework
+        run: |
+          set -euo pipefail
+          python validation_temp/20260905-r1/materialize_production_0_8_r10.py
+          python validation_scripts/run_active_workflow_tests.py
+
+      - name: Checkout current PR 341 production head
+        uses: actions/checkout@v4
+        with:
+          ref: chatgpt/production-20260905-r8-9
+          path: prodwork
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Race-protect reviewed production head
+        working-directory: prodwork
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "7466afe22d0a7c7016d34d71e8e0837c63256970"
+          git fetch origin main --quiet
+          test "$(git rev-parse origin/main)" = "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62"
+          echo "RESULT: PASS_PR341_HEAD_AND_MAIN_RACE_GUARD"
+
+      - name: Replace governed output scope with R10 result
+        run: |
+          set -euo pipefail
+          rm -rf prodwork/runs/2026-09-07/r7-20260905-production-r1
+          cp basework/data/cards.full.json prodwork/data/cards.full.json
+          cp basework/public/data/cards.json prodwork/public/data/cards.json
+          mkdir -p prodwork/runs/2026-09-07
+          cp -a basework/runs/2026-09-07/r7-20260905-production-r1 prodwork/runs/2026-09-07/
+
+      - name: Verify exact Codex P2 remediation and R10 bindings
+        working-directory: prodwork
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('runs/2026-09-07/r7-20260905-production-r1')
+          full=json.load(open('data/cards.full.json',encoding='utf-8'))
+          run=json.load(open(root/'card-run.json',encoding='utf-8'))
+          q=json.load(open(root/'stage-0-7c.json',encoding='utf-8'))
+          assert full['total']==1578 and len(full['cards'])==1578
+          cards={c['id']:c for c in full['cards']}
+          assert '2026-09-04_GL_01' in cards and cards['2026-09-04_GL_01']['region']=='GL'
+          assert '2026-09-04_EU_01' not in cards
+          eng=[op['card'] for op in run['operations']['insert'] if op.get('card',{}).get('spec_id')=='STD26_R8_005']
+          assert len(eng)==1 and eng[0]['id']=='2026-09-04_GL_01' and eng[0]['region']=='GL'
+          byspec={c.get('spec_id') or c.get('source_spec_id'):c for c in cards.values()}
+          audited=['STD26_R8_001','STD26_R8_002','STD26_R8_005','STD26_R8_007','STD26_R8_008','STD26_R8_009']
+          for sid in audited:
+              a=byspec[sid]['alternative_source_search_audit']
+              assert a['bounded_search_complete'] is True and a['search_result_accounting_complete'] is True
+              assert isinstance(a['channels'],list) and a['channels']
+              assert isinstance(a['candidate_results'],list)
+          an= byspec['STD26_R8_006']
+          dr=an['date_role']
+          assert dr['event_date']=='2026-09-03'
+          assert dr['event_date_source_url']=='https://inlandportauthority.utah.gov/board-info/'
+          assert 'September 3, 2026' in dr['event_date_source_quote']
+          def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+          expected={
+            'stage_a':sha(root/'stages/stage-a.json'),'stage_b':sha(root/'stages/stage-b.json'),
+            'stage_c':sha(root/'stages/stage-c.json'),'stage_0_4':sha(root/'stages/stage-0-4.json'),
+            'stage_0_5':sha(root/'stages/stage-0-5.json'),'stage_0_6':sha(root/'stages/stage-0-6.json'),
+            'stage_0_7':sha(root/'stages/stage-0-7.json')}
+          assert q['hash_chain']==expected
+          assert q['round_6_operation_binding']['stage_hashes']==expected
+          assert q['round_6_operation_binding']['binding_authority']=='independent_0_7c_r10_pre_0_8'
+          assert q['codex_p2_remediation']['status']=='PASS'
+          print('RESULT: PASS_CODEX_5130980362_R10_REMEDIATION')
+          PY
+
+      - name: Validate final production tree
+        working-directory: prodwork
+        run: |
+          set -euo pipefail
+          RUN=runs/2026-09-07/r7-20260905-production-r1/card-run.json
+          ROOT=runs/2026-09-07/r7-20260905-production-r1
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN"
+          python validation_scripts/card_run_v4_binding_hardening.py --run "$RUN"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          node scripts/validate_card_run_relations.mjs --run "$RUN"
+          node scripts/validate_card_run_lineage_containers.mjs --run "$RUN" --canonical data/cards.full.json
+          node scripts/validate_card_run_audits_dispatch.mjs --run "$RUN" --full data/cards.full.json --lean public/data/cards.json
+          python validation_scripts/stage_artifact_contract_check.py 0.8 "$ROOT/stage-0-8.json"
+          node scripts/validate.mjs
+          node scripts/validate_cards.mjs data/cards.full.json
+          node scripts/validate_cards.mjs public/data/cards.json
+          node scripts/lean_cards.mjs --check
+          python validation_scripts/run_active_workflow_tests.py
+
+      - name: Enforce final PR diff allowlist
+        working-directory: prodwork
+        run: |
+          set -euo pipefail
+          git diff --check
+          mapfile -t changed < <({ git diff --name-only; git ls-files --others --exclude-standard; } | awk 'NF && !seen[$0]++')
+          test ${#changed[@]} -gt 0
+          for path in "${changed[@]}"; do
+            case "$path" in
+              data/cards.full.json|public/data/cards.json|runs/2026-09-07/r7-20260905-production-r1/*) ;;
+              *) echo "FAIL undeclared remediation path: $path" >&2; exit 1 ;;
+            esac
+          done
+          echo "RESULT: PASS_R10_REMEDIATION_DIFF_ALLOWLIST"
+
+      - name: Commit and push R10 remediation to PR 341
+        working-directory: prodwork
+        run: |
+          set -euo pipefail
+          git fetch origin main --quiet
+          test "$(git rev-parse origin/main)" = "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62"
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add data/cards.full.json public/data/cards.json runs/2026-09-07/r7-20260905-production-r1
+          git diff --cached --check
+          git commit -m "Fix Codex review for Sep 5 R8 production"
+          git push origin HEAD:chatgpt/production-20260905-r8-9
+          echo "RESULT: PR341_R10_REMEDIATION_PUSHED $(git rev-parse HEAD)"

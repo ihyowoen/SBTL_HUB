@@ -1,0 +1,79 @@
+{
+  "schema": "card_run_audit_v1",
+  "status": "PASS",
+  "audit_complete": true,
+  "reviewer_independence": "SEPARATE_PASS",
+  "run_id": "card-run-2026-09-06-r7-20260903-production-r1",
+  "base_main_commit_sha": "5317bec055b88a26cffb136e7844eb488ae4db0d",
+  "base_full_blob_sha": "8b3d96b5c1fd779567ef8512f7123fc4310093ec",
+  "document_universe_manifest_ref": "runs/2026-09-06/r7-20260903-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-06/r7-20260903-production-r1/stage-0-0c.json",
+  "independent_completeness_ref": "runs/2026-09-06/r7-20260903-production-r1/stage-0-7c.json",
+  "reviewed_operations_sha256": "29f02d480ebc8a4c47555d15e5bd23f012c64598574d57e74d18821931e56278",
+  "expected_before": 1536,
+  "expected_after": 1569,
+  "inserted_ids": [
+    "2026-09-02_US_03",
+    "2026-09-02_US_02",
+    "2026-09-02_GL_01",
+    "2026-09-02_GL_04",
+    "2026-09-01_US_02",
+    "2026-09-01_US_03",
+    "2026-09-04_KR_01",
+    "2026-09-02_GL_02",
+    "2026-09-02_GL_05",
+    "2026-08-31_GL_05",
+    "2026-09-01_GL_02",
+    "2026-09-03_US_01",
+    "2026-09-01_GL_03",
+    "2026-09-02_GL_03",
+    "2026-09-01_GL_04",
+    "2026-08-28_EU_01",
+    "2026-09-02_EU_01",
+    "2026-08-27_GL_02",
+    "2026-08-28_CN_02",
+    "2026-08-31_JP_01",
+    "2026-08-31_GL_04",
+    "2026-08-31_US_03",
+    "2026-08-31_GL_07",
+    "2026-08-25_GL_03",
+    "2026-08-27_GL_03",
+    "2026-08-28_GL_03",
+    "2026-08-26_CN_03",
+    "2026-08-31_GL_06",
+    "2026-09-01_GL_05",
+    "2026-08-28_CN_03",
+    "2026-09-01_US_01",
+    "2026-09-01_US_04",
+    "2026-09-01_US_05"
+  ],
+  "updated_ids": [],
+  "related_additions": [
+    {
+      "source_id": "2026-09-02_GL_01",
+      "target_id": "2026-05-27_GL_01",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-09-02_GL_02",
+      "target_id": "2026-07-02_GL_08",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-09-02_GL_02",
+      "target_id": "2026-04-16_GL_02",
+      "direction": "directional"
+    },
+    {
+      "source_id": "2026-08-31_GL_04",
+      "target_id": "2026-07-14_GL_02",
+      "direction": "directional"
+    }
+  ],
+  "zero_deletion_assertion": true,
+  "zero_related_remove_assertion": true,
+  "full_output_sha256": "3eb63f6e2e303f20c89b28a0f0971e5b62a04a64743139559c4e01aca3573d49",
+  "lean_output_sha256": "d0f7e0c9f578dd6714fd78d93da0d90f72a1c3bbcb22fd32212f97c06d9a2282",
+  "provisional_output_hashes": false,
+  "output_binding_status": "PASS"
+}

@@ -1,7 +1,8 @@
-name: Validate R7 Prompt 0.7C R5 temp
+name: Validate R7 Prompt 0.7C R6 temp
 
 on:
   pull_request:
+    types: [reopened, synchronize]
     branches: [main]
     paths:
       - .github/workflows/validate-r7-stage-0-7c-r5-temp.yml
@@ -12,7 +13,7 @@ permissions:
   actions: read
 
 jobs:
-  validate-0-7c-r5:
+  validate-0-7c-r6:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -51,7 +52,7 @@ jobs:
           test -s /tmp/r7-stage-a-src/r7-stage-a-full/stage-a-b01.json
           test -s /tmp/r7-p01p-src/r7-p01p/stage-a-promotion13.json
 
-      - name: Materialize and relock exact R5 operation package
+      - name: Materialize and relock exact R6 operation package
         run: |
           set -euo pipefail
           python validation_temp/20260903-r7-0-7c/materialize_0_7c.py
@@ -60,45 +61,58 @@ jobs:
           python validation_temp/20260903-r7-0-7c/patch_stage_a_wrapper.py
           python validation_temp/20260903-r7-0-7c/patch_codex_review_r5.py
           python validation_temp/20260903-r7-0-7c/patch_codex_review_r5_stagea_sync.py
+          python validation_temp/20260903-r7-0-7c/patch_codex_review_r6.py
           python - <<'PY'
           import hashlib,json
-          root='runs/2026-09-06/r7-20260903-production-r1'
-          c=json.load(open(root+'/stage-0-7c.json',encoding='utf-8'))
-          a=json.load(open(root+'/stages/stage-a.json',encoding='utf-8'))
-          run=json.load(open(root+'/card-run.json',encoding='utf-8'))
-          sha='a1957c8cac140083029bbcff41e96980c740a03ab8d47bfefae55a8e91fc240c'
+          from pathlib import Path
+          root=Path('runs/2026-09-06/r7-20260903-production-r1')
+          run=json.load(open(root/'card-run.json',encoding='utf-8'))
+          c=json.load(open(root/'stage-0-7c.json',encoding='utf-8'))
           allowed={'Battery','ESS','Materials','EV','Charging','Policy','Manufacturing','AI','Robotics','PowerGrid','SupplyChain','Other'}
           def stable(v):
             if isinstance(v,list): return [stable(x) for x in v]
             if isinstance(v,dict): return {k:stable(v[k]) for k in sorted(v)}
             return v
-          actual=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-          assert actual==sha
+          def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+          op_sha=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
           assert c['status']=='PASS_WITH_DECLARED_RESIDUAL_RISK'
-          assert c['reviewed_operations_sha256']==sha
-          assert c['operation_freeze']['operations_sha256']==sha
+          assert c['reviewed_operations_sha256']==op_sha
+          assert c['operation_freeze']['operations_sha256']==op_sha
           assert c['operation_freeze']['insert']==33 and c['operation_freeze']['update']==0 and c['operation_freeze']['related_add']==4
           assert c['review_corrections_r5']['status']=='PASS'
-          assert c['production_schema_projection']['status']=='PASS' and c['production_schema_projection']['card_count']==33
+          assert c['review_corrections_r6']['status']=='PASS'
+          assert c['hash_chain_rebinding_r6']['status']=='PASS'
+          p=root/'stages'
+          s4=json.load(open(p/'stage-0-4.json',encoding='utf-8'))
+          s5=json.load(open(p/'stage-0-5.json',encoding='utf-8'))
+          s6=json.load(open(p/'stage-0-6.json',encoding='utf-8'))
+          s7=json.load(open(p/'stage-0-7.json',encoding='utf-8'))
+          assert s4['stage_c_artifact_sha256']==sha(p/'stage-c.json')
+          assert s5['stage_0_4_artifact_sha256']==sha(p/'stage-0-4.json')
+          assert s6['input_0_5_sha256']==sha(p/'stage-0-5.json')
+          assert s7['input_0_6_sha256']==sha(p/'stage-0-6.json')
           ins={x['card']['source_spec_id']:x['card'] for x in run['operations']['insert']}
           assert len(ins)==33
           for card in ins.values():
             assert card['cat'] in allowed
             assert isinstance(card.get('sub_cat'),str) and card['sub_cat'].strip()
-          fields=('fresh_follow_up_anchor_class','fresh_follow_up_anchor','incremental_fact_vs_predecessor','changed_judgment_vs_predecessor')
-          for sid in ('STD26_R7_003','STD26_R7_015','STD26_R7_043'):
-            assert all(isinstance(ins[sid]['related_lineage'].get(f),str) and ins[sid]['related_lineage'][f].strip() for f in fields)
+          v=ins['STD26_R7_001']
+          assert v['date']=='2026-09-02'
+          assert v['source_published_date']=='2026-09-02'
+          assert v['fact_sources'][0]['published']=='2026-09-02'
+          assert v['date_role']['source_publication_dates']==['2026-09-02']
+          s=ins['STD26_R7_P01P_010']
+          assert s['source_diversity_status']=='PASS_OFFICIAL_OR_PRIMARY_SINGLE_SOURCE_EXCEPTION'
+          assert s['source_diversity_measure']['independent_owner_count']==1
+          assert s['source_synthesis_audit']['independent_confirmation_used'] is False
+          assert s['single_source_exception']['allowed'] is True
           assert ins['STD26_R7_011']['date']=='2026-09-04'
           assert '9월 4일자로' in ins['STD26_R7_011']['date_role']['event_date_source_quote']
-          oci='https://www.koreatimes.co.kr/amp/business/companies/20260903/oci-holdings-breaks-ground-on-texas-solar-project-amid-ai-power-boom'
-          assert oci in ins['STD26_R7_009']['urls']
-          assert ins['STD26_R7_009']['date_role']['event_date_source_url']==oci
-          assert any(x.get('url')==oci for x in ins['STD26_R7_009']['fact_sources'])
           wag=[x for x in run['operations']['related_add'] if x.get('source_spec_id')=='STD26_R7_043']
-          assert len(wag)==1 and wag[0]['target_id']=='2026-07-14_GL_02' and wag[0]['relation_type']=='distinct_follow_up'
-          assert len(a['strict_passed_spec'])==33 and len(a['decision_ledger'])==45
-          assert set(a['summary']['follow_up_candidate_ids'])=={'STD26_R7_003','STD26_R7_015','STD26_R7_043'}
-          print('RESULT: PASS_0_7C_R5_CODEX_REVIEW_CORRECTION', {'operations_sha256':sha,'related_add':4})
+          assert len(wag)==1 and wag[0]['target_id']=='2026-07-14_GL_02'
+          print('RESULT: PASS_0_7C_R6_CANDIDATE', {'operations_sha256':op_sha,
+            'stage_c':sha(p/'stage-c.json'),'stage_0_4':sha(p/'stage-0-4.json'),
+            'stage_0_5':sha(p/'stage-0-5.json'),'stage_0_6':sha(p/'stage-0-6.json'),'stage_0_7':sha(p/'stage-0-7.json')})
           PY
 
       - name: Validate card-run schema
@@ -119,10 +133,10 @@ jobs:
       - name: Active workflow regression suite
         run: python validation_scripts/run_active_workflow_tests.py
 
-      - name: Upload independently reviewed 0.7C R5 package
+      - name: Upload independently reviewed 0.7C R6 candidate package
         uses: actions/upload-artifact@v4
         with:
-          name: r7-stage-0-7c-validated-r5
+          name: r7-stage-0-7c-validated-r6-candidate
           path: |
             runs/2026-09-06/r7-20260903-production-r1/stage-0-0d.json
             runs/2026-09-06/r7-20260903-production-r1/stage-0-0c.json

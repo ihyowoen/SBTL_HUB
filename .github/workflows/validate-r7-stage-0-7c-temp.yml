@@ -14,6 +14,31 @@ jobs:
           set -euo pipefail
           test "${{ github.event.pull_request.base.sha }}" = "5317bec055b88a26cffb136e7844eb488ae4db0d"
           test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+      - name: Download certified Stage A and 0.1P source artifacts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/9970708388/zip \
+            -o /tmp/r7-stage-a.zip
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/9983121313/zip \
+            -o /tmp/r7-p01p.zip
+          echo "cf3e1a39c8586f35a34ce61a8e9d954b65e9c1beb7f5549e7aab12f728e8f993  /tmp/r7-stage-a.zip" | sha256sum -c -
+          echo "6017129d695afb128c82b990d6d2654f7e028a7b229ed56f0db6d5e66c630b5f  /tmp/r7-p01p.zip" | sha256sum -c -
+          mkdir -p /tmp/r7-stage-a-src /tmp/r7-p01p-src
+          unzip -q /tmp/r7-stage-a.zip -d /tmp/r7-stage-a-src
+          unzip -q /tmp/r7-p01p.zip -d /tmp/r7-p01p-src
+          test -s /tmp/r7-stage-a-src/r7-stage-a-full/stage-a-b01.json
+          test -s /tmp/r7-p01p-src/r7-p01p/stage-a-promotion13.json
+          echo "RESULT: PASS_CERTIFIED_STAGE_A_SOURCE_ARTIFACT_DOWNLOAD"
       - name: Materialize exact operation-bound 0.7C package
         run: |
           set -euo pipefail
@@ -23,15 +48,16 @@ jobs:
           import json
           root='runs/2026-09-06/r7-20260903-production-r1'
           c=json.load(open(root+'/stage-0-7c.json',encoding='utf-8'))
-          r=json.load(open(root+'/card-run.json',encoding='utf-8'))
           a=json.load(open(root+'/stages/stage-a.json',encoding='utf-8'))
           assert c['status']=='PASS_WITH_DECLARED_RESIDUAL_RISK'
           assert c['reviewed_operations_sha256']=='a810e964e298a627b7edc65d28805b03f29a371a016b0aece5053f4589c87407'
           assert c['operation_freeze']['insert']==33 and c['operation_freeze']['related_add']==3
           assert len(c['residual_risks'])>=1 and c['prompt_0_8_authorized'] is True
-          for f in ('stage_a_validity_status','artifact_consistency_status','csv_schema_status','review_pool_partition_status','strict_pass_gate_metadata_status','baseline_duplicate_screen_status'):
+          assert len(a['strict_passed_spec'])==33 and len(a['decision_ledger'])==45
+          assert a['summary']['ledger_matches_story_count'] is True
+          for f in ('stage_a_validity_status','artifact_consistency_status','csv_schema_status','review_pool_partition_status','strict_pass_gate_metadata_status','baseline_duplicate_screen_status','review_pool_carry_forward_ledger_status'):
             assert a[f]=='PASS'
-          print('RESULT: PASS_0_7C_ENVELOPE_OPERATION_FREEZE_STAGE_A_WRAPPER')
+          print('RESULT: PASS_0_7C_ENVELOPE_OPERATION_FREEZE_STAGE_A_COMPOSITE')
           PY
       - name: Validate card-run schema
         run: node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance runs/2026-09-06/r7-20260903-production-r1/card-run.json

@@ -35,10 +35,10 @@ jobs:
           print('RESULT: PASS_FROZEN_SEP5_BASELINE')
           PY
 
-      - name: Materialize operation-bound Sep5 chain
+      - name: Materialize operation-bound Sep5 chain R2
         run: |
           set -euo pipefail
-          python validation_temp/20260905-r1/materialize.py
+          python validation_temp/20260905-r1/materialize_r2.py
 
       - name: Validate Stage A contract
         run: |

@@ -15,25 +15,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Reconstruct exact R1 and materialize R5 compatibility projection
+      - name: Reconstruct exact R1 and materialize R6 compatibility projection
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p /tmp/sep7-stage-a-validation
           cat tmp/sep7-stage-a-validation/artifact.part0[1-6] | tr -d '\r\n' | base64 -d | xz -dc > /tmp/sep7-stage-a-validation/stage-a-r1.json
           test "$(sha256sum /tmp/sep7-stage-a-validation/stage-a-r1.json | awk '{print $1}')" = "fb96bda5f896cb2d73e63cc76dbdb78d7d631fb547b1f919a8bc2a5a8973bd37"
-          base64 -d tmp/sep7-stage-a-validation/materialize_r5.py.xz.b64 | xz -dc > /tmp/sep7-stage-a-validation/materialize_r5.py
-          python /tmp/sep7-stage-a-validation/materialize_r5.py /tmp/sep7-stage-a-validation/stage-a-r1.json /tmp/sep7-stage-a-validation/stage-a-r5.json
-          test "$(sha256sum /tmp/sep7-stage-a-validation/stage-a-r5.json | awk '{print $1}')" = "74e646e394eaeb9203ca5317c3b1db041f3a72d16ff3983fd774eb0e0c8f7fd6"
+          base64 -d tmp/sep7-stage-a-validation/materialize_r5.py.xz.b64 | xz -dc > /tmp/sep7-stage-a-validation/materialize_r6.py
+          python /tmp/sep7-stage-a-validation/materialize_r6.py /tmp/sep7-stage-a-validation/stage-a-r1.json /tmp/sep7-stage-a-validation/stage-a-r6.json
+          test "$(sha256sum /tmp/sep7-stage-a-validation/stage-a-r6.json | awk '{print $1}')" = "47a357854ce66a15b1bb3d664533c08093959a3e5e0eace1ffdb7e1acd85b8db"
 
-      - name: Run current-main Stage A machine gates on R5
+      - name: Run current-main Stage A machine gates on R6
         shell: bash
         run: |
           set +e
           REPORT=/tmp/sep7-stage-a-validation/validator-report.txt
           : > "$REPORT"
           failed=0
-          F=/tmp/sep7-stage-a-validation/stage-a-r5.json
+          F=/tmp/sep7-stage-a-validation/stage-a-r6.json
           echo '--- stage_lineage_contract_check.py ---' | tee -a "$REPORT"
           python validation_scripts/stage_lineage_contract_check.py stage_a "$F" >> "$REPORT" 2>&1
           rc=$?
@@ -62,6 +62,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sep7-stage-a-r5-repo-native-validation
+          name: sep7-stage-a-r6-repo-native-validation
           path: /tmp/sep7-stage-a-validation
           if-no-files-found: error

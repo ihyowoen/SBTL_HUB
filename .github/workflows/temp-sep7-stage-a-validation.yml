@@ -1,0 +1,77 @@
+name: TEMP Sep 7 Stage A repo-native validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-stage-a:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruct exact Stage A R1 artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/sep7-stage-a-validation
+          cat tmp/sep7-stage-a-validation/artifact.part0[12] | tr -d '\r\n' | base64 -d | xz -dc > /tmp/sep7-stage-a-validation/stage-a-r1.json
+          test "$(sha256sum /tmp/sep7-stage-a-validation/stage-a-r1.json | awk '{print $1}')" = "fb96bda5f896cb2d73e63cc76dbdb78d7d631fb547b1f919a8bc2a5a8973bd37"
+          python - <<'PY'
+          import json
+          p='/tmp/sep7-stage-a-validation/stage-a-r1.json'
+          with open(p, encoding='utf-8') as fh:
+              d=json.load(fh)
+          assert len(d['strict_passed_spec']) == 27
+          assert len(d['candidate_review_pool']) == 41
+          assert len(d['watchlist_context_pool']) == 20
+          assert len(d['existing_reinforcement']) == 3
+          assert len(d['reject_or_support_only_pool']) == 118
+          assert len(d['decision_ledger']) == 263
+          print('accounting=strict27 review41 watch20 reinforcement3 support_reject118 ledger263')
+          PY
+
+      - name: Run current-main Stage A machine gates
+        shell: bash
+        run: |
+          set +e
+          REPORT=/tmp/sep7-stage-a-validation/validator-report.txt
+          : > "$REPORT"
+          failed=0
+          F=/tmp/sep7-stage-a-validation/stage-a-r1.json
+          echo '--- stage_lineage_contract_check.py ---' | tee -a "$REPORT"
+          python validation_scripts/stage_lineage_contract_check.py stage_a "$F" >> "$REPORT" 2>&1
+          rc=$?
+          echo "lineage_exit=$rc" | tee -a "$REPORT"
+          if [ "$rc" -ne 0 ]; then failed=1; fi
+          echo '--- stage_artifact_contract_check.py ---' | tee -a "$REPORT"
+          python validation_scripts/stage_artifact_contract_check.py A "$F" >> "$REPORT" 2>&1
+          rc=$?
+          echo "artifact_exit=$rc" | tee -a "$REPORT"
+          if [ "$rc" -ne 0 ]; then failed=1; fi
+          echo "aggregate_failed=$failed" | tee -a "$REPORT"
+          cat "$REPORT"
+          exit "$failed"
+
+      - name: Run active workflow regression suite
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          PYTHONPATH=. python validation_scripts/run_active_workflow_tests.py > /tmp/sep7-stage-a-validation/active-workflow-tests.txt 2>&1
+          rc=$?
+          cat /tmp/sep7-stage-a-validation/active-workflow-tests.txt
+          exit "$rc"
+
+      - name: Upload exact artifact and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sep7-stage-a-r1-repo-native-validation
+          path: /tmp/sep7-stage-a-validation
+          if-no-files-found: error

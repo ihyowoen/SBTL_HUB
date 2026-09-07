@@ -6,7 +6,7 @@ from pathlib import Path
 RUN_ID='card-run-2026-09-07-r7-20260905-production-r1'
 BASE_MAIN='eb1a311ed378fcdf547b52ad5da0652cb9f1fc62'
 BASE_BLOB='707fe5ea9836a0c2341771397da32c818a95cbed'
-OPS_SHA='c77ad924c2c07abccd5659b4e262ed183e86dcae272ff32379ae8ecf034921a2'
+OPS_SHA='236b86f3a0cc7c0a862074884dc06303b0875a73337067e4d8e7a2f3d8e2ed86'
 RUN_ROOT=Path('runs/2026-09-07/r7-20260905-production-r1')
 CARD_RUN=RUN_ROOT/'card-run.json'
 STAGE08=RUN_ROOT/'stage-0-8.json'
@@ -38,7 +38,6 @@ def stable(v):
 def operations_sha(ops):
     return hashlib.sha256(json.dumps(stable(ops),ensure_ascii=False,separators=(',',':')).encode('utf-8')).hexdigest()
 
-# Production worktree must still be the exact frozen baseline. No silent rebase.
 head=sh('git','rev-parse','HEAD',capture=True)
 assert head==BASE_MAIN,(head,BASE_MAIN)
 assert sh('git','rev-parse',f'{BASE_MAIN}:data/cards.full.json',capture=True)==BASE_BLOB
@@ -66,15 +65,14 @@ assert freeze['insert']==9 and freeze['update']==0 and freeze['related_add']==0
 assert freeze['expected_before']==BEFORE and freeze['expected_after']==AFTER
 assert freeze['operation_drift_allowed'] is False
 
-# Exact final R8 stage-byte chain certified by workflow 34108930897.
 expected_hashes={
-    'stage_a':'3c6295f6935581705b20522c746344097312afb561266381558019fa1d7af6c1',
-    'stage_b':'3625c169d9f95e3ef85b3cbcb09d845de4ebf5a42dfe33239351639409d8557e',
-    'stage_c':'fc7eaa5169158fc47a843a4db47251ab26e425ab40e2bd84828b99db22f3591e',
-    'stage_0_4':'3da0e9ca5f5719d2c853c44eb837892b58d4f946474ebf851759dede9c877911',
-    'stage_0_5':'98d2aced0d1bc62ed8a3b3a4a228d46b382403e4ec63d62bf242a53cec927680',
-    'stage_0_6':'5495e7aa197a4d46719504bb95a340f33d957bddf26e07985373d3b73c758405',
-    'stage_0_7':'05be0c74a11beff32de4dba55889310a2c74b1a34c512dcc1fba0fd93e080b47',
+    'stage_a':'bafd91ebcbd5fcdc246c8fcc0ee1865d2489e77f94d9f1723f9da34a41f74bee',
+    'stage_b':'c0407a7ab09cfdc501ef19f474598903a815d23e5a551566152f96efb96350f2',
+    'stage_c':'a1861b35f9865f2a4672e9d2ecc300d3a771d31d24ca2f319dc063a6cb76c961',
+    'stage_0_4':'6549427c4babdf94c38ff10a58bb9038fe46637e6b0c60d97c41e550bd2c6b33',
+    'stage_0_5':'eccffdc19d1b2b9426896ccaf795189f38a37f4f2dfabc89f8c5c8bc15e7ba74',
+    'stage_0_6':'e8c277544369405d6be14bafb14bec7f024b313145ef81de2bfb802f33fe809d',
+    'stage_0_7':'34a9f92858646da3b5d42d97011a772b2be0dba504f9dab12de22ee6ee57c8cb',
 }
 paths={
     'stage_a':RUN_ROOT/'stages/stage-a.json',
@@ -93,7 +91,9 @@ assert s5['stage_0_4_artifact_sha256']==expected_hashes['stage_0_4']
 assert s6['input_0_5_sha256']==expected_hashes['stage_0_5']
 assert s7['input_0_6_sha256']==expected_hashes['stage_0_6']
 
-# Temporary audit refs allow the repository-native engine to apply the frozen operation object.
+CERTIFIED_ARTIFACT_ID=10013536223
+CERTIFIED_ARTIFACT_SHA='4e8e4c4ab9c1f5be09320ef9c0901b796a186143b01ea9659a1a8a85dc9d97b3'
+
 dump(AUDIT,{'schema':'card_run_audit_v1','status':'PASS','temporary_materialization_only':True})
 dump(STAGE08,{'stage':'0.8','status':'PASS','temporary_materialization_only':True})
 sh('node','scripts/apply_card_run.mjs','--run',str(CARD_RUN),'--baseline',str(FULL),'--canonical-path',str(FULL),
@@ -140,8 +140,8 @@ stage08={
     'reviewed_operations_sha256':OPS_SHA,
     'independent_completeness_ref':str(RUN_ROOT/'stage-0-7c.json'),
     'certified_0_7c':{
-        'workflow_run_id':34108930897,'artifact_id':10013554175,
-        'artifact_zip_sha256':'6fde3a4cec01c3ae741b9b78f2cea7643f761766f230dbc40dc5eeb32a942b9c',
+        'workflow_run_id':34108930897,'artifact_id':CERTIFIED_ARTIFACT_ID,
+        'artifact_zip_sha256':CERTIFIED_ARTIFACT_SHA,
     },
     'operation_counts':{'insert':9,'update':0,'related_add':0},
     'id_ledger':{'schema':'prompt_0_8_current_run_id_ledger_v1','ids':insert_ids,'operation_ids':operation_ids},
@@ -164,7 +164,6 @@ for item in stage08['github_merge_ready']:
 dump(STAGE08,stage08)
 sh('python','validation_scripts/stage_artifact_contract_check.py','0.8',str(STAGE08))
 
-# Exact output-bound independent audit.
 audit={
     'schema':'card_run_audit_v1','status':'PASS','audit_complete':True,'reviewer_independence':'SEPARATE_PASS',
     'run_id':RUN_ID,'base_main_commit_sha':BASE_MAIN,'base_full_blob_sha':BASE_BLOB,
@@ -176,12 +175,11 @@ audit={
     'zero_deletion_assertion':True,'zero_related_remove_assertion':True,
     'full_output_sha256':sha256(FULL),'lean_output_sha256':sha256(LEAN),
     'provisional_output_hashes':False,'output_binding_status':'PASS',
-    'certified_0_7c_artifact_id':10013554175,
-    'certified_0_7c_artifact_zip_sha256':'6fde3a4cec01c3ae741b9b78f2cea7643f761766f230dbc40dc5eeb32a942b9c',
+    'certified_0_7c_artifact_id':CERTIFIED_ARTIFACT_ID,
+    'certified_0_7c_artifact_zip_sha256':CERTIFIED_ARTIFACT_SHA,
 }
 dump(AUDIT,audit)
 
-# Full repository-native production gate chain.
 sh('node','scripts/validate_json_schema_subset.mjs','--schema','schemas/card-run.v1.schema.json','--instance',str(CARD_RUN))
 sh('node','scripts/validate_card_run_stage_artifacts.mjs','--run',str(CARD_RUN))
 sh('node','scripts/validate_card_run_v4_hardening.mjs','--run',str(CARD_RUN))

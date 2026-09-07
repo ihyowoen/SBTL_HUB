@@ -1,0 +1,132 @@
+name: Validate Sep5 R1 temp
+
+on:
+  push:
+    branches: [chatgpt/validate-20260905-r1]
+    paths:
+      - validation_temp/20260905-r1/**
+      - .github/workflows/validate-sep5-r1-temp.yml
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  validate-sep5-r1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout validation branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify frozen Sep5 baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=eb1a311ed378fcdf547b52ad5da0652cb9f1fc62
+          BLOB=707fe5ea9836a0c2341771397da32c818a95cbed
+          test "$(git rev-parse ${BASE}:data/cards.full.json)" = "$BLOB"
+          test "$(git hash-object data/cards.full.json)" = "$BLOB"
+          python - <<'PY'
+          import json
+          p=json.load(open('data/cards.full.json',encoding='utf-8'))
+          assert p['total']==1569 and len(p['cards'])==1569
+          print('RESULT: PASS_FROZEN_SEP5_BASELINE')
+          PY
+
+      - name: Materialize operation-bound Sep5 chain
+        run: |
+          set -euo pipefail
+          python validation_temp/20260905-r1/materialize.py
+
+      - name: Validate Stage A contract
+        run: |
+          set -euo pipefail
+          ROOT=runs/2026-09-07/r7-20260905-production-r1/stages
+          python validation_scripts/stage_artifact_contract_check.py A "$ROOT/stage-a.json"
+
+      - name: Validate Stage B evidence and contract
+        run: |
+          set -euo pipefail
+          ROOT=runs/2026-09-07/r7-20260905-production-r1/stages
+          python validation_scripts/stage_b_evidence_gate.py "$ROOT/stage-b.json"
+          python validation_scripts/stage_artifact_contract_check.py B "$ROOT/stage-b.json"
+
+      - name: Validate Stage C through 0.7 contracts
+        run: |
+          set -euo pipefail
+          ROOT=runs/2026-09-07/r7-20260905-production-r1/stages
+          python validation_scripts/stage_artifact_contract_check.py C "$ROOT/stage-c.json"
+          python validation_scripts/stage_artifact_contract_check.py 0.4 "$ROOT/stage-0-4.json"
+          python validation_scripts/stage_artifact_contract_check.py 0.5 "$ROOT/stage-0-5.json"
+          python validation_scripts/stage_artifact_contract_check.py 0.6 "$ROOT/stage-0-6.json"
+          python validation_scripts/stage_artifact_contract_check.py 0.7 "$ROOT/stage-0-7.json"
+
+      - name: Validate evidence date roles and Related semantics
+        run: |
+          set -euo pipefail
+          ROOT=runs/2026-09-07/r7-20260905-production-r1/stages
+          python validation_scripts/evidence_qc_v8_check.py "$ROOT/stage-0-5.json"
+          python validation_scripts/date_role_freshness_check.py "$ROOT/stage-0-5.json" --require-date-role
+          python validation_scripts/related_lifecycle_check.py "$ROOT/stage-0-7.json" --require-contract
+
+      - name: Validate card-run operation binding
+        run: |
+          set -euo pipefail
+          RUN=runs/2026-09-07/r7-20260905-production-r1/card-run.json
+          node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance "$RUN"
+          node scripts/validate_card_run_stage_artifacts.mjs --run "$RUN"
+          node scripts/validate_card_run_v4_hardening.mjs --run "$RUN"
+          python validation_scripts/card_run_v4_binding_hardening.py --run "$RUN"
+          node scripts/validate_card_run_status_consistency.mjs --run "$RUN"
+          node scripts/validate_card_run_relations.mjs --run "$RUN"
+
+      - name: Verify exact operation and stage-byte freeze
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('runs/2026-09-07/r7-20260905-production-r1')
+          run=json.load(open(root/'card-run.json',encoding='utf-8'))
+          q=json.load(open(root/'stage-0-7c.json',encoding='utf-8'))
+          def stable(v):
+            if isinstance(v,list): return [stable(x) for x in v]
+            if isinstance(v,dict): return {k:stable(v[k]) for k in sorted(v)}
+            return v
+          def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+          ops=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+          assert q['reviewed_operations_sha256']==ops
+          assert q['operation_freeze']['operations_sha256']==ops
+          expected={
+            'stage_a':sha(root/'stages/stage-a.json'),
+            'stage_b':sha(root/'stages/stage-b.json'),
+            'stage_c':sha(root/'stages/stage-c.json'),
+            'stage_0_4':sha(root/'stages/stage-0-4.json'),
+            'stage_0_5':sha(root/'stages/stage-0-5.json'),
+            'stage_0_6':sha(root/'stages/stage-0-6.json'),
+            'stage_0_7':sha(root/'stages/stage-0-7.json'),
+          }
+          assert q['hash_chain']==expected
+          assert json.load(open(root/'stages/stage-0-4.json'))['stage_c_artifact_sha256']==expected['stage_c']
+          assert json.load(open(root/'stages/stage-0-5.json'))['stage_0_4_artifact_sha256']==expected['stage_0_4']
+          assert json.load(open(root/'stages/stage-0-6.json'))['input_0_5_sha256']==expected['stage_0_5']
+          assert json.load(open(root/'stages/stage-0-7.json'))['input_0_6_sha256']==expected['stage_0_6']
+          print('RESULT: PASS_EXACT_SEP5_OPERATION_AND_STAGE_FREEZE')
+          print('OPS_SHA',ops)
+          print('HASH_CHAIN',json.dumps(expected,sort_keys=True))
+          PY
+
+      - name: Active workflow regression suite
+        run: |
+          set -euo pipefail
+          python validation_scripts/run_active_workflow_tests.py
+
+      - name: Upload validated Sep5 package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sep5-r1-stage-0-7c-validated
+          path: runs/2026-09-07/r7-20260905-production-r1/**
+          if-no-files-found: error

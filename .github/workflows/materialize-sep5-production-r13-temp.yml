@@ -1,0 +1,149 @@
+name: Materialize Sep5 production R13 temp
+
+on:
+  push:
+    branches: [chatgpt/validate-20260905-r1]
+    paths:
+      - .github/workflows/materialize-sep5-production-r13-temp.yml
+      - validation_temp/20260905-r1/materialize_production_0_8_r13.py
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: sep5-production-r13-materialization
+  cancel-in-progress: false
+
+jobs:
+  materialize-r13:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout builder source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: builder
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Checkout exact frozen baseline
+        uses: actions/checkout@v4
+        with:
+          ref: eb1a311ed378fcdf547b52ad5da0652cb9f1fc62
+          path: work
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Lock live main and current PR head
+        working-directory: work
+        run: |
+          set -euo pipefail
+          git fetch origin main chatgpt/production-20260905-r8-9 --quiet
+          test "$(git rev-parse HEAD)" = "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62"
+          test "$(git rev-parse origin/main)" = "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62"
+          test "$(git rev-parse origin/chatgpt/production-20260905-r8-9)" = "968dd76bed8015375a8bf333c1fedee06df15b75"
+          test "$(git rev-parse eb1a311ed378fcdf547b52ad5da0652cb9f1fc62:data/cards.full.json)" = "707fe5ea9836a0c2341771397da32c818a95cbed"
+          echo "RESULT: PASS_R13_FROZEN_REF_LOCK"
+
+      - name: Download exact R13 certified artifact
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10022790859/zip \
+            -o /tmp/sep5-r13-0-7c.zip
+          echo "68ee36ec131af4e4e0b7ab7f269d80c1608ab581e2b5cb1f6df22fad9c04b073  /tmp/sep5-r13-0-7c.zip" | sha256sum -c -
+          mkdir -p work/runs/2026-09-07/r7-20260905-production-r1
+          unzip -q /tmp/sep5-r13-0-7c.zip -d work/runs/2026-09-07/r7-20260905-production-r1
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('work/runs/2026-09-07/r7-20260905-production-r1')
+          run=json.load(open(root/'card-run.json',encoding='utf-8'))
+          q=json.load(open(root/'stage-0-7c.json',encoding='utf-8'))
+          alloc=json.load(open(root/'id-allocation.json',encoding='utf-8'))
+          ids={x['card']['spec_id']:x['card']['id'] for x in run['operations']['insert']}
+          assert alloc['count']==9 and alloc['id_map']==ids
+          assert alloc['id_map']['STD26_R8_005']=='2026-09-04_GL_01'
+          assert '2026-09-04_EU_01' not in alloc['id_map'].values()
+          top=q['round_6_operation_binding']
+          nested=q['six_round_review']['round_6_operation_binding']
+          assert top==nested
+          assert top['reviewed_operations_sha256']=='6c2ac63e2711adc7247d7dcf9cfbd685be971e11c6ae7790cedbb11d5157c2dd'
+          assert top['stage_hashes']==q['hash_chain']
+          assert top['binding_authority']=='independent_0_7c_r13_nested_round6_reconciled'
+          assert q['codex_p2_remediation']['nested_round_6_binding_status']=='PASS'
+          print('RESULT: PASS_EXACT_R13_ARTIFACT_NESTED_BINDING_AND_ID_ALLOCATION_IMPORT')
+          PY
+
+      - name: Materialize Prompt 0.8 from R13 authority
+        working-directory: work
+        run: |
+          set -euo pipefail
+          python ../builder/validation_temp/20260905-r1/materialize_production_0_8_r13.py
+
+      - name: Active workflow regression
+        working-directory: work
+        run: |
+          set -euo pipefail
+          python validation_scripts/run_active_workflow_tests.py
+
+      - name: Recheck race locks
+        working-directory: work
+        run: |
+          set -euo pipefail
+          git fetch origin main chatgpt/production-20260905-r8-9 --quiet
+          test "$(git rev-parse origin/main)" = "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62"
+          test "$(git rev-parse origin/chatgpt/production-20260905-r8-9)" = "968dd76bed8015375a8bf333c1fedee06df15b75"
+          echo "RESULT: PASS_R13_PREPUSH_REF_LOCK"
+
+      - name: Enforce production diff allowlist and R13 audit invariants
+        working-directory: work
+        run: |
+          set -euo pipefail
+          git diff --check
+          { git diff --name-only; git ls-files --others --exclude-standard; } | awk 'NF && !seen[$0]++' > /tmp/r13-paths.txt
+          test -s /tmp/r13-paths.txt
+          while read -r path; do
+            case "$path" in
+              data/cards.full.json|public/data/cards.json|runs/2026-09-07/r7-20260905-production-r1/*) ;;
+              *) echo "FAIL undeclared path: $path" >&2; exit 1 ;;
+            esac
+          done < /tmp/r13-paths.txt
+          python - <<'PY'
+          import json
+          root='runs/2026-09-07/r7-20260905-production-r1/'
+          run=json.load(open(root+'card-run.json',encoding='utf-8'))
+          alloc=json.load(open(root+'id-allocation.json',encoding='utf-8'))
+          audit=json.load(open(root+'card-run-audit.json',encoding='utf-8'))
+          q=json.load(open(root+'stage-0-7c.json',encoding='utf-8'))
+          ids={x['card']['spec_id']:x['card']['id'] for x in run['operations']['insert']}
+          assert alloc['id_map']==ids
+          assert q['round_6_operation_binding']==q['six_round_review']['round_6_operation_binding']
+          assert audit['certified_0_7c_workflow_run_id']==34132857088
+          assert audit['certified_0_7c_artifact_id']==10022790859
+          assert audit['certified_0_7c_artifact_zip_sha256']=='68ee36ec131af4e4e0b7ab7f269d80c1608ab581e2b5cb1f6df22fad9c04b073'
+          assert audit['reviewed_operations_sha256']=='6c2ac63e2711adc7247d7dcf9cfbd685be971e11c6ae7790cedbb11d5157c2dd'
+          assert audit['expected_before']==1569 and audit['expected_after']==1578
+          assert audit['zero_deletion_assertion'] and audit['zero_related_remove_assertion']
+          print('RESULT: PASS_R13_PRODUCTION_AUDIT_NESTED_BINDING_AND_ALLOCATION')
+          PY
+          echo "RESULT: PASS_R13_PRODUCTION_DIFF_ALLOWLIST"
+
+      - name: Replace PR branch from R13 production tree
+        working-directory: work
+        run: |
+          set -euo pipefail
+          git config user.name "ihyowoen"
+          git config user.email "hyowoen@hotmail.com"
+          git add data/cards.full.json public/data/cards.json runs/2026-09-07/r7-20260905-production-r1
+          git diff --cached --check
+          git commit -m "Publish governed Sep 5 R8 9 cards (Codex P2 remediated R13)"
+          NEW_HEAD=$(git rev-parse HEAD)
+          git push --force-with-lease=refs/heads/chatgpt/production-20260905-r8-9:968dd76bed8015375a8bf333c1fedee06df15b75 origin HEAD:refs/heads/chatgpt/production-20260905-r8-9
+          echo "RESULT: PRODUCTION_BRANCH_REPLACED_R13 ${NEW_HEAD}"

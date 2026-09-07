@@ -1,0 +1,129 @@
+name: Validate R7 Prompt 0.7C R5 temp
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/validate-r7-stage-0-7c-r5-temp.yml
+      - validation_temp/20260903-r7-0-7c/**
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  validate-0-7c-r5:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify frozen baseline
+        run: |
+          set -euo pipefail
+          test "${{ github.event.pull_request.base.sha }}" = "5317bec055b88a26cffb136e7844eb488ae4db0d"
+          test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+          test "$(git rev-parse 5317bec055b88a26cffb136e7844eb488ae4db0d:data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
+
+      - name: Download certified Stage A and 0.1P source artifacts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/9970708388/zip \
+            -o /tmp/r7-stage-a.zip
+          curl --fail --silent --show-error --location \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/9983121313/zip \
+            -o /tmp/r7-p01p.zip
+          echo "cf3e1a39c8586f35a34ce61a8e9d954b65e9c1beb7f5549e7aab12f728e8f993  /tmp/r7-stage-a.zip" | sha256sum -c -
+          echo "6017129d695afb128c82b990d6d2654f7e028a7b229ed56f0db6d5e66c630b5f  /tmp/r7-p01p.zip" | sha256sum -c -
+          mkdir -p /tmp/r7-stage-a-src /tmp/r7-p01p-src
+          unzip -q /tmp/r7-stage-a.zip -d /tmp/r7-stage-a-src
+          unzip -q /tmp/r7-p01p.zip -d /tmp/r7-p01p-src
+          test -s /tmp/r7-stage-a-src/r7-stage-a-full/stage-a-b01.json
+          test -s /tmp/r7-p01p-src/r7-p01p/stage-a-promotion13.json
+
+      - name: Materialize and relock exact R5 operation package
+        run: |
+          set -euo pipefail
+          python validation_temp/20260903-r7-0-7c/materialize_0_7c.py
+          python validation_temp/20260903-r7-0-7c/patch_operation_runtime_conflict_r2.py
+          python validation_temp/20260903-r7-0-7c/patch_followup_contract_projection_r3.py
+          python validation_temp/20260903-r7-0-7c/patch_stage_a_wrapper.py
+          python validation_temp/20260903-r7-0-7c/patch_codex_review_r5.py
+          python - <<'PY'
+          import hashlib,json
+          root='runs/2026-09-06/r7-20260903-production-r1'
+          c=json.load(open(root+'/stage-0-7c.json',encoding='utf-8'))
+          a=json.load(open(root+'/stages/stage-a.json',encoding='utf-8'))
+          run=json.load(open(root+'/card-run.json',encoding='utf-8'))
+          sha='a1957c8cac140083029bbcff41e96980c740a03ab8d47bfefae55a8e91fc240c'
+          allowed={'Battery','ESS','Materials','EV','Charging','Policy','Manufacturing','AI','Robotics','PowerGrid','SupplyChain','Other'}
+          def stable(v):
+            if isinstance(v,list): return [stable(x) for x in v]
+            if isinstance(v,dict): return {k:stable(v[k]) for k in sorted(v)}
+            return v
+          actual=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+          assert actual==sha
+          assert c['status']=='PASS_WITH_DECLARED_RESIDUAL_RISK'
+          assert c['reviewed_operations_sha256']==sha
+          assert c['operation_freeze']['operations_sha256']==sha
+          assert c['operation_freeze']['insert']==33 and c['operation_freeze']['update']==0 and c['operation_freeze']['related_add']==4
+          assert c['review_corrections_r5']['status']=='PASS'
+          assert c['production_schema_projection']['status']=='PASS' and c['production_schema_projection']['card_count']==33
+          ins={x['card']['source_spec_id']:x['card'] for x in run['operations']['insert']}
+          assert len(ins)==33
+          for card in ins.values():
+            assert card['cat'] in allowed
+            assert isinstance(card.get('sub_cat'),str) and card['sub_cat'].strip()
+          fields=('fresh_follow_up_anchor_class','fresh_follow_up_anchor','incremental_fact_vs_predecessor','changed_judgment_vs_predecessor')
+          for sid in ('STD26_R7_003','STD26_R7_015','STD26_R7_043'):
+            assert all(isinstance(ins[sid]['related_lineage'].get(f),str) and ins[sid]['related_lineage'][f].strip() for f in fields)
+          assert ins['STD26_R7_011']['date']=='2026-09-04'
+          assert '9월 4일자로' in ins['STD26_R7_011']['date_role']['event_date_source_quote']
+          oci='https://www.koreatimes.co.kr/amp/business/companies/20260903/oci-holdings-breaks-ground-on-texas-solar-project-amid-ai-power-boom'
+          assert oci in ins['STD26_R7_009']['urls']
+          assert ins['STD26_R7_009']['date_role']['event_date_source_url']==oci
+          assert any(x.get('url')==oci for x in ins['STD26_R7_009']['fact_sources'])
+          wag=[x for x in run['operations']['related_add'] if x.get('source_spec_id')=='STD26_R7_043']
+          assert len(wag)==1 and wag[0]['target_id']=='2026-07-14_GL_02' and wag[0]['relation_type']=='distinct_follow_up'
+          assert len(a['strict_passed_spec'])==33 and len(a['decision_ledger'])==45
+          print('RESULT: PASS_0_7C_R5_CODEX_REVIEW_CORRECTION', {'operations_sha256':sha,'related_add':4})
+          PY
+
+      - name: Validate card-run schema
+        run: node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance runs/2026-09-06/r7-20260903-production-r1/card-run.json
+
+      - name: Validate operation Related shape
+        run: node scripts/validate_card_run_relations.mjs --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+
+      - name: Validate exact 0.7C operation binding and ordinary stage chain
+        run: node scripts/validate_card_run_stage_artifacts.mjs --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+
+      - name: Validate V4 document universe coverage completeness and stage bindings
+        run: node scripts/validate_card_run_v4_hardening.mjs --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+
+      - name: Validate authoritative Python V4 operation binding
+        run: python validation_scripts/card_run_v4_binding_hardening.py --run runs/2026-09-06/r7-20260903-production-r1/card-run.json
+
+      - name: Active workflow regression suite
+        run: python validation_scripts/run_active_workflow_tests.py
+
+      - name: Upload independently reviewed 0.7C R5 package
+        uses: actions/upload-artifact@v4
+        with:
+          name: r7-stage-0-7c-validated-r5
+          path: |
+            runs/2026-09-06/r7-20260903-production-r1/stage-0-0d.json
+            runs/2026-09-06/r7-20260903-production-r1/stage-0-0c.json
+            runs/2026-09-06/r7-20260903-production-r1/stage-0-7c.json
+            runs/2026-09-06/r7-20260903-production-r1/card-run.json
+            runs/2026-09-06/r7-20260903-production-r1/stages/*.json

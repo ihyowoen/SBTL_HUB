@@ -55,16 +55,23 @@ jobs:
           c=json.load(open(root+'/stage-0-7c.json',encoding='utf-8'))
           a=json.load(open(root+'/stages/stage-a.json',encoding='utf-8'))
           run=json.load(open(root+'/card-run.json',encoding='utf-8'))
-          sha='6310d929353a63429969a30985e00ffb01f43859d3f57d9e73405f060a02ccb6'
+          sha='203f788ac48796fe9e790a70a30afa7bfcc8dd7143e56011548f00150d2e80a7'
+          allowed={'Battery','ESS','Materials','EV','Charging','Policy','Manufacturing','AI','Robotics','PowerGrid','SupplyChain','Other'}
           assert c['status']=='PASS_WITH_DECLARED_RESIDUAL_RISK'
           assert c['reviewed_operations_sha256']==sha
           assert c['operation_freeze']['operations_sha256']==sha
           assert c['operation_freeze']['insert']==33 and c['operation_freeze']['related_add']==3
+          assert c['production_schema_projection']['status']=='PASS'
+          assert c['production_schema_projection']['card_count']==33
           assert run['operations']['related_add'][2]['patches'][4]['op']=='replace'
           assert run['operations']['related_add'][2]['patches'][5]['op']=='replace'
           fields=('fresh_follow_up_anchor_class','fresh_follow_up_anchor','incremental_fact_vs_predecessor','changed_judgment_vs_predecessor')
           follow={'STD26_R7_003','STD26_R7_015'}
           ins={x['card']['source_spec_id']:x['card'] for x in run['operations']['insert']}
+          assert len(ins)==33
+          for card in ins.values():
+            assert card['cat'] in allowed
+            assert isinstance(card.get('sub_cat'),str) and card['sub_cat'].strip()
           for sid in follow:
             assert all(isinstance(ins[sid]['related_lineage'].get(f),str) and ins[sid]['related_lineage'][f].strip() for f in fields)
           assert len(c['residual_risks'])>=1 and c['prompt_0_8_authorized'] is True
@@ -72,7 +79,7 @@ jobs:
           assert a['summary']['ledger_matches_story_count'] is True
           for f in ('stage_a_validity_status','artifact_consistency_status','csv_schema_status','review_pool_partition_status','strict_pass_gate_metadata_status','baseline_duplicate_screen_status','review_pool_carry_forward_ledger_status'):
             assert a[f]=='PASS'
-          print('RESULT: PASS_0_7C_ENVELOPE_OPERATION_FREEZE_STAGE_A_COMPOSITE_R3')
+          print('RESULT: PASS_0_7C_ENVELOPE_OPERATION_FREEZE_STAGE_A_COMPOSITE_R4')
           PY
       - name: Validate card-run schema
         run: node scripts/validate_json_schema_subset.mjs --schema schemas/card-run.v1.schema.json --instance runs/2026-09-06/r7-20260903-production-r1/card-run.json
@@ -89,7 +96,7 @@ jobs:
       - name: Upload independently reviewed 0.7C package
         uses: actions/upload-artifact@v4
         with:
-          name: r7-stage-0-7c-validated-r3
+          name: r7-stage-0-7c-validated-r4
           path: |
             runs/2026-09-06/r7-20260903-production-r1/stage-0-0d.json
             runs/2026-09-06/r7-20260903-production-r1/stage-0-0c.json

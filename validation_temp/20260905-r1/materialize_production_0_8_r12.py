@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 from pathlib import Path
 
-src=Path('validation_temp/20260905-r1/materialize_production_0_8.py').read_text(encoding='utf-8')
+base=Path(__file__).resolve().with_name('materialize_production_0_8.py')
+src=base.read_text(encoding='utf-8')
 repls={
     'CERTIFIED_WORKFLOW_RUN_ID=34129245202':'CERTIFIED_WORKFLOW_RUN_ID=34130243312',
     'CERTIFIED_ARTIFACT_ID=10021379057':'CERTIFIED_ARTIFACT_ID=10021773658',
@@ -10,4 +11,4 @@ repls={
 for old,new in repls.items():
     assert old in src, old
     src=src.replace(old,new)
-exec(compile(src, 'materialize_production_0_8.py[R12]', 'exec'), {'__name__':'__main__','__file__':'validation_temp/20260905-r1/materialize_production_0_8.py'})
+exec(compile(src, str(base)+'[R12]', 'exec'), {'__name__':'__main__','__file__':str(base)})

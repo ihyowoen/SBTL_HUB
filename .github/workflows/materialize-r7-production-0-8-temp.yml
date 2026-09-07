@@ -44,7 +44,7 @@ jobs:
           test "$(git hash-object data/cards.full.json)" = "8b3d96b5c1fd779567ef8512f7123fc4310093ec"
           test -z "$(git status --porcelain)"
 
-      - name: Download exact follow-up-complete machine-PASS 0.7C package
+      - name: Download exact full-schema-complete machine-PASS 0.7C R4 package
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -53,28 +53,44 @@ jobs:
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10002885342/zip \
-            -o /tmp/r7-stage-0-7c-validated-r3.zip
-          echo "cae88924b7735e0810e69b8d9e8b543cda1fe71af3ec19c521238e365702d170  /tmp/r7-stage-0-7c-validated-r3.zip" | sha256sum -c -
+            https://api.github.com/repos/ihyowoen/SBTL_HUB/actions/artifacts/10004237023/zip \
+            -o /tmp/r7-stage-0-7c-validated-r4.zip
+          echo "81b23a28f3c8a73c5a63ccaccac9da6f3620e971aae0cf625c0930b21dcbb63b  /tmp/r7-stage-0-7c-validated-r4.zip" | sha256sum -c -
           mkdir -p work/runs/2026-09-06/r7-20260903-production-r1
-          unzip -q /tmp/r7-stage-0-7c-validated-r3.zip -d work/runs/2026-09-06/r7-20260903-production-r1
+          unzip -q /tmp/r7-stage-0-7c-validated-r4.zip -d work/runs/2026-09-06/r7-20260903-production-r1
           test -s work/runs/2026-09-06/r7-20260903-production-r1/card-run.json
           test -s work/runs/2026-09-06/r7-20260903-production-r1/stage-0-7c.json
           python - <<'PY'
-          import json
+          import hashlib,json
           root='work/runs/2026-09-06/r7-20260903-production-r1'
           run=json.load(open(root+'/card-run.json',encoding='utf-8'))
           c=json.load(open(root+'/stage-0-7c.json',encoding='utf-8'))
-          sha='6310d929353a63429969a30985e00ffb01f43859d3f57d9e73405f060a02ccb6'
+          sha='203f788ac48796fe9e790a70a30afa7bfcc8dd7143e56011548f00150d2e80a7'
+          allowed={'Battery','ESS','Materials','EV','Charging','Policy','Manufacturing','AI','Robotics','PowerGrid','SupplyChain','Other'}
+          def stable(v):
+            if isinstance(v,list): return [stable(x) for x in v]
+            if isinstance(v,dict): return {k:stable(v[k]) for k in sorted(v)}
+            return v
+          op_sha=hashlib.sha256(json.dumps(stable(run['operations']),ensure_ascii=False,separators=(',',':')).encode('utf-8')).hexdigest()
+          assert op_sha==sha
           assert c['reviewed_operations_sha256']==sha
           assert c['operation_freeze']['operations_sha256']==sha
+          assert c['production_schema_projection']['status']=='PASS'
+          assert c['production_schema_projection']['card_count']==33
+          assert len(run['operations']['insert'])==33
+          assert len(run['operations']['update'])==0
+          assert len(run['operations']['related_add'])==3
+          ins={x['card']['source_spec_id']:x['card'] for x in run['operations']['insert']}
+          assert len(ins)==33
+          for card in ins.values():
+            assert card['cat'] in allowed
+            assert isinstance(card.get('sub_cat'),str) and card['sub_cat'].strip()
           assert run['operations']['related_add'][2]['patches'][4]['op']=='replace'
           assert run['operations']['related_add'][2]['patches'][5]['op']=='replace'
           fields=('fresh_follow_up_anchor_class','fresh_follow_up_anchor','incremental_fact_vs_predecessor','changed_judgment_vs_predecessor')
-          ins={x['card']['source_spec_id']:x['card'] for x in run['operations']['insert']}
           for sid in ('STD26_R7_003','STD26_R7_015'):
             assert all(isinstance(ins[sid]['related_lineage'].get(f),str) and ins[sid]['related_lineage'][f].strip() for f in fields)
-          print('RESULT: PASS_EXACT_FOLLOWUP_COMPLETE_0_7C_ARTIFACT_IMPORT')
+          print('RESULT: PASS_EXACT_FULL_SCHEMA_COMPLETE_0_7C_R4_ARTIFACT_IMPORT')
           PY
 
       - name: Materialize and fully validate Prompt 0.8 production result

@@ -69,7 +69,18 @@ jobs:
           ROOT=runs/2026-09-07/r7-20260905-production-r1/stages
           python validation_scripts/evidence_qc_v8_check.py "$ROOT/stage-0-5.json"
           python validation_scripts/date_role_freshness_check.py "$ROOT/stage-0-5.json" --require-date-role
-          python validation_scripts/related_lifecycle_check.py "$ROOT/stage-0-7.json" --require-contract
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          src=Path('runs/2026-09-07/r7-20260905-production-r1/stages/stage-0-7.json')
+          dst=Path('/tmp/sep5-related-cards.json')
+          p=json.loads(src.read_text(encoding='utf-8'))
+          cards=p.get('publish_ready')
+          assert isinstance(cards,list) and cards, 'publish_ready[] missing for Related projection'
+          dst.write_text(json.dumps({'cards':cards},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print('RESULT: PASS_RELATED_INPUT_PROJECTION',len(cards))
+          PY
+          python validation_scripts/related_lifecycle_check.py /tmp/sep5-related-cards.json --require-contract
 
       - name: Validate card-run operation binding
         run: |

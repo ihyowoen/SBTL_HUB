@@ -1,0 +1,404 @@
+{
+  "schema": "independent_completeness_review_v4_operation_bound_r1",
+  "stage": "0.7C",
+  "status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "completeness_status": "PASS_WITH_DECLARED_RESIDUAL_RISK",
+  "run_id": "card-run-2026-09-06-r7-20260903-production-r1",
+  "base_main_commit_sha": "5317bec055b88a26cffb136e7844eb488ae4db0d",
+  "base_full_blob_sha": "8b3d96b5c1fd779567ef8512f7123fc4310093ec",
+  "document_universe_manifest_ref": "runs/2026-09-06/r7-20260903-production-r1/stage-0-0d.json",
+  "coverage_discovery_ref": "runs/2026-09-06/r7-20260903-production-r1/stage-0-0c.json",
+  "reviewed_operations_sha256": "29f02d480ebc8a4c47555d15e5bd23f012c64598574d57e74d18821931e56278",
+  "source_universe_accounted": true,
+  "regional_search_complete": true,
+  "topic_search_complete": true,
+  "baseline_follow_up_review_complete": true,
+  "review_pool_rescue_complete": true,
+  "must_report_candidates_accounted": true,
+  "material_exclusions": [],
+  "known_unknowns": [],
+  "residual_risks": [
+    "Absolute global completeness beyond the locked R7 registry-bound search universe is not claimed.",
+    "Events emerging after the 2026-09-03 intake window require a separate governed intake and are not silently added to this operation set."
+  ],
+  "reviewer_independence": "SEPARATE_PASS",
+  "prompt_0_8_authorized": true,
+  "six_round_review": {
+    "round_1_universe_accounting": {
+      "status": "PASS",
+      "authoritative_events": 354,
+      "stage_a_eligible": 333,
+      "stage_a_noneligible": 21
+    },
+    "round_2_baseline_duplicate_reinforcement_followup": {
+      "status": "PASS",
+      "relation_distribution": {
+        "no_duplicate_found": 331,
+        "distinct_development_existing_lineage": 5,
+        "existing_card_reinforcement": 4,
+        "same_event_duplicate": 13,
+        "program_lineage": 1
+      },
+      "final_operations": {
+        "insert": 33,
+        "update": 0,
+        "related_add": 4
+      }
+    },
+    "round_3_event_stage_lineage": {
+      "status": "PASS",
+      "distinct_follow_up_cards": 3,
+      "resolved_related_targets": 4,
+      "unresolved_related_targets": 0
+    },
+    "round_4_fact_claim_completeness": {
+      "status": "PASS",
+      "prompt_0_5_pass": 33,
+      "evidence_qc_flags": 0,
+      "related_errors": 0,
+      "date_role_findings": 0
+    },
+    "round_5_news_value": {
+      "status": "PASS",
+      "stage_a_strict_surface": 56,
+      "stage_b_drafts": 34,
+      "stage_c_publishable_after_support_split": 33,
+      "final_publish_ready": 33
+    },
+    "round_6_exclusion_rescue_red_team": {
+      "status": "PASS",
+      "prompt_0_1p_candidates": 52,
+      "promoted": 13,
+      "retained_candidate": 39,
+      "support_source_only": 1,
+      "forced_balance_cards": 0
+    }
+  },
+  "operation_freeze": {
+    "status": "PASS",
+    "operations_sha256": "29f02d480ebc8a4c47555d15e5bd23f012c64598574d57e74d18821931e56278",
+    "insert": 33,
+    "update": 0,
+    "related_add": 4,
+    "expected_before": 1536,
+    "expected_after": 1569,
+    "operation_drift_allowed": false
+  },
+  "production_schema_projection": {
+    "status": "PASS",
+    "schema_authority": "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+    "schema_version": "FUTURE_CARD_FULL_SCHEMA_V2_20260829",
+    "card_count": 33,
+    "sub_cat_projection": "restored_from_stage_b_certified_stage_a_strict_spec",
+    "primary_cat_projection": "explicit_source_spec_id_mapping_no_runtime_inference",
+    "allowed_primary_categories": [
+      "AI",
+      "Battery",
+      "Charging",
+      "ESS",
+      "EV",
+      "Manufacturing",
+      "Materials",
+      "Other",
+      "Policy",
+      "PowerGrid",
+      "Robotics",
+      "SupplyChain"
+    ],
+    "taxonomy_rows": [
+      {
+        "source_spec_id": "STD26_R7_001",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "PowerGrid",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_002",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_003",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Battery",
+        "old_sub_cat": null,
+        "new_sub_cat": "technology"
+      },
+      {
+        "source_spec_id": "STD26_R7_004",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Materials",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_005",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_009",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "PowerGrid",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_011",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Policy",
+        "old_sub_cat": null,
+        "new_sub_cat": "policy"
+      },
+      {
+        "source_spec_id": "STD26_R7_015",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_017",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_018",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_019",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_020",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Materials",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_021",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Materials",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_022",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Policy",
+        "old_sub_cat": null,
+        "new_sub_cat": "policy"
+      },
+      {
+        "source_spec_id": "STD26_R7_023",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Materials",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_027",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_028",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Policy",
+        "old_sub_cat": null,
+        "new_sub_cat": "policy"
+      },
+      {
+        "source_spec_id": "STD26_R7_031",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_038",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "data"
+      },
+      {
+        "source_spec_id": "STD26_R7_040",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Manufacturing",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_043",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Materials",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_001",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "PowerGrid",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_002",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Materials",
+        "old_sub_cat": null,
+        "new_sub_cat": "data"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_003",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_004",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "data"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_005",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_006",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "data"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_008",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "data"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_009",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Policy",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_010",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "data"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_011",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "Charging",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_012",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "PowerGrid",
+        "old_sub_cat": null,
+        "new_sub_cat": "data"
+      },
+      {
+        "source_spec_id": "STD26_R7_P01P_013",
+        "old_cat": "battery_ess_materials_grid",
+        "new_cat": "ESS",
+        "old_sub_cat": null,
+        "new_sub_cat": "execution"
+      }
+    ]
+  },
+  "review_corrections_r5": {
+    "status": "PASS",
+    "source": "Codex review issuecomment-5565195871",
+    "adjudication": [
+      {
+        "finding": "KR event date",
+        "disposition": "REJECTED_AFTER_OFFICIAL_SOURCE_RECHECK",
+        "basis": "Official ministry body states the regulation was amended by action dated Sep. 4; Sep. 3 is the publication date.",
+        "action": "Retain 2026-09-04 event date and strengthen date-bearing event_date_source_quote."
+      },
+      {
+        "finding": "Wagerup lineage",
+        "disposition": "ACCEPTED_FIXED",
+        "basis": "2026-07-14_GL_02 is the same Wagerup 100 t/y gallium project FID predecessor.",
+        "action": "Add governed distinct_follow_up related_add to 2026-07-14_GL_02."
+      },
+      {
+        "finding": "OCI newsroom index",
+        "disposition": "ACCEPTED_FIXED",
+        "basis": "Generic official newsroom is not durable item-specific evidence.",
+        "action": "Add item-specific Korea Times corroboration through urls, fact_sources, date-role source, discovery ledger and evidence_refs."
+      }
+    ]
+  },
+  "review_corrections_r6": {
+    "status": "PASS",
+    "source": "Codex review issuecomment-5565872365",
+    "adjudication": [
+      {
+        "finding": "Vertiv announcement chronology",
+        "disposition": "PARTIALLY_ACCEPTED_METADATA_FIXED_EVENT_DATE_RETAINED",
+        "basis": "The official Vertiv investor release is itself dated Sep. 2, 2026 and states that Vertiv today announced the acquisition agreement.",
+        "action": "Retain the Sep. 2 card/event date; correct the official source publication metadata from Sep. 3 to Sep. 2 and add announcement/date-bearing evidence."
+      },
+      {
+        "finding": "Sungrow filing mirror independence",
+        "disposition": "ACCEPTED_FIXED",
+        "basis": "The Sina page is a document mirror of the CNINFO filing and is not editorially independent under SOURCE_AUDIT_CONTRACT.",
+        "action": "Collapse both URLs to one independent owner cluster, use the official-primary single-source exception, and stop counting the mirror as independent confirmation."
+      },
+      {
+        "finding": "Downstream stage hash chain",
+        "disposition": "ACCEPTED_FIXED",
+        "basis": "R5 post-materialization edits changed upstream stage bytes without recomputing each immediate downstream declared SHA-256.",
+        "action": "Regenerate exact C->0.4->0.5->0.6->0.7 hash bindings after all R6 content corrections and verify them byte-for-byte."
+      }
+    ]
+  },
+  "hash_chain_rebinding_r6": {
+    "status": "PASS",
+    "stage_c_sha256": "e3eec5c66d3d3b4fa54ccac9aa4ae036f86780a3b97e7ebb1f4faee17b1e4277",
+    "stage_0_4_sha256": "2944a0c50df99a5c2cf1cb4d3e246011d6d062e19528f07781e37f6dc1fc7152",
+    "stage_0_5_sha256": "71c24b95e2c5967debc93c14035b41d60bf6530d317148cd2ab4616333a37399",
+    "stage_0_6_sha256": "216217ff6d439281832637e1edf0bfff1eb6de97ef26c739d19d4a8ada1a84f6",
+    "stage_0_7_sha256": "d5d4b64bb9696f772c9eb21f589765b09d2362cf7450b708803310c4b93c1aa6",
+    "bindings": {
+      "stage_0_4.stage_c_artifact_sha256": "e3eec5c66d3d3b4fa54ccac9aa4ae036f86780a3b97e7ebb1f4faee17b1e4277",
+      "stage_0_5.stage_0_4_artifact_sha256": "2944a0c50df99a5c2cf1cb4d3e246011d6d062e19528f07781e37f6dc1fc7152",
+      "stage_0_6.input_0_5_sha256": "71c24b95e2c5967debc93c14035b41d60bf6530d317148cd2ab4616333a37399",
+      "stage_0_7.input_0_6_sha256": "216217ff6d439281832637e1edf0bfff1eb6de97ef26c739d19d4a8ada1a84f6"
+    }
+  }
+}

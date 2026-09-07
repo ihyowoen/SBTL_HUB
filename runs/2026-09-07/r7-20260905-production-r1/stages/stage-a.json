@@ -1,0 +1,3193 @@
+{
+  "stage": "stage_a",
+  "status": "PASS",
+  "run_id": "card-run-2026-09-07-r7-20260905-production-r1",
+  "base_main_commit_sha": "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62",
+  "base_full_blob_sha": "707fe5ea9836a0c2341771397da32c818a95cbed",
+  "run_tag": "20260907_R8_SEP5_PRODUCTION9_STAGE_A_COMPOSITE",
+  "run_label": "Sep 5 R8 production9 Stage A composite from machine-adjudicated strict candidates; full discovery accounting remains in Stage 0.0C.",
+  "source_prompt_file": "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+  "source_prompt_sha256": "617b775d8ce711b7631073f4a335d385ee6e474efa80d6948435d2434af8461e",
+  "source_prompt_version": "STAGE_A_INTEGRATED_SELECTOR_V4_20260901",
+  "source_prompt_authority": "uploaded_or_repo_source_file_prompt",
+  "source_prompt_provenance_status": "PASS",
+  "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+  "input_file": "runs/2026-09-07/r7-20260905-production-r1/stage-0-0c.json",
+  "baseline_file": "data/cards.full.json",
+  "baseline_source_declaration": "current main eb1a311ed378fcdf547b52ad5da0652cb9f1fc62; canonical blob 707fe5ea9836a0c2341771397da32c818a95cbed; 1569 cards",
+  "baseline_count": 1569,
+  "github_main_sync_required_later": false,
+  "source_universe": "11 source observations / 9 final strict Stage A specs filtered from the fully-accounted 0.0C discovery universe.",
+  "story_count": 11,
+  "event_count": 9,
+  "original_status_counts": {
+    "kept": 11
+  },
+  "integrity_summary": {
+    "status": "PASS",
+    "main_sha": "eb1a311ed378fcdf547b52ad5da0652cb9f1fc62",
+    "canonical_blob_sha": "707fe5ea9836a0c2341771397da32c818a95cbed",
+    "production_strict_event_count": 9,
+    "production_source_observation_count": 11,
+    "duplicate_event_membership": 0,
+    "unassigned_event_membership": 0,
+    "coverage_discovery_ref": "runs/2026-09-07/r7-20260905-production-r1/stage-0-0c.json"
+  },
+  "recommended_for": [
+    "Stage B evidence package construction for strict_passed_spec[] only"
+  ],
+  "stage_a_validity_status": "PASS",
+  "artifact_consistency_status": "PASS",
+  "csv_schema_status": "PASS",
+  "review_pool_partition_status": "PASS",
+  "strict_pass_gate_metadata_status": "PASS",
+  "baseline_duplicate_screen_status": "PASS",
+  "review_pool_carry_forward_ledger_status": "PASS",
+  "next_call_recommendation": {
+    "recommended_next_call": "Stage B r0",
+    "recommended_prompt_id": "Prompt 0.2",
+    "recommended_input_universe": "Stage A strict_passed_spec[] only",
+    "reason": "9 strict candidates are formal production-chain inputs; non-strict discovery rows remain terminally accounted in 0.0C.",
+    "blocked_items_summary": []
+  },
+  "required_docs_check": {
+    "docs_expected": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "docs_read_from_github_main": [
+      "docs/llm_prompts/v1/01_PROMPT_0_1_Stage_A.md",
+      "docs/FACT_DISCIPLINE.md",
+      "docs/PROMPT_ABC_DEFAULT_MODE.md",
+      "docs/FUTURE_CARD_STANDARD_FULL_SCHEMA.md",
+      "docs/CARD_ID_STANDARD.md",
+      "docs/WORKFLOW.md",
+      "docs/OPERATIONS.md",
+      "docs/POST_ACCEPTANCE_CONTENT_ENRICHMENT_QC.md",
+      "docs/RELATED_LIFECYCLE_CONTRACT.md"
+    ],
+    "docs_missing_or_unreadable": [],
+    "status": "PASS",
+    "authority_note": "Integrated Stage A V4 is active authority; retired V3 policy/addendum bodies are private compatibility projection only."
+  },
+  "lane_sanity_rules_applied": [
+    "source_bound_observation_identity",
+    "current_main_event_duplicate_gate_pass",
+    "rescue_before_delete",
+    "V4_score_caps_machine_checked",
+    "0_0C_full_discovery_accounting_preserved",
+    "production_composite_strict_only"
+  ],
+  "dropped_treasure_hunt": {
+    "performed": false,
+    "trigger_reason": "0.0C discovery and rescue were locked upstream; production Stage A composite performs no new search.",
+    "sample_strategy": "not_applicable_at_production_composite",
+    "sample_size": 0,
+    "sampled_story_ids": [],
+    "rescued_count": 0,
+    "rescue_ids": [],
+    "non_sampled_dropped_count": 0,
+    "non_sampled_ledger_policy": "Every production-composite source observation is represented exactly once in decision_ledger; full non-strict accounting remains in 0.0C."
+  },
+  "summary": {
+    "legacy_keep_count": 0,
+    "strict_passed_spec_count": 9,
+    "needs_review_count": 0,
+    "candidate_review_pool_count": 0,
+    "watchlist_context_pool_count": 0,
+    "reject_or_support_only_pool_count": 0,
+    "rejected_count": 0,
+    "existing_reinforcement_count": 0,
+    "support_source_only_count": 0,
+    "duplicate_or_reinforcement_count": 0,
+    "stale_discarded_count": 0,
+    "stale_warm_review_count": 0,
+    "total_ledger_count": 11,
+    "ledger_matches_story_count": true,
+    "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+    "structural_selector_policy_file": "docs/STRUCTURAL_NEWS_VALUE_SELECTION.md",
+    "structural_selector_policy_sha": "826974044eac88f2e80c972dcfa8493cd508cbc31e3a7ca0a0482f244d82c6fe",
+    "credibility_cardability_value_urgency_separated": true,
+    "industry_first_weighting_applied": true,
+    "core_industrial_weight_total": 70,
+    "multi_anchor_class_model_applied": true,
+    "mandatory_structural_lenses_applied": true,
+    "anchor_class_counts": {
+      "data_financial_anchor": 1,
+      "execution_event_anchor": 7,
+      "policy_regulatory_anchor": 2
+    },
+    "structural_lens_coverage_counts": {
+      "market_structure_supply_chain_execution": 9
+    },
+    "decision_value_classification_counts": {
+      "material_industry_signal": 9
+    },
+    "critical_structural_candidate_ids": [],
+    "high_decision_value_candidate_ids": [],
+    "high_value_review_pool_ids": [],
+    "structural_signal_review_pool_ids": [],
+    "earnings_deep_dive_pool_ids": [],
+    "follow_up_candidate_ids": [],
+    "zero_coverage_domains": [],
+    "execution_or_formality_bias_findings": [],
+    "technology_validation_gap_ids": [],
+    "legal_policy_stage_gap_ids": [],
+    "search_before_delete_applied": true,
+    "earnings_call_qna_rule_applied": true,
+    "follow_up_probability_review_applied": true,
+    "portfolio_coverage_audit_applied": true,
+    "structural_value_selector_status": "PASS",
+    "portfolio_coverage_audit_status": "PASS",
+    "earnings_call_qna_audit_status": "NOT_APPLICABLE",
+    "follow_up_repromotion_audit_status": "PASS",
+    "execution_event_bias_audit_status": "PASS",
+    "content_depth_audit_status": "PASS",
+    "decision_ledger_count": 11,
+    "selection_route_counts": {
+      "execution_anchor_route": 7,
+      "structural_non_execution_route": 2
+    },
+    "formal_event_count": 9,
+    "source_bound_observation_count": 11
+  },
+  "legacy_keep": [],
+  "strict_passed_spec": [
+    {
+      "source_event_id": "SEP5_001_CITRUS",
+      "source_origin": "sep5_exact_input_sha_plus_0_0c_discovery",
+      "source_story_ids": [
+        "GL_2026-09-04_C21",
+        "US_2026-09-03_C05"
+      ],
+      "original_story_ids": [
+        "GL_2026-09-04_C21",
+        "US_2026-09-03_C05"
+      ],
+      "primary_url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+      "urls": [
+        "https://www.equinor.com/news/20260903-citrus-flatts-energy-center"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "GL_2026-09-04_C21",
+          "url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "US_2026-09-03_C05",
+          "url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "source_cluster",
+      "merged_story_ids": [
+        "US_2026-09-03_C05"
+      ],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "decision_news_value_score": 59,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 24,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_001_CITRUS.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No market-wide denominator asserted for SEP5_001_CITRUS; systemic scale capped at 2/5.",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_001_CITRUS.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "향후 실제 가동률과 시장수익, Equinor 계열 최적화 서비스의 기여가 후속 확인 포인트다.",
+      "incremental_information": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "decision_relevance": "Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시 would strengthen or weaken the judgment that Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Confirm next measurable stage after 2026-09-03 for SEP5_001_CITRUS."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-03",
+        "event_date": "2026-09-03",
+        "publication_dates": [
+          "2026-09-03"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+        "event_date_source_quote": "completed construction and started operations at Citrus Flatts, a 100 MW/200 MWh energy storage facility in Harlingen, Texas.",
+        "source_quote_emitted": false,
+        "note": "Operative date bound to body-level source evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "current_execution_event",
+        "anchor_strength": "strong",
+        "stage_precision_note": "Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "No same-event canonical card found."
+      },
+      "execution_anchor_type": "current_execution_event",
+      "execution_anchor_strength": "strong",
+      "structural_value_override_applied": false,
+      "structural_selector_policy_version": null,
+      "structural_value_override_reason": null,
+      "structural_non_execution_reason": null,
+      "why_execution_event_not_required": null,
+      "baseline_relation": "new_unrelated",
+      "baseline_match": [],
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "source_cluster_preserved": true,
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "www.equinor.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": true,
+        "reason": "Body-level source-owner path available."
+      },
+      "support_source_candidates_accounted": true,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "region": "US",
+      "representative_date": "2026-09-03",
+      "representative_source": "Equinor",
+      "source_tier_estimate": "tier_1_or_source_owner_candidate",
+      "cat": "battery_ess_materials_grid",
+      "sub_cat": "execution",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 59
+      },
+      "strategic_lens": [
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "current_execution_event",
+      "title_raw": "Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시",
+      "summary_hint": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+      "context_text": "Current 9/5 governed intake.",
+      "why_now": "Source-bound event/effective milestone dated 2026-09-03.",
+      "market_relevance": "Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다.",
+      "source_priority_notes": "Use strongest source-owner or authoritative material.",
+      "upstream_labels": {
+        "triage_status": "KEEP",
+        "matched_buckets": [
+          "battery_ess_materials_grid"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260903_E0001",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-03",
+        "publication_date": "2026-09-03",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current_or_effective_date_milestone"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "denominator_used": "Named event/program only.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "spec_id": "STD26_R8_001",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "SEP5_001_CITRUS satisfies current V4 strict Stage A.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Precise anchor and Stage B evidence path available."
+      }
+    },
+    {
+      "source_event_id": "SEP5_002_GABRIELA",
+      "source_origin": "sep5_exact_input_sha_plus_0_0c_discovery",
+      "source_story_ids": [
+        "GL_2026-09-03_C09"
+      ],
+      "original_story_ids": [
+        "GL_2026-09-03_C09"
+      ],
+      "primary_url": "https://www.cvcdif.com/news-insights/cvc-dif-completes-acquisition-of-gabriela-project",
+      "urls": [
+        "https://www.cvcdif.com/news-insights/cvc-dif-completes-acquisition-of-gabriela-project"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "GL_2026-09-03_C09",
+          "url": "https://www.cvcdif.com/news-insights/cvc-dif-completes-acquisition-of-gabriela-project",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "source_cluster",
+      "merged_story_ids": [],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "decision_news_value_score": 61,
+      "decision_value_breakdown": {
+        "market_structure_competition": 20,
+        "supply_demand_price_utilisation": 22,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 10,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_002_GABRIELA.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No market-wide denominator asserted for SEP5_002_GABRIELA; systemic scale capped at 2/5.",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "CVC DIF는 9월 2일 칠레 북부 Gabriela 프로젝트가 상업운전을 시작하면서 Grenergy로부터의 인수를 완료했다고 밝혔다. 완공 자산은 태양광 272MW와 배터리 저장 1,100MWh로 구성되며 15년 장기 하이브리드 PPA가 체결돼 있다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_002_GABRIELA.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "운영 실적과 장기 PPA 현금흐름이 향후 유사 하이브리드 자산의 가치평가 기준을 구체화할 수 있다.",
+      "incremental_information": "CVC DIF는 9월 2일 칠레 북부 Gabriela 프로젝트가 상업운전을 시작하면서 Grenergy로부터의 인수를 완료했다고 밝혔다. 완공 자산은 태양광 272MW와 배터리 저장 1,100MWh로 구성되며 15년 장기 하이브리드 PPA가 체결돼 있다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "decision_relevance": "대형 태양광+BESS의 상업운전이 자산매각 종결 조건을 충족하며 개발 리스크가 운영자산·인프라 자본으로 이전됐다.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying CVC DIF, 칠레 Gabriela 1.1GWh BESS 상업운전·인수 완료: event date 2026-09-02, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for CVC DIF, 칠레 Gabriela 1.1GWh BESS 상업운전·인수 완료 would strengthen or weaken the judgment that 대형 태양광+BESS의 상업운전이 자산매각 종결 조건을 충족하며 개발 리스크가 운영자산·인프라 자본으로 이전됐다."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Confirm next measurable stage after 2026-09-02 for SEP5_002_GABRIELA."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-02",
+        "event_date": "2026-09-02",
+        "publication_dates": [
+          "2026-09-02"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.cvcdif.com/news-insights/cvc-dif-completes-acquisition-of-gabriela-project",
+        "event_date_source_quote": "has initiated commercial operations, triggering completion of CVC DIF’s acquisition",
+        "source_quote_emitted": false,
+        "note": "Operative date bound to body-level source evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "current_execution_event",
+        "anchor_strength": "strong",
+        "stage_precision_note": "대형 태양광+BESS의 상업운전이 자산매각 종결 조건을 충족하며 개발 리스크가 운영자산·인프라 자본으로 이전됐다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "No same-event canonical card found."
+      },
+      "execution_anchor_type": "current_execution_event",
+      "execution_anchor_strength": "strong",
+      "structural_value_override_applied": false,
+      "structural_selector_policy_version": null,
+      "structural_value_override_reason": null,
+      "structural_non_execution_reason": null,
+      "why_execution_event_not_required": null,
+      "baseline_relation": "new_unrelated",
+      "baseline_match": [],
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "source_cluster_preserved": true,
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "www.cvcdif.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": true,
+        "reason": "Body-level source-owner path available."
+      },
+      "support_source_candidates_accounted": true,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "region": "GL",
+      "representative_date": "2026-09-02",
+      "representative_source": "CVC DIF",
+      "source_tier_estimate": "tier_1_or_source_owner_candidate",
+      "cat": "battery_ess_materials_grid",
+      "sub_cat": "execution",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 61
+      },
+      "strategic_lens": [
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "current_execution_event",
+      "title_raw": "CVC DIF, 칠레 Gabriela 1.1GWh BESS 상업운전·인수 완료",
+      "summary_hint": "CVC DIF는 9월 2일 칠레 북부 Gabriela 프로젝트가 상업운전을 시작하면서 Grenergy로부터의 인수를 완료했다고 밝혔다. 완공 자산은 태양광 272MW와 배터리 저장 1,100MWh로 구성되며 15년 장기 하이브리드 PPA가 체결돼 있다.",
+      "context_text": "Current 9/5 governed intake.",
+      "why_now": "Source-bound event/effective milestone dated 2026-09-02.",
+      "market_relevance": "대형 태양광+BESS의 상업운전이 자산매각 종결 조건을 충족하며 개발 리스크가 운영자산·인프라 자본으로 이전됐다.",
+      "source_priority_notes": "Use strongest source-owner or authoritative material.",
+      "upstream_labels": {
+        "triage_status": "KEEP",
+        "matched_buckets": [
+          "battery_ess_materials_grid"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260903_E0001",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-02",
+        "publication_date": "2026-09-02",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current_or_effective_date_milestone"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "denominator_used": "Named event/program only.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "spec_id": "STD26_R8_002",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "SEP5_002_GABRIELA satisfies current V4 strict Stage A.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Precise anchor and Stage B evidence path available."
+      }
+    },
+    {
+      "source_event_id": "SEP5_003_PUEBLO",
+      "source_origin": "sep5_exact_input_sha_plus_0_0c_discovery",
+      "source_story_ids": [
+        "DISC_2026-09-04_PUEBLO_BESS"
+      ],
+      "original_story_ids": [],
+      "primary_url": "https://linxon.com/press-release-linxon-and-cloudbreak-energy-advance-pueblo-battery-resource-into-execution-following-final-investment-decision/",
+      "urls": [
+        "https://linxon.com/press-release-linxon-and-cloudbreak-energy-advance-pueblo-battery-resource-into-execution-following-final-investment-decision/",
+        "https://cloudbreakenergy.com/cloudbreak-energy-successfully-develops-50-mw-battery-storage-project-with-black-hills/"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "DISC_2026-09-04_PUEBLO_BESS",
+          "url": "https://linxon.com/press-release-linxon-and-cloudbreak-energy-advance-pueblo-battery-resource-into-execution-following-final-investment-decision/",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "source_cluster",
+      "merged_story_ids": [],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "decision_news_value_score": 59,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 24,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_003_PUEBLO.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No market-wide denominator asserted for SEP5_003_PUEBLO; systemic scale capped at 2/5.",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Linxon과 Cloudbreak Energy는 9월 4일 콜로라도 Pueblo Battery Resource가 최종투자결정(FID)을 통과해 실행 단계에 진입했다고 밝혔다. Cloudbreak는 Black Hills Energy가 프로젝트에 notice to proceed를 발행했으며 50MW/200MWh 설비 건설을 진행한다고 설명했다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_003_PUEBLO.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "Tesla Megapack 50기와 balance-of-plant 발주가 예정돼 있어 2027년 말 서비스 개시까지 EPC 진행률을 추적할 필요가 있다.",
+      "incremental_information": "Linxon과 Cloudbreak Energy는 9월 4일 콜로라도 Pueblo Battery Resource가 최종투자결정(FID)을 통과해 실행 단계에 진입했다고 밝혔다. Cloudbreak는 Black Hills Energy가 프로젝트에 notice to proceed를 발행했으며 50MW/200MWh 설비 건설을 진행한다고 설명했다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "decision_relevance": "유틸리티 BESS가 개발·최적화 단계에서 투자결정과 착공 실행 단계로 넘어갔다.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Cloudbreak·Linxon, 콜로라도 Pueblo 50MW/200MWh BESS FID·NTP 확보: event date 2026-09-04, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Cloudbreak·Linxon, 콜로라도 Pueblo 50MW/200MWh BESS FID·NTP 확보 would strengthen or weaken the judgment that 유틸리티 BESS가 개발·최적화 단계에서 투자결정과 착공 실행 단계로 넘어갔다."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Confirm next measurable stage after 2026-09-04 for SEP5_003_PUEBLO."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-04",
+        "event_date": "2026-09-04",
+        "publication_dates": [
+          "2026-09-04"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://linxon.com/press-release-linxon-and-cloudbreak-energy-advance-pueblo-battery-resource-into-execution-following-final-investment-decision/",
+        "event_date_source_quote": "progressing the project through Final Investment Decision (FID) and into execution",
+        "source_quote_emitted": false,
+        "note": "Operative date bound to body-level source evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "current_execution_event",
+        "anchor_strength": "strong",
+        "stage_precision_note": "유틸리티 BESS가 개발·최적화 단계에서 투자결정과 착공 실행 단계로 넘어갔다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "No same-event canonical card found."
+      },
+      "execution_anchor_type": "current_execution_event",
+      "execution_anchor_strength": "strong",
+      "structural_value_override_applied": false,
+      "structural_selector_policy_version": null,
+      "structural_value_override_reason": null,
+      "structural_non_execution_reason": null,
+      "why_execution_event_not_required": null,
+      "baseline_relation": "new_unrelated",
+      "baseline_match": [],
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "source_cluster_preserved": true,
+      "support_source_candidates": [
+        "https://cloudbreakenergy.com/cloudbreak-energy-successfully-develops-50-mw-battery-storage-project-with-black-hills/"
+      ],
+      "source_domain_candidates": [
+        "linxon.com",
+        "cloudbreakenergy.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 2,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "Body-level source-owner path available."
+      },
+      "support_source_candidates_accounted": true,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "region": "US",
+      "representative_date": "2026-09-04",
+      "representative_source": "Linxon",
+      "source_tier_estimate": "tier_1_or_source_owner_candidate",
+      "cat": "battery_ess_materials_grid",
+      "sub_cat": "execution",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 59
+      },
+      "strategic_lens": [
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "current_execution_event",
+      "title_raw": "Cloudbreak·Linxon, 콜로라도 Pueblo 50MW/200MWh BESS FID·NTP 확보",
+      "summary_hint": "Linxon과 Cloudbreak Energy는 9월 4일 콜로라도 Pueblo Battery Resource가 최종투자결정(FID)을 통과해 실행 단계에 진입했다고 밝혔다. Cloudbreak는 Black Hills Energy가 프로젝트에 notice to proceed를 발행했으며 50MW/200MWh 설비 건설을 진행한다고 설명했다.",
+      "context_text": "Current 9/5 governed intake.",
+      "why_now": "Source-bound event/effective milestone dated 2026-09-04.",
+      "market_relevance": "유틸리티 BESS가 개발·최적화 단계에서 투자결정과 착공 실행 단계로 넘어갔다.",
+      "source_priority_notes": "Use strongest source-owner or authoritative material.",
+      "upstream_labels": {
+        "triage_status": "KEEP",
+        "matched_buckets": [
+          "battery_ess_materials_grid"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260903_E0001",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-04",
+        "publication_date": "2026-09-04",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current_or_effective_date_milestone"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "denominator_used": "Named event/program only.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "spec_id": "STD26_R8_003",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "SEP5_003_PUEBLO satisfies current V4 strict Stage A.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Precise anchor and Stage B evidence path available."
+      }
+    },
+    {
+      "source_event_id": "SEP5_004_SHARE",
+      "source_origin": "sep5_exact_input_sha_plus_0_0c_discovery",
+      "source_story_ids": [
+        "US_2026-09-04_C12"
+      ],
+      "original_story_ids": [
+        "US_2026-09-04_C12"
+      ],
+      "primary_url": "https://investor.pgecorp.com/news-events/press-releases/press-release-details/2026/PGE-Rewiring-America-and-Google-Launch-First-of-its-Kind-Virtual-Power-Plant-to-Help-Lower-Costs-for-All-Customers/default.aspx",
+      "urls": [
+        "https://investor.pgecorp.com/news-events/press-releases/press-release-details/2026/PGE-Rewiring-America-and-Google-Launch-First-of-its-Kind-Virtual-Power-Plant-to-Help-Lower-Costs-for-All-Customers/default.aspx",
+        "https://www.rewiringamerica.org/newsroom/PGE-google-vpp-homegrown-energy-california"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "US_2026-09-04_C12",
+          "url": "https://investor.pgecorp.com/news-events/press-releases/press-release-details/2026/PGE-Rewiring-America-and-Google-Launch-First-of-its-Kind-Virtual-Power-Plant-to-Help-Lower-Costs-for-All-Customers/default.aspx",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "source_cluster",
+      "merged_story_ids": [],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "decision_news_value_score": 56,
+      "decision_value_breakdown": {
+        "market_structure_competition": 20,
+        "supply_demand_price_utilisation": 20,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 6,
+        "law_policy_market_access": 3,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_004_SHARE.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No market-wide denominator asserted for SEP5_004_SHARE; systemic scale capped at 2/5.",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "PG&E는 9월 3일 Rewiring America·Google 등과 함께 SHARE 가상발전소를 출범한다고 발표했다. 프로그램은 Bay Area에서 기존 가정 에너지기기 2만개 이상을 연계하고, 가정용 배터리·스마트기기·배터리형 히트펌프를 수요 피크 대응 자원으로 운영하는 것을 목표로 한다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_004_SHARE.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "기기 등록 규모와 실제 dispatch 성과가 확인되면 주거용 배터리의 계통가치와 고객 보상모델을 비교할 수 있다.",
+      "incremental_information": "PG&E는 9월 3일 Rewiring America·Google 등과 함께 SHARE 가상발전소를 출범한다고 발표했다. 프로그램은 Bay Area에서 기존 가정 에너지기기 2만개 이상을 연계하고, 가정용 배터리·스마트기기·배터리형 히트펌프를 수요 피크 대응 자원으로 운영하는 것을 목표로 한다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "decision_relevance": "분산형 가정 배터리와 전기화 설비가 전력망 용량자원으로 묶이는 상용 VPP 모델이 확대되고 있다.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying PG&E·Google·Rewiring America, 캘리포니아 가정자원 VPP ‘SHARE’ 출범: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for PG&E·Google·Rewiring America, 캘리포니아 가정자원 VPP ‘SHARE’ 출범 would strengthen or weaken the judgment that 분산형 가정 배터리와 전기화 설비가 전력망 용량자원으로 묶이는 상용 VPP 모델이 확대되고 있다."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Confirm next measurable stage after 2026-09-03 for SEP5_004_SHARE."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-03",
+        "event_date": "2026-09-03",
+        "publication_dates": [
+          "2026-09-03"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://investor.pgecorp.com/news-events/press-releases/press-release-details/2026/PGE-Rewiring-America-and-Google-Launch-First-of-its-Kind-Virtual-Power-Plant-to-Help-Lower-Costs-for-All-Customers/default.aspx",
+        "event_date_source_quote": "today announced SHARE (Smart Home Assets for Reliability and Efficiency), a first-of-its-kind Virtual Power Plant",
+        "source_quote_emitted": false,
+        "note": "Operative date bound to body-level source evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "current_execution_event",
+        "anchor_strength": "strong",
+        "stage_precision_note": "분산형 가정 배터리와 전기화 설비가 전력망 용량자원으로 묶이는 상용 VPP 모델이 확대되고 있다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "No same-event canonical card found."
+      },
+      "execution_anchor_type": "current_execution_event",
+      "execution_anchor_strength": "strong",
+      "structural_value_override_applied": false,
+      "structural_selector_policy_version": null,
+      "structural_value_override_reason": null,
+      "structural_non_execution_reason": null,
+      "why_execution_event_not_required": null,
+      "baseline_relation": "new_unrelated",
+      "baseline_match": [],
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "source_cluster_preserved": true,
+      "support_source_candidates": [
+        "https://www.rewiringamerica.org/newsroom/PGE-google-vpp-homegrown-energy-california"
+      ],
+      "source_domain_candidates": [
+        "investor.pgecorp.com",
+        "www.rewiringamerica.org"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 2,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "Body-level source-owner path available."
+      },
+      "support_source_candidates_accounted": true,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "region": "US",
+      "representative_date": "2026-09-03",
+      "representative_source": "PG&E",
+      "source_tier_estimate": "tier_1_or_source_owner_candidate",
+      "cat": "battery_ess_materials_grid",
+      "sub_cat": "execution",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 56
+      },
+      "strategic_lens": [
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "current_execution_event",
+      "title_raw": "PG&E·Google·Rewiring America, 캘리포니아 가정자원 VPP ‘SHARE’ 출범",
+      "summary_hint": "PG&E는 9월 3일 Rewiring America·Google 등과 함께 SHARE 가상발전소를 출범한다고 발표했다. 프로그램은 Bay Area에서 기존 가정 에너지기기 2만개 이상을 연계하고, 가정용 배터리·스마트기기·배터리형 히트펌프를 수요 피크 대응 자원으로 운영하는 것을 목표로 한다.",
+      "context_text": "Current 9/5 governed intake.",
+      "why_now": "Source-bound event/effective milestone dated 2026-09-03.",
+      "market_relevance": "분산형 가정 배터리와 전기화 설비가 전력망 용량자원으로 묶이는 상용 VPP 모델이 확대되고 있다.",
+      "source_priority_notes": "Use strongest source-owner or authoritative material.",
+      "upstream_labels": {
+        "triage_status": "KEEP",
+        "matched_buckets": [
+          "battery_ess_materials_grid"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260903_E0001",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-03",
+        "publication_date": "2026-09-03",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current_or_effective_date_milestone"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "denominator_used": "Named event/program only.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "spec_id": "STD26_R8_004",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "SEP5_004_SHARE satisfies current V4 strict Stage A.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Precise anchor and Stage B evidence path available."
+      }
+    },
+    {
+      "source_event_id": "SEP5_005_ENGIE10",
+      "source_origin": "sep5_exact_input_sha_plus_0_0c_discovery",
+      "source_story_ids": [
+        "EU_2026-09-04_C07"
+      ],
+      "original_story_ids": [
+        "EU_2026-09-04_C07"
+      ],
+      "primary_url": "https://en.newsroom.engie.com/news/engie-exceeds-10-gw-of-storage-capacity-worldwide-driven-by-summer-growth-in-bess-across-europe-72a2a-314df.html",
+      "urls": [
+        "https://en.newsroom.engie.com/news/engie-exceeds-10-gw-of-storage-capacity-worldwide-driven-by-summer-growth-in-bess-across-europe-72a2a-314df.html"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "EU_2026-09-04_C07",
+          "url": "https://en.newsroom.engie.com/news/engie-exceeds-10-gw-of-storage-capacity-worldwide-driven-by-summer-growth-in-bess-across-europe-72a2a-314df.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "source_cluster",
+      "merged_story_ids": [],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "structural_non_execution_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "v4_structural_non_execution_route_compatibility"
+      ],
+      "anchor_classes": [
+        "data_financial_anchor"
+      ],
+      "decision_news_value_score": 61,
+      "decision_value_breakdown": {
+        "market_structure_competition": 22,
+        "supply_demand_price_utilisation": 22,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_005_ENGIE10.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No market-wide denominator asserted for SEP5_005_ENGIE10; systemic scale capped at 2/5.",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "ENGIE는 9월 4일 배터리 저장과 양수발전을 합친 글로벌 저장 포트폴리오가 운전 및 건설 중 기준 10.7GW에 도달했다고 밝혔다. 7~8월 유럽 배터리 포트폴리오는 7개국에서 1.1GW/3.3GWh 추가됐으며, 지역별 저장 규모는 유럽 4.7GW와 미국 4.4GW다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_005_ENGIE10.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "운전 중과 건설 중 용량이 함께 집계된 수치인 만큼 실제 COD 전환 속도와 배터리 비중을 분리해 추적해야 한다.",
+      "incremental_information": "ENGIE는 9월 4일 배터리 저장과 양수발전을 합친 글로벌 저장 포트폴리오가 운전 및 건설 중 기준 10.7GW에 도달했다고 밝혔다. 7~8월 유럽 배터리 포트폴리오는 7개국에서 1.1GW/3.3GWh 추가됐으며, 지역별 저장 규모는 유럽 4.7GW와 미국 4.4GW다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "decision_relevance": "대형 유틸리티의 저장 포트폴리오가 개별 프로젝트 단위를 넘어 두 자릿수 GW 규모의 핵심 유연성 자산군으로 확대됐다.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying ENGIE, 글로벌 저장 포트폴리오 10.7GW 도달…유럽 여름 1.1GW/3.3GWh 확대: event date 2026-09-04, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for ENGIE, 글로벌 저장 포트폴리오 10.7GW 도달…유럽 여름 1.1GW/3.3GWh 확대 would strengthen or weaken the judgment that 대형 유틸리티의 저장 포트폴리오가 개별 프로젝트 단위를 넘어 두 자릿수 GW 규모의 핵심 유연성 자산군으로 확대됐다."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Confirm next measurable stage after 2026-09-04 for SEP5_005_ENGIE10."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-04",
+        "event_date": "2026-09-04",
+        "publication_dates": [
+          "2026-09-04"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://en.newsroom.engie.com/news/engie-exceeds-10-gw-of-storage-capacity-worldwide-driven-by-summer-growth-in-bess-across-europe-72a2a-314df.html",
+        "event_date_source_quote": "global storage portfolio has reached 10.7 GW in operation and under construction",
+        "source_quote_emitted": false,
+        "note": "Operative date bound to body-level source evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "not_required_structural_route",
+        "anchor_strength": "strong",
+        "stage_precision_note": "대형 유틸리티의 저장 포트폴리오가 개별 프로젝트 단위를 넘어 두 자릿수 GW 규모의 핵심 유연성 자산군으로 확대됐다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "No same-event canonical card found."
+      },
+      "execution_anchor_type": null,
+      "execution_anchor_strength": null,
+      "structural_value_override_applied": true,
+      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "structural_value_override_reason": "The active V4 selector admits this item through the structural non-execution route because the verified policy/data milestone changes decision-relevant industry state without requiring a conventional execution event.",
+      "structural_non_execution_reason": "SEP5_005_ENGIE10 is a policy/data structural signal.",
+      "why_execution_event_not_required": "V4 structural route is appropriate for the source-bound policy/data signal.",
+      "baseline_relation": "new_unrelated",
+      "baseline_match": [],
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "source_cluster_preserved": true,
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "en.newsroom.engie.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": true,
+        "reason": "Body-level source-owner path available."
+      },
+      "support_source_candidates_accounted": true,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "region": "GL",
+      "representative_date": "2026-09-04",
+      "representative_source": "ENGIE",
+      "source_tier_estimate": "tier_1_or_source_owner_candidate",
+      "cat": "battery_ess_materials_grid",
+      "sub_cat": "market",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 61
+      },
+      "strategic_lens": [
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "structural_non_execution",
+      "title_raw": "ENGIE, 글로벌 저장 포트폴리오 10.7GW 도달…유럽 여름 1.1GW/3.3GWh 확대",
+      "summary_hint": "ENGIE는 9월 4일 배터리 저장과 양수발전을 합친 글로벌 저장 포트폴리오가 운전 및 건설 중 기준 10.7GW에 도달했다고 밝혔다. 7~8월 유럽 배터리 포트폴리오는 7개국에서 1.1GW/3.3GWh 추가됐으며, 지역별 저장 규모는 유럽 4.7GW와 미국 4.4GW다.",
+      "context_text": "Current 9/5 governed intake.",
+      "why_now": "Source-bound event/effective milestone dated 2026-09-04.",
+      "market_relevance": "대형 유틸리티의 저장 포트폴리오가 개별 프로젝트 단위를 넘어 두 자릿수 GW 규모의 핵심 유연성 자산군으로 확대됐다.",
+      "source_priority_notes": "Use strongest source-owner or authoritative material.",
+      "upstream_labels": {
+        "triage_status": "KEEP",
+        "matched_buckets": [
+          "battery_ess_materials_grid"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260903_E0001",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-04",
+        "publication_date": "2026-09-04",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current_or_effective_date_milestone"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "denominator_used": "Named event/program only.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "spec_id": "STD26_R8_005",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "SEP5_005_ENGIE10 satisfies current V4 strict Stage A.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Precise anchor and Stage B evidence path available."
+      }
+    },
+    {
+      "source_event_id": "SEP5_006_ANSON",
+      "source_origin": "sep5_exact_input_sha_plus_0_0c_discovery",
+      "source_story_ids": [
+        "GL_2026-09-04_C30"
+      ],
+      "original_story_ids": [
+        "GL_2026-09-04_C30"
+      ],
+      "primary_url": "https://www.utah.gov/pmn/sitemap/notice/1103967.html",
+      "urls": [
+        "https://www.utah.gov/pmn/sitemap/notice/1103967.html",
+        "https://www.miningweekly.com/article/lithium-developer-anson-secures-193m-business-incentive-from-utah-gov-2026-09-04"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "GL_2026-09-04_C30",
+          "url": "https://www.utah.gov/pmn/sitemap/notice/1103967.html",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "source_cluster",
+      "merged_story_ids": [],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "anchor_classes": [
+        "execution_event_anchor",
+        "policy_regulatory_anchor"
+      ],
+      "decision_news_value_score": 61,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 10,
+        "law_policy_market_access": 8,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_006_ANSON.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": 4,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No market-wide denominator asserted for SEP5_006_ANSON; systemic scale capped at 2/5.",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Utah Inland Port Authority는 9월 3일 Anson Resources의 Green River 리튬 프로젝트 관련 세금증분 인센티브 결의안을 승인했다. Anson은 승인 규모를 약 1억9,300만달러로 설명했으며, 프로젝트 운영기간 동안 재산세 증가분을 기반으로 한 환급 구조가 적용될 예정이다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_006_ANSON.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "인센티브는 실제 생산 자체가 아니라 향후 운영·세수 창출에 연동되므로 허가·건설·상업생산 진척을 별도로 확인해야 한다.",
+      "incremental_information": "Utah Inland Port Authority는 9월 3일 Anson Resources의 Green River 리튬 프로젝트 관련 세금증분 인센티브 결의안을 승인했다. Anson은 승인 규모를 약 1억9,300만달러로 설명했으며, 프로젝트 운영기간 동안 재산세 증가분을 기반으로 한 환급 구조가 적용될 예정이다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "decision_relevance": "미국 내 리튬 개발이 연방 지원뿐 아니라 주·지역 세제 인센티브를 통해 프로젝트 경제성을 보강하고 있다.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Anson Green River 리튬, 유타주 $193m 세제 인센티브 승인: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Anson Green River 리튬, 유타주 $193m 세제 인센티브 승인 would strengthen or weaken the judgment that 미국 내 리튬 개발이 연방 지원뿐 아니라 주·지역 세제 인센티브를 통해 프로젝트 경제성을 보강하고 있다."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Confirm next measurable stage after 2026-09-03 for SEP5_006_ANSON."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-03",
+        "event_date": "2026-09-03",
+        "publication_dates": [
+          "2026-09-03",
+          "2026-09-04"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://inlandportauthority.utah.gov/board-info/",
+        "event_date_source_quote": "September 3, 2026",
+        "source_quote_emitted": false,
+        "note": "Operative date bound to body-level source evidence.",
+        "correction_basis": "Official UIPA board page lists the September 3, 2026 board meeting and the approved Resolution 2026-41 Anson Resources Incentive in the same meeting record.",
+        "event_date_approval_source_quote": "APPROVED Resolution 2026-41 Anson Resources Incentive"
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "current_execution_event",
+        "anchor_strength": "strong",
+        "stage_precision_note": "미국 내 리튬 개발이 연방 지원뿐 아니라 주·지역 세제 인센티브를 통해 프로젝트 경제성을 보강하고 있다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "No same-event canonical card found."
+      },
+      "execution_anchor_type": "current_execution_event",
+      "execution_anchor_strength": "strong",
+      "structural_value_override_applied": false,
+      "structural_selector_policy_version": null,
+      "structural_value_override_reason": null,
+      "structural_non_execution_reason": null,
+      "why_execution_event_not_required": null,
+      "baseline_relation": "new_unrelated",
+      "baseline_match": [],
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "source_cluster_preserved": true,
+      "support_source_candidates": [
+        "https://www.miningweekly.com/article/lithium-developer-anson-secures-193m-business-incentive-from-utah-gov-2026-09-04"
+      ],
+      "source_domain_candidates": [
+        "www.utah.gov",
+        "www.miningweekly.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 2,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": true,
+        "context_candidate_present": true,
+        "reason": "Body-level source-owner path available."
+      },
+      "support_source_candidates_accounted": true,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "region": "US",
+      "representative_date": "2026-09-03",
+      "representative_source": "Utah Inland Port Authority",
+      "source_tier_estimate": "tier_1_or_source_owner_candidate",
+      "cat": "battery_ess_materials_grid",
+      "sub_cat": "execution",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 61
+      },
+      "strategic_lens": [
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "current_execution_event",
+      "title_raw": "Anson Green River 리튬, 유타주 $193m 세제 인센티브 승인",
+      "summary_hint": "Utah Inland Port Authority는 9월 3일 Anson Resources의 Green River 리튬 프로젝트 관련 세금증분 인센티브 결의안을 승인했다. Anson은 승인 규모를 약 1억9,300만달러로 설명했으며, 프로젝트 운영기간 동안 재산세 증가분을 기반으로 한 환급 구조가 적용될 예정이다.",
+      "context_text": "Current 9/5 governed intake.",
+      "why_now": "Source-bound event/effective milestone dated 2026-09-03.",
+      "market_relevance": "미국 내 리튬 개발이 연방 지원뿐 아니라 주·지역 세제 인센티브를 통해 프로젝트 경제성을 보강하고 있다.",
+      "source_priority_notes": "Use strongest source-owner or authoritative material.",
+      "upstream_labels": {
+        "triage_status": "KEEP",
+        "matched_buckets": [
+          "battery_ess_materials_grid"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260903_E0001",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-03",
+        "publication_date": "2026-09-03",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current_or_effective_date_milestone"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "denominator_used": "Named event/program only.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": "stage_4_implementation_budget_guidance_or_registry",
+      "spec_id": "STD26_R8_006",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "SEP5_006_ANSON satisfies current V4 strict Stage A.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Precise anchor and Stage B evidence path available."
+      },
+      "legal_instrument_type": "Utah tax-increment incentive approval resolution",
+      "competent_authority": "Utah Inland Port Authority",
+      "procedural_status": "approved incentive resolution",
+      "adoption_date": "2026-09-03",
+      "publication_date": "2026-09-03",
+      "effective_date": "2026-09-03",
+      "mandatory_application_date": "not_applicable_voluntary_project_incentive",
+      "affected_entities": [
+        "Anson Resources Green River lithium project"
+      ],
+      "affected_products_or_activities": [
+        "Green River lithium project development"
+      ],
+      "geographic_scope": "Utah, United States",
+      "extraterritorial_effect": "none established by current Stage A source",
+      "budget_or_funding_source": "tax increment generated by the approved project area structure",
+      "implementation_mechanism": "approved use of tax increment under UIPA incentive resolution",
+      "administrative_readiness": "resolution approved; downstream reimbursement and project execution remain future-stage checks",
+      "exemptions_and_thresholds": [],
+      "transition_and_grandfathering": [],
+      "noncompliance_consequences": [],
+      "appeal_or_litigation_risk": "not established by current Stage A source",
+      "reversibility_risk": "future administrative or project conditions remain to be verified at Stage B and follow-up",
+      "precedent_scope": "project-specific incentive approval; no market-wide rule claimed",
+      "legal_policy_transmission_chain": [
+        "UIPA resolution approval",
+        "tax-increment incentive availability",
+        "project development execution"
+      ],
+      "next_implementation_trigger": "project execution and any documented incentive reimbursement milestone"
+    },
+    {
+      "source_event_id": "SEP5_007_SILKSTEAD",
+      "source_origin": "sep5_exact_input_sha_plus_0_0c_discovery",
+      "source_story_ids": [
+        "EU_2026-09-03_C09",
+        "EU_2026-09-04_C08"
+      ],
+      "original_story_ids": [
+        "EU_2026-09-03_C09",
+        "EU_2026-09-04_C08"
+      ],
+      "primary_url": "https://equitix.com/news/eelpower-energy-acquires-silkstead-battery-storage-project-from-balanced-grid-works/",
+      "urls": [
+        "https://equitix.com/news/eelpower-energy-acquires-silkstead-battery-storage-project-from-balanced-grid-works/"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "EU_2026-09-03_C09",
+          "url": "https://equitix.com/news/eelpower-energy-acquires-silkstead-battery-storage-project-from-balanced-grid-works/",
+          "preserve_for_stage_b": true
+        },
+        {
+          "story_id": "EU_2026-09-04_C08",
+          "url": "https://equitix.com/news/eelpower-energy-acquires-silkstead-battery-storage-project-from-balanced-grid-works/",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "source_cluster",
+      "merged_story_ids": [
+        "EU_2026-09-04_C08"
+      ],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "decision_news_value_score": 55,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 20,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_007_SILKSTEAD.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No market-wide denominator asserted for SEP5_007_SILKSTEAD; systemic scale capped at 2/5.",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Equitix는 9월 2일 Eelpower Energy가 Balanced Grid Works로부터 Winchester 인근 Silkstead 50MW/200MWh BESS 프로젝트 인수를 완료했다고 밝혔다. Silkstead는 Eelpower Energy 출범 이후 다섯 번째 인수 자산이며, 건설은 2027년 시작하고 상업운전은 2028년을 목표로 한다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_007_SILKSTEAD.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "아직 pre-construction 자산이므로 2027년 착공과 금융·EPC 확정이 다음 실행 확인 지점이다.",
+      "incremental_information": "Equitix는 9월 2일 Eelpower Energy가 Balanced Grid Works로부터 Winchester 인근 Silkstead 50MW/200MWh BESS 프로젝트 인수를 완료했다고 밝혔다. Silkstead는 Eelpower Energy 출범 이후 다섯 번째 인수 자산이며, 건설은 2027년 시작하고 상업운전은 2028년을 목표로 한다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "decision_relevance": "영국 BESS 플랫폼의 자본 배치가 개발자산 인수를 통해 실제 포트폴리오 확보 단계로 이어지고 있다.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수 완료: event date 2026-09-02, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수 완료 would strengthen or weaken the judgment that 영국 BESS 플랫폼의 자본 배치가 개발자산 인수를 통해 실제 포트폴리오 확보 단계로 이어지고 있다."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Confirm next measurable stage after 2026-09-02 for SEP5_007_SILKSTEAD."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-02",
+        "event_date": "2026-09-02",
+        "publication_dates": [
+          "2026-09-02"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://equitix.com/news/eelpower-energy-acquires-silkstead-battery-storage-project-from-balanced-grid-works/",
+        "event_date_source_quote": "has completed its fifth asset acquisition: the purchase of the 50MW/200MWh Silkstead battery energy storage project",
+        "source_quote_emitted": false,
+        "note": "Operative date bound to body-level source evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "current_execution_event",
+        "anchor_strength": "strong",
+        "stage_precision_note": "영국 BESS 플랫폼의 자본 배치가 개발자산 인수를 통해 실제 포트폴리오 확보 단계로 이어지고 있다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "No same-event canonical card found."
+      },
+      "execution_anchor_type": "current_execution_event",
+      "execution_anchor_strength": "strong",
+      "structural_value_override_applied": false,
+      "structural_selector_policy_version": null,
+      "structural_value_override_reason": null,
+      "structural_non_execution_reason": null,
+      "why_execution_event_not_required": null,
+      "baseline_relation": "new_unrelated",
+      "baseline_match": [],
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "source_cluster_preserved": true,
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "equitix.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": true,
+        "reason": "Body-level source-owner path available."
+      },
+      "support_source_candidates_accounted": true,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "region": "EU",
+      "representative_date": "2026-09-02",
+      "representative_source": "Equitix / Eelpower Energy",
+      "source_tier_estimate": "tier_1_or_source_owner_candidate",
+      "cat": "battery_ess_materials_grid",
+      "sub_cat": "execution",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 55
+      },
+      "strategic_lens": [
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "current_execution_event",
+      "title_raw": "Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수 완료",
+      "summary_hint": "Equitix는 9월 2일 Eelpower Energy가 Balanced Grid Works로부터 Winchester 인근 Silkstead 50MW/200MWh BESS 프로젝트 인수를 완료했다고 밝혔다. Silkstead는 Eelpower Energy 출범 이후 다섯 번째 인수 자산이며, 건설은 2027년 시작하고 상업운전은 2028년을 목표로 한다.",
+      "context_text": "Current 9/5 governed intake.",
+      "why_now": "Source-bound event/effective milestone dated 2026-09-02.",
+      "market_relevance": "영국 BESS 플랫폼의 자본 배치가 개발자산 인수를 통해 실제 포트폴리오 확보 단계로 이어지고 있다.",
+      "source_priority_notes": "Use strongest source-owner or authoritative material.",
+      "upstream_labels": {
+        "triage_status": "KEEP",
+        "matched_buckets": [
+          "battery_ess_materials_grid"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260903_E0001",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-02",
+        "publication_date": "2026-09-02",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current_or_effective_date_milestone"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "denominator_used": "Named event/program only.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "spec_id": "STD26_R8_007",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "SEP5_007_SILKSTEAD satisfies current V4 strict Stage A.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Precise anchor and Stage B evidence path available."
+      }
+    },
+    {
+      "source_event_id": "SEP5_008_STONEY",
+      "source_origin": "sep5_exact_input_sha_plus_0_0c_discovery",
+      "source_story_ids": [
+        "GL_2026-09-04_C20"
+      ],
+      "original_story_ids": [
+        "GL_2026-09-04_C20"
+      ],
+      "primary_url": "https://origin-zh9p7m-www.afp.com/en/agency/inside-afp/external-press-releases/energy-vault-accelerates-125-mw-1-gwh-stoney-creek-bess",
+      "urls": [
+        "https://origin-zh9p7m-www.afp.com/en/agency/inside-afp/external-press-releases/energy-vault-accelerates-125-mw-1-gwh-stoney-creek-bess"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "GL_2026-09-04_C20",
+          "url": "https://origin-zh9p7m-www.afp.com/en/agency/inside-afp/external-press-releases/energy-vault-accelerates-125-mw-1-gwh-stoney-creek-bess",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "source_cluster",
+      "merged_story_ids": [],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "execution_anchor_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "none"
+      ],
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "decision_news_value_score": 55,
+      "decision_value_breakdown": {
+        "market_structure_competition": 20,
+        "supply_demand_price_utilisation": 20,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 6,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_008_STONEY.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": null,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No market-wide denominator asserted for SEP5_008_STONEY; systemic scale capped at 2/5.",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Energy Vault는 9월 3일 호주 뉴사우스웨일스 Stoney Creek 125MW/1GWh BESS의 프로젝트 부지 인수를 완료했다고 밝혔다. 기존 임대 약정에서 FIRB 승인 후 완전 소유로 전환됐으며, 회사는 2027년 1분기 착공을 예상하고 있다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_008_STONEY.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "다만 아직 착공 전이므로 최종 승인·EPC·금융 확정 여부를 다음 단계로 확인해야 한다.",
+      "incremental_information": "Energy Vault는 9월 3일 호주 뉴사우스웨일스 Stoney Creek 125MW/1GWh BESS의 프로젝트 부지 인수를 완료했다고 밝혔다. 기존 임대 약정에서 FIRB 승인 후 완전 소유로 전환됐으며, 회사는 2027년 1분기 착공을 예상하고 있다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "decision_relevance": "대형 BESS의 개발 리스크가 장기 부지 통제권 확보를 통해 건설 준비 단계로 한 단계 진전됐다.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Energy Vault, 호주 Stoney Creek 125MW/1GWh BESS 부지 소유권 확보: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Energy Vault, 호주 Stoney Creek 125MW/1GWh BESS 부지 소유권 확보 would strengthen or weaken the judgment that 대형 BESS의 개발 리스크가 장기 부지 통제권 확보를 통해 건설 준비 단계로 한 단계 진전됐다."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Confirm next measurable stage after 2026-09-03 for SEP5_008_STONEY."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-03",
+        "event_date": "2026-09-03",
+        "publication_dates": [
+          "2026-09-03"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://origin-zh9p7m-www.afp.com/en/agency/inside-afp/external-press-releases/energy-vault-accelerates-125-mw-1-gwh-stoney-creek-bess",
+        "event_date_source_quote": "announced the completion of the acquisition of the underlying project land for the 125 MW / 1 GWh Stoney Creek BESS",
+        "source_quote_emitted": false,
+        "note": "Operative date bound to body-level source evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "current_execution_event",
+        "anchor_strength": "strong",
+        "stage_precision_note": "대형 BESS의 개발 리스크가 장기 부지 통제권 확보를 통해 건설 준비 단계로 한 단계 진전됐다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "No same-event canonical card found."
+      },
+      "execution_anchor_type": "current_execution_event",
+      "execution_anchor_strength": "strong",
+      "structural_value_override_applied": false,
+      "structural_selector_policy_version": null,
+      "structural_value_override_reason": null,
+      "structural_non_execution_reason": null,
+      "why_execution_event_not_required": null,
+      "baseline_relation": "new_unrelated",
+      "baseline_match": [],
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "source_cluster_preserved": true,
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "origin-zh9p7m-www.afp.com"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": true,
+        "reason": "Body-level source-owner path available."
+      },
+      "support_source_candidates_accounted": true,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "region": "GL",
+      "representative_date": "2026-09-03",
+      "representative_source": "Energy Vault",
+      "source_tier_estimate": "tier_1_or_source_owner_candidate",
+      "cat": "battery_ess_materials_grid",
+      "sub_cat": "execution",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 55
+      },
+      "strategic_lens": [
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "current_execution_event",
+      "title_raw": "Energy Vault, 호주 Stoney Creek 125MW/1GWh BESS 부지 소유권 확보",
+      "summary_hint": "Energy Vault는 9월 3일 호주 뉴사우스웨일스 Stoney Creek 125MW/1GWh BESS의 프로젝트 부지 인수를 완료했다고 밝혔다. 기존 임대 약정에서 FIRB 승인 후 완전 소유로 전환됐으며, 회사는 2027년 1분기 착공을 예상하고 있다.",
+      "context_text": "Current 9/5 governed intake.",
+      "why_now": "Source-bound event/effective milestone dated 2026-09-03.",
+      "market_relevance": "대형 BESS의 개발 리스크가 장기 부지 통제권 확보를 통해 건설 준비 단계로 한 단계 진전됐다.",
+      "source_priority_notes": "Use strongest source-owner or authoritative material.",
+      "upstream_labels": {
+        "triage_status": "KEEP",
+        "matched_buckets": [
+          "battery_ess_materials_grid"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260903_E0001",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-03",
+        "publication_date": "2026-09-03",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current_or_effective_date_milestone"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "denominator_used": "Named event/program only.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "spec_id": "STD26_R8_008",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "SEP5_008_STONEY satisfies current V4 strict Stage A.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Precise anchor and Stage B evidence path available."
+      }
+    },
+    {
+      "source_event_id": "SEP5_009_CROATIA",
+      "source_origin": "sep5_exact_input_sha_plus_0_0c_discovery",
+      "source_story_ids": [
+        "EU_2026-09-04_C04"
+      ],
+      "original_story_ids": [
+        "EU_2026-09-04_C04"
+      ],
+      "primary_url": "https://www.fzoeu.hr/en/fund-announces-a-38-million-euros-worth-public-call-promoting-the-installation-of-home-batteries-in-addition-to-solar-power-plants-and-heat-pumps/10787",
+      "urls": [
+        "https://www.fzoeu.hr/en/fund-announces-a-38-million-euros-worth-public-call-promoting-the-installation-of-home-batteries-in-addition-to-solar-power-plants-and-heat-pumps/10787"
+      ],
+      "same_event_source_cluster": [
+        {
+          "story_id": "EU_2026-09-04_C04",
+          "url": "https://www.fzoeu.hr/en/fund-announces-a-38-million-euros-worth-public-call-promoting-the-installation-of-home-batteries-in-addition-to-solar-power-plants-and-heat-pumps/10787",
+          "preserve_for_stage_b": true
+        }
+      ],
+      "merge_status": "source_cluster",
+      "merged_story_ids": [],
+      "enhanced_selector_precision_version": "v3",
+      "selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "selection_policy_version": "EMBEDDED_NEWS_VALUE_SELECTION_V4",
+      "selection_route": "structural_non_execution_route",
+      "strict_gate_check": "pass",
+      "format_risk_tags": [
+        "v4_structural_non_execution_route_compatibility"
+      ],
+      "anchor_classes": [
+        "policy_regulatory_anchor"
+      ],
+      "decision_news_value_score": 60,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 20,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 5,
+        "law_policy_market_access": 10,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_009_CROATIA.",
+        "decision_deadline": null
+      },
+      "technology_evidence_level": "not_applicable",
+      "policy_stage": 4,
+      "novelty_cap_basis": "none",
+      "systemic_scale_denominator": null,
+      "denominator_gap": "No market-wide denominator asserted for SEP5_009_CROATIA; systemic scale capped at 2/5.",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "크로아티아 환경보호·에너지효율기금(FZOEU)은 가정용 배터리를 처음 포함한 총 3,800만유로 규모의 지원 프로그램 신청을 9월 2일부터 접수했다. 신청은 eFZOEU 시스템을 통해 진행되며, 배터리 저장은 태양광·히트펌프와 함께 지원 대상에 포함된다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_009_CROATIA.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "예산 소진 속도와 실제 배터리 설치 비중이 프로그램의 수요 유발 효과를 판단할 핵심 후속 지표다.",
+      "incremental_information": "크로아티아 환경보호·에너지효율기금(FZOEU)은 가정용 배터리를 처음 포함한 총 3,800만유로 규모의 지원 프로그램 신청을 9월 2일부터 접수했다. 신청은 eFZOEU 시스템을 통해 진행되며, 배터리 저장은 태양광·히트펌프와 함께 지원 대상에 포함된다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "decision_relevance": "주거용 배터리가 태양광·히트펌프와 함께 국가 보조금 대상에 처음 포함되면서 분산형 저장 수요에 정책 지원이 직접 연결됐다.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying 크로아티아, 가정용 BESS 첫 보조금 접수 개시…총 €38m 프로그램: event date 2026-09-02, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for 크로아티아, 가정용 BESS 첫 보조금 접수 개시…총 €38m 프로그램 would strengthen or weaken the judgment that 주거용 배터리가 태양광·히트펌프와 함께 국가 보조금 대상에 처음 포함되면서 분산형 저장 수요에 정책 지원이 직접 연결됐다."
+      ],
+      "related_prepass": {
+        "status": "PASS",
+        "same_event_checked": true,
+        "matched_baseline_candidate_ids": [],
+        "matched_current_batch_candidate_ids": [],
+        "relation_candidates": [],
+        "duplicate_disposition": "no_duplicate_found",
+        "earliest_same_event_check_status": "PASS",
+        "fresh_anchor_questions": [
+          "Confirm next measurable stage after 2026-09-02 for SEP5_009_CROATIA."
+        ]
+      },
+      "date_role": {
+        "status": "PASS",
+        "representative_date": "2026-09-02",
+        "event_date": "2026-09-02",
+        "publication_dates": [
+          "2026-07-24"
+        ],
+        "earliest_same_event_date_checked": true,
+        "event_date_source_url": "https://www.fzoeu.hr/en/fund-announces-a-38-million-euros-worth-public-call-promoting-the-installation-of-home-batteries-in-addition-to-solar-power-plants-and-heat-pumps/10787",
+        "event_date_source_quote": "Applications can be submitted from 2 September 2026 at 9:00, solely electronically through the eFZOEU information system.",
+        "source_quote_emitted": false,
+        "note": "Operative date bound to body-level source evidence."
+      },
+      "execution_credibility_gate": {
+        "status": "PASS",
+        "anchor_type": "not_required_structural_route",
+        "anchor_strength": "strong",
+        "stage_precision_note": "주거용 배터리가 태양광·히트펌프와 함께 국가 보조금 대상에 처음 포함되면서 분산형 저장 수요에 정책 지원이 직접 연결됐다."
+      },
+      "independent_cardability_gate": {
+        "status": "PASS",
+        "distinct_event_or_stage_progression": true,
+        "full_schema_viability": "PASS",
+        "duplicate_or_reinforcement_note": "No same-event canonical card found."
+      },
+      "execution_anchor_type": null,
+      "execution_anchor_strength": null,
+      "structural_value_override_applied": true,
+      "structural_selector_policy_version": "STRUCTURAL_NEWS_VALUE_SELECTION_V3",
+      "structural_value_override_reason": "The active V4 selector admits this item through the structural non-execution route because the verified policy/data milestone changes decision-relevant industry state without requiring a conventional execution event.",
+      "structural_non_execution_reason": "SEP5_009_CROATIA is a policy/data structural signal.",
+      "why_execution_event_not_required": "V4 structural route is appropriate for the source-bound policy/data signal.",
+      "baseline_relation": "new_unrelated",
+      "baseline_match": [],
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "source_access_risk": "low",
+      "stage_a_evidence_status": "not_evidence_complete_no_fetch",
+      "stage_b_evidence_package_required": true,
+      "primary_url_semantics": "provided_source_candidate_not_evidence",
+      "source_cluster_preserved": true,
+      "support_source_candidates": [],
+      "source_domain_candidates": [
+        "www.fzoeu.hr"
+      ],
+      "source_diversity_path": {
+        "status": "viable",
+        "probable_independent_owner_count": 1,
+        "official_or_source_owner_candidate_present": true,
+        "independent_confirmation_candidate_present": false,
+        "context_candidate_present": true,
+        "reason": "Body-level source-owner path available."
+      },
+      "support_source_candidates_accounted": true,
+      "stage_b_requirement_note": "Stage B must verify the provided source-candidate URL and build a valid evidence package before drafting. This Stage A spec is not evidence_complete, and primary_url is not evidence by itself.",
+      "region": "EU",
+      "representative_date": "2026-09-02",
+      "representative_source": "Croatia Environmental Protection and Energy Efficiency Fund (FZOEU)",
+      "source_tier_estimate": "tier_1_or_source_owner_candidate",
+      "cat": "battery_ess_materials_grid",
+      "sub_cat": "policy",
+      "signal_estimate": "material",
+      "signal_rubric_estimate": {
+        "status": "material_industry_signal",
+        "score": 60
+      },
+      "strategic_lens": [
+        "market_structure_supply_chain_execution"
+      ],
+      "event_anchor": "structural_non_execution",
+      "title_raw": "크로아티아, 가정용 BESS 첫 보조금 접수 개시…총 €38m 프로그램",
+      "summary_hint": "크로아티아 환경보호·에너지효율기금(FZOEU)은 가정용 배터리를 처음 포함한 총 3,800만유로 규모의 지원 프로그램 신청을 9월 2일부터 접수했다. 신청은 eFZOEU 시스템을 통해 진행되며, 배터리 저장은 태양광·히트펌프와 함께 지원 대상에 포함된다.",
+      "context_text": "Current 9/5 governed intake.",
+      "why_now": "Source-bound event/effective milestone dated 2026-09-02.",
+      "market_relevance": "주거용 배터리가 태양광·히트펌프와 함께 국가 보조금 대상에 처음 포함되면서 분산형 저장 수요에 정책 지원이 직접 연결됐다.",
+      "source_priority_notes": "Use strongest source-owner or authoritative material.",
+      "upstream_labels": {
+        "triage_status": "KEEP",
+        "matched_buckets": [
+          "battery_ess_materials_grid"
+        ],
+        "drop_reason": null,
+        "integrity_group_id": "NR_20260903_E0001",
+        "integrity_is_best": true,
+        "drop_reason_overridden": false
+      },
+      "staleness": {
+        "event_date": "2026-09-02",
+        "publication_date": "2026-07-24",
+        "staleness_gap_days": 0,
+        "staleness_suspected": false,
+        "fresh_followup": false,
+        "staleness_override": false,
+        "decision": "current_or_effective_date_milestone"
+      },
+      "needs_review": false,
+      "review_reason": null,
+      "denominator_used": "Named event/program only.",
+      "baseline_follow_up_relation": "new_unrelated",
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "earnings_release_available": "not_applicable",
+      "ir_deck_available": "not_applicable",
+      "call_or_transcript_expected": "not_applicable",
+      "qna_status": "not_applicable",
+      "prior_period_comparison_required": false,
+      "earnings_rescue_questions": [],
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "search_before_delete_status": "applied",
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": "stage_4_implementation_budget_guidance_or_registry",
+      "spec_id": "STD26_R8_009",
+      "strict_pass_gate": {
+        "status": "pass",
+        "reason": "SEP5_009_CROATIA satisfies current V4 strict Stage A.",
+        "all_six_conditions_passed": true,
+        "anchor_supported_by_upstream_text": true,
+        "why_not_review_pool": "Precise anchor and Stage B evidence path available."
+      },
+      "legal_instrument_type": "public subsidy call implementation",
+      "competent_authority": "Croatia Environmental Protection and Energy Efficiency Fund (FZOEU)",
+      "procedural_status": "application window opened",
+      "adoption_date": "2026-07-24",
+      "publication_date": "2026-07-24",
+      "effective_date": "2026-09-02",
+      "mandatory_application_date": "not_applicable_voluntary_subsidy_program",
+      "affected_entities": [
+        "eligible Croatian households under the public call"
+      ],
+      "affected_products_or_activities": [
+        "home battery storage",
+        "solar power plants",
+        "heat pumps"
+      ],
+      "geographic_scope": "Croatia",
+      "extraterritorial_effect": "none established by current Stage A source",
+      "budget_or_funding_source": "EUR 38 million public-call program announced by FZOEU",
+      "implementation_mechanism": "electronic applications through the eFZOEU information system",
+      "administrative_readiness": "applications accepted from 2026-09-02 09:00 through eFZOEU",
+      "exemptions_and_thresholds": [],
+      "transition_and_grandfathering": [],
+      "noncompliance_consequences": [],
+      "appeal_or_litigation_risk": "not established by current Stage A source",
+      "reversibility_risk": "program funding availability and administrative award decisions remain follow-up points",
+      "precedent_scope": "Croatia household support program; no EU-wide applicability claimed",
+      "legal_policy_transmission_chain": [
+        "FZOEU public call",
+        "application opening",
+        "administrative award and supported installation"
+      ],
+      "next_implementation_trigger": "award decisions, committed funding, and verified supported battery installations"
+    }
+  ],
+  "candidate_review_pool": [],
+  "watchlist_context_pool": [],
+  "reject_or_support_only_pool": [],
+  "review_pool": [],
+  "dropped_treasure_hunt_result": [],
+  "rejected": [],
+  "existing_reinforcement": [],
+  "support_source_only": [],
+  "review_pool_resolution_ledger": [],
+  "decision_ledger": [
+    {
+      "story_id": "GL_2026-09-04_C21",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_001_CITRUS.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+      "decision_relevance": "Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시 would strengthen or weaken the judgment that Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 59,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 24,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_001_CITRUS.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "향후 실제 가동률과 시장수익, Equinor 계열 최적화 서비스의 기여가 후속 확인 포인트다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_001_CITRUS; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_001_CITRUS.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_001",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시",
+      "site": "www.equinor.com",
+      "url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+      "integrity_group_id": "STD26_R8_001_EVENT_CLUSTER",
+      "integrity_is_best": true,
+      "reason": "SEP5_001_CITRUS satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    },
+    {
+      "story_id": "US_2026-09-03_C05",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_001_CITRUS.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+      "decision_relevance": "Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시 would strengthen or weaken the judgment that Equinor의 미국 배터리 저장 사업이 개발 단계에서 직접 운영자산 확대 단계로 이동했다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 59,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 24,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Equinor는 9월 3일 자회사 East Point Energy가 텍사스 Harlingen의 100MW/200MWh Citrus Flatts 에너지저장시설 건설을 완료하고 운영을 시작했다고 밝혔다. Citrus Flatts는 East Point의 두 번째 운영 프로젝트다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_001_CITRUS.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "향후 실제 가동률과 시장수익, Equinor 계열 최적화 서비스의 기여가 후속 확인 포인트다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_001_CITRUS; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_001_CITRUS.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "ledger_decision": "merged",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_001",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "Equinor·East Point, 텍사스 Citrus Flatts 100MW/200MWh BESS 운영 개시",
+      "site": "www.equinor.com",
+      "url": "https://www.equinor.com/news/20260903-citrus-flatts-energy-center",
+      "integrity_group_id": "STD26_R8_001_EVENT_CLUSTER",
+      "integrity_is_best": false,
+      "reason": "SEP5_001_CITRUS satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": "STD26_R8_001",
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    },
+    {
+      "story_id": "GL_2026-09-03_C09",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_002_GABRIELA.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying CVC DIF, 칠레 Gabriela 1.1GWh BESS 상업운전·인수 완료: event date 2026-09-02, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "CVC DIF는 9월 2일 칠레 북부 Gabriela 프로젝트가 상업운전을 시작하면서 Grenergy로부터의 인수를 완료했다고 밝혔다. 완공 자산은 태양광 272MW와 배터리 저장 1,100MWh로 구성되며 15년 장기 하이브리드 PPA가 체결돼 있다.",
+      "decision_relevance": "대형 태양광+BESS의 상업운전이 자산매각 종결 조건을 충족하며 개발 리스크가 운영자산·인프라 자본으로 이전됐다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for CVC DIF, 칠레 Gabriela 1.1GWh BESS 상업운전·인수 완료 would strengthen or weaken the judgment that 대형 태양광+BESS의 상업운전이 자산매각 종결 조건을 충족하며 개발 리스크가 운영자산·인프라 자본으로 이전됐다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 61,
+      "decision_value_breakdown": {
+        "market_structure_competition": 20,
+        "supply_demand_price_utilisation": 22,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 10,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "CVC DIF는 9월 2일 칠레 북부 Gabriela 프로젝트가 상업운전을 시작하면서 Grenergy로부터의 인수를 완료했다고 밝혔다. 완공 자산은 태양광 272MW와 배터리 저장 1,100MWh로 구성되며 15년 장기 하이브리드 PPA가 체결돼 있다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_002_GABRIELA.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "운영 실적과 장기 PPA 현금흐름이 향후 유사 하이브리드 자산의 가치평가 기준을 구체화할 수 있다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_002_GABRIELA; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_002_GABRIELA.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_002",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "CVC DIF, 칠레 Gabriela 1.1GWh BESS 상업운전·인수 완료",
+      "site": "www.cvcdif.com",
+      "url": "https://www.cvcdif.com/news-insights/cvc-dif-completes-acquisition-of-gabriela-project",
+      "integrity_group_id": "STD26_R8_002_EVENT_CLUSTER",
+      "integrity_is_best": true,
+      "reason": "SEP5_002_GABRIELA satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    },
+    {
+      "story_id": "DISC_2026-09-04_PUEBLO_BESS",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_003_PUEBLO.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Cloudbreak·Linxon, 콜로라도 Pueblo 50MW/200MWh BESS FID·NTP 확보: event date 2026-09-04, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Linxon과 Cloudbreak Energy는 9월 4일 콜로라도 Pueblo Battery Resource가 최종투자결정(FID)을 통과해 실행 단계에 진입했다고 밝혔다. Cloudbreak는 Black Hills Energy가 프로젝트에 notice to proceed를 발행했으며 50MW/200MWh 설비 건설을 진행한다고 설명했다.",
+      "decision_relevance": "유틸리티 BESS가 개발·최적화 단계에서 투자결정과 착공 실행 단계로 넘어갔다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Cloudbreak·Linxon, 콜로라도 Pueblo 50MW/200MWh BESS FID·NTP 확보 would strengthen or weaken the judgment that 유틸리티 BESS가 개발·최적화 단계에서 투자결정과 착공 실행 단계로 넘어갔다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 59,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 24,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Linxon과 Cloudbreak Energy는 9월 4일 콜로라도 Pueblo Battery Resource가 최종투자결정(FID)을 통과해 실행 단계에 진입했다고 밝혔다. Cloudbreak는 Black Hills Energy가 프로젝트에 notice to proceed를 발행했으며 50MW/200MWh 설비 건설을 진행한다고 설명했다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_003_PUEBLO.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "Tesla Megapack 50기와 balance-of-plant 발주가 예정돼 있어 2027년 말 서비스 개시까지 EPC 진행률을 추적할 필요가 있다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_003_PUEBLO; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_003_PUEBLO.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_003",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "Cloudbreak·Linxon, 콜로라도 Pueblo 50MW/200MWh BESS FID·NTP 확보",
+      "site": "linxon.com",
+      "url": "https://linxon.com/press-release-linxon-and-cloudbreak-energy-advance-pueblo-battery-resource-into-execution-following-final-investment-decision/",
+      "integrity_group_id": "STD26_R8_003_EVENT_CLUSTER",
+      "integrity_is_best": true,
+      "reason": "SEP5_003_PUEBLO satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    },
+    {
+      "story_id": "US_2026-09-04_C12",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_004_SHARE.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying PG&E·Google·Rewiring America, 캘리포니아 가정자원 VPP ‘SHARE’ 출범: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "PG&E는 9월 3일 Rewiring America·Google 등과 함께 SHARE 가상발전소를 출범한다고 발표했다. 프로그램은 Bay Area에서 기존 가정 에너지기기 2만개 이상을 연계하고, 가정용 배터리·스마트기기·배터리형 히트펌프를 수요 피크 대응 자원으로 운영하는 것을 목표로 한다.",
+      "decision_relevance": "분산형 가정 배터리와 전기화 설비가 전력망 용량자원으로 묶이는 상용 VPP 모델이 확대되고 있다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for PG&E·Google·Rewiring America, 캘리포니아 가정자원 VPP ‘SHARE’ 출범 would strengthen or weaken the judgment that 분산형 가정 배터리와 전기화 설비가 전력망 용량자원으로 묶이는 상용 VPP 모델이 확대되고 있다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 56,
+      "decision_value_breakdown": {
+        "market_structure_competition": 20,
+        "supply_demand_price_utilisation": 20,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 6,
+        "law_policy_market_access": 3,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "PG&E는 9월 3일 Rewiring America·Google 등과 함께 SHARE 가상발전소를 출범한다고 발표했다. 프로그램은 Bay Area에서 기존 가정 에너지기기 2만개 이상을 연계하고, 가정용 배터리·스마트기기·배터리형 히트펌프를 수요 피크 대응 자원으로 운영하는 것을 목표로 한다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_004_SHARE.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "기기 등록 규모와 실제 dispatch 성과가 확인되면 주거용 배터리의 계통가치와 고객 보상모델을 비교할 수 있다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_004_SHARE; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_004_SHARE.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_004",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "PG&E·Google·Rewiring America, 캘리포니아 가정자원 VPP ‘SHARE’ 출범",
+      "site": "investor.pgecorp.com",
+      "url": "https://investor.pgecorp.com/news-events/press-releases/press-release-details/2026/PGE-Rewiring-America-and-Google-Launch-First-of-its-Kind-Virtual-Power-Plant-to-Help-Lower-Costs-for-All-Customers/default.aspx",
+      "integrity_group_id": "STD26_R8_004_EVENT_CLUSTER",
+      "integrity_is_best": true,
+      "reason": "SEP5_004_SHARE satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    },
+    {
+      "story_id": "EU_2026-09-04_C07",
+      "anchor_classes": [
+        "data_financial_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_005_ENGIE10.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": true,
+      "structural_value_override_reason": "The active V4 selector admits this item through the structural non-execution route because the verified policy/data milestone changes decision-relevant industry state without requiring a conventional execution event.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying ENGIE, 글로벌 저장 포트폴리오 10.7GW 도달…유럽 여름 1.1GW/3.3GWh 확대: event date 2026-09-04, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": "V4 structural route is appropriate for the source-bound policy/data signal.",
+      "incremental_information": "ENGIE는 9월 4일 배터리 저장과 양수발전을 합친 글로벌 저장 포트폴리오가 운전 및 건설 중 기준 10.7GW에 도달했다고 밝혔다. 7~8월 유럽 배터리 포트폴리오는 7개국에서 1.1GW/3.3GWh 추가됐으며, 지역별 저장 규모는 유럽 4.7GW와 미국 4.4GW다.",
+      "decision_relevance": "대형 유틸리티의 저장 포트폴리오가 개별 프로젝트 단위를 넘어 두 자릿수 GW 규모의 핵심 유연성 자산군으로 확대됐다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for ENGIE, 글로벌 저장 포트폴리오 10.7GW 도달…유럽 여름 1.1GW/3.3GWh 확대 would strengthen or weaken the judgment that 대형 유틸리티의 저장 포트폴리오가 개별 프로젝트 단위를 넘어 두 자릿수 GW 규모의 핵심 유연성 자산군으로 확대됐다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 61,
+      "decision_value_breakdown": {
+        "market_structure_competition": 22,
+        "supply_demand_price_utilisation": 22,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "ENGIE는 9월 4일 배터리 저장과 양수발전을 합친 글로벌 저장 포트폴리오가 운전 및 건설 중 기준 10.7GW에 도달했다고 밝혔다. 7~8월 유럽 배터리 포트폴리오는 7개국에서 1.1GW/3.3GWh 추가됐으며, 지역별 저장 규모는 유럽 4.7GW와 미국 4.4GW다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_005_ENGIE10.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "운전 중과 건설 중 용량이 함께 집계된 수치인 만큼 실제 COD 전환 속도와 배터리 비중을 분리해 추적해야 한다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_005_ENGIE10; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_005_ENGIE10.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_005",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "ENGIE, 글로벌 저장 포트폴리오 10.7GW 도달…유럽 여름 1.1GW/3.3GWh 확대",
+      "site": "en.newsroom.engie.com",
+      "url": "https://en.newsroom.engie.com/news/engie-exceeds-10-gw-of-storage-capacity-worldwide-driven-by-summer-growth-in-bess-across-europe-72a2a-314df.html",
+      "integrity_group_id": "STD26_R8_005_EVENT_CLUSTER",
+      "integrity_is_best": true,
+      "reason": "SEP5_005_ENGIE10 satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    },
+    {
+      "story_id": "GL_2026-09-04_C30",
+      "anchor_classes": [
+        "execution_event_anchor",
+        "policy_regulatory_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_006_ANSON.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Anson Green River 리튬, 유타주 $193m 세제 인센티브 승인: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Utah Inland Port Authority는 9월 3일 Anson Resources의 Green River 리튬 프로젝트 관련 세금증분 인센티브 결의안을 승인했다. Anson은 승인 규모를 약 1억9,300만달러로 설명했으며, 프로젝트 운영기간 동안 재산세 증가분을 기반으로 한 환급 구조가 적용될 예정이다.",
+      "decision_relevance": "미국 내 리튬 개발이 연방 지원뿐 아니라 주·지역 세제 인센티브를 통해 프로젝트 경제성을 보강하고 있다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Anson Green River 리튬, 유타주 $193m 세제 인센티브 승인 would strengthen or weaken the judgment that 미국 내 리튬 개발이 연방 지원뿐 아니라 주·지역 세제 인센티브를 통해 프로젝트 경제성을 보강하고 있다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 61,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 18,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 10,
+        "law_policy_market_access": 8,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Utah Inland Port Authority는 9월 3일 Anson Resources의 Green River 리튬 프로젝트 관련 세금증분 인센티브 결의안을 승인했다. Anson은 승인 규모를 약 1억9,300만달러로 설명했으며, 프로젝트 운영기간 동안 재산세 증가분을 기반으로 한 환급 구조가 적용될 예정이다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_006_ANSON.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "인센티브는 실제 생산 자체가 아니라 향후 운영·세수 창출에 연동되므로 허가·건설·상업생산 진척을 별도로 확인해야 한다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_006_ANSON; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_006_ANSON.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": "stage_4_implementation_budget_guidance_or_registry",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_006",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "Anson Green River 리튬, 유타주 $193m 세제 인센티브 승인",
+      "site": "www.utah.gov",
+      "url": "https://www.utah.gov/pmn/sitemap/notice/1103967.html",
+      "integrity_group_id": "STD26_R8_006_EVENT_CLUSTER",
+      "integrity_is_best": true,
+      "reason": "SEP5_006_ANSON satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    },
+    {
+      "story_id": "EU_2026-09-03_C09",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_007_SILKSTEAD.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수 완료: event date 2026-09-02, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Equitix는 9월 2일 Eelpower Energy가 Balanced Grid Works로부터 Winchester 인근 Silkstead 50MW/200MWh BESS 프로젝트 인수를 완료했다고 밝혔다. Silkstead는 Eelpower Energy 출범 이후 다섯 번째 인수 자산이며, 건설은 2027년 시작하고 상업운전은 2028년을 목표로 한다.",
+      "decision_relevance": "영국 BESS 플랫폼의 자본 배치가 개발자산 인수를 통해 실제 포트폴리오 확보 단계로 이어지고 있다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수 완료 would strengthen or weaken the judgment that 영국 BESS 플랫폼의 자본 배치가 개발자산 인수를 통해 실제 포트폴리오 확보 단계로 이어지고 있다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 55,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 20,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Equitix는 9월 2일 Eelpower Energy가 Balanced Grid Works로부터 Winchester 인근 Silkstead 50MW/200MWh BESS 프로젝트 인수를 완료했다고 밝혔다. Silkstead는 Eelpower Energy 출범 이후 다섯 번째 인수 자산이며, 건설은 2027년 시작하고 상업운전은 2028년을 목표로 한다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_007_SILKSTEAD.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "아직 pre-construction 자산이므로 2027년 착공과 금융·EPC 확정이 다음 실행 확인 지점이다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_007_SILKSTEAD; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_007_SILKSTEAD.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_007",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수 완료",
+      "site": "equitix.com",
+      "url": "https://equitix.com/news/eelpower-energy-acquires-silkstead-battery-storage-project-from-balanced-grid-works/",
+      "integrity_group_id": "STD26_R8_007_EVENT_CLUSTER",
+      "integrity_is_best": true,
+      "reason": "SEP5_007_SILKSTEAD satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    },
+    {
+      "story_id": "EU_2026-09-04_C08",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_007_SILKSTEAD.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수 완료: event date 2026-09-02, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Equitix는 9월 2일 Eelpower Energy가 Balanced Grid Works로부터 Winchester 인근 Silkstead 50MW/200MWh BESS 프로젝트 인수를 완료했다고 밝혔다. Silkstead는 Eelpower Energy 출범 이후 다섯 번째 인수 자산이며, 건설은 2027년 시작하고 상업운전은 2028년을 목표로 한다.",
+      "decision_relevance": "영국 BESS 플랫폼의 자본 배치가 개발자산 인수를 통해 실제 포트폴리오 확보 단계로 이어지고 있다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수 완료 would strengthen or weaken the judgment that 영국 BESS 플랫폼의 자본 배치가 개발자산 인수를 통해 실제 포트폴리오 확보 단계로 이어지고 있다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 55,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 20,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 8,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Equitix는 9월 2일 Eelpower Energy가 Balanced Grid Works로부터 Winchester 인근 Silkstead 50MW/200MWh BESS 프로젝트 인수를 완료했다고 밝혔다. Silkstead는 Eelpower Energy 출범 이후 다섯 번째 인수 자산이며, 건설은 2027년 시작하고 상업운전은 2028년을 목표로 한다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_007_SILKSTEAD.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "아직 pre-construction 자산이므로 2027년 착공과 금융·EPC 확정이 다음 실행 확인 지점이다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_007_SILKSTEAD; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_007_SILKSTEAD.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "ledger_decision": "merged",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_007",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "Eelpower Energy, 영국 Silkstead 50MW/200MWh BESS 인수 완료",
+      "site": "equitix.com",
+      "url": "https://equitix.com/news/eelpower-energy-acquires-silkstead-battery-storage-project-from-balanced-grid-works/",
+      "integrity_group_id": "STD26_R8_007_EVENT_CLUSTER",
+      "integrity_is_best": false,
+      "reason": "SEP5_007_SILKSTEAD satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": "STD26_R8_007",
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    },
+    {
+      "story_id": "GL_2026-09-04_C20",
+      "anchor_classes": [
+        "execution_event_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_008_STONEY.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": false,
+      "structural_value_override_reason": null,
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying Energy Vault, 호주 Stoney Creek 125MW/1GWh BESS 부지 소유권 확보: event date 2026-09-03, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": null,
+      "incremental_information": "Energy Vault는 9월 3일 호주 뉴사우스웨일스 Stoney Creek 125MW/1GWh BESS의 프로젝트 부지 인수를 완료했다고 밝혔다. 기존 임대 약정에서 FIRB 승인 후 완전 소유로 전환됐으며, 회사는 2027년 1분기 착공을 예상하고 있다.",
+      "decision_relevance": "대형 BESS의 개발 리스크가 장기 부지 통제권 확보를 통해 건설 준비 단계로 한 단계 진전됐다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for Energy Vault, 호주 Stoney Creek 125MW/1GWh BESS 부지 소유권 확보 would strengthen or weaken the judgment that 대형 BESS의 개발 리스크가 장기 부지 통제권 확보를 통해 건설 준비 단계로 한 단계 진전됐다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 55,
+      "decision_value_breakdown": {
+        "market_structure_competition": 20,
+        "supply_demand_price_utilisation": 20,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 6,
+        "law_policy_market_access": 2,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "Energy Vault는 9월 3일 호주 뉴사우스웨일스 Stoney Creek 125MW/1GWh BESS의 프로젝트 부지 인수를 완료했다고 밝혔다. 기존 임대 약정에서 FIRB 승인 후 완전 소유로 전환됐으며, 회사는 2027년 1분기 착공을 예상하고 있다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_008_STONEY.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "다만 아직 착공 전이므로 최종 승인·EPC·금융 확정 여부를 다음 단계로 확인해야 한다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_008_STONEY; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_008_STONEY.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": null,
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_008",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "Energy Vault, 호주 Stoney Creek 125MW/1GWh BESS 부지 소유권 확보",
+      "site": "origin-zh9p7m-www.afp.com",
+      "url": "https://origin-zh9p7m-www.afp.com/en/agency/inside-afp/external-press-releases/energy-vault-accelerates-125-mw-1-gwh-stoney-creek-bess",
+      "integrity_group_id": "STD26_R8_008_EVENT_CLUSTER",
+      "integrity_is_best": true,
+      "reason": "SEP5_008_STONEY satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    },
+    {
+      "story_id": "EU_2026-09-04_C04",
+      "anchor_classes": [
+        "policy_regulatory_anchor"
+      ],
+      "news_value_basis": "Current evidence supports strict treatment for SEP5_009_CROATIA.",
+      "structural_value_lenses": [
+        "market_structure_supply_chain_execution"
+      ],
+      "structural_value_override_applied": true,
+      "structural_value_override_reason": "The active V4 selector admits this item through the structural non-execution route because the verified policy/data milestone changes decision-relevant industry state without requiring a conventional execution event.",
+      "evidence_needed_for_stage_b": [
+        "Regulatory notice, filing, or issuer document verifying 크로아티아, 가정용 BESS 첫 보조금 접수 개시…총 €38m 프로그램: event date 2026-09-02, stage/status, and reported capacity, volume, price, or cost metric."
+      ],
+      "why_execution_event_not_required": "V4 structural route is appropriate for the source-bound policy/data signal.",
+      "incremental_information": "크로아티아 환경보호·에너지효율기금(FZOEU)은 가정용 배터리를 처음 포함한 총 3,800만유로 규모의 지원 프로그램 신청을 9월 2일부터 접수했다. 신청은 eFZOEU 시스템을 통해 진행되며, 배터리 저장은 태양광·히트펌프와 함께 지원 대상에 포함된다.",
+      "decision_relevance": "주거용 배터리가 태양광·히트펌프와 함께 국가 보조금 대상에 처음 포함되면서 분산형 저장 수요에 정책 지원이 직접 연결됐다.",
+      "baseline_expectation_changed": "Frozen canonical reconciliation found no same-event card.",
+      "follow_up_relation": "new_unrelated",
+      "next_confirmation_points": [
+        "A later filing or operating report with capacity, volume, utilisation, price, cost, or status metric for 크로아티아, 가정용 BESS 첫 보조금 접수 개시…총 €38m 프로그램 would strengthen or weaken the judgment that 주거용 배터리가 태양광·히트펌프와 함께 국가 보조금 대상에 처음 포함되면서 분산형 저장 수요에 정책 지원이 직접 연결됐다."
+      ],
+      "portfolio_coverage_contribution": [
+        "market_structure_supply_chain_execution"
+      ],
+      "earnings_deep_dive_required": false,
+      "qna_status": "not_applicable",
+      "review_pool_subtype": "not_applicable_strict",
+      "review_pool_repromotion_precondition": "not_applicable_strict",
+      "decision_news_value_score": 60,
+      "decision_value_breakdown": {
+        "market_structure_competition": 18,
+        "supply_demand_price_utilisation": 20,
+        "technology_performance_safety": 0,
+        "cashflow_asset_value": 5,
+        "law_policy_market_access": 10,
+        "systemic_scale": 2,
+        "persistence_irreversibility": 3,
+        "decision_urgency_actionability": 2
+      },
+      "decision_value_classification": "material_industry_signal",
+      "prior_state": "No same-event canonical card at frozen main eb1a311.",
+      "new_verified_fact": "크로아티아 환경보호·에너지효율기금(FZOEU)은 가정용 배터리를 처음 포함한 총 3,800만유로 규모의 지원 프로그램 신청을 9월 2일부터 접수했다. 신청은 eFZOEU 시스템을 통해 진행되며, 배터리 저장은 태양광·히트펌프와 함께 지원 대상에 포함된다.",
+      "changed_judgment": "Current evidence supports strict treatment for SEP5_009_CROATIA.",
+      "uncertainty_resolved": "Event identity, operative date and stage are source-bound.",
+      "remaining_uncertainty": "예산 소진 속도와 실제 배터리 설치 비중이 프로그램의 수요 유발 효과를 판단할 핵심 후속 지표다.",
+      "denominator_used": "Named event/program only.",
+      "denominator_gap": "No market-wide denominator asserted for SEP5_009_CROATIA; systemic scale capped at 2/5.",
+      "publication_urgency": {
+        "level": "near_term",
+        "action_required": "Track next measurable milestone for SEP5_009_CROATIA.",
+        "decision_deadline": null
+      },
+      "anti_bias_check": {
+        "binding_status_used_as_importance_proxy": false,
+        "legal_formality_used_as_importance_proxy": false,
+        "headline_amount_used_without_denominator": false,
+        "announced_capacity_treated_as_actual_output": false,
+        "routine_execution_event_overranked": false,
+        "conventional_execution_event_required_without_reason": false
+      },
+      "structural_rescue_required": false,
+      "structural_rescue_question": null,
+      "technology_validation_stage": "concept_or_target",
+      "technology_score_cap_applied": false,
+      "technology_validation_gap": "Technology commercialization scoring is not used for this item; concept_or_target is a frozen-V3 compatibility placeholder only, while active V4 technology_evidence_level remains not_applicable and technology_performance_safety remains 0/20.",
+      "legal_policy_stage": "stage_4_implementation_budget_guidance_or_registry",
+      "ledger_decision": "passed",
+      "editorial_bucket": "strict_passed_spec",
+      "spec_id": "STD26_R8_009",
+      "upstream_status": "kept",
+      "upstream_drop_reason": null,
+      "headline": "크로아티아, 가정용 BESS 첫 보조금 접수 개시…총 €38m 프로그램",
+      "site": "www.fzoeu.hr",
+      "url": "https://www.fzoeu.hr/en/fund-announces-a-38-million-euros-worth-public-call-promoting-the-installation-of-home-batteries-in-addition-to-solar-power-plants-and-heat-pumps/10787",
+      "integrity_group_id": "STD26_R8_009_EVENT_CLUSTER",
+      "integrity_is_best": true,
+      "reason": "SEP5_009_CROATIA satisfies current V4 strict Stage A.",
+      "merged_into_spec_id": null,
+      "baseline_match": null,
+      "baseline_relation": "new_unrelated",
+      "duplicate_risk": "low",
+      "staleness_decision": "current",
+      "treasure_hunt_sampled": false,
+      "notes": "Source-bound observation retained in the Sep 5 production Stage A composite after 0.0C full-universe reconciliation.",
+      "review_pool_item_id": null
+    }
+  ],
+  "accounting": {
+    "input_source_observations": 11,
+    "strict_source_observations": 11,
+    "strict_passed_events": 9,
+    "non_strict_source_observations": 0,
+    "unaccounted": 0,
+    "upstream_0_0c_expanded_universe_count": 394
+  },
+  "review_pool_partition_summary": {
+    "candidate_review_pool": 0,
+    "watchlist_context_pool": 0,
+    "reject_or_support_only_pool": 0
+  }
+}

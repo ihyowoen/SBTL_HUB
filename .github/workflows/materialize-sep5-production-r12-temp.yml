@@ -120,7 +120,7 @@ jobs:
           assert audit['certified_0_7c_workflow_run_id']==34130243312
           assert audit['certified_0_7c_artifact_id']==10021773658
           assert audit['certified_0_7c_artifact_zip_sha256']=='a8a08eabb56eb8715a6800dafee4a1f37fe1a3a39bd74d11517cf1747e7351ee'
-          assert audit['reviewed_operations_sha256']=='7899d373343332dac7b4e9e7000edc439a9c2b28ff5990f3d0d7088efbe1cd3e'
+          assert audit['reviewed_operations_sha256']=='6c2ac63e2711adc7247d7dcf9cfbd685be971e11c6ae7790cedbb11d5157c2dd'
           assert audit['expected_before']==1569 and audit['expected_after']==1578
           assert audit['zero_deletion_assertion'] and audit['zero_related_remove_assertion']
           print('RESULT: PASS_R12_PRODUCTION_AUDIT_AND_ALLOCATION_BINDING')
